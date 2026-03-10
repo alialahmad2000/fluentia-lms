@@ -1,0 +1,6 @@
+Replace these with actual Fluentia Academy icons:
+- icon-192.png (192x192)
+- icon-512.png (512x512)
+- apple-touch-icon.png (180x180)
+
+Use the Fluentia brand: navy background (#060e1c) with the "F" logo or "طلاقة" text in sky blue (#38bdf8).
