@@ -22,6 +22,12 @@ import TrainerAttendance from './pages/trainer/TrainerAttendance'
 import TrainerQuickNotes from './pages/trainer/TrainerQuickNotes'
 import TrainerStudentView from './pages/trainer/TrainerStudentView'
 import AdminDashboard from './pages/admin/AdminDashboard'
+import AdminStudents from './pages/admin/AdminStudents'
+import AdminGroups from './pages/admin/AdminGroups'
+import AdminTrainers from './pages/admin/AdminTrainers'
+import AdminPayments from './pages/admin/AdminPayments'
+import AdminReports from './pages/admin/AdminReports'
+import AdminSettings from './pages/admin/AdminSettings'
 
 // ─── Placeholder Page ────────────────────────────────────────
 function PlaceholderPage({ title }) {
@@ -138,12 +144,12 @@ export default function App() {
         <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
           <Route element={<LayoutShell />}>
             <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/admin/users" element={<PlaceholderPage title="إدارة المستخدمين" />} />
-            <Route path="/admin/groups" element={<PlaceholderPage title="إدارة المجموعات" />} />
-            <Route path="/admin/trainers" element={<PlaceholderPage title="إدارة المدربين" />} />
-            <Route path="/admin/packages" element={<PlaceholderPage title="الباقات" />} />
-            <Route path="/admin/reports" element={<PlaceholderPage title="التقارير" />} />
-            <Route path="/admin/settings" element={<PlaceholderPage title="الإعدادات" />} />
+            <Route path="/admin/users" element={<AdminStudents />} />
+            <Route path="/admin/groups" element={<AdminGroups />} />
+            <Route path="/admin/trainers" element={<AdminTrainers />} />
+            <Route path="/admin/packages" element={<AdminPayments />} />
+            <Route path="/admin/reports" element={<AdminReports />} />
+            <Route path="/admin/settings" element={<AdminSettings />} />
           </Route>
         </Route>
 

@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   House, FileText, Calendar, BarChart3, Mic, BookOpen, User,
-  Users, Briefcase, Package, Settings, LayoutDashboard,
+  Users, Briefcase, CreditCard, Settings, LayoutDashboard,
   LogOut, X, ChevronLeft, ClipboardCheck, StickyNote, Zap, UserCheck, MessageSquare,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
@@ -43,7 +43,7 @@ const NAV_ITEMS = {
     { to: '/admin/users',         label: 'المستخدمين',     icon: Users },
     { to: '/admin/groups',        label: 'المجموعات',      icon: Users },
     { to: '/admin/trainers',      label: 'المدربين',       icon: Briefcase },
-    { to: '/admin/packages',      label: 'الباقات',        icon: Package },
+    { to: '/admin/packages',      label: 'المدفوعات',      icon: CreditCard },
     { to: '/admin/reports',       label: 'التقارير',       icon: BarChart3 },
     { to: '/admin/settings',      label: 'الإعدادات',      icon: Settings },
   ],
