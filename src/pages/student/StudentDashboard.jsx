@@ -5,6 +5,7 @@ import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { getGreeting, getArabicDay, formatTime } from '../../utils/dateHelpers'
 import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/constants'
+import DailyChallenge from '../../components/gamification/DailyChallenge'
 
 function getLevel(xp) {
   for (let i = GAMIFICATION_LEVELS.length - 1; i >= 0; i--) {
@@ -149,6 +150,9 @@ export default function StudentDashboard() {
           {nextLevel ? `${nextLevel.xp - xp} XP للمستوى التالي` : 'أعلى مستوى!'}
         </p>
       </motion.div>
+
+      {/* Daily Challenge */}
+      <DailyChallenge />
 
       <div className="grid lg:grid-cols-2 gap-4">
         {/* Next class */}
