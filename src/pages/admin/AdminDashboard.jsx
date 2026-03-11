@@ -77,7 +77,7 @@ export default function AdminDashboard() {
         .select('id, status, package, xp_total, profiles(full_name)')
         .eq('status', 'active')
         .is('deleted_at', null)
-        .order('created_at', { ascending: false })
+        .order('enrollment_date', { ascending: false })
         .limit(6)
       return data || []
     },

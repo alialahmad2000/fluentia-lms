@@ -55,7 +55,7 @@ export default function AdminPayments() {
         .select('id, package, custom_price, profiles(full_name, display_name)')
         .eq('status', 'active')
         .is('deleted_at', null)
-        .order('created_at')
+        .order('enrollment_date')
       return data || []
     },
   })

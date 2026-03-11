@@ -52,7 +52,7 @@ export default function TrainerQuickNotes() {
         .eq('group_id', selectedGroup)
         .eq('status', 'active')
         .is('deleted_at', null)
-        .order('created_at')
+        .order('enrollment_date')
       if (error) console.error('[QuickNotes] Students query error:', error)
       return data || []
     },

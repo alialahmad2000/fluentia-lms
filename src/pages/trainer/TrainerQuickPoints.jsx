@@ -64,7 +64,7 @@ export default function TrainerQuickPoints() {
         .eq('group_id', selectedGroup)
         .eq('status', 'active')
         .is('deleted_at', null)
-        .order('created_at')
+        .order('enrollment_date')
       if (error) console.error('[QuickPoints] Students query error:', error)
       return data || []
     },

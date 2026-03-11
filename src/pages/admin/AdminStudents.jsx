@@ -31,7 +31,7 @@ export default function AdminStudents() {
         .from('students')
         .select('id, academic_level, package, group_id, xp_total, current_streak, status, enrollment_date, custom_price, payment_day, profiles(full_name, display_name, email, phone), groups(name, code)')
         .is('deleted_at', null)
-        .order('created_at', { ascending: false })
+        .order('enrollment_date', { ascending: false })
 
       if (filterGroup) query = query.eq('group_id', filterGroup)
       if (filterStatus) query = query.eq('status', filterStatus)
