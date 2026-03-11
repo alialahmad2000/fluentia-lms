@@ -224,7 +224,7 @@ function PaymentFormModal({ payment, students, onClose, onSave, saving }) {
   function handleStudentChange(sid) {
     setStudentId(sid)
     const student = students?.find(s => s.id === sid)
-    if (student && !amount) {
+    if (student) {
       const price = student.custom_price || PACKAGES[student.package]?.price || 0
       setAmount(price)
     }
