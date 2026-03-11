@@ -6,6 +6,7 @@ import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/constants'
 import { timeAgo } from '../../utils/dateHelpers'
+import NotificationSettings from '../../components/layout/NotificationSettings'
 
 function getLevel(xp) {
   for (let i = GAMIFICATION_LEVELS.length - 1; i >= 0; i--) {
@@ -195,6 +196,9 @@ export default function StudentProfile() {
           />
         </div>
       </motion.div>
+
+      {/* Notification Settings */}
+      <NotificationSettings />
 
       <div className="grid lg:grid-cols-2 gap-4">
         {/* Achievements */}
