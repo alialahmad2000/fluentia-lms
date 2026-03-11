@@ -6,6 +6,7 @@ import { supabase } from '../../lib/supabase'
 import { getGreeting, getArabicDay, formatTime } from '../../utils/dateHelpers'
 import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/constants'
 import DailyChallenge from '../../components/gamification/DailyChallenge'
+import MysteryBox from '../../components/gamification/MysteryBox'
 
 function getLevel(xp) {
   for (let i = GAMIFICATION_LEVELS.length - 1; i >= 0; i--) {
@@ -151,8 +152,11 @@ export default function StudentDashboard() {
         </p>
       </motion.div>
 
-      {/* Daily Challenge */}
-      <DailyChallenge />
+      {/* Daily Challenge + Mystery Box */}
+      <div className="grid lg:grid-cols-2 gap-4">
+        <DailyChallenge />
+        <MysteryBox />
+      </div>
 
       <div className="grid lg:grid-cols-2 gap-4">
         {/* Next class */}
