@@ -35,7 +35,7 @@ export default function AdminPayments() {
     queryFn: async () => {
       let query = supabase
         .from('payments')
-        .select('id, amount, status, method, period_start, period_end, paid_at, notes, created_at, students:student_id(id, package, custom_price, profiles:id(full_name, display_name))')
+        .select('id, amount, status, method, period_start, period_end, paid_at, notes, created_at, students:student_id(id, package, custom_price, profiles(full_name, display_name))')
         .is('deleted_at', null)
         .order('created_at', { ascending: false })
         .limit(100)
@@ -52,7 +52,7 @@ export default function AdminPayments() {
     queryFn: async () => {
       const { data } = await supabase
         .from('students')
-        .select('id, package, custom_price, profiles:id(full_name, display_name)')
+        .select('id, package, custom_price, profiles(full_name, display_name)')
         .eq('status', 'active')
         .is('deleted_at', null)
         .order('created_at')

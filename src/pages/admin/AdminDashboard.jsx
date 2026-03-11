@@ -74,7 +74,7 @@ export default function AdminDashboard() {
     queryFn: async () => {
       const { data } = await supabase
         .from('students')
-        .select('id, status, package, xp_total, profiles:id(full_name)')
+        .select('id, status, package, xp_total, profiles(full_name)')
         .eq('status', 'active')
         .is('deleted_at', null)
         .order('created_at', { ascending: false })

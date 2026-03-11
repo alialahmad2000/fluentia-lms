@@ -42,12 +42,14 @@ export default function TrainerStudentView() {
     queryKey: ['group-students-view', selectedGroup],
     queryFn: async () => {
       if (!selectedGroup) return []
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('students')
-        .select('id, xp_total, current_streak, best_streak, gamification_level, academic_level, package, profiles:id(full_name, display_name)')
+        .select('id, xp_total, current_streak, longest_streak, gamification_level, academic_level, package, profiles(full_name, display_name)')
         .eq('group_id', selectedGroup)
         .eq('status', 'active')
+        .is('deleted_at', null)
         .order('xp_total', { ascending: false })
+      if (error) console.error('[StudentView] Students query error:', error)
       return data || []
     },
     enabled: !!selectedGroup,

@@ -46,7 +46,7 @@ export default function AdminReports() {
     queryFn: async () => {
       const { data } = await supabase
         .from('students')
-        .select('id, xp_total, current_streak, gamification_level, profiles:id(full_name, display_name), groups:group_id(code)')
+        .select('id, xp_total, current_streak, gamification_level, profiles(full_name, display_name), groups(code)')
         .eq('status', 'active')
         .is('deleted_at', null)
         .order('xp_total', { ascending: false })

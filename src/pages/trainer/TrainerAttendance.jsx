@@ -56,11 +56,13 @@ export default function TrainerAttendance() {
     queryKey: ['group-students-attendance', selectedClassObj?.group_id],
     queryFn: async () => {
       if (!selectedClassObj?.group_id) return []
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('students')
-        .select('id, profiles:id(full_name, display_name)')
+        .select('id, profiles(full_name, display_name)')
         .eq('group_id', selectedClassObj.group_id)
         .eq('status', 'active')
+        .is('deleted_at', null)
+      if (error) console.error('[Attendance] Students query error:', error)
       return data || []
     },
     enabled: !!selectedClassObj?.group_id,

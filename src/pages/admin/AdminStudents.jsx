@@ -29,7 +29,7 @@ export default function AdminStudents() {
     queryFn: async () => {
       let query = supabase
         .from('students')
-        .select('id, academic_level, package, group_id, xp_total, current_streak, status, enrollment_date, custom_price, payment_day, profiles:id(full_name, display_name, email, phone), groups:group_id(name, code)')
+        .select('id, academic_level, package, group_id, xp_total, current_streak, status, enrollment_date, custom_price, payment_day, profiles(full_name, display_name, email, phone), groups(name, code)')
         .is('deleted_at', null)
         .order('created_at', { ascending: false })
 

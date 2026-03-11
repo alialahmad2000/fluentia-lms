@@ -46,12 +46,14 @@ export default function TrainerQuickNotes() {
     queryKey: ['group-students', selectedGroup],
     queryFn: async () => {
       if (!selectedGroup) return []
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('students')
-        .select('id, profiles:id(full_name, display_name)')
+        .select('id, profiles(full_name, display_name)')
         .eq('group_id', selectedGroup)
         .eq('status', 'active')
+        .is('deleted_at', null)
         .order('created_at')
+      if (error) console.error('[QuickNotes] Students query error:', error)
       return data || []
     },
     enabled: !!selectedGroup,
