@@ -1,0 +1,228 @@
+import { useState, useEffect, useCallback } from 'react'
+import { useAuthStore } from '../../stores/authStore'
+import { supabase } from '../../lib/supabase'
+import { GAMIFICATION_LEVELS } from '../../lib/constants'
+import AchievementUnlock from './AchievementUnlock'
+import LevelUpCelebration from './LevelUpCelebration'
+
+function getLevel(xp) {
+  for (let i = GAMIFICATION_LEVELS.length - 1; i >= 0; i--) {
+    if (xp >= GAMIFICATION_LEVELS[i].xp) return GAMIFICATION_LEVELS[i]
+  }
+  return GAMIFICATION_LEVELS[0]
+}
+
+// Achievement definitions with auto-detection conditions
+const ACHIEVEMENT_CHECKS = [
+  {
+    code: 'fire_starter',
+    check: async (studentId) => {
+      const { count } = await supabase
+        .from('submissions')
+        .select('*', { count: 'exact', head: true })
+        .eq('student_id', studentId)
+        .is('deleted_at', null)
+      return count >= 1
+    },
+  },
+  {
+    code: 'bookworm',
+    check: async (studentId) => {
+      const { count } = await supabase
+        .from('submissions')
+        .select('*, assignments!inner(type)', { count: 'exact', head: true })
+        .eq('student_id', studentId)
+        .eq('assignments.type', 'reading')
+        .is('deleted_at', null)
+      return count >= 10
+    },
+  },
+  {
+    code: 'voice_hero',
+    check: async (studentId) => {
+      const { count } = await supabase
+        .from('submissions')
+        .select('*', { count: 'exact', head: true })
+        .eq('student_id', studentId)
+        .not('voice_url', 'is', null)
+        .is('deleted_at', null)
+      return count >= 10
+    },
+  },
+  {
+    code: 'streak_master',
+    check: async (studentId) => {
+      const { data } = await supabase
+        .from('students')
+        .select('longest_streak')
+        .eq('id', studentId)
+        .single()
+      return (data?.longest_streak || 0) >= 30
+    },
+  },
+  {
+    code: 'helper',
+    check: async (studentId) => {
+      const { count } = await supabase
+        .from('peer_recognitions')
+        .select('*', { count: 'exact', head: true })
+        .eq('to_student', studentId)
+      return count >= 5
+    },
+  },
+  {
+    code: 'note_taker',
+    check: async (studentId) => {
+      const { count } = await supabase
+        .from('class_notes')
+        .select('*', { count: 'exact', head: true })
+        .eq('author_id', studentId)
+        .eq('is_trainer_summary', false)
+      return count >= 5
+    },
+  },
+]
+
+export default function GamificationProvider() {
+  const { profile, studentData } = useAuthStore()
+  const [unlockedAchievement, setUnlockedAchievement] = useState(null)
+  const [levelUp, setLevelUp] = useState(null)
+  const [lastCheckedXp, setLastCheckedXp] = useState(null)
+
+  const isStudent = profile?.role === 'student'
+  const studentId = profile?.id
+  const currentXp = studentData?.xp_total || 0
+
+  // Check for level up when XP changes
+  useEffect(() => {
+    if (!isStudent || lastCheckedXp === null) {
+      setLastCheckedXp(currentXp)
+      return
+    }
+
+    if (currentXp > lastCheckedXp) {
+      const oldLevel = getLevel(lastCheckedXp)
+      const newLevel = getLevel(currentXp)
+
+      if (newLevel.level > oldLevel.level) {
+        setLevelUp(newLevel.level)
+      }
+    }
+
+    setLastCheckedXp(currentXp)
+  }, [currentXp, isStudent])
+
+  // Check for new achievements periodically
+  const checkAchievements = useCallback(async () => {
+    if (!isStudent || !studentId) return
+
+    try {
+      // Get already earned achievements
+      const { data: earned } = await supabase
+        .from('student_achievements')
+        .select('achievements(code)')
+        .eq('student_id', studentId)
+
+      const earnedCodes = new Set((earned || []).map(e => e.achievements?.code).filter(Boolean))
+
+      // Get available achievements
+      const { data: available } = await supabase
+        .from('achievements')
+        .select('id, code, name_ar, description_ar, icon, xp_reward')
+        .eq('is_active', true)
+
+      if (!available?.length) return
+
+      // Check each unearned achievement
+      for (const achievement of available) {
+        if (earnedCodes.has(achievement.code)) continue
+
+        const checker = ACHIEVEMENT_CHECKS.find(c => c.code === achievement.code)
+        if (!checker) continue
+
+        try {
+          const qualifies = await checker.check(studentId)
+          if (qualifies) {
+            // Award achievement
+            const { error } = await supabase.from('student_achievements').insert({
+              student_id: studentId,
+              achievement_id: achievement.id,
+            })
+
+            if (!error) {
+              // Award XP
+              if (achievement.xp_reward > 0) {
+                await supabase.from('xp_transactions').insert({
+                  student_id: studentId,
+                  amount: achievement.xp_reward,
+                  reason: 'achievement',
+                  description: achievement.name_ar,
+                })
+              }
+
+              // Send notification
+              await supabase.from('notifications').insert({
+                user_id: studentId,
+                type: 'achievement',
+                title: `إنجاز جديد: ${achievement.name_ar}`,
+                body: achievement.description_ar,
+                data: { achievement_id: achievement.id, icon: achievement.icon },
+              })
+
+              // Add to activity feed
+              const { data: student } = await supabase
+                .from('students')
+                .select('group_id')
+                .eq('id', studentId)
+                .single()
+
+              if (student?.group_id) {
+                await supabase.from('activity_feed').insert({
+                  group_id: student.group_id,
+                  student_id: studentId,
+                  type: 'achievement',
+                  title: `حقق إنجاز ${achievement.name_ar}`,
+                  description: achievement.description_ar,
+                  data: { icon: achievement.icon, xp: achievement.xp_reward },
+                })
+              }
+
+              // Show unlock animation
+              setUnlockedAchievement(achievement)
+              return // Only show one at a time
+            }
+          }
+        } catch (e) {
+          // Silently skip failed checks
+        }
+      }
+    } catch (e) {
+      // Silently handle errors
+    }
+  }, [isStudent, studentId])
+
+  // Run achievement check on mount and when XP changes
+  useEffect(() => {
+    if (!isStudent || !studentId) return
+
+    // Check after a short delay to let data settle
+    const timer = setTimeout(() => {
+      checkAchievements()
+    }, 2000)
+
+    return () => clearTimeout(timer)
+  }, [isStudent, studentId, currentXp, checkAchievements])
+
+  return (
+    <>
+      <AchievementUnlock
+        achievement={unlockedAchievement}
+        onClose={() => setUnlockedAchievement(null)}
+      />
+      <LevelUpCelebration
+        newLevel={levelUp}
+        onClose={() => setLevelUp(null)}
+      />
+    </>
+  )
+}

@@ -4,6 +4,7 @@ import { useAuthStore } from './stores/authStore'
 import LoginPage from './pages/public/LoginPage'
 import LayoutShell from './components/layout/LayoutShell'
 import OnboardingModal from './components/onboarding/OnboardingModal'
+import GamificationProvider from './components/gamification/GamificationProvider'
 import StudentDashboard from './pages/student/StudentDashboard'
 import StudentAssignments from './pages/student/StudentAssignments'
 import StudentGrades from './pages/student/StudentGrades'
@@ -107,6 +108,8 @@ export default function App() {
     <BrowserRouter>
       {/* Onboarding modal for new students */}
       <OnboardingModal />
+      {/* Achievement unlock + Level-up celebrations */}
+      <GamificationProvider />
 
       <Routes>
         {/* Role-based redirect from root */}
