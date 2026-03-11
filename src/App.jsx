@@ -13,6 +13,7 @@ import StudentSpeaking from './pages/student/StudentSpeaking'
 import StudentLibrary from './pages/student/StudentLibrary'
 import StudentLeaderboard from './pages/student/StudentLeaderboard'
 import StudentPeerRecognition from './pages/student/StudentPeerRecognition'
+import StudentActivityFeed from './pages/student/StudentActivityFeed'
 import TrainerDashboard from './pages/trainer/TrainerDashboard'
 import TrainerAssignments from './pages/trainer/TrainerAssignments'
 import TrainerGrading from './pages/trainer/TrainerGrading'
@@ -124,6 +125,7 @@ export default function App() {
             <Route path="/student/library" element={<StudentLibrary />} />
             <Route path="/student/leaderboard" element={<StudentLeaderboard />} />
             <Route path="/student/recognition" element={<StudentPeerRecognition />} />
+            <Route path="/student/activity" element={<StudentActivityFeed />} />
             <Route path="/student/profile" element={<StudentProfile />} />
           </Route>
         </Route>
