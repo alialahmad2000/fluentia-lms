@@ -27,6 +27,7 @@ import TrainerAttendance from './pages/trainer/TrainerAttendance'
 import TrainerQuickNotes from './pages/trainer/TrainerQuickNotes'
 import TrainerStudentView from './pages/trainer/TrainerStudentView'
 import TrainerChallenges from './pages/trainer/TrainerChallenges'
+import TrainerTeams from './pages/trainer/TrainerTeams'
 import AdminDashboard from './pages/admin/AdminDashboard'
 import AdminStudents from './pages/admin/AdminStudents'
 import AdminGroups from './pages/admin/AdminGroups'
@@ -150,6 +151,7 @@ export default function App() {
             <Route path="/trainer/student-notes" element={<TrainerQuickNotes />} />
             <Route path="/trainer/students" element={<TrainerStudentView />} />
             <Route path="/trainer/challenges" element={<TrainerChallenges />} />
+            <Route path="/trainer/teams" element={<TrainerTeams />} />
           </Route>
         </Route>
 

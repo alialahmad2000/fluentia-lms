@@ -32,6 +32,7 @@ const NAV_ITEMS = {
     { to: '/trainer/schedule',     label: 'الجدول',         icon: Calendar },
     { to: '/trainer/notes',        label: 'ملاحظات الحصص',  icon: StickyNote },
     { to: '/trainer/challenges',   label: 'التحديات',        icon: Target },
+    { to: '/trainer/teams',        label: 'الفرق',          icon: Users },
     { to: '/trainer/library',      label: 'المكتبة',        icon: BookOpen },
   ],
   admin: [
@@ -45,6 +46,7 @@ const NAV_ITEMS = {
     { to: '/trainer/schedule',    label: 'الجدول',         icon: Calendar, section: 'trainer' },
     { to: '/trainer/notes',       label: 'ملاحظات الحصص',  icon: StickyNote, section: 'trainer' },
     { to: '/trainer/challenges',  label: 'التحديات',        icon: Target, section: 'trainer' },
+    { to: '/trainer/teams',       label: 'الفرق',          icon: Users, section: 'trainer' },
     { to: '/trainer/library',     label: 'المكتبة',        icon: BookOpen, section: 'trainer' },
     { to: '/admin/users',         label: 'المستخدمين',     icon: Users },
     { to: '/admin/groups',        label: 'المجموعات',      icon: Users },
