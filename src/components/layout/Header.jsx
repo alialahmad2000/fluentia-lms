@@ -1,6 +1,7 @@
-import { Menu, Bell } from 'lucide-react'
+import { Menu } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { getGreeting } from '../../utils/dateHelpers'
+import NotificationCenter from './NotificationCenter'
 
 const ROLE_LABELS = {
   student: 'طالب',
@@ -43,9 +44,7 @@ export default function Header({ onMenuToggle }) {
           {ROLE_LABELS[role]}
         </span>
 
-        <button className="relative text-muted hover:text-white transition-colors p-1">
-          <Bell size={20} />
-        </button>
+        <NotificationCenter />
 
         <div className="w-8 h-8 rounded-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 text-xs font-bold">
           {firstName?.[0] || '?'}
