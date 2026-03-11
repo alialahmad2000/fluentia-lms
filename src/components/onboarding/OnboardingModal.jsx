@@ -4,6 +4,7 @@ import { Sparkles, ArrowLeft, Loader2 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
 import { ACADEMIC_LEVELS, PACKAGES } from '../../lib/constants'
+import { sendWelcomeMessage } from '../../utils/autoMessages'
 
 const ONBOARDED_KEY = 'fluentia_onboarded'
 
@@ -35,6 +36,12 @@ export default function OnboardingModal() {
       localStorage.setItem(`${ONBOARDED_KEY}_${profile?.id}`, 'true')
       setDismissed(true)
       if (user) await fetchProfile(user)
+
+      // Send auto-welcome message to group chat + notifications
+      const studentName = trimmedName || profile?.full_name?.split(' ')[0] || 'طالب جديد'
+      if (studentData?.group_id) {
+        sendWelcomeMessage(profile?.id, studentData.group_id, studentName).catch(() => {})
+      }
     } catch (err) {
       console.error('Onboarding error:', err)
     } finally {
