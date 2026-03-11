@@ -17,6 +17,7 @@ import StudentPeerRecognition from './pages/student/StudentPeerRecognition'
 import StudentActivityFeed from './pages/student/StudentActivityFeed'
 import StudentChallenges from './pages/student/StudentChallenges'
 import StudentGroupChat from './pages/student/StudentGroupChat'
+import StudentMessages from './pages/student/StudentMessages'
 import TrainerDashboard from './pages/trainer/TrainerDashboard'
 import TrainerAssignments from './pages/trainer/TrainerAssignments'
 import TrainerGrading from './pages/trainer/TrainerGrading'
@@ -136,6 +137,7 @@ export default function App() {
             <Route path="/student/activity" element={<StudentActivityFeed />} />
             <Route path="/student/challenges" element={<StudentChallenges />} />
             <Route path="/student/chat" element={<StudentGroupChat />} />
+            <Route path="/student/messages" element={<StudentMessages />} />
             <Route path="/student/profile" element={<StudentProfile />} />
           </Route>
         </Route>
@@ -156,6 +158,7 @@ export default function App() {
             <Route path="/trainer/challenges" element={<TrainerChallenges />} />
             <Route path="/trainer/teams" element={<TrainerTeams />} />
             <Route path="/trainer/chat" element={<TrainerGroupChat />} />
+            <Route path="/trainer/messages" element={<StudentMessages />} />
           </Route>
         </Route>
 

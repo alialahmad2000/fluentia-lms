@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  House, FileText, Calendar, BarChart3, Mic, BookOpen, User, Trophy, Heart, Activity, Target,
+  House, FileText, Calendar, BarChart3, Mic, BookOpen, User, Trophy, Heart, Activity, Target, Mail,
   Users, Briefcase, CreditCard, Settings, LayoutDashboard,
   LogOut, X, ChevronLeft, ClipboardCheck, StickyNote, Zap, UserCheck, MessageSquare,
 } from 'lucide-react'
@@ -19,6 +19,7 @@ const NAV_ITEMS = {
     { to: '/student/recognition', label: 'تقدير الزملاء',  icon: Heart },
     { to: '/student/activity',    label: 'نشاط المجموعة',  icon: Activity },
     { to: '/student/chat',        label: 'المحادثة',        icon: MessageSquare },
+    { to: '/student/messages',   label: 'الرسائل',        icon: Mail },
     { to: '/student/challenges',  label: 'التحديات',       icon: Target },
     { to: '/student/profile',     label: 'الملف الشخصي',   icon: User },
   ],
@@ -33,6 +34,7 @@ const NAV_ITEMS = {
     { to: '/trainer/schedule',     label: 'الجدول',         icon: Calendar },
     { to: '/trainer/notes',        label: 'ملاحظات الحصص',  icon: StickyNote },
     { to: '/trainer/chat',          label: 'محادثة المجموعة', icon: MessageSquare },
+    { to: '/trainer/messages',      label: 'الرسائل',         icon: Mail },
     { to: '/trainer/challenges',   label: 'التحديات',        icon: Target },
     { to: '/trainer/teams',        label: 'الفرق',          icon: Users },
     { to: '/trainer/library',      label: 'المكتبة',        icon: BookOpen },
@@ -48,6 +50,7 @@ const NAV_ITEMS = {
     { to: '/trainer/schedule',    label: 'الجدول',         icon: Calendar, section: 'trainer' },
     { to: '/trainer/notes',       label: 'ملاحظات الحصص',  icon: StickyNote, section: 'trainer' },
     { to: '/trainer/chat',        label: 'محادثة المجموعة', icon: MessageSquare, section: 'trainer' },
+    { to: '/trainer/messages',   label: 'الرسائل',         icon: Mail, section: 'trainer' },
     { to: '/trainer/challenges',  label: 'التحديات',        icon: Target, section: 'trainer' },
     { to: '/trainer/teams',       label: 'الفرق',          icon: Users, section: 'trainer' },
     { to: '/trainer/library',     label: 'المكتبة',        icon: BookOpen, section: 'trainer' },
