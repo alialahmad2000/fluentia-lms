@@ -42,14 +42,23 @@ CREATE TRIGGER set_settings_updated_at
 
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$
+DECLARE
+  _role public.user_role := 'student';
+  _name text := '';
 BEGIN
+  -- Safely extract metadata
+  IF NEW.raw_user_meta_data IS NOT NULL THEN
+    _name := COALESCE(NEW.raw_user_meta_data->>'full_name', '');
+    BEGIN
+      _role := (NEW.raw_user_meta_data->>'role')::public.user_role;
+    EXCEPTION WHEN OTHERS THEN
+      _role := 'student';
+    END;
+  END IF;
+
   INSERT INTO public.profiles (id, email, full_name, role)
-  VALUES (
-    NEW.id,
-    NEW.email,
-    COALESCE(NEW.raw_user_meta_data->>'full_name', ''),
-    COALESCE((NEW.raw_user_meta_data->>'role')::user_role, 'student')
-  );
+  VALUES (NEW.id, NEW.email, _name, _role);
+
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
@@ -91,24 +100,26 @@ RETURNS TRIGGER AS $$
 BEGIN
   -- Only recalculate if xp_total actually changed
   IF OLD.xp_total IS DISTINCT FROM NEW.xp_total THEN
-    -- Update the group's total_xp by summing all members' XP
-    UPDATE public.groups
-    SET total_xp = (
-      SELECT COALESCE(SUM(s.xp_total), 0)
-      FROM public.students s
-      WHERE s.group_id = NEW.group_id
-    )
-    WHERE id = NEW.group_id;
-
-    -- If student moved groups, also update the old group
-    IF OLD.group_id IS DISTINCT FROM NEW.group_id AND OLD.group_id IS NOT NULL THEN
-      UPDATE public.groups
+    -- Update the team's total_xp by summing all team members' XP
+    IF NEW.team_id IS NOT NULL THEN
+      UPDATE public.teams
       SET total_xp = (
         SELECT COALESCE(SUM(s.xp_total), 0)
         FROM public.students s
-        WHERE s.group_id = OLD.group_id
+        WHERE s.team_id = NEW.team_id
       )
-      WHERE id = OLD.group_id;
+      WHERE id = NEW.team_id;
+    END IF;
+
+    -- If student moved teams, also update the old team
+    IF OLD.team_id IS DISTINCT FROM NEW.team_id AND OLD.team_id IS NOT NULL THEN
+      UPDATE public.teams
+      SET total_xp = (
+        SELECT COALESCE(SUM(s.xp_total), 0)
+        FROM public.students s
+        WHERE s.team_id = OLD.team_id
+      )
+      WHERE id = OLD.team_id;
     END IF;
   END IF;
 
@@ -208,17 +219,17 @@ DECLARE
   student_record RECORD;
 BEGIN
   FOR student_record IN
-    SELECT s.id, s.streak_count, s.last_active_at, s.streak_freeze_available, p.full_name
+    SELECT s.id, s.current_streak, s.last_active_at, s.streak_freeze_available, p.full_name
     FROM public.students s
     JOIN public.profiles p ON p.id = s.id
     WHERE s.deleted_at IS NULL
-      AND s.streak_count > 0
+      AND s.current_streak > 0
       AND s.last_active_at < now() - interval '24 hours'
   LOOP
-    IF student_record.streak_freeze_available > 0 THEN
-      -- Consume a streak freeze instead of breaking the streak
+    IF student_record.streak_freeze_available = true THEN
+      -- Consume the streak freeze instead of breaking the streak
       UPDATE public.students
-      SET streak_freeze_available = streak_freeze_available - 1,
+      SET streak_freeze_available = false,
           last_active_at = now()  -- extend the window
       WHERE id = student_record.id;
 
@@ -226,24 +237,23 @@ BEGIN
       INSERT INTO public.notifications (user_id, title, body, type)
       VALUES (
         student_record.id,
-        'Streak Freeze Used!',
-        'Your ' || student_record.streak_count || '-day streak was saved by a streak freeze. You have ' ||
-          (student_record.streak_freeze_available - 1) || ' freezes remaining.',
-        'streak'
+        'تم استخدام تجميد السلسلة!',
+        'سلسلتك ' || student_record.current_streak || ' يوم تم حمايتها بتجميد السلسلة.',
+        'streak_warning'
       );
     ELSE
       -- No freeze available — reset streak to 0
       UPDATE public.students
-      SET streak_count = 0
+      SET current_streak = 0
       WHERE id = student_record.id;
 
       -- Notify the student that their streak was broken
       INSERT INTO public.notifications (user_id, title, body, type)
       VALUES (
         student_record.id,
-        'Streak Lost',
-        'Your ' || student_record.streak_count || '-day streak has been reset. Log in daily to build it back up!',
-        'streak'
+        'انتهت السلسلة',
+        'سلسلتك ' || student_record.current_streak || ' يوم انتهت. سجّل دخولك يومياً لبناء سلسلة جديدة!',
+        'streak_warning'
       );
     END IF;
   END LOOP;

@@ -312,25 +312,25 @@ ALTER TABLE public.direct_messages ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "direct_messages_select"
   ON public.direct_messages FOR SELECT
   USING (
-    sender_id = auth.uid()
-    OR receiver_id = auth.uid()
+    from_id = auth.uid()
+    OR to_id = auth.uid()
   );
   -- Only participants can read DMs
 
 CREATE POLICY "direct_messages_insert"
   ON public.direct_messages FOR INSERT
-  WITH CHECK (sender_id = auth.uid());
+  WITH CHECK (from_id = auth.uid());
   -- Can only send messages as yourself
 
 CREATE POLICY "direct_messages_update"
   ON public.direct_messages FOR UPDATE
-  USING (sender_id = auth.uid() OR is_admin())
-  WITH CHECK (sender_id = auth.uid() OR is_admin());
+  USING (from_id = auth.uid() OR is_admin())
+  WITH CHECK (from_id = auth.uid() OR is_admin());
   -- Sender can edit their own message
 
 CREATE POLICY "direct_messages_delete"
   ON public.direct_messages FOR DELETE
-  USING (sender_id = auth.uid() OR is_admin());
+  USING (from_id = auth.uid() OR is_admin());
   -- Sender can delete their own message
 
 
@@ -674,7 +674,7 @@ ALTER TABLE public.progress_reports ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "progress_reports_select"
   ON public.progress_reports FOR SELECT
   USING (
-    (student_id = auth.uid() AND published = true)           -- student sees own published
+    (student_id = auth.uid() AND status = 'published')       -- student sees own published
     OR (is_trainer() AND student_id IN (
       SELECT s.id FROM public.students s
       WHERE s.group_id = ANY(get_trainer_group_ids())
@@ -724,7 +724,7 @@ ALTER TABLE public.quizzes ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "quizzes_select"
   ON public.quizzes FOR SELECT
   USING (
-    (group_id = get_student_group_id() AND published = true) -- students see published
+    (group_id = get_student_group_id() AND status = 'published') -- students see published
     OR group_id = ANY(get_trainer_group_ids())                -- trainer sees all (drafts too)
     OR is_admin()
   );
@@ -761,7 +761,7 @@ CREATE POLICY "quiz_questions_select"
   USING (
     quiz_id IN (
       SELECT q.id FROM public.quizzes q
-      WHERE (q.group_id = get_student_group_id() AND q.published = true)
+      WHERE (q.group_id = get_student_group_id() AND q.status = 'published')
         OR q.group_id = ANY(get_trainer_group_ids())
         OR is_admin()
     )

@@ -1,6 +1,15 @@
 import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom'
 import { useAuthStore } from './stores/authStore'
+import LoginPage from './pages/public/LoginPage'
+import LayoutShell from './components/layout/LayoutShell'
+import StudentDashboard from './pages/student/StudentDashboard'
+import StudentAssignments from './pages/student/StudentAssignments'
+import StudentGrades from './pages/student/StudentGrades'
+import TrainerDashboard from './pages/trainer/TrainerDashboard'
+import TrainerAssignments from './pages/trainer/TrainerAssignments'
+import TrainerGrading from './pages/trainer/TrainerGrading'
+import AdminDashboard from './pages/admin/AdminDashboard'
 
 // ─── Placeholder Page ────────────────────────────────────────
 function PlaceholderPage({ title }) {
@@ -78,38 +87,44 @@ export default function App() {
         <Route path="/" element={<RoleRedirect />} />
 
         {/* Public routes */}
-        <Route path="/login" element={<PlaceholderPage title="تسجيل الدخول" />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/test" element={<PlaceholderPage title="اختبار تحديد المستوى" />} />
 
         {/* Student routes */}
         <Route element={<ProtectedRoute allowedRoles={['student']} />}>
-          <Route path="/student" element={<PlaceholderPage title="لوحة الطالب" />} />
-          <Route path="/student/assignments" element={<PlaceholderPage title="الواجبات" />} />
-          <Route path="/student/schedule" element={<PlaceholderPage title="الجدول" />} />
-          <Route path="/student/grades" element={<PlaceholderPage title="الدرجات" />} />
-          <Route path="/student/writing" element={<PlaceholderPage title="الكتابة" />} />
-          <Route path="/student/profile" element={<PlaceholderPage title="الملف الشخصي" />} />
+          <Route element={<LayoutShell />}>
+            <Route path="/student" element={<StudentDashboard />} />
+            <Route path="/student/assignments" element={<StudentAssignments />} />
+            <Route path="/student/schedule" element={<PlaceholderPage title="الجدول" />} />
+            <Route path="/student/grades" element={<StudentGrades />} />
+            <Route path="/student/writing" element={<PlaceholderPage title="الكتابة" />} />
+            <Route path="/student/profile" element={<PlaceholderPage title="الملف الشخصي" />} />
+          </Route>
         </Route>
 
         {/* Trainer routes */}
         <Route element={<ProtectedRoute allowedRoles={['trainer', 'admin']} />}>
-          <Route path="/trainer" element={<PlaceholderPage title="لوحة المدرب" />} />
-          <Route path="/trainer/groups" element={<PlaceholderPage title="المجموعات" />} />
-          <Route path="/trainer/assignments" element={<PlaceholderPage title="إدارة الواجبات" />} />
-          <Route path="/trainer/students" element={<PlaceholderPage title="الطلاب" />} />
-          <Route path="/trainer/schedule" element={<PlaceholderPage title="الجدول" />} />
-          <Route path="/trainer/writing" element={<PlaceholderPage title="تصحيح الكتابة" />} />
+          <Route element={<LayoutShell />}>
+            <Route path="/trainer" element={<TrainerDashboard />} />
+            <Route path="/trainer/groups" element={<PlaceholderPage title="المجموعات" />} />
+            <Route path="/trainer/assignments" element={<TrainerAssignments />} />
+            <Route path="/trainer/students" element={<PlaceholderPage title="الطلاب" />} />
+            <Route path="/trainer/schedule" element={<PlaceholderPage title="الجدول" />} />
+            <Route path="/trainer/writing" element={<TrainerGrading />} />
+          </Route>
         </Route>
 
         {/* Admin routes */}
         <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
-          <Route path="/admin" element={<PlaceholderPage title="لوحة الإدارة" />} />
-          <Route path="/admin/users" element={<PlaceholderPage title="إدارة المستخدمين" />} />
-          <Route path="/admin/groups" element={<PlaceholderPage title="إدارة المجموعات" />} />
-          <Route path="/admin/trainers" element={<PlaceholderPage title="إدارة المدربين" />} />
-          <Route path="/admin/packages" element={<PlaceholderPage title="الباقات" />} />
-          <Route path="/admin/reports" element={<PlaceholderPage title="التقارير" />} />
-          <Route path="/admin/settings" element={<PlaceholderPage title="الإعدادات" />} />
+          <Route element={<LayoutShell />}>
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/users" element={<PlaceholderPage title="إدارة المستخدمين" />} />
+            <Route path="/admin/groups" element={<PlaceholderPage title="إدارة المجموعات" />} />
+            <Route path="/admin/trainers" element={<PlaceholderPage title="إدارة المدربين" />} />
+            <Route path="/admin/packages" element={<PlaceholderPage title="الباقات" />} />
+            <Route path="/admin/reports" element={<PlaceholderPage title="التقارير" />} />
+            <Route path="/admin/settings" element={<PlaceholderPage title="الإعدادات" />} />
+          </Route>
         </Route>
 
         {/* Catch-all */}

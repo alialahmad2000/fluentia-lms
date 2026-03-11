@@ -75,6 +75,12 @@
            transition-all duration-200;
   }
 
+  /* Native select dropdown options — readable in dark mode */
+  select.input-field option {
+    background-color: #0a1225;
+    color: #ffffff;
+  }
+
   /* Badges */
   .badge {
     @apply inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium;
