@@ -11,6 +11,7 @@ import StudentSchedule from './pages/student/StudentSchedule'
 import StudentProfile from './pages/student/StudentProfile'
 import StudentSpeaking from './pages/student/StudentSpeaking'
 import StudentLibrary from './pages/student/StudentLibrary'
+import StudentLeaderboard from './pages/student/StudentLeaderboard'
 import TrainerDashboard from './pages/trainer/TrainerDashboard'
 import TrainerAssignments from './pages/trainer/TrainerAssignments'
 import TrainerGrading from './pages/trainer/TrainerGrading'
@@ -120,6 +121,7 @@ export default function App() {
             <Route path="/student/grades" element={<StudentGrades />} />
             <Route path="/student/speaking" element={<StudentSpeaking />} />
             <Route path="/student/library" element={<StudentLibrary />} />
+            <Route path="/student/leaderboard" element={<StudentLeaderboard />} />
             <Route path="/student/profile" element={<StudentProfile />} />
           </Route>
         </Route>
