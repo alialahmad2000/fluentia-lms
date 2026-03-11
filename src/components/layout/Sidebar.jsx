@@ -1,80 +1,229 @@
+import { useState, useEffect } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   House, FileText, Calendar, BarChart3, Mic, BookOpen, User, Trophy, Heart, Activity, Target, Mail,
   Users, Briefcase, CreditCard, Settings, LayoutDashboard,
-  LogOut, X, ChevronLeft, ClipboardCheck, StickyNote, Zap, UserCheck, MessageSquare,
+  LogOut, X, ChevronLeft, ChevronDown, ClipboardCheck, StickyNote, Zap, UserCheck, MessageSquare,
   Bot, Brain, FileBarChart,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 
-const NAV_ITEMS = {
+// ─── Grouped Navigation Items ────────────────────────────────
+const NAV_GROUPS = {
   student: [
-    { to: '/student',             label: 'الرئيسية',       icon: House },
-    { to: '/student/assignments', label: 'الواجبات',       icon: FileText },
-    { to: '/student/schedule',    label: 'الجدول',         icon: Calendar },
-    { to: '/student/grades',      label: 'الدرجات',        icon: BarChart3 },
-    { to: '/student/speaking',    label: 'المحادثة',       icon: Mic },
-    { to: '/student/library',     label: 'المكتبة',        icon: BookOpen },
-    { to: '/student/leaderboard', label: 'المتصدرين',      icon: Trophy },
-    { to: '/student/recognition', label: 'تقدير الزملاء',  icon: Heart },
-    { to: '/student/activity',    label: 'نشاط المجموعة',  icon: Activity },
-    { to: '/student/chat',        label: 'المحادثة',        icon: MessageSquare },
-    { to: '/student/messages',   label: 'الرسائل',        icon: Mail },
-    { to: '/student/challenges',  label: 'التحديات',       icon: Target },
-    { to: '/student/ai-chat',     label: 'المساعد الذكي',  icon: Bot },
-    { to: '/student/vocabulary',  label: 'بنك المفردات',   icon: Brain },
-    { to: '/student/profile',     label: 'الملف الشخصي',   icon: User },
+    {
+      key: 'main',
+      label: 'الرئيسية',
+      items: [
+        { to: '/student', label: 'الرئيسية', icon: House },
+      ],
+    },
+    {
+      key: 'learning',
+      label: 'التعلم',
+      items: [
+        { to: '/student/assignments', label: 'الواجبات', icon: FileText },
+        { to: '/student/schedule', label: 'الجدول', icon: Calendar },
+        { to: '/student/speaking', label: 'المحادثة', icon: Mic },
+        { to: '/student/library', label: 'المكتبة', icon: BookOpen },
+      ],
+    },
+    {
+      key: 'progress',
+      label: 'التقدم',
+      items: [
+        { to: '/student/grades', label: 'الدرجات', icon: BarChart3 },
+        { to: '/student/profile', label: 'الملف الشخصي', icon: User },
+        { to: '/student/leaderboard', label: 'المتصدرين', icon: Trophy },
+      ],
+    },
+    {
+      key: 'social',
+      label: 'المجتمع',
+      items: [
+        { to: '/student/recognition', label: 'تقدير الزملاء', icon: Heart },
+        { to: '/student/activity', label: 'نشاط المجموعة', icon: Activity },
+        { to: '/student/challenges', label: 'التحديات', icon: Target },
+      ],
+    },
+    {
+      key: 'communication',
+      label: 'التواصل',
+      items: [
+        { to: '/student/chat', label: 'محادثة المجموعة', icon: MessageSquare },
+        { to: '/student/messages', label: 'الرسائل', icon: Mail },
+      ],
+    },
+    {
+      key: 'ai',
+      label: 'الذكاء الاصطناعي',
+      items: [
+        { to: '/student/ai-chat', label: 'المساعد الذكي', icon: Bot },
+        { to: '/student/vocabulary', label: 'بنك المفردات', icon: Brain },
+      ],
+    },
   ],
   trainer: [
-    { to: '/trainer',              label: 'الرئيسية',       icon: House },
-    { to: '/trainer/assignments',  label: 'الواجبات',       icon: FileText },
-    { to: '/trainer/writing',      label: 'التقييم',        icon: ClipboardCheck },
-    { to: '/trainer/points',       label: 'النقاط السريعة', icon: Zap },
-    { to: '/trainer/attendance',   label: 'الحضور',         icon: UserCheck },
-    { to: '/trainer/student-notes',label: 'ملاحظات الطلاب', icon: MessageSquare },
-    { to: '/trainer/students',     label: 'ملفات الطلاب',   icon: User },
-    { to: '/trainer/schedule',     label: 'الجدول',         icon: Calendar },
-    { to: '/trainer/notes',        label: 'ملاحظات الحصص',  icon: StickyNote },
-    { to: '/trainer/chat',          label: 'محادثة المجموعة', icon: MessageSquare },
-    { to: '/trainer/messages',      label: 'الرسائل',         icon: Mail },
-    { to: '/trainer/challenges',   label: 'التحديات',        icon: Target },
-    { to: '/trainer/teams',        label: 'الفرق',          icon: Users },
-    { to: '/trainer/ai-assistant', label: 'المساعد الذكي',  icon: Bot },
-    { to: '/trainer/reports',      label: 'تقارير التقدم',  icon: FileBarChart },
-    { to: '/trainer/library',      label: 'المكتبة',        icon: BookOpen },
+    {
+      key: 'main',
+      label: 'الرئيسية',
+      items: [
+        { to: '/trainer', label: 'الرئيسية', icon: House },
+      ],
+    },
+    {
+      key: 'teaching',
+      label: 'التدريس',
+      items: [
+        { to: '/trainer/assignments', label: 'الواجبات', icon: FileText },
+        { to: '/trainer/writing', label: 'التقييم', icon: ClipboardCheck },
+        { to: '/trainer/schedule', label: 'الجدول', icon: Calendar },
+        { to: '/trainer/notes', label: 'ملاحظات الحصص', icon: StickyNote },
+        { to: '/trainer/library', label: 'المكتبة', icon: BookOpen },
+      ],
+    },
+    {
+      key: 'live',
+      label: 'الحصة المباشرة',
+      items: [
+        { to: '/trainer/points', label: 'النقاط السريعة', icon: Zap },
+        { to: '/trainer/attendance', label: 'الحضور', icon: UserCheck },
+      ],
+    },
+    {
+      key: 'students',
+      label: 'الطلاب',
+      items: [
+        { to: '/trainer/students', label: 'ملفات الطلاب', icon: User },
+        { to: '/trainer/student-notes', label: 'ملاحظات الطلاب', icon: MessageSquare },
+        { to: '/trainer/teams', label: 'الفرق', icon: Users },
+      ],
+    },
+    {
+      key: 'communication',
+      label: 'التواصل',
+      items: [
+        { to: '/trainer/chat', label: 'محادثة المجموعة', icon: MessageSquare },
+        { to: '/trainer/messages', label: 'الرسائل', icon: Mail },
+        { to: '/trainer/challenges', label: 'التحديات', icon: Target },
+      ],
+    },
+    {
+      key: 'ai',
+      label: 'الذكاء الاصطناعي',
+      items: [
+        { to: '/trainer/ai-assistant', label: 'المساعد الذكي', icon: Bot },
+        { to: '/trainer/reports', label: 'تقارير التقدم', icon: FileBarChart },
+      ],
+    },
   ],
   admin: [
-    { to: '/admin',               label: 'لوحة التحكم',    icon: LayoutDashboard },
-    { to: '/trainer/assignments', label: 'الواجبات',       icon: FileText, section: 'trainer' },
-    { to: '/trainer/writing',     label: 'التقييم',        icon: ClipboardCheck, section: 'trainer' },
-    { to: '/trainer/points',     label: 'النقاط السريعة', icon: Zap, section: 'trainer' },
-    { to: '/trainer/attendance', label: 'الحضور',         icon: UserCheck, section: 'trainer' },
-    { to: '/trainer/student-notes', label: 'ملاحظات الطلاب', icon: MessageSquare, section: 'trainer' },
-    { to: '/trainer/students',   label: 'ملفات الطلاب',   icon: User, section: 'trainer' },
-    { to: '/trainer/schedule',    label: 'الجدول',         icon: Calendar, section: 'trainer' },
-    { to: '/trainer/notes',       label: 'ملاحظات الحصص',  icon: StickyNote, section: 'trainer' },
-    { to: '/trainer/chat',        label: 'محادثة المجموعة', icon: MessageSquare, section: 'trainer' },
-    { to: '/trainer/messages',   label: 'الرسائل',         icon: Mail, section: 'trainer' },
-    { to: '/trainer/challenges',  label: 'التحديات',        icon: Target, section: 'trainer' },
-    { to: '/trainer/teams',       label: 'الفرق',          icon: Users, section: 'trainer' },
-    { to: '/trainer/ai-assistant', label: 'المساعد الذكي', icon: Bot, section: 'trainer' },
-    { to: '/trainer/reports',     label: 'تقارير التقدم',  icon: FileBarChart, section: 'trainer' },
-    { to: '/trainer/library',     label: 'المكتبة',        icon: BookOpen, section: 'trainer' },
-    { to: '/admin/users',         label: 'المستخدمين',     icon: Users },
-    { to: '/admin/groups',        label: 'المجموعات',      icon: Users },
-    { to: '/admin/trainers',      label: 'المدربين',       icon: Briefcase },
-    { to: '/admin/packages',      label: 'المدفوعات',      icon: CreditCard },
-    { to: '/admin/reports',       label: 'التقارير',       icon: BarChart3 },
-    { to: '/admin/settings',      label: 'الإعدادات',      icon: Settings },
+    {
+      key: 'main',
+      label: 'الرئيسية',
+      items: [
+        { to: '/admin', label: 'لوحة التحكم', icon: LayoutDashboard },
+      ],
+    },
+    {
+      key: 'teaching',
+      label: 'التدريس',
+      items: [
+        { to: '/trainer/assignments', label: 'الواجبات', icon: FileText },
+        { to: '/trainer/writing', label: 'التقييم', icon: ClipboardCheck },
+        { to: '/trainer/schedule', label: 'الجدول', icon: Calendar },
+        { to: '/trainer/notes', label: 'ملاحظات الحصص', icon: StickyNote },
+        { to: '/trainer/library', label: 'المكتبة', icon: BookOpen },
+      ],
+    },
+    {
+      key: 'live',
+      label: 'الحصة المباشرة',
+      items: [
+        { to: '/trainer/points', label: 'النقاط السريعة', icon: Zap },
+        { to: '/trainer/attendance', label: 'الحضور', icon: UserCheck },
+      ],
+    },
+    {
+      key: 'management',
+      label: 'الإدارة',
+      items: [
+        { to: '/admin/users', label: 'الطلاب', icon: Users },
+        { to: '/admin/groups', label: 'المجموعات', icon: Users },
+        { to: '/admin/trainers', label: 'المدربين', icon: Briefcase },
+        { to: '/trainer/students', label: 'ملفات الطلاب', icon: User },
+        { to: '/trainer/student-notes', label: 'ملاحظات الطلاب', icon: MessageSquare },
+        { to: '/trainer/teams', label: 'الفرق', icon: Users },
+      ],
+    },
+    {
+      key: 'finance',
+      label: 'المالية',
+      items: [
+        { to: '/admin/packages', label: 'المدفوعات', icon: CreditCard },
+      ],
+    },
+    {
+      key: 'communication',
+      label: 'التواصل',
+      items: [
+        { to: '/trainer/chat', label: 'محادثة المجموعة', icon: MessageSquare },
+        { to: '/trainer/messages', label: 'الرسائل', icon: Mail },
+        { to: '/trainer/challenges', label: 'التحديات', icon: Target },
+      ],
+    },
+    {
+      key: 'ai',
+      label: 'الذكاء الاصطناعي',
+      items: [
+        { to: '/trainer/ai-assistant', label: 'المساعد الذكي', icon: Bot },
+        { to: '/trainer/reports', label: 'تقارير التقدم', icon: FileBarChart },
+      ],
+    },
+    {
+      key: 'analytics',
+      label: 'التحليلات',
+      items: [
+        { to: '/admin/reports', label: 'التقارير', icon: BarChart3 },
+      ],
+    },
+    {
+      key: 'system',
+      label: 'النظام',
+      items: [
+        { to: '/admin/settings', label: 'الإعدادات', icon: Settings },
+      ],
+    },
   ],
 }
+
+const COLLAPSED_STORAGE_KEY = 'fluentia_sidebar_groups'
 
 export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) {
   const { profile, signOut } = useAuthStore()
   const navigate = useNavigate()
   const role = profile?.role || 'student'
-  const items = NAV_ITEMS[role] || NAV_ITEMS.student
+  const groups = NAV_GROUPS[role] || NAV_GROUPS.student
+
+  // Load collapsed state from localStorage
+  const [collapsedGroups, setCollapsedGroups] = useState(() => {
+    try {
+      const stored = localStorage.getItem(`${COLLAPSED_STORAGE_KEY}_${role}`)
+      return stored ? JSON.parse(stored) : {}
+    } catch {
+      return {}
+    }
+  })
+
+  // Save collapsed state
+  useEffect(() => {
+    localStorage.setItem(`${COLLAPSED_STORAGE_KEY}_${role}`, JSON.stringify(collapsedGroups))
+  }, [collapsedGroups, role])
+
+  function toggleGroup(key) {
+    setCollapsedGroups(prev => ({ ...prev, [key]: !prev[key] }))
+  }
 
   async function handleLogout() {
     await signOut()
@@ -91,11 +240,9 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
         {collapsed && (
           <span className="text-xl font-playfair font-bold text-gradient mx-auto">F</span>
         )}
-        {/* Mobile close button */}
         <button onClick={onClose} className="lg:hidden text-muted hover:text-white transition-colors">
           <X size={20} />
         </button>
-        {/* Desktop collapse button */}
         <button
           onClick={onToggleCollapse}
           className="hidden lg:block text-muted hover:text-white transition-colors"
@@ -104,35 +251,68 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
         </button>
       </div>
 
-      {/* Nav items */}
-      <nav className="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
-        {items.map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            end={item.to === `/${role}` || item.to === '/admin'}
-            onClick={onClose}
-            className={({ isActive }) =>
-              `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
-                isActive
-                  ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
-                  : 'text-muted hover:text-white hover:bg-white/5'
-              } ${collapsed ? 'justify-center' : ''}`
-            }
-          >
-            <item.icon size={20} className="shrink-0" />
-            {!collapsed && <span>{item.label}</span>}
-          </NavLink>
-        ))}
+      {/* Nav groups */}
+      <nav className="flex-1 py-2 px-3 overflow-y-auto">
+        {groups.map((group, gi) => {
+          const isGroupCollapsed = collapsedGroups[group.key]
+          const isSingleItem = group.items.length === 1
+
+          return (
+            <div key={group.key} className={gi > 0 ? 'mt-1' : ''}>
+              {/* Group header — skip for single-item groups */}
+              {!isSingleItem && !collapsed && (
+                <button
+                  onClick={() => toggleGroup(group.key)}
+                  className="w-full flex items-center justify-between px-3 py-1.5 text-[11px] font-medium text-muted/60 uppercase tracking-wide hover:text-muted transition-colors"
+                >
+                  <span>{group.label}</span>
+                  <ChevronDown
+                    size={12}
+                    className={`transition-transform duration-200 ${isGroupCollapsed ? 'rotate-180' : ''}`}
+                  />
+                </button>
+              )}
+
+              {/* Collapsed sidebar: show divider between groups */}
+              {collapsed && gi > 0 && (
+                <div className="border-t border-border-subtle/30 my-1 mx-2" />
+              )}
+
+              {/* Group items */}
+              {(!isGroupCollapsed || isSingleItem || collapsed) && (
+                <div className="space-y-0.5">
+                  {group.items.map((item) => (
+                    <NavLink
+                      key={item.to}
+                      to={item.to}
+                      end={item.to === `/${role}` || item.to === '/admin' || item.to === '/trainer' || item.to === '/student'}
+                      onClick={onClose}
+                      className={({ isActive }) =>
+                        `flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                          isActive
+                            ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
+                            : 'text-muted hover:text-white hover:bg-white/5'
+                        } ${collapsed ? 'justify-center' : ''}`
+                      }
+                    >
+                      <item.icon size={18} className="shrink-0" />
+                      {!collapsed && <span>{item.label}</span>}
+                    </NavLink>
+                  ))}
+                </div>
+              )}
+            </div>
+          )
+        })}
       </nav>
 
       {/* Logout */}
-      <div className="px-3 pb-4 border-t border-border-subtle pt-4">
+      <div className="px-3 pb-4 border-t border-border-subtle pt-3">
         <button
           onClick={handleLogout}
-          className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-red-400 hover:bg-red-500/10 transition-all duration-200 w-full ${collapsed ? 'justify-center' : ''}`}
+          className={`flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-red-400 hover:bg-red-500/10 transition-all duration-200 w-full ${collapsed ? 'justify-center' : ''}`}
         >
-          <LogOut size={20} className="shrink-0" />
+          <LogOut size={18} className="shrink-0" />
           {!collapsed && <span>تسجيل الخروج</span>}
         </button>
       </div>
