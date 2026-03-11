@@ -17,6 +17,10 @@ import TrainerGrading from './pages/trainer/TrainerGrading'
 import TrainerSchedule from './pages/trainer/TrainerSchedule'
 import TrainerNotes from './pages/trainer/TrainerNotes'
 import TrainerLibrary from './pages/trainer/TrainerLibrary'
+import TrainerQuickPoints from './pages/trainer/TrainerQuickPoints'
+import TrainerAttendance from './pages/trainer/TrainerAttendance'
+import TrainerQuickNotes from './pages/trainer/TrainerQuickNotes'
+import TrainerStudentView from './pages/trainer/TrainerStudentView'
 import AdminDashboard from './pages/admin/AdminDashboard'
 
 // ─── Placeholder Page ────────────────────────────────────────
@@ -123,6 +127,10 @@ export default function App() {
             <Route path="/trainer/schedule" element={<TrainerSchedule />} />
             <Route path="/trainer/notes" element={<TrainerNotes />} />
             <Route path="/trainer/library" element={<TrainerLibrary />} />
+            <Route path="/trainer/points" element={<TrainerQuickPoints />} />
+            <Route path="/trainer/attendance" element={<TrainerAttendance />} />
+            <Route path="/trainer/student-notes" element={<TrainerQuickNotes />} />
+            <Route path="/trainer/students" element={<TrainerStudentView />} />
           </Route>
         </Route>
 

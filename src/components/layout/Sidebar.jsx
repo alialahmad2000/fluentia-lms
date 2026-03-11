@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   House, FileText, Calendar, BarChart3, Mic, BookOpen, User,
   Users, Briefcase, Package, Settings, LayoutDashboard,
-  LogOut, X, ChevronLeft, ClipboardCheck, StickyNote,
+  LogOut, X, ChevronLeft, ClipboardCheck, StickyNote, Zap, UserCheck, MessageSquare,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 
@@ -18,17 +18,25 @@ const NAV_ITEMS = {
     { to: '/student/profile',     label: 'الملف الشخصي',   icon: User },
   ],
   trainer: [
-    { to: '/trainer',             label: 'الرئيسية',       icon: House },
-    { to: '/trainer/assignments', label: 'الواجبات',       icon: FileText },
-    { to: '/trainer/writing',     label: 'التقييم',        icon: ClipboardCheck },
-    { to: '/trainer/schedule',    label: 'الجدول',         icon: Calendar },
-    { to: '/trainer/notes',       label: 'ملاحظات الحصص',  icon: StickyNote },
-    { to: '/trainer/library',     label: 'المكتبة',        icon: BookOpen },
+    { to: '/trainer',              label: 'الرئيسية',       icon: House },
+    { to: '/trainer/assignments',  label: 'الواجبات',       icon: FileText },
+    { to: '/trainer/writing',      label: 'التقييم',        icon: ClipboardCheck },
+    { to: '/trainer/points',       label: 'النقاط السريعة', icon: Zap },
+    { to: '/trainer/attendance',   label: 'الحضور',         icon: UserCheck },
+    { to: '/trainer/student-notes',label: 'ملاحظات الطلاب', icon: MessageSquare },
+    { to: '/trainer/students',     label: 'ملفات الطلاب',   icon: User },
+    { to: '/trainer/schedule',     label: 'الجدول',         icon: Calendar },
+    { to: '/trainer/notes',        label: 'ملاحظات الحصص',  icon: StickyNote },
+    { to: '/trainer/library',      label: 'المكتبة',        icon: BookOpen },
   ],
   admin: [
     { to: '/admin',               label: 'لوحة التحكم',    icon: LayoutDashboard },
     { to: '/trainer/assignments', label: 'الواجبات',       icon: FileText, section: 'trainer' },
     { to: '/trainer/writing',     label: 'التقييم',        icon: ClipboardCheck, section: 'trainer' },
+    { to: '/trainer/points',     label: 'النقاط السريعة', icon: Zap, section: 'trainer' },
+    { to: '/trainer/attendance', label: 'الحضور',         icon: UserCheck, section: 'trainer' },
+    { to: '/trainer/student-notes', label: 'ملاحظات الطلاب', icon: MessageSquare, section: 'trainer' },
+    { to: '/trainer/students',   label: 'ملفات الطلاب',   icon: User, section: 'trainer' },
     { to: '/trainer/schedule',    label: 'الجدول',         icon: Calendar, section: 'trainer' },
     { to: '/trainer/notes',       label: 'ملاحظات الحصص',  icon: StickyNote, section: 'trainer' },
     { to: '/trainer/library',     label: 'المكتبة',        icon: BookOpen, section: 'trainer' },
