@@ -31,6 +31,10 @@ import TrainerStudentView from './pages/trainer/TrainerStudentView'
 import TrainerChallenges from './pages/trainer/TrainerChallenges'
 import TrainerTeams from './pages/trainer/TrainerTeams'
 import TrainerGroupChat from './pages/trainer/TrainerGroupChat'
+import TrainerAIAssistant from './pages/trainer/TrainerAIAssistant'
+import TrainerProgressReports from './pages/trainer/TrainerProgressReports'
+import StudentChatbot from './pages/student/StudentChatbot'
+import StudentVocabulary from './pages/student/StudentVocabulary'
 import AdminDashboard from './pages/admin/AdminDashboard'
 import AdminStudents from './pages/admin/AdminStudents'
 import AdminGroups from './pages/admin/AdminGroups'
@@ -138,6 +142,8 @@ export default function App() {
             <Route path="/student/challenges" element={<StudentChallenges />} />
             <Route path="/student/chat" element={<StudentGroupChat />} />
             <Route path="/student/messages" element={<StudentMessages />} />
+            <Route path="/student/ai-chat" element={<StudentChatbot />} />
+            <Route path="/student/vocabulary" element={<StudentVocabulary />} />
             <Route path="/student/profile" element={<StudentProfile />} />
           </Route>
         </Route>
@@ -159,6 +165,8 @@ export default function App() {
             <Route path="/trainer/teams" element={<TrainerTeams />} />
             <Route path="/trainer/chat" element={<TrainerGroupChat />} />
             <Route path="/trainer/messages" element={<StudentMessages />} />
+            <Route path="/trainer/ai-assistant" element={<TrainerAIAssistant />} />
+            <Route path="/trainer/reports" element={<TrainerProgressReports />} />
           </Route>
         </Route>
 

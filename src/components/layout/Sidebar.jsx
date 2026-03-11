@@ -4,6 +4,7 @@ import {
   House, FileText, Calendar, BarChart3, Mic, BookOpen, User, Trophy, Heart, Activity, Target, Mail,
   Users, Briefcase, CreditCard, Settings, LayoutDashboard,
   LogOut, X, ChevronLeft, ClipboardCheck, StickyNote, Zap, UserCheck, MessageSquare,
+  Bot, Brain, FileBarChart,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 
@@ -21,6 +22,8 @@ const NAV_ITEMS = {
     { to: '/student/chat',        label: 'المحادثة',        icon: MessageSquare },
     { to: '/student/messages',   label: 'الرسائل',        icon: Mail },
     { to: '/student/challenges',  label: 'التحديات',       icon: Target },
+    { to: '/student/ai-chat',     label: 'المساعد الذكي',  icon: Bot },
+    { to: '/student/vocabulary',  label: 'بنك المفردات',   icon: Brain },
     { to: '/student/profile',     label: 'الملف الشخصي',   icon: User },
   ],
   trainer: [
@@ -37,6 +40,8 @@ const NAV_ITEMS = {
     { to: '/trainer/messages',      label: 'الرسائل',         icon: Mail },
     { to: '/trainer/challenges',   label: 'التحديات',        icon: Target },
     { to: '/trainer/teams',        label: 'الفرق',          icon: Users },
+    { to: '/trainer/ai-assistant', label: 'المساعد الذكي',  icon: Bot },
+    { to: '/trainer/reports',      label: 'تقارير التقدم',  icon: FileBarChart },
     { to: '/trainer/library',      label: 'المكتبة',        icon: BookOpen },
   ],
   admin: [
@@ -53,6 +58,8 @@ const NAV_ITEMS = {
     { to: '/trainer/messages',   label: 'الرسائل',         icon: Mail, section: 'trainer' },
     { to: '/trainer/challenges',  label: 'التحديات',        icon: Target, section: 'trainer' },
     { to: '/trainer/teams',       label: 'الفرق',          icon: Users, section: 'trainer' },
+    { to: '/trainer/ai-assistant', label: 'المساعد الذكي', icon: Bot, section: 'trainer' },
+    { to: '/trainer/reports',     label: 'تقارير التقدم',  icon: FileBarChart, section: 'trainer' },
     { to: '/trainer/library',     label: 'المكتبة',        icon: BookOpen, section: 'trainer' },
     { to: '/admin/users',         label: 'المستخدمين',     icon: Users },
     { to: '/admin/groups',        label: 'المجموعات',      icon: Users },

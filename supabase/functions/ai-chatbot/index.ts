@@ -1,6 +1,6 @@
-// Fluentia LMS — AI Writing Feedback Edge Function (Claude API)
-// Analyzes student writing and returns structured feedback
-// Deploy: supabase functions deploy ai-writing-feedback
+// Fluentia LMS — AI Chatbot Edge Function (Learning Assistant)
+// Students ask English language questions, get helpful explanations
+// Deploy: supabase functions deploy ai-chatbot
 // Env: CLAUDE_API_KEY, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
 
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
@@ -12,20 +12,19 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
-// Rate limits per package
-const WRITING_LIMITS: Record<string, number> = {
-  asas: 2,
-  talaqa: 4,
-  tamayuz: 8,
-  ielts: 8,
+const DAILY_LIMITS: Record<string, number> = {
+  asas: 10,
+  talaqa: 20,
+  tamayuz: 999,
+  ielts: 20,
 }
 
 const LEVEL_CONTEXT: Record<number, string> = {
-  1: 'A1 beginner — very simple sentences, basic vocabulary',
-  2: 'A2 elementary — short paragraphs, everyday topics',
-  3: 'B1 intermediate — connected paragraphs, familiar topics',
-  4: 'B2 upper-intermediate — detailed text, variety of topics',
-  5: 'C1 advanced — complex writing, nuanced expression',
+  1: 'A1 beginner — use very simple Arabic explanations with basic English examples',
+  2: 'A2 elementary — use Arabic explanations with more English examples',
+  3: 'B1 intermediate — mix Arabic and English in explanations',
+  4: 'B2 upper-intermediate — can use more English with some Arabic clarification',
+  5: 'C1 advanced — primarily English explanations with Arabic only when needed',
 }
 
 serve(async (req) => {
@@ -39,7 +38,6 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || ''
     )
 
-    // Authenticate
     const authHeader = req.headers.get('Authorization')
     if (!authHeader) throw new Error('Missing authorization')
 
@@ -48,16 +46,16 @@ serve(async (req) => {
     if (authErr || !user) throw new Error('Unauthorized')
 
     const body = await req.json()
-    const { text, submission_id, assignment_type } = body
+    const { message, conversation_history } = body
 
-    if (!text || text.trim().length < 10) {
+    if (!message?.trim()) {
       return new Response(
-        JSON.stringify({ error: 'النص قصير جداً للتحليل' }),
+        JSON.stringify({ error: 'الرسالة فارغة' }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
       )
     }
 
-    // Get student info for rate limiting
+    // Get student info
     const { data: student } = await supabase
       .from('students')
       .select('id, package, academic_level')
@@ -66,30 +64,34 @@ serve(async (req) => {
 
     if (!student) throw new Error('Student not found')
 
-    // Check monthly usage limit
-    const monthStart = new Date()
-    monthStart.setDate(1)
-    monthStart.setHours(0, 0, 0, 0)
+    // Check daily limit
+    const todayStart = new Date()
+    todayStart.setHours(0, 0, 0, 0)
 
     const { count } = await supabase
       .from('ai_usage')
       .select('id', { count: 'exact', head: true })
       .eq('student_id', user.id)
-      .eq('type', 'writing_feedback')
-      .gte('created_at', monthStart.toISOString())
+      .eq('type', 'chatbot')
+      .gte('created_at', todayStart.toISOString())
 
-    const limit = WRITING_LIMITS[student.package] || 2
+    const limit = DAILY_LIMITS[student.package] || 10
     if ((count || 0) >= limit) {
       return new Response(
         JSON.stringify({
-          error: `وصلت للحد الشهري (${limit} تحليل). الباقة الأعلى تعطيك أكثر!`,
+          error: `وصلت للحد اليومي (${limit} رسالة). حاول بكرة!`,
           limit_reached: true,
+          remaining: 0,
         }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 429 }
       )
     }
 
-    // Check budget cap
+    // Check budget
+    const monthStart = new Date()
+    monthStart.setDate(1)
+    monthStart.setHours(0, 0, 0, 0)
+
     const { data: settings } = await supabase
       .from('system_settings')
       .select('value')
@@ -106,23 +108,29 @@ serve(async (req) => {
     const totalCost = (totalCostData || []).reduce((sum: number, r: any) => sum + (parseFloat(r.estimated_cost_sar) || 0), 0)
     if (totalCost >= budgetCap) {
       return new Response(
-        JSON.stringify({ error: 'تم الوصول للحد الشهري لخدمات الذكاء الاصطناعي', budget_reached: true }),
+        JSON.stringify({ error: 'خدمة المساعد غير متاحة حالياً', budget_reached: true }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 429 }
       )
     }
 
-    // Skip if no API key
     if (!CLAUDE_API_KEY) {
       return new Response(
-        JSON.stringify({ error: 'AI service not configured', skipped: true }),
+        JSON.stringify({ error: 'AI service not configured' }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 503 }
       )
     }
 
     const levelCtx = LEVEL_CONTEXT[student.academic_level] || LEVEL_CONTEXT[1]
-    const typeCtx = assignment_type ? `This is a ${assignment_type} assignment.` : ''
 
-    // Call Claude API
+    // Build messages with history
+    const messages = []
+    if (conversation_history?.length) {
+      for (const msg of conversation_history.slice(-6)) {
+        messages.push({ role: msg.role, content: msg.content })
+      }
+    }
+    messages.push({ role: 'user', content: message })
+
     const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -132,50 +140,36 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: 1024,
-        system: `You are an English language tutor for Arab students. The student is at ${levelCtx}. ${typeCtx}
-Analyze their writing and respond in JSON format with these exact fields:
-- grammar_errors: array of {error: string, correction: string, rule: string} (max 5 errors)
-- vocabulary_suggestions: array of {original: string, better: string, reason: string} (max 3)
-- structure_assessment: string (1-2 sentences in Arabic about text structure)
-- fluency_score: number 1-10
-- overall_feedback: string (2-3 sentences in Arabic, encouraging and constructive)
-- improvement_tips: array of strings (2-3 tips in Arabic)
-Respond ONLY with valid JSON, no markdown.`,
-        messages: [{ role: 'user', content: text }],
+        max_tokens: 600,
+        system: `You are a friendly English language learning assistant for Arab students at ${levelCtx}.
+Your role:
+- Answer questions about English grammar, vocabulary, pronunciation, and usage
+- Give clear examples and explanations
+- Be encouraging and patient
+- Respond in Arabic by default, with English examples
+- Keep responses concise (2-4 paragraphs max)
+- If asked non-English-learning questions, politely redirect to English learning
+- NEVER do homework for the student — help them understand concepts`,
+        messages,
       }),
     })
 
     if (!claudeRes.ok) {
-      const err = await claudeRes.text()
-      console.error('[ai-writing-feedback] Claude API error:', err)
-
-      // Graceful fallback
       return new Response(
-        JSON.stringify({ error: 'التقييم التلقائي غير متاح حالياً — سيراجع المدرب عملك مباشرة', ai_unavailable: true }),
+        JSON.stringify({ error: 'المساعد غير متاح حالياً' }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 503 }
       )
     }
 
     const claudeData = await claudeRes.json()
-    const responseText = claudeData.content?.[0]?.text || '{}'
+    const reply = claudeData.content?.[0]?.text || ''
     const inputTokens = claudeData.usage?.input_tokens || 0
     const outputTokens = claudeData.usage?.output_tokens || 0
 
-    // Parse AI feedback
-    let feedback
-    try {
-      feedback = JSON.parse(responseText)
-    } catch {
-      feedback = { overall_feedback: responseText, fluency_score: 5 }
-    }
-
-    // Estimate cost (Sonnet: ~$3/M input, ~$15/M output → SAR ~3.75x)
     const costSAR = ((inputTokens * 3 + outputTokens * 15) / 1_000_000) * 3.75
 
-    // Log usage
     await supabase.from('ai_usage').insert({
-      type: 'writing_feedback',
+      type: 'chatbot',
       student_id: user.id,
       model: 'claude-sonnet',
       input_tokens: inputTokens,
@@ -183,22 +177,14 @@ Respond ONLY with valid JSON, no markdown.`,
       estimated_cost_sar: costSAR.toFixed(4),
     })
 
-    // Store feedback on submission if provided
-    if (submission_id) {
-      await supabase
-        .from('submissions')
-        .update({ ai_feedback: feedback })
-        .eq('id', submission_id)
-    }
-
     const remaining = limit - (count || 0) - 1
 
     return new Response(
-      JSON.stringify({ feedback, remaining_this_month: remaining }),
+      JSON.stringify({ reply, remaining }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     )
   } catch (error: any) {
-    console.error('[ai-writing-feedback] Error:', error.message)
+    console.error('[ai-chatbot] Error:', error.message)
     return new Response(
       JSON.stringify({ error: error.message }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 500 }

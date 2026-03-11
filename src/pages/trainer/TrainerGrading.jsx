@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle2, Clock, ChevronDown, X, Save, Loader2, RotateCcw, Mic, Image, FileText as FileIcon, Link2, Download } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import AIWritingFeedback from '../../components/ai/AIWritingFeedback'
+import AISpeakingAnalysis from '../../components/ai/AISpeakingAnalysis'
 
 function getStorageUrl(bucket, path) {
   if (!path) return null
@@ -382,6 +384,27 @@ function GradingModal({ submission, getStudentName, onClose }) {
             <div className="bg-white/5 rounded-xl p-4 text-sm text-muted text-center">
               لا يوجد محتوى
             </div>
+          )}
+
+          {/* AI Writing Feedback */}
+          {submission.content_text && submission.content_text.length >= 10 && (
+            <AIWritingFeedback
+              text={submission.content_text}
+              submissionId={submission.id}
+              assignmentType={submission.assignments?.type}
+              existingFeedback={submission.ai_feedback}
+            />
+          )}
+
+          {/* AI Speaking Analysis */}
+          {submission.content_voice_url && (
+            <AISpeakingAnalysis
+              voiceUrl={submission.content_voice_url}
+              submissionId={submission.id}
+              durationSeconds={submission.content_voice_duration}
+              existingTranscript={submission.content_voice_transcript}
+              existingAnalysis={!submission.content_text ? submission.ai_feedback : null}
+            />
           )}
 
           {/* Late / difficulty info */}

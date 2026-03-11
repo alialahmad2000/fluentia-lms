@@ -189,6 +189,124 @@ serve(async (req) => {
       results.push(`Payment reminders: ${paymentNotifCount}`)
     }
 
+    // ─── 5. AI Smart Nudges (inactive students) ────────────
+    const CLAUDE_API_KEY = Deno.env.get('CLAUDE_API_KEY') || ''
+
+    if (CLAUDE_API_KEY) {
+      // Find students inactive for 24-72 hours
+      const twentyFourHoursAgo2 = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+      const seventyTwoHoursAgo = new Date(Date.now() - 72 * 60 * 60 * 1000).toISOString()
+
+      const { data: inactiveStudents } = await supabase
+        .from('students')
+        .select('id, current_streak, xp_total, last_active_at, profiles(full_name)')
+        .lt('last_active_at', twentyFourHoursAgo2)
+        .gt('last_active_at', seventyTwoHoursAgo)
+        .eq('status', 'active')
+        .is('deleted_at', null)
+        .limit(10) // batch limit
+
+      if (inactiveStudents && inactiveStudents.length > 0) {
+        // Check budget before spending on nudges
+        const monthStart2 = new Date()
+        monthStart2.setDate(1)
+        monthStart2.setHours(0, 0, 0, 0)
+
+        const { data: budgetSettings } = await supabase
+          .from('system_settings')
+          .select('value')
+          .eq('key', 'ai_monthly_budget')
+          .single()
+
+        const budgetCap = parseFloat(budgetSettings?.value || '50')
+        const { data: costData } = await supabase
+          .from('ai_usage')
+          .select('estimated_cost_sar')
+          .gte('created_at', monthStart2.toISOString())
+
+        const currentCost = (costData || []).reduce((sum: number, r: any) => sum + (parseFloat(r.estimated_cost_sar) || 0), 0)
+
+        if (currentCost < budgetCap) {
+          // Generate personalized nudge for each student
+          let nudgeCount = 0
+          for (const s of inactiveStudents) {
+            const hoursInactive = Math.round((Date.now() - new Date(s.last_active_at).getTime()) / (1000 * 60 * 60))
+            const name = (s as any).profiles?.full_name?.split(' ')[0] || 'طالب'
+
+            try {
+              const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
+                method: 'POST',
+                headers: {
+                  'x-api-key': CLAUDE_API_KEY,
+                  'anthropic-version': '2023-06-01',
+                  'content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                  model: 'claude-sonnet-4-20250514',
+                  max_tokens: 100,
+                  system: `Generate a short, personalized Arabic reminder (1 sentence) for ${name}, an English student inactive for ${hoursInactive}h. Streak: ${s.current_streak}d, XP: ${s.xp_total}. Be warm, encouraging, not pushy. Just the message text, nothing else.`,
+                  messages: [{ role: 'user', content: 'Generate nudge' }],
+                }),
+              })
+
+              if (claudeRes.ok) {
+                const data = await claudeRes.json()
+                const nudgeText = data.content?.[0]?.text || ''
+                const tokens = (data.usage?.input_tokens || 0) + (data.usage?.output_tokens || 0)
+                const cost = (tokens * 5 / 1_000_000) * 3.75
+
+                if (nudgeText) {
+                  await supabase.from('notifications').insert({
+                    user_id: s.id,
+                    type: 'system',
+                    title: 'وحشتنا! 💙',
+                    body: nudgeText,
+                    data: { link: '/student' },
+                  })
+
+                  await supabase.from('ai_usage').insert({
+                    type: 'smart_nudge',
+                    student_id: s.id,
+                    model: 'claude-sonnet',
+                    input_tokens: data.usage?.input_tokens || 0,
+                    output_tokens: data.usage?.output_tokens || 0,
+                    estimated_cost_sar: cost.toFixed(4),
+                  })
+                  nudgeCount++
+                }
+              }
+            } catch (e) {
+              // Skip individual nudge failures
+            }
+          }
+          if (nudgeCount > 0) results.push(`Smart nudges sent: ${nudgeCount}`)
+
+          // Alert trainers for 48h+ inactive students
+          const fortyEightHoursAgo = new Date(Date.now() - 48 * 60 * 60 * 1000).toISOString()
+          const longInactive = inactiveStudents.filter(s => s.last_active_at < fortyEightHoursAgo)
+
+          for (const s of longInactive) {
+            const { data: studentGroup } = await supabase
+              .from('students')
+              .select('group_id, groups(trainer_id)')
+              .eq('id', s.id)
+              .single()
+
+            if (studentGroup?.groups?.trainer_id) {
+              const name = (s as any).profiles?.full_name || 'طالب'
+              await supabase.from('notifications').insert({
+                user_id: studentGroup.groups.trainer_id,
+                type: 'system',
+                title: 'تنبيه: طالب غير نشط ⚠️',
+                body: `${name} غير نشط منذ أكثر من 48 ساعة`,
+                data: { link: '/trainer/students', student_id: s.id },
+              })
+            }
+          }
+        }
+      }
+    }
+
     return new Response(
       JSON.stringify({ success: true, results }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
