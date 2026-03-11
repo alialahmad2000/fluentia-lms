@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  House, FileText, Calendar, BarChart3, Mic, BookOpen, User, Trophy, Heart, Activity,
+  House, FileText, Calendar, BarChart3, Mic, BookOpen, User, Trophy, Heart, Activity, Target,
   Users, Briefcase, CreditCard, Settings, LayoutDashboard,
   LogOut, X, ChevronLeft, ClipboardCheck, StickyNote, Zap, UserCheck, MessageSquare,
 } from 'lucide-react'
@@ -18,6 +18,7 @@ const NAV_ITEMS = {
     { to: '/student/leaderboard', label: 'المتصدرين',      icon: Trophy },
     { to: '/student/recognition', label: 'تقدير الزملاء',  icon: Heart },
     { to: '/student/activity',    label: 'نشاط المجموعة',  icon: Activity },
+    { to: '/student/challenges',  label: 'التحديات',       icon: Target },
     { to: '/student/profile',     label: 'الملف الشخصي',   icon: User },
   ],
   trainer: [
@@ -30,6 +31,7 @@ const NAV_ITEMS = {
     { to: '/trainer/students',     label: 'ملفات الطلاب',   icon: User },
     { to: '/trainer/schedule',     label: 'الجدول',         icon: Calendar },
     { to: '/trainer/notes',        label: 'ملاحظات الحصص',  icon: StickyNote },
+    { to: '/trainer/challenges',   label: 'التحديات',        icon: Target },
     { to: '/trainer/library',      label: 'المكتبة',        icon: BookOpen },
   ],
   admin: [
@@ -42,6 +44,7 @@ const NAV_ITEMS = {
     { to: '/trainer/students',   label: 'ملفات الطلاب',   icon: User, section: 'trainer' },
     { to: '/trainer/schedule',    label: 'الجدول',         icon: Calendar, section: 'trainer' },
     { to: '/trainer/notes',       label: 'ملاحظات الحصص',  icon: StickyNote, section: 'trainer' },
+    { to: '/trainer/challenges',  label: 'التحديات',        icon: Target, section: 'trainer' },
     { to: '/trainer/library',     label: 'المكتبة',        icon: BookOpen, section: 'trainer' },
     { to: '/admin/users',         label: 'المستخدمين',     icon: Users },
     { to: '/admin/groups',        label: 'المجموعات',      icon: Users },

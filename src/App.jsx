@@ -14,6 +14,7 @@ import StudentLibrary from './pages/student/StudentLibrary'
 import StudentLeaderboard from './pages/student/StudentLeaderboard'
 import StudentPeerRecognition from './pages/student/StudentPeerRecognition'
 import StudentActivityFeed from './pages/student/StudentActivityFeed'
+import StudentChallenges from './pages/student/StudentChallenges'
 import TrainerDashboard from './pages/trainer/TrainerDashboard'
 import TrainerAssignments from './pages/trainer/TrainerAssignments'
 import TrainerGrading from './pages/trainer/TrainerGrading'
@@ -24,6 +25,7 @@ import TrainerQuickPoints from './pages/trainer/TrainerQuickPoints'
 import TrainerAttendance from './pages/trainer/TrainerAttendance'
 import TrainerQuickNotes from './pages/trainer/TrainerQuickNotes'
 import TrainerStudentView from './pages/trainer/TrainerStudentView'
+import TrainerChallenges from './pages/trainer/TrainerChallenges'
 import AdminDashboard from './pages/admin/AdminDashboard'
 import AdminStudents from './pages/admin/AdminStudents'
 import AdminGroups from './pages/admin/AdminGroups'
@@ -126,6 +128,7 @@ export default function App() {
             <Route path="/student/leaderboard" element={<StudentLeaderboard />} />
             <Route path="/student/recognition" element={<StudentPeerRecognition />} />
             <Route path="/student/activity" element={<StudentActivityFeed />} />
+            <Route path="/student/challenges" element={<StudentChallenges />} />
             <Route path="/student/profile" element={<StudentProfile />} />
           </Route>
         </Route>
@@ -143,6 +146,7 @@ export default function App() {
             <Route path="/trainer/attendance" element={<TrainerAttendance />} />
             <Route path="/trainer/student-notes" element={<TrainerQuickNotes />} />
             <Route path="/trainer/students" element={<TrainerStudentView />} />
+            <Route path="/trainer/challenges" element={<TrainerChallenges />} />
           </Route>
         </Route>
 
