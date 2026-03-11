@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  House, FileText, Calendar, BarChart3, Mic, BookOpen, User, Trophy,
+  House, FileText, Calendar, BarChart3, Mic, BookOpen, User, Trophy, Heart,
   Users, Briefcase, CreditCard, Settings, LayoutDashboard,
   LogOut, X, ChevronLeft, ClipboardCheck, StickyNote, Zap, UserCheck, MessageSquare,
 } from 'lucide-react'
@@ -16,6 +16,7 @@ const NAV_ITEMS = {
     { to: '/student/speaking',    label: 'المحادثة',       icon: Mic },
     { to: '/student/library',     label: 'المكتبة',        icon: BookOpen },
     { to: '/student/leaderboard', label: 'المتصدرين',      icon: Trophy },
+    { to: '/student/recognition', label: 'تقدير الزملاء',  icon: Heart },
     { to: '/student/profile',     label: 'الملف الشخصي',   icon: User },
   ],
   trainer: [
