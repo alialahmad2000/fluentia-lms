@@ -1,61 +1,72 @@
-import { useEffect } from 'react'
+import { useEffect, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom'
 import { useAuthStore } from './stores/authStore'
 import LoginPage from './pages/public/LoginPage'
 import LayoutShell from './components/layout/LayoutShell'
 import OnboardingModal from './components/onboarding/OnboardingModal'
 import GamificationProvider from './components/gamification/GamificationProvider'
-import StudentDashboard from './pages/student/StudentDashboard'
-import StudentAssignments from './pages/student/StudentAssignments'
-import StudentGrades from './pages/student/StudentGrades'
-import StudentSchedule from './pages/student/StudentSchedule'
-import StudentProfile from './pages/student/StudentProfile'
-import StudentSpeaking from './pages/student/StudentSpeaking'
-import StudentLibrary from './pages/student/StudentLibrary'
-import StudentLeaderboard from './pages/student/StudentLeaderboard'
-import StudentPeerRecognition from './pages/student/StudentPeerRecognition'
-import StudentActivityFeed from './pages/student/StudentActivityFeed'
-import StudentChallenges from './pages/student/StudentChallenges'
-import StudentGroupChat from './pages/student/StudentGroupChat'
-import StudentMessages from './pages/student/StudentMessages'
-import TrainerDashboard from './pages/trainer/TrainerDashboard'
-import TrainerAssignments from './pages/trainer/TrainerAssignments'
-import TrainerGrading from './pages/trainer/TrainerGrading'
-import TrainerSchedule from './pages/trainer/TrainerSchedule'
-import TrainerNotes from './pages/trainer/TrainerNotes'
-import TrainerLibrary from './pages/trainer/TrainerLibrary'
-import TrainerQuickPoints from './pages/trainer/TrainerQuickPoints'
-import TrainerAttendance from './pages/trainer/TrainerAttendance'
-import TrainerQuickNotes from './pages/trainer/TrainerQuickNotes'
-import TrainerStudentView from './pages/trainer/TrainerStudentView'
-import TrainerChallenges from './pages/trainer/TrainerChallenges'
-import TrainerTeams from './pages/trainer/TrainerTeams'
-import TrainerGroupChat from './pages/trainer/TrainerGroupChat'
-import TrainerAIAssistant from './pages/trainer/TrainerAIAssistant'
-import TrainerProgressReports from './pages/trainer/TrainerProgressReports'
-import StudentChatbot from './pages/student/StudentChatbot'
-import StudentVocabulary from './pages/student/StudentVocabulary'
-import AdminDashboard from './pages/admin/AdminDashboard'
-import AdminStudents from './pages/admin/AdminStudents'
-import AdminGroups from './pages/admin/AdminGroups'
-import AdminTrainers from './pages/admin/AdminTrainers'
-import AdminPayments from './pages/admin/AdminPayments'
-import AdminReports from './pages/admin/AdminReports'
-import AdminSettings from './pages/admin/AdminSettings'
 
-// ─── Placeholder Page ────────────────────────────────────────
-function PlaceholderPage({ title }) {
+// ─── Lazy-loaded Pages ───────────────────────────────────────
+const StudentDashboard = lazy(() => import('./pages/student/StudentDashboard'))
+const StudentAssignments = lazy(() => import('./pages/student/StudentAssignments'))
+const StudentGrades = lazy(() => import('./pages/student/StudentGrades'))
+const StudentSchedule = lazy(() => import('./pages/student/StudentSchedule'))
+const StudentProfile = lazy(() => import('./pages/student/StudentProfile'))
+const StudentSpeaking = lazy(() => import('./pages/student/StudentSpeaking'))
+const StudentLibrary = lazy(() => import('./pages/student/StudentLibrary'))
+const StudentLeaderboard = lazy(() => import('./pages/student/StudentLeaderboard'))
+const StudentPeerRecognition = lazy(() => import('./pages/student/StudentPeerRecognition'))
+const StudentActivityFeed = lazy(() => import('./pages/student/StudentActivityFeed'))
+const StudentChallenges = lazy(() => import('./pages/student/StudentChallenges'))
+const StudentGroupChat = lazy(() => import('./pages/student/StudentGroupChat'))
+const StudentMessages = lazy(() => import('./pages/student/StudentMessages'))
+const StudentChatbot = lazy(() => import('./pages/student/StudentChatbot'))
+const StudentVocabulary = lazy(() => import('./pages/student/StudentVocabulary'))
+const StudentBilling = lazy(() => import('./pages/student/StudentBilling'))
+
+const TrainerDashboard = lazy(() => import('./pages/trainer/TrainerDashboard'))
+const TrainerAssignments = lazy(() => import('./pages/trainer/TrainerAssignments'))
+const TrainerGrading = lazy(() => import('./pages/trainer/TrainerGrading'))
+const TrainerSchedule = lazy(() => import('./pages/trainer/TrainerSchedule'))
+const TrainerNotes = lazy(() => import('./pages/trainer/TrainerNotes'))
+const TrainerLibrary = lazy(() => import('./pages/trainer/TrainerLibrary'))
+const TrainerQuickPoints = lazy(() => import('./pages/trainer/TrainerQuickPoints'))
+const TrainerAttendance = lazy(() => import('./pages/trainer/TrainerAttendance'))
+const TrainerQuickNotes = lazy(() => import('./pages/trainer/TrainerQuickNotes'))
+const TrainerStudentView = lazy(() => import('./pages/trainer/TrainerStudentView'))
+const TrainerChallenges = lazy(() => import('./pages/trainer/TrainerChallenges'))
+const TrainerTeams = lazy(() => import('./pages/trainer/TrainerTeams'))
+const TrainerGroupChat = lazy(() => import('./pages/trainer/TrainerGroupChat'))
+const TrainerAIAssistant = lazy(() => import('./pages/trainer/TrainerAIAssistant'))
+const TrainerProgressReports = lazy(() => import('./pages/trainer/TrainerProgressReports'))
+
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'))
+const AdminStudents = lazy(() => import('./pages/admin/AdminStudents'))
+const AdminGroups = lazy(() => import('./pages/admin/AdminGroups'))
+const AdminTrainers = lazy(() => import('./pages/admin/AdminTrainers'))
+const AdminPayments = lazy(() => import('./pages/admin/AdminPayments'))
+const AdminReports = lazy(() => import('./pages/admin/AdminReports'))
+const AdminSettings = lazy(() => import('./pages/admin/AdminSettings'))
+
+const ForgotPassword = lazy(() => import('./pages/public/ForgotPassword'))
+
+// ─── Page Loading Skeleton ───────────────────────────────────
+function PageSkeleton() {
   return (
-    <div className="flex items-center justify-center min-h-[60vh]">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold mb-2">{title}</h1>
-        <p className="text-muted">قريباً...</p>
+    <div className="space-y-6 p-2">
+      <div className="skeleton h-8 w-48" />
+      <div className="skeleton h-4 w-64" />
+      <div className="grid grid-cols-3 gap-4">
+        <div className="skeleton h-24" />
+        <div className="skeleton h-24" />
+        <div className="skeleton h-24" />
       </div>
+      <div className="skeleton h-64 w-full" />
     </div>
   )
 }
 
-// ─── Loading Skeleton ────────────────────────────────────────
+// ─── Full-screen Loading Skeleton ────────────────────────────
 function LoadingSkeleton() {
   return (
     <div className="min-h-screen bg-darkest flex items-center justify-center p-8">
@@ -114,76 +125,75 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      {/* Onboarding modal for new students */}
       <OnboardingModal />
-      {/* Achievement unlock + Level-up celebrations */}
       <GamificationProvider />
 
       <Routes>
-        {/* Role-based redirect from root */}
         <Route path="/" element={<RoleRedirect />} />
 
         {/* Public routes */}
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/test" element={<PlaceholderPage title="اختبار تحديد المستوى" />} />
+        <Route path="/forgot-password" element={
+          <Suspense fallback={<LoadingSkeleton />}><ForgotPassword /></Suspense>
+        } />
 
         {/* Student routes */}
         <Route element={<ProtectedRoute allowedRoles={['student']} />}>
           <Route element={<LayoutShell />}>
-            <Route path="/student" element={<StudentDashboard />} />
-            <Route path="/student/assignments" element={<StudentAssignments />} />
-            <Route path="/student/schedule" element={<StudentSchedule />} />
-            <Route path="/student/grades" element={<StudentGrades />} />
-            <Route path="/student/speaking" element={<StudentSpeaking />} />
-            <Route path="/student/library" element={<StudentLibrary />} />
-            <Route path="/student/leaderboard" element={<StudentLeaderboard />} />
-            <Route path="/student/recognition" element={<StudentPeerRecognition />} />
-            <Route path="/student/activity" element={<StudentActivityFeed />} />
-            <Route path="/student/challenges" element={<StudentChallenges />} />
-            <Route path="/student/chat" element={<StudentGroupChat />} />
-            <Route path="/student/messages" element={<StudentMessages />} />
-            <Route path="/student/ai-chat" element={<StudentChatbot />} />
-            <Route path="/student/vocabulary" element={<StudentVocabulary />} />
-            <Route path="/student/profile" element={<StudentProfile />} />
+            <Route path="/student" element={<Suspense fallback={<PageSkeleton />}><StudentDashboard /></Suspense>} />
+            <Route path="/student/assignments" element={<Suspense fallback={<PageSkeleton />}><StudentAssignments /></Suspense>} />
+            <Route path="/student/schedule" element={<Suspense fallback={<PageSkeleton />}><StudentSchedule /></Suspense>} />
+            <Route path="/student/grades" element={<Suspense fallback={<PageSkeleton />}><StudentGrades /></Suspense>} />
+            <Route path="/student/speaking" element={<Suspense fallback={<PageSkeleton />}><StudentSpeaking /></Suspense>} />
+            <Route path="/student/library" element={<Suspense fallback={<PageSkeleton />}><StudentLibrary /></Suspense>} />
+            <Route path="/student/leaderboard" element={<Suspense fallback={<PageSkeleton />}><StudentLeaderboard /></Suspense>} />
+            <Route path="/student/recognition" element={<Suspense fallback={<PageSkeleton />}><StudentPeerRecognition /></Suspense>} />
+            <Route path="/student/activity" element={<Suspense fallback={<PageSkeleton />}><StudentActivityFeed /></Suspense>} />
+            <Route path="/student/challenges" element={<Suspense fallback={<PageSkeleton />}><StudentChallenges /></Suspense>} />
+            <Route path="/student/chat" element={<Suspense fallback={<PageSkeleton />}><StudentGroupChat /></Suspense>} />
+            <Route path="/student/messages" element={<Suspense fallback={<PageSkeleton />}><StudentMessages /></Suspense>} />
+            <Route path="/student/ai-chat" element={<Suspense fallback={<PageSkeleton />}><StudentChatbot /></Suspense>} />
+            <Route path="/student/vocabulary" element={<Suspense fallback={<PageSkeleton />}><StudentVocabulary /></Suspense>} />
+            <Route path="/student/billing" element={<Suspense fallback={<PageSkeleton />}><StudentBilling /></Suspense>} />
+            <Route path="/student/profile" element={<Suspense fallback={<PageSkeleton />}><StudentProfile /></Suspense>} />
           </Route>
         </Route>
 
         {/* Trainer routes */}
         <Route element={<ProtectedRoute allowedRoles={['trainer', 'admin']} />}>
           <Route element={<LayoutShell />}>
-            <Route path="/trainer" element={<TrainerDashboard />} />
-            <Route path="/trainer/assignments" element={<TrainerAssignments />} />
-            <Route path="/trainer/writing" element={<TrainerGrading />} />
-            <Route path="/trainer/schedule" element={<TrainerSchedule />} />
-            <Route path="/trainer/notes" element={<TrainerNotes />} />
-            <Route path="/trainer/library" element={<TrainerLibrary />} />
-            <Route path="/trainer/points" element={<TrainerQuickPoints />} />
-            <Route path="/trainer/attendance" element={<TrainerAttendance />} />
-            <Route path="/trainer/student-notes" element={<TrainerQuickNotes />} />
-            <Route path="/trainer/students" element={<TrainerStudentView />} />
-            <Route path="/trainer/challenges" element={<TrainerChallenges />} />
-            <Route path="/trainer/teams" element={<TrainerTeams />} />
-            <Route path="/trainer/chat" element={<TrainerGroupChat />} />
-            <Route path="/trainer/messages" element={<StudentMessages />} />
-            <Route path="/trainer/ai-assistant" element={<TrainerAIAssistant />} />
-            <Route path="/trainer/reports" element={<TrainerProgressReports />} />
+            <Route path="/trainer" element={<Suspense fallback={<PageSkeleton />}><TrainerDashboard /></Suspense>} />
+            <Route path="/trainer/assignments" element={<Suspense fallback={<PageSkeleton />}><TrainerAssignments /></Suspense>} />
+            <Route path="/trainer/writing" element={<Suspense fallback={<PageSkeleton />}><TrainerGrading /></Suspense>} />
+            <Route path="/trainer/schedule" element={<Suspense fallback={<PageSkeleton />}><TrainerSchedule /></Suspense>} />
+            <Route path="/trainer/notes" element={<Suspense fallback={<PageSkeleton />}><TrainerNotes /></Suspense>} />
+            <Route path="/trainer/library" element={<Suspense fallback={<PageSkeleton />}><TrainerLibrary /></Suspense>} />
+            <Route path="/trainer/points" element={<Suspense fallback={<PageSkeleton />}><TrainerQuickPoints /></Suspense>} />
+            <Route path="/trainer/attendance" element={<Suspense fallback={<PageSkeleton />}><TrainerAttendance /></Suspense>} />
+            <Route path="/trainer/student-notes" element={<Suspense fallback={<PageSkeleton />}><TrainerQuickNotes /></Suspense>} />
+            <Route path="/trainer/students" element={<Suspense fallback={<PageSkeleton />}><TrainerStudentView /></Suspense>} />
+            <Route path="/trainer/challenges" element={<Suspense fallback={<PageSkeleton />}><TrainerChallenges /></Suspense>} />
+            <Route path="/trainer/teams" element={<Suspense fallback={<PageSkeleton />}><TrainerTeams /></Suspense>} />
+            <Route path="/trainer/chat" element={<Suspense fallback={<PageSkeleton />}><TrainerGroupChat /></Suspense>} />
+            <Route path="/trainer/messages" element={<Suspense fallback={<PageSkeleton />}><StudentMessages /></Suspense>} />
+            <Route path="/trainer/ai-assistant" element={<Suspense fallback={<PageSkeleton />}><TrainerAIAssistant /></Suspense>} />
+            <Route path="/trainer/reports" element={<Suspense fallback={<PageSkeleton />}><TrainerProgressReports /></Suspense>} />
           </Route>
         </Route>
 
         {/* Admin routes */}
         <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
           <Route element={<LayoutShell />}>
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/admin/users" element={<AdminStudents />} />
-            <Route path="/admin/groups" element={<AdminGroups />} />
-            <Route path="/admin/trainers" element={<AdminTrainers />} />
-            <Route path="/admin/packages" element={<AdminPayments />} />
-            <Route path="/admin/reports" element={<AdminReports />} />
-            <Route path="/admin/settings" element={<AdminSettings />} />
+            <Route path="/admin" element={<Suspense fallback={<PageSkeleton />}><AdminDashboard /></Suspense>} />
+            <Route path="/admin/users" element={<Suspense fallback={<PageSkeleton />}><AdminStudents /></Suspense>} />
+            <Route path="/admin/groups" element={<Suspense fallback={<PageSkeleton />}><AdminGroups /></Suspense>} />
+            <Route path="/admin/trainers" element={<Suspense fallback={<PageSkeleton />}><AdminTrainers /></Suspense>} />
+            <Route path="/admin/packages" element={<Suspense fallback={<PageSkeleton />}><AdminPayments /></Suspense>} />
+            <Route path="/admin/reports" element={<Suspense fallback={<PageSkeleton />}><AdminReports /></Suspense>} />
+            <Route path="/admin/settings" element={<Suspense fallback={<PageSkeleton />}><AdminSettings /></Suspense>} />
           </Route>
         </Route>
 
-        {/* Catch-all */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

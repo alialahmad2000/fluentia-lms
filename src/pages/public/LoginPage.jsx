@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Eye, EyeOff, LogIn, Loader2 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
@@ -156,6 +156,12 @@ export default function LoginPage() {
               <span>{loading ? 'جاري الدخول...' : 'دخول'}</span>
             </button>
           </form>
+
+          <div className="mt-4 text-center">
+            <Link to="/forgot-password" className="text-sm text-sky-400 hover:text-sky-300 transition-colors">
+              نسيت كلمة المرور؟
+            </Link>
+          </div>
         </div>
 
         {/* Footer */}

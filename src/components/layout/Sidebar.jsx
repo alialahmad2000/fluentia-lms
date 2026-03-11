@@ -63,6 +63,13 @@ const NAV_GROUPS = {
         { to: '/student/vocabulary', label: 'بنك المفردات', icon: Brain },
       ],
     },
+    {
+      key: 'account',
+      label: 'الحساب',
+      items: [
+        { to: '/student/billing', label: 'الفواتير', icon: CreditCard },
+      ],
+    },
   ],
   trainer: [
     {

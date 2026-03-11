@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { Flame, Zap, Trophy, BookOpen, Calendar, ArrowLeft } from 'lucide-react'
+import { Flame, Zap, Trophy, BookOpen, Calendar, ArrowLeft, CreditCard } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
-import { getGreeting, getArabicDay, formatTime } from '../../utils/dateHelpers'
-import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/constants'
+import { getGreeting, getArabicDay, formatTime, formatDateAr } from '../../utils/dateHelpers'
+import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES, PAYMENT_STATUS } from '../../lib/constants'
 import DailyChallenge from '../../components/gamification/DailyChallenge'
 import MysteryBox from '../../components/gamification/MysteryBox'
 import AIContentRecommendations from '../../components/ai/AIContentRecommendations'
@@ -54,6 +54,24 @@ export default function StudentDashboard() {
         .order('created_at', { ascending: false })
         .limit(5)
       return data || []
+    },
+    enabled: !!profile?.id,
+  })
+
+  // Payment status
+  const { data: nextPayment } = useQuery({
+    queryKey: ['student-next-payment'],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('payments')
+        .select('id, amount, status, period_end')
+        .eq('student_id', profile?.id)
+        .in('status', ['pending', 'overdue'])
+        .is('deleted_at', null)
+        .order('period_end', { ascending: true })
+        .limit(1)
+        .single()
+      return data
     },
     enabled: !!profile?.id,
   })
@@ -230,6 +248,39 @@ export default function StudentDashboard() {
           )}
         </motion.div>
       </div>
+
+      {/* Payment status */}
+      {nextPayment && (
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="glass-card p-5"
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <CreditCard size={18} className="text-gold-400" />
+              <h3 className="font-medium text-white">الدفعة القادمة</h3>
+            </div>
+            <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${
+              nextPayment.status === 'overdue'
+                ? 'bg-red-500/10 text-red-400 border border-red-500/20'
+                : 'bg-gold-500/10 text-gold-400 border border-gold-500/20'
+            }`}>
+              {nextPayment.status === 'overdue' ? 'متأخرة' : 'قيد الانتظار'}
+            </span>
+          </div>
+          <div className="mt-3 flex items-baseline gap-2">
+            <p className="text-2xl font-bold text-white">{nextPayment.amount} ر.س</p>
+            {nextPayment.period_end && (
+              <p className="text-xs text-muted">حتى {formatDateAr(nextPayment.period_end)}</p>
+            )}
+          </div>
+          <a href="/student/billing" className="text-xs text-sky-400 hover:text-sky-300 mt-2 inline-block">
+            عرض تفاصيل الفواتير ←
+          </a>
+        </motion.div>
+      )}
 
       {/* AI Content Recommendations */}
       <AIContentRecommendations />

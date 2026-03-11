@@ -199,7 +199,7 @@ export default function StudentChatbot() {
             />
             <button
               type="submit"
-              disabled={!input.trim() || sending}
+              disabled={!input.trim() || sending || remaining === 0}
               className="btn-primary p-2.5 rounded-xl"
             >
               <Send size={18} />

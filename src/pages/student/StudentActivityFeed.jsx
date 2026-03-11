@@ -43,7 +43,7 @@ export default function StudentActivityFeed() {
       }))
     },
     enabled: !!groupId,
-    refetchInterval: 30000, // refetch every 30s
+    // Real-time subscription handles updates — no polling needed
   })
 
   // Subscribe to real-time updates

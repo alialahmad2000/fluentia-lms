@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { Mic, Square, Play, Pause, Trash2, Loader2 } from 'lucide-react'
+import { Mic, Square, Play, Pause, Trash2 } from 'lucide-react'
+
+const MAX_DURATION = 180 // 3 minutes max
 
 // Safari/iOS uses audio/mp4, everything else uses audio/webm
 function getSupportedMimeType() {
@@ -40,16 +42,52 @@ export default function VoiceRecorder({ onRecordingComplete, existingUrl }) {
   const analyserRef = useRef(null)
   const animFrameRef = useRef(null)
   const streamRef = useRef(null)
+  const audioContextRef = useRef(null)
+  const durationRef = useRef(0)
+  const mimeTypeRef = useRef('')
 
-  // Cleanup on unmount
+  // Cleanup on unmount — auto-save if recording is in progress
   useEffect(() => {
     return () => {
       clearInterval(timerRef.current)
       cancelAnimationFrame(animFrameRef.current)
+      // If still recording on unmount, stop and save
+      if (mediaRecorderRef.current?.state === 'recording') {
+        mediaRecorderRef.current.stop()
+      }
       if (streamRef.current) {
         streamRef.current.getTracks().forEach(t => t.stop())
       }
+      if (audioContextRef.current?.state !== 'closed') {
+        audioContextRef.current?.close().catch(() => {})
+      }
       if (audioUrl && !existingUrl) URL.revokeObjectURL(audioUrl)
+    }
+  }, [])
+
+  // Handle visibility change (tab switch, lock screen on iOS)
+  useEffect(() => {
+    function handleVisibilityChange() {
+      if (document.hidden && mediaRecorderRef.current?.state === 'recording') {
+        // Auto-stop and save when tab/app goes to background
+        stopRecording()
+      }
+    }
+
+    // Handle iOS Safari audio interruption (phone call, etc.)
+    function handlePause() {
+      if (mediaRecorderRef.current?.state === 'recording') {
+        stopRecording()
+      }
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    // iOS fires 'pause' on audio interruption
+    window.addEventListener('blur', handlePause)
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+      window.removeEventListener('blur', handlePause)
     }
   }, [])
 
@@ -89,6 +127,17 @@ export default function VoiceRecorder({ onRecordingComplete, existingUrl }) {
     draw()
   }, [])
 
+  function finishRecording(blob, finalDuration) {
+    const mimeType = mimeTypeRef.current
+    const url = URL.createObjectURL(blob)
+    setAudioBlob(blob)
+    setAudioUrl(url)
+    setState('recorded')
+
+    const ext = getFileExtension(mimeType)
+    onRecordingComplete({ blob, mimeType, ext, duration: finalDuration })
+  }
+
   async function startRecording() {
     setError('')
     const mimeType = getSupportedMimeType()
@@ -96,6 +145,7 @@ export default function VoiceRecorder({ onRecordingComplete, existingUrl }) {
       setError('متصفحك لا يدعم التسجيل الصوتي')
       return
     }
+    mimeTypeRef.current = mimeType
 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
@@ -103,6 +153,7 @@ export default function VoiceRecorder({ onRecordingComplete, existingUrl }) {
 
       // Setup analyser for waveform
       const audioContext = new (window.AudioContext || window.webkitAudioContext)()
+      audioContextRef.current = audioContext
       const source = audioContext.createMediaStreamSource(stream)
       const analyser = audioContext.createAnalyser()
       analyser.fftSize = 2048
@@ -119,30 +170,43 @@ export default function VoiceRecorder({ onRecordingComplete, existingUrl }) {
 
       recorder.onstop = () => {
         const blob = new Blob(chunksRef.current, { type: mimeType })
-        const url = URL.createObjectURL(blob)
-        setAudioBlob(blob)
-        setAudioUrl(url)
-        setState('recorded')
-
-        // Notify parent
-        const ext = getFileExtension(mimeType)
-        onRecordingComplete({ blob, mimeType, ext, duration })
+        const finalDuration = durationRef.current
+        finishRecording(blob, finalDuration)
 
         // Cleanup stream
         stream.getTracks().forEach(t => t.stop())
         streamRef.current = null
         cancelAnimationFrame(animFrameRef.current)
-        audioContext.close()
+        audioContext.close().catch(() => {})
       }
+
+      // Handle stream ending unexpectedly (mic disconnected)
+      stream.getAudioTracks()[0].addEventListener('ended', () => {
+        if (mediaRecorderRef.current?.state === 'recording') {
+          setError('تم قطع التسجيل — تم حفظ ما سُجّل')
+          stopRecording()
+        }
+      })
 
       recorder.start(100) // collect data every 100ms
       setState('recording')
       setDuration(0)
+      durationRef.current = 0
 
-      // Timer
+      // Timer with max duration enforcement
       const startTime = Date.now()
       timerRef.current = setInterval(() => {
-        setDuration(Math.floor((Date.now() - startTime) / 1000))
+        const elapsed = Math.floor((Date.now() - startTime) / 1000)
+        setDuration(elapsed)
+        durationRef.current = elapsed
+
+        // Auto-stop at max duration
+        if (elapsed >= MAX_DURATION) {
+          clearInterval(timerRef.current)
+          if (mediaRecorderRef.current?.state === 'recording') {
+            mediaRecorderRef.current.stop()
+          }
+        }
       }, 200)
 
       // Waveform
@@ -152,8 +216,10 @@ export default function VoiceRecorder({ onRecordingComplete, existingUrl }) {
         setError('السماح بالوصول للمايكروفون مطلوب')
       } else if (err.name === 'NotFoundError') {
         setError('لم يتم العثور على مايكروفون')
+      } else if (err.name === 'NotReadableError') {
+        setError('المايكروفون مستخدم من تطبيق آخر')
       } else {
-        setError('خطأ في التسجيل: ' + err.message)
+        setError('خطأ في التسجيل — حاول مرة أخرى')
       }
     }
   }
@@ -193,11 +259,15 @@ export default function VoiceRecorder({ onRecordingComplete, existingUrl }) {
     return `${m}:${String(s).padStart(2, '0')}`
   }
 
+  const remainingTime = MAX_DURATION - duration
+  const isNearLimit = state === 'recording' && remainingTime <= 30
+
   return (
     <div className="space-y-3">
       <label className="flex items-center gap-1 text-sm text-muted">
         <Mic size={14} />
         تسجيل صوتي
+        <span className="text-[10px] text-muted/60 mr-1">(حد أقصى {MAX_DURATION / 60} دقائق)</span>
       </label>
 
       {/* Waveform canvas — visible during recording */}
@@ -233,7 +303,14 @@ export default function VoiceRecorder({ onRecordingComplete, existingUrl }) {
               <Square size={14} fill="currentColor" />
               <span>إيقاف</span>
             </button>
-            <span className="text-red-400 text-sm font-mono tabular-nums">{formatTime(duration)}</span>
+            <span className={`text-sm font-mono tabular-nums ${isNearLimit ? 'text-red-400' : 'text-red-400'}`}>
+              {formatTime(duration)}
+            </span>
+            {isNearLimit && (
+              <span className="text-[10px] text-red-400 animate-pulse">
+                متبقي {formatTime(remainingTime)}
+              </span>
+            )}
           </>
         )}
 

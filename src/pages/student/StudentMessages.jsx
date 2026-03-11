@@ -279,8 +279,8 @@ export default function StudentMessages() {
                 {messages?.map((msg) => {
                   const isMe = msg.from_id === profile?.id
                   return (
-                    <div key={msg.id} className={`flex ${isMe ? 'justify-start' : 'justify-end'}`}>
-                      <div className={`max-w-[75%] ${isMe ? '' : ''}`}>
+                    <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
+                      <div className="max-w-[75%]">
                         <div className={`rounded-2xl px-3.5 py-2 text-sm ${
                           isMe
                             ? 'bg-sky-500/10 border border-sky-500/20 text-white'
@@ -288,7 +288,7 @@ export default function StudentMessages() {
                         }`}>
                           <p className="whitespace-pre-wrap break-words">{msg.content}</p>
                         </div>
-                        <div className={`flex items-center gap-1 mt-0.5 ${isMe ? '' : 'justify-end'}`}>
+                        <div className={`flex items-center gap-1 mt-0.5 ${isMe ? 'justify-end' : ''}`}>
                           <span className="text-[10px] text-muted">{timeAgo(msg.created_at)}</span>
                           {isMe && (
                             msg.read_at
