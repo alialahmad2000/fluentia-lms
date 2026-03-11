@@ -1,9 +1,9 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  House, FileText, Calendar, BarChart3, PenTool, User,
-  Users, UserCheck, Briefcase, Package, Settings, LayoutDashboard,
-  LogOut, X, ChevronLeft, ClipboardCheck,
+  House, FileText, Calendar, BarChart3, Mic, BookOpen, User,
+  Users, Briefcase, Package, Settings, LayoutDashboard,
+  LogOut, X, ChevronLeft, ClipboardCheck, StickyNote,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 
@@ -13,25 +13,25 @@ const NAV_ITEMS = {
     { to: '/student/assignments', label: 'الواجبات',       icon: FileText },
     { to: '/student/schedule',    label: 'الجدول',         icon: Calendar },
     { to: '/student/grades',      label: 'الدرجات',        icon: BarChart3 },
-    { to: '/student/writing',     label: 'الكتابة',        icon: PenTool },
+    { to: '/student/speaking',    label: 'المحادثة',       icon: Mic },
+    { to: '/student/library',     label: 'المكتبة',        icon: BookOpen },
     { to: '/student/profile',     label: 'الملف الشخصي',   icon: User },
   ],
   trainer: [
     { to: '/trainer',             label: 'الرئيسية',       icon: House },
-    { to: '/trainer/groups',      label: 'المجموعات',      icon: Users },
     { to: '/trainer/assignments', label: 'الواجبات',       icon: FileText },
-    { to: '/trainer/students',    label: 'الطلاب',         icon: UserCheck },
+    { to: '/trainer/writing',     label: 'التقييم',        icon: ClipboardCheck },
     { to: '/trainer/schedule',    label: 'الجدول',         icon: Calendar },
-    { to: '/trainer/writing',     label: 'تصحيح الكتابة',  icon: PenTool },
+    { to: '/trainer/notes',       label: 'ملاحظات الحصص',  icon: StickyNote },
+    { to: '/trainer/library',     label: 'المكتبة',        icon: BookOpen },
   ],
   admin: [
-    // Admin dashboard
     { to: '/admin',               label: 'لوحة التحكم',    icon: LayoutDashboard },
-    // Trainer capabilities (admin has all trainer features)
     { to: '/trainer/assignments', label: 'الواجبات',       icon: FileText, section: 'trainer' },
     { to: '/trainer/writing',     label: 'التقييم',        icon: ClipboardCheck, section: 'trainer' },
     { to: '/trainer/schedule',    label: 'الجدول',         icon: Calendar, section: 'trainer' },
-    // Admin-specific
+    { to: '/trainer/notes',       label: 'ملاحظات الحصص',  icon: StickyNote, section: 'trainer' },
+    { to: '/trainer/library',     label: 'المكتبة',        icon: BookOpen, section: 'trainer' },
     { to: '/admin/users',         label: 'المستخدمين',     icon: Users },
     { to: '/admin/groups',        label: 'المجموعات',      icon: Users },
     { to: '/admin/trainers',      label: 'المدربين',       icon: Briefcase },

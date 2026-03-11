@@ -3,12 +3,20 @@ import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom
 import { useAuthStore } from './stores/authStore'
 import LoginPage from './pages/public/LoginPage'
 import LayoutShell from './components/layout/LayoutShell'
+import OnboardingModal from './components/onboarding/OnboardingModal'
 import StudentDashboard from './pages/student/StudentDashboard'
 import StudentAssignments from './pages/student/StudentAssignments'
 import StudentGrades from './pages/student/StudentGrades'
+import StudentSchedule from './pages/student/StudentSchedule'
+import StudentProfile from './pages/student/StudentProfile'
+import StudentSpeaking from './pages/student/StudentSpeaking'
+import StudentLibrary from './pages/student/StudentLibrary'
 import TrainerDashboard from './pages/trainer/TrainerDashboard'
 import TrainerAssignments from './pages/trainer/TrainerAssignments'
 import TrainerGrading from './pages/trainer/TrainerGrading'
+import TrainerSchedule from './pages/trainer/TrainerSchedule'
+import TrainerNotes from './pages/trainer/TrainerNotes'
+import TrainerLibrary from './pages/trainer/TrainerLibrary'
 import AdminDashboard from './pages/admin/AdminDashboard'
 
 // ─── Placeholder Page ────────────────────────────────────────
@@ -82,6 +90,9 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      {/* Onboarding modal for new students */}
+      <OnboardingModal />
+
       <Routes>
         {/* Role-based redirect from root */}
         <Route path="/" element={<RoleRedirect />} />
@@ -95,10 +106,11 @@ export default function App() {
           <Route element={<LayoutShell />}>
             <Route path="/student" element={<StudentDashboard />} />
             <Route path="/student/assignments" element={<StudentAssignments />} />
-            <Route path="/student/schedule" element={<PlaceholderPage title="الجدول" />} />
+            <Route path="/student/schedule" element={<StudentSchedule />} />
             <Route path="/student/grades" element={<StudentGrades />} />
-            <Route path="/student/writing" element={<PlaceholderPage title="الكتابة" />} />
-            <Route path="/student/profile" element={<PlaceholderPage title="الملف الشخصي" />} />
+            <Route path="/student/speaking" element={<StudentSpeaking />} />
+            <Route path="/student/library" element={<StudentLibrary />} />
+            <Route path="/student/profile" element={<StudentProfile />} />
           </Route>
         </Route>
 
@@ -106,11 +118,11 @@ export default function App() {
         <Route element={<ProtectedRoute allowedRoles={['trainer', 'admin']} />}>
           <Route element={<LayoutShell />}>
             <Route path="/trainer" element={<TrainerDashboard />} />
-            <Route path="/trainer/groups" element={<PlaceholderPage title="المجموعات" />} />
             <Route path="/trainer/assignments" element={<TrainerAssignments />} />
-            <Route path="/trainer/students" element={<PlaceholderPage title="الطلاب" />} />
-            <Route path="/trainer/schedule" element={<PlaceholderPage title="الجدول" />} />
             <Route path="/trainer/writing" element={<TrainerGrading />} />
+            <Route path="/trainer/schedule" element={<TrainerSchedule />} />
+            <Route path="/trainer/notes" element={<TrainerNotes />} />
+            <Route path="/trainer/library" element={<TrainerLibrary />} />
           </Route>
         </Route>
 
