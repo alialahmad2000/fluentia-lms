@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import { UserCheck, UserX, Clock, CheckCircle2, XCircle, AlertCircle, Save, Loader2 } from 'lucide-react'
@@ -83,9 +83,11 @@ export default function TrainerAttendance() {
   })
 
   // Load existing when class changes
-  if (existingAttendance && Object.keys(attendance).length === 0 && Object.keys(existingAttendance).length > 0) {
-    setAttendance(existingAttendance)
-  }
+  useEffect(() => {
+    if (existingAttendance && Object.keys(attendance).length === 0 && Object.keys(existingAttendance).length > 0) {
+      setAttendance(existingAttendance)
+    }
+  }, [existingAttendance])
 
   function handleClassChange(classId) {
     setSelectedClass(classId)

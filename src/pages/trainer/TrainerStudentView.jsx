@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import { Zap, Flame, Calendar, FileText, BarChart3, ChevronLeft, CheckCircle2, XCircle, AlertCircle } from 'lucide-react'
@@ -31,9 +31,11 @@ export default function TrainerStudentView() {
     enabled: !!profile?.id,
   })
 
-  if (groups?.length > 0 && !selectedGroup) {
-    setSelectedGroup(groups[0].id)
-  }
+  useEffect(() => {
+    if (groups?.length > 0 && !selectedGroup) {
+      setSelectedGroup(groups[0].id)
+    }
+  }, [groups, selectedGroup])
 
   // Students
   const { data: students } = useQuery({
@@ -123,7 +125,8 @@ export default function TrainerStudentView() {
     const name = getStudentName(selectedStudent)
     const presentCount = attendanceHistory?.filter(a => a.status === 'present').length || 0
     const totalAttendance = attendanceHistory?.length || 0
-    const avgGrade = submissions?.filter(s => s.grade_numeric != null).reduce((acc, s, _, arr) => acc + s.grade_numeric / arr.length, 0) || 0
+    const gradedSubs = submissions?.filter(s => s.grade_numeric != null) || []
+    const avgGrade = gradedSubs.length > 0 ? Math.round(gradedSubs.reduce((sum, s) => sum + s.grade_numeric, 0) / gradedSubs.length) : 0
 
     return (
       <div className="space-y-6">

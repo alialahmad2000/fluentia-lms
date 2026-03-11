@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Zap, Plus, Minus, Undo2, ChevronDown, Loader2 } from 'lucide-react'
@@ -47,9 +47,11 @@ export default function TrainerQuickPoints() {
   })
 
   // Auto-select first group
-  if (groups?.length > 0 && !selectedGroup) {
-    setSelectedGroup(groups[0].id)
-  }
+  useEffect(() => {
+    if (groups?.length > 0 && !selectedGroup) {
+      setSelectedGroup(groups[0].id)
+    }
+  }, [groups, selectedGroup])
 
   // Students in group
   const { data: students } = useQuery({

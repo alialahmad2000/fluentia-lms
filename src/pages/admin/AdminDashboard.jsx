@@ -17,6 +17,7 @@ export default function AdminDashboard() {
       const { data } = await supabase
         .from('students')
         .select('status, package')
+        .is('deleted_at', null)
       if (!data) return { total: 0, active: 0, byPackage: {} }
 
       const active = data.filter(s => s.status === 'active').length
@@ -35,6 +36,7 @@ export default function AdminDashboard() {
       const { count } = await supabase
         .from('groups')
         .select('*', { count: 'exact', head: true })
+        .eq('is_active', true)
       return count || 0
     },
   })
@@ -47,6 +49,7 @@ export default function AdminDashboard() {
         .from('payments')
         .select('status, amount')
         .in('status', ['pending', 'overdue'])
+        .is('deleted_at', null)
       const total = data?.reduce((sum, p) => sum + (p.amount || 0), 0) || 0
       return { count: data?.length || 0, total }
     },
@@ -73,6 +76,7 @@ export default function AdminDashboard() {
         .from('students')
         .select('id, status, package, xp_total, profiles:id(full_name)')
         .eq('status', 'active')
+        .is('deleted_at', null)
         .order('created_at', { ascending: false })
         .limit(6)
       return data || []

@@ -120,8 +120,8 @@ export default function StudentSchedule() {
                         {formatDateAr(c.date)} &middot; {formatTime(c.start_time)}
                       </p>
                     </div>
-                    {c.google_meet_link && (
-                      <a href={c.google_meet_link} target="_blank" rel="noopener noreferrer" className="text-sky-400 hover:text-sky-300">
+                    {(c.google_meet_link || group?.google_meet_link) && (
+                      <a href={c.google_meet_link || group.google_meet_link} target="_blank" rel="noopener noreferrer" className="text-sky-400 hover:text-sky-300">
                         <Video size={16} />
                       </a>
                     )}

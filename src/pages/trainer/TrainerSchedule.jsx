@@ -33,7 +33,7 @@ export default function TrainerSchedule() {
     queryFn: async () => {
       let query = supabase
         .from('classes')
-        .select('*, groups(name, code)')
+        .select('*, groups(name, code, google_meet_link)')
         .order('date')
         .order('start_time')
         .limit(30)
@@ -124,11 +124,18 @@ export default function TrainerSchedule() {
                         {formatDateAr(c.date)} &middot; {formatTime(c.start_time)}
                       </p>
                     </div>
-                    <span className={`text-[10px] px-2 py-0.5 rounded-lg ${
-                      c.status === 'completed' ? 'bg-emerald-500/10 text-emerald-400'
-                      : c.status === 'cancelled' ? 'bg-red-500/10 text-red-400'
-                      : 'bg-sky-500/10 text-sky-400'
-                    }`}>{c.status === 'completed' ? 'مكتمل' : c.status === 'cancelled' ? 'ملغي' : 'مجدول'}</span>
+                    <div className="flex items-center gap-2">
+                      {(c.google_meet_link || c.groups?.google_meet_link) && (
+                        <a href={c.google_meet_link || c.groups.google_meet_link} target="_blank" rel="noopener noreferrer" className="text-sky-400 hover:text-sky-300">
+                          <Video size={14} />
+                        </a>
+                      )}
+                      <span className={`text-[10px] px-2 py-0.5 rounded-lg ${
+                        c.status === 'completed' ? 'bg-emerald-500/10 text-emerald-400'
+                        : c.status === 'cancelled' ? 'bg-red-500/10 text-red-400'
+                        : 'bg-sky-500/10 text-sky-400'
+                      }`}>{c.status === 'completed' ? 'مكتمل' : c.status === 'cancelled' ? 'ملغي' : 'مجدول'}</span>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -184,8 +191,9 @@ export default function TrainerSchedule() {
 
 function ClassForm({ groups, trainerId, onClose }) {
   const queryClient = useQueryClient()
+  const firstGroup = groups[0]
   const [form, setForm] = useState({
-    group_id: groups[0]?.id || '',
+    group_id: firstGroup?.id || '',
     title: '',
     topic: '',
     date: '',
@@ -194,6 +202,10 @@ function ClassForm({ groups, trainerId, onClose }) {
     google_meet_link: '',
   })
   const [error, setError] = useState('')
+
+  // Get the selected group's default Meet link
+  const selectedGroup = groups.find(g => g.id === form.group_id)
+  const groupMeetLink = selectedGroup?.google_meet_link || ''
 
   function update(field, value) {
     setForm(prev => ({ ...prev, [field]: value }))
@@ -267,7 +279,10 @@ function ClassForm({ groups, trainerId, onClose }) {
           </div>
           <div>
             <label className="block text-sm text-muted mb-1">رابط Google Meet</label>
-            <input className="input-field" value={form.google_meet_link} onChange={(e) => update('google_meet_link', e.target.value)} placeholder="https://meet.google.com/..." dir="ltr" />
+            <input className="input-field" value={form.google_meet_link} onChange={(e) => update('google_meet_link', e.target.value)} placeholder={groupMeetLink || 'https://meet.google.com/...'} dir="ltr" />
+            {groupMeetLink && !form.google_meet_link && (
+              <p className="text-xs text-emerald-400 mt-1">سيستخدم رابط المجموعة الافتراضي</p>
+            )}
           </div>
           {error && <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm rounded-xl px-4 py-3 text-center">{error}</div>}
         </div>

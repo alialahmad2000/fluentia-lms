@@ -13,11 +13,11 @@ export default function AdminSettings() {
     queryKey: ['admin-settings'],
     queryFn: async () => {
       const { data } = await supabase
-        .from('system_settings')
+        .from('settings')
         .select('key, value')
       const map = {}
       for (const s of data || []) {
-        try { map[s.key] = JSON.parse(s.value) } catch { map[s.key] = s.value }
+        map[s.key] = s.value
       }
       return map
     },
@@ -57,8 +57,8 @@ export default function AdminSettings() {
 
       for (const item of upserts) {
         const { error } = await supabase
-          .from('system_settings')
-          .upsert(item, { onConflict: 'key' })
+          .from('settings')
+          .upsert({ key: item.key, value: item.value }, { onConflict: 'key' })
           .select()
         if (error) throw error
       }

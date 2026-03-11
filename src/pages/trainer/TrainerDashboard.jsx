@@ -39,6 +39,7 @@ export default function TrainerDashboard() {
         .select('*', { count: 'exact', head: true })
         .in('group_id', groupIds)
         .eq('status', 'active')
+        .is('deleted_at', null)
       return count || 0
     },
     enabled: !!groups?.length,
