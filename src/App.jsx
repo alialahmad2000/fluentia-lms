@@ -16,6 +16,7 @@ import StudentLeaderboard from './pages/student/StudentLeaderboard'
 import StudentPeerRecognition from './pages/student/StudentPeerRecognition'
 import StudentActivityFeed from './pages/student/StudentActivityFeed'
 import StudentChallenges from './pages/student/StudentChallenges'
+import StudentGroupChat from './pages/student/StudentGroupChat'
 import TrainerDashboard from './pages/trainer/TrainerDashboard'
 import TrainerAssignments from './pages/trainer/TrainerAssignments'
 import TrainerGrading from './pages/trainer/TrainerGrading'
@@ -28,6 +29,7 @@ import TrainerQuickNotes from './pages/trainer/TrainerQuickNotes'
 import TrainerStudentView from './pages/trainer/TrainerStudentView'
 import TrainerChallenges from './pages/trainer/TrainerChallenges'
 import TrainerTeams from './pages/trainer/TrainerTeams'
+import TrainerGroupChat from './pages/trainer/TrainerGroupChat'
 import AdminDashboard from './pages/admin/AdminDashboard'
 import AdminStudents from './pages/admin/AdminStudents'
 import AdminGroups from './pages/admin/AdminGroups'
@@ -133,6 +135,7 @@ export default function App() {
             <Route path="/student/recognition" element={<StudentPeerRecognition />} />
             <Route path="/student/activity" element={<StudentActivityFeed />} />
             <Route path="/student/challenges" element={<StudentChallenges />} />
+            <Route path="/student/chat" element={<StudentGroupChat />} />
             <Route path="/student/profile" element={<StudentProfile />} />
           </Route>
         </Route>
@@ -152,6 +155,7 @@ export default function App() {
             <Route path="/trainer/students" element={<TrainerStudentView />} />
             <Route path="/trainer/challenges" element={<TrainerChallenges />} />
             <Route path="/trainer/teams" element={<TrainerTeams />} />
+            <Route path="/trainer/chat" element={<TrainerGroupChat />} />
           </Route>
         </Route>
 
