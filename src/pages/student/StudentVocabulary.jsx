@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Plus, Loader2, RotateCcw, Check, X, Sparkles, Brain, Zap } from 'lucide-react'
+import { BookOpen, Plus, Loader2, RotateCcw, Check, X, Sparkles, Brain, Zap, Star } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 
@@ -20,8 +20,46 @@ const SR_INTERVALS = {
   mastered: 30,
 }
 
+const LEVEL_WORD_LISTS = {
+  1: [
+    'hello', 'goodbye', 'please', 'thank you', 'sorry', 'yes', 'no', 'water', 'food', 'house',
+    'school', 'teacher', 'student', 'book', 'pen', 'family', 'mother', 'father', 'brother', 'sister',
+    'friend', 'morning', 'night', 'today', 'tomorrow', 'name', 'number', 'phone', 'car', 'bus',
+    'street', 'money', 'shop', 'big', 'small', 'good', 'bad', 'happy', 'sad', 'cold',
+    'hot', 'eat', 'drink', 'go', 'come', 'want', 'need', 'help', 'speak', 'read', 'write',
+  ],
+  2: [
+    'airport', 'restaurant', 'hospital', 'weather', 'hobby', 'weekend', 'breakfast', 'lunch', 'dinner', 'kitchen',
+    'bedroom', 'bathroom', 'exercise', 'healthy', 'favorite', 'different', 'important', 'interesting', 'problem', 'solution',
+    'meeting', 'appointment', 'address', 'email', 'password', 'expensive', 'cheap', 'always', 'never', 'sometimes',
+    'before', 'after', 'already', 'together', 'alone', 'quickly', 'slowly', 'carefully', 'difficult', 'easy',
+    'improve', 'practice', 'understand', 'remember', 'forget', 'explain', 'decide', 'prepare', 'complete', 'enjoy',
+  ],
+  3: [
+    'opportunity', 'experience', 'environment', 'technology', 'education', 'culture', 'tradition', 'achievement', 'communication', 'confidence',
+    'responsibility', 'professional', 'interview', 'career', 'application', 'deadline', 'presentation', 'research', 'discussion', 'debate',
+    'advantage', 'disadvantage', 'recommendation', 'comparison', 'development', 'strategy', 'challenge', 'progress', 'motivation', 'influence',
+    'perspective', 'analysis', 'conclusion', 'evidence', 'consequence', 'diversity', 'creativity', 'efficiency', 'flexibility', 'sustainability',
+    'innovation', 'collaborate', 'negotiate', 'evaluate', 'demonstrate', 'participate', 'volunteer', 'establish', 'contribute', 'accomplish',
+  ],
+  4: [
+    'opportunity', 'experience', 'environment', 'technology', 'education', 'culture', 'tradition', 'achievement', 'communication', 'confidence',
+    'responsibility', 'professional', 'interview', 'career', 'application', 'deadline', 'presentation', 'research', 'discussion', 'debate',
+    'advantage', 'disadvantage', 'recommendation', 'comparison', 'development', 'strategy', 'challenge', 'progress', 'motivation', 'influence',
+    'perspective', 'analysis', 'conclusion', 'evidence', 'consequence', 'diversity', 'creativity', 'efficiency', 'flexibility', 'sustainability',
+    'innovation', 'collaborate', 'negotiate', 'evaluate', 'demonstrate', 'participate', 'volunteer', 'establish', 'contribute', 'accomplish',
+  ],
+  5: [
+    'ambiguity', 'hypothesis', 'paradigm', 'prerequisite', 'comprehensive', 'empirical', 'substantial', 'fundamental', 'predominantly', 'simultaneously',
+    'bureaucracy', 'infrastructure', 'methodology', 'controversial', 'unprecedented', 'sophisticated', 'preliminary', 'consequently', 'nevertheless', 'furthermore',
+    'deteriorate', 'exacerbate', 'facilitate', 'fluctuate', 'substantiate', 'articulate', 'consolidate', 'corroborate', 'disseminate', 'extrapolate',
+    'jurisdiction', 'philanthropy', 'rhetoric', 'pragmatic', 'meticulous', 'resilient', 'indigenous', 'autonomous', 'ubiquitous', 'ambivalent',
+    'paradox', 'stigma', 'catalyst', 'nuance', 'scrutiny', 'trajectory', 'disparity', 'cohesion', 'adversity', 'culminate',
+  ],
+}
+
 export default function StudentVocabulary() {
-  const { profile } = useAuthStore()
+  const { profile, studentData } = useAuthStore()
   const queryClient = useQueryClient()
   const [tab, setTab] = useState('review') // review, all, add
   const [addWord, setAddWord] = useState('')
@@ -29,6 +67,9 @@ export default function StudentVocabulary() {
   const [quizIndex, setQuizIndex] = useState(0)
   const [showAnswer, setShowAnswer] = useState(false)
   const [aiLoading, setAiLoading] = useState(false)
+  const [addingSuggestion, setAddingSuggestion] = useState(null)
+
+  const studentLevel = studentData?.level || 1
 
   // Fetch vocabulary
   const { data: vocab, isLoading } = useQuery({
@@ -58,6 +99,28 @@ export default function StudentVocabulary() {
     dueForReview: dueWords.length,
   }
 
+  // Level word list and suggestions
+  const levelWords = LEVEL_WORD_LISTS[studentLevel] || LEVEL_WORD_LISTS[1]
+  const totalLevelWords = levelWords.length
+
+  const existingWordsSet = useMemo(() => {
+    const set = new Set()
+    ;(vocab || []).forEach(w => set.add(w.word?.toLowerCase().trim()))
+    return set
+  }, [vocab])
+
+  const suggestedWords = useMemo(() => {
+    return levelWords.filter(w => !existingWordsSet.has(w.toLowerCase()))
+  }, [levelWords, existingWordsSet])
+
+  const masteredLevelWords = useMemo(() => {
+    return (vocab || []).filter(w =>
+      w.mastery === 'mastered' && levelWords.some(lw => lw.toLowerCase() === w.word?.toLowerCase().trim())
+    ).length
+  }, [vocab, levelWords])
+
+  const levelProgressPercent = totalLevelWords > 0 ? Math.round((masteredLevelWords / totalLevelWords) * 100) : 0
+
   // Add word mutation
   const addMutation = useMutation({
     mutationFn: async (word) => {
@@ -75,6 +138,74 @@ export default function StudentVocabulary() {
       queryClient.invalidateQueries({ queryKey: ['student-vocabulary'] })
     },
   })
+
+  // Add suggested word
+  async function addSuggestedWord(word) {
+    setAddingSuggestion(word)
+    try {
+      const { error } = await supabase.from('vocabulary_bank').insert({
+        student_id: profile?.id,
+        word: word.trim(),
+        mastery: 'new',
+        next_review: new Date().toISOString(),
+        review_count: 0,
+      })
+      if (error) throw error
+      queryClient.invalidateQueries({ queryKey: ['student-vocabulary'] })
+
+      // Auto-generate flashcard data via AI
+      try {
+        const { data: { session } } = await supabase.auth.getSession()
+        const res = await supabase.functions.invoke('ai-chatbot', {
+          body: {
+            message: `For the English word "${word}", provide: 1) Arabic meaning, 2) English meaning, 3) Example sentence. Format as JSON: {"meaning_ar": "...", "meaning_en": "...", "example_sentence": "..."}. Only respond with JSON.`,
+            conversation_history: [],
+          },
+          headers: { Authorization: `Bearer ${session?.access_token}` },
+        })
+
+        if (res.data?.reply) {
+          let parsed
+          try {
+            parsed = JSON.parse(res.data.reply)
+          } catch {
+            const match = res.data.reply.match(/\{[^}]+\}/)
+            if (match) parsed = JSON.parse(match[0])
+          }
+
+          if (parsed) {
+            // Find the newly inserted word
+            const { data: inserted } = await supabase
+              .from('vocabulary_bank')
+              .select('id')
+              .eq('student_id', profile?.id)
+              .eq('word', word.trim())
+              .order('created_at', { ascending: false })
+              .limit(1)
+              .single()
+
+            if (inserted) {
+              await supabase
+                .from('vocabulary_bank')
+                .update({
+                  meaning_ar: parsed.meaning_ar,
+                  meaning_en: parsed.meaning_en,
+                  example_sentence: parsed.example_sentence,
+                })
+                .eq('id', inserted.id)
+              queryClient.invalidateQueries({ queryKey: ['student-vocabulary'] })
+            }
+          }
+        }
+      } catch (err) {
+        console.error('Auto-generate flashcard error:', err)
+      }
+    } catch (err) {
+      console.error('Add suggested word error:', err)
+    } finally {
+      setAddingSuggestion(null)
+    }
+  }
 
   // AI generate flashcard data
   async function generateFlashcard(wordId, word) {
@@ -162,6 +293,9 @@ export default function StudentVocabulary() {
     queryClient.invalidateQueries({ queryKey: ['student-vocabulary'] })
   }
 
+  // Get 15 suggestions to display
+  const displayedSuggestions = suggestedWords.slice(0, 15)
+
   return (
     <div className="space-y-6">
       <div>
@@ -171,6 +305,36 @@ export default function StudentVocabulary() {
         </h1>
         <p className="text-muted text-sm mt-1">تعلّم كلمات جديدة وراجعها بالتكرار المتباعد</p>
       </div>
+
+      {/* Level Progress Indicator */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="glass-card p-4"
+      >
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2">
+            <Star size={16} className="text-amber-400" />
+            <span className="text-sm text-white font-medium">
+              المستوى {studentLevel}
+            </span>
+          </div>
+          <span className="text-xs text-muted">
+            {levelProgressPercent}%
+          </span>
+        </div>
+        <div className="w-full bg-white/10 rounded-full h-2 mb-2">
+          <motion.div
+            initial={{ width: 0 }}
+            animate={{ width: `${levelProgressPercent}%` }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="h-2 rounded-full bg-gradient-to-r from-amber-400 to-emerald-400"
+          />
+        </div>
+        <p className="text-xs text-muted text-center">
+          أتقنت {masteredLevelWords} من {totalLevelWords} كلمة في مستواك
+        </p>
+      </motion.div>
 
       {/* Stats */}
       <div className="grid grid-cols-4 gap-3">
@@ -294,28 +458,64 @@ export default function StudentVocabulary() {
 
           {/* Add word */}
           {tab === 'add' && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="glass-card p-5 space-y-3">
-              <form
-                onSubmit={(e) => { e.preventDefault(); if (addWord.trim()) addMutation.mutate(addWord) }}
-                className="flex items-center gap-2"
-              >
-                <input
-                  className="input-field flex-1"
-                  value={addWord}
-                  onChange={(e) => setAddWord(e.target.value)}
-                  placeholder="اكتب كلمة إنجليزية..."
-                  dir="ltr"
-                />
-                <button
-                  type="submit"
-                  disabled={!addWord.trim() || addMutation.isPending}
-                  className="btn-primary py-2.5 px-4 flex items-center gap-1"
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
+              <div className="glass-card p-5 space-y-3">
+                <form
+                  onSubmit={(e) => { e.preventDefault(); if (addWord.trim()) addMutation.mutate(addWord) }}
+                  className="flex items-center gap-2"
                 >
-                  {addMutation.isPending ? <Loader2 size={16} className="animate-spin" /> : <Plus size={16} />}
-                  أضف
-                </button>
-              </form>
-              <p className="text-xs text-muted">أضف كلمات جديدة وسيساعدك الذكاء الاصطناعي بالمعنى والأمثلة</p>
+                  <input
+                    className="input-field flex-1"
+                    value={addWord}
+                    onChange={(e) => setAddWord(e.target.value)}
+                    placeholder="اكتب كلمة إنجليزية..."
+                    dir="ltr"
+                  />
+                  <button
+                    type="submit"
+                    disabled={!addWord.trim() || addMutation.isPending}
+                    className="btn-primary py-2.5 px-4 flex items-center gap-1"
+                  >
+                    {addMutation.isPending ? <Loader2 size={16} className="animate-spin" /> : <Plus size={16} />}
+                    أضف
+                  </button>
+                </form>
+                <p className="text-xs text-muted">أضف كلمات جديدة وسيساعدك الذكاء الاصطناعي بالمعنى والأمثلة</p>
+              </div>
+
+              {/* Suggested words section */}
+              {displayedSuggestions.length > 0 && (
+                <div className="glass-card p-5 space-y-3">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Sparkles size={16} className="text-amber-400" />
+                    <h3 className="text-sm font-semibold text-white">كلمات مقترحة</h3>
+                    <span className="text-[10px] text-muted">(المستوى {studentLevel})</span>
+                  </div>
+                  <p className="text-xs text-muted">اضغط على الكلمة لإضافتها إلى بنك المفردات</p>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {displayedSuggestions.map(word => (
+                      <motion.button
+                        key={word}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => addSuggestedWord(word)}
+                        disabled={addingSuggestion === word}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm text-white hover:bg-sky-500/10 hover:border-sky-500/20 hover:text-sky-400 transition-all disabled:opacity-50"
+                        dir="ltr"
+                      >
+                        {addingSuggestion === word ? (
+                          <Loader2 size={12} className="animate-spin" />
+                        ) : (
+                          <Plus size={12} />
+                        )}
+                        {word}
+                      </motion.button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </motion.div>
           )}
 
@@ -373,9 +573,43 @@ export default function StudentVocabulary() {
                 })
               )}
               {!isLoading && ((tab === 'review' ? dueWords : vocab)?.length || 0) === 0 && (
-                <div className="glass-card p-8 text-center">
+                <div className="glass-card p-8 text-center space-y-4">
                   <BookOpen size={32} className="text-muted mx-auto mb-2" />
                   <p className="text-muted">{tab === 'review' ? 'لا توجد كلمات للمراجعة الآن' : 'لم تضف كلمات بعد'}</p>
+
+                  {/* Show suggestions when vocab bank is empty in "all" tab */}
+                  {tab === 'all' && displayedSuggestions.length > 0 && (
+                    <div className="pt-4 border-t border-white/5">
+                      <div className="flex items-center justify-center gap-2 mb-3">
+                        <Sparkles size={16} className="text-amber-400" />
+                        <h3 className="text-sm font-semibold text-white">كلمات مقترحة</h3>
+                        <span className="text-[10px] text-muted">(المستوى {studentLevel})</span>
+                      </div>
+                      <p className="text-xs text-muted mb-3">ابدأ بإضافة بعض الكلمات المقترحة لمستواك</p>
+                      <div className="flex flex-wrap gap-2 justify-center">
+                        {displayedSuggestions.map(word => (
+                          <motion.button
+                            key={word}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => addSuggestedWord(word)}
+                            disabled={addingSuggestion === word}
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm text-white hover:bg-sky-500/10 hover:border-sky-500/20 hover:text-sky-400 transition-all disabled:opacity-50"
+                            dir="ltr"
+                          >
+                            {addingSuggestion === word ? (
+                              <Loader2 size={12} className="animate-spin" />
+                            ) : (
+                              <Plus size={12} />
+                            )}
+                            {word}
+                          </motion.button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

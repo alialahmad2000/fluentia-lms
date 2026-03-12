@@ -41,6 +41,23 @@ export default function StudentStreakBattles() {
   const myRank = streakRanking.findIndex(s => s.id === profile?.id) + 1
   const myXpRank = xpRanking.findIndex(s => s.id === profile?.id) + 1
 
+  if (!studentData?.group_id) {
+    return (
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+            <Swords size={24} className="text-gold-400" />
+            معارك وتحديات
+          </h1>
+        </div>
+        <div className="glass-card p-8 text-center">
+          <Users size={32} className="text-muted mx-auto mb-2" />
+          <p className="text-muted">لم يتم تسجيلك في مجموعة بعد — تواصل مع الإدارة</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="space-y-6">
       <div>
