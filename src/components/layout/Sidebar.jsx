@@ -50,6 +50,7 @@ const NAV_GROUPS = {
         { to: '/student/activity', label: 'نشاط المجموعة', icon: Activity },
         { to: '/student/challenges', label: 'التحديات', icon: Target },
         { to: '/student/battles', label: 'المعارك', icon: Trophy },
+        { to: '/student/events', label: 'الفعاليات', icon: Calendar },
       ],
     },
     {

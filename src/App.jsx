@@ -30,6 +30,7 @@ const StudentPronunciation = lazy(() => import('./pages/student/StudentPronuncia
 const StudentConversation = lazy(() => import('./pages/student/StudentConversation'))
 const StudentStreakBattles = lazy(() => import('./pages/student/StudentStreakBattles'))
 const StudentSuccessStories = lazy(() => import('./pages/student/StudentSuccessStories'))
+const StudentEvents = lazy(() => import('./pages/student/StudentEvents'))
 
 const TrainerDashboard = lazy(() => import('./pages/trainer/TrainerDashboard'))
 const TrainerAssignments = lazy(() => import('./pages/trainer/TrainerAssignments'))
@@ -174,6 +175,7 @@ export default function App() {
             <Route path="/student/conversation" element={<Suspense fallback={<PageSkeleton />}><StudentConversation /></Suspense>} />
             <Route path="/student/battles" element={<Suspense fallback={<PageSkeleton />}><StudentStreakBattles /></Suspense>} />
             <Route path="/student/success" element={<Suspense fallback={<PageSkeleton />}><StudentSuccessStories /></Suspense>} />
+            <Route path="/student/events" element={<Suspense fallback={<PageSkeleton />}><StudentEvents /></Suspense>} />
             <Route path="/student/profile" element={<Suspense fallback={<PageSkeleton />}><StudentProfile /></Suspense>} />
           </Route>
         </Route>
