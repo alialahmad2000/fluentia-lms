@@ -136,7 +136,7 @@ serve(async (req) => {
       )
     }
 
-    const levelCtx = LEVEL_CONTEXT[student.academic_level] || LEVEL_CONTEXT[1]
+    const levelCtx = LEVEL_CONTEXT[student?.academic_level || 1] || LEVEL_CONTEXT[1]
     const typeCtx = assignment_type ? `This is a ${assignment_type} assignment.` : ''
 
     // Call Claude API
@@ -213,10 +213,8 @@ Respond ONLY with valid JSON, no markdown.`,
         .eq('id', submission_id)
     }
 
-    const remaining = limit - (count || 0) - 1
-
     return new Response(
-      JSON.stringify({ feedback, remaining_this_month: remaining }),
+      JSON.stringify({ feedback }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     )
   } catch (error: any) {

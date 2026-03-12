@@ -4,17 +4,27 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle2, Clock, ChevronDown, X, Save, Loader2, RotateCcw, Mic, Image, FileText as FileIcon, Link2, Download } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
-import AIWritingFeedback from '../../components/ai/AIWritingFeedback'
-import AISpeakingAnalysis from '../../components/ai/AISpeakingAnalysis'
+import AISubmissionFeedback from '../../components/ai/AISubmissionFeedback'
+import { ASSIGNMENT_TYPES, GRADE_LABELS, SUBMISSION_STATUS } from '../../lib/constants'
+import { formatDateAr, timeAgo } from '../../utils/dateHelpers'
+import { parseSupabaseError } from '../../utils/errors'
 
 function getStorageUrl(bucket, path) {
   if (!path) return null
   const { data } = supabase.storage.from(bucket).getPublicUrl(path)
   return data?.publicUrl || null
 }
-import { ASSIGNMENT_TYPES, GRADE_LABELS, SUBMISSION_STATUS } from '../../lib/constants'
-import { formatDateAr, timeAgo } from '../../utils/dateHelpers'
-import { parseSupabaseError } from '../../utils/errors'
+
+// Generate a signed URL for private buckets (voice-notes)
+async function getSignedUrl(bucket, path) {
+  if (!path) return null
+  const { data, error } = await supabase.storage.from(bucket).createSignedUrl(path, 3600)
+  if (error) {
+    console.error('[getSignedUrl]', error)
+    return getStorageUrl(bucket, path) // fallback to public URL
+  }
+  return data?.signedUrl || null
+}
 
 export default function TrainerGrading() {
   const { profile } = useAuthStore()
@@ -44,7 +54,7 @@ export default function TrainerGrading() {
     queryFn: async () => {
       let query = supabase
         .from('submissions')
-        .select('*, students:student_id(profiles(full_name, display_name)), assignments!inner(title, type, group_id, points_on_time, points_late, groups(code))')
+        .select('*, students:student_id(profiles(full_name, display_name)), assignments!inner(title, type, group_id, points_on_time, points_late, instructions, description, groups(code))')
         .is('deleted_at', null)
         .order('submitted_at', { ascending: false })
 
@@ -171,7 +181,7 @@ export default function TrainerGrading() {
           <GradingModal
             submission={gradingSubmission}
             getStudentName={getStudentName}
-            onClose={() => setGradingSubmission(null)}
+            onClose={() => { setGradingSubmission(null) }}
           />
         )}
       </AnimatePresence>
@@ -186,9 +196,23 @@ function GradingModal({ submission, getStudentName, onClose }) {
   const [gradeNumeric, setGradeNumeric] = useState(submission.grade_numeric ?? '')
   const [feedback, setFeedback] = useState(submission.trainer_feedback || '')
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
+  const [voiceUrl, setVoiceUrl] = useState(null)
+  const [voiceLoading, setVoiceLoading] = useState(false)
+
+  // Load signed URL for voice notes
+  useState(() => {
+    if (submission.content_voice_url) {
+      setVoiceLoading(true)
+      getSignedUrl('voice-notes', submission.content_voice_url).then(url => {
+        setVoiceUrl(url)
+        setVoiceLoading(false)
+      }).catch(() => setVoiceLoading(false))
+    }
+  })
 
   const gradeMutation = useMutation({
-    mutationFn: async ({ requestResubmit }) => {
+    mutationFn: async ({ requestResubmit, autoApprove }) => {
       if (requestResubmit) {
         const { error } = await supabase
           .from('submissions')
@@ -196,7 +220,7 @@ function GradingModal({ submission, getStudentName, onClose }) {
           .eq('id', submission.id)
           .select()
         if (error) throw error
-        return
+        return 'resubmit'
       }
 
       if (!grade) throw new Error('اختر الدرجة')
@@ -208,35 +232,57 @@ function GradingModal({ submission, getStudentName, onClose }) {
         ? (submission.assignments?.points_late || 5)
         : (submission.assignments?.points_on_time || 10)
 
+      const updateData = {
+        status: 'graded',
+        grade,
+        grade_numeric: parseInt(gradeNumeric),
+        trainer_feedback: feedback.trim() || null,
+        points_awarded: points,
+      }
+
+      if (autoApprove) {
+        updateData.ai_feedback_approved = true
+      }
+
       const { error: updateErr } = await supabase
         .from('submissions')
-        .update({
-          status: 'graded',
-          grade,
-          grade_numeric: parseInt(gradeNumeric),
-          trainer_feedback: feedback.trim() || null,
-          points_awarded: points,
-        })
+        .update(updateData)
         .eq('id', submission.id)
         .select()
       if (updateErr) throw updateErr
 
       // Award XP only on first grading (not re-grading)
       if (submission.status !== 'graded') {
-        const { error: xpErr } = await supabase.from('xp_transactions').insert({
+        await supabase.from('xp_transactions').insert({
           student_id: submission.student_id,
           amount: points,
           reason: submission.is_late ? 'assignment_late' : 'assignment_on_time',
           related_id: submission.assignment_id,
           awarded_by: profile?.id,
-        }).select()
-        if (xpErr) console.error('[TrainerGrading] XP insert error:', xpErr)
+        }).select().catch(err => console.error('[TrainerGrading] XP error:', err))
       }
+
+      // Send notification to student
+      const trainerName = profile?.display_name || profile?.full_name || 'المدرب'
+      await supabase.from('notifications').insert({
+        user_id: submission.student_id,
+        type: 'assignment_graded',
+        title: `تم تقييم واجبك: ${submission.assignments?.title || 'واجب'}`,
+        body: `${trainerName} قيّم واجبك — الدرجة: ${grade} (${numericVal}%)`,
+        data: { link: '/student/assignments' },
+      }).catch(() => {})
+
+      return autoApprove ? 'auto_approved' : 'graded'
     },
-    onSuccess: () => {
+    onSuccess: (result) => {
       queryClient.invalidateQueries({ queryKey: ['trainer-all-submissions'] })
       queryClient.invalidateQueries({ queryKey: ['trainer-pending-submissions'] })
-      onClose()
+      if (result === 'auto_approved') {
+        setSuccess('تم اعتماد التقييم وإرسال الملاحظات للطالب ✓')
+        setTimeout(onClose, 1500)
+      } else {
+        onClose()
+      }
     },
     onError: (err) => setError(parseSupabaseError(err)),
   })
@@ -250,6 +296,28 @@ function GradingModal({ submission, getStudentName, onClose }) {
       if (num >= info.min) { setGrade(letter); break }
     }
   }
+
+  // AI approve and send — auto-fills everything and saves
+  async function handleApproveAndSend({ grade: aiGrade, gradeNumeric: aiNumeric, trainerFeedback, aiFeedback }) {
+    setGrade(aiGrade)
+    setGradeNumeric(aiNumeric)
+    setFeedback(trainerFeedback)
+    setError('')
+    // Directly save
+    gradeMutation.mutate({ requestResubmit: false, autoApprove: true })
+  }
+
+  // AI approve and edit — pre-fills fields but doesn't save
+  function handleApproveAndEdit({ grade: aiGrade, gradeNumeric: aiNumeric, trainerFeedback }) {
+    setGrade(aiGrade)
+    setGradeNumeric(aiNumeric)
+    setFeedback(trainerFeedback)
+    setError('')
+    // Scroll to grade inputs
+    document.getElementById('grade-inputs')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const assignmentType = submission.assignments?.type || 'custom'
 
   return (
     <>
@@ -287,7 +355,7 @@ function GradingModal({ submission, getStudentName, onClose }) {
             </div>
           )}
 
-          {/* Voice recording */}
+          {/* Voice recording — with signed URL */}
           {submission.content_voice_url && (
             <div>
               <label className="flex items-center gap-1.5 text-sm text-muted mb-2">
@@ -296,11 +364,21 @@ function GradingModal({ submission, getStudentName, onClose }) {
                   <span className="text-xs">({Math.round(submission.content_voice_duration)}ث)</span>
                 )}
               </label>
-              <audio
-                controls
-                className="w-full"
-                src={getStorageUrl('voice-notes', submission.content_voice_url)}
-              />
+              {voiceLoading ? (
+                <div className="flex items-center gap-2 text-xs text-muted py-3">
+                  <Loader2 size={14} className="animate-spin" />
+                  جاري تحميل الصوت...
+                </div>
+              ) : voiceUrl ? (
+                <audio
+                  controls
+                  className="w-full"
+                  src={voiceUrl}
+                  preload="metadata"
+                />
+              ) : (
+                <p className="text-xs text-red-400 py-2">تعذر تحميل التسجيل الصوتي</p>
+              )}
             </div>
           )}
 
@@ -386,27 +464,6 @@ function GradingModal({ submission, getStudentName, onClose }) {
             </div>
           )}
 
-          {/* AI Writing Feedback */}
-          {submission.content_text && submission.content_text.length >= 10 && (
-            <AIWritingFeedback
-              text={submission.content_text}
-              submissionId={submission.id}
-              assignmentType={submission.assignments?.type}
-              existingFeedback={submission.ai_feedback}
-            />
-          )}
-
-          {/* AI Speaking Analysis */}
-          {submission.content_voice_url && (
-            <AISpeakingAnalysis
-              voiceUrl={submission.content_voice_url}
-              submissionId={submission.id}
-              durationSeconds={submission.content_voice_duration}
-              existingTranscript={submission.content_voice_transcript}
-              existingAnalysis={!submission.content_text ? submission.ai_feedback : null}
-            />
-          )}
-
           {/* Late / difficulty info */}
           <div className="flex items-center gap-3 text-xs text-muted">
             {submission.is_late && <span className="text-amber-400 bg-amber-500/10 px-2 py-1 rounded-lg">تسليم متأخر</span>}
@@ -417,8 +474,28 @@ function GradingModal({ submission, getStudentName, onClose }) {
             )}
           </div>
 
+          {/* ── Universal AI Feedback ── */}
+          <AISubmissionFeedback
+            submission={submission}
+            assignmentType={assignmentType}
+            existingFeedback={submission.ai_feedback}
+            onApproveAndSend={handleApproveAndSend}
+            onApproveAndEdit={handleApproveAndEdit}
+          />
+
+          {/* Success toast */}
+          {success && (
+            <motion.div
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm rounded-xl px-4 py-3 text-center font-medium"
+            >
+              {success}
+            </motion.div>
+          )}
+
           {/* Grade inputs */}
-          <div className="grid grid-cols-2 gap-4">
+          <div id="grade-inputs" className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm text-muted mb-2">الدرجة الرقمية (0-100)</label>
               <input
