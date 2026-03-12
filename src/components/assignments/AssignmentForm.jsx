@@ -5,7 +5,7 @@ import { X, Save, Loader2 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { ASSIGNMENT_TYPES } from '../../lib/constants'
 
-export default function AssignmentForm({ assignment, groups, trainerId, onClose }) {
+export default function AssignmentForm({ assignment, groups, trainerId, isAdmin, onClose }) {
   const queryClient = useQueryClient()
   const isEdit = !!assignment
 
@@ -33,10 +33,18 @@ export default function AssignmentForm({ assignment, groups, trainerId, onClose 
 
   const saveMutation = useMutation({
     mutationFn: async () => {
-      if (!trainerId) throw new Error('لم يتم تحديد المدرب — أعد تسجيل الدخول')
+      // For admin: use the selected group's trainer_id
+      let resolvedTrainerId = trainerId
+      if (isAdmin && form.group_id) {
+        const selectedGroup = groups.find(g => g.id === form.group_id)
+        if (selectedGroup?.trainer_id) {
+          resolvedTrainerId = selectedGroup.trainer_id
+        }
+      }
+      if (!resolvedTrainerId) throw new Error('لم يتم تحديد المدرب — أعد تسجيل الدخول')
 
       const payload = {
-        trainer_id: trainerId,
+        trainer_id: resolvedTrainerId,
         title: form.title.trim(),
         description: form.description.trim() || null,
         type: form.type,

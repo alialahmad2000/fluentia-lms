@@ -176,12 +176,18 @@ Respond ONLY with valid JSON.`,
     report.period_days = periodDays
     report.generated_at = new Date().toISOString()
 
-    // Log usage
+    // Log usage — check if user is a trainer (admin may not be in trainers table)
+    const { data: trainerRecord } = await supabase
+      .from('trainers')
+      .select('id')
+      .eq('id', user.id)
+      .single()
+
     const costSAR = ((inputTokens * 3 + outputTokens * 15) / 1_000_000) * 3.75
     await supabase.from('ai_usage').insert({
       type: 'progress_report',
       student_id: student_id,
-      trainer_id: user.id,
+      trainer_id: trainerRecord ? user.id : null,
       model: 'claude-sonnet',
       input_tokens: inputTokens,
       output_tokens: outputTokens,

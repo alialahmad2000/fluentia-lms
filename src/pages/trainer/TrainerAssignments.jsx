@@ -21,7 +21,7 @@ export default function TrainerAssignments() {
   const { data: groups } = useQuery({
     queryKey: ['trainer-groups', role],
     queryFn: async () => {
-      let query = supabase.from('groups').select('id, name, code')
+      let query = supabase.from('groups').select('id, name, code, trainer_id')
       if (role !== 'admin') {
         query = query.eq('trainer_id', profile?.id)
       }
@@ -251,6 +251,7 @@ export default function TrainerAssignments() {
             assignment={editingAssignment}
             groups={groups || []}
             trainerId={profile?.id}
+            isAdmin={role === 'admin'}
             onClose={handleFormClose}
           />
         )}

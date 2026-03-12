@@ -131,9 +131,17 @@ ${contextData ? `\nCurrent context:\n${contextData}` : ''}`,
     const outputTokens = claudeData.usage?.output_tokens || 0
 
     const costSAR = ((inputTokens * 3 + outputTokens * 15) / 1_000_000) * 3.75
+
+    // Check if user is a trainer (for FK constraint — admin may not be in trainers table)
+    const { data: trainerRecord } = await supabase
+      .from('trainers')
+      .select('id')
+      .eq('id', user.id)
+      .single()
+
     await supabase.from('ai_usage').insert({
       type: 'trainer_assistant',
-      trainer_id: user.id,
+      trainer_id: trainerRecord ? user.id : null,
       model: 'claude-sonnet',
       input_tokens: inputTokens,
       output_tokens: outputTokens,

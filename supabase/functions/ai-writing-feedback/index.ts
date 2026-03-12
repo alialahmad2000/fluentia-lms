@@ -57,39 +57,56 @@ serve(async (req) => {
       )
     }
 
-    // Get student info for rate limiting
-    const { data: student } = await supabase
-      .from('students')
-      .select('id, package, academic_level')
+    // Get user role — trainers/admins skip rate limiting
+    const { data: userProfile } = await supabase
+      .from('profiles')
+      .select('role')
       .eq('id', user.id)
       .single()
 
-    if (!student) throw new Error('Student not found')
+    const isTrainerOrAdmin = userProfile?.role === 'trainer' || userProfile?.role === 'admin'
 
-    // Check monthly usage limit
+    // Rate limiting only for students
+    let student = null
+    if (!isTrainerOrAdmin) {
+      const { data: studentData } = await supabase
+        .from('students')
+        .select('id, package, academic_level')
+        .eq('id', user.id)
+        .single()
+
+      student = studentData
+      if (!student) throw new Error('Student not found')
+
+      // Check monthly usage limit
+      const monthStart = new Date()
+      monthStart.setDate(1)
+      monthStart.setHours(0, 0, 0, 0)
+
+      const { count } = await supabase
+        .from('ai_usage')
+        .select('id', { count: 'exact', head: true })
+        .eq('student_id', user.id)
+        .eq('type', 'writing_feedback')
+        .gte('created_at', monthStart.toISOString())
+
+      const limit = WRITING_LIMITS[student.package] || 2
+      if ((count || 0) >= limit) {
+        return new Response(
+          JSON.stringify({
+            error: `وصلت للحد الشهري (${limit} تحليل). الباقة الأعلى تعطيك أكثر!`,
+            limit_reached: true,
+          }),
+          { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 429 }
+        )
+      }
+    }
+
+    // Check budget cap
     const monthStart = new Date()
     monthStart.setDate(1)
     monthStart.setHours(0, 0, 0, 0)
 
-    const { count } = await supabase
-      .from('ai_usage')
-      .select('id', { count: 'exact', head: true })
-      .eq('student_id', user.id)
-      .eq('type', 'writing_feedback')
-      .gte('created_at', monthStart.toISOString())
-
-    const limit = WRITING_LIMITS[student.package] || 2
-    if ((count || 0) >= limit) {
-      return new Response(
-        JSON.stringify({
-          error: `وصلت للحد الشهري (${limit} تحليل). الباقة الأعلى تعطيك أكثر!`,
-          limit_reached: true,
-        }),
-        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 429 }
-      )
-    }
-
-    // Check budget cap
     const { data: settings } = await supabase
       .from('system_settings')
       .select('value')
@@ -174,14 +191,19 @@ Respond ONLY with valid JSON, no markdown.`,
     const costSAR = ((inputTokens * 3 + outputTokens * 15) / 1_000_000) * 3.75
 
     // Log usage
-    await supabase.from('ai_usage').insert({
+    const usageRecord: any = {
       type: 'writing_feedback',
-      student_id: user.id,
       model: 'claude-sonnet',
       input_tokens: inputTokens,
       output_tokens: outputTokens,
       estimated_cost_sar: costSAR.toFixed(4),
-    })
+    }
+    if (isTrainerOrAdmin) {
+      usageRecord.trainer_id = user.id
+    } else {
+      usageRecord.student_id = user.id
+    }
+    await supabase.from('ai_usage').insert(usageRecord)
 
     // Store feedback on submission if provided
     if (submission_id) {

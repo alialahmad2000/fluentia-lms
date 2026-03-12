@@ -24,17 +24,29 @@ export default function AIWritingFeedback({ text, submissionId, assignmentType, 
         headers: { Authorization: `Bearer ${session?.access_token}` },
       })
 
-      if (res.error) throw new Error(res.error.message)
+      if (res.error) {
+        const msg = typeof res.error === 'object' ? (res.error.message || JSON.stringify(res.error)) : String(res.error)
+        throw new Error(msg)
+      }
       const result = res.data
+
+      if (!result || typeof result !== 'object') {
+        throw new Error('Invalid response')
+      }
 
       if (result.error) {
         setError(result.error)
         return
       }
-      setFeedback(result.feedback)
-      setRemaining(result.remaining_this_month)
-      setExpanded(true)
+      if (result.feedback) {
+        setFeedback(result.feedback)
+        setExpanded(true)
+      }
+      if (result.remaining_this_month !== undefined) {
+        setRemaining(result.remaining_this_month)
+      }
     } catch (err) {
+      console.error('[AIWritingFeedback]', err)
       setError('التقييم التلقائي غير متاح حالياً — سيراجع المدرب عملك مباشرة')
     } finally {
       setLoading(false)
@@ -82,7 +94,7 @@ export default function AIWritingFeedback({ text, submissionId, assignmentType, 
                 <Sparkles size={16} className="text-violet-400" />
                 <span className="text-sm font-medium text-white">تقييم الذكاء الاصطناعي</span>
                 {feedback.fluency_score && (
-                  <span className="badge-violet text-xs">{feedback.fluency_score}/10</span>
+                  <span className="badge bg-violet-500/10 text-violet-400 border border-violet-500/20 text-xs">{feedback.fluency_score}/10</span>
                 )}
               </div>
               {expanded ? <ChevronUp size={16} className="text-muted" /> : <ChevronDown size={16} className="text-muted" />}
