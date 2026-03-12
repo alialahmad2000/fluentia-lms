@@ -7,6 +7,7 @@ import { supabase } from '../../lib/supabase'
 import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/constants'
 import { timeAgo } from '../../utils/dateHelpers'
 import NotificationSettings from '../../components/layout/NotificationSettings'
+import ImmersionToggle from '../../components/ImmersionToggle'
 
 function getLevel(xp) {
   for (let i = GAMIFICATION_LEVELS.length - 1; i >= 0; i--) {
@@ -196,6 +197,9 @@ export default function StudentProfile() {
           />
         </div>
       </motion.div>
+
+      {/* Immersion Mode */}
+      <ImmersionToggle />
 
       {/* Notification Settings */}
       <NotificationSettings />
