@@ -49,6 +49,7 @@ const AdminTrainers = lazy(() => import('./pages/admin/AdminTrainers'))
 const AdminPayments = lazy(() => import('./pages/admin/AdminPayments'))
 const AdminReports = lazy(() => import('./pages/admin/AdminReports'))
 const AdminSettings = lazy(() => import('./pages/admin/AdminSettings'))
+const AdminChurnPrediction = lazy(() => import('./pages/admin/AdminChurnPrediction'))
 
 const ForgotPassword = lazy(() => import('./pages/public/ForgotPassword'))
 
@@ -194,6 +195,7 @@ export default function App() {
             <Route path="/admin/trainers" element={<Suspense fallback={<PageSkeleton />}><AdminTrainers /></Suspense>} />
             <Route path="/admin/packages" element={<Suspense fallback={<PageSkeleton />}><AdminPayments /></Suspense>} />
             <Route path="/admin/reports" element={<Suspense fallback={<PageSkeleton />}><AdminReports /></Suspense>} />
+            <Route path="/admin/churn" element={<Suspense fallback={<PageSkeleton />}><AdminChurnPrediction /></Suspense>} />
             <Route path="/admin/settings" element={<Suspense fallback={<PageSkeleton />}><AdminSettings /></Suspense>} />
           </Route>
         </Route>

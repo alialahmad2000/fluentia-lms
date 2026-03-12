@@ -195,6 +195,7 @@ const NAV_GROUPS = {
       label: 'التحليلات',
       items: [
         { to: '/admin/reports', label: 'التقارير', icon: BarChart3 },
+        { to: '/admin/churn', label: 'توقع الانسحاب', icon: AlertTriangle },
       ],
     },
     {
