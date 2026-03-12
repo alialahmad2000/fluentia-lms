@@ -1177,6 +1177,460 @@ Be practical and specific. Use data to support your points.`,
         }
       }
 
+      // ── Error Patterns & Exercises ──
+      case 'VIEW_ERROR_PATTERNS': {
+        const lookup = await findStudent(params.student_name, supabase, role !== 'admin' ? trainerGroupIds : undefined)
+        if (!lookup.found) return { success: false, reply: `لم أجد طالب/ة باسم "${params.student_name}"` }
+        if (lookup.ambiguous) return { success: false, reply: `وجدت أكثر من نتيجة: ${lookup.matches.map((m: any) => studentName(m)).join('، ')}` }
+
+        const { data: patterns } = await supabase
+          .from('error_patterns')
+          .select('*')
+          .eq('student_id', lookup.student.id)
+          .eq('status', 'active')
+          .order('frequency', { ascending: false })
+          .limit(10)
+
+        if (!patterns?.length) return { success: true, reply: `لا توجد أنماط أخطاء نشطة لـ ${studentName(lookup.student)}` }
+
+        let reply = `🔍 أنماط أخطاء ${studentName(lookup.student)} (${patterns.length}):\n`
+        for (const p of patterns) {
+          reply += `• [${p.skill}] ${p.pattern_name_ar || p.pattern_name}: تكرار ${p.frequency}x — ${p.severity}\n`
+          if (p.example) reply += `  مثال: ${p.example}\n`
+        }
+        return { success: true, reply }
+      }
+
+      case 'GENERATE_EXERCISES': {
+        const lookup = await findStudent(params.student_name, supabase, role !== 'admin' ? trainerGroupIds : undefined)
+        if (!lookup.found) return { success: false, reply: `لم أجد طالب/ة باسم "${params.student_name}"` }
+        if (lookup.ambiguous) return { success: false, reply: `وجدت أكثر من نتيجة: ${lookup.matches.map((m: any) => studentName(m)).join('، ')}` }
+
+        try {
+          const genRes = await fetch(`${SUPABASE_URL}/functions/v1/generate-targeted-exercises`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ student_id: lookup.student.id }),
+          })
+          const genData = await genRes.json()
+          if (genData.error) return { success: false, reply: `خطأ: ${genData.error}` }
+          return { success: true, reply: `✅ تم إنشاء ${genData.exercises?.length || 0} تمرين مخصص لـ ${studentName(lookup.student)} بناءً على أنماط أخطائه` }
+        } catch {
+          return { success: false, reply: 'خطأ في إنشاء التمارين — حاول مرة أخرى' }
+        }
+      }
+
+      case 'LIST_WEAK_STUDENTS': {
+        const skill = params.skill || 'grammar'
+        let query = supabase
+          .from('error_patterns')
+          .select('student_id, skill, frequency, students:student_id(profiles(full_name, display_name), group_id)')
+          .eq('status', 'active')
+          .eq('skill', skill)
+          .order('frequency', { ascending: false })
+          .limit(20)
+
+        const { data: patterns } = await query
+        if (!patterns?.length) return { success: true, reply: `لا توجد أنماط أخطاء في مهارة ${skill}` }
+
+        // Aggregate by student
+        const studentMap: Record<string, { name: string; count: number; totalFreq: number }> = {}
+        for (const p of patterns) {
+          const sid = p.student_id
+          const name = (p as any).students?.profiles?.display_name || (p as any).students?.profiles?.full_name || '?'
+          if (!studentMap[sid]) studentMap[sid] = { name, count: 0, totalFreq: 0 }
+          studentMap[sid].count++
+          studentMap[sid].totalFreq += p.frequency
+        }
+
+        const sorted = Object.entries(studentMap).sort((a, b) => b[1].totalFreq - a[1].totalFreq).slice(0, 10)
+        let reply = `📉 أضعف الطلاب في ${skill} (${sorted.length}):\n`
+        for (const [, info] of sorted) {
+          reply += `• ${info.name}: ${info.count} نمط خطأ — تكرار إجمالي ${info.totalFreq}\n`
+        }
+        return { success: true, reply }
+      }
+
+      // ── Churn Prediction ──
+      case 'VIEW_CHURN_RISK': {
+        const lookup = await findStudent(params.student_name, supabase, role !== 'admin' ? trainerGroupIds : undefined)
+        if (!lookup.found) return { success: false, reply: `لم أجد طالب/ة باسم "${params.student_name}"` }
+        if (lookup.ambiguous) return { success: false, reply: `وجدت أكثر من نتيجة: ${lookup.matches.map((m: any) => studentName(m)).join('، ')}` }
+
+        const { data: prediction } = await supabase
+          .from('churn_predictions')
+          .select('*')
+          .eq('student_id', lookup.student.id)
+          .order('predicted_at', { ascending: false })
+          .limit(1)
+          .maybeSingle()
+
+        if (!prediction) return { success: true, reply: `لا يوجد تقييم مخاطر لـ ${studentName(lookup.student)} — شغّل التحليل أولاً` }
+
+        const riskEmoji = prediction.risk_level === 'high' ? '🔴' : prediction.risk_level === 'medium' ? '🟡' : '🟢'
+        let reply = `${riskEmoji} تحليل مخاطر الانسحاب لـ ${studentName(lookup.student)}:
+• مستوى الخطر: ${prediction.risk_level} (${prediction.risk_score}%)
+• العوامل: ${(prediction.factors || []).join('، ')}
+• التوصية: ${prediction.recommendation || 'لا يوجد'}`
+        if (prediction.reviewed_at) reply += `\n• تمت المراجعة: ${new Date(prediction.reviewed_at).toLocaleDateString('ar-SA')}`
+        return { success: true, reply }
+      }
+
+      case 'LIST_HIGH_RISK': {
+        const { data: predictions } = await supabase
+          .from('churn_predictions')
+          .select('student_id, risk_level, risk_score, factors, students:student_id(profiles(full_name, display_name), group_id, groups:group_id(code))')
+          .in('risk_level', ['high', 'medium'])
+          .order('risk_score', { ascending: false })
+          .limit(20)
+
+        if (!predictions?.length) return { success: true, reply: 'لا يوجد طلاب بمخاطر انسحاب عالية ✓' }
+
+        let reply = `⚠️ طلاب بمخاطر انسحاب (${predictions.length}):\n`
+        for (const p of predictions) {
+          const name = (p as any).students?.profiles?.display_name || (p as any).students?.profiles?.full_name || '?'
+          const group = (p as any).students?.groups?.code || '?'
+          const emoji = p.risk_level === 'high' ? '🔴' : '🟡'
+          reply += `${emoji} ${name} (${group}) — ${p.risk_score}% — ${(p.factors || []).slice(0, 2).join('، ')}\n`
+        }
+        return { success: true, reply }
+      }
+
+      case 'RUN_CHURN_ANALYSIS': {
+        if (role !== 'admin') return { success: false, reply: 'تحليل الانسحاب متاح للمشرفين فقط' }
+
+        try {
+          const res = await fetch(`${SUPABASE_URL}/functions/v1/predict-churn`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({}),
+          })
+          const data = await res.json()
+          if (data.error) return { success: false, reply: `خطأ: ${data.error}` }
+          return { success: true, reply: `✅ تم تشغيل تحليل الانسحاب — تم تحليل ${data.analyzed || 0} طالب\nعالي الخطر: ${data.high_risk || 0} | متوسط: ${data.medium_risk || 0} | منخفض: ${data.low_risk || 0}` }
+        } catch {
+          return { success: false, reply: 'خطأ في تشغيل التحليل' }
+        }
+      }
+
+      // ── Parent Dashboard ──
+      case 'CREATE_PARENT_LINK': {
+        const lookup = await findStudent(params.student_name, supabase, role !== 'admin' ? trainerGroupIds : undefined)
+        if (!lookup.found) return { success: false, reply: `لم أجد طالب/ة باسم "${params.student_name}"` }
+        if (lookup.ambiguous) return { success: false, reply: `وجدت أكثر من نتيجة: ${lookup.matches.map((m: any) => studentName(m)).join('، ')}` }
+
+        // Check if link already exists
+        const { data: existing } = await supabase
+          .from('parent_links')
+          .select('access_code')
+          .eq('student_id', lookup.student.id)
+          .eq('is_active', true)
+          .maybeSingle()
+
+        if (existing) {
+          return { success: true, reply: `رابط ولي أمر ${studentName(lookup.student)} موجود بالفعل:\nكود الدخول: ${existing.access_code}\nالرابط: /parent` }
+        }
+
+        // Generate 6-digit code
+        const code = Math.random().toString(36).substring(2, 8).toUpperCase()
+        await supabase.from('parent_links').insert({
+          student_id: lookup.student.id,
+          parent_name: params.parent_name || 'ولي الأمر',
+          access_code: code,
+          is_active: true,
+        })
+
+        return { success: true, reply: `✅ تم إنشاء رابط ولي أمر ${studentName(lookup.student)}:\nكود الدخول: ${code}\nالرابط: /parent\nيمكن لولي الأمر استخدام الكود للاطلاع على تقدم الطالب` }
+      }
+
+      // ── Voice Journal ──
+      case 'VIEW_JOURNAL_STATS': {
+        const lookup = await findStudent(params.student_name, supabase, role !== 'admin' ? trainerGroupIds : undefined)
+        if (!lookup.found) return { success: false, reply: `لم أجد طالب/ة باسم "${params.student_name}"` }
+        if (lookup.ambiguous) return { success: false, reply: `وجدت أكثر من نتيجة: ${lookup.matches.map((m: any) => studentName(m)).join('، ')}` }
+
+        const { data: journals } = await supabase
+          .from('voice_journals')
+          .select('id, duration_seconds, fluency_score, word_count, created_at')
+          .eq('student_id', lookup.student.id)
+          .order('created_at', { ascending: false })
+          .limit(10)
+
+        if (!journals?.length) return { success: true, reply: `لا توجد تسجيلات صوتية لـ ${studentName(lookup.student)}` }
+
+        const totalDuration = journals.reduce((s, j) => s + (j.duration_seconds || 0), 0)
+        const avgFluency = Math.round(journals.reduce((s, j) => s + (j.fluency_score || 0), 0) / journals.length)
+        const avgWords = Math.round(journals.reduce((s, j) => s + (j.word_count || 0), 0) / journals.length)
+
+        return {
+          success: true,
+          reply: `🎙️ إحصائيات اليوميات الصوتية لـ ${studentName(lookup.student)}:
+• عدد التسجيلات: ${journals.length}
+• إجمالي المدة: ${Math.round(totalDuration / 60)} دقيقة
+• متوسط الطلاقة: ${avgFluency}/10
+• متوسط الكلمات: ${avgWords} كلمة/تسجيل
+• آخر تسجيل: ${new Date(journals[0].created_at).toLocaleDateString('ar-SA')}`
+        }
+      }
+
+      // ── Lesson Planner ──
+      case 'GENERATE_LESSON_PLAN': {
+        const g = params.group_code ? await findGroup(params.group_code, supabase) : null
+
+        try {
+          const planRes = await fetch(`${SUPABASE_URL}/functions/v1/ai-lesson-planner`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              group_id: g?.id || params.group_id || null,
+              topic: params.topic || null,
+              skill_focus: params.skill_focus || null,
+              duration_minutes: params.duration || 60,
+              level: g?.level || params.level || 2,
+            }),
+          })
+          const planData = await planRes.json()
+          if (planData.error) return { success: false, reply: `خطأ: ${planData.error}` }
+
+          const plan = planData.plan
+          if (!plan) return { success: false, reply: 'لم يتم إنشاء خطة' }
+
+          let reply = `📝 خطة درس${g ? ` لمجموعة ${g.code}` : ''}:\n`
+          reply += `العنوان: ${plan.title || params.topic || 'درس'}\n`
+          reply += `المدة: ${plan.duration || params.duration || 60} دقيقة\n\n`
+          if (typeof plan === 'string') {
+            reply += plan.substring(0, 800)
+          } else {
+            reply += JSON.stringify(plan, null, 2).substring(0, 800)
+          }
+          return { success: true, reply }
+        } catch {
+          return { success: false, reply: 'خطأ في إنشاء خطة الدرس' }
+        }
+      }
+
+      // ── Events & Competitions ──
+      case 'CREATE_EVENT': {
+        const { data: event, error } = await supabase.from('seasonal_events').insert({
+          title: params.title,
+          description: params.description || null,
+          type: params.type || 'challenge',
+          start_date: params.start_date,
+          end_date: params.end_date,
+          reward_xp: params.reward_xp || 50,
+          max_participants: params.max_participants || null,
+          created_by: userId,
+          is_active: true,
+        }).select('id, title').single()
+
+        if (error) return { success: false, reply: `خطأ: ${error.message}` }
+
+        // Notify all active students
+        const { data: allStudents } = await supabase
+          .from('students').select('id').eq('status', 'active')
+        if (allStudents?.length) {
+          const notifications = allStudents.map((s: any) => ({
+            user_id: s.id, type: 'event',
+            title: '🎉 فعالية جديدة!',
+            body: `${event.title} — سجّل الآن!`,
+            data: { link: '/student/events' },
+          }))
+          await supabase.from('notifications').insert(notifications)
+        }
+
+        return { success: true, reply: `✅ تم إنشاء فعالية "${event.title}"\nمن ${params.start_date} إلى ${params.end_date}\nالمكافأة: ${params.reward_xp || 50} XP\nتم إشعار ${allStudents?.length || 0} طالب` }
+      }
+
+      case 'LIST_EVENTS': {
+        const { data: events } = await supabase
+          .from('seasonal_events')
+          .select('id, title, type, start_date, end_date, reward_xp, is_active, event_participants(count)')
+          .order('start_date', { ascending: false })
+          .limit(10)
+
+        if (!events?.length) return { success: true, reply: 'لا توجد فعاليات' }
+
+        let reply = `📅 الفعاليات (${events.length}):\n`
+        for (const e of events) {
+          const status = e.is_active ? '🟢' : '⚪'
+          const participants = (e as any).event_participants?.[0]?.count || 0
+          reply += `${status} ${e.title} (${e.type}) — ${e.start_date} → ${e.end_date} — ${e.reward_xp} XP — ${participants} مشارك\n`
+        }
+        return { success: true, reply }
+      }
+
+      // ── Streak & Leaderboard ──
+      case 'VIEW_LEADERBOARD': {
+        const type = params.type || 'xp' // xp or streak
+        let query = supabase
+          .from('students')
+          .select('id, xp_total, current_streak, profiles(full_name, display_name), groups(code)')
+          .eq('status', 'active')
+          .is('deleted_at', null)
+
+        if (role !== 'admin') query = query.in('group_id', trainerGroupIds)
+        if (params.group_code) {
+          const g = await findGroup(params.group_code, supabase)
+          if (g) query = query.eq('group_id', g.id)
+        }
+
+        const orderField = type === 'streak' ? 'current_streak' : 'xp_total'
+        const { data: students } = await query.order(orderField, { ascending: false }).limit(15)
+
+        if (!students?.length) return { success: true, reply: 'لا يوجد طلاب' }
+
+        const emoji = type === 'streak' ? '🔥' : '⭐'
+        let reply = `${emoji} ${type === 'streak' ? 'أطول سلاسل' : 'أعلى نقاط'}:\n`
+        students.forEach((s: any, i: number) => {
+          const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`
+          const value = type === 'streak' ? `${s.current_streak} يوم` : `${s.xp_total} XP`
+          reply += `${medal} ${studentName(s.profiles)} (${s.groups?.code || '?'}) — ${value}\n`
+        })
+        return { success: true, reply }
+      }
+
+      // ── Scheduling ──
+      case 'VIEW_SCHEDULE': {
+        const startDate = params.date || new Date().toISOString().split('T')[0]
+        const endDate = params.end_date || startDate
+
+        let query = supabase
+          .from('classes')
+          .select('id, title, topic, date, start_time, end_time, status, groups(code, name)')
+          .gte('date', startDate)
+          .lte('date', endDate)
+          .order('date')
+          .order('start_time')
+
+        if (role !== 'admin') query = query.in('group_id', trainerGroupIds)
+
+        const { data: classes } = await query.limit(30)
+
+        if (!classes?.length) return { success: true, reply: `لا توجد حصص في ${startDate}${endDate !== startDate ? ` إلى ${endDate}` : ''}` }
+
+        let reply = `📅 الجدول (${classes.length} حصة):\n`
+        let currentDate = ''
+        for (const c of classes) {
+          if (c.date !== currentDate) {
+            currentDate = c.date
+            reply += `\n📆 ${c.date}:\n`
+          }
+          reply += `  • ${c.start_time}-${c.end_time} — ${(c as any).groups?.code || '?'}: ${c.title}${c.topic ? ` (${c.topic})` : ''} [${c.status}]\n`
+        }
+        return { success: true, reply }
+      }
+
+      // ── AI Usage Stats ──
+      case 'AI_USAGE_STATS': {
+        if (role !== 'admin') return { success: false, reply: 'إحصائيات AI متاحة للمشرفين فقط' }
+
+        const monthStart = new Date()
+        monthStart.setDate(1)
+        monthStart.setHours(0, 0, 0, 0)
+
+        const { data: usage } = await supabase
+          .from('ai_usage')
+          .select('type, estimated_cost_sar, input_tokens, output_tokens')
+          .gte('created_at', monthStart.toISOString())
+
+        if (!usage?.length) return { success: true, reply: 'لا يوجد استخدام AI هذا الشهر' }
+
+        const byType: Record<string, { count: number; cost: number; tokens: number }> = {}
+        let totalCost = 0
+        let totalTokens = 0
+
+        for (const u of usage) {
+          if (!byType[u.type]) byType[u.type] = { count: 0, cost: 0, tokens: 0 }
+          byType[u.type].count++
+          const cost = parseFloat(u.estimated_cost_sar) || 0
+          byType[u.type].cost += cost
+          byType[u.type].tokens += (u.input_tokens || 0) + (u.output_tokens || 0)
+          totalCost += cost
+          totalTokens += (u.input_tokens || 0) + (u.output_tokens || 0)
+        }
+
+        let reply = `🤖 استخدام AI هذا الشهر:\n• التكلفة الإجمالية: ${totalCost.toFixed(2)} ر.س\n• إجمالي الطلبات: ${usage.length}\n• إجمالي التوكنز: ${totalTokens.toLocaleString()}\n\nبالنوع:\n`
+        for (const [type, info] of Object.entries(byType).sort((a, b) => b[1].cost - a[1].cost)) {
+          reply += `• ${type}: ${info.count} طلب — ${info.cost.toFixed(2)} ر.س\n`
+        }
+        return { success: true, reply }
+      }
+
+      // ── Challenges ──
+      case 'CREATE_CHALLENGE': {
+        const g = params.group_code ? await findGroup(params.group_code, supabase) : null
+
+        const { data: challenge, error } = await supabase.from('challenges').insert({
+          title: params.title,
+          description: params.description || null,
+          type: params.type || 'daily',
+          group_id: g?.id || null,
+          xp_reward: params.xp_reward || 20,
+          deadline: params.deadline ? new Date(params.deadline).toISOString() : null,
+          created_by: userId,
+          is_active: true,
+        }).select('id, title').single()
+
+        if (error) return { success: false, reply: `خطأ: ${error.message}` }
+
+        // Notify relevant students
+        let studentQuery = supabase.from('students').select('id').eq('status', 'active')
+        if (g) studentQuery = studentQuery.eq('group_id', g.id)
+        const { data: targetStudents } = await studentQuery
+
+        if (targetStudents?.length) {
+          await supabase.from('notifications').insert(targetStudents.map((s: any) => ({
+            user_id: s.id, type: 'challenge',
+            title: '🏆 تحدي جديد!',
+            body: `${challenge.title} — ${params.xp_reward || 20} XP`,
+            data: { link: '/student/challenges' },
+          })))
+        }
+
+        return { success: true, reply: `✅ تم إنشاء تحدي "${challenge.title}"${g ? ` لمجموعة ${g.code}` : ' لجميع الطلاب'}\nالمكافأة: ${params.xp_reward || 20} XP\nتم إشعار ${targetStudents?.length || 0} طالب` }
+      }
+
+      // ── Notifications ──
+      case 'SEND_PUSH': {
+        let targetIds: string[] = []
+
+        if (params.group_code) {
+          const g = await findGroup(params.group_code, supabase)
+          if (!g) return { success: false, reply: `لم أجد مجموعة "${params.group_code}"` }
+          const { data: students } = await supabase.from('students').select('id').eq('group_id', g.id).eq('status', 'active')
+          targetIds = (students || []).map((s: any) => s.id)
+        } else if (params.student_name) {
+          const lookup = await findStudent(params.student_name, supabase, role !== 'admin' ? trainerGroupIds : undefined)
+          if (!lookup.found) return { success: false, reply: `لم أجد طالب/ة باسم "${params.student_name}"` }
+          if (lookup.ambiguous) return { success: false, reply: `وجدت أكثر من نتيجة` }
+          targetIds = [lookup.student.id]
+        } else {
+          const { data: all } = await supabase.from('students').select('id').eq('status', 'active')
+          targetIds = (all || []).map((s: any) => s.id)
+        }
+
+        if (!targetIds.length) return { success: false, reply: 'لا يوجد مستهدفين' }
+
+        await supabase.from('notifications').insert(targetIds.map(id => ({
+          user_id: id,
+          type: params.type || 'system',
+          title: params.title || 'إشعار',
+          body: params.message,
+          data: params.data || {},
+        })))
+
+        return { success: true, reply: `✅ تم إرسال إشعار لـ ${targetIds.length} ${targetIds.length === 1 ? 'طالب' : 'طالب'}` }
+      }
+
       default:
         return { success: false, reply: `الأمر "${action}" غير معروف` }
     }
@@ -1252,6 +1706,44 @@ ${role === 'admin' ? '- CREATE_GROUP: {"name":"اسم المجموعة","code":"
 
 ### المدفوعات (مشرف فقط)
 ${role === 'admin' ? `- RECORD_PAYMENT: {"student_name":"اسم","amount":600,"method":"bank_transfer|cash"}` : ''}
+
+### أنماط الأخطاء والتمارين
+- VIEW_ERROR_PATTERNS: {"student_name":"اسم"} — عرض أنماط الأخطاء النشطة للطالب
+- GENERATE_EXERCISES: {"student_name":"اسم"} — إنشاء تمارين مخصصة بناءً على أنماط الأخطاء
+- LIST_WEAK_STUDENTS: {"skill":"grammar|vocabulary|speaking|writing"} — أضعف الطلاب في مهارة معينة
+
+### توقع الانسحاب
+- VIEW_CHURN_RISK: {"student_name":"اسم"} — عرض تحليل مخاطر انسحاب طالب
+- LIST_HIGH_RISK: {} — قائمة الطلاب بمخاطر انسحاب عالية/متوسطة
+${role === 'admin' ? '- RUN_CHURN_ANALYSIS: {} — تشغيل تحليل الانسحاب لجميع الطلاب' : ''}
+
+### ولي الأمر
+- CREATE_PARENT_LINK: {"student_name":"اسم","parent_name":"اسم ولي الأمر"} — إنشاء رابط لوحة ولي الأمر
+
+### اليوميات الصوتية
+- VIEW_JOURNAL_STATS: {"student_name":"اسم"} — إحصائيات تسجيلات الطالب الصوتية
+
+### تخطيط الدروس
+- GENERATE_LESSON_PLAN: {"group_code":"2A","topic":"الموضوع","skill_focus":"grammar|speaking|writing","duration":60} — إنشاء خطة درس بالذكاء الاصطناعي
+
+### الفعاليات والمسابقات
+- CREATE_EVENT: {"title":"العنوان","description":"الوصف","type":"challenge|competition|workshop|season","start_date":"2026-03-15","end_date":"2026-03-20","reward_xp":50} ⚠️ تحتاج تأكيد
+- LIST_EVENTS: {} — عرض الفعاليات
+
+### المتصدرين والسلاسل
+- VIEW_LEADERBOARD: {"type":"xp|streak","group_code":"2A"} — group_code اختياري
+
+### الجدول
+- VIEW_SCHEDULE: {"date":"2026-03-12","end_date":"2026-03-15"} — end_date اختياري
+
+### التحديات
+- CREATE_CHALLENGE: {"title":"العنوان","description":"الوصف","type":"daily|weekly","group_code":"2A","xp_reward":20,"deadline":"2026-03-15"} ⚠️ تحتاج تأكيد
+
+### الإشعارات
+- SEND_PUSH: {"student_name":"اسم أو group_code","title":"العنوان","message":"الرسالة"}
+
+${role === 'admin' ? `### تحليلات AI (مشرف فقط)
+- AI_USAGE_STATS: {} — إحصائيات استخدام وتكلفة الذكاء الاصطناعي` : ''}
 
 ## قواعد مهمة
 - رد بالعربي دائماً (إلا المصطلحات الإنجليزية)
