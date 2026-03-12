@@ -48,6 +48,7 @@ const NAV_GROUPS = {
         { to: '/student/recognition', label: 'تقدير الزملاء', icon: Heart },
         { to: '/student/activity', label: 'نشاط المجموعة', icon: Activity },
         { to: '/student/challenges', label: 'التحديات', icon: Target },
+        { to: '/student/battles', label: 'المعارك', icon: Trophy },
       ],
     },
     {
