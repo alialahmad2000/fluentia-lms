@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { BarChart3, Users, Zap, Flame, Calendar, FileText, Loader2 } from 'lucide-react'
+import { BarChart3, Users, Zap, Flame, Calendar, FileText, Loader2, Download } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { ACADEMIC_LEVELS } from '../../lib/constants'
+import { exportToCSV } from '../../utils/exportData'
 
 export default function AdminReports() {
   // Overview stats
@@ -66,15 +67,51 @@ export default function AdminReports() {
     }
   }).sort((a, b) => b.totalXP - a.totalXP)
 
+  function handleExportReport() {
+    // Export leaderboard
+    if (leaderboard?.length) {
+      const leaderColumns = [
+        { key: (s) => s.profiles?.display_name || s.profiles?.full_name || 'طالب', label: 'الطالب' },
+        { key: (s) => s.groups?.code || '', label: 'المجموعة' },
+        { key: 'xp_total', label: 'XP' },
+        { key: 'current_streak', label: 'السلسلة' },
+        { key: 'gamification_level', label: 'المستوى' },
+      ]
+      exportToCSV(leaderboard, 'leaderboard', leaderColumns)
+    }
+
+    // Export group stats
+    if (groupStats?.length) {
+      const groupColumns = [
+        { key: 'code', label: 'الكود' },
+        { key: 'name', label: 'المجموعة' },
+        { key: (g) => ACADEMIC_LEVELS[g.level]?.cefr || g.level, label: 'المستوى' },
+        { key: 'studentCount', label: 'عدد الطلاب' },
+        { key: 'avgXP', label: 'متوسط XP' },
+        { key: 'totalXP', label: 'إجمالي XP' },
+      ]
+      exportToCSV(groupStats, 'group_stats', groupColumns)
+    }
+  }
+
   if (isLoading) {
     return <div className="flex justify-center py-12"><Loader2 className="animate-spin text-muted" size={24} /></div>
   }
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-white">التقارير</h1>
-        <p className="text-muted text-sm mt-1">نظرة عامة على أداء الأكاديمية</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-white">التقارير</h1>
+          <p className="text-muted text-sm mt-1">نظرة عامة على أداء الأكاديمية</p>
+        </div>
+        <button
+          onClick={handleExportReport}
+          disabled={!leaderboard?.length && !groupStats?.length}
+          className="btn-secondary text-sm py-2 flex items-center gap-2"
+        >
+          <Download size={16} /> تصدير التقرير
+        </button>
       </div>
 
       {/* Overview Cards */}

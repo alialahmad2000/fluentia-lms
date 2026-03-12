@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { Users, UserCheck, Layers, CreditCard, TrendingUp, AlertCircle } from 'lucide-react'
+import { Users, UserCheck, Layers, CreditCard, TrendingUp, AlertCircle, Flame, Calendar, ArrowUpRight, ArrowDownRight } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { getGreeting } from '../../utils/dateHelpers'
@@ -79,6 +79,80 @@ export default function AdminDashboard() {
         .is('deleted_at', null)
         .order('enrollment_date', { ascending: false })
         .limit(6)
+      return data || []
+    },
+  })
+
+  // Revenue stats (this month vs last month)
+  const { data: revenueStats } = useQuery({
+    queryKey: ['admin-revenue-stats'],
+    queryFn: async () => {
+      const now = new Date()
+      const thisMonthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString()
+      const lastMonthStart = new Date(now.getFullYear(), now.getMonth() - 1, 1).toISOString()
+      const lastMonthEnd = new Date(now.getFullYear(), now.getMonth(), 0).toISOString()
+
+      const [thisMonthRes, lastMonthRes, allPaidRes] = await Promise.all([
+        supabase.from('payments').select('amount').eq('status', 'paid').gte('paid_at', thisMonthStart).is('deleted_at', null),
+        supabase.from('payments').select('amount').eq('status', 'paid').gte('paid_at', lastMonthStart).lte('paid_at', lastMonthEnd).is('deleted_at', null),
+        supabase.from('payments').select('amount, status').is('deleted_at', null),
+      ])
+
+      const thisMonth = thisMonthRes.data?.reduce((s, p) => s + (p.amount || 0), 0) || 0
+      const lastMonth = lastMonthRes.data?.reduce((s, p) => s + (p.amount || 0), 0) || 0
+      const growth = lastMonth > 0 ? Math.round(((thisMonth - lastMonth) / lastMonth) * 100) : 0
+      const totalPaid = allPaidRes.data?.filter(p => p.status === 'paid').reduce((s, p) => s + (p.amount || 0), 0) || 0
+      const totalAll = allPaidRes.data?.reduce((s, p) => s + (p.amount || 0), 0) || 0
+      const collectionRate = totalAll > 0 ? Math.round((totalPaid / totalAll) * 100) : 0
+
+      return { thisMonth, lastMonth, growth, collectionRate }
+    },
+  })
+
+  // Empty seats per group
+  const { data: groupSeats } = useQuery({
+    queryKey: ['admin-group-seats'],
+    queryFn: async () => {
+      const { data: groups } = await supabase
+        .from('groups')
+        .select('id, name, code, max_students, level')
+        .eq('is_active', true)
+
+      if (!groups) return []
+
+      const results = await Promise.all(groups.map(async (g) => {
+        const { count } = await supabase
+          .from('students')
+          .select('*', { count: 'exact', head: true })
+          .eq('group_id', g.id)
+          .eq('status', 'active')
+          .is('deleted_at', null)
+        return { ...g, students: count || 0, empty: (g.max_students || 7) - (count || 0) }
+      }))
+
+      return results.filter(g => g.empty > 0).sort((a, b) => b.empty - a.empty)
+    },
+  })
+
+  // Upcoming payment renewals (next 7 days)
+  const { data: upcomingRenewals } = useQuery({
+    queryKey: ['admin-upcoming-renewals'],
+    queryFn: async () => {
+      const today = new Date()
+      const dayOfMonth = today.getDate()
+      // Get students whose payment_day is within the next 7 days
+      const days = []
+      for (let i = 0; i < 7; i++) {
+        const d = new Date(today)
+        d.setDate(d.getDate() + i)
+        days.push(d.getDate())
+      }
+      const { data } = await supabase
+        .from('students')
+        .select('id, payment_day, custom_price, package, profiles(full_name)')
+        .eq('status', 'active')
+        .is('deleted_at', null)
+        .in('payment_day', days)
       return data || []
     },
   })
@@ -201,12 +275,118 @@ export default function AdminDashboard() {
         </motion.div>
       </div>
 
+      {/* Revenue + Collection */}
+      <div className="grid lg:grid-cols-2 gap-4">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="glass-card p-5"
+        >
+          <div className="flex items-center gap-2 mb-4">
+            <CreditCard size={18} className="text-emerald-400" />
+            <h3 className="font-medium text-white">الإيرادات</h3>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="text-muted text-xs">هذا الشهر</p>
+              <p className="text-xl font-bold text-white">{(revenueStats?.thisMonth || 0).toLocaleString()} <span className="text-xs text-muted">ر.س</span></p>
+            </div>
+            <div>
+              <p className="text-muted text-xs">الشهر الماضي</p>
+              <p className="text-xl font-bold text-white">{(revenueStats?.lastMonth || 0).toLocaleString()} <span className="text-xs text-muted">ر.س</span></p>
+            </div>
+          </div>
+          {revenueStats?.growth !== 0 && (
+            <div className={`flex items-center gap-1 mt-3 text-xs ${revenueStats?.growth > 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+              {revenueStats?.growth > 0 ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
+              <span>{Math.abs(revenueStats?.growth || 0)}% {revenueStats?.growth > 0 ? 'نمو' : 'انخفاض'}</span>
+            </div>
+          )}
+          <div className="mt-4">
+            <div className="flex items-center justify-between text-xs mb-1">
+              <span className="text-muted">معدل التحصيل</span>
+              <span className="text-white font-medium">{revenueStats?.collectionRate || 0}%</span>
+            </div>
+            <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+              <div
+                className={`h-full rounded-full transition-all ${(revenueStats?.collectionRate || 0) >= 80 ? 'bg-emerald-500' : (revenueStats?.collectionRate || 0) >= 50 ? 'bg-amber-500' : 'bg-red-500'}`}
+                style={{ width: `${revenueStats?.collectionRate || 0}%` }}
+              />
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Empty seats */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.55 }}
+          className="glass-card p-5"
+        >
+          <div className="flex items-center gap-2 mb-4">
+            <Layers size={18} className="text-amber-400" />
+            <h3 className="font-medium text-white">المقاعد المتاحة</h3>
+          </div>
+          {groupSeats?.length > 0 ? (
+            <div className="space-y-2">
+              {groupSeats.map((g) => (
+                <div key={g.id} className="flex items-center justify-between bg-white/5 rounded-xl p-3">
+                  <div>
+                    <p className="text-sm text-white">{g.name || g.code}</p>
+                    <p className="text-xs text-muted">المستوى {g.level}</p>
+                  </div>
+                  <div className="text-center">
+                    <span className={`text-lg font-bold ${g.empty >= 3 ? 'text-emerald-400' : g.empty >= 1 ? 'text-amber-400' : 'text-red-400'}`}>
+                      {g.empty}
+                    </span>
+                    <p className="text-[10px] text-muted">من {g.max_students || 7}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-muted text-sm">جميع المجموعات مكتملة</p>
+          )}
+        </motion.div>
+      </div>
+
+      {/* Upcoming renewals */}
+      {upcomingRenewals?.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="glass-card p-5"
+        >
+          <div className="flex items-center gap-2 mb-4">
+            <Calendar size={18} className="text-sky-400" />
+            <h3 className="font-medium text-white">تجديدات قادمة (٧ أيام)</h3>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
+            {upcomingRenewals.map((s) => {
+              const pkgInfo = PACKAGES[s.package]
+              const amount = s.custom_price || pkgInfo?.price || 0
+              return (
+                <div key={s.id} className="flex items-center justify-between bg-white/5 rounded-xl p-3">
+                  <div>
+                    <p className="text-sm text-white">{s.profiles?.full_name}</p>
+                    <p className="text-xs text-muted">يوم {s.payment_day} من الشهر</p>
+                  </div>
+                  <span className="text-sm font-bold text-sky-400">{amount} ر.س</span>
+                </div>
+              )
+            })}
+          </div>
+        </motion.div>
+      )}
+
       {/* System errors (if any) */}
       {recentErrors?.length > 0 && (
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.55 }}
+          transition={{ delay: 0.65 }}
           className="glass-card p-5 border-red-500/20"
         >
           <div className="flex items-center gap-2 mb-4">

@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Users, Plus, Search, Edit3, Trash2, Loader2, X, UserPlus } from 'lucide-react'
+import { Users, Plus, Search, Edit3, Trash2, Loader2, X, UserPlus, Download, ArrowUpCircle } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { ACADEMIC_LEVELS, PACKAGES, STUDENT_STATUS } from '../../lib/constants'
 import { formatDateAr } from '../../utils/dateHelpers'
+import { exportToCSV } from '../../utils/exportData'
 
 export default function AdminStudents() {
   const queryClient = useQueryClient()
@@ -83,6 +84,22 @@ export default function AdminStudents() {
     return s.profiles?.display_name || s.profiles?.full_name || 'طالب'
   }
 
+  function handleExportCSV() {
+    if (!filtered?.length) return
+    const columns = [
+      { key: (s) => s.profiles?.full_name || s.profiles?.display_name || '', label: 'الاسم' },
+      { key: (s) => s.profiles?.email || '', label: 'البريد' },
+      { key: (s) => ACADEMIC_LEVELS[s.academic_level]?.cefr || s.academic_level, label: 'المستوى' },
+      { key: (s) => s.groups?.code || '', label: 'المجموعة' },
+      { key: (s) => PACKAGES[s.package]?.name_ar || s.package, label: 'الباقة' },
+      { key: (s) => s.custom_price || PACKAGES[s.package]?.price || '', label: 'السعر' },
+      { key: (s) => statusLabels[s.status] || s.status, label: 'الحالة' },
+      { key: 'xp_total', label: 'XP' },
+      { key: 'current_streak', label: 'السلسلة' },
+    ]
+    exportToCSV(filtered, 'students', columns)
+  }
+
   const statusColors = {
     active: 'text-emerald-400 bg-emerald-500/10',
     paused: 'text-amber-400 bg-amber-500/10',
@@ -122,6 +139,13 @@ export default function AdminStudents() {
           <option value="graduated">متخرج</option>
           <option value="withdrawn">منسحب</option>
         </select>
+        <button
+          onClick={handleExportCSV}
+          disabled={!filtered?.length}
+          className="btn-secondary text-sm py-2 flex items-center gap-2 whitespace-nowrap"
+        >
+          <Download size={16} /> تصدير CSV
+        </button>
       </div>
 
       {/* Student table */}
@@ -191,6 +215,7 @@ export default function AdminStudents() {
             onClose={() => { setShowForm(false); setEditStudent(null) }}
             onSave={(updates) => updateMutation.mutate(updates)}
             saving={updateMutation.isPending}
+            queryClient={queryClient}
           />
         )}
       </AnimatePresence>
@@ -198,7 +223,7 @@ export default function AdminStudents() {
   )
 }
 
-function EditStudentModal({ student, groups, onClose, onSave, saving }) {
+function EditStudentModal({ student, groups, onClose, onSave, saving, queryClient }) {
   const [fullName, setFullName] = useState(student.profiles?.full_name || '')
   const [phone, setPhone] = useState(student.profiles?.phone || '')
   const [groupId, setGroupId] = useState(student.group_id || '')
@@ -207,6 +232,69 @@ function EditStudentModal({ student, groups, onClose, onSave, saving }) {
   const [status, setStatus] = useState(student.status || 'active')
   const [customPrice, setCustomPrice] = useState(student.custom_price || '')
   const [paymentDay, setPaymentDay] = useState(student.payment_day || '')
+  const [promoting, setPromoting] = useState(false)
+  const [promotionMsg, setPromotionMsg] = useState('')
+
+  async function handlePromoteLevel() {
+    const currentLevel = parseInt(academicLevel)
+    if (currentLevel >= 5) {
+      setPromotionMsg('الطالب في أعلى مستوى بالفعل')
+      return
+    }
+    setPromoting(true)
+    setPromotionMsg('')
+    try {
+      const newLevel = currentLevel + 1
+      const newLevelInfo = ACADEMIC_LEVELS[newLevel]
+
+      // Update student academic_level
+      const { error: updateErr } = await supabase
+        .from('students')
+        .update({ academic_level: newLevel })
+        .eq('id', student.id)
+      if (updateErr) throw updateErr
+
+      // Create notification for the student
+      await supabase.from('notifications').insert({
+        user_id: student.id,
+        type: 'level_up',
+        title: 'ترقية مستوى',
+        body: `تمت ترقيتك إلى المستوى ${newLevelInfo?.cefr} — ${newLevelInfo?.name_ar}`,
+      })
+
+      // Create activity_feed entry
+      await supabase.from('activity_feed').insert({
+        student_id: student.id,
+        type: 'level_up',
+        title: 'ترقية مستوى',
+        description: `ترقية إلى المستوى ${newLevelInfo?.cefr}`,
+        xp_earned: 100,
+      })
+
+      // Award XP via xp_transactions
+      await supabase.from('xp_transactions').insert({
+        student_id: student.id,
+        amount: 100,
+        reason: 'achievement',
+        description: `ترقية إلى المستوى ${newLevelInfo?.cefr}`,
+      })
+
+      // Update XP total
+      await supabase
+        .from('students')
+        .update({ xp_total: (student.xp_total || 0) + 100 })
+        .eq('id', student.id)
+
+      setAcademicLevel(newLevel)
+      setPromotionMsg(`تمت الترقية إلى ${newLevelInfo?.cefr} — ${newLevelInfo?.name_ar} بنجاح`)
+      queryClient?.invalidateQueries({ queryKey: ['admin-students'] })
+    } catch (err) {
+      setPromotionMsg('حدث خطأ أثناء الترقية')
+      console.error(err)
+    } finally {
+      setPromoting(false)
+    }
+  }
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -270,6 +358,24 @@ function EditStudentModal({ student, groups, onClose, onSave, saving }) {
               </select>
             </div>
           </div>
+          {/* Level Promotion */}
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={handlePromoteLevel}
+              disabled={promoting || parseInt(academicLevel) >= 5}
+              className="btn-secondary text-sm py-2 flex items-center gap-2 whitespace-nowrap"
+            >
+              {promoting ? <Loader2 size={16} className="animate-spin" /> : <ArrowUpCircle size={16} />}
+              ترقية المستوى
+            </button>
+            {promotionMsg && (
+              <span className={`text-xs ${promotionMsg.includes('بنجاح') ? 'text-emerald-400' : promotionMsg.includes('خطأ') ? 'text-red-400' : 'text-amber-400'}`}>
+                {promotionMsg}
+              </span>
+            )}
+          </div>
+
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-sm text-muted mb-1">الباقة</label>

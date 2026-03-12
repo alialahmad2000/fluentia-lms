@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { Settings, Save, Loader2, RefreshCw } from 'lucide-react'
+import { Settings, Save, Loader2, RefreshCw, CreditCard, Brain, HardDrive, Link2, Moon } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { XP_VALUES, PACKAGES } from '../../lib/constants'
 
@@ -26,6 +26,8 @@ export default function AdminSettings() {
   // Local state for editable values
   const [xpValues, setXpValues] = useState(null)
   const [packagePrices, setPackagePrices] = useState(null)
+  const [paymentLink, setPaymentLink] = useState(null)
+  const [aiBudget, setAiBudget] = useState(null)
 
   // Initialize from settings or defaults
   const currentXP = xpValues || settings?.xp_values || XP_VALUES
@@ -35,6 +37,8 @@ export default function AdminSettings() {
     tamayuz: PACKAGES.tamayuz.price,
     ielts: PACKAGES.ielts.price,
   }
+  const currentPaymentLink = paymentLink ?? settings?.moyasar_payment_link ?? ''
+  const currentAiBudget = aiBudget ?? settings?.ai_monthly_budget ?? 50
 
   function updateXP(key, value) {
     const updated = { ...currentXP, [key]: parseInt(value) || 0 }
@@ -54,6 +58,8 @@ export default function AdminSettings() {
       const upserts = []
       if (xpValues) upserts.push({ key: 'xp_values', value: JSON.stringify(xpValues) })
       if (packagePrices) upserts.push({ key: 'package_prices', value: JSON.stringify(packagePrices) })
+      if (paymentLink !== null) upserts.push({ key: 'moyasar_payment_link', value: JSON.stringify(paymentLink) })
+      if (aiBudget !== null) upserts.push({ key: 'ai_monthly_budget', value: JSON.stringify(aiBudget) })
 
       for (const item of upserts) {
         const { error } = await supabase
@@ -158,13 +164,49 @@ export default function AdminSettings() {
             </div>
           </div>
 
+          {/* Moyasar Payment Link */}
+          <div className="glass-card p-5">
+            <div className="flex items-center gap-2 mb-4">
+              <Link2 size={18} className="text-sky-400" />
+              <h3 className="text-lg font-bold text-white">رابط الدفع (Moyasar)</h3>
+            </div>
+            <p className="text-muted text-xs mb-3">رابط الدفع الذي يظهر للطلاب في صفحة الفواتير</p>
+            <input
+              type="url"
+              value={currentPaymentLink}
+              onChange={(e) => { setPaymentLink(e.target.value); setSaved(false) }}
+              placeholder="https://moyasar.com/pay/..."
+              className="input-field text-sm"
+              dir="ltr"
+            />
+          </div>
+
+          {/* AI Budget */}
+          <div className="glass-card p-5">
+            <div className="flex items-center gap-2 mb-4">
+              <Brain size={18} className="text-violet-400" />
+              <h3 className="text-lg font-bold text-white">ميزانية الذكاء الاصطناعي</h3>
+            </div>
+            <p className="text-muted text-xs mb-3">الحد الأقصى الشهري لتكاليف API (ريال سعودي)</p>
+            <div className="flex items-center gap-2">
+              <input
+                type="number"
+                value={currentAiBudget}
+                onChange={(e) => { setAiBudget(parseInt(e.target.value) || 0); setSaved(false) }}
+                className="input-field py-1 px-2 w-24 text-sm text-center"
+                dir="ltr"
+              />
+              <span className="text-muted text-sm">ر.س / شهر</span>
+            </div>
+          </div>
+
           {/* System Info */}
           <div className="glass-card p-5">
             <h3 className="text-lg font-bold text-white mb-4">معلومات النظام</h3>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-muted">الإصدار</span>
-                <span className="text-white">1.0.0</span>
+                <span className="text-white">2.0.0</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted">البيئة</span>
@@ -173,6 +215,10 @@ export default function AdminSettings() {
               <div className="flex justify-between">
                 <span className="text-muted">قاعدة البيانات</span>
                 <span className="text-emerald-400">متصلة</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted">Edge Functions</span>
+                <span className="text-emerald-400">16 دالة</span>
               </div>
             </div>
           </div>

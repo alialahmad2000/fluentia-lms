@@ -5,7 +5,7 @@ import {
   House, FileText, Calendar, BarChart3, Mic, BookOpen, User, Trophy, Heart, Activity, Target, Mail,
   Users, Briefcase, CreditCard, Settings, LayoutDashboard,
   LogOut, X, ChevronLeft, ChevronDown, ClipboardCheck, StickyNote, Zap, UserCheck, MessageSquare,
-  Bot, Brain, FileBarChart, AlertTriangle, Crosshair,
+  Bot, Brain, FileBarChart, AlertTriangle, Crosshair, FolderOpen, Moon, Shield,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 
@@ -200,6 +200,14 @@ const NAV_GROUPS = {
       ],
     },
     {
+      key: 'content',
+      label: 'المحتوى',
+      items: [
+        { to: '/admin/content', label: 'إدارة المحتوى', icon: FolderOpen },
+        { to: '/admin/holidays', label: 'العطل والمناسبات', icon: Moon },
+      ],
+    },
+    {
       key: 'analytics',
       label: 'التحليلات',
       items: [
@@ -213,6 +221,7 @@ const NAV_GROUPS = {
       label: 'النظام',
       items: [
         { to: '/admin/settings', label: 'الإعدادات', icon: Settings },
+        { to: '/admin/audit-log', label: 'سجل المراجعة', icon: Shield },
       ],
     },
   ],

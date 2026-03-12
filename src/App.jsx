@@ -6,6 +6,7 @@ import LayoutShell from './components/layout/LayoutShell'
 import OnboardingModal from './components/onboarding/OnboardingModal'
 import GamificationProvider from './components/gamification/GamificationProvider'
 import ErrorBoundary, { PageErrorFallback } from './components/ErrorBoundary'
+import GlobalSearch from './components/GlobalSearch'
 import lazyRetry from './utils/lazyRetry'
 
 // ─── Lazy-loaded Pages (with chunk retry on stale deploys) ───
@@ -61,6 +62,9 @@ const AdminReports = lazyRetry(() => import('./pages/admin/AdminReports'))
 const AdminSettings = lazyRetry(() => import('./pages/admin/AdminSettings'))
 const AdminChurnPrediction = lazyRetry(() => import('./pages/admin/AdminChurnPrediction'))
 const AdminSmartScheduling = lazyRetry(() => import('./pages/admin/AdminSmartScheduling'))
+const AdminContent = lazyRetry(() => import('./pages/admin/AdminContent'))
+const AdminHolidays = lazyRetry(() => import('./pages/admin/AdminHolidays'))
+const AdminAuditLog = lazyRetry(() => import('./pages/admin/AdminAuditLog'))
 
 const ForgotPassword = lazyRetry(() => import('./pages/public/ForgotPassword'))
 const ParentDashboard = lazyRetry(() => import('./pages/public/ParentDashboard'))
@@ -155,6 +159,7 @@ export default function App() {
       <BrowserRouter>
         <OnboardingModal />
         <GamificationProvider />
+        <GlobalSearch />
 
         <Routes>
           <Route path="/" element={<RoleRedirect />} />
@@ -237,7 +242,10 @@ export default function App() {
               <Route path="/admin/reports" element={<Page><AdminReports /></Page>} />
               <Route path="/admin/churn" element={<Page><AdminChurnPrediction /></Page>} />
               <Route path="/admin/scheduling" element={<Page><AdminSmartScheduling /></Page>} />
+              <Route path="/admin/content" element={<Page><AdminContent /></Page>} />
               <Route path="/admin/settings" element={<Page><AdminSettings /></Page>} />
+              <Route path="/admin/holidays" element={<Page><AdminHolidays /></Page>} />
+              <Route path="/admin/audit-log" element={<Page><AdminAuditLog /></Page>} />
             </Route>
           </Route>
 

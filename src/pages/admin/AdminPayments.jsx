@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { CreditCard, Plus, Edit3, Loader2, X, AlertTriangle } from 'lucide-react'
+import { CreditCard, Plus, Edit3, Loader2, X, AlertTriangle, Download } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { formatDateAr } from '../../utils/dateHelpers'
 import { PACKAGES } from '../../lib/constants'
+import { exportToCSV } from '../../utils/exportData'
 
 const PAYMENT_STATUS = {
   paid: { label: 'مدفوع', color: 'text-emerald-400 bg-emerald-500/10' },
@@ -83,6 +84,20 @@ export default function AdminPayments() {
     return s?.profiles?.display_name || s?.profiles?.full_name || 'طالب'
   }
 
+  function handleExportCSV() {
+    if (!payments?.length) return
+    const columns = [
+      { key: (p) => getStudentName(p.students), label: 'الطالب' },
+      { key: (p) => p.amount || '', label: 'المبلغ' },
+      { key: (p) => PAYMENT_STATUS[p.status]?.label || p.status, label: 'الحالة' },
+      { key: (p) => PAYMENT_METHOD[p.method] || p.method || '', label: 'طريقة الدفع' },
+      { key: (p) => p.period_start || '', label: 'من' },
+      { key: (p) => p.period_end || '', label: 'إلى' },
+      { key: (p) => p.paid_at ? formatDateAr(p.paid_at) : '', label: 'تاريخ الدفع' },
+    ]
+    exportToCSV(payments, 'payments', columns)
+  }
+
   // Summary stats
   const totalPaid = payments?.filter(p => p.status === 'paid').reduce((sum, p) => sum + (p.amount || 0), 0) || 0
   const overdueCount = payments?.filter(p => p.status === 'overdue').length || 0
@@ -95,12 +110,21 @@ export default function AdminPayments() {
           <h1 className="text-2xl font-bold text-white">المدفوعات</h1>
           <p className="text-muted text-sm mt-1">{payments?.length || 0} سجل</p>
         </div>
-        <button
-          onClick={() => { setEditPayment(null); setShowForm(true) }}
-          className="btn-primary text-sm py-2 flex items-center gap-2"
-        >
-          <Plus size={16} /> تسجيل دفعة
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleExportCSV}
+            disabled={!payments?.length}
+            className="btn-secondary text-sm py-2 flex items-center gap-2"
+          >
+            <Download size={16} /> تصدير CSV
+          </button>
+          <button
+            onClick={() => { setEditPayment(null); setShowForm(true) }}
+            className="btn-primary text-sm py-2 flex items-center gap-2"
+          >
+            <Plus size={16} /> تسجيل دفعة
+          </button>
+        </div>
       </div>
 
       {/* Summary */}
