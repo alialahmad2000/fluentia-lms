@@ -39,6 +39,7 @@ const NAV_GROUPS = {
         { to: '/student/grades', label: 'الدرجات', icon: BarChart3 },
         { to: '/student/profile', label: 'الملف الشخصي', icon: User },
         { to: '/student/leaderboard', label: 'المتصدرين', icon: Trophy },
+        { to: '/student/success', label: 'قصة نجاحي', icon: Trophy },
       ],
     },
     {
