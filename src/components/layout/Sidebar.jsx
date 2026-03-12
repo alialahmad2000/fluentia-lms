@@ -75,6 +75,7 @@ const NAV_GROUPS = {
       key: 'account',
       label: 'الحساب',
       items: [
+        { to: '/student/avatar', label: 'تخصيص الأفاتار', icon: User },
         { to: '/student/billing', label: 'الفواتير', icon: CreditCard },
       ],
     },
