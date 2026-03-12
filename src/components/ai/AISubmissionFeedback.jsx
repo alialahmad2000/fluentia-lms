@@ -65,9 +65,10 @@ export default function AISubmissionFeedback({
 
       const result = res.data
       if (!result || typeof result !== 'object') throw new Error('Invalid response')
-      if (result.error) { setError(result.error); return }
+      if (result.error) { setError(typeof result.error === 'string' ? result.error : 'خطأ في التحليل'); return }
 
       let fb = result.feedback
+      if (!fb) throw new Error('لم يتم استلام تقييم من الذكاء الاصطناعي')
       // Parse if it's a string (shouldn't happen but safety)
       if (typeof fb === 'string') {
         try {

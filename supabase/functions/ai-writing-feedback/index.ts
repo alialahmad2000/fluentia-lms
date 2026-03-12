@@ -199,11 +199,19 @@ Respond ONLY with valid JSON, no markdown.`,
       estimated_cost_sar: costSAR.toFixed(4),
     }
     if (isTrainerOrAdmin) {
-      usageRecord.trainer_id = user.id
+      // Check if user exists in trainers table (admin may not have a trainer record)
+      const { data: trainerRecord } = await supabase
+        .from('trainers')
+        .select('id')
+        .eq('id', user.id)
+        .single()
+      usageRecord.trainer_id = trainerRecord ? user.id : null
     } else {
       usageRecord.student_id = user.id
     }
-    await supabase.from('ai_usage').insert(usageRecord)
+    await supabase.from('ai_usage').insert(usageRecord).catch((err: any) => {
+      console.error('[ai-writing-feedback] Usage insert error:', err.message)
+    })
 
     // Store feedback on submission if provided
     if (submission_id) {
