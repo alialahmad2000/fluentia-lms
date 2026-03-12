@@ -41,10 +41,20 @@ serve(async (req) => {
 
     // Auth
     const authHeader = req.headers.get('Authorization')
-    if (!authHeader) throw new Error('Missing authorization')
+    if (!authHeader) {
+      return new Response(
+        JSON.stringify({ error: 'Missing authorization' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 401 }
+      )
+    }
     const token = authHeader.replace('Bearer ', '')
     const { data: { user }, error: authErr } = await supabase.auth.getUser(token)
-    if (authErr || !user) throw new Error('Unauthorized')
+    if (authErr || !user) {
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 401 }
+      )
+    }
 
     // Verify trainer/admin
     const { data: userProfile } = await supabase
@@ -57,8 +67,9 @@ serve(async (req) => {
     }
 
     if (!CLAUDE_API_KEY) {
+      console.error('CLAUDE_API_KEY is empty!')
       return new Response(
-        JSON.stringify({ error: 'خدمة الذكاء الاصطناعي غير مفعّلة' }),
+        JSON.stringify({ error: 'خدمة الذكاء الاصطناعي غير مفعّلة — مفتاح API غير موجود' }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 503 }
       )
     }
@@ -81,7 +92,7 @@ serve(async (req) => {
       .eq('id', submission_id)
       .single()
 
-    if (subErr || !submission) throw new Error('Submission not found')
+    if (subErr || !submission) throw new Error(`Submission not found: ${subErr?.message || 'null result'}`)
 
     const assignmentType = submission.assignments?.type || 'custom'
     const assignmentTitle = submission.assignments?.title || ''
@@ -153,13 +164,14 @@ serve(async (req) => {
 
             // Log whisper cost
             const minutes = (submission.content_voice_duration || 60) / 60
-            await supabase.from('ai_usage').insert({
+            const { error: whisperLogErr } = await supabase.from('ai_usage').insert({
               type: 'whisper_transcription',
               student_id: submission.student_id,
               model: 'whisper-1',
               audio_seconds: submission.content_voice_duration || 60,
               estimated_cost_sar: (minutes * 0.006 * 3.75).toFixed(4),
-            }).then(() => {}).catch(() => {})
+            })
+            if (whisperLogErr) console.error('Whisper usage log error:', whisperLogErr.message)
           }
         }
       } catch (e) {
@@ -363,7 +375,7 @@ CRITICAL RULES:
     // Log cost
     const costSAR = ((inputTokens * 3 + outputTokens * 15) / 1_000_000) * 3.75
     const { data: trainerRecord } = await supabase.from('trainers').select('id').eq('id', user.id).single()
-    await supabase.from('ai_usage').insert({
+    const { error: usageErr } = await supabase.from('ai_usage').insert({
       type: assignmentType === 'speaking' ? 'speaking_analysis' : 'writing_feedback',
       trainer_id: trainerRecord ? user.id : null,
       student_id: submission.student_id,
@@ -371,7 +383,8 @@ CRITICAL RULES:
       input_tokens: inputTokens,
       output_tokens: outputTokens,
       estimated_cost_sar: costSAR.toFixed(4),
-    }).catch(() => {})
+    })
+    if (usageErr) console.error('Usage log error:', usageErr.message)
 
     // Save AI feedback on submission
     await supabase.from('submissions').update({ ai_feedback: feedback }).eq('id', submission_id)

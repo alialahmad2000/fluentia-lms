@@ -126,13 +126,15 @@ export default function StudentExercises() {
       })
 
       // Update student XP
-      await supabase.rpc('increment_xp', { student_id: profile?.id, amount: xp }).catch(() => {
+      const { error: rpcErr } = await supabase.rpc('increment_xp', { student_id: profile?.id, amount: xp })
+      if (rpcErr) {
         // Fallback if RPC doesn't exist
-        supabase
+        const { error: fallbackErr } = await supabase
           .from('students')
-          .update({ xp_total: (studentData?.xp_total || 0) + (exercise.xp_awarded || 0) })
+          .update({ xp_total: (studentData?.xp_total || 0) + xp })
           .eq('id', profile?.id)
-      })
+        if (fallbackErr) console.error('[StudentExercises] XP fallback error:', fallbackErr)
+      }
 
       // If score >= 80, mark pattern as potentially resolved
       if (score >= 80 && exercise.pattern_id) {

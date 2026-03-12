@@ -5,6 +5,7 @@ import LoginPage from './pages/public/LoginPage'
 import LayoutShell from './components/layout/LayoutShell'
 import OnboardingModal from './components/onboarding/OnboardingModal'
 import GamificationProvider from './components/gamification/GamificationProvider'
+import ErrorBoundary, { PageErrorFallback } from './components/ErrorBoundary'
 
 // ─── Lazy-loaded Pages ───────────────────────────────────────
 const StudentDashboard = lazy(() => import('./pages/student/StudentDashboard'))
@@ -62,6 +63,17 @@ const AdminSmartScheduling = lazy(() => import('./pages/admin/AdminSmartScheduli
 
 const ForgotPassword = lazy(() => import('./pages/public/ForgotPassword'))
 const ParentDashboard = lazy(() => import('./pages/public/ParentDashboard'))
+
+// ─── Page wrapper: ErrorBoundary + Suspense ──────────────────
+function Page({ children }) {
+  return (
+    <ErrorBoundary fallback={<PageErrorFallback />}>
+      <Suspense fallback={<PageSkeleton />}>
+        {children}
+      </Suspense>
+    </ErrorBoundary>
+  )
+}
 
 // ─── Page Loading Skeleton ───────────────────────────────────
 function PageSkeleton() {
@@ -137,93 +149,99 @@ export default function App() {
   }, [initialize])
 
   return (
-    <BrowserRouter>
-      <OnboardingModal />
-      <GamificationProvider />
+    <ErrorBoundary>
+      <BrowserRouter>
+        <OnboardingModal />
+        <GamificationProvider />
 
-      <Routes>
-        <Route path="/" element={<RoleRedirect />} />
+        <Routes>
+          <Route path="/" element={<RoleRedirect />} />
 
-        {/* Public routes */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/forgot-password" element={
-          <Suspense fallback={<LoadingSkeleton />}><ForgotPassword /></Suspense>
-        } />
-        <Route path="/parent" element={
-          <Suspense fallback={<LoadingSkeleton />}><ParentDashboard /></Suspense>
-        } />
+          {/* Public routes */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/forgot-password" element={
+            <ErrorBoundary fallback={<PageErrorFallback />}>
+              <Suspense fallback={<LoadingSkeleton />}><ForgotPassword /></Suspense>
+            </ErrorBoundary>
+          } />
+          <Route path="/parent" element={
+            <ErrorBoundary fallback={<PageErrorFallback />}>
+              <Suspense fallback={<LoadingSkeleton />}><ParentDashboard /></Suspense>
+            </ErrorBoundary>
+          } />
 
-        {/* Student routes */}
-        <Route element={<ProtectedRoute allowedRoles={['student']} />}>
-          <Route element={<LayoutShell />}>
-            <Route path="/student" element={<Suspense fallback={<PageSkeleton />}><StudentDashboard /></Suspense>} />
-            <Route path="/student/assignments" element={<Suspense fallback={<PageSkeleton />}><StudentAssignments /></Suspense>} />
-            <Route path="/student/schedule" element={<Suspense fallback={<PageSkeleton />}><StudentSchedule /></Suspense>} />
-            <Route path="/student/grades" element={<Suspense fallback={<PageSkeleton />}><StudentGrades /></Suspense>} />
-            <Route path="/student/speaking" element={<Suspense fallback={<PageSkeleton />}><StudentSpeaking /></Suspense>} />
-            <Route path="/student/library" element={<Suspense fallback={<PageSkeleton />}><StudentLibrary /></Suspense>} />
-            <Route path="/student/leaderboard" element={<Suspense fallback={<PageSkeleton />}><StudentLeaderboard /></Suspense>} />
-            <Route path="/student/recognition" element={<Suspense fallback={<PageSkeleton />}><StudentPeerRecognition /></Suspense>} />
-            <Route path="/student/activity" element={<Suspense fallback={<PageSkeleton />}><StudentActivityFeed /></Suspense>} />
-            <Route path="/student/challenges" element={<Suspense fallback={<PageSkeleton />}><StudentChallenges /></Suspense>} />
-            <Route path="/student/chat" element={<Suspense fallback={<PageSkeleton />}><StudentGroupChat /></Suspense>} />
-            <Route path="/student/messages" element={<Suspense fallback={<PageSkeleton />}><StudentMessages /></Suspense>} />
-            <Route path="/student/ai-chat" element={<Suspense fallback={<PageSkeleton />}><StudentChatbot /></Suspense>} />
-            <Route path="/student/vocabulary" element={<Suspense fallback={<PageSkeleton />}><StudentVocabulary /></Suspense>} />
-            <Route path="/student/billing" element={<Suspense fallback={<PageSkeleton />}><StudentBilling /></Suspense>} />
-            <Route path="/student/exercises" element={<Suspense fallback={<PageSkeleton />}><StudentExercises /></Suspense>} />
-            <Route path="/student/my-patterns" element={<Suspense fallback={<PageSkeleton />}><StudentErrorPatterns /></Suspense>} />
-            <Route path="/student/voice-journal" element={<Suspense fallback={<PageSkeleton />}><StudentVoiceJournal /></Suspense>} />
-            <Route path="/student/pronunciation" element={<Suspense fallback={<PageSkeleton />}><StudentPronunciation /></Suspense>} />
-            <Route path="/student/conversation" element={<Suspense fallback={<PageSkeleton />}><StudentConversation /></Suspense>} />
-            <Route path="/student/battles" element={<Suspense fallback={<PageSkeleton />}><StudentStreakBattles /></Suspense>} />
-            <Route path="/student/success" element={<Suspense fallback={<PageSkeleton />}><StudentSuccessStories /></Suspense>} />
-            <Route path="/student/events" element={<Suspense fallback={<PageSkeleton />}><StudentEvents /></Suspense>} />
-            <Route path="/student/avatar" element={<Suspense fallback={<PageSkeleton />}><StudentAvatar /></Suspense>} />
-            <Route path="/student/profile" element={<Suspense fallback={<PageSkeleton />}><StudentProfile /></Suspense>} />
+          {/* Student routes */}
+          <Route element={<ProtectedRoute allowedRoles={['student']} />}>
+            <Route element={<LayoutShell />}>
+              <Route path="/student" element={<Page><StudentDashboard /></Page>} />
+              <Route path="/student/assignments" element={<Page><StudentAssignments /></Page>} />
+              <Route path="/student/schedule" element={<Page><StudentSchedule /></Page>} />
+              <Route path="/student/grades" element={<Page><StudentGrades /></Page>} />
+              <Route path="/student/speaking" element={<Page><StudentSpeaking /></Page>} />
+              <Route path="/student/library" element={<Page><StudentLibrary /></Page>} />
+              <Route path="/student/leaderboard" element={<Page><StudentLeaderboard /></Page>} />
+              <Route path="/student/recognition" element={<Page><StudentPeerRecognition /></Page>} />
+              <Route path="/student/activity" element={<Page><StudentActivityFeed /></Page>} />
+              <Route path="/student/challenges" element={<Page><StudentChallenges /></Page>} />
+              <Route path="/student/chat" element={<Page><StudentGroupChat /></Page>} />
+              <Route path="/student/messages" element={<Page><StudentMessages /></Page>} />
+              <Route path="/student/ai-chat" element={<Page><StudentChatbot /></Page>} />
+              <Route path="/student/vocabulary" element={<Page><StudentVocabulary /></Page>} />
+              <Route path="/student/billing" element={<Page><StudentBilling /></Page>} />
+              <Route path="/student/exercises" element={<Page><StudentExercises /></Page>} />
+              <Route path="/student/my-patterns" element={<Page><StudentErrorPatterns /></Page>} />
+              <Route path="/student/voice-journal" element={<Page><StudentVoiceJournal /></Page>} />
+              <Route path="/student/pronunciation" element={<Page><StudentPronunciation /></Page>} />
+              <Route path="/student/conversation" element={<Page><StudentConversation /></Page>} />
+              <Route path="/student/battles" element={<Page><StudentStreakBattles /></Page>} />
+              <Route path="/student/success" element={<Page><StudentSuccessStories /></Page>} />
+              <Route path="/student/events" element={<Page><StudentEvents /></Page>} />
+              <Route path="/student/avatar" element={<Page><StudentAvatar /></Page>} />
+              <Route path="/student/profile" element={<Page><StudentProfile /></Page>} />
+            </Route>
           </Route>
-        </Route>
 
-        {/* Trainer routes */}
-        <Route element={<ProtectedRoute allowedRoles={['trainer', 'admin']} />}>
-          <Route element={<LayoutShell />}>
-            <Route path="/trainer" element={<Suspense fallback={<PageSkeleton />}><TrainerDashboard /></Suspense>} />
-            <Route path="/trainer/assignments" element={<Suspense fallback={<PageSkeleton />}><TrainerAssignments /></Suspense>} />
-            <Route path="/trainer/writing" element={<Suspense fallback={<PageSkeleton />}><TrainerGrading /></Suspense>} />
-            <Route path="/trainer/schedule" element={<Suspense fallback={<PageSkeleton />}><TrainerSchedule /></Suspense>} />
-            <Route path="/trainer/notes" element={<Suspense fallback={<PageSkeleton />}><TrainerNotes /></Suspense>} />
-            <Route path="/trainer/library" element={<Suspense fallback={<PageSkeleton />}><TrainerLibrary /></Suspense>} />
-            <Route path="/trainer/points" element={<Suspense fallback={<PageSkeleton />}><TrainerQuickPoints /></Suspense>} />
-            <Route path="/trainer/attendance" element={<Suspense fallback={<PageSkeleton />}><TrainerAttendance /></Suspense>} />
-            <Route path="/trainer/student-notes" element={<Suspense fallback={<PageSkeleton />}><TrainerQuickNotes /></Suspense>} />
-            <Route path="/trainer/students" element={<Suspense fallback={<PageSkeleton />}><TrainerStudentView /></Suspense>} />
-            <Route path="/trainer/challenges" element={<Suspense fallback={<PageSkeleton />}><TrainerChallenges /></Suspense>} />
-            <Route path="/trainer/teams" element={<Suspense fallback={<PageSkeleton />}><TrainerTeams /></Suspense>} />
-            <Route path="/trainer/chat" element={<Suspense fallback={<PageSkeleton />}><TrainerGroupChat /></Suspense>} />
-            <Route path="/trainer/messages" element={<Suspense fallback={<PageSkeleton />}><StudentMessages /></Suspense>} />
-            <Route path="/trainer/ai-assistant" element={<Suspense fallback={<PageSkeleton />}><TrainerAIAssistant /></Suspense>} />
-            <Route path="/trainer/reports" element={<Suspense fallback={<PageSkeleton />}><TrainerProgressReports /></Suspense>} />
-            <Route path="/trainer/lesson-planner" element={<Suspense fallback={<PageSkeleton />}><TrainerLessonPlanner /></Suspense>} />
+          {/* Trainer routes */}
+          <Route element={<ProtectedRoute allowedRoles={['trainer', 'admin']} />}>
+            <Route element={<LayoutShell />}>
+              <Route path="/trainer" element={<Page><TrainerDashboard /></Page>} />
+              <Route path="/trainer/assignments" element={<Page><TrainerAssignments /></Page>} />
+              <Route path="/trainer/writing" element={<Page><TrainerGrading /></Page>} />
+              <Route path="/trainer/schedule" element={<Page><TrainerSchedule /></Page>} />
+              <Route path="/trainer/notes" element={<Page><TrainerNotes /></Page>} />
+              <Route path="/trainer/library" element={<Page><TrainerLibrary /></Page>} />
+              <Route path="/trainer/points" element={<Page><TrainerQuickPoints /></Page>} />
+              <Route path="/trainer/attendance" element={<Page><TrainerAttendance /></Page>} />
+              <Route path="/trainer/student-notes" element={<Page><TrainerQuickNotes /></Page>} />
+              <Route path="/trainer/students" element={<Page><TrainerStudentView /></Page>} />
+              <Route path="/trainer/challenges" element={<Page><TrainerChallenges /></Page>} />
+              <Route path="/trainer/teams" element={<Page><TrainerTeams /></Page>} />
+              <Route path="/trainer/chat" element={<Page><TrainerGroupChat /></Page>} />
+              <Route path="/trainer/messages" element={<Page><StudentMessages /></Page>} />
+              <Route path="/trainer/ai-assistant" element={<Page><TrainerAIAssistant /></Page>} />
+              <Route path="/trainer/reports" element={<Page><TrainerProgressReports /></Page>} />
+              <Route path="/trainer/lesson-planner" element={<Page><TrainerLessonPlanner /></Page>} />
+            </Route>
           </Route>
-        </Route>
 
-        {/* Admin routes */}
-        <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
-          <Route element={<LayoutShell />}>
-            <Route path="/admin" element={<Suspense fallback={<PageSkeleton />}><AdminDashboard /></Suspense>} />
-            <Route path="/admin/users" element={<Suspense fallback={<PageSkeleton />}><AdminStudents /></Suspense>} />
-            <Route path="/admin/groups" element={<Suspense fallback={<PageSkeleton />}><AdminGroups /></Suspense>} />
-            <Route path="/admin/trainers" element={<Suspense fallback={<PageSkeleton />}><AdminTrainers /></Suspense>} />
-            <Route path="/admin/packages" element={<Suspense fallback={<PageSkeleton />}><AdminPayments /></Suspense>} />
-            <Route path="/admin/reports" element={<Suspense fallback={<PageSkeleton />}><AdminReports /></Suspense>} />
-            <Route path="/admin/churn" element={<Suspense fallback={<PageSkeleton />}><AdminChurnPrediction /></Suspense>} />
-            <Route path="/admin/scheduling" element={<Suspense fallback={<PageSkeleton />}><AdminSmartScheduling /></Suspense>} />
-            <Route path="/admin/settings" element={<Suspense fallback={<PageSkeleton />}><AdminSettings /></Suspense>} />
+          {/* Admin routes */}
+          <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+            <Route element={<LayoutShell />}>
+              <Route path="/admin" element={<Page><AdminDashboard /></Page>} />
+              <Route path="/admin/users" element={<Page><AdminStudents /></Page>} />
+              <Route path="/admin/groups" element={<Page><AdminGroups /></Page>} />
+              <Route path="/admin/trainers" element={<Page><AdminTrainers /></Page>} />
+              <Route path="/admin/packages" element={<Page><AdminPayments /></Page>} />
+              <Route path="/admin/reports" element={<Page><AdminReports /></Page>} />
+              <Route path="/admin/churn" element={<Page><AdminChurnPrediction /></Page>} />
+              <Route path="/admin/scheduling" element={<Page><AdminSmartScheduling /></Page>} />
+              <Route path="/admin/settings" element={<Page><AdminSettings /></Page>} />
+            </Route>
           </Route>
-        </Route>
 
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </BrowserRouter>
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </BrowserRouter>
+    </ErrorBoundary>
   )
 }

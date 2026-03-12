@@ -27,9 +27,18 @@ const SKILL_COLORS = {
 }
 
 const SEVERITY_CONFIG = {
-  high: { label: 'عالية', color: 'red', icon: AlertTriangle },
-  medium: { label: 'متوسطة', color: 'gold', icon: TrendingDown },
-  low: { label: 'منخفضة', color: 'emerald', icon: TrendingUp },
+  high: { label: 'عالية', color: 'red', icon: AlertTriangle, badgeCls: 'bg-red-500/10 text-red-400' },
+  medium: { label: 'متوسطة', color: 'gold', icon: TrendingDown, badgeCls: 'bg-gold-500/10 text-gold-400' },
+  low: { label: 'منخفضة', color: 'emerald', icon: TrendingUp, badgeCls: 'bg-emerald-500/10 text-emerald-400' },
+}
+
+const SKILL_DOT_CLASSES = {
+  sky: 'bg-sky-400',
+  emerald: 'bg-emerald-400',
+  violet: 'bg-violet-400',
+  gold: 'bg-gold-400',
+  rose: 'bg-rose-400',
+  amber: 'bg-amber-400',
 }
 
 export default function StudentErrorPatterns() {
@@ -109,7 +118,7 @@ export default function StudentErrorPatterns() {
             return (
               <div key={skill}>
                 <h2 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-                  <span className={`w-3 h-3 rounded-full bg-${color}-400`} />
+                  <span className={`w-3 h-3 rounded-full ${SKILL_DOT_CLASSES[color] || 'bg-sky-400'}`} />
                   {SKILL_LABELS[skill]}
                   <span className="text-xs text-muted font-normal">({skillPatterns.length})</span>
                 </h2>
@@ -133,7 +142,7 @@ export default function StudentErrorPatterns() {
                             </p>
                           </div>
                           <div className="flex items-center gap-2">
-                            <span className={`text-[10px] px-2 py-0.5 rounded-full bg-${sev.color}-500/10 text-${sev.color}-400 flex items-center gap-1`}>
+                            <span className={`text-[10px] px-2 py-0.5 rounded-full ${sev?.badgeCls || 'bg-sky-500/10 text-sky-400'} flex items-center gap-1`}>
                               <SevIcon size={10} />
                               {sev.label}
                             </span>

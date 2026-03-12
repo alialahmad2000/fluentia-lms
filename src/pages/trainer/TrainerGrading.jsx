@@ -257,24 +257,26 @@ function GradingModal({ submission, getStudentName, onClose }) {
 
       // Award XP only on first grading (not re-grading)
       if (submission.status !== 'graded') {
-        await supabase.from('xp_transactions').insert({
+        const { error: xpErr } = await supabase.from('xp_transactions').insert({
           student_id: submission.student_id,
           amount: points,
           reason: submission.is_late ? 'assignment_late' : 'assignment_on_time',
           related_id: submission.assignment_id,
           awarded_by: profile?.id,
-        }).select().catch(err => console.error('[TrainerGrading] XP error:', err))
+        })
+        if (xpErr) console.error('[TrainerGrading] XP error:', xpErr)
       }
 
       // Send notification to student
       const trainerName = profile?.display_name || profile?.full_name || 'المدرب'
-      await supabase.from('notifications').insert({
+      const { error: notifErr } = await supabase.from('notifications').insert({
         user_id: submission.student_id,
         type: 'assignment_graded',
         title: `تم تقييم واجبك: ${submission.assignments?.title || 'واجب'}`,
         body: `${trainerName} قيّم واجبك — الدرجة: ${finalGrade} (${numericVal}%)`,
         data: { link: '/student/assignments' },
-      }).catch(() => {})
+      })
+      if (notifErr) console.error('[TrainerGrading] Notification error:', notifErr)
 
       return autoApprove ? 'auto_approved' : 'graded'
     },

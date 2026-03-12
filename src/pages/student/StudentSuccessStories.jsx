@@ -7,6 +7,14 @@ import {
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 
+const ACHIEVEMENT_COLOR_CLASSES = {
+  gold: { border: 'border-gold-500/30', bg: 'bg-gold-500/10', text: 'text-gold-400' },
+  red: { border: 'border-red-500/30', bg: 'bg-red-500/10', text: 'text-red-400' },
+  violet: { border: 'border-violet-500/30', bg: 'bg-violet-500/10', text: 'text-violet-400' },
+  sky: { border: 'border-sky-500/30', bg: 'bg-sky-500/10', text: 'text-sky-400' },
+  emerald: { border: 'border-emerald-500/30', bg: 'bg-emerald-500/10', text: 'text-emerald-400' },
+}
+
 const ACHIEVEMENT_CONFIG = {
   streak_7: { title: 'سلسلة أسبوعية', icon: Flame, color: 'gold', desc: 'حققت سلسلة 7 أيام متتالية' },
   streak_30: { title: 'سلسلة شهرية', icon: Flame, color: 'red', desc: 'حققت سلسلة 30 يوم!' },
@@ -151,14 +159,14 @@ export default function StudentSuccessStories() {
                 transition={{ delay: i * 0.05 }}
                 className={`glass-card p-4 text-center ${
                   achievement.earned
-                    ? `border-${achievement.color}-500/30`
+                    ? (ACHIEVEMENT_COLOR_CLASSES[achievement.color]?.border || '')
                     : 'opacity-40 grayscale'
                 }`}
               >
                 <div className={`w-12 h-12 rounded-2xl mx-auto mb-2 flex items-center justify-center ${
-                  achievement.earned ? `bg-${achievement.color}-500/10` : 'bg-white/5'
+                  achievement.earned ? (ACHIEVEMENT_COLOR_CLASSES[achievement.color]?.bg || 'bg-white/5') : 'bg-white/5'
                 }`}>
-                  <Icon size={24} className={achievement.earned ? `text-${achievement.color}-400` : 'text-muted'} />
+                  <Icon size={24} className={achievement.earned ? (ACHIEVEMENT_COLOR_CLASSES[achievement.color]?.text || 'text-muted') : 'text-muted'} />
                 </div>
                 <h3 className="text-sm font-bold text-white mb-0.5">{achievement.title}</h3>
                 <p className="text-[10px] text-muted">{achievement.desc}</p>

@@ -7,6 +7,7 @@ import { supabase } from '../../lib/supabase'
 import { ASSIGNMENT_TYPES, SUBMISSION_STATUS } from '../../lib/constants'
 import { deadlineText, isOverdue, formatDateAr } from '../../utils/dateHelpers'
 import SubmissionForm from '../../components/assignments/SubmissionForm'
+import StudentFeedbackDisplay from '../../components/StudentFeedbackDisplay'
 
 export default function StudentAssignments() {
   const { profile, studentData } = useAuthStore()
@@ -199,9 +200,16 @@ export default function StudentAssignments() {
                           </span>
                           <span className="text-xs text-muted">+{sub.points_awarded} XP</span>
                         </div>
-                        {sub.trainer_feedback && (
+
+                        {/* Show structured feedback if AI feedback was approved */}
+                        {sub.ai_feedback && sub.ai_feedback_approved ? (
+                          <StudentFeedbackDisplay
+                            feedback={sub.ai_feedback}
+                            trainerFeedback={sub.trainer_feedback}
+                          />
+                        ) : sub.trainer_feedback ? (
                           <p className="text-xs text-muted mt-1">{sub.trainer_feedback}</p>
-                        )}
+                        ) : null}
                       </div>
                     )}
                   </div>

@@ -209,9 +209,8 @@ Respond ONLY with valid JSON, no markdown.`,
     } else {
       usageRecord.student_id = user.id
     }
-    await supabase.from('ai_usage').insert(usageRecord).catch((err: any) => {
-      console.error('[ai-writing-feedback] Usage insert error:', err.message)
-    })
+    const { error: usageErr } = await supabase.from('ai_usage').insert(usageRecord)
+    if (usageErr) console.error('[ai-writing-feedback] Usage insert error:', usageErr.message)
 
     // Store feedback on submission if provided
     if (submission_id) {

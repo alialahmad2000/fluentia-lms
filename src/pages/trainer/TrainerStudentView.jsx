@@ -371,10 +371,20 @@ function StudentDetailView({ student, isAdmin, onBack }) {
 
 // ─── Stat Card ─────────────────────────────────────────────
 
+const STAT_COLOR_CLASSES = {
+  sky: 'text-sky-400',
+  emerald: 'text-emerald-400',
+  gold: 'text-gold-400',
+  violet: 'text-violet-400',
+  red: 'text-red-400',
+  amber: 'text-amber-400',
+  rose: 'text-rose-400',
+}
+
 function StatCard({ icon: Icon, color, value, label }) {
   return (
     <div className="bg-white/5 rounded-xl p-3 text-center">
-      <Icon size={16} className={`text-${color}-400 mx-auto`} />
+      <Icon size={16} className={`${STAT_COLOR_CLASSES[color] || 'text-sky-400'} mx-auto`} />
       <p className="text-lg font-bold text-white mt-1">{value}</p>
       <p className="text-[10px] text-muted">{label}</p>
     </div>
