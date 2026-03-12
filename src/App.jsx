@@ -1,4 +1,4 @@
-import { useEffect, lazy, Suspense } from 'react'
+import { useEffect, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom'
 import { useAuthStore } from './stores/authStore'
 import LoginPage from './pages/public/LoginPage'
@@ -6,63 +6,64 @@ import LayoutShell from './components/layout/LayoutShell'
 import OnboardingModal from './components/onboarding/OnboardingModal'
 import GamificationProvider from './components/gamification/GamificationProvider'
 import ErrorBoundary, { PageErrorFallback } from './components/ErrorBoundary'
+import lazyRetry from './utils/lazyRetry'
 
-// ─── Lazy-loaded Pages ───────────────────────────────────────
-const StudentDashboard = lazy(() => import('./pages/student/StudentDashboard'))
-const StudentAssignments = lazy(() => import('./pages/student/StudentAssignments'))
-const StudentGrades = lazy(() => import('./pages/student/StudentGrades'))
-const StudentSchedule = lazy(() => import('./pages/student/StudentSchedule'))
-const StudentProfile = lazy(() => import('./pages/student/StudentProfile'))
-const StudentSpeaking = lazy(() => import('./pages/student/StudentSpeaking'))
-const StudentLibrary = lazy(() => import('./pages/student/StudentLibrary'))
-const StudentLeaderboard = lazy(() => import('./pages/student/StudentLeaderboard'))
-const StudentPeerRecognition = lazy(() => import('./pages/student/StudentPeerRecognition'))
-const StudentActivityFeed = lazy(() => import('./pages/student/StudentActivityFeed'))
-const StudentChallenges = lazy(() => import('./pages/student/StudentChallenges'))
-const StudentGroupChat = lazy(() => import('./pages/student/StudentGroupChat'))
-const StudentMessages = lazy(() => import('./pages/student/StudentMessages'))
-const StudentChatbot = lazy(() => import('./pages/student/StudentChatbot'))
-const StudentVocabulary = lazy(() => import('./pages/student/StudentVocabulary'))
-const StudentBilling = lazy(() => import('./pages/student/StudentBilling'))
-const StudentExercises = lazy(() => import('./pages/student/StudentExercises'))
-const StudentErrorPatterns = lazy(() => import('./pages/student/StudentErrorPatterns'))
-const StudentVoiceJournal = lazy(() => import('./pages/student/StudentVoiceJournal'))
-const StudentPronunciation = lazy(() => import('./pages/student/StudentPronunciation'))
-const StudentConversation = lazy(() => import('./pages/student/StudentConversation'))
-const StudentStreakBattles = lazy(() => import('./pages/student/StudentStreakBattles'))
-const StudentSuccessStories = lazy(() => import('./pages/student/StudentSuccessStories'))
-const StudentEvents = lazy(() => import('./pages/student/StudentEvents'))
-const StudentAvatar = lazy(() => import('./pages/student/StudentAvatar'))
+// ─── Lazy-loaded Pages (with chunk retry on stale deploys) ───
+const StudentDashboard = lazyRetry(() => import('./pages/student/StudentDashboard'))
+const StudentAssignments = lazyRetry(() => import('./pages/student/StudentAssignments'))
+const StudentGrades = lazyRetry(() => import('./pages/student/StudentGrades'))
+const StudentSchedule = lazyRetry(() => import('./pages/student/StudentSchedule'))
+const StudentProfile = lazyRetry(() => import('./pages/student/StudentProfile'))
+const StudentSpeaking = lazyRetry(() => import('./pages/student/StudentSpeaking'))
+const StudentLibrary = lazyRetry(() => import('./pages/student/StudentLibrary'))
+const StudentLeaderboard = lazyRetry(() => import('./pages/student/StudentLeaderboard'))
+const StudentPeerRecognition = lazyRetry(() => import('./pages/student/StudentPeerRecognition'))
+const StudentActivityFeed = lazyRetry(() => import('./pages/student/StudentActivityFeed'))
+const StudentChallenges = lazyRetry(() => import('./pages/student/StudentChallenges'))
+const StudentGroupChat = lazyRetry(() => import('./pages/student/StudentGroupChat'))
+const StudentMessages = lazyRetry(() => import('./pages/student/StudentMessages'))
+const StudentChatbot = lazyRetry(() => import('./pages/student/StudentChatbot'))
+const StudentVocabulary = lazyRetry(() => import('./pages/student/StudentVocabulary'))
+const StudentBilling = lazyRetry(() => import('./pages/student/StudentBilling'))
+const StudentExercises = lazyRetry(() => import('./pages/student/StudentExercises'))
+const StudentErrorPatterns = lazyRetry(() => import('./pages/student/StudentErrorPatterns'))
+const StudentVoiceJournal = lazyRetry(() => import('./pages/student/StudentVoiceJournal'))
+const StudentPronunciation = lazyRetry(() => import('./pages/student/StudentPronunciation'))
+const StudentConversation = lazyRetry(() => import('./pages/student/StudentConversation'))
+const StudentStreakBattles = lazyRetry(() => import('./pages/student/StudentStreakBattles'))
+const StudentSuccessStories = lazyRetry(() => import('./pages/student/StudentSuccessStories'))
+const StudentEvents = lazyRetry(() => import('./pages/student/StudentEvents'))
+const StudentAvatar = lazyRetry(() => import('./pages/student/StudentAvatar'))
 
-const TrainerDashboard = lazy(() => import('./pages/trainer/TrainerDashboard'))
-const TrainerAssignments = lazy(() => import('./pages/trainer/TrainerAssignments'))
-const TrainerGrading = lazy(() => import('./pages/trainer/TrainerGrading'))
-const TrainerSchedule = lazy(() => import('./pages/trainer/TrainerSchedule'))
-const TrainerNotes = lazy(() => import('./pages/trainer/TrainerNotes'))
-const TrainerLibrary = lazy(() => import('./pages/trainer/TrainerLibrary'))
-const TrainerQuickPoints = lazy(() => import('./pages/trainer/TrainerQuickPoints'))
-const TrainerAttendance = lazy(() => import('./pages/trainer/TrainerAttendance'))
-const TrainerQuickNotes = lazy(() => import('./pages/trainer/TrainerQuickNotes'))
-const TrainerStudentView = lazy(() => import('./pages/trainer/TrainerStudentView'))
-const TrainerChallenges = lazy(() => import('./pages/trainer/TrainerChallenges'))
-const TrainerTeams = lazy(() => import('./pages/trainer/TrainerTeams'))
-const TrainerGroupChat = lazy(() => import('./pages/trainer/TrainerGroupChat'))
-const TrainerAIAssistant = lazy(() => import('./pages/trainer/TrainerAIAssistant'))
-const TrainerProgressReports = lazy(() => import('./pages/trainer/TrainerProgressReports'))
-const TrainerLessonPlanner = lazy(() => import('./pages/trainer/TrainerLessonPlanner'))
+const TrainerDashboard = lazyRetry(() => import('./pages/trainer/TrainerDashboard'))
+const TrainerAssignments = lazyRetry(() => import('./pages/trainer/TrainerAssignments'))
+const TrainerGrading = lazyRetry(() => import('./pages/trainer/TrainerGrading'))
+const TrainerSchedule = lazyRetry(() => import('./pages/trainer/TrainerSchedule'))
+const TrainerNotes = lazyRetry(() => import('./pages/trainer/TrainerNotes'))
+const TrainerLibrary = lazyRetry(() => import('./pages/trainer/TrainerLibrary'))
+const TrainerQuickPoints = lazyRetry(() => import('./pages/trainer/TrainerQuickPoints'))
+const TrainerAttendance = lazyRetry(() => import('./pages/trainer/TrainerAttendance'))
+const TrainerQuickNotes = lazyRetry(() => import('./pages/trainer/TrainerQuickNotes'))
+const TrainerStudentView = lazyRetry(() => import('./pages/trainer/TrainerStudentView'))
+const TrainerChallenges = lazyRetry(() => import('./pages/trainer/TrainerChallenges'))
+const TrainerTeams = lazyRetry(() => import('./pages/trainer/TrainerTeams'))
+const TrainerGroupChat = lazyRetry(() => import('./pages/trainer/TrainerGroupChat'))
+const TrainerAIAssistant = lazyRetry(() => import('./pages/trainer/TrainerAIAssistant'))
+const TrainerProgressReports = lazyRetry(() => import('./pages/trainer/TrainerProgressReports'))
+const TrainerLessonPlanner = lazyRetry(() => import('./pages/trainer/TrainerLessonPlanner'))
 
-const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'))
-const AdminStudents = lazy(() => import('./pages/admin/AdminStudents'))
-const AdminGroups = lazy(() => import('./pages/admin/AdminGroups'))
-const AdminTrainers = lazy(() => import('./pages/admin/AdminTrainers'))
-const AdminPayments = lazy(() => import('./pages/admin/AdminPayments'))
-const AdminReports = lazy(() => import('./pages/admin/AdminReports'))
-const AdminSettings = lazy(() => import('./pages/admin/AdminSettings'))
-const AdminChurnPrediction = lazy(() => import('./pages/admin/AdminChurnPrediction'))
-const AdminSmartScheduling = lazy(() => import('./pages/admin/AdminSmartScheduling'))
+const AdminDashboard = lazyRetry(() => import('./pages/admin/AdminDashboard'))
+const AdminStudents = lazyRetry(() => import('./pages/admin/AdminStudents'))
+const AdminGroups = lazyRetry(() => import('./pages/admin/AdminGroups'))
+const AdminTrainers = lazyRetry(() => import('./pages/admin/AdminTrainers'))
+const AdminPayments = lazyRetry(() => import('./pages/admin/AdminPayments'))
+const AdminReports = lazyRetry(() => import('./pages/admin/AdminReports'))
+const AdminSettings = lazyRetry(() => import('./pages/admin/AdminSettings'))
+const AdminChurnPrediction = lazyRetry(() => import('./pages/admin/AdminChurnPrediction'))
+const AdminSmartScheduling = lazyRetry(() => import('./pages/admin/AdminSmartScheduling'))
 
-const ForgotPassword = lazy(() => import('./pages/public/ForgotPassword'))
-const ParentDashboard = lazy(() => import('./pages/public/ParentDashboard'))
+const ForgotPassword = lazyRetry(() => import('./pages/public/ForgotPassword'))
+const ParentDashboard = lazyRetry(() => import('./pages/public/ParentDashboard'))
 
 // ─── Page wrapper: ErrorBoundary + Suspense ──────────────────
 function Page({ children }) {
@@ -145,6 +146,7 @@ export default function App() {
   const initialize = useAuthStore((s) => s.initialize)
 
   useEffect(() => {
+    sessionStorage.removeItem('chunk_reload')
     initialize()
   }, [initialize])
 
@@ -172,7 +174,7 @@ export default function App() {
 
           {/* Student routes */}
           <Route element={<ProtectedRoute allowedRoles={['student']} />}>
-            <Route element={<LayoutShell />}>
+            <Route element={<ErrorBoundary><LayoutShell /></ErrorBoundary>}>
               <Route path="/student" element={<Page><StudentDashboard /></Page>} />
               <Route path="/student/assignments" element={<Page><StudentAssignments /></Page>} />
               <Route path="/student/schedule" element={<Page><StudentSchedule /></Page>} />
@@ -203,7 +205,7 @@ export default function App() {
 
           {/* Trainer routes */}
           <Route element={<ProtectedRoute allowedRoles={['trainer', 'admin']} />}>
-            <Route element={<LayoutShell />}>
+            <Route element={<ErrorBoundary><LayoutShell /></ErrorBoundary>}>
               <Route path="/trainer" element={<Page><TrainerDashboard /></Page>} />
               <Route path="/trainer/assignments" element={<Page><TrainerAssignments /></Page>} />
               <Route path="/trainer/writing" element={<Page><TrainerGrading /></Page>} />
@@ -226,7 +228,7 @@ export default function App() {
 
           {/* Admin routes */}
           <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
-            <Route element={<LayoutShell />}>
+            <Route element={<ErrorBoundary><LayoutShell /></ErrorBoundary>}>
               <Route path="/admin" element={<Page><AdminDashboard /></Page>} />
               <Route path="/admin/users" element={<Page><AdminStudents /></Page>} />
               <Route path="/admin/groups" element={<Page><AdminGroups /></Page>} />

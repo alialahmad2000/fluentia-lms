@@ -20,6 +20,9 @@ export const useAuthStore = create((set, get) => ({
     supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === 'SIGNED_IN' && session?.user) {
         await get().fetchProfile(session.user)
+      } else if (event === 'TOKEN_REFRESHED' && session?.user) {
+        // Token refreshed — update user object but don't refetch everything
+        set({ user: session.user })
       } else if (event === 'SIGNED_OUT') {
         set({ user: null, profile: null, studentData: null, trainerData: null })
       }
@@ -27,28 +30,39 @@ export const useAuthStore = create((set, get) => ({
   },
 
   fetchProfile: async (user) => {
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', user.id)
-      .single()
-
-    set({ user, profile })
-
-    if (profile?.role === 'student') {
-      const { data: studentData } = await supabase
-        .from('students')
-        .select('*, groups(*)')
-        .eq('id', user.id)
-        .single()
-      set({ studentData })
-    } else if (profile?.role === 'trainer') {
-      const { data: trainerData } = await supabase
-        .from('trainers')
+    try {
+      const { data: profile, error } = await supabase
+        .from('profiles')
         .select('*')
         .eq('id', user.id)
         .single()
-      set({ trainerData })
+
+      if (error || !profile) {
+        console.error('[AuthStore] fetchProfile error:', error)
+        set({ user, profile: null })
+        return
+      }
+
+      set({ user, profile })
+
+      if (profile.role === 'student') {
+        const { data: studentData } = await supabase
+          .from('students')
+          .select('*, groups(*)')
+          .eq('id', user.id)
+          .single()
+        set({ studentData: studentData || null })
+      } else if (profile.role === 'trainer') {
+        const { data: trainerData } = await supabase
+          .from('trainers')
+          .select('*')
+          .eq('id', user.id)
+          .single()
+        set({ trainerData: trainerData || null })
+      }
+    } catch (err) {
+      console.error('[AuthStore] fetchProfile crash:', err)
+      set({ user, profile: null })
     }
   },
 
