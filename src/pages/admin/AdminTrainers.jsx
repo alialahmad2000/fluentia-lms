@@ -52,10 +52,12 @@ export default function AdminTrainers() {
       // Update group assignments
       if (groupIds !== undefined) {
         // Remove trainer from all groups first
-        await supabase.from('groups').update({ trainer_id: null }).eq('trainer_id', trainerId).select()
+        const { error: removeErr } = await supabase.from('groups').update({ trainer_id: null }).eq('trainer_id', trainerId).select()
+        if (removeErr) throw removeErr
         // Assign to selected groups
         for (const gid of groupIds) {
-          await supabase.from('groups').update({ trainer_id: trainerId }).eq('id', gid).select()
+          const { error: assignErr } = await supabase.from('groups').update({ trainer_id: trainerId }).eq('id', gid).select()
+          if (assignErr) throw assignErr
         }
       }
     },

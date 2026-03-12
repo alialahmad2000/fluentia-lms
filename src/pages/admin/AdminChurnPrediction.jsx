@@ -72,12 +72,13 @@ export default function AdminChurnPrediction() {
 
   const markReviewed = useMutation({
     mutationFn: async ({ id, action }) => {
-      await supabase.from('churn_predictions').update({
+      const { error } = await supabase.from('churn_predictions').update({
         reviewed: true,
         reviewed_by: profile?.id,
         reviewed_at: new Date().toISOString(),
         action_taken: action,
       }).eq('id', id)
+      if (error) throw error
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['churn-predictions'] })

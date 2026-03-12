@@ -147,6 +147,9 @@ export default function StudentVoiceJournal() {
       setResult(data)
       queryClient.invalidateQueries({ queryKey: ['voice-journals'] })
     },
+    onError: (err) => {
+      console.error('Voice journal error:', err)
+    },
   })
 
   function resetRecording() {
@@ -294,6 +297,9 @@ export default function StudentVoiceJournal() {
                     <span className="text-sm text-muted">{formatTime(duration)}</span>
                   </div>
 
+                  {submitMutation.isError && (
+                    <p className="text-red-400 text-xs text-center mb-2">حدث خطأ أثناء التحليل — حاول مرة أخرى</p>
+                  )}
                   <div className="flex gap-2">
                     <button onClick={resetRecording} className="flex-1 text-sm py-2.5 rounded-xl bg-white/5 text-muted hover:text-white transition-all">
                       إعادة تسجيل

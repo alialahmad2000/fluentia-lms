@@ -32,8 +32,8 @@ export default function AdminReports() {
         totalSubmissions: submissionsRes.count || 0,
         gradedSubmissions: gradedSubmissions.length,
         totalRevenue,
-        avgXP: activeStudents.length > 0 ? Math.round(activeStudents.reduce((s, st) => s + st.xp_total, 0) / activeStudents.length) : 0,
-        avgStreak: activeStudents.length > 0 ? Math.round(activeStudents.reduce((s, st) => s + st.current_streak, 0) / activeStudents.length * 10) / 10 : 0,
+        avgXP: activeStudents.length > 0 ? Math.round(activeStudents.reduce((s, st) => s + (st.xp_total || 0), 0) / activeStudents.length) : 0,
+        avgStreak: activeStudents.length > 0 ? Math.round(activeStudents.reduce((s, st) => s + (st.current_streak || 0), 0) / activeStudents.length * 10) / 10 : 0,
         students: activeStudents,
         groups,
       }

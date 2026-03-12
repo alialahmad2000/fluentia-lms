@@ -54,6 +54,9 @@ export default function StudentConversation() {
     onSuccess: (reply, userMsg) => {
       setMessages(prev => [...prev, { role: 'assistant', content: reply }])
     },
+    onError: () => {
+      setMessages(prev => [...prev, { role: 'assistant', content: 'عذرًا، حدث خطأ. حاول مرة أخرى.' }])
+    },
   })
 
   function startScenario(s) {
@@ -74,7 +77,11 @@ export default function StudentConversation() {
         headers: { Authorization: `Bearer ${session?.access_token}` },
       }).then(res => {
         setMessages([{ role: 'assistant', content: res.data?.reply || 'Hello! How can I help you today?' }])
+      }).catch(() => {
+        setMessages([{ role: 'assistant', content: 'Hello! How can I help you today?' }])
       })
+    }).catch(() => {
+      setMessages([{ role: 'assistant', content: 'Hello! How can I help you today?' }])
     })
   }
 
@@ -98,7 +105,7 @@ export default function StudentConversation() {
         amount: xp,
         reason: 'custom',
         description: `محادثة تدريبية: ${scenario.label}`,
-      })
+      }).then(() => {})
     }
     setScenario(null)
     setMessages([])
