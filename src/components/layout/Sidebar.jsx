@@ -5,7 +5,7 @@ import {
   House, FileText, Calendar, BarChart3, Mic, BookOpen, User, Trophy, Heart, Activity, Target, Mail,
   Users, Briefcase, CreditCard, Settings, LayoutDashboard,
   LogOut, X, ChevronLeft, ChevronDown, ClipboardCheck, StickyNote, Zap, UserCheck, MessageSquare,
-  Bot, Brain, FileBarChart,
+  Bot, Brain, FileBarChart, AlertTriangle, Crosshair,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 
@@ -61,6 +61,8 @@ const NAV_GROUPS = {
       items: [
         { to: '/student/ai-chat', label: 'المساعد الذكي', icon: Bot },
         { to: '/student/vocabulary', label: 'بنك المفردات', icon: Brain },
+        { to: '/student/exercises', label: 'تمارين مخصصة', icon: Crosshair },
+        { to: '/student/my-patterns', label: 'أنماط الأخطاء', icon: AlertTriangle },
       ],
     },
     {

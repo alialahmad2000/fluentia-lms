@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { Flame, Zap, Trophy, BookOpen, Calendar, ArrowLeft, CreditCard } from 'lucide-react'
+import { Flame, Zap, Trophy, BookOpen, Calendar, ArrowLeft, CreditCard, Crosshair } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { getGreeting, getArabicDay, formatTime, formatDateAr } from '../../utils/dateHelpers'
@@ -8,6 +8,7 @@ import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES, PAYMENT_STATUS } from '
 import DailyChallenge from '../../components/gamification/DailyChallenge'
 import MysteryBox from '../../components/gamification/MysteryBox'
 import AIContentRecommendations from '../../components/ai/AIContentRecommendations'
+import { Link } from 'react-router-dom'
 
 function getLevel(xp) {
   for (let i = GAMIFICATION_LEVELS.length - 1; i >= 0; i--) {
@@ -282,8 +283,52 @@ export default function StudentDashboard() {
         </motion.div>
       )}
 
+      {/* Targeted Exercises CTA */}
+      <ExercisesCTA studentId={profile?.id} />
+
       {/* AI Content Recommendations */}
       <AIContentRecommendations />
     </div>
+  )
+}
+
+function ExercisesCTA({ studentId }) {
+  const { data: pendingCount } = useQuery({
+    queryKey: ['pending-exercises-count'],
+    queryFn: async () => {
+      const { count } = await supabase
+        .from('targeted_exercises')
+        .select('id', { count: 'exact', head: true })
+        .eq('student_id', studentId)
+        .eq('status', 'pending')
+      return count || 0
+    },
+    enabled: !!studentId,
+  })
+
+  if (!pendingCount) return null
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="glass-card p-5 border-violet-500/20"
+    >
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
+            <Crosshair size={20} className="text-violet-400" />
+          </div>
+          <div>
+            <h3 className="font-medium text-white">تمارين مخصصة لك</h3>
+            <p className="text-xs text-muted">{pendingCount} تمرين جاهز لتحسين نقاط ضعفك</p>
+          </div>
+        </div>
+        <Link to="/student/exercises" className="btn-primary text-sm py-2 px-4 flex items-center gap-2">
+          <span>ابدأ التدريب</span>
+          <ArrowLeft size={14} />
+        </Link>
+      </div>
+    </motion.div>
   )
 }

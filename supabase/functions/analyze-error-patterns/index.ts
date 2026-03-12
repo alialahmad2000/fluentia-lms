@@ -1,0 +1,179 @@
+// Fluentia LMS — Analyze Error Patterns
+// Called after grading a submission to detect recurring error patterns
+// POST { student_id, submission_id } or { student_id, analyze_all: true }
+
+import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+}
+
+const CLAUDE_API_KEY = Deno.env.get('CLAUDE_API_KEY') || ''
+
+async function callClaude(systemPrompt: string, userPrompt: string): Promise<string> {
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'x-api-key': CLAUDE_API_KEY,
+      'anthropic-version': '2023-06-01',
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 2000,
+      system: systemPrompt,
+      messages: [{ role: 'user', content: userPrompt }],
+    }),
+  })
+  const data = await res.json()
+  return data.content?.[0]?.text || ''
+}
+
+serve(async (req) => {
+  if (req.method === 'OPTIONS') {
+    return new Response('ok', { headers: corsHeaders })
+  }
+
+  try {
+    const supabase = createClient(
+      Deno.env.get('SUPABASE_URL') || '',
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || ''
+    )
+
+    const { student_id, submission_id, analyze_all } = await req.json()
+
+    if (!student_id) {
+      return new Response(JSON.stringify({ error: 'student_id required' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 400,
+      })
+    }
+
+    // Get recent graded submissions with feedback
+    let query = supabase
+      .from('submissions')
+      .select('id, grade_numeric, grade_letter, feedback, ai_feedback, student_answer, assignments(type, title, instructions)')
+      .eq('student_id', student_id)
+      .eq('status', 'graded')
+      .is('deleted_at', null)
+      .order('graded_at', { ascending: false })
+
+    if (submission_id && !analyze_all) {
+      query = query.eq('id', submission_id)
+    } else {
+      query = query.limit(15)
+    }
+
+    const { data: submissions } = await query
+
+    if (!submissions?.length) {
+      return new Response(JSON.stringify({ message: 'No graded submissions found', patterns: [] }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      })
+    }
+
+    // Get existing patterns for context
+    const { data: existingPatterns } = await supabase
+      .from('error_patterns')
+      .select('*')
+      .eq('student_id', student_id)
+      .eq('resolved', false)
+
+    const submissionSummaries = submissions.map((s: any) => {
+      const type = s.assignments?.type || 'unknown'
+      return `[${type}] "${s.assignments?.title}"\nGrade: ${s.grade_letter} (${s.grade_numeric}%)\nStudent Answer: ${(s.student_answer || '').substring(0, 500)}\nFeedback: ${(s.feedback || s.ai_feedback || '').substring(0, 500)}`
+    }).join('\n---\n')
+
+    const existingPatternsStr = existingPatterns?.length
+      ? existingPatterns.map((p: any) => `- [${p.skill}] ${p.pattern_type}: ${p.description} (freq: ${p.frequency})`).join('\n')
+      : 'None'
+
+    const systemPrompt = `You are an English language learning error pattern analyzer for Arabic-speaking students.
+Analyze student submissions to identify RECURRING error patterns.
+
+IMPORTANT:
+- Focus on patterns that appear multiple times, not one-off mistakes
+- Categorize by skill: grammar, vocabulary, speaking, listening, reading, writing
+- Use specific pattern_type names: tense_confusion, article_misuse, spelling, word_order, subject_verb_agreement, preposition_errors, plural_formation, pronoun_reference, run_on_sentences, fragment_sentences, vocabulary_misuse, false_friends, etc.
+- Provide descriptions in Arabic
+- Include specific examples from the submissions
+
+Return ONLY valid JSON array (no markdown):
+[{
+  "skill": "grammar",
+  "pattern_type": "tense_confusion",
+  "description": "خلط بين الماضي والمضارع",
+  "severity": "high|medium|low",
+  "examples": [{"source": "original text", "error": "the error", "correction": "correct form"}],
+  "is_existing": false
+}]
+
+If an existing pattern is found again, set is_existing to true and include the pattern_type.
+Return empty array [] if no clear patterns found.`
+
+    const userPrompt = `Existing patterns:\n${existingPatternsStr}\n\nRecent submissions:\n${submissionSummaries}`
+
+    const analysis = await callClaude(systemPrompt, userPrompt)
+
+    let patterns: any[] = []
+    try {
+      const cleaned = analysis.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim()
+      patterns = JSON.parse(cleaned)
+    } catch {
+      console.error('[analyze-error-patterns] Failed to parse:', analysis)
+      return new Response(JSON.stringify({ message: 'Analysis completed but no patterns extracted', raw: analysis }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      })
+    }
+
+    let newPatterns = 0
+    let updatedPatterns = 0
+
+    for (const pattern of patterns) {
+      if (pattern.is_existing) {
+        const existing = existingPatterns?.find((p: any) => p.pattern_type === pattern.pattern_type && p.skill === pattern.skill)
+        if (existing) {
+          const mergedExamples = [...(existing.examples || []), ...(pattern.examples || [])].slice(-10)
+          await supabase
+            .from('error_patterns')
+            .update({
+              frequency: existing.frequency + 1,
+              last_detected_at: new Date().toISOString(),
+              examples: mergedExamples,
+              severity: pattern.severity || existing.severity,
+            })
+            .eq('id', existing.id)
+          updatedPatterns++
+        }
+      } else {
+        await supabase.from('error_patterns').insert({
+          student_id,
+          skill: pattern.skill,
+          pattern_type: pattern.pattern_type,
+          description: pattern.description,
+          examples: pattern.examples || [],
+          severity: pattern.severity || 'medium',
+        })
+        newPatterns++
+      }
+    }
+
+    return new Response(
+      JSON.stringify({
+        message: 'Analysis complete',
+        total_patterns: patterns.length,
+        new_patterns: newPatterns,
+        updated_patterns: updatedPatterns,
+      }),
+      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+    )
+  } catch (error: any) {
+    console.error('[analyze-error-patterns]', error.message)
+    return new Response(JSON.stringify({ error: error.message }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      status: 500,
+    })
+  }
+})
