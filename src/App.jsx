@@ -47,6 +47,7 @@ const TrainerTeams = lazy(() => import('./pages/trainer/TrainerTeams'))
 const TrainerGroupChat = lazy(() => import('./pages/trainer/TrainerGroupChat'))
 const TrainerAIAssistant = lazy(() => import('./pages/trainer/TrainerAIAssistant'))
 const TrainerProgressReports = lazy(() => import('./pages/trainer/TrainerProgressReports'))
+const TrainerLessonPlanner = lazy(() => import('./pages/trainer/TrainerLessonPlanner'))
 
 const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'))
 const AdminStudents = lazy(() => import('./pages/admin/AdminStudents'))
@@ -199,6 +200,7 @@ export default function App() {
             <Route path="/trainer/messages" element={<Suspense fallback={<PageSkeleton />}><StudentMessages /></Suspense>} />
             <Route path="/trainer/ai-assistant" element={<Suspense fallback={<PageSkeleton />}><TrainerAIAssistant /></Suspense>} />
             <Route path="/trainer/reports" element={<Suspense fallback={<PageSkeleton />}><TrainerProgressReports /></Suspense>} />
+            <Route path="/trainer/lesson-planner" element={<Suspense fallback={<PageSkeleton />}><TrainerLessonPlanner /></Suspense>} />
           </Route>
         </Route>
 

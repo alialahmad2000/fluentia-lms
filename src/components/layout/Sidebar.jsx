@@ -129,6 +129,7 @@ const NAV_GROUPS = {
       label: 'الذكاء الاصطناعي',
       items: [
         { to: '/trainer/ai-assistant', label: 'المساعد الذكي', icon: Bot },
+        { to: '/trainer/lesson-planner', label: 'مخطط الدروس', icon: BookOpen },
         { to: '/trainer/reports', label: 'تقارير التقدم', icon: FileBarChart },
       ],
     },
@@ -193,6 +194,7 @@ const NAV_GROUPS = {
       label: 'الذكاء الاصطناعي',
       items: [
         { to: '/trainer/ai-assistant', label: 'المساعد الذكي', icon: Bot },
+        { to: '/trainer/lesson-planner', label: 'مخطط الدروس', icon: BookOpen },
         { to: '/trainer/reports', label: 'تقارير التقدم', icon: FileBarChart },
       ],
     },
