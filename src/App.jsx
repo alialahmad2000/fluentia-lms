@@ -25,6 +25,7 @@ const StudentVocabulary = lazy(() => import('./pages/student/StudentVocabulary')
 const StudentBilling = lazy(() => import('./pages/student/StudentBilling'))
 const StudentExercises = lazy(() => import('./pages/student/StudentExercises'))
 const StudentErrorPatterns = lazy(() => import('./pages/student/StudentErrorPatterns'))
+const StudentVoiceJournal = lazy(() => import('./pages/student/StudentVoiceJournal'))
 
 const TrainerDashboard = lazy(() => import('./pages/trainer/TrainerDashboard'))
 const TrainerAssignments = lazy(() => import('./pages/trainer/TrainerAssignments'))
@@ -164,6 +165,7 @@ export default function App() {
             <Route path="/student/billing" element={<Suspense fallback={<PageSkeleton />}><StudentBilling /></Suspense>} />
             <Route path="/student/exercises" element={<Suspense fallback={<PageSkeleton />}><StudentExercises /></Suspense>} />
             <Route path="/student/my-patterns" element={<Suspense fallback={<PageSkeleton />}><StudentErrorPatterns /></Suspense>} />
+            <Route path="/student/voice-journal" element={<Suspense fallback={<PageSkeleton />}><StudentVoiceJournal /></Suspense>} />
             <Route path="/student/profile" element={<Suspense fallback={<PageSkeleton />}><StudentProfile /></Suspense>} />
           </Route>
         </Route>

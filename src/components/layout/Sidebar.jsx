@@ -26,6 +26,7 @@ const NAV_GROUPS = {
         { to: '/student/assignments', label: 'الواجبات', icon: FileText },
         { to: '/student/schedule', label: 'الجدول', icon: Calendar },
         { to: '/student/speaking', label: 'المحادثة', icon: Mic },
+        { to: '/student/voice-journal', label: 'يوميات صوتية', icon: Mic },
         { to: '/student/library', label: 'المكتبة', icon: BookOpen },
       ],
     },
