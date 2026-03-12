@@ -52,6 +52,7 @@ const AdminSettings = lazy(() => import('./pages/admin/AdminSettings'))
 const AdminChurnPrediction = lazy(() => import('./pages/admin/AdminChurnPrediction'))
 
 const ForgotPassword = lazy(() => import('./pages/public/ForgotPassword'))
+const ParentDashboard = lazy(() => import('./pages/public/ParentDashboard'))
 
 // ─── Page Loading Skeleton ───────────────────────────────────
 function PageSkeleton() {
@@ -138,6 +139,9 @@ export default function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={
           <Suspense fallback={<LoadingSkeleton />}><ForgotPassword /></Suspense>
+        } />
+        <Route path="/parent" element={
+          <Suspense fallback={<LoadingSkeleton />}><ParentDashboard /></Suspense>
         } />
 
         {/* Student routes */}
