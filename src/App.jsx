@@ -57,6 +57,7 @@ const AdminPayments = lazy(() => import('./pages/admin/AdminPayments'))
 const AdminReports = lazy(() => import('./pages/admin/AdminReports'))
 const AdminSettings = lazy(() => import('./pages/admin/AdminSettings'))
 const AdminChurnPrediction = lazy(() => import('./pages/admin/AdminChurnPrediction'))
+const AdminSmartScheduling = lazy(() => import('./pages/admin/AdminSmartScheduling'))
 
 const ForgotPassword = lazy(() => import('./pages/public/ForgotPassword'))
 const ParentDashboard = lazy(() => import('./pages/public/ParentDashboard'))
@@ -214,6 +215,7 @@ export default function App() {
             <Route path="/admin/packages" element={<Suspense fallback={<PageSkeleton />}><AdminPayments /></Suspense>} />
             <Route path="/admin/reports" element={<Suspense fallback={<PageSkeleton />}><AdminReports /></Suspense>} />
             <Route path="/admin/churn" element={<Suspense fallback={<PageSkeleton />}><AdminChurnPrediction /></Suspense>} />
+            <Route path="/admin/scheduling" element={<Suspense fallback={<PageSkeleton />}><AdminSmartScheduling /></Suspense>} />
             <Route path="/admin/settings" element={<Suspense fallback={<PageSkeleton />}><AdminSettings /></Suspense>} />
           </Route>
         </Route>

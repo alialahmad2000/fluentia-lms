@@ -204,6 +204,7 @@ const NAV_GROUPS = {
       items: [
         { to: '/admin/reports', label: 'التقارير', icon: BarChart3 },
         { to: '/admin/churn', label: 'توقع الانسحاب', icon: AlertTriangle },
+        { to: '/admin/scheduling', label: 'الجدولة الذكية', icon: Calendar },
       ],
     },
     {
