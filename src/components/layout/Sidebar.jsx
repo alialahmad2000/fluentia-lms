@@ -28,6 +28,7 @@ const NAV_GROUPS = {
         { to: '/student/speaking', label: 'المحادثة', icon: Mic },
         { to: '/student/voice-journal', label: 'يوميات صوتية', icon: Mic },
         { to: '/student/pronunciation', label: 'مدرب النطق', icon: Mic },
+        { to: '/student/conversation', label: 'محاكي المحادثات', icon: MessageSquare },
         { to: '/student/library', label: 'المكتبة', icon: BookOpen },
       ],
     },
