@@ -31,6 +31,20 @@ const PAYMENT_STATUS = {
   partial: { label: 'جزئي', color: 'amber' },
 }
 
+const ICON_COLOR_CLASSES = {
+  sky: 'text-sky-400',
+  gold: 'text-gold-400',
+  emerald: 'text-emerald-400',
+  violet: 'text-violet-400',
+}
+
+const PAYMENT_COLOR_CLASSES = {
+  emerald: 'bg-emerald-500/10 text-emerald-400',
+  gold: 'bg-gold-500/10 text-gold-400',
+  red: 'bg-red-500/10 text-red-400',
+  amber: 'bg-amber-500/10 text-amber-400',
+}
+
 export default function ParentDashboard() {
   const [code, setCode] = useState('')
   const [loading, setLoading] = useState(false)
@@ -152,7 +166,7 @@ export default function ParentDashboard() {
             >
               <div className="flex items-center justify-between mb-2">
                 <span className="text-muted text-xs">{card.label}</span>
-                <card.icon size={16} className={`text-${card.color}-400`} />
+                <card.icon size={16} className={ICON_COLOR_CLASSES[card.color] || 'text-sky-400'} />
               </div>
               <p className="text-xl font-bold text-white">{card.value}</p>
             </motion.div>
@@ -249,7 +263,7 @@ export default function ParentDashboard() {
                       <p className="text-sm text-white">{p.amount} ر.س</p>
                       <p className="text-[10px] text-muted">{p.period}</p>
                     </div>
-                    <span className={`text-xs px-2 py-0.5 rounded-full bg-${ps.color}-500/10 text-${ps.color}-400`}>
+                    <span className={`text-xs px-2 py-0.5 rounded-full ${PAYMENT_COLOR_CLASSES[ps.color] || 'bg-sky-500/10 text-sky-400'}`}>
                       {ps.label}
                     </span>
                   </div>

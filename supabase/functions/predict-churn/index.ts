@@ -27,6 +27,11 @@ async function callClaude(systemPrompt: string, userPrompt: string): Promise<str
       messages: [{ role: 'user', content: userPrompt }],
     }),
   })
+  if (!res.ok) {
+    const errText = await res.text()
+    console.error('[predict-churn] Claude API error:', res.status, errText)
+    throw new Error(`Claude API failed: ${res.status}`)
+  }
   const data = await res.json()
   return data.content?.[0]?.text || ''
 }
@@ -91,7 +96,7 @@ serve(async (req) => {
           supabase.from('profiles').select('full_name, display_name, last_sign_in_at')
             .eq('id', student.id).single(),
           supabase.from('submissions').select('id', { count: 'exact', head: true })
-            .eq('student_id', student.id).eq('late', true).gte('submitted_at', oneMonthAgo),
+            .eq('student_id', student.id).eq('is_late', true).gte('submitted_at', oneMonthAgo),
           supabase.from('profiles').select('last_sign_in_at')
             .eq('id', student.id).single(),
         ])

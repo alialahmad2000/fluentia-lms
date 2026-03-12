@@ -28,8 +28,17 @@ const SKILL_COLORS = {
 
 const DIFFICULTY_LABELS = { easy: 'سهل', medium: 'متوسط', hard: 'صعب' }
 
+const SKILL_COLOR_CLASSES = {
+  sky: { iconBox: 'bg-sky-500/10 text-sky-400', badge: 'bg-sky-500/10 text-sky-400 border-sky-500/20' },
+  emerald: { iconBox: 'bg-emerald-500/10 text-emerald-400', badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' },
+  violet: { iconBox: 'bg-violet-500/10 text-violet-400', badge: 'bg-violet-500/10 text-violet-400 border-violet-500/20' },
+  gold: { iconBox: 'bg-gold-500/10 text-gold-400', badge: 'bg-gold-500/10 text-gold-400 border-gold-500/20' },
+  rose: { iconBox: 'bg-rose-500/10 text-rose-400', badge: 'bg-rose-500/10 text-rose-400 border-rose-500/20' },
+  amber: { iconBox: 'bg-amber-500/10 text-amber-400', badge: 'bg-amber-500/10 text-amber-400 border-amber-500/20' },
+}
+
 export default function StudentExercises() {
-  const { profile } = useAuthStore()
+  const { profile, studentData } = useAuthStore()
   const queryClient = useQueryClient()
   const [activeExercise, setActiveExercise] = useState(null)
   const [answers, setAnswers] = useState({})
@@ -121,7 +130,7 @@ export default function StudentExercises() {
         // Fallback if RPC doesn't exist
         supabase
           .from('students')
-          .update({ xp_total: (exercise.xp_awarded || 0) + xp })
+          .update({ xp_total: (studentData?.xp_total || 0) + (exercise.xp_awarded || 0) })
           .eq('id', profile?.id)
       })
 
@@ -221,7 +230,7 @@ export default function StudentExercises() {
           >
             <div className="flex items-center justify-between mb-2">
               <span className="text-muted text-xs">{card.label}</span>
-              <div className={`w-8 h-8 rounded-lg flex items-center justify-center bg-${card.color}-500/10 text-${card.color}-400`}>
+              <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${SKILL_COLOR_CLASSES[card.color]?.iconBox || 'bg-sky-500/10 text-sky-400'}`}>
                 <card.icon size={16} />
               </div>
             </div>
@@ -264,7 +273,7 @@ export default function StudentExercises() {
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className={`text-[10px] px-2 py-0.5 rounded-full bg-${color}-500/10 text-${color}-400 border border-${color}-500/20`}>
+                            <span className={`text-[10px] px-2 py-0.5 rounded-full border ${SKILL_COLOR_CLASSES[color]?.badge || 'bg-sky-500/10 text-sky-400 border-sky-500/20'}`}>
                               {SKILL_LABELS[exercise.skill]}
                             </span>
                             <span className="text-[10px] text-muted">
@@ -337,7 +346,7 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
           <h1 className="text-xl font-bold text-white">{exercise.title}</h1>
           <p className="text-muted text-sm">{exercise.instructions}</p>
         </div>
-        <span className={`text-xs px-2.5 py-1 rounded-full bg-${SKILL_COLORS[exercise.skill]}-500/10 text-${SKILL_COLORS[exercise.skill]}-400`}>
+        <span className={`text-xs px-2.5 py-1 rounded-full ${SKILL_COLOR_CLASSES[SKILL_COLORS[exercise.skill]]?.iconBox || 'bg-sky-500/10 text-sky-400'}`}>
           {SKILL_LABELS[exercise.skill]}
         </span>
       </div>

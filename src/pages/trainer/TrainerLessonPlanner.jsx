@@ -3,7 +3,7 @@ import { useQuery, useMutation } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import {
   BookOpen, Loader2, Sparkles, Clock, Target, Users,
-  FileText, CheckCircle2, Zap, Copy,
+  FileText, CheckCircle2, Zap, Copy, AlertCircle,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
@@ -22,6 +22,7 @@ export default function TrainerLessonPlanner() {
   const [focusSkills, setFocusSkills] = useState([])
   const [plan, setPlan] = useState(null)
   const [copied, setCopied] = useState(false)
+  const [error, setError] = useState('')
 
   const isAdmin = profile?.role === 'admin'
 
@@ -48,12 +49,14 @@ export default function TrainerLessonPlanner() {
         },
         headers: { Authorization: `Bearer ${session?.access_token}` },
       })
-      if (res.error) throw new Error(res.data?.error || 'Failed')
+      if (res.error) throw new Error(typeof res.error === 'object' ? (res.error.message || 'Failed') : String(res.error))
       return res.data
     },
     onSuccess: (data) => {
+      setError('')
       setPlan(data.plan)
     },
+    onError: (err) => setError(err.message || 'خطأ في إنشاء الخطة'),
   })
 
   function toggleSkill(skill) {
@@ -166,6 +169,13 @@ export default function TrainerLessonPlanner() {
           )}
         </button>
       </div>
+
+      {error && (
+        <div className="flex items-center gap-2 bg-red-500/10 border border-red-500/20 text-red-400 text-sm rounded-xl px-4 py-3">
+          <AlertCircle size={16} />
+          {error}
+        </div>
+      )}
 
       {/* Generated plan */}
       {plan && (

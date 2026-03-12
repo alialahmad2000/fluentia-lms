@@ -57,7 +57,7 @@ serve(async (req) => {
       { data: xpHistory },
       { data: attendance },
       { data: achievements },
-      { data: vocabCount },
+      { count: vocabCount },
     ] = await Promise.all([
       supabase.from('students').select('*, groups(name, code)').eq('id', student_id).single(),
       supabase.from('profiles').select('full_name, display_name').eq('id', student_id).single(),
@@ -143,10 +143,9 @@ Respond ONLY with valid JSON.`,
     })
 
     if (!claudeRes.ok) {
-      return new Response(
-        JSON.stringify({ error: 'تعذر إنشاء التقرير' }),
-        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 503 }
-      )
+      const errText = await claudeRes.text()
+      console.error('[generate-report] Claude API error:', claudeRes.status, errText)
+      throw new Error(`Claude API failed: ${claudeRes.status}`)
     }
 
     const claudeData = await claudeRes.json()

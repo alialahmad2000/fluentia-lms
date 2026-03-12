@@ -164,6 +164,12 @@ Create a comprehensive, engaging lesson plan.`
       }),
     })
 
+    if (!res.ok) {
+      const errText = await res.text()
+      console.error('[ai-lesson-planner] Claude API error:', res.status, errText)
+      throw new Error(`Claude API failed: ${res.status}`)
+    }
+
     const data = await res.json()
     const text = data.content?.[0]?.text || '{}'
     const cleaned = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim()

@@ -54,7 +54,7 @@ export default function TrainerProgressReports() {
         headers: { Authorization: `Bearer ${session?.access_token}` },
       })
 
-      if (res.error) throw new Error(res.error.message)
+      if (res.error) throw new Error(typeof res.error === 'object' ? (res.error.message || 'خطأ في إنشاء التقرير') : String(res.error))
       if (res.data?.error) throw new Error(res.data.error)
 
       setReport(res.data.report)

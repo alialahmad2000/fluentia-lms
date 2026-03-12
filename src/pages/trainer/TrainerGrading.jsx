@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle2, Clock, ChevronDown, X, Save, Loader2, RotateCcw, Mic, Image, FileText as FileIcon, Link2, Download } from 'lucide-react'
@@ -201,7 +201,7 @@ function GradingModal({ submission, getStudentName, onClose }) {
   const [voiceLoading, setVoiceLoading] = useState(false)
 
   // Load signed URL for voice notes
-  useState(() => {
+  useEffect(() => {
     if (submission.content_voice_url) {
       setVoiceLoading(true)
       getSignedUrl('voice-notes', submission.content_voice_url).then(url => {
@@ -209,10 +209,10 @@ function GradingModal({ submission, getStudentName, onClose }) {
         setVoiceLoading(false)
       }).catch(() => setVoiceLoading(false))
     }
-  })
+  }, [])
 
   const gradeMutation = useMutation({
-    mutationFn: async ({ requestResubmit, autoApprove }) => {
+    mutationFn: async ({ requestResubmit, autoApprove, overrideGrade, overrideNumeric, overrideFeedback }) => {
       if (requestResubmit) {
         const { error } = await supabase
           .from('submissions')
@@ -223,9 +223,13 @@ function GradingModal({ submission, getStudentName, onClose }) {
         return 'resubmit'
       }
 
-      if (!grade) throw new Error('اختر الدرجة')
-      if (gradeNumeric === '' || gradeNumeric === null) throw new Error('أدخل الدرجة الرقمية')
-      const numericVal = parseInt(gradeNumeric)
+      const finalGrade = autoApprove && overrideGrade ? overrideGrade : grade
+      const finalNumeric = autoApprove && overrideNumeric != null ? overrideNumeric : gradeNumeric
+      const finalFeedback = autoApprove && overrideFeedback != null ? overrideFeedback : feedback
+
+      if (!finalGrade) throw new Error('اختر الدرجة')
+      if (finalNumeric === '' || finalNumeric === null) throw new Error('أدخل الدرجة الرقمية')
+      const numericVal = parseInt(finalNumeric)
       if (isNaN(numericVal) || numericVal < 0 || numericVal > 100) throw new Error('الدرجة الرقمية يجب أن تكون بين 0 و 100')
 
       const points = submission.is_late
@@ -234,9 +238,9 @@ function GradingModal({ submission, getStudentName, onClose }) {
 
       const updateData = {
         status: 'graded',
-        grade,
-        grade_numeric: parseInt(gradeNumeric),
-        trainer_feedback: feedback.trim() || null,
+        grade: finalGrade,
+        grade_numeric: parseInt(finalNumeric),
+        trainer_feedback: finalFeedback.trim() || null,
         points_awarded: points,
       }
 
@@ -268,7 +272,7 @@ function GradingModal({ submission, getStudentName, onClose }) {
         user_id: submission.student_id,
         type: 'assignment_graded',
         title: `تم تقييم واجبك: ${submission.assignments?.title || 'واجب'}`,
-        body: `${trainerName} قيّم واجبك — الدرجة: ${grade} (${numericVal}%)`,
+        body: `${trainerName} قيّم واجبك — الدرجة: ${finalGrade} (${numericVal}%)`,
         data: { link: '/student/assignments' },
       }).catch(() => {})
 
@@ -303,8 +307,7 @@ function GradingModal({ submission, getStudentName, onClose }) {
     setGradeNumeric(aiNumeric)
     setFeedback(trainerFeedback)
     setError('')
-    // Directly save
-    gradeMutation.mutate({ requestResubmit: false, autoApprove: true })
+    gradeMutation.mutate({ requestResubmit: false, autoApprove: true, overrideGrade: aiGrade, overrideNumeric: aiNumeric, overrideFeedback: trainerFeedback })
   }
 
   // AI approve and edit — pre-fills fields but doesn't save

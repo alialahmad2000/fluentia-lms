@@ -15,6 +15,14 @@ const RISK_CONFIG = {
   low: { label: 'منخفض', color: 'emerald', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20', text: 'text-emerald-400' },
 }
 
+const STAT_COLOR_CLASSES = {
+  red: 'bg-red-500/10 text-red-400',
+  amber: 'bg-amber-500/10 text-amber-400',
+  gold: 'bg-gold-500/10 text-gold-400',
+  sky: 'bg-sky-500/10 text-sky-400',
+  emerald: 'bg-emerald-500/10 text-emerald-400',
+}
+
 export default function AdminChurnPrediction() {
   const { profile } = useAuthStore()
   const queryClient = useQueryClient()
@@ -54,6 +62,7 @@ export default function AdminChurnPrediction() {
         body: {},
         headers: { Authorization: `Bearer ${session?.access_token}` },
       })
+      if (res.error) throw new Error(typeof res.error === 'object' ? (res.error.message || 'خطأ في التحليل') : String(res.error))
       return res.data
     },
     onSuccess: () => {
@@ -121,7 +130,7 @@ export default function AdminChurnPrediction() {
           >
             <div className="flex items-center justify-between mb-2">
               <span className="text-muted text-xs">{card.label}</span>
-              <div className={`w-8 h-8 rounded-lg flex items-center justify-center bg-${card.color}-500/10 text-${card.color}-400`}>
+              <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${STAT_COLOR_CLASSES[card.color] || 'bg-sky-500/10 text-sky-400'}`}>
                 <card.icon size={16} />
               </div>
             </div>

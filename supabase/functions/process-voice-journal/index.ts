@@ -29,6 +29,12 @@ async function transcribeAudio(audioUrl: string): Promise<string> {
     body: formData,
   })
 
+  if (!res.ok) {
+    const errText = await res.text()
+    console.error('[process-voice-journal] Whisper API error:', res.status, errText)
+    throw new Error(`Whisper API failed: ${res.status}`)
+  }
+
   const data = await res.json()
   return data.text || ''
 }
@@ -62,6 +68,12 @@ Return ONLY valid JSON (no markdown):
       }],
     }),
   })
+
+  if (!res.ok) {
+    const errText = await res.text()
+    console.error('[process-voice-journal] Claude API error:', res.status, errText)
+    throw new Error(`Claude API failed: ${res.status}`)
+  }
 
   const data = await res.json()
   const text = data.content?.[0]?.text || '{}'

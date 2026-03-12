@@ -73,7 +73,7 @@ export default function StudentChatbot() {
         headers: { Authorization: `Bearer ${session?.access_token}` },
       })
 
-      if (res.error) throw new Error(res.error.message)
+      if (res.error) throw new Error(typeof res.error === 'object' ? (res.error.message || 'خطأ في الاتصال') : String(res.error))
       const result = res.data
 
       if (result.error) {

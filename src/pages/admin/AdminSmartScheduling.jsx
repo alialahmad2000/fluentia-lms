@@ -15,6 +15,15 @@ const DAY_LABELS = {
 }
 const TIME_SLOTS = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00']
 
+const ICON_COLOR_CLASSES = {
+  sky: 'text-sky-400',
+  violet: 'text-violet-400',
+  emerald: 'text-emerald-400',
+  red: 'text-red-400',
+  gold: 'text-gold-400',
+  amber: 'text-amber-400',
+}
+
 export default function AdminSmartScheduling() {
   const { profile } = useAuthStore()
   const queryClient = useQueryClient()
@@ -116,7 +125,7 @@ export default function AdminSmartScheduling() {
           <motion.div key={card.label} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }} className="glass-card p-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-muted text-xs">{card.label}</span>
-              <card.icon size={16} className={`text-${card.color}-400`} />
+              <card.icon size={16} className={ICON_COLOR_CLASSES[card.color] || 'text-sky-400'} />
             </div>
             <p className="text-xl font-bold text-white">{card.value}</p>
           </motion.div>

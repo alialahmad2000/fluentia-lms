@@ -27,6 +27,11 @@ async function callClaude(systemPrompt: string, userPrompt: string): Promise<str
       messages: [{ role: 'user', content: userPrompt }],
     }),
   })
+  if (!res.ok) {
+    const errText = await res.text()
+    console.error('[analyze-error-patterns] Claude API error:', res.status, errText)
+    throw new Error(`Claude API failed: ${res.status}`)
+  }
   const data = await res.json()
   return data.content?.[0]?.text || ''
 }

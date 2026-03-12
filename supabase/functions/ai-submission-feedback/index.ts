@@ -315,10 +315,14 @@ CRITICAL RULES:
     })
 
     if (!claudeRes.ok) {
-      const err = await claudeRes.text()
-      console.error('[ai-submission-feedback] Claude error:', err)
+      const errBody = await claudeRes.text()
+      console.error('[ai-submission-feedback] Claude API error:', claudeRes.status, errBody)
+      const statusMsg = claudeRes.status === 401 ? 'مفتاح API غير صالح'
+        : claudeRes.status === 429 ? 'تم تجاوز حد الاستخدام — حاول بعد قليل'
+        : claudeRes.status === 529 ? 'الخدمة مشغولة — حاول مرة أخرى'
+        : `خطأ في خدمة الذكاء الاصطناعي (${claudeRes.status})`
       return new Response(
-        JSON.stringify({ error: 'التقييم التلقائي غير متاح حالياً' }),
+        JSON.stringify({ error: statusMsg }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 503 }
       )
     }

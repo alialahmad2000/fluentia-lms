@@ -40,23 +40,6 @@ export default function StudentConversation() {
 
       const { data: { session } } = await supabase.auth.getSession()
 
-      // Use the student chatbot edge function or call Claude directly
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'x-api-key': 'sk-ant-api03-placeholder', // Will use edge function instead
-          'anthropic-version': '2023-06-01',
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 300,
-          system: systemPrompt,
-          messages: history,
-        }),
-      })
-
-      // Fallback: use existing student chatbot edge function
       const chatRes = await supabase.functions.invoke('ai-student-chatbot', {
         body: {
           message: userMsg,

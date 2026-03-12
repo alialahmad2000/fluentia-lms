@@ -58,12 +58,16 @@ export default function AISubmissionFeedback({
         headers: { Authorization: `Bearer ${session?.access_token}` },
       })
 
+      // supabase.functions.invoke sets res.error for non-2xx AND parses body into res.data
+      const result = res.data
       if (res.error) {
+        // Try to get error message from the response body first (more specific)
+        const bodyError = result?.error
+        if (bodyError) { setError(typeof bodyError === 'string' ? bodyError : 'خطأ في التحليل'); return }
         const msg = typeof res.error === 'object' ? (res.error.message || 'خطأ في الاتصال') : String(res.error)
         throw new Error(msg)
       }
 
-      const result = res.data
       if (!result || typeof result !== 'object') throw new Error('Invalid response')
       if (result.error) { setError(typeof result.error === 'string' ? result.error : 'خطأ في التحليل'); return }
 

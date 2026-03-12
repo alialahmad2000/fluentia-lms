@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -42,6 +42,12 @@ export default function StudentVoiceJournal() {
   const timerRef = useRef(null)
   const chunksRef = useRef([])
 
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current)
+    }
+  }, [])
+
   const { data: journals, isLoading } = useQuery({
     queryKey: ['voice-journals'],
     queryFn: async () => {
@@ -76,6 +82,7 @@ export default function StudentVoiceJournal() {
       mediaRecorder.onstop = () => {
         const blob = new Blob(chunksRef.current, { type: 'audio/webm' })
         setAudioBlob(blob)
+        if (audioUrl) URL.revokeObjectURL(audioUrl)
         setAudioUrl(URL.createObjectURL(blob))
         stream.getTracks().forEach(t => t.stop())
       }
@@ -133,7 +140,7 @@ export default function StudentVoiceJournal() {
         headers: { Authorization: `Bearer ${session?.access_token}` },
       })
 
-      if (res.error) throw new Error(res.data?.error || 'Processing failed')
+      if (res.error) throw new Error(typeof res.error === 'object' ? (res.error.message || 'Processing failed') : String(res.error))
       return res.data
     },
     onSuccess: (data) => {

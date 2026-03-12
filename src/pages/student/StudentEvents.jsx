@@ -15,6 +15,13 @@ const TYPE_CONFIG = {
   special: { label: 'مميز', color: 'sky', icon: Flame },
 }
 
+const EVENT_COLOR_CLASSES = {
+  gold: { border: 'border-gold-500/20', bar: 'bg-gold-500', iconBox: 'bg-gold-500/10', text: 'text-gold-400', badge: 'bg-gold-500/10 text-gold-400' },
+  red: { border: 'border-red-500/20', bar: 'bg-red-500', iconBox: 'bg-red-500/10', text: 'text-red-400', badge: 'bg-red-500/10 text-red-400' },
+  violet: { border: 'border-violet-500/20', bar: 'bg-violet-500', iconBox: 'bg-violet-500/10', text: 'text-violet-400', badge: 'bg-violet-500/10 text-violet-400' },
+  sky: { border: 'border-sky-500/20', bar: 'bg-sky-500', iconBox: 'bg-sky-500/10', text: 'text-sky-400', badge: 'bg-sky-500/10 text-sky-400' },
+}
+
 export default function StudentEvents() {
   const { profile } = useAuthStore()
   const queryClient = useQueryClient()
@@ -107,18 +114,18 @@ export default function StudentEvents() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className={`glass-card overflow-hidden border-${config.color}-500/20`}
+                className={`glass-card overflow-hidden ${EVENT_COLOR_CLASSES[config.color]?.border || 'border-sky-500/20'}`}
               >
-                <div className={`h-1 bg-${config.color}-500`} />
+                <div className={`h-1 ${EVENT_COLOR_CLASSES[config.color]?.bar || 'bg-sky-500'}`} />
                 <div className="p-5">
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center gap-3">
-                      <div className={`w-12 h-12 rounded-2xl bg-${config.color}-500/10 flex items-center justify-center`}>
-                        <Icon size={24} className={`text-${config.color}-400`} />
+                      <div className={`w-12 h-12 rounded-2xl ${EVENT_COLOR_CLASSES[config.color]?.iconBox || 'bg-sky-500/10'} flex items-center justify-center`}>
+                        <Icon size={24} className={EVENT_COLOR_CLASSES[config.color]?.text || 'text-sky-400'} />
                       </div>
                       <div>
                         <h3 className="font-bold text-white">{event.title}</h3>
-                        <span className={`text-[10px] px-2 py-0.5 rounded-full bg-${config.color}-500/10 text-${config.color}-400`}>
+                        <span className={`text-[10px] px-2 py-0.5 rounded-full ${EVENT_COLOR_CLASSES[config.color]?.badge || 'bg-sky-500/10 text-sky-400'}`}>
                           {config.label}
                         </span>
                       </div>

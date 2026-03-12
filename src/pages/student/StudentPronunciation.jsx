@@ -112,7 +112,7 @@ export default function StudentPronunciation() {
     setIsListening(false)
   }
 
-  function evaluatePronunciation(spoken) {
+  async function evaluatePronunciation(spoken) {
     const target = currentTarget.toLowerCase().replace(/[.,!?]/g, '').trim()
     const spokenClean = spoken.toLowerCase().replace(/[.,!?]/g, '').trim()
 
@@ -142,7 +142,7 @@ export default function StudentPronunciation() {
 
     // Award XP silently
     if (accuracy >= 50) {
-      supabase.from('xp_transactions').insert({
+      await supabase.from('xp_transactions').insert({
         student_id: profile?.id,
         amount: xp,
         reason: 'custom',

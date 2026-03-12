@@ -38,6 +38,14 @@ const ACTION_STYLES = {
   ADD_STUDENT: { icon: Users, color: 'sky' },
 }
 
+const ACTION_BG_CLASSES = {
+  emerald: 'bg-emerald-500/5 border-emerald-500/20',
+  red: 'bg-red-500/5 border-red-500/20',
+  sky: 'bg-sky-500/5 border-sky-500/20',
+  violet: 'bg-violet-500/5 border-violet-500/20',
+  gold: 'bg-gold-500/5 border-gold-500/20',
+}
+
 export default function TrainerAIAssistant() {
   const { profile } = useAuthStore()
   const [messages, setMessages] = useState([])
@@ -301,7 +309,7 @@ function MessageBubble({ msg, onConfirm, onCancel }) {
         msg.isError
           ? 'bg-red-500/10 border border-red-500/20 text-red-400'
           : hasAction && msg.actionResult.success
-            ? `bg-${actionStyle?.color || 'emerald'}-500/5 border border-${actionStyle?.color || 'emerald'}-500/20 text-white/90`
+            ? `${ACTION_BG_CLASSES[actionStyle?.color] || 'bg-emerald-500/5 border-emerald-500/20'} border text-white/90`
             : isConfirm
               ? 'bg-amber-500/5 border border-amber-500/20 text-white/90'
               : 'bg-white/5 border border-border-subtle text-white/90'
