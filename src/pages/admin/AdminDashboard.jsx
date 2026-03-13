@@ -165,52 +165,52 @@ export default function AdminDashboard() {
   ]
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Greeting */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-2xl font-bold">
           {getGreeting()}، <span className="text-gradient">{firstName}</span>
         </h1>
-        <p className="text-muted text-sm mt-1">لوحة تحكم الإدارة</p>
+        <p className="text-muted text-sm mt-1.5">لوحة تحكم الإدارة</p>
       </motion.div>
 
       {/* Stat cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {cards.map((card, i) => (
           <motion.div
             key={card.label}
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.08 }}
-            className="glass-card p-4"
+            className="stat-card glass-card p-6 hover:translate-y-[-2px] transition-all duration-200"
           >
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-muted text-xs">{card.label}</span>
-              <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-sm text-muted">{card.label}</span>
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
                 card.color === 'gold' ? 'bg-gold-500/10 text-gold-400'
                 : card.color === 'red' ? 'bg-red-500/10 text-red-400'
                 : 'bg-sky-500/10 text-sky-400'
               }`}>
-                <card.icon size={16} />
+                <card.icon size={18} />
               </div>
             </div>
-            <p className="text-xl font-bold text-white">{card.value}</p>
-            {card.sub && <p className="text-muted text-xs mt-1">{card.sub}</p>}
+            <p className="text-3xl font-bold text-white">{card.value}</p>
+            {card.sub && <p className="text-sm text-muted mt-1.5">{card.sub}</p>}
           </motion.div>
         ))}
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-4">
+      <div className="grid lg:grid-cols-2 gap-5">
         {/* Package distribution */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
-          className="glass-card p-5"
+          className="glass-card p-6 hover:translate-y-[-2px] transition-all duration-200"
         >
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center gap-2.5 mb-5">
             <TrendingUp size={18} className="text-sky-400" />
-            <h3 className="font-medium text-white">توزيع الباقات</h3>
+            <h3 className="font-semibold text-white">توزيع الباقات</h3>
           </div>
           <div className="space-y-3">
             {Object.entries(PACKAGES).map(([key, pkg]) => {
@@ -223,7 +223,7 @@ export default function AdminDashboard() {
                     <span className="text-white">{pkg.name_ar}</span>
                     <span className="text-muted">{count} طالب ({pct}%)</span>
                   </div>
-                  <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                  <div className="w-full h-2.5 bg-white/5 rounded-full overflow-hidden">
                     <div
                       className="h-full bg-sky-500 rounded-full transition-all duration-500"
                       style={{ width: `${pct}%` }}
@@ -240,11 +240,11 @@ export default function AdminDashboard() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.45 }}
-          className="glass-card p-5"
+          className="glass-card p-6 hover:translate-y-[-2px] transition-all duration-200"
         >
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center gap-2.5 mb-5">
             <UserCheck size={18} className="text-gold-400" />
-            <h3 className="font-medium text-white">الطلاب النشطين</h3>
+            <h3 className="font-semibold text-white">الطلاب النشطين</h3>
           </div>
           {recentStudents?.length > 0 ? (
             <div className="space-y-2">
@@ -276,25 +276,25 @@ export default function AdminDashboard() {
       </div>
 
       {/* Revenue + Collection */}
-      <div className="grid lg:grid-cols-2 gap-4">
+      <div className="grid lg:grid-cols-2 gap-5">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="glass-card p-5"
+          className="glass-card p-6 hover:translate-y-[-2px] transition-all duration-200"
         >
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center gap-2.5 mb-5">
             <CreditCard size={18} className="text-emerald-400" />
-            <h3 className="font-medium text-white">الإيرادات</h3>
+            <h3 className="font-semibold text-white">الإيرادات</h3>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-5">
             <div>
-              <p className="text-muted text-xs">هذا الشهر</p>
-              <p className="text-xl font-bold text-white">{(revenueStats?.thisMonth || 0).toLocaleString()} <span className="text-xs text-muted">ر.س</span></p>
+              <p className="text-sm text-muted mb-1">هذا الشهر</p>
+              <p className="text-2xl font-bold text-white">{(revenueStats?.thisMonth || 0).toLocaleString()} <span className="text-sm text-muted font-normal">ر.س</span></p>
             </div>
             <div>
-              <p className="text-muted text-xs">الشهر الماضي</p>
-              <p className="text-xl font-bold text-white">{(revenueStats?.lastMonth || 0).toLocaleString()} <span className="text-xs text-muted">ر.س</span></p>
+              <p className="text-sm text-muted mb-1">الشهر الماضي</p>
+              <p className="text-2xl font-bold text-white">{(revenueStats?.lastMonth || 0).toLocaleString()} <span className="text-sm text-muted font-normal">ر.س</span></p>
             </div>
           </div>
           {revenueStats && revenueStats.growth !== 0 && (
@@ -303,12 +303,12 @@ export default function AdminDashboard() {
               <span>{Math.abs(revenueStats?.growth || 0)}% {revenueStats?.growth > 0 ? 'نمو' : 'انخفاض'}</span>
             </div>
           )}
-          <div className="mt-4">
-            <div className="flex items-center justify-between text-xs mb-1">
+          <div className="mt-5">
+            <div className="flex items-center justify-between text-sm mb-1.5">
               <span className="text-muted">معدل التحصيل</span>
-              <span className="text-white font-medium">{revenueStats?.collectionRate || 0}%</span>
+              <span className="text-white font-semibold">{revenueStats?.collectionRate || 0}%</span>
             </div>
-            <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+            <div className="w-full h-2.5 bg-white/5 rounded-full overflow-hidden">
               <div
                 className={`h-full rounded-full transition-all ${(revenueStats?.collectionRate || 0) >= 80 ? 'bg-emerald-500' : (revenueStats?.collectionRate || 0) >= 50 ? 'bg-amber-500' : 'bg-red-500'}`}
                 style={{ width: `${revenueStats?.collectionRate || 0}%` }}
@@ -322,11 +322,11 @@ export default function AdminDashboard() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.55 }}
-          className="glass-card p-5"
+          className="glass-card p-6 hover:translate-y-[-2px] transition-all duration-200"
         >
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center gap-2.5 mb-5">
             <Layers size={18} className="text-amber-400" />
-            <h3 className="font-medium text-white">المقاعد المتاحة</h3>
+            <h3 className="font-semibold text-white">المقاعد المتاحة</h3>
           </div>
           {groupSeats?.length > 0 ? (
             <div className="space-y-2">
@@ -357,13 +357,13 @@ export default function AdminDashboard() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="glass-card p-5"
+          className="glass-card p-6 hover:translate-y-[-2px] transition-all duration-200"
         >
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center gap-2.5 mb-5">
             <Calendar size={18} className="text-sky-400" />
-            <h3 className="font-medium text-white">تجديدات قادمة (٧ أيام)</h3>
+            <h3 className="font-semibold text-white">تجديدات قادمة (٧ أيام)</h3>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {upcomingRenewals.map((s) => {
               const pkgInfo = PACKAGES[s.package]
               const amount = s.custom_price || pkgInfo?.price || 0
@@ -387,13 +387,13 @@ export default function AdminDashboard() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.65 }}
-          className="glass-card p-5 border-red-500/20"
+          className="glass-card p-6 border-red-500/20 hover:translate-y-[-2px] transition-all duration-200"
         >
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center gap-2.5 mb-5">
             <AlertCircle size={18} className="text-red-400" />
-            <h3 className="font-medium text-white">أخطاء النظام الأخيرة</h3>
+            <h3 className="font-semibold text-white">أخطاء النظام الأخيرة</h3>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-2.5">
             {recentErrors.map((e) => (
               <div key={e.id} className="text-xs bg-red-500/5 rounded-lg p-2 border border-red-500/10">
                 <div className="flex items-center justify-between">

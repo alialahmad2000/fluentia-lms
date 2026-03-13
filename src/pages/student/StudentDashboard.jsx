@@ -98,40 +98,40 @@ export default function StudentDashboard() {
   ]
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Greeting */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <h1 className="text-2xl font-bold">
+        <h1 className="text-3xl font-bold tracking-tight">
           {getGreeting()}، <span className="text-gradient">{firstName}</span>
         </h1>
-        <p className="text-muted text-sm mt-1">
+        <p className="text-muted text-sm mt-2">
           {pkg.name_ar} &middot; {academicLevel.name_ar} ({academicLevel.cefr})
         </p>
       </motion.div>
 
       {/* Stat cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {cards.map((card, i) => (
           <motion.div
             key={card.label}
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.08 }}
-            className="glass-card p-4"
+            className="stat-card hover:translate-y-[-2px] transition-all duration-300"
           >
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between mb-4">
               <span className="text-muted text-xs">{card.label}</span>
-              <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+              <div className={`stat-icon ${
                 card.color === 'gold' ? 'bg-gold-500/10 text-gold-400' : 'bg-sky-500/10 text-sky-400'
               }`}>
-                <card.icon size={16} />
+                <card.icon size={18} />
               </div>
             </div>
-            <p className="text-xl font-bold text-white">{card.value}</p>
-            <p className="text-muted text-xs mt-1">{card.sub}</p>
+            <p className="stat-number">{card.value}</p>
+            <p className="stat-label">{card.sub}</p>
           </motion.div>
         ))}
       </div>
@@ -141,12 +141,12 @@ export default function StudentDashboard() {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.35 }}
-        className="glass-card p-5"
+        className="glass-card p-6"
       >
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between mb-4">
           <div>
-            <p className="text-sm font-medium text-white">تقدم المستوى</p>
-            <p className="text-xs text-muted">
+            <p className="text-lg font-semibold text-white">تقدم المستوى</p>
+            <p className="text-xs text-muted mt-0.5">
               المستوى {currentLevel.level} — {currentLevel.title_ar}
             </p>
           </div>
@@ -159,7 +159,7 @@ export default function StudentDashboard() {
             </div>
           )}
         </div>
-        <div className="w-full h-3 bg-white/5 rounded-full overflow-hidden">
+        <div className="w-full h-3.5 bg-white/5 rounded-full overflow-hidden">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${Math.min(xpProgress, 100)}%` }}
@@ -173,26 +173,26 @@ export default function StudentDashboard() {
       </motion.div>
 
       {/* Daily Challenge + Mystery Box */}
-      <div className="grid lg:grid-cols-2 gap-4">
+      <div className="grid lg:grid-cols-2 gap-5">
         <DailyChallenge />
         <MysteryBox />
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-4">
+      <div className="grid lg:grid-cols-2 gap-5">
         {/* Next class */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.45 }}
-          className="glass-card p-5"
+          className="glass-card p-6 hover:translate-y-[-2px] transition-all duration-300"
         >
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center gap-2.5 mb-5">
             <Calendar size={18} className="text-sky-400" />
-            <h3 className="font-medium text-white">الحصة القادمة</h3>
+            <h3 className="text-lg font-semibold text-white">الحصة القادمة</h3>
           </div>
           {group ? (
-            <div className="space-y-2">
-              <p className="text-sm text-white">{group.name}</p>
+            <div className="space-y-2.5">
+              <p className="text-sm font-medium text-white">{group.name}</p>
               {schedule && (
                 <>
                   <p className="text-xs text-muted">
@@ -227,9 +227,9 @@ export default function StudentDashboard() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.55 }}
-          className="glass-card p-5"
+          className="glass-card p-6 hover:translate-y-[-2px] transition-all duration-300"
         >
-          <h3 className="font-medium text-white mb-4">آخر الإشعارات</h3>
+          <h3 className="text-lg font-semibold text-white mb-5">آخر الإشعارات</h3>
           {notifications?.length > 0 ? (
             <div className="space-y-3">
               {notifications.map((n) => (
@@ -256,12 +256,12 @@ export default function StudentDashboard() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="glass-card p-5"
+          className="glass-card p-6"
         >
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
               <CreditCard size={18} className="text-gold-400" />
-              <h3 className="font-medium text-white">الدفعة القادمة</h3>
+              <h3 className="text-lg font-semibold text-white">الدفعة القادمة</h3>
             </div>
             <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${
               nextPayment.status === 'overdue'
@@ -271,8 +271,8 @@ export default function StudentDashboard() {
               {nextPayment.status === 'overdue' ? 'متأخرة' : 'قيد الانتظار'}
             </span>
           </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <p className="text-2xl font-bold text-white">{nextPayment.amount} ر.س</p>
+          <div className="mt-4 flex items-baseline gap-3">
+            <p className="text-3xl font-bold text-white">{nextPayment.amount} ر.س</p>
             {nextPayment.period_end && (
               <p className="text-xs text-muted">حتى {formatDateAr(nextPayment.period_end)}</p>
             )}
@@ -312,16 +312,16 @@ function ExercisesCTA({ studentId }) {
     <motion.div
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
-      className="glass-card p-5 border-violet-500/20"
+      className="glass-card p-6 border-violet-500/20 hover:translate-y-[-2px] transition-all duration-300"
     >
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
+        <div className="flex items-center gap-3.5">
+          <div className="w-11 h-11 rounded-xl bg-violet-500/10 flex items-center justify-center">
             <Crosshair size={20} className="text-violet-400" />
           </div>
           <div>
-            <h3 className="font-medium text-white">تمارين مخصصة لك</h3>
-            <p className="text-xs text-muted">{pendingCount} تمرين جاهز لتحسين نقاط ضعفك</p>
+            <h3 className="text-lg font-semibold text-white">تمارين مخصصة لك</h3>
+            <p className="text-xs text-muted mt-0.5">{pendingCount} تمرين جاهز لتحسين نقاط ضعفك</p>
           </div>
         </div>
         <Link to="/student/exercises" className="btn-primary text-sm py-2 px-4 flex items-center gap-2">
