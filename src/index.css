@@ -37,41 +37,64 @@
 }
 
 @layer components {
-  /* Glass cards */
+  /* ─── Glass cards — 3-tier hierarchy ────────────────────────── */
   .glass-card {
     @apply bg-surface backdrop-blur-xl border border-border-subtle rounded-2xl;
   }
 
-  .glass-card-hover {
-    @apply glass-card hover:scale-[1.02] hover:border-sky-500/20 hover:shadow-lg transition-all duration-300;
+  .glass-card-raised {
+    @apply bg-surface-raised backdrop-blur-xl border border-border-medium rounded-2xl shadow-lg shadow-black/10;
   }
 
-  /* Buttons */
+  .glass-card-hover {
+    @apply glass-card hover:bg-surface-raised hover:border-sky-500/20 hover:shadow-lg hover:shadow-sky-500/5 transition-all duration-300;
+  }
+
+  .glass-card-interactive {
+    @apply glass-card cursor-pointer hover:bg-surface-raised hover:border-sky-500/20 hover:shadow-lg hover:shadow-sky-500/5 active:scale-[0.99] transition-all duration-200;
+  }
+
+  /* ─── Buttons ──────────────────────────────────────────────── */
   .btn-primary {
     @apply bg-gradient-to-l from-sky-500 to-sky-600 text-white px-6 py-3 rounded-xl font-medium
-           shadow-lg shadow-sky-500/20 hover:shadow-sky-500/40 active:scale-95 transition-all duration-300;
+           shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 hover:brightness-110
+           active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:shadow-sky-500/25
+           transition-all duration-200;
   }
 
   .btn-secondary {
-    @apply bg-white/5 border border-border-subtle text-white px-6 py-3 rounded-xl font-medium
-           hover:bg-white/10 transition-all duration-300;
+    @apply bg-white/[0.06] border border-border-medium text-white px-6 py-3 rounded-xl font-medium
+           hover:bg-white/[0.12] hover:border-white/20
+           active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed
+           transition-all duration-200;
   }
 
   .btn-gold {
     @apply bg-gradient-to-l from-gold-400 to-gold-500 text-navy-900 px-6 py-3 rounded-xl font-bold
-           shadow-lg shadow-gold-500/20 active:scale-95 transition-all duration-300;
+           shadow-lg shadow-gold-500/25 hover:shadow-gold-500/40 hover:brightness-110
+           active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed
+           transition-all duration-200;
   }
 
   .btn-danger {
     @apply bg-red-500/10 text-red-400 border border-red-500/20 px-6 py-3 rounded-xl font-medium
-           hover:bg-red-500/20 transition-all duration-300;
+           hover:bg-red-500/20 hover:border-red-500/30
+           active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed
+           transition-all duration-200;
   }
 
-  /* Input */
+  .btn-ghost {
+    @apply text-muted px-4 py-2 rounded-xl font-medium
+           hover:bg-white/[0.06] hover:text-white
+           active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed
+           transition-all duration-200;
+  }
+
+  /* ─── Input ────────────────────────────────────────────────── */
   .input-field {
-    @apply w-full bg-white/5 border border-border-subtle rounded-xl px-4 py-3
-           text-white placeholder-muted
-           focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500
+    @apply w-full bg-white/[0.05] border border-border-subtle rounded-xl px-4 py-3
+           text-white placeholder-muted/70
+           focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500/60 focus:bg-white/[0.07]
            transition-all duration-200;
   }
 
@@ -81,55 +104,80 @@
     color: #ffffff;
   }
 
-  /* Badges */
+  /* ─── Badges ───────────────────────────────────────────────── */
   .badge {
     @apply inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium;
   }
 
   .badge-green {
-    @apply badge bg-emerald-500/10 text-emerald-400 border border-emerald-500/20;
+    @apply badge bg-emerald-500/15 text-emerald-400 border border-emerald-500/25;
   }
 
   .badge-yellow {
-    @apply badge bg-amber-500/10 text-amber-400 border border-amber-500/20;
+    @apply badge bg-amber-500/15 text-amber-400 border border-amber-500/25;
   }
 
   .badge-red {
-    @apply badge bg-red-500/10 text-red-400 border border-red-500/20;
+    @apply badge bg-red-500/15 text-red-400 border border-red-500/25;
   }
 
   .badge-blue {
-    @apply badge bg-sky-500/10 text-sky-400 border border-sky-500/20;
+    @apply badge bg-sky-500/15 text-sky-400 border border-sky-500/25;
   }
 
   .badge-gold {
-    @apply badge bg-gold-500/10 text-gold-400 border border-gold-500/20;
+    @apply badge bg-gold-500/15 text-gold-400 border border-gold-500/25;
   }
 
   .badge-sky {
-    @apply badge bg-sky-500/10 text-sky-400 border border-sky-500/20;
+    @apply badge bg-sky-500/15 text-sky-400 border border-sky-500/25;
   }
 
   .badge-emerald {
-    @apply badge bg-emerald-500/10 text-emerald-400 border border-emerald-500/20;
+    @apply badge bg-emerald-500/15 text-emerald-400 border border-emerald-500/25;
   }
 
   .badge-violet {
-    @apply badge bg-violet-500/10 text-violet-400 border border-violet-500/20;
+    @apply badge bg-violet-500/15 text-violet-400 border border-violet-500/25;
   }
 
   .badge-orange {
-    @apply badge bg-orange-500/10 text-orange-400 border border-orange-500/20;
+    @apply badge bg-orange-500/15 text-orange-400 border border-orange-500/25;
   }
 
   .badge-muted {
-    @apply badge bg-white/5 text-gray-400 border border-white/10;
+    @apply badge bg-white/[0.06] text-gray-400 border border-white/10;
   }
 
-  /* Skeleton loading */
-  .skeleton {
-    @apply animate-pulse bg-white/5 rounded-lg;
+  /* ─── Stats card ───────────────────────────────────────────── */
+  .stat-card {
+    @apply glass-card p-5 relative overflow-hidden;
   }
+
+  .stat-card::before {
+    content: '';
+    @apply absolute top-0 right-0 w-24 h-24 rounded-full opacity-[0.03] -translate-y-1/2 translate-x-1/2;
+    background: currentColor;
+  }
+
+  /* ─── Skeleton loading ─────────────────────────────────────── */
+  .skeleton {
+    @apply animate-pulse bg-white/[0.06] rounded-lg;
+  }
+
+  /* ─── Role-based accent overrides ──────────────────────────── */
+  /* These can be used with data-role attribute on LayoutShell */
+  [data-role="student"] .role-accent { @apply text-sky-400; }
+  [data-role="student"] .role-accent-bg { @apply bg-sky-500/15; }
+  [data-role="student"] .role-accent-border { @apply border-sky-500/25; }
+
+  [data-role="trainer"] .role-accent { @apply text-emerald-400; }
+  [data-role="trainer"] .role-accent-bg { @apply bg-emerald-500/15; }
+  [data-role="trainer"] .role-accent-border { @apply border-emerald-500/25; }
+
+  [data-role="admin"] .role-accent { @apply text-gold-400; }
+  [data-role="admin"] .role-accent-bg { @apply bg-gold-500/15; }
+  [data-role="admin"] .role-accent-border { @apply border-gold-500/25; }
 }
 
 @layer utilities {
@@ -145,6 +193,15 @@
 
   .glow-gold {
     @apply shadow-lg shadow-gold-500/20;
+  }
+
+  .glow-emerald {
+    @apply shadow-lg shadow-emerald-500/20;
+  }
+
+  /* Subtle gradient background for page sections */
+  .section-gradient {
+    background: radial-gradient(ellipse at top right, rgba(56, 189, 248, 0.04) 0%, transparent 60%);
   }
 }
 

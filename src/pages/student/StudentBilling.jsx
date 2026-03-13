@@ -30,7 +30,7 @@ export default function StudentBilling() {
     queryKey: ['payment-link-setting'],
     queryFn: async () => {
       const { data } = await supabase
-        .from('system_settings')
+        .from('settings')
         .select('value')
         .eq('key', 'moyasar_payment_link')
         .single()
@@ -76,7 +76,7 @@ export default function StudentBilling() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className={`glass-card p-5 border-r-4 ${nextPayment.status === 'overdue' ? 'border-red-500' : 'border-yellow-500'}`}
+          className={`glass-card p-5 border-s-4 ${nextPayment.status === 'overdue' ? 'border-red-500' : 'border-yellow-500'}`}
         >
           <div className="flex items-center justify-between">
             <div>

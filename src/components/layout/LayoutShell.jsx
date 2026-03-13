@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { Outlet, NavLink } from 'react-router-dom'
-import { House, FileText, BarChart3, MessageSquare, User } from 'lucide-react'
+import { House, FileText, BarChart3, MessageSquare, User, Users, Settings } from 'lucide-react'
 import Sidebar from './Sidebar'
 import Header from './Header'
+import AIFloatingHelper from '../ai/AIFloatingHelper'
 import { useAuthStore } from '../../stores/authStore'
 
 // Bottom tab bar items per role (mobile only — top 5 most used)
@@ -23,11 +24,17 @@ const MOBILE_TABS = {
   ],
   admin: [
     { to: '/admin', label: 'الرئيسية', icon: House },
-    { to: '/admin/users', label: 'الطلاب', icon: User },
+    { to: '/admin/users', label: 'الطلاب', icon: Users },
     { to: '/admin/groups', label: 'المجموعات', icon: MessageSquare },
     { to: '/admin/packages', label: 'المالية', icon: BarChart3 },
-    { to: '/admin/settings', label: 'الإعدادات', icon: FileText },
+    { to: '/admin/settings', label: 'الإعدادات', icon: Settings },
   ],
+}
+
+const TAB_ACTIVE_COLORS = {
+  student: 'text-sky-400',
+  trainer: 'text-emerald-400',
+  admin: 'text-gold-400',
 }
 
 export default function LayoutShell() {
@@ -36,9 +43,10 @@ export default function LayoutShell() {
   const { profile } = useAuthStore()
   const role = profile?.role || 'student'
   const tabs = MOBILE_TABS[role] || MOBILE_TABS.student
+  const activeColor = TAB_ACTIVE_COLORS[role] || TAB_ACTIVE_COLORS.student
 
   return (
-    <div className="min-h-screen bg-darkest">
+    <div className="min-h-screen bg-darkest" data-role={role}>
       <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:right-4 focus:z-[100] focus:bg-sky-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm">
         انتقل إلى المحتوى الرئيسي
       </a>
@@ -62,17 +70,20 @@ export default function LayoutShell() {
         </main>
       </div>
 
+      {/* AI Floating Helper */}
+      <AIFloatingHelper />
+
       {/* Mobile bottom tab bar */}
       <nav aria-label="التنقل الرئيسي" className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-navy-950/95 backdrop-blur-xl border-t border-border-subtle">
-        <div className="flex items-center justify-around h-16">
+        <div className="flex items-center justify-around h-16 max-w-lg mx-auto">
           {tabs.map((tab) => (
             <NavLink
               key={tab.to}
               to={tab.to}
               end={tab.to === `/${role}` || tab.to === '/admin' || tab.to === '/trainer' || tab.to === '/student'}
               className={({ isActive }) =>
-                `flex flex-col items-center gap-0.5 px-2 py-1.5 text-[10px] font-medium transition-colors ${
-                  isActive ? 'text-sky-400' : 'text-muted'
+                `flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-[10px] font-medium transition-all duration-200 ${
+                  isActive ? `${activeColor} bg-white/[0.04]` : 'text-muted'
                 }`
               }
             >

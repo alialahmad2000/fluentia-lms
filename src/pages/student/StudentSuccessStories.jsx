@@ -199,13 +199,13 @@ export default function StudentSuccessStories() {
       // Grade achievements
       const { data: submissions } = await supabase
         .from('submissions')
-        .select('grade_letter, grade_numeric, submitted_at')
+        .select('grade, grade_numeric, submitted_at')
         .eq('student_id', profile?.id)
         .eq('status', 'graded')
 
       if (submissions?.length > 0) {
         earned.push({ ...ACHIEVEMENT_CONFIG.first_assignment, key: 'first_assignment', date: submissions[submissions.length - 1]?.submitted_at })
-        const hasPerfect = submissions.some(s => s.grade_letter === 'A+' || s.grade_numeric >= 97)
+        const hasPerfect = submissions.some(s => s.grade === 'A+' || s.grade_numeric >= 97)
         if (hasPerfect) earned.push({ ...ACHIEVEMENT_CONFIG.perfect_grade, key: 'perfect_grade' })
       }
 

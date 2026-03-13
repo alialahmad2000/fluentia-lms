@@ -55,7 +55,7 @@ export default function TrainerChallenges() {
         .from('challenges')
         .select('*')
         .eq('group_id', selectedGroup)
-        .order('created_at', { ascending: false })
+        .order('start_date', { ascending: false })
       return data || []
     },
     enabled: !!selectedGroup,
@@ -69,15 +69,15 @@ export default function TrainerChallenges() {
       if (!ids.length) return {}
       const { data } = await supabase
         .from('challenge_participants')
-        .select('challenge_id, status')
+        .select('challenge_id, completed')
         .in('challenge_id', ids)
       const counts = {}
-      const completed = {}
+      const completedMap = {}
       ;(data || []).forEach(p => {
         counts[p.challenge_id] = (counts[p.challenge_id] || 0) + 1
-        if (p.status === 'completed') completed[p.challenge_id] = (completed[p.challenge_id] || 0) + 1
+        if (p.completed) completedMap[p.challenge_id] = (completedMap[p.challenge_id] || 0) + 1
       })
-      return { counts, completed }
+      return { counts, completed: completedMap }
     },
     enabled: !!challenges?.length,
   })

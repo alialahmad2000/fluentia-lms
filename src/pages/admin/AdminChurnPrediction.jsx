@@ -121,7 +121,7 @@ export default function AdminChurnPrediction() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[
           { label: 'حالة حرجة', value: criticalCount, icon: AlertTriangle, color: 'red' },
           { label: 'خطر عالي', value: highCount, icon: TrendingDown, color: 'amber' },

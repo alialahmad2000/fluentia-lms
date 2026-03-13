@@ -91,11 +91,11 @@ serve(async (req) => {
     // Get recent graded submissions with feedback
     let query = supabase
       .from('submissions')
-      .select('id, grade_numeric, grade_letter, feedback, ai_feedback, student_answer, assignments(type, title, instructions)')
+      .select('id, grade_numeric, grade, trainer_feedback, ai_feedback, content_text, assignments(type, title, instructions)')
       .eq('student_id', student_id)
       .eq('status', 'graded')
       .is('deleted_at', null)
-      .order('graded_at', { ascending: false })
+      .order('updated_at', { ascending: false })
 
     if (submission_id && !analyze_all) {
       query = query.eq('id', submission_id)
@@ -120,7 +120,7 @@ serve(async (req) => {
 
     const submissionSummaries = submissions.map((s: any) => {
       const type = s.assignments?.type || 'unknown'
-      return `[${type}] "${s.assignments?.title}"\nGrade: ${s.grade_letter} (${s.grade_numeric}%)\nStudent Answer: ${(s.student_answer || '').substring(0, 500)}\nFeedback: ${(s.feedback || s.ai_feedback || '').substring(0, 500)}`
+      return `[${type}] "${s.assignments?.title}"\nGrade: ${s.grade} (${s.grade_numeric}%)\nStudent Answer: ${(s.content_text || '').substring(0, 500)}\nFeedback: ${(s.trainer_feedback || s.ai_feedback || '').substring(0, 500)}`
     }).join('\n---\n')
 
     const existingPatternsStr = existingPatterns?.length

@@ -44,17 +44,11 @@ export default function AdminHolidays() {
 
   const ramadanMutation = useMutation({
     mutationFn: async (value) => {
-      const { data: existing } = await supabase
+      const { error } = await supabase
         .from('settings')
-        .select('id')
-        .eq('key', 'ramadan_mode')
-        .maybeSingle()
-
-      if (existing) {
-        await supabase.from('settings').update({ value }).eq('key', 'ramadan_mode')
-      } else {
-        await supabase.from('settings').insert({ key: 'ramadan_mode', value })
-      }
+        .upsert({ key: 'ramadan_mode', value }, { onConflict: 'key' })
+        .select()
+      if (error) throw error
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['setting-ramadan-mode'] }),
     onError: (err) => {

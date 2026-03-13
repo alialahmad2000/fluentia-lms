@@ -8,6 +8,7 @@ import {
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { timeAgo } from '../../utils/dateHelpers'
+import InlineMediaPreview from '../../components/InlineMediaPreview'
 
 const CHANNELS = [
   { id: 'general', label: 'عام', icon: Hash },
@@ -371,7 +372,7 @@ export default function StudentGroupChat() {
 
                   {/* Reply preview */}
                   {msg.reply_msg && (
-                    <div className={`text-[10px] text-muted bg-white/5 rounded-lg px-2 py-1 mb-1 border-r-2 border-sky-500/30 ${isMe ? 'text-left' : ''}`}>
+                    <div className={`text-[10px] text-muted bg-white/5 rounded-lg px-2 py-1 mb-1 border-s-2 border-sky-500/30 ${isMe ? 'text-left' : ''}`}>
                       <span className="font-medium">{getSenderName(msg.reply_msg.sender)}: </span>
                       <span className="truncate">{msg.reply_msg.content?.substring(0, 60)}</span>
                     </div>
@@ -398,6 +399,12 @@ export default function StudentGroupChat() {
                       </div>
                     )}
                     <p className="whitespace-pre-wrap break-words">{msg.content}</p>
+                    {msg.voice_url && (
+                      <InlineMediaPreview url={msg.voice_url} title="رسالة صوتية" className="mt-2" />
+                    )}
+                    {msg.file_url && (
+                      <InlineMediaPreview url={msg.file_url} className="mt-2" />
+                    )}
                   </div>
 
                   {/* Reactions */}
@@ -488,7 +495,7 @@ export default function StudentGroupChat() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
-            className="flex items-center gap-2 bg-white/5 rounded-t-xl px-3 py-2 border-r-2 border-sky-500"
+            className="flex items-center gap-2 bg-white/5 rounded-t-xl px-3 py-2 border-s-2 border-sky-500"
           >
             <Reply size={14} className="text-sky-400 shrink-0" />
             <div className="flex-1 min-w-0">

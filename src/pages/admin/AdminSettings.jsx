@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { Settings, Save, Loader2, RefreshCw, CreditCard, Brain, HardDrive, Link2, Moon } from 'lucide-react'
+import { Settings, Save, Loader2, RefreshCw, CreditCard, Brain, HardDrive, Link2, Moon, MessageCircle, Bell } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { XP_VALUES, PACKAGES } from '../../lib/constants'
 
@@ -28,6 +28,9 @@ export default function AdminSettings() {
   const [packagePrices, setPackagePrices] = useState(null)
   const [paymentLink, setPaymentLink] = useState(null)
   const [aiBudget, setAiBudget] = useState(null)
+  const [whatsappApiKey, setWhatsappApiKey] = useState(null)
+  const [whatsappInstanceId, setWhatsappInstanceId] = useState(null)
+  const [paymentReminderDays, setPaymentReminderDays] = useState(null)
 
   // Initialize from settings or defaults
   const currentXP = xpValues || settings?.xp_values || XP_VALUES
@@ -39,6 +42,9 @@ export default function AdminSettings() {
   }
   const currentPaymentLink = paymentLink ?? settings?.moyasar_payment_link ?? ''
   const currentAiBudget = aiBudget ?? settings?.ai_monthly_budget ?? 50
+  const currentWhatsappApiKey = whatsappApiKey ?? settings?.whatsapp_api_key ?? ''
+  const currentWhatsappInstanceId = whatsappInstanceId ?? settings?.whatsapp_instance_id ?? ''
+  const currentPaymentReminderDays = paymentReminderDays ?? settings?.payment_reminder_days ?? 3
 
   function updateXP(key, value) {
     const updated = { ...currentXP, [key]: parseInt(value) || 0 }
@@ -56,10 +62,13 @@ export default function AdminSettings() {
   const saveMutation = useMutation({
     mutationFn: async () => {
       const upserts = []
-      if (xpValues) upserts.push({ key: 'xp_values', value: JSON.stringify(xpValues) })
-      if (packagePrices) upserts.push({ key: 'package_prices', value: JSON.stringify(packagePrices) })
-      if (paymentLink !== null) upserts.push({ key: 'moyasar_payment_link', value: JSON.stringify(paymentLink) })
-      if (aiBudget !== null) upserts.push({ key: 'ai_monthly_budget', value: JSON.stringify(aiBudget) })
+      if (xpValues) upserts.push({ key: 'xp_values', value: xpValues })
+      if (packagePrices) upserts.push({ key: 'package_prices', value: packagePrices })
+      if (paymentLink !== null) upserts.push({ key: 'moyasar_payment_link', value: paymentLink })
+      if (aiBudget !== null) upserts.push({ key: 'ai_monthly_budget', value: aiBudget })
+      if (whatsappApiKey !== null) upserts.push({ key: 'whatsapp_api_key', value: whatsappApiKey })
+      if (whatsappInstanceId !== null) upserts.push({ key: 'whatsapp_instance_id', value: whatsappInstanceId })
+      if (paymentReminderDays !== null) upserts.push({ key: 'payment_reminder_days', value: paymentReminderDays })
 
       for (const item of upserts) {
         const { error } = await supabase
@@ -200,6 +209,60 @@ export default function AdminSettings() {
                 dir="ltr"
               />
               <span className="text-muted text-sm">ر.س / شهر</span>
+            </div>
+          </div>
+
+          {/* WhatsApp Integration */}
+          <div className="glass-card p-5">
+            <div className="flex items-center gap-2 mb-4">
+              <MessageCircle size={18} className="text-emerald-400" />
+              <h3 className="text-lg font-bold text-white">تكامل واتساب</h3>
+            </div>
+            <p className="text-muted text-xs mb-3">اربط API واتساب لإرسال الإشعارات (WATI / UltraMsg / غيره)</p>
+            <div className="space-y-3">
+              <div>
+                <label className="text-xs text-muted block mb-1">API Key</label>
+                <input
+                  type="password"
+                  value={currentWhatsappApiKey}
+                  onChange={(e) => { setWhatsappApiKey(e.target.value); setSaved(false) }}
+                  placeholder="sk-..."
+                  className="input-field text-sm"
+                  dir="ltr"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-muted block mb-1">Instance ID</label>
+                <input
+                  type="text"
+                  value={currentWhatsappInstanceId}
+                  onChange={(e) => { setWhatsappInstanceId(e.target.value); setSaved(false) }}
+                  placeholder="instance123"
+                  className="input-field text-sm"
+                  dir="ltr"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Payment Reminders */}
+          <div className="glass-card p-5">
+            <div className="flex items-center gap-2 mb-4">
+              <Bell size={18} className="text-amber-400" />
+              <h3 className="text-lg font-bold text-white">تذكير المدفوعات التلقائي</h3>
+            </div>
+            <p className="text-muted text-xs mb-3">عدد الأيام قبل الموعد لإرسال تذكير تلقائي</p>
+            <div className="flex items-center gap-2">
+              <input
+                type="number"
+                value={currentPaymentReminderDays}
+                onChange={(e) => { setPaymentReminderDays(parseInt(e.target.value) || 0); setSaved(false) }}
+                className="input-field py-1 px-2 w-24 text-sm text-center"
+                dir="ltr"
+                min="1"
+                max="30"
+              />
+              <span className="text-muted text-sm">يوم قبل الموعد</span>
             </div>
           </div>
 

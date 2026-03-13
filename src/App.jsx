@@ -73,6 +73,8 @@ const AdminContent = lazyRetry(() => import('./pages/admin/AdminContent'))
 const AdminHolidays = lazyRetry(() => import('./pages/admin/AdminHolidays'))
 const AdminAuditLog = lazyRetry(() => import('./pages/admin/AdminAuditLog'))
 const AdminTestimonials = lazyRetry(() => import('./pages/admin/AdminTestimonials'))
+const AdminActionCenter = lazyRetry(() => import('./pages/admin/AdminActionCenter'))
+const AdminDataExport = lazyRetry(() => import('./pages/admin/AdminDataExport'))
 
 const ForgotPassword = lazyRetry(() => import('./pages/public/ForgotPassword'))
 const ParentDashboard = lazyRetry(() => import('./pages/public/ParentDashboard'))
@@ -274,6 +276,8 @@ export default function App() {
               <Route path="/admin/holidays" element={<Page><AdminHolidays /></Page>} />
               <Route path="/admin/audit-log" element={<Page><AdminAuditLog /></Page>} />
               <Route path="/admin/testimonials" element={<Page><AdminTestimonials /></Page>} />
+              <Route path="/admin/today" element={<Page><AdminActionCenter /></Page>} />
+              <Route path="/admin/export" element={<Page><AdminDataExport /></Page>} />
             </Route>
           </Route>
 

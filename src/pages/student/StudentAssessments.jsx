@@ -181,7 +181,7 @@ function Sparkline({ values }) {
 
 // ─── Main Component ───────────────────────────────────────────
 export default function StudentAssessments() {
-  const { profile } = useAuthStore()
+  const { profile, studentData } = useAuthStore()
   const queryClient = useQueryClient()
   const [expandedId, setExpandedId] = useState(null)
   const [mood, setMood] = useState(null)
@@ -264,7 +264,7 @@ export default function StudentAssessments() {
       const { error } = await supabase.from('assessments').insert({
         student_id: profile?.id,
         type: 'self',
-        level_at_time: profile?.level || null,
+        level_at_time: studentData?.academic_level || null,
         scores: { grammar: confScore, vocabulary: 0, speaking: 0, listening: 0, reading: 0, writing: 0 },
         overall_score: overall,
         ai_analysis: null,

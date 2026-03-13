@@ -150,7 +150,7 @@ export default function ParentDashboard() {
         </motion.div>
 
         {/* Stats grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
             { label: 'النقاط', value: `${student?.xp ?? 0} XP`, icon: Zap, color: 'sky' },
             { label: 'السلسلة', value: `${student?.streak ?? 0} يوم`, icon: Flame, color: 'gold' },

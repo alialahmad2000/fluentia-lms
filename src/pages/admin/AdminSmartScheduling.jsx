@@ -117,7 +117,7 @@ export default function AdminSmartScheduling() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[
           { label: 'المجموعات', value: groups?.length || 0, icon: Users, color: 'sky' },
           { label: 'المدربين', value: trainers?.length || 0, icon: Users, color: 'violet' },

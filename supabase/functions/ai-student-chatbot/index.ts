@@ -65,12 +65,12 @@ serve(async (req) => {
 
     const { data: student } = await supabase
       .from('students')
-      .select('id, level')
+      .select('id, academic_level')
       .eq('id', user.id)
       .single()
 
     const studentId = student?.id || user.id
-    const studentLevel = student?.level || 1
+    const studentLevel = student?.academic_level || 1
 
     // Check Claude API key
     if (!CLAUDE_API_KEY) {
@@ -204,12 +204,12 @@ Rules:
     const outputTokens = claudeData.usage?.output_tokens || 0
 
     await supabase.from('ai_usage').insert({
-      user_id: user.id,
-      function_name: 'ai-student-chatbot',
+      type: 'chatbot',
+      student_id: studentId,
       model: 'claude-sonnet-4-20250514',
       input_tokens: inputTokens,
       output_tokens: outputTokens,
-      created_at: now,
+      estimated_cost_sar: ((inputTokens * 3 + outputTokens * 15) / 1_000_000) * 3.75,
     })
 
     return new Response(

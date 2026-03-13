@@ -381,9 +381,8 @@ function QuizTaker({ quiz, onFinish, onBack }) {
         await supabase.from('xp_transactions').insert({
           student_id: profile?.id,
           amount: xpAwarded,
-          source: 'quiz',
-          source_id: quiz.id,
-          description: `اختبار: ${quiz.title}`,
+          reason: `اختبار: ${quiz.title}`,
+          related_id: quiz.id,
         })
       }
 

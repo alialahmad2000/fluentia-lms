@@ -83,7 +83,7 @@ export default function TrainerQuickNotes() {
   // Send note
   const sendMutation = useMutation({
     mutationFn: async () => {
-      if (!selectedStudent || !noteText.trim()) return
+      if (!selectedStudent || !noteText.trim()) throw new Error('يرجى اختيار طالب وكتابة ملاحظة')
       const typeConfig = NOTE_TYPES.find(n => n.type === noteType)
       const { error } = await supabase.from('notifications').insert({
         user_id: selectedStudent.id,

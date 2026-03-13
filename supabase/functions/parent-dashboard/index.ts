@@ -73,10 +73,10 @@ serve(async (req) => {
     // Get recent grades
     const { data: recentGrades } = await supabase
       .from('submissions')
-      .select('grade_numeric, grade_letter, submitted_at, assignments(title, type)')
+      .select('grade_numeric, grade, submitted_at, assignments(title, type)')
       .eq('student_id', studentId)
       .eq('status', 'graded')
-      .order('graded_at', { ascending: false })
+      .order('updated_at', { ascending: false })
       .limit(10)
 
     // Get attendance this month
@@ -140,7 +140,7 @@ serve(async (req) => {
         recent: recentGrades?.map((g: any) => ({
           title: g.assignments?.title,
           type: g.assignments?.type,
-          grade: g.grade_letter,
+          grade: g.grade,
           score: g.grade_numeric,
           date: g.submitted_at,
         })) || [],

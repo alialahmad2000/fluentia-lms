@@ -271,10 +271,11 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
       // Create activity_feed entry
       await supabase.from('activity_feed').insert({
         student_id: student.id,
+        group_id: student.group_id,
         type: 'level_up',
         title: 'ترقية مستوى',
         description: `ترقية إلى المستوى ${newLevelInfo?.cefr}`,
-        xp_earned: 100,
+        data: { xp_earned: 100 },
       })
 
       // Award XP via xp_transactions

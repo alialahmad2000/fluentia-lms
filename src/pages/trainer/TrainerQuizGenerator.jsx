@@ -1003,7 +1003,7 @@ function QuizAnalytics({ profileId, isAdmin }) {
       // 2. Fetch attempts for those quizzes
       const { data: attempts, error: attemptsError } = await supabase
         .from('quiz_attempts')
-        .select('id, quiz_id, score, total_points, completed_at')
+        .select('id, quiz_id, total_score, max_score, completed_at')
         .in('quiz_id', quizIds)
         .not('completed_at', 'is', null)
 
@@ -1035,8 +1035,8 @@ function QuizAnalytics({ profileId, isAdmin }) {
         if (count === 0) return { ...quiz, avgPercent: null, attemptCount: 0 }
         const avgPercent = Math.round(
           quizAttempts.reduce((sum, a) => {
-            const maxPts = a.total_points || quiz.total_points || 1
-            return sum + ((a.score || 0) / maxPts) * 100
+            const maxPts = a.max_score || quiz.total_points || 1
+            return sum + ((a.total_score || 0) / maxPts) * 100
           }, 0) / count
         )
         return { ...quiz, avgPercent, attemptCount: count }

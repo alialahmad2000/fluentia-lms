@@ -65,9 +65,10 @@ export default function StudentAvatar() {
         })
         .eq('id', profile?.id)
     },
-    onSuccess: () => {
+    onSuccess: async () => {
       setSaved(true)
-      fetchProfile()
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user) fetchProfile(user)
       setTimeout(() => setSaved(false), 2000)
     },
     onError: (err) => {

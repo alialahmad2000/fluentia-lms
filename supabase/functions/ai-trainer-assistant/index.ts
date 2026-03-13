@@ -1181,7 +1181,7 @@ Be practical and specific. Use data to support your points.`,
           .from('error_patterns')
           .select('*')
           .eq('student_id', lookup.student.id)
-          .eq('status', 'active')
+          .eq('resolved', false)
           .order('frequency', { ascending: false })
           .limit(10)
 
@@ -1189,8 +1189,8 @@ Be practical and specific. Use data to support your points.`,
 
         let reply = `🔍 أنماط أخطاء ${studentName(lookup.student)} (${patterns.length}):\n`
         for (const p of patterns) {
-          reply += `• [${p.skill}] ${p.pattern_name_ar || p.pattern_name}: تكرار ${p.frequency}x — ${p.severity}\n`
-          if (p.example) reply += `  مثال: ${p.example}\n`
+          reply += `• [${p.skill}] ${p.pattern_type}: تكرار ${p.frequency}x — ${p.severity}\n`
+          if (p.examples?.length) reply += `  مثال: ${typeof p.examples[0] === 'object' ? p.examples[0].error || JSON.stringify(p.examples[0]) : p.examples[0]}\n`
         }
         return { success: true, reply }
       }
@@ -1222,7 +1222,7 @@ Be practical and specific. Use data to support your points.`,
         let query = supabase
           .from('error_patterns')
           .select('student_id, skill, frequency, students:student_id(profiles(full_name, display_name), group_id)')
-          .eq('status', 'active')
+          .eq('resolved', false)
           .eq('skill', skill)
           .order('frequency', { ascending: false })
           .limit(20)

@@ -113,7 +113,7 @@ export default function StudentDashboard() {
       </motion.div>
 
       {/* Stat cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {cards.map((card, i) => (
           <motion.div
             key={card.label}
@@ -235,7 +235,7 @@ export default function StudentDashboard() {
               {notifications.map((n) => (
                 <div
                   key={n.id}
-                  className={`text-sm border-r-2 pr-3 ${
+                  className={`text-sm border-s-2 ps-3 ${
                     n.read ? 'border-border-subtle text-muted' : 'border-sky-500 text-white'
                   }`}
                 >

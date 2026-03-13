@@ -49,14 +49,34 @@ export default {
         error: '#ef4444',
         warning: '#f59e0b',
         muted: '#64748b',
-        surface: 'rgba(255,255,255,0.03)',
-        'border-subtle': 'rgba(255,255,255,0.06)',
+        surface: 'rgba(255,255,255,0.04)',
+        'surface-raised': 'rgba(255,255,255,0.07)',
+        'surface-overlay': 'rgba(255,255,255,0.10)',
+        'border-subtle': 'rgba(255,255,255,0.08)',
+        'border-medium': 'rgba(255,255,255,0.12)',
         darkest: '#060e1c',
       },
       fontFamily: {
         tajawal: ['Tajawal', 'sans-serif'],
         playfair: ['Playfair Display', 'serif'],
         inter: ['Inter', 'sans-serif'],
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
+      animation: {
+        'shimmer': 'shimmer 2s linear infinite',
+        'float': 'float 3s ease-in-out infinite',
+      },
+      keyframes: {
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-5px)' },
+        },
       },
     },
   },

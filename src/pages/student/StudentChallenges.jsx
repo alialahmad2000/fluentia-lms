@@ -38,7 +38,7 @@ export default function StudentChallenges() {
         .from('challenges')
         .select('*')
         .eq('group_id', groupId)
-        .order('created_at', { ascending: false })
+        .order('start_date', { ascending: false })
 
       if (tab === 'active') {
         query = query.gte('end_date', now).lte('start_date', now)
@@ -58,7 +58,7 @@ export default function StudentChallenges() {
     queryFn: async () => {
       const { data } = await supabase
         .from('challenge_participants')
-        .select('challenge_id, status, progress, completed_at')
+        .select('challenge_id, completed, progress, completed_at')
         .eq('student_id', profile?.id)
       const map = {}
       ;(data || []).forEach(p => { map[p.challenge_id] = p })
@@ -94,7 +94,6 @@ export default function StudentChallenges() {
       const { error } = await supabase.from('challenge_participants').insert({
         challenge_id: challengeId,
         student_id: profile?.id,
-        status: 'joined',
         progress: {},
       })
       if (error) throw error
@@ -168,7 +167,7 @@ export default function StudentChallenges() {
             const typeConfig = CHALLENGE_TYPE_LABELS[challenge.type] || CHALLENGE_TYPE_LABELS.weekly
             const participation = myParticipation?.[challenge.id]
             const joined = !!participation
-            const completed = participation?.status === 'completed'
+            const completed = participation?.completed === true
             const active = isActive(challenge)
             const count = participantCounts?.[challenge.id] || 0
 

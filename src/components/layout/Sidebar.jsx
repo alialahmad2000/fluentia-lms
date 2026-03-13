@@ -1,13 +1,36 @@
-import { useState, useEffect } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useState, useEffect, useMemo } from 'react'
+import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   House, FileText, Calendar, BarChart3, Mic, BookOpen, User, Trophy, Heart, Activity, Target, Mail,
   Users, Briefcase, CreditCard, Settings, LayoutDashboard,
   LogOut, X, ChevronLeft, ChevronDown, ClipboardCheck, StickyNote, Zap, UserCheck, MessageSquare,
   Bot, Brain, FileBarChart, AlertTriangle, Crosshair, FolderOpen, Moon, Shield, Award, MessageSquareQuote, Gift,
+  Search, Database,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
+
+// ─── Role accent config ──────────────────────────────────────
+const ROLE_ACCENTS = {
+  student: {
+    active: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
+    icon: 'text-sky-400',
+    logo: 'from-sky-400 to-sky-200',
+    dot: 'bg-sky-400',
+  },
+  trainer: {
+    active: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/25',
+    icon: 'text-emerald-400',
+    logo: 'from-emerald-400 to-emerald-200',
+    dot: 'bg-emerald-400',
+  },
+  admin: {
+    active: 'bg-gold-500/15 text-gold-400 border border-gold-500/25',
+    icon: 'text-gold-400',
+    logo: 'from-gold-400 to-gold-200',
+    dot: 'bg-gold-400',
+  },
+}
 
 // ─── Grouped Navigation Items ────────────────────────────────
 const NAV_GROUPS = {
@@ -146,6 +169,7 @@ const NAV_GROUPS = {
       label: 'الرئيسية',
       items: [
         { to: '/admin', label: 'لوحة التحكم', icon: LayoutDashboard },
+        { to: '/admin/today', label: 'مهام اليوم', icon: Zap },
       ],
     },
     {
@@ -228,6 +252,7 @@ const NAV_GROUPS = {
       label: 'النظام',
       items: [
         { to: '/admin/settings', label: 'الإعدادات', icon: Settings },
+        { to: '/admin/export', label: 'تصدير البيانات', icon: Database },
         { to: '/admin/audit-log', label: 'سجل المراجعة', icon: Shield },
       ],
     },
@@ -239,8 +264,12 @@ const COLLAPSED_STORAGE_KEY = 'fluentia_sidebar_groups'
 export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) {
   const { profile, signOut } = useAuthStore()
   const navigate = useNavigate()
+  const location = useLocation()
   const role = profile?.role || 'student'
   const groups = NAV_GROUPS[role] || NAV_GROUPS.student
+  const accent = ROLE_ACCENTS[role] || ROLE_ACCENTS.student
+
+  const [searchQuery, setSearchQuery] = useState('')
 
   // Load collapsed state from localStorage
   const [collapsedGroups, setCollapsedGroups] = useState(() => {
@@ -252,11 +281,23 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
     }
   })
 
-  // Save collapsed state — only persist when profile has loaded (role is not the default 'student')
+  // Save collapsed state
   useEffect(() => {
-    if (!profile?.role) return // avoid writing to key with undefined role
+    if (!profile?.role) return
     localStorage.setItem(`${COLLAPSED_STORAGE_KEY}_${role}`, JSON.stringify(collapsedGroups))
   }, [collapsedGroups, role, profile?.role])
+
+  // Filtered nav items based on search
+  const filteredGroups = useMemo(() => {
+    if (!searchQuery.trim()) return groups
+    const q = searchQuery.trim().toLowerCase()
+    return groups
+      .map(group => ({
+        ...group,
+        items: group.items.filter(item => item.label.toLowerCase().includes(q)),
+      }))
+      .filter(group => group.items.length > 0)
+  }, [groups, searchQuery])
 
   function toggleGroup(key) {
     setCollapsedGroups(prev => ({ ...prev, [key]: !prev[key] }))
@@ -273,13 +314,19 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
 
   const sidebarContent = (
     <div className="flex flex-col h-full">
-      {/* Logo */}
-      <div className="flex items-center justify-between px-5 py-5 border-b border-border-subtle">
-        {!collapsed && (
-          <h1 className="text-xl font-playfair font-bold text-gradient">Fluentia</h1>
-        )}
-        {collapsed && (
-          <span className="text-xl font-playfair font-bold text-gradient mx-auto">F</span>
+      {/* Logo area */}
+      <div className="flex items-center justify-between px-5 py-4 border-b border-border-subtle">
+        {!collapsed ? (
+          <div className="flex items-center gap-2">
+            <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${accent.logo} flex items-center justify-center`}>
+              <span className="text-navy-950 font-bold text-sm">F</span>
+            </div>
+            <h1 className="text-lg font-playfair font-bold text-gradient">Fluentia</h1>
+          </div>
+        ) : (
+          <div className={`w-9 h-9 rounded-lg bg-gradient-to-br ${accent.logo} flex items-center justify-center mx-auto`}>
+            <span className="text-navy-950 font-bold text-sm">F</span>
+          </div>
         )}
         <button onClick={onClose} className="lg:hidden text-muted hover:text-white transition-colors">
           <X size={20} />
@@ -292,20 +339,37 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
         </button>
       </div>
 
+      {/* Search — only when expanded */}
+      {!collapsed && (
+        <div className="px-3 pt-3 pb-1">
+          <div className="relative">
+            <Search size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted/50" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="بحث في القائمة..."
+              className="w-full bg-white/[0.04] border border-border-subtle rounded-lg pr-9 pl-3 py-2 text-xs text-white placeholder-muted/50 focus:outline-none focus:ring-1 focus:ring-sky-500/30 focus:border-sky-500/30 transition-all"
+            />
+          </div>
+        </div>
+      )}
+
       {/* Nav groups */}
       <nav role="navigation" aria-label="القائمة الجانبية" className="flex-1 py-2 px-3 overflow-y-auto">
-        {groups.map((group, gi) => {
+        {filteredGroups.map((group, gi) => {
           const isGroupCollapsed = collapsedGroups[group.key]
           const isSingleItem = group.items.length === 1
+          const isSearching = searchQuery.trim().length > 0
 
           return (
             <div key={group.key} className={gi > 0 ? 'mt-1' : ''}>
-              {/* Group header — skip for single-item groups */}
+              {/* Group header */}
               {!isSingleItem && !collapsed && (
                 <button
                   onClick={() => toggleGroup(group.key)}
                   aria-expanded={!isGroupCollapsed}
-                  className="w-full flex items-center justify-between px-3 py-1.5 text-[11px] font-medium text-muted/60 uppercase tracking-wide hover:text-muted transition-colors"
+                  className="w-full flex items-center justify-between px-3 py-1.5 text-[11px] font-semibold text-muted/50 uppercase tracking-wider hover:text-muted transition-colors"
                 >
                   <span>{group.label}</span>
                   <ChevronDown
@@ -317,28 +381,32 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
 
               {/* Collapsed sidebar: show divider between groups */}
               {collapsed && gi > 0 && (
-                <div className="border-t border-border-subtle/30 my-1 mx-2" />
+                <div className="border-t border-border-subtle/30 my-1.5 mx-2" />
               )}
 
               {/* Group items */}
-              {(!isGroupCollapsed || isSingleItem || collapsed) && (
+              {(!isGroupCollapsed || isSingleItem || collapsed || isSearching) && (
                 <div className="space-y-0.5">
                   {group.items.map((item) => (
                     <NavLink
                       key={item.to}
                       to={item.to}
                       end={item.to === `/${role}` || item.to === '/admin' || item.to === '/trainer' || item.to === '/student'}
-                      onClick={onClose}
+                      onClick={() => { onClose(); setSearchQuery('') }}
                       className={({ isActive }) =>
-                        `flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                        `group flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all duration-200 ${
                           isActive
-                            ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
-                            : 'text-muted hover:text-white hover:bg-white/5'
+                            ? accent.active
+                            : 'text-muted hover:text-white hover:bg-white/[0.05]'
                         } ${collapsed ? 'justify-center' : ''}`
                       }
                     >
-                      <item.icon size={18} className="shrink-0" />
-                      {!collapsed && <span>{item.label}</span>}
+                      {({ isActive }) => (
+                        <>
+                          <item.icon size={18} className={`shrink-0 ${isActive ? '' : 'text-muted/70 group-hover:text-white/70'}`} />
+                          {!collapsed && <span>{item.label}</span>}
+                        </>
+                      )}
                     </NavLink>
                   ))}
                 </div>
@@ -346,13 +414,21 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
             </div>
           )
         })}
+
+        {/* No search results */}
+        {searchQuery.trim() && filteredGroups.length === 0 && (
+          <div className="text-center py-6">
+            <Search size={20} className="text-muted/30 mx-auto mb-2" />
+            <p className="text-xs text-muted/50">لا توجد نتائج</p>
+          </div>
+        )}
       </nav>
 
       {/* Logout */}
       <div className="px-3 pb-4 border-t border-border-subtle pt-3">
         <button
           onClick={handleLogout}
-          className={`flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-red-400 hover:bg-red-500/10 transition-all duration-200 w-full ${collapsed ? 'justify-center' : ''}`}
+          className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium text-red-400/80 hover:text-red-400 hover:bg-red-500/10 transition-all duration-200 w-full ${collapsed ? 'justify-center' : ''}`}
         >
           <LogOut size={18} className="shrink-0" />
           {!collapsed && <span>تسجيل الخروج</span>}
@@ -381,13 +457,13 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={onClose}
-              className="fixed inset-0 bg-black/60 z-40 lg:hidden"
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
             />
             <motion.aside
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              transition={{ type: 'spring', damping: 28, stiffness: 320 }}
               className="fixed top-0 right-0 h-screen w-72 bg-navy-950 border-l border-border-subtle z-50 lg:hidden"
             >
               {sidebarContent}

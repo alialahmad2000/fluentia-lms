@@ -111,14 +111,13 @@ function MaterialsTab() {
   const [filterSkill, setFilterSkill] = useState('')
   const [deleteId, setDeleteId] = useState(null)
 
-  // Fetch materials from class_notes where is_trainer_summary = true
+  // Fetch materials from content_library
   const { data: materials = [], isLoading } = useQuery({
     queryKey: ['admin-materials', filterLevel, filterSkill],
     queryFn: async () => {
       let query = supabase
-        .from('class_notes')
+        .from('content_library')
         .select('*')
-        .eq('is_trainer_summary', true)
         .order('created_at', { ascending: false })
 
       if (filterLevel) query = query.eq('level', parseInt(filterLevel))
@@ -147,13 +146,14 @@ function MaterialsTab() {
         fileUrl = urlData.publicUrl
       }
 
-      const { error } = await supabase.from('class_notes').insert({
+      const { error } = await supabase.from('content_library').insert({
         title: formData.title,
         type: formData.type,
         level: parseInt(formData.level),
         skill: formData.skill,
-        content: fileUrl,
-        is_trainer_summary: true,
+        file_url: fileUrl || null,
+        external_url: formData.url || null,
+        content: formData.description || null,
       })
       if (error) throw error
     },
@@ -169,7 +169,7 @@ function MaterialsTab() {
   // Delete material
   const deleteMutation = useMutation({
     mutationFn: async (id) => {
-      const { error } = await supabase.from('class_notes').delete().eq('id', id)
+      const { error } = await supabase.from('content_library').delete().eq('id', id)
       if (error) throw error
     },
     onSuccess: () => {

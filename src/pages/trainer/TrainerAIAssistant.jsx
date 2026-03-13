@@ -8,20 +8,40 @@ import {
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 
-const QUICK_ACTIONS = [
+const QUICK_ACTIONS_TRAINER = [
   { label: 'واجبات معلقة', icon: ClipboardList, message: 'وش الواجبات المعلقة للتقييم؟' },
   { label: 'تقييم سريع', icon: Sparkles, message: 'قيّم كل الواجبات المعلقة بالذكاء الاصطناعي' },
   { label: 'إحصائيات', icon: BarChart3, message: 'وش وضع النظام؟' },
   { label: 'تذكير', icon: Bell, message: 'ذكّر اللي ما سلّموا الواجبات' },
 ]
 
-const SUGGESTIONS = [
+const QUICK_ACTIONS_ADMIN = [
+  { label: 'حالة النظام', icon: BarChart3, message: 'أعطني حالة النظام الكاملة' },
+  { label: 'واجبات معلقة', icon: ClipboardList, message: 'وش الواجبات المعلقة للتقييم؟' },
+  { label: 'تقييم AI', icon: Sparkles, message: 'قيّم كل الواجبات المعلقة بالذكاء الاصطناعي' },
+  { label: 'مخاطر انسحاب', icon: AlertCircle, message: 'وش الطلاب اللي معرضين للانسحاب؟' },
+  { label: 'متأخرات الدفع', icon: Zap, message: 'وش وضع المدفوعات المتأخرة؟' },
+  { label: 'تذكير الكل', icon: Bell, message: 'ذكّر اللي ما سلّموا الواجبات' },
+]
+
+const SUGGESTIONS_TRAINER = [
   'أعطني معلومات عن الطلاب اللي ما سلّموا واجباتهم',
   'أنشئ واجب كتابة لمجموعة 2A عن daily routine',
   'أعط كل مجموعة 2A ١٠ نقاط — أداء ممتاز',
   'وش نقاط ضعف الهنوف؟',
   'سجّل حضور مجموعة 2A — الكل حاضر',
   'أرسل ملاحظة تشجيعية للهنوف',
+]
+
+const SUGGESTIONS_ADMIN = [
+  'أعطني حالة النظام الكاملة — طلاب، واجبات، مدفوعات',
+  'وش الطلاب اللي معرضين للانسحاب؟',
+  'أنشئ مجموعة جديدة اسمها 3A مستوى 3',
+  'سجّل دفعة ٧٥٠ ريال للهنوف تحويل بنكي',
+  'أضف طالب جديد: محمد أحمد — m@email.com — مستوى 1 — باقة أساس — مجموعة 2A',
+  'شغّل تحليل الانسحاب لكل الطلاب',
+  'أعط كل مجموعة 2A ١٠ نقاط — أداء ممتاز',
+  'أرسل إعلان لكل الطلاب: الاختبارات الشهرية يوم الأحد',
 ]
 
 // Action result styling
@@ -55,6 +75,8 @@ export default function TrainerAIAssistant() {
   const scrollRef = useRef(null)
 
   const isAdmin = profile?.role === 'admin'
+  const QUICK_ACTIONS = isAdmin ? QUICK_ACTIONS_ADMIN : QUICK_ACTIONS_TRAINER
+  const SUGGESTIONS = isAdmin ? SUGGESTIONS_ADMIN : SUGGESTIONS_TRAINER
   const { data: groups } = useQuery({
     queryKey: ['trainer-groups-ai'],
     queryFn: async () => {
@@ -89,8 +111,8 @@ export default function TrainerAIAssistant() {
         .map(m => ({ role: m.role, content: m.content }))
 
       const body = confirmedAction
-        ? { confirmed_action: confirmedAction, history }
-        : { message: msg, history }
+        ? { confirmed_action: confirmedAction, history, group_id: selectedGroup || undefined }
+        : { message: msg, history, group_id: selectedGroup || undefined }
 
       const res = await supabase.functions.invoke('ai-trainer-assistant', {
         body,

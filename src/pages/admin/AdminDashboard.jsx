@@ -89,12 +89,12 @@ export default function AdminDashboard() {
     queryFn: async () => {
       const now = new Date()
       const thisMonthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString()
+      const nextMonthStart = new Date(now.getFullYear(), now.getMonth() + 1, 1).toISOString()
       const lastMonthStart = new Date(now.getFullYear(), now.getMonth() - 1, 1).toISOString()
-      const lastMonthEnd = new Date(now.getFullYear(), now.getMonth(), 0).toISOString()
 
       const [thisMonthRes, lastMonthRes, allPaidRes] = await Promise.all([
-        supabase.from('payments').select('amount').eq('status', 'paid').gte('paid_at', thisMonthStart).is('deleted_at', null),
-        supabase.from('payments').select('amount').eq('status', 'paid').gte('paid_at', lastMonthStart).lte('paid_at', lastMonthEnd).is('deleted_at', null),
+        supabase.from('payments').select('amount').eq('status', 'paid').gte('paid_at', thisMonthStart).lt('paid_at', nextMonthStart).is('deleted_at', null),
+        supabase.from('payments').select('amount').eq('status', 'paid').gte('paid_at', lastMonthStart).lt('paid_at', thisMonthStart).is('deleted_at', null),
         supabase.from('payments').select('amount, status').is('deleted_at', null),
       ])
 
@@ -175,7 +175,7 @@ export default function AdminDashboard() {
       </motion.div>
 
       {/* Stat cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {cards.map((card, i) => (
           <motion.div
             key={card.label}
@@ -297,7 +297,7 @@ export default function AdminDashboard() {
               <p className="text-xl font-bold text-white">{(revenueStats?.lastMonth || 0).toLocaleString()} <span className="text-xs text-muted">ر.س</span></p>
             </div>
           </div>
-          {revenueStats?.growth !== 0 && (
+          {revenueStats && revenueStats.growth !== 0 && (
             <div className={`flex items-center gap-1 mt-3 text-xs ${revenueStats?.growth > 0 ? 'text-emerald-400' : 'text-red-400'}`}>
               {revenueStats?.growth > 0 ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
               <span>{Math.abs(revenueStats?.growth || 0)}% {revenueStats?.growth > 0 ? 'نمو' : 'انخفاض'}</span>
