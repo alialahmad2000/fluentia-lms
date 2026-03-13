@@ -1,7 +1,7 @@
 -- 014: Seasonal Events + Group Competitions
 
 -- Seasonal events
-CREATE TABLE seasonal_events (
+CREATE TABLE IF NOT EXISTS seasonal_events (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   title TEXT NOT NULL,
   description TEXT,
@@ -17,7 +17,7 @@ CREATE TABLE seasonal_events (
 );
 
 -- Event participation
-CREATE TABLE event_participants (
+CREATE TABLE IF NOT EXISTS event_participants (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   event_id UUID REFERENCES seasonal_events(id) ON DELETE CASCADE NOT NULL,
   student_id UUID REFERENCES profiles(id) ON DELETE CASCADE,
@@ -30,9 +30,9 @@ CREATE TABLE event_participants (
   UNIQUE(event_id, group_id)
 );
 
-CREATE INDEX idx_seasonal_events_active ON seasonal_events(is_active, end_date);
-CREATE INDEX idx_event_participants_event ON event_participants(event_id);
-CREATE INDEX idx_event_participants_student ON event_participants(student_id);
+CREATE INDEX IF NOT EXISTS idx_seasonal_events_active ON seasonal_events(is_active, end_date);
+CREATE INDEX IF NOT EXISTS idx_event_participants_event ON event_participants(event_id);
+CREATE INDEX IF NOT EXISTS idx_event_participants_student ON event_participants(student_id);
 
 ALTER TABLE seasonal_events ENABLE ROW LEVEL SECURITY;
 ALTER TABLE event_participants ENABLE ROW LEVEL SECURITY;

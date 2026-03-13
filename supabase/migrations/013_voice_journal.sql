@@ -1,7 +1,7 @@
 -- 013: Voice Journal
 -- Students record daily voice entries, AI transcribes and provides feedback
 
-CREATE TABLE voice_journals (
+CREATE TABLE IF NOT EXISTS voice_journals (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   student_id UUID REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,
   audio_url TEXT NOT NULL,
@@ -16,8 +16,8 @@ CREATE TABLE voice_journals (
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
-CREATE INDEX idx_voice_journals_student ON voice_journals(student_id);
-CREATE INDEX idx_voice_journals_date ON voice_journals(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_voice_journals_student ON voice_journals(student_id);
+CREATE INDEX IF NOT EXISTS idx_voice_journals_date ON voice_journals(created_at DESC);
 
 ALTER TABLE voice_journals ENABLE ROW LEVEL SECURITY;
 

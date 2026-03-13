@@ -1,7 +1,7 @@
 -- 011: Churn Prediction System
 -- AI-powered student churn risk analysis
 
-CREATE TABLE churn_predictions (
+CREATE TABLE IF NOT EXISTS churn_predictions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   student_id UUID REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,
   risk_score NUMERIC(5,2) NOT NULL, -- 0-100
@@ -16,9 +16,9 @@ CREATE TABLE churn_predictions (
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
-CREATE INDEX idx_churn_predictions_student ON churn_predictions(student_id);
-CREATE INDEX idx_churn_predictions_risk ON churn_predictions(risk_level);
-CREATE INDEX idx_churn_predictions_date ON churn_predictions(predicted_at DESC);
+CREATE INDEX IF NOT EXISTS idx_churn_predictions_student ON churn_predictions(student_id);
+CREATE INDEX IF NOT EXISTS idx_churn_predictions_risk ON churn_predictions(risk_level);
+CREATE INDEX IF NOT EXISTS idx_churn_predictions_date ON churn_predictions(predicted_at DESC);
 
 ALTER TABLE churn_predictions ENABLE ROW LEVEL SECURITY;
 

@@ -1,7 +1,7 @@
 -- 016: Testimonials + Content Library + AI Chat Messages
 
 -- Testimonials table (used by AdminTestimonials and public Testimonials page)
-CREATE TABLE testimonials (
+CREATE TABLE IF NOT EXISTS testimonials (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   student_id UUID REFERENCES profiles(id) ON DELETE SET NULL,
   student_name TEXT,
@@ -14,7 +14,7 @@ CREATE TABLE testimonials (
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
-CREATE INDEX idx_testimonials_approved ON testimonials(is_approved);
+CREATE INDEX IF NOT EXISTS idx_testimonials_approved ON testimonials(is_approved);
 
 ALTER TABLE testimonials ENABLE ROW LEVEL SECURITY;
 
@@ -31,7 +31,7 @@ DO $$ BEGIN CREATE POLICY students_insert_testimonials ON testimonials
 EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- Content Library table (used by AdminContent page)
-CREATE TABLE content_library (
+CREATE TABLE IF NOT EXISTS content_library (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   title TEXT NOT NULL,
   type TEXT NOT NULL CHECK (type IN ('video', 'document', 'audio', 'link', 'exercise')),
@@ -45,9 +45,9 @@ CREATE TABLE content_library (
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
-CREATE INDEX idx_content_library_type ON content_library(type);
-CREATE INDEX idx_content_library_level ON content_library(level);
-CREATE INDEX idx_content_library_skill ON content_library(skill);
+CREATE INDEX IF NOT EXISTS idx_content_library_type ON content_library(type);
+CREATE INDEX IF NOT EXISTS idx_content_library_level ON content_library(level);
+CREATE INDEX IF NOT EXISTS idx_content_library_skill ON content_library(skill);
 
 ALTER TABLE content_library ENABLE ROW LEVEL SECURITY;
 
@@ -64,7 +64,7 @@ DO $$ BEGIN CREATE POLICY trainer_manage_content ON content_library
 EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- AI Chat Messages table (used by ai-student-chatbot for rate limiting)
-CREATE TABLE ai_chat_messages (
+CREATE TABLE IF NOT EXISTS ai_chat_messages (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   student_id UUID REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,
   role TEXT NOT NULL CHECK (role IN ('user', 'assistant')),
@@ -72,8 +72,8 @@ CREATE TABLE ai_chat_messages (
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
-CREATE INDEX idx_ai_chat_messages_student ON ai_chat_messages(student_id);
-CREATE INDEX idx_ai_chat_messages_date ON ai_chat_messages(student_id, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_ai_chat_messages_student ON ai_chat_messages(student_id);
+CREATE INDEX IF NOT EXISTS idx_ai_chat_messages_date ON ai_chat_messages(student_id, created_at DESC);
 
 ALTER TABLE ai_chat_messages ENABLE ROW LEVEL SECURITY;
 

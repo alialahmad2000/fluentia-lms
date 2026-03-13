@@ -1,7 +1,7 @@
 -- 012: Parent/Sponsor Dashboard
 -- Links parents/sponsors to students for read-only progress viewing
 
-CREATE TABLE parent_links (
+CREATE TABLE IF NOT EXISTS parent_links (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   student_id UUID REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,
   parent_email TEXT NOT NULL,
@@ -13,9 +13,9 @@ CREATE TABLE parent_links (
   created_by UUID REFERENCES profiles(id)
 );
 
-CREATE INDEX idx_parent_links_student ON parent_links(student_id);
-CREATE INDEX idx_parent_links_code ON parent_links(access_code);
-CREATE INDEX idx_parent_links_email ON parent_links(parent_email);
+CREATE INDEX IF NOT EXISTS idx_parent_links_student ON parent_links(student_id);
+CREATE INDEX IF NOT EXISTS idx_parent_links_code ON parent_links(access_code);
+CREATE INDEX IF NOT EXISTS idx_parent_links_email ON parent_links(parent_email);
 
 ALTER TABLE parent_links ENABLE ROW LEVEL SECURITY;
 

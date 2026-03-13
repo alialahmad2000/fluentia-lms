@@ -2,7 +2,7 @@
 -- Tracks recurring errors from graded submissions, generates personalized exercises
 
 -- Error patterns table
-CREATE TABLE error_patterns (
+CREATE TABLE IF NOT EXISTS error_patterns (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   student_id UUID REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,
   skill TEXT NOT NULL CHECK (skill IN ('grammar', 'vocabulary', 'speaking', 'listening', 'reading', 'writing')),
@@ -19,7 +19,7 @@ CREATE TABLE error_patterns (
 );
 
 -- Targeted exercises table
-CREATE TABLE targeted_exercises (
+CREATE TABLE IF NOT EXISTS targeted_exercises (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   student_id UUID REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,
   pattern_id UUID REFERENCES error_patterns(id) ON DELETE SET NULL,
@@ -39,21 +39,23 @@ CREATE TABLE targeted_exercises (
 );
 
 -- Indexes
-CREATE INDEX idx_error_patterns_student ON error_patterns(student_id);
-CREATE INDEX idx_error_patterns_skill ON error_patterns(student_id, skill);
-CREATE INDEX idx_error_patterns_unresolved ON error_patterns(student_id, resolved) WHERE resolved = false;
-CREATE INDEX idx_targeted_exercises_student ON targeted_exercises(student_id);
-CREATE INDEX idx_targeted_exercises_pending ON targeted_exercises(student_id, status) WHERE status = 'pending';
+CREATE INDEX IF NOT EXISTS idx_error_patterns_student ON error_patterns(student_id);
+CREATE INDEX IF NOT EXISTS idx_error_patterns_skill ON error_patterns(student_id, skill);
+CREATE INDEX IF NOT EXISTS idx_error_patterns_unresolved ON error_patterns(student_id, resolved) WHERE resolved = false;
+CREATE INDEX IF NOT EXISTS idx_targeted_exercises_student ON targeted_exercises(student_id);
+CREATE INDEX IF NOT EXISTS idx_targeted_exercises_pending ON targeted_exercises(student_id, status) WHERE status = 'pending';
 
 -- RLS
 ALTER TABLE error_patterns ENABLE ROW LEVEL SECURITY;
 ALTER TABLE targeted_exercises ENABLE ROW LEVEL SECURITY;
 
 -- Students can view their own patterns
+DROP POLICY IF EXISTS "students_view_own_patterns" ON error_patterns;
 CREATE POLICY "students_view_own_patterns" ON error_patterns
   FOR SELECT USING (student_id = auth.uid());
 
 -- Trainers can view patterns for their students
+DROP POLICY IF EXISTS "trainers_view_patterns" ON error_patterns;
 CREATE POLICY "trainers_view_patterns" ON error_patterns
   FOR SELECT USING (
     EXISTS (
@@ -65,22 +67,28 @@ CREATE POLICY "trainers_view_patterns" ON error_patterns
   );
 
 -- Service role can insert/update (edge functions)
+DROP POLICY IF EXISTS "service_insert_patterns" ON error_patterns;
 CREATE POLICY "service_insert_patterns" ON error_patterns
   FOR INSERT WITH CHECK (true);
+DROP POLICY IF EXISTS "service_update_patterns" ON error_patterns;
 CREATE POLICY "service_update_patterns" ON error_patterns
   FOR UPDATE USING (true);
 
 -- Admin full access
+DROP POLICY IF EXISTS "admin_all_patterns" ON error_patterns;
 CREATE POLICY "admin_all_patterns" ON error_patterns
   FOR ALL USING (EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin'));
 
 -- Students can view and update their own exercises
+DROP POLICY IF EXISTS "students_view_own_exercises" ON targeted_exercises;
 CREATE POLICY "students_view_own_exercises" ON targeted_exercises
   FOR SELECT USING (student_id = auth.uid());
+DROP POLICY IF EXISTS "students_update_own_exercises" ON targeted_exercises;
 CREATE POLICY "students_update_own_exercises" ON targeted_exercises
   FOR UPDATE USING (student_id = auth.uid());
 
 -- Trainers can view exercises for their students
+DROP POLICY IF EXISTS "trainers_view_exercises" ON targeted_exercises;
 CREATE POLICY "trainers_view_exercises" ON targeted_exercises
   FOR SELECT USING (
     EXISTS (
@@ -92,11 +100,14 @@ CREATE POLICY "trainers_view_exercises" ON targeted_exercises
   );
 
 -- Service role can insert/update
+DROP POLICY IF EXISTS "service_insert_exercises" ON targeted_exercises;
 CREATE POLICY "service_insert_exercises" ON targeted_exercises
   FOR INSERT WITH CHECK (true);
+DROP POLICY IF EXISTS "service_update_exercises" ON targeted_exercises;
 CREATE POLICY "service_update_exercises" ON targeted_exercises
   FOR UPDATE USING (true);
 
 -- Admin full access
+DROP POLICY IF EXISTS "admin_all_exercises" ON targeted_exercises;
 CREATE POLICY "admin_all_exercises" ON targeted_exercises
   FOR ALL USING (EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin'));
