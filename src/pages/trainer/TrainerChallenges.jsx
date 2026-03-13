@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Target, Plus, Trash2, Users, Zap, Clock, Loader2, CheckCircle2 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { useAIFormFiller } from '../../hooks/useAIFormFiller'
+import AIFillButton from '../../components/ai/AIFillButton'
 
 const CHALLENGE_TYPES = [
   { value: 'weekly', label: 'أسبوعي' },
@@ -30,6 +32,27 @@ export default function TrainerChallenges() {
     end_date: '',
   })
   const [toast, setToast] = useState(null)
+
+  // AI Form Filler
+  const aiFiller = useAIFormFiller({
+    pageId: 'create-challenge',
+    fields: [
+      { key: 'title_ar', type: 'text', label: 'عنوان التحدي', required: true },
+      { key: 'description_ar', type: 'textarea', label: 'وصف التحدي' },
+      { key: 'type', type: 'select', label: 'نوع التحدي', options: CHALLENGE_TYPES.map(t => ({ value: t.value, label: t.label })) },
+      { key: 'xp_reward', type: 'number', label: 'مكافأة XP' },
+      { key: 'target_count', type: 'number', label: 'العدد المطلوب' },
+      { key: 'start_date', type: 'date', label: 'تاريخ البداية' },
+      { key: 'end_date', type: 'date', label: 'تاريخ النهاية' },
+    ],
+    context: 'Fluentia Academy — English language training. Trainer creates challenges/competitions for Arabic-speaking adult students to motivate learning.',
+    onFill: (filled) => {
+      setForm(prev => ({ ...prev, ...filled }))
+    },
+    getContextData: async () => ({
+      currentDate: new Date().toISOString().split('T')[0],
+    }),
+  })
 
   // Groups
   const { data: groups } = useQuery({
@@ -173,7 +196,19 @@ export default function TrainerChallenges() {
             exit={{ opacity: 0, height: 0 }}
             className="glass-card-raised p-6 space-y-5"
           >
-            <h3 className="text-lg font-semibold text-white">تحدي جديد</h3>
+            <div className="flex items-center gap-3">
+              <h3 className="text-lg font-semibold text-white">تحدي جديد</h3>
+              <AIFillButton
+                isOpen={aiFiller.isOpen}
+                setIsOpen={aiFiller.setIsOpen}
+                isProcessing={aiFiller.isProcessing}
+                onSubmit={aiFiller.processRequest}
+                result={aiFiller.result}
+                error={aiFiller.error}
+                unfilled={aiFiller.unfilled}
+                filledCount={aiFiller.result?.filledCount}
+              />
+            </div>
 
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
