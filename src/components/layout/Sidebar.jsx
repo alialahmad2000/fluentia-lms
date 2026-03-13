@@ -24,6 +24,7 @@ const NAV_GROUPS = {
       label: 'التعلم',
       items: [
         { to: '/student/assignments', label: 'الواجبات', icon: FileText },
+        { to: '/student/quiz', label: 'الاختبارات', icon: ClipboardCheck },
         { to: '/student/schedule', label: 'الجدول', icon: Calendar },
         { to: '/student/speaking', label: 'المحادثة', icon: Mic },
         { to: '/student/voice-journal', label: 'يوميات صوتية', icon: Mic },
@@ -37,6 +38,7 @@ const NAV_GROUPS = {
       label: 'التقدم',
       items: [
         { to: '/student/grades', label: 'الدرجات', icon: BarChart3 },
+        { to: '/student/assessments', label: 'التقييمات', icon: BarChart3 },
         { to: '/student/profile', label: 'الملف الشخصي', icon: User },
         { to: '/student/leaderboard', label: 'المتصدرين', icon: Trophy },
         { to: '/student/success', label: 'قصة نجاحي', icon: Trophy },
@@ -94,6 +96,7 @@ const NAV_GROUPS = {
       items: [
         { to: '/trainer/assignments', label: 'الواجبات', icon: FileText },
         { to: '/trainer/writing', label: 'التقييم', icon: ClipboardCheck },
+        { to: '/trainer/quiz', label: 'مولّد الاختبارات', icon: Brain },
         { to: '/trainer/schedule', label: 'الجدول', icon: Calendar },
         { to: '/trainer/notes', label: 'ملاحظات الحصص', icon: StickyNote },
         { to: '/trainer/library', label: 'المكتبة', icon: BookOpen },
@@ -149,6 +152,7 @@ const NAV_GROUPS = {
       items: [
         { to: '/trainer/assignments', label: 'الواجبات', icon: FileText },
         { to: '/trainer/writing', label: 'التقييم', icon: ClipboardCheck },
+        { to: '/trainer/quiz', label: 'مولّد الاختبارات', icon: Brain },
         { to: '/trainer/schedule', label: 'الجدول', icon: Calendar },
         { to: '/trainer/notes', label: 'ملاحظات الحصص', icon: StickyNote },
         { to: '/trainer/library', label: 'المكتبة', icon: BookOpen },

@@ -1,0 +1,928 @@
+import { useState, useEffect } from 'react'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { motion, AnimatePresence } from 'framer-motion'
+import {
+  Brain, Plus, Trash2, ChevronUp, ChevronDown, Edit3, Check,
+  Clock, Send, Save, Loader2, RefreshCw, GripVertical,
+} from 'lucide-react'
+import { useAuthStore } from '../../stores/authStore'
+import { supabase } from '../../lib/supabase'
+
+const SKILLS = [
+  { value: 'grammar', label: 'القواعد' },
+  { value: 'vocabulary', label: 'المفردات' },
+  { value: 'reading', label: 'القراءة' },
+  { value: 'writing', label: 'الكتابة' },
+  { value: 'speaking', label: 'المحادثة' },
+  { value: 'listening', label: 'الاستماع' },
+]
+
+const QUESTION_TYPES = [
+  { value: 'multiple_choice', label: 'اختيار من متعدد' },
+  { value: 'true_false', label: 'صح أو خطأ' },
+  { value: 'fill_blank', label: 'أكمل الفراغ' },
+  { value: 'reorder', label: 'ترتيب' },
+  { value: 'matching', label: 'مطابقة' },
+  { value: 'short_answer', label: 'إجابة قصيرة' },
+]
+
+const QUICK_COUNTS = [5, 10, 15, 20]
+const FULL_COUNTS = [20, 30, 40]
+
+const STEP_LABELS = ['الإعداد', 'توليد الأسئلة', 'مراجعة وتعديل', 'النشر']
+
+const stepVariants = {
+  enter: { opacity: 0, x: 40 },
+  center: { opacity: 1, x: 0 },
+  exit: { opacity: 0, x: -40 },
+}
+
+export default function TrainerQuizGenerator() {
+  const { profile } = useAuthStore()
+  const queryClient = useQueryClient()
+  const isAdmin = profile?.role === 'admin'
+
+  const [step, setStep] = useState(1)
+  const [toast, setToast] = useState(null)
+
+  // Step 1 form
+  const [form, setForm] = useState({
+    title: '',
+    type: 'quick_quiz',
+    group_id: '',
+    level: 1,
+    skill_focus: [],
+    question_count: 10,
+    context_prompt: '',
+    time_limit_minutes: '',
+    xp_reward: 10,
+    xp_bonus_perfect: 0,
+  })
+
+  // Step 2-3 questions
+  const [questions, setQuestions] = useState([])
+  const [generating, setGenerating] = useState(false)
+
+  // Step 4 publish options
+  const [publishMode, setPublishMode] = useState('now')
+  const [scheduledAt, setScheduledAt] = useState('')
+  const [deadline, setDeadline] = useState('')
+  const [shuffleQuestions, setShuffleQuestions] = useState(false)
+  const [shuffleOptions, setShuffleOptions] = useState(false)
+  const [showAnswersAfter, setShowAnswersAfter] = useState(true)
+
+  // Fetch trainer groups
+  const { data: groups } = useQuery({
+    queryKey: ['trainer-groups-quiz', profile?.id],
+    queryFn: async () => {
+      let query = supabase.from('groups').select('id, name, code, level').order('level')
+      if (!isAdmin) query = query.eq('trainer_id', profile?.id)
+      const { data } = await query
+      return data || []
+    },
+    enabled: !!profile?.id,
+  })
+
+  // Auto-select first group and its level
+  useEffect(() => {
+    if (groups?.length > 0 && !form.group_id) {
+      const g = groups[0]
+      setForm(f => ({ ...f, group_id: g.id, level: g.level || 1 }))
+    }
+  }, [groups, form.group_id])
+
+  // Update level when group changes
+  function handleGroupChange(groupId) {
+    const g = groups?.find(gr => gr.id === groupId)
+    setForm(f => ({ ...f, group_id: groupId, level: g?.level || 1 }))
+  }
+
+  // Update defaults when type changes
+  function handleTypeChange(type) {
+    setForm(f => ({
+      ...f,
+      type,
+      question_count: type === 'quick_quiz' ? 10 : 20,
+      xp_reward: type === 'quick_quiz' ? 10 : 50,
+      time_limit_minutes: type === 'quick_quiz' ? '' : f.time_limit_minutes,
+    }))
+  }
+
+  function toggleSkill(skill) {
+    setForm(f => ({
+      ...f,
+      skill_focus: f.skill_focus.includes(skill)
+        ? f.skill_focus.filter(s => s !== skill)
+        : [...f.skill_focus, skill],
+    }))
+  }
+
+  // ─── Step 2: AI Generation ───
+  async function generateQuestions() {
+    setGenerating(true)
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      const selectedGroup = groups?.find(g => g.id === form.group_id)
+
+      const systemPrompt = `You are an English language quiz generator for Arab learners. Generate exactly ${form.question_count} quiz questions.
+
+Context/Topic: ${form.context_prompt || 'General English practice'}
+Level: ${form.level} (1=beginner, 5=advanced)
+Skills: ${form.skill_focus.length > 0 ? form.skill_focus.join(', ') : 'general'}
+Group: ${selectedGroup?.name || 'Unknown'}
+Quiz type: ${form.type === 'quick_quiz' ? 'Quick quiz' : 'Full assessment'}
+
+Generate a mix of question types appropriate for the level. Use these types: multiple_choice, true_false, fill_blank.
+
+IMPORTANT: Return ONLY a valid JSON array, no markdown, no explanation. Each question must follow this exact structure:
+[{
+  "type": "multiple_choice",
+  "question_text": "...",
+  "options": [{"id":"a","text":"...","is_correct":false},{"id":"b","text":"...","is_correct":false},{"id":"c","text":"...","is_correct":true},{"id":"d","text":"...","is_correct":false}],
+  "correct_answer": "c",
+  "explanation": "...",
+  "skill_tag": "grammar",
+  "points": 1
+}]
+
+For true_false questions, options should have only 2 items with ids "a" (True) and "b" (False).
+For fill_blank questions, question_text should contain "___" for the blank, options can be 4 choices, or set options to [] and put the answer in correct_answer.
+
+Make questions progressively harder. All question text should be in English. Explanations can include Arabic hints for lower levels.`
+
+      const res = await supabase.functions.invoke('ai-trainer-assistant', {
+        body: {
+          message: systemPrompt,
+          history: [],
+        },
+        headers: { Authorization: `Bearer ${session?.access_token}` },
+      })
+
+      if (res.error) throw new Error(res.error.message || 'AI generation failed')
+
+      const responseText = typeof res.data === 'string' ? res.data : res.data?.reply || res.data?.message || JSON.stringify(res.data)
+
+      // Extract JSON array from response
+      const jsonMatch = responseText.match(/\[[\s\S]*\]/)
+      if (!jsonMatch) throw new Error('Could not parse AI response')
+
+      const parsed = JSON.parse(jsonMatch[0])
+      if (!Array.isArray(parsed)) throw new Error('Invalid response format')
+
+      setQuestions(parsed.map((q, i) => ({
+        ...q,
+        order_number: i + 1,
+        _id: crypto.randomUUID(),
+      })))
+
+      setStep(3)
+    } catch (err) {
+      console.error('Generation error:', err)
+      setToast({ type: 'error', message: 'فشل توليد الأسئلة: ' + (err.message || 'حاول مرة أخرى') })
+      setTimeout(() => setToast(null), 4000)
+    } finally {
+      setGenerating(false)
+    }
+  }
+
+  // ─── Step 3: Edit helpers ───
+  function updateQuestion(id, updates) {
+    setQuestions(qs => qs.map(q => q._id === id ? { ...q, ...updates } : q))
+  }
+
+  function deleteQuestion(id) {
+    setQuestions(qs => qs.filter(q => q._id !== id).map((q, i) => ({ ...q, order_number: i + 1 })))
+  }
+
+  function moveQuestion(id, direction) {
+    setQuestions(qs => {
+      const idx = qs.findIndex(q => q._id === id)
+      if ((direction === -1 && idx === 0) || (direction === 1 && idx === qs.length - 1)) return qs
+      const next = [...qs]
+      const temp = next[idx]
+      next[idx] = next[idx + direction]
+      next[idx + direction] = temp
+      return next.map((q, i) => ({ ...q, order_number: i + 1 }))
+    })
+  }
+
+  function addManualQuestion() {
+    setQuestions(qs => [
+      ...qs,
+      {
+        _id: crypto.randomUUID(),
+        type: 'multiple_choice',
+        question_text: '',
+        options: [
+          { id: 'a', text: '', is_correct: true },
+          { id: 'b', text: '', is_correct: false },
+          { id: 'c', text: '', is_correct: false },
+          { id: 'd', text: '', is_correct: false },
+        ],
+        correct_answer: 'a',
+        explanation: '',
+        skill_tag: 'grammar',
+        points: 1,
+        order_number: qs.length + 1,
+      },
+    ])
+  }
+
+  function toggleCorrectOption(qId, optionId) {
+    setQuestions(qs => qs.map(q => {
+      if (q._id !== qId) return q
+      return {
+        ...q,
+        correct_answer: optionId,
+        options: q.options.map(o => ({ ...o, is_correct: o.id === optionId })),
+      }
+    }))
+  }
+
+  // ─── Step 4: Publish / Save ───
+  const publishMutation = useMutation({
+    mutationFn: async (status) => {
+      const totalPoints = questions.reduce((sum, q) => sum + (q.points || 1), 0)
+
+      const { data: quiz, error: quizError } = await supabase
+        .from('quizzes')
+        .insert({
+          trainer_id: profile.id,
+          group_id: form.group_id,
+          title: form.title,
+          description: form.context_prompt,
+          type: form.type,
+          context_prompt: form.context_prompt,
+          level: form.level,
+          skill_focus: form.skill_focus,
+          time_limit_minutes: form.time_limit_minutes ? parseInt(form.time_limit_minutes) : null,
+          total_questions: questions.length,
+          total_points: totalPoints,
+          xp_reward: parseInt(form.xp_reward) || 0,
+          xp_bonus_perfect: parseInt(form.xp_bonus_perfect) || 0,
+          is_scheduled: publishMode === 'schedule',
+          scheduled_at: publishMode === 'schedule' && scheduledAt ? scheduledAt : null,
+          deadline: deadline || null,
+          shuffle_questions: shuffleQuestions,
+          shuffle_options: shuffleOptions,
+          show_answers_after: showAnswersAfter,
+          status,
+        })
+        .select('id')
+        .single()
+
+      if (quizError) throw quizError
+
+      const questionRows = questions.map((q, i) => ({
+        quiz_id: quiz.id,
+        order_number: i + 1,
+        type: q.type,
+        question_text: q.question_text,
+        options: q.options || [],
+        correct_answer: q.correct_answer || '',
+        accepted_answers: q.accepted_answers || [],
+        matching_pairs: q.matching_pairs || null,
+        reorder_correct: q.reorder_correct || [],
+        points: q.points || 1,
+        explanation: q.explanation || '',
+        skill_tag: q.skill_tag || '',
+      }))
+
+      const { error: qError } = await supabase
+        .from('quiz_questions')
+        .insert(questionRows)
+
+      if (qError) throw qError
+
+      return quiz.id
+    },
+    onSuccess: (quizId, status) => {
+      queryClient.invalidateQueries({ queryKey: ['trainer-quizzes'] })
+      setToast({
+        type: 'success',
+        message: status === 'published' ? 'تم نشر الكويز بنجاح!' : 'تم حفظ المسودة بنجاح!',
+        quizId,
+      })
+    },
+    onError: (err) => {
+      setToast({ type: 'error', message: 'خطأ: ' + (err.message || 'فشل الحفظ') })
+      setTimeout(() => setToast(null), 4000)
+    },
+  })
+
+  const totalPoints = questions.reduce((sum, q) => sum + (q.points || 1), 0)
+  const canProceedStep1 = form.title.trim() && form.group_id && form.skill_focus.length > 0
+  const canProceedStep3 = questions.length > 0 && questions.every(q => q.question_text.trim())
+
+  return (
+    <div className="space-y-6" dir="rtl">
+      {/* Header */}
+      <div className="flex items-center gap-3">
+        <div className="p-2.5 rounded-xl bg-violet-500/10">
+          <Brain className="w-6 h-6 text-violet-400" />
+        </div>
+        <div>
+          <h1 className="text-2xl font-bold">مولّد الكويزات بالذكاء الاصطناعي</h1>
+          <p className="text-sm text-white/50">أنشئ كويزات تفاعلية بسرعة باستخدام AI</p>
+        </div>
+      </div>
+
+      {/* Step Indicator */}
+      <div className="flex items-center justify-center gap-2">
+        {STEP_LABELS.map((label, i) => {
+          const num = i + 1
+          const isActive = step === num
+          const isDone = step > num
+          return (
+            <div key={num} className="flex items-center gap-2">
+              <button
+                onClick={() => {
+                  if (isDone) setStep(num)
+                }}
+                disabled={!isDone}
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm transition-all ${
+                  isActive
+                    ? 'bg-violet-500/20 text-violet-300 border border-violet-500/40'
+                    : isDone
+                      ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 cursor-pointer hover:bg-emerald-500/20'
+                      : 'bg-white/5 text-white/30 border border-white/10'
+                }`}
+              >
+                <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+                  isActive ? 'bg-violet-500 text-white' : isDone ? 'bg-emerald-500 text-white' : 'bg-white/10'
+                }`}>
+                  {isDone ? <Check className="w-3.5 h-3.5" /> : num}
+                </span>
+                <span className="hidden sm:inline">{label}</span>
+              </button>
+              {i < 3 && <div className={`w-8 h-px ${isDone ? 'bg-emerald-500/40' : 'bg-white/10'}`} />}
+            </div>
+          )
+        })}
+      </div>
+
+      {/* Toast */}
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className={`p-4 rounded-xl border ${
+              toast.type === 'success'
+                ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
+                : 'bg-red-500/10 border-red-500/30 text-red-300'
+            }`}
+          >
+            {toast.message}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Steps */}
+      <AnimatePresence mode="wait">
+        {/* ═══════ Step 1: Setup ═══════ */}
+        {step === 1 && (
+          <motion.div key="step1" variants={stepVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.25 }} className="space-y-6">
+            <div className="glass-card p-6 space-y-5">
+              <h2 className="text-lg font-semibold">إعداد الكويز</h2>
+
+              {/* Title */}
+              <div>
+                <label className="block text-sm text-white/60 mb-1.5">عنوان الكويز</label>
+                <input
+                  className="input-field w-full"
+                  placeholder="مثال: كويز القواعد - الوحدة الثالثة"
+                  value={form.title}
+                  onChange={e => setForm(f => ({ ...f, title: e.target.value }))}
+                />
+              </div>
+
+              {/* Type Toggle */}
+              <div>
+                <label className="block text-sm text-white/60 mb-1.5">نوع الكويز</label>
+                <div className="flex gap-3">
+                  {[
+                    { value: 'quick_quiz', label: 'كويز سريع' },
+                    { value: 'full_assessment', label: 'اختبار تفصيلي' },
+                  ].map(t => (
+                    <button
+                      key={t.value}
+                      onClick={() => handleTypeChange(t.value)}
+                      className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition-all border ${
+                        form.type === t.value
+                          ? 'bg-violet-500/20 border-violet-500/50 text-violet-300'
+                          : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'
+                      }`}
+                    >
+                      {t.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Group */}
+              <div>
+                <label className="block text-sm text-white/60 mb-1.5">المجموعة المستهدفة</label>
+                <select
+                  className="input-field w-full"
+                  value={form.group_id}
+                  onChange={e => handleGroupChange(e.target.value)}
+                >
+                  <option value="">اختر المجموعة</option>
+                  {groups?.map(g => (
+                    <option key={g.id} value={g.id}>{g.name} ({g.code})</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Level (auto) */}
+              <div>
+                <label className="block text-sm text-white/60 mb-1.5">المستوى</label>
+                <div className="flex gap-2">
+                  {[1, 2, 3, 4, 5].map(l => (
+                    <span
+                      key={l}
+                      className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-bold border ${
+                        form.level === l
+                          ? 'bg-violet-500/20 border-violet-500/50 text-violet-300'
+                          : 'bg-white/5 border-white/10 text-white/30'
+                      }`}
+                    >
+                      {l}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Skills */}
+              <div>
+                <label className="block text-sm text-white/60 mb-1.5">المهارات المستهدفة</label>
+                <div className="flex flex-wrap gap-2">
+                  {SKILLS.map(s => (
+                    <button
+                      key={s.value}
+                      onClick={() => toggleSkill(s.value)}
+                      className={`px-3 py-1.5 rounded-lg text-sm border transition-all ${
+                        form.skill_focus.includes(s.value)
+                          ? 'bg-violet-500/20 border-violet-500/50 text-violet-300'
+                          : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'
+                      }`}
+                    >
+                      {s.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Question Count */}
+              <div>
+                <label className="block text-sm text-white/60 mb-1.5">عدد الأسئلة</label>
+                <div className="flex gap-2">
+                  {(form.type === 'quick_quiz' ? QUICK_COUNTS : FULL_COUNTS).map(c => (
+                    <button
+                      key={c}
+                      onClick={() => setForm(f => ({ ...f, question_count: c }))}
+                      className={`px-4 py-2 rounded-lg text-sm font-medium border transition-all ${
+                        form.question_count === c
+                          ? 'bg-violet-500/20 border-violet-500/50 text-violet-300'
+                          : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'
+                      }`}
+                    >
+                      {c}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Context Prompt */}
+              <div>
+                <label className="block text-sm text-white/60 mb-1.5">اكتب الموضوع أو المحتوى الذي تريد الأسئلة عنه</label>
+                <textarea
+                  className="input-field w-full h-28 resize-none"
+                  placeholder="مثال: أسئلة عن past simple و past continuous مع أمثلة من الحياة اليومية..."
+                  value={form.context_prompt}
+                  onChange={e => setForm(f => ({ ...f, context_prompt: e.target.value }))}
+                />
+              </div>
+
+              {/* Time Limit */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm text-white/60 mb-1.5">
+                    الوقت (دقائق) {form.type === 'full_assessment' && <span className="text-red-400">*</span>}
+                  </label>
+                  <input
+                    type="number"
+                    className="input-field w-full"
+                    placeholder="مثال: 30"
+                    value={form.time_limit_minutes}
+                    onChange={e => setForm(f => ({ ...f, time_limit_minutes: e.target.value }))}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm text-white/60 mb-1.5">مكافأة XP</label>
+                  <input
+                    type="number"
+                    className="input-field w-full"
+                    value={form.xp_reward}
+                    onChange={e => setForm(f => ({ ...f, xp_reward: e.target.value }))}
+                  />
+                </div>
+              </div>
+
+              {/* Next */}
+              <button
+                onClick={() => setStep(2)}
+                disabled={!canProceedStep1}
+                className="btn-primary w-full py-3 flex items-center justify-center gap-2 disabled:opacity-40"
+              >
+                <Brain className="w-5 h-5" />
+                التالي — توليد الأسئلة
+              </button>
+            </div>
+          </motion.div>
+        )}
+
+        {/* ═══════ Step 2: AI Generation ═══════ */}
+        {step === 2 && (
+          <motion.div key="step2" variants={stepVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.25 }} className="space-y-6">
+            <div className="glass-card p-8 text-center space-y-6">
+              {generating ? (
+                <>
+                  <div className="w-16 h-16 mx-auto rounded-2xl bg-violet-500/10 flex items-center justify-center">
+                    <Loader2 className="w-8 h-8 text-violet-400 animate-spin" />
+                  </div>
+                  <div>
+                    <h2 className="text-lg font-semibold">يتم توليد الأسئلة...</h2>
+                    <p className="text-sm text-white/50 mt-1">الذكاء الاصطناعي يعمل على إنشاء {form.question_count} سؤال</p>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="w-16 h-16 mx-auto rounded-2xl bg-violet-500/10 flex items-center justify-center">
+                    <Brain className="w-8 h-8 text-violet-400" />
+                  </div>
+                  <div>
+                    <h2 className="text-lg font-semibold">جاهز لتوليد الأسئلة</h2>
+                    <p className="text-sm text-white/50 mt-1">
+                      {form.question_count} سؤال — {form.skill_focus.map(s => SKILLS.find(sk => sk.value === s)?.label).join('، ')}
+                    </p>
+                  </div>
+                  <div className="flex gap-3 justify-center">
+                    <button onClick={() => setStep(1)} className="px-6 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white/60 hover:bg-white/10 transition-all">
+                      رجوع
+                    </button>
+                    <button onClick={generateQuestions} className="btn-primary px-8 py-2.5 flex items-center gap-2">
+                      <Brain className="w-5 h-5" />
+                      توليد الأسئلة
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          </motion.div>
+        )}
+
+        {/* ═══════ Step 3: Review & Edit ═══════ */}
+        {step === 3 && (
+          <motion.div key="step3" variants={stepVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.25 }} className="space-y-4">
+            {/* Toolbar */}
+            <div className="glass-card p-4 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span className="text-sm text-white/60">{questions.length} أسئلة</span>
+                <span className="text-xs text-white/30">|</span>
+                <span className="text-sm text-white/60">{totalPoints} نقطة</span>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => { setStep(2); setQuestions([]) }}
+                  className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white/60 hover:bg-white/10 transition-all text-sm flex items-center gap-1.5"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  إعادة توليد
+                </button>
+                <button
+                  onClick={addManualQuestion}
+                  className="px-3 py-1.5 rounded-lg bg-violet-500/10 border border-violet-500/30 text-violet-300 hover:bg-violet-500/20 transition-all text-sm flex items-center gap-1.5"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  إضافة سؤال
+                </button>
+              </div>
+            </div>
+
+            {/* Question Cards */}
+            {questions.map((q, idx) => (
+              <QuestionCard
+                key={q._id}
+                question={q}
+                index={idx}
+                total={questions.length}
+                onUpdate={(updates) => updateQuestion(q._id, updates)}
+                onDelete={() => deleteQuestion(q._id)}
+                onMove={(dir) => moveQuestion(q._id, dir)}
+                onToggleCorrect={(optId) => toggleCorrectOption(q._id, optId)}
+              />
+            ))}
+
+            {/* Navigation */}
+            <div className="flex gap-3">
+              <button onClick={() => setStep(1)} className="px-6 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white/60 hover:bg-white/10 transition-all">
+                رجوع للإعداد
+              </button>
+              <button
+                onClick={() => setStep(4)}
+                disabled={!canProceedStep3}
+                className="btn-primary flex-1 py-2.5 flex items-center justify-center gap-2 disabled:opacity-40"
+              >
+                <Send className="w-5 h-5" />
+                التالي — النشر
+              </button>
+            </div>
+          </motion.div>
+        )}
+
+        {/* ═══════ Step 4: Publish ═══════ */}
+        {step === 4 && (
+          <motion.div key="step4" variants={stepVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.25 }} className="space-y-6">
+            <div className="glass-card p-6 space-y-5">
+              <h2 className="text-lg font-semibold">ملخص ونشر</h2>
+
+              {/* Summary */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {[
+                  { label: 'العنوان', value: form.title },
+                  { label: 'النوع', value: form.type === 'quick_quiz' ? 'كويز سريع' : 'اختبار تفصيلي' },
+                  { label: 'المجموعة', value: groups?.find(g => g.id === form.group_id)?.name || '—' },
+                  { label: 'عدد الأسئلة', value: questions.length },
+                  { label: 'إجمالي النقاط', value: totalPoints },
+                  { label: 'مكافأة XP', value: form.xp_reward },
+                ].map(item => (
+                  <div key={item.label} className="p-3 rounded-xl bg-white/5 border border-white/10">
+                    <p className="text-xs text-white/40">{item.label}</p>
+                    <p className="text-sm font-medium mt-0.5">{item.value}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Schedule */}
+              <div>
+                <label className="block text-sm text-white/60 mb-2">وقت النشر</label>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => setPublishMode('now')}
+                    className={`flex-1 py-2.5 rounded-xl text-sm border transition-all ${
+                      publishMode === 'now' ? 'bg-violet-500/20 border-violet-500/50 text-violet-300' : 'bg-white/5 border-white/10 text-white/50'
+                    }`}
+                  >
+                    نشر الآن
+                  </button>
+                  <button
+                    onClick={() => setPublishMode('schedule')}
+                    className={`flex-1 py-2.5 rounded-xl text-sm border transition-all ${
+                      publishMode === 'schedule' ? 'bg-violet-500/20 border-violet-500/50 text-violet-300' : 'bg-white/5 border-white/10 text-white/50'
+                    }`}
+                  >
+                    جدولة
+                  </button>
+                </div>
+              </div>
+
+              {publishMode === 'schedule' && (
+                <div>
+                  <label className="block text-sm text-white/60 mb-1.5">تاريخ ووقت النشر</label>
+                  <input
+                    type="datetime-local"
+                    className="input-field w-full"
+                    value={scheduledAt}
+                    onChange={e => setScheduledAt(e.target.value)}
+                  />
+                </div>
+              )}
+
+              {/* Deadline */}
+              <div>
+                <label className="block text-sm text-white/60 mb-1.5">الموعد النهائي (اختياري)</label>
+                <input
+                  type="datetime-local"
+                  className="input-field w-full"
+                  value={deadline}
+                  onChange={e => setDeadline(e.target.value)}
+                />
+              </div>
+
+              {/* Toggles */}
+              <div className="space-y-3">
+                <ToggleOption label="خلط ترتيب الأسئلة" checked={shuffleQuestions} onChange={setShuffleQuestions} />
+                <ToggleOption label="خلط ترتيب الخيارات" checked={shuffleOptions} onChange={setShuffleOptions} />
+                <ToggleOption label="عرض الإجابات بعد الانتهاء" checked={showAnswersAfter} onChange={setShowAnswersAfter} />
+              </div>
+
+              {/* Actions */}
+              <div className="flex gap-3 pt-2">
+                <button
+                  onClick={() => setStep(3)}
+                  className="px-6 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white/60 hover:bg-white/10 transition-all"
+                >
+                  رجوع
+                </button>
+                <button
+                  onClick={() => publishMutation.mutate('draft')}
+                  disabled={publishMutation.isPending}
+                  className="px-6 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white/60 hover:bg-white/10 transition-all flex items-center gap-2"
+                >
+                  <Save className="w-4 h-4" />
+                  حفظ كمسودة
+                </button>
+                <button
+                  onClick={() => publishMutation.mutate('published')}
+                  disabled={publishMutation.isPending}
+                  className="btn-primary flex-1 py-2.5 flex items-center justify-center gap-2 disabled:opacity-40"
+                >
+                  {publishMutation.isPending ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : (
+                    <Send className="w-5 h-5" />
+                  )}
+                  نشر الكويز
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
+// ─── Question Card Component ───
+function QuestionCard({ question: q, index, total, onUpdate, onDelete, onMove, onToggleCorrect }) {
+  const [editing, setEditing] = useState(false)
+  const typeLabel = QUESTION_TYPES.find(t => t.value === q.type)?.label || q.type
+
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      className="glass-card p-4 space-y-3"
+    >
+      {/* Header */}
+      <div className="flex items-start justify-between">
+        <div className="flex items-center gap-2">
+          <span className="w-7 h-7 rounded-lg bg-violet-500/10 flex items-center justify-center text-xs font-bold text-violet-300">
+            {index + 1}
+          </span>
+          <span className="text-xs px-2 py-0.5 rounded-md bg-sky-500/10 border border-sky-500/30 text-sky-300">
+            {typeLabel}
+          </span>
+          <span className="text-xs px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-white/40">
+            {SKILLS.find(s => s.value === q.skill_tag)?.label || q.skill_tag}
+          </span>
+          <span className="text-xs text-white/30">{q.points || 1} نقطة</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <button onClick={() => onMove(-1)} disabled={index === 0} className="p-1 rounded hover:bg-white/10 text-white/40 disabled:opacity-20">
+            <ChevronUp className="w-4 h-4" />
+          </button>
+          <button onClick={() => onMove(1)} disabled={index === total - 1} className="p-1 rounded hover:bg-white/10 text-white/40 disabled:opacity-20">
+            <ChevronDown className="w-4 h-4" />
+          </button>
+          <button onClick={() => setEditing(!editing)} className="p-1 rounded hover:bg-white/10 text-white/40">
+            <Edit3 className="w-4 h-4" />
+          </button>
+          <button onClick={onDelete} className="p-1 rounded hover:bg-red-500/20 text-red-400/60">
+            <Trash2 className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+
+      {/* Question Text */}
+      {editing ? (
+        <textarea
+          className="input-field w-full h-20 resize-none text-sm"
+          value={q.question_text}
+          onChange={e => onUpdate({ question_text: e.target.value })}
+        />
+      ) : (
+        <p className="text-sm text-white/80 leading-relaxed">{q.question_text || '(سؤال فارغ)'}</p>
+      )}
+
+      {/* Options */}
+      {q.options && q.options.length > 0 && (
+        <div className="space-y-1.5">
+          {q.options.map((opt) => (
+            <div key={opt.id} className="flex items-center gap-2">
+              <button
+                onClick={() => onToggleCorrect(opt.id)}
+                className={`w-6 h-6 rounded-full flex items-center justify-center border transition-all text-xs ${
+                  opt.is_correct
+                    ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-300'
+                    : 'bg-white/5 border-white/15 text-white/30 hover:border-white/30'
+                }`}
+              >
+                {opt.is_correct ? <Check className="w-3.5 h-3.5" /> : opt.id}
+              </button>
+              {editing ? (
+                <input
+                  className="input-field flex-1 text-sm py-1.5"
+                  value={opt.text}
+                  onChange={e => {
+                    const newOpts = q.options.map(o =>
+                      o.id === opt.id ? { ...o, text: e.target.value } : o
+                    )
+                    onUpdate({ options: newOpts })
+                  }}
+                />
+              ) : (
+                <span className={`text-sm ${opt.is_correct ? 'text-emerald-300' : 'text-white/60'}`}>
+                  {opt.text || '—'}
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Explanation */}
+      {editing && (
+        <div>
+          <label className="block text-xs text-white/40 mb-1">الشرح</label>
+          <input
+            className="input-field w-full text-sm py-1.5"
+            value={q.explanation || ''}
+            onChange={e => onUpdate({ explanation: e.target.value })}
+            placeholder="شرح الإجابة الصحيحة..."
+          />
+        </div>
+      )}
+      {!editing && q.explanation && (
+        <p className="text-xs text-white/30 italic">{q.explanation}</p>
+      )}
+
+      {/* Edit mode extras */}
+      {editing && (
+        <div className="flex gap-3">
+          <div className="flex-1">
+            <label className="block text-xs text-white/40 mb-1">نوع السؤال</label>
+            <select
+              className="input-field w-full text-sm py-1.5"
+              value={q.type}
+              onChange={e => onUpdate({ type: e.target.value })}
+            >
+              {QUESTION_TYPES.map(t => (
+                <option key={t.value} value={t.value}>{t.label}</option>
+              ))}
+            </select>
+          </div>
+          <div className="flex-1">
+            <label className="block text-xs text-white/40 mb-1">المهارة</label>
+            <select
+              className="input-field w-full text-sm py-1.5"
+              value={q.skill_tag}
+              onChange={e => onUpdate({ skill_tag: e.target.value })}
+            >
+              {SKILLS.map(s => (
+                <option key={s.value} value={s.value}>{s.label}</option>
+              ))}
+            </select>
+          </div>
+          <div className="w-20">
+            <label className="block text-xs text-white/40 mb-1">النقاط</label>
+            <input
+              type="number"
+              className="input-field w-full text-sm py-1.5"
+              value={q.points || 1}
+              min={1}
+              onChange={e => onUpdate({ points: parseInt(e.target.value) || 1 })}
+            />
+          </div>
+        </div>
+      )}
+    </motion.div>
+  )
+}
+
+// ─── Toggle Option Component ───
+function ToggleOption({ label, checked, onChange }) {
+  return (
+    <label className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer hover:bg-white/8 transition-all">
+      <span className="text-sm text-white/70">{label}</span>
+      <button
+        type="button"
+        role="switch"
+        aria-checked={checked}
+        onClick={() => onChange(!checked)}
+        className={`relative w-10 h-5.5 rounded-full transition-all ${
+          checked ? 'bg-violet-500' : 'bg-white/15'
+        }`}
+      >
+        <span className={`absolute top-0.5 w-4.5 h-4.5 rounded-full bg-white transition-transform ${
+          checked ? 'translate-x-0.5' : 'translate-x-5'
+        }`} />
+      </button>
+    </label>
+  )
+}

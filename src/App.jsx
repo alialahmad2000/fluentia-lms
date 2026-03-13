@@ -35,6 +35,8 @@ const StudentStreakBattles = lazyRetry(() => import('./pages/student/StudentStre
 const StudentSuccessStories = lazyRetry(() => import('./pages/student/StudentSuccessStories'))
 const StudentEvents = lazyRetry(() => import('./pages/student/StudentEvents'))
 const StudentAvatar = lazyRetry(() => import('./pages/student/StudentAvatar'))
+const StudentAssessments = lazyRetry(() => import('./pages/student/StudentAssessments'))
+const StudentQuiz = lazyRetry(() => import('./pages/student/StudentQuiz'))
 
 const TrainerDashboard = lazyRetry(() => import('./pages/trainer/TrainerDashboard'))
 const TrainerAssignments = lazyRetry(() => import('./pages/trainer/TrainerAssignments'))
@@ -52,6 +54,7 @@ const TrainerGroupChat = lazyRetry(() => import('./pages/trainer/TrainerGroupCha
 const TrainerAIAssistant = lazyRetry(() => import('./pages/trainer/TrainerAIAssistant'))
 const TrainerProgressReports = lazyRetry(() => import('./pages/trainer/TrainerProgressReports'))
 const TrainerLessonPlanner = lazyRetry(() => import('./pages/trainer/TrainerLessonPlanner'))
+const TrainerQuizGenerator = lazyRetry(() => import('./pages/trainer/TrainerQuizGenerator'))
 
 const AdminDashboard = lazyRetry(() => import('./pages/admin/AdminDashboard'))
 const AdminStudents = lazyRetry(() => import('./pages/admin/AdminStudents'))
@@ -68,6 +71,7 @@ const AdminAuditLog = lazyRetry(() => import('./pages/admin/AdminAuditLog'))
 
 const ForgotPassword = lazyRetry(() => import('./pages/public/ForgotPassword'))
 const ParentDashboard = lazyRetry(() => import('./pages/public/ParentDashboard'))
+const PlacementTest = lazyRetry(() => import('./pages/public/PlacementTest'))
 
 // ─── Page wrapper: ErrorBoundary + Suspense ──────────────────
 function Page({ children }) {
@@ -176,6 +180,11 @@ export default function App() {
               <Suspense fallback={<LoadingSkeleton />}><ParentDashboard /></Suspense>
             </ErrorBoundary>
           } />
+          <Route path="/test" element={
+            <ErrorBoundary fallback={<PageErrorFallback />}>
+              <Suspense fallback={<LoadingSkeleton />}><PlacementTest /></Suspense>
+            </ErrorBoundary>
+          } />
 
           {/* Student routes */}
           <Route element={<ProtectedRoute allowedRoles={['student']} />}>
@@ -204,6 +213,8 @@ export default function App() {
               <Route path="/student/success" element={<Page><StudentSuccessStories /></Page>} />
               <Route path="/student/events" element={<Page><StudentEvents /></Page>} />
               <Route path="/student/avatar" element={<Page><StudentAvatar /></Page>} />
+              <Route path="/student/assessments" element={<Page><StudentAssessments /></Page>} />
+              <Route path="/student/quiz" element={<Page><StudentQuiz /></Page>} />
               <Route path="/student/profile" element={<Page><StudentProfile /></Page>} />
             </Route>
           </Route>
@@ -228,6 +239,7 @@ export default function App() {
               <Route path="/trainer/ai-assistant" element={<Page><TrainerAIAssistant /></Page>} />
               <Route path="/trainer/reports" element={<Page><TrainerProgressReports /></Page>} />
               <Route path="/trainer/lesson-planner" element={<Page><TrainerLessonPlanner /></Page>} />
+              <Route path="/trainer/quiz" element={<Page><TrainerQuizGenerator /></Page>} />
             </Route>
           </Route>
 
