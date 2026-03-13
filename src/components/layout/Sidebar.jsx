@@ -49,11 +49,17 @@ const NAV_GROUPS = {
         { to: '/student/assignments', label: 'الواجبات', icon: FileText },
         { to: '/student/quiz', label: 'الاختبارات', icon: ClipboardCheck },
         { to: '/student/schedule', label: 'الجدول', icon: Calendar },
+        { to: '/student/library', label: 'المكتبة', icon: BookOpen },
+      ],
+    },
+    {
+      key: 'speaking-lab',
+      label: 'معمل التحدث',
+      items: [
         { to: '/student/speaking', label: 'المحادثة', icon: Mic },
         { to: '/student/voice-journal', label: 'يوميات صوتية', icon: Mic },
         { to: '/student/pronunciation', label: 'مدرب النطق', icon: Mic },
         { to: '/student/conversation', label: 'محاكي المحادثات', icon: MessageSquare },
-        { to: '/student/library', label: 'المكتبة', icon: BookOpen },
       ],
     },
     {
