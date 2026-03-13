@@ -171,7 +171,7 @@ export default function AdminActionCenter() {
   }
 
   return (
-    <div className="space-y-6 max-w-4xl">
+    <div className="space-y-8 max-w-4xl">
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-2xl font-bold text-white flex items-center gap-2">
@@ -182,7 +182,7 @@ export default function AdminActionCenter() {
       </motion.div>
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
         {[
           { label: 'واجبات معلقة', value: pendingSubmissions ?? '—', icon: FileText, color: 'text-amber-400' },
           { label: 'متأخرات', value: overduePayments?.length ?? '—', icon: CreditCard, color: 'text-red-400' },
@@ -194,9 +194,11 @@ export default function AdminActionCenter() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05 }}
-            className="glass-card p-4"
+            className="glass-card p-4 hover:translate-y-[-2px] transition-all duration-200"
           >
-            <stat.icon size={18} className={`${stat.color} mb-2`} />
+            <div className={`w-10 h-10 rounded-xl ${stat.color === 'text-amber-400' ? 'bg-amber-500/10' : stat.color === 'text-red-400' ? 'bg-red-500/10' : stat.color === 'text-orange-400' ? 'bg-orange-500/10' : 'bg-sky-500/10'} flex items-center justify-center mb-2`}>
+              <stat.icon size={18} className={stat.color} />
+            </div>
             <p className="text-2xl font-bold text-white">{stat.value}</p>
             <p className="text-xs text-muted mt-0.5">{stat.label}</p>
           </motion.div>
@@ -205,8 +207,10 @@ export default function AdminActionCenter() {
 
       {/* Action Items */}
       <div>
-        <h2 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-          <AlertTriangle size={14} className="text-amber-400" />
+        <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+          <div className="w-8 h-8 rounded-xl bg-amber-500/10 flex items-center justify-center">
+            <AlertTriangle size={14} className="text-amber-400" />
+          </div>
           مهام تحتاج انتباهك
         </h2>
 
@@ -221,7 +225,7 @@ export default function AdminActionCenter() {
             <p className="text-xs text-muted mt-1">لا توجد مهام معلقة حالياً</p>
           </motion.div>
         ) : (
-          <div className="space-y-2">
+          <div className="space-y-3">
             {actions.map((item, i) => {
               const colors = COLOR_MAP[item.color] || COLOR_MAP.sky
               return (
@@ -230,7 +234,7 @@ export default function AdminActionCenter() {
                   initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}
-                  className={`glass-card p-4 border-s-4 ${colors.border} flex items-center justify-between gap-4`}
+                  className={`glass-card p-4 border-s-4 ${colors.border} flex items-center justify-between gap-4 hover:translate-y-[-2px] transition-all duration-200`}
                 >
                   <div className="flex items-start gap-3 flex-1 min-w-0">
                     <div className={`w-10 h-10 rounded-xl ${colors.bg} flex items-center justify-center shrink-0`}>
@@ -244,7 +248,7 @@ export default function AdminActionCenter() {
                   {item.action && (
                     <button
                       onClick={item.action}
-                      className={`shrink-0 text-xs px-4 py-2 rounded-xl font-medium transition-all ${colors.btn}`}
+                      className={`btn-secondary shrink-0 text-xs px-4 py-2 rounded-xl font-medium transition-all ${colors.btn}`}
                     >
                       {item.btnLabel}
                     </button>
@@ -259,8 +263,10 @@ export default function AdminActionCenter() {
       {/* Today's Schedule */}
       {todayClasses?.length > 0 && (
         <div>
-          <h2 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-            <Calendar size={14} className="text-sky-400" />
+          <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+            <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
+              <Calendar size={14} className="text-sky-400" />
+            </div>
             حصص اليوم
           </h2>
           <div className="space-y-2">
@@ -270,7 +276,7 @@ export default function AdminActionCenter() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.04 }}
-                className="glass-card p-4 flex items-center justify-between"
+                className="glass-card p-4 flex items-center justify-between hover:translate-y-[-2px] transition-all duration-200"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
@@ -295,8 +301,10 @@ export default function AdminActionCenter() {
       {/* Inactive Students List */}
       {inactiveStudents?.length > 0 && (
         <div>
-          <h2 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-            <Users size={14} className="text-orange-400" />
+          <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+            <div className="w-8 h-8 rounded-xl bg-orange-500/10 flex items-center justify-center">
+              <Users size={14} className="text-orange-400" />
+            </div>
             طلاب غير نشطين (7+ أيام)
           </h2>
           <div className="glass-card divide-y divide-border-subtle overflow-hidden">

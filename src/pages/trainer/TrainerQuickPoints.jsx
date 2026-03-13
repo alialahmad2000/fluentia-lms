@@ -133,10 +133,15 @@ export default function TrainerQuickPoints() {
   const reasons = mode === 'add' ? QUICK_REASONS : PENALTY_REASONS
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-white">النقاط السريعة</h1>
-        <p className="text-muted text-sm mt-1">منح وخصم نقاط XP أثناء الحصة</p>
+    <div className="space-y-8">
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center">
+          <Zap size={20} className="text-gold-400" />
+        </div>
+        <div>
+          <h1 className="text-2xl font-bold text-white">النقاط السريعة</h1>
+          <p className="text-muted text-sm mt-1">منح وخصم نقاط XP أثناء الحصة</p>
+        </div>
       </div>
 
       {/* Controls */}
@@ -185,7 +190,7 @@ export default function TrainerQuickPoints() {
       </div>
 
       {/* Student Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
         {students?.map((s, i) => {
           const name = getStudentName(s)
           const isSelected = selectedStudent?.id === s.id
@@ -196,7 +201,7 @@ export default function TrainerQuickPoints() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: i * 0.04 }}
               onClick={() => setSelectedStudent(isSelected ? null : s)}
-              className={`p-4 rounded-2xl text-center transition-all border ${
+              className={`p-4 rounded-2xl text-center hover:translate-y-[-2px] transition-all duration-200 border ${
                 isSelected
                   ? 'bg-sky-500/10 border-sky-500/30 ring-2 ring-sky-500/20'
                   : 'bg-white/5 border-border-subtle hover:bg-white/10 hover:border-white/10'

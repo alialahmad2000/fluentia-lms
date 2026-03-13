@@ -51,12 +51,7 @@ function ShareRankButton({ rank, total }) {
     <div className="relative">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all"
-        style={{
-          background: 'rgba(14,165,233,0.12)',
-          border: '1px solid rgba(14,165,233,0.25)',
-          color: '#38bdf8',
-        }}
+        className="btn-secondary text-xs py-1.5 px-3 flex items-center gap-1.5"
       >
         <Share2 size={13} />
         شارك ترتيبك
@@ -69,17 +64,12 @@ function ShareRankButton({ rank, total }) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.88, y: -4 }}
             transition={{ duration: 0.15, ease: 'easeOut' }}
-            className="absolute left-0 top-full mt-1.5 z-50 w-44 rounded-xl overflow-hidden shadow-xl"
-            style={{
-              background: 'rgba(10, 10, 25, 0.97)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              backdropFilter: 'blur(12px)',
-            }}
+            className="absolute left-0 top-full mt-1.5 z-50 w-44 glass-card-raised rounded-xl overflow-hidden shadow-xl"
           >
             {/* WhatsApp */}
             <button
               onClick={() => { shareToWhatsApp(shareText); setOpen(false) }}
-              className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs text-white hover:bg-white/10 transition-colors text-right"
+              className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs text-white hover:bg-white/10 transition-all duration-200 text-right"
             >
               <span className="text-base leading-none">💬</span>
               <span>WhatsApp</span>
@@ -88,7 +78,7 @@ function ShareRankButton({ rank, total }) {
             {/* Twitter / X */}
             <button
               onClick={() => { shareToTwitter(shareText); setOpen(false) }}
-              className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs text-white hover:bg-white/10 transition-colors border-t border-white/5 text-right"
+              className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs text-white hover:bg-white/10 transition-all duration-200 border-t border-white/5 text-right"
             >
               <span className="text-base leading-none font-bold" style={{ fontFamily: 'monospace' }}>𝕏</span>
               <span>Twitter / X</span>
@@ -97,7 +87,7 @@ function ShareRankButton({ rank, total }) {
             {/* Copy */}
             <button
               onClick={handleCopy}
-              className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs border-t border-white/5 hover:bg-white/10 transition-colors text-right"
+              className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs border-t border-white/5 hover:bg-white/10 transition-all duration-200 text-right"
               style={{ color: copied ? '#10b981' : 'rgba(255,255,255,0.85)' }}
             >
               <span className="text-base leading-none">{copied ? '✓' : '📋'}</span>
@@ -282,22 +272,24 @@ export default function StudentLeaderboard() {
   const myRank = ranking?.find(r => r.isMe)
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-          <Trophy className="text-gold-400" size={24} />
-          لوحة المتصدرين
+          <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center">
+            <Trophy className="text-gold-400" size={22} />
+          </div>
+          <span className="text-gradient">لوحة المتصدرين</span>
         </h1>
         <p className="text-muted text-sm mt-1">تنافس مع زملائك واحصد النقاط</p>
       </motion.div>
 
       {/* Tabs */}
       <div className="flex gap-2">
-        {TAB_OPTIONS.map(t => (
+        {TAB_OPTIONS.map((t, i) => (
           <button
             key={t.value}
             onClick={() => setTab(t.value)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
               tab === t.value
                 ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
                 : 'bg-white/5 text-muted hover:text-white border border-transparent'
@@ -316,7 +308,7 @@ export default function StudentLeaderboard() {
             <button
               key={p.value}
               onClick={() => setPeriod(p.value)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 ${
                 period === p.value
                   ? 'bg-gold-500/10 text-gold-400 border border-gold-500/20'
                   : 'bg-white/5 text-muted hover:text-white border border-transparent'
@@ -333,16 +325,16 @@ export default function StudentLeaderboard() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="glass-card p-4 border-sky-500/20"
+          className="glass-card-raised p-5 border-sky-500/20"
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 font-bold">
+              <div className="w-12 h-12 rounded-xl bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 font-bold text-lg">
                 {myRank.rank}
               </div>
               <div>
                 <p className="text-sm text-white font-medium">ترتيبك</p>
-                <p className="text-xs text-muted">
+                <p className="text-xs text-white/40">
                   المركز {myRank.rank} من {ranking?.length || 0}
                 </p>
               </div>
@@ -380,8 +372,8 @@ export default function StudentLeaderboard() {
                 key={player.id}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.05 }}
-                className={`flex items-center gap-4 p-4 rounded-2xl border transition-all ${
+                transition={{ delay: index * 0.08 }}
+                className={`flex items-center gap-4 p-4 rounded-2xl border transition-all duration-200 hover:translate-y-[-2px] ${
                   player.isMe
                     ? 'bg-sky-500/10 border-sky-500/20 ring-1 ring-sky-500/10'
                     : style.bg
@@ -390,14 +382,14 @@ export default function StudentLeaderboard() {
                 }`}
               >
                 {/* Rank */}
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
+                <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-sm font-bold ${
                   style.text || 'text-muted'
                 } ${style.bg || 'bg-white/5'}`}>
                   {RankIcon ? <RankIcon size={16} /> : player.rank}
                 </div>
 
                 {/* Avatar */}
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold shrink-0 ${
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg font-bold shrink-0 ${
                   player.isMe ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30' : 'bg-white/10 text-white/60'
                 }`}>
                   {player.name[0]}
@@ -417,7 +409,7 @@ export default function StudentLeaderboard() {
                       </span>
                     )}
                     {tab === 'academy' && player.groupName && (
-                      <span className="text-sky-400">{player.groupName}</span>
+                      <span className="badge-blue text-[10px]">{player.groupName}</span>
                     )}
                   </div>
                 </div>
@@ -450,17 +442,17 @@ export default function StudentLeaderboard() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.08 }}
-                className={`flex items-center gap-4 p-5 rounded-2xl border ${
+                className={`flex items-center gap-5 p-5 rounded-2xl border hover:translate-y-[-2px] transition-all duration-200 ${
                   style.bg ? `${style.bg} ${style.border}` : 'bg-white/5 border-border-subtle'
                 }`}
               >
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${style.text || 'text-muted'}`}>
+                <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-sm font-bold ${style.text || 'text-muted'}`}>
                   {team.rank}
                 </div>
                 <div className="text-3xl">{team.emoji || '🏆'}</div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold text-white">{team.name}</p>
-                  <p className="text-xs text-muted">{team.memberCount} أعضاء</p>
+                  <p className="text-xs text-white/40">{team.memberCount} أعضاء</p>
                 </div>
                 <div className="text-left">
                   <p className={`text-lg font-bold ${index === 0 ? 'text-gold-400' : 'text-white'}`}>
@@ -471,9 +463,11 @@ export default function StudentLeaderboard() {
             )
           }) : (
             <div className="glass-card p-8 text-center">
-              <Trophy size={40} className="text-muted mx-auto mb-3 opacity-30" />
+              <div className="w-16 h-16 rounded-xl bg-white/5 flex items-center justify-center mx-auto mb-3">
+                <Trophy size={32} className="text-muted opacity-30" />
+              </div>
               <p className="text-muted">لم يتم إنشاء فرق بعد</p>
-              <p className="text-xs text-muted mt-1">سيقوم المدرب بإنشاء الفرق قريباً</p>
+              <p className="text-xs text-white/40 mt-1">سيقوم المدرب بإنشاء الفرق قريباً</p>
             </div>
           )}
         </div>

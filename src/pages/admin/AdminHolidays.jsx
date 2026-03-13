@@ -159,11 +159,13 @@ export default function AdminHolidays() {
   const isSaving = addHolidayMutation.isPending || updateHolidayMutation.isPending
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-          <Calendar size={24} className="text-sky-400" />
+          <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+            <Calendar size={20} className="text-sky-400" />
+          </div>
           العطل والمناسبات
         </h1>
         <p className="text-muted text-sm mt-1">إدارة العطل الرسمية ووضع رمضان</p>
@@ -177,7 +179,9 @@ export default function AdminHolidays() {
       >
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <Moon size={20} className="text-amber-400" />
+            <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
+              <Moon size={18} className="text-amber-400" />
+            </div>
             <div>
               <h2 className="text-lg font-bold text-white">وضع رمضان</h2>
               <p className="text-muted text-xs">
@@ -270,16 +274,16 @@ export default function AdminHolidays() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="glass-card p-4"
+                className="glass-card p-4 hover:translate-y-[-2px] transition-all duration-200"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
                       <h3 className="text-sm font-bold text-white">{holiday.name}</h3>
-                      <span className={`badge text-[10px] ${
+                      <span className={`text-[10px] px-2 py-0.5 rounded-full ${
                         upcoming
-                          ? 'bg-emerald-500/20 text-emerald-400'
-                          : 'bg-white/5 text-muted'
+                          ? 'badge-green'
+                          : 'badge-muted'
                       }`}>
                         {upcoming ? 'قادمة' : 'منتهية'}
                       </span>
@@ -373,7 +377,7 @@ export default function AdminHolidays() {
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="text-xs text-muted block mb-1">اسم العطلة</label>
+                  <label className="input-label block mb-1">اسم العطلة</label>
                   <input
                     type="text"
                     required
@@ -386,7 +390,7 @@ export default function AdminHolidays() {
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-xs text-muted block mb-1">تاريخ البداية</label>
+                    <label className="input-label block mb-1">تاريخ البداية</label>
                     <input
                       type="date"
                       required
@@ -396,7 +400,7 @@ export default function AdminHolidays() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-muted block mb-1">تاريخ النهاية</label>
+                    <label className="input-label block mb-1">تاريخ النهاية</label>
                     <input
                       type="date"
                       required
@@ -414,7 +418,7 @@ export default function AdminHolidays() {
                 )}
 
                 <div>
-                  <label className="text-xs text-muted block mb-1">معلومات إعادة الجدولة</label>
+                  <label className="input-label block mb-1">معلومات إعادة الجدولة</label>
                   <textarea
                     value={form.reschedule_info}
                     onChange={(e) => setForm({ ...form, reschedule_info: e.target.value })}
@@ -432,7 +436,7 @@ export default function AdminHolidays() {
                     {isSaving && <Loader2 size={14} className="animate-spin" />}
                     {editingHoliday ? 'حفظ التعديلات' : 'إضافة العطلة'}
                   </button>
-                  <button type="button" onClick={closeModal} className="btn-danger px-4">
+                  <button type="button" onClick={closeModal} className="btn-ghost px-4">
                     إلغاء
                   </button>
                 </div>

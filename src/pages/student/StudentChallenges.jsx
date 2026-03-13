@@ -125,10 +125,12 @@ export default function StudentChallenges() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-          <Target className="text-sky-400" size={24} />
+          <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+            <Target className="text-sky-400" size={20} />
+          </div>
           التحديات
         </h1>
         <p className="text-muted text-sm mt-1">شارك في التحديات واكسب نقاط إضافية</p>
@@ -177,7 +179,7 @@ export default function StudentChallenges() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className={`glass-card p-5 ${completed ? 'border-emerald-500/20' : active ? 'border-sky-500/10' : 'opacity-60'}`}
+                className={`glass-card p-5 hover:translate-y-[-2px] transition-all duration-200 ${completed ? 'border-emerald-500/20' : active ? 'border-sky-500/10' : 'opacity-60'}`}
               >
                 <div className="flex items-start gap-4">
                   {/* Type icon */}
@@ -194,17 +196,17 @@ export default function StudentChallenges() {
                   <div className="flex-1 min-w-0">
                     {/* Header */}
                     <div className="flex items-center gap-2 mb-1">
-                      <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
-                        typeConfig.color === 'gold' ? 'bg-gold-500/10 text-gold-400' :
-                        typeConfig.color === 'rose' ? 'bg-rose-500/10 text-rose-400' :
-                        typeConfig.color === 'violet' ? 'bg-violet-500/10 text-violet-400' :
-                        typeConfig.color === 'green' ? 'bg-emerald-500/10 text-emerald-400' :
-                        'bg-sky-500/10 text-sky-400'
+                      <span className={`${
+                        typeConfig.color === 'gold' ? 'badge-gold' :
+                        typeConfig.color === 'rose' ? 'badge-red' :
+                        typeConfig.color === 'violet' ? 'badge-blue' :
+                        typeConfig.color === 'green' ? 'badge-green' :
+                        'badge-blue'
                       }`}>
                         {typeConfig.label}
                       </span>
                       {completed && (
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-medium flex items-center gap-0.5">
+                        <span className="badge-green flex items-center gap-0.5">
                           <CheckCircle2 size={10} /> مكتمل
                         </span>
                       )}

@@ -80,9 +80,14 @@ export default function StudentSpeaking() {
   const progressPct = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-2xl font-bold text-white">مواضيع المحادثة</h1>
+        <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
+            <Mic size={20} className="text-violet-400" />
+          </div>
+          مواضيع المحادثة
+        </h1>
         <p className="text-muted text-sm mt-1">تدرب على مواضيع المحادثة لمستواك</p>
       </motion.div>
 
@@ -111,7 +116,7 @@ export default function StudentSpeaking() {
           <p className="text-muted">لا توجد مواضيع لمستواك حالياً</p>
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-5">
           {topics.map((topic, i) => {
             const isCompleted = progress?.[topic.id]?.completed
             return (
@@ -120,7 +125,7 @@ export default function StudentSpeaking() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.04 }}
-                className={`glass-card p-4 transition-all ${isCompleted ? 'border-emerald-500/20' : ''}`}
+                className={`glass-card p-4 hover:translate-y-[-2px] transition-all duration-200 ${isCompleted ? 'border-emerald-500/20' : ''}`}
               >
                 <div className="flex items-start gap-3">
                   <button

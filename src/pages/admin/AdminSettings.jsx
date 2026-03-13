@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { Settings, Save, Loader2, RefreshCw, CreditCard, Brain, HardDrive, Link2, Moon, MessageCircle, Bell } from 'lucide-react'
+import { Settings, Save, Loader2, RefreshCw, CreditCard, Brain, HardDrive, Link2, Moon, MessageCircle, Bell, Zap, DollarSign, Server } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { XP_VALUES, PACKAGES } from '../../lib/constants'
 
@@ -117,14 +117,20 @@ export default function AdminSettings() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
+      {/* Header */}
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-white">الإعدادات</h1>
-          <p className="text-muted text-sm mt-1">إعدادات النظام وقيم النقاط</p>
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center">
+            <Settings size={22} className="text-violet-400" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold text-white">الإعدادات</h1>
+            <p className="text-muted text-sm mt-1">إعدادات النظام وقيم النقاط</p>
+          </div>
         </div>
         <div className="flex items-center gap-3">
-          {saved && <span className="text-emerald-400 text-sm">تم الحفظ</span>}
+          {saved && <span className="badge-green">تم الحفظ</span>}
           <button
             onClick={() => saveMutation.mutate()}
             disabled={saveMutation.isPending}
@@ -136,14 +142,19 @@ export default function AdminSettings() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         {/* XP Values */}
-        <div className="glass-card p-5">
-          <h3 className="text-lg font-bold text-white mb-4">قيم نقاط XP</h3>
+        <div className="glass-card p-6">
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center">
+              <Zap size={18} className="text-gold-400" />
+            </div>
+            <h3 className="text-lg font-semibold text-white">قيم نقاط XP</h3>
+          </div>
           <div className="space-y-3">
             {Object.entries(xpLabels).map(([key, label]) => (
               <div key={key} className="flex items-center justify-between gap-3">
-                <label className="text-sm text-muted flex-1">{label}</label>
+                <label className="input-label flex-1 mb-0">{label}</label>
                 <input
                   type="number"
                   value={currentXP[key] ?? 0}
@@ -156,14 +167,20 @@ export default function AdminSettings() {
           </div>
         </div>
 
-        {/* Package Prices */}
-        <div className="space-y-6">
-          <div className="glass-card p-5">
-            <h3 className="text-lg font-bold text-white mb-4">أسعار الباقات (ريال)</h3>
+        {/* Right Column */}
+        <div className="space-y-5">
+          {/* Package Prices */}
+          <div className="glass-card p-6">
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+                <DollarSign size={18} className="text-emerald-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-white">أسعار الباقات (ريال)</h3>
+            </div>
             <div className="space-y-3">
               {Object.entries(packageLabels).map(([key, label]) => (
                 <div key={key} className="flex items-center justify-between gap-3">
-                  <label className="text-sm text-muted flex-1">{label}</label>
+                  <label className="input-label flex-1 mb-0">{label}</label>
                   <input
                     type="number"
                     value={currentPrices[key] ?? 0}
@@ -177,10 +194,12 @@ export default function AdminSettings() {
           </div>
 
           {/* Moyasar Payment Link */}
-          <div className="glass-card p-5">
-            <div className="flex items-center gap-2 mb-4">
-              <Link2 size={18} className="text-sky-400" />
-              <h3 className="text-lg font-bold text-white">رابط الدفع (Moyasar)</h3>
+          <div className="glass-card p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+                <Link2 size={18} className="text-sky-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-white">رابط الدفع (Moyasar)</h3>
             </div>
             <p className="text-muted text-xs mb-3">رابط الدفع الذي يظهر للطلاب في صفحة الفواتير</p>
             <input
@@ -194,10 +213,12 @@ export default function AdminSettings() {
           </div>
 
           {/* AI Budget */}
-          <div className="glass-card p-5">
-            <div className="flex items-center gap-2 mb-4">
-              <Brain size={18} className="text-violet-400" />
-              <h3 className="text-lg font-bold text-white">ميزانية الذكاء الاصطناعي</h3>
+          <div className="glass-card p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
+                <Brain size={18} className="text-violet-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-white">ميزانية الذكاء الاصطناعي</h3>
             </div>
             <p className="text-muted text-xs mb-3">الحد الأقصى الشهري لتكاليف API (ريال سعودي)</p>
             <div className="flex items-center gap-2">
@@ -213,15 +234,17 @@ export default function AdminSettings() {
           </div>
 
           {/* WhatsApp Integration */}
-          <div className="glass-card p-5">
-            <div className="flex items-center gap-2 mb-4">
-              <MessageCircle size={18} className="text-emerald-400" />
-              <h3 className="text-lg font-bold text-white">تكامل واتساب</h3>
+          <div className="glass-card p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+                <MessageCircle size={18} className="text-emerald-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-white">تكامل واتساب</h3>
             </div>
             <p className="text-muted text-xs mb-3">اربط API واتساب لإرسال الإشعارات (WATI / UltraMsg / غيره)</p>
             <div className="space-y-3">
               <div>
-                <label className="text-xs text-muted block mb-1">API Key</label>
+                <label className="input-label">API Key</label>
                 <input
                   type="password"
                   value={currentWhatsappApiKey}
@@ -232,7 +255,7 @@ export default function AdminSettings() {
                 />
               </div>
               <div>
-                <label className="text-xs text-muted block mb-1">Instance ID</label>
+                <label className="input-label">Instance ID</label>
                 <input
                   type="text"
                   value={currentWhatsappInstanceId}
@@ -246,10 +269,12 @@ export default function AdminSettings() {
           </div>
 
           {/* Payment Reminders */}
-          <div className="glass-card p-5">
-            <div className="flex items-center gap-2 mb-4">
-              <Bell size={18} className="text-amber-400" />
-              <h3 className="text-lg font-bold text-white">تذكير المدفوعات التلقائي</h3>
+          <div className="glass-card p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
+                <Bell size={18} className="text-amber-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-white">تذكير المدفوعات التلقائي</h3>
             </div>
             <p className="text-muted text-xs mb-3">عدد الأيام قبل الموعد لإرسال تذكير تلقائي</p>
             <div className="flex items-center gap-2">
@@ -267,12 +292,17 @@ export default function AdminSettings() {
           </div>
 
           {/* System Info */}
-          <div className="glass-card p-5">
-            <h3 className="text-lg font-bold text-white mb-4">معلومات النظام</h3>
-            <div className="space-y-2 text-sm">
+          <div className="glass-card p-6">
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+                <Server size={18} className="text-sky-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-white">معلومات النظام</h3>
+            </div>
+            <div className="space-y-3 text-sm">
               <div className="flex justify-between">
                 <span className="text-muted">الإصدار</span>
-                <span className="text-white">2.0.0</span>
+                <span className="badge-blue">2.0.0</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted">البيئة</span>
@@ -280,11 +310,11 @@ export default function AdminSettings() {
               </div>
               <div className="flex justify-between">
                 <span className="text-muted">قاعدة البيانات</span>
-                <span className="text-emerald-400">متصلة</span>
+                <span className="badge-green">متصلة</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted">Edge Functions</span>
-                <span className="text-emerald-400">16 دالة</span>
+                <span className="badge-green">16 دالة</span>
               </div>
             </div>
           </div>

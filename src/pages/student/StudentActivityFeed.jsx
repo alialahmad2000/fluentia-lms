@@ -111,10 +111,12 @@ export default function StudentActivityFeed() {
   })
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-          <Activity className="text-sky-400" size={24} />
+          <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+            <Activity className="text-sky-400" size={20} />
+          </div>
           نشاط المجموعة
         </h1>
         <p className="text-muted text-sm mt-1">آخر أنشطة زملائك في المجموعة</p>
@@ -122,23 +124,29 @@ export default function StudentActivityFeed() {
 
       {/* Group stats */}
       {groupStats && (
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-5">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass-card p-4 text-center"
+            className="glass-card p-5 text-center hover:translate-y-[-2px] transition-all duration-200"
           >
+            <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center mx-auto mb-2">
+              <FileText size={18} className="text-sky-400" />
+            </div>
             <p className="text-2xl font-bold text-sky-400">{groupStats.submissions}</p>
-            <p className="text-xs text-muted">واجب هذا الشهر</p>
+            <p className="text-xs text-muted mt-1">واجب هذا الشهر</p>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05 }}
-            className="glass-card p-4 text-center"
+            className="glass-card p-5 text-center hover:translate-y-[-2px] transition-all duration-200"
           >
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center mx-auto mb-2">
+              <Users size={18} className="text-emerald-400" />
+            </div>
             <p className="text-2xl font-bold text-emerald-400">{groupStats.activeStudents}</p>
-            <p className="text-xs text-muted">طالب نشط</p>
+            <p className="text-xs text-muted mt-1">طالب نشط</p>
           </motion.div>
         </div>
       )}
@@ -162,9 +170,9 @@ export default function StudentActivityFeed() {
                 initial={{ opacity: 0, x: 15 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.03 }}
-                className="flex items-start gap-3 bg-white/5 border border-border-subtle rounded-2xl p-4 hover:bg-white/[0.07] transition-colors"
+                className="glass-card flex items-start gap-3 p-4 hover:translate-y-[-2px] transition-all duration-200"
               >
-                <div className={`w-10 h-10 rounded-full ${config.bg} flex items-center justify-center text-lg shrink-0`}>
+                <div className={`w-10 h-10 rounded-xl ${config.bg} flex items-center justify-center text-lg shrink-0`}>
                   {config.icon}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -180,7 +188,7 @@ export default function StudentActivityFeed() {
                   <p className="text-[10px] text-muted mt-1">{timeAgo(activity.created_at)}</p>
                 </div>
                 {activity.data?.xp && (
-                  <span className="text-xs font-bold text-emerald-400 shrink-0">
+                  <span className="badge-green shrink-0">
                     +{activity.data.xp} XP
                   </span>
                 )}

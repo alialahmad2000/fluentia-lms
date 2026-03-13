@@ -140,7 +140,7 @@ function TestimonialCard({ t, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
-      className="relative group glass-card p-6 flex flex-col gap-4 hover:border-sky-500/30 transition-all duration-300"
+      className="relative group glass-card p-6 flex flex-col gap-4 hover:border-sky-500/30 hover:translate-y-[-2px] transition-all duration-200"
     >
       {/* Quote icon */}
       <Quote
@@ -187,7 +187,7 @@ function StatsBanner({ count }) {
   ]
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
       {stats.map(({ icon: Icon, value, label }, i) => (
         <motion.div
           key={label}
@@ -195,9 +195,11 @@ function StatsBanner({ count }) {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ delay: i * 0.1, duration: 0.4 }}
-          className="glass-card p-5 text-center flex flex-col items-center gap-2"
+          className="glass-card p-5 text-center flex flex-col items-center gap-2 hover:translate-y-[-2px] transition-all duration-200"
         >
-          <Icon size={22} className="text-sky-400" />
+          <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+            <Icon size={20} className="text-sky-400" />
+          </div>
           <span className="text-2xl font-bold text-white">{value}</span>
           <span className="text-xs text-white/40">{label}</span>
         </motion.div>
@@ -252,7 +254,7 @@ export default function Testimonials() {
         <div className="absolute bottom-1/4 left-0 w-[400px] h-[400px] bg-sky-500/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 py-12 space-y-20">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 py-12 space-y-16">
 
         {/* ── Hero ── */}
         <motion.section
@@ -361,7 +363,7 @@ export default function Testimonials() {
                 >
                   <button
                     onClick={() => setShowAll(true)}
-                    className="flex items-center gap-2 px-6 py-3 rounded-xl border border-white/10 text-white/50 hover:text-white hover:border-white/25 transition-all duration-200 text-sm"
+                    className="btn-ghost flex items-center gap-2 px-6 py-3 rounded-xl hover:translate-y-[-2px] transition-all duration-200 text-sm"
                   >
                     <ChevronDown size={16} />
                     عرض المزيد من القصص
@@ -421,10 +423,9 @@ export default function Testimonials() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               to="/test"
-              className="w-full sm:w-auto px-8 py-4 rounded-2xl text-lg font-bold
-                         bg-gradient-to-l from-sky-500 to-sky-600
+              className="btn-primary w-full sm:w-auto px-8 py-4 rounded-2xl text-lg font-bold
                          shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40
-                         transition-shadow duration-300 text-center"
+                         hover:translate-y-[-2px] transition-all duration-200 text-center"
             >
               اختبر مستواك مجاناً
             </Link>
@@ -432,10 +433,8 @@ export default function Testimonials() {
               href="https://wa.me/966558669974"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto px-8 py-4 rounded-2xl text-lg font-bold
-                         bg-white/5 border border-white/15
-                         hover:bg-white/10 hover:border-white/25
-                         transition-all duration-300 text-center"
+              className="btn-secondary w-full sm:w-auto px-8 py-4 rounded-2xl text-lg font-bold
+                         hover:translate-y-[-2px] transition-all duration-200 text-center"
             >
               احجز لقاء مبدئي مجاني مع المدرب
             </a>

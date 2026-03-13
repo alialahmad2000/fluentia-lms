@@ -312,11 +312,13 @@ export default function StudentAssessments() {
   }, [snapshots])
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Page header */}
       <div>
         <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-          <Radar size={24} className="text-sky-400" />
+          <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+            <Radar size={20} className="text-sky-400" />
+          </div>
           التقييمات والمهارات
         </h1>
         <p className="text-muted text-sm mt-1">تابع مستواك وتطور مهاراتك</p>
@@ -329,7 +331,9 @@ export default function StudentAssessments() {
         className="glass-card p-6"
       >
         <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-          <Radar size={18} className="text-sky-400" />
+          <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
+            <Radar size={16} className="text-sky-400" />
+          </div>
           رادار المهارات
         </h2>
 
@@ -343,7 +347,7 @@ export default function StudentAssessments() {
 
         {/* Skill values below the chart */}
         {latestSnapshot && (
-          <div className="grid grid-cols-3 gap-3 mt-4">
+          <div className="grid grid-cols-3 gap-5 mt-4">
             {SKILLS.map((sk) => (
               <div key={sk} className="text-center">
                 <p className="text-xs text-muted">{SKILL_LABELS_AR[sk]}</p>
@@ -362,7 +366,9 @@ export default function StudentAssessments() {
         className="glass-card p-6"
       >
         <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-          <TrendingUp size={18} className="text-emerald-400" />
+          <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+            <TrendingUp size={16} className="text-emerald-400" />
+          </div>
           تطور المهارات
         </h2>
 
@@ -410,7 +416,9 @@ export default function StudentAssessments() {
         className="glass-card p-6"
       >
         <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-          <Calendar size={18} className="text-sky-400" />
+          <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
+            <Calendar size={16} className="text-sky-400" />
+          </div>
           سجل التقييمات
         </h2>
 
@@ -440,7 +448,7 @@ export default function StudentAssessments() {
                     className="w-full flex items-center justify-between p-4 text-right"
                   >
                     <div className="flex items-center gap-3">
-                      <span className={`badge text-xs px-2 py-0.5 rounded-full border ${TYPE_COLORS[a.type] || ''}`}>
+                      <span className={`text-xs px-2.5 py-1 rounded-full border font-medium ${TYPE_COLORS[a.type] || ''}`}>
                         {TYPE_LABELS[a.type] || a.type}
                       </span>
                       <span className="text-xs text-muted">{formatDate(a.created_at)}</span>
@@ -470,7 +478,7 @@ export default function StudentAssessments() {
                       >
                         <div className="px-4 pb-4 space-y-3 border-t border-border-subtle pt-3">
                           {/* Per-skill scores */}
-                          <div className="grid grid-cols-3 gap-2">
+                          <div className="grid grid-cols-3 gap-3">
                             {SKILLS.map((sk) => (
                               <div key={sk} className="text-center bg-white/5 rounded-lg p-2">
                                 <p className="text-[10px] text-muted">{SKILL_LABELS_AR[sk]}</p>
@@ -517,7 +525,9 @@ export default function StudentAssessments() {
         className="glass-card p-6"
       >
         <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-          <Smile size={18} className="text-amber-400" />
+          <div className="w-8 h-8 rounded-xl bg-amber-500/10 flex items-center justify-center">
+            <Smile size={16} className="text-amber-400" />
+          </div>
           التقييم الذاتي الأسبوعي
         </h2>
 
@@ -579,7 +589,7 @@ export default function StudentAssessments() {
             <button
               onClick={() => submitSelf.mutate()}
               disabled={!mood || submitSelf.isPending}
-              className="w-full py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-medium text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="btn-primary w-full py-2.5 text-sm"
             >
               {submitSelf.isPending ? 'جاري الإرسال...' : 'إرسال التقييم'}
             </button>

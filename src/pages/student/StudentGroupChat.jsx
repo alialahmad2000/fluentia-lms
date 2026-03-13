@@ -275,14 +275,14 @@ export default function StudentGroupChat() {
   return (
     <div className="flex flex-col h-[calc(100vh-7rem)]">
       {/* Channel tabs */}
-      <div className="flex gap-1 overflow-x-auto pb-2 mb-2 scrollbar-none">
+      <div className="flex gap-2 overflow-x-auto pb-2 mb-2 scrollbar-none">
         {CHANNELS.map(ch => {
           const Icon = ch.icon
           return (
             <button
               key={ch.id}
               onClick={() => setChannel(ch.id)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all shrink-0 ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap transition-all duration-200 shrink-0 ${
                 channel === ch.id
                   ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
                   : 'bg-white/5 text-muted hover:text-white border border-transparent'

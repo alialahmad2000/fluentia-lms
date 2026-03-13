@@ -43,10 +43,12 @@ export default function StudentStreakBattles() {
 
   if (!studentData?.group_id) {
     return (
-      <div className="space-y-6">
+      <div className="space-y-8">
         <div>
-          <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Swords size={24} className="text-gold-400" />
+          <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center">
+              <Swords size={20} className="text-gold-400" />
+            </div>
             معارك وتحديات
           </h1>
         </div>
@@ -59,28 +61,30 @@ export default function StudentStreakBattles() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-          <Swords size={24} className="text-gold-400" />
+        <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center">
+            <Swords size={20} className="text-gold-400" />
+          </div>
           معارك وتحديات
         </h1>
         <p className="text-muted text-sm mt-1">تنافس مع زملائك في المجموعة!</p>
       </div>
 
       {/* My stats */}
-      <div className="grid grid-cols-3 gap-4">
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-4 text-center">
+      <div className="grid grid-cols-3 gap-5">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
           <Flame size={20} className="text-gold-400 mx-auto mb-1" />
           <p className="text-2xl font-bold text-white">{studentData?.current_streak || 0}</p>
           <p className="text-[10px] text-muted">سلسلة حالية</p>
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="glass-card p-4 text-center">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
           <Trophy size={20} className="text-sky-400 mx-auto mb-1" />
           <p className="text-2xl font-bold text-white">#{myRank || '—'}</p>
           <p className="text-[10px] text-muted">ترتيب السلسلة</p>
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }} className="glass-card p-4 text-center">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }} className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
           <Zap size={20} className="text-violet-400 mx-auto mb-1" />
           <p className="text-2xl font-bold text-white">#{myXpRank || '—'}</p>
           <p className="text-[10px] text-muted">ترتيب النقاط</p>
@@ -90,8 +94,10 @@ export default function StudentStreakBattles() {
       {/* Streak Leaderboard */}
       <div className="glass-card p-5">
         <div className="flex items-center gap-2 mb-4">
-          <Flame size={18} className="text-gold-400" />
-          <h2 className="font-bold text-white">ترتيب السلاسل</h2>
+          <div className="w-8 h-8 rounded-xl bg-gold-500/10 flex items-center justify-center">
+            <Flame size={16} className="text-gold-400" />
+          </div>
+          <h2 className="font-semibold text-white">ترتيب السلاسل</h2>
         </div>
         <div className="space-y-2">
           {streakRanking.map((student, i) => {
@@ -136,8 +142,10 @@ export default function StudentStreakBattles() {
       {/* XP Leaderboard */}
       <div className="glass-card p-5">
         <div className="flex items-center gap-2 mb-4">
-          <Zap size={18} className="text-violet-400" />
-          <h2 className="font-bold text-white">ترتيب النقاط</h2>
+          <div className="w-8 h-8 rounded-xl bg-violet-500/10 flex items-center justify-center">
+            <Zap size={16} className="text-violet-400" />
+          </div>
+          <h2 className="font-semibold text-white">ترتيب النقاط</h2>
         </div>
         <div className="space-y-2">
           {xpRanking.map((student, i) => {
@@ -179,11 +187,13 @@ export default function StudentStreakBattles() {
 
       {/* Quick challenges */}
       <div>
-        <h2 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-          <Target size={18} className="text-emerald-400" />
+        <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+          <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+            <Target size={16} className="text-emerald-400" />
+          </div>
           تحديات سريعة
         </h2>
-        <div className="grid gap-3">
+        <div className="grid gap-5">
           {[
             { title: 'أكمل 3 واجبات اليوم', reward: 20, progress: 0, total: 3 },
             { title: 'حافظ على السلسلة 7 أيام', reward: 50, progress: studentData?.current_streak || 0, total: 7 },
@@ -197,7 +207,7 @@ export default function StudentStreakBattles() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="glass-card p-4"
+                className="glass-card p-4 hover:translate-y-[-2px] transition-all duration-200"
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm text-white">{challenge.title}</span>

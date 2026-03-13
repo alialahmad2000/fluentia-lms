@@ -44,11 +44,16 @@ export default function TrainerNotes() {
   })
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-white">ملاحظات الحصص</h1>
-          <p className="text-muted text-sm mt-1">ملخصات وملاحظات بعد كل حصة</p>
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+            <FileText size={20} className="text-sky-400" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold text-white">ملاحظات الحصص</h1>
+            <p className="text-muted text-sm mt-1">ملخصات وملاحظات بعد كل حصة</p>
+          </div>
         </div>
         <button onClick={() => setShowForm(true)} className="btn-primary flex items-center gap-2 text-sm">
           <Plus size={18} /> ملاحظة جديدة
@@ -86,7 +91,7 @@ export default function TrainerNotes() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.04 }}
-              className="glass-card p-4"
+              className="glass-card p-4 hover:translate-y-[-2px] transition-all duration-200"
             >
               <div className="flex items-center justify-between mb-3">
                 <div>
@@ -177,12 +182,12 @@ function NoteForm({ classes, groups, trainerId, onClose }) {
         className="fixed inset-x-4 top-[10vh] lg:inset-x-auto lg:left-1/2 lg:-translate-x-1/2 lg:w-full lg:max-w-lg bg-navy-950 border border-border-subtle rounded-2xl z-50 overflow-hidden"
       >
         <div className="px-6 py-4 border-b border-border-subtle flex items-center justify-between">
-          <h2 className="text-lg font-bold text-white">ملاحظة جديدة</h2>
+          <h2 className="text-lg font-semibold text-white">ملاحظة جديدة</h2>
           <button onClick={onClose} className="text-muted hover:text-white"><X size={20} /></button>
         </div>
         <div className="p-6 space-y-4">
           <div>
-            <label className="block text-sm text-muted mb-1">الحصة</label>
+            <label className="input-label">الحصة</label>
             <select className="input-field" value={classId} onChange={(e) => setClassId(e.target.value)}>
               <option value="">اختر الحصة...</option>
               {classes.map(c => (
@@ -193,7 +198,7 @@ function NoteForm({ classes, groups, trainerId, onClose }) {
             </select>
           </div>
           <div>
-            <label className="block text-sm text-muted mb-1">المحتوى</label>
+            <label className="input-label">المحتوى</label>
             <textarea
               className="input-field min-h-[150px] resize-y"
               value={content}

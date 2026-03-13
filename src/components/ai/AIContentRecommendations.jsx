@@ -97,17 +97,19 @@ export default function AIContentRecommendations() {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="glass-card p-5"
+      className="glass-card p-6"
     >
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2">
-          <Sparkles size={16} className="text-violet-400" />
-          <h3 className="text-sm font-medium text-white">مقترحات لك</h3>
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-violet-500/10 flex items-center justify-center">
+            <Sparkles size={16} className="text-violet-400" />
+          </div>
+          <h3 className="text-lg font-semibold text-white">مقترحات لك</h3>
         </div>
         <button
           onClick={fetchRecommendations}
           disabled={loading}
-          className="text-muted hover:text-white transition-colors"
+          className="btn-ghost p-2 rounded-xl text-muted hover:text-white transition-all duration-200"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <RefreshCcw size={14} />}
         </button>
@@ -118,13 +120,13 @@ export default function AIContentRecommendations() {
           <Loader2 size={20} className="animate-spin text-violet-400" />
         </div>
       ) : (
-        <div className="space-y-2">
+        <div className="space-y-3">
           {recommendations?.map((rec, i) => (
-            <div key={i} className="flex items-start gap-3 bg-white/5 rounded-xl p-3">
-              <span className="text-lg shrink-0">{rec.icon || '📘'}</span>
+            <div key={i} className="flex items-start gap-3 bg-white/5 rounded-xl p-4 hover:translate-y-[-2px] transition-all duration-200">
+              <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center text-lg shrink-0">{rec.icon || '📘'}</div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-white">{rec.title}</p>
-                <p className="text-xs text-muted mt-0.5">{rec.description}</p>
+                <p className="text-sm font-semibold text-white">{rec.title}</p>
+                <p className="text-sm text-muted mt-0.5">{rec.description}</p>
               </div>
             </div>
           ))}

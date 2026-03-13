@@ -29,9 +29,9 @@ export default function StudentFeedbackDisplay({ feedback, trainerFeedback }) {
   if (!feedback || typeof feedback !== 'object') return null
 
   return (
-    <div className="mt-3 space-y-4">
+    <div className="mt-4 space-y-4">
       {/* Header */}
-      <h4 className="text-xs font-medium text-sky-400">تقييم مفصّل</h4>
+      <h4 className="text-sm font-semibold text-sky-400">تقييم مفصّل</h4>
 
       {/* Overall feedback */}
       {feedback.overall_feedback && (
@@ -47,7 +47,7 @@ export default function StudentFeedbackDisplay({ feedback, trainerFeedback }) {
       {feedback.grammar_errors?.length > 0 && (
         <FeedbackSection title="أخطاء نحوية" color="red">
           {feedback.grammar_errors.map((e, i) => (
-            <div key={i} className="bg-white/5 rounded-lg p-2.5 text-xs">
+            <div key={i} className="bg-white/5 rounded-xl p-3 text-xs">
               <div className="flex items-start gap-2 flex-wrap">
                 <span className="text-red-400 line-through" dir="ltr">{e.error}</span>
                 <span className="text-emerald-400" dir="ltr">{e.correction}</span>
@@ -61,7 +61,7 @@ export default function StudentFeedbackDisplay({ feedback, trainerFeedback }) {
       {feedback.vocabulary_suggestions?.length > 0 && (
         <FeedbackSection title="اقتراحات مفردات" color="sky">
           {feedback.vocabulary_suggestions.map((v, i) => (
-            <div key={i} className="bg-white/5 rounded-lg p-2.5 text-xs">
+            <div key={i} className="bg-white/5 rounded-xl p-3 text-xs">
               <span className="text-muted" dir="ltr">{v.original}</span>
               <span className="text-muted mx-1">&larr;</span>
               <span className="text-sky-400 font-medium" dir="ltr">{v.better}</span>
@@ -118,7 +118,7 @@ export default function StudentFeedbackDisplay({ feedback, trainerFeedback }) {
       {feedback.grammar_notes?.length > 0 && (
         <FeedbackSection title="ملاحظات نحوية" color="red">
           {feedback.grammar_notes.map((n, i) => (
-            <div key={i} className="bg-white/5 rounded-lg p-2.5 text-xs">
+            <div key={i} className="bg-white/5 rounded-xl p-3 text-xs">
               <p className="text-white">{n.issue}</p>
               <p className="text-emerald-400 mt-1">{n.suggestion}</p>
             </div>

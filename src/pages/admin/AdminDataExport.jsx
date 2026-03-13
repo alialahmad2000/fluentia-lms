@@ -127,11 +127,11 @@ function downloadCSV(data, filename) {
   URL.revokeObjectURL(url)
 }
 
-const COLOR_MAP = {
-  sky: 'bg-sky-500/10 text-sky-400 border-sky-500/20',
-  emerald: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
-  violet: 'bg-violet-500/10 text-violet-400 border-violet-500/20',
-  amber: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+const ICON_BG = {
+  sky: 'bg-sky-500/10 text-sky-400',
+  emerald: 'bg-emerald-500/10 text-emerald-400',
+  violet: 'bg-violet-500/10 text-violet-400',
+  amber: 'bg-amber-500/10 text-amber-400',
 }
 
 export default function AdminDataExport() {
@@ -152,18 +152,21 @@ export default function AdminDataExport() {
   }
 
   return (
-    <div className="space-y-6 max-w-2xl">
-      <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-          <Database size={24} className="text-sky-400" />
-          تصدير البيانات
-        </h1>
-        <p className="text-muted text-sm mt-1">صدّر بيانات النظام بصيغة CSV</p>
+    <div className="space-y-8 max-w-2xl">
+      {/* Header */}
+      <div className="flex items-center gap-4">
+        <div className="w-12 h-12 rounded-xl bg-sky-500/10 flex items-center justify-center">
+          <Database size={22} className="text-sky-400" />
+        </div>
+        <div>
+          <h1 className="text-2xl font-bold text-white">تصدير البيانات</h1>
+          <p className="text-muted text-sm mt-1">صدّر بيانات النظام بصيغة CSV</p>
+        </div>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-4">
         {EXPORT_OPTIONS.map((option, i) => {
-          const colors = COLOR_MAP[option.color]
+          const iconBg = ICON_BG[option.color]
           const isExporting = exporting === option.key
           const isDone = completed.has(option.key)
 
@@ -173,25 +176,25 @@ export default function AdminDataExport() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
-              className="glass-card p-5 flex items-center justify-between gap-4"
+              className="glass-card p-5 flex items-center justify-between gap-5 hover:translate-y-[-2px] transition-all duration-200"
             >
               <div className="flex items-start gap-4">
-                <div className={`w-12 h-12 rounded-xl ${colors} border flex items-center justify-center shrink-0`}>
+                <div className={`w-12 h-12 rounded-xl ${iconBg} flex items-center justify-center shrink-0`}>
                   <option.icon size={20} />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-white">{option.label}</h3>
-                  <p className="text-xs text-muted mt-0.5">{option.desc}</p>
+                  <h3 className="text-sm font-semibold text-white">{option.label}</h3>
+                  <p className="text-xs text-muted mt-1">{option.desc}</p>
                 </div>
               </div>
 
               <button
                 onClick={() => handleExport(option)}
                 disabled={isExporting}
-                className={`shrink-0 flex items-center gap-2 text-xs px-4 py-2.5 rounded-xl font-medium transition-all ${
+                className={`shrink-0 flex items-center gap-2 text-sm ${
                   isDone
-                    ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                    : 'btn-secondary text-sm py-2'
+                    ? 'badge-green px-4 py-2.5'
+                    : 'btn-secondary py-2'
                 }`}
               >
                 {isExporting ? (

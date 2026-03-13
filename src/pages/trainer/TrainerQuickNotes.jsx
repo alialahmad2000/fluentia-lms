@@ -122,10 +122,15 @@ export default function TrainerQuickNotes() {
   }
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-white">ملاحظات سريعة</h1>
-        <p className="text-muted text-sm mt-1">اكتب ملاحظات قصيرة عن الطلاب</p>
+    <div className="space-y-8">
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+          <StickyNote size={20} className="text-sky-400" />
+        </div>
+        <div>
+          <h1 className="text-2xl font-bold text-white">ملاحظات سريعة</h1>
+          <p className="text-muted text-sm mt-1">اكتب ملاحظات قصيرة عن الطلاب</p>
+        </div>
       </div>
 
       {/* Group selector */}
@@ -139,7 +144,7 @@ export default function TrainerQuickNotes() {
         </select>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         {/* Student list */}
         <div className="space-y-2">
           <p className="text-sm text-muted">اختر طالب</p>
@@ -153,7 +158,7 @@ export default function TrainerQuickNotes() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.04 }}
                 onClick={() => setSelectedStudent(isSelected ? null : s)}
-                className={`w-full flex items-center gap-3 p-3 rounded-xl border transition-all ${
+                className={`w-full flex items-center gap-3 p-3 rounded-xl border hover:translate-y-[-2px] transition-all duration-200 ${
                   isSelected
                     ? 'bg-sky-500/10 border-sky-500/30 ring-2 ring-sky-500/20'
                     : 'bg-white/5 border-border-subtle hover:bg-white/10'

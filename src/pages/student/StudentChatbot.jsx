@@ -101,19 +101,21 @@ export default function StudentChatbot() {
       <div className="flex items-center justify-between mb-4">
         <div>
           <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Bot size={24} className="text-violet-400" />
+            <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
+              <Bot size={20} className="text-violet-400" />
+            </div>
             المساعد الذكي
           </h1>
           <p className="text-muted text-sm mt-1">اسأل أي سؤال عن اللغة الإنجليزية</p>
         </div>
         <div className="flex items-center gap-3">
           {remaining !== null && (
-            <span className="text-xs text-muted">
+            <span className="badge-muted">
               متبقي {remaining} رسالة اليوم
             </span>
           )}
           {messages.length > 0 && (
-            <button onClick={clearChat} className="text-muted hover:text-red-400 transition-colors" title="مسح المحادثة">
+            <button onClick={clearChat} className="btn-icon text-muted hover:text-red-400 transition-all duration-200" title="مسح المحادثة">
               <Trash2 size={16} />
             </button>
           )}
@@ -132,12 +134,12 @@ export default function StudentChatbot() {
                 <h2 className="text-lg font-bold text-white mb-1">أهلاً! كيف أقدر أساعدك؟</h2>
                 <p className="text-sm text-muted">اسألني عن القواعد، المفردات، النطق، أو أي شيء يخص الإنجليزي</p>
               </div>
-              <div className="grid grid-cols-2 gap-2 max-w-md">
+              <div className="grid grid-cols-2 gap-3 max-w-md">
                 {SUGGESTIONS.map((s, i) => (
                   <button
                     key={i}
                     onClick={() => sendMessage(s)}
-                    className="text-xs text-right bg-white/5 hover:bg-white/10 border border-border-subtle rounded-xl px-3 py-2 text-muted hover:text-white transition-all"
+                    className="text-xs text-right glass-card px-3 py-2.5 text-muted hover:text-white hover:translate-y-[-2px] transition-all duration-200"
                   >
                     {s}
                   </button>

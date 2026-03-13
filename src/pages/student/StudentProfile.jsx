@@ -118,19 +118,18 @@ export default function StudentProfile() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Profile Header */}
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-6">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-card-raised p-6">
         <div className="flex items-start gap-4">
           <div className="w-16 h-16 rounded-2xl bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 text-2xl font-bold shrink-0">
             {(profile?.display_name || profile?.full_name)?.[0] || '?'}
           </div>
           <div className="flex-1 min-w-0">
-            <h1 className="text-xl font-bold text-white">{profile?.full_name}</h1>
+            <h1 className="text-2xl font-bold text-white">{profile?.full_name}</h1>
             <div className="flex items-center gap-3 text-sm text-muted mt-1">
-              <span>{pkg.name_ar}</span>
-              <span>&middot;</span>
-              <span>{academicLevel.name_ar} ({academicLevel.cefr})</span>
+              <span className="badge-blue">{pkg.name_ar}</span>
+              <span className="badge-muted">{academicLevel.name_ar} ({academicLevel.cefr})</span>
             </div>
 
             {/* Edit display name */}
@@ -151,12 +150,12 @@ export default function StudentProfile() {
                     {updateName.isPending ? <Loader2 size={12} className="animate-spin" /> : <Save size={12} />}
                     حفظ
                   </button>
-                  <button onClick={() => { setEditing(false); setDisplayName(profile?.display_name || '') }} className="text-muted text-xs hover:text-white">
+                  <button onClick={() => { setEditing(false); setDisplayName(profile?.display_name || '') }} className="btn-ghost text-xs">
                     إلغاء
                   </button>
                 </div>
               ) : (
-                <button onClick={() => setEditing(true)} className="text-xs text-sky-400 hover:text-sky-300">
+                <button onClick={() => setEditing(true)} className="text-xs text-sky-400 hover:text-sky-300 transition-all duration-200">
                   تعديل الاسم المعروض: {profile?.display_name || 'لم يُحدد'}
                 </button>
               )}
@@ -166,7 +165,7 @@ export default function StudentProfile() {
       </motion.div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-3 gap-5">
         {[
           { label: 'XP', value: xp, icon: Zap, color: 'sky' },
           { label: 'السلسلة', value: `${streak} يوم`, icon: Flame, color: 'gold' },
@@ -177,11 +176,15 @@ export default function StudentProfile() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.08 }}
-            className="glass-card p-4 text-center"
+            className="stat-card hover:translate-y-[-2px] transition-all duration-200"
           >
-            <stat.icon size={20} className={`mx-auto mb-2 ${stat.color === 'gold' ? 'text-gold-400' : 'text-sky-400'}`} />
-            <p className="text-lg font-bold text-white">{stat.value}</p>
-            <p className="text-xs text-muted">{stat.label}</p>
+            <div className="stat-icon">
+              <div className={`w-10 h-10 rounded-xl ${stat.color === 'gold' ? 'bg-gold-500/10' : 'bg-sky-500/10'} flex items-center justify-center`}>
+                <stat.icon size={20} className={stat.color === 'gold' ? 'text-gold-400' : 'text-sky-400'} />
+              </div>
+            </div>
+            <p className="stat-number text-3xl font-bold text-white">{stat.value}</p>
+            <p className="stat-label">{stat.label}</p>
           </motion.div>
         ))}
       </div>
@@ -189,8 +192,8 @@ export default function StudentProfile() {
       {/* Level Progress */}
       <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="glass-card p-5">
         <div className="flex items-center justify-between mb-3">
-          <p className="text-sm font-medium text-white">المستوى {currentLevel.level} — {currentLevel.title_ar}</p>
-          {nextLevel && <p className="text-xs text-muted">{nextLevel.xp - xp} XP للتالي</p>}
+          <p className="text-sm font-medium text-white">المستوى {currentLevel.level} — <span className="text-gradient">{currentLevel.title_ar}</span></p>
+          {nextLevel && <p className="text-xs text-white/40">{nextLevel.xp - xp} XP للتالي</p>}
         </div>
         <div className="w-full h-3 bg-white/5 rounded-full overflow-hidden">
           <motion.div
@@ -208,19 +211,24 @@ export default function StudentProfile() {
       {/* Notification Settings */}
       <NotificationSettings />
 
-      <div className="grid lg:grid-cols-2 gap-4">
+      <div className="grid lg:grid-cols-2 gap-5">
         {/* Achievements */}
         <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="glass-card p-5">
           <div className="flex items-center gap-2 mb-4">
-            <Award size={18} className="text-gold-400" />
-            <h3 className="font-medium text-white">الإنجازات</h3>
-            <span className="text-xs text-muted">({achievements?.earned?.length || 0}/{achievements?.all?.length || 0})</span>
+            <div className="w-8 h-8 rounded-xl bg-gold-500/10 flex items-center justify-center">
+              <Award size={16} className="text-gold-400" />
+            </div>
+            <h3 className="text-lg font-semibold text-white">الإنجازات</h3>
+            <span className="badge-muted text-[10px]">{achievements?.earned?.length || 0}/{achievements?.all?.length || 0}</span>
           </div>
-          <div className="grid grid-cols-2 gap-2">
-            {achievements?.all?.map((a) => (
-              <div
+          <div className="grid grid-cols-2 gap-3">
+            {achievements?.all?.map((a, i) => (
+              <motion.div
                 key={a.id}
-                className={`rounded-xl p-3 text-center transition-all ${
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.08 }}
+                className={`rounded-xl p-3 text-center hover:translate-y-[-2px] transition-all duration-200 ${
                   a.isEarned
                     ? 'bg-gold-500/10 border border-gold-500/20'
                     : 'bg-white/5 border border-border-subtle opacity-40'
@@ -228,8 +236,8 @@ export default function StudentProfile() {
               >
                 <span className="text-2xl">{a.icon}</span>
                 <p className="text-xs font-medium text-white mt-1">{a.name_ar}</p>
-                <p className="text-[10px] text-muted mt-0.5">{a.description_ar}</p>
-              </div>
+                <p className="text-[10px] text-white/40 mt-0.5">{a.description_ar}</p>
+              </motion.div>
             ))}
           </div>
           {(!achievements?.all?.length) && <p className="text-muted text-sm text-center">لا توجد إنجازات</p>}
@@ -238,21 +246,29 @@ export default function StudentProfile() {
         {/* XP History */}
         <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }} className="glass-card p-5">
           <div className="flex items-center gap-2 mb-4">
-            <Clock size={18} className="text-sky-400" />
-            <h3 className="font-medium text-white">سجل النقاط</h3>
+            <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
+              <Clock size={16} className="text-sky-400" />
+            </div>
+            <h3 className="text-lg font-semibold text-white">سجل النقاط</h3>
           </div>
           {xpHistory?.length > 0 ? (
             <div className="space-y-2 max-h-[400px] overflow-y-auto">
-              {xpHistory.map((tx) => (
-                <div key={tx.id} className="flex items-center justify-between bg-white/5 rounded-xl p-3">
+              {xpHistory.map((tx, i) => (
+                <motion.div
+                  key={tx.id}
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.08 }}
+                  className="flex items-center justify-between bg-white/5 rounded-xl p-3 hover:bg-white/[0.08] transition-all duration-200"
+                >
                   <div>
                     <p className="text-xs text-white">{XP_REASON_LABELS[tx.reason] || tx.reason}</p>
-                    <p className="text-[10px] text-muted">{timeAgo(tx.created_at)}</p>
+                    <p className="text-[10px] text-white/40">{timeAgo(tx.created_at)}</p>
                   </div>
                   <span className={`text-sm font-bold ${tx.amount > 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                     {tx.amount > 0 ? '+' : ''}{tx.amount}
                   </span>
-                </div>
+                </motion.div>
               ))}
             </div>
           ) : (

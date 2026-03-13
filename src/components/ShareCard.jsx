@@ -681,7 +681,7 @@ function ShareButtons({ type, data, onCopied }) {
       <div className="grid grid-cols-2 gap-3">
         <button
           onClick={handleWhatsApp}
-          className="flex items-center justify-center gap-2 py-3 rounded-xl text-sm text-white font-semibold transition-opacity hover:opacity-85 active:opacity-70"
+          className="flex items-center justify-center gap-2 py-3 rounded-xl text-sm text-white font-semibold transition-all duration-200 hover:translate-y-[-2px] active:opacity-70"
           style={{ background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)' }}
         >
           <ExternalLink size={14} />
@@ -689,7 +689,7 @@ function ShareButtons({ type, data, onCopied }) {
         </button>
         <button
           onClick={handleTwitter}
-          className="flex items-center justify-center gap-2 py-3 rounded-xl text-sm text-white font-semibold transition-opacity hover:opacity-85 active:opacity-70"
+          className="flex items-center justify-center gap-2 py-3 rounded-xl text-sm text-white font-semibold transition-all duration-200 hover:translate-y-[-2px] active:opacity-70"
           style={{ background: 'linear-gradient(135deg, #1a1a1a 0%, #333 100%)', border: '1px solid rgba(255,255,255,0.12)' }}
         >
           <ExternalLink size={14} />
@@ -807,7 +807,7 @@ export default function ShareCard({ type = 'certificate', data = {}, visible = f
               </div>
               <button
                 onClick={onClose}
-                className="w-8 h-8 rounded-full flex items-center justify-center text-muted hover:text-white transition-colors"
+                className="w-8 h-8 rounded-xl flex items-center justify-center text-muted hover:text-white transition-all duration-200"
                 style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)' }}
                 aria-label="إغلاق"
               >
@@ -829,8 +829,8 @@ export default function ShareCard({ type = 'certificate', data = {}, visible = f
 
             {/* ── Action panel ── */}
             <div
-              className="rounded-2xl p-4 space-y-3"
-              style={{ background: 'rgba(15,12,41,0.85)', border: '1px solid rgba(255,255,255,0.08)', backdropFilter: 'blur(12px)' }}
+              className="glass-card-raised rounded-2xl p-5 space-y-3"
+              style={{ backdropFilter: 'blur(12px)' }}
             >
               {/* Save button */}
               <button

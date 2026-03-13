@@ -405,12 +405,14 @@ export default function StudentReferral() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
 
       {/* ── Header ── */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-          <Gift size={24} className="text-gold-400" />
+        <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center">
+            <Gift size={20} className="text-gold-400" />
+          </div>
           برنامج الإحالة
         </h1>
         <p className="text-muted text-sm mt-1">ادعُ أصدقاءك واكسب نقاط XP وجوائز حصرية</p>
@@ -421,10 +423,10 @@ export default function StudentReferral() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.05 }}
-        className="grid grid-cols-3 gap-3"
+        className="grid grid-cols-3 gap-5"
       >
         {/* Total referrals */}
-        <div className="glass-card p-4 text-center">
+        <div className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
           <p className="text-2xl font-black text-gold-400">
             {loadingMine ? <span className="skeleton inline-block w-8 h-7 rounded" /> : referralCount}
           </p>
@@ -432,7 +434,7 @@ export default function StudentReferral() {
         </div>
 
         {/* XP earned */}
-        <div className="glass-card p-4 text-center">
+        <div className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
           <p className="text-2xl font-black text-sky-400">
             {unlockedTiers.length > 0
               ? unlockedTiers[unlockedTiers.length - 1].xp
@@ -442,7 +444,7 @@ export default function StudentReferral() {
         </div>
 
         {/* Next milestone */}
-        <div className="glass-card p-4 text-center">
+        <div className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
           <p className="text-2xl font-black text-emerald-400">
             {nextTier ? nextTier.count - referralCount : '✓'}
           </p>
@@ -560,7 +562,7 @@ export default function StudentReferral() {
             {/* Share buttons */}
             <div className="space-y-2">
               <p className="text-xs text-muted">خيارات المشاركة</p>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-5">
 
                 {/* WhatsApp */}
                 <button

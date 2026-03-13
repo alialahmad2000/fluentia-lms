@@ -48,7 +48,7 @@ export default function StudentQuiz() {
   }
 
   return (
-    <div className="space-y-6" dir="rtl">
+    <div className="space-y-8" dir="rtl">
       <AnimatePresence mode="wait">
         {view === 'list' && (
           <motion.div key="list" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
@@ -140,11 +140,11 @@ function QuizList({ onStart, onViewResults }) {
     <>
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
-        <div className="w-10 h-10 rounded-xl bg-violet-500/20 flex items-center justify-center">
+        <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
           <ClipboardCheck className="w-5 h-5 text-violet-400" />
         </div>
         <div>
-          <h1 className="text-xl font-bold text-white">الاختبارات</h1>
+          <h1 className="text-2xl font-bold text-white">الاختبارات</h1>
           <p className="text-sm text-white/50">اختبر مستواك واكسب XP</p>
         </div>
       </div>
@@ -159,7 +159,7 @@ function QuizList({ onStart, onViewResults }) {
           <p className="text-white/50">لا توجد اختبارات متاحة حالياً</p>
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-5">
           {quizzes.map((quiz, i) => {
             const qs = getQuizStatus(quiz)
             const type = TYPE_LABELS[quiz.type] || TYPE_LABELS.quick_quiz
@@ -171,7 +171,7 @@ function QuizList({ onStart, onViewResults }) {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="glass-card p-4 hover:border-violet-500/30 transition-colors cursor-pointer"
+                className="glass-card p-4 hover:border-violet-500/30 hover:translate-y-[-2px] transition-all duration-200 cursor-pointer"
                 onClick={() => {
                   if (qs.status === 'completed') {
                     onViewResults(quiz, attempts[quiz.id])
@@ -833,7 +833,7 @@ function QuizResults({ quiz, data, onBack }) {
   const pct = percentage ?? 0
 
   return (
-    <div className="max-w-2xl mx-auto space-y-4">
+    <div className="max-w-2xl mx-auto space-y-8">
       {/* Score card */}
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
@@ -873,7 +873,9 @@ function QuizResults({ quiz, data, onBack }) {
           className="glass-card p-5"
         >
           <div className="flex items-center gap-2 mb-4">
-            <BarChart3 className="w-5 h-5 text-sky-400" />
+            <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
+              <BarChart3 className="w-4 h-4 text-sky-400" />
+            </div>
             <h3 className="text-white font-semibold text-sm">تحليل المهارات</h3>
           </div>
           <div className="space-y-3">

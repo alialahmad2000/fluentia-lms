@@ -193,7 +193,7 @@ function LandingScreen({ onStart }) {
       transition={{ duration: 0.5 }}
       className="min-h-screen flex flex-col items-center justify-center px-6 py-12"
     >
-      <div className="text-center max-w-md w-full space-y-8">
+      <div className="text-center max-w-md w-full space-y-10">
         {/* Logo */}
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
@@ -239,8 +239,8 @@ function LandingScreen({ onStart }) {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={onStart}
-          className="w-full py-4 rounded-2xl text-xl font-bold bg-gradient-to-l from-sky-500 to-sky-600
-                     shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 transition-shadow duration-300"
+          className="btn-primary w-full py-4 rounded-2xl text-xl font-bold
+                     shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 hover:translate-y-[-2px] transition-all duration-200"
         >
           ابدأ الاختبار
         </motion.button>
@@ -298,7 +298,7 @@ function TestScreen({ question, index, total, onAnswer, direction }) {
             className="space-y-6"
           >
             {/* Sentence */}
-            <div className="glass-card p-6 text-center" dir="ltr">
+            <div className="glass-card-raised p-6 text-center" dir="ltr">
               <p className="text-xl md:text-2xl font-inter font-medium leading-relaxed text-white/90">
                 {question.sentence}
               </p>
@@ -315,9 +315,9 @@ function TestScreen({ question, index, total, onAnswer, direction }) {
                   dir="ltr"
                   className="w-full py-4 px-6 rounded-xl text-lg font-inter font-medium
                              bg-white/5 border border-white/10
-                             hover:bg-sky-500/10 hover:border-sky-500/30
+                             hover:bg-sky-500/10 hover:border-sky-500/30 hover:translate-y-[-2px]
                              active:bg-sky-500/20
-                             transition-colors duration-200 text-center"
+                             transition-all duration-200 text-center"
                 >
                   {option}
                 </motion.button>
@@ -415,8 +415,8 @@ function ResultScreen({ score, total, onShare, onRetry, copied }) {
             href="https://wa.me/966558669974"
             target="_blank"
             rel="noopener noreferrer"
-            className="block w-full py-4 rounded-2xl text-lg font-bold bg-gradient-to-l from-sky-500 to-sky-600
-                       shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 transition-shadow duration-300 text-center"
+            className="btn-primary block w-full py-4 rounded-2xl text-lg font-bold
+                       shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 hover:translate-y-[-2px] transition-all duration-200 text-center"
           >
             احجز لقاء مبدئي مجاني مع المدرب
           </a>
@@ -432,15 +432,15 @@ function ResultScreen({ score, total, onShare, onRetry, copied }) {
         >
           <button
             onClick={onShare}
-            className="flex-1 py-3 rounded-xl text-sm font-medium bg-white/5 border border-white/10
-                       hover:bg-white/10 transition-colors duration-200"
+            className="btn-secondary flex-1 py-3 rounded-xl text-sm font-medium
+                       hover:translate-y-[-2px] transition-all duration-200"
           >
             {copied ? 'تم النسخ!' : 'شارك نتيجتك'}
           </button>
           <button
             onClick={onRetry}
-            className="flex-1 py-3 rounded-xl text-sm font-medium bg-white/5 border border-white/10
-                       hover:bg-white/10 transition-colors duration-200"
+            className="btn-ghost flex-1 py-3 rounded-xl text-sm font-medium
+                       hover:translate-y-[-2px] transition-all duration-200"
           >
             أعد الاختبار
           </button>

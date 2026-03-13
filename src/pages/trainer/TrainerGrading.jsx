@@ -85,7 +85,7 @@ export default function TrainerGrading() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-white">التقييم</h1>
         <p className="text-muted text-sm mt-1">تقييم واجبات الطلاب</p>
@@ -115,22 +115,24 @@ export default function TrainerGrading() {
 
       {/* Submissions list */}
       {queryError ? (
-        <div className="glass-card p-8 text-center">
+        <div className="glass-card p-12 text-center">
           <p className="text-red-400">فشل تحميل التسليمات — حاول مرة أخرى</p>
         </div>
       ) : isLoading ? (
-        <div className="space-y-3">
-          {[1, 2, 3].map(i => <div key={i} className="skeleton h-24 w-full" />)}
+        <div className="space-y-4">
+          {[1, 2, 3].map(i => <div key={i} className="skeleton h-24 w-full rounded-2xl" />)}
         </div>
       ) : submissions?.length === 0 ? (
-        <div className="glass-card p-8 text-center">
-          <CheckCircle2 size={32} className="text-muted mx-auto mb-2" />
+        <div className="glass-card p-12 text-center">
+          <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mx-auto mb-3">
+            <CheckCircle2 size={24} className="text-emerald-400" />
+          </div>
           <p className="text-muted">
             {filterStatus === 'submitted' ? 'لا توجد تسليمات بانتظار التقييم' : 'لا توجد تسليمات'}
           </p>
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-4">
           {submissions.map((s, i) => {
             const typeInfo = ASSIGNMENT_TYPES[s.assignments?.type] || ASSIGNMENT_TYPES.custom
             const statusInfo = SUBMISSION_STATUS[s.status]
@@ -141,21 +143,23 @@ export default function TrainerGrading() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.04 }}
-                className="glass-card p-4 cursor-pointer hover:border-sky-500/20 transition-all"
+                className="glass-card p-5 cursor-pointer hover:border-sky-500/20 hover:translate-y-[-2px] transition-all duration-200"
                 onClick={() => setGradingSubmission(s)}
               >
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <span>{typeInfo.icon}</span>
+                      <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center shrink-0">
+                        <span>{typeInfo.icon}</span>
+                      </div>
                       <h3 className="text-sm font-medium text-white truncate">{s.assignments?.title}</h3>
                       <span className={`badge-${statusInfo?.color || 'blue'}`}>{statusInfo?.label_ar}</span>
                     </div>
                     <div className="flex items-center gap-3 text-xs text-muted mt-2">
-                      <span className="text-white font-medium">{getStudentName(s)}</span>
+                      <span className="text-gradient font-medium">{getStudentName(s)}</span>
                       <span className="badge-blue text-[10px]">{s.assignments?.groups?.code}</span>
                       {s.submitted_at && <span>{timeAgo(s.submitted_at)}</span>}
-                      {s.is_late && <span className="text-amber-400">متأخر</span>}
+                      {s.is_late && <span className="badge-yellow text-[10px]">متأخر</span>}
                     </div>
                     {s.content_text && (
                       <p className="text-xs text-muted mt-2 line-clamp-2">{s.content_text}</p>
@@ -164,7 +168,7 @@ export default function TrainerGrading() {
 
                   {s.status === 'graded' && (
                     <div className="text-center shrink-0">
-                      <p className="text-xl font-bold text-emerald-400">{s.grade}</p>
+                      <p className="text-2xl font-bold text-emerald-400">{s.grade}</p>
                       <p className="text-xs text-muted">{s.grade_numeric}%</p>
                     </div>
                   )}
@@ -337,8 +341,8 @@ function GradingModal({ submission, getStudentName, onClose }) {
         {/* Header */}
         <div className="px-6 py-4 border-b border-border-subtle">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold text-white">تقييم الواجب</h2>
-            <button onClick={onClose} className="text-muted hover:text-white transition-colors"><X size={20} /></button>
+            <h2 className="text-lg font-semibold text-white">تقييم الواجب</h2>
+            <button onClick={onClose} className="btn-icon"><X size={20} /></button>
           </div>
           <p className="text-sm text-muted mt-1">
             {getStudentName(submission)} — {submission.assignments?.title}
@@ -346,7 +350,7 @@ function GradingModal({ submission, getStudentName, onClose }) {
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-5">
+        <div className="flex-1 overflow-y-auto p-6 space-y-6">
           {/* Student's answer — Text */}
           {submission.content_text && (
             <div>
@@ -471,9 +475,9 @@ function GradingModal({ submission, getStudentName, onClose }) {
 
           {/* Late / difficulty info */}
           <div className="flex items-center gap-3 text-xs text-muted">
-            {submission.is_late && <span className="text-amber-400 bg-amber-500/10 px-2 py-1 rounded-lg">تسليم متأخر</span>}
+            {submission.is_late && <span className="badge-yellow">تسليم متأخر</span>}
             {submission.difficulty_rating && (
-              <span className="bg-white/5 px-2 py-1 rounded-lg">
+              <span className="badge-muted">
                 الصعوبة: {submission.difficulty_rating === 'easy' ? 'سهل' : submission.difficulty_rating === 'medium' ? 'متوسط' : submission.difficulty_rating === 'hard' ? 'صعب' : 'صعب جداً'}
               </span>
             )}
@@ -500,9 +504,9 @@ function GradingModal({ submission, getStudentName, onClose }) {
           )}
 
           {/* Grade inputs */}
-          <div id="grade-inputs" className="grid grid-cols-2 gap-4">
+          <div id="grade-inputs" className="grid grid-cols-2 gap-5">
             <div>
-              <label className="block text-sm text-muted mb-2">الدرجة الرقمية (0-100)</label>
+              <label className="input-label">الدرجة الرقمية (0-100)</label>
               <input
                 type="number"
                 className="input-field"
@@ -513,7 +517,7 @@ function GradingModal({ submission, getStudentName, onClose }) {
               />
             </div>
             <div>
-              <label className="block text-sm text-muted mb-2">التقدير</label>
+              <label className="input-label">التقدير</label>
               <select
                 className="input-field"
                 value={grade}
@@ -529,7 +533,7 @@ function GradingModal({ submission, getStudentName, onClose }) {
 
           {/* Feedback */}
           <div>
-            <label className="block text-sm text-muted mb-2">ملاحظات المدرب</label>
+            <label className="input-label">ملاحظات المدرب</label>
             <textarea
               className="input-field min-h-[100px] resize-y"
               placeholder="ملاحظاتك على الواجب..."

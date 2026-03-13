@@ -150,9 +150,12 @@ export default function AISubmissionFeedback({
 
       {/* Transcript (for speaking/listening) */}
       {transcript && (
-        <div className="bg-white/5 rounded-xl p-3">
-          <p className="text-xs text-muted mb-1.5 flex items-center gap-1">
-            <Mic size={12} /> التفريغ النصي
+        <div className="glass-card p-4">
+          <p className="text-sm text-muted mb-2 flex items-center gap-2">
+            <div className="w-7 h-7 rounded-xl bg-violet-500/10 flex items-center justify-center">
+              <Mic size={12} className="text-violet-400" />
+            </div>
+            التفريغ النصي
           </p>
           <p className="text-sm text-white leading-relaxed" dir="ltr">{transcript}</p>
         </div>
@@ -164,16 +167,18 @@ export default function AISubmissionFeedback({
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-violet-500/5 border border-violet-500/20 rounded-xl overflow-hidden"
+            className="glass-card overflow-hidden"
           >
             {/* Header with score */}
             <button
               onClick={() => setExpanded(!expanded)}
-              className="w-full flex items-center justify-between px-4 py-3"
+              className="w-full flex items-center justify-between px-5 py-4"
             >
               <div className="flex items-center gap-3">
-                <Sparkles size={16} className="text-violet-400" />
-                <span className="text-sm font-medium text-white">تقييم الذكاء الاصطناعي</span>
+                <div className="w-9 h-9 rounded-xl bg-violet-500/10 flex items-center justify-center">
+                  <Sparkles size={16} className="text-violet-400" />
+                </div>
+                <span className="text-sm font-semibold text-white">تقييم الذكاء الاصطناعي</span>
                 {score && (
                   <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold ${scoreColor(score)}`}>
                     {score}
@@ -184,7 +189,7 @@ export default function AISubmissionFeedback({
             </button>
 
             {expanded && (
-              <div className="px-4 pb-4 space-y-4">
+              <div className="px-5 pb-5 space-y-4">
                 {/* Overall feedback */}
                 {feedback.overall_feedback && (
                   <p className="text-sm text-white/90 leading-relaxed">{feedback.overall_feedback}</p>
@@ -194,7 +199,7 @@ export default function AISubmissionFeedback({
                 {feedback.grammar_errors?.length > 0 && (
                   <FeedbackSection title="أخطاء نحوية" color="red">
                     {feedback.grammar_errors.map((e, i) => (
-                      <div key={i} className="bg-white/5 rounded-lg p-2.5 text-xs">
+                      <div key={i} className="bg-white/5 rounded-xl p-3 text-xs">
                         <div className="flex items-start gap-2 flex-wrap">
                           <span className="text-red-400 line-through" dir="ltr">{e.error}</span>
                           <span className="text-emerald-400" dir="ltr">{e.correction}</span>
@@ -208,7 +213,7 @@ export default function AISubmissionFeedback({
                 {feedback.vocabulary_suggestions?.length > 0 && (
                   <FeedbackSection title="اقتراحات مفردات" color="sky">
                     {feedback.vocabulary_suggestions.map((v, i) => (
-                      <div key={i} className="bg-white/5 rounded-lg p-2.5 text-xs">
+                      <div key={i} className="bg-white/5 rounded-xl p-3 text-xs">
                         <span className="text-muted" dir="ltr">{v.original}</span>
                         <span className="text-muted mx-1">←</span>
                         <span className="text-sky-400 font-medium" dir="ltr">{v.better}</span>
@@ -265,7 +270,7 @@ export default function AISubmissionFeedback({
                 {feedback.grammar_notes?.length > 0 && (
                   <FeedbackSection title="ملاحظات نحوية" color="red">
                     {feedback.grammar_notes.map((n, i) => (
-                      <div key={i} className="bg-white/5 rounded-lg p-2.5 text-xs">
+                      <div key={i} className="bg-white/5 rounded-xl p-3 text-xs">
                         <p className="text-white">{n.issue}</p>
                         <p className="text-emerald-400 mt-1">{n.suggestion}</p>
                       </div>
@@ -345,18 +350,18 @@ export default function AISubmissionFeedback({
                 )}
 
                 {/* ── Approve buttons ── */}
-                <div className="flex items-center gap-2 pt-2 border-t border-violet-500/10">
+                <div className="flex items-center gap-3 pt-3 border-t border-white/10">
                   <button
                     onClick={handleApproveAndSend}
                     disabled={approving}
-                    className="flex-1 flex items-center justify-center gap-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm py-2.5 rounded-xl hover:bg-emerald-500/20 transition-all font-medium"
+                    className="flex-1 btn-primary flex items-center justify-center gap-2 text-sm py-2.5 rounded-xl transition-all duration-200 font-medium bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/20 hover:translate-y-[-2px]"
                   >
                     {approving ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
                     اعتماد وإرسال مباشرة
                   </button>
                   <button
                     onClick={handleApproveAndEdit}
-                    className="flex-1 flex items-center justify-center gap-2 bg-sky-500/10 border border-sky-500/20 text-sky-400 text-sm py-2.5 rounded-xl hover:bg-sky-500/20 transition-all font-medium"
+                    className="flex-1 btn-secondary flex items-center justify-center gap-2 text-sm py-2.5 rounded-xl transition-all duration-200 font-medium hover:translate-y-[-2px]"
                   >
                     <PenLine size={14} />
                     اعتماد مع تعديل

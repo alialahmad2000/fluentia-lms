@@ -117,7 +117,7 @@ function TestimonialForm({ initial = EMPTY_FORM, onSubmit, onClose, isLoading })
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Student Name */}
           <div>
-            <label className="block text-sm text-white/50 mb-1.5">اسم الطالب (أو مجهول)</label>
+            <label className="input-label block mb-1.5">اسم الطالب (أو مجهول)</label>
             <input
               type="text"
               value={form.student_name}
@@ -129,7 +129,7 @@ function TestimonialForm({ initial = EMPTY_FORM, onSubmit, onClose, isLoading })
 
           {/* Quote */}
           <div>
-            <label className="block text-sm text-white/50 mb-1.5">
+            <label className="input-label block mb-1.5">
               نص الشهادة <span className="text-red-400">*</span>
             </label>
             <textarea
@@ -144,14 +144,14 @@ function TestimonialForm({ initial = EMPTY_FORM, onSubmit, onClose, isLoading })
 
           {/* Rating */}
           <div>
-            <label className="block text-sm text-white/50 mb-1.5">التقييم</label>
+            <label className="input-label block mb-1.5">التقييم</label>
             <StarPicker value={form.rating} onChange={(v) => set('rating', v)} />
           </div>
 
           {/* Levels */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm text-white/50 mb-1.5">المستوى قبل</label>
+              <label className="input-label block mb-1.5">المستوى قبل</label>
               <select
                 value={form.level_from}
                 onChange={(e) => set('level_from', e.target.value)}
@@ -164,7 +164,7 @@ function TestimonialForm({ initial = EMPTY_FORM, onSubmit, onClose, isLoading })
               </select>
             </div>
             <div>
-              <label className="block text-sm text-white/50 mb-1.5">المستوى بعد</label>
+              <label className="input-label block mb-1.5">المستوى بعد</label>
               <select
                 value={form.level_to}
                 onChange={(e) => set('level_to', e.target.value)}
@@ -249,7 +249,7 @@ function TestimonialRow({ t, onToggleApprove, onToggleFeatured, onEdit, onDelete
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12 }}
       transition={{ duration: 0.25 }}
-      className={`glass-card p-4 flex flex-col sm:flex-row gap-4 transition-all duration-200 ${
+      className={`glass-card p-4 flex flex-col sm:flex-row gap-4 hover:translate-y-[-2px] transition-all duration-200 ${
         !t.is_approved ? 'opacity-60' : ''
       }`}
     >
@@ -265,12 +265,12 @@ function TestimonialRow({ t, onToggleApprove, onToggleFeatured, onEdit, onDelete
             </span>
           )}
           {t.featured && (
-            <span className="text-xs text-sky-400 bg-sky-500/10 border border-sky-500/20 px-2 py-0.5 rounded-full">
+            <span className="badge-blue text-xs px-2 py-0.5 rounded-full">
               مميزة
             </span>
           )}
           {!t.is_approved && (
-            <span className="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full">
+            <span className="badge-yellow text-xs px-2 py-0.5 rounded-full">
               مخفية
             </span>
           )}
@@ -462,7 +462,7 @@ export default function AdminTestimonials() {
 
   // ─────────────────────────────────────────────────────────────────────────
   return (
-    <div dir="rtl" className="space-y-6 font-tajawal">
+    <div dir="rtl" className="space-y-8 font-tajawal">
 
       {/* ── Page Header ── */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -471,7 +471,7 @@ export default function AdminTestimonials() {
             <MessageSquareQuote size={22} className="text-sky-400" />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-white">إدارة الشهادات</h1>
+            <h1 className="text-2xl font-bold text-white">إدارة الشهادات</h1>
             <p className="text-sm text-white/40">
               {testimonials?.length ?? '—'} شهادة &nbsp;·&nbsp; {approvedCount} معتمدة &nbsp;·&nbsp; متوسط {avgRating} ★
             </p>
@@ -627,14 +627,14 @@ export default function AdminTestimonials() {
               <div className="flex gap-3">
                 <button
                   onClick={() => setDeleteConfirm(null)}
-                  className="flex-1 py-2.5 rounded-xl border border-white/10 text-white/50 hover:text-white hover:border-white/25 transition-all duration-200 text-sm"
+                  className="btn-ghost flex-1 py-2.5 rounded-xl transition-all duration-200 text-sm"
                 >
                   إلغاء
                 </button>
                 <button
                   onClick={() => deleteMutation.mutate(deleteConfirm)}
                   disabled={deleteMutation.isPending}
-                  className="flex-1 py-2.5 rounded-xl bg-red-500/15 border border-red-500/30 text-red-400 hover:bg-red-500/25 transition-all duration-200 text-sm flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="btn-danger flex-1 py-2.5 rounded-xl transition-all duration-200 text-sm flex items-center justify-center gap-2 disabled:opacity-50"
                 >
                   {deleteMutation.isPending ? (
                     <Loader2 size={16} className="animate-spin" />

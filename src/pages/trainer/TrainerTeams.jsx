@@ -203,14 +203,16 @@ export default function TrainerTeams() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="flex items-center justify-between flex-wrap gap-3">
-        <div>
-          <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Users className="text-sky-400" size={24} />
-            إدارة الفرق
-          </h1>
-          <p className="text-muted text-sm mt-1">أنشئ فرق ووزّع الطلاب</p>
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+            <Users className="text-sky-400" size={20} />
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold text-white">إدارة الفرق</h1>
+            <p className="text-muted text-sm mt-1">أنشئ فرق ووزّع الطلاب</p>
+          </div>
         </div>
         <div className="flex gap-2">
           {unassigned?.length > 0 && teams?.length > 0 && (
@@ -252,7 +254,7 @@ export default function TrainerTeams() {
             className="glass-card p-5 space-y-4"
           >
             <h3 className="text-sm font-medium text-white">فريق جديد</h3>
-            <div className="grid sm:grid-cols-3 gap-4">
+            <div className="grid sm:grid-cols-3 gap-5">
               <input
                 className="input-field text-sm"
                 placeholder="اسم الفريق..."
@@ -260,7 +262,7 @@ export default function TrainerTeams() {
                 onChange={(e) => setTeamName(e.target.value)}
               />
               <div>
-                <label className="text-xs text-muted block mb-1">الرمز</label>
+                <label className="input-label">الرمز</label>
                 <div className="flex gap-1 flex-wrap">
                   {TEAM_EMOJIS.map(e => (
                     <button
@@ -306,7 +308,7 @@ export default function TrainerTeams() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="glass-card p-5"
+                className="glass-card p-5 hover:translate-y-[-2px] transition-all duration-200"
               >
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-3">

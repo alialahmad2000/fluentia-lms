@@ -70,11 +70,17 @@ export default function AdminGroups() {
   })
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
+      {/* Header */}
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-white">إدارة المجموعات</h1>
-          <p className="text-muted text-sm mt-1">{groups?.length || 0} مجموعة</p>
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center">
+            <Users size={22} className="text-violet-400" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold text-white">إدارة المجموعات</h1>
+            <p className="text-muted text-sm mt-1">{groups?.length || 0} مجموعة</p>
+          </div>
         </div>
         <button
           onClick={() => { setEditGroup(null); setShowForm(true) }}
@@ -89,29 +95,29 @@ export default function AdminGroups() {
       ) : groups?.length === 0 ? (
         <div className="text-center py-12 text-muted">لا توجد مجموعات</div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {groups?.map((g, i) => (
             <motion.div
               key={g.id}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
-              className={`glass-card p-5 ${!g.is_active ? 'opacity-50' : ''}`}
+              className={`glass-card p-5 hover:translate-y-[-2px] transition-all duration-200 ${!g.is_active ? 'opacity-50' : ''}`}
             >
-              <div className="flex items-start justify-between mb-3">
+              <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h3 className="text-lg font-bold text-white">{g.name}</h3>
-                  <p className="text-sm text-sky-400">{g.code}</p>
+                  <h3 className="text-lg font-semibold text-white">{g.name}</h3>
+                  <p className="text-sm text-gradient">{g.code}</p>
                 </div>
                 <button
                   onClick={() => { setEditGroup(g); setShowForm(true) }}
-                  className="text-muted hover:text-sky-400 transition-colors"
+                  className="btn-icon w-8 h-8 text-muted hover:text-sky-400 transition-all duration-200"
                 >
                   <Edit3 size={16} />
                 </button>
               </div>
 
-              <div className="space-y-2 text-sm">
+              <div className="space-y-2.5 text-sm">
                 <div className="flex justify-between">
                   <span className="text-muted">المستوى</span>
                   <span className="text-white">{ACADEMIC_LEVELS[g.level]?.cefr || g.level}</span>
@@ -132,7 +138,7 @@ export default function AdminGroups() {
                 )}
                 <div className="flex justify-between">
                   <span className="text-muted">الحالة</span>
-                  <span className={g.is_active ? 'text-emerald-400' : 'text-red-400'}>
+                  <span className={g.is_active ? 'badge-green' : 'badge-red'}>
                     {g.is_active ? 'نشطة' : 'معطلة'}
                   </span>
                 </div>
@@ -183,33 +189,33 @@ function GroupFormModal({ group, trainers, onClose, onSave, saving }) {
   return (
     <motion.div
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4"
       onClick={onClose}
     >
       <motion.div
         initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }}
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-md bg-navy-950 border border-border-subtle rounded-2xl p-6"
+        className="w-full max-w-md glass-card-raised p-6"
       >
-        <div className="flex items-center justify-between mb-5">
-          <h2 className="text-lg font-bold text-white">{group ? 'تعديل المجموعة' : 'مجموعة جديدة'}</h2>
-          <button onClick={onClose} className="text-muted hover:text-white"><X size={20} /></button>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-lg font-semibold text-white">{group ? 'تعديل المجموعة' : 'مجموعة جديدة'}</h2>
+          <button onClick={onClose} className="btn-icon w-8 h-8 text-muted hover:text-white"><X size={20} /></button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm text-muted mb-1">اسم المجموعة</label>
+              <label className="input-label">اسم المجموعة</label>
               <input value={name} onChange={(e) => setName(e.target.value)} className="input-field" required />
             </div>
             <div>
-              <label className="block text-sm text-muted mb-1">الرمز</label>
+              <label className="input-label">الرمز</label>
               <input value={code} onChange={(e) => setCode(e.target.value)} className="input-field" dir="ltr" required />
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm text-muted mb-1">المستوى</label>
+              <label className="input-label">المستوى</label>
               <select value={level} onChange={(e) => setLevel(e.target.value)} className="input-field">
                 {Object.entries(ACADEMIC_LEVELS).map(([k, v]) => (
                   <option key={k} value={k}>{v.cefr} — {v.name_ar}</option>
@@ -217,31 +223,31 @@ function GroupFormModal({ group, trainers, onClose, onSave, saving }) {
               </select>
             </div>
             <div>
-              <label className="block text-sm text-muted mb-1">الحد الأقصى</label>
+              <label className="input-label">الحد الأقصى</label>
               <input type="number" min={1} max={20} value={maxStudents} onChange={(e) => setMaxStudents(e.target.value)} className="input-field" dir="ltr" />
             </div>
           </div>
           <div>
-            <label className="block text-sm text-muted mb-1">المدرب</label>
+            <label className="input-label">المدرب</label>
             <select value={trainerId} onChange={(e) => setTrainerId(e.target.value)} className="input-field">
               <option value="">بدون مدرب</option>
               {trainers?.map(t => <option key={t.id} value={t.id}>{t.display_name || t.full_name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-sm text-muted mb-1">رابط Google Meet</label>
+            <label className="input-label">رابط Google Meet</label>
             <input value={meetLink} onChange={(e) => setMeetLink(e.target.value)} className="input-field" dir="ltr" placeholder="https://meet.google.com/..." />
           </div>
           <div className="flex items-center gap-2">
             <input type="checkbox" checked={isActive} onChange={(e) => setIsActive(e.target.checked)} id="is-active" />
             <label htmlFor="is-active" className="text-sm text-white">مجموعة نشطة</label>
           </div>
-          <div className="flex items-center gap-3 pt-2">
+          <div className="flex items-center gap-3 pt-3">
             <button type="submit" disabled={saving} className="btn-primary text-sm py-2 flex items-center gap-2">
               {saving ? <Loader2 size={16} className="animate-spin" /> : <Plus size={16} />}
               {group ? 'حفظ التعديلات' : 'إنشاء المجموعة'}
             </button>
-            <button type="button" onClick={onClose} className="btn-secondary text-sm py-2">إلغاء</button>
+            <button type="button" onClick={onClose} className="btn-ghost text-sm py-2">إلغاء</button>
           </div>
         </form>
       </motion.div>

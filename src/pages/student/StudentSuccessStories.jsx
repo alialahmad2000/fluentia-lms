@@ -129,7 +129,7 @@ function AchievementCard({ achievement, index, studentData }) {
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: index * 0.05 }}
-      className={`glass-card p-4 text-center relative ${
+      className={`glass-card p-4 text-center relative hover:translate-y-[-2px] transition-all duration-200 ${
         achievement.earned
           ? (colors.border || '')
           : 'opacity-40 grayscale'
@@ -161,7 +161,7 @@ function AchievementCard({ achievement, index, studentData }) {
         </div>
       )}
 
-      <div className={`w-12 h-12 rounded-2xl mx-auto mb-2 flex items-center justify-center ${
+      <div className={`w-12 h-12 rounded-xl mx-auto mb-2 flex items-center justify-center ${
         achievement.earned ? (colors.bg || 'bg-white/5') : 'bg-white/5'
       }`}>
         <Icon size={24} className={achievement.earned ? (colors.text || 'text-muted') : 'text-muted'} />
@@ -256,10 +256,12 @@ export default function StudentSuccessStories() {
   })
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-          <Award size={24} className="text-gold-400" />
+        <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center">
+            <Award size={20} className="text-gold-400" />
+          </div>
           قصة نجاحي
         </h1>
         <p className="text-muted text-sm mt-1">رحلتك في تعلم الإنجليزية وإنجازاتك</p>
@@ -268,7 +270,7 @@ export default function StudentSuccessStories() {
       {/* Journey summary */}
       <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-6 border-gold-500/20">
         <div className="text-center mb-4">
-          <div className="w-16 h-16 rounded-2xl bg-gold-500/10 flex items-center justify-center mx-auto mb-3">
+          <div className="w-16 h-16 rounded-xl bg-gold-500/10 flex items-center justify-center mx-auto mb-3">
             <Star size={28} className="text-gold-400" />
           </div>
           <h2 className="text-xl font-bold text-white">{profile?.display_name || profile?.full_name}</h2>
@@ -277,7 +279,7 @@ export default function StudentSuccessStories() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
           {[
             { label: 'واجبات مكتملة', value: stats?.totalGraded || 0, icon: BookOpen },
             { label: 'حصص حضور', value: stats?.totalPresent || 0, icon: Calendar },
@@ -295,8 +297,8 @@ export default function StudentSuccessStories() {
 
       {/* Earned achievements */}
       <div>
-        <h2 className="text-lg font-bold text-white mb-3">الإنجازات</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <h2 className="text-lg font-semibold text-white mb-3">الإنجازات</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-5">
           {allAchievements.map((achievement, i) => (
             <AchievementCard
               key={achievement.key}

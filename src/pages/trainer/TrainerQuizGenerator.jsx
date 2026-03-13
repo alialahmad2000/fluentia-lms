@@ -341,15 +341,15 @@ Make questions progressively harder. All question text should be in English. Exp
   const canProceedStep3 = questions.length > 0 && questions.every(q => (q.question_text || '').trim())
 
   return (
-    <div className="space-y-6" dir="rtl">
+    <div className="space-y-8" dir="rtl">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <div className="p-2.5 rounded-xl bg-violet-500/10">
-          <Brain className="w-6 h-6 text-violet-400" />
+        <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
+          <Brain className="w-5 h-5 text-violet-400" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold">مولّد الكويزات بالذكاء الاصطناعي</h1>
-          <p className="text-sm text-white/50">أنشئ كويزات تفاعلية بسرعة باستخدام AI</p>
+          <h1 className="text-2xl font-bold text-white">مولّد الكويزات بالذكاء الاصطناعي</h1>
+          <p className="text-sm text-muted mt-1">أنشئ كويزات تفاعلية بسرعة باستخدام AI</p>
         </div>
       </div>
 
@@ -365,7 +365,7 @@ Make questions progressively harder. All question text should be in English. Exp
             className={`flex items-center gap-2 px-4 py-2 rounded-t-xl text-sm font-medium transition-all border-b-2 -mb-px ${
               activeTab === key
                 ? 'text-violet-300 border-violet-400 bg-violet-500/10'
-                : 'text-white/40 border-transparent hover:text-white/70 hover:bg-white/5'
+                : 'text-muted border-transparent hover:text-white/70 hover:bg-white/5'
             }`}
           >
             <Icon className="w-4 h-4" />
@@ -399,7 +399,7 @@ Make questions progressively harder. All question text should be in English. Exp
                     ? 'bg-violet-500/20 text-violet-300 border border-violet-500/40'
                     : isDone
                       ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 cursor-pointer hover:bg-emerald-500/20'
-                      : 'bg-white/5 text-white/30 border border-white/10'
+                      : 'bg-white/5 text-muted border border-white/10'
                 }`}
               >
                 <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
@@ -455,7 +455,7 @@ Make questions progressively harder. All question text should be in English. Exp
 
               {/* Title */}
               <div>
-                <label className="block text-sm text-white/60 mb-1.5">عنوان الكويز</label>
+                <label className="input-label">عنوان الكويز</label>
                 <input
                   className="input-field w-full"
                   placeholder="مثال: كويز القواعد - الوحدة الثالثة"
@@ -466,7 +466,7 @@ Make questions progressively harder. All question text should be in English. Exp
 
               {/* Type Toggle */}
               <div>
-                <label className="block text-sm text-white/60 mb-1.5">نوع الكويز</label>
+                <label className="input-label">نوع الكويز</label>
                 <div className="flex gap-3">
                   {[
                     { value: 'quick_quiz', label: 'كويز سريع' },
@@ -478,7 +478,7 @@ Make questions progressively harder. All question text should be in English. Exp
                       className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition-all border ${
                         form.type === t.value
                           ? 'bg-violet-500/20 border-violet-500/50 text-violet-300'
-                          : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'
+                          : 'bg-white/5 border-white/10 text-muted hover:bg-white/10'
                       }`}
                     >
                       {t.label}
@@ -489,7 +489,7 @@ Make questions progressively harder. All question text should be in English. Exp
 
               {/* Group */}
               <div>
-                <label className="block text-sm text-white/60 mb-1.5">المجموعة المستهدفة</label>
+                <label className="input-label">المجموعة المستهدفة</label>
                 <select
                   className="input-field w-full"
                   value={form.group_id}
@@ -504,7 +504,7 @@ Make questions progressively harder. All question text should be in English. Exp
 
               {/* Level (auto) */}
               <div>
-                <label className="block text-sm text-white/60 mb-1.5">المستوى</label>
+                <label className="input-label">المستوى</label>
                 <div className="flex gap-2">
                   {[1, 2, 3, 4, 5].map(l => (
                     <span
@@ -512,7 +512,7 @@ Make questions progressively harder. All question text should be in English. Exp
                       className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-bold border ${
                         form.level === l
                           ? 'bg-violet-500/20 border-violet-500/50 text-violet-300'
-                          : 'bg-white/5 border-white/10 text-white/30'
+                          : 'bg-white/5 border-white/10 text-muted'
                       }`}
                     >
                       {l}
@@ -523,7 +523,7 @@ Make questions progressively harder. All question text should be in English. Exp
 
               {/* Skills */}
               <div>
-                <label className="block text-sm text-white/60 mb-1.5">المهارات المستهدفة</label>
+                <label className="input-label">المهارات المستهدفة</label>
                 <div className="flex flex-wrap gap-2">
                   {SKILLS.map(s => (
                     <button
@@ -532,7 +532,7 @@ Make questions progressively harder. All question text should be in English. Exp
                       className={`px-3 py-1.5 rounded-lg text-sm border transition-all ${
                         form.skill_focus.includes(s.value)
                           ? 'bg-violet-500/20 border-violet-500/50 text-violet-300'
-                          : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'
+                          : 'bg-white/5 border-white/10 text-muted hover:bg-white/10'
                       }`}
                     >
                       {s.label}
@@ -543,7 +543,7 @@ Make questions progressively harder. All question text should be in English. Exp
 
               {/* Question Count */}
               <div>
-                <label className="block text-sm text-white/60 mb-1.5">عدد الأسئلة</label>
+                <label className="input-label">عدد الأسئلة</label>
                 <div className="flex gap-2">
                   {(form.type === 'quick_quiz' ? QUICK_COUNTS : FULL_COUNTS).map(c => (
                     <button
@@ -552,7 +552,7 @@ Make questions progressively harder. All question text should be in English. Exp
                       className={`px-4 py-2 rounded-lg text-sm font-medium border transition-all ${
                         form.question_count === c
                           ? 'bg-violet-500/20 border-violet-500/50 text-violet-300'
-                          : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'
+                          : 'bg-white/5 border-white/10 text-muted hover:bg-white/10'
                       }`}
                     >
                       {c}
@@ -563,7 +563,7 @@ Make questions progressively harder. All question text should be in English. Exp
 
               {/* Context Prompt */}
               <div>
-                <label className="block text-sm text-white/60 mb-1.5">اكتب الموضوع أو المحتوى الذي تريد الأسئلة عنه</label>
+                <label className="input-label">اكتب الموضوع أو المحتوى الذي تريد الأسئلة عنه</label>
                 <textarea
                   className="input-field w-full h-28 resize-none"
                   placeholder="مثال: أسئلة عن past simple و past continuous مع أمثلة من الحياة اليومية..."
@@ -573,9 +573,9 @@ Make questions progressively harder. All question text should be in English. Exp
               </div>
 
               {/* Time Limit */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-sm text-white/60 mb-1.5">
+                  <label className="input-label">
                     الوقت (دقائق) {form.type === 'full_assessment' && <span className="text-red-400">*</span>}
                   </label>
                   <input
@@ -587,7 +587,7 @@ Make questions progressively harder. All question text should be in English. Exp
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-white/60 mb-1.5">مكافأة XP</label>
+                  <label className="input-label">مكافأة XP</label>
                   <input
                     type="number"
                     className="input-field w-full"
@@ -621,7 +621,7 @@ Make questions progressively harder. All question text should be in English. Exp
                   </div>
                   <div>
                     <h2 className="text-lg font-semibold">يتم توليد الأسئلة...</h2>
-                    <p className="text-sm text-white/50 mt-1">الذكاء الاصطناعي يعمل على إنشاء {form.question_count} سؤال</p>
+                    <p className="text-sm text-muted mt-1">الذكاء الاصطناعي يعمل على إنشاء {form.question_count} سؤال</p>
                   </div>
                 </>
               ) : (
@@ -631,12 +631,12 @@ Make questions progressively harder. All question text should be in English. Exp
                   </div>
                   <div>
                     <h2 className="text-lg font-semibold">جاهز لتوليد الأسئلة</h2>
-                    <p className="text-sm text-white/50 mt-1">
+                    <p className="text-sm text-muted mt-1">
                       {form.question_count} سؤال — {form.skill_focus.map(s => SKILLS.find(sk => sk.value === s)?.label).join('، ')}
                     </p>
                   </div>
                   <div className="flex gap-3 justify-center">
-                    <button onClick={() => setStep(1)} className="px-6 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white/60 hover:bg-white/10 transition-all">
+                    <button onClick={() => setStep(1)} className="px-6 py-2.5 rounded-xl bg-white/5 border border-white/10 text-muted hover:bg-white/10 transition-all">
                       رجوع
                     </button>
                     <button onClick={generateQuestions} className="btn-primary px-8 py-2.5 flex items-center gap-2">
@@ -656,14 +656,14 @@ Make questions progressively harder. All question text should be in English. Exp
             {/* Toolbar */}
             <div className="glass-card p-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <span className="text-sm text-white/60">{questions.length} أسئلة</span>
-                <span className="text-xs text-white/30">|</span>
-                <span className="text-sm text-white/60">{totalPoints} نقطة</span>
+                <span className="text-sm text-muted">{questions.length} أسئلة</span>
+                <span className="text-xs text-muted">|</span>
+                <span className="text-sm text-muted">{totalPoints} نقطة</span>
               </div>
               <div className="flex gap-2">
                 <button
                   onClick={() => { setStep(2); setQuestions([]) }}
-                  className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white/60 hover:bg-white/10 transition-all text-sm flex items-center gap-1.5"
+                  className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-muted hover:bg-white/10 transition-all text-sm flex items-center gap-1.5"
                 >
                   <RefreshCw className="w-3.5 h-3.5" />
                   إعادة توليد
@@ -694,7 +694,7 @@ Make questions progressively harder. All question text should be in English. Exp
 
             {/* Navigation */}
             <div className="flex gap-3">
-              <button onClick={() => setStep(1)} className="px-6 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white/60 hover:bg-white/10 transition-all">
+              <button onClick={() => setStep(1)} className="px-6 py-2.5 rounded-xl bg-white/5 border border-white/10 text-muted hover:bg-white/10 transition-all">
                 رجوع للإعداد
               </button>
               <button
@@ -716,7 +716,7 @@ Make questions progressively harder. All question text should be in English. Exp
               <h2 className="text-lg font-semibold">ملخص ونشر</h2>
 
               {/* Summary */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-5">
                 {[
                   { label: 'العنوان', value: form.title },
                   { label: 'النوع', value: form.type === 'quick_quiz' ? 'كويز سريع' : 'اختبار تفصيلي' },
@@ -726,7 +726,7 @@ Make questions progressively harder. All question text should be in English. Exp
                   { label: 'مكافأة XP', value: form.xp_reward },
                 ].map(item => (
                   <div key={item.label} className="p-3 rounded-xl bg-white/5 border border-white/10">
-                    <p className="text-xs text-white/40">{item.label}</p>
+                    <p className="text-xs text-muted">{item.label}</p>
                     <p className="text-sm font-medium mt-0.5">{item.value}</p>
                   </div>
                 ))}
@@ -734,12 +734,12 @@ Make questions progressively harder. All question text should be in English. Exp
 
               {/* Schedule */}
               <div>
-                <label className="block text-sm text-white/60 mb-2">وقت النشر</label>
+                <label className="block text-sm text-muted mb-2">وقت النشر</label>
                 <div className="flex gap-3">
                   <button
                     onClick={() => setPublishMode('now')}
                     className={`flex-1 py-2.5 rounded-xl text-sm border transition-all ${
-                      publishMode === 'now' ? 'bg-violet-500/20 border-violet-500/50 text-violet-300' : 'bg-white/5 border-white/10 text-white/50'
+                      publishMode === 'now' ? 'bg-violet-500/20 border-violet-500/50 text-violet-300' : 'bg-white/5 border-white/10 text-muted'
                     }`}
                   >
                     نشر الآن
@@ -747,7 +747,7 @@ Make questions progressively harder. All question text should be in English. Exp
                   <button
                     onClick={() => setPublishMode('schedule')}
                     className={`flex-1 py-2.5 rounded-xl text-sm border transition-all ${
-                      publishMode === 'schedule' ? 'bg-violet-500/20 border-violet-500/50 text-violet-300' : 'bg-white/5 border-white/10 text-white/50'
+                      publishMode === 'schedule' ? 'bg-violet-500/20 border-violet-500/50 text-violet-300' : 'bg-white/5 border-white/10 text-muted'
                     }`}
                   >
                     جدولة
@@ -757,7 +757,7 @@ Make questions progressively harder. All question text should be in English. Exp
 
               {publishMode === 'schedule' && (
                 <div>
-                  <label className="block text-sm text-white/60 mb-1.5">تاريخ ووقت النشر</label>
+                  <label className="input-label">تاريخ ووقت النشر</label>
                   <input
                     type="datetime-local"
                     className="input-field w-full"
@@ -769,7 +769,7 @@ Make questions progressively harder. All question text should be in English. Exp
 
               {/* Deadline */}
               <div>
-                <label className="block text-sm text-white/60 mb-1.5">الموعد النهائي (اختياري)</label>
+                <label className="input-label">الموعد النهائي (اختياري)</label>
                 <input
                   type="datetime-local"
                   className="input-field w-full"
@@ -789,14 +789,14 @@ Make questions progressively harder. All question text should be in English. Exp
               <div className="flex gap-3 pt-2">
                 <button
                   onClick={() => setStep(3)}
-                  className="px-6 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white/60 hover:bg-white/10 transition-all"
+                  className="px-6 py-2.5 rounded-xl bg-white/5 border border-white/10 text-muted hover:bg-white/10 transition-all"
                 >
                   رجوع
                 </button>
                 <button
                   onClick={() => publishMutation.mutate('draft')}
                   disabled={publishMutation.isPending}
-                  className="px-6 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white/60 hover:bg-white/10 transition-all flex items-center gap-2"
+                  className="px-6 py-2.5 rounded-xl bg-white/5 border border-white/10 text-muted hover:bg-white/10 transition-all flex items-center gap-2"
                 >
                   <Save className="w-4 h-4" />
                   حفظ كمسودة
@@ -845,19 +845,19 @@ function QuestionCard({ question: q, index, total, onUpdate, onDelete, onMove, o
           <span className="text-xs px-2 py-0.5 rounded-md bg-sky-500/10 border border-sky-500/30 text-sky-300">
             {typeLabel}
           </span>
-          <span className="text-xs px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-white/40">
+          <span className="text-xs px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-muted">
             {SKILLS.find(s => s.value === q.skill_tag)?.label || q.skill_tag}
           </span>
-          <span className="text-xs text-white/30">{q.points || 1} نقطة</span>
+          <span className="text-xs text-muted">{q.points || 1} نقطة</span>
         </div>
         <div className="flex items-center gap-1">
-          <button onClick={() => onMove(-1)} disabled={index === 0} className="p-1 rounded hover:bg-white/10 text-white/40 disabled:opacity-20">
+          <button onClick={() => onMove(-1)} disabled={index === 0} className="p-1 rounded hover:bg-white/10 text-muted disabled:opacity-20">
             <ChevronUp className="w-4 h-4" />
           </button>
-          <button onClick={() => onMove(1)} disabled={index === total - 1} className="p-1 rounded hover:bg-white/10 text-white/40 disabled:opacity-20">
+          <button onClick={() => onMove(1)} disabled={index === total - 1} className="p-1 rounded hover:bg-white/10 text-muted disabled:opacity-20">
             <ChevronDown className="w-4 h-4" />
           </button>
-          <button onClick={() => setEditing(!editing)} className="p-1 rounded hover:bg-white/10 text-white/40">
+          <button onClick={() => setEditing(!editing)} className="p-1 rounded hover:bg-white/10 text-muted">
             <Edit3 className="w-4 h-4" />
           </button>
           <button onClick={onDelete} className="p-1 rounded hover:bg-red-500/20 text-red-400/60">
@@ -887,7 +887,7 @@ function QuestionCard({ question: q, index, total, onUpdate, onDelete, onMove, o
                 className={`w-6 h-6 rounded-full flex items-center justify-center border transition-all text-xs ${
                   opt.is_correct
                     ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-300'
-                    : 'bg-white/5 border-white/15 text-white/30 hover:border-white/30'
+                    : 'bg-white/5 border-white/15 text-muted hover:border-white/30'
                 }`}
               >
                 {opt.is_correct ? <Check className="w-3.5 h-3.5" /> : opt.id}
@@ -904,7 +904,7 @@ function QuestionCard({ question: q, index, total, onUpdate, onDelete, onMove, o
                   }}
                 />
               ) : (
-                <span className={`text-sm ${opt.is_correct ? 'text-emerald-300' : 'text-white/60'}`}>
+                <span className={`text-sm ${opt.is_correct ? 'text-emerald-300' : 'text-muted'}`}>
                   {opt.text || '—'}
                 </span>
               )}
@@ -916,7 +916,7 @@ function QuestionCard({ question: q, index, total, onUpdate, onDelete, onMove, o
       {/* Explanation */}
       {editing && (
         <div>
-          <label className="block text-xs text-white/40 mb-1">الشرح</label>
+          <label className="input-label text-xs">الشرح</label>
           <input
             className="input-field w-full text-sm py-1.5"
             value={q.explanation || ''}
@@ -926,14 +926,14 @@ function QuestionCard({ question: q, index, total, onUpdate, onDelete, onMove, o
         </div>
       )}
       {!editing && q.explanation && (
-        <p className="text-xs text-white/30 italic">{q.explanation}</p>
+        <p className="text-xs text-muted italic">{q.explanation}</p>
       )}
 
       {/* Edit mode extras */}
       {editing && (
         <div className="flex gap-3">
           <div className="flex-1">
-            <label className="block text-xs text-white/40 mb-1">نوع السؤال</label>
+            <label className="input-label text-xs">نوع السؤال</label>
             <select
               className="input-field w-full text-sm py-1.5"
               value={q.type}
@@ -945,7 +945,7 @@ function QuestionCard({ question: q, index, total, onUpdate, onDelete, onMove, o
             </select>
           </div>
           <div className="flex-1">
-            <label className="block text-xs text-white/40 mb-1">المهارة</label>
+            <label className="input-label text-xs">المهارة</label>
             <select
               className="input-field w-full text-sm py-1.5"
               value={q.skill_tag}
@@ -957,7 +957,7 @@ function QuestionCard({ question: q, index, total, onUpdate, onDelete, onMove, o
             </select>
           </div>
           <div className="w-20">
-            <label className="block text-xs text-white/40 mb-1">النقاط</label>
+            <label className="input-label text-xs">النقاط</label>
             <input
               type="number"
               className="input-field w-full text-sm py-1.5"
@@ -1143,7 +1143,7 @@ function QuizAnalytics({ profileId, isAdmin }) {
       <div className="glass-card p-4 flex items-center gap-4">
         <Users className="w-5 h-5 text-violet-400 shrink-0" />
         <div className="flex-1">
-          <label className="block text-xs text-white/40 mb-1">تصفية حسب المجموعة</label>
+          <label className="input-label text-xs">تصفية حسب المجموعة</label>
           <select
             className="input-field w-full"
             value={selectedGroup}
@@ -1170,11 +1170,11 @@ function QuizAnalytics({ profileId, isAdmin }) {
             <div className="flex items-center gap-2">
               <BarChart2 className="w-5 h-5 text-violet-400" />
               <h2 className="text-base font-semibold">متوسط الدرجات لكل كويز</h2>
-              <span className="text-xs text-white/30 mr-auto">{analyticsData.quizzes.length} كويز</span>
+              <span className="text-xs text-muted mr-auto">{analyticsData.quizzes.length} كويز</span>
             </div>
 
             {analyticsData.quizzes.length === 0 ? (
-              <p className="text-sm text-white/40 text-center py-6">لا توجد محاولات مكتملة بعد</p>
+              <p className="text-sm text-muted text-center py-6">لا توجد محاولات مكتملة بعد</p>
             ) : (
               <div className="space-y-3">
                 {analyticsData.quizzes.map((quiz, i) => (
@@ -1188,7 +1188,7 @@ function QuizAnalytics({ profileId, isAdmin }) {
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-white/80 truncate max-w-[60%]">{quiz.title}</span>
                       <div className="flex items-center gap-2 shrink-0">
-                        <span className="text-xs text-white/30">{quiz.attemptCount} محاولة</span>
+                        <span className="text-xs text-muted">{quiz.attemptCount} محاولة</span>
                         <span className={`font-bold text-sm ${
                           quiz.avgPercent >= 75 ? 'text-emerald-400' :
                           quiz.avgPercent >= 50 ? 'text-yellow-400' : 'text-red-400'
@@ -1216,11 +1216,11 @@ function QuizAnalytics({ profileId, isAdmin }) {
             <div className="flex items-center gap-2">
               <HelpCircle className="w-5 h-5 text-yellow-400" />
               <h2 className="text-base font-semibold">الأسئلة الأكثر إخفاقاً</h2>
-              <span className="text-xs text-white/30 mr-auto">أعلى نسبة إجابات خاطئة</span>
+              <span className="text-xs text-muted mr-auto">أعلى نسبة إجابات خاطئة</span>
             </div>
 
             {analyticsData.questionStats.length === 0 ? (
-              <p className="text-sm text-white/40 text-center py-6">لا توجد بيانات كافية للأسئلة</p>
+              <p className="text-sm text-muted text-center py-6">لا توجد بيانات كافية للأسئلة</p>
             ) : (
               <div className="space-y-3">
                 {analyticsData.questionStats.map((q, i) => (
@@ -1242,14 +1242,14 @@ function QuizAnalytics({ profileId, isAdmin }) {
                         }`}>
                           {q.wrongRate}%
                         </span>
-                        <p className="text-[10px] text-white/30">خطأ</p>
+                        <p className="text-[10px] text-muted">خطأ</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-white/40">
+                      <span className="text-xs px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-muted">
                         {skillLabel(q.skill_tag)}
                       </span>
-                      <span className="text-xs text-white/30">{q.total} محاولة</span>
+                      <span className="text-xs text-muted">{q.total} محاولة</span>
                       <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden mr-1">
                         <motion.div
                           initial={{ width: 0 }}
@@ -1273,7 +1273,7 @@ function QuizAnalytics({ profileId, isAdmin }) {
             </div>
 
             {analyticsData.weakAreas.length === 0 ? (
-              <p className="text-sm text-white/40 text-center py-6">لا توجد بيانات كافية لتحليل المهارات</p>
+              <p className="text-sm text-muted text-center py-6">لا توجد بيانات كافية لتحليل المهارات</p>
             ) : (
               <div className="space-y-3">
                 {analyticsData.weakAreas.map((area, i) => {
@@ -1311,7 +1311,7 @@ function QuizAnalytics({ profileId, isAdmin }) {
                           }`}>
                             {area.wrongRate}% إخفاق
                           </span>
-                          <p className="text-[10px] text-white/30">{area.total} إجابة</p>
+                          <p className="text-[10px] text-muted">{area.total} إجابة</p>
                         </div>
                       </div>
                       <div className="h-2 bg-white/5 rounded-full overflow-hidden">
@@ -1322,7 +1322,7 @@ function QuizAnalytics({ profileId, isAdmin }) {
                           className={`h-full rounded-full ${weakBarColor(area.wrongRate)}`}
                         />
                       </div>
-                      <p className="text-xs text-white/40 mt-2">
+                      <p className="text-xs text-muted mt-2">
                         {area.wrong} إجابة خاطئة من أصل {area.total} — يُنصح بمراجعة {skillLabel(area.tag)} مع الطلاب
                       </p>
                     </motion.div>
@@ -1337,7 +1337,7 @@ function QuizAnalytics({ profileId, isAdmin }) {
       {!isLoading && (!analyticsData || (analyticsData.quizzes.length === 0 && analyticsData.questionStats.length === 0 && analyticsData.weakAreas.length === 0)) && (
         <div className="glass-card p-10 text-center space-y-3">
           <BarChart2 className="w-10 h-10 text-white/20 mx-auto" />
-          <p className="text-white/40 text-sm">لا توجد بيانات تحليلية بعد</p>
+          <p className="text-muted text-sm">لا توجد بيانات تحليلية بعد</p>
           <p className="text-white/25 text-xs">انشر كويزات وانتظر محاولات الطلاب لرؤية التحليلات</p>
         </div>
       )}

@@ -68,11 +68,11 @@ export default function StudentAssignments() {
   }
 
   return (
-    <div className="space-y-6">
-      <div>
+    <div className="space-y-8">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-2xl font-bold text-white">الواجبات</h1>
         <p className="text-muted text-sm mt-1">واجبات مجموعتك</p>
-      </div>
+      </motion.div>
 
       {/* Filter tabs */}
       <div className="flex items-center gap-2 overflow-x-auto pb-1">
@@ -85,7 +85,7 @@ export default function StudentAssignments() {
           <button
             key={tab.key}
             onClick={() => setFilter(tab.key)}
-            className={`px-4 py-2 rounded-xl text-sm font-medium transition-all whitespace-nowrap ${
+            className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 whitespace-nowrap ${
               filter === tab.key
                 ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
                 : 'text-muted hover:text-white hover:bg-white/5'
@@ -134,13 +134,15 @@ export default function StudentAssignments() {
                 key={a.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.05 }}
-                className="glass-card p-4"
+                transition={{ delay: i * 0.08 }}
+                className="glass-card p-5 hover:translate-y-[-2px] transition-all duration-200"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-lg">{typeInfo.icon}</span>
+                      <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center shrink-0">
+                        <span className="text-lg">{typeInfo.icon}</span>
+                      </div>
                       <h3 className="font-medium text-white">{a.title}</h3>
                       {statusBadge}
                     </div>
@@ -156,11 +158,11 @@ export default function StudentAssignments() {
                           <Clock size={12} />
                           {deadlineText(a.deadline)}
                           {a.deadline && !overdue && (
-                            <span className="text-muted mr-1">({formatDateAr(a.deadline)})</span>
+                            <span className="text-white/40 mr-1">({formatDateAr(a.deadline)})</span>
                           )}
                         </span>
                       )}
-                      <span className="flex items-center gap-1">
+                      <span className="flex items-center gap-1 badge-gold">
                         +{overdue ? a.points_late : a.points_on_time} XP
                       </span>
                     </div>
@@ -177,13 +179,13 @@ export default function StudentAssignments() {
                       <div className="flex items-center gap-3 mt-3">
                         {a.youtube_url && (
                           <a href={a.youtube_url} target="_blank" rel="noopener noreferrer"
-                            className="flex items-center gap-1 text-xs text-red-400 hover:text-red-300">
+                            className="flex items-center gap-1 text-xs text-red-400 hover:text-red-300 transition-all duration-200">
                             <Youtube size={14} /> يوتيوب
                           </a>
                         )}
                         {a.external_link && (
                           <a href={a.external_link} target="_blank" rel="noopener noreferrer"
-                            className="flex items-center gap-1 text-xs text-sky-400 hover:text-sky-300">
+                            className="flex items-center gap-1 text-xs text-sky-400 hover:text-sky-300 transition-all duration-200">
                             <ExternalLink size={14} /> رابط
                           </a>
                         )}
@@ -198,7 +200,7 @@ export default function StudentAssignments() {
                           <span className="text-sm font-medium text-emerald-400">
                             الدرجة: {sub.grade} ({sub.grade_numeric}%)
                           </span>
-                          <span className="text-xs text-muted">+{sub.points_awarded} XP</span>
+                          <span className="badge-gold text-[10px]">+{sub.points_awarded} XP</span>
                         </div>
 
                         {/* Show structured feedback if AI feedback was approved */}

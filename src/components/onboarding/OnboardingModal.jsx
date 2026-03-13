@@ -58,7 +58,7 @@ export default function OnboardingModal() {
     // Step 0: Welcome
     <div key="welcome" className="text-center space-y-4">
       <div className="text-5xl">🎉</div>
-      <h2 className="text-2xl font-bold text-white">مرحباً في أكاديمية طلاقة!</h2>
+      <h2 className="text-2xl font-semibold text-white">مرحباً في أكاديمية طلاقة!</h2>
       <p className="text-muted">
         أهلاً {profile?.full_name?.split(' ')[0]}، نسعد بانضمامك لنا.
         <br />
@@ -68,21 +68,21 @@ export default function OnboardingModal() {
 
     // Step 1: Your info
     <div key="info" className="space-y-4">
-      <h2 className="text-xl font-bold text-white text-center">معلوماتك</h2>
-      <div className="grid grid-cols-2 gap-3">
-        <div className="bg-white/5 rounded-xl p-3 text-center">
-          <p className="text-xs text-muted">المستوى</p>
-          <p className="text-sm font-bold text-sky-400 mt-1">{academicLevel.cefr}</p>
-          <p className="text-xs text-muted">{academicLevel.name_ar}</p>
+      <h2 className="text-xl font-semibold text-white text-center">معلوماتك</h2>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
+          <p className="text-sm text-muted">المستوى</p>
+          <p className="text-sm font-semibold text-sky-400 mt-1">{academicLevel.cefr}</p>
+          <p className="text-sm text-muted">{academicLevel.name_ar}</p>
         </div>
-        <div className="bg-white/5 rounded-xl p-3 text-center">
-          <p className="text-xs text-muted">الباقة</p>
-          <p className="text-sm font-bold text-gold-400 mt-1">{pkg.name_ar}</p>
+        <div className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
+          <p className="text-sm text-muted">الباقة</p>
+          <p className="text-sm font-semibold text-gold-400 mt-1">{pkg.name_ar}</p>
         </div>
         {group && (
-          <div className="bg-white/5 rounded-xl p-3 text-center col-span-2">
-            <p className="text-xs text-muted">المجموعة</p>
-            <p className="text-sm font-bold text-white mt-1">{group.name}</p>
+          <div className="glass-card p-4 text-center col-span-2 hover:translate-y-[-2px] transition-all duration-200">
+            <p className="text-sm text-muted">المجموعة</p>
+            <p className="text-sm font-semibold text-white mt-1">{group.name}</p>
           </div>
         )}
       </div>
@@ -90,7 +90,7 @@ export default function OnboardingModal() {
 
     // Step 2: Display name
     <div key="name" className="space-y-4">
-      <h2 className="text-xl font-bold text-white text-center">الاسم المعروض</h2>
+      <h2 className="text-xl font-semibold text-white text-center">الاسم المعروض</h2>
       <p className="text-sm text-muted text-center">اختر اسم يظهر للمدرب والزملاء</p>
       <input
         className="input-field text-center text-lg"
@@ -103,7 +103,7 @@ export default function OnboardingModal() {
 
     // Step 3: How it works
     <div key="howto" className="space-y-4">
-      <h2 className="text-xl font-bold text-white text-center">كيف يعمل النظام؟</h2>
+      <h2 className="text-xl font-semibold text-white text-center">كيف يعمل النظام؟</h2>
       <div className="space-y-3">
         {[
           { icon: '📝', title: 'الواجبات', desc: 'المدرب ينزل واجبات، سلّمها بالوقت واحصل على نقاط' },
@@ -111,10 +111,10 @@ export default function OnboardingModal() {
           { icon: '🔥', title: 'السلسلة', desc: 'ادخل كل يوم وحافظ على سلسلة الأيام المتتالية' },
           { icon: '🏆', title: 'الإنجازات', desc: 'اجمع شارات واحتل المراكز الأولى في مجموعتك' },
         ].map((item) => (
-          <div key={item.title} className="flex items-start gap-3 bg-white/5 rounded-xl p-3">
-            <span className="text-xl shrink-0">{item.icon}</span>
+          <div key={item.title} className="flex items-start gap-3 glass-card p-4 hover:translate-y-[-2px] transition-all duration-200">
+            <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-xl shrink-0">{item.icon}</div>
             <div>
-              <p className="text-sm font-medium text-white">{item.title}</p>
+              <p className="text-sm font-semibold text-white">{item.title}</p>
               <p className="text-xs text-muted">{item.desc}</p>
             </div>
           </div>
@@ -135,15 +135,15 @@ export default function OnboardingModal() {
         <motion.div
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          className="w-full max-w-md bg-navy-950 border border-border-subtle rounded-2xl overflow-hidden"
+          className="w-full max-w-md glass-card-raised rounded-2xl overflow-hidden"
         >
           {/* Progress dots */}
-          <div className="flex justify-center gap-2 pt-5 pb-2">
+          <div className="flex justify-center gap-2.5 pt-6 pb-2">
             {steps.map((_, i) => (
               <div
                 key={i}
-                className={`w-2 h-2 rounded-full transition-all ${
-                  i === step ? 'bg-sky-400 w-6' : i < step ? 'bg-sky-400/40' : 'bg-white/10'
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  i === step ? 'bg-sky-400 w-8' : i < step ? 'bg-sky-400/40 w-2' : 'bg-white/10 w-2'
                 }`}
               />
             ))}
@@ -167,7 +167,7 @@ export default function OnboardingModal() {
           {/* Footer */}
           <div className="px-6 pb-6 flex items-center justify-between">
             {step > 0 ? (
-              <button onClick={() => setStep(s => s - 1)} className="text-sm text-muted hover:text-white transition-colors">
+              <button onClick={() => setStep(s => s - 1)} className="btn-ghost text-sm text-muted hover:text-white transition-all duration-200 px-3 py-1.5 rounded-xl">
                 رجوع
               </button>
             ) : <div />}

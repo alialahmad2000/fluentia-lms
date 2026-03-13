@@ -99,7 +99,7 @@ export default function AdminReports() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">التقارير</h1>
@@ -115,7 +115,7 @@ export default function AdminReports() {
       </div>
 
       {/* Overview Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
         {[
           { label: 'طلاب نشطين', value: stats?.activeStudents, icon: Users, color: 'text-sky-400' },
           { label: 'مجموعات', value: stats?.totalGroups, icon: Users, color: 'text-emerald-400' },
@@ -128,9 +128,11 @@ export default function AdminReports() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05 }}
-            className="glass-card p-4 text-center"
+            className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200"
           >
-            <card.icon size={20} className={`${card.color} mx-auto mb-2`} />
+            <div className={`w-10 h-10 rounded-xl ${card.color === 'text-sky-400' ? 'bg-sky-500/10' : card.color === 'text-emerald-400' ? 'bg-emerald-500/10' : card.color === 'text-amber-400' ? 'bg-amber-500/10' : card.color === 'text-purple-400' ? 'bg-purple-500/10' : 'bg-gold-500/10'} flex items-center justify-center mx-auto mb-2`}>
+              <card.icon size={20} className={card.color} />
+            </div>
             <p className="text-xl font-bold text-white">{card.value || 0}</p>
             <p className="text-xs text-muted">{card.label}</p>
           </motion.div>
@@ -138,24 +140,28 @@ export default function AdminReports() {
       </div>
 
       {/* Averages */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-5">
         <div className="glass-card p-4">
           <div className="flex items-center gap-2 mb-1">
-            <Zap size={16} className="text-gold-400" />
+            <div className="w-8 h-8 rounded-xl bg-gold-500/10 flex items-center justify-center">
+              <Zap size={16} className="text-gold-400" />
+            </div>
             <span className="text-sm text-muted">متوسط XP</span>
           </div>
           <p className="text-2xl font-bold text-white">{stats?.avgXP}</p>
         </div>
         <div className="glass-card p-4">
           <div className="flex items-center gap-2 mb-1">
-            <Flame size={16} className="text-orange-400" />
+            <div className="w-8 h-8 rounded-xl bg-orange-500/10 flex items-center justify-center">
+              <Flame size={16} className="text-orange-400" />
+            </div>
             <span className="text-sm text-muted">متوسط السلسلة</span>
           </div>
           <p className="text-2xl font-bold text-white">{stats?.avgStreak} يوم</p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         {/* Leaderboard */}
         <div className="glass-card p-5">
           <h3 className="text-lg font-bold text-white mb-4">أفضل 10 طلاب</h3>
@@ -164,7 +170,7 @@ export default function AdminReports() {
               const name = s.profiles?.display_name || s.profiles?.full_name || 'طالب'
               const medals = ['🥇', '🥈', '🥉']
               return (
-                <div key={s.id} className="flex items-center justify-between p-3 bg-white/5 rounded-xl">
+                <div key={s.id} className="flex items-center justify-between p-3 bg-white/5 rounded-xl hover:translate-y-[-2px] transition-all duration-200">
                   <div className="flex items-center gap-3">
                     <span className="text-lg w-8 text-center">{medals[i] || `${i + 1}`}</span>
                     <div>
@@ -188,7 +194,7 @@ export default function AdminReports() {
           <h3 className="text-lg font-bold text-white mb-4">ترتيب المجموعات</h3>
           <div className="space-y-3">
             {groupStats?.map((g, i) => (
-              <div key={g.id} className="p-3 bg-white/5 rounded-xl">
+              <div key={g.id} className="p-3 bg-white/5 rounded-xl hover:translate-y-[-2px] transition-all duration-200">
                 <div className="flex items-center justify-between mb-2">
                   <div>
                     <p className="text-sm font-medium text-white">{g.code} — {g.name}</p>

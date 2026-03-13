@@ -111,12 +111,12 @@ export default function MysteryBox() {
     if (remaining <= 0 || remaining > 5) return null
 
     return (
-      <div className="glass-card p-4 border-violet-500/10">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center text-xl">🎁</div>
+      <div className="glass-card p-5 border-violet-500/10">
+        <div className="flex items-center gap-4">
+          <div className="w-11 h-11 rounded-xl bg-violet-500/10 flex items-center justify-center text-xl">🎁</div>
           <div className="flex-1">
-            <p className="text-xs text-muted">صندوق الغموض</p>
-            <p className="text-xs text-violet-400">{remaining} واجبات متبقية للصندوق التالي</p>
+            <p className="text-sm text-muted">صندوق الغموض</p>
+            <p className="text-sm text-violet-400">{remaining} واجبات متبقية للصندوق التالي</p>
           </div>
           {/* Progress dots */}
           <div className="flex gap-1">
@@ -139,10 +139,10 @@ export default function MysteryBox() {
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="glass-card p-5 border-gold-500/20 cursor-pointer hover:border-gold-500/40 transition-all"
+        className="glass-card-raised p-6 border-gold-500/20 cursor-pointer hover:border-gold-500/40 hover:translate-y-[-2px] transition-all duration-200"
         onClick={() => !isOpening && openBox.mutate()}
       >
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-5">
           <motion.div
             animate={{ rotate: [0, -5, 5, -5, 0], scale: [1, 1.05, 1] }}
             transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
@@ -151,8 +151,8 @@ export default function MysteryBox() {
             {isOpening ? '✨' : '🎁'}
           </motion.div>
           <div className="flex-1">
-            <p className="text-sm font-bold text-white">صندوق الغموض!</p>
-            <p className="text-xs text-gold-400">
+            <p className="text-lg font-semibold text-white">صندوق الغموض!</p>
+            <p className="text-sm text-gold-400">
               {boxAvailable.available} صندوق متاح — اضغط لفتحه
             </p>
           </div>
@@ -210,8 +210,8 @@ export default function MysteryBox() {
               onClick={(e) => e.stopPropagation()}
               className="relative z-[102] w-full max-w-xs"
             >
-              <div className="glass-card p-8 text-center border-gold-500/30">
-                <button onClick={() => setShowReward(null)} className="absolute top-3 left-3 text-muted hover:text-white">
+              <div className="glass-card-raised p-8 text-center border-gold-500/30">
+                <button onClick={() => setShowReward(null)} className="absolute top-3 left-3 btn-ghost p-1.5 rounded-xl text-muted hover:text-white transition-all duration-200">
                   <X size={18} />
                 </button>
 

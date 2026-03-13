@@ -297,10 +297,12 @@ export default function StudentVocabulary() {
   const displayedSuggestions = suggestedWords.slice(0, 15)
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-          <BookOpen size={24} className="text-sky-400" />
+        <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+            <BookOpen size={20} className="text-sky-400" />
+          </div>
           بنك المفردات
         </h1>
         <p className="text-muted text-sm mt-1">تعلّم كلمات جديدة وراجعها بالتكرار المتباعد</p>
@@ -337,7 +339,7 @@ export default function StudentVocabulary() {
       </motion.div>
 
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-4 gap-5">
         {[
           { label: 'الكل', value: stats.total, color: 'text-white' },
           { label: 'متقنة', value: stats.mastered, color: 'text-emerald-400' },
@@ -349,7 +351,7 @@ export default function StudentVocabulary() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.06 }}
-            className="glass-card p-3 text-center"
+            className="glass-card p-3 text-center hover:translate-y-[-2px] transition-all duration-200"
           >
             <p className={`text-lg font-bold ${s.color}`}>{s.value}</p>
             <p className="text-[10px] text-muted">{s.label}</p>
@@ -533,7 +535,7 @@ export default function StudentVocabulary() {
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.03 }}
-                      className="glass-card p-4"
+                      className="glass-card p-4 hover:translate-y-[-2px] transition-all duration-200"
                     >
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex-1 min-w-0">

@@ -61,8 +61,10 @@ export default function InlineMediaPreview({ url, title, className = '' }) {
       <>
         <div className={`group relative rounded-xl overflow-hidden cursor-pointer ${className}`} onClick={() => setShowLightbox(true)}>
           <img src={url} alt={fileName} className="w-full max-h-48 object-cover rounded-xl" loading="lazy" />
-          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-            <Eye size={24} className="text-white" />
+          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-200 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
+              <Eye size={20} className="text-white" />
+            </div>
           </div>
         </div>
         {showLightbox && (
@@ -72,8 +74,8 @@ export default function InlineMediaPreview({ url, title, className = '' }) {
             className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
             onClick={() => setShowLightbox(false)}
           >
-            <button className="absolute top-4 left-4 text-white/70 hover:text-white" onClick={() => setShowLightbox(false)}>
-              <X size={24} />
+            <button className="absolute top-4 left-4 btn-ghost w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white/70 hover:text-white transition-all duration-200" onClick={() => setShowLightbox(false)}>
+              <X size={20} />
             </button>
             <img src={url} alt={fileName} className="max-w-full max-h-[90vh] rounded-xl" />
           </motion.div>
@@ -85,10 +87,10 @@ export default function InlineMediaPreview({ url, title, className = '' }) {
   // Audio player
   if (type === 'audio') {
     return (
-      <div className={`flex items-center gap-3 bg-violet-500/5 border border-violet-500/15 rounded-xl p-3 ${className}`}>
+      <div className={`flex items-center gap-3 glass-card p-4 ${className}`}>
         <button
           onClick={toggleAudio}
-          className="w-10 h-10 rounded-full bg-violet-500/20 flex items-center justify-center text-violet-400 hover:bg-violet-500/30 transition-colors shrink-0"
+          className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center text-violet-400 hover:bg-violet-500/20 transition-all duration-200 shrink-0"
         >
           {playing ? <Pause size={16} /> : <Play size={16} className="mr-[-2px]" />}
         </button>
@@ -128,13 +130,15 @@ export default function InlineMediaPreview({ url, title, className = '' }) {
   // PDF preview
   if (type === 'pdf') {
     return (
-      <div className={`border border-red-500/15 rounded-xl overflow-hidden ${className}`}>
-        <div className="flex items-center justify-between bg-red-500/5 px-4 py-2">
-          <div className="flex items-center gap-2">
-            <FileText size={16} className="text-red-400" />
+      <div className={`glass-card overflow-hidden ${className}`}>
+        <div className="flex items-center justify-between px-4 py-3">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-xl bg-red-500/10 flex items-center justify-center">
+              <FileText size={16} className="text-red-400" />
+            </div>
             <span className="text-sm text-white truncate">{fileName}</span>
           </div>
-          <a href={url} target="_blank" rel="noopener noreferrer" className="text-red-400 hover:text-red-300 transition-colors">
+          <a href={url} target="_blank" rel="noopener noreferrer" className="btn-ghost p-2 text-red-400 hover:text-red-300 transition-all duration-200">
             <ExternalLink size={14} />
           </a>
         </div>
@@ -149,14 +153,14 @@ export default function InlineMediaPreview({ url, title, className = '' }) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className={`flex items-center gap-3 bg-white/[0.04] border border-border-subtle rounded-xl p-3 hover:bg-white/[0.07] transition-colors ${className}`}
+      className={`flex items-center gap-3 glass-card p-4 hover:translate-y-[-2px] transition-all duration-200 ${className}`}
     >
       <div className={`w-10 h-10 rounded-xl ${colors} flex items-center justify-center shrink-0`}>
         <Icon size={18} />
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-sm text-white truncate">{fileName}</p>
-        <p className="text-xs text-muted">اضغط لفتح الملف</p>
+        <p className="text-sm font-medium text-white truncate">{fileName}</p>
+        <p className="text-sm text-muted">اضغط لفتح الملف</p>
       </div>
       <Download size={16} className="text-muted shrink-0" />
     </a>

@@ -88,9 +88,11 @@ export default function ParentDashboard() {
             <p className="text-muted text-sm">لوحة متابعة ولي الأمر</p>
           </div>
 
-          <div className="glass-card p-6">
+          <div className="glass-card-raised p-6">
             <div className="flex items-center gap-2 mb-4">
-              <Lock size={18} className="text-sky-400" />
+              <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
+                <Lock size={16} className="text-sky-400" />
+              </div>
               <h2 className="font-medium text-white">أدخل رمز الوصول</h2>
             </div>
 
@@ -127,7 +129,7 @@ export default function ParentDashboard() {
 
   return (
     <div className="min-h-screen bg-darkest p-4 md:p-8">
-      <div className="max-w-4xl mx-auto space-y-6">
+      <div className="max-w-4xl mx-auto space-y-8">
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-center">
           <h1 className="text-2xl font-playfair font-bold text-gradient mb-1">Fluentia</h1>
@@ -150,7 +152,7 @@ export default function ParentDashboard() {
         </motion.div>
 
         {/* Stats grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {[
             { label: 'النقاط', value: `${student?.xp ?? 0} XP`, icon: Zap, color: 'sky' },
             { label: 'السلسلة', value: `${student?.streak ?? 0} يوم`, icon: Flame, color: 'gold' },
@@ -162,11 +164,13 @@ export default function ParentDashboard() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.08 }}
-              className="glass-card p-4"
+              className="glass-card p-4 hover:translate-y-[-2px] transition-all duration-200"
             >
               <div className="flex items-center justify-between mb-2">
                 <span className="text-muted text-xs">{card.label}</span>
-                <card.icon size={16} className={ICON_COLOR_CLASSES[card.color] || 'text-sky-400'} />
+                <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${card.color === 'sky' ? 'bg-sky-500/10' : card.color === 'gold' ? 'bg-gold-500/10' : card.color === 'emerald' ? 'bg-emerald-500/10' : 'bg-violet-500/10'}`}>
+                  <card.icon size={16} className={ICON_COLOR_CLASSES[card.color] || 'text-sky-400'} />
+                </div>
               </div>
               <p className="text-xl font-bold text-white">{card.value}</p>
             </motion.div>
@@ -176,7 +180,9 @@ export default function ParentDashboard() {
         {/* Assignment completion */}
         <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-5">
           <div className="flex items-center gap-2 mb-3">
-            <BookOpen size={18} className="text-sky-400" />
+            <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
+              <BookOpen size={16} className="text-sky-400" />
+            </div>
             <h3 className="font-medium text-white">الواجبات</h3>
           </div>
           <div className="flex items-center justify-between mb-2">
@@ -195,7 +201,9 @@ export default function ParentDashboard() {
         {skills && (
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-5">
             <div className="flex items-center gap-2 mb-4">
-              <BarChart3 size={18} className="text-violet-400" />
+              <div className="w-8 h-8 rounded-xl bg-violet-500/10 flex items-center justify-center">
+              <BarChart3 size={16} className="text-violet-400" />
+            </div>
               <h3 className="font-medium text-white">المهارات</h3>
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -226,7 +234,9 @@ export default function ParentDashboard() {
         {grades?.recent?.length > 0 && (
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-5">
             <div className="flex items-center gap-2 mb-4">
-              <CheckCircle2 size={18} className="text-emerald-400" />
+              <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+              <CheckCircle2 size={16} className="text-emerald-400" />
+            </div>
               <h3 className="font-medium text-white">آخر الدرجات</h3>
             </div>
             <div className="space-y-2">
@@ -251,7 +261,9 @@ export default function ParentDashboard() {
         {payments?.length > 0 && (
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-5">
             <div className="flex items-center gap-2 mb-4">
-              <CreditCard size={18} className="text-gold-400" />
+              <div className="w-8 h-8 rounded-xl bg-gold-500/10 flex items-center justify-center">
+              <CreditCard size={16} className="text-gold-400" />
+            </div>
               <h3 className="font-medium text-white">المدفوعات</h3>
             </div>
             <div className="space-y-2">

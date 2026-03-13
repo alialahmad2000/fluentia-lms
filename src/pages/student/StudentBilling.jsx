@@ -42,30 +42,55 @@ export default function StudentBilling() {
   const paidCount = payments?.filter(p => p.status === 'paid').length || 0
 
   return (
-    <div className="space-y-6">
-      <div>
+    <div className="space-y-8">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-          <CreditCard size={24} className="text-sky-400" />
+          <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+            <CreditCard size={22} className="text-sky-400" />
+          </div>
           المدفوعات
         </h1>
         <p className="text-muted text-sm mt-1">تفاصيل الاشتراك والمدفوعات</p>
+      </motion.div>
+
+      {/* Summary stats */}
+      <div className="grid grid-cols-2 gap-5">
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="stat-card hover:translate-y-[-2px] transition-all duration-200">
+          <div className="stat-icon">
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+              <CheckCircle2 size={20} className="text-emerald-400" />
+            </div>
+          </div>
+          <p className="stat-label">المدفوعات المكتملة</p>
+          <p className="stat-number text-3xl font-bold text-white">{paidCount}</p>
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }} className="stat-card hover:translate-y-[-2px] transition-all duration-200">
+          <div className="stat-icon">
+            <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+              <CreditCard size={20} className="text-sky-400" />
+            </div>
+          </div>
+          <p className="stat-label">الاشتراك الشهري</p>
+          <p className="stat-number text-3xl font-bold text-white">{studentData?.custom_price || pkg.price} <span className="text-sm text-muted font-normal">ريال</span></p>
+        </motion.div>
       </div>
 
       {/* Current package */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
         className="glass-card p-5"
       >
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs text-muted">الباقة الحالية</p>
+            <p className="text-xs text-white/40">الباقة الحالية</p>
             <p className="text-lg font-bold text-white mt-1">{pkg.name_ar}</p>
             <p className="text-sm text-sky-400 font-bold mt-0.5">{studentData?.custom_price || pkg.price} ريال / شهر</p>
           </div>
           <div className="text-center">
-            <p className="text-xs text-muted">{pkg.classes} حصص</p>
-            {pkg.private > 0 && <p className="text-xs text-gold-400">{pkg.private} خاصة</p>}
+            <span className="badge-blue">{pkg.classes} حصص</span>
+            {pkg.private > 0 && <span className="badge-gold mr-2">{pkg.private} خاصة</span>}
           </div>
         </div>
       </motion.div>
@@ -75,12 +100,12 @@ export default function StudentBilling() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className={`glass-card p-5 border-s-4 ${nextPayment.status === 'overdue' ? 'border-red-500' : 'border-yellow-500'}`}
+          transition={{ delay: 0.28 }}
+          className={`glass-card-raised p-5 border-s-4 ${nextPayment.status === 'overdue' ? 'border-red-500' : 'border-yellow-500'}`}
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs text-muted">الدفعة القادمة</p>
+              <p className="text-xs text-white/40">الدفعة القادمة</p>
               <p className="text-lg font-bold text-white mt-1">{nextPayment.amount} ريال</p>
               <p className="text-xs text-muted mt-1">
                 {nextPayment.status === 'overdue' ? 'متأخر — ' : 'الموعد: '}
@@ -109,13 +134,13 @@ export default function StudentBilling() {
 
       {/* Payment history */}
       <div>
-        <h2 className="text-sm font-medium text-white mb-3">سجل المدفوعات</h2>
+        <h2 className="text-lg font-semibold text-white mb-4">سجل المدفوعات</h2>
         {isLoading ? (
           <div className="space-y-2">
             {[1, 2, 3].map(i => <div key={i} className="skeleton h-16 w-full" />)}
           </div>
         ) : payments?.length > 0 ? (
-          <div className="space-y-2">
+          <div className="space-y-3">
             {payments.map((p, i) => {
               const status = PAYMENT_STATUS[p.status]
               return (
@@ -123,24 +148,28 @@ export default function StudentBilling() {
                   key={p.id}
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.04 }}
-                  className="glass-card p-4 flex items-center justify-between"
+                  transition={{ delay: i * 0.08 }}
+                  className="glass-card p-4 flex items-center justify-between hover:translate-y-[-2px] transition-all duration-200"
                 >
                   <div className="flex items-center gap-3">
-                    {p.status === 'paid' ? (
-                      <CheckCircle2 size={18} className="text-emerald-400 shrink-0" />
-                    ) : p.status === 'overdue' ? (
-                      <AlertCircle size={18} className="text-red-400 shrink-0" />
-                    ) : (
-                      <Clock size={18} className="text-yellow-400 shrink-0" />
-                    )}
+                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
+                      p.status === 'paid' ? 'bg-emerald-500/10' : p.status === 'overdue' ? 'bg-red-500/10' : 'bg-yellow-500/10'
+                    }`}>
+                      {p.status === 'paid' ? (
+                        <CheckCircle2 size={18} className="text-emerald-400" />
+                      ) : p.status === 'overdue' ? (
+                        <AlertCircle size={18} className="text-red-400" />
+                      ) : (
+                        <Clock size={18} className="text-yellow-400" />
+                      )}
+                    </div>
                     <div>
                       <p className="text-sm text-white font-medium">{p.amount} ريال</p>
-                      <p className="text-xs text-muted">
+                      <p className="text-xs text-white/40">
                         {formatDateAr(p.period_start)} — {formatDateAr(p.period_end)}
                       </p>
                       {p.paid_at && (
-                        <p className="text-[10px] text-muted">دُفع في {formatDateAr(p.paid_at)}</p>
+                        <p className="text-[10px] text-white/40">دُفع في {formatDateAr(p.paid_at)}</p>
                       )}
                     </div>
                   </div>
@@ -151,7 +180,9 @@ export default function StudentBilling() {
           </div>
         ) : (
           <div className="glass-card p-8 text-center">
-            <CreditCard size={32} className="text-muted mx-auto mb-2" />
+            <div className="w-16 h-16 rounded-xl bg-white/5 flex items-center justify-center mx-auto mb-3">
+              <CreditCard size={28} className="text-muted" />
+            </div>
             <p className="text-muted">لا توجد مدفوعات</p>
           </div>
         )}

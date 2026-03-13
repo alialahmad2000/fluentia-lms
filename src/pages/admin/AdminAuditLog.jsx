@@ -63,7 +63,7 @@ function DiffView({ oldData, newData }) {
 
   return (
     <div className="overflow-x-auto">
-      <table className="w-full text-sm">
+      <table className="data-table w-full text-sm">
         <thead>
           <tr className="text-slate-400 border-b border-white/5">
             <th className="text-right py-2 px-3 font-medium">الحقل</th>
@@ -139,14 +139,14 @@ export default function AdminAuditLog() {
   const uniqueActions = [...new Set(Object.keys(ACTION_TYPES))]
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
       <div className="flex items-center gap-3">
         <div className="p-2.5 rounded-xl bg-violet-500/10">
           <Shield className="w-6 h-6 text-violet-400" />
         </div>
         <div>
-          <h1 className="text-xl font-bold text-white">سجل المراجعة</h1>
+          <h1 className="text-2xl font-bold text-white">سجل المراجعة</h1>
           <p className="text-sm text-slate-400">تتبع جميع العمليات والتغييرات في النظام</p>
         </div>
       </div>
@@ -157,7 +157,7 @@ export default function AdminAuditLog() {
           <Filter className="w-4 h-4 text-slate-400" />
           <span className="text-sm text-slate-400 font-medium">تصفية</span>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {/* Action filter */}
           <select
             value={filterAction}
@@ -212,7 +212,7 @@ export default function AdminAuditLog() {
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="data-table w-full text-sm">
               <thead>
                 <tr className="border-b border-white/5 text-slate-400">
                   <th className="text-right py-3 px-4 font-medium">الوقت</th>
@@ -313,14 +313,14 @@ export default function AdminAuditLog() {
               <button
                 onClick={() => setPage(p => Math.max(0, p - 1))}
                 disabled={page === 0}
-                className="px-3 py-1.5 text-xs rounded-lg bg-white/5 text-slate-400 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition"
+                className="btn-ghost px-3 py-1.5 text-xs rounded-lg disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200"
               >
                 السابق
               </button>
               <button
                 onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
                 disabled={page >= totalPages - 1}
-                className="px-3 py-1.5 text-xs rounded-lg bg-white/5 text-slate-400 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition"
+                className="btn-ghost px-3 py-1.5 text-xs rounded-lg disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200"
               >
                 التالي
               </button>

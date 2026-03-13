@@ -473,11 +473,13 @@ export default function StudentExercises() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Target size={24} className="text-violet-400" />
+          <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
+              <Target size={20} className="text-violet-400" />
+            </div>
             تمارين مخصصة
           </h1>
           <p className="text-muted text-sm mt-1">تمارين ذكية مصممة لتحسين نقاط ضعفك</p>
@@ -496,7 +498,7 @@ export default function StudentExercises() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {[
           { label: 'متاحة', value: pendingExercises.length, icon: Clock, color: 'sky' },
           { label: 'مكتملة', value: stats?.completed || 0, icon: CheckCircle2, color: 'emerald' },
@@ -508,11 +510,11 @@ export default function StudentExercises() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.08 }}
-            className="glass-card p-4"
+            className="glass-card p-4 hover:translate-y-[-2px] transition-all duration-200"
           >
             <div className="flex items-center justify-between mb-2">
               <span className="text-muted text-xs">{card.label}</span>
-              <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${SKILL_COLOR_CLASSES[card.color]?.iconBox || 'bg-sky-500/10 text-sky-400'}`}>
+              <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${SKILL_COLOR_CLASSES[card.color]?.iconBox || 'bg-sky-500/10 text-sky-400'}`}>
                 <card.icon size={16} />
               </div>
             </div>
@@ -541,11 +543,13 @@ export default function StudentExercises() {
 
           {/* General Exercises Section */}
           <div>
-            <h2 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-              <BookOpen size={18} className="text-emerald-400" />
+            <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+              <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+                <BookOpen size={16} className="text-emerald-400" />
+              </div>
               تمارين عامة
             </h2>
-            <div className="grid gap-3">
+            <div className="grid gap-5">
               {GENERAL_EXERCISES.map((exercise, i) => {
                 const color = SKILL_COLORS[exercise.skill] || 'sky'
                 const isCompleted = !!completedGeneral[exercise.id]
@@ -556,7 +560,7 @@ export default function StudentExercises() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.04 }}
-                    className={`glass-card p-4 transition-all cursor-pointer ${isCompleted ? 'opacity-70 hover:opacity-90' : 'hover:border-sky-500/30'}`}
+                    className={`glass-card p-4 cursor-pointer hover:translate-y-[-2px] transition-all duration-200 ${isCompleted ? 'opacity-70 hover:opacity-90' : 'hover:border-sky-500/30'}`}
                     onClick={() => openGeneralExercise(exercise)}
                   >
                     <div className="flex items-center justify-between">
@@ -597,11 +601,13 @@ export default function StudentExercises() {
           {/* Pending exercises */}
           {pendingExercises.length > 0 && (
             <div>
-              <h2 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-                <Clock size={18} className="text-sky-400" />
+              <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
+                  <Clock size={16} className="text-sky-400" />
+                </div>
                 تمارين متاحة ({pendingExercises.length})
               </h2>
-              <div className="grid gap-3">
+              <div className="grid gap-5">
                 {pendingExercises.map((exercise, i) => {
                   const color = SKILL_COLORS[exercise.skill] || 'sky'
                   return (
@@ -610,7 +616,7 @@ export default function StudentExercises() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.05 }}
-                      className="glass-card p-4 hover:border-sky-500/30 transition-all cursor-pointer"
+                      className="glass-card p-4 hover:border-sky-500/30 hover:translate-y-[-2px] transition-all duration-200 cursor-pointer"
                       onClick={() => { setActiveExercise(exercise); setAnswers({}); setSubmitted(false); setResult(null) }}
                     >
                       <div className="flex items-center justify-between">
@@ -640,8 +646,10 @@ export default function StudentExercises() {
           {/* Completed exercises */}
           {completedExercises.length > 0 && (
             <div>
-              <h2 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-                <CheckCircle2 size={18} className="text-emerald-400" />
+              <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+                  <CheckCircle2 size={16} className="text-emerald-400" />
+                </div>
                 مكتملة ({completedExercises.length})
               </h2>
               <div className="grid gap-2">
@@ -679,7 +687,7 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
   const allAnswered = questions.every(q => answers[q.id] !== undefined && answers[q.id] !== '')
 
   return (
-    <div className="space-y-6 max-w-3xl mx-auto">
+    <div className="space-y-8 max-w-3xl mx-auto">
       {/* Header */}
       <div className="flex items-center gap-3">
         <button onClick={onBack} className="text-muted hover:text-white transition-colors">

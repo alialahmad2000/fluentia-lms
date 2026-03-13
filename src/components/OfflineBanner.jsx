@@ -58,7 +58,7 @@ export default function OfflineBanner() {
           className={[
             'fixed top-0 inset-x-0 z-[9999]',
             'flex items-center justify-center gap-2',
-            'px-4 py-2 text-sm font-semibold select-none',
+            'px-6 py-2.5 text-sm font-semibold select-none backdrop-blur-md',
             phase === 'offline'
               ? 'bg-amber-400 text-amber-950'
               : 'bg-emerald-500 text-white',

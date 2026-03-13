@@ -45,7 +45,7 @@ export default function ForgotPassword() {
           <p className="text-muted text-sm mt-2">استعادة كلمة المرور</p>
         </div>
 
-        <div className="glass-card p-6">
+        <div className="glass-card-raised p-6">
           {sent ? (
             <div className="text-center space-y-4">
               <CheckCircle2 size={48} className="text-emerald-400 mx-auto" />
@@ -63,7 +63,7 @@ export default function ForgotPassword() {
               <p className="text-sm text-muted text-center">أدخل بريدك الإلكتروني وسنرسل لك رابط لإعادة تعيين كلمة المرور</p>
 
               <div>
-                <label className="block text-sm text-muted mb-1.5">البريد الإلكتروني</label>
+                <label className="input-label block mb-1.5">البريد الإلكتروني</label>
                 <div className="relative">
                   <Mail size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted" />
                   <input

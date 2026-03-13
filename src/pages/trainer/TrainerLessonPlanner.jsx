@@ -92,20 +92,22 @@ export default function TrainerLessonPlanner() {
   }
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-          <BookOpen size={24} className="text-emerald-400" />
-          مخطط الدروس الذكي
-        </h1>
-        <p className="text-muted text-sm mt-1">خطط دروس مفصلة مبنية على مستوى الطلاب وأدائهم</p>
+    <div className="space-y-8">
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+          <BookOpen size={20} className="text-emerald-400" />
+        </div>
+        <div>
+          <h1 className="text-2xl font-bold text-white">مخطط الدروس الذكي</h1>
+          <p className="text-muted text-sm mt-1">خطط دروس مفصلة مبنية على مستوى الطلاب وأدائهم</p>
+        </div>
       </div>
 
       {/* Config */}
       <div className="glass-card p-5 space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
           <div>
-            <label className="text-xs text-muted mb-1 block">المجموعة *</label>
+            <label className="input-label">المجموعة *</label>
             <select
               value={selectedGroup}
               onChange={(e) => setSelectedGroup(e.target.value)}
@@ -118,7 +120,7 @@ export default function TrainerLessonPlanner() {
             </select>
           </div>
           <div>
-            <label className="text-xs text-muted mb-1 block">الموضوع (اختياري)</label>
+            <label className="input-label">الموضوع (اختياري)</label>
             <input
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
@@ -127,7 +129,7 @@ export default function TrainerLessonPlanner() {
             />
           </div>
           <div>
-            <label className="text-xs text-muted mb-1 block">المدة (دقائق)</label>
+            <label className="input-label">المدة (دقائق)</label>
             <select value={duration} onChange={(e) => setDuration(+e.target.value)} className="input-field w-full text-sm">
               <option value={30}>30 دقيقة</option>
               <option value={45}>45 دقيقة</option>
@@ -139,7 +141,7 @@ export default function TrainerLessonPlanner() {
 
         {/* Focus skills */}
         <div>
-          <label className="text-xs text-muted mb-1 block">التركيز على (اختياري):</label>
+          <label className="input-label">التركيز على (اختياري):</label>
           <div className="flex flex-wrap gap-2">
             {SKILL_OPTIONS.map(skill => (
               <button

@@ -52,36 +52,43 @@ export default function StudentSchedule() {
     : []
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-2xl font-bold text-white">الجدول</h1>
+        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+          <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+            <Calendar size={22} className="text-sky-400" />
+          </div>
+          الجدول
+        </h1>
         <p className="text-muted text-sm mt-1">مواعيد الحصص والتسجيلات</p>
       </motion.div>
 
       {/* Weekly Schedule */}
-      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="glass-card p-5">
+      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="glass-card-raised p-5">
         <div className="flex items-center gap-2 mb-4">
-          <Calendar size={18} className="text-sky-400" />
-          <h3 className="font-medium text-white">الجدول الأسبوعي</h3>
+          <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
+            <Calendar size={16} className="text-sky-400" />
+          </div>
+          <h3 className="text-lg font-semibold text-white">الجدول الأسبوعي</h3>
         </div>
         {group ? (
           <div className="space-y-3">
             <p className="text-sm text-white mb-3">{group.name}</p>
-            <div className="grid grid-cols-7 gap-1">
+            <div className="grid grid-cols-7 gap-2">
               {DAYS_ORDER.map((day) => {
                 const isClassDay = sortedDays.includes(day)
                 return (
                   <div
                     key={day}
-                    className={`text-center p-2 rounded-xl text-xs ${
+                    className={`text-center p-3 rounded-xl text-xs transition-all duration-200 hover:translate-y-[-2px] ${
                       isClassDay
                         ? 'bg-sky-500/10 border border-sky-500/20 text-sky-400'
-                        : 'bg-white/5 text-muted'
+                        : 'bg-white/5 text-muted border border-transparent'
                     }`}
                   >
                     <p className="font-medium">{getArabicDay(day)}</p>
                     {isClassDay && schedule?.time && (
-                      <p className="text-[10px] mt-1">{formatTime(schedule.time)}</p>
+                      <p className="text-[10px] mt-1 text-white/40">{formatTime(schedule.time)}</p>
                     )}
                   </div>
                 )
@@ -105,28 +112,39 @@ export default function StudentSchedule() {
         )}
       </motion.div>
 
-      <div className="grid lg:grid-cols-2 gap-4">
+      <div className="grid lg:grid-cols-2 gap-5">
         {/* Upcoming Classes */}
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="glass-card p-5">
-          <h3 className="font-medium text-white mb-4">الحصص القادمة</h3>
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }} className="glass-card p-5">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+              <Clock size={16} className="text-emerald-400" />
+            </div>
+            <h3 className="text-lg font-semibold text-white">الحصص القادمة</h3>
+          </div>
           {upcomingClasses?.length > 0 ? (
-            <div className="space-y-2">
-              {upcomingClasses.map((c) => (
-                <div key={c.id} className="bg-white/5 rounded-xl p-3">
+            <div className="space-y-3">
+              {upcomingClasses.map((c, i) => (
+                <motion.div
+                  key={c.id}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.08 }}
+                  className="bg-white/5 rounded-xl p-3 hover:bg-white/[0.08] transition-all duration-200"
+                >
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-white">{c.title || c.topic || 'حصة'}</p>
-                      <p className="text-xs text-muted mt-1">
+                      <p className="text-sm text-white font-medium">{c.title || c.topic || 'حصة'}</p>
+                      <p className="text-xs text-white/40 mt-1">
                         {formatDateAr(c.date)} &middot; {formatTime(c.start_time)}
                       </p>
                     </div>
                     {(c.google_meet_link || group?.google_meet_link) && (
-                      <a href={c.google_meet_link || group.google_meet_link} target="_blank" rel="noopener noreferrer" className="text-sky-400 hover:text-sky-300">
+                      <a href={c.google_meet_link || group.google_meet_link} target="_blank" rel="noopener noreferrer" className="btn-icon text-sky-400 hover:text-sky-300">
                         <Video size={16} />
                       </a>
                     )}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           ) : (
@@ -135,25 +153,36 @@ export default function StudentSchedule() {
         </motion.div>
 
         {/* Past Classes */}
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="glass-card p-5">
-          <h3 className="font-medium text-white mb-4">الحصص السابقة</h3>
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.24 }} className="glass-card p-5">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-8 h-8 rounded-xl bg-violet-500/10 flex items-center justify-center">
+              <Video size={16} className="text-violet-400" />
+            </div>
+            <h3 className="text-lg font-semibold text-white">الحصص السابقة</h3>
+          </div>
           {pastClasses?.length > 0 ? (
-            <div className="space-y-2">
-              {pastClasses.map((c) => (
-                <div key={c.id} className="bg-white/5 rounded-xl p-3">
+            <div className="space-y-3">
+              {pastClasses.map((c, i) => (
+                <motion.div
+                  key={c.id}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.08 }}
+                  className="bg-white/5 rounded-xl p-3 hover:bg-white/[0.08] transition-all duration-200"
+                >
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-white">{c.title || c.topic || 'حصة'}</p>
-                      <p className="text-xs text-muted mt-1">{formatDateAr(c.date)}</p>
+                      <p className="text-sm text-white font-medium">{c.title || c.topic || 'حصة'}</p>
+                      <p className="text-xs text-white/40 mt-1">{formatDateAr(c.date)}</p>
                     </div>
                     {c.recording_url && (
                       <a href={c.recording_url} target="_blank" rel="noopener noreferrer"
-                        className="text-xs text-sky-400 hover:text-sky-300 flex items-center gap-1">
+                        className="badge-blue flex items-center gap-1 hover:translate-y-[-2px] transition-all duration-200">
                         <Video size={12} /> تسجيل
                       </a>
                     )}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           ) : (

@@ -1036,10 +1036,12 @@ export default function StudentPronunciation() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-          <Volume2 size={24} className="text-sky-400" />
+        <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+            <Volume2 size={20} className="text-sky-400" />
+          </div>
           مدرب النطق
         </h1>
         <p className="text-muted text-sm mt-1">تدرب على النطق الصحيح واحصل على تقييم فوري</p>
@@ -1054,7 +1056,7 @@ export default function StudentPronunciation() {
       <div className="flex gap-2 flex-wrap">
         <button
           onClick={() => { setSection('daily'); setCurrentIndex(0); setFeedback(null); setTranscript('') }}
-          className={`text-sm px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 ${
+          className={`text-sm px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-1.5 ${
             section === 'daily' ? 'bg-violet-500/20 text-violet-400 border border-violet-500/30' : 'bg-white/5 text-muted'
           }`}
         >

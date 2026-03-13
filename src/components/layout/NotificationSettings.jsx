@@ -47,20 +47,22 @@ export default function NotificationSettings() {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="glass-card p-5"
+      className="glass-card p-6"
     >
-      <div className="flex items-center gap-2 mb-4">
-        <Bell size={18} className="text-sky-400" />
-        <h3 className="text-sm font-medium text-white">إعدادات الإشعارات</h3>
+      <div className="flex items-center gap-3 mb-4">
+        <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+          <Bell size={18} className="text-sky-400" />
+        </div>
+        <h3 className="text-lg font-semibold text-white">إعدادات الإشعارات</h3>
       </div>
-      <p className="text-xs text-muted mb-4">تحكم في أنواع الإشعارات التي تريد استقبالها</p>
+      <p className="text-sm text-muted mb-4">تحكم في أنواع الإشعارات التي تريد استقبالها</p>
 
-      <div className="space-y-2">
+      <div className="space-y-1">
         {Object.entries(NOTIFICATION_TYPES).map(([type, config]) => (
-          <div key={type} className="flex items-center justify-between py-2 border-b border-border-subtle/50 last:border-0">
-            <div className="flex items-center gap-2">
-              <span>{config.icon}</span>
-              <span className="text-xs text-white">{config.label_ar}</span>
+          <div key={type} className="flex items-center justify-between py-3 px-3 rounded-xl hover:bg-white/5 transition-all duration-200 border-b border-white/5 last:border-0">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-sm">{config.icon}</div>
+              <span className="text-sm text-white">{config.label_ar}</span>
             </div>
             <button
               onClick={() => toggle(type)}

@@ -48,10 +48,12 @@ export default function AdminContent() {
   const [activeTab, setActiveTab] = useState('materials')
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <FolderOpen className="text-primary" size={28} />
+        <div className="p-2.5 rounded-xl bg-sky-500/10">
+          <FolderOpen className="text-primary" size={24} />
+        </div>
         <div>
           <h1 className="text-2xl font-bold text-white">إدارة المحتوى</h1>
           <p className="text-muted text-sm mt-1">إدارة المواد التعليمية والمواضيع وبنك الأسئلة</p>
@@ -222,14 +224,14 @@ function MaterialsTab() {
           <p className="text-muted">لا توجد مواد تعليمية بعد</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {materials.map((mat) => {
             const TypeIcon = TYPE_ICONS[mat.type] || FileText
             return (
               <motion.div
                 key={mat.id}
                 layout
-                className="glass-card p-4 space-y-3"
+                className="glass-card p-4 space-y-3 hover:translate-y-[-2px] transition-all duration-200"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-2">
@@ -329,7 +331,7 @@ function MaterialModal({ onClose, onSubmit, isPending }) {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="text-sm text-muted block mb-1">العنوان</label>
+            <label className="input-label block mb-1">العنوان</label>
             <input
               type="text"
               value={title}
@@ -341,7 +343,7 @@ function MaterialModal({ onClose, onSubmit, isPending }) {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-sm text-muted block mb-1">النوع</label>
+              <label className="input-label block mb-1">النوع</label>
               <select
                 value={type}
                 onChange={(e) => setType(e.target.value)}
@@ -353,7 +355,7 @@ function MaterialModal({ onClose, onSubmit, isPending }) {
               </select>
             </div>
             <div>
-              <label className="text-sm text-muted block mb-1">المستوى</label>
+              <label className="input-label block mb-1">المستوى</label>
               <select
                 value={level}
                 onChange={(e) => setLevel(e.target.value)}
@@ -367,7 +369,7 @@ function MaterialModal({ onClose, onSubmit, isPending }) {
           </div>
 
           <div>
-            <label className="text-sm text-muted block mb-1">المهارة</label>
+            <label className="input-label block mb-1">المهارة</label>
             <select
               value={skill}
               onChange={(e) => setSkill(e.target.value)}
@@ -381,7 +383,7 @@ function MaterialModal({ onClose, onSubmit, isPending }) {
 
           {type === 'pdf' ? (
             <div>
-              <label className="text-sm text-muted block mb-1">رفع ملف PDF</label>
+              <label className="input-label block mb-1">رفع ملف PDF</label>
               <input
                 type="file"
                 accept=".pdf"
@@ -391,7 +393,7 @@ function MaterialModal({ onClose, onSubmit, isPending }) {
             </div>
           ) : (
             <div>
-              <label className="text-sm text-muted block mb-1">
+              <label className="input-label block mb-1">
                 {type === 'video' ? 'رابط الفيديو' : 'الرابط'}
               </label>
               <input
@@ -714,7 +716,7 @@ function TopicModal({ topic, onClose, onSubmit, isPending }) {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="text-sm text-muted block mb-1">العنوان بالعربية</label>
+            <label className="input-label block mb-1">العنوان بالعربية</label>
             <input
               type="text"
               value={titleAr}
@@ -724,7 +726,7 @@ function TopicModal({ topic, onClose, onSubmit, isPending }) {
             />
           </div>
           <div>
-            <label className="text-sm text-muted block mb-1">العنوان بالإنجليزية</label>
+            <label className="input-label block mb-1">العنوان بالإنجليزية</label>
             <input
               type="text"
               value={titleEn}
@@ -736,7 +738,7 @@ function TopicModal({ topic, onClose, onSubmit, isPending }) {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-sm text-muted block mb-1">المستوى</label>
+              <label className="input-label block mb-1">المستوى</label>
               <select
                 value={level}
                 onChange={(e) => setLevel(e.target.value)}
@@ -748,7 +750,7 @@ function TopicModal({ topic, onClose, onSubmit, isPending }) {
               </select>
             </div>
             <div>
-              <label className="text-sm text-muted block mb-1">رقم الموضوع</label>
+              <label className="input-label block mb-1">رقم الموضوع</label>
               <input
                 type="number"
                 value={topicNumber}
@@ -762,7 +764,7 @@ function TopicModal({ topic, onClose, onSubmit, isPending }) {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-sm text-muted block mb-1">الفئة</label>
+              <label className="input-label block mb-1">الفئة</label>
               <input
                 type="text"
                 value={category}
@@ -772,7 +774,7 @@ function TopicModal({ topic, onClose, onSubmit, isPending }) {
               />
             </div>
             <div>
-              <label className="text-sm text-muted block mb-1">الصعوبة</label>
+              <label className="input-label block mb-1">الصعوبة</label>
               <select
                 value={difficulty}
                 onChange={(e) => setDifficulty(e.target.value)}
@@ -848,14 +850,14 @@ function ConfirmModal({ message, onConfirm, onCancel, isPending }) {
         <div className="flex gap-3 justify-center">
           <button
             onClick={onCancel}
-            className="px-4 py-2 text-sm text-muted hover:text-white bg-white/5 rounded-lg transition-colors"
+            className="btn-ghost px-4 py-2 text-sm rounded-lg transition-all duration-200"
           >
             إلغاء
           </button>
           <button
             onClick={onConfirm}
             disabled={isPending}
-            className="px-4 py-2 text-sm bg-red-500/20 text-red-400 hover:bg-red-500/30 rounded-lg transition-colors flex items-center gap-2"
+            className="btn-danger px-4 py-2 text-sm rounded-lg transition-all duration-200 flex items-center gap-2"
           >
             {isPending && <Loader2 size={14} className="animate-spin" />}
             حذف

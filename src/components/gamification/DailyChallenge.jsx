@@ -110,14 +110,14 @@ export default function DailyChallenge() {
 
   if (completedToday) {
     return (
-      <div className="glass-card p-4 border-emerald-500/20">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+      <div className="glass-card p-6 border-emerald-500/20">
+        <div className="flex items-center gap-4">
+          <div className="w-11 h-11 rounded-xl bg-emerald-500/10 flex items-center justify-center">
             <CheckCircle2 size={20} className="text-emerald-400" />
           </div>
           <div>
-            <p className="text-sm font-medium text-white">التحدي اليومي</p>
-            <p className="text-xs text-emerald-400">تم إنجاز تحدي اليوم! +5 XP</p>
+            <p className="text-lg font-semibold text-white">التحدي اليومي</p>
+            <p className="text-sm text-emerald-400">تم إنجاز تحدي اليوم! <span className="badge-green text-xs mr-1">+5 XP</span></p>
           </div>
         </div>
       </div>
@@ -128,26 +128,28 @@ export default function DailyChallenge() {
     <motion.div
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
-      className="glass-card p-5"
+      className="glass-card p-6"
     >
-      <div className="flex items-center gap-2 mb-4">
-        <Target size={18} className="text-sky-400" />
-        <h3 className="text-sm font-medium text-white">التحدي اليومي</h3>
-        <span className="text-xs text-muted mr-auto">+5 XP</span>
+      <div className="flex items-center gap-3 mb-4">
+        <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+          <Target size={18} className="text-sky-400" />
+        </div>
+        <h3 className="text-lg font-semibold text-white">التحدي اليومي</h3>
+        <span className="badge-blue text-xs mr-auto">+5 XP</span>
       </div>
 
       <p className="text-sm text-white mb-3" dir="ltr">{challenge.q}</p>
 
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-3">
         {challenge.options.map((opt, i) => {
-          let style = 'bg-white/5 border-border-subtle hover:bg-white/10 text-white'
+          let style = 'bg-white/5 border-white/5 hover:bg-white/10 text-white'
           if (showResult) {
             if (i === challenge.answer) {
               style = 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
             } else if (i === selectedAnswer && i !== challenge.answer) {
               style = 'bg-red-500/10 border-red-500/30 text-red-400'
             } else {
-              style = 'bg-white/5 border-border-subtle text-muted opacity-50'
+              style = 'bg-white/5 border-white/5 text-muted opacity-50'
             }
           }
 
@@ -156,7 +158,7 @@ export default function DailyChallenge() {
               key={i}
               onClick={() => !showResult && submitAnswer.mutate(i)}
               disabled={showResult || submitAnswer.isPending}
-              className={`p-3 rounded-xl text-xs font-medium border transition-all ${style}`}
+              className={`p-3.5 rounded-xl text-xs font-medium border transition-all duration-200 hover:translate-y-[-2px] ${style}`}
               dir="ltr"
             >
               {opt}

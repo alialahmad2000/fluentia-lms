@@ -164,7 +164,7 @@ export default function TrainerAttendance() {
   const absentCount = Object.values(attendance).filter(s => s === 'absent').length
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-white">تسجيل الحضور</h1>
         <p className="text-muted text-sm mt-1">سجّل حضور وغياب الطلاب</p>
@@ -172,7 +172,7 @@ export default function TrainerAttendance() {
 
       {/* Class selector */}
       <div>
-        <label className="block text-sm text-muted mb-2">اختر الحصة</label>
+        <label className="input-label">اختر الحصة</label>
         <select
           value={selectedClass}
           onChange={(e) => handleClassChange(e.target.value)}
@@ -190,10 +190,22 @@ export default function TrainerAttendance() {
       {selectedClass && students?.length > 0 && (
         <>
           {/* Stats */}
-          <div className="flex items-center gap-4 text-sm">
-            <span className="text-emerald-400">{presentCount} حاضر</span>
-            <span className="text-red-400">{absentCount} غائب</span>
-            <span className="text-muted">{students.length} إجمالي</span>
+          <div className="grid grid-cols-3 gap-5">
+            <div className="stat-card">
+              <div className="stat-icon bg-emerald-500/10"><UserCheck size={20} className="text-emerald-400" /></div>
+              <p className="stat-number text-3xl font-bold text-white">{presentCount}</p>
+              <p className="stat-label">حاضر</p>
+            </div>
+            <div className="stat-card">
+              <div className="stat-icon bg-red-500/10"><UserX size={20} className="text-red-400" /></div>
+              <p className="stat-number text-3xl font-bold text-white">{absentCount}</p>
+              <p className="stat-label">غائب</p>
+            </div>
+            <div className="stat-card">
+              <div className="stat-icon bg-sky-500/10"><Clock size={20} className="text-sky-400" /></div>
+              <p className="stat-number text-3xl font-bold text-white">{students.length}</p>
+              <p className="stat-label">إجمالي</p>
+            </div>
           </div>
 
           {/* Quick all-present button */}
@@ -210,7 +222,7 @@ export default function TrainerAttendance() {
           </button>
 
           {/* Student list */}
-          <div className="space-y-2">
+          <div className="space-y-3">
             {students.map((s, i) => {
               const status = attendance[s.id] || 'absent'
               const config = STATUS_CONFIG[status]
@@ -222,10 +234,10 @@ export default function TrainerAttendance() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.04 }}
                   onClick={() => toggleStatus(s.id)}
-                  className={`w-full flex items-center justify-between p-4 rounded-xl border transition-all ${config.bg}`}
+                  className={`w-full flex items-center justify-between p-4 rounded-xl border hover:translate-y-[-2px] transition-all duration-200 ${config.bg}`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white font-bold">
+                    <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white font-bold">
                       {getStudentName(s)[0]}
                     </div>
                     <span className="text-sm font-medium text-white">{getStudentName(s)}</span>
@@ -255,7 +267,7 @@ export default function TrainerAttendance() {
       )}
 
       {selectedClass && !students?.length && (
-        <div className="glass-card p-8 text-center">
+        <div className="glass-card p-12 text-center">
           <p className="text-muted">لا يوجد طلاب في مجموعة هذه الحصة</p>
         </div>
       )}

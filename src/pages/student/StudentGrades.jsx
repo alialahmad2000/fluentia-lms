@@ -39,25 +39,40 @@ export default function StudentGrades() {
   }
 
   return (
-    <div className="space-y-6">
-      <div>
+    <div className="space-y-8">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-2xl font-bold text-white">الدرجات</h1>
         <p className="text-muted text-sm mt-1">نتائج الواجبات المقيّمة</p>
-      </div>
+      </motion.div>
 
       {/* Summary cards */}
-      <div className="grid grid-cols-3 gap-4">
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-4 text-center">
-          <p className="text-muted text-xs mb-1">الواجبات المقيّمة</p>
-          <p className="text-2xl font-bold text-white">{totalGraded}</p>
+      <div className="grid grid-cols-3 gap-5">
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="stat-card hover:translate-y-[-2px] transition-all duration-200">
+          <div className="stat-icon">
+            <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+              <Award size={20} className="text-sky-400" />
+            </div>
+          </div>
+          <p className="stat-label">الواجبات المقيّمة</p>
+          <p className="stat-number text-3xl font-bold text-white">{totalGraded}</p>
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="glass-card p-4 text-center">
-          <p className="text-muted text-xs mb-1">المعدل</p>
-          <p className="text-2xl font-bold text-sky-400">{avgNumeric}%</p>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }} className="stat-card hover:translate-y-[-2px] transition-all duration-200">
+          <div className="stat-icon">
+            <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+              <TrendingUp size={20} className="text-sky-400" />
+            </div>
+          </div>
+          <p className="stat-label">المعدل</p>
+          <p className="stat-number text-3xl font-bold text-white">{avgNumeric}%</p>
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }} className="glass-card p-4 text-center">
-          <p className="text-muted text-xs mb-1">XP من الواجبات</p>
-          <p className="text-2xl font-bold text-gold-400">{totalXP}</p>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.24 }} className="stat-card hover:translate-y-[-2px] transition-all duration-200">
+          <div className="stat-icon">
+            <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center">
+              <span className="text-gold-400 text-lg font-bold">XP</span>
+            </div>
+          </div>
+          <p className="stat-label">XP من الواجبات</p>
+          <p className="stat-number text-3xl font-bold text-white">{totalXP}</p>
         </motion.div>
       </div>
 
@@ -82,13 +97,15 @@ export default function StudentGrades() {
                 key={g.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.04 }}
-                className="glass-card p-4"
+                transition={{ delay: i * 0.08 }}
+                className="glass-card p-5 hover:translate-y-[-2px] transition-all duration-200"
               >
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <span>{typeInfo.icon}</span>
+                      <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center shrink-0">
+                        <span>{typeInfo.icon}</span>
+                      </div>
                       <h3 className="text-sm font-medium text-white truncate">{g.assignments?.title}</h3>
                       <span className="badge-blue text-[10px]">{typeInfo.label_ar}</span>
                     </div>
@@ -96,16 +113,16 @@ export default function StudentGrades() {
                       <p className="text-xs text-muted mt-1 line-clamp-2">{g.trainer_feedback}</p>
                     )}
                     <div className="flex items-center gap-3 text-xs text-muted mt-2">
-                      <span>{formatDateAr(g.updated_at)}</span>
-                      <span className="text-gold-400">+{g.points_awarded} XP</span>
-                      {g.is_late && <span className="text-amber-400">تسليم متأخر</span>}
+                      <span className="text-white/40">{formatDateAr(g.updated_at)}</span>
+                      <span className="badge-gold text-[10px]">+{g.points_awarded} XP</span>
+                      {g.is_late && <span className="badge-yellow text-[10px]">تسليم متأخر</span>}
                     </div>
                   </div>
 
                   {/* Grade display */}
                   <div className="text-center shrink-0">
                     <p className={`text-2xl font-bold ${getGradeColor(g.grade)}`}>{g.grade}</p>
-                    <p className="text-xs text-muted">{g.grade_numeric}%</p>
+                    <p className="text-xs text-white/40">{g.grade_numeric}%</p>
                     {gradeInfo && <p className="text-[10px] text-muted">{gradeInfo.label_ar}</p>}
                   </div>
                 </div>

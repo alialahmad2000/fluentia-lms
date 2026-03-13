@@ -274,13 +274,15 @@ export default function GlobalSearch() {
 
       {/* Modal */}
       <div
-        className="relative w-full max-w-xl glass-card rounded-2xl shadow-2xl border border-white/10 overflow-hidden"
+        className="relative w-full max-w-xl glass-card-raised rounded-2xl shadow-2xl overflow-hidden"
         dir="rtl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search input */}
-        <div className="flex items-center gap-3 px-5 py-4 border-b border-white/10">
-          <Search className="w-5 h-5 text-muted shrink-0" />
+        <div className="flex items-center gap-3 px-6 py-4 border-b border-white/10">
+          <div className="w-9 h-9 rounded-xl bg-sky-500/10 flex items-center justify-center shrink-0">
+            <Search className="w-4 h-4 text-sky-400" />
+          </div>
           <input
             ref={inputRef}
             type="text"
@@ -290,17 +292,17 @@ export default function GlobalSearch() {
             className="flex-1 bg-transparent text-white placeholder:text-muted text-base outline-none"
           />
           {query && (
-            <button onClick={() => { setQuery(''); setResults({}) }} className="text-muted hover:text-white transition-colors">
+            <button onClick={() => { setQuery(''); setResults({}) }} className="btn-ghost p-1 text-muted hover:text-white transition-all duration-200">
               <X className="w-4 h-4" />
             </button>
           )}
-          <kbd className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface text-muted text-xs border border-white/10">
+          <kbd className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/5 text-muted text-xs border border-white/10">
             ESC
           </kbd>
         </div>
 
         {/* Body */}
-        <div className="max-h-[50vh] overflow-y-auto p-2">
+        <div className="max-h-[50vh] overflow-y-auto p-3">
           {/* Loading */}
           {loading && (
             <div className="flex items-center justify-center py-8">
@@ -311,20 +313,22 @@ export default function GlobalSearch() {
           {/* Recent searches */}
           {showRecent && !loading && (
             <div>
-              <p className="text-muted text-xs px-3 py-2">عمليات بحث سابقة</p>
+              <p className="text-sm text-muted px-3 py-2">عمليات بحث سابقة</p>
               {recentSearches.map((item, idx) => {
                 const isActive = idx === activeIdx
                 return (
                   <button
                     key={item.id}
                     onClick={() => goTo(item)}
-                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-right transition-colors ${
-                      isActive ? 'bg-surface text-white' : 'text-muted hover:bg-surface/50 hover:text-white'
+                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-right transition-all duration-200 hover:translate-y-[-2px] ${
+                      isActive ? 'bg-white/10 text-white' : 'text-muted hover:bg-white/5 hover:text-white'
                     }`}
                   >
-                    <Search className="w-4 h-4 shrink-0" />
+                    <div className="w-7 h-7 rounded-xl bg-white/5 flex items-center justify-center shrink-0">
+                      <Search className="w-3.5 h-3.5" />
+                    </div>
                     <span className="flex-1 truncate text-sm">{item.title}</span>
-                    <ArrowRight className="w-4 h-4 shrink-0 opacity-50" />
+                    <ArrowRight className="w-4 h-4 shrink-0 opacity-40" />
                   </button>
                 )
               })}
@@ -343,7 +347,7 @@ export default function GlobalSearch() {
 
                   return (
                     <div key={cat} className="mb-1">
-                      <p className="flex items-center gap-2 text-muted text-xs px-3 py-2">
+                      <p className="flex items-center gap-2 text-sm text-muted px-3 py-2">
                         <Icon className="w-3.5 h-3.5" />
                         {config.label}
                       </p>
@@ -354,15 +358,15 @@ export default function GlobalSearch() {
                           <button
                             key={item.id}
                             onClick={() => goTo(item)}
-                            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-right transition-colors ${
-                              isActive ? 'bg-surface text-white' : 'text-muted hover:bg-surface/50 hover:text-white'
+                            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-right transition-all duration-200 hover:translate-y-[-2px] ${
+                              isActive ? 'bg-white/10 text-white' : 'text-muted hover:bg-white/5 hover:text-white'
                             }`}
                           >
                             <span className="flex-1 truncate text-sm">{item.title}</span>
                             {item.subtitle && (
                               <span className="text-xs text-muted truncate max-w-[140px]">{item.subtitle}</span>
                             )}
-                            <ArrowRight className="w-4 h-4 shrink-0 opacity-50" />
+                            <ArrowRight className="w-4 h-4 shrink-0 opacity-40" />
                           </button>
                         )
                       })}
@@ -389,13 +393,13 @@ export default function GlobalSearch() {
         </div>
 
         {/* Footer hint */}
-        <div className="flex items-center justify-between px-5 py-2.5 border-t border-white/10 text-muted text-xs">
+        <div className="flex items-center justify-between px-6 py-3 border-t border-white/10 text-muted text-xs">
           <span>
-            <kbd className="px-1.5 py-0.5 rounded bg-surface border border-white/10 mx-0.5">↑↓</kbd>
+            <kbd className="px-2 py-0.5 rounded-lg bg-white/5 border border-white/10 mx-0.5">↑↓</kbd>
             للتنقل
           </span>
           <span>
-            <kbd className="px-1.5 py-0.5 rounded bg-surface border border-white/10 mx-0.5">Enter</kbd>
+            <kbd className="px-2 py-0.5 rounded-lg bg-white/5 border border-white/10 mx-0.5">Enter</kbd>
             لفتح
           </span>
         </div>

@@ -69,8 +69,8 @@ export default function AISpeakingAnalysis({ voiceUrl, submissionId, durationSec
 
       {/* Transcript */}
       {transcript && (
-        <div className="bg-white/5 rounded-xl p-3">
-          <p className="text-xs text-muted mb-1">التفريغ النصي:</p>
+        <div className="glass-card p-4">
+          <p className="text-sm text-muted mb-1.5">التفريغ النصي:</p>
           <p className="text-sm text-white" dir="ltr">{transcript}</p>
         </div>
       )}
@@ -81,15 +81,17 @@ export default function AISpeakingAnalysis({ voiceUrl, submissionId, durationSec
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-violet-500/5 border border-violet-500/20 rounded-xl overflow-hidden"
+            className="glass-card overflow-hidden"
           >
             <button
               onClick={() => setExpanded(!expanded)}
-              className="w-full flex items-center justify-between px-4 py-3"
+              className="w-full flex items-center justify-between px-5 py-4"
             >
-              <div className="flex items-center gap-2">
-                <Sparkles size={16} className="text-violet-400" />
-                <span className="text-sm font-medium text-white">تحليل المحادثة</span>
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-violet-500/10 flex items-center justify-center">
+                  <Sparkles size={16} className="text-violet-400" />
+                </div>
+                <span className="text-sm font-semibold text-white">تحليل المحادثة</span>
                 {analysis.overall_score && (
                   <span className="badge-violet text-xs">{analysis.overall_score}/10</span>
                 )}
@@ -98,7 +100,7 @@ export default function AISpeakingAnalysis({ voiceUrl, submissionId, durationSec
             </button>
 
             {expanded && (
-              <div className="px-4 pb-4 space-y-3">
+              <div className="px-5 pb-5 space-y-4">
                 {/* Confidence */}
                 {analysis.confidence_level && (
                   <div className="flex items-center gap-2">
@@ -131,7 +133,7 @@ export default function AISpeakingAnalysis({ voiceUrl, submissionId, durationSec
                     <h4 className="text-xs font-medium text-red-400 mb-2">ملاحظات نحوية</h4>
                     <div className="space-y-1">
                       {analysis.grammar_notes.map((n, i) => (
-                        <div key={i} className="bg-white/5 rounded-lg p-2 text-xs">
+                        <div key={i} className="bg-white/5 rounded-xl p-3 text-xs">
                           <p className="text-white">{n.issue}</p>
                           <p className="text-emerald-400 mt-0.5">{n.suggestion}</p>
                         </div>

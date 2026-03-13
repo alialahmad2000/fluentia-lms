@@ -163,10 +163,12 @@ export default function StudentVoiceJournal() {
   const formatTime = (s) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-          <Mic size={24} className="text-violet-400" />
+        <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
+            <Mic size={20} className="text-violet-400" />
+          </div>
           يومياتي الصوتية
         </h1>
         <p className="text-muted text-sm mt-1">سجّل مقطع صوتي يومي بالإنجليزي واحصل على تقييم فوري</p>
@@ -331,8 +333,10 @@ export default function StudentVoiceJournal() {
       ) : null}
       {!isLoading && journals?.length > 0 && (
         <div>
-          <h2 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-            <Calendar size={18} className="text-sky-400" />
+          <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+            <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
+              <Calendar size={16} className="text-sky-400" />
+            </div>
             السجلات السابقة
           </h2>
           <div className="space-y-2">
@@ -342,11 +346,11 @@ export default function StudentVoiceJournal() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.03 }}
-                className="glass-card p-3"
+                className="glass-card p-3 hover:translate-y-[-2px] transition-all duration-200"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
                       journal.fluency_score >= 80 ? 'bg-emerald-500/10 text-emerald-400' :
                       journal.fluency_score >= 60 ? 'bg-sky-500/10 text-sky-400' :
                       'bg-gold-500/10 text-gold-400'

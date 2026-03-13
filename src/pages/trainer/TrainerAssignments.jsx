@@ -121,7 +121,7 @@ export default function TrainerAssignments() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -159,15 +159,15 @@ export default function TrainerAssignments() {
 
       {/* Assignment list */}
       {isLoading ? (
-        <div className="space-y-3">
-          {[1, 2, 3].map(i => <div key={i} className="skeleton h-24 w-full" />)}
+        <div className="space-y-4">
+          {[1, 2, 3].map(i => <div key={i} className="skeleton h-24 w-full rounded-2xl" />)}
         </div>
       ) : assignments?.length === 0 ? (
-        <div className="glass-card p-8 text-center">
+        <div className="glass-card p-12 text-center">
           <p className="text-muted">لا توجد واجبات — أنشئ أول واجب</p>
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-4">
           {assignments.map((a, i) => {
             const typeInfo = ASSIGNMENT_TYPES[a.type] || ASSIGNMENT_TYPES.custom
             const counts = submissionCounts?.[a.id] || { total: 0, submitted: 0, graded: 0 }
@@ -179,7 +179,7 @@ export default function TrainerAssignments() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className={`glass-card p-4 cursor-pointer hover:border-sky-500/20 transition-all ${
+                className={`glass-card p-5 cursor-pointer hover:border-sky-500/20 hover:translate-y-[-2px] transition-all duration-200 ${
                   !a.is_visible ? 'opacity-60' : ''
                 }`}
                 onClick={() => handleEdit(a)}
@@ -187,10 +187,12 @@ export default function TrainerAssignments() {
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-lg">{typeInfo.icon}</span>
+                      <div className="w-9 h-9 rounded-xl bg-sky-500/10 flex items-center justify-center text-lg shrink-0">
+                        {typeInfo.icon}
+                      </div>
                       <h3 className="font-medium text-white truncate">{a.title}</h3>
                       {!a.is_visible && (
-                        <span className="badge bg-white/5 text-muted border border-border-subtle">مخفي</span>
+                        <span className="badge-muted">مخفي</span>
                       )}
                     </div>
                     <div className="flex items-center gap-3 text-xs text-muted mt-2">
@@ -208,12 +210,12 @@ export default function TrainerAssignments() {
                     </div>
                     {/* Submission stats */}
                     <div className="flex items-center gap-3 text-xs text-muted mt-2">
-                      <span>{counts.total} تسليم</span>
+                      <span className="badge-muted">{counts.total} تسليم</span>
                       {counts.submitted > 0 && (
-                        <span className="text-sky-400">{counts.submitted} بانتظار التقييم</span>
+                        <span className="badge-yellow">{counts.submitted} بانتظار التقييم</span>
                       )}
                       {counts.graded > 0 && (
-                        <span className="text-emerald-400">{counts.graded} تم تقييمه</span>
+                        <span className="badge-green">{counts.graded} تم تقييمه</span>
                       )}
                     </div>
                   </div>
@@ -222,7 +224,7 @@ export default function TrainerAssignments() {
                   <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
                     <button
                       onClick={() => toggleVisibility.mutate({ id: a.id, is_visible: a.is_visible })}
-                      className="p-2 text-muted hover:text-white transition-colors rounded-lg hover:bg-white/5"
+                      className="btn-icon"
                       title={a.is_visible ? 'إخفاء' : 'إظهار'}
                     >
                       {a.is_visible ? <Eye size={16} /> : <EyeOff size={16} />}
@@ -231,7 +233,7 @@ export default function TrainerAssignments() {
                       onClick={() => {
                         if (confirm('هل تريد حذف هذا الواجب؟')) deleteAssignment.mutate(a.id)
                       }}
-                      className="p-2 text-muted hover:text-red-400 transition-colors rounded-lg hover:bg-red-500/10"
+                      className="btn-icon hover:text-red-400 hover:bg-red-500/10"
                       title="حذف"
                     >
                       <Trash2 size={16} />

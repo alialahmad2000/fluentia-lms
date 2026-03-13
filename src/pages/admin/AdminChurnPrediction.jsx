@@ -98,11 +98,13 @@ export default function AdminChurnPrediction() {
   const avgRisk = predictions?.length ? Math.round(predictions.reduce((a, p) => a + Number(p.risk_score), 0) / predictions.length) : 0
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Shield size={24} className="text-red-400" />
+            <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
+              <Shield size={20} className="text-red-400" />
+            </div>
             توقع الانسحاب
           </h1>
           <p className="text-muted text-sm mt-1">تحليل ذكي لاحتمالية انسحاب الطلاب</p>
@@ -121,7 +123,7 @@ export default function AdminChurnPrediction() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {[
           { label: 'حالة حرجة', value: criticalCount, icon: AlertTriangle, color: 'red' },
           { label: 'خطر عالي', value: highCount, icon: TrendingDown, color: 'amber' },
@@ -133,11 +135,11 @@ export default function AdminChurnPrediction() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.08 }}
-            className="glass-card p-4"
+            className="glass-card p-4 hover:translate-y-[-2px] transition-all duration-200"
           >
             <div className="flex items-center justify-between mb-2">
               <span className="text-muted text-xs">{card.label}</span>
-              <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${STAT_COLOR_CLASSES[card.color] || 'bg-sky-500/10 text-sky-400'}`}>
+              <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${STAT_COLOR_CLASSES[card.color] || 'bg-sky-500/10 text-sky-400'}`}>
                 <card.icon size={16} />
               </div>
             </div>
@@ -267,19 +269,19 @@ export default function AdminChurnPrediction() {
                       <div className="flex gap-2">
                         <button
                           onClick={(e) => { e.stopPropagation(); markReviewed.mutate({ id: prediction.id, action: 'contacted' }) }}
-                          className="flex-1 text-xs py-2 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 hover:bg-sky-500/20 transition-all"
+                          className="btn-primary flex-1 text-xs py-2 rounded-xl transition-all duration-200"
                         >
                           تم التواصل
                         </button>
                         <button
                           onClick={(e) => { e.stopPropagation(); markReviewed.mutate({ id: prediction.id, action: 'monitored' }) }}
-                          className="flex-1 text-xs py-2 rounded-xl bg-white/5 border border-border-subtle text-muted hover:text-white transition-all"
+                          className="btn-secondary flex-1 text-xs py-2 rounded-xl transition-all duration-200"
                         >
                           تحت المراقبة
                         </button>
                         <button
                           onClick={(e) => { e.stopPropagation(); markReviewed.mutate({ id: prediction.id, action: 'dismissed' }) }}
-                          className="text-xs py-2 px-3 rounded-xl bg-white/5 border border-border-subtle text-muted hover:text-white transition-all"
+                          className="btn-ghost text-xs py-2 px-3 rounded-xl transition-all duration-200"
                         >
                           تجاهل
                         </button>

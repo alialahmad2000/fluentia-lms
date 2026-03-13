@@ -49,11 +49,16 @@ export default function TrainerSchedule() {
   const past = classes?.filter(c => c.date < today) || []
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-white">الجدول</h1>
-          <p className="text-muted text-sm mt-1">إدارة الحصص والمواعيد</p>
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+            <Calendar size={20} className="text-sky-400" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold text-white">الجدول</h1>
+            <p className="text-muted text-sm mt-1">إدارة الحصص والمواعيد</p>
+          </div>
         </div>
         <button onClick={() => setShowForm(true)} className="btn-primary flex items-center gap-2 text-sm">
           <Plus size={18} /> حصة جديدة
@@ -64,7 +69,7 @@ export default function TrainerSchedule() {
       <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-5">
         <div className="flex items-center gap-2 mb-4">
           <Calendar size={18} className="text-sky-400" />
-          <h3 className="font-medium text-white">الجدول الأسبوعي</h3>
+          <h3 className="text-lg font-semibold text-white">الجدول الأسبوعي</h3>
         </div>
         {groups?.length > 0 ? (
           <div className="space-y-4">
@@ -106,10 +111,10 @@ export default function TrainerSchedule() {
         )}
       </motion.div>
 
-      <div className="grid lg:grid-cols-2 gap-4">
+      <div className="grid lg:grid-cols-2 gap-5">
         {/* Upcoming */}
         <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="glass-card p-5">
-          <h3 className="font-medium text-white mb-4">الحصص القادمة ({upcoming.length})</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">الحصص القادمة ({upcoming.length})</h3>
           {isLoading ? (
             <div className="space-y-2">{[1, 2].map(i => <div key={i} className="skeleton h-16 w-full" />)}</div>
           ) : upcoming.length > 0 ? (
@@ -147,7 +152,7 @@ export default function TrainerSchedule() {
 
         {/* Past */}
         <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="glass-card p-5">
-          <h3 className="font-medium text-white mb-4">الحصص السابقة ({past.length})</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">الحصص السابقة ({past.length})</h3>
           {past.length > 0 ? (
             <div className="space-y-2">
               {past.map((c) => (
@@ -243,42 +248,42 @@ function ClassForm({ groups, trainerId, onClose }) {
         className="fixed inset-x-4 top-[10vh] lg:inset-x-auto lg:left-1/2 lg:-translate-x-1/2 lg:w-full lg:max-w-lg bg-navy-950 border border-border-subtle rounded-2xl z-50 overflow-hidden"
       >
         <div className="px-6 py-4 border-b border-border-subtle flex items-center justify-between">
-          <h2 className="text-lg font-bold text-white">حصة جديدة</h2>
+          <h2 className="text-lg font-semibold text-white">حصة جديدة</h2>
           <button onClick={onClose} className="text-muted hover:text-white"><X size={20} /></button>
         </div>
         <div className="p-6 space-y-4">
           <div>
-            <label className="block text-sm text-muted mb-1">المجموعة</label>
+            <label className="input-label">المجموعة</label>
             <select className="input-field" value={form.group_id} onChange={(e) => update('group_id', e.target.value)}>
               {groups.map(g => <option key={g.id} value={g.id}>{g.name} ({g.code})</option>)}
             </select>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-5">
             <div>
-              <label className="block text-sm text-muted mb-1">العنوان</label>
+              <label className="input-label">العنوان</label>
               <input className="input-field" value={form.title} onChange={(e) => update('title', e.target.value)} placeholder="اختياري..." />
             </div>
             <div>
-              <label className="block text-sm text-muted mb-1">الموضوع</label>
+              <label className="input-label">الموضوع</label>
               <input className="input-field" value={form.topic} onChange={(e) => update('topic', e.target.value)} placeholder="اختياري..." />
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-5">
             <div>
-              <label className="block text-sm text-muted mb-1">التاريخ</label>
+              <label className="input-label">التاريخ</label>
               <input type="date" className="input-field" value={form.date} onChange={(e) => update('date', e.target.value)} dir="ltr" />
             </div>
             <div>
-              <label className="block text-sm text-muted mb-1">البداية</label>
+              <label className="input-label">البداية</label>
               <input type="time" className="input-field" value={form.start_time} onChange={(e) => update('start_time', e.target.value)} dir="ltr" />
             </div>
             <div>
-              <label className="block text-sm text-muted mb-1">النهاية</label>
+              <label className="input-label">النهاية</label>
               <input type="time" className="input-field" value={form.end_time} onChange={(e) => update('end_time', e.target.value)} dir="ltr" />
             </div>
           </div>
           <div>
-            <label className="block text-sm text-muted mb-1">رابط Google Meet</label>
+            <label className="input-label">رابط Google Meet</label>
             <input className="input-field" value={form.google_meet_link} onChange={(e) => update('google_meet_link', e.target.value)} placeholder={groupMeetLink || 'https://meet.google.com/...'} dir="ltr" />
             {groupMeetLink && !form.google_meet_link && (
               <p className="text-xs text-emerald-400 mt-1">سيستخدم رابط المجموعة الافتراضي</p>

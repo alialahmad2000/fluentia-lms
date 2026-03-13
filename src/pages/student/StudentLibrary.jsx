@@ -40,9 +40,14 @@ export default function StudentLibrary() {
   })
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-2xl font-bold text-white">المكتبة</h1>
+        <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+            <BookOpen size={20} className="text-sky-400" />
+          </div>
+          المكتبة
+        </h1>
         <p className="text-muted text-sm mt-1">المواد التعليمية لمجموعتك</p>
       </motion.div>
 
@@ -69,7 +74,7 @@ export default function StudentLibrary() {
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="glass-card p-4 flex items-center gap-3 hover:border-sky-500/20 transition-all"
+                  className="glass-card p-4 flex items-center gap-3 hover:border-sky-500/20 hover:translate-y-[-2px] transition-all duration-200"
                 >
                   <span className="text-2xl">{getFileIcon(file.name)}</span>
                   <div className="flex-1 min-w-0">

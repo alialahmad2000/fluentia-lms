@@ -134,11 +134,13 @@ export default function TrainerChallenges() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Target className="text-sky-400" size={24} />
+            <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+              <Target className="text-sky-400" size={20} />
+            </div>
             إدارة التحديات
           </h1>
           <p className="text-muted text-sm mt-1">أنشئ تحديات لتحفيز الطلاب</p>
@@ -169,13 +171,13 @@ export default function TrainerChallenges() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="glass-card p-5 space-y-4"
+            className="glass-card-raised p-6 space-y-5"
           >
-            <h3 className="text-sm font-medium text-white">تحدي جديد</h3>
+            <h3 className="text-lg font-semibold text-white">تحدي جديد</h3>
 
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 gap-5">
               <div>
-                <label className="text-xs text-muted block mb-1">العنوان</label>
+                <label className="input-label">العنوان</label>
                 <input
                   className="input-field text-sm"
                   placeholder="اقرأ ٥ مقالات هالأسبوع..."
@@ -184,7 +186,7 @@ export default function TrainerChallenges() {
                 />
               </div>
               <div>
-                <label className="text-xs text-muted block mb-1">النوع</label>
+                <label className="input-label">النوع</label>
                 <select
                   className="input-field text-sm"
                   value={form.type}
@@ -196,7 +198,7 @@ export default function TrainerChallenges() {
             </div>
 
             <div>
-              <label className="text-xs text-muted block mb-1">الوصف</label>
+              <label className="input-label">الوصف</label>
               <textarea
                 className="input-field text-sm resize-none h-20"
                 placeholder="تفاصيل التحدي..."
@@ -205,9 +207,9 @@ export default function TrainerChallenges() {
               />
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
               <div>
-                <label className="text-xs text-muted block mb-1">مكافأة XP</label>
+                <label className="input-label">مكافأة XP</label>
                 <input
                   type="number"
                   className="input-field text-sm"
@@ -218,7 +220,7 @@ export default function TrainerChallenges() {
                 />
               </div>
               <div>
-                <label className="text-xs text-muted block mb-1">الهدف (عدد)</label>
+                <label className="input-label">الهدف (عدد)</label>
                 <input
                   type="number"
                   className="input-field text-sm"
@@ -229,7 +231,7 @@ export default function TrainerChallenges() {
                 />
               </div>
               <div>
-                <label className="text-xs text-muted block mb-1">تاريخ البدء</label>
+                <label className="input-label">تاريخ البدء</label>
                 <input
                   type="date"
                   className="input-field text-sm"
@@ -239,7 +241,7 @@ export default function TrainerChallenges() {
                 />
               </div>
               <div>
-                <label className="text-xs text-muted block mb-1">تاريخ الانتهاء</label>
+                <label className="input-label">تاريخ الانتهاء</label>
                 <input
                   type="date"
                   className="input-field text-sm"
@@ -273,7 +275,7 @@ export default function TrainerChallenges() {
       )}
 
       {!isLoading && challenges && (
-        <div className="space-y-3">
+        <div className="space-y-4">
           {challenges.map((c, i) => {
             const active = isActive(c)
             const counts = participantCounts?.counts?.[c.id] || 0
@@ -285,28 +287,28 @@ export default function TrainerChallenges() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.04 }}
-                className={`glass-card p-4 ${active ? '' : 'opacity-60'}`}
+                className={`glass-card p-5 hover:translate-y-[-2px] transition-all duration-200 ${active ? '' : 'opacity-60'}`}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className={`badge ${active ? 'badge-green' : 'badge-yellow'}`}>
+                      <span className={active ? 'badge-green' : 'badge-yellow'}>
                         {active ? 'نشط' : 'منتهي'}
                       </span>
-                      <span className="text-xs text-muted">
+                      <span className="badge-muted">
                         {CHALLENGE_TYPES.find(t => t.value === c.type)?.label || c.type}
                       </span>
                     </div>
-                    <h3 className="text-sm font-bold text-white mt-1">{c.title_ar}</h3>
-                    <div className="flex items-center gap-3 mt-2 text-xs text-muted">
-                      <span className="flex items-center gap-1"><Zap size={12} className="text-sky-400" /> {c.xp_reward} XP</span>
+                    <h3 className="text-sm font-bold text-white mt-2">{c.title_ar}</h3>
+                    <div className="flex items-center gap-4 mt-2 text-xs text-muted">
+                      <span className="flex items-center gap-1"><Zap size={12} className="text-gold-400" /> {c.xp_reward} XP</span>
                       <span className="flex items-center gap-1"><Users size={12} /> {counts} مشارك</span>
                       <span className="flex items-center gap-1"><CheckCircle2 size={12} className="text-emerald-400" /> {completedCount} أكمل</span>
                     </div>
                   </div>
                   <button
                     onClick={() => { if (confirm('حذف التحدي?')) deleteChallenge.mutate(c.id) }}
-                    className="text-muted hover:text-red-400 transition-colors p-2"
+                    className="btn-icon hover:text-red-400 hover:bg-red-500/10"
                   >
                     <Trash2 size={16} />
                   </button>

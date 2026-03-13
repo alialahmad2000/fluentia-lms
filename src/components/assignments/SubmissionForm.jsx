@@ -178,19 +178,19 @@ export default function SubmissionForm({ assignment, existingSubmission, student
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 30 }}
-        className="fixed inset-x-4 top-[5vh] bottom-[5vh] lg:inset-x-auto lg:left-1/2 lg:-translate-x-1/2 lg:w-full lg:max-w-2xl bg-navy-950 border border-border-subtle rounded-2xl z-50 flex flex-col overflow-hidden"
+        className="fixed inset-x-4 top-[5vh] bottom-[5vh] lg:inset-x-auto lg:left-1/2 lg:-translate-x-1/2 lg:w-full lg:max-w-2xl glass-card-raised rounded-2xl z-50 flex flex-col overflow-hidden"
       >
         {/* Header */}
-        <div className="px-6 py-4 border-b border-border-subtle shrink-0">
+        <div className="px-6 py-4 border-b border-white/10 shrink-0">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold text-white">{modalTitle}</h2>
-            <button onClick={onClose} className="text-muted hover:text-white transition-colors">
+            <h2 className="text-lg font-semibold text-white">{modalTitle}</h2>
+            <button onClick={onClose} className="btn-ghost p-2 rounded-xl text-muted hover:text-white transition-all duration-200">
               <X size={20} />
             </button>
           </div>
           <p className="text-sm text-muted mt-1">{assignment.title}</p>
           {assignment.instructions && (
-            <p className="text-xs text-sky-400 mt-2 bg-sky-500/5 rounded-lg p-2 border border-sky-500/10">
+            <p className="text-xs text-sky-400 mt-2 bg-sky-500/5 rounded-xl p-3 border border-sky-500/10">
               {assignment.instructions}
             </p>
           )}
@@ -200,7 +200,7 @@ export default function SubmissionForm({ assignment, existingSubmission, student
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
           {/* Text answer */}
           <div>
-            <label className="block text-sm text-muted mb-2">إجابتك (نص)</label>
+            <label className="input-label block mb-2">إجابتك (نص)</label>
             <textarea
               className="input-field min-h-[120px] resize-y"
               placeholder="اكتب إجابتك هنا..."
@@ -237,7 +237,7 @@ export default function SubmissionForm({ assignment, existingSubmission, student
 
           {/* Link */}
           <div>
-            <label className="flex items-center gap-1 text-sm text-muted mb-2">
+            <label className="input-label flex items-center gap-2 mb-2">
               <Link2 size={14} />
               رابط (اختياري)
             </label>
@@ -253,18 +253,18 @@ export default function SubmissionForm({ assignment, existingSubmission, student
 
           {/* Difficulty rating */}
           <div>
-            <label className="block text-sm text-muted mb-2">كيف كان مستوى الصعوبة؟</label>
-            <div className="flex items-center gap-2">
+            <label className="input-label block mb-2">كيف كان مستوى الصعوبة؟</label>
+            <div className="flex items-center gap-3">
               {difficultyOptions.map(opt => (
                 <button
                   key={opt.value}
                   type="button"
                   onClick={() => update('difficulty_rating', opt.value)}
                   disabled={isUploading}
-                  className={`flex flex-col items-center gap-1 px-3 py-2 rounded-xl text-xs transition-all ${
+                  className={`flex flex-col items-center gap-1 px-3 py-2.5 rounded-xl text-xs transition-all duration-200 hover:translate-y-[-2px] ${
                     form.difficulty_rating === opt.value
                       ? 'bg-sky-500/10 border border-sky-500/20 text-sky-400'
-                      : 'bg-white/5 border border-border-subtle text-muted hover:text-white'
+                      : 'bg-white/5 border border-white/5 text-muted hover:text-white'
                   }`}
                 >
                   <span className="text-lg">{opt.emoji}</span>
@@ -291,7 +291,7 @@ export default function SubmissionForm({ assignment, existingSubmission, student
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-border-subtle flex items-center justify-end gap-3 shrink-0">
+        <div className="px-6 py-4 border-t border-white/10 flex items-center justify-end gap-3 shrink-0">
           <button
             type="button"
             onClick={() => handleSubmit(true)}

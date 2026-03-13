@@ -47,15 +47,18 @@ export default function TrainerGroupChat() {
   }, [selectedGroup])
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-8">
       {groups?.length > 1 && (
-        <select
-          value={selectedGroup}
-          onChange={(e) => setSelectedGroup(e.target.value)}
-          className="input-field py-2 px-3 text-sm w-auto"
-        >
-          {groups?.map(g => <option key={g.id} value={g.id}>{g.code} — {g.name}</option>)}
-        </select>
+        <div className="glass-card p-4 flex items-center gap-3">
+          <label className="input-label mb-0 whitespace-nowrap text-sm">المجموعة:</label>
+          <select
+            value={selectedGroup}
+            onChange={(e) => setSelectedGroup(e.target.value)}
+            className="input-field py-2 px-3 text-sm w-auto"
+          >
+            {groups?.map(g => <option key={g.id} value={g.id}>{g.code} — {g.name}</option>)}
+          </select>
+        </div>
       )}
       {selectedGroup && <StudentGroupChat />}
     </div>

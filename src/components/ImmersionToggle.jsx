@@ -15,10 +15,10 @@ export default function ImmersionToggle({ compact = false }) {
     return (
       <button
         onClick={toggleImmersion}
-        className={`flex items-center gap-2 text-xs px-3 py-1.5 rounded-xl transition-all ${
+        className={`flex items-center gap-2 text-xs px-3 py-1.5 rounded-xl transition-all duration-200 hover:translate-y-[-2px] ${
           immersionMode
             ? 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400'
-            : 'bg-white/5 text-muted hover:text-white'
+            : 'bg-white/5 text-muted hover:text-white border border-white/5'
         }`}
       >
         <Globe size={12} />
@@ -28,13 +28,15 @@ export default function ImmersionToggle({ compact = false }) {
   }
 
   return (
-    <div className="glass-card p-5">
+    <div className="glass-card p-6">
       <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-          <Languages size={20} className="text-emerald-400" />
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+            <Languages size={20} className="text-emerald-400" />
+          </div>
           <div>
-            <h3 className="font-medium text-white">وضع الانغماس</h3>
-            <p className="text-xs text-muted">تعلّم الإنجليزي من خلال استخدام المنصة</p>
+            <h3 className="text-lg font-semibold text-white">وضع الانغماس</h3>
+            <p className="text-sm text-muted">تعلّم الإنجليزي من خلال استخدام المنصة</p>
           </div>
         </div>
         <button
@@ -55,22 +57,22 @@ export default function ImmersionToggle({ compact = false }) {
         <motion.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
-          className="space-y-2"
+          className="space-y-2 mt-4"
         >
           {LEVELS.map(level => (
             <button
               key={level.value}
               onClick={() => setImmersionLevel(level.value)}
-              className={`w-full text-right p-3 rounded-xl transition-all ${
+              className={`w-full text-right p-4 rounded-xl transition-all duration-200 hover:translate-y-[-2px] ${
                 immersionLevel === level.value
                   ? 'bg-emerald-500/10 border border-emerald-500/20'
-                  : 'bg-white/5 hover:bg-white/10'
+                  : 'bg-white/5 border border-white/5 hover:bg-white/10'
               }`}
             >
-              <p className={`text-sm ${immersionLevel === level.value ? 'text-emerald-400 font-medium' : 'text-white'}`}>
+              <p className={`text-sm font-medium ${immersionLevel === level.value ? 'text-emerald-400' : 'text-white'}`}>
                 {level.label}
               </p>
-              <p className="text-[10px] text-muted">{level.desc}</p>
+              <p className="text-xs text-muted mt-0.5">{level.desc}</p>
             </button>
           ))}
         </motion.div>

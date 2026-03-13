@@ -150,7 +150,7 @@ export default function NotificationCenter() {
       <button
         onClick={() => setOpen(!open)}
         aria-label="الإشعارات"
-        className="relative text-muted hover:text-white transition-colors p-1"
+        className="relative btn-icon text-muted hover:text-white transition-all duration-200 p-1.5"
       >
         <Bell size={20} />
         {unreadCount > 0 && (
@@ -175,24 +175,24 @@ export default function NotificationCenter() {
             transition={{ duration: 0.15 }}
             role="dialog"
             aria-label="مركز الإشعارات"
-            className="absolute top-full left-0 mt-2 w-80 sm:w-96 bg-navy-950 border border-border-subtle rounded-2xl shadow-xl overflow-hidden z-50"
+            className="absolute top-full left-0 mt-2 w-80 sm:w-96 glass-card-raised rounded-2xl shadow-2xl overflow-hidden z-50"
             style={{ maxHeight: '70vh' }}
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-4 py-3 border-b border-border-subtle">
-              <h3 className="text-sm font-medium text-white">الإشعارات</h3>
+            <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
+              <h3 className="text-lg font-semibold text-white">الإشعارات</h3>
               <div className="flex items-center gap-2">
                 {unreadCount > 0 && (
                   <button
                     onClick={() => markAllRead.mutate(profile?.id)}
-                    className="text-xs text-sky-400 hover:text-sky-300 transition-colors flex items-center gap-1"
+                    className="btn-ghost text-xs text-sky-400 hover:text-sky-300 transition-all duration-200 flex items-center gap-1 px-2 py-1 rounded-lg"
                   >
                     <CheckCheck size={12} /> قراءة الكل
                   </button>
                 )}
                 <button
                   onClick={() => setOpen(false)}
-                  className="text-muted hover:text-white transition-colors"
+                  className="btn-ghost p-1.5 rounded-xl text-muted hover:text-white transition-all duration-200"
                 >
                   <X size={16} />
                 </button>
@@ -208,12 +208,12 @@ export default function NotificationCenter() {
                     <button
                       key={n.id}
                       onClick={() => handleNotificationClick(n)}
-                      className={`w-full text-right flex items-start gap-3 px-4 py-3 hover:bg-white/5 transition-colors border-b border-border-subtle/50 ${
+                      className={`w-full text-right flex items-start gap-3 px-5 py-3.5 hover:bg-white/5 transition-all duration-200 border-b border-white/5 ${
                         !n.read ? 'bg-sky-500/[0.03]' : ''
                       }`}
                     >
                       {/* Icon */}
-                      <span className="text-lg shrink-0 mt-0.5">{typeConfig.icon}</span>
+                      <div className="w-9 h-9 rounded-xl bg-white/5 flex items-center justify-center text-lg shrink-0">{typeConfig.icon}</div>
 
                       {/* Content */}
                       <div className="flex-1 min-w-0">

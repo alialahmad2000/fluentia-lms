@@ -90,7 +90,7 @@ function ToastItem({ toast, onDismiss }) {
       className={[
         'flex items-center gap-3',
         'min-w-[220px] max-w-xs w-full',
-        'rounded-xl border px-4 py-3 shadow-lg',
+        'rounded-2xl border px-4 py-3 shadow-xl backdrop-blur-md',
         'text-sm font-medium text-white',
         bg,
         border,

@@ -66,12 +66,12 @@ export default function AIGrammarChecker({ text, onApplyCorrection, enabled = tr
         <button
           onClick={manualCheck}
           disabled={checking || !text || text.trim().length < 20}
-          className="flex items-center gap-1.5 text-xs text-violet-400 hover:text-violet-300 transition-colors"
+          className="btn-ghost flex items-center gap-1.5 text-xs text-violet-400 hover:text-violet-300 transition-all duration-200"
         >
           {checking ? <Loader2 size={12} className="animate-spin" /> : <SpellCheck size={12} />}
           فحص القواعد
         </button>
-        <button onClick={() => setShow(false)} className="text-muted hover:text-white">
+        <button onClick={() => setShow(false)} className="btn-ghost text-muted hover:text-white transition-all duration-200">
           <X size={12} />
         </button>
       </div>
@@ -85,7 +85,7 @@ export default function AIGrammarChecker({ text, onApplyCorrection, enabled = tr
             className="space-y-1.5"
           >
             {corrections.map((c, i) => (
-              <div key={i} className="flex items-start justify-between gap-2 bg-red-500/5 border border-red-500/10 rounded-lg px-3 py-2">
+              <div key={i} className="flex items-start justify-between gap-2 bg-red-500/5 border border-red-500/10 rounded-xl px-3 py-2.5">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 text-xs">
                     <span className="text-red-400 line-through" dir="ltr">{c.error}</span>

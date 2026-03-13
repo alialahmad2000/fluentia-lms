@@ -69,11 +69,13 @@ export default function StudentErrorPatterns() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-            <AlertTriangle size={24} className="text-gold-400" />
+            <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center">
+              <AlertTriangle size={20} className="text-gold-400" />
+            </div>
             أنماط الأخطاء
           </h1>
           <p className="text-muted text-sm mt-1">تحليل ذكي لأخطائك المتكررة وكيفية التغلب عليها</p>
@@ -85,16 +87,25 @@ export default function StudentErrorPatterns() {
       </div>
 
       {/* Summary */}
-      <div className="grid grid-cols-3 gap-4">
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-4 text-center">
+      <div className="grid grid-cols-3 gap-5">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-5 text-center hover:translate-y-[-2px] transition-all duration-200">
+          <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center mx-auto mb-2">
+            <AlertTriangle size={18} className="text-red-400" />
+          </div>
           <p className="text-2xl font-bold text-red-400">{activePatterns.length}</p>
           <p className="text-xs text-muted mt-1">أنماط نشطة</p>
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="glass-card p-4 text-center">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="glass-card p-5 text-center hover:translate-y-[-2px] transition-all duration-200">
+          <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center mx-auto mb-2">
+            <CheckCircle2 size={18} className="text-emerald-400" />
+          </div>
           <p className="text-2xl font-bold text-emerald-400">{resolvedPatterns.length}</p>
           <p className="text-xs text-muted mt-1">تم حلها</p>
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }} className="glass-card p-4 text-center">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }} className="glass-card p-5 text-center hover:translate-y-[-2px] transition-all duration-200">
+          <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center mx-auto mb-2">
+            <Target size={18} className="text-sky-400" />
+          </div>
           <p className="text-2xl font-bold text-sky-400">{Object.keys(bySkill).length}</p>
           <p className="text-xs text-muted mt-1">مهارات متأثرة</p>
         </motion.div>
@@ -117,10 +128,10 @@ export default function StudentErrorPatterns() {
             const color = SKILL_COLORS[skill] || 'sky'
             return (
               <div key={skill}>
-                <h2 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+                <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
                   <span className={`w-3 h-3 rounded-full ${SKILL_DOT_CLASSES[color] || 'bg-sky-400'}`} />
                   {SKILL_LABELS[skill]}
-                  <span className="text-xs text-muted font-normal">({skillPatterns.length})</span>
+                  <span className="badge-muted">({skillPatterns.length})</span>
                 </h2>
                 <div className="grid gap-3">
                   {skillPatterns.map((pattern, i) => {
@@ -132,7 +143,7 @@ export default function StudentErrorPatterns() {
                         initial={{ opacity: 0, x: 10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.05 }}
-                        className="glass-card p-4"
+                        className="glass-card p-4 hover:translate-y-[-2px] transition-all duration-200"
                       >
                         <div className="flex items-start justify-between mb-2">
                           <div>
@@ -179,9 +190,12 @@ export default function StudentErrorPatterns() {
           {/* Resolved patterns */}
           {resolvedPatterns.length > 0 && (
             <div>
-              <h2 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-                <CheckCircle2 size={18} className="text-emerald-400" />
-                تم التغلب عليها ({resolvedPatterns.length})
+              <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+                  <CheckCircle2 size={16} className="text-emerald-400" />
+                </div>
+                تم التغلب عليها
+                <span className="badge-green">{resolvedPatterns.length}</span>
               </h2>
               <div className="grid gap-2">
                 {resolvedPatterns.map((pattern) => (

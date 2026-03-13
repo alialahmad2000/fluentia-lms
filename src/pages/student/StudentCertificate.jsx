@@ -208,7 +208,7 @@ function CertRow({ cert, onClick, delay }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay }}
       onClick={onClick}
-      className="w-full text-right glass-card p-4 flex items-center gap-4 hover:border-gold-500/30 border border-transparent transition-all duration-200 group"
+      className="w-full text-right glass-card p-4 flex items-center gap-4 hover:translate-y-[-2px] hover:border-gold-500/30 border border-transparent transition-all duration-200 group"
     >
       {/* Icon badge */}
       <div
@@ -657,11 +657,13 @@ export default function StudentCertificate() {
   const studentName = profile?.display_name || profile?.full_name || 'الطالب'
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* ─── Page Header ─────────────────────────────────────── */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-          <Award size={24} style={{ color: '#D4AF37' }} />
+          <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center">
+            <Award size={20} style={{ color: '#D4AF37' }} />
+          </div>
           شهاداتي
         </h1>
         <p className="text-muted text-sm mt-1">شهاداتك المعتمدة من أكاديمية طلاقة</p>
@@ -672,7 +674,7 @@ export default function StudentCertificate() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.05 }}
-        className="grid grid-cols-3 gap-3"
+        className="grid grid-cols-3 gap-5"
       >
         {[
           { label: 'إجمالي الشهادات', value: allCerts.length, icon: Award, color: '#D4AF37' },
@@ -694,9 +696,11 @@ export default function StudentCertificate() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.08 + i * 0.07 }}
-            className="glass-card p-4 text-center"
+            className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200"
           >
-            <stat.icon size={18} className="mx-auto mb-2" style={{ color: stat.color }} />
+            <div className="w-10 h-10 rounded-xl mx-auto mb-2 flex items-center justify-center" style={{ background: `${stat.color}15` }}>
+              <stat.icon size={18} style={{ color: stat.color }} />
+            </div>
             <p className="text-lg font-bold text-white">{stat.value}</p>
             <p className="text-[11px] text-muted leading-tight">{stat.label}</p>
           </motion.div>

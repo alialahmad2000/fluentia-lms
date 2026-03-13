@@ -73,20 +73,22 @@ export default function TrainerProgressReports() {
   }
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-          <FileBarChart size={24} className="text-sky-400" />
-          تقارير التقدم
-        </h1>
-        <p className="text-muted text-sm mt-1">تقارير أداء الطلاب بالذكاء الاصطناعي</p>
+    <div className="space-y-8">
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+          <FileBarChart size={20} className="text-sky-400" />
+        </div>
+        <div>
+          <h1 className="text-2xl font-bold text-white">تقارير التقدم</h1>
+          <p className="text-muted text-sm mt-1">تقارير أداء الطلاب بالذكاء الاصطناعي</p>
+        </div>
       </div>
 
       {/* Controls */}
       <div className="glass-card p-5 space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           <div>
-            <label className="text-xs text-muted mb-1 block">المجموعة</label>
+            <label className="input-label">المجموعة</label>
             <select
               className="input-field"
               value={selectedGroup}
@@ -97,7 +99,7 @@ export default function TrainerProgressReports() {
             </select>
           </div>
           <div>
-            <label className="text-xs text-muted mb-1 block">الطالب</label>
+            <label className="input-label">الطالب</label>
             <select
               className="input-field"
               value={selectedStudent}
@@ -113,7 +115,7 @@ export default function TrainerProgressReports() {
             </select>
           </div>
           <div>
-            <label className="text-xs text-muted mb-1 block">الفترة</label>
+            <label className="input-label">الفترة</label>
             <select className="input-field" value={periodDays} onChange={(e) => setPeriodDays(Number(e.target.value))}>
               <option value={7}>أسبوع</option>
               <option value={14}>أسبوعين</option>
@@ -150,7 +152,7 @@ export default function TrainerProgressReports() {
             <div className="glass-card p-5">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-sky-500/20 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
                     <User size={20} className="text-sky-400" />
                   </div>
                   <div>
@@ -172,7 +174,7 @@ export default function TrainerProgressReports() {
 
             {/* Stats */}
             {report.stats && (
-              <div className="grid grid-cols-4 gap-3">
+              <div className="grid grid-cols-4 gap-5">
                 {[
                   { label: 'التسليمات', value: report.stats.total_submissions },
                   { label: 'متوسط الدرجة', value: report.stats.avg_grade ? `${report.stats.avg_grade}%` : '—' },
@@ -187,7 +189,7 @@ export default function TrainerProgressReports() {
               </div>
             )}
 
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-2 gap-5">
               {/* Strengths */}
               {report.strengths?.length > 0 && (
                 <div className="glass-card p-5">

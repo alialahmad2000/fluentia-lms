@@ -184,10 +184,12 @@ export default function StudentPeerRecognition() {
   const getName = (s) => s.profiles?.display_name || s.profiles?.full_name || 'طالب'
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-          <Heart className="text-rose-400" size={24} />
+        <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-rose-500/10 flex items-center justify-center">
+            <Heart className="text-rose-400" size={20} />
+          </div>
           تقدير الزملاء
         </h1>
         <p className="text-muted text-sm mt-1">اشكر زملاءك على مساعدتهم</p>
@@ -201,7 +203,7 @@ export default function StudentPeerRecognition() {
           className="glass-card p-5 border-gold-500/20"
         >
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-gold-500/20 border border-gold-500/30 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center">
               <Star size={20} className="text-gold-400" />
             </div>
             <div>
@@ -228,13 +230,13 @@ export default function StudentPeerRecognition() {
         </div>
 
         {/* Classmate picker */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 mb-4">
           {classmates?.map((s) => (
             <button
               key={s.id}
               onClick={() => setSelectedStudent(selectedStudent?.id === s.id ? null : s)}
               disabled={remainingToday <= 0}
-              className={`p-3 rounded-xl text-center transition-all border ${
+              className={`p-3 rounded-xl text-center hover:translate-y-[-2px] transition-all duration-200 border ${
                 selectedStudent?.id === s.id
                   ? 'bg-rose-500/10 border-rose-500/30 ring-1 ring-rose-500/10'
                   : 'bg-white/5 border-border-subtle hover:bg-white/10'
@@ -295,8 +297,10 @@ export default function StudentPeerRecognition() {
         className="glass-card p-5"
       >
         <div className="flex items-center gap-2 mb-4">
-          <Users size={18} className="text-rose-400" />
-          <h3 className="text-sm font-medium text-white">آخر التقديرات</h3>
+          <div className="w-8 h-8 rounded-xl bg-rose-500/10 flex items-center justify-center">
+            <Users size={16} className="text-rose-400" />
+          </div>
+          <h3 className="text-sm font-semibold text-white">آخر التقديرات</h3>
         </div>
         {recentRecognitions?.length > 0 ? (
           <div className="space-y-3 max-h-[400px] overflow-y-auto">

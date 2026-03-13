@@ -67,8 +67,10 @@ export default function FileUpload({ files, onFilesChange, maxFiles = 3 }) {
 
   return (
     <div className="space-y-3">
-      <label className="flex items-center gap-1 text-sm text-muted">
-        <FileUp size={14} />
+      <label className="input-label flex items-center gap-2">
+        <div className="w-7 h-7 rounded-xl bg-sky-500/10 flex items-center justify-center">
+          <FileUp size={14} className="text-sky-400" />
+        </div>
         ملفات (اختياري — PDF, DOC, TXT — حد أقصى 5MB)
       </label>
 
@@ -76,9 +78,11 @@ export default function FileUpload({ files, onFilesChange, maxFiles = 3 }) {
       {files.length > 0 && (
         <div className="space-y-2">
           {files.map((f, i) => (
-            <div key={i} className="flex items-center justify-between bg-white/5 border border-border-subtle rounded-xl px-3 py-2">
-              <div className="flex items-center gap-2 min-w-0">
-                <FileText size={16} className="text-sky-400 shrink-0" />
+            <div key={i} className="flex items-center justify-between glass-card px-4 py-3 hover:translate-y-[-2px] transition-all duration-200">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-9 h-9 rounded-xl bg-sky-500/10 flex items-center justify-center shrink-0">
+                  <FileText size={16} className="text-sky-400" />
+                </div>
                 <div className="min-w-0">
                   <p className="text-sm text-white truncate">{f.name}</p>
                   <p className="text-[10px] text-muted">{formatSize(f.size)}</p>
@@ -87,7 +91,7 @@ export default function FileUpload({ files, onFilesChange, maxFiles = 3 }) {
               <button
                 type="button"
                 onClick={() => removeFile(i)}
-                className="p-1 text-muted hover:text-red-400 transition-colors shrink-0"
+                className="btn-ghost p-1.5 text-muted hover:text-red-400 transition-all duration-200 shrink-0"
               >
                 <X size={14} />
               </button>
@@ -101,7 +105,7 @@ export default function FileUpload({ files, onFilesChange, maxFiles = 3 }) {
         <button
           type="button"
           onClick={() => inputRef.current?.click()}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 border border-border-subtle text-muted hover:text-white hover:bg-white/10 transition-all text-sm"
+          className="btn-secondary flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm hover:translate-y-[-2px] transition-all duration-200"
         >
           <FileUp size={16} />
           <span>إضافة ملف</span>

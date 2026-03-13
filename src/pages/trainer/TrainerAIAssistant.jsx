@@ -166,13 +166,17 @@ export default function TrainerAIAssistant() {
   return (
     <div className="flex flex-col h-[calc(100vh-120px)]">
       {/* Header */}
-      <div className="flex items-center justify-between mb-4">
-        <div>
-          <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Bot size={24} className="text-violet-400" />
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
+            <Bot size={20} className="text-violet-400" />
+          </div>
+          <div>
+          <h1 className="text-2xl font-bold text-white">
             مركز التحكم الذكي
           </h1>
           <p className="text-muted text-sm mt-1">نفّذ أي عملية بالكتابة — واجبات، نقاط، تقييم، إحصائيات</p>
+          </div>
         </div>
         <div className="flex items-center gap-2">
           <select
@@ -221,7 +225,7 @@ export default function TrainerAIAssistant() {
                 <Sparkles size={28} className="text-violet-400" />
               </div>
               <div>
-                <h2 className="text-lg font-bold text-white mb-1">مركز التحكم الذكي</h2>
+                <h2 className="text-lg font-semibold text-white mb-1">مركز التحكم الذكي</h2>
                 <p className="text-sm text-muted">اكتب أمر بالعربي وأنا أنفّذه — واجبات، نقاط، تقييم، تقارير</p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-lg w-full">

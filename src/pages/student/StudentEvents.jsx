@@ -60,10 +60,12 @@ export default function StudentEvents() {
   const displayed = tab === 'active' ? activeEvents : pastEvents
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-          <Calendar size={24} className="text-gold-400" />
+          <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center">
+            <Calendar size={20} className="text-gold-400" />
+          </div>
           الفعاليات والمسابقات
         </h1>
         <p className="text-muted text-sm mt-1">شارك في الفعاليات وتنافس مع زملائك</p>
@@ -102,7 +104,7 @@ export default function StudentEvents() {
           <p className="text-muted text-sm">ترقب الفعاليات القادمة!</p>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-5">
           {displayed.map((event, i) => {
             const config = TYPE_CONFIG[event.type] || TYPE_CONFIG.special
             const Icon = config.icon
@@ -117,13 +119,13 @@ export default function StudentEvents() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className={`glass-card overflow-hidden ${EVENT_COLOR_CLASSES[config.color]?.border || 'border-sky-500/20'}`}
+                className={`glass-card overflow-hidden hover:translate-y-[-2px] transition-all duration-200 ${EVENT_COLOR_CLASSES[config.color]?.border || 'border-sky-500/20'}`}
               >
                 <div className={`h-1 ${EVENT_COLOR_CLASSES[config.color]?.bar || 'bg-sky-500'}`} />
                 <div className="p-5">
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center gap-3">
-                      <div className={`w-12 h-12 rounded-2xl ${EVENT_COLOR_CLASSES[config.color]?.iconBox || 'bg-sky-500/10'} flex items-center justify-center`}>
+                      <div className={`w-12 h-12 rounded-xl ${EVENT_COLOR_CLASSES[config.color]?.iconBox || 'bg-sky-500/10'} flex items-center justify-center`}>
                         <Icon size={24} className={EVENT_COLOR_CLASSES[config.color]?.text || 'text-sky-400'} />
                       </div>
                       <div>

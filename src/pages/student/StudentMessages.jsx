@@ -209,9 +209,11 @@ export default function StudentMessages() {
 
   return (
     <div className="flex flex-col h-[calc(100vh-7rem)]">
-      <div className="flex items-center gap-2 mb-3">
-        <Mail size={22} className="text-sky-400" />
-        <h1 className="text-xl font-bold text-white">الرسائل الخاصة</h1>
+      <div className="flex items-center gap-3 mb-3">
+        <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+          <Mail size={20} className="text-sky-400" />
+        </div>
+        <h1 className="text-2xl font-bold text-white">الرسائل الخاصة</h1>
       </div>
 
       <div className="flex flex-1 gap-3 min-h-0">

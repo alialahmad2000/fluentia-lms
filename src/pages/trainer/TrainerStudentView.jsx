@@ -127,10 +127,15 @@ export default function TrainerStudentView() {
 
   // ── List View ──
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-white">ملفات الطلاب</h1>
-        <p className="text-muted text-sm mt-1">اطلع على بيانات وأداء كل طالب بالتفصيل</p>
+    <div className="space-y-8">
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+          <Zap size={20} className="text-sky-400" />
+        </div>
+        <div>
+          <h1 className="text-2xl font-bold text-white">ملفات الطلاب</h1>
+          <p className="text-muted text-sm mt-1">اطلع على بيانات وأداء كل طالب بالتفصيل</p>
+        </div>
       </div>
 
       {groups?.length > 1 && (
@@ -143,7 +148,7 @@ export default function TrainerStudentView() {
         </select>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {students?.map((s, i) => {
           const name = getStudentName(s)
           return (
@@ -153,14 +158,14 @@ export default function TrainerStudentView() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
               onClick={() => setSelectedStudent(s)}
-              className="glass-card p-5 text-right hover:border-sky-500/20 transition-all"
+              className="glass-card p-5 text-right hover:border-sky-500/20 hover:translate-y-[-2px] transition-all duration-200"
             >
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-12 h-12 rounded-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 text-lg font-bold">
+                <div className="w-12 h-12 rounded-xl bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 text-lg font-bold">
                   {name[0]}
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-white">{name}</p>
+                  <p className="text-sm font-medium text-gradient">{name}</p>
                   <p className="text-xs text-muted">المستوى {s.academic_level} • {PACKAGE_LABELS[s.package] || s.package}</p>
                 </div>
               </div>
@@ -178,7 +183,7 @@ export default function TrainerStudentView() {
       </div>
 
       {!students?.length && (
-        <div className="glass-card p-8 text-center">
+        <div className="glass-card p-12 text-center">
           <p className="text-muted">لا يوجد طلاب في هذه المجموعة</p>
         </div>
       )}
@@ -271,23 +276,23 @@ function StudentDetailView({ student, isAdmin, onBack }) {
   }, [gradedSubs])
 
   return (
-    <div className="space-y-5">
-      <button onClick={onBack} className="flex items-center gap-2 text-sm text-muted hover:text-white transition-colors">
+    <div className="space-y-8">
+      <button onClick={onBack} className="btn-ghost flex items-center gap-2 text-sm">
         <ChevronLeft size={16} /> رجوع للقائمة
       </button>
 
       {/* ── Header Card ── */}
-      <div className="glass-card p-6">
+      <div className="glass-card-raised p-6">
         <div className="flex items-center gap-4 mb-5">
-          <div className="w-16 h-16 rounded-full bg-sky-500/20 border-2 border-sky-500/30 flex items-center justify-center text-sky-400 text-2xl font-bold">
+          <div className="w-16 h-16 rounded-xl bg-sky-500/20 border-2 border-sky-500/30 flex items-center justify-center text-sky-400 text-2xl font-bold">
             {name[0]}
           </div>
           <div className="flex-1">
             <div className="flex items-center gap-3">
-              <h2 className="text-xl font-bold text-white">{name}</h2>
-              {trend === 'up' && <span className="flex items-center gap-1 text-xs text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full"><TrendingUp size={12} /> تحسّن</span>}
-              {trend === 'down' && <span className="flex items-center gap-1 text-xs text-red-400 bg-red-500/10 px-2 py-0.5 rounded-full"><TrendingDown size={12} /> تراجع</span>}
-              {trend === 'neutral' && <span className="flex items-center gap-1 text-xs text-muted bg-white/5 px-2 py-0.5 rounded-full"><Minus size={12} /> مستقر</span>}
+              <h2 className="text-xl font-bold text-gradient">{name}</h2>
+              {trend === 'up' && <span className="badge-green flex items-center gap-1"><TrendingUp size={12} /> تحسّن</span>}
+              {trend === 'down' && <span className="badge-red flex items-center gap-1"><TrendingDown size={12} /> تراجع</span>}
+              {trend === 'neutral' && <span className="badge-muted flex items-center gap-1"><Minus size={12} /> مستقر</span>}
             </div>
             <p className="text-sm text-muted mt-0.5">
               المستوى {student.academic_level} • {PACKAGE_LABELS[student.package] || student.package}
@@ -298,7 +303,7 @@ function StudentDetailView({ student, isAdmin, onBack }) {
         </div>
 
         {/* Stats row */}
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-5">
           <StatCard icon={Zap} color="gold" value={student.xp_total} label="XP" />
           <StatCard icon={Flame} color="orange" value={student.current_streak} label="سلسلة حالية" />
           <StatCard icon={Calendar} color="emerald" value={attRate != null ? `${attRate}%` : '—'} label="الحضور" />
@@ -382,11 +387,23 @@ const STAT_COLOR_CLASSES = {
 }
 
 function StatCard({ icon: Icon, color, value, label }) {
+  const BG_CLASSES = {
+    sky: 'bg-sky-500/10',
+    emerald: 'bg-emerald-500/10',
+    gold: 'bg-gold-500/10',
+    violet: 'bg-violet-500/10',
+    red: 'bg-red-500/10',
+    amber: 'bg-amber-500/10',
+    rose: 'bg-rose-500/10',
+    orange: 'bg-orange-500/10',
+  }
   return (
-    <div className="bg-white/5 rounded-xl p-3 text-center">
-      <Icon size={16} className={`${STAT_COLOR_CLASSES[color] || 'text-sky-400'} mx-auto`} />
-      <p className="text-lg font-bold text-white mt-1">{value}</p>
-      <p className="text-[10px] text-muted">{label}</p>
+    <div className="stat-card text-center">
+      <div className={`w-9 h-9 rounded-xl ${BG_CLASSES[color] || 'bg-sky-500/10'} flex items-center justify-center mx-auto`}>
+        <Icon size={16} className={STAT_COLOR_CLASSES[color] || 'text-sky-400'} />
+      </div>
+      <p className="text-xl font-bold text-white mt-2">{value}</p>
+      <p className="stat-label text-[10px]">{label}</p>
     </div>
   )
 }
@@ -418,11 +435,11 @@ function OverviewTab({ student, submissions, attendance, xpHistory, gradedSubs, 
   }, [submissions])
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
       {/* Per-type performance */}
       <div className="glass-card p-5 space-y-3">
-        <h3 className="text-sm font-medium text-white flex items-center gap-2">
-          <BarChart3 size={14} className="text-sky-400" /> أداء حسب نوع الواجب
+        <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+          <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center"><BarChart3 size={14} className="text-sky-400" /></div> أداء حسب نوع الواجب
         </h3>
         {typeStats.length === 0 && <p className="text-xs text-muted">لا توجد بيانات</p>}
         {typeStats.map(ts => {
@@ -456,8 +473,8 @@ function OverviewTab({ student, submissions, attendance, xpHistory, gradedSubs, 
 
       {/* Recent XP */}
       <div className="glass-card p-5 space-y-3">
-        <h3 className="text-sm font-medium text-white flex items-center gap-2">
-          <Zap size={14} className="text-gold-400" /> آخر النقاط
+        <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+          <div className="w-8 h-8 rounded-xl bg-gold-500/10 flex items-center justify-center"><Zap size={14} className="text-gold-400" /></div> آخر النقاط
         </h3>
         {(xpHistory || []).slice(0, 8).map(xp => (
           <div key={xp.id} className="flex items-center justify-between p-2 bg-white/5 rounded-lg">
@@ -528,13 +545,13 @@ function AssignmentsTab({ submissions }) {
           const typeInfo = TYPE_LABELS[s.assignments?.type] || TYPE_LABELS.custom
           const Icon = typeInfo.icon
           return (
-            <div key={s.id} className="glass-card p-4">
+            <div key={s.id} className="glass-card p-4 hover:translate-y-[-2px] transition-all duration-200">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Icon size={14} className={typeInfo.color} />
                   <span className="text-sm text-white">{s.assignments?.title || 'واجب'}</span>
                   {s.is_late && (
-                    <span className="text-[10px] bg-amber-500/10 text-amber-400 px-1.5 py-0.5 rounded">متأخر</span>
+                    <span className="badge-yellow text-[10px]">متأخر</span>
                   )}
                 </div>
                 <div className="flex items-center gap-2">
@@ -545,11 +562,11 @@ function AssignmentsTab({ submissions }) {
                       {s.grade}{s.grade_numeric != null ? ` (${s.grade_numeric}%)` : ''}
                     </span>
                   )}
-                  <span className={`text-xs px-2 py-0.5 rounded-full ${
-                    s.status === 'graded' ? 'bg-emerald-500/10 text-emerald-400' :
-                    s.status === 'submitted' ? 'bg-amber-500/10 text-amber-400' :
-                    'bg-white/5 text-muted'
-                  }`}>
+                  <span className={
+                    s.status === 'graded' ? 'badge-green' :
+                    s.status === 'submitted' ? 'badge-yellow' :
+                    'badge-muted'
+                  }>
                     {s.status === 'graded' ? 'مُقيّم' : s.status === 'submitted' ? 'معلّق' : s.status}
                   </span>
                 </div>
@@ -613,11 +630,11 @@ function SkillsTab({ snapshots, studentName }) {
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
       {/* Radar Chart */}
       <div className="glass-card p-5">
-        <h3 className="text-sm font-medium text-white mb-4 flex items-center gap-2">
-          <Brain size={14} className="text-violet-400" /> مخطط المهارات
+        <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+          <div className="w-8 h-8 rounded-xl bg-violet-500/10 flex items-center justify-center"><Brain size={14} className="text-violet-400" /></div> مخطط المهارات
         </h3>
         <div style={{ width: '100%', height: 300 }} dir="ltr">
           <ResponsiveContainer>
@@ -779,24 +796,36 @@ function AttendanceTab({ attendance }) {
   }, [attendance, total])
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Stats */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="glass-card p-4 text-center">
-          <p className="text-2xl font-bold text-emerald-400">{rate != null ? `${rate}%` : '—'}</p>
-          <p className="text-xs text-muted mt-1">نسبة الحضور</p>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
+        <div className="stat-card text-center">
+          <div className="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center mx-auto">
+            <CheckCircle2 size={16} className="text-emerald-400" />
+          </div>
+          <p className="text-3xl font-bold text-white mt-2">{rate != null ? `${rate}%` : '—'}</p>
+          <p className="stat-label">نسبة الحضور</p>
         </div>
-        <div className="glass-card p-4 text-center">
-          <p className="text-2xl font-bold text-emerald-400">{presentCount}</p>
-          <p className="text-xs text-muted mt-1">حاضر</p>
+        <div className="stat-card text-center">
+          <div className="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center mx-auto">
+            <CheckCircle2 size={16} className="text-emerald-400" />
+          </div>
+          <p className="text-3xl font-bold text-white mt-2">{presentCount}</p>
+          <p className="stat-label">حاضر</p>
         </div>
-        <div className="glass-card p-4 text-center">
-          <p className="text-2xl font-bold text-red-400">{absentCount}</p>
-          <p className="text-xs text-muted mt-1">غائب</p>
+        <div className="stat-card text-center">
+          <div className="w-9 h-9 rounded-xl bg-red-500/10 flex items-center justify-center mx-auto">
+            <XCircle size={16} className="text-red-400" />
+          </div>
+          <p className="text-3xl font-bold text-white mt-2">{absentCount}</p>
+          <p className="stat-label">غائب</p>
         </div>
-        <div className="glass-card p-4 text-center">
-          <p className="text-2xl font-bold text-amber-400">{excusedCount}</p>
-          <p className="text-xs text-muted mt-1">معذور</p>
+        <div className="stat-card text-center">
+          <div className="w-9 h-9 rounded-xl bg-amber-500/10 flex items-center justify-center mx-auto">
+            <AlertCircle size={16} className="text-amber-400" />
+          </div>
+          <p className="text-3xl font-bold text-white mt-2">{excusedCount}</p>
+          <p className="stat-label">معذور</p>
         </div>
       </div>
 
@@ -841,8 +870,8 @@ function AttendanceTab({ attendance }) {
       </div>
 
       {/* Full history list */}
-      <div className="glass-card p-5 space-y-2">
-        <h3 className="text-sm font-medium text-white mb-2">السجل الكامل</h3>
+      <div className="glass-card p-5 space-y-3">
+        <h3 className="text-lg font-semibold text-white mb-3">السجل الكامل</h3>
         {(attendance || []).map(a => {
           const config = STATUS_LABELS[a.status] || STATUS_LABELS.absent
           const Icon = config.icon
@@ -951,12 +980,12 @@ function AnalysisTab({ student, studentName }) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* AI Weakness Analysis */}
-      <div className="glass-card p-5">
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="text-sm font-medium text-white flex items-center gap-2">
-            <Brain size={14} className="text-violet-400" /> تحليل نقاط القوة والضعف
+      <div className="glass-card p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+            <div className="w-8 h-8 rounded-xl bg-violet-500/10 flex items-center justify-center"><Brain size={14} className="text-violet-400" /></div> تحليل نقاط القوة والضعف
           </h3>
           <button
             onClick={runAnalysis}
@@ -978,10 +1007,10 @@ function AnalysisTab({ student, studentName }) {
       </div>
 
       {/* AI Improvement Plan */}
-      <div className="glass-card p-5">
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="text-sm font-medium text-white flex items-center gap-2">
-            <Target size={14} className="text-emerald-400" /> خطة التحسين
+      <div className="glass-card p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+            <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center"><Target size={14} className="text-emerald-400" /></div> خطة التحسين
           </h3>
           <div className="flex items-center gap-2">
             {plan && !editingPlan && (
@@ -1036,9 +1065,9 @@ function AnalysisTab({ student, studentName }) {
       </div>
 
       {/* Trainer Notes History */}
-      <div className="glass-card p-5 space-y-3">
-        <h3 className="text-sm font-medium text-white flex items-center gap-2">
-          <MessageSquare size={14} className="text-sky-400" /> سجل الملاحظات
+      <div className="glass-card p-6 space-y-3">
+        <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+          <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center"><MessageSquare size={14} className="text-sky-400" /></div> سجل الملاحظات
         </h3>
         {notes?.length === 0 && <p className="text-xs text-muted">لا توجد ملاحظات</p>}
         {notes?.map(n => {
@@ -1111,36 +1140,49 @@ function PaymentsTab({ studentId, student }) {
     .reduce((sum, p) => sum + (p.amount || 0), 0)
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Current status */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div className={`glass-card p-4 text-center ${thisMonthPayment ? 'border-emerald-500/20' : 'border-red-500/20'}`}>
-          <CreditCard size={20} className={thisMonthPayment ? 'text-emerald-400 mx-auto' : 'text-red-400 mx-auto'} />
-          <p className={`text-sm font-bold mt-2 ${thisMonthPayment ? 'text-emerald-400' : 'text-red-400'}`}>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        <div className={`stat-card text-center ${thisMonthPayment ? 'border-emerald-500/20' : 'border-red-500/20'}`}>
+          <div className={`w-10 h-10 rounded-xl ${thisMonthPayment ? 'bg-emerald-500/10' : 'bg-red-500/10'} flex items-center justify-center mx-auto`}>
+            <CreditCard size={20} className={thisMonthPayment ? 'text-emerald-400' : 'text-red-400'} />
+          </div>
+          <p className={`text-3xl font-bold mt-2 ${thisMonthPayment ? 'text-white' : 'text-white'}`}>
             {thisMonthPayment ? 'مدفوع' : 'غير مدفوع'}
           </p>
-          <p className="text-xs text-muted mt-0.5">الشهر الحالي</p>
+          <p className="stat-label">الشهر الحالي</p>
         </div>
-        <div className="glass-card p-4 text-center">
-          <p className="text-2xl font-bold text-white">{totalPaid}</p>
-          <p className="text-xs text-muted mt-0.5">إجمالي المدفوعات (ر.س)</p>
+        <div className="stat-card text-center">
+          <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center mx-auto">
+            <CreditCard size={20} className="text-sky-400" />
+          </div>
+          <p className="text-3xl font-bold text-white mt-2">{totalPaid}</p>
+          <p className="stat-label">إجمالي المدفوعات (ر.س)</p>
         </div>
-        <div className="glass-card p-4 text-center">
-          <p className="text-2xl font-bold text-sky-400">{student.custom_price || '—'}</p>
-          <p className="text-xs text-muted mt-0.5">سعر مخصص (ر.س)</p>
+        <div className="stat-card text-center">
+          <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center mx-auto">
+            <CreditCard size={20} className="text-violet-400" />
+          </div>
+          <p className="text-3xl font-bold text-white mt-2">{student.custom_price || '—'}</p>
+          <p className="stat-label">سعر مخصص (ر.س)</p>
         </div>
       </div>
 
       {/* Payment history */}
-      <div className="glass-card p-5 space-y-2">
-        <h3 className="text-sm font-medium text-white mb-3">سجل المدفوعات</h3>
+      <div className="glass-card p-5 space-y-3">
+        <h3 className="text-lg font-semibold text-white mb-3">سجل المدفوعات</h3>
         {payments?.length === 0 && <p className="text-xs text-muted">لا توجد مدفوعات</p>}
         {payments?.map(p => (
           <div key={p.id} className="flex items-center justify-between p-3 bg-white/5 rounded-xl">
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-sm font-bold text-white">{p.amount} ر.س</span>
-                <span className={`text-[10px] px-1.5 py-0.5 rounded ${STATUS_COLORS[p.status] || ''}`}>
+                <span className={
+                  p.status === 'paid' ? 'badge-green text-[10px]' :
+                  p.status === 'pending' ? 'badge-yellow text-[10px]' :
+                  p.status === 'overdue' || p.status === 'failed' ? 'badge-red text-[10px]' :
+                  'badge-blue text-[10px]'
+                }>
                   {STATUS_TEXT[p.status] || p.status}
                 </span>
               </div>

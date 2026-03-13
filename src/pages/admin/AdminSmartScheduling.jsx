@@ -107,24 +107,26 @@ export default function AdminSmartScheduling() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-          <Calendar size={24} className="text-sky-400" />
+          <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+            <Calendar size={20} className="text-sky-400" />
+          </div>
           الجدولة الذكية
         </h1>
         <p className="text-muted text-sm mt-1">نظرة شاملة على جدول المجموعات واكتشاف التعارضات</p>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {[
           { label: 'المجموعات', value: groups?.length || 0, icon: Users, color: 'sky' },
           { label: 'المدربين', value: trainers?.length || 0, icon: Users, color: 'violet' },
           { label: 'حصص الأسبوع', value: classes?.length || 0, icon: Calendar, color: 'emerald' },
           { label: 'تعارضات', value: conflicts.length, icon: AlertCircle, color: conflicts.length > 0 ? 'red' : 'emerald' },
         ].map((card, i) => (
-          <motion.div key={card.label} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }} className="glass-card p-4">
+          <motion.div key={card.label} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }} className="glass-card p-4 hover:translate-y-[-2px] transition-all duration-200">
             <div className="flex items-center justify-between mb-2">
               <span className="text-muted text-xs">{card.label}</span>
               <card.icon size={16} className={ICON_COLOR_CLASSES[card.color] || 'text-sky-400'} />
@@ -179,11 +181,11 @@ export default function AdminSmartScheduling() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="flex items-center justify-between p-3 rounded-xl bg-white/5"
+                className="flex items-center justify-between p-3 rounded-xl bg-white/5 hover:translate-y-[-2px] transition-all duration-200"
               >
                 <div className="flex items-center gap-3">
-                  <div className="text-center">
-                    <Clock size={14} className="text-sky-400 mx-auto" />
+                  <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex flex-col items-center justify-center">
+                    <Clock size={14} className="text-sky-400" />
                     <span className="text-xs text-white font-mono">{item.time}</span>
                   </div>
                   <div>
@@ -209,7 +211,7 @@ export default function AdminSmartScheduling() {
             const totalSessions = trainerGroups.reduce((acc, g) => acc + (g.schedule?.days?.length || 0), 0)
 
             return (
-              <div key={trainer.id} className="flex items-center justify-between p-3 rounded-xl bg-white/5">
+              <div key={trainer.id} className="flex items-center justify-between p-3 rounded-xl bg-white/5 hover:translate-y-[-2px] transition-all duration-200">
                 <div>
                   <h3 className="text-sm font-medium text-white">{name}</h3>
                   <p className="text-[10px] text-muted">{trainerGroups.length} مجموعات</p>

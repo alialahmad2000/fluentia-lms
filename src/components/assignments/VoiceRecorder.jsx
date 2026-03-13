@@ -264,10 +264,12 @@ export default function VoiceRecorder({ onRecordingComplete, existingUrl }) {
 
   return (
     <div className="space-y-3">
-      <label className="flex items-center gap-1 text-sm text-muted">
-        <Mic size={14} />
+      <label className="input-label flex items-center gap-2">
+        <div className="w-7 h-7 rounded-xl bg-red-500/10 flex items-center justify-center">
+          <Mic size={14} className="text-red-400" />
+        </div>
         تسجيل صوتي
-        <span className="text-[10px] text-muted/60 mr-1">(حد أقصى {MAX_DURATION / 60} دقائق)</span>
+        <span className="text-xs text-muted/60 mr-1">(حد أقصى {MAX_DURATION / 60} دقائق)</span>
       </label>
 
       {/* Waveform canvas — visible during recording */}
@@ -286,7 +288,7 @@ export default function VoiceRecorder({ onRecordingComplete, existingUrl }) {
           <button
             type="button"
             onClick={startRecording}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 transition-all text-sm"
+            className="btn-danger flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm hover:translate-y-[-2px] transition-all duration-200"
           >
             <Mic size={16} />
             <span>ابدأ التسجيل</span>
@@ -319,7 +321,7 @@ export default function VoiceRecorder({ onRecordingComplete, existingUrl }) {
             <button
               type="button"
               onClick={togglePlayback}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 hover:bg-sky-500/20 transition-all text-sm"
+              className="btn-secondary flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm hover:translate-y-[-2px] transition-all duration-200"
             >
               {state === 'playing' ? <Pause size={16} /> : <Play size={16} />}
               <span>{state === 'playing' ? 'إيقاف' : 'تشغيل'}</span>
@@ -328,7 +330,7 @@ export default function VoiceRecorder({ onRecordingComplete, existingUrl }) {
             <button
               type="button"
               onClick={deleteRecording}
-              className="p-2 text-muted hover:text-red-400 transition-colors rounded-lg hover:bg-red-500/10"
+              className="btn-ghost p-2 text-muted hover:text-red-400 transition-all duration-200 rounded-xl hover:bg-red-500/10"
             >
               <Trash2 size={16} />
             </button>
