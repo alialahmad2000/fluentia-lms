@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect, useMemo } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   Mic, MicOff, Volume2, Loader2, Zap, RefreshCw,
   CheckCircle2, XCircle, Play, ArrowLeft, Calendar, BookOpen,
+  GitCompareArrows, TrendingUp, TrendingDown, Minus, Share2,
+  Award, ChevronLeft, ChevronRight, Check,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
@@ -289,9 +291,477 @@ function getDailyItems(pool, count = 5) {
   return items
 }
 
+// ──────────────────────────────────────────────────
+// CSS Waveform — animated bars, no external lib
+// ──────────────────────────────────────────────────
+function Waveform({ playing = false, color = 'violet', barCount = 20 }) {
+  // Deterministic bar heights seeded by index so they're consistent per card
+  const bars = useMemo(
+    () => Array.from({ length: barCount }, (_, i) => {
+      const h = 20 + ((i * 37 + 13) % 60) // pseudo-random 20–79%
+      return h
+    }),
+    [barCount],
+  )
+
+  const colorMap = {
+    violet: 'bg-violet-400',
+    sky: 'bg-sky-400',
+    emerald: 'bg-emerald-400',
+    gold: 'bg-amber-400',
+  }
+  const barCls = colorMap[color] || colorMap.violet
+
+  return (
+    <div className="flex items-center justify-center gap-0.5 h-10 select-none" aria-hidden>
+      {bars.map((h, i) => (
+        <div
+          key={i}
+          className={`w-1 rounded-full transition-all ${barCls} ${playing ? 'opacity-100' : 'opacity-30'}`}
+          style={{
+            height: `${h}%`,
+            animationName: playing ? 'waveBar' : 'none',
+            animationDuration: `${0.4 + (i % 5) * 0.12}s`,
+            animationTimingFunction: 'ease-in-out',
+            animationIterationCount: 'infinite',
+            animationDirection: 'alternate',
+            animationDelay: `${(i % 7) * 0.06}s`,
+          }}
+        />
+      ))}
+      <style>{`
+        @keyframes waveBar {
+          from { transform: scaleY(0.35); }
+          to   { transform: scaleY(1); }
+        }
+      `}</style>
+    </div>
+  )
+}
+
+// ──────────────────────────────────────────────────
+// Mini audio player for a single comparison card
+// ──────────────────────────────────────────────────
+function ComparisonPlayer({ label, phrase, score, date, color, side }) {
+  const [playing, setPlaying] = useState(false)
+  const synthRef = useRef(null)
+
+  function togglePlay() {
+    if (playing) {
+      speechSynthesis.cancel()
+      setPlaying(false)
+      return
+    }
+    const utt = new SpeechSynthesisUtterance(phrase)
+    utt.lang = 'en-US'
+    utt.rate = 0.82
+    utt.onend = () => setPlaying(false)
+    utt.onerror = () => setPlaying(false)
+    synthRef.current = utt
+    speechSynthesis.speak(utt)
+    setPlaying(true)
+  }
+
+  useEffect(() => () => speechSynthesis.cancel(), [])
+
+  const scoreColor =
+    score >= 90 ? 'text-emerald-400' :
+    score >= 70 ? 'text-sky-400' :
+    score >= 50 ? 'text-amber-400' : 'text-red-400'
+
+  const scoreBg =
+    score >= 90 ? 'bg-emerald-500/10 border-emerald-500/20' :
+    score >= 70 ? 'bg-sky-500/10 border-sky-500/20' :
+    score >= 50 ? 'bg-amber-500/10 border-amber-500/20' : 'bg-red-500/10 border-red-500/20'
+
+  return (
+    <div className={`flex-1 glass-card p-4 flex flex-col gap-3 ${side === 'before' ? 'border-white/5' : 'border-violet-500/20'}`}>
+      {/* Header label */}
+      <div className="text-center">
+        <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+          side === 'before'
+            ? 'bg-white/5 text-muted'
+            : 'bg-violet-500/10 text-violet-400'
+        }`}>
+          {label}
+        </span>
+        {date && (
+          <p className="text-[10px] text-muted mt-1">
+            {new Date(date).toLocaleDateString('ar-SA', { day: 'numeric', month: 'short', year: 'numeric' })}
+          </p>
+        )}
+      </div>
+
+      {/* Waveform */}
+      <Waveform playing={playing} color={color} />
+
+      {/* Play button */}
+      <button
+        onClick={togglePlay}
+        className={`mx-auto w-10 h-10 rounded-full flex items-center justify-center transition-all ${
+          playing
+            ? 'bg-red-500/20 border border-red-500/30 hover:bg-red-500/30'
+            : 'bg-white/5 border border-white/10 hover:bg-white/10'
+        }`}
+        title={playing ? 'إيقاف' : 'استمع'}
+      >
+        {playing
+          ? <Minus size={16} className="text-red-400" />
+          : <Play size={16} className={side === 'after' ? 'text-violet-400' : 'text-muted'} />
+        }
+      </button>
+
+      {/* Score */}
+      <div className={`text-center rounded-xl p-2 border ${scoreBg}`}>
+        <p className={`text-2xl font-bold ${scoreColor}`}>{score}%</p>
+        <p className="text-[10px] text-muted">درجة النطق</p>
+      </div>
+    </div>
+  )
+}
+
+// ──────────────────────────────────────────────────
+// Before/After Section — full tab component
+// ──────────────────────────────────────────────────
+function BeforeAfterSection({ profileId, studentName }) {
+  const [selectedIdx, setSelectedIdx] = useState(0)
+  const [copied, setCopied] = useState(false)
+
+  // Query pronunciation_logs first
+  const { data: comparisonData, isLoading } = useQuery({
+    queryKey: ['pronunciation-comparison', profileId],
+    queryFn: async () => {
+      // Attempt pronunciation_logs (stores phrase + accuracy_score + created_at)
+      const { data: logs, error: logsErr } = await supabase
+        .from('pronunciation_logs')
+        .select('id, phrase, accuracy_score, created_at, mode')
+        .eq('student_id', profileId)
+        .order('created_at', { ascending: true })
+
+      // Fall back to voice_journals if no pronunciation_logs or table missing
+      if (!logsErr && logs && logs.length >= 2) {
+        return buildComparisons(logs, 'phrase', 'accuracy_score')
+      }
+
+      // Fallback: voice_journals (fluency_score, topic as phrase)
+      const { data: journals } = await supabase
+        .from('voice_journals')
+        .select('id, topic, fluency_score, created_at')
+        .eq('student_id', profileId)
+        .not('fluency_score', 'is', null)
+        .order('created_at', { ascending: true })
+
+      if (journals && journals.length >= 2) {
+        return buildComparisons(journals, 'topic', 'fluency_score')
+      }
+
+      return []
+    },
+    enabled: !!profileId,
+    staleTime: 60_000,
+  })
+
+  function buildComparisons(records, phraseKey, scoreKey) {
+    // Group records by phrase/topic
+    const groups = {}
+    for (const r of records) {
+      const key = (r[phraseKey] || '').trim().toLowerCase().slice(0, 60)
+      if (!key) continue
+      if (!groups[key]) groups[key] = []
+      groups[key].push(r)
+    }
+
+    // Only keep phrases that have at least 2 attempts
+    const pairs = []
+    for (const [, entries] of Object.entries(groups)) {
+      if (entries.length < 2) continue
+      const sorted = [...entries].sort((a, b) => new Date(a.created_at) - new Date(b.created_at))
+      const first = sorted[0]
+      const last = sorted[sorted.length - 1]
+      // Skip if both are identical records
+      if (first.id === last.id) continue
+      const phraseText = first[phraseKey] || 'تدريب صوتي'
+      pairs.push({
+        phrase: phraseText,
+        before: { score: first[scoreKey] ?? 0, date: first.created_at },
+        after: { score: last[scoreKey] ?? 0, date: last.created_at },
+        attempts: entries.length,
+      })
+    }
+
+    // Sort by biggest improvement descending, then by total attempts
+    pairs.sort((a, b) => {
+      const impA = a.after.score - a.before.score
+      const impB = b.after.score - b.before.score
+      return impB - impA
+    })
+
+    return pairs
+  }
+
+  const pairs = comparisonData || []
+  const current = pairs[selectedIdx]
+
+  const improvement = current ? current.after.score - current.before.score : 0
+  const improvementPct = current && current.before.score > 0
+    ? Math.round(((current.after.score - current.before.score) / current.before.score) * 100)
+    : improvement
+
+  async function handleShare() {
+    if (!current) return
+
+    const lines = [
+      `🎯 تقدمي في النطق — ${studentName || 'طالب'}`,
+      `📝 "${current.phrase}"`,
+      ``,
+      `📅 البداية (${new Date(current.before.date).toLocaleDateString('ar-SA')}): ${current.before.score}%`,
+      `✅ الآن (${new Date(current.after.date).toLocaleDateString('ar-SA')}): ${current.after.score}%`,
+      ``,
+      improvement > 0
+        ? `🚀 تحسّن بنسبة ${Math.abs(improvementPct)}%!`
+        : improvement === 0
+          ? `💪 ثبات ممتاز على ${current.after.score}%`
+          : `🔄 جاري التحسّن — استمر في التدريب`,
+      ``,
+      `تعلّم معنا على Fluentia LMS ✨`,
+    ]
+
+    const text = lines.join('\n')
+
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: 'تقدمي في النطق', text })
+      } else {
+        await navigator.clipboard.writeText(text)
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2500)
+      }
+    } catch {
+      // Clipboard fallback
+      try {
+        await navigator.clipboard.writeText(text)
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2500)
+      } catch {
+        // ignore
+      }
+    }
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <Loader2 size={24} className="animate-spin text-sky-400" />
+      </div>
+    )
+  }
+
+  if (pairs.length === 0) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="glass-card p-10 text-center space-y-3"
+      >
+        <GitCompareArrows size={44} className="mx-auto text-violet-400/40" />
+        <h3 className="text-lg font-bold text-white">لا توجد مقارنة بعد</h3>
+        <p className="text-sm text-muted max-w-xs mx-auto">
+          تحتاج إلى تسجيل نفس العبارة أو الكلمة مرتين على الأقل حتى تظهر مقارنة قبل/بعد.
+          استمر في التدريب!
+        </p>
+        <div className="mt-2 inline-flex items-center gap-1.5 text-xs text-violet-400 bg-violet-500/10 rounded-full px-3 py-1.5">
+          <Mic size={12} />
+          دوّن تمارين يومية لترى تطورك
+        </div>
+      </motion.div>
+    )
+  }
+
+  return (
+    <div className="space-y-5" dir="rtl">
+      {/* Phrase navigator */}
+      {pairs.length > 1 && (
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setSelectedIdx(i => Math.max(0, i - 1))}
+            disabled={selectedIdx === 0}
+            className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center disabled:opacity-30 hover:bg-white/10 transition-all"
+          >
+            <ChevronRight size={16} className="text-muted" />
+          </button>
+          <div className="flex-1 text-center">
+            <p className="text-xs text-muted">{selectedIdx + 1} / {pairs.length} عبارة</p>
+          </div>
+          <button
+            onClick={() => setSelectedIdx(i => Math.min(pairs.length - 1, i + 1))}
+            disabled={selectedIdx === pairs.length - 1}
+            className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center disabled:opacity-30 hover:bg-white/10 transition-all"
+          >
+            <ChevronLeft size={16} className="text-muted" />
+          </button>
+        </div>
+      )}
+
+      {/* Phrase display */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={selectedIdx}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.22 }}
+          className="space-y-4"
+        >
+          {/* Phrase label */}
+          <div className="glass-card p-3 text-center border border-violet-500/10">
+            <p className="text-[10px] text-muted uppercase tracking-wider mb-1">العبارة المقارنة</p>
+            <p className="text-base font-bold text-white" dir="ltr">{current.phrase}</p>
+            <p className="text-[10px] text-muted mt-1">{current.attempts} محاولة مسجّلة</p>
+          </div>
+
+          {/* Side-by-side players */}
+          <div className="flex gap-3">
+            <ComparisonPlayer
+              label="قبل"
+              phrase={current.phrase}
+              score={current.before.score}
+              date={current.before.date}
+              color="sky"
+              side="before"
+            />
+            <ComparisonPlayer
+              label="الآن"
+              phrase={current.phrase}
+              score={current.after.score}
+              date={current.after.date}
+              color="violet"
+              side="after"
+            />
+          </div>
+
+          {/* Improvement indicator */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.1 }}
+            className={`glass-card p-4 text-center border ${
+              improvement > 0
+                ? 'border-emerald-500/20 bg-emerald-500/5'
+                : improvement < 0
+                  ? 'border-red-500/20 bg-red-500/5'
+                  : 'border-white/5 bg-white/5'
+            }`}
+          >
+            <div className="flex items-center justify-center gap-2 mb-1">
+              {improvement > 0
+                ? <TrendingUp size={20} className="text-emerald-400" />
+                : improvement < 0
+                  ? <TrendingDown size={20} className="text-red-400" />
+                  : <Minus size={20} className="text-muted" />
+              }
+              <span className={`text-2xl font-bold ${
+                improvement > 0 ? 'text-emerald-400' :
+                improvement < 0 ? 'text-red-400' : 'text-muted'
+              }`}>
+                {improvement > 0 ? '+' : ''}{improvement}%
+              </span>
+            </div>
+            <p className="text-xs text-muted">
+              {improvement > 0
+                ? `تحسّن رائع! ارتفعت درجتك بمقدار ${Math.abs(improvement)} نقطة`
+                : improvement < 0
+                  ? 'لا تستسلم — كل محاولة تعلّم!'
+                  : 'نتيجة ثابتة — حاول أن تتجاوز نفسك'
+              }
+            </p>
+
+            {/* Progress bar */}
+            <div className="mt-3 relative h-2 bg-white/5 rounded-full overflow-hidden">
+              {/* Before bar */}
+              <div
+                className="absolute top-0 right-0 h-full rounded-full bg-sky-500/40"
+                style={{ width: `${Math.min(100, current.before.score)}%` }}
+              />
+              {/* After bar (overlaid to show delta) */}
+              <motion.div
+                className={`absolute top-0 right-0 h-full rounded-full ${
+                  improvement >= 0 ? 'bg-emerald-400' : 'bg-red-400'
+                }`}
+                initial={{ width: `${Math.min(100, current.before.score)}%` }}
+                animate={{ width: `${Math.min(100, current.after.score)}%` }}
+                transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+              />
+            </div>
+            <div className="flex justify-between mt-1 text-[9px] text-muted" dir="ltr">
+              <span>0%</span>
+              <span>50%</span>
+              <span>100%</span>
+            </div>
+
+            {/* Achievement badge */}
+            {improvement >= 20 && (
+              <motion.div
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="mt-3 inline-flex items-center gap-1.5 text-xs bg-gold-500/10 border border-gold-500/20 text-amber-400 rounded-full px-3 py-1"
+              >
+                <Award size={12} />
+                تحسن ملحوظ +{improvement} نقطة
+              </motion.div>
+            )}
+          </motion.div>
+
+          {/* Share button */}
+          <motion.button
+            whileTap={{ scale: 0.97 }}
+            onClick={handleShare}
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-violet-500/10 border border-violet-500/20 text-violet-400 hover:bg-violet-500/20 transition-all text-sm font-medium"
+          >
+            {copied
+              ? <><Check size={16} className="text-emerald-400" /><span className="text-emerald-400">تم النسخ!</span></>
+              : <><Share2 size={16} />شارك تقدمي</>
+            }
+          </motion.button>
+        </motion.div>
+      </AnimatePresence>
+
+      {/* All phrases mini list */}
+      {pairs.length > 1 && (
+        <div>
+          <p className="text-xs text-muted mb-2">كل المقارنات ({pairs.length})</p>
+          <div className="space-y-1.5">
+            {pairs.map((p, i) => {
+              const imp = p.after.score - p.before.score
+              return (
+                <button
+                  key={i}
+                  onClick={() => setSelectedIdx(i)}
+                  className={`w-full text-right px-3 py-2.5 rounded-xl flex items-center justify-between gap-3 transition-all text-sm ${
+                    i === selectedIdx
+                      ? 'bg-violet-500/15 border border-violet-500/25 text-white'
+                      : 'bg-white/5 text-muted hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  <span className="truncate flex-1 text-right" dir="ltr">{p.phrase}</span>
+                  <span className={`text-[11px] font-bold shrink-0 ${
+                    imp > 0 ? 'text-emerald-400' : imp < 0 ? 'text-red-400' : 'text-muted'
+                  }`}>
+                    {imp > 0 ? '+' : ''}{imp}%
+                  </span>
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
 export default function StudentPronunciation() {
   const { profile, studentData } = useAuthStore()
-  const [section, setSection] = useState('daily') // daily | more
+  const [section, setSection] = useState('daily') // daily | more | compare
   const [mode, setMode] = useState('sentences') // sentences | words
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isListening, setIsListening] = useState(false)
@@ -577,8 +1047,8 @@ export default function StudentPronunciation() {
         )}
       </div>
 
-      {/* Section toggle: Daily / More */}
-      <div className="flex gap-2">
+      {/* Section toggle: Daily / More / Compare */}
+      <div className="flex gap-2 flex-wrap">
         <button
           onClick={() => { setSection('daily'); setCurrentIndex(0); setFeedback(null); setTranscript('') }}
           className={`text-sm px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 ${
@@ -597,157 +1067,195 @@ export default function StudentPronunciation() {
           <BookOpen size={14} />
           المزيد
         </button>
-      </div>
-
-      {/* Mode toggle: Sentences / Words */}
-      <div className="flex gap-2">
         <button
-          onClick={() => { setMode('sentences'); setCurrentIndex(0); setFeedback(null); setTranscript('') }}
-          className={`text-sm px-4 py-2 rounded-xl transition-all ${
-            mode === 'sentences' ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30' : 'bg-white/5 text-muted'
+          onClick={() => { setSection('compare'); setFeedback(null); setTranscript('') }}
+          className={`text-sm px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 ${
+            section === 'compare'
+              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+              : 'bg-white/5 text-muted'
           }`}
         >
-          جمل
-        </button>
-        <button
-          onClick={() => { setMode('words'); setCurrentIndex(0); setFeedback(null); setTranscript('') }}
-          className={`text-sm px-4 py-2 rounded-xl transition-all ${
-            mode === 'words' ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30' : 'bg-white/5 text-muted'
-          }`}
-        >
-          كلمات صعبة
+          <GitCompareArrows size={14} />
+          قبل وبعد
         </button>
       </div>
 
-      {/* Daily section header */}
-      {section === 'daily' && (
-        <div className="glass-card p-3 border border-violet-500/20 bg-violet-500/5">
-          <p className="text-xs text-violet-400 text-center">
-            <Calendar size={12} className="inline ml-1" />
-            تمارين اليوم — تتغير يومياً لتغطي تحديات النطق المختلفة
-          </p>
-        </div>
-      )}
-
-      {/* Practice card */}
-      <motion.div
-        key={`${section}-${mode}-${currentIndex}`}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="glass-card p-6"
-      >
-        <div className="text-center mb-6">
-          <p className="text-[10px] text-muted mb-2">{currentIndex + 1} / {totalItems}</p>
-          <h2 className="text-2xl font-bold text-white mb-2" dir="ltr">
-            {currentTarget}
-          </h2>
-          {mode === 'words' && currentPhonetic && (
-            <p className="text-sm text-muted" dir="ltr">{currentPhonetic}</p>
-          )}
-          {currentTip && (
-            <p className="text-xs text-amber-400/80 mt-2 bg-amber-500/5 rounded-lg px-3 py-1.5 inline-block">
-              {currentTip}
-            </p>
-          )}
-
-          {/* Listen button */}
-          <div>
+      {/* ── Compare tab: Before/After ── */}
+      {section === 'compare' ? (
+        <AnimatePresence mode="wait">
+          <motion.div
+            key="compare-section"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.22 }}
+          >
+            {/* Compare header */}
+            <div className="glass-card p-3 border border-emerald-500/20 bg-emerald-500/5 mb-4">
+              <p className="text-xs text-emerald-400 text-center flex items-center justify-center gap-1.5">
+                <GitCompareArrows size={13} />
+                مقارنة أقدم تسجيل لك مع أحدث تسجيل لنفس العبارة
+              </p>
+            </div>
+            <BeforeAfterSection
+              profileId={profile?.id}
+              studentName={profile?.display_name || profile?.full_name}
+            />
+          </motion.div>
+        </AnimatePresence>
+      ) : (
+        <>
+          {/* Mode toggle: Sentences / Words — only for daily/more tabs */}
+          <div className="flex gap-2">
             <button
-              onClick={() => speak(currentTarget)}
-              className="mt-3 inline-flex items-center gap-2 text-sm text-sky-400 hover:text-sky-300 transition-all"
+              onClick={() => { setMode('sentences'); setCurrentIndex(0); setFeedback(null); setTranscript('') }}
+              className={`text-sm px-4 py-2 rounded-xl transition-all ${
+                mode === 'sentences' ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30' : 'bg-white/5 text-muted'
+              }`}
             >
-              <Play size={14} />
-              استمع للنموذج
+              جمل
+            </button>
+            <button
+              onClick={() => { setMode('words'); setCurrentIndex(0); setFeedback(null); setTranscript('') }}
+              className={`text-sm px-4 py-2 rounded-xl transition-all ${
+                mode === 'words' ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30' : 'bg-white/5 text-muted'
+              }`}
+            >
+              كلمات صعبة
             </button>
           </div>
-        </div>
 
-        {/* Record */}
-        <div className="text-center mb-4">
-          <button
-            onClick={isListening ? stopListening : startListening}
-            disabled={isTranscribing}
-            className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto transition-all ${
-              isTranscribing
-                ? 'bg-amber-500/20 border-2 border-amber-500/40 cursor-wait'
-                : isListening
-                  ? 'bg-red-500 animate-pulse shadow-lg shadow-red-500/30'
-                  : 'bg-violet-500/20 border-2 border-violet-500/40 hover:bg-violet-500/30'
-            }`}
-          >
-            {isTranscribing
-              ? <Loader2 size={24} className="text-amber-400 animate-spin" />
-              : isListening
-                ? <MicOff size={24} className="text-white" />
-                : <Mic size={24} className="text-violet-400" />}
-          </button>
-          <p className="text-muted text-xs mt-2">
-            {isTranscribing
-              ? 'جاري تحليل الكلام...'
-              : isListening
-                ? 'يسمعك... تحدث الآن — اضغط مرة أخرى للإيقاف'
-                : 'اضغط وانطق الجملة'}
-          </p>
-        </div>
+          {/* Daily section header */}
+          {section === 'daily' && (
+            <div className="glass-card p-3 border border-violet-500/20 bg-violet-500/5">
+              <p className="text-xs text-violet-400 text-center">
+                <Calendar size={12} className="inline ml-1" />
+                تمارين اليوم — تتغير يومياً لتغطي تحديات النطق المختلفة
+              </p>
+            </div>
+          )}
 
-        {/* Transcript */}
-        {transcript && (
-          <div className="bg-white/5 rounded-xl p-3 text-center mb-4">
-            <p className="text-xs text-muted mb-1">ما سمعناه:</p>
-            <p className="text-sm text-white" dir="ltr">{transcript}</p>
-          </div>
-        )}
-
-        {/* Feedback */}
-        {feedback && (
+          {/* Practice card */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="space-y-3"
+            key={`${section}-${mode}-${currentIndex}`}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="glass-card p-6"
           >
-            <div className={`text-center p-3 rounded-xl ${
-              feedback.accuracy >= 90 ? 'bg-emerald-500/10 border border-emerald-500/20' :
-              feedback.accuracy >= 70 ? 'bg-sky-500/10 border border-sky-500/20' :
-              'bg-gold-500/10 border border-gold-500/20'
-            }`}>
-              <p className={`text-2xl font-bold ${
-                feedback.accuracy >= 90 ? 'text-emerald-400' : feedback.accuracy >= 70 ? 'text-sky-400' : 'text-gold-400'
-              }`}>{feedback.accuracy}%</p>
-              <p className="text-sm text-white mt-1">{feedback.message}</p>
-              {feedback.xp > 0 && <p className="text-xs text-violet-400 mt-1">+{feedback.xp} XP</p>}
+            <div className="text-center mb-6">
+              <p className="text-[10px] text-muted mb-2">{currentIndex + 1} / {totalItems}</p>
+              <h2 className="text-2xl font-bold text-white mb-2" dir="ltr">
+                {currentTarget}
+              </h2>
+              {mode === 'words' && currentPhonetic && (
+                <p className="text-sm text-muted" dir="ltr">{currentPhonetic}</p>
+              )}
+              {currentTip && (
+                <p className="text-xs text-amber-400/80 mt-2 bg-amber-500/5 rounded-lg px-3 py-1.5 inline-block">
+                  {currentTip}
+                </p>
+              )}
+
+              {/* Listen button */}
+              <div>
+                <button
+                  onClick={() => speak(currentTarget)}
+                  className="mt-3 inline-flex items-center gap-2 text-sm text-sky-400 hover:text-sky-300 transition-all"
+                >
+                  <Play size={14} />
+                  استمع للنموذج
+                </button>
+              </div>
             </div>
 
-            {/* Word-by-word comparison */}
-            {feedback.wordResults.length > 0 && (
-              <div className="flex flex-wrap gap-2 justify-center" dir="ltr">
-                {feedback.wordResults.map((w, i) => (
-                  <span
-                    key={i}
-                    className={`text-sm px-2 py-1 rounded-lg ${
-                      w.match ? 'bg-emerald-500/10 text-emerald-400' : 'bg-red-500/10 text-red-400'
-                    }`}
-                  >
-                    {w.match ? <CheckCircle2 size={10} className="inline mr-1" /> : <XCircle size={10} className="inline mr-1" />}
-                    {w.target}
-                  </span>
-                ))}
+            {/* Record */}
+            <div className="text-center mb-4">
+              <button
+                onClick={isListening ? stopListening : startListening}
+                disabled={isTranscribing}
+                className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto transition-all ${
+                  isTranscribing
+                    ? 'bg-amber-500/20 border-2 border-amber-500/40 cursor-wait'
+                    : isListening
+                      ? 'bg-red-500 animate-pulse shadow-lg shadow-red-500/30'
+                      : 'bg-violet-500/20 border-2 border-violet-500/40 hover:bg-violet-500/30'
+                }`}
+              >
+                {isTranscribing
+                  ? <Loader2 size={24} className="text-amber-400 animate-spin" />
+                  : isListening
+                    ? <MicOff size={24} className="text-white" />
+                    : <Mic size={24} className="text-violet-400" />}
+              </button>
+              <p className="text-muted text-xs mt-2">
+                {isTranscribing
+                  ? 'جاري تحليل الكلام...'
+                  : isListening
+                    ? 'يسمعك... تحدث الآن — اضغط مرة أخرى للإيقاف'
+                    : 'اضغط وانطق الجملة'}
+              </p>
+            </div>
+
+            {/* Transcript */}
+            {transcript && (
+              <div className="bg-white/5 rounded-xl p-3 text-center mb-4">
+                <p className="text-xs text-muted mb-1">ما سمعناه:</p>
+                <p className="text-sm text-white" dir="ltr">{transcript}</p>
               </div>
             )}
-          </motion.div>
-        )}
 
-        {/* Next button */}
-        <div className="flex gap-2 mt-4">
-          <button onClick={() => { setFeedback(null); setTranscript('') }} className="flex-1 text-sm py-2.5 rounded-xl bg-white/5 text-muted hover:text-white transition-all">
-            <RefreshCw size={14} className="inline ml-1" />
-            إعادة
-          </button>
-          <button onClick={nextItem} className="flex-1 btn-primary text-sm py-2.5">
-            التالي
-            <ArrowLeft size={14} className="inline mr-1" />
-          </button>
-        </div>
-      </motion.div>
+            {/* Feedback */}
+            {feedback && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="space-y-3"
+              >
+                <div className={`text-center p-3 rounded-xl ${
+                  feedback.accuracy >= 90 ? 'bg-emerald-500/10 border border-emerald-500/20' :
+                  feedback.accuracy >= 70 ? 'bg-sky-500/10 border border-sky-500/20' :
+                  'bg-gold-500/10 border border-gold-500/20'
+                }`}>
+                  <p className={`text-2xl font-bold ${
+                    feedback.accuracy >= 90 ? 'text-emerald-400' : feedback.accuracy >= 70 ? 'text-sky-400' : 'text-gold-400'
+                  }`}>{feedback.accuracy}%</p>
+                  <p className="text-sm text-white mt-1">{feedback.message}</p>
+                  {feedback.xp > 0 && <p className="text-xs text-violet-400 mt-1">+{feedback.xp} XP</p>}
+                </div>
+
+                {/* Word-by-word comparison */}
+                {feedback.wordResults.length > 0 && (
+                  <div className="flex flex-wrap gap-2 justify-center" dir="ltr">
+                    {feedback.wordResults.map((w, i) => (
+                      <span
+                        key={i}
+                        className={`text-sm px-2 py-1 rounded-lg ${
+                          w.match ? 'bg-emerald-500/10 text-emerald-400' : 'bg-red-500/10 text-red-400'
+                        }`}
+                      >
+                        {w.match ? <CheckCircle2 size={10} className="inline mr-1" /> : <XCircle size={10} className="inline mr-1" />}
+                        {w.target}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </motion.div>
+            )}
+
+            {/* Next button */}
+            <div className="flex gap-2 mt-4">
+              <button onClick={() => { setFeedback(null); setTranscript('') }} className="flex-1 text-sm py-2.5 rounded-xl bg-white/5 text-muted hover:text-white transition-all">
+                <RefreshCw size={14} className="inline ml-1" />
+                إعادة
+              </button>
+              <button onClick={nextItem} className="flex-1 btn-primary text-sm py-2.5">
+                التالي
+                <ArrowLeft size={14} className="inline mr-1" />
+              </button>
+            </div>
+          </motion.div>
+        </>
+      )}
     </div>
   )
 }

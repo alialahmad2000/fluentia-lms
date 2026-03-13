@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   Brain, Plus, Trash2, ChevronUp, ChevronDown, Edit3, Check,
   Clock, Send, Save, Loader2, RefreshCw, GripVertical,
+  BarChart2, AlertTriangle, Target, TrendingDown, Users, HelpCircle,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
@@ -42,6 +43,7 @@ export default function TrainerQuizGenerator() {
   const queryClient = useQueryClient()
   const isAdmin = profile?.role === 'admin'
 
+  const [activeTab, setActiveTab] = useState('generator')
   const [step, setStep] = useState(1)
   const [toast, setToast] = useState(null)
 
@@ -326,6 +328,34 @@ Make questions progressively harder. All question text should be in English. Exp
           <p className="text-sm text-white/50">أنشئ كويزات تفاعلية بسرعة باستخدام AI</p>
         </div>
       </div>
+
+      {/* Tab Switcher */}
+      <div className="flex gap-2 border-b border-white/10 pb-1">
+        {[
+          { key: 'generator', label: 'إنشاء كويز', icon: Brain },
+          { key: 'analytics', label: 'تحليلات', icon: BarChart2 },
+        ].map(({ key, label, icon: Icon }) => (
+          <button
+            key={key}
+            onClick={() => setActiveTab(key)}
+            className={`flex items-center gap-2 px-4 py-2 rounded-t-xl text-sm font-medium transition-all border-b-2 -mb-px ${
+              activeTab === key
+                ? 'text-violet-300 border-violet-400 bg-violet-500/10'
+                : 'text-white/40 border-transparent hover:text-white/70 hover:bg-white/5'
+            }`}
+          >
+            <Icon className="w-4 h-4" />
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {/* Analytics Tab */}
+      {activeTab === 'analytics' && (
+        <QuizAnalytics profileId={profile?.id} isAdmin={isAdmin} />
+      )}
+
+      {activeTab === 'generator' && (<>
 
       {/* Step Indicator */}
       <div className="flex items-center justify-center gap-2">
@@ -752,6 +782,7 @@ Make questions progressively harder. All question text should be in English. Exp
           </motion.div>
         )}
       </AnimatePresence>
+      </>)}
     </div>
   )
 }
@@ -924,5 +955,356 @@ function ToggleOption({ label, checked, onChange }) {
         }`} />
       </button>
     </label>
+  )
+}
+
+// ─── Quiz Analytics Component ───
+function QuizAnalytics({ profileId, isAdmin }) {
+  const [selectedGroup, setSelectedGroup] = useState('')
+
+  // Fetch trainer groups
+  const { data: groups } = useQuery({
+    queryKey: ['analytics-groups', profileId],
+    queryFn: async () => {
+      let query = supabase.from('groups').select('id, name, code, level').order('level')
+      if (!isAdmin) query = query.eq('trainer_id', profileId)
+      const { data } = await query
+      return data || []
+    },
+    enabled: !!profileId,
+  })
+
+  // Fetch quizzes for the selected group with their attempts
+  const { data: analyticsData, isLoading } = useQuery({
+    queryKey: ['quiz-analytics', selectedGroup, profileId],
+    queryFn: async () => {
+      // 1. Fetch quizzes
+      let quizQuery = supabase
+        .from('quizzes')
+        .select('id, title, total_questions, total_points, type, skill_focus, created_at')
+        .eq('status', 'published')
+        .order('created_at', { ascending: false })
+        .limit(20)
+
+      if (selectedGroup) {
+        quizQuery = quizQuery.eq('group_id', selectedGroup)
+      } else if (!isAdmin) {
+        quizQuery = quizQuery.eq('trainer_id', profileId)
+      }
+
+      const { data: quizzes, error: quizError } = await quizQuery
+      if (quizError) throw quizError
+      if (!quizzes || quizzes.length === 0) return { quizzes: [], questionStats: [], weakAreas: [] }
+
+      const quizIds = quizzes.map(q => q.id)
+
+      // 2. Fetch attempts for those quizzes
+      const { data: attempts, error: attemptsError } = await supabase
+        .from('quiz_attempts')
+        .select('id, quiz_id, score, total_points, completed_at')
+        .in('quiz_id', quizIds)
+        .not('completed_at', 'is', null)
+
+      if (attemptsError) throw attemptsError
+
+      // 3. Fetch quiz questions for those quizzes
+      const { data: questions, error: qError } = await supabase
+        .from('quiz_questions')
+        .select('id, quiz_id, question_text, skill_tag, points, order_number')
+        .in('quiz_id', quizIds)
+
+      if (qError) throw qError
+
+      // 4. Fetch quiz answers for those attempts
+      const attemptIds = (attempts || []).map(a => a.id)
+      let answers = []
+      if (attemptIds.length > 0) {
+        const { data: ans } = await supabase
+          .from('quiz_answers')
+          .select('attempt_id, question_id, is_correct')
+          .in('attempt_id', attemptIds)
+        answers = ans || []
+      }
+
+      // ── Compute class averages per quiz ──
+      const quizzesWithStats = quizzes.map(quiz => {
+        const quizAttempts = (attempts || []).filter(a => a.quiz_id === quiz.id)
+        const count = quizAttempts.length
+        if (count === 0) return { ...quiz, avgPercent: null, attemptCount: 0 }
+        const avgPercent = Math.round(
+          quizAttempts.reduce((sum, a) => {
+            const maxPts = a.total_points || quiz.total_points || 1
+            return sum + ((a.score || 0) / maxPts) * 100
+          }, 0) / count
+        )
+        return { ...quiz, avgPercent, attemptCount: count }
+      }).filter(q => q.attemptCount > 0)
+
+      // ── Compute per-question wrong rates ──
+      const questionMap = {}
+      ;(questions || []).forEach(q => { questionMap[q.id] = q })
+
+      const questionStats = {}
+      answers.forEach(ans => {
+        const q = questionMap[ans.question_id]
+        if (!q) return
+        if (!questionStats[ans.question_id]) {
+          questionStats[ans.question_id] = { ...q, total: 0, wrong: 0 }
+        }
+        questionStats[ans.question_id].total += 1
+        if (!ans.is_correct) questionStats[ans.question_id].wrong += 1
+      })
+
+      const questionStatsList = Object.values(questionStats)
+        .filter(q => q.total >= 2)
+        .map(q => ({ ...q, wrongRate: Math.round((q.wrong / q.total) * 100) }))
+        .sort((a, b) => b.wrongRate - a.wrongRate)
+        .slice(0, 10)
+
+      // ── Compute weak areas by skill tag ──
+      const skillStats = {}
+      answers.forEach(ans => {
+        const q = questionMap[ans.question_id]
+        if (!q || !q.skill_tag) return
+        const tag = q.skill_tag
+        if (!skillStats[tag]) skillStats[tag] = { tag, total: 0, wrong: 0 }
+        skillStats[tag].total += 1
+        if (!ans.is_correct) skillStats[tag].wrong += 1
+      })
+
+      const weakAreas = Object.values(skillStats)
+        .filter(s => s.total >= 2)
+        .map(s => ({ ...s, wrongRate: Math.round((s.wrong / s.total) * 100) }))
+        .sort((a, b) => b.wrongRate - a.wrongRate)
+
+      return { quizzes: quizzesWithStats, questionStats: questionStatsList, weakAreas }
+    },
+    enabled: !!profileId,
+  })
+
+  const skillLabel = (tag) => SKILLS.find(s => s.value === tag)?.label || tag
+
+  const barColor = (pct) => {
+    if (pct >= 75) return 'bg-emerald-500'
+    if (pct >= 50) return 'bg-yellow-500'
+    return 'bg-red-500'
+  }
+
+  const weakBarColor = (pct) => {
+    if (pct >= 60) return 'bg-red-500'
+    if (pct >= 35) return 'bg-yellow-500'
+    return 'bg-emerald-500'
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="space-y-6"
+    >
+      {/* Group Filter */}
+      <div className="glass-card p-4 flex items-center gap-4">
+        <Users className="w-5 h-5 text-violet-400 shrink-0" />
+        <div className="flex-1">
+          <label className="block text-xs text-white/40 mb-1">تصفية حسب المجموعة</label>
+          <select
+            className="input-field w-full"
+            value={selectedGroup}
+            onChange={e => setSelectedGroup(e.target.value)}
+          >
+            <option value="">جميع المجموعات</option>
+            {groups?.map(g => (
+              <option key={g.id} value={g.id}>{g.name} ({g.code})</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      {isLoading && (
+        <div className="flex items-center justify-center py-16">
+          <Loader2 className="w-8 h-8 text-violet-400 animate-spin" />
+        </div>
+      )}
+
+      {!isLoading && analyticsData && (
+        <>
+          {/* ── Section 1: Class Averages Per Quiz ── */}
+          <div className="glass-card p-5 space-y-4">
+            <div className="flex items-center gap-2">
+              <BarChart2 className="w-5 h-5 text-violet-400" />
+              <h2 className="text-base font-semibold">متوسط الدرجات لكل كويز</h2>
+              <span className="text-xs text-white/30 mr-auto">{analyticsData.quizzes.length} كويز</span>
+            </div>
+
+            {analyticsData.quizzes.length === 0 ? (
+              <p className="text-sm text-white/40 text-center py-6">لا توجد محاولات مكتملة بعد</p>
+            ) : (
+              <div className="space-y-3">
+                {analyticsData.quizzes.map((quiz, i) => (
+                  <motion.div
+                    key={quiz.id}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.04 }}
+                    className="space-y-1"
+                  >
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-white/80 truncate max-w-[60%]">{quiz.title}</span>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <span className="text-xs text-white/30">{quiz.attemptCount} محاولة</span>
+                        <span className={`font-bold text-sm ${
+                          quiz.avgPercent >= 75 ? 'text-emerald-400' :
+                          quiz.avgPercent >= 50 ? 'text-yellow-400' : 'text-red-400'
+                        }`}>
+                          {quiz.avgPercent}%
+                        </span>
+                      </div>
+                    </div>
+                    <div className="h-2.5 bg-white/5 rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: `${quiz.avgPercent}%` }}
+                        transition={{ duration: 0.6, delay: i * 0.04 + 0.1, ease: 'easeOut' }}
+                        className={`h-full rounded-full ${barColor(quiz.avgPercent)}`}
+                      />
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* ── Section 2: Question-Level Analysis ── */}
+          <div className="glass-card p-5 space-y-4">
+            <div className="flex items-center gap-2">
+              <HelpCircle className="w-5 h-5 text-yellow-400" />
+              <h2 className="text-base font-semibold">الأسئلة الأكثر إخفاقاً</h2>
+              <span className="text-xs text-white/30 mr-auto">أعلى نسبة إجابات خاطئة</span>
+            </div>
+
+            {analyticsData.questionStats.length === 0 ? (
+              <p className="text-sm text-white/40 text-center py-6">لا توجد بيانات كافية للأسئلة</p>
+            ) : (
+              <div className="space-y-3">
+                {analyticsData.questionStats.map((q, i) => (
+                  <motion.div
+                    key={q.id}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.04 }}
+                    className="p-3 rounded-xl bg-white/5 border border-white/8 space-y-2"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <p className="text-sm text-white/80 leading-relaxed line-clamp-2 flex-1">
+                        {q.question_text}
+                      </p>
+                      <div className="shrink-0 text-left">
+                        <span className={`text-sm font-bold ${
+                          q.wrongRate >= 60 ? 'text-red-400' :
+                          q.wrongRate >= 35 ? 'text-yellow-400' : 'text-emerald-400'
+                        }`}>
+                          {q.wrongRate}%
+                        </span>
+                        <p className="text-[10px] text-white/30">خطأ</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-white/40">
+                        {skillLabel(q.skill_tag)}
+                      </span>
+                      <span className="text-xs text-white/30">{q.total} محاولة</span>
+                      <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden mr-1">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${q.wrongRate}%` }}
+                          transition={{ duration: 0.5, delay: i * 0.04 + 0.1 }}
+                          className={`h-full rounded-full ${weakBarColor(q.wrongRate)}`}
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* ── Section 3: Weak Areas by Skill Tag ── */}
+          <div className="glass-card p-5 space-y-4">
+            <div className="flex items-center gap-2">
+              <Target className="w-5 h-5 text-red-400" />
+              <h2 className="text-base font-semibold">المناطق الضعيفة — تحليل المهارات</h2>
+            </div>
+
+            {analyticsData.weakAreas.length === 0 ? (
+              <p className="text-sm text-white/40 text-center py-6">لا توجد بيانات كافية لتحليل المهارات</p>
+            ) : (
+              <div className="space-y-3">
+                {analyticsData.weakAreas.map((area, i) => {
+                  const isWeak = area.wrongRate >= 50
+                  return (
+                    <motion.div
+                      key={area.tag}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.05 }}
+                      className={`p-4 rounded-xl border ${
+                        isWeak
+                          ? 'bg-red-500/5 border-red-500/20'
+                          : area.wrongRate >= 35
+                            ? 'bg-yellow-500/5 border-yellow-500/20'
+                            : 'bg-emerald-500/5 border-emerald-500/20'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          {isWeak && <AlertTriangle className="w-4 h-4 text-red-400" />}
+                          {!isWeak && area.wrongRate >= 35 && <TrendingDown className="w-4 h-4 text-yellow-400" />}
+                          {!isWeak && area.wrongRate < 35 && <Target className="w-4 h-4 text-emerald-400" />}
+                          <span className="text-sm font-medium">{skillLabel(area.tag)}</span>
+                          {isWeak && (
+                            <span className="text-xs px-1.5 py-0.5 rounded bg-red-500/20 text-red-300 border border-red-500/30">
+                              يحتاج تركيز
+                            </span>
+                          )}
+                        </div>
+                        <div className="text-left">
+                          <span className={`text-sm font-bold ${
+                            area.wrongRate >= 50 ? 'text-red-400' :
+                            area.wrongRate >= 35 ? 'text-yellow-400' : 'text-emerald-400'
+                          }`}>
+                            {area.wrongRate}% إخفاق
+                          </span>
+                          <p className="text-[10px] text-white/30">{area.total} إجابة</p>
+                        </div>
+                      </div>
+                      <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${area.wrongRate}%` }}
+                          transition={{ duration: 0.6, delay: i * 0.05 + 0.1, ease: 'easeOut' }}
+                          className={`h-full rounded-full ${weakBarColor(area.wrongRate)}`}
+                        />
+                      </div>
+                      <p className="text-xs text-white/40 mt-2">
+                        {area.wrong} إجابة خاطئة من أصل {area.total} — يُنصح بمراجعة {skillLabel(area.tag)} مع الطلاب
+                      </p>
+                    </motion.div>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+        </>
+      )}
+
+      {!isLoading && (!analyticsData || (analyticsData.quizzes.length === 0 && analyticsData.questionStats.length === 0 && analyticsData.weakAreas.length === 0)) && (
+        <div className="glass-card p-10 text-center space-y-3">
+          <BarChart2 className="w-10 h-10 text-white/20 mx-auto" />
+          <p className="text-white/40 text-sm">لا توجد بيانات تحليلية بعد</p>
+          <p className="text-white/25 text-xs">انشر كويزات وانتظر محاولات الطلاب لرؤية التحليلات</p>
+        </div>
+      )}
+    </motion.div>
   )
 }

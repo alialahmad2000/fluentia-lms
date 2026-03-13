@@ -37,6 +37,7 @@ const StudentEvents = lazyRetry(() => import('./pages/student/StudentEvents'))
 const StudentAvatar = lazyRetry(() => import('./pages/student/StudentAvatar'))
 const StudentAssessments = lazyRetry(() => import('./pages/student/StudentAssessments'))
 const StudentQuiz = lazyRetry(() => import('./pages/student/StudentQuiz'))
+const StudentCertificate = lazyRetry(() => import('./pages/student/StudentCertificate'))
 
 const TrainerDashboard = lazyRetry(() => import('./pages/trainer/TrainerDashboard'))
 const TrainerAssignments = lazyRetry(() => import('./pages/trainer/TrainerAssignments'))
@@ -216,6 +217,7 @@ export default function App() {
               <Route path="/student/assessments" element={<Page><StudentAssessments /></Page>} />
               <Route path="/student/quiz" element={<Page><StudentQuiz /></Page>} />
               <Route path="/student/profile" element={<Page><StudentProfile /></Page>} />
+              <Route path="/student/certificates" element={<Page><StudentCertificate /></Page>} />
             </Route>
           </Route>
 
