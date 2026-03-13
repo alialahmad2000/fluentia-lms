@@ -38,6 +38,7 @@ const StudentAvatar = lazyRetry(() => import('./pages/student/StudentAvatar'))
 const StudentAssessments = lazyRetry(() => import('./pages/student/StudentAssessments'))
 const StudentQuiz = lazyRetry(() => import('./pages/student/StudentQuiz'))
 const StudentCertificate = lazyRetry(() => import('./pages/student/StudentCertificate'))
+const StudentReferral = lazyRetry(() => import('./pages/student/StudentReferral'))
 
 const TrainerDashboard = lazyRetry(() => import('./pages/trainer/TrainerDashboard'))
 const TrainerAssignments = lazyRetry(() => import('./pages/trainer/TrainerAssignments'))
@@ -69,10 +70,12 @@ const AdminSmartScheduling = lazyRetry(() => import('./pages/admin/AdminSmartSch
 const AdminContent = lazyRetry(() => import('./pages/admin/AdminContent'))
 const AdminHolidays = lazyRetry(() => import('./pages/admin/AdminHolidays'))
 const AdminAuditLog = lazyRetry(() => import('./pages/admin/AdminAuditLog'))
+const AdminTestimonials = lazyRetry(() => import('./pages/admin/AdminTestimonials'))
 
 const ForgotPassword = lazyRetry(() => import('./pages/public/ForgotPassword'))
 const ParentDashboard = lazyRetry(() => import('./pages/public/ParentDashboard'))
 const PlacementTest = lazyRetry(() => import('./pages/public/PlacementTest'))
+const Testimonials = lazyRetry(() => import('./pages/public/Testimonials'))
 
 // ─── Page wrapper: ErrorBoundary + Suspense ──────────────────
 function Page({ children }) {
@@ -186,6 +189,11 @@ export default function App() {
               <Suspense fallback={<LoadingSkeleton />}><PlacementTest /></Suspense>
             </ErrorBoundary>
           } />
+          <Route path="/testimonials" element={
+            <ErrorBoundary fallback={<PageErrorFallback />}>
+              <Suspense fallback={<LoadingSkeleton />}><Testimonials /></Suspense>
+            </ErrorBoundary>
+          } />
 
           {/* Student routes */}
           <Route element={<ProtectedRoute allowedRoles={['student']} />}>
@@ -218,6 +226,7 @@ export default function App() {
               <Route path="/student/quiz" element={<Page><StudentQuiz /></Page>} />
               <Route path="/student/profile" element={<Page><StudentProfile /></Page>} />
               <Route path="/student/certificates" element={<Page><StudentCertificate /></Page>} />
+              <Route path="/student/referral" element={<Page><StudentReferral /></Page>} />
             </Route>
           </Route>
 
@@ -260,6 +269,7 @@ export default function App() {
               <Route path="/admin/settings" element={<Page><AdminSettings /></Page>} />
               <Route path="/admin/holidays" element={<Page><AdminHolidays /></Page>} />
               <Route path="/admin/audit-log" element={<Page><AdminAuditLog /></Page>} />
+              <Route path="/admin/testimonials" element={<Page><AdminTestimonials /></Page>} />
             </Route>
           </Route>
 

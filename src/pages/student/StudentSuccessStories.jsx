@@ -1,11 +1,18 @@
+import { useState, useRef, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   Star, Trophy, Flame, Zap, BookOpen, Award,
-  TrendingUp, Calendar, Target,
+  TrendingUp, Calendar, Target, Share2, Check, Copy,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import {
+  shareToWhatsApp,
+  shareToTwitter,
+  copyToClipboard,
+  generateShareText,
+} from '../../utils/socialShare'
 
 const ACHIEVEMENT_COLOR_CLASSES = {
   gold: { border: 'border-gold-500/30', bg: 'bg-gold-500/10', text: 'text-gold-400' },
@@ -28,6 +35,147 @@ const ACHIEVEMENT_CONFIG = {
   first_assignment: { title: 'البداية', icon: Target, color: 'sky', desc: 'أكملت أول واجب لك' },
 }
 
+// ─── Share Dropdown ────────────────────────────────────────────────────────────
+function ShareDropdown({ shareText, onClose }) {
+  const [copied, setCopied] = useState(false)
+  const ref = useRef(null)
+
+  // Close on outside click
+  useEffect(() => {
+    function handler(e) {
+      if (ref.current && !ref.current.contains(e.target)) onClose()
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [onClose])
+
+  async function handleCopy() {
+    const ok = await copyToClipboard(shareText)
+    if (ok) {
+      setCopied(true)
+      setTimeout(() => {
+        setCopied(false)
+        onClose()
+      }, 1500)
+    }
+  }
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, scale: 0.88, y: -6 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.88, y: -6 }}
+      transition={{ duration: 0.15, ease: 'easeOut' }}
+      className="absolute top-full left-0 mt-1.5 z-50 w-44 rounded-xl overflow-hidden shadow-xl"
+      style={{
+        background: 'rgba(15, 15, 30, 0.97)',
+        border: '1px solid rgba(255,255,255,0.1)',
+        backdropFilter: 'blur(12px)',
+      }}
+      onClick={(e) => e.stopPropagation()}
+    >
+      {/* WhatsApp */}
+      <button
+        onClick={() => { shareToWhatsApp(shareText); onClose() }}
+        className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs text-white hover:bg-white/10 transition-colors text-right"
+      >
+        <span className="text-base leading-none">💬</span>
+        <span>WhatsApp</span>
+      </button>
+
+      {/* Twitter / X */}
+      <button
+        onClick={() => { shareToTwitter(shareText); onClose() }}
+        className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs text-white hover:bg-white/10 transition-colors border-t border-white/5 text-right"
+      >
+        <span className="text-base leading-none font-bold" style={{ fontFamily: 'monospace' }}>𝕏</span>
+        <span>Twitter / X</span>
+      </button>
+
+      {/* Copy */}
+      <button
+        onClick={handleCopy}
+        className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs border-t border-white/5 hover:bg-white/10 transition-colors text-right"
+        style={{ color: copied ? '#10b981' : 'rgba(255,255,255,0.85)' }}
+      >
+        {copied
+          ? <Check size={13} className="text-emerald-400 shrink-0" />
+          : <Copy size={13} className="text-muted shrink-0" />
+        }
+        <span>{copied ? 'تم النسخ!' : 'نسخ الرسالة'}</span>
+      </button>
+    </motion.div>
+  )
+}
+
+// ─── Achievement Card with Share Button ───────────────────────────────────────
+function AchievementCard({ achievement, index, studentData }) {
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const Icon = achievement.icon
+  const colors = ACHIEVEMENT_COLOR_CLASSES[achievement.color] || {}
+
+  // Build share text for this achievement
+  function getShareText() {
+    const key = achievement.key
+    if (key === 'streak_7') return generateShareText('streak', { days: 7 })
+    if (key === 'streak_30') return generateShareText('streak', { days: 30 })
+    if (key === 'level_up') return generateShareText('level_up', { level: achievement.title })
+    return generateShareText('badge', { badge: achievement.title })
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: index * 0.05 }}
+      className={`glass-card p-4 text-center relative ${
+        achievement.earned
+          ? (colors.border || '')
+          : 'opacity-40 grayscale'
+      }`}
+    >
+      {/* Share button — only for earned achievements */}
+      {achievement.earned && (
+        <div className="absolute top-2 left-2">
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              setDropdownOpen((v) => !v)
+            }}
+            className="w-6 h-6 rounded-lg flex items-center justify-center transition-colors hover:bg-white/15"
+            style={{ background: 'rgba(255,255,255,0.07)' }}
+            title="مشاركة الإنجاز"
+          >
+            <Share2 size={12} className="text-muted" />
+          </button>
+
+          <AnimatePresence>
+            {dropdownOpen && (
+              <ShareDropdown
+                shareText={getShareText()}
+                onClose={() => setDropdownOpen(false)}
+              />
+            )}
+          </AnimatePresence>
+        </div>
+      )}
+
+      <div className={`w-12 h-12 rounded-2xl mx-auto mb-2 flex items-center justify-center ${
+        achievement.earned ? (colors.bg || 'bg-white/5') : 'bg-white/5'
+      }`}>
+        <Icon size={24} className={achievement.earned ? (colors.text || 'text-muted') : 'text-muted'} />
+      </div>
+      <h3 className="text-sm font-bold text-white mb-0.5">{achievement.title}</h3>
+      <p className="text-[10px] text-muted">{achievement.desc}</p>
+      {achievement.earned && (
+        <span className="text-[10px] text-emerald-400 mt-1 block">✓ حققته</span>
+      )}
+    </motion.div>
+  )
+}
+
+// ─── Main Component ───────────────────────────────────────────────────────────
 export default function StudentSuccessStories() {
   const { profile, studentData } = useAuthStore()
 
@@ -149,33 +297,14 @@ export default function StudentSuccessStories() {
       <div>
         <h2 className="text-lg font-bold text-white mb-3">الإنجازات</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          {allAchievements.map((achievement, i) => {
-            const Icon = achievement.icon
-            return (
-              <motion.div
-                key={achievement.key}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: i * 0.05 }}
-                className={`glass-card p-4 text-center ${
-                  achievement.earned
-                    ? (ACHIEVEMENT_COLOR_CLASSES[achievement.color]?.border || '')
-                    : 'opacity-40 grayscale'
-                }`}
-              >
-                <div className={`w-12 h-12 rounded-2xl mx-auto mb-2 flex items-center justify-center ${
-                  achievement.earned ? (ACHIEVEMENT_COLOR_CLASSES[achievement.color]?.bg || 'bg-white/5') : 'bg-white/5'
-                }`}>
-                  <Icon size={24} className={achievement.earned ? (ACHIEVEMENT_COLOR_CLASSES[achievement.color]?.text || 'text-muted') : 'text-muted'} />
-                </div>
-                <h3 className="text-sm font-bold text-white mb-0.5">{achievement.title}</h3>
-                <p className="text-[10px] text-muted">{achievement.desc}</p>
-                {achievement.earned && (
-                  <span className="text-[10px] text-emerald-400 mt-1 block">✓ حققته</span>
-                )}
-              </motion.div>
-            )
-          })}
+          {allAchievements.map((achievement, i) => (
+            <AchievementCard
+              key={achievement.key}
+              achievement={achievement}
+              index={i}
+              studentData={studentData}
+            />
+          ))}
         </div>
       </div>
     </div>

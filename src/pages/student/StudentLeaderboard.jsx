@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Trophy, Crown, Medal, Users, Flame, Zap, ChevronDown } from 'lucide-react'
+import { Trophy, Crown, Medal, Users, Flame, Share2 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { GAMIFICATION_LEVELS } from '../../lib/constants'
+import { shareToWhatsApp, shareToTwitter, copyToClipboard, generateShareText } from '../../utils/socialShare'
 
 function getLevel(xp) {
   for (let i = GAMIFICATION_LEVELS.length - 1; i >= 0; i--) {
@@ -30,6 +31,84 @@ const TAB_OPTIONS = [
   { value: 'teams', label: 'الفرق', icon: Users },
   { value: 'academy', label: 'الأكاديمية', icon: Trophy },
 ]
+
+// ─── Share Rank Button ─────────────────────────────────────────────────────────
+function ShareRankButton({ rank, total }) {
+  const [open, setOpen] = useState(false)
+  const [copied, setCopied] = useState(false)
+
+  const shareText = generateShareText('leaderboard', { rank })
+
+  async function handleCopy() {
+    const ok = await copyToClipboard(shareText)
+    if (ok) {
+      setCopied(true)
+      setTimeout(() => { setCopied(false); setOpen(false) }, 1500)
+    }
+  }
+
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all"
+        style={{
+          background: 'rgba(14,165,233,0.12)',
+          border: '1px solid rgba(14,165,233,0.25)',
+          color: '#38bdf8',
+        }}
+      >
+        <Share2 size={13} />
+        شارك ترتيبك
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.88, y: -4 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.88, y: -4 }}
+            transition={{ duration: 0.15, ease: 'easeOut' }}
+            className="absolute left-0 top-full mt-1.5 z-50 w-44 rounded-xl overflow-hidden shadow-xl"
+            style={{
+              background: 'rgba(10, 10, 25, 0.97)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              backdropFilter: 'blur(12px)',
+            }}
+          >
+            {/* WhatsApp */}
+            <button
+              onClick={() => { shareToWhatsApp(shareText); setOpen(false) }}
+              className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs text-white hover:bg-white/10 transition-colors text-right"
+            >
+              <span className="text-base leading-none">💬</span>
+              <span>WhatsApp</span>
+            </button>
+
+            {/* Twitter / X */}
+            <button
+              onClick={() => { shareToTwitter(shareText); setOpen(false) }}
+              className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs text-white hover:bg-white/10 transition-colors border-t border-white/5 text-right"
+            >
+              <span className="text-base leading-none font-bold" style={{ fontFamily: 'monospace' }}>𝕏</span>
+              <span>Twitter / X</span>
+            </button>
+
+            {/* Copy */}
+            <button
+              onClick={handleCopy}
+              className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs border-t border-white/5 hover:bg-white/10 transition-colors text-right"
+              style={{ color: copied ? '#10b981' : 'rgba(255,255,255,0.85)' }}
+            >
+              <span className="text-base leading-none">{copied ? '✓' : '📋'}</span>
+              <span>{copied ? 'تم النسخ!' : 'نسخ الرسالة'}</span>
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
 
 export default function StudentLeaderboard() {
   const { profile, studentData } = useAuthStore()
@@ -268,9 +347,12 @@ export default function StudentLeaderboard() {
                 </p>
               </div>
             </div>
-            <div className="text-left">
-              <p className="text-lg font-bold text-sky-400">{myRank.xp} XP</p>
-              <p className="text-xs text-muted">{getLevel(myRank.xp_total || myRank.xp).title_ar}</p>
+            <div className="flex flex-col items-end gap-2">
+              <div className="text-left">
+                <p className="text-lg font-bold text-sky-400">{myRank.xp} XP</p>
+                <p className="text-xs text-muted">{getLevel(myRank.xp_total || myRank.xp).title_ar}</p>
+              </div>
+              <ShareRankButton rank={myRank.rank} total={ranking?.length || 0} />
             </div>
           </div>
         </motion.div>
