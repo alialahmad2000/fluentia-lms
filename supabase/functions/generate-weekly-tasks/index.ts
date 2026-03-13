@@ -511,7 +511,7 @@ serve(async (req) => {
         // Create notification for the student
         await supabase.from('notifications').insert({
           user_id: studentId,
-          type: 'weekly_tasks',
+          type: 'weekly_tasks_ready',
           title: 'مهام الأسبوع الجديدة جاهزة!',
           body: 'تم إنشاء مهام التعلم الخاصة بك لهذا الأسبوع. ابدأ الآن!',
           read: false,

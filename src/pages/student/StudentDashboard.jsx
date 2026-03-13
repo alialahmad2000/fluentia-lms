@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { Flame, Zap, Trophy, BookOpen, Calendar, ArrowLeft, CreditCard, Crosshair } from 'lucide-react'
+import { Flame, Zap, Trophy, BookOpen, Calendar, ArrowLeft, CreditCard, Crosshair, CalendarDays } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { getGreeting, getArabicDay, formatTime, formatDateAr } from '../../utils/dateHelpers'
@@ -27,6 +27,28 @@ function getNextLevel(xp) {
 export default function StudentDashboard() {
   const { profile, studentData } = useAuthStore()
   const firstName = profile?.display_name || (profile?.full_name || '').split(' ')[0]
+
+  // Weekly tasks progress
+  const { data: weeklyProgress } = useQuery({
+    queryKey: ['dashboard-weekly-progress', profile?.id],
+    queryFn: async () => {
+      const now = new Date()
+      const sunday = new Date(now)
+      sunday.setDate(now.getDate() - now.getDay())
+      sunday.setHours(0, 0, 0, 0)
+
+      const { data } = await supabase
+        .from('weekly_task_sets')
+        .select('id, total_tasks, completed_tasks, completion_percentage, status')
+        .eq('student_id', profile?.id)
+        .gte('week_start', sunday.toISOString())
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle()
+      return data
+    },
+    enabled: !!profile?.id,
+  })
 
   // Pending assignments count
   const { data: pendingAssignments } = useQuery({
@@ -135,6 +157,39 @@ export default function StudentDashboard() {
           </motion.div>
         ))}
       </div>
+
+      {/* Weekly Tasks Progress */}
+      {weeklyProgress && (
+        <Link to="/student/weekly-tasks">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15 }}
+            className="glass-card p-5 hover:translate-y-[-2px] transition-all duration-200"
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center">
+                <CalendarDays className="text-sky-400" size={16} />
+              </div>
+              <h3 className="text-sm font-semibold text-white">المهام الأسبوعية</h3>
+              <span className="mr-auto text-xs text-muted">
+                {weeklyProgress.completed_tasks}/{weeklyProgress.total_tasks}
+              </span>
+              {weeklyProgress.status === 'completed' && (
+                <span className="badge-green text-xs">مكتمل ✓</span>
+              )}
+            </div>
+            <div className="w-full h-2 rounded-full bg-white/5 overflow-hidden">
+              <motion.div
+                className="h-full rounded-full bg-gradient-to-l from-sky-400 to-emerald-400"
+                initial={{ width: 0 }}
+                animate={{ width: `${weeklyProgress.completion_percentage || 0}%` }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
+              />
+            </div>
+          </motion.div>
+        </Link>
+      )}
 
       {/* XP Progress bar */}
       <motion.div

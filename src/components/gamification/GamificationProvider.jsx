@@ -81,6 +81,36 @@ const ACHIEVEMENT_CHECKS = [
       return count >= 5
     },
   },
+  {
+    code: 'weekly_champion',
+    check: async (studentId) => {
+      const { data } = await supabase
+        .from('weekly_task_sets')
+        .select('status, week_start')
+        .eq('student_id', studentId)
+        .eq('status', 'completed')
+        .order('week_start', { ascending: false })
+        .limit(4)
+      if (!data || data.length < 4) return false
+      // Check they are 4 consecutive weeks
+      for (let i = 0; i < 3; i++) {
+        const diff = new Date(data[i].week_start) - new Date(data[i + 1].week_start)
+        if (Math.abs(diff - 7 * 24 * 60 * 60 * 1000) > 24 * 60 * 60 * 1000) return false
+      }
+      return true
+    },
+  },
+  {
+    code: 'task_master',
+    check: async (studentId) => {
+      const { count } = await supabase
+        .from('weekly_tasks')
+        .select('id', { count: 'exact', head: true })
+        .eq('student_id', studentId)
+        .eq('status', 'graded')
+      return (count || 0) >= 50
+    },
+  },
 ]
 
 export default function GamificationProvider() {

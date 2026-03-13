@@ -203,6 +203,27 @@ export default function StudentLeaderboard() {
     enabled: !!groupId && tab === 'teams',
   })
 
+  // Weekly task completion map for weekly period indicator
+  const { data: weeklyCompletionMap } = useQuery({
+    queryKey: ['leaderboard-weekly-completion', groupId || 'academy'],
+    queryFn: async () => {
+      const now = new Date()
+      const sunday = new Date(now)
+      sunday.setDate(now.getDate() - now.getDay())
+      sunday.setHours(0, 0, 0, 0)
+
+      const { data } = await supabase
+        .from('weekly_task_sets')
+        .select('student_id, status, completion_percentage')
+        .gte('week_start', sunday.toISOString())
+
+      const map = {}
+      ;(data || []).forEach(s => { map[s.student_id] = s })
+      return map
+    },
+    enabled: period === 'week',
+  })
+
   // Academy leaderboard — top performers across all groups
   const { data: academyData, isLoading: academyLoading } = useQuery({
     queryKey: ['leaderboard-academy', period],
@@ -415,10 +436,19 @@ export default function StudentLeaderboard() {
                 </div>
 
                 {/* XP */}
-                <div className="text-left">
+                <div className="text-left flex items-center gap-2">
                   <p className={`text-sm font-bold ${index === 0 ? 'text-gold-400' : 'text-white'}`}>
                     {player.xp} XP
                   </p>
+                  {period === 'week' && weeklyCompletionMap?.[player.id] && (
+                    <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
+                      weeklyCompletionMap[player.id].status === 'completed'
+                        ? 'bg-emerald-500/10 text-emerald-400'
+                        : 'bg-white/5 text-muted'
+                    }`}>
+                      {weeklyCompletionMap[player.id].status === 'completed' ? '✓ مهام' : `${weeklyCompletionMap[player.id].completion_percentage || 0}%`}
+                    </span>
+                  )}
                 </div>
               </motion.div>
             )

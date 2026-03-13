@@ -1,7 +1,8 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Clock, CheckCircle2, AlertCircle, FileText, ExternalLink, Youtube } from 'lucide-react'
+import { Clock, CheckCircle2, AlertCircle, FileText, ExternalLink, Youtube, CalendarDays } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { ASSIGNMENT_TYPES, SUBMISSION_STATUS } from '../../lib/constants'
@@ -44,6 +45,38 @@ export default function StudentAssignments() {
     enabled: !!profile?.id,
   })
 
+  // Weekly tasks summary
+  const { data: weeklyTasksInfo } = useQuery({
+    queryKey: ['weekly-tasks-summary', profile?.id],
+    queryFn: async () => {
+      // Get current week Sunday
+      const now = new Date()
+      const sunday = new Date(now)
+      sunday.setDate(now.getDate() - now.getDay())
+      sunday.setHours(0, 0, 0, 0)
+
+      const { data: taskSet } = await supabase
+        .from('weekly_task_sets')
+        .select('id, total_tasks, completed_tasks, status')
+        .eq('student_id', profile?.id)
+        .gte('week_start', sunday.toISOString())
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle()
+
+      if (!taskSet) return null
+
+      const { data: tasks } = await supabase
+        .from('weekly_tasks')
+        .select('id, type, title, status, auto_score')
+        .eq('task_set_id', taskSet.id)
+        .order('type')
+
+      return { ...taskSet, tasks: tasks || [] }
+    },
+    enabled: !!profile?.id,
+  })
+
   // Map submissions by assignment_id
   const submissionMap = {}
   for (const s of submissions || []) {
@@ -73,6 +106,42 @@ export default function StudentAssignments() {
         <h1 className="text-2xl font-bold text-white">الواجبات</h1>
         <p className="text-muted text-sm mt-1">واجبات مجموعتك</p>
       </motion.div>
+
+      {/* Weekly tasks banner */}
+      {weeklyTasksInfo && (
+        <Link to="/student/weekly-tasks" className="block">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="glass-card-raised p-5 hover:translate-y-[-2px] transition-all duration-200 border border-sky-500/20"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+                  <CalendarDays className="text-sky-400" size={20} />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-white">مهامي الأسبوعية</h3>
+                  <p className="text-xs text-muted mt-0.5">
+                    {weeklyTasksInfo.completed_tasks}/{weeklyTasksInfo.total_tasks} مهام مكتملة
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-24 h-2 rounded-full bg-white/5 overflow-hidden">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-l from-sky-400 to-sky-600 transition-all duration-500"
+                    style={{ width: `${Math.round((weeklyTasksInfo.completed_tasks / weeklyTasksInfo.total_tasks) * 100)}%` }}
+                  />
+                </div>
+                <span className="badge-sky text-xs">
+                  {weeklyTasksInfo.status === 'completed' ? 'مكتمل ✓' : 'جاري'}
+                </span>
+              </div>
+            </div>
+          </motion.div>
+        </Link>
+      )}
 
       {/* Filter tabs */}
       <div className="flex items-center gap-2 overflow-x-auto pb-1">
