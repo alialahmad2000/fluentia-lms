@@ -376,6 +376,9 @@ export default function AdminTestimonials() {
       queryClient.invalidateQueries({ queryKey: ['admin-testimonials'] })
       setShowForm(false)
     },
+    onError: (err) => {
+      console.error('Insert testimonial error:', err)
+    },
   })
 
   // ── Update ──
@@ -391,6 +394,9 @@ export default function AdminTestimonials() {
       queryClient.invalidateQueries({ queryKey: ['admin-testimonials'] })
       setEditItem(null)
     },
+    onError: (err) => {
+      console.error('Update testimonial error:', err)
+    },
   })
 
   // ── Delete ──
@@ -405,6 +411,9 @@ export default function AdminTestimonials() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin-testimonials'] })
       setDeleteConfirm(null)
+    },
+    onError: (err) => {
+      console.error('Delete testimonial error:', err)
     },
   })
 

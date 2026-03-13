@@ -78,6 +78,9 @@ export default function AdminPayments() {
       setShowForm(false)
       setEditPayment(null)
     },
+    onError: (err) => {
+      console.error('Save payment error:', err)
+    },
   })
 
   function getStudentName(s) {

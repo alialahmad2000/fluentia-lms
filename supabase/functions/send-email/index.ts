@@ -117,9 +117,9 @@ serve(async (req) => {
     const body = await req.json()
     const { to, type, data, subject: rawSubject, html: rawHtml } = body
 
-    if (!to) {
+    if (!to || typeof to !== 'string' || !to.includes('@')) {
       return new Response(
-        JSON.stringify({ error: 'Missing "to" field' }),
+        JSON.stringify({ error: 'Missing or invalid "to" field — must be a valid email address' }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
       )
     }
@@ -169,10 +169,11 @@ serve(async (req) => {
       JSON.stringify({ success: true, id: result.id }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     )
-  } catch (error) {
-    console.error('[send-email] Error:', error.message)
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Internal server error'
+    console.error('[send-email] Error:', error)
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: message }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 500 }
     )
   }

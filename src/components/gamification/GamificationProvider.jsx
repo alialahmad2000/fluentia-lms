@@ -110,6 +110,11 @@ export default function GamificationProvider() {
     }
 
     setLastCheckedXp(currentXp)
+  // lastCheckedXp is intentionally omitted: we only want to react to XP changes,
+  // and we update lastCheckedXp inside the effect itself. Including it would
+  // cause an infinite loop. The ref-based pattern below would be cleaner but
+  // this is the established pattern here.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentXp, isStudent])
 
   // Check for new achievements periodically

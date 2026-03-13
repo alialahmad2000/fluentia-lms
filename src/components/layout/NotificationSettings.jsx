@@ -38,7 +38,9 @@ export default function NotificationSettings() {
   function toggle(type) {
     const updated = { ...prefs, [type]: !prefs[type] }
     setPrefs(updated)
-    localStorage.setItem(`${STORAGE_KEY}_${profile?.id}`, JSON.stringify(updated))
+    if (profile?.id) {
+      localStorage.setItem(`${STORAGE_KEY}_${profile.id}`, JSON.stringify(updated))
+    }
   }
 
   return (

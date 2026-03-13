@@ -15,9 +15,12 @@ export default function OnboardingModal() {
   const [saving, setSaving] = useState(false)
   const [dismissed, setDismissed] = useState(false)
 
-  // Only show for students who haven't been onboarded
+  // Only show for students who haven't been onboarded.
+  // Guard profile?.id so we never read/write the key "fluentia_onboarded_undefined".
   const isStudent = profile?.role === 'student'
-  const alreadyOnboarded = localStorage.getItem(`${ONBOARDED_KEY}_${profile?.id}`)
+  const alreadyOnboarded = profile?.id
+    ? localStorage.getItem(`${ONBOARDED_KEY}_${profile.id}`)
+    : true // treat as onboarded while profile is loading to avoid flash
   const needsOnboarding = isStudent && !alreadyOnboarded && !dismissed
 
   if (!needsOnboarding) return null
@@ -27,20 +30,22 @@ export default function OnboardingModal() {
   const group = studentData?.groups
 
   async function handleComplete() {
+    if (!profile?.id) return // safety guard — should never happen but prevents undefined key writes
     setSaving(true)
     try {
       const trimmedName = displayName.trim()
       if (trimmedName) {
-        await supabase.from('profiles').update({ display_name: trimmedName }).eq('id', profile?.id).select()
+        await supabase.from('profiles').update({ display_name: trimmedName }).eq('id', profile.id).select()
       }
-      localStorage.setItem(`${ONBOARDED_KEY}_${profile?.id}`, 'true')
+      localStorage.setItem(`${ONBOARDED_KEY}_${profile.id}`, 'true')
       setDismissed(true)
+      // Re-fetch using the current user from the store (not the potentially stale closure var)
       if (user) await fetchProfile(user)
 
       // Send auto-welcome message to group chat + notifications
       const studentName = trimmedName || profile?.full_name?.split(' ')[0] || 'طالب جديد'
       if (studentData?.group_id) {
-        sendWelcomeMessage(profile?.id, studentData.group_id, studentName).catch(() => {})
+        sendWelcomeMessage(profile.id, studentData.group_id, studentName).catch(() => {})
       }
     } catch (err) {
       console.error('Onboarding error:', err)

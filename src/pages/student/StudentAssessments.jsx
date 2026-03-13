@@ -533,16 +533,16 @@ export default function StudentAssessments() {
               <p className="text-sm text-white mb-3">كيف حاسس بمستواك هالأسبوع؟</p>
               <div className="flex gap-3 justify-center">
                 {[
-                  { key: 'good', icon: Smile, label: 'ممتاز', emoji: '😊', color: 'emerald' },
-                  { key: 'neutral', icon: Meh, label: 'متوسط', emoji: '😐', color: 'amber' },
-                  { key: 'bad', icon: Frown, label: 'يحتاج تحسين', emoji: '😞', color: 'red' },
+                  { key: 'good', icon: Smile, label: 'ممتاز', emoji: '😊', activeCls: 'bg-emerald-500/20 border-emerald-500/40 text-emerald-400' },
+                  { key: 'neutral', icon: Meh, label: 'متوسط', emoji: '😐', activeCls: 'bg-amber-500/20 border-amber-500/40 text-amber-400' },
+                  { key: 'bad', icon: Frown, label: 'يحتاج تحسين', emoji: '😞', activeCls: 'bg-red-500/20 border-red-500/40 text-red-400' },
                 ].map((opt) => (
                   <button
                     key={opt.key}
                     onClick={() => setMood(opt.key)}
                     className={`flex flex-col items-center gap-1 px-4 py-3 rounded-xl border transition-all duration-200 ${
                       mood === opt.key
-                        ? `bg-${opt.color}-500/20 border-${opt.color}-500/40 text-${opt.color}-400`
+                        ? opt.activeCls
                         : 'bg-white/5 border-border-subtle text-muted hover:bg-white/10'
                     }`}
                   >

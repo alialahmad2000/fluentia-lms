@@ -66,6 +66,9 @@ export default function AdminTrainers() {
       queryClient.invalidateQueries({ queryKey: ['all-groups'] })
       setEditTrainer(null)
     },
+    onError: (err) => {
+      console.error('Update trainer error:', err)
+    },
   })
 
   return (
@@ -77,6 +80,8 @@ export default function AdminTrainers() {
 
       {isLoading ? (
         <div className="flex justify-center py-12"><Loader2 className="animate-spin text-muted" size={24} /></div>
+      ) : trainers?.length === 0 ? (
+        <div className="text-center py-12 text-muted">لا يوجد مدربون</div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {trainers?.map((t, i) => (

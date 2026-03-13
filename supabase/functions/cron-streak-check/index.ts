@@ -311,10 +311,11 @@ serve(async (req) => {
       JSON.stringify({ success: true, results }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     )
-  } catch (error) {
-    console.error('[cron-streak-check] Error:', error.message)
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Internal server error'
+    console.error('[cron-streak-check] Error:', error)
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: message }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 500 }
     )
   }

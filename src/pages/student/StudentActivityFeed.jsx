@@ -78,13 +78,21 @@ export default function StudentActivityFeed() {
       const now = new Date()
       const monthStart = new Date(now.getFullYear(), now.getMonth(), 1)
 
-      // Count submissions this month
-      const { count: submissionCount } = await supabase
-        .from('submissions')
-        .select('*', { count: 'exact', head: true })
+      // Count submissions this month (join via assignments to filter by group)
+      const { data: groupAssignments } = await supabase
+        .from('assignments')
+        .select('id')
         .eq('group_id', groupId)
-        .gte('created_at', monthStart.toISOString())
         .is('deleted_at', null)
+      const assignmentIds = (groupAssignments || []).map(a => a.id)
+      const { count: submissionCount } = assignmentIds.length
+        ? await supabase
+            .from('submissions')
+            .select('*', { count: 'exact', head: true })
+            .in('assignment_id', assignmentIds)
+            .gte('created_at', monthStart.toISOString())
+            .is('deleted_at', null)
+        : { count: 0 }
 
       // Count active students
       const { count: activeStudents } = await supabase

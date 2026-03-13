@@ -86,7 +86,7 @@ export default function TrainerAttendance() {
 
   // Load existing when class changes
   useEffect(() => {
-    if (existingAttendance && Object.keys(attendance).length === 0 && Object.keys(existingAttendance).length > 0) {
+    if (existingAttendance && Object.keys(existingAttendance).length > 0) {
       setAttendance(existingAttendance)
     }
   }, [existingAttendance])
@@ -153,6 +153,10 @@ export default function TrainerAttendance() {
     onSuccess: () => {
       setSaved(true)
       queryClient.invalidateQueries({ queryKey: ['class-attendance'] })
+    },
+    onError: (err) => {
+      console.error('[Attendance] Save error:', err)
+      alert('فشل حفظ الحضور: ' + (err.message || 'حاول مرة أخرى'))
     },
   })
 

@@ -95,7 +95,8 @@ export default function StudentStreakBattles() {
         </div>
         <div className="space-y-2">
           {streakRanking.map((student, i) => {
-            const name = student.profiles?.display_name || student.profiles?.full_name || 'طالب'
+            const sp = Array.isArray(student.profiles) ? student.profiles[0] : student.profiles
+            const name = sp?.display_name || sp?.full_name || 'طالب'
             const isMe = student.id === profile?.id
             return (
               <motion.div
@@ -140,7 +141,8 @@ export default function StudentStreakBattles() {
         </div>
         <div className="space-y-2">
           {xpRanking.map((student, i) => {
-            const name = student.profiles?.display_name || student.profiles?.full_name || 'طالب'
+            const sp = Array.isArray(student.profiles) ? student.profiles[0] : student.profiles
+            const name = sp?.display_name || sp?.full_name || 'طالب'
             const isMe = student.id === profile?.id
             return (
               <motion.div
@@ -185,10 +187,10 @@ export default function StudentStreakBattles() {
           {[
             { title: 'أكمل 3 واجبات اليوم', reward: 20, progress: 0, total: 3 },
             { title: 'حافظ على السلسلة 7 أيام', reward: 50, progress: studentData?.current_streak || 0, total: 7 },
-            { title: 'اجمع 100 XP هذا الأسبوع', reward: 30, progress: Math.min(100, studentData?.xp_total || 0), total: 100 },
+            { title: 'اجمع 100 XP في المجموع', reward: 30, progress: Math.min(100, studentData?.xp_total || 0), total: 100 },
             { title: 'سجّل يوميات صوتية 5 مرات', reward: 25, progress: 0, total: 5 },
           ].map((challenge, i) => {
-            const pct = Math.min(100, Math.round((challenge.progress / challenge.total) * 100))
+            const pct = challenge.total > 0 ? Math.min(100, Math.round((challenge.progress / challenge.total) * 100)) : 0
             return (
               <motion.div
                 key={i}

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, keepPreviousData } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Shield, Clock, User, ChevronDown, ChevronUp, Filter } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
@@ -129,7 +129,7 @@ export default function AdminAuditLog() {
       const { data: rows, count } = await query
       return { rows: rows || [], count: count || 0 }
     },
-    keepPreviousData: true,
+    placeholderData: keepPreviousData,
   })
 
   const logs = data?.rows || []

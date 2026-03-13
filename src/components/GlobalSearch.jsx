@@ -45,9 +45,8 @@ export default function GlobalSearch() {
   const timerRef = useRef(null)
 
   const role = profile?.role
-
-  // Don't render for students or unauthenticated
-  if (!user || role === 'student') return null
+  // Compute whether this component should be active (used to gate effects/render)
+  const isActive = !!user && role !== 'student'
 
   // ── Flatten results for keyboard nav ────────────────────
   const flatResults = []
@@ -71,7 +70,9 @@ export default function GlobalSearch() {
   }, [])
 
   // ── Global keyboard shortcut ───────────────────────────
+  // All hooks must run unconditionally — guard inside the handler
   useEffect(() => {
+    if (!isActive) return
     function handleKey(e) {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault()
@@ -80,12 +81,17 @@ export default function GlobalSearch() {
     }
     window.addEventListener('keydown', handleKey)
     return () => window.removeEventListener('keydown', handleKey)
-  }, [openModal])
+  }, [isActive, openModal])
 
   // Focus input when modal opens
   useEffect(() => {
     if (open) setTimeout(() => inputRef.current?.focus(), 50)
   }, [open])
+
+  // ── Cleanup debounce timer on unmount ─────────────────
+  useEffect(() => {
+    return () => clearTimeout(timerRef.current)
+  }, [])
 
   // ── Search logic ───────────────────────────────────────
   const performSearch = useCallback(
@@ -115,7 +121,7 @@ export default function GlobalSearch() {
             const { data: memberIds } = await supabase
               .from('group_members')
               .select('student_id, groups!inner(trainer_id)')
-              .eq('groups.trainer_id', profile.id)
+              .eq('groups.trainer_id', profile?.id)
             const ids = (memberIds || []).map((m) => m.student_id)
             if (ids.length) q = q.in('id', ids)
             else q = q.in('id', [])
@@ -141,7 +147,7 @@ export default function GlobalSearch() {
             .limit(5)
 
           if (role === 'trainer') {
-            q = q.eq('trainer_id', profile.id)
+            q = q.eq('trainer_id', profile?.id)
           }
 
           const { data } = await q
@@ -185,7 +191,7 @@ export default function GlobalSearch() {
           if (data?.length) {
             newResults.payments = data.map((p) => ({
               id: `payment-${p.id}`,
-              title: p.profiles?.full_name,
+              title: p.profiles?.full_name ?? '',
               subtitle: `${p.amount} ر.س`,
               path: '/admin/packages',
             }))
@@ -249,6 +255,8 @@ export default function GlobalSearch() {
     [flatResults, recentSearches, activeIdx, goTo, closeModal],
   )
 
+  // Don't render for students or unauthenticated (after all hooks)
+  if (!isActive) return null
   if (!open) return null
 
   // ── Render ─────────────────────────────────────────────

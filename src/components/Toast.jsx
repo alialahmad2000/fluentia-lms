@@ -12,6 +12,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useReducer,
   useRef,
 } from 'react'
@@ -115,6 +116,14 @@ export function ToastProvider({ children }) {
   const [toasts, dispatch] = useReducer(toastReducer, [])
   const timers = useRef({})
 
+  // Clear ALL pending timers on unmount to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      Object.values(timers.current).forEach(clearTimeout)
+      timers.current = {}
+    }
+  }, [])
+
   const dismiss = useCallback((id) => {
     clearTimeout(timers.current[id])
     delete timers.current[id]
@@ -124,6 +133,17 @@ export function ToastProvider({ children }) {
   const addToast = useCallback(
     (type, message) => {
       const id = `toast-${Date.now()}-${Math.random().toString(36).slice(2)}`
+
+      // If already at MAX_TOASTS the reducer will silently drop the oldest toast.
+      // Proactively cancel its timer before dispatching so it never fires after
+      // the toast has been evicted from state.
+      const currentTimerIds = Object.keys(timers.current)
+      if (currentTimerIds.length >= MAX_TOASTS) {
+        const oldestId = currentTimerIds[currentTimerIds.length - 1]
+        clearTimeout(timers.current[oldestId])
+        delete timers.current[oldestId]
+      }
+
       dispatch({ type: 'ADD', payload: { id, type, message } })
       timers.current[id] = setTimeout(() => dismiss(id), AUTO_DISMISS_MS)
     },

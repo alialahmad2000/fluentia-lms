@@ -64,6 +64,9 @@ export default function AdminGroups() {
       setShowForm(false)
       setEditGroup(null)
     },
+    onError: (err) => {
+      console.error('Save group error:', err)
+    },
   })
 
   return (
@@ -83,6 +86,8 @@ export default function AdminGroups() {
 
       {isLoading ? (
         <div className="flex justify-center py-12"><Loader2 className="animate-spin text-muted" size={24} /></div>
+      ) : groups?.length === 0 ? (
+        <div className="text-center py-12 text-muted">لا توجد مجموعات</div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {groups?.map((g, i) => (

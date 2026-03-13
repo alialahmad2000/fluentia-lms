@@ -47,14 +47,40 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || ''
     )
 
+    // Auth validation
+    const authHeader = req.headers.get('Authorization')
+    if (!authHeader) {
+      return new Response(JSON.stringify({ error: 'Missing authorization' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 401,
+      })
+    }
+    const token = authHeader.replace('Bearer ', '')
+    const { data: { user }, error: authErr } = await supabase.auth.getUser(token)
+    if (authErr || !user) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 401,
+      })
+    }
+    const { data: callerProfile } = await supabase
+      .from('profiles').select('role').eq('id', user.id).single()
+    if (!callerProfile || !['trainer', 'admin'].includes(callerProfile.role)) {
+      return new Response(JSON.stringify({ error: 'Unauthorized — trainer/admin only' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 403,
+      })
+    }
+
     const { student_id } = await req.json().catch(() => ({}))
 
-    // Get students to analyze
+    // Get students to analyze — cap batch size to 50 to avoid timeouts
     let studentsQuery = supabase
       .from('students')
       .select('id, group_id, academic_level, xp_total, current_streak, package, created_at, status')
       .eq('status', 'active')
       .is('deleted_at', null)
+      .limit(50)
 
     if (student_id) {
       studentsQuery = studentsQuery.eq('id', student_id)

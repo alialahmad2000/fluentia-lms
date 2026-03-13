@@ -105,6 +105,10 @@ export default function StudentChallenges() {
       setToast('تم الانضمام للتحدي!')
       setTimeout(() => setToast(null), 2500)
     },
+    onError: (err) => {
+      setToast(err.message || 'حدث خطأ — حاول مرة أخرى')
+      setTimeout(() => setToast(null), 3000)
+    },
   })
 
   function getDaysLeft(endDate) {

@@ -95,21 +95,22 @@ export default function NotificationCenter() {
         .eq('id', id)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['notifications'] })
+      queryClient.invalidateQueries({ queryKey: ['notifications', profile?.id] })
     },
   })
 
-  // Mark all as read
+  // Mark all as read — capture profile.id at call time via mutationFn arg
   const markAllRead = useMutation({
-    mutationFn: async () => {
+    mutationFn: async (userId) => {
+      if (!userId) return
       await supabase
         .from('notifications')
         .update({ read: true })
-        .eq('user_id', profile?.id)
+        .eq('user_id', userId)
         .eq('read', false)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['notifications'] })
+      queryClient.invalidateQueries({ queryKey: ['notifications', profile?.id] })
     },
   })
 
@@ -183,7 +184,7 @@ export default function NotificationCenter() {
               <div className="flex items-center gap-2">
                 {unreadCount > 0 && (
                   <button
-                    onClick={() => markAllRead.mutate()}
+                    onClick={() => markAllRead.mutate(profile?.id)}
                     className="text-xs text-sky-400 hover:text-sky-300 transition-colors flex items-center gap-1"
                   >
                     <CheckCheck size={12} /> قراءة الكل

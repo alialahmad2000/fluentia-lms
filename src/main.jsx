@@ -44,7 +44,12 @@ const queryClient = new QueryClient({
   },
 })
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+const rootElement = document.getElementById('root')
+if (!rootElement) {
+  throw new Error('[main] Could not find #root element. Check index.html.')
+}
+
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <App />

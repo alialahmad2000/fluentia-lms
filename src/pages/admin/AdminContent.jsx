@@ -161,6 +161,9 @@ function MaterialsTab() {
       queryClient.invalidateQueries({ queryKey: ['admin-materials'] })
       setShowModal(false)
     },
+    onError: (err) => {
+      console.error('Add material error:', err)
+    },
   })
 
   // Delete material
@@ -172,6 +175,9 @@ function MaterialsTab() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin-materials'] })
       setDeleteId(null)
+    },
+    onError: (err) => {
+      console.error('Delete material error:', err)
     },
   })
 
@@ -480,6 +486,9 @@ function TopicsTab() {
       setShowModal(false)
       setEditTopic(null)
     },
+    onError: (err) => {
+      console.error('Save topic error:', err)
+    },
   })
 
   // Delete topic
@@ -491,6 +500,9 @@ function TopicsTab() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin-speaking-topics'] })
       setDeleteId(null)
+    },
+    onError: (err) => {
+      console.error('Delete topic error:', err)
     },
   })
 
@@ -505,6 +517,9 @@ function TopicsTab() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin-speaking-topics'] })
+    },
+    onError: (err) => {
+      console.error('Reorder topic error:', err)
     },
   })
 

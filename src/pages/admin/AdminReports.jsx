@@ -62,8 +62,8 @@ export default function AdminReports() {
     return {
       ...g,
       studentCount: groupStudents.length,
-      avgXP: groupStudents.length > 0 ? Math.round(groupStudents.reduce((s, st) => s + st.xp_total, 0) / groupStudents.length) : 0,
-      totalXP: groupStudents.reduce((s, st) => s + st.xp_total, 0),
+      avgXP: groupStudents.length > 0 ? Math.round(groupStudents.reduce((s, st) => s + (st.xp_total || 0), 0) / groupStudents.length) : 0,
+      totalXP: groupStudents.reduce((s, st) => s + (st.xp_total || 0), 0),
     }
   }).sort((a, b) => b.totalXP - a.totalXP)
 

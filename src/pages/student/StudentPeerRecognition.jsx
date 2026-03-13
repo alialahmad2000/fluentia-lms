@@ -73,11 +73,15 @@ export default function StudentPeerRecognition() {
         .order('created_at', { ascending: false })
         .limit(20)
 
-      return (data || []).map(r => ({
-        ...r,
-        fromName: r.from_profile?.profiles?.display_name || r.from_profile?.profiles?.full_name || 'طالب',
-        toName: r.to_profile?.profiles?.display_name || r.to_profile?.profiles?.full_name || 'طالب',
-      }))
+      return (data || []).map(r => {
+        const fromP = Array.isArray(r.from_profile) ? r.from_profile[0] : r.from_profile
+        const toP = Array.isArray(r.to_profile) ? r.to_profile[0] : r.to_profile
+        return {
+          ...r,
+          fromName: fromP?.profiles?.display_name || fromP?.profiles?.full_name || 'طالب',
+          toName: toP?.profiles?.display_name || toP?.profiles?.full_name || 'طالب',
+        }
+      })
     },
     enabled: !!groupId,
   })

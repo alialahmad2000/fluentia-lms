@@ -73,6 +73,9 @@ export default function AdminSettings() {
       setSaved(true)
       queryClient.invalidateQueries({ queryKey: ['admin-settings'] })
     },
+    onError: (err) => {
+      console.error('Save settings error:', err)
+    },
   })
 
   const xpLabels = {

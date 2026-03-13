@@ -252,17 +252,22 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
     }
   })
 
-  // Save collapsed state
+  // Save collapsed state — only persist when profile has loaded (role is not the default 'student')
   useEffect(() => {
+    if (!profile?.role) return // avoid writing to key with undefined role
     localStorage.setItem(`${COLLAPSED_STORAGE_KEY}_${role}`, JSON.stringify(collapsedGroups))
-  }, [collapsedGroups, role])
+  }, [collapsedGroups, role, profile?.role])
 
   function toggleGroup(key) {
     setCollapsedGroups(prev => ({ ...prev, [key]: !prev[key] }))
   }
 
   async function handleLogout() {
-    await signOut()
+    try {
+      await signOut()
+    } catch (err) {
+      console.error('[Sidebar] signOut error:', err)
+    }
     navigate('/login')
   }
 

@@ -49,6 +49,9 @@ export default function StudentEvents() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['student-events'] })
     },
+    onError: (err) => {
+      console.error('[StudentEvents] join error:', err)
+    },
   })
 
   const now = new Date()

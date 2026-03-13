@@ -540,9 +540,9 @@ function AssignmentsTab({ submissions }) {
                 <div className="flex items-center gap-2">
                   {s.grade && (
                     <span className={`text-sm font-bold ${
-                      s.grade_numeric >= 80 ? 'text-emerald-400' : s.grade_numeric >= 60 ? 'text-amber-400' : 'text-red-400'
+                      (s.grade_numeric ?? 0) >= 80 ? 'text-emerald-400' : (s.grade_numeric ?? 0) >= 60 ? 'text-amber-400' : 'text-red-400'
                     }`}>
-                      {s.grade} ({s.grade_numeric}%)
+                      {s.grade}{s.grade_numeric != null ? ` (${s.grade_numeric}%)` : ''}
                     </span>
                   )}
                   <span className={`text-xs px-2 py-0.5 rounded-full ${
@@ -927,15 +927,20 @@ function AnalysisTab({ student, studentName }) {
   }
 
   async function savePlan() {
-    // Save as a trainer note on the student
-    await supabase.from('notifications').insert({
-      user_id: student.id,
-      type: 'trainer_observation',
-      title: 'خطة تحسين',
-      body: editedPlan,
-    })
-    setPlan(editedPlan)
-    setEditingPlan(false)
+    try {
+      // Save as a trainer note on the student
+      const { error } = await supabase.from('notifications').insert({
+        user_id: student.id,
+        type: 'trainer_observation',
+        title: 'خطة تحسين',
+        body: editedPlan,
+      })
+      if (error) throw error
+      setPlan(editedPlan)
+      setEditingPlan(false)
+    } catch (err) {
+      console.error('[AnalysisTab] savePlan error:', err)
+    }
   }
 
   const NOTE_TYPE_LABELS = {

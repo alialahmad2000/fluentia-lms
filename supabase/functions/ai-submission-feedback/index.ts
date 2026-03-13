@@ -63,7 +63,10 @@ serve(async (req) => {
       .eq('id', user.id)
       .single()
     if (!userProfile || !['trainer', 'admin'].includes(userProfile.role)) {
-      throw new Error('Unauthorized — trainer/admin only')
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized — trainer/admin only' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 403 }
+      )
     }
 
     if (!CLAUDE_API_KEY) {
@@ -76,7 +79,12 @@ serve(async (req) => {
 
     const body = await req.json()
     const { submission_id } = body
-    if (!submission_id) throw new Error('Missing submission_id')
+    if (!submission_id || typeof submission_id !== 'string' || !submission_id.trim()) {
+      return new Response(
+        JSON.stringify({ error: 'Missing or invalid submission_id' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      )
+    }
 
     // ── Fetch submission + assignment + student data ──
     const { data: submission, error: subErr } = await supabase

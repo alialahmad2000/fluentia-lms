@@ -205,6 +205,9 @@ export default function StudentGroupChat() {
       setReplyTo(null)
       queryClient.invalidateQueries({ queryKey: ['group-messages'] })
     },
+    onError: (err) => {
+      console.error('Failed to send message:', err)
+    },
   })
 
   // Toggle reaction

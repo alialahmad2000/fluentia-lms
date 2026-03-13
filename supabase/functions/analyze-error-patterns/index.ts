@@ -47,6 +47,38 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || ''
     )
 
+    // Auth validation
+    const authHeader = req.headers.get('Authorization')
+    if (!authHeader) {
+      return new Response(JSON.stringify({ error: 'Missing authorization' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 401,
+      })
+    }
+    const token = authHeader.replace('Bearer ', '')
+    const { data: { user }, error: authErr } = await supabase.auth.getUser(token)
+    if (authErr || !user) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 401,
+      })
+    }
+    const { data: callerProfile } = await supabase
+      .from('profiles').select('role').eq('id', user.id).single()
+    if (!callerProfile || !['trainer', 'admin'].includes(callerProfile.role)) {
+      return new Response(JSON.stringify({ error: 'Unauthorized — trainer/admin only' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 403,
+      })
+    }
+
+    if (!CLAUDE_API_KEY) {
+      return new Response(JSON.stringify({ error: 'AI service not configured' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 503,
+      })
+    }
+
     const { student_id, submission_id, analyze_all } = await req.json()
 
     if (!student_id) {

@@ -43,11 +43,11 @@ const LEVEL_WORD_LISTS = {
     'innovation', 'collaborate', 'negotiate', 'evaluate', 'demonstrate', 'participate', 'volunteer', 'establish', 'contribute', 'accomplish',
   ],
   4: [
-    'opportunity', 'experience', 'environment', 'technology', 'education', 'culture', 'tradition', 'achievement', 'communication', 'confidence',
-    'responsibility', 'professional', 'interview', 'career', 'application', 'deadline', 'presentation', 'research', 'discussion', 'debate',
-    'advantage', 'disadvantage', 'recommendation', 'comparison', 'development', 'strategy', 'challenge', 'progress', 'motivation', 'influence',
-    'perspective', 'analysis', 'conclusion', 'evidence', 'consequence', 'diversity', 'creativity', 'efficiency', 'flexibility', 'sustainability',
-    'innovation', 'collaborate', 'negotiate', 'evaluate', 'demonstrate', 'participate', 'volunteer', 'establish', 'contribute', 'accomplish',
+    'ambiguity', 'hypothesis', 'paradigm', 'prerequisite', 'comprehensive', 'empirical', 'substantial', 'fundamental', 'predominantly', 'simultaneously',
+    'bureaucracy', 'infrastructure', 'methodology', 'controversial', 'unprecedented', 'sophisticated', 'preliminary', 'consequently', 'nevertheless', 'furthermore',
+    'deteriorate', 'exacerbate', 'facilitate', 'fluctuate', 'substantiate', 'articulate', 'consolidate', 'corroborate', 'disseminate', 'extrapolate',
+    'jurisdiction', 'philanthropy', 'rhetoric', 'pragmatic', 'meticulous', 'resilient', 'indigenous', 'autonomous', 'ubiquitous', 'ambivalent',
+    'paradox', 'stigma', 'catalyst', 'nuance', 'scrutiny', 'trajectory', 'disparity', 'cohesion', 'adversity', 'culminate',
   ],
   5: [
     'ambiguity', 'hypothesis', 'paradigm', 'prerequisite', 'comprehensive', 'empirical', 'substantial', 'fundamental', 'predominantly', 'simultaneously',
@@ -69,7 +69,7 @@ export default function StudentVocabulary() {
   const [aiLoading, setAiLoading] = useState(false)
   const [addingSuggestion, setAddingSuggestion] = useState(null)
 
-  const studentLevel = studentData?.level || 1
+  const studentLevel = studentData?.academic_level || 1
 
   // Fetch vocabulary
   const { data: vocab, isLoading } = useQuery({

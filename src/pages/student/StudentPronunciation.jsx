@@ -988,11 +988,14 @@ export default function StudentPronunciation() {
   }
 
   async function evaluatePronunciation(spoken) {
+    if (!currentTarget) return
     const target = currentTarget.toLowerCase().replace(/[.,!?']/g, '').trim()
     const spokenClean = spoken.toLowerCase().replace(/[.,!?']/g, '').trim()
 
-    const targetWords = target.split(/\s+/)
+    const targetWords = target.split(/\s+/).filter(Boolean)
     const spokenWords = spokenClean.split(/\s+/)
+
+    if (targetWords.length === 0) return
 
     let matches = 0
     const wordResults = targetWords.map((tw, i) => {

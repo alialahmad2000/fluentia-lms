@@ -94,6 +94,9 @@ export default function TrainerQuickPoints() {
       const sign = result.amount > 0 ? '+' : ''
       showToast(`${sign}${result.amount} XP → ${result.studentName}`)
     },
+    onError: (err) => {
+      showToast('حصل خطأ: ' + (err.message || 'حاول مرة أخرى'))
+    },
   })
 
   // Undo last action
@@ -107,6 +110,9 @@ export default function TrainerQuickPoints() {
       showToast(`تم التراجع عن آخر إجراء`)
       setLastAction(null)
       queryClient.invalidateQueries({ queryKey: ['group-students'] })
+    },
+    onError: (err) => {
+      showToast('فشل التراجع: ' + (err.message || 'حاول مرة أخرى'))
     },
   })
 

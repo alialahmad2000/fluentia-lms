@@ -177,7 +177,7 @@ export default function TrainerProgressReports() {
                   { label: 'التسليمات', value: report.stats.total_submissions },
                   { label: 'متوسط الدرجة', value: report.stats.avg_grade ? `${report.stats.avg_grade}%` : '—' },
                   { label: 'الحضور', value: report.stats.attendance_rate ? `${report.stats.attendance_rate}%` : '—' },
-                  { label: 'XP', value: `+${report.stats.xp_earned}` },
+                  { label: 'XP', value: report.stats.xp_earned != null ? `+${report.stats.xp_earned}` : '—' },
                 ].map((s, i) => (
                   <div key={i} className="glass-card p-3 text-center">
                     <p className="text-lg font-bold text-white">{s.value}</p>

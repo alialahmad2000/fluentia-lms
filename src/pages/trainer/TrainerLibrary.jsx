@@ -11,7 +11,8 @@ function getStorageUrl(path) {
 }
 
 function getFileIcon(name) {
-  const ext = name.split('.').pop().toLowerCase()
+  const parts = name.split('.')
+  const ext = parts.length > 1 ? parts.pop().toLowerCase() : ''
   if (['pdf'].includes(ext)) return '📄'
   if (['doc', 'docx'].includes(ext)) return '📝'
   if (['mp4', 'mov', 'webm'].includes(ext)) return '🎬'
@@ -101,6 +102,10 @@ export default function TrainerLibrary() {
       if (error) throw error
     },
     onSuccess: () => refetch(),
+    onError: (err) => {
+      console.error('[Library] Delete error:', err)
+      alert('فشل حذف الملف: ' + (err.message || 'حاول مرة أخرى'))
+    },
   })
 
   return (

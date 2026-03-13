@@ -21,6 +21,10 @@ export function exportToCSV(data, filename, columns) {
   const a = document.createElement('a')
   a.href = url
   a.download = `${filename}_${new Date().toISOString().split('T')[0]}.csv`
+  a.style.display = 'none'
+  document.body.appendChild(a)
   a.click()
-  URL.revokeObjectURL(url)
+  document.body.removeChild(a)
+  // Revoke after a short delay to ensure the download starts in all browsers
+  setTimeout(() => URL.revokeObjectURL(url), 100)
 }

@@ -23,8 +23,15 @@ serve(async (req) => {
 
     const { access_code, action } = await req.json()
 
-    if (!access_code) {
+    if (!access_code || typeof access_code !== 'string') {
       return new Response(JSON.stringify({ error: 'access_code required' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 400,
+      })
+    }
+
+    if (access_code.length > 32) {
+      return new Response(JSON.stringify({ error: 'رمز الوصول غير صالح' }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 400,
       })

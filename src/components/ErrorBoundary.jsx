@@ -17,9 +17,11 @@ export default class ErrorBoundary extends Component {
 
   render() {
     if (this.state.hasError) {
-      // Page-level boundary shows inline error
+      // Page-level boundary: support both element and render-prop fallback
       if (this.props.fallback) {
-        return this.props.fallback
+        return typeof this.props.fallback === 'function'
+          ? this.props.fallback(this.state.error)
+          : this.props.fallback
       }
 
       return (
@@ -54,7 +56,7 @@ export default class ErrorBoundary extends Component {
                 الرئيسية
               </button>
             </div>
-            {process.env.NODE_ENV === 'development' && this.state.error && (
+            {import.meta.env.DEV && this.state.error && (
               <pre className="mt-6 text-left text-[10px] text-red-400/60 bg-red-500/5 rounded-xl p-3 overflow-auto max-h-40" dir="ltr">
                 {this.state.error.toString()}
               </pre>

@@ -7,17 +7,22 @@ export const useAuthStore = create((set, get) => ({
   studentData: null,
   trainerData: null,
   loading: true,
+  _authSubscription: null,
 
   initialize: async () => {
     // Get initial session
-    const { data: { session } } = await supabase.auth.getSession()
-    if (session?.user) {
-      await get().fetchProfile(session.user)
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (session?.user) {
+        await get().fetchProfile(session.user)
+      }
+    } catch (err) {
+      console.error('[AuthStore] getSession error:', err)
     }
     set({ loading: false })
 
-    // Listen for auth changes
-    supabase.auth.onAuthStateChange(async (event, session) => {
+    // Listen for auth changes — store subscription so it can be unsubscribed
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === 'SIGNED_IN' && session?.user) {
         await get().fetchProfile(session.user)
       } else if (event === 'TOKEN_REFRESHED' && session?.user) {
@@ -27,6 +32,9 @@ export const useAuthStore = create((set, get) => ({
         set({ user: null, profile: null, studentData: null, trainerData: null })
       }
     })
+
+    // Store the subscription object so callers can unsubscribe if needed
+    set({ _authSubscription: subscription })
   },
 
   fetchProfile: async (user) => {

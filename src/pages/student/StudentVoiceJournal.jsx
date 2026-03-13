@@ -324,7 +324,12 @@ export default function StudentVoiceJournal() {
       </motion.div>
 
       {/* History */}
-      {journals?.length > 0 && (
+      {isLoading ? (
+        <div className="space-y-2">
+          {[1, 2, 3].map(i => <div key={i} className="skeleton h-16 w-full rounded-xl" />)}
+        </div>
+      ) : null}
+      {!isLoading && journals?.length > 0 && (
         <div>
           <h2 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
             <Calendar size={18} className="text-sky-400" />

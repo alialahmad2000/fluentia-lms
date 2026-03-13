@@ -68,6 +68,9 @@ export default function AdminChurnPrediction() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['churn-predictions'] })
     },
+    onError: (err) => {
+      console.error('Churn analysis error:', err)
+    },
   })
 
   const markReviewed = useMutation({
@@ -82,6 +85,9 @@ export default function AdminChurnPrediction() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['churn-predictions'] })
+    },
+    onError: (err) => {
+      console.error('Mark reviewed error:', err)
     },
   })
 

@@ -123,7 +123,7 @@ export default function ParentDashboard() {
     )
   }
 
-  const { student, grades, attendance, assignments, skills, payments } = data
+  const { student, grades = {}, attendance = {}, assignments = {}, skills, payments } = data
 
   return (
     <div className="min-h-screen bg-darkest p-4 md:p-8">
@@ -138,7 +138,7 @@ export default function ParentDashboard() {
         <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-5">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 rounded-2xl bg-sky-500/10 flex items-center justify-center text-xl font-bold text-sky-400">
-              {student.name?.[0] || '?'}
+              {student?.name?.[0] || '?'}
             </div>
             <div>
               <h2 className="text-xl font-bold text-white">{student.name}</h2>
@@ -152,10 +152,10 @@ export default function ParentDashboard() {
         {/* Stats grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { label: 'النقاط', value: `${student.xp} XP`, icon: Zap, color: 'sky' },
-            { label: 'السلسلة', value: `${student.streak} يوم`, icon: Flame, color: 'gold' },
-            { label: 'الحضور', value: attendance.rate !== null ? `${attendance.rate}%` : '—', icon: Calendar, color: 'emerald' },
-            { label: 'متوسط الدرجة', value: grades.average ? `${grades.average}%` : '—', icon: Trophy, color: 'violet' },
+            { label: 'النقاط', value: `${student?.xp ?? 0} XP`, icon: Zap, color: 'sky' },
+            { label: 'السلسلة', value: `${student?.streak ?? 0} يوم`, icon: Flame, color: 'gold' },
+            { label: 'الحضور', value: attendance?.rate != null ? `${attendance.rate}%` : '—', icon: Calendar, color: 'emerald' },
+            { label: 'متوسط الدرجة', value: grades?.average ? `${grades.average}%` : '—', icon: Trophy, color: 'violet' },
           ].map((card, i) => (
             <motion.div
               key={card.label}
@@ -180,13 +180,13 @@ export default function ParentDashboard() {
             <h3 className="font-medium text-white">الواجبات</h3>
           </div>
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm text-muted">{assignments.completed} من {assignments.total} مكتملة</span>
-            <span className="text-sm font-bold text-sky-400">{assignments.rate || 0}%</span>
+            <span className="text-sm text-muted">{assignments?.completed ?? 0} من {assignments?.total ?? 0} مكتملة</span>
+            <span className="text-sm font-bold text-sky-400">{assignments?.rate || 0}%</span>
           </div>
           <div className="w-full h-3 bg-white/5 rounded-full overflow-hidden">
             <div
               className="h-full bg-gradient-to-l from-sky-400 to-sky-600 rounded-full transition-all"
-              style={{ width: `${assignments.rate || 0}%` }}
+              style={{ width: `${assignments?.rate || 0}%` }}
             />
           </div>
         </motion.div>
@@ -223,7 +223,7 @@ export default function ParentDashboard() {
         )}
 
         {/* Recent grades */}
-        {grades.recent?.length > 0 && (
+        {grades?.recent?.length > 0 && (
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-5">
             <div className="flex items-center gap-2 mb-4">
               <CheckCircle2 size={18} className="text-emerald-400" />

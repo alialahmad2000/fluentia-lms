@@ -421,6 +421,16 @@ export function ShareCardVisual({ type, data, cardRef }) {
   )
 }
 
+// ─── HTML escape helper ───────────────────────────────────────────────────────
+function escHtml(str) {
+  return String(str ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
 // ─── Print / Save handler ─────────────────────────────────────────────────────
 // Opens the card HTML in a new window, injects all its inline styles, and
 // triggers window.print(). The user can then "Save as PDF" or "Save to Photos"
@@ -433,13 +443,13 @@ function buildPrintHTML({ type, data }) {
     accentColor, accentColorLight, label, sublabel,
   } = meta
 
-  const labelText  = label(data)
-  const sublabelText = sublabel(data)
-  const studentName  = data.studentName ?? data.name ?? ''
+  const labelText    = escHtml(label(data))
+  const sublabelText = escHtml(sublabel(data))
+  const studentName  = escHtml(data.studentName ?? data.name ?? '')
   const isSquare     = data.format === 'square'
-  const dateText     = data.date
-    ? formatDateAr(data.date)
-    : formatDateAr(new Date().toISOString())
+  const dateText     = escHtml(
+    data.date ? formatDateAr(data.date) : formatDateAr(new Date().toISOString())
+  )
 
   const cardW = isSquare ? 540 : 405
   const cardH = isSquare ? 540 : 720

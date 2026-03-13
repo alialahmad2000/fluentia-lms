@@ -120,6 +120,7 @@ export default function TrainerChallenges() {
       queryClient.invalidateQueries({ queryKey: ['trainer-challenges'] })
       showToast('تم حذف التحدي')
     },
+    onError: (err) => showToast('فشل الحذف: ' + (err.message || 'حاول مرة أخرى')),
   })
 
   function showToast(msg) {

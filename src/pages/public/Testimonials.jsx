@@ -165,7 +165,7 @@ function TestimonialCard({ t, index }) {
             {initial}
           </div>
           <div>
-            <p className="text-white/90 text-sm font-semibold">{t.student_name || 'طالب익명'}</p>
+            <p className="text-white/90 text-sm font-semibold">{t.student_name || 'طالب'}</p>
             {dateLabel && <p className="text-white/30 text-xs">{dateLabel}</p>}
           </div>
         </div>

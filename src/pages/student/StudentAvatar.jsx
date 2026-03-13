@@ -70,6 +70,9 @@ export default function StudentAvatar() {
       fetchProfile()
       setTimeout(() => setSaved(false), 2000)
     },
+    onError: (err) => {
+      console.error('[StudentAvatar] save error:', err)
+    },
   })
 
   const style = AVATAR_STYLES.find(s => s.id === selectedStyle) || AVATAR_STYLES[0]

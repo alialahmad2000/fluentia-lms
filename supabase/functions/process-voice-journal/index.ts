@@ -13,13 +13,18 @@ const corsHeaders = {
 const CLAUDE_API_KEY = Deno.env.get('CLAUDE_API_KEY') || ''
 const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY') || ''
 
-async function transcribeAudio(audioUrl: string): Promise<string> {
-  // Download audio
-  const audioRes = await fetch(audioUrl)
-  const audioBlob = await audioRes.blob()
+async function transcribeAudio(storagePath: string, supabase: any): Promise<string> {
+  // Download from Supabase storage (not arbitrary external URL)
+  const { data: fileData, error: dlErr } = await supabase.storage
+    .from('voice-notes')
+    .download(storagePath)
+
+  if (dlErr || !fileData) {
+    throw new Error(`Failed to download audio from storage: ${dlErr?.message || 'unknown error'}`)
+  }
 
   const formData = new FormData()
-  formData.append('file', audioBlob, 'audio.webm')
+  formData.append('file', fileData, 'audio.webm')
   formData.append('model', 'whisper-1')
   formData.append('language', 'en')
 
@@ -78,7 +83,11 @@ Return ONLY valid JSON (no markdown):
   const data = await res.json()
   const text = data.content?.[0]?.text || '{}'
   const cleaned = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim()
-  return JSON.parse(cleaned)
+  try {
+    return JSON.parse(cleaned)
+  } catch {
+    return { fluency_score: 50, feedback: cleaned, corrections: [] }
+  }
 }
 
 serve(async (req) => {
@@ -92,6 +101,23 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || ''
     )
 
+    // Auth validation
+    const authHeader = req.headers.get('Authorization')
+    if (!authHeader) {
+      return new Response(JSON.stringify({ error: 'Missing authorization' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 401,
+      })
+    }
+    const token = authHeader.replace('Bearer ', '')
+    const { data: { user }, error: authErr } = await supabase.auth.getUser(token)
+    if (authErr || !user) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 401,
+      })
+    }
+
     const { student_id, audio_url, duration_seconds, topic, mood } = await req.json()
 
     if (!student_id || !audio_url) {
@@ -101,8 +127,24 @@ serve(async (req) => {
       })
     }
 
+    // Validate audio_url is a relative storage path, not an arbitrary external URL
+    // This prevents SSRF by ensuring transcribeAudio only fetches from our own storage
+    if (typeof audio_url !== 'string' || audio_url.startsWith('http://') || audio_url.startsWith('https://')) {
+      return new Response(JSON.stringify({ error: 'audio_url must be a storage path, not an external URL' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 400,
+      })
+    }
+
+    if (!OPENAI_API_KEY) {
+      return new Response(JSON.stringify({ error: 'Transcription service not configured' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 503,
+      })
+    }
+
     // Transcribe
-    const transcript = await transcribeAudio(audio_url)
+    const transcript = await transcribeAudio(audio_url, supabase)
 
     if (!transcript) {
       return new Response(JSON.stringify({ error: 'Could not transcribe audio' }), {

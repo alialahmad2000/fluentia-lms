@@ -69,7 +69,7 @@ export default function StudentLibrary() {
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="glass-card p-4 flex items-center gap-3 hover:border-sky-500/20 transition-all block"
+                  className="glass-card p-4 flex items-center gap-3 hover:border-sky-500/20 transition-all"
                 >
                   <span className="text-2xl">{getFileIcon(file.name)}</span>
                   <div className="flex-1 min-w-0">

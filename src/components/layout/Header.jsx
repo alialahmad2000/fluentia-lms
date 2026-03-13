@@ -19,7 +19,7 @@ export default function Header({ onMenuToggle }) {
   const { profile } = useAuthStore()
   const role = profile?.role || 'student'
   const displayName = profile?.display_name || profile?.full_name || ''
-  const firstName = profile?.display_name || displayName.split(' ')[0]
+  const firstName = displayName.split(' ')[0] || ''
 
   return (
     <header role="banner" className="h-16 bg-navy-950/60 backdrop-blur-xl border-b border-border-subtle flex items-center justify-between px-4 lg:px-6 sticky top-0 z-20">
@@ -41,8 +41,8 @@ export default function Header({ onMenuToggle }) {
 
       {/* Left side: role badge + notifications + avatar */}
       <div className="flex items-center gap-3">
-        <span className={ROLE_COLORS[role]}>
-          {ROLE_LABELS[role]}
+        <span className={ROLE_COLORS[role] || 'badge-blue'}>
+          {ROLE_LABELS[role] || role}
         </span>
 
         <NotificationCenter />

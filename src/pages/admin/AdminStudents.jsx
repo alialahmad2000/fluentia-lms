@@ -67,6 +67,9 @@ export default function AdminStudents() {
       setEditStudent(null)
       setShowForm(false)
     },
+    onError: (err) => {
+      console.error('Update student error:', err)
+    },
   })
 
   // Soft delete
@@ -77,6 +80,9 @@ export default function AdminStudents() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin-students'] })
+    },
+    onError: (err) => {
+      console.error('Delete student error:', err)
     },
   })
 

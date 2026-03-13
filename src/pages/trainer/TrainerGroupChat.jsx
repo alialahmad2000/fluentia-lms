@@ -33,17 +33,15 @@ export default function TrainerGroupChat() {
   // Temporarily inject group_id into authStore for StudentGroupChat
   const authStore = useAuthStore
   useEffect(() => {
-    if (selectedGroup) {
-      const current = authStore.getState()
-      authStore.setState({
-        studentData: { ...current.studentData, group_id: selectedGroup },
-      })
-    }
+    if (!selectedGroup) return
+    const originalStudentData = authStore.getState().studentData
+    authStore.setState({
+      studentData: { ...originalStudentData, group_id: selectedGroup },
+    })
     return () => {
-      // Restore on unmount if trainer
-      const current = authStore.getState()
-      if (current.profile?.role !== 'student') {
-        authStore.setState({ studentData: current.studentData })
+      // Restore original studentData on cleanup
+      if (authStore.getState().profile?.role !== 'student') {
+        authStore.setState({ studentData: originalStudentData })
       }
     }
   }, [selectedGroup])

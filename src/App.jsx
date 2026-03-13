@@ -167,12 +167,12 @@ export default function App() {
   return (
     <ErrorBoundary>
       <BrowserRouter>
+        <ToastProvider>
         <OfflineBanner />
         <OnboardingModal />
         <GamificationProvider />
         <GlobalSearch />
 
-        <ToastProvider>
         <Routes>
           <Route path="/" element={<RoleRedirect />} />
 
@@ -283,4 +283,5 @@ export default function App() {
       </BrowserRouter>
     </ErrorBoundary>
   )
+
 }

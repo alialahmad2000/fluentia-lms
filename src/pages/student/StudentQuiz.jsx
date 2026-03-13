@@ -284,21 +284,29 @@ function QuizTaker({ quiz, onFinish, onBack }) {
     createAttempt()
   }, [quiz.id, profile?.id])
 
-  // Timer
+  // Timer — use a ref to trigger auto-submit so we avoid stale closure
+  const autoSubmitRef = useRef(false)
   useEffect(() => {
-    if (timeLeft === null || timeLeft <= 0) return
+    if (timeLeft === null) return
+    if (timeLeft <= 0) {
+      if (!autoSubmitRef.current) {
+        autoSubmitRef.current = true
+        handleSubmit(true)
+      }
+      return
+    }
     timerRef.current = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 1) {
           clearInterval(timerRef.current)
-          handleSubmit(true)
           return 0
         }
         return prev - 1
       })
     }, 1000)
     return () => clearInterval(timerRef.current)
-  }, [timeLeft !== null])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timeLeft === null ? null : 'running'])
 
   const handleSubmit = useCallback(async (timedOut = false) => {
     if (submitting || !questions || !attemptId) return
@@ -337,7 +345,7 @@ function QuizTaker({ quiz, onFinish, onBack }) {
       })
       const skillBreakdown = {}
       Object.entries(skillMap).forEach(([k, v]) => {
-        skillBreakdown[k] = Math.round((v.correct / v.total) * 100)
+        skillBreakdown[k] = v.total > 0 ? Math.round((v.correct / v.total) * 100) : 0
       })
 
       // Calculate XP

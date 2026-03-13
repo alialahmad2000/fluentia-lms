@@ -941,19 +941,19 @@ function QuestionCard({ question: q, index, total, onUpdate, onDelete, onMove, o
 // ─── Toggle Option Component ───
 function ToggleOption({ label, checked, onChange }) {
   return (
-    <label className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer hover:bg-white/8 transition-all">
+    <label className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer hover:bg-white/10 transition-all">
       <span className="text-sm text-white/70">{label}</span>
       <button
         type="button"
         role="switch"
         aria-checked={checked}
         onClick={() => onChange(!checked)}
-        className={`relative w-10 h-5.5 rounded-full transition-all ${
-          checked ? 'bg-violet-500' : 'bg-white/15'
+        className={`relative w-10 h-6 rounded-full transition-all ${
+          checked ? 'bg-violet-500' : 'bg-white/20'
         }`}
       >
-        <span className={`absolute top-0.5 w-4.5 h-4.5 rounded-full bg-white transition-transform ${
-          checked ? 'translate-x-0.5' : 'translate-x-5'
+        <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white transition-transform ${
+          checked ? 'translate-x-0.5' : 'translate-x-4'
         }`} />
       </button>
     </label>

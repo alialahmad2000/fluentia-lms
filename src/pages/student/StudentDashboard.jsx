@@ -71,8 +71,7 @@ export default function StudentDashboard() {
         .is('deleted_at', null)
         .order('period_end', { ascending: true })
         .limit(1)
-        .single()
-      return data
+      return data?.[0] ?? null
     },
     enabled: !!profile?.id,
   })

@@ -30,7 +30,7 @@ export default function TrainerDashboard() {
 
   // Total students across all groups
   const { data: studentCount } = useQuery({
-    queryKey: ['trainer-student-count'],
+    queryKey: ['trainer-student-count', groups?.map(g => g.id)],
     queryFn: async () => {
       if (!groups?.length) return 0
       const groupIds = groups.map(g => g.id)

@@ -24,11 +24,21 @@ serve(async (req) => {
     )
 
     const authHeader = req.headers.get('Authorization')
-    if (!authHeader) throw new Error('Missing authorization')
+    if (!authHeader) {
+      return new Response(
+        JSON.stringify({ error: 'Missing authorization' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 401 }
+      )
+    }
 
     const token = authHeader.replace('Bearer ', '')
     const { data: { user }, error: authErr } = await supabase.auth.getUser(token)
-    if (authErr || !user) throw new Error('Unauthorized')
+    if (authErr || !user) {
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 401 }
+      )
+    }
 
     // Verify trainer/admin role
     const { data: profile } = await supabase
@@ -38,13 +48,21 @@ serve(async (req) => {
       .single()
 
     if (!profile || !['trainer', 'admin'].includes(profile.role)) {
-      throw new Error('Unauthorized — trainers/admins only')
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized — trainers/admins only' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 403 }
+      )
     }
 
     const body = await req.json()
     const { student_id, period_days } = body
 
-    if (!student_id) throw new Error('Missing student_id')
+    if (!student_id || typeof student_id !== 'string') {
+      return new Response(
+        JSON.stringify({ error: 'Missing student_id' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      )
+    }
 
     const periodDays = period_days || 30
     const periodStart = new Date(Date.now() - periodDays * 24 * 60 * 60 * 1000).toISOString()
@@ -145,7 +163,10 @@ Respond ONLY with valid JSON.`,
     if (!claudeRes.ok) {
       const errText = await claudeRes.text()
       console.error('[generate-report] Claude API error:', claudeRes.status, errText)
-      throw new Error(`Claude API failed: ${claudeRes.status}`)
+      return new Response(
+        JSON.stringify({ error: 'AI service unavailable — please try again later' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 502 }
+      )
     }
 
     const claudeData = await claudeRes.json()

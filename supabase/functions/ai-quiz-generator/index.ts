@@ -79,6 +79,13 @@ serve(async (req) => {
       )
     }
 
+    if (context.trim().length > 2000) {
+      return new Response(
+        JSON.stringify({ error: 'حقل السياق (context) يجب أن لا يتجاوز 2000 حرف' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      )
+    }
+
     if (!level || !CEFR_MAP[level]) {
       return new Response(
         JSON.stringify({ error: 'المستوى (level) مطلوب ويجب أن يكون بين 1 و 5' }),

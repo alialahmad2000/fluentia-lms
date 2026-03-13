@@ -386,13 +386,7 @@ async function executeAction(
           }))
           await supabase.from('xp_transactions').insert(records)
 
-          // Update totals
-          for (const s of students) {
-            await supabase.rpc('update_student_xp', undefined) // Trigger handles it
-            await supabase.from('students').update({ xp_total: supabase.rpc ? undefined : undefined }).eq('id', s.id)
-          }
-
-          // Actually just update xp_total directly
+          // Update xp_total for each student directly
           for (const s of students) {
             const { data: st } = await supabase.from('students').select('xp_total').eq('id', s.id).single()
             await supabase.from('students').update({ xp_total: (st?.xp_total || 0) + amount }).eq('id', s.id)
@@ -913,7 +907,7 @@ async function executeAction(
 
         return {
           success: true,
-          reply: `✅ تم إنشاء حساب ${params.full_name}:\n• الإيميل: ${params.email}\n• كلمة المرور: ${params.password || 'Fluentia2024!'}\n• الباقة: ${params.package}\n• المستوى: ${params.level || 1}${groupId ? `\n• المجموعة: ${params.group_code}` : ''}`
+          reply: `✅ تم إنشاء حساب ${params.full_name}:\n• الإيميل: ${params.email}\n• كلمة المرور: ${params.password ? '(كما حُددت)' : 'Fluentia2024! (الافتراضية — يُنصح بتغييرها)'}\n• الباقة: ${params.package}\n• المستوى: ${params.level || 1}${groupId ? `\n• المجموعة: ${params.group_code}` : ''}`
         }
       }
 
@@ -1770,15 +1764,30 @@ serve(async (req) => {
 
     // Auth
     const authHeader = req.headers.get('Authorization')
-    if (!authHeader) throw new Error('Missing authorization')
+    if (!authHeader) {
+      return new Response(
+        JSON.stringify({ error: 'Missing authorization' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 401 }
+      )
+    }
 
     const token = authHeader.replace('Bearer ', '')
     const { data: { user }, error: authErr } = await supabase.auth.getUser(token)
-    if (authErr || !user) throw new Error('Unauthorized')
+    if (authErr || !user) {
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 401 }
+      )
+    }
 
     const { data: profile } = await supabase
       .from('profiles').select('role').eq('id', user.id).single()
-    if (!profile || !['trainer', 'admin'].includes(profile.role)) throw new Error('Unauthorized')
+    if (!profile || !['trainer', 'admin'].includes(profile.role)) {
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized — trainer/admin only' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 403 }
+      )
+    }
 
     const role = profile.role
     const body = await req.json()
@@ -1808,7 +1817,12 @@ serve(async (req) => {
       )
     }
 
-    if (!message?.trim()) throw new Error('Message required')
+    if (!message?.trim()) {
+      return new Response(
+        JSON.stringify({ error: 'Message required' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      )
+    }
 
     if (!CLAUDE_API_KEY) {
       return new Response(

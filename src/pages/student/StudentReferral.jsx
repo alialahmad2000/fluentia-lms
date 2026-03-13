@@ -344,7 +344,8 @@ export default function StudentReferral() {
       const codeToName = {}
       ;(allStudents || []).forEach(s => {
         const code = buildReferralCode(s.id)
-        codeToName[code] = s.profiles?.display_name || s.profiles?.full_name || 'طالب'
+        const sp = Array.isArray(s.profiles) ? s.profiles[0] : s.profiles
+        codeToName[code] = sp?.display_name || sp?.full_name || 'طالب'
       })
 
       return sorted.map(([code, count], i) => ({
@@ -675,23 +676,25 @@ export default function StudentReferral() {
                   من انضم بإحالتك ({referralCount})
                 </h2>
                 <div className="space-y-2">
-                  {myReferrals?.map((r, i) => (
-                    <motion.div
-                      key={r.id}
-                      initial={{ opacity: 0, y: 6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.05 }}
-                      className="glass-card p-3 flex items-center gap-3"
-                    >
-                      <div className="w-9 h-9 rounded-full bg-sky-500/20 border border-sky-500/20 flex items-center justify-center text-sky-400 font-bold text-sm shrink-0">
-                        {(r.profiles?.display_name || r.profiles?.full_name || 'ط')[0]}
-                      </div>
-                      <p className="text-sm text-white">
-                        {r.profiles?.display_name || r.profiles?.full_name || 'طالب جديد'}
-                      </p>
-                      <span className="mr-auto badge-emerald">انضم</span>
-                    </motion.div>
-                  ))}
+                  {myReferrals?.map((r, i) => {
+                    const rProfile = Array.isArray(r.profiles) ? r.profiles[0] : r.profiles
+                    const rName = rProfile?.display_name || rProfile?.full_name || 'طالب جديد'
+                    return (
+                      <motion.div
+                        key={r.id}
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: i * 0.05 }}
+                        className="glass-card p-3 flex items-center gap-3"
+                      >
+                        <div className="w-9 h-9 rounded-full bg-sky-500/20 border border-sky-500/20 flex items-center justify-center text-sky-400 font-bold text-sm shrink-0">
+                          {rName[0]}
+                        </div>
+                        <p className="text-sm text-white">{rName}</p>
+                        <span className="mr-auto badge-emerald">انضم</span>
+                      </motion.div>
+                    )
+                  })}
                 </div>
               </div>
             )}

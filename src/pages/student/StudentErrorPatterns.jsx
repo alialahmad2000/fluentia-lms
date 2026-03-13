@@ -124,7 +124,7 @@ export default function StudentErrorPatterns() {
                 </h2>
                 <div className="grid gap-3">
                   {skillPatterns.map((pattern, i) => {
-                    const sev = SEVERITY_CONFIG[pattern.severity]
+                    const sev = SEVERITY_CONFIG[pattern.severity] || SEVERITY_CONFIG.low
                     const SevIcon = sev.icon
                     return (
                       <motion.div
@@ -138,7 +138,7 @@ export default function StudentErrorPatterns() {
                           <div>
                             <h3 className="font-medium text-white text-sm">{pattern.description}</h3>
                             <p className="text-xs text-muted mt-0.5">
-                              النوع: {pattern.pattern_type.replace(/_/g, ' ')}
+                              النوع: {(pattern.pattern_type || '').replace(/_/g, ' ')}
                             </p>
                           </div>
                           <div className="flex items-center gap-2">

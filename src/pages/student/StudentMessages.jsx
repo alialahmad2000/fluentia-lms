@@ -195,6 +195,9 @@ export default function StudentMessages() {
       setMessage('')
       queryClient.invalidateQueries({ queryKey: ['dm-messages'] })
     },
+    onError: (err) => {
+      console.error('Failed to send message:', err)
+    },
   })
 
   function handleKeyDown(e) {
@@ -331,7 +334,7 @@ export default function StudentMessages() {
               <div className="text-center">
                 <Mail size={48} className="text-muted mx-auto mb-3 opacity-30" />
                 <p className="text-muted">
-                  {isStudent ? 'جاري تحميل...' : 'اختر محادثة'}
+                  {isStudent ? 'لم يتم تعيين مدرب لمجموعتك بعد' : 'اختر محادثة'}
                 </p>
               </div>
             </div>

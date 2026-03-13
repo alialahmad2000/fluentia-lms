@@ -39,11 +39,21 @@ serve(async (req) => {
     )
 
     const authHeader = req.headers.get('Authorization')
-    if (!authHeader) throw new Error('Missing authorization')
+    if (!authHeader) {
+      return new Response(
+        JSON.stringify({ error: 'Missing authorization' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 401 }
+      )
+    }
 
     const token = authHeader.replace('Bearer ', '')
     const { data: { user }, error: authErr } = await supabase.auth.getUser(token)
-    if (authErr || !user) throw new Error('Unauthorized')
+    if (authErr || !user) {
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 401 }
+      )
+    }
 
     const body = await req.json()
     const { message, conversation_history } = body

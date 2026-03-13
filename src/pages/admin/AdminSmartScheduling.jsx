@@ -44,8 +44,10 @@ export default function AdminSmartScheduling() {
     queryKey: ['admin-trainers-schedule'],
     queryFn: async () => {
       const { data } = await supabase
-        .from('trainers')
-        .select('id, profiles(full_name, display_name)')
+        .from('profiles')
+        .select('id, full_name, display_name')
+        .in('role', ['trainer', 'admin'])
+        .order('full_name')
       return data || []
     },
   })
@@ -200,8 +202,9 @@ export default function AdminSmartScheduling() {
       <div className="glass-card p-5">
         <h2 className="text-lg font-bold text-white mb-4">نظرة على المدربين</h2>
         <div className="space-y-3">
+          {!trainers?.length && <p className="text-muted text-sm text-center py-4">لا يوجد مدربون</p>}
           {trainers?.map((trainer, i) => {
-            const name = trainer.profiles?.display_name || trainer.profiles?.full_name || 'مدرب'
+            const name = trainer.display_name || trainer.full_name || 'مدرب'
             const trainerGroups = groups?.filter(g => g.trainer_id === trainer.id) || []
             const totalSessions = trainerGroups.reduce((acc, g) => acc + (g.schedule?.days?.length || 0), 0)
 

@@ -38,20 +38,31 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || ''
     )
 
-    // Optional: verify auth (for manual triggers)
+    // Verify auth: accept service role key (for cron) or admin JWT (for manual triggers)
     const authHeader = req.headers.get('Authorization')
-    if (authHeader) {
-      const token = authHeader.replace('Bearer ', '')
-      // Accept service role key or valid admin token
-      if (token !== Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')) {
-        const { data: { user }, error } = await supabase.auth.getUser(token)
-        if (error || !user) {
-          const { data: profile } = user ? await supabase
-            .from('profiles').select('role').eq('id', user.id).single() : { data: null }
-          if (!profile || profile.role !== 'admin') {
-            // Allow anyway for cron jobs (no auth header)
-          }
-        }
+    if (!authHeader) {
+      return new Response(JSON.stringify({ error: 'Missing authorization' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 401,
+      })
+    }
+    const token = authHeader.replace('Bearer ', '')
+    if (token !== Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')) {
+      // Not the service role key — validate as a user JWT and require admin role
+      const { data: { user }, error: authErr } = await supabase.auth.getUser(token)
+      if (authErr || !user) {
+        return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          status: 401,
+        })
+      }
+      const { data: profile } = await supabase
+        .from('profiles').select('role').eq('id', user.id).single()
+      if (!profile || profile.role !== 'admin') {
+        return new Response(JSON.stringify({ error: 'Unauthorized — admin only' }), {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          status: 403,
+        })
       }
     }
 

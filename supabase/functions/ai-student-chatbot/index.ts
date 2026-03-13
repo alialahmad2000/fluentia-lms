@@ -83,15 +83,21 @@ serve(async (req) => {
 
     // Parse request body
     const body = await req.json()
-    const { message, system_override, history } = body as {
+    const { message, history } = body as {
       message: string
-      system_override?: string
       history?: Array<{ role: string; content: string }>
     }
 
     if (!message || typeof message !== 'string' || message.trim().length === 0) {
       return new Response(
         JSON.stringify({ error: 'الرجاء إدخال رسالة' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      )
+    }
+
+    if (message.length > 2000) {
+      return new Response(
+        JSON.stringify({ error: 'الرسالة طويلة جداً — الحد الأقصى 2000 حرف' }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
       )
     }
@@ -122,7 +128,7 @@ serve(async (req) => {
 
     // Build system prompt
     const levelLabel = CEFR_MAP[studentLevel] || 'A1 (Beginner)'
-    const defaultSystemPrompt = `You are a friendly English conversation practice assistant for Saudi students learning English. The student's current level is ${levelLabel}.
+    const systemPrompt = `You are a friendly English conversation practice assistant for Saudi students learning English. The student's current level is ${levelLabel}.
 
 Rules:
 - Respond in simple English appropriate to the student's level (${levelLabel}).
@@ -132,8 +138,6 @@ Rules:
 - Keep your responses concise — 2 to 3 sentences maximum.
 - Do not use complex vocabulary or long explanations beyond the student's level.
 - The student's name is ${profile.full_name}.`
-
-    const systemPrompt = system_override || defaultSystemPrompt
 
     // Build messages array for Claude
     const claudeMessages: Array<{ role: string; content: string }> = []
@@ -212,10 +216,11 @@ Rules:
       JSON.stringify({ reply }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 200 }
     )
-  } catch (err) {
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Internal server error'
     console.error('ai-student-chatbot error:', err)
     return new Response(
-      JSON.stringify({ error: err.message || 'Internal server error' }),
+      JSON.stringify({ error: message }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 500 }
     )
   }

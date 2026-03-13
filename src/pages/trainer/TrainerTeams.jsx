@@ -141,6 +141,7 @@ export default function TrainerTeams() {
       queryClient.invalidateQueries({ queryKey: ['unassigned-students'] })
       showToastMsg('تم حذف الفريق')
     },
+    onError: (err) => showToastMsg('فشل الحذف: ' + (err.message || 'حاول مرة أخرى')),
   })
 
   // Add student to team
@@ -158,6 +159,7 @@ export default function TrainerTeams() {
       queryClient.invalidateQueries({ queryKey: ['team-members'] })
       queryClient.invalidateQueries({ queryKey: ['unassigned-students'] })
     },
+    onError: (err) => showToastMsg('فشل الإضافة: ' + (err.message || 'حاول مرة أخرى')),
   })
 
   // Remove student from team
@@ -170,6 +172,7 @@ export default function TrainerTeams() {
       queryClient.invalidateQueries({ queryKey: ['team-members'] })
       queryClient.invalidateQueries({ queryKey: ['unassigned-students'] })
     },
+    onError: (err) => showToastMsg('فشل الإزالة: ' + (err.message || 'حاول مرة أخرى')),
   })
 
   // Random assign all unassigned students
@@ -191,6 +194,7 @@ export default function TrainerTeams() {
       queryClient.invalidateQueries({ queryKey: ['unassigned-students'] })
       showToastMsg('تم توزيع الطلاب عشوائياً')
     },
+    onError: (err) => showToastMsg('فشل التوزيع: ' + (err.message || 'حاول مرة أخرى')),
   })
 
   function showToastMsg(msg) {

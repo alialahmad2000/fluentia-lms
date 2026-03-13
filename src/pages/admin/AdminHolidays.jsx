@@ -57,6 +57,9 @@ export default function AdminHolidays() {
       }
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['setting-ramadan-mode'] }),
+    onError: (err) => {
+      console.error('Ramadan setting error:', err)
+    },
   })
 
   const ramadanEnabled = ramadanSetting?.enabled ?? false
@@ -94,6 +97,9 @@ export default function AdminHolidays() {
       queryClient.invalidateQueries({ queryKey: ['admin-holidays'] })
       closeModal()
     },
+    onError: (err) => {
+      console.error('Add holiday error:', err)
+    },
   })
 
   const updateHolidayMutation = useMutation({
@@ -105,6 +111,9 @@ export default function AdminHolidays() {
       queryClient.invalidateQueries({ queryKey: ['admin-holidays'] })
       closeModal()
     },
+    onError: (err) => {
+      console.error('Update holiday error:', err)
+    },
   })
 
   const deleteHolidayMutation = useMutation({
@@ -115,6 +124,9 @@ export default function AdminHolidays() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin-holidays'] })
       setDeleteConfirm(null)
+    },
+    onError: (err) => {
+      console.error('Delete holiday error:', err)
     },
   })
 

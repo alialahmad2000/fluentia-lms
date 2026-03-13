@@ -308,6 +308,9 @@ export default function StudentExercises() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['student-exercises'] })
     },
+    onError: (err) => {
+      console.error('[StudentExercises] generate error:', err)
+    },
   })
 
   const submitMutation = useMutation({
@@ -316,6 +319,7 @@ export default function StudentExercises() {
       if (!exercise) throw new Error('Exercise not found')
 
       const questions = exercise.content?.questions || []
+      if (questions.length === 0) throw new Error('No questions in exercise')
       let correct = 0
       for (const q of questions) {
         if (studentAnswers[q.id] === q.correct_answer) correct++
@@ -386,6 +390,7 @@ export default function StudentExercises() {
       if (!exercise) throw new Error('General exercise not found')
 
       const questions = exercise.content?.questions || []
+      if (questions.length === 0) throw new Error('No questions in exercise')
       let correct = 0
       for (const q of questions) {
         if (studentAnswers[q.id] === q.correct_answer) correct++

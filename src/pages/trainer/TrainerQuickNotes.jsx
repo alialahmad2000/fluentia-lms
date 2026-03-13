@@ -97,6 +97,9 @@ export default function TrainerQuickNotes() {
       setNoteText('')
       queryClient.invalidateQueries({ queryKey: ['student-notes', selectedStudent?.id] })
     },
+    onError: (err) => {
+      console.error('[QuickNotes] Send error:', err)
+    },
   })
 
   // Delete note
@@ -107,6 +110,9 @@ export default function TrainerQuickNotes() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['student-notes', selectedStudent?.id] })
+    },
+    onError: (err) => {
+      console.error('[QuickNotes] Delete error:', err)
     },
   })
 
