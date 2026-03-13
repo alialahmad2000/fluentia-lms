@@ -88,7 +88,7 @@ function QRCodeSVG({ value, size = 80 }) {
 
 // ─── Certificate Card (rendered HTML/CSS) ────────────────────────────────────
 function CertificateCard({ cert, studentName, forwardRef }) {
-  const verifyUrl = `${ACADEMY.landing}/verify/${cert.id}`
+  const verifyUrl = `https://${ACADEMY.landing}/verify/${cert.id}`
 
   return (
     <div

@@ -123,7 +123,9 @@ export default function TrainerQuizGenerator() {
   async function generateQuestions() {
     setGenerating(true)
     try {
-      const { data: { session } } = await supabase.auth.getSession()
+      const { data: sessionData } = await supabase.auth.getSession()
+      const session = sessionData?.session
+      if (!session?.access_token) throw new Error('User session expired. Please sign in again.')
       const selectedGroup = groups?.find(g => g.id === form.group_id)
 
       const systemPrompt = `You are an English language quiz generator for Arab learners. Generate exactly ${form.question_count} quiz questions.
@@ -314,7 +316,7 @@ Make questions progressively harder. All question text should be in English. Exp
 
   const totalPoints = questions.reduce((sum, q) => sum + (q.points || 1), 0)
   const canProceedStep1 = form.title.trim() && form.group_id && form.skill_focus.length > 0
-  const canProceedStep3 = questions.length > 0 && questions.every(q => q.question_text.trim())
+  const canProceedStep3 = questions.length > 0 && questions.every(q => (q.question_text || '').trim())
 
   return (
     <div className="space-y-6" dir="rtl">

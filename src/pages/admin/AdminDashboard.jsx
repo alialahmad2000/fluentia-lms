@@ -215,8 +215,8 @@ export default function AdminDashboard() {
           <div className="space-y-3">
             {Object.entries(PACKAGES).map(([key, pkg]) => {
               const count = studentStats?.byPackage?.[key] || 0
-              const total = studentStats?.total || 1
-              const pct = Math.round((count / total) * 100)
+              const total = studentStats?.total || 0
+              const pct = total > 0 ? Math.round((count / total) * 100) : 0
               return (
                 <div key={key}>
                   <div className="flex items-center justify-between text-sm mb-1">

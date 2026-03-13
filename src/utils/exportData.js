@@ -1,6 +1,7 @@
 // CSV export utility (no external dependency needed)
 export function exportToCSV(data, filename, columns) {
   // columns = [{key: 'full_name', label: 'الاسم'}, ...]
+  if (!Array.isArray(data) || !Array.isArray(columns) || columns.length === 0) return
   // Build CSV with UTF-8 BOM for Arabic support
   const BOM = '\uFEFF'
   const header = columns.map(c => c.label).join(',')

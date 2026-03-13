@@ -81,7 +81,8 @@ export default function StudentDashboard() {
   const streak = studentData?.current_streak || 0
   const currentLevel = getLevel(xp)
   const nextLevel = getNextLevel(xp)
-  const xpProgress = nextLevel ? ((xp - currentLevel.xp) / (nextLevel.xp - currentLevel.xp)) * 100 : 100
+  const xpRange = nextLevel ? (nextLevel.xp - currentLevel.xp) : 0
+  const xpProgress = nextLevel && xpRange > 0 ? ((xp - currentLevel.xp) / xpRange) * 100 : 100
   const academicLevel = ACADEMIC_LEVELS[studentData?.academic_level] || ACADEMIC_LEVELS[1]
   const pkg = PACKAGES[studentData?.package] || PACKAGES.asas
   const group = studentData?.groups

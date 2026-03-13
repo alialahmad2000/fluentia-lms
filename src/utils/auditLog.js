@@ -1,7 +1,7 @@
 import { supabase } from '../lib/supabase'
 
 export async function logAudit({ actorId, action, targetType, targetId, oldData, newData, description }) {
-  await supabase.from('audit_log').insert({
+  const { error } = await supabase.from('audit_log').insert({
     actor_id: actorId,
     action,
     target_type: targetType,
@@ -10,4 +10,7 @@ export async function logAudit({ actorId, action, targetType, targetId, oldData,
     new_data: newData || null,
     description,
   })
+  if (error) {
+    console.error('[auditLog] Failed to write audit entry:', error.message)
+  }
 }
