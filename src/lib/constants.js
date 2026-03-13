@@ -23,6 +23,11 @@ export const XP_VALUES = {
   penalty_absent: -20,
   penalty_unknown_word: -5,
   penalty_pronunciation: -5,
+  weekly_task: 10,
+  weekly_all_complete: 25,
+  spelling_80: 15,
+  spelling_100: 30,
+  verb_mastered: 5,
 }
 
 // ─── Gamification Level Thresholds (20 levels) ─────────────
@@ -127,6 +132,10 @@ export const NOTIFICATION_TYPES = {
   level_up:            { label_ar: 'ترقية مستوى',        icon: '⬆️', color: 'gold' },
   streak_warning:      { label_ar: 'تحذير الـ Streak',   icon: '🔥', color: 'orange' },
   system:              { label_ar: 'تنبيه النظام',       icon: '⚙️', color: 'muted' },
+  weekly_tasks_ready:  { label_ar: 'مهام أسبوعية جديدة', icon: '📋', color: 'sky' },
+  weekly_tasks_remind: { label_ar: 'تذكير بالمهام',      icon: '📝', color: 'yellow' },
+  weekly_tasks_urgent: { label_ar: 'آخر يوم للمهام',     icon: '⏰', color: 'red' },
+  spelling_milestone:  { label_ar: 'إنجاز إملائي',       icon: '✏️', color: 'green' },
 }
 
 // ─── Payment Status Labels ─────────────────────────────────
@@ -136,6 +145,24 @@ export const PAYMENT_STATUS = {
   pending: { label_ar: 'بانتظار الدفع', color: 'blue' },
   overdue: { label_ar: 'متأخر',         color: 'red' },
   failed:  { label_ar: 'فشل الدفع',     color: 'red' },
+}
+
+// ─── Weekly Task Types ────────────────────────────────────
+export const WEEKLY_TASK_TYPES = {
+  speaking:        { label_ar: 'تحدث',       label_en: 'Speaking',        icon: '🎤', color: 'sky' },
+  reading:         { label_ar: 'قراءة',      label_en: 'Reading',         icon: '📖', color: 'emerald' },
+  writing:         { label_ar: 'كتابة',      label_en: 'Writing',         icon: '✍️', color: 'violet' },
+  listening:       { label_ar: 'استماع',     label_en: 'Listening',       icon: '🎧', color: 'amber' },
+  irregular_verbs: { label_ar: 'أفعال شاذة', label_en: 'Irregular Verbs', icon: '🔄', color: 'rose' },
+}
+
+// ─── Weekly Task Status ───────────────────────────────────
+export const WEEKLY_TASK_STATUS = {
+  pending:             { label_ar: 'قيد الانتظار', color: 'muted' },
+  submitted:           { label_ar: 'تم التسليم',   color: 'blue' },
+  graded:              { label_ar: 'تم التقييم',   color: 'green' },
+  resubmit_requested:  { label_ar: 'أعد التسليم',  color: 'yellow' },
+  skipped:             { label_ar: 'تم التخطي',    color: 'red' },
 }
 
 // ─── Academy Info ──────────────────────────────────────────

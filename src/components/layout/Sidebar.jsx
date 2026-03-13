@@ -6,7 +6,7 @@ import {
   Users, Briefcase, CreditCard, Settings, LayoutDashboard,
   LogOut, X, ChevronLeft, ChevronDown, ClipboardCheck, StickyNote, Zap, UserCheck, MessageSquare,
   Bot, Brain, FileBarChart, AlertTriangle, Crosshair, FolderOpen, Moon, Shield, Award, MessageSquareQuote, Gift,
-  Search, Database,
+  Search, Database, CalendarDays, SpellCheck,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 
@@ -46,6 +46,7 @@ const NAV_GROUPS = {
       key: 'learning',
       label: 'التعلم',
       items: [
+        { to: '/student/weekly-tasks', label: 'مهامي الأسبوعية', icon: CalendarDays },
         { to: '/student/assignments', label: 'الواجبات', icon: FileText },
         { to: '/student/quiz', label: 'الاختبارات', icon: ClipboardCheck },
         { to: '/student/schedule', label: 'الجدول', icon: Calendar },
@@ -60,6 +61,7 @@ const NAV_GROUPS = {
         { to: '/student/voice-journal', label: 'يوميات صوتية', icon: Mic },
         { to: '/student/pronunciation', label: 'مدرب النطق', icon: Mic },
         { to: '/student/conversation', label: 'محاكي المحادثات', icon: MessageSquare },
+        { to: '/student/spelling', label: 'مدرب الإملاء', icon: SpellCheck },
       ],
     },
     {
@@ -127,6 +129,7 @@ const NAV_GROUPS = {
       items: [
         { to: '/trainer/assignments', label: 'الواجبات', icon: FileText },
         { to: '/trainer/writing', label: 'التقييم', icon: ClipboardCheck },
+        { to: '/trainer/weekly-grading', label: 'المهام الأسبوعية', icon: CalendarDays },
         { to: '/trainer/quiz', label: 'مولّد الاختبارات', icon: Brain },
         { to: '/trainer/schedule', label: 'الجدول', icon: Calendar },
         { to: '/trainer/notes', label: 'ملاحظات الحصص', icon: StickyNote },
@@ -184,6 +187,7 @@ const NAV_GROUPS = {
       items: [
         { to: '/trainer/assignments', label: 'الواجبات', icon: FileText },
         { to: '/trainer/writing', label: 'التقييم', icon: ClipboardCheck },
+        { to: '/trainer/weekly-grading', label: 'المهام الأسبوعية', icon: CalendarDays },
         { to: '/trainer/quiz', label: 'مولّد الاختبارات', icon: Brain },
         { to: '/trainer/schedule', label: 'الجدول', icon: Calendar },
         { to: '/trainer/notes', label: 'ملاحظات الحصص', icon: StickyNote },

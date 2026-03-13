@@ -41,6 +41,9 @@ const StudentAssessments = lazyRetry(() => import('./pages/student/StudentAssess
 const StudentQuiz = lazyRetry(() => import('./pages/student/StudentQuiz'))
 const StudentCertificate = lazyRetry(() => import('./pages/student/StudentCertificate'))
 const StudentReferral = lazyRetry(() => import('./pages/student/StudentReferral'))
+const StudentWeeklyTasks = lazyRetry(() => import('./pages/student/StudentWeeklyTasks'))
+const StudentWeeklyTaskDetail = lazyRetry(() => import('./pages/student/StudentWeeklyTaskDetail'))
+const StudentSpelling = lazyRetry(() => import('./pages/student/StudentSpelling'))
 
 const TrainerDashboard = lazyRetry(() => import('./pages/trainer/TrainerDashboard'))
 const TrainerAssignments = lazyRetry(() => import('./pages/trainer/TrainerAssignments'))
@@ -59,6 +62,7 @@ const TrainerAIAssistant = lazyRetry(() => import('./pages/trainer/TrainerAIAssi
 const TrainerProgressReports = lazyRetry(() => import('./pages/trainer/TrainerProgressReports'))
 const TrainerLessonPlanner = lazyRetry(() => import('./pages/trainer/TrainerLessonPlanner'))
 const TrainerQuizGenerator = lazyRetry(() => import('./pages/trainer/TrainerQuizGenerator'))
+const TrainerWeeklyGrading = lazyRetry(() => import('./pages/trainer/TrainerWeeklyGrading'))
 
 const AdminDashboard = lazyRetry(() => import('./pages/admin/AdminDashboard'))
 const AdminStudents = lazyRetry(() => import('./pages/admin/AdminStudents'))
@@ -233,6 +237,9 @@ export default function App() {
               <Route path="/student/profile" element={<Page><StudentProfile /></Page>} />
               <Route path="/student/certificates" element={<Page><StudentCertificate /></Page>} />
               <Route path="/student/referral" element={<Page><StudentReferral /></Page>} />
+              <Route path="/student/weekly-tasks" element={<Page><StudentWeeklyTasks /></Page>} />
+              <Route path="/student/weekly-tasks/:id" element={<Page><StudentWeeklyTaskDetail /></Page>} />
+              <Route path="/student/spelling" element={<Page><StudentSpelling /></Page>} />
             </Route>
           </Route>
 
@@ -257,6 +264,7 @@ export default function App() {
               <Route path="/trainer/reports" element={<Page><TrainerProgressReports /></Page>} />
               <Route path="/trainer/lesson-planner" element={<Page><TrainerLessonPlanner /></Page>} />
               <Route path="/trainer/quiz" element={<Page><TrainerQuizGenerator /></Page>} />
+              <Route path="/trainer/weekly-grading" element={<Page><TrainerWeeklyGrading /></Page>} />
             </Route>
           </Route>
 
