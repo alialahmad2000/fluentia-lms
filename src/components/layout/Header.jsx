@@ -22,11 +22,12 @@ export default function Header({ onMenuToggle }) {
   const firstName = profile?.display_name || displayName.split(' ')[0]
 
   return (
-    <header className="h-16 bg-navy-950/60 backdrop-blur-xl border-b border-border-subtle flex items-center justify-between px-4 lg:px-6 sticky top-0 z-20">
+    <header role="banner" className="h-16 bg-navy-950/60 backdrop-blur-xl border-b border-border-subtle flex items-center justify-between px-4 lg:px-6 sticky top-0 z-20">
       {/* Right side: menu + greeting */}
       <div className="flex items-center gap-3">
         <button
           onClick={onMenuToggle}
+          aria-label="فتح القائمة"
           className="lg:hidden text-muted hover:text-white transition-colors p-1"
         >
           <Menu size={22} />

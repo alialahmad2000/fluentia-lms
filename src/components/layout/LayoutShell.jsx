@@ -39,6 +39,9 @@ export default function LayoutShell() {
 
   return (
     <div className="min-h-screen bg-darkest">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:right-4 focus:z-[100] focus:bg-sky-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm">
+        انتقل إلى المحتوى الرئيسي
+      </a>
       <Sidebar
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
@@ -54,13 +57,13 @@ export default function LayoutShell() {
       >
         <Header onMenuToggle={() => setMobileOpen(true)} />
 
-        <main className="p-4 lg:p-6 pb-20 lg:pb-6">
+        <main id="main-content" className="p-4 lg:p-6 pb-20 lg:pb-6">
           <Outlet />
         </main>
       </div>
 
       {/* Mobile bottom tab bar */}
-      <nav className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-navy-950/95 backdrop-blur-xl border-t border-border-subtle">
+      <nav aria-label="التنقل الرئيسي" className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-navy-950/95 backdrop-blur-xl border-t border-border-subtle">
         <div className="flex items-center justify-around h-16">
           {tabs.map((tab) => (
             <NavLink

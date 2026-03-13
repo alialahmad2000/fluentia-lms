@@ -8,6 +8,8 @@ import GamificationProvider from './components/gamification/GamificationProvider
 import ErrorBoundary, { PageErrorFallback } from './components/ErrorBoundary'
 import GlobalSearch from './components/GlobalSearch'
 import lazyRetry from './utils/lazyRetry'
+import OfflineBanner from './components/OfflineBanner'
+import { ToastProvider } from './components/Toast'
 
 // ─── Lazy-loaded Pages (with chunk retry on stale deploys) ───
 const StudentDashboard = lazyRetry(() => import('./pages/student/StudentDashboard'))
@@ -91,7 +93,7 @@ function Page({ children }) {
 // ─── Page Loading Skeleton ───────────────────────────────────
 function PageSkeleton() {
   return (
-    <div className="space-y-6 p-2">
+    <div role="status" aria-busy="true" className="space-y-6 p-2">
       <div className="skeleton h-8 w-48" />
       <div className="skeleton h-4 w-64" />
       <div className="grid grid-cols-3 gap-4">
@@ -107,7 +109,7 @@ function PageSkeleton() {
 // ─── Full-screen Loading Skeleton ────────────────────────────
 function LoadingSkeleton() {
   return (
-    <div className="min-h-screen bg-darkest flex items-center justify-center p-8">
+    <div role="status" aria-busy="true" className="min-h-screen bg-darkest flex items-center justify-center p-8">
       <div className="w-full max-w-md space-y-6">
         <div className="skeleton h-10 w-48 mx-auto" />
         <div className="skeleton h-4 w-64 mx-auto" />
@@ -165,10 +167,12 @@ export default function App() {
   return (
     <ErrorBoundary>
       <BrowserRouter>
+        <OfflineBanner />
         <OnboardingModal />
         <GamificationProvider />
         <GlobalSearch />
 
+        <ToastProvider>
         <Routes>
           <Route path="/" element={<RoleRedirect />} />
 
@@ -275,6 +279,7 @@ export default function App() {
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        </ToastProvider>
       </BrowserRouter>
     </ErrorBoundary>
   )

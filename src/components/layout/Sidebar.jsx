@@ -288,7 +288,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
       </div>
 
       {/* Nav groups */}
-      <nav className="flex-1 py-2 px-3 overflow-y-auto">
+      <nav role="navigation" aria-label="القائمة الجانبية" className="flex-1 py-2 px-3 overflow-y-auto">
         {groups.map((group, gi) => {
           const isGroupCollapsed = collapsedGroups[group.key]
           const isSingleItem = group.items.length === 1
@@ -299,6 +299,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
               {!isSingleItem && !collapsed && (
                 <button
                   onClick={() => toggleGroup(group.key)}
+                  aria-expanded={!isGroupCollapsed}
                   className="w-full flex items-center justify-between px-3 py-1.5 text-[11px] font-medium text-muted/60 uppercase tracking-wide hover:text-muted transition-colors"
                 >
                   <span>{group.label}</span>

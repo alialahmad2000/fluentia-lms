@@ -148,6 +148,7 @@ export default function NotificationCenter() {
       {/* Bell button */}
       <button
         onClick={() => setOpen(!open)}
+        aria-label="الإشعارات"
         className="relative text-muted hover:text-white transition-colors p-1"
       >
         <Bell size={20} />
@@ -155,6 +156,7 @@ export default function NotificationCenter() {
           <motion.span
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
+            aria-live="polite"
             className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center"
           >
             {unreadCount > 9 ? '9+' : unreadCount}
@@ -170,6 +172,8 @@ export default function NotificationCenter() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.15 }}
+            role="dialog"
+            aria-label="مركز الإشعارات"
             className="absolute top-full left-0 mt-2 w-80 sm:w-96 bg-navy-950 border border-border-subtle rounded-2xl shadow-xl overflow-hidden z-50"
             style={{ maxHeight: '70vh' }}
           >

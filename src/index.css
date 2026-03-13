@@ -148,6 +148,12 @@
   }
 }
 
+/* Accessible focus indicators */
+:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 2px;
+}
+
 /* Respect prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   *,

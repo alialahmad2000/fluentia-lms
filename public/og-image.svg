@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#060e1c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d1f3c;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#c9a84c;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#f0d080;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a8762e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#c9a84c;stop-opacity:0" />
+      <stop offset="50%" style="stop-color:#f0d080;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c9a84c;stop-opacity:0" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)" />
+
+  <!-- Decorative corner accents -->
+  <rect x="0" y="0" width="200" height="4" fill="url(#accentGrad)" opacity="0.8" />
+  <rect x="0" y="626" width="1200" height="4" fill="url(#accentGrad)" opacity="0.8" />
+
+  <!-- Subtle grid pattern -->
+  <g opacity="0.04" stroke="#c9a84c" stroke-width="1">
+    <line x1="0" y1="105" x2="1200" y2="105" />
+    <line x1="0" y1="210" x2="1200" y2="210" />
+    <line x1="0" y1="315" x2="1200" y2="315" />
+    <line x1="0" y1="420" x2="1200" y2="420" />
+    <line x1="0" y1="525" x2="1200" y2="525" />
+    <line x1="240" y1="0" x2="240" y2="630" />
+    <line x1="480" y1="0" x2="480" y2="630" />
+    <line x1="720" y1="0" x2="720" y2="630" />
+    <line x1="960" y1="0" x2="960" y2="630" />
+  </g>
+
+  <!-- Large "F" watermark -->
+  <text x="980" y="520" font-family="Georgia, serif" font-size="480" font-weight="700"
+        fill="#c9a84c" opacity="0.06" text-anchor="middle">F</text>
+
+  <!-- Gold divider line -->
+  <rect x="100" y="290" width="1000" height="2" fill="url(#accentGrad)" opacity="0.5" />
+
+  <!-- Arabic title -->
+  <text x="600" y="220" font-family="'Tajawal', 'Arial', sans-serif" font-size="72" font-weight="800"
+        text-anchor="middle" fill="url(#goldGrad)">أكاديمية طلاقة</text>
+
+  <!-- English subtitle -->
+  <text x="600" y="320" font-family="Georgia, 'Playfair Display', serif" font-size="52" font-weight="700"
+        text-anchor="middle" fill="#ffffff" opacity="0.95">Fluentia Academy</text>
+
+  <!-- Tagline -->
+  <text x="600" y="420" font-family="'Tajawal', 'Arial', sans-serif" font-size="30" font-weight="400"
+        text-anchor="middle" fill="#c9a84c" opacity="0.85">منصة تعلم اللغة الإنجليزية الأولى في السعودية</text>
+
+  <!-- URL -->
+  <text x="600" y="560" font-family="'Inter', 'Arial', sans-serif" font-size="22" font-weight="400"
+        text-anchor="middle" fill="#ffffff" opacity="0.45">fluentia-site.vercel.app</text>
+</svg>
