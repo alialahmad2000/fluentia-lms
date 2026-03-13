@@ -11,16 +11,16 @@ const ROLE_LABELS = {
 
 const ROLE_CONFIG = {
   student: {
-    badge: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
-    avatar: 'bg-sky-500/20 border-sky-500/30 text-sky-400',
+    badge: 'bg-sky-500/10 text-sky-400 border border-sky-500/15',
+    avatar: 'bg-sky-500/15 border-sky-500/20 text-sky-400',
   },
   trainer: {
-    badge: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/25',
-    avatar: 'bg-emerald-500/20 border-emerald-500/30 text-emerald-400',
+    badge: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/15',
+    avatar: 'bg-emerald-500/15 border-emerald-500/20 text-emerald-400',
   },
   admin: {
-    badge: 'bg-gold-500/15 text-gold-400 border border-gold-500/25',
-    avatar: 'bg-gold-500/20 border-gold-500/30 text-gold-400',
+    badge: 'bg-gold-500/10 text-gold-400 border border-gold-500/15',
+    avatar: 'bg-gold-500/15 border-gold-500/20 text-gold-400',
   },
 }
 
@@ -32,19 +32,19 @@ export default function Header({ onMenuToggle }) {
   const firstName = displayName.split(' ')[0] || ''
 
   return (
-    <header role="banner" className="h-16 bg-navy-950/60 backdrop-blur-xl border-b border-border-subtle flex items-center justify-between px-4 lg:px-6 sticky top-0 z-20">
+    <header role="banner" className="h-16 bg-navy-950/70 backdrop-blur-2xl border-b border-white/[0.06] flex items-center justify-between px-5 lg:px-8 sticky top-0 z-20">
       {/* Right side: menu + greeting */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-4">
         <button
           onClick={onMenuToggle}
           aria-label="فتح القائمة"
-          className="lg:hidden text-muted hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/[0.06]"
+          className="lg:hidden btn-icon w-9 h-9"
         >
-          <Menu size={22} />
+          <Menu size={20} />
         </button>
 
         <div className="hidden sm:flex items-center gap-1.5">
-          <span className="text-muted text-sm">{getGreeting()}،</span>
+          <span className="text-white/40 text-sm">{getGreeting()}،</span>
           <span className="text-white font-semibold text-sm">{firstName}</span>
         </div>
       </div>

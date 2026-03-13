@@ -4,6 +4,8 @@ import { motion } from 'framer-motion'
 import { X, Save, Loader2 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { ASSIGNMENT_TYPES } from '../../lib/constants'
+import { useAIFormFiller } from '../../hooks/useAIFormFiller'
+import AIFillButton from '../ai/AIFillButton'
 
 export default function AssignmentForm({ assignment, groups, trainerId, isAdmin, onClose }) {
   const queryClient = useQueryClient()
@@ -26,6 +28,43 @@ export default function AssignmentForm({ assignment, groups, trainerId, isAdmin,
   })
 
   const [error, setError] = useState('')
+
+  // AI Form Filler
+  const aiFiller = useAIFormFiller({
+    pageId: 'create-assignment',
+    fields: [
+      { key: 'title', type: 'text', label: 'عنوان الواجب', required: true },
+      { key: 'type', type: 'select', label: 'نوع الواجب', options: Object.entries(ASSIGNMENT_TYPES).map(([k, v]) => ({ value: k, label: v.label_ar })) },
+      { key: 'group_id', type: 'select', label: 'المجموعة', options: groups.map(g => ({ value: g.id, label: `${g.name} (${g.code})` })) },
+      { key: 'description', type: 'textarea', label: 'الوصف' },
+      { key: 'instructions', type: 'textarea', label: 'التعليمات' },
+      { key: 'deadline', type: 'datetime', label: 'الموعد النهائي' },
+      { key: 'points_on_time', type: 'number', label: 'نقاط التسليم بالوقت' },
+      { key: 'points_late', type: 'number', label: 'نقاط التسليم المتأخر' },
+      { key: 'youtube_url', type: 'url', label: 'رابط يوتيوب' },
+      { key: 'external_link', type: 'url', label: 'رابط خارجي' },
+      { key: 'allow_late', type: 'boolean', label: 'السماح بالتأخير' },
+      { key: 'allow_resubmit', type: 'boolean', label: 'السماح بإعادة التسليم' },
+    ],
+    context: 'Fluentia Academy — English language training. Trainer creates assignments for Arabic-speaking adult students.',
+    onFill: (filled) => {
+      setForm(prev => {
+        const updated = { ...prev }
+        for (const [key, value] of Object.entries(filled)) {
+          if (key === 'deadline' && typeof value === 'string') {
+            updated.deadline = value.includes('T') ? value.slice(0, 16) : value
+          } else {
+            updated[key] = value
+          }
+        }
+        return updated
+      })
+    },
+    getContextData: async () => ({
+      groups: groups.map(g => ({ id: g.id, name: `${g.name} (${g.code})` })),
+      currentDate: new Date().toISOString().split('T')[0],
+    }),
+  })
 
   function update(field, value) {
     setForm(prev => ({ ...prev, [field]: value }))
@@ -115,9 +154,21 @@ export default function AssignmentForm({ assignment, groups, trainerId, isAdmin,
       >
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-border-subtle">
-          <h2 className="text-lg font-bold text-white">
-            {isEdit ? 'تعديل الواجب' : 'واجب جديد'}
-          </h2>
+          <div className="flex items-center gap-3">
+            <h2 className="text-lg font-bold text-white">
+              {isEdit ? 'تعديل الواجب' : 'واجب جديد'}
+            </h2>
+            <AIFillButton
+              isOpen={aiFiller.isOpen}
+              setIsOpen={aiFiller.setIsOpen}
+              isProcessing={aiFiller.isProcessing}
+              onSubmit={aiFiller.processRequest}
+              result={aiFiller.result}
+              error={aiFiller.error}
+              unfilled={aiFiller.unfilled}
+              filledCount={aiFiller.result?.filledCount}
+            />
+          </div>
           <button onClick={onClose} className="text-muted hover:text-white transition-colors">
             <X size={20} />
           </button>

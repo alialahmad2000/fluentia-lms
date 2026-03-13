@@ -13,19 +13,19 @@ import { useAuthStore } from '../../stores/authStore'
 // ─── Role accent config ──────────────────────────────────────
 const ROLE_ACCENTS = {
   student: {
-    active: 'bg-sky-500/15 text-sky-400 border border-sky-500/25',
+    active: 'bg-sky-500/10 text-sky-400 border border-sky-500/15',
     icon: 'text-sky-400',
     logo: 'from-sky-400 to-sky-200',
     dot: 'bg-sky-400',
   },
   trainer: {
-    active: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/25',
+    active: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/15',
     icon: 'text-emerald-400',
     logo: 'from-emerald-400 to-emerald-200',
     dot: 'bg-emerald-400',
   },
   admin: {
-    active: 'bg-gold-500/15 text-gold-400 border border-gold-500/25',
+    active: 'bg-gold-500/10 text-gold-400 border border-gold-500/15',
     icon: 'text-gold-400',
     logo: 'from-gold-400 to-gold-200',
     dot: 'bg-gold-400',
@@ -447,8 +447,8 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
     <>
       {/* Desktop sidebar */}
       <aside
-        className={`hidden lg:flex flex-col bg-navy-950/80 backdrop-blur-xl border-l border-border-subtle transition-all duration-300 fixed top-0 right-0 h-screen z-30 ${
-          collapsed ? 'w-[72px]' : 'w-64'
+        className={`hidden lg:flex flex-col bg-navy-950/90 backdrop-blur-2xl border-l border-white/[0.06] transition-all duration-300 ease-apple fixed top-0 right-0 h-screen z-30 ${
+          collapsed ? 'w-[72px]' : 'w-[270px]'
         }`}
       >
         {sidebarContent}

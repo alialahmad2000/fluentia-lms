@@ -29,7 +29,6 @@ export default function LoginPage() {
     e.preventDefault()
     setError('')
 
-    // Basic validation
     if (!email.trim()) {
       setError('أدخل البريد الإلكتروني')
       return
@@ -52,42 +51,52 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-darkest flex items-center justify-center p-4">
-      {/* Background gradient decoration */}
+    <div className="min-h-screen bg-darkest flex items-center justify-center p-6">
+      {/* Background ambient gradients */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-sky-500/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-gold-500/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-sky-500/[0.04] rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-violet-500/[0.03] rounded-full blur-[100px]" />
       </div>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-md relative z-10"
+        transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+        className="w-full max-w-[420px] relative z-10"
       >
         {/* Logo & Title */}
-        <div className="text-center mb-8">
-          <motion.h1
+        <div className="text-center mb-10">
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.1, duration: 0.4 }}
-            className="text-4xl font-playfair font-bold text-gradient mb-2"
+            transition={{ delay: 0.1, duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            Fluentia
-          </motion.h1>
-          <p className="text-muted text-sm">{ACADEMY.name_ar}</p>
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-sky-400 to-sky-600 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-sky-500/20">
+              <span className="text-white font-playfair font-bold text-2xl">F</span>
+            </div>
+            <h1 className="text-4xl font-playfair font-bold text-gradient mb-2">
+              Fluentia
+            </h1>
+            <p className="text-white/30 text-sm">{ACADEMY.name_ar}</p>
+          </motion.div>
         </div>
 
         {/* Login Card */}
-        <div className="glass-card p-8">
-          <h2 className="text-xl font-bold text-white mb-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+          className="bg-white/[0.03] backdrop-blur-2xl border border-white/[0.07] rounded-2xl p-8 sm:p-10"
+          style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.03)' }}
+        >
+          <h2 className="text-xl font-bold text-white mb-8 text-center">
             تسجيل الدخول
           </h2>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-sm text-muted mb-2">
+              <label htmlFor="email" className="input-label">
                 البريد الإلكتروني
               </label>
               <input
@@ -105,7 +114,7 @@ export default function LoginPage() {
 
             {/* Password */}
             <div>
-              <label htmlFor="password" className="block text-sm text-muted mb-2">
+              <label htmlFor="password" className="input-label">
                 كلمة المرور
               </label>
               <div className="relative">
@@ -123,7 +132,7 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-white transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/25 hover:text-white/50 transition-colors"
                   tabIndex={-1}
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -146,7 +155,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="btn-primary w-full flex items-center justify-center gap-2"
             >
               {loading ? (
                 <Loader2 size={20} className="animate-spin" />
@@ -157,15 +166,15 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <div className="mt-4 text-center">
-            <Link to="/forgot-password" className="text-sm text-sky-400 hover:text-sky-300 transition-colors">
+          <div className="mt-6 text-center">
+            <Link to="/forgot-password" className="text-sm text-white/30 hover:text-sky-400 transition-colors">
               نسيت كلمة المرور؟
             </Link>
           </div>
-        </div>
+        </motion.div>
 
         {/* Footer */}
-        <p className="text-center text-muted text-xs mt-6">
+        <p className="text-center text-white/15 text-xs mt-8">
           {ACADEMY.name} &copy; {new Date().getFullYear()}
         </p>
       </motion.div>

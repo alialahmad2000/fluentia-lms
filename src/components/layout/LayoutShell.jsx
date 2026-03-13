@@ -59,13 +59,13 @@ export default function LayoutShell() {
 
       {/* Main content area — offset by sidebar width */}
       <div
-        className={`transition-all duration-300 ${
-          collapsed ? 'lg:mr-[72px]' : 'lg:mr-64'
+        className={`transition-all duration-300 ease-apple ${
+          collapsed ? 'lg:mr-[72px]' : 'lg:mr-[270px]'
         }`}
       >
         <Header onMenuToggle={() => setMobileOpen(true)} />
 
-        <main id="main-content" className="p-4 lg:p-6 pb-20 lg:pb-6">
+        <main id="main-content" className="p-4 lg:p-8 pb-20 lg:pb-8">
           <Outlet />
         </main>
       </div>
@@ -74,7 +74,7 @@ export default function LayoutShell() {
       <AIFloatingHelper />
 
       {/* Mobile bottom tab bar */}
-      <nav aria-label="التنقل الرئيسي" className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-navy-950/95 backdrop-blur-xl border-t border-border-subtle">
+      <nav aria-label="التنقل الرئيسي" className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-navy-950/95 backdrop-blur-2xl border-t border-white/[0.06]">
         <div className="flex items-center justify-around h-16 max-w-lg mx-auto">
           {tabs.map((tab) => (
             <NavLink

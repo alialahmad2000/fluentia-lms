@@ -49,10 +49,10 @@ export default {
         error: '#ef4444',
         warning: '#f59e0b',
         muted: '#64748b',
-        surface: 'rgba(255,255,255,0.04)',
-        'surface-raised': 'rgba(255,255,255,0.07)',
-        'surface-overlay': 'rgba(255,255,255,0.10)',
-        'border-subtle': 'rgba(255,255,255,0.08)',
+        surface: 'rgba(255,255,255,0.03)',
+        'surface-raised': 'rgba(255,255,255,0.06)',
+        'surface-overlay': 'rgba(255,255,255,0.09)',
+        'border-subtle': 'rgba(255,255,255,0.07)',
         'border-medium': 'rgba(255,255,255,0.12)',
         darkest: '#060e1c',
       },
@@ -61,12 +61,39 @@ export default {
         playfair: ['Playfair Display', 'serif'],
         inter: ['Inter', 'sans-serif'],
       },
+      fontSize: {
+        'page-title': ['1.875rem', { lineHeight: '2.25rem', fontWeight: '700' }],
+        'section-title': ['1.25rem', { lineHeight: '1.75rem', fontWeight: '600' }],
+        'stat-number': ['2.25rem', { lineHeight: '2.5rem', fontWeight: '700' }],
+      },
+      spacing: {
+        '18': '4.5rem',
+        '22': '5.5rem',
+      },
+      borderRadius: {
+        'sm': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '20px',
+        '2xl': '24px',
+      },
+      boxShadow: {
+        'soft': '0 4px 24px rgba(0,0,0,0.15)',
+        'medium': '0 8px 32px rgba(0,0,0,0.25)',
+        'elevated': '0 16px 48px rgba(0,0,0,0.35)',
+        'glow-sky': '0 0 20px rgba(56,189,248,0.15)',
+        'glow-gold': '0 0 20px rgba(251,191,36,0.15)',
+        'glow-emerald': '0 0 20px rgba(52,211,153,0.15)',
+        'inner-subtle': 'inset 0 1px 0 rgba(255,255,255,0.04)',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       },
       animation: {
         'shimmer': 'shimmer 2s linear infinite',
         'float': 'float 3s ease-in-out infinite',
+        'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
+        'fill-highlight': 'fill-highlight 0.6s ease-out',
       },
       keyframes: {
         shimmer: {
@@ -77,6 +104,17 @@ export default {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-5px)' },
         },
+        'glow-pulse': {
+          '0%, 100%': { opacity: '0.4' },
+          '50%': { opacity: '0.8' },
+        },
+        'fill-highlight': {
+          '0%': { boxShadow: '0 0 0 2px rgba(56,189,248,0.5)', borderColor: 'rgba(56,189,248,0.5)' },
+          '100%': { boxShadow: '0 0 0 0 transparent', borderColor: 'rgba(255,255,255,0.07)' },
+        },
+      },
+      transitionTimingFunction: {
+        'apple': 'cubic-bezier(0.25, 0.1, 0.25, 1)',
       },
     },
   },

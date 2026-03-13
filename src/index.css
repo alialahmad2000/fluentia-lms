@@ -5,10 +5,19 @@
 @layer base {
   html {
     direction: rtl;
+    font-feature-settings: 'tnum' on, 'lnum' on;
   }
 
   body {
-    @apply antialiased;
+    @apply antialiased font-tajawal text-[15px] leading-relaxed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Selection color */
+  ::selection {
+    background: rgba(56, 189, 248, 0.25);
+    color: #fff;
   }
 
   /* Custom scrollbar — thin, dark */
@@ -37,65 +46,106 @@
 }
 
 @layer components {
-  /* ─── Glass cards — 3-tier hierarchy ────────────────────────── */
+  /* ═══════════════════════════════════════════════════════════
+     CARDS — Layered surface system (Apple depth model)
+     ═══════════════════════════════════════════════════════════ */
   .glass-card {
-    @apply bg-surface backdrop-blur-xl border border-border-subtle rounded-2xl;
+    @apply bg-white/[0.03] backdrop-blur-xl border border-white/[0.07] rounded-2xl;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
   }
 
   .glass-card-raised {
-    @apply bg-surface-raised backdrop-blur-xl border border-border-medium rounded-2xl shadow-lg shadow-black/10;
+    @apply bg-white/[0.06] backdrop-blur-xl border border-white/[0.10] rounded-2xl shadow-soft;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.04);
   }
 
   .glass-card-hover {
-    @apply glass-card hover:bg-surface-raised hover:border-sky-500/20 hover:shadow-lg hover:shadow-sky-500/5 transition-all duration-300;
+    @apply glass-card transition-all duration-300 ease-apple;
+  }
+  .glass-card-hover:hover {
+    @apply bg-white/[0.05] border-white/[0.12] shadow-soft;
+    transform: translateY(-2px);
   }
 
   .glass-card-interactive {
-    @apply glass-card cursor-pointer hover:bg-surface-raised hover:border-sky-500/20 hover:shadow-lg hover:shadow-sky-500/5 active:scale-[0.99] transition-all duration-200;
+    @apply glass-card cursor-pointer transition-all duration-200 ease-apple;
+  }
+  .glass-card-interactive:hover {
+    @apply bg-white/[0.05] border-white/[0.12] shadow-soft;
+    transform: translateY(-2px);
+  }
+  .glass-card-interactive:active {
+    transform: translateY(0);
   }
 
-  /* ─── Buttons ──────────────────────────────────────────────── */
+  /* ═══════════════════════════════════════════════════════════
+     BUTTONS — Clean, solid, Apple-style
+     ═══════════════════════════════════════════════════════════ */
   .btn-primary {
-    @apply bg-gradient-to-l from-sky-500 to-sky-600 text-white px-6 py-3 rounded-xl font-medium
-           shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 hover:brightness-110
-           active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:shadow-sky-500/25
-           transition-all duration-200;
+    @apply bg-sky-500 text-white px-6 py-3 rounded-xl font-medium
+           shadow-lg shadow-sky-500/20 hover:bg-sky-400 hover:shadow-sky-500/30
+           active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-sky-500 disabled:hover:shadow-sky-500/20
+           transition-all duration-200 ease-apple;
   }
 
   .btn-secondary {
-    @apply bg-white/[0.06] border border-border-medium text-white px-6 py-3 rounded-xl font-medium
-           hover:bg-white/[0.12] hover:border-white/20
-           active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed
-           transition-all duration-200;
+    @apply bg-white/[0.06] border border-white/[0.10] text-white px-6 py-3 rounded-xl font-medium
+           hover:bg-white/[0.10] hover:border-white/[0.15]
+           active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed
+           transition-all duration-200 ease-apple;
   }
 
   .btn-gold {
-    @apply bg-gradient-to-l from-gold-400 to-gold-500 text-navy-900 px-6 py-3 rounded-xl font-bold
-           shadow-lg shadow-gold-500/25 hover:shadow-gold-500/40 hover:brightness-110
-           active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed
-           transition-all duration-200;
+    @apply bg-gold-400 text-navy-950 px-6 py-3 rounded-xl font-bold
+           shadow-lg shadow-gold-500/20 hover:bg-gold-300 hover:shadow-gold-500/30
+           active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed
+           transition-all duration-200 ease-apple;
   }
 
   .btn-danger {
     @apply bg-red-500/10 text-red-400 border border-red-500/20 px-6 py-3 rounded-xl font-medium
-           hover:bg-red-500/20 hover:border-red-500/30
-           active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed
-           transition-all duration-200;
+           hover:bg-red-500/15 hover:border-red-500/25
+           active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed
+           transition-all duration-200 ease-apple;
   }
 
   .btn-ghost {
     @apply text-muted px-4 py-2 rounded-xl font-medium
-           hover:bg-white/[0.06] hover:text-white
-           active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed
-           transition-all duration-200;
+           hover:bg-white/[0.05] hover:text-white
+           active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed
+           transition-all duration-200 ease-apple;
   }
 
-  /* ─── Input ────────────────────────────────────────────────── */
+  /* Icon button — square, subtle */
+  .btn-icon {
+    @apply w-10 h-10 rounded-xl flex items-center justify-center text-muted
+           hover:bg-white/[0.06] hover:text-white
+           active:scale-[0.96]
+           transition-all duration-150 ease-apple;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     INPUTS — Taller, cleaner, with proper focus glow
+     ═══════════════════════════════════════════════════════════ */
   .input-field {
-    @apply w-full bg-white/[0.05] border border-border-subtle rounded-xl px-4 py-3
-           text-white placeholder-muted/70
-           focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500/60 focus:bg-white/[0.07]
-           transition-all duration-200;
+    @apply w-full bg-white/[0.04] border border-white/[0.07] rounded-xl px-4 py-3
+           text-white placeholder-white/25 text-[15px]
+           focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-500/40 focus:bg-white/[0.06]
+           transition-all duration-200 ease-apple;
+  }
+
+  .input-field-lg {
+    @apply input-field py-3.5 text-base;
+  }
+
+  /* Label style */
+  .input-label {
+    @apply block text-sm text-muted mb-2 font-medium;
+  }
+
+  /* Textarea */
+  textarea.input-field {
+    @apply min-h-[120px] resize-y leading-relaxed;
   }
 
   /* Native select dropdown options — readable in dark mode */
@@ -104,80 +154,143 @@
     color: #ffffff;
   }
 
-  /* ─── Badges ───────────────────────────────────────────────── */
+  /* ═══════════════════════════════════════════════════════════
+     TOGGLE SWITCH — Apple-style
+     ═══════════════════════════════════════════════════════════ */
+  .toggle-switch {
+    @apply relative w-11 h-6 rounded-full transition-colors duration-200 ease-apple cursor-pointer;
+  }
+  .toggle-switch::after {
+    content: '';
+    @apply absolute top-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-all duration-200 ease-apple;
+  }
+  .toggle-switch[data-checked="false"] {
+    @apply bg-white/10;
+  }
+  .toggle-switch[data-checked="false"]::after {
+    right: calc(100% - 1.375rem);
+  }
+  .toggle-switch[data-checked="true"] {
+    @apply bg-sky-500;
+  }
+  .toggle-switch[data-checked="true"]::after {
+    right: 0.125rem;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     BADGES — Pill shape, semi-transparent
+     ═══════════════════════════════════════════════════════════ */
   .badge {
     @apply inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium;
   }
 
-  .badge-green {
-    @apply badge bg-emerald-500/15 text-emerald-400 border border-emerald-500/25;
-  }
+  .badge-green  { @apply badge bg-emerald-500/10 text-emerald-400 border border-emerald-500/25; }
+  .badge-yellow { @apply badge bg-amber-500/10 text-amber-400 border border-amber-500/25; }
+  .badge-red    { @apply badge bg-red-500/10 text-red-400 border border-red-500/20; }
+  .badge-blue   { @apply badge bg-sky-500/10 text-sky-400 border border-sky-500/20; }
+  .badge-gold   { @apply badge bg-gold-500/10 text-gold-400 border border-gold-500/20; }
+  .badge-sky    { @apply badge bg-sky-500/10 text-sky-400 border border-sky-500/20; }
+  .badge-emerald { @apply badge bg-emerald-500/10 text-emerald-400 border border-emerald-500/25; }
+  .badge-violet { @apply badge bg-violet-500/10 text-violet-400 border border-violet-500/20; }
+  .badge-orange { @apply badge bg-orange-500/10 text-orange-400 border border-orange-500/20; }
+  .badge-muted  { @apply badge bg-white/[0.05] text-gray-400 border border-white/[0.08]; }
 
-  .badge-yellow {
-    @apply badge bg-amber-500/15 text-amber-400 border border-amber-500/25;
-  }
-
-  .badge-red {
-    @apply badge bg-red-500/15 text-red-400 border border-red-500/25;
-  }
-
-  .badge-blue {
-    @apply badge bg-sky-500/15 text-sky-400 border border-sky-500/25;
-  }
-
-  .badge-gold {
-    @apply badge bg-gold-500/15 text-gold-400 border border-gold-500/25;
-  }
-
-  .badge-sky {
-    @apply badge bg-sky-500/15 text-sky-400 border border-sky-500/25;
-  }
-
-  .badge-emerald {
-    @apply badge bg-emerald-500/15 text-emerald-400 border border-emerald-500/25;
-  }
-
-  .badge-violet {
-    @apply badge bg-violet-500/15 text-violet-400 border border-violet-500/25;
-  }
-
-  .badge-orange {
-    @apply badge bg-orange-500/15 text-orange-400 border border-orange-500/25;
-  }
-
-  .badge-muted {
-    @apply badge bg-white/[0.06] text-gray-400 border border-white/10;
-  }
-
-  /* ─── Stats card ───────────────────────────────────────────── */
+  /* ═══════════════════════════════════════════════════════════
+     STAT CARDS — Dashboard KPIs
+     ═══════════════════════════════════════════════════════════ */
   .stat-card {
-    @apply glass-card p-5 relative overflow-hidden;
+    @apply glass-card p-6 relative overflow-hidden;
+  }
+
+  .stat-card .stat-number {
+    @apply text-stat-number text-white;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat-card .stat-label {
+    @apply text-sm text-muted mt-1;
+  }
+
+  .stat-card .stat-icon {
+    @apply absolute top-5 left-5 w-10 h-10 rounded-xl flex items-center justify-center opacity-60;
   }
 
   .stat-card::before {
     content: '';
-    @apply absolute top-0 right-0 w-24 h-24 rounded-full opacity-[0.03] -translate-y-1/2 translate-x-1/2;
+    @apply absolute top-0 right-0 w-32 h-32 rounded-full opacity-[0.02] -translate-y-1/2 translate-x-1/2;
     background: currentColor;
   }
 
-  /* ─── Skeleton loading ─────────────────────────────────────── */
-  .skeleton {
-    @apply animate-pulse bg-white/[0.06] rounded-lg;
+  /* ═══════════════════════════════════════════════════════════
+     TABLES — Clean, spacious, no harsh grid lines
+     ═══════════════════════════════════════════════════════════ */
+  .data-table {
+    @apply w-full text-sm;
   }
 
-  /* ─── Role-based accent overrides ──────────────────────────── */
-  /* These can be used with data-role attribute on LayoutShell */
+  .data-table thead th {
+    @apply text-[11px] text-muted/70 font-semibold uppercase tracking-wider px-4 py-3 text-right border-b border-white/[0.06];
+  }
+
+  .data-table tbody tr {
+    @apply border-b border-white/[0.04] transition-colors duration-150;
+  }
+
+  .data-table tbody tr:hover {
+    @apply bg-white/[0.03];
+  }
+
+  .data-table tbody tr:last-child {
+    @apply border-b-0;
+  }
+
+  .data-table tbody td {
+    @apply px-4 py-4 text-white/80;
+  }
+
+  .data-table tbody td:first-child {
+    @apply font-medium text-white;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     SKELETON LOADING
+     ═══════════════════════════════════════════════════════════ */
+  .skeleton {
+    @apply animate-pulse bg-white/[0.05] rounded-lg;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     DIVIDERS
+     ═══════════════════════════════════════════════════════════ */
+  .divider {
+    @apply border-t border-white/[0.06] my-6;
+  }
+
+  .divider-sm {
+    @apply border-t border-white/[0.06] my-3;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     ROLE-BASED ACCENT OVERRIDES
+     ═══════════════════════════════════════════════════════════ */
   [data-role="student"] .role-accent { @apply text-sky-400; }
-  [data-role="student"] .role-accent-bg { @apply bg-sky-500/15; }
-  [data-role="student"] .role-accent-border { @apply border-sky-500/25; }
+  [data-role="student"] .role-accent-bg { @apply bg-sky-500/10; }
+  [data-role="student"] .role-accent-border { @apply border-sky-500/20; }
 
   [data-role="trainer"] .role-accent { @apply text-emerald-400; }
-  [data-role="trainer"] .role-accent-bg { @apply bg-emerald-500/15; }
+  [data-role="trainer"] .role-accent-bg { @apply bg-emerald-500/10; }
   [data-role="trainer"] .role-accent-border { @apply border-emerald-500/25; }
 
   [data-role="admin"] .role-accent { @apply text-gold-400; }
-  [data-role="admin"] .role-accent-bg { @apply bg-gold-500/15; }
-  [data-role="admin"] .role-accent-border { @apply border-gold-500/25; }
+  [data-role="admin"] .role-accent-bg { @apply bg-gold-500/10; }
+  [data-role="admin"] .role-accent-border { @apply border-gold-500/20; }
+
+  /* ═══════════════════════════════════════════════════════════
+     AI FILL HIGHLIGHT — fields glow when AI fills them
+     ═══════════════════════════════════════════════════════════ */
+  .ai-fill-glow {
+    animation: fill-highlight 0.6s ease-out;
+  }
 }
 
 @layer utilities {
@@ -187,31 +300,46 @@
   }
 
   /* Glow effects */
-  .glow-sky {
-    @apply shadow-lg shadow-sky-500/20;
-  }
-
-  .glow-gold {
-    @apply shadow-lg shadow-gold-500/20;
-  }
-
-  .glow-emerald {
-    @apply shadow-lg shadow-emerald-500/20;
-  }
+  .glow-sky { @apply shadow-glow-sky; }
+  .glow-gold { @apply shadow-glow-gold; }
+  .glow-emerald { @apply shadow-glow-emerald; }
 
   /* Subtle gradient background for page sections */
   .section-gradient {
-    background: radial-gradient(ellipse at top right, rgba(56, 189, 248, 0.04) 0%, transparent 60%);
+    background: radial-gradient(ellipse at top right, rgba(56, 189, 248, 0.03) 0%, transparent 60%);
+  }
+
+  /* Page section spacing */
+  .page-section {
+    @apply mb-10;
+  }
+
+  /* Hide scrollbar but allow scrolling */
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Max content width for readability */
+  .content-max {
+    @apply max-w-6xl;
   }
 }
 
-/* Accessible focus indicators */
+/* ═══════════════════════════════════════════════════════════
+   ACCESSIBLE FOCUS INDICATORS
+   ═══════════════════════════════════════════════════════════ */
 :focus-visible {
-  outline: 2px solid #38bdf8;
+  outline: 2px solid rgba(56, 189, 248, 0.5);
   outline-offset: 2px;
 }
 
-/* Respect prefers-reduced-motion */
+/* ═══════════════════════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -8,6 +8,8 @@ import {
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { useAIFormFiller } from '../../hooks/useAIFormFiller'
+import AIFillButton from '../../components/ai/AIFillButton'
 
 const SKILLS = [
   { value: 'grammar', label: 'القواعد' },
@@ -59,6 +61,26 @@ export default function TrainerQuizGenerator() {
     time_limit_minutes: '',
     xp_reward: 10,
     xp_bonus_perfect: 0,
+  })
+
+  // AI Form Filler for quiz setup
+  const aiFiller = useAIFormFiller({
+    pageId: 'create-quiz',
+    fields: [
+      { key: 'title', type: 'text', label: 'عنوان الاختبار', required: true },
+      { key: 'type', type: 'select', label: 'نوع الاختبار', options: [{ value: 'quick_quiz', label: 'كويز سريع' }, { value: 'full_test', label: 'اختبار كامل' }] },
+      { key: 'group_id', type: 'select', label: 'المجموعة', options: (groups || []).map(g => ({ value: g.id, label: `${g.name} (${g.code})` })) },
+      { key: 'question_count', type: 'number', label: 'عدد الأسئلة' },
+      { key: 'context_prompt', type: 'textarea', label: 'موضوع/سياق الأسئلة' },
+      { key: 'time_limit_minutes', type: 'number', label: 'المدة (دقائق)' },
+      { key: 'xp_reward', type: 'number', label: 'نقاط XP' },
+    ],
+    context: 'Fluentia Academy quiz generator. Trainer creates quizzes for Arabic-speaking English learners.',
+    onFill: (filled) => setForm(prev => ({ ...prev, ...filled })),
+    getContextData: async () => ({
+      groups: (groups || []).map(g => ({ id: g.id, name: `${g.name} (${g.code})` })),
+      currentDate: new Date().toISOString().split('T')[0],
+    }),
   })
 
   // Step 2-3 questions
@@ -417,7 +439,19 @@ Make questions progressively harder. All question text should be in English. Exp
         {step === 1 && (
           <motion.div key="step1" variants={stepVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.25 }} className="space-y-6">
             <div className="glass-card p-6 space-y-5">
-              <h2 className="text-lg font-semibold">إعداد الكويز</h2>
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-semibold">إعداد الكويز</h2>
+                <AIFillButton
+                  isOpen={aiFiller.isOpen}
+                  setIsOpen={aiFiller.setIsOpen}
+                  isProcessing={aiFiller.isProcessing}
+                  onSubmit={aiFiller.processRequest}
+                  result={aiFiller.result}
+                  error={aiFiller.error}
+                  unfilled={aiFiller.unfilled}
+                  filledCount={aiFiller.result?.filledCount}
+                />
+              </div>
 
               {/* Title */}
               <div>
