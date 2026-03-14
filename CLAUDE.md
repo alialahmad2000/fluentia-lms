@@ -288,6 +288,32 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### March 14, 2026 — Fix Weekly Tasks: Tailwind Opacity, DB Constraints, ai_usage Column Names
+- What: Fixed multiple issues in weekly task pages and edge function
+- Fixes:
+  1. **Tailwind opacity `/8` not generated** — `bg-sky-500/8` etc. not in Tailwind's opacity scale (0,5,10,15...). Changed all to bracket notation `bg-sky-500/[0.08]`. Verified CSS now generates correctly.
+  2. **ai_usage insert uses wrong columns** — generate-weekly-tasks used `feature` (should be `type`) and `user_id` (doesn't exist) and `cost_sar` (should be `estimated_cost_sar`). Fixed to match actual DB schema.
+  3. **AdminWeeklyTasks queries wrong ai_usage columns** — `.in('feature', ...)` changed to `.in('type', ...)`, removed non-existent `cost_sar` from select.
+  4. **weekly_tasks CHECK constraint blocks vocabulary** — migration 020 adds 'vocabulary' to the CHECK constraint.
+  5. **ai_usage_type enum missing weekly_tasks** — migration 020 adds the value.
+  6. **Duplicate RLS policies** — migration 021 drops duplicates from 019 and recreates originals with `deleted_at IS NULL` filter.
+  7. **PageErrorFallback shows no error details** — Now accepts error prop and shows details in DEV mode for diagnostics.
+  8. **Removed unused useMutation import** from AdminWeeklyTasks.
+- Files:
+  - `src/pages/trainer/TrainerWeeklyGrading.jsx` — opacity fix
+  - `src/pages/student/StudentWeeklyTasks.jsx` — opacity fix
+  - `src/pages/student/StudentWeeklyTaskDetail.jsx` — opacity fix
+  - `src/pages/admin/AdminWeeklyTasks.jsx` — ai_usage query fix, opacity fix, unused import
+  - `src/components/ErrorBoundary.jsx` — PageErrorFallback accepts error prop
+  - `src/App.jsx` — Pass error as render prop to PageErrorFallback
+  - `supabase/functions/generate-weekly-tasks/index.ts` — ai_usage column names fix
+  - `supabase/migrations/020_fix_weekly_tasks_constraints.sql` — NEW
+  - `supabase/migrations/021_fix_rls_policy_names.sql` — NEW
+- DB: Migrations 020 + 021 need to be run
+- Edge Functions: generate-weekly-tasks needs redeployment
+- Status: Complete — build verified
+- Notes: The trainer page crash may have been caused by stale deployment chunks on Vercel. The Tailwind `/8` opacity issue meant type icon backgrounds had no color (invisible backgrounds). The ai_usage fixes ensure cost tracking works for weekly tasks.
+
 ### March 14, 2026 — Weekly Tasks: Fill Gaps + Full 180° Visual Redesign
 - What: Filled 8 backend gaps and completely redesigned all weekly task pages with premium "Apple meets Duolingo" aesthetic
 - **Backend Gaps Filled:**

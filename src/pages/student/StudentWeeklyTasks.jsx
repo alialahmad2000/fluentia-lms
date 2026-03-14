@@ -12,12 +12,12 @@ import { supabase } from '../../lib/supabase'
 
 // ── Task type configuration ────────────────────────────────────────
 const TASK_TYPE_CONFIG = {
-  speaking:        { icon: Mic,        label: 'تحدث',        labelEn: 'Speaking',    gradient: 'from-sky-500 to-cyan-400',     bg: 'bg-sky-500/8',     border: 'border-sky-500/15',    text: 'text-sky-400',    ring: 'ring-sky-500/20',    dot: 'bg-sky-400' },
-  reading:         { icon: BookOpen,   label: 'قراءة',       labelEn: 'Reading',     gradient: 'from-emerald-500 to-teal-400', bg: 'bg-emerald-500/8', border: 'border-emerald-500/15', text: 'text-emerald-400', ring: 'ring-emerald-500/20', dot: 'bg-emerald-400' },
-  writing:         { icon: PenLine,    label: 'كتابة',       labelEn: 'Writing',     gradient: 'from-violet-500 to-purple-400', bg: 'bg-violet-500/8', border: 'border-violet-500/15', text: 'text-violet-400', ring: 'ring-violet-500/20', dot: 'bg-violet-400' },
-  listening:       { icon: Headphones, label: 'استماع',      labelEn: 'Listening',   gradient: 'from-amber-500 to-orange-400', bg: 'bg-amber-500/8',  border: 'border-amber-500/15',  text: 'text-amber-400',  ring: 'ring-amber-500/20',  dot: 'bg-amber-400' },
-  irregular_verbs: { icon: RefreshCw,  label: 'أفعال شاذة',  labelEn: 'Verbs',       gradient: 'from-rose-500 to-pink-400',    bg: 'bg-rose-500/8',   border: 'border-rose-500/15',   text: 'text-rose-400',   ring: 'ring-rose-500/20',   dot: 'bg-rose-400' },
-  vocabulary:      { icon: BookType,   label: 'مفردات',      labelEn: 'Vocabulary',  gradient: 'from-indigo-500 to-blue-400',  bg: 'bg-indigo-500/8', border: 'border-indigo-500/15', text: 'text-indigo-400', ring: 'ring-indigo-500/20', dot: 'bg-indigo-400' },
+  speaking:        { icon: Mic,        label: 'تحدث',        labelEn: 'Speaking',    gradient: 'from-sky-500 to-cyan-400',     bg: 'bg-sky-500/[0.08]',     border: 'border-sky-500/15',    text: 'text-sky-400',    ring: 'ring-sky-500/20',    dot: 'bg-sky-400' },
+  reading:         { icon: BookOpen,   label: 'قراءة',       labelEn: 'Reading',     gradient: 'from-emerald-500 to-teal-400', bg: 'bg-emerald-500/[0.08]', border: 'border-emerald-500/15', text: 'text-emerald-400', ring: 'ring-emerald-500/20', dot: 'bg-emerald-400' },
+  writing:         { icon: PenLine,    label: 'كتابة',       labelEn: 'Writing',     gradient: 'from-violet-500 to-purple-400', bg: 'bg-violet-500/[0.08]', border: 'border-violet-500/15', text: 'text-violet-400', ring: 'ring-violet-500/20', dot: 'bg-violet-400' },
+  listening:       { icon: Headphones, label: 'استماع',      labelEn: 'Listening',   gradient: 'from-amber-500 to-orange-400', bg: 'bg-amber-500/[0.08]',  border: 'border-amber-500/15',  text: 'text-amber-400',  ring: 'ring-amber-500/20',  dot: 'bg-amber-400' },
+  irregular_verbs: { icon: RefreshCw,  label: 'أفعال شاذة',  labelEn: 'Verbs',       gradient: 'from-rose-500 to-pink-400',    bg: 'bg-rose-500/[0.08]',   border: 'border-rose-500/15',   text: 'text-rose-400',   ring: 'ring-rose-500/20',   dot: 'bg-rose-400' },
+  vocabulary:      { icon: BookType,   label: 'مفردات',      labelEn: 'Vocabulary',  gradient: 'from-indigo-500 to-blue-400',  bg: 'bg-indigo-500/[0.08]', border: 'border-indigo-500/15', text: 'text-indigo-400', ring: 'ring-indigo-500/20', dot: 'bg-indigo-400' },
 }
 
 const STATUS_CONFIG = {

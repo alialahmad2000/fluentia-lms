@@ -12,12 +12,12 @@ import { GRADE_LABELS } from '../../lib/constants'
 import { formatDateAr, timeAgo } from '../../utils/dateHelpers'
 
 const TYPE_CONFIG = {
-  speaking:        { icon: Mic,        label: 'تحدث',       gradient: 'from-sky-500 to-cyan-400',     bg: 'bg-sky-500/8',     text: 'text-sky-400' },
-  reading:         { icon: BookOpen,   label: 'قراءة',      gradient: 'from-emerald-500 to-teal-400', bg: 'bg-emerald-500/8', text: 'text-emerald-400' },
-  writing:         { icon: PenLine,    label: 'كتابة',      gradient: 'from-violet-500 to-purple-400', bg: 'bg-violet-500/8', text: 'text-violet-400' },
-  listening:       { icon: Headphones, label: 'استماع',     gradient: 'from-amber-500 to-orange-400', bg: 'bg-amber-500/8',  text: 'text-amber-400' },
-  irregular_verbs: { icon: RefreshCw,  label: 'أفعال شاذة', gradient: 'from-rose-500 to-pink-400',    bg: 'bg-rose-500/8',   text: 'text-rose-400' },
-  vocabulary:      { icon: BookType,   label: 'مفردات',     gradient: 'from-indigo-500 to-blue-400',  bg: 'bg-indigo-500/8', text: 'text-indigo-400' },
+  speaking:        { icon: Mic,        label: 'تحدث',       gradient: 'from-sky-500 to-cyan-400',     bg: 'bg-sky-500/[0.08]',     text: 'text-sky-400' },
+  reading:         { icon: BookOpen,   label: 'قراءة',      gradient: 'from-emerald-500 to-teal-400', bg: 'bg-emerald-500/[0.08]', text: 'text-emerald-400' },
+  writing:         { icon: PenLine,    label: 'كتابة',      gradient: 'from-violet-500 to-purple-400', bg: 'bg-violet-500/[0.08]', text: 'text-violet-400' },
+  listening:       { icon: Headphones, label: 'استماع',     gradient: 'from-amber-500 to-orange-400', bg: 'bg-amber-500/[0.08]',  text: 'text-amber-400' },
+  irregular_verbs: { icon: RefreshCw,  label: 'أفعال شاذة', gradient: 'from-rose-500 to-pink-400',    bg: 'bg-rose-500/[0.08]',   text: 'text-rose-400' },
+  vocabulary:      { icon: BookType,   label: 'مفردات',     gradient: 'from-indigo-500 to-blue-400',  bg: 'bg-indigo-500/[0.08]', text: 'text-indigo-400' },
 }
 
 function numericToLetter(score) {
@@ -554,12 +554,12 @@ function GradingModal({ task, getStudentName, onClose }) {
 
           {/* Error / Success */}
           {error && (
-            <div className="mb-4 p-3 rounded-xl bg-red-500/8 border border-red-500/15 text-red-400 text-xs">
+            <div className="mb-4 p-3 rounded-xl bg-red-500/[0.08] border border-red-500/15 text-red-400 text-xs">
               {error}
             </div>
           )}
           {success && (
-            <div className="mb-4 p-3 rounded-xl bg-emerald-500/8 border border-emerald-500/15 text-emerald-400 text-xs">
+            <div className="mb-4 p-3 rounded-xl bg-emerald-500/[0.08] border border-emerald-500/15 text-emerald-400 text-xs">
               {success}
             </div>
           )}

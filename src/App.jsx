@@ -89,7 +89,7 @@ const Testimonials = lazyRetry(() => import('./pages/public/Testimonials'))
 // ─── Page wrapper: ErrorBoundary + Suspense ──────────────────
 function Page({ children }) {
   return (
-    <ErrorBoundary fallback={<PageErrorFallback />}>
+    <ErrorBoundary fallback={(error) => <PageErrorFallback error={error} />}>
       <Suspense fallback={<PageSkeleton />}>
         {children}
       </Suspense>

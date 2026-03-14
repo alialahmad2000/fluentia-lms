@@ -70,7 +70,7 @@ export default class ErrorBoundary extends Component {
   }
 }
 
-export function PageErrorFallback() {
+export function PageErrorFallback({ error } = {}) {
   return (
     <div className="min-h-[40vh] flex items-center justify-center p-8">
       <div className="text-center max-w-sm">
@@ -86,6 +86,11 @@ export function PageErrorFallback() {
           <RefreshCw size={14} />
           تحديث
         </button>
+        {import.meta.env.DEV && error && (
+          <pre className="mt-4 text-left text-[10px] text-red-400/60 bg-red-500/5 rounded-xl p-3 overflow-auto max-h-40" dir="ltr">
+            {error.toString()}
+          </pre>
+        )}
       </div>
     </div>
   )

@@ -13,12 +13,12 @@ import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
 const TYPE_CONFIG = {
-  speaking:        { icon: Mic,        label: 'تحدث',       gradient: 'from-sky-500 to-cyan-400',     bg: 'bg-sky-500/8',     border: 'border-sky-500/15',    text: 'text-sky-400' },
-  reading:         { icon: BookOpen,   label: 'قراءة',      gradient: 'from-emerald-500 to-teal-400', bg: 'bg-emerald-500/8', border: 'border-emerald-500/15', text: 'text-emerald-400' },
-  writing:         { icon: PenLine,    label: 'كتابة',      gradient: 'from-violet-500 to-purple-400', bg: 'bg-violet-500/8', border: 'border-violet-500/15', text: 'text-violet-400' },
-  listening:       { icon: Headphones, label: 'استماع',     gradient: 'from-amber-500 to-orange-400', bg: 'bg-amber-500/8',  border: 'border-amber-500/15',  text: 'text-amber-400' },
-  irregular_verbs: { icon: RotateCcw,  label: 'أفعال شاذة', gradient: 'from-rose-500 to-pink-400',    bg: 'bg-rose-500/8',   border: 'border-rose-500/15',   text: 'text-rose-400' },
-  vocabulary:      { icon: BookType,   label: 'مفردات',     gradient: 'from-indigo-500 to-blue-400',  bg: 'bg-indigo-500/8', border: 'border-indigo-500/15', text: 'text-indigo-400' },
+  speaking:        { icon: Mic,        label: 'تحدث',       gradient: 'from-sky-500 to-cyan-400',     bg: 'bg-sky-500/[0.08]',     border: 'border-sky-500/15',    text: 'text-sky-400' },
+  reading:         { icon: BookOpen,   label: 'قراءة',      gradient: 'from-emerald-500 to-teal-400', bg: 'bg-emerald-500/[0.08]', border: 'border-emerald-500/15', text: 'text-emerald-400' },
+  writing:         { icon: PenLine,    label: 'كتابة',      gradient: 'from-violet-500 to-purple-400', bg: 'bg-violet-500/[0.08]', border: 'border-violet-500/15', text: 'text-violet-400' },
+  listening:       { icon: Headphones, label: 'استماع',     gradient: 'from-amber-500 to-orange-400', bg: 'bg-amber-500/[0.08]',  border: 'border-amber-500/15',  text: 'text-amber-400' },
+  irregular_verbs: { icon: RotateCcw,  label: 'أفعال شاذة', gradient: 'from-rose-500 to-pink-400',    bg: 'bg-rose-500/[0.08]',   border: 'border-rose-500/15',   text: 'text-rose-400' },
+  vocabulary:      { icon: BookType,   label: 'مفردات',     gradient: 'from-indigo-500 to-blue-400',  bg: 'bg-indigo-500/[0.08]', border: 'border-indigo-500/15', text: 'text-indigo-400' },
 }
 
 const STATUS_LABELS = {
@@ -929,11 +929,11 @@ function QuestionsUI({ questions, answers, showResults, isSubmitted, onMCQChange
                     key={j}
                     className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
                       isCorrectOption
-                        ? 'bg-emerald-500/8 border-emerald-500/20'
+                        ? 'bg-emerald-500/[0.08] border-emerald-500/20'
                         : isWrongSelection
-                        ? 'bg-red-500/8 border-red-500/20'
+                        ? 'bg-red-500/[0.08] border-red-500/20'
                         : selected
-                        ? 'bg-sky-500/8 border-sky-500/20'
+                        ? 'bg-sky-500/[0.08] border-sky-500/20'
                         : 'bg-white/[0.02] border-white/[0.06] hover:border-white/[0.1]'
                     }`}
                   >

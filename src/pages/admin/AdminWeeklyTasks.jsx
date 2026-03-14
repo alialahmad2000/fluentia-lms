@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import {
   CalendarDays, Play, Loader2, CheckCircle2, Clock, AlertTriangle,
@@ -76,12 +76,12 @@ export default function AdminWeeklyTasks() {
     queryFn: async () => {
       const { data } = await supabase
         .from('ai_usage')
-        .select('input_tokens, output_tokens, cost_sar, estimated_cost_sar')
+        .select('input_tokens, output_tokens, estimated_cost_sar')
         .gte('created_at', weekStart)
-        .in('feature', ['weekly_tasks'])
+        .in('type', ['weekly_tasks'])
 
       if (!data) return { totalCost: 0, totalCalls: 0 }
-      const totalCost = data.reduce((sum, r) => sum + (r.cost_sar || r.estimated_cost_sar || 0), 0)
+      const totalCost = data.reduce((sum, r) => sum + (r.estimated_cost_sar || 0), 0)
       return { totalCost: totalCost.toFixed(2), totalCalls: data.length }
     },
   })
@@ -165,8 +165,8 @@ export default function AdminWeeklyTasks() {
           animate={{ opacity: 1, y: 0 }}
           className={`rounded-xl p-4 border text-sm ${
             genResult.success
-              ? 'bg-emerald-500/8 border-emerald-500/15 text-emerald-400'
-              : 'bg-red-500/8 border-red-500/15 text-red-400'
+              ? 'bg-emerald-500/[0.08] border-emerald-500/15 text-emerald-400'
+              : 'bg-red-500/[0.08] border-red-500/15 text-red-400'
           }`}
         >
           {genResult.message}

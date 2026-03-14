@@ -450,12 +450,11 @@ serve(async (req) => {
             (outputTokens * 0.015 / 1000) * 3.75
 
           await supabase.from('ai_usage').insert({
-            user_id: null,
-            feature: 'weekly_tasks',
+            type: 'weekly_tasks',
             model: CLAUDE_MODEL,
             input_tokens: inputTokens,
             output_tokens: outputTokens,
-            cost_sar: costSar,
+            estimated_cost_sar: costSar,
           })
         }
 
