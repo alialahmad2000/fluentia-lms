@@ -60,9 +60,9 @@ export default function StudentEvents() {
   const displayed = tab === 'active' ? activeEvents : pastEvents
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+        <h1 className="text-page-title flex items-center gap-2">
           <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center">
             <Calendar size={20} className="text-gold-400" />
           </div>
@@ -76,16 +76,18 @@ export default function StudentEvents() {
         <button
           onClick={() => setTab('active')}
           className={`text-sm px-4 py-2 rounded-xl transition-all ${
-            tab === 'active' ? 'bg-gold-500/20 text-gold-400 border border-gold-500/30' : 'bg-white/5 text-muted'
+            tab === 'active' ? 'bg-gold-500/20 text-gold-400 border border-gold-500/30' : 'text-muted'
           }`}
+          style={tab !== 'active' ? { background: 'var(--color-bg-surface-raised)' } : undefined}
         >
           نشطة ({activeEvents.length})
         </button>
         <button
           onClick={() => setTab('past')}
           className={`text-sm px-4 py-2 rounded-xl transition-all ${
-            tab === 'past' ? 'bg-gold-500/20 text-gold-400 border border-gold-500/30' : 'bg-white/5 text-muted'
+            tab === 'past' ? 'bg-gold-500/20 text-gold-400 border border-gold-500/30' : 'text-muted'
           }`}
+          style={tab !== 'past' ? { background: 'var(--color-bg-surface-raised)' } : undefined}
         >
           منتهية ({pastEvents.length})
         </button>
@@ -104,7 +106,7 @@ export default function StudentEvents() {
           <p className="text-muted text-sm">ترقب الفعاليات القادمة!</p>
         </div>
       ) : (
-        <div className="space-y-5">
+        <div className="space-y-6">
           {displayed.map((event, i) => {
             const config = TYPE_CONFIG[event.type] || TYPE_CONFIG.special
             const Icon = config.icon

@@ -115,7 +115,7 @@ export default function AdminStudents() {
   const statusLabels = { active: 'نشط', paused: 'متوقف', graduated: 'متخرج', withdrawn: 'منسحب' }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
@@ -123,14 +123,14 @@ export default function AdminStudents() {
             <Users size={22} className="text-sky-400" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white">إدارة الطلاب</h1>
+            <h1 className="text-page-title text-white">إدارة الطلاب</h1>
             <p className="text-muted text-sm mt-1">{filtered?.length || 0} طالب</p>
           </div>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="glass-card p-4">
+      <div className="glass-card p-7">
         <div className="flex items-center gap-4 flex-wrap">
           <div className="relative flex-1 min-w-[200px]">
             <Search size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted" />
@@ -345,7 +345,7 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
         className="w-full max-w-lg glass-card-raised p-6 max-h-[90vh] overflow-y-auto"
       >
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-semibold text-white">تعديل بيانات الطالب</h2>
+          <h2 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>تعديل بيانات الطالب</h2>
           <button onClick={onClose} className="btn-icon w-8 h-8 text-muted hover:text-white"><X size={20} /></button>
         </div>
 
@@ -358,7 +358,7 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
             <label className="input-label">الهاتف</label>
             <input value={phone} onChange={(e) => setPhone(e.target.value)} className="input-field" dir="ltr" />
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-6">
             <div>
               <label className="input-label">المجموعة</label>
               <select value={groupId} onChange={(e) => setGroupId(e.target.value)} className="input-field">
@@ -393,7 +393,7 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
             )}
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-6">
             <div>
               <label className="input-label">الباقة</label>
               <select value={pkg} onChange={(e) => setPkg(e.target.value)} className="input-field">
@@ -412,7 +412,7 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
               </select>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-6">
             <div>
               <label className="input-label">سعر مخصص (ريال)</label>
               <input type="number" value={customPrice} onChange={(e) => setCustomPrice(e.target.value)} className="input-field" dir="ltr" placeholder="اختياري" />

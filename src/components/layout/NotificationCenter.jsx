@@ -154,7 +154,7 @@ export default function NotificationCenter() {
       <button
         onClick={() => setOpen(!open)}
         aria-label="الإشعارات"
-        className="relative btn-icon text-muted hover:text-white transition-all duration-200 p-1.5"
+        className="relative btn-icon text-muted transition-all duration-200 p-1.5"
       >
         <Bell size={20} />
         {unreadCount > 0 && (
@@ -183,8 +183,8 @@ export default function NotificationCenter() {
             style={{ maxHeight: '70vh' }}
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
-              <h3 className="text-lg font-semibold text-white">الإشعارات</h3>
+            <div className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: 'var(--color-border-subtle)' }}>
+              <h3 className="text-lg font-semibold" style={{ color: 'var(--color-text-primary)' }}>الإشعارات</h3>
               <div className="flex items-center gap-2">
                 {unreadCount > 0 && (
                   <button
@@ -196,7 +196,7 @@ export default function NotificationCenter() {
                 )}
                 <button
                   onClick={() => setOpen(false)}
-                  className="btn-ghost p-1.5 rounded-xl text-muted hover:text-white transition-all duration-200"
+                  className="btn-ghost p-1.5 rounded-xl text-muted transition-all duration-200"
                 >
                   <X size={16} />
                 </button>
@@ -212,16 +212,19 @@ export default function NotificationCenter() {
                     <button
                       key={n.id}
                       onClick={() => handleNotificationClick(n)}
-                      className={`w-full text-right flex items-start gap-3 px-5 py-3.5 hover:bg-white/5 transition-all duration-200 border-b border-white/5 ${
+                      className={`w-full text-right flex items-start gap-3 px-5 py-3.5 transition-all duration-200 ${
                         !n.read ? 'bg-sky-500/[0.03]' : ''
                       }`}
+                      style={{ borderBottom: '1px solid var(--color-border-subtle)' }}
+                      onMouseEnter={e => e.currentTarget.style.background = 'var(--color-bg-hover)'}
+                      onMouseLeave={e => e.currentTarget.style.background = !n.read ? 'rgba(56,189,248,0.03)' : ''}
                     >
                       {/* Icon */}
-                      <div className="w-9 h-9 rounded-xl bg-white/5 flex items-center justify-center text-lg shrink-0">{typeConfig.icon}</div>
+                      <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg shrink-0" style={{ background: 'var(--color-bg-surface-raised)' }}>{typeConfig.icon}</div>
 
                       {/* Content */}
                       <div className="flex-1 min-w-0">
-                        <p className={`text-xs font-medium ${!n.read ? 'text-white' : 'text-muted'}`}>
+                        <p className="text-xs font-medium" style={{ color: !n.read ? 'var(--color-text-primary)' : 'var(--color-text-muted)' }}>
                           {n.title}
                         </p>
                         <p className="text-[11px] text-muted truncate mt-0.5">{n.body}</p>

@@ -293,9 +293,9 @@ export default function StudentLeaderboard() {
   const myRank = ranking?.find(r => r.isMe)
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+        <h1 className="text-page-title flex items-center gap-2">
           <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center">
             <Trophy className="text-gold-400" size={22} />
           </div>
@@ -313,8 +313,9 @@ export default function StudentLeaderboard() {
             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
               tab === t.value
                 ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
-                : 'bg-white/5 text-muted hover:text-white border border-transparent'
+                : 'text-muted hover:text-white border border-transparent'
             }`}
+            style={tab !== t.value ? { background: 'var(--color-bg-surface-raised)' } : undefined}
           >
             <t.icon size={16} />
             {t.label}
@@ -332,8 +333,9 @@ export default function StudentLeaderboard() {
               className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 ${
                 period === p.value
                   ? 'bg-gold-500/10 text-gold-400 border border-gold-500/20'
-                  : 'bg-white/5 text-muted hover:text-white border border-transparent'
+                  : 'text-muted hover:text-white border border-transparent'
               }`}
+              style={period !== p.value ? { background: 'var(--color-bg-surface-raised)' } : undefined}
             >
               {p.label}
             </button>
@@ -346,7 +348,7 @@ export default function StudentLeaderboard() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="glass-card-raised p-5 border-sky-500/20"
+          className="glass-card-raised p-7 border-sky-500/20"
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -399,13 +401,15 @@ export default function StudentLeaderboard() {
                     ? 'bg-sky-500/10 border-sky-500/20 ring-1 ring-sky-500/10'
                     : style.bg
                       ? `${style.bg} ${style.border}`
-                      : 'bg-white/5 border-border-subtle'
+                      : 'border-border-subtle'
                 }`}
+                style={!player.isMe && !style.bg ? { background: 'var(--color-bg-surface-raised)' } : undefined}
               >
                 {/* Rank */}
                 <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-sm font-bold ${
                   style.text || 'text-muted'
-                } ${style.bg || 'bg-white/5'}`}>
+                } ${style.bg || ''}`}
+                  style={!style.bg ? { background: 'var(--color-bg-surface-raised)' } : undefined}>
                   {RankIcon ? <RankIcon size={16} /> : player.rank}
                 </div>
 
@@ -473,7 +477,7 @@ export default function StudentLeaderboard() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.08 }}
                 className={`flex items-center gap-5 p-5 rounded-2xl border hover:translate-y-[-2px] transition-all duration-200 ${
-                  style.bg ? `${style.bg} ${style.border}` : 'bg-white/5 border-border-subtle'
+                  style.bg ? `${style.bg} ${style.border}` : 'border-border-subtle'
                 }`}
               >
                 <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-sm font-bold ${style.text || 'text-muted'}`}>
@@ -493,7 +497,7 @@ export default function StudentLeaderboard() {
             )
           }) : (
             <div className="glass-card p-8 text-center">
-              <div className="w-16 h-16 rounded-xl bg-white/5 flex items-center justify-center mx-auto mb-3">
+              <div className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
                 <Trophy size={32} className="text-muted opacity-30" />
               </div>
               <p className="text-muted">لم يتم إنشاء فرق بعد</p>

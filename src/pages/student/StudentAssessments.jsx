@@ -312,10 +312,10 @@ export default function StudentAssessments() {
   }, [snapshots])
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       {/* Page header */}
       <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+        <h1 className="text-page-title flex items-center gap-2">
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <Radar size={20} className="text-sky-400" />
           </div>
@@ -328,9 +328,9 @@ export default function StudentAssessments() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="glass-card p-6"
+        className="glass-card p-7"
       >
-        <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+        <h2 className="text-section-title mb-4 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
           <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <Radar size={16} className="text-sky-400" />
           </div>
@@ -347,7 +347,7 @@ export default function StudentAssessments() {
 
         {/* Skill values below the chart */}
         {latestSnapshot && (
-          <div className="grid grid-cols-3 gap-5 mt-4">
+          <div className="grid grid-cols-3 gap-6 mt-4">
             {SKILLS.map((sk) => (
               <div key={sk} className="text-center">
                 <p className="text-xs text-muted">{SKILL_LABELS_AR[sk]}</p>
@@ -363,9 +363,9 @@ export default function StudentAssessments() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="glass-card p-6"
+        className="glass-card p-7"
       >
-        <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+        <h2 className="text-section-title mb-4 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
           <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
             <TrendingUp size={16} className="text-emerald-400" />
           </div>
@@ -389,7 +389,7 @@ export default function StudentAssessments() {
                   <span className="text-xs text-muted w-14 text-left shrink-0">
                     {SKILL_LABELS_AR[sk]}
                   </span>
-                  <div className="flex-1 h-2 bg-white/5 rounded-full overflow-hidden">
+                  <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: 'var(--color-bg-surface-raised)' }}>
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${info.current}%` }}
@@ -413,9 +413,9 @@ export default function StudentAssessments() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="glass-card p-6"
+        className="glass-card p-7"
       >
-        <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+        <h2 className="text-section-title mb-4 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
           <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <Calendar size={16} className="text-sky-400" />
           </div>
@@ -440,7 +440,8 @@ export default function StudentAssessments() {
                 <motion.div
                   key={a.id}
                   layout
-                  className="bg-white/5 rounded-xl border border-border-subtle overflow-hidden"
+                  className="rounded-xl border border-border-subtle overflow-hidden"
+                  style={{ background: 'var(--color-bg-surface-raised)' }}
                 >
                   {/* Header row */}
                   <button
@@ -480,7 +481,7 @@ export default function StudentAssessments() {
                           {/* Per-skill scores */}
                           <div className="grid grid-cols-3 gap-3">
                             {SKILLS.map((sk) => (
-                              <div key={sk} className="text-center bg-white/5 rounded-lg p-2">
+                              <div key={sk} className="text-center rounded-lg p-2" style={{ background: 'var(--color-bg-surface-raised)' }}>
                                 <p className="text-[10px] text-muted">{SKILL_LABELS_AR[sk]}</p>
                                 <p className="text-sm font-bold text-white">
                                   {scores[sk] != null ? `${scores[sk]}%` : '—'}
@@ -522,9 +523,9 @@ export default function StudentAssessments() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="glass-card p-6"
+        className="glass-card p-7"
       >
-        <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+        <h2 className="text-section-title mb-4 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
           <div className="w-8 h-8 rounded-xl bg-amber-500/10 flex items-center justify-center">
             <Smile size={16} className="text-amber-400" />
           </div>
@@ -553,7 +554,7 @@ export default function StudentAssessments() {
                     className={`flex flex-col items-center gap-1 px-4 py-3 rounded-xl border transition-all duration-200 ${
                       mood === opt.key
                         ? opt.activeCls
-                        : 'bg-white/5 border-border-subtle text-muted hover:bg-white/10'
+                        : 'border-border-subtle text-muted hover:bg-white/10'
                     }`}
                   >
                     <span className="text-2xl">{opt.emoji}</span>

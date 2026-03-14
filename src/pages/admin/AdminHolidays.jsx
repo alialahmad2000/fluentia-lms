@@ -159,10 +159,10 @@ export default function AdminHolidays() {
   const isSaving = addHolidayMutation.isPending || updateHolidayMutation.isPending
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+        <h1 className="text-page-title text-white flex items-center gap-2">
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <Calendar size={20} className="text-sky-400" />
           </div>
@@ -175,7 +175,7 @@ export default function AdminHolidays() {
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
-        className="glass-card p-5"
+        className="glass-card p-7"
       >
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
@@ -183,7 +183,7 @@ export default function AdminHolidays() {
               <Moon size={18} className="text-amber-400" />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-white">وضع رمضان</h2>
+              <h2 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>وضع رمضان</h2>
               <p className="text-muted text-xs">
                 عند التفعيل، يتم تأخير التذكيرات إلى ما بعد الإفطار
               </p>
@@ -243,7 +243,7 @@ export default function AdminHolidays() {
 
       {/* ─── Holiday Calendar Section ───────────────────────────── */}
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-bold text-white flex items-center gap-2">
+        <h2 className="text-section-title flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
           <Sun size={18} className="text-sky-400" />
           العطل الرسمية
         </h2>
@@ -303,7 +303,7 @@ export default function AdminHolidays() {
                     </div>
 
                     {holiday.reschedule_info && (
-                      <p className="text-xs text-muted mt-2 bg-white/5 rounded-lg p-2">
+                      <p className="text-xs text-muted mt-2 rounded-lg p-2" style={{ background: 'var(--color-bg-surface-raised)' }}>
                         {holiday.reschedule_info}
                       </p>
                     )}

@@ -164,7 +164,7 @@ export default function StudentWeeklyTasks() {
   ]
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       {/* ── Header + Week Navigation ──────────────────────────────── */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
@@ -176,7 +176,7 @@ export default function StudentWeeklyTasks() {
             <CalendarDays size={22} className="text-sky-400" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold">مهامي الأسبوعية</h1>
+            <h1 className="text-page-title">مهامي الأسبوعية</h1>
             <p className="text-muted text-sm mt-0.5">{formatWeekRange(weekSunday)}</p>
           </div>
         </div>
@@ -214,15 +214,15 @@ export default function StudentWeeklyTasks() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="glass-card p-6"
+          className="glass-card p-7"
         >
           <div className="flex items-center justify-between mb-3">
-            <p className="text-lg font-semibold text-white">تقدم الأسبوع</p>
+            <p className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>تقدم الأسبوع</p>
             <p className="text-sm text-muted">
               {toArabicNum(completedCount)}/{toArabicNum(totalCount)} مهام مكتملة
             </p>
           </div>
-          <div className="w-full h-3.5 bg-white/5 rounded-full overflow-hidden">
+          <div className="w-full h-3.5 rounded-full overflow-hidden" style={{ background: 'var(--color-bg-surface-raised)' }}>
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${Math.min(progressPct, 100)}%` }}
@@ -237,7 +237,7 @@ export default function StudentWeeklyTasks() {
       )}
 
       {/* ── Stat Cards ────────────────────────────────────────────── */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {statCards.map((card, i) => (
           <motion.div
             key={card.label}
@@ -274,7 +274,7 @@ export default function StudentWeeklyTasks() {
           transition={{ delay: 0.2 }}
           className="glass-card p-12 flex flex-col items-center justify-center text-center"
         >
-          <div className="rounded-xl bg-white/5 p-4 mb-4">
+          <div className="rounded-xl p-4 mb-4" style={{ background: 'var(--color-bg-surface-raised)' }}>
             <ClipboardList size={40} className="text-muted" />
           </div>
           <p className="text-lg font-semibold text-white mb-1">لا توجد مهام</p>
@@ -284,7 +284,7 @@ export default function StudentWeeklyTasks() {
 
       {/* ── Task Cards Grid ───────────────────────────────────────── */}
       {!isLoading && tasks && tasks.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {tasks.map((task, i) => {
             const config = TASK_TYPE_CONFIG[task.type] || TASK_TYPE_CONFIG.speaking
             const statusCfg = STATUS_CONFIG[task.status] || STATUS_CONFIG.pending
@@ -300,7 +300,7 @@ export default function StudentWeeklyTasks() {
               >
                 <Link
                   to={`/student/weekly-tasks/${task.id}`}
-                  className="block glass-card-raised p-5 hover:translate-y-[-2px] transition-all duration-200 group"
+                  className="block glass-card-raised p-7 hover:translate-y-[-2px] transition-all duration-200 group"
                 >
                   {/* Type icon + title */}
                   <div className="flex items-start gap-3 mb-4">

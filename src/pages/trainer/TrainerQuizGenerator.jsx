@@ -8,6 +8,7 @@ import {
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import { useAIFormFiller } from '../../hooks/useAIFormFiller'
 import AIFillButton from '../../components/ai/AIFillButton'
 
@@ -176,7 +177,7 @@ For fill_blank questions, question_text should contain "___" for the blank, opti
 
 Make questions progressively harder. All question text should be in English. Explanations can include Arabic hints for lower levels.`
 
-      const res = await supabase.functions.invoke('ai-trainer-assistant', {
+      const res = await invokeWithRetry('ai-trainer-assistant', {
         body: {
           message: systemPrompt,
           history: [],
@@ -341,14 +342,14 @@ Make questions progressively harder. All question text should be in English. Exp
   const canProceedStep3 = questions.length > 0 && questions.every(q => (q.question_text || '').trim())
 
   return (
-    <div className="space-y-8" dir="rtl">
+    <div className="space-y-12" dir="rtl">
       {/* Header */}
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
           <Brain className="w-5 h-5 text-violet-400" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-white">مولّد الكويزات بالذكاء الاصطناعي</h1>
+          <h1 className="text-page-title">مولّد الكويزات بالذكاء الاصطناعي</h1>
           <p className="text-sm text-muted mt-1">أنشئ كويزات تفاعلية بسرعة باستخدام AI</p>
         </div>
       </div>
@@ -438,9 +439,9 @@ Make questions progressively harder. All question text should be in English. Exp
         {/* ═══════ Step 1: Setup ═══════ */}
         {step === 1 && (
           <motion.div key="step1" variants={stepVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.25 }} className="space-y-6">
-            <div className="glass-card p-6 space-y-5">
+            <div className="glass-card p-7 space-y-5">
               <div className="flex items-center justify-between">
-                <h2 className="text-lg font-semibold">إعداد الكويز</h2>
+                <h2 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>إعداد الكويز</h2>
                 <AIFillButton
                   isOpen={aiFiller.isOpen}
                   setIsOpen={aiFiller.setIsOpen}
@@ -573,7 +574,7 @@ Make questions progressively harder. All question text should be in English. Exp
               </div>
 
               {/* Time Limit */}
-              <div className="grid grid-cols-2 gap-5">
+              <div className="grid grid-cols-2 gap-6">
                 <div>
                   <label className="input-label">
                     الوقت (دقائق) {form.type === 'full_assessment' && <span className="text-red-400">*</span>}
@@ -620,7 +621,7 @@ Make questions progressively harder. All question text should be in English. Exp
                     <Loader2 className="w-8 h-8 text-violet-400 animate-spin" />
                   </div>
                   <div>
-                    <h2 className="text-lg font-semibold">يتم توليد الأسئلة...</h2>
+                    <h2 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>يتم توليد الأسئلة...</h2>
                     <p className="text-sm text-muted mt-1">الذكاء الاصطناعي يعمل على إنشاء {form.question_count} سؤال</p>
                   </div>
                 </>
@@ -630,7 +631,7 @@ Make questions progressively harder. All question text should be in English. Exp
                     <Brain className="w-8 h-8 text-violet-400" />
                   </div>
                   <div>
-                    <h2 className="text-lg font-semibold">جاهز لتوليد الأسئلة</h2>
+                    <h2 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>جاهز لتوليد الأسئلة</h2>
                     <p className="text-sm text-muted mt-1">
                       {form.question_count} سؤال — {form.skill_focus.map(s => SKILLS.find(sk => sk.value === s)?.label).join('، ')}
                     </p>
@@ -712,11 +713,11 @@ Make questions progressively harder. All question text should be in English. Exp
         {/* ═══════ Step 4: Publish ═══════ */}
         {step === 4 && (
           <motion.div key="step4" variants={stepVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.25 }} className="space-y-6">
-            <div className="glass-card p-6 space-y-5">
-              <h2 className="text-lg font-semibold">ملخص ونشر</h2>
+            <div className="glass-card p-7 space-y-5">
+              <h2 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>ملخص ونشر</h2>
 
               {/* Summary */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-5">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
                 {[
                   { label: 'العنوان', value: form.title },
                   { label: 'النوع', value: form.type === 'quick_quiz' ? 'كويز سريع' : 'اختبار تفصيلي' },
@@ -725,7 +726,7 @@ Make questions progressively harder. All question text should be in English. Exp
                   { label: 'إجمالي النقاط', value: totalPoints },
                   { label: 'مكافأة XP', value: form.xp_reward },
                 ].map(item => (
-                  <div key={item.label} className="p-3 rounded-xl bg-white/5 border border-white/10">
+                  <div key={item.label} className="p-3 rounded-xl border border-white/10" style={{ background: 'var(--color-bg-surface-raised)' }}>
                     <p className="text-xs text-muted">{item.label}</p>
                     <p className="text-sm font-medium mt-0.5">{item.value}</p>
                   </div>
@@ -975,7 +976,7 @@ function QuestionCard({ question: q, index, total, onUpdate, onDelete, onMove, o
 // ─── Toggle Option Component ───
 function ToggleOption({ label, checked, onChange }) {
   return (
-    <label className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer hover:bg-white/10 transition-all">
+    <label className="flex items-center justify-between p-3 rounded-xl border border-white/10 cursor-pointer hover:bg-white/10 transition-all" style={{ background: 'var(--color-bg-surface-raised)' }}>
       <span className="text-sm text-white/70">{label}</span>
       <button
         type="button"
@@ -1166,7 +1167,7 @@ function QuizAnalytics({ profileId, isAdmin }) {
       {!isLoading && analyticsData && (
         <>
           {/* ── Section 1: Class Averages Per Quiz ── */}
-          <div className="glass-card p-5 space-y-4">
+          <div className="glass-card p-7 space-y-4">
             <div className="flex items-center gap-2">
               <BarChart2 className="w-5 h-5 text-violet-400" />
               <h2 className="text-base font-semibold">متوسط الدرجات لكل كويز</h2>
@@ -1212,7 +1213,7 @@ function QuizAnalytics({ profileId, isAdmin }) {
           </div>
 
           {/* ── Section 2: Question-Level Analysis ── */}
-          <div className="glass-card p-5 space-y-4">
+          <div className="glass-card p-7 space-y-4">
             <div className="flex items-center gap-2">
               <HelpCircle className="w-5 h-5 text-yellow-400" />
               <h2 className="text-base font-semibold">الأسئلة الأكثر إخفاقاً</h2>
@@ -1229,7 +1230,7 @@ function QuizAnalytics({ profileId, isAdmin }) {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.04 }}
-                    className="p-3 rounded-xl bg-white/5 border border-white/8 space-y-2"
+                    className="p-3 rounded-xl border border-white/8 space-y-2" style={{ background: 'var(--color-bg-surface-raised)' }}
                   >
                     <div className="flex items-start justify-between gap-3">
                       <p className="text-sm text-white/80 leading-relaxed line-clamp-2 flex-1">
@@ -1266,7 +1267,7 @@ function QuizAnalytics({ profileId, isAdmin }) {
           </div>
 
           {/* ── Section 3: Weak Areas by Skill Tag ── */}
-          <div className="glass-card p-5 space-y-4">
+          <div className="glass-card p-7 space-y-4">
             <div className="flex items-center gap-2">
               <Target className="w-5 h-5 text-red-400" />
               <h2 className="text-base font-semibold">المناطق الضعيفة — تحليل المهارات</h2>

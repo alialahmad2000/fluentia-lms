@@ -4,6 +4,7 @@ import { Bot, Send, X, Loader2, Sparkles, Minimize2 } from 'lucide-react'
 import { useLocation } from 'react-router-dom'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
 // Context hints based on current page
 const PAGE_CONTEXT = {
@@ -38,6 +39,7 @@ export default function AIFloatingHelper() {
   const [minimized, setMinimized] = useState(false)
   const scrollRef = useRef(null)
   const inputRef = useRef(null)
+  const abortRef = useRef(null)
 
   const role = profile?.role
   const pageCtx = getPageContext(location.pathname)
@@ -59,9 +61,10 @@ export default function AIFloatingHelper() {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  // Reset chat when navigating
+  // Reset chat when navigating + cleanup abort
   useEffect(() => {
     setMessages([])
+    return () => { abortRef.current?.abort() }
   }, [location.pathname])
 
   async function sendMessage(text) {
@@ -73,38 +76,51 @@ export default function AIFloatingHelper() {
     setSending(true)
 
     try {
+      abortRef.current?.abort()
+      const controller = new AbortController()
+      abortRef.current = controller
+
       const { data: { session } } = await supabase.auth.getSession()
+      const invokeConfig = { timeoutMs: 30000, retries: 1, signal: controller.signal }
 
       if (isAdminOrTrainer) {
-        // Use trainer assistant for admin/trainer
         const history = messages.map(m => ({ role: m.role, content: m.content }))
-        const res = await supabase.functions.invoke('ai-trainer-assistant', {
+        const res = await invokeWithRetry('ai-trainer-assistant', {
           body: { message: msg, history },
           headers: { Authorization: `Bearer ${session?.access_token}` },
-        })
+        }, invokeConfig)
 
-        if (res.error) throw new Error(typeof res.error === 'object' ? res.error.message : String(res.error))
+        if (controller.signal.aborted) return
 
-        const result = res.data
-        setMessages(prev => [...prev, {
-          role: 'assistant',
-          content: result?.reply || result?.error || 'لم أفهم — حاول مرة أخرى',
-          isError: !!result?.error,
-        }])
+        if (res.error) {
+          const errMsg = typeof res.error === 'object' ? res.error.message : String(res.error)
+          setMessages(prev => [...prev, { role: 'assistant', content: errMsg, isError: true }])
+        } else {
+          const result = res.data
+          setMessages(prev => [...prev, {
+            role: 'assistant',
+            content: result?.reply || result?.error || 'لم أفهم — حاول مرة أخرى',
+            isError: !!result?.error,
+          }])
+        }
       } else {
-        // Use student chatbot
-        const res = await supabase.functions.invoke('ai-student-chatbot', {
+        const res = await invokeWithRetry('ai-student-chatbot', {
           body: { message: msg },
           headers: { Authorization: `Bearer ${session?.access_token}` },
-        })
+        }, invokeConfig)
 
-        if (res.error) throw new Error(typeof res.error === 'object' ? res.error.message : String(res.error))
+        if (controller.signal.aborted) return
 
-        setMessages(prev => [...prev, {
-          role: 'assistant',
-          content: res.data?.reply || 'لم أفهم — حاول مرة أخرى',
-          isError: !!res.data?.error,
-        }])
+        if (res.error) {
+          const errMsg = typeof res.error === 'object' ? res.error.message : String(res.error)
+          setMessages(prev => [...prev, { role: 'assistant', content: errMsg, isError: true }])
+        } else {
+          setMessages(prev => [...prev, {
+            role: 'assistant',
+            content: res.data?.reply || 'لم أفهم — حاول مرة أخرى',
+            isError: !!res.data?.error,
+          }])
+        }
       }
     } catch (err) {
       console.error('[AIFloatingHelper]', err)

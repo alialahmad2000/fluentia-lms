@@ -65,7 +65,7 @@ export default function LayoutShell() {
       >
         <Header onMenuToggle={() => setMobileOpen(true)} />
 
-        <main id="main-content" className="p-4 lg:p-8 pb-20 lg:pb-8">
+        <main id="main-content" className="p-5 lg:p-10 pb-24 lg:pb-10">
           <Outlet />
         </main>
       </div>
@@ -74,7 +74,7 @@ export default function LayoutShell() {
       <AIFloatingHelper />
 
       {/* Mobile bottom tab bar */}
-      <nav aria-label="التنقل الرئيسي" className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-navy-950/95 backdrop-blur-2xl border-t border-white/[0.06]">
+      <nav aria-label="التنقل الرئيسي" className="fixed bottom-0 left-0 right-0 z-40 lg:hidden backdrop-blur-2xl border-t border-border-subtle" style={{ background: 'var(--color-bg-sidebar)' }}>
         <div className="flex items-center justify-around h-16 max-w-lg mx-auto">
           {tabs.map((tab) => (
             <NavLink
@@ -83,7 +83,7 @@ export default function LayoutShell() {
               end={tab.to === `/${role}` || tab.to === '/admin' || tab.to === '/trainer' || tab.to === '/student'}
               className={({ isActive }) =>
                 `flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-[10px] font-medium transition-all duration-200 ${
-                  isActive ? `${activeColor} bg-white/[0.04]` : 'text-muted'
+                  isActive ? `${activeColor} bg-[var(--color-bg-hover)]` : 'text-muted'
                 }`
               }
             >

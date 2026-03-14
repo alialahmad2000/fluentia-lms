@@ -48,14 +48,14 @@ export default function AdminContent() {
   const [activeTab, setActiveTab] = useState('materials')
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       {/* Header */}
       <div className="flex items-center gap-3">
         <div className="p-2.5 rounded-xl bg-sky-500/10">
           <FolderOpen className="text-primary" size={24} />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-white">إدارة المحتوى</h1>
+          <h1 className="text-page-title text-white">إدارة المحتوى</h1>
           <p className="text-muted text-sm mt-1">إدارة المواد التعليمية والمواضيع وبنك الأسئلة</p>
         </div>
       </div>
@@ -224,7 +224,7 @@ function MaterialsTab() {
           <p className="text-muted">لا توجد مواد تعليمية بعد</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {materials.map((mat) => {
             const TypeIcon = TYPE_ICONS[mat.type] || FileText
             return (
@@ -320,7 +320,7 @@ function MaterialModal({ onClose, onSubmit, isPending }) {
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
         onClick={(e) => e.stopPropagation()}
-        className="glass-card p-6 w-full max-w-md space-y-4"
+        className="glass-card p-7 w-full max-w-md space-y-4"
       >
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-bold text-white">إضافة مادة تعليمية</h2>
@@ -569,7 +569,7 @@ function TopicsTab() {
         const levelTopics = grouped[level]
         if (!levelTopics || levelTopics.length === 0) return null
         return (
-          <div key={level} className="glass-card p-4 space-y-3">
+          <div key={level} className="glass-card p-7 space-y-3">
             <h3 className="text-white font-bold flex items-center gap-2">
               <BookOpen size={16} className="text-primary" />
               المستوى {level}
@@ -580,7 +580,7 @@ function TopicsTab() {
                 <motion.div
                   key={topic.id}
                   layout
-                  className="flex items-center gap-3 bg-white/5 rounded-lg p-3"
+                  className="flex items-center gap-3 rounded-lg p-3" style={{ background: 'var(--color-bg-surface-raised)' }}
                 >
                   <div className="flex flex-col gap-0.5">
                     <button
@@ -703,7 +703,7 @@ function TopicModal({ topic, onClose, onSubmit, isPending }) {
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
         onClick={(e) => e.stopPropagation()}
-        className="glass-card p-6 w-full max-w-md space-y-4"
+        className="glass-card p-7 w-full max-w-md space-y-4"
       >
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-bold text-white">
@@ -843,7 +843,7 @@ function ConfirmModal({ message, onConfirm, onCancel, isPending }) {
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
         onClick={(e) => e.stopPropagation()}
-        className="glass-card p-6 w-full max-w-sm space-y-4 text-center"
+        className="glass-card p-7 w-full max-w-sm space-y-4 text-center"
       >
         <Trash2 className="mx-auto text-red-400" size={32} />
         <p className="text-white">{message}</p>

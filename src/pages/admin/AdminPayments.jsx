@@ -107,7 +107,7 @@ export default function AdminPayments() {
   const pendingCount = payments?.filter(p => p.status === 'pending').length || 0
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
@@ -115,7 +115,7 @@ export default function AdminPayments() {
             <CreditCard size={22} className="text-emerald-400" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white">المدفوعات</h1>
+            <h1 className="text-page-title text-white">المدفوعات</h1>
             <p className="text-muted text-sm mt-1">{payments?.length || 0} سجل</p>
           </div>
         </div>
@@ -137,7 +137,7 @@ export default function AdminPayments() {
       </div>
 
       {/* Summary Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div className="stat-card">
           <div className="stat-icon bg-emerald-500/10">
             <DollarSign size={20} className="text-emerald-400" />
@@ -162,7 +162,7 @@ export default function AdminPayments() {
       </div>
 
       {/* Filter */}
-      <div className="glass-card p-4">
+      <div className="glass-card p-7">
         <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)} className="input-field py-2 px-3 text-sm w-auto">
           <option value="">كل الحالات</option>
           {Object.entries(PAYMENT_STATUS).map(([k, v]) => (
@@ -288,7 +288,7 @@ function PaymentFormModal({ payment, students, onClose, onSave, saving }) {
         className="w-full max-w-md glass-card-raised p-6 max-h-[90vh] overflow-y-auto"
       >
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-semibold text-white">{payment ? 'تعديل الدفعة' : 'تسجيل دفعة جديدة'}</h2>
+          <h2 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>{payment ? 'تعديل الدفعة' : 'تسجيل دفعة جديدة'}</h2>
           <button onClick={onClose} className="btn-icon w-8 h-8 text-muted hover:text-white"><X size={20} /></button>
         </div>
 
@@ -304,7 +304,7 @@ function PaymentFormModal({ payment, students, onClose, onSave, saving }) {
               ))}
             </select>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-6">
             <div>
               <label className="input-label">المبلغ (ريال)</label>
               <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} className="input-field" dir="ltr" required />
@@ -326,7 +326,7 @@ function PaymentFormModal({ payment, students, onClose, onSave, saving }) {
               ))}
             </select>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-6">
             <div>
               <label className="input-label">بداية الفترة</label>
               <input type="date" value={periodStart} onChange={(e) => setPeriodStart(e.target.value)} className="input-field" dir="ltr" />

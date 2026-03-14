@@ -125,9 +125,9 @@ export default function StudentChallenges() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+        <h1 className="text-page-title flex items-center gap-2">
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <Target className="text-sky-400" size={20} />
           </div>
@@ -145,7 +145,7 @@ export default function StudentChallenges() {
             className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
               tab === t.value
                 ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
-                : 'bg-white/5 text-muted hover:text-white border border-transparent'
+                : 'text-muted hover:text-white border border-transparent'
             }`}
           >
             {t.label}
@@ -179,7 +179,7 @@ export default function StudentChallenges() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className={`glass-card p-5 hover:translate-y-[-2px] transition-all duration-200 ${completed ? 'border-emerald-500/20' : active ? 'border-sky-500/10' : 'opacity-60'}`}
+                className={`glass-card p-7 hover:translate-y-[-2px] transition-all duration-200 ${completed ? 'border-emerald-500/20' : active ? 'border-sky-500/10' : 'opacity-60'}`}
               >
                 <div className="flex items-start gap-4">
                   {/* Type icon */}
@@ -258,7 +258,7 @@ export default function StudentChallenges() {
                 {/* Progress bar for joined challenges */}
                 {joined && challenge.target && (
                   <div className="mt-3">
-                    <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                    <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'var(--color-bg-surface-raised)' }}>
                       <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${Math.min(((participation.progress?.current || 0) / (challenge.target.count || 1)) * 100, 100)}%` }}

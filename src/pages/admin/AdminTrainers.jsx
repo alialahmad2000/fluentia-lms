@@ -72,14 +72,14 @@ export default function AdminTrainers() {
   })
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       {/* Header */}
       <div className="flex items-center gap-4">
         <div className="w-12 h-12 rounded-xl bg-sky-500/10 flex items-center justify-center">
           <Briefcase size={22} className="text-sky-400" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-white">إدارة المدربين</h1>
+          <h1 className="text-page-title text-white">إدارة المدربين</h1>
           <p className="text-muted text-sm mt-1">{trainers?.length || 0} مدرب</p>
         </div>
       </div>
@@ -89,14 +89,14 @@ export default function AdminTrainers() {
       ) : trainers?.length === 0 ? (
         <div className="text-center py-12 text-muted">لا يوجد مدربون</div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {trainers?.map((t, i) => (
             <motion.div
               key={t.id}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
-              className="glass-card p-5 hover:translate-y-[-2px] transition-all duration-200"
+              className="glass-card p-7 hover:translate-y-[-2px] transition-all duration-200"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
@@ -180,7 +180,7 @@ function TrainerEditModal({ trainer, allGroups, onClose, onSave, saving }) {
         className="w-full max-w-md glass-card-raised p-6"
       >
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-semibold text-white">تعديل بيانات المدرب</h2>
+          <h2 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>تعديل بيانات المدرب</h2>
           <button onClick={onClose} className="btn-icon w-8 h-8 text-muted hover:text-white"><X size={20} /></button>
         </div>
 

@@ -101,9 +101,9 @@ export default function StudentAssignments() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-2xl font-bold text-white">الواجبات</h1>
+        <h1 className="text-page-title">الواجبات</h1>
         <p className="text-muted text-sm mt-1">واجبات مجموعتك</p>
       </motion.div>
 
@@ -113,7 +113,7 @@ export default function StudentAssignments() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass-card-raised p-5 hover:translate-y-[-2px] transition-all duration-200 border border-sky-500/20"
+            className="glass-card-raised p-7 hover:translate-y-[-2px] transition-all duration-200 border border-sky-500/20"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -128,7 +128,7 @@ export default function StudentAssignments() {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-24 h-2 rounded-full bg-white/5 overflow-hidden">
+                <div className="w-24 h-2 rounded-full overflow-hidden" style={{ background: 'var(--color-bg-surface-raised)' }}>
                   <div
                     className="h-full rounded-full bg-gradient-to-l from-sky-400 to-sky-600 transition-all duration-500"
                     style={{ width: `${Math.round((weeklyTasksInfo.completed_tasks / weeklyTasksInfo.total_tasks) * 100)}%` }}
@@ -204,7 +204,7 @@ export default function StudentAssignments() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.08 }}
-                className="glass-card p-5 hover:translate-y-[-2px] transition-all duration-200"
+                className="glass-card p-7 hover:translate-y-[-2px] transition-all duration-200"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1 min-w-0">

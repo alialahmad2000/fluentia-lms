@@ -85,9 +85,9 @@ export default function TrainerGrading() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div>
-        <h1 className="text-2xl font-bold text-white">التقييم</h1>
+        <h1 className="text-page-title">التقييم</h1>
         <p className="text-muted text-sm mt-1">تقييم واجبات الطلاب</p>
       </div>
 
@@ -143,7 +143,7 @@ export default function TrainerGrading() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.04 }}
-                className="glass-card p-5 cursor-pointer hover:border-sky-500/20 hover:translate-y-[-2px] transition-all duration-200"
+                className="glass-card p-7 cursor-pointer hover:border-sky-500/20 hover:translate-y-[-2px] transition-all duration-200"
                 onClick={() => setGradingSubmission(s)}
               >
                 <div className="flex items-center justify-between gap-3">
@@ -357,7 +357,7 @@ function GradingModal({ submission, getStudentName, onClose }) {
               <label className="flex items-center gap-1.5 text-sm text-muted mb-2">
                 <FileIcon size={14} /> النص
               </label>
-              <div className="bg-white/5 rounded-xl p-4 text-sm text-white whitespace-pre-wrap">
+              <div className="rounded-xl p-4 text-sm text-white whitespace-pre-wrap" style={{ background: 'var(--color-bg-surface-raised)' }}>
                 {submission.content_text}
               </div>
               <p className="text-xs text-muted mt-1">{submission.content_text.split(/\s+/).filter(Boolean).length} كلمة</p>
@@ -434,7 +434,7 @@ function GradingModal({ submission, getStudentName, onClose }) {
                       href={fileUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 bg-white/5 rounded-xl p-3 hover:bg-white/10 transition-colors border border-border-subtle"
+                      className="flex items-center gap-3 rounded-xl p-3 hover:bg-white/10 transition-colors border border-border-subtle" style={{ background: 'var(--color-bg-surface-raised)' }}
                     >
                       <Download size={16} className="text-sky-400 shrink-0" />
                       <div className="flex-1 min-w-0">
@@ -458,7 +458,7 @@ function GradingModal({ submission, getStudentName, onClose }) {
                 href={submission.content_link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 bg-white/5 rounded-xl p-3 text-sm text-sky-400 hover:text-sky-300 hover:bg-white/10 transition-colors border border-border-subtle"
+                className="flex items-center gap-2 rounded-xl p-3 text-sm text-sky-400 hover:text-sky-300 hover:bg-white/10 transition-colors border border-border-subtle" style={{ background: 'var(--color-bg-surface-raised)' }}
                 dir="ltr"
               >
                 {submission.content_link}
@@ -468,7 +468,7 @@ function GradingModal({ submission, getStudentName, onClose }) {
 
           {/* No content at all */}
           {!submission.content_text && !submission.content_voice_url && !submission.content_image_urls?.length && !submission.content_file_urls?.length && !submission.content_link && (
-            <div className="bg-white/5 rounded-xl p-4 text-sm text-muted text-center">
+            <div className="rounded-xl p-4 text-sm text-muted text-center" style={{ background: 'var(--color-bg-surface-raised)' }}>
               لا يوجد محتوى
             </div>
           )}
@@ -504,7 +504,7 @@ function GradingModal({ submission, getStudentName, onClose }) {
           )}
 
           {/* Grade inputs */}
-          <div id="grade-inputs" className="grid grid-cols-2 gap-5">
+          <div id="grade-inputs" className="grid grid-cols-2 gap-6">
             <div>
               <label className="input-label">الدرجة الرقمية (0-100)</label>
               <input

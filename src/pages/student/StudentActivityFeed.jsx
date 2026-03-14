@@ -111,9 +111,9 @@ export default function StudentActivityFeed() {
   })
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+        <h1 className="text-page-title flex items-center gap-2">
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <Activity className="text-sky-400" size={20} />
           </div>
@@ -124,11 +124,11 @@ export default function StudentActivityFeed() {
 
       {/* Group stats */}
       {groupStats && (
-        <div className="grid grid-cols-2 gap-5">
+        <div className="grid grid-cols-2 gap-6">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass-card p-5 text-center hover:translate-y-[-2px] transition-all duration-200"
+            className="glass-card p-7 text-center hover:translate-y-[-2px] transition-all duration-200"
           >
             <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center mx-auto mb-2">
               <FileText size={18} className="text-sky-400" />
@@ -140,7 +140,7 @@ export default function StudentActivityFeed() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05 }}
-            className="glass-card p-5 text-center hover:translate-y-[-2px] transition-all duration-200"
+            className="glass-card p-7 text-center hover:translate-y-[-2px] transition-all duration-200"
           >
             <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center mx-auto mb-2">
               <Users size={18} className="text-emerald-400" />

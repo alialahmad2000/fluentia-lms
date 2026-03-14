@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
 const RISK_CONFIG = {
   critical: { label: 'حرج', color: 'red', bg: 'bg-red-500/10', border: 'border-red-500/20', text: 'text-red-400' },
@@ -58,7 +59,7 @@ export default function AdminChurnPrediction() {
   const runAnalysis = useMutation({
     mutationFn: async () => {
       const { data: { session } } = await supabase.auth.getSession()
-      const res = await supabase.functions.invoke('predict-churn', {
+      const res = await invokeWithRetry('predict-churn', {
         body: {},
         headers: { Authorization: `Bearer ${session?.access_token}` },
       })
@@ -98,10 +99,10 @@ export default function AdminChurnPrediction() {
   const avgRisk = predictions?.length ? Math.round(predictions.reduce((a, p) => a + Number(p.risk_score), 0) / predictions.length) : 0
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+          <h1 className="text-page-title text-white flex items-center gap-2">
             <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
               <Shield size={20} className="text-red-400" />
             </div>
@@ -123,7 +124,7 @@ export default function AdminChurnPrediction() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
           { label: 'حالة حرجة', value: criticalCount, icon: AlertTriangle, color: 'red' },
           { label: 'خطر عالي', value: highCount, icon: TrendingDown, color: 'amber' },

@@ -12,6 +12,7 @@ import {
 } from 'recharts'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import { formatDateAr } from '../../utils/dateHelpers'
 
 // ─── Constants ─────────────────────────────────────────────
@@ -127,13 +128,13 @@ export default function TrainerStudentView() {
 
   // ── List View ──
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
           <Zap size={20} className="text-sky-400" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-white">ملفات الطلاب</h1>
+          <h1 className="text-page-title">ملفات الطلاب</h1>
           <p className="text-muted text-sm mt-1">اطلع على بيانات وأداء كل طالب بالتفصيل</p>
         </div>
       </div>
@@ -148,7 +149,7 @@ export default function TrainerStudentView() {
         </select>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {students?.map((s, i) => {
           const name = getStudentName(s)
           return (
@@ -158,7 +159,7 @@ export default function TrainerStudentView() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
               onClick={() => setSelectedStudent(s)}
-              className="glass-card p-5 text-right hover:border-sky-500/20 hover:translate-y-[-2px] transition-all duration-200"
+              className="glass-card p-7 text-right hover:border-sky-500/20 hover:translate-y-[-2px] transition-all duration-200"
             >
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-12 h-12 rounded-xl bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 text-lg font-bold">
@@ -276,20 +277,20 @@ function StudentDetailView({ student, isAdmin, onBack }) {
   }, [gradedSubs])
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <button onClick={onBack} className="btn-ghost flex items-center gap-2 text-sm">
         <ChevronLeft size={16} /> رجوع للقائمة
       </button>
 
       {/* ── Header Card ── */}
-      <div className="glass-card-raised p-6">
+      <div className="glass-card-raised p-7">
         <div className="flex items-center gap-4 mb-5">
           <div className="w-16 h-16 rounded-xl bg-sky-500/20 border-2 border-sky-500/30 flex items-center justify-center text-sky-400 text-2xl font-bold">
             {name[0]}
           </div>
           <div className="flex-1">
             <div className="flex items-center gap-3">
-              <h2 className="text-xl font-bold text-gradient">{name}</h2>
+              <h2 className="text-page-title text-gradient">{name}</h2>
               {trend === 'up' && <span className="badge-green flex items-center gap-1"><TrendingUp size={12} /> تحسّن</span>}
               {trend === 'down' && <span className="badge-red flex items-center gap-1"><TrendingDown size={12} /> تراجع</span>}
               {trend === 'neutral' && <span className="badge-muted flex items-center gap-1"><Minus size={12} /> مستقر</span>}
@@ -303,7 +304,7 @@ function StudentDetailView({ student, isAdmin, onBack }) {
         </div>
 
         {/* Stats row */}
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-6">
           <StatCard icon={Zap} color="gold" value={student.xp_total} label="XP" />
           <StatCard icon={Flame} color="orange" value={student.current_streak} label="سلسلة حالية" />
           <StatCard icon={Calendar} color="emerald" value={attRate != null ? `${attRate}%` : '—'} label="الحضور" />
@@ -402,7 +403,7 @@ function StatCard({ icon: Icon, color, value, label }) {
       <div className={`w-9 h-9 rounded-xl ${BG_CLASSES[color] || 'bg-sky-500/10'} flex items-center justify-center mx-auto`}>
         <Icon size={16} className={STAT_COLOR_CLASSES[color] || 'text-sky-400'} />
       </div>
-      <p className="text-xl font-bold text-white mt-2">{value}</p>
+      <p className="text-page-title mt-2">{value}</p>
       <p className="stat-label text-[10px]">{label}</p>
     </div>
   )
@@ -435,17 +436,17 @@ function OverviewTab({ student, submissions, attendance, xpHistory, gradedSubs, 
   }, [submissions])
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* Per-type performance */}
-      <div className="glass-card p-5 space-y-3">
-        <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+      <div className="glass-card p-7 space-y-3">
+        <h3 className="text-section-title flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
           <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center"><BarChart3 size={14} className="text-sky-400" /></div> أداء حسب نوع الواجب
         </h3>
         {typeStats.length === 0 && <p className="text-xs text-muted">لا توجد بيانات</p>}
         {typeStats.map(ts => {
           const Icon = ts.icon
           return (
-            <div key={ts.type} className="flex items-center gap-3 bg-white/5 rounded-xl p-3">
+            <div key={ts.type} className="flex items-center gap-3 rounded-xl p-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
               <Icon size={16} className={ts.color} />
               <div className="flex-1">
                 <div className="flex items-center justify-between">
@@ -472,12 +473,12 @@ function OverviewTab({ student, submissions, attendance, xpHistory, gradedSubs, 
       </div>
 
       {/* Recent XP */}
-      <div className="glass-card p-5 space-y-3">
-        <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+      <div className="glass-card p-7 space-y-3">
+        <h3 className="text-section-title flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
           <div className="w-8 h-8 rounded-xl bg-gold-500/10 flex items-center justify-center"><Zap size={14} className="text-gold-400" /></div> آخر النقاط
         </h3>
         {(xpHistory || []).slice(0, 8).map(xp => (
-          <div key={xp.id} className="flex items-center justify-between p-2 bg-white/5 rounded-lg">
+          <div key={xp.id} className="flex items-center justify-between p-2 rounded-lg" style={{ background: 'var(--color-bg-surface-raised)' }}>
             <div>
               <p className="text-xs text-white">{XP_REASON_LABELS[xp.reason] || xp.reason}</p>
               {xp.description && <p className="text-[10px] text-muted mt-0.5">{xp.description}</p>}
@@ -630,10 +631,10 @@ function SkillsTab({ snapshots, studentName }) {
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* Radar Chart */}
-      <div className="glass-card p-5">
-        <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+      <div className="glass-card p-7">
+        <h3 className="text-section-title mb-4 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
           <div className="w-8 h-8 rounded-xl bg-violet-500/10 flex items-center justify-center"><Brain size={14} className="text-violet-400" /></div> مخطط المهارات
         </h3>
         <div style={{ width: '100%', height: 300 }} dir="ltr">
@@ -688,7 +689,7 @@ function SkillsTab({ snapshots, studentName }) {
 
       {/* Skill details + changes */}
       <div className="space-y-4">
-        <div className="glass-card p-5 space-y-3">
+        <div className="glass-card p-7 space-y-3">
           <h3 className="text-sm font-medium text-white">تفاصيل المهارات</h3>
           {Object.keys(SKILL_LABELS).map(key => {
             const val = current[key] || 0
@@ -796,9 +797,9 @@ function AttendanceTab({ attendance }) {
   }, [attendance, total])
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       {/* Stats */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
         <div className="stat-card text-center">
           <div className="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center mx-auto">
             <CheckCircle2 size={16} className="text-emerald-400" />
@@ -870,13 +871,13 @@ function AttendanceTab({ attendance }) {
       </div>
 
       {/* Full history list */}
-      <div className="glass-card p-5 space-y-3">
-        <h3 className="text-lg font-semibold text-white mb-3">السجل الكامل</h3>
+      <div className="glass-card p-7 space-y-3">
+        <h3 className="text-section-title mb-3" style={{ color: 'var(--color-text-primary)' }}>السجل الكامل</h3>
         {(attendance || []).map(a => {
           const config = STATUS_LABELS[a.status] || STATUS_LABELS.absent
           const Icon = config.icon
           return (
-            <div key={a.id} className="flex items-center justify-between p-2.5 bg-white/5 rounded-xl">
+            <div key={a.id} className="flex items-center justify-between p-2.5 rounded-xl" style={{ background: 'var(--color-bg-surface-raised)' }}>
               <div>
                 <p className="text-xs text-white">{a.classes?.title || 'حصة'}</p>
                 <p className="text-[10px] text-muted">{formatDateAr(a.classes?.date || a.created_at)}</p>
@@ -923,7 +924,7 @@ function AnalysisTab({ student, studentName }) {
     setLoadingAnalysis(true)
     try {
       const { data: { session } } = await supabase.auth.getSession()
-      const res = await supabase.functions.invoke('ai-trainer-assistant', {
+      const res = await invokeWithRetry('ai-trainer-assistant', {
         body: { confirmed_action: { action: 'WEAKNESS_ANALYSIS', params: { student_name: studentName } } },
         headers: { Authorization: `Bearer ${session?.access_token}` },
       })
@@ -940,7 +941,7 @@ function AnalysisTab({ student, studentName }) {
     setLoadingPlan(true)
     try {
       const { data: { session } } = await supabase.auth.getSession()
-      const res = await supabase.functions.invoke('ai-trainer-assistant', {
+      const res = await invokeWithRetry('ai-trainer-assistant', {
         body: { message: `اسوِ خطة تحسين مفصلة لـ ${studentName} تشمل أهداف محددة وخطوات عملية`, history: [] },
         headers: { Authorization: `Bearer ${session?.access_token}` },
       })
@@ -980,11 +981,11 @@ function AnalysisTab({ student, studentName }) {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       {/* AI Weakness Analysis */}
-      <div className="glass-card p-6">
+      <div className="glass-card p-7">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+          <h3 className="text-section-title flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
             <div className="w-8 h-8 rounded-xl bg-violet-500/10 flex items-center justify-center"><Brain size={14} className="text-violet-400" /></div> تحليل نقاط القوة والضعف
           </h3>
           <button
@@ -1007,9 +1008,9 @@ function AnalysisTab({ student, studentName }) {
       </div>
 
       {/* AI Improvement Plan */}
-      <div className="glass-card p-6">
+      <div className="glass-card p-7">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+          <h3 className="text-section-title flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
             <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center"><Target size={14} className="text-emerald-400" /></div> خطة التحسين
           </h3>
           <div className="flex items-center gap-2">
@@ -1065,15 +1066,15 @@ function AnalysisTab({ student, studentName }) {
       </div>
 
       {/* Trainer Notes History */}
-      <div className="glass-card p-6 space-y-3">
-        <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+      <div className="glass-card p-7 space-y-3">
+        <h3 className="text-section-title flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
           <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center"><MessageSquare size={14} className="text-sky-400" /></div> سجل الملاحظات
         </h3>
         {notes?.length === 0 && <p className="text-xs text-muted">لا توجد ملاحظات</p>}
         {notes?.map(n => {
           const typeInfo = NOTE_TYPE_LABELS[n.type] || NOTE_TYPE_LABELS.trainer_note
           return (
-            <div key={n.id} className="bg-white/5 rounded-xl p-3">
+            <div key={n.id} className="rounded-xl p-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
               <div className="flex items-center justify-between mb-1">
                 <span className={`text-[10px] font-medium ${typeInfo.color}`}>{typeInfo.label}</span>
                 <span className="text-[10px] text-muted">{formatDateAr(n.created_at)}</span>
@@ -1140,9 +1141,9 @@ function PaymentsTab({ studentId, student }) {
     .reduce((sum, p) => sum + (p.amount || 0), 0)
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       {/* Current status */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div className={`stat-card text-center ${thisMonthPayment ? 'border-emerald-500/20' : 'border-red-500/20'}`}>
           <div className={`w-10 h-10 rounded-xl ${thisMonthPayment ? 'bg-emerald-500/10' : 'bg-red-500/10'} flex items-center justify-center mx-auto`}>
             <CreditCard size={20} className={thisMonthPayment ? 'text-emerald-400' : 'text-red-400'} />
@@ -1169,11 +1170,11 @@ function PaymentsTab({ studentId, student }) {
       </div>
 
       {/* Payment history */}
-      <div className="glass-card p-5 space-y-3">
-        <h3 className="text-lg font-semibold text-white mb-3">سجل المدفوعات</h3>
+      <div className="glass-card p-7 space-y-3">
+        <h3 className="text-section-title mb-3" style={{ color: 'var(--color-text-primary)' }}>سجل المدفوعات</h3>
         {payments?.length === 0 && <p className="text-xs text-muted">لا توجد مدفوعات</p>}
         {payments?.map(p => (
-          <div key={p.id} className="flex items-center justify-between p-3 bg-white/5 rounded-xl">
+          <div key={p.id} className="flex items-center justify-between p-3 rounded-xl" style={{ background: 'var(--color-bg-surface-raised)' }}>
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-sm font-bold text-white">{p.amount} ر.س</span>

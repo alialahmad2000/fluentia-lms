@@ -8,6 +8,7 @@ import {
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
 // ─── Scenario config with rich metadata ─────────────────────
 const SCENARIOS = [
@@ -159,14 +160,19 @@ export default function StudentConversation() {
 
       const { data: { session } } = await supabase.auth.getSession()
 
-      const chatRes = await supabase.functions.invoke('ai-student-chatbot', {
+      const chatRes = await invokeWithRetry('ai-student-chatbot', {
         body: {
           message: userMsg,
           system_override: systemPrompt,
           history: messages.filter(m => m.content).map(m => ({ role: m.role, content: m.content })),
         },
         headers: { Authorization: `Bearer ${session?.access_token}` },
-      })
+      }, { timeoutMs: 30000, retries: 1 })
+
+      if (chatRes.error) {
+        const errMsg = typeof chatRes.error === 'object' ? chatRes.error.message : String(chatRes.error)
+        throw new Error(errMsg)
+      }
 
       return chatRes.data?.reply || chatRes.data?.message || 'Sorry, I could not respond.'
     },
@@ -185,14 +191,14 @@ export default function StudentConversation() {
     setMessages([startMsg])
 
     supabase.auth.getSession().then(({ data: { session } }) => {
-      supabase.functions.invoke('ai-student-chatbot', {
+      invokeWithRetry('ai-student-chatbot', {
         body: {
           message: 'ابدأ المحادثة',
           system_override: `${s.prompt}\n\nThe student is at ${levelDesc} level. Start the conversation with a greeting. Respond in English only. Keep it short.`,
           history: [],
         },
         headers: { Authorization: `Bearer ${session?.access_token}` },
-      }).then(res => {
+      }, { timeoutMs: 30000, retries: 1 }).then(res => {
         setMessages([{ role: 'assistant', content: res.data?.reply || 'Hello! How can I help you today?' }])
       }).catch(() => {
         setMessages([{ role: 'assistant', content: 'Hello! How can I help you today?' }])
@@ -230,10 +236,10 @@ export default function StudentConversation() {
   // ─── Scenario Selection Screen ─────────────────────────────
   if (!scenario) {
     return (
-      <div className="space-y-8">
+      <div className="space-y-12">
         {/* Header */}
         <div className="text-center sm:text-right">
-          <h1 className="text-2xl sm:text-3xl font-bold text-white flex items-center gap-3 justify-center sm:justify-start">
+          <h1 className="text-page-title flex items-center gap-3 justify-center sm:justify-start">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500/20 to-emerald-500/20 flex items-center justify-center border border-sky-500/20">
               <MessageCircle size={22} className="text-sky-400" />
             </div>
@@ -245,7 +251,7 @@ export default function StudentConversation() {
         </div>
 
         {/* Scenario Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {SCENARIOS.map((s, i) => {
             const Icon = s.icon
             const diff = DIFFICULTY_CONFIG[s.difficulty]

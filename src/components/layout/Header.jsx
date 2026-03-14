@@ -2,6 +2,7 @@ import { Menu } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { getGreeting } from '../../utils/dateHelpers'
 import NotificationCenter from './NotificationCenter'
+import ThemeToggle from '../ThemeToggle'
 
 const ROLE_LABELS = {
   student: 'طالب',
@@ -32,7 +33,7 @@ export default function Header({ onMenuToggle }) {
   const firstName = displayName.split(' ')[0] || ''
 
   return (
-    <header role="banner" className="h-16 bg-navy-950/70 backdrop-blur-2xl border-b border-white/[0.06] flex items-center justify-between px-5 lg:px-8 sticky top-0 z-20">
+    <header role="banner" className="h-16 backdrop-blur-2xl border-b border-border-subtle flex items-center justify-between px-5 lg:px-8 sticky top-0 z-20" style={{ background: 'var(--color-bg-header)' }}>
       {/* Right side: menu + greeting */}
       <div className="flex items-center gap-4">
         <button
@@ -44,13 +45,15 @@ export default function Header({ onMenuToggle }) {
         </button>
 
         <div className="hidden sm:flex items-center gap-1.5">
-          <span className="text-white/40 text-sm">{getGreeting()}،</span>
-          <span className="text-white font-semibold text-sm">{firstName}</span>
+          <span className="text-muted text-sm">{getGreeting()}،</span>
+          <span className="font-semibold text-sm" style={{ color: 'var(--color-text-primary)' }}>{firstName}</span>
         </div>
       </div>
 
-      {/* Left side: role badge + notifications + avatar */}
+      {/* Left side: theme toggle + role badge + notifications + avatar */}
       <div className="flex items-center gap-3">
+        <ThemeToggle />
+
         <span className={`inline-flex items-center px-3 py-1 rounded-full text-[11px] font-semibold ${config.badge}`}>
           {ROLE_LABELS[role] || role}
         </span>

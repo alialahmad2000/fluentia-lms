@@ -312,7 +312,7 @@ function ShareOverlay({ cert, onClose }) {
         </div>
 
         {/* Copy link */}
-        <div className="flex items-center gap-2 bg-white/5 rounded-xl p-3">
+        <div className="flex items-center gap-2 rounded-xl p-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
           <p className="flex-1 text-xs text-muted truncate font-mono">{verifyUrl}</p>
           <button
             onClick={handleCopy}
@@ -657,10 +657,10 @@ export default function StudentCertificate() {
   const studentName = profile?.display_name || profile?.full_name || 'الطالب'
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       {/* ─── Page Header ─────────────────────────────────────── */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+        <h1 className="text-page-title flex items-center gap-2">
           <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center">
             <Award size={20} style={{ color: '#D4AF37' }} />
           </div>
@@ -674,7 +674,7 @@ export default function StudentCertificate() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.05 }}
-        className="grid grid-cols-3 gap-5"
+        className="grid grid-cols-3 gap-6"
       >
         {[
           { label: 'إجمالي الشهادات', value: allCerts.length, icon: Award, color: '#D4AF37' },

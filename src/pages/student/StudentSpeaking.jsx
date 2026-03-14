@@ -80,9 +80,9 @@ export default function StudentSpeaking() {
   const progressPct = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+        <h1 className="text-page-title flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
             <Mic size={20} className="text-violet-400" />
           </div>
@@ -92,12 +92,12 @@ export default function StudentSpeaking() {
       </motion.div>
 
       {/* Progress bar */}
-      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="glass-card p-5">
+      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="glass-card p-7">
         <div className="flex items-center justify-between mb-3">
           <p className="text-sm font-medium text-white">التقدم</p>
           <p className="text-sm text-sky-400">{completedCount}/{totalCount} ({progressPct}%)</p>
         </div>
-        <div className="w-full h-3 bg-white/5 rounded-full overflow-hidden">
+        <div className="w-full h-3 rounded-full overflow-hidden" style={{ background: 'var(--color-bg-surface-raised)' }}>
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${progressPct}%` }}
@@ -116,7 +116,7 @@ export default function StudentSpeaking() {
           <p className="text-muted">لا توجد مواضيع لمستواك حالياً</p>
         </div>
       ) : (
-        <div className="space-y-5">
+        <div className="space-y-6">
           {topics.map((topic, i) => {
             const isCompleted = progress?.[topic.id]?.completed
             return (
@@ -160,7 +160,7 @@ export default function StudentSpeaking() {
                     )}
                     <div className="flex items-center gap-2 mt-2">
                       {topic.category && (
-                        <span className="text-[10px] bg-white/5 text-muted px-2 py-0.5 rounded-lg">{topic.category}</span>
+                        <span className="text-[10px] text-muted px-2 py-0.5 rounded-lg" style={{ background: 'var(--color-bg-surface-raised)' }}>{topic.category}</span>
                       )}
                       {topic.difficulty && (
                         <span className={`text-[10px] px-2 py-0.5 rounded-lg border ${DIFFICULTY_COLORS[topic.difficulty] || DIFFICULTY_COLORS.medium}`}>

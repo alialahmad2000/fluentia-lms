@@ -3,12 +3,14 @@ import { Navigate, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Eye, EyeOff, LogIn, Loader2 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
+import { useThemeStore } from '../../stores/themeStore'
 import { parseSupabaseError, logError } from '../../utils/errors'
 import { ACADEMY } from '../../lib/constants'
 
 export default function LoginPage() {
   const { user, profile, loading: authLoading } = useAuthStore()
   const signIn = useAuthStore((s) => s.signIn)
+  const effectiveTheme = useThemeStore((s) => s.effectiveTheme)
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -51,11 +53,16 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-darkest flex items-center justify-center p-6">
+    <div className="min-h-screen flex items-center justify-center p-6" style={{ background: 'var(--color-bg-base)' }}>
       {/* Background ambient gradients */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-sky-500/[0.04] rounded-full blur-[120px]" />
         <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-violet-500/[0.03] rounded-full blur-[100px]" />
+        {/* Decorative wing — ultra-subtle */}
+        <svg className="absolute top-1/2 right-0 -translate-y-1/2 w-[600px] h-[600px] opacity-[0.025]" viewBox="0 0 200 200" fill="none">
+          <path d="M100 20 C60 50, 20 80, 10 140 C30 120, 60 100, 100 100 C140 100, 170 120, 190 140 C180 80, 140 50, 100 20Z" fill="currentColor" />
+          <path d="M100 60 C75 75, 45 95, 35 130 C50 115, 70 105, 100 105 C130 105, 150 115, 165 130 C155 95, 125 75, 100 60Z" fill="currentColor" />
+        </svg>
       </div>
 
       <motion.div
@@ -71,13 +78,12 @@ export default function LoginPage() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1, duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-sky-400 to-sky-600 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-sky-500/20">
-              <span className="text-white font-playfair font-bold text-2xl">F</span>
-            </div>
-            <h1 className="text-4xl font-playfair font-bold text-gradient mb-2">
-              Fluentia
-            </h1>
-            <p className="text-white/30 text-sm">{ACADEMY.name_ar}</p>
+            <img
+              src={effectiveTheme === 'light' ? '/logo-full-light.png' : '/logo-full-dark.png'}
+              alt="Fluentia Academy"
+              className="h-16 w-auto mx-auto mb-5"
+            />
+            <p className="text-sm" style={{ color: 'var(--color-text-muted)' }}>{ACADEMY.name_ar}</p>
           </motion.div>
         </div>
 
@@ -86,10 +92,10 @@ export default function LoginPage() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className="bg-white/[0.03] backdrop-blur-2xl border border-white/[0.07] rounded-2xl p-8 sm:p-10"
-          style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.03)' }}
+          className="backdrop-blur-2xl rounded-2xl p-8 sm:p-10"
+          style={{ background: 'var(--color-bg-surface)', border: '1px solid var(--color-border-subtle)', boxShadow: '0 8px 32px var(--color-card-shadow), inset 0 1px 0 var(--color-card-inset)' }}
         >
-          <h2 className="text-xl font-bold text-white mb-8 text-center">
+          <h2 className="text-page-title mb-8 text-center" style={{ color: 'var(--color-text-primary)' }}>
             تسجيل الدخول
           </h2>
 
@@ -132,7 +138,8 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/25 hover:text-white/50 transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors"
+                  style={{ color: 'var(--color-text-placeholder)' }}
                   tabIndex={-1}
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -167,14 +174,14 @@ export default function LoginPage() {
           </form>
 
           <div className="mt-6 text-center">
-            <Link to="/forgot-password" className="text-sm text-white/30 hover:text-sky-400 transition-colors">
+            <Link to="/forgot-password" className="text-sm text-muted hover:text-sky-400 transition-colors">
               نسيت كلمة المرور؟
             </Link>
           </div>
         </motion.div>
 
         {/* Footer */}
-        <p className="text-center text-white/15 text-xs mt-8">
+        <p className="text-center text-xs mt-8" style={{ color: 'var(--color-text-muted)', opacity: 0.5 }}>
           {ACADEMY.name} &copy; {new Date().getFullYear()}
         </p>
       </motion.div>

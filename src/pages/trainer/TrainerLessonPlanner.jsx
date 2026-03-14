@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
 const SKILL_OPTIONS = ['grammar', 'vocabulary', 'speaking', 'listening', 'reading', 'writing']
 const SKILL_LABELS = {
@@ -40,7 +41,7 @@ export default function TrainerLessonPlanner() {
   const generateMutation = useMutation({
     mutationFn: async () => {
       const { data: { session } } = await supabase.auth.getSession()
-      const res = await supabase.functions.invoke('ai-lesson-planner', {
+      const res = await invokeWithRetry('ai-lesson-planner', {
         body: {
           group_id: selectedGroup,
           topic: topic || undefined,
@@ -92,20 +93,20 @@ export default function TrainerLessonPlanner() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
           <BookOpen size={20} className="text-emerald-400" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-white">مخطط الدروس الذكي</h1>
+          <h1 className="text-page-title">مخطط الدروس الذكي</h1>
           <p className="text-muted text-sm mt-1">خطط دروس مفصلة مبنية على مستوى الطلاب وأدائهم</p>
         </div>
       </div>
 
       {/* Config */}
-      <div className="glass-card p-5 space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+      <div className="glass-card p-7 space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <div>
             <label className="input-label">المجموعة *</label>
             <select
@@ -181,9 +182,9 @@ export default function TrainerLessonPlanner() {
 
       {/* Generated plan */}
       {plan && (
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-6 space-y-5">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-7 space-y-5">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold text-white">{plan.title}</h2>
+            <h2 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>{plan.title}</h2>
             <button onClick={copyPlan} className="text-xs text-muted hover:text-white flex items-center gap-1 transition-all">
               {copied ? <><CheckCircle2 size={12} className="text-emerald-400" /> تم النسخ</> : <><Copy size={12} /> نسخ</>}
             </button>
@@ -220,7 +221,7 @@ export default function TrainerLessonPlanner() {
 
           {/* Main activities */}
           {plan.main_activities?.map((act, i) => (
-            <div key={i} className="bg-white/5 rounded-xl p-4">
+            <div key={i} className="rounded-xl p-4" style={{ background: 'var(--color-bg-surface-raised)' }}>
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-sm font-medium text-white">{act.title}</h3>
                 <div className="flex items-center gap-2 text-xs text-muted">
@@ -259,7 +260,7 @@ export default function TrainerLessonPlanner() {
 
           {/* Differentiation */}
           {plan.differentiation && (
-            <div className="text-xs text-muted bg-white/5 rounded-xl p-3">
+            <div className="text-xs text-muted rounded-xl p-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
               <p className="font-medium text-white mb-1">مراعاة الفروق الفردية:</p>
               <p>{plan.differentiation}</p>
             </div>

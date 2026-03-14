@@ -44,14 +44,14 @@ export default function TrainerNotes() {
   })
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <FileText size={20} className="text-sky-400" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white">ملاحظات الحصص</h1>
+            <h1 className="text-page-title">ملاحظات الحصص</h1>
             <p className="text-muted text-sm mt-1">ملخصات وملاحظات بعد كل حصة</p>
           </div>
         </div>
@@ -108,7 +108,8 @@ export default function TrainerNotes() {
                   {c.class_notes.map((note) => (
                     <div
                       key={note.id}
-                      className={`bg-white/5 rounded-xl p-3 ${note.is_pinned ? 'border border-gold-500/20' : ''}`}
+                      className={`rounded-xl p-3 ${note.is_pinned ? 'border border-gold-500/20' : ''}`}
+                      style={{ background: 'var(--color-bg-surface-raised)' }}
                     >
                       <div className="flex items-start gap-2">
                         {note.is_pinned && <Pin size={12} className="text-gold-400 mt-1 shrink-0" />}

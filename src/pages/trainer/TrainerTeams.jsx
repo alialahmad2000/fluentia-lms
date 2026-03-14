@@ -203,14 +203,14 @@ export default function TrainerTeams() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <Users className="text-sky-400" size={20} />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white">إدارة الفرق</h1>
+            <h1 className="text-page-title">إدارة الفرق</h1>
             <p className="text-muted text-sm mt-1">أنشئ فرق ووزّع الطلاب</p>
           </div>
         </div>
@@ -251,10 +251,10 @@ export default function TrainerTeams() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="glass-card p-5 space-y-4"
+            className="glass-card p-7 space-y-4"
           >
             <h3 className="text-sm font-medium text-white">فريق جديد</h3>
-            <div className="grid sm:grid-cols-3 gap-5">
+            <div className="grid sm:grid-cols-3 gap-6">
               <input
                 className="input-field text-sm"
                 placeholder="اسم الفريق..."
@@ -308,7 +308,7 @@ export default function TrainerTeams() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="glass-card p-5 hover:translate-y-[-2px] transition-all duration-200"
+                className="glass-card p-7 hover:translate-y-[-2px] transition-all duration-200"
               >
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-3">
@@ -334,7 +334,7 @@ export default function TrainerTeams() {
                 {/* Members */}
                 <div className="flex flex-wrap gap-2">
                   {members.map(m => (
-                    <div key={m.id} className="flex items-center gap-2 bg-white/5 rounded-xl px-3 py-2 text-xs">
+                    <div key={m.id} className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs" style={{ background: 'var(--color-bg-surface-raised)' }}>
                       <span className="text-white font-medium">{m.name}</span>
                       <span className="text-muted">{m.xp} XP</span>
                       <button

@@ -140,7 +140,7 @@ function TestimonialCard({ t, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
-      className="relative group glass-card p-6 flex flex-col gap-4 hover:border-sky-500/30 hover:translate-y-[-2px] transition-all duration-200"
+      className="relative group glass-card p-7 flex flex-col gap-4 hover:border-sky-500/30 hover:translate-y-[-2px] transition-all duration-200"
     >
       {/* Quote icon */}
       <Quote
@@ -187,7 +187,7 @@ function StatsBanner({ count }) {
   ]
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
       {stats.map(({ icon: Icon, value, label }, i) => (
         <motion.div
           key={label}
@@ -195,7 +195,7 @@ function StatsBanner({ count }) {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ delay: i * 0.1, duration: 0.4 }}
-          className="glass-card p-5 text-center flex flex-col items-center gap-2 hover:translate-y-[-2px] transition-all duration-200"
+          className="glass-card p-7 text-center flex flex-col items-center gap-2 hover:translate-y-[-2px] transition-all duration-200"
         >
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <Icon size={20} className="text-sky-400" />
@@ -243,7 +243,7 @@ export default function Testimonials() {
   return (
     <div
       dir="rtl"
-      className="min-h-screen bg-darkest text-white font-tajawal selection:bg-sky-500/30 overflow-x-hidden"
+      className="min-h-screen text-white font-tajawal selection:bg-sky-500/30 overflow-x-hidden"
       style={{
         background: 'radial-gradient(ellipse at 50% -10%, rgba(56,189,248,0.14) 0%, #060e1c 55%)',
       }}
@@ -254,7 +254,7 @@ export default function Testimonials() {
         <div className="absolute bottom-1/4 left-0 w-[400px] h-[400px] bg-sky-500/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 py-12 space-y-16">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 py-12 space-y-12">
 
         {/* ── Hero ── */}
         <motion.section
@@ -331,7 +331,7 @@ export default function Testimonials() {
         {/* ── Testimonials Grid ── */}
         <section className="space-y-6">
           {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[1, 2, 3, 4, 5, 6].map((i) => (
                 <div key={i} className="skeleton h-52 rounded-2xl" />
               ))}
@@ -345,7 +345,7 @@ export default function Testimonials() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                 >
                   {displayed.map((t, i) => (
                     <TestimonialCard key={t.id} t={t} index={i} />
@@ -379,7 +379,7 @@ export default function Testimonials() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="glass-card p-6 space-y-4"
+          className="glass-card p-7 space-y-4"
         >
           <div className="flex items-center gap-2 text-white/70">
             <Award size={18} className="text-sky-400" />

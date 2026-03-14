@@ -99,10 +99,10 @@ export default function AdminReports() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">التقارير</h1>
+          <h1 className="text-page-title text-white">التقارير</h1>
           <p className="text-muted text-sm mt-1">نظرة عامة على أداء الأكاديمية</p>
         </div>
         <button
@@ -115,7 +115,7 @@ export default function AdminReports() {
       </div>
 
       {/* Overview Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
         {[
           { label: 'طلاب نشطين', value: stats?.activeStudents, icon: Users, color: 'text-sky-400' },
           { label: 'مجموعات', value: stats?.totalGroups, icon: Users, color: 'text-emerald-400' },
@@ -140,7 +140,7 @@ export default function AdminReports() {
       </div>
 
       {/* Averages */}
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-2 gap-6">
         <div className="glass-card p-4">
           <div className="flex items-center gap-2 mb-1">
             <div className="w-8 h-8 rounded-xl bg-gold-500/10 flex items-center justify-center">
@@ -161,16 +161,16 @@ export default function AdminReports() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Leaderboard */}
-        <div className="glass-card p-5">
-          <h3 className="text-lg font-bold text-white mb-4">أفضل 10 طلاب</h3>
+        <div className="glass-card p-7">
+          <h3 className="text-section-title mb-4" style={{ color: 'var(--color-text-primary)' }}>أفضل 10 طلاب</h3>
           <div className="space-y-2">
             {leaderboard?.map((s, i) => {
               const name = s.profiles?.display_name || s.profiles?.full_name || 'طالب'
               const medals = ['🥇', '🥈', '🥉']
               return (
-                <div key={s.id} className="flex items-center justify-between p-3 bg-white/5 rounded-xl hover:translate-y-[-2px] transition-all duration-200">
+                <div key={s.id} className="flex items-center justify-between p-3 rounded-xl hover:translate-y-[-2px] transition-all duration-200" style={{ background: 'var(--color-bg-surface-raised)' }}>
                   <div className="flex items-center gap-3">
                     <span className="text-lg w-8 text-center">{medals[i] || `${i + 1}`}</span>
                     <div>
@@ -190,11 +190,11 @@ export default function AdminReports() {
         </div>
 
         {/* Group Rankings */}
-        <div className="glass-card p-5">
-          <h3 className="text-lg font-bold text-white mb-4">ترتيب المجموعات</h3>
+        <div className="glass-card p-7">
+          <h3 className="text-section-title mb-4" style={{ color: 'var(--color-text-primary)' }}>ترتيب المجموعات</h3>
           <div className="space-y-3">
             {groupStats?.map((g, i) => (
-              <div key={g.id} className="p-3 bg-white/5 rounded-xl hover:translate-y-[-2px] transition-all duration-200">
+              <div key={g.id} className="p-3 rounded-xl hover:translate-y-[-2px] transition-all duration-200" style={{ background: 'var(--color-bg-surface-raised)' }}>
                 <div className="flex items-center justify-between mb-2">
                   <div>
                     <p className="text-sm font-medium text-white">{g.code} — {g.name}</p>

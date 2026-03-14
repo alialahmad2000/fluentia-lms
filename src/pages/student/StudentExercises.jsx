@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
 // ─── General Exercises ──────────────────────────────────
 const GENERAL_EXERCISES = [
@@ -294,12 +295,12 @@ export default function StudentExercises() {
     mutationFn: async () => {
       const { data: { session } } = await supabase.auth.getSession()
       // First analyze patterns
-      await supabase.functions.invoke('analyze-error-patterns', {
+      await invokeWithRetry('analyze-error-patterns', {
         body: { student_id: profile?.id, analyze_all: true },
         headers: { Authorization: `Bearer ${session?.access_token}` },
       })
       // Then generate exercises
-      const res = await supabase.functions.invoke('generate-targeted-exercises', {
+      const res = await invokeWithRetry('generate-targeted-exercises', {
         body: { student_id: profile?.id },
         headers: { Authorization: `Bearer ${session?.access_token}` },
       })
@@ -473,10 +474,10 @@ export default function StudentExercises() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+          <h1 className="text-page-title flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
               <Target size={20} className="text-violet-400" />
             </div>
@@ -498,7 +499,7 @@ export default function StudentExercises() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
           { label: 'متاحة', value: pendingExercises.length, icon: Clock, color: 'sky' },
           { label: 'مكتملة', value: stats?.completed || 0, icon: CheckCircle2, color: 'emerald' },
@@ -543,13 +544,13 @@ export default function StudentExercises() {
 
           {/* General Exercises Section */}
           <div>
-            <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+            <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
               <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
                 <BookOpen size={16} className="text-emerald-400" />
               </div>
               تمارين عامة
             </h2>
-            <div className="grid gap-5">
+            <div className="grid gap-6">
               {GENERAL_EXERCISES.map((exercise, i) => {
                 const color = SKILL_COLORS[exercise.skill] || 'sky'
                 const isCompleted = !!completedGeneral[exercise.id]
@@ -601,13 +602,13 @@ export default function StudentExercises() {
           {/* Pending exercises */}
           {pendingExercises.length > 0 && (
             <div>
-              <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+              <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
                 <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
                   <Clock size={16} className="text-sky-400" />
                 </div>
                 تمارين متاحة ({pendingExercises.length})
               </h2>
-              <div className="grid gap-5">
+              <div className="grid gap-6">
                 {pendingExercises.map((exercise, i) => {
                   const color = SKILL_COLORS[exercise.skill] || 'sky'
                   return (
@@ -646,7 +647,7 @@ export default function StudentExercises() {
           {/* Completed exercises */}
           {completedExercises.length > 0 && (
             <div>
-              <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+              <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
                 <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
                   <CheckCircle2 size={16} className="text-emerald-400" />
                 </div>
@@ -687,14 +688,14 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
   const allAnswered = questions.every(q => answers[q.id] !== undefined && answers[q.id] !== '')
 
   return (
-    <div className="space-y-8 max-w-3xl mx-auto">
+    <div className="space-y-12 max-w-3xl mx-auto">
       {/* Header */}
       <div className="flex items-center gap-3">
         <button onClick={onBack} className="text-muted hover:text-white transition-colors">
           <ArrowLeft size={20} />
         </button>
         <div className="flex-1">
-          <h1 className="text-xl font-bold text-white">{exercise.title_ar || exercise.title}</h1>
+          <h1 className="text-page-title">{exercise.title_ar || exercise.title}</h1>
           <p className="text-muted text-sm">{exercise.instructions}</p>
         </div>
         <span className={`text-xs px-2.5 py-1 rounded-full ${SKILL_COLOR_CLASSES[SKILL_COLORS[exercise.skill]]?.iconBox || 'bg-sky-500/10 text-sky-400'}`}>
@@ -707,7 +708,7 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className={`glass-card p-6 text-center ${result.score >= 80 ? 'border-emerald-500/30' : result.score >= 60 ? 'border-gold-500/30' : 'border-red-500/30'}`}
+          className={`glass-card p-7 text-center ${result.score >= 80 ? 'border-emerald-500/30' : result.score >= 60 ? 'border-gold-500/30' : 'border-red-500/30'}`}
         >
           <div className={`text-4xl font-bold mb-2 ${result.score >= 80 ? 'text-emerald-400' : result.score >= 60 ? 'text-gold-400' : 'text-red-400'}`}>
             {result.score}%
@@ -764,7 +765,7 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
                               ? 'bg-red-500/10 border-red-500/30 text-red-400'
                               : selected
                                 ? 'bg-sky-500/10 border-sky-500/30 text-sky-400'
-                                : 'bg-white/5 border-border-subtle text-muted hover:border-white/20 hover:text-white'
+                                : 'border-border-subtle text-muted hover:border-white/20 hover:text-white'
                         }`}
                       >
                         {opt}

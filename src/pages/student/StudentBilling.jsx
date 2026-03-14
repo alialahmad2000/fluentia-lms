@@ -42,9 +42,9 @@ export default function StudentBilling() {
   const paidCount = payments?.filter(p => p.status === 'paid').length || 0
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+        <h1 className="text-page-title flex items-center gap-2">
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <CreditCard size={22} className="text-sky-400" />
           </div>
@@ -54,7 +54,7 @@ export default function StudentBilling() {
       </motion.div>
 
       {/* Summary stats */}
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-2 gap-6">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="stat-card hover:translate-y-[-2px] transition-all duration-200">
           <div className="stat-icon">
             <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
@@ -80,7 +80,7 @@ export default function StudentBilling() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="glass-card p-5"
+        className="glass-card p-7"
       >
         <div className="flex items-center justify-between">
           <div>
@@ -101,7 +101,7 @@ export default function StudentBilling() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.28 }}
-          className={`glass-card-raised p-5 border-s-4 ${nextPayment.status === 'overdue' ? 'border-red-500' : 'border-yellow-500'}`}
+          className={`glass-card-raised p-7 border-s-4 ${nextPayment.status === 'overdue' ? 'border-red-500' : 'border-yellow-500'}`}
         >
           <div className="flex items-center justify-between">
             <div>
@@ -134,7 +134,7 @@ export default function StudentBilling() {
 
       {/* Payment history */}
       <div>
-        <h2 className="text-lg font-semibold text-white mb-4">سجل المدفوعات</h2>
+        <h2 className="text-section-title mb-4" style={{ color: 'var(--color-text-primary)' }}>سجل المدفوعات</h2>
         {isLoading ? (
           <div className="space-y-2">
             {[1, 2, 3].map(i => <div key={i} className="skeleton h-16 w-full" />)}
@@ -180,7 +180,7 @@ export default function StudentBilling() {
           </div>
         ) : (
           <div className="glass-card p-8 text-center">
-            <div className="w-16 h-16 rounded-xl bg-white/5 flex items-center justify-center mx-auto mb-3">
+            <div className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
               <CreditCard size={28} className="text-muted" />
             </div>
             <p className="text-muted">لا توجد مدفوعات</p>

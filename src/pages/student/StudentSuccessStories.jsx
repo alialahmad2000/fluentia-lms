@@ -256,9 +256,9 @@ export default function StudentSuccessStories() {
   })
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+        <h1 className="text-page-title flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center">
             <Award size={20} className="text-gold-400" />
           </div>
@@ -268,7 +268,7 @@ export default function StudentSuccessStories() {
       </div>
 
       {/* Journey summary */}
-      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-6 border-gold-500/20">
+      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-7 border-gold-500/20">
         <div className="text-center mb-4">
           <div className="w-16 h-16 rounded-xl bg-gold-500/10 flex items-center justify-center mx-auto mb-3">
             <Star size={28} className="text-gold-400" />
@@ -279,14 +279,14 @@ export default function StudentSuccessStories() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
           {[
             { label: 'واجبات مكتملة', value: stats?.totalGraded || 0, icon: BookOpen },
             { label: 'حصص حضور', value: stats?.totalPresent || 0, icon: Calendar },
             { label: 'مفردات متقنة', value: stats?.vocabMastered || 0, icon: Target },
             { label: 'إنجازات', value: achievements?.length || 0, icon: Trophy },
           ].map((stat, i) => (
-            <div key={i} className="text-center p-3 bg-white/5 rounded-xl">
+            <div key={i} className="text-center p-3 rounded-xl" style={{ background: 'var(--color-bg-surface-raised)' }}>
               <stat.icon size={16} className="text-gold-400 mx-auto mb-1" />
               <p className="text-lg font-bold text-white">{stat.value}</p>
               <p className="text-[10px] text-muted">{stat.label}</p>
@@ -297,8 +297,8 @@ export default function StudentSuccessStories() {
 
       {/* Earned achievements */}
       <div>
-        <h2 className="text-lg font-semibold text-white mb-3">الإنجازات</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-5">
+        <h2 className="text-section-title mb-3" style={{ color: 'var(--color-text-primary)' }}>الإنجازات</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
           {allAchievements.map((achievement, i) => (
             <AchievementCard
               key={achievement.key}

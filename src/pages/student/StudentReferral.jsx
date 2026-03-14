@@ -405,11 +405,11 @@ export default function StudentReferral() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
 
       {/* ── Header ── */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+        <h1 className="text-page-title flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center">
             <Gift size={20} className="text-gold-400" />
           </div>
@@ -423,7 +423,7 @@ export default function StudentReferral() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.05 }}
-        className="grid grid-cols-3 gap-5"
+        className="grid grid-cols-3 gap-6"
       >
         {/* Total referrals */}
         <div className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
@@ -466,7 +466,7 @@ export default function StudentReferral() {
             <p className="text-sm text-white font-medium">المكافأة القادمة</p>
             <span className="badge-gold">{nextTier.reward}</span>
           </div>
-          <div className="w-full bg-white/5 rounded-full h-2">
+          <div className="w-full rounded-full h-2" style={{ background: 'var(--color-bg-surface-raised)' }}>
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${Math.min((referralCount / nextTier.count) * 100, 100)}%` }}
@@ -490,8 +490,9 @@ export default function StudentReferral() {
             className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
               activeTab === t.value
                 ? 'bg-gold-500/10 text-gold-400 border border-gold-500/20'
-                : 'bg-white/5 text-muted hover:text-white border border-transparent'
+                : 'text-muted hover:text-white border border-transparent'
             }`}
+            style={activeTab !== t.value ? { background: 'var(--color-bg-surface-raised)' } : undefined}
           >
             <t.Icon size={15} />
             {t.label}
@@ -510,7 +511,7 @@ export default function StudentReferral() {
             className="space-y-4"
           >
             {/* Referral code */}
-            <div className="glass-card p-5">
+            <div className="glass-card p-7">
               <p className="text-xs text-muted mb-2 flex items-center gap-1">
                 <Link2 size={12} />
                 كود الإحالة الخاص بك
@@ -537,13 +538,13 @@ export default function StudentReferral() {
             </div>
 
             {/* Referral link */}
-            <div className="glass-card p-5">
+            <div className="glass-card p-7">
               <p className="text-xs text-muted mb-2 flex items-center gap-1">
                 <ExternalLink size={12} />
                 رابط الإحالة
               </p>
               <div className="flex items-center gap-2">
-                <p className="flex-1 text-sm text-white/70 font-mono truncate bg-white/5 rounded-xl px-3 py-2 border border-border-subtle">
+                <p className="flex-1 text-sm text-white/70 font-mono truncate rounded-xl px-3 py-2 border border-border-subtle" style={{ background: 'var(--color-bg-surface-raised)' }}>
                   {referralLink}
                 </p>
                 <CopyButton text={referralLink} size="sm" />
@@ -562,7 +563,7 @@ export default function StudentReferral() {
             {/* Share buttons */}
             <div className="space-y-2">
               <p className="text-xs text-muted">خيارات المشاركة</p>
-              <div className="grid grid-cols-2 gap-5">
+              <div className="grid grid-cols-2 gap-6">
 
                 {/* WhatsApp */}
                 <button
@@ -631,8 +632,10 @@ export default function StudentReferral() {
                       }`}
                     >
                       <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
-                        unlocked ? `${style.card}` : 'bg-white/5'
-                      }`}>
+                        unlocked ? `${style.card}` : ''
+                      }`}
+                        style={!unlocked ? { background: 'var(--color-bg-surface-raised)' } : undefined}
+                      >
                         <tier.Icon size={18} className={unlocked ? style.text : 'text-muted'} />
                       </div>
                       <div className="flex-1 min-w-0">
@@ -659,7 +662,7 @@ export default function StudentReferral() {
                             <Check size={14} className={style.text} />
                           </div>
                         ) : (
-                          <div className="w-7 h-7 rounded-full flex items-center justify-center bg-white/5">
+                          <div className="w-7 h-7 rounded-full flex items-center justify-center" style={{ background: 'var(--color-bg-surface-raised)' }}>
                             <span className="text-xs font-bold text-muted">{tier.count - referralCount}</span>
                           </div>
                         )}
@@ -751,13 +754,16 @@ export default function StudentReferral() {
                         ? 'bg-sky-500/10 border-sky-500/20 ring-1 ring-sky-500/10'
                         : style.bg
                           ? `${style.bg} ${style.border}`
-                          : 'bg-white/5 border-border-subtle'
+                          : 'border-border-subtle'
                     }`}
+                    style={!entry.isMe && !style.bg ? { background: 'var(--color-bg-surface-raised)' } : undefined}
                   >
                     {/* Rank badge */}
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
                       style.text || 'text-muted'
-                    } ${style.bg || 'bg-white/5'}`}>
+                    } ${style.bg || ''}`}
+                      style={!style.bg ? { background: 'var(--color-bg-surface-raised)' } : undefined}
+                    >
                       {RankIcon ? <RankIcon size={15} /> : entry.rank}
                     </div>
 

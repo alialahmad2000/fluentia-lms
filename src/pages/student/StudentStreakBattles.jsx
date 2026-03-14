@@ -43,9 +43,9 @@ export default function StudentStreakBattles() {
 
   if (!studentData?.group_id) {
     return (
-      <div className="space-y-8">
+      <div className="space-y-12">
         <div>
-          <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+          <h1 className="text-page-title flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center">
               <Swords size={20} className="text-gold-400" />
             </div>
@@ -61,9 +61,9 @@ export default function StudentStreakBattles() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+        <h1 className="text-page-title flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center">
             <Swords size={20} className="text-gold-400" />
           </div>
@@ -73,7 +73,7 @@ export default function StudentStreakBattles() {
       </div>
 
       {/* My stats */}
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-3 gap-6">
         <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
           <Flame size={20} className="text-gold-400 mx-auto mb-1" />
           <p className="text-2xl font-bold text-white">{studentData?.current_streak || 0}</p>
@@ -92,12 +92,12 @@ export default function StudentStreakBattles() {
       </div>
 
       {/* Streak Leaderboard */}
-      <div className="glass-card p-5">
+      <div className="glass-card p-7">
         <div className="flex items-center gap-2 mb-4">
           <div className="w-8 h-8 rounded-xl bg-gold-500/10 flex items-center justify-center">
             <Flame size={16} className="text-gold-400" />
           </div>
-          <h2 className="font-semibold text-white">ترتيب السلاسل</h2>
+          <h2 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>ترتيب السلاسل</h2>
         </div>
         <div className="space-y-2">
           {streakRanking.map((student, i) => {
@@ -111,7 +111,7 @@ export default function StudentStreakBattles() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.05 }}
                 className={`flex items-center justify-between p-3 rounded-xl ${
-                  isMe ? 'bg-gold-500/10 border border-gold-500/20' : 'bg-white/5'
+                  isMe ? 'bg-gold-500/10 border border-gold-500/20' : ''
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -140,12 +140,12 @@ export default function StudentStreakBattles() {
       </div>
 
       {/* XP Leaderboard */}
-      <div className="glass-card p-5">
+      <div className="glass-card p-7">
         <div className="flex items-center gap-2 mb-4">
           <div className="w-8 h-8 rounded-xl bg-violet-500/10 flex items-center justify-center">
             <Zap size={16} className="text-violet-400" />
           </div>
-          <h2 className="font-semibold text-white">ترتيب النقاط</h2>
+          <h2 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>ترتيب النقاط</h2>
         </div>
         <div className="space-y-2">
           {xpRanking.map((student, i) => {
@@ -159,7 +159,7 @@ export default function StudentStreakBattles() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.05 }}
                 className={`flex items-center justify-between p-3 rounded-xl ${
-                  isMe ? 'bg-violet-500/10 border border-violet-500/20' : 'bg-white/5'
+                  isMe ? 'bg-violet-500/10 border border-violet-500/20' : ''
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -187,13 +187,13 @@ export default function StudentStreakBattles() {
 
       {/* Quick challenges */}
       <div>
-        <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+        <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
           <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
             <Target size={16} className="text-emerald-400" />
           </div>
           تحديات سريعة
         </h2>
-        <div className="grid gap-5">
+        <div className="grid gap-6">
           {[
             { title: 'أكمل 3 واجبات اليوم', reward: 20, progress: 0, total: 3 },
             { title: 'حافظ على السلسلة 7 أيام', reward: 50, progress: studentData?.current_streak || 0, total: 7 },
@@ -215,7 +215,7 @@ export default function StudentStreakBattles() {
                     <Zap size={10} />+{challenge.reward} XP
                   </span>
                 </div>
-                <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'var(--color-bg-surface-raised)' }}>
                   <div
                     className="h-full bg-emerald-500 rounded-full transition-all"
                     style={{ width: `${pct}%` }}

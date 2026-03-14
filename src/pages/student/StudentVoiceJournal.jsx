@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
 const TOPICS = [
   'أخبرنا عن يومك',
@@ -129,7 +130,7 @@ export default function StudentVoiceJournal() {
 
       // Process with edge function
       const { data: { session } } = await supabase.auth.getSession()
-      const res = await supabase.functions.invoke('process-voice-journal', {
+      const res = await invokeWithRetry('process-voice-journal', {
         body: {
           student_id: profile?.id,
           audio_url: publicUrl,
@@ -163,9 +164,9 @@ export default function StudentVoiceJournal() {
   const formatTime = (s) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+        <h1 className="text-page-title flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
             <Mic size={20} className="text-violet-400" />
           </div>
@@ -175,7 +176,7 @@ export default function StudentVoiceJournal() {
       </div>
 
       {/* Recording card */}
-      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-6">
+      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-7">
         {todayEntry && !result ? (
           <div className="text-center py-4">
             <CheckCircle2 size={48} className="mx-auto text-emerald-400 mb-3" />
@@ -199,7 +200,7 @@ export default function StudentVoiceJournal() {
             </div>
 
             {result.feedback && (
-              <div className="bg-white/5 rounded-xl p-3">
+              <div className="rounded-xl p-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
                 <p className="text-sm text-white leading-relaxed">{result.feedback}</p>
               </div>
             )}
@@ -209,7 +210,7 @@ export default function StudentVoiceJournal() {
                 <h4 className="text-xs font-medium text-white mb-2">تصحيحات:</h4>
                 <div className="space-y-2">
                   {result.corrections.map((c, i) => (
-                    <div key={i} className="bg-white/5 rounded-lg p-2 text-xs">
+                    <div key={i} className="rounded-lg p-2 text-xs" style={{ background: 'var(--color-bg-surface-raised)' }}>
                       <p className="text-red-400 line-through">{c.original}</p>
                       <p className="text-emerald-400">{c.corrected}</p>
                       {c.explanation && <p className="text-muted mt-1">{c.explanation}</p>}
@@ -222,7 +223,7 @@ export default function StudentVoiceJournal() {
             {result.transcript && (
               <div>
                 <h4 className="text-xs font-medium text-white mb-1">النص المُستخرج:</h4>
-                <p className="text-xs text-muted bg-white/5 rounded-lg p-2" dir="ltr">{result.transcript}</p>
+                <p className="text-xs text-muted rounded-lg p-2" dir="ltr" style={{ background: 'var(--color-bg-surface-raised)' }}>{result.transcript}</p>
               </div>
             )}
 
@@ -333,7 +334,7 @@ export default function StudentVoiceJournal() {
       ) : null}
       {!isLoading && journals?.length > 0 && (
         <div>
-          <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+          <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
             <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
               <Calendar size={16} className="text-sky-400" />
             </div>

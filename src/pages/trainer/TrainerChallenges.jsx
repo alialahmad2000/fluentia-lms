@@ -157,10 +157,10 @@ export default function TrainerChallenges() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+          <h1 className="text-page-title flex items-center gap-2">
             <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
               <Target className="text-sky-400" size={20} />
             </div>
@@ -194,10 +194,10 @@ export default function TrainerChallenges() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="glass-card-raised p-6 space-y-5"
+            className="glass-card-raised p-7 space-y-5"
           >
             <div className="flex items-center gap-3">
-              <h3 className="text-lg font-semibold text-white">تحدي جديد</h3>
+              <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>تحدي جديد</h3>
               <AIFillButton
                 isOpen={aiFiller.isOpen}
                 setIsOpen={aiFiller.setIsOpen}
@@ -210,7 +210,7 @@ export default function TrainerChallenges() {
               />
             </div>
 
-            <div className="grid sm:grid-cols-2 gap-5">
+            <div className="grid sm:grid-cols-2 gap-6">
               <div>
                 <label className="input-label">العنوان</label>
                 <input
@@ -242,7 +242,7 @@ export default function TrainerChallenges() {
               />
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
               <div>
                 <label className="input-label">مكافأة XP</label>
                 <input
@@ -322,7 +322,7 @@ export default function TrainerChallenges() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.04 }}
-                className={`glass-card p-5 hover:translate-y-[-2px] transition-all duration-200 ${active ? '' : 'opacity-60'}`}
+                className={`glass-card p-7 hover:translate-y-[-2px] transition-all duration-200 ${active ? '' : 'opacity-60'}`}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex-1 min-w-0">

@@ -171,10 +171,10 @@ export default function AdminActionCenter() {
   }
 
   return (
-    <div className="space-y-8 max-w-4xl">
+    <div className="space-y-12 max-w-4xl">
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+        <h1 className="text-page-title text-white flex items-center gap-2">
           <Zap size={24} className="text-gold-400" />
           {getGreetingTime()}، {firstName}
         </h1>
@@ -182,7 +182,7 @@ export default function AdminActionCenter() {
       </motion.div>
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
         {[
           { label: 'واجبات معلقة', value: pendingSubmissions ?? '—', icon: FileText, color: 'text-amber-400' },
           { label: 'متأخرات', value: overduePayments?.length ?? '—', icon: CreditCard, color: 'text-red-400' },
@@ -207,7 +207,7 @@ export default function AdminActionCenter() {
 
       {/* Action Items */}
       <div>
-        <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+        <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
           <div className="w-8 h-8 rounded-xl bg-amber-500/10 flex items-center justify-center">
             <AlertTriangle size={14} className="text-amber-400" />
           </div>
@@ -263,7 +263,7 @@ export default function AdminActionCenter() {
       {/* Today's Schedule */}
       {todayClasses?.length > 0 && (
         <div>
-          <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+          <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
             <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
               <Calendar size={14} className="text-sky-400" />
             </div>
@@ -301,7 +301,7 @@ export default function AdminActionCenter() {
       {/* Inactive Students List */}
       {inactiveStudents?.length > 0 && (
         <div>
-          <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+          <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
             <div className="w-8 h-8 rounded-xl bg-orange-500/10 flex items-center justify-center">
               <Users size={14} className="text-orange-400" />
             </div>

@@ -7,7 +7,7 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-const ANTHROPIC_API_KEY = Deno.env.get('ANTHROPIC_API_KEY') || ''
+const ANTHROPIC_API_KEY = Deno.env.get('CLAUDE_API_KEY') || Deno.env.get('ANTHROPIC_API_KEY') || ''
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -78,10 +78,20 @@ serve(async (req) => {
       )
     }
 
-    // TODO: Rate limit check — query ai_usage table to enforce per-user daily/hourly limits
-    // Example: SELECT count(*) FROM ai_usage WHERE trainer_id = user.id
-    //   AND type = 'form_fill' AND created_at > now() - interval '1 hour'
-    // If count exceeds threshold, return 429 Too Many Requests
+    // Rate limit check — 30 requests per hour per user
+    const { count: recentCount } = await supabase
+      .from('ai_usage')
+      .select('*', { count: 'exact', head: true })
+      .eq('trainer_id', user.id)
+      .eq('type', 'form_fill')
+      .gte('created_at', new Date(Date.now() - 60 * 60 * 1000).toISOString())
+
+    if (recentCount !== null && recentCount >= 30) {
+      return new Response(
+        JSON.stringify({ error: 'تجاوزت الحد الأقصى للطلبات — حاول مرة أخرى بعد قليل' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 429 }
+      )
+    }
 
     // 3. Parse and validate request body
     const body: RequestBody = await req.json()

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Mic, Sparkles, Loader2, ChevronDown, ChevronUp } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
+import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
 export default function AISpeakingAnalysis({ voiceUrl, submissionId, durationSeconds, existingTranscript, existingAnalysis }) {
   const [transcript, setTranscript] = useState(existingTranscript || '')
@@ -15,7 +16,7 @@ export default function AISpeakingAnalysis({ voiceUrl, submissionId, durationSec
     setError('')
     try {
       const { data: { session } } = await supabase.auth.getSession()
-      const res = await supabase.functions.invoke('whisper-transcribe', {
+      const res = await invokeWithRetry('whisper-transcribe', {
         body: { voice_url: voiceUrl, submission_id: submissionId, duration_seconds: durationSeconds },
         headers: { Authorization: `Bearer ${session?.access_token}` },
       })

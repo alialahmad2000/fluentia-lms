@@ -107,9 +107,9 @@ export default function AdminSmartScheduling() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+        <h1 className="text-page-title text-white flex items-center gap-2">
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <Calendar size={20} className="text-sky-400" />
           </div>
@@ -119,7 +119,7 @@ export default function AdminSmartScheduling() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
           { label: 'المجموعات', value: groups?.length || 0, icon: Users, color: 'sky' },
           { label: 'المدربين', value: trainers?.length || 0, icon: Users, color: 'violet' },
@@ -138,7 +138,7 @@ export default function AdminSmartScheduling() {
 
       {/* Conflicts */}
       {conflicts.length > 0 && (
-        <div className="glass-card p-4 border-red-500/20">
+        <div className="glass-card p-7 border-red-500/20">
           <h3 className="text-sm font-bold text-red-400 flex items-center gap-2 mb-3">
             <AlertCircle size={16} /> تعارضات في الجدول
           </h3>
@@ -169,8 +169,8 @@ export default function AdminSmartScheduling() {
       </div>
 
       {/* Schedule for selected day */}
-      <div className="glass-card p-5">
-        <h2 className="text-lg font-bold text-white mb-4">{DAY_LABELS[selectedDay]}</h2>
+      <div className="glass-card p-7">
+        <h2 className="text-section-title mb-4" style={{ color: 'var(--color-text-primary)' }}>{DAY_LABELS[selectedDay]}</h2>
         {scheduleByDay[selectedDay]?.length === 0 ? (
           <p className="text-muted text-sm text-center py-8">لا توجد حصص في هذا اليوم</p>
         ) : (
@@ -181,7 +181,7 @@ export default function AdminSmartScheduling() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="flex items-center justify-between p-3 rounded-xl bg-white/5 hover:translate-y-[-2px] transition-all duration-200"
+                className="flex items-center justify-between p-3 rounded-xl hover:translate-y-[-2px] transition-all duration-200" style={{ background: 'var(--color-bg-surface-raised)' }}
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex flex-col items-center justify-center">
@@ -201,8 +201,8 @@ export default function AdminSmartScheduling() {
       </div>
 
       {/* Trainer availability overview */}
-      <div className="glass-card p-5">
-        <h2 className="text-lg font-bold text-white mb-4">نظرة على المدربين</h2>
+      <div className="glass-card p-7">
+        <h2 className="text-section-title mb-4" style={{ color: 'var(--color-text-primary)' }}>نظرة على المدربين</h2>
         <div className="space-y-3">
           {!trainers?.length && <p className="text-muted text-sm text-center py-4">لا يوجد مدربون</p>}
           {trainers?.map((trainer, i) => {
@@ -211,7 +211,7 @@ export default function AdminSmartScheduling() {
             const totalSessions = trainerGroups.reduce((acc, g) => acc + (g.schedule?.days?.length || 0), 0)
 
             return (
-              <div key={trainer.id} className="flex items-center justify-between p-3 rounded-xl bg-white/5 hover:translate-y-[-2px] transition-all duration-200">
+              <div key={trainer.id} className="flex items-center justify-between p-3 rounded-xl hover:translate-y-[-2px] transition-all duration-200" style={{ background: 'var(--color-bg-surface-raised)' }}>
                 <div>
                   <h3 className="text-sm font-medium text-white">{name}</h3>
                   <p className="text-[10px] text-muted">{trainerGroups.length} مجموعات</p>

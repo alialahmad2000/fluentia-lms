@@ -120,22 +120,22 @@ export default function StudentDashboard() {
   ]
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       {/* Greeting */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <h1 className="text-3xl font-bold tracking-tight">
+        <h1 className="text-page-title tracking-tight">
           {getGreeting()}، <span className="text-gradient">{firstName}</span>
         </h1>
-        <p className="text-muted text-sm mt-2">
+        <p className="text-muted text-[15px] mt-2.5">
           {pkg.name_ar} &middot; {academicLevel.name_ar} ({academicLevel.cefr})
         </p>
       </motion.div>
 
       {/* Stat cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {cards.map((card, i) => (
           <motion.div
             key={card.label}
@@ -144,8 +144,8 @@ export default function StudentDashboard() {
             transition={{ delay: i * 0.08 }}
             className="stat-card hover:translate-y-[-2px] transition-all duration-300"
           >
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-muted text-xs">{card.label}</span>
+            <div className="flex items-center justify-between mb-5">
+              <span className="text-[13px] tracking-wide" style={{ color: 'var(--color-text-muted)' }}>{card.label}</span>
               <div className={`stat-icon ${
                 card.color === 'gold' ? 'bg-gold-500/10 text-gold-400' : 'bg-sky-500/10 text-sky-400'
               }`}>
@@ -165,13 +165,13 @@ export default function StudentDashboard() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
-            className="glass-card p-5 hover:translate-y-[-2px] transition-all duration-200"
+            className="glass-card p-7 hover:translate-y-[-2px] transition-all duration-200"
           >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center">
-                <CalendarDays className="text-sky-400" size={16} />
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+                <CalendarDays className="text-sky-400" size={18} />
               </div>
-              <h3 className="text-sm font-semibold text-white">المهام الأسبوعية</h3>
+              <h3 className="text-[15px] font-semibold" style={{ color: 'var(--color-text-primary)' }}>المهام الأسبوعية</h3>
               <span className="mr-auto text-xs text-muted">
                 {weeklyProgress.completed_tasks}/{weeklyProgress.total_tasks}
               </span>
@@ -196,12 +196,12 @@ export default function StudentDashboard() {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.35 }}
-        className="glass-card p-6"
+        className="glass-card p-7"
       >
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-5">
           <div>
-            <p className="text-lg font-semibold text-white">تقدم المستوى</p>
-            <p className="text-xs text-muted mt-0.5">
+            <p className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>تقدم المستوى</p>
+            <p className="text-[13px] mt-1" style={{ color: 'var(--color-text-muted)' }}>
               المستوى {currentLevel.level} — {currentLevel.title_ar}
             </p>
           </div>
@@ -228,22 +228,22 @@ export default function StudentDashboard() {
       </motion.div>
 
       {/* Daily Challenge + Mystery Box */}
-      <div className="grid lg:grid-cols-2 gap-5">
+      <div className="grid lg:grid-cols-2 gap-6">
         <DailyChallenge />
         <MysteryBox />
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-5">
+      <div className="grid lg:grid-cols-2 gap-6">
         {/* Next class */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.45 }}
-          className="glass-card p-6 hover:translate-y-[-2px] transition-all duration-300"
+          className="glass-card p-7 hover:translate-y-[-2px] transition-all duration-300"
         >
-          <div className="flex items-center gap-2.5 mb-5">
-            <Calendar size={18} className="text-sky-400" />
-            <h3 className="text-lg font-semibold text-white">الحصة القادمة</h3>
+          <div className="flex items-center gap-3 mb-6">
+            <Calendar size={20} className="text-sky-400" />
+            <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>الحصة القادمة</h3>
           </div>
           {group ? (
             <div className="space-y-2.5">
@@ -282,9 +282,9 @@ export default function StudentDashboard() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.55 }}
-          className="glass-card p-6 hover:translate-y-[-2px] transition-all duration-300"
+          className="glass-card p-7 hover:translate-y-[-2px] transition-all duration-300"
         >
-          <h3 className="text-lg font-semibold text-white mb-5">آخر الإشعارات</h3>
+          <h3 className="text-section-title mb-6" style={{ color: 'var(--color-text-primary)' }}>آخر الإشعارات</h3>
           {notifications?.length > 0 ? (
             <div className="space-y-3">
               {notifications.map((n) => (
@@ -311,7 +311,7 @@ export default function StudentDashboard() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="glass-card p-6"
+          className="glass-card p-7"
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
@@ -367,7 +367,7 @@ function ExercisesCTA({ studentId }) {
     <motion.div
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
-      className="glass-card p-6 border-violet-500/20 hover:translate-y-[-2px] transition-all duration-300"
+      className="glass-card p-7 border-violet-500/20 hover:translate-y-[-2px] transition-all duration-300"
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3.5">

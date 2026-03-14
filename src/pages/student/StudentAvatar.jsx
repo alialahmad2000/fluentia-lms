@@ -82,9 +82,9 @@ export default function StudentAvatar() {
   const initial = displayEmoji || (profile?.display_name || profile?.full_name || '?')[0]
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+        <h1 className="text-page-title flex items-center gap-2">
           <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
             <Palette size={20} className="text-violet-400" />
           </div>
@@ -110,8 +110,8 @@ export default function StudentAvatar() {
       </motion.div>
 
       {/* Color Style */}
-      <div className="glass-card p-5">
-        <h3 className="text-lg font-semibold text-white mb-3">لون الأفاتار</h3>
+      <div className="glass-card p-7">
+        <h3 className="text-section-title mb-3" style={{ color: 'var(--color-text-primary)' }}>لون الأفاتار</h3>
         <div className="grid grid-cols-4 sm:grid-cols-8 gap-3">
           {AVATAR_STYLES.map(s => (
             <button
@@ -128,8 +128,8 @@ export default function StudentAvatar() {
       </div>
 
       {/* Badge Icon */}
-      <div className="glass-card p-5">
-        <h3 className="text-lg font-semibold text-white mb-3">شارة المميزة</h3>
+      <div className="glass-card p-7">
+        <h3 className="text-section-title mb-3" style={{ color: 'var(--color-text-primary)' }}>شارة المميزة</h3>
         <div className="grid grid-cols-4 sm:grid-cols-8 gap-3">
           {BADGE_ICONS.map(b => {
             const locked = xp < b.minXp
@@ -156,8 +156,8 @@ export default function StudentAvatar() {
       </div>
 
       {/* Frame */}
-      <div className="glass-card p-5">
-        <h3 className="text-lg font-semibold text-white mb-3">إطار الأفاتار</h3>
+      <div className="glass-card p-7">
+        <h3 className="text-section-title mb-3" style={{ color: 'var(--color-text-primary)' }}>إطار الأفاتار</h3>
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
           {FRAMES.map(f => {
             const locked = f.minXp !== undefined && xp < f.minXp
@@ -184,8 +184,8 @@ export default function StudentAvatar() {
       </div>
 
       {/* Emoji */}
-      <div className="glass-card p-5">
-        <h3 className="text-lg font-semibold text-white mb-3">رمز مخصص (اختياري)</h3>
+      <div className="glass-card p-7">
+        <h3 className="text-section-title mb-3" style={{ color: 'var(--color-text-primary)' }}>رمز مخصص (اختياري)</h3>
         <div className="flex items-center gap-3">
           <input
             value={displayEmoji}

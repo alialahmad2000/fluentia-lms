@@ -48,7 +48,7 @@ export default function StudentQuiz() {
   }
 
   return (
-    <div className="space-y-8" dir="rtl">
+    <div className="space-y-12" dir="rtl">
       <AnimatePresence mode="wait">
         {view === 'list' && (
           <motion.div key="list" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
@@ -144,7 +144,7 @@ function QuizList({ onStart, onViewResults }) {
           <ClipboardCheck className="w-5 h-5 text-violet-400" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-white">الاختبارات</h1>
+          <h1 className="text-page-title">الاختبارات</h1>
           <p className="text-sm text-white/50">اختبر مستواك واكسب XP</p>
         </div>
       </div>
@@ -159,7 +159,7 @@ function QuizList({ onStart, onViewResults }) {
           <p className="text-white/50">لا توجد اختبارات متاحة حالياً</p>
         </div>
       ) : (
-        <div className="space-y-5">
+        <div className="space-y-6">
           {quizzes.map((quiz, i) => {
             const qs = getQuizStatus(quiz)
             const type = TYPE_LABELS[quiz.type] || TYPE_LABELS.quick_quiz
@@ -450,7 +450,7 @@ function QuizTaker({ quiz, onFinish, onBack }) {
             </button>
           </div>
         </div>
-        <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+        <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--color-bg-surface-raised)' }}>
           <motion.div
             className="h-full bg-gradient-to-r from-violet-500 to-sky-500 rounded-full"
             initial={{ width: 0 }}
@@ -488,7 +488,7 @@ function QuizTaker({ quiz, onFinish, onBack }) {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -30 }}
           transition={{ duration: 0.2 }}
-          className="glass-card p-5 mb-4"
+          className="glass-card p-7 mb-4"
         >
           <p className="text-white font-medium mb-4 text-base leading-relaxed">{question.question_text}</p>
 
@@ -833,13 +833,13 @@ function QuizResults({ quiz, data, onBack }) {
   const pct = percentage ?? 0
 
   return (
-    <div className="max-w-2xl mx-auto space-y-8">
+    <div className="max-w-2xl mx-auto space-y-12">
       {/* Score card */}
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ type: 'spring', duration: 0.6 }}
-        className="glass-card p-8 text-center"
+        className="glass-card p-7 text-center"
       >
         <h2 className="text-white/50 text-sm mb-2">نتيجتك</h2>
         <motion.div
@@ -870,13 +870,13 @@ function QuizResults({ quiz, data, onBack }) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="glass-card p-5"
+          className="glass-card p-7"
         >
           <div className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
               <BarChart3 className="w-4 h-4 text-sky-400" />
             </div>
-            <h3 className="text-white font-semibold text-sm">تحليل المهارات</h3>
+            <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>تحليل المهارات</h3>
           </div>
           <div className="space-y-3">
             {Object.entries(skillBreakdown).map(([skill, pctVal]) => (
@@ -885,7 +885,7 @@ function QuizResults({ quiz, data, onBack }) {
                   <span className="text-sm text-white/70 capitalize">{skill}</span>
                   <span className="text-xs text-white/50">{pctVal}%</span>
                 </div>
-                <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'var(--color-bg-surface-raised)' }}>
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${pctVal}%` }}
@@ -906,9 +906,9 @@ function QuizResults({ quiz, data, onBack }) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
-          className="glass-card p-5"
+          className="glass-card p-7"
         >
-          <h3 className="text-white font-semibold text-sm mb-4">مراجعة الإجابات</h3>
+          <h3 className="text-section-title mb-4" style={{ color: 'var(--color-text-primary)' }}>مراجعة الإجابات</h3>
           <div className="space-y-4">
             {questions.map((q, i) => {
               const ans = graded?.find(a => (a.question_id || a.quiz_questions?.id) === q.id) || graded?.[i]

@@ -5,6 +5,7 @@ import {
   CheckCircle2, BarChart3, CreditCard, Lock,
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
+import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
 const SKILL_LABELS = {
   grammar: 'القرامر',
@@ -58,7 +59,7 @@ export default function ParentDashboard() {
     setError('')
 
     try {
-      const res = await supabase.functions.invoke('parent-dashboard', {
+      const res = await invokeWithRetry('parent-dashboard', {
         body: { access_code: code.trim() },
       })
 
@@ -77,7 +78,7 @@ export default function ParentDashboard() {
 
   if (!data) {
     return (
-      <div className="min-h-screen bg-darkest flex items-center justify-center p-6">
+      <div className="min-h-screen flex items-center justify-center p-6" style={{ background: 'var(--color-bg-base)' }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -88,7 +89,7 @@ export default function ParentDashboard() {
             <p className="text-muted text-sm">لوحة متابعة ولي الأمر</p>
           </div>
 
-          <div className="glass-card-raised p-6">
+          <div className="glass-card-raised p-7">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
                 <Lock size={16} className="text-sky-400" />
@@ -128,8 +129,8 @@ export default function ParentDashboard() {
   const { student, grades = {}, attendance = {}, assignments = {}, skills, payments } = data
 
   return (
-    <div className="min-h-screen bg-darkest p-4 md:p-8">
-      <div className="max-w-4xl mx-auto space-y-8">
+    <div className="min-h-screen p-4 md:p-8" style={{ background: 'var(--color-bg-base)' }}>
+      <div className="max-w-4xl mx-auto space-y-12">
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-center">
           <h1 className="text-2xl font-playfair font-bold text-gradient mb-1">Fluentia</h1>
@@ -137,7 +138,7 @@ export default function ParentDashboard() {
         </motion.div>
 
         {/* Student info */}
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-5">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-7">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 rounded-2xl bg-sky-500/10 flex items-center justify-center text-xl font-bold text-sky-400">
               {student?.name?.[0] || '?'}
@@ -152,7 +153,7 @@ export default function ParentDashboard() {
         </motion.div>
 
         {/* Stats grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             { label: 'النقاط', value: `${student?.xp ?? 0} XP`, icon: Zap, color: 'sky' },
             { label: 'السلسلة', value: `${student?.streak ?? 0} يوم`, icon: Flame, color: 'gold' },
@@ -178,7 +179,7 @@ export default function ParentDashboard() {
         </div>
 
         {/* Assignment completion */}
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-5">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-7">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
               <BookOpen size={16} className="text-sky-400" />
@@ -199,7 +200,7 @@ export default function ParentDashboard() {
 
         {/* Skills */}
         {skills && (
-          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-5">
+          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-7">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-xl bg-violet-500/10 flex items-center justify-center">
               <BarChart3 size={16} className="text-violet-400" />
@@ -232,7 +233,7 @@ export default function ParentDashboard() {
 
         {/* Recent grades */}
         {grades?.recent?.length > 0 && (
-          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-5">
+          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-7">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
               <CheckCircle2 size={16} className="text-emerald-400" />
@@ -259,7 +260,7 @@ export default function ParentDashboard() {
 
         {/* Payments */}
         {payments?.length > 0 && (
-          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-5">
+          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-7">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-xl bg-gold-500/10 flex items-center justify-center">
               <CreditCard size={16} className="text-gold-400" />

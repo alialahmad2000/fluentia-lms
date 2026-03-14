@@ -39,14 +39,14 @@ export default function StudentGrades() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-2xl font-bold text-white">الدرجات</h1>
+        <h1 className="text-page-title">الدرجات</h1>
         <p className="text-muted text-sm mt-1">نتائج الواجبات المقيّمة</p>
       </motion.div>
 
       {/* Summary cards */}
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-3 gap-6">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="stat-card hover:translate-y-[-2px] transition-all duration-200">
           <div className="stat-icon">
             <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
@@ -98,7 +98,7 @@ export default function StudentGrades() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.08 }}
-                className="glass-card p-5 hover:translate-y-[-2px] transition-all duration-200"
+                className="glass-card p-7 hover:translate-y-[-2px] transition-all duration-200"
               >
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex-1 min-w-0">

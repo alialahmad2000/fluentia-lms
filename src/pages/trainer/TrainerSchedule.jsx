@@ -49,14 +49,14 @@ export default function TrainerSchedule() {
   const past = classes?.filter(c => c.date < today) || []
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <Calendar size={20} className="text-sky-400" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white">الجدول</h1>
+            <h1 className="text-page-title">الجدول</h1>
             <p className="text-muted text-sm mt-1">إدارة الحصص والمواعيد</p>
           </div>
         </div>
@@ -66,17 +66,17 @@ export default function TrainerSchedule() {
       </div>
 
       {/* Group Schedules Overview */}
-      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-5">
+      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-7">
         <div className="flex items-center gap-2 mb-4">
           <Calendar size={18} className="text-sky-400" />
-          <h3 className="text-lg font-semibold text-white">الجدول الأسبوعي</h3>
+          <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>الجدول الأسبوعي</h3>
         </div>
         {groups?.length > 0 ? (
           <div className="space-y-4">
             {groups.map((g) => {
               const days = g.schedule?.days || []
               return (
-                <div key={g.id} className="bg-white/5 rounded-xl p-3">
+                <div key={g.id} className="rounded-xl p-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
                       <span className="badge-blue text-xs">{g.code}</span>
@@ -111,16 +111,16 @@ export default function TrainerSchedule() {
         )}
       </motion.div>
 
-      <div className="grid lg:grid-cols-2 gap-5">
+      <div className="grid lg:grid-cols-2 gap-6">
         {/* Upcoming */}
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="glass-card p-5">
-          <h3 className="text-lg font-semibold text-white mb-4">الحصص القادمة ({upcoming.length})</h3>
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="glass-card p-7">
+          <h3 className="text-section-title mb-4" style={{ color: 'var(--color-text-primary)' }}>الحصص القادمة ({upcoming.length})</h3>
           {isLoading ? (
             <div className="space-y-2">{[1, 2].map(i => <div key={i} className="skeleton h-16 w-full" />)}</div>
           ) : upcoming.length > 0 ? (
             <div className="space-y-2">
               {upcoming.map((c) => (
-                <div key={c.id} className="bg-white/5 rounded-xl p-3">
+                <div key={c.id} className="rounded-xl p-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-white">{c.title || c.topic || 'حصة'}</p>
@@ -151,12 +151,12 @@ export default function TrainerSchedule() {
         </motion.div>
 
         {/* Past */}
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="glass-card p-5">
-          <h3 className="text-lg font-semibold text-white mb-4">الحصص السابقة ({past.length})</h3>
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="glass-card p-7">
+          <h3 className="text-section-title mb-4" style={{ color: 'var(--color-text-primary)' }}>الحصص السابقة ({past.length})</h3>
           {past.length > 0 ? (
             <div className="space-y-2">
               {past.map((c) => (
-                <div key={c.id} className="bg-white/5 rounded-xl p-3">
+                <div key={c.id} className="rounded-xl p-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-white">{c.title || c.topic || 'حصة'}</p>
@@ -258,7 +258,7 @@ function ClassForm({ groups, trainerId, onClose }) {
               {groups.map(g => <option key={g.id} value={g.id}>{g.name} ({g.code})</option>)}
             </select>
           </div>
-          <div className="grid grid-cols-2 gap-5">
+          <div className="grid grid-cols-2 gap-6">
             <div>
               <label className="input-label">العنوان</label>
               <input className="input-field" value={form.title} onChange={(e) => update('title', e.target.value)} placeholder="اختياري..." />
@@ -268,7 +268,7 @@ function ClassForm({ groups, trainerId, onClose }) {
               <input className="input-field" value={form.topic} onChange={(e) => update('topic', e.target.value)} placeholder="اختياري..." />
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-5">
+          <div className="grid grid-cols-3 gap-6">
             <div>
               <label className="input-label">التاريخ</label>
               <input type="date" className="input-field" value={form.date} onChange={(e) => update('date', e.target.value)} dir="ltr" />

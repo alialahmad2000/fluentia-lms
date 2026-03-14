@@ -9,6 +9,7 @@ import {
   Search, Database, CalendarDays, SpellCheck,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
+import { useThemeStore } from '../../stores/themeStore'
 
 // ─── Role accent config ──────────────────────────────────────
 const ROLE_ACCENTS = {
@@ -273,6 +274,7 @@ const COLLAPSED_STORAGE_KEY = 'fluentia_sidebar_groups'
 
 export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) {
   const { profile, signOut } = useAuthStore()
+  const effectiveTheme = useThemeStore((s) => s.effectiveTheme)
   const navigate = useNavigate()
   const location = useLocation()
   const role = profile?.role || 'student'
@@ -328,22 +330,27 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
       <div className="flex items-center justify-between px-5 py-4 border-b border-border-subtle">
         {!collapsed ? (
           <div className="flex items-center gap-2">
-            <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${accent.logo} flex items-center justify-center`}>
-              <span className="text-navy-950 font-bold text-sm">F</span>
-            </div>
-            <h1 className="text-lg font-playfair font-bold text-gradient">Fluentia</h1>
+            <img
+              src={effectiveTheme === 'light' ? '/logo-full-light.png' : '/logo-full-dark.png'}
+              alt="Fluentia"
+              className="h-8 w-auto"
+            />
           </div>
         ) : (
-          <div className={`w-9 h-9 rounded-lg bg-gradient-to-br ${accent.logo} flex items-center justify-center mx-auto`}>
-            <span className="text-navy-950 font-bold text-sm">F</span>
+          <div className="mx-auto">
+            <img
+              src={effectiveTheme === 'light' ? '/logo-icon-light.png' : '/logo-icon-dark.png'}
+              alt="Fluentia"
+              className="w-9 h-9 rounded-lg"
+            />
           </div>
         )}
-        <button onClick={onClose} className="lg:hidden text-muted hover:text-white transition-colors">
+        <button onClick={onClose} className="lg:hidden transition-colors" style={{ color: 'var(--color-text-muted)' }}>
           <X size={20} />
         </button>
         <button
           onClick={onToggleCollapse}
-          className="hidden lg:block text-muted hover:text-white transition-colors"
+          className="hidden lg:block transition-colors" style={{ color: 'var(--color-text-muted)' }}
         >
           <ChevronLeft size={18} className={`transition-transform duration-300 ${collapsed ? 'rotate-180' : ''}`} />
         </button>
@@ -359,7 +366,8 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="بحث في القائمة..."
-              className="w-full bg-white/[0.04] border border-border-subtle rounded-lg pr-9 pl-3 py-2 text-xs text-white placeholder-muted/50 focus:outline-none focus:ring-1 focus:ring-sky-500/30 focus:border-sky-500/30 transition-all"
+              className="w-full border border-border-subtle rounded-lg pr-9 pl-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-sky-500/30 focus:border-sky-500/30 transition-all"
+              style={{ background: 'var(--color-bg-input)', color: 'var(--color-text-primary)' }}
             />
           </div>
         </div>
@@ -407,7 +415,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
                         `group flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all duration-200 ${
                           isActive
                             ? accent.active
-                            : 'text-muted hover:text-white hover:bg-white/[0.05]'
+                            : 'text-muted hover:bg-[var(--color-bg-hover)]'
                         } ${collapsed ? 'justify-center' : ''}`
                       }
                     >
@@ -451,7 +459,8 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
     <>
       {/* Desktop sidebar */}
       <aside
-        className={`hidden lg:flex flex-col bg-navy-950/90 backdrop-blur-2xl border-l border-white/[0.06] transition-all duration-300 ease-apple fixed top-0 right-0 h-screen z-30 ${
+        style={{ background: 'var(--color-bg-sidebar)' }}
+        className={`hidden lg:flex flex-col backdrop-blur-2xl border-l border-border-subtle transition-all duration-300 ease-apple fixed top-0 right-0 h-screen z-30 ${
           collapsed ? 'w-[72px]' : 'w-[270px]'
         }`}
       >
@@ -474,7 +483,8 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 28, stiffness: 320 }}
-              className="fixed top-0 right-0 h-screen w-72 bg-navy-950 border-l border-border-subtle z-50 lg:hidden"
+              style={{ background: 'var(--color-bg-sidebar)' }}
+              className="fixed top-0 right-0 h-screen w-72 backdrop-blur-2xl border-l border-border-subtle z-50 lg:hidden"
             >
               {sidebarContent}
             </motion.aside>

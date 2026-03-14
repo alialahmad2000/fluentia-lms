@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react'
 import { supabase } from '../lib/supabase'
+import { invokeWithRetry } from '../lib/invokeWithRetry'
 import { useAuthStore } from '../stores/authStore'
 
 /**
@@ -44,7 +45,7 @@ export function useAIFormFiller({ pageId, fields, context, onFill, getContextDat
       }
 
       // 3. Call the Supabase edge function
-      const { data, error: fnError } = await supabase.functions.invoke('ai-form-filler', {
+      const { data, error: fnError } = await invokeWithRetry('ai-form-filler', {
         body: {
           pageId,
           formSchema: fields,

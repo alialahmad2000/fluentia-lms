@@ -111,7 +111,7 @@ export default function MysteryBox() {
     if (remaining <= 0 || remaining > 5) return null
 
     return (
-      <div className="glass-card p-5 border-violet-500/10">
+      <div className="glass-card p-7 border-violet-500/10">
         <div className="flex items-center gap-4">
           <div className="w-11 h-11 rounded-xl bg-violet-500/10 flex items-center justify-center text-xl">🎁</div>
           <div className="flex-1">
@@ -139,7 +139,7 @@ export default function MysteryBox() {
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="glass-card-raised p-6 border-gold-500/20 cursor-pointer hover:border-gold-500/40 hover:translate-y-[-2px] transition-all duration-200"
+        className="glass-card-raised p-7 border-gold-500/20 cursor-pointer hover:border-gold-500/40 hover:translate-y-[-2px] transition-all duration-200"
         onClick={() => !isOpening && openBox.mutate()}
       >
         <div className="flex items-center gap-5">

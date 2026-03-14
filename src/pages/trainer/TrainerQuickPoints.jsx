@@ -133,13 +133,13 @@ export default function TrainerQuickPoints() {
   const reasons = mode === 'add' ? QUICK_REASONS : PENALTY_REASONS
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center">
           <Zap size={20} className="text-gold-400" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-white">النقاط السريعة</h1>
+          <h1 className="text-page-title">النقاط السريعة</h1>
           <p className="text-muted text-sm mt-1">منح وخصم نقاط XP أثناء الحصة</p>
         </div>
       </div>
@@ -158,7 +158,7 @@ export default function TrainerQuickPoints() {
         )}
 
         {/* Mode toggle */}
-        <div className="flex bg-white/5 rounded-xl p-1">
+        <div className="flex rounded-xl p-1" style={{ background: 'var(--color-bg-surface-raised)' }}>
           <button
             onClick={() => setMode('add')}
             className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
@@ -190,7 +190,7 @@ export default function TrainerQuickPoints() {
       </div>
 
       {/* Student Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
         {students?.map((s, i) => {
           const name = getStudentName(s)
           const isSelected = selectedStudent?.id === s.id
@@ -229,7 +229,7 @@ export default function TrainerQuickPoints() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="glass-card p-5"
+            className="glass-card p-7"
           >
             <p className="text-sm text-white mb-3">
               {mode === 'add' ? 'منح نقاط لـ' : 'خصم نقاط من'}{' '}

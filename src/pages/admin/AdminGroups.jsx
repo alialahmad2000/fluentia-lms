@@ -70,7 +70,7 @@ export default function AdminGroups() {
   })
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
@@ -78,7 +78,7 @@ export default function AdminGroups() {
             <Users size={22} className="text-violet-400" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white">إدارة المجموعات</h1>
+            <h1 className="text-page-title text-white">إدارة المجموعات</h1>
             <p className="text-muted text-sm mt-1">{groups?.length || 0} مجموعة</p>
           </div>
         </div>
@@ -95,18 +95,18 @@ export default function AdminGroups() {
       ) : groups?.length === 0 ? (
         <div className="text-center py-12 text-muted">لا توجد مجموعات</div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {groups?.map((g, i) => (
             <motion.div
               key={g.id}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
-              className={`glass-card p-5 hover:translate-y-[-2px] transition-all duration-200 ${!g.is_active ? 'opacity-50' : ''}`}
+              className={`glass-card p-7 hover:translate-y-[-2px] transition-all duration-200 ${!g.is_active ? 'opacity-50' : ''}`}
             >
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h3 className="text-lg font-semibold text-white">{g.name}</h3>
+                  <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>{g.name}</h3>
                   <p className="text-sm text-gradient">{g.code}</p>
                 </div>
                 <button
@@ -198,12 +198,12 @@ function GroupFormModal({ group, trainers, onClose, onSave, saving }) {
         className="w-full max-w-md glass-card-raised p-6"
       >
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-semibold text-white">{group ? 'تعديل المجموعة' : 'مجموعة جديدة'}</h2>
+          <h2 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>{group ? 'تعديل المجموعة' : 'مجموعة جديدة'}</h2>
           <button onClick={onClose} className="btn-icon w-8 h-8 text-muted hover:text-white"><X size={20} /></button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-6">
             <div>
               <label className="input-label">اسم المجموعة</label>
               <input value={name} onChange={(e) => setName(e.target.value)} className="input-field" required />
@@ -213,7 +213,7 @@ function GroupFormModal({ group, trainers, onClose, onSave, saving }) {
               <input value={code} onChange={(e) => setCode(e.target.value)} className="input-field" dir="ltr" required />
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-6">
             <div>
               <label className="input-label">المستوى</label>
               <select value={level} onChange={(e) => setLevel(e.target.value)} className="input-field">

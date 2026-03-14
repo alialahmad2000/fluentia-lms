@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { SpellCheck, Loader2, X, Check } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
+import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
 // Debounce helper
 function useDebounce(fn, delay) {
@@ -23,7 +24,7 @@ export default function AIGrammarChecker({ text, onApplyCorrection, enabled = tr
     setChecking(true)
     try {
       const { data: { session } } = await supabase.auth.getSession()
-      const res = await supabase.functions.invoke('ai-chatbot', {
+      const res = await invokeWithRetry('ai-chatbot', {
         body: {
           message: `Check grammar in this English text and respond ONLY with a JSON array of corrections. Each correction: {"error": "wrong text", "correction": "correct text", "rule": "brief explanation in Arabic"}. If no errors, respond with []. Text: "${inputText}"`,
           conversation_history: [],

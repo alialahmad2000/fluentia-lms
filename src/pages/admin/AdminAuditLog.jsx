@@ -139,25 +139,25 @@ export default function AdminAuditLog() {
   const uniqueActions = [...new Set(Object.keys(ACTION_TYPES))]
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       {/* Header */}
       <div className="flex items-center gap-3">
         <div className="p-2.5 rounded-xl bg-violet-500/10">
           <Shield className="w-6 h-6 text-violet-400" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-white">سجل المراجعة</h1>
+          <h1 className="text-page-title text-white">سجل المراجعة</h1>
           <p className="text-sm text-slate-400">تتبع جميع العمليات والتغييرات في النظام</p>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="glass-card p-4">
+      <div className="glass-card p-7">
         <div className="flex items-center gap-2 mb-3">
           <Filter className="w-4 h-4 text-slate-400" />
           <span className="text-sm text-slate-400 font-medium">تصفية</span>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Action filter */}
           <select
             value={filterAction}

@@ -52,9 +52,9 @@ export default function StudentSchedule() {
     : []
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+        <h1 className="text-page-title flex items-center gap-2">
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <Calendar size={22} className="text-sky-400" />
           </div>
@@ -64,12 +64,12 @@ export default function StudentSchedule() {
       </motion.div>
 
       {/* Weekly Schedule */}
-      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="glass-card-raised p-5">
+      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="glass-card-raised p-7">
         <div className="flex items-center gap-2 mb-4">
           <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <Calendar size={16} className="text-sky-400" />
           </div>
-          <h3 className="text-lg font-semibold text-white">الجدول الأسبوعي</h3>
+          <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>الجدول الأسبوعي</h3>
         </div>
         {group ? (
           <div className="space-y-3">
@@ -83,7 +83,7 @@ export default function StudentSchedule() {
                     className={`text-center p-3 rounded-xl text-xs transition-all duration-200 hover:translate-y-[-2px] ${
                       isClassDay
                         ? 'bg-sky-500/10 border border-sky-500/20 text-sky-400'
-                        : 'bg-white/5 text-muted border border-transparent'
+                        : 'text-muted border border-transparent'
                     }`}
                   >
                     <p className="font-medium">{getArabicDay(day)}</p>
@@ -112,14 +112,14 @@ export default function StudentSchedule() {
         )}
       </motion.div>
 
-      <div className="grid lg:grid-cols-2 gap-5">
+      <div className="grid lg:grid-cols-2 gap-6">
         {/* Upcoming Classes */}
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }} className="glass-card p-5">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }} className="glass-card p-7">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
               <Clock size={16} className="text-emerald-400" />
             </div>
-            <h3 className="text-lg font-semibold text-white">الحصص القادمة</h3>
+            <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>الحصص القادمة</h3>
           </div>
           {upcomingClasses?.length > 0 ? (
             <div className="space-y-3">
@@ -129,7 +129,8 @@ export default function StudentSchedule() {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.08 }}
-                  className="bg-white/5 rounded-xl p-3 hover:bg-white/[0.08] transition-all duration-200"
+                  className="rounded-xl p-3 hover:bg-white/[0.08] transition-all duration-200"
+                  style={{ background: 'var(--color-bg-surface-raised)' }}
                 >
                   <div className="flex items-center justify-between">
                     <div>
@@ -153,12 +154,12 @@ export default function StudentSchedule() {
         </motion.div>
 
         {/* Past Classes */}
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.24 }} className="glass-card p-5">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.24 }} className="glass-card p-7">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 rounded-xl bg-violet-500/10 flex items-center justify-center">
               <Video size={16} className="text-violet-400" />
             </div>
-            <h3 className="text-lg font-semibold text-white">الحصص السابقة</h3>
+            <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>الحصص السابقة</h3>
           </div>
           {pastClasses?.length > 0 ? (
             <div className="space-y-3">
@@ -168,7 +169,8 @@ export default function StudentSchedule() {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.08 }}
-                  className="bg-white/5 rounded-xl p-3 hover:bg-white/[0.08] transition-all duration-200"
+                  className="rounded-xl p-3 hover:bg-white/[0.08] transition-all duration-200"
+                  style={{ background: 'var(--color-bg-surface-raised)' }}
                 >
                   <div className="flex items-center justify-between">
                     <div>

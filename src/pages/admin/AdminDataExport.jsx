@@ -152,14 +152,14 @@ export default function AdminDataExport() {
   }
 
   return (
-    <div className="space-y-8 max-w-2xl">
+    <div className="space-y-12 max-w-2xl">
       {/* Header */}
       <div className="flex items-center gap-4">
         <div className="w-12 h-12 rounded-xl bg-sky-500/10 flex items-center justify-center">
           <Database size={22} className="text-sky-400" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-white">تصدير البيانات</h1>
+          <h1 className="text-page-title text-white">تصدير البيانات</h1>
           <p className="text-muted text-sm mt-1">صدّر بيانات النظام بصيغة CSV</p>
         </div>
       </div>
@@ -176,7 +176,7 @@ export default function AdminDataExport() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
-              className="glass-card p-5 flex items-center justify-between gap-5 hover:translate-y-[-2px] transition-all duration-200"
+              className="glass-card p-7 flex items-center justify-between gap-5 hover:translate-y-[-2px] transition-all duration-200"
             >
               <div className="flex items-start gap-4">
                 <div className={`w-12 h-12 rounded-xl ${iconBg} flex items-center justify-center shrink-0`}>
@@ -210,7 +210,7 @@ export default function AdminDataExport() {
         })}
       </div>
 
-      <div className="glass-card p-4">
+      <div className="glass-card p-7">
         <p className="text-xs text-muted">
           الملفات تُحمّل بصيغة CSV مع دعم Unicode (UTF-8 BOM) لضمان عرض العربي بشكل صحيح في Excel.
         </p>

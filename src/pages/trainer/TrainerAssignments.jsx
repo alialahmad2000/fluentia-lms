@@ -121,11 +121,11 @@ export default function TrainerAssignments() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">الواجبات</h1>
+          <h1 className="text-page-title">الواجبات</h1>
           <p className="text-muted text-sm mt-1">إنشاء وإدارة واجبات المجموعات</p>
         </div>
         <button
@@ -179,7 +179,7 @@ export default function TrainerAssignments() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className={`glass-card p-5 cursor-pointer hover:border-sky-500/20 hover:translate-y-[-2px] transition-all duration-200 ${
+                className={`glass-card p-7 cursor-pointer hover:border-sky-500/20 hover:translate-y-[-2px] transition-all duration-200 ${
                   !a.is_visible ? 'opacity-60' : ''
                 }`}
                 onClick={() => handleEdit(a)}

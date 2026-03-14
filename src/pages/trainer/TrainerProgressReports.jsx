@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { FileBarChart, Loader2, Sparkles, User, TrendingUp, TrendingDown, Star, AlertCircle } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
 export default function TrainerProgressReports() {
   const { profile } = useAuthStore()
@@ -49,7 +50,7 @@ export default function TrainerProgressReports() {
 
     try {
       const { data: { session } } = await supabase.auth.getSession()
-      const res = await supabase.functions.invoke('generate-report', {
+      const res = await invokeWithRetry('generate-report', {
         body: { student_id: selectedStudent, period_days: periodDays },
         headers: { Authorization: `Bearer ${session?.access_token}` },
       })
@@ -73,20 +74,20 @@ export default function TrainerProgressReports() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
           <FileBarChart size={20} className="text-sky-400" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-white">تقارير التقدم</h1>
+          <h1 className="text-page-title">تقارير التقدم</h1>
           <p className="text-muted text-sm mt-1">تقارير أداء الطلاب بالذكاء الاصطناعي</p>
         </div>
       </div>
 
       {/* Controls */}
-      <div className="glass-card p-5 space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div className="glass-card p-7 space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
             <label className="input-label">المجموعة</label>
             <select
@@ -149,7 +150,7 @@ export default function TrainerProgressReports() {
             className="space-y-4"
           >
             {/* Header */}
-            <div className="glass-card p-5">
+            <div className="glass-card p-7">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
@@ -174,7 +175,7 @@ export default function TrainerProgressReports() {
 
             {/* Stats */}
             {report.stats && (
-              <div className="grid grid-cols-4 gap-5">
+              <div className="grid grid-cols-4 gap-6">
                 {[
                   { label: 'التسليمات', value: report.stats.total_submissions },
                   { label: 'متوسط الدرجة', value: report.stats.avg_grade ? `${report.stats.avg_grade}%` : '—' },
@@ -189,10 +190,10 @@ export default function TrainerProgressReports() {
               </div>
             )}
 
-            <div className="grid md:grid-cols-2 gap-5">
+            <div className="grid md:grid-cols-2 gap-6">
               {/* Strengths */}
               {report.strengths?.length > 0 && (
-                <div className="glass-card p-5">
+                <div className="glass-card p-7">
                   <h3 className="text-sm font-medium text-emerald-400 flex items-center gap-2 mb-3">
                     <TrendingUp size={16} />
                     نقاط القوة
@@ -210,7 +211,7 @@ export default function TrainerProgressReports() {
 
               {/* Weaknesses */}
               {report.weaknesses?.length > 0 && (
-                <div className="glass-card p-5">
+                <div className="glass-card p-7">
                   <h3 className="text-sm font-medium text-yellow-400 flex items-center gap-2 mb-3">
                     <TrendingDown size={16} />
                     نقاط تحتاج تحسين
@@ -229,7 +230,7 @@ export default function TrainerProgressReports() {
 
             {/* Recommendations */}
             {report.recommendations?.length > 0 && (
-              <div className="glass-card p-5">
+              <div className="glass-card p-7">
                 <h3 className="text-sm font-medium text-sky-400 flex items-center gap-2 mb-3">
                   <Sparkles size={16} />
                   توصيات

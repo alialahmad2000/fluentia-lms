@@ -27,6 +27,7 @@ import {
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
 const TYPE_CONFIG = {
   speaking: { icon: Mic, label: 'محادثة', color: 'text-rose-400', bg: 'bg-rose-500/10 border-rose-500/20' },
@@ -82,7 +83,7 @@ export default function StudentWeeklyTaskDetail() {
       // Trigger AI grading (fire-and-forget for non-blocking UX)
       try {
         const { data: { session } } = await supabase.auth.getSession()
-        await supabase.functions.invoke('grade-weekly-task', {
+        await invokeWithRetry('grade-weekly-task', {
           body: { task_id: task.id },
           headers: { Authorization: `Bearer ${session?.access_token}` },
         })

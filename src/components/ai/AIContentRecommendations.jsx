@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Sparkles, BookOpen, Loader2, RefreshCcw } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import { ACADEMIC_LEVELS } from '../../lib/constants'
 
 const STORAGE_KEY = 'fluentia_ai_recommendations'
@@ -55,7 +56,7 @@ export default function AIContentRecommendations() {
         .map(([type, grades]) => `${type}: avg ${Math.round(grades.reduce((a,b) => a+b, 0) / grades.length)}%`)
         .join(', ')
 
-      const res = await supabase.functions.invoke('ai-chatbot', {
+      const res = await invokeWithRetry('ai-chatbot', {
         body: {
           message: `Based on this student's performance (${performanceSummary || 'no data yet'}), level ${level.cefr} (${level.name_en}), suggest 3 personalized learning recommendations. Respond in JSON array format: [{"title": "...", "description": "...", "type": "article|exercise|video|tip", "icon": "emoji"}]. All text in Arabic. Focus on their weakest areas.`,
           conversation_history: [],

@@ -110,7 +110,7 @@ export default function DailyChallenge() {
 
   if (completedToday) {
     return (
-      <div className="glass-card p-6 border-emerald-500/20">
+      <div className="glass-card p-7 border-emerald-500/20">
         <div className="flex items-center gap-4">
           <div className="w-11 h-11 rounded-xl bg-emerald-500/10 flex items-center justify-center">
             <CheckCircle2 size={20} className="text-emerald-400" />
@@ -128,13 +128,13 @@ export default function DailyChallenge() {
     <motion.div
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
-      className="glass-card p-6"
+      className="glass-card p-7"
     >
-      <div className="flex items-center gap-3 mb-4">
-        <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
-          <Target size={18} className="text-sky-400" />
+      <div className="flex items-center gap-3 mb-5">
+        <div className="w-11 h-11 rounded-xl bg-sky-500/10 flex items-center justify-center">
+          <Target size={20} className="text-sky-400" />
         </div>
-        <h3 className="text-lg font-semibold text-white">التحدي اليومي</h3>
+        <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>التحدي اليومي</h3>
         <span className="badge-blue text-xs mr-auto">+5 XP</span>
       </div>
 
@@ -142,14 +142,14 @@ export default function DailyChallenge() {
 
       <div className="grid grid-cols-2 gap-3">
         {challenge.options.map((opt, i) => {
-          let style = 'bg-white/5 border-white/5 hover:bg-white/10 text-white'
+          let style = 'border hover:bg-white/10 text-white'
           if (showResult) {
             if (i === challenge.answer) {
               style = 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
             } else if (i === selectedAnswer && i !== challenge.answer) {
               style = 'bg-red-500/10 border-red-500/30 text-red-400'
             } else {
-              style = 'bg-white/5 border-white/5 text-muted opacity-50'
+              style = 'border text-muted opacity-50'
             }
           }
 

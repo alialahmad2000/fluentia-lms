@@ -109,14 +109,14 @@ export default function TrainerLibrary() {
   })
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <BookOpen size={20} className="text-sky-400" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white">المكتبة</h1>
+            <h1 className="text-page-title">المكتبة</h1>
             <p className="text-muted text-sm mt-1">المواد التعليمية والملفات</p>
           </div>
         </div>

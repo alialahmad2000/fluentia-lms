@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
 const QUICK_ACTIONS_TRAINER = [
   { label: 'واجبات معلقة', icon: ClipboardList, message: 'وش الواجبات المعلقة للتقييم؟' },
@@ -114,7 +115,7 @@ export default function TrainerAIAssistant() {
         ? { confirmed_action: confirmedAction, history, group_id: selectedGroup || undefined }
         : { message: msg, history, group_id: selectedGroup || undefined }
 
-      const res = await supabase.functions.invoke('ai-trainer-assistant', {
+      const res = await invokeWithRetry('ai-trainer-assistant', {
         body,
         headers: { Authorization: `Bearer ${session?.access_token}` },
       })
@@ -172,7 +173,7 @@ export default function TrainerAIAssistant() {
             <Bot size={20} className="text-violet-400" />
           </div>
           <div>
-          <h1 className="text-2xl font-bold text-white">
+          <h1 className="text-page-title">
             مركز التحكم الذكي
           </h1>
           <p className="text-muted text-sm mt-1">نفّذ أي عملية بالكتابة — واجبات، نقاط، تقييم، إحصائيات</p>
@@ -225,7 +226,7 @@ export default function TrainerAIAssistant() {
                 <Sparkles size={28} className="text-violet-400" />
               </div>
               <div>
-                <h2 className="text-lg font-semibold text-white mb-1">مركز التحكم الذكي</h2>
+                <h2 className="text-section-title mb-1" style={{ color: 'var(--color-text-primary)' }}>مركز التحكم الذكي</h2>
                 <p className="text-sm text-muted">اكتب أمر بالعربي وأنا أنفّذه — واجبات، نقاط، تقييم، تقارير</p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-lg w-full">

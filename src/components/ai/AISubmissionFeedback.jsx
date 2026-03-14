@@ -5,6 +5,7 @@ import {
   Send, PenLine, Mic, BookOpen, FileText, Brain, Target,
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
+import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
 // Score → Grade mapping
 function scoreToGrade(score) {
@@ -53,15 +54,13 @@ export default function AISubmissionFeedback({
     setError('')
     try {
       const { data: { session } } = await supabase.auth.getSession()
-      const res = await supabase.functions.invoke('ai-submission-feedback', {
+      const res = await invokeWithRetry('ai-submission-feedback', {
         body: { submission_id: submission.id },
         headers: { Authorization: `Bearer ${session?.access_token}` },
-      })
+      }, { timeoutMs: 45000, retries: 1 })
 
-      // supabase.functions.invoke sets res.error for non-2xx AND parses body into res.data
       const result = res.data
       if (res.error) {
-        // Try to get error message from the response body first (more specific)
         const bodyError = result?.error
         if (bodyError) { setError(typeof bodyError === 'string' ? bodyError : 'خطأ في التحليل'); return }
         const msg = typeof res.error === 'object' ? (res.error.message || 'خطأ في الاتصال') : String(res.error)

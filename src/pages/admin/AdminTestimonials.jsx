@@ -462,7 +462,7 @@ export default function AdminTestimonials() {
 
   // ─────────────────────────────────────────────────────────────────────────
   return (
-    <div dir="rtl" className="space-y-8 font-tajawal">
+    <div dir="rtl" className="space-y-12 font-tajawal">
 
       {/* ── Page Header ── */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -471,7 +471,7 @@ export default function AdminTestimonials() {
             <MessageSquareQuote size={22} className="text-sky-400" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white">إدارة الشهادات</h1>
+            <h1 className="text-page-title text-white">إدارة الشهادات</h1>
             <p className="text-sm text-white/40">
               {testimonials?.length ?? '—'} شهادة &nbsp;·&nbsp; {approvedCount} معتمدة &nbsp;·&nbsp; متوسط {avgRating} ★
             </p>
@@ -509,7 +509,7 @@ export default function AdminTestimonials() {
       {/* ── Controls ── */}
       <div className="flex flex-wrap items-center gap-3">
         {/* Filter */}
-        <div className="flex gap-1 bg-white/5 border border-white/10 rounded-xl p-1">
+        <div className="flex gap-1 border border-white/10 rounded-xl p-1" style={{ background: 'var(--color-bg-surface-raised)' }}>
           {[
             { key: 'all',      label: 'الكل' },
             { key: 'approved', label: 'معتمدة' },
@@ -612,7 +612,7 @@ export default function AdminTestimonials() {
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.9 }}
-              className="glass-card p-6 max-w-sm w-full space-y-5 text-center"
+              className="glass-card p-7 max-w-sm w-full space-y-5 text-center"
               dir="rtl"
             >
               <div className="w-12 h-12 rounded-full bg-red-500/15 flex items-center justify-center mx-auto">

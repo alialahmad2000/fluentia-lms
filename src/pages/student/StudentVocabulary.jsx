@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { BookOpen, Plus, Loader2, RotateCcw, Check, X, Sparkles, Brain, Zap, Star } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
 const MASTERY_LABELS = {
   new: { label: 'جديدة', color: 'blue', emoji: '🆕' },
@@ -156,7 +157,7 @@ export default function StudentVocabulary() {
       // Auto-generate flashcard data via AI
       try {
         const { data: { session } } = await supabase.auth.getSession()
-        const res = await supabase.functions.invoke('ai-chatbot', {
+        const res = await invokeWithRetry('ai-chatbot', {
           body: {
             message: `For the English word "${word}", provide: 1) Arabic meaning, 2) English meaning, 3) Example sentence. Format as JSON: {"meaning_ar": "...", "meaning_en": "...", "example_sentence": "..."}. Only respond with JSON.`,
             conversation_history: [],
@@ -212,7 +213,7 @@ export default function StudentVocabulary() {
     setAiLoading(true)
     try {
       const { data: { session } } = await supabase.auth.getSession()
-      const res = await supabase.functions.invoke('ai-chatbot', {
+      const res = await invokeWithRetry('ai-chatbot', {
         body: {
           message: `For the English word "${word}", provide: 1) Arabic meaning, 2) English meaning, 3) Example sentence. Format as JSON: {"meaning_ar": "...", "meaning_en": "...", "example_sentence": "..."}. Only respond with JSON.`,
           conversation_history: [],
@@ -297,9 +298,9 @@ export default function StudentVocabulary() {
   const displayedSuggestions = suggestedWords.slice(0, 15)
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+        <h1 className="text-page-title flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <BookOpen size={20} className="text-sky-400" />
           </div>
@@ -339,7 +340,7 @@ export default function StudentVocabulary() {
       </motion.div>
 
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-5">
+      <div className="grid grid-cols-4 gap-6">
         {[
           { label: 'الكل', value: stats.total, color: 'text-white' },
           { label: 'متقنة', value: stats.mastered, color: 'text-emerald-400' },
@@ -379,7 +380,7 @@ export default function StudentVocabulary() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="glass-card p-6 text-center space-y-4"
+            className="glass-card p-7 text-center space-y-4"
           >
             <p className="text-xs text-muted">{quizIndex + 1} / {dueWords.length}</p>
 
@@ -392,7 +393,7 @@ export default function StudentVocabulary() {
 
             {showAnswer ? (
               <div className="space-y-4">
-                <div className="bg-white/5 rounded-xl p-4">
+                <div className="rounded-xl p-4" style={{ background: 'var(--color-bg-surface-raised)' }}>
                   <p className="text-lg text-white">{dueWords[quizIndex].meaning_ar || '—'}</p>
                   {dueWords[quizIndex].meaning_en && (
                     <p className="text-sm text-muted mt-1" dir="ltr">{dueWords[quizIndex].meaning_en}</p>
@@ -461,7 +462,7 @@ export default function StudentVocabulary() {
           {/* Add word */}
           {tab === 'add' && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
-              <div className="glass-card p-5 space-y-3">
+              <div className="glass-card p-7 space-y-3">
                 <form
                   onSubmit={(e) => { e.preventDefault(); if (addWord.trim()) addMutation.mutate(addWord) }}
                   className="flex items-center gap-2"
@@ -487,7 +488,7 @@ export default function StudentVocabulary() {
 
               {/* Suggested words section */}
               {displayedSuggestions.length > 0 && (
-                <div className="glass-card p-5 space-y-3">
+                <div className="glass-card p-7 space-y-3">
                   <div className="flex items-center gap-2 mb-1">
                     <Sparkles size={16} className="text-amber-400" />
                     <h3 className="text-sm font-semibold text-white">كلمات مقترحة</h3>

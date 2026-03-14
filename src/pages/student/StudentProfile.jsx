@@ -118,15 +118,15 @@ export default function StudentProfile() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       {/* Profile Header */}
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-card-raised p-6">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-card-raised p-7">
         <div className="flex items-start gap-4">
           <div className="w-16 h-16 rounded-2xl bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 text-2xl font-bold shrink-0">
             {(profile?.display_name || profile?.full_name)?.[0] || '?'}
           </div>
           <div className="flex-1 min-w-0">
-            <h1 className="text-2xl font-bold text-white">{profile?.full_name}</h1>
+            <h1 className="text-page-title">{profile?.full_name}</h1>
             <div className="flex items-center gap-3 text-sm text-muted mt-1">
               <span className="badge-blue">{pkg.name_ar}</span>
               <span className="badge-muted">{academicLevel.name_ar} ({academicLevel.cefr})</span>
@@ -165,7 +165,7 @@ export default function StudentProfile() {
       </motion.div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-3 gap-6">
         {[
           { label: 'XP', value: xp, icon: Zap, color: 'sky' },
           { label: 'السلسلة', value: `${streak} يوم`, icon: Flame, color: 'gold' },
@@ -190,12 +190,12 @@ export default function StudentProfile() {
       </div>
 
       {/* Level Progress */}
-      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="glass-card p-5">
+      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="glass-card p-7">
         <div className="flex items-center justify-between mb-3">
           <p className="text-sm font-medium text-white">المستوى {currentLevel.level} — <span className="text-gradient">{currentLevel.title_ar}</span></p>
           {nextLevel && <p className="text-xs text-white/40">{nextLevel.xp - xp} XP للتالي</p>}
         </div>
-        <div className="w-full h-3 bg-white/5 rounded-full overflow-hidden">
+        <div className="w-full h-3 rounded-full overflow-hidden" style={{ background: 'var(--color-bg-surface-raised)' }}>
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${Math.min(xpProgress, 100)}%` }}
@@ -211,14 +211,14 @@ export default function StudentProfile() {
       {/* Notification Settings */}
       <NotificationSettings />
 
-      <div className="grid lg:grid-cols-2 gap-5">
+      <div className="grid lg:grid-cols-2 gap-6">
         {/* Achievements */}
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="glass-card p-5">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="glass-card p-7">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 rounded-xl bg-gold-500/10 flex items-center justify-center">
               <Award size={16} className="text-gold-400" />
             </div>
-            <h3 className="text-lg font-semibold text-white">الإنجازات</h3>
+            <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>الإنجازات</h3>
             <span className="badge-muted text-[10px]">{achievements?.earned?.length || 0}/{achievements?.all?.length || 0}</span>
           </div>
           <div className="grid grid-cols-2 gap-3">
@@ -231,7 +231,7 @@ export default function StudentProfile() {
                 className={`rounded-xl p-3 text-center hover:translate-y-[-2px] transition-all duration-200 ${
                   a.isEarned
                     ? 'bg-gold-500/10 border border-gold-500/20'
-                    : 'bg-white/5 border border-border-subtle opacity-40'
+                    : 'border border-border-subtle opacity-40'
                 }`}
               >
                 <span className="text-2xl">{a.icon}</span>
@@ -244,12 +244,12 @@ export default function StudentProfile() {
         </motion.div>
 
         {/* XP History */}
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }} className="glass-card p-5">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }} className="glass-card p-7">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
               <Clock size={16} className="text-sky-400" />
             </div>
-            <h3 className="text-lg font-semibold text-white">سجل النقاط</h3>
+            <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>سجل النقاط</h3>
           </div>
           {xpHistory?.length > 0 ? (
             <div className="space-y-2 max-h-[400px] overflow-y-auto">
@@ -259,7 +259,8 @@ export default function StudentProfile() {
                   initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.08 }}
-                  className="flex items-center justify-between bg-white/5 rounded-xl p-3 hover:bg-white/[0.08] transition-all duration-200"
+                  className="flex items-center justify-between rounded-xl p-3 hover:bg-white/[0.08] transition-all duration-200"
+                  style={{ background: 'var(--color-bg-surface-raised)' }}
                 >
                   <div>
                     <p className="text-xs text-white">{XP_REASON_LABELS[tx.reason] || tx.reason}</p>

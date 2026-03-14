@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Bot, Send, Loader2, Sparkles, Trash2 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import { PACKAGES } from '../../lib/constants'
 
 const STORAGE_KEY = 'fluentia_chatbot_history'
@@ -23,9 +24,15 @@ export default function StudentChatbot() {
   const [sending, setSending] = useState(false)
   const [remaining, setRemaining] = useState(null)
   const scrollRef = useRef(null)
+  const abortRef = useRef(null)
 
   const pkg = PACKAGES[studentData?.package] || PACKAGES.asas
   const dailyLimit = pkg.chatbot_limit || 10
+
+  // Cleanup abort controller on unmount
+  useEffect(() => {
+    return () => { abortRef.current?.abort() }
+  }, [])
 
   // Load history from localStorage
   useEffect(() => {
@@ -63,20 +70,28 @@ export default function StudentChatbot() {
     setSending(true)
 
     try {
-      const { data: { session } } = await supabase.auth.getSession()
+      abortRef.current?.abort()
+      const controller = new AbortController()
+      abortRef.current = controller
 
-      // Build conversation history for context
+      const { data: { session } } = await supabase.auth.getSession()
       const history = messages.slice(-6).map(m => ({ role: m.role, content: m.content }))
 
-      const res = await supabase.functions.invoke('ai-chatbot', {
+      const res = await invokeWithRetry('ai-chatbot', {
         body: { message: msg, conversation_history: history },
         headers: { Authorization: `Bearer ${session?.access_token}` },
-      })
+      }, { timeoutMs: 30000, retries: 1, signal: controller.signal })
 
-      if (res.error) throw new Error(typeof res.error === 'object' ? (res.error.message || 'خطأ في الاتصال') : String(res.error))
+      if (controller.signal.aborted) return
+
+      if (res.error) {
+        const errMsg = typeof res.error === 'object' ? (res.error.message || 'خطأ في الاتصال') : String(res.error)
+        setMessages(prev => [...prev, { role: 'assistant', content: errMsg, isError: true, timestamp: new Date().toISOString() }])
+        return
+      }
+
       const result = res.data
-
-      if (result.error) {
+      if (result?.error) {
         setMessages(prev => [...prev, { role: 'assistant', content: result.error, isError: true, timestamp: new Date().toISOString() }])
         return
       }
@@ -100,7 +115,7 @@ export default function StudentChatbot() {
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+          <h1 className="text-page-title flex items-center gap-2">
             <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
               <Bot size={20} className="text-violet-400" />
             </div>

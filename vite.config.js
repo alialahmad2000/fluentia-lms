@@ -7,7 +7,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'icons/icon.svg'],
+      includeAssets: ['logo-icon-dark.png', 'logo-icon-light.png', 'logo-full-dark.png', 'logo-full-light.png'],
       manifest: {
         name: 'Fluentia Academy — أكاديمية طلاقة',
         short_name: 'Fluentia',
@@ -20,12 +20,13 @@ export default defineConfig({
         start_url: '/',
         scope: '/',
         icons: [
-          { src: '/icons/icon.svg', sizes: '192x192', type: 'image/svg+xml' },
-          { src: '/icons/icon.svg', sizes: '512x512', type: 'image/svg+xml' },
-          { src: '/icons/icon.svg', sizes: '512x512', type: 'image/svg+xml', purpose: 'maskable' },
+          { src: '/logo-icon-dark.png', sizes: '192x192', type: 'image/png' },
+          { src: '/logo-icon-dark.png', sizes: '512x512', type: 'image/png' },
+          { src: '/logo-icon-dark.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
       },
       workbox: {
+        maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         runtimeCaching: [
           {

@@ -122,13 +122,13 @@ export default function TrainerQuickNotes() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
           <StickyNote size={20} className="text-sky-400" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-white">ملاحظات سريعة</h1>
+          <h1 className="text-page-title">ملاحظات سريعة</h1>
           <p className="text-muted text-sm mt-1">اكتب ملاحظات قصيرة عن الطلاب</p>
         </div>
       </div>
@@ -144,7 +144,7 @@ export default function TrainerQuickNotes() {
         </select>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Student list */}
         <div className="space-y-2">
           <p className="text-sm text-muted">اختر طالب</p>
@@ -188,7 +188,7 @@ export default function TrainerQuickNotes() {
               className="space-y-4"
             >
               {/* Note form */}
-              <div className="glass-card p-5 space-y-4">
+              <div className="glass-card p-7 space-y-4">
                 <p className="text-sm text-white">
                   ملاحظة عن{' '}
                   <span className="text-sky-400 font-bold">{getStudentName(selectedStudent)}</span>

@@ -113,7 +113,7 @@ export default function TrainerWeeklyGrading() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       {/* ─── Header ─────────────────────────────────────── */}
       <div>
         <div className="flex items-center gap-3 mb-1">
@@ -121,14 +121,14 @@ export default function TrainerWeeklyGrading() {
             <ClipboardCheck size={22} className="text-sky-400" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white">تقييم المهام الأسبوعية</h1>
+            <h1 className="text-page-title">تقييم المهام الأسبوعية</h1>
             <p className="text-muted text-sm mt-0.5">مراجعة وتقييم مهام الطلاب الأسبوعية</p>
           </div>
         </div>
       </div>
 
       {/* ─── Filters ────────────────────────────────────── */}
-      <div className="glass-card p-4">
+      <div className="glass-card p-7">
         <div className="flex items-center gap-2 mb-3 text-sm text-muted">
           <Filter size={14} />
           <span>تصفية</span>
@@ -187,7 +187,7 @@ export default function TrainerWeeklyGrading() {
       </div>
 
       {/* ─── Stats Row ──────────────────────────────────── */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div className="stat-card">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-yellow-500/10 flex items-center justify-center">
@@ -249,7 +249,7 @@ export default function TrainerWeeklyGrading() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.04 }}
-                className="glass-card p-5 cursor-pointer hover:border-sky-500/20 hover:translate-y-[-2px] transition-all duration-200"
+                className="glass-card p-7 cursor-pointer hover:border-sky-500/20 hover:translate-y-[-2px] transition-all duration-200"
                 onClick={() => setSelectedTask(task)}
               >
                 <div className="flex items-center justify-between gap-3">
@@ -464,7 +464,7 @@ function GradingModal({ task, getStudentName, onClose }) {
               <div className="space-y-2">
                 {task.response_answers.map((answer, idx) => (
                   <div key={idx} className="flex items-center gap-2 text-sm">
-                    <span className="w-6 h-6 rounded-lg bg-white/5 flex items-center justify-center text-xs text-muted shrink-0">
+                    <span className="w-6 h-6 rounded-lg flex items-center justify-center text-xs text-muted shrink-0" style={{ background: 'var(--color-bg-surface-raised)' }}>
                       {idx + 1}
                     </span>
                     <span className="text-white/90" dir="ltr">{typeof answer === 'object' ? JSON.stringify(answer) : answer}</span>
@@ -494,7 +494,7 @@ function GradingModal({ task, getStudentName, onClose }) {
                         <p key={i}>• {s}</p>
                       ))}
                       {task.ai_feedback.corrected_text && (
-                        <div className="mt-2 p-3 bg-white/5 rounded-lg">
+                        <div className="mt-2 p-3 rounded-lg" style={{ background: 'var(--color-bg-surface-raised)' }}>
                           <p className="text-xs text-muted mb-1">النص المصحح:</p>
                           <p dir="ltr">{task.ai_feedback.corrected_text}</p>
                         </div>
@@ -513,7 +513,7 @@ function GradingModal({ task, getStudentName, onClose }) {
         <div className="space-y-4 mb-6">
           <h3 className="text-sm font-semibold text-white/80">التقييم</h3>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-6">
             {/* Letter grade */}
             <div>
               <label className="input-label">التقدير</label>

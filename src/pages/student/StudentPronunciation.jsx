@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
 // ──────────────────────────────────────────────────
 // Safari / iOS detection
@@ -951,13 +952,16 @@ export default function StudentPronunciation() {
       throw new Error('Failed to upload audio')
     }
 
-    // Call whisper-transcribe edge function
-    const res = await supabase.functions.invoke('whisper-transcribe', {
+    // Call whisper-transcribe edge function with timeout/retry
+    const res = await invokeWithRetry('whisper-transcribe', {
       body: { voice_url: fileName, duration_seconds: 10 },
       headers: { Authorization: `Bearer ${session.access_token}` },
-    })
+    }, { timeoutMs: 30000, retries: 1 })
 
-    if (res.error) throw new Error(res.error.message)
+    if (res.error) {
+      const errMsg = typeof res.error === 'object' ? res.error.message : String(res.error)
+      throw new Error(errMsg)
+    }
     const data = res.data
     if (data?.error) throw new Error(data.error)
 
@@ -1036,9 +1040,9 @@ export default function StudentPronunciation() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+        <h1 className="text-page-title flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <Volume2 size={20} className="text-sky-400" />
           </div>
@@ -1145,7 +1149,7 @@ export default function StudentPronunciation() {
             key={`${section}-${mode}-${currentIndex}`}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass-card p-6"
+            className="glass-card p-7"
           >
             <div className="text-center mb-6">
               <p className="text-[10px] text-muted mb-2">{currentIndex + 1} / {totalItems}</p>

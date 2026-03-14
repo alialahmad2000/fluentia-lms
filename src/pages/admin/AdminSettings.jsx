@@ -117,7 +117,7 @@ export default function AdminSettings() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
@@ -125,7 +125,7 @@ export default function AdminSettings() {
             <Settings size={22} className="text-violet-400" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white">الإعدادات</h1>
+            <h1 className="text-page-title text-white">الإعدادات</h1>
             <p className="text-muted text-sm mt-1">إعدادات النظام وقيم النقاط</p>
           </div>
         </div>
@@ -142,14 +142,14 @@ export default function AdminSettings() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* XP Values */}
-        <div className="glass-card p-6">
+        <div className="glass-card p-7">
           <div className="flex items-center gap-3 mb-5">
             <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center">
               <Zap size={18} className="text-gold-400" />
             </div>
-            <h3 className="text-lg font-semibold text-white">قيم نقاط XP</h3>
+            <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>قيم نقاط XP</h3>
           </div>
           <div className="space-y-3">
             {Object.entries(xpLabels).map(([key, label]) => (
@@ -168,14 +168,14 @@ export default function AdminSettings() {
         </div>
 
         {/* Right Column */}
-        <div className="space-y-5">
+        <div className="space-y-6">
           {/* Package Prices */}
-          <div className="glass-card p-6">
+          <div className="glass-card p-7">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
                 <DollarSign size={18} className="text-emerald-400" />
               </div>
-              <h3 className="text-lg font-semibold text-white">أسعار الباقات (ريال)</h3>
+              <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>أسعار الباقات (ريال)</h3>
             </div>
             <div className="space-y-3">
               {Object.entries(packageLabels).map(([key, label]) => (
@@ -194,12 +194,12 @@ export default function AdminSettings() {
           </div>
 
           {/* Moyasar Payment Link */}
-          <div className="glass-card p-6">
+          <div className="glass-card p-7">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
                 <Link2 size={18} className="text-sky-400" />
               </div>
-              <h3 className="text-lg font-semibold text-white">رابط الدفع (Moyasar)</h3>
+              <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>رابط الدفع (Moyasar)</h3>
             </div>
             <p className="text-muted text-xs mb-3">رابط الدفع الذي يظهر للطلاب في صفحة الفواتير</p>
             <input
@@ -213,12 +213,12 @@ export default function AdminSettings() {
           </div>
 
           {/* AI Budget */}
-          <div className="glass-card p-6">
+          <div className="glass-card p-7">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
                 <Brain size={18} className="text-violet-400" />
               </div>
-              <h3 className="text-lg font-semibold text-white">ميزانية الذكاء الاصطناعي</h3>
+              <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>ميزانية الذكاء الاصطناعي</h3>
             </div>
             <p className="text-muted text-xs mb-3">الحد الأقصى الشهري لتكاليف API (ريال سعودي)</p>
             <div className="flex items-center gap-2">
@@ -234,12 +234,12 @@ export default function AdminSettings() {
           </div>
 
           {/* WhatsApp Integration */}
-          <div className="glass-card p-6">
+          <div className="glass-card p-7">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
                 <MessageCircle size={18} className="text-emerald-400" />
               </div>
-              <h3 className="text-lg font-semibold text-white">تكامل واتساب</h3>
+              <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>تكامل واتساب</h3>
             </div>
             <p className="text-muted text-xs mb-3">اربط API واتساب لإرسال الإشعارات (WATI / UltraMsg / غيره)</p>
             <div className="space-y-3">
@@ -269,12 +269,12 @@ export default function AdminSettings() {
           </div>
 
           {/* Payment Reminders */}
-          <div className="glass-card p-6">
+          <div className="glass-card p-7">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
                 <Bell size={18} className="text-amber-400" />
               </div>
-              <h3 className="text-lg font-semibold text-white">تذكير المدفوعات التلقائي</h3>
+              <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>تذكير المدفوعات التلقائي</h3>
             </div>
             <p className="text-muted text-xs mb-3">عدد الأيام قبل الموعد لإرسال تذكير تلقائي</p>
             <div className="flex items-center gap-2">
@@ -292,12 +292,12 @@ export default function AdminSettings() {
           </div>
 
           {/* System Info */}
-          <div className="glass-card p-6">
+          <div className="glass-card p-7">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
                 <Server size={18} className="text-sky-400" />
               </div>
-              <h3 className="text-lg font-semibold text-white">معلومات النظام</h3>
+              <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>معلومات النظام</h3>
             </div>
             <div className="space-y-3 text-sm">
               <div className="flex justify-between">

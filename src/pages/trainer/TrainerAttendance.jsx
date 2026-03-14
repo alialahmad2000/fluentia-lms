@@ -164,9 +164,9 @@ export default function TrainerAttendance() {
   const absentCount = Object.values(attendance).filter(s => s === 'absent').length
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div>
-        <h1 className="text-2xl font-bold text-white">تسجيل الحضور</h1>
+        <h1 className="text-page-title">تسجيل الحضور</h1>
         <p className="text-muted text-sm mt-1">سجّل حضور وغياب الطلاب</p>
       </div>
 
@@ -190,7 +190,7 @@ export default function TrainerAttendance() {
       {selectedClass && students?.length > 0 && (
         <>
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-5">
+          <div className="grid grid-cols-3 gap-6">
             <div className="stat-card">
               <div className="stat-icon bg-emerald-500/10"><UserCheck size={20} className="text-emerald-400" /></div>
               <p className="stat-number text-3xl font-bold text-white">{presentCount}</p>
