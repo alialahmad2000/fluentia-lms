@@ -12,6 +12,29 @@
 
 ---
 
+## 🔄 SELF-UPDATE RULE (CRITICAL — ALWAYS FOLLOW)
+
+**After completing EVERY task** (feature, fix, change, no matter how small), you MUST:
+
+1. **Update the CHANGE LOG at the bottom of THIS file** with what you did
+2. **Update FLUENTIA-SPEC.md** if you added new DB tables, pages, edge functions, or changed architecture
+3. **Include CLAUDE.md and FLUENTIA-SPEC.md in your git commit** so changes are never lost
+
+**WHY:** If the terminal closes unexpectedly, the next session reads this file and knows EXACTLY what has been done. Nothing is lost. This file is the single source of truth.
+
+**Format for log entries:**
+```
+### [DATE] — [SHORT DESCRIPTION]
+- What: [what was built/fixed]
+- Files: [key files added/modified]
+- DB: [new tables/columns if any]
+- Edge Functions: [new/modified if any]
+- Status: [complete/partial/needs-testing]
+- Notes: [anything important for next session]
+```
+
+---
+
 ## PROJECT: Fluentia LMS (أكاديمية طلاقة)
 
 A premium Arabic-first Learning Management System for Fluentia Academy, an online English language academy in Saudi Arabia.
@@ -151,6 +174,7 @@ English body: 'Inter'
 15. **Error handling:** never show raw errors — always Arabic, friendly, with clear next step
 16. **Every async operation in useEffect MUST have cleanup** (mounted flag or AbortController) to prevent crashes on rapid navigation
 17. **Commit + push after each meaningful milestone** — Vercel auto-deploys from main
+18. **ALWAYS update this CLAUDE.md change log after every task** — this is how we maintain memory across sessions
 
 ---
 
@@ -239,3 +263,33 @@ supabase/
 ├── functions/       # Edge functions (Deno/TypeScript)
 └── migrations/      # DB migrations (some run manually via SQL Editor)
 ```
+
+---
+
+## PLANNED FEATURES (from prompt queue)
+
+These prompts have been written and are ready to paste into Claude Code:
+
+1. **Fix Rapid Navigation Crash** — async cleanup, debounce, error boundaries
+2. **Design Overhaul Phase A** — shared component redesign (Apple aesthetic)
+3. **Design Overhaul Phase B** — all 40+ pages sweep
+4. **Weekly Tasks + Spelling Trainer** — auto-generated tasks + AI spelling practice
+5. **Conversation Simulator Redesign** — rich gradient cards with previews
+6. **AI Form Filler** — universal smart form assistant for trainer/admin
+7. **Sidebar Reorganization** — معمل التحدث category
+
+---
+
+## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
+
+<!-- 
+Claude Code: Add new entries at the TOP of this section.
+Always include: date, what changed, files touched, status.
+This is how future sessions know what happened.
+-->
+
+### March 14, 2026 — CLAUDE.md + FLUENTIA-SPEC.md added
+- What: Added project context files for Claude Code auto-read
+- Files: CLAUDE.md, FLUENTIA-SPEC.md
+- Status: Complete
+- Notes: All 10 LMS phases were already complete. Keys are in .env only (not in these files).
