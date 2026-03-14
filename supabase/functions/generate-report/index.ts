@@ -54,7 +54,15 @@ serve(async (req) => {
       )
     }
 
-    const body = await req.json()
+    let body;
+    try {
+      body = await req.json()
+    } catch {
+      return new Response(JSON.stringify({ error: 'Invalid request body' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 400,
+      })
+    }
     const { student_id, period_days } = body
 
     if (!student_id || typeof student_id !== 'string') {
@@ -126,7 +134,7 @@ Submissions: ${totalSubmissions} total, ${lateCount} late
 Average grade: ${avgGrade !== null ? avgGrade + '%' : 'N/A'}
 Attendance: ${presentCount}/${totalClasses} classes (${absentCount} absences)
 Achievements earned: ${newAchievements}
-Vocabulary mastered: ${vocabCount?.count || 0} words
+Vocabulary mastered: ${vocabCount || 0} words
 Assignment types: ${[...new Set((submissions || []).map(s => s.assignments?.type).filter(Boolean))].join(', ') || 'None'}`
 
     if (!CLAUDE_API_KEY) {
@@ -190,7 +198,7 @@ Respond ONLY with valid JSON.`,
       attendance_rate: totalClasses > 0 ? Math.round((presentCount / totalClasses) * 100) : null,
       current_streak: student?.current_streak || 0,
       achievements_earned: newAchievements,
-      vocab_mastered: vocabCount?.count || 0,
+      vocab_mastered: vocabCount || 0,
     }
     report.student_name = studentName
     report.period_days = periodDays

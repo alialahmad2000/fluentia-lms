@@ -82,7 +82,15 @@ serve(async (req) => {
     }
 
     // Parse request body
-    const body = await req.json()
+    let body;
+    try {
+      body = await req.json()
+    } catch {
+      return new Response(JSON.stringify({ error: 'Invalid request body' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 400,
+      })
+    }
     const { message, history } = body as {
       message: string
       history?: Array<{ role: string; content: string }>

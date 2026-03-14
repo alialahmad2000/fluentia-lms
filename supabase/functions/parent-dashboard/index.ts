@@ -21,7 +21,16 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || ''
     )
 
-    const { access_code, action } = await req.json()
+    let body;
+    try {
+      body = await req.json()
+    } catch {
+      return new Response(JSON.stringify({ error: 'Invalid request body' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 400,
+      })
+    }
+    const { access_code, action } = body
 
     if (!access_code || typeof access_code !== 'string') {
       return new Response(JSON.stringify({ error: 'access_code required' }), {

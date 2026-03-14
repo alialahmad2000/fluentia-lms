@@ -79,7 +79,16 @@ serve(async (req) => {
       })
     }
 
-    const { student_id, pattern_id } = await req.json()
+    let body;
+    try {
+      body = await req.json()
+    } catch {
+      return new Response(JSON.stringify({ error: 'Invalid request body' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 400,
+      })
+    }
+    const { student_id, pattern_id } = body
 
     if (!student_id) {
       return new Response(JSON.stringify({ error: 'student_id required' }), {

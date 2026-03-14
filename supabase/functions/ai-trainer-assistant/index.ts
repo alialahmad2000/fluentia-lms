@@ -1790,7 +1790,15 @@ serve(async (req) => {
     }
 
     const role = profile.role
-    const body = await req.json()
+    let body;
+    try {
+      body = await req.json()
+    } catch {
+      return new Response(JSON.stringify({ error: 'Invalid request body' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 400,
+      })
+    }
     const { message, history, confirmed_action } = body
 
     // Get trainer's group IDs

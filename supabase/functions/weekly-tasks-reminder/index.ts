@@ -15,6 +15,15 @@ serve(async (req) => {
     return new Response('ok', { headers: corsHeaders })
   }
 
+  // Auth: require service-role key or admin JWT
+  const authHeader = req.headers.get('Authorization')
+  if (!authHeader) {
+    return new Response(JSON.stringify({ error: 'Missing authorization' }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      status: 401,
+    })
+  }
+
   try {
     const supabase = createClient(
       Deno.env.get('SUPABASE_URL') || '',
@@ -113,7 +122,7 @@ serve(async (req) => {
 
         reminded++
       } catch (err) {
-        errors.push(`Error for set ${taskSet.id}: ${err.message}`)
+        errors.push(`Error for set ${taskSet.id}: ${(err as Error).message}`)
       }
     }
 
@@ -127,8 +136,9 @@ serve(async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     })
   } catch (error) {
-    console.error('[weekly-tasks-reminder] Error:', error.message)
-    return new Response(JSON.stringify({ error: error.message }), {
+    const message = error instanceof Error ? error.message : 'Internal server error'
+    console.error('[weekly-tasks-reminder] Error:', message)
+    return new Response(JSON.stringify({ error: message }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     })

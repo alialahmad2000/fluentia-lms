@@ -50,7 +50,15 @@ serve(async (req) => {
       )
     }
 
-    const body = await req.json()
+    let body;
+    try {
+      body = await req.json()
+    } catch {
+      return new Response(JSON.stringify({ error: 'Invalid request body' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 400,
+      })
+    }
     const { voice_url, submission_id, duration_seconds } = body
 
     if (!voice_url || typeof voice_url !== 'string') {
@@ -119,7 +127,15 @@ serve(async (req) => {
           estimated_cost_sar: whisperCost.toFixed(4),
         })
       } else {
-        console.error('[whisper-transcribe] Whisper error:', await whisperRes.text())
+        const errText = await whisperRes.text()
+        console.error('[whisper-transcribe] Whisper API error:', whisperRes.status, errText)
+        return new Response(JSON.stringify({
+          error: 'فشل في تحويل الصوت إلى نص',
+          error_ar: 'فشل في تحويل الصوت إلى نص — حاول مرة أخرى'
+        }), {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          status: 502,
+        })
       }
     }
 

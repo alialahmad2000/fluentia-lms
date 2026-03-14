@@ -381,7 +381,12 @@ serve(async (req) => {
     }
 
     // ── Parse body ──
-    const body = await req.json()
+    let body;
+    try {
+      body = await req.json()
+    } catch {
+      return jsonResponse({ error: 'Invalid request body' }, 400)
+    }
     const { task_id } = body
 
     if (!task_id || typeof task_id !== 'string') {

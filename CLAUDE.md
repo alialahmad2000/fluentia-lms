@@ -282,11 +282,25 @@ These prompts have been written and are ready to paste into Claude Code:
 
 ## CHANGE LOG (Claude Code: update this after EVERY task — newest first)
 
-<!-- 
+<!--
 Claude Code: Add new entries at the TOP of this section.
 Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
+
+### March 14, 2026 — Edge Function Audit & Fix (All 22 Functions)
+- What: Systematic audit and fix of all 22 edge functions — auth, CORS, body parsing, error handling, bug fixes
+- Fixes applied:
+  - **Auth added** to 5 unprotected functions: send-email (was open relay!), cron-streak-check, generate-weekly-tasks, payment-reminder, weekly-tasks-reminder
+  - **Body parsing** try/catch added to 16 functions (return 400 instead of 500 on malformed JSON)
+  - **generate-report** vocabCount access bug fixed (was always undefined)
+  - **whisper-transcribe** now returns error on Whisper API failure instead of silently continuing
+  - **ai-lesson-planner, analyze-error-patterns** no longer leak raw error messages to client
+  - **weekly-tasks-reminder** TypeScript err.message typing fixed
+- Files: All 22 functions in supabase/functions/
+- Edge Functions: All 22 redeployed to Supabase
+- Status: Complete — all deployed and active
+- Notes: Missing secret RESEND_API_KEY — send-email function needs it set in Supabase dashboard
 
 ### March 14, 2026 — Full LMS Transformation (Theme + Visual Overhaul + AI Reliability + Logo + Edge Fixes)
 - What: Complete dark/light/auto theme system, Apple-level visual overhaul of all 61+ pages, AI frontend reliability (timeout/retry/abort), real logo integration, favicon fix, edge function env var + rate limit fixes, light-mode compatibility across all shared components

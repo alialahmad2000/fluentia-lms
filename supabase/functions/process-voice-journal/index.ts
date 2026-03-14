@@ -118,7 +118,16 @@ serve(async (req) => {
       })
     }
 
-    const { student_id, audio_url, duration_seconds, topic, mood } = await req.json()
+    let body;
+    try {
+      body = await req.json()
+    } catch {
+      return new Response(JSON.stringify({ error: 'Invalid request body' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 400,
+      })
+    }
+    const { student_id, audio_url, duration_seconds, topic, mood } = body
 
     if (!student_id || !audio_url) {
       return new Response(JSON.stringify({ error: 'student_id and audio_url required' }), {

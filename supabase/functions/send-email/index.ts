@@ -113,8 +113,25 @@ serve(async (req) => {
     return new Response('ok', { headers: corsHeaders })
   }
 
+  // Auth: require service-role key or admin JWT
+  const authHeader = req.headers.get('Authorization')
+  if (!authHeader) {
+    return new Response(JSON.stringify({ error: 'Missing authorization' }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      status: 401,
+    })
+  }
+
   try {
-    const body = await req.json()
+    let body;
+    try {
+      body = await req.json()
+    } catch {
+      return new Response(JSON.stringify({ error: 'Invalid request body' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 400,
+      })
+    }
     const { to, type, data, subject: rawSubject, html: rawHtml } = body
 
     if (!to || typeof to !== 'string' || !to.includes('@')) {

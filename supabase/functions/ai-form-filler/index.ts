@@ -94,7 +94,15 @@ serve(async (req) => {
     }
 
     // 3. Parse and validate request body
-    const body: RequestBody = await req.json()
+    let body: RequestBody;
+    try {
+      body = await req.json()
+    } catch {
+      return new Response(JSON.stringify({ error: 'Invalid request body' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 400,
+      })
+    }
     const { pageId, formSchema, userMessage, contextData } = body
 
     if (!pageId || typeof pageId !== 'string') {

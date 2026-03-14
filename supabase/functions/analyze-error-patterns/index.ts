@@ -79,7 +79,16 @@ serve(async (req) => {
       })
     }
 
-    const { student_id, submission_id, analyze_all } = await req.json()
+    let body;
+    try {
+      body = await req.json()
+    } catch {
+      return new Response(JSON.stringify({ error: 'Invalid request body' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 400,
+      })
+    }
+    const { student_id, submission_id, analyze_all } = body
 
     if (!student_id) {
       return new Response(JSON.stringify({ error: 'student_id required' }), {
@@ -208,7 +217,7 @@ Return empty array [] if no clear patterns found.`
     )
   } catch (error: any) {
     console.error('[analyze-error-patterns]', error.message)
-    return new Response(JSON.stringify({ error: error.message }), {
+    return new Response(JSON.stringify({ error: 'حدث خطأ في المعالجة', error_ar: 'حدث خطأ في المعالجة — حاول مرة أخرى' }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 500,
     })

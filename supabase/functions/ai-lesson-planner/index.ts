@@ -57,7 +57,16 @@ serve(async (req) => {
       })
     }
 
-    const { group_id, topic, duration_minutes, focus_skills } = await req.json()
+    let body;
+    try {
+      body = await req.json()
+    } catch {
+      return new Response(JSON.stringify({ error: 'Invalid request body' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 400,
+      })
+    }
+    const { group_id, topic, duration_minutes, focus_skills } = body
 
     if (!group_id) {
       return new Response(JSON.stringify({ error: 'group_id required' }), {
@@ -220,7 +229,7 @@ Create a comprehensive, engaging lesson plan.`
     })
   } catch (error: any) {
     console.error('[ai-lesson-planner]', error.message)
-    return new Response(JSON.stringify({ error: error.message }), {
+    return new Response(JSON.stringify({ error: 'حدث خطأ في المعالجة', error_ar: 'حدث خطأ في المعالجة — حاول مرة أخرى' }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 500,
     })

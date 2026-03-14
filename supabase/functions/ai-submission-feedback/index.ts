@@ -77,7 +77,15 @@ serve(async (req) => {
       )
     }
 
-    const body = await req.json()
+    let body;
+    try {
+      body = await req.json()
+    } catch {
+      return new Response(JSON.stringify({ error: 'Invalid request body' }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 400,
+      })
+    }
     const { submission_id } = body
     if (!submission_id || typeof submission_id !== 'string' || !submission_id.trim()) {
       return new Response(
