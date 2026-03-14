@@ -511,6 +511,43 @@ serve(async (req) => {
         break
       }
 
+      case 'vocabulary': {
+        // Auto-grade vocabulary quiz (similar to irregular verbs — no AI needed)
+        const vocabContent = task.content || {}
+        const vocabWords = vocabContent.words || []
+        const vocabAnswers = task.response_answers || []
+
+        let vocabCorrect = 0
+        const vocabResults: any[] = []
+
+        for (let i = 0; i < vocabWords.length; i++) {
+          const word = vocabWords[i]
+          const studentEntry = vocabAnswers[i] || vocabAnswers.find((a: any) => a.word_index === i) || {}
+          const userAnswer = String(studentEntry.user_answer || studentEntry.answer || '').trim().toLowerCase()
+          const correctWord = String(word.word || '').trim().toLowerCase()
+          const isCorrect = userAnswer === correctWord
+
+          if (isCorrect) vocabCorrect++
+
+          vocabResults.push({
+            word: word.word,
+            translation_ar: word.translation_ar,
+            user_answer: studentEntry.user_answer || studentEntry.answer || '',
+            is_correct: isCorrect,
+          })
+        }
+
+        const vocabScore = vocabWords.length > 0 ? Math.round((vocabCorrect / vocabWords.length) * 100) : 0
+
+        feedback = {
+          auto_score: vocabScore,
+          results: vocabResults,
+          total_words: vocabWords.length,
+          correct_count: vocabCorrect,
+        }
+        break
+      }
+
       default:
         return jsonResponse({ error: `Unknown task type: ${task.type}` }, 400)
     }
@@ -625,6 +662,43 @@ serve(async (req) => {
           .update({ xp_total: (student.xp_total || 0) + totalXpAwarded })
           .eq('id', task.student_id)
       }
+    }
+
+    // ── Post to activity feed ──
+    try {
+      const { data: studentProfile } = await supabase
+        .from('profiles')
+        .select('full_name, display_name')
+        .eq('id', task.student_id)
+        .single()
+
+      const studentName = studentProfile?.display_name || studentProfile?.full_name || 'طالب'
+      const typeLabels: Record<string, string> = {
+        speaking: 'تحدث',
+        reading: 'قراءة',
+        writing: 'كتابة',
+        listening: 'استماع',
+        irregular_verbs: 'أفعال شاذة',
+        vocabulary: 'مفردات',
+      }
+      const typeLabel = typeLabels[task.type] || task.type
+      const wasOnTime = task.deadline ? new Date(task.deadline) >= new Date(task.submitted_at || now) : true
+
+      await supabase.from('activity_feed').insert({
+        user_id: task.student_id,
+        type: 'task_completed',
+        title: `أكمل مهمة ${typeLabel}`,
+        description: `${studentName} أكمل مهمة "${task.title}" وحصل على ${autoScore}%`,
+        metadata: {
+          task_id: task.id,
+          task_type: task.type,
+          score: autoScore,
+          xp_earned: wasOnTime ? 10 : 5,
+        },
+      })
+    } catch (feedErr) {
+      console.error('[grade-weekly-task] Activity feed error:', feedErr)
+      // Non-critical — don't fail the grading
     }
 
     // ── Log AI usage ──

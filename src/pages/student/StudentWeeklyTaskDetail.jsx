@@ -3,45 +3,22 @@ import { useParams, Link } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  ArrowRight,
-  Mic,
-  MicOff,
-  Square,
-  Play,
-  Pause,
-  Send,
-  Clock,
-  Star,
-  CheckCircle2,
-  XCircle,
-  BookOpen,
-  PenLine,
-  Headphones,
-  Volume2,
-  ChevronLeft,
-  ChevronRight,
-  RotateCcw,
-  Award,
-  AlertCircle,
-  Loader2,
+  ArrowRight, Mic, MicOff, Square, Play, Pause, Send, Clock, Star,
+  CheckCircle2, XCircle, BookOpen, PenLine, Headphones, Volume2,
+  ChevronLeft, ChevronRight, RotateCcw, Award, AlertCircle, Loader2,
+  BookType, Sparkles,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
 const TYPE_CONFIG = {
-  speaking: { icon: Mic, label: 'محادثة', color: 'text-rose-400', bg: 'bg-rose-500/10 border-rose-500/20' },
-  reading: { icon: BookOpen, label: 'قراءة', color: 'text-sky-400', bg: 'bg-sky-500/10 border-sky-500/20' },
-  writing: { icon: PenLine, label: 'كتابة', color: 'text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/20' },
-  listening: { icon: Headphones, label: 'استماع', color: 'text-amber-400', bg: 'bg-amber-500/10 border-amber-500/20' },
-  irregular_verbs: { icon: RotateCcw, label: 'أفعال شاذة', color: 'text-purple-400', bg: 'bg-purple-500/10 border-purple-500/20' },
-}
-
-const STATUS_BADGES = {
-  pending: 'badge-warning',
-  submitted: 'badge-info',
-  graded: 'badge-success',
-  overdue: 'badge-danger',
+  speaking:        { icon: Mic,        label: 'تحدث',       gradient: 'from-sky-500 to-cyan-400',     bg: 'bg-sky-500/8',     border: 'border-sky-500/15',    text: 'text-sky-400' },
+  reading:         { icon: BookOpen,   label: 'قراءة',      gradient: 'from-emerald-500 to-teal-400', bg: 'bg-emerald-500/8', border: 'border-emerald-500/15', text: 'text-emerald-400' },
+  writing:         { icon: PenLine,    label: 'كتابة',      gradient: 'from-violet-500 to-purple-400', bg: 'bg-violet-500/8', border: 'border-violet-500/15', text: 'text-violet-400' },
+  listening:       { icon: Headphones, label: 'استماع',     gradient: 'from-amber-500 to-orange-400', bg: 'bg-amber-500/8',  border: 'border-amber-500/15',  text: 'text-amber-400' },
+  irregular_verbs: { icon: RotateCcw,  label: 'أفعال شاذة', gradient: 'from-rose-500 to-pink-400',    bg: 'bg-rose-500/8',   border: 'border-rose-500/15',   text: 'text-rose-400' },
+  vocabulary:      { icon: BookType,   label: 'مفردات',     gradient: 'from-indigo-500 to-blue-400',  bg: 'bg-indigo-500/8', border: 'border-indigo-500/15', text: 'text-indigo-400' },
 }
 
 const STATUS_LABELS = {
@@ -80,7 +57,6 @@ export default function StudentWeeklyTaskDetail() {
         .eq('id', task.id)
       if (error) throw error
 
-      // Trigger AI grading (fire-and-forget for non-blocking UX)
       try {
         const { data: { session } } = await supabase.auth.getSession()
         await invokeWithRetry('grade-weekly-task', {
@@ -101,17 +77,18 @@ export default function StudentWeeklyTaskDetail() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        <div className="w-8 h-8 border-2 border-sky-400 border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
 
   if (!task) {
     return (
-      <div className="glass-card p-8 text-center space-y-4">
-        <AlertCircle className="w-12 h-12 text-muted mx-auto" />
-        <p className="text-muted">لم يتم العثور على المهمة</p>
-        <Link to="/student/weekly-tasks" className="btn-secondary inline-block">
+      <div className="rounded-2xl border border-white/[0.06] p-10 text-center space-y-4" style={{ background: 'rgba(255,255,255,0.02)' }}>
+        <AlertCircle className="w-10 h-10 text-white/20 mx-auto" />
+        <p className="text-white/40">لم يتم العثور على المهمة</p>
+        <Link to="/student/weekly-tasks" className="inline-flex items-center gap-2 text-sky-400 hover:text-sky-300 text-sm transition-colors">
+          <ArrowRight className="w-4 h-4" />
           العودة للمهام
         </Link>
       </div>
@@ -124,49 +101,69 @@ export default function StudentWeeklyTaskDetail() {
   const isSubmitted = task.status === 'submitted' || task.status === 'graded'
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
-        <Link
-          to="/student/weekly-tasks"
-          className="inline-flex items-center gap-2 text-muted hover:text-white transition-colors text-sm"
-        >
-          <ArrowRight className="w-4 h-4" />
-          العودة للمهام الأسبوعية
-        </Link>
+    <div className="space-y-6 pb-8">
+      {/* Back link */}
+      <Link
+        to="/student/weekly-tasks"
+        className="inline-flex items-center gap-2 text-white/30 hover:text-white/60 transition-colors text-sm"
+      >
+        <ArrowRight className="w-4 h-4" />
+        المهام الأسبوعية
+      </Link>
 
-        <div className="glass-card p-6">
+      {/* Hero header */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="relative overflow-hidden rounded-2xl border border-white/[0.06]"
+        style={{ background: 'rgba(255,255,255,0.02)' }}
+      >
+        <div className={`h-1 bg-gradient-to-r ${config.gradient}`} />
+        <div className="p-6">
           <div className="flex items-start justify-between gap-4 flex-wrap">
-            <div className="flex items-center gap-3">
-              <div className={`p-3 rounded-xl border ${config.bg}`}>
-                <TypeIcon className={`w-6 h-6 ${config.color}`} />
+            <div className="flex items-center gap-3.5">
+              <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${config.gradient} bg-opacity-20 ${config.bg} flex items-center justify-center ring-1 ${config.border}`}>
+                <TypeIcon className={`w-5 h-5 ${config.text}`} />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-white">{task.title}</h1>
-                <p className="text-muted text-sm mt-1">{config.label}</p>
+                <h1 className="text-lg sm:text-xl font-bold text-white">{task.title}</h1>
+                <p className="text-white/30 text-sm mt-0.5">{config.label}</p>
               </div>
             </div>
 
             <div className="flex items-center gap-3 flex-wrap">
-              <span className={`${STATUS_BADGES[task.status] || 'badge-warning'} px-3 py-1 rounded-full text-xs font-medium`}>
+              <span className={`px-3 py-1 rounded-lg text-xs font-medium ${
+                task.status === 'graded' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/15' :
+                task.status === 'submitted' ? 'bg-sky-500/10 text-sky-400 border border-sky-500/15' :
+                'bg-white/5 text-white/40 border border-white/[0.06]'
+              }`}>
                 {STATUS_LABELS[task.status] || task.status}
               </span>
               {task.deadline && (
-                <span className="flex items-center gap-1 text-muted text-sm">
-                  <Clock className="w-4 h-4" />
+                <span className="flex items-center gap-1.5 text-white/30 text-xs">
+                  <Clock className="w-3.5 h-3.5" />
                   {new Date(task.deadline).toLocaleDateString('ar-EG', {
                     weekday: 'short', month: 'short', day: 'numeric',
                   })}
                 </span>
               )}
               {task.points != null && (
-                <span className="flex items-center gap-1 text-amber-400 text-sm font-medium">
-                  <Star className="w-4 h-4" />
+                <span className="flex items-center gap-1 text-amber-400/70 text-xs font-medium">
+                  <Star className="w-3.5 h-3.5" />
                   {task.points} نقطة
                 </span>
               )}
             </div>
           </div>
+
+          {/* Instructions */}
+          {(task.instructions_ar || task.instructions) && (
+            <div className="mt-4 p-4 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+              <p className="text-sm text-white/50 leading-relaxed">
+                {task.instructions_ar || task.instructions}
+              </p>
+            </div>
+          )}
         </div>
       </motion.div>
 
@@ -187,11 +184,18 @@ export default function StudentWeeklyTaskDetail() {
         {task.type === 'irregular_verbs' && (
           <IrregularVerbsTask task={task} content={content} isSubmitted={isSubmitted} onSubmit={submitMutation} />
         )}
+        {task.type === 'vocabulary' && (
+          <VocabularyTask task={task} content={content} isSubmitted={isSubmitted} onSubmit={submitMutation} />
+        )}
       </motion.div>
 
       {/* AI Feedback (after grading) */}
       {task.status === 'graded' && task.ai_feedback && (
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
           <FeedbackDisplay feedback={task.ai_feedback} autoScore={task.auto_score} type={task.type} />
         </motion.div>
       )}
@@ -220,11 +224,15 @@ function SpeakingTask({ task, content, isSubmitted, onSubmit }) {
   async function startRecording() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-      const mr = new MediaRecorder(stream)
+      // Safari → audio/mp4, Chrome → audio/webm
+      const mimeType = MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
+        ? 'audio/webm;codecs=opus'
+        : 'audio/mp4'
+      const mr = new MediaRecorder(stream, { mimeType })
       chunksRef.current = []
       mr.ondataavailable = (e) => chunksRef.current.push(e.data)
       mr.onstop = () => {
-        const blob = new Blob(chunksRef.current, { type: 'audio/webm' })
+        const blob = new Blob(chunksRef.current, { type: mimeType })
         setAudioBlob(blob)
         setAudioUrl(URL.createObjectURL(blob))
         stream.getTracks().forEach((t) => t.stop())
@@ -259,10 +267,11 @@ function SpeakingTask({ task, content, isSubmitted, onSubmit }) {
     if (!audioBlob) return
     setUploading(true)
     try {
-      const fileName = `speaking/${task.id}_${Date.now()}.webm`
+      const ext = audioBlob.type.includes('mp4') ? 'mp4' : 'webm'
+      const fileName = `speaking/${task.id}_${Date.now()}.${ext}`
       const { error: uploadError } = await supabase.storage
         .from('voice-recordings')
-        .upload(fileName, audioBlob, { contentType: 'audio/webm' })
+        .upload(fileName, audioBlob, { contentType: audioBlob.type })
       if (uploadError) throw uploadError
 
       const { data: urlData } = supabase.storage.from('voice-recordings').getPublicUrl(fileName)
@@ -282,99 +291,78 @@ function SpeakingTask({ task, content, isSubmitted, onSubmit }) {
   const formatTime = (s) => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {/* Topic & guiding questions */}
-      <div className="glass-card p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-white">{content.topic || 'موضوع المحادثة'}</h2>
+      <Card>
+        <h2 className="text-base font-semibold text-white mb-3">{content.topic || 'موضوع المحادثة'}</h2>
         {content.guiding_questions?.length > 0 && (
           <div className="space-y-2">
-            <p className="text-muted text-sm font-medium">أسئلة إرشادية:</p>
+            <p className="text-white/30 text-xs font-medium mb-2">أسئلة إرشادية:</p>
             <ul className="space-y-2">
               {content.guiding_questions.map((q, i) => (
-                <li key={i} className="flex items-start gap-2 text-white/80 text-sm">
-                  <span className="text-primary font-bold mt-0.5">{i + 1}.</span>
+                <li key={i} className="flex items-start gap-2.5 text-white/60 text-sm">
+                  <span className="w-5 h-5 rounded-md bg-sky-500/10 text-sky-400 text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+                    {i + 1}
+                  </span>
                   {q}
                 </li>
               ))}
             </ul>
           </div>
         )}
-      </div>
+      </Card>
 
       {/* Recording UI */}
       {!isSubmitted && (
-        <div className="glass-card p-6 space-y-6">
-          <div className="flex flex-col items-center gap-4">
-            {/* Timer */}
-            <div className="text-3xl font-mono text-white tabular-nums">{formatTime(duration)}</div>
+        <Card className="flex flex-col items-center gap-5">
+          <div className="text-4xl font-mono text-white tabular-nums tracking-wider">{formatTime(duration)}</div>
 
-            {/* Recording indicator */}
-            {recording && (
-              <div className="flex items-center gap-2">
-                <span className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />
-                <span className="text-red-400 text-sm">جاري التسجيل...</span>
-              </div>
-            )}
-
-            {/* Controls */}
-            <div className="flex items-center gap-4">
-              {!recording && !audioUrl && (
-                <button onClick={startRecording} className="btn-primary flex items-center gap-2 px-6 py-3 text-lg">
-                  <Mic className="w-5 h-5" />
-                  ابدأ التسجيل
-                </button>
-              )}
-              {recording && (
-                <button onClick={stopRecording} className="btn-secondary flex items-center gap-2 px-6 py-3 bg-red-500/20 border-red-500/30 text-red-400 hover:bg-red-500/30">
-                  <Square className="w-5 h-5" />
-                  إيقاف التسجيل
-                </button>
-              )}
-              {audioUrl && !recording && (
-                <>
-                  <button onClick={resetRecording} className="btn-secondary flex items-center gap-2">
-                    <RotateCcw className="w-4 h-4" />
-                    إعادة التسجيل
-                  </button>
-                </>
-              )}
+          {recording && (
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse" />
+              <span className="text-red-400 text-xs font-medium">جاري التسجيل</span>
             </div>
+          )}
 
-            {/* Playback */}
-            {audioUrl && (
-              <div className="w-full max-w-md">
-                <audio src={audioUrl} controls className="w-full" />
-                <p className="text-muted text-xs text-center mt-2">مدة التسجيل: {formatTime(duration)}</p>
-              </div>
+          <div className="flex items-center gap-3">
+            {!recording && !audioUrl && (
+              <button onClick={startRecording} className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-500 text-white font-medium text-sm hover:brightness-110 transition-all">
+                <Mic className="w-4 h-4" />
+                ابدأ التسجيل
+              </button>
+            )}
+            {recording && (
+              <button onClick={stopRecording} className="flex items-center gap-2 px-6 py-3 rounded-xl bg-red-500/15 border border-red-500/20 text-red-400 font-medium text-sm hover:bg-red-500/20 transition-all">
+                <Square className="w-4 h-4" />
+                إيقاف
+              </button>
+            )}
+            {audioUrl && !recording && (
+              <button onClick={resetRecording} className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/[0.06] text-white/60 text-sm hover:bg-white/[0.06] transition-all">
+                <RotateCcw className="w-3.5 h-3.5" />
+                إعادة
+              </button>
             )}
           </div>
 
-          {/* Submit */}
-          {audioUrl && !recording && (
-            <div className="flex justify-center">
-              <button
-                onClick={handleSubmit}
-                disabled={uploading || onSubmit.isPending}
-                className="btn-primary flex items-center gap-2 px-8 py-3"
-              >
-                {uploading || onSubmit.isPending ? (
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                ) : (
-                  <Send className="w-5 h-5" />
-                )}
-                إرسال التسجيل
-              </button>
+          {audioUrl && (
+            <div className="w-full max-w-md">
+              <audio src={audioUrl} controls className="w-full rounded-lg" />
+              <p className="text-white/20 text-[11px] text-center mt-2">مدة التسجيل: {formatTime(duration)}</p>
             </div>
           )}
-        </div>
+
+          {audioUrl && !recording && (
+            <SubmitButton onClick={handleSubmit} loading={uploading || onSubmit.isPending} label="إرسال التسجيل" />
+          )}
+        </Card>
       )}
 
-      {/* Already submitted */}
       {isSubmitted && task.response_voice_url && (
-        <div className="glass-card p-6 space-y-4">
-          <h3 className="text-white font-medium">التسجيل المرسل</h3>
+        <Card>
+          <h3 className="text-sm font-medium text-white/60 mb-3">التسجيل المرسل</h3>
           <audio src={task.response_voice_url} controls className="w-full" />
-        </div>
+        </Card>
       )}
     </div>
   )
@@ -386,14 +374,6 @@ function ReadingTask({ task, content, isSubmitted, onSubmit }) {
   const [showResults, setShowResults] = useState(isSubmitted)
   const questions = content.questions || []
 
-  function handleMCQChange(qIndex, value) {
-    setAnswers((prev) => ({ ...prev, [qIndex]: value }))
-  }
-
-  function handleOpenChange(qIndex, value) {
-    setAnswers((prev) => ({ ...prev, [qIndex]: value }))
-  }
-
   async function handleSubmit() {
     const formattedAnswers = Object.entries(answers).map(([idx, answer]) => ({
       question_index: parseInt(idx),
@@ -404,40 +384,30 @@ function ReadingTask({ task, content, isSubmitted, onSubmit }) {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Article */}
-      <div className="glass-card p-6 space-y-4">
+    <div className="space-y-5">
+      <Card>
         {content.article_title && (
-          <h2 className="text-lg font-semibold text-white">{content.article_title}</h2>
+          <h2 className="text-base font-semibold text-white mb-3">{content.article_title}</h2>
         )}
         {content.article_text && (
-          <div className="text-white/80 leading-relaxed whitespace-pre-wrap text-sm">
+          <div className="text-white/60 leading-relaxed whitespace-pre-wrap text-sm" dir="ltr">
             {content.article_text}
           </div>
         )}
-      </div>
+      </Card>
 
-      {/* Questions */}
       <QuestionsUI
         questions={questions}
         answers={answers}
         showResults={showResults}
         isSubmitted={isSubmitted}
-        onMCQChange={handleMCQChange}
-        onOpenChange={handleOpenChange}
+        onMCQChange={(i, v) => setAnswers(p => ({ ...p, [i]: v }))}
+        onOpenChange={(i, v) => setAnswers(p => ({ ...p, [i]: v }))}
       />
 
-      {/* Submit */}
       {!isSubmitted && (
         <div className="flex justify-center">
-          <button
-            onClick={handleSubmit}
-            disabled={onSubmit.isPending}
-            className="btn-primary flex items-center gap-2 px-8 py-3"
-          >
-            {onSubmit.isPending ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
-            إرسال الإجابات
-          </button>
+          <SubmitButton onClick={handleSubmit} loading={onSubmit.isPending} label="إرسال الإجابات" />
         </div>
       )}
     </div>
@@ -457,52 +427,49 @@ function WritingTask({ task, content, isSubmitted, onSubmit }) {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Prompt */}
-      <div className="glass-card p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-white">موضوع الكتابة</h2>
-        <p className="text-white/80 leading-relaxed">{content.prompt}</p>
+    <div className="space-y-5">
+      <Card>
+        <h2 className="text-base font-semibold text-white mb-3">موضوع الكتابة</h2>
+        <p className="text-white/60 leading-relaxed text-sm">{content.prompt}</p>
         {content.focus_areas?.length > 0 && (
-          <div className="flex flex-wrap gap-2 pt-2">
+          <div className="flex flex-wrap gap-2 mt-3">
             {content.focus_areas.map((area, i) => (
-              <span key={i} className="badge-info px-3 py-1 rounded-full text-xs">
+              <span key={i} className="px-2.5 py-0.5 rounded-md bg-violet-500/10 text-violet-400 border border-violet-500/15 text-[11px] font-medium">
                 {area}
               </span>
             ))}
           </div>
         )}
-        <div className="flex items-center gap-4 text-muted text-sm">
+        <div className="flex items-center gap-4 text-white/25 text-xs mt-3">
           {minWords > 0 && <span>الحد الأدنى: {minWords} كلمة</span>}
           {maxWords < Infinity && <span>الحد الأقصى: {maxWords} كلمة</span>}
         </div>
-      </div>
+      </Card>
 
-      {/* Writing area */}
-      <div className="glass-card p-6 space-y-4">
+      <Card>
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
           disabled={isSubmitted}
           placeholder="اكتب هنا..."
-          className="input-field w-full min-h-[300px] resize-y text-sm leading-relaxed"
+          className="w-full min-h-[280px] resize-y text-sm leading-relaxed bg-transparent border border-white/[0.06] rounded-xl p-4 text-white/80 placeholder:text-white/15 focus:outline-none focus:border-white/[0.12] focus:ring-1 focus:ring-sky-500/20 transition-all"
           dir="auto"
         />
-        <div className="flex items-center justify-between">
-          <span className={`text-sm font-medium ${isValidLength ? 'text-emerald-400' : 'text-amber-400'}`}>
+        <div className="flex items-center justify-between mt-3">
+          <span className={`text-xs font-medium ${isValidLength ? 'text-emerald-400/70' : 'text-amber-400/70'}`}>
             عدد الكلمات: {wordCount}
           </span>
           {!isSubmitted && (
-            <button
+            <SubmitButton
               onClick={handleSubmit}
-              disabled={onSubmit.isPending || !text.trim() || !isValidLength}
-              className="btn-primary flex items-center gap-2"
-            >
-              {onSubmit.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
-              إرسال الكتابة
-            </button>
+              loading={onSubmit.isPending}
+              disabled={!text.trim() || !isValidLength}
+              label="إرسال"
+              small
+            />
           )}
         </div>
-      </div>
+      </Card>
     </div>
   )
 }
@@ -512,14 +479,6 @@ function ListeningTask({ task, content, isSubmitted, onSubmit }) {
   const [answers, setAnswers] = useState({})
   const [showResults, setShowResults] = useState(isSubmitted)
   const questions = content.questions || []
-
-  function handleMCQChange(qIndex, value) {
-    setAnswers((prev) => ({ ...prev, [qIndex]: value }))
-  }
-
-  function handleOpenChange(qIndex, value) {
-    setAnswers((prev) => ({ ...prev, [qIndex]: value }))
-  }
 
   async function handleSubmit() {
     const formattedAnswers = Object.entries(answers).map(([idx, answer]) => ({
@@ -534,9 +493,8 @@ function ListeningTask({ task, content, isSubmitted, onSubmit }) {
   const youtubeId = isYouTube ? extractYouTubeId(content.media_url) : null
 
   return (
-    <div className="space-y-6">
-      {/* Media */}
-      <div className="glass-card p-6 space-y-4">
+    <div className="space-y-5">
+      <Card>
         {youtubeId ? (
           <div className="aspect-video rounded-xl overflow-hidden">
             <iframe
@@ -549,41 +507,32 @@ function ListeningTask({ task, content, isSubmitted, onSubmit }) {
           </div>
         ) : content.media_url ? (
           <div className="space-y-2">
-            <div className="flex items-center gap-2 text-white">
-              <Volume2 className="w-5 h-5 text-amber-400" />
-              <span className="font-medium">الملف الصوتي</span>
+            <div className="flex items-center gap-2 text-white/70">
+              <Volume2 className="w-4 h-4 text-amber-400" />
+              <span className="text-sm font-medium">الملف الصوتي</span>
             </div>
             <audio src={content.media_url} controls className="w-full" />
           </div>
         ) : content.topic_description ? (
           <div className="space-y-2">
-            <h2 className="text-lg font-semibold text-white">وصف الموضوع</h2>
-            <p className="text-white/80 leading-relaxed">{content.topic_description}</p>
+            <h2 className="text-base font-semibold text-white">وصف الموضوع</h2>
+            <p className="text-white/60 leading-relaxed text-sm">{content.topic_description}</p>
           </div>
         ) : null}
-      </div>
+      </Card>
 
-      {/* Questions */}
       <QuestionsUI
         questions={questions}
         answers={answers}
         showResults={showResults}
         isSubmitted={isSubmitted}
-        onMCQChange={handleMCQChange}
-        onOpenChange={handleOpenChange}
+        onMCQChange={(i, v) => setAnswers(p => ({ ...p, [i]: v }))}
+        onOpenChange={(i, v) => setAnswers(p => ({ ...p, [i]: v }))}
       />
 
-      {/* Submit */}
       {!isSubmitted && (
         <div className="flex justify-center">
-          <button
-            onClick={handleSubmit}
-            disabled={onSubmit.isPending}
-            className="btn-primary flex items-center gap-2 px-8 py-3"
-          >
-            {onSubmit.isPending ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
-            إرسال الإجابات
-          </button>
+          <SubmitButton onClick={handleSubmit} loading={onSubmit.isPending} label="إرسال الإجابات" />
         </div>
       )}
     </div>
@@ -597,7 +546,7 @@ function IrregularVerbsTask({ task, content, isSubmitted, onSubmit }) {
   const [pastSimple, setPastSimple] = useState('')
   const [pastParticiple, setPastParticiple] = useState('')
   const [revealed, setRevealed] = useState(false)
-  const [results, setResults] = useState([]) // { verb, pastSimple, pastParticiple, correct }
+  const [results, setResults] = useState([])
   const [finished, setFinished] = useState(isSubmitted)
 
   const currentVerb = verbs[currentIndex]
@@ -605,13 +554,11 @@ function IrregularVerbsTask({ task, content, isSubmitted, onSubmit }) {
 
   function checkAndNext() {
     if (!revealed) {
-      // Reveal the answer — handle alternatives separated by /
       const correctPastOptions = (currentVerb.past_simple || '').toLowerCase().split('/').map(s => s.trim())
       const correctParticipleOptions = (currentVerb.past_participle || '').toLowerCase().split('/').map(s => s.trim())
       const pastOk = correctPastOptions.includes(pastSimple.trim().toLowerCase())
       const participleOk = correctParticipleOptions.includes(pastParticiple.trim().toLowerCase())
-      const isCorrect = pastOk && participleOk
-      setResults((prev) => [
+      setResults(prev => [
         ...prev,
         {
           verb: currentVerb.base_form,
@@ -620,14 +567,13 @@ function IrregularVerbsTask({ task, content, isSubmitted, onSubmit }) {
           userPastParticiple: pastParticiple.trim(),
           correctPastSimple: currentVerb.past_simple,
           correctPastParticiple: currentVerb.past_participle,
-          correct: isCorrect,
+          correct: pastOk && participleOk,
         },
       ])
       setRevealed(true)
     } else {
-      // Move to next
       if (currentIndex < total - 1) {
-        setCurrentIndex((i) => i + 1)
+        setCurrentIndex(i => i + 1)
         setPastSimple('')
         setPastParticiple('')
         setRevealed(false)
@@ -637,7 +583,7 @@ function IrregularVerbsTask({ task, content, isSubmitted, onSubmit }) {
     }
   }
 
-  const score = results.filter((r) => r.correct).length
+  const score = results.filter(r => r.correct).length
 
   async function handleSubmit() {
     const formattedAnswers = results.map((r, i) => ({
@@ -646,172 +592,154 @@ function IrregularVerbsTask({ task, content, isSubmitted, onSubmit }) {
       past_simple: r.userPastSimple,
       past_participle: r.userPastParticiple,
     }))
-    await onSubmit.mutateAsync({
-      response_answers: formattedAnswers,
-    })
+    await onSubmit.mutateAsync({ response_answers: formattedAnswers })
   }
 
   if (verbs.length === 0) {
     return (
-      <div className="glass-card p-8 text-center">
-        <p className="text-muted">لا توجد أفعال في هذه المهمة</p>
-      </div>
+      <Card className="text-center">
+        <p className="text-white/30">لا توجد أفعال في هذه المهمة</p>
+      </Card>
     )
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {!finished ? (
         <>
           {/* Progress */}
-          <div className="glass-card p-4">
-            <div className="flex items-center justify-between text-sm text-muted mb-2">
+          <Card className="!p-4">
+            <div className="flex items-center justify-between text-xs text-white/30 mb-2">
               <span>الفعل {currentIndex + 1} من {total}</span>
-              <span>الإجابات الصحيحة: {results.filter((r) => r.correct).length}</span>
+              <span>{results.filter(r => r.correct).length} صحيح</span>
             </div>
-            <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-primary rounded-full transition-all duration-300"
-                style={{ width: `${((currentIndex + (revealed ? 1 : 0)) / total) * 100}%` }}
+            <div className="w-full h-1.5 bg-white/[0.04] rounded-full overflow-hidden">
+              <motion.div
+                className="h-full bg-gradient-to-r from-rose-500 to-pink-400 rounded-full"
+                animate={{ width: `${((currentIndex + (revealed ? 1 : 0)) / total) * 100}%` }}
+                transition={{ duration: 0.3 }}
               />
             </div>
-          </div>
+          </Card>
 
           {/* Flashcard */}
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -30 }}
-              className="glass-card p-8 space-y-6"
+              exit={{ opacity: 0, x: -20 }}
             >
-              <div className="text-center space-y-2">
-                <h2 className="text-2xl font-bold text-white">{currentVerb.base_form}</h2>
-                {currentVerb.meaning_ar && (
-                  <p className="text-muted text-lg">{currentVerb.meaning_ar}</p>
-                )}
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto">
-                <div className="space-y-2">
-                  <label className="text-sm text-muted">Past Simple</label>
-                  <input
-                    type="text"
-                    value={pastSimple}
-                    onChange={(e) => setPastSimple(e.target.value)}
-                    disabled={revealed}
-                    placeholder="أدخل الماضي البسيط"
-                    className="input-field w-full text-center"
-                    dir="ltr"
-                  />
-                  {revealed && (
-                    <div className="flex items-center justify-center gap-1 text-sm">
-                      {pastSimple.trim().toLowerCase() === (currentVerb.past_simple || '').toLowerCase() ? (
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                      ) : (
-                        <>
-                          <XCircle className="w-4 h-4 text-red-400" />
-                          <span className="text-emerald-400">{currentVerb.past_simple}</span>
-                        </>
-                      )}
-                    </div>
+              <Card className="text-center space-y-5">
+                <div>
+                  <h2 className="text-2xl font-bold text-white">{currentVerb.base_form}</h2>
+                  {currentVerb.meaning_ar && (
+                    <p className="text-white/30 text-base mt-1">{currentVerb.meaning_ar}</p>
                   )}
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm text-muted">Past Participle</label>
-                  <input
-                    type="text"
-                    value={pastParticiple}
-                    onChange={(e) => setPastParticiple(e.target.value)}
-                    disabled={revealed}
-                    placeholder="أدخل التصريف الثالث"
-                    className="input-field w-full text-center"
-                    dir="ltr"
-                  />
-                  {revealed && (
-                    <div className="flex items-center justify-center gap-1 text-sm">
-                      {pastParticiple.trim().toLowerCase() === (currentVerb.past_participle || '').toLowerCase() ? (
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                      ) : (
-                        <>
-                          <XCircle className="w-4 h-4 text-red-400" />
-                          <span className="text-emerald-400">{currentVerb.past_participle}</span>
-                        </>
-                      )}
-                    </div>
-                  )}
-                </div>
-              </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto">
+                  <div className="space-y-2">
+                    <label className="text-[11px] text-white/30 font-medium">Past Simple</label>
+                    <input
+                      type="text"
+                      value={pastSimple}
+                      onChange={e => setPastSimple(e.target.value)}
+                      disabled={revealed}
+                      placeholder="..."
+                      className="w-full text-center bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2.5 text-white placeholder:text-white/15 focus:outline-none focus:border-white/[0.12] focus:ring-1 focus:ring-rose-500/20 transition-all"
+                      dir="ltr"
+                      onKeyDown={e => e.key === 'Enter' && checkAndNext()}
+                    />
+                    {revealed && (
+                      <AnswerFeedback
+                        isCorrect={
+                          (currentVerb.past_simple || '').toLowerCase().split('/').map(s => s.trim())
+                            .includes(pastSimple.trim().toLowerCase())
+                        }
+                        correctAnswer={currentVerb.past_simple}
+                      />
+                    )}
+                  </div>
 
-              <div className="flex justify-center">
-                <button onClick={checkAndNext} className="btn-primary flex items-center gap-2 px-6 py-3">
-                  {!revealed ? (
-                    <>تحقق</>
-                  ) : currentIndex < total - 1 ? (
-                    <>
-                      التالي
-                      <ChevronLeft className="w-4 h-4" />
-                    </>
-                  ) : (
-                    <>عرض النتيجة</>
-                  )}
+                  <div className="space-y-2">
+                    <label className="text-[11px] text-white/30 font-medium">Past Participle</label>
+                    <input
+                      type="text"
+                      value={pastParticiple}
+                      onChange={e => setPastParticiple(e.target.value)}
+                      disabled={revealed}
+                      placeholder="..."
+                      className="w-full text-center bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2.5 text-white placeholder:text-white/15 focus:outline-none focus:border-white/[0.12] focus:ring-1 focus:ring-rose-500/20 transition-all"
+                      dir="ltr"
+                      onKeyDown={e => e.key === 'Enter' && checkAndNext()}
+                    />
+                    {revealed && (
+                      <AnswerFeedback
+                        isCorrect={
+                          (currentVerb.past_participle || '').toLowerCase().split('/').map(s => s.trim())
+                            .includes(pastParticiple.trim().toLowerCase())
+                        }
+                        correctAnswer={currentVerb.past_participle}
+                      />
+                    )}
+                  </div>
+                </div>
+
+                <button
+                  onClick={checkAndNext}
+                  className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-rose-500 to-pink-500 text-white text-sm font-medium hover:brightness-110 transition-all"
+                >
+                  {!revealed ? 'تحقق' : currentIndex < total - 1 ? 'التالي' : 'عرض النتيجة'}
                 </button>
-              </div>
+              </Card>
             </motion.div>
           </AnimatePresence>
         </>
       ) : (
-        /* Summary */
-        <div className="space-y-6">
-          <div className="glass-card p-8 text-center space-y-4">
-            <Award className="w-16 h-16 text-amber-400 mx-auto" />
-            <h2 className="text-2xl font-bold text-white">النتيجة النهائية</h2>
-            <div className="text-4xl font-bold text-primary">{score} / {total}</div>
-            <p className="text-muted">
+        <div className="space-y-5">
+          <Card className="text-center space-y-4">
+            <Award className="w-12 h-12 text-amber-400 mx-auto" />
+            <h2 className="text-xl font-bold text-white">النتيجة النهائية</h2>
+            <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-pink-400">
+              {score} / {total}
+            </div>
+            <p className="text-white/40 text-sm">
               {score === total ? 'ممتاز! أجبت على جميع الأفعال بشكل صحيح' :
                score >= total / 2 ? 'أحسنت! واصل التمرين' :
                'حاول مراجعة الأفعال والمحاولة مرة أخرى'}
             </p>
-          </div>
+          </Card>
 
-          {/* Results list */}
-          <div className="glass-card p-6 space-y-3">
-            <h3 className="text-white font-medium mb-4">تفاصيل الإجابات</h3>
-            {results.map((r, i) => (
-              <div
-                key={i}
-                className={`flex items-center justify-between p-3 rounded-lg border ${
-                  r.correct ? 'bg-emerald-500/5 border-emerald-500/20' : 'bg-red-500/5 border-red-500/20'
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  {r.correct ? (
-                    <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
-                  ) : (
-                    <XCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
-                  )}
-                  <span className="text-white font-medium">{r.verb}</span>
+          <Card>
+            <h3 className="text-sm font-medium text-white/60 mb-3">تفاصيل الإجابات</h3>
+            <div className="space-y-2">
+              {results.map((r, i) => (
+                <div
+                  key={i}
+                  className={`flex items-center justify-between p-3 rounded-xl border ${
+                    r.correct ? 'bg-emerald-500/5 border-emerald-500/10' : 'bg-red-500/5 border-red-500/10'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    {r.correct ? (
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    ) : (
+                      <XCircle className="w-4 h-4 text-red-400 shrink-0" />
+                    )}
+                    <span className="text-white/80 font-medium text-sm">{r.verb}</span>
+                  </div>
+                  <span className="text-[11px] text-white/30" dir="ltr">
+                    {r.correctPastSimple} / {r.correctPastParticiple}
+                  </span>
                 </div>
-                <div className="text-sm text-muted" dir="ltr">
-                  {r.correctPastSimple} / {r.correctPastParticiple}
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </Card>
 
-          {/* Submit */}
           {!isSubmitted && (
             <div className="flex justify-center">
-              <button
-                onClick={handleSubmit}
-                disabled={onSubmit.isPending}
-                className="btn-primary flex items-center gap-2 px-8 py-3"
-              >
-                {onSubmit.isPending ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
-                إرسال النتيجة
-              </button>
+              <SubmitButton onClick={handleSubmit} loading={onSubmit.isPending} label="إرسال النتيجة" />
             </div>
           )}
         </div>
@@ -820,17 +748,172 @@ function IrregularVerbsTask({ task, content, isSubmitted, onSubmit }) {
   )
 }
 
-/* ─── Shared Questions UI (Reading / Listening) ──────────────────── */
+/* ─── Vocabulary Task ────────────────────────────────────────────── */
+function VocabularyTask({ task, content, isSubmitted, onSubmit }) {
+  const words = content.words || []
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [userAnswer, setUserAnswer] = useState('')
+  const [revealed, setRevealed] = useState(false)
+  const [results, setResults] = useState([])
+  const [finished, setFinished] = useState(isSubmitted)
+
+  const currentWord = words[currentIndex]
+  const total = words.length
+
+  function checkAndNext() {
+    if (!revealed) {
+      const isCorrect = userAnswer.trim().toLowerCase() === (currentWord.word || '').toLowerCase()
+      setResults(prev => [...prev, {
+        word: currentWord.word,
+        translation: currentWord.translation_ar,
+        userAnswer: userAnswer.trim(),
+        correct: isCorrect,
+      }])
+      setRevealed(true)
+    } else {
+      if (currentIndex < total - 1) {
+        setCurrentIndex(i => i + 1)
+        setUserAnswer('')
+        setRevealed(false)
+      } else {
+        setFinished(true)
+      }
+    }
+  }
+
+  const score = results.filter(r => r.correct).length
+
+  async function handleSubmit() {
+    await onSubmit.mutateAsync({
+      response_answers: results.map((r, i) => ({
+        word_index: i,
+        word: r.word,
+        user_answer: r.userAnswer,
+        correct: r.correct,
+      })),
+    })
+  }
+
+  if (total === 0) {
+    return <Card className="text-center"><p className="text-white/30">لا توجد مفردات في هذه المهمة</p></Card>
+  }
+
+  return (
+    <div className="space-y-5">
+      {!finished ? (
+        <>
+          <Card className="!p-4">
+            <div className="flex items-center justify-between text-xs text-white/30 mb-2">
+              <span>الكلمة {currentIndex + 1} من {total}</span>
+              <span>{results.filter(r => r.correct).length} صحيح</span>
+            </div>
+            <div className="w-full h-1.5 bg-white/[0.04] rounded-full overflow-hidden">
+              <motion.div
+                className="h-full bg-gradient-to-r from-indigo-500 to-blue-400 rounded-full"
+                animate={{ width: `${((currentIndex + (revealed ? 1 : 0)) / total) * 100}%` }}
+                transition={{ duration: 0.3 }}
+              />
+            </div>
+          </Card>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+            >
+              <Card className="text-center space-y-5">
+                <div>
+                  <p className="text-white/30 text-sm mb-1">ما هي الكلمة الإنجليزية التي تعني:</p>
+                  <h2 className="text-2xl font-bold text-white">{currentWord.translation_ar}</h2>
+                  {currentWord.definition && (
+                    <p className="text-white/40 text-xs mt-2" dir="ltr">Hint: {currentWord.definition}</p>
+                  )}
+                </div>
+
+                <div className="max-w-xs mx-auto">
+                  <input
+                    type="text"
+                    value={userAnswer}
+                    onChange={e => setUserAnswer(e.target.value)}
+                    disabled={revealed}
+                    placeholder="اكتب الكلمة بالإنجليزية"
+                    className="w-full text-center bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2.5 text-white placeholder:text-white/15 focus:outline-none focus:border-white/[0.12] focus:ring-1 focus:ring-indigo-500/20 transition-all"
+                    dir="ltr"
+                    onKeyDown={e => e.key === 'Enter' && checkAndNext()}
+                  />
+                  {revealed && (
+                    <div className="mt-2">
+                      <AnswerFeedback isCorrect={userAnswer.trim().toLowerCase() === (currentWord.word || '').toLowerCase()} correctAnswer={currentWord.word} />
+                      {currentWord.example_sentence && (
+                        <p className="text-[11px] text-white/25 mt-2" dir="ltr">"{currentWord.example_sentence}"</p>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                <button
+                  onClick={checkAndNext}
+                  className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-blue-500 text-white text-sm font-medium hover:brightness-110 transition-all"
+                >
+                  {!revealed ? 'تحقق' : currentIndex < total - 1 ? 'التالي' : 'عرض النتيجة'}
+                </button>
+              </Card>
+            </motion.div>
+          </AnimatePresence>
+        </>
+      ) : (
+        <div className="space-y-5">
+          <Card className="text-center space-y-4">
+            <BookType className="w-12 h-12 text-indigo-400 mx-auto" />
+            <h2 className="text-xl font-bold text-white">النتيجة النهائية</h2>
+            <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-blue-400">
+              {score} / {total}
+            </div>
+          </Card>
+
+          <Card>
+            <div className="space-y-2">
+              {results.map((r, i) => (
+                <div
+                  key={i}
+                  className={`flex items-center justify-between p-3 rounded-xl border ${
+                    r.correct ? 'bg-emerald-500/5 border-emerald-500/10' : 'bg-red-500/5 border-red-500/10'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    {r.correct ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <XCircle className="w-4 h-4 text-red-400" />}
+                    <span className="text-white/80 font-medium text-sm">{r.translation}</span>
+                  </div>
+                  <span className="text-[11px] text-white/30" dir="ltr">{r.word}</span>
+                </div>
+              ))}
+            </div>
+          </Card>
+
+          {!isSubmitted && (
+            <div className="flex justify-center">
+              <SubmitButton onClick={handleSubmit} loading={onSubmit.isPending} label="إرسال النتيجة" />
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
+/* ─── Shared: Questions UI ───────────────────────────────────────── */
 function QuestionsUI({ questions, answers, showResults, isSubmitted, onMCQChange, onOpenChange }) {
   if (!questions.length) return null
 
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-white">الأسئلة</h3>
+      <h3 className="text-base font-semibold text-white/80">الأسئلة</h3>
       {questions.map((q, i) => (
-        <div key={i} className="glass-card p-5 space-y-3">
-          <p className="text-white font-medium">
-            <span className="text-primary ml-2">{i + 1}.</span>
+        <Card key={i}>
+          <p className="text-white/80 font-medium text-sm mb-3">
+            <span className="text-sky-400 ml-2 font-bold">{i + 1}.</span>
             {q.question}
           </p>
 
@@ -844,14 +927,14 @@ function QuestionsUI({ questions, answers, showResults, isSubmitted, onMCQChange
                 return (
                   <label
                     key={j}
-                    className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all hover:translate-y-[-2px] ${
+                    className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
                       isCorrectOption
-                        ? 'bg-emerald-500/10 border-emerald-500/30'
+                        ? 'bg-emerald-500/8 border-emerald-500/20'
                         : isWrongSelection
-                        ? 'bg-red-500/10 border-red-500/30'
+                        ? 'bg-red-500/8 border-red-500/20'
                         : selected
-                        ? 'bg-primary/10 border-primary/30'
-                        : 'bg-white/5 border-white/10 hover:border-white/20'
+                        ? 'bg-sky-500/8 border-sky-500/20'
+                        : 'bg-white/[0.02] border-white/[0.06] hover:border-white/[0.1]'
                     }`}
                   >
                     <input
@@ -861,32 +944,31 @@ function QuestionsUI({ questions, answers, showResults, isSubmitted, onMCQChange
                       checked={selected}
                       onChange={() => onMCQChange(i, opt)}
                       disabled={isSubmitted}
-                      className="accent-primary"
+                      className="accent-sky-400"
                     />
-                    <span className="text-white/80 text-sm">{opt}</span>
-                    {isCorrectOption && <CheckCircle2 className="w-4 h-4 text-emerald-400 mr-auto" />}
-                    {isWrongSelection && <XCircle className="w-4 h-4 text-red-400 mr-auto" />}
+                    <span className="text-white/70 text-sm flex-1">{opt}</span>
+                    {isCorrectOption && <CheckCircle2 className="w-4 h-4 text-emerald-400" />}
+                    {isWrongSelection && <XCircle className="w-4 h-4 text-red-400" />}
                   </label>
                 )
               })}
               {showResults && q.explanation && (
-                <p className="text-muted text-xs mt-2 p-2 bg-white/5 rounded-lg">{q.explanation}</p>
+                <p className="text-white/25 text-[11px] mt-2 p-2.5 bg-white/[0.02] rounded-lg border border-white/[0.04]">
+                  {q.explanation}
+                </p>
               )}
             </div>
           ) : (
-            /* Open question */
-            <div>
-              <textarea
-                value={answers[i] || ''}
-                onChange={(e) => onOpenChange(i, e.target.value)}
-                disabled={isSubmitted}
-                placeholder="اكتب إجابتك هنا..."
-                className="input-field w-full min-h-[100px] resize-y text-sm"
-                dir="auto"
-              />
-            </div>
+            <textarea
+              value={answers[i] || ''}
+              onChange={e => onOpenChange(i, e.target.value)}
+              disabled={isSubmitted}
+              placeholder="اكتب إجابتك هنا..."
+              className="w-full min-h-[90px] resize-y text-sm bg-white/[0.02] border border-white/[0.06] rounded-xl p-3 text-white/70 placeholder:text-white/15 focus:outline-none focus:border-white/[0.1] transition-all"
+              dir="auto"
+            />
           )}
-        </div>
+        </Card>
       ))}
     </div>
   )
@@ -894,7 +976,7 @@ function QuestionsUI({ questions, answers, showResults, isSubmitted, onMCQChange
 
 /* ─── AI Feedback Display ────────────────────────────────────────── */
 function FeedbackDisplay({ feedback, autoScore, type }) {
-  const feedbackData = typeof feedback === 'string' ? JSON.parse(feedback) : feedback || {}
+  const feedbackData = typeof feedback === 'string' ? (() => { try { return JSON.parse(feedback) } catch { return {} } })() : feedback || {}
 
   const scoreEntries = []
   if (feedbackData.overall_score != null) scoreEntries.push({ label: 'الدرجة الكلية', value: feedbackData.overall_score })
@@ -902,36 +984,35 @@ function FeedbackDisplay({ feedback, autoScore, type }) {
   if (feedbackData.vocabulary_score != null) scoreEntries.push({ label: 'المفردات', value: feedbackData.vocabulary_score })
   if (type === 'speaking' && feedbackData.fluency_score != null) scoreEntries.push({ label: 'الطلاقة', value: feedbackData.fluency_score })
   if (type === 'writing' && feedbackData.structure_score != null) scoreEntries.push({ label: 'البنية', value: feedbackData.structure_score })
-  // For reading/listening auto-graded
   if (feedbackData.auto_score != null && scoreEntries.length === 0) scoreEntries.push({ label: 'الدرجة', value: feedbackData.auto_score })
 
   return (
-    <div className="glass-card p-6 space-y-6 border-primary/20">
-      <div className="flex items-center gap-2">
-        <Award className="w-5 h-5 text-primary" />
-        <h3 className="text-lg font-semibold text-white">تقييم الذكاء الاصطناعي</h3>
+    <Card className="!border-sky-500/10">
+      <div className="flex items-center gap-2 mb-5">
+        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-sky-500/20 to-cyan-500/10 flex items-center justify-center">
+          <Sparkles className="w-4 h-4 text-sky-400" />
+        </div>
+        <h3 className="text-base font-semibold text-white/80">تقييم الذكاء الاصطناعي</h3>
       </div>
 
-      {/* Scores */}
       {scoreEntries.length > 0 && (
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
           {scoreEntries.map((s, i) => (
-            <div key={i} className="stat-card text-center p-4">
-              <div className="text-2xl font-bold text-primary">{s.value}</div>
-              <div className="text-muted text-xs mt-1">{s.label}</div>
+            <div key={i} className="rounded-xl bg-white/[0.03] border border-white/[0.04] p-3 text-center">
+              <div className="text-xl font-bold text-sky-400">{s.value}</div>
+              <div className="text-white/25 text-[10px] mt-0.5">{s.label}</div>
             </div>
           ))}
         </div>
       )}
 
-      {/* Suggestions */}
       {feedbackData?.suggestions?.length > 0 && (
-        <div className="space-y-2">
-          <h4 className="text-white font-medium text-sm">اقتراحات للتحسين</h4>
+        <div className="mb-4">
+          <h4 className="text-white/50 font-medium text-xs mb-2">اقتراحات للتحسين</h4>
           <ul className="space-y-2">
             {feedbackData.suggestions.map((s, i) => (
-              <li key={i} className="flex items-start gap-2 text-white/70 text-sm">
-                <ChevronLeft className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+              <li key={i} className="flex items-start gap-2 text-white/50 text-sm">
+                <ChevronLeft className="w-3.5 h-3.5 text-sky-400/50 mt-0.5 shrink-0" />
                 {s}
               </li>
             ))}
@@ -939,19 +1020,59 @@ function FeedbackDisplay({ feedback, autoScore, type }) {
         </div>
       )}
 
-      {/* Corrected text */}
       {feedbackData?.corrected_text && (
-        <div className="space-y-2">
-          <h4 className="text-white font-medium text-sm">النص المصحح</h4>
-          <div className="bg-white/5 rounded-lg p-4 text-white/80 text-sm leading-relaxed whitespace-pre-wrap" dir="auto">
+        <div>
+          <h4 className="text-white/50 font-medium text-xs mb-2">النص المصحح</h4>
+          <div className="bg-white/[0.02] rounded-xl p-4 text-white/60 text-sm leading-relaxed whitespace-pre-wrap border border-white/[0.04]" dir="auto">
             {feedbackData.corrected_text}
           </div>
         </div>
       )}
 
-      {/* General comment */}
       {feedbackData?.comment && (
-        <p className="text-white/70 text-sm leading-relaxed">{feedbackData.comment}</p>
+        <p className="text-white/40 text-sm leading-relaxed mt-3">{feedbackData.comment}</p>
+      )}
+    </Card>
+  )
+}
+
+/* ─── Shared Components ──────────────────────────────────────────── */
+function Card({ children, className = '' }) {
+  return (
+    <div
+      className={`rounded-2xl border border-white/[0.06] p-6 ${className}`}
+      style={{ background: 'rgba(255,255,255,0.02)' }}
+    >
+      {children}
+    </div>
+  )
+}
+
+function SubmitButton({ onClick, loading, disabled, label, small }) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={loading || disabled}
+      className={`flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-500 text-white font-medium hover:brightness-110 transition-all disabled:opacity-40 disabled:cursor-not-allowed ${
+        small ? 'px-4 py-2 text-sm' : 'px-7 py-3 text-sm'
+      }`}
+    >
+      {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+      {label}
+    </button>
+  )
+}
+
+function AnswerFeedback({ isCorrect, correctAnswer }) {
+  return (
+    <div className="flex items-center justify-center gap-1.5 text-xs mt-1">
+      {isCorrect ? (
+        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+      ) : (
+        <>
+          <XCircle className="w-3.5 h-3.5 text-red-400" />
+          <span className="text-emerald-400 font-medium" dir="ltr">{correctAnswer}</span>
+        </>
       )}
     </div>
   )

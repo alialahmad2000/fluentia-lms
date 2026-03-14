@@ -194,7 +194,7 @@ English body: 'Inter'
 
 **Post-build:** 80+ bug production audit complete, security fixes done, real student data seeded.
 
-**Stats:** 61 pages, 17 edge functions, full PWA, 43+ DB tables, 96+ RLS policies.
+**Stats:** 62 pages, 17 edge functions, full PWA, 43+ DB tables, 96+ RLS policies.
 
 ### Sidebar Structure (Student):
 ```
@@ -287,6 +287,37 @@ Claude Code: Add new entries at the TOP of this section.
 Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
+
+### March 14, 2026 — Weekly Tasks: Fill Gaps + Full 180° Visual Redesign
+- What: Filled 8 backend gaps and completely redesigned all weekly task pages with premium "Apple meets Duolingo" aesthetic
+- **Backend Gaps Filled:**
+  1. Adaptive difficulty engine — `calculateDifficulty()` in generate-weekly-tasks, adjusts 0.20-0.95 based on recent scores/completion
+  2. Admin weekly tasks page — new `/admin/weekly-tasks` with generate button, AI cost tracker, student progress overview
+  3. Activity feed integration — grade-weekly-task now posts to `activity_feed` on task completion
+  4. Holiday checking — generate-weekly-tasks queries `holidays` table, skips generation if week overlaps
+  5. Vocabulary task type — new type in Claude prompt, flashcard quiz UI, auto-grading in grade-weekly-task
+  6. Missing DB columns — migration 019: `difficulty_score`, `is_edited_by_trainer`, `deleted_at` + RLS updates
+  7. Soft-delete filtering — `deleted_at IS NULL` in queries and RLS policies
+  8. Difficulty passed to Claude prompt — generates harder/easier content based on score
+- **Visual Redesign:**
+  - `StudentWeeklyTasks.jsx` — Hero section with animated SVG progress ring, stat gradient pills, tasks grouped by type with color-coded accent bars, celebration banner
+  - `StudentWeeklyTaskDetail.jsx` — Premium Card component, gradient accent headers, polished task-specific UIs (speaking/reading/writing/listening/verbs/vocabulary), AnswerFeedback component
+  - `TrainerWeeklyGrading.jsx` — Gradient stat cards, accent-bar submission cards, premium grading modal with gradient top bar
+  - `AdminWeeklyTasks.jsx` — NEW page with generate button, AI cost stats, student completion overview with progress bars
+- Files:
+  - `supabase/migrations/019_weekly_tasks_enhancements.sql` — NEW
+  - `supabase/functions/generate-weekly-tasks/index.ts` — holiday check, adaptive difficulty, vocabulary task type
+  - `supabase/functions/grade-weekly-task/index.ts` — activity feed, vocabulary grading
+  - `src/pages/student/StudentWeeklyTasks.jsx` — full redesign
+  - `src/pages/student/StudentWeeklyTaskDetail.jsx` — full redesign + vocabulary task UI
+  - `src/pages/trainer/TrainerWeeklyGrading.jsx` — full redesign
+  - `src/pages/admin/AdminWeeklyTasks.jsx` — NEW
+  - `src/App.jsx` — added AdminWeeklyTasks route
+  - `src/components/layout/Sidebar.jsx` — added admin sidebar entry
+- DB: Migration 019 adds difficulty_score, is_edited_by_trainer, deleted_at columns
+- Edge Functions: generate-weekly-tasks, grade-weekly-task updated
+- Status: Complete — build verified
+- Notes: Run migration 019 in Supabase SQL Editor. Deploy both edge functions with --no-verify-jwt.
 
 ### March 14, 2026 — FIX: AI Features Broken (Root Cause: Gateway JWT Rejection)
 - What: ALL AI features were returning "عذرًا، حدث خطأ" because Supabase's edge function gateway was rejecting valid user JWTs with `{"code":401,"message":"Invalid JWT"}`. Functions were deployed without `--no-verify-jwt`, causing the gateway to validate JWTs before the function code could handle auth. The gateway's JWT verification was failing despite valid tokens.

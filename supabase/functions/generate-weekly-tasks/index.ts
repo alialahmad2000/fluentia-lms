@@ -110,6 +110,19 @@ interface TaskGenerationResult {
       explanation: string
     }>
   }>
+  vocabulary: Array<{
+    title: string
+    title_ar: string
+    instructions: string
+    instructions_ar: string
+    words: Array<{
+      word: string
+      definition: string
+      translation_ar: string
+      example_sentence: string
+      part_of_speech: string
+    }>
+  }>
 }
 
 /**
@@ -136,9 +149,12 @@ function getWeekBoundaries(): { weekStart: string; weekEnd: string } {
  * Call Claude API to generate weekly tasks for a student.
  */
 async function generateTasksWithClaude(
-  academicLevel: number
+  academicLevel: number,
+  difficultyScore: number = 0.50
 ): Promise<{ result: TaskGenerationResult; inputTokens: number; outputTokens: number }> {
   const level = ACADEMIC_LEVELS[academicLevel] || ACADEMIC_LEVELS[1]
+
+  const difficultyLabel = difficultyScore >= 0.75 ? 'challenging' : difficultyScore >= 0.50 ? 'moderate' : 'easier'
 
   const systemPrompt = `You are an English teacher at Fluentia Academy for Arabic-speaking adults. Generate weekly learning tasks.
 
@@ -147,12 +163,14 @@ You must output ONLY valid JSON — no markdown, no code fences, no commentary.`
   const userPrompt = `Generate a full week of English learning tasks for a student at level ${academicLevel} (CEFR ${level.cefr}).
 
 Level details: ${level.description}
+Difficulty: ${difficultyLabel} (${difficultyScore.toFixed(2)} on 0-1 scale). ${difficultyScore >= 0.70 ? 'Push the student with more complex topics and grammar.' : difficultyScore <= 0.35 ? 'Keep it simple and encouraging. Use familiar topics.' : 'Standard difficulty for this level.'}
 
 Requirements:
 - 3 speaking tasks (min/max duration: ${level.speaking_sec} seconds)
 - 2 reading tasks (article length: ${level.article_words} words, 5 MCQ questions each)
 - 1 writing task (word limit: ${level.writing_words} words)
 - 1 listening task (with 5 comprehension questions)
+- 1 vocabulary task (10 words appropriate for this level with definitions, Arabic translations, example sentences, and part of speech)
 
 All tasks must include both English and Arabic titles/instructions (title, title_ar, instructions, instructions_ar).
 Content should be culturally appropriate for Arabic-speaking adult learners.
@@ -171,10 +189,13 @@ Respond with this exact JSON structure:
   ],
   "listening": [
     { "title": "...", "title_ar": "...", "instructions": "...", "instructions_ar": "...", "topic_description": "...", "questions": [{"question": "...", "type": "mcq", "options": ["A","B","C","D"], "correct_answer": "...", "explanation": "..."}] }
+  ],
+  "vocabulary": [
+    { "title": "...", "title_ar": "...", "instructions": "...", "instructions_ar": "...", "words": [{"word": "...", "definition": "...", "translation_ar": "...", "example_sentence": "...", "part_of_speech": "noun/verb/adjective/adverb"}] }
   ]
 }
 
-Provide exactly 3 speaking, 2 reading, 1 writing, 1 listening tasks. Each reading task must have exactly 5 questions. The listening task must have exactly 5 questions.`
+Provide exactly 3 speaking, 2 reading, 1 writing, 1 listening, 1 vocabulary tasks. Each reading task must have exactly 5 questions. The listening task must have exactly 5 questions. The vocabulary task must have exactly 10 words.`
 
   const response = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -254,6 +275,51 @@ async function getIrregularVerbs(
   return verbs || []
 }
 
+/**
+ * Calculate adaptive difficulty score (0.00-1.00) based on recent performance.
+ * Higher score = student is doing well = increase difficulty next week.
+ */
+async function calculateDifficulty(
+  supabase: ReturnType<typeof createClient>,
+  studentId: string
+): Promise<number> {
+  // Get last 2 weeks of graded task sets
+  const { data: recentSets } = await supabase
+    .from('weekly_task_sets')
+    .select('difficulty_score, completion_percentage')
+    .eq('student_id', studentId)
+    .order('week_start', { ascending: false })
+    .limit(2)
+
+  if (!recentSets || recentSets.length === 0) return 0.50 // Default
+
+  // Get recent graded tasks average score
+  const { data: recentTasks } = await supabase
+    .from('weekly_tasks')
+    .select('auto_score, status')
+    .eq('student_id', studentId)
+    .eq('status', 'graded')
+    .order('submitted_at', { ascending: false })
+    .limit(16) // ~2 weeks worth
+
+  if (!recentTasks || recentTasks.length === 0) return 0.50
+
+  const avgScore = recentTasks.reduce((sum, t) => sum + (t.auto_score || 0), 0) / recentTasks.length
+  const completionRate = recentSets[0]?.completion_percentage || 50
+
+  const lastDifficulty = recentSets[0]?.difficulty_score || 0.50
+
+  // Adjust: good performance → increase, poor → decrease
+  let adjustment = 0
+  if (avgScore >= 85 && completionRate >= 80) adjustment = 0.08
+  else if (avgScore >= 70 && completionRate >= 60) adjustment = 0.03
+  else if (avgScore < 50 || completionRate < 40) adjustment = -0.08
+  else if (avgScore < 65) adjustment = -0.03
+
+  // Clamp between 0.20 and 0.95
+  return Math.max(0.20, Math.min(0.95, lastDifficulty + adjustment))
+}
+
 serve(async (req) => {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
@@ -304,6 +370,28 @@ serve(async (req) => {
     const { weekStart, weekEnd } = getWeekBoundaries()
     console.log(`Generating tasks for week: ${weekStart} to ${weekEnd}`)
 
+    // 2.5. Check for holidays that overlap with this week
+    const { data: holidays } = await supabase
+      .from('holidays')
+      .select('id, name, start_date, end_date')
+      .lte('start_date', weekEnd)
+      .gte('end_date', weekStart)
+
+    if (holidays && holidays.length > 0) {
+      const holidayNames = holidays.map((h: any) => h.name).join(', ')
+      console.log(`Week overlaps with holiday(s): ${holidayNames} — skipping generation`)
+      return new Response(
+        JSON.stringify({
+          generated: 0,
+          skipped: 0,
+          errors: [],
+          message: `تم تخطي الأسبوع بسبب العطلة: ${holidayNames}`,
+          holidays: holidays.map((h: any) => h.name),
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 200 }
+      )
+    }
+
     let generated = 0
     let skipped = 0
     const errors: string[] = []
@@ -335,6 +423,9 @@ serve(async (req) => {
           continue
         }
 
+        // Calculate adaptive difficulty for this student
+        const difficultyScore = await calculateDifficulty(supabase, studentId)
+
         // Generate tasks via Claude (use cache if same level already generated)
         let taskData: TaskGenerationResult
         let inputTokens: number
@@ -347,7 +438,7 @@ serve(async (req) => {
           inputTokens = levelCache[academicLevel].inputTokens
           outputTokens = levelCache[academicLevel].outputTokens
         } else {
-          const claudeResult = await generateTasksWithClaude(academicLevel)
+          const claudeResult = await generateTasksWithClaude(academicLevel, difficultyScore)
           taskData = claudeResult.result
           inputTokens = claudeResult.inputTokens
           outputTokens = claudeResult.outputTokens
@@ -383,6 +474,7 @@ serve(async (req) => {
             week_start: weekStart,
             week_end: weekEnd,
             level_at_generation: academicLevel,
+            difficulty_score: difficultyScore,
             status: 'active',
           })
           .select('id')
@@ -519,6 +611,32 @@ serve(async (req) => {
               taskData.writing.length +
               taskData.listening.length +
               1,
+            level: academicLevel,
+            deadline: deadlineISO,
+            status: 'pending',
+          })
+        }
+
+        // Vocabulary task (1)
+        if (taskData.vocabulary && taskData.vocabulary.length > 0) {
+          const t = taskData.vocabulary[0]
+          tasksToInsert.push({
+            task_set_id: taskSetId,
+            student_id: studentId,
+            type: 'vocabulary',
+            title: t.title,
+            title_ar: t.title_ar,
+            instructions: t.instructions,
+            instructions_ar: t.instructions_ar,
+            content: {
+              words: t.words,
+            },
+            sequence_number:
+              taskData.speaking.length +
+              taskData.reading.length +
+              taskData.writing.length +
+              taskData.listening.length +
+              2, // +2 because irregular_verbs is +1
             level: academicLevel,
             deadline: deadlineISO,
             status: 'pending',

@@ -189,6 +189,7 @@ const NAV_GROUPS = {
         { to: '/trainer/assignments', label: 'الواجبات', icon: FileText },
         { to: '/trainer/writing', label: 'التقييم', icon: ClipboardCheck },
         { to: '/trainer/weekly-grading', label: 'المهام الأسبوعية', icon: CalendarDays },
+        { to: '/admin/weekly-tasks', label: 'إدارة المهام', icon: CalendarDays },
         { to: '/trainer/quiz', label: 'مولّد الاختبارات', icon: Brain },
         { to: '/trainer/schedule', label: 'الجدول', icon: Calendar },
         { to: '/trainer/notes', label: 'ملاحظات الحصص', icon: StickyNote },
