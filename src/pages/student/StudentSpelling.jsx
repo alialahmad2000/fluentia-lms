@@ -348,7 +348,7 @@ function SpellingPractice({ words, onFinish, onBack }) {
 
   const handleCheck = useCallback(() => {
     if (!answer.trim() || checked) return
-    const correct = answer.trim().toLowerCase() === currentWord.english_word.toLowerCase()
+    const correct = answer.trim().toLowerCase() === currentWord.word.toLowerCase()
     setIsCorrect(correct)
     setChecked(true)
 
@@ -356,8 +356,8 @@ function SpellingPractice({ words, onFinish, onBack }) {
       ...prev,
       {
         word_id: currentWord.id,
-        english_word: currentWord.english_word,
-        arabic_meaning: currentWord.arabic_meaning,
+        english_word: currentWord.word,
+        arabic_meaning: currentWord.meaning_ar,
         student_answer: answer.trim(),
         correct,
       },
@@ -458,13 +458,13 @@ function SpellingPractice({ words, onFinish, onBack }) {
         >
           {/* Arabic Meaning */}
           <p className="text-3xl font-bold text-white mb-2">
-            {currentWord.arabic_meaning}
+            {currentWord.meaning_ar}
           </p>
 
           {/* Pronunciation Button */}
-          {currentWord.english_word && (
+          {currentWord.word && (
             <button
-              onClick={() => speakWord(currentWord.english_word)}
+              onClick={() => speakWord(currentWord.word)}
               className="btn-ghost text-sm inline-flex items-center gap-2 mb-6 text-white/50 hover:text-white/80"
               title="استمع للنطق"
             >
@@ -529,7 +529,7 @@ function SpellingPractice({ words, onFinish, onBack }) {
                   <p className="text-white/70">
                     الإجابة الصحيحة:{' '}
                     <span className="text-white font-bold tracking-wide" dir="ltr">
-                      {currentWord.english_word}
+                      {currentWord.word}
                     </span>
                   </p>
                 </div>

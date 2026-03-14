@@ -273,7 +273,7 @@ These prompts have been written and are ready to paste into Claude Code:
 1. **Fix Rapid Navigation Crash** — async cleanup, debounce, error boundaries
 2. **Design Overhaul Phase A** — shared component redesign (Apple aesthetic)
 3. **Design Overhaul Phase B** — all 40+ pages sweep
-4. **Weekly Tasks + Spelling Trainer** — auto-generated tasks + AI spelling practice
+4. ~~**Weekly Tasks + Spelling Trainer**~~ ✅ — auto-generated tasks + AI spelling practice
 5. **Conversation Simulator Redesign** — rich gradient cards with previews
 6. **AI Form Filler** — universal smart form assistant for trainer/admin
 7. **Sidebar Reorganization** — معمل التحدث category
@@ -287,6 +287,19 @@ Claude Code: Add new entries at the TOP of this section.
 Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
+
+### March 14, 2026 — Weekly Tasks + Spelling Trainer: Critical Bug Fixes
+- What: Fixed all column name mismatches between DB schema, edge functions, and frontend pages that would have caused runtime failures
+- Files:
+  - `supabase/functions/generate-weekly-tasks/index.ts` — Fixed: task_type→type, sort_order→sequence_number, added missing level_at_generation + deadline + level columns, fixed verb query (level→level_appropriate, added meaning_ar + frequency ordering, mastered filter fix)
+  - `src/pages/student/StudentWeeklyTaskDetail.jsx` — Fixed: voice_url→response_voice_url, response→response_text/response_answers/response_voice_duration, currentVerb.base→base_form, currentVerb.arabic→meaning_ar, task.feedback→ai_feedback, task.scores→auto_score, added / separator handling for verb alternatives
+  - `src/pages/student/StudentWeeklyTasks.jsx` — Fixed: task.score→auto_score, task.xp_earned→xp_awarded, task.max_points→task.points, content.min_words→word_limit_min/max
+  - `src/pages/student/StudentSpelling.jsx` — Fixed: english_word→word, arabic_meaning→meaning_ar (DB column name alignment)
+  - `src/pages/trainer/TrainerWeeklyGrading.jsx` — Fixed: ai_score→auto_score, ai_feedback display for JSONB objects, approve AI feedback conversion to text
+- DB: No schema changes (tables already correct from migration 017/018)
+- Edge Functions: generate-weekly-tasks fixed (grade-weekly-task was already correct)
+- Status: Complete — build verified
+- Notes: The weekly task system infrastructure (DB, edge functions, pages, sidebar, routes, notifications) was already fully scaffolded. This fix ensures all column names and field references match the actual DB schema so the system works end-to-end.
 
 ### March 14, 2026 — CLAUDE.md + FLUENTIA-SPEC.md added
 - What: Added project context files for Claude Code auto-read

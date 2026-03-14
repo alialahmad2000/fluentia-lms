@@ -275,10 +275,10 @@ export default function TrainerWeeklyGrading() {
                     </div>
                   </div>
 
-                  {task.ai_score != null && (
+                  {task.auto_score != null && (
                     <div className="text-center shrink-0">
                       <p className="text-xs text-muted mb-0.5">AI</p>
-                      <p className="text-xl font-bold text-sky-400">{task.ai_score}%</p>
+                      <p className="text-xl font-bold text-sky-400">{task.auto_score}%</p>
                     </div>
                   )}
 
@@ -366,17 +366,25 @@ function GradingModal({ task, getStudentName, onClose }) {
 
   function handleApproveAI() {
     setError('')
-    if (task.ai_score == null) { setError('لا يوجد تقييم AI لهذه المهمة'); return }
+    if (task.auto_score == null) { setError('لا يوجد تقييم AI لهذه المهمة'); return }
 
-    const aiNumeric = Math.round(task.ai_score)
+    const aiNumeric = Math.round(task.auto_score)
     const aiLetter = numericToLetter(aiNumeric)
-    const aiFeedback = task.ai_feedback || ''
+    // Convert AI feedback object to readable text for trainer_feedback column
+    const fb = task.ai_feedback || {}
+    const aiFeedbackText = typeof fb === 'object'
+      ? [
+          ...(fb.suggestions || []),
+          fb.pronunciation_notes ? `ملاحظات النطق: ${fb.pronunciation_notes}` : '',
+          fb.corrected_text ? `النص المصحح: ${fb.corrected_text}` : '',
+        ].filter(Boolean).join('\n')
+      : String(fb)
 
     gradeMutation.mutate({
       taskId: task.id,
       grade: aiLetter,
       gradeNumeric: aiNumeric,
-      feedback: aiFeedback,
+      feedback: aiFeedbackText,
     })
   }
 
@@ -418,8 +426,8 @@ function GradingModal({ task, getStudentName, onClose }) {
           {task.submitted_at && (
             <span className="badge-blue text-xs">{formatDateAr(task.submitted_at)}</span>
           )}
-          {task.ai_score != null && (
-            <span className="badge-sky text-xs">AI: {task.ai_score}%</span>
+          {task.auto_score != null && (
+            <span className="badge-sky text-xs">AI: {task.auto_score}%</span>
           )}
         </div>
 
@@ -468,20 +476,34 @@ function GradingModal({ task, getStudentName, onClose }) {
         </div>
 
         {/* ─── AI Feedback ─────────────────────────────── */}
-        {(task.ai_feedback || task.ai_score != null) && (
+        {(task.ai_feedback || task.auto_score != null) && (
           <div className="mb-6">
             <h3 className="text-sm font-semibold text-white/80 mb-2">تقييم AI</h3>
             <div className="glass-card p-4 border border-sky-500/20 bg-sky-500/5">
-              {task.ai_score != null && (
+              {task.auto_score != null && (
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-sky-400 font-bold text-lg">{task.ai_score}%</span>
-                  <span className="text-xs text-muted">({numericToLetter(task.ai_score)})</span>
+                  <span className="text-sky-400 font-bold text-lg">{task.auto_score}%</span>
+                  <span className="text-xs text-muted">({numericToLetter(task.auto_score)})</span>
                 </div>
               )}
               {task.ai_feedback && (
-                <p className="text-sm text-white/80 leading-relaxed whitespace-pre-wrap">
-                  {task.ai_feedback}
-                </p>
+                <div className="text-sm text-white/80 leading-relaxed whitespace-pre-wrap">
+                  {typeof task.ai_feedback === 'object' ? (
+                    <div className="space-y-2">
+                      {task.ai_feedback.suggestions?.map((s, i) => (
+                        <p key={i}>• {s}</p>
+                      ))}
+                      {task.ai_feedback.corrected_text && (
+                        <div className="mt-2 p-3 bg-white/5 rounded-lg">
+                          <p className="text-xs text-muted mb-1">النص المصحح:</p>
+                          <p dir="ltr">{task.ai_feedback.corrected_text}</p>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <p>{String(task.ai_feedback)}</p>
+                  )}
+                </div>
               )}
             </div>
           </div>
@@ -562,7 +584,7 @@ function GradingModal({ task, getStudentName, onClose }) {
 
         {/* ─── Action Buttons ──────────────────────────── */}
         <div className="flex items-center gap-3 flex-wrap">
-          {task.ai_score != null && (
+          {task.auto_score != null && (
             <button
               onClick={handleApproveAI}
               disabled={gradeMutation.isPending}

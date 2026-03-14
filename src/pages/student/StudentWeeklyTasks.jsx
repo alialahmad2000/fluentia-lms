@@ -138,8 +138,8 @@ export default function StudentWeeklyTasks() {
         .from('weekly_tasks')
         .select('*')
         .eq('task_set_id', taskSet.id)
-        .order('type')
-        .order('sequence_number')
+        .order('type', { ascending: true })
+        .order('sequence_number', { ascending: true })
       return data || []
     },
     enabled: !!taskSet?.id,
@@ -152,8 +152,8 @@ export default function StudentWeeklyTasks() {
   const totalCount = (tasks || []).length
   const progressPct = totalCount > 0 ? (completedCount / totalCount) * 100 : 0
 
-  const xpEarned = (tasks || []).reduce((sum, t) => sum + (t.xp_earned || 0), 0)
-  const bestScore = (tasks || []).reduce((best, t) => Math.max(best, t.score || 0), 0)
+  const xpEarned = (tasks || []).reduce((sum, t) => sum + (t.xp_awarded || 0), 0)
+  const bestScore = (tasks || []).reduce((best, t) => Math.max(best, t.auto_score || 0), 0)
   const streak = studentData?.current_streak || 0
 
   const statCards = [
@@ -318,19 +318,19 @@ export default function StudentWeeklyTasks() {
                   {/* Status badge + points */}
                   <div className="flex items-center justify-between mb-3">
                     <span className={statusCfg.badge}>{statusCfg.label}</span>
-                    {task.max_points && (
+                    {task.points != null && (
                       <span className="text-xs text-muted">
-                        {toArabicNum(task.max_points)} نقطة
+                        {toArabicNum(task.points)} نقطة
                       </span>
                     )}
                   </div>
 
                   {/* Score if graded */}
-                  {task.status === 'graded' && task.score != null && (
+                  {task.status === 'graded' && task.auto_score != null && (
                     <div className="flex items-center gap-1.5 mb-3">
                       <Star size={14} className="text-gold-400" />
                       <span className="text-sm font-medium text-gold-400">
-                        {toArabicNum(task.score)}%
+                        {toArabicNum(Math.round(task.auto_score))}%
                       </span>
                     </div>
                   )}

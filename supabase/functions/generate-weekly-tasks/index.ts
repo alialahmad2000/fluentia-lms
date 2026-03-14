@@ -221,21 +221,22 @@ async function getIrregularVerbs(
   supabase: ReturnType<typeof createClient>,
   studentId: string,
   academicLevel: number
-): Promise<Array<{ id: string; base_form: string; past_simple: string; past_participle: string }>> {
+): Promise<Array<{ id: string; base_form: string; past_simple: string; past_participle: string; meaning_ar: string }>> {
   // Get verbs the student has already mastered
   const { data: masteredVerbs } = await supabase
     .from('student_verb_progress')
     .select('verb_id')
     .eq('student_id', studentId)
-    .eq('mastered', true)
+    .eq('mastery', 'mastered')
 
   const masteredIds = (masteredVerbs || []).map((v: { verb_id: string }) => v.verb_id)
 
   // Query irregular verbs appropriate for the student's level
   let query = supabase
     .from('irregular_verbs')
-    .select('id, base_form, past_simple, past_participle')
-    .lte('level', academicLevel)
+    .select('id, base_form, past_simple, past_participle, meaning_ar')
+    .lte('level_appropriate', academicLevel)
+    .order('frequency_rank')
     .limit(5)
 
   if (masteredIds.length > 0) {
@@ -361,6 +362,10 @@ serve(async (req) => {
         // Fetch irregular verbs for this student
         const irregularVerbs = await getIrregularVerbs(supabase, studentId, academicLevel)
 
+        // Calculate deadline (Saturday 23:59 AST)
+        const deadlineDate = new Date(weekEnd + 'T23:59:59+03:00')
+        const deadlineISO = deadlineDate.toISOString()
+
         // Insert weekly_task_set
         const { data: taskSet, error: taskSetErr } = await supabase
           .from('weekly_task_sets')
@@ -368,6 +373,7 @@ serve(async (req) => {
             student_id: studentId,
             week_start: weekStart,
             week_end: weekEnd,
+            level_at_generation: academicLevel,
             status: 'active',
           })
           .select('id')
@@ -386,7 +392,7 @@ serve(async (req) => {
           tasksToInsert.push({
             task_set_id: taskSetId,
             student_id: studentId,
-            task_type: 'speaking',
+            type: 'speaking',
             title: t.title,
             title_ar: t.title_ar,
             instructions: t.instructions,
@@ -397,7 +403,9 @@ serve(async (req) => {
               min_duration_sec: t.min_duration_sec,
               max_duration_sec: t.max_duration_sec,
             },
-            sort_order: i + 1,
+            sequence_number: i + 1,
+            level: academicLevel,
+            deadline: deadlineISO,
             status: 'pending',
           })
         }
@@ -408,7 +416,7 @@ serve(async (req) => {
           tasksToInsert.push({
             task_set_id: taskSetId,
             student_id: studentId,
-            task_type: 'reading',
+            type: 'reading',
             title: t.title,
             title_ar: t.title_ar,
             instructions: t.instructions,
@@ -419,7 +427,9 @@ serve(async (req) => {
               word_count: t.word_count,
               questions: t.questions,
             },
-            sort_order: taskData.speaking.length + i + 1,
+            sequence_number: taskData.speaking.length + i + 1,
+            level: academicLevel,
+            deadline: deadlineISO,
             status: 'pending',
           })
         }
@@ -430,7 +440,7 @@ serve(async (req) => {
           tasksToInsert.push({
             task_set_id: taskSetId,
             student_id: studentId,
-            task_type: 'writing',
+            type: 'writing',
             title: t.title,
             title_ar: t.title_ar,
             instructions: t.instructions,
@@ -441,7 +451,9 @@ serve(async (req) => {
               word_limit_max: t.word_limit_max,
               focus_areas: t.focus_areas,
             },
-            sort_order: taskData.speaking.length + taskData.reading.length + i + 1,
+            sequence_number: taskData.speaking.length + taskData.reading.length + i + 1,
+            level: academicLevel,
+            deadline: deadlineISO,
             status: 'pending',
           })
         }
@@ -452,7 +464,7 @@ serve(async (req) => {
           tasksToInsert.push({
             task_set_id: taskSetId,
             student_id: studentId,
-            task_type: 'listening',
+            type: 'listening',
             title: t.title,
             title_ar: t.title_ar,
             instructions: t.instructions,
@@ -461,12 +473,14 @@ serve(async (req) => {
               topic_description: t.topic_description,
               questions: t.questions,
             },
-            sort_order:
+            sequence_number:
               taskData.speaking.length +
               taskData.reading.length +
               taskData.writing.length +
               i +
               1,
+            level: academicLevel,
+            deadline: deadlineISO,
             status: 'pending',
           })
         }
@@ -476,7 +490,7 @@ serve(async (req) => {
           tasksToInsert.push({
             task_set_id: taskSetId,
             student_id: studentId,
-            task_type: 'irregular_verbs',
+            type: 'irregular_verbs',
             title: 'Irregular Verbs Practice',
             title_ar: 'تمرين الأفعال الشاذة',
             instructions: 'Practice the following irregular verbs. Learn their base form, past simple, and past participle.',
@@ -487,14 +501,17 @@ serve(async (req) => {
                 base_form: v.base_form,
                 past_simple: v.past_simple,
                 past_participle: v.past_participle,
+                meaning_ar: v.meaning_ar,
               })),
             },
-            sort_order:
+            sequence_number:
               taskData.speaking.length +
               taskData.reading.length +
               taskData.writing.length +
               taskData.listening.length +
               1,
+            level: academicLevel,
+            deadline: deadlineISO,
             status: 'pending',
           })
         }

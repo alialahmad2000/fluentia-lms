@@ -79,15 +79,21 @@ export default function StudentWeeklyTaskDetail() {
         .eq('id', task.id)
       if (error) throw error
 
-      const { data: { session } } = await supabase.auth.getSession()
-      await supabase.functions.invoke('grade-weekly-task', {
-        body: { task_id: task.id },
-        headers: { Authorization: `Bearer ${session?.access_token}` },
-      })
+      // Trigger AI grading (fire-and-forget for non-blocking UX)
+      try {
+        const { data: { session } } = await supabase.auth.getSession()
+        await supabase.functions.invoke('grade-weekly-task', {
+          body: { task_id: task.id },
+          headers: { Authorization: `Bearer ${session?.access_token}` },
+        })
+      } catch (gradeErr) {
+        console.error('AI grading request failed (will be retried):', gradeErr)
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['weekly-task', id] })
       queryClient.invalidateQueries({ queryKey: ['weekly-tasks'] })
+      queryClient.invalidateQueries({ queryKey: ['weekly-task-set'] })
     },
   })
 
@@ -183,9 +189,9 @@ export default function StudentWeeklyTaskDetail() {
       </motion.div>
 
       {/* AI Feedback (after grading) */}
-      {task.status === 'graded' && task.feedback && (
+      {task.status === 'graded' && task.ai_feedback && (
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-          <FeedbackDisplay feedback={task.feedback} scores={task.scores} type={task.type} />
+          <FeedbackDisplay feedback={task.ai_feedback} autoScore={task.auto_score} type={task.type} />
         </motion.div>
       )}
     </div>
@@ -261,8 +267,8 @@ function SpeakingTask({ task, content, isSubmitted, onSubmit }) {
       const { data: urlData } = supabase.storage.from('voice-recordings').getPublicUrl(fileName)
 
       await onSubmit.mutateAsync({
-        voice_url: urlData.publicUrl,
-        response: { duration, recorded_at: new Date().toISOString() },
+        response_voice_url: urlData.publicUrl,
+        response_voice_duration: duration,
       })
     } catch (err) {
       alert('حدث خطأ أثناء رفع التسجيل')
@@ -363,10 +369,10 @@ function SpeakingTask({ task, content, isSubmitted, onSubmit }) {
       )}
 
       {/* Already submitted */}
-      {isSubmitted && task.voice_url && (
+      {isSubmitted && task.response_voice_url && (
         <div className="glass-card p-6 space-y-4">
           <h3 className="text-white font-medium">التسجيل المرسل</h3>
-          <audio src={task.voice_url} controls className="w-full" />
+          <audio src={task.response_voice_url} controls className="w-full" />
         </div>
       )}
     </div>
@@ -388,7 +394,11 @@ function ReadingTask({ task, content, isSubmitted, onSubmit }) {
   }
 
   async function handleSubmit() {
-    await onSubmit.mutateAsync({ response: { answers } })
+    const formattedAnswers = Object.entries(answers).map(([idx, answer]) => ({
+      question_index: parseInt(idx),
+      answer,
+    }))
+    await onSubmit.mutateAsync({ response_answers: formattedAnswers })
     setShowResults(true)
   }
 
@@ -435,14 +445,14 @@ function ReadingTask({ task, content, isSubmitted, onSubmit }) {
 
 /* ─── Writing Task ───────────────────────────────────────────────── */
 function WritingTask({ task, content, isSubmitted, onSubmit }) {
-  const [text, setText] = useState(task.response?.text || '')
+  const [text, setText] = useState(task.response_text || '')
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0
-  const minWords = content.min_words || 0
-  const maxWords = content.max_words || Infinity
+  const minWords = content.word_limit_min || 0
+  const maxWords = content.word_limit_max || Infinity
   const isValidLength = wordCount >= minWords && wordCount <= (maxWords === Infinity ? Infinity : maxWords)
 
   async function handleSubmit() {
-    await onSubmit.mutateAsync({ response: { text, word_count: wordCount } })
+    await onSubmit.mutateAsync({ response_text: text })
   }
 
   return (
@@ -511,7 +521,11 @@ function ListeningTask({ task, content, isSubmitted, onSubmit }) {
   }
 
   async function handleSubmit() {
-    await onSubmit.mutateAsync({ response: { answers } })
+    const formattedAnswers = Object.entries(answers).map(([idx, answer]) => ({
+      question_index: parseInt(idx),
+      answer,
+    }))
+    await onSubmit.mutateAsync({ response_answers: formattedAnswers })
     setShowResults(true)
   }
 
@@ -590,14 +604,17 @@ function IrregularVerbsTask({ task, content, isSubmitted, onSubmit }) {
 
   function checkAndNext() {
     if (!revealed) {
-      // Reveal the answer
-      const isCorrect =
-        pastSimple.trim().toLowerCase() === (currentVerb.past_simple || '').toLowerCase() &&
-        pastParticiple.trim().toLowerCase() === (currentVerb.past_participle || '').toLowerCase()
+      // Reveal the answer — handle alternatives separated by /
+      const correctPastOptions = (currentVerb.past_simple || '').toLowerCase().split('/').map(s => s.trim())
+      const correctParticipleOptions = (currentVerb.past_participle || '').toLowerCase().split('/').map(s => s.trim())
+      const pastOk = correctPastOptions.includes(pastSimple.trim().toLowerCase())
+      const participleOk = correctParticipleOptions.includes(pastParticiple.trim().toLowerCase())
+      const isCorrect = pastOk && participleOk
       setResults((prev) => [
         ...prev,
         {
-          verb: currentVerb.base,
+          verb: currentVerb.base_form,
+          base_form: currentVerb.base_form,
           userPastSimple: pastSimple.trim(),
           userPastParticiple: pastParticiple.trim(),
           correctPastSimple: currentVerb.past_simple,
@@ -622,8 +639,14 @@ function IrregularVerbsTask({ task, content, isSubmitted, onSubmit }) {
   const score = results.filter((r) => r.correct).length
 
   async function handleSubmit() {
+    const formattedAnswers = results.map((r, i) => ({
+      verb_index: i,
+      base_form: r.base_form || r.verb,
+      past_simple: r.userPastSimple,
+      past_participle: r.userPastParticiple,
+    }))
     await onSubmit.mutateAsync({
-      response: { results, score, total },
+      response_answers: formattedAnswers,
     })
   }
 
@@ -663,9 +686,9 @@ function IrregularVerbsTask({ task, content, isSubmitted, onSubmit }) {
               className="glass-card p-8 space-y-6"
             >
               <div className="text-center space-y-2">
-                <h2 className="text-2xl font-bold text-white">{currentVerb.base}</h2>
-                {currentVerb.arabic && (
-                  <p className="text-muted text-lg">{currentVerb.arabic}</p>
+                <h2 className="text-2xl font-bold text-white">{currentVerb.base_form}</h2>
+                {currentVerb.meaning_ar && (
+                  <p className="text-muted text-lg">{currentVerb.meaning_ar}</p>
                 )}
               </div>
 
@@ -869,15 +892,17 @@ function QuestionsUI({ questions, answers, showResults, isSubmitted, onMCQChange
 }
 
 /* ─── AI Feedback Display ────────────────────────────────────────── */
-function FeedbackDisplay({ feedback, scores, type }) {
-  const feedbackData = typeof feedback === 'string' ? JSON.parse(feedback) : feedback
-  const scoresData = typeof scores === 'string' ? JSON.parse(scores) : scores || {}
+function FeedbackDisplay({ feedback, autoScore, type }) {
+  const feedbackData = typeof feedback === 'string' ? JSON.parse(feedback) : feedback || {}
 
   const scoreEntries = []
-  if (scoresData.overall != null) scoreEntries.push({ label: 'الدرجة الكلية', value: scoresData.overall })
-  if (scoresData.grammar != null) scoreEntries.push({ label: 'القواعد', value: scoresData.grammar })
-  if (scoresData.vocabulary != null) scoreEntries.push({ label: 'المفردات', value: scoresData.vocabulary })
-  if (type === 'speaking' && scoresData.fluency != null) scoreEntries.push({ label: 'الطلاقة', value: scoresData.fluency })
+  if (feedbackData.overall_score != null) scoreEntries.push({ label: 'الدرجة الكلية', value: feedbackData.overall_score })
+  if (feedbackData.grammar_score != null) scoreEntries.push({ label: 'القواعد', value: feedbackData.grammar_score })
+  if (feedbackData.vocabulary_score != null) scoreEntries.push({ label: 'المفردات', value: feedbackData.vocabulary_score })
+  if (type === 'speaking' && feedbackData.fluency_score != null) scoreEntries.push({ label: 'الطلاقة', value: feedbackData.fluency_score })
+  if (type === 'writing' && feedbackData.structure_score != null) scoreEntries.push({ label: 'البنية', value: feedbackData.structure_score })
+  // For reading/listening auto-graded
+  if (feedbackData.auto_score != null && scoreEntries.length === 0) scoreEntries.push({ label: 'الدرجة', value: feedbackData.auto_score })
 
   return (
     <div className="glass-card p-6 space-y-6 border-primary/20">
