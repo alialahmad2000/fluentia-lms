@@ -1,6 +1,40 @@
 import { supabase } from './supabase'
 
 /**
+ * Extracts a human-readable error message from supabase.functions.invoke error.
+ * FunctionsHttpError has a generic .message but the real error is in .context.
+ */
+function extractErrorMessage(error) {
+  if (!error) return null
+
+  // String error
+  if (typeof error === 'string') return error
+
+  // FunctionsHttpError: .context contains the response body text
+  if (error.context) {
+    try {
+      // context may be the raw response text (JSON string)
+      const parsed = typeof error.context === 'string'
+        ? JSON.parse(error.context)
+        : error.context
+      if (parsed?.error) return parsed.error
+      if (parsed?.message) return parsed.message
+      if (parsed?.msg) return parsed.msg
+    } catch {
+      // If context is plain text, use it directly
+      if (typeof error.context === 'string' && error.context.length < 500) {
+        return error.context
+      }
+    }
+  }
+
+  // FunctionsFetchError or standard Error
+  if (error.message) return error.message
+
+  return String(error)
+}
+
+/**
  * Wraps supabase.functions.invoke with timeout and retry.
  *
  * @param {string} functionName - Edge function name
@@ -28,8 +62,6 @@ export async function invokeWithRetry(functionName, options = {}, config = {}) {
     try {
       const res = await supabase.functions.invoke(functionName, {
         ...options,
-        // Note: supabase-js doesn't natively support AbortSignal on invoke,
-        // but we use it for our timeout logic below
       })
 
       clearTimeout(timer)
@@ -39,14 +71,20 @@ export async function invokeWithRetry(functionName, options = {}, config = {}) {
         return { data: null, error: 'تم إلغاء الطلب' }
       }
 
-      // If we got a retryable error and have retries left, retry
-      if (res.error && attempt < retries) {
-        const errMsg = typeof res.error === 'object' ? res.error.message : String(res.error)
-        const isRetryable = /502|503|network|fetch/i.test(errMsg)
-        if (isRetryable) {
-          await new Promise(r => setTimeout(r, 1000))
-          continue
+      // If we got an error, extract the real message
+      if (res.error) {
+        const errMsg = extractErrorMessage(res.error)
+
+        // Retry on server/network errors
+        if (attempt < retries) {
+          const isRetryable = /502|503|network|fetch|timeout/i.test(errMsg)
+          if (isRetryable) {
+            await new Promise(r => setTimeout(r, 1000))
+            continue
+          }
         }
+
+        return { data: null, error: errMsg }
       }
 
       return res

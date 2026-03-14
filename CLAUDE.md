@@ -225,8 +225,8 @@ English body: 'Inter'
 # After any code changes:
 git add -A && git commit -m "descriptive message" && git push
 
-# Deploy edge functions:
-supabase functions deploy FUNCTION_NAME --project-ref nmjexpuycmqcxuxljier
+# Deploy edge functions (ALWAYS use --no-verify-jwt — functions handle auth internally):
+supabase functions deploy FUNCTION_NAME --no-verify-jwt --project-ref nmjexpuycmqcxuxljier
 
 # DB migrations (if needed):
 # Run SQL directly in Supabase SQL Editor (manual approach used for this project)
@@ -287,6 +287,18 @@ Claude Code: Add new entries at the TOP of this section.
 Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
+
+### March 14, 2026 — FIX: AI Features Broken (Root Cause: Gateway JWT Rejection)
+- What: ALL AI features were returning "عذرًا، حدث خطأ" because Supabase's edge function gateway was rejecting valid user JWTs with `{"code":401,"message":"Invalid JWT"}`. Functions were deployed without `--no-verify-jwt`, causing the gateway to validate JWTs before the function code could handle auth. The gateway's JWT verification was failing despite valid tokens.
+- Root cause: Edge functions deployed WITHOUT `--no-verify-jwt` flag. The Supabase gateway rejected authenticated user JWTs at the gateway level, before requests ever reached our function code.
+- Fix: Redeployed ALL 22 functions with `--no-verify-jwt`. Functions handle auth internally via `supabase.auth.getUser(token)`.
+- Also fixed:
+  - `src/lib/invokeWithRetry.js` — Now extracts actual error messages from `FunctionsHttpError.context` instead of showing generic "Edge Function returned a non-2xx status code"
+  - `src/pages/student/StudentConversation.jsx` — Shows real error messages instead of hardcoded Arabic text
+  - `supabase/functions/ai-student-chatbot/index.ts` — Added `system_override` support for conversation simulator scenarios
+  - `.env` — Fixed placeholder Supabase URL/anon key with real values for local development
+- Status: Complete — tested with real student JWT, all AI functions return 200
+- Notes: CRITICAL — always deploy edge functions with `--no-verify-jwt` flag. Add to deployment docs.
 
 ### March 14, 2026 — Fix Claude Model ID in All Edge Functions
 - What: Updated Claude API model from `claude-sonnet-4-20250514` (deprecated) to `claude-sonnet-4-6` (current) across all 17 AI-using edge functions

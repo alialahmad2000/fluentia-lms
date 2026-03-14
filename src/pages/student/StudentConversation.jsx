@@ -170,8 +170,7 @@ export default function StudentConversation() {
       }, { timeoutMs: 30000, retries: 1 })
 
       if (chatRes.error) {
-        const errMsg = typeof chatRes.error === 'object' ? chatRes.error.message : String(chatRes.error)
-        throw new Error(errMsg)
+        throw new Error(String(chatRes.error))
       }
 
       return chatRes.data?.reply || chatRes.data?.message || 'Sorry, I could not respond.'
@@ -179,8 +178,9 @@ export default function StudentConversation() {
     onSuccess: (reply) => {
       setMessages(prev => [...prev, { role: 'assistant', content: reply }])
     },
-    onError: () => {
-      setMessages(prev => [...prev, { role: 'assistant', content: 'عذرًا، حدث خطأ. حاول مرة أخرى.' }])
+    onError: (err) => {
+      const errText = err?.message || 'عذرًا، حدث خطأ. حاول مرة أخرى.'
+      setMessages(prev => [...prev, { role: 'assistant', content: errText }])
     },
   })
 

@@ -91,9 +91,10 @@ serve(async (req) => {
         status: 400,
       })
     }
-    const { message, history } = body as {
+    const { message, history, system_override } = body as {
       message: string
       history?: Array<{ role: string; content: string }>
+      system_override?: string
     }
 
     if (!message || typeof message !== 'string' || message.trim().length === 0) {
@@ -134,9 +135,11 @@ serve(async (req) => {
       )
     }
 
-    // Build system prompt
+    // Build system prompt (allow override from conversation simulator)
     const levelLabel = CEFR_MAP[studentLevel] || 'A1 (Beginner)'
-    const systemPrompt = `You are a friendly English conversation practice assistant for Saudi students learning English. The student's current level is ${levelLabel}.
+    const systemPrompt = system_override
+      ? system_override
+      : `You are a friendly English conversation practice assistant for Saudi students learning English. The student's current level is ${levelLabel}.
 
 Rules:
 - Respond in simple English appropriate to the student's level (${levelLabel}).
