@@ -251,7 +251,7 @@ serve(async (req) => {
                   'content-type': 'application/json',
                 },
                 body: JSON.stringify({
-                  model: 'claude-sonnet-4-20250514',
+                  model: 'claude-sonnet-4-6',
                   max_tokens: 100,
                   system: `Generate a short, personalized Arabic reminder (1 sentence) for ${name}, an English student inactive for ${hoursInactive}h. Streak: ${s.current_streak}d, XP: ${s.xp_total}. Be warm, encouraging, not pushy. Just the message text, nothing else.`,
                   messages: [{ role: 'user', content: 'Generate nudge' }],

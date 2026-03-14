@@ -169,7 +169,7 @@ Rules:
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 300,
         system: systemPrompt,
         messages: claudeMessages,
@@ -214,7 +214,7 @@ Rules:
     await supabase.from('ai_usage').insert({
       type: 'chatbot',
       student_id: studentId,
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-4-6',
       input_tokens: inputTokens,
       output_tokens: outputTokens,
       estimated_cost_sar: ((inputTokens * 3 + outputTokens * 15) / 1_000_000) * 3.75,

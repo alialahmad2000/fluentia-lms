@@ -288,6 +288,12 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### March 14, 2026 — Fix Claude Model ID in All Edge Functions
+- What: Updated Claude API model from `claude-sonnet-4-20250514` (deprecated) to `claude-sonnet-4-6` (current) across all 17 AI-using edge functions
+- Files: All 17 edge functions that call Claude API (20 occurrences total)
+- Status: Complete — all deployed
+- Notes: This was the root cause of "non-2xx status code" errors on all AI features. The old model ID was rejected by the Anthropic API.
+
 ### March 14, 2026 — Edge Function Audit & Fix (All 22 Functions)
 - What: Systematic audit and fix of all 22 edge functions — auth, CORS, body parsing, error handling, bug fixes
 - Fixes applied:

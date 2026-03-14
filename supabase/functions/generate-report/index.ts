@@ -152,7 +152,7 @@ Assignment types: ${[...new Set((submissions || []).map(s => s.assignments?.type
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 1200,
         system: `You are generating a progress report for an Arab student learning English.
 Write the report in Arabic. Structure it as JSON with these fields:

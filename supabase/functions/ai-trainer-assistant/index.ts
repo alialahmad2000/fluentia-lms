@@ -603,7 +603,7 @@ async function executeAction(
                 'content-type': 'application/json',
               },
               body: JSON.stringify({
-                model: 'claude-sonnet-4-20250514',
+                model: 'claude-sonnet-4-6',
                 max_tokens: 300,
                 system: `Grade this English assignment (student level ${level}/5). Return JSON: {"score": 1-10, "grade": "A+/A/B+/B/C/D/F", "numeric": 45-97, "feedback": "brief Arabic feedback"}`,
                 messages: [{ role: 'user', content: `Assignment: ${sub.assignments?.title}\nType: ${sub.assignments?.type}\nContent: ${text.substring(0, 500)}` }],
@@ -1104,7 +1104,7 @@ Late submissions: ${(subs || []).filter((s: any) => s.is_late).length}/${subs?.l
             'content-type': 'application/json',
           },
           body: JSON.stringify({
-            model: 'claude-sonnet-4-20250514',
+            model: 'claude-sonnet-4-6',
             max_tokens: 600,
             system: `You are analyzing an English student's performance data. Write a concise Arabic analysis with:
 1. Top 3 strengths (نقاط القوة)
@@ -1867,7 +1867,7 @@ serve(async (req) => {
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 800,
         system: buildSystemPrompt(contextStr, role),
         messages: claudeMessages,
