@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Menu } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { getGreeting } from '../../utils/dateHelpers'
@@ -14,24 +15,29 @@ const ROLE_LABELS = {
 const ROLE_CONFIG = {
   student: {
     badge: 'fl-badge sky',
-    avatar: 'bg-sky-500/15 border-sky-500/20 text-sky-400',
+    gradient: 'linear-gradient(135deg, var(--accent-sky), var(--accent-violet))',
+    profilePath: '/student/profile',
   },
   trainer: {
     badge: 'fl-badge emerald',
-    avatar: 'bg-emerald-500/15 border-emerald-500/20 text-emerald-400',
+    gradient: 'linear-gradient(135deg, var(--accent-emerald), var(--accent-sky))',
+    profilePath: '/trainer/students',
   },
   admin: {
     badge: 'fl-badge gold',
-    avatar: 'bg-gold-500/15 border-gold-500/20 text-gold-400',
+    gradient: 'linear-gradient(135deg, var(--accent-gold), var(--accent-amber))',
+    profilePath: '/admin/settings',
   },
 }
 
 export default function Header({ onMenuToggle }) {
-  const { profile } = useAuthStore()
+  const { profile, studentData } = useAuthStore()
+  const navigate = useNavigate()
   const role = profile?.role || 'student'
   const config = ROLE_CONFIG[role] || ROLE_CONFIG.student
   const displayName = profile?.display_name || profile?.full_name || ''
   const firstName = displayName.split(' ')[0] || ''
+  const packageName = studentData?.package_name || profile?.package_name || null
 
   const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
@@ -68,15 +74,29 @@ export default function Header({ onMenuToggle }) {
       <div className="flex items-center gap-2.5">
         <ThemeToggle />
 
-        <span className={`${config.badge} text-[11px]`}>
+        {/* Role badge — shows package on hover */}
+        <span
+          className={`${config.badge} text-[11px] cursor-default select-none transition-all duration-200 hover:scale-105`}
+          title={packageName ? `الباقة: ${packageName}` : ROLE_LABELS[role]}
+        >
           {ROLE_LABELS[role] || role}
         </span>
 
         <NotificationCenter />
 
-        <div className={`w-9 h-9 rounded-xl ${config.avatar} border flex items-center justify-center text-xs font-bold`}>
+        {/* Avatar — clickable, navigates to profile */}
+        <button
+          onClick={() => navigate(config.profilePath)}
+          aria-label="الملف الشخصي"
+          className="w-9 h-9 rounded-xl border-0 flex items-center justify-center text-xs font-bold cursor-pointer transition-all duration-200 hover:scale-110 hover:shadow-lg active:scale-95"
+          style={{
+            background: config.gradient,
+            color: '#fff',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+          }}
+        >
           {firstName?.[0] || '?'}
-        </div>
+        </button>
       </div>
     </header>
   )

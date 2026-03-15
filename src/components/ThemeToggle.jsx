@@ -17,10 +17,10 @@ export default function ThemeToggle() {
           key={key}
           onClick={() => setTheme(key)}
           title={label}
-          className={`p-1.5 rounded-lg transition-all duration-200 ${
+          className={`p-1.5 rounded-lg cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95 ${
             theme === key
-              ? 'bg-sky-500/15 text-sky-400'
-              : 'text-[var(--text-tertiary)] hover:text-[var(--text-primary)]'
+              ? 'bg-sky-500/15 text-sky-400 shadow-sm'
+              : 'text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[var(--glass-card-hover)]'
           }`}
         >
           <Icon size={14} />

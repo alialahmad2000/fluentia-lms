@@ -154,18 +154,23 @@ export default function NotificationCenter() {
       <button
         onClick={() => setOpen(!open)}
         aria-label="الإشعارات"
-        className="relative btn-icon text-muted transition-all duration-200 p-1.5"
+        className="relative btn-icon text-muted transition-all duration-200 p-1.5 hover:scale-110 active:scale-95"
       >
-        <Bell size={20} />
+        <Bell size={20} strokeWidth={1.5} />
         {unreadCount > 0 && (
-          <motion.span
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            aria-live="polite"
-            className="absolute -top-1 -end-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center"
-          >
-            {unreadCount > 9 ? '9+' : unreadCount}
-          </motion.span>
+          <>
+            {/* Pulse ring */}
+            <span className="absolute -top-1 -end-1 w-5 h-5 bg-red-500 rounded-full animate-ping opacity-40" />
+            {/* Badge */}
+            <motion.span
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              aria-live="polite"
+              className="absolute -top-1 -end-1 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center"
+            >
+              {unreadCount > 9 ? '9+' : unreadCount}
+            </motion.span>
+          </>
         )}
       </button>
 
