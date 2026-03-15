@@ -48,10 +48,15 @@ export default function StudentRecordings() {
 
   const incrementView = useMutation({
     mutationFn: async (id) => {
-      await supabase.rpc('increment_view_count', { recording_id: id }).catch(() => {
-        // Fallback: direct update
-        supabase.from('class_recordings').update({ view_count: (viewing?.view_count || 0) + 1 }).eq('id', id)
-      })
+      const { error } = await supabase.rpc('increment_view_count', { recording_id: id })
+      if (error) {
+        // Fallback: direct update if RPC doesn't exist
+        const { error: updateErr } = await supabase
+          .from('class_recordings')
+          .update({ view_count: (viewing?.view_count || 0) + 1 })
+          .eq('id', id)
+        if (updateErr) console.error('View count update failed:', updateErr.message)
+      }
     },
   })
 

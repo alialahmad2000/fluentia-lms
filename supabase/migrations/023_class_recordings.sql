@@ -91,10 +91,18 @@ CREATE POLICY "view_schedule" ON weekly_schedule_config FOR SELECT TO authentica
   USING (deleted_at IS NULL AND is_active = true);
 
 CREATE POLICY "admin_manage_schedule" ON weekly_schedule_config FOR ALL TO authenticated
-  USING (EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin'));
+  USING (EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin'))
+  WITH CHECK (EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin'));
 
 CREATE POLICY "trainer_manage_own_schedule" ON weekly_schedule_config FOR ALL TO authenticated
   USING (
+    EXISTS (
+      SELECT 1 FROM profiles p
+      JOIN groups g ON g.trainer_id = p.id
+      WHERE p.id = auth.uid() AND p.role = 'trainer' AND g.id = weekly_schedule_config.group_id
+    )
+  )
+  WITH CHECK (
     EXISTS (
       SELECT 1 FROM profiles p
       JOIN groups g ON g.trainer_id = p.id
@@ -129,7 +137,8 @@ ALTER TABLE student_planned_tasks ENABLE ROW LEVEL SECURITY;
 
 -- Students manage own tasks
 CREATE POLICY "own_planned_tasks" ON student_planned_tasks FOR ALL TO authenticated
-  USING (student_id = auth.uid());
+  USING (student_id = auth.uid())
+  WITH CHECK (student_id = auth.uid());
 
 -- Staff view all
 CREATE POLICY "staff_view_planned_tasks" ON student_planned_tasks FOR SELECT TO authenticated
@@ -137,3 +146,17 @@ CREATE POLICY "staff_view_planned_tasks" ON student_planned_tasks FOR SELECT TO 
     deleted_at IS NULL
     AND EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role IN ('trainer', 'admin'))
   );
+
+-- ═══════════════════════════════════════════════════════
+-- 4. Helper Functions
+-- ═══════════════════════════════════════════════════════
+
+-- Atomically increment recording view count
+CREATE OR REPLACE FUNCTION increment_view_count(recording_id uuid)
+RETURNS void AS $$
+BEGIN
+  UPDATE class_recordings
+  SET view_count = COALESCE(view_count, 0) + 1
+  WHERE id = recording_id AND deleted_at IS NULL;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
