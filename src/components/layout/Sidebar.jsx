@@ -1,10 +1,10 @@
-import { useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  House, FileText, BarChart3, Mic, MessageSquare,
+  House, FileText, BarChart3, Mic, PenLine, MessageSquare,
   Bot, Users, CreditCard, Settings, LayoutDashboard,
-  LogOut, X, ChevronLeft, Zap, FolderOpen, CalendarDays, Wrench,
+  LogOut, X, ChevronLeft, Zap, FolderOpen, CalendarDays,
+  Video, ClipboardCheck, UsersRound, GraduationCap, Wrench,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { useThemeStore } from '../../stores/themeStore'
@@ -15,19 +15,19 @@ const ROLE_ACCENTS = {
     active: 'sidebar-link-active sidebar-link-active-sky',
     icon: 'text-sky-400',
     activeColor: 'var(--accent-sky)',
-    userBadge: 'bg-sky-500/10 text-sky-400 border-sky-500/20',
+    gradient: 'linear-gradient(135deg, var(--accent-sky), var(--accent-violet))',
   },
   trainer: {
     active: 'sidebar-link-active sidebar-link-active-emerald',
     icon: 'text-emerald-400',
     activeColor: 'var(--accent-emerald)',
-    userBadge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+    gradient: 'linear-gradient(135deg, var(--accent-emerald), var(--accent-sky))',
   },
   admin: {
     active: 'sidebar-link-active sidebar-link-active-gold',
     icon: 'text-gold-400',
     activeColor: 'var(--accent-gold)',
-    userBadge: 'bg-gold-500/10 text-gold-400 border-gold-500/20',
+    gradient: 'linear-gradient(135deg, var(--accent-gold), var(--accent-amber))',
   },
 }
 
@@ -40,25 +40,34 @@ const ROLE_LABELS = {
 // ─── Navigation Items with section dividers ───────────
 const NAV_ITEMS = {
   student: [
+    { type: 'divider', label: 'أساسي' },
     { to: '/student', label: 'الرئيسية', icon: House },
     { to: '/student/weekly-tasks', label: 'مهامي', icon: CalendarDays },
+    { to: '/student/recordings', label: 'التسجيلات', icon: Video },
+    { type: 'divider', label: 'معامل' },
     { to: '/student/speaking', label: 'معمل التحدث', icon: Mic },
-    { to: '/student/grades', label: 'الدرجات', icon: BarChart3 },
-    { type: 'divider', label: 'التواصل' },
-    { to: '/student/chat', label: 'المحادثة', icon: MessageSquare },
+    { to: '/student/writing-lab', label: 'معمل الكتابة', icon: PenLine },
+    { type: 'divider', label: 'التقييم' },
+    { to: '/student/assessments', label: 'الاختبارات', icon: ClipboardCheck },
+    { to: '/student/grades', label: 'الدرجات والنتائج', icon: BarChart3 },
+    { type: 'divider', label: 'تواصل' },
+    { to: '/student/conversation', label: 'المحادثة', icon: MessageSquare },
     { to: '/student/ai-chat', label: 'المساعد الذكي', icon: Bot },
+    { to: '/student/group-activity', label: 'نشاط المجموعة', icon: UsersRound },
   ],
   trainer: [
-    { to: '/trainer', label: 'الرئيسية', icon: House },
-    { to: '/trainer/assignments', label: 'الواجبات والتقييم', icon: FileText },
-    { to: '/trainer/weekly-grading', label: 'المهام الأسبوعية', icon: CalendarDays },
+    { type: 'divider', label: 'أساسي' },
+    { to: '/trainer', label: 'لوحة التحكم', icon: House },
+    { to: '/trainer/assignments', label: 'التدريس', icon: FileText },
+    { to: '/trainer/schedule', label: 'الجدول', icon: CalendarDays },
+    { to: '/trainer/recordings', label: 'التسجيلات', icon: Video },
     { type: 'divider', label: 'إدارة' },
-    { to: '/trainer/students', label: 'الطلاب', icon: Users },
+    { to: '/trainer/students', label: 'الطلاب', icon: GraduationCap },
     { to: '/trainer/points', label: 'الحصة المباشرة', icon: Zap },
     { to: '/trainer/ai-assistant', label: 'المساعد الذكي', icon: Bot },
-    { to: '/trainer/schedule', label: 'الأدوات', icon: Wrench },
   ],
   admin: [
+    { type: 'divider', label: 'أساسي' },
     { to: '/admin', label: 'لوحة التحكم', icon: LayoutDashboard },
     { to: '/trainer/assignments', label: 'التدريس', icon: FileText },
     { type: 'divider', label: 'إدارة' },
@@ -75,8 +84,11 @@ const NAV_ITEMS = {
 function SectionDivider({ label, collapsed }) {
   if (collapsed) return <div className="my-2 mx-3" style={{ height: '1px', background: 'var(--border-subtle)' }} />
   return (
-    <div className="flex items-center gap-2 px-3 mt-5 mb-2">
-      <span className="text-[11px] font-semibold whitespace-nowrap" style={{ color: 'var(--text-tertiary)' }}>
+    <div className="flex items-center gap-2 px-5 mt-5 mb-2">
+      <span
+        className="text-[11px] font-semibold whitespace-nowrap"
+        style={{ color: 'var(--text-tertiary)', letterSpacing: '0.03em' }}
+      >
         {label}
       </span>
       <div className="flex-1" style={{ height: '0.5px', background: 'var(--border-subtle)' }} />
@@ -85,14 +97,18 @@ function SectionDivider({ label, collapsed }) {
 }
 
 export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) {
-  const { profile, signOut } = useAuthStore()
+  const { profile, studentData, signOut } = useAuthStore()
   const effectiveTheme = useThemeStore((s) => s.effectiveTheme)
   const navigate = useNavigate()
+  const location = useLocation()
   const role = profile?.role || 'student'
   const items = NAV_ITEMS[role] || NAV_ITEMS.student
   const accent = ROLE_ACCENTS[role] || ROLE_ACCENTS.student
   const displayName = profile?.display_name || profile?.full_name || ''
   const firstName = displayName.split(' ')[0] || ''
+  const level = studentData?.level || profile?.level || '—'
+
+  const profilePath = role === 'admin' ? '/admin/settings' : role === 'trainer' ? '/trainer/students' : '/student/profile'
 
   async function handleLogout() {
     try {
@@ -101,6 +117,11 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
       console.error('[Sidebar] signOut error:', err)
     }
     navigate('/login')
+  }
+
+  function handleUserCardClick() {
+    navigate(profilePath)
+    onClose?.()
   }
 
   const sidebarContent = (
@@ -137,7 +158,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
       </div>
 
       {/* Nav items with section dividers */}
-      <nav role="navigation" aria-label="القائمة الجانبية" className="flex-1 py-3 px-3 overflow-y-auto">
+      <nav role="navigation" aria-label="القائمة الجانبية" className="flex-1 py-1 px-3 overflow-y-auto scrollbar-none">
         <div className="space-y-0.5">
           {items.map((item, i) => {
             if (item.type === 'divider') {
@@ -179,23 +200,52 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
       </nav>
 
       {/* User card + Logout */}
-      <div style={{ borderTop: '1px solid var(--border-subtle)' }} className="px-3 py-3">
-        {/* User card */}
-        {!collapsed && (
-          <div className="flex items-center gap-3 px-3 py-2.5 mb-2 rounded-xl" style={{ background: 'var(--glass-card)' }}>
+      <div className="px-3 py-3 mt-auto" style={{ borderTop: '1px solid var(--border-subtle)' }}>
+        {/* Clickable user card */}
+        {!collapsed ? (
+          <div
+            onClick={handleUserCardClick}
+            className="flex items-center gap-3 px-3.5 py-3 mb-2 rounded-xl cursor-pointer transition-all duration-200"
+            style={{
+              background: 'var(--glass-card)',
+              border: '1px solid var(--border-subtle)',
+              direction: 'rtl',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--glass-card-hover)'
+              e.currentTarget.style.borderColor = 'var(--border-glow)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'var(--glass-card)'
+              e.currentTarget.style.borderColor = 'var(--border-subtle)'
+            }}
+          >
             <div
-              className={`w-9 h-9 rounded-lg flex items-center justify-center text-xs font-bold border ${accent.userBadge}`}
+              className="w-9 h-9 rounded-lg flex items-center justify-center text-sm font-bold shrink-0"
+              style={{
+                background: accent.gradient,
+                color: '#fff',
+              }}
             >
               {firstName?.[0] || '?'}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[13px] font-semibold truncate" style={{ color: 'var(--text-primary)' }}>
+              <p className="text-[13px] font-bold truncate" style={{ color: 'var(--text-primary)' }}>
                 {displayName || 'مستخدم'}
               </p>
               <p className="text-[11px]" style={{ color: 'var(--text-tertiary)' }}>
-                {ROLE_LABELS[role] || role}
+                {ROLE_LABELS[role] || role}{role === 'student' && level !== '—' ? ` · Level ${level}` : ''}
               </p>
             </div>
+            <span className="text-[12px] shrink-0" style={{ color: 'var(--text-tertiary)' }}>←</span>
+          </div>
+        ) : (
+          <div
+            onClick={handleUserCardClick}
+            className="flex items-center justify-center mx-auto mb-2 w-10 h-10 rounded-lg cursor-pointer transition-all duration-200"
+            style={{ background: accent.gradient, color: '#fff', fontSize: 14, fontWeight: 700 }}
+          >
+            {firstName?.[0] || '?'}
           </div>
         )}
 
@@ -239,7 +289,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
               exit={{ opacity: 0 }}
               onClick={onClose}
               className="fixed inset-0 z-40 lg:hidden"
-              style={{ background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(4px)', WebkitBackdropFilter: 'blur(4px)' }}
+              style={{ background: 'var(--modal-backdrop)', backdropFilter: 'blur(4px)', WebkitBackdropFilter: 'blur(4px)' }}
             />
             <motion.aside
               initial={{ x: '100%' }}

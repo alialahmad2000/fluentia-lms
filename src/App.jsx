@@ -46,6 +46,8 @@ const StudentWeeklyTasks = lazyRetry(() => import('./pages/student/StudentWeekly
 const StudentWeeklyTaskDetail = lazyRetry(() => import('./pages/student/StudentWeeklyTaskDetail'))
 const StudentSpelling = lazyRetry(() => import('./pages/student/StudentSpelling'))
 const StudentRecordings = lazyRetry(() => import('./pages/student/StudentRecordings'))
+const StudentWritingLab = lazyRetry(() => import('./pages/student/StudentWritingLab'))
+const StudentGroupActivity = lazyRetry(() => import('./pages/student/StudentGroupActivity'))
 
 const TrainerDashboard = lazyRetry(() => import('./pages/trainer/TrainerDashboard'))
 const TrainerAssignments = lazyRetry(() => import('./pages/trainer/TrainerAssignments'))
@@ -246,6 +248,8 @@ export default function App() {
               <Route path="/student/weekly-tasks/:id" element={<Page><StudentWeeklyTaskDetail /></Page>} />
               <Route path="/student/spelling" element={<Page><StudentSpelling /></Page>} />
               <Route path="/student/recordings" element={<Page><StudentRecordings /></Page>} />
+              <Route path="/student/writing-lab" element={<Page><StudentWritingLab /></Page>} />
+              <Route path="/student/group-activity" element={<Page><StudentGroupActivity /></Page>} />
             </Route>
           </Route>
 
@@ -271,6 +275,7 @@ export default function App() {
               <Route path="/trainer/lesson-planner" element={<Page><TrainerLessonPlanner /></Page>} />
               <Route path="/trainer/quiz" element={<Page><TrainerQuizGenerator /></Page>} />
               <Route path="/trainer/weekly-grading" element={<Page><TrainerWeeklyGrading /></Page>} />
+              <Route path="/trainer/recordings" element={<Page><AdminRecordings /></Page>} />
             </Route>
           </Route>
 

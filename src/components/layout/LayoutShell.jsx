@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Outlet, NavLink } from 'react-router-dom'
-import { House, CalendarDays, Mic, BarChart3, User, FileText, Users, Zap, Bot, CreditCard, Settings } from 'lucide-react'
+import { House, CalendarDays, Video, User, FileText, Users, Zap, Bot, CreditCard, Settings } from 'lucide-react'
 import Sidebar from './Sidebar'
 import Header from './Header'
 import AIFloatingHelper from '../ai/AIFloatingHelper'
@@ -10,9 +10,9 @@ import { useAuthStore } from '../../stores/authStore'
 const MOBILE_TABS = {
   student: [
     { to: '/student', label: 'الرئيسية', icon: House },
-    { to: '/student/weekly-tasks', label: 'مهامي', icon: CalendarDays },
-    { to: '/student/speaking', label: 'التحدث', icon: Mic },
-    { to: '/student/grades', label: 'الدرجات', icon: BarChart3 },
+    { to: '/student/weekly-tasks', label: 'المهام', icon: CalendarDays },
+    { to: '/student/schedule', label: 'الجدول', icon: CalendarDays },
+    { to: '/student/recordings', label: 'التسجيلات', icon: Video },
     { to: '/student/profile', label: 'حسابي', icon: User },
   ],
   trainer: [
