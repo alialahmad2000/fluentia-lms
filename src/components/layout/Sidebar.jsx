@@ -1,4 +1,4 @@
-import { NavLink, useNavigate, useLocation } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   House, FileText, BarChart3, Mic, PenLine, MessageSquare,
@@ -100,7 +100,6 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
   const { profile, studentData, signOut } = useAuthStore()
   const effectiveTheme = useThemeStore((s) => s.effectiveTheme)
   const navigate = useNavigate()
-  const location = useLocation()
   const role = profile?.role || 'student'
   const items = NAV_ITEMS[role] || NAV_ITEMS.student
   const accent = ROLE_ACCENTS[role] || ROLE_ACCENTS.student
