@@ -14,7 +14,7 @@ import {
 import { CSS } from '@dnd-kit/utilities'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
-import { getArabicDay, formatTime } from '../../utils/dateHelpers'
+import { formatTime } from '../../utils/dateHelpers'
 
 // ─── Constants ──────────────────────────────────────────
 const DAYS = [0, 1, 2, 3, 4, 5, 6] // Sun-Sat
@@ -174,7 +174,7 @@ export default function StudentSchedule() {
     queryKey: ['student-upcoming-classes'],
     queryFn: async () => {
       if (!group?.id) return []
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('classes')
         .select('id, title, topic, date, start_time, end_time, google_meet_link, status')
         .eq('group_id', group.id)
@@ -182,6 +182,7 @@ export default function StudentSchedule() {
         .order('date')
         .order('start_time')
         .limit(5)
+      if (error) throw error
       return data || []
     },
     enabled: !!group?.id,
@@ -192,12 +193,13 @@ export default function StudentSchedule() {
     queryKey: ['classmate-plans', group?.id, weekStartISO],
     queryFn: async () => {
       if (!group?.id) return []
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('student_planned_tasks')
         .select('student_id, planned_day, planned_slot, is_completed, title, profiles!inner(display_name, full_name)')
         .eq('week_start', weekStartISO)
         .is('deleted_at', null)
         .neq('student_id', profile?.id)
+      if (error) throw error
       return data || []
     },
     enabled: !!group?.id && showClassmates,

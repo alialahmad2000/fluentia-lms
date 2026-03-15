@@ -47,11 +47,12 @@ export default function AdminRecordings() {
   const { data: recordings, isLoading } = useQuery({
     queryKey: ['admin-recordings'],
     queryFn: async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('class_recordings')
         .select('*, uploader:uploaded_by(full_name)')
         .is('deleted_at', null)
         .order('recorded_date', { ascending: false })
+      if (error) throw error
       return data || []
     },
   })
@@ -59,7 +60,8 @@ export default function AdminRecordings() {
   const { data: groups } = useQuery({
     queryKey: ['admin-groups-list'],
     queryFn: async () => {
-      const { data } = await supabase.from('groups').select('id, name, code').eq('is_active', true)
+      const { data, error } = await supabase.from('groups').select('id, name, code').eq('is_active', true)
+      if (error) throw error
       return data || []
     },
   })

@@ -15,14 +15,6 @@ const CLASS_TYPES = {
   ielts: { label: 'IELTS', color: 'text-gold-400 bg-gold-500/10 border-gold-500/20' },
 }
 
-function extractGoogleDriveFileId(url) {
-  let match = url.match(/\/d\/([a-zA-Z0-9_-]+)/)
-  if (match) return match[1]
-  match = url.match(/[?&]id=([a-zA-Z0-9_-]+)/)
-  if (match) return match[1]
-  return null
-}
-
 export default function StudentRecordings() {
   const [filter, setFilter] = useState('all')
   const [viewing, setViewing] = useState(null)
@@ -41,7 +33,8 @@ export default function StudentRecordings() {
         query = query.eq('class_type', filter)
       }
 
-      const { data } = await query
+      const { data, error } = await query
+      if (error) throw error
       return data || []
     },
   })

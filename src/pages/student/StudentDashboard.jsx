@@ -199,7 +199,7 @@ export default function StudentDashboard() {
                 <CalendarDays className="text-sky-400" size={18} />
               </div>
               <h3 className="text-[15px] font-semibold" style={{ color: 'var(--color-text-primary)' }}>المهام الأسبوعية</h3>
-              <span className="mr-auto text-xs text-muted">
+              <span className="me-auto text-xs text-muted">
                 {weeklyProgress.completed_tasks}/{weeklyProgress.total_tasks}
               </span>
               {weeklyProgress.status === 'completed' && (
@@ -255,7 +255,7 @@ export default function StudentDashboard() {
             </p>
           </div>
           {nextLevel && (
-            <div className="text-left">
+            <div className="text-start">
               <p className="text-xs text-muted">التالي</p>
               <p className="text-sm font-medium text-sky-400">
                 {nextLevel.title_ar} ({nextLevel.xp} XP)
@@ -271,7 +271,7 @@ export default function StudentDashboard() {
             className="h-full bg-gradient-to-l from-sky-400 to-sky-600 rounded-full"
           />
         </div>
-        <p className="text-xs text-muted mt-2 text-left">
+        <p className="text-xs text-muted mt-2 text-start">
           {nextLevel ? `${nextLevel.xp - xp} XP للمستوى التالي` : 'أعلى مستوى!'}
         </p>
       </motion.div>

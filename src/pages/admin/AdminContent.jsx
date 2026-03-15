@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   FolderOpen, Upload, FileText, Video, Link2, Mic, Plus, Edit3,
-  Trash2, Target, BookOpen, Loader2, X, GripVertical, Search, Moon, MessageSquareQuote
+  Trash2, Target, BookOpen, Loader2, X, Moon, MessageSquareQuote
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 
@@ -410,7 +410,7 @@ function MaterialModal({ onClose, onSubmit, isPending }) {
                 type="file"
                 accept=".pdf"
                 onChange={(e) => setFile(e.target.files[0])}
-                className="input-field w-full text-sm file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:bg-primary/20 file:text-primary file:text-sm"
+                className="input-field w-full text-sm file:me-3 file:py-1 file:px-3 file:rounded file:border-0 file:bg-primary/20 file:text-primary file:text-sm"
               />
             </div>
           ) : (
