@@ -389,7 +389,7 @@ export default function StudentSchedule() {
                       {DAY_LABELS[day]}
                     </p>
                     {isToday && (
-                      <span className="inline-block mt-0.5 text-[10px] text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded-full">
+                      <span className="inline-block mt-0.5 text-[13px] text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded-full">
                         اليوم
                       </span>
                     )}
@@ -404,7 +404,7 @@ export default function StudentSchedule() {
 
                       return (
                         <div key={slot.key}>
-                          <p className="text-[10px] text-muted/60 mb-1 flex items-center gap-1">
+                          <p className="text-[13px] text-muted/60 mb-1 flex items-center gap-1">
                             <span>{slot.icon}</span> {slot.label}
                           </p>
 
@@ -488,11 +488,11 @@ export default function StudentSchedule() {
                         })
                         return (
                           <div className="mt-2 pt-2 border-t border-border-subtle">
-                            <p className="text-[10px] text-muted/50 mb-1 flex items-center gap-1">
+                            <p className="text-[13px] text-muted/50 mb-1 flex items-center gap-1">
                               <Users size={9} /> زميلاتك
                             </p>
                             {Object.entries(grouped).map(([name, tasks]) => (
-                              <div key={name} className="text-[10px] text-muted/60 truncate">
+                              <div key={name} className="text-[13px] text-muted/60 truncate">
                                 {name}: {tasks.length} مهام
                                 {tasks.filter(t => t.is_completed).length > 0 && (
                                   <span className="text-emerald-400"> ({tasks.filter(t => t.is_completed).length} ✓)</span>

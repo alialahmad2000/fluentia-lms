@@ -10,6 +10,7 @@ import { getGreeting, getArabicDay, formatTime, formatDateAr } from '../../utils
 import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/constants'
 import DailyChallenge from '../../components/gamification/DailyChallenge'
 import MysteryBox from '../../components/gamification/MysteryBox'
+import StudentWowMoments from '../../components/ai/StudentWowMoments'
 import { Link } from 'react-router-dom'
 
 function getLevel(xp) {
@@ -160,6 +161,9 @@ export default function StudentDashboard() {
           {pkg.name_ar} &middot; {academicLevel.name_ar} ({academicLevel.cefr})
         </p>
       </motion.div>
+
+      {/* Wow Moments — streak/XP milestones */}
+      <StudentWowMoments />
 
       {/* 2. Quick Stats Row */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">

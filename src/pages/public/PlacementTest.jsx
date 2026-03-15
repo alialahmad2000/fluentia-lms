@@ -152,7 +152,6 @@ export default function PlacementTest() {
     <div
       dir="rtl"
       className="min-h-screen text-white font-tajawal selection:bg-sky-500/30 overflow-x-hidden"
-      style={{ background: 'var(--color-bg-base)' }}
       style={{
         background: 'radial-gradient(ellipse at 50% 0%, rgba(56,189,248,0.12) 0%, #060e1c 60%)',
       }}
