@@ -1,7 +1,29 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { UsersRound, Sparkles } from 'lucide-react'
+import { UsersRound, Activity, Target, Trophy, Heart } from 'lucide-react'
+import StudentActivityFeed from './StudentActivityFeed'
+import StudentChallenges from './StudentChallenges'
+import StudentLeaderboard from './StudentLeaderboard'
+import StudentPeerRecognition from './StudentPeerRecognition'
+
+const TABS = [
+  { key: 'activity', label: 'النشاط', icon: Activity },
+  { key: 'challenges', label: 'التحديات', icon: Target },
+  { key: 'leaderboard', label: 'المتصدرين', icon: Trophy },
+  { key: 'recognition', label: 'تقدير', icon: Heart },
+]
+
+const TAB_COMPONENTS = {
+  activity: StudentActivityFeed,
+  challenges: StudentChallenges,
+  leaderboard: StudentLeaderboard,
+  recognition: StudentPeerRecognition,
+}
 
 export default function StudentGroupActivity() {
+  const [activeTab, setActiveTab] = useState('activity')
+  const ActiveComponent = TAB_COMPONENTS[activeTab]
+
   return (
     <div className="space-y-8">
       {/* Page header */}
@@ -19,21 +41,34 @@ export default function StudentGroupActivity() {
         </div>
       </motion.div>
 
-      {/* Empty / Coming soon state */}
+      {/* Tab pills */}
       <motion.div
-        initial={{ opacity: 0, y: 15 }}
+        initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="fl-card-static"
+        transition={{ delay: 0.05 }}
+        className="flex gap-2 overflow-x-auto scrollbar-none pb-1"
       >
-        <div className="fl-empty">
-          <div className="fl-empty-icon">
-            <Sparkles size={48} className="text-emerald-400" strokeWidth={1.5} />
-          </div>
-          <p className="fl-empty-title">قريباً</p>
-          <p className="fl-empty-desc">هذه الميزة تحت التطوير — ستجمع نشاط المجموعة والتحديات وتقدير الأقران في مكان واحد.</p>
-        </div>
+        {TABS.map((tab) => (
+          <button
+            key={tab.key}
+            onClick={() => setActiveTab(tab.key)}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-medium transition-all duration-200 whitespace-nowrap ${
+              activeTab === tab.key
+                ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                : 'border border-transparent hover:bg-[var(--surface-raised)]'
+            }`}
+            style={activeTab !== tab.key ? { color: 'var(--text-tertiary)', background: 'var(--surface-raised)' } : undefined}
+          >
+            <tab.icon size={16} strokeWidth={1.5} />
+            {tab.label}
+          </button>
+        ))}
       </motion.div>
+
+      {/* Tab content — render each sub-page directly (they already have their own headers, hide them) */}
+      <div className="[&>div>div:first-child]:hidden">
+        <ActiveComponent />
+      </div>
     </div>
   )
 }

@@ -3,8 +3,8 @@ import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import {
   Flame, Zap, Trophy, BookOpen, Calendar, ArrowLeft, CreditCard, Crosshair,
-  CalendarDays, FileText, ClipboardCheck, Award, Users, Activity, Target, Swords, PlayCircle,
-  Clock, Bell,
+  CalendarDays, FileText, ClipboardCheck, Video, UsersRound,
+  Clock, Bell, Activity,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
@@ -13,7 +13,7 @@ import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/consta
 import DailyChallenge from '../../components/gamification/DailyChallenge'
 import MysteryBox from '../../components/gamification/MysteryBox'
 import StudentWowMoments from '../../components/ai/StudentWowMoments'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function getLevel(xp) {
   for (let i = GAMIFICATION_LEVELS.length - 1; i >= 0; i--) {
@@ -39,15 +39,12 @@ const fadeUp = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
 }
 
-// ─── Quick Access Cards ─────────────────────────────────
+// ─── Quick Access Cards (top 4 most important) ──────────
 const QUICK_ACCESS = [
-  { to: '/student/assignments', label: 'الواجبات', icon: FileText, color: 'sky', glow: 'var(--accent-sky-glow)' },
-  { to: '/student/quiz', label: 'الاختبارات', icon: ClipboardCheck, color: 'emerald', glow: 'var(--accent-emerald-glow)' },
-  { to: '/student/schedule', label: 'الجدول', icon: Calendar, color: 'violet', glow: 'var(--accent-violet-glow)' },
-  { to: '/student/library', label: 'المكتبة', icon: BookOpen, color: 'amber', glow: 'var(--accent-amber-glow)' },
-  { to: '/student/certificates', label: 'شهاداتي', icon: Award, color: 'gold', glow: 'var(--accent-gold-glow)' },
-  { to: '/student/leaderboard', label: 'المتصدرين', icon: Trophy, color: 'rose', glow: 'var(--accent-rose-glow)' },
-  { to: '/student/recordings', label: 'التسجيلات', icon: PlayCircle, color: 'sky', glow: 'var(--accent-sky-glow)' },
+  { to: '/student/assignments', label: 'المهام', icon: FileText, color: 'sky', glow: 'var(--accent-sky-glow)' },
+  { to: '/student/schedule', label: 'الجدول', icon: CalendarDays, color: 'violet', glow: 'var(--accent-violet-glow)' },
+  { to: '/student/recordings', label: 'التسجيلات', icon: Video, color: 'emerald', glow: 'var(--accent-emerald-glow)' },
+  { to: '/student/assessments', label: 'الاختبارات', icon: ClipboardCheck, color: 'amber', glow: 'var(--accent-amber-glow)' },
 ]
 
 const COLOR_MAP = {
@@ -68,14 +65,6 @@ const GLOW_SHADOW = {
   rose: '0 0 20px rgba(251,113,133,0.15)',
 }
 
-// ─── Community cards ────────────────────────────────────
-const COMMUNITY_ITEMS = [
-  { to: '/student/activity', label: 'نشاط المجموعة', icon: Activity, color: 'sky' },
-  { to: '/student/challenges', label: 'التحديات', icon: Target, color: 'emerald' },
-  { to: '/student/battles', label: 'المعارك', icon: Swords, color: 'rose' },
-  { to: '/student/events', label: 'الفعاليات', icon: Calendar, color: 'violet' },
-  { to: '/student/recognition', label: 'تقدير الزملاء', icon: Users, color: 'amber' },
-]
 
 // ─── Countdown helper ───────────────────────────────────
 function useCountdown(schedule) {
@@ -114,6 +103,7 @@ function useCountdown(schedule) {
 
 export default function StudentDashboard() {
   const { profile, studentData } = useAuthStore()
+  const navigate = useNavigate()
   const firstName = profile?.display_name || (profile?.full_name || '').split(' ')[0]
 
   // Weekly tasks progress
@@ -197,6 +187,46 @@ export default function StudentDashboard() {
   const schedule = group?.schedule
   const nextClassTime = schedule?.time
   const countdown = useCountdown(schedule)
+
+  // Activity feed preview (3 latest)
+  const { data: activityPreview } = useQuery({
+    queryKey: ['dashboard-activity-preview', studentData?.group_id],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('activity_feed')
+        .select('id, type, title, created_at, student:student_id(profiles(display_name, full_name))')
+        .eq('group_id', studentData?.group_id)
+        .order('created_at', { ascending: false })
+        .limit(3)
+      return (data || []).map(a => ({
+        ...a,
+        studentName: a.student?.profiles?.display_name || a.student?.profiles?.full_name || null,
+      }))
+    },
+    enabled: !!studentData?.group_id,
+  })
+
+  // Leaderboard preview (top 3)
+  const { data: leaderboardPreview } = useQuery({
+    queryKey: ['dashboard-leaderboard-preview', studentData?.group_id],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('students')
+        .select('id, xp_total, profiles(display_name, full_name)')
+        .eq('group_id', studentData?.group_id)
+        .eq('status', 'active')
+        .is('deleted_at', null)
+        .order('xp_total', { ascending: false })
+        .limit(3)
+      return (data || []).map((s, i) => ({
+        rank: i + 1,
+        name: s.profiles?.display_name || s.profiles?.full_name || 'طالب',
+        xp: s.xp_total,
+        isMe: s.id === profile?.id,
+      }))
+    },
+    enabled: !!studentData?.group_id,
+  })
 
   const statCards = [
     { label: 'مستوى XP', value: currentLevel.title_ar, sub: `${xp} XP`, icon: Zap, variant: 'sky' },
@@ -396,7 +426,7 @@ export default function StudentDashboard() {
       {/* ═══ 5. Quick Access Grid ═══ */}
       <motion.div variants={fadeUp}>
         <h2 className="text-[18px] font-bold mb-5" style={{ color: 'var(--text-primary)' }}>الوصول السريع</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {QUICK_ACCESS.map((item, i) => (
             <Link key={item.to} to={item.to}>
               <motion.div
@@ -463,26 +493,86 @@ export default function StudentDashboard() {
         </div>
       </motion.div>
 
-      {/* ═══ 7. Community ═══ */}
-      <motion.div variants={fadeUp}>
-        <h2 className="text-[18px] font-bold mb-5" style={{ color: 'var(--text-primary)' }}>المجتمع</h2>
-        <div className="flex gap-3.5 overflow-x-auto scrollbar-none pb-2 -mx-1 px-1">
-          {COMMUNITY_ITEMS.map((item, i) => (
-            <Link key={item.to} to={item.to} className="shrink-0">
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 + i * 0.05 }}
-                className="fl-card-static p-4 w-[130px] hover:translate-y-[-2px] transition-all duration-200"
-                style={{ cursor: 'pointer' }}
-              >
-                <div className={`w-10 h-10 rounded-xl ${COLOR_MAP[item.color]} flex items-center justify-center mb-2.5`}>
-                  <item.icon size={18} strokeWidth={1.5} />
+      {/* ═══ 7. Community Previews ═══ */}
+      <motion.div variants={fadeUp} className="grid lg:grid-cols-2 gap-5">
+        {/* Activity preview */}
+        <div className="fl-card-static p-5">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center">
+                <Activity size={16} strokeWidth={1.5} style={{ color: 'var(--accent-sky)' }} />
+              </div>
+              <h3 className="text-[15px] font-bold" style={{ color: 'var(--text-primary)' }}>نشاط المجموعة</h3>
+            </div>
+            <button
+              onClick={() => navigate('/student/group-activity')}
+              className="text-[12px] font-medium transition-colors cursor-pointer"
+              style={{ color: 'var(--accent-sky)' }}
+            >
+              عرض الكل ←
+            </button>
+          </div>
+          {activityPreview?.length > 0 ? (
+            <div className="space-y-2.5">
+              {activityPreview.map((a) => (
+                <div key={a.id} className="flex items-center gap-2.5 py-1.5" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
+                  <div className="w-2 h-2 rounded-full shrink-0" style={{ background: 'var(--accent-sky)' }} />
+                  <p className="text-[12px] truncate flex-1" style={{ color: 'var(--text-secondary)' }}>
+                    {a.studentName && <span className="font-medium" style={{ color: 'var(--accent-sky)' }}>{a.studentName} </span>}
+                    {a.title}
+                  </p>
                 </div>
-                <p className="text-[13px] font-medium" style={{ color: 'var(--text-primary)' }}>{item.label}</p>
-              </motion.div>
-            </Link>
-          ))}
+              ))}
+            </div>
+          ) : (
+            <p className="text-[12px] py-3 text-center" style={{ color: 'var(--text-tertiary)' }}>لا يوجد نشاط بعد</p>
+          )}
+        </div>
+
+        {/* Leaderboard preview */}
+        <div className="fl-card-static p-5">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-gold-500/10 flex items-center justify-center">
+                <Trophy size={16} strokeWidth={1.5} style={{ color: 'var(--accent-gold)' }} />
+              </div>
+              <h3 className="text-[15px] font-bold" style={{ color: 'var(--text-primary)' }}>المتصدرين</h3>
+            </div>
+            <button
+              onClick={() => navigate('/student/group-activity')}
+              className="text-[12px] font-medium transition-colors cursor-pointer"
+              style={{ color: 'var(--accent-gold)' }}
+            >
+              عرض الكل ←
+            </button>
+          </div>
+          {leaderboardPreview?.length > 0 ? (
+            <div className="space-y-2">
+              {leaderboardPreview.map((p) => (
+                <div
+                  key={p.rank}
+                  className={`flex items-center gap-3 px-3 py-2 rounded-xl ${p.isMe ? 'bg-sky-500/5 ring-1 ring-sky-500/10' : ''}`}
+                  style={!p.isMe ? { background: 'var(--surface-raised)' } : undefined}
+                >
+                  <span className={`text-[13px] font-bold w-5 text-center ${p.rank === 1 ? 'text-gold-400' : ''}`} style={p.rank !== 1 ? { color: 'var(--text-tertiary)' } : undefined}>
+                    {p.rank}
+                  </span>
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center text-[11px] font-bold shrink-0" style={{ background: p.isMe ? 'var(--accent-sky-glow)' : 'var(--surface-overlay)', color: p.isMe ? 'var(--accent-sky)' : 'var(--text-tertiary)' }}>
+                    {p.name[0]}
+                  </div>
+                  <span className="text-[13px] font-medium flex-1 truncate" style={{ color: 'var(--text-primary)' }}>
+                    {p.name}
+                    {p.isMe && <span className="text-[11px] mr-1" style={{ color: 'var(--accent-sky)' }}>(أنت)</span>}
+                  </span>
+                  <span className="text-[12px] font-bold font-data" style={{ color: p.rank === 1 ? 'var(--accent-gold)' : 'var(--text-tertiary)' }}>
+                    {p.xp} XP
+                  </span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-[12px] py-3 text-center" style={{ color: 'var(--text-tertiary)' }}>لا توجد بيانات</p>
+          )}
         </div>
       </motion.div>
 
