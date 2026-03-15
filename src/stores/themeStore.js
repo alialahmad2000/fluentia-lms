@@ -16,7 +16,11 @@ function applyTheme(effective, animate = false) {
   const root = document.documentElement
   if (animate) {
     root.classList.add('theme-transition')
-    setTimeout(() => root.classList.remove('theme-transition'), 300)
+    document.body.classList.add('theme-transitioning')
+    setTimeout(() => {
+      root.classList.remove('theme-transition')
+      document.body.classList.remove('theme-transitioning')
+    }, 350)
   }
   if (effective === 'light') {
     root.classList.remove('dark')

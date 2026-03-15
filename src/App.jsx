@@ -169,6 +169,7 @@ function RoleRedirect() {
 
 // ─── App ─────────────────────────────────────────────────────
 export default function App() {
+  console.log('[DEBUG] App component rendering...')
   const initialize = useAuthStore((s) => s.initialize)
 
   useEffect(() => {

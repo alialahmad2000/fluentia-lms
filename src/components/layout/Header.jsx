@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Menu } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Menu, ChevronDown, User, Sparkles } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { getGreeting } from '../../utils/dateHelpers'
 import NotificationCenter from './NotificationCenter'
@@ -38,13 +39,28 @@ export default function Header({ onMenuToggle }) {
   const displayName = profile?.display_name || profile?.full_name || ''
   const firstName = displayName.split(' ')[0] || ''
   const packageName = studentData?.package_name || profile?.package_name || null
+  const level = studentData?.level || profile?.level || null
 
   const [scrolled, setScrolled] = useState(false)
+  const [badgeOpen, setBadgeOpen] = useState(false)
+  const badgeRef = useRef(null)
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  // Close badge dropdown on outside click
+  useEffect(() => {
+    function handleClick(e) {
+      if (badgeRef.current && !badgeRef.current.contains(e.target)) {
+        setBadgeOpen(false)
+      }
+    }
+    if (badgeOpen) document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [badgeOpen])
 
   return (
     <header
@@ -74,13 +90,82 @@ export default function Header({ onMenuToggle }) {
       <div className="flex items-center gap-2.5">
         <ThemeToggle />
 
-        {/* Role badge — shows package on hover */}
-        <span
-          className={`${config.badge} text-[11px] cursor-default select-none transition-all duration-200 hover:scale-105`}
-          title={packageName ? `الباقة: ${packageName}` : ROLE_LABELS[role]}
-        >
-          {ROLE_LABELS[role] || role}
-        </span>
+        {/* Role badge with dropdown */}
+        <div className="relative" ref={badgeRef}>
+          <button
+            onClick={() => setBadgeOpen(!badgeOpen)}
+            className={`${config.badge} text-[11px] select-none transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer flex items-center gap-1`}
+          >
+            {ROLE_LABELS[role] || role}
+            <ChevronDown size={10} className={`transition-transform duration-200 ${badgeOpen ? 'rotate-180' : ''}`} />
+          </button>
+
+          <AnimatePresence>
+            {badgeOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                transition={{ duration: 0.15 }}
+                className="absolute top-full end-0 mt-2 w-56 rounded-xl overflow-hidden z-50"
+                style={{
+                  background: 'var(--color-dropdown-bg)',
+                  backdropFilter: 'blur(24px)',
+                  WebkitBackdropFilter: 'blur(24px)',
+                  border: '1px solid var(--border-default)',
+                  boxShadow: '0 8px 32px var(--shadow-sm)',
+                }}
+              >
+                <div className="p-4 space-y-3">
+                  {/* Package name */}
+                  {packageName && (
+                    <div className="flex items-center gap-2">
+                      <Sparkles size={14} style={{ color: 'var(--accent-sky)' }} />
+                      <div>
+                        <p className="text-[10px] font-medium" style={{ color: 'var(--text-tertiary)' }}>الباقة</p>
+                        <p className="text-[13px] font-semibold" style={{ color: 'var(--text-primary)' }}>{packageName}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* XP Level */}
+                  {level && (
+                    <div className="flex items-center gap-2">
+                      <div
+                        className="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-bold"
+                        style={{ background: config.gradient, color: '#fff' }}
+                      >
+                        {level}
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-medium" style={{ color: 'var(--text-tertiary)' }}>المستوى</p>
+                        <p className="text-[13px] font-semibold" style={{ color: 'var(--text-primary)' }}>Level {level}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Divider */}
+                  <div style={{ height: '1px', background: 'var(--border-subtle)' }} />
+
+                  {/* Profile link */}
+                  <button
+                    onClick={() => {
+                      navigate(config.profilePath)
+                      setBadgeOpen(false)
+                    }}
+                    className="w-full flex items-center gap-2 px-2 py-2 rounded-lg text-[13px] font-medium transition-all duration-200 cursor-pointer"
+                    style={{ color: 'var(--text-secondary)' }}
+                    onMouseEnter={e => { e.currentTarget.style.background = 'var(--surface-raised)'; e.currentTarget.style.color = 'var(--text-primary)' }}
+                    onMouseLeave={e => { e.currentTarget.style.background = ''; e.currentTarget.style.color = 'var(--text-secondary)' }}
+                  >
+                    <User size={14} strokeWidth={1.5} />
+                    عرض الملف الشخصي
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
         <NotificationCenter />
 
@@ -88,12 +173,14 @@ export default function Header({ onMenuToggle }) {
         <button
           onClick={() => navigate(config.profilePath)}
           aria-label="الملف الشخصي"
-          className="w-9 h-9 rounded-xl border-0 flex items-center justify-center text-xs font-bold cursor-pointer transition-all duration-200 hover:scale-110 hover:shadow-lg active:scale-95"
+          className="w-9 h-9 rounded-xl border-0 flex items-center justify-center text-xs font-bold cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95"
           style={{
             background: config.gradient,
             color: '#fff',
             boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
           }}
+          onMouseEnter={e => e.currentTarget.style.boxShadow = '0 4px 16px rgba(56,189,248,0.3)'}
+          onMouseLeave={e => e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)'}
         >
           {firstName?.[0] || '?'}
         </button>

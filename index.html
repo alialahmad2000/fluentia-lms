@@ -49,6 +49,26 @@
   </head>
   <body class="font-tajawal bg-[var(--surface-base)] text-[var(--text-primary)] antialiased">
     <div id="root"></div>
+    <script>
+      // One-time service worker + cache purge to fix stale deployments
+      // After purge, VitePWA will re-register a fresh SW on next build
+      (function() {
+        var PURGE_KEY = 'sw_purge_v2';
+        if (localStorage.getItem(PURGE_KEY)) return;
+        localStorage.setItem(PURGE_KEY, '1');
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistrations().then(function(regs) {
+            regs.forEach(function(r) { r.unregister(); });
+          });
+        }
+        if ('caches' in window) {
+          caches.keys().then(function(names) {
+            names.forEach(function(n) { caches.delete(n); });
+            if (names.length > 0) window.location.reload();
+          });
+        }
+      })();
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

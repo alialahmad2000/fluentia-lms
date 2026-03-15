@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Outlet, NavLink } from 'react-router-dom'
-import { House, CalendarDays, Video, User, FileText, Users, Zap, Bot, CreditCard, Settings } from 'lucide-react'
+import { House, CalendarDays, Video, User, FileText, Users, Zap, Bot, CreditCard, Settings, BarChart3 } from 'lucide-react'
 import Sidebar from './Sidebar'
 import Header from './Header'
 import AIFloatingHelper from '../ai/AIFloatingHelper'
@@ -38,6 +38,7 @@ const TAB_ACTIVE_COLORS = {
 }
 
 export default function LayoutShell() {
+  console.log('[DEBUG] LayoutShell rendering...')
   const [mobileOpen, setMobileOpen] = useState(false)
   const [collapsed, setCollapsed] = useState(false)
   const { profile } = useAuthStore()

@@ -1,3 +1,4 @@
+console.log('[DEBUG] main.jsx module loading...')
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -49,6 +50,7 @@ if (!rootElement) {
   throw new Error('[main] Could not find #root element. Check index.html.')
 }
 
+console.log('[DEBUG] About to render React app...')
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>

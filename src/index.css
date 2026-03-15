@@ -99,14 +99,14 @@
   .btn-primary {
     @apply bg-sky-500 text-white px-7 py-3.5 rounded-xl font-semibold text-[15px]
            shadow-lg shadow-sky-500/20 hover:bg-sky-400 hover:shadow-sky-500/30
-           active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-sky-500 disabled:hover:shadow-sky-500/20
+           cursor-pointer active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-sky-500 disabled:hover:shadow-sky-500/20
            transition-all duration-200 ease-apple;
     min-height: 48px;
   }
 
   .btn-secondary {
     @apply px-7 py-3.5 rounded-xl font-semibold text-[15px]
-           active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed
+           cursor-pointer active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed
            transition-all duration-200 ease-apple;
     min-height: 48px;
     background: var(--color-bg-surface-raised);
@@ -121,7 +121,7 @@
   .btn-gold {
     @apply bg-gold-400 text-navy-950 px-7 py-3.5 rounded-xl font-bold text-[15px]
            shadow-lg shadow-gold-500/20 hover:bg-gold-300 hover:shadow-gold-500/30
-           active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed
+           cursor-pointer active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed
            transition-all duration-200 ease-apple;
     min-height: 48px;
   }
@@ -129,14 +129,14 @@
   .btn-danger {
     @apply bg-red-500/10 text-red-400 border border-red-500/20 px-7 py-3.5 rounded-xl font-semibold text-[15px]
            hover:bg-red-500/15 hover:border-red-500/25
-           active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed
+           cursor-pointer active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed
            transition-all duration-200 ease-apple;
     min-height: 48px;
   }
 
   .btn-ghost {
     @apply px-5 py-2.5 rounded-xl font-medium text-[15px]
-           active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed
+           cursor-pointer active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed
            transition-all duration-200 ease-apple;
     color: var(--color-text-muted);
   }
@@ -148,7 +148,7 @@
   /* Icon button — square, subtle, 44px touch target */
   .btn-icon {
     @apply w-11 h-11 rounded-xl flex items-center justify-center
-           active:scale-[0.96]
+           cursor-pointer active:scale-[0.96]
            transition-all duration-150 ease-apple;
     color: var(--color-text-muted);
   }
