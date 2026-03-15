@@ -170,7 +170,7 @@ export default function AdminRecordings() {
           <h1 className="text-page-title">التسجيلات</h1>
           <p className="text-muted text-sm mt-1">إدارة تسجيلات الحصص</p>
         </motion.div>
-        <button onClick={() => setShowForm(!showForm)} className="btn-primary text-sm py-2 px-4 flex items-center gap-2">
+        <button onClick={() => setShowForm(!showForm)} className="btn-primary text-sm px-4 flex items-center gap-2">
           <Plus size={16} />
           إضافة تسجيل
         </button>
@@ -189,7 +189,7 @@ export default function AdminRecordings() {
                 onChange={(e) => setAiText(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleAIFill()}
               />
-              <button onClick={handleAIFill} disabled={aiLoading} className="btn-secondary text-sm py-2 px-4 flex items-center gap-2 shrink-0">
+              <button onClick={handleAIFill} disabled={aiLoading} className="btn-secondary text-sm px-4 flex items-center gap-2 shrink-0">
                 {aiLoading ? <Loader2 size={14} className="animate-spin" /> : <Brain size={14} />}
                 أملأ البيانات
               </button>
@@ -199,11 +199,11 @@ export default function AdminRecordings() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="text-xs text-muted mb-1 block">العنوان *</label>
-              <input className="input-field text-sm" value={form.title} onChange={(e) => setForm(f => ({ ...f, title: e.target.value }))} placeholder="Reading Class - Unit 9A" />
+              <input className="input-field text-sm" value={form.title} onChange={(e) => setForm(f => ({ ...f, title: e.target.value }))} placeholder="حصة قراءة - الوحدة 9A" />
             </div>
             <div>
               <label className="text-xs text-muted mb-1 block">رابط Google Drive *</label>
-              <input className="input-field text-sm" value={form.google_drive_url} onChange={(e) => setForm(f => ({ ...f, google_drive_url: e.target.value }))} placeholder="https://drive.google.com/file/d/..." dir="ltr" />
+              <input className="input-field text-sm" value={form.google_drive_url} onChange={(e) => setForm(f => ({ ...f, google_drive_url: e.target.value }))} placeholder="الصق رابط Google Drive هنا" dir="ltr" />
             </div>
             <div>
               <label className="text-xs text-muted mb-1 block">نوع الحصة</label>
@@ -248,7 +248,7 @@ export default function AdminRecordings() {
             <button
               onClick={() => saveMutation.mutate()}
               disabled={saveMutation.isPending}
-              className="btn-primary text-sm py-2 px-6 flex items-center gap-2"
+              className="btn-primary text-sm px-6 flex items-center gap-2"
             >
               {saveMutation.isPending ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
               حفظ التسجيل
@@ -283,14 +283,14 @@ export default function AdminRecordings() {
                   <>
                     <button
                       onClick={() => toggleVisibility.mutate({ id: rec.id, visible: !rec.is_visible })}
-                      className="btn-ghost p-2 rounded-xl"
+                      className="btn-icon"
                       title={rec.is_visible ? 'إخفاء' : 'إظهار'}
                     >
                       {rec.is_visible ? <EyeOff size={16} className="text-muted" /> : <Eye size={16} className="text-muted" />}
                     </button>
                     <button
                       onClick={() => { if (confirm('حذف التسجيل؟')) deleteRecording.mutate(rec.id) }}
-                      className="btn-ghost p-2 rounded-xl"
+                      className="btn-icon"
                     >
                       <Trash2 size={16} className="text-red-400" />
                     </button>

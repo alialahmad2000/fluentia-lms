@@ -77,7 +77,7 @@ export default function StudentRecordings() {
           <button
             key={key}
             onClick={() => setFilter(key)}
-            className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+            className={`px-4 py-2.5 min-h-[44px] rounded-xl text-sm font-medium transition-all duration-200 ${
               filter === key
                 ? 'bg-sky-500/15 text-sky-400 border border-sky-500/30'
                 : 'text-muted hover:text-white border border-transparent'
@@ -168,7 +168,7 @@ export default function StudentRecordings() {
                 <h3 className="text-lg font-semibold text-white">{viewing.title}</h3>
                 <button
                   onClick={() => setViewing(null)}
-                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all"
+                  className="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all"
                 >
                   <X size={20} />
                 </button>

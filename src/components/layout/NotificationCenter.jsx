@@ -179,7 +179,7 @@ export default function NotificationCenter() {
             transition={{ duration: 0.15 }}
             role="dialog"
             aria-label="مركز الإشعارات"
-            className="absolute top-full left-0 mt-2 w-80 sm:w-96 rounded-2xl overflow-hidden z-50"
+            className="absolute top-full end-0 mt-2 w-80 sm:w-96 max-w-[calc(100vw-2rem)] rounded-2xl overflow-hidden z-50"
             style={{ maxHeight: '70vh', background: 'var(--color-dropdown-bg, rgba(6,14,28,0.97))', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05)' }}
           >
             {/* Header */}
@@ -189,14 +189,15 @@ export default function NotificationCenter() {
                 {unreadCount > 0 && (
                   <button
                     onClick={() => markAllRead.mutate(profile?.id)}
-                    className="btn-ghost text-xs text-sky-400 hover:text-sky-300 transition-all duration-200 flex items-center gap-1 px-2 py-1 rounded-lg"
+                    className="btn-ghost text-xs text-sky-400 hover:text-sky-300 transition-all duration-200 flex items-center gap-1 px-3 py-2.5 min-h-[44px] rounded-lg"
                   >
                     <CheckCheck size={12} /> قراءة الكل
                   </button>
+
                 )}
                 <button
                   onClick={() => setOpen(false)}
-                  className="btn-ghost p-1.5 rounded-xl text-muted transition-all duration-200"
+                  className="btn-icon text-muted transition-all duration-200"
                 >
                   <X size={16} />
                 </button>
