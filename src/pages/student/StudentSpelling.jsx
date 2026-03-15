@@ -173,6 +173,7 @@ function SpellingDashboard({ onStart }) {
       icon: Trophy,
       color: 'from-emerald-500/20 to-emerald-600/10',
       iconColor: 'text-emerald-400',
+      variant: 'emerald',
     },
     {
       label: 'نسبة الدقة',
@@ -180,6 +181,7 @@ function SpellingDashboard({ onStart }) {
       icon: Target,
       color: 'from-blue-500/20 to-blue-600/10',
       iconColor: 'text-blue-400',
+      variant: 'sky',
     },
     {
       label: 'جلسات مكتملة',
@@ -187,6 +189,7 @@ function SpellingDashboard({ onStart }) {
       icon: SpellCheck,
       color: 'from-violet-500/20 to-violet-600/10',
       iconColor: 'text-violet-400',
+      variant: 'violet',
     },
     {
       label: 'سلسلة متتالية',
@@ -194,6 +197,7 @@ function SpellingDashboard({ onStart }) {
       icon: Zap,
       color: 'from-amber-500/20 to-amber-600/10',
       iconColor: 'text-amber-400',
+      variant: 'amber',
     },
   ]
 
@@ -205,8 +209,8 @@ function SpellingDashboard({ onStart }) {
           <SpellCheck className="w-6 h-6 text-violet-400" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-white">مدرب الإملاء</h1>
-          <p className="text-white/60 text-sm">تدرّب على تهجئة الكلمات الإنجليزية</p>
+          <h1 className="text-2xl font-bold text-[var(--text-primary)]">مدرب الإملاء</h1>
+          <p className="text-[var(--text-tertiary)] text-sm">تدرّب على تهجئة الكلمات الإنجليزية</p>
         </div>
       </div>
 
@@ -218,13 +222,13 @@ function SpellingDashboard({ onStart }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
-            className="stat-card glass-card p-5 hover:translate-y-[-2px] transition-transform"
+            className={`fl-stat-card fl-stat-card-${stat.variant} fl-card-static p-5 hover:translate-y-[-2px] transition-transform`}
           >
             <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${stat.color} flex items-center justify-center mb-3`}>
               <stat.icon className={`w-5 h-5 ${stat.iconColor}`} />
             </div>
-            <p className="text-2xl font-bold text-white">{isLoading ? '...' : stat.value}</p>
-            <p className="text-white/50 text-sm mt-1">{stat.label}</p>
+            <p className="text-2xl font-bold text-[var(--text-primary)]">{isLoading ? '...' : stat.value}</p>
+            <p className="text-[var(--text-tertiary)] text-sm mt-1">{stat.label}</p>
           </motion.div>
         ))}
       </div>
@@ -234,13 +238,13 @@ function SpellingDashboard({ onStart }) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="glass-card-raised p-8 text-center"
+        className="fl-card-static p-8 text-center"
       >
         <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-violet-500/30 to-purple-600/20 flex items-center justify-center mb-4">
           <Play className="w-8 h-8 text-violet-400" />
         </div>
-        <h2 className="text-xl font-bold text-white mb-2">هل أنت مستعد؟</h2>
-        <p className="text-white/60 mb-6">ستتدرب على تهجئة {WORDS_PER_SESSION} كلمة إنجليزية</p>
+        <h2 className="text-xl font-bold text-[var(--text-primary)] mb-2">هل أنت مستعد؟</h2>
+        <p className="text-[var(--text-tertiary)] mb-6">ستتدرب على تهجئة {WORDS_PER_SESSION} كلمة إنجليزية</p>
         <button
           onClick={handleStartPractice}
           disabled={loadingWords}
@@ -271,14 +275,14 @@ function SpellingDashboard({ onStart }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="glass-card p-6"
+          className="fl-card-static p-6"
         >
-          <h3 className="text-lg font-semibold text-white mb-4">الجلسات الأخيرة</h3>
+          <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">الجلسات الأخيرة</h3>
           <div className="space-y-3">
             {stats.sessions.slice(0, 5).map((session, i) => (
               <div
                 key={session.id || i}
-                className="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+                className="flex items-center justify-between p-3 rounded-lg bg-[var(--surface-base)] hover:bg-[var(--surface-raised)] transition-colors"
               >
                 <div className="flex items-center gap-3">
                   <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
@@ -291,10 +295,10 @@ function SpellingDashboard({ onStart }) {
                     {session.accuracy_percentage >= 80 ? <Trophy className="w-4 h-4" /> : <Target className="w-4 h-4" />}
                   </div>
                   <div>
-                    <p className="text-white text-sm font-medium">
+                    <p className="text-[var(--text-primary)] text-sm font-medium">
                       {session.words_correct}/{session.words_tested} كلمات صحيحة
                     </p>
-                    <p className="text-white/40 text-xs">
+                    <p className="text-[var(--text-tertiary)] text-xs">
                       {new Date(session.created_at).toLocaleDateString('ar-EG', {
                         day: 'numeric',
                         month: 'short',
@@ -425,13 +429,13 @@ function SpellingPractice({ words, onFinish, onBack }) {
           <X className="w-4 h-4" />
           إنهاء
         </button>
-        <span className="text-white/60 text-sm">
+        <span className="text-[var(--text-tertiary)] text-sm">
           {currentIndex + 1} / {words.length}
         </span>
       </div>
 
       {/* Progress Bar */}
-      <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
+      <div className="w-full h-2 rounded-full bg-[var(--surface-raised)] overflow-hidden">
         <motion.div
           className="h-full rounded-full bg-gradient-to-l from-violet-500 to-purple-600"
           initial={{ width: 0 }}
@@ -448,7 +452,7 @@ function SpellingPractice({ words, onFinish, onBack }) {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.3 }}
-          className={`glass-card-raised p-8 text-center transition-colors duration-300 ${
+          className={`fl-card-static p-8 text-center transition-colors duration-300 ${
             checked
               ? isCorrect
                 ? 'ring-2 ring-emerald-500/50'
@@ -457,7 +461,7 @@ function SpellingPractice({ words, onFinish, onBack }) {
           }`}
         >
           {/* Arabic Meaning */}
-          <p className="text-3xl font-bold text-white mb-2">
+          <p className="text-3xl font-bold text-[var(--text-primary)] mb-2">
             {currentWord.meaning_ar}
           </p>
 
@@ -465,7 +469,7 @@ function SpellingPractice({ words, onFinish, onBack }) {
           {currentWord.word && (
             <button
               onClick={() => speakWord(currentWord.word)}
-              className="btn-ghost text-sm inline-flex items-center gap-2 mb-6 text-white/50 hover:text-white/80"
+              className="btn-ghost text-sm inline-flex items-center gap-2 mb-6 text-[var(--text-tertiary)] hover:text-[var(--text-secondary)]"
               title="استمع للنطق"
             >
               <Volume2 className="w-4 h-4" />
@@ -526,9 +530,9 @@ function SpellingPractice({ words, onFinish, onBack }) {
                     <X className="w-6 h-6" />
                     <span className="text-lg font-bold">إجابة خاطئة</span>
                   </div>
-                  <p className="text-white/70">
+                  <p className="text-[var(--text-tertiary)]">
                     الإجابة الصحيحة:{' '}
-                    <span className="text-white font-bold tracking-wide" dir="ltr">
+                    <span className="text-[var(--text-primary)] font-bold tracking-wide" dir="ltr">
                       {currentWord.word}
                     </span>
                   </p>
@@ -541,7 +545,7 @@ function SpellingPractice({ words, onFinish, onBack }) {
 
       {/* Hint: difficulty */}
       {currentWord.difficulty && (
-        <p className="text-center text-white/30 text-xs">
+        <p className="text-center text-[var(--text-tertiary)] text-xs">
           مستوى الصعوبة: {currentWord.difficulty}
         </p>
       )}
@@ -668,13 +672,13 @@ function SpellingResults({ results, onTryAgain, onBack }) {
         >
           <Trophy className={`w-8 h-8 ${accuracyPct >= 80 ? 'text-amber-400' : 'text-violet-400'}`} />
         </motion.div>
-        <h2 className="text-2xl font-bold text-white">
+        <h2 className="text-2xl font-bold text-[var(--text-primary)]">
           {accuracyPct === 100 ? 'ممتاز! أداء مثالي!' : accuracyPct >= 80 ? 'عمل رائع!' : accuracyPct >= 60 ? 'جيد، واصل التدريب!' : 'لا بأس، حاول مرة أخرى!'}
         </h2>
       </div>
 
       {/* Score Circle + Stats */}
-      <div className="glass-card-raised p-8">
+      <div className="fl-card-static p-8">
         <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
           {/* Circular Progress */}
           <div className="relative w-36 h-36">
@@ -702,8 +706,8 @@ function SpellingResults({ results, onTryAgain, onBack }) {
               />
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-3xl font-bold text-white">{accuracyPct}%</span>
-              <span className="text-white/50 text-xs">دقة</span>
+              <span className="text-3xl font-bold text-[var(--text-primary)]">{accuracyPct}%</span>
+              <span className="text-[var(--text-tertiary)] text-xs">دقة</span>
             </div>
           </div>
 
@@ -711,13 +715,13 @@ function SpellingResults({ results, onTryAgain, onBack }) {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <Check className="w-5 h-5 text-emerald-400" />
-              <span className="text-white">
+              <span className="text-[var(--text-primary)]">
                 {results.correct}/{results.total} كلمات صحيحة
               </span>
             </div>
             <div className="flex items-center gap-3">
               <Target className="w-5 h-5 text-blue-400" />
-              <span className="text-white">
+              <span className="text-[var(--text-primary)]">
                 الوقت: {minutes > 0 ? `${minutes} دقيقة و ` : ''}{seconds} ثانية
               </span>
             </div>
@@ -742,9 +746,9 @@ function SpellingResults({ results, onTryAgain, onBack }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="glass-card p-6"
+          className="fl-card-static p-6"
         >
-          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+          <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
             <X className="w-5 h-5 text-red-400" />
             كلمات تحتاج مراجعة ({wrongWords.length})
           </h3>
@@ -755,7 +759,7 @@ function SpellingResults({ results, onTryAgain, onBack }) {
                 className="flex items-center justify-between p-3 rounded-lg bg-red-500/10 border border-red-500/20"
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-white/70">{word.arabic_meaning}</span>
+                  <span className="text-[var(--text-tertiary)]">{word.arabic_meaning}</span>
                 </div>
                 <div className="flex items-center gap-4 text-sm" dir="ltr">
                   <span className="text-red-400 line-through">{word.student_answer}</span>
@@ -773,9 +777,9 @@ function SpellingResults({ results, onTryAgain, onBack }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
-          className="glass-card p-6"
+          className="fl-card-static p-6"
         >
-          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+          <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
             <Check className="w-5 h-5 text-emerald-400" />
             كلمات صحيحة ({correctWords.length})
           </h3>
@@ -806,7 +810,7 @@ function SpellingResults({ results, onTryAgain, onBack }) {
 
       {/* Save Status */}
       {saveSession.isPending && (
-        <p className="text-center text-white/40 text-sm">جاري حفظ النتائج...</p>
+        <p className="text-center text-[var(--text-tertiary)] text-sm">جاري حفظ النتائج...</p>
       )}
       {saveSession.isError && (
         <p className="text-center text-red-400 text-sm">خطأ في حفظ النتائج</p>

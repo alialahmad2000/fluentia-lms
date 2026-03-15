@@ -152,7 +152,7 @@ export default function TrainerLibrary() {
       {isLoading ? (
         <div className="space-y-3">{[1, 2, 3].map(i => <div key={i} className="skeleton h-16 w-full" />)}</div>
       ) : materials?.length === 0 ? (
-        <div className="glass-card p-8 text-center">
+        <div className="fl-card-static p-8 text-center">
           <BookOpen size={32} className="text-muted mx-auto mb-2" />
           <p className="text-muted">لا توجد ملفات — ارفع أول ملف</p>
         </div>
@@ -167,11 +167,11 @@ export default function TrainerLibrary() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.03 }}
-                className="glass-card p-4 flex items-center gap-3 hover:translate-y-[-2px] transition-all duration-200"
+                className="fl-card p-4 flex items-center gap-3"
               >
                 <span className="text-2xl">{getFileIcon(file.name)}</span>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm text-white truncate">{file.name.replace(/^\d+_/, '')}</p>
+                  <p className="text-sm text-[var(--text-primary)] truncate">{file.name.replace(/^\d+_/, '')}</p>
                   <div className="flex items-center gap-2 text-xs text-muted mt-0.5">
                     <span className="badge-blue text-xs">{file.groupCode}</span>
                     {sizeKB && <span>{sizeKB > 1024 ? `${(sizeKB / 1024).toFixed(1)} MB` : `${sizeKB} KB`}</span>}

@@ -133,7 +133,7 @@ export default function TrainerStudentView() {
     <div className="space-y-12">
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
-          <Zap size={20} className="text-sky-400" />
+          <Zap size={20} strokeWidth={1.5} className="text-sky-400" />
         </div>
         <div>
           <h1 className="text-page-title">ملفات الطلاب</h1>
@@ -161,7 +161,7 @@ export default function TrainerStudentView() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
               onClick={() => setSelectedStudent(s)}
-              className="glass-card p-7 text-right hover:border-sky-500/20 hover:translate-y-[-2px] transition-all duration-200"
+              className="fl-card p-7 text-right hover:border-sky-500/20"
             >
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-12 h-12 rounded-xl bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 text-lg font-bold">
@@ -186,7 +186,7 @@ export default function TrainerStudentView() {
       </div>
 
       {!students?.length && (
-        <div className="glass-card p-12 text-center">
+        <div className="fl-card-static p-12 text-center">
           <p className="text-muted">لا يوجد طلاب في هذه المجموعة</p>
         </div>
       )}
@@ -285,7 +285,7 @@ function StudentDetailView({ student, isAdmin, onBack }) {
       </button>
 
       {/* ── Header Card ── */}
-      <div className="glass-card-raised p-7">
+      <div className="fl-card-static p-7">
         <div className="flex items-center gap-4 mb-5">
           <div className="w-16 h-16 rounded-xl bg-sky-500/20 border-2 border-sky-500/30 flex items-center justify-center text-sky-400 text-2xl font-bold">
             {name[0]}
@@ -326,7 +326,7 @@ function StudentDetailView({ student, isAdmin, onBack }) {
               className={`flex items-center gap-1.5 text-xs px-3 py-2 rounded-xl whitespace-nowrap transition-all ${
                 activeTab === tab.key
                   ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30'
-                  : 'bg-white/5 text-muted hover:text-white border border-transparent'
+                  : 'bg-[var(--surface-base)] text-muted hover:text-[var(--text-primary)] border border-transparent'
               }`}
             >
               <Icon size={14} />
@@ -404,7 +404,7 @@ function StatCard({ icon: Icon, color, value, label }) {
     orange: 'bg-orange-500/10',
   }
   return (
-    <div className="stat-card text-center">
+    <div className={`fl-stat-card fl-stat-card--${color}`} style={{ textAlign: 'center' }}>
       <div className={`w-9 h-9 rounded-xl ${BG_CLASSES[color] || 'bg-sky-500/10'} flex items-center justify-center mx-auto`}>
         <Icon size={16} className={STAT_COLOR_CLASSES[color] || 'text-sky-400'} />
       </div>
@@ -443,25 +443,25 @@ function OverviewTab({ student, submissions, attendance, xpHistory, gradedSubs, 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* Per-type performance */}
-      <div className="glass-card p-7 space-y-3">
-        <h3 className="text-section-title flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
+      <div className="fl-card-static p-7 space-y-3">
+        <h3 className="text-section-title flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
           <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center"><BarChart3 size={14} className="text-sky-400" /></div> أداء حسب نوع الواجب
         </h3>
         {typeStats.length === 0 && <p className="text-xs text-muted">لا توجد بيانات</p>}
         {typeStats.map(ts => {
           const Icon = ts.icon
           return (
-            <div key={ts.type} className="flex items-center gap-3 rounded-xl p-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
+            <div key={ts.type} className="flex items-center gap-3 rounded-xl p-3" style={{ background: 'var(--surface-raised)' }}>
               <Icon size={16} className={ts.color} />
               <div className="flex-1">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-white">{ts.label}</span>
+                  <span className="text-xs text-[var(--text-primary)]">{ts.label}</span>
                   <span className="text-xs text-muted">{ts.graded}/{ts.total} واجب</span>
                 </div>
                 <div className="flex items-center gap-3 mt-1">
-                  <div className="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                  <div className="flex-1 fl-progress-track">
                     <div
-                      className="h-full bg-sky-500 rounded-full transition-all"
+                      className="fl-progress-fill bg-sky-500"
                       style={{ width: `${ts.total > 0 ? (ts.graded / ts.total) * 100 : 0}%` }}
                     />
                   </div>
@@ -478,14 +478,14 @@ function OverviewTab({ student, submissions, attendance, xpHistory, gradedSubs, 
       </div>
 
       {/* Recent XP */}
-      <div className="glass-card p-7 space-y-3">
-        <h3 className="text-section-title flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
+      <div className="fl-card-static p-7 space-y-3">
+        <h3 className="text-section-title flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
           <div className="w-8 h-8 rounded-xl bg-gold-500/10 flex items-center justify-center"><Zap size={14} className="text-gold-400" /></div> آخر النقاط
         </h3>
         {(xpHistory || []).slice(0, 8).map(xp => (
-          <div key={xp.id} className="flex items-center justify-between p-2 rounded-lg" style={{ background: 'var(--color-bg-surface-raised)' }}>
+          <div key={xp.id} className="flex items-center justify-between p-2 rounded-lg" style={{ background: 'var(--surface-raised)' }}>
             <div>
-              <p className="text-xs text-white">{XP_REASON_LABELS[xp.reason] || xp.reason}</p>
+              <p className="text-xs text-[var(--text-primary)]">{XP_REASON_LABELS[xp.reason] || xp.reason}</p>
               {xp.description && <p className="text-xs text-muted mt-0.5">{xp.description}</p>}
               <p className="text-xs text-muted">{formatDateAr(xp.created_at)}</p>
             </div>
@@ -551,11 +551,11 @@ function AssignmentsTab({ submissions }) {
           const typeInfo = TYPE_LABELS[s.assignments?.type] || TYPE_LABELS.custom
           const Icon = typeInfo.icon
           return (
-            <div key={s.id} className="glass-card p-4 hover:translate-y-[-2px] transition-all duration-200">
+            <div key={s.id} className="fl-card p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Icon size={14} className={typeInfo.color} />
-                  <span className="text-sm text-white">{s.assignments?.title || 'واجب'}</span>
+                  <span className="text-sm text-[var(--text-primary)]">{s.assignments?.title || 'واجب'}</span>
                   {s.is_late && (
                     <span className="badge-yellow text-xs">متأخر</span>
                   )}
@@ -589,7 +589,7 @@ function AssignmentsTab({ submissions }) {
           )
         })}
         {filtered.length === 0 && (
-          <div className="glass-card p-6 text-center">
+          <div className="fl-card-static p-6 text-center">
             <p className="text-xs text-muted">لا توجد واجبات مطابقة</p>
           </div>
         )}
@@ -627,7 +627,7 @@ function SkillsTab({ snapshots, studentName }) {
 
   if (!current) {
     return (
-      <div className="glass-card p-8 text-center">
+      <div className="fl-card-static p-8 text-center">
         <Brain size={32} className="text-muted mx-auto mb-3" />
         <p className="text-sm text-muted">لا توجد بيانات مهارات بعد</p>
         <p className="text-xs text-muted mt-1">سيتم تحديث المهارات أسبوعياً بناءً على أداء الطالب</p>
@@ -638,8 +638,8 @@ function SkillsTab({ snapshots, studentName }) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* Radar Chart */}
-      <div className="glass-card p-7">
-        <h3 className="text-section-title mb-4 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
+      <div className="fl-card-static p-7">
+        <h3 className="text-section-title mb-4 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
           <div className="w-8 h-8 rounded-xl bg-violet-500/10 flex items-center justify-center"><Brain size={14} className="text-violet-400" /></div> مخطط المهارات
         </h3>
         <div style={{ width: '100%', height: 300 }} dir="ltr">
@@ -694,8 +694,8 @@ function SkillsTab({ snapshots, studentName }) {
 
       {/* Skill details + changes */}
       <div className="space-y-4">
-        <div className="glass-card p-7 space-y-3">
-          <h3 className="text-sm font-medium text-white">تفاصيل المهارات</h3>
+        <div className="fl-card-static p-7 space-y-3">
+          <h3 className="text-sm font-medium text-[var(--text-primary)]">تفاصيل المهارات</h3>
           {Object.keys(SKILL_LABELS).map(key => {
             const val = current[key] || 0
             const prev = previous?.[key] || null
@@ -716,9 +716,9 @@ function SkillsTab({ snapshots, studentName }) {
                     )}
                   </div>
                 </div>
-                <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+                <div className="fl-progress-track">
                   <div
-                    className={`h-full rounded-full transition-all ${val >= 70 ? 'bg-emerald-500' : val >= 50 ? 'bg-amber-500' : 'bg-red-500'}`}
+                    className={`fl-progress-fill ${val >= 70 ? 'bg-emerald-500' : val >= 50 ? 'bg-amber-500' : 'bg-red-500'}`}
                     style={{ width: `${val}%` }}
                   />
                 </div>
@@ -729,11 +729,11 @@ function SkillsTab({ snapshots, studentName }) {
 
         {/* AI Insight */}
         {changes.length > 0 && (
-          <div className="glass-card p-4 bg-violet-500/5 border-violet-500/20">
+          <div className="fl-card-static p-4 bg-violet-500/5 border-violet-500/20">
             <p className="text-xs text-violet-400 font-medium mb-1.5 flex items-center gap-1">
               <Sparkles size={12} /> ملاحظة ذكية
             </p>
-            <p className="text-xs text-white/80 leading-relaxed">
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
               {changes[0].diff > 0
                 ? `${changes[0].skill} تحسنت بـ ${changes[0].diff}% — أداء ممتاز!`
                 : `${changes[0].skill} تراجعت بـ ${Math.abs(changes[0].diff)}% — تحتاج اهتمام.`
@@ -747,7 +747,7 @@ function SkillsTab({ snapshots, studentName }) {
 
         {/* Historical snapshots */}
         {snapshots?.length > 2 && (
-          <div className="glass-card p-4">
+          <div className="fl-card-static p-4">
             <h4 className="text-xs text-muted mb-2">سجل التحديثات</h4>
             {snapshots.slice(0, 5).map((snap, i) => (
               <div key={i} className="flex items-center justify-between py-1.5 border-b border-border-subtle last:border-0">
@@ -755,7 +755,7 @@ function SkillsTab({ snapshots, studentName }) {
                 <div className="flex items-center gap-2 text-xs">
                   {Object.keys(SKILL_LABELS).map(key => (
                     <span key={key} className="text-muted">
-                      {SKILL_LABELS[key][0]}: <span className="text-white">{snap[key]}</span>
+                      {SKILL_LABELS[key][0]}: <span className="text-[var(--text-primary)]">{snap[key]}</span>
                     </span>
                   ))}
                 </div>
@@ -805,47 +805,47 @@ function AttendanceTab({ attendance }) {
     <div className="space-y-12">
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-        <div className="stat-card text-center">
+        <div className="fl-stat-card fl-stat-card--emerald text-center">
           <div className="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center mx-auto">
             <CheckCircle2 size={16} className="text-emerald-400" />
           </div>
-          <p className="text-3xl font-bold text-white mt-2">{rate != null ? `${rate}%` : '—'}</p>
+          <p className="text-3xl font-bold text-[var(--text-primary)] mt-2">{rate != null ? `${rate}%` : '—'}</p>
           <p className="stat-label">نسبة الحضور</p>
         </div>
-        <div className="stat-card text-center">
+        <div className="fl-stat-card fl-stat-card--emerald text-center">
           <div className="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center mx-auto">
             <CheckCircle2 size={16} className="text-emerald-400" />
           </div>
-          <p className="text-3xl font-bold text-white mt-2">{presentCount}</p>
+          <p className="text-3xl font-bold text-[var(--text-primary)] mt-2">{presentCount}</p>
           <p className="stat-label">حاضر</p>
         </div>
-        <div className="stat-card text-center">
+        <div className="fl-stat-card fl-stat-card--amber text-center">
           <div className="w-9 h-9 rounded-xl bg-red-500/10 flex items-center justify-center mx-auto">
             <XCircle size={16} className="text-red-400" />
           </div>
-          <p className="text-3xl font-bold text-white mt-2">{absentCount}</p>
+          <p className="text-3xl font-bold text-[var(--text-primary)] mt-2">{absentCount}</p>
           <p className="stat-label">غائب</p>
         </div>
-        <div className="stat-card text-center">
+        <div className="fl-stat-card fl-stat-card--amber text-center">
           <div className="w-9 h-9 rounded-xl bg-amber-500/10 flex items-center justify-center mx-auto">
             <AlertCircle size={16} className="text-amber-400" />
           </div>
-          <p className="text-3xl font-bold text-white mt-2">{excusedCount}</p>
+          <p className="text-3xl font-bold text-[var(--text-primary)] mt-2">{excusedCount}</p>
           <p className="stat-label">معذور</p>
         </div>
       </div>
 
       {/* Trend */}
       {trend && (
-        <div className={`glass-card p-3 flex items-center gap-2 ${
+        <div className={`fl-card-static p-3 flex items-center gap-2 ${
           trend === 'improving' ? 'bg-emerald-500/5 border-emerald-500/20' :
           trend === 'declining' ? 'bg-red-500/5 border-red-500/20' :
-          'bg-white/5'
+          'bg-[var(--surface-base)]'
         }`}>
           {trend === 'improving' && <TrendingUp size={14} className="text-emerald-400" />}
           {trend === 'declining' && <TrendingDown size={14} className="text-red-400" />}
           {trend === 'stable' && <Minus size={14} className="text-muted" />}
-          <span className="text-xs text-white">
+          <span className="text-xs text-[var(--text-primary)]">
             {trend === 'improving' ? 'الحضور يتحسن مقارنة بالفترة السابقة' :
              trend === 'declining' ? 'الحضور يتراجع — يحتاج متابعة' :
              'الحضور مستقر'}
@@ -856,7 +856,7 @@ function AttendanceTab({ attendance }) {
       {/* Calendar dots by month */}
       <div className="space-y-4">
         {byMonth.map(([month, records]) => (
-          <div key={month} className="glass-card p-4">
+          <div key={month} className="fl-card-static p-4">
             <h4 className="text-xs font-medium text-muted mb-3">{month}</h4>
             <div className="flex flex-wrap gap-2">
               {records.map((r, i) => {
@@ -864,7 +864,7 @@ function AttendanceTab({ attendance }) {
                 return (
                   <div key={i} className="group relative">
                     <div className={`w-6 h-6 rounded-full ${config.bg} opacity-80 hover:opacity-100 transition-opacity cursor-default`} />
-                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 hidden group-hover:block bg-dark-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap z-10">
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 hidden group-hover:block bg-dark-800 text-[var(--text-primary)] text-xs px-2 py-1 rounded whitespace-nowrap z-10">
                       {r.date} — {config.label}
                     </div>
                   </div>
@@ -876,15 +876,15 @@ function AttendanceTab({ attendance }) {
       </div>
 
       {/* Full history list */}
-      <div className="glass-card p-7 space-y-3">
-        <h3 className="text-section-title mb-3" style={{ color: 'var(--color-text-primary)' }}>السجل الكامل</h3>
+      <div className="fl-card-static p-7 space-y-3">
+        <h3 className="text-section-title mb-3" style={{ color: 'var(--text-primary)' }}>السجل الكامل</h3>
         {(attendance || []).map(a => {
           const config = STATUS_LABELS[a.status] || STATUS_LABELS.absent
           const Icon = config.icon
           return (
-            <div key={a.id} className="flex items-center justify-between p-2.5 rounded-xl" style={{ background: 'var(--color-bg-surface-raised)' }}>
+            <div key={a.id} className="flex items-center justify-between p-2.5 rounded-xl" style={{ background: 'var(--surface-raised)' }}>
               <div>
-                <p className="text-xs text-white">{a.classes?.title || 'حصة'}</p>
+                <p className="text-xs text-[var(--text-primary)]">{a.classes?.title || 'حصة'}</p>
                 <p className="text-xs text-muted">{formatDateAr(a.classes?.date || a.created_at)}</p>
               </div>
               <div className="flex items-center gap-1">
@@ -986,9 +986,9 @@ function AnalysisTab({ student, studentName }) {
   return (
     <div className="space-y-12">
       {/* AI Weakness Analysis */}
-      <div className="glass-card p-7">
+      <div className="fl-card-static p-7">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-section-title flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
+          <h3 className="text-section-title flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
             <div className="w-8 h-8 rounded-xl bg-violet-500/10 flex items-center justify-center"><Brain size={14} className="text-violet-400" /></div> تحليل نقاط القوة والضعف
           </h3>
           <button
@@ -1002,7 +1002,7 @@ function AnalysisTab({ student, studentName }) {
         </div>
         {analysis && (
           <div className="bg-violet-500/5 rounded-xl p-4">
-            <p className="text-xs text-white/90 whitespace-pre-wrap leading-relaxed">{analysis}</p>
+            <p className="text-xs text-[var(--text-secondary)] whitespace-pre-wrap leading-relaxed">{analysis}</p>
           </div>
         )}
         {!analysis && !loadingAnalysis && (
@@ -1011,16 +1011,16 @@ function AnalysisTab({ student, studentName }) {
       </div>
 
       {/* AI Improvement Plan */}
-      <div className="glass-card p-7">
+      <div className="fl-card-static p-7">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-section-title flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
+          <h3 className="text-section-title flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
             <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center"><Target size={14} className="text-emerald-400" /></div> خطة التحسين
           </h3>
           <div className="flex items-center gap-2">
             {plan && !editingPlan && (
               <button
                 onClick={() => setEditingPlan(true)}
-                className="text-xs text-muted hover:text-white transition-colors"
+                className="text-xs text-muted hover:text-[var(--text-primary)] transition-colors"
               >
                 تعديل
               </button>
@@ -1053,7 +1053,7 @@ function AnalysisTab({ student, studentName }) {
               </button>
               <button
                 onClick={() => { setEditingPlan(false); setEditedPlan(plan || '') }}
-                className="text-xs text-muted hover:text-white px-3 py-1.5"
+                className="text-xs text-muted hover:text-[var(--text-primary)] px-3 py-1.5"
               >
                 إلغاء
               </button>
@@ -1061,7 +1061,7 @@ function AnalysisTab({ student, studentName }) {
           </div>
         ) : plan ? (
           <div className="bg-emerald-500/5 rounded-xl p-4">
-            <p className="text-xs text-white/90 whitespace-pre-wrap leading-relaxed">{plan}</p>
+            <p className="text-xs text-[var(--text-secondary)] whitespace-pre-wrap leading-relaxed">{plan}</p>
           </div>
         ) : (
           <p className="text-xs text-muted">اضغط الزر لإنشاء خطة تحسين مخصصة بالذكاء الاصطناعي</p>
@@ -1069,23 +1069,23 @@ function AnalysisTab({ student, studentName }) {
       </div>
 
       {/* Trainer Notes History */}
-      <div className="glass-card p-7 space-y-3">
-        <h3 className="text-section-title flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
+      <div className="fl-card-static p-7 space-y-3">
+        <h3 className="text-section-title flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
           <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center"><MessageSquare size={14} className="text-sky-400" /></div> سجل الملاحظات
         </h3>
         {notes?.length === 0 && <p className="text-xs text-muted">لا توجد ملاحظات</p>}
         {notes?.map(n => {
           const typeInfo = NOTE_TYPE_LABELS[n.type] || NOTE_TYPE_LABELS.trainer_note
           return (
-            <div key={n.id} className="rounded-xl p-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
+            <div key={n.id} className="rounded-xl p-3" style={{ background: 'var(--surface-raised)' }}>
               <div className="flex items-center justify-between mb-1">
                 <span className={`text-xs font-medium ${typeInfo.color}`}>{typeInfo.label}</span>
                 <span className="text-xs text-muted">{formatDateAr(n.created_at)}</span>
               </div>
               {n.title !== 'ملاحظة من المدرب' && (
-                <p className="text-xs text-white font-medium mb-0.5">{n.title}</p>
+                <p className="text-xs text-[var(--text-primary)] font-medium mb-0.5">{n.title}</p>
               )}
-              <p className="text-xs text-white/80 leading-relaxed">{n.body}</p>
+              <p className="text-xs text-[var(--text-secondary)] leading-relaxed">{n.body}</p>
             </div>
           )
         })}
@@ -1147,40 +1147,40 @@ function PaymentsTab({ studentId, student }) {
     <div className="space-y-12">
       {/* Current status */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <div className={`stat-card text-center ${thisMonthPayment ? 'border-emerald-500/20' : 'border-red-500/20'}`}>
+        <div className={`fl-stat-card fl-stat-card--emerald text-center ${thisMonthPayment ? 'border-emerald-500/20' : 'border-red-500/20'}`}>
           <div className={`w-10 h-10 rounded-xl ${thisMonthPayment ? 'bg-emerald-500/10' : 'bg-red-500/10'} flex items-center justify-center mx-auto`}>
             <CreditCard size={20} className={thisMonthPayment ? 'text-emerald-400' : 'text-red-400'} />
           </div>
-          <p className={`text-3xl font-bold mt-2 ${thisMonthPayment ? 'text-white' : 'text-white'}`}>
+          <p className={`text-3xl font-bold mt-2 ${thisMonthPayment ? 'text-[var(--text-primary)]' : 'text-[var(--text-primary)]'}`}>
             {thisMonthPayment ? 'مدفوع' : 'غير مدفوع'}
           </p>
           <p className="stat-label">الشهر الحالي</p>
         </div>
-        <div className="stat-card text-center">
+        <div className="fl-stat-card fl-stat-card--sky text-center">
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center mx-auto">
             <CreditCard size={20} className="text-sky-400" />
           </div>
-          <p className="text-3xl font-bold text-white mt-2">{totalPaid}</p>
+          <p className="text-3xl font-bold text-[var(--text-primary)] mt-2">{totalPaid}</p>
           <p className="stat-label">إجمالي المدفوعات (ر.س)</p>
         </div>
-        <div className="stat-card text-center">
+        <div className="fl-stat-card fl-stat-card--violet text-center">
           <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center mx-auto">
             <CreditCard size={20} className="text-violet-400" />
           </div>
-          <p className="text-3xl font-bold text-white mt-2">{student.custom_price || '—'}</p>
+          <p className="text-3xl font-bold text-[var(--text-primary)] mt-2">{student.custom_price || '—'}</p>
           <p className="stat-label">سعر مخصص (ر.س)</p>
         </div>
       </div>
 
       {/* Payment history */}
-      <div className="glass-card p-7 space-y-3">
-        <h3 className="text-section-title mb-3" style={{ color: 'var(--color-text-primary)' }}>سجل المدفوعات</h3>
+      <div className="fl-card-static p-7 space-y-3">
+        <h3 className="text-section-title mb-3" style={{ color: 'var(--text-primary)' }}>سجل المدفوعات</h3>
         {payments?.length === 0 && <p className="text-xs text-muted">لا توجد مدفوعات</p>}
         {payments?.map(p => (
-          <div key={p.id} className="flex items-center justify-between p-3 rounded-xl" style={{ background: 'var(--color-bg-surface-raised)' }}>
+          <div key={p.id} className="flex items-center justify-between p-3 rounded-xl" style={{ background: 'var(--surface-raised)' }}>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-sm font-bold text-white">{p.amount} ر.س</span>
+                <span className="text-sm font-bold text-[var(--text-primary)]">{p.amount} ر.س</span>
                 <span className={
                   p.status === 'paid' ? 'badge-green text-xs' :
                   p.status === 'pending' ? 'badge-yellow text-xs' :

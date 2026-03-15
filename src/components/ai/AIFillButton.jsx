@@ -98,9 +98,9 @@ export default function AIFillButton({
             transition={{ duration: 0.25, ease: 'easeInOut' }}
             className="
               absolute top-full right-0 z-50 mt-2 w-[360px]
-              bg-gray-900/80 backdrop-blur-xl border border-white/10
-              rounded-2xl shadow-2xl overflow-hidden
+              backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden
             "
+            style={{ background: 'var(--color-dropdown-bg)', border: '1px solid var(--border-default)' }}
           >
             <div className="p-4 space-y-3">
               {/* ── Header ── */}
@@ -111,7 +111,7 @@ export default function AIFillButton({
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="text-gray-500 hover:text-gray-300 transition-colors"
+                  className="text-muted hover:text-[var(--text-primary)] transition-colors"
                 >
                   <X size={16} />
                 </button>
@@ -128,12 +128,13 @@ export default function AIFillButton({
                   disabled={isProcessing}
                   rows={2}
                   className="
-                    w-full bg-gray-800/60 border border-white/10 rounded-xl
-                    text-white text-sm placeholder:text-gray-500
+                    w-full rounded-xl
+                    text-sm
                     p-3 pr-3 pl-10 resize-none
                     focus:outline-none focus:border-sky-500/40 focus:ring-1 focus:ring-sky-500/20
                     disabled:opacity-50 transition-all
                   "
+                  style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)', color: 'var(--text-primary)' }}
                 />
                 <button
                   onClick={handleSubmit}
@@ -203,7 +204,7 @@ export default function AIFillButton({
                     onClick={handleSubmit}
                     disabled={!message.trim()}
                     className="
-                      flex items-center gap-1.5 text-xs text-gray-400
+                      flex items-center gap-1.5 text-xs text-muted
                       hover:text-sky-400 transition-colors
                     "
                   >

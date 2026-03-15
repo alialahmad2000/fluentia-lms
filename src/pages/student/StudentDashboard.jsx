@@ -1,8 +1,10 @@
+import { useState, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import {
   Flame, Zap, Trophy, BookOpen, Calendar, ArrowLeft, CreditCard, Crosshair,
   CalendarDays, FileText, ClipboardCheck, Award, Users, Activity, Target, Swords, PlayCircle,
+  Clock, Bell,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
@@ -27,15 +29,25 @@ function getNextLevel(xp) {
   return null
 }
 
-// ─── Quick Access Cards (pages removed from sidebar) ─────────
+// ─── Stagger animation variants ─────────────────────────
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08 } },
+}
+const fadeUp = {
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
+}
+
+// ─── Quick Access Cards ─────────────────────────────────
 const QUICK_ACCESS = [
-  { to: '/student/assignments', label: 'الواجبات', icon: FileText, color: 'sky' },
-  { to: '/student/quiz', label: 'الاختبارات', icon: ClipboardCheck, color: 'emerald' },
-  { to: '/student/schedule', label: 'الجدول', icon: Calendar, color: 'violet' },
-  { to: '/student/library', label: 'المكتبة', icon: BookOpen, color: 'amber' },
-  { to: '/student/certificates', label: 'شهاداتي', icon: Award, color: 'gold' },
-  { to: '/student/leaderboard', label: 'المتصدرين', icon: Trophy, color: 'rose' },
-  { to: '/student/recordings', label: 'التسجيلات', icon: PlayCircle, color: 'sky' },
+  { to: '/student/assignments', label: 'الواجبات', icon: FileText, color: 'sky', glow: 'var(--accent-sky-glow)' },
+  { to: '/student/quiz', label: 'الاختبارات', icon: ClipboardCheck, color: 'emerald', glow: 'var(--accent-emerald-glow)' },
+  { to: '/student/schedule', label: 'الجدول', icon: Calendar, color: 'violet', glow: 'var(--accent-violet-glow)' },
+  { to: '/student/library', label: 'المكتبة', icon: BookOpen, color: 'amber', glow: 'var(--accent-amber-glow)' },
+  { to: '/student/certificates', label: 'شهاداتي', icon: Award, color: 'gold', glow: 'var(--accent-gold-glow)' },
+  { to: '/student/leaderboard', label: 'المتصدرين', icon: Trophy, color: 'rose', glow: 'var(--accent-rose-glow)' },
+  { to: '/student/recordings', label: 'التسجيلات', icon: PlayCircle, color: 'sky', glow: 'var(--accent-sky-glow)' },
 ]
 
 const COLOR_MAP = {
@@ -47,7 +59,16 @@ const COLOR_MAP = {
   rose: 'bg-rose-500/10 text-rose-400',
 }
 
-// ─── Community cards (pages moved from sidebar) ──────────────
+const GLOW_SHADOW = {
+  sky: 'var(--shadow-glow-sky)',
+  emerald: 'var(--shadow-glow-emerald)',
+  violet: 'var(--shadow-glow-violet)',
+  amber: 'var(--shadow-glow-gold)',
+  gold: 'var(--shadow-glow-gold)',
+  rose: '0 0 20px rgba(251,113,133,0.15)',
+}
+
+// ─── Community cards ────────────────────────────────────
 const COMMUNITY_ITEMS = [
   { to: '/student/activity', label: 'نشاط المجموعة', icon: Activity, color: 'sky' },
   { to: '/student/challenges', label: 'التحديات', icon: Target, color: 'emerald' },
@@ -55,6 +76,41 @@ const COMMUNITY_ITEMS = [
   { to: '/student/events', label: 'الفعاليات', icon: Calendar, color: 'violet' },
   { to: '/student/recognition', label: 'تقدير الزملاء', icon: Users, color: 'amber' },
 ]
+
+// ─── Countdown helper ───────────────────────────────────
+function useCountdown(schedule) {
+  const [text, setText] = useState('')
+  useEffect(() => {
+    if (!schedule?.days?.length || !schedule?.time) return
+    function calc() {
+      const now = new Date()
+      const [h, m] = (schedule.time || '').split(':').map(Number)
+      if (isNaN(h)) return ''
+      // Find the next class day
+      for (let offset = 0; offset < 7; offset++) {
+        const candidate = new Date(now)
+        candidate.setDate(now.getDate() + offset)
+        candidate.setHours(h, m || 0, 0, 0)
+        const dayName = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'][candidate.getDay()]
+        if (schedule.days.includes(dayName) && candidate > now) {
+          const diff = candidate - now
+          const hours = Math.floor(diff / 3600000)
+          const mins = Math.floor((diff % 3600000) / 60000)
+          if (hours > 24) {
+            const days = Math.floor(hours / 24)
+            return `بعد ${days} يوم`
+          }
+          return `بعد ${hours} ساعة و ${mins} دقيقة`
+        }
+      }
+      return ''
+    }
+    setText(calc())
+    const id = setInterval(() => setText(calc()), 60000)
+    return () => clearInterval(id)
+  }, [schedule])
+  return text
+}
 
 export default function StudentDashboard() {
   const { profile, studentData } = useAuthStore()
@@ -68,7 +124,6 @@ export default function StudentDashboard() {
       const sunday = new Date(now)
       sunday.setDate(now.getDate() - now.getDay())
       sunday.setHours(0, 0, 0, 0)
-
       const { data } = await supabase
         .from('weekly_task_sets')
         .select('id, total_tasks, completed_tasks, completion_percentage, status')
@@ -139,198 +194,144 @@ export default function StudentDashboard() {
   const academicLevel = ACADEMIC_LEVELS[studentData?.academic_level] || ACADEMIC_LEVELS[1]
   const pkg = PACKAGES[studentData?.package] || PACKAGES.asas
   const group = studentData?.groups
-
   const schedule = group?.schedule
   const nextClassTime = schedule?.time
+  const countdown = useCountdown(schedule)
 
-  const cards = [
-    { label: 'مستوى XP', value: currentLevel.title_ar, sub: `${xp} XP`, icon: Zap, color: 'sky' },
-    { label: 'السلسلة', value: `${streak} يوم`, sub: streak >= 7 ? 'استمر!' : 'واصل يومياً', icon: Flame, color: 'gold' },
-    { label: 'الواجبات', value: pendingAssignments ?? '—', sub: 'قيد الانتظار', icon: BookOpen, color: 'sky' },
-    { label: 'المستوى', value: academicLevel.cefr, sub: academicLevel.name_ar, icon: Trophy, color: 'gold' },
+  const statCards = [
+    { label: 'مستوى XP', value: currentLevel.title_ar, sub: `${xp} XP`, icon: Zap, variant: 'sky' },
+    { label: 'السلسلة', value: `${streak} يوم`, sub: streak >= 7 ? 'استمر!' : 'واصل يومياً', icon: Flame, variant: 'amber', fireIcon: true },
+    { label: 'الواجبات', value: pendingAssignments ?? '—', sub: 'قيد الانتظار', icon: BookOpen, variant: 'violet' },
+    { label: 'المستوى', value: academicLevel.cefr, sub: academicLevel.name_ar, icon: Trophy, variant: 'emerald' },
   ]
 
+  const variantColors = {
+    sky: { text: 'var(--accent-sky)', icon: 'bg-sky-500/10 text-sky-400' },
+    amber: { text: 'var(--accent-gold)', icon: 'bg-gold-500/10 text-gold-400' },
+    violet: { text: 'var(--accent-violet)', icon: 'bg-violet-500/10 text-violet-400' },
+    emerald: { text: 'var(--accent-emerald)', icon: 'bg-emerald-500/10 text-emerald-400' },
+  }
+
   return (
-    <div className="space-y-12">
-      {/* 1. Greeting */}
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-page-title tracking-tight">
-          {getGreeting()}، <span className="text-gradient">{firstName}</span>
-        </h1>
-        <p className="text-muted text-[15px] mt-2.5">
-          {pkg.name_ar} &middot; {academicLevel.name_ar} ({academicLevel.cefr})
-        </p>
+    <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-10">
+
+      {/* ═══ 1. Hero Greeting ═══ */}
+      <motion.div variants={fadeUp} className="relative overflow-hidden rounded-2xl p-8" style={{ background: 'var(--glass-card)' }}>
+        {/* Animated gradient orb */}
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[200px] pointer-events-none glow-breathe"
+          style={{
+            background: 'radial-gradient(ellipse, rgba(56,189,248,0.08), rgba(167,139,250,0.04), transparent)',
+            filter: 'blur(60px)',
+          }}
+        />
+        <div className="relative">
+          <h1 style={{ fontSize: 30, fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em', lineHeight: 1.3, marginBottom: 8 }}>
+            {getGreeting()}، {firstName}
+          </h1>
+          <p style={{
+            fontSize: 15,
+            fontWeight: 500,
+            background: 'linear-gradient(90deg, var(--accent-sky), var(--accent-violet))',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}>
+            {pkg.name_ar} &middot; {academicLevel.name_ar} ({academicLevel.cefr})
+          </p>
+        </div>
       </motion.div>
 
-      {/* Wow Moments — streak/XP milestones */}
+      {/* Wow Moments */}
       <StudentWowMoments />
 
-      {/* 2. Quick Stats Row */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        {cards.map((card, i) => (
-          <motion.div
-            key={card.label}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.06 }}
-            className="stat-card hover:translate-y-[-2px] transition-all duration-300"
-          >
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-[13px] tracking-wide" style={{ color: 'var(--color-text-muted)' }}>{card.label}</span>
-              <div className={`stat-icon ${
-                card.color === 'gold' ? 'bg-gold-500/10 text-gold-400' : 'bg-sky-500/10 text-sky-400'
-              }`}>
-                <card.icon size={18} />
+      {/* ═══ 2. Quick Stats Row ═══ */}
+      <motion.div variants={fadeUp} className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        {statCards.map((card, i) => {
+          const vc = variantColors[card.variant] || variantColors.sky
+          return (
+            <motion.div
+              key={card.label}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.06 }}
+              className={`fl-stat-card ${card.variant}`}
+              style={{ textAlign: 'start' }}
+            >
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-[13px] tracking-wide" style={{ color: 'var(--text-tertiary)' }}>{card.label}</span>
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center opacity-70 ${vc.icon}`}>
+                  <card.icon size={18} strokeWidth={1.5} className={card.fireIcon ? 'fire-pulse' : ''} />
+                </div>
               </div>
-            </div>
-            <p className="stat-number">{card.value}</p>
-            <p className="stat-label">{card.sub}</p>
-          </motion.div>
-        ))}
-      </div>
+              <p className="text-[1.75rem] sm:text-[2rem] font-bold leading-none" style={{ color: vc.text, fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.02em' }}>
+                {card.value}
+              </p>
+              <p className="text-[12px] mt-2 tracking-wide" style={{ color: 'var(--text-tertiary)' }}>{card.sub}</p>
+            </motion.div>
+          )
+        })}
+      </motion.div>
 
-      {/* 3. Weekly Tasks Progress */}
+      {/* ═══ 3. Weekly Tasks Progress ═══ */}
       {weeklyProgress && (
-        <Link to="/student/weekly-tasks">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 }}
-            className="glass-card p-7 hover:translate-y-[-2px] transition-all duration-200"
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
-                <CalendarDays className="text-sky-400" size={18} />
+        <motion.div variants={fadeUp}>
+          <Link to="/student/weekly-tasks">
+            <div className="fl-card-static p-6 hover:translate-y-[-2px] transition-all duration-200" style={{ cursor: 'pointer' }}>
+              <div className="card-top-line shimmer" />
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'var(--accent-sky-glow)' }}>
+                  <CalendarDays size={18} strokeWidth={1.5} style={{ color: 'var(--accent-sky)' }} />
+                </div>
+                <h3 className="text-[15px] font-semibold" style={{ color: 'var(--text-primary)' }}>المهام الأسبوعية</h3>
+                <span className="me-auto text-xs font-data" style={{ color: 'var(--text-tertiary)' }}>
+                  {weeklyProgress.completed_tasks}/{weeklyProgress.total_tasks}
+                </span>
+                {weeklyProgress.status === 'completed' && (
+                  <span className="fl-badge emerald text-[11px]">مكتمل</span>
+                )}
               </div>
-              <h3 className="text-[15px] font-semibold" style={{ color: 'var(--color-text-primary)' }}>المهام الأسبوعية</h3>
-              <span className="me-auto text-xs text-muted">
-                {weeklyProgress.completed_tasks}/{weeklyProgress.total_tasks}
-              </span>
-              {weeklyProgress.status === 'completed' && (
-                <span className="badge-green text-xs">مكتمل</span>
-              )}
+              <div className="fl-progress-track" style={{ height: '8px' }}>
+                <motion.div
+                  className="fl-progress-fill"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${weeklyProgress.completion_percentage || 0}%` }}
+                  transition={{ duration: 0.8, ease: 'easeOut' }}
+                />
+              </div>
             </div>
-            <div className="w-full h-2.5 rounded-full bg-white/5 overflow-hidden">
-              <motion.div
-                className="h-full rounded-full bg-gradient-to-l from-sky-400 to-emerald-400"
-                initial={{ width: 0 }}
-                animate={{ width: `${weeklyProgress.completion_percentage || 0}%` }}
-                transition={{ duration: 0.8, ease: 'easeOut' }}
-              />
-            </div>
-          </motion.div>
-        </Link>
+          </Link>
+        </motion.div>
       )}
 
-      {/* 4. Quick Access Grid — pages removed from sidebar */}
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-        <h2 className="text-section-title mb-5" style={{ color: 'var(--color-text-primary)' }}>الوصول السريع</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-          {QUICK_ACCESS.map((item, i) => (
-            <Link key={item.to} to={item.to}>
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 + i * 0.05 }}
-                className="glass-card p-5 hover:translate-y-[-2px] transition-all duration-200 group"
-              >
-                <div className={`w-11 h-11 rounded-xl ${COLOR_MAP[item.color]} flex items-center justify-center mb-3`}>
-                  <item.icon size={20} />
-                </div>
-                <p className="text-[14px] font-medium" style={{ color: 'var(--color-text-primary)' }}>{item.label}</p>
-              </motion.div>
-            </Link>
-          ))}
-        </div>
-      </motion.div>
-
-      {/* 5. XP Progress bar */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-        className="glass-card p-7"
-      >
-        <div className="flex items-center justify-between mb-5">
-          <div>
-            <p className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>تقدم المستوى</p>
-            <p className="text-[13px] mt-1" style={{ color: 'var(--color-text-muted)' }}>
-              المستوى {currentLevel.level} — {currentLevel.title_ar}
-            </p>
-          </div>
-          {nextLevel && (
-            <div className="text-start">
-              <p className="text-xs text-muted">التالي</p>
-              <p className="text-sm font-medium text-sky-400">
-                {nextLevel.title_ar} ({nextLevel.xp} XP)
-              </p>
+      {/* ═══ 4. Next Class + Notifications ═══ */}
+      <motion.div variants={fadeUp} className="grid lg:grid-cols-2 gap-5">
+        {/* Next Class */}
+        <div className="fl-card-static p-6 relative">
+          <div className="card-top-line" style={{ opacity: 0.4 }} />
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'var(--accent-sky-glow)' }}>
+              <Calendar size={18} strokeWidth={1.5} style={{ color: 'var(--accent-sky)' }} />
             </div>
-          )}
-        </div>
-        <div className="w-full h-3.5 bg-white/5 rounded-full overflow-hidden">
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: `${Math.min(xpProgress, 100)}%` }}
-            transition={{ delay: 0.4, duration: 0.8, ease: 'easeOut' }}
-            className="h-full bg-gradient-to-l from-sky-400 to-sky-600 rounded-full"
-          />
-        </div>
-        <p className="text-xs text-muted mt-2 text-start">
-          {nextLevel ? `${nextLevel.xp - xp} XP للمستوى التالي` : 'أعلى مستوى!'}
-        </p>
-      </motion.div>
-
-      {/* 6. Community Section — horizontal scroll */}
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>
-        <h2 className="text-section-title mb-5" style={{ color: 'var(--color-text-primary)' }}>المجتمع</h2>
-        <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2 -mx-1 px-1">
-          {COMMUNITY_ITEMS.map((item, i) => (
-            <Link key={item.to} to={item.to} className="shrink-0">
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.35 + i * 0.05 }}
-                className="glass-card p-5 w-36 hover:translate-y-[-2px] transition-all duration-200"
-              >
-                <div className={`w-10 h-10 rounded-xl ${COLOR_MAP[item.color]} flex items-center justify-center mb-3`}>
-                  <item.icon size={18} />
-                </div>
-                <p className="text-[13px] font-medium" style={{ color: 'var(--color-text-primary)' }}>{item.label}</p>
-              </motion.div>
-            </Link>
-          ))}
-        </div>
-      </motion.div>
-
-      {/* 7. Daily Challenge + Mystery Box */}
-      <div className="grid lg:grid-cols-2 gap-6">
-        <DailyChallenge />
-        <MysteryBox />
-      </div>
-
-      {/* 8. Next class + Notifications */}
-      <div className="grid lg:grid-cols-2 gap-6">
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.45 }}
-          className="glass-card p-7 hover:translate-y-[-2px] transition-all duration-300"
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <Calendar size={20} className="text-sky-400" />
-            <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>الحصة القادمة</h3>
+            <h3 className="text-[16px] font-bold" style={{ color: 'var(--text-primary)' }}>الحصة القادمة</h3>
           </div>
           {group ? (
-            <div className="space-y-2.5">
-              <p className="text-sm font-medium" style={{ color: 'var(--color-text-primary)' }}>{group.name}</p>
+            <div className="space-y-3">
+              <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{group.name}</p>
               {schedule && (
                 <>
-                  <p className="text-xs text-muted">
-                    {schedule.days?.map(d => getArabicDay(d)).join(' — ')}
+                  <p className="text-[13px]" style={{ color: 'var(--text-tertiary)' }}>
+                    {schedule.days?.map(d => getArabicDay(d)).join(' · ')}
                   </p>
                   {nextClassTime && (
-                    <p className="text-lg font-bold text-sky-400">
+                    <p className="text-2xl font-bold" style={{ color: 'var(--accent-sky)' }}>
                       {formatTime(nextClassTime)}
+                    </p>
+                  )}
+                  {countdown && (
+                    <p className="text-[13px] flex items-center gap-1.5" style={{ color: 'var(--text-tertiary)' }}>
+                      <Clock size={13} strokeWidth={1.5} />
+                      {countdown}
                     </p>
                   )}
                 </>
@@ -340,7 +341,7 @@ export default function StudentDashboard() {
                   href={group.google_meet_link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary inline-flex items-center gap-2 text-sm mt-2 py-2 px-4"
+                  className="fl-btn-primary text-sm mt-1 py-2.5 px-5 inline-flex items-center gap-2"
                 >
                   <span>دخول الحصة</span>
                   <ArrowLeft size={14} />
@@ -348,74 +349,184 @@ export default function StudentDashboard() {
               )}
             </div>
           ) : (
-            <p className="text-muted text-sm">لا توجد مجموعة مسجلة</p>
+            <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>لا توجد مجموعة مسجلة</p>
           )}
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.55 }}
-          className="glass-card p-7 hover:translate-y-[-2px] transition-all duration-300"
-        >
-          <h3 className="text-section-title mb-6" style={{ color: 'var(--color-text-primary)' }}>آخر الإشعارات</h3>
+        {/* Notifications */}
+        <div className="fl-card-static p-6 relative">
+          <div className="card-top-line violet" style={{ opacity: 0.3 }} />
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'var(--accent-violet-glow)' }}>
+              <Bell size={18} strokeWidth={1.5} style={{ color: 'var(--accent-violet)' }} />
+            </div>
+            <h3 className="text-[16px] font-bold" style={{ color: 'var(--text-primary)' }}>آخر الإشعارات</h3>
+          </div>
           {notifications?.length > 0 ? (
             <div className="space-y-3">
               {notifications.map((n) => (
                 <div
                   key={n.id}
-                  className={`text-sm border-s-2 ps-3 ${
-                    n.read ? 'border-border-subtle text-muted' : 'border-sky-500'
-                  }`}
-                  style={{ color: n.read ? undefined : 'var(--color-text-primary)' }}
+                  className="flex items-start gap-3 py-2"
+                  style={{ borderBottom: '1px solid var(--border-subtle)' }}
                 >
-                  <p className="font-medium text-xs">{n.title}</p>
-                  <p className="text-xs text-muted truncate">{n.body}</p>
+                  {/* Unread dot */}
+                  <div className="mt-1.5 shrink-0">
+                    {!n.read ? (
+                      <div className="w-2 h-2 rounded-full dot-pulse" style={{ background: 'var(--accent-sky)' }} />
+                    ) : (
+                      <div className="w-2 h-2 rounded-full" style={{ background: 'var(--border-default)' }} />
+                    )}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[13px] font-semibold truncate" style={{ color: n.read ? 'var(--text-tertiary)' : 'var(--text-primary)' }}>
+                      {n.title}
+                    </p>
+                    <p className="text-[12px] truncate" style={{ color: 'var(--text-tertiary)' }}>{n.body}</p>
+                  </div>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-muted text-sm">لا توجد إشعارات جديدة</p>
+            <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>لا توجد إشعارات جديدة</p>
           )}
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
 
-      {/* 9. Payment status */}
-      {nextPayment && (
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="glass-card p-7"
-        >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <CreditCard size={18} className="text-gold-400" />
-              <h3 className="text-lg font-semibold" style={{ color: 'var(--color-text-primary)' }}>الدفعة القادمة</h3>
+      {/* ═══ 5. Quick Access Grid ═══ */}
+      <motion.div variants={fadeUp}>
+        <h2 className="text-[18px] font-bold mb-5" style={{ color: 'var(--text-primary)' }}>الوصول السريع</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {QUICK_ACCESS.map((item, i) => (
+            <Link key={item.to} to={item.to}>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 + i * 0.04 }}
+                className="fl-card-static p-5 group cursor-pointer transition-all duration-250"
+                style={{ '--hover-glow': GLOW_SHADOW[item.color] }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)'
+                  e.currentTarget.style.borderColor = 'var(--border-glow)'
+                  e.currentTarget.style.boxShadow = GLOW_SHADOW[item.color]
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = ''
+                  e.currentTarget.style.borderColor = ''
+                  e.currentTarget.style.boxShadow = ''
+                }}
+              >
+                <div className={`w-11 h-11 rounded-xl ${COLOR_MAP[item.color]} flex items-center justify-center mb-3`}>
+                  <item.icon size={20} strokeWidth={1.5} />
+                </div>
+                <p className="text-[14px] font-medium" style={{ color: 'var(--text-primary)' }}>{item.label}</p>
+              </motion.div>
+            </Link>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* ═══ 6. XP Progress ═══ */}
+      <motion.div variants={fadeUp} className="fl-card-static p-7">
+        <div className="card-top-line" style={{ opacity: 0.3 }} />
+        <div className="flex items-center justify-between mb-5">
+          <div>
+            <p className="text-[18px] font-bold" style={{ color: 'var(--text-primary)' }}>تقدم المستوى</p>
+            <p className="text-[13px] mt-1" style={{ color: 'var(--text-tertiary)' }}>
+              المستوى {currentLevel.level} — {currentLevel.title_ar}
+            </p>
+          </div>
+          {nextLevel && (
+            <div className="text-start">
+              <p className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: 'var(--text-tertiary)' }}>التالي</p>
+              <p className="text-sm font-bold" style={{ color: 'var(--accent-sky)' }}>
+                {nextLevel.title_ar}
+              </p>
             </div>
-            <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${
-              nextPayment.status === 'overdue'
-                ? 'bg-red-500/10 text-red-400 border border-red-500/20'
-                : 'bg-gold-500/10 text-gold-400 border border-gold-500/20'
-            }`}>
+          )}
+        </div>
+        <div className="fl-progress-track" style={{ height: '10px' }}>
+          <motion.div
+            className="fl-progress-fill"
+            initial={{ width: 0 }}
+            animate={{ width: `${Math.min(xpProgress, 100)}%` }}
+            transition={{ delay: 0.4, duration: 0.8, ease: 'easeOut' }}
+          />
+        </div>
+        <div className="flex justify-between mt-2.5">
+          <p className="text-[12px] font-data" style={{ color: 'var(--text-tertiary)' }}>
+            {xp} XP
+          </p>
+          <p className="text-[12px] font-data" style={{ color: 'var(--text-tertiary)' }}>
+            {nextLevel ? `${nextLevel.xp} XP` : 'MAX'}
+          </p>
+        </div>
+      </motion.div>
+
+      {/* ═══ 7. Community ═══ */}
+      <motion.div variants={fadeUp}>
+        <h2 className="text-[18px] font-bold mb-5" style={{ color: 'var(--text-primary)' }}>المجتمع</h2>
+        <div className="flex gap-3.5 overflow-x-auto scrollbar-none pb-2 -mx-1 px-1">
+          {COMMUNITY_ITEMS.map((item, i) => (
+            <Link key={item.to} to={item.to} className="shrink-0">
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 + i * 0.05 }}
+                className="fl-card-static p-4 w-[130px] hover:translate-y-[-2px] transition-all duration-200"
+                style={{ cursor: 'pointer' }}
+              >
+                <div className={`w-10 h-10 rounded-xl ${COLOR_MAP[item.color]} flex items-center justify-center mb-2.5`}>
+                  <item.icon size={18} strokeWidth={1.5} />
+                </div>
+                <p className="text-[13px] font-medium" style={{ color: 'var(--text-primary)' }}>{item.label}</p>
+              </motion.div>
+            </Link>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* ═══ 8. Daily Challenge + Mystery Box ═══ */}
+      <motion.div variants={fadeUp} className="grid lg:grid-cols-2 gap-5">
+        <DailyChallenge />
+        <MysteryBox />
+      </motion.div>
+
+      {/* ═══ 9. Payment Status ═══ */}
+      {nextPayment && (
+        <motion.div variants={fadeUp} className="fl-card-static p-7 relative">
+          <div className="card-top-line gold" style={{ opacity: 0.3 }} />
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'var(--accent-gold-glow)' }}>
+                <CreditCard size={18} strokeWidth={1.5} style={{ color: 'var(--accent-gold)' }} />
+              </div>
+              <h3 className="text-[16px] font-bold" style={{ color: 'var(--text-primary)' }}>الدفعة القادمة</h3>
+            </div>
+            <span className={`fl-badge text-[11px] ${nextPayment.status === 'overdue' ? 'rose' : 'amber'}`}>
               {nextPayment.status === 'overdue' ? 'متأخرة' : 'قيد الانتظار'}
             </span>
           </div>
           <div className="mt-4 flex items-baseline gap-3">
-            <p className="text-3xl font-bold" style={{ color: 'var(--color-text-primary)' }}>{nextPayment.amount} ر.س</p>
+            <p className="text-3xl font-bold font-data" style={{ color: 'var(--text-primary)' }}>{nextPayment.amount} ر.س</p>
             {nextPayment.period_end && (
-              <p className="text-xs text-muted">حتى {formatDateAr(nextPayment.period_end)}</p>
+              <p className="text-[12px]" style={{ color: 'var(--text-tertiary)' }}>حتى {formatDateAr(nextPayment.period_end)}</p>
             )}
           </div>
-          <Link to="/student/billing" className="text-xs text-sky-400 hover:text-sky-300 mt-2 inline-block">
+          <Link to="/student/billing" className="text-[13px] font-medium mt-3 inline-block transition-colors" style={{ color: 'var(--accent-sky)' }}>
             عرض تفاصيل الفواتير
           </Link>
         </motion.div>
       )}
 
-      {/* 10. Targeted Exercises CTA */}
+      {/* ═══ 10. Targeted Exercises CTA ═══ */}
       <ExercisesCTA studentId={profile?.id} />
-    </div>
+
+      {/* ═══ Motivational Footer ═══ */}
+      <p className="text-center text-[13px] italic pb-4" style={{ color: 'var(--text-tertiary)', opacity: 0.6 }}>
+        "The expert in anything was once a beginner."
+      </p>
+    </motion.div>
   )
 }
 
@@ -436,22 +547,19 @@ function ExercisesCTA({ studentId }) {
   if (!pendingCount) return null
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="glass-card p-7 border-violet-500/20 hover:translate-y-[-2px] transition-all duration-300"
-    >
-      <div className="flex items-center justify-between">
+    <motion.div variants={fadeUp} className="fl-card-static p-7 relative" style={{ borderColor: 'rgba(167,139,250,0.15)' }}>
+      <div className="card-top-line violet" style={{ opacity: 0.4 }} />
+      <div className="flex items-center justify-between flex-wrap gap-4">
         <div className="flex items-center gap-3.5">
-          <div className="w-11 h-11 rounded-xl bg-violet-500/10 flex items-center justify-center">
-            <Crosshair size={20} className="text-violet-400" />
+          <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: 'var(--accent-violet-glow)' }}>
+            <Crosshair size={20} strokeWidth={1.5} style={{ color: 'var(--accent-violet)' }} />
           </div>
           <div>
-            <h3 className="text-lg font-semibold" style={{ color: 'var(--color-text-primary)' }}>تمارين مخصصة لك</h3>
-            <p className="text-xs text-muted mt-0.5">{pendingCount} تمرين جاهز لتحسين نقاط ضعفك</p>
+            <h3 className="text-[16px] font-bold" style={{ color: 'var(--text-primary)' }}>تمارين مخصصة لك</h3>
+            <p className="text-[12px] mt-0.5" style={{ color: 'var(--text-tertiary)' }}>{pendingCount} تمرين جاهز لتحسين نقاط ضعفك</p>
           </div>
         </div>
-        <Link to="/student/exercises" className="btn-primary text-sm py-2 px-4 flex items-center gap-2">
+        <Link to="/student/exercises" className="fl-btn-primary text-sm py-2.5 px-5 flex items-center gap-2">
           <span>ابدأ التدريب</span>
           <ArrowLeft size={14} />
         </Link>

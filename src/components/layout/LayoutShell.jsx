@@ -46,7 +46,7 @@ export default function LayoutShell() {
   const activeColor = TAB_ACTIVE_COLORS[role] || TAB_ACTIVE_COLORS.student
 
   return (
-    <div className="min-h-screen bg-darkest" data-role={role}>
+    <div className="min-h-screen" style={{ background: 'var(--surface-base)' }} data-role={role}>
       <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:right-4 focus:z-[100] focus:bg-sky-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm">
         انتقل إلى المحتوى الرئيسي
       </a>
@@ -59,13 +59,13 @@ export default function LayoutShell() {
 
       {/* Main content area — offset by sidebar width */}
       <div
-        className={`transition-all duration-300 ease-apple ${
-          collapsed ? 'lg:mr-[72px]' : 'lg:mr-[250px]'
+        className={`relative z-[1] transition-all duration-300 ease-apple ${
+          collapsed ? 'lg:mr-[72px]' : 'lg:mr-[260px]'
         }`}
       >
         <Header onMenuToggle={() => setMobileOpen(true)} />
 
-        <main id="main-content" className="p-5 lg:p-10 pb-24 lg:pb-10">
+        <main id="main-content" className="px-4 py-6 lg:px-10 lg:py-8 pb-24 lg:pb-10" style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <Outlet />
         </main>
       </div>
@@ -74,21 +74,25 @@ export default function LayoutShell() {
       <AIFloatingHelper />
 
       {/* Mobile bottom tab bar */}
-      <nav aria-label="التنقل الرئيسي" className="fixed bottom-0 left-0 right-0 z-40 lg:hidden backdrop-blur-2xl border-t border-border-subtle" style={{ background: 'var(--color-bg-sidebar)' }}>
-        <div className="flex items-center justify-around h-16 max-w-lg mx-auto">
+      <nav aria-label="التنقل الرئيسي" className="mobile-tab-bar lg:hidden">
+        <div className="flex items-center justify-around w-full max-w-lg mx-auto h-16">
           {tabs.map((tab) => (
             <NavLink
               key={tab.to}
               to={tab.to}
               end={tab.to === `/${role}` || tab.to === '/admin' || tab.to === '/trainer' || tab.to === '/student'}
               className={({ isActive }) =>
-                `flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 min-w-[56px] ${
-                  isActive ? `${activeColor} bg-[var(--color-bg-hover)]` : 'text-muted'
+                `flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-[10px] font-medium transition-all duration-200 min-w-[56px] min-h-[44px] justify-center ${
+                  isActive ? `${activeColor} bg-[var(--surface-raised)]` : 'text-muted'
                 }`
               }
             >
-              <tab.icon size={20} />
-              <span>{tab.label}</span>
+              {({ isActive }) => (
+                <>
+                  <tab.icon size={20} style={isActive ? { filter: `drop-shadow(0 0 4px currentColor)` } : undefined} />
+                  <span>{tab.label}</span>
+                </>
+              )}
             </NavLink>
           ))}
         </div>

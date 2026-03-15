@@ -49,7 +49,7 @@ export default function TrainerGroupChat() {
   return (
     <div className="space-y-12">
       {groups?.length > 1 && (
-        <div className="glass-card p-4 flex items-center gap-3">
+        <div className="fl-card-static p-4 flex items-center gap-3">
           <label className="input-label mb-0 whitespace-nowrap text-sm">المجموعة:</label>
           <select
             value={selectedGroup}

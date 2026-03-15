@@ -76,7 +76,7 @@ function SortableTask({ task, onToggle, onRemove }) {
       </button>
       <span className={`text-xs flex-1 min-w-0 truncate ${
         task.is_completed ? 'line-through text-muted' : ''
-      }`} style={{ color: task.is_completed ? undefined : 'var(--color-text-primary)' }}>
+      }`} style={{ color: task.is_completed ? undefined : 'var(--text-primary)' }}>
         {task.title}
       </span>
       <button
@@ -288,7 +288,7 @@ export default function StudentSchedule() {
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-page-title flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
-            <Calendar size={22} className="text-sky-400" />
+            <Calendar size={22} strokeWidth={1.5} className="text-sky-400" />
           </div>
           مخططي الأسبوعي
         </h1>
@@ -302,7 +302,7 @@ export default function StudentSchedule() {
             <ChevronRight size={18} />
           </button>
           <div className="text-center min-w-[160px]">
-            <p className="text-sm font-semibold" style={{ color: 'var(--color-text-primary)' }}>
+            <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
               {formatWeekRange(weekStart)}
             </p>
             {!isCurrentWeek && (
@@ -379,7 +379,7 @@ export default function StudentSchedule() {
                       ? 'border-2 border-sky-500/30 bg-sky-500/[0.03]'
                       : 'border border-border-subtle'
                   }`}
-                  style={{ background: isToday ? undefined : 'var(--color-bg-surface)' }}
+                  style={{ background: isToday ? undefined : 'var(--surface-base)' }}
                 >
                   {/* Day Header */}
                   <div className={`text-center pb-2 mb-2 border-b ${
@@ -516,10 +516,10 @@ export default function StudentSchedule() {
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          className="glass-card p-7 text-center"
+          className="fl-card-static p-7 text-center"
         >
-          <Sparkles size={32} className="text-sky-400 mx-auto mb-3" />
-          <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--color-text-primary)' }}>
+          <Sparkles size={32} strokeWidth={1.5} className="text-sky-400 mx-auto mb-3" />
+          <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
             ابدئي تنظيم أسبوعك!
           </h3>
           <p className="text-sm text-muted max-w-md mx-auto">
@@ -531,22 +531,22 @@ export default function StudentSchedule() {
 
       {/* Upcoming Classes */}
       {upcomingClasses?.length > 0 && (
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="glass-card p-7">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="fl-card-static p-7">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
               <Clock size={16} className="text-emerald-400" />
             </div>
-            <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>الحصص القادمة</h3>
+            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>الحصص القادمة</h3>
           </div>
           <div className="space-y-2">
             {upcomingClasses.map((c) => (
               <div
                 key={c.id}
                 className="rounded-xl p-3 flex items-center justify-between hover:bg-white/[0.04] transition-all"
-                style={{ background: 'var(--color-bg-surface-raised)' }}
+                style={{ background: 'var(--surface-raised)' }}
               >
                 <div>
-                  <p className="text-sm font-medium" style={{ color: 'var(--color-text-primary)' }}>
+                  <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
                     {c.title || c.topic || 'حصة'}
                   </p>
                   <p className="text-xs text-muted mt-0.5">

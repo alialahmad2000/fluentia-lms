@@ -119,7 +119,7 @@ export default function ImageUpload({ images, onImagesChange, maxImages = 4 }) {
       {images.length > 0 && (
         <div className="grid grid-cols-2 gap-2">
           {images.map((img, i) => (
-            <div key={i} className="relative group rounded-xl overflow-hidden bg-white/5 border border-border-subtle">
+            <div key={i} className="relative group rounded-xl overflow-hidden bg-[var(--surface-base)] border border-border-subtle">
               <img
                 src={img.preview || img.url}
                 alt={img.name}
@@ -144,7 +144,7 @@ export default function ImageUpload({ images, onImagesChange, maxImages = 4 }) {
           type="button"
           onClick={() => inputRef.current?.click()}
           disabled={compressing}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 border border-border-subtle text-muted hover:text-white hover:bg-white/10 transition-all text-sm disabled:opacity-50"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--surface-base)] border border-border-subtle text-muted hover:text-[var(--text-primary)] hover:bg-[var(--surface-raised)] transition-all text-sm disabled:opacity-50"
         >
           {compressing ? (
             <Loader2 size={16} className="animate-spin" />

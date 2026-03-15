@@ -30,7 +30,12 @@ export default function StudentGrades() {
   return (
     <div className="space-y-8">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-page-title">الدرجات والتقدم</h1>
+        <h1 className="text-page-title flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+            <BarChart3 size={20} className="text-sky-400" strokeWidth={1.5} />
+          </div>
+          الدرجات والتقدم
+        </h1>
         <p className="text-muted text-sm mt-1">نتائجك وإنجازاتك وتقييماتك</p>
       </motion.div>
 
@@ -82,32 +87,20 @@ function GradesContent() {
     <div className="space-y-8">
       {/* Summary cards */}
       <div className="grid grid-cols-3 gap-4">
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="stat-card hover:translate-y-[-2px] transition-all duration-200">
-          <div className="stat-icon">
-            <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
-              <Award size={20} className="text-sky-400" />
-            </div>
-          </div>
-          <p className="stat-label">الواجبات المقيّمة</p>
-          <p className="stat-number text-3xl font-bold" style={{ color: 'var(--color-text-primary)' }}>{totalGraded}</p>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="fl-stat-card sky">
+          <Award size={22} className="text-sky-400 mb-2" strokeWidth={1.5} />
+          <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{totalGraded}</p>
+          <p className="text-xs mt-1" style={{ color: 'var(--text-tertiary)' }}>الواجبات المقيّمة</p>
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }} className="stat-card hover:translate-y-[-2px] transition-all duration-200">
-          <div className="stat-icon">
-            <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
-              <TrendingUp size={20} className="text-sky-400" />
-            </div>
-          </div>
-          <p className="stat-label">المعدل</p>
-          <p className="stat-number text-3xl font-bold" style={{ color: 'var(--color-text-primary)' }}>{avgNumeric}%</p>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }} className="fl-stat-card violet">
+          <TrendingUp size={22} className="text-violet-400 mb-2" strokeWidth={1.5} />
+          <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{avgNumeric}%</p>
+          <p className="text-xs mt-1" style={{ color: 'var(--text-tertiary)' }}>المعدل</p>
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.24 }} className="stat-card hover:translate-y-[-2px] transition-all duration-200">
-          <div className="stat-icon">
-            <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center">
-              <span className="text-gold-400 text-lg font-bold">XP</span>
-            </div>
-          </div>
-          <p className="stat-label">XP من الواجبات</p>
-          <p className="stat-number text-3xl font-bold" style={{ color: 'var(--color-text-primary)' }}>{totalXP}</p>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.24 }} className="fl-stat-card amber">
+          <span className="text-amber-400 text-lg font-bold mb-2 block">XP</span>
+          <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{totalXP}</p>
+          <p className="text-xs mt-1" style={{ color: 'var(--text-tertiary)' }}>XP من الواجبات</p>
         </motion.div>
       </div>
 
@@ -115,7 +108,7 @@ function GradesContent() {
       {isLoading ? (
         <div className="space-y-3">{[1, 2, 3].map(i => <div key={i} className="skeleton h-20 w-full" />)}</div>
       ) : totalGraded === 0 ? (
-        <div className="glass-card p-8 text-center">
+        <div className="fl-card-static p-8 text-center">
           <Award size={32} className="text-muted mx-auto mb-2" />
           <p className="text-muted">لا توجد درجات حتى الآن</p>
         </div>
@@ -130,7 +123,7 @@ function GradesContent() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="glass-card p-6 hover:translate-y-[-2px] transition-all duration-200"
+                className="fl-card p-6"
               >
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex-1 min-w-0">
@@ -138,7 +131,7 @@ function GradesContent() {
                       <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center shrink-0">
                         <span>{typeInfo.icon}</span>
                       </div>
-                      <h3 className="text-sm font-medium truncate" style={{ color: 'var(--color-text-primary)' }}>{g.assignments?.title}</h3>
+                      <h3 className="text-sm font-medium truncate" style={{ color: 'var(--text-primary)' }}>{g.assignments?.title}</h3>
                       <span className="badge-blue text-xs">{typeInfo.label_ar}</span>
                     </div>
                     {g.trainer_feedback && (

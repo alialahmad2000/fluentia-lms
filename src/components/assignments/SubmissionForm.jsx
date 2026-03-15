@@ -178,13 +178,13 @@ export default function SubmissionForm({ assignment, existingSubmission, student
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 30 }}
-        className="fixed inset-x-4 top-[5vh] bottom-[5vh] lg:inset-x-auto lg:left-1/2 lg:-translate-x-1/2 lg:w-full lg:max-w-2xl glass-card-raised rounded-2xl z-50 flex flex-col overflow-hidden"
+        className="fixed inset-x-4 top-[5vh] bottom-[5vh] lg:inset-x-auto lg:left-1/2 lg:-translate-x-1/2 lg:w-full lg:max-w-2xl fl-card-static rounded-2xl z-50 flex flex-col overflow-hidden"
       >
         {/* Header */}
-        <div className="px-6 py-4 border-b border-white/10 shrink-0">
+        <div className="px-6 py-4 border-b border-[var(--border-subtle)] shrink-0">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-white">{modalTitle}</h2>
-            <button onClick={onClose} className="btn-ghost p-2 rounded-xl text-muted hover:text-white transition-all duration-200">
+            <h2 className="text-lg font-semibold text-[var(--text-primary)]">{modalTitle}</h2>
+            <button onClick={onClose} className="btn-ghost p-2 rounded-xl text-muted hover:text-[var(--text-primary)] transition-all duration-200">
               <X size={20} />
             </button>
           </div>
@@ -264,7 +264,7 @@ export default function SubmissionForm({ assignment, existingSubmission, student
                   className={`flex flex-col items-center gap-1 px-3 py-2.5 rounded-xl text-xs transition-all duration-200 hover:translate-y-[-2px] ${
                     form.difficulty_rating === opt.value
                       ? 'bg-sky-500/10 border border-sky-500/20 text-sky-400'
-                      : 'bg-white/5 border border-white/5 text-muted hover:text-white'
+                      : 'bg-[var(--surface-base)] border border-[var(--border-subtle)] text-muted hover:text-[var(--text-primary)]'
                   }`}
                 >
                   <span className="text-lg">{opt.emoji}</span>
@@ -291,7 +291,7 @@ export default function SubmissionForm({ assignment, existingSubmission, student
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-white/10 flex items-center justify-end gap-3 shrink-0">
+        <div className="px-6 py-4 border-t border-[var(--border-subtle)] flex items-center justify-end gap-3 shrink-0">
           <button
             type="button"
             onClick={() => handleSubmit(true)}

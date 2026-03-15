@@ -305,7 +305,7 @@ export default function VoiceRecorder({ onRecordingComplete, existingUrl }) {
               <Square size={14} fill="currentColor" />
               <span>إيقاف</span>
             </button>
-            <span className={`text-sm font-mono tabular-nums ${isNearLimit ? 'text-red-400' : 'text-red-400'}`}>
+            <span className={`text-sm font-mono tabular-nums ${isNearLimit ? 'text-red-400' : 'text-muted'}`}>
               {formatTime(duration)}
             </span>
             {isNearLimit && (

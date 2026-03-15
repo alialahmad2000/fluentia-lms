@@ -76,10 +76,10 @@ export default function AdminTrainers() {
       {/* Header */}
       <div className="flex items-center gap-4">
         <div className="w-12 h-12 rounded-xl bg-sky-500/10 flex items-center justify-center">
-          <Briefcase size={22} className="text-sky-400" />
+          <Briefcase size={22} className="text-sky-400" strokeWidth={1.5} />
         </div>
         <div>
-          <h1 className="text-page-title text-white">إدارة المدربين</h1>
+          <h1 className="text-page-title text-[var(--text-primary)]">إدارة المدربين</h1>
           <p className="text-muted text-sm mt-1">{trainers?.length || 0} مدرب</p>
         </div>
       </div>
@@ -96,7 +96,7 @@ export default function AdminTrainers() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
-              className="glass-card p-7 hover:translate-y-[-2px] transition-all duration-200"
+              className="fl-card p-7"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
@@ -104,7 +104,7 @@ export default function AdminTrainers() {
                     {(t.display_name || t.full_name || '?')[0]}
                   </div>
                   <div>
-                    <p className="text-white font-medium">{t.display_name || t.full_name}</p>
+                    <p className="text-[var(--text-primary)] font-medium">{t.display_name || t.full_name}</p>
                     <p className="text-xs text-muted">{t.email}</p>
                     {t.role === 'admin' && <span className="badge-gold">مدير</span>}
                   </div>
@@ -177,11 +177,11 @@ function TrainerEditModal({ trainer, allGroups, onClose, onSave, saving }) {
       <motion.div
         initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }}
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-md glass-card-raised p-6"
+        className="w-full max-w-md fl-card-static p-6"
       >
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>تعديل بيانات المدرب</h2>
-          <button onClick={onClose} className="btn-icon w-8 h-8 text-muted hover:text-white"><X size={20} /></button>
+          <h2 className="text-section-title" style={{ color: 'var(--text-primary)' }}>تعديل بيانات المدرب</h2>
+          <button onClick={onClose} className="btn-icon w-8 h-8 text-muted hover:text-[var(--text-primary)]"><X size={20} /></button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -197,13 +197,13 @@ function TrainerEditModal({ trainer, allGroups, onClose, onSave, saving }) {
             <label className="input-label mb-2">المجموعات المسندة</label>
             <div className="space-y-2">
               {allGroups?.map(g => (
-                <label key={g.id} className="flex items-center gap-3 p-2.5 rounded-xl glass-card cursor-pointer hover:translate-y-[-2px] transition-all duration-200">
+                <label key={g.id} className="flex items-center gap-3 p-2.5 rounded-xl fl-card cursor-pointer">
                   <input
                     type="checkbox"
                     checked={selectedGroups.includes(g.id)}
                     onChange={() => toggleGroup(g.id)}
                   />
-                  <span className="text-sm text-white">{g.code} — {g.name}</span>
+                  <span className="text-sm text-[var(--text-primary)]">{g.code} — {g.name}</span>
                   {g.trainer_id && g.trainer_id !== trainer.id && (
                     <span className="badge-yellow mr-auto">(مسند لمدرب آخر)</span>
                   )}

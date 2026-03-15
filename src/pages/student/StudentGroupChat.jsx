@@ -104,7 +104,7 @@ function GroupChatContent() {
 
   if (!groupId) {
     return (
-      <div className="glass-card p-8 text-center">
+      <div className="fl-card-static p-8 text-center">
         <MessageSquare size={32} className="text-muted mx-auto mb-2" />
         <p className="text-muted">لا توجد مجموعة مسجلة</p>
       </div>
@@ -129,7 +129,7 @@ function GroupChatContent() {
             key={ch.id}
             onClick={() => setChannel(ch.id)}
             className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-all duration-200 ${
-              channel === ch.id ? 'bg-sky-500/10 text-sky-400' : 'text-muted hover:bg-[var(--color-bg-hover)]'
+              channel === ch.id ? 'bg-sky-500/10 text-sky-400' : 'text-muted hover:bg-[var(--surface-raised)]'
             }`}
           >
             <ch.icon size={14} />
@@ -139,7 +139,7 @@ function GroupChatContent() {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 glass-card overflow-hidden flex flex-col">
+      <div className="flex-1 fl-card-static overflow-hidden flex flex-col">
         <div className="flex-1 overflow-y-auto p-4 space-y-3">
           {isLoading ? (
             <div className="flex justify-center py-8"><Loader2 className="animate-spin text-muted" size={20} /></div>
@@ -154,13 +154,13 @@ function GroupChatContent() {
                 <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
                   <div className={`max-w-[75%] rounded-2xl px-4 py-2.5 text-sm ${
                     isMe ? 'bg-sky-500/20' : ''
-                  }`} style={isMe ? undefined : { background: 'var(--color-bg-surface-raised)' }}>
+                  }`} style={isMe ? undefined : { background: 'var(--surface-raised)' }}>
                     {!isMe && (
                       <p className={`text-xs font-medium mb-1 ${isTrainer ? 'text-emerald-400' : 'text-sky-400'}`}>
                         {name} {isTrainer && '(المدرب)'}
                       </p>
                     )}
-                    <p style={{ color: 'var(--color-text-primary)' }}>{msg.content}</p>
+                    <p style={{ color: 'var(--text-primary)' }}>{msg.content}</p>
                     <p className="text-xs text-muted mt-1">{timeAgo(msg.created_at)}</p>
                     {msg.is_pinned && <Pin size={10} className="text-gold-400 inline ml-1" />}
                   </div>

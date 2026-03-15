@@ -75,10 +75,10 @@ export default function AdminGroups() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center">
-            <Users size={22} className="text-violet-400" />
+            <Users size={22} className="text-violet-400" strokeWidth={1.5} />
           </div>
           <div>
-            <h1 className="text-page-title text-white">إدارة المجموعات</h1>
+            <h1 className="text-page-title text-[var(--text-primary)]">إدارة المجموعات</h1>
             <p className="text-muted text-sm mt-1">{groups?.length || 0} مجموعة</p>
           </div>
         </div>
@@ -102,11 +102,11 @@ export default function AdminGroups() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
-              className={`glass-card p-7 hover:translate-y-[-2px] transition-all duration-200 ${!g.is_active ? 'opacity-50' : ''}`}
+              className={`fl-card p-7 ${!g.is_active ? 'opacity-50' : ''}`}
             >
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>{g.name}</h3>
+                  <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>{g.name}</h3>
                   <p className="text-sm text-gradient">{g.code}</p>
                 </div>
                 <button
@@ -120,20 +120,20 @@ export default function AdminGroups() {
               <div className="space-y-2.5 text-sm">
                 <div className="flex justify-between">
                   <span className="text-muted">المستوى</span>
-                  <span className="text-white">{ACADEMIC_LEVELS[g.level]?.cefr || g.level}</span>
+                  <span className="text-[var(--text-primary)]">{ACADEMIC_LEVELS[g.level]?.cefr || g.level}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted">الطلاب</span>
-                  <span className="text-white">{g.student_count}/{g.max_students}</span>
+                  <span className="text-[var(--text-primary)]">{g.student_count}/{g.max_students}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted">المدرب</span>
-                  <span className="text-white">{g.profiles?.display_name || g.profiles?.full_name || '—'}</span>
+                  <span className="text-[var(--text-primary)]">{g.profiles?.display_name || g.profiles?.full_name || '—'}</span>
                 </div>
                 {g.schedule && (
                   <div className="flex justify-between">
                     <span className="text-muted">الأيام</span>
-                    <span className="text-white text-xs">{Array.isArray(g.schedule?.days) ? g.schedule.days.join('، ') : '—'}</span>
+                    <span className="text-[var(--text-primary)] text-xs">{Array.isArray(g.schedule?.days) ? g.schedule.days.join('، ') : '—'}</span>
                   </div>
                 )}
                 <div className="flex justify-between">
@@ -195,11 +195,11 @@ function GroupFormModal({ group, trainers, onClose, onSave, saving }) {
       <motion.div
         initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }}
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-md glass-card-raised p-6"
+        className="w-full max-w-md fl-card-static p-6"
       >
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>{group ? 'تعديل المجموعة' : 'مجموعة جديدة'}</h2>
-          <button onClick={onClose} className="btn-icon w-8 h-8 text-muted hover:text-white"><X size={20} /></button>
+          <h2 className="text-section-title" style={{ color: 'var(--text-primary)' }}>{group ? 'تعديل المجموعة' : 'مجموعة جديدة'}</h2>
+          <button onClick={onClose} className="btn-icon w-8 h-8 text-muted hover:text-[var(--text-primary)]"><X size={20} /></button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -240,7 +240,7 @@ function GroupFormModal({ group, trainers, onClose, onSave, saving }) {
           </div>
           <div className="flex items-center gap-2">
             <input type="checkbox" checked={isActive} onChange={(e) => setIsActive(e.target.checked)} id="is-active" />
-            <label htmlFor="is-active" className="text-sm text-white">مجموعة نشطة</label>
+            <label htmlFor="is-active" className="text-sm text-[var(--text-primary)]">مجموعة نشطة</label>
           </div>
           <div className="flex items-center gap-3 pt-3">
             <button type="submit" disabled={saving} className="btn-primary text-sm py-2 flex items-center gap-2">

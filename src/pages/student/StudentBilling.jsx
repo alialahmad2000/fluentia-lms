@@ -55,23 +55,23 @@ export default function StudentBilling() {
 
       {/* Summary stats */}
       <div className="grid grid-cols-2 gap-6">
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="stat-card hover:translate-y-[-2px] transition-all duration-200">
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="fl-stat-card fl-stat-card-emerald hover:translate-y-[-2px] transition-all duration-200">
           <div className="stat-icon">
             <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
               <CheckCircle2 size={20} className="text-emerald-400" />
             </div>
           </div>
           <p className="stat-label">المدفوعات المكتملة</p>
-          <p className="stat-number text-3xl font-bold text-white">{paidCount}</p>
+          <p className="stat-number text-3xl font-bold text-[var(--text-primary)]">{paidCount}</p>
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }} className="stat-card hover:translate-y-[-2px] transition-all duration-200">
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }} className="fl-stat-card fl-stat-card-sky hover:translate-y-[-2px] transition-all duration-200">
           <div className="stat-icon">
             <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
               <CreditCard size={20} className="text-sky-400" />
             </div>
           </div>
           <p className="stat-label">الاشتراك الشهري</p>
-          <p className="stat-number text-3xl font-bold text-white">{studentData?.custom_price || pkg.price} <span className="text-sm text-muted font-normal">ريال</span></p>
+          <p className="stat-number text-3xl font-bold text-[var(--text-primary)]">{studentData?.custom_price || pkg.price} <span className="text-sm text-muted font-normal">ريال</span></p>
         </motion.div>
       </div>
 
@@ -80,12 +80,12 @@ export default function StudentBilling() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="glass-card p-7"
+        className="fl-card-static p-7"
       >
         <div className="flex items-center justify-between">
           <div>
             <p className="text-xs text-white/40">الباقة الحالية</p>
-            <p className="text-lg font-bold text-white mt-1">{pkg.name_ar}</p>
+            <p className="text-lg font-bold text-[var(--text-primary)] mt-1">{pkg.name_ar}</p>
             <p className="text-sm text-sky-400 font-bold mt-0.5">{studentData?.custom_price || pkg.price} ريال / شهر</p>
           </div>
           <div className="text-center">
@@ -101,12 +101,12 @@ export default function StudentBilling() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.28 }}
-          className={`glass-card-raised p-7 border-s-4 ${nextPayment.status === 'overdue' ? 'border-red-500' : 'border-yellow-500'}`}
+          className={`fl-card-static p-7 border-s-4 ${nextPayment.status === 'overdue' ? 'border-red-500' : 'border-yellow-500'}`}
         >
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs text-white/40">الدفعة القادمة</p>
-              <p className="text-lg font-bold text-white mt-1">{nextPayment.amount} ريال</p>
+              <p className="text-lg font-bold text-[var(--text-primary)] mt-1">{nextPayment.amount} ريال</p>
               <p className="text-xs text-muted mt-1">
                 {nextPayment.status === 'overdue' ? 'متأخر — ' : 'الموعد: '}
                 {formatDateAr(nextPayment.period_end)}
@@ -134,7 +134,7 @@ export default function StudentBilling() {
 
       {/* Payment history */}
       <div>
-        <h2 className="text-section-title mb-4" style={{ color: 'var(--color-text-primary)' }}>سجل المدفوعات</h2>
+        <h2 className="text-section-title mb-4" style={{ color: 'var(--text-primary)' }}>سجل المدفوعات</h2>
         {isLoading ? (
           <div className="space-y-2">
             {[1, 2, 3].map(i => <div key={i} className="skeleton h-16 w-full" />)}
@@ -149,7 +149,7 @@ export default function StudentBilling() {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.08 }}
-                  className="glass-card p-4 flex items-center justify-between hover:translate-y-[-2px] transition-all duration-200"
+                  className="fl-card p-4 flex items-center justify-between hover:translate-y-[-2px] transition-all duration-200"
                 >
                   <div className="flex items-center gap-3">
                     <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
@@ -164,7 +164,7 @@ export default function StudentBilling() {
                       )}
                     </div>
                     <div>
-                      <p className="text-sm text-white font-medium">{p.amount} ريال</p>
+                      <p className="text-sm text-[var(--text-primary)] font-medium">{p.amount} ريال</p>
                       <p className="text-xs text-white/40">
                         {formatDateAr(p.period_start)} — {formatDateAr(p.period_end)}
                       </p>
@@ -179,8 +179,8 @@ export default function StudentBilling() {
             })}
           </div>
         ) : (
-          <div className="glass-card p-8 text-center">
-            <div className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
+          <div className="fl-card-static p-8 text-center">
+            <div className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-3" style={{ background: 'var(--surface-raised)' }}>
               <CreditCard size={28} className="text-muted" />
             </div>
             <p className="text-muted">لا توجد مدفوعات</p>

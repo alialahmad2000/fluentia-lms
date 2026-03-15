@@ -104,7 +104,7 @@ export default function TrainerLessonPlanner() {
       </div>
 
       {/* Config */}
-      <div className="glass-card p-7 space-y-4">
+      <div className="fl-card-static p-7 space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <div>
             <label className="input-label">المجموعة *</label>
@@ -150,7 +150,7 @@ export default function TrainerLessonPlanner() {
                 className={`text-xs px-3 py-1.5 rounded-lg transition-all ${
                   focusSkills.includes(skill)
                     ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                    : 'bg-white/5 text-muted hover:text-white'
+                    : 'bg-[var(--surface-base)] text-muted hover:text-[var(--text-primary)]'
                 }`}
               >
                 {SKILL_LABELS[skill]}
@@ -181,10 +181,10 @@ export default function TrainerLessonPlanner() {
 
       {/* Generated plan */}
       {plan && (
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-7 space-y-5">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="fl-card-static p-7 space-y-5">
           <div className="flex items-center justify-between">
-            <h2 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>{plan.title}</h2>
-            <button onClick={copyPlan} className="text-xs text-muted hover:text-white flex items-center gap-1 transition-all">
+            <h2 className="text-section-title" style={{ color: 'var(--text-primary)' }}>{plan.title}</h2>
+            <button onClick={copyPlan} className="text-xs text-muted hover:text-[var(--text-primary)] flex items-center gap-1 transition-all">
               {copied ? <><CheckCircle2 size={12} className="text-emerald-400" /> تم النسخ</> : <><Copy size={12} /> نسخ</>}
             </button>
           </div>
@@ -197,7 +197,7 @@ export default function TrainerLessonPlanner() {
 
           {plan.objectives?.length > 0 && (
             <div>
-              <h3 className="text-sm font-medium text-white mb-2 flex items-center gap-1">
+              <h3 className="text-sm font-medium text-[var(--text-primary)] mb-2 flex items-center gap-1">
                 <Target size={14} className="text-sky-400" /> الأهداف
               </h3>
               <ul className="space-y-1">
@@ -220,9 +220,9 @@ export default function TrainerLessonPlanner() {
 
           {/* Main activities */}
           {plan.main_activities?.map((act, i) => (
-            <div key={i} className="rounded-xl p-4" style={{ background: 'var(--color-bg-surface-raised)' }}>
+            <div key={i} className="rounded-xl p-4" style={{ background: 'var(--surface-raised)' }}>
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-medium text-white">{act.title}</h3>
+                <h3 className="text-sm font-medium text-[var(--text-primary)]">{act.title}</h3>
                 <div className="flex items-center gap-2 text-xs text-muted">
                   <Clock size={10} /> {act.duration}
                   {act.type && <span className="text-sky-400">{SKILL_LABELS[act.type] || act.type}</span>}
@@ -259,8 +259,8 @@ export default function TrainerLessonPlanner() {
 
           {/* Differentiation */}
           {plan.differentiation && (
-            <div className="text-xs text-muted rounded-xl p-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
-              <p className="font-medium text-white mb-1">مراعاة الفروق الفردية:</p>
+            <div className="text-xs text-muted rounded-xl p-3" style={{ background: 'var(--surface-raised)' }}>
+              <p className="font-medium text-[var(--text-primary)] mb-1">مراعاة الفروق الفردية:</p>
               <p>{plan.differentiation}</p>
             </div>
           )}

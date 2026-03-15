@@ -46,7 +46,12 @@ export default function StudentProfile() {
   return (
     <div className="space-y-8">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-page-title">حسابي</h1>
+        <h1 className="text-page-title flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+            <User size={20} className="text-sky-400" strokeWidth={1.5} />
+          </div>
+          حسابي
+        </h1>
         <p className="text-muted text-sm mt-1">ملفك الشخصي وإعداداتك</p>
       </motion.div>
 
@@ -150,13 +155,13 @@ function ProfileContent() {
   return (
     <div className="space-y-8">
       {/* Profile Header */}
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-card-raised p-7">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="fl-card-static p-7" style={{ borderColor: 'var(--border-glow)' }}>
         <div className="flex items-start gap-4">
           <div className="w-16 h-16 rounded-2xl bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 text-2xl font-bold shrink-0">
             {(profile?.display_name || profile?.full_name)?.[0] || '?'}
           </div>
           <div className="flex-1 min-w-0">
-            <h2 className="text-xl font-bold" style={{ color: 'var(--color-text-primary)' }}>{profile?.full_name}</h2>
+            <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>{profile?.full_name}</h2>
             <div className="flex items-center gap-3 text-sm text-muted mt-1">
               <span className="badge-blue">{pkg.name_ar}</span>
               <span className="badge-muted">{academicLevel.name_ar} ({academicLevel.cefr})</span>
@@ -184,28 +189,26 @@ function ProfileContent() {
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4">
         {[
-          { label: 'XP', value: xp, icon: Zap, color: 'sky' },
-          { label: 'السلسلة', value: `${streak} يوم`, icon: Flame, color: 'gold' },
-          { label: 'المستوى', value: currentLevel.level, icon: Trophy, color: 'sky' },
+          { label: 'XP', value: xp, icon: Zap, variant: 'sky' },
+          { label: 'السلسلة', value: `${streak} يوم`, icon: Flame, variant: 'amber' },
+          { label: 'المستوى', value: currentLevel.level, icon: Trophy, variant: 'violet' },
         ].map((stat, i) => (
-          <motion.div key={stat.label} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }} className="stat-card">
-            <div className={`w-10 h-10 rounded-xl ${stat.color === 'gold' ? 'bg-gold-500/10' : 'bg-sky-500/10'} flex items-center justify-center mb-2`}>
-              <stat.icon size={20} className={stat.color === 'gold' ? 'text-gold-400' : 'text-sky-400'} />
-            </div>
-            <p className="stat-number text-2xl font-bold" style={{ color: 'var(--color-text-primary)' }}>{stat.value}</p>
-            <p className="stat-label">{stat.label}</p>
+          <motion.div key={stat.label} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }} className={`fl-stat-card ${stat.variant}`}>
+            <stat.icon size={22} className={`mb-2 ${stat.variant === 'sky' ? 'text-sky-400' : stat.variant === 'amber' ? 'text-amber-400' : 'text-violet-400'}`} strokeWidth={1.5} />
+            <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{stat.value}</p>
+            <p className="text-xs mt-1" style={{ color: 'var(--text-tertiary)' }}>{stat.label}</p>
           </motion.div>
         ))}
       </div>
 
       {/* Level Progress */}
-      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="glass-card p-6">
+      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="fl-card-static p-6">
         <div className="flex items-center justify-between mb-3">
-          <p className="text-sm font-medium" style={{ color: 'var(--color-text-primary)' }}>المستوى {currentLevel.level} — <span className="text-gradient">{currentLevel.title_ar}</span></p>
-          {nextLevel && <p className="text-xs text-muted">{nextLevel.xp - xp} XP للتالي</p>}
+          <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>المستوى {currentLevel.level} — <span className="text-gradient">{currentLevel.title_ar}</span></p>
+          {nextLevel && <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>{nextLevel.xp - xp} XP للتالي</p>}
         </div>
-        <div className="w-full h-3 rounded-full overflow-hidden" style={{ background: 'var(--color-bg-surface-raised)' }}>
-          <motion.div initial={{ width: 0 }} animate={{ width: `${Math.min(xpProgress, 100)}%` }} transition={{ delay: 0.4, duration: 0.8 }} className="h-full bg-gradient-to-l from-sky-400 to-sky-600 rounded-full" />
+        <div className="fl-progress-track" style={{ height: '10px' }}>
+          <motion.div initial={{ width: 0 }} animate={{ width: `${Math.min(xpProgress, 100)}%` }} transition={{ delay: 0.4, duration: 0.8 }} className="fl-progress-fill" />
         </div>
       </motion.div>
 
@@ -214,19 +217,19 @@ function ProfileContent() {
 
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Achievements */}
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="glass-card p-6">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="fl-card-static p-6">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 rounded-xl bg-gold-500/10 flex items-center justify-center">
-              <Award size={16} className="text-gold-400" />
+              <Award size={16} className="text-gold-400" strokeWidth={1.5} />
             </div>
-            <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>الإنجازات</h3>
+            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>الإنجازات</h3>
             <span className="badge-muted text-xs">{achievements?.earned?.length || 0}/{achievements?.all?.length || 0}</span>
           </div>
           <div className="grid grid-cols-2 gap-3">
             {achievements?.all?.map((a) => (
               <div key={a.id} className={`rounded-xl p-3 text-center ${a.isEarned ? 'bg-gold-500/10 border border-gold-500/20' : 'border border-border-subtle opacity-40'}`}>
                 <span className="text-2xl">{a.icon}</span>
-                <p className="text-xs font-medium mt-1" style={{ color: 'var(--color-text-primary)' }}>{a.name_ar}</p>
+                <p className="text-xs font-medium mt-1" style={{ color: 'var(--text-primary)' }}>{a.name_ar}</p>
                 <p className="text-xs text-muted mt-0.5">{a.description_ar}</p>
               </div>
             ))}
@@ -235,19 +238,19 @@ function ProfileContent() {
         </motion.div>
 
         {/* XP History */}
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }} className="glass-card p-6">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }} className="fl-card-static p-6">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
-              <Clock size={16} className="text-sky-400" />
+              <Clock size={16} className="text-sky-400" strokeWidth={1.5} />
             </div>
-            <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>سجل النقاط</h3>
+            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>سجل النقاط</h3>
           </div>
           {xpHistory?.length > 0 ? (
             <div className="space-y-2 max-h-[400px] overflow-y-auto">
               {xpHistory.map((tx) => (
-                <div key={tx.id} className="flex items-center justify-between rounded-xl p-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
+                <div key={tx.id} className="flex items-center justify-between rounded-xl p-3" style={{ background: 'var(--surface-raised)' }}>
                   <div>
-                    <p className="text-xs" style={{ color: 'var(--color-text-primary)' }}>{XP_REASON_LABELS[tx.reason] || tx.reason}</p>
+                    <p className="text-xs" style={{ color: 'var(--text-primary)' }}>{XP_REASON_LABELS[tx.reason] || tx.reason}</p>
                     <p className="text-xs text-muted">{timeAgo(tx.created_at)}</p>
                   </div>
                   <span className={`text-sm font-bold ${tx.amount > 0 ? 'text-emerald-400' : 'text-red-400'}`}>

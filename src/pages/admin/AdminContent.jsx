@@ -59,16 +59,16 @@ export default function AdminContent() {
       {/* Header */}
       <div className="flex items-center gap-3">
         <div className="p-2.5 rounded-xl bg-sky-500/10">
-          <FolderOpen className="text-primary" size={24} />
+          <FolderOpen className="text-primary" size={24} strokeWidth={1.5} />
         </div>
         <div>
-          <h1 className="text-page-title text-white">إدارة المحتوى</h1>
+          <h1 className="text-page-title text-[var(--text-primary)]">إدارة المحتوى</h1>
           <p className="text-muted text-sm mt-1">إدارة المواد التعليمية والمواضيع وبنك الأسئلة</p>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2 border-b border-white/10 pb-0">
+      <div className="flex gap-2 border-b border-[var(--border-subtle)] pb-0">
         {TABS.map((tab) => {
           const Icon = tab.icon
           return (
@@ -77,8 +77,8 @@ export default function AdminContent() {
               onClick={() => setActiveTab(tab.key)}
               className={`flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-t-lg transition-colors ${
                 activeTab === tab.key
-                  ? 'bg-white/10 text-white border-b-2 border-primary'
-                  : 'text-muted hover:text-white hover:bg-white/5'
+                  ? 'bg-[var(--surface-raised)] text-[var(--text-primary)] border-b-2 border-primary'
+                  : 'text-muted hover:text-[var(--text-primary)] hover:bg-[var(--surface-base)]'
               }`}
             >
               <Icon size={16} />
@@ -241,7 +241,7 @@ function MaterialsTab() {
           <Loader2 className="animate-spin text-muted" size={24} />
         </div>
       ) : materials.length === 0 ? (
-        <div className="glass-card p-12 text-center">
+        <div className="fl-card-static p-12 text-center">
           <FolderOpen className="mx-auto text-muted mb-3" size={40} />
           <p className="text-muted">لا توجد مواد تعليمية بعد</p>
         </div>
@@ -253,12 +253,12 @@ function MaterialsTab() {
               <motion.div
                 key={mat.id}
                 layout
-                className="glass-card p-4 space-y-3 hover:translate-y-[-2px] transition-all duration-200"
+                className="fl-card p-4 space-y-3"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-2">
                     <TypeIcon size={18} className="text-primary" />
-                    <h3 className="text-white font-medium text-sm line-clamp-1">{mat.title}</h3>
+                    <h3 className="text-[var(--text-primary)] font-medium text-sm line-clamp-1">{mat.title}</h3>
                   </div>
                   <button
                     onClick={() => setDeleteId(mat.id)}
@@ -342,11 +342,11 @@ function MaterialModal({ onClose, onSubmit, isPending }) {
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
         onClick={(e) => e.stopPropagation()}
-        className="glass-card p-7 w-full max-w-md space-y-4"
+        className="fl-card-static p-7 w-full max-w-md space-y-4"
       >
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold text-white">إضافة مادة تعليمية</h2>
-          <button onClick={onClose} className="text-muted hover:text-white">
+          <h2 className="text-lg font-bold text-[var(--text-primary)]">إضافة مادة تعليمية</h2>
+          <button onClick={onClose} className="text-muted hover:text-[var(--text-primary)]">
             <X size={20} />
           </button>
         </div>
@@ -591,8 +591,8 @@ function TopicsTab() {
         const levelTopics = grouped[level]
         if (!levelTopics || levelTopics.length === 0) return null
         return (
-          <div key={level} className="glass-card p-7 space-y-3">
-            <h3 className="text-white font-bold flex items-center gap-2">
+          <div key={level} className="fl-card-static p-7 space-y-3">
+            <h3 className="text-[var(--text-primary)] font-bold flex items-center gap-2">
               <BookOpen size={16} className="text-primary" />
               المستوى {level}
               <span className="text-muted text-xs font-normal">({levelTopics.length} موضوع)</span>
@@ -602,19 +602,19 @@ function TopicsTab() {
                 <motion.div
                   key={topic.id}
                   layout
-                  className="flex items-center gap-3 rounded-lg p-3" style={{ background: 'var(--color-bg-surface-raised)' }}
+                  className="flex items-center gap-3 rounded-lg p-3" style={{ background: 'var(--surface-raised)' }}
                 >
                   <div className="flex flex-col gap-0.5">
                     <button
                       onClick={() => handleMoveUp(topic, levelTopics)}
-                      className="text-muted hover:text-white text-xs leading-none"
+                      className="text-muted hover:text-[var(--text-primary)] text-xs leading-none"
                       title="تحريك لأعلى"
                     >
                       ▲
                     </button>
                     <button
                       onClick={() => handleMoveDown(topic, levelTopics)}
-                      className="text-muted hover:text-white text-xs leading-none"
+                      className="text-muted hover:text-[var(--text-primary)] text-xs leading-none"
                       title="تحريك لأسفل"
                     >
                       ▼
@@ -622,7 +622,7 @@ function TopicsTab() {
                   </div>
                   <span className="text-muted text-sm w-8 text-center">{topic.topic_number}</span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-white text-sm">{topic.title_ar || topic.title_en}</p>
+                    <p className="text-[var(--text-primary)] text-sm">{topic.title_ar || topic.title_en}</p>
                     {topic.title_en && topic.title_ar && (
                       <p className="text-muted text-xs" dir="ltr">{topic.title_en}</p>
                     )}
@@ -657,7 +657,7 @@ function TopicsTab() {
       })}
 
       {topics.length === 0 && (
-        <div className="glass-card p-12 text-center">
+        <div className="fl-card-static p-12 text-center">
           <Mic className="mx-auto text-muted mb-3" size={40} />
           <p className="text-muted">لا توجد مواضيع محادثة بعد</p>
         </div>
@@ -725,13 +725,13 @@ function TopicModal({ topic, onClose, onSubmit, isPending }) {
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
         onClick={(e) => e.stopPropagation()}
-        className="glass-card p-7 w-full max-w-md space-y-4"
+        className="fl-card-static p-7 w-full max-w-md space-y-4"
       >
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold text-white">
+          <h2 className="text-lg font-bold text-[var(--text-primary)]">
             {topic ? 'تعديل الموضوع' : 'إضافة موضوع جديد'}
           </h2>
-          <button onClick={onClose} className="text-muted hover:text-white">
+          <button onClick={onClose} className="text-muted hover:text-[var(--text-primary)]">
             <X size={20} />
           </button>
         </div>
@@ -832,7 +832,7 @@ function TopicModal({ topic, onClose, onSubmit, isPending }) {
 // ═══════════════════════════════════════════════════════════════
 function QuestionsPlaceholder() {
   return (
-    <div className="glass-card p-16 text-center space-y-4">
+    <div className="fl-card-static p-16 text-center space-y-4">
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -840,7 +840,7 @@ function QuestionsPlaceholder() {
       >
         <Target className="mx-auto text-primary mb-4" size={56} />
       </motion.div>
-      <h2 className="text-xl font-bold text-white">قريبًا</h2>
+      <h2 className="text-xl font-bold text-[var(--text-primary)]">قريبًا</h2>
       <p className="text-muted text-sm max-w-sm mx-auto">
         سيتم تفعيل بنك الأسئلة في المرحلة ٨
       </p>
@@ -865,10 +865,10 @@ function ConfirmModal({ message, onConfirm, onCancel, isPending }) {
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
         onClick={(e) => e.stopPropagation()}
-        className="glass-card p-7 w-full max-w-sm space-y-4 text-center"
+        className="fl-card-static p-7 w-full max-w-sm space-y-4 text-center"
       >
         <Trash2 className="mx-auto text-red-400" size={32} />
-        <p className="text-white">{message}</p>
+        <p className="text-[var(--text-primary)]">{message}</p>
         <div className="flex gap-3 justify-center">
           <button
             onClick={onCancel}

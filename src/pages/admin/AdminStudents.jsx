@@ -145,10 +145,10 @@ function StudentsContent() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl bg-sky-500/10 flex items-center justify-center">
-            <Users size={22} className="text-sky-400" />
+            <Users size={22} className="text-sky-400" strokeWidth={1.5} />
           </div>
           <div>
-            <h1 className="text-page-title" style={{ color: 'var(--color-text-primary)' }}>إدارة الطلاب</h1>
+            <h1 className="text-page-title" style={{ color: 'var(--text-primary)' }}>إدارة الطلاب</h1>
             <p className="text-muted text-sm mt-1">{filtered?.length || 0} طالب</p>
           </div>
         </div>
@@ -158,7 +158,7 @@ function StudentsContent() {
       </div>
 
       {/* Filters */}
-      <div className="glass-card p-7">
+      <div className="fl-card-static p-7">
         <div className="flex items-center gap-4 flex-wrap">
           <div className="relative flex-1 min-w-[200px]">
             <Search size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted" />
@@ -194,7 +194,7 @@ function StudentsContent() {
       {isLoading ? (
         <div className="flex justify-center py-12"><Loader2 className="animate-spin text-muted" size={24} /></div>
       ) : (
-        <div className="glass-card overflow-hidden">
+        <div className="fl-card-static overflow-hidden">
           <div className="overflow-x-auto">
             <table className="data-table">
               <thead>
@@ -212,7 +212,7 @@ function StudentsContent() {
                 {filtered?.map(s => (
                   <tr key={s.id}>
                     <td>
-                      <p className="text-white font-medium">{getStudentName(s)}</p>
+                      <p className="text-[var(--text-primary)] font-medium">{getStudentName(s)}</p>
                       <p className="text-xs text-muted">{s.profiles?.email}</p>
                     </td>
                     <td className="text-muted">{s.groups?.code || '—'}</td>
@@ -381,10 +381,10 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.95, y: 20 }}
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-lg glass-card-raised p-6 max-h-[90vh] overflow-y-auto"
+        className="w-full max-w-lg fl-card-static p-6 max-h-[90vh] overflow-y-auto"
       >
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>تعديل بيانات الطالب</h2>
+          <h2 className="text-section-title" style={{ color: 'var(--text-primary)' }}>تعديل بيانات الطالب</h2>
           <button onClick={onClose} className="btn-icon w-8 h-8 text-muted hover:text-white"><X size={20} /></button>
         </div>
 
@@ -554,10 +554,10 @@ function AddStudentModal({ groups, onClose, onSuccess }) {
       <motion.div
         initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }}
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-lg glass-card-raised p-6 max-h-[90vh] overflow-y-auto"
+        className="w-full max-w-lg fl-card-static p-6 max-h-[90vh] overflow-y-auto"
       >
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>إضافة طالب جديد</h2>
+          <h2 className="text-section-title" style={{ color: 'var(--text-primary)' }}>إضافة طالب جديد</h2>
           <button onClick={onClose} className="btn-icon w-8 h-8 text-muted hover:text-white"><X size={20} /></button>
         </div>
 
@@ -568,16 +568,16 @@ function AddStudentModal({ groups, onClose, onSuccess }) {
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-muted">الاسم</span>
-                  <span style={{ color: 'var(--color-text-primary)' }}>{createdStudent.name}</span>
+                  <span style={{ color: 'var(--text-primary)' }}>{createdStudent.name}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted">الإيميل</span>
-                  <span style={{ color: 'var(--color-text-primary)' }} dir="ltr">{createdStudent.email}</span>
+                  <span style={{ color: 'var(--text-primary)' }} dir="ltr">{createdStudent.email}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted">كلمة المرور</span>
                   <div className="flex items-center gap-2">
-                    <span className="font-mono" style={{ color: 'var(--color-text-primary)' }} dir="ltr">
+                    <span className="font-mono" style={{ color: 'var(--text-primary)' }} dir="ltr">
                       {showPassword ? createdStudent.password : '••••••••'}
                     </span>
                     <button onClick={() => setShowPassword(!showPassword)} className="text-muted hover:text-sky-400">
@@ -633,7 +633,7 @@ function AddStudentModal({ groups, onClose, onSuccess }) {
                 ))}
               </select>
             </div>
-            <div className="glass-card p-3">
+            <div className="fl-card-static p-3">
               <p className="text-xs text-muted">كلمة المرور المؤقتة: <span className="font-mono text-sky-400" dir="ltr">{tempPassword}</span></p>
               <p className="text-xs text-muted mt-1">سيُطلب من الطالب تغييرها عند أول تسجيل دخول</p>
             </div>

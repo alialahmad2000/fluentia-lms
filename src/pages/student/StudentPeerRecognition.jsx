@@ -200,7 +200,7 @@ export default function StudentPeerRecognition() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="glass-card p-7 border-gold-500/20"
+          className="fl-card-static p-7 border-gold-500/20"
         >
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center">
@@ -208,7 +208,7 @@ export default function StudentPeerRecognition() {
             </div>
             <div>
               <p className="text-xs text-gold-400 font-medium">مساعد الأسبوع</p>
-              <p className="text-lg font-bold text-white">{helperOfWeek.name}</p>
+              <p className="text-lg font-bold text-[var(--text-primary)]">{helperOfWeek.name}</p>
               <p className="text-xs text-muted">{helperOfWeek.count} شكر هذا الأسبوع</p>
             </div>
           </div>
@@ -220,10 +220,10 @@ export default function StudentPeerRecognition() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="glass-card p-7"
+        className="fl-card-static p-7"
       >
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-sm font-medium text-white">أرسل شكر</h3>
+          <h3 className="text-sm font-medium text-[var(--text-primary)]">أرسل شكر</h3>
           <span className={`text-xs ${remainingToday > 0 ? 'text-muted' : 'text-red-400'}`}>
             {remainingToday > 0 ? `متبقي: ${remainingToday} من ٣` : 'وصلت الحد اليومي'}
           </span>
@@ -241,12 +241,12 @@ export default function StudentPeerRecognition() {
                   ? 'bg-rose-500/10 border-rose-500/30 ring-1 ring-rose-500/10'
                   : 'border-border-subtle hover:bg-white/10'
               } ${remainingToday <= 0 ? 'opacity-40' : ''}`}
-              style={selectedStudent?.id !== s.id ? { background: 'var(--color-bg-surface-raised)' } : undefined}
+              style={selectedStudent?.id !== s.id ? { background: 'var(--surface-raised)' } : undefined}
             >
               <div className="w-10 h-10 rounded-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 font-bold mx-auto mb-1">
                 {getName(s)[0]}
               </div>
-              <p className="text-xs text-white truncate">{getName(s)}</p>
+              <p className="text-xs text-[var(--text-primary)] truncate">{getName(s)}</p>
             </button>
           ))}
         </div>
@@ -295,23 +295,23 @@ export default function StudentPeerRecognition() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="glass-card p-7"
+        className="fl-card-static p-7"
       >
         <div className="flex items-center gap-2 mb-4">
           <div className="w-8 h-8 rounded-xl bg-rose-500/10 flex items-center justify-center">
             <Users size={16} className="text-rose-400" />
           </div>
-          <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>آخر التقديرات</h3>
+          <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>آخر التقديرات</h3>
         </div>
         {recentRecognitions?.length > 0 ? (
           <div className="space-y-3 max-h-[400px] overflow-y-auto">
             {recentRecognitions.map((r) => (
-              <div key={r.id} className="flex items-start gap-3 rounded-xl p-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
+              <div key={r.id} className="flex items-start gap-3 rounded-xl p-3" style={{ background: 'var(--surface-raised)' }}>
                 <div className="w-8 h-8 rounded-full bg-rose-500/20 flex items-center justify-center text-rose-400 shrink-0">
                   🤝
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs text-white">
+                  <p className="text-xs text-[var(--text-primary)]">
                     <span className="font-medium">{r.fromName}</span>
                     {' '}شكر{' '}
                     <span className="font-medium text-rose-400">{r.toName}</span>

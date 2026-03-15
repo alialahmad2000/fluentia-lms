@@ -142,7 +142,7 @@ function ChatContent() {
         <div>
           <h1 className="text-page-title flex items-center gap-2">
             <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
-              <Bot size={20} className="text-violet-400" />
+              <Bot size={20} strokeWidth={1.5} className="text-violet-400" />
             </div>
             المساعد الذكي
           </h1>
@@ -159,20 +159,20 @@ function ChatContent() {
       </div>
 
       {/* Chat area */}
-      <div className="flex-1 glass-card overflow-hidden flex flex-col">
+      <div className="flex-1 fl-card-static overflow-hidden flex flex-col">
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {messages.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center space-y-6">
               <div className="w-16 h-16 rounded-2xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center">
-                <Sparkles size={28} className="text-violet-400" />
+                <Sparkles size={28} strokeWidth={1.5} className="text-violet-400" />
               </div>
               <div>
-                <h2 className="text-lg font-bold mb-1" style={{ color: 'var(--color-text-primary)' }}>أهلاً! كيف أقدر أساعدك؟</h2>
+                <h2 className="text-lg font-bold mb-1" style={{ color: 'var(--text-primary)' }}>أهلاً! كيف أقدر أساعدك؟</h2>
                 <p className="text-sm text-muted">اسألني عن القواعد، المفردات، النطق، أو أي شيء يخص الإنجليزي</p>
               </div>
               <div className="grid grid-cols-2 gap-3 max-w-md">
                 {SUGGESTIONS.map((s, i) => (
-                  <button key={i} onClick={() => sendMessage(s)} className="text-xs text-right glass-card px-3 py-2.5 text-muted hover:translate-y-[-2px] transition-all duration-200" style={{ color: 'var(--color-text-muted)' }}>
+                  <button key={i} onClick={() => sendMessage(s)} className="text-xs text-right fl-card px-3 py-2.5 text-muted hover:translate-y-[-2px] transition-all duration-200" style={{ color: 'var(--text-tertiary)' }}>
                     {s}
                   </button>
                 ))}
@@ -183,7 +183,7 @@ function ChatContent() {
               <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm ${
                   msg.role === 'user' ? 'bg-sky-500/20' : msg.isError ? 'bg-red-500/10 border border-red-500/20 text-red-400' : 'border border-border-subtle'
-                }`} style={msg.role === 'user' || msg.isError ? undefined : { color: 'var(--color-text-primary)', background: 'var(--color-bg-surface-raised)' }}>
+                }`} style={msg.role === 'user' || msg.isError ? undefined : { color: 'var(--text-primary)', background: 'var(--surface-raised)' }}>
                   {msg.role === 'assistant' && !msg.isError && (
                     <div className="flex items-center gap-1.5 mb-2">
                       <Bot size={14} className="text-violet-400" />
@@ -197,7 +197,7 @@ function ChatContent() {
           )}
           {sending && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
-              <div className="border border-border-subtle rounded-2xl px-4 py-3 flex items-center gap-2" style={{ background: 'var(--color-bg-surface-raised)' }}>
+              <div className="border border-border-subtle rounded-2xl px-4 py-3 flex items-center gap-2" style={{ background: 'var(--surface-raised)' }}>
                 <Loader2 size={14} className="animate-spin text-violet-400" />
                 <span className="text-xs text-muted">يفكر...</span>
               </div>

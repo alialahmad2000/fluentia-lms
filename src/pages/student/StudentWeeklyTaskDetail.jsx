@@ -83,9 +83,9 @@ export default function StudentWeeklyTaskDetail() {
 
   if (!task) {
     return (
-      <div className="rounded-2xl border border-white/[0.06] p-10 text-center space-y-4" style={{ background: 'rgba(255,255,255,0.02)' }}>
-        <AlertCircle className="w-10 h-10 text-white/20 mx-auto" />
-        <p className="text-white/40">لم يتم العثور على المهمة</p>
+      <div className="rounded-2xl border border-[var(--border-subtle)] p-10 text-center space-y-4" style={{ background: 'var(--surface-base)' }}>
+        <AlertCircle className="w-10 h-10 text-[var(--text-tertiary)] mx-auto" />
+        <p className="text-[var(--text-tertiary)]">لم يتم العثور على المهمة</p>
         <Link to="/student/weekly-tasks" className="inline-flex items-center gap-2 text-sky-400 hover:text-sky-300 text-sm transition-colors">
           <ArrowRight className="w-4 h-4" />
           العودة للمهام
@@ -104,7 +104,7 @@ export default function StudentWeeklyTaskDetail() {
       {/* Back link */}
       <Link
         to="/student/weekly-tasks"
-        className="inline-flex items-center gap-2 text-white/30 hover:text-white/60 transition-colors text-sm"
+        className="inline-flex items-center gap-2 text-[var(--text-tertiary)] hover:text-[var(--text-tertiary)] transition-colors text-sm"
       >
         <ArrowRight className="w-4 h-4" />
         المهام الأسبوعية
@@ -114,8 +114,8 @@ export default function StudentWeeklyTaskDetail() {
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative overflow-hidden rounded-2xl border border-white/[0.06]"
-        style={{ background: 'rgba(255,255,255,0.02)' }}
+        className="relative overflow-hidden rounded-2xl border border-[var(--border-subtle)]"
+        style={{ background: 'var(--surface-base)' }}
       >
         <div className={`h-1 bg-gradient-to-r ${config.gradient}`} />
         <div className="p-6">
@@ -125,8 +125,8 @@ export default function StudentWeeklyTaskDetail() {
                 <TypeIcon className={`w-5 h-5 ${config.text}`} />
               </div>
               <div>
-                <h1 className="text-lg sm:text-xl font-bold text-white">{task.title}</h1>
-                <p className="text-white/30 text-sm mt-0.5">{config.label}</p>
+                <h1 className="text-lg sm:text-xl font-bold text-[var(--text-primary)]">{task.title}</h1>
+                <p className="text-[var(--text-tertiary)] text-sm mt-0.5">{config.label}</p>
               </div>
             </div>
 
@@ -134,12 +134,12 @@ export default function StudentWeeklyTaskDetail() {
               <span className={`px-3 py-1 rounded-lg text-xs font-medium ${
                 task.status === 'graded' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/15' :
                 task.status === 'submitted' ? 'bg-sky-500/10 text-sky-400 border border-sky-500/15' :
-                'bg-white/5 text-white/40 border border-white/[0.06]'
+                'bg-[var(--surface-base)] text-[var(--text-tertiary)] border border-[var(--border-subtle)]'
               }`}>
                 {STATUS_LABELS[task.status] || task.status}
               </span>
               {task.deadline && (
-                <span className="flex items-center gap-1.5 text-white/30 text-xs">
+                <span className="flex items-center gap-1.5 text-[var(--text-tertiary)] text-xs">
                   <Clock className="w-3.5 h-3.5" />
                   {new Date(task.deadline).toLocaleDateString('ar-EG', {
                     weekday: 'short', month: 'short', day: 'numeric',
@@ -157,8 +157,8 @@ export default function StudentWeeklyTaskDetail() {
 
           {/* Instructions */}
           {(task.instructions_ar || task.instructions) && (
-            <div className="mt-4 p-4 rounded-xl bg-white/[0.02] border border-white/[0.04]">
-              <p className="text-sm text-white/50 leading-relaxed">
+            <div className="mt-4 p-4 rounded-xl bg-[var(--surface-base)] border border-[var(--border-subtle)]">
+              <p className="text-sm text-[var(--text-tertiary)] leading-relaxed">
                 {task.instructions_ar || task.instructions}
               </p>
             </div>
@@ -293,13 +293,13 @@ function SpeakingTask({ task, content, isSubmitted, onSubmit }) {
     <div className="space-y-5">
       {/* Topic & guiding questions */}
       <Card>
-        <h2 className="text-base font-semibold text-white mb-3">{content.topic || 'موضوع المحادثة'}</h2>
+        <h2 className="text-base font-semibold text-[var(--text-primary)] mb-3">{content.topic || 'موضوع المحادثة'}</h2>
         {content.guiding_questions?.length > 0 && (
           <div className="space-y-2">
-            <p className="text-white/30 text-xs font-medium mb-2">أسئلة إرشادية:</p>
+            <p className="text-[var(--text-tertiary)] text-xs font-medium mb-2">أسئلة إرشادية:</p>
             <ul className="space-y-2">
               {content.guiding_questions.map((q, i) => (
-                <li key={i} className="flex items-start gap-2.5 text-white/60 text-sm">
+                <li key={i} className="flex items-start gap-2.5 text-[var(--text-tertiary)] text-sm">
                   <span className="w-5 h-5 rounded-md bg-sky-500/10 text-sky-400 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
                     {i + 1}
                   </span>
@@ -314,7 +314,7 @@ function SpeakingTask({ task, content, isSubmitted, onSubmit }) {
       {/* Recording UI */}
       {!isSubmitted && (
         <Card className="flex flex-col items-center gap-5">
-          <div className="text-4xl font-mono text-white tabular-nums tracking-wider">{formatTime(duration)}</div>
+          <div className="text-4xl font-mono text-[var(--text-primary)] tabular-nums tracking-wider">{formatTime(duration)}</div>
 
           {recording && (
             <div className="flex items-center gap-2">
@@ -337,7 +337,7 @@ function SpeakingTask({ task, content, isSubmitted, onSubmit }) {
               </button>
             )}
             {audioUrl && !recording && (
-              <button onClick={resetRecording} className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/[0.06] text-white/60 text-sm hover:bg-white/[0.06] transition-all">
+              <button onClick={resetRecording} className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--surface-base)] border border-[var(--border-subtle)] text-[var(--text-tertiary)] text-sm hover:bg-[var(--surface-raised)] transition-all">
                 <RotateCcw className="w-3.5 h-3.5" />
                 إعادة
               </button>
@@ -347,7 +347,7 @@ function SpeakingTask({ task, content, isSubmitted, onSubmit }) {
           {audioUrl && (
             <div className="w-full max-w-md">
               <audio src={audioUrl} controls className="w-full rounded-lg" />
-              <p className="text-white/20 text-xs text-center mt-2">مدة التسجيل: {formatTime(duration)}</p>
+              <p className="text-[var(--text-tertiary)] text-xs text-center mt-2">مدة التسجيل: {formatTime(duration)}</p>
             </div>
           )}
 
@@ -359,7 +359,7 @@ function SpeakingTask({ task, content, isSubmitted, onSubmit }) {
 
       {isSubmitted && task.response_voice_url && (
         <Card>
-          <h3 className="text-sm font-medium text-white/60 mb-3">التسجيل المرسل</h3>
+          <h3 className="text-sm font-medium text-[var(--text-tertiary)] mb-3">التسجيل المرسل</h3>
           <audio src={task.response_voice_url} controls className="w-full" />
         </Card>
       )}
@@ -386,10 +386,10 @@ function ReadingTask({ task, content, isSubmitted, onSubmit }) {
     <div className="space-y-5">
       <Card>
         {content.article_title && (
-          <h2 className="text-base font-semibold text-white mb-3">{content.article_title}</h2>
+          <h2 className="text-base font-semibold text-[var(--text-primary)] mb-3">{content.article_title}</h2>
         )}
         {content.article_text && (
-          <div className="text-white/60 leading-relaxed whitespace-pre-wrap text-sm" dir="ltr">
+          <div className="text-[var(--text-tertiary)] leading-relaxed whitespace-pre-wrap text-sm" dir="ltr">
             {content.article_text}
           </div>
         )}
@@ -428,8 +428,8 @@ function WritingTask({ task, content, isSubmitted, onSubmit }) {
   return (
     <div className="space-y-5">
       <Card>
-        <h2 className="text-base font-semibold text-white mb-3">موضوع الكتابة</h2>
-        <p className="text-white/60 leading-relaxed text-sm">{content.prompt}</p>
+        <h2 className="text-base font-semibold text-[var(--text-primary)] mb-3">موضوع الكتابة</h2>
+        <p className="text-[var(--text-tertiary)] leading-relaxed text-sm">{content.prompt}</p>
         {content.focus_areas?.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-3">
             {content.focus_areas.map((area, i) => (
@@ -439,7 +439,7 @@ function WritingTask({ task, content, isSubmitted, onSubmit }) {
             ))}
           </div>
         )}
-        <div className="flex items-center gap-4 text-white/25 text-xs mt-3">
+        <div className="flex items-center gap-4 text-[var(--text-tertiary)] text-xs mt-3">
           {minWords > 0 && <span>الحد الأدنى: {minWords} كلمة</span>}
           {maxWords < Infinity && <span>الحد الأقصى: {maxWords} كلمة</span>}
         </div>
@@ -451,7 +451,7 @@ function WritingTask({ task, content, isSubmitted, onSubmit }) {
           onChange={(e) => setText(e.target.value)}
           disabled={isSubmitted}
           placeholder="اكتب هنا..."
-          className="w-full min-h-[280px] resize-y text-sm leading-relaxed bg-transparent border border-white/[0.06] rounded-xl p-4 text-white/80 placeholder:text-white/15 focus:outline-none focus:border-white/[0.12] focus:ring-1 focus:ring-sky-500/20 transition-all"
+          className="w-full min-h-[280px] resize-y text-sm leading-relaxed bg-transparent border border-[var(--border-subtle)] rounded-xl p-4 text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:outline-none focus:border-[var(--border-subtle)] focus:ring-1 focus:ring-sky-500/20 transition-all"
           dir="auto"
         />
         <div className="flex items-center justify-between mt-3">
@@ -506,7 +506,7 @@ function ListeningTask({ task, content, isSubmitted, onSubmit }) {
           </div>
         ) : content.media_url ? (
           <div className="space-y-2">
-            <div className="flex items-center gap-2 text-white/70">
+            <div className="flex items-center gap-2 text-[var(--text-tertiary)]">
               <Volume2 className="w-4 h-4 text-amber-400" />
               <span className="text-sm font-medium">الملف الصوتي</span>
             </div>
@@ -514,8 +514,8 @@ function ListeningTask({ task, content, isSubmitted, onSubmit }) {
           </div>
         ) : content.topic_description ? (
           <div className="space-y-2">
-            <h2 className="text-base font-semibold text-white">وصف الموضوع</h2>
-            <p className="text-white/60 leading-relaxed text-sm">{content.topic_description}</p>
+            <h2 className="text-base font-semibold text-[var(--text-primary)]">وصف الموضوع</h2>
+            <p className="text-[var(--text-tertiary)] leading-relaxed text-sm">{content.topic_description}</p>
           </div>
         ) : null}
       </Card>
@@ -597,7 +597,7 @@ function IrregularVerbsTask({ task, content, isSubmitted, onSubmit }) {
   if (verbs.length === 0) {
     return (
       <Card className="text-center">
-        <p className="text-white/30">لا توجد أفعال في هذه المهمة</p>
+        <p className="text-[var(--text-tertiary)]">لا توجد أفعال في هذه المهمة</p>
       </Card>
     )
   }
@@ -608,11 +608,11 @@ function IrregularVerbsTask({ task, content, isSubmitted, onSubmit }) {
         <>
           {/* Progress */}
           <Card className="!p-4">
-            <div className="flex items-center justify-between text-xs text-white/30 mb-2">
+            <div className="flex items-center justify-between text-xs text-[var(--text-tertiary)] mb-2">
               <span>الفعل {currentIndex + 1} من {total}</span>
               <span>{results.filter(r => r.correct).length} صحيح</span>
             </div>
-            <div className="w-full h-1.5 bg-white/[0.04] rounded-full overflow-hidden">
+            <div className="w-full h-1.5 bg-[var(--surface-base)] rounded-full overflow-hidden">
               <motion.div
                 className="h-full bg-gradient-to-r from-rose-500 to-pink-400 rounded-full"
                 animate={{ width: `${((currentIndex + (revealed ? 1 : 0)) / total) * 100}%` }}
@@ -631,22 +631,22 @@ function IrregularVerbsTask({ task, content, isSubmitted, onSubmit }) {
             >
               <Card className="text-center space-y-5">
                 <div>
-                  <h2 className="text-2xl font-bold text-white">{currentVerb.base_form}</h2>
+                  <h2 className="text-2xl font-bold text-[var(--text-primary)]">{currentVerb.base_form}</h2>
                   {currentVerb.meaning_ar && (
-                    <p className="text-white/30 text-base mt-1">{currentVerb.meaning_ar}</p>
+                    <p className="text-[var(--text-tertiary)] text-base mt-1">{currentVerb.meaning_ar}</p>
                   )}
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto">
                   <div className="space-y-2">
-                    <label className="text-xs text-white/30 font-medium">Past Simple</label>
+                    <label className="text-xs text-[var(--text-tertiary)] font-medium">Past Simple</label>
                     <input
                       type="text"
                       value={pastSimple}
                       onChange={e => setPastSimple(e.target.value)}
                       disabled={revealed}
                       placeholder="..."
-                      className="w-full text-center bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2.5 text-white placeholder:text-white/15 focus:outline-none focus:border-white/[0.12] focus:ring-1 focus:ring-rose-500/20 transition-all"
+                      className="w-full text-center bg-[var(--surface-base)] border border-[var(--border-subtle)] rounded-xl px-3 py-2.5 text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:outline-none focus:border-[var(--border-subtle)] focus:ring-1 focus:ring-rose-500/20 transition-all"
                       dir="ltr"
                       onKeyDown={e => e.key === 'Enter' && checkAndNext()}
                     />
@@ -662,14 +662,14 @@ function IrregularVerbsTask({ task, content, isSubmitted, onSubmit }) {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs text-white/30 font-medium">Past Participle</label>
+                    <label className="text-xs text-[var(--text-tertiary)] font-medium">Past Participle</label>
                     <input
                       type="text"
                       value={pastParticiple}
                       onChange={e => setPastParticiple(e.target.value)}
                       disabled={revealed}
                       placeholder="..."
-                      className="w-full text-center bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2.5 text-white placeholder:text-white/15 focus:outline-none focus:border-white/[0.12] focus:ring-1 focus:ring-rose-500/20 transition-all"
+                      className="w-full text-center bg-[var(--surface-base)] border border-[var(--border-subtle)] rounded-xl px-3 py-2.5 text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:outline-none focus:border-[var(--border-subtle)] focus:ring-1 focus:ring-rose-500/20 transition-all"
                       dir="ltr"
                       onKeyDown={e => e.key === 'Enter' && checkAndNext()}
                     />
@@ -699,11 +699,11 @@ function IrregularVerbsTask({ task, content, isSubmitted, onSubmit }) {
         <div className="space-y-5">
           <Card className="text-center space-y-4">
             <Award className="w-12 h-12 text-amber-400 mx-auto" />
-            <h2 className="text-xl font-bold text-white">النتيجة النهائية</h2>
+            <h2 className="text-xl font-bold text-[var(--text-primary)]">النتيجة النهائية</h2>
             <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-pink-400">
               {score} / {total}
             </div>
-            <p className="text-white/40 text-sm">
+            <p className="text-[var(--text-tertiary)] text-sm">
               {score === total ? 'ممتاز! أجبت على جميع الأفعال بشكل صحيح' :
                score >= total / 2 ? 'أحسنت! واصل التمرين' :
                'حاول مراجعة الأفعال والمحاولة مرة أخرى'}
@@ -711,7 +711,7 @@ function IrregularVerbsTask({ task, content, isSubmitted, onSubmit }) {
           </Card>
 
           <Card>
-            <h3 className="text-sm font-medium text-white/60 mb-3">تفاصيل الإجابات</h3>
+            <h3 className="text-sm font-medium text-[var(--text-tertiary)] mb-3">تفاصيل الإجابات</h3>
             <div className="space-y-2">
               {results.map((r, i) => (
                 <div
@@ -726,9 +726,9 @@ function IrregularVerbsTask({ task, content, isSubmitted, onSubmit }) {
                     ) : (
                       <XCircle className="w-4 h-4 text-red-400 shrink-0" />
                     )}
-                    <span className="text-white/80 font-medium text-sm">{r.verb}</span>
+                    <span className="text-[var(--text-secondary)] font-medium text-sm">{r.verb}</span>
                   </div>
-                  <span className="text-xs text-white/30" dir="ltr">
+                  <span className="text-xs text-[var(--text-tertiary)]" dir="ltr">
                     {r.correctPastSimple} / {r.correctPastParticiple}
                   </span>
                 </div>
@@ -794,7 +794,7 @@ function VocabularyTask({ task, content, isSubmitted, onSubmit }) {
   }
 
   if (total === 0) {
-    return <Card className="text-center"><p className="text-white/30">لا توجد مفردات في هذه المهمة</p></Card>
+    return <Card className="text-center"><p className="text-[var(--text-tertiary)]">لا توجد مفردات في هذه المهمة</p></Card>
   }
 
   return (
@@ -802,11 +802,11 @@ function VocabularyTask({ task, content, isSubmitted, onSubmit }) {
       {!finished ? (
         <>
           <Card className="!p-4">
-            <div className="flex items-center justify-between text-xs text-white/30 mb-2">
+            <div className="flex items-center justify-between text-xs text-[var(--text-tertiary)] mb-2">
               <span>الكلمة {currentIndex + 1} من {total}</span>
               <span>{results.filter(r => r.correct).length} صحيح</span>
             </div>
-            <div className="w-full h-1.5 bg-white/[0.04] rounded-full overflow-hidden">
+            <div className="w-full h-1.5 bg-[var(--surface-base)] rounded-full overflow-hidden">
               <motion.div
                 className="h-full bg-gradient-to-r from-indigo-500 to-blue-400 rounded-full"
                 animate={{ width: `${((currentIndex + (revealed ? 1 : 0)) / total) * 100}%` }}
@@ -824,10 +824,10 @@ function VocabularyTask({ task, content, isSubmitted, onSubmit }) {
             >
               <Card className="text-center space-y-5">
                 <div>
-                  <p className="text-white/30 text-sm mb-1">ما هي الكلمة الإنجليزية التي تعني:</p>
-                  <h2 className="text-2xl font-bold text-white">{currentWord.translation_ar}</h2>
+                  <p className="text-[var(--text-tertiary)] text-sm mb-1">ما هي الكلمة الإنجليزية التي تعني:</p>
+                  <h2 className="text-2xl font-bold text-[var(--text-primary)]">{currentWord.translation_ar}</h2>
                   {currentWord.definition && (
-                    <p className="text-white/40 text-xs mt-2" dir="ltr">Hint: {currentWord.definition}</p>
+                    <p className="text-[var(--text-tertiary)] text-xs mt-2" dir="ltr">Hint: {currentWord.definition}</p>
                   )}
                 </div>
 
@@ -838,7 +838,7 @@ function VocabularyTask({ task, content, isSubmitted, onSubmit }) {
                     onChange={e => setUserAnswer(e.target.value)}
                     disabled={revealed}
                     placeholder="اكتب الكلمة بالإنجليزية"
-                    className="w-full text-center bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2.5 text-white placeholder:text-white/15 focus:outline-none focus:border-white/[0.12] focus:ring-1 focus:ring-indigo-500/20 transition-all"
+                    className="w-full text-center bg-[var(--surface-base)] border border-[var(--border-subtle)] rounded-xl px-3 py-2.5 text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:outline-none focus:border-[var(--border-subtle)] focus:ring-1 focus:ring-indigo-500/20 transition-all"
                     dir="ltr"
                     onKeyDown={e => e.key === 'Enter' && checkAndNext()}
                   />
@@ -846,7 +846,7 @@ function VocabularyTask({ task, content, isSubmitted, onSubmit }) {
                     <div className="mt-2">
                       <AnswerFeedback isCorrect={userAnswer.trim().toLowerCase() === (currentWord.word || '').toLowerCase()} correctAnswer={currentWord.word} />
                       {currentWord.example_sentence && (
-                        <p className="text-xs text-white/25 mt-2" dir="ltr">"{currentWord.example_sentence}"</p>
+                        <p className="text-xs text-[var(--text-tertiary)] mt-2" dir="ltr">"{currentWord.example_sentence}"</p>
                       )}
                     </div>
                   )}
@@ -866,7 +866,7 @@ function VocabularyTask({ task, content, isSubmitted, onSubmit }) {
         <div className="space-y-5">
           <Card className="text-center space-y-4">
             <BookType className="w-12 h-12 text-indigo-400 mx-auto" />
-            <h2 className="text-xl font-bold text-white">النتيجة النهائية</h2>
+            <h2 className="text-xl font-bold text-[var(--text-primary)]">النتيجة النهائية</h2>
             <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-blue-400">
               {score} / {total}
             </div>
@@ -883,9 +883,9 @@ function VocabularyTask({ task, content, isSubmitted, onSubmit }) {
                 >
                   <div className="flex items-center gap-2.5">
                     {r.correct ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <XCircle className="w-4 h-4 text-red-400" />}
-                    <span className="text-white/80 font-medium text-sm">{r.translation}</span>
+                    <span className="text-[var(--text-secondary)] font-medium text-sm">{r.translation}</span>
                   </div>
-                  <span className="text-xs text-white/30" dir="ltr">{r.word}</span>
+                  <span className="text-xs text-[var(--text-tertiary)]" dir="ltr">{r.word}</span>
                 </div>
               ))}
             </div>
@@ -908,10 +908,10 @@ function QuestionsUI({ questions, answers, showResults, isSubmitted, onMCQChange
 
   return (
     <div className="space-y-4">
-      <h3 className="text-base font-semibold text-white/80">الأسئلة</h3>
+      <h3 className="text-base font-semibold text-[var(--text-secondary)]">الأسئلة</h3>
       {questions.map((q, i) => (
         <Card key={i}>
-          <p className="text-white/80 font-medium text-sm mb-3">
+          <p className="text-[var(--text-secondary)] font-medium text-sm mb-3">
             <span className="text-sky-400 ml-2 font-bold">{i + 1}.</span>
             {q.question}
           </p>
@@ -933,7 +933,7 @@ function QuestionsUI({ questions, answers, showResults, isSubmitted, onMCQChange
                         ? 'bg-red-500/[0.08] border-red-500/20'
                         : selected
                         ? 'bg-sky-500/[0.08] border-sky-500/20'
-                        : 'bg-white/[0.02] border-white/[0.06] hover:border-white/[0.1]'
+                        : 'bg-[var(--surface-base)] border-[var(--border-subtle)] hover:border-[var(--border-subtle)]'
                     }`}
                   >
                     <input
@@ -945,14 +945,14 @@ function QuestionsUI({ questions, answers, showResults, isSubmitted, onMCQChange
                       disabled={isSubmitted}
                       className="accent-sky-400"
                     />
-                    <span className="text-white/70 text-sm flex-1">{opt}</span>
+                    <span className="text-[var(--text-tertiary)] text-sm flex-1">{opt}</span>
                     {isCorrectOption && <CheckCircle2 className="w-4 h-4 text-emerald-400" />}
                     {isWrongSelection && <XCircle className="w-4 h-4 text-red-400" />}
                   </label>
                 )
               })}
               {showResults && q.explanation && (
-                <p className="text-white/25 text-xs mt-2 p-2.5 bg-white/[0.02] rounded-lg border border-white/[0.04]">
+                <p className="text-[var(--text-tertiary)] text-xs mt-2 p-2.5 bg-[var(--surface-base)] rounded-lg border border-[var(--border-subtle)]">
                   {q.explanation}
                 </p>
               )}
@@ -963,7 +963,7 @@ function QuestionsUI({ questions, answers, showResults, isSubmitted, onMCQChange
               onChange={e => onOpenChange(i, e.target.value)}
               disabled={isSubmitted}
               placeholder="اكتب إجابتك هنا..."
-              className="w-full min-h-[90px] resize-y text-sm bg-white/[0.02] border border-white/[0.06] rounded-xl p-3 text-white/70 placeholder:text-white/15 focus:outline-none focus:border-white/[0.1] transition-all"
+              className="w-full min-h-[90px] resize-y text-sm bg-[var(--surface-base)] border border-[var(--border-subtle)] rounded-xl p-3 text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:outline-none focus:border-[var(--border-subtle)] transition-all"
               dir="auto"
             />
           )}
@@ -991,15 +991,15 @@ function FeedbackDisplay({ feedback, autoScore, type }) {
         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-sky-500/20 to-cyan-500/10 flex items-center justify-center">
           <Sparkles className="w-4 h-4 text-sky-400" />
         </div>
-        <h3 className="text-base font-semibold text-white/80">تقييم الذكاء الاصطناعي</h3>
+        <h3 className="text-base font-semibold text-[var(--text-secondary)]">تقييم الذكاء الاصطناعي</h3>
       </div>
 
       {scoreEntries.length > 0 && (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
           {scoreEntries.map((s, i) => (
-            <div key={i} className="rounded-xl bg-white/[0.03] border border-white/[0.04] p-3 text-center">
+            <div key={i} className="rounded-xl bg-[var(--surface-base)] border border-[var(--border-subtle)] p-3 text-center">
               <div className="text-xl font-bold text-sky-400">{s.value}</div>
-              <div className="text-white/25 text-xs mt-0.5">{s.label}</div>
+              <div className="text-[var(--text-tertiary)] text-xs mt-0.5">{s.label}</div>
             </div>
           ))}
         </div>
@@ -1007,10 +1007,10 @@ function FeedbackDisplay({ feedback, autoScore, type }) {
 
       {feedbackData?.suggestions?.length > 0 && (
         <div className="mb-4">
-          <h4 className="text-white/50 font-medium text-xs mb-2">اقتراحات للتحسين</h4>
+          <h4 className="text-[var(--text-tertiary)] font-medium text-xs mb-2">اقتراحات للتحسين</h4>
           <ul className="space-y-2">
             {feedbackData.suggestions.map((s, i) => (
-              <li key={i} className="flex items-start gap-2 text-white/50 text-sm">
+              <li key={i} className="flex items-start gap-2 text-[var(--text-tertiary)] text-sm">
                 <ChevronLeft className="w-3.5 h-3.5 text-sky-400/50 mt-0.5 shrink-0" />
                 {s}
               </li>
@@ -1021,15 +1021,15 @@ function FeedbackDisplay({ feedback, autoScore, type }) {
 
       {feedbackData?.corrected_text && (
         <div>
-          <h4 className="text-white/50 font-medium text-xs mb-2">النص المصحح</h4>
-          <div className="bg-white/[0.02] rounded-xl p-4 text-white/60 text-sm leading-relaxed whitespace-pre-wrap border border-white/[0.04]" dir="auto">
+          <h4 className="text-[var(--text-tertiary)] font-medium text-xs mb-2">النص المصحح</h4>
+          <div className="bg-[var(--surface-base)] rounded-xl p-4 text-[var(--text-tertiary)] text-sm leading-relaxed whitespace-pre-wrap border border-[var(--border-subtle)]" dir="auto">
             {feedbackData.corrected_text}
           </div>
         </div>
       )}
 
       {feedbackData?.comment && (
-        <p className="text-white/40 text-sm leading-relaxed mt-3">{feedbackData.comment}</p>
+        <p className="text-[var(--text-tertiary)] text-sm leading-relaxed mt-3">{feedbackData.comment}</p>
       )}
     </Card>
   )
@@ -1039,8 +1039,8 @@ function FeedbackDisplay({ feedback, autoScore, type }) {
 function Card({ children, className = '' }) {
   return (
     <div
-      className={`rounded-2xl border border-white/[0.06] p-6 ${className}`}
-      style={{ background: 'rgba(255,255,255,0.02)' }}
+      className={`rounded-2xl border border-[var(--border-subtle)] p-6 ${className}`}
+      style={{ background: 'var(--surface-base)' }}
     >
       {children}
     </div>

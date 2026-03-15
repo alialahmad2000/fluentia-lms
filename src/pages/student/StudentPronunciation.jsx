@@ -376,7 +376,7 @@ function ComparisonPlayer({ label, phrase, score, date, color, side }) {
     score >= 50 ? 'bg-amber-500/10 border-amber-500/20' : 'bg-red-500/10 border-red-500/20'
 
   return (
-    <div className={`flex-1 glass-card p-4 flex flex-col gap-3 ${side === 'before' ? 'border-white/5' : 'border-violet-500/20'}`}>
+    <div className={`flex-1 fl-card-static p-4 flex flex-col gap-3 ${side === 'before' ? 'border-white/5' : 'border-violet-500/20'}`}>
       {/* Header label */}
       <div className="text-center">
         <span className={`text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
@@ -562,10 +562,10 @@ function BeforeAfterSection({ profileId, studentName }) {
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        className="glass-card p-10 text-center space-y-3"
+        className="fl-card-static p-10 text-center space-y-3"
       >
         <GitCompareArrows size={44} className="mx-auto text-violet-400/40" />
-        <h3 className="text-lg font-bold text-white">لا توجد مقارنة بعد</h3>
+        <h3 className="text-lg font-bold text-[var(--text-primary)]">لا توجد مقارنة بعد</h3>
         <p className="text-sm text-muted max-w-xs mx-auto">
           تحتاج إلى تسجيل نفس العبارة أو الكلمة مرتين على الأقل حتى تظهر مقارنة قبل/بعد.
           استمر في التدريب!
@@ -614,9 +614,9 @@ function BeforeAfterSection({ profileId, studentName }) {
           className="space-y-4"
         >
           {/* Phrase label */}
-          <div className="glass-card p-3 text-center border border-violet-500/10">
+          <div className="fl-card-static p-3 text-center border border-violet-500/10">
             <p className="text-xs text-muted uppercase tracking-wider mb-1">العبارة المقارنة</p>
-            <p className="text-base font-bold text-white" dir="ltr">{current.phrase}</p>
+            <p className="text-base font-bold text-[var(--text-primary)]" dir="ltr">{current.phrase}</p>
             <p className="text-xs text-muted mt-1">{current.attempts} محاولة مسجّلة</p>
           </div>
 
@@ -645,7 +645,7 @@ function BeforeAfterSection({ profileId, studentName }) {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1 }}
-            className={`glass-card p-4 text-center border ${
+            className={`fl-card-static p-4 text-center border ${
               improvement > 0
                 ? 'border-emerald-500/20 bg-emerald-500/5'
                 : improvement < 0
@@ -1099,7 +1099,7 @@ export default function StudentPronunciation() {
             transition={{ duration: 0.22 }}
           >
             {/* Compare header */}
-            <div className="glass-card p-3 border border-emerald-500/20 bg-emerald-500/5 mb-4">
+            <div className="fl-card-static p-3 border border-emerald-500/20 bg-emerald-500/5 mb-4">
               <p className="text-xs text-emerald-400 text-center flex items-center justify-center gap-1.5">
                 <GitCompareArrows size={13} />
                 مقارنة أقدم تسجيل لك مع أحدث تسجيل لنفس العبارة
@@ -1135,7 +1135,7 @@ export default function StudentPronunciation() {
 
           {/* Daily section header */}
           {section === 'daily' && (
-            <div className="glass-card p-3 border border-violet-500/20 bg-violet-500/5">
+            <div className="fl-card-static p-3 border border-violet-500/20 bg-violet-500/5">
               <p className="text-xs text-violet-400 text-center">
                 <Calendar size={12} className="inline ml-1" />
                 تمارين اليوم — تتغير يومياً لتغطي تحديات النطق المختلفة
@@ -1148,11 +1148,11 @@ export default function StudentPronunciation() {
             key={`${section}-${mode}-${currentIndex}`}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass-card p-7"
+            className="fl-card-static p-7"
           >
             <div className="text-center mb-6">
               <p className="text-xs text-muted mb-2">{currentIndex + 1} / {totalItems}</p>
-              <h2 className="text-2xl font-bold text-white mb-2" dir="ltr">
+              <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-2" dir="ltr">
                 {currentTarget}
               </h2>
               {mode === 'words' && currentPhonetic && (
@@ -1208,7 +1208,7 @@ export default function StudentPronunciation() {
             {transcript && (
               <div className="bg-white/5 rounded-xl p-3 text-center mb-4">
                 <p className="text-xs text-muted mb-1">ما سمعناه:</p>
-                <p className="text-sm text-white" dir="ltr">{transcript}</p>
+                <p className="text-sm text-[var(--text-primary)]" dir="ltr">{transcript}</p>
               </div>
             )}
 
@@ -1227,7 +1227,7 @@ export default function StudentPronunciation() {
                   <p className={`text-2xl font-bold ${
                     feedback.accuracy >= 90 ? 'text-emerald-400' : feedback.accuracy >= 70 ? 'text-sky-400' : 'text-gold-400'
                   }`}>{feedback.accuracy}%</p>
-                  <p className="text-sm text-white mt-1">{feedback.message}</p>
+                  <p className="text-sm text-[var(--text-primary)] mt-1">{feedback.message}</p>
                   {feedback.xp > 0 && <p className="text-xs text-violet-400 mt-1">+{feedback.xp} XP</p>}
                 </div>
 

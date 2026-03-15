@@ -191,19 +191,19 @@ export default function TrainerAttendance() {
         <>
           {/* Stats */}
           <div className="grid grid-cols-3 gap-6">
-            <div className="stat-card">
+            <div className="fl-stat-card fl-stat-card--emerald">
               <div className="stat-icon bg-emerald-500/10"><UserCheck size={20} className="text-emerald-400" /></div>
-              <p className="stat-number text-3xl font-bold text-white">{presentCount}</p>
+              <p className="stat-number text-3xl font-bold text-[var(--text-primary)]">{presentCount}</p>
               <p className="stat-label">حاضر</p>
             </div>
-            <div className="stat-card">
+            <div className="fl-stat-card fl-stat-card--amber">
               <div className="stat-icon bg-red-500/10"><UserX size={20} className="text-red-400" /></div>
-              <p className="stat-number text-3xl font-bold text-white">{absentCount}</p>
+              <p className="stat-number text-3xl font-bold text-[var(--text-primary)]">{absentCount}</p>
               <p className="stat-label">غائب</p>
             </div>
-            <div className="stat-card">
+            <div className="fl-stat-card fl-stat-card--sky">
               <div className="stat-icon bg-sky-500/10"><Clock size={20} className="text-sky-400" /></div>
-              <p className="stat-number text-3xl font-bold text-white">{students.length}</p>
+              <p className="stat-number text-3xl font-bold text-[var(--text-primary)]">{students.length}</p>
               <p className="stat-label">إجمالي</p>
             </div>
           </div>
@@ -237,10 +237,10 @@ export default function TrainerAttendance() {
                   className={`w-full flex items-center justify-between p-4 rounded-xl border hover:translate-y-[-2px] transition-all duration-200 ${config.bg}`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white font-bold">
+                    <div className="w-10 h-10 rounded-xl bg-[var(--surface-raised)] flex items-center justify-center text-[var(--text-primary)] font-bold">
                       {getStudentName(s)[0]}
                     </div>
-                    <span className="text-sm font-medium text-white">{getStudentName(s)}</span>
+                    <span className="text-sm font-medium text-[var(--text-primary)]">{getStudentName(s)}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Icon size={20} className={config.color} />
@@ -267,7 +267,7 @@ export default function TrainerAttendance() {
       )}
 
       {selectedClass && !students?.length && (
-        <div className="glass-card p-12 text-center">
+        <div className="fl-card-static p-12 text-center">
           <p className="text-muted">لا يوجد طلاب في مجموعة هذه الحصة</p>
         </div>
       )}

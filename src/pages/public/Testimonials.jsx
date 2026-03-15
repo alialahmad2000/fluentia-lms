@@ -140,7 +140,7 @@ function TestimonialCard({ t, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
-      className="relative group glass-card p-7 flex flex-col gap-4 hover:border-sky-500/30 hover:translate-y-[-2px] transition-all duration-200"
+      className="relative group fl-card p-7 flex flex-col gap-4 hover:border-sky-500/30 hover:translate-y-[-2px] transition-all duration-200"
     >
       {/* Quote icon */}
       <Quote
@@ -195,7 +195,7 @@ function StatsBanner({ count }) {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ delay: i * 0.1, duration: 0.4 }}
-          className="glass-card p-7 text-center flex flex-col items-center gap-2 hover:translate-y-[-2px] transition-all duration-200"
+          className="fl-card-static p-7 text-center flex flex-col items-center gap-2 hover:translate-y-[-2px] transition-all duration-200"
         >
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <Icon size={20} className="text-sky-400" />
@@ -379,7 +379,7 @@ export default function Testimonials() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="glass-card p-7 space-y-4"
+          className="fl-card-static p-7 space-y-4"
         >
           <div className="flex items-center gap-2 text-white/70">
             <Award size={18} className="text-sky-400" />

@@ -157,7 +157,7 @@ function QuickPointsContent() {
     <div className="space-y-12">
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center">
-          <Zap size={20} className="text-gold-400" />
+          <Zap size={20} strokeWidth={1.5} className="text-gold-400" />
         </div>
         <div>
           <h1 className="text-page-title">النقاط السريعة</h1>
@@ -179,7 +179,7 @@ function QuickPointsContent() {
         )}
 
         {/* Mode toggle */}
-        <div className="flex rounded-xl p-1" style={{ background: 'var(--color-bg-surface-raised)' }}>
+        <div className="flex rounded-xl p-1" style={{ background: 'var(--surface-raised)' }}>
           <button
             onClick={() => setMode('add')}
             className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
@@ -231,13 +231,13 @@ function QuickPointsContent() {
               <div className="w-12 h-12 rounded-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 text-lg font-bold mx-auto mb-2">
                 {name[0]}
               </div>
-              <p className="text-sm font-medium text-white truncate">{name}</p>
+              <p className="text-sm font-medium text-[var(--text-primary)] truncate">{name}</p>
               <p className="text-xs text-muted mt-0.5">{s.xp_total} XP</p>
             </motion.button>
           )
         })}
         {!students?.length && (
-          <div className="col-span-full glass-card p-8 text-center">
+          <div className="col-span-full fl-card-static p-8 text-center">
             <p className="text-muted">لا يوجد طلاب في هذه المجموعة</p>
           </div>
         )}
@@ -250,9 +250,9 @@ function QuickPointsContent() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="glass-card p-7"
+            className="fl-card-static p-7"
           >
-            <p className="text-sm text-white mb-3">
+            <p className="text-sm text-[var(--text-primary)] mb-3">
               {mode === 'add' ? 'منح نقاط لـ' : 'خصم نقاط من'}{' '}
               <span className="text-sky-400 font-bold">{getStudentName(selectedStudent)}</span>
             </p>
@@ -269,7 +269,7 @@ function QuickPointsContent() {
                   }`}
                 >
                   <span className="text-xl">{r.icon}</span>
-                  <p className="text-xs text-white mt-1">{r.label}</p>
+                  <p className="text-xs text-[var(--text-primary)] mt-1">{r.label}</p>
                   <p className={`text-xs font-bold mt-0.5 ${mode === 'add' ? 'text-emerald-400' : 'text-red-400'}`}>
                     {r.amount > 0 ? '+' : ''}{r.reason === 'custom' ? (mode === 'deduct' ? `-${customAmount}` : `+${customAmount}`) : r.amount}
                   </p>

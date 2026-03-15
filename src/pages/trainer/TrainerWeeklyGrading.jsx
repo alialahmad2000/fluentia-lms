@@ -114,11 +114,11 @@ export default function TrainerWeeklyGrading() {
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <div className="flex items-center gap-3">
           <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-sky-500/20 to-cyan-500/10 flex items-center justify-center ring-1 ring-sky-500/20">
-            <ClipboardCheck size={20} className="text-sky-400" />
+            <ClipboardCheck size={20} strokeWidth={1.5} className="text-sky-400" />
           </div>
           <div>
-            <h1 className="text-xl sm:text-2xl font-bold text-white">تقييم المهام الأسبوعية</h1>
-            <p className="text-white/30 text-sm mt-0.5">مراجعة وتقييم مهام الطلاب</p>
+            <h1 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)]">تقييم المهام الأسبوعية</h1>
+            <p className="text-muted text-sm mt-0.5">مراجعة وتقييم مهام الطلاب</p>
           </div>
         </div>
       </motion.div>
@@ -128,10 +128,10 @@ export default function TrainerWeeklyGrading() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.05 }}
-        className="rounded-2xl border border-white/[0.06] p-5"
-        style={{ background: 'rgba(255,255,255,0.02)' }}
+        className="rounded-2xl border border-[var(--border-subtle)] p-5"
+        style={{ background: 'var(--surface-base)' }}
       >
-        <div className="flex items-center gap-2 mb-3 text-xs text-white/25 font-medium">
+        <div className="flex items-center gap-2 mb-3 text-xs text-muted font-medium">
           <Filter size={12} />
           <span>تصفية</span>
         </div>
@@ -140,28 +140,28 @@ export default function TrainerWeeklyGrading() {
             <select
               value={selectedGroup}
               onChange={e => setSelectedGroup(e.target.value)}
-              className="bg-white/[0.03] border border-white/[0.06] rounded-xl text-sm px-3 py-2 min-w-[150px] text-white/70 appearance-none focus:outline-none focus:border-white/[0.12]"
+              className="bg-[var(--surface-base)] border border-[var(--border-subtle)] rounded-xl text-sm px-3 py-2 min-w-[150px] text-muted appearance-none focus:outline-none focus:border-[var(--border-subtle)]"
             >
               <option value="">كل المجموعات</option>
               {groups?.map(g => (
                 <option key={g.id} value={g.id}>{g.name} ({g.code})</option>
               ))}
             </select>
-            <ChevronDown size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-white/20 pointer-events-none" />
+            <ChevronDown size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
           </div>
 
           <div className="relative">
             <select
               value={filterType}
               onChange={e => setFilterType(e.target.value)}
-              className="bg-white/[0.03] border border-white/[0.06] rounded-xl text-sm px-3 py-2 min-w-[130px] text-white/70 appearance-none focus:outline-none focus:border-white/[0.12]"
+              className="bg-[var(--surface-base)] border border-[var(--border-subtle)] rounded-xl text-sm px-3 py-2 min-w-[130px] text-muted appearance-none focus:outline-none focus:border-[var(--border-subtle)]"
             >
               <option value="">كل الأنواع</option>
               {Object.entries(TYPE_CONFIG).map(([key, cfg]) => (
                 <option key={key} value={key}>{cfg.label}</option>
               ))}
             </select>
-            <ChevronDown size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-white/20 pointer-events-none" />
+            <ChevronDown size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
           </div>
 
           <div className="flex items-center gap-1.5">
@@ -175,7 +175,7 @@ export default function TrainerWeeklyGrading() {
                 className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
                   filterStatus === tab.key
                     ? 'bg-sky-500/10 text-sky-400 border border-sky-500/15'
-                    : 'text-white/30 hover:text-white/50 hover:bg-white/[0.03] border border-transparent'
+                    : 'text-muted hover:text-muted hover:bg-[var(--surface-base)] border border-transparent'
                 }`}
               >
                 {tab.label}
@@ -197,15 +197,15 @@ export default function TrainerWeeklyGrading() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 + i * 0.05 }}
-            className={`rounded-2xl bg-gradient-to-br ${card.gradient} border border-white/[0.04] p-5`}
+            className={`rounded-2xl bg-gradient-to-br ${card.gradient} border border-[var(--border-subtle)] p-5`}
           >
             <div className="flex items-center gap-3">
               <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${card.iconGradient} flex items-center justify-center`}>
                 <card.icon size={18} className={card.iconColor} />
               </div>
               <div>
-                <p className="text-xs text-white/30 font-medium">{card.label}</p>
-                <p className="text-xl font-bold text-white mt-0.5">{card.value}</p>
+                <p className="text-xs text-muted font-medium">{card.label}</p>
+                <p className="text-xl font-bold text-[var(--text-primary)] mt-0.5">{card.value}</p>
               </div>
             </div>
           </motion.div>
@@ -216,15 +216,15 @@ export default function TrainerWeeklyGrading() {
       {isLoading ? (
         <div className="space-y-3">
           {[1, 2, 3].map(i => (
-            <div key={i} className="h-20 rounded-2xl animate-pulse" style={{ background: 'rgba(255,255,255,0.02)' }} />
+            <div key={i} className="h-20 skeleton" />
           ))}
         </div>
       ) : submissions?.length === 0 ? (
-        <div className="rounded-2xl border border-white/[0.06] p-14 text-center" style={{ background: 'rgba(255,255,255,0.02)' }}>
+        <div className="rounded-2xl border border-[var(--border-subtle)] p-14 text-center" style={{ background: 'var(--surface-base)' }}>
           <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mx-auto mb-3">
             <CheckCircle2 size={20} className="text-emerald-400" />
           </div>
-          <p className="text-white/30 text-sm">
+          <p className="text-muted text-sm">
             {filterStatus === 'needs_review' ? 'لا توجد مهام بانتظار التقييم' : 'لا توجد مهام'}
           </p>
         </div>
@@ -240,8 +240,8 @@ export default function TrainerWeeklyGrading() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.03 }}
-                className="rounded-xl border border-white/[0.06] hover:border-white/[0.1] cursor-pointer hover:translate-y-[-1px] transition-all duration-200 overflow-hidden"
-                style={{ background: 'rgba(255,255,255,0.02)' }}
+                className="rounded-xl border border-[var(--border-subtle)] hover:border-[var(--border-subtle)] cursor-pointer hover:translate-y-[-1px] transition-all duration-200 overflow-hidden"
+                style={{ background: 'var(--surface-base)' }}
                 onClick={() => setSelectedTask(task)}
               >
                 <div className={`h-0.5 bg-gradient-to-r ${typeInfo.gradient} opacity-30`} />
@@ -252,7 +252,7 @@ export default function TrainerWeeklyGrading() {
                         <div className={`w-7 h-7 rounded-lg ${typeInfo.bg} flex items-center justify-center shrink-0`}>
                           <TypeIcon size={14} className={typeInfo.text} />
                         </div>
-                        <h3 className="text-sm font-medium text-white/80 truncate">
+                        <h3 className="text-sm font-medium text-[var(--text-secondary)] truncate">
                           {task.title || typeInfo.label}
                         </h3>
                         {task.status === 'graded' && (
@@ -266,8 +266,8 @@ export default function TrainerWeeklyGrading() {
                           </span>
                         )}
                       </div>
-                      <div className="flex items-center gap-3 text-xs text-white/25">
-                        <span className="font-medium text-white/40">{getStudentName(task)}</span>
+                      <div className="flex items-center gap-3 text-xs text-muted">
+                        <span className="font-medium text-muted">{getStudentName(task)}</span>
                         {task.submitted_at && <span>{timeAgo(task.submitted_at)}</span>}
                       </div>
                     </div>
@@ -275,13 +275,13 @@ export default function TrainerWeeklyGrading() {
                     <div className="flex items-center gap-4 shrink-0">
                       {task.auto_score != null && (
                         <div className="text-center">
-                          <p className="text-xs text-white/20 mb-0.5">AI</p>
+                          <p className="text-xs text-muted mb-0.5">AI</p>
                           <p className="text-lg font-bold text-sky-400">{task.auto_score}%</p>
                         </div>
                       )}
                       {task.trainer_grade_numeric != null && (
                         <div className="text-center">
-                          <p className="text-xs text-white/20 mb-0.5">المدرب</p>
+                          <p className="text-xs text-muted mb-0.5">المدرب</p>
                           <p className="text-lg font-bold text-emerald-400">{task.trainer_grade_numeric}%</p>
                         </div>
                       )}
@@ -385,8 +385,8 @@ function GradingModal({ task, getStudentName, onClose }) {
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.96, y: 16 }}
         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-        className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border border-white/[0.08]"
-        style={{ background: 'linear-gradient(135deg, rgba(14,25,50,0.98) 0%, rgba(6,14,28,0.99) 100%)' }}
+        className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border border-[var(--border-subtle)]"
+        style={{ background: 'var(--color-dropdown-bg)' }}
         onClick={e => e.stopPropagation()}
       >
         {/* Top accent */}
@@ -400,19 +400,19 @@ function GradingModal({ task, getStudentName, onClose }) {
                 <TypeIcon size={18} className={typeInfo.text} />
               </div>
               <div>
-                <h2 className="text-base font-bold text-white">{task.title || typeInfo.label}</h2>
-                <p className="text-xs text-white/30">{getStudentName(task)}</p>
+                <h2 className="text-base font-bold text-[var(--text-primary)]">{task.title || typeInfo.label}</h2>
+                <p className="text-xs text-muted">{getStudentName(task)}</p>
               </div>
             </div>
-            <button onClick={onClose} className="w-8 h-8 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] flex items-center justify-center transition-all">
-              <X size={16} className="text-white/40" />
+            <button onClick={onClose} className="w-8 h-8 rounded-lg bg-[var(--surface-base)] hover:bg-[var(--surface-base)] flex items-center justify-center transition-all">
+              <X size={16} className="text-muted" />
             </button>
           </div>
 
           {/* Meta badges */}
           <div className="flex flex-wrap items-center gap-2 mb-5">
             {task.submitted_at && (
-              <span className="px-2.5 py-0.5 rounded-md bg-white/[0.03] border border-white/[0.06] text-white/30 text-xs">
+              <span className="px-2.5 py-0.5 rounded-md bg-[var(--surface-base)] border border-[var(--border-subtle)] text-muted text-xs">
                 {formatDateAr(task.submitted_at)}
               </span>
             )}
@@ -425,11 +425,11 @@ function GradingModal({ task, getStudentName, onClose }) {
 
           {/* Student Response */}
           <div className="space-y-3 mb-5">
-            <h3 className="text-xs font-medium text-white/30">إجابة الطالب</h3>
+            <h3 className="text-xs font-medium text-muted">إجابة الطالب</h3>
 
             {task.response_text && (
-              <div className="rounded-xl bg-white/[0.02] border border-white/[0.04] p-4">
-                <p className="text-sm text-white/70 leading-relaxed whitespace-pre-wrap" dir="ltr">
+              <div className="rounded-xl bg-[var(--surface-base)] border border-[var(--border-subtle)] p-4">
+                <p className="text-sm text-muted leading-relaxed whitespace-pre-wrap" dir="ltr">
                   {task.response_text}
                 </p>
               </div>
@@ -440,22 +440,22 @@ function GradingModal({ task, getStudentName, onClose }) {
             )}
 
             {task.response_voice_transcript && (
-              <div className="rounded-xl bg-white/[0.02] border border-white/[0.04] p-3">
-                <p className="text-xs text-white/20 mb-1">النص المفرّغ:</p>
-                <p className="text-sm text-white/60 leading-relaxed" dir="ltr">{task.response_voice_transcript}</p>
+              <div className="rounded-xl bg-[var(--surface-base)] border border-[var(--border-subtle)] p-3">
+                <p className="text-xs text-muted mb-1">النص المفرّغ:</p>
+                <p className="text-sm text-muted leading-relaxed" dir="ltr">{task.response_voice_transcript}</p>
               </div>
             )}
 
             {task.response_answers && Array.isArray(task.response_answers) && (
-              <div className="rounded-xl bg-white/[0.02] border border-white/[0.04] p-4">
-                <p className="text-xs text-white/20 mb-2">الإجابات:</p>
+              <div className="rounded-xl bg-[var(--surface-base)] border border-[var(--border-subtle)] p-4">
+                <p className="text-xs text-muted mb-2">الإجابات:</p>
                 <div className="space-y-1.5">
                   {task.response_answers.map((answer, idx) => (
                     <div key={idx} className="flex items-center gap-2 text-sm">
-                      <span className="w-5 h-5 rounded-md bg-white/[0.04] flex items-center justify-center text-xs text-white/20 shrink-0">
+                      <span className="w-5 h-5 rounded-md bg-[var(--surface-base)] flex items-center justify-center text-xs text-muted shrink-0">
                         {idx + 1}
                       </span>
-                      <span className="text-white/60" dir="ltr">{typeof answer === 'object' ? JSON.stringify(answer) : answer}</span>
+                      <span className="text-muted" dir="ltr">{typeof answer === 'object' ? JSON.stringify(answer) : answer}</span>
                     </div>
                   ))}
                 </div>
@@ -466,24 +466,24 @@ function GradingModal({ task, getStudentName, onClose }) {
           {/* AI Feedback */}
           {(task.ai_feedback || task.auto_score != null) && (
             <div className="mb-5">
-              <h3 className="text-xs font-medium text-white/30 mb-2">تقييم AI</h3>
+              <h3 className="text-xs font-medium text-muted mb-2">تقييم AI</h3>
               <div className="rounded-xl bg-sky-500/[0.04] border border-sky-500/10 p-4">
                 {task.auto_score != null && (
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-sky-400 font-bold text-base">{task.auto_score}%</span>
-                    <span className="text-xs text-white/20">({numericToLetter(task.auto_score)})</span>
+                    <span className="text-xs text-muted">({numericToLetter(task.auto_score)})</span>
                   </div>
                 )}
                 {task.ai_feedback && (
-                  <div className="text-sm text-white/50 leading-relaxed">
+                  <div className="text-sm text-muted leading-relaxed">
                     {typeof task.ai_feedback === 'object' ? (
                       <div className="space-y-1.5">
                         {task.ai_feedback.suggestions?.map((s, i) => (
                           <p key={i} className="text-xs">• {s}</p>
                         ))}
                         {task.ai_feedback.corrected_text && (
-                          <div className="mt-2 p-3 rounded-lg bg-white/[0.03]">
-                            <p className="text-xs text-white/20 mb-1">النص المصحح:</p>
+                          <div className="mt-2 p-3 rounded-lg bg-[var(--surface-base)]">
+                            <p className="text-xs text-muted mb-1">النص المصحح:</p>
                             <p className="text-xs" dir="ltr">{task.ai_feedback.corrected_text}</p>
                           </div>
                         )}
@@ -499,16 +499,16 @@ function GradingModal({ task, getStudentName, onClose }) {
 
           {/* Grading Inputs */}
           <div className="space-y-4 mb-5">
-            <h3 className="text-xs font-medium text-white/30">التقييم</h3>
+            <h3 className="text-xs font-medium text-muted">التقييم</h3>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-xs text-white/25 mb-1.5 block">التقدير</label>
+                <label className="text-xs text-muted mb-1.5 block">التقدير</label>
                 <div className="relative">
                   <select
                     value={grade}
                     onChange={e => setGrade(e.target.value)}
-                    className="w-full bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2.5 text-sm text-white/70 appearance-none focus:outline-none focus:border-white/[0.12]"
+                    className="w-full bg-[var(--surface-base)] border border-[var(--border-subtle)] rounded-xl px-3 py-2.5 text-sm text-muted appearance-none focus:outline-none focus:border-[var(--border-subtle)]"
                   >
                     <option value="">اختر</option>
                     {GRADE_OPTIONS.map(g => (
@@ -517,12 +517,12 @@ function GradingModal({ task, getStudentName, onClose }) {
                       </option>
                     ))}
                   </select>
-                  <ChevronDown size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-white/20 pointer-events-none" />
+                  <ChevronDown size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
                 </div>
               </div>
 
               <div>
-                <label className="text-xs text-white/25 mb-1.5 block">الدرجة (0-100)</label>
+                <label className="text-xs text-muted mb-1.5 block">الدرجة (0-100)</label>
                 <input
                   type="number"
                   min="0"
@@ -533,7 +533,7 @@ function GradingModal({ task, getStudentName, onClose }) {
                     const val = parseInt(e.target.value)
                     if (!isNaN(val) && val >= 0 && val <= 100) setGrade(numericToLetter(val))
                   }}
-                  className="w-full bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2.5 text-sm text-white/70 focus:outline-none focus:border-white/[0.12]"
+                  className="w-full bg-[var(--surface-base)] border border-[var(--border-subtle)] rounded-xl px-3 py-2.5 text-sm text-muted focus:outline-none focus:border-[var(--border-subtle)]"
                   placeholder="85"
                   dir="ltr"
                 />
@@ -541,11 +541,11 @@ function GradingModal({ task, getStudentName, onClose }) {
             </div>
 
             <div>
-              <label className="text-xs text-white/25 mb-1.5 block">ملاحظات المدرب</label>
+              <label className="text-xs text-muted mb-1.5 block">ملاحظات المدرب</label>
               <textarea
                 value={feedback}
                 onChange={e => setFeedback(e.target.value)}
-                className="w-full min-h-[90px] resize-y bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2.5 text-sm text-white/70 placeholder:text-white/15 focus:outline-none focus:border-white/[0.12]"
+                className="w-full min-h-[90px] resize-y bg-[var(--surface-base)] border border-[var(--border-subtle)] rounded-xl px-3 py-2.5 text-sm text-muted placeholder:text-muted focus:outline-none focus:border-[var(--border-subtle)]"
                 placeholder="اكتب ملاحظاتك..."
                 rows={3}
               />
@@ -570,7 +570,7 @@ function GradingModal({ task, getStudentName, onClose }) {
               <button
                 onClick={handleApproveAI}
                 disabled={gradeMutation.isPending}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/[0.06] text-white/60 text-sm font-medium hover:bg-white/[0.06] transition-all disabled:opacity-40"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--surface-base)] border border-[var(--border-subtle)] text-muted text-sm font-medium hover:bg-[var(--surface-base)] transition-all disabled:opacity-40"
               >
                 {gradeMutation.isPending ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
                 اعتماد AI
@@ -586,7 +586,7 @@ function GradingModal({ task, getStudentName, onClose }) {
               حفظ التقييم
             </button>
 
-            <button onClick={onClose} className="text-white/25 hover:text-white/40 text-sm mr-auto transition-colors">
+            <button onClick={onClose} className="text-muted hover:text-muted text-sm mr-auto transition-colors">
               إلغاء
             </button>
           </div>

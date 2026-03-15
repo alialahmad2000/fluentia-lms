@@ -30,7 +30,7 @@ const TYPE_COLORS = {
   video: 'text-sky-400 bg-sky-500/10',
   pdf: 'text-red-400 bg-red-500/10',
   document: 'text-amber-400 bg-amber-500/10',
-  file: 'text-muted bg-white/5',
+  file: 'text-muted bg-[var(--surface-base)]',
 }
 
 export default function InlineMediaPreview({ url, title, className = '' }) {
@@ -87,7 +87,7 @@ export default function InlineMediaPreview({ url, title, className = '' }) {
   // Audio player
   if (type === 'audio') {
     return (
-      <div className={`flex items-center gap-3 glass-card p-4 ${className}`}>
+      <div className={`flex items-center gap-3 fl-card-static p-4 ${className}`}>
         <button
           onClick={toggleAudio}
           className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center text-violet-400 hover:bg-violet-500/20 transition-all duration-200 shrink-0"
@@ -95,7 +95,7 @@ export default function InlineMediaPreview({ url, title, className = '' }) {
           {playing ? <Pause size={16} /> : <Play size={16} className="mr-[-2px]" />}
         </button>
         <div className="flex-1 min-w-0">
-          <p className="text-sm text-white truncate">{fileName}</p>
+          <p className="text-sm truncate" style={{ color: 'var(--text-primary)' }}>{fileName}</p>
           <audio
             ref={setAudioRef}
             src={url}
@@ -130,13 +130,13 @@ export default function InlineMediaPreview({ url, title, className = '' }) {
   // PDF preview
   if (type === 'pdf') {
     return (
-      <div className={`glass-card overflow-hidden ${className}`}>
+      <div className={`fl-card-static overflow-hidden ${className}`}>
         <div className="flex items-center justify-between px-4 py-3">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-xl bg-red-500/10 flex items-center justify-center">
               <FileText size={16} className="text-red-400" />
             </div>
-            <span className="text-sm text-white truncate">{fileName}</span>
+            <span className="text-sm truncate" style={{ color: 'var(--text-primary)' }}>{fileName}</span>
           </div>
           <a href={url} target="_blank" rel="noopener noreferrer" className="btn-ghost p-2 text-red-400 hover:text-red-300 transition-all duration-200">
             <ExternalLink size={14} />
@@ -153,13 +153,13 @@ export default function InlineMediaPreview({ url, title, className = '' }) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className={`flex items-center gap-3 glass-card p-4 hover:translate-y-[-2px] transition-all duration-200 ${className}`}
+      className={`flex items-center gap-3 fl-card p-4 hover:translate-y-[-2px] transition-all duration-200 ${className}`}
     >
       <div className={`w-10 h-10 rounded-xl ${colors} flex items-center justify-center shrink-0`}>
         <Icon size={18} />
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium text-white truncate">{fileName}</p>
+        <p className="text-sm font-medium truncate" style={{ color: 'var(--text-primary)' }}>{fileName}</p>
         <p className="text-sm text-muted">اضغط لفتح الملف</p>
       </div>
       <Download size={16} className="text-muted shrink-0" />

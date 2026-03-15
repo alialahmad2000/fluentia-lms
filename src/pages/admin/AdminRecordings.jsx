@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { PlayCircle, Plus, Trash2, Eye, EyeOff, Loader2, X, Brain } from 'lucide-react'
+import { PlayCircle, Plus, Trash2, Eye, EyeOff, Loader2, X, Brain, CheckCircle2, Bell } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
@@ -45,6 +45,7 @@ export default function AdminRecordings() {
   const [form, setForm] = useState(getEmptyForm)
   const [aiText, setAiText] = useState('')
   const [aiLoading, setAiLoading] = useState(false)
+  const [saveSuccess, setSaveSuccess] = useState(null)
 
   const { data: recordings, isLoading } = useQuery({
     queryKey: ['admin-recordings'],
@@ -76,7 +77,7 @@ export default function AdminRecordings() {
       if (!fileId) throw new Error('رابط Google Drive غير صالح')
       if (!form.title.trim()) throw new Error('العنوان مطلوب')
 
-      const { error } = await supabase.from('class_recordings').insert({
+      const { data: recording, error } = await supabase.from('class_recordings').insert({
         title: form.title.trim(),
         description: form.description.trim() || null,
         class_type: form.class_type,
@@ -88,16 +89,45 @@ export default function AdminRecordings() {
         duration_minutes: form.duration_minutes ? parseInt(form.duration_minutes) : null,
         uploaded_by: profile?.id,
         group_id: form.group_id || null,
-      })
+      }).select().single()
       if (error) throw error
+
+      // Send notifications to students at the same level
+      let notifiedCount = 0
+      try {
+        const { data: students } = await supabase
+          .from('students')
+          .select('id')
+          .eq('academic_level', parseInt(form.level))
+          .is('deleted_at', null)
+
+        if (students?.length > 0) {
+          const typeLabel = CLASS_TYPES.find(t => t.value === form.class_type)?.label || form.class_type
+          const notifications = students.map(s => ({
+            user_id: s.id,
+            type: 'system',
+            title: 'تسجيل حصة جديد',
+            body: `تم إضافة تسجيل: ${recording.title} (${typeLabel})`,
+            data: { recording_id: recording.id },
+            read: false,
+          }))
+          const { error: notifErr } = await supabase.from('notifications').insert(notifications)
+          if (!notifErr) notifiedCount = students.length
+        }
+      } catch {
+        // Don't fail the save if notifications fail
+      }
+
+      return { recording, notifiedCount }
     },
-    onSuccess: () => {
+    onSuccess: (result) => {
       queryClient.invalidateQueries({ queryKey: ['admin-recordings'] })
-      // Keep level and track for batch entry
       const prevLevel = form.level
       const prevTrack = form.track
       setForm({ ...getEmptyForm(), level: prevLevel, track: prevTrack })
       setShowForm(false)
+      setSaveSuccess(`تم حفظ التسجيل وإرسال إشعار لـ ${result.notifiedCount} طالب/طالبة`)
+      setTimeout(() => setSaveSuccess(null), 5000)
     },
   })
 
@@ -183,7 +213,7 @@ export default function AdminRecordings() {
 
       {/* Add Form */}
       {showForm && (
-        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-7">
+        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="fl-card-static p-7">
           {/* AI Fill */}
           <div className="mb-6">
             <div className="flex gap-2">
@@ -263,16 +293,28 @@ export default function AdminRecordings() {
         </motion.div>
       )}
 
+      {/* Success Banner */}
+      {saveSuccess && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="fl-card-static p-4 border-emerald-500/20 flex items-center gap-3"
+        >
+          <CheckCircle2 size={18} className="text-emerald-400 shrink-0" />
+          <p className="text-sm text-emerald-400 font-medium">{saveSuccess}</p>
+        </motion.div>
+      )}
+
       {/* Recordings Table */}
       {isLoading ? (
-        <div className="flex justify-center py-12"><Loader2 className="animate-spin text-muted" size={24} /></div>
+        <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="skeleton h-20 rounded-2xl" />)}</div>
       ) : recordings?.length > 0 ? (
         <div className="space-y-3">
           {recordings.map((rec) => (
-            <div key={rec.id} className="glass-card p-5 flex items-center justify-between gap-4">
+            <div key={rec.id} className="fl-card-static p-5 flex items-center justify-between gap-4">
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <p className="text-sm font-medium truncate" style={{ color: 'var(--color-text-primary)' }}>{rec.title}</p>
+                  <p className="text-sm font-medium truncate" style={{ color: 'var(--text-primary)' }}>{rec.title}</p>
                   <span className="badge-blue text-xs shrink-0">{typeLabels[rec.class_type] || rec.class_type}</span>
                   <span className="badge-muted text-xs shrink-0">مستوى {rec.level}</span>
                 </div>
@@ -280,7 +322,10 @@ export default function AdminRecordings() {
                   <span>{new Date(rec.recorded_date).toLocaleDateString('ar-SA')}</span>
                   <span>{rec.uploader?.full_name}</span>
                   <span className="flex items-center gap-1"><Eye size={10} /> {rec.view_count || 0}</span>
-                  {!rec.is_visible && <span className="text-amber-400">مخفي</span>}
+                  {rec.is_visible
+                    ? <span className="text-emerald-400 flex items-center gap-0.5"><Eye size={10} /> مرئي</span>
+                    : <span className="text-amber-400 flex items-center gap-0.5"><EyeOff size={10} /> مخفي</span>
+                  }
                 </div>
               </div>
               <div className="flex items-center gap-2 shrink-0">
@@ -306,7 +351,7 @@ export default function AdminRecordings() {
           ))}
         </div>
       ) : (
-        <div className="glass-card p-12 text-center">
+        <div className="fl-card-static p-12 text-center">
           <PlayCircle size={40} className="text-muted mx-auto mb-3" />
           <p className="text-muted">لا توجد تسجيلات</p>
         </div>

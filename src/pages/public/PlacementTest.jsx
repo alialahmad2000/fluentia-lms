@@ -298,7 +298,7 @@ function TestScreen({ question, index, total, onAnswer, direction }) {
             className="space-y-6"
           >
             {/* Sentence */}
-            <div className="glass-card-raised p-7 text-center" dir="ltr">
+            <div className="fl-card-static p-7 text-center" dir="ltr">
               <p className="text-xl md:text-2xl font-inter font-medium leading-relaxed text-white/90">
                 {question.sentence}
               </p>
@@ -366,7 +366,7 @@ function ResultScreen({ score, total, onShare, onRetry, copied }) {
             background: `conic-gradient(from 0deg, rgba(56,189,248,0.3) ${(score / total) * 360}deg, rgba(255,255,255,0.03) 0deg)`,
           }}
         >
-          <div className="rounded-full w-28 h-28 flex flex-col items-center justify-center" style={{ background: 'var(--color-bg-base)' }}>
+          <div className="rounded-full w-28 h-28 flex flex-col items-center justify-center" style={{ background: 'var(--surface-base)' }}>
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

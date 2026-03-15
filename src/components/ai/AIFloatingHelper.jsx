@@ -161,28 +161,28 @@ export default function AIFloatingHelper() {
                 : 'bottom-20 lg:bottom-6 left-4 lg:left-6 w-80 sm:w-96'
             }`}
           >
-            <div className="glass-card-raised rounded-2xl shadow-2xl shadow-black/40 overflow-hidden flex flex-col max-h-[70vh]">
+            <div className="fl-card-static rounded-2xl shadow-2xl shadow-black/40 overflow-hidden flex flex-col max-h-[70vh]">
               {/* Header */}
-              <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-violet-500/5">
+              <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--border-subtle)] bg-violet-500/5">
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-xl bg-violet-500/10 flex items-center justify-center">
                     <Sparkles size={16} className="text-violet-400" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-white">المساعد الذكي</p>
+                    <p className="text-sm font-semibold text-[var(--text-primary)]">المساعد الذكي</p>
                     <p className="text-xs text-muted">اسأل أي شيء</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => setMinimized(!minimized)}
-                    className="btn-ghost p-1.5 text-muted hover:text-white transition-all duration-200 rounded-lg hover:bg-white/5"
+                    className="btn-ghost p-1.5 text-muted hover:text-[var(--text-primary)] transition-all duration-200 rounded-lg hover:bg-[var(--surface-base)]"
                   >
                     <Minimize2 size={14} />
                   </button>
                   <button
                     onClick={() => { setIsOpen(false); setMessages([]) }}
-                    className="btn-ghost p-1.5 text-muted hover:text-white transition-all duration-200 rounded-lg hover:bg-white/5"
+                    className="btn-ghost p-1.5 text-muted hover:text-[var(--text-primary)] transition-all duration-200 rounded-lg hover:bg-[var(--surface-base)]"
                   >
                     <X size={14} />
                   </button>
@@ -205,10 +205,10 @@ export default function AIFloatingHelper() {
                     <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                       <div className={`max-w-[85%] rounded-xl px-3 py-2 text-[13px] ${
                         msg.role === 'user'
-                          ? 'bg-violet-500/20 text-white'
+                          ? 'bg-violet-500/20 text-[var(--text-primary)]'
                           : msg.isError
                             ? 'bg-red-500/10 text-red-400 border border-red-500/20'
-                            : 'bg-white/[0.06] text-white/90 border border-border-subtle'
+                            : 'bg-[var(--surface-base)] text-[var(--text-secondary)] border border-border-subtle'
                       }`}>
                         <div className="whitespace-pre-wrap leading-relaxed">{msg.content}</div>
                       </div>
@@ -231,7 +231,7 @@ export default function AIFloatingHelper() {
               {!minimized && (
                 <form
                   onSubmit={(e) => { e.preventDefault(); sendMessage() }}
-                  className="flex items-center gap-2 p-4 border-t border-white/10"
+                  className="flex items-center gap-2 p-4 border-t border-[var(--border-subtle)]"
                 >
                   <input
                     ref={inputRef}

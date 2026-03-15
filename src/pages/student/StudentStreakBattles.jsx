@@ -52,7 +52,7 @@ export default function StudentStreakBattles() {
             معارك وتحديات
           </h1>
         </div>
-        <div className="glass-card p-8 text-center">
+        <div className="fl-card-static p-8 text-center">
           <Users size={32} className="text-muted mx-auto mb-2" />
           <p className="text-muted">لم يتم تسجيلك في مجموعة بعد — تواصل مع الإدارة</p>
         </div>
@@ -74,30 +74,30 @@ export default function StudentStreakBattles() {
 
       {/* My stats */}
       <div className="grid grid-cols-3 gap-6">
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="fl-card-static p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
           <Flame size={20} className="text-gold-400 mx-auto mb-1" />
-          <p className="text-2xl font-bold text-white">{studentData?.current_streak || 0}</p>
+          <p className="text-2xl font-bold text-[var(--text-primary)]">{studentData?.current_streak || 0}</p>
           <p className="text-xs text-muted">سلسلة حالية</p>
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="fl-card-static p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
           <Trophy size={20} className="text-sky-400 mx-auto mb-1" />
-          <p className="text-2xl font-bold text-white">#{myRank || '—'}</p>
+          <p className="text-2xl font-bold text-[var(--text-primary)]">#{myRank || '—'}</p>
           <p className="text-xs text-muted">ترتيب السلسلة</p>
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }} className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }} className="fl-card-static p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
           <Zap size={20} className="text-violet-400 mx-auto mb-1" />
-          <p className="text-2xl font-bold text-white">#{myXpRank || '—'}</p>
+          <p className="text-2xl font-bold text-[var(--text-primary)]">#{myXpRank || '—'}</p>
           <p className="text-xs text-muted">ترتيب النقاط</p>
         </motion.div>
       </div>
 
       {/* Streak Leaderboard */}
-      <div className="glass-card p-7">
+      <div className="fl-card-static p-7">
         <div className="flex items-center gap-2 mb-4">
           <div className="w-8 h-8 rounded-xl bg-gold-500/10 flex items-center justify-center">
             <Flame size={16} className="text-gold-400" />
           </div>
-          <h2 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>ترتيب السلاسل</h2>
+          <h2 className="text-section-title" style={{ color: 'var(--text-primary)' }}>ترتيب السلاسل</h2>
         </div>
         <div className="space-y-2">
           {streakRanking.map((student, i) => {
@@ -124,7 +124,7 @@ export default function StudentStreakBattles() {
                     {i === 0 ? <Crown size={14} /> : i + 1}
                   </span>
                   <div>
-                    <span className={`text-sm ${isMe ? 'text-gold-400 font-bold' : 'text-white'}`}>
+                    <span className={`text-sm ${isMe ? 'text-gold-400 font-bold' : 'text-[var(--text-primary)]'}`}>
                       {name} {isMe && '(أنت)'}
                     </span>
                   </div>
@@ -140,12 +140,12 @@ export default function StudentStreakBattles() {
       </div>
 
       {/* XP Leaderboard */}
-      <div className="glass-card p-7">
+      <div className="fl-card-static p-7">
         <div className="flex items-center gap-2 mb-4">
           <div className="w-8 h-8 rounded-xl bg-violet-500/10 flex items-center justify-center">
             <Zap size={16} className="text-violet-400" />
           </div>
-          <h2 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>ترتيب النقاط</h2>
+          <h2 className="text-section-title" style={{ color: 'var(--text-primary)' }}>ترتيب النقاط</h2>
         </div>
         <div className="space-y-2">
           {xpRanking.map((student, i) => {
@@ -171,7 +171,7 @@ export default function StudentStreakBattles() {
                   }`}>
                     {i === 0 ? <Crown size={14} /> : i + 1}
                   </span>
-                  <span className={`text-sm ${isMe ? 'text-violet-400 font-bold' : 'text-white'}`}>
+                  <span className={`text-sm ${isMe ? 'text-violet-400 font-bold' : 'text-[var(--text-primary)]'}`}>
                     {name} {isMe && '(أنت)'}
                   </span>
                 </div>
@@ -187,7 +187,7 @@ export default function StudentStreakBattles() {
 
       {/* Quick challenges */}
       <div>
-        <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
+        <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
           <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
             <Target size={16} className="text-emerald-400" />
           </div>
@@ -207,15 +207,15 @@ export default function StudentStreakBattles() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="glass-card p-4 hover:translate-y-[-2px] transition-all duration-200"
+                className="fl-card p-4 hover:translate-y-[-2px] transition-all duration-200"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-white">{challenge.title}</span>
+                  <span className="text-sm text-[var(--text-primary)]">{challenge.title}</span>
                   <span className="text-xs text-violet-400 flex items-center gap-1">
                     <Zap size={10} />+{challenge.reward} XP
                   </span>
                 </div>
-                <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'var(--color-bg-surface-raised)' }}>
+                <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'var(--surface-raised)' }}>
                   <div
                     className="h-full bg-emerald-500 rounded-full transition-all"
                     style={{ width: `${pct}%` }}

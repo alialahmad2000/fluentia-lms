@@ -101,7 +101,7 @@ export default function AdminChurnPrediction() {
     <div className="space-y-12">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-page-title text-white flex items-center gap-2">
+          <h1 className="text-page-title text-[var(--text-primary)] flex items-center gap-2">
             <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
               <Shield size={20} className="text-red-400" />
             </div>
@@ -135,7 +135,7 @@ export default function AdminChurnPrediction() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.08 }}
-            className="glass-card p-4 hover:translate-y-[-2px] transition-all duration-200"
+            className="fl-card p-4"
           >
             <div className="flex items-center justify-between mb-2">
               <span className="text-muted text-xs">{card.label}</span>
@@ -143,7 +143,7 @@ export default function AdminChurnPrediction() {
                 <card.icon size={16} />
               </div>
             </div>
-            <p className="text-xl font-bold text-white">{card.value}</p>
+            <p className="text-xl font-bold text-[var(--text-primary)]">{card.value}</p>
           </motion.div>
         ))}
       </div>
@@ -155,7 +155,7 @@ export default function AdminChurnPrediction() {
             key={f}
             onClick={() => setFilter(f)}
             className={`text-xs px-3 py-1.5 rounded-lg transition-all ${
-              filter === f ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30' : 'bg-white/5 text-muted hover:text-white'
+              filter === f ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30' : 'bg-[var(--surface-base)] text-muted hover:text-[var(--text-primary)]'
             }`}
           >
             {f === 'all' ? 'الكل' : RISK_CONFIG[f].label}
@@ -170,9 +170,9 @@ export default function AdminChurnPrediction() {
           <Loader2 size={24} className="animate-spin text-sky-400" />
         </div>
       ) : filtered.length === 0 ? (
-        <div className="glass-card p-12 text-center">
+        <div className="fl-card-static p-12 text-center">
           <Shield size={48} className="mx-auto text-muted mb-4" />
-          <h3 className="text-lg font-bold text-white mb-2">لا توجد تنبؤات</h3>
+          <h3 className="text-lg font-bold text-[var(--text-primary)] mb-2">لا توجد تنبؤات</h3>
           <p className="text-muted text-sm">اضغط "تحليل جديد" لبدء تحليل الطلاب</p>
         </div>
       ) : (
@@ -189,7 +189,7 @@ export default function AdminChurnPrediction() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.03 }}
-                className={`glass-card overflow-hidden ${risk.border}`}
+                className={`fl-card-static overflow-hidden ${risk.border}`}
               >
                 <div
                   className="p-4 cursor-pointer"
@@ -203,7 +203,7 @@ export default function AdminChurnPrediction() {
                         </span>
                       </div>
                       <div>
-                        <h3 className="font-medium text-white text-sm">{name}</h3>
+                        <h3 className="font-medium text-[var(--text-primary)] text-sm">{name}</h3>
                         <p className="text-xs text-muted">{group}</p>
                       </div>
                     </div>
@@ -221,7 +221,7 @@ export default function AdminChurnPrediction() {
                   {/* Factor pills */}
                   <div className="flex flex-wrap gap-1 mt-2">
                     {prediction.factors?.map((f, fi) => (
-                      <span key={fi} className="text-xs bg-white/5 text-muted px-2 py-0.5 rounded-lg">
+                      <span key={fi} className="text-xs bg-[var(--surface-base)] text-muted px-2 py-0.5 rounded-lg">
                         {f.description}
                       </span>
                     ))}
@@ -234,7 +234,7 @@ export default function AdminChurnPrediction() {
                     {/* Recommendations */}
                     {prediction.recommendations?.length > 0 && (
                       <div>
-                        <h4 className="text-xs font-medium text-white mb-2">التوصيات:</h4>
+                        <h4 className="text-xs font-medium text-[var(--text-primary)] mb-2">التوصيات:</h4>
                         <div className="space-y-2">
                           {prediction.recommendations.map((rec, ri) => (
                             <div key={ri} className="flex items-start gap-2 text-xs">
@@ -252,9 +252,9 @@ export default function AdminChurnPrediction() {
                         <span className="text-muted">مؤشر الخطورة</span>
                         <span className={risk.text}>{prediction.risk_score}%</span>
                       </div>
-                      <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                      <div className="fl-progress-track w-full">
                         <div
-                          className={`h-full rounded-full ${
+                          className={`fl-progress-fill ${
                             prediction.risk_score >= 75 ? 'bg-red-500' :
                             prediction.risk_score >= 50 ? 'bg-amber-500' :
                             prediction.risk_score >= 25 ? 'bg-gold-500' : 'bg-emerald-500'

@@ -426,7 +426,7 @@ export default function StudentReferral() {
         className="grid grid-cols-3 gap-6"
       >
         {/* Total referrals */}
-        <div className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
+        <div className="fl-card-static p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
           <p className="text-2xl font-black text-gold-400">
             {loadingMine ? <span className="skeleton inline-block w-8 h-7 rounded" /> : referralCount}
           </p>
@@ -434,7 +434,7 @@ export default function StudentReferral() {
         </div>
 
         {/* XP earned */}
-        <div className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
+        <div className="fl-card-static p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
           <p className="text-2xl font-black text-sky-400">
             {unlockedTiers.length > 0
               ? unlockedTiers[unlockedTiers.length - 1].xp
@@ -444,7 +444,7 @@ export default function StudentReferral() {
         </div>
 
         {/* Next milestone */}
-        <div className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
+        <div className="fl-card-static p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
           <p className="text-2xl font-black text-emerald-400">
             {nextTier ? nextTier.count - referralCount : '✓'}
           </p>
@@ -460,13 +460,13 @@ export default function StudentReferral() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.08 }}
-          className="glass-card p-4"
+          className="fl-card-static p-4"
         >
           <div className="flex items-center justify-between mb-2">
-            <p className="text-sm text-white font-medium">المكافأة القادمة</p>
+            <p className="text-sm text-[var(--text-primary)] font-medium">المكافأة القادمة</p>
             <span className="badge-gold">{nextTier.reward}</span>
           </div>
-          <div className="w-full rounded-full h-2" style={{ background: 'var(--color-bg-surface-raised)' }}>
+          <div className="w-full rounded-full h-2" style={{ background: 'var(--surface-raised)' }}>
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${Math.min((referralCount / nextTier.count) * 100, 100)}%` }}
@@ -492,7 +492,7 @@ export default function StudentReferral() {
                 ? 'bg-gold-500/10 text-gold-400 border border-gold-500/20'
                 : 'text-muted hover:text-white border border-transparent'
             }`}
-            style={activeTab !== t.value ? { background: 'var(--color-bg-surface-raised)' } : undefined}
+            style={activeTab !== t.value ? { background: 'var(--surface-raised)' } : undefined}
           >
             <t.Icon size={15} />
             {t.label}
@@ -511,7 +511,7 @@ export default function StudentReferral() {
             className="space-y-4"
           >
             {/* Referral code */}
-            <div className="glass-card p-7">
+            <div className="fl-card-static p-7">
               <p className="text-xs text-muted mb-2 flex items-center gap-1">
                 <Link2 size={12} />
                 كود الإحالة الخاص بك
@@ -538,13 +538,13 @@ export default function StudentReferral() {
             </div>
 
             {/* Referral link */}
-            <div className="glass-card p-7">
+            <div className="fl-card-static p-7">
               <p className="text-xs text-muted mb-2 flex items-center gap-1">
                 <ExternalLink size={12} />
                 رابط الإحالة
               </p>
               <div className="flex items-center gap-2">
-                <p className="flex-1 text-sm text-white/70 font-mono truncate rounded-xl px-3 py-2 border border-border-subtle" style={{ background: 'var(--color-bg-surface-raised)' }}>
+                <p className="flex-1 text-sm text-white/70 font-mono truncate rounded-xl px-3 py-2 border border-border-subtle" style={{ background: 'var(--surface-raised)' }}>
                   {referralLink}
                 </p>
                 <CopyButton text={referralLink} size="sm" />
@@ -552,7 +552,7 @@ export default function StudentReferral() {
             </div>
 
             {/* CTA note */}
-            <div className="glass-card p-4 border-gold-500/20" style={{ borderColor: 'rgba(251,191,36,0.15)' }}>
+            <div className="fl-card-static p-4 border-gold-500/20" style={{ borderColor: 'rgba(251,191,36,0.15)' }}>
               <p className="text-sm text-white/80 leading-relaxed text-center">
                 أرسل لأصدقائك رابطك واطلب منهم حجز{' '}
                 <span className="text-gold-400 font-semibold">لقاء مبدئي مجاني مع المدرب</span>{' '}
@@ -611,7 +611,7 @@ export default function StudentReferral() {
 
             {/* Rewards tiers */}
             <div>
-              <h2 className="text-sm font-semibold text-white mb-3 flex items-center gap-1.5">
+              <h2 className="text-sm font-semibold text-[var(--text-primary)] mb-3 flex items-center gap-1.5">
                 <Zap size={15} className="text-gold-400" />
                 مستويات المكافآت
               </h2>
@@ -634,13 +634,13 @@ export default function StudentReferral() {
                       <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
                         unlocked ? `${style.card}` : ''
                       }`}
-                        style={!unlocked ? { background: 'var(--color-bg-surface-raised)' } : undefined}
+                        style={!unlocked ? { background: 'var(--surface-raised)' } : undefined}
                       >
                         <tier.Icon size={18} className={unlocked ? style.text : 'text-muted'} />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-sm font-bold text-white">
+                          <span className="text-sm font-bold text-[var(--text-primary)]">
                             {tier.count} {tier.count === 1 ? 'إحالة' : 'إحالات'}
                           </span>
                           {tier.badge && (
@@ -662,7 +662,7 @@ export default function StudentReferral() {
                             <Check size={14} className={style.text} />
                           </div>
                         ) : (
-                          <div className="w-7 h-7 rounded-full flex items-center justify-center" style={{ background: 'var(--color-bg-surface-raised)' }}>
+                          <div className="w-7 h-7 rounded-full flex items-center justify-center" style={{ background: 'var(--surface-raised)' }}>
                             <span className="text-xs font-bold text-muted">{tier.count - referralCount}</span>
                           </div>
                         )}
@@ -676,7 +676,7 @@ export default function StudentReferral() {
             {/* Who used your code */}
             {referralCount > 0 && (
               <div>
-                <h2 className="text-sm font-semibold text-white mb-3 flex items-center gap-1.5">
+                <h2 className="text-sm font-semibold text-[var(--text-primary)] mb-3 flex items-center gap-1.5">
                   <Users size={15} className="text-sky-400" />
                   من انضم بإحالتك ({referralCount})
                 </h2>
@@ -690,12 +690,12 @@ export default function StudentReferral() {
                         initial={{ opacity: 0, y: 6 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.05 }}
-                        className="glass-card p-3 flex items-center gap-3"
+                        className="fl-card-static p-3 flex items-center gap-3"
                       >
                         <div className="w-9 h-9 rounded-full bg-sky-500/20 border border-sky-500/20 flex items-center justify-center text-sky-400 font-bold text-sm shrink-0">
                           {rName[0]}
                         </div>
-                        <p className="text-sm text-white">{rName}</p>
+                        <p className="text-sm text-[var(--text-primary)]">{rName}</p>
                         <span className="mr-auto badge-emerald">انضم</span>
                       </motion.div>
                     )
@@ -756,13 +756,13 @@ export default function StudentReferral() {
                           ? `${style.bg} ${style.border}`
                           : 'border-border-subtle'
                     }`}
-                    style={!entry.isMe && !style.bg ? { background: 'var(--color-bg-surface-raised)' } : undefined}
+                    style={!entry.isMe && !style.bg ? { background: 'var(--surface-raised)' } : undefined}
                   >
                     {/* Rank badge */}
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
                       style.text || 'text-muted'
                     } ${style.bg || ''}`}
-                      style={!style.bg ? { background: 'var(--color-bg-surface-raised)' } : undefined}
+                      style={!style.bg ? { background: 'var(--surface-raised)' } : undefined}
                     >
                       {RankIcon ? <RankIcon size={15} /> : entry.rank}
                     </div>
@@ -778,7 +778,7 @@ export default function StudentReferral() {
 
                     {/* Name */}
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-white truncate">
+                      <p className="text-sm font-medium text-[var(--text-primary)] truncate">
                         {entry.name}
                         {entry.isMe && <span className="text-xs text-sky-400 mr-1">(أنت)</span>}
                       </p>
@@ -787,7 +787,7 @@ export default function StudentReferral() {
 
                     {/* Count */}
                     <div className="text-left shrink-0">
-                      <p className={`text-sm font-bold ${index === 0 ? 'text-gold-400' : 'text-white'}`}>
+                      <p className={`text-sm font-bold ${index === 0 ? 'text-gold-400' : 'text-[var(--text-primary)]'}`}>
                         {entry.count}
                       </p>
                       <p className="text-xs text-muted">إحالة</p>
@@ -796,7 +796,7 @@ export default function StudentReferral() {
                 )
               })
             ) : (
-              <div className="glass-card p-10 text-center">
+              <div className="fl-card-static p-10 text-center">
                 <Trophy size={40} className="text-muted mx-auto mb-3 opacity-30" />
                 <p className="text-muted">لا توجد إحالات بعد</p>
                 <p className="text-xs text-muted mt-1">كن أول من يدعو صديقاً!</p>

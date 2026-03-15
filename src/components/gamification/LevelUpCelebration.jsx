@@ -45,8 +45,8 @@ export default function LevelUpCelebration({ newLevel, onClose }) {
           onClick={(e) => e.stopPropagation()}
           className="relative z-[102] w-full max-w-sm"
         >
-          <div className="glass-card p-8 text-center border-sky-500/30 shadow-2xl shadow-sky-500/10">
-            <button onClick={onClose} className="absolute top-3 left-3 text-muted hover:text-white transition-colors">
+          <div className="fl-card-static p-8 text-center border-sky-500/30 shadow-2xl shadow-sky-500/10">
+            <button onClick={onClose} className="absolute top-3 left-3 text-muted hover:text-[var(--text-primary)] transition-colors">
               <X size={18} />
             </button>
 
@@ -80,7 +80,7 @@ export default function LevelUpCelebration({ newLevel, onClose }) {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="text-2xl font-bold text-white mb-2"
+              className="text-2xl font-bold text-[var(--text-primary)] mb-2"
             >
               {levelInfo.title_ar}
             </motion.h2>

@@ -112,10 +112,10 @@ export default function AdminPayments() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-            <CreditCard size={22} className="text-emerald-400" />
+            <CreditCard size={22} className="text-emerald-400" strokeWidth={1.5} />
           </div>
           <div>
-            <h1 className="text-page-title text-white">المدفوعات</h1>
+            <h1 className="text-page-title text-[var(--text-primary)]">المدفوعات</h1>
             <p className="text-muted text-sm mt-1">{payments?.length || 0} سجل</p>
           </div>
         </div>
@@ -138,21 +138,21 @@ export default function AdminPayments() {
 
       {/* Summary Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <div className="stat-card">
+        <div className="fl-stat-card fl-stat-card--emerald">
           <div className="stat-icon bg-emerald-500/10">
             <DollarSign size={20} className="text-emerald-400" />
           </div>
           <p className="stat-number text-emerald-400">{totalPaid.toLocaleString()}</p>
           <p className="stat-label">ريال مدفوع</p>
         </div>
-        <div className="stat-card">
+        <div className="fl-stat-card fl-stat-card--amber">
           <div className="stat-icon bg-amber-500/10">
             <Clock size={20} className="text-amber-400" />
           </div>
           <p className="stat-number text-amber-400">{pendingCount}</p>
           <p className="stat-label">معلق</p>
         </div>
-        <div className="stat-card">
+        <div className="fl-stat-card fl-stat-card--violet">
           <div className="stat-icon bg-red-500/10">
             <AlertCircle size={20} className="text-red-400" />
           </div>
@@ -162,7 +162,7 @@ export default function AdminPayments() {
       </div>
 
       {/* Filter */}
-      <div className="glass-card p-7">
+      <div className="fl-card-static p-7">
         <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)} className="input-field py-2 px-3 text-sm w-auto">
           <option value="">كل الحالات</option>
           {Object.entries(PAYMENT_STATUS).map(([k, v]) => (
@@ -175,7 +175,7 @@ export default function AdminPayments() {
       {isLoading ? (
         <div className="flex justify-center py-12"><Loader2 className="animate-spin text-muted" size={24} /></div>
       ) : (
-        <div className="glass-card overflow-hidden">
+        <div className="fl-card-static overflow-hidden">
           <div className="overflow-x-auto">
             <table className="data-table">
               <thead>
@@ -194,8 +194,8 @@ export default function AdminPayments() {
                   const statusConfig = PAYMENT_STATUS[p.status] || PAYMENT_STATUS.pending
                   return (
                     <tr key={p.id}>
-                      <td className="text-white">{getStudentName(p.students)}</td>
-                      <td className="text-white font-medium">{p.amount?.toLocaleString()} ريال</td>
+                      <td className="text-[var(--text-primary)]">{getStudentName(p.students)}</td>
+                      <td className="text-[var(--text-primary)] font-medium">{p.amount?.toLocaleString()} ريال</td>
                       <td className="text-muted">{PAYMENT_METHOD[p.method] || p.method || '—'}</td>
                       <td className="text-muted text-xs">
                         {p.period_start && p.period_end
@@ -285,11 +285,11 @@ function PaymentFormModal({ payment, students, onClose, onSave, saving }) {
       <motion.div
         initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }}
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-md glass-card-raised p-6 max-h-[90vh] overflow-y-auto"
+        className="w-full max-w-md fl-card-static p-6 max-h-[90vh] overflow-y-auto"
       >
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>{payment ? 'تعديل الدفعة' : 'تسجيل دفعة جديدة'}</h2>
-          <button onClick={onClose} className="btn-icon w-8 h-8 text-muted hover:text-white"><X size={20} /></button>
+          <h2 className="text-section-title" style={{ color: 'var(--text-primary)' }}>{payment ? 'تعديل الدفعة' : 'تسجيل دفعة جديدة'}</h2>
+          <button onClick={onClose} className="btn-icon w-8 h-8 text-muted hover:text-[var(--text-primary)]"><X size={20} /></button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">

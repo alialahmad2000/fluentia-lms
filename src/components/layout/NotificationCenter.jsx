@@ -180,11 +180,11 @@ export default function NotificationCenter() {
             role="dialog"
             aria-label="مركز الإشعارات"
             className="absolute top-full end-0 mt-2 w-80 sm:w-96 max-w-[calc(100vw-2rem)] rounded-2xl overflow-hidden z-50"
-            style={{ maxHeight: '70vh', background: 'var(--color-dropdown-bg, rgba(6,14,28,0.97))', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05)' }}
+            style={{ maxHeight: '70vh', background: 'var(--color-dropdown-bg)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', border: '1px solid var(--border-default)', boxShadow: '0 8px 32px var(--shadow-sm), 0 0 0 1px var(--border-subtle)' }}
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: 'var(--color-border-subtle)' }}>
-              <h3 className="text-lg font-semibold" style={{ color: 'var(--color-text-primary)' }}>الإشعارات</h3>
+            <div className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
+              <h3 className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>الإشعارات</h3>
               <div className="flex items-center gap-2">
                 {unreadCount > 0 && (
                   <button
@@ -216,16 +216,16 @@ export default function NotificationCenter() {
                       className={`w-full text-right flex items-start gap-3 px-5 py-3.5 transition-all duration-200 ${
                         !n.read ? 'bg-sky-500/[0.03]' : ''
                       }`}
-                      style={{ borderBottom: '1px solid var(--color-border-subtle)' }}
-                      onMouseEnter={e => e.currentTarget.style.background = 'var(--color-bg-hover)'}
+                      style={{ borderBottom: '1px solid var(--border-subtle)' }}
+                      onMouseEnter={e => e.currentTarget.style.background = 'var(--surface-raised)'}
                       onMouseLeave={e => e.currentTarget.style.background = !n.read ? 'rgba(56,189,248,0.03)' : ''}
                     >
                       {/* Icon */}
-                      <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg shrink-0" style={{ background: 'var(--color-bg-surface-raised)' }}>{typeConfig.icon}</div>
+                      <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg shrink-0" style={{ background: 'var(--surface-raised)' }}>{typeConfig.icon}</div>
 
                       {/* Content */}
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-medium" style={{ color: !n.read ? 'var(--color-text-primary)' : 'var(--color-text-muted)' }}>
+                        <p className="text-xs font-medium" style={{ color: !n.read ? 'var(--text-primary)' : 'var(--text-tertiary)' }}>
                           {n.title}
                         </p>
                         <p className="text-xs text-muted truncate mt-0.5">{n.body}</p>

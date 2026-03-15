@@ -207,7 +207,7 @@ export default function TrainerTeams() {
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
-            <Users className="text-sky-400" size={20} />
+            <Users className="text-sky-400" size={20} strokeWidth={1.5} />
           </div>
           <div>
             <h1 className="text-page-title">إدارة الفرق</h1>
@@ -251,9 +251,9 @@ export default function TrainerTeams() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="glass-card p-7 space-y-4"
+            className="fl-card-static p-7 space-y-4"
           >
-            <h3 className="text-sm font-medium text-white">فريق جديد</h3>
+            <h3 className="text-sm font-medium text-[var(--text-primary)]">فريق جديد</h3>
             <div className="grid sm:grid-cols-3 gap-6">
               <input
                 className="input-field text-sm"
@@ -308,13 +308,13 @@ export default function TrainerTeams() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="glass-card p-7 hover:translate-y-[-2px] transition-all duration-200"
+                className="fl-card p-7"
               >
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-3">
                     <span className="text-2xl">{team.emoji || '🏆'}</span>
                     <div>
-                      <h3 className="text-sm font-bold text-white">{team.name}</h3>
+                      <h3 className="text-sm font-bold text-[var(--text-primary)]">{team.name}</h3>
                       <div className="flex items-center gap-2 text-xs text-muted">
                         <span>{members.length} أعضاء</span>
                         <span className="flex items-center gap-0.5 text-sky-400">
@@ -334,8 +334,8 @@ export default function TrainerTeams() {
                 {/* Members */}
                 <div className="flex flex-wrap gap-2">
                   {members.map(m => (
-                    <div key={m.id} className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs" style={{ background: 'var(--color-bg-surface-raised)' }}>
-                      <span className="text-white font-medium">{m.name}</span>
+                    <div key={m.id} className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs" style={{ background: 'var(--surface-raised)' }}>
+                      <span className="text-[var(--text-primary)] font-medium">{m.name}</span>
                       <span className="text-muted">{m.xp} XP</span>
                       <button
                         onClick={() => removeFromTeam.mutate(m.id)}
@@ -372,7 +372,7 @@ export default function TrainerTeams() {
           })}
 
           {teams.length === 0 && (
-            <div className="glass-card p-12 text-center">
+            <div className="fl-card-static p-12 text-center">
               <Users size={48} className="text-muted mx-auto mb-3 opacity-30" />
               <p className="text-muted">لا توجد فرق</p>
               <p className="text-xs text-muted mt-1">أنشئ فرق لبدء المنافسة بين الطلاب</p>

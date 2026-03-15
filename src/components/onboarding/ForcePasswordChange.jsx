@@ -66,13 +66,13 @@ export default function ForcePasswordChange() {
       <motion.div
         initial={{ scale: 0.9, y: 20 }}
         animate={{ scale: 1, y: 0 }}
-        className="w-full max-w-md glass-card-raised p-8"
+        className="w-full max-w-md fl-card-static p-8"
       >
         <div className="text-center mb-8">
           <div className="w-16 h-16 rounded-2xl bg-sky-500/10 flex items-center justify-center mx-auto mb-4">
             <Lock size={28} className="text-sky-400" />
           </div>
-          <h2 className="text-xl font-bold" style={{ color: 'var(--color-text-primary)' }}>تغيير كلمة المرور</h2>
+          <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>تغيير كلمة المرور</h2>
           <p className="text-sm text-muted mt-2">يجب تغيير كلمة المرور المؤقتة قبل المتابعة</p>
         </div>
 
@@ -93,7 +93,7 @@ export default function ForcePasswordChange() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-muted hover:text-white transition-colors"
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-muted hover:text-[var(--text-primary)] transition-colors"
               >
                 {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>

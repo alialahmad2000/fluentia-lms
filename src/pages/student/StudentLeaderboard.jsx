@@ -64,7 +64,7 @@ function ShareRankButton({ rank, total }) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.88, y: -4 }}
             transition={{ duration: 0.15, ease: 'easeOut' }}
-            className="absolute left-0 top-full mt-1.5 z-50 w-44 glass-card-raised rounded-xl overflow-hidden shadow-xl"
+            className="absolute left-0 top-full mt-1.5 z-50 w-44 fl-card-static rounded-xl overflow-hidden shadow-xl"
           >
             {/* WhatsApp */}
             <button
@@ -315,7 +315,7 @@ export default function StudentLeaderboard() {
                 ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
                 : 'text-muted hover:text-white border border-transparent'
             }`}
-            style={tab !== t.value ? { background: 'var(--color-bg-surface-raised)' } : undefined}
+            style={tab !== t.value ? { background: 'var(--surface-raised)' } : undefined}
           >
             <t.icon size={16} />
             {t.label}
@@ -335,7 +335,7 @@ export default function StudentLeaderboard() {
                   ? 'bg-gold-500/10 text-gold-400 border border-gold-500/20'
                   : 'text-muted hover:text-white border border-transparent'
               }`}
-              style={period !== p.value ? { background: 'var(--color-bg-surface-raised)' } : undefined}
+              style={period !== p.value ? { background: 'var(--surface-raised)' } : undefined}
             >
               {p.label}
             </button>
@@ -348,7 +348,7 @@ export default function StudentLeaderboard() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="glass-card-raised p-7 border-sky-500/20"
+          className="fl-card-static p-7 border-sky-500/20"
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -356,7 +356,7 @@ export default function StudentLeaderboard() {
                 {myRank.rank}
               </div>
               <div>
-                <p className="text-sm text-white font-medium">ترتيبك</p>
+                <p className="text-sm text-[var(--text-primary)] font-medium">ترتيبك</p>
                 <p className="text-xs text-white/40">
                   المركز {myRank.rank} من {ranking?.length || 0}
                 </p>
@@ -403,13 +403,13 @@ export default function StudentLeaderboard() {
                       ? `${style.bg} ${style.border}`
                       : 'border-border-subtle'
                 }`}
-                style={!player.isMe && !style.bg ? { background: 'var(--color-bg-surface-raised)' } : undefined}
+                style={!player.isMe && !style.bg ? { background: 'var(--surface-raised)' } : undefined}
               >
                 {/* Rank */}
                 <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-sm font-bold ${
                   style.text || 'text-muted'
                 } ${style.bg || ''}`}
-                  style={!style.bg ? { background: 'var(--color-bg-surface-raised)' } : undefined}>
+                  style={!style.bg ? { background: 'var(--surface-raised)' } : undefined}>
                   {RankIcon ? <RankIcon size={16} /> : player.rank}
                 </div>
 
@@ -422,7 +422,7 @@ export default function StudentLeaderboard() {
 
                 {/* Info */}
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-white truncate">
+                  <p className="text-sm font-medium text-[var(--text-primary)] truncate">
                     {player.name}
                     {player.isMe && <span className="text-xs text-sky-400 mr-1">(أنت)</span>}
                   </p>
@@ -441,7 +441,7 @@ export default function StudentLeaderboard() {
 
                 {/* XP */}
                 <div className="text-left flex items-center gap-2">
-                  <p className={`text-sm font-bold ${index === 0 ? 'text-gold-400' : 'text-white'}`}>
+                  <p className={`text-sm font-bold ${index === 0 ? 'text-gold-400' : 'text-[var(--text-primary)]'}`}>
                     {player.xp} XP
                   </p>
                   {period === 'week' && weeklyCompletionMap?.[player.id] && (
@@ -458,7 +458,7 @@ export default function StudentLeaderboard() {
             )
           })}
           {ranking.length === 0 && (
-            <div className="glass-card p-8 text-center">
+            <div className="fl-card-static p-8 text-center">
               <p className="text-muted">لا توجد بيانات للفترة المحددة</p>
             </div>
           )}
@@ -485,19 +485,19 @@ export default function StudentLeaderboard() {
                 </div>
                 <div className="text-3xl">{team.emoji || '🏆'}</div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold text-white">{team.name}</p>
+                  <p className="text-sm font-bold text-[var(--text-primary)]">{team.name}</p>
                   <p className="text-xs text-white/40">{team.memberCount} أعضاء</p>
                 </div>
                 <div className="text-left">
-                  <p className={`text-lg font-bold ${index === 0 ? 'text-gold-400' : 'text-white'}`}>
+                  <p className={`text-lg font-bold ${index === 0 ? 'text-gold-400' : 'text-[var(--text-primary)]'}`}>
                     {team.total_xp || 0} XP
                   </p>
                 </div>
               </motion.div>
             )
           }) : (
-            <div className="glass-card p-8 text-center">
-              <div className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
+            <div className="fl-card-static p-8 text-center">
+              <div className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-3" style={{ background: 'var(--surface-raised)' }}>
                 <Trophy size={32} className="text-muted opacity-30" />
               </div>
               <p className="text-muted">لم يتم إنشاء فرق بعد</p>

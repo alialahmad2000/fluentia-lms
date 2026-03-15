@@ -208,7 +208,7 @@ function CertRow({ cert, onClick, delay }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay }}
       onClick={onClick}
-      className="w-full text-right glass-card p-4 flex items-center gap-4 hover:translate-y-[-2px] hover:border-gold-500/30 border border-transparent transition-all duration-200 group"
+      className="w-full text-right fl-card p-4 flex items-center gap-4 hover:translate-y-[-2px] hover:border-gold-500/30 border border-transparent transition-all duration-200 group"
     >
       {/* Icon badge */}
       <div
@@ -223,7 +223,7 @@ function CertRow({ cert, onClick, delay }) {
 
       {/* Text */}
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-semibold text-white truncate">{cert.title}</p>
+        <p className="text-sm font-semibold text-[var(--text-primary)] truncate">{cert.title}</p>
         <p className="text-xs text-muted mt-0.5">{cert.typeLabel}</p>
         <p className="text-xs mt-1 font-mono" style={{ color: 'rgba(212,175,55,0.6)' }}>
           {cert.id}
@@ -301,18 +301,18 @@ function ShareOverlay({ cert, onClose }) {
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 60, opacity: 0 }}
         transition={{ type: 'spring', damping: 25 }}
-        className="glass-card w-full max-w-sm p-6 space-y-4"
+        className="fl-card-static w-full max-w-sm p-6 space-y-4"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between">
-          <h3 className="font-semibold text-white">مشاركة الشهادة</h3>
+          <h3 className="font-semibold text-[var(--text-primary)]">مشاركة الشهادة</h3>
           <button onClick={onClose} className="text-muted hover:text-white transition-colors">
             <X size={18} />
           </button>
         </div>
 
         {/* Copy link */}
-        <div className="flex items-center gap-2 rounded-xl p-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
+        <div className="flex items-center gap-2 rounded-xl p-3" style={{ background: 'var(--surface-raised)' }}>
           <p className="flex-1 text-xs text-muted truncate font-mono">{verifyUrl}</p>
           <button
             onClick={handleCopy}
@@ -432,7 +432,7 @@ function CertificateModal({ cert, studentName, onClose }) {
         >
           {/* Close */}
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold text-white">الشهادة</h2>
+            <h2 className="text-lg font-bold text-[var(--text-primary)]">الشهادة</h2>
             <button
               onClick={onClose}
               className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-muted hover:text-white transition-colors"
@@ -600,7 +600,7 @@ function EmptyState({ tab }) {
       >
         🎖️
       </div>
-      <p className="text-white font-semibold mb-1">{msg.title}</p>
+      <p className="text-[var(--text-primary)] font-semibold mb-1">{msg.title}</p>
       <p className="text-muted text-sm max-w-xs">{msg.sub}</p>
     </div>
   )
@@ -696,12 +696,12 @@ export default function StudentCertificate() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.08 + i * 0.07 }}
-            className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200"
+            className="fl-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200"
           >
             <div className="w-10 h-10 rounded-xl mx-auto mb-2 flex items-center justify-center" style={{ background: `${stat.color}15` }}>
               <stat.icon size={18} style={{ color: stat.color }} />
             </div>
-            <p className="text-lg font-bold text-white">{stat.value}</p>
+            <p className="text-lg font-bold text-[var(--text-primary)]">{stat.value}</p>
             <p className="text-xs text-muted leading-tight">{stat.label}</p>
           </motion.div>
         ))}
@@ -756,7 +756,7 @@ export default function StudentCertificate() {
         <AnimatePresence mode="wait">
           {filteredCerts.length === 0 ? (
             <motion.div key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <div className="glass-card">
+              <div className="fl-card-static">
                 <EmptyState tab={activeTab} />
               </div>
             </motion.div>
@@ -780,12 +780,12 @@ export default function StudentCertificate() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="glass-card p-4 flex items-start gap-3"
+        className="fl-card-static p-4 flex items-start gap-3"
         style={{ borderColor: 'rgba(212,175,55,0.15)' }}
       >
         <CheckCircle size={18} style={{ color: '#D4AF37', marginTop: 1, flexShrink: 0 }} />
         <div>
-          <p className="text-sm font-medium text-white mb-1">كيف تحصل على شهادات؟</p>
+          <p className="text-sm font-medium text-[var(--text-primary)] mb-1">كيف تحصل على شهادات؟</p>
           <ul className="text-xs text-muted space-y-1 leading-relaxed">
             <li className="flex items-center gap-1.5">
               <BookOpen size={11} className="text-sky-400 shrink-0" />

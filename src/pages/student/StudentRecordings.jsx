@@ -1,18 +1,30 @@
 import { useState } from 'react'
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { PlayCircle, X, Clock, Eye, Loader2 } from 'lucide-react'
+import { PlayCircle, X, Clock, Eye, FileText } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 
+const ARABIC_DAYS = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت']
+
 const CLASS_TYPES = {
-  all: { label: 'الكل', color: '' },
-  reading: { label: 'قراءة', color: 'text-sky-400 bg-sky-500/10 border-sky-500/20' },
-  grammar: { label: 'قواعد', color: 'text-violet-400 bg-violet-500/10 border-violet-500/20' },
-  speaking: { label: 'محادثة', color: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20' },
-  listening: { label: 'استماع', color: 'text-orange-400 bg-orange-500/10 border-orange-500/20' },
-  writing: { label: 'كتابة', color: 'text-pink-400 bg-pink-500/10 border-pink-500/20' },
-  general: { label: 'عام', color: 'text-slate-400 bg-slate-500/10 border-slate-500/20' },
-  ielts: { label: 'IELTS', color: 'text-gold-400 bg-gold-500/10 border-gold-500/20' },
+  all: { label: 'الكل', icon: '', color: '' },
+  reading: { label: 'قراءة', icon: '📖', color: 'text-sky-400 bg-sky-500/10 border-sky-500/20' },
+  grammar: { label: 'قواعد', icon: '📚', color: 'text-violet-400 bg-violet-500/10 border-violet-500/20' },
+  speaking: { label: 'محادثة', icon: '🎤', color: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20' },
+  listening: { label: 'استماع', icon: '🎧', color: 'text-orange-400 bg-orange-500/10 border-orange-500/20' },
+  writing: { label: 'كتابة', icon: '✍️', color: 'text-pink-400 bg-pink-500/10 border-pink-500/20' },
+  general: { label: 'عام', icon: '📋', color: 'text-slate-400 bg-slate-500/10 border-slate-500/20' },
+  ielts: { label: 'IELTS', icon: '🎯', color: 'text-gold-400 bg-gold-500/10 border-gold-500/20' },
+}
+
+function getClassNumber(recordings, rec) {
+  // Count recordings of the same class_type that are on or before this date
+  const sameType = recordings.filter(
+    (r) => r.class_type === rec.class_type && r.recorded_date <= rec.recorded_date
+  )
+  // Sort ascending to get the order
+  sameType.sort((a, b) => a.recorded_date.localeCompare(b.recorded_date))
+  return sameType.findIndex((r) => r.id === rec.id) + 1
 }
 
 export default function StudentRecordings() {
@@ -44,12 +56,10 @@ export default function StudentRecordings() {
     mutationFn: async (id) => {
       const { error } = await supabase.rpc('increment_view_count', { recording_id: id })
       if (error) {
-        // Fallback: direct update if RPC doesn't exist
-        const { error: updateErr } = await supabase
+        await supabase
           .from('class_recordings')
           .update({ view_count: (viewing?.view_count || 0) + 1 })
           .eq('id', id)
-        if (updateErr) console.error('View count update failed:', updateErr.message)
       }
     },
   })
@@ -60,8 +70,19 @@ export default function StudentRecordings() {
   }
 
   if (isLoading) {
-    return <div className="flex justify-center py-12"><Loader2 className="animate-spin text-muted" size={24} /></div>
+    return (
+      <div className="space-y-8">
+        <div className="skeleton h-10 w-48" />
+        <div className="flex gap-2">{[1, 2, 3, 4].map((i) => <div key={i} className="skeleton h-10 w-20 rounded-xl" />)}</div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[1, 2, 3].map((i) => <div key={i} className="skeleton h-56 rounded-2xl" />)}
+        </div>
+      </div>
+    )
   }
+
+  // Get all recordings (unfiltered) for class number calculation
+  const allForNumbers = recordings || []
 
   return (
     <div className="space-y-8">
@@ -79,9 +100,10 @@ export default function StudentRecordings() {
             className={`px-4 py-2.5 min-h-[44px] rounded-xl text-sm font-medium transition-all duration-200 ${
               filter === key
                 ? 'bg-sky-500/15 text-sky-400 border border-sky-500/30'
-                : 'text-muted hover:text-white border border-transparent'
+                : 'text-muted hover:text-[var(--text-primary)] border border-transparent'
             }`}
           >
+            {type.icon && <span className="me-1">{type.icon}</span>}
             {type.label}
           </button>
         ))}
@@ -92,45 +114,72 @@ export default function StudentRecordings() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {recordings.map((rec, i) => {
             const typeInfo = CLASS_TYPES[rec.class_type] || CLASS_TYPES.general
+            const date = new Date(rec.recorded_date)
+            const dayName = ARABIC_DAYS[date.getDay()]
+            const formattedDate = date.toLocaleDateString('ar-SA', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })
+            const classNum = getClassNumber(allForNumbers, rec)
+
             return (
               <motion.div
                 key={rec.id}
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="glass-card p-6 hover:translate-y-[-2px] transition-all duration-200"
+                className="fl-card p-6 hover:translate-y-[-2px] transition-all duration-200 flex flex-col"
               >
-                <div className="flex items-center justify-between mb-3">
-                  <span className={`text-xs px-2.5 py-1 rounded-full border ${typeInfo.color}`}>
+                {/* Top row: type badge + class number */}
+                <div className="flex items-center justify-between mb-4">
+                  <span className={`text-[13px] px-3 py-1 rounded-full border font-medium ${typeInfo.color}`}>
+                    {typeInfo.icon && <span className="me-1">{typeInfo.icon}</span>}
                     {typeInfo.label}
                   </span>
-                  <div className="flex items-center gap-1 text-xs text-muted">
-                    <Eye size={12} />
-                    <span>{rec.view_count || 0}</span>
-                  </div>
+                  <span className="text-[13px] text-muted font-medium">
+                    الحصة #{classNum}
+                  </span>
                 </div>
 
-                <h3 className="text-sm font-semibold mb-2" style={{ color: 'var(--color-text-primary)' }}>{rec.title}</h3>
+                {/* Title */}
+                <h3 className="text-[15px] font-bold mb-2 leading-relaxed" style={{ color: 'var(--text-primary)' }}>
+                  {rec.title}
+                </h3>
 
-                <div className="flex items-center gap-3 text-xs text-muted mb-4">
-                  <span>{new Date(rec.recorded_date).toLocaleDateString('ar-SA')}</span>
+                {/* Day + Date */}
+                <p className="text-sm text-muted mb-3">
+                  {dayName} — {formattedDate}
+                </p>
+
+                {/* Description */}
+                {rec.description && (
+                  <p className="text-[13px] text-muted mb-3 line-clamp-2 flex items-start gap-1.5">
+                    <FileText size={13} className="shrink-0 mt-0.5" />
+                    <span>{rec.description}</span>
+                  </p>
+                )}
+
+                {/* Duration + Views */}
+                <div className="flex items-center gap-4 text-[13px] text-muted mb-5 mt-auto">
                   {rec.duration_minutes && (
                     <span className="flex items-center gap-1">
-                      <Clock size={12} />
+                      <Clock size={13} />
                       {rec.duration_minutes} دقيقة
                     </span>
                   )}
+                  <span className="flex items-center gap-1">
+                    <Eye size={13} />
+                    {rec.view_count || 0} مشاهدة
+                  </span>
                 </div>
 
-                {rec.description && (
-                  <p className="text-xs text-muted mb-4 line-clamp-2">{rec.description}</p>
-                )}
-
+                {/* Watch button */}
                 <button
                   onClick={() => handleWatch(rec)}
-                  className="btn-primary w-full text-sm py-2.5 flex items-center justify-center gap-2"
+                  className="btn-primary w-full text-sm py-3 flex items-center justify-center gap-2 rounded-xl"
                 >
-                  <PlayCircle size={16} />
+                  <PlayCircle size={18} />
                   شاهدي التسجيل
                 </button>
               </motion.div>
@@ -138,8 +187,8 @@ export default function StudentRecordings() {
           })}
         </div>
       ) : (
-        <div className="glass-card p-12 text-center">
-          <PlayCircle size={40} className="text-muted mx-auto mb-3" />
+        <div className="fl-card-static p-12 text-center">
+          <PlayCircle size={40} strokeWidth={1.5} className="text-muted mx-auto mb-3" />
           <p className="text-muted">لا توجد تسجيلات حالياً</p>
           <p className="text-xs text-muted mt-1">سيتم إضافة تسجيلات الحصص هنا بعد كل حصة</p>
         </div>
@@ -164,7 +213,12 @@ export default function StudentRecordings() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-white">{viewing.title}</h3>
+                <div>
+                  <h3 className="text-lg font-semibold text-white">{viewing.title}</h3>
+                  <p className="text-sm text-white/60 mt-0.5">
+                    {ARABIC_DAYS[new Date(viewing.recorded_date).getDay()]} — {new Date(viewing.recorded_date).toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </p>
+                </div>
                 <button
                   onClick={() => setViewing(null)}
                   className="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all"

@@ -82,12 +82,12 @@ export default function StudentWowMoments() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: i * 0.1 }}
-            className="glass-card p-4 flex items-center gap-3 shrink-0"
+            className="fl-card-static p-4 flex items-center gap-3 shrink-0"
           >
             <div className={`w-10 h-10 rounded-xl ${config.color} flex items-center justify-center`}>
               <Icon size={18} />
             </div>
-            <p className="text-sm font-medium whitespace-nowrap" style={{ color: 'var(--color-text-primary)' }}>
+            <p className="text-sm font-medium whitespace-nowrap" style={{ color: 'var(--text-primary)' }}>
               {config.label}
             </p>
           </motion.div>

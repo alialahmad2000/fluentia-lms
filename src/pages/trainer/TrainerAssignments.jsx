@@ -163,7 +163,7 @@ export default function TrainerAssignments() {
           {[1, 2, 3].map(i => <div key={i} className="skeleton h-24 w-full rounded-2xl" />)}
         </div>
       ) : assignments?.length === 0 ? (
-        <div className="glass-card p-12 text-center">
+        <div className="fl-card-static p-12 text-center">
           <p className="text-muted">لا توجد واجبات — أنشئ أول واجب</p>
         </div>
       ) : (
@@ -179,7 +179,7 @@ export default function TrainerAssignments() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className={`glass-card p-7 cursor-pointer hover:border-sky-500/20 hover:translate-y-[-2px] transition-all duration-200 ${
+                className={`fl-card p-7 cursor-pointer hover:border-sky-500/20 ${
                   !a.is_visible ? 'opacity-60' : ''
                 }`}
                 onClick={() => handleEdit(a)}
@@ -190,7 +190,7 @@ export default function TrainerAssignments() {
                       <div className="w-9 h-9 rounded-xl bg-sky-500/10 flex items-center justify-center text-lg shrink-0">
                         {typeInfo.icon}
                       </div>
-                      <h3 className="font-medium text-white truncate">{a.title}</h3>
+                      <h3 className="font-medium text-[var(--text-primary)] truncate">{a.title}</h3>
                       {!a.is_visible && (
                         <span className="badge-muted">مخفي</span>
                       )}

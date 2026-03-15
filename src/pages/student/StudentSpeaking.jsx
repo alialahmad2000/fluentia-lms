@@ -118,17 +118,17 @@ function SpeakingTopics() {
   return (
     <div className="space-y-8">
       {/* Progress bar */}
-      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-6">
+      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="fl-card-static p-6">
         <div className="flex items-center justify-between mb-3">
-          <p className="text-sm font-medium" style={{ color: 'var(--color-text-primary)' }}>التقدم</p>
+          <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>التقدم</p>
           <p className="text-sm text-sky-400">{completedCount}/{totalCount} ({progressPct}%)</p>
         </div>
-        <div className="w-full h-3 rounded-full overflow-hidden" style={{ background: 'var(--color-bg-surface-raised)' }}>
+        <div className="fl-progress-track" style={{ height: '10px' }}>
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${progressPct}%` }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="h-full bg-gradient-to-l from-sky-400 to-sky-600 rounded-full"
+            className="fl-progress-fill"
           />
         </div>
       </motion.div>
@@ -136,7 +136,7 @@ function SpeakingTopics() {
       {isLoading ? (
         <div className="space-y-3">{[1, 2, 3].map(i => <div key={i} className="skeleton h-20 w-full" />)}</div>
       ) : topics?.length === 0 ? (
-        <div className="glass-card p-8 text-center">
+        <div className="fl-card-static p-8 text-center">
           <Mic size={32} className="text-muted mx-auto mb-2" />
           <p className="text-muted">لا توجد مواضيع لمستواك حالياً</p>
         </div>
@@ -150,7 +150,7 @@ function SpeakingTopics() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.04 }}
-                className={`glass-card p-5 hover:translate-y-[-2px] transition-all duration-200 ${isCompleted ? 'border-emerald-500/20' : ''}`}
+                className={`fl-card p-5 ${isCompleted ? 'border-emerald-500/20' : ''}`}
               >
                 <div className="flex items-start gap-3">
                   <button
@@ -167,7 +167,7 @@ function SpeakingTopics() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-xs text-muted">#{topic.topic_number}</span>
-                      <h3 className={`text-sm font-medium ${isCompleted ? 'text-muted line-through' : ''}`} style={!isCompleted ? { color: 'var(--color-text-primary)' } : undefined}>
+                      <h3 className={`text-sm font-medium ${isCompleted ? 'text-muted line-through' : ''}`} style={!isCompleted ? { color: 'var(--text-primary)' } : undefined}>
                         {topic.title_en}
                       </h3>
                     </div>
@@ -181,7 +181,7 @@ function SpeakingTopics() {
                     )}
                     <div className="flex items-center gap-2 mt-2">
                       {topic.category && (
-                        <span className="text-xs text-muted px-2 py-0.5 rounded-lg" style={{ background: 'var(--color-bg-surface-raised)' }}>{topic.category}</span>
+                        <span className="text-xs text-muted px-2 py-0.5 rounded-lg" style={{ background: 'var(--surface-raised)' }}>{topic.category}</span>
                       )}
                       {topic.difficulty && (
                         <span className={`text-xs px-2 py-0.5 rounded-lg border ${DIFFICULTY_COLORS[topic.difficulty] || DIFFICULTY_COLORS.medium}`}>

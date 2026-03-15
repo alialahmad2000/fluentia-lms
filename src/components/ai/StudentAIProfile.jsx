@@ -53,7 +53,7 @@ export default function StudentAIProfile({ studentId, showGenerate = false, show
 
   if (!profile && !showGenerate) {
     return (
-      <div className="glass-card p-8 text-center">
+      <div className="fl-card-static p-8 text-center">
         <Brain size={32} className="text-muted mx-auto mb-2" />
         <p className="text-muted">لا يوجد ملف ذكي حتى الآن</p>
       </div>
@@ -62,7 +62,7 @@ export default function StudentAIProfile({ studentId, showGenerate = false, show
 
   if (!profile && showGenerate) {
     return (
-      <div className="glass-card p-8 text-center">
+      <div className="fl-card-static p-8 text-center">
         <Brain size={32} className="text-violet-400 mx-auto mb-3" />
         <p className="text-muted mb-4">لم يتم تحليل الملف بعد</p>
         <button
@@ -105,13 +105,13 @@ export default function StudentAIProfile({ studentId, showGenerate = false, show
 
       {/* Radar Chart */}
       {radarData.length > 0 && (
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-6">
-          <h3 className="text-section-title mb-4" style={{ color: 'var(--color-text-primary)' }}>خريطة المهارات</h3>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="fl-card-static p-6">
+          <h3 className="text-section-title mb-4" style={{ color: 'var(--text-primary)' }}>خريطة المهارات</h3>
           <div className="w-full h-72">
             <ResponsiveContainer>
               <RadarChart data={radarData}>
-                <PolarGrid stroke="rgba(255,255,255,0.06)" />
-                <PolarAngleAxis dataKey="skill" tick={{ fill: '#94a3b8', fontSize: 12 }} />
+                <PolarGrid stroke="var(--border-subtle)" />
+                <PolarAngleAxis dataKey="skill" tick={{ fill: 'var(--text-tertiary)', fontSize: 12 }} />
                 <PolarRadiusAxis domain={[0, 100]} tick={false} axisLine={false} />
                 <Radar dataKey="value" stroke="#38bdf8" fill="#38bdf8" fillOpacity={0.15} strokeWidth={2} />
               </RadarChart>
@@ -123,16 +123,16 @@ export default function StudentAIProfile({ studentId, showGenerate = false, show
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Strengths */}
         {profile.strengths?.length > 0 && (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="glass-card p-6">
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="fl-card-static p-6">
             <div className="flex items-center gap-2 mb-4">
               <TrendingUp size={16} className="text-emerald-400" />
-              <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>نقاط القوة</h3>
+              <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>نقاط القوة</h3>
             </div>
             <div className="space-y-2">
               {profile.strengths.map((s, i) => (
                 <div key={i} className="flex items-start gap-2 text-sm">
                   <span className="badge-green text-xs mt-0.5 shrink-0">+</span>
-                  <span style={{ color: 'var(--color-text-primary)' }}>{s}</span>
+                  <span style={{ color: 'var(--text-primary)' }}>{s}</span>
                 </div>
               ))}
             </div>
@@ -141,16 +141,16 @@ export default function StudentAIProfile({ studentId, showGenerate = false, show
 
         {/* Weaknesses */}
         {profile.weaknesses?.length > 0 && (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="glass-card p-6">
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="fl-card-static p-6">
             <div className="flex items-center gap-2 mb-4">
               <TrendingDown size={16} className="text-amber-400" />
-              <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>نقاط التحسين</h3>
+              <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>نقاط التحسين</h3>
             </div>
             <div className="space-y-2">
               {profile.weaknesses.map((w, i) => (
                 <div key={i} className="flex items-start gap-2 text-sm">
                   <span className="badge-yellow text-xs mt-0.5 shrink-0">!</span>
-                  <span style={{ color: 'var(--color-text-primary)' }}>{w}</span>
+                  <span style={{ color: 'var(--text-primary)' }}>{w}</span>
                 </div>
               ))}
             </div>
@@ -160,14 +160,14 @@ export default function StudentAIProfile({ studentId, showGenerate = false, show
 
       {/* Tips */}
       {profile.tips?.length > 0 && (
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="glass-card p-6">
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="fl-card-static p-6">
           <div className="flex items-center gap-2 mb-4">
             <Lightbulb size={16} className="text-sky-400" />
-            <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>نصائح مخصصة</h3>
+            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>نصائح مخصصة</h3>
           </div>
           <div className="grid sm:grid-cols-2 gap-3">
             {profile.tips.map((tip, i) => (
-              <div key={i} className="rounded-xl p-3 text-sm" style={{ background: 'var(--color-bg-surface-raised)', color: 'var(--color-text-primary)' }}>
+              <div key={i} className="rounded-xl p-3 text-sm" style={{ background: 'var(--surface-raised)', color: 'var(--text-primary)' }}>
                 {tip}
               </div>
             ))}
@@ -177,16 +177,16 @@ export default function StudentAIProfile({ studentId, showGenerate = false, show
 
       {/* Arabic Summary */}
       {profile.summary_ar && (
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="glass-card p-6">
-          <h3 className="text-section-title mb-3" style={{ color: 'var(--color-text-primary)' }}>ملخص الطالب</h3>
-          <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{ color: 'var(--color-text-secondary)' }}>{profile.summary_ar}</p>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="fl-card-static p-6">
+          <h3 className="text-section-title mb-3" style={{ color: 'var(--text-primary)' }}>ملخص الطالب</h3>
+          <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{ color: 'var(--text-secondary)' }}>{profile.summary_ar}</p>
         </motion.div>
       )}
 
       {/* English Summary (for trainer view) */}
       {showEnglishSummary && profile.summary_en && (
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="glass-card p-6">
-          <h3 className="text-section-title mb-3" style={{ color: 'var(--color-text-primary)' }}>Trainer Summary</h3>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="fl-card-static p-6">
+          <h3 className="text-section-title mb-3" style={{ color: 'var(--text-primary)' }}>Trainer Summary</h3>
           <p className="text-sm leading-relaxed text-muted" dir="ltr">{profile.summary_en}</p>
         </motion.div>
       )}

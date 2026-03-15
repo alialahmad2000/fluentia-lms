@@ -28,7 +28,7 @@ export default function SubTabs({ tabs, activeTab, onChange, accent = 'sky' }) {
             className={`relative flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-medium whitespace-nowrap transition-all duration-200 ${
               isActive
                 ? `${colors.active} ${colors.bg}`
-                : 'text-muted hover:text-white/70 hover:bg-[var(--color-bg-hover)]'
+                : 'text-muted hover:text-[var(--text-primary)] hover:bg-[var(--sidebar-hover-bg)]'
             }`}
           >
             {tab.icon && <tab.icon size={16} className="shrink-0" />}

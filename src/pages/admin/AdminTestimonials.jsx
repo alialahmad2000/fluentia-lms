@@ -45,7 +45,7 @@ function StarPicker({ value, onChange }) {
         >
           <Star
             size={22}
-            className={s <= value ? 'text-amber-400 fill-amber-400' : 'text-white/20 fill-white/5'}
+            className={s <= value ? 'text-amber-400 fill-amber-400' : 'text-muted fill-[var(--surface-base)]'}
           />
         </button>
       ))}
@@ -61,7 +61,7 @@ function StarDisplay({ rating }) {
         <Star
           key={s}
           size={14}
-          className={s <= rating ? 'text-amber-400 fill-amber-400' : 'text-white/15 fill-white/5'}
+          className={s <= rating ? 'text-amber-400 fill-amber-400' : 'text-muted fill-[var(--surface-base)]'}
         />
       ))}
     </div>
@@ -98,17 +98,17 @@ function TestimonialForm({ initial = EMPTY_FORM, onSubmit, onClose, isLoading })
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.93, y: 20 }}
         transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-        className="glass-card w-full max-w-lg p-6 space-y-5"
+        className="fl-card-static w-full max-w-lg p-6 space-y-5"
         dir="rtl"
       >
         {/* Header */}
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-bold text-white">
+          <h3 className="text-lg font-bold text-[var(--text-primary)]">
             {isEdit ? 'تعديل الشهادة' : 'إضافة شهادة جديدة'}
           </h3>
           <button
             onClick={onClose}
-            className="text-white/40 hover:text-white transition-colors"
+            className="text-muted hover:text-[var(--text-primary)] transition-colors"
           >
             <X size={20} />
           </button>
@@ -184,7 +184,7 @@ function TestimonialForm({ initial = EMPTY_FORM, onSubmit, onClose, isLoading })
               <div
                 onClick={() => set('is_approved', !form.is_approved)}
                 className={`relative w-10 h-5 rounded-full transition-colors duration-200 ${
-                  form.is_approved ? 'bg-green-500' : 'bg-white/10'
+                  form.is_approved ? 'bg-green-500' : 'bg-[var(--surface-raised)]'
                 }`}
               >
                 <span
@@ -193,14 +193,14 @@ function TestimonialForm({ initial = EMPTY_FORM, onSubmit, onClose, isLoading })
                   }`}
                 />
               </div>
-              <span className="text-sm text-white/60">معتمدة (ظاهرة للعموم)</span>
+              <span className="text-sm text-muted">معتمدة (ظاهرة للعموم)</span>
             </label>
 
             <label className="flex items-center gap-2 cursor-pointer select-none">
               <div
                 onClick={() => set('featured', !form.featured)}
                 className={`relative w-10 h-5 rounded-full transition-colors duration-200 ${
-                  form.featured ? 'bg-sky-500' : 'bg-white/10'
+                  form.featured ? 'bg-sky-500' : 'bg-[var(--surface-raised)]'
                 }`}
               >
                 <span
@@ -209,7 +209,7 @@ function TestimonialForm({ initial = EMPTY_FORM, onSubmit, onClose, isLoading })
                   }`}
                 />
               </div>
-              <span className="text-sm text-white/60">مميزة</span>
+              <span className="text-sm text-muted">مميزة</span>
             </label>
           </div>
 
@@ -249,18 +249,18 @@ function TestimonialRow({ t, onToggleApprove, onToggleFeatured, onEdit, onDelete
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12 }}
       transition={{ duration: 0.25 }}
-      className={`glass-card p-4 flex flex-col sm:flex-row gap-4 hover:translate-y-[-2px] transition-all duration-200 ${
+      className={`fl-card p-4 flex flex-col sm:flex-row gap-4 ${
         !t.is_approved ? 'opacity-60' : ''
       }`}
     >
       {/* Quote content */}
       <div className="flex-1 min-w-0 space-y-2">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="font-semibold text-white text-sm">
+          <span className="font-semibold text-[var(--text-primary)] text-sm">
             {t.student_name || 'مجهول'}
           </span>
           {t.level_from && t.level_to && (
-            <span className="text-xs text-white/40 bg-white/5 border border-white/10 px-2 py-0.5 rounded-full">
+            <span className="text-xs text-muted bg-[var(--surface-base)] border border-[var(--border-subtle)] px-2 py-0.5 rounded-full">
               {t.level_from} → {t.level_to}
             </span>
           )}
@@ -275,12 +275,12 @@ function TestimonialRow({ t, onToggleApprove, onToggleFeatured, onEdit, onDelete
             </span>
           )}
         </div>
-        <p className="text-white/60 text-sm leading-relaxed line-clamp-2">
+        <p className="text-muted text-sm leading-relaxed line-clamp-2">
           "{t.quote}"
         </p>
         <div className="flex items-center gap-3">
           <StarDisplay rating={t.rating} />
-          <span className="text-white/30 text-xs">{dateLabel}</span>
+          <span className="text-muted text-xs">{dateLabel}</span>
         </div>
       </div>
 
@@ -293,7 +293,7 @@ function TestimonialRow({ t, onToggleApprove, onToggleFeatured, onEdit, onDelete
           className={`p-2 rounded-xl transition-all duration-200 ${
             t.is_approved
               ? 'bg-green-500/15 text-green-400 hover:bg-green-500/25'
-              : 'bg-white/5 text-white/30 hover:bg-white/10 hover:text-white/60'
+              : 'bg-[var(--surface-base)] text-muted hover:bg-[var(--surface-raised)] hover:text-[var(--text-secondary)]'
           }`}
         >
           {t.is_approved ? <CheckCircle2 size={18} /> : <XCircle size={18} />}
@@ -306,7 +306,7 @@ function TestimonialRow({ t, onToggleApprove, onToggleFeatured, onEdit, onDelete
           className={`p-2 rounded-xl transition-all duration-200 ${
             t.featured
               ? 'bg-sky-500/15 text-sky-400 hover:bg-sky-500/25'
-              : 'bg-white/5 text-white/30 hover:bg-white/10 hover:text-white/60'
+              : 'bg-[var(--surface-base)] text-muted hover:bg-[var(--surface-raised)] hover:text-[var(--text-secondary)]'
           }`}
         >
           {t.featured ? <Eye size={18} /> : <EyeOff size={18} />}
@@ -316,7 +316,7 @@ function TestimonialRow({ t, onToggleApprove, onToggleFeatured, onEdit, onDelete
         <button
           onClick={() => onEdit(t)}
           title="تعديل"
-          className="p-2 rounded-xl bg-white/5 text-white/30 hover:bg-white/10 hover:text-white transition-all duration-200"
+          className="p-2 rounded-xl bg-[var(--surface-base)] text-muted hover:bg-[var(--surface-raised)] hover:text-[var(--text-primary)] transition-all duration-200"
         >
           <Pencil size={18} />
         </button>
@@ -325,7 +325,7 @@ function TestimonialRow({ t, onToggleApprove, onToggleFeatured, onEdit, onDelete
         <button
           onClick={() => onDelete(t.id)}
           title="حذف"
-          className="p-2 rounded-xl bg-white/5 text-red-400/50 hover:bg-red-500/10 hover:text-red-400 transition-all duration-200"
+          className="p-2 rounded-xl bg-[var(--surface-base)] text-red-400/50 hover:bg-red-500/10 hover:text-red-400 transition-all duration-200"
         >
           <Trash2 size={18} />
         </button>
@@ -471,8 +471,8 @@ export default function AdminTestimonials() {
             <MessageSquareQuote size={22} className="text-sky-400" />
           </div>
           <div>
-            <h1 className="text-page-title text-white">إدارة الشهادات</h1>
-            <p className="text-sm text-white/40">
+            <h1 className="text-page-title text-[var(--text-primary)]">إدارة الشهادات</h1>
+            <p className="text-sm text-muted">
               {testimonials?.length ?? '—'} شهادة &nbsp;·&nbsp; {approvedCount} معتمدة &nbsp;·&nbsp; متوسط {avgRating} ★
             </p>
           </div>
@@ -492,12 +492,12 @@ export default function AdminTestimonials() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="glass-card border-amber-500/30 p-4 text-amber-300 text-sm"
+          className="fl-card-static border-amber-500/30 p-4 text-amber-300 text-sm"
         >
           <strong>ملاحظة:</strong> جدول <code>testimonials</code> غير موجود بعد في قاعدة البيانات.
           أنشئه أولاً ثم أعد تحميل الصفحة.
           <br />
-          <span className="text-white/40 font-mono text-xs mt-1 block">
+          <span className="text-muted font-mono text-xs mt-1 block">
             CREATE TABLE testimonials (id uuid default gen_random_uuid() primary key,
             student_name text, quote text not null, rating int2 default 5, level_from text,
             level_to text, is_approved bool default true, featured bool default false,
@@ -509,7 +509,7 @@ export default function AdminTestimonials() {
       {/* ── Controls ── */}
       <div className="flex flex-wrap items-center gap-3">
         {/* Filter */}
-        <div className="flex gap-1 border border-white/10 rounded-xl p-1" style={{ background: 'var(--color-bg-surface-raised)' }}>
+        <div className="flex gap-1 border border-[var(--border-subtle)] rounded-xl p-1" style={{ background: 'var(--surface-raised)' }}>
           {[
             { key: 'all',      label: 'الكل' },
             { key: 'approved', label: 'معتمدة' },
@@ -521,7 +521,7 @@ export default function AdminTestimonials() {
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                 filterStatus === key
                   ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30'
-                  : 'text-white/40 hover:text-white/60'
+                  : 'text-muted hover:text-[var(--text-secondary)]'
               }`}
             >
               {label}
@@ -532,7 +532,7 @@ export default function AdminTestimonials() {
         {/* Sort */}
         <button
           onClick={() => setSortBy((s) => (s === 'date' ? 'rating' : 'date'))}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm text-white/50 bg-white/5 border border-white/10 hover:text-white hover:border-white/20 transition-all duration-200"
+          className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm text-muted bg-[var(--surface-base)] border border-[var(--border-subtle)] hover:text-[var(--text-primary)] hover:border-[var(--border-subtle)] transition-all duration-200"
         >
           <ArrowUpDown size={14} />
           {sortBy === 'date' ? 'ترتيب: الأحدث' : 'ترتيب: الأعلى تقييماً'}
@@ -557,9 +557,9 @@ export default function AdminTestimonials() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="glass-card p-12 text-center text-white/30 space-y-2"
+          className="fl-card-static p-12 text-center text-muted space-y-2"
         >
-          <MessageSquareQuote size={40} className="mx-auto text-white/10" />
+          <MessageSquareQuote size={40} className="mx-auto text-muted opacity-30" />
           <p className="text-sm">لا توجد شهادات بعد</p>
           <button
             onClick={() => { setEditItem(null); setShowForm(true) }}
@@ -612,15 +612,15 @@ export default function AdminTestimonials() {
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.9 }}
-              className="glass-card p-7 max-w-sm w-full space-y-5 text-center"
+              className="fl-card-static p-7 max-w-sm w-full space-y-5 text-center"
               dir="rtl"
             >
               <div className="w-12 h-12 rounded-full bg-red-500/15 flex items-center justify-center mx-auto">
                 <Trash2 size={24} className="text-red-400" />
               </div>
               <div>
-                <h3 className="text-white font-bold text-lg">حذف الشهادة؟</h3>
-                <p className="text-white/40 text-sm mt-1">
+                <h3 className="text-[var(--text-primary)] font-bold text-lg">حذف الشهادة؟</h3>
+                <p className="text-muted text-sm mt-1">
                   لا يمكن التراجع عن هذا الإجراء.
                 </p>
               </div>

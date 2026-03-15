@@ -165,39 +165,42 @@ export default function AdminDashboard() {
   ]
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-8">
       {/* Greeting */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-page-title">
           {getGreeting()}، <span className="text-gradient">{firstName}</span>
         </h1>
-        <p className="text-[15px] mt-2.5" style={{ color: 'var(--color-text-muted)' }}>لوحة تحكم الإدارة</p>
+        <p className="text-[15px] mt-2.5" style={{ color: 'var(--text-tertiary)' }}>لوحة تحكم الإدارة</p>
       </motion.div>
 
       {/* Stat cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {cards.map((card, i) => (
-          <motion.div
-            key={card.label}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.08 }}
-            className="stat-card hover:translate-y-[-2px] transition-all duration-200"
-          >
-            <div className="flex items-center justify-between mb-5">
-              <span className="text-[13px] tracking-wide" style={{ color: 'var(--color-text-muted)' }}>{card.label}</span>
-              <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${
-                card.color === 'gold' ? 'bg-gold-500/10 text-gold-400'
-                : card.color === 'red' ? 'bg-red-500/10 text-red-400'
-                : 'bg-sky-500/10 text-sky-400'
-              }`}>
-                <card.icon size={20} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {cards.map((card, i) => {
+          const variant = card.color === 'gold' ? 'amber' : card.color === 'red' ? 'sky' : 'sky'
+          return (
+            <motion.div
+              key={card.label}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.08 }}
+              className={`fl-stat-card ${variant}`}
+            >
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-[13px] tracking-wide" style={{ color: 'var(--text-tertiary)' }}>{card.label}</span>
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                  card.color === 'gold' ? 'bg-gold-500/10 text-gold-400'
+                  : card.color === 'red' ? 'bg-red-500/10 text-red-400'
+                  : 'bg-sky-500/10 text-sky-400'
+                }`}>
+                  <card.icon size={20} strokeWidth={1.5} />
+                </div>
               </div>
-            </div>
-            <p className="stat-number">{card.value}</p>
-            {card.sub && <p className="stat-label">{card.sub}</p>}
-          </motion.div>
-        ))}
+              <p className="text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>{card.value}</p>
+              {card.sub && <p className="text-xs mt-1" style={{ color: 'var(--text-tertiary)' }}>{card.sub}</p>}
+            </motion.div>
+          )
+        })}
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
@@ -206,11 +209,11 @@ export default function AdminDashboard() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
-          className="glass-card p-7 hover:translate-y-[-2px] transition-all duration-200"
+          className="fl-card p-7"
         >
           <div className="flex items-center gap-3 mb-6">
             <TrendingUp size={18} className="text-sky-400" />
-            <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>توزيع الباقات</h3>
+            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>توزيع الباقات</h3>
           </div>
           <div className="space-y-3">
             {Object.entries(PACKAGES).map(([key, pkg]) => {
@@ -220,12 +223,12 @@ export default function AdminDashboard() {
               return (
                 <div key={key}>
                   <div className="flex items-center justify-between text-sm mb-1">
-                    <span className="text-white">{pkg.name_ar}</span>
+                    <span className="text-[var(--text-primary)]">{pkg.name_ar}</span>
                     <span className="text-muted">{count} طالب ({pct}%)</span>
                   </div>
-                  <div className="w-full h-2.5 bg-white/5 rounded-full overflow-hidden">
+                  <div className="fl-progress-track" style={{ height: '8px' }}>
                     <div
-                      className="h-full bg-sky-500 rounded-full transition-all duration-500"
+                      className="fl-progress-fill"
                       style={{ width: `${pct}%` }}
                     />
                   </div>
@@ -240,11 +243,11 @@ export default function AdminDashboard() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.45 }}
-          className="glass-card p-7 hover:translate-y-[-2px] transition-all duration-200"
+          className="fl-card p-7"
         >
           <div className="flex items-center gap-3 mb-6">
             <UserCheck size={18} className="text-gold-400" />
-            <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>الطلاب النشطين</h3>
+            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>الطلاب النشطين</h3>
           </div>
           {recentStudents?.length > 0 ? (
             <div className="space-y-2">
@@ -252,13 +255,13 @@ export default function AdminDashboard() {
                 const pkgInfo = PACKAGES[s.package]
                 const statusInfo = STUDENT_STATUS[s.status]
                 return (
-                  <div key={s.id} className="flex items-center justify-between bg-white/5 rounded-xl p-3">
+                  <div key={s.id} className="flex items-center justify-between bg-[var(--surface-base)] rounded-xl p-3">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 text-xs font-bold">
                         {s.profiles?.full_name?.[0] || '?'}
                       </div>
                       <div>
-                        <p className="text-sm text-white">{s.profiles?.full_name}</p>
+                        <p className="text-sm text-[var(--text-primary)]">{s.profiles?.full_name}</p>
                         <p className="text-xs text-muted">{pkgInfo?.name_ar} &middot; {s.xp_total} XP</p>
                       </div>
                     </div>
@@ -281,20 +284,20 @@ export default function AdminDashboard() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="glass-card p-7 hover:translate-y-[-2px] transition-all duration-200"
+          className="fl-card p-7"
         >
           <div className="flex items-center gap-3 mb-6">
             <CreditCard size={18} className="text-emerald-400" />
-            <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>الإيرادات</h3>
+            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>الإيرادات</h3>
           </div>
           <div className="grid grid-cols-2 gap-5">
             <div>
               <p className="text-sm text-muted mb-1">هذا الشهر</p>
-              <p className="text-2xl font-bold text-white">{(revenueStats?.thisMonth || 0).toLocaleString()} <span className="text-sm text-muted font-normal">ر.س</span></p>
+              <p className="text-2xl font-bold text-[var(--text-primary)]">{(revenueStats?.thisMonth || 0).toLocaleString()} <span className="text-sm text-muted font-normal">ر.س</span></p>
             </div>
             <div>
               <p className="text-sm text-muted mb-1">الشهر الماضي</p>
-              <p className="text-2xl font-bold text-white">{(revenueStats?.lastMonth || 0).toLocaleString()} <span className="text-sm text-muted font-normal">ر.س</span></p>
+              <p className="text-2xl font-bold text-[var(--text-primary)]">{(revenueStats?.lastMonth || 0).toLocaleString()} <span className="text-sm text-muted font-normal">ر.س</span></p>
             </div>
           </div>
           {revenueStats && revenueStats.growth !== 0 && (
@@ -306,12 +309,15 @@ export default function AdminDashboard() {
           <div className="mt-5">
             <div className="flex items-center justify-between text-sm mb-1.5">
               <span className="text-muted">معدل التحصيل</span>
-              <span className="text-white font-semibold">{revenueStats?.collectionRate || 0}%</span>
+              <span className="text-[var(--text-primary)] font-semibold">{revenueStats?.collectionRate || 0}%</span>
             </div>
-            <div className="w-full h-2.5 bg-white/5 rounded-full overflow-hidden">
+            <div className="fl-progress-track" style={{ height: '8px' }}>
               <div
-                className={`h-full rounded-full transition-all ${(revenueStats?.collectionRate || 0) >= 80 ? 'bg-emerald-500' : (revenueStats?.collectionRate || 0) >= 50 ? 'bg-amber-500' : 'bg-red-500'}`}
-                style={{ width: `${revenueStats?.collectionRate || 0}%` }}
+                className="h-full rounded-full transition-all"
+                style={{
+                  width: `${revenueStats?.collectionRate || 0}%`,
+                  background: (revenueStats?.collectionRate || 0) >= 80 ? 'var(--accent-emerald)' : (revenueStats?.collectionRate || 0) >= 50 ? 'var(--accent-amber)' : 'var(--accent-rose)',
+                }}
               />
             </div>
           </div>
@@ -322,18 +328,18 @@ export default function AdminDashboard() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.55 }}
-          className="glass-card p-7 hover:translate-y-[-2px] transition-all duration-200"
+          className="fl-card p-7"
         >
           <div className="flex items-center gap-3 mb-6">
             <Layers size={18} className="text-amber-400" />
-            <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>المقاعد المتاحة</h3>
+            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>المقاعد المتاحة</h3>
           </div>
           {groupSeats?.length > 0 ? (
             <div className="space-y-2">
               {groupSeats.map((g) => (
-                <div key={g.id} className="flex items-center justify-between bg-white/5 rounded-xl p-3">
+                <div key={g.id} className="flex items-center justify-between bg-[var(--surface-base)] rounded-xl p-3">
                   <div>
-                    <p className="text-sm text-white">{g.name || g.code}</p>
+                    <p className="text-sm text-[var(--text-primary)]">{g.name || g.code}</p>
                     <p className="text-xs text-muted">المستوى {g.level}</p>
                   </div>
                   <div className="text-center">
@@ -360,20 +366,20 @@ export default function AdminDashboard() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="glass-card p-7 hover:translate-y-[-2px] transition-all duration-200"
+          className="fl-card p-7"
         >
           <div className="flex items-center gap-3 mb-6">
             <Calendar size={18} className="text-sky-400" />
-            <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>تجديدات قادمة (٧ أيام)</h3>
+            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>تجديدات قادمة (٧ أيام)</h3>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {upcomingRenewals.map((s) => {
               const pkgInfo = PACKAGES[s.package]
               const amount = s.custom_price || pkgInfo?.price || 0
               return (
-                <div key={s.id} className="flex items-center justify-between bg-white/5 rounded-xl p-3">
+                <div key={s.id} className="flex items-center justify-between bg-[var(--surface-base)] rounded-xl p-3">
                   <div>
-                    <p className="text-sm text-white">{s.profiles?.full_name}</p>
+                    <p className="text-sm text-[var(--text-primary)]">{s.profiles?.full_name}</p>
                     <p className="text-xs text-muted">يوم {s.payment_day} من الشهر</p>
                   </div>
                   <span className="text-sm font-bold text-sky-400">{amount} ر.س</span>
@@ -390,11 +396,11 @@ export default function AdminDashboard() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.65 }}
-          className="glass-card p-6 border-red-500/20 hover:translate-y-[-2px] transition-all duration-200"
+          className="fl-card-static p-6" style={{ borderColor: 'rgba(239, 68, 68, 0.2)' }}
         >
           <div className="flex items-center gap-3 mb-6">
             <AlertCircle size={18} className="text-red-400" />
-            <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>أخطاء النظام الأخيرة</h3>
+            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>أخطاء النظام الأخيرة</h3>
           </div>
           <div className="space-y-2.5">
             {recentErrors.map((e) => (
@@ -436,22 +442,22 @@ function AIOverviewCard() {
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.57 }}
-      className="glass-card p-7"
+      className="fl-card-static p-7"
     >
       <div className="flex items-center gap-3 mb-6">
         <Brain size={18} className="text-violet-400" />
-        <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>الذكاء الاصطناعي</h3>
+        <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>الذكاء الاصطناعي</h3>
       </div>
       <div className="grid grid-cols-3 gap-4">
-        <div className="rounded-xl p-4 text-center" style={{ background: 'var(--color-bg-surface-raised)' }}>
+        <div className="rounded-xl p-4 text-center" style={{ background: 'var(--surface-raised)' }}>
           <p className="text-2xl font-bold text-violet-400">{aiStats.analyzed}</p>
           <p className="text-xs text-muted mt-1">ملفات محللة</p>
         </div>
-        <div className="rounded-xl p-4 text-center" style={{ background: 'var(--color-bg-surface-raised)' }}>
-          <p className="text-2xl font-bold" style={{ color: 'var(--color-text-primary)' }}>{aiStats.total}</p>
+        <div className="rounded-xl p-4 text-center" style={{ background: 'var(--surface-raised)' }}>
+          <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{aiStats.total}</p>
           <p className="text-xs text-muted mt-1">إجمالي الطلاب</p>
         </div>
-        <div className="rounded-xl p-4 text-center" style={{ background: 'var(--color-bg-surface-raised)' }}>
+        <div className="rounded-xl p-4 text-center" style={{ background: 'var(--surface-raised)' }}>
           <p className="text-2xl font-bold text-amber-400">{aiStats.totalCost} <span className="text-sm font-normal">ر.س</span></p>
           <p className="text-xs text-muted mt-1">تكلفة AI</p>
         </div>

@@ -179,7 +179,7 @@ export default function StudentChallenges() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className={`glass-card p-7 hover:translate-y-[-2px] transition-all duration-200 ${completed ? 'border-emerald-500/20' : active ? 'border-sky-500/10' : 'opacity-60'}`}
+                className={`fl-card p-7 hover:translate-y-[-2px] transition-all duration-200 ${completed ? 'border-emerald-500/20' : active ? 'border-sky-500/10' : 'opacity-60'}`}
               >
                 <div className="flex items-start gap-4">
                   {/* Type icon */}
@@ -212,7 +212,7 @@ export default function StudentChallenges() {
                       )}
                     </div>
 
-                    <h3 className="text-sm font-bold text-white">{challenge.title_ar}</h3>
+                    <h3 className="text-sm font-bold text-[var(--text-primary)]">{challenge.title_ar}</h3>
                     {challenge.description_ar && (
                       <p className="text-xs text-muted mt-1">{challenge.description_ar}</p>
                     )}
@@ -258,7 +258,7 @@ export default function StudentChallenges() {
                 {/* Progress bar for joined challenges */}
                 {joined && challenge.target && (
                   <div className="mt-3">
-                    <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'var(--color-bg-surface-raised)' }}>
+                    <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'var(--surface-raised)' }}>
                       <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${Math.min(((participation.progress?.current || 0) / (challenge.target.count || 1)) * 100, 100)}%` }}
@@ -278,7 +278,7 @@ export default function StudentChallenges() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="glass-card p-12 text-center"
+              className="fl-card-static p-12 text-center"
             >
               <Target size={48} className="text-muted mx-auto mb-3 opacity-30" />
               <p className="text-muted">

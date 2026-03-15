@@ -70,7 +70,7 @@ export default function AIGrammarChecker({ text, onApplyCorrection, enabled = tr
           {checking ? <Loader2 size={12} className="animate-spin" /> : <SpellCheck size={12} />}
           فحص القواعد
         </button>
-        <button onClick={() => setShow(false)} className="btn-ghost text-muted hover:text-white transition-all duration-200">
+        <button onClick={() => setShow(false)} className="btn-ghost text-muted hover:text-[var(--text-primary)] transition-all duration-200">
           <X size={12} />
         </button>
       </div>

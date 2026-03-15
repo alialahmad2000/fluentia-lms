@@ -96,36 +96,39 @@ export default function TrainerDashboard() {
   ]
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-8">
       {/* Greeting */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-page-title">
           {getGreeting()}، <span className="text-gradient">{firstName}</span>
         </h1>
-        <p className="text-[15px] mt-2.5" style={{ color: 'var(--color-text-muted)' }}>لوحة تحكم المدرب</p>
+        <p className="text-[15px] mt-2.5" style={{ color: 'var(--text-tertiary)' }}>لوحة تحكم المدرب</p>
       </motion.div>
 
       {/* Stat cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {cards.map((card, i) => (
-          <motion.div
-            key={card.label}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.08 }}
-            className="stat-card hover:translate-y-[-2px] transition-all duration-200"
-          >
-            <div className="flex items-center justify-between mb-5">
-              <span className="text-[13px] tracking-wide" style={{ color: 'var(--color-text-muted)' }}>{card.label}</span>
-              <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${
-                card.color === 'gold' ? 'bg-gold-500/10 text-gold-400' : 'bg-sky-500/10 text-sky-400'
-              }`}>
-                <card.icon size={20} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {cards.map((card, i) => {
+          const variant = card.color === 'gold' ? 'amber' : 'sky'
+          return (
+            <motion.div
+              key={card.label}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.08 }}
+              className={`fl-stat-card ${variant}`}
+            >
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-[13px] tracking-wide" style={{ color: 'var(--text-tertiary)' }}>{card.label}</span>
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                  card.color === 'gold' ? 'bg-gold-500/10 text-gold-400' : 'bg-emerald-500/10 text-emerald-400'
+                }`}>
+                  <card.icon size={20} strokeWidth={1.5} />
+                </div>
               </div>
-            </div>
-            <p className="stat-number">{card.value}</p>
-          </motion.div>
-        ))}
+              <p className="text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>{card.value}</p>
+            </motion.div>
+          )
+        })}
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
@@ -134,18 +137,18 @@ export default function TrainerDashboard() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
-          className="glass-card p-7"
+          className="fl-card-static p-7"
         >
           <div className="flex items-center gap-3 mb-6">
             <Calendar size={20} className="text-sky-400" />
-            <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>المجموعات والجدول</h3>
+            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>المجموعات والجدول</h3>
           </div>
           {groups?.length > 0 ? (
             <div className="space-y-4">
               {groups.map((g) => (
-                <div key={g.id} className="rounded-xl p-4 hover:translate-y-[-2px] transition-all duration-200" style={{ background: 'var(--color-bg-surface-raised)' }}>
+                <div key={g.id} className="rounded-xl p-4 hover:translate-y-[-2px] transition-all duration-200" style={{ background: 'var(--surface-raised)' }}>
                   <div className="flex items-center justify-between mb-1">
-                    <p className="text-sm font-medium text-white">{g.name}</p>
+                    <p className="text-sm font-medium text-[var(--text-primary)]">{g.name}</p>
                     <span className="badge-blue">{g.code}</span>
                   </div>
                   {g.schedule && (
@@ -173,18 +176,18 @@ export default function TrainerDashboard() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.45 }}
-          className="glass-card p-7"
+          className="fl-card-static p-7"
         >
           <div className="flex items-center gap-3 mb-6">
             <CheckCircle2 size={20} className="text-gold-400" />
-            <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>آخر التسليمات</h3>
+            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>آخر التسليمات</h3>
           </div>
           {recentSubmissions?.length > 0 ? (
             <div className="space-y-3">
               {recentSubmissions.map((s) => (
-                <div key={s.id} className="flex items-center justify-between text-sm rounded-xl p-4 hover:translate-y-[-2px] transition-all duration-200" style={{ background: 'var(--color-bg-surface-raised)' }}>
+                <div key={s.id} className="flex items-center justify-between text-sm rounded-xl p-4 hover:translate-y-[-2px] transition-all duration-200" style={{ background: 'var(--surface-raised)' }}>
                   <div>
-                    <p className="text-white text-sm font-medium">{s.students?.profiles?.full_name || 'طالب'}</p>
+                    <p className="text-[var(--text-primary)] text-sm font-medium">{s.students?.profiles?.full_name || 'طالب'}</p>
                     <p className="text-muted text-xs mt-0.5">{s.assignments?.title}</p>
                   </div>
                   <span className={s.status === 'submitted' ? 'badge-blue' : s.status === 'graded' ? 'badge-green' : 'badge-yellow'}>
@@ -248,11 +251,11 @@ function GroupInsightsCard({ groups }) {
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.4 }}
-      className="glass-card p-7 lg:col-span-2"
+      className="fl-card-static p-7 lg:col-span-2"
     >
       <div className="flex items-center gap-3 mb-6">
         <Brain size={20} className="text-violet-400" />
-        <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>ملخص الذكاء الاصطناعي</h3>
+        <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>ملخص الذكاء الاصطناعي</h3>
         {aiProfiles && (
           <span className="badge-muted text-xs">{aiProfiles.analyzed}/{aiProfiles.total} محلل</span>
         )}
@@ -264,7 +267,7 @@ function GroupInsightsCard({ groups }) {
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {Object.entries(aiProfiles.avgSkills).map(([key, value]) => (
-            <div key={key} className="rounded-xl p-3 text-center" style={{ background: 'var(--color-bg-surface-raised)' }}>
+            <div key={key} className="rounded-xl p-3 text-center" style={{ background: 'var(--surface-raised)' }}>
               <p className="text-xs text-muted mb-1">{SKILL_LABELS[key] || key}</p>
               <p className={`text-lg font-bold ${value >= 70 ? 'text-emerald-400' : value >= 40 ? 'text-amber-400' : 'text-red-400'}`}>{value}</p>
             </div>

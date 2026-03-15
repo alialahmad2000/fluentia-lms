@@ -51,9 +51,9 @@ export default function AchievementUnlock({ achievement, onClose }) {
           onClick={(e) => e.stopPropagation()}
           className="relative z-[102] w-full max-w-sm"
         >
-          <div className="glass-card p-8 text-center border-gold-500/30 shadow-2xl shadow-gold-500/10">
+          <div className="fl-card-static p-8 text-center border-gold-500/30 shadow-2xl shadow-gold-500/10">
             {/* Close */}
-            <button onClick={onClose} className="absolute top-3 left-3 text-muted hover:text-white transition-colors">
+            <button onClick={onClose} className="absolute top-3 left-3 text-muted hover:text-[var(--text-primary)] transition-colors">
               <X size={18} />
             </button>
 
@@ -86,7 +86,7 @@ export default function AchievementUnlock({ achievement, onClose }) {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="text-xl font-bold text-white mb-2"
+              className="text-xl font-bold text-[var(--text-primary)] mb-2"
             >
               {achievement.name_ar}
             </motion.h2>

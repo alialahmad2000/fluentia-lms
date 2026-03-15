@@ -48,7 +48,7 @@ export default function TrainerNotes() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
-            <FileText size={20} className="text-sky-400" />
+            <FileText size={20} strokeWidth={1.5} className="text-sky-400" />
           </div>
           <div>
             <h1 className="text-page-title">ملاحظات الحصص</h1>
@@ -79,7 +79,7 @@ export default function TrainerNotes() {
       {isLoading ? (
         <div className="space-y-3">{[1, 2, 3].map(i => <div key={i} className="skeleton h-24 w-full" />)}</div>
       ) : classes?.length === 0 ? (
-        <div className="glass-card p-8 text-center">
+        <div className="fl-card-static p-8 text-center">
           <FileText size={32} className="text-muted mx-auto mb-2" />
           <p className="text-muted">لا توجد حصص — أنشئ حصة من صفحة الجدول أولاً</p>
         </div>
@@ -91,11 +91,11 @@ export default function TrainerNotes() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.04 }}
-              className="glass-card p-4 hover:translate-y-[-2px] transition-all duration-200"
+              className="fl-card p-4"
             >
               <div className="flex items-center justify-between mb-3">
                 <div>
-                  <h3 className="text-sm font-medium text-white">{c.title || c.topic || 'حصة'}</h3>
+                  <h3 className="text-sm font-medium text-[var(--text-primary)]">{c.title || c.topic || 'حصة'}</h3>
                   <p className="text-xs text-muted mt-0.5">
                     <span className="badge-blue text-xs ml-2">{c.groups?.code}</span>
                     {formatDateAr(c.date)}
@@ -109,12 +109,12 @@ export default function TrainerNotes() {
                     <div
                       key={note.id}
                       className={`rounded-xl p-3 ${note.is_pinned ? 'border border-gold-500/20' : ''}`}
-                      style={{ background: 'var(--color-bg-surface-raised)' }}
+                      style={{ background: 'var(--surface-raised)' }}
                     >
                       <div className="flex items-start gap-2">
                         {note.is_pinned && <Pin size={12} className="text-gold-400 mt-1 shrink-0" />}
                         <div className="flex-1">
-                          <p className="text-sm text-white whitespace-pre-wrap">{note.content}</p>
+                          <p className="text-sm text-[var(--text-primary)] whitespace-pre-wrap">{note.content}</p>
                           <p className="text-xs text-muted mt-2">
                             {note.profiles?.full_name} &middot; {timeAgo(note.created_at)}
                             {note.is_trainer_summary && <span className="text-sky-400 mr-2">ملخص المدرب</span>}
@@ -183,8 +183,8 @@ function NoteForm({ classes, groups, trainerId, onClose }) {
         className="fixed inset-x-4 top-[10vh] lg:inset-x-auto lg:left-1/2 lg:-translate-x-1/2 lg:w-full lg:max-w-lg bg-navy-950 border border-border-subtle rounded-2xl z-50 overflow-hidden"
       >
         <div className="px-6 py-4 border-b border-border-subtle flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-white">ملاحظة جديدة</h2>
-          <button onClick={onClose} className="text-muted hover:text-white"><X size={20} /></button>
+          <h2 className="text-lg font-semibold text-[var(--text-primary)]">ملاحظة جديدة</h2>
+          <button onClick={onClose} className="text-muted hover:text-[var(--text-primary)]"><X size={20} /></button>
         </div>
         <div className="p-6 space-y-4">
           <div>

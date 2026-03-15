@@ -167,7 +167,7 @@ export default function StudentVoiceJournal() {
       <div>
         <h1 className="text-page-title flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
-            <Mic size={20} className="text-violet-400" />
+            <Mic size={20} strokeWidth={1.5} className="text-violet-400" />
           </div>
           يومياتي الصوتية
         </h1>
@@ -175,11 +175,11 @@ export default function StudentVoiceJournal() {
       </div>
 
       {/* Recording card */}
-      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-7">
+      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="fl-card-static p-7">
         {todayEntry && !result ? (
           <div className="text-center py-4">
-            <CheckCircle2 size={48} className="mx-auto text-emerald-400 mb-3" />
-            <h3 className="text-lg font-bold text-white mb-1">سجّلت يومياتك اليوم!</h3>
+            <CheckCircle2 size={48} strokeWidth={1.5} className="mx-auto text-emerald-400 mb-3" />
+            <h3 className="text-lg font-bold text-[var(--text-primary)] mb-1">سجّلت يومياتك اليوم!</h3>
             <p className="text-muted text-sm">درجة الطلاقة: {todayEntry.fluency_score}% — +{todayEntry.xp_awarded} XP</p>
           </div>
         ) : result ? (
@@ -199,17 +199,17 @@ export default function StudentVoiceJournal() {
             </div>
 
             {result.feedback && (
-              <div className="rounded-xl p-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
-                <p className="text-sm text-white leading-relaxed">{result.feedback}</p>
+              <div className="rounded-xl p-3" style={{ background: 'var(--surface-raised)' }}>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-primary)' }}>{result.feedback}</p>
               </div>
             )}
 
             {result.corrections?.length > 0 && (
               <div>
-                <h4 className="text-xs font-medium text-white mb-2">تصحيحات:</h4>
+                <h4 className="text-xs font-medium text-[var(--text-primary)] mb-2">تصحيحات:</h4>
                 <div className="space-y-2">
                   {result.corrections.map((c, i) => (
-                    <div key={i} className="rounded-lg p-2 text-xs" style={{ background: 'var(--color-bg-surface-raised)' }}>
+                    <div key={i} className="rounded-lg p-2 text-xs" style={{ background: 'var(--surface-raised)' }}>
                       <p className="text-red-400 line-through">{c.original}</p>
                       <p className="text-emerald-400">{c.corrected}</p>
                       {c.explanation && <p className="text-muted mt-1">{c.explanation}</p>}
@@ -221,8 +221,8 @@ export default function StudentVoiceJournal() {
 
             {result.transcript && (
               <div>
-                <h4 className="text-xs font-medium text-white mb-1">النص المُستخرج:</h4>
-                <p className="text-xs text-muted rounded-lg p-2" dir="ltr" style={{ background: 'var(--color-bg-surface-raised)' }}>{result.transcript}</p>
+                <h4 className="text-xs font-medium text-[var(--text-primary)] mb-1">النص المُستخرج:</h4>
+                <p className="text-xs text-muted rounded-lg p-2" dir="ltr" style={{ background: 'var(--surface-raised)' }}>{result.transcript}</p>
               </div>
             )}
 
@@ -257,7 +257,7 @@ export default function StudentVoiceJournal() {
                     key={m.value}
                     onClick={() => setMood(m.value)}
                     className={`flex-1 text-center py-2 rounded-xl text-sm transition-all ${
-                      mood === m.value ? 'bg-sky-500/20 border border-sky-500/30 text-white' : 'bg-white/5 text-muted hover:text-white'
+                      mood === m.value ? 'bg-sky-500/20 border border-sky-500/30 text-[var(--text-primary)]' : 'bg-white/5 text-muted hover:text-[var(--text-primary)]'
                     }`}
                   >
                     <span className="text-lg">{m.emoji}</span>
@@ -303,7 +303,7 @@ export default function StudentVoiceJournal() {
                     <p className="text-red-400 text-xs text-center mb-2">حدث خطأ أثناء التحليل — حاول مرة أخرى</p>
                   )}
                   <div className="flex gap-2">
-                    <button onClick={resetRecording} className="flex-1 text-sm py-2.5 rounded-xl bg-white/5 text-muted hover:text-white transition-all">
+                    <button onClick={resetRecording} className="flex-1 text-sm py-2.5 rounded-xl bg-white/5 text-muted hover:text-[var(--text-primary)] transition-all">
                       إعادة تسجيل
                     </button>
                     <button
@@ -333,7 +333,7 @@ export default function StudentVoiceJournal() {
       ) : null}
       {!isLoading && journals?.length > 0 && (
         <div>
-          <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
+          <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
             <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
               <Calendar size={16} className="text-sky-400" />
             </div>
@@ -346,7 +346,7 @@ export default function StudentVoiceJournal() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.03 }}
-                className="glass-card p-3 hover:translate-y-[-2px] transition-all duration-200"
+                className="fl-card p-3 hover:translate-y-[-2px] transition-all duration-200"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -358,7 +358,7 @@ export default function StudentVoiceJournal() {
                       <span className="text-sm font-bold">{journal.fluency_score}</span>
                     </div>
                     <div>
-                      <p className="text-sm text-white">{journal.topic || 'حرّ'}</p>
+                      <p className="text-sm text-[var(--text-primary)]">{journal.topic || 'حرّ'}</p>
                       <p className="text-xs text-muted">
                         {new Date(journal.created_at).toLocaleDateString('ar-SA')} — {formatTime(journal.duration_seconds || 0)}
                       </p>

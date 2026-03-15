@@ -105,7 +105,7 @@ export default function TrainerGrading() {
             className={`px-4 py-2 rounded-xl text-sm font-medium transition-all whitespace-nowrap ${
               filterStatus === tab.key
                 ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
-                : 'text-muted hover:text-white hover:bg-white/5'
+                : 'text-muted hover:text-[var(--text-primary)] hover:bg-[var(--surface-base)]'
             }`}
           >
             {tab.label}
@@ -115,7 +115,7 @@ export default function TrainerGrading() {
 
       {/* Submissions list */}
       {queryError ? (
-        <div className="glass-card p-12 text-center">
+        <div className="fl-card-static p-12 text-center">
           <p className="text-red-400">فشل تحميل التسليمات — حاول مرة أخرى</p>
         </div>
       ) : isLoading ? (
@@ -123,7 +123,7 @@ export default function TrainerGrading() {
           {[1, 2, 3].map(i => <div key={i} className="skeleton h-24 w-full rounded-2xl" />)}
         </div>
       ) : submissions?.length === 0 ? (
-        <div className="glass-card p-12 text-center">
+        <div className="fl-card-static p-12 text-center">
           <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mx-auto mb-3">
             <CheckCircle2 size={24} className="text-emerald-400" />
           </div>
@@ -143,7 +143,7 @@ export default function TrainerGrading() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.04 }}
-                className="glass-card p-7 cursor-pointer hover:border-sky-500/20 hover:translate-y-[-2px] transition-all duration-200"
+                className="fl-card p-7 cursor-pointer hover:border-sky-500/20"
                 onClick={() => setGradingSubmission(s)}
               >
                 <div className="flex items-center justify-between gap-3">
@@ -152,7 +152,7 @@ export default function TrainerGrading() {
                       <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center shrink-0">
                         <span>{typeInfo.icon}</span>
                       </div>
-                      <h3 className="text-sm font-medium text-white truncate">{s.assignments?.title}</h3>
+                      <h3 className="text-sm font-medium text-[var(--text-primary)] truncate">{s.assignments?.title}</h3>
                       <span className={`badge-${statusInfo?.color || 'blue'}`}>{statusInfo?.label_ar}</span>
                     </div>
                     <div className="flex items-center gap-3 text-xs text-muted mt-2">
@@ -341,7 +341,7 @@ function GradingModal({ submission, getStudentName, onClose }) {
         {/* Header */}
         <div className="px-6 py-4 border-b border-border-subtle">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-white">تقييم الواجب</h2>
+            <h2 className="text-lg font-semibold text-[var(--text-primary)]">تقييم الواجب</h2>
             <button onClick={onClose} className="btn-icon"><X size={20} /></button>
           </div>
           <p className="text-sm text-muted mt-1">
@@ -357,7 +357,7 @@ function GradingModal({ submission, getStudentName, onClose }) {
               <label className="flex items-center gap-1.5 text-sm text-muted mb-2">
                 <FileIcon size={14} /> النص
               </label>
-              <div className="rounded-xl p-4 text-sm text-white whitespace-pre-wrap" style={{ background: 'var(--color-bg-surface-raised)' }}>
+              <div className="rounded-xl p-4 text-sm text-[var(--text-primary)] whitespace-pre-wrap" style={{ background: 'var(--surface-raised)' }}>
                 {submission.content_text}
               </div>
               <p className="text-xs text-muted mt-1">{submission.content_text.split(/\s+/).filter(Boolean).length} كلمة</p>
@@ -434,11 +434,11 @@ function GradingModal({ submission, getStudentName, onClose }) {
                       href={fileUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 rounded-xl p-3 hover:bg-white/10 transition-colors border border-border-subtle" style={{ background: 'var(--color-bg-surface-raised)' }}
+                      className="flex items-center gap-3 rounded-xl p-3 hover:bg-[var(--surface-raised)] transition-colors border border-border-subtle" style={{ background: 'var(--surface-raised)' }}
                     >
                       <Download size={16} className="text-sky-400 shrink-0" />
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm text-white truncate">{fileName}</p>
+                        <p className="text-sm text-[var(--text-primary)] truncate">{fileName}</p>
                         {fileSize && <p className="text-xs text-muted">{fileSize}</p>}
                       </div>
                     </a>
@@ -458,7 +458,7 @@ function GradingModal({ submission, getStudentName, onClose }) {
                 href={submission.content_link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-xl p-3 text-sm text-sky-400 hover:text-sky-300 hover:bg-white/10 transition-colors border border-border-subtle" style={{ background: 'var(--color-bg-surface-raised)' }}
+                className="flex items-center gap-2 rounded-xl p-3 text-sm text-sky-400 hover:text-sky-300 hover:bg-[var(--surface-raised)] transition-colors border border-border-subtle" style={{ background: 'var(--surface-raised)' }}
                 dir="ltr"
               >
                 {submission.content_link}
@@ -468,7 +468,7 @@ function GradingModal({ submission, getStudentName, onClose }) {
 
           {/* No content at all */}
           {!submission.content_text && !submission.content_voice_url && !submission.content_image_urls?.length && !submission.content_file_urls?.length && !submission.content_link && (
-            <div className="rounded-xl p-4 text-sm text-muted text-center" style={{ background: 'var(--color-bg-surface-raised)' }}>
+            <div className="rounded-xl p-4 text-sm text-muted text-center" style={{ background: 'var(--surface-raised)' }}>
               لا يوجد محتوى
             </div>
           )}

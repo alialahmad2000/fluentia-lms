@@ -174,7 +174,7 @@ export default function AdminActionCenter() {
     <div className="space-y-12 max-w-4xl">
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-page-title text-white flex items-center gap-2">
+        <h1 className="text-page-title text-[var(--text-primary)] flex items-center gap-2">
           <Zap size={24} className="text-gold-400" />
           {getGreetingTime()}، {firstName}
         </h1>
@@ -194,12 +194,12 @@ export default function AdminActionCenter() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05 }}
-            className="glass-card p-4 hover:translate-y-[-2px] transition-all duration-200"
+            className="fl-card p-4"
           >
             <div className={`w-10 h-10 rounded-xl ${stat.color === 'text-amber-400' ? 'bg-amber-500/10' : stat.color === 'text-red-400' ? 'bg-red-500/10' : stat.color === 'text-orange-400' ? 'bg-orange-500/10' : 'bg-sky-500/10'} flex items-center justify-center mb-2`}>
               <stat.icon size={18} className={stat.color} />
             </div>
-            <p className="text-2xl font-bold text-white">{stat.value}</p>
+            <p className="text-2xl font-bold text-[var(--text-primary)]">{stat.value}</p>
             <p className="text-xs text-muted mt-0.5">{stat.label}</p>
           </motion.div>
         ))}
@@ -207,7 +207,7 @@ export default function AdminActionCenter() {
 
       {/* Action Items */}
       <div>
-        <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
+        <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
           <div className="w-8 h-8 rounded-xl bg-amber-500/10 flex items-center justify-center">
             <AlertTriangle size={14} className="text-amber-400" />
           </div>
@@ -218,7 +218,7 @@ export default function AdminActionCenter() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="glass-card p-8 text-center"
+            className="fl-card-static p-8 text-center"
           >
             <CheckCircle2 size={40} className="text-emerald-400/30 mx-auto mb-3" />
             <p className="text-emerald-400 font-medium">كل شيء تمام!</p>
@@ -234,14 +234,14 @@ export default function AdminActionCenter() {
                   initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}
-                  className={`glass-card p-4 border-s-4 ${colors.border} flex items-center justify-between gap-4 hover:translate-y-[-2px] transition-all duration-200`}
+                  className={`fl-card p-4 border-s-4 ${colors.border} flex items-center justify-between gap-4`}
                 >
                   <div className="flex items-start gap-3 flex-1 min-w-0">
                     <div className={`w-10 h-10 rounded-xl ${colors.bg} flex items-center justify-center shrink-0`}>
                       <item.icon size={18} className={colors.text} />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-sm font-medium text-white">{item.title}</p>
+                      <p className="text-sm font-medium text-[var(--text-primary)]">{item.title}</p>
                       <p className="text-xs text-muted mt-0.5 truncate">{item.desc}</p>
                     </div>
                   </div>
@@ -263,7 +263,7 @@ export default function AdminActionCenter() {
       {/* Today's Schedule */}
       {todayClasses?.length > 0 && (
         <div>
-          <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
+          <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
             <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
               <Calendar size={14} className="text-sky-400" />
             </div>
@@ -276,19 +276,19 @@ export default function AdminActionCenter() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.04 }}
-                className="glass-card p-4 flex items-center justify-between hover:translate-y-[-2px] transition-all duration-200"
+                className="fl-card p-4 flex items-center justify-between"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
                     <Clock size={18} className="text-sky-400" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-white">{cls.title || cls.groups?.name || 'حصة'}</p>
+                    <p className="text-sm font-medium text-[var(--text-primary)]">{cls.title || cls.groups?.name || 'حصة'}</p>
                     <p className="text-xs text-muted">{cls.groups?.code}</p>
                   </div>
                 </div>
                 <div className="text-left">
-                  <p className="text-sm font-mono text-white">
+                  <p className="text-sm font-mono text-[var(--text-primary)]">
                     {cls.start_time?.slice(0, 5)} — {cls.end_time?.slice(0, 5)}
                   </p>
                 </div>
@@ -301,13 +301,13 @@ export default function AdminActionCenter() {
       {/* Inactive Students List */}
       {inactiveStudents?.length > 0 && (
         <div>
-          <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
+          <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
             <div className="w-8 h-8 rounded-xl bg-orange-500/10 flex items-center justify-center">
               <Users size={14} className="text-orange-400" />
             </div>
             طلاب غير نشطين (7+ أيام)
           </h2>
-          <div className="glass-card divide-y divide-border-subtle overflow-hidden">
+          <div className="fl-card-static divide-y divide-border-subtle overflow-hidden">
             {inactiveStudents.slice(0, 5).map((s) => {
               const name = s.profiles?.display_name || s.profiles?.full_name || '—'
               const lastActive = s.last_active_at
@@ -320,7 +320,7 @@ export default function AdminActionCenter() {
                       {name[0]}
                     </div>
                     <div>
-                      <p className="text-sm text-white">{name}</p>
+                      <p className="text-sm text-[var(--text-primary)]">{name}</p>
                       <p className="text-xs text-muted">{s.groups?.code || '—'}</p>
                     </div>
                   </div>

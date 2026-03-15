@@ -12,16 +12,20 @@ function resolveTheme(preference) {
   return preference
 }
 
-function applyTheme(effective) {
+function applyTheme(effective, animate = false) {
   const root = document.documentElement
+  if (animate) {
+    root.classList.add('theme-transition')
+    setTimeout(() => root.classList.remove('theme-transition'), 300)
+  }
   if (effective === 'light') {
     root.classList.remove('dark')
     root.classList.add('light')
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#f0f4f8')
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#f8fafc')
   } else {
     root.classList.remove('light')
     root.classList.add('dark')
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#060e1c')
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#050d1a')
   }
 }
 
@@ -43,7 +47,7 @@ export const useThemeStore = create((set, get) => {
 
     setTheme(preference) {
       const effective = resolveTheme(preference)
-      applyTheme(effective)
+      applyTheme(effective, true)
       try { localStorage.setItem(STORAGE_KEY, preference) } catch {}
       set({ theme: preference, effectiveTheme: effective })
     },

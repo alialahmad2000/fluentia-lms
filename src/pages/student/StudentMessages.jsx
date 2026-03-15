@@ -227,7 +227,7 @@ export default function StudentMessages() {
                 className={`w-full text-right px-3 py-2.5 rounded-xl text-sm transition-all flex items-center justify-between ${
                   selectedContact?.id === c.id
                     ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
-                    : 'bg-white/5 text-white hover:bg-white/10 border border-transparent'
+                    : 'bg-white/5 text-[var(--text-primary)] hover:bg-white/10 border border-transparent'
                 }`}
               >
                 <span className="truncate">{c.name}</span>
@@ -249,7 +249,7 @@ export default function StudentMessages() {
           {selectedContact ? (
             <>
               {/* Contact header */}
-              <div className="glass-card px-4 py-2.5 mb-2 flex items-center gap-3">
+              <div className="fl-card-static px-4 py-2.5 mb-2 flex items-center gap-3">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${
                   selectedContact.role === 'trainer'
                     ? 'bg-gold-500/20 text-gold-400 border border-gold-500/30'
@@ -258,7 +258,7 @@ export default function StudentMessages() {
                   {selectedContact.name[0]}
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-white">{selectedContact.name}</p>
+                  <p className="text-sm font-medium text-[var(--text-primary)]">{selectedContact.name}</p>
                   <p className="text-xs text-muted">
                     {selectedContact.role === 'trainer' ? 'المدرب' : 'طالب'}
                   </p>
@@ -288,8 +288,8 @@ export default function StudentMessages() {
                       <div className="max-w-[75%]">
                         <div className={`rounded-2xl px-3.5 py-2 text-sm ${
                           isMe
-                            ? 'bg-sky-500/10 border border-sky-500/20 text-white'
-                            : 'bg-white/5 border border-border-subtle text-white'
+                            ? 'bg-sky-500/10 border border-sky-500/20 text-[var(--text-primary)]'
+                            : 'bg-white/5 border border-border-subtle text-[var(--text-primary)]'
                         }`}>
                           <p className="whitespace-pre-wrap break-words">{msg.content}</p>
                         </div>

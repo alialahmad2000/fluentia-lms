@@ -194,10 +194,10 @@ export default function TrainerChallenges() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="glass-card-raised p-7 space-y-5"
+            className="fl-card-static p-7 space-y-5"
           >
             <div className="flex items-center gap-3">
-              <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>تحدي جديد</h3>
+              <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>تحدي جديد</h3>
               <AIFillButton
                 isOpen={aiFiller.isOpen}
                 setIsOpen={aiFiller.setIsOpen}
@@ -322,7 +322,7 @@ export default function TrainerChallenges() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.04 }}
-                className={`glass-card p-7 hover:translate-y-[-2px] transition-all duration-200 ${active ? '' : 'opacity-60'}`}
+                className={`fl-card p-7 ${active ? '' : 'opacity-60'}`}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex-1 min-w-0">
@@ -334,7 +334,7 @@ export default function TrainerChallenges() {
                         {CHALLENGE_TYPES.find(t => t.value === c.type)?.label || c.type}
                       </span>
                     </div>
-                    <h3 className="text-sm font-bold text-white mt-2">{c.title_ar}</h3>
+                    <h3 className="text-sm font-bold text-[var(--text-primary)] mt-2">{c.title_ar}</h3>
                     <div className="flex items-center gap-4 mt-2 text-xs text-muted">
                       <span className="flex items-center gap-1"><Zap size={12} className="text-gold-400" /> {c.xp_reward} XP</span>
                       <span className="flex items-center gap-1"><Users size={12} /> {counts} مشارك</span>
@@ -353,7 +353,7 @@ export default function TrainerChallenges() {
           })}
 
           {challenges.length === 0 && (
-            <div className="glass-card p-12 text-center">
+            <div className="fl-card-static p-12 text-center">
               <Target size={48} className="text-muted mx-auto mb-3 opacity-30" />
               <p className="text-muted">لا توجد تحديات</p>
               <p className="text-xs text-muted mt-1">أنشئ تحدي جديد لتحفيز الطلاب</p>

@@ -34,7 +34,7 @@ export default function ForgotPassword() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'var(--color-bg-base)' }}>
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'var(--surface-base)' }}>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -45,13 +45,13 @@ export default function ForgotPassword() {
           <p className="text-muted text-sm mt-2">استعادة كلمة المرور</p>
         </div>
 
-        <div className="glass-card-raised p-7">
+        <div className="fl-card-static p-7">
           {sent ? (
             <div className="text-center space-y-4">
               <CheckCircle2 size={48} className="text-emerald-400 mx-auto" />
-              <h2 className="text-page-title text-white">تم إرسال الرابط</h2>
+              <h2 className="text-page-title text-[var(--text-primary)]">تم إرسال الرابط</h2>
               <p className="text-sm text-muted">
-                تحقق من بريدك الإلكتروني <span className="text-white" dir="ltr">{email}</span> واتبع الرابط لإعادة تعيين كلمة المرور.
+                تحقق من بريدك الإلكتروني <span className="text-[var(--text-primary)]" dir="ltr">{email}</span> واتبع الرابط لإعادة تعيين كلمة المرور.
               </p>
               <Link to="/login" className="btn-primary inline-flex items-center gap-2 text-sm py-2 px-6 mt-4">
                 <ArrowRight size={14} />

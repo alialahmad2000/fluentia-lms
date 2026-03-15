@@ -147,14 +147,14 @@ export default function AISubmissionFeedback({
 
       {/* Transcript (for speaking/listening) */}
       {transcript && (
-        <div className="glass-card p-4">
+        <div className="fl-card-static p-4">
           <p className="text-sm text-muted mb-2 flex items-center gap-2">
             <div className="w-7 h-7 rounded-xl bg-violet-500/10 flex items-center justify-center">
               <Mic size={12} className="text-violet-400" />
             </div>
             التفريغ النصي
           </p>
-          <p className="text-sm text-white leading-relaxed" dir="ltr">{transcript}</p>
+          <p className="text-sm text-[var(--text-primary)] leading-relaxed" dir="ltr">{transcript}</p>
         </div>
       )}
 
@@ -164,7 +164,7 @@ export default function AISubmissionFeedback({
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass-card overflow-hidden"
+            className="fl-card-static overflow-hidden"
           >
             {/* Header with score */}
             <button
@@ -175,7 +175,7 @@ export default function AISubmissionFeedback({
                 <div className="w-9 h-9 rounded-xl bg-violet-500/10 flex items-center justify-center">
                   <Sparkles size={16} className="text-violet-400" />
                 </div>
-                <span className="text-sm font-semibold text-white">تقييم الذكاء الاصطناعي</span>
+                <span className="text-sm font-semibold text-[var(--text-primary)]">تقييم الذكاء الاصطناعي</span>
                 {score && (
                   <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold ${scoreColor(score)}`}>
                     {score}
@@ -189,14 +189,14 @@ export default function AISubmissionFeedback({
               <div className="px-5 pb-5 space-y-4">
                 {/* Overall feedback */}
                 {feedback.overall_feedback && (
-                  <p className="text-sm text-white/90 leading-relaxed">{feedback.overall_feedback}</p>
+                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{feedback.overall_feedback}</p>
                 )}
 
                 {/* ── Writing-specific sections ── */}
                 {feedback.grammar_errors?.length > 0 && (
                   <FeedbackSection title="أخطاء نحوية" color="red">
                     {feedback.grammar_errors.map((e, i) => (
-                      <div key={i} className="bg-white/5 rounded-xl p-3 text-xs">
+                      <div key={i} className="bg-[var(--surface-base)] rounded-xl p-3 text-xs">
                         <div className="flex items-start gap-2 flex-wrap">
                           <span className="text-red-400 line-through" dir="ltr">{e.error}</span>
                           <span className="text-emerald-400" dir="ltr">{e.correction}</span>
@@ -210,7 +210,7 @@ export default function AISubmissionFeedback({
                 {feedback.vocabulary_suggestions?.length > 0 && (
                   <FeedbackSection title="اقتراحات مفردات" color="sky">
                     {feedback.vocabulary_suggestions.map((v, i) => (
-                      <div key={i} className="bg-white/5 rounded-xl p-3 text-xs">
+                      <div key={i} className="bg-[var(--surface-base)] rounded-xl p-3 text-xs">
                         <span className="text-muted" dir="ltr">{v.original}</span>
                         <span className="text-muted mx-1">←</span>
                         <span className="text-sky-400 font-medium" dir="ltr">{v.better}</span>
@@ -228,7 +228,7 @@ export default function AISubmissionFeedback({
 
                 {feedback.corrected_text && (
                   <FeedbackSection title="النص المصحح" color="emerald" single>
-                    <p className="text-xs text-white/80 leading-relaxed" dir="ltr">{feedback.corrected_text}</p>
+                    <p className="text-xs text-[var(--text-secondary)] leading-relaxed" dir="ltr">{feedback.corrected_text}</p>
                   </FeedbackSection>
                 )}
 
@@ -267,8 +267,8 @@ export default function AISubmissionFeedback({
                 {feedback.grammar_notes?.length > 0 && (
                   <FeedbackSection title="ملاحظات نحوية" color="red">
                     {feedback.grammar_notes.map((n, i) => (
-                      <div key={i} className="bg-white/5 rounded-xl p-3 text-xs">
-                        <p className="text-white">{n.issue}</p>
+                      <div key={i} className="bg-[var(--surface-base)] rounded-xl p-3 text-xs">
+                        <p className="text-[var(--text-primary)]">{n.issue}</p>
                         <p className="text-emerald-400 mt-1">{n.suggestion}</p>
                       </div>
                     ))}
@@ -347,7 +347,7 @@ export default function AISubmissionFeedback({
                 )}
 
                 {/* ── Approve buttons ── */}
-                <div className="flex items-center gap-3 pt-3 border-t border-white/10">
+                <div className="flex items-center gap-3 pt-3 border-t border-[var(--border-subtle)]">
                   <button
                     onClick={handleApproveAndSend}
                     disabled={approving}

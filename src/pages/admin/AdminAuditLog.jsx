@@ -146,13 +146,13 @@ export default function AdminAuditLog() {
           <Shield className="w-6 h-6 text-violet-400" />
         </div>
         <div>
-          <h1 className="text-page-title text-white">سجل المراجعة</h1>
+          <h1 className="text-page-title text-[var(--text-primary)]">سجل المراجعة</h1>
           <p className="text-sm text-slate-400">تتبع جميع العمليات والتغييرات في النظام</p>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="glass-card p-7">
+      <div className="fl-card-static p-7">
         <div className="flex items-center gap-2 mb-3">
           <Filter className="w-4 h-4 text-slate-400" />
           <span className="text-sm text-slate-400 font-medium">تصفية</span>
@@ -200,7 +200,7 @@ export default function AdminAuditLog() {
       </div>
 
       {/* Table */}
-      <div className="glass-card overflow-hidden">
+      <div className="fl-card-static overflow-hidden">
         {isLoading ? (
           <div className="flex items-center justify-center py-20">
             <div className="w-8 h-8 border-2 border-violet-400 border-t-transparent rounded-full animate-spin" />

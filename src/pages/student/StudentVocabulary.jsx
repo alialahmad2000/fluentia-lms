@@ -300,7 +300,7 @@ export default function StudentVocabulary() {
       <div>
         <h1 className="text-page-title flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
-            <BookOpen size={20} className="text-sky-400" />
+            <BookOpen size={20} strokeWidth={1.5} className="text-sky-400" />
           </div>
           بنك المفردات
         </h1>
@@ -311,12 +311,12 @@ export default function StudentVocabulary() {
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="glass-card p-4"
+        className="fl-card-static p-4"
       >
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
             <Star size={16} className="text-amber-400" />
-            <span className="text-sm text-white font-medium">
+            <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
               المستوى {studentLevel}
             </span>
           </div>
@@ -340,7 +340,7 @@ export default function StudentVocabulary() {
       {/* Stats */}
       <div className="grid grid-cols-4 gap-6">
         {[
-          { label: 'الكل', value: stats.total, color: 'text-white' },
+          { label: 'الكل', value: stats.total, color: 'text-[var(--text-primary)]' },
           { label: 'متقنة', value: stats.mastered, color: 'text-emerald-400' },
           { label: 'يتعلمها', value: stats.learning, color: 'text-yellow-400' },
           { label: 'للمراجعة', value: stats.dueForReview, color: 'text-sky-400' },
@@ -350,7 +350,7 @@ export default function StudentVocabulary() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.06 }}
-            className="glass-card p-3 text-center hover:translate-y-[-2px] transition-all duration-200"
+            className="fl-card-static p-3 text-center hover:translate-y-[-2px] transition-all duration-200"
           >
             <p className={`text-lg font-bold ${s.color}`}>{s.value}</p>
             <p className="text-xs text-muted">{s.label}</p>
@@ -378,12 +378,12 @@ export default function StudentVocabulary() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="glass-card p-7 text-center space-y-4"
+            className="fl-card-static p-7 text-center space-y-4"
           >
             <p className="text-xs text-muted">{quizIndex + 1} / {dueWords.length}</p>
 
             <div className="py-8">
-              <p className="text-3xl font-bold text-white" dir="ltr">{dueWords[quizIndex].word}</p>
+              <p className="text-3xl font-bold text-[var(--text-primary)]" dir="ltr">{dueWords[quizIndex].word}</p>
               {dueWords[quizIndex].example_sentence && showAnswer && (
                 <p className="text-sm text-muted mt-3" dir="ltr">"{dueWords[quizIndex].example_sentence}"</p>
               )}
@@ -391,8 +391,8 @@ export default function StudentVocabulary() {
 
             {showAnswer ? (
               <div className="space-y-4">
-                <div className="rounded-xl p-4" style={{ background: 'var(--color-bg-surface-raised)' }}>
-                  <p className="text-lg text-white">{dueWords[quizIndex].meaning_ar || '—'}</p>
+                <div className="rounded-xl p-4" style={{ background: 'var(--surface-raised)' }}>
+                  <p className="text-lg text-[var(--text-primary)]">{dueWords[quizIndex].meaning_ar || '—'}</p>
                   {dueWords[quizIndex].meaning_en && (
                     <p className="text-sm text-muted mt-1" dir="ltr">{dueWords[quizIndex].meaning_en}</p>
                   )}
@@ -426,7 +426,7 @@ export default function StudentVocabulary() {
 
             <button
               onClick={() => { setQuizMode(false); setQuizIndex(0) }}
-              className="text-xs text-muted hover:text-white"
+              className="text-xs text-muted hover:text-[var(--text-primary)]"
             >
               إنهاء المراجعة
             </button>
@@ -449,7 +449,7 @@ export default function StudentVocabulary() {
                 className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
                   tab === t.key
                     ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
-                    : 'text-muted hover:text-white hover:bg-white/5'
+                    : 'text-muted hover:text-[var(--text-primary)] hover:bg-white/5'
                 }`}
               >
                 {t.label}
@@ -460,7 +460,7 @@ export default function StudentVocabulary() {
           {/* Add word */}
           {tab === 'add' && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
-              <div className="glass-card p-7 space-y-3">
+              <div className="fl-card-static p-7 space-y-3">
                 <form
                   onSubmit={(e) => { e.preventDefault(); if (addWord.trim()) addMutation.mutate(addWord) }}
                   className="flex items-center gap-2"
@@ -486,10 +486,10 @@ export default function StudentVocabulary() {
 
               {/* Suggested words section */}
               {displayedSuggestions.length > 0 && (
-                <div className="glass-card p-7 space-y-3">
+                <div className="fl-card-static p-7 space-y-3">
                   <div className="flex items-center gap-2 mb-1">
                     <Sparkles size={16} className="text-amber-400" />
-                    <h3 className="text-sm font-semibold text-white">كلمات مقترحة</h3>
+                    <h3 className="text-sm font-semibold text-[var(--text-primary)]">كلمات مقترحة</h3>
                     <span className="text-xs text-muted">(المستوى {studentLevel})</span>
                   </div>
                   <p className="text-xs text-muted">اضغط على الكلمة لإضافتها إلى بنك المفردات</p>
@@ -503,7 +503,7 @@ export default function StudentVocabulary() {
                         whileTap={{ scale: 0.95 }}
                         onClick={() => addSuggestedWord(word)}
                         disabled={addingSuggestion === word}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm text-white hover:bg-sky-500/10 hover:border-sky-500/20 hover:text-sky-400 transition-all disabled:opacity-50"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm text-[var(--text-primary)] hover:bg-sky-500/10 hover:border-sky-500/20 hover:text-sky-400 transition-all disabled:opacity-50"
                         dir="ltr"
                       >
                         {addingSuggestion === word ? (
@@ -534,12 +534,12 @@ export default function StudentVocabulary() {
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.03 }}
-                      className="glass-card p-4 hover:translate-y-[-2px] transition-all duration-200"
+                      className="fl-card p-4 hover:translate-y-[-2px] transition-all duration-200"
                     >
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="text-base font-bold text-white" dir="ltr">{word.word}</span>
+                            <span className="text-base font-bold text-[var(--text-primary)]" dir="ltr">{word.word}</span>
                             <span className={`badge-${mastery.color} text-xs`}>{mastery.emoji} {mastery.label}</span>
                           </div>
                           {word.meaning_ar && <p className="text-sm text-muted">{word.meaning_ar}</p>}
@@ -574,7 +574,7 @@ export default function StudentVocabulary() {
                 })
               )}
               {!isLoading && ((tab === 'review' ? dueWords : vocab)?.length || 0) === 0 && (
-                <div className="glass-card p-8 text-center space-y-4">
+                <div className="fl-card-static p-8 text-center space-y-4">
                   <BookOpen size={32} className="text-muted mx-auto mb-2" />
                   <p className="text-muted">{tab === 'review' ? 'لا توجد كلمات للمراجعة الآن' : 'لم تضف كلمات بعد'}</p>
 
@@ -583,7 +583,7 @@ export default function StudentVocabulary() {
                     <div className="pt-4 border-t border-white/5">
                       <div className="flex items-center justify-center gap-2 mb-3">
                         <Sparkles size={16} className="text-amber-400" />
-                        <h3 className="text-sm font-semibold text-white">كلمات مقترحة</h3>
+                        <h3 className="text-sm font-semibold text-[var(--text-primary)]">كلمات مقترحة</h3>
                         <span className="text-xs text-muted">(المستوى {studentLevel})</span>
                       </div>
                       <p className="text-xs text-muted mb-3">ابدأ بإضافة بعض الكلمات المقترحة لمستواك</p>
@@ -597,7 +597,7 @@ export default function StudentVocabulary() {
                             whileTap={{ scale: 0.95 }}
                             onClick={() => addSuggestedWord(word)}
                             disabled={addingSuggestion === word}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm text-white hover:bg-sky-500/10 hover:border-sky-500/20 hover:text-sky-400 transition-all disabled:opacity-50"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm text-[var(--text-primary)] hover:bg-sky-500/10 hover:border-sky-500/20 hover:text-sky-400 transition-all disabled:opacity-50"
                             dir="ltr"
                           >
                             {addingSuggestion === word ? (

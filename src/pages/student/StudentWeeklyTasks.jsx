@@ -21,7 +21,7 @@ const TASK_TYPE_CONFIG = {
 }
 
 const STATUS_CONFIG = {
-  pending:             { label: 'قيد الانتظار', class: 'bg-white/5 text-white/50 border border-white/10' },
+  pending:             { label: 'قيد الانتظار', class: 'bg-[var(--surface-base)] text-[var(--text-muted)] border border-[var(--border-subtle)]' },
   submitted:           { label: 'تم التسليم',   class: 'bg-sky-500/10 text-sky-400 border border-sky-500/20' },
   graded:              { label: 'تم التقييم',   class: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' },
   resubmit_requested:  { label: 'أعد التسليم',  class: 'bg-amber-500/10 text-amber-400 border border-amber-500/20' },
@@ -86,7 +86,7 @@ function ProgressRing({ progress, size = 120, strokeWidth = 8 }) {
       <svg width={size} height={size} className="transform -rotate-90">
         <circle
           cx={size / 2} cy={size / 2} r={radius}
-          fill="none" stroke="rgba(255,255,255,0.06)"
+          fill="none" stroke="var(--border-subtle)"
           strokeWidth={strokeWidth}
         />
         <motion.circle
@@ -111,11 +111,11 @@ function ProgressRing({ progress, size = 120, strokeWidth = 8 }) {
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.8 }}
-          className="text-2xl font-bold text-white"
+          className="text-2xl font-bold text-[var(--text-primary)]"
         >
           {toArabicNum(Math.round(progress))}%
         </motion.span>
-        <span className="text-xs text-white/40 mt-0.5">مكتمل</span>
+        <span className="text-xs text-[var(--text-muted)] mt-0.5">مكتمل</span>
       </div>
     </div>
   )
@@ -190,7 +190,7 @@ export default function StudentWeeklyTasks() {
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative overflow-hidden rounded-2xl border border-white/[0.06]"
+        className="relative overflow-hidden rounded-2xl border border-[var(--border-subtle)]"
         style={{ background: 'linear-gradient(135deg, rgba(14,25,50,0.9) 0%, rgba(6,14,28,0.95) 100%)' }}
       >
         {/* Subtle decorative glow */}
@@ -205,17 +205,17 @@ export default function StudentWeeklyTasks() {
                 <CalendarDays size={20} className="text-sky-400" />
               </div>
               <div>
-                <h1 className="text-xl sm:text-2xl font-bold text-white">مهامي الأسبوعية</h1>
-                <p className="text-white/40 text-sm mt-0.5">{formatWeekRange(weekSunday)}</p>
+                <h1 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)]">مهامي الأسبوعية</h1>
+                <p className="text-[var(--text-muted)] text-sm mt-0.5">{formatWeekRange(weekSunday)}</p>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setWeekOffset(o => o + 1)}
-                className="w-9 h-9 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] flex items-center justify-center transition-all"
+                className="w-9 h-9 rounded-xl bg-[var(--surface-base)] hover:bg-[var(--surface-raised)] border border-[var(--border-subtle)] flex items-center justify-center transition-all"
               >
-                <ChevronRight size={16} className="text-white/60" />
+                <ChevronRight size={16} className="text-[var(--text-muted)]" />
               </button>
               {weekOffset !== 0 && (
                 <button
@@ -228,9 +228,9 @@ export default function StudentWeeklyTasks() {
               <button
                 onClick={() => setWeekOffset(o => o - 1)}
                 disabled={weekOffset <= 0}
-                className="w-9 h-9 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] flex items-center justify-center transition-all disabled:opacity-30"
+                className="w-9 h-9 rounded-xl bg-[var(--surface-base)] hover:bg-[var(--surface-raised)] border border-[var(--border-subtle)] flex items-center justify-center transition-all disabled:opacity-30"
               >
-                <ChevronLeft size={16} className="text-white/60" />
+                <ChevronLeft size={16} className="text-[var(--text-muted)]" />
               </button>
             </div>
           </div>
@@ -256,13 +256,13 @@ export default function StudentWeeklyTasks() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 + i * 0.08 }}
-                    className={`rounded-xl bg-gradient-to-br ${stat.gradient} border border-white/[0.04] p-3.5`}
+                    className={`rounded-xl bg-gradient-to-br ${stat.gradient} border border-[var(--border-subtle)] p-3.5`}
                   >
                     <div className="flex items-center gap-2 mb-1.5">
                       <stat.icon size={14} className={stat.iconColor} />
-                      <span className="text-xs text-white/35 font-medium">{stat.label}</span>
+                      <span className="text-xs text-[var(--text-muted)] font-medium">{stat.label}</span>
                     </div>
-                    <p className="text-lg font-bold text-white">{stat.value}</p>
+                    <p className="text-lg font-bold text-[var(--text-primary)]">{stat.value}</p>
                   </motion.div>
                 ))}
               </div>
@@ -289,7 +289,7 @@ export default function StudentWeeklyTasks() {
       {isLoading && (
         <div className="space-y-4">
           {[1, 2, 3].map(i => (
-            <div key={i} className="h-28 rounded-2xl animate-pulse" style={{ background: 'rgba(255,255,255,0.03)' }} />
+            <div key={i} className="h-28 skeleton" style={{ background: 'var(--surface-base)' }} />
           ))}
         </div>
       )}
@@ -300,14 +300,14 @@ export default function StudentWeeklyTasks() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="rounded-2xl border border-white/[0.06] p-14 flex flex-col items-center justify-center text-center"
-          style={{ background: 'rgba(255,255,255,0.02)' }}
+          className="rounded-2xl border border-[var(--border-subtle)] p-14 flex flex-col items-center justify-center text-center"
+          style={{ background: 'var(--surface-base)' }}
         >
-          <div className="w-16 h-16 rounded-2xl bg-white/[0.04] flex items-center justify-center mb-5">
-            <ClipboardList size={28} className="text-white/20" />
+          <div className="w-16 h-16 rounded-2xl bg-[var(--surface-base)] flex items-center justify-center mb-5">
+            <ClipboardList size={28} className="text-[var(--text-muted)]" />
           </div>
-          <p className="text-lg font-semibold text-white/70 mb-1.5">لا توجد مهام</p>
-          <p className="text-white/30 text-sm max-w-xs">
+          <p className="text-lg font-semibold text-[var(--text-muted)] mb-1.5">لا توجد مهام</p>
+          <p className="text-[var(--text-muted)] text-sm max-w-xs">
             {isCurrentWeek
               ? 'لم يتم إنشاء مهام هذا الأسبوع بعد. ستتوفر قريبًا!'
               : 'لا توجد مهام لهذا الأسبوع'}
@@ -338,11 +338,11 @@ export default function StudentWeeklyTasks() {
                   <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${config.gradient} flex items-center justify-center`}>
                     <Icon size={15} className="text-white" />
                   </div>
-                  <h2 className="text-base font-semibold text-white/80">{config.label}</h2>
-                  <span className="text-xs text-white/30 font-medium">
+                  <h2 className="text-base font-semibold text-[var(--text-secondary)]">{config.label}</h2>
+                  <span className="text-xs text-[var(--text-muted)] font-medium">
                     {toArabicNum(groupDone)}/{toArabicNum(groupTotal)}
                   </span>
-                  <div className="flex-1 h-px bg-white/[0.04] mr-2" />
+                  <div className="flex-1 h-px bg-[var(--surface-base)] mr-2" />
                 </div>
 
                 {/* Task cards */}
@@ -361,8 +361,8 @@ export default function StudentWeeklyTasks() {
                       >
                         <Link
                           to={`/student/weekly-tasks/${task.id}`}
-                          className={`group block rounded-xl border ${config.border} hover:border-white/[0.12] transition-all duration-200 hover:translate-y-[-2px] overflow-hidden`}
-                          style={{ background: 'rgba(255,255,255,0.02)' }}
+                          className={`group block rounded-xl border ${config.border} hover:border-[var(--border-subtle)] transition-all duration-200 hover:translate-y-[-2px] overflow-hidden`}
+                          style={{ background: 'var(--surface-base)' }}
                         >
                           {/* Top accent bar */}
                           <div className={`h-0.5 bg-gradient-to-r ${config.gradient} ${isDone ? 'opacity-60' : 'opacity-30 group-hover:opacity-60'} transition-opacity`} />
@@ -370,7 +370,7 @@ export default function StudentWeeklyTasks() {
                           <div className="p-5">
                             {/* Title + status */}
                             <div className="flex items-start justify-between gap-2 mb-3">
-                              <h3 className={`font-semibold text-sm leading-snug ${isDone ? 'text-white/50' : 'text-white/90'} line-clamp-2`}>
+                              <h3 className={`font-semibold text-sm leading-snug ${isDone ? 'text-[var(--text-muted)]' : 'text-[var(--text-secondary)]'} line-clamp-2`}>
                                 {task.title || config.label}
                               </h3>
                               {isDone && (
@@ -384,7 +384,7 @@ export default function StudentWeeklyTasks() {
                                 {statusCfg.label}
                               </span>
                               {task.points != null && (
-                                <span className="text-xs text-white/25 font-medium">
+                                <span className="text-xs text-[var(--text-muted)] font-medium">
                                   {toArabicNum(task.points)} نقطة
                                 </span>
                               )}
@@ -402,10 +402,10 @@ export default function StudentWeeklyTasks() {
 
                             {/* Deadline */}
                             <div className="flex items-center gap-1.5">
-                              <Clock size={12} className={deadlineInfo.urgent && !isDone ? 'text-red-400' : 'text-white/20'} />
+                              <Clock size={12} className={deadlineInfo.urgent && !isDone ? 'text-red-400' : 'text-[var(--text-muted)]'} />
                               <span className={`text-xs ${
-                                isDone ? 'text-white/25' :
-                                deadlineInfo.urgent ? 'text-red-400' : 'text-white/30'
+                                isDone ? 'text-[var(--text-muted)]' :
+                                deadlineInfo.urgent ? 'text-red-400' : 'text-[var(--text-muted)]'
                               }`}>
                                 {isDone ? 'تم التسليم' : deadlineInfo.text}
                               </span>

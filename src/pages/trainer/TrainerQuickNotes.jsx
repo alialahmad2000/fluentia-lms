@@ -158,7 +158,7 @@ export default function TrainerQuickNotes() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.04 }}
                 onClick={() => setSelectedStudent(isSelected ? null : s)}
-                className={`w-full flex items-center gap-3 p-3 rounded-xl border hover:translate-y-[-2px] transition-all duration-200 ${
+                className={`w-full flex items-center gap-3 p-3 rounded-xl border transition-all ${
                   isSelected
                     ? 'bg-sky-500/10 border-sky-500/30 ring-2 ring-sky-500/20'
                     : 'bg-white/5 border-border-subtle hover:bg-white/10'
@@ -167,12 +167,12 @@ export default function TrainerQuickNotes() {
                 <div className="w-10 h-10 rounded-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 font-bold">
                   {name[0]}
                 </div>
-                <span className="text-sm font-medium text-white">{name}</span>
+                <span className="text-sm font-medium text-[var(--text-primary)]">{name}</span>
               </motion.button>
             )
           })}
           {!students?.length && (
-            <div className="glass-card p-8 text-center">
+            <div className="fl-card-static p-8 text-center">
               <p className="text-muted">لا يوجد طلاب</p>
             </div>
           )}
@@ -188,8 +188,8 @@ export default function TrainerQuickNotes() {
               className="space-y-4"
             >
               {/* Note form */}
-              <div className="glass-card p-7 space-y-4">
-                <p className="text-sm text-white">
+              <div className="fl-card-static p-7 space-y-4">
+                <p className="text-sm text-[var(--text-primary)]">
                   ملاحظة عن{' '}
                   <span className="text-sky-400 font-bold">{getStudentName(selectedStudent)}</span>
                 </p>
@@ -245,7 +245,7 @@ export default function TrainerQuickNotes() {
                           <p className={`text-xs font-medium ${config.color}`}>
                             {config.icon} {config.label}
                           </p>
-                          <p className="text-sm text-white mt-1">{note.body}</p>
+                          <p className="text-sm text-[var(--text-primary)] mt-1">{note.body}</p>
                           <p className="text-xs text-muted mt-1">{formatDateAr(note.created_at)}</p>
                         </div>
                         <button

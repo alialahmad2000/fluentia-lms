@@ -32,10 +32,10 @@ export default function TrainerSchedule() {
     <div className="space-y-8">
       <div className="flex items-center gap-3 mb-2">
         <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-          <Wrench size={20} className="text-emerald-400" />
+          <Wrench size={20} strokeWidth={1.5} className="text-emerald-400" />
         </div>
         <div>
-          <h1 className="text-page-title" style={{ color: 'var(--color-text-primary)' }}>الأدوات</h1>
+          <h1 className="text-page-title" style={{ color: 'var(--text-primary)' }}>الأدوات</h1>
           <p className="text-muted text-sm mt-0.5">الجدول والأدوات التعليمية</p>
         </div>
       </div>
@@ -98,7 +98,7 @@ function ScheduleContent() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
-            <Calendar size={20} className="text-sky-400" />
+            <Calendar size={20} strokeWidth={1.5} className="text-sky-400" />
           </div>
           <div>
             <h1 className="text-page-title">الجدول</h1>
@@ -111,21 +111,21 @@ function ScheduleContent() {
       </div>
 
       {/* Group Schedules Overview */}
-      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-7">
+      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="fl-card-static p-7">
         <div className="flex items-center gap-2 mb-4">
           <Calendar size={18} className="text-sky-400" />
-          <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>الجدول الأسبوعي</h3>
+          <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>الجدول الأسبوعي</h3>
         </div>
         {groups?.length > 0 ? (
           <div className="space-y-4">
             {groups.map((g) => {
               const days = g.schedule?.days || []
               return (
-                <div key={g.id} className="rounded-xl p-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
+                <div key={g.id} className="rounded-xl p-3" style={{ background: 'var(--surface-raised)' }}>
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
                       <span className="badge-blue text-xs">{g.code}</span>
-                      <span className="text-sm text-white">{g.name}</span>
+                      <span className="text-sm text-[var(--text-primary)]">{g.name}</span>
                     </div>
                     {g.schedule?.time && (
                       <span className="text-xs text-muted flex items-center gap-1">
@@ -158,17 +158,17 @@ function ScheduleContent() {
 
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Upcoming */}
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="glass-card p-7">
-          <h3 className="text-section-title mb-4" style={{ color: 'var(--color-text-primary)' }}>الحصص القادمة ({upcoming.length})</h3>
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="fl-card-static p-7">
+          <h3 className="text-section-title mb-4" style={{ color: 'var(--text-primary)' }}>الحصص القادمة ({upcoming.length})</h3>
           {isLoading ? (
             <div className="space-y-2">{[1, 2].map(i => <div key={i} className="skeleton h-16 w-full" />)}</div>
           ) : upcoming.length > 0 ? (
             <div className="space-y-2">
               {upcoming.map((c) => (
-                <div key={c.id} className="rounded-xl p-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
+                <div key={c.id} className="rounded-xl p-3" style={{ background: 'var(--surface-raised)' }}>
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-white">{c.title || c.topic || 'حصة'}</p>
+                      <p className="text-sm text-[var(--text-primary)]">{c.title || c.topic || 'حصة'}</p>
                       <p className="text-xs text-muted mt-1">
                         <span className="badge-blue text-xs ml-2">{c.groups?.code}</span>
                         {formatDateAr(c.date)} &middot; {formatTime(c.start_time)}
@@ -196,15 +196,15 @@ function ScheduleContent() {
         </motion.div>
 
         {/* Past */}
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="glass-card p-7">
-          <h3 className="text-section-title mb-4" style={{ color: 'var(--color-text-primary)' }}>الحصص السابقة ({past.length})</h3>
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="fl-card-static p-7">
+          <h3 className="text-section-title mb-4" style={{ color: 'var(--text-primary)' }}>الحصص السابقة ({past.length})</h3>
           {past.length > 0 ? (
             <div className="space-y-2">
               {past.map((c) => (
-                <div key={c.id} className="rounded-xl p-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
+                <div key={c.id} className="rounded-xl p-3" style={{ background: 'var(--surface-raised)' }}>
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-white">{c.title || c.topic || 'حصة'}</p>
+                      <p className="text-sm text-[var(--text-primary)]">{c.title || c.topic || 'حصة'}</p>
                       <p className="text-xs text-muted mt-1">
                         <span className="badge-blue text-xs ml-2">{c.groups?.code}</span>
                         {formatDateAr(c.date)}
@@ -293,8 +293,8 @@ function ClassForm({ groups, trainerId, onClose }) {
         className="fixed inset-x-4 top-[10vh] lg:inset-x-auto lg:left-1/2 lg:-translate-x-1/2 lg:w-full lg:max-w-lg bg-navy-950 border border-border-subtle rounded-2xl z-50 overflow-hidden"
       >
         <div className="px-6 py-4 border-b border-border-subtle flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-white">حصة جديدة</h2>
-          <button onClick={onClose} className="text-muted hover:text-white"><X size={20} /></button>
+          <h2 className="text-lg font-semibold text-[var(--text-primary)]">حصة جديدة</h2>
+          <button onClick={onClose} className="text-muted hover:text-[var(--text-primary)]"><X size={20} /></button>
         </div>
         <div className="p-6 space-y-4">
           <div>

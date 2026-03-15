@@ -145,7 +145,7 @@ function QuizList({ onStart, onViewResults }) {
         </div>
         <div>
           <h1 className="text-page-title">الاختبارات</h1>
-          <p className="text-sm text-white/50">اختبر مستواك واكسب XP</p>
+          <p className="text-sm text-[var(--text-tertiary)]">اختبر مستواك واكسب XP</p>
         </div>
       </div>
 
@@ -154,9 +154,9 @@ function QuizList({ onStart, onViewResults }) {
           <Loader2 className="w-8 h-8 text-violet-400 animate-spin" />
         </div>
       ) : !quizzes?.length ? (
-        <div className="glass-card p-8 text-center">
-          <ClipboardCheck className="w-12 h-12 text-white/20 mx-auto mb-3" />
-          <p className="text-white/50">لا توجد اختبارات متاحة حالياً</p>
+        <div className="fl-card-static p-8 text-center">
+          <ClipboardCheck className="w-12 h-12 text-[var(--text-tertiary)] mx-auto mb-3" />
+          <p className="text-[var(--text-tertiary)]">لا توجد اختبارات متاحة حالياً</p>
         </div>
       ) : (
         <div className="space-y-6">
@@ -171,7 +171,7 @@ function QuizList({ onStart, onViewResults }) {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="glass-card p-4 hover:border-violet-500/30 hover:translate-y-[-2px] transition-all duration-200 cursor-pointer"
+                className="fl-card p-4 hover:border-violet-500/30 hover:translate-y-[-2px] transition-all duration-200 cursor-pointer"
                 onClick={() => {
                   if (qs.status === 'completed') {
                     onViewResults(quiz, attempts[quiz.id])
@@ -183,15 +183,15 @@ function QuizList({ onStart, onViewResults }) {
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <h3 className="font-semibold text-white text-sm">{quiz.title}</h3>
+                      <h3 className="font-semibold text-[var(--text-primary)] text-sm">{quiz.title}</h3>
                       <span className={`text-xs px-2 py-0.5 rounded-full bg-${type.color}-500/20 text-${type.color}-400`}>
                         {type.label}
                       </span>
                     </div>
                     {quiz.description && (
-                      <p className="text-xs text-white/40 mb-2 line-clamp-1">{quiz.description}</p>
+                      <p className="text-xs text-[var(--text-tertiary)] mb-2 line-clamp-1">{quiz.description}</p>
                     )}
-                    <div className="flex items-center gap-3 text-xs text-white/50 flex-wrap">
+                    <div className="flex items-center gap-3 text-xs text-[var(--text-tertiary)] flex-wrap">
                       <span className="flex items-center gap-1">
                         <ClipboardCheck className="w-3.5 h-3.5" />
                         {quiz.total_questions} سؤال
@@ -219,7 +219,7 @@ function QuizList({ onStart, onViewResults }) {
                     <span className={`text-xs px-3 py-1.5 rounded-lg font-medium bg-${qs.color}-500/20 text-${qs.color}-400`}>
                       {qs.label}
                     </span>
-                    <ChevronLeft className="w-4 h-4 text-white/30" />
+                    <ChevronLeft className="w-4 h-4 text-[var(--text-tertiary)]" />
                   </div>
                 </div>
               </motion.div>
@@ -426,12 +426,12 @@ function QuizTaker({ quiz, onFinish, onBack }) {
   return (
     <div className="max-w-2xl mx-auto">
       {/* Top bar: progress + timer */}
-      <div className="glass-card p-3 mb-4">
+      <div className="fl-card-static p-3 mb-4">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm text-white/70">سؤال {currentIndex + 1} من {totalQ}</span>
+          <span className="text-sm text-[var(--text-tertiary)]">سؤال {currentIndex + 1} من {totalQ}</span>
           <div className="flex items-center gap-3">
             {timeLeft !== null && (
-              <span className={`text-sm font-mono font-bold flex items-center gap-1 ${timeLeft < 120 ? 'text-red-400 animate-pulse' : 'text-white/70'}`}>
+              <span className={`text-sm font-mono font-bold flex items-center gap-1 ${timeLeft < 120 ? 'text-red-400 animate-pulse' : 'text-[var(--text-tertiary)]'}`}>
                 <Clock className="w-4 h-4" />
                 {formatTime(timeLeft)}
               </span>
@@ -444,13 +444,13 @@ function QuizTaker({ quiz, onFinish, onBack }) {
                   return next
                 })
               }}
-              className={`p-1.5 rounded-lg transition-colors ${flagged.has(question.id) ? 'bg-amber-500/20 text-amber-400' : 'text-white/30 hover:text-white/60'}`}
+              className={`p-1.5 rounded-lg transition-colors ${flagged.has(question.id) ? 'bg-amber-500/20 text-amber-400' : 'text-[var(--text-tertiary)] hover:text-[var(--text-tertiary)]'}`}
             >
               <Flag className="w-4 h-4" />
             </button>
           </div>
         </div>
-        <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--color-bg-surface-raised)' }}>
+        <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--surface-raised)' }}>
           <motion.div
             className="h-full bg-gradient-to-r from-violet-500 to-sky-500 rounded-full"
             initial={{ width: 0 }}
@@ -471,7 +471,7 @@ function QuizTaker({ quiz, onFinish, onBack }) {
                   ? 'bg-emerald-500/20 text-emerald-400'
                   : flagged.has(q.id)
                   ? 'bg-amber-500/20 text-amber-400'
-                  : 'bg-white/5 text-white/30'
+                  : 'bg-[var(--surface-base)] text-[var(--text-tertiary)]'
               }`}
             >
               {i + 1}
@@ -488,9 +488,9 @@ function QuizTaker({ quiz, onFinish, onBack }) {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -30 }}
           transition={{ duration: 0.2 }}
-          className="glass-card p-7 mb-4"
+          className="fl-card-static p-7 mb-4"
         >
-          <p className="text-white font-medium mb-4 text-base leading-relaxed">{question.question_text}</p>
+          <p className="text-[var(--text-primary)] font-medium mb-4 text-base leading-relaxed">{question.question_text}</p>
 
           <QuestionRenderer
             question={question}
@@ -546,11 +546,11 @@ function QuizTaker({ quiz, onFinish, onBack }) {
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.9 }}
-              className="glass-card p-6 max-w-sm w-full"
+              className="fl-card-static p-6 max-w-sm w-full"
               onClick={e => e.stopPropagation()}
             >
               <AlertTriangle className="w-10 h-10 text-amber-400 mx-auto mb-3" />
-              <h3 className="text-white font-bold text-center mb-2">إنهاء الاختبار؟</h3>
+              <h3 className="text-[var(--text-primary)] font-bold text-center mb-2">إنهاء الاختبار؟</h3>
               {(() => {
                 const unanswered = questions.filter(q => answers[q.id] === undefined).length
                 return unanswered > 0 ? (
@@ -558,13 +558,13 @@ function QuizTaker({ quiz, onFinish, onBack }) {
                     لديك {unanswered} سؤال بدون إجابة
                   </p>
                 ) : (
-                  <p className="text-white/50 text-sm text-center mb-4">هل أنت متأكد من إرسال إجاباتك؟</p>
+                  <p className="text-[var(--text-tertiary)] text-sm text-center mb-4">هل أنت متأكد من إرسال إجاباتك؟</p>
                 )
               })()}
               <div className="flex gap-3">
                 <button
                   onClick={() => setShowConfirm(false)}
-                  className="flex-1 px-4 py-2 rounded-xl bg-white/5 text-white/70 text-sm hover:bg-white/10"
+                  className="flex-1 px-4 py-2 rounded-xl bg-[var(--surface-base)] text-[var(--text-tertiary)] text-sm hover:bg-[var(--surface-raised)]"
                 >
                   تراجع
                 </button>
@@ -602,10 +602,10 @@ function QuestionRenderer({ question, answer, onChange, shuffleOptions }) {
             className={`w-full text-right p-3 rounded-xl border transition-all text-sm ${
               answer === opt
                 ? 'border-violet-500 bg-violet-500/20 text-white'
-                : 'border-white/10 bg-white/5 text-white/70 hover:border-white/20'
+                : 'border-[var(--border-subtle)] bg-[var(--surface-base)] text-[var(--text-tertiary)] hover:border-[var(--border-subtle)]'
             }`}
           >
-            <span className="ml-2 text-xs text-white/30">{String.fromCharCode(1571 + i)}</span>
+            <span className="ml-2 text-xs text-[var(--text-tertiary)]">{String.fromCharCode(1571 + i)}</span>
             {opt}
           </button>
         ))}
@@ -628,7 +628,7 @@ function QuestionRenderer({ question, answer, onChange, shuffleOptions }) {
                 ? value === 'true'
                   ? 'border-emerald-500 bg-emerald-500/20 text-emerald-400'
                   : 'border-red-500 bg-red-500/20 text-red-400'
-                : 'border-white/10 bg-white/5 text-white/60 hover:border-white/20'
+                : 'border-[var(--border-subtle)] bg-[var(--surface-base)] text-[var(--text-tertiary)] hover:border-[var(--border-subtle)]'
             }`}
           >
             <Icon className="w-8 h-8 mx-auto mb-2" />
@@ -670,14 +670,14 @@ function QuestionRenderer({ question, answer, onChange, shuffleOptions }) {
     return (
       <div className="space-y-2">
         {items.map((item, i) => (
-          <div key={`${item}-${i}`} className="flex items-center gap-2 p-3 rounded-xl bg-white/5 border border-white/10">
-            <span className="text-white/30 text-xs w-5">{i + 1}</span>
-            <span className="flex-1 text-white text-sm">{item}</span>
+          <div key={`${item}-${i}`} className="flex items-center gap-2 p-3 rounded-xl bg-[var(--surface-base)] border border-[var(--border-subtle)]">
+            <span className="text-[var(--text-tertiary)] text-xs w-5">{i + 1}</span>
+            <span className="flex-1 text-[var(--text-primary)] text-sm">{item}</span>
             <div className="flex flex-col gap-0.5">
-              <button onClick={() => moveItem(i, -1)} disabled={i === 0} className="p-0.5 text-white/30 hover:text-white disabled:opacity-20">
+              <button onClick={() => moveItem(i, -1)} disabled={i === 0} className="p-0.5 text-[var(--text-tertiary)] hover:text-[var(--text-primary)] disabled:opacity-20">
                 <ChevronRight className="w-4 h-4 rotate-90" />
               </button>
-              <button onClick={() => moveItem(i, 1)} disabled={i === items.length - 1} className="p-0.5 text-white/30 hover:text-white disabled:opacity-20">
+              <button onClick={() => moveItem(i, 1)} disabled={i === items.length - 1} className="p-0.5 text-[var(--text-tertiary)] hover:text-[var(--text-primary)] disabled:opacity-20">
                 <ChevronLeft className="w-4 h-4 rotate-90" />
               </button>
             </div>
@@ -727,7 +727,7 @@ function QuestionRenderer({ question, answer, onChange, shuffleOptions }) {
                 className={`w-full p-3 rounded-xl border text-sm text-right transition-all ${
                   isSelected ? 'border-violet-500 bg-violet-500/20 text-white'
                     : isMatched ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400'
-                    : 'border-white/10 bg-white/5 text-white/70 hover:border-white/20'
+                    : 'border-[var(--border-subtle)] bg-[var(--surface-base)] text-[var(--text-tertiary)] hover:border-[var(--border-subtle)]'
                 }`}
               >
                 {p.left || p.question}
@@ -746,7 +746,7 @@ function QuestionRenderer({ question, answer, onChange, shuffleOptions }) {
                 className={`w-full p-3 rounded-xl border text-sm text-right transition-all ${
                   isSelected ? 'border-violet-500 bg-violet-500/20 text-white'
                     : isMatched ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400'
-                    : 'border-white/10 bg-white/5 text-white/70 hover:border-white/20'
+                    : 'border-[var(--border-subtle)] bg-[var(--surface-base)] text-[var(--text-tertiary)] hover:border-[var(--border-subtle)]'
                 }`}
               >
                 {item.text}
@@ -771,7 +771,7 @@ function QuestionRenderer({ question, answer, onChange, shuffleOptions }) {
     )
   }
 
-  return <p className="text-white/50 text-sm">نوع السؤال غير مدعوم</p>
+  return <p className="text-[var(--text-tertiary)] text-sm">نوع السؤال غير مدعوم</p>
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -839,18 +839,18 @@ function QuizResults({ quiz, data, onBack }) {
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ type: 'spring', duration: 0.6 }}
-        className="glass-card p-7 text-center"
+        className="fl-card-static p-7 text-center"
       >
-        <h2 className="text-white/50 text-sm mb-2">نتيجتك</h2>
+        <h2 className="text-[var(--text-tertiary)] text-sm mb-2">نتيجتك</h2>
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-          className="text-6xl font-bold text-white mb-2"
+          className="text-6xl font-bold text-[var(--text-primary)] mb-2"
         >
-          {pct}<span className="text-2xl text-white/50">%</span>
+          {pct}<span className="text-2xl text-[var(--text-tertiary)]">%</span>
         </motion.div>
-        <p className="text-white/60 text-sm mb-4">
+        <p className="text-[var(--text-tertiary)] text-sm mb-4">
           حصلت على {total} من {max}
         </p>
         <motion.div
@@ -870,22 +870,22 @@ function QuizResults({ quiz, data, onBack }) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="glass-card p-7"
+          className="fl-card-static p-7"
         >
           <div className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
               <BarChart3 className="w-4 h-4 text-sky-400" />
             </div>
-            <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>تحليل المهارات</h3>
+            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>تحليل المهارات</h3>
           </div>
           <div className="space-y-3">
             {Object.entries(skillBreakdown).map(([skill, pctVal]) => (
               <div key={skill}>
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-sm text-white/70 capitalize">{skill}</span>
-                  <span className="text-xs text-white/50">{pctVal}%</span>
+                  <span className="text-sm text-[var(--text-tertiary)] capitalize">{skill}</span>
+                  <span className="text-xs text-[var(--text-tertiary)]">{pctVal}%</span>
                 </div>
-                <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'var(--color-bg-surface-raised)' }}>
+                <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'var(--surface-raised)' }}>
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${pctVal}%` }}
@@ -906,9 +906,9 @@ function QuizResults({ quiz, data, onBack }) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
-          className="glass-card p-7"
+          className="fl-card-static p-7"
         >
-          <h3 className="text-section-title mb-4" style={{ color: 'var(--color-text-primary)' }}>مراجعة الإجابات</h3>
+          <h3 className="text-section-title mb-4" style={{ color: 'var(--text-primary)' }}>مراجعة الإجابات</h3>
           <div className="space-y-4">
             {questions.map((q, i) => {
               const ans = graded?.find(a => (a.question_id || a.quiz_questions?.id) === q.id) || graded?.[i]
@@ -921,7 +921,7 @@ function QuizResults({ quiz, data, onBack }) {
                     <span className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${isCorrect ? 'bg-emerald-500/20' : 'bg-red-500/20'}`}>
                       {isCorrect ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <X className="w-3.5 h-3.5 text-red-400" />}
                     </span>
-                    <p className="text-white text-sm font-medium">{q.question_text}</p>
+                    <p className="text-[var(--text-primary)] text-sm font-medium">{q.question_text}</p>
                   </div>
                   <div className="mr-8 space-y-1 text-sm">
                     <p className={isCorrect ? 'text-emerald-400/80' : 'text-red-400/80'}>
@@ -933,7 +933,7 @@ function QuizResults({ quiz, data, onBack }) {
                       </p>
                     )}
                     {q.explanation && (
-                      <p className="text-white/40 text-xs mt-1">{q.explanation}</p>
+                      <p className="text-[var(--text-tertiary)] text-xs mt-1">{q.explanation}</p>
                     )}
                   </div>
                 </div>
@@ -955,7 +955,7 @@ function QuizResults({ quiz, data, onBack }) {
               navigator.share({ title: `نتيجتي في ${quiz?.title}`, text: `حصلت على ${pct}% في اختبار ${quiz?.title}!` })
             }
           }}
-          className="px-4 py-2.5 rounded-xl bg-white/5 text-white/60 text-sm hover:bg-white/10 transition-colors"
+          className="px-4 py-2.5 rounded-xl bg-[var(--surface-base)] text-[var(--text-tertiary)] text-sm hover:bg-[var(--surface-raised)] transition-colors"
         >
           شارك نتيجتك
         </button>

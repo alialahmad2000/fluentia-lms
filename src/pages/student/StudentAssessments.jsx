@@ -328,9 +328,9 @@ export default function StudentAssessments() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="glass-card p-7"
+        className="fl-card-static p-7"
       >
-        <h2 className="text-section-title mb-4 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
+        <h2 className="text-section-title mb-4 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
           <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <Radar size={16} className="text-sky-400" />
           </div>
@@ -351,7 +351,7 @@ export default function StudentAssessments() {
             {SKILLS.map((sk) => (
               <div key={sk} className="text-center">
                 <p className="text-xs text-muted">{SKILL_LABELS_AR[sk]}</p>
-                <p className="text-sm font-bold text-white">{radarSkills[sk]}%</p>
+                <p className="text-sm font-bold text-[var(--text-primary)]">{radarSkills[sk]}%</p>
               </div>
             ))}
           </div>
@@ -363,9 +363,9 @@ export default function StudentAssessments() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="glass-card p-7"
+        className="fl-card-static p-7"
       >
-        <h2 className="text-section-title mb-4 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
+        <h2 className="text-section-title mb-4 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
           <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
             <TrendingUp size={16} className="text-emerald-400" />
           </div>
@@ -389,7 +389,7 @@ export default function StudentAssessments() {
                   <span className="text-xs text-muted w-14 text-left shrink-0">
                     {SKILL_LABELS_AR[sk]}
                   </span>
-                  <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: 'var(--color-bg-surface-raised)' }}>
+                  <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: 'var(--surface-raised)' }}>
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${info.current}%` }}
@@ -397,7 +397,7 @@ export default function StudentAssessments() {
                       className={`h-full rounded-full ${barColor}`}
                     />
                   </div>
-                  <span className="text-xs font-bold text-white w-10 text-left">{info.current}%</span>
+                  <span className="text-xs font-bold text-[var(--text-primary)] w-10 text-left">{info.current}%</span>
                   <TrendIcon size={14} className={`${trendColor} shrink-0`} />
                   <span className={`text-xs ${trendColor} w-4`}>{trendLabel}</span>
                   <Sparkline values={info.values} />
@@ -413,9 +413,9 @@ export default function StudentAssessments() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="glass-card p-7"
+        className="fl-card-static p-7"
       >
-        <h2 className="text-section-title mb-4 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
+        <h2 className="text-section-title mb-4 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
           <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <Calendar size={16} className="text-sky-400" />
           </div>
@@ -441,7 +441,7 @@ export default function StudentAssessments() {
                   key={a.id}
                   layout
                   className="rounded-xl border border-border-subtle overflow-hidden"
-                  style={{ background: 'var(--color-bg-surface-raised)' }}
+                  style={{ background: 'var(--surface-raised)' }}
                 >
                   {/* Header row */}
                   <button
@@ -481,9 +481,9 @@ export default function StudentAssessments() {
                           {/* Per-skill scores */}
                           <div className="grid grid-cols-3 gap-3">
                             {SKILLS.map((sk) => (
-                              <div key={sk} className="text-center rounded-lg p-2" style={{ background: 'var(--color-bg-surface-raised)' }}>
+                              <div key={sk} className="text-center rounded-lg p-2" style={{ background: 'var(--surface-raised)' }}>
                                 <p className="text-xs text-muted">{SKILL_LABELS_AR[sk]}</p>
-                                <p className="text-sm font-bold text-white">
+                                <p className="text-sm font-bold text-[var(--text-primary)]">
                                   {scores[sk] != null ? `${scores[sk]}%` : '—'}
                                 </p>
                               </div>
@@ -523,9 +523,9 @@ export default function StudentAssessments() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="glass-card p-7"
+        className="fl-card-static p-7"
       >
-        <h2 className="text-section-title mb-4 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
+        <h2 className="text-section-title mb-4 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
           <div className="w-8 h-8 rounded-xl bg-amber-500/10 flex items-center justify-center">
             <Smile size={16} className="text-amber-400" />
           </div>
@@ -541,7 +541,7 @@ export default function StudentAssessments() {
           <div className="space-y-6">
             {/* Mood question */}
             <div>
-              <p className="text-sm text-white mb-3">كيف حاسس بمستواك هالأسبوع؟</p>
+              <p className="text-sm text-[var(--text-primary)] mb-3">كيف حاسس بمستواك هالأسبوع؟</p>
               <div className="flex gap-3 justify-center">
                 {[
                   { key: 'good', icon: Smile, label: 'ممتاز', emoji: '😊', activeCls: 'bg-emerald-500/20 border-emerald-500/40 text-emerald-400' },
@@ -566,7 +566,7 @@ export default function StudentAssessments() {
 
             {/* Confidence slider */}
             <div>
-              <p className="text-sm text-white mb-3">
+              <p className="text-sm text-[var(--text-primary)] mb-3">
                 مستوى ثقتك بالإنجليزي؟
                 <span className="text-sky-400 font-bold mr-2">{confidence}/5</span>
               </p>

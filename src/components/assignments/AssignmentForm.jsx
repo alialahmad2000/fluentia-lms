@@ -155,7 +155,7 @@ export default function AssignmentForm({ assignment, groups, trainerId, isAdmin,
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-border-subtle">
           <div className="flex items-center gap-3">
-            <h2 className="text-lg font-bold text-white">
+            <h2 className="text-lg font-bold text-[var(--text-primary)]">
               {isEdit ? 'تعديل الواجب' : 'واجب جديد'}
             </h2>
             <AIFillButton
@@ -169,7 +169,7 @@ export default function AssignmentForm({ assignment, groups, trainerId, isAdmin,
               filledCount={aiFiller.result?.filledCount}
             />
           </div>
-          <button onClick={onClose} className="text-muted hover:text-white transition-colors">
+          <button onClick={onClose} className="text-muted hover:text-[var(--text-primary)] transition-colors">
             <X size={20} />
           </button>
         </div>
@@ -357,7 +357,7 @@ function ToggleField({ label, checked, onChange }) {
         type="button"
         onClick={() => onChange(!checked)}
         className={`w-10 h-5 rounded-full transition-colors duration-200 relative ${
-          checked ? 'bg-sky-500' : 'bg-white/10'
+          checked ? 'bg-sky-500' : 'bg-[var(--surface-raised)]'
         }`}
       >
         <span

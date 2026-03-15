@@ -30,7 +30,7 @@ export default class ErrorBoundary extends Component {
             <div className="w-16 h-16 rounded-2xl bg-red-500/10 flex items-center justify-center mx-auto mb-4">
               <AlertTriangle size={32} className="text-red-400" />
             </div>
-            <h2 className="text-lg font-bold text-white mb-2">حدث خطأ غير متوقع</h2>
+            <h2 className="text-lg font-bold text-[var(--text-primary)] mb-2">حدث خطأ غير متوقع</h2>
             <p className="text-sm text-muted mb-6">
               عذراً، حدثت مشكلة في تحميل هذه الصفحة. حاول تحديث الصفحة أو العودة للرئيسية.
             </p>
@@ -50,7 +50,7 @@ export default class ErrorBoundary extends Component {
                   this.setState({ hasError: false, error: null })
                   window.location.href = '/'
                 }}
-                className="flex items-center gap-2 bg-white/5 border border-border-subtle text-muted text-sm py-2.5 px-5 rounded-xl hover:bg-white/10 hover:text-white transition-all"
+                className="flex items-center gap-2 border border-border-subtle text-muted text-sm py-2.5 px-5 rounded-xl hover:text-[var(--text-primary)] transition-all transition-all"
               >
                 <Home size={14} />
                 الرئيسية
@@ -77,7 +77,7 @@ export function PageErrorFallback({ error } = {}) {
         <div className="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mx-auto mb-3">
           <AlertTriangle size={24} className="text-red-400" />
         </div>
-        <h3 className="text-base font-bold text-white mb-1">تعذر تحميل الصفحة</h3>
+        <h3 className="text-base font-bold text-[var(--text-primary)] mb-1">تعذر تحميل الصفحة</h3>
         <p className="text-xs text-muted mb-4">حاول تحديث الصفحة</p>
         <button
           onClick={() => window.location.reload()}

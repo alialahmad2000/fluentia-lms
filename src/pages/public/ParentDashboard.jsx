@@ -78,7 +78,7 @@ export default function ParentDashboard() {
 
   if (!data) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-6" style={{ background: 'var(--color-bg-base)' }}>
+      <div className="min-h-screen flex items-center justify-center p-6" style={{ background: 'var(--surface-base)' }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -89,12 +89,12 @@ export default function ParentDashboard() {
             <p className="text-muted text-sm">لوحة متابعة ولي الأمر</p>
           </div>
 
-          <div className="glass-card-raised p-7">
+          <div className="fl-card-static p-7">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
                 <Lock size={16} className="text-sky-400" />
               </div>
-              <h2 className="font-medium text-white">أدخل رمز الوصول</h2>
+              <h2 className="font-medium text-[var(--text-primary)]">أدخل رمز الوصول</h2>
             </div>
 
             <form onSubmit={handleAccess} className="space-y-4">
@@ -129,7 +129,7 @@ export default function ParentDashboard() {
   const { student, grades = {}, attendance = {}, assignments = {}, skills, payments } = data
 
   return (
-    <div className="min-h-screen p-4 md:p-8" style={{ background: 'var(--color-bg-base)' }}>
+    <div className="min-h-screen p-4 md:p-8" style={{ background: 'var(--surface-base)' }}>
       <div className="max-w-4xl mx-auto space-y-12">
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-center">
@@ -138,13 +138,13 @@ export default function ParentDashboard() {
         </motion.div>
 
         {/* Student info */}
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-7">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="fl-card-static p-7">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 rounded-2xl bg-sky-500/10 flex items-center justify-center text-xl font-bold text-sky-400">
               {student?.name?.[0] || '?'}
             </div>
             <div>
-              <h2 className="text-xl font-bold text-white">{student.name}</h2>
+              <h2 className="text-xl font-bold text-[var(--text-primary)]">{student.name}</h2>
               <p className="text-muted text-sm">
                 {ACADEMIC_LEVELS[student.level] || 'غير محدد'} — {student.group || ''}
               </p>
@@ -165,7 +165,7 @@ export default function ParentDashboard() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.08 }}
-              className="glass-card p-4 hover:translate-y-[-2px] transition-all duration-200"
+              className="fl-card p-4 hover:translate-y-[-2px] transition-all duration-200"
             >
               <div className="flex items-center justify-between mb-2">
                 <span className="text-muted text-xs">{card.label}</span>
@@ -173,18 +173,18 @@ export default function ParentDashboard() {
                   <card.icon size={16} className={ICON_COLOR_CLASSES[card.color] || 'text-sky-400'} />
                 </div>
               </div>
-              <p className="text-xl font-bold text-white">{card.value}</p>
+              <p className="text-xl font-bold text-[var(--text-primary)]">{card.value}</p>
             </motion.div>
           ))}
         </div>
 
         {/* Assignment completion */}
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-7">
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="fl-card-static p-7">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
               <BookOpen size={16} className="text-sky-400" />
             </div>
-            <h3 className="font-medium text-white">الواجبات</h3>
+            <h3 className="font-medium text-[var(--text-primary)]">الواجبات</h3>
           </div>
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm text-muted">{assignments?.completed ?? 0} من {assignments?.total ?? 0} مكتملة</span>
@@ -200,12 +200,12 @@ export default function ParentDashboard() {
 
         {/* Skills */}
         {skills && (
-          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-7">
+          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="fl-card-static p-7">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-xl bg-violet-500/10 flex items-center justify-center">
               <BarChart3 size={16} className="text-violet-400" />
             </div>
-              <h3 className="font-medium text-white">المهارات</h3>
+              <h3 className="font-medium text-[var(--text-primary)]">المهارات</h3>
             </div>
             <div className="grid grid-cols-2 gap-3">
               {Object.entries(SKILL_LABELS).map(([key, label]) => {
@@ -214,7 +214,7 @@ export default function ParentDashboard() {
                   <div key={key}>
                     <div className="flex items-center justify-between text-xs mb-1">
                       <span className="text-muted">{label}</span>
-                      <span className="text-white font-medium">{value}%</span>
+                      <span className="text-[var(--text-primary)] font-medium">{value}%</span>
                     </div>
                     <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
                       <div
@@ -233,18 +233,18 @@ export default function ParentDashboard() {
 
         {/* Recent grades */}
         {grades?.recent?.length > 0 && (
-          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-7">
+          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="fl-card-static p-7">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
               <CheckCircle2 size={16} className="text-emerald-400" />
             </div>
-              <h3 className="font-medium text-white">آخر الدرجات</h3>
+              <h3 className="font-medium text-[var(--text-primary)]">آخر الدرجات</h3>
             </div>
             <div className="space-y-2">
               {grades.recent.map((g, i) => (
                 <div key={i} className="flex items-center justify-between py-2 border-b border-border-subtle last:border-0">
                   <div>
-                    <p className="text-sm text-white">{g.title}</p>
+                    <p className="text-sm text-[var(--text-primary)]">{g.title}</p>
                     <p className="text-xs text-muted">{g.type}</p>
                   </div>
                   <span className={`text-sm font-bold ${
@@ -260,12 +260,12 @@ export default function ParentDashboard() {
 
         {/* Payments */}
         {payments?.length > 0 && (
-          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-7">
+          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="fl-card-static p-7">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-xl bg-gold-500/10 flex items-center justify-center">
               <CreditCard size={16} className="text-gold-400" />
             </div>
-              <h3 className="font-medium text-white">المدفوعات</h3>
+              <h3 className="font-medium text-[var(--text-primary)]">المدفوعات</h3>
             </div>
             <div className="space-y-2">
               {payments.map((p, i) => {
@@ -273,7 +273,7 @@ export default function ParentDashboard() {
                 return (
                   <div key={i} className="flex items-center justify-between py-2 border-b border-border-subtle last:border-0">
                     <div>
-                      <p className="text-sm text-white">{p.amount} ر.س</p>
+                      <p className="text-sm text-[var(--text-primary)]">{p.amount} ر.س</p>
                       <p className="text-xs text-muted">{p.period}</p>
                     </div>
                     <span className={`text-xs px-2 py-0.5 rounded-full ${PAYMENT_COLOR_CLASSES[ps.color] || 'bg-sky-500/10 text-sky-400'}`}>

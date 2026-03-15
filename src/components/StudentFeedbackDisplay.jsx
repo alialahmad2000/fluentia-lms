@@ -35,7 +35,7 @@ export default function StudentFeedbackDisplay({ feedback, trainerFeedback }) {
 
       {/* Overall feedback */}
       {feedback.overall_feedback && (
-        <p className="text-sm text-white/90 leading-relaxed">{feedback.overall_feedback}</p>
+        <p className="text-sm leading-relaxed" style={{ color: 'var(--text-primary)' }}>{feedback.overall_feedback}</p>
       )}
 
       {/* Trainer plain-text feedback (if different from overall) */}
@@ -47,7 +47,7 @@ export default function StudentFeedbackDisplay({ feedback, trainerFeedback }) {
       {feedback.grammar_errors?.length > 0 && (
         <FeedbackSection title="أخطاء نحوية" color="red">
           {feedback.grammar_errors.map((e, i) => (
-            <div key={i} className="bg-white/5 rounded-xl p-3 text-xs">
+            <div key={i} className="bg-[var(--surface-base)] rounded-xl p-3 text-xs">
               <div className="flex items-start gap-2 flex-wrap">
                 <span className="text-red-400 line-through" dir="ltr">{e.error}</span>
                 <span className="text-emerald-400" dir="ltr">{e.correction}</span>
@@ -61,7 +61,7 @@ export default function StudentFeedbackDisplay({ feedback, trainerFeedback }) {
       {feedback.vocabulary_suggestions?.length > 0 && (
         <FeedbackSection title="اقتراحات مفردات" color="sky">
           {feedback.vocabulary_suggestions.map((v, i) => (
-            <div key={i} className="bg-white/5 rounded-xl p-3 text-xs">
+            <div key={i} className="bg-[var(--surface-base)] rounded-xl p-3 text-xs">
               <span className="text-muted" dir="ltr">{v.original}</span>
               <span className="text-muted mx-1">&larr;</span>
               <span className="text-sky-400 font-medium" dir="ltr">{v.better}</span>
@@ -79,7 +79,7 @@ export default function StudentFeedbackDisplay({ feedback, trainerFeedback }) {
 
       {feedback.corrected_text && (
         <FeedbackSection title="النص المصحح" color="emerald" single>
-          <p className="text-xs text-white/80 leading-relaxed" dir="ltr">{feedback.corrected_text}</p>
+          <p className="text-xs leading-relaxed" dir="ltr" style={{ color: 'var(--text-secondary)' }}>{feedback.corrected_text}</p>
         </FeedbackSection>
       )}
 
@@ -118,8 +118,8 @@ export default function StudentFeedbackDisplay({ feedback, trainerFeedback }) {
       {feedback.grammar_notes?.length > 0 && (
         <FeedbackSection title="ملاحظات نحوية" color="red">
           {feedback.grammar_notes.map((n, i) => (
-            <div key={i} className="bg-white/5 rounded-xl p-3 text-xs">
-              <p className="text-white">{n.issue}</p>
+            <div key={i} className="bg-[var(--surface-base)] rounded-xl p-3 text-xs">
+              <p style={{ color: 'var(--text-primary)' }}>{n.issue}</p>
               <p className="text-emerald-400 mt-1">{n.suggestion}</p>
             </div>
           ))}

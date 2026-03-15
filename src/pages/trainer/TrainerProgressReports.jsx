@@ -85,7 +85,7 @@ export default function TrainerProgressReports() {
       </div>
 
       {/* Controls */}
-      <div className="glass-card p-7 space-y-4">
+      <div className="fl-card-static p-7 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
             <label className="input-label">المجموعة</label>
@@ -149,19 +149,19 @@ export default function TrainerProgressReports() {
             className="space-y-4"
           >
             {/* Header */}
-            <div className="glass-card p-7">
+            <div className="fl-card-static p-7">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
                     <User size={20} className="text-sky-400" />
                   </div>
                   <div>
-                    <h2 className="text-lg font-bold text-white">{report.student_name}</h2>
+                    <h2 className="text-lg font-bold text-[var(--text-primary)]">{report.student_name}</h2>
                     <p className="text-xs text-muted">آخر {report.period_days} يوم</p>
                   </div>
                 </div>
                 <div className="text-center">
-                  <span className={`text-lg font-bold ${ratingColors[report.progress_rating] || 'text-white'}`}>
+                  <span className={`text-lg font-bold ${ratingColors[report.progress_rating] || 'text-[var(--text-primary)]'}`}>
                     {report.progress_rating}
                   </span>
                   {report.engagement_score && (
@@ -169,7 +169,7 @@ export default function TrainerProgressReports() {
                   )}
                 </div>
               </div>
-              {report.overview && <p className="text-sm text-white/80">{report.overview}</p>}
+              {report.overview && <p className="text-sm text-[var(--text-secondary)]">{report.overview}</p>}
             </div>
 
             {/* Stats */}
@@ -181,8 +181,8 @@ export default function TrainerProgressReports() {
                   { label: 'الحضور', value: report.stats.attendance_rate ? `${report.stats.attendance_rate}%` : '—' },
                   { label: 'XP', value: report.stats.xp_earned != null ? `+${report.stats.xp_earned}` : '—' },
                 ].map((s, i) => (
-                  <div key={i} className="glass-card p-3 text-center">
-                    <p className="text-lg font-bold text-white">{s.value}</p>
+                  <div key={i} className="fl-card-static p-3 text-center">
+                    <p className="text-lg font-bold text-[var(--text-primary)]">{s.value}</p>
                     <p className="text-xs text-muted">{s.label}</p>
                   </div>
                 ))}
@@ -192,14 +192,14 @@ export default function TrainerProgressReports() {
             <div className="grid md:grid-cols-2 gap-6">
               {/* Strengths */}
               {report.strengths?.length > 0 && (
-                <div className="glass-card p-7">
+                <div className="fl-card-static p-7">
                   <h3 className="text-sm font-medium text-emerald-400 flex items-center gap-2 mb-3">
                     <TrendingUp size={16} />
                     نقاط القوة
                   </h3>
                   <ul className="space-y-2">
                     {report.strengths.map((s, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-white/80">
+                      <li key={i} className="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
                         <Star size={12} className="text-emerald-400 mt-1 shrink-0" />
                         {s}
                       </li>
@@ -210,14 +210,14 @@ export default function TrainerProgressReports() {
 
               {/* Weaknesses */}
               {report.weaknesses?.length > 0 && (
-                <div className="glass-card p-7">
+                <div className="fl-card-static p-7">
                   <h3 className="text-sm font-medium text-yellow-400 flex items-center gap-2 mb-3">
                     <TrendingDown size={16} />
                     نقاط تحتاج تحسين
                   </h3>
                   <ul className="space-y-2">
                     {report.weaknesses.map((w, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-white/80">
+                      <li key={i} className="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
                         <AlertCircle size={12} className="text-yellow-400 mt-1 shrink-0" />
                         {w}
                       </li>
@@ -229,14 +229,14 @@ export default function TrainerProgressReports() {
 
             {/* Recommendations */}
             {report.recommendations?.length > 0 && (
-              <div className="glass-card p-7">
+              <div className="fl-card-static p-7">
                 <h3 className="text-sm font-medium text-sky-400 flex items-center gap-2 mb-3">
                   <Sparkles size={16} />
                   توصيات
                 </h3>
                 <ul className="space-y-2">
                   {report.recommendations.map((r, i) => (
-                    <li key={i} className="text-sm text-white/80">• {r}</li>
+                    <li key={i} className="text-sm text-[var(--text-secondary)]">• {r}</li>
                   ))}
                 </ul>
               </div>

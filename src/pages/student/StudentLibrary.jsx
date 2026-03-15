@@ -54,7 +54,7 @@ export default function StudentLibrary() {
       {isLoading ? (
         <div className="space-y-3">{[1, 2, 3].map(i => <div key={i} className="skeleton h-16 w-full" />)}</div>
       ) : materials?.length === 0 ? (
-        <div className="glass-card p-8 text-center">
+        <div className="fl-card-static p-8 text-center">
           <BookOpen size={32} className="text-muted mx-auto mb-2" />
           <p className="text-muted">لا توجد مواد تعليمية حالياً</p>
         </div>
@@ -74,11 +74,11 @@ export default function StudentLibrary() {
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="glass-card p-4 flex items-center gap-3 hover:border-sky-500/20 hover:translate-y-[-2px] transition-all duration-200"
+                  className="fl-card p-4 flex items-center gap-3 hover:border-sky-500/20 hover:translate-y-[-2px] transition-all duration-200"
                 >
                   <span className="text-2xl">{getFileIcon(file.name)}</span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm text-white truncate">{file.name.replace(/^\d+_/, '')}</p>
+                    <p className="text-sm text-[var(--text-primary)] truncate">{file.name.replace(/^\d+_/, '')}</p>
                     {sizeKB && (
                       <p className="text-xs text-muted mt-0.5">
                         {sizeKB > 1024 ? `${(sizeKB / 1024).toFixed(1)} MB` : `${sizeKB} KB`}

@@ -141,8 +141,8 @@ export default function AdminWeeklyTasks() {
               <CalendarDays size={20} className="text-sky-400" />
             </div>
             <div>
-              <h1 className="text-xl sm:text-2xl font-bold text-white">المهام الأسبوعية</h1>
-              <p className="text-white/30 text-sm mt-0.5">{formatWeekRange(currentSunday)}</p>
+              <h1 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)]">المهام الأسبوعية</h1>
+              <p className="text-muted text-sm mt-0.5">{formatWeekRange(currentSunday)}</p>
             </div>
           </div>
 
@@ -186,14 +186,14 @@ export default function AdminWeeklyTasks() {
           <select
             value={selectedGroup}
             onChange={e => setSelectedGroup(e.target.value)}
-            className="bg-white/[0.03] border border-white/[0.06] rounded-xl text-sm px-3 py-2 min-w-[150px] text-white/70 appearance-none focus:outline-none focus:border-white/[0.12]"
+            className="bg-[var(--surface-base)] border border-[var(--border-subtle)] rounded-xl text-sm px-3 py-2 min-w-[150px] text-[var(--text-secondary)] appearance-none focus:outline-none focus:border-[var(--border-subtle)]"
           >
             <option value="">كل المجموعات</option>
             {groups?.map(g => (
               <option key={g.id} value={g.id}>{g.name} ({g.code})</option>
             ))}
           </select>
-          <ChevronDown size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-white/20 pointer-events-none" />
+          <ChevronDown size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
         </div>
       </motion.div>
 
@@ -210,13 +210,13 @@ export default function AdminWeeklyTasks() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 + i * 0.05 }}
-            className={`rounded-xl bg-gradient-to-br ${card.gradient} border border-white/[0.04] p-4`}
+            className={`rounded-xl bg-gradient-to-br ${card.gradient} border border-[var(--border-subtle)] p-4`}
           >
             <div className="flex items-center gap-2 mb-1.5">
               <card.icon size={14} className={card.iconColor} />
-              <span className="text-xs text-white/30 font-medium">{card.label}</span>
+              <span className="text-xs text-muted font-medium">{card.label}</span>
             </div>
-            <p className="text-lg font-bold text-white">{card.value}</p>
+            <p className="text-lg font-bold text-[var(--text-primary)]">{card.value}</p>
           </motion.div>
         ))}
       </div>
@@ -225,18 +225,18 @@ export default function AdminWeeklyTasks() {
       {isLoading ? (
         <div className="space-y-3">
           {[1, 2, 3].map(i => (
-            <div key={i} className="h-16 rounded-xl animate-pulse" style={{ background: 'rgba(255,255,255,0.02)' }} />
+            <div key={i} className="h-16 skeleton" />
           ))}
         </div>
       ) : taskSets?.length === 0 ? (
-        <div className="rounded-2xl border border-white/[0.06] p-14 text-center" style={{ background: 'rgba(255,255,255,0.02)' }}>
-          <AlertTriangle size={28} className="text-white/15 mx-auto mb-3" />
-          <p className="text-white/30 text-sm">لم يتم إنشاء مهام هذا الأسبوع بعد</p>
-          <p className="text-white/15 text-xs mt-1">اضغط "إنشاء المهام الآن" للبدء</p>
+        <div className="rounded-2xl border border-[var(--border-subtle)] p-14 text-center" style={{ background: 'var(--surface-base)' }}>
+          <AlertTriangle size={28} className="text-muted mx-auto mb-3 opacity-40" />
+          <p className="text-muted text-sm">لم يتم إنشاء مهام هذا الأسبوع بعد</p>
+          <p className="text-muted text-xs mt-1 opacity-60">اضغط "إنشاء المهام الآن" للبدء</p>
         </div>
       ) : (
         <div className="space-y-3">
-          <h2 className="text-sm font-medium text-white/40">الطلاب ({toArabicNum(taskSets?.length || 0)})</h2>
+          <h2 className="text-sm font-medium text-muted">الطلاب ({toArabicNum(taskSets?.length || 0)})</h2>
           {taskSets?.map((set, i) => {
             const pct = set.completion_percentage || 0
             const isComplete = set.status === 'completed'
@@ -247,40 +247,40 @@ export default function AdminWeeklyTasks() {
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.03 }}
-                className="rounded-xl border border-white/[0.06] p-4 hover:border-white/[0.1] transition-all"
-                style={{ background: 'rgba(255,255,255,0.02)' }}
+                className="rounded-xl border border-[var(--border-subtle)] p-4 hover:border-[var(--border-subtle)] transition-all"
+                style={{ background: 'var(--surface-base)' }}
               >
                 <div className="flex items-center gap-4">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <h3 className="text-sm font-medium text-white/80 truncate">{getStudentName(set)}</h3>
+                      <h3 className="text-sm font-medium text-[var(--text-secondary)] truncate">{getStudentName(set)}</h3>
                       {isComplete && <CheckCircle2 size={14} className="text-emerald-400 shrink-0" />}
-                      <span className="text-xs text-white/20 shrink-0">
+                      <span className="text-xs text-muted shrink-0">
                         مستوى {set.level_at_generation || '?'}
                       </span>
                     </div>
                     {/* Progress bar */}
                     <div className="flex items-center gap-2">
-                      <div className="flex-1 h-1.5 bg-white/[0.04] rounded-full overflow-hidden">
+                      <div className="fl-progress-track flex-1">
                         <div
-                          className={`h-full rounded-full transition-all duration-500 ${
+                          className={`fl-progress-fill ${
                             isComplete ? 'bg-emerald-400' : 'bg-sky-400'
                           }`}
                           style={{ width: `${pct}%` }}
                         />
                       </div>
-                      <span className="text-xs text-white/25 w-8 text-left">{pct}%</span>
+                      <span className="text-xs text-muted w-8 text-left">{pct}%</span>
                     </div>
                   </div>
 
                   <div className="text-center shrink-0">
-                    <p className="text-xs text-white/20">الصعوبة</p>
-                    <p className="text-xs font-medium text-white/50">{(set.difficulty_score || 0.50).toFixed(2)}</p>
+                    <p className="text-xs text-muted">الصعوبة</p>
+                    <p className="text-xs font-medium text-muted">{(set.difficulty_score || 0.50).toFixed(2)}</p>
                   </div>
 
                   <div className="text-center shrink-0">
-                    <p className="text-xs text-white/20">مهام</p>
-                    <p className="text-xs font-medium text-white/50">
+                    <p className="text-xs text-muted">مهام</p>
+                    <p className="text-xs font-medium text-muted">
                       {set.completed_tasks || 0}/{set.total_tasks || 8}
                     </p>
                   </div>

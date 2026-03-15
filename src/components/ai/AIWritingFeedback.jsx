@@ -83,7 +83,7 @@ export default function AIWritingFeedback({ text, submissionId, assignmentType, 
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass-card overflow-hidden"
+            className="fl-card-static overflow-hidden"
           >
             <button
               onClick={() => setExpanded(!expanded)}
@@ -93,7 +93,7 @@ export default function AIWritingFeedback({ text, submissionId, assignmentType, 
                 <div className="w-9 h-9 rounded-xl bg-violet-500/10 flex items-center justify-center">
                   <Sparkles size={16} className="text-violet-400" />
                 </div>
-                <span className="text-sm font-semibold text-white">تقييم الذكاء الاصطناعي</span>
+                <span className="text-sm font-semibold text-[var(--text-primary)]">تقييم الذكاء الاصطناعي</span>
                 {feedback.fluency_score && (
                   <span className="badge bg-violet-500/10 text-violet-400 border border-violet-500/20 text-xs">{feedback.fluency_score}/10</span>
                 )}
@@ -105,7 +105,7 @@ export default function AIWritingFeedback({ text, submissionId, assignmentType, 
               <div className="px-5 pb-5 space-y-4">
                 {/* Overall feedback */}
                 {feedback.overall_feedback && (
-                  <p className="text-sm text-white/80">{feedback.overall_feedback}</p>
+                  <p className="text-sm text-[var(--text-secondary)]">{feedback.overall_feedback}</p>
                 )}
 
                 {/* Grammar errors */}
@@ -114,7 +114,7 @@ export default function AIWritingFeedback({ text, submissionId, assignmentType, 
                     <h4 className="text-xs font-medium text-red-400 mb-2">أخطاء نحوية</h4>
                     <div className="space-y-2">
                       {feedback.grammar_errors.map((e, i) => (
-                        <div key={i} className="bg-white/5 rounded-xl p-3 text-xs">
+                        <div key={i} className="bg-[var(--surface-base)] rounded-xl p-3 text-xs">
                           <div className="flex items-start gap-2">
                             <span className="text-red-400 line-through" dir="ltr">{e.error}</span>
                             <span className="text-emerald-400" dir="ltr">{e.correction}</span>
@@ -132,7 +132,7 @@ export default function AIWritingFeedback({ text, submissionId, assignmentType, 
                     <h4 className="text-xs font-medium text-sky-400 mb-2">اقتراحات مفردات</h4>
                     <div className="space-y-2">
                       {feedback.vocabulary_suggestions.map((v, i) => (
-                        <div key={i} className="bg-white/5 rounded-xl p-3 text-xs">
+                        <div key={i} className="bg-[var(--surface-base)] rounded-xl p-3 text-xs">
                           <span className="text-muted" dir="ltr">{v.original}</span>
                           {' → '}
                           <span className="text-sky-400 font-medium" dir="ltr">{v.better}</span>

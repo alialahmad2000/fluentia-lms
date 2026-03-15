@@ -343,7 +343,7 @@ export default function StudentConversation() {
             <scenario.icon size={20} className={scenario.accent} />
           </div>
           <div>
-            <h1 className="text-lg font-bold text-white">{scenario.label}</h1>
+            <h1 className="text-lg font-bold text-[var(--text-primary)]">{scenario.label}</h1>
             <p className="text-xs text-muted">{scenario.description}</p>
           </div>
         </div>
@@ -353,7 +353,7 @@ export default function StudentConversation() {
       </div>
 
       {/* Chat */}
-      <div className="flex-1 glass-card overflow-hidden flex flex-col">
+      <div className="flex-1 fl-card-static overflow-hidden flex flex-col">
         <div className="flex-1 overflow-y-auto p-4 space-y-3">
           {messages.map((msg, i) => (
             <motion.div

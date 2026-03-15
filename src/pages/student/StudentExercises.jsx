@@ -478,7 +478,7 @@ export default function StudentExercises() {
         <div>
           <h1 className="text-page-title flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
-              <Target size={20} className="text-violet-400" />
+              <Target size={20} strokeWidth={1.5} className="text-violet-400" />
             </div>
             تمارين مخصصة
           </h1>
@@ -510,7 +510,7 @@ export default function StudentExercises() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.08 }}
-            className="glass-card p-4 hover:translate-y-[-2px] transition-all duration-200"
+            className="fl-card p-4 hover:translate-y-[-2px] transition-all duration-200"
           >
             <div className="flex items-center justify-between mb-2">
               <span className="text-muted text-xs">{card.label}</span>
@@ -518,7 +518,7 @@ export default function StudentExercises() {
                 <card.icon size={16} />
               </div>
             </div>
-            <p className="text-xl font-bold text-white">{card.value}</p>
+            <p className="text-xl font-bold text-[var(--text-primary)]">{card.value}</p>
           </motion.div>
         ))}
       </div>
@@ -530,9 +530,9 @@ export default function StudentExercises() {
       ) : hasNoTargetedExercises ? (
         <>
           {/* Friendly message about no targeted exercises */}
-          <div className="glass-card p-8 text-center">
-            <Target size={48} className="mx-auto text-muted mb-4" />
-            <h3 className="text-lg font-bold text-white mb-2">لم يتم تحليل أخطائك بعد</h3>
+          <div className="fl-card-static p-8 text-center">
+            <Target size={48} strokeWidth={1.5} className="mx-auto text-muted mb-4" />
+            <h3 className="text-lg font-bold text-[var(--text-primary)] mb-2">لم يتم تحليل أخطائك بعد</h3>
             <p className="text-muted text-sm mb-4">
               سيتم إنشاء تمارين مخصصة لك بعد تقييم واجباتك الأولى
             </p>
@@ -543,7 +543,7 @@ export default function StudentExercises() {
 
           {/* General Exercises Section */}
           <div>
-            <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
+            <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
               <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
                 <BookOpen size={16} className="text-emerald-400" />
               </div>
@@ -560,7 +560,7 @@ export default function StudentExercises() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.04 }}
-                    className={`glass-card p-4 cursor-pointer hover:translate-y-[-2px] transition-all duration-200 ${isCompleted ? 'opacity-70 hover:opacity-90' : 'hover:border-sky-500/30'}`}
+                    className={`fl-card p-4 cursor-pointer hover:translate-y-[-2px] transition-all duration-200 ${isCompleted ? 'opacity-70 hover:opacity-90' : 'hover:border-sky-500/30'}`}
                     onClick={() => openGeneralExercise(exercise)}
                   >
                     <div className="flex items-center justify-between">
@@ -581,7 +581,7 @@ export default function StudentExercises() {
                             </span>
                           )}
                         </div>
-                        <h3 className="font-medium text-white text-sm">{exercise.title_ar}</h3>
+                        <h3 className="font-medium text-[var(--text-primary)] text-sm">{exercise.title_ar}</h3>
                         <p className="text-xs text-muted mt-0.5">{exercise.title}</p>
                       </div>
                       {isCompleted ? (
@@ -601,7 +601,7 @@ export default function StudentExercises() {
           {/* Pending exercises */}
           {pendingExercises.length > 0 && (
             <div>
-              <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
+              <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
                 <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center">
                   <Clock size={16} className="text-sky-400" />
                 </div>
@@ -616,7 +616,7 @@ export default function StudentExercises() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.05 }}
-                      className="glass-card p-4 hover:border-sky-500/30 hover:translate-y-[-2px] transition-all duration-200 cursor-pointer"
+                      className="fl-card p-4 hover:border-sky-500/30 hover:translate-y-[-2px] transition-all duration-200 cursor-pointer"
                       onClick={() => { setActiveExercise(exercise); setAnswers({}); setSubmitted(false); setResult(null) }}
                     >
                       <div className="flex items-center justify-between">
@@ -629,7 +629,7 @@ export default function StudentExercises() {
                               {DIFFICULTY_LABELS[exercise.difficulty]}
                             </span>
                           </div>
-                          <h3 className="font-medium text-white text-sm">{exercise.title}</h3>
+                          <h3 className="font-medium text-[var(--text-primary)] text-sm">{exercise.title}</h3>
                           {exercise.error_patterns && (
                             <p className="text-xs text-muted mt-1">{exercise.error_patterns.description}</p>
                           )}
@@ -646,7 +646,7 @@ export default function StudentExercises() {
           {/* Completed exercises */}
           {completedExercises.length > 0 && (
             <div>
-              <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
+              <h2 className="text-section-title mb-3 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
                 <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
                   <CheckCircle2 size={16} className="text-emerald-400" />
                 </div>
@@ -654,11 +654,11 @@ export default function StudentExercises() {
               </h2>
               <div className="grid gap-2">
                 {completedExercises.slice(0, 10).map((exercise) => (
-                  <div key={exercise.id} className="glass-card p-3 opacity-70">
+                  <div key={exercise.id} className="fl-card-static p-3 opacity-70">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <CheckCircle2 size={14} className="text-emerald-400" />
-                        <span className="text-sm text-white">{exercise.title}</span>
+                        <span className="text-sm text-[var(--text-primary)]">{exercise.title}</span>
                         <span className="text-xs text-muted">{SKILL_LABELS[exercise.skill]}</span>
                       </div>
                       <div className="flex items-center gap-3">
@@ -707,12 +707,12 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className={`glass-card p-7 text-center ${result.score >= 80 ? 'border-emerald-500/30' : result.score >= 60 ? 'border-gold-500/30' : 'border-red-500/30'}`}
+          className={`fl-card-static p-7 text-center ${result.score >= 80 ? 'border-emerald-500/30' : result.score >= 60 ? 'border-gold-500/30' : 'border-red-500/30'}`}
         >
           <div className={`text-4xl font-bold mb-2 ${result.score >= 80 ? 'text-emerald-400' : result.score >= 60 ? 'text-gold-400' : 'text-red-400'}`}>
             {result.score}%
           </div>
-          <p className="text-white font-medium">
+          <p className="font-medium" style={{ color: 'var(--text-primary)' }}>
             {result.correct} من {result.total} صحيحة
           </p>
           <div className="flex items-center justify-center gap-1 mt-2 text-violet-400">
@@ -738,13 +738,13 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
-              className={`glass-card p-4 ${isCorrect ? 'border-emerald-500/30' : isWrong ? 'border-red-500/30' : ''}`}
+              className={`fl-card-static p-4 ${isCorrect ? 'border-emerald-500/30' : isWrong ? 'border-red-500/30' : ''}`}
             >
               <div className="flex items-start gap-2 mb-3">
-                <span className="text-xs bg-white/10 text-white w-6 h-6 rounded-full flex items-center justify-center shrink-0">
+                <span className="text-xs bg-white/10 text-[var(--text-primary)] w-6 h-6 rounded-full flex items-center justify-center shrink-0">
                   {i + 1}
                 </span>
-                <p className="text-sm text-white font-medium">{q.question}</p>
+                <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{q.question}</p>
               </div>
 
               {type === 'multiple_choice' || q.options ? (
@@ -764,7 +764,7 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
                               ? 'bg-red-500/10 border-red-500/30 text-red-400'
                               : selected
                                 ? 'bg-sky-500/10 border-sky-500/30 text-sky-400'
-                                : 'border-border-subtle text-muted hover:border-white/20 hover:text-white'
+                                : 'border-border-subtle text-muted hover:border-white/20 hover:text-[var(--text-primary)]'
                         }`}
                       >
                         {opt}

@@ -25,10 +25,10 @@ export default function AdminSettings() {
     <div className="space-y-8">
       <div className="flex items-center gap-4">
         <div className="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center">
-          <Settings size={22} className="text-violet-400" />
+          <Settings size={22} className="text-violet-400" strokeWidth={1.5} />
         </div>
         <div>
-          <h1 className="text-page-title" style={{ color: 'var(--color-text-primary)' }}>الإعدادات</h1>
+          <h1 className="text-page-title" style={{ color: 'var(--text-primary)' }}>الإعدادات</h1>
           <p className="text-muted text-sm mt-1">إعدادات النظام وقيم النقاط</p>
         </div>
       </div>
@@ -150,10 +150,10 @@ function SettingsContent() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* XP Values */}
-        <div className="glass-card p-6">
+        <div className="fl-card-static p-6">
           <div className="flex items-center gap-3 mb-5">
             <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center"><Zap size={18} className="text-gold-400" /></div>
-            <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>قيم نقاط XP</h3>
+            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>قيم نقاط XP</h3>
           </div>
           <div className="space-y-3">
             {Object.entries(xpLabels).map(([key, label]) => (
@@ -167,10 +167,10 @@ function SettingsContent() {
 
         <div className="space-y-6">
           {/* Package Prices */}
-          <div className="glass-card p-6">
+          <div className="fl-card-static p-6">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center"><DollarSign size={18} className="text-emerald-400" /></div>
-              <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>أسعار الباقات (ريال)</h3>
+              <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>أسعار الباقات (ريال)</h3>
             </div>
             <div className="space-y-3">
               {Object.entries(packageLabels).map(([key, label]) => (
@@ -183,19 +183,19 @@ function SettingsContent() {
           </div>
 
           {/* Payment Link */}
-          <div className="glass-card p-6">
+          <div className="fl-card-static p-6">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center"><Link2 size={18} className="text-sky-400" /></div>
-              <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>رابط الدفع</h3>
+              <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>رابط الدفع</h3>
             </div>
             <input type="url" value={currentPaymentLink} onChange={(e) => { setPaymentLink(e.target.value); setSaved(false) }} placeholder="https://moyasar.com/pay/..." className="input-field text-sm" dir="ltr" />
           </div>
 
           {/* AI Budget */}
-          <div className="glass-card p-6">
+          <div className="fl-card-static p-6">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center"><Brain size={18} className="text-violet-400" /></div>
-              <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>ميزانية الذكاء الاصطناعي</h3>
+              <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>ميزانية الذكاء الاصطناعي</h3>
             </div>
             <div className="flex items-center gap-2">
               <input type="number" value={currentAiBudget} onChange={(e) => { setAiBudget(parseInt(e.target.value) || 0); setSaved(false) }} className="input-field py-1 px-2 w-24 text-sm text-center" dir="ltr" />
@@ -204,10 +204,10 @@ function SettingsContent() {
           </div>
 
           {/* WhatsApp */}
-          <div className="glass-card p-6">
+          <div className="fl-card-static p-6">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center"><MessageCircle size={18} className="text-emerald-400" /></div>
-              <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>تكامل واتساب</h3>
+              <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>تكامل واتساب</h3>
             </div>
             <div className="space-y-3">
               <div>
@@ -222,10 +222,10 @@ function SettingsContent() {
           </div>
 
           {/* Payment Reminders */}
-          <div className="glass-card p-6">
+          <div className="fl-card-static p-6">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center"><Bell size={18} className="text-amber-400" /></div>
-              <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>تذكير المدفوعات</h3>
+              <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>تذكير المدفوعات</h3>
             </div>
             <div className="flex items-center gap-2">
               <input type="number" value={currentPaymentReminderDays} onChange={(e) => { setPaymentReminderDays(parseInt(e.target.value) || 0); setSaved(false) }} className="input-field py-1 px-2 w-24 text-sm text-center" dir="ltr" min="1" max="30" />
@@ -234,14 +234,14 @@ function SettingsContent() {
           </div>
 
           {/* System Info */}
-          <div className="glass-card p-6">
+          <div className="fl-card-static p-6">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center"><Server size={18} className="text-sky-400" /></div>
-              <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>معلومات النظام</h3>
+              <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>معلومات النظام</h3>
             </div>
             <div className="space-y-3 text-sm">
               <div className="flex justify-between"><span className="text-muted">الإصدار</span><span className="badge-blue">3.0.0</span></div>
-              <div className="flex justify-between"><span className="text-muted">البيئة</span><span style={{ color: 'var(--color-text-primary)' }}>إنتاج</span></div>
+              <div className="flex justify-between"><span className="text-muted">البيئة</span><span style={{ color: 'var(--text-primary)' }}>إنتاج</span></div>
               <div className="flex justify-between"><span className="text-muted">قاعدة البيانات</span><span className="badge-green">متصلة</span></div>
               <div className="flex justify-between"><span className="text-muted">Edge Functions</span><span className="badge-green">24 دالة</span></div>
             </div>
@@ -250,7 +250,7 @@ function SettingsContent() {
       </div>
 
       {/* ─── Danger Zone ───────────────────────────────────── */}
-      <div className="glass-card p-6 border-red-500/30 border">
+      <div className="fl-card-static p-6 border-red-500/30 border">
         <div className="flex items-center gap-3 mb-4">
           <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
             <AlertTriangle size={18} className="text-red-400" />

@@ -162,7 +162,7 @@ export default function AdminHolidays() {
     <div className="space-y-12">
       {/* Header */}
       <div>
-        <h1 className="text-page-title text-white flex items-center gap-2">
+        <h1 className="text-page-title text-[var(--text-primary)] flex items-center gap-2">
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <Calendar size={20} className="text-sky-400" />
           </div>
@@ -175,7 +175,7 @@ export default function AdminHolidays() {
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
-        className="glass-card p-7"
+        className="fl-card-static p-7"
       >
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
@@ -183,7 +183,7 @@ export default function AdminHolidays() {
               <Moon size={18} className="text-amber-400" />
             </div>
             <div>
-              <h2 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>وضع رمضان</h2>
+              <h2 className="text-section-title" style={{ color: 'var(--text-primary)' }}>وضع رمضان</h2>
               <p className="text-muted text-xs">
                 عند التفعيل، يتم تأخير التذكيرات إلى ما بعد الإفطار
               </p>
@@ -203,7 +203,7 @@ export default function AdminHolidays() {
               onClick={toggleRamadan}
               disabled={ramadanMutation.isPending}
               className={`relative w-12 h-6 rounded-full transition-colors ${
-                ramadanEnabled ? 'bg-emerald-500' : 'bg-white/10'
+                ramadanEnabled ? 'bg-emerald-500' : 'bg-[var(--surface-raised)]'
               }`}
             >
               <motion.div
@@ -223,7 +223,7 @@ export default function AdminHolidays() {
               exit={{ opacity: 0, height: 0 }}
               className="overflow-hidden"
             >
-              <div className="flex items-center gap-3 mt-3 pt-3 border-t border-white/5">
+              <div className="flex items-center gap-3 mt-3 pt-3 border-t border-[var(--border-subtle)]">
                 <Clock size={16} className="text-amber-400" />
                 <label className="text-sm text-muted">وقت الإفطار:</label>
                 <input
@@ -243,7 +243,7 @@ export default function AdminHolidays() {
 
       {/* ─── Holiday Calendar Section ───────────────────────────── */}
       <div className="flex items-center justify-between">
-        <h2 className="text-section-title flex items-center gap-2" style={{ color: 'var(--color-text-primary)' }}>
+        <h2 className="text-section-title flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
           <Sun size={18} className="text-sky-400" />
           العطل الرسمية
         </h2>
@@ -258,7 +258,7 @@ export default function AdminHolidays() {
           <Loader2 size={24} className="animate-spin text-sky-400" />
         </div>
       ) : holidays?.length === 0 ? (
-        <div className="glass-card p-8 text-center">
+        <div className="fl-card-static p-8 text-center">
           <Calendar size={40} className="text-muted mx-auto mb-3 opacity-30" />
           <p className="text-muted text-sm">لا توجد عطل مسجلة</p>
         </div>
@@ -274,12 +274,12 @@ export default function AdminHolidays() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="glass-card p-4 hover:translate-y-[-2px] transition-all duration-200"
+                className="fl-card p-4"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
-                      <h3 className="text-sm font-bold text-white">{holiday.name}</h3>
+                      <h3 className="text-sm font-bold text-[var(--text-primary)]">{holiday.name}</h3>
                       <span className={`text-xs px-2 py-0.5 rounded-full ${
                         upcoming
                           ? 'badge-green'
@@ -303,7 +303,7 @@ export default function AdminHolidays() {
                     </div>
 
                     {holiday.reschedule_info && (
-                      <p className="text-xs text-muted mt-2 rounded-lg p-2" style={{ background: 'var(--color-bg-surface-raised)' }}>
+                      <p className="text-xs text-muted mt-2 rounded-lg p-2" style={{ background: 'var(--surface-raised)' }}>
                         {holiday.reschedule_info}
                       </p>
                     )}
@@ -312,7 +312,7 @@ export default function AdminHolidays() {
                   <div className="flex items-center gap-1 mr-3">
                     <button
                       onClick={() => openEdit(holiday)}
-                      className="p-2 rounded-lg hover:bg-white/5 text-muted hover:text-white transition-colors"
+                      className="p-2 rounded-lg hover:bg-white/5 text-muted hover:text-[var(--text-primary)] transition-colors"
                     >
                       <Edit3 size={14} />
                     </button>
@@ -328,7 +328,7 @@ export default function AdminHolidays() {
                         </button>
                         <button
                           onClick={() => setDeleteConfirm(null)}
-                          className="text-xs text-muted px-2 py-1 hover:text-white"
+                          className="text-xs text-muted px-2 py-1 hover:text-[var(--text-primary)]"
                         >
                           إلغاء
                         </button>
@@ -363,14 +363,14 @@ export default function AdminHolidays() {
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="glass-card w-full max-w-md p-6"
+              className="fl-card-static w-full max-w-md p-6"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between mb-5">
-                <h3 className="text-lg font-bold text-white">
+                <h3 className="text-lg font-bold text-[var(--text-primary)]">
                   {editingHoliday ? 'تعديل العطلة' : 'إضافة عطلة جديدة'}
                 </h3>
-                <button onClick={closeModal} className="text-muted hover:text-white">
+                <button onClick={closeModal} className="text-muted hover:text-[var(--text-primary)]">
                   <X size={18} />
                 </button>
               </div>

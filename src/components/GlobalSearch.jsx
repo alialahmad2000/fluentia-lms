@@ -274,12 +274,12 @@ export default function GlobalSearch() {
 
       {/* Modal */}
       <div
-        className="relative w-full max-w-xl glass-card-raised rounded-2xl shadow-2xl overflow-hidden"
+        className="relative w-full max-w-xl fl-card-static rounded-2xl shadow-2xl overflow-hidden"
         dir="rtl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search input */}
-        <div className="flex items-center gap-3 px-6 py-4 border-b border-white/10">
+        <div className="flex items-center gap-3 px-6 py-4 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
           <div className="w-9 h-9 rounded-xl bg-sky-500/10 flex items-center justify-center shrink-0">
             <Search className="w-4 h-4 text-sky-400" />
           </div>
@@ -289,14 +289,15 @@ export default function GlobalSearch() {
             value={query}
             onChange={handleInputChange}
             placeholder="ابحث عن طلاب، مجموعات، مدربين..."
-            className="flex-1 bg-transparent text-white placeholder:text-muted text-base outline-none"
+            className="flex-1 bg-transparent placeholder:text-muted text-base outline-none"
+            style={{ color: 'var(--text-primary)' }}
           />
           {query && (
-            <button onClick={() => { setQuery(''); setResults({}) }} className="btn-ghost p-1 text-muted hover:text-white transition-all duration-200">
+            <button onClick={() => { setQuery(''); setResults({}) }} className="btn-ghost p-1 text-muted transition-all duration-200" style={{ '--tw-text-opacity': 1 }}>
               <X className="w-4 h-4" />
             </button>
           )}
-          <kbd className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/5 text-muted text-xs border border-white/10">
+          <kbd className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-muted text-xs" style={{ background: 'var(--color-kbd-bg)', border: '1px solid var(--color-kbd-border)' }}>
             ESC
           </kbd>
         </div>
@@ -321,10 +322,10 @@ export default function GlobalSearch() {
                     key={item.id}
                     onClick={() => goTo(item)}
                     className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-right transition-all duration-200 hover:translate-y-[-2px] ${
-                      isActive ? 'bg-white/10 text-white' : 'text-muted hover:bg-white/5 hover:text-white'
+                      isActive ? 'bg-[var(--surface-raised)] text-[var(--text-primary)]' : 'text-muted hover:bg-[var(--surface-raised)] hover:text-[var(--text-primary)]'
                     }`}
                   >
-                    <div className="w-7 h-7 rounded-xl bg-white/5 flex items-center justify-center shrink-0">
+                    <div className="w-7 h-7 rounded-xl flex items-center justify-center shrink-0" style={{ background: 'var(--surface-base)' }}>
                       <Search className="w-3.5 h-3.5" />
                     </div>
                     <span className="flex-1 truncate text-sm">{item.title}</span>
@@ -359,7 +360,7 @@ export default function GlobalSearch() {
                             key={item.id}
                             onClick={() => goTo(item)}
                             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-right transition-all duration-200 hover:translate-y-[-2px] ${
-                              isActive ? 'bg-white/10 text-white' : 'text-muted hover:bg-white/5 hover:text-white'
+                              isActive ? 'bg-[var(--surface-raised)] text-[var(--text-primary)]' : 'text-muted hover:bg-[var(--surface-raised)] hover:text-[var(--text-primary)]'
                             }`}
                           >
                             <span className="flex-1 truncate text-sm">{item.title}</span>
@@ -393,13 +394,13 @@ export default function GlobalSearch() {
         </div>
 
         {/* Footer hint */}
-        <div className="flex items-center justify-between px-6 py-3 border-t border-white/10 text-muted text-xs">
+        <div className="flex items-center justify-between px-6 py-3 border-t text-muted text-xs" style={{ borderColor: 'var(--border-subtle)' }}>
           <span>
-            <kbd className="px-2 py-0.5 rounded-lg bg-white/5 border border-white/10 mx-0.5">↑↓</kbd>
+            <kbd className="px-2 py-0.5 rounded-lg mx-0.5" style={{ background: 'var(--color-kbd-bg)', border: '1px solid var(--color-kbd-border)' }}>↑↓</kbd>
             للتنقل
           </span>
           <span>
-            <kbd className="px-2 py-0.5 rounded-lg bg-white/5 border border-white/10 mx-0.5">Enter</kbd>
+            <kbd className="px-2 py-0.5 rounded-lg mx-0.5" style={{ background: 'var(--color-kbd-bg)', border: '1px solid var(--color-kbd-border)' }}>Enter</kbd>
             لفتح
           </span>
         </div>

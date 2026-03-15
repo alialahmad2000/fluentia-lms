@@ -68,9 +68,9 @@ export default function AISpeakingAnalysis({ voiceUrl, submissionId, durationSec
 
       {/* Transcript */}
       {transcript && (
-        <div className="glass-card p-4">
+        <div className="fl-card-static p-4">
           <p className="text-sm text-muted mb-1.5">التفريغ النصي:</p>
-          <p className="text-sm text-white" dir="ltr">{transcript}</p>
+          <p className="text-sm text-[var(--text-primary)]" dir="ltr">{transcript}</p>
         </div>
       )}
 
@@ -80,7 +80,7 @@ export default function AISpeakingAnalysis({ voiceUrl, submissionId, durationSec
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass-card overflow-hidden"
+            className="fl-card-static overflow-hidden"
           >
             <button
               onClick={() => setExpanded(!expanded)}
@@ -90,7 +90,7 @@ export default function AISpeakingAnalysis({ voiceUrl, submissionId, durationSec
                 <div className="w-9 h-9 rounded-xl bg-violet-500/10 flex items-center justify-center">
                   <Sparkles size={16} className="text-violet-400" />
                 </div>
-                <span className="text-sm font-semibold text-white">تحليل المحادثة</span>
+                <span className="text-sm font-semibold text-[var(--text-primary)]">تحليل المحادثة</span>
                 {analysis.overall_score && (
                   <span className="badge-violet text-xs">{analysis.overall_score}/10</span>
                 )}
@@ -104,7 +104,7 @@ export default function AISpeakingAnalysis({ voiceUrl, submissionId, durationSec
                 {analysis.confidence_level && (
                   <div className="flex items-center gap-2">
                     <span className="text-xs text-muted">مستوى الثقة:</span>
-                    <span className={`text-sm font-medium ${confidenceColors[analysis.confidence_level] || 'text-white'}`}>
+                    <span className={`text-sm font-medium ${confidenceColors[analysis.confidence_level] || 'text-[var(--text-primary)]'}`}>
                       {analysis.confidence_level}
                     </span>
                   </div>
@@ -132,8 +132,8 @@ export default function AISpeakingAnalysis({ voiceUrl, submissionId, durationSec
                     <h4 className="text-xs font-medium text-red-400 mb-2">ملاحظات نحوية</h4>
                     <div className="space-y-1">
                       {analysis.grammar_notes.map((n, i) => (
-                        <div key={i} className="bg-white/5 rounded-xl p-3 text-xs">
-                          <p className="text-white">{n.issue}</p>
+                        <div key={i} className="bg-[var(--surface-base)] rounded-xl p-3 text-xs">
+                          <p className="text-[var(--text-primary)]">{n.issue}</p>
                           <p className="text-emerald-400 mt-0.5">{n.suggestion}</p>
                         </div>
                       ))}

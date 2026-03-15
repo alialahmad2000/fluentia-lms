@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Clock, CheckCircle2, AlertCircle, FileText, ExternalLink, Youtube, CalendarDays } from 'lucide-react'
+import { Clock, CheckCircle2, AlertCircle, FileText, ExternalLink, Youtube, CalendarDays, BookOpen } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { ASSIGNMENT_TYPES, SUBMISSION_STATUS } from '../../lib/constants'
@@ -94,16 +94,21 @@ export default function StudentAssignments() {
 
   if (!studentData?.group_id) {
     return (
-      <div className="glass-card p-8 text-center">
+      <div className="fl-card-static p-8 text-center">
         <p className="text-muted">لم يتم تسجيلك في مجموعة بعد — تواصل مع الإدارة</p>
       </div>
     )
   }
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-8">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-page-title">الواجبات</h1>
+        <h1 className="text-page-title flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+            <BookOpen size={20} className="text-sky-400" strokeWidth={1.5} />
+          </div>
+          الواجبات
+        </h1>
         <p className="text-muted text-sm mt-1">واجبات مجموعتك</p>
       </motion.div>
 
@@ -113,7 +118,8 @@ export default function StudentAssignments() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass-card-raised p-7 hover:translate-y-[-2px] transition-all duration-200 border border-sky-500/20"
+            className="fl-card p-7"
+            style={{ borderColor: 'rgba(56, 189, 248, 0.15)' }}
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -121,20 +127,20 @@ export default function StudentAssignments() {
                   <CalendarDays className="text-sky-400" size={20} />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-white">مهامي الأسبوعية</h3>
+                  <h3 className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>مهامي الأسبوعية</h3>
                   <p className="text-xs text-muted mt-0.5">
                     {weeklyTasksInfo.completed_tasks}/{weeklyTasksInfo.total_tasks} مهام مكتملة
                   </p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-24 h-2 rounded-full overflow-hidden" style={{ background: 'var(--color-bg-surface-raised)' }}>
+                <div className="fl-progress-track" style={{ width: '96px', height: '8px' }}>
                   <div
-                    className="h-full rounded-full bg-gradient-to-l from-sky-400 to-sky-600 transition-all duration-500"
+                    className="fl-progress-fill"
                     style={{ width: `${Math.round((weeklyTasksInfo.completed_tasks / weeklyTasksInfo.total_tasks) * 100)}%` }}
                   />
                 </div>
-                <span className="badge-sky text-xs">
+                <span className="fl-badge sky text-xs">
                   {weeklyTasksInfo.status === 'completed' ? 'مكتمل ✓' : 'جاري'}
                 </span>
               </div>
@@ -154,11 +160,7 @@ export default function StudentAssignments() {
           <button
             key={tab.key}
             onClick={() => setFilter(tab.key)}
-            className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-              filter === tab.key
-                ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
-                : 'text-muted hover:text-white hover:bg-white/5'
-            }`}
+            className={`fl-tab ${filter === tab.key ? 'active' : ''}`}
           >
             {tab.label}
           </button>
@@ -171,7 +173,7 @@ export default function StudentAssignments() {
           {[1, 2, 3].map(i => <div key={i} className="skeleton h-28 w-full" />)}
         </div>
       ) : filtered.length === 0 ? (
-        <div className="glass-card p-8 text-center">
+        <div className="fl-card-static p-8 text-center">
           <p className="text-muted">
             {filter === 'all' ? 'لا توجد واجبات حالياً' : 'لا توجد واجبات في هذا التصنيف'}
           </p>
@@ -204,7 +206,7 @@ export default function StudentAssignments() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.08 }}
-                className="glass-card p-7 hover:translate-y-[-2px] transition-all duration-200"
+                className="fl-card p-7"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1 min-w-0">
@@ -212,7 +214,7 @@ export default function StudentAssignments() {
                       <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center shrink-0">
                         <span className="text-lg">{typeInfo.icon}</span>
                       </div>
-                      <h3 className="font-medium text-white">{a.title}</h3>
+                      <h3 className="font-medium" style={{ color: 'var(--text-primary)' }}>{a.title}</h3>
                       {statusBadge}
                     </div>
 
@@ -227,7 +229,7 @@ export default function StudentAssignments() {
                           <Clock size={12} />
                           {deadlineText(a.deadline)}
                           {a.deadline && !overdue && (
-                            <span className="text-white/40 mr-1">({formatDateAr(a.deadline)})</span>
+                            <span className="mr-1" style={{ color: 'var(--text-tertiary)' }}>({formatDateAr(a.deadline)})</span>
                           )}
                         </span>
                       )}

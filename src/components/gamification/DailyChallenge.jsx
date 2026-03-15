@@ -110,13 +110,13 @@ export default function DailyChallenge() {
 
   if (completedToday) {
     return (
-      <div className="glass-card p-7 border-emerald-500/20">
+      <div className="fl-card-static p-7 border-emerald-500/20">
         <div className="flex items-center gap-4">
           <div className="w-11 h-11 rounded-xl bg-emerald-500/10 flex items-center justify-center">
             <CheckCircle2 size={20} className="text-emerald-400" />
           </div>
           <div>
-            <p className="text-lg font-semibold text-white">التحدي اليومي</p>
+            <p className="text-lg font-semibold text-[var(--text-primary)]">التحدي اليومي</p>
             <p className="text-sm text-emerald-400">تم إنجاز تحدي اليوم! <span className="badge-green text-xs mr-1">+5 XP</span></p>
           </div>
         </div>
@@ -128,21 +128,21 @@ export default function DailyChallenge() {
     <motion.div
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
-      className="glass-card p-7"
+      className="fl-card-static p-7"
     >
       <div className="flex items-center gap-3 mb-5">
         <div className="w-11 h-11 rounded-xl bg-sky-500/10 flex items-center justify-center">
           <Target size={20} className="text-sky-400" />
         </div>
-        <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>التحدي اليومي</h3>
+        <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>التحدي اليومي</h3>
         <span className="badge-blue text-xs mr-auto">+5 XP</span>
       </div>
 
-      <p className="text-sm text-white mb-3" dir="ltr">{challenge.q}</p>
+      <p className="text-sm text-[var(--text-primary)] mb-3" dir="ltr">{challenge.q}</p>
 
       <div className="grid grid-cols-2 gap-3">
         {challenge.options.map((opt, i) => {
-          let style = 'border hover:bg-white/10 text-white'
+          let style = 'border hover:bg-[var(--surface-raised)] text-[var(--text-primary)]'
           if (showResult) {
             if (i === challenge.answer) {
               style = 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'

@@ -1,0 +1,68 @@
+/* ═══════════════════════════════════════════════════════════
+   GLOBAL STYLES + ATMOSPHERE
+   Gradient mesh background, grain texture, base typography
+   ═══════════════════════════════════════════════════════════ */
+
+/* === Gradient Mesh Atmosphere === */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 120% 60% at 10% 30%, rgba(56, 189, 248, 0.035), transparent 60%),
+    radial-gradient(ellipse 80% 80% at 85% 15%, rgba(167, 139, 250, 0.025), transparent 50%),
+    radial-gradient(ellipse 60% 50% at 50% 100%, rgba(251, 191, 36, 0.015), transparent 40%),
+    radial-gradient(ellipse 40% 30% at 70% 60%, rgba(52, 211, 153, 0.012), transparent 30%);
+}
+.light body::after {
+  background:
+    radial-gradient(ellipse 120% 60% at 10% 30%, rgba(14, 165, 233, 0.03), transparent 60%),
+    radial-gradient(ellipse 80% 80% at 85% 15%, rgba(124, 58, 237, 0.02), transparent 50%),
+    radial-gradient(ellipse 60% 50% at 50% 100%, rgba(217, 119, 6, 0.012), transparent 40%);
+}
+
+/* === Grain Texture Overlay === */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10000;
+  opacity: 0.018;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.light body::before {
+  opacity: 0.012;
+}
+
+/* === Theme Transition === */
+body.theme-transitioning,
+body.theme-transitioning * {
+  transition: background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              fill 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              stroke 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* === Typography Hierarchy === */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Tajawal', sans-serif;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+/* English numbers and data */
+.font-data, [data-font="data"] {
+  font-family: 'IBM Plex Sans', 'Tajawal', sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+/* English display headings */
+.font-display {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+}

@@ -109,7 +109,7 @@ export default function AdminSmartScheduling() {
   return (
     <div className="space-y-12">
       <div>
-        <h1 className="text-page-title text-white flex items-center gap-2">
+        <h1 className="text-page-title text-[var(--text-primary)] flex items-center gap-2">
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <Calendar size={20} className="text-sky-400" />
           </div>
@@ -126,19 +126,19 @@ export default function AdminSmartScheduling() {
           { label: 'حصص الأسبوع', value: classes?.length || 0, icon: Calendar, color: 'emerald' },
           { label: 'تعارضات', value: conflicts.length, icon: AlertCircle, color: conflicts.length > 0 ? 'red' : 'emerald' },
         ].map((card, i) => (
-          <motion.div key={card.label} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }} className="glass-card p-4 hover:translate-y-[-2px] transition-all duration-200">
+          <motion.div key={card.label} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }} className="fl-card p-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-muted text-xs">{card.label}</span>
               <card.icon size={16} className={ICON_COLOR_CLASSES[card.color] || 'text-sky-400'} />
             </div>
-            <p className="text-xl font-bold text-white">{card.value}</p>
+            <p className="text-xl font-bold text-[var(--text-primary)]">{card.value}</p>
           </motion.div>
         ))}
       </div>
 
       {/* Conflicts */}
       {conflicts.length > 0 && (
-        <div className="glass-card p-7 border-red-500/20">
+        <div className="fl-card-static p-7 border-red-500/20">
           <h3 className="text-sm font-bold text-red-400 flex items-center gap-2 mb-3">
             <AlertCircle size={16} /> تعارضات في الجدول
           </h3>
@@ -159,7 +159,7 @@ export default function AdminSmartScheduling() {
             key={day}
             onClick={() => setSelectedDay(day)}
             className={`text-sm px-4 py-2 rounded-xl whitespace-nowrap transition-all ${
-              selectedDay === day ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30' : 'bg-white/5 text-muted'
+              selectedDay === day ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30' : 'bg-[var(--surface-base)] text-muted'
             }`}
           >
             {DAY_LABELS[day]}
@@ -169,8 +169,8 @@ export default function AdminSmartScheduling() {
       </div>
 
       {/* Schedule for selected day */}
-      <div className="glass-card p-7">
-        <h2 className="text-section-title mb-4" style={{ color: 'var(--color-text-primary)' }}>{DAY_LABELS[selectedDay]}</h2>
+      <div className="fl-card-static p-7">
+        <h2 className="text-section-title mb-4" style={{ color: 'var(--text-primary)' }}>{DAY_LABELS[selectedDay]}</h2>
         {scheduleByDay[selectedDay]?.length === 0 ? (
           <p className="text-muted text-sm text-center py-8">لا توجد حصص في هذا اليوم</p>
         ) : (
@@ -181,15 +181,15 @@ export default function AdminSmartScheduling() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="flex items-center justify-between p-3 rounded-xl hover:translate-y-[-2px] transition-all duration-200" style={{ background: 'var(--color-bg-surface-raised)' }}
+                className="flex items-center justify-between p-3 rounded-xl hover:translate-y-[-2px] transition-all duration-200" style={{ background: 'var(--surface-raised)' }}
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex flex-col items-center justify-center">
                     <Clock size={14} className="text-sky-400" />
-                    <span className="text-xs text-white font-mono">{item.time}</span>
+                    <span className="text-xs text-[var(--text-primary)] font-mono">{item.time}</span>
                   </div>
                   <div>
-                    <h3 className="text-sm font-medium text-white">{item.group.name}</h3>
+                    <h3 className="text-sm font-medium text-[var(--text-primary)]">{item.group.name}</h3>
                     <p className="text-xs text-muted">{item.group.code} — المستوى {item.group.level || '—'}</p>
                   </div>
                 </div>
@@ -201,8 +201,8 @@ export default function AdminSmartScheduling() {
       </div>
 
       {/* Trainer availability overview */}
-      <div className="glass-card p-7">
-        <h2 className="text-section-title mb-4" style={{ color: 'var(--color-text-primary)' }}>نظرة على المدربين</h2>
+      <div className="fl-card-static p-7">
+        <h2 className="text-section-title mb-4" style={{ color: 'var(--text-primary)' }}>نظرة على المدربين</h2>
         <div className="space-y-3">
           {!trainers?.length && <p className="text-muted text-sm text-center py-4">لا يوجد مدربون</p>}
           {trainers?.map((trainer, i) => {
@@ -211,9 +211,9 @@ export default function AdminSmartScheduling() {
             const totalSessions = trainerGroups.reduce((acc, g) => acc + (g.schedule?.days?.length || 0), 0)
 
             return (
-              <div key={trainer.id} className="flex items-center justify-between p-3 rounded-xl hover:translate-y-[-2px] transition-all duration-200" style={{ background: 'var(--color-bg-surface-raised)' }}>
+              <div key={trainer.id} className="flex items-center justify-between p-3 rounded-xl hover:translate-y-[-2px] transition-all duration-200" style={{ background: 'var(--surface-raised)' }}>
                 <div>
-                  <h3 className="text-sm font-medium text-white">{name}</h3>
+                  <h3 className="text-sm font-medium text-[var(--text-primary)]">{name}</h3>
                   <p className="text-xs text-muted">{trainerGroups.length} مجموعات</p>
                 </div>
                 <div className="text-left">

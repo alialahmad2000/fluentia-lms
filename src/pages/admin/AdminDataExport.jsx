@@ -159,7 +159,7 @@ export default function AdminDataExport() {
           <Database size={22} className="text-sky-400" />
         </div>
         <div>
-          <h1 className="text-page-title text-white">تصدير البيانات</h1>
+          <h1 className="text-page-title text-[var(--text-primary)]">تصدير البيانات</h1>
           <p className="text-muted text-sm mt-1">صدّر بيانات النظام بصيغة CSV</p>
         </div>
       </div>
@@ -176,14 +176,14 @@ export default function AdminDataExport() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
-              className="glass-card p-7 flex items-center justify-between gap-5 hover:translate-y-[-2px] transition-all duration-200"
+              className="fl-card p-7 flex items-center justify-between gap-5"
             >
               <div className="flex items-start gap-4">
                 <div className={`w-12 h-12 rounded-xl ${iconBg} flex items-center justify-center shrink-0`}>
                   <option.icon size={20} />
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-white">{option.label}</h3>
+                  <h3 className="text-sm font-semibold text-[var(--text-primary)]">{option.label}</h3>
                   <p className="text-xs text-muted mt-1">{option.desc}</p>
                 </div>
               </div>
@@ -210,7 +210,7 @@ export default function AdminDataExport() {
         })}
       </div>
 
-      <div className="glass-card p-7">
+      <div className="fl-card-static p-7">
         <p className="text-xs text-muted">
           الملفات تُحمّل بصيغة CSV مع دعم Unicode (UTF-8 BOM) لضمان عرض العربي بشكل صحيح في Excel.
         </p>

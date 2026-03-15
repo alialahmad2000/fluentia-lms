@@ -53,16 +53,12 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6" style={{ background: 'var(--color-bg-base)' }}>
+    <div className="min-h-screen flex items-center justify-center p-6" style={{ background: 'var(--surface-base)' }}>
       {/* Background ambient gradients */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-sky-500/[0.04] rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-violet-500/[0.03] rounded-full blur-[100px]" />
-        {/* Decorative wing — ultra-subtle */}
-        <svg className="absolute top-1/2 right-0 -translate-y-1/2 w-[600px] h-[600px] opacity-[0.025]" viewBox="0 0 200 200" fill="none">
-          <path d="M100 20 C60 50, 20 80, 10 140 C30 120, 60 100, 100 100 C140 100, 170 120, 190 140 C180 80, 140 50, 100 20Z" fill="currentColor" />
-          <path d="M100 60 C75 75, 45 95, 35 130 C50 115, 70 105, 100 105 C130 105, 150 115, 165 130 C155 95, 125 75, 100 60Z" fill="currentColor" />
-        </svg>
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full blur-[120px]" style={{ background: 'var(--accent-sky-glow)' }} />
+        <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] rounded-full blur-[100px]" style={{ background: 'var(--accent-violet-glow)' }} />
+        <div className="absolute top-0 right-1/4 w-[400px] h-[400px] rounded-full blur-[100px]" style={{ background: 'var(--accent-gold-glow)', opacity: 0.3 }} />
       </div>
 
       <motion.div
@@ -83,7 +79,7 @@ export default function LoginPage() {
               alt="Fluentia Academy"
               className="h-16 w-auto mx-auto mb-5"
             />
-            <p className="text-sm" style={{ color: 'var(--color-text-muted)' }}>{ACADEMY.name_ar}</p>
+            <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>{ACADEMY.name_ar}</p>
           </motion.div>
         </div>
 
@@ -92,10 +88,10 @@ export default function LoginPage() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className="backdrop-blur-2xl rounded-2xl p-8 sm:p-10"
-          style={{ background: 'var(--color-bg-surface)', border: '1px solid var(--color-border-subtle)', boxShadow: '0 8px 32px var(--color-card-shadow), inset 0 1px 0 var(--color-card-inset)' }}
+          className="fl-card-static backdrop-blur-2xl p-8 sm:p-10"
+          style={{ boxShadow: 'var(--shadow-xl), inset 0 1px 0 var(--color-card-inset)' }}
         >
-          <h2 className="text-page-title mb-8 text-center" style={{ color: 'var(--color-text-primary)' }}>
+          <h2 className="text-page-title mb-8 text-center" style={{ color: 'var(--text-primary)' }}>
             تسجيل الدخول
           </h2>
 
@@ -108,7 +104,7 @@ export default function LoginPage() {
               <input
                 id="email"
                 type="email"
-                className="input-field"
+                className="fl-input"
                 placeholder="example@fluentia.academy"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -127,7 +123,7 @@ export default function LoginPage() {
                 <input
                   id="password"
                   type={showPassword ? 'text' : 'password'}
-                  className="input-field pr-12"
+                  className="fl-input pr-12"
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -139,7 +135,7 @@ export default function LoginPage() {
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors"
-                  style={{ color: 'var(--color-text-placeholder)' }}
+                  style={{ color: 'var(--text-tertiary)' }}
                   tabIndex={-1}
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -162,7 +158,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="btn-primary w-full flex items-center justify-center gap-2"
+              className="fl-btn-primary w-full"
             >
               {loading ? (
                 <Loader2 size={20} className="animate-spin" />
@@ -181,7 +177,7 @@ export default function LoginPage() {
         </motion.div>
 
         {/* Footer */}
-        <p className="text-center text-xs mt-8" style={{ color: 'var(--color-text-muted)', opacity: 0.5 }}>
+        <p className="text-center text-xs mt-8" style={{ color: 'var(--text-tertiary)', opacity: 0.5 }}>
           {ACADEMY.name} &copy; {new Date().getFullYear()}
         </p>
       </motion.div>

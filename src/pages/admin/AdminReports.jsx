@@ -127,7 +127,7 @@ function ReportsContent() {
     <div className="space-y-12">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-page-title text-white">التقارير</h1>
+          <h1 className="text-page-title text-[var(--text-primary)]">التقارير</h1>
           <p className="text-muted text-sm mt-1">نظرة عامة على أداء الأكاديمية</p>
         </div>
         <button
@@ -153,12 +153,12 @@ function ReportsContent() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05 }}
-            className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200"
+            className="fl-card p-4 text-center"
           >
             <div className={`w-10 h-10 rounded-xl ${card.color === 'text-sky-400' ? 'bg-sky-500/10' : card.color === 'text-emerald-400' ? 'bg-emerald-500/10' : card.color === 'text-amber-400' ? 'bg-amber-500/10' : card.color === 'text-purple-400' ? 'bg-purple-500/10' : 'bg-gold-500/10'} flex items-center justify-center mx-auto mb-2`}>
               <card.icon size={20} className={card.color} />
             </div>
-            <p className="text-xl font-bold text-white">{card.value || 0}</p>
+            <p className="text-xl font-bold text-[var(--text-primary)]">{card.value || 0}</p>
             <p className="text-xs text-muted">{card.label}</p>
           </motion.div>
         ))}
@@ -166,40 +166,40 @@ function ReportsContent() {
 
       {/* Averages */}
       <div className="grid grid-cols-2 gap-6">
-        <div className="glass-card p-4">
+        <div className="fl-card-static p-4">
           <div className="flex items-center gap-2 mb-1">
             <div className="w-8 h-8 rounded-xl bg-gold-500/10 flex items-center justify-center">
               <Zap size={16} className="text-gold-400" />
             </div>
             <span className="text-sm text-muted">متوسط XP</span>
           </div>
-          <p className="text-2xl font-bold text-white">{stats?.avgXP}</p>
+          <p className="text-2xl font-bold text-[var(--text-primary)]">{stats?.avgXP}</p>
         </div>
-        <div className="glass-card p-4">
+        <div className="fl-card-static p-4">
           <div className="flex items-center gap-2 mb-1">
             <div className="w-8 h-8 rounded-xl bg-orange-500/10 flex items-center justify-center">
               <Flame size={16} className="text-orange-400" />
             </div>
             <span className="text-sm text-muted">متوسط السلسلة</span>
           </div>
-          <p className="text-2xl font-bold text-white">{stats?.avgStreak} يوم</p>
+          <p className="text-2xl font-bold text-[var(--text-primary)]">{stats?.avgStreak} يوم</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Leaderboard */}
-        <div className="glass-card p-7">
-          <h3 className="text-section-title mb-4" style={{ color: 'var(--color-text-primary)' }}>أفضل 10 طلاب</h3>
+        <div className="fl-card-static p-7">
+          <h3 className="text-section-title mb-4" style={{ color: 'var(--text-primary)' }}>أفضل 10 طلاب</h3>
           <div className="space-y-2">
             {leaderboard?.map((s, i) => {
               const name = s.profiles?.display_name || s.profiles?.full_name || 'طالب'
               const medals = ['🥇', '🥈', '🥉']
               return (
-                <div key={s.id} className="flex items-center justify-between p-3 rounded-xl hover:translate-y-[-2px] transition-all duration-200" style={{ background: 'var(--color-bg-surface-raised)' }}>
+                <div key={s.id} className="flex items-center justify-between p-3 rounded-xl" style={{ background: 'var(--surface-raised)' }}>
                   <div className="flex items-center gap-3">
                     <span className="text-lg w-8 text-center">{medals[i] || `${i + 1}`}</span>
                     <div>
-                      <p className="text-sm font-medium text-white">{name}</p>
+                      <p className="text-sm font-medium text-[var(--text-primary)]">{name}</p>
                       <p className="text-xs text-muted">{s.groups?.code} • مستوى {s.gamification_level}</p>
                     </div>
                   </div>
@@ -215,21 +215,21 @@ function ReportsContent() {
         </div>
 
         {/* Group Rankings */}
-        <div className="glass-card p-7">
-          <h3 className="text-section-title mb-4" style={{ color: 'var(--color-text-primary)' }}>ترتيب المجموعات</h3>
+        <div className="fl-card-static p-7">
+          <h3 className="text-section-title mb-4" style={{ color: 'var(--text-primary)' }}>ترتيب المجموعات</h3>
           <div className="space-y-3">
             {groupStats?.map((g, i) => (
-              <div key={g.id} className="p-3 rounded-xl hover:translate-y-[-2px] transition-all duration-200" style={{ background: 'var(--color-bg-surface-raised)' }}>
+              <div key={g.id} className="p-3 rounded-xl" style={{ background: 'var(--surface-raised)' }}>
                 <div className="flex items-center justify-between mb-2">
                   <div>
-                    <p className="text-sm font-medium text-white">{g.code} — {g.name}</p>
+                    <p className="text-sm font-medium text-[var(--text-primary)]">{g.code} — {g.name}</p>
                     <p className="text-xs text-muted">{g.studentCount} طالب • {ACADEMIC_LEVELS[g.level]?.cefr}</p>
                   </div>
                   <p className="text-sm font-bold text-gold-400">{g.totalXP} XP</p>
                 </div>
-                <div className="w-full bg-white/5 rounded-full h-2">
+                <div className="fl-progress-track">
                   <div
-                    className="bg-sky-500 rounded-full h-2 transition-all"
+                    className="fl-progress-fill bg-sky-500"
                     style={{ width: `${groupStats[0]?.totalXP > 0 ? (g.totalXP / groupStats[0].totalXP * 100) : 0}%` }}
                   />
                 </div>

@@ -217,7 +217,7 @@ export default function TrainerAIAssistant() {
       )}
 
       {/* Chat area */}
-      <div className="flex-1 glass-card overflow-hidden flex flex-col">
+      <div className="flex-1 fl-card-static overflow-hidden flex flex-col">
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {messages.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center space-y-6">
@@ -225,7 +225,7 @@ export default function TrainerAIAssistant() {
                 <Sparkles size={28} className="text-violet-400" />
               </div>
               <div>
-                <h2 className="text-section-title mb-1" style={{ color: 'var(--color-text-primary)' }}>مركز التحكم الذكي</h2>
+                <h2 className="text-section-title mb-1" style={{ color: 'var(--text-primary)' }}>مركز التحكم الذكي</h2>
                 <p className="text-sm text-muted">اكتب أمر بالعربي وأنا أنفّذه — واجبات، نقاط، تقييم، تقارير</p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-lg w-full">
@@ -233,7 +233,7 @@ export default function TrainerAIAssistant() {
                   <button
                     key={i}
                     onClick={() => sendMessage(s)}
-                    className="text-xs text-right bg-white/5 hover:bg-white/10 border border-border-subtle rounded-xl px-3 py-2.5 text-muted hover:text-white transition-all"
+                    className="text-xs text-right bg-[var(--surface-base)] hover:bg-[var(--surface-raised)] border border-border-subtle rounded-xl px-3 py-2.5 text-muted hover:text-[var(--text-primary)] transition-all"
                   >
                     {s}
                   </button>
@@ -273,7 +273,7 @@ export default function TrainerAIAssistant() {
                     key={i}
                     onClick={() => sendMessage(qa.message)}
                     disabled={sending}
-                    className="flex items-center gap-1 text-xs bg-white/5 text-muted hover:text-white px-2 py-1 rounded-lg transition-all whitespace-nowrap"
+                    className="flex items-center gap-1 text-xs bg-[var(--surface-base)] text-muted hover:text-[var(--text-primary)] px-2 py-1 rounded-lg transition-all whitespace-nowrap"
                   >
                     <Icon size={10} />
                     {qa.label}
@@ -335,10 +335,10 @@ function MessageBubble({ msg, onConfirm, onCancel }) {
         msg.isError
           ? 'bg-red-500/10 border border-red-500/20 text-red-400'
           : hasAction && msg.actionResult.success
-            ? `${ACTION_BG_CLASSES[actionStyle?.color] || 'bg-emerald-500/5 border-emerald-500/20'} border text-white/90`
+            ? `${ACTION_BG_CLASSES[actionStyle?.color] || 'bg-emerald-500/5 border-emerald-500/20'} border text-[var(--text-secondary)]`
             : isConfirm
-              ? 'bg-amber-500/5 border border-amber-500/20 text-white/90'
-              : 'bg-white/5 border border-border-subtle text-white/90'
+              ? 'bg-amber-500/5 border border-amber-500/20 text-[var(--text-secondary)]'
+              : 'bg-[var(--surface-base)] border border-border-subtle text-[var(--text-secondary)]'
       }`}>
         {/* Header */}
         <div className="flex items-center gap-1.5 mb-2">

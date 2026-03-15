@@ -78,7 +78,7 @@ export default function StudentEvents() {
           className={`text-sm px-4 py-2 rounded-xl transition-all ${
             tab === 'active' ? 'bg-gold-500/20 text-gold-400 border border-gold-500/30' : 'text-muted'
           }`}
-          style={tab !== 'active' ? { background: 'var(--color-bg-surface-raised)' } : undefined}
+          style={tab !== 'active' ? { background: 'var(--surface-raised)' } : undefined}
         >
           نشطة ({activeEvents.length})
         </button>
@@ -87,7 +87,7 @@ export default function StudentEvents() {
           className={`text-sm px-4 py-2 rounded-xl transition-all ${
             tab === 'past' ? 'bg-gold-500/20 text-gold-400 border border-gold-500/30' : 'text-muted'
           }`}
-          style={tab !== 'past' ? { background: 'var(--color-bg-surface-raised)' } : undefined}
+          style={tab !== 'past' ? { background: 'var(--surface-raised)' } : undefined}
         >
           منتهية ({pastEvents.length})
         </button>
@@ -98,9 +98,9 @@ export default function StudentEvents() {
           <Loader2 size={24} className="animate-spin text-sky-400" />
         </div>
       ) : displayed.length === 0 ? (
-        <div className="glass-card p-12 text-center">
+        <div className="fl-card-static p-12 text-center">
           <Calendar size={48} className="mx-auto text-muted mb-4" />
-          <h3 className="text-lg font-bold text-white mb-2">
+          <h3 className="text-lg font-bold text-[var(--text-primary)] mb-2">
             {tab === 'active' ? 'لا توجد فعاليات نشطة حالياً' : 'لا توجد فعاليات سابقة'}
           </h3>
           <p className="text-muted text-sm">ترقب الفعاليات القادمة!</p>
@@ -121,7 +121,7 @@ export default function StudentEvents() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className={`glass-card overflow-hidden hover:translate-y-[-2px] transition-all duration-200 ${EVENT_COLOR_CLASSES[config.color]?.border || 'border-sky-500/20'}`}
+                className={`fl-card overflow-hidden hover:translate-y-[-2px] transition-all duration-200 ${EVENT_COLOR_CLASSES[config.color]?.border || 'border-sky-500/20'}`}
               >
                 <div className={`h-1 ${EVENT_COLOR_CLASSES[config.color]?.bar || 'bg-sky-500'}`} />
                 <div className="p-5">
@@ -131,7 +131,7 @@ export default function StudentEvents() {
                         <Icon size={24} className={EVENT_COLOR_CLASSES[config.color]?.text || 'text-sky-400'} />
                       </div>
                       <div>
-                        <h3 className="font-bold text-white">{event.title}</h3>
+                        <h3 className="font-bold text-[var(--text-primary)]">{event.title}</h3>
                         <span className={`text-xs px-2 py-0.5 rounded-full ${EVENT_COLOR_CLASSES[config.color]?.badge || 'bg-sky-500/10 text-sky-400'}`}>
                           {config.label}
                         </span>
@@ -181,7 +181,7 @@ export default function StudentEvents() {
                       </div>
                       <div className="flex items-center gap-3">
                         {myParticipation?.score > 0 && (
-                          <span className="text-xs text-white">النقاط: {myParticipation.score}</span>
+                          <span className="text-xs text-[var(--text-primary)]">النقاط: {myParticipation.score}</span>
                         )}
                         {myParticipation?.rank && (
                           <span className="text-xs text-gold-400 flex items-center gap-1">

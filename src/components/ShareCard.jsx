@@ -658,7 +658,7 @@ function ShareButtons({ type, data, onCopied }) {
       {/* Copy row */}
       <div
         className="flex items-center gap-2 rounded-xl p-3"
-        style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+        style={{ background: 'var(--surface-base)', border: '1px solid var(--border-subtle)' }}
       >
         <p className="flex-1 text-xs text-muted truncate font-mono leading-relaxed" dir="rtl">
           {shareText.split('\n')[0]}
@@ -704,8 +704,8 @@ function ShareButtons({ type, data, onCopied }) {
             title: 'إنجازي في أكاديمية طلاقة',
             text: shareText,
           }).catch(() => {})}
-          className="w-full py-2.5 rounded-xl text-sm font-medium text-white transition-colors"
-          style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}
+          className="w-full py-2.5 rounded-xl text-sm font-medium text-[var(--text-primary)] transition-colors"
+          style={{ background: 'var(--surface-base)', border: '1px solid var(--border-subtle)' }}
         >
           مشاركة عبر التطبيقات
         </button>
@@ -796,19 +796,19 @@ export default function ShareCard({ type = 'certificate', data = {}, visible = f
               <div className="flex items-center gap-2">
                 <div
                   className="w-8 h-8 rounded-xl flex items-center justify-center text-base"
-                  style={{ background: 'rgba(212,175,55,0.12)', border: '1px solid rgba(212,175,55,0.25)' }}
+                  style={{ background: 'rgba(212,175,55,0.12)', border: '1px solid rgba(212,175,55,0.30)' }}
                 >
                   {ACHIEVEMENT_META[type]?.icon ?? '🏆'}
                 </div>
                 <div>
-                  <h2 className="text-sm font-bold text-white leading-tight">شارك إنجازك</h2>
+                  <h2 className="text-sm font-bold text-[var(--text-primary)] leading-tight">شارك إنجازك</h2>
                   <p className="text-xs text-muted leading-tight">{ACHIEVEMENT_META[type]?.sublabel(data) ?? 'إنجاز'}</p>
                 </div>
               </div>
               <button
                 onClick={onClose}
-                className="w-8 h-8 rounded-xl flex items-center justify-center text-muted hover:text-white transition-all duration-200"
-                style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)' }}
+                className="w-8 h-8 rounded-xl flex items-center justify-center text-muted hover:text-[var(--text-primary)] transition-all duration-200"
+                style={{ background: 'var(--surface-base)', border: '1px solid var(--border-subtle)' }}
                 aria-label="إغلاق"
               >
                 <X size={15} />
@@ -829,7 +829,7 @@ export default function ShareCard({ type = 'certificate', data = {}, visible = f
 
             {/* ── Action panel ── */}
             <div
-              className="glass-card-raised rounded-2xl p-5 space-y-3"
+              className="fl-card-static rounded-2xl p-5 space-y-3"
               style={{ backdropFilter: 'blur(12px)' }}
             >
               {/* Save button */}
