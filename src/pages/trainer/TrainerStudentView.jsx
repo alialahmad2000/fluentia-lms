@@ -676,11 +676,11 @@ function SkillsTab({ snapshots, studentName }) {
                 />
               )}
               <Legend
-                wrapperStyle={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}
+                wrapperStyle={{ fontSize: 11, color: 'var(--text-secondary)' }}
               />
               <Tooltip
-                contentStyle={{ background: '#1e1e2e', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, fontSize: 12 }}
-                itemStyle={{ color: '#fff' }}
+                contentStyle={{ background: 'var(--chart-tooltip-bg)', border: '1px solid var(--chart-tooltip-border)', borderRadius: 8, fontSize: 12 }}
+                itemStyle={{ color: 'var(--text-primary)' }}
               />
             </RadarChart>
           </ResponsiveContainer>

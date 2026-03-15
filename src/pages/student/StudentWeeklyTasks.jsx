@@ -191,7 +191,7 @@ export default function StudentWeeklyTasks() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         className="relative overflow-hidden rounded-2xl border border-[var(--border-subtle)]"
-        style={{ background: 'linear-gradient(135deg, rgba(14,25,50,0.9) 0%, rgba(6,14,28,0.95) 100%)' }}
+        style={{ background: 'var(--hero-card-bg)' }}
       >
         {/* Subtle decorative glow */}
         <div className="absolute -top-20 -left-20 w-60 h-60 bg-sky-500/[0.04] rounded-full blur-3xl" />

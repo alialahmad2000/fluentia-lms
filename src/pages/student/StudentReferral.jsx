@@ -159,7 +159,7 @@ function ReferralCard({ name, code, referralLink }) {
         id="referral-card"
         className="relative overflow-hidden rounded-3xl p-6 select-none"
         style={{
-          background: 'linear-gradient(135deg, #0a1225 0%, #1a2d50 40%, #0f1f3d 70%, #060e1c 100%)',
+          background: 'var(--hero-card-bg)',
           border: '1px solid rgba(251,191,36,0.25)',
           boxShadow: '0 0 60px rgba(251,191,36,0.08), 0 20px 60px rgba(0,0,0,0.5)',
         }}

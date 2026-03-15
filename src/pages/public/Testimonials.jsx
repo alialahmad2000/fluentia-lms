@@ -243,9 +243,10 @@ export default function Testimonials() {
   return (
     <div
       dir="rtl"
-      className="min-h-screen text-white font-tajawal selection:bg-sky-500/30 overflow-x-hidden"
+      className="min-h-screen font-tajawal selection:bg-sky-500/30 overflow-x-hidden"
       style={{
-        background: 'radial-gradient(ellipse at 50% -10%, rgba(56,189,248,0.14) 0%, #060e1c 55%)',
+        background: 'var(--page-bg-gradient)',
+        color: 'var(--text-primary)',
       }}
     >
       {/* ── Background blobs ── */}

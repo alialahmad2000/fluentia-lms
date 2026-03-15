@@ -151,9 +151,10 @@ export default function PlacementTest() {
   return (
     <div
       dir="rtl"
-      className="min-h-screen text-white font-tajawal selection:bg-sky-500/30 overflow-x-hidden"
+      className="min-h-screen font-tajawal selection:bg-sky-500/30 overflow-x-hidden"
       style={{
-        background: 'radial-gradient(ellipse at 50% 0%, rgba(56,189,248,0.12) 0%, #060e1c 60%)',
+        background: 'var(--page-bg-gradient)',
+        color: 'var(--text-primary)',
       }}
     >
       <AnimatePresence mode="wait">

@@ -101,15 +101,19 @@ export default function VoiceRecorder({ onRecordingComplete, existingUrl }) {
     const bufferLength = analyser.frequencyBinCount
     const dataArray = new Uint8Array(bufferLength)
 
+    const styles = getComputedStyle(document.documentElement)
+    const canvasBg = styles.getPropertyValue('--canvas-bg').trim() || 'rgba(6, 14, 28, 0.3)'
+    const canvasStroke = styles.getPropertyValue('--canvas-stroke').trim() || '#38bdf8'
+
     function draw() {
       animFrameRef.current = requestAnimationFrame(draw)
       analyser.getByteTimeDomainData(dataArray)
 
-      ctx.fillStyle = 'rgba(6, 14, 28, 0.3)'
+      ctx.fillStyle = canvasBg
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
       ctx.lineWidth = 2
-      ctx.strokeStyle = '#38bdf8'
+      ctx.strokeStyle = canvasStroke
       ctx.beginPath()
 
       const sliceWidth = canvas.width / bufferLength
@@ -278,7 +282,8 @@ export default function VoiceRecorder({ onRecordingComplete, existingUrl }) {
           ref={canvasRef}
           width={400}
           height={60}
-          className="w-full h-[60px] rounded-lg bg-navy-900"
+          className="w-full h-[60px] rounded-lg"
+          style={{ background: 'var(--surface-raised)' }}
         />
       )}
 

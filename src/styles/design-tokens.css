@@ -126,6 +126,25 @@
   --skeleton-via:        rgba(255, 255, 255, 0.06);
   --skeleton-to:         rgba(255, 255, 255, 0.02);
 
+  /* === Hero / Banner === */
+  --hero-gradient-from:  rgba(14, 25, 50, 0.9);
+  --hero-gradient-to:    rgba(6, 14, 28, 0.95);
+  --hero-card-bg:        linear-gradient(135deg, rgba(14,25,50,0.9) 0%, rgba(6,14,28,0.95) 100%);
+
+  /* === Modal Backdrop === */
+  --modal-backdrop:      rgba(0, 0, 0, 0.6);
+
+  /* === Page Background (public pages) === */
+  --page-bg-gradient:    radial-gradient(ellipse at 50% 0%, var(--accent-sky-glow) 0%, var(--surface-void) 60%);
+
+  /* === Canvas / Waveform === */
+  --canvas-bg:           rgba(6, 14, 28, 0.3);
+  --canvas-stroke:       #38bdf8;
+
+  /* === Chart Tooltip === */
+  --chart-tooltip-bg:    rgba(15, 23, 42, 0.95);
+  --chart-tooltip-border: rgba(255, 255, 255, 0.1);
+
   /* === Scrollbar === */
   --scrollbar-track:     transparent;
   --scrollbar-thumb:     rgba(255, 255, 255, 0.08);
@@ -268,6 +287,20 @@
   --skeleton-from:       rgba(0, 0, 0, 0.03);
   --skeleton-via:        rgba(0, 0, 0, 0.07);
   --skeleton-to:         rgba(0, 0, 0, 0.03);
+
+  --hero-gradient-from:  rgba(241, 245, 249, 0.95);
+  --hero-gradient-to:    rgba(226, 232, 240, 0.9);
+  --hero-card-bg:        linear-gradient(135deg, rgba(241,245,249,0.95) 0%, rgba(226,232,240,0.9) 100%);
+
+  --modal-backdrop:      rgba(0, 0, 0, 0.4);
+
+  --page-bg-gradient:    radial-gradient(ellipse at 50% 0%, var(--accent-sky-glow) 0%, var(--surface-void) 60%);
+
+  --canvas-bg:           rgba(241, 245, 249, 0.3);
+  --canvas-stroke:       #0ea5e9;
+
+  --chart-tooltip-bg:    rgba(255, 255, 255, 0.95);
+  --chart-tooltip-border: rgba(0, 0, 0, 0.1);
 
   --scrollbar-track:     transparent;
   --scrollbar-thumb:     rgba(0, 0, 0, 0.1);

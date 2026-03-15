@@ -290,7 +290,8 @@ function ClassForm({ groups, trainerId, onClose }) {
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="fixed inset-0 bg-black/60 z-40" />
       <motion.div
         initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 30 }}
-        className="fixed inset-x-4 top-[10vh] lg:inset-x-auto lg:left-1/2 lg:-translate-x-1/2 lg:w-full lg:max-w-lg bg-navy-950 border border-border-subtle rounded-2xl z-50 overflow-hidden"
+        className="fixed inset-x-4 top-[10vh] lg:inset-x-auto lg:left-1/2 lg:-translate-x-1/2 lg:w-full lg:max-w-lg border rounded-2xl z-50 overflow-hidden"
+        style={{ background: 'var(--surface-overlay)', borderColor: 'var(--border-default)' }}
       >
         <div className="px-6 py-4 border-b border-border-subtle flex items-center justify-between">
           <h2 className="text-lg font-semibold text-[var(--text-primary)]">حصة جديدة</h2>

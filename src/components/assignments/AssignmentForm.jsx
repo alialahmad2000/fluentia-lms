@@ -150,7 +150,8 @@ export default function AssignmentForm({ assignment, groups, trainerId, isAdmin,
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 30 }}
-        className="fixed inset-x-4 top-[5vh] bottom-[5vh] lg:inset-x-auto lg:left-1/2 lg:-translate-x-1/2 lg:w-full lg:max-w-2xl bg-navy-950 border border-border-subtle rounded-2xl z-50 flex flex-col overflow-hidden"
+        className="fixed inset-x-4 top-[5vh] bottom-[5vh] lg:inset-x-auto lg:left-1/2 lg:-translate-x-1/2 lg:w-full lg:max-w-2xl border rounded-2xl z-50 flex flex-col overflow-hidden"
+        style={{ background: 'var(--surface-overlay)', borderColor: 'var(--border-default)' }}
       >
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-border-subtle">

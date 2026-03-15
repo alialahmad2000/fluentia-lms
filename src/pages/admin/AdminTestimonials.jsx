@@ -90,7 +90,7 @@ function TestimonialForm({ initial = EMPTY_FORM, onSubmit, onClose, isLoading })
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ background: 'rgba(6,14,28,0.85)', backdropFilter: 'blur(8px)' }}
+      style={{ background: 'var(--modal-backdrop)', backdropFilter: 'blur(8px)' }}
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       <motion.div
@@ -606,7 +606,7 @@ export default function AdminTestimonials() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
-            style={{ background: 'rgba(6,14,28,0.85)', backdropFilter: 'blur(8px)' }}
+            style={{ background: 'var(--modal-backdrop)', backdropFilter: 'blur(8px)' }}
           >
             <motion.div
               initial={{ scale: 0.9 }}
