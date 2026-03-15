@@ -30,22 +30,25 @@ function extractGoogleDriveFileId(url) {
   return null
 }
 
-const emptyForm = {
-  title: '', google_drive_url: '', class_type: 'general', level: 1,
-  track: 'foundation', recorded_date: new Date().toISOString().split('T')[0],
-  duration_minutes: '', description: '', group_id: '',
+function getEmptyForm() {
+  return {
+    title: '', google_drive_url: '', class_type: 'general', level: 1,
+    track: 'foundation', recorded_date: new Date().toISOString().split('T')[0],
+    duration_minutes: '', description: '', group_id: '',
+  }
 }
 
 export default function AdminRecordings() {
   const { profile } = useAuthStore()
   const queryClient = useQueryClient()
   const [showForm, setShowForm] = useState(false)
-  const [form, setForm] = useState({ ...emptyForm })
+  const [form, setForm] = useState(getEmptyForm)
   const [aiText, setAiText] = useState('')
   const [aiLoading, setAiLoading] = useState(false)
 
   const { data: recordings, isLoading } = useQuery({
     queryKey: ['admin-recordings'],
+    staleTime: 30_000,
     queryFn: async () => {
       const { data, error } = await supabase
         .from('class_recordings')
@@ -59,6 +62,7 @@ export default function AdminRecordings() {
 
   const { data: groups } = useQuery({
     queryKey: ['admin-groups-list'],
+    staleTime: 60_000,
     queryFn: async () => {
       const { data, error } = await supabase.from('groups').select('id, name, code').eq('is_active', true)
       if (error) throw error
@@ -92,7 +96,7 @@ export default function AdminRecordings() {
       // Keep level and track for batch entry
       const prevLevel = form.level
       const prevTrack = form.track
-      setForm({ ...emptyForm, level: prevLevel, track: prevTrack })
+      setForm({ ...getEmptyForm(), level: prevLevel, track: prevTrack })
       setShowForm(false)
     },
   })

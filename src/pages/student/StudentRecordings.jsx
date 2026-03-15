@@ -21,6 +21,7 @@ export default function StudentRecordings() {
 
   const { data: recordings, isLoading } = useQuery({
     queryKey: ['student-recordings', filter],
+    staleTime: 30_000,
     queryFn: async () => {
       let query = supabase
         .from('class_recordings')

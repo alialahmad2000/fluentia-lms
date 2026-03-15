@@ -138,6 +138,7 @@ export default function StudentSchedule() {
   // Fixed class schedule from weekly_schedule_config
   const { data: classSchedule } = useQuery({
     queryKey: ['weekly-schedule-config', group?.id],
+    staleTime: 60_000,
     queryFn: async () => {
       if (!group?.id) return []
       const { data, error } = await supabase
@@ -155,6 +156,7 @@ export default function StudentSchedule() {
   // Student's planned tasks for this week
   const { data: plannedTasks, isLoading: tasksLoading } = useQuery({
     queryKey: ['planned-tasks', profile?.id, weekStartISO],
+    staleTime: 15_000,
     queryFn: async () => {
       const { data, error } = await supabase
         .from('student_planned_tasks')
@@ -172,6 +174,7 @@ export default function StudentSchedule() {
   // Upcoming classes
   const { data: upcomingClasses } = useQuery({
     queryKey: ['student-upcoming-classes'],
+    staleTime: 60_000,
     queryFn: async () => {
       if (!group?.id) return []
       const { data, error } = await supabase
@@ -191,6 +194,7 @@ export default function StudentSchedule() {
   // Classmate plans (same group)
   const { data: classmatePlans } = useQuery({
     queryKey: ['classmate-plans', group?.id, weekStartISO],
+    staleTime: 30_000,
     queryFn: async () => {
       if (!group?.id) return []
       const { data, error } = await supabase
