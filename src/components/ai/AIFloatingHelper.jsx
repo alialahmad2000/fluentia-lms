@@ -42,12 +42,6 @@ export default function AIFloatingHelper() {
 
   const role = profile?.role
   const pageCtx = getPageContext(location.pathname)
-
-  // Don't show on pages that already have AI chat
-  if (pageCtx?.skip) return null
-  // Don't show for unauthenticated users
-  if (!profile) return null
-
   const isAdminOrTrainer = role === 'admin' || role === 'trainer'
 
   useEffect(() => {
@@ -65,6 +59,10 @@ export default function AIFloatingHelper() {
     setMessages([])
     return () => { abortRef.current?.abort() }
   }, [location.pathname])
+
+  // Don't show on pages that already have AI chat, or for unauthenticated users
+  // IMPORTANT: These checks must be AFTER all hooks to avoid violating Rules of Hooks
+  if (pageCtx?.skip || !profile) return null
 
   async function sendMessage(text) {
     const msg = text || input.trim()

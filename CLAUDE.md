@@ -286,6 +286,12 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### March 15, 2026 — Fix AI Chat Crash on First Navigation (Rules of Hooks Violation)
+- What: AIFloatingHelper.jsx had conditional early returns (`if (pageCtx?.skip) return null`) placed BETWEEN hooks — 10 useState/useRef hooks ran, then early return skipped 3 useEffect hooks. When navigating TO `/student/ai-chat` or `/trainer/ai-assistant`, React went from 13→10 hooks → "Rendered fewer hooks than expected" crash. Reload worked because the component always started with 10 hooks.
+- Fix: Moved the conditional returns AFTER all useEffect hooks. All 13 hooks now run on every render regardless of the current route.
+- Files: `src/components/ai/AIFloatingHelper.jsx`
+- Status: Complete — build verified
+
 ### March 15, 2026 — Fix AI Features Error on First Navigation (All Roles)
 - What: Fixed AI smart assistant (and all AI features) crashing on first navigation with 401 errors. Root cause: `supabase.auth.getSession()` returns null session before auth hydrates, causing `Authorization: Bearer undefined` to be sent to edge functions.
 - Fix: Rewrote `invokeWithRetry.js` to auto-inject Authorization header via `getAccessToken()` helper (tries getSession, falls back to refreshSession). Added 401 retry that refreshes session and retries once. Removed manual getSession/Authorization patterns from 25 callers across student/trainer/admin. Removed 9 now-unused supabase imports.
