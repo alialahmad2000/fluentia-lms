@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Sparkles, Loader2, ChevronDown, ChevronUp, CheckCircle2, AlertCircle } from 'lucide-react'
-import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
 export default function AIWritingFeedback({ text, submissionId, assignmentType, existingFeedback }) {
@@ -19,10 +18,9 @@ export default function AIWritingFeedback({ text, submissionId, assignmentType, 
     setLoading(true)
     setError('')
     try {
-      const { data: { session } } = await supabase.auth.getSession()
       const res = await invokeWithRetry('ai-writing-feedback', {
         body: { text, submission_id: submissionId, assignment_type: assignmentType },
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        
       })
 
       if (res.error) {

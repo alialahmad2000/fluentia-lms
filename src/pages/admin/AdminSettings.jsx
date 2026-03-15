@@ -107,10 +107,9 @@ function SettingsContent() {
     setResetting(true)
     setResetResult(null)
     try {
-      const { data: { session } } = await supabase.auth.getSession()
       const res = await invokeWithRetry('reset-all-data', {
         body: { confirm: 'RESET' },
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        
       }, { timeoutMs: 60000, retries: 0 })
 
       if (res.error) {

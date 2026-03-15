@@ -40,7 +40,6 @@ export default function TrainerLessonPlanner() {
 
   const generateMutation = useMutation({
     mutationFn: async () => {
-      const { data: { session } } = await supabase.auth.getSession()
       const res = await invokeWithRetry('ai-lesson-planner', {
         body: {
           group_id: selectedGroup,
@@ -48,7 +47,7 @@ export default function TrainerLessonPlanner() {
           duration_minutes: duration,
           focus_skills: focusSkills.length > 0 ? focusSkills.join(', ') : undefined,
         },
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        
       })
       if (res.error) throw new Error(typeof res.error === 'object' ? (res.error.message || 'Failed') : String(res.error))
       return res.data

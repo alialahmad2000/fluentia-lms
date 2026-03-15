@@ -928,10 +928,9 @@ function AnalysisTab({ student, studentName }) {
   async function runAnalysis() {
     setLoadingAnalysis(true)
     try {
-      const { data: { session } } = await supabase.auth.getSession()
       const res = await invokeWithRetry('ai-trainer-assistant', {
         body: { confirmed_action: { action: 'WEAKNESS_ANALYSIS', params: { student_name: studentName } } },
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        
       })
       if (res.data?.reply) setAnalysis(res.data.reply)
       else setAnalysis('لم يتم الحصول على تحليل — حاول مرة أخرى')
@@ -945,10 +944,9 @@ function AnalysisTab({ student, studentName }) {
   async function runPlan() {
     setLoadingPlan(true)
     try {
-      const { data: { session } } = await supabase.auth.getSession()
       const res = await invokeWithRetry('ai-trainer-assistant', {
         body: { message: `اسوِ خطة تحسين مفصلة لـ ${studentName} تشمل أهداف محددة وخطوات عملية`, history: [] },
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        
       })
       if (res.data?.reply) {
         setPlan(res.data.reply)

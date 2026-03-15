@@ -156,13 +156,12 @@ export default function StudentVocabulary() {
 
       // Auto-generate flashcard data via AI
       try {
-        const { data: { session } } = await supabase.auth.getSession()
         const res = await invokeWithRetry('ai-chatbot', {
           body: {
             message: `For the English word "${word}", provide: 1) Arabic meaning, 2) English meaning, 3) Example sentence. Format as JSON: {"meaning_ar": "...", "meaning_en": "...", "example_sentence": "..."}. Only respond with JSON.`,
             conversation_history: [],
           },
-          headers: { Authorization: `Bearer ${session?.access_token}` },
+          
         })
 
         if (res.data?.reply) {
@@ -212,13 +211,12 @@ export default function StudentVocabulary() {
   async function generateFlashcard(wordId, word) {
     setAiLoading(true)
     try {
-      const { data: { session } } = await supabase.auth.getSession()
       const res = await invokeWithRetry('ai-chatbot', {
         body: {
           message: `For the English word "${word}", provide: 1) Arabic meaning, 2) English meaning, 3) Example sentence. Format as JSON: {"meaning_ar": "...", "meaning_en": "...", "example_sentence": "..."}. Only respond with JSON.`,
           conversation_history: [],
         },
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        
       })
 
       if (res.data?.reply) {

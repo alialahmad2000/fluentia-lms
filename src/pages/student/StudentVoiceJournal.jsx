@@ -129,7 +129,6 @@ export default function StudentVoiceJournal() {
       const publicUrl = urlData.publicUrl
 
       // Process with edge function
-      const { data: { session } } = await supabase.auth.getSession()
       const res = await invokeWithRetry('process-voice-journal', {
         body: {
           student_id: profile?.id,
@@ -138,7 +137,7 @@ export default function StudentVoiceJournal() {
           topic: topic || TOPICS[Math.floor(Math.random() * TOPICS.length)],
           mood,
         },
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        
       })
 
       if (res.error) throw new Error(typeof res.error === 'object' ? (res.error.message || 'Processing failed') : String(res.error))

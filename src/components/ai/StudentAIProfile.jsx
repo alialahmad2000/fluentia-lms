@@ -3,7 +3,6 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import { Brain, Loader2, RefreshCw, TrendingUp, TrendingDown, Lightbulb } from 'lucide-react'
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts'
-import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
 const SKILL_LABELS = {
@@ -35,10 +34,9 @@ export default function StudentAIProfile({ studentId, showGenerate = false, show
 
   const generateMutation = useMutation({
     mutationFn: async () => {
-      const { data: { session } } = await supabase.auth.getSession()
       const res = await invokeWithRetry('generate-ai-student-profile', {
         body: { student_id: studentId },
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        
       }, { timeoutMs: 45000, retries: 0 })
       if (res.error) throw new Error(typeof res.error === 'object' ? res.error.message : String(res.error))
       if (res.data?.error) throw new Error(res.data.error)

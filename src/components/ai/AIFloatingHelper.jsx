@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Bot, Send, X, Loader2, Sparkles, Minimize2 } from 'lucide-react'
 import { useLocation } from 'react-router-dom'
 import { useAuthStore } from '../../stores/authStore'
-import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
 // Context hints based on current page
@@ -80,14 +79,13 @@ export default function AIFloatingHelper() {
       const controller = new AbortController()
       abortRef.current = controller
 
-      const { data: { session } } = await supabase.auth.getSession()
       const invokeConfig = { timeoutMs: 30000, retries: 1, signal: controller.signal }
 
       if (isAdminOrTrainer) {
         const history = messages.map(m => ({ role: m.role, content: m.content }))
         const res = await invokeWithRetry('ai-trainer-assistant', {
           body: { message: msg, history },
-          headers: { Authorization: `Bearer ${session?.access_token}` },
+          
         }, invokeConfig)
 
         if (controller.signal.aborted) return
@@ -106,7 +104,7 @@ export default function AIFloatingHelper() {
       } else {
         const res = await invokeWithRetry('ai-student-chatbot', {
           body: { message: msg },
-          headers: { Authorization: `Bearer ${session?.access_token}` },
+          
         }, invokeConfig)
 
         if (controller.signal.aborted) return

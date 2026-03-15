@@ -4,7 +4,6 @@ import {
   Sparkles, Loader2, ChevronDown, ChevronUp, CheckCircle2, AlertCircle,
   Send, PenLine, Mic, BookOpen, FileText, Brain, Target,
 } from 'lucide-react'
-import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
 // Score → Grade mapping
@@ -53,10 +52,9 @@ export default function AISubmissionFeedback({
     setLoading(true)
     setError('')
     try {
-      const { data: { session } } = await supabase.auth.getSession()
       const res = await invokeWithRetry('ai-submission-feedback', {
         body: { submission_id: submission.id },
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        
       }, { timeoutMs: 45000, retries: 1 })
 
       const result = res.data

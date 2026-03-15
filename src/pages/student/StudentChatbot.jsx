@@ -2,7 +2,6 @@ import { useState, useRef, useEffect, lazy, Suspense } from 'react'
 import { motion } from 'framer-motion'
 import { Bot, Send, Loader2, Sparkles, Trash2, Brain, Crosshair, AlertTriangle } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
-import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import { PACKAGES } from '../../lib/constants'
 import SubTabs from '../../components/common/SubTabs'
@@ -101,12 +100,11 @@ function ChatContent() {
       const controller = new AbortController()
       abortRef.current = controller
 
-      const { data: { session } } = await supabase.auth.getSession()
       const history = messages.slice(-6).map(m => ({ role: m.role, content: m.content }))
 
       const res = await invokeWithRetry('ai-chatbot', {
         body: { message: msg, conversation_history: history },
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        
       }, { timeoutMs: 30000, retries: 1, signal: controller.signal })
 
       if (controller.signal.aborted) return

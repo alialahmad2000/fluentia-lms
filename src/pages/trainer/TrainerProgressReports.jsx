@@ -49,10 +49,9 @@ export default function TrainerProgressReports() {
     setReport(null)
 
     try {
-      const { data: { session } } = await supabase.auth.getSession()
       const res = await invokeWithRetry('generate-report', {
         body: { student_id: selectedStudent, period_days: periodDays },
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        
       })
 
       if (res.error) throw new Error(typeof res.error === 'object' ? (res.error.message || 'خطأ في إنشاء التقرير') : String(res.error))

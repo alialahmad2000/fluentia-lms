@@ -58,10 +58,9 @@ export default function AdminChurnPrediction() {
 
   const runAnalysis = useMutation({
     mutationFn: async () => {
-      const { data: { session } } = await supabase.auth.getSession()
       const res = await invokeWithRetry('predict-churn', {
         body: {},
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        
       })
       if (res.error) throw new Error(typeof res.error === 'object' ? (res.error.message || 'خطأ في التحليل') : String(res.error))
       return res.data

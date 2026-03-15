@@ -105,10 +105,9 @@ export default function AdminWeeklyTasks() {
     setGenerating(true)
     setGenResult(null)
     try {
-      const { data: { session } } = await supabase.auth.getSession()
       const { data, error } = await invokeWithRetry('generate-weekly-tasks', {
         body: {},
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        
       }, { timeoutMs: 120000 })
 
       if (error) {

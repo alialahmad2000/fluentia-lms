@@ -293,16 +293,15 @@ export default function StudentExercises() {
 
   const generateMutation = useMutation({
     mutationFn: async () => {
-      const { data: { session } } = await supabase.auth.getSession()
       // First analyze patterns
       await invokeWithRetry('analyze-error-patterns', {
         body: { student_id: profile?.id, analyze_all: true },
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        
       })
       // Then generate exercises
       const res = await invokeWithRetry('generate-targeted-exercises', {
         body: { student_id: profile?.id },
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        
       })
       return res.data
     },

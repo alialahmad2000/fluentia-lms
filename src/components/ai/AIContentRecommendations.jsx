@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Sparkles, BookOpen, Loader2, RefreshCcw } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
-import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import { ACADEMIC_LEVELS } from '../../lib/constants'
 
@@ -32,7 +31,6 @@ export default function AIContentRecommendations() {
   async function fetchRecommendations() {
     setLoading(true)
     try {
-      const { data: { session } } = await supabase.auth.getSession()
 
       // Get recent assignment types to understand weaknesses
       const { data: recentSubmissions } = await supabase
@@ -61,7 +59,7 @@ export default function AIContentRecommendations() {
           message: `Based on this student's performance (${performanceSummary || 'no data yet'}), level ${level.cefr} (${level.name_en}), suggest 3 personalized learning recommendations. Respond in JSON array format: [{"title": "...", "description": "...", "type": "article|exercise|video|tip", "icon": "emoji"}]. All text in Arabic. Focus on their weakest areas.`,
           conversation_history: [],
         },
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        
       })
 
       if (res.data?.reply) {

@@ -182,7 +182,7 @@ Make questions progressively harder. All question text should be in English. Exp
           message: systemPrompt,
           history: [],
         },
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        
       })
 
       if (res.error) throw new Error(res.error.message || 'AI generation failed')

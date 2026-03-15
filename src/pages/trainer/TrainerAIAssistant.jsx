@@ -104,7 +104,6 @@ export default function TrainerAIAssistant() {
     setSending(true)
 
     try {
-      const { data: { session } } = await supabase.auth.getSession()
 
       // Build history from messages (exclude action metadata, just text)
       const history = messages
@@ -117,7 +116,7 @@ export default function TrainerAIAssistant() {
 
       const res = await invokeWithRetry('ai-trainer-assistant', {
         body,
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        
       })
 
       if (res.error) {

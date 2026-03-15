@@ -1,5 +1,4 @@
 import { useState, useCallback } from 'react'
-import { supabase } from '../lib/supabase'
 import { invokeWithRetry } from '../lib/invokeWithRetry'
 import { useAuthStore } from '../stores/authStore'
 
@@ -39,7 +38,6 @@ export function useAIFormFiller({ pageId, fields, context, onFill, getContextDat
       const contextData = getContextData ? await getContextData() : {}
 
       // 2. Get the current session token for the edge function
-      const { data: { session } } = await supabase.auth.getSession()
       if (!session?.access_token) {
         throw new Error('يجب تسجيل الدخول أولاً')
       }

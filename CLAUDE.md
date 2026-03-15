@@ -286,6 +286,12 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### March 15, 2026 — Fix AI Features Error on First Navigation (All Roles)
+- What: Fixed AI smart assistant (and all AI features) crashing on first navigation with 401 errors. Root cause: `supabase.auth.getSession()` returns null session before auth hydrates, causing `Authorization: Bearer undefined` to be sent to edge functions.
+- Fix: Rewrote `invokeWithRetry.js` to auto-inject Authorization header via `getAccessToken()` helper (tries getSession, falls back to refreshSession). Added 401 retry that refreshes session and retries once. Removed manual getSession/Authorization patterns from 25 callers across student/trainer/admin. Removed 9 now-unused supabase imports.
+- Files: `src/lib/invokeWithRetry.js` (core fix), 24 callers updated (StudentChatbot, StudentConversation, StudentExercises, StudentPronunciation, StudentVocabulary, StudentVoiceJournal, StudentWeeklyTaskDetail, TrainerAIAssistant, TrainerLessonPlanner, TrainerProgressReports, TrainerQuizGenerator, TrainerStudentView, AdminRecordings, AdminChurnPrediction, AdminSettings, AdminWeeklyTasks, AIContentRecommendations, AIFloatingHelper, AIGrammarChecker, AISpeakingAnalysis, AISubmissionFeedback, AIWritingFeedback, StudentAIProfile, useAIFormFiller)
+- Status: Complete — build verified, fixes all roles (student, trainer, admin)
+
 ### March 15, 2026 — Student Schedule Redesign (Weekly Planner with Drag-Drop)
 - What: Complete rewrite of StudentSchedule.jsx with @dnd-kit drag-drop planner
 - **@dnd-kit installed:** @dnd-kit/core, @dnd-kit/sortable, @dnd-kit/utilities

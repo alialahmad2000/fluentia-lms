@@ -121,7 +121,6 @@ export default function AdminRecordings() {
     if (!aiText.trim()) return
     setAiLoading(true)
     try {
-      const { data: { session } } = await supabase.auth.getSession()
       const formSchema = [
         { key: 'title', type: 'text', label: 'العنوان', required: true },
         { key: 'class_type', type: 'select', label: 'نوع الحصة', options: CLASS_TYPES.map(t => ({ value: t.value, label: t.label })) },
@@ -143,7 +142,7 @@ export default function AdminRecordings() {
             groups: (groups || []).map(g => ({ id: g.id, name: g.name })),
           },
         },
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        
       }, { timeoutMs: 15000, retries: 0 })
       const filled = res.data?.filledFields
       if (filled) {

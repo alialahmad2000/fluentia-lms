@@ -158,7 +158,6 @@ export default function StudentConversation() {
     mutationFn: async (userMsg) => {
       const systemPrompt = `${scenario.prompt}\n\nThe student is at ${levelDesc} level. Adjust your vocabulary accordingly. Always respond in English only. Keep responses under 3 sentences. After every 4-5 exchanges, give a brief progress note in Arabic (1 sentence) about how they're doing.`
 
-      const { data: { session } } = await supabase.auth.getSession()
 
       const chatRes = await invokeWithRetry('ai-student-chatbot', {
         body: {
@@ -166,7 +165,7 @@ export default function StudentConversation() {
           system_override: systemPrompt,
           history: messages.filter(m => m.content).map(m => ({ role: m.role, content: m.content })),
         },
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        
       }, { timeoutMs: 30000, retries: 1 })
 
       if (chatRes.error) {
@@ -197,7 +196,7 @@ export default function StudentConversation() {
           system_override: `${s.prompt}\n\nThe student is at ${levelDesc} level. Start the conversation with a greeting. Respond in English only. Keep it short.`,
           history: [],
         },
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        
       }, { timeoutMs: 30000, retries: 1 }).then(res => {
         setMessages([{ role: 'assistant', content: res.data?.reply || 'Hello! How can I help you today?' }])
       }).catch(() => {

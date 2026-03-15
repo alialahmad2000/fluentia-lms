@@ -932,7 +932,6 @@ export default function StudentPronunciation() {
   }
 
   async function transcribeWithWhisper(blob, mimeType) {
-    const { data: { session } } = await supabase.auth.getSession()
     if (!session?.access_token) throw new Error('Not authenticated')
 
     // Determine file extension from mime
@@ -955,7 +954,7 @@ export default function StudentPronunciation() {
     // Call whisper-transcribe edge function with timeout/retry
     const res = await invokeWithRetry('whisper-transcribe', {
       body: { voice_url: fileName, duration_seconds: 10 },
-      headers: { Authorization: `Bearer ${session.access_token}` },
+      
     }, { timeoutMs: 30000, retries: 1 })
 
     if (res.error) {

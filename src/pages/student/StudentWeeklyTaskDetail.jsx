@@ -58,10 +58,9 @@ export default function StudentWeeklyTaskDetail() {
       if (error) throw error
 
       try {
-        const { data: { session } } = await supabase.auth.getSession()
         await invokeWithRetry('grade-weekly-task', {
           body: { task_id: task.id },
-          headers: { Authorization: `Bearer ${session?.access_token}` },
+          
         })
       } catch (gradeErr) {
         console.error('AI grading request failed (will be retried):', gradeErr)

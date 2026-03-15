@@ -35,7 +35,29 @@ function extractErrorMessage(error) {
 }
 
 /**
- * Wraps supabase.functions.invoke with timeout and retry.
+ * Gets a valid access token, refreshing if needed.
+ * Returns null if no session available.
+ */
+async function getAccessToken() {
+  try {
+    const { data } = await supabase.auth.getSession()
+    if (data?.session?.access_token) {
+      return data.session.access_token
+    }
+    // No session — try refreshing
+    const { data: refreshed } = await supabase.auth.refreshSession()
+    return refreshed?.session?.access_token || null
+  } catch {
+    return null
+  }
+}
+
+/**
+ * Wraps supabase.functions.invoke with:
+ * - Auto-injected auth token (no need to manually pass Authorization header)
+ * - Timeout with AbortController
+ * - Retry on 502/503/network errors
+ * - Retry once on 401 after refreshing the session
  *
  * @param {string} functionName - Edge function name
  * @param {object} options - { body, headers }
@@ -44,6 +66,7 @@ function extractErrorMessage(error) {
  */
 export async function invokeWithRetry(functionName, options = {}, config = {}) {
   const { timeoutMs = 30000, retries = 1, signal: externalSignal } = config
+  let didRetryAuth = false
 
   for (let attempt = 0; attempt <= retries; attempt++) {
     const controller = new AbortController()
@@ -54,6 +77,20 @@ export async function invokeWithRetry(functionName, options = {}, config = {}) {
         return { data: null, error: 'تم إلغاء الطلب' }
       }
       externalSignal.addEventListener('abort', () => controller.abort(), { once: true })
+    }
+
+    // Auto-inject Authorization header if not manually provided
+    if (!options.headers?.Authorization) {
+      const token = await getAccessToken()
+      if (token) {
+        options = {
+          ...options,
+          headers: {
+            ...options.headers,
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      }
     }
 
     // Timeout
@@ -74,6 +111,27 @@ export async function invokeWithRetry(functionName, options = {}, config = {}) {
       // If we got an error, extract the real message
       if (res.error) {
         const errMsg = extractErrorMessage(res.error)
+
+        // On 401/Unauthorized — refresh token and retry once
+        if (!didRetryAuth && /401|unauthorized|jwt|token/i.test(errMsg)) {
+          didRetryAuth = true
+          // Force refresh the session
+          try {
+            const { data: refreshed } = await supabase.auth.refreshSession()
+            if (refreshed?.session?.access_token) {
+              options = {
+                ...options,
+                headers: {
+                  ...options.headers,
+                  Authorization: `Bearer ${refreshed.session.access_token}`,
+                },
+              }
+              continue // Retry with fresh token
+            }
+          } catch {}
+          // If refresh failed, return the original error
+          return { data: null, error: 'جلسة غير صالحة — يرجى إعادة تسجيل الدخول' }
+        }
 
         // Retry on server/network errors
         if (attempt < retries) {
