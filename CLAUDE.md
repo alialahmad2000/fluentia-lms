@@ -286,6 +286,23 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### March 15, 2026 — Student Schedule Redesign (Weekly Planner with Drag-Drop)
+- What: Complete rewrite of StudentSchedule.jsx with @dnd-kit drag-drop planner
+- **@dnd-kit installed:** @dnd-kit/core, @dnd-kit/sortable, @dnd-kit/utilities
+- **Week view:** 7-column grid (Sun-Sat) with 3 time slots per day (morning/afternoon/evening)
+- **Fixed class blocks:** Locked schedule entries from weekly_schedule_config with lock icon + Meet link
+- **Drag-drop tasks:** SortableContext with vertical list strategy, GripVertical handle
+- **Inline task creation:** Plus button → input field with Enter/Escape keyboard shortcuts
+- **Task completion:** Checkbox toggle with strikethrough + emerald highlight
+- **Soft-delete removal:** X button on hover, sets deleted_at
+- **Week selector:** ChevronLeft/Right navigation with "العودة لهذا الأسبوع" reset
+- **Progress bar:** Completion percentage with task count
+- **Classmate plans:** Toggle to see groupmates' task counts per day
+- **First-time onboarding:** Empty state with instructions when no tasks planned
+- **Migration 023:** Already applied to Supabase (class_recordings, weekly_schedule_config, student_planned_tasks)
+- Files: StudentSchedule.jsx (complete rewrite), package.json (added @dnd-kit)
+- Status: Complete — build verified
+
 ### March 15, 2026 — Class Recordings + Notification Fix + Level-Up Fix + Remaining Gaps
 - What: Class recordings system (Google Drive embed), notification dropdown opacity fix, AI form filler integration
 - **Migration 023:** `class_recordings` table (level/type/track, Google Drive embed, RLS for student level/group access), `weekly_schedule_config` table, `student_planned_tasks` table
