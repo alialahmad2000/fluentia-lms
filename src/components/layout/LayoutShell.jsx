@@ -38,7 +38,6 @@ const TAB_ACTIVE_COLORS = {
 }
 
 export default function LayoutShell() {
-  console.log('[DEBUG] LayoutShell rendering...')
   const [mobileOpen, setMobileOpen] = useState(false)
   const [collapsed, setCollapsed] = useState(false)
   const { profile } = useAuthStore()
