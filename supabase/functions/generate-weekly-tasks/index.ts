@@ -224,13 +224,41 @@ Provide exactly 3 speaking, 2 reading, 1 writing, 1 listening, 1 vocabulary task
 
   const rawText: string = data.content?.[0]?.text ?? ''
 
-  // Parse JSON — handle potential markdown code fences
+  // Robust JSON parsing — handle markdown fences, leading text, trailing text
   let jsonStr = rawText.trim()
-  if (jsonStr.startsWith('```')) {
-    jsonStr = jsonStr.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '')
+
+  // Strip markdown code fences (```json ... ``` or ``` ... ```)
+  if (jsonStr.includes('```')) {
+    const fenceMatch = jsonStr.match(/```(?:json)?\s*\n?([\s\S]*?)\n?\s*```/)
+    if (fenceMatch) {
+      jsonStr = fenceMatch[1].trim()
+    } else {
+      // Fallback: strip all code fences
+      jsonStr = jsonStr.replace(/```(?:json)?\s*\n?/g, '').replace(/\n?\s*```/g, '').trim()
+    }
   }
 
-  const result: TaskGenerationResult = JSON.parse(jsonStr)
+  // If there's text before the first {, strip it
+  const firstBrace = jsonStr.indexOf('{')
+  const lastBrace = jsonStr.lastIndexOf('}')
+  if (firstBrace > 0 || lastBrace < jsonStr.length - 1) {
+    if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+      jsonStr = jsonStr.slice(firstBrace, lastBrace + 1)
+    }
+  }
+
+  let result: TaskGenerationResult
+  try {
+    result = JSON.parse(jsonStr)
+  } catch (parseErr) {
+    console.error('JSON parse failed. Raw text (first 500 chars):', rawText.slice(0, 500))
+    throw new Error(`Failed to parse Claude response as JSON: ${parseErr instanceof Error ? parseErr.message : String(parseErr)}`)
+  }
+
+  // Validate that required keys exist
+  if (!result.speaking || !result.reading || !result.writing || !result.listening || !result.vocabulary) {
+    throw new Error(`Incomplete task generation — missing keys. Got: ${Object.keys(result).join(', ')}`)
+  }
 
   return { result, inputTokens, outputTokens }
 }
@@ -651,14 +679,25 @@ serve(async (req) => {
           throw new Error(`Failed to insert tasks for student ${studentId}: ${insertErr.message}`)
         }
 
-        // Create notification for the student
-        await supabase.from('notifications').insert({
-          user_id: studentId,
-          type: 'weekly_tasks_ready',
-          title: 'مهام الأسبوع الجديدة جاهزة!',
-          body: 'تم إنشاء مهام التعلم الخاصة بك لهذا الأسبوع. ابدأ الآن!',
-          read: false,
-        })
+        // Update task set with total_tasks count
+        await supabase
+          .from('weekly_task_sets')
+          .update({ total_tasks: tasksToInsert.length })
+          .eq('id', taskSetId)
+
+        // Create notification AFTER tasks saved successfully
+        try {
+          await supabase.from('notifications').insert({
+            user_id: studentId,
+            type: 'weekly_tasks_ready',
+            title: 'مهام الأسبوع الجديدة جاهزة!',
+            body: `تم إنشاء ${tasksToInsert.length} مهام تعلم خاصة بك لهذا الأسبوع. ابدأ الآن!`,
+            read: false,
+          })
+        } catch (notifErr) {
+          // Notification failure should not fail the whole generation
+          console.error(`Notification insert failed for student ${studentId}:`, notifErr)
+        }
 
         generated++
         console.log(`Generated ${tasksToInsert.length} tasks for student ${studentId}`)
