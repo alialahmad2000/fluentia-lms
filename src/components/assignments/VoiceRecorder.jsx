@@ -309,7 +309,7 @@ export default function VoiceRecorder({ onRecordingComplete, existingUrl }) {
               {formatTime(duration)}
             </span>
             {isNearLimit && (
-              <span className="text-[10px] text-red-400 animate-pulse">
+              <span className="text-xs text-red-400 animate-pulse">
                 متبقي {formatTime(remainingTime)}
               </span>
             )}

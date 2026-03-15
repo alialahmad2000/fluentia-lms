@@ -301,7 +301,7 @@ function SpeakingTask({ task, content, isSubmitted, onSubmit }) {
             <ul className="space-y-2">
               {content.guiding_questions.map((q, i) => (
                 <li key={i} className="flex items-start gap-2.5 text-white/60 text-sm">
-                  <span className="w-5 h-5 rounded-md bg-sky-500/10 text-sky-400 text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+                  <span className="w-5 h-5 rounded-md bg-sky-500/10 text-sky-400 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
                     {i + 1}
                   </span>
                   {q}
@@ -348,7 +348,7 @@ function SpeakingTask({ task, content, isSubmitted, onSubmit }) {
           {audioUrl && (
             <div className="w-full max-w-md">
               <audio src={audioUrl} controls className="w-full rounded-lg" />
-              <p className="text-white/20 text-[11px] text-center mt-2">مدة التسجيل: {formatTime(duration)}</p>
+              <p className="text-white/20 text-xs text-center mt-2">مدة التسجيل: {formatTime(duration)}</p>
             </div>
           )}
 
@@ -434,7 +434,7 @@ function WritingTask({ task, content, isSubmitted, onSubmit }) {
         {content.focus_areas?.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-3">
             {content.focus_areas.map((area, i) => (
-              <span key={i} className="px-2.5 py-0.5 rounded-md bg-violet-500/10 text-violet-400 border border-violet-500/15 text-[11px] font-medium">
+              <span key={i} className="px-2.5 py-0.5 rounded-md bg-violet-500/10 text-violet-400 border border-violet-500/15 text-xs font-medium">
                 {area}
               </span>
             ))}
@@ -640,7 +640,7 @@ function IrregularVerbsTask({ task, content, isSubmitted, onSubmit }) {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto">
                   <div className="space-y-2">
-                    <label className="text-[11px] text-white/30 font-medium">Past Simple</label>
+                    <label className="text-xs text-white/30 font-medium">Past Simple</label>
                     <input
                       type="text"
                       value={pastSimple}
@@ -663,7 +663,7 @@ function IrregularVerbsTask({ task, content, isSubmitted, onSubmit }) {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-[11px] text-white/30 font-medium">Past Participle</label>
+                    <label className="text-xs text-white/30 font-medium">Past Participle</label>
                     <input
                       type="text"
                       value={pastParticiple}
@@ -729,7 +729,7 @@ function IrregularVerbsTask({ task, content, isSubmitted, onSubmit }) {
                     )}
                     <span className="text-white/80 font-medium text-sm">{r.verb}</span>
                   </div>
-                  <span className="text-[11px] text-white/30" dir="ltr">
+                  <span className="text-xs text-white/30" dir="ltr">
                     {r.correctPastSimple} / {r.correctPastParticiple}
                   </span>
                 </div>
@@ -847,7 +847,7 @@ function VocabularyTask({ task, content, isSubmitted, onSubmit }) {
                     <div className="mt-2">
                       <AnswerFeedback isCorrect={userAnswer.trim().toLowerCase() === (currentWord.word || '').toLowerCase()} correctAnswer={currentWord.word} />
                       {currentWord.example_sentence && (
-                        <p className="text-[11px] text-white/25 mt-2" dir="ltr">"{currentWord.example_sentence}"</p>
+                        <p className="text-xs text-white/25 mt-2" dir="ltr">"{currentWord.example_sentence}"</p>
                       )}
                     </div>
                   )}
@@ -886,7 +886,7 @@ function VocabularyTask({ task, content, isSubmitted, onSubmit }) {
                     {r.correct ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <XCircle className="w-4 h-4 text-red-400" />}
                     <span className="text-white/80 font-medium text-sm">{r.translation}</span>
                   </div>
-                  <span className="text-[11px] text-white/30" dir="ltr">{r.word}</span>
+                  <span className="text-xs text-white/30" dir="ltr">{r.word}</span>
                 </div>
               ))}
             </div>
@@ -953,7 +953,7 @@ function QuestionsUI({ questions, answers, showResults, isSubmitted, onMCQChange
                 )
               })}
               {showResults && q.explanation && (
-                <p className="text-white/25 text-[11px] mt-2 p-2.5 bg-white/[0.02] rounded-lg border border-white/[0.04]">
+                <p className="text-white/25 text-xs mt-2 p-2.5 bg-white/[0.02] rounded-lg border border-white/[0.04]">
                   {q.explanation}
                 </p>
               )}
@@ -1000,7 +1000,7 @@ function FeedbackDisplay({ feedback, autoScore, type }) {
           {scoreEntries.map((s, i) => (
             <div key={i} className="rounded-xl bg-white/[0.03] border border-white/[0.04] p-3 text-center">
               <div className="text-xl font-bold text-sky-400">{s.value}</div>
-              <div className="text-white/25 text-[10px] mt-0.5">{s.label}</div>
+              <div className="text-white/25 text-xs mt-0.5">{s.label}</div>
             </div>
           ))}
         </div>

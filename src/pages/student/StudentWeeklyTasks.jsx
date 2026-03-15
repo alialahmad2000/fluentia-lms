@@ -115,7 +115,7 @@ function ProgressRing({ progress, size = 120, strokeWidth = 8 }) {
         >
           {toArabicNum(Math.round(progress))}%
         </motion.span>
-        <span className="text-[10px] text-white/40 mt-0.5">مكتمل</span>
+        <span className="text-xs text-white/40 mt-0.5">مكتمل</span>
       </div>
     </div>
   )
@@ -260,7 +260,7 @@ export default function StudentWeeklyTasks() {
                   >
                     <div className="flex items-center gap-2 mb-1.5">
                       <stat.icon size={14} className={stat.iconColor} />
-                      <span className="text-[11px] text-white/35 font-medium">{stat.label}</span>
+                      <span className="text-xs text-white/35 font-medium">{stat.label}</span>
                     </div>
                     <p className="text-lg font-bold text-white">{stat.value}</p>
                   </motion.div>
@@ -380,11 +380,11 @@ export default function StudentWeeklyTasks() {
 
                             {/* Status + Points */}
                             <div className="flex items-center gap-2 mb-3">
-                              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] font-medium ${statusCfg.class}`}>
+                              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium ${statusCfg.class}`}>
                                 {statusCfg.label}
                               </span>
                               {task.points != null && (
-                                <span className="text-[11px] text-white/25 font-medium">
+                                <span className="text-xs text-white/25 font-medium">
                                   {toArabicNum(task.points)} نقطة
                                 </span>
                               )}
@@ -403,7 +403,7 @@ export default function StudentWeeklyTasks() {
                             {/* Deadline */}
                             <div className="flex items-center gap-1.5">
                               <Clock size={12} className={deadlineInfo.urgent && !isDone ? 'text-red-400' : 'text-white/20'} />
-                              <span className={`text-[11px] ${
+                              <span className={`text-xs ${
                                 isDone ? 'text-white/25' :
                                 deadlineInfo.urgent ? 'text-red-400' : 'text-white/30'
                               }`}>

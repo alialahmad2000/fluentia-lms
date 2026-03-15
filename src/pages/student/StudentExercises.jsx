@@ -567,17 +567,17 @@ export default function StudentExercises() {
                     <div className="flex items-center justify-between">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className={`text-[10px] px-2 py-0.5 rounded-full border ${SKILL_COLOR_CLASSES[color]?.badge || 'bg-sky-500/10 text-sky-400 border-sky-500/20'}`}>
+                          <span className={`text-xs px-2 py-0.5 rounded-full border ${SKILL_COLOR_CLASSES[color]?.badge || 'bg-sky-500/10 text-sky-400 border-sky-500/20'}`}>
                             {SKILL_LABELS[exercise.skill]}
                           </span>
-                          <span className="text-[10px] text-muted">
+                          <span className="text-xs text-muted">
                             {DIFFICULTY_LABELS[exercise.difficulty]}
                           </span>
-                          <span className="text-[10px] text-violet-400 flex items-center gap-0.5">
+                          <span className="text-xs text-violet-400 flex items-center gap-0.5">
                             <Zap size={10} /> {exercise.xp_reward} XP
                           </span>
                           {isCompleted && (
-                            <span className="text-[10px] text-emerald-400 flex items-center gap-0.5">
+                            <span className="text-xs text-emerald-400 flex items-center gap-0.5">
                               <CheckCircle2 size={10} /> {completedData.score}%
                             </span>
                           )}
@@ -623,10 +623,10 @@ export default function StudentExercises() {
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className={`text-[10px] px-2 py-0.5 rounded-full border ${SKILL_COLOR_CLASSES[color]?.badge || 'bg-sky-500/10 text-sky-400 border-sky-500/20'}`}>
+                            <span className={`text-xs px-2 py-0.5 rounded-full border ${SKILL_COLOR_CLASSES[color]?.badge || 'bg-sky-500/10 text-sky-400 border-sky-500/20'}`}>
                               {SKILL_LABELS[exercise.skill]}
                             </span>
-                            <span className="text-[10px] text-muted">
+                            <span className="text-xs text-muted">
                               {DIFFICULTY_LABELS[exercise.difficulty]}
                             </span>
                           </div>
@@ -660,13 +660,13 @@ export default function StudentExercises() {
                       <div className="flex items-center gap-2">
                         <CheckCircle2 size={14} className="text-emerald-400" />
                         <span className="text-sm text-white">{exercise.title}</span>
-                        <span className="text-[10px] text-muted">{SKILL_LABELS[exercise.skill]}</span>
+                        <span className="text-xs text-muted">{SKILL_LABELS[exercise.skill]}</span>
                       </div>
                       <div className="flex items-center gap-3">
                         <span className={`text-xs font-bold ${exercise.score >= 80 ? 'text-emerald-400' : exercise.score >= 60 ? 'text-gold-400' : 'text-red-400'}`}>
                           {exercise.score}%
                         </span>
-                        <span className="text-[10px] text-violet-400">+{exercise.xp_awarded} XP</span>
+                        <span className="text-xs text-violet-400">+{exercise.xp_awarded} XP</span>
                       </div>
                     </div>
                   </div>

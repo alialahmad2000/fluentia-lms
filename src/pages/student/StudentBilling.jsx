@@ -169,7 +169,7 @@ export default function StudentBilling() {
                         {formatDateAr(p.period_start)} — {formatDateAr(p.period_end)}
                       </p>
                       {p.paid_at && (
-                        <p className="text-[10px] text-white/40">دُفع في {formatDateAr(p.paid_at)}</p>
+                        <p className="text-xs text-white/40">دُفع في {formatDateAr(p.paid_at)}</p>
                       )}
                     </div>
                   </div>

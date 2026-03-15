@@ -1,13 +1,15 @@
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { Flame, Zap, Trophy, BookOpen, Calendar, ArrowLeft, CreditCard, Crosshair, CalendarDays } from 'lucide-react'
+import {
+  Flame, Zap, Trophy, BookOpen, Calendar, ArrowLeft, CreditCard, Crosshair,
+  CalendarDays, FileText, ClipboardCheck, Award, Users, Activity, Target, Swords,
+} from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { getGreeting, getArabicDay, formatTime, formatDateAr } from '../../utils/dateHelpers'
-import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES, PAYMENT_STATUS } from '../../lib/constants'
+import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/constants'
 import DailyChallenge from '../../components/gamification/DailyChallenge'
 import MysteryBox from '../../components/gamification/MysteryBox'
-import AIContentRecommendations from '../../components/ai/AIContentRecommendations'
 import { Link } from 'react-router-dom'
 
 function getLevel(xp) {
@@ -23,6 +25,34 @@ function getNextLevel(xp) {
   }
   return null
 }
+
+// ─── Quick Access Cards (pages removed from sidebar) ─────────
+const QUICK_ACCESS = [
+  { to: '/student/assignments', label: 'الواجبات', icon: FileText, color: 'sky' },
+  { to: '/student/quiz', label: 'الاختبارات', icon: ClipboardCheck, color: 'emerald' },
+  { to: '/student/schedule', label: 'الجدول', icon: Calendar, color: 'violet' },
+  { to: '/student/library', label: 'المكتبة', icon: BookOpen, color: 'amber' },
+  { to: '/student/certificates', label: 'شهاداتي', icon: Award, color: 'gold' },
+  { to: '/student/leaderboard', label: 'المتصدرين', icon: Trophy, color: 'rose' },
+]
+
+const COLOR_MAP = {
+  sky: 'bg-sky-500/10 text-sky-400',
+  emerald: 'bg-emerald-500/10 text-emerald-400',
+  violet: 'bg-violet-500/10 text-violet-400',
+  amber: 'bg-amber-500/10 text-amber-400',
+  gold: 'bg-gold-500/10 text-gold-400',
+  rose: 'bg-rose-500/10 text-rose-400',
+}
+
+// ─── Community cards (pages moved from sidebar) ──────────────
+const COMMUNITY_ITEMS = [
+  { to: '/student/activity', label: 'نشاط المجموعة', icon: Activity, color: 'sky' },
+  { to: '/student/challenges', label: 'التحديات', icon: Target, color: 'emerald' },
+  { to: '/student/battles', label: 'المعارك', icon: Swords, color: 'rose' },
+  { to: '/student/events', label: 'الفعاليات', icon: Calendar, color: 'violet' },
+  { to: '/student/recognition', label: 'تقدير الزملاء', icon: Users, color: 'amber' },
+]
 
 export default function StudentDashboard() {
   const { profile, studentData } = useAuthStore()
@@ -109,7 +139,6 @@ export default function StudentDashboard() {
   const group = studentData?.groups
 
   const schedule = group?.schedule
-  const nextClassDay = schedule?.days?.[0]
   const nextClassTime = schedule?.time
 
   const cards = [
@@ -121,11 +150,8 @@ export default function StudentDashboard() {
 
   return (
     <div className="space-y-12">
-      {/* Greeting */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
+      {/* 1. Greeting */}
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-page-title tracking-tight">
           {getGreeting()}، <span className="text-gradient">{firstName}</span>
         </h1>
@@ -134,17 +160,17 @@ export default function StudentDashboard() {
         </p>
       </motion.div>
 
-      {/* Stat cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* 2. Quick Stats Row */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {cards.map((card, i) => (
           <motion.div
             key={card.label}
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.08 }}
+            transition={{ delay: i * 0.06 }}
             className="stat-card hover:translate-y-[-2px] transition-all duration-300"
           >
-            <div className="flex items-center justify-between mb-5">
+            <div className="flex items-center justify-between mb-4">
               <span className="text-[13px] tracking-wide" style={{ color: 'var(--color-text-muted)' }}>{card.label}</span>
               <div className={`stat-icon ${
                 card.color === 'gold' ? 'bg-gold-500/10 text-gold-400' : 'bg-sky-500/10 text-sky-400'
@@ -158,7 +184,7 @@ export default function StudentDashboard() {
         ))}
       </div>
 
-      {/* Weekly Tasks Progress */}
+      {/* 3. Weekly Tasks Progress */}
       {weeklyProgress && (
         <Link to="/student/weekly-tasks">
           <motion.div
@@ -176,10 +202,10 @@ export default function StudentDashboard() {
                 {weeklyProgress.completed_tasks}/{weeklyProgress.total_tasks}
               </span>
               {weeklyProgress.status === 'completed' && (
-                <span className="badge-green text-xs">مكتمل ✓</span>
+                <span className="badge-green text-xs">مكتمل</span>
               )}
             </div>
-            <div className="w-full h-2 rounded-full bg-white/5 overflow-hidden">
+            <div className="w-full h-2.5 rounded-full bg-white/5 overflow-hidden">
               <motion.div
                 className="h-full rounded-full bg-gradient-to-l from-sky-400 to-emerald-400"
                 initial={{ width: 0 }}
@@ -191,11 +217,33 @@ export default function StudentDashboard() {
         </Link>
       )}
 
-      {/* XP Progress bar */}
+      {/* 4. Quick Access Grid — pages removed from sidebar */}
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+        <h2 className="text-section-title mb-5" style={{ color: 'var(--color-text-primary)' }}>الوصول السريع</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          {QUICK_ACCESS.map((item, i) => (
+            <Link key={item.to} to={item.to}>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 + i * 0.05 }}
+                className="glass-card p-5 hover:translate-y-[-2px] transition-all duration-200 group"
+              >
+                <div className={`w-11 h-11 rounded-xl ${COLOR_MAP[item.color]} flex items-center justify-center mb-3`}>
+                  <item.icon size={20} />
+                </div>
+                <p className="text-[14px] font-medium" style={{ color: 'var(--color-text-primary)' }}>{item.label}</p>
+              </motion.div>
+            </Link>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* 5. XP Progress bar */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.35 }}
+        transition={{ delay: 0.3 }}
         className="glass-card p-7"
       >
         <div className="flex items-center justify-between mb-5">
@@ -218,7 +266,7 @@ export default function StudentDashboard() {
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${Math.min(xpProgress, 100)}%` }}
-            transition={{ delay: 0.5, duration: 0.8, ease: 'easeOut' }}
+            transition={{ delay: 0.4, duration: 0.8, ease: 'easeOut' }}
             className="h-full bg-gradient-to-l from-sky-400 to-sky-600 rounded-full"
           />
         </div>
@@ -227,14 +275,36 @@ export default function StudentDashboard() {
         </p>
       </motion.div>
 
-      {/* Daily Challenge + Mystery Box */}
+      {/* 6. Community Section — horizontal scroll */}
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>
+        <h2 className="text-section-title mb-5" style={{ color: 'var(--color-text-primary)' }}>المجتمع</h2>
+        <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2 -mx-1 px-1">
+          {COMMUNITY_ITEMS.map((item, i) => (
+            <Link key={item.to} to={item.to} className="shrink-0">
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.35 + i * 0.05 }}
+                className="glass-card p-5 w-36 hover:translate-y-[-2px] transition-all duration-200"
+              >
+                <div className={`w-10 h-10 rounded-xl ${COLOR_MAP[item.color]} flex items-center justify-center mb-3`}>
+                  <item.icon size={18} />
+                </div>
+                <p className="text-[13px] font-medium" style={{ color: 'var(--color-text-primary)' }}>{item.label}</p>
+              </motion.div>
+            </Link>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* 7. Daily Challenge + Mystery Box */}
       <div className="grid lg:grid-cols-2 gap-6">
         <DailyChallenge />
         <MysteryBox />
       </div>
 
+      {/* 8. Next class + Notifications */}
       <div className="grid lg:grid-cols-2 gap-6">
-        {/* Next class */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -247,7 +317,7 @@ export default function StudentDashboard() {
           </div>
           {group ? (
             <div className="space-y-2.5">
-              <p className="text-sm font-medium text-white">{group.name}</p>
+              <p className="text-sm font-medium" style={{ color: 'var(--color-text-primary)' }}>{group.name}</p>
               {schedule && (
                 <>
                   <p className="text-xs text-muted">
@@ -277,7 +347,6 @@ export default function StudentDashboard() {
           )}
         </motion.div>
 
-        {/* Recent notifications */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -291,8 +360,9 @@ export default function StudentDashboard() {
                 <div
                   key={n.id}
                   className={`text-sm border-s-2 ps-3 ${
-                    n.read ? 'border-border-subtle text-muted' : 'border-sky-500 text-white'
+                    n.read ? 'border-border-subtle text-muted' : 'border-sky-500'
                   }`}
+                  style={{ color: n.read ? undefined : 'var(--color-text-primary)' }}
                 >
                   <p className="font-medium text-xs">{n.title}</p>
                   <p className="text-xs text-muted truncate">{n.body}</p>
@@ -305,7 +375,7 @@ export default function StudentDashboard() {
         </motion.div>
       </div>
 
-      {/* Payment status */}
+      {/* 9. Payment status */}
       {nextPayment && (
         <motion.div
           initial={{ opacity: 0, y: 15 }}
@@ -316,7 +386,7 @@ export default function StudentDashboard() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <CreditCard size={18} className="text-gold-400" />
-              <h3 className="text-lg font-semibold text-white">الدفعة القادمة</h3>
+              <h3 className="text-lg font-semibold" style={{ color: 'var(--color-text-primary)' }}>الدفعة القادمة</h3>
             </div>
             <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${
               nextPayment.status === 'overdue'
@@ -327,22 +397,19 @@ export default function StudentDashboard() {
             </span>
           </div>
           <div className="mt-4 flex items-baseline gap-3">
-            <p className="text-3xl font-bold text-white">{nextPayment.amount} ر.س</p>
+            <p className="text-3xl font-bold" style={{ color: 'var(--color-text-primary)' }}>{nextPayment.amount} ر.س</p>
             {nextPayment.period_end && (
               <p className="text-xs text-muted">حتى {formatDateAr(nextPayment.period_end)}</p>
             )}
           </div>
-          <a href="/student/billing" className="text-xs text-sky-400 hover:text-sky-300 mt-2 inline-block">
-            عرض تفاصيل الفواتير ←
-          </a>
+          <Link to="/student/billing" className="text-xs text-sky-400 hover:text-sky-300 mt-2 inline-block">
+            عرض تفاصيل الفواتير
+          </Link>
         </motion.div>
       )}
 
-      {/* Targeted Exercises CTA */}
+      {/* 10. Targeted Exercises CTA */}
       <ExercisesCTA studentId={profile?.id} />
-
-      {/* AI Content Recommendations */}
-      <AIContentRecommendations />
     </div>
   )
 }
@@ -375,7 +442,7 @@ function ExercisesCTA({ studentId }) {
             <Crosshair size={20} className="text-violet-400" />
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-white">تمارين مخصصة لك</h3>
+            <h3 className="text-lg font-semibold" style={{ color: 'var(--color-text-primary)' }}>تمارين مخصصة لك</h3>
             <p className="text-xs text-muted mt-0.5">{pendingCount} تمرين جاهز لتحسين نقاط ضعفك</p>
           </div>
         </div>

@@ -157,9 +157,9 @@ export default function TrainerGrading() {
                     </div>
                     <div className="flex items-center gap-3 text-xs text-muted mt-2">
                       <span className="text-gradient font-medium">{getStudentName(s)}</span>
-                      <span className="badge-blue text-[10px]">{s.assignments?.groups?.code}</span>
+                      <span className="badge-blue text-xs">{s.assignments?.groups?.code}</span>
                       {s.submitted_at && <span>{timeAgo(s.submitted_at)}</span>}
-                      {s.is_late && <span className="badge-yellow text-[10px]">متأخر</span>}
+                      {s.is_late && <span className="badge-yellow text-xs">متأخر</span>}
                     </div>
                     {s.content_text && (
                       <p className="text-xs text-muted mt-2 line-clamp-2">{s.content_text}</p>

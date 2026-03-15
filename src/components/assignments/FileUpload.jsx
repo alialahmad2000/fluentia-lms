@@ -85,7 +85,7 @@ export default function FileUpload({ files, onFilesChange, maxFiles = 3 }) {
                 </div>
                 <div className="min-w-0">
                   <p className="text-sm text-white truncate">{f.name}</p>
-                  <p className="text-[10px] text-muted">{formatSize(f.size)}</p>
+                  <p className="text-xs text-muted">{formatSize(f.size)}</p>
                 </div>
               </div>
               <button

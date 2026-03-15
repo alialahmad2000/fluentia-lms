@@ -117,7 +117,7 @@ export default function ParentDashboard() {
               </button>
             </form>
 
-            <p className="text-[10px] text-muted text-center mt-4">
+            <p className="text-xs text-muted text-center mt-4">
               يمكنك الحصول على رمز الوصول من المدرب أو إدارة الأكاديمية
             </p>
           </div>
@@ -245,7 +245,7 @@ export default function ParentDashboard() {
                 <div key={i} className="flex items-center justify-between py-2 border-b border-border-subtle last:border-0">
                   <div>
                     <p className="text-sm text-white">{g.title}</p>
-                    <p className="text-[10px] text-muted">{g.type}</p>
+                    <p className="text-xs text-muted">{g.type}</p>
                   </div>
                   <span className={`text-sm font-bold ${
                     g.score >= 90 ? 'text-emerald-400' : g.score >= 70 ? 'text-sky-400' : g.score >= 50 ? 'text-gold-400' : 'text-red-400'
@@ -274,7 +274,7 @@ export default function ParentDashboard() {
                   <div key={i} className="flex items-center justify-between py-2 border-b border-border-subtle last:border-0">
                     <div>
                       <p className="text-sm text-white">{p.amount} ر.س</p>
-                      <p className="text-[10px] text-muted">{p.period}</p>
+                      <p className="text-xs text-muted">{p.period}</p>
                     </div>
                     <span className={`text-xs px-2 py-0.5 rounded-full ${PAYMENT_COLOR_CLASSES[ps.color] || 'bg-sky-500/10 text-sky-400'}`}>
                       {ps.label}
@@ -286,7 +286,7 @@ export default function ParentDashboard() {
           </motion.div>
         )}
 
-        <p className="text-center text-[10px] text-muted py-4">
+        <p className="text-center text-xs text-muted py-4">
           Fluentia LMS — {data.parent_name ? `مرحباً ${data.parent_name}` : 'لوحة متابعة ولي الأمر'}
         </p>
       </div>

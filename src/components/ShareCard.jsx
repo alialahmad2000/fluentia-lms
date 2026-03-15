@@ -802,7 +802,7 @@ export default function ShareCard({ type = 'certificate', data = {}, visible = f
                 </div>
                 <div>
                   <h2 className="text-sm font-bold text-white leading-tight">شارك إنجازك</h2>
-                  <p className="text-[11px] text-muted leading-tight">{ACHIEVEMENT_META[type]?.sublabel(data) ?? 'إنجاز'}</p>
+                  <p className="text-xs text-muted leading-tight">{ACHIEVEMENT_META[type]?.sublabel(data) ?? 'إنجاز'}</p>
                 </div>
               </div>
               <button

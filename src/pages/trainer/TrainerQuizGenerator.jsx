@@ -1243,7 +1243,7 @@ function QuizAnalytics({ profileId, isAdmin }) {
                         }`}>
                           {q.wrongRate}%
                         </span>
-                        <p className="text-[10px] text-muted">خطأ</p>
+                        <p className="text-xs text-muted">خطأ</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -1312,7 +1312,7 @@ function QuizAnalytics({ profileId, isAdmin }) {
                           }`}>
                             {area.wrongRate}% إخفاق
                           </span>
-                          <p className="text-[10px] text-muted">{area.total} إجابة</p>
+                          <p className="text-xs text-muted">{area.total} إجابة</p>
                         </div>
                       </div>
                       <div className="h-2 bg-white/5 rounded-full overflow-hidden">

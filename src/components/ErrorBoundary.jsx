@@ -57,7 +57,7 @@ export default class ErrorBoundary extends Component {
               </button>
             </div>
             {import.meta.env.DEV && this.state.error && (
-              <pre className="mt-6 text-left text-[10px] text-red-400/60 bg-red-500/5 rounded-xl p-3 overflow-auto max-h-40" dir="ltr">
+              <pre className="mt-6 text-left text-xs text-red-400/60 bg-red-500/5 rounded-xl p-3 overflow-auto max-h-40" dir="ltr">
                 {this.state.error.toString()}
               </pre>
             )}
@@ -87,7 +87,7 @@ export function PageErrorFallback({ error } = {}) {
           تحديث
         </button>
         {import.meta.env.DEV && error && (
-          <pre className="mt-4 text-left text-[10px] text-red-400/60 bg-red-500/5 rounded-xl p-3 overflow-auto max-h-40" dir="ltr">
+          <pre className="mt-4 text-left text-xs text-red-400/60 bg-red-500/5 rounded-xl p-3 overflow-auto max-h-40" dir="ltr">
             {error.toString()}
           </pre>
         )}

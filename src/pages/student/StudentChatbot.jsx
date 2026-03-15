@@ -1,10 +1,23 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, lazy, Suspense } from 'react'
 import { motion } from 'framer-motion'
-import { Bot, Send, Loader2, Sparkles, Trash2 } from 'lucide-react'
+import { Bot, Send, Loader2, Sparkles, Trash2, Brain, Crosshair, AlertTriangle } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import { PACKAGES } from '../../lib/constants'
+import SubTabs from '../../components/common/SubTabs'
+
+// Lazy-load sub-tab content
+const StudentVocabulary = lazy(() => import('./StudentVocabulary'))
+const StudentExercises = lazy(() => import('./StudentExercises'))
+const StudentErrorPatterns = lazy(() => import('./StudentErrorPatterns'))
+
+const TABS = [
+  { key: 'chat', label: 'المساعد الذكي', icon: Bot },
+  { key: 'vocabulary', label: 'بنك المفردات', icon: Brain },
+  { key: 'exercises', label: 'تمارين مخصصة', icon: Crosshair },
+  { key: 'patterns', label: 'أنماط الأخطاء', icon: AlertTriangle },
+]
 
 const STORAGE_KEY = 'fluentia_chatbot_history'
 
@@ -17,7 +30,26 @@ const SUGGESTIONS = [
   'شرح لي conditional sentences',
 ]
 
+const TabFallback = () => <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="skeleton h-20 w-full" />)}</div>
+
 export default function StudentChatbot() {
+  const [activeTab, setActiveTab] = useState('chat')
+
+  return (
+    <div className="space-y-6">
+      <SubTabs tabs={TABS} activeTab={activeTab} onChange={setActiveTab} />
+
+      <Suspense fallback={<TabFallback />}>
+        {activeTab === 'chat' && <ChatContent />}
+        {activeTab === 'vocabulary' && <StudentVocabulary />}
+        {activeTab === 'exercises' && <StudentExercises />}
+        {activeTab === 'patterns' && <StudentErrorPatterns />}
+      </Suspense>
+    </div>
+  )
+}
+
+function ChatContent() {
   const { profile, studentData } = useAuthStore()
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
@@ -29,18 +61,15 @@ export default function StudentChatbot() {
   const pkg = PACKAGES[studentData?.package] || PACKAGES.asas
   const dailyLimit = pkg.chatbot_limit || 10
 
-  // Cleanup abort controller on unmount
   useEffect(() => {
     return () => { abortRef.current?.abort() }
   }, [])
 
-  // Load history from localStorage
   useEffect(() => {
     const stored = localStorage.getItem(`${STORAGE_KEY}_${profile?.id}`)
     if (stored) {
       try {
         const parsed = JSON.parse(stored)
-        // Only keep today's messages
         const today = new Date().toDateString()
         const todayMsgs = parsed.filter(m => new Date(m.timestamp).toDateString() === today)
         setMessages(todayMsgs)
@@ -48,14 +77,12 @@ export default function StudentChatbot() {
     }
   }, [profile?.id])
 
-  // Save to localStorage
   useEffect(() => {
     if (messages.length > 0) {
       localStorage.setItem(`${STORAGE_KEY}_${profile?.id}`, JSON.stringify(messages))
     }
   }, [messages, profile?.id])
 
-  // Auto-scroll
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
@@ -98,7 +125,7 @@ export default function StudentChatbot() {
 
       setMessages(prev => [...prev, { role: 'assistant', content: result.reply, timestamp: new Date().toISOString() }])
       if (result.remaining !== undefined) setRemaining(result.remaining)
-    } catch (err) {
+    } catch {
       setMessages(prev => [...prev, { role: 'assistant', content: 'المساعد غير متاح حالياً — حاول مرة أخرى', isError: true, timestamp: new Date().toISOString() }])
     } finally {
       setSending(false)
@@ -111,7 +138,7 @@ export default function StudentChatbot() {
   }
 
   return (
-    <div className="flex flex-col h-[calc(100vh-120px)]">
+    <div className="flex flex-col h-[calc(100vh-200px)]">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div>
@@ -124,11 +151,7 @@ export default function StudentChatbot() {
           <p className="text-muted text-sm mt-1">اسأل أي سؤال عن اللغة الإنجليزية</p>
         </div>
         <div className="flex items-center gap-3">
-          {remaining !== null && (
-            <span className="badge-muted">
-              متبقي {remaining} رسالة اليوم
-            </span>
-          )}
+          {remaining !== null && <span className="badge-muted">متبقي {remaining} رسالة اليوم</span>}
           {messages.length > 0 && (
             <button onClick={clearChat} className="btn-icon text-muted hover:text-red-400 transition-all duration-200" title="مسح المحادثة">
               <Trash2 size={16} />
@@ -146,16 +169,12 @@ export default function StudentChatbot() {
                 <Sparkles size={28} className="text-violet-400" />
               </div>
               <div>
-                <h2 className="text-lg font-bold text-white mb-1">أهلاً! كيف أقدر أساعدك؟</h2>
+                <h2 className="text-lg font-bold mb-1" style={{ color: 'var(--color-text-primary)' }}>أهلاً! كيف أقدر أساعدك؟</h2>
                 <p className="text-sm text-muted">اسألني عن القواعد، المفردات، النطق، أو أي شيء يخص الإنجليزي</p>
               </div>
               <div className="grid grid-cols-2 gap-3 max-w-md">
                 {SUGGESTIONS.map((s, i) => (
-                  <button
-                    key={i}
-                    onClick={() => sendMessage(s)}
-                    className="text-xs text-right glass-card px-3 py-2.5 text-muted hover:text-white hover:translate-y-[-2px] transition-all duration-200"
-                  >
+                  <button key={i} onClick={() => sendMessage(s)} className="text-xs text-right glass-card px-3 py-2.5 text-muted hover:translate-y-[-2px] transition-all duration-200" style={{ color: 'var(--color-text-muted)' }}>
                     {s}
                   </button>
                 ))}
@@ -163,25 +182,14 @@ export default function StudentChatbot() {
             </div>
           ) : (
             messages.map((msg, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
-                <div
-                  className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm ${
-                    msg.role === 'user'
-                      ? 'bg-sky-500/20 text-white'
-                      : msg.isError
-                        ? 'bg-red-500/10 border border-red-500/20 text-red-400'
-                        : 'bg-white/5 border border-border-subtle text-white/90'
-                  }`}
-                >
+              <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <div className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm ${
+                  msg.role === 'user' ? 'bg-sky-500/20' : msg.isError ? 'bg-red-500/10 border border-red-500/20 text-red-400' : 'border border-border-subtle'
+                }`} style={msg.role === 'user' || msg.isError ? undefined : { color: 'var(--color-text-primary)', background: 'var(--color-bg-surface-raised)' }}>
                   {msg.role === 'assistant' && !msg.isError && (
                     <div className="flex items-center gap-1.5 mb-2">
                       <Bot size={14} className="text-violet-400" />
-                      <span className="text-[10px] text-violet-400 font-medium">المساعد</span>
+                      <span className="text-xs text-violet-400 font-medium">المساعد</span>
                     </div>
                   )}
                   <div className="whitespace-pre-wrap">{msg.content}</div>
@@ -189,10 +197,9 @@ export default function StudentChatbot() {
               </motion.div>
             ))
           )}
-
           {sending && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
-              <div className="bg-white/5 border border-border-subtle rounded-2xl px-4 py-3 flex items-center gap-2">
+              <div className="border border-border-subtle rounded-2xl px-4 py-3 flex items-center gap-2" style={{ background: 'var(--color-bg-surface-raised)' }}>
                 <Loader2 size={14} className="animate-spin text-violet-400" />
                 <span className="text-xs text-muted">يفكر...</span>
               </div>
@@ -201,28 +208,14 @@ export default function StudentChatbot() {
           <div ref={scrollRef} />
         </div>
 
-        {/* Input */}
         <div className="border-t border-border-subtle p-3">
-          <form
-            onSubmit={(e) => { e.preventDefault(); sendMessage() }}
-            className="flex items-center gap-2"
-          >
-            <input
-              className="input-field flex-1 text-sm py-2.5"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="اكتب سؤالك..."
-              disabled={sending}
-            />
-            <button
-              type="submit"
-              disabled={!input.trim() || sending || remaining === 0}
-              className="btn-primary p-2.5 rounded-xl"
-            >
+          <form onSubmit={(e) => { e.preventDefault(); sendMessage() }} className="flex items-center gap-2">
+            <input className="input-field flex-1 text-sm py-2.5" value={input} onChange={(e) => setInput(e.target.value)} placeholder="اكتب سؤالك..." disabled={sending} />
+            <button type="submit" disabled={!input.trim() || sending || remaining === 0} className="btn-primary p-2.5 rounded-xl">
               <Send size={18} />
             </button>
           </form>
-          <p className="text-[10px] text-muted mt-2 text-center">
+          <p className="text-xs text-muted mt-2 text-center">
             {dailyLimit >= 999 ? 'رسائل غير محدودة' : `${dailyLimit} رسالة يومياً — باقة ${pkg.name_ar}`}
           </p>
         </div>

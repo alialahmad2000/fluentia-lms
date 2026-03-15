@@ -8,6 +8,7 @@ export const useAuthStore = create((set, get) => ({
   trainerData: null,
   loading: true,
   _authSubscription: null,
+  _realtimeChannel: null,
 
   initialize: async () => {
     // Get initial session
@@ -29,7 +30,9 @@ export const useAuthStore = create((set, get) => ({
         // Token refreshed — update user object but don't refetch everything
         set({ user: session.user })
       } else if (event === 'SIGNED_OUT') {
-        set({ user: null, profile: null, studentData: null, trainerData: null })
+        const ch = get()._realtimeChannel
+        if (ch) supabase.removeChannel(ch)
+        set({ user: null, profile: null, studentData: null, trainerData: null, _realtimeChannel: null })
       }
     })
 
@@ -60,6 +63,25 @@ export const useAuthStore = create((set, get) => ({
           .eq('id', user.id)
           .single()
         set({ studentData: studentData || null })
+
+        // Subscribe to real-time XP/streak changes for gamification
+        const prev = get()._realtimeChannel
+        if (prev) supabase.removeChannel(prev)
+        const channel = supabase
+          .channel(`student-${user.id}`)
+          .on('postgres_changes', {
+            event: 'UPDATE',
+            schema: 'public',
+            table: 'students',
+            filter: `id=eq.${user.id}`,
+          }, (payload) => {
+            const current = get().studentData
+            if (current) {
+              set({ studentData: { ...current, ...payload.new } })
+            }
+          })
+          .subscribe()
+        set({ _realtimeChannel: channel })
       } else if (profile.role === 'trainer') {
         const { data: trainerData } = await supabase
           .from('trainers')

@@ -77,17 +77,17 @@ export default function StudentStreakBattles() {
         <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
           <Flame size={20} className="text-gold-400 mx-auto mb-1" />
           <p className="text-2xl font-bold text-white">{studentData?.current_streak || 0}</p>
-          <p className="text-[10px] text-muted">سلسلة حالية</p>
+          <p className="text-xs text-muted">سلسلة حالية</p>
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
           <Trophy size={20} className="text-sky-400 mx-auto mb-1" />
           <p className="text-2xl font-bold text-white">#{myRank || '—'}</p>
-          <p className="text-[10px] text-muted">ترتيب السلسلة</p>
+          <p className="text-xs text-muted">ترتيب السلسلة</p>
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16 }} className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
           <Zap size={20} className="text-violet-400 mx-auto mb-1" />
           <p className="text-2xl font-bold text-white">#{myXpRank || '—'}</p>
-          <p className="text-[10px] text-muted">ترتيب النقاط</p>
+          <p className="text-xs text-muted">ترتيب النقاط</p>
         </motion.div>
       </div>
 
@@ -221,7 +221,7 @@ export default function StudentStreakBattles() {
                     style={{ width: `${pct}%` }}
                   />
                 </div>
-                <p className="text-[10px] text-muted mt-1">{challenge.progress}/{challenge.total}</p>
+                <p className="text-xs text-muted mt-1">{challenge.progress}/{challenge.total}</p>
               </motion.div>
             )
           })}

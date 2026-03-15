@@ -355,7 +355,7 @@ export default function StudentVocabulary() {
             className="glass-card p-3 text-center hover:translate-y-[-2px] transition-all duration-200"
           >
             <p className={`text-lg font-bold ${s.color}`}>{s.value}</p>
-            <p className="text-[10px] text-muted">{s.label}</p>
+            <p className="text-xs text-muted">{s.label}</p>
           </motion.div>
         ))}
       </div>
@@ -492,7 +492,7 @@ export default function StudentVocabulary() {
                   <div className="flex items-center gap-2 mb-1">
                     <Sparkles size={16} className="text-amber-400" />
                     <h3 className="text-sm font-semibold text-white">كلمات مقترحة</h3>
-                    <span className="text-[10px] text-muted">(المستوى {studentLevel})</span>
+                    <span className="text-xs text-muted">(المستوى {studentLevel})</span>
                   </div>
                   <p className="text-xs text-muted">اضغط على الكلمة لإضافتها إلى بنك المفردات</p>
                   <div className="flex flex-wrap gap-2 mt-2">
@@ -542,14 +542,14 @@ export default function StudentVocabulary() {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
                             <span className="text-base font-bold text-white" dir="ltr">{word.word}</span>
-                            <span className={`badge-${mastery.color} text-[10px]`}>{mastery.emoji} {mastery.label}</span>
+                            <span className={`badge-${mastery.color} text-xs`}>{mastery.emoji} {mastery.label}</span>
                           </div>
                           {word.meaning_ar && <p className="text-sm text-muted">{word.meaning_ar}</p>}
                           {word.meaning_en && <p className="text-xs text-muted" dir="ltr">{word.meaning_en}</p>}
                           {word.example_sentence && (
                             <p className="text-xs text-sky-400/70 mt-1" dir="ltr">"{word.example_sentence}"</p>
                           )}
-                          <p className="text-[10px] text-muted mt-1">مراجعات: {word.review_count || 0}</p>
+                          <p className="text-xs text-muted mt-1">مراجعات: {word.review_count || 0}</p>
                         </div>
                         <div className="flex items-center gap-1 shrink-0">
                           {!word.meaning_ar && (
@@ -586,7 +586,7 @@ export default function StudentVocabulary() {
                       <div className="flex items-center justify-center gap-2 mb-3">
                         <Sparkles size={16} className="text-amber-400" />
                         <h3 className="text-sm font-semibold text-white">كلمات مقترحة</h3>
-                        <span className="text-[10px] text-muted">(المستوى {studentLevel})</span>
+                        <span className="text-xs text-muted">(المستوى {studentLevel})</span>
                       </div>
                       <p className="text-xs text-muted mb-3">ابدأ بإضافة بعض الكلمات المقترحة لمستواك</p>
                       <div className="flex flex-wrap gap-2 justify-center">

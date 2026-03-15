@@ -66,52 +66,49 @@ export default function OnboardingModal() {
       </p>
     </div>,
 
-    // Step 1: Your info
-    <div key="info" className="space-y-4">
+    // Step 1: Your Info + Display Name (merged)
+    <div key="info-name" className="space-y-5">
       <h2 className="text-xl font-semibold text-white text-center">معلوماتك</h2>
-      <div className="grid grid-cols-2 gap-4">
-        <div className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
-          <p className="text-sm text-muted">المستوى</p>
+      <div className="grid grid-cols-2 gap-3">
+        <div className="glass-card p-4 text-center">
+          <p className="text-xs text-muted">المستوى</p>
           <p className="text-sm font-semibold text-sky-400 mt-1">{academicLevel.cefr}</p>
-          <p className="text-sm text-muted">{academicLevel.name_ar}</p>
+          <p className="text-xs text-muted">{academicLevel.name_ar}</p>
         </div>
-        <div className="glass-card p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
-          <p className="text-sm text-muted">الباقة</p>
+        <div className="glass-card p-4 text-center">
+          <p className="text-xs text-muted">الباقة</p>
           <p className="text-sm font-semibold text-gold-400 mt-1">{pkg.name_ar}</p>
         </div>
         {group && (
-          <div className="glass-card p-4 text-center col-span-2 hover:translate-y-[-2px] transition-all duration-200">
-            <p className="text-sm text-muted">المجموعة</p>
+          <div className="glass-card p-4 text-center col-span-2">
+            <p className="text-xs text-muted">المجموعة</p>
             <p className="text-sm font-semibold text-white mt-1">{group.name}</p>
           </div>
         )}
       </div>
+      <div>
+        <p className="text-sm text-muted text-center mb-2">اختر اسم يظهر للمدرب والزملاء</p>
+        <input
+          className="input-field text-center text-lg"
+          value={displayName}
+          onChange={(e) => setDisplayName(e.target.value)}
+          placeholder={profile?.full_name?.split(' ')[0] || 'اسمك...'}
+        />
+        <p className="text-xs text-muted text-center mt-1.5">يمكنك تغييره لاحقاً من الملف الشخصي</p>
+      </div>
     </div>,
 
-    // Step 2: Display name
-    <div key="name" className="space-y-4">
-      <h2 className="text-xl font-semibold text-white text-center">الاسم المعروض</h2>
-      <p className="text-sm text-muted text-center">اختر اسم يظهر للمدرب والزملاء</p>
-      <input
-        className="input-field text-center text-lg"
-        value={displayName}
-        onChange={(e) => setDisplayName(e.target.value)}
-        placeholder={profile?.full_name?.split(' ')[0] || 'اسمك...'}
-      />
-      <p className="text-xs text-muted text-center">يمكنك تغييره لاحقاً من الملف الشخصي</p>
-    </div>,
-
-    // Step 3: How it works
-    <div key="howto" className="space-y-4">
-      <h2 className="text-xl font-semibold text-white text-center">كيف يعمل النظام؟</h2>
+    // Step 2: Quick Tips
+    <div key="tips" className="space-y-4">
+      <h2 className="text-xl font-semibold text-white text-center">نصائح سريعة</h2>
       <div className="space-y-3">
         {[
-          { icon: '📝', title: 'الواجبات', desc: 'المدرب ينزل واجبات، سلّمها بالوقت واحصل على نقاط' },
+          { icon: '📝', title: 'الواجبات', desc: 'سلّمها بالوقت واحصل على نقاط إضافية' },
           { icon: '⚡', title: 'نقاط XP', desc: 'كل فعل يعطيك نقاط — الواجبات، الحضور، التفاعل' },
           { icon: '🔥', title: 'السلسلة', desc: 'ادخل كل يوم وحافظ على سلسلة الأيام المتتالية' },
           { icon: '🏆', title: 'الإنجازات', desc: 'اجمع شارات واحتل المراكز الأولى في مجموعتك' },
         ].map((item) => (
-          <div key={item.title} className="flex items-start gap-3 glass-card p-4 hover:translate-y-[-2px] transition-all duration-200">
+          <div key={item.title} className="flex items-start gap-3 glass-card p-4">
             <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-xl shrink-0">{item.icon}</div>
             <div>
               <p className="text-sm font-semibold text-white">{item.title}</p>

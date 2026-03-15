@@ -1,11 +1,14 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, lazy, Suspense } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   FolderOpen, Upload, FileText, Video, Link2, Mic, Plus, Edit3,
-  Trash2, Target, BookOpen, Loader2, X, GripVertical, Search
+  Trash2, Target, BookOpen, Loader2, X, GripVertical, Search, Moon, MessageSquareQuote
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
+
+const AdminHolidays = lazy(() => import('./AdminHolidays'))
+const AdminTestimonials = lazy(() => import('./AdminTestimonials'))
 
 // ─── Constants ────────────────────────────────────────────────
 const LEVELS = [1, 2, 3, 4, 5]
@@ -31,6 +34,8 @@ const TABS = [
   { key: 'materials', label: 'مواد تعليمية', icon: BookOpen },
   { key: 'topics', label: 'بنك المواضيع', icon: Mic },
   { key: 'questions', label: 'بنك الأسئلة', icon: Target },
+  { key: 'holidays', label: 'العطل', icon: Moon },
+  { key: 'testimonials', label: 'الشهادات', icon: MessageSquareQuote },
 ]
 
 // ─── Fade-in animation variants ───────────────────────────────
@@ -97,6 +102,16 @@ export default function AdminContent() {
           <motion.div key="questions" {...fadeIn}>
             <QuestionsPlaceholder />
           </motion.div>
+        )}
+        {activeTab === 'holidays' && (
+          <Suspense fallback={<div className="skeleton h-96 w-full" />}>
+            <AdminHolidays />
+          </Suspense>
+        )}
+        {activeTab === 'testimonials' && (
+          <Suspense fallback={<div className="skeleton h-96 w-full" />}>
+            <AdminTestimonials />
+          </Suspense>
         )}
       </AnimatePresence>
     </div>

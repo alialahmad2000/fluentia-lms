@@ -1,14 +1,59 @@
-import { useState } from 'react'
+import { useState, lazy, Suspense } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Calendar, Clock, Plus, Video, Users, X, Save, Loader2, ChevronDown } from 'lucide-react'
+import { Calendar, Clock, Plus, Video, Users, X, Save, Loader2, ChevronDown, StickyNote, BookOpen, Brain, Target, Wrench } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { getArabicDay, formatTime, formatDateAr } from '../../utils/dateHelpers'
+import SubTabs from '../../components/common/SubTabs'
+
+const TrainerNotes = lazy(() => import('./TrainerNotes'))
+const TrainerLibrary = lazy(() => import('./TrainerLibrary'))
+const TrainerLessonPlanner = lazy(() => import('./TrainerLessonPlanner'))
+const TrainerQuizGenerator = lazy(() => import('./TrainerQuizGenerator'))
+const TrainerTeams = lazy(() => import('./TrainerTeams'))
+const TrainerChallenges = lazy(() => import('./TrainerChallenges'))
+
+const TOOL_TABS = [
+  { key: 'schedule', label: 'الجدول', icon: Calendar },
+  { key: 'notes', label: 'ملاحظات', icon: StickyNote },
+  { key: 'library', label: 'المكتبة', icon: BookOpen },
+  { key: 'planner', label: 'مخطط الدروس', icon: Brain },
+  { key: 'quiz', label: 'الاختبارات', icon: Target },
+  { key: 'teams', label: 'الفرق', icon: Users },
+  { key: 'challenges', label: 'التحديات', icon: Target },
+]
 
 const DAYS_ORDER = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
 export default function TrainerSchedule() {
+  const [activeTab, setActiveTab] = useState('schedule')
+  return (
+    <div className="space-y-8">
+      <div className="flex items-center gap-3 mb-2">
+        <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+          <Wrench size={20} className="text-emerald-400" />
+        </div>
+        <div>
+          <h1 className="text-page-title" style={{ color: 'var(--color-text-primary)' }}>الأدوات</h1>
+          <p className="text-muted text-sm mt-0.5">الجدول والأدوات التعليمية</p>
+        </div>
+      </div>
+      <SubTabs tabs={TOOL_TABS} activeTab={activeTab} onChange={setActiveTab} accent="emerald" />
+      <Suspense fallback={<div className="skeleton h-96 w-full" />}>
+        {activeTab === 'schedule' && <ScheduleContent />}
+        {activeTab === 'notes' && <TrainerNotes />}
+        {activeTab === 'library' && <TrainerLibrary />}
+        {activeTab === 'planner' && <TrainerLessonPlanner />}
+        {activeTab === 'quiz' && <TrainerQuizGenerator />}
+        {activeTab === 'teams' && <TrainerTeams />}
+        {activeTab === 'challenges' && <TrainerChallenges />}
+      </Suspense>
+    </div>
+  )
+}
+
+function ScheduleContent() {
   const { profile } = useAuthStore()
   const queryClient = useQueryClient()
   const role = profile?.role
@@ -92,7 +137,7 @@ export default function TrainerSchedule() {
                     {DAYS_ORDER.map((day) => (
                       <span
                         key={day}
-                        className={`text-[10px] px-2 py-1 rounded-lg ${
+                        className={`text-xs px-2 py-1 rounded-lg ${
                           days.includes(day)
                             ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
                             : 'text-muted/30'
@@ -125,7 +170,7 @@ export default function TrainerSchedule() {
                     <div>
                       <p className="text-sm text-white">{c.title || c.topic || 'حصة'}</p>
                       <p className="text-xs text-muted mt-1">
-                        <span className="badge-blue text-[10px] ml-2">{c.groups?.code}</span>
+                        <span className="badge-blue text-xs ml-2">{c.groups?.code}</span>
                         {formatDateAr(c.date)} &middot; {formatTime(c.start_time)}
                       </p>
                     </div>
@@ -135,7 +180,7 @@ export default function TrainerSchedule() {
                           <Video size={14} />
                         </a>
                       )}
-                      <span className={`text-[10px] px-2 py-0.5 rounded-lg ${
+                      <span className={`text-xs px-2 py-0.5 rounded-lg ${
                         c.status === 'completed' ? 'bg-emerald-500/10 text-emerald-400'
                         : c.status === 'cancelled' ? 'bg-red-500/10 text-red-400'
                         : 'bg-sky-500/10 text-sky-400'
@@ -161,7 +206,7 @@ export default function TrainerSchedule() {
                     <div>
                       <p className="text-sm text-white">{c.title || c.topic || 'حصة'}</p>
                       <p className="text-xs text-muted mt-1">
-                        <span className="badge-blue text-[10px] ml-2">{c.groups?.code}</span>
+                        <span className="badge-blue text-xs ml-2">{c.groups?.code}</span>
                         {formatDateAr(c.date)}
                       </p>
                     </div>

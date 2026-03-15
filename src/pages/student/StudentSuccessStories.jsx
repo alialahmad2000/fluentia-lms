@@ -167,9 +167,9 @@ function AchievementCard({ achievement, index, studentData }) {
         <Icon size={24} className={achievement.earned ? (colors.text || 'text-muted') : 'text-muted'} />
       </div>
       <h3 className="text-sm font-bold text-white mb-0.5">{achievement.title}</h3>
-      <p className="text-[10px] text-muted">{achievement.desc}</p>
+      <p className="text-xs text-muted">{achievement.desc}</p>
       {achievement.earned && (
-        <span className="text-[10px] text-emerald-400 mt-1 block">✓ حققته</span>
+        <span className="text-xs text-emerald-400 mt-1 block">✓ حققته</span>
       )}
     </motion.div>
   )
@@ -289,7 +289,7 @@ export default function StudentSuccessStories() {
             <div key={i} className="text-center p-3 rounded-xl" style={{ background: 'var(--color-bg-surface-raised)' }}>
               <stat.icon size={16} className="text-gold-400 mx-auto mb-1" />
               <p className="text-lg font-bold text-white">{stat.value}</p>
-              <p className="text-[10px] text-muted">{stat.label}</p>
+              <p className="text-xs text-muted">{stat.label}</p>
             </div>
           ))}
         </div>

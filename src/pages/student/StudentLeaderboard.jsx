@@ -434,7 +434,7 @@ export default function StudentLeaderboard() {
                       </span>
                     )}
                     {tab === 'academy' && player.groupName && (
-                      <span className="badge-blue text-[10px]">{player.groupName}</span>
+                      <span className="badge-blue text-xs">{player.groupName}</span>
                     )}
                   </div>
                 </div>
@@ -445,7 +445,7 @@ export default function StudentLeaderboard() {
                     {player.xp} XP
                   </p>
                   {period === 'week' && weeklyCompletionMap?.[player.id] && (
-                    <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
+                    <span className={`text-xs px-1.5 py-0.5 rounded-full ${
                       weeklyCompletionMap[player.id].status === 'completed'
                         ? 'bg-emerald-500/10 text-emerald-400'
                         : 'bg-white/5 text-muted'

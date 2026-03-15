@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { Users, UserCheck, Layers, CreditCard, TrendingUp, AlertCircle, Flame, Calendar, ArrowUpRight, ArrowDownRight } from 'lucide-react'
+import { Users, UserCheck, Layers, CreditCard, TrendingUp, AlertCircle, Flame, Calendar, ArrowUpRight, ArrowDownRight, Brain } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { getGreeting } from '../../utils/dateHelpers'
@@ -340,7 +340,7 @@ export default function AdminDashboard() {
                     <span className={`text-lg font-bold ${g.empty >= 3 ? 'text-emerald-400' : g.empty >= 1 ? 'text-amber-400' : 'text-red-400'}`}>
                       {g.empty}
                     </span>
-                    <p className="text-[10px] text-muted">من {g.max_students || 7}</p>
+                    <p className="text-xs text-muted">من {g.max_students || 7}</p>
                   </div>
                 </div>
               ))}
@@ -350,6 +350,9 @@ export default function AdminDashboard() {
           )}
         </motion.div>
       </div>
+
+      {/* AI Profiles Overview */}
+      <AIOverviewCard />
 
       {/* Upcoming renewals */}
       {upcomingRenewals?.length > 0 && (
@@ -407,5 +410,57 @@ export default function AdminDashboard() {
         </motion.div>
       )}
     </div>
+  )
+}
+
+function AIOverviewCard() {
+  const { data: aiStats } = useQuery({
+    queryKey: ['admin-ai-overview'],
+    queryFn: async () => {
+      const [profilesRes, studentsRes, usageRes] = await Promise.all([
+        supabase.from('ai_student_profiles').select('student_id, generated_at', { count: 'exact' }),
+        supabase.from('students').select('id', { count: 'exact' }).eq('status', 'active').is('deleted_at', null),
+        supabase.from('ai_usage').select('estimated_cost_sar').order('created_at', { ascending: false }).limit(100),
+      ])
+      const analyzed = profilesRes.count || 0
+      const total = studentsRes.count || 0
+      const totalCost = (usageRes.data || []).reduce((s, r) => s + (r.estimated_cost_sar || 0), 0)
+      return { analyzed, total, totalCost: Math.round(totalCost * 100) / 100 }
+    },
+  })
+
+  if (!aiStats) return null
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.57 }}
+      className="glass-card p-7"
+    >
+      <div className="flex items-center gap-3 mb-6">
+        <Brain size={18} className="text-violet-400" />
+        <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>الذكاء الاصطناعي</h3>
+      </div>
+      <div className="grid grid-cols-3 gap-4">
+        <div className="rounded-xl p-4 text-center" style={{ background: 'var(--color-bg-surface-raised)' }}>
+          <p className="text-2xl font-bold text-violet-400">{aiStats.analyzed}</p>
+          <p className="text-xs text-muted mt-1">ملفات محللة</p>
+        </div>
+        <div className="rounded-xl p-4 text-center" style={{ background: 'var(--color-bg-surface-raised)' }}>
+          <p className="text-2xl font-bold" style={{ color: 'var(--color-text-primary)' }}>{aiStats.total}</p>
+          <p className="text-xs text-muted mt-1">إجمالي الطلاب</p>
+        </div>
+        <div className="rounded-xl p-4 text-center" style={{ background: 'var(--color-bg-surface-raised)' }}>
+          <p className="text-2xl font-bold text-amber-400">{aiStats.totalCost} <span className="text-sm font-normal">ر.س</span></p>
+          <p className="text-xs text-muted mt-1">تكلفة AI</p>
+        </div>
+      </div>
+      {aiStats.analyzed < aiStats.total && (
+        <p className="text-xs text-muted text-center mt-3">
+          {aiStats.total - aiStats.analyzed} طالب لم يتم تحليلهم بعد — افتح صفحة الطالب من "الطلاب" لتحليل ملفه
+        </p>
+      )}
+    </motion.div>
   )
 }

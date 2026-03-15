@@ -169,7 +169,7 @@ export default function AIWritingFeedback({ text, submissionId, assignmentType, 
                 )}
 
                 {remaining !== null && (
-                  <p className="text-[10px] text-muted text-center">
+                  <p className="text-xs text-muted text-center">
                     متبقي {remaining} تحليل هذا الشهر
                   </p>
                 )}

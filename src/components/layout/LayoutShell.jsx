@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Outlet, NavLink } from 'react-router-dom'
-import { House, FileText, BarChart3, MessageSquare, User, Users, Settings } from 'lucide-react'
+import { House, CalendarDays, Mic, BarChart3, User, FileText, Users, Zap, Bot, CreditCard, Settings } from 'lucide-react'
 import Sidebar from './Sidebar'
 import Header from './Header'
 import AIFloatingHelper from '../ai/AIFloatingHelper'
@@ -10,23 +10,23 @@ import { useAuthStore } from '../../stores/authStore'
 const MOBILE_TABS = {
   student: [
     { to: '/student', label: 'الرئيسية', icon: House },
-    { to: '/student/assignments', label: 'الواجبات', icon: FileText },
+    { to: '/student/weekly-tasks', label: 'مهامي', icon: CalendarDays },
+    { to: '/student/speaking', label: 'التحدث', icon: Mic },
     { to: '/student/grades', label: 'الدرجات', icon: BarChart3 },
-    { to: '/student/chat', label: 'المحادثة', icon: MessageSquare },
     { to: '/student/profile', label: 'حسابي', icon: User },
   ],
   trainer: [
     { to: '/trainer', label: 'الرئيسية', icon: House },
     { to: '/trainer/assignments', label: 'الواجبات', icon: FileText },
-    { to: '/trainer/students', label: 'الطلاب', icon: User },
-    { to: '/trainer/chat', label: 'المحادثة', icon: MessageSquare },
-    { to: '/trainer/attendance', label: 'الحضور', icon: BarChart3 },
+    { to: '/trainer/students', label: 'الطلاب', icon: Users },
+    { to: '/trainer/points', label: 'الحصة', icon: Zap },
+    { to: '/trainer/ai-assistant', label: 'الذكاء', icon: Bot },
   ],
   admin: [
     { to: '/admin', label: 'الرئيسية', icon: House },
     { to: '/admin/users', label: 'الطلاب', icon: Users },
-    { to: '/admin/groups', label: 'المجموعات', icon: MessageSquare },
-    { to: '/admin/packages', label: 'المالية', icon: BarChart3 },
+    { to: '/admin/packages', label: 'المالية', icon: CreditCard },
+    { to: '/admin/reports', label: 'التحليلات', icon: BarChart3 },
     { to: '/admin/settings', label: 'الإعدادات', icon: Settings },
   ],
 }
@@ -60,7 +60,7 @@ export default function LayoutShell() {
       {/* Main content area — offset by sidebar width */}
       <div
         className={`transition-all duration-300 ease-apple ${
-          collapsed ? 'lg:mr-[72px]' : 'lg:mr-[270px]'
+          collapsed ? 'lg:mr-[72px]' : 'lg:mr-[250px]'
         }`}
       >
         <Header onMenuToggle={() => setMobileOpen(true)} />
@@ -82,7 +82,7 @@ export default function LayoutShell() {
               to={tab.to}
               end={tab.to === `/${role}` || tab.to === '/admin' || tab.to === '/trainer' || tab.to === '/student'}
               className={({ isActive }) =>
-                `flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-[10px] font-medium transition-all duration-200 ${
+                `flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 min-w-[56px] ${
                   isActive ? `${activeColor} bg-[var(--color-bg-hover)]` : 'text-muted'
                 }`
               }

@@ -54,7 +54,7 @@ export default function Header({ onMenuToggle }) {
       <div className="flex items-center gap-3">
         <ThemeToggle />
 
-        <span className={`inline-flex items-center px-3 py-1 rounded-full text-[11px] font-semibold ${config.badge}`}>
+        <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${config.badge}`}>
           {ROLE_LABELS[role] || role}
         </span>
 

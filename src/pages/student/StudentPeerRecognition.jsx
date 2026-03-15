@@ -319,7 +319,7 @@ export default function StudentPeerRecognition() {
                   {r.message && (
                     <p className="text-xs text-muted mt-1">"{r.message}"</p>
                   )}
-                  <p className="text-[10px] text-muted mt-1">{timeAgo(r.created_at)}</p>
+                  <p className="text-xs text-muted mt-1">{timeAgo(r.created_at)}</p>
                 </div>
                 <span className="text-xs text-emerald-400 font-bold">+{r.xp_awarded}</span>
               </div>

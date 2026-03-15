@@ -379,7 +379,7 @@ function ComparisonPlayer({ label, phrase, score, date, color, side }) {
     <div className={`flex-1 glass-card p-4 flex flex-col gap-3 ${side === 'before' ? 'border-white/5' : 'border-violet-500/20'}`}>
       {/* Header label */}
       <div className="text-center">
-        <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+        <span className={`text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
           side === 'before'
             ? 'bg-white/5 text-muted'
             : 'bg-violet-500/10 text-violet-400'
@@ -387,7 +387,7 @@ function ComparisonPlayer({ label, phrase, score, date, color, side }) {
           {label}
         </span>
         {date && (
-          <p className="text-[10px] text-muted mt-1">
+          <p className="text-xs text-muted mt-1">
             {new Date(date).toLocaleDateString('ar-SA', { day: 'numeric', month: 'short', year: 'numeric' })}
           </p>
         )}
@@ -415,7 +415,7 @@ function ComparisonPlayer({ label, phrase, score, date, color, side }) {
       {/* Score */}
       <div className={`text-center rounded-xl p-2 border ${scoreBg}`}>
         <p className={`text-2xl font-bold ${scoreColor}`}>{score}%</p>
-        <p className="text-[10px] text-muted">درجة النطق</p>
+        <p className="text-xs text-muted">درجة النطق</p>
       </div>
     </div>
   )
@@ -615,9 +615,9 @@ function BeforeAfterSection({ profileId, studentName }) {
         >
           {/* Phrase label */}
           <div className="glass-card p-3 text-center border border-violet-500/10">
-            <p className="text-[10px] text-muted uppercase tracking-wider mb-1">العبارة المقارنة</p>
+            <p className="text-xs text-muted uppercase tracking-wider mb-1">العبارة المقارنة</p>
             <p className="text-base font-bold text-white" dir="ltr">{current.phrase}</p>
-            <p className="text-[10px] text-muted mt-1">{current.attempts} محاولة مسجّلة</p>
+            <p className="text-xs text-muted mt-1">{current.attempts} محاولة مسجّلة</p>
           </div>
 
           {/* Side-by-side players */}
@@ -745,7 +745,7 @@ function BeforeAfterSection({ profileId, studentName }) {
                   }`}
                 >
                   <span className="truncate flex-1 text-right" dir="ltr">{p.phrase}</span>
-                  <span className={`text-[11px] font-bold shrink-0 ${
+                  <span className={`text-xs font-bold shrink-0 ${
                     imp > 0 ? 'text-emerald-400' : imp < 0 ? 'text-red-400' : 'text-muted'
                   }`}>
                     {imp > 0 ? '+' : ''}{imp}%
@@ -1152,7 +1152,7 @@ export default function StudentPronunciation() {
             className="glass-card p-7"
           >
             <div className="text-center mb-6">
-              <p className="text-[10px] text-muted mb-2">{currentIndex + 1} / {totalItems}</p>
+              <p className="text-xs text-muted mb-2">{currentIndex + 1} / {totalItems}</p>
               <h2 className="text-2xl font-bold text-white mb-2" dir="ltr">
                 {currentTarget}
               </h2>

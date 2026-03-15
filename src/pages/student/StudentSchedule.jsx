@@ -88,7 +88,7 @@ export default function StudentSchedule() {
                   >
                     <p className="font-medium">{getArabicDay(day)}</p>
                     {isClassDay && schedule?.time && (
-                      <p className="text-[10px] mt-1 text-white/40">{formatTime(schedule.time)}</p>
+                      <p className="text-xs mt-1 text-white/40">{formatTime(schedule.time)}</p>
                     )}
                   </div>
                 )

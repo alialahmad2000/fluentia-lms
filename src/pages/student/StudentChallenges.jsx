@@ -265,7 +265,7 @@ export default function StudentChallenges() {
                         className="h-full bg-gradient-to-l from-sky-400 to-sky-600 rounded-full"
                       />
                     </div>
-                    <p className="text-[10px] text-muted mt-1">
+                    <p className="text-xs text-muted mt-1">
                       {participation.progress?.current || 0} / {challenge.target.count || '?'}
                     </p>
                   </div>

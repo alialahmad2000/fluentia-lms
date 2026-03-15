@@ -132,7 +132,7 @@ export default function StudentEvents() {
                       </div>
                       <div>
                         <h3 className="font-bold text-white">{event.title}</h3>
-                        <span className={`text-[10px] px-2 py-0.5 rounded-full ${EVENT_COLOR_CLASSES[config.color]?.badge || 'bg-sky-500/10 text-sky-400'}`}>
+                        <span className={`text-xs px-2 py-0.5 rounded-full ${EVENT_COLOR_CLASSES[config.color]?.badge || 'bg-sky-500/10 text-sky-400'}`}>
                           {config.label}
                         </span>
                       </div>

@@ -134,7 +134,7 @@ export default function AIContentRecommendations() {
         </div>
       )}
 
-      <p className="text-[10px] text-muted text-center mt-3">بناءً على أداءك — مستوى {level.cefr}</p>
+      <p className="text-xs text-muted text-center mt-3">بناءً على أداءك — مستوى {level.cefr}</p>
     </motion.div>
   )
 }

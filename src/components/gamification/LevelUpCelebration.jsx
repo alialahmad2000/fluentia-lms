@@ -63,7 +63,7 @@ export default function LevelUpCelebration({ newLevel, onClose }) {
                 className="text-center"
               >
                 <p className="text-4xl font-bold text-sky-400">{newLevel}</p>
-                <p className="text-[10px] text-sky-300">LEVEL</p>
+                <p className="text-xs text-sky-300">LEVEL</p>
               </motion.div>
             </motion.div>
 

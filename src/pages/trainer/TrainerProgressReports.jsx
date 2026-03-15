@@ -184,7 +184,7 @@ export default function TrainerProgressReports() {
                 ].map((s, i) => (
                   <div key={i} className="glass-card p-3 text-center">
                     <p className="text-lg font-bold text-white">{s.value}</p>
-                    <p className="text-[10px] text-muted">{s.label}</p>
+                    <p className="text-xs text-muted">{s.label}</p>
                   </div>
                 ))}
               </div>

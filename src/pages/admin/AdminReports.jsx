@@ -1,11 +1,36 @@
+import { useState, lazy, Suspense } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { BarChart3, Users, Zap, Flame, Calendar, FileText, Loader2, Download } from 'lucide-react'
+import { BarChart3, Users, Zap, Flame, Calendar, FileText, Loader2, Download, AlertTriangle, Brain } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { ACADEMIC_LEVELS } from '../../lib/constants'
+import SubTabs from '../../components/common/SubTabs'
+
+const AdminChurnPrediction = lazy(() => import('./AdminChurnPrediction'))
+const AdminSmartScheduling = lazy(() => import('./AdminSmartScheduling'))
+
+const TABS = [
+  { key: 'reports', label: 'التقارير', icon: BarChart3 },
+  { key: 'churn', label: 'توقع الانسحاب', icon: AlertTriangle },
+  { key: 'scheduling', label: 'الجدولة الذكية', icon: Brain },
+]
 import { exportToCSV } from '../../utils/exportData'
 
 export default function AdminReports() {
+  const [activeTab, setActiveTab] = useState('reports')
+  return (
+    <div className="space-y-8">
+      <SubTabs tabs={TABS} activeTab={activeTab} onChange={setActiveTab} accent="gold" />
+      <Suspense fallback={<div className="skeleton h-96 w-full" />}>
+        {activeTab === 'reports' && <ReportsContent />}
+        {activeTab === 'churn' && <AdminChurnPrediction />}
+        {activeTab === 'scheduling' && <AdminSmartScheduling />}
+      </Suspense>
+    </div>
+  )
+}
+
+function ReportsContent() {
   // Overview stats
   const { data: stats, isLoading } = useQuery({
     queryKey: ['admin-report-stats'],

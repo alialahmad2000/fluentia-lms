@@ -4,6 +4,7 @@ import { useAuthStore } from './stores/authStore'
 import LoginPage from './pages/public/LoginPage'
 import LayoutShell from './components/layout/LayoutShell'
 import OnboardingModal from './components/onboarding/OnboardingModal'
+import ForcePasswordChange from './components/onboarding/ForcePasswordChange'
 import GamificationProvider from './components/gamification/GamificationProvider'
 import ErrorBoundary, { PageErrorFallback } from './components/ErrorBoundary'
 import GlobalSearch from './components/GlobalSearch'
@@ -176,6 +177,7 @@ export default function App() {
       <BrowserRouter>
         <ToastProvider>
         <OfflineBanner />
+        <ForcePasswordChange />
         <OnboardingModal />
         <GamificationProvider />
         <GlobalSearch />

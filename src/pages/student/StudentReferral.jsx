@@ -215,7 +215,7 @@ function ReferralCard({ name, code, referralLink }) {
           className="relative rounded-2xl p-4 mb-5"
           style={{ background: 'rgba(251,191,36,0.07)', border: '1px solid rgba(251,191,36,0.2)' }}
         >
-          <p className="text-gold-400/70 text-[10px] font-medium tracking-widest uppercase mb-1">كود الإحالة</p>
+          <p className="text-gold-400/70 text-xs font-medium tracking-widest uppercase mb-1">كود الإحالة</p>
           <p
             className="text-3xl font-black tracking-[0.2em] text-center"
             style={{ background: 'linear-gradient(90deg, #fbbf24, #fde68a)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}
@@ -225,7 +225,7 @@ function ReferralCard({ name, code, referralLink }) {
         </div>
 
         {/* Social links */}
-        <div className="relative flex items-center justify-between text-[10px] text-white/35">
+        <div className="relative flex items-center justify-between text-xs text-white/35">
           <div className="space-y-0.5">
             <p>📱 +966 55 866 9974</p>
             <p>🎵 TikTok: @fluentia_</p>
@@ -790,7 +790,7 @@ export default function StudentReferral() {
                       <p className={`text-sm font-bold ${index === 0 ? 'text-gold-400' : 'text-white'}`}>
                         {entry.count}
                       </p>
-                      <p className="text-[10px] text-muted">إحالة</p>
+                      <p className="text-xs text-muted">إحالة</p>
                     </div>
                   </motion.div>
                 )

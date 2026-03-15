@@ -464,7 +464,7 @@ function QuizTaker({ quiz, onFinish, onBack }) {
             <button
               key={q.id}
               onClick={() => setCurrentIndex(i)}
-              className={`w-6 h-6 rounded-md text-[10px] font-bold transition-colors ${
+              className={`w-6 h-6 rounded-md text-xs font-bold transition-colors ${
                 i === currentIndex
                   ? 'bg-violet-500 text-white'
                   : answers[q.id] !== undefined

@@ -274,7 +274,7 @@ export default function TrainerAIAssistant() {
                     key={i}
                     onClick={() => sendMessage(qa.message)}
                     disabled={sending}
-                    className="flex items-center gap-1 text-[10px] bg-white/5 text-muted hover:text-white px-2 py-1 rounded-lg transition-all whitespace-nowrap"
+                    className="flex items-center gap-1 text-xs bg-white/5 text-muted hover:text-white px-2 py-1 rounded-lg transition-all whitespace-nowrap"
                   >
                     <Icon size={10} />
                     {qa.label}
@@ -346,27 +346,27 @@ function MessageBubble({ msg, onConfirm, onCancel }) {
           {hasAction && msg.actionResult.success ? (
             <>
               <CheckCircle2 size={14} className="text-emerald-400" />
-              <span className="text-[10px] text-emerald-400 font-medium">تم التنفيذ</span>
+              <span className="text-xs text-emerald-400 font-medium">تم التنفيذ</span>
             </>
           ) : hasAction && !msg.actionResult.success ? (
             <>
               <AlertCircle size={14} className="text-red-400" />
-              <span className="text-[10px] text-red-400 font-medium">فشل</span>
+              <span className="text-xs text-red-400 font-medium">فشل</span>
             </>
           ) : isConfirm ? (
             <>
               <AlertCircle size={14} className="text-amber-400" />
-              <span className="text-[10px] text-amber-400 font-medium">تأكيد مطلوب</span>
+              <span className="text-xs text-amber-400 font-medium">تأكيد مطلوب</span>
             </>
           ) : msg.isError ? (
             <>
               <AlertCircle size={14} className="text-red-400" />
-              <span className="text-[10px] text-red-400 font-medium">خطأ</span>
+              <span className="text-xs text-red-400 font-medium">خطأ</span>
             </>
           ) : (
             <>
               <Bot size={14} className="text-violet-400" />
-              <span className="text-[10px] text-violet-400 font-medium">المساعد</span>
+              <span className="text-xs text-violet-400 font-medium">المساعد</span>
             </>
           )}
         </div>

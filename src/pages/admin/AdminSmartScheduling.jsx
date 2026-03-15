@@ -163,7 +163,7 @@ export default function AdminSmartScheduling() {
             }`}
           >
             {DAY_LABELS[day]}
-            <span className="text-[10px] mr-1">({scheduleByDay[day]?.length || 0})</span>
+            <span className="text-xs mr-1">({scheduleByDay[day]?.length || 0})</span>
           </button>
         ))}
       </div>
@@ -190,7 +190,7 @@ export default function AdminSmartScheduling() {
                   </div>
                   <div>
                     <h3 className="text-sm font-medium text-white">{item.group.name}</h3>
-                    <p className="text-[10px] text-muted">{item.group.code} — المستوى {item.group.level || '—'}</p>
+                    <p className="text-xs text-muted">{item.group.code} — المستوى {item.group.level || '—'}</p>
                   </div>
                 </div>
                 <span className="text-xs text-muted">{item.trainer}</span>
@@ -214,13 +214,13 @@ export default function AdminSmartScheduling() {
               <div key={trainer.id} className="flex items-center justify-between p-3 rounded-xl hover:translate-y-[-2px] transition-all duration-200" style={{ background: 'var(--color-bg-surface-raised)' }}>
                 <div>
                   <h3 className="text-sm font-medium text-white">{name}</h3>
-                  <p className="text-[10px] text-muted">{trainerGroups.length} مجموعات</p>
+                  <p className="text-xs text-muted">{trainerGroups.length} مجموعات</p>
                 </div>
                 <div className="text-left">
                   <span className={`text-sm font-bold ${totalSessions > 10 ? 'text-red-400' : totalSessions > 6 ? 'text-gold-400' : 'text-emerald-400'}`}>
                     {totalSessions}
                   </span>
-                  <p className="text-[10px] text-muted">حصص/أسبوع</p>
+                  <p className="text-xs text-muted">حصص/أسبوع</p>
                 </div>
               </div>
             )

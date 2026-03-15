@@ -209,7 +209,7 @@ export default function AdminChurnPrediction() {
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className={`text-[10px] px-2 py-0.5 rounded-full ${risk.bg} ${risk.text} border ${risk.border}`}>
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${risk.bg} ${risk.text} border ${risk.border}`}>
                         {risk.label}
                       </span>
                       {prediction.reviewed && (
@@ -222,7 +222,7 @@ export default function AdminChurnPrediction() {
                   {/* Factor pills */}
                   <div className="flex flex-wrap gap-1 mt-2">
                     {prediction.factors?.map((f, fi) => (
-                      <span key={fi} className="text-[10px] bg-white/5 text-muted px-2 py-0.5 rounded-lg">
+                      <span key={fi} className="text-xs bg-white/5 text-muted px-2 py-0.5 rounded-lg">
                         {f.description}
                       </span>
                     ))}

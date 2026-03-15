@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { GAMIFICATION_LEVELS } from '../../lib/constants'
@@ -117,21 +117,23 @@ export default function GamificationProvider() {
   const { profile, studentData } = useAuthStore()
   const [unlockedAchievement, setUnlockedAchievement] = useState(null)
   const [levelUp, setLevelUp] = useState(null)
-  const [lastCheckedXp, setLastCheckedXp] = useState(null)
+  const lastCheckedXpRef = useRef(null)
 
   const isStudent = profile?.role === 'student'
   const studentId = profile?.id
   const currentXp = studentData?.xp_total || 0
 
-  // Check for level up when XP changes
+  // Check for level up when XP changes (real-time via authStore subscription)
   useEffect(() => {
-    if (!isStudent || lastCheckedXp === null) {
-      setLastCheckedXp(currentXp)
+    if (!isStudent) return
+
+    if (lastCheckedXpRef.current === null) {
+      lastCheckedXpRef.current = currentXp
       return
     }
 
-    if (currentXp > lastCheckedXp) {
-      const oldLevel = getLevel(lastCheckedXp)
+    if (currentXp > lastCheckedXpRef.current) {
+      const oldLevel = getLevel(lastCheckedXpRef.current)
       const newLevel = getLevel(currentXp)
 
       if (newLevel.level > oldLevel.level) {
@@ -139,12 +141,7 @@ export default function GamificationProvider() {
       }
     }
 
-    setLastCheckedXp(currentXp)
-  // lastCheckedXp is intentionally omitted: we only want to react to XP changes,
-  // and we update lastCheckedXp inside the effect itself. Including it would
-  // cause an infinite loop. The ref-based pattern below would be cleaner but
-  // this is the established pattern here.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    lastCheckedXpRef.current = currentXp
   }, [currentXp, isStudent])
 
   // Check for new achievements periodically

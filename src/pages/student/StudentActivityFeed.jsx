@@ -185,7 +185,7 @@ export default function StudentActivityFeed() {
                   {activity.description && (
                     <p className="text-xs text-muted mt-0.5">{activity.description}</p>
                   )}
-                  <p className="text-[10px] text-muted mt-1">{timeAgo(activity.created_at)}</p>
+                  <p className="text-xs text-muted mt-1">{timeAgo(activity.created_at)}</p>
                 </div>
                 {activity.data?.xp && (
                   <span className="badge-green shrink-0">

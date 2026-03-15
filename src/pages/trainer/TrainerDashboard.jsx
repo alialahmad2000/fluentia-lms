@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { Users, FileText, Calendar, Clock, CheckCircle2 } from 'lucide-react'
+import { Users, FileText, Calendar, Clock, CheckCircle2, Brain, Loader2 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { getGreeting, getArabicDay, formatTime } from '../../utils/dateHelpers'
@@ -165,6 +165,9 @@ export default function TrainerDashboard() {
           )}
         </motion.div>
 
+        {/* AI Group Insights */}
+        <GroupInsightsCard groups={groups} />
+
         {/* Recent submissions */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
@@ -196,5 +199,78 @@ export default function TrainerDashboard() {
         </motion.div>
       </div>
     </div>
+  )
+}
+
+function GroupInsightsCard({ groups }) {
+  const { data: aiProfiles, isLoading } = useQuery({
+    queryKey: ['trainer-ai-profiles-summary', groups?.map(g => g.id)],
+    queryFn: async () => {
+      if (!groups?.length) return { total: 0, analyzed: 0, avgSkills: {} }
+      const groupIds = groups.map(g => g.id)
+      // Get students in trainer's groups
+      const { data: students } = await supabase
+        .from('students')
+        .select('id')
+        .in('group_id', groupIds)
+        .eq('status', 'active')
+        .is('deleted_at', null)
+      if (!students?.length) return { total: 0, analyzed: 0, avgSkills: {} }
+      const studentIds = students.map(s => s.id)
+      // Get AI profiles
+      const { data: profiles } = await supabase
+        .from('ai_student_profiles')
+        .select('skills')
+        .in('student_id', studentIds)
+      const analyzed = profiles?.length || 0
+      // Aggregate avg skills
+      const avgSkills = {}
+      if (analyzed > 0) {
+        profiles.forEach(p => {
+          Object.entries(p.skills || {}).forEach(([k, v]) => {
+            avgSkills[k] = (avgSkills[k] || 0) + (v || 0)
+          })
+        })
+        Object.keys(avgSkills).forEach(k => { avgSkills[k] = Math.round(avgSkills[k] / analyzed) })
+      }
+      return { total: studentIds.length, analyzed, avgSkills }
+    },
+    enabled: !!groups?.length,
+  })
+
+  const SKILL_LABELS = {
+    speaking: 'المحادثة', listening: 'الاستماع', reading: 'القراءة', writing: 'الكتابة',
+    grammar: 'القواعد', vocabulary: 'المفردات', pronunciation: 'النطق', consistency: 'الالتزام',
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.4 }}
+      className="glass-card p-7 lg:col-span-2"
+    >
+      <div className="flex items-center gap-3 mb-6">
+        <Brain size={20} className="text-violet-400" />
+        <h3 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>ملخص الذكاء الاصطناعي</h3>
+        {aiProfiles && (
+          <span className="badge-muted text-xs">{aiProfiles.analyzed}/{aiProfiles.total} محلل</span>
+        )}
+      </div>
+      {isLoading ? (
+        <div className="flex justify-center py-6"><Loader2 className="animate-spin text-muted" size={20} /></div>
+      ) : !aiProfiles?.analyzed ? (
+        <p className="text-muted text-sm text-center py-4">لم يتم تحليل أي طالب بعد. افتح صفحة الطالب واضغط "تحليل الملف الذكي".</p>
+      ) : (
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {Object.entries(aiProfiles.avgSkills).map(([key, value]) => (
+            <div key={key} className="rounded-xl p-3 text-center" style={{ background: 'var(--color-bg-surface-raised)' }}>
+              <p className="text-xs text-muted mb-1">{SKILL_LABELS[key] || key}</p>
+              <p className={`text-lg font-bold ${value >= 70 ? 'text-emerald-400' : value >= 40 ? 'text-amber-400' : 'text-red-400'}`}>{value}</p>
+            </div>
+          ))}
+        </div>
+      )}
+    </motion.div>
   )
 }

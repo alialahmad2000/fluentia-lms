@@ -97,7 +97,7 @@ export default function TrainerNotes() {
                 <div>
                   <h3 className="text-sm font-medium text-white">{c.title || c.topic || 'حصة'}</h3>
                   <p className="text-xs text-muted mt-0.5">
-                    <span className="badge-blue text-[10px] ml-2">{c.groups?.code}</span>
+                    <span className="badge-blue text-xs ml-2">{c.groups?.code}</span>
                     {formatDateAr(c.date)}
                   </p>
                 </div>
@@ -115,7 +115,7 @@ export default function TrainerNotes() {
                         {note.is_pinned && <Pin size={12} className="text-gold-400 mt-1 shrink-0" />}
                         <div className="flex-1">
                           <p className="text-sm text-white whitespace-pre-wrap">{note.content}</p>
-                          <p className="text-[10px] text-muted mt-2">
+                          <p className="text-xs text-muted mt-2">
                             {note.profiles?.full_name} &middot; {timeAgo(note.created_at)}
                             {note.is_trainer_summary && <span className="text-sky-400 mr-2">ملخص المدرب</span>}
                           </p>

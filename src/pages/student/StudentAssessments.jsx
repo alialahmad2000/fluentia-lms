@@ -141,7 +141,7 @@ function SkillRadarChart({ skills }) {
           y={y}
           textAnchor="middle"
           dominantBaseline="middle"
-          className="fill-muted text-[11px]"
+          className="fill-muted text-xs"
           fontFamily="inherit"
         >
           {SKILL_LABELS_AR[skill]}
@@ -482,7 +482,7 @@ export default function StudentAssessments() {
                           <div className="grid grid-cols-3 gap-3">
                             {SKILLS.map((sk) => (
                               <div key={sk} className="text-center rounded-lg p-2" style={{ background: 'var(--color-bg-surface-raised)' }}>
-                                <p className="text-[10px] text-muted">{SKILL_LABELS_AR[sk]}</p>
+                                <p className="text-xs text-muted">{SKILL_LABELS_AR[sk]}</p>
                                 <p className="text-sm font-bold text-white">
                                   {scores[sk] != null ? `${scores[sk]}%` : '—'}
                                 </p>
@@ -579,7 +579,7 @@ export default function StudentAssessments() {
                 onChange={(e) => setConfidence(Number(e.target.value))}
                 className="w-full accent-sky-500"
               />
-              <div className="flex justify-between text-[10px] text-muted mt-1">
+              <div className="flex justify-between text-xs text-muted mt-1">
                 <span>ضعيف</span>
                 <span>متوسط</span>
                 <span>ممتاز</span>

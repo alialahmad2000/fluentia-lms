@@ -280,7 +280,7 @@ export default function AdminHolidays() {
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
                       <h3 className="text-sm font-bold text-white">{holiday.name}</h3>
-                      <span className={`text-[10px] px-2 py-0.5 rounded-full ${
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${
                         upcoming
                           ? 'badge-green'
                           : 'badge-muted'

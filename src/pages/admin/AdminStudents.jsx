@@ -1,19 +1,44 @@
-import { useState } from 'react'
+import { useState, lazy, Suspense } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Users, Plus, Search, Edit3, Trash2, Loader2, X, UserPlus, Download, ArrowUpCircle } from 'lucide-react'
+import { Users, Plus, Search, Edit3, Trash2, Loader2, X, UserPlus, Download, ArrowUpCircle, Briefcase, Copy, Eye, EyeOff } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { ACADEMIC_LEVELS, PACKAGES, STUDENT_STATUS } from '../../lib/constants'
 import { formatDateAr } from '../../utils/dateHelpers'
 import { exportToCSV } from '../../utils/exportData'
+import SubTabs from '../../components/common/SubTabs'
+
+const AdminGroups = lazy(() => import('./AdminGroups'))
+const AdminTrainers = lazy(() => import('./AdminTrainers'))
+
+const TABS = [
+  { key: 'students', label: 'الطلاب', icon: Users },
+  { key: 'groups', label: 'المجموعات', icon: Users },
+  { key: 'trainers', label: 'المدربين', icon: Briefcase },
+]
 
 export default function AdminStudents() {
+  const [activeTab, setActiveTab] = useState('students')
+  return (
+    <div className="space-y-8">
+      <SubTabs tabs={TABS} activeTab={activeTab} onChange={setActiveTab} accent="gold" />
+      <Suspense fallback={<div className="skeleton h-96 w-full" />}>
+        {activeTab === 'students' && <StudentsContent />}
+        {activeTab === 'groups' && <AdminGroups />}
+        {activeTab === 'trainers' && <AdminTrainers />}
+      </Suspense>
+    </div>
+  )
+}
+
+function StudentsContent() {
   const queryClient = useQueryClient()
   const [search, setSearch] = useState('')
   const [filterGroup, setFilterGroup] = useState('')
   const [filterStatus, setFilterStatus] = useState('active')
   const [editStudent, setEditStudent] = useState(null)
   const [showForm, setShowForm] = useState(false)
+  const [showAddModal, setShowAddModal] = useState(false)
 
   // Groups
   const { data: groups } = useQuery({
@@ -123,10 +148,13 @@ export default function AdminStudents() {
             <Users size={22} className="text-sky-400" />
           </div>
           <div>
-            <h1 className="text-page-title text-white">إدارة الطلاب</h1>
+            <h1 className="text-page-title" style={{ color: 'var(--color-text-primary)' }}>إدارة الطلاب</h1>
             <p className="text-muted text-sm mt-1">{filtered?.length || 0} طالب</p>
           </div>
         </div>
+        <button onClick={() => setShowAddModal(true)} className="btn-primary text-sm py-2 flex items-center gap-2">
+          <UserPlus size={16} /> إضافة طالب
+        </button>
       </div>
 
       {/* Filters */}
@@ -232,6 +260,17 @@ export default function AdminStudents() {
             onSave={(updates) => updateMutation.mutate(updates)}
             saving={updateMutation.isPending}
             queryClient={queryClient}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Add Student Modal */}
+      <AnimatePresence>
+        {showAddModal && (
+          <AddStudentModal
+            groups={groups}
+            onClose={() => setShowAddModal(false)}
+            onSuccess={() => { setShowAddModal(false); queryClient.invalidateQueries({ queryKey: ['admin-students'] }) }}
           />
         )}
       </AnimatePresence>
@@ -431,6 +470,183 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
             <button type="button" onClick={onClose} className="btn-ghost text-sm py-2">إلغاء</button>
           </div>
         </form>
+      </motion.div>
+    </motion.div>
+  )
+}
+
+function generateTempPassword() {
+  const chars = 'ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789'
+  let pw = ''
+  for (let i = 0; i < 8; i++) pw += chars[Math.floor(Math.random() * chars.length)]
+  return pw
+}
+
+function AddStudentModal({ groups, onClose, onSuccess }) {
+  const [fullName, setFullName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [groupId, setGroupId] = useState(groups?.[0]?.id || '')
+  const [academicLevel, setAcademicLevel] = useState(1)
+  const [pkg, setPkg] = useState('asas')
+  const [saving, setSaving] = useState(false)
+  const [error, setError] = useState('')
+  const [createdStudent, setCreatedStudent] = useState(null)
+  const [showPassword, setShowPassword] = useState(false)
+  const tempPassword = useState(() => generateTempPassword())[0]
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+    setSaving(true)
+    setError('')
+    try {
+      // Create auth user via Supabase admin API (using service role through edge function would be ideal,
+      // but for now we use signUp - the admin will need to verify)
+      const { data: authData, error: authErr } = await supabase.auth.signUp({
+        email: email.trim(),
+        password: tempPassword,
+        options: { data: { full_name: fullName.trim() } },
+      })
+      if (authErr) throw authErr
+      const userId = authData.user?.id
+      if (!userId) throw new Error('فشل إنشاء الحساب')
+
+      // Create profile
+      await supabase.from('profiles').upsert({
+        id: userId,
+        full_name: fullName.trim(),
+        email: email.trim(),
+        phone: phone.trim() || null,
+        role: 'student',
+        must_change_password: true,
+      }, { onConflict: 'id' })
+
+      // Create student record
+      await supabase.from('students').upsert({
+        id: userId,
+        group_id: groupId || null,
+        academic_level: parseInt(academicLevel),
+        package: pkg,
+        status: 'active',
+        temp_password: tempPassword,
+        enrollment_date: new Date().toISOString(),
+      }, { onConflict: 'id' })
+
+      setCreatedStudent({ email: email.trim(), password: tempPassword, name: fullName.trim() })
+    } catch (err) {
+      setError(err.message || 'حدث خطأ أثناء إنشاء الحساب')
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  function copyWhatsAppMessage() {
+    const msg = `مرحباً ${createdStudent.name}! 🎓\n\nتم إنشاء حسابك في أكاديمية طلاقة:\n\n📧 الإيميل: ${createdStudent.email}\n🔑 كلمة المرور: ${createdStudent.password}\n\n🔗 رابط الدخول: https://fluentia-lms.vercel.app/login\n\nسيُطلب منك تغيير كلمة المرور عند أول تسجيل دخول.`
+    navigator.clipboard.writeText(msg)
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }}
+        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-lg glass-card-raised p-6 max-h-[90vh] overflow-y-auto"
+      >
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-section-title" style={{ color: 'var(--color-text-primary)' }}>إضافة طالب جديد</h2>
+          <button onClick={onClose} className="btn-icon w-8 h-8 text-muted hover:text-white"><X size={20} /></button>
+        </div>
+
+        {createdStudent ? (
+          <div className="space-y-5">
+            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4">
+              <p className="text-emerald-400 font-medium mb-3">تم إنشاء الحساب بنجاح!</p>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-muted">الاسم</span>
+                  <span style={{ color: 'var(--color-text-primary)' }}>{createdStudent.name}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted">الإيميل</span>
+                  <span style={{ color: 'var(--color-text-primary)' }} dir="ltr">{createdStudent.email}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-muted">كلمة المرور</span>
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono" style={{ color: 'var(--color-text-primary)' }} dir="ltr">
+                      {showPassword ? createdStudent.password : '••••••••'}
+                    </span>
+                    <button onClick={() => setShowPassword(!showPassword)} className="text-muted hover:text-sky-400">
+                      {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <button onClick={copyWhatsAppMessage} className="btn-primary text-sm py-2 flex items-center gap-2">
+                <Copy size={14} /> نسخ رسالة واتساب
+              </button>
+              <button onClick={onSuccess} className="btn-ghost text-sm py-2">إغلاق</button>
+            </div>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="input-label">الاسم الكامل</label>
+              <input value={fullName} onChange={(e) => setFullName(e.target.value)} className="input-field" required />
+            </div>
+            <div>
+              <label className="input-label">البريد الإلكتروني</label>
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="input-field" dir="ltr" required />
+            </div>
+            <div>
+              <label className="input-label">الهاتف (اختياري)</label>
+              <input value={phone} onChange={(e) => setPhone(e.target.value)} className="input-field" dir="ltr" />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="input-label">المجموعة</label>
+                <select value={groupId} onChange={(e) => setGroupId(e.target.value)} className="input-field">
+                  <option value="">بدون مجموعة</option>
+                  {groups?.map(g => <option key={g.id} value={g.id}>{g.code} — {g.name}</option>)}
+                </select>
+              </div>
+              <div>
+                <label className="input-label">المستوى</label>
+                <select value={academicLevel} onChange={(e) => setAcademicLevel(e.target.value)} className="input-field">
+                  {Object.entries(ACADEMIC_LEVELS).map(([k, v]) => (
+                    <option key={k} value={k}>{v.cefr} — {v.name_ar}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div>
+              <label className="input-label">الباقة</label>
+              <select value={pkg} onChange={(e) => setPkg(e.target.value)} className="input-field">
+                {Object.entries(PACKAGES).map(([k, v]) => (
+                  <option key={k} value={k}>{v.name_ar} — {v.price} ريال</option>
+                ))}
+              </select>
+            </div>
+            <div className="glass-card p-3">
+              <p className="text-xs text-muted">كلمة المرور المؤقتة: <span className="font-mono text-sky-400" dir="ltr">{tempPassword}</span></p>
+              <p className="text-xs text-muted mt-1">سيُطلب من الطالب تغييرها عند أول تسجيل دخول</p>
+            </div>
+            {error && <p className="text-red-400 text-sm">{error}</p>}
+            <div className="flex items-center gap-3 pt-2">
+              <button type="submit" disabled={saving} className="btn-primary text-sm py-2 flex items-center gap-2">
+                {saving ? <Loader2 size={16} className="animate-spin" /> : <UserPlus size={16} />}
+                إنشاء الحساب
+              </button>
+              <button type="button" onClick={onClose} className="btn-ghost text-sm py-2">إلغاء</button>
+            </div>
+          </form>
+        )}
       </motion.div>
     </motion.div>
   )

@@ -215,7 +215,7 @@ export default function AdminWeeklyTasks() {
           >
             <div className="flex items-center gap-2 mb-1.5">
               <card.icon size={14} className={card.iconColor} />
-              <span className="text-[11px] text-white/30 font-medium">{card.label}</span>
+              <span className="text-xs text-white/30 font-medium">{card.label}</span>
             </div>
             <p className="text-lg font-bold text-white">{card.value}</p>
           </motion.div>
@@ -256,7 +256,7 @@ export default function AdminWeeklyTasks() {
                     <div className="flex items-center gap-2 mb-1">
                       <h3 className="text-sm font-medium text-white/80 truncate">{getStudentName(set)}</h3>
                       {isComplete && <CheckCircle2 size={14} className="text-emerald-400 shrink-0" />}
-                      <span className="text-[10px] text-white/20 shrink-0">
+                      <span className="text-xs text-white/20 shrink-0">
                         مستوى {set.level_at_generation || '?'}
                       </span>
                     </div>
@@ -270,17 +270,17 @@ export default function AdminWeeklyTasks() {
                           style={{ width: `${pct}%` }}
                         />
                       </div>
-                      <span className="text-[10px] text-white/25 w-8 text-left">{pct}%</span>
+                      <span className="text-xs text-white/25 w-8 text-left">{pct}%</span>
                     </div>
                   </div>
 
                   <div className="text-center shrink-0">
-                    <p className="text-[10px] text-white/20">الصعوبة</p>
+                    <p className="text-xs text-white/20">الصعوبة</p>
                     <p className="text-xs font-medium text-white/50">{(set.difficulty_score || 0.50).toFixed(2)}</p>
                   </div>
 
                   <div className="text-center shrink-0">
-                    <p className="text-[10px] text-white/20">مهام</p>
+                    <p className="text-xs text-white/20">مهام</p>
                     <p className="text-xs font-medium text-white/50">
                       {set.completed_tasks || 0}/{set.total_tasks || 8}
                     </p>

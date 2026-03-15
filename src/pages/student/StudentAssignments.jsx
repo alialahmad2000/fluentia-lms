@@ -269,7 +269,7 @@ export default function StudentAssignments() {
                           <span className="text-sm font-medium text-emerald-400">
                             الدرجة: {sub.grade} ({sub.grade_numeric}%)
                           </span>
-                          <span className="badge-gold text-[10px]">+{sub.points_awarded} XP</span>
+                          <span className="badge-gold text-xs">+{sub.points_awarded} XP</span>
                         </div>
 
                         {/* Show structured feedback if AI feedback was approved */}

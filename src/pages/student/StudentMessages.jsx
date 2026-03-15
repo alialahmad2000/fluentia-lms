@@ -232,7 +232,7 @@ export default function StudentMessages() {
               >
                 <span className="truncate">{c.name}</span>
                 {c.unread > 0 && (
-                  <span className="w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shrink-0">
+                  <span className="w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center shrink-0">
                     {c.unread}
                   </span>
                 )}
@@ -259,7 +259,7 @@ export default function StudentMessages() {
                 </div>
                 <div>
                   <p className="text-sm font-medium text-white">{selectedContact.name}</p>
-                  <p className="text-[10px] text-muted">
+                  <p className="text-xs text-muted">
                     {selectedContact.role === 'trainer' ? 'المدرب' : 'طالب'}
                   </p>
                 </div>
@@ -294,7 +294,7 @@ export default function StudentMessages() {
                           <p className="whitespace-pre-wrap break-words">{msg.content}</p>
                         </div>
                         <div className={`flex items-center gap-1 mt-0.5 ${isMe ? 'justify-end' : ''}`}>
-                          <span className="text-[10px] text-muted">{timeAgo(msg.created_at)}</span>
+                          <span className="text-xs text-muted">{timeAgo(msg.created_at)}</span>
                           {isMe && (
                             msg.read_at
                               ? <CheckCheck size={10} className="text-sky-400" />

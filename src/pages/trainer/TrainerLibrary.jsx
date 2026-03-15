@@ -173,7 +173,7 @@ export default function TrainerLibrary() {
                 <div className="flex-1 min-w-0">
                   <p className="text-sm text-white truncate">{file.name.replace(/^\d+_/, '')}</p>
                   <div className="flex items-center gap-2 text-xs text-muted mt-0.5">
-                    <span className="badge-blue text-[10px]">{file.groupCode}</span>
+                    <span className="badge-blue text-xs">{file.groupCode}</span>
                     {sizeKB && <span>{sizeKB > 1024 ? `${(sizeKB / 1024).toFixed(1)} MB` : `${sizeKB} KB`}</span>}
                   </div>
                 </div>

@@ -1625,6 +1625,82 @@ Be practical and specific. Use data to support your points.`,
         return { success: true, reply: `✅ تم إرسال إشعار لـ ${targetIds.length} ${targetIds.length === 1 ? 'طالب' : 'طالب'}` }
       }
 
+      case 'ANALYZE_STUDENT': {
+        const student = await findStudent(supabase, params.student_name, trainerGroupIds)
+        if (!student) return { success: false, reply: `لم أجد طالب باسم "${params.student_name}"` }
+
+        // Call generate-ai-student-profile edge function
+        const SUPABASE_URL = Deno.env.get('SUPABASE_URL') || ''
+        const SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || ''
+        const genRes = await fetch(`${SUPABASE_URL}/functions/v1/generate-ai-student-profile`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${SERVICE_KEY}`,
+          },
+          body: JSON.stringify({ student_id: student.id }),
+        })
+        const genData = await genRes.json()
+        if (genData.error) return { success: false, reply: `خطأ في تحليل الطالب: ${genData.error}` }
+
+        // Fetch the generated profile
+        const { data: aiProfile } = await supabase
+          .from('ai_student_profiles')
+          .select('skills, strengths, weaknesses, tips, summary_ar')
+          .eq('student_id', student.id)
+          .maybeSingle()
+
+        if (!aiProfile) return { success: false, reply: 'تم التحليل لكن لم يتم حفظ النتيجة' }
+
+        const skillLines = Object.entries(aiProfile.skills || {})
+          .map(([k, v]) => `  • ${k}: ${v}/100`)
+          .join('\n')
+        const strengthLines = (aiProfile.strengths || []).map((s: string) => `  ✅ ${s}`).join('\n')
+        const weakLines = (aiProfile.weaknesses || []).map((w: string) => `  ⚠️ ${w}`).join('\n')
+
+        return {
+          success: true,
+          reply: `📊 تحليل الملف الذكي — ${student.profiles?.full_name}\n\n🎯 المهارات:\n${skillLines}\n\n💪 نقاط القوة:\n${strengthLines}\n\n📈 نقاط التحسين:\n${weakLines}\n\n📝 ملخص:\n${aiProfile.summary_ar || 'لا يوجد'}`,
+        }
+      }
+
+      case 'ANALYZE_GROUP': {
+        const group = await findGroup(supabase, params.group_code)
+        if (!group) return { success: false, reply: `لم أجد مجموعة بالكود "${params.group_code}"` }
+
+        // Call generate-trainer-insights edge function
+        const SUPABASE_URL2 = Deno.env.get('SUPABASE_URL') || ''
+        const SERVICE_KEY2 = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || ''
+        const insightsRes = await fetch(`${SUPABASE_URL2}/functions/v1/generate-trainer-insights`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${SERVICE_KEY2}`,
+          },
+          body: JSON.stringify({ group_id: group.id }),
+        })
+        const insightsData = await insightsRes.json()
+        if (insightsData.error) return { success: false, reply: `خطأ في تحليل المجموعة: ${insightsData.error}` }
+
+        const insights = insightsData.insights || insightsData
+        let reply = `📊 تحليل مجموعة ${group.code} — ${group.name}\n\n`
+
+        if (insights.group_strengths?.length) {
+          reply += `💪 نقاط قوة المجموعة:\n${insights.group_strengths.map((s: string) => `  ✅ ${s}`).join('\n')}\n\n`
+        }
+        if (insights.group_weaknesses?.length) {
+          reply += `📈 نقاط تحسين:\n${insights.group_weaknesses.map((w: string) => `  ⚠️ ${w}`).join('\n')}\n\n`
+        }
+        if (insights.students_needing_attention?.length) {
+          reply += `🔔 طلاب يحتاجون اهتمام:\n${insights.students_needing_attention.map((s: any) => `  • ${s.name}: ${s.reason}`).join('\n')}\n\n`
+        }
+        if (insights.lesson_focus) {
+          reply += `📚 تركيز الدرس القادم: ${insights.lesson_focus}\n`
+        }
+
+        return { success: true, reply }
+      }
+
       default:
         return { success: false, reply: `الأمر "${action}" غير معروف` }
     }
@@ -1700,6 +1776,10 @@ ${role === 'admin' ? '- CREATE_GROUP: {"name":"اسم المجموعة","code":"
 
 ### المدفوعات (مشرف فقط)
 ${role === 'admin' ? `- RECORD_PAYMENT: {"student_name":"اسم","amount":600,"method":"bank_transfer|cash"}` : ''}
+
+### تحليل الذكاء الاصطناعي
+- ANALYZE_STUDENT: {"student_name":"اسم الطالب"} — تحليل شامل للطالب بالذكاء الاصطناعي (مهارات، نقاط قوة وضعف، نصائح)
+- ANALYZE_GROUP: {"group_code":"2A"} — تحليل شامل للمجموعة (نقاط قوة وضعف، طلاب يحتاجون اهتمام، تركيز الدرس)
 
 ### أنماط الأخطاء والتمارين
 - VIEW_ERROR_PATTERNS: {"student_name":"اسم"} — عرض أنماط الأخطاء النشطة للطالب

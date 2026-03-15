@@ -270,10 +270,10 @@ export default function StudentConversation() {
                 >
                   {/* Top section: badge + duration */}
                   <div className="flex items-center justify-between px-5 pt-5">
-                    <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full ${diff.color}`}>
+                    <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${diff.color}`}>
                       {diff.label}
                     </span>
-                    <div className="flex items-center gap-3 text-[11px] text-white/40">
+                    <div className="flex items-center gap-3 text-xs text-white/40">
                       <span className="flex items-center gap-1">
                         <Clock size={11} />
                         {s.duration}
@@ -308,10 +308,10 @@ export default function StudentConversation() {
                         key={idx}
                         className={`flex ${line.role === 'ai' ? 'justify-end' : 'justify-start'}`}
                       >
-                        <div className={`max-w-[85%] rounded-xl px-3 py-1.5 text-[11px] leading-relaxed ${
+                        <div className={`max-w-[85%] rounded-xl px-3 py-1.5 text-xs leading-relaxed ${
                           line.role === 'ai'
                             ? 'bg-white/[0.06] text-white/50 border border-white/[0.06]'
-                            : `${s.accentBg} text-[11px]`
+                            : `${s.accentBg} text-xs`
                         }`}>
                           {line.text}
                         </div>
@@ -374,7 +374,7 @@ export default function StudentConversation() {
                   ) : (
                     <Bot size={12} className={scenario.accent} />
                   )}
-                  <span className="text-[10px] text-muted">
+                  <span className="text-xs text-muted">
                     {msg.role === 'user' ? 'أنت' : scenario.label}
                   </span>
                 </div>

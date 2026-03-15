@@ -138,7 +138,7 @@ function CertificateCard({ cert, studentName, forwardRef }) {
         <p className="text-xs tracking-[0.25em] uppercase" style={{ color: '#D4AF37', opacity: 0.8 }}>
           {ACADEMY.name}
         </p>
-        <p className="text-[10px] tracking-widest mt-0.5" style={{ color: 'rgba(255,255,255,0.4)' }}>
+        <p className="text-xs tracking-widest mt-0.5" style={{ color: 'rgba(255,255,255,0.4)' }}>
           شهادة معتمدة
         </p>
 
@@ -185,9 +185,9 @@ function CertificateCard({ cert, studentName, forwardRef }) {
         {/* Date + QR row */}
         <div className="flex items-center justify-between w-full mt-1">
           <div className="text-right">
-            <p className="text-[10px]" style={{ color: 'rgba(255,255,255,0.35)' }}>تاريخ الإصدار</p>
+            <p className="text-xs" style={{ color: 'rgba(255,255,255,0.35)' }}>تاريخ الإصدار</p>
             <p className="text-xs font-medium text-white">{formatDateAr(cert.issuedAt)}</p>
-            <p className="text-[10px] mt-1 font-mono" style={{ color: 'rgba(212,175,55,0.6)' }}>{cert.id}</p>
+            <p className="text-xs mt-1 font-mono" style={{ color: 'rgba(212,175,55,0.6)' }}>{cert.id}</p>
           </div>
 
           <div className="flex flex-col items-center gap-1">
@@ -225,7 +225,7 @@ function CertRow({ cert, onClick, delay }) {
       <div className="flex-1 min-w-0">
         <p className="text-sm font-semibold text-white truncate">{cert.title}</p>
         <p className="text-xs text-muted mt-0.5">{cert.typeLabel}</p>
-        <p className="text-[10px] mt-1 font-mono" style={{ color: 'rgba(212,175,55,0.6)' }}>
+        <p className="text-xs mt-1 font-mono" style={{ color: 'rgba(212,175,55,0.6)' }}>
           {cert.id}
         </p>
       </div>
@@ -702,7 +702,7 @@ export default function StudentCertificate() {
               <stat.icon size={18} style={{ color: stat.color }} />
             </div>
             <p className="text-lg font-bold text-white">{stat.value}</p>
-            <p className="text-[11px] text-muted leading-tight">{stat.label}</p>
+            <p className="text-xs text-muted leading-tight">{stat.label}</p>
           </motion.div>
         ))}
       </motion.div>
@@ -732,7 +732,7 @@ export default function StudentCertificate() {
               {tab.label}
               {count > 0 && (
                 <span
-                  className="text-[10px] rounded-full px-1.5 py-0.5 leading-none"
+                  className="text-xs rounded-full px-1.5 py-0.5 leading-none"
                   style={{
                     background: active ? 'rgba(212,175,55,0.25)' : 'rgba(255,255,255,0.08)',
                     color: active ? '#D4AF37' : 'rgba(255,255,255,0.4)',

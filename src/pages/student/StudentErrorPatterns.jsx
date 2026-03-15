@@ -153,11 +153,11 @@ export default function StudentErrorPatterns() {
                             </p>
                           </div>
                           <div className="flex items-center gap-2">
-                            <span className={`text-[10px] px-2 py-0.5 rounded-full ${sev?.badgeCls || 'bg-sky-500/10 text-sky-400'} flex items-center gap-1`}>
+                            <span className={`text-xs px-2 py-0.5 rounded-full ${sev?.badgeCls || 'bg-sky-500/10 text-sky-400'} flex items-center gap-1`}>
                               <SevIcon size={10} />
                               {sev.label}
                             </span>
-                            <span className="text-[10px] text-muted">
+                            <span className="text-xs text-muted">
                               تكرار: {pattern.frequency}×
                             </span>
                           </div>
@@ -166,7 +166,7 @@ export default function StudentErrorPatterns() {
                         {/* Examples */}
                         {pattern.examples?.length > 0 && (
                           <div className="mt-3 space-y-2">
-                            <p className="text-[10px] text-muted uppercase">أمثلة:</p>
+                            <p className="text-xs text-muted uppercase">أمثلة:</p>
                             {pattern.examples.slice(0, 3).map((ex, ei) => (
                               <div key={ei} className="text-xs rounded-lg p-2" style={{ background: 'var(--color-bg-surface-raised)' }}>
                                 {ex.error && (
@@ -205,7 +205,7 @@ export default function StudentErrorPatterns() {
                         <CheckCircle2 size={14} className="text-emerald-400" />
                         <span className="text-sm text-white">{pattern.description}</span>
                       </div>
-                      <span className="text-[10px] text-muted">{SKILL_LABELS[pattern.skill]}</span>
+                      <span className="text-xs text-muted">{SKILL_LABELS[pattern.skill]}</span>
                     </div>
                   </div>
                 ))}

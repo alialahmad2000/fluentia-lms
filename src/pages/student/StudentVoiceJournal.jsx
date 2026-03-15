@@ -262,7 +262,7 @@ export default function StudentVoiceJournal() {
                     }`}
                   >
                     <span className="text-lg">{m.emoji}</span>
-                    <p className="text-[10px] mt-0.5">{m.label}</p>
+                    <p className="text-xs mt-0.5">{m.label}</p>
                   </button>
                 ))}
               </div>
@@ -360,14 +360,14 @@ export default function StudentVoiceJournal() {
                     </div>
                     <div>
                       <p className="text-sm text-white">{journal.topic || 'حرّ'}</p>
-                      <p className="text-[10px] text-muted">
+                      <p className="text-xs text-muted">
                         {new Date(journal.created_at).toLocaleDateString('ar-SA')} — {formatTime(journal.duration_seconds || 0)}
                       </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     {journal.mood && <span className="text-lg">{MOODS.find(m => m.value === journal.mood)?.emoji}</span>}
-                    <span className="text-[10px] text-violet-400">+{journal.xp_awarded} XP</span>
+                    <span className="text-xs text-violet-400">+{journal.xp_awarded} XP</span>
                   </div>
                 </div>
                 {journal.ai_feedback && (

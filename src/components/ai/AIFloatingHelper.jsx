@@ -223,7 +223,7 @@ export default function AIFloatingHelper() {
                     <div className="flex justify-start">
                       <div className="bg-white/[0.06] border border-border-subtle rounded-xl px-3 py-2 flex items-center gap-2">
                         <Loader2 size={12} className="animate-spin text-violet-400" />
-                        <span className="text-[11px] text-muted">يفكر...</span>
+                        <span className="text-xs text-muted">يفكر...</span>
                       </div>
                     </div>
                   )}

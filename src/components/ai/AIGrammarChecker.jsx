@@ -92,7 +92,7 @@ export default function AIGrammarChecker({ text, onApplyCorrection, enabled = tr
                     <span className="text-red-400 line-through" dir="ltr">{c.error}</span>
                     <span className="text-emerald-400" dir="ltr">{c.correction}</span>
                   </div>
-                  {c.rule && <p className="text-[10px] text-muted mt-0.5">{c.rule}</p>}
+                  {c.rule && <p className="text-xs text-muted mt-0.5">{c.rule}</p>}
                 </div>
                 {onApplyCorrection && (
                   <button

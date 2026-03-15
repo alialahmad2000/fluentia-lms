@@ -1,23 +1,67 @@
+import { useState, lazy, Suspense } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { Mic, CheckCircle2, Circle, ChevronDown } from 'lucide-react'
+import { Mic, CheckCircle2, Circle, BookOpen, Headphones, MessageSquare, SpellCheck } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import SubTabs from '../../components/common/SubTabs'
+
+// Lazy-load sub-tab content
+const StudentVoiceJournal = lazy(() => import('./StudentVoiceJournal'))
+const StudentPronunciation = lazy(() => import('./StudentPronunciation'))
+const StudentConversation = lazy(() => import('./StudentConversation'))
+const StudentSpelling = lazy(() => import('./StudentSpelling'))
+
+const TABS = [
+  { key: 'topics', label: 'المحادثة', icon: Mic },
+  { key: 'journal', label: 'يوميات صوتية', icon: BookOpen },
+  { key: 'pronunciation', label: 'مدرب النطق', icon: Headphones },
+  { key: 'conversation', label: 'محاكي المحادثات', icon: MessageSquare },
+  { key: 'spelling', label: 'مدرب الإملاء', icon: SpellCheck },
+]
 
 const DIFFICULTY_COLORS = {
   easy: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
   medium: 'bg-sky-500/10 text-sky-400 border-sky-500/20',
   hard: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
 }
-
 const DIFFICULTY_LABELS = { easy: 'سهل', medium: 'متوسط', hard: 'صعب' }
 
+const TabFallback = () => <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="skeleton h-20 w-full" />)}</div>
+
 export default function StudentSpeaking() {
+  const [activeTab, setActiveTab] = useState('topics')
+
+  return (
+    <div className="space-y-8">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+        <h1 className="text-page-title flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
+            <Mic size={20} className="text-violet-400" />
+          </div>
+          معمل التحدث
+        </h1>
+        <p className="text-muted text-sm mt-1">تدرب على مهارات التحدث والاستماع والنطق</p>
+      </motion.div>
+
+      <SubTabs tabs={TABS} activeTab={activeTab} onChange={setActiveTab} />
+
+      <Suspense fallback={<TabFallback />}>
+        {activeTab === 'topics' && <SpeakingTopics />}
+        {activeTab === 'journal' && <StudentVoiceJournal />}
+        {activeTab === 'pronunciation' && <StudentPronunciation />}
+        {activeTab === 'conversation' && <StudentConversation />}
+        {activeTab === 'spelling' && <StudentSpelling />}
+      </Suspense>
+    </div>
+  )
+}
+
+function SpeakingTopics() {
   const { profile, studentData } = useAuthStore()
   const queryClient = useQueryClient()
   const level = studentData?.academic_level || 1
 
-  // Speaking topics for student's level
   const { data: topics, isLoading } = useQuery({
     queryKey: ['speaking-topics', level],
     queryFn: async () => {
@@ -30,7 +74,6 @@ export default function StudentSpeaking() {
     },
   })
 
-  // Student's progress
   const { data: progress } = useQuery({
     queryKey: ['speaking-progress', profile?.id],
     queryFn: async () => {
@@ -39,19 +82,15 @@ export default function StudentSpeaking() {
         .select('topic_id, completed, completed_at')
         .eq('student_id', profile?.id)
       const map = {}
-      for (const p of data || []) {
-        map[p.topic_id] = p
-      }
+      for (const p of data || []) map[p.topic_id] = p
       return map
     },
     enabled: !!profile?.id,
   })
 
-  // Toggle completion
   const toggleMutation = useMutation({
     mutationFn: async ({ topicId, completed }) => {
       if (completed) {
-        // Mark as completed
         const { error } = await supabase.from('student_speaking_progress').upsert({
           student_id: profile?.id,
           topic_id: topicId,
@@ -60,7 +99,6 @@ export default function StudentSpeaking() {
         }, { onConflict: 'student_id,topic_id' }).select()
         if (error) throw error
       } else {
-        // Unmark
         const { error } = await supabase
           .from('student_speaking_progress')
           .update({ completed: false, completed_at: null })
@@ -70,9 +108,7 @@ export default function StudentSpeaking() {
         if (error) throw error
       }
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['speaking-progress'] })
-    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['speaking-progress'] }),
   })
 
   const completedCount = Object.values(progress || {}).filter(p => p.completed).length
@@ -80,21 +116,11 @@ export default function StudentSpeaking() {
   const progressPct = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0
 
   return (
-    <div className="space-y-12">
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-page-title flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
-            <Mic size={20} className="text-violet-400" />
-          </div>
-          مواضيع المحادثة
-        </h1>
-        <p className="text-muted text-sm mt-1">تدرب على مواضيع المحادثة لمستواك</p>
-      </motion.div>
-
+    <div className="space-y-8">
       {/* Progress bar */}
-      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="glass-card p-7">
+      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-6">
         <div className="flex items-center justify-between mb-3">
-          <p className="text-sm font-medium text-white">التقدم</p>
+          <p className="text-sm font-medium" style={{ color: 'var(--color-text-primary)' }}>التقدم</p>
           <p className="text-sm text-sky-400">{completedCount}/{totalCount} ({progressPct}%)</p>
         </div>
         <div className="w-full h-3 rounded-full overflow-hidden" style={{ background: 'var(--color-bg-surface-raised)' }}>
@@ -107,7 +133,6 @@ export default function StudentSpeaking() {
         </div>
       </motion.div>
 
-      {/* Topics list */}
       {isLoading ? (
         <div className="space-y-3">{[1, 2, 3].map(i => <div key={i} className="skeleton h-20 w-full" />)}</div>
       ) : topics?.length === 0 ? (
@@ -116,7 +141,7 @@ export default function StudentSpeaking() {
           <p className="text-muted">لا توجد مواضيع لمستواك حالياً</p>
         </div>
       ) : (
-        <div className="space-y-6">
+        <div className="space-y-4">
           {topics.map((topic, i) => {
             const isCompleted = progress?.[topic.id]?.completed
             return (
@@ -125,7 +150,7 @@ export default function StudentSpeaking() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.04 }}
-                className={`glass-card p-4 hover:translate-y-[-2px] transition-all duration-200 ${isCompleted ? 'border-emerald-500/20' : ''}`}
+                className={`glass-card p-5 hover:translate-y-[-2px] transition-all duration-200 ${isCompleted ? 'border-emerald-500/20' : ''}`}
               >
                 <div className="flex items-start gap-3">
                   <button
@@ -142,28 +167,24 @@ export default function StudentSpeaking() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-xs text-muted">#{topic.topic_number}</span>
-                      <h3 className={`text-sm font-medium ${isCompleted ? 'text-muted line-through' : 'text-white'}`}>
+                      <h3 className={`text-sm font-medium ${isCompleted ? 'text-muted line-through' : ''}`} style={!isCompleted ? { color: 'var(--color-text-primary)' } : undefined}>
                         {topic.title_en}
                       </h3>
                     </div>
-                    {topic.title_ar && (
-                      <p className="text-xs text-muted mb-2">{topic.title_ar}</p>
-                    )}
+                    {topic.title_ar && <p className="text-xs text-muted mb-2">{topic.title_ar}</p>}
                     {topic.prompt_questions?.length > 0 && (
                       <div className="space-y-1 mt-2">
                         {topic.prompt_questions.map((q, qi) => (
-                          <p key={qi} className="text-xs text-muted/80 pr-3 border-r border-border-subtle" dir="ltr">
-                            {q}
-                          </p>
+                          <p key={qi} className="text-xs text-muted/80 pr-3 border-r border-border-subtle" dir="ltr">{q}</p>
                         ))}
                       </div>
                     )}
                     <div className="flex items-center gap-2 mt-2">
                       {topic.category && (
-                        <span className="text-[10px] text-muted px-2 py-0.5 rounded-lg" style={{ background: 'var(--color-bg-surface-raised)' }}>{topic.category}</span>
+                        <span className="text-xs text-muted px-2 py-0.5 rounded-lg" style={{ background: 'var(--color-bg-surface-raised)' }}>{topic.category}</span>
                       )}
                       {topic.difficulty && (
-                        <span className={`text-[10px] px-2 py-0.5 rounded-lg border ${DIFFICULTY_COLORS[topic.difficulty] || DIFFICULTY_COLORS.medium}`}>
+                        <span className={`text-xs px-2 py-0.5 rounded-lg border ${DIFFICULTY_COLORS[topic.difficulty] || DIFFICULTY_COLORS.medium}`}>
                           {DIFFICULTY_LABELS[topic.difficulty] || topic.difficulty}
                         </span>
                       )}

@@ -132,7 +132,7 @@ export default function ImageUpload({ images, onImagesChange, maxImages = 4 }) {
               >
                 <X size={14} />
               </button>
-              <p className="text-[10px] text-muted text-center py-1">{formatSize(img.size)}</p>
+              <p className="text-xs text-muted text-center py-1">{formatSize(img.size)}</p>
             </div>
           ))}
         </div>

@@ -1,6 +1,6 @@
 # CLAUDE.md — Fluentia LMS Project Context
 # This file is auto-read by Claude Code on every session start.
-# Last updated: March 14, 2026
+# Last updated: March 15, 2026
 #
 # 📖 FULL SPEC: For detailed database schemas, assignment types, Telegram analysis,
 #    level curriculum, gamification rules, and complete build specification, read:
@@ -194,28 +194,26 @@ English body: 'Inter'
 
 **Post-build:** 80+ bug production audit complete, security fixes done, real student data seeded.
 
-**Stats:** 62 pages, 17 edge functions, full PWA, 43+ DB tables, 96+ RLS policies.
+**Stats:** 66 pages, 25 edge functions, full PWA, 45+ DB tables, 100+ RLS policies.
 
-### Sidebar Structure (Student):
-```
-الرئيسية
+### Sidebar Structure (Flat — NO collapsible groups):
 
-التعلم ▾
-  الواجبات
-  الاختبارات
-  الجدول
-  المكتبة
+**Student (7 items):**
+الرئيسية, مهامي, معمل التحدث, الدرجات, المحادثة, المساعد الذكي, حسابي
 
-معمل التحدث ▾
-  المحادثه
-  يوميات صوتية
-  مدرب النطق
-  محاكي المحادثات
+**Trainer (7 items):**
+الرئيسية, الواجبات والتقييم, المهام الأسبوعية, الطلاب, الحصة المباشرة, المساعد الذكي, الأدوات
 
-التقدم ▾
-  الدرجات
-  التقييمات
-```
+**Admin (8 items):**
+لوحة التحكم, التدريس, الطلاب, المالية, المحتوى, التحليلات, المساعد الذكي, الإعدادات
+
+### Sub-Tab Consolidation:
+Pages removed from sidebar are accessible via sub-tabs inside hub pages. All 66+ pages reachable within 2 clicks.
+
+### New Systems:
+- **Force Password Change** — new students must change temp password on first login
+- **Data Reset** — admin can reset all student data (danger zone with double confirmation)
+- **AI Student Profiles** — Claude-powered skill analysis with radar chart, strengths/weaknesses, tips
 
 ---
 
@@ -287,6 +285,34 @@ Claude Code: Add new entries at the TOP of this section.
 Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
+
+### March 15, 2026 — Part 9: Full Page Sweep + Level-Up Fix + Remaining Gaps
+- What: Typography sweep, level-up popup fix, OnboardingModal simplification, dashboard AI cards, AI assistant commands
+- **Typography sweep:** Replaced all `text-[10px]` and `text-[11px]` with `text-xs` (12px) across 60 files, 187 occurrences. No text below 12px remains.
+- **Level-up popup fix (CRITICAL):** Root cause — authStore had NO real-time subscription to students table, so XP changes were never detected. Fixed by adding Supabase Realtime channel subscription in authStore for student updates. Also refactored GamificationProvider to use `useRef` instead of fragile `useState` + eslint-disable hack.
+- **OnboardingModal simplified:** Reduced from 4 steps to 3 — merged "Your Info" + "Display Name" into a single step. Now: Welcome → Info+Name → Quick Tips.
+- **TrainerDashboard:** Added GroupInsightsCard — shows AI profile analysis summary (analyzed count, avg skills across all students).
+- **AdminDashboard:** Added AIOverviewCard — shows analyzed profiles count, total students, AI cost from ai_usage.
+- **AI Trainer Assistant commands:** Added ANALYZE_STUDENT and ANALYZE_GROUP commands to edge function — "حلل طالب [name]" calls generate-ai-student-profile, "حلل المجموعة [code]" calls generate-trainer-insights.
+- Files: 60+ JSX files (typography), authStore.js, GamificationProvider.jsx, OnboardingModal.jsx, TrainerDashboard.jsx, AdminDashboard.jsx, ai-trainer-assistant/index.ts
+- Status: Complete — build verified
+- Notes: Remaining `text-white` in weekly task pages is intentional (dark glassmorphism design with opacity-based text). Core pages support light mode via CSS vars.
+
+### March 15, 2026 — Full LMS Transformation (Parts 1-8)
+- What: Complete UX overhaul — sidebar simplification, dashboard hub, sub-tab consolidation, force password change, data reset system, AI student profiles
+- **Part 1 — DB Migration:** `supabase/migrations/022_transformation_schema.sql` — `must_change_password`, `first_login_at` on profiles, `temp_password` on students, `ai_student_profiles` table, `data_reset_log` table + RLS
+- **Part 2 — Sidebar:** Flattened from 31/23/34 items to 7/7/8 per role. No collapsible groups. Width 250px. Updated mobile bottom tabs in LayoutShell.
+- **Part 3 — Dashboard Hub:** Added Quick Access Grid (2×3: واجبات, اختبارات, جدول, مكتبة, شهادات, متصدرين) and Community Section (horizontal scroll: نشاط, تحديات, معارك, فعاليات, تقدير) to StudentDashboard
+- **Part 4 — Sub-Tabs:** 11 pages consolidated with SubTabs component: StudentSpeaking (5 tabs), StudentGrades (5), StudentProfile (5), StudentChatbot (4), StudentGroupChat (2), TrainerQuickPoints (2), TrainerSchedule→Tools (7), AdminStudents (3), AdminContent (3), AdminReports (3), AdminSettings (3)
+- **Part 5 — Force Password Change:** ForcePasswordChange.jsx full-screen modal, checks `must_change_password` flag, updates auth + profile. AdminStudents enhanced with AddStudentModal (auto temp password, WhatsApp copy).
+- **Part 6 — Data Reset:** `reset-all-data` edge function truncates 16 student data tables, resets stats. AdminSettings danger zone with double confirmation (Step 1 confirm + Step 2 type "RESET").
+- **Part 7 — AI Profiles Backend:** `generate-ai-student-profile` gathers all student data → Claude analysis → upserts ai_student_profiles. `generate-trainer-insights` analyzes group-level patterns.
+- **Part 8 — AI Profiles Frontend:** StudentAIProfile.jsx component with RadarChart, strengths/weaknesses badges, tips, summaries. Integrated into StudentProfile (ملفي الذكي tab) and TrainerStudentView (الملف الذكي tab).
+- Files: 20+ files created/modified (see summary above)
+- DB: Migration 022 needs to be run in Supabase SQL Editor
+- Edge Functions: reset-all-data, generate-ai-student-profile, generate-trainer-insights need deployment with --no-verify-jwt
+- Status: Parts 1-8 complete. Part 9 (full page sweep) and minor Part 5/7/8 gaps remain.
+- Remaining gaps: OnboardingModal simplification, ai-trainer-assistant commands, TrainerDashboard insights card, AdminDashboard AI card, StudentWowMoments component, Part 9 page sweep
 
 ### March 14, 2026 — Fix Weekly Tasks: Tailwind Opacity, DB Constraints, ai_usage Column Names
 - What: Fixed multiple issues in weekly task pages and edge function

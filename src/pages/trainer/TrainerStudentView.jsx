@@ -14,6 +14,7 @@ import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import { formatDateAr } from '../../utils/dateHelpers'
+import StudentAIProfile from '../../components/ai/StudentAIProfile'
 
 // ─── Constants ─────────────────────────────────────────────
 
@@ -64,6 +65,7 @@ const SKILL_LABELS = {
 
 const TABS = [
   { key: 'overview', label: 'الملخص', icon: BarChart3 },
+  { key: 'ai-profile', label: 'الملف الذكي', icon: Brain },
   { key: 'assignments', label: 'الواجبات', icon: FileText },
   { key: 'skills', label: 'المهارات', icon: Brain },
   { key: 'attendance', label: 'الحضور', icon: Calendar },
@@ -343,6 +345,9 @@ function StudentDetailView({ student, isAdmin, onBack }) {
           exit={{ opacity: 0, y: -8 }}
           transition={{ duration: 0.15 }}
         >
+          {activeTab === 'ai-profile' && (
+            <StudentAIProfile studentId={student.id} showGenerate showEnglishSummary />
+          )}
           {activeTab === 'overview' && (
             <OverviewTab
               student={student}
@@ -404,7 +409,7 @@ function StatCard({ icon: Icon, color, value, label }) {
         <Icon size={16} className={STAT_COLOR_CLASSES[color] || 'text-sky-400'} />
       </div>
       <p className="text-page-title mt-2">{value}</p>
-      <p className="stat-label text-[10px]">{label}</p>
+      <p className="stat-label text-xs">{label}</p>
     </div>
   )
 }
@@ -481,8 +486,8 @@ function OverviewTab({ student, submissions, attendance, xpHistory, gradedSubs, 
           <div key={xp.id} className="flex items-center justify-between p-2 rounded-lg" style={{ background: 'var(--color-bg-surface-raised)' }}>
             <div>
               <p className="text-xs text-white">{XP_REASON_LABELS[xp.reason] || xp.reason}</p>
-              {xp.description && <p className="text-[10px] text-muted mt-0.5">{xp.description}</p>}
-              <p className="text-[10px] text-muted">{formatDateAr(xp.created_at)}</p>
+              {xp.description && <p className="text-xs text-muted mt-0.5">{xp.description}</p>}
+              <p className="text-xs text-muted">{formatDateAr(xp.created_at)}</p>
             </div>
             <span className={`text-sm font-bold ${xp.amount > 0 ? 'text-emerald-400' : 'text-red-400'}`}>
               {xp.amount > 0 ? '+' : ''}{xp.amount}
@@ -552,7 +557,7 @@ function AssignmentsTab({ submissions }) {
                   <Icon size={14} className={typeInfo.color} />
                   <span className="text-sm text-white">{s.assignments?.title || 'واجب'}</span>
                   {s.is_late && (
-                    <span className="badge-yellow text-[10px]">متأخر</span>
+                    <span className="badge-yellow text-xs">متأخر</span>
                   )}
                 </div>
                 <div className="flex items-center gap-2">
@@ -573,9 +578,9 @@ function AssignmentsTab({ submissions }) {
                 </div>
               </div>
               <div className="flex items-center justify-between mt-2">
-                <p className="text-[10px] text-muted">{formatDateAr(s.submitted_at)}</p>
+                <p className="text-xs text-muted">{formatDateAr(s.submitted_at)}</p>
                 {s.trainer_feedback && (
-                  <p className="text-[10px] text-muted max-w-[60%] truncate" title={s.trainer_feedback}>
+                  <p className="text-xs text-muted max-w-[60%] truncate" title={s.trainer_feedback}>
                     💬 {s.trainer_feedback}
                   </p>
                 )}
@@ -681,7 +686,7 @@ function SkillsTab({ snapshots, studentName }) {
           </ResponsiveContainer>
         </div>
         {current.snapshot_date && (
-          <p className="text-[10px] text-muted text-center mt-1">
+          <p className="text-xs text-muted text-center mt-1">
             آخر تحديث: {formatDateAr(current.snapshot_date)}
           </p>
         )}
@@ -704,7 +709,7 @@ function SkillsTab({ snapshots, studentName }) {
                       {val}%
                     </span>
                     {diff !== null && diff !== 0 && (
-                      <span className={`text-[10px] flex items-center gap-0.5 ${diff > 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                      <span className={`text-xs flex items-center gap-0.5 ${diff > 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                         {diff > 0 ? <TrendingUp size={10} /> : <TrendingDown size={10} />}
                         {diff > 0 ? '+' : ''}{diff}%
                       </span>
@@ -746,8 +751,8 @@ function SkillsTab({ snapshots, studentName }) {
             <h4 className="text-xs text-muted mb-2">سجل التحديثات</h4>
             {snapshots.slice(0, 5).map((snap, i) => (
               <div key={i} className="flex items-center justify-between py-1.5 border-b border-border-subtle last:border-0">
-                <span className="text-[10px] text-muted">{formatDateAr(snap.snapshot_date)}</span>
-                <div className="flex items-center gap-2 text-[10px]">
+                <span className="text-xs text-muted">{formatDateAr(snap.snapshot_date)}</span>
+                <div className="flex items-center gap-2 text-xs">
                   {Object.keys(SKILL_LABELS).map(key => (
                     <span key={key} className="text-muted">
                       {SKILL_LABELS[key][0]}: <span className="text-white">{snap[key]}</span>
@@ -859,7 +864,7 @@ function AttendanceTab({ attendance }) {
                 return (
                   <div key={i} className="group relative">
                     <div className={`w-6 h-6 rounded-full ${config.bg} opacity-80 hover:opacity-100 transition-opacity cursor-default`} />
-                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 hidden group-hover:block bg-dark-800 text-white text-[10px] px-2 py-1 rounded whitespace-nowrap z-10">
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 hidden group-hover:block bg-dark-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap z-10">
                       {r.date} — {config.label}
                     </div>
                   </div>
@@ -880,7 +885,7 @@ function AttendanceTab({ attendance }) {
             <div key={a.id} className="flex items-center justify-between p-2.5 rounded-xl" style={{ background: 'var(--color-bg-surface-raised)' }}>
               <div>
                 <p className="text-xs text-white">{a.classes?.title || 'حصة'}</p>
-                <p className="text-[10px] text-muted">{formatDateAr(a.classes?.date || a.created_at)}</p>
+                <p className="text-xs text-muted">{formatDateAr(a.classes?.date || a.created_at)}</p>
               </div>
               <div className="flex items-center gap-1">
                 <Icon size={12} className={config.color} />
@@ -1076,8 +1081,8 @@ function AnalysisTab({ student, studentName }) {
           return (
             <div key={n.id} className="rounded-xl p-3" style={{ background: 'var(--color-bg-surface-raised)' }}>
               <div className="flex items-center justify-between mb-1">
-                <span className={`text-[10px] font-medium ${typeInfo.color}`}>{typeInfo.label}</span>
-                <span className="text-[10px] text-muted">{formatDateAr(n.created_at)}</span>
+                <span className={`text-xs font-medium ${typeInfo.color}`}>{typeInfo.label}</span>
+                <span className="text-xs text-muted">{formatDateAr(n.created_at)}</span>
               </div>
               {n.title !== 'ملاحظة من المدرب' && (
                 <p className="text-xs text-white font-medium mb-0.5">{n.title}</p>
@@ -1179,21 +1184,21 @@ function PaymentsTab({ studentId, student }) {
               <div className="flex items-center gap-2">
                 <span className="text-sm font-bold text-white">{p.amount} ر.س</span>
                 <span className={
-                  p.status === 'paid' ? 'badge-green text-[10px]' :
-                  p.status === 'pending' ? 'badge-yellow text-[10px]' :
-                  p.status === 'overdue' || p.status === 'failed' ? 'badge-red text-[10px]' :
-                  'badge-blue text-[10px]'
+                  p.status === 'paid' ? 'badge-green text-xs' :
+                  p.status === 'pending' ? 'badge-yellow text-xs' :
+                  p.status === 'overdue' || p.status === 'failed' ? 'badge-red text-xs' :
+                  'badge-blue text-xs'
                 }>
                   {STATUS_TEXT[p.status] || p.status}
                 </span>
               </div>
-              <p className="text-[10px] text-muted mt-0.5">
+              <p className="text-xs text-muted mt-0.5">
                 {METHOD_LABELS[p.method] || p.method || '—'}
                 {p.period_start && ` • ${p.period_start} → ${p.period_end}`}
               </p>
-              {p.notes && <p className="text-[10px] text-muted mt-0.5">{p.notes}</p>}
+              {p.notes && <p className="text-xs text-muted mt-0.5">{p.notes}</p>}
             </div>
-            <p className="text-[10px] text-muted">{formatDateAr(p.paid_at || p.created_at)}</p>
+            <p className="text-xs text-muted">{formatDateAr(p.paid_at || p.created_at)}</p>
           </div>
         ))}
       </div>

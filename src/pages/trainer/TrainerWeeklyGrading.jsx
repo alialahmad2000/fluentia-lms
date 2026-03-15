@@ -131,7 +131,7 @@ export default function TrainerWeeklyGrading() {
         className="rounded-2xl border border-white/[0.06] p-5"
         style={{ background: 'rgba(255,255,255,0.02)' }}
       >
-        <div className="flex items-center gap-2 mb-3 text-[11px] text-white/25 font-medium">
+        <div className="flex items-center gap-2 mb-3 text-xs text-white/25 font-medium">
           <Filter size={12} />
           <span>تصفية</span>
         </div>
@@ -204,7 +204,7 @@ export default function TrainerWeeklyGrading() {
                 <card.icon size={18} className={card.iconColor} />
               </div>
               <div>
-                <p className="text-[11px] text-white/30 font-medium">{card.label}</p>
+                <p className="text-xs text-white/30 font-medium">{card.label}</p>
                 <p className="text-xl font-bold text-white mt-0.5">{card.value}</p>
               </div>
             </div>
@@ -256,17 +256,17 @@ export default function TrainerWeeklyGrading() {
                           {task.title || typeInfo.label}
                         </h3>
                         {task.status === 'graded' && (
-                          <span className="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/15 text-[10px] font-medium shrink-0">
+                          <span className="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/15 text-xs font-medium shrink-0">
                             تم التقييم
                           </span>
                         )}
                         {task.status === 'submitted' && (
-                          <span className="px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/15 text-[10px] font-medium shrink-0">
+                          <span className="px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/15 text-xs font-medium shrink-0">
                             بانتظار
                           </span>
                         )}
                       </div>
-                      <div className="flex items-center gap-3 text-[11px] text-white/25">
+                      <div className="flex items-center gap-3 text-xs text-white/25">
                         <span className="font-medium text-white/40">{getStudentName(task)}</span>
                         {task.submitted_at && <span>{timeAgo(task.submitted_at)}</span>}
                       </div>
@@ -275,13 +275,13 @@ export default function TrainerWeeklyGrading() {
                     <div className="flex items-center gap-4 shrink-0">
                       {task.auto_score != null && (
                         <div className="text-center">
-                          <p className="text-[10px] text-white/20 mb-0.5">AI</p>
+                          <p className="text-xs text-white/20 mb-0.5">AI</p>
                           <p className="text-lg font-bold text-sky-400">{task.auto_score}%</p>
                         </div>
                       )}
                       {task.trainer_grade_numeric != null && (
                         <div className="text-center">
-                          <p className="text-[10px] text-white/20 mb-0.5">المدرب</p>
+                          <p className="text-xs text-white/20 mb-0.5">المدرب</p>
                           <p className="text-lg font-bold text-emerald-400">{task.trainer_grade_numeric}%</p>
                         </div>
                       )}
@@ -412,12 +412,12 @@ function GradingModal({ task, getStudentName, onClose }) {
           {/* Meta badges */}
           <div className="flex flex-wrap items-center gap-2 mb-5">
             {task.submitted_at && (
-              <span className="px-2.5 py-0.5 rounded-md bg-white/[0.03] border border-white/[0.06] text-white/30 text-[11px]">
+              <span className="px-2.5 py-0.5 rounded-md bg-white/[0.03] border border-white/[0.06] text-white/30 text-xs">
                 {formatDateAr(task.submitted_at)}
               </span>
             )}
             {task.auto_score != null && (
-              <span className="px-2.5 py-0.5 rounded-md bg-sky-500/10 border border-sky-500/15 text-sky-400 text-[11px] font-medium">
+              <span className="px-2.5 py-0.5 rounded-md bg-sky-500/10 border border-sky-500/15 text-sky-400 text-xs font-medium">
                 AI: {task.auto_score}%
               </span>
             )}
@@ -441,18 +441,18 @@ function GradingModal({ task, getStudentName, onClose }) {
 
             {task.response_voice_transcript && (
               <div className="rounded-xl bg-white/[0.02] border border-white/[0.04] p-3">
-                <p className="text-[10px] text-white/20 mb-1">النص المفرّغ:</p>
+                <p className="text-xs text-white/20 mb-1">النص المفرّغ:</p>
                 <p className="text-sm text-white/60 leading-relaxed" dir="ltr">{task.response_voice_transcript}</p>
               </div>
             )}
 
             {task.response_answers && Array.isArray(task.response_answers) && (
               <div className="rounded-xl bg-white/[0.02] border border-white/[0.04] p-4">
-                <p className="text-[10px] text-white/20 mb-2">الإجابات:</p>
+                <p className="text-xs text-white/20 mb-2">الإجابات:</p>
                 <div className="space-y-1.5">
                   {task.response_answers.map((answer, idx) => (
                     <div key={idx} className="flex items-center gap-2 text-sm">
-                      <span className="w-5 h-5 rounded-md bg-white/[0.04] flex items-center justify-center text-[10px] text-white/20 shrink-0">
+                      <span className="w-5 h-5 rounded-md bg-white/[0.04] flex items-center justify-center text-xs text-white/20 shrink-0">
                         {idx + 1}
                       </span>
                       <span className="text-white/60" dir="ltr">{typeof answer === 'object' ? JSON.stringify(answer) : answer}</span>
@@ -471,7 +471,7 @@ function GradingModal({ task, getStudentName, onClose }) {
                 {task.auto_score != null && (
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-sky-400 font-bold text-base">{task.auto_score}%</span>
-                    <span className="text-[10px] text-white/20">({numericToLetter(task.auto_score)})</span>
+                    <span className="text-xs text-white/20">({numericToLetter(task.auto_score)})</span>
                   </div>
                 )}
                 {task.ai_feedback && (
@@ -483,7 +483,7 @@ function GradingModal({ task, getStudentName, onClose }) {
                         ))}
                         {task.ai_feedback.corrected_text && (
                           <div className="mt-2 p-3 rounded-lg bg-white/[0.03]">
-                            <p className="text-[10px] text-white/20 mb-1">النص المصحح:</p>
+                            <p className="text-xs text-white/20 mb-1">النص المصحح:</p>
                             <p className="text-xs" dir="ltr">{task.ai_feedback.corrected_text}</p>
                           </div>
                         )}
@@ -503,7 +503,7 @@ function GradingModal({ task, getStudentName, onClose }) {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-[11px] text-white/25 mb-1.5 block">التقدير</label>
+                <label className="text-xs text-white/25 mb-1.5 block">التقدير</label>
                 <div className="relative">
                   <select
                     value={grade}
@@ -522,7 +522,7 @@ function GradingModal({ task, getStudentName, onClose }) {
               </div>
 
               <div>
-                <label className="text-[11px] text-white/25 mb-1.5 block">الدرجة (0-100)</label>
+                <label className="text-xs text-white/25 mb-1.5 block">الدرجة (0-100)</label>
                 <input
                   type="number"
                   min="0"
@@ -541,7 +541,7 @@ function GradingModal({ task, getStudentName, onClose }) {
             </div>
 
             <div>
-              <label className="text-[11px] text-white/25 mb-1.5 block">ملاحظات المدرب</label>
+              <label className="text-xs text-white/25 mb-1.5 block">ملاحظات المدرب</label>
               <textarea
                 value={feedback}
                 onChange={e => setFeedback(e.target.value)}
