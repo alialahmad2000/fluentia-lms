@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import {
   Flame, Zap, Trophy, BookOpen, Calendar, ArrowLeft, CreditCard, Crosshair,
-  CalendarDays, FileText, ClipboardCheck, Award, Users, Activity, Target, Swords,
+  CalendarDays, FileText, ClipboardCheck, Award, Users, Activity, Target, Swords, PlayCircle,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
@@ -34,6 +34,7 @@ const QUICK_ACCESS = [
   { to: '/student/library', label: 'المكتبة', icon: BookOpen, color: 'amber' },
   { to: '/student/certificates', label: 'شهاداتي', icon: Award, color: 'gold' },
   { to: '/student/leaderboard', label: 'المتصدرين', icon: Trophy, color: 'rose' },
+  { to: '/student/recordings', label: 'التسجيلات', icon: PlayCircle, color: 'sky' },
 ]
 
 const COLOR_MAP = {

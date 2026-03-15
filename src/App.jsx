@@ -45,6 +45,7 @@ const StudentReferral = lazyRetry(() => import('./pages/student/StudentReferral'
 const StudentWeeklyTasks = lazyRetry(() => import('./pages/student/StudentWeeklyTasks'))
 const StudentWeeklyTaskDetail = lazyRetry(() => import('./pages/student/StudentWeeklyTaskDetail'))
 const StudentSpelling = lazyRetry(() => import('./pages/student/StudentSpelling'))
+const StudentRecordings = lazyRetry(() => import('./pages/student/StudentRecordings'))
 
 const TrainerDashboard = lazyRetry(() => import('./pages/trainer/TrainerDashboard'))
 const TrainerAssignments = lazyRetry(() => import('./pages/trainer/TrainerAssignments'))
@@ -81,6 +82,7 @@ const AdminAuditLog = lazyRetry(() => import('./pages/admin/AdminAuditLog'))
 const AdminTestimonials = lazyRetry(() => import('./pages/admin/AdminTestimonials'))
 const AdminActionCenter = lazyRetry(() => import('./pages/admin/AdminActionCenter'))
 const AdminDataExport = lazyRetry(() => import('./pages/admin/AdminDataExport'))
+const AdminRecordings = lazyRetry(() => import('./pages/admin/AdminRecordings'))
 
 const ForgotPassword = lazyRetry(() => import('./pages/public/ForgotPassword'))
 const ParentDashboard = lazyRetry(() => import('./pages/public/ParentDashboard'))
@@ -243,6 +245,7 @@ export default function App() {
               <Route path="/student/weekly-tasks" element={<Page><StudentWeeklyTasks /></Page>} />
               <Route path="/student/weekly-tasks/:id" element={<Page><StudentWeeklyTaskDetail /></Page>} />
               <Route path="/student/spelling" element={<Page><StudentSpelling /></Page>} />
+              <Route path="/student/recordings" element={<Page><StudentRecordings /></Page>} />
             </Route>
           </Route>
 
@@ -290,6 +293,7 @@ export default function App() {
               <Route path="/admin/testimonials" element={<Page><AdminTestimonials /></Page>} />
               <Route path="/admin/today" element={<Page><AdminActionCenter /></Page>} />
               <Route path="/admin/export" element={<Page><AdminDataExport /></Page>} />
+              <Route path="/admin/recordings" element={<Page><AdminRecordings /></Page>} />
             </Route>
           </Route>
 

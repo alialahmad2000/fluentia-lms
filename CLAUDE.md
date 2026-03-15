@@ -286,6 +286,19 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### March 15, 2026 — Class Recordings + Notification Fix + Level-Up Fix + Remaining Gaps
+- What: Class recordings system (Google Drive embed), notification dropdown opacity fix, AI form filler integration
+- **Migration 023:** `class_recordings` table (level/type/track, Google Drive embed, RLS for student level/group access), `weekly_schedule_config` table, `student_planned_tasks` table
+- **StudentRecordings.jsx (NEW):** Filter tabs by class type, responsive card grid, Google Drive iframe video modal, view count increment
+- **AdminRecordings.jsx (NEW):** Add recording form with all fields, AI form filler integration (sends proper formSchema to edge function), visibility toggle, soft delete, batch entry flow
+- **AdminContent.jsx:** Added "التسجيلات" tab rendering AdminRecordings as sub-tab
+- **StudentDashboard.jsx:** Added "التسجيلات" quick access card linking to /student/recordings
+- **App.jsx:** Added routes for /student/recordings and /admin/recordings with lazy imports
+- **NotificationCenter.jsx:** Fixed dropdown opacity — replaced glass-card-raised with explicit `rgba(6,14,28,0.97)` opaque background + blur
+- Files: StudentRecordings.jsx, AdminRecordings.jsx, AdminContent.jsx, StudentDashboard.jsx, App.jsx, NotificationCenter.jsx, migration 023
+- DB: Migration 023 needs to be run in Supabase SQL Editor
+- Status: Complete — build verified
+
 ### March 15, 2026 — Part 9: Full Page Sweep + Level-Up Fix + Remaining Gaps
 - What: Typography sweep, level-up popup fix, OnboardingModal simplification, dashboard AI cards, AI assistant commands
 - **Typography sweep:** Replaced all `text-[10px]` and `text-[11px]` with `text-xs` (12px) across 60 files, 187 occurrences. No text below 12px remains.

@@ -179,8 +179,8 @@ export default function NotificationCenter() {
             transition={{ duration: 0.15 }}
             role="dialog"
             aria-label="مركز الإشعارات"
-            className="absolute top-full left-0 mt-2 w-80 sm:w-96 glass-card-raised rounded-2xl shadow-2xl overflow-hidden z-50"
-            style={{ maxHeight: '70vh' }}
+            className="absolute top-full left-0 mt-2 w-80 sm:w-96 rounded-2xl overflow-hidden z-50"
+            style={{ maxHeight: '70vh', background: 'var(--color-dropdown-bg, rgba(6,14,28,0.97))', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05)' }}
           >
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: 'var(--color-border-subtle)' }}>

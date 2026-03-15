@@ -31,6 +31,7 @@
   --color-skeleton: rgba(255,255,255,0.05);
   --color-select-option-bg: #0a1225;
   --color-select-option-text: #ffffff;
+  --color-dropdown-bg: rgba(6,14,28,0.97);
 }
 
 .light {
@@ -58,6 +59,7 @@
   --color-skeleton: rgba(0,0,0,0.06);
   --color-select-option-bg: #ffffff;
   --color-select-option-text: #1a2d50;
+  --color-dropdown-bg: rgba(255,255,255,0.97);
 }
 
 @layer base {

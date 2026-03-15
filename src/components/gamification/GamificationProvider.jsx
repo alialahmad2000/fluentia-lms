@@ -124,25 +124,33 @@ export default function GamificationProvider() {
   const currentXp = studentData?.xp_total || 0
 
   // Check for level up when XP changes (real-time via authStore subscription)
+  // Uses localStorage to ensure popup only shows once per level-up
   useEffect(() => {
-    if (!isStudent) return
+    if (!isStudent || !studentId) return
+
+    const currentLevel = getLevel(currentXp)
+    const lastSeenLevel = parseInt(localStorage.getItem(`fluentia_last_seen_level_${studentId}`) || '0')
 
     if (lastCheckedXpRef.current === null) {
       lastCheckedXpRef.current = currentXp
+      // On first load, sync localStorage if never set
+      if (!lastSeenLevel) {
+        localStorage.setItem(`fluentia_last_seen_level_${studentId}`, String(currentLevel.level))
+      }
       return
     }
 
     if (currentXp > lastCheckedXpRef.current) {
-      const oldLevel = getLevel(lastCheckedXpRef.current)
       const newLevel = getLevel(currentXp)
 
-      if (newLevel.level > oldLevel.level) {
+      if (newLevel.level > lastSeenLevel) {
         setLevelUp(newLevel.level)
+        localStorage.setItem(`fluentia_last_seen_level_${studentId}`, String(newLevel.level))
       }
     }
 
     lastCheckedXpRef.current = currentXp
-  }, [currentXp, isStudent])
+  }, [currentXp, isStudent, studentId])
 
   // Check for new achievements periodically
   const checkAchievements = useCallback(async () => {
