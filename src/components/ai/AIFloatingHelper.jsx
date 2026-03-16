@@ -217,7 +217,7 @@ export default function AIFloatingHelper() {
 
                   {sending && (
                     <div className="flex justify-start">
-                      <div className="bg-white/[0.06] border border-border-subtle rounded-xl px-3 py-2 flex items-center gap-2">
+                      <div className="border border-[var(--border-subtle)] rounded-xl px-3 py-2 flex items-center gap-2" style={{ background: 'var(--surface-raised)' }}>
                         <Loader2 size={12} className="animate-spin text-violet-400" />
                         <span className="text-xs text-muted">يفكر...</span>
                       </div>

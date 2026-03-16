@@ -289,8 +289,8 @@ export default function StudentMessages() {
                         <div className={`rounded-2xl px-3.5 py-2 text-sm ${
                           isMe
                             ? 'bg-sky-500/10 border border-sky-500/20 text-[var(--text-primary)]'
-                            : 'bg-white/5 border border-border-subtle text-[var(--text-primary)]'
-                        }`}>
+                            : 'border border-[var(--border-subtle)] text-[var(--text-primary)]'
+                        }`} style={isMe ? undefined : { background: 'var(--surface-raised)' }}>
                           <p className="whitespace-pre-wrap break-words">{msg.content}</p>
                         </div>
                         <div className={`flex items-center gap-1 mt-0.5 ${isMe ? 'justify-end' : ''}`}>

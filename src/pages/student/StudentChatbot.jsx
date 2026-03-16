@@ -183,7 +183,7 @@ function ChatContent() {
               <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm ${
                   msg.role === 'user' ? 'bg-sky-500/20' : msg.isError ? 'bg-red-500/10 border border-red-500/20 text-red-400' : 'border border-border-subtle'
-                }`} style={msg.role === 'user' || msg.isError ? undefined : { color: 'var(--text-primary)', background: 'var(--surface-raised)' }}>
+                }`} style={msg.role === 'user' ? { color: 'var(--text-primary)' } : msg.isError ? undefined : { color: 'var(--text-primary)', background: 'var(--surface-raised)' }}>
                   {msg.role === 'assistant' && !msg.isError && (
                     <div className="flex items-center gap-1.5 mb-2">
                       <Bot size={14} className="text-violet-400" />

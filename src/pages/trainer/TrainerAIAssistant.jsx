@@ -313,7 +313,7 @@ function MessageBubble({ msg, onConfirm, onCancel }) {
         animate={{ opacity: 1, y: 0 }}
         className="flex justify-end"
       >
-        <div className="max-w-[80%] rounded-2xl px-4 py-3 text-sm bg-sky-500/20 text-white">
+        <div className="max-w-[80%] rounded-2xl px-4 py-3 text-sm bg-sky-500/20" style={{ color: 'var(--text-primary)' }}>
           <div className="whitespace-pre-wrap">{msg.content}</div>
         </div>
       </motion.div>

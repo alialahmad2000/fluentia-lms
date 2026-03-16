@@ -272,7 +272,7 @@ export default function StudentConversation() {
                     <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${diff.color}`}>
                       {diff.label}
                     </span>
-                    <div className="flex items-center gap-3 text-xs text-white/40">
+                    <div className="flex items-center gap-3 text-xs text-muted">
                       <span className="flex items-center gap-1">
                         <Clock size={11} />
                         {s.duration}
@@ -296,8 +296,8 @@ export default function StudentConversation() {
                   {/* Title + description */}
                   <div className="px-5 pb-3">
                     <h3 className="text-lg font-bold text-white mb-0.5">{s.label}</h3>
-                    <p className="text-xs text-white/50 font-medium" dir="ltr">{s.labelEn}</p>
-                    <p className="text-xs text-white/40 mt-1">{s.description}</p>
+                    <p className="text-xs text-muted font-medium" dir="ltr">{s.labelEn}</p>
+                    <p className="text-xs text-muted mt-1">{s.description}</p>
                   </div>
 
                   {/* Chat preview bubbles */}
@@ -309,7 +309,7 @@ export default function StudentConversation() {
                       >
                         <div className={`max-w-[85%] rounded-xl px-3 py-1.5 text-xs leading-relaxed ${
                           line.role === 'ai'
-                            ? 'bg-white/[0.06] text-white/50 border border-white/[0.06]'
+                            ? 'bg-[var(--surface-raised)] border border-[var(--border-subtle)]' + ' text-[var(--text-tertiary)]'
                             : `${s.accentBg} text-xs`
                         }`}>
                           {line.text}
@@ -364,9 +364,9 @@ export default function StudentConversation() {
             >
               <div className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm ${
                 msg.role === 'user'
-                  ? 'bg-sky-500/20 border border-sky-500/20 text-white'
-                  : 'bg-white/5 border border-border-subtle text-white/90'
-              }`}>
+                  ? 'bg-sky-500/20 border border-sky-500/20'
+                  : 'border border-[var(--border-subtle)]'
+              }`} style={{ color: 'var(--text-primary)', background: msg.role === 'user' ? undefined : 'var(--surface-raised)' }}>
                 <div className="flex items-center gap-1.5 mb-1">
                   {msg.role === 'user' ? (
                     <User size={12} className="text-sky-400" />
@@ -383,7 +383,7 @@ export default function StudentConversation() {
           ))}
           {sendMutation.isPending && (
             <div className="flex justify-start">
-              <div className="bg-white/5 border border-border-subtle rounded-2xl px-4 py-3 flex items-center gap-2">
+              <div className="border border-[var(--border-subtle)] rounded-2xl px-4 py-3 flex items-center gap-2" style={{ background: 'var(--surface-raised)' }}>
                 <Loader2 size={14} className={`animate-spin ${scenario.accent}`} />
                 <span className="text-xs text-muted">يكتب...</span>
               </div>
