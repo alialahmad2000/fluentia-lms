@@ -171,15 +171,21 @@ export default function SubmissionForm({ assignment, existingSubmission, student
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
-        className="fixed inset-0 bg-black/60 z-40"
+        className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[1000]"
       />
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 30 }}
-        className="fixed inset-x-4 top-[5vh] bottom-[5vh] lg:inset-x-auto lg:left-1/2 lg:-translate-x-1/2 lg:w-full lg:max-w-2xl fl-card-static rounded-2xl z-50 flex flex-col overflow-hidden"
+        className="fixed inset-0 z-[1001] flex items-center justify-center p-4"
+        onClick={onClose}
       >
+        <motion.div
+          onClick={(e) => e.stopPropagation()}
+          className="w-full max-w-2xl max-h-[85vh] fl-card-static rounded-2xl flex flex-col overflow-hidden"
+          style={{ boxShadow: 'var(--shadow-xl)' }}
+        >
         {/* Header */}
         <div className="px-6 py-4 border-b border-[var(--border-subtle)] shrink-0">
           <div className="flex items-center justify-between">
@@ -319,6 +325,7 @@ export default function SubmissionForm({ assignment, existingSubmission, student
             <span>تسليم</span>
           </button>
         </div>
+        </motion.div>
       </motion.div>
     </>
   )
