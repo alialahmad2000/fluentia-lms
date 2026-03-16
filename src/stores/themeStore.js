@@ -1,19 +1,11 @@
 import { create } from 'zustand'
 
 const STORAGE_KEY = 'fluentia_theme'
+const THEMES = ['deep-space', 'frost-white', 'aurora']
 
-function getSystemTheme() {
-  if (typeof window === 'undefined') return 'dark'
-  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
-}
-
-function resolveTheme(preference) {
-  if (preference === 'auto') return getSystemTheme()
-  return preference
-}
-
-function applyTheme(effective, animate = false) {
+function applyTheme(theme, animate = false) {
   const root = document.documentElement
+
   if (animate) {
     root.classList.add('theme-transition')
     document.body.classList.add('theme-transitioning')
@@ -22,54 +14,47 @@ function applyTheme(effective, animate = false) {
       document.body.classList.remove('theme-transitioning')
     }, 350)
   }
-  if (effective === 'light') {
-    root.classList.remove('dark')
+
+  // Set data-theme attribute (drives CSS variable cascade)
+  root.setAttribute('data-theme', theme)
+
+  // Also set class for backward compat (.dark / .light)
+  root.classList.remove('dark', 'light')
+  if (theme === 'frost-white') {
     root.classList.add('light')
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#f8fafc')
   } else {
-    root.classList.remove('light')
     root.classList.add('dark')
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#050d1a')
   }
+
+  // Update browser chrome color
+  const metaColors = {
+    'deep-space': '#050d1a',
+    'frost-white': '#f8fafc',
+    'aurora': '#100e24',
+  }
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', metaColors[theme] || '#050d1a')
 }
 
-export const useThemeStore = create((set, get) => {
-  // Read initial preference from localStorage
-  let initial = 'dark'
+export const useThemeStore = create((set) => {
+  let initial = 'deep-space'
   try {
     const stored = localStorage.getItem(STORAGE_KEY)
-    if (stored === 'light' || stored === 'auto') initial = stored
+    // Migrate old values
+    if (stored === 'dark') initial = 'deep-space'
+    else if (stored === 'light') initial = 'frost-white'
+    else if (THEMES.includes(stored)) initial = stored
   } catch {}
 
-  const effective = resolveTheme(initial)
-  // Apply immediately on store creation
-  applyTheme(effective)
+  applyTheme(initial)
 
   return {
-    theme: initial, // 'dark' | 'light' | 'auto'
-    effectiveTheme: effective, // 'dark' | 'light'
+    theme: initial,
 
-    setTheme(preference) {
-      const effective = resolveTheme(preference)
-      applyTheme(effective, true)
-      try { localStorage.setItem(STORAGE_KEY, preference) } catch {}
-      set({ theme: preference, effectiveTheme: effective })
-    },
-
-    // Called when system preference changes (for auto mode)
-    _onSystemChange() {
-      const { theme } = get()
-      if (theme !== 'auto') return
-      const effective = getSystemTheme()
-      applyTheme(effective)
-      set({ effectiveTheme: effective })
+    setTheme(theme) {
+      if (!THEMES.includes(theme)) return
+      applyTheme(theme, true)
+      try { localStorage.setItem(STORAGE_KEY, theme) } catch {}
+      set({ theme })
     },
   }
 })
-
-// Listen for system theme changes
-if (typeof window !== 'undefined') {
-  window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
-    useThemeStore.getState()._onSystemChange()
-  })
-}

@@ -247,6 +247,27 @@
   75%      { transform: translateY(8px) translateX(2px); }
 }
 
+/* === Floating Orbs (background) === */
+@keyframes floatSlow {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.05); }
+  66% { transform: translate(-20px, 15px) scale(0.95); }
+}
+.animate-float-slow { animation: floatSlow 20s ease-in-out infinite; }
+.animate-float-slow-reverse { animation: floatSlow 25s ease-in-out infinite reverse; }
+
+/* === Ripple Button Effect === */
+@keyframes rippleOut {
+  from { width: 0; height: 0; opacity: 0.4; }
+  to { width: 200px; height: 200px; opacity: 0; margin-top: -100px; margin-left: -100px; }
+}
+
+/* === Confetti Particle Fall === */
+@keyframes confettiFall {
+  0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
 /* === Reduce Motion === */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

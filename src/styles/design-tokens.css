@@ -1,11 +1,12 @@
 /* ═══════════════════════════════════════════════════════════
    DESIGN TOKENS — Cosmic Luxury Design System
-   Dark (default) + Light themes — 70+ variables
+   3 Themes: Deep Space (dark) | Frost White (light) | Aurora (purple)
    ═══════════════════════════════════════════════════════════ */
 
-/* ────── DARK THEME (default) ────── */
+/* ────── THEME 1: Deep Space (Default Dark) ────── */
 :root,
-.dark {
+.dark,
+[data-theme="deep-space"] {
   /* === Core Surfaces === */
   --surface-void:        #030711;
   --surface-base:        #050d1a;
@@ -182,8 +183,9 @@
   --color-kbd-border: rgba(255, 255, 255, 0.10);
 }
 
-/* ────── LIGHT THEME ────── */
-.light {
+/* ────── THEME 2: Frost White (Clean Light) ────── */
+.light,
+[data-theme="frost-white"] {
   --surface-void:        #f1f5f9;
   --surface-base:        #f8fafc;
   --surface-raised:      #ffffff;
@@ -334,4 +336,154 @@
   --color-dropdown-bg: rgba(255, 255, 255, 0.97);
   --color-kbd-bg: rgba(0, 0, 0, 0.05);
   --color-kbd-border: rgba(0, 0, 0, 0.10);
+}
+
+/* ────── THEME 3: Aurora (Premium Dark Purple) ────── */
+[data-theme="aurora"] {
+  --surface-void:        #0c0a1d;
+  --surface-base:        #100e24;
+  --surface-raised:      #1a1538;
+  --surface-overlay:     #221c48;
+  --surface-interactive: #2a2258;
+
+  --glass-card:          rgba(167, 139, 250, 0.04);
+  --glass-card-hover:    rgba(167, 139, 250, 0.08);
+  --glass-card-active:   rgba(167, 139, 250, 0.1);
+  --glass-elevated:      rgba(167, 139, 250, 0.06);
+  --glass-input:         rgba(167, 139, 250, 0.05);
+  --glass-input-focus:   rgba(167, 139, 250, 0.08);
+
+  --border-subtle:       rgba(167, 139, 250, 0.06);
+  --border-default:      rgba(167, 139, 250, 0.1);
+  --border-strong:       rgba(167, 139, 250, 0.18);
+  --border-focus:        rgba(167, 139, 250, 0.5);
+  --border-glow:         rgba(167, 139, 250, 0.25);
+
+  --text-primary:        #f1f0ff;
+  --text-secondary:      #a5a0c8;
+  --text-tertiary:       #6b6490;
+  --text-inverse:        #0c0a1d;
+  --text-link:           #a78bfa;
+  --text-on-accent:      #0c0a1d;
+
+  --accent-sky:          #a78bfa;
+  --accent-sky-dim:      #2e1f6e;
+  --accent-sky-glow:     rgba(167, 139, 250, 0.18);
+  --accent-sky-strong:   #c4b5fd;
+
+  --accent-gold:         #fbbf24;
+  --accent-gold-dim:     #4a3010;
+  --accent-gold-glow:    rgba(251, 191, 36, 0.12);
+
+  --accent-violet:       #38bdf8;
+  --accent-violet-dim:   #0e3a5e;
+  --accent-violet-glow:  rgba(56, 189, 248, 0.12);
+
+  --accent-emerald:      #34d399;
+  --accent-emerald-dim:  #064e3b;
+  --accent-emerald-glow: rgba(52, 211, 153, 0.12);
+
+  --accent-rose:         #fb7185;
+  --accent-rose-dim:     #5c1025;
+  --accent-rose-glow:    rgba(251, 113, 133, 0.12);
+
+  --accent-amber:        #fbbf24;
+  --accent-amber-dim:    #4a3010;
+  --accent-amber-glow:   rgba(251, 191, 36, 0.12);
+
+  --success:             #34d399;
+  --success-bg:          rgba(52, 211, 153, 0.1);
+  --success-border:      rgba(52, 211, 153, 0.2);
+
+  --danger:              #fb7185;
+  --danger-bg:           rgba(251, 113, 133, 0.1);
+  --danger-border:       rgba(251, 113, 133, 0.2);
+
+  --warning:             #fbbf24;
+  --warning-bg:          rgba(251, 191, 36, 0.1);
+  --warning-border:      rgba(251, 191, 36, 0.2);
+
+  --info:                #a78bfa;
+  --info-bg:             rgba(167, 139, 250, 0.1);
+  --info-border:         rgba(167, 139, 250, 0.2);
+
+  --shadow-xs:           0 1px 2px rgba(12, 10, 29, 0.4);
+  --shadow-sm:           0 2px 4px rgba(12, 10, 29, 0.35);
+  --shadow-md:           0 4px 12px rgba(12, 10, 29, 0.4);
+  --shadow-lg:           0 8px 24px rgba(12, 10, 29, 0.45);
+  --shadow-xl:           0 16px 48px rgba(12, 10, 29, 0.5);
+  --shadow-glow-sky:     0 0 20px rgba(167, 139, 250, 0.2), 0 0 40px rgba(167, 139, 250, 0.06);
+  --shadow-glow-gold:    0 0 20px rgba(251, 191, 36, 0.15), 0 0 40px rgba(251, 191, 36, 0.05);
+  --shadow-glow-violet:  0 0 20px rgba(56, 189, 248, 0.15), 0 0 40px rgba(56, 189, 248, 0.05);
+  --shadow-glow-emerald: 0 0 20px rgba(52, 211, 153, 0.15), 0 0 40px rgba(52, 211, 153, 0.05);
+  --shadow-inner:        inset 0 1px 2px rgba(12, 10, 29, 0.3);
+
+  --sidebar-bg:          rgba(16, 14, 36, 0.9);
+  --sidebar-border:      rgba(167, 139, 250, 0.06);
+  --sidebar-active-bg:   rgba(167, 139, 250, 0.1);
+  --sidebar-active-border: #a78bfa;
+  --sidebar-hover-bg:    rgba(167, 139, 250, 0.04);
+  --sidebar-icon-active: #a78bfa;
+  --sidebar-icon-default:#6b6490;
+  --sidebar-text-active: #f1f0ff;
+  --sidebar-text-default:#a5a0c8;
+
+  --stat-sky-from:       rgba(167, 139, 250, 0.15);
+  --stat-sky-to:         rgba(167, 139, 250, 0.03);
+  --stat-violet-from:    rgba(56, 189, 248, 0.12);
+  --stat-violet-to:      rgba(56, 189, 248, 0.02);
+  --stat-amber-from:     rgba(251, 191, 36, 0.12);
+  --stat-amber-to:       rgba(251, 191, 36, 0.02);
+  --stat-emerald-from:   rgba(52, 211, 153, 0.12);
+  --stat-emerald-to:     rgba(52, 211, 153, 0.02);
+
+  --skeleton-from:       rgba(167, 139, 250, 0.03);
+  --skeleton-via:        rgba(167, 139, 250, 0.08);
+  --skeleton-to:         rgba(167, 139, 250, 0.03);
+
+  --hero-gradient-from:  rgba(26, 21, 56, 0.9);
+  --hero-gradient-to:    rgba(12, 10, 29, 0.95);
+  --hero-card-bg:        linear-gradient(135deg, rgba(26,21,56,0.9) 0%, rgba(12,10,29,0.95) 100%);
+
+  --modal-backdrop:      rgba(12, 10, 29, 0.7);
+
+  --page-bg-gradient:    radial-gradient(ellipse at 50% 0%, var(--accent-sky-glow) 0%, var(--surface-void) 60%);
+
+  --canvas-bg:           rgba(16, 14, 36, 0.3);
+  --canvas-stroke:       #a78bfa;
+
+  --chart-tooltip-bg:    rgba(26, 21, 56, 0.95);
+  --chart-tooltip-border: rgba(167, 139, 250, 0.15);
+
+  --scrollbar-track:     transparent;
+  --scrollbar-thumb:     rgba(167, 139, 250, 0.12);
+  --scrollbar-thumb-hover: rgba(167, 139, 250, 0.22);
+
+  --color-bg-base: var(--surface-base);
+  --color-bg-surface: var(--glass-card);
+  --color-bg-surface-raised: var(--glass-elevated);
+  --color-bg-overlay: var(--surface-overlay);
+  --color-bg-input: var(--glass-input);
+  --color-bg-input-focus: var(--glass-input-focus);
+  --color-bg-hover: var(--glass-card-hover);
+  --color-bg-sidebar: var(--sidebar-bg);
+  --color-bg-header: rgba(16, 14, 36, 0.7);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-tertiary);
+  --color-text-placeholder: rgba(167, 139, 250, 0.25);
+  --color-border-subtle: var(--border-default);
+  --color-border-medium: var(--border-strong);
+  --color-scrollbar-thumb: var(--scrollbar-thumb);
+  --color-scrollbar-hover: var(--scrollbar-thumb-hover);
+  --color-selection-bg: rgba(167, 139, 250, 0.25);
+  --color-selection-text: #fff;
+  --color-card-inset: rgba(167, 139, 250, 0.04);
+  --color-card-shadow: rgba(12, 10, 29, 0.2);
+  --color-skeleton: rgba(167, 139, 250, 0.06);
+  --color-select-option-bg: #1a1538;
+  --color-select-option-text: #f1f0ff;
+  --color-dropdown-bg: rgba(16, 14, 36, 0.97);
+  --color-kbd-bg: rgba(167, 139, 250, 0.06);
+  --color-kbd-border: rgba(167, 139, 250, 0.12);
 }

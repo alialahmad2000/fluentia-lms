@@ -1,13 +1,14 @@
 import { useState, lazy, Suspense } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { User, Zap, Flame, Trophy, Award, Save, Loader2, Clock, Gift, CreditCard, Palette, GraduationCap } from 'lucide-react'
+import { User, Zap, Flame, Trophy, Award, Save, Loader2, Clock, Gift, CreditCard, Palette, GraduationCap, Moon, Sun, Sparkles, Check, SwatchBook } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/constants'
 import { timeAgo } from '../../utils/dateHelpers'
 import NotificationSettings from '../../components/layout/NotificationSettings'
 import ImmersionToggle from '../../components/ImmersionToggle'
+import { useThemeStore } from '../../stores/themeStore'
 import SubTabs from '../../components/common/SubTabs'
 import StudentAIProfile from '../../components/ai/StudentAIProfile'
 
@@ -24,6 +25,7 @@ const TABS = [
   { key: 'billing', label: 'الفواتير', icon: CreditCard },
   { key: 'referral', label: 'دعوة صديق', icon: Gift },
   { key: 'certificates', label: 'شهاداتي', icon: GraduationCap },
+  { key: 'appearance', label: 'المظهر', icon: SwatchBook },
 ]
 
 function getLevel(xp) {
@@ -66,6 +68,7 @@ export default function StudentProfile() {
         {activeTab === 'billing' && <StudentBilling />}
         {activeTab === 'referral' && <StudentReferral />}
         {activeTab === 'certificates' && <StudentCertificate />}
+        {activeTab === 'appearance' && <AppearanceContent />}
       </Suspense>
     </div>
   )
@@ -266,6 +269,123 @@ function ProfileContent() {
             <p className="text-muted text-sm text-center">لا توجد نقاط حتى الآن</p>
           )}
         </motion.div>
+      </div>
+    </div>
+  )
+}
+
+const THEME_OPTIONS = [
+  {
+    key: 'deep-space',
+    label: 'الفضاء العميق',
+    labelEn: 'Deep Space',
+    description: 'تجربة داكنة مع لمسات سماوية',
+    icon: Moon,
+    bg: '#060e1c',
+    accent: '#38bdf8',
+    accentSecondary: '#818cf8',
+    preview: ['#060e1c', '#0a1225', '#38bdf8', '#818cf8'],
+  },
+  {
+    key: 'frost-white',
+    label: 'الجليد الأبيض',
+    labelEn: 'Frost White',
+    description: 'مظهر فاتح نظيف ومريح للعين',
+    icon: Sun,
+    bg: '#f8f9fc',
+    accent: '#6366f1',
+    accentSecondary: '#8b5cf6',
+    preview: ['#f8f9fc', '#ffffff', '#6366f1', '#8b5cf6'],
+  },
+  {
+    key: 'aurora',
+    label: 'الشفق القطبي',
+    labelEn: 'Aurora',
+    description: 'تجربة داكنة فاخرة بألوان بنفسجية',
+    icon: Sparkles,
+    bg: '#0c0a1d',
+    accent: '#a78bfa',
+    accentSecondary: '#38bdf8',
+    preview: ['#0c0a1d', '#1a1538', '#a78bfa', '#38bdf8'],
+  },
+]
+
+function AppearanceContent() {
+  const { theme, setTheme } = useThemeStore()
+
+  return (
+    <div className="space-y-6">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+        <h2 className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>اختر المظهر</h2>
+        <p className="text-sm text-muted mt-1">اختر الثيم المفضل لتجربتك</p>
+      </motion.div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {THEME_OPTIONS.map((t, i) => {
+          const isActive = theme === t.key
+          return (
+            <motion.button
+              key={t.key}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.08 }}
+              onClick={() => setTheme(t.key)}
+              className={`relative text-right p-5 rounded-2xl border-2 transition-all duration-300 cursor-pointer ${
+                isActive
+                  ? 'ring-2 ring-offset-2'
+                  : 'hover:scale-[1.02]'
+              }`}
+              style={{
+                background: isActive ? 'var(--glass-card-active)' : 'var(--glass-card)',
+                borderColor: isActive ? t.accent : 'var(--border-default)',
+                '--tw-ring-color': t.accent,
+                '--tw-ring-offset-color': 'var(--surface-base)',
+              }}
+            >
+              {/* Active check */}
+              {isActive && (
+                <div
+                  className="absolute top-3 left-3 w-6 h-6 rounded-full flex items-center justify-center"
+                  style={{ background: t.accent }}
+                >
+                  <Check size={14} className="text-white" />
+                </div>
+              )}
+
+              {/* Theme preview strip */}
+              <div className="flex gap-1.5 mb-4">
+                {t.preview.map((color, ci) => (
+                  <div
+                    key={ci}
+                    className="w-8 h-8 rounded-lg"
+                    style={{ background: color, border: '1px solid rgba(128,128,128,0.2)' }}
+                  />
+                ))}
+              </div>
+
+              {/* Mini preview card */}
+              <div
+                className="rounded-xl p-3 mb-4"
+                style={{ background: t.bg, border: `1px solid ${t.accent}22` }}
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-4 h-4 rounded-full" style={{ background: t.accent }} />
+                  <div className="h-2 rounded-full flex-1" style={{ background: `${t.accent}30` }} />
+                </div>
+                <div className="flex gap-1.5">
+                  <div className="h-2 w-12 rounded-full" style={{ background: `${t.accent}20` }} />
+                  <div className="h-2 w-8 rounded-full" style={{ background: `${t.accentSecondary}20` }} />
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 mb-1">
+                <t.icon size={16} style={{ color: t.accent }} />
+                <span className="font-bold text-sm" style={{ color: 'var(--text-primary)' }}>{t.label}</span>
+              </div>
+              <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>{t.description}</p>
+            </motion.button>
+          )
+        })}
       </div>
     </div>
   )
