@@ -10,7 +10,7 @@ import { useAuthStore } from '../../stores/authStore'
 const MOBILE_TABS = {
   student: [
     { to: '/student', label: 'الرئيسية', icon: House },
-    { to: '/student/assignments', label: 'المهام', icon: FileText },
+    { to: '/student/weekly-tasks', label: 'المهام', icon: FileText },
     { to: '/student/schedule', label: 'الجدول', icon: CalendarDays },
     { to: '/student/recordings', label: 'التسجيلات', icon: Video },
     { to: '/student/profile', label: 'حسابي', icon: User },

@@ -42,8 +42,8 @@ const fadeUp = {
 
 // ─── Quick Access Cards (top 4 most important) ──────────
 const QUICK_ACCESS = [
-  { to: '/student/assignments', label: 'المهام', icon: FileText, color: 'sky', glow: 'var(--accent-sky-glow)' },
-  { to: '/student/schedule', label: 'الجدول', icon: CalendarDays, color: 'violet', glow: 'var(--accent-violet-glow)' },
+  { to: '/student/weekly-tasks', label: 'المهام الأسبوعية', icon: CalendarDays, color: 'sky', glow: 'var(--accent-sky-glow)' },
+  { to: '/student/assignments', label: 'الواجبات', icon: FileText, color: 'violet', glow: 'var(--accent-violet-glow)' },
   { to: '/student/recordings', label: 'التسجيلات', icon: Video, color: 'emerald', glow: 'var(--accent-emerald-glow)' },
   { to: '/student/assessments', label: 'الاختبارات', icon: ClipboardCheck, color: 'amber', glow: 'var(--accent-amber-glow)' },
 ]
@@ -306,7 +306,7 @@ export default function StudentDashboard() {
       {/* ═══ 3. Weekly Tasks Progress ═══ */}
       {weeklyProgress && (
         <motion.div variants={fadeUp}>
-          <Link to="/student/assignments">
+          <Link to="/student/weekly-tasks">
             <div className="fl-card-static p-6 hover:translate-y-[-2px] transition-all duration-200" style={{ cursor: 'pointer' }}>
               <div className="card-top-line shimmer" />
               <div className="flex items-center gap-3 mb-4">

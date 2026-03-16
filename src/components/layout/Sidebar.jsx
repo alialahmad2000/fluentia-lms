@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   House, FileText, BarChart3, Mic, PenLine, MessageSquare,
   Bot, Users, CreditCard, Settings, LayoutDashboard,
-  LogOut, X, ChevronLeft, Zap, FolderOpen, CalendarDays,
+  LogOut, X, ChevronLeft, Zap, FolderOpen, CalendarDays, Calendar,
   Video, ClipboardCheck, UsersRound, GraduationCap, Wrench,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
@@ -42,8 +42,9 @@ const NAV_ITEMS = {
   student: [
     { type: 'divider', label: 'أساسي' },
     { to: '/student', label: 'الرئيسية', icon: House },
-    { to: '/student/assignments', label: 'المهام', icon: FileText },
-    { to: '/student/schedule', label: 'الجدول', icon: CalendarDays },
+    { to: '/student/assignments', label: 'الواجبات', icon: FileText },
+    { to: '/student/weekly-tasks', label: 'المهام الأسبوعية', icon: CalendarDays },
+    { to: '/student/schedule', label: 'الجدول', icon: Calendar },
     { to: '/student/recordings', label: 'التسجيلات', icon: Video },
     { type: 'divider', label: 'معامل' },
     { to: '/student/speaking-lab', label: 'معمل التحدث', icon: Mic },

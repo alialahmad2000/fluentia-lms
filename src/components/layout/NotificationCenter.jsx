@@ -21,9 +21,9 @@ const NOTIFICATION_ROUTES = {
   payment_reminder: '/student/profile',
   level_up: '/student/profile',
   streak_warning: '/student',
-  weekly_tasks_ready: '/student/assignments',
-  weekly_tasks_remind: '/student/assignments',
-  weekly_tasks_urgent: '/student/assignments',
+  weekly_tasks_ready: '/student/weekly-tasks',
+  weekly_tasks_remind: '/student/weekly-tasks',
+  weekly_tasks_urgent: '/student/weekly-tasks',
   spelling_milestone: '/student/spelling',
   system: null,
 }
