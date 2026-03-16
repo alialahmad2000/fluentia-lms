@@ -287,6 +287,9 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
   const [status, setStatus] = useState(student.status || 'active')
   const [customPrice, setCustomPrice] = useState(student.custom_price || '')
   const [paymentDay, setPaymentDay] = useState(student.payment_day || '')
+  const [ieltsWriting, setIeltsWriting] = useState(
+    Array.isArray(student.custom_access) && student.custom_access.includes('ielts_writing')
+  )
   const [promoting, setPromoting] = useState(false)
   const [promotionMsg, setPromotionMsg] = useState('')
 
@@ -354,6 +357,10 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
 
   function handleSubmit(e) {
     e.preventDefault()
+    // Build custom_access array
+    const customAccess = []
+    if (ieltsWriting) customAccess.push('ielts_writing')
+
     onSave({
       studentId: student.id,
       profileUpdates: { full_name: fullName, phone },
@@ -364,6 +371,7 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
         status,
         custom_price: customPrice ? parseInt(customPrice) : null,
         payment_day: paymentDay ? parseInt(paymentDay) : null,
+        custom_access: customAccess.length > 0 ? customAccess : null,
       },
     })
   }
@@ -461,6 +469,23 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
               <input type="number" min={1} max={31} value={paymentDay} onChange={(e) => setPaymentDay(e.target.value)} className="input-field" dir="ltr" placeholder="1-31" />
             </div>
           </div>
+
+          {/* IELTS Writing Access Toggle */}
+          {pkg !== 'ielts' && (
+            <div className="flex items-center justify-between py-3 px-4 rounded-xl" style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}>
+              <div>
+                <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>صلاحية كتابة آيلتس</p>
+                <p className="text-xs text-muted">منح الطالب صلاحية الوصول لتدريبات كتابة آيلتس</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIeltsWriting(!ieltsWriting)}
+                className={`relative w-11 h-6 rounded-full transition-colors duration-200 cursor-pointer ${ieltsWriting ? 'bg-sky-500' : 'bg-gray-600'}`}
+              >
+                <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform duration-200 ${ieltsWriting ? 'translate-x-0.5' : 'translate-x-[22px]'}`} />
+              </button>
+            </div>
+          )}
 
           <div className="flex items-center gap-3 pt-3">
             <button type="submit" disabled={saving} className="btn-primary text-sm py-2 flex items-center gap-2">
