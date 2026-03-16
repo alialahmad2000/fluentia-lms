@@ -117,9 +117,9 @@ export default function StudentStreakBattles() {
                 <div className="flex items-center gap-3">
                   <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
                     i === 0 ? 'bg-gold-500/20 text-gold-400' :
-                    i === 1 ? 'bg-white/10 text-white' :
+                    i === 1 ? 'bg-[var(--sidebar-hover-bg)] text-[var(--text-primary)]' :
                     i === 2 ? 'bg-amber-500/20 text-amber-400' :
-                    'bg-white/5 text-muted'
+                    'bg-[var(--surface-raised)] text-muted'
                   }`}>
                     {i === 0 ? <Crown size={14} /> : i + 1}
                   </span>
@@ -165,9 +165,9 @@ export default function StudentStreakBattles() {
                 <div className="flex items-center gap-3">
                   <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
                     i === 0 ? 'bg-gold-500/20 text-gold-400' :
-                    i === 1 ? 'bg-white/10 text-white' :
+                    i === 1 ? 'bg-[var(--sidebar-hover-bg)] text-[var(--text-primary)]' :
                     i === 2 ? 'bg-amber-500/20 text-amber-400' :
-                    'bg-white/5 text-muted'
+                    'bg-[var(--surface-raised)] text-muted'
                   }`}>
                     {i === 0 ? <Crown size={14} /> : i + 1}
                   </span>

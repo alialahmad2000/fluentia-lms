@@ -559,7 +559,7 @@ export default function StudentSchedule() {
             {upcomingClasses.map((c) => (
               <div
                 key={c.id}
-                className="rounded-xl p-3 flex items-center justify-between hover:bg-white/[0.04] transition-all"
+                className="rounded-xl p-3 flex items-center justify-between hover:bg-[var(--sidebar-hover-bg)] transition-all"
                 style={{ background: 'var(--surface-raised)' }}
               >
                 <div>
@@ -597,7 +597,7 @@ export default function StudentSchedule() {
             {upcomingEvents.map((ev) => (
               <div
                 key={ev.id}
-                className="rounded-xl p-3 flex items-center justify-between hover:bg-white/[0.04] transition-all"
+                className="rounded-xl p-3 flex items-center justify-between hover:bg-[var(--sidebar-hover-bg)] transition-all"
                 style={{ background: 'var(--surface-raised)' }}
               >
                 <div>

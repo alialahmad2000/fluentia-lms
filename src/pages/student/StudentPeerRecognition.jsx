@@ -239,12 +239,12 @@ export default function StudentPeerRecognition() {
               className={`p-3 rounded-xl text-center hover:translate-y-[-2px] transition-all duration-200 border ${
                 selectedStudent?.id === s.id
                   ? 'bg-rose-500/10 border-rose-500/30 ring-1 ring-rose-500/10'
-                  : 'border-border-subtle hover:bg-white/10'
+                  : 'border-border-subtle hover:bg-[var(--sidebar-hover-bg)]'
               } ${remainingToday <= 0 ? 'opacity-40' : ''}`}
               style={selectedStudent?.id !== s.id ? { background: 'var(--surface-raised)' } : undefined}
             >
               <div className="w-10 h-10 rounded-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 font-bold mx-auto mb-1">
-                {getName(s)[0]}
+                {getName(s)?.[0]}
               </div>
               <p className="text-xs text-[var(--text-primary)] truncate">{getName(s)}</p>
             </button>

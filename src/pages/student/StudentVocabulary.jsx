@@ -324,7 +324,7 @@ export default function StudentVocabulary() {
             {levelProgressPercent}%
           </span>
         </div>
-        <div className="w-full bg-white/10 rounded-full h-2 mb-2">
+        <div className="w-full bg-[var(--surface-raised)] rounded-full h-2 mb-2">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${levelProgressPercent}%` }}
@@ -449,7 +449,7 @@ export default function StudentVocabulary() {
                 className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
                   tab === t.key
                     ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
-                    : 'text-muted hover:text-[var(--text-primary)] hover:bg-white/5'
+                    : 'text-muted hover:text-[var(--text-primary)] hover:bg-[var(--sidebar-hover-bg)]'
                 }`}
               >
                 {t.label}
@@ -503,7 +503,7 @@ export default function StudentVocabulary() {
                         whileTap={{ scale: 0.95 }}
                         onClick={() => addSuggestedWord(word)}
                         disabled={addingSuggestion === word}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm text-[var(--text-primary)] hover:bg-sky-500/10 hover:border-sky-500/20 hover:text-sky-400 transition-all disabled:opacity-50"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-sm text-[var(--text-primary)] hover:bg-sky-500/10 hover:border-sky-500/20 hover:text-sky-400 transition-all disabled:opacity-50"
                         dir="ltr"
                       >
                         {addingSuggestion === word ? (
@@ -580,7 +580,7 @@ export default function StudentVocabulary() {
 
                   {/* Show suggestions when vocab bank is empty in "all" tab */}
                   {tab === 'all' && displayedSuggestions.length > 0 && (
-                    <div className="pt-4 border-t border-white/5">
+                    <div className="pt-4 border-t border-[var(--border-subtle)]">
                       <div className="flex items-center justify-center gap-2 mb-3">
                         <Sparkles size={16} className="text-amber-400" />
                         <h3 className="text-sm font-semibold text-[var(--text-primary)]">كلمات مقترحة</h3>
@@ -597,7 +597,7 @@ export default function StudentVocabulary() {
                             whileTap={{ scale: 0.95 }}
                             onClick={() => addSuggestedWord(word)}
                             disabled={addingSuggestion === word}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm text-[var(--text-primary)] hover:bg-sky-500/10 hover:border-sky-500/20 hover:text-sky-400 transition-all disabled:opacity-50"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-sm text-[var(--text-primary)] hover:bg-sky-500/10 hover:border-sky-500/20 hover:text-sky-400 transition-all disabled:opacity-50"
                             dir="ltr"
                           >
                             {addingSuggestion === word ? (

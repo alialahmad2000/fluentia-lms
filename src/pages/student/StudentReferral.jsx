@@ -118,7 +118,7 @@ function CopyButton({ text, label = 'نسخ', labelDone = 'تم النسخ', siz
       className={`${base} ${sizes[size]} ${
         copied
           ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-          : 'bg-white/5 text-white border border-border-subtle hover:bg-white/10'
+          : 'bg-[var(--surface-raised)] text-[var(--text-primary)] border border-[var(--border-subtle)] hover:bg-[var(--sidebar-hover-bg)]'
       }`}
     >
       {copied ? <Check size={14} /> : <Copy size={14} />}
@@ -186,7 +186,7 @@ function ReferralCard({ name, code, referralLink }) {
             >
               طلاقة
             </h2>
-            <p className="text-xs text-white/40 -mt-0.5">Fluentia Academy</p>
+            <p className="text-xs text-[var(--text-secondary)] -mt-0.5">Fluentia Academy</p>
           </div>
           <div className="text-left">
             <div
@@ -203,9 +203,9 @@ function ReferralCard({ name, code, referralLink }) {
 
         {/* Invitation text */}
         <div className="relative mb-5">
-          <p className="text-white/60 text-xs mb-1">دعوة شخصية من</p>
+          <p className="text-[var(--text-secondary)] text-xs mb-1">دعوة شخصية من</p>
           <p className="text-white text-xl font-bold">{name || 'الطالب'}</p>
-          <p className="text-white/50 text-xs mt-2 leading-relaxed">
+          <p className="text-[var(--text-secondary)] text-xs mt-2 leading-relaxed">
             احجز <span className="text-gold-400 font-semibold">لقاءً مبدئياً مجانياً مع المدرب</span> وابدأ رحلتك في تعلم الإنجليزية
           </p>
         </div>
@@ -225,14 +225,14 @@ function ReferralCard({ name, code, referralLink }) {
         </div>
 
         {/* Social links */}
-        <div className="relative flex items-center justify-between text-xs text-white/35">
+        <div className="relative flex items-center justify-between text-xs text-[var(--text-secondary)]">
           <div className="space-y-0.5">
             <p>📱 +966 55 866 9974</p>
             <p>🎵 TikTok: @fluentia_</p>
           </div>
           <div className="space-y-0.5 text-left">
             <p>📸 Instagram: @fluentia__</p>
-            <p className="text-white/20 truncate max-w-[130px]">{referralLink}</p>
+            <p className="text-muted truncate max-w-[130px]">{referralLink}</p>
           </div>
         </div>
 
@@ -490,7 +490,7 @@ export default function StudentReferral() {
             className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
               activeTab === t.value
                 ? 'bg-gold-500/10 text-gold-400 border border-gold-500/20'
-                : 'text-muted hover:text-white border border-transparent'
+                : 'text-muted hover:text-[var(--text-primary)] border border-transparent'
             }`}
             style={activeTab !== t.value ? { background: 'var(--surface-raised)' } : undefined}
           >
@@ -544,7 +544,7 @@ export default function StudentReferral() {
                 رابط الإحالة
               </p>
               <div className="flex items-center gap-2">
-                <p className="flex-1 text-sm text-white/70 font-mono truncate rounded-xl px-3 py-2 border border-border-subtle" style={{ background: 'var(--surface-raised)' }}>
+                <p className="flex-1 text-sm text-[var(--text-secondary)] font-mono truncate rounded-xl px-3 py-2 border border-[var(--border-subtle)]" style={{ background: 'var(--surface-raised)' }}>
                   {referralLink}
                 </p>
                 <CopyButton text={referralLink} size="sm" />
@@ -553,7 +553,7 @@ export default function StudentReferral() {
 
             {/* CTA note */}
             <div className="fl-card-static p-4 border-gold-500/20" style={{ borderColor: 'rgba(251,191,36,0.15)' }}>
-              <p className="text-sm text-white/80 leading-relaxed text-center">
+              <p className="text-sm text-[var(--text-secondary)] leading-relaxed text-center">
                 أرسل لأصدقائك رابطك واطلب منهم حجز{' '}
                 <span className="text-gold-400 font-semibold">لقاء مبدئي مجاني مع المدرب</span>{' '}
                 — وعندما ينضمون تربح XP 🎉
@@ -577,7 +577,7 @@ export default function StudentReferral() {
                 {/* Twitter / X */}
                 <button
                   onClick={shareTwitter}
-                  className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all active:scale-95 bg-white/5 text-white border border-border-subtle hover:bg-white/10"
+                  className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all active:scale-95 bg-[var(--surface-raised)] text-[var(--text-primary)] border border-[var(--border-subtle)] hover:bg-[var(--sidebar-hover-bg)]"
                 >
                   <Twitter size={16} />
                   تويتر / X
@@ -589,7 +589,7 @@ export default function StudentReferral() {
                   className={`flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all active:scale-95 ${
                     linkCopied
                       ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                      : 'bg-white/5 text-white border border-border-subtle hover:bg-white/10'
+                      : 'bg-[var(--surface-raised)] text-[var(--text-primary)] border border-[var(--border-subtle)] hover:bg-[var(--sidebar-hover-bg)]'
                   }`}
                 >
                   {linkCopied ? <Check size={16} /> : <Copy size={16} />}
@@ -628,7 +628,7 @@ export default function StudentReferral() {
                       className={`flex items-center gap-4 p-4 rounded-2xl border transition-all ${
                         unlocked
                           ? `${style.card}`
-                          : 'bg-white/3 border-border-subtle opacity-60'
+                          : 'bg-[var(--surface-raised)] border-[var(--border-subtle)] opacity-60'
                       }`}
                     >
                       <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
@@ -693,7 +693,7 @@ export default function StudentReferral() {
                         className="fl-card-static p-3 flex items-center gap-3"
                       >
                         <div className="w-9 h-9 rounded-full bg-sky-500/20 border border-sky-500/20 flex items-center justify-center text-sky-400 font-bold text-sm shrink-0">
-                          {rName[0]}
+                          {rName?.[0]}
                         </div>
                         <p className="text-sm text-[var(--text-primary)]">{rName}</p>
                         <span className="mr-auto badge-emerald">انضم</span>
@@ -771,7 +771,7 @@ export default function StudentReferral() {
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center text-base font-bold shrink-0 ${
                       entry.isMe
                         ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30'
-                        : 'bg-white/10 text-white/60'
+                        : 'bg-[var(--surface-raised)] text-muted'
                     }`}>
                       {(entry.name || 'ط')[0]}
                     </div>

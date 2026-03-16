@@ -741,7 +741,7 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
               className={`fl-card-static p-4 ${isCorrect ? 'border-emerald-500/30' : isWrong ? 'border-red-500/30' : ''}`}
             >
               <div className="flex items-start gap-2 mb-3">
-                <span className="text-xs bg-white/10 text-[var(--text-primary)] w-6 h-6 rounded-full flex items-center justify-center shrink-0">
+                <span className="text-xs bg-[var(--surface-raised)] text-[var(--text-primary)] w-6 h-6 rounded-full flex items-center justify-center shrink-0">
                   {i + 1}
                 </span>
                 <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{q.question}</p>
@@ -764,7 +764,7 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
                               ? 'bg-red-500/10 border-red-500/30 text-red-400'
                               : selected
                                 ? 'bg-sky-500/10 border-sky-500/30 text-sky-400'
-                                : 'border-border-subtle text-muted hover:border-white/20 hover:text-[var(--text-primary)]'
+                                : 'border-border-subtle text-muted hover:border-[var(--border-subtle)] hover:text-[var(--text-primary)]'
                         }`}
                       >
                         {opt}

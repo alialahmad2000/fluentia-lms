@@ -257,7 +257,7 @@ export default function StudentVoiceJournal() {
                     key={m.value}
                     onClick={() => setMood(m.value)}
                     className={`flex-1 text-center py-2 rounded-xl text-sm transition-all ${
-                      mood === m.value ? 'bg-sky-500/20 border border-sky-500/30 text-[var(--text-primary)]' : 'bg-white/5 text-muted hover:text-[var(--text-primary)]'
+                      mood === m.value ? 'bg-sky-500/20 border border-sky-500/30 text-[var(--text-primary)]' : 'bg-[var(--surface-raised)] text-muted hover:text-[var(--text-primary)]'
                     }`}
                   >
                     <span className="text-lg">{m.emoji}</span>
@@ -303,7 +303,7 @@ export default function StudentVoiceJournal() {
                     <p className="text-red-400 text-xs text-center mb-2">حدث خطأ أثناء التحليل — حاول مرة أخرى</p>
                   )}
                   <div className="flex gap-2">
-                    <button onClick={resetRecording} className="flex-1 text-sm py-2.5 rounded-xl bg-white/5 text-muted hover:text-[var(--text-primary)] transition-all">
+                    <button onClick={resetRecording} className="flex-1 text-sm py-2.5 rounded-xl bg-[var(--surface-raised)] text-muted hover:text-[var(--text-primary)] transition-all">
                       إعادة تسجيل
                     </button>
                     <button

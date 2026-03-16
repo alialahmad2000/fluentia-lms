@@ -376,12 +376,12 @@ function ComparisonPlayer({ label, phrase, score, date, color, side }) {
     score >= 50 ? 'bg-amber-500/10 border-amber-500/20' : 'bg-red-500/10 border-red-500/20'
 
   return (
-    <div className={`flex-1 fl-card-static p-4 flex flex-col gap-3 ${side === 'before' ? 'border-white/5' : 'border-violet-500/20'}`}>
+    <div className={`flex-1 fl-card-static p-4 flex flex-col gap-3 ${side === 'before' ? 'border-[var(--border-subtle)]' : 'border-violet-500/20'}`}>
       {/* Header label */}
       <div className="text-center">
         <span className={`text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
           side === 'before'
-            ? 'bg-white/5 text-muted'
+            ? 'bg-[var(--surface-raised)] text-muted'
             : 'bg-violet-500/10 text-violet-400'
         }`}>
           {label}
@@ -402,7 +402,7 @@ function ComparisonPlayer({ label, phrase, score, date, color, side }) {
         className={`mx-auto w-10 h-10 rounded-full flex items-center justify-center transition-all ${
           playing
             ? 'bg-red-500/20 border border-red-500/30 hover:bg-red-500/30'
-            : 'bg-white/5 border border-white/10 hover:bg-white/10'
+            : 'bg-[var(--surface-raised)] border border-[var(--border-subtle)] hover:bg-[var(--sidebar-hover-bg)]'
         }`}
         title={playing ? 'إيقاف' : 'استمع'}
       >
@@ -586,7 +586,7 @@ function BeforeAfterSection({ profileId, studentName }) {
           <button
             onClick={() => setSelectedIdx(i => Math.max(0, i - 1))}
             disabled={selectedIdx === 0}
-            className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center disabled:opacity-30 hover:bg-white/10 transition-all"
+            className="w-8 h-8 rounded-lg bg-[var(--surface-raised)] flex items-center justify-center disabled:opacity-30 hover:bg-[var(--sidebar-hover-bg)] transition-all"
           >
             <ChevronRight size={16} className="text-muted" />
           </button>
@@ -596,7 +596,7 @@ function BeforeAfterSection({ profileId, studentName }) {
           <button
             onClick={() => setSelectedIdx(i => Math.min(pairs.length - 1, i + 1))}
             disabled={selectedIdx === pairs.length - 1}
-            className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center disabled:opacity-30 hover:bg-white/10 transition-all"
+            className="w-8 h-8 rounded-lg bg-[var(--surface-raised)] flex items-center justify-center disabled:opacity-30 hover:bg-[var(--sidebar-hover-bg)] transition-all"
           >
             <ChevronLeft size={16} className="text-muted" />
           </button>
@@ -650,7 +650,7 @@ function BeforeAfterSection({ profileId, studentName }) {
                 ? 'border-emerald-500/20 bg-emerald-500/5'
                 : improvement < 0
                   ? 'border-red-500/20 bg-red-500/5'
-                  : 'border-white/5 bg-white/5'
+                  : 'border-[var(--border-subtle)] bg-[var(--surface-raised)]'
             }`}
           >
             <div className="flex items-center justify-center gap-2 mb-1">
@@ -677,7 +677,7 @@ function BeforeAfterSection({ profileId, studentName }) {
             </p>
 
             {/* Progress bar */}
-            <div className="mt-3 relative h-2 bg-white/5 rounded-full overflow-hidden">
+            <div className="mt-3 relative h-2 bg-[var(--surface-raised)] rounded-full overflow-hidden">
               {/* Before bar */}
               <div
                 className="absolute top-0 right-0 h-full rounded-full bg-sky-500/40"
@@ -741,7 +741,7 @@ function BeforeAfterSection({ profileId, studentName }) {
                   className={`w-full text-right px-3 py-2.5 rounded-xl flex items-center justify-between gap-3 transition-all text-sm ${
                     i === selectedIdx
                       ? 'bg-violet-500/15 border border-violet-500/25 text-white'
-                      : 'bg-white/5 text-muted hover:text-white hover:bg-white/10'
+                      : 'bg-[var(--surface-raised)] text-muted hover:text-[var(--text-primary)] hover:bg-[var(--sidebar-hover-bg)]'
                   }`}
                 >
                   <span className="truncate flex-1 text-right" dir="ltr">{p.phrase}</span>
@@ -1060,7 +1060,7 @@ export default function StudentPronunciation() {
         <button
           onClick={() => { setSection('daily'); setCurrentIndex(0); setFeedback(null); setTranscript('') }}
           className={`text-sm px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-1.5 ${
-            section === 'daily' ? 'bg-violet-500/20 text-violet-400 border border-violet-500/30' : 'bg-white/5 text-muted'
+            section === 'daily' ? 'bg-violet-500/20 text-violet-400 border border-violet-500/30' : 'bg-[var(--surface-raised)] text-muted'
           }`}
         >
           <Calendar size={14} />
@@ -1069,7 +1069,7 @@ export default function StudentPronunciation() {
         <button
           onClick={() => { setSection('more'); setCurrentIndex(0); setFeedback(null); setTranscript('') }}
           className={`text-sm px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 ${
-            section === 'more' ? 'bg-violet-500/20 text-violet-400 border border-violet-500/30' : 'bg-white/5 text-muted'
+            section === 'more' ? 'bg-violet-500/20 text-violet-400 border border-violet-500/30' : 'bg-[var(--surface-raised)] text-muted'
           }`}
         >
           <BookOpen size={14} />
@@ -1080,7 +1080,7 @@ export default function StudentPronunciation() {
           className={`text-sm px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 ${
             section === 'compare'
               ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-              : 'bg-white/5 text-muted'
+              : 'bg-[var(--surface-raised)] text-muted'
           }`}
         >
           <GitCompareArrows size={14} />
@@ -1118,7 +1118,7 @@ export default function StudentPronunciation() {
             <button
               onClick={() => { setMode('sentences'); setCurrentIndex(0); setFeedback(null); setTranscript('') }}
               className={`text-sm px-4 py-2 rounded-xl transition-all ${
-                mode === 'sentences' ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30' : 'bg-white/5 text-muted'
+                mode === 'sentences' ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30' : 'bg-[var(--surface-raised)] text-muted'
               }`}
             >
               جمل
@@ -1126,7 +1126,7 @@ export default function StudentPronunciation() {
             <button
               onClick={() => { setMode('words'); setCurrentIndex(0); setFeedback(null); setTranscript('') }}
               className={`text-sm px-4 py-2 rounded-xl transition-all ${
-                mode === 'words' ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30' : 'bg-white/5 text-muted'
+                mode === 'words' ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30' : 'bg-[var(--surface-raised)] text-muted'
               }`}
             >
               كلمات صعبة
@@ -1206,7 +1206,7 @@ export default function StudentPronunciation() {
 
             {/* Transcript */}
             {transcript && (
-              <div className="bg-white/5 rounded-xl p-3 text-center mb-4">
+              <div className="bg-[var(--surface-raised)] rounded-xl p-3 text-center mb-4">
                 <p className="text-xs text-muted mb-1">ما سمعناه:</p>
                 <p className="text-sm text-[var(--text-primary)]" dir="ltr">{transcript}</p>
               </div>
@@ -1252,7 +1252,7 @@ export default function StudentPronunciation() {
 
             {/* Next button */}
             <div className="flex gap-2 mt-4">
-              <button onClick={() => { setFeedback(null); setTranscript('') }} className="flex-1 text-sm py-2.5 rounded-xl bg-white/5 text-muted hover:text-white transition-all">
+              <button onClick={() => { setFeedback(null); setTranscript('') }} className="flex-1 text-sm py-2.5 rounded-xl bg-[var(--surface-raised)] text-muted hover:text-[var(--text-primary)] transition-all">
                 <RefreshCw size={14} className="inline ml-1" />
                 إعادة
               </button>

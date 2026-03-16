@@ -215,13 +215,13 @@ export default function StudentRecordings() {
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <h3 className="text-lg font-semibold text-white">{viewing.title}</h3>
-                  <p className="text-sm text-white/60 mt-0.5">
+                  <p className="text-sm text-[var(--text-secondary)] mt-0.5">
                     {ARABIC_DAYS[new Date(viewing.recorded_date).getDay()]} — {new Date(viewing.recorded_date).toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' })}
                   </p>
                 </div>
                 <button
                   onClick={() => setViewing(null)}
-                  className="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all"
+                  className="w-11 h-11 rounded-full bg-[var(--surface-raised)] flex items-center justify-center text-white hover:bg-[var(--sidebar-hover-bg)] transition-all"
                 >
                   <X size={20} />
                 </button>

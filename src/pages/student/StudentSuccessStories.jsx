@@ -78,7 +78,7 @@ function ShareDropdown({ shareText, onClose }) {
       {/* WhatsApp */}
       <button
         onClick={() => { shareToWhatsApp(shareText); onClose() }}
-        className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs text-white hover:bg-white/10 transition-colors text-right"
+        className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs text-white hover:bg-[var(--sidebar-hover-bg)] transition-colors text-right"
       >
         <span className="text-base leading-none">💬</span>
         <span>WhatsApp</span>
@@ -87,7 +87,7 @@ function ShareDropdown({ shareText, onClose }) {
       {/* Twitter / X */}
       <button
         onClick={() => { shareToTwitter(shareText); onClose() }}
-        className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs text-white hover:bg-white/10 transition-colors border-t border-white/5 text-right"
+        className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs text-white hover:bg-[var(--sidebar-hover-bg)] transition-colors border-t border-[var(--border-subtle)] text-right"
       >
         <span className="text-base leading-none font-bold" style={{ fontFamily: 'monospace' }}>𝕏</span>
         <span>Twitter / X</span>
@@ -96,7 +96,7 @@ function ShareDropdown({ shareText, onClose }) {
       {/* Copy */}
       <button
         onClick={handleCopy}
-        className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs border-t border-white/5 hover:bg-white/10 transition-colors text-right"
+        className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs border-t border-[var(--border-subtle)] hover:bg-[var(--sidebar-hover-bg)] transition-colors text-right"
         style={{ color: copied ? '#10b981' : 'rgba(255,255,255,0.85)' }}
       >
         {copied
@@ -143,7 +143,7 @@ function AchievementCard({ achievement, index, studentData }) {
               e.stopPropagation()
               setDropdownOpen((v) => !v)
             }}
-            className="w-6 h-6 rounded-lg flex items-center justify-center transition-colors hover:bg-white/15"
+            className="w-6 h-6 rounded-lg flex items-center justify-center transition-colors hover:bg-[var(--sidebar-hover-bg)]"
             style={{ background: 'rgba(255,255,255,0.07)' }}
             title="مشاركة الإنجاز"
           >
@@ -162,7 +162,7 @@ function AchievementCard({ achievement, index, studentData }) {
       )}
 
       <div className={`w-12 h-12 rounded-xl mx-auto mb-2 flex items-center justify-center ${
-        achievement.earned ? (colors.bg || 'bg-white/5') : 'bg-white/5'
+        achievement.earned ? (colors.bg || 'bg-[var(--surface-raised)]') : 'bg-[var(--surface-raised)]'
       }`}>
         <Icon size={24} className={achievement.earned ? (colors.text || 'text-muted') : 'text-muted'} />
       </div>
