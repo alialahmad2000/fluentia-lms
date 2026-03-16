@@ -194,7 +194,7 @@ export default function AdminDashboard() {
         <div className="text-[13px]" style={{ color: 'var(--text-secondary)' }}>
           {paymentStats?.count > 0 && <span className="font-semibold" style={{ color: 'var(--accent-gold)' }}>{paymentStats.count} دفعة معلقة</span>}
           {paymentStats?.count > 0 && recentErrors?.length > 0 && ' · '}
-          {recentErrors?.length > 0 && <span className="font-semibold" style={{ color: '#ef4444' }}>{recentErrors.length} خطأ نظام</span>}
+          {recentErrors?.length > 0 && <span className="font-semibold" style={{ color: 'var(--accent-rose, #ef4444)' }}>{recentErrors.length} خطأ نظام</span>}
           {!paymentStats?.count && !recentErrors?.length && <span>كل شيء يعمل بسلاسة! الأمور تحت السيطرة.</span>}
         </div>
       </motion.div>

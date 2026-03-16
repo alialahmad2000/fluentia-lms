@@ -357,7 +357,7 @@ export default function StudentDashboard() {
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-lg">{TASK_TYPE_ICONS[task.task_type] || '📋'}</span>
                     {task.status === 'completed' || task.status === 'graded' ? (
-                      <CheckCircle2 size={16} strokeWidth={2} className="text-emerald-400" />
+                      <CheckCircle2 size={16} strokeWidth={1.5} className="text-emerald-400" />
                     ) : (
                       <Circle size={16} strokeWidth={1.5} style={{ color: 'var(--text-tertiary)' }} />
                     )}
