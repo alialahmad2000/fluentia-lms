@@ -134,9 +134,9 @@ export default function StudentDashboard() {
     queryFn: async () => {
       const { data } = await supabase
         .from('weekly_tasks')
-        .select('id, task_type, title, status')
-        .eq('set_id', weeklyProgress.id)
-        .order('day_number')
+        .select('id, type, title, status')
+        .eq('task_set_id', weeklyProgress.id)
+        .order('sequence_number')
       return data || []
     },
     enabled: !!weeklyProgress?.id,
@@ -355,7 +355,7 @@ export default function StudentDashboard() {
                   style={{ scrollSnapAlign: 'start' }}
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-lg">{TASK_TYPE_ICONS[task.task_type] || '📋'}</span>
+                    <span className="text-lg">{TASK_TYPE_ICONS[task.type] || '📋'}</span>
                     {task.status === 'completed' || task.status === 'graded' ? (
                       <CheckCircle2 size={16} strokeWidth={1.5} className="text-emerald-400" />
                     ) : (
@@ -363,10 +363,10 @@ export default function StudentDashboard() {
                     )}
                   </div>
                   <p className="text-[12px] font-medium truncate" style={{ color: 'var(--text-primary)' }}>
-                    {task.title || task.task_type}
+                    {task.title || task.type}
                   </p>
                   <p className="text-[10px] mt-0.5 capitalize" style={{ color: 'var(--text-tertiary)' }}>
-                    {task.task_type}
+                    {task.type}
                   </p>
                 </Link>
               ))}
