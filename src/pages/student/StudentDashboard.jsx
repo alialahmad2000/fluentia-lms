@@ -4,12 +4,13 @@ import { motion } from 'framer-motion'
 import {
   Flame, Zap, Trophy, BookOpen, Calendar, ArrowLeft, CreditCard, Crosshair,
   CalendarDays, FileText, ClipboardCheck, Video, UsersRound,
-  Clock, Bell, Activity,
+  Clock, Bell, Activity, Sparkles,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { getGreeting, getArabicDay, formatTime, formatDateAr } from '../../utils/dateHelpers'
 import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/constants'
+import { getEncouragement } from '../../utils/encouragement'
 import DailyChallenge from '../../components/gamification/DailyChallenge'
 import MysteryBox from '../../components/gamification/MysteryBox'
 import StudentWowMoments from '../../components/ai/StudentWowMoments'
@@ -40,7 +41,7 @@ const fadeUp = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
 }
 
-// ─── Quick Access Cards (top 4 most important) ──────────
+// ─── Quick Access Cards ──────────
 const QUICK_ACCESS = [
   { to: '/student/weekly-tasks', label: 'المهام الأسبوعية', icon: CalendarDays, color: 'sky', glow: 'var(--accent-sky-glow)' },
   { to: '/student/assignments', label: 'الواجبات', icon: FileText, color: 'violet', glow: 'var(--accent-violet-glow)' },
@@ -66,7 +67,6 @@ const GLOW_SHADOW = {
   rose: '0 0 20px rgba(251,113,133,0.15)',
 }
 
-
 // ─── Countdown helper ───────────────────────────────────
 function useCountdown(schedule) {
   const [text, setText] = useState('')
@@ -76,7 +76,6 @@ function useCountdown(schedule) {
       const now = new Date()
       const [h, m] = (schedule.time || '').split(':').map(Number)
       if (isNaN(h)) return ''
-      // Find the next class day
       for (let offset = 0; offset < 7; offset++) {
         const candidate = new Date(now)
         candidate.setDate(now.getDate() + offset)
@@ -229,12 +228,14 @@ export default function StudentDashboard() {
     enabled: !!studentData?.group_id,
   })
 
-  const statCards = [
-    { label: 'مستوى XP', value: currentLevel.title_ar, sub: `${xp} XP`, icon: Zap, variant: 'sky' },
-    { label: 'السلسلة', value: `${streak} يوم`, sub: streak >= 7 ? 'استمر!' : 'واصل يومياً', icon: Flame, variant: 'amber', fireIcon: true },
-    { label: 'الواجبات', value: pendingAssignments ?? '—', sub: 'قيد الانتظار', icon: BookOpen, variant: 'violet' },
-    { label: 'المستوى', value: academicLevel.cefr, sub: academicLevel.name_ar, icon: Trophy, variant: 'emerald' },
-  ]
+  // Encouragement message
+  const encouragement = getEncouragement({
+    streak,
+    xp,
+    tasksCompleted: weeklyProgress?.completed_tasks || 0,
+    tasksTotal: weeklyProgress?.total_tasks || 0,
+    pendingAssignments: pendingAssignments || 0,
+  })
 
   const variantColors = {
     sky: { text: 'var(--accent-sky)', icon: 'bg-sky-500/10 text-sky-400' },
@@ -244,11 +245,10 @@ export default function StudentDashboard() {
   }
 
   return (
-    <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-10">
+    <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-8">
 
-      {/* ═══ 1. Hero Greeting ═══ */}
-      <motion.div variants={fadeUp} className="relative overflow-hidden rounded-2xl p-8" style={{ background: 'var(--glass-card)', border: '1px solid var(--border-default)' }}>
-        {/* Animated gradient orb */}
+      {/* ═══ 1. Hero: Greeting + Level + XP + Streak ═══ */}
+      <motion.div variants={fadeUp} className="relative overflow-hidden rounded-2xl p-6 sm:p-8" style={{ background: 'var(--glass-card)', border: '1px solid var(--border-default)' }}>
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[200px] pointer-events-none glow-breathe"
           style={{
@@ -257,50 +257,64 @@ export default function StudentDashboard() {
           }}
         />
         <FloatingParticles count={8} />
-        {/* Top shimmer line */}
         <div className="card-top-line shimmer" style={{ opacity: 0.5 }} />
         <div className="relative">
-          <h1 style={{ fontSize: 30, fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em', lineHeight: 1.3, marginBottom: 8 }}>
+          {/* Name + greeting */}
+          <h1 style={{ fontSize: 28, fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em', lineHeight: 1.3, marginBottom: 4 }}>
             {getGreeting()}، {firstName}
           </h1>
-          <p className="text-shimmer" style={{
-            fontSize: 15,
-            fontWeight: 600,
-          }}>
+          <p className="text-shimmer" style={{ fontSize: 14, fontWeight: 600 }}>
             {pkg.name_ar} &middot; {academicLevel.name_ar} ({academicLevel.cefr})
           </p>
+
+          {/* Integrated XP + Streak + Level row */}
+          <div className="flex flex-wrap items-center gap-4 mt-5">
+            {/* XP Badge */}
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl" style={{ background: 'var(--accent-sky-glow)' }}>
+              <Zap size={16} strokeWidth={1.5} style={{ color: 'var(--accent-sky)' }} />
+              <span className="text-sm font-bold font-data" style={{ color: 'var(--accent-sky)' }}>{xp} XP</span>
+            </div>
+            {/* Streak Badge */}
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl" style={{ background: 'rgba(245,158,11,0.1)' }}>
+              <Flame size={16} strokeWidth={1.5} className="fire-pulse" style={{ color: 'var(--accent-gold)' }} />
+              <span className="text-sm font-bold font-data" style={{ color: 'var(--accent-gold)' }}>{streak} يوم</span>
+            </div>
+            {/* Level Badge */}
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl" style={{ background: 'var(--accent-violet-glow)' }}>
+              <Trophy size={16} strokeWidth={1.5} style={{ color: 'var(--accent-violet)' }} />
+              <span className="text-sm font-bold" style={{ color: 'var(--accent-violet)' }}>{currentLevel.title_ar}</span>
+            </div>
+          </div>
+
+          {/* XP Progress mini bar */}
+          <div className="mt-4 max-w-md">
+            <div className="flex justify-between mb-1">
+              <span className="text-[11px] font-data" style={{ color: 'var(--text-tertiary)' }}>المستوى {currentLevel.level}</span>
+              <span className="text-[11px] font-data" style={{ color: 'var(--text-tertiary)' }}>
+                {nextLevel ? nextLevel.title_ar : 'MAX'}
+              </span>
+            </div>
+            <div className="fl-progress-track" style={{ height: '6px' }}>
+              <motion.div
+                className="fl-progress-fill"
+                initial={{ width: 0 }}
+                animate={{ width: `${Math.min(xpProgress, 100)}%` }}
+                transition={{ delay: 0.3, duration: 0.8, ease: 'easeOut' }}
+              />
+            </div>
+          </div>
         </div>
       </motion.div>
 
-      {/* Wow Moments */}
-      <StudentWowMoments />
-
-      {/* ═══ 2. Quick Stats Row ═══ */}
-      <motion.div variants={fadeUp} className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        {statCards.map((card, i) => {
-          const vc = variantColors[card.variant] || variantColors.sky
-          return (
-            <motion.div
-              key={card.label}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.06 }}
-              className={`fl-stat-card ${card.variant}`}
-              style={{ textAlign: 'start' }}
-            >
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-[13px] tracking-wide" style={{ color: 'var(--text-tertiary)' }}>{card.label}</span>
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center opacity-70 ${vc.icon}`}>
-                  <card.icon size={18} strokeWidth={1.5} className={card.fireIcon ? 'fire-pulse' : ''} />
-                </div>
-              </div>
-              <p className="text-[1.75rem] sm:text-[2rem] font-bold leading-none" style={{ color: vc.text, fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.02em' }}>
-                {card.value}
-              </p>
-              <p className="text-[12px] mt-2 tracking-wide" style={{ color: 'var(--text-tertiary)' }}>{card.sub}</p>
-            </motion.div>
-          )
-        })}
+      {/* ═══ 2. Encouraging Message ═══ */}
+      <motion.div variants={fadeUp} className="flex items-start gap-3 px-5 py-4 rounded-xl" style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}>
+        <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'var(--accent-sky-glow)' }}>
+          <Sparkles size={16} strokeWidth={1.5} style={{ color: 'var(--accent-sky)' }} />
+        </div>
+        <div>
+          <p className="text-[13px] font-semibold" style={{ color: 'var(--text-primary)' }}>{encouragement.motivation}</p>
+          <p className="text-[12px] mt-0.5" style={{ color: 'var(--text-tertiary)' }}>{encouragement.tip}</p>
+        </div>
       </motion.div>
 
       {/* ═══ 3. Weekly Tasks Progress ═══ */}
@@ -334,96 +348,83 @@ export default function StudentDashboard() {
         </motion.div>
       )}
 
-      {/* ═══ 4. Next Class + Notifications ═══ */}
-      <motion.div variants={fadeUp} className="grid lg:grid-cols-2 gap-5">
-        {/* Next Class */}
-        <div className="fl-card-static p-6 relative">
-          <div className="card-top-line" style={{ opacity: 0.4 }} />
-          <div className="flex items-center gap-3 mb-5">
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'var(--accent-sky-glow)' }}>
-              <Calendar size={18} strokeWidth={1.5} style={{ color: 'var(--accent-sky)' }} />
-            </div>
-            <h3 className="text-[16px] font-bold" style={{ color: 'var(--text-primary)' }}>الحصة القادمة</h3>
+      {/* ═══ 4. Next Class (prominent) ═══ */}
+      <motion.div variants={fadeUp} className="fl-card-static p-6 relative">
+        <div className="card-top-line" style={{ opacity: 0.4 }} />
+        <div className="flex items-center gap-3 mb-5">
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'var(--accent-sky-glow)' }}>
+            <Calendar size={18} strokeWidth={1.5} style={{ color: 'var(--accent-sky)' }} />
           </div>
-          {group ? (
-            <div className="space-y-3">
+          <h3 className="text-[16px] font-bold" style={{ color: 'var(--text-primary)' }}>الحصة القادمة</h3>
+          {countdown && (
+            <span className="me-auto text-[12px] flex items-center gap-1.5 px-2.5 py-1 rounded-lg" style={{ background: 'var(--accent-sky-glow)', color: 'var(--accent-sky)' }}>
+              <Clock size={12} strokeWidth={1.5} />
+              {countdown}
+            </span>
+          )}
+        </div>
+        {group ? (
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="space-y-1.5">
               <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{group.name}</p>
               {schedule && (
-                <>
-                  <p className="text-[13px]" style={{ color: 'var(--text-tertiary)' }}>
-                    {schedule.days?.map(d => getArabicDay(d)).join(' · ')}
-                  </p>
-                  {nextClassTime && (
-                    <p className="text-2xl font-bold" style={{ color: 'var(--accent-sky)' }}>
-                      {formatTime(nextClassTime)}
-                    </p>
-                  )}
-                  {countdown && (
-                    <p className="text-[13px] flex items-center gap-1.5" style={{ color: 'var(--text-tertiary)' }}>
-                      <Clock size={13} strokeWidth={1.5} />
-                      {countdown}
-                    </p>
-                  )}
-                </>
-              )}
-              {group.google_meet_link && (
-                <a
-                  href={group.google_meet_link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="fl-btn-primary text-sm mt-1 py-2.5 px-5 inline-flex items-center gap-2"
-                >
-                  <span>دخول الحصة</span>
-                  <ArrowLeft size={14} />
-                </a>
+                <p className="text-[13px]" style={{ color: 'var(--text-tertiary)' }}>
+                  {schedule.days?.map(d => getArabicDay(d)).join(' · ')}
+                  {nextClassTime && <span className="font-bold mr-2" style={{ color: 'var(--accent-sky)' }}>{formatTime(nextClassTime)}</span>}
+                </p>
               )}
             </div>
-          ) : (
-            <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>لا توجد مجموعة مسجلة</p>
-          )}
-        </div>
-
-        {/* Notifications */}
-        <div className="fl-card-static p-6 relative">
-          <div className="card-top-line violet" style={{ opacity: 0.3 }} />
-          <div className="flex items-center gap-3 mb-5">
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'var(--accent-violet-glow)' }}>
-              <Bell size={18} strokeWidth={1.5} style={{ color: 'var(--accent-violet)' }} />
-            </div>
-            <h3 className="text-[16px] font-bold" style={{ color: 'var(--text-primary)' }}>آخر الإشعارات</h3>
+            {group.google_meet_link && (
+              <a
+                href={group.google_meet_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="fl-btn-primary text-sm py-2.5 px-5 inline-flex items-center gap-2"
+              >
+                <span>دخول الحصة</span>
+                <ArrowLeft size={14} />
+              </a>
+            )}
           </div>
-          {notifications?.length > 0 ? (
-            <div className="space-y-3">
-              {notifications.map((n) => (
-                <div
-                  key={n.id}
-                  className="flex items-start gap-3 py-2"
-                  style={{ borderBottom: '1px solid var(--border-subtle)' }}
-                >
-                  {/* Unread dot */}
-                  <div className="mt-1.5 shrink-0">
-                    {!n.read ? (
-                      <div className="w-2 h-2 rounded-full dot-pulse" style={{ background: 'var(--accent-sky)' }} />
-                    ) : (
-                      <div className="w-2 h-2 rounded-full" style={{ background: 'var(--border-default)' }} />
-                    )}
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-[13px] font-semibold truncate" style={{ color: n.read ? 'var(--text-tertiary)' : 'var(--text-primary)' }}>
-                      {n.title}
-                    </p>
-                    <p className="text-[12px] truncate" style={{ color: 'var(--text-tertiary)' }}>{n.body}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>لا توجد إشعارات جديدة</p>
-          )}
-        </div>
+        ) : (
+          <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>لا توجد مجموعة مسجلة</p>
+        )}
       </motion.div>
 
-      {/* ═══ 5. Quick Access Grid ═══ */}
+      {/* ═══ 5. Smart Stats Row ═══ */}
+      <motion.div variants={fadeUp} className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        {[
+          { label: 'مستوى XP', value: currentLevel.title_ar, sub: `${xp} XP`, icon: Zap, variant: 'sky' },
+          { label: 'السلسلة', value: `${streak} يوم`, sub: streak >= 7 ? 'استمر!' : 'واصل يومياً', icon: Flame, variant: 'amber', fireIcon: true },
+          { label: 'الواجبات', value: pendingAssignments ?? '—', sub: 'قيد الانتظار', icon: BookOpen, variant: 'violet' },
+          { label: 'المستوى', value: academicLevel.cefr, sub: academicLevel.name_ar, icon: Trophy, variant: 'emerald' },
+        ].map((card, i) => {
+          const vc = variantColors[card.variant] || variantColors.sky
+          return (
+            <motion.div
+              key={card.label}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.06 }}
+              className={`fl-stat-card ${card.variant}`}
+              style={{ textAlign: 'start' }}
+            >
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-[13px] tracking-wide" style={{ color: 'var(--text-tertiary)' }}>{card.label}</span>
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center opacity-70 ${vc.icon}`}>
+                  <card.icon size={18} strokeWidth={1.5} className={card.fireIcon ? 'fire-pulse' : ''} />
+                </div>
+              </div>
+              <p className="text-[1.75rem] sm:text-[2rem] font-bold leading-none" style={{ color: vc.text, fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.02em' }}>
+                {card.value}
+              </p>
+              <p className="text-[12px] mt-2 tracking-wide" style={{ color: 'var(--text-tertiary)' }}>{card.sub}</p>
+            </motion.div>
+          )
+        })}
+      </motion.div>
+
+      {/* ═══ 6. Quick Access Grid ═══ */}
       <motion.div variants={fadeUp}>
         <h2 className="text-[18px] font-bold mb-5" style={{ color: 'var(--text-primary)' }}>الوصول السريع</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -456,43 +457,10 @@ export default function StudentDashboard() {
         </div>
       </motion.div>
 
-      {/* ═══ 6. XP Progress ═══ */}
-      <motion.div variants={fadeUp} className="fl-card-featured p-7">
-        <div className="flex items-center justify-between mb-5">
-          <div>
-            <p className="text-[18px] font-bold" style={{ color: 'var(--text-primary)' }}>تقدم المستوى</p>
-            <p className="text-[13px] mt-1" style={{ color: 'var(--text-tertiary)' }}>
-              المستوى {currentLevel.level} — {currentLevel.title_ar}
-            </p>
-          </div>
-          {nextLevel && (
-            <div className="text-start">
-              <p className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: 'var(--text-tertiary)' }}>التالي</p>
-              <p className="text-sm font-bold" style={{ color: 'var(--accent-sky)' }}>
-                {nextLevel.title_ar}
-              </p>
-            </div>
-          )}
-        </div>
-        <div className="fl-progress-track" style={{ height: '10px' }}>
-          <motion.div
-            className="fl-progress-fill"
-            initial={{ width: 0 }}
-            animate={{ width: `${Math.min(xpProgress, 100)}%` }}
-            transition={{ delay: 0.4, duration: 0.8, ease: 'easeOut' }}
-          />
-        </div>
-        <div className="flex justify-between mt-2.5">
-          <p className="text-[12px] font-data" style={{ color: 'var(--text-tertiary)' }}>
-            {xp} XP
-          </p>
-          <p className="text-[12px] font-data" style={{ color: 'var(--text-tertiary)' }}>
-            {nextLevel ? `${nextLevel.xp} XP` : 'MAX'}
-          </p>
-        </div>
-      </motion.div>
+      {/* ═══ 7. Wow Moments ═══ */}
+      <StudentWowMoments />
 
-      {/* ═══ 7. Community Previews ═══ */}
+      {/* ═══ 8. Community: Activity + Leaderboard ═══ */}
       <motion.div variants={fadeUp} className="grid lg:grid-cols-2 gap-5">
         {/* Activity preview */}
         <div className="fl-card-static p-5">
@@ -575,13 +543,51 @@ export default function StudentDashboard() {
         </div>
       </motion.div>
 
-      {/* ═══ 8. Daily Challenge + Mystery Box ═══ */}
+      {/* ═══ 9. Notifications ═══ */}
+      <motion.div variants={fadeUp} className="fl-card-static p-6 relative">
+        <div className="card-top-line violet" style={{ opacity: 0.3 }} />
+        <div className="flex items-center gap-3 mb-5">
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'var(--accent-violet-glow)' }}>
+            <Bell size={18} strokeWidth={1.5} style={{ color: 'var(--accent-violet)' }} />
+          </div>
+          <h3 className="text-[16px] font-bold" style={{ color: 'var(--text-primary)' }}>آخر الإشعارات</h3>
+        </div>
+        {notifications?.length > 0 ? (
+          <div className="space-y-3">
+            {notifications.map((n) => (
+              <div
+                key={n.id}
+                className="flex items-start gap-3 py-2"
+                style={{ borderBottom: '1px solid var(--border-subtle)' }}
+              >
+                <div className="mt-1.5 shrink-0">
+                  {!n.read ? (
+                    <div className="w-2 h-2 rounded-full dot-pulse" style={{ background: 'var(--accent-sky)' }} />
+                  ) : (
+                    <div className="w-2 h-2 rounded-full" style={{ background: 'var(--border-default)' }} />
+                  )}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-[13px] font-semibold truncate" style={{ color: n.read ? 'var(--text-tertiary)' : 'var(--text-primary)' }}>
+                    {n.title}
+                  </p>
+                  <p className="text-[12px] truncate" style={{ color: 'var(--text-tertiary)' }}>{n.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>لا توجد إشعارات جديدة</p>
+        )}
+      </motion.div>
+
+      {/* ═══ 10. Daily Challenge + Mystery Box ═══ */}
       <motion.div variants={fadeUp} className="grid lg:grid-cols-2 gap-5">
         <DailyChallenge />
         <MysteryBox />
       </motion.div>
 
-      {/* ═══ 9. Payment Status ═══ */}
+      {/* ═══ 11. Payment Status ═══ */}
       {nextPayment && (
         <motion.div variants={fadeUp} className="fl-card-static p-7 relative">
           <div className="card-top-line gold" style={{ opacity: 0.3 }} />
@@ -608,7 +614,7 @@ export default function StudentDashboard() {
         </motion.div>
       )}
 
-      {/* ═══ 10. Targeted Exercises CTA ═══ */}
+      {/* ═══ 12. Targeted Exercises CTA ═══ */}
       <ExercisesCTA studentId={profile?.id} />
 
       {/* ═══ Motivational Footer ═══ */}

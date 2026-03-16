@@ -1,9 +1,23 @@
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { Users, FileText, Calendar, Clock, CheckCircle2, Brain, Loader2 } from 'lucide-react'
+import { Users, FileText, Calendar, Clock, CheckCircle2, Brain, Loader2, Sparkles } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { getGreeting, getArabicDay, formatTime } from '../../utils/dateHelpers'
+
+const TRAINER_TIPS = [
+  'راجع التسليمات المعلقة لتحفيز طلابك!',
+  'تحليل الذكاء الاصطناعي يساعدك على فهم نقاط ضعف الطلاب.',
+  'لا تنسَ تحديث ملاحظاتك عن أداء الطلاب.',
+  'التقييم السريع يحفز الطلاب على الاستمرار!',
+  'تابع نشاط المجموعة لتبقى على اطلاع.',
+]
+
+function getTrainerTip() {
+  const today = new Date()
+  const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate()
+  return TRAINER_TIPS[seed % TRAINER_TIPS.length]
+}
 
 export default function TrainerDashboard() {
   const { profile } = useAuthStore()
@@ -105,6 +119,20 @@ export default function TrainerDashboard() {
         <p className="text-[15px] mt-2.5" style={{ color: 'var(--text-tertiary)' }}>لوحة تحكم المدرب</p>
       </motion.div>
 
+      {/* Encouraging tip */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+        className="flex items-start gap-3 px-5 py-4 rounded-xl"
+        style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
+      >
+        <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'var(--accent-sky-glow)' }}>
+          <Sparkles size={16} strokeWidth={1.5} style={{ color: 'var(--accent-sky)' }} />
+        </div>
+        <p className="text-[13px] font-medium" style={{ color: 'var(--text-secondary)' }}>{getTrainerTip()}</p>
+      </motion.div>
+
       {/* Stat cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {cards.map((card, i) => {
@@ -131,12 +159,45 @@ export default function TrainerDashboard() {
         })}
       </div>
 
+      {/* Recent submissions (actionable — shown first) */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.35 }}
+        className="fl-card-static p-7"
+      >
+        <div className="flex items-center gap-3 mb-6">
+          <CheckCircle2 size={20} className="text-gold-400" />
+          <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>آخر التسليمات</h3>
+          {pendingSubmissions > 0 && (
+            <span className="fl-badge amber text-[11px]">{pendingSubmissions} بانتظار التقييم</span>
+          )}
+        </div>
+        {recentSubmissions?.length > 0 ? (
+          <div className="space-y-3">
+            {recentSubmissions.map((s) => (
+              <div key={s.id} className="flex items-center justify-between text-sm rounded-xl p-4 hover:translate-y-[-2px] transition-all duration-200" style={{ background: 'var(--surface-raised)' }}>
+                <div>
+                  <p className="text-[var(--text-primary)] text-sm font-medium">{s.students?.profiles?.full_name || 'طالب'}</p>
+                  <p className="text-muted text-xs mt-0.5">{s.assignments?.title}</p>
+                </div>
+                <span className={s.status === 'submitted' ? 'badge-blue' : s.status === 'graded' ? 'badge-green' : 'badge-yellow'}>
+                  {s.status === 'submitted' ? 'بانتظار' : s.status === 'graded' ? 'تم' : s.status}
+                </span>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-muted text-sm">لا توجد تسليمات حتى الآن</p>
+        )}
+      </motion.div>
+
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Groups & Schedule */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35 }}
+          transition={{ delay: 0.4 }}
           className="fl-card-static p-7"
         >
           <div className="flex items-center gap-3 mb-6">
@@ -170,36 +231,6 @@ export default function TrainerDashboard() {
 
         {/* AI Group Insights */}
         <GroupInsightsCard groups={groups} />
-
-        {/* Recent submissions */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.45 }}
-          className="fl-card-static p-7"
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <CheckCircle2 size={20} className="text-gold-400" />
-            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>آخر التسليمات</h3>
-          </div>
-          {recentSubmissions?.length > 0 ? (
-            <div className="space-y-3">
-              {recentSubmissions.map((s) => (
-                <div key={s.id} className="flex items-center justify-between text-sm rounded-xl p-4 hover:translate-y-[-2px] transition-all duration-200" style={{ background: 'var(--surface-raised)' }}>
-                  <div>
-                    <p className="text-[var(--text-primary)] text-sm font-medium">{s.students?.profiles?.full_name || 'طالب'}</p>
-                    <p className="text-muted text-xs mt-0.5">{s.assignments?.title}</p>
-                  </div>
-                  <span className={s.status === 'submitted' ? 'badge-blue' : s.status === 'graded' ? 'badge-green' : 'badge-yellow'}>
-                    {s.status === 'submitted' ? 'بانتظار' : s.status === 'graded' ? 'تم' : s.status}
-                  </span>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-muted text-sm">لا توجد تسليمات حتى الآن</p>
-          )}
-        </motion.div>
       </div>
     </div>
   )

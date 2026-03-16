@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { Users, UserCheck, Layers, CreditCard, TrendingUp, AlertCircle, Flame, Calendar, ArrowUpRight, ArrowDownRight, Brain } from 'lucide-react'
+import { Users, UserCheck, Layers, CreditCard, TrendingUp, AlertCircle, Flame, Calendar, ArrowUpRight, ArrowDownRight, Brain, Sparkles } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { getGreeting } from '../../utils/dateHelpers'
@@ -174,6 +174,25 @@ export default function AdminDashboard() {
         <p className="text-[15px] mt-2.5" style={{ color: 'var(--text-tertiary)' }}>لوحة تحكم الإدارة</p>
       </motion.div>
 
+      {/* Quick summary tip */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+        className="flex items-start gap-3 px-5 py-4 rounded-xl"
+        style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
+      >
+        <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'var(--accent-sky-glow)' }}>
+          <Sparkles size={16} strokeWidth={1.5} style={{ color: 'var(--accent-sky)' }} />
+        </div>
+        <div className="text-[13px]" style={{ color: 'var(--text-secondary)' }}>
+          {paymentStats?.count > 0 && <span className="font-semibold" style={{ color: 'var(--accent-gold)' }}>{paymentStats.count} دفعة معلقة</span>}
+          {paymentStats?.count > 0 && recentErrors?.length > 0 && ' · '}
+          {recentErrors?.length > 0 && <span className="font-semibold" style={{ color: '#ef4444' }}>{recentErrors.length} خطأ نظام</span>}
+          {!paymentStats?.count && !recentErrors?.length && <span>كل شيء يعمل بسلاسة! الأمور تحت السيطرة.</span>}
+        </div>
+      </motion.div>
+
       {/* Stat cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {cards.map((card, i) => {
@@ -203,87 +222,12 @@ export default function AdminDashboard() {
         })}
       </div>
 
+      {/* Revenue + Collection (high priority — shown first) */}
       <div className="grid lg:grid-cols-2 gap-6">
-        {/* Package distribution */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
-          className="fl-card p-7"
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <TrendingUp size={18} className="text-sky-400" />
-            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>توزيع الباقات</h3>
-          </div>
-          <div className="space-y-3">
-            {Object.entries(PACKAGES).map(([key, pkg]) => {
-              const count = studentStats?.byPackage?.[key] || 0
-              const total = studentStats?.total || 0
-              const pct = total > 0 ? Math.round((count / total) * 100) : 0
-              return (
-                <div key={key}>
-                  <div className="flex items-center justify-between text-sm mb-1">
-                    <span className="text-[var(--text-primary)]">{pkg.name_ar}</span>
-                    <span className="text-muted">{count} طالب ({pct}%)</span>
-                  </div>
-                  <div className="fl-progress-track" style={{ height: '8px' }}>
-                    <div
-                      className="fl-progress-fill"
-                      style={{ width: `${pct}%` }}
-                    />
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </motion.div>
-
-        {/* Active students */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.45 }}
-          className="fl-card p-7"
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <UserCheck size={18} className="text-gold-400" />
-            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>الطلاب النشطين</h3>
-          </div>
-          {recentStudents?.length > 0 ? (
-            <div className="space-y-2">
-              {recentStudents.map((s) => {
-                const pkgInfo = PACKAGES[s.package]
-                const statusInfo = STUDENT_STATUS[s.status]
-                return (
-                  <div key={s.id} className="flex items-center justify-between bg-[var(--surface-base)] rounded-xl p-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 text-xs font-bold">
-                        {s.profiles?.full_name?.[0] || '?'}
-                      </div>
-                      <div>
-                        <p className="text-sm text-[var(--text-primary)]">{s.profiles?.full_name}</p>
-                        <p className="text-xs text-muted">{pkgInfo?.name_ar} &middot; {s.xp_total} XP</p>
-                      </div>
-                    </div>
-                    <span className={`badge-${statusInfo?.color || 'blue'}`}>
-                      {statusInfo?.label_ar || s.status}
-                    </span>
-                  </div>
-                )
-              })}
-            </div>
-          ) : (
-            <p className="text-muted text-sm">لا يوجد طلاب حتى الآن</p>
-          )}
-        </motion.div>
-      </div>
-
-      {/* Revenue + Collection */}
-      <div className="grid lg:grid-cols-2 gap-6">
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
           className="fl-card p-7"
         >
           <div className="flex items-center gap-3 mb-6">
@@ -327,7 +271,7 @@ export default function AdminDashboard() {
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.55 }}
+          transition={{ delay: 0.4 }}
           className="fl-card p-7"
         >
           <div className="flex items-center gap-3 mb-6">
@@ -353,6 +297,81 @@ export default function AdminDashboard() {
             </div>
           ) : (
             <p className="text-muted text-sm">جميع المجموعات مكتملة</p>
+          )}
+        </motion.div>
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-6">
+        {/* Package distribution */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.45 }}
+          className="fl-card p-7"
+        >
+          <div className="flex items-center gap-3 mb-6">
+            <TrendingUp size={18} className="text-sky-400" />
+            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>توزيع الباقات</h3>
+          </div>
+          <div className="space-y-3">
+            {Object.entries(PACKAGES).map(([key, pkg]) => {
+              const count = studentStats?.byPackage?.[key] || 0
+              const total = studentStats?.total || 0
+              const pct = total > 0 ? Math.round((count / total) * 100) : 0
+              return (
+                <div key={key}>
+                  <div className="flex items-center justify-between text-sm mb-1">
+                    <span className="text-[var(--text-primary)]">{pkg.name_ar}</span>
+                    <span className="text-muted">{count} طالب ({pct}%)</span>
+                  </div>
+                  <div className="fl-progress-track" style={{ height: '8px' }}>
+                    <div
+                      className="fl-progress-fill"
+                      style={{ width: `${pct}%` }}
+                    />
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </motion.div>
+
+        {/* Active students */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="fl-card p-7"
+        >
+          <div className="flex items-center gap-3 mb-6">
+            <UserCheck size={18} className="text-gold-400" />
+            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>الطلاب النشطين</h3>
+          </div>
+          {recentStudents?.length > 0 ? (
+            <div className="space-y-2">
+              {recentStudents.map((s) => {
+                const pkgInfo = PACKAGES[s.package]
+                const statusInfo = STUDENT_STATUS[s.status]
+                return (
+                  <div key={s.id} className="flex items-center justify-between bg-[var(--surface-base)] rounded-xl p-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 text-xs font-bold">
+                        {s.profiles?.full_name?.[0] || '?'}
+                      </div>
+                      <div>
+                        <p className="text-sm text-[var(--text-primary)]">{s.profiles?.full_name}</p>
+                        <p className="text-xs text-muted">{pkgInfo?.name_ar} &middot; {s.xp_total} XP</p>
+                      </div>
+                    </div>
+                    <span className={`badge-${statusInfo?.color || 'blue'}`}>
+                      {statusInfo?.label_ar || s.status}
+                    </span>
+                  </div>
+                )
+              })}
+            </div>
+          ) : (
+            <p className="text-muted text-sm">لا يوجد طلاب حتى الآن</p>
           )}
         </motion.div>
       </div>
