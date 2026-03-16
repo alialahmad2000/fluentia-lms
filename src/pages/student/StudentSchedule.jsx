@@ -336,7 +336,7 @@ export default function StudentSchedule() {
         <div className="flex items-center gap-4">
           {totalTasks > 0 && (
             <div className="flex items-center gap-2">
-              <div className="w-24 h-2 rounded-full bg-white/[0.06]">
+              <div className="w-24 h-2 rounded-full bg-[var(--surface-raised)]">
                 <div
                   className="h-full rounded-full bg-emerald-500 transition-all duration-500"
                   style={{ width: `${completionPct}%` }}

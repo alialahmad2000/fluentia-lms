@@ -86,7 +86,7 @@ export default function StudentBilling() {
       >
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs text-white/40">الباقة الحالية</p>
+            <p className="text-xs text-[var(--text-tertiary)]">الباقة الحالية</p>
             <p className="text-lg font-bold text-[var(--text-primary)] mt-1">{pkg.name_ar}</p>
             <p className="text-sm text-sky-400 font-bold mt-0.5">{studentData?.custom_price || pkg.price} ريال / شهر</p>
           </div>
@@ -107,7 +107,7 @@ export default function StudentBilling() {
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs text-white/40">الدفعة القادمة</p>
+              <p className="text-xs text-[var(--text-tertiary)]">الدفعة القادمة</p>
               <p className="text-lg font-bold text-[var(--text-primary)] mt-1">{nextPayment.amount} ريال</p>
               <p className="text-xs text-muted mt-1">
                 {nextPayment.status === 'overdue' ? 'متأخر — ' : 'الموعد: '}
@@ -165,11 +165,11 @@ export default function StudentBilling() {
                     </div>
                     <div>
                       <p className="text-sm text-[var(--text-primary)] font-medium">{p.amount} ريال</p>
-                      <p className="text-xs text-white/40">
+                      <p className="text-xs text-[var(--text-tertiary)]">
                         {formatDateAr(p.period_start)} — {formatDateAr(p.period_end)}
                       </p>
                       {p.paid_at && (
-                        <p className="text-xs text-white/40">دُفع في {formatDateAr(p.paid_at)}</p>
+                        <p className="text-xs text-[var(--text-tertiary)]">دُفع في {formatDateAr(p.paid_at)}</p>
                       )}
                     </div>
                   </div>
