@@ -1,9 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { Users, FileText, Calendar, Clock, CheckCircle2, Brain, Loader2, Sparkles } from 'lucide-react'
+import { Users, FileText, Calendar, Clock, CheckCircle2, Brain, Loader2, Sparkles, AlertTriangle, Zap, PenLine, ClipboardCheck, ListChecks } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { getGreeting, getArabicDay, formatTime } from '../../utils/dateHelpers'
+import { DashboardSkeleton } from '../../components/ui/PageSkeleton'
+import { Link } from 'react-router-dom'
 
 const TRAINER_TIPS = [
   'راجع التسليمات المعلقة لتحفيز طلابك!',
@@ -102,6 +104,38 @@ export default function TrainerDashboard() {
     enabled: isAdmin || !!groups?.length,
   })
 
+  // Student alerts — inactive students (no activity in 7 days) or low streaks
+  const { data: studentAlerts } = useQuery({
+    queryKey: ['trainer-student-alerts', groups?.map(g => g.id)],
+    queryFn: async () => {
+      if (!groups?.length) return []
+      const groupIds = groups.map(g => g.id)
+      const weekAgo = new Date()
+      weekAgo.setDate(weekAgo.getDate() - 7)
+      const { data } = await supabase
+        .from('students')
+        .select('id, current_streak, last_active, profiles(full_name, display_name)')
+        .in('group_id', groupIds)
+        .eq('status', 'active')
+        .is('deleted_at', null)
+        .or(`last_active.is.null,last_active.lt.${weekAgo.toISOString()}`)
+        .order('last_active', { ascending: true, nullsFirst: true })
+        .limit(5)
+      return (data || []).map(s => ({
+        id: s.id,
+        name: s.profiles?.display_name || s.profiles?.full_name || 'طالب',
+        streak: s.current_streak || 0,
+        lastActive: s.last_active,
+        inactive: !s.last_active || new Date(s.last_active) < weekAgo,
+      }))
+    },
+    enabled: !!groups?.length,
+  })
+
+  // Loading state
+  const isInitialLoading = !profile
+  if (isInitialLoading) return <DashboardSkeleton />
+
   const cards = [
     { label: 'المجموعات', value: groups?.length ?? '—', icon: Users, color: 'sky' },
     { label: 'الطلاب النشطين', value: studentCount ?? '—', icon: Users, color: 'gold' },
@@ -192,6 +226,30 @@ export default function TrainerDashboard() {
         )}
       </motion.div>
 
+        {/* Quick Actions */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.38 }}
+      >
+        <h3 className="text-[15px] font-bold mb-3" style={{ color: 'var(--text-primary)' }}>إجراءات سريعة</h3>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {[
+            { to: '/trainer/assignments', label: 'إنشاء واجب', icon: PenLine, color: 'bg-sky-500/10 text-sky-400' },
+            { to: '/trainer/grading', label: 'تقييم التسليمات', icon: CheckCircle2, color: 'bg-emerald-500/10 text-emerald-400' },
+            { to: '/trainer/weekly-grading', label: 'تقييم المهام', icon: ListChecks, color: 'bg-violet-500/10 text-violet-400' },
+            { to: '/trainer/quiz', label: 'إنشاء اختبار', icon: ClipboardCheck, color: 'bg-amber-500/10 text-amber-400' },
+          ].map((action) => (
+            <Link key={action.to} to={action.to} className="fl-card-static p-4 flex items-center gap-3 hover:translate-y-[-1px] transition-all duration-200">
+              <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${action.color}`}>
+                <action.icon size={16} strokeWidth={1.5} />
+              </div>
+              <span className="text-[13px] font-medium" style={{ color: 'var(--text-primary)' }}>{action.label}</span>
+            </Link>
+          ))}
+        </div>
+      </motion.div>
+
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Groups & Schedule */}
         <motion.div
@@ -229,9 +287,44 @@ export default function TrainerDashboard() {
           )}
         </motion.div>
 
-        {/* AI Group Insights */}
-        <GroupInsightsCard groups={groups} />
+        {/* Student Alerts */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.42 }}
+          className="fl-card-static p-7"
+        >
+          <div className="flex items-center gap-3 mb-6">
+            <AlertTriangle size={20} className="text-amber-400" />
+            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>تنبيهات الطلاب</h3>
+          </div>
+          {studentAlerts?.length > 0 ? (
+            <div className="space-y-3">
+              {studentAlerts.map((s) => (
+                <div key={s.id} className="flex items-center gap-3 rounded-xl p-3" style={{ background: 'var(--surface-raised)' }}>
+                  <div className="w-8 h-8 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xs font-bold shrink-0">
+                    {s.name?.[0] || '?'}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium truncate" style={{ color: 'var(--text-primary)' }}>{s.name}</p>
+                    <p className="text-xs text-muted">
+                      {s.inactive ? 'غير نشط منذ أكثر من أسبوع' : `سلسلة: ${s.streak} يوم`}
+                    </p>
+                  </div>
+                  {s.inactive && (
+                    <span className="fl-badge amber text-[10px]">غير نشط</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-muted text-sm text-center py-4">جميع الطلاب نشطين — ممتاز!</p>
+          )}
+        </motion.div>
       </div>
+
+      {/* AI Group Insights */}
+      <GroupInsightsCard groups={groups} />
     </div>
   )
 }

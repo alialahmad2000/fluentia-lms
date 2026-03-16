@@ -1,10 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { Users, UserCheck, Layers, CreditCard, TrendingUp, AlertCircle, Flame, Calendar, ArrowUpRight, ArrowDownRight, Brain, Sparkles } from 'lucide-react'
+import { Users, UserCheck, Layers, CreditCard, TrendingUp, AlertCircle, Flame, Calendar, ArrowUpRight, ArrowDownRight, Brain, Sparkles, ListChecks, FileText, Zap } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { getGreeting } from '../../utils/dateHelpers'
 import { STUDENT_STATUS, PACKAGES } from '../../lib/constants'
+import { DashboardSkeleton } from '../../components/ui/PageSkeleton'
+import { Link } from 'react-router-dom'
 
 export default function AdminDashboard() {
   const { profile } = useAuthStore()
@@ -157,6 +159,10 @@ export default function AdminDashboard() {
     },
   })
 
+  // Loading state
+  const isInitialLoading = !profile
+  if (isInitialLoading) return <DashboardSkeleton />
+
   const cards = [
     { label: 'إجمالي الطلاب', value: studentStats?.total ?? '—', sub: `${studentStats?.active ?? 0} نشط`, icon: Users, color: 'sky' },
     { label: 'المجموعات', value: groupCount ?? '—', sub: 'مجموعة نشطة', icon: Layers, color: 'gold' },
@@ -221,6 +227,30 @@ export default function AdminDashboard() {
           )
         })}
       </div>
+
+      {/* Pending Actions — Quick Access */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+      >
+        <h3 className="text-[15px] font-bold mb-3" style={{ color: 'var(--text-primary)' }}>إجراءات معلقة</h3>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {[
+            paymentStats?.count > 0 && { to: '/admin/packages', label: `${paymentStats.count} دفعة معلقة`, icon: CreditCard, color: 'bg-amber-500/10 text-amber-400' },
+            { to: '/admin/weekly-tasks', label: 'توليد المهام', icon: ListChecks, color: 'bg-sky-500/10 text-sky-400' },
+            recentErrors?.length > 0 && { to: '/admin/settings', label: `${recentErrors.length} خطأ نظام`, icon: AlertCircle, color: 'bg-red-500/10 text-red-400' },
+            upcomingRenewals?.length > 0 && { to: '/admin/packages', label: `${upcomingRenewals.length} تجديد قادم`, icon: Calendar, color: 'bg-emerald-500/10 text-emerald-400' },
+          ].filter(Boolean).map((action) => (
+            <Link key={action.to + action.label} to={action.to} className="fl-card-static p-4 flex items-center gap-3 hover:translate-y-[-1px] transition-all duration-200">
+              <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${action.color}`}>
+                <action.icon size={16} strokeWidth={1.5} />
+              </div>
+              <span className="text-[12px] font-medium" style={{ color: 'var(--text-primary)' }}>{action.label}</span>
+            </Link>
+          ))}
+        </div>
+      </motion.div>
 
       {/* Revenue + Collection (high priority — shown first) */}
       <div className="grid lg:grid-cols-2 gap-6">

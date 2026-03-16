@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import {
   Flame, Zap, Trophy, BookOpen, Calendar, ArrowLeft, CreditCard, Crosshair,
   CalendarDays, FileText, ClipboardCheck, Video, UsersRound,
-  Clock, Bell, Activity, Sparkles,
+  Clock, Activity, Sparkles, CheckCircle2, Circle,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
@@ -15,6 +15,7 @@ import DailyChallenge from '../../components/gamification/DailyChallenge'
 import MysteryBox from '../../components/gamification/MysteryBox'
 import StudentWowMoments from '../../components/ai/StudentWowMoments'
 import FloatingParticles from '../../components/illustrations/FloatingParticles'
+import { DashboardSkeleton } from '../../components/ui/PageSkeleton'
 import { Link, useNavigate } from 'react-router-dom'
 
 function getLevel(xp) {
@@ -106,8 +107,8 @@ export default function StudentDashboard() {
   const navigate = useNavigate()
   const firstName = profile?.display_name || (profile?.full_name || '').split(' ')[0]
 
-  // Weekly tasks progress
-  const { data: weeklyProgress } = useQuery({
+  // Weekly tasks progress + individual tasks
+  const { data: weeklyProgress, isLoading: loadingWeekly } = useQuery({
     queryKey: ['dashboard-weekly-progress', profile?.id],
     queryFn: async () => {
       const now = new Date()
@@ -127,8 +128,22 @@ export default function StudentDashboard() {
     enabled: !!profile?.id,
   })
 
+  // Individual weekly tasks for horizontal cards
+  const { data: weeklyTasks } = useQuery({
+    queryKey: ['dashboard-weekly-tasks-detail', weeklyProgress?.id],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('weekly_tasks')
+        .select('id, task_type, title, status')
+        .eq('set_id', weeklyProgress.id)
+        .order('day_number')
+      return data || []
+    },
+    enabled: !!weeklyProgress?.id,
+  })
+
   // Pending assignments count
-  const { data: pendingAssignments } = useQuery({
+  const { data: pendingAssignments, isLoading: loadingAssignments } = useQuery({
     queryKey: ['student-pending-assignments'],
     queryFn: async () => {
       const { count } = await supabase
@@ -141,21 +156,6 @@ export default function StudentDashboard() {
       return count || 0
     },
     enabled: !!studentData?.group_id,
-  })
-
-  // Recent notifications
-  const { data: notifications } = useQuery({
-    queryKey: ['student-notifications'],
-    queryFn: async () => {
-      const { data } = await supabase
-        .from('notifications')
-        .select('id, title, body, type, read, created_at')
-        .eq('user_id', profile?.id)
-        .order('created_at', { ascending: false })
-        .limit(5)
-      return data || []
-    },
-    enabled: !!profile?.id,
   })
 
   // Payment status
@@ -237,6 +237,15 @@ export default function StudentDashboard() {
     pendingAssignments: pendingAssignments || 0,
   })
 
+  // Show skeleton while core data loads
+  const isInitialLoading = !profile || (loadingWeekly && loadingAssignments)
+  if (isInitialLoading) return <DashboardSkeleton />
+
+  const TASK_TYPE_ICONS = {
+    vocabulary: '📝', grammar: '📖', reading: '📚', listening: '🎧',
+    writing: '✍️', speaking: '🎤', pronunciation: '🗣️',
+  }
+
   const variantColors = {
     sky: { text: 'var(--accent-sky)', icon: 'bg-sky-500/10 text-sky-400' },
     amber: { text: 'var(--accent-gold)', icon: 'bg-gold-500/10 text-gold-400' },
@@ -306,45 +315,63 @@ export default function StudentDashboard() {
         </div>
       </motion.div>
 
-      {/* ═══ 2. Encouraging Message ═══ */}
-      <motion.div variants={fadeUp} className="flex items-start gap-3 px-5 py-4 rounded-xl" style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}>
-        <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'var(--accent-sky-glow)' }}>
-          <Sparkles size={16} strokeWidth={1.5} style={{ color: 'var(--accent-sky)' }} />
-        </div>
-        <div>
-          <p className="text-[13px] font-semibold" style={{ color: 'var(--text-primary)' }}>{encouragement.motivation}</p>
-          <p className="text-[12px] mt-0.5" style={{ color: 'var(--text-tertiary)' }}>{encouragement.tip}</p>
-        </div>
-      </motion.div>
-
-      {/* ═══ 3. Weekly Tasks Progress ═══ */}
+      {/* ═══ 2. Weekly Tasks — Horizontal Scrollable Mini Cards ═══ */}
       {weeklyProgress && (
         <motion.div variants={fadeUp}>
-          <Link to="/student/weekly-tasks">
-            <div className="fl-card-static p-6 hover:translate-y-[-2px] transition-all duration-200" style={{ cursor: 'pointer' }}>
-              <div className="card-top-line shimmer" />
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'var(--accent-sky-glow)' }}>
-                  <CalendarDays size={18} strokeWidth={1.5} style={{ color: 'var(--accent-sky)' }} />
-                </div>
-                <h3 className="text-[15px] font-semibold" style={{ color: 'var(--text-primary)' }}>المهام الأسبوعية</h3>
-                <span className="me-auto text-xs font-data" style={{ color: 'var(--text-tertiary)' }}>
-                  {weeklyProgress.completed_tasks}/{weeklyProgress.total_tasks}
-                </span>
-                {weeklyProgress.status === 'completed' && (
-                  <span className="fl-badge emerald text-[11px]">مكتمل</span>
-                )}
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'var(--accent-sky-glow)' }}>
+                <CalendarDays size={16} strokeWidth={1.5} style={{ color: 'var(--accent-sky)' }} />
               </div>
-              <div className="fl-progress-track" style={{ height: '8px' }}>
-                <motion.div
-                  className="fl-progress-fill"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${weeklyProgress.completion_percentage || 0}%` }}
-                  transition={{ duration: 0.8, ease: 'easeOut' }}
-                />
-              </div>
+              <h3 className="text-[15px] font-semibold" style={{ color: 'var(--text-primary)' }}>المهام الأسبوعية</h3>
+              <span className="text-xs font-data" style={{ color: 'var(--text-tertiary)' }}>
+                {weeklyProgress.completed_tasks}/{weeklyProgress.total_tasks}
+              </span>
+              {weeklyProgress.status === 'completed' && (
+                <span className="fl-badge emerald text-[11px]">مكتمل</span>
+              )}
             </div>
-          </Link>
+            <Link to="/student/weekly-tasks" className="text-[12px] font-medium" style={{ color: 'var(--accent-sky)' }}>
+              عرض الكل ←
+            </Link>
+          </div>
+          {/* Progress bar */}
+          <div className="fl-progress-track mb-3" style={{ height: '6px' }}>
+            <motion.div
+              className="fl-progress-fill"
+              initial={{ width: 0 }}
+              animate={{ width: `${weeklyProgress.completion_percentage || 0}%` }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+            />
+          </div>
+          {/* Horizontal scrollable task cards */}
+          {weeklyTasks?.length > 0 && (
+            <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide" style={{ scrollSnapType: 'x mandatory' }}>
+              {weeklyTasks.map((task) => (
+                <Link
+                  key={task.id}
+                  to={`/student/weekly-tasks/${task.id}`}
+                  className="flex-shrink-0 w-[140px] fl-card-static p-3 hover:translate-y-[-1px] transition-all duration-200"
+                  style={{ scrollSnapAlign: 'start' }}
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-lg">{TASK_TYPE_ICONS[task.task_type] || '📋'}</span>
+                    {task.status === 'completed' || task.status === 'graded' ? (
+                      <CheckCircle2 size={16} strokeWidth={2} className="text-emerald-400" />
+                    ) : (
+                      <Circle size={16} strokeWidth={1.5} style={{ color: 'var(--text-tertiary)' }} />
+                    )}
+                  </div>
+                  <p className="text-[12px] font-medium truncate" style={{ color: 'var(--text-primary)' }}>
+                    {task.title || task.task_type}
+                  </p>
+                  <p className="text-[10px] mt-0.5 capitalize" style={{ color: 'var(--text-tertiary)' }}>
+                    {task.task_type}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          )}
         </motion.div>
       )}
 
@@ -424,7 +451,18 @@ export default function StudentDashboard() {
         })}
       </motion.div>
 
-      {/* ═══ 6. Quick Access Grid ═══ */}
+      {/* ═══ 6. Encouraging Message ═══ */}
+      <motion.div variants={fadeUp} className="flex items-start gap-3 px-5 py-4 rounded-xl" style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}>
+        <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'var(--accent-sky-glow)' }}>
+          <Sparkles size={16} strokeWidth={1.5} style={{ color: 'var(--accent-sky)' }} />
+        </div>
+        <div>
+          <p className="text-[13px] font-semibold" style={{ color: 'var(--text-primary)' }}>{encouragement.motivation}</p>
+          <p className="text-[12px] mt-0.5" style={{ color: 'var(--text-tertiary)' }}>{encouragement.tip}</p>
+        </div>
+      </motion.div>
+
+      {/* ═══ 7. Quick Access Grid ═══ */}
       <motion.div variants={fadeUp}>
         <h2 className="text-[18px] font-bold mb-5" style={{ color: 'var(--text-primary)' }}>الوصول السريع</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -543,45 +581,7 @@ export default function StudentDashboard() {
         </div>
       </motion.div>
 
-      {/* ═══ 9. Notifications ═══ */}
-      <motion.div variants={fadeUp} className="fl-card-static p-6 relative">
-        <div className="card-top-line violet" style={{ opacity: 0.3 }} />
-        <div className="flex items-center gap-3 mb-5">
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'var(--accent-violet-glow)' }}>
-            <Bell size={18} strokeWidth={1.5} style={{ color: 'var(--accent-violet)' }} />
-          </div>
-          <h3 className="text-[16px] font-bold" style={{ color: 'var(--text-primary)' }}>آخر الإشعارات</h3>
-        </div>
-        {notifications?.length > 0 ? (
-          <div className="space-y-3">
-            {notifications.map((n) => (
-              <div
-                key={n.id}
-                className="flex items-start gap-3 py-2"
-                style={{ borderBottom: '1px solid var(--border-subtle)' }}
-              >
-                <div className="mt-1.5 shrink-0">
-                  {!n.read ? (
-                    <div className="w-2 h-2 rounded-full dot-pulse" style={{ background: 'var(--accent-sky)' }} />
-                  ) : (
-                    <div className="w-2 h-2 rounded-full" style={{ background: 'var(--border-default)' }} />
-                  )}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="text-[13px] font-semibold truncate" style={{ color: n.read ? 'var(--text-tertiary)' : 'var(--text-primary)' }}>
-                    {n.title}
-                  </p>
-                  <p className="text-[12px] truncate" style={{ color: 'var(--text-tertiary)' }}>{n.body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>لا توجد إشعارات جديدة</p>
-        )}
-      </motion.div>
-
-      {/* ═══ 10. Daily Challenge + Mystery Box ═══ */}
+      {/* ═══ 9. Daily Challenge + Mystery Box ═══ */}
       <motion.div variants={fadeUp} className="grid lg:grid-cols-2 gap-5">
         <DailyChallenge />
         <MysteryBox />
