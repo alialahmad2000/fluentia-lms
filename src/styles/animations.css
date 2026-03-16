@@ -224,6 +224,29 @@
   animation: cursorBlink 1s step-end infinite;
 }
 
+/* === Ripple Expand (card click feedback) === */
+@keyframes rippleExpand {
+  0%   { width: 0; height: 0; opacity: 0.4; }
+  100% { width: 300px; height: 300px; opacity: 0; }
+}
+
+/* === Toast Slide-In === */
+@keyframes toastSlideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+.toast-enter {
+  animation: toastSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* === Float (background orbs) === */
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25%      { transform: translateY(-8px) translateX(4px); }
+  50%      { transform: translateY(0) translateX(-4px); }
+  75%      { transform: translateY(8px) translateX(2px); }
+}
+
 /* === Reduce Motion === */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
