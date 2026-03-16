@@ -79,7 +79,7 @@ function SkillRadarChart({ skills }) {
           key={lv}
           points={hexPoints(lv)}
           fill="none"
-          stroke="rgba(255,255,255,0.1)"
+          stroke="var(--border-subtle)"
           strokeWidth="1"
         />
       ))}
@@ -96,7 +96,7 @@ function SkillRadarChart({ skills }) {
             y1={cy}
             x2={x2}
             y2={y2}
-            stroke="rgba(255,255,255,0.08)"
+            stroke="var(--border-subtle)"
             strokeWidth="1"
           />
         )
@@ -454,7 +454,7 @@ export default function StudentAssessments() {
                       </span>
                       <span className="text-xs text-muted">{formatDate(a.created_at)}</span>
                       {a.level_at_time && (
-                        <span className="text-xs text-muted bg-white/5 px-2 py-0.5 rounded-full">
+                        <span className="text-xs text-muted px-2 py-0.5 rounded-full" style={{ background: 'var(--surface-raised)' }}>
                           {a.level_at_time}
                         </span>
                       )}
@@ -554,7 +554,7 @@ export default function StudentAssessments() {
                     className={`flex flex-col items-center gap-1 px-4 py-3 rounded-xl border transition-all duration-200 ${
                       mood === opt.key
                         ? opt.activeCls
-                        : 'border-border-subtle text-muted hover:bg-white/10'
+                        : 'border-border-subtle text-muted hover:bg-[var(--surface-raised)]'
                     }`}
                   >
                     <span className="text-2xl">{opt.emoji}</span>

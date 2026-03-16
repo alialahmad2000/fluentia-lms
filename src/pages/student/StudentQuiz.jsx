@@ -584,194 +584,199 @@ function QuizTaker({ quiz, onFinish, onBack }) {
   )
 }
 
-// ─── Question Renderer ──────────────────────────────────────
+// ─── Question Renderer (delegates to type-specific components) ──
 function QuestionRenderer({ question, answer, onChange, shuffleOptions }) {
   const type = question.type
 
-  if (type === 'multiple_choice') {
-    let options = question.options || []
-    if (typeof options === 'string') options = JSON.parse(options)
-    const [shuffled] = useState(() => shuffleOptions ? shuffleArray([...options]) : options)
-
-    return (
-      <div className="space-y-2">
-        {shuffled.map((opt, i) => (
-          <button
-            key={i}
-            onClick={() => onChange(opt)}
-            className={`w-full text-right p-3 rounded-xl border transition-all text-sm ${
-              answer === opt
-                ? 'border-violet-500 bg-violet-500/20 text-white'
-                : 'border-[var(--border-subtle)] bg-[var(--surface-base)] text-[var(--text-tertiary)] hover:border-[var(--border-subtle)]'
-            }`}
-          >
-            <span className="ml-2 text-xs text-[var(--text-tertiary)]">{String.fromCharCode(1571 + i)}</span>
-            {opt}
-          </button>
-        ))}
-      </div>
-    )
-  }
-
-  if (type === 'true_false') {
-    return (
-      <div className="grid grid-cols-2 gap-3">
-        {[
-          { value: 'true', label: 'صح', icon: Check },
-          { value: 'false', label: 'خطأ', icon: X },
-        ].map(({ value, label, icon: Icon }) => (
-          <button
-            key={value}
-            onClick={() => onChange(value)}
-            className={`p-6 rounded-xl border text-center transition-all ${
-              answer === value
-                ? value === 'true'
-                  ? 'border-emerald-500 bg-emerald-500/20 text-emerald-400'
-                  : 'border-red-500 bg-red-500/20 text-red-400'
-                : 'border-[var(--border-subtle)] bg-[var(--surface-base)] text-[var(--text-tertiary)] hover:border-[var(--border-subtle)]'
-            }`}
-          >
-            <Icon className="w-8 h-8 mx-auto mb-2" />
-            <span className="font-bold text-lg">{label}</span>
-          </button>
-        ))}
-      </div>
-    )
-  }
-
-  if (type === 'fill_blank') {
-    return (
-      <input
-        type="text"
-        value={answer || ''}
-        onChange={e => onChange(e.target.value)}
-        placeholder="اكتب إجابتك هنا..."
-        className="input-field w-full text-right"
-        dir="rtl"
-      />
-    )
-  }
-
-  if (type === 'reorder') {
-    const [items, setItems] = useState(() => {
-      const opts = question.options || []
-      return typeof opts === 'string' ? JSON.parse(opts) : [...opts]
-    })
-
-    const moveItem = (index, dir) => {
-      const newItems = [...items]
-      const target = index + dir
-      if (target < 0 || target >= newItems.length) return
-      ;[newItems[index], newItems[target]] = [newItems[target], newItems[index]]
-      setItems(newItems)
-      onChange(newItems)
-    }
-
-    return (
-      <div className="space-y-2">
-        {items.map((item, i) => (
-          <div key={`${item}-${i}`} className="flex items-center gap-2 p-3 rounded-xl bg-[var(--surface-base)] border border-[var(--border-subtle)]">
-            <span className="text-[var(--text-tertiary)] text-xs w-5">{i + 1}</span>
-            <span className="flex-1 text-[var(--text-primary)] text-sm">{item}</span>
-            <div className="flex flex-col gap-0.5">
-              <button onClick={() => moveItem(i, -1)} disabled={i === 0} className="p-0.5 text-[var(--text-tertiary)] hover:text-[var(--text-primary)] disabled:opacity-20">
-                <ChevronRight className="w-4 h-4 rotate-90" />
-              </button>
-              <button onClick={() => moveItem(i, 1)} disabled={i === items.length - 1} className="p-0.5 text-[var(--text-tertiary)] hover:text-[var(--text-primary)] disabled:opacity-20">
-                <ChevronLeft className="w-4 h-4 rotate-90" />
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-    )
-  }
-
-  if (type === 'matching') {
-    const pairs = question.matching_pairs || []
-    const [selected, setSelected] = useState(null) // { side: 'left'|'right', index }
-    const [matches, setMatches] = useState({}) // leftIndex -> rightIndex
-
-    const rightItems = useState(() => shuffleArray(pairs.map((p, i) => ({ text: p.right || p.answer, origIndex: i }))))[0]
-
-    const handleClick = (side, index) => {
-      if (!selected) {
-        setSelected({ side, index })
-      } else if (selected.side === side) {
-        setSelected({ side, index })
-      } else {
-        const leftIdx = side === 'left' ? index : selected.index
-        const rightIdx = side === 'right' ? index : selected.index
-        const newMatches = { ...matches, [leftIdx]: rightIdx }
-        setMatches(newMatches)
-        setSelected(null)
-        // Convert to answer format
-        const ans = {}
-        Object.entries(newMatches).forEach(([l, r]) => {
-          ans[pairs[l].left || pairs[l].question] = rightItems[r].text
-        })
-        onChange(ans)
-      }
-    }
-
-    return (
-      <div className="grid grid-cols-2 gap-3">
-        <div className="space-y-2">
-          {pairs.map((p, i) => {
-            const isMatched = matches[i] !== undefined
-            const isSelected = selected?.side === 'left' && selected?.index === i
-            return (
-              <button
-                key={i}
-                onClick={() => handleClick('left', i)}
-                className={`w-full p-3 rounded-xl border text-sm text-right transition-all ${
-                  isSelected ? 'border-violet-500 bg-violet-500/20 text-white'
-                    : isMatched ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400'
-                    : 'border-[var(--border-subtle)] bg-[var(--surface-base)] text-[var(--text-tertiary)] hover:border-[var(--border-subtle)]'
-                }`}
-              >
-                {p.left || p.question}
-              </button>
-            )
-          })}
-        </div>
-        <div className="space-y-2">
-          {rightItems.map((item, i) => {
-            const isMatched = Object.values(matches).includes(i)
-            const isSelected = selected?.side === 'right' && selected?.index === i
-            return (
-              <button
-                key={i}
-                onClick={() => handleClick('right', i)}
-                className={`w-full p-3 rounded-xl border text-sm text-right transition-all ${
-                  isSelected ? 'border-violet-500 bg-violet-500/20 text-white'
-                    : isMatched ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400'
-                    : 'border-[var(--border-subtle)] bg-[var(--surface-base)] text-[var(--text-tertiary)] hover:border-[var(--border-subtle)]'
-                }`}
-              >
-                {item.text}
-              </button>
-            )
-          })}
-        </div>
-      </div>
-    )
-  }
-
-  if (type === 'short_answer') {
-    return (
-      <textarea
-        value={answer || ''}
-        onChange={e => onChange(e.target.value)}
-        placeholder="اكتب إجابتك هنا..."
-        rows={4}
-        className="input-field w-full text-right resize-none"
-        dir="rtl"
-      />
-    )
-  }
+  if (type === 'multiple_choice') return <MCQQuestion question={question} answer={answer} onChange={onChange} shuffleOptions={shuffleOptions} />
+  if (type === 'true_false') return <TrueFalseQuestion answer={answer} onChange={onChange} />
+  if (type === 'fill_blank') return <FillBlankQuestion answer={answer} onChange={onChange} />
+  if (type === 'reorder') return <ReorderQuestion question={question} answer={answer} onChange={onChange} />
+  if (type === 'matching') return <MatchingQuestion question={question} answer={answer} onChange={onChange} />
+  if (type === 'short_answer') return <ShortAnswerQuestion answer={answer} onChange={onChange} />
 
   return <p className="text-[var(--text-tertiary)] text-sm">نوع السؤال غير مدعوم</p>
+}
+
+function MCQQuestion({ question, answer, onChange, shuffleOptions }) {
+  let options = question.options || []
+  if (typeof options === 'string') try { options = JSON.parse(options) } catch { options = [] }
+  const [shuffled] = useState(() => shuffleOptions ? shuffleArray([...options]) : options)
+
+  return (
+    <div className="space-y-2">
+      {shuffled.map((opt, i) => (
+        <button
+          key={i}
+          onClick={() => onChange(opt)}
+          className={`w-full text-right p-3 rounded-xl border transition-all text-sm ${
+            answer === opt
+              ? 'border-violet-500 bg-violet-500/20 text-[var(--text-primary)]'
+              : 'border-[var(--border-subtle)] bg-[var(--surface-base)] text-[var(--text-tertiary)] hover:border-[var(--border-subtle)]'
+          }`}
+        >
+          <span className="ml-2 text-xs text-[var(--text-tertiary)]">{String.fromCharCode(1571 + i)}</span>
+          {opt}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+function TrueFalseQuestion({ answer, onChange }) {
+  return (
+    <div className="grid grid-cols-2 gap-3">
+      {[
+        { value: 'true', label: 'صح', icon: Check },
+        { value: 'false', label: 'خطأ', icon: X },
+      ].map(({ value, label, icon: Icon }) => (
+        <button
+          key={value}
+          onClick={() => onChange(value)}
+          className={`p-6 rounded-xl border text-center transition-all ${
+            answer === value
+              ? value === 'true'
+                ? 'border-emerald-500 bg-emerald-500/20 text-emerald-400'
+                : 'border-red-500 bg-red-500/20 text-red-400'
+              : 'border-[var(--border-subtle)] bg-[var(--surface-base)] text-[var(--text-tertiary)] hover:border-[var(--border-subtle)]'
+          }`}
+        >
+          <Icon className="w-8 h-8 mx-auto mb-2" />
+          <span className="font-bold text-lg">{label}</span>
+        </button>
+      ))}
+    </div>
+  )
+}
+
+function FillBlankQuestion({ answer, onChange }) {
+  return (
+    <input
+      type="text"
+      value={answer || ''}
+      onChange={e => onChange(e.target.value)}
+      placeholder="اكتب إجابتك هنا..."
+      className="input-field w-full text-right"
+      dir="rtl"
+    />
+  )
+}
+
+function ReorderQuestion({ question, onChange }) {
+  const [items, setItems] = useState(() => {
+    const opts = question.options || []
+    try { return typeof opts === 'string' ? JSON.parse(opts) : [...opts] } catch { return [] }
+  })
+
+  const moveItem = (index, dir) => {
+    const newItems = [...items]
+    const target = index + dir
+    if (target < 0 || target >= newItems.length) return
+    ;[newItems[index], newItems[target]] = [newItems[target], newItems[index]]
+    setItems(newItems)
+    onChange(newItems)
+  }
+
+  return (
+    <div className="space-y-2">
+      {items.map((item, i) => (
+        <div key={`${item}-${i}`} className="flex items-center gap-2 p-3 rounded-xl bg-[var(--surface-base)] border border-[var(--border-subtle)]">
+          <span className="text-[var(--text-tertiary)] text-xs w-5">{i + 1}</span>
+          <span className="flex-1 text-[var(--text-primary)] text-sm">{item}</span>
+          <div className="flex flex-col gap-0.5">
+            <button onClick={() => moveItem(i, -1)} disabled={i === 0} className="p-0.5 text-[var(--text-tertiary)] hover:text-[var(--text-primary)] disabled:opacity-20">
+              <ChevronRight className="w-4 h-4 rotate-90" />
+            </button>
+            <button onClick={() => moveItem(i, 1)} disabled={i === items.length - 1} className="p-0.5 text-[var(--text-tertiary)] hover:text-[var(--text-primary)] disabled:opacity-20">
+              <ChevronLeft className="w-4 h-4 rotate-90" />
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function MatchingQuestion({ question, onChange }) {
+  const pairs = question.matching_pairs || []
+  const [selected, setSelected] = useState(null)
+  const [matches, setMatches] = useState({})
+  const [rightItems] = useState(() => shuffleArray(pairs.map((p, i) => ({ text: p.right || p.answer, origIndex: i }))))
+
+  const handleClick = (side, index) => {
+    if (!selected) {
+      setSelected({ side, index })
+    } else if (selected.side === side) {
+      setSelected({ side, index })
+    } else {
+      const leftIdx = side === 'left' ? index : selected.index
+      const rightIdx = side === 'right' ? index : selected.index
+      const newMatches = { ...matches, [leftIdx]: rightIdx }
+      setMatches(newMatches)
+      setSelected(null)
+      const ans = {}
+      Object.entries(newMatches).forEach(([l, r]) => {
+        ans[pairs[l].left || pairs[l].question] = rightItems[r].text
+      })
+      onChange(ans)
+    }
+  }
+
+  return (
+    <div className="grid grid-cols-2 gap-3">
+      <div className="space-y-2">
+        {pairs.map((p, i) => {
+          const isMatched = matches[i] !== undefined
+          const isSelected = selected?.side === 'left' && selected?.index === i
+          return (
+            <button
+              key={i}
+              onClick={() => handleClick('left', i)}
+              className={`w-full p-3 rounded-xl border text-sm text-right transition-all ${
+                isSelected ? 'border-violet-500 bg-violet-500/20 text-[var(--text-primary)]'
+                  : isMatched ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400'
+                  : 'border-[var(--border-subtle)] bg-[var(--surface-base)] text-[var(--text-tertiary)] hover:border-[var(--border-subtle)]'
+              }`}
+            >
+              {p.left || p.question}
+            </button>
+          )
+        })}
+      </div>
+      <div className="space-y-2">
+        {rightItems.map((item, i) => {
+          const isMatched = Object.values(matches).includes(i)
+          const isSelected = selected?.side === 'right' && selected?.index === i
+          return (
+            <button
+              key={i}
+              onClick={() => handleClick('right', i)}
+              className={`w-full p-3 rounded-xl border text-sm text-right transition-all ${
+                isSelected ? 'border-violet-500 bg-violet-500/20 text-[var(--text-primary)]'
+                  : isMatched ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400'
+                  : 'border-[var(--border-subtle)] bg-[var(--surface-base)] text-[var(--text-tertiary)] hover:border-[var(--border-subtle)]'
+              }`}
+            >
+              {item.text}
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+function ShortAnswerQuestion({ answer, onChange }) {
+  return (
+    <textarea
+      value={answer || ''}
+      onChange={e => onChange(e.target.value)}
+      placeholder="اكتب إجابتك هنا..."
+      rows={4}
+      className="input-field w-full text-right resize-none"
+      dir="rtl"
+    />
+  )
 }
 
 // ═══════════════════════════════════════════════════════════

@@ -1,7 +1,7 @@
 import { useState, lazy, Suspense } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Calendar, Clock, Plus, Video, Users, X, Save, Loader2, ChevronDown, StickyNote, BookOpen, Brain, Target, Wrench } from 'lucide-react'
+import { Calendar, Clock, Plus, Video, Users, X, Save, Loader2, ChevronDown, StickyNote, BookOpen, Brain, Target, Trophy, Wrench } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { getArabicDay, formatTime, formatDateAr } from '../../utils/dateHelpers'
@@ -10,18 +10,16 @@ import SubTabs from '../../components/common/SubTabs'
 const TrainerNotes = lazy(() => import('./TrainerNotes'))
 const TrainerLibrary = lazy(() => import('./TrainerLibrary'))
 const TrainerLessonPlanner = lazy(() => import('./TrainerLessonPlanner'))
-const TrainerQuizGenerator = lazy(() => import('./TrainerQuizGenerator'))
 const TrainerTeams = lazy(() => import('./TrainerTeams'))
 const TrainerChallenges = lazy(() => import('./TrainerChallenges'))
 
 const TOOL_TABS = [
   { key: 'schedule', label: 'الجدول', icon: Calendar },
+  { key: 'planner', label: 'مخطط الدروس', icon: Brain },
   { key: 'notes', label: 'ملاحظات', icon: StickyNote },
   { key: 'library', label: 'المكتبة', icon: BookOpen },
-  { key: 'planner', label: 'مخطط الدروس', icon: Brain },
-  { key: 'quiz', label: 'الاختبارات', icon: Target },
   { key: 'teams', label: 'الفرق', icon: Users },
-  { key: 'challenges', label: 'التحديات', icon: Target },
+  { key: 'challenges', label: 'التحديات', icon: Trophy },
 ]
 
 const DAYS_ORDER = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -35,17 +33,16 @@ export default function TrainerSchedule() {
           <Wrench size={20} strokeWidth={1.5} className="text-emerald-400" />
         </div>
         <div>
-          <h1 className="text-page-title" style={{ color: 'var(--text-primary)' }}>الأدوات</h1>
-          <p className="text-muted text-sm mt-0.5">الجدول والأدوات التعليمية</p>
+          <h1 className="text-page-title" style={{ color: 'var(--text-primary)' }}>الجدول والأدوات</h1>
+          <p className="text-muted text-sm mt-0.5">إدارة الحصص والأدوات التعليمية</p>
         </div>
       </div>
       <SubTabs tabs={TOOL_TABS} activeTab={activeTab} onChange={setActiveTab} accent="emerald" />
       <Suspense fallback={<div className="skeleton h-96 w-full" />}>
         {activeTab === 'schedule' && <ScheduleContent />}
+        {activeTab === 'planner' && <TrainerLessonPlanner />}
         {activeTab === 'notes' && <TrainerNotes />}
         {activeTab === 'library' && <TrainerLibrary />}
-        {activeTab === 'planner' && <TrainerLessonPlanner />}
-        {activeTab === 'quiz' && <TrainerQuizGenerator />}
         {activeTab === 'teams' && <TrainerTeams />}
         {activeTab === 'challenges' && <TrainerChallenges />}
       </Suspense>
