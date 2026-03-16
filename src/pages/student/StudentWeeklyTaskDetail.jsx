@@ -47,20 +47,43 @@ export default function StudentWeeklyTaskDetail() {
 
   const submitMutation = useMutation({
     mutationFn: async (responseData) => {
+      // Extract internal fields not meant for DB
+      const { _voice_storage_path, ...dbFields } = responseData
+
       const { error } = await supabase
         .from('weekly_tasks')
         .update({
           status: 'submitted',
           submitted_at: new Date().toISOString(),
-          ...responseData,
+          ...dbFields,
         })
         .eq('id', task.id)
       if (error) throw error
 
+      // For speaking tasks: transcribe audio before grading
+      if (_voice_storage_path) {
+        try {
+          const { data: whisperResult } = await invokeWithRetry('whisper-transcribe', {
+            body: {
+              voice_url: _voice_storage_path,
+              duration_seconds: dbFields.response_voice_duration || 60,
+            },
+          }, { timeoutMs: 60000 })
+          if (whisperResult?.transcript) {
+            await supabase
+              .from('weekly_tasks')
+              .update({ response_voice_transcript: whisperResult.transcript })
+              .eq('id', task.id)
+          }
+        } catch (transcribeErr) {
+          console.error('Whisper transcription failed (grading may score 0):', transcribeErr)
+        }
+      }
+
       try {
         await invokeWithRetry('grade-weekly-task', {
           body: { task_id: task.id },
-          
+
         })
       } catch (gradeErr) {
         console.error('AI grading request failed (will be retried):', gradeErr)
@@ -269,15 +292,16 @@ function SpeakingTask({ task, content, isSubmitted, onSubmit }) {
       const ext = audioBlob.type.includes('mp4') ? 'mp4' : 'webm'
       const fileName = `speaking/${task.id}_${Date.now()}.${ext}`
       const { error: uploadError } = await supabase.storage
-        .from('voice-recordings')
+        .from('voice-notes')
         .upload(fileName, audioBlob, { contentType: audioBlob.type })
       if (uploadError) throw uploadError
 
-      const { data: urlData } = supabase.storage.from('voice-recordings').getPublicUrl(fileName)
+      const { data: urlData } = supabase.storage.from('voice-notes').getPublicUrl(fileName)
 
       await onSubmit.mutateAsync({
         response_voice_url: urlData.publicUrl,
         response_voice_duration: duration,
+        _voice_storage_path: fileName,
       })
     } catch (err) {
       alert('حدث خطأ أثناء رفع التسجيل')

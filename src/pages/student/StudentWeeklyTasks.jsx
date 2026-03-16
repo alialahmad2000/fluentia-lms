@@ -31,8 +31,8 @@ const STATUS_CONFIG = {
 // ── Helpers ────────────────────────────────────────────────────────
 function getSunday(date) {
   const d = new Date(date)
-  d.setHours(0, 0, 0, 0)
-  d.setDate(d.getDate() - d.getDay())
+  d.setUTCHours(0, 0, 0, 0)
+  d.setUTCDate(d.getUTCDate() - d.getUTCDay())
   return d
 }
 

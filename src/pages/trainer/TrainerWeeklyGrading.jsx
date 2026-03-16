@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   ClipboardCheck, X, Save, Loader2, CheckCircle2, Clock, Star,
   Mic, BookOpen, PenLine, Headphones, RefreshCw, Filter, ChevronDown,
+  ChevronLeft, ChevronRight,
   BookType, Sparkles, Award,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
@@ -12,6 +13,42 @@ import { GRADE_LABELS } from '../../lib/constants'
 import { formatDateAr, timeAgo } from '../../utils/dateHelpers'
 import { ListSkeleton } from '../../components/ui/PageSkeleton'
 import EmptyState from '../../components/ui/EmptyState'
+
+// ── Week helpers ──────────────────────────────────────────────────
+function getSunday(date) {
+  const d = new Date(date)
+  d.setUTCHours(0, 0, 0, 0)
+  d.setUTCDate(d.getUTCDate() - d.getUTCDay())
+  return d
+}
+
+function addWeeks(date, weeks) {
+  const d = new Date(date)
+  d.setDate(d.getDate() + weeks * 7)
+  return d
+}
+
+function formatISODate(date) {
+  return date.toISOString().split('T')[0]
+}
+
+const AR_MONTHS = [
+  'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
+  'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر',
+]
+
+function toArabicNum(n) {
+  return String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d])
+}
+
+function formatWeekRange(sunday) {
+  const saturday = new Date(sunday)
+  saturday.setDate(saturday.getDate() + 6)
+  const startDay = toArabicNum(sunday.getDate())
+  const endDay = toArabicNum(saturday.getDate())
+  const month = AR_MONTHS[saturday.getMonth()]
+  return `${startDay} – ${endDay} ${month}`
+}
 
 const TYPE_CONFIG = {
   speaking:        { icon: Mic,        label: 'تحدث',       gradient: 'from-sky-500 to-cyan-400',     bg: 'bg-sky-500/[0.08]',     text: 'text-sky-400' },
@@ -39,10 +76,16 @@ export default function TrainerWeeklyGrading() {
   const { profile } = useAuthStore()
   const queryClient = useQueryClient()
 
+  const [weekOffset, setWeekOffset] = useState(0)
   const [selectedGroup, setSelectedGroup] = useState('')
   const [filterType, setFilterType] = useState('')
   const [filterStatus, setFilterStatus] = useState('needs_review')
   const [selectedTask, setSelectedTask] = useState(null)
+
+  const currentSunday = useMemo(() => getSunday(new Date()), [])
+  const weekSunday = useMemo(() => addWeeks(currentSunday, weekOffset), [currentSunday, weekOffset])
+  const weekStart = formatISODate(weekSunday)
+  const nextWeekStart = formatISODate(addWeeks(weekSunday, 1))
 
   const isAdmin = profile?.role === 'admin'
 
@@ -58,12 +101,14 @@ export default function TrainerWeeklyGrading() {
   })
 
   const { data: submissions, isLoading } = useQuery({
-    queryKey: ['weekly-submissions', selectedGroup, filterType, filterStatus],
+    queryKey: ['weekly-submissions', weekStart, selectedGroup, filterType, filterStatus],
     queryFn: async () => {
       let query = supabase
         .from('weekly_tasks')
         .select('*, students:student_id(profiles(full_name, display_name))')
         .is('deleted_at', null)
+        .gte('deadline', weekStart)
+        .lt('deadline', nextWeekStart)
         .in('status', filterStatus === 'needs_review' ? ['submitted'] : ['submitted', 'graded'])
         .order('submitted_at', { ascending: false })
 
@@ -114,13 +159,39 @@ export default function TrainerWeeklyGrading() {
     <div className="space-y-8 pb-8">
       {/* ── Header ─────────────────────────────────────── */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-sky-500/20 to-cyan-500/10 flex items-center justify-center ring-1 ring-sky-500/20">
-            <ClipboardCheck size={20} strokeWidth={1.5} className="text-sky-400" />
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-sky-500/20 to-cyan-500/10 flex items-center justify-center ring-1 ring-sky-500/20">
+              <ClipboardCheck size={20} strokeWidth={1.5} className="text-sky-400" />
+            </div>
+            <div>
+              <h1 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)]">تقييم المهام الأسبوعية</h1>
+              <p className="text-muted text-sm mt-0.5">{formatWeekRange(weekSunday)}</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)]">تقييم المهام الأسبوعية</h1>
-            <p className="text-muted text-sm mt-0.5">مراجعة وتقييم مهام الطلاب</p>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setWeekOffset(o => o + 1)}
+              className="w-9 h-9 rounded-xl bg-[var(--surface-base)] hover:bg-[var(--surface-raised)] border border-[var(--border-subtle)] flex items-center justify-center transition-all"
+            >
+              <ChevronRight size={16} className="text-muted" />
+            </button>
+            {weekOffset !== 0 && (
+              <button
+                onClick={() => setWeekOffset(0)}
+                className="px-3.5 py-1.5 rounded-xl bg-sky-500/10 text-sky-400 text-xs font-medium border border-sky-500/15 hover:bg-sky-500/15 transition-all"
+              >
+                هذا الأسبوع
+              </button>
+            )}
+            <button
+              onClick={() => setWeekOffset(o => o - 1)}
+              disabled={weekOffset <= 0}
+              className="w-9 h-9 rounded-xl bg-[var(--surface-base)] hover:bg-[var(--surface-raised)] border border-[var(--border-subtle)] flex items-center justify-center transition-all disabled:opacity-30"
+            >
+              <ChevronLeft size={16} className="text-muted" />
+            </button>
           </div>
         </div>
       </motion.div>

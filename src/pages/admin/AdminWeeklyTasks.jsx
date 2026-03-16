@@ -15,8 +15,8 @@ function toArabicNum(n) {
 
 function getSunday(date) {
   const d = new Date(date)
-  d.setHours(0, 0, 0, 0)
-  d.setDate(d.getDate() - d.getDay())
+  d.setUTCDate(d.getUTCDate() - d.getUTCDay())
+  d.setUTCHours(0, 0, 0, 0)
   return d
 }
 
@@ -40,6 +40,12 @@ export default function AdminWeeklyTasks() {
 
   const currentSunday = useMemo(() => getSunday(new Date()), [])
   const weekStart = currentSunday.toISOString().split('T')[0]
+  const weekEnd = useMemo(() => {
+    const sat = new Date(currentSunday)
+    sat.setUTCDate(sat.getUTCDate() + 6)
+    sat.setUTCHours(23, 59, 59, 999)
+    return sat.toISOString()
+  }, [currentSunday])
 
   // Groups
   const { data: groups } = useQuery({
@@ -58,7 +64,7 @@ export default function AdminWeeklyTasks() {
         .from('weekly_task_sets')
         .select('*, students:student_id(profiles(full_name, display_name), group_id, academic_level)')
         .eq('week_start', weekStart)
-        .order('created_at', { ascending: false })
+        .order('generated_at', { ascending: false })
 
       if (selectedGroup) {
         const { data: sids } = await supabase.from('students').select('id').eq('group_id', selectedGroup)
@@ -72,12 +78,13 @@ export default function AdminWeeklyTasks() {
 
   // AI usage cost this week
   const { data: aiUsage } = useQuery({
-    queryKey: ['admin-ai-usage-weekly', weekStart],
+    queryKey: ['admin-ai-usage-weekly', weekStart, weekEnd],
     queryFn: async () => {
       const { data } = await supabase
         .from('ai_usage')
         .select('input_tokens, output_tokens, estimated_cost_sar')
         .gte('created_at', weekStart)
+        .lte('created_at', weekEnd)
         .in('type', ['weekly_tasks'])
 
       if (!data) return { totalCost: 0, totalCalls: 0 }

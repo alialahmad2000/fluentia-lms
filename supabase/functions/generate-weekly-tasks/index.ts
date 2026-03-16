@@ -436,8 +436,10 @@ serve(async (req) => {
     let skipped = 0
     const errors: string[] = []
 
-    // Cache Claude results per academic level to avoid redundant API calls
-    const levelCache: Record<number, {
+    // Cache Claude results per level+difficulty band to avoid redundant API calls
+    // Key format: "${academicLevel}_${difficultyLabel}" so students at same level
+    // but very different difficulties get different content
+    const levelCache: Record<string, {
       result: TaskGenerationResult
       inputTokens: number
       outputTokens: number
@@ -457,14 +459,14 @@ serve(async (req) => {
           .eq('week_start', weekStart)
           .limit(1)
 
+        // Remember old set IDs for deferred deletion (Bug fix: don't delete before Claude succeeds)
+        let oldSetIds: string[] = []
+
         if (existing && existing.length > 0) {
           if (forceRegenerate) {
-            // Delete existing sets and their tasks for regeneration
-            console.log(`Force regenerate: deleting existing tasks for student ${studentId}`)
-            for (const set of existing) {
-              await supabase.from('weekly_tasks').delete().eq('task_set_id', set.id)
-              await supabase.from('weekly_task_sets').delete().eq('id', set.id)
-            }
+            // Remember IDs but DON'T delete yet — wait until new tasks are generated
+            oldSetIds = existing.map((s: { id: string }) => s.id)
+            console.log(`Force regenerate: will replace ${oldSetIds.length} existing set(s) for student ${studentId} after new tasks are generated`)
           } else {
             console.log(`Tasks already exist for student ${studentId}, skipping`)
             skipped++
@@ -475,25 +477,30 @@ serve(async (req) => {
         // Calculate adaptive difficulty for this student
         const difficultyScore = await calculateDifficulty(supabase, studentId)
 
-        // Generate tasks via Claude (use cache if same level already generated)
+        // Compute difficulty label for cache key — students at same level but
+        // very different difficulties get different content
+        const difficultyLabel = difficultyScore >= 0.75 ? 'challenging' : difficultyScore >= 0.50 ? 'moderate' : 'easier'
+        const cacheKey = `${academicLevel}_${difficultyLabel}`
+
+        // Generate tasks via Claude (use cache if same level+difficulty band already generated)
         let taskData: TaskGenerationResult
         let inputTokens: number
         let outputTokens: number
 
-        if (levelCache[academicLevel]) {
-          // Reuse cached result for same level — different students at same level
+        if (levelCache[cacheKey]) {
+          // Reuse cached result for same level+difficulty — different students at same level
           // get the same task templates (each student still gets their own irregular verbs)
-          taskData = levelCache[academicLevel].result
-          inputTokens = levelCache[academicLevel].inputTokens
-          outputTokens = levelCache[academicLevel].outputTokens
+          taskData = levelCache[cacheKey].result
+          inputTokens = levelCache[cacheKey].inputTokens
+          outputTokens = levelCache[cacheKey].outputTokens
         } else {
           const claudeResult = await generateTasksWithClaude(academicLevel, difficultyScore)
           taskData = claudeResult.result
           inputTokens = claudeResult.inputTokens
           outputTokens = claudeResult.outputTokens
-          levelCache[academicLevel] = claudeResult
+          levelCache[cacheKey] = claudeResult
 
-          // Log AI usage (only once per unique level call)
+          // Log AI usage (only once per unique level+difficulty call)
           const costSar =
             (inputTokens * 0.003 / 1000) * 3.75 +
             (outputTokens * 0.015 / 1000) * 3.75
@@ -698,6 +705,15 @@ serve(async (req) => {
 
         if (insertErr) {
           throw new Error(`Failed to insert tasks for student ${studentId}: ${insertErr.message}`)
+        }
+
+        // NOW that new tasks are safely inserted, delete old sets if force-regenerating
+        if (oldSetIds.length > 0) {
+          console.log(`Deleting ${oldSetIds.length} old task set(s) for student ${studentId}`)
+          for (const oldSetId of oldSetIds) {
+            await supabase.from('weekly_tasks').delete().eq('task_set_id', oldSetId)
+            await supabase.from('weekly_task_sets').delete().eq('id', oldSetId)
+          }
         }
 
         // Update task set with total_tasks count
