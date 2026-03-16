@@ -114,19 +114,19 @@ export default function TrainerDashboard() {
       weekAgo.setDate(weekAgo.getDate() - 7)
       const { data } = await supabase
         .from('students')
-        .select('id, current_streak, last_active, profiles(full_name, display_name)')
+        .select('id, current_streak, last_active_at, profiles(full_name, display_name)')
         .in('group_id', groupIds)
         .eq('status', 'active')
         .is('deleted_at', null)
-        .or(`last_active.is.null,last_active.lt.${weekAgo.toISOString()}`)
-        .order('last_active', { ascending: true, nullsFirst: true })
+        .or(`last_active_at.is.null,last_active_at.lt.${weekAgo.toISOString()}`)
+        .order('last_active_at', { ascending: true, nullsFirst: true })
         .limit(5)
       return (data || []).map(s => ({
         id: s.id,
         name: s.profiles?.display_name || s.profiles?.full_name || 'طالب',
         streak: s.current_streak || 0,
-        lastActive: s.last_active,
-        inactive: !s.last_active || new Date(s.last_active) < weekAgo,
+        lastActive: s.last_active_at,
+        inactive: !s.last_active_at || new Date(s.last_active_at) < weekAgo,
       }))
     },
     enabled: !!groups?.length,

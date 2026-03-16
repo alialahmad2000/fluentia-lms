@@ -8,7 +8,7 @@ import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 const ANTHROPIC_API_KEY = Deno.env.get('CLAUDE_API_KEY') || Deno.env.get('ANTHROPIC_API_KEY') || ''
-const CLAUDE_MODEL = 'claude-sonnet-4-6'
+const CLAUDE_MODEL = 'claude-sonnet-4-6-20250514'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -376,12 +376,24 @@ serve(async (req) => {
 
     const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
+    // Parse request body for optional filters
+    let body: Record<string, unknown> = {}
+    try { body = await req.json() } catch { body = {} }
+    const forceRegenerate = body.force === true
+    const filterGroupId = body.group_id as string | undefined
+    const filterStudentIds = body.student_ids as string[] | undefined
+
     // 1. Query all active students
-    const { data: students, error: studentsErr } = await supabase
+    let studentsQuery = supabase
       .from('students')
       .select('id, academic_level, group_id')
       .eq('status', 'active')
       .is('deleted_at', null)
+
+    if (filterGroupId) studentsQuery = studentsQuery.eq('group_id', filterGroupId)
+    if (filterStudentIds?.length) studentsQuery = studentsQuery.in('id', filterStudentIds)
+
+    const { data: students, error: studentsErr } = await studentsQuery
 
     if (studentsErr) {
       throw new Error(`Failed to fetch students: ${studentsErr.message}`)
@@ -446,9 +458,18 @@ serve(async (req) => {
           .limit(1)
 
         if (existing && existing.length > 0) {
-          console.log(`Tasks already exist for student ${studentId}, skipping`)
-          skipped++
-          continue
+          if (forceRegenerate) {
+            // Delete existing sets and their tasks for regeneration
+            console.log(`Force regenerate: deleting existing tasks for student ${studentId}`)
+            for (const set of existing) {
+              await supabase.from('weekly_tasks').delete().eq('task_set_id', set.id)
+              await supabase.from('weekly_task_sets').delete().eq('id', set.id)
+            }
+          } else {
+            console.log(`Tasks already exist for student ${studentId}, skipping`)
+            skipped++
+            continue
+          }
         }
 
         // Calculate adaptive difficulty for this student

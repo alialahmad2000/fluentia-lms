@@ -101,13 +101,13 @@ export default function AdminWeeklyTasks() {
   }, [taskSets])
 
   // Generate now
-  async function handleGenerate() {
+  async function handleGenerate(force = false) {
     setGenerating(true)
     setGenResult(null)
     try {
       const { data, error } = await invokeWithRetry('generate-weekly-tasks', {
-        body: {},
-        
+        body: force ? { force: true } : {},
+
       }, { timeoutMs: 120000 })
 
       if (error) {
@@ -146,14 +146,25 @@ export default function AdminWeeklyTasks() {
             </div>
           </div>
 
-          <button
-            onClick={handleGenerate}
-            disabled={generating}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-500 text-white text-sm font-medium hover:brightness-110 transition-all disabled:opacity-50 self-start sm:self-auto"
-          >
-            {generating ? <Loader2 size={16} className="animate-spin" /> : <Play size={16} />}
-            إنشاء المهام الآن
-          </button>
+          <div className="flex items-center gap-2 self-start sm:self-auto">
+            <button
+              onClick={() => handleGenerate(false)}
+              disabled={generating}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-500 text-white text-sm font-medium hover:brightness-110 transition-all disabled:opacity-50"
+            >
+              {generating ? <Loader2 size={16} className="animate-spin" /> : <Play size={16} />}
+              إنشاء المهام
+            </button>
+            <button
+              onClick={() => handleGenerate(true)}
+              disabled={generating}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all disabled:opacity-50"
+              style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)', color: 'var(--text-secondary)' }}
+              title="إعادة إنشاء حتى لو المهام موجودة"
+            >
+              إعادة إنشاء
+            </button>
+          </div>
         </div>
       </motion.div>
 
