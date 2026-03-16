@@ -13,6 +13,7 @@ import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/consta
 import DailyChallenge from '../../components/gamification/DailyChallenge'
 import MysteryBox from '../../components/gamification/MysteryBox'
 import StudentWowMoments from '../../components/ai/StudentWowMoments'
+import FloatingParticles from '../../components/illustrations/FloatingParticles'
 import { Link, useNavigate } from 'react-router-dom'
 
 function getLevel(xp) {
@@ -246,7 +247,7 @@ export default function StudentDashboard() {
     <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-10">
 
       {/* ═══ 1. Hero Greeting ═══ */}
-      <motion.div variants={fadeUp} className="relative overflow-hidden rounded-2xl p-8" style={{ background: 'var(--glass-card)' }}>
+      <motion.div variants={fadeUp} className="relative overflow-hidden rounded-2xl p-8" style={{ background: 'var(--glass-card)', border: '1px solid var(--border-default)' }}>
         {/* Animated gradient orb */}
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[200px] pointer-events-none glow-breathe"
@@ -255,17 +256,16 @@ export default function StudentDashboard() {
             filter: 'blur(60px)',
           }}
         />
+        <FloatingParticles count={8} />
+        {/* Top shimmer line */}
+        <div className="card-top-line shimmer" style={{ opacity: 0.5 }} />
         <div className="relative">
           <h1 style={{ fontSize: 30, fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em', lineHeight: 1.3, marginBottom: 8 }}>
             {getGreeting()}، {firstName}
           </h1>
-          <p style={{
+          <p className="text-shimmer" style={{
             fontSize: 15,
-            fontWeight: 500,
-            background: 'linear-gradient(90deg, var(--accent-sky), var(--accent-violet))',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
+            fontWeight: 600,
           }}>
             {pkg.name_ar} &middot; {academicLevel.name_ar} ({academicLevel.cefr})
           </p>
@@ -433,7 +433,7 @@ export default function StudentDashboard() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 + i * 0.04 }}
-                className="fl-card-static p-5 group cursor-pointer transition-all duration-250"
+                className="fl-card-static p-5 group cursor-pointer transition-all duration-250 aurora-border"
                 style={{ '--hover-glow': GLOW_SHADOW[item.color] }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-2px)'
@@ -457,8 +457,7 @@ export default function StudentDashboard() {
       </motion.div>
 
       {/* ═══ 6. XP Progress ═══ */}
-      <motion.div variants={fadeUp} className="fl-card-static p-7">
-        <div className="card-top-line" style={{ opacity: 0.3 }} />
+      <motion.div variants={fadeUp} className="fl-card-featured p-7">
         <div className="flex items-center justify-between mb-5">
           <div>
             <p className="text-[18px] font-bold" style={{ color: 'var(--text-primary)' }}>تقدم المستوى</p>

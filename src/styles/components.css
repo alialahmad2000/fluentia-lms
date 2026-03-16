@@ -100,6 +100,32 @@
 .fl-stat-card.emerald::after { background: radial-gradient(circle, var(--accent-emerald-glow), transparent); }
 .fl-stat-card.emerald:hover { box-shadow: var(--shadow-glow-emerald); }
 
+/* === Card with featured glow (for hero/highlight cards) === */
+.fl-card-featured {
+  background: var(--glass-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.fl-card-featured::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-sky), var(--accent-violet), var(--accent-gold));
+  background-size: 200% 100%;
+  animation: lineShimmer 3s ease-in-out infinite;
+}
+.fl-card-featured:hover {
+  border-color: var(--border-glow);
+  box-shadow: var(--shadow-lg), var(--shadow-glow-sky);
+  transform: translateY(-2px);
+}
+
 /* === Button Primary === */
 .fl-btn-primary {
   display: inline-flex;

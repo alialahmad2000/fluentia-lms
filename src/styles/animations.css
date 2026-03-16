@@ -125,6 +125,105 @@
   animation: xpFloat 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* === Aurora Gradient Sweep (card hover accent) === */
+@keyframes auroraSweep {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.aurora-border {
+  position: relative;
+}
+.aurora-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(56, 189, 248, 0.3),
+    rgba(167, 139, 250, 0.3),
+    rgba(251, 191, 36, 0.15),
+    rgba(52, 211, 153, 0.2),
+    rgba(56, 189, 248, 0.3)
+  );
+  background-size: 300% 100%;
+  animation: auroraSweep 6s ease-in-out infinite;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.aurora-border:hover::before {
+  opacity: 1;
+}
+
+/* === Pulse Ring (button focus / loading) === */
+@keyframes pulseRing {
+  0%   { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.4); }
+  70%  { box-shadow: 0 0 0 10px rgba(56, 189, 248, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+}
+.pulse-ring {
+  animation: pulseRing 1.5s ease-out infinite;
+}
+
+/* === Gradient Text Shimmer === */
+@keyframes textShimmer {
+  0%   { background-position: -100% 0; }
+  100% { background-position: 200% 0; }
+}
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--accent-sky) 0%,
+    var(--accent-violet) 30%,
+    var(--accent-gold) 50%,
+    var(--accent-violet) 70%,
+    var(--accent-sky) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: textShimmer 4s linear infinite;
+}
+
+/* === Scale Bounce (achievement unlocked) === */
+@keyframes scaleBounce {
+  0%   { transform: scale(0); opacity: 0; }
+  50%  { transform: scale(1.15); opacity: 1; }
+  70%  { transform: scale(0.95); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.scale-bounce {
+  animation: scaleBounce 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* === Spin Glow (loading indicator) === */
+@keyframes spinGlow {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.spin-glow {
+  animation: spinGlow 1.5s linear infinite;
+  background: conic-gradient(from 0deg, transparent, var(--accent-sky), transparent);
+  border-radius: 50%;
+}
+
+/* === Typewriter Cursor Blink === */
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.cursor-blink {
+  animation: cursorBlink 1s step-end infinite;
+}
+
 /* === Reduce Motion === */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

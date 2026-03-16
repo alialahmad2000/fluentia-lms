@@ -6,6 +6,7 @@ import { useAuthStore } from '../../stores/authStore'
 import { useThemeStore } from '../../stores/themeStore'
 import { parseSupabaseError, logError } from '../../utils/errors'
 import { ACADEMY } from '../../lib/constants'
+import FloatingParticles from '../../components/illustrations/FloatingParticles'
 
 export default function LoginPage() {
   const { user, profile, loading: authLoading } = useAuthStore()
@@ -56,9 +57,10 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center p-6" style={{ background: 'var(--surface-base)' }}>
       {/* Background ambient gradients */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full blur-[120px]" style={{ background: 'var(--accent-sky-glow)' }} />
-        <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] rounded-full blur-[100px]" style={{ background: 'var(--accent-violet-glow)' }} />
-        <div className="absolute top-0 right-1/4 w-[400px] h-[400px] rounded-full blur-[100px]" style={{ background: 'var(--accent-gold-glow)', opacity: 0.3 }} />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full blur-[120px] glow-breathe" style={{ background: 'var(--accent-sky-glow)' }} />
+        <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] rounded-full blur-[100px] glow-breathe" style={{ background: 'var(--accent-violet-glow)', animationDelay: '1s' }} />
+        <div className="absolute top-0 right-1/4 w-[400px] h-[400px] rounded-full blur-[100px] glow-breathe" style={{ background: 'var(--accent-gold-glow)', opacity: 0.3, animationDelay: '2s' }} />
+        <FloatingParticles count={15} />
       </div>
 
       <motion.div
@@ -88,10 +90,10 @@ export default function LoginPage() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className="fl-card-static backdrop-blur-2xl p-8 sm:p-10"
+          className="fl-card-static backdrop-blur-2xl p-8 sm:p-10 aurora-border"
           style={{ boxShadow: 'var(--shadow-xl), inset 0 1px 0 var(--color-card-inset)' }}
         >
-          <h2 className="text-page-title mb-8 text-center" style={{ color: 'var(--text-primary)' }}>
+          <h2 className="text-page-title mb-8 text-center text-shimmer">
             تسجيل الدخول
           </h2>
 
