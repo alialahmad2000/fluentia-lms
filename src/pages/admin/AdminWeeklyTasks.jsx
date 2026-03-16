@@ -113,9 +113,22 @@ export default function AdminWeeklyTasks() {
       if (error) {
         setGenResult({ success: false, message: error })
       } else {
+        const generated = data?.generated || 0
+        const skipped = data?.skipped || 0
+        const hasErrors = data?.errors?.length > 0
+
+        let message = data?.message || `تم إنشاء المهام لـ ${generated} طالب.`
+        if (generated > 0 && skipped > 0) {
+          message = `تم إنشاء المهام لـ ${generated} طالب. تم تخطي ${skipped} (المهام موجودة).`
+        }
+        if (hasErrors) {
+          message += ` أخطاء: ${data.errors.length}`
+        }
+
         setGenResult({
-          success: true,
-          message: `تم إنشاء المهام لـ ${data?.generated || 0} طالب. تم تخطي ${data?.skipped || 0}.`,
+          success: generated > 0 || (skipped > 0 && !hasErrors),
+          info: generated === 0 && skipped > 0 && !hasErrors,
+          message,
           holidays: data?.holidays,
         })
         queryClient.invalidateQueries({ queryKey: ['admin-task-sets'] })
@@ -174,7 +187,9 @@ export default function AdminWeeklyTasks() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           className={`rounded-xl p-4 border text-sm ${
-            genResult.success
+            genResult.info
+              ? 'bg-sky-500/[0.08] border-sky-500/15 text-sky-400'
+              : genResult.success
               ? 'bg-emerald-500/[0.08] border-emerald-500/15 text-emerald-400'
               : 'bg-red-500/[0.08] border-red-500/15 text-red-400'
           }`}

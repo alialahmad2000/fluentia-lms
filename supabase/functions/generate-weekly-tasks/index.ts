@@ -8,7 +8,7 @@ import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 const ANTHROPIC_API_KEY = Deno.env.get('CLAUDE_API_KEY') || Deno.env.get('ANTHROPIC_API_KEY') || ''
-const CLAUDE_MODEL = 'claude-sonnet-4-6-20250514'
+const CLAUDE_MODEL = 'claude-sonnet-4-6'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -729,7 +729,21 @@ serve(async (req) => {
       }
     }
 
-    const summary = { generated, skipped, errors }
+    const summary = {
+      generated,
+      skipped,
+      errors,
+      week_start: weekStart,
+      week_end: weekEnd,
+      total_students: students.length,
+      message: generated > 0
+        ? `تم إنشاء المهام لـ ${generated} طالب بنجاح`
+        : skipped > 0
+        ? `المهام موجودة بالفعل لهذا الأسبوع (${weekStart}). استخدم "إعادة إنشاء" لإنشائها من جديد.`
+        : errors.length > 0
+        ? `فشل الإنشاء لجميع الطلاب. تحقق من الأخطاء.`
+        : 'لا يوجد طلاب نشطون',
+    }
     console.log('Weekly task generation complete:', JSON.stringify(summary))
 
     return new Response(JSON.stringify(summary), {
