@@ -4,7 +4,7 @@ import {
   House, FileText, BarChart3, Mic, PenLine, MessageSquare,
   Bot, Users, CreditCard, Settings, LayoutDashboard,
   LogOut, X, ChevronLeft, Zap, FolderOpen, CalendarDays, Calendar,
-  Video, ClipboardCheck, UsersRound, GraduationCap, Wrench,
+  Video, ClipboardCheck, UsersRound, GraduationCap, Wrench, ListChecks,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { useThemeStore } from '../../stores/themeStore'
@@ -66,6 +66,7 @@ const NAV_ITEMS = {
     { type: 'divider', label: 'إدارة' },
     { to: '/trainer/students', label: 'الطلاب', icon: GraduationCap },
     { to: '/trainer/quiz', label: 'الاختبارات', icon: ClipboardCheck },
+    { to: '/trainer/weekly-grading', label: 'المهام الأسبوعية', icon: ListChecks },
     { type: 'divider', label: 'تواصل' },
     { to: '/trainer/conversation', label: 'المحادثة', icon: MessageSquare },
     { to: '/trainer/ai-assistant', label: 'المساعد الذكي', icon: Bot },
@@ -81,6 +82,7 @@ const NAV_ITEMS = {
     { to: '/admin/packages', label: 'المالية', icon: CreditCard },
     { to: '/admin/content', label: 'المحتوى', icon: FolderOpen },
     { to: '/trainer/quiz', label: 'الاختبارات', icon: ClipboardCheck },
+    { to: '/admin/weekly-tasks', label: 'المهام الأسبوعية', icon: ListChecks },
     { type: 'divider', label: 'أدوات' },
     { to: '/admin/reports', label: 'التحليلات', icon: BarChart3 },
     { to: '/trainer/ai-assistant', label: 'المساعد الذكي', icon: Bot },
