@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Outlet, NavLink } from 'react-router-dom'
-import { House, CalendarDays, Video, User, FileText, Users, Zap, Bot, CreditCard, Settings, BarChart3 } from 'lucide-react'
+import { House, CalendarDays, Video, FileText, Users, Zap, Bot, CreditCard, Settings, BarChart3, Mic, PenLine } from 'lucide-react'
 import Sidebar from './Sidebar'
 import Header from './Header'
 import AIFloatingHelper from '../ai/AIFloatingHelper'
@@ -11,16 +11,16 @@ const MOBILE_TABS = {
   student: [
     { to: '/student', label: 'الرئيسية', icon: House },
     { to: '/student/weekly-tasks', label: 'المهام', icon: CalendarDays },
-    { to: '/student/schedule', label: 'الجدول', icon: CalendarDays },
-    { to: '/student/recordings', label: 'التسجيلات', icon: Video },
-    { to: '/student/profile', label: 'حسابي', icon: User },
+    { to: '/student/speaking', label: 'التحدث', icon: Mic },
+    { to: '/student/writing-lab', label: 'الكتابة', icon: PenLine },
+    { to: '/student/ai-chat', label: 'المساعد', icon: Bot },
   ],
   trainer: [
     { to: '/trainer', label: 'الرئيسية', icon: House },
-    { to: '/trainer/assignments', label: 'الواجبات', icon: FileText },
+    { to: '/trainer/assignments', label: 'التدريس', icon: FileText },
     { to: '/trainer/students', label: 'الطلاب', icon: Users },
     { to: '/trainer/points', label: 'الحصة', icon: Zap },
-    { to: '/trainer/ai-assistant', label: 'الذكاء', icon: Bot },
+    { to: '/trainer/ai-assistant', label: 'المساعد', icon: Bot },
   ],
   admin: [
     { to: '/admin', label: 'الرئيسية', icon: House },
