@@ -685,11 +685,11 @@ serve(async (req) => {
       const wasOnTime = task.deadline ? new Date(task.deadline) >= new Date(task.submitted_at || now) : true
 
       await supabase.from('activity_feed').insert({
-        user_id: task.student_id,
-        type: 'task_completed',
+        student_id: task.student_id,
+        type: 'submission',
         title: `أكمل مهمة ${typeLabel}`,
         description: `${studentName} أكمل مهمة "${task.title}" وحصل على ${autoScore}%`,
-        metadata: {
+        data: {
           task_id: task.id,
           task_type: task.type,
           score: autoScore,

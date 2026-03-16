@@ -691,7 +691,7 @@ serve(async (req) => {
               taskData.reading.length +
               taskData.writing.length +
               taskData.listening.length +
-              2, // +2 because irregular_verbs is +1
+              (irregularVerbs.length > 0 ? 2 : 1), // +2 if irregular_verbs exists, +1 otherwise
             level: academicLevel,
             deadline: deadlineISO,
             status: 'pending',
