@@ -65,7 +65,7 @@ function DiffView({ oldData, newData }) {
     <div className="overflow-x-auto">
       <table className="data-table w-full text-sm">
         <thead>
-          <tr className="text-slate-400 border-b border-white/5">
+          <tr className="text-slate-400 border-b border-[var(--border-subtle)]">
             <th className="text-right py-2 px-3 font-medium">الحقل</th>
             <th className="text-right py-2 px-3 font-medium">القيمة القديمة</th>
             <th className="text-right py-2 px-3 font-medium">القيمة الجديدة</th>
@@ -73,7 +73,7 @@ function DiffView({ oldData, newData }) {
         </thead>
         <tbody>
           {changedKeys.map(key => (
-            <tr key={key} className="border-b border-white/5">
+            <tr key={key} className="border-b border-[var(--border-subtle)]">
               <td className="py-2 px-3 text-slate-300 font-mono text-xs">{key}</td>
               <td className="py-2 px-3 text-red-400/70">
                 {oldData?.[key] !== undefined ? String(oldData[key]) : '—'}
@@ -214,7 +214,7 @@ export default function AdminAuditLog() {
           <div className="overflow-x-auto">
             <table className="data-table w-full text-sm">
               <thead>
-                <tr className="border-b border-white/5 text-slate-400">
+                <tr className="border-b border-[var(--border-subtle)] text-slate-400">
                   <th className="text-right py-3 px-4 font-medium">الوقت</th>
                   <th className="text-right py-3 px-4 font-medium">المستخدم</th>
                   <th className="text-right py-3 px-4 font-medium">العملية</th>
@@ -236,7 +236,7 @@ export default function AdminAuditLog() {
                         key={log.id}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className="border-b border-white/5 hover:bg-white/[0.02] cursor-pointer"
+                        className="border-b border-[var(--border-subtle)] hover:bg-[var(--surface-raised)] cursor-pointer"
                         onClick={() => hasDiff && setExpandedId(isExpanded ? null : log.id)}
                       >
                         <td className="py-3 px-4">
@@ -290,7 +290,7 @@ export default function AdminAuditLog() {
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  className="bg-white/[0.02] border-b border-white/5 px-6 py-4"
+                  className="bg-[var(--surface-raised)] border-b border-[var(--border-subtle)] px-6 py-4"
                 >
                   <p className="text-xs text-slate-500 mb-2 font-medium">التغييرات:</p>
                   <DiffView oldData={log.old_data} newData={log.new_data} />
@@ -305,7 +305,7 @@ export default function AdminAuditLog() {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-between px-4 py-3 border-t border-white/5">
+          <div className="flex items-center justify-between px-4 py-3 border-t border-[var(--border-subtle)]">
             <span className="text-xs text-slate-500">
               {totalCount} سجل — صفحة {page + 1} من {totalPages}
             </span>

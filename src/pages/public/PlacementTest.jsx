@@ -274,11 +274,11 @@ function TestScreen({ question, index, total, onAnswer, direction }) {
         <div className="space-y-2">
           <div className="flex justify-between text-sm text-white/40">
             <span>السؤال {index + 1} من {total}</span>
-            <span className="text-xs px-2 py-0.5 rounded-full bg-white/5 border border-white/10">
+            <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--surface-raised)] border border-[var(--border-subtle)]">
               {question.level}
             </span>
           </div>
-          <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+          <div className="h-2 bg-[var(--surface-raised)] rounded-full overflow-hidden">
             <motion.div
               className="h-full bg-gradient-to-l from-sky-400 to-sky-600 rounded-full"
               initial={{ width: 0 }}
@@ -315,7 +315,7 @@ function TestScreen({ question, index, total, onAnswer, direction }) {
                   onClick={() => onAnswer(option)}
                   dir="ltr"
                   className="w-full py-4 px-6 rounded-xl text-lg font-inter font-medium
-                             bg-white/5 border border-white/10
+                             bg-[var(--surface-raised)] border border-[var(--border-subtle)]
                              hover:bg-sky-500/10 hover:border-sky-500/30 hover:translate-y-[-2px]
                              active:bg-sky-500/20
                              transition-all duration-200 text-center"
@@ -362,7 +362,7 @@ function ResultScreen({ score, total, onShare, onRetry, copied }) {
           animate={{ scale: 1 }}
           transition={{ delay: 0.3, type: 'spring', stiffness: 150, damping: 12 }}
           className="mx-auto w-36 h-36 rounded-full flex items-center justify-center
-                     border-4 border-white/10 relative"
+                     border-4 border-[var(--border-subtle)] relative"
           style={{
             background: `conic-gradient(from 0deg, rgba(56,189,248,0.3) ${(score / total) * 360}deg, rgba(255,255,255,0.03) 0deg)`,
           }}

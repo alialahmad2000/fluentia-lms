@@ -252,7 +252,7 @@ export default function TrainerAIAssistant() {
           )}
           {sending && (
             <div className="flex justify-start">
-              <div className="bg-white/5 border border-border-subtle rounded-2xl px-4 py-3 flex items-center gap-2">
+              <div className="border border-border-subtle rounded-2xl px-4 py-3 flex items-center gap-2" style={{ background: 'var(--surface-raised)' }}>
                 <Loader2 size={14} className="animate-spin text-violet-400" />
                 <span className="text-xs text-muted">ينفّذ...</span>
               </div>

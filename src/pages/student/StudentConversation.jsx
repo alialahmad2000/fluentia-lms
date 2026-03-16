@@ -295,7 +295,7 @@ export default function StudentConversation() {
 
                   {/* Title + description */}
                   <div className="px-5 pb-3">
-                    <h3 className="text-lg font-bold text-white mb-0.5">{s.label}</h3>
+                    <h3 className="text-lg font-bold text-[var(--text-primary)] mb-0.5">{s.label}</h3>
                     <p className="text-xs text-muted font-medium" dir="ltr">{s.labelEn}</p>
                     <p className="text-xs text-muted mt-1">{s.description}</p>
                   </div>

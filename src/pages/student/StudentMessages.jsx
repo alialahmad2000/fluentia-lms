@@ -227,7 +227,7 @@ export default function StudentMessages() {
                 className={`w-full text-right px-3 py-2.5 rounded-xl text-sm transition-all flex items-center justify-between ${
                   selectedContact?.id === c.id
                     ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
-                    : 'bg-white/5 text-[var(--text-primary)] hover:bg-white/10 border border-transparent'
+                    : 'bg-[var(--surface-raised)] text-[var(--text-primary)] hover:bg-[var(--sidebar-hover-bg)] border border-transparent'
                 }`}
               >
                 <span className="truncate">{c.name}</span>
@@ -255,7 +255,7 @@ export default function StudentMessages() {
                     ? 'bg-gold-500/20 text-gold-400 border border-gold-500/30'
                     : 'bg-sky-500/20 text-sky-400 border border-sky-500/30'
                 }`}>
-                  {selectedContact.name[0]}
+                  {selectedContact.name?.[0] || '?'}
                 </div>
                 <div>
                   <p className="text-sm font-medium text-[var(--text-primary)]">{selectedContact.name}</p>

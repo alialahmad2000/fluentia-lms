@@ -225,11 +225,11 @@ function QuickPointsContent() {
               className={`p-4 rounded-2xl text-center hover:translate-y-[-2px] transition-all duration-200 border ${
                 isSelected
                   ? 'bg-sky-500/10 border-sky-500/30 ring-2 ring-sky-500/20'
-                  : 'bg-white/5 border-border-subtle hover:bg-white/10 hover:border-white/10'
+                  : 'bg-[var(--surface-raised)] border-border-subtle hover:bg-[var(--sidebar-hover-bg)] hover:border-[var(--border-subtle)]'
               }`}
             >
               <div className="w-12 h-12 rounded-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 text-lg font-bold mx-auto mb-2">
-                {name[0]}
+                {name?.[0] || '?'}
               </div>
               <p className="text-sm font-medium text-[var(--text-primary)] truncate">{name}</p>
               <p className="text-xs text-muted mt-0.5">{s.xp_total} XP</p>

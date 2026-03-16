@@ -190,7 +190,7 @@ export default function ParentDashboard() {
             <span className="text-sm text-muted">{assignments?.completed ?? 0} من {assignments?.total ?? 0} مكتملة</span>
             <span className="text-sm font-bold text-sky-400">{assignments?.rate || 0}%</span>
           </div>
-          <div className="w-full h-3 bg-white/5 rounded-full overflow-hidden">
+          <div className="w-full h-3 bg-[var(--surface-raised)] rounded-full overflow-hidden">
             <div
               className="h-full bg-gradient-to-l from-sky-400 to-sky-600 rounded-full transition-all"
               style={{ width: `${assignments?.rate || 0}%` }}
@@ -216,7 +216,7 @@ export default function ParentDashboard() {
                       <span className="text-muted">{label}</span>
                       <span className="text-[var(--text-primary)] font-medium">{value}%</span>
                     </div>
-                    <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                    <div className="w-full h-2 bg-[var(--surface-raised)] rounded-full overflow-hidden">
                       <div
                         className={`h-full rounded-full ${
                           value >= 80 ? 'bg-emerald-500' : value >= 60 ? 'bg-sky-500' : value >= 40 ? 'bg-gold-500' : 'bg-red-500'

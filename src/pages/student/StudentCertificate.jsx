@@ -306,7 +306,7 @@ function ShareOverlay({ cert, onClose }) {
       >
         <div className="flex items-center justify-between">
           <h3 className="font-semibold text-[var(--text-primary)]">مشاركة الشهادة</h3>
-          <button onClick={onClose} className="text-muted hover:text-white transition-colors">
+          <button onClick={onClose} className="text-muted hover:text-[var(--text-primary)] transition-colors">
             <X size={18} />
           </button>
         </div>
@@ -435,7 +435,7 @@ function CertificateModal({ cert, studentName, onClose }) {
             <h2 className="text-lg font-bold text-[var(--text-primary)]">الشهادة</h2>
             <button
               onClick={onClose}
-              className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-muted hover:text-white transition-colors"
+              className="w-8 h-8 rounded-full bg-[var(--sidebar-hover-bg)] flex items-center justify-center text-muted hover:text-[var(--text-primary)] transition-colors"
             >
               <X size={16} />
             </button>

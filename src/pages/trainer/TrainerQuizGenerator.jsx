@@ -355,7 +355,7 @@ Make questions progressively harder. All question text should be in English. Exp
       </div>
 
       {/* Tab Switcher */}
-      <div className="flex gap-2 border-b border-white/10 pb-1">
+      <div className="flex gap-2 border-b border-[var(--border-subtle)] pb-1">
         {[
           { key: 'generator', label: 'إنشاء كويز', icon: Brain },
           { key: 'analytics', label: 'تحليلات', icon: BarChart2 },
@@ -400,7 +400,7 @@ Make questions progressively harder. All question text should be in English. Exp
                     ? 'bg-violet-500/20 text-violet-300 border border-violet-500/40'
                     : isDone
                       ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 cursor-pointer hover:bg-emerald-500/20'
-                      : 'bg-white/5 text-muted border border-white/10'
+                      : 'bg-[var(--surface-raised)] text-muted border border-[var(--border-subtle)]'
                 }`}
               >
                 <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
@@ -479,7 +479,7 @@ Make questions progressively harder. All question text should be in English. Exp
                       className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition-all border ${
                         form.type === t.value
                           ? 'bg-violet-500/20 border-violet-500/50 text-violet-300'
-                          : 'bg-white/5 border-white/10 text-muted hover:bg-white/10'
+                          : 'bg-[var(--surface-raised)] border-[var(--border-subtle)] text-muted hover:bg-[var(--sidebar-hover-bg)]'
                       }`}
                     >
                       {t.label}
@@ -513,7 +513,7 @@ Make questions progressively harder. All question text should be in English. Exp
                       className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-bold border ${
                         form.level === l
                           ? 'bg-violet-500/20 border-violet-500/50 text-violet-300'
-                          : 'bg-white/5 border-white/10 text-muted'
+                          : 'bg-[var(--surface-raised)] border-[var(--border-subtle)] text-muted'
                       }`}
                     >
                       {l}
@@ -533,7 +533,7 @@ Make questions progressively harder. All question text should be in English. Exp
                       className={`px-3 py-1.5 rounded-lg text-sm border transition-all ${
                         form.skill_focus.includes(s.value)
                           ? 'bg-violet-500/20 border-violet-500/50 text-violet-300'
-                          : 'bg-white/5 border-white/10 text-muted hover:bg-white/10'
+                          : 'bg-[var(--surface-raised)] border-[var(--border-subtle)] text-muted hover:bg-[var(--sidebar-hover-bg)]'
                       }`}
                     >
                       {s.label}
@@ -553,7 +553,7 @@ Make questions progressively harder. All question text should be in English. Exp
                       className={`px-4 py-2 rounded-lg text-sm font-medium border transition-all ${
                         form.question_count === c
                           ? 'bg-violet-500/20 border-violet-500/50 text-violet-300'
-                          : 'bg-white/5 border-white/10 text-muted hover:bg-white/10'
+                          : 'bg-[var(--surface-raised)] border-[var(--border-subtle)] text-muted hover:bg-[var(--sidebar-hover-bg)]'
                       }`}
                     >
                       {c}
@@ -637,7 +637,7 @@ Make questions progressively harder. All question text should be in English. Exp
                     </p>
                   </div>
                   <div className="flex gap-3 justify-center">
-                    <button onClick={() => setStep(1)} className="px-6 py-2.5 rounded-xl bg-white/5 border border-white/10 text-muted hover:bg-white/10 transition-all">
+                    <button onClick={() => setStep(1)} className="px-6 py-2.5 rounded-xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-muted hover:bg-[var(--sidebar-hover-bg)] transition-all">
                       رجوع
                     </button>
                     <button onClick={generateQuestions} className="btn-primary px-8 py-2.5 flex items-center gap-2">
@@ -664,7 +664,7 @@ Make questions progressively harder. All question text should be in English. Exp
               <div className="flex gap-2">
                 <button
                   onClick={() => { setStep(2); setQuestions([]) }}
-                  className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-muted hover:bg-white/10 transition-all text-sm flex items-center gap-1.5"
+                  className="px-3 py-1.5 rounded-lg bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-muted hover:bg-[var(--sidebar-hover-bg)] transition-all text-sm flex items-center gap-1.5"
                 >
                   <RefreshCw className="w-3.5 h-3.5" />
                   إعادة توليد
@@ -695,7 +695,7 @@ Make questions progressively harder. All question text should be in English. Exp
 
             {/* Navigation */}
             <div className="flex gap-3">
-              <button onClick={() => setStep(1)} className="px-6 py-2.5 rounded-xl bg-white/5 border border-white/10 text-muted hover:bg-white/10 transition-all">
+              <button onClick={() => setStep(1)} className="px-6 py-2.5 rounded-xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-muted hover:bg-[var(--sidebar-hover-bg)] transition-all">
                 رجوع للإعداد
               </button>
               <button
@@ -726,7 +726,7 @@ Make questions progressively harder. All question text should be in English. Exp
                   { label: 'إجمالي النقاط', value: totalPoints },
                   { label: 'مكافأة XP', value: form.xp_reward },
                 ].map(item => (
-                  <div key={item.label} className="p-3 rounded-xl border border-white/10" style={{ background: 'var(--surface-raised)' }}>
+                  <div key={item.label} className="p-3 rounded-xl border border-[var(--border-subtle)]" style={{ background: 'var(--surface-raised)' }}>
                     <p className="text-xs text-muted">{item.label}</p>
                     <p className="text-sm font-medium mt-0.5">{item.value}</p>
                   </div>
@@ -740,7 +740,7 @@ Make questions progressively harder. All question text should be in English. Exp
                   <button
                     onClick={() => setPublishMode('now')}
                     className={`flex-1 py-2.5 rounded-xl text-sm border transition-all ${
-                      publishMode === 'now' ? 'bg-violet-500/20 border-violet-500/50 text-violet-300' : 'bg-white/5 border-white/10 text-muted'
+                      publishMode === 'now' ? 'bg-violet-500/20 border-violet-500/50 text-violet-300' : 'bg-[var(--surface-raised)] border-[var(--border-subtle)] text-muted'
                     }`}
                   >
                     نشر الآن
@@ -748,7 +748,7 @@ Make questions progressively harder. All question text should be in English. Exp
                   <button
                     onClick={() => setPublishMode('schedule')}
                     className={`flex-1 py-2.5 rounded-xl text-sm border transition-all ${
-                      publishMode === 'schedule' ? 'bg-violet-500/20 border-violet-500/50 text-violet-300' : 'bg-white/5 border-white/10 text-muted'
+                      publishMode === 'schedule' ? 'bg-violet-500/20 border-violet-500/50 text-violet-300' : 'bg-[var(--surface-raised)] border-[var(--border-subtle)] text-muted'
                     }`}
                   >
                     جدولة
@@ -790,14 +790,14 @@ Make questions progressively harder. All question text should be in English. Exp
               <div className="flex gap-3 pt-2">
                 <button
                   onClick={() => setStep(3)}
-                  className="px-6 py-2.5 rounded-xl bg-white/5 border border-white/10 text-muted hover:bg-white/10 transition-all"
+                  className="px-6 py-2.5 rounded-xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-muted hover:bg-[var(--sidebar-hover-bg)] transition-all"
                 >
                   رجوع
                 </button>
                 <button
                   onClick={() => publishMutation.mutate('draft')}
                   disabled={publishMutation.isPending}
-                  className="px-6 py-2.5 rounded-xl bg-white/5 border border-white/10 text-muted hover:bg-white/10 transition-all flex items-center gap-2"
+                  className="px-6 py-2.5 rounded-xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-muted hover:bg-[var(--sidebar-hover-bg)] transition-all flex items-center gap-2"
                 >
                   <Save className="w-4 h-4" />
                   حفظ كمسودة
@@ -846,19 +846,19 @@ function QuestionCard({ question: q, index, total, onUpdate, onDelete, onMove, o
           <span className="text-xs px-2 py-0.5 rounded-md bg-sky-500/10 border border-sky-500/30 text-sky-300">
             {typeLabel}
           </span>
-          <span className="text-xs px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-muted">
+          <span className="text-xs px-2 py-0.5 rounded-md bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-muted">
             {SKILLS.find(s => s.value === q.skill_tag)?.label || q.skill_tag}
           </span>
           <span className="text-xs text-muted">{q.points || 1} نقطة</span>
         </div>
         <div className="flex items-center gap-1">
-          <button onClick={() => onMove(-1)} disabled={index === 0} className="p-1 rounded hover:bg-white/10 text-muted disabled:opacity-20">
+          <button onClick={() => onMove(-1)} disabled={index === 0} className="p-1 rounded hover:bg-[var(--sidebar-hover-bg)] text-muted disabled:opacity-20">
             <ChevronUp className="w-4 h-4" />
           </button>
-          <button onClick={() => onMove(1)} disabled={index === total - 1} className="p-1 rounded hover:bg-white/10 text-muted disabled:opacity-20">
+          <button onClick={() => onMove(1)} disabled={index === total - 1} className="p-1 rounded hover:bg-[var(--sidebar-hover-bg)] text-muted disabled:opacity-20">
             <ChevronDown className="w-4 h-4" />
           </button>
-          <button onClick={() => setEditing(!editing)} className="p-1 rounded hover:bg-white/10 text-muted">
+          <button onClick={() => setEditing(!editing)} className="p-1 rounded hover:bg-[var(--sidebar-hover-bg)] text-muted">
             <Edit3 className="w-4 h-4" />
           </button>
           <button onClick={onDelete} className="p-1 rounded hover:bg-red-500/20 text-red-400/60">
@@ -888,7 +888,7 @@ function QuestionCard({ question: q, index, total, onUpdate, onDelete, onMove, o
                 className={`w-6 h-6 rounded-full flex items-center justify-center border transition-all text-xs ${
                   opt.is_correct
                     ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-300'
-                    : 'bg-white/5 border-white/15 text-muted hover:border-white/30'
+                    : 'bg-[var(--surface-raised)] border-[var(--border-subtle)] text-muted hover:border-[var(--border-subtle)]'
                 }`}
               >
                 {opt.is_correct ? <Check className="w-3.5 h-3.5" /> : opt.id}
@@ -976,7 +976,7 @@ function QuestionCard({ question: q, index, total, onUpdate, onDelete, onMove, o
 // ─── Toggle Option Component ───
 function ToggleOption({ label, checked, onChange }) {
   return (
-    <label className="flex items-center justify-between p-3 rounded-xl border border-white/10 cursor-pointer hover:bg-white/10 transition-all" style={{ background: 'var(--surface-raised)' }}>
+    <label className="flex items-center justify-between p-3 rounded-xl border border-[var(--border-subtle)] cursor-pointer hover:bg-[var(--sidebar-hover-bg)] transition-all" style={{ background: 'var(--surface-raised)' }}>
       <span className="text-sm text-muted">{label}</span>
       <button
         type="button"
@@ -984,7 +984,7 @@ function ToggleOption({ label, checked, onChange }) {
         aria-checked={checked}
         onClick={() => onChange(!checked)}
         className={`relative w-10 h-6 rounded-full transition-all ${
-          checked ? 'bg-violet-500' : 'bg-white/20'
+          checked ? 'bg-violet-500' : 'bg-[var(--sidebar-hover-bg)]'
         }`}
       >
         <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white transition-transform ${
@@ -1198,7 +1198,7 @@ function QuizAnalytics({ profileId, isAdmin }) {
                         </span>
                       </div>
                     </div>
-                    <div className="h-2.5 bg-white/5 rounded-full overflow-hidden">
+                    <div className="h-2.5 bg-[var(--surface-raised)] rounded-full overflow-hidden">
                       <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${quiz.avgPercent}%` }}
@@ -1230,7 +1230,7 @@ function QuizAnalytics({ profileId, isAdmin }) {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.04 }}
-                    className="p-3 rounded-xl border border-white/8 space-y-2" style={{ background: 'var(--surface-raised)' }}
+                    className="p-3 rounded-xl border border-[var(--border-subtle)] space-y-2" style={{ background: 'var(--surface-raised)' }}
                   >
                     <div className="flex items-start justify-between gap-3">
                       <p className="text-sm text-[var(--text-secondary)] leading-relaxed line-clamp-2 flex-1">
@@ -1247,11 +1247,11 @@ function QuizAnalytics({ profileId, isAdmin }) {
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-muted">
+                      <span className="text-xs px-2 py-0.5 rounded-md bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-muted">
                         {skillLabel(q.skill_tag)}
                       </span>
                       <span className="text-xs text-muted">{q.total} محاولة</span>
-                      <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden mr-1">
+                      <div className="flex-1 h-1.5 bg-[var(--surface-raised)] rounded-full overflow-hidden mr-1">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${q.wrongRate}%` }}
@@ -1315,7 +1315,7 @@ function QuizAnalytics({ profileId, isAdmin }) {
                           <p className="text-xs text-muted">{area.total} إجابة</p>
                         </div>
                       </div>
-                      <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                      <div className="h-2 bg-[var(--surface-raised)] rounded-full overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${area.wrongRate}%` }}

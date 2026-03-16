@@ -161,11 +161,11 @@ export default function TrainerQuickNotes() {
                 className={`w-full flex items-center gap-3 p-3 rounded-xl border transition-all ${
                   isSelected
                     ? 'bg-sky-500/10 border-sky-500/30 ring-2 ring-sky-500/20'
-                    : 'bg-white/5 border-border-subtle hover:bg-white/10'
+                    : 'bg-[var(--surface-raised)] border-border-subtle hover:bg-[var(--sidebar-hover-bg)]'
                 }`}
               >
                 <div className="w-10 h-10 rounded-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 font-bold">
-                  {name[0]}
+                  {name?.[0] || '?'}
                 </div>
                 <span className="text-sm font-medium text-[var(--text-primary)]">{name}</span>
               </motion.button>
@@ -201,7 +201,7 @@ export default function TrainerQuickNotes() {
                       key={t.type}
                       onClick={() => setNoteType(t.type)}
                       className={`flex-1 p-2 rounded-xl text-center border transition-all text-sm ${
-                        noteType === t.type ? t.bg : 'bg-white/5 border-border-subtle'
+                        noteType === t.type ? t.bg : 'bg-[var(--surface-raised)] border-border-subtle'
                       }`}
                     >
                       <span className="text-lg">{t.icon}</span>

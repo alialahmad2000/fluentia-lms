@@ -10,6 +10,7 @@ import SubTabs from '../../components/common/SubTabs'
 const TrainerNotes = lazy(() => import('./TrainerNotes'))
 const TrainerLibrary = lazy(() => import('./TrainerLibrary'))
 const TrainerLessonPlanner = lazy(() => import('./TrainerLessonPlanner'))
+const TrainerQuizGenerator = lazy(() => import('./TrainerQuizGenerator'))
 const TrainerTeams = lazy(() => import('./TrainerTeams'))
 const TrainerChallenges = lazy(() => import('./TrainerChallenges'))
 
@@ -18,6 +19,7 @@ const TOOL_TABS = [
   { key: 'planner', label: 'مخطط الدروس', icon: Brain },
   { key: 'notes', label: 'ملاحظات', icon: StickyNote },
   { key: 'library', label: 'المكتبة', icon: BookOpen },
+  { key: 'quiz', label: 'الاختبارات', icon: Target },
   { key: 'teams', label: 'الفرق', icon: Users },
   { key: 'challenges', label: 'التحديات', icon: Trophy },
 ]
@@ -43,6 +45,7 @@ export default function TrainerSchedule() {
         {activeTab === 'planner' && <TrainerLessonPlanner />}
         {activeTab === 'notes' && <TrainerNotes />}
         {activeTab === 'library' && <TrainerLibrary />}
+        {activeTab === 'quiz' && <TrainerQuizGenerator />}
         {activeTab === 'teams' && <TrainerTeams />}
         {activeTab === 'challenges' && <TrainerChallenges />}
       </Suspense>

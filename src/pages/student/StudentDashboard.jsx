@@ -557,7 +557,7 @@ export default function StudentDashboard() {
                     {p.rank}
                   </span>
                   <div className="w-7 h-7 rounded-lg flex items-center justify-center text-[11px] font-bold shrink-0" style={{ background: p.isMe ? 'var(--accent-sky-glow)' : 'var(--surface-overlay)', color: p.isMe ? 'var(--accent-sky)' : 'var(--text-tertiary)' }}>
-                    {p.name[0]}
+                    {p.name?.[0] || '?'}
                   </div>
                   <span className="text-[13px] font-medium flex-1 truncate" style={{ color: 'var(--text-primary)' }}>
                     {p.name}

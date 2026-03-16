@@ -268,7 +268,7 @@ export default function TrainerTeams() {
                     <button
                       key={e}
                       onClick={() => setTeamEmoji(e)}
-                      className={`text-xl p-1 rounded-lg ${teamEmoji === e ? 'bg-sky-500/20 ring-1 ring-sky-500' : 'hover:bg-white/10'}`}
+                      className={`text-xl p-1 rounded-lg ${teamEmoji === e ? 'bg-sky-500/20 ring-1 ring-sky-500' : 'hover:bg-[var(--sidebar-hover-bg)]'}`}
                     >
                       {e}
                     </button>

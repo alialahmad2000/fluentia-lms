@@ -194,7 +194,7 @@ export default function AdminHolidays() {
             <span className={`text-xs font-medium px-2 py-1 rounded-full ${
               ramadanEnabled
                 ? 'bg-emerald-500/20 text-emerald-400'
-                : 'bg-white/5 text-muted'
+                : 'bg-[var(--surface-raised)] text-muted'
             }`}>
               {ramadanEnabled ? 'مفعّل' : 'غير مفعّل'}
             </span>
@@ -312,7 +312,7 @@ export default function AdminHolidays() {
                   <div className="flex items-center gap-1 mr-3">
                     <button
                       onClick={() => openEdit(holiday)}
-                      className="p-2 rounded-lg hover:bg-white/5 text-muted hover:text-[var(--text-primary)] transition-colors"
+                      className="p-2 rounded-lg hover:bg-[var(--surface-raised)] text-muted hover:text-[var(--text-primary)] transition-colors"
                     >
                       <Edit3 size={14} />
                     </button>

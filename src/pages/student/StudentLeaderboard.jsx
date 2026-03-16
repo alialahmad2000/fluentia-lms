@@ -69,7 +69,7 @@ function ShareRankButton({ rank, total }) {
             {/* WhatsApp */}
             <button
               onClick={() => { shareToWhatsApp(shareText); setOpen(false) }}
-              className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs text-white hover:bg-white/10 transition-all duration-200 text-right"
+              className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs text-[var(--text-primary)] hover:bg-[var(--sidebar-hover-bg)] transition-all duration-200 text-right"
             >
               <span className="text-base leading-none">💬</span>
               <span>WhatsApp</span>
@@ -78,7 +78,7 @@ function ShareRankButton({ rank, total }) {
             {/* Twitter / X */}
             <button
               onClick={() => { shareToTwitter(shareText); setOpen(false) }}
-              className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs text-white hover:bg-white/10 transition-all duration-200 border-t border-white/5 text-right"
+              className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs text-[var(--text-primary)] hover:bg-[var(--sidebar-hover-bg)] transition-all duration-200 border-t border-[var(--border-subtle)] text-right"
             >
               <span className="text-base leading-none font-bold" style={{ fontFamily: 'monospace' }}>𝕏</span>
               <span>Twitter / X</span>
@@ -87,8 +87,8 @@ function ShareRankButton({ rank, total }) {
             {/* Copy */}
             <button
               onClick={handleCopy}
-              className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs border-t border-white/5 hover:bg-white/10 transition-all duration-200 text-right"
-              style={{ color: copied ? '#10b981' : 'rgba(255,255,255,0.85)' }}
+              className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs border-t border-[var(--border-subtle)] hover:bg-[var(--sidebar-hover-bg)] transition-all duration-200 text-right"
+              style={{ color: copied ? '#10b981' : 'var(--text-primary)' }}
             >
               <span className="text-base leading-none">{copied ? '✓' : '📋'}</span>
               <span>{copied ? 'تم النسخ!' : 'نسخ الرسالة'}</span>
@@ -313,7 +313,7 @@ export default function StudentLeaderboard() {
             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
               tab === t.value
                 ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
-                : 'text-muted hover:text-white border border-transparent'
+                : 'text-muted hover:text-[var(--text-primary)] border border-transparent'
             }`}
             style={tab !== t.value ? { background: 'var(--surface-raised)' } : undefined}
           >
@@ -333,7 +333,7 @@ export default function StudentLeaderboard() {
               className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 ${
                 period === p.value
                   ? 'bg-gold-500/10 text-gold-400 border border-gold-500/20'
-                  : 'text-muted hover:text-white border border-transparent'
+                  : 'text-muted hover:text-[var(--text-primary)] border border-transparent'
               }`}
               style={period !== p.value ? { background: 'var(--surface-raised)' } : undefined}
             >
@@ -357,7 +357,7 @@ export default function StudentLeaderboard() {
               </div>
               <div>
                 <p className="text-sm text-[var(--text-primary)] font-medium">ترتيبك</p>
-                <p className="text-xs text-white/40">
+                <p className="text-xs text-[var(--text-tertiary)]">
                   المركز {myRank.rank} من {ranking?.length || 0}
                 </p>
               </div>
@@ -415,9 +415,9 @@ export default function StudentLeaderboard() {
 
                 {/* Avatar */}
                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg font-bold shrink-0 ${
-                  player.isMe ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30' : 'bg-white/10 text-white/60'
+                  player.isMe ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30' : 'bg-[var(--sidebar-hover-bg)] text-[var(--text-tertiary)]'
                 }`}>
-                  {player.name[0]}
+                  {player.name?.[0] || '?'}
                 </div>
 
                 {/* Info */}
@@ -448,7 +448,7 @@ export default function StudentLeaderboard() {
                     <span className={`text-xs px-1.5 py-0.5 rounded-full ${
                       weeklyCompletionMap[player.id].status === 'completed'
                         ? 'bg-emerald-500/10 text-emerald-400'
-                        : 'bg-white/5 text-muted'
+                        : 'bg-[var(--surface-raised)] text-muted'
                     }`}>
                       {weeklyCompletionMap[player.id].status === 'completed' ? '✓ مهام' : `${weeklyCompletionMap[player.id].completion_percentage || 0}%`}
                     </span>
@@ -486,7 +486,7 @@ export default function StudentLeaderboard() {
                 <div className="text-3xl">{team.emoji || '🏆'}</div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold text-[var(--text-primary)]">{team.name}</p>
-                  <p className="text-xs text-white/40">{team.memberCount} أعضاء</p>
+                  <p className="text-xs text-[var(--text-tertiary)]">{team.memberCount} أعضاء</p>
                 </div>
                 <div className="text-left">
                   <p className={`text-lg font-bold ${index === 0 ? 'text-gold-400' : 'text-[var(--text-primary)]'}`}>
@@ -501,7 +501,7 @@ export default function StudentLeaderboard() {
                 <Trophy size={32} className="text-muted opacity-30" />
               </div>
               <p className="text-muted">لم يتم إنشاء فرق بعد</p>
-              <p className="text-xs text-white/40 mt-1">سيقوم المدرب بإنشاء الفرق قريباً</p>
+              <p className="text-xs text-[var(--text-tertiary)] mt-1">سيقوم المدرب بإنشاء الفرق قريباً</p>
             </div>
           )}
         </div>

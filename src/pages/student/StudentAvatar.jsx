@@ -140,10 +140,10 @@ export default function StudentAvatar() {
                 disabled={locked}
                 className={`p-3 rounded-xl text-center transition-all ${
                   locked
-                    ? 'bg-white/5 opacity-30 cursor-not-allowed'
+                    ? 'bg-[var(--surface-raised)] opacity-30 cursor-not-allowed'
                     : selectedBadge === b.id
                       ? 'bg-violet-500/20 border border-violet-500/30'
-                      : 'bg-white/5 hover:bg-white/10'
+                      : 'bg-[var(--surface-raised)] hover:bg-[var(--sidebar-hover-bg)]'
                 }`}
               >
                 <b.Icon size={20} className={locked ? 'text-muted mx-auto' : 'text-violet-400 mx-auto'} />
@@ -168,13 +168,13 @@ export default function StudentAvatar() {
                 disabled={locked}
                 className={`p-3 rounded-xl text-center transition-all ${
                   locked
-                    ? 'bg-white/5 opacity-30 cursor-not-allowed'
+                    ? 'bg-[var(--surface-raised)] opacity-30 cursor-not-allowed'
                     : selectedFrame === f.id
                       ? 'bg-sky-500/20 border border-sky-500/30'
-                      : 'bg-white/5 hover:bg-white/10'
+                      : 'bg-[var(--surface-raised)] hover:bg-[var(--sidebar-hover-bg)]'
                 }`}
               >
-                <div className={`w-10 h-10 rounded-xl bg-white/10 mx-auto ${f.ring}`} />
+                <div className={`w-10 h-10 rounded-xl bg-[var(--sidebar-hover-bg)] mx-auto ${f.ring}`} />
                 <p className="text-xs text-muted mt-1">{f.label}</p>
                 {locked && <p className="text-[8px] text-red-400">{f.minXp} XP</p>}
               </button>
