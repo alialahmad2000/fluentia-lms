@@ -260,8 +260,8 @@ export default function GamificationProvider() {
         onClose={() => setUnlockedAchievement(null)}
       />
       <LevelUpCelebration
-        newLevel={levelUp}
-        onClose={() => setLevelUp(null)}
+        level={levelUp}
+        onDismiss={() => setLevelUp(null)}
       />
     </>
   )
