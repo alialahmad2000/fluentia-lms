@@ -220,6 +220,7 @@ export default function App() {
               <Route path="/student/schedule" element={<Page><StudentSchedule /></Page>} />
               <Route path="/student/grades" element={<Page><StudentGrades /></Page>} />
               <Route path="/student/speaking" element={<Page><StudentSpeaking /></Page>} />
+              <Route path="/student/speaking-lab" element={<Page><StudentSpeaking /></Page>} />
               <Route path="/student/library" element={<Page><StudentLibrary /></Page>} />
               <Route path="/student/leaderboard" element={<Page><StudentLeaderboard /></Page>} />
               <Route path="/student/recognition" element={<Page><StudentPeerRecognition /></Page>} />
@@ -276,6 +277,7 @@ export default function App() {
               <Route path="/trainer/quiz" element={<Page><TrainerQuizGenerator /></Page>} />
               <Route path="/trainer/weekly-grading" element={<Page><TrainerWeeklyGrading /></Page>} />
               <Route path="/trainer/recordings" element={<Page><AdminRecordings /></Page>} />
+              <Route path="/trainer/conversation" element={<Page><TrainerGroupChat /></Page>} />
             </Route>
           </Route>
 
