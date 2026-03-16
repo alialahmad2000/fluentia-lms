@@ -2,8 +2,10 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Clock, CheckCircle2, AlertCircle, FileText, ExternalLink, Youtube, CalendarDays, BookOpen } from 'lucide-react'
+import { Clock, CheckCircle2, AlertCircle, FileText, ExternalLink, Youtube, CalendarDays, BookOpen, ClipboardList } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
+import { ListSkeleton } from '../../components/ui/PageSkeleton'
+import EmptyState from '../../components/ui/EmptyState'
 import { supabase } from '../../lib/supabase'
 import { ASSIGNMENT_TYPES, SUBMISSION_STATUS } from '../../lib/constants'
 import { deadlineText, isOverdue, formatDateAr } from '../../utils/dateHelpers'
@@ -169,15 +171,13 @@ export default function StudentAssignments() {
 
       {/* Assignments list */}
       {isLoading ? (
-        <div className="space-y-3">
-          {[1, 2, 3].map(i => <div key={i} className="skeleton h-28 w-full" />)}
-        </div>
+        <ListSkeleton />
       ) : filtered.length === 0 ? (
-        <div className="fl-card-static p-8 text-center">
-          <p className="text-muted">
-            {filter === 'all' ? 'لا توجد واجبات حالياً' : 'لا توجد واجبات في هذا التصنيف'}
-          </p>
-        </div>
+        <EmptyState
+          icon={ClipboardList}
+          title={filter === 'all' ? 'لا توجد واجبات حالياً' : 'لا توجد واجبات في هذا التصنيف'}
+          description="سيتم إضافة واجبات جديدة قريباً"
+        />
       ) : (
         <div className="space-y-3">
           {filtered.map((a, i) => {

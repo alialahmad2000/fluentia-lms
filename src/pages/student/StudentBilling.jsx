@@ -1,7 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { CreditCard, ExternalLink, Clock, CheckCircle2, AlertCircle } from 'lucide-react'
+import { CreditCard, ExternalLink, Clock, CheckCircle2, AlertCircle, Receipt } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
+import { ListSkeleton } from '../../components/ui/PageSkeleton'
+import EmptyState from '../../components/ui/EmptyState'
 import { supabase } from '../../lib/supabase'
 import { PACKAGES, PAYMENT_STATUS } from '../../lib/constants'
 import { formatDateAr } from '../../utils/dateHelpers'
@@ -136,9 +138,7 @@ export default function StudentBilling() {
       <div>
         <h2 className="text-section-title mb-4" style={{ color: 'var(--text-primary)' }}>سجل المدفوعات</h2>
         {isLoading ? (
-          <div className="space-y-2">
-            {[1, 2, 3].map(i => <div key={i} className="skeleton h-16 w-full" />)}
-          </div>
+          <ListSkeleton rows={3} />
         ) : payments?.length > 0 ? (
           <div className="space-y-3">
             {payments.map((p, i) => {
@@ -179,12 +179,11 @@ export default function StudentBilling() {
             })}
           </div>
         ) : (
-          <div className="fl-card-static p-8 text-center">
-            <div className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-3" style={{ background: 'var(--surface-raised)' }}>
-              <CreditCard size={28} className="text-muted" />
-            </div>
-            <p className="text-muted">لا توجد مدفوعات</p>
-          </div>
+          <EmptyState
+            icon={Receipt}
+            title="لا توجد مدفوعات"
+            description="ستظهر المدفوعات هنا عند إصدار فواتير جديدة"
+          />
         )}
       </div>
     </div>

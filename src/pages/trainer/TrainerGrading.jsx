@@ -8,6 +8,8 @@ import AISubmissionFeedback from '../../components/ai/AISubmissionFeedback'
 import { ASSIGNMENT_TYPES, GRADE_LABELS, SUBMISSION_STATUS } from '../../lib/constants'
 import { formatDateAr, timeAgo } from '../../utils/dateHelpers'
 import { parseSupabaseError } from '../../utils/errors'
+import { ListSkeleton } from '../../components/ui/PageSkeleton'
+import EmptyState from '../../components/ui/EmptyState'
 
 function getStorageUrl(bucket, path) {
   if (!path) return null
@@ -119,18 +121,13 @@ export default function TrainerGrading() {
           <p className="text-red-400">فشل تحميل التسليمات — حاول مرة أخرى</p>
         </div>
       ) : isLoading ? (
-        <div className="space-y-4">
-          {[1, 2, 3].map(i => <div key={i} className="skeleton h-24 w-full rounded-2xl" />)}
-        </div>
+        <ListSkeleton />
       ) : submissions?.length === 0 ? (
-        <div className="fl-card-static p-12 text-center">
-          <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mx-auto mb-3">
-            <CheckCircle2 size={24} className="text-emerald-400" />
-          </div>
-          <p className="text-muted">
-            {filterStatus === 'submitted' ? 'لا توجد تسليمات بانتظار التقييم' : 'لا توجد تسليمات'}
-          </p>
-        </div>
+        <EmptyState
+          icon={CheckCircle2}
+          title={filterStatus === 'submitted' ? 'لا توجد تسليمات بانتظار التقييم' : 'لا توجد تسليمات'}
+          description="جميع التسليمات تمت مراجعتها"
+        />
       ) : (
         <div className="space-y-4">
           {submissions.map((s, i) => {

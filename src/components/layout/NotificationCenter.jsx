@@ -28,6 +28,30 @@ const NOTIFICATION_ROUTES = {
   system: null,
 }
 
+function groupNotificationsByDate(notifications) {
+  const groups = {}
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const yesterday = new Date(today)
+  yesterday.setDate(yesterday.getDate() - 1)
+
+  for (const n of notifications) {
+    const d = new Date(n.created_at)
+    d.setHours(0, 0, 0, 0)
+    let label
+    if (d.getTime() === today.getTime()) {
+      label = 'اليوم'
+    } else if (d.getTime() === yesterday.getTime()) {
+      label = 'أمس'
+    } else {
+      label = d.toLocaleDateString('ar-SA', { weekday: 'long', month: 'short', day: 'numeric' })
+    }
+    if (!groups[label]) groups[label] = { label, items: [] }
+    groups[label].items.push(n)
+  }
+  return Object.values(groups)
+}
+
 export default function NotificationCenter() {
   const { profile } = useAuthStore()
   const queryClient = useQueryClient()
@@ -209,41 +233,51 @@ export default function NotificationCenter() {
               </div>
             </div>
 
-            {/* Notification list */}
+            {/* Notification list — grouped by date */}
             <div className="overflow-y-auto" style={{ maxHeight: 'calc(70vh - 48px)' }}>
               {notifications?.length > 0 ? (
-                notifications.map((n) => {
-                  const typeConfig = NOTIFICATION_TYPES[n.type] || NOTIFICATION_TYPES.system
-                  return (
-                    <button
-                      key={n.id}
-                      onClick={() => handleNotificationClick(n)}
-                      className={`w-full text-right flex items-start gap-3 px-5 py-3.5 transition-all duration-200 ${
-                        !n.read ? 'bg-sky-500/[0.03]' : ''
-                      }`}
-                      style={{ borderBottom: '1px solid var(--border-subtle)' }}
-                      onMouseEnter={e => e.currentTarget.style.background = 'var(--surface-raised)'}
-                      onMouseLeave={e => e.currentTarget.style.background = !n.read ? 'rgba(56,189,248,0.03)' : ''}
-                    >
-                      {/* Icon */}
-                      <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg shrink-0" style={{ background: 'var(--surface-raised)' }}>{typeConfig.icon}</div>
+                groupNotificationsByDate(notifications).map((group) => (
+                  <div key={group.label}>
+                    {/* Date header */}
+                    <div className="px-5 py-2 sticky top-0" style={{ background: 'var(--surface-base)', borderBottom: '1px solid var(--border-subtle)' }}>
+                      <span className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: 'var(--text-tertiary)' }}>
+                        {group.label}
+                      </span>
+                    </div>
+                    {group.items.map((n) => {
+                      const typeConfig = NOTIFICATION_TYPES[n.type] || NOTIFICATION_TYPES.system
+                      return (
+                        <button
+                          key={n.id}
+                          onClick={() => handleNotificationClick(n)}
+                          className={`w-full text-right flex items-start gap-3 px-5 py-3.5 transition-all duration-200 ${
+                            !n.read ? 'bg-sky-500/[0.03]' : ''
+                          }`}
+                          style={{ borderBottom: '1px solid var(--border-subtle)' }}
+                          onMouseEnter={e => e.currentTarget.style.background = 'var(--surface-raised)'}
+                          onMouseLeave={e => e.currentTarget.style.background = !n.read ? 'rgba(56,189,248,0.03)' : ''}
+                        >
+                          {/* Icon */}
+                          <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg shrink-0" style={{ background: 'var(--surface-raised)' }}>{typeConfig.icon}</div>
 
-                      {/* Content */}
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs font-medium" style={{ color: !n.read ? 'var(--text-primary)' : 'var(--text-tertiary)' }}>
-                          {n.title}
-                        </p>
-                        <p className="text-xs text-muted truncate mt-0.5">{n.body}</p>
-                        <p className="text-xs text-muted mt-1">{timeAgo(n.created_at)}</p>
-                      </div>
+                          {/* Content */}
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs font-medium" style={{ color: !n.read ? 'var(--text-primary)' : 'var(--text-tertiary)' }}>
+                              {n.title}
+                            </p>
+                            <p className="text-xs text-muted truncate mt-0.5">{n.body}</p>
+                            <p className="text-xs text-muted mt-1">{timeAgo(n.created_at)}</p>
+                          </div>
 
-                      {/* Unread dot */}
-                      {!n.read && (
-                        <div className="w-2 h-2 rounded-full bg-sky-400 shrink-0 mt-2" />
-                      )}
-                    </button>
-                  )
-                })
+                          {/* Unread dot */}
+                          {!n.read && (
+                            <div className="w-2 h-2 rounded-full bg-sky-400 shrink-0 mt-2" />
+                          )}
+                        </button>
+                      )
+                    })}
+                  </div>
+                ))
               ) : (
                 <div className="px-4 py-8 text-center">
                   <Bell size={24} className="text-muted mx-auto mb-2 opacity-30" />

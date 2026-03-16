@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Users, Plus, Edit3, Loader2, X } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { ACADEMIC_LEVELS } from '../../lib/constants'
+import { ListSkeleton } from '../../components/ui/PageSkeleton'
+import EmptyState from '../../components/ui/EmptyState'
 
 export default function AdminGroups() {
   const queryClient = useQueryClient()
@@ -91,9 +93,9 @@ export default function AdminGroups() {
       </div>
 
       {isLoading ? (
-        <div className="flex justify-center py-12"><Loader2 className="animate-spin text-muted" size={24} /></div>
+        <ListSkeleton />
       ) : groups?.length === 0 ? (
-        <div className="text-center py-12 text-muted">لا توجد مجموعات</div>
+        <EmptyState icon={Users} title="لا توجد مجموعات" description="لم يتم إنشاء أي مجموعة بعد" />
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {groups?.map((g, i) => (

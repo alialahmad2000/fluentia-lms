@@ -1,8 +1,10 @@
 import { useState, lazy, Suspense } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { Award, TrendingUp, BarChart3, Trophy, FileCheck } from 'lucide-react'
+import { Award, TrendingUp, BarChart3, Trophy, FileCheck, GraduationCap } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
+import { ListSkeleton } from '../../components/ui/PageSkeleton'
+import EmptyState from '../../components/ui/EmptyState'
 import { supabase } from '../../lib/supabase'
 import { ASSIGNMENT_TYPES, GRADE_LABELS } from '../../lib/constants'
 import { formatDateAr } from '../../utils/dateHelpers'
@@ -106,12 +108,13 @@ function GradesContent() {
 
       {/* Grades list */}
       {isLoading ? (
-        <div className="space-y-3">{[1, 2, 3].map(i => <div key={i} className="skeleton h-20 w-full" />)}</div>
+        <ListSkeleton rows={4} />
       ) : totalGraded === 0 ? (
-        <div className="fl-card-static p-8 text-center">
-          <Award size={32} className="text-muted mx-auto mb-2" />
-          <p className="text-muted">لا توجد درجات حتى الآن</p>
-        </div>
+        <EmptyState
+          icon={GraduationCap}
+          title="لا توجد درجات حتى الآن"
+          description="ستظهر درجاتك هنا بعد تقييم واجباتك"
+        />
       ) : (
         <div className="space-y-3">
           {grades.map((g, i) => {

@@ -7,6 +7,8 @@ import { ACADEMIC_LEVELS, PACKAGES, STUDENT_STATUS } from '../../lib/constants'
 import { formatDateAr } from '../../utils/dateHelpers'
 import { exportToCSV } from '../../utils/exportData'
 import SubTabs from '../../components/common/SubTabs'
+import { ListSkeleton } from '../../components/ui/PageSkeleton'
+import EmptyState from '../../components/ui/EmptyState'
 
 const AdminGroups = lazy(() => import('./AdminGroups'))
 const AdminTrainers = lazy(() => import('./AdminTrainers'))
@@ -192,7 +194,7 @@ function StudentsContent() {
 
       {/* Student table */}
       {isLoading ? (
-        <div className="flex justify-center py-12"><Loader2 className="animate-spin text-muted" size={24} /></div>
+        <ListSkeleton />
       ) : (
         <div className="fl-card-static overflow-hidden">
           <div className="overflow-x-auto">
@@ -244,7 +246,7 @@ function StudentsContent() {
               </tbody>
             </table>
             {filtered?.length === 0 && (
-              <div className="text-center py-12 text-muted">لا يوجد طلاب</div>
+              <EmptyState icon={Users} title="لا يوجد طلاب" description="لم يتم العثور على طلاب مطابقين لمعايير البحث" />
             )}
           </div>
         </div>

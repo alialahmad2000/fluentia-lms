@@ -10,8 +10,12 @@ import SubTabs from '../../components/common/SubTabs'
 const AdminAuditLog = lazy(() => import('./AdminAuditLog'))
 const AdminDataExport = lazy(() => import('./AdminDataExport'))
 
+import { useThemeStore } from '../../stores/themeStore'
+import { Monitor, Moon, Sparkles, Type } from 'lucide-react'
+
 const TABS = [
   { key: 'settings', label: 'الإعدادات', icon: Settings },
+  { key: 'display', label: 'العرض والمظهر', icon: Monitor },
   { key: 'audit', label: 'سجل المراجعة', icon: Shield },
   { key: 'export', label: 'تصدير البيانات', icon: Database },
 ]
@@ -37,6 +41,7 @@ export default function AdminSettings() {
 
       <Suspense fallback={<TabFallback />}>
         {activeTab === 'settings' && <SettingsContent />}
+        {activeTab === 'display' && <DisplaySettings />}
         {activeTab === 'audit' && <AdminAuditLog />}
         {activeTab === 'export' && <AdminDataExport />}
       </Suspense>
@@ -308,6 +313,166 @@ function SettingsContent() {
             </div>
           </div>
         )}
+      </div>
+    </div>
+  )
+}
+
+// ─── Display & Appearance Settings ───────────────────────
+function DisplaySettings() {
+  const { theme, setTheme } = useThemeStore()
+  const [fontSize, setFontSize] = useState(() => {
+    try { return localStorage.getItem('fluentia_font_size') || 'normal' } catch { return 'normal' }
+  })
+  const [animationsEnabled, setAnimationsEnabled] = useState(() => {
+    try { return localStorage.getItem('fluentia_reduce_motion') !== '1' } catch { return true }
+  })
+  const [notifSound, setNotifSound] = useState(() => {
+    try { return localStorage.getItem('fluentia_notif_sound') !== '0' } catch { return true }
+  })
+
+  function handleFontSize(size) {
+    setFontSize(size)
+    localStorage.setItem('fluentia_font_size', size)
+    const root = document.documentElement
+    root.style.fontSize = size === 'small' ? '14px' : size === 'large' ? '18px' : '16px'
+  }
+
+  function handleAnimations(enabled) {
+    setAnimationsEnabled(enabled)
+    localStorage.setItem('fluentia_reduce_motion', enabled ? '0' : '1')
+    document.documentElement.classList.toggle('reduce-motion', !enabled)
+  }
+
+  function handleNotifSound(enabled) {
+    setNotifSound(enabled)
+    localStorage.setItem('fluentia_notif_sound', enabled ? '1' : '0')
+  }
+
+  const THEMES = [
+    { id: 'deep-space', label: 'الفضاء العميق', labelEn: 'Deep Space', icon: Moon, colors: ['#0c1222', '#38bdf8', '#8b5cf6', '#f59e0b'] },
+    { id: 'frost-white', label: 'الأبيض الثلجي', labelEn: 'Frost White', icon: Monitor, colors: ['#ffffff', '#0284c7', '#7c3aed', '#d97706'] },
+    { id: 'aurora', label: 'الشفق القطبي', labelEn: 'Aurora', icon: Sparkles, colors: ['#100e24', '#a78bfa', '#38bdf8', '#f59e0b'] },
+  ]
+
+  const FONT_SIZES = [
+    { id: 'small', label: 'صغير' },
+    { id: 'normal', label: 'عادي' },
+    { id: 'large', label: 'كبير' },
+  ]
+
+  return (
+    <div className="space-y-8">
+      {/* Theme selection */}
+      <div className="fl-card-static p-6">
+        <div className="flex items-center gap-3 mb-5">
+          <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
+            <Sparkles size={18} className="text-violet-400" />
+          </div>
+          <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>المظهر</h3>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {THEMES.map((t) => (
+            <button
+              key={t.id}
+              onClick={() => setTheme(t.id)}
+              className={`p-4 rounded-xl text-start transition-all duration-200 ${
+                theme === t.id ? 'ring-2 ring-sky-500/50' : ''
+              }`}
+              style={{
+                background: theme === t.id ? 'var(--accent-sky-glow)' : 'var(--surface-raised)',
+                border: '1px solid var(--border-subtle)',
+              }}
+            >
+              <div className="flex items-center gap-2 mb-2">
+                {t.colors.map((c, i) => (
+                  <div key={i} className="w-4 h-4 rounded-full" style={{ background: c, border: '1px solid rgba(128,128,128,0.2)' }} />
+                ))}
+              </div>
+              <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{t.label}</p>
+              <p className="text-[11px]" style={{ color: 'var(--text-tertiary)' }}>{t.labelEn}</p>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Font size */}
+      <div className="fl-card-static p-6">
+        <div className="flex items-center gap-3 mb-5">
+          <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+            <Type size={18} className="text-sky-400" />
+          </div>
+          <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>حجم الخط</h3>
+        </div>
+        <div className="flex gap-3">
+          {FONT_SIZES.map((s) => (
+            <button
+              key={s.id}
+              onClick={() => handleFontSize(s.id)}
+              className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                fontSize === s.id ? 'ring-2 ring-sky-500/50' : ''
+              }`}
+              style={{
+                background: fontSize === s.id ? 'var(--accent-sky-glow)' : 'var(--surface-raised)',
+                color: fontSize === s.id ? 'var(--accent-sky)' : 'var(--text-secondary)',
+                border: '1px solid var(--border-subtle)',
+              }}
+            >
+              {s.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Toggles */}
+      <div className="fl-card-static p-6 space-y-5">
+        {/* Animations toggle */}
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>الرسوم المتحركة</p>
+            <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>إيقاف التأثيرات الحركية لتحسين الأداء</p>
+          </div>
+          <button
+            onClick={() => handleAnimations(!animationsEnabled)}
+            className="w-12 h-7 rounded-full relative transition-all duration-200"
+            style={{
+              background: animationsEnabled ? 'var(--accent-sky)' : 'var(--border-default)',
+            }}
+          >
+            <div
+              className="w-5 h-5 rounded-full absolute top-1 transition-all duration-200"
+              style={{
+                background: '#fff',
+                right: animationsEnabled ? '4px' : 'auto',
+                left: animationsEnabled ? 'auto' : '4px',
+              }}
+            />
+          </button>
+        </div>
+
+        {/* Notification sound toggle */}
+        <div className="flex items-center justify-between" style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '1.25rem' }}>
+          <div>
+            <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>صوت الإشعارات</p>
+            <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>تشغيل صوت عند وصول إشعار جديد</p>
+          </div>
+          <button
+            onClick={() => handleNotifSound(!notifSound)}
+            className="w-12 h-7 rounded-full relative transition-all duration-200"
+            style={{
+              background: notifSound ? 'var(--accent-sky)' : 'var(--border-default)',
+            }}
+          >
+            <div
+              className="w-5 h-5 rounded-full absolute top-1 transition-all duration-200"
+              style={{
+                background: '#fff',
+                right: notifSound ? '4px' : 'auto',
+                left: notifSound ? 'auto' : '4px',
+              }}
+            />
+          </button>
+        </div>
       </div>
     </div>
   )

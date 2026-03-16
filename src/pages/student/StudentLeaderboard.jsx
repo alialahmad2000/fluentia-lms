@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Trophy, Crown, Medal, Users, Flame, Share2 } from 'lucide-react'
+import { Trophy, Crown, Medal, Users, Flame, Share2, BarChart3 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
+import { ListSkeleton } from '../../components/ui/PageSkeleton'
+import EmptyState from '../../components/ui/EmptyState'
 import { supabase } from '../../lib/supabase'
 import { GAMIFICATION_LEVELS } from '../../lib/constants'
 import { shareToWhatsApp, shareToTwitter, copyToClipboard, generateShareText } from '../../utils/socialShare'
@@ -374,13 +376,7 @@ export default function StudentLeaderboard() {
       )}
 
       {/* Loading */}
-      {isLoading && (
-        <div className="space-y-3">
-          {[1, 2, 3, 4, 5].map(i => (
-            <div key={i} className="skeleton h-16 w-full rounded-2xl" />
-          ))}
-        </div>
-      )}
+      {isLoading && <ListSkeleton rows={5} />}
 
       {/* Group / Academy Ranking */}
       {!isLoading && tab !== 'teams' && ranking && (
@@ -458,9 +454,11 @@ export default function StudentLeaderboard() {
             )
           })}
           {ranking.length === 0 && (
-            <div className="fl-card-static p-8 text-center">
-              <p className="text-muted">لا توجد بيانات للفترة المحددة</p>
-            </div>
+            <EmptyState
+              icon={BarChart3}
+              title="لا توجد بيانات للفترة المحددة"
+              description="ستظهر النتائج عند بدء النشاط"
+            />
           )}
         </div>
       )}
@@ -496,13 +494,11 @@ export default function StudentLeaderboard() {
               </motion.div>
             )
           }) : (
-            <div className="fl-card-static p-8 text-center">
-              <div className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-3" style={{ background: 'var(--surface-raised)' }}>
-                <Trophy size={32} className="text-muted opacity-30" />
-              </div>
-              <p className="text-muted">لم يتم إنشاء فرق بعد</p>
-              <p className="text-xs text-[var(--text-tertiary)] mt-1">سيقوم المدرب بإنشاء الفرق قريباً</p>
-            </div>
+            <EmptyState
+              icon={Users}
+              title="لم يتم إنشاء فرق بعد"
+              description="سيقوم المدرب بإنشاء الفرق قريباً"
+            />
           )}
         </div>
       )}

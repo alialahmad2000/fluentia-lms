@@ -10,6 +10,8 @@ import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { GRADE_LABELS } from '../../lib/constants'
 import { formatDateAr, timeAgo } from '../../utils/dateHelpers'
+import { ListSkeleton } from '../../components/ui/PageSkeleton'
+import EmptyState from '../../components/ui/EmptyState'
 
 const TYPE_CONFIG = {
   speaking:        { icon: Mic,        label: 'تحدث',       gradient: 'from-sky-500 to-cyan-400',     bg: 'bg-sky-500/[0.08]',     text: 'text-sky-400' },
@@ -214,20 +216,13 @@ export default function TrainerWeeklyGrading() {
 
       {/* ── Submissions List ───────────────────────────── */}
       {isLoading ? (
-        <div className="space-y-3">
-          {[1, 2, 3].map(i => (
-            <div key={i} className="h-20 skeleton" />
-          ))}
-        </div>
+        <ListSkeleton />
       ) : submissions?.length === 0 ? (
-        <div className="rounded-2xl border border-[var(--border-subtle)] p-14 text-center" style={{ background: 'var(--surface-base)' }}>
-          <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mx-auto mb-3">
-            <CheckCircle2 size={20} className="text-emerald-400" />
-          </div>
-          <p className="text-muted text-sm">
-            {filterStatus === 'needs_review' ? 'لا توجد مهام بانتظار التقييم' : 'لا توجد مهام'}
-          </p>
-        </div>
+        <EmptyState
+          icon={CheckCircle2}
+          title={filterStatus === 'needs_review' ? 'لا توجد مهام بانتظار التقييم' : 'لا توجد مهام'}
+          description="جميع المهام تمت مراجعتها"
+        />
       ) : (
         <div className="space-y-3">
           {submissions?.map((task, i) => {

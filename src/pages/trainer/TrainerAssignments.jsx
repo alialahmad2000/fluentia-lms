@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Plus, Trash2, Eye, EyeOff, Clock, Users, ChevronDown } from 'lucide-react'
+import { Plus, Trash2, Eye, EyeOff, Clock, Users, ChevronDown, ClipboardList } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { ASSIGNMENT_TYPES } from '../../lib/constants'
 import { formatDateAr, deadlineText, isOverdue } from '../../utils/dateHelpers'
 import AssignmentForm from '../../components/assignments/AssignmentForm'
+import { ListSkeleton } from '../../components/ui/PageSkeleton'
+import EmptyState from '../../components/ui/EmptyState'
 
 export default function TrainerAssignments() {
   const { profile } = useAuthStore()
@@ -159,13 +161,9 @@ export default function TrainerAssignments() {
 
       {/* Assignment list */}
       {isLoading ? (
-        <div className="space-y-4">
-          {[1, 2, 3].map(i => <div key={i} className="skeleton h-24 w-full rounded-2xl" />)}
-        </div>
+        <ListSkeleton />
       ) : assignments?.length === 0 ? (
-        <div className="fl-card-static p-12 text-center">
-          <p className="text-muted">لا توجد واجبات — أنشئ أول واجب</p>
-        </div>
+        <EmptyState icon={ClipboardList} title="لا توجد واجبات" description="أنشئ أول واجب للمجموعة" />
       ) : (
         <div className="space-y-4">
           {assignments.map((a, i) => {

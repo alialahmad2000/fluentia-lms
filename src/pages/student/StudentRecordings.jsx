@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { PlayCircle, X, Clock, Eye, FileText } from 'lucide-react'
+import { PlayCircle, X, Clock, Eye, FileText, Video } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
+import { GridSkeleton } from '../../components/ui/PageSkeleton'
+import EmptyState from '../../components/ui/EmptyState'
 
 const ARABIC_DAYS = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت']
 
@@ -70,15 +72,7 @@ export default function StudentRecordings() {
   }
 
   if (isLoading) {
-    return (
-      <div className="space-y-8">
-        <div className="skeleton h-10 w-48" />
-        <div className="flex gap-2">{[1, 2, 3, 4].map((i) => <div key={i} className="skeleton h-10 w-20 rounded-xl" />)}</div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1, 2, 3].map((i) => <div key={i} className="skeleton h-56 rounded-2xl" />)}
-        </div>
-      </div>
-    )
+    return <GridSkeleton cols={3} count={6} />
   }
 
   // Get all recordings (unfiltered) for class number calculation
@@ -187,11 +181,11 @@ export default function StudentRecordings() {
           })}
         </div>
       ) : (
-        <div className="fl-card-static p-12 text-center">
-          <PlayCircle size={40} strokeWidth={1.5} className="text-muted mx-auto mb-3" />
-          <p className="text-muted">لا توجد تسجيلات حالياً</p>
-          <p className="text-xs text-muted mt-1">سيتم إضافة تسجيلات الحصص هنا بعد كل حصة</p>
-        </div>
+        <EmptyState
+          icon={Video}
+          title="لا توجد تسجيلات حالياً"
+          description="سيتم إضافة تسجيلات الحصص هنا بعد كل حصة"
+        />
       )}
 
       {/* Video Modal */}

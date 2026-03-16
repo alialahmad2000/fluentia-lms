@@ -7,6 +7,8 @@ import { supabase } from '../../lib/supabase'
 import { formatDateAr } from '../../utils/dateHelpers'
 import { PACKAGES } from '../../lib/constants'
 import { exportToCSV } from '../../utils/exportData'
+import { ListSkeleton } from '../../components/ui/PageSkeleton'
+import EmptyState from '../../components/ui/EmptyState'
 
 const PAYMENT_STATUS = {
   paid: { label: 'مدفوع', badge: 'badge-green' },
@@ -173,7 +175,7 @@ export default function AdminPayments() {
 
       {/* Payments table */}
       {isLoading ? (
-        <div className="flex justify-center py-12"><Loader2 className="animate-spin text-muted" size={24} /></div>
+        <ListSkeleton />
       ) : (
         <div className="fl-card-static overflow-hidden">
           <div className="overflow-x-auto">
@@ -219,7 +221,7 @@ export default function AdminPayments() {
               </tbody>
             </table>
             {payments?.length === 0 && (
-              <div className="text-center py-12 text-muted">لا توجد مدفوعات</div>
+              <EmptyState icon={CreditCard} title="لا توجد مدفوعات" description="لم يتم تسجيل أي مدفوعات بعد" />
             )}
           </div>
         </div>

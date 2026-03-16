@@ -1,8 +1,10 @@
 import { useState, useMemo } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Plus, Loader2, RotateCcw, Check, X, Sparkles, Brain, Zap, Star } from 'lucide-react'
+import { BookOpen, Plus, Loader2, RotateCcw, Check, X, Sparkles, Brain, Zap, Star, BookMarked } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
+import { ListSkeleton } from '../../components/ui/PageSkeleton'
+import EmptyState from '../../components/ui/EmptyState'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 
@@ -524,7 +526,7 @@ export default function StudentVocabulary() {
           {(tab === 'all' || tab === 'review') && (
             <div className="space-y-2">
               {isLoading ? (
-                <div className="space-y-2">{[1,2,3].map(i => <div key={i} className="skeleton h-20 w-full" />)}</div>
+                <ListSkeleton rows={4} />
               ) : (
                 (tab === 'review' ? dueWords : vocab)?.map((word, i) => {
                   const mastery = MASTERY_LABELS[word.mastery] || MASTERY_LABELS.new
@@ -574,19 +576,22 @@ export default function StudentVocabulary() {
                 })
               )}
               {!isLoading && ((tab === 'review' ? dueWords : vocab)?.length || 0) === 0 && (
-                <div className="fl-card-static p-8 text-center space-y-4">
-                  <BookOpen size={32} className="text-muted mx-auto mb-2" />
-                  <p className="text-muted">{tab === 'review' ? 'لا توجد كلمات للمراجعة الآن' : 'لم تضف كلمات بعد'}</p>
+                <div className="space-y-4">
+                  <EmptyState
+                    icon={BookMarked}
+                    title={tab === 'review' ? 'لا توجد كلمات للمراجعة الآن' : 'لم تضف كلمات بعد'}
+                    description={tab === 'review' ? 'أحسنت! لا توجد كلمات مستحقة للمراجعة حالياً' : 'أضف كلمات جديدة لبدء التعلم'}
+                  />
 
                   {/* Show suggestions when vocab bank is empty in "all" tab */}
                   {tab === 'all' && displayedSuggestions.length > 0 && (
-                    <div className="pt-4 border-t border-[var(--border-subtle)]">
+                    <div className="fl-card-static p-7">
                       <div className="flex items-center justify-center gap-2 mb-3">
                         <Sparkles size={16} className="text-amber-400" />
                         <h3 className="text-sm font-semibold text-[var(--text-primary)]">كلمات مقترحة</h3>
                         <span className="text-xs text-muted">(المستوى {studentLevel})</span>
                       </div>
-                      <p className="text-xs text-muted mb-3">ابدأ بإضافة بعض الكلمات المقترحة لمستواك</p>
+                      <p className="text-xs text-muted mb-3 text-center">ابدأ بإضافة بعض الكلمات المقترحة لمستواك</p>
                       <div className="flex flex-wrap gap-2 justify-center">
                         {displayedSuggestions.map(word => (
                           <motion.button

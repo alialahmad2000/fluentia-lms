@@ -3,6 +3,8 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Briefcase, Edit3, Loader2, X } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
+import { ListSkeleton } from '../../components/ui/PageSkeleton'
+import EmptyState from '../../components/ui/EmptyState'
 
 export default function AdminTrainers() {
   const queryClient = useQueryClient()
@@ -85,9 +87,9 @@ export default function AdminTrainers() {
       </div>
 
       {isLoading ? (
-        <div className="flex justify-center py-12"><Loader2 className="animate-spin text-muted" size={24} /></div>
+        <ListSkeleton />
       ) : trainers?.length === 0 ? (
-        <div className="text-center py-12 text-muted">لا يوجد مدربون</div>
+        <EmptyState icon={Briefcase} title="لا يوجد مدربون" description="لم يتم إضافة أي مدرب بعد" />
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {trainers?.map((t, i) => (
