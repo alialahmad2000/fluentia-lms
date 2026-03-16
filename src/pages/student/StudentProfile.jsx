@@ -1,7 +1,7 @@
 import { useState, lazy, Suspense } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { User, Zap, Flame, Trophy, Award, Save, Loader2, Clock, Gift, CreditCard, Palette } from 'lucide-react'
+import { User, Zap, Flame, Trophy, Award, Save, Loader2, Clock, Gift, CreditCard, Palette, GraduationCap } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/constants'
@@ -15,6 +15,7 @@ import StudentAIProfile from '../../components/ai/StudentAIProfile'
 const StudentAvatar = lazy(() => import('./StudentAvatar'))
 const StudentBilling = lazy(() => import('./StudentBilling'))
 const StudentReferral = lazy(() => import('./StudentReferral'))
+const StudentCertificate = lazy(() => import('./StudentCertificate'))
 
 const TABS = [
   { key: 'profile', label: 'الملف الشخصي', icon: User },
@@ -22,6 +23,7 @@ const TABS = [
   { key: 'avatar', label: 'تخصيص الأفاتار', icon: Palette },
   { key: 'billing', label: 'الفواتير', icon: CreditCard },
   { key: 'referral', label: 'دعوة صديق', icon: Gift },
+  { key: 'certificates', label: 'شهاداتي', icon: GraduationCap },
 ]
 
 function getLevel(xp) {
@@ -63,6 +65,7 @@ export default function StudentProfile() {
         {activeTab === 'avatar' && <StudentAvatar />}
         {activeTab === 'billing' && <StudentBilling />}
         {activeTab === 'referral' && <StudentReferral />}
+        {activeTab === 'certificates' && <StudentCertificate />}
       </Suspense>
     </div>
   )

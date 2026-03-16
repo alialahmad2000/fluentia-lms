@@ -306,7 +306,7 @@ export default function StudentDashboard() {
       {/* ═══ 3. Weekly Tasks Progress ═══ */}
       {weeklyProgress && (
         <motion.div variants={fadeUp}>
-          <Link to="/student/weekly-tasks">
+          <Link to="/student/assignments">
             <div className="fl-card-static p-6 hover:translate-y-[-2px] transition-all duration-200" style={{ cursor: 'pointer' }}>
               <div className="card-top-line shimmer" />
               <div className="flex items-center gap-3 mb-4">
@@ -538,7 +538,7 @@ export default function StudentDashboard() {
               <h3 className="text-[15px] font-bold" style={{ color: 'var(--text-primary)' }}>المتصدرين</h3>
             </div>
             <button
-              onClick={() => navigate('/student/group-activity')}
+              onClick={() => navigate('/student/group-activity?tab=leaderboard')}
               className="text-[12px] font-medium transition-colors cursor-pointer"
               style={{ color: 'var(--accent-gold)' }}
             >

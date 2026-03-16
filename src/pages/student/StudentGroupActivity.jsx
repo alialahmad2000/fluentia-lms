@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { UsersRound, Activity, Target, Trophy, Heart } from 'lucide-react'
 import StudentActivityFeed from './StudentActivityFeed'
@@ -21,7 +22,15 @@ const TAB_COMPONENTS = {
 }
 
 export default function StudentGroupActivity() {
-  const [activeTab, setActiveTab] = useState('activity')
+  const [searchParams] = useSearchParams()
+  const initialTab = searchParams.get('tab') || 'activity'
+  const [activeTab, setActiveTab] = useState(initialTab)
+
+  // Sync with URL param changes
+  useEffect(() => {
+    const tab = searchParams.get('tab')
+    if (tab && TABS.some(t => t.key === tab)) setActiveTab(tab)
+  }, [searchParams])
   const ActiveComponent = TAB_COMPONENTS[activeTab]
 
   return (

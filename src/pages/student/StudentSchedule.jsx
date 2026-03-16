@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Calendar, Clock, Video, ChevronLeft, ChevronRight, Lock, Plus, Check,
-  GripVertical, Loader2, Users, Sparkles, X, ArrowLeft,
+  GripVertical, Loader2, Users, Sparkles, X, ArrowLeft, Star,
 } from 'lucide-react'
 import {
   DndContext, closestCenter, PointerSensor, TouchSensor, useSensor, useSensors,
@@ -14,7 +14,7 @@ import {
 import { CSS } from '@dnd-kit/utilities'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
-import { formatTime } from '../../utils/dateHelpers'
+import { formatTime, formatDateAr } from '../../utils/dateHelpers'
 
 // ─── Constants ──────────────────────────────────────────
 const DAYS = [0, 1, 2, 3, 4, 5, 6] // Sun-Sat
@@ -189,6 +189,23 @@ export default function StudentSchedule() {
       return data || []
     },
     enabled: !!group?.id,
+  })
+
+  // Upcoming events (الفعاليات)
+  const { data: upcomingEvents } = useQuery({
+    queryKey: ['student-upcoming-events'],
+    staleTime: 60_000,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('events')
+        .select('id, title, type, start_date, end_date, xp_reward')
+        .gte('end_date', new Date().toISOString())
+        .eq('status', 'active')
+        .order('start_date')
+        .limit(5)
+      if (error) return [] // table may not exist yet
+      return data || []
+    },
   })
 
   // Classmate plans (same group)
@@ -560,6 +577,38 @@ export default function StudentSchedule() {
                     className="btn-icon text-sky-400 hover:text-sky-300">
                     <Video size={16} />
                   </a>
+                )}
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      )}
+
+      {/* Upcoming Events (الفعاليات) */}
+      {upcomingEvents?.length > 0 && (
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="fl-card-static p-7">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-8 h-8 rounded-xl bg-gold-500/10 flex items-center justify-center">
+              <Star size={16} className="text-gold-400" />
+            </div>
+            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>الفعاليات القادمة</h3>
+          </div>
+          <div className="space-y-2">
+            {upcomingEvents.map((ev) => (
+              <div
+                key={ev.id}
+                className="rounded-xl p-3 flex items-center justify-between hover:bg-white/[0.04] transition-all"
+                style={{ background: 'var(--surface-raised)' }}
+              >
+                <div>
+                  <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{ev.title}</p>
+                  <p className="text-xs text-muted mt-0.5">
+                    {formatDateAr(ev.start_date)}
+                    {ev.end_date && ev.end_date !== ev.start_date ? ` — ${formatDateAr(ev.end_date)}` : ''}
+                  </p>
+                </div>
+                {ev.xp_reward > 0 && (
+                  <span className="fl-badge sky text-[11px]">+{ev.xp_reward} XP</span>
                 )}
               </div>
             ))}
