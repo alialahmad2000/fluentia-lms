@@ -1,9 +1,10 @@
 import { useState, lazy, Suspense } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { motion } from 'framer-motion'
-import { Mic, CheckCircle2, Circle, BookOpen, Headphones, MessageSquare, SpellCheck } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Mic, CheckCircle2, Circle, BookOpen, Headphones, MessageSquare, SpellCheck, BrainCircuit, ChevronDown, ChevronUp, AlertCircle, Sparkles, ArrowRight, Loader2 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import SubTabs from '../../components/common/SubTabs'
 
 // Lazy-load sub-tab content
@@ -54,6 +55,120 @@ export default function StudentSpeaking() {
         {activeTab === 'spelling' && <StudentSpelling />}
       </Suspense>
     </div>
+  )
+}
+
+/* ── Score Gauge ── */
+function ScoreGauge({ label, value, max = 100, color = 'var(--accent-primary)' }) {
+  const pct = Math.min(Math.round((value / max) * 100), 100)
+  return (
+    <div className="flex flex-col items-center gap-1.5">
+      <div className="relative w-16 h-16">
+        <svg viewBox="0 0 36 36" className="w-full h-full -rotate-90">
+          <circle cx="18" cy="18" r="15.5" fill="none" stroke="var(--surface-raised)" strokeWidth="3" />
+          <circle
+            cx="18" cy="18" r="15.5" fill="none" stroke={color} strokeWidth="3"
+            strokeDasharray={`${pct} ${100 - pct}`}
+            strokeLinecap="round"
+            style={{ transition: 'stroke-dasharray 0.6s ease' }}
+          />
+        </svg>
+        <span className="absolute inset-0 flex items-center justify-center text-xs font-bold" style={{ color }}>{value}</span>
+      </div>
+      <span className="text-[11px] text-muted text-center leading-tight">{label}</span>
+    </div>
+  )
+}
+
+/* ── Analysis Results Card ── */
+function SpeakingAnalysisCard({ result }) {
+  const [showCorrections, setShowCorrections] = useState(true)
+  if (!result) return null
+  return (
+    <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="fl-card-static p-5 mt-4 space-y-5">
+      {/* Header */}
+      <div className="flex items-center gap-2">
+        <Sparkles size={16} className="text-amber-400" />
+        <h4 className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>تحليل الذكاء الاصطناعي</h4>
+        {result.cefr_assessment && (
+          <span className="mr-auto text-xs font-bold px-2 py-0.5 rounded-lg bg-violet-500/15 text-violet-400 border border-violet-500/20">
+            CEFR: {result.cefr_assessment}
+          </span>
+        )}
+      </div>
+
+      {/* Score Gauges */}
+      <div className="flex justify-center gap-6 flex-wrap">
+        <ScoreGauge label="الطلاقة" value={result.fluency_score ?? 0} color="#38bdf8" />
+        <ScoreGauge label="دقة القواعد" value={result.grammar_accuracy ?? 0} color="#34d399" />
+        <ScoreGauge label="ثراء المفردات" value={result.vocabulary_richness ?? 0} color="#a78bfa" />
+      </div>
+
+      {/* Overall Feedback */}
+      {(result.overall_feedback_ar || result.overall_feedback_en) && (
+        <div className="rounded-xl p-3" style={{ background: 'var(--surface-raised)' }}>
+          {result.overall_feedback_ar && <p className="text-sm leading-relaxed mb-1" style={{ color: 'var(--text-primary)' }}>{result.overall_feedback_ar}</p>}
+          {result.overall_feedback_en && <p className="text-xs text-muted leading-relaxed" dir="ltr">{result.overall_feedback_en}</p>}
+        </div>
+      )}
+
+      {/* Corrections */}
+      {result.corrections?.length > 0 && (
+        <div>
+          <button
+            onClick={() => setShowCorrections(v => !v)}
+            className="flex items-center gap-1.5 text-sm font-medium mb-2 hover:opacity-80 transition-opacity"
+            style={{ color: 'var(--text-primary)' }}
+          >
+            <AlertCircle size={14} className="text-amber-400" />
+            التصحيحات ({result.corrections.length})
+            {showCorrections ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+          </button>
+          <AnimatePresence>
+            {showCorrections && (
+              <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden space-y-2">
+                {result.corrections.map((c, i) => (
+                  <div key={i} className="rounded-lg p-3 text-xs space-y-1" style={{ background: 'var(--surface-raised)' }}>
+                    <div className="flex items-center gap-2 flex-wrap" dir="ltr">
+                      <span className="line-through text-red-400">{c.original}</span>
+                      <ArrowRight size={12} className="text-muted" />
+                      <span className="text-emerald-400 font-medium">{c.corrected}</span>
+                    </div>
+                    {c.explanation_ar && <p className="text-muted leading-relaxed">{c.explanation_ar}</p>}
+                  </div>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      )}
+
+      {/* Tips */}
+      {result.tips_ar?.length > 0 && (
+        <div>
+          <p className="text-sm font-medium mb-2 flex items-center gap-1.5" style={{ color: 'var(--text-primary)' }}>
+            <BrainCircuit size={14} className="text-sky-400" />
+            نصائح للتحسين
+          </p>
+          <ul className="space-y-1.5">
+            {result.tips_ar.map((tip, i) => (
+              <li key={i} className="text-xs text-muted flex gap-2 items-start">
+                <span className="text-sky-400 mt-0.5">•</span>
+                <span className="leading-relaxed">{tip}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Pronunciation notes */}
+      {result.pronunciation_notes && (
+        <div className="rounded-xl p-3 text-xs text-muted leading-relaxed" style={{ background: 'var(--surface-raised)' }}>
+          <span className="font-medium" style={{ color: 'var(--text-primary)' }}>ملاحظات النطق: </span>
+          {result.pronunciation_notes}
+        </div>
+      )}
+    </motion.div>
   )
 }
 
@@ -109,6 +224,24 @@ function SpeakingTopics() {
       }
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['speaking-progress'] }),
+  })
+
+  // AI analysis state
+  const [expandedTopic, setExpandedTopic] = useState(null)
+  const [transcripts, setTranscripts] = useState({})
+  const [analysisResults, setAnalysisResults] = useState({})
+
+  const analysisMutation = useMutation({
+    mutationFn: async ({ topicId, transcript, taskContext }) => {
+      const { data, error } = await invokeWithRetry('analyze-speaking', {
+        body: { transcript, level, task_context: taskContext },
+      }, { timeoutMs: 45000 })
+      if (error) throw new Error(error)
+      return { topicId, result: data }
+    },
+    onSuccess: ({ topicId, result }) => {
+      setAnalysisResults(prev => ({ ...prev, [topicId]: result }))
+    },
   })
 
   const completedCount = Object.values(progress || {}).filter(p => p.completed).length
@@ -188,7 +321,69 @@ function SpeakingTopics() {
                           {DIFFICULTY_LABELS[topic.difficulty] || topic.difficulty}
                         </span>
                       )}
+                      <button
+                        onClick={() => setExpandedTopic(expandedTopic === topic.id ? null : topic.id)}
+                        className="mr-auto text-xs flex items-center gap-1 px-2 py-0.5 rounded-lg hover:opacity-80 transition-opacity"
+                        style={{ color: 'var(--accent-primary)', background: 'var(--accent-primary-10, rgba(56,189,248,0.1))' }}
+                      >
+                        <BrainCircuit size={12} />
+                        تحليل AI
+                        {expandedTopic === topic.id ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
+                      </button>
                     </div>
+
+                    {/* AI Analysis Section */}
+                    <AnimatePresence>
+                      {expandedTopic === topic.id && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          className="overflow-hidden"
+                        >
+                          <div className="mt-3 space-y-3">
+                            <textarea
+                              value={transcripts[topic.id] || ''}
+                              onChange={e => setTranscripts(prev => ({ ...prev, [topic.id]: e.target.value }))}
+                              placeholder="الصق نص إجابتك هنا للتحليل..."
+                              className="w-full rounded-xl p-3 text-sm resize-none border focus:outline-none focus:ring-2 focus:ring-sky-500/30"
+                              style={{ background: 'var(--surface-raised)', color: 'var(--text-primary)', borderColor: 'var(--border-subtle)' }}
+                              rows={3}
+                              dir="ltr"
+                            />
+                            <button
+                              onClick={() => analysisMutation.mutate({
+                                topicId: topic.id,
+                                transcript: transcripts[topic.id],
+                                taskContext: topic.title_en,
+                              })}
+                              disabled={!transcripts[topic.id]?.trim() || (analysisMutation.isPending && analysisMutation.variables?.topicId === topic.id)}
+                              className="fl-btn-sm flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium transition-all disabled:opacity-40"
+                              style={{ background: 'var(--accent-primary)', color: '#fff' }}
+                            >
+                              {analysisMutation.isPending && analysisMutation.variables?.topicId === topic.id ? (
+                                <>
+                                  <Loader2 size={14} className="animate-spin" />
+                                  جارٍ التحليل...
+                                </>
+                              ) : (
+                                <>
+                                  <Sparkles size={14} />
+                                  تحليل بالذكاء الاصطناعي
+                                </>
+                              )}
+                            </button>
+                            {analysisMutation.isError && analysisMutation.variables?.topicId === topic.id && (
+                              <p className="text-xs text-red-400 flex items-center gap-1">
+                                <AlertCircle size={12} />
+                                {analysisMutation.error?.message || 'حدث خطأ أثناء التحليل'}
+                              </p>
+                            )}
+                            <SpeakingAnalysisCard result={analysisResults[topic.id]} />
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 </div>
               </motion.div>
