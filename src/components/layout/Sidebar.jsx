@@ -89,6 +89,7 @@ const NAV_ITEMS = {
     { to: '/admin/weekly-tasks', label: 'المهام الأسبوعية', icon: ListChecks },
     { to: '/admin/curriculum', label: 'المنهج الدراسي', icon: GraduationCap },
     { to: '/admin/test-bank', label: 'بنك الأسئلة', icon: Database },
+    { to: '/admin/content-bank', label: 'بنك المحتوى', icon: BookOpen },
     { to: '/admin/ai-dashboard', label: 'لوحة الذكاء', icon: Brain },
     { type: 'divider', label: 'أدوات' },
     { to: '/admin/reports', label: 'التحليلات', icon: BarChart3 },

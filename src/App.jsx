@@ -91,6 +91,7 @@ const AdminRecordings = lazyRetry(() => import('./pages/admin/AdminRecordings'))
 const AdminCurriculum = lazyRetry(() => import('./pages/admin/AdminCurriculum'))
 const AdminTestBank = lazyRetry(() => import('./pages/admin/AdminTestBank'))
 const AdminAIDashboard = lazyRetry(() => import('./pages/admin/AdminAIDashboard'))
+const AdminContentBank = lazyRetry(() => import('./pages/admin/AdminContentBank'))
 
 const ForgotPassword = lazyRetry(() => import('./pages/public/ForgotPassword'))
 const ParentDashboard = lazyRetry(() => import('./pages/public/ParentDashboard'))
@@ -313,6 +314,7 @@ export default function App() {
               <Route path="/admin/curriculum" element={<Page><AdminCurriculum /></Page>} />
               <Route path="/admin/test-bank" element={<Page><AdminTestBank /></Page>} />
               <Route path="/admin/ai-dashboard" element={<Page><AdminAIDashboard /></Page>} />
+              <Route path="/admin/content-bank" element={<Page><AdminContentBank /></Page>} />
             </Route>
           </Route>
 
