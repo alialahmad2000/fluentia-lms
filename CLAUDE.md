@@ -286,6 +286,17 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### March 17, 2026 — Admin Curriculum Overview & Level Detail Pages (PROMPT 1E)
+- What: Built 2 admin pages + 2 card components for curriculum management UI
+- **CurriculumOverview:** Lists all 6 levels as cards with progress bars, published unit counts, CEFR badges. Includes IELTS track card (disabled/coming soon). Skeleton loading, empty state.
+- **LevelDetail:** Shows level header with color accent + stats, grid of 12 unit cards per level. Back button, disabled AI generate button. Fetches units with nested content counts (readings, writing, listening, speaking, grammar).
+- **LevelCard:** Color accent stripe, level number badge, CEFR pill, progress bar, hover animation.
+- **UnitCard:** Unit number, theme (AR+EN), draft/published badge, content count icons.
+- **Routing:** Updated App.jsx — `AdminCurriculum` lazy import now points to `CurriculumOverview`, added `/admin/curriculum/level/:levelId` route for `LevelDetail`.
+- Files: `src/pages/admin/curriculum/CurriculumOverview.jsx` (NEW), `src/pages/admin/curriculum/LevelDetail.jsx` (NEW), `src/pages/admin/curriculum/components/LevelCard.jsx` (NEW), `src/pages/admin/curriculum/components/UnitCard.jsx` (NEW), `src/App.jsx` (updated imports + route)
+- DB: No changes
+- Status: Complete
+
 ### March 17, 2026 — Seed Data: 6 Levels, 72 Units, 14 IELTS Question Types (PROMPT 1D correct)
 - What: Seeded curriculum_levels (6 levels, level_number 0-5), curriculum_units (72 unit shells with original themes), ielts_reading_skills (14 question types with Arabic explanations)
 - **Levels:** Foundation/تأسيس, Basics/أساسيات, Development/تطوير, Fluency/طلاقة, Mastery/تمكّن, Proficiency/احتراف

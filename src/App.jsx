@@ -88,7 +88,8 @@ const AdminTestimonials = lazyRetry(() => import('./pages/admin/AdminTestimonial
 const AdminActionCenter = lazyRetry(() => import('./pages/admin/AdminActionCenter'))
 const AdminDataExport = lazyRetry(() => import('./pages/admin/AdminDataExport'))
 const AdminRecordings = lazyRetry(() => import('./pages/admin/AdminRecordings'))
-const AdminCurriculum = lazyRetry(() => import('./pages/admin/AdminCurriculum'))
+const AdminCurriculum = lazyRetry(() => import('./pages/admin/curriculum/CurriculumOverview'))
+const LevelDetail = lazyRetry(() => import('./pages/admin/curriculum/LevelDetail'))
 const AdminTestBank = lazyRetry(() => import('./pages/admin/AdminTestBank'))
 const AdminAIDashboard = lazyRetry(() => import('./pages/admin/AdminAIDashboard'))
 const AdminContentBank = lazyRetry(() => import('./pages/admin/AdminContentBank'))
@@ -324,6 +325,7 @@ export default function App() {
               <Route path="/admin/export" element={<Page><AdminDataExport /></Page>} />
               <Route path="/admin/recordings" element={<Page><AdminRecordings /></Page>} />
               <Route path="/admin/curriculum" element={<Page><AdminCurriculum /></Page>} />
+              <Route path="/admin/curriculum/level/:levelId" element={<Page><LevelDetail /></Page>} />
               <Route path="/admin/test-bank" element={<Page><AdminTestBank /></Page>} />
               <Route path="/admin/ai-dashboard" element={<Page><AdminAIDashboard /></Page>} />
               <Route path="/admin/content-bank" element={<Page><AdminContentBank /></Page>} />
