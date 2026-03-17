@@ -1,9 +1,4 @@
--- ═══════════════════════════════════════════════════════════
 -- Enhanced Adaptive Question Bank with IRT Parameters
--- Separate from test_questions — this is for the adaptive engine
--- ═══════════════════════════════════════════════════════════
-
--- Adaptive question bank with IRT parameters
 CREATE TABLE IF NOT EXISTS adaptive_question_bank (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   skill text NOT NULL CHECK (skill IN ('grammar','vocabulary','reading','listening','writing','speaking')),
@@ -26,11 +21,17 @@ CREATE TABLE IF NOT EXISTS adaptive_question_bank (
   is_active boolean DEFAULT true,
   created_at timestamptz DEFAULT now()
 );
-CREATE INDEX idx_aq_skill_level ON adaptive_question_bank(skill, level, difficulty);
-CREATE INDEX idx_aq_active ON adaptive_question_bank(is_active, skill);
+CREATE INDEX IF NOT EXISTS idx_aq_skill_level ON adaptive_question_bank(skill, level, difficulty);
+CREATE INDEX IF NOT EXISTS idx_aq_active ON adaptive_question_bank(is_active, skill);
 
 -- RLS
 ALTER TABLE adaptive_question_bank ENABLE ROW LEVEL SECURITY;
+
+DO $$ BEGIN
+  DROP POLICY IF EXISTS "anyone_read_aq" ON adaptive_question_bank;
+  DROP POLICY IF EXISTS "admin_write_aq" ON adaptive_question_bank;
+  DROP POLICY IF EXISTS "service_aq" ON adaptive_question_bank;
+END $$;
 
 CREATE POLICY "anyone_read_aq" ON adaptive_question_bank FOR SELECT USING (true);
 CREATE POLICY "admin_write_aq" ON adaptive_question_bank FOR ALL USING (

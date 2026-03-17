@@ -2,7 +2,10 @@
 ALTER TABLE weekly_tasks ADD COLUMN IF NOT EXISTS planned_date date;
 
 -- 2. Add username to profiles
-ALTER TABLE profiles ADD COLUMN IF NOT EXISTS username text UNIQUE;
+DO $$ BEGIN
+  ALTER TABLE profiles ADD COLUMN username text UNIQUE;
+EXCEPTION WHEN duplicate_column THEN NULL;
+END $$;
 
 -- 3. Create notification_preferences table
 CREATE TABLE IF NOT EXISTS notification_preferences (
@@ -17,5 +20,6 @@ CREATE TABLE IF NOT EXISTS notification_preferences (
 );
 
 ALTER TABLE notification_preferences ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Users manage own preferences" ON notification_preferences;
 CREATE POLICY "Users manage own preferences" ON notification_preferences
   FOR ALL USING (auth.uid() = user_id);

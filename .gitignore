@@ -28,3 +28,9 @@ npm-debug.log*
 
 # Claude Code
 .claude/
+
+# Large files / extracted content
+analysis-output/
+curriculum-books/
+extract-*.cjs
+extract-*.mjs

@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS curriculum_reading_passages (
   times_used integer DEFAULT 0,
   created_at timestamptz DEFAULT now()
 );
-CREATE INDEX idx_reading_level ON curriculum_reading_passages(level, topic);
+CREATE INDEX IF NOT EXISTS idx_reading_level ON curriculum_reading_passages(level, topic);
 
 -- Speaking topics bank
 CREATE TABLE IF NOT EXISTS curriculum_speaking_topics (
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS curriculum_speaking_topics (
   created_at timestamptz DEFAULT now(),
   UNIQUE(level, topic_number)
 );
-CREATE INDEX idx_speaking_level ON curriculum_speaking_topics(level, category);
+CREATE INDEX IF NOT EXISTS idx_speaking_level ON curriculum_speaking_topics(level, category);
 
 -- Writing prompts bank
 CREATE TABLE IF NOT EXISTS curriculum_writing_prompts (
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS curriculum_writing_prompts (
   times_used integer DEFAULT 0,
   created_at timestamptz DEFAULT now()
 );
-CREATE INDEX idx_writing_level ON curriculum_writing_prompts(level, prompt_type);
+CREATE INDEX IF NOT EXISTS idx_writing_level ON curriculum_writing_prompts(level, prompt_type);
 
 -- Listening exercises bank
 CREATE TABLE IF NOT EXISTS curriculum_listening_exercises (
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS curriculum_listening_exercises (
   times_used integer DEFAULT 0,
   created_at timestamptz DEFAULT now()
 );
-CREATE INDEX idx_listening_level ON curriculum_listening_exercises(level);
+CREATE INDEX IF NOT EXISTS idx_listening_level ON curriculum_listening_exercises(level);
 
 -- Irregular verbs master list
 CREATE TABLE IF NOT EXISTS curriculum_irregular_verbs (
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS curriculum_irregular_verbs (
   example_sentence text NOT NULL,
   category text DEFAULT 'general'
 );
-CREATE INDEX idx_verbs_level ON curriculum_irregular_verbs(level, difficulty_order);
+CREATE INDEX IF NOT EXISTS idx_verbs_level ON curriculum_irregular_verbs(level, difficulty_order);
 
 -- Grammar lessons bank
 CREATE TABLE IF NOT EXISTS curriculum_grammar_lessons (
@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS curriculum_grammar_lessons (
   created_at timestamptz DEFAULT now(),
   UNIQUE(level, unit_number)
 );
-CREATE INDEX idx_grammar_level ON curriculum_grammar_lessons(level);
+CREATE INDEX IF NOT EXISTS idx_grammar_level ON curriculum_grammar_lessons(level);
 
 -- RLS for all tables
 ALTER TABLE curriculum_reading_passages ENABLE ROW LEVEL SECURITY;
@@ -116,6 +116,28 @@ ALTER TABLE curriculum_writing_prompts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE curriculum_listening_exercises ENABLE ROW LEVEL SECURITY;
 ALTER TABLE curriculum_irregular_verbs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE curriculum_grammar_lessons ENABLE ROW LEVEL SECURITY;
+
+-- Drop existing policies if any
+DO $$ BEGIN
+  DROP POLICY IF EXISTS "anyone_read_reading" ON curriculum_reading_passages;
+  DROP POLICY IF EXISTS "anyone_read_speaking" ON curriculum_speaking_topics;
+  DROP POLICY IF EXISTS "anyone_read_writing" ON curriculum_writing_prompts;
+  DROP POLICY IF EXISTS "anyone_read_listening" ON curriculum_listening_exercises;
+  DROP POLICY IF EXISTS "anyone_read_verbs" ON curriculum_irregular_verbs;
+  DROP POLICY IF EXISTS "anyone_read_grammar" ON curriculum_grammar_lessons;
+  DROP POLICY IF EXISTS "admin_write_reading" ON curriculum_reading_passages;
+  DROP POLICY IF EXISTS "admin_write_speaking" ON curriculum_speaking_topics;
+  DROP POLICY IF EXISTS "admin_write_writing" ON curriculum_writing_prompts;
+  DROP POLICY IF EXISTS "admin_write_listening" ON curriculum_listening_exercises;
+  DROP POLICY IF EXISTS "admin_write_verbs" ON curriculum_irregular_verbs;
+  DROP POLICY IF EXISTS "admin_write_grammar" ON curriculum_grammar_lessons;
+  DROP POLICY IF EXISTS "service_reading" ON curriculum_reading_passages;
+  DROP POLICY IF EXISTS "service_speaking" ON curriculum_speaking_topics;
+  DROP POLICY IF EXISTS "service_writing" ON curriculum_writing_prompts;
+  DROP POLICY IF EXISTS "service_listening" ON curriculum_listening_exercises;
+  DROP POLICY IF EXISTS "service_verbs" ON curriculum_irregular_verbs;
+  DROP POLICY IF EXISTS "service_grammar" ON curriculum_grammar_lessons;
+END $$;
 
 -- Everyone can read curriculum content
 CREATE POLICY "anyone_read_reading" ON curriculum_reading_passages FOR SELECT USING (true);
