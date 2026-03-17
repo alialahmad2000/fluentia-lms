@@ -136,6 +136,10 @@ export const NOTIFICATION_TYPES = {
   weekly_tasks_remind: { label_ar: 'تذكير بالمهام',      icon: '📝', color: 'yellow' },
   weekly_tasks_urgent: { label_ar: 'آخر يوم للمهام',     icon: '⏰', color: 'red' },
   spelling_milestone:  { label_ar: 'إنجاز إملائي',       icon: '✏️', color: 'green' },
+  smart_nudge:         { label_ar: 'نصيحة ذكية',         icon: '💡', color: 'violet' },
+  test_result:         { label_ar: 'نتيجة اختبار',       icon: '📊', color: 'sky' },
+  curriculum_progress: { label_ar: 'تقدم في المنهج',     icon: '📚', color: 'emerald' },
+  speaking_feedback:   { label_ar: 'تقييم المحادثة',     icon: '🎤', color: 'violet' },
 }
 
 // ─── Payment Status Labels ─────────────────────────────────
