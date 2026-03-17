@@ -286,6 +286,14 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### March 17, 2026 — IELTS Track Database Tables (8 Tables)
+- What: Created 8 IELTS preparation track tables with indexes and RLS
+- **Tables:** ielts_diagnostic, ielts_reading_passages, ielts_reading_skills, ielts_writing_tasks, ielts_listening_sections, ielts_speaking_questions, ielts_mock_tests, ielts_student_results
+- **RLS:** Content tables: admin-write + authenticated-read. Student data: own-data + staff-read. Service role on all.
+- Files: `supabase/migrations/036_ielts_tables.sql`
+- DB: Migration 036 applied via `supabase db push`
+- Status: Complete — tables only, no UI, no seed data
+
 ### March 17, 2026 — Core Curriculum Database Tables (17 Tables)
 - What: Created 15 new curriculum tables + altered 2 existing tables for structured curriculum based on Reading Explorer + Grammar in Use analysis
 - **New tables:** curriculum_levels, curriculum_readings, curriculum_comprehension_questions, curriculum_vocabulary, curriculum_vocabulary_exercises, curriculum_grammar, curriculum_grammar_exercises, curriculum_writing, curriculum_listening, curriculum_speaking, curriculum_irregular_verbs_v2, curriculum_irregular_verb_exercises, curriculum_pronunciation, curriculum_video_sections, curriculum_assessments
