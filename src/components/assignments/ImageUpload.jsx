@@ -70,8 +70,10 @@ export default function ImageUpload({ images, onImagesChange, maxImages = 4 }) {
     try {
       const newImages = []
       for (const file of files) {
-        // Validate type
-        if (!file.type.startsWith('image/')) {
+        // Validate type — accept image/* and HEIC/HEIF (Safari iOS may report empty type)
+        const isImage = file.type.startsWith('image/')
+        const isHeic = /\.(heic|heif)$/i.test(file.name)
+        if (!isImage && !isHeic) {
           setError('فقط ملفات الصور مسموحة')
           continue
         }
@@ -158,7 +160,8 @@ export default function ImageUpload({ images, onImagesChange, maxImages = 4 }) {
       <input
         ref={inputRef}
         type="file"
-        accept="image/*"
+        accept="image/jpeg,image/png,image/webp,image/heic,image/heif,image/*"
+        capture="environment"
         multiple
         onChange={handleFiles}
         className="hidden"

@@ -33,24 +33,25 @@ function certId(studentId, type, date) {
 }
 
 // ─── QR Code (pure SVG, no library) ──────────────────────────────────────────
-// Generates a minimal visual QR-like pattern. For a real deployment, swap this
-// for qrcode.react or a server-side QR. This implementation uses a deterministic
-// bit-pattern seeded by the URL string to produce a plausible visual.
+// Generates a realistic QR-like pattern with proper finder patterns, timing
+// patterns, alignment pattern, and separators. For a real deployment, swap this
+// for qrcode.react or a server-side QR.
 function QRCodeSVG({ value, size = 80 }) {
   const modules = 21 // Version 1 QR has 21×21
-  // Seed a pseudo-random grid from the URL
+  const quiet = 2    // quiet zone (white border) in modules
+  const total = modules + quiet * 2
+
   const bits = useMemo(() => {
     const grid = []
-    let seed = 0
-    for (let i = 0; i < value.length; i++) seed = (seed * 31 + value.charCodeAt(i)) & 0xffffffff
+    // Initialize all to false
     for (let r = 0; r < modules; r++) {
       grid[r] = []
       for (let c = 0; c < modules; c++) {
-        seed = (seed * 1664525 + 1013904223) & 0xffffffff
-        grid[r][c] = (seed >>> 0) % 2 === 0
+        grid[r][c] = false
       }
     }
-    // Finder patterns (top-left, top-right, bottom-left) — always dark
+
+    // ── Finder patterns (7×7) at three corners ──
     const fp = [[0, 0], [0, modules - 7], [modules - 7, 0]]
     fp.forEach(([row, col]) => {
       for (let dr = 0; dr < 7; dr++) {
@@ -61,22 +62,100 @@ function QRCodeSVG({ value, size = 80 }) {
         }
       }
     })
+
+    // ── Separators (1-module white border around each finder) ──
+    // Already false by default, but explicitly clear the separator zones
+    // so random data doesn't overwrite them
+    const separatorCoords = []
+    // Top-left finder: clear row 7 cols 0-7, col 7 rows 0-7
+    for (let i = 0; i <= 7; i++) { separatorCoords.push([7, i], [i, 7]) }
+    // Top-right finder: clear row 7 cols 13-20, col 13 rows 0-7
+    for (let i = 0; i <= 7; i++) { separatorCoords.push([7, modules - 8 + i], [i, modules - 8]) }
+    // Bottom-left finder: clear row 13 cols 0-7, col 7 rows 13-20
+    for (let i = 0; i <= 7; i++) { separatorCoords.push([modules - 8, i], [modules - 8 + i, 7]) }
+    separatorCoords.forEach(([r, c]) => {
+      if (r >= 0 && r < modules && c >= 0 && c < modules) grid[r][c] = false
+    })
+
+    // ── Timing patterns (alternating dark/light between finders) ──
+    // Horizontal: row 6, cols 8..12
+    for (let c = 8; c < modules - 8; c++) {
+      grid[6][c] = c % 2 === 0
+    }
+    // Vertical: col 6, rows 8..12
+    for (let r = 8; r < modules - 8; r++) {
+      grid[r][6] = r % 2 === 0
+    }
+
+    // ── Alignment pattern (5×5) at position (14, 14) for Version 1+ ──
+    const ax = 14, ay = 14
+    for (let dr = -2; dr <= 2; dr++) {
+      for (let dc = -2; dc <= 2; dc++) {
+        const onBorder = Math.abs(dr) === 2 || Math.abs(dc) === 2
+        const isCenter = dr === 0 && dc === 0
+        grid[ay + dr][ax + dc] = onBorder || isCenter
+      }
+    }
+
+    // ── Dark module (always present) ──
+    grid[modules - 8][8] = true
+
+    // ── Fill remaining cells with deterministic pseudo-random data ──
+    // Track which cells are "reserved" (finders, separators, timing, alignment)
+    const reserved = []
+    for (let r = 0; r < modules; r++) {
+      reserved[r] = []
+      for (let c = 0; c < modules; c++) reserved[r][c] = false
+    }
+    // Mark finder + separator zones
+    fp.forEach(([row, col]) => {
+      for (let dr = -1; dr <= 7; dr++) {
+        for (let dc = -1; dc <= 7; dc++) {
+          const rr = row + dr, cc = col + dc
+          if (rr >= 0 && rr < modules && cc >= 0 && cc < modules) reserved[rr][cc] = true
+        }
+      }
+    })
+    // Timing
+    for (let i = 0; i < modules; i++) { reserved[6][i] = true; reserved[i][6] = true }
+    // Alignment
+    for (let dr = -2; dr <= 2; dr++) {
+      for (let dc = -2; dc <= 2; dc++) reserved[ay + dr][ax + dc] = true
+    }
+    // Dark module
+    reserved[modules - 8][8] = true
+
+    // Seed from value string
+    let seed = 0
+    for (let i = 0; i < value.length; i++) seed = (seed * 31 + value.charCodeAt(i)) & 0xffffffff
+    // Fill unreserved cells
+    for (let r = 0; r < modules; r++) {
+      for (let c = 0; c < modules; c++) {
+        if (!reserved[r][c]) {
+          seed = (seed * 1664525 + 1013904223) & 0xffffffff
+          grid[r][c] = (seed >>> 0) % 3 !== 0 // ~66% dark for better density
+        }
+      }
+    }
+
     return grid
   }, [value])
 
-  const cell = size / modules
+  const cell = size / total
+  const offset = quiet * cell
   return (
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} xmlns="http://www.w3.org/2000/svg">
-      <rect width={size} height={size} fill="white" rx="4" />
+      {/* White background with quiet zone */}
+      <rect width={size} height={size} fill="white" rx="6" />
       {bits.map((row, r) =>
         row.map((dark, c) =>
           dark ? (
             <rect
               key={`${r}-${c}`}
-              x={c * cell}
-              y={r * cell}
-              width={cell}
-              height={cell}
+              x={offset + c * cell}
+              y={offset + r * cell}
+              width={cell + 0.5}
+              height={cell + 0.5}
               fill="#1a1a2e"
             />
           ) : null
@@ -108,22 +187,26 @@ function CertificateCard({ cert, studentName, forwardRef }) {
         }}
       />
 
-      {/* Decorative corner ornaments */}
-      <svg className="absolute top-3 right-3 text-gold-400 opacity-40" width="36" height="36" viewBox="0 0 36 36" fill="none">
-        <path d="M1 1 H14 V1 M1 1 V14" stroke="#D4AF37" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="1" cy="1" r="2" fill="#D4AF37" />
+      {/* Decorative corner ornaments — drawn with 4px inset in viewBox to avoid clipping */}
+      {/* Top-right corner (RTL: visually top-start) */}
+      <svg className="absolute top-4 right-4 opacity-40" width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path d="M4 4 H16 M4 4 V16" stroke="#D4AF37" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="4" cy="4" r="2" fill="#D4AF37" />
       </svg>
-      <svg className="absolute top-3 left-3 text-gold-400 opacity-40" width="36" height="36" viewBox="0 0 36 36" fill="none">
-        <path d="M35 1 H22 V1 M35 1 V14" stroke="#D4AF37" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="35" cy="1" r="2" fill="#D4AF37" />
+      {/* Top-left corner (RTL: visually top-end) */}
+      <svg className="absolute top-4 left-4 opacity-40" width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path d="M24 4 H12 M24 4 V16" stroke="#D4AF37" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="24" cy="4" r="2" fill="#D4AF37" />
       </svg>
-      <svg className="absolute bottom-3 right-3 opacity-40" width="36" height="36" viewBox="0 0 36 36" fill="none">
-        <path d="M1 35 H14 M1 35 V22" stroke="#D4AF37" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="1" cy="35" r="2" fill="#D4AF37" />
+      {/* Bottom-right corner */}
+      <svg className="absolute bottom-4 right-4 opacity-40" width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path d="M4 24 H16 M4 24 V12" stroke="#D4AF37" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="4" cy="24" r="2" fill="#D4AF37" />
       </svg>
-      <svg className="absolute bottom-3 left-3 opacity-40" width="36" height="36" viewBox="0 0 36 36" fill="none">
-        <path d="M35 35 H22 M35 35 V22" stroke="#D4AF37" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="35" cy="35" r="2" fill="#D4AF37" />
+      {/* Bottom-left corner */}
+      <svg className="absolute bottom-4 left-4 opacity-40" width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path d="M24 24 H12 M24 24 V12" stroke="#D4AF37" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="24" cy="24" r="2" fill="#D4AF37" />
       </svg>
 
       {/* Radial glow behind medal */}
@@ -191,7 +274,9 @@ function CertificateCard({ cert, studentName, forwardRef }) {
           </div>
 
           <div className="flex flex-col items-center gap-1">
-            <QRCodeSVG value={verifyUrl} size={60} />
+            <div className="rounded-lg p-1.5" style={{ background: 'white', boxShadow: '0 0 12px rgba(212,175,55,0.25)' }}>
+              <QRCodeSVG value={verifyUrl} size={80} />
+            </div>
             <p className="text-[9px]" style={{ color: 'rgba(255,255,255,0.3)' }}>تحقق</p>
           </div>
         </div>
