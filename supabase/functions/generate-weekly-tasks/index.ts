@@ -304,6 +304,196 @@ async function getIrregularVerbs(
 }
 
 /**
+ * Pull content from curriculum bank tables. Returns TaskGenerationResult format
+ * or null if insufficient content is available.
+ * Requires: 2 reading passages, 3 speaking topics, 1 writing prompt, 1 listening exercise.
+ */
+async function pullFromCurriculumBank(
+  supabase: ReturnType<typeof createClient>,
+  academicLevel: number,
+  studentId: string
+): Promise<{ result: TaskGenerationResult; sourceIds: Array<{ id: string; table: string }> } | null> {
+  const level = ACADEMIC_LEVELS[academicLevel] || ACADEMIC_LEVELS[1]
+
+  // Determine this month's boundaries for excluding recently-used content
+  const now = new Date()
+  const monthStart = new Date(now.getUTCFullYear(), now.getUTCMonth(), 1).toISOString()
+
+  // Get source_ids already used by this student this month
+  const { data: recentTasks } = await supabase
+    .from('weekly_tasks')
+    .select('content')
+    .eq('student_id', studentId)
+    .gte('created_at', monthStart)
+
+  const usedSourceIds = new Set<string>()
+  if (recentTasks) {
+    for (const task of recentTasks) {
+      const content = task.content as Record<string, unknown> | null
+      if (content?.source_id) {
+        usedSourceIds.add(content.source_id as string)
+      }
+    }
+  }
+
+  // --- Query reading passages (need 2) ---
+  const { data: readingRows } = await supabase
+    .from('curriculum_reading_passages')
+    .select('*')
+    .eq('level', academicLevel)
+    .order('times_used', { ascending: true })
+    .limit(10) // fetch extra to filter out used ones
+
+  const filteredReading = (readingRows || []).filter((r: any) => !usedSourceIds.has(r.id)).slice(0, 2)
+  if (filteredReading.length < 2) return null
+
+  // --- Query speaking topics (need 3) ---
+  const { data: speakingRows } = await supabase
+    .from('curriculum_speaking_topics')
+    .select('*')
+    .eq('level', academicLevel)
+    .order('times_used', { ascending: true })
+    .limit(15)
+
+  const filteredSpeaking = (speakingRows || []).filter((r: any) => !usedSourceIds.has(r.id)).slice(0, 3)
+  if (filteredSpeaking.length < 3) return null
+
+  // --- Query writing prompts (need 1) ---
+  const { data: writingRows } = await supabase
+    .from('curriculum_writing_prompts')
+    .select('*')
+    .eq('level', academicLevel)
+    .order('times_used', { ascending: true })
+    .limit(5)
+
+  const filteredWriting = (writingRows || []).filter((r: any) => !usedSourceIds.has(r.id)).slice(0, 1)
+  if (filteredWriting.length < 1) return null
+
+  // --- Query listening exercises (need 1) ---
+  const { data: listeningRows } = await supabase
+    .from('curriculum_listening_exercises')
+    .select('*')
+    .eq('level', academicLevel)
+    .order('times_used', { ascending: true })
+    .limit(5)
+
+  const filteredListening = (listeningRows || []).filter((r: any) => !usedSourceIds.has(r.id)).slice(0, 1)
+  if (filteredListening.length < 1) return null
+
+  // All content available — track source IDs for times_used update
+  const sourceIds: Array<{ id: string; table: string }> = []
+
+  // Helper: convert 0-3 index correct_answer to "A"/"B"/"C"/"D"
+  const indexToLetter = (idx: number | string): string => {
+    if (typeof idx === 'string') {
+      // Already a letter
+      if (['A', 'B', 'C', 'D'].includes(idx.toUpperCase())) return idx.toUpperCase()
+      // Might be a numeric string
+      const n = parseInt(idx, 10)
+      if (!isNaN(n)) return ['A', 'B', 'C', 'D'][n] || 'A'
+      return idx
+    }
+    return ['A', 'B', 'C', 'D'][idx] || 'A'
+  }
+
+  // --- Transform reading passages ---
+  const reading: TaskGenerationResult['reading'] = filteredReading.map((r: any) => {
+    sourceIds.push({ id: r.id, table: 'curriculum_reading_passages' })
+    const questions = (r.questions || []).map((q: any) => ({
+      question: q.question || q.text || '',
+      type: q.type || 'mcq',
+      options: q.options || [],
+      correct_answer: indexToLetter(q.correct_answer),
+      explanation: q.explanation || '',
+    }))
+    return {
+      title: r.title_en,
+      title_ar: r.title_ar,
+      instructions: `Read the passage carefully and answer the comprehension questions. The passage is approximately ${r.word_count} words.`,
+      instructions_ar: `اقرأ النص بعناية ثم أجب عن أسئلة الفهم. النص يتكون من حوالي ${r.word_count} كلمة.`,
+      article_title: r.title_en,
+      article_text: r.passage,
+      word_count: r.word_count,
+      questions,
+    }
+  })
+
+  // --- Transform speaking topics ---
+  const speaking: TaskGenerationResult['speaking'] = filteredSpeaking.map((s: any) => {
+    sourceIds.push({ id: s.id, table: 'curriculum_speaking_topics' })
+    return {
+      title: s.title_en,
+      title_ar: s.title_ar,
+      instructions: `Speak about the following topic. Use the guiding questions to help structure your response. Aim for ${s.duration_min}-${s.duration_max} seconds.`,
+      instructions_ar: `تحدث عن الموضوع التالي. استخدم الأسئلة الإرشادية لتنظيم إجابتك. استهدف ${s.duration_min}-${s.duration_max} ثانية.`,
+      topic: s.title_en,
+      guiding_questions: s.guiding_questions || [],
+      min_duration_sec: s.duration_min || 60,
+      max_duration_sec: s.duration_max || 90,
+    }
+  })
+
+  // --- Transform writing prompt ---
+  const writing: TaskGenerationResult['writing'] = filteredWriting.map((w: any) => {
+    sourceIds.push({ id: w.id, table: 'curriculum_writing_prompts' })
+    return {
+      title: w.title_en,
+      title_ar: w.title_ar,
+      instructions: `Write a ${w.prompt_type} about the topic below. Aim for ${w.word_count_min}-${w.word_count_max} words.`,
+      instructions_ar: `اكتب ${w.prompt_type} عن الموضوع أدناه. استهدف ${w.word_count_min}-${w.word_count_max} كلمة.`,
+      prompt: w.prompt,
+      word_limit_min: w.word_count_min,
+      word_limit_max: w.word_count_max,
+      focus_areas: w.evaluation_criteria || ['grammar', 'vocabulary', 'structure', 'clarity'],
+    }
+  })
+
+  // --- Transform listening exercise ---
+  const listening: TaskGenerationResult['listening'] = filteredListening.map((l: any) => {
+    sourceIds.push({ id: l.id, table: 'curriculum_listening_exercises' })
+    const questions = (l.questions || []).map((q: any) => ({
+      question: q.question || q.text || '',
+      type: q.type || 'mcq',
+      options: q.options || [],
+      correct_answer: indexToLetter(q.correct_answer),
+      explanation: q.explanation || '',
+    }))
+    return {
+      title: l.title_en,
+      title_ar: l.title_ar,
+      instructions: `Listen to the audio and answer the comprehension questions.`,
+      instructions_ar: `استمع إلى المقطع الصوتي ثم أجب عن أسئلة الفهم.`,
+      topic_description: l.description_ar || l.youtube_title || '',
+      questions,
+    }
+  })
+
+  // Vocabulary is left empty — will still be generated by Claude or handled separately
+  const vocabulary: TaskGenerationResult['vocabulary'] = []
+
+  // Increment times_used for all selected items
+  // supabase-js doesn't support SQL increment, so fetch current value and update
+  for (const src of sourceIds) {
+    const { data: currentRow } = await supabase
+      .from(src.table)
+      .select('times_used')
+      .eq('id', src.id)
+      .single()
+    if (currentRow) {
+      await supabase
+        .from(src.table)
+        .update({ times_used: (currentRow.times_used || 0) + 1 })
+        .eq('id', src.id)
+    }
+  }
+
+  return {
+    result: { speaking, reading, writing, listening, vocabulary },
+    sourceIds,
+  }
+}
+
+/**
  * Calculate adaptive difficulty score (0.00-1.00) based on recent performance.
  * Higher score = student is doing well = increase difficulty next week.
  */
@@ -482,18 +672,28 @@ serve(async (req) => {
         const difficultyLabel = difficultyScore >= 0.75 ? 'challenging' : difficultyScore >= 0.50 ? 'moderate' : 'easier'
         const cacheKey = `${academicLevel}_${difficultyLabel}`
 
-        // Generate tasks via Claude (use cache if same level+difficulty band already generated)
+        // Generate tasks — try curriculum bank first (instant, no API cost)
         let taskData: TaskGenerationResult
         let inputTokens: number
         let outputTokens: number
+        let bankSourceIds: Array<{ id: string; table: string }> = []
 
-        if (levelCache[cacheKey]) {
-          // Reuse cached result for same level+difficulty — different students at same level
+        const bankResult = await pullFromCurriculumBank(supabase, academicLevel, studentId)
+        if (bankResult) {
+          taskData = bankResult.result
+          inputTokens = 0
+          outputTokens = 0
+          bankSourceIds = bankResult.sourceIds
+          console.log(`Used curriculum bank for student ${studentId} (level ${academicLevel})`)
+        } else if (levelCache[cacheKey]) {
+          // Reuse cached Claude result for same level+difficulty — different students at same level
           // get the same task templates (each student still gets their own irregular verbs)
           taskData = levelCache[cacheKey].result
           inputTokens = levelCache[cacheKey].inputTokens
           outputTokens = levelCache[cacheKey].outputTokens
+          console.log(`Used cached Claude result for student ${studentId} (level ${academicLevel}, ${difficultyLabel})`)
         } else {
+          // Fall back to Claude API generation
           const claudeResult = await generateTasksWithClaude(academicLevel, difficultyScore)
           taskData = claudeResult.result
           inputTokens = claudeResult.inputTokens
@@ -512,6 +712,7 @@ serve(async (req) => {
             output_tokens: outputTokens,
             estimated_cost_sar: costSar,
           })
+          console.log(`Used Claude API for student ${studentId} (level ${academicLevel}, ${difficultyLabel})`)
         }
 
         // Fetch irregular verbs for this student
@@ -542,9 +743,52 @@ serve(async (req) => {
         const taskSetId: string = taskSet.id
         const tasksToInsert: Array<Record<string, unknown>> = []
 
+        // Helper: build a map from bank source index to source info for content tracking
+        // bankSourceIds order: reading[0], reading[1], speaking[0..2], writing[0], listening[0]
+        // We track per-type index counters
+        let bankReadingIdx = 0
+        let bankSpeakingIdx = 0
+        let bankWritingIdx = 0
+        let bankListeningIdx = 0
+
+        const getBankSource = (type: string): { source_id: string; source_table: string } | undefined => {
+          if (bankSourceIds.length === 0) return undefined
+          let idx: number
+          switch (type) {
+            case 'reading':
+              idx = bankReadingIdx++
+              break
+            case 'speaking':
+              idx = bankSpeakingIdx++
+              break
+            case 'writing':
+              idx = bankWritingIdx++
+              break
+            case 'listening':
+              idx = bankListeningIdx++
+              break
+            default:
+              return undefined
+          }
+          const src = bankSourceIds.find((s, i) => {
+            // Count how many of this table we've seen before index i
+            const tableMap: Record<string, string> = {
+              'curriculum_reading_passages': 'reading',
+              'curriculum_speaking_topics': 'speaking',
+              'curriculum_writing_prompts': 'writing',
+              'curriculum_listening_exercises': 'listening',
+            }
+            if (tableMap[s.table] !== type) return false
+            const countBefore = bankSourceIds.slice(0, i).filter(x => x.table === s.table).length
+            return countBefore === idx
+          })
+          return src ? { source_id: src.id, source_table: src.table } : undefined
+        }
+
         // Speaking tasks (3)
         for (let i = 0; i < taskData.speaking.length; i++) {
           const t = taskData.speaking[i]
+          const bankSrc = getBankSource('speaking')
           tasksToInsert.push({
             task_set_id: taskSetId,
             student_id: studentId,
@@ -558,6 +802,7 @@ serve(async (req) => {
               guiding_questions: t.guiding_questions,
               min_duration_sec: t.min_duration_sec,
               max_duration_sec: t.max_duration_sec,
+              ...(bankSrc ? { source_id: bankSrc.source_id, source_table: bankSrc.source_table } : {}),
             },
             sequence_number: i + 1,
             level: academicLevel,
@@ -569,6 +814,7 @@ serve(async (req) => {
         // Reading tasks (2)
         for (let i = 0; i < taskData.reading.length; i++) {
           const t = taskData.reading[i]
+          const bankSrc = getBankSource('reading')
           tasksToInsert.push({
             task_set_id: taskSetId,
             student_id: studentId,
@@ -582,6 +828,7 @@ serve(async (req) => {
               article_text: t.article_text,
               word_count: t.word_count,
               questions: t.questions,
+              ...(bankSrc ? { source_id: bankSrc.source_id, source_table: bankSrc.source_table } : {}),
             },
             sequence_number: taskData.speaking.length + i + 1,
             level: academicLevel,
@@ -593,6 +840,7 @@ serve(async (req) => {
         // Writing task (1)
         for (let i = 0; i < taskData.writing.length; i++) {
           const t = taskData.writing[i]
+          const bankSrc = getBankSource('writing')
           tasksToInsert.push({
             task_set_id: taskSetId,
             student_id: studentId,
@@ -606,6 +854,7 @@ serve(async (req) => {
               word_limit_min: t.word_limit_min,
               word_limit_max: t.word_limit_max,
               focus_areas: t.focus_areas,
+              ...(bankSrc ? { source_id: bankSrc.source_id, source_table: bankSrc.source_table } : {}),
             },
             sequence_number: taskData.speaking.length + taskData.reading.length + i + 1,
             level: academicLevel,
@@ -617,6 +866,7 @@ serve(async (req) => {
         // Listening task (1)
         for (let i = 0; i < taskData.listening.length; i++) {
           const t = taskData.listening[i]
+          const bankSrc = getBankSource('listening')
           tasksToInsert.push({
             task_set_id: taskSetId,
             student_id: studentId,
@@ -628,6 +878,7 @@ serve(async (req) => {
             content: {
               topic_description: t.topic_description,
               questions: t.questions,
+              ...(bankSrc ? { source_id: bankSrc.source_id, source_table: bankSrc.source_table } : {}),
             },
             sequence_number:
               taskData.speaking.length +
