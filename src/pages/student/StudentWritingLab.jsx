@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   PenLine, Loader2, RotateCcw, Sparkles, CheckCircle2, AlertCircle,
   BookOpen, BarChart3, FileText, Lock, Zap, Clock, ChevronDown, ChevronUp,
-  History, Award,
+  History, Award, Wand2, X, ArrowRight, TrendingUp, ShieldCheck,
 } from 'lucide-react'
 import SubTabs from '../../components/common/SubTabs'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
@@ -169,6 +169,8 @@ function SentenceBuildingPanel() {
   const [showConfetti, setShowConfetti] = useState(false)
   const [activePrompt, setActivePrompt] = useState(null)
   const [showHistory, setShowHistory] = useState(false)
+  const [correction, setCorrection] = useState(null)
+  const [correctionLoading, setCorrectionLoading] = useState(false)
   const textareaRef = useRef(null)
 
   const charCount = text.length
@@ -205,6 +207,38 @@ function SentenceBuildingPanel() {
     setXpEarned(0)
     setActivePrompt(null)
     setShowConfetti(false)
+    setCorrection(null)
+  }
+
+  async function requestAICorrection() {
+    if (charCount < 20) {
+      setError('النص قصير جداً — اكتب 20 حرف على الأقل')
+      return
+    }
+    setCorrectionLoading(true)
+    setError('')
+    setCorrection(null)
+    try {
+      const res = await invokeWithRetry('correct-writing', {
+        body: {
+          text: text.trim(),
+          task_type: 'sentence_building',
+          level: profile?.level || 'intermediate',
+        },
+      }, { timeoutMs: 45000 })
+      if (res.error) {
+        const msg = typeof res.error === 'object' ? (res.error.message || JSON.stringify(res.error)) : String(res.error)
+        throw new Error(msg)
+      }
+      const result = res.data
+      if (!result || typeof result !== 'object') throw new Error('استجابة غير صالحة')
+      if (result.error) { setError(result.error); return }
+      setCorrection(result)
+    } catch (err) {
+      setError(err.message || 'حدث خطأ — حاول مرة أخرى')
+    } finally {
+      setCorrectionLoading(false)
+    }
   }
 
   async function submitWriting() {
@@ -329,6 +363,22 @@ function SentenceBuildingPanel() {
               <><Sparkles size={16} /> تحليل الكتابة</>
             )}
           </button>
+          <button
+            onClick={requestAICorrection}
+            disabled={correctionLoading || charCount < 10}
+            className="text-sm py-2.5 px-5 flex items-center gap-2 rounded-xl font-medium transition-all duration-200 cursor-pointer"
+            style={{
+              background: 'linear-gradient(135deg, rgba(139,92,246,0.15), rgba(59,130,246,0.15))',
+              color: 'var(--accent-sky)',
+              border: '1px solid rgba(139,92,246,0.25)',
+            }}
+          >
+            {correctionLoading ? (
+              <><Loader2 size={16} className="animate-spin" /> جاري التصحيح...</>
+            ) : (
+              <><Wand2 size={16} /> تصحيح بالذكاء الاصطناعي</>
+            )}
+          </button>
           {(text || feedback) && (
             <button onClick={reset} className="btn-ghost text-sm py-2.5 px-4 flex items-center gap-2 cursor-pointer">
               <RotateCcw size={14} /> مسح
@@ -344,6 +394,11 @@ function SentenceBuildingPanel() {
           <AlertCircle size={16} className="shrink-0" /> {error}
         </motion.div>
       )}
+
+      {/* AI Correction Results */}
+      <AnimatePresence>
+        {correction && <AICorrectionResults result={correction} onClose={() => setCorrection(null)} />}
+      </AnimatePresence>
 
       {/* XP notification */}
       {xpEarned > 0 && feedback && (
@@ -522,6 +577,8 @@ function IELTSPanel({ taskType, prompts, title, subtitle, minWords }) {
   const [xpEarned, setXpEarned] = useState(0)
   const [showConfetti, setShowConfetti] = useState(false)
   const [selectedPrompt, setSelectedPrompt] = useState(null)
+  const [correction, setCorrection] = useState(null)
+  const [correctionLoading, setCorrectionLoading] = useState(false)
   const textareaRef = useRef(null)
 
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0
@@ -542,6 +599,38 @@ function IELTSPanel({ taskType, prompts, title, subtitle, minWords }) {
     setXpEarned(0)
     setSelectedPrompt(null)
     setShowConfetti(false)
+    setCorrection(null)
+  }
+
+  async function requestAICorrection() {
+    if (wordCount < Math.floor(minWords * 0.4)) {
+      setError(`النص قصير جداً — اكتب المزيد قبل طلب التصحيح`)
+      return
+    }
+    setCorrectionLoading(true)
+    setError('')
+    setCorrection(null)
+    try {
+      const res = await invokeWithRetry('correct-writing', {
+        body: {
+          text: text.trim(),
+          task_type: taskType,
+          level: profile?.level || 'intermediate',
+        },
+      }, { timeoutMs: 60000 })
+      if (res.error) {
+        const msg = typeof res.error === 'object' ? (res.error.message || JSON.stringify(res.error)) : String(res.error)
+        throw new Error(msg)
+      }
+      const result = res.data
+      if (!result || typeof result !== 'object') throw new Error('استجابة غير صالحة')
+      if (result.error) { setError(result.error); return }
+      setCorrection(result)
+    } catch (err) {
+      setError(err.message || 'حدث خطأ — حاول مرة أخرى')
+    } finally {
+      setCorrectionLoading(false)
+    }
   }
 
   async function submitWriting() {
@@ -656,6 +745,22 @@ function IELTSPanel({ taskType, prompts, title, subtitle, minWords }) {
               <><Sparkles size={16} /> تقييم بمعايير آيلتس</>
             )}
           </button>
+          <button
+            onClick={requestAICorrection}
+            disabled={correctionLoading || wordCount < Math.floor(minWords * 0.4)}
+            className="text-sm py-2.5 px-5 flex items-center gap-2 rounded-xl font-medium transition-all duration-200 cursor-pointer"
+            style={{
+              background: 'linear-gradient(135deg, rgba(139,92,246,0.15), rgba(59,130,246,0.15))',
+              color: 'var(--accent-sky)',
+              border: '1px solid rgba(139,92,246,0.25)',
+            }}
+          >
+            {correctionLoading ? (
+              <><Loader2 size={16} className="animate-spin" /> جاري التصحيح...</>
+            ) : (
+              <><Wand2 size={16} /> تصحيح بالذكاء الاصطناعي</>
+            )}
+          </button>
           {(text || feedback) && (
             <button onClick={reset} className="btn-ghost text-sm py-2.5 px-4 flex items-center gap-2 cursor-pointer">
               <RotateCcw size={14} /> مسح
@@ -671,6 +776,11 @@ function IELTSPanel({ taskType, prompts, title, subtitle, minWords }) {
           <AlertCircle size={16} className="shrink-0" /> {error}
         </motion.div>
       )}
+
+      {/* AI Correction Results */}
+      <AnimatePresence>
+        {correction && <AICorrectionResults result={correction} onClose={() => setCorrection(null)} isIELTS />}
+      </AnimatePresence>
 
       {/* XP */}
       {xpEarned > 0 && feedback && (
@@ -690,6 +800,223 @@ function IELTSPanel({ taskType, prompts, title, subtitle, minWords }) {
         <p className="text-xs text-muted text-center py-1">متبقي {remaining} تقييم هذا الشهر</p>
       )}
     </div>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════
+// AI CORRECTION RESULTS (correct-writing edge function)
+// ═══════════════════════════════════════════════════════════
+const ERROR_TYPE_META = {
+  grammar:      { label: 'نحوي', color: 'text-red-400', bg: 'bg-red-500/10 border-red-500/20' },
+  spelling:     { label: 'إملائي', color: 'text-orange-400', bg: 'bg-orange-500/10 border-orange-500/20' },
+  vocabulary:   { label: 'مفردات', color: 'text-sky-400', bg: 'bg-sky-500/10 border-sky-500/20' },
+  punctuation:  { label: 'ترقيم', color: 'text-amber-400', bg: 'bg-amber-500/10 border-amber-500/20' },
+  style:        { label: 'أسلوب', color: 'text-violet-400', bg: 'bg-violet-500/10 border-violet-500/20' },
+}
+
+function AICorrectionResults({ result, onClose, isIELTS = false }) {
+  const [showAllErrors, setShowAllErrors] = useState(false)
+
+  const score = result.overall_score ?? null
+  const errors = result.errors || []
+  const strengths = result.strengths || []
+  const improvements = result.improvements || []
+  const ieltsScores = result.ielts_scores || null
+
+  // Group errors by type
+  const groupedErrors = useMemo(() => {
+    const groups = {}
+    errors.forEach(e => {
+      const type = e.type || 'grammar'
+      if (!groups[type]) groups[type] = []
+      groups[type].push(e)
+    })
+    return groups
+  }, [errors])
+
+  // Score color
+  const scoreColor = score >= 80 ? 'text-emerald-400' : score >= 60 ? 'text-sky-400' : score >= 40 ? 'text-amber-400' : 'text-red-400'
+  const scoreTrack = score >= 80 ? 'stroke-emerald-500' : score >= 60 ? 'stroke-sky-500' : score >= 40 ? 'stroke-amber-500' : 'stroke-red-500'
+  const radius = 40
+  const circumference = 2 * Math.PI * radius
+  const dashOffset = circumference - ((score || 0) / 100) * circumference
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      className="space-y-4"
+    >
+      {/* Header */}
+      <div className="fl-card-static p-5">
+        <div className="card-top-line shimmer" />
+        <div className="flex items-start justify-between mb-5">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, rgba(139,92,246,0.2), rgba(59,130,246,0.15))' }}>
+              <Wand2 size={18} className="text-violet-400" />
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>تصحيح الذكاء الاصطناعي</h3>
+              <p className="text-[10px]" style={{ color: 'var(--text-tertiary)' }}>تحليل وتصحيح تفصيلي للنص</p>
+            </div>
+          </div>
+          <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer" style={{ color: 'var(--text-tertiary)' }}>
+            <X size={16} />
+          </button>
+        </div>
+
+        {/* Score circle + feedback */}
+        <div className="flex items-center gap-6">
+          {score !== null && (
+            <div className="relative shrink-0">
+              <svg width="96" height="96" viewBox="0 0 96 96">
+                <circle cx="48" cy="48" r={radius} fill="none" stroke="currentColor" strokeWidth="6" className="text-white/5" />
+                <circle
+                  cx="48" cy="48" r={radius} fill="none" strokeWidth="6"
+                  className={scoreTrack}
+                  strokeLinecap="round"
+                  strokeDasharray={circumference}
+                  strokeDashoffset={dashOffset}
+                  transform="rotate(-90 48 48)"
+                  style={{ transition: 'stroke-dashoffset 1s ease' }}
+                />
+              </svg>
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <span className={`text-2xl font-bold ${scoreColor}`}>{score}</span>
+                <span className="text-[9px]" style={{ color: 'var(--text-tertiary)' }}>/ 100</span>
+              </div>
+            </div>
+          )}
+          <div className="flex-1 space-y-2">
+            {result.feedback_ar && (
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{result.feedback_ar}</p>
+            )}
+            {result.feedback_en && (
+              <p className="text-xs leading-relaxed" dir="ltr" style={{ color: 'var(--text-tertiary)' }}>{result.feedback_en}</p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Corrected text with diff highlight */}
+      {result.corrected_text && (
+        <div className="fl-card-static p-5">
+          <h4 className="text-xs font-semibold text-emerald-400 mb-3 flex items-center gap-2">
+            <CheckCircle2 size={14} /> النص المصحّح
+          </h4>
+          <p className="text-sm leading-relaxed p-4 rounded-xl whitespace-pre-wrap" dir="ltr"
+            style={{ background: 'var(--success-bg)', color: 'var(--text-primary)', border: '1px solid var(--success-border)', fontFamily: "'Inter', sans-serif" }}>
+            {result.corrected_text}
+          </p>
+        </div>
+      )}
+
+      {/* Errors grouped by type */}
+      {errors.length > 0 && (
+        <div className="fl-card-static p-5">
+          <div className="flex items-center justify-between mb-3">
+            <h4 className="text-xs font-semibold text-red-400 flex items-center gap-2">
+              <AlertCircle size={14} /> الأخطاء ({errors.length})
+            </h4>
+            <div className="flex gap-1.5 flex-wrap">
+              {Object.entries(groupedErrors).map(([type, errs]) => {
+                const meta = ERROR_TYPE_META[type] || ERROR_TYPE_META.grammar
+                return (
+                  <span key={type} className={`text-[10px] font-medium px-2 py-0.5 rounded-full border ${meta.bg} ${meta.color}`}>
+                    {meta.label} ({errs.length})
+                  </span>
+                )
+              })}
+            </div>
+          </div>
+          <div className="space-y-2">
+            {(showAllErrors ? errors : errors.slice(0, 5)).map((e, i) => {
+              const meta = ERROR_TYPE_META[e.type] || ERROR_TYPE_META.grammar
+              return (
+                <div key={i} className="rounded-xl p-3" style={{ background: 'var(--surface-base)', border: '1px solid var(--border-subtle)' }}>
+                  <div className="flex items-start gap-2 mb-1.5">
+                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border shrink-0 ${meta.bg} ${meta.color}`}>
+                      {meta.label}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 flex-wrap text-sm" dir="ltr">
+                    <span className="text-red-400 line-through bg-red-500/5 px-1.5 py-0.5 rounded">{e.original}</span>
+                    <ArrowRight size={12} className="text-muted shrink-0" />
+                    <span className="text-emerald-400 bg-emerald-500/5 px-1.5 py-0.5 rounded">{e.corrected}</span>
+                  </div>
+                  {e.explanation_ar && <p className="text-xs mt-2" style={{ color: 'var(--text-tertiary)' }}>{e.explanation_ar}</p>}
+                </div>
+              )
+            })}
+            {errors.length > 5 && !showAllErrors && (
+              <button
+                onClick={() => setShowAllErrors(true)}
+                className="w-full text-center text-xs py-2 rounded-lg cursor-pointer transition-colors"
+                style={{ color: 'var(--accent-sky)', background: 'var(--surface-base)' }}
+              >
+                عرض جميع الأخطاء ({errors.length})
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Strengths */}
+      {strengths.length > 0 && (
+        <div className="fl-card-static p-5">
+          <h4 className="text-xs font-semibold text-emerald-400 mb-3 flex items-center gap-2">
+            <ShieldCheck size={14} /> نقاط القوة
+          </h4>
+          <ul className="space-y-2">
+            {strengths.map((s, i) => (
+              <li key={i} className="flex items-start gap-2 text-sm" style={{ color: 'var(--text-secondary)' }}>
+                <CheckCircle2 size={14} className="text-emerald-400 mt-0.5 shrink-0" /> {s}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Improvements */}
+      {improvements.length > 0 && (
+        <div className="fl-card-static p-5">
+          <h4 className="text-xs font-semibold text-sky-400 mb-3 flex items-center gap-2">
+            <TrendingUp size={14} /> نصائح للتحسين
+          </h4>
+          <ul className="space-y-2">
+            {improvements.map((tip, i) => (
+              <li key={i} className="flex items-start gap-2 text-sm" style={{ color: 'var(--text-secondary)' }}>
+                <ArrowRight size={14} className="text-sky-400 mt-0.5 shrink-0" /> {tip}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* IELTS Band Scores */}
+      {isIELTS && ieltsScores && (
+        <div className="fl-card-static p-5">
+          <h4 className="text-xs font-semibold mb-3 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
+            <Award size={14} className="text-amber-400" /> IELTS Band Scores
+          </h4>
+          <div className="grid grid-cols-2 gap-3">
+            {Object.entries(ieltsScores).map(([key, value]) => {
+              const label = key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+              const numValue = typeof value === 'number' ? value : parseFloat(value)
+              return (
+                <div key={key} className={`rounded-xl p-3 border ${bandBg(numValue)}`}>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-medium" style={{ color: 'var(--text-tertiary)' }}>{label}</span>
+                    <span className={`text-lg font-bold ${bandColor(numValue)}`}>{value}</span>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
+    </motion.div>
   )
 }
 
