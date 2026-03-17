@@ -286,6 +286,16 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### March 17, 2026 — Core Curriculum Database Tables (17 Tables)
+- What: Created 15 new curriculum tables + altered 2 existing tables for structured curriculum based on Reading Explorer + Grammar in Use analysis
+- **New tables:** curriculum_levels, curriculum_readings, curriculum_comprehension_questions, curriculum_vocabulary, curriculum_vocabulary_exercises, curriculum_grammar, curriculum_grammar_exercises, curriculum_writing, curriculum_listening, curriculum_speaking, curriculum_irregular_verbs_v2, curriculum_irregular_verb_exercises, curriculum_pronunciation, curriculum_video_sections, curriculum_assessments
+- **Altered tables:** curriculum_units (added theme_en/theme_ar, extended level range to 6), student_curriculum_progress (added 10 boolean completion columns + assessment_score/passed/completion_percentage)
+- **curriculum_levels seeded:** 6 levels with Arabic/English names, CEFR codes
+- **RLS:** All 15 new tables have read-all + admin-write + service-role policies
+- Files: `supabase/migrations/035_core_curriculum_tables.sql`
+- DB: Migration 035 applied successfully via `supabase db push`
+- Status: Complete — tables only, no UI, no seed data
+
 ### March 15, 2026 — Complete Remaining Tasks (Part 9 + WowMoments + Fixes)
 - What: Completed all remaining items from transformation plan
 - **Part 9 Font Fix:** Changed 4 instances of `text-[10px]` to `text-[13px]` in StudentSchedule.jsx for minimum readable size
