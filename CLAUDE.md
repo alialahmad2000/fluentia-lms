@@ -286,6 +286,14 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### March 17, 2026 — Gamification & Engagement Tables (5 Tables)
+- What: Created 5 gamification tables — SRS vocabulary review, daily challenges, streaks, completions, error bank
+- **Tables:** curriculum_vocabulary_srs, daily_challenges, student_streaks, student_daily_completions, student_error_bank
+- **RLS:** Challenges: admin-write + auth-read. Student data: own + staff-read. Service role on all.
+- Files: `supabase/migrations/037_gamification_tables.sql`
+- DB: Migration 037 applied via `supabase db push`
+- Status: Complete — tables only, no UI, no seed data
+
 ### March 17, 2026 — IELTS Track Database Tables (8 Tables)
 - What: Created 8 IELTS preparation track tables with indexes and RLS
 - **Tables:** ielts_diagnostic, ielts_reading_passages, ielts_reading_skills, ielts_writing_tasks, ielts_listening_sections, ielts_speaking_questions, ielts_mock_tests, ielts_student_results
