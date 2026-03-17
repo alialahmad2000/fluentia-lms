@@ -286,6 +286,17 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### March 17, 2026 — Unit Editor: 10-Tab Full Skill Editor (PROMPT 1F)
+- What: Built the most complex admin page — a 10-tab unit editor for all curriculum skills
+- **10 Tabs:** Overview, Reading A, Reading B, Grammar, Writing, Listening, Speaking, Irregular Verbs, Video, Assessment
+- **Reusable components:** JSONArrayEditor, MCQEditor, AudioPreview, ImagePreview, RubricSliders, PassageEditor
+- **Editor components:** ReadingEditor (reused for A+B), GrammarEditor, WritingEditor, ListeningEditor, SpeakingEditor, IrregularVerbsEditor, VideoEditor, AssessmentEditor, ComprehensionEditor, VocabularyManager, VocabExerciseEditor
+- **Features:** Tab badges with content counts, publish/draft toggle, per-tab independent save, Supabase upsert pattern, optimistic UI with loading states
+- **Routing:** Added `/admin/curriculum/unit/:unitId` route
+- Files: `src/pages/admin/curriculum/UnitEditor.jsx` (NEW), 17 component files in `components/` (NEW), `src/App.jsx` (updated)
+- DB: No changes
+- Status: Complete — build verified
+
 ### March 17, 2026 — Admin Curriculum Overview & Level Detail Pages (PROMPT 1E)
 - What: Built 2 admin pages + 2 card components for curriculum management UI
 - **CurriculumOverview:** Lists all 6 levels as cards with progress bars, published unit counts, CEFR badges. Includes IELTS track card (disabled/coming soon). Skeleton loading, empty state.
