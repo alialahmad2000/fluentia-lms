@@ -75,6 +75,43 @@ function cefrToAcademicLevel(cefr: string): number {
 }
 
 // ---------------------------------------------------------------------------
+// IRT 2-Parameter Logistic Model
+// ---------------------------------------------------------------------------
+
+/** Probability of correct answer given ability (theta), difficulty, and discrimination. */
+function irtProbability(theta: number, difficulty: number, discrimination: number): number {
+  return 1 / (1 + Math.exp(-discrimination * (theta - difficulty)))
+}
+
+/** Fisher Information for a question at a given theta — used for optimal question selection. */
+function fisherInformation(theta: number, difficulty: number, discrimination: number): number {
+  const p = irtProbability(theta, difficulty, discrimination)
+  return discrimination * discrimination * p * (1 - p)
+}
+
+/** Update ability estimate after an answer (EAP-style step). */
+function updateTheta(currentTheta: number, difficulty: number, discrimination: number, isCorrect: boolean): number {
+  const p = irtProbability(currentTheta, difficulty, discrimination)
+  const info = fisherInformation(currentTheta, difficulty, discrimination)
+  const step = ((isCorrect ? 1 : 0) - p) / (info + 0.1)
+  return Math.max(-3, Math.min(3, currentTheta + step))
+}
+
+/** Convert theta (-3 to +3) to a level (1–6) and percentage (0–100). */
+function thetaToLevel(theta: number): { level: number; percentage: number } {
+  // theta range: -3 to +3, maps to levels 1-6
+  const raw = ((theta + 3) / 6) * 5 + 1 // maps -3→1, +3→6
+  const level = Math.min(6, Math.max(1, Math.round(raw)))
+  const percentage = Math.round(Math.min(100, Math.max(0, ((theta + 3) / 6) * 100)))
+  return { level, percentage }
+}
+
+/** Convert theta to 0–1 difficulty scale for backward compat with existing difficulty-based code. */
+function thetaToDifficulty(theta: number): number {
+  return Math.max(0, Math.min(1, (theta + 3) / 6))
+}
+
+// ---------------------------------------------------------------------------
 // IRT-inspired adaptive algorithm utilities
 // ---------------------------------------------------------------------------
 
@@ -182,7 +219,12 @@ async function handleStart(
     return jsonResponse({ error: 'Missing student_id' }, 400)
   }
 
-  // 1. Create the test session
+  // 1. Create the test session (initialize per-skill theta at 0 = mid-ability)
+  const initialAbilityEstimates: Record<string, number> = {}
+  for (const skill of SKILL_CYCLE) {
+    initialAbilityEstimates[skill] = 0.0
+  }
+
   const { data: session, error: sessionErr } = await supabase
     .from('test_sessions')
     .insert({
@@ -194,6 +236,7 @@ async function handleStart(
       correct_answers: 0,
       question_sequence: [],
       response_log: [],
+      ability_estimates: initialAbilityEstimates,
     })
     .select('id')
     .single()
@@ -264,21 +307,54 @@ async function handleAnswer(
     return jsonResponse({ error: 'This test session is no longer active' }, 400)
   }
 
-  // 2. Fetch the question to check the correct answer
-  const { data: question, error: qErr } = await supabase
-    .from('test_questions')
+  // 2. Fetch the question — try adaptive_question_bank first, fall back to test_questions
+  let question: Record<string, unknown> | null = null
+  let questionSource: 'adaptive' | 'legacy' = 'legacy'
+  let irtDifficulty = 0.0 // IRT difficulty parameter (theta scale, -3 to +3)
+  let irtDiscrimination = 1.0 // IRT discrimination parameter
+
+  const { data: adaptiveQ } = await supabase
+    .from('adaptive_question_bank')
     .select('*')
     .eq('id', questionId)
     .single()
 
-  if (qErr || !question) {
-    return jsonResponse({ error: 'Question not found' }, 404)
+  if (adaptiveQ) {
+    question = adaptiveQ
+    questionSource = 'adaptive'
+    irtDifficulty = (adaptiveQ.irt_difficulty as number) ?? 0.0
+    irtDiscrimination = (adaptiveQ.irt_discrimination as number) ?? 1.0
+  } else {
+    const { data: legacyQ, error: qErr } = await supabase
+      .from('test_questions')
+      .select('*')
+      .eq('id', questionId)
+      .single()
+
+    if (qErr || !legacyQ) {
+      return jsonResponse({ error: 'Question not found' }, 404)
+    }
+    question = legacyQ
+    // Map legacy 0–1 difficulty to theta scale for IRT calculations
+    irtDifficulty = ((legacyQ.difficulty as number) ?? 0.5) * 6 - 3 // 0→-3, 1→+3
+    irtDiscrimination = 1.0 // default discrimination for legacy questions
   }
 
   const isCorrect = String(answer).trim().toLowerCase() === String(question.correct_answer).trim().toLowerCase()
   const sequenceNumber = (session.questions_answered || 0) + 1
+  const questionSkill = (question.skill as string) || 'grammar'
 
-  // 3. Record the response in test_responses
+  // 3. Update per-skill theta using IRT
+  const abilityEstimates: Record<string, number> = {
+    ...(typeof session.ability_estimates === 'object' && session.ability_estimates !== null
+      ? session.ability_estimates as Record<string, number>
+      : {}),
+  }
+  const currentSkillTheta = abilityEstimates[questionSkill] ?? 0.0
+  const newSkillTheta = updateTheta(currentSkillTheta, irtDifficulty, irtDiscrimination, isCorrect)
+  abilityEstimates[questionSkill] = newSkillTheta
+
+  // 4. Record the response in test_responses
   await supabase.from('test_responses').insert({
     session_id: sessionId,
     question_id: questionId,
@@ -290,10 +366,30 @@ async function handleAnswer(
     sequence_number: sequenceNumber,
   })
 
-  // 4. Compute new difficulty using IRT-inspired adjustment
+  // 5. Update question statistics (times_asked, times_correct, avg_response_time_seconds)
+  const statsTable = questionSource === 'adaptive' ? 'adaptive_question_bank' : 'test_questions'
+  const oldTimesAsked = (question.times_asked as number) || 0
+  const oldTimesCorrect = (question.times_correct as number) || 0
+  const oldAvgTime = (question.avg_response_time_seconds as number) || 0
+  const newTimesAsked = oldTimesAsked + 1
+  const newTimesCorrect = oldTimesCorrect + (isCorrect ? 1 : 0)
+  const newAvgTime = oldTimesAsked > 0
+    ? (oldAvgTime * oldTimesAsked + timeSpent) / newTimesAsked
+    : timeSpent
+
+  await supabase
+    .from(statsTable)
+    .update({
+      times_asked: newTimesAsked,
+      times_correct: newTimesCorrect,
+      avg_response_time_seconds: Math.round(newAvgTime * 100) / 100,
+    })
+    .eq('id', questionId)
+
+  // 6. Compute new difficulty using IRT-inspired adjustment (legacy compat)
   const newDifficulty = computeNextDifficulty(session.current_difficulty, isCorrect)
 
-  // 5. Update running totals
+  // 7. Update running totals
   const newQuestionsAnswered = sequenceNumber
   const newCorrectAnswers = (session.correct_answers || 0) + (isCorrect ? 1 : 0)
 
@@ -303,11 +399,13 @@ async function handleAnswer(
     : []
   responseLog.push({
     question_id: questionId,
-    skill: question.skill,
+    skill: questionSkill,
     difficulty: session.current_difficulty,
+    theta: newSkillTheta,
     answer: String(answer),
     is_correct: isCorrect,
     time_spent_seconds: timeSpent,
+    source: questionSource,
   })
 
   const difficultyHistory: number[] = responseLog.map((r: Record<string, unknown>) => r.difficulty as number)
@@ -321,21 +419,37 @@ async function handleAnswer(
     questionSequence.push(questionId)
   }
 
-  // 6. Determine if the test should stop
-  const testComplete = shouldStop(newQuestionsAnswered, difficultyHistory)
+  // 7. Determine if the test should stop (enhanced with IRT convergence)
+  const thetaConverged = hasIRTConverged(responseLog)
+  const allSkillsTested = haveAllSkillsBeenTested(responseLog, 5)
+  const testComplete =
+    shouldStop(newQuestionsAnswered, difficultyHistory) ||
+    (newQuestionsAnswered >= MIN_QUESTIONS && thetaConverged) ||
+    (newQuestionsAnswered >= MIN_QUESTIONS && allSkillsTested)
 
-  // 7. Select next question (unless test is complete)
+  // 8. Select next question (unless test is complete) — IRT-enhanced selection
   let nextQuestion = null
-  const targetSkill = nextSkill(question.skill)
+  const targetSkill = nextSkill(questionSkill)
+  const targetTheta = abilityEstimates[targetSkill] ?? 0.0
 
   if (!testComplete) {
-    nextQuestion = await selectQuestion(supabase, newDifficulty, targetSkill, questionSequence)
+    // Try adaptive_question_bank first (IRT-calibrated), then fall back to test_questions
+    nextQuestion = await selectAdaptiveQuestion(supabase, targetTheta, targetSkill, questionSequence)
+
+    if (!nextQuestion) {
+      // Fall back to legacy test_questions with difficulty-based selection
+      nextQuestion = await selectQuestion(supabase, newDifficulty, targetSkill, questionSequence)
+    }
 
     // If no question found for the target skill, try remaining skills in order
     if (!nextQuestion) {
       for (const fallbackSkill of SKILL_CYCLE) {
         if (fallbackSkill === targetSkill) continue
-        nextQuestion = await selectQuestion(supabase, newDifficulty, fallbackSkill, questionSequence)
+        const fallbackTheta = abilityEstimates[fallbackSkill] ?? 0.0
+        nextQuestion = await selectAdaptiveQuestion(supabase, fallbackTheta, fallbackSkill, questionSequence)
+        if (!nextQuestion) {
+          nextQuestion = await selectQuestion(supabase, newDifficulty, fallbackSkill, questionSequence)
+        }
         if (nextQuestion) break
       }
     }
@@ -350,10 +464,17 @@ async function handleAnswer(
     }
   }
 
-  // 8. Build per-skill accuracy from response log
+  // 9. Build per-skill accuracy from response log
   const skillScores = computeSkillScores(responseLog)
 
-  // 9. Update the session
+  // 10. Update the session (including IRT ability estimates)
+  // Compute average theta across skills for overall level estimate
+  const thetaValues = Object.values(abilityEstimates).filter((v) => typeof v === 'number')
+  const avgTheta = thetaValues.length > 0
+    ? thetaValues.reduce((s, v) => s + v, 0) / thetaValues.length
+    : 0
+  const irtLevel = thetaToLevel(avgTheta)
+
   await supabase
     .from('test_sessions')
     .update({
@@ -364,6 +485,7 @@ async function handleAnswer(
       skill_scores: skillScores,
       question_sequence: questionSequence,
       response_log: responseLog,
+      ability_estimates: abilityEstimates,
     })
     .eq('id', sessionId)
 
@@ -394,6 +516,8 @@ async function handleAnswer(
       current_difficulty: Math.round(newDifficulty * 100) / 100,
       estimated_level: difficultyToCEFR(newDifficulty),
       skill_scores: skillScores,
+      ability_estimates: abilityEstimates,
+      irt_level: irtLevel,
     },
   })
 }
@@ -464,17 +588,38 @@ async function handleComplete(
   )
 
   // 4. Call Claude for AI-powered analysis
-  const analysisPrompt = buildAnalysisPrompt(session, responseLog, skillScores, accuracy)
+  const analysisPrompt = buildAnalysisPrompt(session, responseLog, skillScores, accuracy, abilityEstimates, irtResult)
   const aiResult = await callClaudeForAnalysis(analysisPrompt)
 
-  // 5. Determine final values (use Claude's judgment, fall back to algorithm)
+  // 5. Determine final values (use Claude's judgment, fall back to IRT-based algorithm)
+  // Compute IRT-based level from ability estimates
+  const abilityEstimates: Record<string, number> = (
+    typeof session.ability_estimates === 'object' && session.ability_estimates !== null
+      ? session.ability_estimates as Record<string, number>
+      : {}
+  )
+  const thetaValues = Object.values(abilityEstimates).filter((v) => typeof v === 'number')
+  const avgTheta = thetaValues.length > 0
+    ? thetaValues.reduce((s, v) => s + v, 0) / thetaValues.length
+    : 0
+  const irtResult = thetaToLevel(avgTheta)
+
   const estimatedLevel = aiResult.estimated_cefr || difficultyToCEFR(session.current_difficulty)
-  const recommendedLevel = aiResult.recommended_academic_level || cefrToAcademicLevel(estimatedLevel)
-  const overallScore = aiResult.overall_score ?? Math.round(accuracy * 100)
+  const recommendedLevel = aiResult.recommended_academic_level || irtResult.level || cefrToAcademicLevel(estimatedLevel)
+  const overallScore = aiResult.overall_score ?? irtResult.percentage ?? Math.round(accuracy * 100)
   const confidenceScore = aiResult.confidence_score ?? computeAlgorithmicConfidence(session)
 
-  // Merge Claude's per-skill scores with algorithm-computed ones
+  // Compute per-skill scores from theta values
+  const irtSkillScores: Record<string, number> = {}
+  for (const [skill, theta] of Object.entries(abilityEstimates)) {
+    if (typeof theta === 'number') {
+      irtSkillScores[skill] = thetaToLevel(theta).percentage
+    }
+  }
+
+  // Merge: IRT skill scores → algorithm skill scores → Claude's skill scores
   const finalSkillScores = {
+    ...irtSkillScores,
     ...skillScores,
     ...(aiResult.skill_scores || {}),
   }
@@ -594,6 +739,85 @@ async function selectQuestion(
 }
 
 /**
+ * Select a question from adaptive_question_bank using Maximum Fisher Information criterion.
+ * Picks from top 5 highest-information questions at the current theta, with randomness.
+ */
+async function selectAdaptiveQuestion(
+  supabase: ReturnType<typeof createClient>,
+  theta: number,
+  skill: string,
+  excludeIds: string[]
+): Promise<Record<string, unknown> | null> {
+  // Fetch candidate questions from the adaptive bank for the target skill
+  let query = supabase
+    .from('adaptive_question_bank')
+    .select('*')
+    .eq('is_active', true)
+    .eq('skill', skill)
+
+  if (excludeIds.length > 0) {
+    query = query.not('id', 'in', `(${excludeIds.join(',')})`)
+  }
+
+  const { data: candidates } = await query.limit(50)
+
+  if (!candidates || candidates.length === 0) {
+    return null
+  }
+
+  // Compute Fisher Information for each candidate at the current theta
+  const scored = candidates.map((q: Record<string, unknown>) => {
+    const diff = (q.irt_difficulty as number) ?? 0.0
+    const disc = (q.irt_discrimination as number) ?? 1.0
+    const info = fisherInformation(theta, diff, disc)
+    return { question: q, info }
+  })
+
+  // Sort by information (descending) and pick randomly from top 5
+  scored.sort((a, b) => b.info - a.info)
+  const topN = scored.slice(0, 5)
+  const idx = Math.floor(Math.random() * topN.length)
+  return topN[idx].question
+}
+
+/**
+ * Check if IRT theta estimates have converged.
+ * Returns true if the last 5 theta changes for any active skill are all < 0.05.
+ */
+function hasIRTConverged(responseLog: Array<Record<string, unknown>>): boolean {
+  if (responseLog.length < CONVERGENCE_COUNT) return false
+
+  // Check if all recent theta changes are small
+  const thetaChanges: number[] = []
+  for (let i = 1; i < responseLog.length; i++) {
+    const prev = responseLog[i - 1]
+    const curr = responseLog[i]
+    if (prev.skill === curr.skill && typeof prev.theta === 'number' && typeof curr.theta === 'number') {
+      thetaChanges.push(Math.abs(curr.theta - prev.theta))
+    }
+  }
+
+  // Need at least CONVERGENCE_COUNT recent changes, all below threshold
+  if (thetaChanges.length < CONVERGENCE_COUNT) return false
+  const recentChanges = thetaChanges.slice(-CONVERGENCE_COUNT)
+  return recentChanges.every((change) => change < CONVERGENCE_THRESHOLD)
+}
+
+/**
+ * Check if all skills in SKILL_CYCLE have been tested with at least `minPerSkill` questions each.
+ */
+function haveAllSkillsBeenTested(responseLog: Array<Record<string, unknown>>, minPerSkill: number): boolean {
+  const skillCounts: Record<string, number> = {}
+  for (const entry of responseLog) {
+    const skill = entry.skill as string
+    if (skill) {
+      skillCounts[skill] = (skillCounts[skill] || 0) + 1
+    }
+  }
+  return SKILL_CYCLE.every((skill) => (skillCounts[skill] || 0) >= minPerSkill)
+}
+
+/**
  * Remove the correct_answer from a question before sending it to the client.
  */
 function sanitizeQuestion(q: Record<string, unknown>): Record<string, unknown> {
@@ -682,8 +906,17 @@ function buildAnalysisPrompt(
   session: Record<string, unknown>,
   responses: unknown[],
   skillScores: Record<string, number>,
-  accuracy: number
+  accuracy: number,
+  abilityEstimates?: Record<string, number>,
+  irtResult?: { level: number; percentage: number }
 ): string {
+  const irtSection = abilityEstimates && Object.keys(abilityEstimates).length > 0
+    ? `\n## IRT Ability Estimates (theta, -3 to +3 scale)\n${Object.entries(abilityEstimates).map(([skill, theta]) => {
+        const { level, percentage } = thetaToLevel(theta as number)
+        return `- ${skill}: θ=${(theta as number).toFixed(2)} (level ${level}, ${percentage}%)`
+      }).join('\n')}\n- Overall IRT level: ${irtResult?.level ?? 'N/A'}, ${irtResult?.percentage ?? 'N/A'}%`
+    : ''
+
   return `You are an English language assessment expert at Fluentia Academy for Arabic-speaking adults.
 
 Analyze this adaptive test session and provide a detailed assessment.
@@ -695,6 +928,7 @@ Analyze this adaptive test session and provide a detailed assessment.
 - Overall accuracy: ${Math.round(accuracy * 100)}%
 - Final algorithm difficulty: ${(session.current_difficulty as number)?.toFixed(2)}
 - Algorithm estimated CEFR: ${difficultyToCEFR(session.current_difficulty as number)}
+${irtSection}
 
 ## Per-Skill Accuracy
 ${Object.entries(skillScores).map(([skill, score]) => `- ${skill}: ${score}%`).join('\n')}
