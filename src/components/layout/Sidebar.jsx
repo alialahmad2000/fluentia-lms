@@ -5,7 +5,7 @@ import {
   Bot, Users, CreditCard, Settings, LayoutDashboard,
   LogOut, X, ChevronLeft, Zap, FolderOpen, CalendarDays, Calendar,
   Video, ClipboardCheck, UsersRound, GraduationCap, Wrench, ListChecks,
-  Brain, BookOpen, Sparkles,
+  Brain, BookOpen, Sparkles, Database,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { useThemeStore } from '../../stores/themeStore'
@@ -88,6 +88,7 @@ const NAV_ITEMS = {
     { to: '/trainer/quiz', label: 'الاختبارات', icon: ClipboardCheck },
     { to: '/admin/weekly-tasks', label: 'المهام الأسبوعية', icon: ListChecks },
     { to: '/admin/curriculum', label: 'المنهج الدراسي', icon: GraduationCap },
+    { to: '/admin/test-bank', label: 'بنك الأسئلة', icon: Database },
     { type: 'divider', label: 'أدوات' },
     { to: '/admin/reports', label: 'التحليلات', icon: BarChart3 },
     { to: '/trainer/ai-assistant', label: 'المساعد الذكي', icon: Bot },
