@@ -286,6 +286,24 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### March 17, 2026 — REBUILD: Core Curriculum Tables with Correct Schema (PROMPT 1A)
+- What: Dropped and rebuilt all 17 core curriculum tables per the authoritative PROMPT-1A-CORE-TABLES.md specification. Previous migrations 035-038 had wrong schema (integer PKs, different columns).
+- **Key changes from old schema:**
+  - `curriculum_levels` now uses UUID PK + `level_number` integer (was integer PK)
+  - `curriculum_units.level_id` is now UUID FK (was integer `level`)
+  - `curriculum_readings` now has rich structure: before_read exercises, passage_content JSONB, infographic fields, reading_skill fields
+  - `curriculum_vocabulary` uses `definition_en/ar` (was `meaning_en/ar`), required `reading_id`, `difficulty_tier`
+  - `curriculum_grammar` has `category`, `grammar_in_use_unit`, `explanation_content` JSONB
+  - `student_curriculum_progress` is now per-section with FK refs to each content type, `section_type`, `status`, `score`, `answers`, `ai_feedback`
+  - `curriculum_pronunciation` is word-based with `audio_slow_url`
+  - `curriculum_irregular_verbs` has audio URLs per form
+- **Also recreated:** `curriculum_vocabulary_srs` (from 037) with FK to new curriculum_vocabulary
+- **Tables dropped:** Old curriculum_levels (035), curriculum_units (027), all 035 tables, curriculum_irregular_verbs (030), curriculum_vocabulary_srs (037), student_curriculum_progress (027)
+- **Seed data lost:** 72 units (038), 6 levels (038), 150 irregular verbs (033) — will be re-seeded
+- Files: `supabase/migrations/039_rebuild_curriculum_correct_schema.sql`
+- DB: Migration 039 applied via `supabase db push`
+- Status: Complete — tables only, no seed data
+
 ### March 17, 2026 — Seed Data: 6 Levels, 72 Units, 14 IELTS Question Types
 - What: Seeded curriculum_levels (6 levels with color/word range/complexity metadata), curriculum_units (72 unit shells — 12 original themes per level), ielts_reading_skills (14 IELTS question types with Arabic explanations)
 - **Level mapping:** id 1-6 → level_number 0-5 (Foundation→Proficiency)
