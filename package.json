@@ -9,15 +9,20 @@
     "preview": "vite preview",
     "db:migrate": "supabase db push",
     "db:seed": "supabase db seed",
-    "db:reset": "supabase db reset"
+    "db:reset": "supabase db reset",
+    "generate:content": "node scripts/curriculum-generator/index.js --all",
+    "generate:unit": "node scripts/curriculum-generator/index.js",
+    "generate:dry-run": "node scripts/curriculum-generator/index.js --dry-run"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.79.0",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@supabase/supabase-js": "^2.47.0",
     "@tanstack/react-query": "^5.62.0",
     "date-fns": "^4.1.0",
+    "dotenv": "^17.3.1",
     "framer-motion": "^11.12.0",
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.460.0",

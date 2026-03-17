@@ -34,3 +34,7 @@ analysis-output/
 curriculum-books/
 extract-*.cjs
 extract-*.mjs
+
+# Content generator output (runtime data)
+scripts/curriculum-generator/output/costs.json
+scripts/curriculum-generator/output/progress.json
