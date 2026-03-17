@@ -156,7 +156,7 @@ function QRCodeSVG({ value, size = 80 }) {
               y={offset + r * cell}
               width={cell + 0.5}
               height={cell + 0.5}
-              fill="#1a1a2e"
+              fill="#000000"
             />
           ) : null
         )
@@ -274,7 +274,7 @@ function CertificateCard({ cert, studentName, forwardRef }) {
           </div>
 
           <div className="flex flex-col items-center gap-1">
-            <div className="rounded-lg p-1.5" style={{ background: 'white', boxShadow: '0 0 12px rgba(212,175,55,0.25)' }}>
+            <div className="rounded-lg p-2" style={{ background: 'white', boxShadow: '0 0 12px rgba(212,175,55,0.25)' }}>
               <QRCodeSVG value={verifyUrl} size={80} />
             </div>
             <p className="text-[9px]" style={{ color: 'rgba(255,255,255,0.3)' }}>تحقق</p>

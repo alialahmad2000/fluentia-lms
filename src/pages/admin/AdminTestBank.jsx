@@ -5,7 +5,7 @@ import {
   Database, Sparkles, Search, ChevronDown, ChevronUp, Trash2,
   Loader2, CheckCircle2, XCircle, ToggleLeft, ToggleRight,
   BookOpen, Languages, Headphones, PenTool, Filter, Grid3X3,
-  ChevronLeft, ChevronRight, AlertTriangle, X,
+  ChevronLeft, ChevronRight, AlertTriangle, X, LayoutGrid, List,
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
@@ -73,12 +73,14 @@ export default function AdminTestBank() {
   const [toast, setToast] = useState(null)
 
   // ─── Browser state ─────────────────────────────────────────
+  const [viewMode, setViewMode] = useState('banks') // 'banks' | 'list'
   const [filterSkill, setFilterSkill] = useState('')
   const [filterLevel, setFilterLevel] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
   const [page, setPage] = useState(0)
   const [expandedId, setExpandedId] = useState(null)
   const [deleteId, setDeleteId] = useState(null)
+  const [expandedBank, setExpandedBank] = useState(null)
 
   // ─── Show toast helper ─────────────────────────────────────
   const showToast = useCallback((message, type = 'success') => {
@@ -120,6 +122,34 @@ export default function AdminTestBank() {
       if (error) throw error
       return data || []
     },
+  })
+
+  // ─── Fetch grouped bank data for preview cards ────────────
+  const { data: bankData } = useQuery({
+    queryKey: ['admin-test-banks'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('test_questions')
+        .select('id, skill, level, difficulty, question_text, is_active')
+        .eq('is_active', true)
+        .order('created_at', { ascending: false })
+      if (error) throw error
+      // Group by skill + level
+      const banks = {}
+      ;(data || []).forEach(q => {
+        const key = `${q.skill}-${q.level}`
+        if (!banks[key]) {
+          banks[key] = { skill: q.skill, level: q.level, questions: [], difficulties: new Set() }
+        }
+        banks[key].questions.push(q)
+        if (q.difficulty) banks[key].difficulties.add(q.difficulty)
+      })
+      return Object.values(banks).sort((a, b) => {
+        if (a.skill !== b.skill) return SKILLS.indexOf(a.skill) - SKILLS.indexOf(b.skill)
+        return a.level - b.level
+      })
+    },
+    enabled: viewMode === 'banks',
   })
 
   // ─── Computed stats ────────────────────────────────────────
@@ -369,7 +399,149 @@ export default function AdminTestBank() {
         </div>
       </motion.div>
 
+      {/* ─── View Toggle ─────────────────────────────────────────── */}
+      <div className="flex items-center gap-2">
+        <button
+          onClick={() => setViewMode('banks')}
+          className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all border ${
+            viewMode === 'banks'
+              ? 'bg-violet-500/15 text-violet-400 border-violet-500/30'
+              : 'border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+          }`}
+        >
+          <LayoutGrid size={14} />
+          بطاقات البنك
+        </button>
+        <button
+          onClick={() => setViewMode('list')}
+          className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all border ${
+            viewMode === 'list'
+              ? 'bg-violet-500/15 text-violet-400 border-violet-500/30'
+              : 'border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+          }`}
+        >
+          <List size={14} />
+          قائمة الأسئلة
+        </button>
+      </div>
+
+      {/* ─── Bank Preview Cards ──────────────────────────────────── */}
+      {viewMode === 'banks' && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {(bankData || []).map((bank, idx) => {
+            const SkillIcon = SKILL_ICONS[bank.skill] || PenTool
+            const skillColor = SKILL_COLORS[bank.skill] || SKILL_COLORS.grammar
+            const levelColor = LEVEL_COLORS[bank.level] || LEVEL_COLORS[1]
+            const bankKey = `${bank.skill}-${bank.level}`
+            const isExpanded = expandedBank === bankKey
+            const difficulties = Array.from(bank.difficulties)
+            const avgDifficulty = difficulties.length === 1 ? difficulties[0] : 'mixed'
+            const diffStyle = DIFFICULTY_STYLES[avgDifficulty] || { badge: 'bg-violet-500/20 text-violet-400', label: 'متنوع' }
+            const firstTwo = bank.questions.slice(0, 2)
+
+            return (
+              <motion.div
+                key={bankKey}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.04 }}
+                className="rounded-2xl border border-[var(--border-subtle)] overflow-hidden hover:border-violet-500/30 transition-colors"
+                style={{ background: 'var(--surface-base)' }}
+              >
+                <div className="p-5">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <div className={`w-9 h-9 rounded-xl ${skillColor.bg} flex items-center justify-center`}>
+                        <SkillIcon size={16} className={skillColor.text} />
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-bold text-[var(--text-primary)]">
+                          {SKILL_LABELS[bank.skill]} — {LEVEL_CEFR[bank.level]}
+                        </h3>
+                        <p className="text-xs text-muted">المستوى {toArabicNum(bank.level)}</p>
+                      </div>
+                    </div>
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${levelColor.badge}`}>
+                      {toArabicNum(bank.questions.length)} سؤال
+                    </span>
+                  </div>
+
+                  {/* Difficulty pills */}
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {difficulties.map(d => {
+                      const ds = DIFFICULTY_STYLES[d] || DIFFICULTY_STYLES.medium
+                      return (
+                        <span key={d} className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${ds.badge}`}>
+                          {ds.label}
+                        </span>
+                      )
+                    })}
+                  </div>
+
+                  {/* Difficulty indicator */}
+                  <div className="flex items-center gap-2">
+                    <div className={`w-2 h-2 rounded-full ${
+                      avgDifficulty === 'easy' ? 'bg-emerald-400'
+                      : avgDifficulty === 'hard' ? 'bg-red-400'
+                      : avgDifficulty === 'medium' ? 'bg-yellow-400'
+                      : 'bg-violet-400'
+                    }`} />
+                    <span className="text-xs text-muted">{diffStyle.label}</span>
+                  </div>
+                </div>
+
+                {/* Collapsible Preview */}
+                <button
+                  onClick={() => setExpandedBank(isExpanded ? null : bankKey)}
+                  className="w-full px-5 py-3 flex items-center justify-between border-t border-[var(--border-subtle)] text-sm text-muted hover:bg-white/[0.02] transition-colors"
+                >
+                  <span>معاينة الأسئلة</span>
+                  <ChevronDown size={14} className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                </button>
+
+                <AnimatePresence>
+                  {isExpanded && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-5 pb-4 space-y-2">
+                        {firstTwo.map((q, i) => (
+                          <div key={q.id} className="p-3 rounded-xl text-sm leading-relaxed" style={{ background: 'var(--surface-raised)' }}>
+                            <span className="text-muted ml-2">{toArabicNum(i + 1)}.</span>
+                            <span className="text-[var(--text-secondary)]">
+                              {q.question_text?.length > 100 ? q.question_text.slice(0, 100) + '...' : q.question_text}
+                            </span>
+                          </div>
+                        ))}
+                        {bank.questions.length > 2 && (
+                          <p className="text-xs text-muted text-center pt-1">
+                            + {toArabicNum(bank.questions.length - 2)} سؤال آخر
+                          </p>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            )
+          })}
+
+          {(!bankData || bankData.length === 0) && (
+            <div className="col-span-full fl-card-static rounded-xl p-12 text-center">
+              <Database size={40} className="mx-auto text-[var(--text-tertiary)] mb-3" />
+              <p className="text-[var(--text-secondary)] text-sm">لا توجد بنوك أسئلة</p>
+              <p className="text-muted text-xs mt-1">ابدأ بتوليد أسئلة جديدة</p>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* ─── Main Content Grid ──────────────────────────────────── */}
+      {viewMode === 'list' && (
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
 
         {/* ─── Questions Browser (3 cols) ─────────────────────── */}
@@ -590,6 +762,7 @@ export default function AdminTestBank() {
           </div>
         </div>
       </div>
+      )}
 
       {/* ─── Delete Confirmation Modal ──────────────────────────── */}
       <AnimatePresence>
