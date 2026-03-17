@@ -94,6 +94,7 @@ const AdminAIDashboard = lazyRetry(() => import('./pages/admin/AdminAIDashboard'
 const AdminContentBank = lazyRetry(() => import('./pages/admin/AdminContentBank'))
 
 const ForgotPassword = lazyRetry(() => import('./pages/public/ForgotPassword'))
+const ResetPassword = lazyRetry(() => import('./pages/public/ResetPassword'))
 const ParentDashboard = lazyRetry(() => import('./pages/public/ParentDashboard'))
 const PlacementTest = lazyRetry(() => import('./pages/public/PlacementTest'))
 const Testimonials = lazyRetry(() => import('./pages/public/Testimonials'))
@@ -202,6 +203,11 @@ export default function App() {
           <Route path="/forgot-password" element={
             <ErrorBoundary fallback={<PageErrorFallback />}>
               <Suspense fallback={<LoadingSkeleton />}><ForgotPassword /></Suspense>
+            </ErrorBoundary>
+          } />
+          <Route path="/reset-password" element={
+            <ErrorBoundary fallback={<PageErrorFallback />}>
+              <Suspense fallback={<LoadingSkeleton />}><ResetPassword /></Suspense>
             </ErrorBoundary>
           } />
           <Route path="/parent" element={
