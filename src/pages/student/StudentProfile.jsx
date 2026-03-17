@@ -1,7 +1,7 @@
 import { useState, lazy, Suspense } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { motion } from 'framer-motion'
-import { User, Zap, Flame, Trophy, Award, Save, Loader2, Clock, Gift, CreditCard, Palette, GraduationCap, Moon, Sun, Sparkles, Check, SwatchBook, Mail, CalendarDays, Medal, KeyRound, Copy, AtSign, RefreshCw } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { User, Zap, Flame, Trophy, Award, Save, Loader2, Clock, Gift, CreditCard, Palette, GraduationCap, Moon, Sun, Sparkles, Check, SwatchBook, Mail, CalendarDays, Medal, KeyRound, Copy, AtSign, RefreshCw, Camera, ImageIcon } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/constants'
@@ -90,6 +90,65 @@ function ProfileContent() {
   const queryClient = useQueryClient()
   const [displayName, setDisplayName] = useState(profile?.display_name || '')
   const [editing, setEditing] = useState(false)
+
+  // Avatar upload state
+  const [uploadingPhoto, setUploadingPhoto] = useState(false)
+  const [photoMsg, setPhotoMsg] = useState(null)
+  const [showPhotoSheet, setShowPhotoSheet] = useState(false)
+
+  async function handlePhotoUpload(file) {
+    if (!file || !profile?.id) return
+    setUploadingPhoto(true)
+    setPhotoMsg(null)
+    try {
+      // Compress image client-side
+      const blob = await new Promise((resolve) => {
+        const canvas = document.createElement('canvas')
+        const ctx = canvas.getContext('2d')
+        const img = new Image()
+        img.onload = () => {
+          const maxSize = 800
+          let w = img.width, h = img.height
+          // Square crop from center
+          const side = Math.min(w, h)
+          const sx = (w - side) / 2
+          const sy = (h - side) / 2
+          const outSize = Math.min(side, maxSize)
+          canvas.width = outSize
+          canvas.height = outSize
+          ctx.drawImage(img, sx, sy, side, side, 0, 0, outSize, outSize)
+          canvas.toBlob((b) => resolve(b), 'image/jpeg', 0.8)
+        }
+        img.src = URL.createObjectURL(file)
+      })
+
+      const fileName = `${profile.id}/${Date.now()}.jpg`
+      const { error: uploadError } = await supabase.storage
+        .from('avatars')
+        .upload(fileName, blob, { contentType: 'image/jpeg', upsert: true })
+      if (uploadError) throw uploadError
+
+      const { data: urlData } = supabase.storage.from('avatars').getPublicUrl(fileName)
+      const avatarUrl = urlData.publicUrl
+
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({ avatar_url: avatarUrl })
+        .eq('id', profile.id)
+      if (updateError) throw updateError
+
+      setPhotoMsg({ type: 'success', text: 'تم تحديث الصورة' })
+      if (user) fetchProfile(user)
+      setShowPhotoSheet(false)
+      setTimeout(() => setPhotoMsg(null), 3000)
+    } catch (err) {
+      console.error('Avatar upload error:', err)
+      setPhotoMsg({ type: 'error', text: 'فشل في رفع الصورة — حاول مرة أخرى' })
+      setTimeout(() => setPhotoMsg(null), 4000)
+    } finally {
+      setUploadingPhoto(false)
+    }
+  }
 
   // Username state
   const [usernameValue, setUsernameValue] = useState(profile?.username || '')
@@ -206,18 +265,32 @@ function ProfileContent() {
   })
 
   const [changingPassword, setChangingPassword] = useState(false)
+  const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [passwordMsg, setPasswordMsg] = useState(null)
 
   const changePassword = useMutation({
     mutationFn: async () => {
-      if (newPassword.length < 6) throw new Error('كلمة المرور يجب أن تكون 6 أحرف على الأقل')
+      if (!currentPassword) throw new Error('أدخل كلمة المرور الحالية')
+      if (newPassword.length < 8 || !/\d/.test(newPassword)) throw new Error('كلمة المرور يجب أن تكون ٨ أحرف على الأقل وتحتوي رقم')
+      if (newPassword !== confirmPassword) throw new Error('كلمات المرور غير متطابقة')
+
+      // Verify current password
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: user?.email,
+        password: currentPassword,
+      })
+      if (signInError) throw new Error('كلمة المرور الحالية غير صحيحة')
+
       const { error } = await supabase.auth.updateUser({ password: newPassword })
       if (error) throw error
     },
     onSuccess: () => {
       setPasswordMsg({ type: 'success', text: 'تم تغيير كلمة المرور بنجاح' })
+      setCurrentPassword('')
       setNewPassword('')
+      setConfirmPassword('')
       setChangingPassword(false)
       setTimeout(() => setPasswordMsg(null), 4000)
     },
@@ -266,8 +339,93 @@ function ProfileContent() {
       {/* Profile Header */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="fl-card-static p-7" style={{ borderColor: 'var(--border-glow)' }}>
         <div className="flex items-start gap-4">
-          <div className="w-16 h-16 rounded-2xl bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 text-2xl font-bold shrink-0">
-            {(profile?.display_name || profile?.full_name)?.[0] || '?'}
+          {/* Avatar with photo upload */}
+          <div className="relative shrink-0">
+            <div
+              onClick={() => setShowPhotoSheet(true)}
+              className="w-16 h-16 rounded-2xl overflow-hidden cursor-pointer group"
+            >
+              {profile?.avatar_url ? (
+                <img src={profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
+              ) : (
+                <div className="w-full h-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 text-2xl font-bold">
+                  {(profile?.display_name || profile?.full_name)?.[0] || '?'}
+                </div>
+              )}
+              <div className="absolute inset-0 rounded-2xl bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                {uploadingPhoto ? (
+                  <Loader2 size={18} className="text-white animate-spin" />
+                ) : (
+                  <Camera size={18} className="text-white" />
+                )}
+              </div>
+            </div>
+            {photoMsg && (
+              <p className={`absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] whitespace-nowrap ${photoMsg.type === 'success' ? 'text-emerald-400' : 'text-red-400'}`}>
+                {photoMsg.text}
+              </p>
+            )}
+
+            {/* Photo upload bottom sheet */}
+            <AnimatePresence>
+              {showPhotoSheet && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+                  onClick={() => setShowPhotoSheet(false)}
+                >
+                  <motion.div
+                    initial={{ y: 60, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 60, opacity: 0 }}
+                    transition={{ type: 'spring', damping: 25 }}
+                    className="w-full max-w-sm rounded-2xl p-6 space-y-3"
+                    style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <h3 className="font-semibold text-center mb-4" style={{ color: 'var(--text-primary)' }}>
+                      تغيير الصورة الشخصية
+                    </h3>
+
+                    <label className="flex items-center gap-3 p-4 rounded-xl cursor-pointer hover:bg-white/[0.03] transition-colors" style={{ border: '1px solid var(--border-subtle)' }}>
+                      <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+                        <ImageIcon size={18} className="text-sky-400" />
+                      </div>
+                      <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>اختر من المعرض</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => e.target.files?.[0] && handlePhotoUpload(e.target.files[0])}
+                      />
+                    </label>
+
+                    <label className="flex items-center gap-3 p-4 rounded-xl cursor-pointer hover:bg-white/[0.03] transition-colors" style={{ border: '1px solid var(--border-subtle)' }}>
+                      <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center">
+                        <Camera size={18} className="text-violet-400" />
+                      </div>
+                      <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>التقط صورة</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        capture="user"
+                        className="hidden"
+                        onChange={(e) => e.target.files?.[0] && handlePhotoUpload(e.target.files[0])}
+                      />
+                    </label>
+
+                    <button
+                      onClick={() => setShowPhotoSheet(false)}
+                      className="w-full py-3 rounded-xl text-sm text-muted hover:text-[var(--text-primary)] transition-colors text-center"
+                    >
+                      إلغاء
+                    </button>
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
           <div className="flex-1 min-w-0">
             <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>{profile?.full_name}</h2>
@@ -398,23 +556,43 @@ function ProfileContent() {
           <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>تغيير كلمة المرور</h3>
         </div>
         {changingPassword ? (
-          <div className="flex items-center gap-2">
+          <div className="space-y-3">
             <input
               type="password"
-              className="input-field text-sm py-1.5 flex-1"
+              className="input-field text-sm py-2.5 w-full"
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              placeholder="كلمة المرور الحالية"
+              autoComplete="current-password"
+            />
+            <input
+              type="password"
+              className="input-field text-sm py-2.5 w-full"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              placeholder="كلمة المرور الجديدة (6 أحرف على الأقل)..."
+              placeholder="كلمة المرور الجديدة"
+              autoComplete="new-password"
             />
-            <button
-              onClick={() => changePassword.mutate()}
-              disabled={changePassword.isPending}
-              className="btn-primary text-xs py-1.5 px-3 flex items-center gap-1"
-            >
-              {changePassword.isPending ? <Loader2 size={12} className="animate-spin" /> : <Save size={12} />}
-              حفظ
-            </button>
-            <button onClick={() => { setChangingPassword(false); setNewPassword('') }} className="btn-ghost text-xs">إلغاء</button>
+            <input
+              type="password"
+              className="input-field text-sm py-2.5 w-full"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="تأكيد كلمة المرور الجديدة"
+              autoComplete="new-password"
+            />
+            <p className="text-xs text-muted">٨ أحرف على الأقل + رقم واحد</p>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => changePassword.mutate()}
+                disabled={changePassword.isPending}
+                className="btn-primary text-sm py-2.5 px-5 flex items-center gap-1"
+              >
+                {changePassword.isPending ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
+                تحديث كلمة المرور
+              </button>
+              <button onClick={() => { setChangingPassword(false); setCurrentPassword(''); setNewPassword(''); setConfirmPassword('') }} className="btn-ghost text-sm">إلغاء</button>
+            </div>
           </div>
         ) : (
           <button onClick={() => setChangingPassword(true)} className="btn-ghost text-sm flex items-center gap-2">
