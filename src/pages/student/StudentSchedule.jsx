@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   Calendar, Clock, Video, ChevronLeft, ChevronRight, Lock, Plus, Check,
   GripVertical, Loader2, Users, Sparkles, X, ArrowLeft, Star,
+  BookOpen, User, Mic, PenLine, BookOpenCheck, Headphones, FileText,
 } from 'lucide-react'
 import {
   DndContext, closestCenter, PointerSensor, TouchSensor, useSensor, useSensors,
@@ -25,6 +26,22 @@ const SLOTS = [
   { key: 'evening', label: 'مساءً متأخر', icon: '🌙', range: '6 م - 11 م' },
 ]
 
+const TASK_TYPE_ICONS = {
+  speaking: Mic,
+  writing: PenLine,
+  reading: BookOpenCheck,
+  listening: Headphones,
+  irregular_verbs: FileText,
+}
+
+const TASK_TYPE_LABELS = {
+  speaking: 'محادثة',
+  writing: 'كتابة',
+  reading: 'قراءة',
+  listening: 'استماع',
+  irregular_verbs: 'أفعال شاذة',
+}
+
 function getWeekStart(date = new Date()) {
   const d = new Date(date)
   d.setDate(d.getDate() - d.getDay())
@@ -32,12 +49,29 @@ function getWeekStart(date = new Date()) {
   return d
 }
 
-function formatWeekRange(weekStart) {
+function getWeekEnd(weekStart) {
   const end = new Date(weekStart)
   end.setDate(end.getDate() + 6)
+  return end
+}
+
+function formatWeekRange(weekStart) {
+  const end = getWeekEnd(weekStart)
   const startStr = weekStart.toLocaleDateString('ar-SA', { day: 'numeric', month: 'short' })
   const endStr = end.toLocaleDateString('ar-SA', { day: 'numeric', month: 'short' })
   return `${startStr} — ${endStr}`
+}
+
+function getWeekDays(weekStart) {
+  return DAYS.map(d => {
+    const date = new Date(weekStart)
+    date.setDate(date.getDate() + d)
+    return {
+      day: d,
+      date: date.toISOString().split('T')[0],
+      label: DAY_LABELS[d],
+    }
+  })
 }
 
 // ─── Sortable Task Item ──────────────────────────────────
@@ -89,23 +123,144 @@ function SortableTask({ task, onToggle, onRemove }) {
   )
 }
 
-// ─── Fixed Class Block ──────────────────────────────────
-function ClassBlock({ slot }) {
+// ─── Fixed Class Block (clickable, read-only) ──────────────
+function ClassBlock({ classData, onClick }) {
+  const title = classData.title || classData.topic ||
+    (classData.class_type === 'general' ? 'حصة' : classData.class_type || 'حصة')
+  const time = classData.start_time ? formatTime(classData.start_time) : ''
+
   return (
-    <div className="rounded-xl px-3 py-2.5 bg-sky-500/[0.08] border border-sky-500/20 flex items-center gap-2">
+    <div
+      onClick={() => onClick(classData)}
+      className="rounded-xl px-3 py-2.5 bg-sky-500/[0.08] border border-sky-500/20 flex items-center gap-2 cursor-pointer hover:bg-sky-500/[0.12] transition-colors select-none"
+    >
       <Lock size={12} className="text-sky-400 shrink-0" />
       <div className="flex-1 min-w-0">
         <p className="text-xs font-medium text-sky-400 truncate">
-          {slot.class_type === 'general' ? 'حصة' : slot.class_type} — {formatTime(slot.start_time)}
+          {title} {time && `— ${time}`}
         </p>
       </div>
-      {slot.google_meet_link && (
-        <a href={slot.google_meet_link} target="_blank" rel="noopener noreferrer"
-          className="text-sky-400 hover:text-sky-300 shrink-0">
+      {classData.google_meet_link && (
+        <span
+          onClick={(e) => {
+            e.stopPropagation()
+            window.open(classData.google_meet_link, '_blank')
+          }}
+          className="text-sky-400 hover:text-sky-300 shrink-0 cursor-pointer"
+        >
           <Video size={14} />
-        </a>
+        </span>
       )}
     </div>
+  )
+}
+
+// ─── Planned Weekly Task on Calendar ──────────────────────
+function PlannedTaskBlock({ task }) {
+  const TypeIcon = TASK_TYPE_ICONS[task.type] || FileText
+  return (
+    <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-lg px-2 py-1.5 flex items-center gap-1.5">
+      <TypeIcon size={11} className="text-emerald-400 shrink-0" />
+      <span className="text-[11px] text-emerald-400 truncate">{task.title_ar || task.title}</span>
+    </div>
+  )
+}
+
+// ─── Read-Only Class Detail Modal ────────────────────────
+function ClassDetailModal({ classData, trainerName, groupMeetLink, onClose }) {
+  if (!classData) return null
+
+  const title = classData.title || classData.topic ||
+    (classData.class_type === 'general' ? 'حصة إنجليزي' : classData.class_type || 'حصة إنجليزي')
+  const meetLink = classData.google_meet_link || groupMeetLink
+
+  // Format time range
+  let timeDisplay = ''
+  if (classData.start_time) {
+    timeDisplay = formatTime(classData.start_time)
+    if (classData.end_time) timeDisplay += ` - ${formatTime(classData.end_time)}`
+  }
+
+  // Format day
+  let dayDisplay = ''
+  if (classData.day_of_week !== undefined) {
+    dayDisplay = DAY_LABELS[classData.day_of_week]
+  } else if (classData.date) {
+    dayDisplay = new Date(classData.date).toLocaleDateString('ar-SA', {
+      weekday: 'long', day: 'numeric', month: 'short',
+    })
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-sm rounded-2xl p-6 space-y-5"
+        style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <h3 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>{title}</h3>
+          <button onClick={onClose} className="btn-icon">
+            <X size={18} />
+          </button>
+        </div>
+
+        {/* Details */}
+        <div className="space-y-3">
+          {(dayDisplay || timeDisplay) && (
+            <div className="flex items-center gap-3">
+              <Clock size={18} className="text-muted shrink-0" />
+              <span className="text-sm" style={{ color: 'var(--text-primary)' }}>
+                {dayDisplay}{dayDisplay && timeDisplay ? ' · ' : ''}{timeDisplay}
+              </span>
+            </div>
+          )}
+          {classData.topic && (
+            <div className="flex items-center gap-3">
+              <BookOpen size={18} className="text-muted shrink-0" />
+              <span className="text-sm" style={{ color: 'var(--text-primary)' }}>
+                {classData.topic}
+              </span>
+            </div>
+          )}
+          {trainerName && (
+            <div className="flex items-center gap-3">
+              <User size={18} className="text-muted shrink-0" />
+              <span className="text-sm" style={{ color: 'var(--text-primary)' }}>
+                {trainerName}
+              </span>
+            </div>
+          )}
+          {classData.notes && (
+            <div className="text-xs text-muted mt-2 p-3 rounded-xl" style={{ background: 'var(--surface-base)' }}>
+              {classData.notes}
+            </div>
+          )}
+        </div>
+
+        {/* Google Meet */}
+        {meetLink && (
+          <a
+            href={meetLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block w-full text-center py-3 rounded-xl bg-[var(--color-primary)] text-white font-semibold hover:opacity-90 transition-opacity"
+          >
+            انضم للحصة
+          </a>
+        )}
+      </motion.div>
+    </motion.div>
   )
 }
 
@@ -119,6 +274,7 @@ export default function StudentSchedule() {
   const [addingTo, setAddingTo] = useState(null) // { day, slot }
   const [newTaskTitle, setNewTaskTitle] = useState('')
   const [showClassmates, setShowClassmates] = useState(false)
+  const [selectedClass, setSelectedClass] = useState(null)
 
   const weekStart = useMemo(() => {
     const ws = getWeekStart()
@@ -127,6 +283,12 @@ export default function StudentSchedule() {
   }, [weekOffset])
 
   const weekStartISO = weekStart.toISOString().split('T')[0]
+  const weekEndISO = useMemo(() => {
+    const end = getWeekEnd(weekStart)
+    return end.toISOString().split('T')[0]
+  }, [weekStart])
+
+  const weekDays = useMemo(() => getWeekDays(weekStart), [weekStart])
 
   // DnD sensors
   const sensors = useSensors(
@@ -153,6 +315,29 @@ export default function StudentSchedule() {
     enabled: !!group?.id,
   })
 
+  // Specific classes for the current week from the classes table
+  const { data: weekClasses } = useQuery({
+    queryKey: ['week-classes', group?.id, weekStartISO],
+    staleTime: 60_000,
+    queryFn: async () => {
+      if (!group?.id) return []
+      const { data, error } = await supabase
+        .from('classes')
+        .select('id, title, topic, date, start_time, end_time, google_meet_link, status, trainer_id, profiles!classes_trainer_id_fkey(full_name, display_name)')
+        .eq('group_id', group.id)
+        .gte('date', weekStartISO)
+        .lte('date', weekEndISO)
+        .order('date')
+        .order('start_time')
+      if (error) {
+        console.error('Week classes error:', error.message)
+        return []
+      }
+      return data || []
+    },
+    enabled: !!group?.id,
+  })
+
   // Student's planned tasks for this week
   const { data: plannedTasks, isLoading: tasksLoading } = useQuery({
     queryKey: ['planned-tasks', profile?.id, weekStartISO],
@@ -171,9 +356,38 @@ export default function StudentSchedule() {
     enabled: !!profile?.id,
   })
 
-  // Upcoming classes
+  // Weekly tasks for task planning section
+  const { data: weeklyTasks } = useQuery({
+    queryKey: ['weekly-tasks-for-planning', profile?.id, weekStartISO],
+    staleTime: 30_000,
+    queryFn: async () => {
+      // Get active task set for this week
+      const { data: taskSet, error: setError } = await supabase
+        .from('weekly_task_sets')
+        .select('id')
+        .eq('student_id', profile?.id)
+        .eq('week_start', weekStartISO)
+        .single()
+      if (setError || !taskSet) return []
+
+      const { data, error } = await supabase
+        .from('weekly_tasks')
+        .select('id, title, title_ar, type, status, planned_date, points, deadline')
+        .eq('task_set_id', taskSet.id)
+        .neq('status', 'skipped')
+        .order('sequence_number')
+      if (error) {
+        console.error('Weekly tasks error:', error.message)
+        return []
+      }
+      return data || []
+    },
+    enabled: !!profile?.id,
+  })
+
+  // Upcoming classes (for list below calendar)
   const { data: upcomingClasses } = useQuery({
-    queryKey: ['student-upcoming-classes'],
+    queryKey: ['student-upcoming-classes', group?.id],
     staleTime: 60_000,
     queryFn: async () => {
       if (!group?.id) return []
@@ -185,13 +399,16 @@ export default function StudentSchedule() {
         .order('date')
         .order('start_time')
         .limit(5)
-      if (error) throw error
+      if (error) {
+        console.error('Upcoming classes error:', error.message)
+        return []
+      }
       return data || []
     },
     enabled: !!group?.id,
   })
 
-  // Upcoming events (الفعاليات)
+  // Upcoming events
   const { data: upcomingEvents } = useQuery({
     queryKey: ['student-upcoming-events'],
     staleTime: 60_000,
@@ -203,12 +420,12 @@ export default function StudentSchedule() {
         .eq('status', 'active')
         .order('start_date')
         .limit(5)
-      if (error) return [] // table may not exist yet
+      if (error) return []
       return data || []
     },
   })
 
-  // Classmate plans (same group)
+  // Classmate plans
   const { data: classmatePlans } = useQuery({
     queryKey: ['classmate-plans', group?.id, weekStartISO],
     staleTime: 30_000,
@@ -225,6 +442,9 @@ export default function StudentSchedule() {
     },
     enabled: !!group?.id && showClassmates,
   })
+
+  // Group trainer name
+  const trainerName = group?.profiles?.full_name || group?.profiles?.display_name || ''
 
   // ─── Mutations ──────────────────────────────────────────
   const addTask = useMutation({
@@ -268,12 +488,24 @@ export default function StudentSchedule() {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['planned-tasks', profile?.id, weekStartISO] }),
   })
 
+  // Update planned_date for a weekly task
+  const updatePlannedDate = useMutation({
+    mutationFn: async ({ taskId, plannedDate }) => {
+      const { error } = await supabase
+        .from('weekly_tasks')
+        .update({ planned_date: plannedDate || null })
+        .eq('id', taskId)
+      if (error) throw error
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['weekly-tasks-for-planning', profile?.id, weekStartISO] })
+    },
+  })
+
   // ─── DnD Handler ────────────────────────────────────────
   function handleDragEnd(event) {
-    // For now, reorder within the same slot
     const { active, over } = event
     if (!over || active.id === over.id) return
-    // Could implement cross-slot drag here in the future
   }
 
   // ─── Helpers ────────────────────────────────────────────
@@ -282,10 +514,19 @@ export default function StudentSchedule() {
   }
 
   function getClassesForDay(day) {
-    return (classSchedule || []).filter(s => s.day_of_week === day)
+    // Combine weekly_schedule_config entries + actual classes for the specific date
+    const configClasses = (classSchedule || []).filter(s => s.day_of_week === day)
+    const dateStr = weekDays[day]?.date
+    const actualClasses = (weekClasses || []).filter(c => c.date === dateStr)
+    return { configClasses, actualClasses }
+  }
+
+  function getPlannedWeeklyTasksForDay(dateStr) {
+    return (weeklyTasks || []).filter(t => t.planned_date === dateStr)
   }
 
   function slotForTime(timeStr) {
+    if (!timeStr) return 'morning'
     const hour = parseInt(timeStr.split(':')[0])
     if (hour < 12) return 'morning'
     if (hour < 18) return 'afternoon'
@@ -298,6 +539,10 @@ export default function StudentSchedule() {
 
   const isCurrentWeek = weekOffset === 0
   const today = new Date().getDay()
+
+  // Unscheduled + scheduled weekly tasks
+  const unscheduledWeeklyTasks = (weeklyTasks || []).filter(t => !t.planned_date && t.status !== 'graded')
+  const scheduledWeeklyTasks = (weeklyTasks || []).filter(t => t.planned_date)
 
   return (
     <div className="space-y-8">
@@ -383,7 +628,9 @@ export default function StudentSchedule() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-3">
             {DAYS.map((day) => {
               const isToday = isCurrentWeek && today === day
-              const dayClasses = getClassesForDay(day)
+              const { configClasses, actualClasses } = getClassesForDay(day)
+              const dateStr = weekDays[day]?.date
+              const dayPlannedTasks = getPlannedWeeklyTasksForDay(dateStr)
 
               return (
                 <motion.div
@@ -416,7 +663,12 @@ export default function StudentSchedule() {
                   <div className="space-y-3">
                     {SLOTS.map((slot) => {
                       const tasks = getTasksForSlot(day, slot.key)
-                      const slotClasses = dayClasses.filter(c => slotForTime(c.start_time) === slot.key)
+                      const slotConfigClasses = configClasses.filter(c => slotForTime(c.start_time) === slot.key)
+                      const slotActualClasses = actualClasses.filter(c => slotForTime(c.start_time) === slot.key)
+                      const slotPlannedTasks = dayPlannedTasks.filter(t => {
+                        // Show planned weekly tasks in their appropriate slot (default to morning)
+                        return slot.key === 'morning' || slotForTime(t.deadline?.split('T')?.[1]?.slice(0, 5) || '08:00') === slot.key
+                      })
                       const isAdding = addingTo?.day === day && addingTo?.slot === slot.key
 
                       return (
@@ -426,12 +678,30 @@ export default function StudentSchedule() {
                           </p>
 
                           <div className="space-y-1.5">
-                            {/* Fixed class blocks */}
-                            {slotClasses.map((c, i) => (
-                              <ClassBlock key={`class-${day}-${i}`} slot={c} />
+                            {/* Fixed class blocks from config */}
+                            {slotConfigClasses.map((c, i) => (
+                              <ClassBlock
+                                key={`config-${day}-${i}`}
+                                classData={c}
+                                onClick={setSelectedClass}
+                              />
                             ))}
 
-                            {/* Draggable tasks */}
+                            {/* Actual class entries for specific dates */}
+                            {slotActualClasses.map((c) => (
+                              <ClassBlock
+                                key={`class-${c.id}`}
+                                classData={c}
+                                onClick={setSelectedClass}
+                              />
+                            ))}
+
+                            {/* Planned weekly tasks */}
+                            {slot.key === 'morning' && dayPlannedTasks.map((t) => (
+                              <PlannedTaskBlock key={`wt-${t.id}`} task={t} />
+                            ))}
+
+                            {/* Draggable custom tasks */}
                             <SortableContext
                               items={tasks.map(t => t.id)}
                               strategy={verticalListSortingStrategy}
@@ -528,8 +798,90 @@ export default function StudentSchedule() {
         )}
       </DndContext>
 
+      {/* ─── Weekly Task Planning Section ──────────────────── */}
+      {weeklyTasks && weeklyTasks.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          className="fl-card-static p-7"
+        >
+          <div className="flex items-center gap-2 mb-5">
+            <div className="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+              <BookOpenCheck size={16} className="text-emerald-400" />
+            </div>
+            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>
+              خطط أسبوعك
+            </h3>
+            <span className="text-xs text-muted mr-auto">
+              {unscheduledWeeklyTasks.length > 0 && `${unscheduledWeeklyTasks.length} غير مجدولة`}
+            </span>
+          </div>
+
+          <div className="space-y-2">
+            {weeklyTasks.filter(t => t.status !== 'graded').map((task, idx) => {
+              const TypeIcon = TASK_TYPE_ICONS[task.type] || FileText
+              const isCompleted = task.status === 'submitted' || task.status === 'graded'
+
+              return (
+                <motion.div
+                  key={task.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.03 }}
+                  className="flex items-center justify-between p-4 rounded-xl"
+                  style={{
+                    background: 'var(--surface-base)',
+                    border: '1px solid var(--border-subtle)',
+                  }}
+                >
+                  <div className="flex items-center gap-3 flex-1 min-w-0">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center shrink-0">
+                      <TypeIcon size={18} className="text-emerald-400" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="font-medium text-sm truncate" style={{ color: 'var(--text-primary)' }}>
+                        {task.title_ar || task.title}
+                      </p>
+                      <p className="text-xs text-muted flex items-center gap-2">
+                        <span>{TASK_TYPE_LABELS[task.type] || task.type}</span>
+                        <span>·</span>
+                        <span>{task.points} نقطة</span>
+                        {isCompleted && (
+                          <>
+                            <span>·</span>
+                            <span className="text-emerald-400">تم الإرسال</span>
+                          </>
+                        )}
+                      </p>
+                    </div>
+                  </div>
+
+                  <select
+                    value={task.planned_date || ''}
+                    onChange={(e) => updatePlannedDate.mutate({ taskId: task.id, plannedDate: e.target.value })}
+                    disabled={updatePlannedDate.isPending}
+                    className="text-sm rounded-lg px-3 py-2 shrink-0 min-w-[120px]"
+                    style={{
+                      background: 'var(--surface-raised)',
+                      border: '1px solid var(--border-subtle)',
+                      color: 'var(--text-primary)',
+                    }}
+                  >
+                    <option value="">اختر يوم</option>
+                    {weekDays.map(wd => (
+                      <option key={wd.date} value={wd.date}>{wd.label}</option>
+                    ))}
+                  </select>
+                </motion.div>
+              )
+            })}
+          </div>
+        </motion.div>
+      )}
+
       {/* First-time onboarding */}
-      {!tasksLoading && totalTasks === 0 && isCurrentWeek && (
+      {!tasksLoading && totalTasks === 0 && isCurrentWeek && !weeklyTasks?.length && (
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -559,7 +911,8 @@ export default function StudentSchedule() {
             {upcomingClasses.map((c) => (
               <div
                 key={c.id}
-                className="rounded-xl p-3 flex items-center justify-between hover:bg-[var(--sidebar-hover-bg)] transition-all"
+                onClick={() => setSelectedClass(c)}
+                className="rounded-xl p-3 flex items-center justify-between hover:bg-[var(--sidebar-hover-bg)] transition-all cursor-pointer"
                 style={{ background: 'var(--surface-raised)' }}
               >
                 <div>
@@ -573,10 +926,15 @@ export default function StudentSchedule() {
                   </p>
                 </div>
                 {(c.google_meet_link || group?.google_meet_link) && (
-                  <a href={c.google_meet_link || group.google_meet_link} target="_blank" rel="noopener noreferrer"
-                    className="btn-icon text-sky-400 hover:text-sky-300">
+                  <span
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      window.open(c.google_meet_link || group.google_meet_link, '_blank')
+                    }}
+                    className="btn-icon text-sky-400 hover:text-sky-300 cursor-pointer"
+                  >
                     <Video size={16} />
-                  </a>
+                  </span>
                 )}
               </div>
             ))}
@@ -584,7 +942,7 @@ export default function StudentSchedule() {
         </motion.div>
       )}
 
-      {/* Upcoming Events (الفعاليات) */}
+      {/* Upcoming Events */}
       {upcomingEvents?.length > 0 && (
         <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="fl-card-static p-7">
           <div className="flex items-center gap-2 mb-4">
@@ -615,6 +973,22 @@ export default function StudentSchedule() {
           </div>
         </motion.div>
       )}
+
+      {/* Read-Only Class Detail Modal */}
+      <AnimatePresence>
+        {selectedClass && (
+          <ClassDetailModal
+            classData={selectedClass}
+            trainerName={
+              selectedClass.profiles?.full_name ||
+              selectedClass.profiles?.display_name ||
+              trainerName
+            }
+            groupMeetLink={group?.google_meet_link}
+            onClose={() => setSelectedClass(null)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   )
 }
