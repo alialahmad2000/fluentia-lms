@@ -595,6 +595,9 @@ export default function StudentAssessments() {
               {submitSelf.isPending ? 'جاري الإرسال...' : 'إرسال التقييم'}
             </button>
 
+            {submitSelf.isSuccess && (
+              <p className="text-emerald-400 text-xs text-center">تم حفظ تقييمك بنجاح</p>
+            )}
             {submitSelf.isError && (
               <p className="text-red-400 text-xs text-center">حدث خطأ، حاول مرة أخرى</p>
             )}

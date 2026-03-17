@@ -13,6 +13,7 @@ const CLAUDE_MODEL = 'claude-sonnet-4-6'
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
 }
 
 // ---------------------------------------------------------------------------
@@ -1083,7 +1084,12 @@ serve(async (req) => {
     const supabase = createSupabaseClient()
 
     // Parse the request body
-    const body: Record<string, unknown> = await req.json()
+    let body: Record<string, unknown>
+    try {
+      body = await req.json()
+    } catch {
+      return jsonResponse({ error: 'Invalid request body' }, 400)
+    }
     const action = body.action as string
     const isPublicMode = body.test_mode === 'public'
 

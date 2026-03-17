@@ -286,6 +286,17 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### March 17, 2026 — Fix AI Features, Grading, Self-Assessment (PROMPT BF1)
+- What: Audited and fixed all 35 edge functions + frontend AI calls
+- **CORS fix:** Added `Access-Control-Allow-Methods: 'POST, OPTIONS'` to all 35 edge functions — was missing and could cause browser CORS failures
+- **adaptive-test:** Added try/catch around `req.json()` body parsing — was the only function without safe body parsing, causing Level Test failures on empty/malformed requests
+- **Self-assessment:** Added success message "تم حفظ تقييمك بنجاح" after save in StudentAssessments.jsx
+- **Secrets verified:** All required secrets present (CLAUDE_API_KEY, OPENAI_API_KEY, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, RESEND_API_KEY)
+- **Grading:** Audited TrainerGrading.jsx — code is correct with proper `{ data, error }` pattern, RLS policies allow trainer updates
+- **All 35 edge functions redeployed** with `--no-verify-jwt`
+- Files: All 35 `supabase/functions/*/index.ts`, `src/pages/student/StudentAssessments.jsx`
+- Status: Complete — all functions deployed, build verified
+
 ### March 17, 2026 — IELTS Management + Student Progress Pages (PROMPT 1G)
 - What: Built IELTS management page with 6 tabs + student curriculum progress matrix
 - **IELTSManagement:** 6 tabs — Reading Skills (14 question types from seed), Reading Passages, Writing Tasks (Task1/Task2 sub-tabs), Listening Sections (grouped by test), Speaking Questions (Part1/2/3 sub-tabs), Mock Tests (status matrix with link editors)

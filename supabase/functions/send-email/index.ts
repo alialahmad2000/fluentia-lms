@@ -10,6 +10,7 @@ const FROM_EMAIL = Deno.env.get('RESEND_FROM_EMAIL') || 'Fluentia Academy <notif
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
 }
 
 // Wrap content in branded HTML email template
