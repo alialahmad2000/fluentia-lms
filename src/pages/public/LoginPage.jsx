@@ -6,6 +6,7 @@ import { useAuthStore } from '../../stores/authStore'
 import { useThemeStore } from '../../stores/themeStore'
 import { parseSupabaseError, logError } from '../../utils/errors'
 import { ACADEMY } from '../../lib/constants'
+import { supabase } from '../../lib/supabase'
 import FloatingParticles from '../../components/illustrations/FloatingParticles'
 
 export default function LoginPage() {
@@ -13,7 +14,9 @@ export default function LoginPage() {
   const signIn = useAuthStore((s) => s.signIn)
   const effectiveTheme = useThemeStore((s) => s.effectiveTheme)
 
+  const [loginMode, setLoginMode] = useState('email') // 'email' or 'username'
   const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
@@ -32,8 +35,12 @@ export default function LoginPage() {
     e.preventDefault()
     setError('')
 
-    if (!email.trim()) {
+    if (loginMode === 'email' && !email.trim()) {
       setError('أدخل البريد الإلكتروني')
+      return
+    }
+    if (loginMode === 'username' && !username.trim()) {
+      setError('أدخل اسم المستخدم')
       return
     }
     if (!password) {
@@ -43,11 +50,29 @@ export default function LoginPage() {
 
     setLoading(true)
     try {
-      await signIn(email.trim(), password)
+      let loginEmail = email.trim()
+
+      if (loginMode === 'username') {
+        const { data: profileData, error: profileError } = await supabase
+          .from('profiles')
+          .select('email')
+          .eq('username', username.trim().toLowerCase())
+          .single()
+
+        if (profileError || !profileData?.email) {
+          setError('اسم المستخدم غير موجود')
+          setLoading(false)
+          return
+        }
+
+        loginEmail = profileData.email
+      }
+
+      await signIn(loginEmail, password)
     } catch (err) {
       const msg = parseSupabaseError(err)
       setError(msg)
-      logError('auth', 'login', err.message, { email: email.trim() })
+      logError('auth', 'login', err.message, { email: loginMode === 'email' ? email.trim() : username.trim() })
     } finally {
       setLoading(false)
     }
@@ -98,22 +123,47 @@ export default function LoginPage() {
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Email */}
+            {/* Login mode toggle */}
+            <div className="text-center">
+              <button
+                type="button"
+                onClick={() => { setLoginMode(loginMode === 'email' ? 'username' : 'email'); setError('') }}
+                className="text-xs text-sky-400 hover:text-sky-300 transition-colors"
+              >
+                {loginMode === 'email' ? 'الدخول باسم المستخدم' : 'الدخول بالبريد'}
+              </button>
+            </div>
+
+            {/* Email or Username */}
             <div>
-              <label htmlFor="email" className="input-label">
-                البريد الإلكتروني
+              <label htmlFor={loginMode === 'email' ? 'email' : 'username'} className="input-label">
+                {loginMode === 'email' ? 'البريد الإلكتروني' : 'اسم المستخدم'}
               </label>
-              <input
-                id="email"
-                type="email"
-                className="fl-input"
-                placeholder="example@fluentia.academy"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                dir="ltr"
-                autoComplete="email"
-                disabled={loading}
-              />
+              {loginMode === 'email' ? (
+                <input
+                  id="email"
+                  type="email"
+                  className="fl-input"
+                  placeholder="example@fluentia.academy"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  dir="ltr"
+                  autoComplete="email"
+                  disabled={loading}
+                />
+              ) : (
+                <input
+                  id="username"
+                  type="text"
+                  className="fl-input"
+                  placeholder="اسم المستخدم"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  dir="ltr"
+                  autoComplete="username"
+                  disabled={loading}
+                />
+              )}
             </div>
 
             {/* Password */}

@@ -1,7 +1,7 @@
 import { useState, lazy, Suspense } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { User, Zap, Flame, Trophy, Award, Save, Loader2, Clock, Gift, CreditCard, Palette, GraduationCap, Moon, Sun, Sparkles, Check, SwatchBook, Mail, CalendarDays, Medal, KeyRound } from 'lucide-react'
+import { User, Zap, Flame, Trophy, Award, Save, Loader2, Clock, Gift, CreditCard, Palette, GraduationCap, Moon, Sun, Sparkles, Check, SwatchBook, Mail, CalendarDays, Medal, KeyRound, Copy, AtSign, RefreshCw } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/constants'
@@ -74,11 +74,73 @@ export default function StudentProfile() {
   )
 }
 
+function transliterateArabic(str) {
+  const map = { 'ا':'a','أ':'a','إ':'e','آ':'a','ب':'b','ت':'t','ث':'th','ج':'j','ح':'h','خ':'kh','د':'d','ذ':'dh','ر':'r','ز':'z','س':'s','ش':'sh','ص':'s','ض':'d','ط':'t','ظ':'z','ع':'a','غ':'gh','ف':'f','ق':'q','ك':'k','ل':'l','م':'m','ن':'n','ه':'h','و':'w','ي':'y','ى':'a','ة':'a','ء':'','ئ':'y','ؤ':'w' }
+  return str.split('').map(c => map[c] ?? c).join('')
+}
+
+function generateUsername(displayName) {
+  const base = transliterateArabic(displayName || '').replace(/[^a-zA-Z0-9_]/g, '').toLowerCase()
+  const digits = Math.floor(100 + Math.random() * 900)
+  return (base || 'user') + digits
+}
+
 function ProfileContent() {
   const { profile, studentData, fetchProfile, user } = useAuthStore()
   const queryClient = useQueryClient()
   const [displayName, setDisplayName] = useState(profile?.display_name || '')
   const [editing, setEditing] = useState(false)
+
+  // Username state
+  const [usernameValue, setUsernameValue] = useState(profile?.username || '')
+  const [editingUsername, setEditingUsername] = useState(false)
+  const [usernameMsg, setUsernameMsg] = useState(null)
+  const [savingUsername, setSavingUsername] = useState(false)
+  const [copiedUsername, setCopiedUsername] = useState(false)
+
+  const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/
+
+  async function handleSaveUsername() {
+    const val = usernameValue.trim().toLowerCase()
+    if (!usernameRegex.test(val)) {
+      setUsernameMsg({ type: 'error', text: 'اسم المستخدم يجب أن يكون 3-20 حرف (أحرف إنجليزية، أرقام، _)' })
+      setTimeout(() => setUsernameMsg(null), 4000)
+      return
+    }
+    setSavingUsername(true)
+    try {
+      // Check uniqueness
+      const { data: existing } = await supabase
+        .from('profiles')
+        .select('id')
+        .eq('username', val)
+        .neq('id', profile?.id)
+        .maybeSingle()
+      if (existing) {
+        setUsernameMsg({ type: 'error', text: 'اسم المستخدم مستخدم بالفعل' })
+        setTimeout(() => setUsernameMsg(null), 4000)
+        setSavingUsername(false)
+        return
+      }
+      const { error } = await supabase.from('profiles').update({ username: val }).eq('id', profile?.id)
+      if (error) throw error
+      setUsernameMsg({ type: 'success', text: 'تم حفظ اسم المستخدم' })
+      setEditingUsername(false)
+      if (user) fetchProfile(user)
+      setTimeout(() => setUsernameMsg(null), 4000)
+    } catch (err) {
+      setUsernameMsg({ type: 'error', text: err.message })
+      setTimeout(() => setUsernameMsg(null), 4000)
+    } finally {
+      setSavingUsername(false)
+    }
+  }
+
+  function handleCopyUsername() {
+    navigator.clipboard.writeText(profile?.username || usernameValue)
+    setCopiedUsername(true)
+    setTimeout(() => setCopiedUsername(false), 2000)
+  }
 
   const xp = studentData?.xp_total || 0
   const streak = studentData?.current_streak || 0
@@ -239,6 +301,58 @@ function ProfileContent() {
                 <button onClick={() => setEditing(true)} className="text-xs text-sky-400 hover:text-sky-300 transition-all duration-200">
                   تعديل الاسم المعروض: {profile?.display_name || 'لم يُحدد'}
                 </button>
+              )}
+            </div>
+
+            {/* Username */}
+            <div className="mt-3 pt-3" style={{ borderTop: '1px solid var(--border-default)' }}>
+              <div className="flex items-center gap-1.5 text-sm mb-2">
+                <AtSign size={13} className="text-violet-400" strokeWidth={1.5} />
+                <span style={{ color: 'var(--text-secondary)' }}>اسم المستخدم</span>
+              </div>
+              {editingUsername ? (
+                <div className="flex items-center gap-2">
+                  <input
+                    className="input-field text-sm py-1.5 flex-1"
+                    value={usernameValue}
+                    onChange={(e) => setUsernameValue(e.target.value.replace(/[^a-zA-Z0-9_]/g, ''))}
+                    placeholder="username"
+                    dir="ltr"
+                    maxLength={20}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setUsernameValue(generateUsername(profile?.display_name))}
+                    className="btn-ghost text-xs p-1.5"
+                    title="اقتراح تلقائي"
+                  >
+                    <RefreshCw size={14} />
+                  </button>
+                  <button onClick={handleSaveUsername} disabled={savingUsername} className="btn-primary text-xs py-1.5 px-3 flex items-center gap-1">
+                    {savingUsername ? <Loader2 size={12} className="animate-spin" /> : <Save size={12} />}
+                    حفظ
+                  </button>
+                  <button onClick={() => { setEditingUsername(false); setUsernameValue(profile?.username || '') }} className="btn-ghost text-xs">إلغاء</button>
+                </div>
+              ) : profile?.username ? (
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-mono" dir="ltr" style={{ color: 'var(--text-primary)' }}>@{profile.username}</span>
+                  <button onClick={handleCopyUsername} className="btn-ghost text-xs p-1" title="نسخ">
+                    {copiedUsername ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
+                  </button>
+                  <button onClick={() => { setEditingUsername(true); setUsernameValue(profile.username) }} className="text-xs text-sky-400 hover:text-sky-300 transition-colors">
+                    تعديل
+                  </button>
+                </div>
+              ) : (
+                <button onClick={() => { setEditingUsername(true); setUsernameValue(generateUsername(profile?.display_name)) }} className="text-xs text-sky-400 hover:text-sky-300 transition-all duration-200">
+                  إضافة اسم مستخدم
+                </button>
+              )}
+              {usernameMsg && (
+                <p className={`text-xs mt-1.5 ${usernameMsg.type === 'success' ? 'text-emerald-400' : 'text-red-400'}`}>
+                  {usernameMsg.text}
+                </p>
               )}
             </div>
           </div>
