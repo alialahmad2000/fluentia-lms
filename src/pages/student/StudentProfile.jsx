@@ -1,7 +1,7 @@
 import { useState, lazy, Suspense } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { User, Zap, Flame, Trophy, Award, Save, Loader2, Clock, Gift, CreditCard, Palette, GraduationCap, Moon, Sun, Sparkles, Check, SwatchBook } from 'lucide-react'
+import { User, Zap, Flame, Trophy, Award, Save, Loader2, Clock, Gift, CreditCard, Palette, GraduationCap, Moon, Sun, Sparkles, Check, SwatchBook, Mail, CalendarDays, Medal, KeyRound } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/constants'
@@ -124,6 +124,47 @@ function ProfileContent() {
     enabled: !!profile?.id,
   })
 
+  const { data: classRank } = useQuery({
+    queryKey: ['student-class-rank', profile?.id],
+    queryFn: async () => {
+      // Get all students in same group, ordered by XP descending
+      const groupId = studentData?.group_id
+      if (!groupId) return null
+      const { data } = await supabase
+        .from('students')
+        .select('id, xp_total')
+        .eq('group_id', groupId)
+        .eq('is_active', true)
+        .order('xp_total', { ascending: false })
+      if (!data) return null
+      const rank = data.findIndex(s => s.id === profile?.id) + 1
+      return { rank, total: data.length }
+    },
+    enabled: !!profile?.id && !!studentData?.group_id,
+  })
+
+  const [changingPassword, setChangingPassword] = useState(false)
+  const [newPassword, setNewPassword] = useState('')
+  const [passwordMsg, setPasswordMsg] = useState(null)
+
+  const changePassword = useMutation({
+    mutationFn: async () => {
+      if (newPassword.length < 6) throw new Error('كلمة المرور يجب أن تكون 6 أحرف على الأقل')
+      const { error } = await supabase.auth.updateUser({ password: newPassword })
+      if (error) throw error
+    },
+    onSuccess: () => {
+      setPasswordMsg({ type: 'success', text: 'تم تغيير كلمة المرور بنجاح' })
+      setNewPassword('')
+      setChangingPassword(false)
+      setTimeout(() => setPasswordMsg(null), 4000)
+    },
+    onError: (err) => {
+      setPasswordMsg({ type: 'error', text: err.message })
+      setTimeout(() => setPasswordMsg(null), 4000)
+    },
+  })
+
   const updateName = useMutation({
     mutationFn: async () => {
       const trimmed = displayName.trim()
@@ -168,9 +209,21 @@ function ProfileContent() {
           </div>
           <div className="flex-1 min-w-0">
             <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>{profile?.full_name}</h2>
-            <div className="flex items-center gap-3 text-sm text-muted mt-1">
+            {user?.email && (
+              <div className="flex items-center gap-1.5 text-sm text-muted mt-0.5">
+                <Mail size={13} className="text-muted" strokeWidth={1.5} />
+                <span>{user.email}</span>
+              </div>
+            )}
+            <div className="flex items-center gap-3 text-sm text-muted mt-1.5 flex-wrap">
               <span className="badge-blue">{pkg.name_ar}</span>
               <span className="badge-muted">{academicLevel.name_ar} ({academicLevel.cefr})</span>
+              {studentData?.created_at && (
+                <span className="flex items-center gap-1 text-xs text-muted">
+                  <CalendarDays size={12} strokeWidth={1.5} />
+                  انضم {timeAgo(studentData.created_at)}
+                </span>
+              )}
             </div>
             <div className="mt-3">
               {editing ? (
@@ -193,14 +246,15 @@ function ProfileContent() {
       </motion.div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
           { label: 'XP', value: xp, icon: Zap, variant: 'sky' },
           { label: 'السلسلة', value: `${streak} يوم`, icon: Flame, variant: 'amber' },
           { label: 'المستوى', value: currentLevel.level, icon: Trophy, variant: 'violet' },
+          { label: 'الترتيب', value: classRank ? `${classRank.rank}/${classRank.total}` : '—', icon: Medal, variant: 'emerald' },
         ].map((stat, i) => (
           <motion.div key={stat.label} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }} className={`fl-stat-card ${stat.variant}`}>
-            <stat.icon size={22} className={`mb-2 ${stat.variant === 'sky' ? 'text-sky-400' : stat.variant === 'amber' ? 'text-amber-400' : 'text-violet-400'}`} strokeWidth={1.5} />
+            <stat.icon size={22} className={`mb-2 ${stat.variant === 'sky' ? 'text-sky-400' : stat.variant === 'amber' ? 'text-amber-400' : stat.variant === 'emerald' ? 'text-emerald-400' : 'text-violet-400'}`} strokeWidth={1.5} />
             <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{stat.value}</p>
             <p className="text-xs mt-1" style={{ color: 'var(--text-tertiary)' }}>{stat.label}</p>
           </motion.div>
@@ -220,6 +274,46 @@ function ProfileContent() {
 
       <ImmersionToggle />
       <NotificationSettings />
+
+      {/* Change Password */}
+      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="fl-card-static p-6">
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-8 h-8 rounded-xl bg-rose-500/10 flex items-center justify-center">
+            <KeyRound size={16} className="text-rose-400" strokeWidth={1.5} />
+          </div>
+          <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>تغيير كلمة المرور</h3>
+        </div>
+        {changingPassword ? (
+          <div className="flex items-center gap-2">
+            <input
+              type="password"
+              className="input-field text-sm py-1.5 flex-1"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              placeholder="كلمة المرور الجديدة (6 أحرف على الأقل)..."
+            />
+            <button
+              onClick={() => changePassword.mutate()}
+              disabled={changePassword.isPending}
+              className="btn-primary text-xs py-1.5 px-3 flex items-center gap-1"
+            >
+              {changePassword.isPending ? <Loader2 size={12} className="animate-spin" /> : <Save size={12} />}
+              حفظ
+            </button>
+            <button onClick={() => { setChangingPassword(false); setNewPassword('') }} className="btn-ghost text-xs">إلغاء</button>
+          </div>
+        ) : (
+          <button onClick={() => setChangingPassword(true)} className="btn-ghost text-sm flex items-center gap-2">
+            <KeyRound size={14} />
+            تغيير كلمة المرور
+          </button>
+        )}
+        {passwordMsg && (
+          <p className={`text-xs mt-2 ${passwordMsg.type === 'success' ? 'text-emerald-400' : 'text-red-400'}`}>
+            {passwordMsg.text}
+          </p>
+        )}
+      </motion.div>
 
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Achievements */}
