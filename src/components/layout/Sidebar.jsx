@@ -5,6 +5,7 @@ import {
   Bot, Users, CreditCard, Settings, LayoutDashboard,
   LogOut, X, ChevronLeft, Zap, FolderOpen, CalendarDays, Calendar,
   Video, ClipboardCheck, UsersRound, GraduationCap, Wrench, ListChecks,
+  Brain, BookOpen, Sparkles,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { useThemeStore } from '../../stores/themeStore'
@@ -50,11 +51,13 @@ const NAV_ITEMS = {
     { to: '/student/speaking-lab', label: 'معمل التحدث', icon: Mic },
     { to: '/student/writing-lab', label: 'معمل الكتابة', icon: PenLine },
     { type: 'divider', label: 'التقييم' },
-    { to: '/student/assessments', label: 'الاختبارات', icon: ClipboardCheck },
+    { to: '/student/adaptive-test', label: 'اختبار المستوى', icon: Brain },
+    { to: '/student/assessments', label: 'التقييمات', icon: ClipboardCheck },
     { to: '/student/grades', label: 'الدرجات والنتائج', icon: BarChart3 },
     { type: 'divider', label: 'تواصل' },
     { to: '/student/conversation', label: 'المحادثة', icon: MessageSquare },
     { to: '/student/ai-chat', label: 'المساعد الذكي', icon: Bot },
+    { to: '/student/ai-insights', label: 'رؤى ذكية', icon: Sparkles },
     { to: '/student/group-activity', label: 'نشاط المجموعة', icon: UsersRound },
   ],
   trainer: [
@@ -83,6 +86,7 @@ const NAV_ITEMS = {
     { to: '/admin/content', label: 'المحتوى', icon: FolderOpen },
     { to: '/trainer/quiz', label: 'الاختبارات', icon: ClipboardCheck },
     { to: '/admin/weekly-tasks', label: 'المهام الأسبوعية', icon: ListChecks },
+    { to: '/admin/curriculum', label: 'المنهج الدراسي', icon: GraduationCap },
     { type: 'divider', label: 'أدوات' },
     { to: '/admin/reports', label: 'التحليلات', icon: BarChart3 },
     { to: '/trainer/ai-assistant', label: 'المساعد الذكي', icon: Bot },
