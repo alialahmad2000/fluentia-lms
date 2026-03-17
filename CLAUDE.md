@@ -286,6 +286,16 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### March 17, 2026 — IELTS Management + Student Progress Pages (PROMPT 1G)
+- What: Built IELTS management page with 6 tabs + student curriculum progress matrix
+- **IELTSManagement:** 6 tabs — Reading Skills (14 question types from seed), Reading Passages, Writing Tasks (Task1/Task2 sub-tabs), Listening Sections (grouped by test), Speaking Questions (Part1/2/3 sub-tabs), Mock Tests (status matrix with link editors)
+- **CurriculumProgress:** Student progress matrix with per-level completion percentages, expandable per-unit skill breakdown, color-coded status cells, level filter
+- **Components:** IELTSReadingManager, IELTSWritingManager, IELTSListeningManager, IELTSSpeakingManager, IELTSMockTestManager, ProgressMatrix
+- **Routing:** Added `/admin/curriculum/ielts` and `/admin/curriculum/progress` routes
+- Files: `IELTSManagement.jsx`, `CurriculumProgress.jsx` (NEW), 6 component files (NEW), `App.jsx` (updated)
+- DB: No changes
+- Status: Complete — build verified
+
 ### March 17, 2026 — Unit Editor: 10-Tab Full Skill Editor (PROMPT 1F)
 - What: Built the most complex admin page — a 10-tab unit editor for all curriculum skills
 - **10 Tabs:** Overview, Reading A, Reading B, Grammar, Writing, Listening, Speaking, Irregular Verbs, Video, Assessment
