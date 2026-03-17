@@ -1,81 +1,395 @@
-import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { Bell, Settings, Loader2 } from 'lucide-react'
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Bell, BellOff, ChevronDown, ClipboardList, CalendarCheck, Trophy, MessageCircle, CreditCard, Brain, Settings } from 'lucide-react'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { NOTIFICATION_TYPES } from '../../lib/constants'
 
-const DEFAULT_PREFS = {
-  assignment_new: true,
-  assignment_deadline: true,
-  assignment_graded: true,
-  class_reminder: true,
-  trainer_note: true,
-  achievement: true,
-  peer_recognition: true,
-  team_update: true,
-  payment_reminder: true,
-  level_up: true,
-  streak_warning: true,
-  system: true,
+// ─── Category Definitions ──────────────────────────────────
+const CATEGORIES = [
+  {
+    key: 'tasks',
+    label: 'المهام',
+    icon: ClipboardList,
+    types: ['assignment_new', 'assignment_deadline', 'assignment_graded', 'weekly_tasks_ready', 'weekly_tasks_remind', 'weekly_tasks_urgent'],
+  },
+  {
+    key: 'attendance',
+    label: 'الحضور والجدول',
+    icon: CalendarCheck,
+    types: ['class_reminder'],
+  },
+  {
+    key: 'achievements',
+    label: 'الإنجازات',
+    icon: Trophy,
+    types: ['achievement', 'level_up', 'streak_warning', 'spelling_milestone'],
+  },
+  {
+    key: 'communication',
+    label: 'التواصل',
+    icon: MessageCircle,
+    types: ['trainer_note', 'peer_recognition', 'team_update'],
+  },
+  {
+    key: 'financial',
+    label: 'المالية',
+    icon: CreditCard,
+    types: ['payment_reminder'],
+  },
+  {
+    key: 'ai',
+    label: 'الذكاء الاصطناعي',
+    icon: Brain,
+    types: ['smart_nudge', 'test_result', 'curriculum_progress', 'speaking_feedback'],
+  },
+  {
+    key: 'system',
+    label: 'النظام',
+    icon: Settings,
+    types: ['system'],
+  },
+]
+
+// All notification types across categories
+const ALL_TYPES = CATEGORIES.flatMap(c => c.types)
+
+// ─── Toggle Switch Component ───────────────────────────────
+function Toggle({ enabled, onToggle, size = 'md' }) {
+  const sizes = size === 'lg'
+    ? { track: 'w-12 h-6', knob: 'w-5 h-5', translate: enabled ? 'translate-x-[1.625rem]' : 'translate-x-[0.125rem]' }
+    : { track: 'w-10 h-5', knob: 'w-4 h-4', translate: enabled ? 'translate-x-[1.375rem]' : 'translate-x-[0.125rem]' }
+
+  return (
+    <button
+      onClick={onToggle}
+      className={`${sizes.track} rounded-full transition-all duration-300 relative flex-shrink-0 cursor-pointer`}
+      style={{ background: enabled ? 'var(--accent-sky, #38bdf8)' : 'var(--surface-raised, #1e293b)' }}
+    >
+      <div
+        className={`${sizes.knob} rounded-full bg-white absolute top-0.5 transition-all duration-300 ${sizes.translate}`}
+        style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }}
+      />
+    </button>
+  )
 }
 
-const STORAGE_KEY = 'fluentia_notification_prefs'
+// ─── Arabic Number Formatter ───────────────────────────────
+function toArabicNum(n) {
+  return n.toString().replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d])
+}
 
+// ─── Main Component ────────────────────────────────────────
 export default function NotificationSettings() {
   const { profile } = useAuthStore()
-  const [prefs, setPrefs] = useState(DEFAULT_PREFS)
-  const [saving, setSaving] = useState(false)
+  const queryClient = useQueryClient()
+  const [openCategories, setOpenCategories] = useState({})
+  // Local prefs state: { [notification_type]: boolean }
+  // true = enabled, false = disabled. Missing = enabled (default)
+  const [localPrefs, setLocalPrefs] = useState({})
+  const debounceRef = useRef(null)
+  const pendingChangesRef = useRef({})
 
-  // Load from localStorage
+  // ── Fetch existing preferences from Supabase ──
+  const { data: serverPrefs, isLoading } = useQuery({
+    queryKey: ['notification-preferences', profile?.id],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('notification_preferences')
+        .select('notification_type, enabled')
+        .eq('user_id', profile.id)
+      if (error) throw error
+      const map = {}
+      for (const row of data || []) {
+        map[row.notification_type] = row.enabled
+      }
+      return map
+    },
+    enabled: !!profile?.id,
+    staleTime: 30000,
+  })
+
+  // Sync server prefs into local state on load
   useEffect(() => {
-    const stored = localStorage.getItem(`${STORAGE_KEY}_${profile?.id}`)
-    if (stored) {
-      try { setPrefs({ ...DEFAULT_PREFS, ...JSON.parse(stored) }) } catch {}
+    if (serverPrefs) {
+      setLocalPrefs(serverPrefs)
+    }
+  }, [serverPrefs])
+
+  // ── Upsert mutation ──
+  const upsertMutation = useMutation({
+    mutationFn: async (changes) => {
+      const rows = Object.entries(changes).map(([notification_type, enabled]) => ({
+        user_id: profile.id,
+        notification_type,
+        category: getCategoryForType(notification_type),
+        enabled,
+      }))
+      const { error } = await supabase
+        .from('notification_preferences')
+        .upsert(rows, { onConflict: 'user_id,notification_type' })
+      if (error) throw error
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['notification-preferences', profile?.id] })
+    },
+  })
+
+  function getCategoryForType(type) {
+    if (type === 'master_kill') return 'system'
+    for (const cat of CATEGORIES) {
+      if (cat.types.includes(type)) return cat.key
+    }
+    return 'system'
+  }
+
+  // ── Debounced save ──
+  const scheduleSave = useCallback(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current)
+    debounceRef.current = setTimeout(() => {
+      const changes = { ...pendingChangesRef.current }
+      pendingChangesRef.current = {}
+      if (Object.keys(changes).length > 0) {
+        upsertMutation.mutate(changes)
+      }
+    }, 500)
+  }, [upsertMutation])
+
+  // ── Toggle a single notification type ──
+  function toggleType(type) {
+    const currentVal = localPrefs[type] !== undefined ? localPrefs[type] : true
+    const newVal = !currentVal
+    setLocalPrefs(prev => ({ ...prev, [type]: newVal }))
+    pendingChangesRef.current[type] = newVal
+    scheduleSave()
+  }
+
+  // ── Toggle all types in a category ──
+  function toggleCategory(category) {
+    const enabledCount = category.types.filter(t => isEnabled(t)).length
+    const allEnabled = enabledCount === category.types.length
+    const newVal = !allEnabled
+
+    setLocalPrefs(prev => {
+      const updated = { ...prev }
+      for (const type of category.types) {
+        updated[type] = newVal
+        pendingChangesRef.current[type] = newVal
+      }
+      return updated
+    })
+    scheduleSave()
+  }
+
+  // ── Master kill toggle ──
+  function toggleMasterKill() {
+    const masterOff = localPrefs['master_kill'] === true
+    const newVal = !masterOff // toggling: if currently killed, un-kill
+
+    setLocalPrefs(prev => {
+      const updated = { ...prev, master_kill: !masterOff }
+      // When enabling master kill, disable everything
+      if (!masterOff) {
+        for (const type of ALL_TYPES) {
+          updated[type] = false
+          pendingChangesRef.current[type] = false
+        }
+      }
+      pendingChangesRef.current['master_kill'] = !masterOff
+      return updated
+    })
+    scheduleSave()
+  }
+
+  // Helper: is a type enabled?
+  function isEnabled(type) {
+    return localPrefs[type] !== undefined ? localPrefs[type] : true
+  }
+
+  const masterKilled = localPrefs['master_kill'] === true
+
+  // ── Accordion toggle ──
+  function toggleAccordion(key) {
+    setOpenCategories(prev => ({ ...prev, [key]: !prev[key] }))
+  }
+
+  // Cleanup debounce on unmount
+  useEffect(() => {
+    return () => {
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current)
+        // Flush pending changes
+        const changes = { ...pendingChangesRef.current }
+        pendingChangesRef.current = {}
+        if (Object.keys(changes).length > 0 && profile?.id) {
+          const rows = Object.entries(changes).map(([notification_type, enabled]) => ({
+            user_id: profile.id,
+            notification_type,
+            category: getCategoryForType(notification_type),
+            enabled,
+          }))
+          supabase
+            .from('notification_preferences')
+            .upsert(rows, { onConflict: 'user_id,notification_type' })
+            .then(() => {})
+        }
+      }
     }
   }, [profile?.id])
 
-  function toggle(type) {
-    const updated = { ...prefs, [type]: !prefs[type] }
-    setPrefs(updated)
-    if (profile?.id) {
-      localStorage.setItem(`${STORAGE_KEY}_${profile.id}`, JSON.stringify(updated))
-    }
+  if (isLoading) {
+    return (
+      <div className="fl-card-static p-6 flex items-center justify-center gap-3">
+        <div className="w-5 h-5 border-2 border-sky-400 border-t-transparent rounded-full animate-spin" />
+        <span className="text-sm text-muted">جاري تحميل إعدادات الإشعارات...</span>
+      </div>
+    )
   }
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fl-card-static p-6"
+      className="space-y-4"
     >
-      <div className="flex items-center gap-3 mb-4">
-        <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
-          <Bell size={18} className="text-sky-400" />
-        </div>
-        <h3 className="text-lg font-semibold text-[var(--text-primary)]">إعدادات الإشعارات</h3>
-      </div>
-      <p className="text-sm text-muted mb-4">تحكم في أنواع الإشعارات التي تريد استقبالها</p>
-
-      <div className="space-y-1">
-        {Object.entries(NOTIFICATION_TYPES).map(([type, config]) => (
-          <div key={type} className="flex items-center justify-between py-3 px-3 rounded-xl hover:bg-[var(--surface-base)] transition-all duration-200 border-b border-[var(--border-subtle)] last:border-0">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-xl bg-[var(--surface-base)] flex items-center justify-center text-sm">{config.icon}</div>
-              <span className="text-sm text-[var(--text-primary)]">{config.label_ar}</span>
+      {/* Header */}
+      <div className="fl-card-static p-6">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+              <Bell size={18} className="text-sky-400" strokeWidth={1.5} />
             </div>
-            <button
-              onClick={() => toggle(type)}
-              className={`w-10 h-5 rounded-full transition-all relative ${
-                prefs[type] ? 'bg-sky-500' : 'bg-[var(--surface-raised)]'
-              }`}
-            >
-              <div className={`w-4 h-4 rounded-full bg-white absolute top-0.5 transition-all ${
-                prefs[type] ? 'left-0.5' : 'right-0.5'
-              }`} />
-            </button>
+            <div>
+              <h3 className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>إعدادات الإشعارات</h3>
+              <p className="text-sm text-muted">تحكم في أنواع الإشعارات التي تريد استقبالها</p>
+            </div>
           </div>
-        ))}
+          {upsertMutation.isPending && (
+            <span className="text-xs text-muted flex items-center gap-1.5">
+              <div className="w-3 h-3 border-2 border-sky-400 border-t-transparent rounded-full animate-spin" />
+              جاري الحفظ
+            </span>
+          )}
+        </div>
+
+        {/* Master Kill Switch */}
+        <div
+          className="mt-5 flex items-center justify-between p-4 rounded-xl transition-all duration-300"
+          style={{
+            background: masterKilled ? 'rgba(239, 68, 68, 0.08)' : 'var(--surface-base)',
+            border: `1px solid ${masterKilled ? 'rgba(239, 68, 68, 0.2)' : 'var(--border-subtle)'}`,
+          }}
+        >
+          <div className="flex items-center gap-3">
+            <BellOff size={18} className={masterKilled ? 'text-red-400' : 'text-muted'} strokeWidth={1.5} />
+            <div>
+              <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>إيقاف جميع الإشعارات</p>
+              <p className="text-xs text-muted">تعطيل جميع الإشعارات مرة واحدة</p>
+            </div>
+          </div>
+          <Toggle enabled={masterKilled} onToggle={toggleMasterKill} size="lg" />
+        </div>
+      </div>
+
+      {/* Category Accordions */}
+      <div className="space-y-3">
+        {CATEGORIES.map((category, catIndex) => {
+          const isOpen = openCategories[category.key] || false
+          const enabledCount = category.types.filter(t => isEnabled(t)).length
+          const totalCount = category.types.length
+          const allEnabled = enabledCount === totalCount
+          const CatIcon = category.icon
+
+          return (
+            <motion.div
+              key={category.key}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: catIndex * 0.04 }}
+              className="fl-card-static overflow-hidden"
+              style={{ opacity: masterKilled ? 0.5 : 1, pointerEvents: masterKilled ? 'none' : 'auto' }}
+            >
+              {/* Accordion Header */}
+              <button
+                onClick={() => toggleAccordion(category.key)}
+                className="w-full flex items-center justify-between p-5 cursor-pointer hover:bg-[var(--surface-base)] transition-all duration-200"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-sky-500/10 flex items-center justify-center">
+                    <CatIcon size={17} className="text-sky-400" strokeWidth={1.5} />
+                  </div>
+                  <span className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
+                    {category.label}
+                  </span>
+                  <span
+                    className="text-xs px-2 py-0.5 rounded-full font-medium"
+                    style={{
+                      background: enabledCount === totalCount ? 'rgba(56, 189, 248, 0.1)' : 'var(--surface-raised)',
+                      color: enabledCount === totalCount ? 'var(--accent-sky, #38bdf8)' : 'var(--text-tertiary)',
+                    }}
+                  >
+                    {toArabicNum(enabledCount)}/{toArabicNum(totalCount)}
+                  </span>
+                </div>
+                <motion.div
+                  animate={{ rotate: isOpen ? 180 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <ChevronDown size={18} className="text-muted" strokeWidth={1.5} />
+                </motion.div>
+              </button>
+
+              {/* Accordion Body */}
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25, ease: 'easeInOut' }}
+                    style={{ overflow: 'hidden' }}
+                  >
+                    <div className="px-5 pb-5 space-y-1">
+                      {/* Category-level toggle */}
+                      <div
+                        className="flex items-center justify-between py-2.5 px-3 rounded-lg mb-2"
+                        style={{ background: 'var(--surface-base)' }}
+                      >
+                        <span className="text-xs font-medium" style={{ color: 'var(--accent-sky, #38bdf8)' }}>
+                          {allEnabled ? 'إيقاف الكل' : 'تفعيل الكل'}
+                        </span>
+                        <Toggle enabled={allEnabled} onToggle={() => toggleCategory(category)} />
+                      </div>
+
+                      {/* Individual type toggles */}
+                      {category.types.map((type) => {
+                        const config = NOTIFICATION_TYPES[type]
+                        if (!config) return null
+                        return (
+                          <div
+                            key={type}
+                            className="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-[var(--surface-base)] transition-all duration-200"
+                          >
+                            <div className="flex items-center gap-3">
+                              <div className="w-8 h-8 rounded-xl flex items-center justify-center text-sm" style={{ background: 'var(--surface-base)' }}>
+                                {config.icon}
+                              </div>
+                              <span className="text-sm" style={{ color: 'var(--text-primary)' }}>
+                                {config.label_ar}
+                              </span>
+                            </div>
+                            <Toggle enabled={isEnabled(type)} onToggle={() => toggleType(type)} />
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          )
+        })}
       </div>
     </motion.div>
   )
