@@ -286,6 +286,15 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### March 17, 2026 — Seed Data: 6 Levels, 72 Units, 14 IELTS Question Types
+- What: Seeded curriculum_levels (6 levels with color/word range/complexity metadata), curriculum_units (72 unit shells — 12 original themes per level), ielts_reading_skills (14 IELTS question types with Arabic explanations)
+- **Level mapping:** id 1-6 → level_number 0-5 (Foundation→Proficiency)
+- **New columns on curriculum_levels:** level_number, color, passage_word_range, vocab_per_unit, mcq_choices, sentence_complexity, sort_order
+- **Units:** ON CONFLICT updates existing 20 units from migration 027, adds 52 new units
+- Files: `supabase/migrations/038_seed_curriculum_data.sql`
+- DB: Migration 038 applied via `supabase db push`
+- Status: Complete
+
 ### March 17, 2026 — Gamification & Engagement Tables (5 Tables)
 - What: Created 5 gamification tables — SRS vocabulary review, daily challenges, streaks, completions, error bank
 - **Tables:** curriculum_vocabulary_srs, daily_challenges, student_streaks, student_daily_completions, student_error_bank
