@@ -97,6 +97,7 @@ const ForgotPassword = lazyRetry(() => import('./pages/public/ForgotPassword'))
 const ParentDashboard = lazyRetry(() => import('./pages/public/ParentDashboard'))
 const PlacementTest = lazyRetry(() => import('./pages/public/PlacementTest'))
 const Testimonials = lazyRetry(() => import('./pages/public/Testimonials'))
+const CertificateVerification = lazyRetry(() => import('./pages/public/CertificateVerification'))
 
 // ─── Page wrapper: ErrorBoundary + Suspense ──────────────────
 function Page({ children }) {
@@ -216,6 +217,11 @@ export default function App() {
           <Route path="/testimonials" element={
             <ErrorBoundary fallback={<PageErrorFallback />}>
               <Suspense fallback={<LoadingSkeleton />}><Testimonials /></Suspense>
+            </ErrorBoundary>
+          } />
+          <Route path="/verify/:certId" element={
+            <ErrorBoundary fallback={<PageErrorFallback />}>
+              <Suspense fallback={<LoadingSkeleton />}><CertificateVerification /></Suspense>
             </ErrorBoundary>
           } />
 
