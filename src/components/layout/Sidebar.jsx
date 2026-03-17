@@ -47,6 +47,7 @@ const NAV_ITEMS = {
     { to: '/student/weekly-tasks', label: 'المهام الأسبوعية', icon: CalendarDays },
     { to: '/student/schedule', label: 'الجدول', icon: Calendar },
     { to: '/student/recordings', label: 'التسجيلات', icon: Video },
+    { to: '/student/curriculum', label: 'مسار التعلم', icon: GraduationCap },
     { type: 'divider', label: 'معامل' },
     { to: '/student/speaking-lab', label: 'معمل التحدث', icon: Mic },
     { to: '/student/writing-lab', label: 'معمل الكتابة', icon: PenLine },

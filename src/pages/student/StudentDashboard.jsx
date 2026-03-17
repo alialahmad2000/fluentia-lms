@@ -46,8 +46,8 @@ const fadeUp = {
 const QUICK_ACCESS = [
   { to: '/student/weekly-tasks', label: 'المهام الأسبوعية', icon: CalendarDays, color: 'sky', glow: 'var(--accent-sky-glow)' },
   { to: '/student/assignments', label: 'الواجبات', icon: FileText, color: 'violet', glow: 'var(--accent-violet-glow)' },
-  { to: '/student/recordings', label: 'التسجيلات', icon: Video, color: 'emerald', glow: 'var(--accent-emerald-glow)' },
-  { to: '/student/assessments', label: 'الاختبارات', icon: ClipboardCheck, color: 'amber', glow: 'var(--accent-amber-glow)' },
+  { to: '/student/adaptive-test', label: 'اختبار المستوى', icon: Crosshair, color: 'emerald', glow: 'var(--accent-emerald-glow)' },
+  { to: '/student/ai-insights', label: 'رؤى ذكية', icon: Sparkles, color: 'amber', glow: 'var(--accent-amber-glow)' },
 ]
 
 const COLOR_MAP = {
@@ -462,6 +462,9 @@ export default function StudentDashboard() {
         </div>
       </motion.div>
 
+      {/* ═══ Smart Nudges ═══ */}
+      <SmartNudgesWidget studentId={profile?.id} />
+
       {/* ═══ 7. Quick Access Grid ═══ */}
       <motion.div variants={fadeUp}>
         <h2 className="text-[18px] font-bold mb-5" style={{ color: 'var(--text-primary)' }}>الوصول السريع</h2>
@@ -621,6 +624,81 @@ export default function StudentDashboard() {
       <p className="text-center text-[13px] italic pb-4" style={{ color: 'var(--text-tertiary)', opacity: 0.6 }}>
         "The expert in anything was once a beginner."
       </p>
+    </motion.div>
+  )
+}
+
+function SmartNudgesWidget({ studentId }) {
+  const { data: nudges } = useQuery({
+    queryKey: ['dashboard-nudges', studentId],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('smart_nudges')
+        .select('id, title_ar, body_ar, nudge_type, priority, action_url')
+        .eq('student_id', studentId)
+        .eq('dismissed', false)
+        .gt('expires_at', new Date().toISOString())
+        .order('created_at', { ascending: false })
+        .limit(3)
+      return data || []
+    },
+    enabled: !!studentId,
+  })
+
+  if (!nudges?.length) return null
+
+  const NUDGE_ICONS = {
+    streak_at_risk: Flame,
+    weekly_tasks_reminder: CalendarDays,
+    improvement_praise: Trophy,
+    skill_gap: Crosshair,
+    inactive_warning: Clock,
+    milestone_celebration: Zap,
+    level_up_ready: ArrowLeft,
+    study_tip: BookOpen,
+    challenge_invite: Crosshair,
+  }
+  const NUDGE_COLORS = {
+    streak_at_risk: 'amber',
+    weekly_tasks_reminder: 'sky',
+    improvement_praise: 'emerald',
+    skill_gap: 'violet',
+    inactive_warning: 'rose',
+    milestone_celebration: 'gold',
+    level_up_ready: 'emerald',
+    study_tip: 'sky',
+    challenge_invite: 'violet',
+  }
+
+  return (
+    <motion.div variants={fadeUp} className="space-y-2">
+      {nudges.map((nudge) => {
+        const Icon = NUDGE_ICONS[nudge.nudge_type] || Sparkles
+        const color = NUDGE_COLORS[nudge.nudge_type] || 'sky'
+        const isUrgent = nudge.priority === 'high' || nudge.priority === 'urgent'
+
+        return (
+          <motion.div
+            key={nudge.id}
+            initial={{ opacity: 0, x: -8 }}
+            animate={{ opacity: 1, x: 0 }}
+            className={`fl-card-static p-4 flex items-start gap-3 ${isUrgent ? 'ring-1 ring-amber-500/20' : ''}`}
+          >
+            <div className={`w-8 h-8 rounded-lg ${COLOR_MAP[color] || COLOR_MAP.sky} flex items-center justify-center shrink-0`}>
+              <Icon size={14} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-[12px] font-semibold" style={{ color: 'var(--text-primary)' }}>{nudge.title_ar}</p>
+              <p className="text-[11px] mt-0.5" style={{ color: 'var(--text-tertiary)' }}>{nudge.body_ar}</p>
+            </div>
+            {nudge.action_url && (
+              <Link to={nudge.action_url} className="text-[11px] font-medium shrink-0" style={{ color: 'var(--accent-sky)' }}>
+                عرض ←
+              </Link>
+            )}
+          </motion.div>
+        )
+      })}
     </motion.div>
   )
 }
