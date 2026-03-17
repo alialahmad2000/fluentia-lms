@@ -400,6 +400,23 @@ export default function StudentWeeklyTasks() {
                               </div>
                             )}
 
+                            {/* Planned date */}
+                            {task.planned_date && (
+                              <div className="flex items-center gap-1.5 mb-1">
+                                <CalendarDays size={12} className="text-cyan-400" />
+                                <span className="text-xs text-cyan-400/80">
+                                  {new Date(task.planned_date + 'T00:00:00').toLocaleDateString('ar-EG', {
+                                    weekday: 'short', day: 'numeric',
+                                  })}
+                                </span>
+                                {task.planned_date === new Date().toISOString().split('T')[0] && (
+                                  <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-cyan-500/15 text-cyan-300 border border-cyan-500/20 leading-none">
+                                    اليوم
+                                  </span>
+                                )}
+                              </div>
+                            )}
+
                             {/* Deadline */}
                             <div className="flex items-center gap-1.5">
                               <Clock size={12} className={deadlineInfo.urgent && !isDone ? 'text-red-400' : 'text-[var(--text-muted)]'} />

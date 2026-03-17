@@ -6,7 +6,7 @@ import {
   ArrowRight, Mic, MicOff, Square, Play, Pause, Send, Clock, Star,
   CheckCircle2, XCircle, BookOpen, PenLine, Headphones, Volume2,
   ChevronLeft, ChevronRight, RotateCcw, Award, AlertCircle, Loader2,
-  BookType, Sparkles,
+  BookType, Sparkles, CalendarDays,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
@@ -96,6 +96,20 @@ export default function StudentWeeklyTaskDetail() {
     },
   })
 
+  const plannedDateMutation = useMutation({
+    mutationFn: async (selectedDate) => {
+      const { error } = await supabase
+        .from('weekly_tasks')
+        .update({ planned_date: selectedDate || null })
+        .eq('id', id)
+      if (error) throw error
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['weekly-task', id] })
+      queryClient.invalidateQueries({ queryKey: ['weekly-tasks'] })
+    },
+  })
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
@@ -175,8 +189,50 @@ export default function StudentWeeklyTaskDetail() {
                   {task.points} نقطة
                 </span>
               )}
+              {task.planned_date && (
+                <span className="flex items-center gap-1.5 text-xs font-medium text-cyan-400">
+                  <CalendarDays className="w-3.5 h-3.5" />
+                  {new Date(task.planned_date + 'T00:00:00').toLocaleDateString('ar-EG', {
+                    weekday: 'short', month: 'short', day: 'numeric',
+                  })}
+                </span>
+              )}
+              {task.planned_date && task.planned_date === new Date().toISOString().split('T')[0] && (
+                <span className="px-2 py-0.5 rounded-md text-xs font-medium bg-cyan-500/15 text-cyan-300 border border-cyan-500/20">
+                  مخطط لليوم
+                </span>
+              )}
             </div>
           </div>
+
+          {/* Planned Date Picker */}
+          {!isSubmitted && (
+            <div className="mt-4 flex items-center gap-3 flex-wrap">
+              <label className="flex items-center gap-2 text-sm text-[var(--text-tertiary)] font-medium">
+                <CalendarDays className="w-4 h-4 text-cyan-400" />
+                موعد التنفيذ المخطط
+              </label>
+              <input
+                type="date"
+                value={task.planned_date || ''}
+                min={task.week_start || undefined}
+                max={task.deadline ? task.deadline.split('T')[0] : undefined}
+                onChange={(e) => plannedDateMutation.mutate(e.target.value || null)}
+                className="px-3 py-1.5 rounded-lg text-sm bg-[var(--surface-base)] border border-[var(--border-subtle)] text-[var(--text-secondary)] focus:outline-none focus:ring-1 focus:ring-cyan-500/30 focus:border-cyan-500/30 transition-all"
+              />
+              {task.planned_date && (
+                <button
+                  onClick={() => plannedDateMutation.mutate(null)}
+                  className="text-xs text-[var(--text-muted)] hover:text-red-400 transition-colors"
+                >
+                  إزالة
+                </button>
+              )}
+              {plannedDateMutation.isPending && (
+                <Loader2 className="w-4 h-4 text-cyan-400 animate-spin" />
+              )}
+            </div>
+          )}
 
           {/* Instructions */}
           {(task.instructions_ar || task.instructions) && (
