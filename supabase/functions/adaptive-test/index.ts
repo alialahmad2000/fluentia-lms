@@ -175,8 +175,8 @@ async function handleStart(
   const testType = body.test_type as string
   const studentId = body.student_id as string
 
-  if (!testType || !['placement', 'periodic', 'diagnostic'].includes(testType)) {
-    return jsonResponse({ error: 'Invalid or missing test_type. Must be placement, periodic, or diagnostic.' }, 400)
+  if (!testType || !['placement', 'periodic', 'diagnostic', 'placement_public'].includes(testType)) {
+    return jsonResponse({ error: 'Invalid or missing test_type. Must be placement, periodic, diagnostic, or placement_public.' }, 400)
   }
   if (!studentId) {
     return jsonResponse({ error: 'Missing student_id' }, 400)
@@ -815,12 +815,42 @@ serve(async (req) => {
   try {
     const supabase = createSupabaseClient()
 
-    // Verify JWT authentication
-    await verifyAuth(req, supabase)
-
     // Parse the request body
     const body: Record<string, unknown> = await req.json()
     const action = body.action as string
+    const isPublicMode = body.test_mode === 'public'
+
+    // Public mode: skip auth, use anonymous student_id for public placement tests
+    // Only the 'start' action can initiate public mode; subsequent calls (answer/complete)
+    // work on the session which was already created, so no auth is needed for them either
+    // as long as the session exists.
+    if (!isPublicMode && action === 'start') {
+      // Verify JWT authentication for non-public tests
+      await verifyAuth(req, supabase)
+    } else if (!isPublicMode && action !== 'start') {
+      // For answer/complete on non-public tests, still verify auth
+      // But allow if the session was created in public mode
+      const sessionId = body.session_id as string
+      if (sessionId) {
+        const { data: sess } = await supabase
+          .from('test_sessions')
+          .select('test_type')
+          .eq('id', sessionId)
+          .single()
+        // If session is a public placement test, allow without auth
+        if (!sess || sess.test_type !== 'placement_public') {
+          await verifyAuth(req, supabase)
+        }
+      } else {
+        await verifyAuth(req, supabase)
+      }
+    }
+
+    // For public mode start, generate an anonymous student_id if not provided
+    if (isPublicMode && action === 'start' && !body.student_id) {
+      body.student_id = crypto.randomUUID()
+      body.test_type = 'placement_public'
+    }
 
     switch (action) {
       case 'start':
