@@ -286,6 +286,15 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### March 17, 2026 — Seed Data: 6 Levels, 72 Units, 14 IELTS Question Types (PROMPT 1D correct)
+- What: Seeded curriculum_levels (6 levels, level_number 0-5), curriculum_units (72 unit shells with original themes), ielts_reading_skills (14 question types with Arabic explanations)
+- **Levels:** Foundation/تأسيس, Basics/أساسيات, Development/تطوير, Fluency/طلاقة, Mastery/تمكّن, Proficiency/احتراف
+- **Units:** 12 original themes per level, all bilingual, using UUID level_id subquery
+- **IELTS:** 14 reading question types with correct question_type keys and Arabic explanations
+- Files: `supabase/migrations/040_seed_curriculum_data_correct.sql`
+- DB: Migration 040 applied via `supabase db push`
+- Status: Complete
+
 ### March 17, 2026 — REBUILD: Core Curriculum Tables with Correct Schema (PROMPT 1A)
 - What: Dropped and rebuilt all 17 core curriculum tables per the authoritative PROMPT-1A-CORE-TABLES.md specification. Previous migrations 035-038 had wrong schema (integer PKs, different columns).
 - **Key changes from old schema:**
