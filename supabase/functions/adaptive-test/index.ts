@@ -639,7 +639,40 @@ async function handleComplete(
     })
     .eq('id', sessionId)
 
-  // 7. Log AI usage
+  // 7. Update skill_snapshots and student level (only for authenticated users, not public mode)
+  if (session.test_type !== 'placement_public') {
+    // Update skill_snapshots with test results
+    try {
+      const today = new Date().toISOString().split('T')[0]
+      const scores = finalSkillScores || {}
+      await supabase.from('skill_snapshots').upsert({
+        student_id: session.student_id,
+        snapshot_date: today,
+        grammar: scores.grammar || null,
+        vocabulary: scores.vocabulary || null,
+        reading: scores.reading || null,
+        listening: scores.listening || null,
+        writing: scores.writing || null,
+        speaking: scores.speaking || null,
+        overall: overallScore || null,
+      }, { onConflict: 'student_id,snapshot_date' })
+    } catch (snapErr) {
+      console.warn('Skill snapshot update failed (non-fatal):', snapErr)
+    }
+
+    // Update student level if placement/periodic test recommends a different level
+    if (['placement', 'periodic'].includes(session.test_type) && recommendedLevel) {
+      try {
+        await supabase.from('student_data')
+          .update({ level: recommendedLevel })
+          .eq('student_id', session.student_id)
+      } catch (lvlErr) {
+        console.warn('Level update failed (non-fatal):', lvlErr)
+      }
+    }
+  }
+
+  // 8. Log AI usage
   if (aiResult._usage) {
     const costSar =
       (aiResult._usage.input_tokens * 0.003 / 1000) * 3.75 +

@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   FileBarChart, Loader2, Sparkles, User, TrendingUp, TrendingDown,
   Star, AlertCircle, Printer, History, ChevronDown, ChevronUp,
-  BookOpen, MessageCircle, Target, Award, ClipboardCheck, BarChart3
+  BookOpen, MessageCircle, Target, Award, ClipboardCheck, BarChart3, Download
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
@@ -42,6 +42,207 @@ function SectionCard({ icon: Icon, title, color = 'text-sky-400', children }) {
       {children}
     </div>
   )
+}
+
+function generateReportHTML(report, student, periodLabel) {
+  const today = new Date().toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' })
+
+  const starsHTML = (rating) => {
+    let html = ''
+    for (let i = 1; i <= 5; i++) {
+      const color = i <= rating ? '#facc15' : '#555'
+      const star = i <= rating ? '\u2605' : '\u2606'
+      html += '<span style="font-size:18px;color:' + color + ';">' + star + '</span>'
+    }
+    return html
+  }
+
+  const skillsSection = report.skill_analysis?.length > 0 ? `
+    <div style="margin-bottom:24px;">
+      <h3 style="font-size:15px;color:#38bdf8;margin-bottom:12px;">📘 تحليل المهارات</h3>
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr style="background:#1e293b;color:#e2e8f0;">
+            <th style="padding:10px 12px;text-align:right;border:1px solid #334155;">المهارة</th>
+            <th style="padding:10px 12px;text-align:center;border:1px solid #334155;width:130px;">التقييم</th>
+            <th style="padding:10px 12px;text-align:right;border:1px solid #334155;">الملاحظات</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${report.skill_analysis.map(skill => `
+            <tr>
+              <td style="padding:8px 12px;border:1px solid #334155;font-weight:600;color:#e2e8f0;">${skill.skill || skill.name || ''}</td>
+              <td style="padding:8px 12px;border:1px solid #334155;text-align:center;">${skill.rating ? starsHTML(skill.rating) : '-'}</td>
+              <td style="padding:8px 12px;border:1px solid #334155;color:#cbd5e1;">${skill.comment || '-'}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+  ` : ''
+
+  const strengthsSection = report.strengths_ar?.length > 0 ? `
+    <div style="margin-bottom:24px;break-inside:avoid;">
+      <h3 style="font-size:15px;color:#34d399;margin-bottom:10px;">✅ نقاط القوة</h3>
+      <ul style="margin:0;padding-right:20px;color:#cbd5e1;font-size:13px;line-height:2;">
+        ${report.strengths_ar.map(s => `<li>${s}</li>`).join('')}
+      </ul>
+    </div>
+  ` : ''
+
+  const improvementsSection = report.areas_for_improvement_ar?.length > 0 ? `
+    <div style="margin-bottom:24px;break-inside:avoid;">
+      <h3 style="font-size:15px;color:#fbbf24;margin-bottom:10px;">⚠️ مجالات التحسين</h3>
+      <ul style="margin:0;padding-right:20px;color:#cbd5e1;font-size:13px;line-height:2;">
+        ${report.areas_for_improvement_ar.map(w => `<li>${w}</li>`).join('')}
+      </ul>
+    </div>
+  ` : ''
+
+  const recommendationsSection = (report.recommendations_ar?.length > 0 || report.recommendations_en?.length > 0) ? `
+    <div style="margin-bottom:24px;break-inside:avoid;">
+      <h3 style="font-size:15px;color:#38bdf8;margin-bottom:10px;">💡 التوصيات</h3>
+      ${report.recommendations_ar?.length > 0 ? `
+        <ul style="margin:0 0 8px 0;padding-right:20px;color:#cbd5e1;font-size:13px;line-height:2;">
+          ${report.recommendations_ar.map(r => `<li>${r}</li>`).join('')}
+        </ul>
+      ` : ''}
+      ${report.recommendations_en?.length > 0 ? `
+        <div dir="ltr" style="margin-top:10px;padding-top:10px;border-top:1px solid #334155;">
+          <p style="font-size:11px;color:#94a3b8;margin:0 0 6px 0;">Recommendations (English)</p>
+          <ul style="margin:0;padding-left:20px;color:#cbd5e1;font-size:13px;line-height:2;">
+            ${report.recommendations_en.map(r => `<li>${r}</li>`).join('')}
+          </ul>
+        </div>
+      ` : ''}
+    </div>
+  ` : ''
+
+  const goalsSection = report.next_period_goals?.length > 0 ? `
+    <div style="margin-bottom:24px;break-inside:avoid;">
+      <h3 style="font-size:15px;color:#a78bfa;margin-bottom:10px;">🎯 أهداف الفترة القادمة</h3>
+      <ul style="margin:0;padding-right:20px;color:#cbd5e1;font-size:13px;line-height:2;">
+        ${report.next_period_goals.map(g => `<li>${g}</li>`).join('')}
+      </ul>
+    </div>
+  ` : ''
+
+  const parentSection = report.parent_message_ar ? `
+    <div style="margin-bottom:24px;break-inside:avoid;">
+      <h3 style="font-size:15px;color:#f59e0b;margin-bottom:10px;">💬 رسالة لولي الأمر</h3>
+      <div style="padding:14px 18px;background:#451a0320;border:1px solid #f59e0b30;border-radius:10px;">
+        <p style="margin:0;font-size:13px;color:#cbd5e1;line-height:1.9;">${report.parent_message_ar}</p>
+      </div>
+    </div>
+  ` : ''
+
+  const engagementSection = (report.engagement_level || report.homework_quality) ? `
+    <div style="display:flex;gap:16px;margin-bottom:24px;">
+      ${report.engagement_level ? `
+        <div style="flex:1;padding:14px 18px;background:#1e293b;border:1px solid #334155;border-radius:10px;">
+          <p style="margin:0 0 4px 0;font-size:11px;color:#94a3b8;">مستوى التفاعل</p>
+          <p style="margin:0;font-size:16px;font-weight:700;color:#e2e8f0;">${report.engagement_level}</p>
+        </div>
+      ` : ''}
+      ${report.homework_quality ? `
+        <div style="flex:1;padding:14px 18px;background:#1e293b;border:1px solid #334155;border-radius:10px;">
+          <p style="margin:0 0 4px 0;font-size:11px;color:#94a3b8;">جودة الواجبات</p>
+          <p style="margin:0;font-size:16px;font-weight:700;color:#e2e8f0;">${report.homework_quality}</p>
+        </div>
+      ` : ''}
+    </div>
+  ` : ''
+
+  return `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>تقرير تقدم الطالب - ${student}</title>
+  <style>
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+    @page { size: A4; margin: 18mm 16mm; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      margin: 0;
+      padding: 24px 32px;
+      direction: rtl;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div style="text-align:center;margin-bottom:28px;padding-bottom:20px;border-bottom:2px solid #334155;">
+    <div style="display:inline-flex;align-items:center;gap:14px;margin-bottom:10px;">
+      <div style="width:48px;height:48px;border-radius:12px;background:#0ea5e9;display:flex;align-items:center;justify-content:center;">
+        <span style="font-size:22px;color:#fff;font-weight:bold;">F</span>
+      </div>
+      <span style="font-size:22px;font-weight:800;color:#e2e8f0;">Fluentia Academy</span>
+    </div>
+    <h1 style="margin:8px 0 0 0;font-size:20px;color:#38bdf8;">تقرير تقدم الطالب</h1>
+  </div>
+
+  <!-- Student Info -->
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;padding:14px 20px;background:#1e293b;border-radius:10px;border:1px solid #334155;">
+    <div>
+      <p style="margin:0;font-size:11px;color:#94a3b8;">اسم الطالب</p>
+      <p style="margin:2px 0 0 0;font-size:16px;font-weight:700;color:#e2e8f0;">${student}</p>
+    </div>
+    <div style="text-align:center;">
+      <p style="margin:0;font-size:11px;color:#94a3b8;">الفترة</p>
+      <p style="margin:2px 0 0 0;font-size:14px;font-weight:600;color:#e2e8f0;">${periodLabel}</p>
+    </div>
+    <div style="text-align:left;">
+      <p style="margin:0;font-size:11px;color:#94a3b8;">التاريخ</p>
+      <p style="margin:2px 0 0 0;font-size:14px;font-weight:600;color:#e2e8f0;">${today}</p>
+    </div>
+  </div>
+
+  <!-- Executive Summary -->
+  ${report.executive_summary_ar ? `
+    <div style="margin-bottom:24px;padding:14px 18px;background:#1e293b;border-radius:10px;border:1px solid #334155;">
+      <p style="margin:0 0 6px 0;font-size:13px;font-weight:600;color:#38bdf8;">الملخص التنفيذي</p>
+      <p style="margin:0;font-size:13px;color:#cbd5e1;line-height:1.9;">${report.executive_summary_ar}</p>
+    </div>
+  ` : ''}
+  ${report.executive_summary_en ? `
+    <div dir="ltr" style="margin-bottom:24px;padding:14px 18px;background:#1e293b;border-radius:10px;border:1px solid #334155;">
+      <p style="margin:0 0 6px 0;font-size:13px;font-weight:600;color:#38bdf8;">Executive Summary</p>
+      <p style="margin:0;font-size:13px;color:#cbd5e1;line-height:1.9;">${report.executive_summary_en}</p>
+    </div>
+  ` : ''}
+
+  ${engagementSection}
+  ${skillsSection}
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div>${strengthsSection}</div>
+    <div>${improvementsSection}</div>
+  </div>
+
+  ${recommendationsSection}
+  ${goalsSection}
+  ${parentSection}
+
+  <!-- Overall Rating -->
+  ${report.overall_rating ? `
+    <div style="text-align:center;padding:16px;margin-top:24px;border-top:2px solid #334155;">
+      <p style="margin:0 0 6px 0;font-size:14px;font-weight:600;color:#e2e8f0;">التقييم العام</p>
+      <div>${starsHTML(report.overall_rating)}</div>
+      <p style="margin:6px 0 0 0;font-size:12px;color:#94a3b8;">(${report.overall_rating}/5)</p>
+    </div>
+  ` : ''}
+
+  <!-- Footer -->
+  <div style="text-align:center;margin-top:30px;padding-top:14px;border-top:1px solid #334155;">
+    <p style="margin:0;font-size:11px;color:#64748b;">Fluentia Academy &copy; ${new Date().getFullYear()} — تم إنشاء هذا التقرير بواسطة الذكاء الاصطناعي</p>
+  </div>
+</body>
+</html>`
 }
 
 export default function TrainerProgressReports() {
@@ -135,6 +336,18 @@ export default function TrainerProgressReports() {
 
   function handlePrint() {
     window.print()
+  }
+
+  function handleDownloadPDF() {
+    if (!report) return
+    const html = generateReportHTML(report, selectedStudentName || 'الطالب', periodLabel)
+    const pdfWindow = window.open('', '_blank')
+    if (!pdfWindow) return
+    pdfWindow.document.write(html)
+    pdfWindow.document.close()
+    pdfWindow.onload = () => {
+      setTimeout(() => { pdfWindow.print() }, 400)
+    }
   }
 
   const periodLabel = PERIOD_OPTIONS.find(p => p.value === period)?.label || period
@@ -314,6 +527,14 @@ export default function TrainerProgressReports() {
                       <p className="text-xs text-muted mt-1">التقييم العام</p>
                     </div>
                   )}
+                  <button
+                    onClick={handleDownloadPDF}
+                    className="print:hidden py-2 px-3.5 rounded-xl border border-[var(--border-subtle)] hover:bg-[var(--surface-raised)] transition-colors text-[var(--text-secondary)] flex items-center gap-2 text-sm"
+                    title="تحميل PDF"
+                  >
+                    <Download size={16} />
+                    تحميل PDF
+                  </button>
                   <button
                     onClick={handlePrint}
                     className="print:hidden p-2.5 rounded-xl border border-[var(--border-subtle)] hover:bg-[var(--surface-raised)] transition-colors text-[var(--text-secondary)]"
