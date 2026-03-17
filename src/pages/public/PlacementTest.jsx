@@ -268,17 +268,175 @@ export default function PlacementTest() {
     }
   }, [isSubmitting, selectedAnswer, sessionId, currentQuestion, questionNumber])
 
-  // ─── Share ───────────────────────────────────────────────
+  // ─── Share image canvas ─────────────────────────────────
   const [copied, setCopied] = useState(false)
-  const handleShare = useCallback(() => {
+  const shareCanvasRef = useRef(null)
+
+  const generateShareImage = useCallback(() => {
+    if (!results) return null
+    const levelInfo = getLevelFromCEFR(results.estimated_level)
+    const recommendedLevel = results.recommended_level || levelInfo.level
+    const displayLevel = ACADEMIC_LEVELS[recommendedLevel] || levelInfo
+    const overallScore = results.overall_score || 0
+    const skillScores = results.skill_scores || {}
+
+    const canvas = document.createElement('canvas')
+    canvas.width = 600
+    canvas.height = 400
+    const ctx = canvas.getContext('2d')
+
+    // Gradient background (dark blue to purple)
+    const grad = ctx.createLinearGradient(0, 0, 600, 400)
+    grad.addColorStop(0, '#0a1628')
+    grad.addColorStop(0.5, '#1a1040')
+    grad.addColorStop(1, '#0f0a2e')
+    ctx.fillStyle = grad
+    ctx.fillRect(0, 0, 600, 400)
+
+    // Subtle decorative circle
+    ctx.beginPath()
+    ctx.arc(500, 80, 120, 0, Math.PI * 2)
+    ctx.fillStyle = 'rgba(56, 189, 248, 0.06)'
+    ctx.fill()
+
+    // "Fluentia Academy" at top
+    ctx.textAlign = 'center'
+    ctx.fillStyle = '#38bdf8'
+    ctx.font = 'bold 28px Playfair Display, serif'
+    ctx.fillText('Fluentia Academy', 300, 45)
+
+    // Divider line
+    ctx.strokeStyle = 'rgba(255,255,255,0.1)'
+    ctx.lineWidth = 1
+    ctx.beginPath()
+    ctx.moveTo(150, 60)
+    ctx.lineTo(450, 60)
+    ctx.stroke()
+
+    // Student name
+    if (userName) {
+      ctx.fillStyle = 'rgba(255,255,255,0.7)'
+      ctx.font = '18px Tajawal, sans-serif'
+      ctx.direction = 'rtl'
+      ctx.fillText(userName, 300, 90)
+    }
+
+    // Level badge (Arabic RTL)
+    ctx.direction = 'rtl'
+    ctx.fillStyle = '#ffffff'
+    ctx.font = 'bold 26px Tajawal, sans-serif'
+    const levelText = `المستوى ${recommendedLevel} — ${displayLevel.name_ar}`
+    ctx.fillText(levelText, 300, 130)
+
+    // CEFR label
+    ctx.fillStyle = 'rgba(255,255,255,0.5)'
+    ctx.font = '16px Tajawal, sans-serif'
+    ctx.fillText(`(${displayLevel.cefr})`, 300, 155)
+
+    // Overall score — large circle
+    const cx = 300, cy = 220, r = 45
+    // Track
+    ctx.beginPath()
+    ctx.arc(cx, cy, r, 0, Math.PI * 2)
+    ctx.strokeStyle = 'rgba(255,255,255,0.08)'
+    ctx.lineWidth = 8
+    ctx.stroke()
+    // Arc
+    ctx.beginPath()
+    ctx.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + (overallScore / 100) * Math.PI * 2)
+    ctx.strokeStyle = '#38bdf8'
+    ctx.lineWidth = 8
+    ctx.lineCap = 'round'
+    ctx.stroke()
+    // Percentage text
+    ctx.direction = 'ltr'
+    ctx.textAlign = 'center'
+    ctx.fillStyle = '#ffffff'
+    ctx.font = 'bold 28px Tajawal, sans-serif'
+    ctx.fillText(`${overallScore}%`, cx, cy + 8)
+    ctx.fillStyle = 'rgba(255,255,255,0.4)'
+    ctx.font = '10px Tajawal, sans-serif'
+    ctx.fillText('النتيجة الكلية', cx, cy + 24)
+
+    // Skill bars
+    const skillColors = { grammar: '#8b5cf6', vocabulary: '#38bdf8', reading: '#34d399' }
+    const skillLabelsAr = { grammar: 'القواعد', vocabulary: 'المفردات', reading: 'القراءة' }
+    const skills = ['grammar', 'vocabulary', 'reading']
+    const barY = 295
+    const barWidth = 140
+    const barHeight = 12
+
+    skills.forEach((skill, i) => {
+      const score = skillScores[skill] ?? 0
+      const xStart = 60 + i * 180
+      const color = skillColors[skill] || '#38bdf8'
+
+      // Label (Arabic)
+      ctx.direction = 'rtl'
+      ctx.textAlign = 'center'
+      ctx.fillStyle = 'rgba(255,255,255,0.7)'
+      ctx.font = '13px Tajawal, sans-serif'
+      ctx.fillText(skillLabelsAr[skill] || skill, xStart + barWidth / 2, barY - 6)
+
+      // Track
+      ctx.fillStyle = 'rgba(255,255,255,0.08)'
+      ctx.beginPath()
+      ctx.roundRect(xStart, barY, barWidth, barHeight, 6)
+      ctx.fill()
+
+      // Filled bar
+      ctx.fillStyle = color
+      ctx.beginPath()
+      ctx.roundRect(xStart, barY, barWidth * (score / 100), barHeight, 6)
+      ctx.fill()
+
+      // Score percentage
+      ctx.direction = 'ltr'
+      ctx.textAlign = 'center'
+      ctx.fillStyle = color
+      ctx.font = 'bold 13px Tajawal, sans-serif'
+      ctx.fillText(`${score}%`, xStart + barWidth / 2, barY + 30)
+    })
+
+    // Footer
+    ctx.direction = 'rtl'
+    ctx.textAlign = 'center'
+    ctx.fillStyle = 'rgba(255,255,255,0.2)'
+    ctx.font = '11px Tajawal, sans-serif'
+    ctx.fillText('اختبر مستواك مجاناً — fluentia.academy', 300, 375)
+
+    shareCanvasRef.current = canvas
+    return canvas
+  }, [results, userName])
+
+  // Generate share image when results arrive
+  useEffect(() => {
+    if (phase === 'result' && results) {
+      generateShareImage()
+    }
+  }, [phase, results, generateShareImage])
+
+  // ─── Copy text summary ────────────────────────────────
+  const handleCopyResult = useCallback(() => {
     if (!results) return
     const levelInfo = getLevelFromCEFR(results.estimated_level)
-    const text = `حصلت على ${results.overall_score}% في اختبار Fluentia لتحديد المستوى!\nمستواي: المستوى ${levelInfo.level} — ${levelInfo.name_ar} (${levelInfo.cefr})\n\nاختبر مستواك مجاناً:\n${window.location.href}`
+    const recommendedLevel = results.recommended_level || levelInfo.level
+    const displayLevel = ACADEMIC_LEVELS[recommendedLevel] || levelInfo
+    const overallScore = results.overall_score || 0
+    const skillScores = results.skill_scores || {}
+
+    const text = [
+      `🎓 اختبار تحديد المستوى — Fluentia Academy`,
+      `مستواي: المستوى ${recommendedLevel} — ${displayLevel.name_ar} (${displayLevel.cefr})`,
+      `النتيجة: ${overallScore}%`,
+      `القرامر: ${skillScores.grammar ?? 0}% | المفردات: ${skillScores.vocabulary ?? 0}% | القراءة: ${skillScores.reading ?? 0}%`,
+      `سجّل في لقاء مبدئي مجاني مع المدرب!`,
+    ].join('\n')
+
     navigator.clipboard.writeText(text).then(() => {
       setCopied(true)
       setTimeout(() => setCopied(false), 2500)
     }).catch(() => {
-      // Fallback for mobile
       const textarea = document.createElement('textarea')
       textarea.value = text
       document.body.appendChild(textarea)
@@ -289,6 +447,62 @@ export default function PlacementTest() {
       setTimeout(() => setCopied(false), 2500)
     })
   }, [results])
+
+  // ─── Native share (mobile) or fallback to copy ────────
+  const handleNativeShare = useCallback(async () => {
+    if (!results) return
+    const levelInfo = getLevelFromCEFR(results.estimated_level)
+    const recommendedLevel = results.recommended_level || levelInfo.level
+    const displayLevel = ACADEMIC_LEVELS[recommendedLevel] || levelInfo
+    const overallScore = results.overall_score || 0
+    const skillScores = results.skill_scores || {}
+
+    const text = [
+      `🎓 اختبار تحديد المستوى — Fluentia Academy`,
+      `مستواي: المستوى ${recommendedLevel} — ${displayLevel.name_ar} (${displayLevel.cefr})`,
+      `النتيجة: ${overallScore}%`,
+      `القرامر: ${skillScores.grammar ?? 0}% | المفردات: ${skillScores.vocabulary ?? 0}% | القراءة: ${skillScores.reading ?? 0}%`,
+      `سجّل في لقاء مبدئي مجاني مع المدرب!`,
+    ].join('\n')
+
+    if (navigator.share) {
+      try {
+        const shareData = { title: 'Fluentia Academy — نتيجتي', text }
+        // Try sharing with image if possible
+        if (shareCanvasRef.current) {
+          const blob = await new Promise(resolve => shareCanvasRef.current.toBlob(resolve, 'image/png'))
+          if (blob && navigator.canShare && navigator.canShare({ files: [new File([blob], 'fluentia-result.png', { type: 'image/png' })] })) {
+            shareData.files = [new File([blob], 'fluentia-result.png', { type: 'image/png' })]
+          }
+        }
+        await navigator.share(shareData)
+      } catch (err) {
+        // User cancelled or share failed — fallback to copy
+        if (err.name !== 'AbortError') {
+          handleCopyResult()
+        }
+      }
+    } else {
+      handleCopyResult()
+    }
+  }, [results, handleCopyResult])
+
+  // ─── Download share image as PNG ──────────────────────
+  const handleDownloadImage = useCallback(() => {
+    const canvas = shareCanvasRef.current || generateShareImage()
+    if (!canvas) return
+    canvas.toBlob((blob) => {
+      if (!blob) return
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'fluentia-result.png'
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
+    }, 'image/png')
+  }, [generateShareImage])
 
   // ─── Retry ───────────────────────────────────────────────
   const handleRetry = useCallback(() => {
@@ -347,7 +561,9 @@ export default function PlacementTest() {
             results={results}
             userName={userName}
             elapsedTime={elapsedTime}
-            onShare={handleShare}
+            onCopyResult={handleCopyResult}
+            onNativeShare={handleNativeShare}
+            onDownloadImage={handleDownloadImage}
             onRetry={handleRetry}
             copied={copied}
           />
@@ -785,7 +1001,7 @@ function AnalyzingScreen() {
 // ═════════════════════════════════════════════════════════════
 // RESULT SCREEN
 // ═════════════════════════════════════════════════════════════
-function ResultScreen({ results, userName, elapsedTime, onShare, onRetry, copied }) {
+function ResultScreen({ results, userName, elapsedTime, onCopyResult, onNativeShare, onDownloadImage, onRetry, copied }) {
   if (!results) {
     return (
       <motion.div
@@ -1062,35 +1278,74 @@ function ResultScreen({ results, userName, elapsedTime, onShare, onRetry, copied
           </p>
         </motion.div>
 
-        {/* Share + Retry */}
+        {/* Share options */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
-          className="flex gap-3"
+          className="space-y-3"
         >
-          <button
-            onClick={onShare}
-            className="flex-1 py-3 rounded-xl text-sm font-medium transition-all duration-200 hover:translate-y-[-2px]"
-            style={{
-              background: 'var(--surface-raised)',
-              color: 'var(--accent-sky)',
-              border: '1px solid var(--border-subtle, rgba(255,255,255,0.08))',
-            }}
-          >
-            {copied ? 'تم النسخ!' : 'شارك نتيجتك'}
-          </button>
-          <button
-            onClick={onRetry}
-            className="flex-1 py-3 rounded-xl text-sm font-medium transition-all duration-200 hover:translate-y-[-2px]"
-            style={{
-              background: 'transparent',
-              color: 'var(--text-secondary, rgba(255,255,255,0.4))',
-              border: '1px solid var(--border-subtle, rgba(255,255,255,0.08))',
-            }}
-          >
-            أعد الاختبار
-          </button>
+          <div className="flex gap-3">
+            <button
+              onClick={onCopyResult}
+              className="flex-1 py-3 rounded-xl text-sm font-medium transition-all duration-200 hover:translate-y-[-2px] flex items-center justify-center gap-2"
+              style={{
+                background: 'var(--surface-raised)',
+                color: copied ? 'var(--accent-emerald)' : 'var(--accent-sky)',
+                border: `1px solid ${copied ? 'rgba(52, 211, 153, 0.3)' : 'var(--border-subtle, rgba(255,255,255,0.08))'}`,
+              }}
+            >
+              {copied ? (
+                <>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  تم النسخ!
+                </>
+              ) : (
+                <>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  نسخ النتيجة
+                </>
+              )}
+            </button>
+            <button
+              onClick={onNativeShare}
+              className="flex-1 py-3 rounded-xl text-sm font-medium transition-all duration-200 hover:translate-y-[-2px] flex items-center justify-center gap-2"
+              style={{
+                background: 'var(--surface-raised)',
+                color: 'var(--accent-violet)',
+                border: '1px solid var(--border-subtle, rgba(255,255,255,0.08))',
+              }}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+              مشاركة
+            </button>
+          </div>
+          <div className="flex gap-3">
+            <button
+              onClick={onDownloadImage}
+              className="flex-1 py-3 rounded-xl text-sm font-medium transition-all duration-200 hover:translate-y-[-2px] flex items-center justify-center gap-2"
+              style={{
+                background: 'var(--surface-raised)',
+                color: 'var(--accent-gold)',
+                border: '1px solid var(--border-subtle, rgba(255,255,255,0.08))',
+              }}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              تحميل الصورة
+            </button>
+            <button
+              onClick={onRetry}
+              className="flex-1 py-3 rounded-xl text-sm font-medium transition-all duration-200 hover:translate-y-[-2px] flex items-center justify-center gap-2"
+              style={{
+                background: 'transparent',
+                color: 'var(--text-secondary, rgba(255,255,255,0.4))',
+                border: '1px solid var(--border-subtle, rgba(255,255,255,0.08))',
+              }}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              أعد الاختبار
+            </button>
+          </div>
         </motion.div>
 
         {/* Footer */}
