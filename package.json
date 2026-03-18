@@ -12,7 +12,8 @@
     "db:reset": "supabase db reset",
     "generate:content": "node scripts/curriculum-generator/index.js --all",
     "generate:unit": "node scripts/curriculum-generator/index.js",
-    "generate:dry-run": "node scripts/curriculum-generator/index.js --dry-run"
+    "generate:dry-run": "node scripts/curriculum-generator/index.js --dry-run",
+    "check:progress": "node scripts/curriculum-generator/check-progress.cjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.79.0",

@@ -6,7 +6,7 @@ Generate an ORIGINAL reading passage for:
 - Unit: ${unit.unit_number} of 12
 - Unit Theme: ${unit.theme_en} / ${unit.theme_ar}
 - Reading: ${slot.toUpperCase()} (each unit has 2 readings)
-- Word count: ${levelConfig.reading_words.min}-${levelConfig.reading_words.max} words
+- Word count: MINIMUM ${levelConfig.reading_words.min} words, target ${levelConfig.reading_words.max} words. CRITICAL: You MUST write at least ${levelConfig.reading_words.min} words. Count carefully. Shorter passages will be rejected.
 
 STYLE REQUIREMENTS:
 - Written like a National Geographic article — informative, engaging, real-world topics

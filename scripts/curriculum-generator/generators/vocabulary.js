@@ -6,7 +6,7 @@ export async function generateVocabulary(unit, slot, reading, config, claude, db
   const prompt = buildVocabularyPrompt(reading.content, reading.target_vocabulary, levelConfig);
 
   const result = await claude.generate(prompt, {
-    max_tokens: 4096,
+    max_tokens: unit.level_number >= 4 ? 8192 : 4096,
     type: `vocabulary_${slot}`,
     unit_id: unit.id,
   });
