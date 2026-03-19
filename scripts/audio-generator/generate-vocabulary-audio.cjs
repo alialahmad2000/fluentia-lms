@@ -11,6 +11,11 @@
  *   --dry-run   Count chars only, do not generate audio
  *   --resume    Skip words that already have audio_url set
  *   --level N   Only process vocabulary for level N (0-5)
+ *
+ * Deduplication:
+ *   Groups words case-insensitively. Generates audio once per unique word,
+ *   then copies the same audio_url to all duplicate rows. Saves ~50% of
+ *   ElevenLabs characters and generation time.
  */
 
 require('dotenv').config();
@@ -42,7 +47,6 @@ function sleep(ms) {
 }
 
 async function loadVocabulary(levelFilter) {
-  // Load all lookup tables
   const { data: levels } = await sb.from('curriculum_levels').select('id, level_number');
   const { data: units } = await sb.from('curriculum_units').select('id, level_id, unit_number');
   const { data: readings } = await sb.from('curriculum_readings').select('id, unit_id, reading_label');
@@ -54,13 +58,21 @@ async function loadVocabulary(levelFilter) {
   const readingMap = {};
   (readings || []).forEach(r => { readingMap[r.id] = r; });
 
-  // Load vocabulary
-  const { data: vocab, error } = await sb
-    .from('curriculum_vocabulary')
-    .select('id, word, reading_id, audio_url, audio_generated_at');
-
-  if (error) throw new Error(`Failed to load vocabulary: ${error.message}`);
-  if (!vocab || vocab.length === 0) throw new Error('No vocabulary found');
+  // Load vocabulary (paginated — Supabase default limit is 1000)
+  let vocab = [];
+  let offset = 0;
+  while (true) {
+    const { data, error } = await sb
+      .from('curriculum_vocabulary')
+      .select('id, word, reading_id, audio_url, audio_generated_at')
+      .range(offset, offset + 999);
+    if (error) throw new Error(`Failed to load vocabulary: ${error.message}`);
+    if (!data || data.length === 0) break;
+    vocab = vocab.concat(data);
+    if (data.length < 1000) break;
+    offset += 1000;
+  }
+  if (vocab.length === 0) throw new Error('No vocabulary found');
 
   // Enrich with level/unit info
   const enriched = [];
@@ -93,6 +105,30 @@ async function loadVocabulary(levelFilter) {
   return enriched;
 }
 
+/**
+ * Deduplicate vocabulary: group by lowercase word.
+ * Returns { uniqueWords: [...first occurrence], duplicates: Map<wordLower, [...other row ids]> }
+ */
+function deduplicateVocab(vocabList) {
+  const seen = new Map(); // wordLower → first vocab entry
+  const duplicates = new Map(); // wordLower → [ids of duplicate rows]
+
+  for (const v of vocabList) {
+    const key = v.word.toLowerCase().trim();
+    if (!seen.has(key)) {
+      seen.set(key, v);
+      duplicates.set(key, []);
+    } else {
+      duplicates.get(key).push(v.id);
+    }
+  }
+
+  return {
+    uniqueWords: Array.from(seen.values()),
+    duplicates,
+  };
+}
+
 async function main() {
   const { dryRun, resume, level } = parseArgs();
 
@@ -106,48 +142,56 @@ async function main() {
 
   // Load vocabulary
   console.log('Loading vocabulary from database...');
-  const vocab = await loadVocabulary(level);
-  console.log(`  Found ${vocab.length} words\n`);
+  const allVocab = await loadVocabulary(level);
+  console.log(`  Found ${allVocab.length} total rows`);
 
-  if (vocab.length === 0) {
+  if (allVocab.length === 0) {
     console.log('No vocabulary to process.');
     return;
   }
 
   // Filter based on resume flag
-  let toProcess = vocab;
+  let toProcess = allVocab;
   if (resume) {
-    toProcess = vocab.filter(v => !v.audioUrl);
-    console.log(`  After resume filter: ${toProcess.length} words need audio`);
-    console.log(`  Already done: ${vocab.length - toProcess.length} words\n`);
+    toProcess = allVocab.filter(v => !v.audioUrl);
+    console.log(`  After resume filter: ${toProcess.length} rows need audio`);
+    console.log(`  Already done: ${allVocab.length - toProcess.length} rows`);
   }
 
-  // Group by level for summary
+  // Deduplicate
+  const { uniqueWords, duplicates } = deduplicateVocab(toProcess);
+  const totalDupes = toProcess.length - uniqueWords.length;
+
+  console.log(`\n--- Deduplication ---`);
+  console.log(`  Total rows:     ${toProcess.length}`);
+  console.log(`  Unique words:   ${uniqueWords.length} (will generate audio)`);
+  console.log(`  Duplicates:     ${totalDupes} (will copy audio_url)`);
+  console.log(`  Savings:        ${totalDupes} fewer API calls`);
+
+  // Group unique words by level for summary
   const byLevel = {};
-  for (const v of toProcess) {
-    if (!byLevel[v.levelNumber]) byLevel[v.levelNumber] = { count: 0, chars: 0, words: [] };
+  for (const v of uniqueWords) {
+    if (!byLevel[v.levelNumber]) byLevel[v.levelNumber] = { count: 0, chars: 0 };
     byLevel[v.levelNumber].count++;
     byLevel[v.levelNumber].chars += v.word.length;
-    byLevel[v.levelNumber].words.push(v);
   }
 
-  // Print summary
-  console.log('--- Per-Level Breakdown ---');
+  console.log('\n--- Per-Level Breakdown (unique words only) ---');
   let totalChars = 0;
   for (const ln of Object.keys(byLevel).sort((a, b) => a - b)) {
     const { count, chars } = byLevel[ln];
     totalChars += chars;
-    console.log(`  Level ${ln}: ${count} words, ${chars} chars`);
+    console.log(`  Level ${ln}: ${count} unique words, ${chars} chars`);
   }
   console.log(`  ───────────────────────`);
-  console.log(`  TOTAL: ${toProcess.length} words, ${totalChars} chars`);
+  console.log(`  TOTAL: ${uniqueWords.length} unique words, ${totalChars} chars`);
 
   if (dryRun) {
-    // Estimate costs
     console.log('\n--- Dry Run Estimates ---');
     console.log(`  Characters to generate: ${totalChars.toLocaleString()}`);
-    console.log(`  Requests needed:        ${toProcess.length}`);
-    console.log(`  Est. time at 6s/req:    ${((toProcess.length * 6) / 60).toFixed(1)} minutes`);
+    console.log(`  API requests needed:    ${uniqueWords.length}`);
+    console.log(`  Est. time at 6s/req:    ${((uniqueWords.length * 6) / 60).toFixed(1)} minutes`);
+    console.log(`  DB updates (copy URL):  ${totalDupes} duplicate rows`);
 
     // Check quota
     const client = new ElevenLabsClient(process.env.ELEVENLABS_API_KEY);
@@ -159,8 +203,7 @@ async function main() {
       console.log(`  Remaining: ${remaining.toLocaleString()} / ${sub.character_limit.toLocaleString()} chars`);
       console.log(`  After gen: ${(remaining - totalChars).toLocaleString()} chars left`);
       if (totalChars > remaining) {
-        console.log(`\n  WARNING: Not enough quota! Need ${totalChars.toLocaleString()} but only ${remaining.toLocaleString()} remaining.`);
-        console.log(`  Consider using --level N to generate one level at a time.`);
+        console.log(`\n  WARNING: Not enough quota!`);
       } else {
         console.log(`\n  OK: Sufficient quota for this batch.`);
       }
@@ -170,21 +213,12 @@ async function main() {
 
     // Show sample paths
     console.log('\n--- Sample Storage Paths ---');
-    for (const v of toProcess.slice(0, 5)) {
+    for (const v of uniqueWords.slice(0, 5)) {
       const storagePath = config.storagePaths.vocabulary(v.levelNumber, v.unitNumber, v.word);
       console.log(`  "${v.word}" → ${storagePath}`);
     }
-    if (toProcess.length > 5) {
-      console.log(`  ... and ${toProcess.length - 5} more`);
-    }
-
-    console.log('\n--- Unique Words Check ---');
-    const wordSet = new Set(toProcess.map(v => v.word.toLowerCase()));
-    const dupes = toProcess.length - wordSet.size;
-    console.log(`  Total words: ${toProcess.length}`);
-    console.log(`  Unique words: ${wordSet.size}`);
-    if (dupes > 0) {
-      console.log(`  Duplicates: ${dupes} (same word in different units — each gets its own audio)`);
+    if (uniqueWords.length > 5) {
+      console.log(`  ... and ${uniqueWords.length - 5} more`);
     }
 
     console.log('\nDry run complete. Remove --dry-run to generate audio.');
@@ -213,12 +247,14 @@ async function main() {
 
   const errors = [];
   let successCount = 0;
+  let dupeUpdateCount = 0;
   const startTime = Date.now();
 
-  for (let i = 0; i < toProcess.length; i++) {
-    const v = toProcess[i];
+  for (let i = 0; i < uniqueWords.length; i++) {
+    const v = uniqueWords[i];
     const storagePath = config.storagePaths.vocabulary(v.levelNumber, v.unitNumber, v.word);
-    const progress = `[${i + 1}/${toProcess.length}]`;
+    const progress = `[${i + 1}/${uniqueWords.length}]`;
+    const wordKey = v.word.toLowerCase().trim();
 
     let retries = 0;
     let success = false;
@@ -236,17 +272,29 @@ async function main() {
 
         // Upload to Supabase Storage
         const publicUrl = await uploader.upload(audioBuffer, storagePath);
+        const now = new Date().toISOString();
 
-        // Update DB record
+        // Update primary row
         await uploader.updateRecord('curriculum_vocabulary', v.id, {
           audio_url: publicUrl,
-          audio_generated_at: new Date().toISOString(),
+          audio_generated_at: now,
         });
+
+        // Copy audio_url to all duplicate rows
+        const dupeIds = duplicates.get(wordKey) || [];
+        for (const dupeId of dupeIds) {
+          await uploader.updateRecord('curriculum_vocabulary', dupeId, {
+            audio_url: publicUrl,
+            audio_generated_at: now,
+          });
+          dupeUpdateCount++;
+        }
 
         successCount++;
         success = true;
         const kb = (audioBuffer.length / 1024).toFixed(1);
-        console.log(`  ${progress} L${v.levelNumber}U${v.unitNumber} "${v.word}" → ${kb}KB`);
+        const dupeNote = dupeIds.length > 0 ? ` (+${dupeIds.length} copies)` : '';
+        console.log(`  ${progress} L${v.levelNumber}U${v.unitNumber} "${v.word}" → ${kb}KB${dupeNote}`);
 
       } catch (err) {
         retries++;
@@ -260,6 +308,7 @@ async function main() {
             word: v.word,
             level: v.levelNumber,
             unit: v.unitNumber,
+            dupeIds: duplicates.get(wordKey) || [],
             error: err.message,
             timestamp: new Date().toISOString(),
           });
@@ -268,7 +317,7 @@ async function main() {
     }
 
     // Rate limiting — wait between requests (skip on last item)
-    if (i < toProcess.length - 1) {
+    if (i < uniqueWords.length - 1) {
       await sleep(config.rateLimits.delayBetweenRequests);
     }
 
@@ -277,7 +326,7 @@ async function main() {
       const stats = client.getStats();
       const elapsed = ((Date.now() - startTime) / 60000).toFixed(1);
       console.log(`\n  --- Checkpoint (${elapsed} min) ---`);
-      console.log(`  Processed: ${stats.requests}, Chars used: ${stats.characters}, Errors: ${errors.length}`);
+      console.log(`  Generated: ${stats.requests}, Chars: ${stats.characters}, Dupes updated: ${dupeUpdateCount}, Errors: ${errors.length}`);
       console.log('');
     }
   }
@@ -296,11 +345,13 @@ async function main() {
   console.log('\n========================================');
   console.log('  Generation Complete');
   console.log('========================================');
-  console.log(`  Success:    ${successCount}/${toProcess.length}`);
-  console.log(`  Errors:     ${errors.length}`);
-  console.log(`  Chars used: ${stats.characters.toLocaleString()}`);
-  console.log(`  Uploaded:   ${uploadStats.uploads} files (${uploadStats.totalMB} MB)`);
-  console.log(`  Time:       ${elapsed} minutes`);
+  console.log(`  Generated:     ${successCount}/${uniqueWords.length} unique words`);
+  console.log(`  Dupes updated: ${dupeUpdateCount} rows (copied audio_url)`);
+  console.log(`  Total covered: ${successCount + dupeUpdateCount} / ${toProcess.length} rows`);
+  console.log(`  Errors:        ${errors.length}`);
+  console.log(`  Chars used:    ${stats.characters.toLocaleString()}`);
+  console.log(`  Uploaded:      ${uploadStats.uploads} files (${uploadStats.totalMB} MB)`);
+  console.log(`  Time:          ${elapsed} minutes`);
   console.log('========================================');
 }
 
