@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
-import { motion } from 'framer-motion'
-import { BookOpen, Search, Volume2, List, Layers, Filter } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { BookOpen, Search, Volume2, List, Layers, Filter, Lock, ChevronDown } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import FlashcardDeck from './components/FlashcardDeck'
@@ -76,8 +76,8 @@ export default function VocabularyFlashcards() {
       }
       setLevels(levelsData || [])
 
-      // Set default level to student's current level
-      const studentLevel = studentData?.level ?? 0
+      // Set default level to student's current academic level
+      const studentLevel = studentData?.academic_level ?? 0
       const defaultLevel = levelsData?.find((l) => l.level_number === studentLevel) || levelsData?.[0]
       if (defaultLevel && !selectedLevel) {
         setSelectedLevel(defaultLevel.id)
@@ -201,38 +201,33 @@ export default function VocabularyFlashcards() {
 
       {/* Filters */}
       <div className="flex flex-wrap items-center gap-3">
-        {/* Level selector */}
+        {/* Level selector — custom dropdown */}
+        <LevelDropdown
+          levels={levels}
+          selectedLevel={selectedLevel}
+          studentLevel={studentData?.academic_level ?? 0}
+          onChange={(id) => {
+            setSelectedLevel(id)
+            setSelectedUnit('all')
+          }}
+        />
+
+        {/* Unit selector */}
         <div className="relative">
           <select
-            value={selectedLevel || ''}
-            onChange={(e) => {
-              setSelectedLevel(e.target.value)
-              setSelectedUnit('all')
-            }}
-            className="h-10 pl-3 pr-8 rounded-xl text-sm font-medium appearance-none cursor-pointer bg-[var(--card-bg,rgba(255,255,255,0.05))] border border-[var(--card-border,rgba(255,255,255,0.08))] text-[var(--text-primary)] focus:outline-none focus:border-sky-500/50"
+            value={selectedUnit}
+            onChange={(e) => setSelectedUnit(e.target.value)}
+            className="h-10 pl-7 pr-3 rounded-xl text-sm font-medium appearance-none cursor-pointer bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-[var(--text-primary)] focus:outline-none focus:border-sky-500/50"
           >
-            {levels.map((l) => (
-              <option key={l.id} value={l.id}>
-                {l.name_ar}
+            <option value="all">كل الوحدات</option>
+            {availableUnits.map((u) => (
+              <option key={u.number} value={u.number}>
+                الوحدة {u.number} — {u.theme}
               </option>
             ))}
           </select>
-          <Filter size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[var(--text-muted)] pointer-events-none" />
+          <ChevronDown size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[var(--text-muted)] pointer-events-none" />
         </div>
-
-        {/* Unit selector */}
-        <select
-          value={selectedUnit}
-          onChange={(e) => setSelectedUnit(e.target.value)}
-          className="h-10 pl-3 pr-8 rounded-xl text-sm font-medium appearance-none cursor-pointer bg-[var(--card-bg,rgba(255,255,255,0.05))] border border-[var(--card-border,rgba(255,255,255,0.08))] text-[var(--text-primary)] focus:outline-none focus:border-sky-500/50"
-        >
-          <option value="all">كل الوحدات</option>
-          {availableUnits.map((u) => (
-            <option key={u.number} value={u.number}>
-              الوحدة {u.number} — {u.theme}
-            </option>
-          ))}
-        </select>
 
         {/* Search */}
         <div className="relative flex-1 min-w-[180px]">
@@ -242,7 +237,7 @@ export default function VocabularyFlashcards() {
             placeholder="ابحث عن كلمة..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full h-10 pr-9 pl-3 rounded-xl text-sm bg-[var(--card-bg,rgba(255,255,255,0.05))] border border-[var(--card-border,rgba(255,255,255,0.08))] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-sky-500/50"
+            className="w-full h-10 pr-9 pl-3 rounded-xl text-sm bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-sky-500/50"
           />
         </div>
       </div>
