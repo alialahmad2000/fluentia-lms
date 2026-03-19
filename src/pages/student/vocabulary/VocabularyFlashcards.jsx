@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Search, Volume2, List, Layers, Filter, Lock, ChevronDown, Zap, Link2 } from 'lucide-react'
+import { BookOpen, Search, Volume2, List, Layers, Filter, Lock, ChevronDown, Zap, Link2, Keyboard } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import FlashcardDeck from './components/FlashcardDeck'
 import VocabularyPractice from './components/VocabularyPractice'
 import MatchGame from '../../../components/games/MatchGame'
+import SpeedTypeGame from '../../../components/games/SpeedTypeGame'
 
 // ─── Skeleton loaders ──────────────────────────────
 function FilterSkeleton() {
@@ -52,7 +53,7 @@ export default function VocabularyFlashcards() {
   const [selectedLevel, setSelectedLevel] = useState(null)
   const [selectedUnit, setSelectedUnit] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
-  const [viewMode, setViewMode] = useState('cards') // 'cards' | 'list' | 'practice' | 'match'
+  const [viewMode, setViewMode] = useState('cards') // 'cards' | 'list' | 'practice' | 'match' | 'type'
   const [practiceStarted, setPracticeStarted] = useState(false)
   const [practiceWordCount, setPracticeWordCount] = useState(10)
 
@@ -275,6 +276,7 @@ export default function VocabularyFlashcards() {
           { key: 'list', label: 'قائمة', icon: List },
           { key: 'practice', label: 'تدريب', icon: Zap },
           { key: 'match', label: 'وصّل', icon: Link2 },
+          { key: 'type', label: 'اكتب', icon: Keyboard },
         ].map(({ key, label, icon: Icon }) => (
           <button
             key={key}
@@ -312,6 +314,18 @@ export default function VocabularyFlashcards() {
             answer: w.definition_ar,
           }))}
           title="وصّل الكلمة بمعناها"
+          onComplete={() => {}}
+          onBack={() => setViewMode('cards')}
+        />
+      ) : viewMode === 'type' ? (
+        <SpeedTypeGame
+          items={filteredVocab.map(w => ({
+            id: w.id,
+            prompt: w.definition_ar,
+            answer: w.word,
+            audioUrl: w.audio_url,
+          }))}
+          title="اسمع واكتب"
           onComplete={() => {}}
           onBack={() => setViewMode('cards')}
         />
