@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Search, Volume2, List, Layers, Filter, Lock, ChevronDown, Zap } from 'lucide-react'
+import { BookOpen, Search, Volume2, List, Layers, Filter, Lock, ChevronDown, Zap, Link2 } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import FlashcardDeck from './components/FlashcardDeck'
 import VocabularyPractice from './components/VocabularyPractice'
+import MatchGame from '../../../components/games/MatchGame'
 
 // ─── Skeleton loaders ──────────────────────────────
 function FilterSkeleton() {
@@ -51,7 +52,7 @@ export default function VocabularyFlashcards() {
   const [selectedLevel, setSelectedLevel] = useState(null)
   const [selectedUnit, setSelectedUnit] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
-  const [viewMode, setViewMode] = useState('cards') // 'cards' | 'list' | 'practice'
+  const [viewMode, setViewMode] = useState('cards') // 'cards' | 'list' | 'practice' | 'match'
   const [practiceStarted, setPracticeStarted] = useState(false)
   const [practiceWordCount, setPracticeWordCount] = useState(10)
 
@@ -273,6 +274,7 @@ export default function VocabularyFlashcards() {
           { key: 'cards', label: 'بطاقات', icon: Layers },
           { key: 'list', label: 'قائمة', icon: List },
           { key: 'practice', label: 'تدريب', icon: Zap },
+          { key: 'match', label: 'وصّل', icon: Link2 },
         ].map(({ key, label, icon: Icon }) => (
           <button
             key={key}
@@ -302,6 +304,17 @@ export default function VocabularyFlashcards() {
         <FlashcardDeck words={filteredVocab} />
       ) : viewMode === 'list' ? (
         <VocabList words={filteredVocab} onPlayAudio={playWord} />
+      ) : viewMode === 'match' ? (
+        <MatchGame
+          pairs={filteredVocab.map(w => ({
+            id: w.id,
+            question: w.word,
+            answer: w.definition_ar,
+          }))}
+          title="وصّل الكلمة بمعناها"
+          onComplete={() => {}}
+          onBack={() => setViewMode('cards')}
+        />
       ) : !practiceStarted ? (
         /* Practice start screen */
         <div className="flex flex-col items-center gap-6 py-4">

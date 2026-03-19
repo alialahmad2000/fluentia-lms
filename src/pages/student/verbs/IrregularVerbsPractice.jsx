@@ -1,16 +1,17 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, BookOpen, Dumbbell, Lock, ChevronDown, Filter, PenLine, RotateCcw } from 'lucide-react'
+import { Search, BookOpen, Dumbbell, Lock, ChevronDown, Filter, PenLine, RotateCcw, Link2 } from 'lucide-react'
 import { supabase } from '../../../lib/supabase'
 import { useAuthStore } from '../../../stores/authStore'
 import VerbCard from './components/VerbCard'
 import VerbPractice from './components/VerbPractice'
 import VerbAnkiPractice from './components/VerbAnkiPractice'
+import MatchGame from '../../../components/games/MatchGame'
 
 export default function IrregularVerbsPractice() {
   const { studentData } = useAuthStore()
   const [mode, setMode] = useState('browse') // browse | practice
-  const [practiceMode, setPracticeMode] = useState(null) // null | 'quiz' | 'anki'
+  const [practiceMode, setPracticeMode] = useState(null) // null | 'quiz' | 'anki' | 'match'
   const [difficulty, setDifficulty] = useState('easy')
   const [levels, setLevels] = useState([])
   const [selectedLevelId, setSelectedLevelId] = useState(null)
@@ -225,7 +226,7 @@ export default function IrregularVerbsPractice() {
         // Practice mode picker
         <div className="flex flex-col items-center gap-6 py-4">
           <h2 className="text-lg font-bold text-[var(--text-primary)] font-['Tajawal']">اختر نوع التدريب</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-2xl">
             <button
               onClick={() => setPracticeMode('quiz')}
               className="flex flex-col items-center gap-3 p-6 rounded-xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] hover:border-sky-500/40 transition-colors group"
@@ -246,15 +247,37 @@ export default function IrregularVerbsPractice() {
               <span className="text-base font-bold text-[var(--text-primary)] font-['Tajawal']">أنكي</span>
               <span className="text-xs text-[var(--text-muted)] font-['Tajawal'] text-center">بطاقات تقلبها وتقيّم نفسك</span>
             </button>
+            <button
+              onClick={() => setPracticeMode('match')}
+              className="flex flex-col items-center gap-3 p-6 rounded-xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] hover:border-emerald-500/40 transition-colors group"
+            >
+              <div className="w-14 h-14 rounded-full bg-emerald-500/15 flex items-center justify-center group-hover:bg-emerald-500/25 transition-colors">
+                <Link2 size={24} className="text-emerald-400" />
+              </div>
+              <span className="text-base font-bold text-[var(--text-primary)] font-['Tajawal']">وصّل</span>
+              <span className="text-xs text-[var(--text-muted)] font-['Tajawal'] text-center">وصّل الفعل بتصريفه الماضي</span>
+            </button>
           </div>
         </div>
       ) : practiceMode === 'quiz' ? (
         // Quiz practice mode
         <VerbPractice verbs={filteredVerbs} difficulty={difficulty} />
-      ) : (
+      ) : practiceMode === 'anki' ? (
         // Anki practice mode
         <VerbAnkiPractice
           verbs={filteredVerbs}
+          onComplete={() => {}}
+          onBack={() => setPracticeMode(null)}
+        />
+      ) : (
+        // Match game mode
+        <MatchGame
+          pairs={filteredVerbs.map(v => ({
+            id: v.id,
+            question: v.verb_base,
+            answer: v.verb_past,
+          }))}
+          title="وصّل الفعل بتصريفه الماضي"
           onComplete={() => {}}
           onBack={() => setPracticeMode(null)}
         />
