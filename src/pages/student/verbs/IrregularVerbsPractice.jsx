@@ -1,18 +1,22 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, BookOpen, Dumbbell, Lock, ChevronDown, Filter, PenLine, RotateCcw, Link2, Keyboard } from 'lucide-react'
+import { Search, BookOpen, Dumbbell, Lock, ChevronDown, Filter } from 'lucide-react'
 import { supabase } from '../../../lib/supabase'
 import { useAuthStore } from '../../../stores/authStore'
 import VerbCard from './components/VerbCard'
 import VerbPractice from './components/VerbPractice'
 import VerbAnkiPractice from './components/VerbAnkiPractice'
+import GameHub from '../../../components/games/GameHub'
 import MatchGame from '../../../components/games/MatchGame'
 import SpeedTypeGame from '../../../components/games/SpeedTypeGame'
+import ScrambleGame from '../../../components/games/ScrambleGame'
+import FillBlankGame from '../../../components/games/FillBlankGame'
 
 export default function IrregularVerbsPractice() {
   const { studentData } = useAuthStore()
   const [mode, setMode] = useState('browse') // browse | practice
-  const [practiceMode, setPracticeMode] = useState(null) // null | 'quiz' | 'anki' | 'match' | 'type'
+  const [practiceMode, setPracticeMode] = useState(null) // null | game id string
+  const [gameWordCount, setGameWordCount] = useState(10)
   const [difficulty, setDifficulty] = useState('easy')
   const [levels, setLevels] = useState([])
   const [selectedLevelId, setSelectedLevelId] = useState(null)
@@ -224,90 +228,123 @@ export default function IrregularVerbsPractice() {
           ))}
         </motion.div>
       ) : !practiceMode ? (
-        // Practice mode picker
-        <div className="flex flex-col items-center gap-6 py-4">
-          <h2 className="text-lg font-bold text-[var(--text-primary)] font-['Tajawal']">اختر نوع التدريب</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-3xl">
-            <button
-              onClick={() => setPracticeMode('quiz')}
-              className="flex flex-col items-center gap-3 p-5 rounded-xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] hover:border-sky-500/40 transition-colors group"
-            >
-              <div className="w-12 h-12 rounded-full bg-sky-500/15 flex items-center justify-center group-hover:bg-sky-500/25 transition-colors">
-                <PenLine size={22} className="text-sky-400" />
-              </div>
-              <span className="text-sm font-bold text-[var(--text-primary)] font-['Tajawal']">اختبار</span>
-              <span className="text-xs text-[var(--text-muted)] font-['Tajawal'] text-center leading-tight">أكمل الفراغ</span>
-            </button>
-            <button
-              onClick={() => setPracticeMode('anki')}
-              className="flex flex-col items-center gap-3 p-5 rounded-xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] hover:border-amber-500/40 transition-colors group"
-            >
-              <div className="w-12 h-12 rounded-full bg-amber-500/15 flex items-center justify-center group-hover:bg-amber-500/25 transition-colors">
-                <RotateCcw size={22} className="text-amber-400" />
-              </div>
-              <span className="text-sm font-bold text-[var(--text-primary)] font-['Tajawal']">أنكي</span>
-              <span className="text-xs text-[var(--text-muted)] font-['Tajawal'] text-center leading-tight">بطاقات ذاتية</span>
-            </button>
-            <button
-              onClick={() => setPracticeMode('match')}
-              className="flex flex-col items-center gap-3 p-5 rounded-xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] hover:border-emerald-500/40 transition-colors group"
-            >
-              <div className="w-12 h-12 rounded-full bg-emerald-500/15 flex items-center justify-center group-hover:bg-emerald-500/25 transition-colors">
-                <Link2 size={22} className="text-emerald-400" />
-              </div>
-              <span className="text-sm font-bold text-[var(--text-primary)] font-['Tajawal']">وصّل</span>
-              <span className="text-xs text-[var(--text-muted)] font-['Tajawal'] text-center leading-tight">وصّل بالمعنى</span>
-            </button>
-            <button
-              onClick={() => setPracticeMode('type')}
-              className="flex flex-col items-center gap-3 p-5 rounded-xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] hover:border-purple-500/40 transition-colors group"
-            >
-              <div className="w-12 h-12 rounded-full bg-purple-500/15 flex items-center justify-center group-hover:bg-purple-500/25 transition-colors">
-                <Keyboard size={22} className="text-purple-400" />
-              </div>
-              <span className="text-sm font-bold text-[var(--text-primary)] font-['Tajawal']">اكتب</span>
-              <span className="text-xs text-[var(--text-muted)] font-['Tajawal'] text-center leading-tight">اسمع واكتب</span>
-            </button>
-          </div>
-        </div>
-      ) : practiceMode === 'quiz' ? (
-        // Quiz practice mode
-        <VerbPractice verbs={filteredVerbs} difficulty={difficulty} />
-      ) : practiceMode === 'anki' ? (
-        // Anki practice mode
-        <VerbAnkiPractice
-          verbs={filteredVerbs}
-          onComplete={() => {}}
-          onBack={() => setPracticeMode(null)}
-        />
-      ) : practiceMode === 'match' ? (
-        // Match game mode
-        <MatchGame
-          pairs={filteredVerbs.map(v => ({
-            id: v.id,
-            question: v.verb_base,
-            answer: v.verb_past,
-          }))}
-          title="وصّل الفعل بتصريفه الماضي"
-          onComplete={() => {}}
-          onBack={() => setPracticeMode(null)}
+        // Game hub
+        <GameHub
+          games={VERB_GAMES}
+          totalWords={filteredVerbs.length}
+          onSelectGame={(gameId, count) => {
+            setGameWordCount(count)
+            setPracticeMode(gameId)
+          }}
+          onBack={() => { setMode('browse'); setPracticeMode(null) }}
         />
       ) : (
-        // Speed type mode
-        <SpeedTypeGame
-          items={filteredVerbs.map(v => ({
-            id: v.id,
-            prompt: `ماضي: ${v.verb_base}`,
-            answer: v.verb_past,
-            audioUrl: v.audio_past_url,
-          }))}
-          title="اسمع واكتب التصريف"
-          onComplete={() => {}}
+        <VerbGameRenderer
+          gameId={practiceMode}
+          verbs={gameWordCount === Infinity ? filteredVerbs : filteredVerbs.slice(0, gameWordCount)}
+          allVerbs={filteredVerbs}
+          difficulty={difficulty}
           onBack={() => setPracticeMode(null)}
         />
       )}
     </div>
   )
+}
+
+// ─── Games config + renderer ──────────────────────────
+const VERB_GAMES = [
+  { id: 'quiz', name: 'اختبار', desc: 'أكمل الفراغ بالتصريف الصحيح' },
+  { id: 'anki', name: 'أنكي', desc: 'بطاقات ذكية — اقلب وقيّم نفسك' },
+  { id: 'match', name: 'وصّل', desc: 'وصّل الفعل بتصريفه الماضي' },
+  { id: 'speed', name: 'اسمع واكتب', desc: 'اسمع المعنى واكتب التصريف' },
+  { id: 'scramble', name: 'رتّب الحروف', desc: 'رتّب حروف التصريف الثالث' },
+  { id: 'fill', name: 'أكمل الجملة', desc: 'اختر التصريف الصحيح في الجملة' },
+]
+
+function getRandomVerbDistractors(verb, allVerbs) {
+  const others = allVerbs.filter(v => v.id !== verb.id)
+  const shuffled = others.sort(() => Math.random() - 0.5)
+  return [verb.verb_base, verb.verb_past_participle, shuffled[0]?.verb_past || 'took'].slice(0, 3)
+}
+
+function VerbGameRenderer({ gameId, verbs, allVerbs, difficulty, onBack }) {
+  const backToHub = () => onBack()
+
+  switch (gameId) {
+    case 'quiz':
+      return <VerbPractice verbs={verbs} difficulty={difficulty} />
+    case 'anki':
+      return (
+        <VerbAnkiPractice
+          verbs={verbs}
+          onComplete={() => {}}
+          onBack={backToHub}
+        />
+      )
+    case 'match':
+      return (
+        <MatchGame
+          pairs={verbs.map(v => ({ id: v.id, question: v.verb_base, answer: v.verb_past }))}
+          title="وصّل الفعل بتصريفه الماضي"
+          onComplete={() => {}}
+          onBack={backToHub}
+        />
+      )
+    case 'speed':
+      return (
+        <SpeedTypeGame
+          items={verbs.map(v => ({
+            id: v.id,
+            prompt: `${v.meaning_ar} (الماضي)`,
+            answer: v.verb_past,
+            audioUrl: v.audio_past_url,
+          }))}
+          title="اسمع واكتب التصريف"
+          onComplete={() => {}}
+          onBack={backToHub}
+        />
+      )
+    case 'scramble':
+      return (
+        <ScrambleGame
+          items={verbs.map(v => ({
+            id: v.id,
+            word: v.verb_past_participle,
+            hint: `${v.meaning_ar} (التصريف الثالث)`,
+            audioUrl: v.audio_pp_url,
+          }))}
+          title="رتّب حروف التصريف الثالث"
+          onComplete={() => {}}
+          onBack={backToHub}
+        />
+      )
+    case 'fill': {
+      const fillItems = verbs.map(v => {
+        const sentence = v.example_sentence
+          ? v.example_sentence.replace(new RegExp(v.verb_past.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), '_____')
+          : `Yesterday I _____ (${v.verb_base}).`
+        return {
+          id: v.id,
+          sentence,
+          correctAnswer: v.verb_past,
+          meaning: v.meaning_ar,
+          distractors: getRandomVerbDistractors(v, allVerbs),
+          audioUrl: v.audio_past_url,
+        }
+      })
+
+      return (
+        <FillBlankGame
+          items={fillItems}
+          title="أكمل الجملة بالتصريف الصحيح"
+          onComplete={() => {}}
+          onBack={backToHub}
+        />
+      )
+    }
+    default:
+      return null
+  }
 }
 
 // ─── Level Dropdown (themed + level-locked) ──────────

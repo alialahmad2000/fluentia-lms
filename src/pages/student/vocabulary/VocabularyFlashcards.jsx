@@ -1,12 +1,15 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Search, Volume2, List, Layers, Filter, Lock, ChevronDown, Zap, Link2, Keyboard } from 'lucide-react'
+import { BookOpen, Search, Volume2, List, Layers, Filter, Lock, ChevronDown, Zap } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import FlashcardDeck from './components/FlashcardDeck'
 import VocabularyPractice from './components/VocabularyPractice'
+import GameHub from '../../../components/games/GameHub'
 import MatchGame from '../../../components/games/MatchGame'
 import SpeedTypeGame from '../../../components/games/SpeedTypeGame'
+import ScrambleGame from '../../../components/games/ScrambleGame'
+import FillBlankGame from '../../../components/games/FillBlankGame'
 
 // ─── Skeleton loaders ──────────────────────────────
 function FilterSkeleton() {
@@ -53,9 +56,9 @@ export default function VocabularyFlashcards() {
   const [selectedLevel, setSelectedLevel] = useState(null)
   const [selectedUnit, setSelectedUnit] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
-  const [viewMode, setViewMode] = useState('cards') // 'cards' | 'list' | 'practice' | 'match' | 'type'
-  const [practiceStarted, setPracticeStarted] = useState(false)
-  const [practiceWordCount, setPracticeWordCount] = useState(10)
+  const [viewMode, setViewMode] = useState('cards') // 'cards' | 'list' | 'games'
+  const [activeGame, setActiveGame] = useState(null) // null | 'anki' | 'match' | 'speed' | 'scramble' | 'fill'
+  const [gameWordCount, setGameWordCount] = useState(10)
 
   const audioRef = useRef(null)
 
@@ -274,15 +277,13 @@ export default function VocabularyFlashcards() {
         {[
           { key: 'cards', label: 'بطاقات', icon: Layers },
           { key: 'list', label: 'قائمة', icon: List },
-          { key: 'practice', label: 'تدريب', icon: Zap },
-          { key: 'match', label: 'وصّل', icon: Link2 },
-          { key: 'type', label: 'اكتب', icon: Keyboard },
+          { key: 'games', label: 'تدريب', icon: Zap },
         ].map(({ key, label, icon: Icon }) => (
           <button
             key={key}
             onClick={() => {
               setViewMode(key)
-              if (key !== 'practice') setPracticeStarted(false)
+              setActiveGame(null)
             }}
             className={`flex items-center gap-2 px-4 h-[44px] rounded-lg text-sm font-medium transition-colors ${
               viewMode === key
@@ -306,90 +307,116 @@ export default function VocabularyFlashcards() {
         <FlashcardDeck words={filteredVocab} />
       ) : viewMode === 'list' ? (
         <VocabList words={filteredVocab} onPlayAudio={playWord} />
-      ) : viewMode === 'match' ? (
-        <MatchGame
-          pairs={filteredVocab.map(w => ({
-            id: w.id,
-            question: w.word,
-            answer: w.definition_ar,
-          }))}
-          title="وصّل الكلمة بمعناها"
-          onComplete={() => {}}
-          onBack={() => setViewMode('cards')}
-        />
-      ) : viewMode === 'type' ? (
-        <SpeedTypeGame
-          items={filteredVocab.map(w => ({
-            id: w.id,
-            prompt: w.definition_ar,
-            answer: w.word,
-            audioUrl: w.audio_url,
-          }))}
-          title="اسمع واكتب"
-          onComplete={() => {}}
-          onBack={() => setViewMode('cards')}
-        />
-      ) : !practiceStarted ? (
-        /* Practice start screen */
-        <div className="flex flex-col items-center gap-6 py-4">
-          <div className="text-center space-y-2">
-            <Zap size={36} className="mx-auto text-sky-400" />
-            <h2 className="text-xl font-bold text-[var(--text-primary)]">تدريب المفردات</h2>
-            <p className="text-sm text-[var(--text-muted)]">اقلب البطاقة وقيّم معرفتك بالكلمة</p>
-          </div>
-
-          {/* Word count selector */}
-          <div className="space-y-2 text-center">
-            <span className="text-sm text-[var(--text-muted)]">عدد الكلمات</span>
-            <div className="flex gap-2">
-              {[
-                { value: 10, label: '10' },
-                { value: 20, label: '20' },
-                { value: Infinity, label: 'الكل' },
-              ].map(({ value, label }) => (
-                <button
-                  key={label}
-                  onClick={() => setPracticeWordCount(value)}
-                  className={`px-5 h-10 rounded-xl text-sm font-bold border transition-colors ${
-                    practiceWordCount === value
-                      ? 'bg-sky-500/20 text-sky-400 border-sky-500/40'
-                      : 'bg-[var(--surface-raised)] text-[var(--text-muted)] border-[var(--border-subtle)] hover:text-[var(--text-primary)]'
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <p className="text-xs text-[var(--text-muted)]">
-            {Math.min(practiceWordCount, filteredVocab.length)} كلمة من {filteredVocab.length} متاحة
-          </p>
-
-          <button
-            onClick={() => setPracticeStarted(true)}
-            className="px-8 h-12 rounded-xl text-sm font-bold bg-sky-500 text-white hover:bg-sky-600 transition-colors shadow-lg shadow-sky-500/20"
-          >
-            ابدأ التدريب
-          </button>
-        </div>
-      ) : (
-        /* Practice session */
-        <VocabularyPractice
-          words={
-            practiceWordCount === Infinity
-              ? filteredVocab
-              : filteredVocab.slice(0, practiceWordCount)
-          }
-          onComplete={() => {}}
-          onBack={() => {
-            setPracticeStarted(false)
-            setViewMode('cards')
+      ) : !activeGame ? (
+        <GameHub
+          games={VOCAB_GAMES}
+          totalWords={filteredVocab.length}
+          onSelectGame={(gameId, count) => {
+            setGameWordCount(count)
+            setActiveGame(gameId)
           }}
+          onBack={() => setViewMode('cards')}
+        />
+      ) : (
+        <VocabGameRenderer
+          gameId={activeGame}
+          words={gameWordCount === Infinity ? filteredVocab : filteredVocab.slice(0, gameWordCount)}
+          allWords={filteredVocab}
+          onBack={() => setActiveGame(null)}
         />
       )}
     </div>
   )
+}
+
+// ─── Games config + renderer ──────────────────────────
+const VOCAB_GAMES = [
+  { id: 'anki', name: 'أنكي', desc: 'بطاقات ذكية — اقلب وقيّم نفسك' },
+  { id: 'match', name: 'وصّل', desc: 'وصّل الكلمة بمعناها' },
+  { id: 'speed', name: 'اسمع واكتب', desc: 'اسمع المعنى واكتب الكلمة' },
+  { id: 'scramble', name: 'رتّب الحروف', desc: 'رتّب الحروف المبعثرة' },
+  { id: 'fill', name: 'أكمل الجملة', desc: 'اختر الكلمة الناقصة' },
+]
+
+function getRandomDistractors(word, allWords, count) {
+  const others = allWords.filter(w => w.id !== word.id && w.word !== word.word)
+  const shuffled = others.sort(() => Math.random() - 0.5)
+  return shuffled.slice(0, count).map(w => w.word)
+}
+
+function VocabGameRenderer({ gameId, words, allWords, onBack }) {
+  const backToHub = () => onBack()
+
+  switch (gameId) {
+    case 'anki':
+      return (
+        <VocabularyPractice
+          words={words}
+          onComplete={() => {}}
+          onBack={backToHub}
+        />
+      )
+    case 'match':
+      return (
+        <MatchGame
+          pairs={words.map(w => ({ id: w.id, question: w.word, answer: w.definition_ar }))}
+          title="وصّل الكلمة بمعناها"
+          onComplete={() => {}}
+          onBack={backToHub}
+        />
+      )
+    case 'speed':
+      return (
+        <SpeedTypeGame
+          items={words.map(w => ({ id: w.id, prompt: w.definition_ar, answer: w.word, audioUrl: w.audio_url }))}
+          title="اسمع واكتب"
+          onComplete={() => {}}
+          onBack={backToHub}
+        />
+      )
+    case 'scramble':
+      return (
+        <ScrambleGame
+          items={words.map(w => ({ id: w.id, word: w.word, hint: w.definition_ar, audioUrl: w.audio_url }))}
+          title="رتّب الحروف"
+          onComplete={() => {}}
+          onBack={backToHub}
+        />
+      )
+    case 'fill': {
+      const fillItems = words
+        .filter(w => w.example_sentence)
+        .map(w => ({
+          id: w.id,
+          sentence: w.example_sentence.replace(new RegExp(w.word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), '_____'),
+          correctAnswer: w.word,
+          meaning: w.definition_ar,
+          distractors: getRandomDistractors(w, allWords, 3),
+          audioUrl: w.audio_url,
+        }))
+        .filter(item => item.sentence.includes('_____'))
+
+      if (fillItems.length === 0) {
+        return (
+          <div className="glass-card p-12 text-center">
+            <p className="text-[var(--text-muted)] font-['Tajawal']">لا توجد جمل متاحة لهذه المفردات</p>
+            <button onClick={backToHub} className="mt-4 text-sm text-sky-400 hover:text-sky-300 font-['Tajawal']">العودة</button>
+          </div>
+        )
+      }
+
+      return (
+        <FillBlankGame
+          items={fillItems}
+          title="أكمل الجملة"
+          onComplete={() => {}}
+          onBack={backToHub}
+        />
+      )
+    }
+    default:
+      return null
+  }
 }
 
 // ─── Level Dropdown (themed + level-locked) ──────────
