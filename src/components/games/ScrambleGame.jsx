@@ -23,7 +23,6 @@ function scrambleWord(word) {
 }
 
 const ITEMS_PER_ROUND = 10
-const MAX_HINTS = 2
 
 export default function ScrambleGame({
   items,
@@ -45,10 +44,10 @@ export default function ScrambleGame({
   const [isComplete, setIsComplete] = useState(false)
   const [startTime, setStartTime] = useState(null)
   const [elapsed, setElapsed] = useState(0)
-  const [wordStartTime, setWordStartTime] = useState(null)
 
   const audioRef = useRef(null)
   const timerRef = useRef(null)
+  const advanceRef = useRef(null)
 
   const initWord = useCallback((item) => {
     const scrambled = scrambleWord(item.word).map((char, i) => ({
@@ -60,7 +59,6 @@ export default function ScrambleGame({
     setAnswerSlots(new Array(item.word.length).fill(null))
     setFeedback(null)
     setHintsUsed(0)
-    setWordStartTime(Date.now())
   }, [])
 
   const initRound = useCallback(() => {
@@ -106,13 +104,16 @@ export default function ScrambleGame({
       setElapsed(finalTime)
       setIsComplete(true)
       clearInterval(timerRef.current)
-      onComplete?.({ score, time: finalTime, hintsUsed: totalHints, correct })
+      // Use functional reads to get latest values
+      setScore(s => { setCorrect(c => { setTotalHints(h => { onComplete?.({ score: s, time: finalTime, hintsUsed: h, correct: c }); return h }); return c }); return s })
     } else {
       const nextIdx = currentIndex + 1
       setCurrentIndex(nextIdx)
       initWord(roundItems[nextIdx])
     }
-  }, [currentIndex, roundItems, startTime, score, totalHints, correct, onComplete, initWord])
+  }, [currentIndex, roundItems, startTime, onComplete, initWord])
+
+  advanceRef.current = advanceToNext
 
   // Check answer whenever answerSlots changes
   useEffect(() => {
@@ -127,17 +128,15 @@ export default function ScrambleGame({
       .join('')
 
     if (builtWord.toLowerCase() === currentItem.word.toLowerCase()) {
-      // Correct
-      const wordTime = (Date.now() - wordStartTime) / 1000
-      let points = hintsUsed === 0 ? 15 : hintsUsed === 1 ? 10 : 5
-      if (wordTime < 10 && hintsUsed === 0) points += 5
+      // Correct — points based on hints used for this word
+      const points = hintsUsed === 0 ? 15 : hintsUsed === 1 ? 10 : hintsUsed === 2 ? 5 : 2
 
       setScore(s => s + points)
       setCorrect(c => c + 1)
       setFeedback('correct')
       setFloatingScore({ points, key: Date.now() })
 
-      setTimeout(() => advanceToNext(), 900)
+      setTimeout(() => advanceRef.current?.(), 1000)
     } else {
       // Wrong
       setFeedback('wrong')
@@ -187,37 +186,40 @@ export default function ScrambleGame({
   }
 
   const handleHint = () => {
-    if (feedback || hintsUsed >= MAX_HINTS || !currentItem) return
+    if (feedback || !currentItem) return
 
-    // Find the next empty or wrongly-placed slot
     const word = currentItem.word
-    let targetIdx = -1
+
+    // Find positions that are NOT yet correctly placed
+    const emptyPositions = []
     for (let i = 0; i < word.length; i++) {
       const placedId = answerSlots[i]
       if (!placedId) {
-        targetIdx = i
-        break
-      }
-      const placedChar = scrambledLetters.find(l => l.id === placedId)?.char
-      if (placedChar?.toLowerCase() !== word[i].toLowerCase()) {
-        // Remove wrong letter first
-        setScrambledLetters(prev =>
-          prev.map(l => l.id === placedId ? { ...l, placed: false } : l)
-        )
-        setAnswerSlots(prev => {
-          const next = [...prev]
-          next[i] = null
-          return next
-        })
-        targetIdx = i
-        break
+        emptyPositions.push(i)
+      } else {
+        const placedChar = scrambledLetters.find(l => l.id === placedId)?.char
+        if (placedChar?.toLowerCase() !== word[i].toLowerCase()) {
+          // Wrong letter — remove it first
+          setScrambledLetters(prev =>
+            prev.map(l => l.id === placedId ? { ...l, placed: false } : l)
+          )
+          setAnswerSlots(prev => {
+            const next = [...prev]
+            next[i] = null
+            return next
+          })
+          emptyPositions.push(i)
+        }
       }
     }
 
-    if (targetIdx === -1) return
+    if (emptyPositions.length === 0) return
+
+    // Pick a RANDOM empty position
+    const posToReveal = emptyPositions[Math.floor(Math.random() * emptyPositions.length)]
 
     // Find the correct letter from available tiles
-    const targetChar = word[targetIdx].toLowerCase()
+    const targetChar = word[posToReveal].toLowerCase()
     const available = scrambledLetters.find(
       l => !l.placed && l.char.toLowerCase() === targetChar
     )
@@ -228,7 +230,7 @@ export default function ScrambleGame({
     )
     setAnswerSlots(prev => {
       const next = [...prev]
-      next[targetIdx] = available.id
+      next[posToReveal] = available.id
       return next
     })
 
@@ -419,7 +421,7 @@ export default function ScrambleGame({
             </div>
 
             {/* Answer slots */}
-            <div className="flex flex-wrap justify-center gap-2">
+            <div dir="ltr" style={{ direction: 'ltr' }} className="flex flex-wrap justify-center gap-2">
               {answerSlots.map((letterId, idx) => {
                 const letter = letterId
                   ? scrambledLetters.find(l => l.id === letterId)
@@ -450,7 +452,7 @@ export default function ScrambleGame({
             </div>
 
             {/* Scrambled tiles */}
-            <div className="flex flex-wrap justify-center gap-2 min-h-[48px]">
+            <div dir="ltr" style={{ direction: 'ltr' }} className="flex flex-wrap justify-center gap-2 min-h-[48px]">
               {scrambledLetters.map((letter) => {
                 if (letter.placed) {
                   // Invisible placeholder to keep layout stable
@@ -480,13 +482,13 @@ export default function ScrambleGame({
             </div>
 
             {/* Hint button */}
-            {!feedback && hintsUsed < MAX_HINTS && (
+            {!feedback && answerSlots.some(s => s === null) && (
               <button
                 onClick={handleHint}
                 className="flex items-center gap-1.5 text-xs text-[var(--text-muted)] hover:text-amber-400 transition-colors font-['Tajawal']"
               >
                 <Lightbulb size={14} />
-                تلميح ({MAX_HINTS - hintsUsed} متبقي)
+                تلميح
               </button>
             )}
           </div>
