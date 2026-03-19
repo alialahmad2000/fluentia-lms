@@ -11,12 +11,15 @@ import MatchGame from '../../../components/games/MatchGame'
 import SpeedTypeGame from '../../../components/games/SpeedTypeGame'
 import ScrambleGame from '../../../components/games/ScrambleGame'
 import FillBlankGame from '../../../components/games/FillBlankGame'
+import XPNotification from '../../../components/games/XPNotification'
+import { awardPracticeXP } from '../../../utils/xpManager'
 
 export default function IrregularVerbsPractice() {
   const { studentData } = useAuthStore()
   const [mode, setMode] = useState('browse') // browse | practice
   const [practiceMode, setPracticeMode] = useState(null) // null | game id string
   const [gameWordCount, setGameWordCount] = useState(10)
+  const [xpAwarded, setXpAwarded] = useState(0)
   const [difficulty, setDifficulty] = useState('easy')
   const [levels, setLevels] = useState([])
   const [selectedLevelId, setSelectedLevelId] = useState(null)
@@ -99,6 +102,8 @@ export default function IrregularVerbsPractice() {
 
   return (
     <div className="space-y-8 max-w-4xl mx-auto">
+      <XPNotification xp={xpAwarded} />
+
       {/* Header */}
       <div>
         <h1 className="text-page-title font-bold text-[var(--text-primary)] font-['Tajawal']">
@@ -245,6 +250,10 @@ export default function IrregularVerbsPractice() {
           allVerbs={filteredVerbs}
           difficulty={difficulty}
           onBack={() => setPracticeMode(null)}
+          onComplete={async (stats) => {
+            const xp = await awardPracticeXP(studentData?.id, `verbs_${practiceMode}`, stats)
+            if (xp > 0) { setXpAwarded(xp); setTimeout(() => setXpAwarded(0), 3000) }
+          }}
         />
       )}
     </div>
@@ -267,8 +276,16 @@ function getRandomVerbDistractors(verb, allVerbs) {
   return [verb.verb_base, verb.verb_past_participle, shuffled[0]?.verb_past || 'took'].slice(0, 3)
 }
 
-function VerbGameRenderer({ gameId, verbs, allVerbs, difficulty, onBack }) {
+function VerbGameRenderer({ gameId, verbs, allVerbs, difficulty, onBack, onComplete }) {
   const backToHub = () => onBack()
+
+  const handleComplete = (stats) => {
+    const normalized = {
+      score: stats?.mastered ?? stats?.correct ?? stats?.score ?? 0,
+      total: stats?.total ?? stats?.totalPairs ?? verbs.length,
+    }
+    onComplete?.(normalized)
+  }
 
   switch (gameId) {
     case 'quiz':
@@ -277,7 +294,7 @@ function VerbGameRenderer({ gameId, verbs, allVerbs, difficulty, onBack }) {
       return (
         <VerbAnkiPractice
           verbs={verbs}
-          onComplete={() => {}}
+          onComplete={handleComplete}
           onBack={backToHub}
         />
       )
@@ -286,7 +303,7 @@ function VerbGameRenderer({ gameId, verbs, allVerbs, difficulty, onBack }) {
         <MatchGame
           pairs={verbs.map(v => ({ id: v.id, question: v.verb_base, answer: v.verb_past }))}
           title="وصّل الفعل بتصريفه الماضي"
-          onComplete={() => {}}
+          onComplete={handleComplete}
           onBack={backToHub}
         />
       )
@@ -300,7 +317,7 @@ function VerbGameRenderer({ gameId, verbs, allVerbs, difficulty, onBack }) {
             audioUrl: v.audio_past_url,
           }))}
           title="اسمع واكتب التصريف"
-          onComplete={() => {}}
+          onComplete={handleComplete}
           onBack={backToHub}
         />
       )
@@ -314,7 +331,7 @@ function VerbGameRenderer({ gameId, verbs, allVerbs, difficulty, onBack }) {
             audioUrl: v.audio_pp_url,
           }))}
           title="رتّب حروف التصريف الثالث"
-          onComplete={() => {}}
+          onComplete={handleComplete}
           onBack={backToHub}
         />
       )
@@ -337,7 +354,7 @@ function VerbGameRenderer({ gameId, verbs, allVerbs, difficulty, onBack }) {
         <FillBlankGame
           items={fillItems}
           title="أكمل الجملة بالتصريف الصحيح"
-          onComplete={() => {}}
+          onComplete={handleComplete}
           onBack={backToHub}
         />
       )

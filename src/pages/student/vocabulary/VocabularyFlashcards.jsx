@@ -10,6 +10,8 @@ import MatchGame from '../../../components/games/MatchGame'
 import SpeedTypeGame from '../../../components/games/SpeedTypeGame'
 import ScrambleGame from '../../../components/games/ScrambleGame'
 import FillBlankGame from '../../../components/games/FillBlankGame'
+import XPNotification from '../../../components/games/XPNotification'
+import { awardPracticeXP } from '../../../utils/xpManager'
 
 // ─── Skeleton loaders ──────────────────────────────
 function FilterSkeleton() {
@@ -59,6 +61,7 @@ export default function VocabularyFlashcards() {
   const [viewMode, setViewMode] = useState('cards') // 'cards' | 'list' | 'games'
   const [activeGame, setActiveGame] = useState(null) // null | 'anki' | 'match' | 'speed' | 'scramble' | 'fill'
   const [gameWordCount, setGameWordCount] = useState(10)
+  const [xpAwarded, setXpAwarded] = useState(0)
 
   const audioRef = useRef(null)
 
@@ -201,6 +204,8 @@ export default function VocabularyFlashcards() {
 
   return (
     <div className="space-y-8" dir="rtl">
+      <XPNotification xp={xpAwarded} />
+
       {/* Header */}
       <div>
         <h1 className="text-page-title font-bold text-[var(--text-primary)]">المفردات</h1>
@@ -323,6 +328,13 @@ export default function VocabularyFlashcards() {
           words={gameWordCount === Infinity ? filteredVocab : filteredVocab.slice(0, gameWordCount)}
           allWords={filteredVocab}
           onBack={() => setActiveGame(null)}
+          onComplete={async (stats) => {
+            const xp = await awardPracticeXP(studentData?.id, `vocab_${activeGame}`, stats)
+            if (xp > 0) {
+              setXpAwarded(xp)
+              setTimeout(() => setXpAwarded(0), 3000)
+            }
+          }}
         />
       )}
     </div>
@@ -344,15 +356,22 @@ function getRandomDistractors(word, allWords, count) {
   return shuffled.slice(0, count).map(w => w.word)
 }
 
-function VocabGameRenderer({ gameId, words, allWords, onBack }) {
+function VocabGameRenderer({ gameId, words, allWords, onBack, onComplete }) {
   const backToHub = () => onBack()
+  const handleComplete = (stats) => {
+    const normalized = {
+      score: stats?.mastered ?? stats?.correct ?? stats?.score ?? 0,
+      total: stats?.total ?? stats?.totalPairs ?? words.length,
+    }
+    onComplete?.(normalized)
+  }
 
   switch (gameId) {
     case 'anki':
       return (
         <VocabularyPractice
           words={words}
-          onComplete={() => {}}
+          onComplete={handleComplete}
           onBack={backToHub}
         />
       )
@@ -361,7 +380,7 @@ function VocabGameRenderer({ gameId, words, allWords, onBack }) {
         <MatchGame
           pairs={words.map(w => ({ id: w.id, question: w.word, answer: w.definition_ar }))}
           title="وصّل الكلمة بمعناها"
-          onComplete={() => {}}
+          onComplete={handleComplete}
           onBack={backToHub}
         />
       )
@@ -370,7 +389,7 @@ function VocabGameRenderer({ gameId, words, allWords, onBack }) {
         <SpeedTypeGame
           items={words.map(w => ({ id: w.id, prompt: w.definition_ar, answer: w.word, audioUrl: w.audio_url }))}
           title="اسمع واكتب"
-          onComplete={() => {}}
+          onComplete={handleComplete}
           onBack={backToHub}
         />
       )
@@ -379,7 +398,7 @@ function VocabGameRenderer({ gameId, words, allWords, onBack }) {
         <ScrambleGame
           items={words.map(w => ({ id: w.id, word: w.word, hint: w.definition_ar, audioUrl: w.audio_url }))}
           title="رتّب الحروف"
-          onComplete={() => {}}
+          onComplete={handleComplete}
           onBack={backToHub}
         />
       )
@@ -409,7 +428,7 @@ function VocabGameRenderer({ gameId, words, allWords, onBack }) {
         <FillBlankGame
           items={fillItems}
           title="أكمل الجملة"
-          onComplete={() => {}}
+          onComplete={handleComplete}
           onBack={backToHub}
         />
       )
