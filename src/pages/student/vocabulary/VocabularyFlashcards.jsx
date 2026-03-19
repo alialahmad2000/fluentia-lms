@@ -305,6 +305,82 @@ export default function VocabularyFlashcards() {
   )
 }
 
+// ─── Level Dropdown (themed + level-locked) ──────────
+function LevelDropdown({ levels, selectedLevel, studentLevel, onChange }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef(null)
+
+  // Close on outside click
+  useEffect(() => {
+    function handleClick(e) {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false)
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [])
+
+  const selected = levels.find((l) => l.id === selectedLevel)
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-2 h-10 px-3 rounded-xl text-sm font-medium bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-[var(--text-primary)] hover:border-sky-500/40 transition-colors"
+      >
+        <Filter size={14} className="text-[var(--text-muted)]" />
+        {selected?.name_ar || 'اختر المستوى'}
+        <ChevronDown size={14} className={`text-[var(--text-muted)] transition-transform ${open ? 'rotate-180' : ''}`} />
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.15 }}
+            className="absolute z-50 top-full mt-1.5 right-0 min-w-[200px] rounded-xl overflow-hidden border border-[var(--border-subtle)] bg-[var(--surface-raised)] shadow-xl"
+          >
+            {levels.map((l) => {
+              const isLocked = l.level_number > studentLevel
+              const isSelected = l.id === selectedLevel
+
+              return (
+                <button
+                  key={l.id}
+                  disabled={isLocked}
+                  onClick={() => {
+                    if (!isLocked) {
+                      onChange(l.id)
+                      setOpen(false)
+                    }
+                  }}
+                  className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 text-sm text-right transition-colors ${
+                    isLocked
+                      ? 'cursor-not-allowed opacity-45'
+                      : isSelected
+                        ? 'bg-sky-500/15 text-sky-400 font-medium'
+                        : 'text-[var(--text-primary)] hover:bg-[var(--surface-base)]'
+                  }`}
+                >
+                  {l.color && (
+                    <span
+                      className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                      style={{ background: isLocked ? 'var(--text-muted)' : l.color }}
+                    />
+                  )}
+                  <span className="flex-1">{l.name_ar}</span>
+                  {isLocked && <Lock size={13} className="text-[var(--text-muted)] flex-shrink-0" />}
+                </button>
+              )
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
 // ─── List View ──────────────────────────────
 function VocabList({ words, onPlayAudio }) {
   return (
