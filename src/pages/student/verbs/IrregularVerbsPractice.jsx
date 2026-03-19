@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
-import { Search, BookOpen, Dumbbell } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Search, BookOpen, Dumbbell, Lock, ChevronDown, Filter } from 'lucide-react'
 import { supabase } from '../../../lib/supabase'
 import { useAuthStore } from '../../../stores/authStore'
 import VerbCard from './components/VerbCard'
@@ -49,13 +49,13 @@ export default function IrregularVerbsPractice() {
       setVerbCounts(counts)
 
       // Default to student's current level or first level
-      const studentLevel = studentData?.level ?? 0
+      const studentLevel = studentData?.academic_level ?? 0
       const match = lvls.find(l => l.level_number === studentLevel) || lvls[0]
       if (match) setSelectedLevelId(match.id)
     }
     fetchLevels()
     return () => { mounted = false }
-  }, [studentData?.level])
+  }, [studentData?.academic_level])
 
   // Fetch verbs for selected level
   useEffect(() => {
@@ -129,18 +129,14 @@ export default function IrregularVerbsPractice() {
 
       {/* Filters */}
       <div className="flex flex-wrap items-center gap-4">
-        {/* Level selector */}
-        <select
-          value={selectedLevelId || ''}
-          onChange={e => setSelectedLevelId(e.target.value)}
-          className="h-12 px-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--surface-elevated)] text-[var(--text-primary)] text-sm font-['Tajawal'] outline-none focus:border-sky-500"
-        >
-          {levels.map(lvl => (
-            <option key={lvl.id} value={lvl.id}>
-              المستوى {lvl.level_number} — {lvl.name_ar} ({verbCounts[lvl.id] || 0} فعل)
-            </option>
-          ))}
-        </select>
+        {/* Level selector — themed + locked */}
+        <VerbLevelDropdown
+          levels={levels}
+          selectedLevelId={selectedLevelId}
+          studentLevel={studentData?.academic_level ?? 0}
+          verbCounts={verbCounts}
+          onChange={setSelectedLevelId}
+        />
 
         {/* Search (browse mode only) */}
         {mode === 'browse' && (
@@ -227,6 +223,86 @@ export default function IrregularVerbsPractice() {
         // Practice mode
         <VerbPractice verbs={filteredVerbs} difficulty={difficulty} />
       )}
+    </div>
+  )
+}
+
+// ─── Level Dropdown (themed + level-locked) ──────────
+function VerbLevelDropdown({ levels, selectedLevelId, studentLevel, verbCounts, onChange }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef(null)
+
+  useEffect(() => {
+    function handleClick(e) {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false)
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [])
+
+  const selected = levels.find(l => l.id === selectedLevelId)
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-2 h-12 px-4 rounded-xl text-sm font-medium font-['Tajawal'] bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-[var(--text-primary)] hover:border-sky-500/40 transition-colors"
+      >
+        <Filter size={14} className="text-[var(--text-muted)]" />
+        {selected ? `${selected.name_ar} (${verbCounts[selected.id] || 0} فعل)` : 'اختر المستوى'}
+        <ChevronDown size={14} className={`text-[var(--text-muted)] transition-transform ${open ? 'rotate-180' : ''}`} />
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.15 }}
+            className="absolute z-50 top-full mt-1.5 right-0 min-w-[260px] rounded-xl overflow-hidden border border-[var(--border-subtle)] bg-[var(--surface-raised)] shadow-xl"
+          >
+            {levels.map(l => {
+              const isLocked = l.level_number > studentLevel
+              const isSelected = l.id === selectedLevelId
+
+              return (
+                <button
+                  key={l.id}
+                  disabled={isLocked}
+                  onClick={() => {
+                    if (!isLocked) {
+                      onChange(l.id)
+                      setOpen(false)
+                    }
+                  }}
+                  className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 text-sm text-right font-['Tajawal'] transition-colors ${
+                    isLocked
+                      ? 'cursor-not-allowed opacity-45'
+                      : isSelected
+                        ? 'bg-sky-500/15 text-sky-400 font-medium'
+                        : 'text-[var(--text-primary)] hover:bg-[var(--surface-base)]'
+                  }`}
+                >
+                  {l.color && (
+                    <span
+                      className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                      style={{ background: isLocked ? 'var(--text-muted)' : l.color }}
+                    />
+                  )}
+                  <span className="flex-1">
+                    {l.name_ar}
+                    <span className="text-xs text-[var(--text-muted)] mr-1">
+                      ({verbCounts[l.id] || 0} فعل)
+                    </span>
+                  </span>
+                  {isLocked && <Lock size={13} className="text-[var(--text-muted)] flex-shrink-0" />}
+                </button>
+              )
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
