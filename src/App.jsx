@@ -45,12 +45,16 @@ const StudentReferral = lazyRetry(() => import('./pages/student/StudentReferral'
 const StudentWeeklyTasks = lazyRetry(() => import('./pages/student/StudentWeeklyTasks'))
 const StudentWeeklyTaskDetail = lazyRetry(() => import('./pages/student/StudentWeeklyTaskDetail'))
 const StudentSpelling = lazyRetry(() => import('./pages/student/StudentSpelling'))
+const IrregularVerbsPractice = lazyRetry(() => import('./pages/student/verbs/IrregularVerbsPractice'))
 const StudentRecordings = lazyRetry(() => import('./pages/student/StudentRecordings'))
 const StudentWritingLab = lazyRetry(() => import('./pages/student/StudentWritingLab'))
 const StudentGroupActivity = lazyRetry(() => import('./pages/student/StudentGroupActivity'))
 const StudentAdaptiveTest = lazyRetry(() => import('./pages/student/StudentAdaptiveTest'))
 const StudentAIInsights = lazyRetry(() => import('./pages/student/StudentAIInsights'))
 const StudentCurriculum = lazyRetry(() => import('./pages/student/StudentCurriculum'))
+const VocabularyFlashcards = lazyRetry(() => import('./pages/student/vocabulary/VocabularyFlashcards'))
+const CurriculumBrowser = lazyRetry(() => import('./pages/student/curriculum/CurriculumBrowser'))
+const LevelUnits = lazyRetry(() => import('./pages/student/curriculum/LevelUnits'))
 
 const TrainerDashboard = lazyRetry(() => import('./pages/trainer/TrainerDashboard'))
 const TrainerAssignments = lazyRetry(() => import('./pages/trainer/TrainerAssignments'))
@@ -253,6 +257,7 @@ export default function App() {
               <Route path="/student/messages" element={<Page><StudentMessages /></Page>} />
               <Route path="/student/ai-chat" element={<Page><StudentChatbot /></Page>} />
               <Route path="/student/vocabulary" element={<Page><StudentVocabulary /></Page>} />
+              <Route path="/student/flashcards" element={<Page><VocabularyFlashcards /></Page>} />
               <Route path="/student/billing" element={<Page><StudentBilling /></Page>} />
               <Route path="/student/exercises" element={<Page><StudentExercises /></Page>} />
               <Route path="/student/my-patterns" element={<Page><StudentErrorPatterns /></Page>} />
@@ -271,12 +276,15 @@ export default function App() {
               <Route path="/student/weekly-tasks" element={<Page><StudentWeeklyTasks /></Page>} />
               <Route path="/student/weekly-tasks/:id" element={<Page><StudentWeeklyTaskDetail /></Page>} />
               <Route path="/student/spelling" element={<Page><StudentSpelling /></Page>} />
+              <Route path="/student/verbs" element={<Page><IrregularVerbsPractice /></Page>} />
               <Route path="/student/recordings" element={<Page><StudentRecordings /></Page>} />
               <Route path="/student/writing-lab" element={<Page><StudentWritingLab /></Page>} />
               <Route path="/student/group-activity" element={<Page><StudentGroupActivity /></Page>} />
               <Route path="/student/adaptive-test" element={<Page><StudentAdaptiveTest /></Page>} />
               <Route path="/student/ai-insights" element={<Page><StudentAIInsights /></Page>} />
-              <Route path="/student/curriculum" element={<Page><StudentCurriculum /></Page>} />
+              <Route path="/student/curriculum" element={<Page><CurriculumBrowser /></Page>} />
+              <Route path="/student/curriculum/level/:levelNumber" element={<Page><LevelUnits /></Page>} />
+              <Route path="/student/curriculum-old" element={<Page><StudentCurriculum /></Page>} />
             </Route>
           </Route>
 

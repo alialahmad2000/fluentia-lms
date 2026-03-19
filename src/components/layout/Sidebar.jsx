@@ -5,7 +5,7 @@ import {
   Bot, Users, CreditCard, Settings, LayoutDashboard,
   LogOut, X, ChevronLeft, Zap, FolderOpen, CalendarDays, Calendar,
   Video, ClipboardCheck, UsersRound, GraduationCap, Wrench, ListChecks,
-  Brain, BookOpen, Sparkles, Database,
+  Brain, BookOpen, Sparkles, Database, Languages, Shuffle,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { useThemeStore } from '../../stores/themeStore'
@@ -43,11 +43,13 @@ const NAV_ITEMS = {
   student: [
     { type: 'divider', label: 'أساسي' },
     { to: '/student', label: 'الرئيسية', icon: House },
+    { to: '/student/curriculum', label: 'المنهج', icon: BookOpen },
     { to: '/student/assignments', label: 'الواجبات', icon: FileText },
     { to: '/student/weekly-tasks', label: 'المهام الأسبوعية', icon: CalendarDays },
     { to: '/student/schedule', label: 'الجدول', icon: Calendar },
     { to: '/student/recordings', label: 'التسجيلات', icon: Video },
-    { to: '/student/curriculum', label: 'مسار التعلم', icon: GraduationCap },
+    { to: '/student/flashcards', label: 'المفردات', icon: Languages },
+    { to: '/student/verbs', label: 'الأفعال الشاذة', icon: Shuffle },
     { type: 'divider', label: 'معامل' },
     { to: '/student/speaking-lab', label: 'معمل التحدث', icon: Mic },
     { to: '/student/writing-lab', label: 'معمل الكتابة', icon: PenLine },

@@ -1,0 +1,358 @@
+import { useState, useEffect, useRef, useMemo } from 'react'
+import { motion } from 'framer-motion'
+import { BookOpen, Search, Volume2, List, Layers, Filter } from 'lucide-react'
+import { useAuthStore } from '../../../stores/authStore'
+import { supabase } from '../../../lib/supabase'
+import FlashcardDeck from './components/FlashcardDeck'
+
+// ─── Skeleton loaders ──────────────────────────────
+function FilterSkeleton() {
+  return (
+    <div className="flex flex-wrap gap-3 animate-pulse">
+      {[1, 2, 3].map((i) => (
+        <div key={i} className="h-10 w-28 rounded-xl bg-[rgba(255,255,255,0.06)]" />
+      ))}
+      <div className="h-10 flex-1 min-w-[180px] rounded-xl bg-[rgba(255,255,255,0.06)]" />
+    </div>
+  )
+}
+
+function CardSkeleton() {
+  return (
+    <div className="flex flex-col items-center gap-6 animate-pulse">
+      <div className="w-full max-w-[380px] h-[240px] max-sm:h-[200px] rounded-[20px] bg-[rgba(255,255,255,0.05)]" />
+      <div className="flex gap-4">
+        <div className="w-10 h-10 rounded-full bg-[rgba(255,255,255,0.06)]" />
+        <div className="w-24 h-5 rounded bg-[rgba(255,255,255,0.06)] self-center" />
+        <div className="w-10 h-10 rounded-full bg-[rgba(255,255,255,0.06)]" />
+      </div>
+    </div>
+  )
+}
+
+function ListSkeleton() {
+  return (
+    <div className="space-y-2 animate-pulse">
+      {[1, 2, 3, 4, 5, 6].map((i) => (
+        <div key={i} className="h-14 rounded-xl bg-[rgba(255,255,255,0.04)]" />
+      ))}
+    </div>
+  )
+}
+
+export default function VocabularyFlashcards() {
+  const { studentData } = useAuthStore()
+  const [vocab, setVocab] = useState([])
+  const [levels, setLevels] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  const [selectedLevel, setSelectedLevel] = useState(null)
+  const [selectedUnit, setSelectedUnit] = useState('all')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [viewMode, setViewMode] = useState('cards') // 'cards' | 'list'
+
+  const audioRef = useRef(null)
+
+  // Fetch levels + vocabulary
+  useEffect(() => {
+    let isMounted = true
+
+    async function fetchData() {
+      setLoading(true)
+      setError(null)
+
+      // Fetch levels
+      const { data: levelsData, error: levelsErr } = await supabase
+        .from('curriculum_levels')
+        .select('id, level_number, name_ar, color')
+        .order('level_number')
+
+      if (!isMounted) return
+      if (levelsErr) {
+        setError(levelsErr.message)
+        setLoading(false)
+        return
+      }
+      setLevels(levelsData || [])
+
+      // Set default level to student's current level
+      const studentLevel = studentData?.level ?? 0
+      const defaultLevel = levelsData?.find((l) => l.level_number === studentLevel) || levelsData?.[0]
+      if (defaultLevel && !selectedLevel) {
+        setSelectedLevel(defaultLevel.id)
+      }
+
+      // Fetch all vocabulary with reading → unit join
+      const { data: vocabData, error: vocabErr } = await supabase
+        .from('curriculum_vocabulary')
+        .select('id, word, definition_en, definition_ar, example_sentence, part_of_speech, audio_url, difficulty_tier, sort_order, reading:curriculum_readings!reading_id(unit_id, unit:curriculum_units!unit_id(unit_number, level_id, theme_ar))')
+        .order('sort_order')
+
+      if (!isMounted) return
+      if (vocabErr) {
+        setError(vocabErr.message)
+        setLoading(false)
+        return
+      }
+
+      setVocab(vocabData || [])
+      setLoading(false)
+    }
+
+    fetchData()
+    return () => { isMounted = false }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Derive available units for selected level
+  const availableUnits = useMemo(() => {
+    if (!selectedLevel) return []
+    const units = new Map()
+    vocab.forEach((v) => {
+      const unit = v.reading?.unit
+      if (unit && unit.level_id === selectedLevel) {
+        units.set(unit.unit_number, unit.theme_ar)
+      }
+    })
+    return Array.from(units.entries())
+      .sort((a, b) => a[0] - b[0])
+      .map(([num, theme]) => ({ number: num, theme }))
+  }, [vocab, selectedLevel])
+
+  // Filter vocabulary
+  const filteredVocab = useMemo(() => {
+    let filtered = vocab
+
+    // Filter by level
+    if (selectedLevel) {
+      filtered = filtered.filter((v) => v.reading?.unit?.level_id === selectedLevel)
+    }
+
+    // Filter by unit
+    if (selectedUnit !== 'all') {
+      const unitNum = parseInt(selectedUnit, 10)
+      filtered = filtered.filter((v) => v.reading?.unit?.unit_number === unitNum)
+    }
+
+    // Filter by search
+    if (searchQuery.trim()) {
+      const q = searchQuery.trim().toLowerCase()
+      filtered = filtered.filter(
+        (v) =>
+          v.word?.toLowerCase().includes(q) ||
+          v.definition_ar?.includes(q) ||
+          v.definition_en?.toLowerCase().includes(q)
+      )
+    }
+
+    return filtered
+  }, [vocab, selectedLevel, selectedUnit, searchQuery])
+
+  const audioCount = filteredVocab.filter((v) => v.audio_url).length
+
+  const playWord = (url) => {
+    if (audioRef.current) audioRef.current.pause()
+    if (!url) return
+    audioRef.current = new Audio(url)
+    audioRef.current.play().catch(() => {})
+  }
+
+  const selectedLevelData = levels.find((l) => l.id === selectedLevel)
+
+  if (loading) {
+    return (
+      <div className="space-y-12" dir="rtl">
+        <div>
+          <h1 className="text-page-title font-bold text-[var(--text-primary)]">المفردات</h1>
+          <p className="text-[var(--text-muted)] mt-1">تعلّم كلمات جديدة كل يوم</p>
+        </div>
+        <FilterSkeleton />
+        <CardSkeleton />
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="space-y-12" dir="rtl">
+        <div>
+          <h1 className="text-page-title font-bold text-[var(--text-primary)]">المفردات</h1>
+        </div>
+        <div className="glass-card p-7 text-center space-y-4">
+          <p className="text-[var(--text-primary)]">حدث خطأ — حاول مرة ثانية</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-6 py-2.5 rounded-xl bg-sky-500 text-white text-sm font-medium hover:bg-sky-600 transition-colors"
+          >
+            إعادة المحاولة
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-8" dir="rtl">
+      {/* Header */}
+      <div>
+        <h1 className="text-page-title font-bold text-[var(--text-primary)]">المفردات</h1>
+        <p className="text-[var(--text-muted)] mt-1">تعلّم كلمات جديدة كل يوم</p>
+      </div>
+
+      {/* Filters */}
+      <div className="flex flex-wrap items-center gap-3">
+        {/* Level selector */}
+        <div className="relative">
+          <select
+            value={selectedLevel || ''}
+            onChange={(e) => {
+              setSelectedLevel(e.target.value)
+              setSelectedUnit('all')
+            }}
+            className="h-10 pl-3 pr-8 rounded-xl text-sm font-medium appearance-none cursor-pointer bg-[var(--card-bg,rgba(255,255,255,0.05))] border border-[var(--card-border,rgba(255,255,255,0.08))] text-[var(--text-primary)] focus:outline-none focus:border-sky-500/50"
+          >
+            {levels.map((l) => (
+              <option key={l.id} value={l.id}>
+                {l.name_ar}
+              </option>
+            ))}
+          </select>
+          <Filter size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[var(--text-muted)] pointer-events-none" />
+        </div>
+
+        {/* Unit selector */}
+        <select
+          value={selectedUnit}
+          onChange={(e) => setSelectedUnit(e.target.value)}
+          className="h-10 pl-3 pr-8 rounded-xl text-sm font-medium appearance-none cursor-pointer bg-[var(--card-bg,rgba(255,255,255,0.05))] border border-[var(--card-border,rgba(255,255,255,0.08))] text-[var(--text-primary)] focus:outline-none focus:border-sky-500/50"
+        >
+          <option value="all">كل الوحدات</option>
+          {availableUnits.map((u) => (
+            <option key={u.number} value={u.number}>
+              الوحدة {u.number} — {u.theme}
+            </option>
+          ))}
+        </select>
+
+        {/* Search */}
+        <div className="relative flex-1 min-w-[180px]">
+          <Search size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)]" />
+          <input
+            type="text"
+            placeholder="ابحث عن كلمة..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full h-10 pr-9 pl-3 rounded-xl text-sm bg-[var(--card-bg,rgba(255,255,255,0.05))] border border-[var(--card-border,rgba(255,255,255,0.08))] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-sky-500/50"
+          />
+        </div>
+      </div>
+
+      {/* Stats bar */}
+      <div className="flex items-center gap-4 text-sm text-[var(--text-muted)]">
+        <span className="flex items-center gap-1.5">
+          <BookOpen size={15} />
+          {filteredVocab.length} كلمة
+        </span>
+        {audioCount > 0 && (
+          <span className="flex items-center gap-1.5">
+            <Volume2 size={15} />
+            {audioCount} مع صوت
+          </span>
+        )}
+        {selectedLevelData && (
+          <span
+            className="px-2 py-0.5 rounded-md text-xs font-medium"
+            style={{ background: selectedLevelData.color + '22', color: selectedLevelData.color }}
+          >
+            {selectedLevelData.name_ar}
+          </span>
+        )}
+      </div>
+
+      {/* Mode toggle */}
+      <div className="flex items-center gap-1 p-1 rounded-xl bg-[var(--card-bg,rgba(255,255,255,0.05))] border border-[var(--card-border,rgba(255,255,255,0.08))] w-fit">
+        <button
+          onClick={() => setViewMode('cards')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            viewMode === 'cards'
+              ? 'bg-sky-500/20 text-sky-400'
+              : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+          }`}
+        >
+          <Layers size={16} />
+          بطاقات
+        </button>
+        <button
+          onClick={() => setViewMode('list')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            viewMode === 'list'
+              ? 'bg-sky-500/20 text-sky-400'
+              : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+          }`}
+        >
+          <List size={16} />
+          قائمة
+        </button>
+      </div>
+
+      {/* Content */}
+      {filteredVocab.length === 0 ? (
+        <div className="glass-card p-12 text-center">
+          <BookOpen size={40} className="mx-auto text-[var(--text-muted)] opacity-40 mb-4" />
+          <p className="text-[var(--text-muted)]">لا توجد مفردات لهذه الوحدة بعد</p>
+        </div>
+      ) : viewMode === 'cards' ? (
+        <FlashcardDeck words={filteredVocab} />
+      ) : (
+        <VocabList words={filteredVocab} onPlayAudio={playWord} />
+      )}
+    </div>
+  )
+}
+
+// ─── List View ──────────────────────────────
+function VocabList({ words, onPlayAudio }) {
+  return (
+    <div className="space-y-1.5">
+      {words.map((w) => (
+        <motion.div
+          key={w.id}
+          className="flex items-center gap-3 h-14 px-4 rounded-xl bg-[var(--card-bg,rgba(255,255,255,0.03))] border border-[var(--card-border,rgba(255,255,255,0.06))] hover:border-[rgba(255,255,255,0.12)] transition-colors"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.15 }}
+        >
+          {/* Audio */}
+          {w.audio_url ? (
+            <button
+              onClick={() => onPlayAudio(w.audio_url)}
+              className="w-9 h-9 rounded-full bg-sky-500/15 text-sky-400 flex items-center justify-center flex-shrink-0 hover:bg-sky-500/25 transition-colors"
+              aria-label={`تشغيل نطق ${w.word}`}
+            >
+              <Volume2 size={16} />
+            </button>
+          ) : (
+            <div className="w-9 h-9 flex-shrink-0" />
+          )}
+
+          {/* Word */}
+          <span className="font-semibold text-[var(--text-primary)] min-w-[100px] text-left" dir="ltr">
+            {w.word}
+          </span>
+
+          {/* Part of speech */}
+          {w.part_of_speech && (
+            <span className="text-xs text-[var(--text-muted)] opacity-60 hidden sm:inline">
+              {w.part_of_speech}
+            </span>
+          )}
+
+          {/* Arabic meaning */}
+          <span className="flex-1 text-sm text-[var(--text-secondary)] text-right truncate">
+            {w.definition_ar}
+          </span>
+        </motion.div>
+      ))}
+    </div>
+  )
+}
