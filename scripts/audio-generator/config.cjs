@@ -15,34 +15,34 @@ module.exports = {
   voices: {
     // British English male — for vocabulary, grammar, irregular verbs
     british_male: {
-      id: 'PLACEHOLDER_BRITISH_MALE',
+      id: 'JBFqnCBsd6RMkjVDRZzb',
       name: 'TBD — British Male (clear, academic)',
       usage: 'Vocabulary pronunciation, irregular verbs, grammar examples'
     },
     // British English female — for readings, listening scripts
     british_female: {
-      id: 'PLACEHOLDER_BRITISH_FEMALE',
+      id: 'Xb7hH8MSUJpSbSDYk0k2',
       name: 'TBD — British Female (narrative, warm)',
       usage: 'Reading passages, listening scripts'
     },
     // IELTS voices — different accents for exam prep
     ielts_british: {
-      id: 'PLACEHOLDER_IELTS_BRITISH',
+      id: 'onwK4e9ZLuTAKqWW03F9',
       name: 'TBD — British (IELTS)',
       accent: 'british'
     },
     ielts_american: {
-      id: 'PLACEHOLDER_IELTS_AMERICAN',
+      id: 'cjVigY5qzO86Huf0OWal',
       name: 'TBD — American (IELTS)',
       accent: 'american'
     },
     ielts_australian: {
-      id: 'PLACEHOLDER_IELTS_AUSTRALIAN',
+      id: 'IKne3meq5aSn9XLyUdCD',
       name: 'TBD — Australian (IELTS)',
       accent: 'australian'
     },
     ielts_indian: {
-      id: 'PLACEHOLDER_IELTS_INDIAN',
+      id: 'XrExE9yKIg1WjnnlVkGX',
       name: 'TBD — South Asian (IELTS)',
       accent: 'indian'
     }
