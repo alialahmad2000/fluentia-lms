@@ -351,9 +351,20 @@ const VOCAB_GAMES = [
 ]
 
 function getRandomDistractors(word, allWords, count) {
-  const others = allWords.filter(w => w.id !== word.id && w.word !== word.word)
-  const shuffled = others.sort(() => Math.random() - 0.5)
-  return shuffled.slice(0, count).map(w => w.word)
+  const correctLower = word.word.toLowerCase()
+  const others = allWords.filter(w => w.id !== word.id && w.word.toLowerCase() !== correctLower)
+  const shuffled = [...others].sort(() => Math.random() - 0.5)
+  const unique = []
+  const seen = new Set()
+  for (const w of shuffled) {
+    const key = w.word.toLowerCase()
+    if (!seen.has(key)) {
+      seen.add(key)
+      unique.push(w.word)
+    }
+    if (unique.length >= count) break
+  }
+  return unique
 }
 
 function VocabGameRenderer({ gameId, words, allWords, onBack, onComplete }) {

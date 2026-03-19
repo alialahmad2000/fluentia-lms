@@ -271,9 +271,27 @@ const VERB_GAMES = [
 ]
 
 function getRandomVerbDistractors(verb, allVerbs) {
-  const others = allVerbs.filter(v => v.id !== verb.id)
-  const shuffled = others.sort(() => Math.random() - 0.5)
-  return [verb.verb_base, verb.verb_past_participle, shuffled[0]?.verb_past || 'took'].slice(0, 3)
+  const correctLower = verb.verb_past.toLowerCase()
+  // Gather candidate distractors: own base/pp forms + other verbs' past forms
+  const candidates = []
+  if (verb.verb_base.toLowerCase() !== correctLower) candidates.push(verb.verb_base)
+  if (verb.verb_past_participle.toLowerCase() !== correctLower) candidates.push(verb.verb_past_participle)
+  const others = [...allVerbs].filter(v => v.id !== verb.id).sort(() => Math.random() - 0.5)
+  for (const v of others) {
+    if (v.verb_past.toLowerCase() !== correctLower) candidates.push(v.verb_past)
+  }
+  // Deduplicate
+  const unique = []
+  const seen = new Set()
+  for (const c of candidates) {
+    const key = c.toLowerCase()
+    if (!seen.has(key)) {
+      seen.add(key)
+      unique.push(c)
+    }
+    if (unique.length >= 3) break
+  }
+  return unique
 }
 
 function VerbGameRenderer({ gameId, verbs, allVerbs, difficulty, onBack, onComplete }) {

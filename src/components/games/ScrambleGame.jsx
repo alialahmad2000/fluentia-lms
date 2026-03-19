@@ -47,7 +47,9 @@ export default function ScrambleGame({
 
   const audioRef = useRef(null)
   const timerRef = useRef(null)
-  const advanceRef = useRef(null)
+  const scoreRef = useRef(0)
+  const correctRef = useRef(0)
+  const totalHintsRef = useRef(0)
 
   const initWord = useCallback((item) => {
     const scrambled = scrambleWord(item.word).map((char, i) => ({
@@ -72,6 +74,9 @@ export default function ScrambleGame({
     setIsComplete(false)
     setElapsed(0)
     setStartTime(Date.now())
+    scoreRef.current = 0
+    correctRef.current = 0
+    totalHintsRef.current = 0
     if (selected.length > 0) initWord(selected[0])
   }, [items, itemsPerRound, initWord])
 
@@ -104,16 +109,13 @@ export default function ScrambleGame({
       setElapsed(finalTime)
       setIsComplete(true)
       clearInterval(timerRef.current)
-      // Use functional reads to get latest values
-      setScore(s => { setCorrect(c => { setTotalHints(h => { onComplete?.({ score: s, time: finalTime, hintsUsed: h, correct: c }); return h }); return c }); return s })
+      onComplete?.({ score: scoreRef.current, time: finalTime, hintsUsed: totalHintsRef.current, correct: correctRef.current })
     } else {
       const nextIdx = currentIndex + 1
       setCurrentIndex(nextIdx)
       initWord(roundItems[nextIdx])
     }
   }, [currentIndex, roundItems, startTime, onComplete, initWord])
-
-  advanceRef.current = advanceToNext
 
   // Check answer whenever answerSlots changes
   useEffect(() => {
@@ -131,12 +133,15 @@ export default function ScrambleGame({
       // Correct — points based on hints used for this word
       const points = hintsUsed === 0 ? 15 : hintsUsed === 1 ? 10 : hintsUsed === 2 ? 5 : 2
 
-      setScore(s => s + points)
-      setCorrect(c => c + 1)
+      scoreRef.current += points
+      correctRef.current += 1
+      setScore(scoreRef.current)
+      setCorrect(correctRef.current)
       setFeedback('correct')
       setFloatingScore({ points, key: Date.now() })
 
-      setTimeout(() => advanceRef.current?.(), 1000)
+      const nextFn = advanceToNext
+      setTimeout(() => nextFn(), 1000)
     } else {
       // Wrong
       setFeedback('wrong')
@@ -235,7 +240,8 @@ export default function ScrambleGame({
     })
 
     setHintsUsed(h => h + 1)
-    setTotalHints(t => t + 1)
+    totalHintsRef.current += 1
+    setTotalHints(totalHintsRef.current)
   }
 
   const formatTime = (s) => {
@@ -382,6 +388,7 @@ export default function ScrambleGame({
           className="w-full"
         >
           <div
+            key={`scramble-word-${currentIndex}`}
             className="w-full rounded-[20px] p-6 sm:p-8 flex flex-col items-center gap-5 relative"
             style={{
               background: 'var(--surface-raised)',

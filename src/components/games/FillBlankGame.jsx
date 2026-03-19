@@ -37,7 +37,16 @@ export default function FillBlankGame({
   const timerRef = useRef(null)
 
   const setupOptions = useCallback((item) => {
-    const options = shuffle([item.correctAnswer, ...item.distractors])
+    // Deduplicate: remove any distractor matching correct answer, then remove dupes
+    const correctLower = item.correctAnswer.toLowerCase().trim()
+    const seen = new Set([correctLower])
+    const uniqueDistractors = item.distractors.filter(d => {
+      const key = d.toLowerCase().trim()
+      if (seen.has(key)) return false
+      seen.add(key)
+      return true
+    }).slice(0, 3)
+    const options = shuffle([item.correctAnswer, ...uniqueDistractors])
     setShuffledOptions(options)
   }, [])
 
