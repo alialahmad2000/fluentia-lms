@@ -1,14 +1,16 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, BookOpen, Dumbbell, Lock, ChevronDown, Filter } from 'lucide-react'
+import { Search, BookOpen, Dumbbell, Lock, ChevronDown, Filter, PenLine, RotateCcw } from 'lucide-react'
 import { supabase } from '../../../lib/supabase'
 import { useAuthStore } from '../../../stores/authStore'
 import VerbCard from './components/VerbCard'
 import VerbPractice from './components/VerbPractice'
+import VerbAnkiPractice from './components/VerbAnkiPractice'
 
 export default function IrregularVerbsPractice() {
   const { studentData } = useAuthStore()
   const [mode, setMode] = useState('browse') // browse | practice
+  const [practiceMode, setPracticeMode] = useState(null) // null | 'quiz' | 'anki'
   const [difficulty, setDifficulty] = useState('easy')
   const [levels, setLevels] = useState([])
   const [selectedLevelId, setSelectedLevelId] = useState(null)
@@ -104,7 +106,7 @@ export default function IrregularVerbsPractice() {
       {/* Mode toggle */}
       <div className="flex gap-1 p-1 rounded-xl bg-[var(--surface-elevated)] w-fit">
         <button
-          onClick={() => setMode('browse')}
+          onClick={() => { setMode('browse'); setPracticeMode(null) }}
           className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors font-['Tajawal'] ${
             mode === 'browse'
               ? 'bg-sky-500 text-white'
@@ -115,7 +117,7 @@ export default function IrregularVerbsPractice() {
           تصفّح
         </button>
         <button
-          onClick={() => setMode('practice')}
+          onClick={() => { setMode('practice'); setPracticeMode(null) }}
           className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors font-['Tajawal'] ${
             mode === 'practice'
               ? 'bg-sky-500 text-white'
@@ -152,8 +154,8 @@ export default function IrregularVerbsPractice() {
           </div>
         )}
 
-        {/* Difficulty (practice mode) */}
-        {mode === 'practice' && (
+        {/* Difficulty (quiz practice mode only) */}
+        {mode === 'practice' && practiceMode === 'quiz' && (
           <div className="flex gap-1 p-1 rounded-xl bg-[var(--surface-elevated)]">
             <button
               onClick={() => setDifficulty('easy')}
@@ -219,9 +221,43 @@ export default function IrregularVerbsPractice() {
             <VerbCard key={verb.id} verb={verb} />
           ))}
         </motion.div>
-      ) : (
-        // Practice mode
+      ) : !practiceMode ? (
+        // Practice mode picker
+        <div className="flex flex-col items-center gap-6 py-4">
+          <h2 className="text-lg font-bold text-[var(--text-primary)] font-['Tajawal']">اختر نوع التدريب</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md">
+            <button
+              onClick={() => setPracticeMode('quiz')}
+              className="flex flex-col items-center gap-3 p-6 rounded-xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] hover:border-sky-500/40 transition-colors group"
+            >
+              <div className="w-14 h-14 rounded-full bg-sky-500/15 flex items-center justify-center group-hover:bg-sky-500/25 transition-colors">
+                <PenLine size={24} className="text-sky-400" />
+              </div>
+              <span className="text-base font-bold text-[var(--text-primary)] font-['Tajawal']">اختبار</span>
+              <span className="text-xs text-[var(--text-muted)] font-['Tajawal'] text-center">أكمل الفراغ بالتصريف الصحيح</span>
+            </button>
+            <button
+              onClick={() => setPracticeMode('anki')}
+              className="flex flex-col items-center gap-3 p-6 rounded-xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] hover:border-amber-500/40 transition-colors group"
+            >
+              <div className="w-14 h-14 rounded-full bg-amber-500/15 flex items-center justify-center group-hover:bg-amber-500/25 transition-colors">
+                <RotateCcw size={24} className="text-amber-400" />
+              </div>
+              <span className="text-base font-bold text-[var(--text-primary)] font-['Tajawal']">أنكي</span>
+              <span className="text-xs text-[var(--text-muted)] font-['Tajawal'] text-center">بطاقات تقلبها وتقيّم نفسك</span>
+            </button>
+          </div>
+        </div>
+      ) : practiceMode === 'quiz' ? (
+        // Quiz practice mode
         <VerbPractice verbs={filteredVerbs} difficulty={difficulty} />
+      ) : (
+        // Anki practice mode
+        <VerbAnkiPractice
+          verbs={filteredVerbs}
+          onComplete={() => {}}
+          onBack={() => setPracticeMode(null)}
+        />
       )}
     </div>
   )
