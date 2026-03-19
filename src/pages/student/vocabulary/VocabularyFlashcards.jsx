@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Search, Volume2, List, Layers, Filter, Lock, ChevronDown } from 'lucide-react'
+import { BookOpen, Search, Volume2, List, Layers, Filter, Lock, ChevronDown, Zap } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import FlashcardDeck from './components/FlashcardDeck'
+import VocabularyPractice from './components/VocabularyPractice'
 
 // ─── Skeleton loaders ──────────────────────────────
 function FilterSkeleton() {
@@ -50,7 +51,9 @@ export default function VocabularyFlashcards() {
   const [selectedLevel, setSelectedLevel] = useState(null)
   const [selectedUnit, setSelectedUnit] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
-  const [viewMode, setViewMode] = useState('cards') // 'cards' | 'list'
+  const [viewMode, setViewMode] = useState('cards') // 'cards' | 'list' | 'practice'
+  const [practiceStarted, setPracticeStarted] = useState(false)
+  const [practiceWordCount, setPracticeWordCount] = useState(10)
 
   const audioRef = useRef(null)
 
@@ -264,30 +267,29 @@ export default function VocabularyFlashcards() {
         )}
       </div>
 
-      {/* Mode toggle */}
-      <div className="flex items-center gap-1 p-1 rounded-xl bg-[var(--card-bg,rgba(255,255,255,0.05))] border border-[var(--card-border,rgba(255,255,255,0.08))] w-fit">
-        <button
-          onClick={() => setViewMode('cards')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-            viewMode === 'cards'
-              ? 'bg-sky-500/20 text-sky-400'
-              : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
-          }`}
-        >
-          <Layers size={16} />
-          بطاقات
-        </button>
-        <button
-          onClick={() => setViewMode('list')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-            viewMode === 'list'
-              ? 'bg-sky-500/20 text-sky-400'
-              : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
-          }`}
-        >
-          <List size={16} />
-          قائمة
-        </button>
+      {/* Mode toggle — 3 tabs */}
+      <div className="flex items-center gap-1 p-1 rounded-xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] w-fit">
+        {[
+          { key: 'cards', label: 'بطاقات', icon: Layers },
+          { key: 'list', label: 'قائمة', icon: List },
+          { key: 'practice', label: 'تدريب', icon: Zap },
+        ].map(({ key, label, icon: Icon }) => (
+          <button
+            key={key}
+            onClick={() => {
+              setViewMode(key)
+              if (key !== 'practice') setPracticeStarted(false)
+            }}
+            className={`flex items-center gap-2 px-4 h-[44px] rounded-lg text-sm font-medium transition-colors ${
+              viewMode === key
+                ? 'bg-sky-500/20 text-sky-400'
+                : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+            }`}
+          >
+            <Icon size={16} />
+            {label}
+          </button>
+        ))}
       </div>
 
       {/* Content */}
@@ -298,8 +300,66 @@ export default function VocabularyFlashcards() {
         </div>
       ) : viewMode === 'cards' ? (
         <FlashcardDeck words={filteredVocab} />
-      ) : (
+      ) : viewMode === 'list' ? (
         <VocabList words={filteredVocab} onPlayAudio={playWord} />
+      ) : !practiceStarted ? (
+        /* Practice start screen */
+        <div className="flex flex-col items-center gap-6 py-4">
+          <div className="text-center space-y-2">
+            <Zap size={36} className="mx-auto text-sky-400" />
+            <h2 className="text-xl font-bold text-[var(--text-primary)]">تدريب المفردات</h2>
+            <p className="text-sm text-[var(--text-muted)]">اقلب البطاقة وقيّم معرفتك بالكلمة</p>
+          </div>
+
+          {/* Word count selector */}
+          <div className="space-y-2 text-center">
+            <span className="text-sm text-[var(--text-muted)]">عدد الكلمات</span>
+            <div className="flex gap-2">
+              {[
+                { value: 10, label: '10' },
+                { value: 20, label: '20' },
+                { value: Infinity, label: 'الكل' },
+              ].map(({ value, label }) => (
+                <button
+                  key={label}
+                  onClick={() => setPracticeWordCount(value)}
+                  className={`px-5 h-10 rounded-xl text-sm font-bold border transition-colors ${
+                    practiceWordCount === value
+                      ? 'bg-sky-500/20 text-sky-400 border-sky-500/40'
+                      : 'bg-[var(--surface-raised)] text-[var(--text-muted)] border-[var(--border-subtle)] hover:text-[var(--text-primary)]'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <p className="text-xs text-[var(--text-muted)]">
+            {Math.min(practiceWordCount, filteredVocab.length)} كلمة من {filteredVocab.length} متاحة
+          </p>
+
+          <button
+            onClick={() => setPracticeStarted(true)}
+            className="px-8 h-12 rounded-xl text-sm font-bold bg-sky-500 text-white hover:bg-sky-600 transition-colors shadow-lg shadow-sky-500/20"
+          >
+            ابدأ التدريب
+          </button>
+        </div>
+      ) : (
+        /* Practice session */
+        <VocabularyPractice
+          words={
+            practiceWordCount === Infinity
+              ? filteredVocab
+              : filteredVocab.slice(0, practiceWordCount)
+          }
+          onComplete={() => {}}
+          onBack={() => {
+            setPracticeStarted(false)
+            setViewMode('cards')
+          }}
+        />
       )}
     </div>
   )
