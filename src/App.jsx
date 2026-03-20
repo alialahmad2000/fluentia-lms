@@ -55,6 +55,7 @@ const StudentCurriculum = lazyRetry(() => import('./pages/student/StudentCurricu
 const VocabularyFlashcards = lazyRetry(() => import('./pages/student/vocabulary/VocabularyFlashcards'))
 const CurriculumBrowser = lazyRetry(() => import('./pages/student/curriculum/CurriculumBrowser'))
 const LevelUnits = lazyRetry(() => import('./pages/student/curriculum/LevelUnits'))
+const UnitContent = lazyRetry(() => import('./pages/student/curriculum/UnitContent'))
 
 const TrainerDashboard = lazyRetry(() => import('./pages/trainer/TrainerDashboard'))
 const TrainerAssignments = lazyRetry(() => import('./pages/trainer/TrainerAssignments'))
@@ -284,6 +285,7 @@ export default function App() {
               <Route path="/student/ai-insights" element={<Page><StudentAIInsights /></Page>} />
               <Route path="/student/curriculum" element={<Page><CurriculumBrowser /></Page>} />
               <Route path="/student/curriculum/level/:levelNumber" element={<Page><LevelUnits /></Page>} />
+              <Route path="/student/curriculum/unit/:unitId" element={<Page><UnitContent /></Page>} />
               <Route path="/student/curriculum-old" element={<Page><StudentCurriculum /></Page>} />
             </Route>
           </Route>
