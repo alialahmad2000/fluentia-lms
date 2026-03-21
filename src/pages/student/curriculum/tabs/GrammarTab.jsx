@@ -3,12 +3,15 @@ import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { PenLine, CheckCircle, XCircle, ChevronDown, AlertTriangle, Lightbulb, ArrowLeftRight } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
+import { validateAnswer } from '../../../../utils/answerValidator'
 
 const EXERCISE_TYPE_LABELS = {
   fill_blank: 'أكمل الفراغ',
   choose: 'اختر الإجابة',
   error_correction: 'صحّح الخطأ',
   reorder: 'رتّب الكلمات',
+  transform: 'حوّل الجملة',
+  make_question: 'كوّن سؤالاً',
 }
 
 // ─── Main Component ─────────────────────────────────
@@ -344,6 +347,9 @@ function ExerciseCard({ exercise, index, answer, onAnswer }) {
       {exercise.exercise_type === 'reorder' && (
         <ReorderExercise item={item} answer={answer} onAnswer={onAnswer} />
       )}
+      {(exercise.exercise_type === 'transform' || exercise.exercise_type === 'make_question') && (
+        <TextInputExercise item={item} answer={answer} onAnswer={onAnswer} exerciseType={exercise.exercise_type} />
+      )}
 
       {/* Explanation */}
       <AnimatePresence>
@@ -374,16 +380,18 @@ function ExerciseCard({ exercise, index, answer, onAnswer }) {
 
 // ─── Choose Exercise (MCQ) ───────────────────────────
 function ChooseExercise({ item, answer, onAnswer }) {
+  const acceptedAnswers = item.accepted_answers || [item.correct_answer]
+
   const handleSelect = (opt) => {
     if (answer) return
-    onAnswer({ selected: opt, correct: opt.toLowerCase().trim() === item.correct_answer.toLowerCase().trim() })
+    onAnswer({ selected: opt, correct: validateAnswer(opt, acceptedAnswers) })
   }
 
   return (
     <div className="flex flex-wrap gap-2">
       {item.options?.map((opt, i) => {
         const isSelected = answer?.selected === opt
-        const isCorrect = opt.toLowerCase().trim() === item.correct_answer.toLowerCase().trim()
+        const isCorrect = validateAnswer(opt, acceptedAnswers)
         const showCorrect = answer && isCorrect
         const showWrong = answer && isSelected && !answer.correct
 
@@ -418,43 +426,51 @@ function FillBlankExercise({ item, answer, onAnswer }) {
   const [input, setInput] = useState('')
   const inputRef = useRef(null)
 
+  const acceptedAnswers = item.accepted_answers || [item.correct_answer]
+
   const handleSubmit = (e) => {
     e.preventDefault()
     if (answer || !input.trim()) return
-    const correct = input.trim().toLowerCase() === item.correct_answer.toLowerCase().trim()
+    const correct = validateAnswer(input.trim(), acceptedAnswers)
     onAnswer({ selected: input.trim(), correct })
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center gap-2" dir="ltr">
-      <input
-        ref={inputRef}
-        type="text"
-        value={answer ? (answer.correct ? answer.selected : item.correct_answer) : input}
-        onChange={e => setInput(e.target.value)}
-        disabled={!!answer}
-        placeholder="اكتب الإجابة..."
-        className={`flex-1 h-10 px-4 rounded-xl text-sm font-['Inter'] border outline-none transition-colors ${
-          answer?.correct
-            ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-400'
-            : answer && !answer.correct
-              ? 'bg-red-500/10 border-red-500/40 text-red-400'
-              : 'bg-[var(--surface-raised)] border-[var(--border-subtle)] text-[var(--text-primary)] focus:border-emerald-500/50'
-        }`}
-      />
-      {!answer && (
-        <button
-          type="submit"
-          disabled={!input.trim()}
-          className="h-10 px-4 rounded-xl text-sm font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/25 transition-colors disabled:opacity-40 font-['Tajawal']"
-        >
-          تحقق
-        </button>
-      )}
+    <form onSubmit={handleSubmit} className="space-y-2" dir="ltr">
+      <div className="flex items-center gap-2">
+        <input
+          ref={inputRef}
+          type="text"
+          value={answer ? answer.selected : input}
+          onChange={e => setInput(e.target.value)}
+          disabled={!!answer}
+          placeholder="اكتب الإجابة..."
+          className={`flex-1 h-10 px-4 rounded-xl text-sm font-['Inter'] border outline-none transition-colors ${
+            answer?.correct
+              ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-400'
+              : answer && !answer.correct
+                ? 'bg-red-500/10 border-red-500/40 text-red-400'
+                : 'bg-[var(--surface-raised)] border-[var(--border-subtle)] text-[var(--text-primary)] focus:border-emerald-500/50'
+          }`}
+        />
+        {!answer && (
+          <button
+            type="submit"
+            disabled={!input.trim()}
+            className="h-10 px-4 rounded-xl text-sm font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/25 transition-colors disabled:opacity-40 font-['Tajawal']"
+          >
+            تحقق
+          </button>
+        )}
+      </div>
       {answer && !answer.correct && (
-        <span className="text-xs text-emerald-400 font-['Inter'] flex-shrink-0">
-          ← {item.correct_answer}
-        </span>
+        <div
+          className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs"
+          style={{ background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.15)' }}
+        >
+          <span className="text-[var(--text-muted)] font-['Tajawal']">الإجابة الصحيحة:</span>
+          <span className="text-emerald-400 font-semibold font-['Inter']">{item.correct_answer}</span>
+        </div>
       )}
     </form>
   )
@@ -464,10 +480,15 @@ function FillBlankExercise({ item, answer, onAnswer }) {
 function ErrorCorrectionExercise({ item, answer, onAnswer }) {
   const [input, setInput] = useState('')
 
+  const acceptedAnswers = item.accepted_answers || [item.correct_answer]
+
   const handleSubmit = (e) => {
     e.preventDefault()
     if (answer || !input.trim()) return
-    const correct = input.trim().toLowerCase() === item.correct_answer.toLowerCase().trim()
+    const correct = validateAnswer(input.trim(), acceptedAnswers, {
+      originalSentence: item.question,
+      allowPartial: true,
+    })
     onAnswer({ selected: input.trim(), correct })
   }
 
@@ -477,7 +498,7 @@ function ErrorCorrectionExercise({ item, answer, onAnswer }) {
       <div className="flex items-center gap-2">
         <input
           type="text"
-          value={answer ? (answer.correct ? answer.selected : item.correct_answer) : input}
+          value={answer ? answer.selected : input}
           onChange={e => setInput(e.target.value)}
           disabled={!!answer}
           placeholder="Type the corrected sentence..."
@@ -500,9 +521,13 @@ function ErrorCorrectionExercise({ item, answer, onAnswer }) {
         )}
       </div>
       {answer && !answer.correct && (
-        <p className="text-xs text-emerald-400 font-['Inter']">
-          Correct: {item.correct_answer}
-        </p>
+        <div
+          className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs"
+          style={{ background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.15)' }}
+        >
+          <span className="text-[var(--text-muted)] font-['Tajawal']">الإجابة الصحيحة:</span>
+          <span className="text-emerald-400 font-semibold font-['Inter']">{item.correct_answer}</span>
+        </div>
       )}
     </form>
   )
@@ -532,7 +557,8 @@ function ReorderExercise({ item, answer, onAnswer }) {
   const handleCheck = () => {
     if (answer || selected.length === 0) return
     const builtSentence = selected.join(' ')
-    const correct = builtSentence.toLowerCase().trim() === item.correct_answer.toLowerCase().trim()
+    const acceptedAnswers = item.accepted_answers || [item.correct_answer]
+    const correct = validateAnswer(builtSentence, acceptedAnswers)
     onAnswer({ selected: builtSentence, correct })
   }
 
@@ -591,11 +617,72 @@ function ReorderExercise({ item, answer, onAnswer }) {
       )}
 
       {answer && !answer.correct && (
-        <p className="text-xs text-emerald-400 font-['Inter']">
-          Correct: {item.correct_answer}
-        </p>
+        <div
+          className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs"
+          style={{ background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.15)' }}
+        >
+          <span className="text-[var(--text-muted)] font-['Tajawal']">الإجابة الصحيحة:</span>
+          <span className="text-emerald-400 font-semibold font-['Inter']">{item.correct_answer}</span>
+        </div>
       )}
     </div>
+  )
+}
+
+// ─── Text Input Exercise (transform / make_question) ─
+function TextInputExercise({ item, answer, onAnswer, exerciseType }) {
+  const [input, setInput] = useState('')
+
+  const acceptedAnswers = item.accepted_answers || [item.correct_answer]
+  const placeholder = exerciseType === 'make_question'
+    ? 'Type your question here...'
+    : 'Type the transformed sentence...'
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (answer || !input.trim()) return
+    const correct = validateAnswer(input.trim(), acceptedAnswers, {
+      originalSentence: item.question,
+      allowPartial: true,
+    })
+    onAnswer({ selected: input.trim(), correct })
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-2" dir="ltr">
+      <textarea
+        value={answer ? answer.selected : input}
+        onChange={e => setInput(e.target.value)}
+        disabled={!!answer}
+        placeholder={placeholder}
+        rows={2}
+        className={`w-full px-4 py-3 rounded-xl text-sm font-['Inter'] border outline-none transition-colors resize-none leading-relaxed ${
+          answer?.correct
+            ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-400'
+            : answer && !answer.correct
+              ? 'bg-red-500/10 border-red-500/40 text-red-400'
+              : 'bg-[var(--surface-raised)] border-[var(--border-subtle)] text-[var(--text-primary)] focus:border-emerald-500/50'
+        }`}
+      />
+      {!answer && (
+        <button
+          type="submit"
+          disabled={!input.trim()}
+          className="h-9 px-4 rounded-xl text-sm font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/25 transition-colors disabled:opacity-40 font-['Tajawal']"
+        >
+          تحقق
+        </button>
+      )}
+      {answer && !answer.correct && (
+        <div
+          className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs"
+          style={{ background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.15)' }}
+        >
+          <span className="text-[var(--text-muted)] font-['Tajawal']">الإجابة الصحيحة:</span>
+          <span className="text-emerald-400 font-semibold font-['Inter']">{item.correct_answer}</span>
+        </div>
+      )}
+    </form>
   )
 }
 

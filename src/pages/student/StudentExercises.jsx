@@ -8,6 +8,7 @@ import {
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
+import { validateAnswer } from '../../utils/answerValidator'
 
 // ─── General Exercises ──────────────────────────────────
 const GENERAL_EXERCISES = [
@@ -322,7 +323,8 @@ export default function StudentExercises() {
       if (questions.length === 0) throw new Error('No questions in exercise')
       let correct = 0
       for (const q of questions) {
-        if (studentAnswers[q.id] === q.correct_answer) correct++
+        const accepted = q.accepted_answers || [q.correct_answer]
+        if (validateAnswer(studentAnswers[q.id], accepted)) correct++
       }
       const score = Math.round((correct / questions.length) * 100)
       const xp = score >= 80 ? 15 : score >= 60 ? 10 : 5
@@ -393,7 +395,8 @@ export default function StudentExercises() {
       if (questions.length === 0) throw new Error('No questions in exercise')
       let correct = 0
       for (const q of questions) {
-        if (studentAnswers[q.id] === q.correct_answer) correct++
+        const accepted = q.accepted_answers || [q.correct_answer]
+        if (validateAnswer(studentAnswers[q.id], accepted)) correct++
       }
       const score = Math.round((correct / questions.length) * 100)
       const xp = score >= 80 ? (exercise.xp_reward || 10) : score >= 60 ? Math.round((exercise.xp_reward || 10) * 0.7) : Math.round((exercise.xp_reward || 10) * 0.4)
@@ -729,8 +732,9 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
       <div className="space-y-4">
         {questions.map((q, i) => {
           const userAnswer = answers[q.id]
-          const isCorrect = submitted && userAnswer === q.correct_answer
-          const isWrong = submitted && userAnswer && userAnswer !== q.correct_answer
+          const acceptedList = q.accepted_answers || [q.correct_answer]
+          const isCorrect = submitted && validateAnswer(userAnswer, acceptedList)
+          const isWrong = submitted && userAnswer && !isCorrect
 
           return (
             <motion.div
@@ -751,7 +755,7 @@ function ExerciseView({ exercise, answers, setAnswers, submitted, result, onSubm
                 <div className="grid gap-2 mr-8">
                   {(q.options || []).map((opt, oi) => {
                     const selected = userAnswer === opt
-                    const correctOpt = submitted && opt === q.correct_answer
+                    const correctOpt = submitted && validateAnswer(opt, acceptedList)
                     return (
                       <button
                         key={oi}
