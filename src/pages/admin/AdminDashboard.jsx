@@ -7,6 +7,7 @@ import { getGreeting } from '../../utils/dateHelpers'
 import { STUDENT_STATUS, PACKAGES } from '../../lib/constants'
 import { DashboardSkeleton } from '../../components/ui/PageSkeleton'
 import { Link } from 'react-router-dom'
+import UserAvatar from '../../components/common/UserAvatar'
 
 export default function AdminDashboard() {
   const { profile } = useAuthStore()
@@ -76,7 +77,7 @@ export default function AdminDashboard() {
     queryFn: async () => {
       const { data } = await supabase
         .from('students')
-        .select('id, status, package, xp_total, profiles(full_name)')
+        .select('id, status, package, xp_total, profiles(full_name, avatar_url)')
         .eq('status', 'active')
         .is('deleted_at', null)
         .order('enrollment_date', { ascending: false })
@@ -385,9 +386,7 @@ export default function AdminDashboard() {
                 return (
                   <div key={s.id} className="flex items-center justify-between bg-[var(--surface-base)] rounded-xl p-3">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 text-xs font-bold">
-                        {s.profiles?.full_name?.[0] || '?'}
-                      </div>
+                      <UserAvatar user={s.profiles} size={32} rounded="full" gradient="linear-gradient(135deg, rgba(56,189,248,0.3), rgba(56,189,248,0.1))" />
                       <div>
                         <p className="text-sm text-[var(--text-primary)]">{s.profiles?.full_name}</p>
                         <p className="text-xs text-muted">{pkgInfo?.name_ar} &middot; {s.xp_total} XP</p>

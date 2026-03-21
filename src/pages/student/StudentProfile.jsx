@@ -1,7 +1,7 @@
 import { useState, lazy, Suspense } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { User, Zap, Flame, Trophy, Award, Save, Loader2, Clock, Gift, CreditCard, Palette, GraduationCap, Moon, Sun, Sparkles, Check, SwatchBook, Mail, CalendarDays, Medal, KeyRound, Copy, AtSign, RefreshCw, Camera, ImageIcon } from 'lucide-react'
+import { User, Zap, Flame, Trophy, Award, Save, Loader2, Clock, Gift, CreditCard, Palette, GraduationCap, Moon, Sun, Sparkles, Check, SwatchBook, Mail, CalendarDays, Medal, KeyRound, Copy, AtSign, RefreshCw, Camera, ImageIcon, Trash2 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/constants'
@@ -147,6 +147,38 @@ function ProfileContent() {
       setTimeout(() => setPhotoMsg(null), 4000)
     } finally {
       setUploadingPhoto(false)
+    }
+  }
+
+  const [confirmDelete, setConfirmDelete] = useState(false)
+  const [deletingPhoto, setDeletingPhoto] = useState(false)
+
+  async function handleDeletePhoto() {
+    if (!profile?.id || !profile?.avatar_url) return
+    setDeletingPhoto(true)
+    try {
+      // Extract the file path from the URL (everything after /avatars/)
+      const url = profile.avatar_url
+      const match = url.match(/\/avatars\/(.+)$/)
+      if (match) {
+        await supabase.storage.from('avatars').remove([decodeURIComponent(match[1])])
+      }
+      const { error } = await supabase
+        .from('profiles')
+        .update({ avatar_url: null })
+        .eq('id', profile.id)
+      if (error) throw error
+      setPhotoMsg({ type: 'success', text: 'تم حذف الصورة' })
+      if (user) fetchProfile(user)
+      setConfirmDelete(false)
+      setShowPhotoSheet(false)
+      setTimeout(() => setPhotoMsg(null), 3000)
+    } catch (err) {
+      console.error('Delete avatar error:', err)
+      setPhotoMsg({ type: 'error', text: 'فشل حذف الصورة' })
+      setTimeout(() => setPhotoMsg(null), 4000)
+    } finally {
+      setDeletingPhoto(false)
     }
   }
 
@@ -416,8 +448,48 @@ function ProfileContent() {
                       />
                     </label>
 
+                    {/* Delete photo */}
+                    {profile?.avatar_url && !confirmDelete && (
+                      <button
+                        onClick={() => setConfirmDelete(true)}
+                        className="flex items-center gap-3 p-4 rounded-xl w-full hover:bg-red-500/[0.05] transition-colors text-left"
+                        style={{ border: '1px solid rgba(239,68,68,0.15)' }}
+                      >
+                        <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
+                          <Trash2 size={18} className="text-red-400" />
+                        </div>
+                        <span className="text-sm font-medium text-red-400">حذف الصورة</span>
+                      </button>
+                    )}
+
+                    {/* Delete confirm */}
+                    {confirmDelete && (
+                      <div className="rounded-xl p-4 space-y-3" style={{ border: '1px solid rgba(239,68,68,0.2)', background: 'rgba(239,68,68,0.05)' }}>
+                        <p className="text-sm text-center font-medium" style={{ color: 'var(--text-primary)' }}>
+                          هل تريد حذف صورة الملف الشخصي؟
+                        </p>
+                        <div className="flex items-center gap-2 justify-center">
+                          <button
+                            onClick={handleDeletePhoto}
+                            disabled={deletingPhoto}
+                            className="px-5 py-2 rounded-xl text-sm font-bold bg-red-500/15 text-red-400 border border-red-500/30 hover:bg-red-500/25 transition-colors flex items-center gap-1.5"
+                          >
+                            {deletingPhoto ? <Loader2 size={13} className="animate-spin" /> : <Trash2 size={13} />}
+                            حذف
+                          </button>
+                          <button
+                            onClick={() => setConfirmDelete(false)}
+                            className="px-5 py-2 rounded-xl text-sm font-medium transition-colors"
+                            style={{ color: 'var(--text-muted)' }}
+                          >
+                            إلغاء
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
                     <button
-                      onClick={() => setShowPhotoSheet(false)}
+                      onClick={() => { setShowPhotoSheet(false); setConfirmDelete(false) }}
                       className="w-full py-3 rounded-xl text-sm text-muted hover:text-[var(--text-primary)] transition-colors text-center"
                     >
                       إلغاء

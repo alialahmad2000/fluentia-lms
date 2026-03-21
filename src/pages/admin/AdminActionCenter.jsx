@@ -7,6 +7,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import UserAvatar from '../../components/common/UserAvatar'
 
 const getGreetingTime = () => {
   const h = new Date().getHours()
@@ -55,7 +56,7 @@ export default function AdminActionCenter() {
       sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
       const { data } = await supabase
         .from('students')
-        .select('id, last_active_at, profiles(display_name, full_name), groups(code)')
+        .select('id, last_active_at, profiles(display_name, full_name, avatar_url), groups(code)')
         .eq('status', 'active')
         .is('deleted_at', null)
         .or(`last_active_at.is.null,last_active_at.lt.${sevenDaysAgo.toISOString()}`)
@@ -316,9 +317,7 @@ export default function AdminActionCenter() {
               return (
                 <div key={s.id} className="flex items-center justify-between px-4 py-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-orange-500/10 flex items-center justify-center text-orange-400 text-xs font-bold">
-                      {name[0]}
-                    </div>
+                    <UserAvatar user={s.profiles} size={32} rounded="full" gradient="linear-gradient(135deg, rgba(249,115,22,0.2), rgba(249,115,22,0.1))" />
                     <div>
                       <p className="text-sm text-[var(--text-primary)]">{name}</p>
                       <p className="text-xs text-muted">{s.groups?.code || '—'}</p>

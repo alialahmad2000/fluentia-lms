@@ -5,6 +5,7 @@ import { Briefcase, Edit3, Loader2, X } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { ListSkeleton } from '../../components/ui/PageSkeleton'
 import EmptyState from '../../components/ui/EmptyState'
+import UserAvatar from '../../components/common/UserAvatar'
 
 export default function AdminTrainers() {
   const queryClient = useQueryClient()
@@ -16,7 +17,7 @@ export default function AdminTrainers() {
     queryFn: async () => {
       const { data } = await supabase
         .from('profiles')
-        .select('id, full_name, display_name, email, phone, role')
+        .select('id, full_name, display_name, email, phone, role, avatar_url')
         .in('role', ['trainer', 'admin'])
         .order('full_name')
 
@@ -102,9 +103,7 @@ export default function AdminTrainers() {
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 text-lg font-bold">
-                    {(t.display_name || t.full_name || '?')[0]}
-                  </div>
+                  <UserAvatar user={t} size={48} rounded="xl" gradient="linear-gradient(135deg, rgba(56,189,248,0.2), rgba(56,189,248,0.1))" />
                   <div>
                     <p className="text-[var(--text-primary)] font-medium">{t.display_name || t.full_name}</p>
                     <p className="text-xs text-muted">{t.email}</p>

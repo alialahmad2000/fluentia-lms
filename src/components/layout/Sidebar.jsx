@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { useThemeStore } from '../../stores/themeStore'
+import UserAvatar from '../common/UserAvatar'
 
 // ─── Role accent config ──────────────────────────────────────
 const ROLE_ACCENTS = {
@@ -238,15 +239,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
               e.currentTarget.style.borderColor = 'var(--border-subtle)'
             }}
           >
-            <div
-              className="w-9 h-9 rounded-lg flex items-center justify-center text-sm font-bold shrink-0"
-              style={{
-                background: accent.gradient,
-                color: '#fff',
-              }}
-            >
-              {firstName?.[0] || '?'}
-            </div>
+            <UserAvatar user={profile} size={36} rounded="lg" gradient={accent.gradient} className="shrink-0" />
             <div className="flex-1 min-w-0">
               <p className="text-[13px] font-bold truncate" style={{ color: 'var(--text-primary)' }}>
                 {displayName || 'مستخدم'}
@@ -260,10 +253,9 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
         ) : (
           <div
             onClick={handleUserCardClick}
-            className="flex items-center justify-center mx-auto mb-2 w-10 h-10 rounded-lg cursor-pointer transition-all duration-200"
-            style={{ background: accent.gradient, color: '#fff', fontSize: 14, fontWeight: 700 }}
+            className="flex items-center justify-center mx-auto mb-2 cursor-pointer transition-all duration-200"
           >
-            {firstName?.[0] || '?'}
+            <UserAvatar user={profile} size={40} rounded="lg" gradient={accent.gradient} />
           </div>
         )}
 

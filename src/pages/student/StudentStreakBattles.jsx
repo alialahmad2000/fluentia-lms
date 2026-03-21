@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import UserAvatar from '../../components/common/UserAvatar'
 
 const BATTLE_TYPES = [
   { id: 'streak', label: 'معركة السلاسل', icon: Flame, description: 'من يحافظ على أطول سلسلة نشاط؟', color: 'gold', duration: 7 },
@@ -115,14 +116,15 @@ export default function StudentStreakBattles() {
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
+                  <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${
                     i === 0 ? 'bg-gold-500/20 text-gold-400' :
                     i === 1 ? 'bg-[var(--sidebar-hover-bg)] text-[var(--text-primary)]' :
                     i === 2 ? 'bg-amber-500/20 text-amber-400' :
                     'bg-[var(--surface-raised)] text-muted'
                   }`}>
-                    {i === 0 ? <Crown size={14} /> : i + 1}
+                    {i === 0 ? <Crown size={12} /> : i + 1}
                   </span>
+                  <UserAvatar user={sp} size={28} rounded="full" />
                   <div>
                     <span className={`text-sm ${isMe ? 'text-gold-400 font-bold' : 'text-[var(--text-primary)]'}`}>
                       {name} {isMe && '(أنت)'}
@@ -163,14 +165,15 @@ export default function StudentStreakBattles() {
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
+                  <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${
                     i === 0 ? 'bg-gold-500/20 text-gold-400' :
                     i === 1 ? 'bg-[var(--sidebar-hover-bg)] text-[var(--text-primary)]' :
                     i === 2 ? 'bg-amber-500/20 text-amber-400' :
                     'bg-[var(--surface-raised)] text-muted'
                   }`}>
-                    {i === 0 ? <Crown size={14} /> : i + 1}
+                    {i === 0 ? <Crown size={12} /> : i + 1}
                   </span>
+                  <UserAvatar user={sp} size={28} rounded="full" />
                   <span className={`text-sm ${isMe ? 'text-violet-400 font-bold' : 'text-[var(--text-primary)]'}`}>
                     {name} {isMe && '(أنت)'}
                   </span>

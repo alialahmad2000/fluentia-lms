@@ -6,6 +6,7 @@ import { supabase } from '../../lib/supabase'
 import { getGreeting, getArabicDay, formatTime } from '../../utils/dateHelpers'
 import { DashboardSkeleton } from '../../components/ui/PageSkeleton'
 import { Link } from 'react-router-dom'
+import UserAvatar from '../../components/common/UserAvatar'
 
 const TRAINER_TIPS = [
   'راجع التسليمات المعلقة لتحفيز طلابك!',
@@ -114,7 +115,7 @@ export default function TrainerDashboard() {
       weekAgo.setDate(weekAgo.getDate() - 7)
       const { data } = await supabase
         .from('students')
-        .select('id, current_streak, last_active_at, profiles(full_name, display_name)')
+        .select('id, current_streak, last_active_at, profiles(full_name, display_name, avatar_url)')
         .in('group_id', groupIds)
         .eq('status', 'active')
         .is('deleted_at', null)
@@ -124,6 +125,7 @@ export default function TrainerDashboard() {
       return (data || []).map(s => ({
         id: s.id,
         name: s.profiles?.display_name || s.profiles?.full_name || 'طالب',
+        avatar_url: s.profiles?.avatar_url,
         streak: s.current_streak || 0,
         lastActive: s.last_active_at,
         inactive: !s.last_active_at || new Date(s.last_active_at) < weekAgo,
@@ -302,9 +304,7 @@ export default function TrainerDashboard() {
             <div className="space-y-3">
               {studentAlerts.map((s) => (
                 <div key={s.id} className="flex items-center gap-3 rounded-xl p-3" style={{ background: 'var(--surface-raised)' }}>
-                  <div className="w-8 h-8 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xs font-bold shrink-0">
-                    {s.name?.[0] || '?'}
-                  </div>
+                  <UserAvatar user={{ display_name: s.name, avatar_url: s.avatar_url }} size={32} rounded="full" gradient="linear-gradient(135deg, rgba(245,158,11,0.2), rgba(245,158,11,0.1))" />
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium truncate" style={{ color: 'var(--text-primary)' }}>{s.name}</p>
                     <p className="text-xs text-muted">

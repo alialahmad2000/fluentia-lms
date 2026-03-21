@@ -28,6 +28,7 @@
   --border-strong:       rgba(255, 255, 255, 0.12);
   --border-focus:        rgba(56, 189, 248, 0.5);
   --border-glow:         rgba(56, 189, 248, 0.2);
+  --avatar-border:       rgba(255, 255, 255, 0.1);
 
   /* === Typography === */
   --text-primary:        #f0f4f8;
@@ -204,6 +205,7 @@
   --border-strong:       rgba(0, 0, 0, 0.14);
   --border-focus:        rgba(14, 165, 233, 0.5);
   --border-glow:         rgba(14, 165, 233, 0.15);
+  --avatar-border:       rgba(0, 0, 0, 0.08);
 
   --text-primary:        #0f172a;
   --text-secondary:      #475569;
@@ -358,6 +360,7 @@
   --border-strong:       rgba(167, 139, 250, 0.18);
   --border-focus:        rgba(167, 139, 250, 0.5);
   --border-glow:         rgba(167, 139, 250, 0.25);
+  --avatar-border:       rgba(255, 255, 255, 0.1);
 
   --text-primary:        #f1f0ff;
   --text-secondary:      #a5a0c8;
