@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Lock, ChevronLeft } from 'lucide-react'
 
@@ -10,9 +11,20 @@ const FALLBACK_COLORS = {
   5: '#fbbf24',
 }
 
+const FALLBACK_EMOJI = {
+  0: '🌱',
+  1: '🧱',
+  2: '🚀',
+  3: '📖',
+  4: '🏆',
+  5: '💎',
+}
+
 export default function LevelCard({ level, isLocked, isCurrent, completedUnits, totalUnits, onClick }) {
   const color = level.color || FALLBACK_COLORS[level.level_number] || '#38bdf8'
   const progress = totalUnits > 0 ? (completedUnits / totalUnits) * 100 : 0
+  const [iconLoaded, setIconLoaded] = useState(false)
+  const [iconError, setIconError] = useState(false)
 
   return (
     <motion.div
@@ -45,6 +57,33 @@ export default function LevelCard({ level, isLocked, isCurrent, completedUnits, 
       <div className="h-1" style={{ background: color }} />
 
       <div className="p-6 flex flex-col flex-1">
+        {/* Level icon */}
+        <div className="mb-3 self-start">
+          {level.icon && !iconError ? (
+            <div
+              className="w-16 h-16 rounded-xl flex items-center justify-center overflow-hidden"
+              style={{ background: `${color}15` }}
+            >
+              <img
+                src={level.icon}
+                alt={level.name_en}
+                loading="lazy"
+                className="w-full h-full object-cover transition-opacity duration-300"
+                style={{ opacity: iconLoaded ? 1 : 0 }}
+                onLoad={() => setIconLoaded(true)}
+                onError={() => setIconError(true)}
+              />
+            </div>
+          ) : (
+            <div
+              className="w-16 h-16 rounded-xl flex items-center justify-center text-2xl"
+              style={{ background: `${color}15` }}
+            >
+              {FALLBACK_EMOJI[level.level_number] || '📚'}
+            </div>
+          )}
+        </div>
+
         {/* Current level badge */}
         {isCurrent && (
           <span
