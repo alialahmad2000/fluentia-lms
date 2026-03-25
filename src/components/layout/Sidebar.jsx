@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   House, FileText, BarChart3, Mic, PenLine, MessageSquare,
@@ -119,12 +119,10 @@ function SectionDivider({ label, collapsed }) {
 export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) {
   const { profile, studentData, signOut } = useAuthStore()
   const effectiveTheme = useThemeStore((s) => s.effectiveTheme)
-  const navigate = useNavigate()
   const role = profile?.role || 'student'
   const items = NAV_ITEMS[role] || NAV_ITEMS.student
   const accent = ROLE_ACCENTS[role] || ROLE_ACCENTS.student
   const displayName = profile?.display_name || profile?.full_name || ''
-  const firstName = displayName.split(' ')[0] || ''
   const level = studentData?.level || profile?.level || '—'
 
   const profilePath = role === 'admin' ? '/admin/settings' : role === 'trainer' ? '/trainer/students' : '/student/profile'
@@ -133,51 +131,104 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
     try {
       await signOut()
     } catch (err) {
-      console.error('[Sidebar] signOut error:', err)
+      console.warn('[Sidebar] signOut API failed, forcing local cleanup:', err)
+    } finally {
+      // Always clear Supabase auth storage regardless of API success
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith('sb-')) localStorage.removeItem(key)
+      })
+      Object.keys(sessionStorage).forEach(key => {
+        if (key.startsWith('sb-')) sessionStorage.removeItem(key)
+      })
+      // Full page reload to clear all React state
+      window.location.href = '/login'
     }
-    navigate('/login')
   }
 
   function handleUserCardClick() {
-    navigate(profilePath)
+    window.location.href = profilePath
     onClose?.()
   }
 
   const sidebarContent = (
     <div className="flex flex-col h-full">
-      {/* Brand area */}
-      <div className="flex items-center justify-between px-5 py-5" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
-        {!collapsed ? (
-          <div className="flex items-center gap-3">
-            <img
-              src={effectiveTheme === 'light' ? '/logo-icon-light.png' : '/logo-icon-dark.png'}
-              alt="Fluentia"
-              className="w-9 h-9 rounded-lg"
-            />
-            <span className="sidebar-brand-text">Fluentia</span>
-          </div>
-        ) : (
-          <div className="mx-auto">
-            <img
-              src={effectiveTheme === 'light' ? '/logo-icon-light.png' : '/logo-icon-dark.png'}
-              alt="Fluentia"
-              className="w-9 h-9 rounded-lg"
-            />
-          </div>
-        )}
-        <button onClick={onClose} className="lg:hidden btn-icon w-9 h-9">
-          <X size={20} />
-        </button>
-        <button
-          onClick={onToggleCollapse}
-          className="hidden lg:flex btn-icon w-8 h-8"
-        >
-          <ChevronLeft size={16} className={`transition-transform duration-300 ${collapsed ? 'rotate-180' : ''}`} />
-        </button>
+      {/* ── Fixed top: Brand + Profile ── */}
+      <div className="shrink-0">
+        {/* Brand area */}
+        <div className="flex items-center justify-between px-5 py-5" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
+          {!collapsed ? (
+            <div className="flex items-center gap-3">
+              <img
+                src={effectiveTheme === 'light' ? '/logo-icon-light.png' : '/logo-icon-dark.png'}
+                alt="Fluentia"
+                className="w-9 h-9 rounded-lg"
+              />
+              <span className="sidebar-brand-text">Fluentia</span>
+            </div>
+          ) : (
+            <div className="mx-auto">
+              <img
+                src={effectiveTheme === 'light' ? '/logo-icon-light.png' : '/logo-icon-dark.png'}
+                alt="Fluentia"
+                className="w-9 h-9 rounded-lg"
+              />
+            </div>
+          )}
+          <button onClick={onClose} className="lg:hidden btn-icon w-9 h-9">
+            <X size={20} />
+          </button>
+          <button
+            onClick={onToggleCollapse}
+            className="hidden lg:flex btn-icon w-8 h-8"
+          >
+            <ChevronLeft size={16} className={`transition-transform duration-300 ${collapsed ? 'rotate-180' : ''}`} />
+          </button>
+        </div>
+
+        {/* Profile card — always visible at top */}
+        <div className="px-3 py-3" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
+          {!collapsed ? (
+            <div
+              onClick={handleUserCardClick}
+              className="flex items-center gap-3 px-3.5 py-3 rounded-xl cursor-pointer transition-all duration-200"
+              style={{
+                background: 'var(--glass-card)',
+                border: '1px solid var(--border-subtle)',
+                direction: 'rtl',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'var(--glass-card-hover)'
+                e.currentTarget.style.borderColor = 'var(--border-glow)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'var(--glass-card)'
+                e.currentTarget.style.borderColor = 'var(--border-subtle)'
+              }}
+            >
+              <UserAvatar user={profile} size={36} rounded="lg" gradient={accent.gradient} className="shrink-0" />
+              <div className="flex-1 min-w-0">
+                <p className="text-[13px] font-bold truncate" style={{ color: 'var(--text-primary)' }}>
+                  {displayName || 'مستخدم'}
+                </p>
+                <p className="text-[11px]" style={{ color: 'var(--text-tertiary)' }}>
+                  {ROLE_LABELS[role] || role}{role === 'student' && level !== '—' ? ` · Level ${level}` : ''}
+                </p>
+              </div>
+              <span className="text-[12px] shrink-0" style={{ color: 'var(--text-tertiary)' }}>←</span>
+            </div>
+          ) : (
+            <div
+              onClick={handleUserCardClick}
+              className="flex items-center justify-center mx-auto cursor-pointer transition-all duration-200"
+            >
+              <UserAvatar user={profile} size={40} rounded="lg" gradient={accent.gradient} />
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Nav items with section dividers */}
-      <nav role="navigation" aria-label="القائمة الجانبية" className="flex-1 py-1 px-3 overflow-y-auto scrollbar-none">
+      {/* ── Scrollable middle: Nav items ── */}
+      <nav role="navigation" aria-label="القائمة الجانبية" className="flex-1 min-h-0 py-1 px-3 overflow-y-auto scrollbar-none" style={{ WebkitOverflowScrolling: 'touch' }}>
         <div className="space-y-0.5">
           {items.map((item, i) => {
             if (item.type === 'divider') {
@@ -218,51 +269,11 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
         </div>
       </nav>
 
-      {/* User card + Logout */}
-      <div className="px-3 py-3 mt-auto" style={{ borderTop: '1px solid var(--border-subtle)' }}>
-        {/* Clickable user card */}
-        {!collapsed ? (
-          <div
-            onClick={handleUserCardClick}
-            className="flex items-center gap-3 px-3.5 py-3 mb-2 rounded-xl cursor-pointer transition-all duration-200"
-            style={{
-              background: 'var(--glass-card)',
-              border: '1px solid var(--border-subtle)',
-              direction: 'rtl',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'var(--glass-card-hover)'
-              e.currentTarget.style.borderColor = 'var(--border-glow)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'var(--glass-card)'
-              e.currentTarget.style.borderColor = 'var(--border-subtle)'
-            }}
-          >
-            <UserAvatar user={profile} size={36} rounded="lg" gradient={accent.gradient} className="shrink-0" />
-            <div className="flex-1 min-w-0">
-              <p className="text-[13px] font-bold truncate" style={{ color: 'var(--text-primary)' }}>
-                {displayName || 'مستخدم'}
-              </p>
-              <p className="text-[11px]" style={{ color: 'var(--text-tertiary)' }}>
-                {ROLE_LABELS[role] || role}{role === 'student' && level !== '—' ? ` · Level ${level}` : ''}
-              </p>
-            </div>
-            <span className="text-[12px] shrink-0" style={{ color: 'var(--text-tertiary)' }}>←</span>
-          </div>
-        ) : (
-          <div
-            onClick={handleUserCardClick}
-            className="flex items-center justify-center mx-auto mb-2 cursor-pointer transition-all duration-200"
-          >
-            <UserAvatar user={profile} size={40} rounded="lg" gradient={accent.gradient} />
-          </div>
-        )}
-
-        {/* Logout button */}
+      {/* ── Fixed bottom: Logout ── */}
+      <div className="shrink-0 px-3 py-3" style={{ borderTop: '1px solid var(--border-subtle)', paddingBottom: 'calc(env(safe-area-inset-bottom, 16px) + 12px)' }}>
         <button
           onClick={handleLogout}
-          className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all duration-200 w-full ${collapsed ? 'justify-center' : ''}`}
+          className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all duration-200 w-full min-h-[44px] ${collapsed ? 'justify-center' : ''}`}
           style={{ color: 'var(--accent-rose)', opacity: 0.8 }}
           onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.background = 'var(--danger-bg)' }}
           onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.8'; e.currentTarget.style.background = 'transparent' }}
@@ -270,8 +281,6 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
           <LogOut size={18} strokeWidth={1.5} className="shrink-0" />
           {!collapsed && <span>تسجيل الخروج</span>}
         </button>
-        {/* Mobile spacer: clears bottom nav bar + safe area so logout is always reachable */}
-        <div className="lg:hidden" style={{ height: 'calc(env(safe-area-inset-bottom, 16px) + 80px)' }} />
       </div>
     </div>
   )

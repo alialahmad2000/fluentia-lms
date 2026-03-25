@@ -1,6 +1,7 @@
-import { useEffect, Suspense } from 'react'
+import { useEffect, Suspense, useCallback } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom'
 import { useAuthStore } from './stores/authStore'
+import { supabase } from './lib/supabase'
 import LoginPage from './pages/public/LoginPage'
 import LayoutShell from './components/layout/LayoutShell'
 import OnboardingModal from './components/onboarding/OnboardingModal'
@@ -193,6 +194,23 @@ export default function App() {
     sessionStorage.removeItem('chunk_reload')
     initialize()
   }, [initialize])
+
+  // Check session validity when user returns to the tab (e.g. after phone lock / background)
+  const handleVisibilityChange = useCallback(() => {
+    if (document.visibilityState === 'visible') {
+      supabase.auth.getSession().then(({ data: { session }, error }) => {
+        // Only redirect if user was previously logged in (not on login page)
+        if ((!session || error) && window.location.pathname !== '/login' && window.location.pathname !== '/forgot-password' && window.location.pathname !== '/reset-password') {
+          window.location.href = '/login'
+        }
+      })
+    }
+  }, [])
+
+  useEffect(() => {
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange)
+  }, [handleVisibilityChange])
 
   return (
     <ErrorBoundary>
