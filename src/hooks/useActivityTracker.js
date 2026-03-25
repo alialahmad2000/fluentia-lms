@@ -1,0 +1,251 @@
+import { useEffect, useRef, useCallback } from 'react'
+import { useLocation } from 'react-router-dom'
+import { supabase } from '../lib/supabase'
+import { useAuthStore } from '../stores/authStore'
+
+// ─── Device / Browser detection ─────────────────────────────
+function getDevice() {
+  const w = window.innerWidth
+  if (w < 768) return 'mobile'
+  if (w < 1024) return 'tablet'
+  return 'desktop'
+}
+
+function getBrowser() {
+  const ua = navigator.userAgent.toLowerCase()
+  if (ua.includes('safari') && !ua.includes('chrome')) return 'safari'
+  if (ua.includes('chrome')) return 'chrome'
+  if (ua.includes('firefox')) return 'firefox'
+  return 'other'
+}
+
+// ─── Page title map (Arabic) ────────────────────────────────
+const PAGE_TITLES = {
+  '/student': 'الرئيسية',
+  '/student/curriculum': 'المنهج',
+  '/student/assignments': 'الواجبات',
+  '/student/weekly-tasks': 'المهام الأسبوعية',
+  '/student/schedule': 'الجدول',
+  '/student/study-plan': 'خطة الدراسة',
+  '/student/recordings': 'التسجيلات',
+  '/student/flashcards': 'المفردات',
+  '/student/grades': 'الدرجات',
+  '/student/conversation': 'المحادثة',
+  '/student/ai-chat': 'المساعد الذكي',
+  '/student/profile': 'حسابي',
+  '/student/group-activity': 'نشاط المجموعة',
+  '/student/spelling': 'الإملاء',
+  '/student/verbs': 'الأفعال الشاذة',
+}
+
+const HEARTBEAT_MS = 60_000  // 1 minute
+const FLUSH_MS = 30_000      // 30 seconds
+
+/**
+ * Lightweight activity tracker for students.
+ * - Creates a session on mount
+ * - Heartbeat updates session every 60s
+ * - Batches page visits + events, flushes every 30s
+ * - Uses sendBeacon on tab close
+ */
+export default function useActivityTracker() {
+  const { profile } = useAuthStore()
+  const location = useLocation()
+  const sessionIdRef = useRef(null)
+  const pageVisitBuffer = useRef([])
+  const eventBuffer = useRef([])
+  const lastPageRef = useRef(null)
+  const lastPageTimeRef = useRef(null)
+  const heartbeatRef = useRef(null)
+  const flushRef = useRef(null)
+  const mountedRef = useRef(true)
+
+  const userId = profile?.id
+  const isStudent = profile?.role === 'student'
+
+  // ── Flush buffers to DB ───────────────────────────────────
+  const flushBuffers = useCallback(async () => {
+    if (!sessionIdRef.current) return
+
+    // Flush page visits
+    const visits = pageVisitBuffer.current.splice(0)
+    if (visits.length > 0) {
+      const { error } = await supabase.from('page_visits').insert(visits)
+      if (error) console.warn('[Tracker] page_visits insert error:', error.message)
+    }
+
+    // Flush events
+    const events = eventBuffer.current.splice(0)
+    if (events.length > 0) {
+      const { error } = await supabase.from('activity_events').insert(events)
+      if (error) console.warn('[Tracker] activity_events insert error:', error.message)
+    }
+
+    // Update session heartbeat + pages count
+    const { error } = await supabase
+      .from('user_sessions')
+      .update({ ended_at: new Date().toISOString(), pages_visited: visits.length })
+      .eq('id', sessionIdRef.current)
+
+    if (error) console.warn('[Tracker] session heartbeat error:', error.message)
+  }, [])
+
+  // ── Create session ────────────────────────────────────────
+  useEffect(() => {
+    if (!userId || !isStudent) return
+    mountedRef.current = true
+
+    async function startSession() {
+      const { data, error } = await supabase
+        .from('user_sessions')
+        .insert({
+          user_id: userId,
+          device: getDevice(),
+          browser: getBrowser(),
+        })
+        .select('id')
+        .single()
+
+      if (error) {
+        console.warn('[Tracker] session create error:', error.message)
+        return
+      }
+      if (mountedRef.current && data) {
+        sessionIdRef.current = data.id
+
+        // Log login event
+        eventBuffer.current.push({
+          user_id: userId,
+          event_type: 'login',
+          event_data: { device: getDevice(), browser: getBrowser() },
+        })
+      }
+    }
+
+    startSession()
+
+    // Heartbeat
+    heartbeatRef.current = setInterval(() => {
+      if (sessionIdRef.current) {
+        supabase
+          .from('user_sessions')
+          .update({ ended_at: new Date().toISOString() })
+          .eq('id', sessionIdRef.current)
+          .then(() => {})
+      }
+    }, HEARTBEAT_MS)
+
+    // Flush timer
+    flushRef.current = setInterval(flushBuffers, FLUSH_MS)
+
+    // Tab close — sendBeacon
+    function handleBeforeUnload() {
+      if (!sessionIdRef.current) return
+      const now = new Date().toISOString()
+
+      // Close last page visit
+      if (lastPageRef.current && lastPageTimeRef.current) {
+        const dur = Math.round((Date.now() - lastPageTimeRef.current) / 1000)
+        pageVisitBuffer.current.push({
+          session_id: sessionIdRef.current,
+          user_id: userId,
+          page_path: lastPageRef.current,
+          page_title: PAGE_TITLES[lastPageRef.current] || null,
+          entered_at: new Date(lastPageTimeRef.current).toISOString(),
+          left_at: now,
+          duration_seconds: dur,
+        })
+      }
+
+      // Use sendBeacon for reliable delivery
+      const payload = {
+        session_update: { id: sessionIdRef.current, ended_at: now },
+        page_visits: pageVisitBuffer.current.splice(0),
+        events: [
+          ...eventBuffer.current.splice(0),
+          { user_id: userId, event_type: 'logout', event_data: {} },
+        ],
+      }
+
+      // sendBeacon to edge function
+      try {
+        const url = `https://nmjexpuycmqcxuxljier.supabase.co/rest/v1/rpc/track_session_end`
+        // Fallback: just update session via beacon-safe endpoint
+        navigator.sendBeacon(
+          `https://nmjexpuycmqcxuxljier.supabase.co/rest/v1/user_sessions?id=eq.${sessionIdRef.current}`,
+          JSON.stringify({ ended_at: now, duration_minutes: Math.round((Date.now() - Date.parse(now)) / 60000) })
+        )
+      } catch {
+        // Best effort
+      }
+    }
+
+    // Visibility change — end session on hidden, resume on visible
+    function handleVisibility() {
+      if (document.visibilityState === 'hidden') {
+        handleBeforeUnload()
+      }
+    }
+
+    window.addEventListener('beforeunload', handleBeforeUnload)
+    document.addEventListener('visibilitychange', handleVisibility)
+
+    return () => {
+      mountedRef.current = false
+      clearInterval(heartbeatRef.current)
+      clearInterval(flushRef.current)
+      window.removeEventListener('beforeunload', handleBeforeUnload)
+      document.removeEventListener('visibilitychange', handleVisibility)
+
+      // Final flush
+      flushBuffers()
+
+      // End session
+      if (sessionIdRef.current) {
+        supabase
+          .from('user_sessions')
+          .update({
+            ended_at: new Date().toISOString(),
+            duration_minutes: null, // will be computed
+          })
+          .eq('id', sessionIdRef.current)
+          .then(() => {})
+      }
+    }
+  }, [userId, isStudent, flushBuffers])
+
+  // ── Track page changes ────────────────────────────────────
+  useEffect(() => {
+    if (!userId || !isStudent || !sessionIdRef.current) return
+    const path = location.pathname
+
+    // Close previous page visit
+    if (lastPageRef.current && lastPageRef.current !== path) {
+      const dur = Math.round((Date.now() - (lastPageTimeRef.current || Date.now())) / 1000)
+      pageVisitBuffer.current.push({
+        session_id: sessionIdRef.current,
+        user_id: userId,
+        page_path: lastPageRef.current,
+        page_title: PAGE_TITLES[lastPageRef.current] || null,
+        entered_at: new Date(lastPageTimeRef.current || Date.now()).toISOString(),
+        left_at: new Date().toISOString(),
+        duration_seconds: dur,
+      })
+    }
+
+    lastPageRef.current = path
+    lastPageTimeRef.current = Date.now()
+  }, [location.pathname, userId, isStudent])
+
+  // ── Expose trackEvent ─────────────────────────────────────
+  const trackEvent = useCallback((eventType, eventData = {}) => {
+    if (!userId || !isStudent) return
+    eventBuffer.current.push({
+      user_id: userId,
+      event_type: eventType,
+      event_data: eventData,
+    })
+  }, [userId, isStudent])
+
+  return { trackEvent }
+}

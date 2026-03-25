@@ -13,6 +13,7 @@ import { useAuthStore } from '../../stores/authStore'
 import { hasPackageAccess } from '../PackageGate'
 import { PACKAGES } from '../../lib/constants'
 import usePullToRefresh from '../../hooks/usePullToRefresh'
+import useActivityTracker from '../../hooks/useActivityTracker'
 import { useQueryClient } from '@tanstack/react-query'
 
 const GeometricMesh = lazy(() => import('../backgrounds/GeometricMesh'))
@@ -91,6 +92,9 @@ export default function LayoutShell() {
   const activeColor = TAB_ACTIVE_COLORS[role] || TAB_ACTIVE_COLORS.student
   const navigate = useNavigate()
   const queryClient = useQueryClient()
+
+  // Lightweight activity tracking (students only)
+  useActivityTracker()
 
   function showToast(msg) {
     setToast(msg)

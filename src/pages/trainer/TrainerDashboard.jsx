@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { Users, FileText, Calendar, Clock, CheckCircle2, Brain, Loader2, Sparkles, AlertTriangle, Zap, PenLine, ClipboardCheck, ListChecks } from 'lucide-react'
+import { Users, FileText, Calendar, Clock, CheckCircle2, Brain, Loader2, Sparkles, AlertTriangle, Zap, PenLine, ClipboardCheck, ListChecks, Activity } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { getGreeting, getArabicDay, formatTime } from '../../utils/dateHelpers'
@@ -323,9 +323,125 @@ export default function TrainerDashboard() {
         </motion.div>
       </div>
 
+      {/* Student Activity Today */}
+      <StudentActivityWidget groups={groups} />
+
       {/* AI Group Insights */}
       <GroupInsightsCard groups={groups} />
     </div>
+  )
+}
+
+function StudentActivityWidget({ groups }) {
+  const { data: activityData, isLoading } = useQuery({
+    queryKey: ['trainer-student-activity-today', groups?.map(g => g.id)],
+    queryFn: async () => {
+      if (!groups?.length) return []
+      const groupIds = groups.map(g => g.id)
+      const { data: students } = await supabase
+        .from('students')
+        .select('id, last_active_at, current_streak, profiles(full_name, display_name, avatar_url)')
+        .in('group_id', groupIds)
+        .eq('status', 'active')
+        .is('deleted_at', null)
+        .order('last_active_at', { ascending: false, nullsFirst: false })
+        .limit(10)
+
+      if (!students?.length) return []
+
+      const todayStart = new Date()
+      todayStart.setHours(0, 0, 0, 0)
+
+      // Get today's sessions for these students
+      const studentIds = students.map(s => s.id)
+      const { data: todaySessions } = await supabase
+        .from('user_sessions')
+        .select('user_id, started_at, ended_at, duration_minutes')
+        .in('user_id', studentIds)
+        .gte('started_at', todayStart.toISOString())
+
+      // Get today's completed tasks
+      const { data: todayTasks } = await supabase
+        .from('student_weekly_tasks')
+        .select('student_id')
+        .in('student_id', studentIds)
+        .eq('status', 'completed')
+        .gte('updated_at', todayStart.toISOString())
+
+      const sessionMap = {}
+      const taskMap = {}
+      ;(todaySessions || []).forEach(s => {
+        if (!sessionMap[s.user_id]) sessionMap[s.user_id] = 0
+        const mins = s.duration_minutes || (s.ended_at ? Math.round((new Date(s.ended_at) - new Date(s.started_at)) / 60000) : 0)
+        sessionMap[s.user_id] += mins
+      })
+      ;(todayTasks || []).forEach(t => {
+        taskMap[t.student_id] = (taskMap[t.student_id] || 0) + 1
+      })
+
+      return students.map(s => {
+        const now = Date.now()
+        const lastActive = s.last_active_at ? new Date(s.last_active_at).getTime() : 0
+        const daysSince = lastActive ? (now - lastActive) / (1000 * 60 * 60 * 24) : 999
+        let status = 'inactive'
+        if (daysSince < 1) status = 'active'
+        else if (daysSince < 3) status = 'idle'
+
+        return {
+          id: s.id,
+          name: s.profiles?.display_name || s.profiles?.full_name || 'طالب',
+          avatar_url: s.profiles?.avatar_url,
+          status,
+          timeToday: sessionMap[s.id] || 0,
+          tasksToday: taskMap[s.id] || 0,
+          lastActive: s.last_active_at,
+        }
+      })
+    },
+    enabled: !!groups?.length,
+  })
+
+  const STATUS_DOT = { active: '🟢', idle: '🟡', inactive: '🔴' }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.44 }}
+      className="fl-card-static p-7"
+    >
+      <div className="flex items-center gap-3 mb-6">
+        <Activity size={20} className="text-emerald-400" />
+        <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>نشاط الطلاب اليوم</h3>
+      </div>
+      {isLoading ? (
+        <div className="space-y-3">
+          {[...Array(4)].map((_, i) => <div key={i} className="skeleton h-12 rounded-xl" />)}
+        </div>
+      ) : !activityData?.length ? (
+        <p className="text-muted text-sm text-center py-4">لا يوجد طلاب مسجلين</p>
+      ) : (
+        <div className="space-y-2">
+          {activityData.map(s => (
+            <Link
+              key={s.id}
+              to={`/trainer/student/${s.id}/progress`}
+              className="flex items-center gap-3 rounded-xl p-3 transition-all duration-200 hover:translate-y-[-1px]"
+              style={{ background: 'var(--surface-raised)' }}
+            >
+              <UserAvatar user={{ display_name: s.name, avatar_url: s.avatar_url }} size={32} rounded="full" />
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium truncate" style={{ color: 'var(--text-primary)' }}>{s.name}</p>
+                <p className="text-xs text-muted">
+                  {s.timeToday > 0 ? `${s.timeToday} د` : 'لم يدخل'} · {s.tasksToday > 0 ? `${s.tasksToday} مهمة` : 'لا مهام'}
+                </p>
+              </div>
+              <span className="text-sm">{STATUS_DOT[s.status]}</span>
+            </Link>
+          ))}
+        </div>
+      )}
+    </motion.div>
   )
 }
 

@@ -79,6 +79,7 @@ const TrainerProgressReports = lazyRetry(() => import('./pages/trainer/TrainerPr
 const TrainerLessonPlanner = lazyRetry(() => import('./pages/trainer/TrainerLessonPlanner'))
 const TrainerQuizGenerator = lazyRetry(() => import('./pages/trainer/TrainerQuizGenerator'))
 const TrainerWeeklyGrading = lazyRetry(() => import('./pages/trainer/TrainerWeeklyGrading'))
+const StudentProgressDetail = lazyRetry(() => import('./pages/trainer/StudentProgressDetail'))
 
 const AdminDashboard = lazyRetry(() => import('./pages/admin/AdminDashboard'))
 const AdminStudents = lazyRetry(() => import('./pages/admin/AdminStudents'))
@@ -336,6 +337,7 @@ export default function App() {
               <Route path="/trainer/weekly-grading" element={<Page><TrainerWeeklyGrading /></Page>} />
               <Route path="/trainer/recordings" element={<Page><AdminRecordings /></Page>} />
               <Route path="/trainer/conversation" element={<Page><TrainerGroupChat /></Page>} />
+              <Route path="/trainer/student/:studentId/progress" element={<Page><StudentProgressDetail /></Page>} />
             </Route>
           </Route>
 
@@ -367,6 +369,7 @@ export default function App() {
               <Route path="/admin/test-bank" element={<Page><AdminTestBank /></Page>} />
               <Route path="/admin/ai-dashboard" element={<Page><AdminAIDashboard /></Page>} />
               <Route path="/admin/content-bank" element={<Page><AdminContentBank /></Page>} />
+              <Route path="/admin/student/:studentId/progress" element={<Page><StudentProgressDetail /></Page>} />
             </Route>
           </Route>
 
