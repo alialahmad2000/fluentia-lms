@@ -1,11 +1,12 @@
 import { useState, lazy, Suspense } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Users, Plus, Search, Edit3, Trash2, Loader2, X, UserPlus, Download, ArrowUpCircle, Briefcase, Copy, Eye, EyeOff } from 'lucide-react'
+import { Users, Plus, Search, Edit3, Trash2, Loader2, X, UserPlus, Download, ArrowUpCircle, Briefcase, Copy, Eye, EyeOff, Mail, CheckCircle2, AlertCircle } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { ACADEMIC_LEVELS, PACKAGES, STUDENT_STATUS } from '../../lib/constants'
 import { formatDateAr } from '../../utils/dateHelpers'
 import { exportToCSV } from '../../utils/exportData'
+import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import SubTabs from '../../components/common/SubTabs'
 import { ListSkeleton } from '../../components/ui/PageSkeleton'
 import EmptyState from '../../components/ui/EmptyState'
@@ -15,6 +16,7 @@ const AdminTrainers = lazy(() => import('./AdminTrainers'))
 
 const TABS = [
   { key: 'students', label: 'الطلاب', icon: Users },
+  { key: 'emails', label: 'تحديث البيانات', icon: Mail },
   { key: 'groups', label: 'المجموعات', icon: Users },
   { key: 'trainers', label: 'المدربين', icon: Briefcase },
 ]
@@ -26,6 +28,7 @@ export default function AdminStudents() {
       <SubTabs tabs={TABS} activeTab={activeTab} onChange={setActiveTab} accent="gold" />
       <Suspense fallback={<div className="skeleton h-96 w-full" />}>
         {activeTab === 'students' && <StudentsContent />}
+        {activeTab === 'emails' && <BulkEmailUpdate />}
         {activeTab === 'groups' && <AdminGroups />}
         {activeTab === 'trainers' && <AdminTrainers />}
       </Suspense>
@@ -676,5 +679,201 @@ function AddStudentModal({ groups, onClose, onSuccess }) {
         )}
       </motion.div>
     </motion.div>
+  )
+}
+
+// ─── Bulk Email Update Tab ─────────────────────────────────
+function BulkEmailUpdate() {
+  const queryClient = useQueryClient()
+  const [emailMap, setEmailMap] = useState({})
+  const [updating, setUpdating] = useState(false)
+  const [results, setResults] = useState({})
+  const [showConfirm, setShowConfirm] = useState(false)
+
+  const { data: students, isLoading } = useQuery({
+    queryKey: ['admin-students-emails'],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('students')
+        .select('id, profiles(full_name, display_name, email), groups(code)')
+        .is('deleted_at', null)
+        .order('enrollment_date', { ascending: false })
+      return data || []
+    },
+  })
+
+  function setNewEmail(studentId, email) {
+    setEmailMap(prev => ({ ...prev, [studentId]: email }))
+  }
+
+  const pendingUpdates = Object.entries(emailMap).filter(([, email]) => email?.trim())
+
+  async function handleBulkUpdate() {
+    setShowConfirm(false)
+    setUpdating(true)
+    const newResults = {}
+
+    for (const [studentId, newEmail] of pendingUpdates) {
+      const { data, error } = await invokeWithRetry('update-student-email', {
+        body: { student_id: studentId, new_email: newEmail.trim() },
+      })
+
+      if (error) {
+        newResults[studentId] = { success: false, error }
+      } else {
+        newResults[studentId] = { success: true }
+      }
+    }
+
+    setResults(newResults)
+    setUpdating(false)
+    queryClient.invalidateQueries({ queryKey: ['admin-students-emails'] })
+    queryClient.invalidateQueries({ queryKey: ['admin-students'] })
+  }
+
+  const getStatus = (id) => {
+    if (results[id]?.success) return 'success'
+    if (results[id]?.error) return 'error'
+    return null
+  }
+
+  return (
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center">
+            <Mail size={22} className="text-violet-400" strokeWidth={1.5} />
+          </div>
+          <div>
+            <h1 className="text-page-title" style={{ color: 'var(--text-primary)' }}>تحديث بيانات الطلاب</h1>
+            <p className="text-muted text-sm mt-1">تحديث البريد الإلكتروني للطلاب بشكل جماعي</p>
+          </div>
+        </div>
+        {pendingUpdates.length > 0 && (
+          <button
+            onClick={() => setShowConfirm(true)}
+            disabled={updating}
+            className="btn-primary text-sm py-2.5 px-5 flex items-center gap-2"
+          >
+            {updating ? <Loader2 size={16} className="animate-spin" /> : <Mail size={16} />}
+            تحديث الكل ({pendingUpdates.length})
+          </button>
+        )}
+      </div>
+
+      {/* Table */}
+      {isLoading ? (
+        <ListSkeleton />
+      ) : (
+        <div className="fl-card-static overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th className="text-right">الطالب</th>
+                  <th className="text-right">المجموعة</th>
+                  <th className="text-right">الإيميل الحالي</th>
+                  <th className="text-right min-w-[280px]">الإيميل الجديد</th>
+                  <th className="text-right">الحالة</th>
+                </tr>
+              </thead>
+              <tbody>
+                {students?.map(s => {
+                  const status = getStatus(s.id)
+                  return (
+                    <tr key={s.id}>
+                      <td>
+                        <p className="text-[var(--text-primary)] font-medium">
+                          {s.profiles?.display_name || s.profiles?.full_name || 'طالب'}
+                        </p>
+                      </td>
+                      <td className="text-muted">{s.groups?.code || '—'}</td>
+                      <td className="text-muted text-sm" dir="ltr">{s.profiles?.email}</td>
+                      <td>
+                        <input
+                          type="email"
+                          dir="ltr"
+                          placeholder="new@email.com"
+                          value={emailMap[s.id] || ''}
+                          onChange={(e) => setNewEmail(s.id, e.target.value)}
+                          disabled={updating}
+                          className="input-field text-sm py-1.5"
+                        />
+                      </td>
+                      <td>
+                        {status === 'success' && (
+                          <span className="flex items-center gap-1 text-emerald-400 text-sm">
+                            <CheckCircle2 size={14} /> تم
+                          </span>
+                        )}
+                        {status === 'error' && (
+                          <span className="flex items-center gap-1 text-red-400 text-sm" title={results[s.id]?.error}>
+                            <AlertCircle size={14} /> فشل
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+            {students?.length === 0 && (
+              <EmptyState icon={Users} title="لا يوجد طلاب" description="لم يتم العثور على طلاب" />
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Confirmation Modal */}
+      <AnimatePresence>
+        {showConfirm && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setShowConfirm(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-md fl-card-static p-6"
+            >
+              <div className="text-center mb-6">
+                <div className="w-14 h-14 rounded-2xl bg-amber-500/10 flex items-center justify-center mx-auto mb-4">
+                  <AlertCircle size={28} className="text-amber-400" />
+                </div>
+                <h3 className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>تأكيد تحديث البيانات</h3>
+                <p className="text-muted text-sm mt-2">
+                  سيتم تحديث إيميلات {pendingUpdates.length} طلاب — هل أنت متأكد؟
+                </p>
+              </div>
+              <div className="max-h-48 overflow-y-auto mb-6 space-y-2">
+                {pendingUpdates.map(([id, email]) => {
+                  const student = students?.find(s => s.id === id)
+                  return (
+                    <div key={id} className="flex items-center justify-between text-sm py-2 px-3 rounded-lg" style={{ background: 'var(--surface-raised)' }}>
+                      <span style={{ color: 'var(--text-primary)' }}>{student?.profiles?.display_name || student?.profiles?.full_name}</span>
+                      <span className="text-muted" dir="ltr">{email}</span>
+                    </div>
+                  )
+                })}
+              </div>
+              <div className="flex items-center gap-3 justify-center">
+                <button onClick={handleBulkUpdate} className="btn-primary text-sm py-2.5 px-6">
+                  تأكيد التحديث
+                </button>
+                <button onClick={() => setShowConfirm(false)} className="btn-ghost text-sm py-2.5">
+                  إلغاء
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   )
 }

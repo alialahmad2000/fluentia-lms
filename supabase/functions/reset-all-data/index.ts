@@ -14,24 +14,53 @@ const corsHeaders = {
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
 }
 
-// Tables to truncate (student activity data only)
+// Tables to truncate (student activity data only — in FK-safe order)
 const TABLES_TO_TRUNCATE = [
+  // Deepest FK dependencies first
+  'quiz_answers',
+  'quiz_attempts',
+  'attendance',
+  'class_notes',
   'submissions',
+  'student_speaking_progress',
+  // XP & gamification
+  'xp_transactions',
+  'student_achievements',
+  'challenge_participants',
+  'peer_recognitions',
+  'social_shares',
+  // Messaging
+  'message_reactions',
+  'group_messages',
+  'direct_messages',
+  'ai_chat_messages',
+  // Weekly tasks & spelling
   'weekly_tasks',
   'weekly_task_sets',
-  'xp_transactions',
-  'attendance',
-  'student_speaking_progress',
-  'activity_feed',
-  'student_achievements',
-  'daily_challenges',
-  'quiz_attempts',
+  'student_spelling_progress',
+  'spelling_sessions',
+  'student_verb_progress',
+  // Assessments & progress
+  'assessments',
+  'skill_snapshots',
+  'progress_reports',
+  'vocabulary_bank',
   'voice_journals',
+  // Error patterns & exercises
   'targeted_exercises',
-  'chat_messages',
+  'error_patterns',
+  'churn_predictions',
+  // Activity & events
+  'activity_feed',
+  'event_participants',
+  // Notifications
   'notifications',
+  // Assignments (trainer will recreate)
+  'assignments',
+  // Analytics & logging
+  'analytics_events',
+  'audit_log',
   'ai_usage',
-  'ai_student_profiles',
 ]
 
 // Student stats to reset
@@ -40,6 +69,7 @@ const STUDENT_RESET_VALUES = {
   current_streak: 0,
   longest_streak: 0,
   gamification_level: 1,
+  last_active_at: null,
 }
 
 serve(async (req: Request) => {
@@ -129,6 +159,15 @@ serve(async (req: Request) => {
       if (resetErr) {
         errors.push(`students reset: ${resetErr.message}`)
       }
+    }
+
+    // Reset team XP
+    const { error: teamErr } = await supabase
+      .from('teams')
+      .update({ total_xp: 0 })
+      .neq('id', '00000000-0000-0000-0000-000000000000')
+    if (teamErr) {
+      errors.push(`teams reset: ${teamErr.message}`)
     }
 
     // Log the reset
