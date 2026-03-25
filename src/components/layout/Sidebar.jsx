@@ -5,7 +5,7 @@ import {
   Bot, Users, CreditCard, Settings, LayoutDashboard,
   LogOut, X, ChevronLeft, Zap, FolderOpen, CalendarDays, Calendar,
   Video, ClipboardCheck, UsersRound, GraduationCap, Wrench, ListChecks,
-  Brain, BookOpen, Sparkles, Database, Languages, Shuffle, Lock,
+  Brain, BookOpen, Sparkles, Database, Languages, Shuffle, Lock, Map,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { useThemeStore } from '../../stores/themeStore'
@@ -49,6 +49,7 @@ const NAV_ITEMS = {
     { to: '/student/assignments', label: 'الواجبات', icon: FileText },
     { to: '/student/weekly-tasks', label: 'المهام الأسبوعية', icon: CalendarDays },
     { to: '/student/schedule', label: 'الجدول', icon: Calendar },
+    { to: '/student/study-plan', label: 'خطة الدراسة', icon: Map },
     { to: '/student/recordings', label: 'التسجيلات', icon: Video },
     { to: '/student/flashcards', label: 'المفردات', icon: Languages },
     { to: '/student/verbs', label: 'الأفعال الشاذة', icon: Shuffle },

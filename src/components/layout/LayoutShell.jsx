@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   House, CalendarDays, Video, FileText, Users, Zap, Bot, CreditCard, Settings,
   BarChart3, User, MoreHorizontal, X, Mic, PenLine, MessageSquare, ClipboardCheck,
-  UsersRound, GraduationCap, ListChecks, Loader2, Lock,
+  UsersRound, GraduationCap, ListChecks, Loader2, Lock, Map,
 } from 'lucide-react'
 import Sidebar from './Sidebar'
 import Header from './Header'
@@ -45,6 +45,7 @@ const MOBILE_TABS = {
 // comingSoon: true = feature not ready yet (blocks all packages)
 const MORE_ITEMS = {
   student: [
+    { to: '/student/study-plan', label: 'خطة الدراسة', icon: Map },
     { to: '/student/assignments', label: 'الواجبات', icon: FileText },
     { to: '/student/speaking-lab', label: 'معمل التحدث', icon: Mic, requiredPackage: 'tamayuz', comingSoon: true },
     { to: '/student/writing-lab', label: 'معمل الكتابة', icon: PenLine, requiredPackage: 'tamayuz', comingSoon: true },
