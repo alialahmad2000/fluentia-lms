@@ -270,6 +270,8 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
           <LogOut size={18} strokeWidth={1.5} className="shrink-0" />
           {!collapsed && <span>تسجيل الخروج</span>}
         </button>
+        {/* Mobile spacer: clears bottom nav bar + safe area so logout is always reachable */}
+        <div className="lg:hidden" style={{ height: 'calc(env(safe-area-inset-bottom, 16px) + 80px)' }} />
       </div>
     </div>
   )

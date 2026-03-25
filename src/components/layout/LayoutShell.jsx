@@ -140,7 +140,7 @@ export default function LayoutShell() {
       >
         <Header onMenuToggle={() => setMobileOpen(true)} />
 
-        <main id="main-content" className="px-4 py-6 lg:px-10 lg:py-8 pb-24 lg:pb-10" style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <main id="main-content" className="px-4 py-6 lg:px-10 lg:py-8 pb-safe-bottom lg:pb-10" style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <Outlet />
         </main>
       </div>
@@ -208,7 +208,7 @@ export default function LayoutShell() {
                 borderTop: '1px solid var(--border-subtle)',
                 maxHeight: '70vh',
                 overflowY: 'auto',
-                paddingBottom: 'env(safe-area-inset-bottom, 16px)',
+                paddingBottom: 'calc(env(safe-area-inset-bottom, 16px) + 80px)',
               }}
             >
               {/* Handle */}
