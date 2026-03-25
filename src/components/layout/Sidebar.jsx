@@ -5,10 +5,11 @@ import {
   Bot, Users, CreditCard, Settings, LayoutDashboard,
   LogOut, X, ChevronLeft, Zap, FolderOpen, CalendarDays, Calendar,
   Video, ClipboardCheck, UsersRound, GraduationCap, Wrench, ListChecks,
-  Brain, BookOpen, Sparkles, Database, Languages, Shuffle,
+  Brain, BookOpen, Sparkles, Database, Languages, Shuffle, Lock,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { useThemeStore } from '../../stores/themeStore'
+import { hasPackageAccess } from '../PackageGate'
 import UserAvatar from '../common/UserAvatar'
 
 // ─── Role accent config ──────────────────────────────────────
@@ -52,17 +53,17 @@ const NAV_ITEMS = {
     { to: '/student/flashcards', label: 'المفردات', icon: Languages },
     { to: '/student/verbs', label: 'الأفعال الشاذة', icon: Shuffle },
     { type: 'divider', label: 'معامل' },
-    { to: '/student/speaking-lab', label: 'معمل التحدث', icon: Mic },
-    { to: '/student/writing-lab', label: 'معمل الكتابة', icon: PenLine },
+    { to: '/student/speaking-lab', label: 'معمل التحدث', icon: Mic, requiredPackage: 'tamayuz', comingSoon: true },
+    { to: '/student/writing-lab', label: 'معمل الكتابة', icon: PenLine, requiredPackage: 'tamayuz', comingSoon: true },
     { type: 'divider', label: 'التقييم' },
     { to: '/student/adaptive-test', label: 'اختبار المستوى', icon: Brain },
-    { to: '/student/assessments', label: 'التقييمات', icon: ClipboardCheck },
-    { to: '/student/grades', label: 'الدرجات والنتائج', icon: BarChart3 },
+    { to: '/student/assessments', label: 'التقييمات', icon: ClipboardCheck, requiredPackage: 'talaqa', comingSoon: true },
+    { to: '/student/grades', label: 'الدرجات والنتائج', icon: BarChart3, requiredPackage: 'talaqa' },
     { type: 'divider', label: 'تواصل' },
     { to: '/student/conversation', label: 'المحادثة', icon: MessageSquare },
-    { to: '/student/ai-chat', label: 'المساعد الذكي', icon: Bot },
-    { to: '/student/ai-insights', label: 'رؤى ذكية', icon: Sparkles },
-    { to: '/student/group-activity', label: 'نشاط المجموعة', icon: UsersRound },
+    { to: '/student/ai-chat', label: 'المساعد الذكي', icon: Bot, requiredPackage: 'talaqa' },
+    { to: '/student/ai-insights', label: 'رؤى ذكية', icon: Sparkles, requiredPackage: 'talaqa' },
+    { to: '/student/group-activity', label: 'نشاط المجموعة', icon: UsersRound, requiredPackage: 'talaqa' },
   ],
   trainer: [
     { type: 'divider', label: 'أساسي' },
@@ -124,6 +125,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
   const accent = ROLE_ACCENTS[role] || ROLE_ACCENTS.student
   const displayName = profile?.display_name || profile?.full_name || ''
   const level = studentData?.level || profile?.level || '—'
+  const studentPackage = studentData?.package || 'asas'
 
   const profilePath = role === 'admin' ? '/admin/settings' : role === 'trainer' ? '/trainer/students' : '/student/profile'
 
@@ -234,6 +236,9 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
             if (item.type === 'divider') {
               return <SectionDivider key={`div-${i}`} label={item.label} collapsed={collapsed} />
             }
+            const isComingSoon = item.comingSoon
+            const isLocked = !isComingSoon && item.requiredPackage && role === 'student' && !hasPackageAccess(studentPackage, item.requiredPackage)
+
             return (
               <NavLink
                 key={item.to}
@@ -247,7 +252,10 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
                       : 'hover:bg-[var(--sidebar-hover-bg)]'
                   } ${collapsed ? 'justify-center' : ''}`
                 }
-                style={({ isActive }) => isActive ? undefined : { color: 'var(--sidebar-text-default)' }}
+                style={({ isActive }) => ({
+                  ...(isActive ? {} : { color: 'var(--sidebar-text-default)' }),
+                  ...(isComingSoon || isLocked ? { opacity: 0.5 } : {}),
+                })}
               >
                 {({ isActive }) => (
                   <>
@@ -260,7 +268,15 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
                         : { color: 'var(--sidebar-icon-default)', opacity: 0.7 }
                       }
                     />
-                    {!collapsed && <span>{item.label}</span>}
+                    {!collapsed && (
+                      <span className="flex-1">{item.label}</span>
+                    )}
+                    {!collapsed && isLocked && (
+                      <Lock size={13} className="shrink-0" style={{ color: 'var(--accent-gold)', opacity: 0.8 }} />
+                    )}
+                    {!collapsed && isComingSoon && (
+                      <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full shrink-0" style={{ background: 'var(--accent-amber-glow)', color: 'var(--accent-amber)' }}>قريباً</span>
+                    )}
                   </>
                 )}
               </NavLink>

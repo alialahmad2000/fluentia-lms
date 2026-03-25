@@ -4,12 +4,14 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   House, CalendarDays, Video, FileText, Users, Zap, Bot, CreditCard, Settings,
   BarChart3, User, MoreHorizontal, X, Mic, PenLine, MessageSquare, ClipboardCheck,
-  UsersRound, GraduationCap, ListChecks, Loader2,
+  UsersRound, GraduationCap, ListChecks, Loader2, Lock,
 } from 'lucide-react'
 import Sidebar from './Sidebar'
 import Header from './Header'
 import AIFloatingHelper from '../ai/AIFloatingHelper'
 import { useAuthStore } from '../../stores/authStore'
+import { hasPackageAccess } from '../PackageGate'
+import { PACKAGES } from '../../lib/constants'
 import usePullToRefresh from '../../hooks/usePullToRefresh'
 import { useQueryClient } from '@tanstack/react-query'
 
@@ -39,16 +41,18 @@ const MOBILE_TABS = {
 }
 
 // Extra items for the "More" bottom sheet
+// requiredPackage: minimum package needed (omit for all-access)
+// comingSoon: true = feature not ready yet (blocks all packages)
 const MORE_ITEMS = {
   student: [
     { to: '/student/assignments', label: 'الواجبات', icon: FileText },
-    { to: '/student/speaking-lab', label: 'معمل التحدث', icon: Mic },
-    { to: '/student/writing-lab', label: 'معمل الكتابة', icon: PenLine },
-    { to: '/student/assessments', label: 'الاختبارات', icon: ClipboardCheck },
-    { to: '/student/grades', label: 'الدرجات', icon: BarChart3 },
+    { to: '/student/speaking-lab', label: 'معمل التحدث', icon: Mic, requiredPackage: 'tamayuz', comingSoon: true },
+    { to: '/student/writing-lab', label: 'معمل الكتابة', icon: PenLine, requiredPackage: 'tamayuz', comingSoon: true },
+    { to: '/student/assessments', label: 'الاختبارات', icon: ClipboardCheck, requiredPackage: 'talaqa', comingSoon: true },
+    { to: '/student/grades', label: 'الدرجات', icon: BarChart3, requiredPackage: 'talaqa' },
     { to: '/student/conversation', label: 'المحادثة', icon: MessageSquare },
-    { to: '/student/ai-chat', label: 'المساعد الذكي', icon: Bot },
-    { to: '/student/group-activity', label: 'نشاط المجموعة', icon: UsersRound },
+    { to: '/student/ai-chat', label: 'المساعد الذكي', icon: Bot, requiredPackage: 'talaqa' },
+    { to: '/student/group-activity', label: 'نشاط المجموعة', icon: UsersRound, requiredPackage: 'talaqa' },
     { to: '/student/profile', label: 'حسابي', icon: User },
   ],
   trainer: [
@@ -77,13 +81,20 @@ export default function LayoutShell() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [collapsed, setCollapsed] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
-  const { profile } = useAuthStore()
+  const [toast, setToast] = useState(null)
+  const { profile, studentData } = useAuthStore()
   const role = profile?.role || 'student'
+  const studentPackage = studentData?.package || 'asas'
   const tabs = MOBILE_TABS[role] || MOBILE_TABS.student
   const moreItems = MORE_ITEMS[role] || []
   const activeColor = TAB_ACTIVE_COLORS[role] || TAB_ACTIVE_COLORS.student
   const navigate = useNavigate()
   const queryClient = useQueryClient()
+
+  function showToast(msg) {
+    setToast(msg)
+    setTimeout(() => setToast(null), 2500)
+  }
 
   // Pull to refresh — invalidates all queries
   const handleRefresh = useCallback(async () => {
@@ -224,22 +235,67 @@ export default function LayoutShell() {
               </div>
               {/* Items grid */}
               <div className="grid grid-cols-4 gap-1 px-4 pb-6">
-                {moreItems.map((item) => (
-                  <button
-                    key={item.to}
-                    onClick={() => { setMoreOpen(false); navigate(item.to) }}
-                    className="flex flex-col items-center gap-1.5 py-3 px-2 rounded-xl transition-colors min-h-[72px] justify-center"
-                    style={{ color: 'var(--text-secondary)' }}
-                  >
-                    <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'var(--surface-overlay)' }}>
-                      <item.icon size={18} strokeWidth={1.5} />
-                    </div>
-                    <span className="text-[11px] font-medium text-center leading-tight">{item.label}</span>
-                  </button>
-                ))}
+                {moreItems.map((item) => {
+                  const isComingSoon = item.comingSoon
+                  const isLocked = !isComingSoon && item.requiredPackage && role === 'student' && !hasPackageAccess(studentPackage, item.requiredPackage)
+
+                  return (
+                    <button
+                      key={item.to}
+                      onClick={() => {
+                        if (isComingSoon) {
+                          showToast('نشتغل عليها! بتكون جاهزة قريب إن شاء الله')
+                          return
+                        }
+                        if (isLocked) {
+                          const pkgName = PACKAGES[item.requiredPackage]?.name_ar || item.requiredPackage
+                          showToast(`هالميزة متاحة لـ${pkgName} وأعلى`)
+                          return
+                        }
+                        setMoreOpen(false)
+                        navigate(item.to)
+                      }}
+                      className="flex flex-col items-center gap-1.5 py-3 px-2 rounded-xl transition-colors min-h-[72px] justify-center relative"
+                      style={{ color: isComingSoon || isLocked ? 'var(--text-tertiary)' : 'var(--text-secondary)', opacity: isComingSoon || isLocked ? 0.6 : 1 }}
+                    >
+                      <div className="w-10 h-10 rounded-xl flex items-center justify-center relative" style={{ background: 'var(--surface-overlay)' }}>
+                        <item.icon size={18} strokeWidth={1.5} />
+                        {isLocked && (
+                          <div className="absolute -top-1 -left-1 w-4 h-4 rounded-full flex items-center justify-center" style={{ background: 'var(--accent-gold-glow)' }}>
+                            <Lock size={9} style={{ color: 'var(--accent-gold)' }} />
+                          </div>
+                        )}
+                      </div>
+                      <span className="text-[11px] font-medium text-center leading-tight">{item.label}</span>
+                      {isComingSoon && (
+                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: 'var(--accent-amber-glow)', color: 'var(--accent-amber)' }}>قريباً</span>
+                      )}
+                    </button>
+                  )
+                })}
               </div>
             </motion.div>
           </>
+        )}
+      </AnimatePresence>
+
+      {/* Toast notification */}
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 30 }}
+            className="fixed bottom-28 left-1/2 -translate-x-1/2 z-[200] px-5 py-3 rounded-2xl text-sm font-medium text-center max-w-xs"
+            style={{
+              background: 'var(--surface-overlay)',
+              border: '1px solid var(--border-default)',
+              color: 'var(--text-primary)',
+              boxShadow: 'var(--shadow-lg)',
+            }}
+          >
+            {toast}
+          </motion.div>
         )}
       </AnimatePresence>
     </div>

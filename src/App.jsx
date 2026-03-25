@@ -13,6 +13,8 @@ import lazyRetry from './utils/lazyRetry'
 import OfflineBanner from './components/OfflineBanner'
 import { ToastProvider } from './components/Toast'
 
+import ComingSoon from './pages/student/ComingSoon'
+
 // ─── Lazy-loaded Pages (with chunk retry on stale deploys) ───
 const StudentDashboard = lazyRetry(() => import('./pages/student/StudentDashboard'))
 const StudentAssignments = lazyRetry(() => import('./pages/student/StudentAssignments'))
@@ -265,8 +267,8 @@ export default function App() {
               <Route path="/student/assignments" element={<Page><StudentAssignments /></Page>} />
               <Route path="/student/schedule" element={<Page><StudentSchedule /></Page>} />
               <Route path="/student/grades" element={<Page><StudentGrades /></Page>} />
-              <Route path="/student/speaking" element={<Page><StudentSpeaking /></Page>} />
-              <Route path="/student/speaking-lab" element={<Page><StudentSpeaking /></Page>} />
+              <Route path="/student/speaking" element={<Page><ComingSoon featureName="معمل التحدث" /></Page>} />
+              <Route path="/student/speaking-lab" element={<Page><ComingSoon featureName="معمل التحدث" /></Page>} />
               <Route path="/student/library" element={<Page><StudentLibrary /></Page>} />
               <Route path="/student/leaderboard" element={<Page><StudentLeaderboard /></Page>} />
               <Route path="/student/recognition" element={<Page><StudentPeerRecognition /></Page>} />
@@ -287,7 +289,7 @@ export default function App() {
               <Route path="/student/success" element={<Page><StudentSuccessStories /></Page>} />
               <Route path="/student/events" element={<Page><StudentEvents /></Page>} />
               <Route path="/student/avatar" element={<Page><StudentAvatar /></Page>} />
-              <Route path="/student/assessments" element={<Page><StudentAssessments /></Page>} />
+              <Route path="/student/assessments" element={<Page><ComingSoon featureName="الاختبارات" /></Page>} />
               <Route path="/student/quiz" element={<Page><StudentQuiz /></Page>} />
               <Route path="/student/profile" element={<Page><StudentProfile /></Page>} />
               <Route path="/student/certificates" element={<Page><StudentCertificate /></Page>} />
@@ -297,7 +299,7 @@ export default function App() {
               <Route path="/student/spelling" element={<Page><StudentSpelling /></Page>} />
               <Route path="/student/verbs" element={<Page><IrregularVerbsPractice /></Page>} />
               <Route path="/student/recordings" element={<Page><StudentRecordings /></Page>} />
-              <Route path="/student/writing-lab" element={<Page><StudentWritingLab /></Page>} />
+              <Route path="/student/writing-lab" element={<Page><ComingSoon featureName="معمل الكتابة" /></Page>} />
               <Route path="/student/group-activity" element={<Page><StudentGroupActivity /></Page>} />
               <Route path="/student/adaptive-test" element={<Page><StudentAdaptiveTest /></Page>} />
               <Route path="/student/ai-insights" element={<Page><StudentAIInsights /></Page>} />
