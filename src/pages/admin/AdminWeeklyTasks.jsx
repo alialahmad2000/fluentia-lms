@@ -108,14 +108,18 @@ export default function AdminWeeklyTasks() {
   }, [taskSets])
 
   // Generate now
-  async function handleGenerate(force = false) {
+  async function handleGenerate(force = false, missingOnly = false) {
     setGenerating(true)
     setGenResult(null)
     try {
-      const { data, error } = await invokeWithRetry('generate-weekly-tasks', {
-        body: force ? { force: true } : {},
+      const reqBody = {}
+      if (force) reqBody.force = true
+      if (selectedGroup) reqBody.group_id = selectedGroup
+      if (missingOnly) reqBody.missing_only = true
 
-      }, { timeoutMs: 120000 })
+      const { data, error } = await invokeWithRetry('generate-weekly-tasks', {
+        body: reqBody,
+      }, { timeoutMs: 180000 })
 
       if (error) {
         setGenResult({ success: false, message: error })
@@ -183,6 +187,16 @@ export default function AdminWeeklyTasks() {
               title="إعادة إنشاء حتى لو المهام موجودة"
             >
               إعادة إنشاء
+            </button>
+            <button
+              onClick={() => handleGenerate(false, true)}
+              disabled={generating}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all disabled:opacity-50"
+              style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)', color: 'var(--text-secondary)' }}
+              title="توليد المهام فقط للطلاب الذين لم يحصلوا على مهام هذا الأسبوع"
+            >
+              <RefreshCw size={14} />
+              المتبقين
             </button>
           </div>
         </div>

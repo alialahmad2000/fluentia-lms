@@ -571,6 +571,7 @@ serve(async (req) => {
     let body: Record<string, unknown> = {}
     try { body = await req.json() } catch { body = {} }
     const forceRegenerate = body.force === true
+    const missingOnly = body.missing_only === true
     const filterGroupId = body.group_id as string | undefined
     const filterStudentIds = body.student_ids as string[] | undefined
 
@@ -599,6 +600,30 @@ serve(async (req) => {
 
     // 2. Calculate week boundaries
     const { weekStart, weekEnd } = getWeekBoundaries()
+
+    // If missing_only mode: filter to only students who DON'T have tasks this week
+    let targetStudents = students
+    if (missingOnly) {
+      const { data: existingSets } = await supabase
+        .from('weekly_task_sets')
+        .select('student_id')
+        .eq('week_start', weekStart)
+
+      const hasTasksSet = new Set((existingSets || []).map((s: { student_id: string }) => s.student_id))
+      const before = students.length
+      targetStudents = students.filter(s => !hasTasksSet.has(s.id))
+      console.log(`Missing-only mode: ${before} total students, ${targetStudents.length} without tasks this week`)
+
+      if (targetStudents.length === 0) {
+        return new Response(
+          JSON.stringify({
+            generated: 0, skipped: 0, errors: [],
+            message: `جميع الطلاب لديهم مهام هذا الأسبوع (${before} طالب)`,
+          }),
+          { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 200 }
+        )
+      }
+    }
     console.log(`Generating tasks for week: ${weekStart} to ${weekEnd}`)
 
     // 2.5. Check for holidays that overlap with this week
@@ -636,85 +661,111 @@ serve(async (req) => {
       outputTokens: number
     }> = {}
 
-    // 3. Process each student
-    for (const student of students) {
-      try {
-        const studentId: string = student.id
-        const academicLevel: number = student.academic_level || 1
-
-        // Check if tasks already generated for this week
-        const { data: existing } = await supabase
-          .from('weekly_task_sets')
-          .select('id')
-          .eq('student_id', studentId)
-          .eq('week_start', weekStart)
-          .limit(1)
-
-        // Remember old set IDs for deferred deletion (Bug fix: don't delete before Claude succeeds)
-        let oldSetIds: string[] = []
-
-        if (existing && existing.length > 0) {
-          if (forceRegenerate) {
-            // Remember IDs but DON'T delete yet — wait until new tasks are generated
-            oldSetIds = existing.map((s: { id: string }) => s.id)
-            console.log(`Force regenerate: will replace ${oldSetIds.length} existing set(s) for student ${studentId} after new tasks are generated`)
-          } else {
-            console.log(`Tasks already exist for student ${studentId}, skipping`)
-            skipped++
-            continue
+    // Pre-warm the Claude cache: generate for each unique level BEFORE the student loop
+    // This prevents timeout issues when processing many students sequentially
+    const uniqueLevels = [...new Set(targetStudents.map(s => s.academic_level || 1))]
+    for (const level of uniqueLevels) {
+      // Try curriculum bank first for this level (using a dummy student check)
+      const bankTest = await pullFromCurriculumBank(supabase, level, targetStudents[0].id)
+      if (!bankTest) {
+        // No bank content — pre-generate with Claude for all difficulty bands
+        for (const diffLabel of ['easier', 'moderate', 'challenging'] as const) {
+          const diffScore = diffLabel === 'challenging' ? 0.80 : diffLabel === 'moderate' ? 0.55 : 0.35
+          const cacheKey = `${level}_${diffLabel}`
+          if (!levelCache[cacheKey]) {
+            try {
+              const claudeResult = await generateTasksWithClaude(level, diffScore)
+              levelCache[cacheKey] = claudeResult
+              const costSar =
+                (claudeResult.inputTokens * 0.003 / 1000) * 3.75 +
+                (claudeResult.outputTokens * 0.015 / 1000) * 3.75
+              await supabase.from('ai_usage').insert({
+                type: 'weekly_tasks',
+                model: CLAUDE_MODEL,
+                input_tokens: claudeResult.inputTokens,
+                output_tokens: claudeResult.outputTokens,
+                estimated_cost_sar: costSar,
+              })
+              console.log(`Pre-warmed cache for level ${level}, ${diffLabel}`)
+            } catch (err) {
+              console.error(`Failed to pre-warm cache for level ${level}, ${diffLabel}:`, err)
+            }
           }
         }
+      }
+    }
 
-        // Calculate adaptive difficulty for this student
-        const difficultyScore = await calculateDifficulty(supabase, studentId)
+    // 3. Process each student — helper function for concurrent processing
+    async function processStudent(student: { id: string; academic_level: number; group_id: string }) {
+      const studentId: string = student.id
+      const academicLevel: number = student.academic_level || 1
 
-        // Compute difficulty label for cache key — students at same level but
-        // very different difficulties get different content
-        const difficultyLabel = difficultyScore >= 0.75 ? 'challenging' : difficultyScore >= 0.50 ? 'moderate' : 'easier'
-        const cacheKey = `${academicLevel}_${difficultyLabel}`
+      // Check if tasks already generated for this week
+      const { data: existing } = await supabase
+        .from('weekly_task_sets')
+        .select('id')
+        .eq('student_id', studentId)
+        .eq('week_start', weekStart)
+        .limit(1)
 
-        // Generate tasks — try curriculum bank first (instant, no API cost)
-        let taskData: TaskGenerationResult
-        let inputTokens: number
-        let outputTokens: number
-        let bankSourceIds: Array<{ id: string; table: string }> = []
+      // Remember old set IDs for deferred deletion (Bug fix: don't delete before Claude succeeds)
+      let oldSetIds: string[] = []
 
-        const bankResult = await pullFromCurriculumBank(supabase, academicLevel, studentId)
-        if (bankResult) {
-          taskData = bankResult.result
-          inputTokens = 0
-          outputTokens = 0
-          bankSourceIds = bankResult.sourceIds
-          console.log(`Used curriculum bank for student ${studentId} (level ${academicLevel})`)
-        } else if (levelCache[cacheKey]) {
-          // Reuse cached Claude result for same level+difficulty — different students at same level
-          // get the same task templates (each student still gets their own irregular verbs)
-          taskData = levelCache[cacheKey].result
-          inputTokens = levelCache[cacheKey].inputTokens
-          outputTokens = levelCache[cacheKey].outputTokens
-          console.log(`Used cached Claude result for student ${studentId} (level ${academicLevel}, ${difficultyLabel})`)
+      if (existing && existing.length > 0) {
+        if (forceRegenerate) {
+          oldSetIds = existing.map((s: { id: string }) => s.id)
+          console.log(`Force regenerate: will replace ${oldSetIds.length} existing set(s) for student ${studentId}`)
         } else {
-          // Fall back to Claude API generation
-          const claudeResult = await generateTasksWithClaude(academicLevel, difficultyScore)
-          taskData = claudeResult.result
-          inputTokens = claudeResult.inputTokens
-          outputTokens = claudeResult.outputTokens
-          levelCache[cacheKey] = claudeResult
-
-          // Log AI usage (only once per unique level+difficulty call)
-          const costSar =
-            (inputTokens * 0.003 / 1000) * 3.75 +
-            (outputTokens * 0.015 / 1000) * 3.75
-
-          await supabase.from('ai_usage').insert({
-            type: 'weekly_tasks',
-            model: CLAUDE_MODEL,
-            input_tokens: inputTokens,
-            output_tokens: outputTokens,
-            estimated_cost_sar: costSar,
-          })
-          console.log(`Used Claude API for student ${studentId} (level ${academicLevel}, ${difficultyLabel})`)
+          console.log(`Tasks already exist for student ${studentId}, skipping`)
+          return 'skipped' as const
         }
+      }
+
+      // Calculate adaptive difficulty for this student
+      const difficultyScore = await calculateDifficulty(supabase, studentId)
+
+      const difficultyLabel = difficultyScore >= 0.75 ? 'challenging' : difficultyScore >= 0.50 ? 'moderate' : 'easier'
+      const cacheKey = `${academicLevel}_${difficultyLabel}`
+
+      // Generate tasks — try curriculum bank first (instant, no API cost)
+      let taskData: TaskGenerationResult
+      let inputTokens: number
+      let outputTokens: number
+      let bankSourceIds: Array<{ id: string; table: string }> = []
+
+      const bankResult = await pullFromCurriculumBank(supabase, academicLevel, studentId)
+      if (bankResult) {
+        taskData = bankResult.result
+        inputTokens = 0
+        outputTokens = 0
+        bankSourceIds = bankResult.sourceIds
+        console.log(`Used curriculum bank for student ${studentId} (level ${academicLevel})`)
+      } else if (levelCache[cacheKey]) {
+        taskData = levelCache[cacheKey].result
+        inputTokens = levelCache[cacheKey].inputTokens
+        outputTokens = levelCache[cacheKey].outputTokens
+        console.log(`Used cached Claude result for student ${studentId} (level ${academicLevel}, ${difficultyLabel})`)
+      } else {
+        // Fallback: generate with Claude (should rarely happen since we pre-warmed)
+        const claudeResult = await generateTasksWithClaude(academicLevel, difficultyScore)
+        taskData = claudeResult.result
+        inputTokens = claudeResult.inputTokens
+        outputTokens = claudeResult.outputTokens
+        levelCache[cacheKey] = claudeResult
+
+        const costSar =
+          (inputTokens * 0.003 / 1000) * 3.75 +
+          (outputTokens * 0.015 / 1000) * 3.75
+
+        await supabase.from('ai_usage').insert({
+          type: 'weekly_tasks',
+          model: CLAUDE_MODEL,
+          input_tokens: inputTokens,
+          output_tokens: outputTokens,
+          estimated_cost_sar: costSar,
+        })
+        console.log(`Used Claude API for student ${studentId} (level ${academicLevel}, ${difficultyLabel})`)
+      }
 
         // Fetch irregular verbs for this student
         const irregularVerbs = await getIrregularVerbs(supabase, studentId, academicLevel)
@@ -988,12 +1039,33 @@ serve(async (req) => {
           console.error(`Notification insert failed for student ${studentId}:`, notifErr)
         }
 
-        generated++
         console.log(`Generated ${tasksToInsert.length} tasks for student ${studentId}`)
-      } catch (studentErr) {
-        const msg = studentErr instanceof Error ? studentErr.message : String(studentErr)
-        console.error(`Error processing student ${student.id}: ${msg}`)
-        errors.push(`Student ${student.id}: ${msg}`)
+        return 'generated' as const
+      } // end processStudent
+
+    // Process students in concurrent batches of 5 to avoid timeout
+    const BATCH_SIZE = 5
+    for (let i = 0; i < targetStudents.length; i += BATCH_SIZE) {
+      const batch = targetStudents.slice(i, i + BATCH_SIZE)
+      const results = await Promise.allSettled(
+        batch.map(async (student) => {
+          try {
+            return await processStudent(student)
+          } catch (studentErr) {
+            const msg = studentErr instanceof Error ? studentErr.message : String(studentErr)
+            console.error(`Error processing student ${student.id}: ${msg}`)
+            errors.push(`Student ${student.id}: ${msg}`)
+            return 'failed' as const
+          }
+        })
+      )
+      for (const result of results) {
+        if (result.status === 'fulfilled') {
+          if (result.value === 'generated') generated++
+          else if (result.value === 'skipped') skipped++
+        } else {
+          errors.push(result.reason?.message || String(result.reason))
+        }
       }
     }
 
@@ -1003,7 +1075,7 @@ serve(async (req) => {
       errors,
       week_start: weekStart,
       week_end: weekEnd,
-      total_students: students.length,
+      total_students: targetStudents.length,
       message: generated > 0
         ? `تم إنشاء المهام لـ ${generated} طالب بنجاح`
         : skipped > 0
