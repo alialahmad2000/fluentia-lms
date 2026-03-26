@@ -14,6 +14,8 @@ import OfflineBanner from './components/OfflineBanner'
 import { ToastProvider } from './components/Toast'
 
 import ComingSoon from './pages/student/ComingSoon'
+import LockedFeature from './pages/student/LockedFeature'
+import { hasPackageAccess } from './components/PackageGate'
 
 // ─── Lazy-loaded Pages (with chunk retry on stale deploys) ───
 const StudentDashboard = lazyRetry(() => import('./pages/student/StudentDashboard'))
@@ -123,6 +125,18 @@ function Page({ children }) {
       </Suspense>
     </ErrorBoundary>
   )
+}
+
+// ─── Package-Gated Route Wrapper ─────────────────────────────
+// Checks package access at the route level. If locked, shows LockedFeature page.
+// ComingSoon pages are handled directly in routes and take priority.
+function PackageRoute({ requiredPackage, featureName, children }) {
+  const { profile, studentData } = useAuthStore()
+  // Non-students always pass
+  if (profile?.role !== 'student') return children
+  const pkg = studentData?.package || 'asas'
+  if (hasPackageAccess(pkg, requiredPackage)) return children
+  return <LockedFeature requiredPackage={requiredPackage} featureName={featureName} />
 }
 
 // ─── Page Loading Skeleton ───────────────────────────────────
@@ -269,7 +283,7 @@ export default function App() {
               <Route path="/student/assignments" element={<Page><StudentAssignments /></Page>} />
               <Route path="/student/schedule" element={<Page><StudentSchedule /></Page>} />
               <Route path="/student/study-plan" element={<Page><StudentStudyPlan /></Page>} />
-              <Route path="/student/grades" element={<Page><StudentGrades /></Page>} />
+              <Route path="/student/grades" element={<Page><PackageRoute requiredPackage="talaqa" featureName="الدرجات والنتائج"><StudentGrades /></PackageRoute></Page>} />
               <Route path="/student/speaking" element={<Page><ComingSoon featureName="معمل التحدث" /></Page>} />
               <Route path="/student/speaking-lab" element={<Page><ComingSoon featureName="معمل التحدث" /></Page>} />
               <Route path="/student/library" element={<Page><StudentLibrary /></Page>} />
@@ -279,7 +293,7 @@ export default function App() {
               <Route path="/student/challenges" element={<Page><StudentChallenges /></Page>} />
               <Route path="/student/chat" element={<Page><StudentGroupChat /></Page>} />
               <Route path="/student/messages" element={<Page><StudentMessages /></Page>} />
-              <Route path="/student/ai-chat" element={<Page><StudentChatbot /></Page>} />
+              <Route path="/student/ai-chat" element={<Page><PackageRoute requiredPackage="talaqa" featureName="المساعد الذكي"><StudentChatbot /></PackageRoute></Page>} />
               <Route path="/student/vocabulary" element={<Page><StudentVocabulary /></Page>} />
               <Route path="/student/flashcards" element={<Page><VocabularyFlashcards /></Page>} />
               <Route path="/student/billing" element={<Page><StudentBilling /></Page>} />
@@ -303,9 +317,9 @@ export default function App() {
               <Route path="/student/verbs" element={<Page><IrregularVerbsPractice /></Page>} />
               <Route path="/student/recordings" element={<Page><StudentRecordings /></Page>} />
               <Route path="/student/writing-lab" element={<Page><ComingSoon featureName="معمل الكتابة" /></Page>} />
-              <Route path="/student/group-activity" element={<Page><StudentGroupActivity /></Page>} />
-              <Route path="/student/adaptive-test" element={<Page><StudentAdaptiveTest /></Page>} />
-              <Route path="/student/ai-insights" element={<Page><StudentAIInsights /></Page>} />
+              <Route path="/student/group-activity" element={<Page><PackageRoute requiredPackage="talaqa" featureName="نشاط المجموعة"><StudentGroupActivity /></PackageRoute></Page>} />
+              <Route path="/student/adaptive-test" element={<Page><PackageRoute requiredPackage="talaqa" featureName="اختبار المستوى"><StudentAdaptiveTest /></PackageRoute></Page>} />
+              <Route path="/student/ai-insights" element={<Page><PackageRoute requiredPackage="talaqa" featureName="رؤى ذكية"><StudentAIInsights /></PackageRoute></Page>} />
               <Route path="/student/curriculum" element={<Page><CurriculumBrowser /></Page>} />
               <Route path="/student/curriculum/level/:levelNumber" element={<Page><LevelUnits /></Page>} />
               <Route path="/student/curriculum/unit/:unitId" element={<Page><UnitContent /></Page>} />
