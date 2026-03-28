@@ -158,6 +158,21 @@ function ReadingContent({ reading }) {
         wordCount={reading.passage_word_count}
       />
 
+      {/* Infographic */}
+      {reading.infographic_image_url && (
+        <div
+          className="rounded-2xl overflow-hidden border border-[var(--border-subtle)]"
+          style={{ background: 'var(--surface-raised)' }}
+        >
+          <img
+            src={reading.infographic_image_url}
+            alt={`Infographic: ${reading.title_en}`}
+            className="w-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      )}
+
       {/* Vocabulary Box */}
       {vocabulary?.length > 0 && (
         <VocabularyBox vocabulary={vocabulary} />
