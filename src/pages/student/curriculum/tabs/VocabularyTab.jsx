@@ -141,30 +141,40 @@ function WordCard({ word }) {
 
   return (
     <div
-      className="rounded-xl p-4 space-y-2"
+      className="rounded-xl overflow-hidden"
       style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
     >
-      <div className="flex items-start justify-between gap-2">
-        <div className="min-w-0">
-          <p className="text-base font-bold text-[var(--text-primary)] font-['Inter']" dir="ltr">{word.word}</p>
-          <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">
-            {POS_AR[word.part_of_speech] || word.part_of_speech} · {word.definition_ar}
-          </p>
+      {word.image_url && (
+        <img
+          src={word.image_url}
+          alt={word.word}
+          className="w-full h-28 object-cover"
+          loading="lazy"
+        />
+      )}
+      <div className="p-4 space-y-2">
+        <div className="flex items-start justify-between gap-2">
+          <div className="min-w-0">
+            <p className="text-base font-bold text-[var(--text-primary)] font-['Inter']" dir="ltr">{word.word}</p>
+            <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">
+              {POS_AR[word.part_of_speech] || word.part_of_speech} · {word.definition_ar}
+            </p>
+          </div>
+          {word.audio_url && (
+            <button
+              onClick={playAudio}
+              className="w-9 h-9 rounded-full bg-sky-500/15 text-sky-400 flex items-center justify-center hover:bg-sky-500/25 transition-colors flex-shrink-0"
+            >
+              <Volume2 size={16} />
+            </button>
+          )}
         </div>
-        {word.audio_url && (
-          <button
-            onClick={playAudio}
-            className="w-9 h-9 rounded-full bg-sky-500/15 text-sky-400 flex items-center justify-center hover:bg-sky-500/25 transition-colors flex-shrink-0"
-          >
-            <Volume2 size={16} />
-          </button>
+        {word.example_sentence && (
+          <p className="text-xs text-[var(--text-secondary)] font-['Inter'] leading-relaxed italic" dir="ltr">
+            "{word.example_sentence}"
+          </p>
         )}
       </div>
-      {word.example_sentence && (
-        <p className="text-xs text-[var(--text-secondary)] font-['Inter'] leading-relaxed italic" dir="ltr">
-          "{word.example_sentence}"
-        </p>
-      )}
     </div>
   )
 }
@@ -275,6 +285,9 @@ function FlashcardPractice({ words, onBack }) {
               </>
             ) : (
               <>
+                {word.image_url && (
+                  <img src={word.image_url} alt={word.word} className="w-16 h-16 rounded-lg object-cover" />
+                )}
                 <p className="text-lg font-bold text-amber-400 font-['Tajawal']">{word.definition_ar}</p>
                 <p className="text-sm text-[var(--text-secondary)] font-['Inter']">{word.definition_en}</p>
                 {word.example_sentence && (

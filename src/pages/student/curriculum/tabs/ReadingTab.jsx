@@ -151,6 +151,22 @@ function ReadingContent({ reading }) {
         <AudioButton url={reading.passage_audio_url} label="استمع للقراءة" />
       )}
 
+      {/* Passage Image(s) */}
+      {reading.passage_image_urls?.length > 0 && (
+        <div className="flex gap-3 overflow-x-auto scrollbar-hide">
+          {reading.passage_image_urls.map((url, idx) => (
+            <div key={idx} className="rounded-xl overflow-hidden border border-[var(--border-subtle)] flex-shrink-0">
+              <img
+                src={url}
+                alt={`${reading.title_en} — illustration ${idx + 1}`}
+                className="h-40 sm:h-48 w-auto object-cover"
+                loading="lazy"
+              />
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* Passage */}
       <PassageDisplay
         paragraphs={reading.passage_content?.paragraphs || []}
@@ -262,6 +278,9 @@ function PassageDisplay({ paragraphs, vocabMap, wordCount }) {
                       boxShadow: '0 8px 24px rgba(0,0,0,0.25)',
                     }}
                   >
+                    {vocab.image_url && (
+                      <img src={vocab.image_url} alt={vocab.word} className="w-full h-20 rounded-lg object-cover -mt-1" loading="lazy" />
+                    )}
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-[var(--text-primary)] font-['Inter']">{vocab.word}</span>
                       <span className="text-[10px] text-[var(--text-muted)] font-['Inter']">{vocab.part_of_speech}</span>
