@@ -11,6 +11,7 @@ import {
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
+import { tracker } from '../../services/activityTracker'
 
 const TYPE_CONFIG = {
   speaking:        { icon: Mic,        label: 'تحدث',       gradient: 'from-sky-500 to-cyan-400',     bg: 'bg-sky-500/[0.08]',     border: 'border-sky-500/15',    text: 'text-sky-400' },
@@ -90,6 +91,7 @@ export default function StudentWeeklyTaskDetail() {
       }
     },
     onSuccess: () => {
+      tracker.track('weekly_task_completed', { task_id: task?.id, task_type: task?.task_type })
       queryClient.invalidateQueries({ queryKey: ['weekly-task', id] })
       queryClient.invalidateQueries({ queryKey: ['weekly-tasks'] })
       queryClient.invalidateQueries({ queryKey: ['weekly-task-set'] })

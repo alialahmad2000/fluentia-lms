@@ -7,6 +7,7 @@ import { ListSkeleton } from '../../components/ui/PageSkeleton'
 import EmptyState from '../../components/ui/EmptyState'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
+import { tracker } from '../../services/activityTracker'
 
 const MASTERY_LABELS = {
   new: { label: 'جديدة', color: 'blue', emoji: '🆕' },
@@ -282,6 +283,7 @@ export default function StudentVocabulary() {
     if (quizIndex < dueWords.length - 1) {
       setQuizIndex(quizIndex + 1)
     } else {
+      tracker.track('flashcards_completed', { cards_reviewed: dueWords.length })
       setQuizMode(false)
       setQuizIndex(0)
       queryClient.invalidateQueries({ queryKey: ['student-vocabulary'] })
@@ -365,7 +367,7 @@ export default function StudentVocabulary() {
         <motion.button
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          onClick={() => { setQuizMode(true); setQuizIndex(0); setShowAnswer(false) }}
+          onClick={() => { tracker.track('flashcards_started', { total_cards: dueWords.length }); setQuizMode(true); setQuizIndex(0); setShowAnswer(false) }}
           className="w-full btn-primary py-3 flex items-center justify-center gap-2 text-base"
         >
           <Brain size={20} />
@@ -418,7 +420,7 @@ export default function StudentVocabulary() {
               </div>
             ) : (
               <button
-                onClick={() => setShowAnswer(true)}
+                onClick={() => { tracker.track('flashcard_flipped', { word: dueWords[quizIndex].word }); setShowAnswer(true) }}
                 className="btn-secondary py-3 w-full flex items-center justify-center gap-2"
               >
                 <RotateCcw size={16} />

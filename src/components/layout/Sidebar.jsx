@@ -1,5 +1,6 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { tracker } from '../../services/activityTracker'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   House, FileText, BarChart3, Mic, PenLine, MessageSquare,
@@ -178,6 +179,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
       showSidebarToast(`هالميزة متاحة لباقة ${pkgName} وأعلى`)
       return
     }
+    tracker.track('nav_clicked', { item: item.label, to: item.to, source: 'sidebar' })
     onClose?.()
   }
 

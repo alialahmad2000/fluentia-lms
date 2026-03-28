@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { ArrowRight, BookOpen } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
+import { tracker } from '../../../services/activityTracker'
 import UnitCard from './components/UnitCard'
 
 const container = {
@@ -158,7 +159,10 @@ export default function LevelUnits() {
                   unit={unit}
                   levelColor={levelColor}
                   status={status}
-                  onClick={() => navigate(`/student/curriculum/unit/${unit.id}`)}
+                  onClick={() => {
+                    tracker.track('unit_selected', { unit_id: unit.id, unit_number: unit.unit_number, level: levelNum })
+                    navigate(`/student/curriculum/unit/${unit.id}`)
+                  }}
                 />
               </motion.div>
             )

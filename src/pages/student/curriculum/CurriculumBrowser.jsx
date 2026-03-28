@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { GraduationCap, RefreshCw } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
+import { tracker } from '../../../services/activityTracker'
 import LevelCard from './components/LevelCard'
 
 const container = {
@@ -166,7 +167,10 @@ export default function CurriculumBrowser() {
                 isCurrent={isCurrent}
                 completedUnits={completedUnits}
                 totalUnits={totalUnits}
-                onClick={() => navigate(`/student/curriculum/level/${level.level_number}`)}
+                onClick={() => {
+                  tracker.track('unit_opened', { level_id: level.id, level_number: level.level_number, level_name: level.name_ar })
+                  navigate(`/student/curriculum/level/${level.level_number}`)
+                }}
               />
             </motion.div>
           )

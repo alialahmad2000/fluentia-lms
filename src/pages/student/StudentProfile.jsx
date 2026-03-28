@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { User, Zap, Flame, Trophy, Award, Save, Loader2, Clock, Gift, CreditCard, Palette, GraduationCap, Moon, Sun, Sparkles, Check, SwatchBook, Mail, CalendarDays, Medal, KeyRound, Copy, AtSign, RefreshCw, Camera, ImageIcon, Trash2 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { tracker } from '../../services/activityTracker'
 import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/constants'
 import { timeAgo } from '../../utils/dateHelpers'
 import NotificationSettings from '../../components/layout/NotificationSettings'
@@ -215,6 +216,7 @@ function ProfileContent() {
       }
       const { error } = await supabase.from('profiles').update({ username: val }).eq('id', profile?.id)
       if (error) throw error
+      tracker.track('profile_updated', { fields_changed: ['username'] })
       setUsernameMsg({ type: 'success', text: 'تم حفظ اسم المستخدم' })
       setEditingUsername(false)
       if (user) fetchProfile(user)

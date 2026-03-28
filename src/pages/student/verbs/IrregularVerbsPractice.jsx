@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Search, BookOpen, Dumbbell, Lock, ChevronDown, Filter } from 'lucide-react'
 import { supabase } from '../../../lib/supabase'
 import { useAuthStore } from '../../../stores/authStore'
+import { tracker } from '../../../services/activityTracker'
 import VerbCard from './components/VerbCard'
 import VerbPractice from './components/VerbPractice'
 import VerbAnkiPractice from './components/VerbAnkiPractice'
@@ -238,6 +239,7 @@ export default function IrregularVerbsPractice() {
           games={VERB_GAMES}
           totalWords={filteredVerbs.length}
           onSelectGame={(gameId, count) => {
+            tracker.track('game_started', { game_type: gameId, context: 'irregular_verbs', word_count: count })
             setGameWordCount(count)
             setPracticeMode(gameId)
           }}
@@ -251,6 +253,7 @@ export default function IrregularVerbsPractice() {
           difficulty={difficulty}
           onBack={() => setPracticeMode(null)}
           onComplete={async (stats) => {
+            tracker.track('game_completed', { game_type: practiceMode, context: 'irregular_verbs', score: stats?.score, correct: stats?.correct, total: stats?.total })
             const xp = await awardPracticeXP(studentData?.id, `verbs_${practiceMode}`, stats)
             if (xp > 0) { setXpAwarded(xp); setTimeout(() => setXpAwarded(0), 3000) }
           }}

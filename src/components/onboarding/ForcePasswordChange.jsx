@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Lock, Loader2, Eye, EyeOff, CheckCircle2 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { tracker } from '../../services/activityTracker'
 
 export default function ForcePasswordChange() {
   const { profile, user, fetchProfile } = useAuthStore()
@@ -47,6 +48,7 @@ export default function ForcePasswordChange() {
         .eq('id', profile.id)
         .select()
 
+      tracker.track('password_changed', { is_first_login: true })
       setDone(true)
       if (user) await fetchProfile(user)
     } catch (err) {

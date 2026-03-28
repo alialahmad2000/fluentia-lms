@@ -262,6 +262,7 @@ export default function LayoutShell() {
                           showToast(`هالميزة متاحة لـ${pkgName} وأعلى`)
                           return
                         }
+                        tracker.track('nav_clicked', { item: item.label, to: item.to, source: 'bottom_sheet' })
                         setMoreOpen(false)
                         navigate(item.to)
                       }}

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Bot, Send, Loader2, Sparkles, Trash2, Brain, Crosshair, AlertTriangle } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
+import { tracker } from '../../services/activityTracker'
 import { PACKAGES } from '../../lib/constants'
 import SubTabs from '../../components/common/SubTabs'
 
@@ -89,6 +90,7 @@ function ChatContent() {
   async function sendMessage(text) {
     const msg = text || input.trim()
     if (!msg || sending) return
+    tracker.track('ai_chat_message', { message_length: msg.length })
 
     const userMsg = { role: 'user', content: msg, timestamp: new Date().toISOString() }
     setMessages(prev => [...prev, userMsg])

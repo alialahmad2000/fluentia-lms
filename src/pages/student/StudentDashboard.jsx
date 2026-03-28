@@ -17,6 +17,7 @@ import StudentWowMoments from '../../components/ai/StudentWowMoments'
 import FloatingParticles from '../../components/illustrations/FloatingParticles'
 import { DashboardSkeleton } from '../../components/ui/PageSkeleton'
 import { Link, useNavigate } from 'react-router-dom'
+import { tracker } from '../../services/activityTracker'
 
 function getLevel(xp) {
   for (let i = GAMIFICATION_LEVELS.length - 1; i >= 0; i--) {

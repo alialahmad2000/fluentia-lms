@@ -195,7 +195,10 @@ export default function UnitContent() {
             <button
               key={tab.id}
               ref={isActive ? activeTabRef : undefined}
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => {
+                tracker.track('tab_switched', { tab_name: tab.id, unit_id: unitId })
+                setActiveTab(tab.id)
+              }}
               className={`flex items-center gap-1.5 px-4 h-12 rounded-xl text-sm font-medium whitespace-nowrap transition-all duration-200 flex-shrink-0 font-['Tajawal'] ${
                 isActive
                   ? 'bg-sky-500/15 text-sky-400 border border-sky-500/30'

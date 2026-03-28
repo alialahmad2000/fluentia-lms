@@ -9,6 +9,7 @@ import {
 import { Link } from 'react-router-dom'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { tracker } from '../../services/activityTracker'
 
 // ── Task type configuration ────────────────────────────────────────
 const TASK_TYPE_CONFIG = {
@@ -361,6 +362,7 @@ export default function StudentWeeklyTasks() {
                       >
                         <Link
                           to={`/student/weekly-tasks/${task.id}`}
+                          onClick={() => tracker.track('weekly_task_viewed', { task_id: task.id, task_type: task.task_type })}
                           className={`group block rounded-xl border ${config.border} hover:border-[var(--border-subtle)] transition-all duration-200 hover:translate-y-[-2px] overflow-hidden`}
                           style={{ background: 'var(--surface-base)' }}
                         >
