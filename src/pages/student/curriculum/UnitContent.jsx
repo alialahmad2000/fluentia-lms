@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, BookOpen, PenLine, Languages, Headphones, FileEdit, Mic, ClipboardCheck } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
+import { tracker } from '../../../services/activityTracker'
 import ReadingTab from './tabs/ReadingTab'
 import GrammarTab from './tabs/GrammarTab'
 import VocabularyTab from './tabs/VocabularyTab'
@@ -54,6 +55,13 @@ export default function UnitContent() {
     },
     enabled: !!unitId,
   })
+
+  // Track unit view
+  useEffect(() => {
+    if (unit) {
+      try { tracker.track('curriculum_unit_view', { unit_id: unitId, unit_name: unit.title_ar || unit.title_en, level: unit.level?.level_number }) } catch {}
+    }
+  }, [unit, unitId])
 
   // Security: redirect if level is above student's current level
   useEffect(() => {

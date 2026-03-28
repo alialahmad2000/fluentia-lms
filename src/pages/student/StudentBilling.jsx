@@ -5,6 +5,7 @@ import { useAuthStore } from '../../stores/authStore'
 import { ListSkeleton } from '../../components/ui/PageSkeleton'
 import EmptyState from '../../components/ui/EmptyState'
 import { supabase } from '../../lib/supabase'
+import { tracker } from '../../services/activityTracker'
 import { PACKAGES, PAYMENT_STATUS } from '../../lib/constants'
 import { formatDateAr } from '../../utils/dateHelpers'
 
@@ -124,6 +125,7 @@ export default function StudentBilling() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-primary text-xs py-1.5 px-4 flex items-center gap-1"
+                  onClick={() => { try { tracker.track('payment_link_click', { payment_id: nextPayment.id, amount: nextPayment.amount }) } catch {} }}
                 >
                   ادفع الآن
                   <ExternalLink size={12} />

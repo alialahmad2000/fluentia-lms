@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { tracker } from '../../services/activityTracker'
 
 // ─── Constants ──────────────────────────────────────────────
 const TYPE_LABELS = {
@@ -279,7 +280,10 @@ function QuizTaker({ quiz, onFinish, onBack }) {
         })
         .select()
         .single()
-      if (data) setAttemptId(data.id)
+      if (data) {
+        setAttemptId(data.id)
+        try { tracker.track('quiz_start', { quiz_id: quiz.id, title: quiz.title }) } catch {}
+      }
     }
     createAttempt()
   }, [quiz.id, profile?.id])
@@ -385,6 +389,8 @@ function QuizTaker({ quiz, onFinish, onBack }) {
           related_id: quiz.id,
         })
       }
+
+      try { tracker.track('quiz_complete', { quiz_id: quiz.id, score: percentage, xp: xpAwarded, timed_out: timedOut }) } catch {}
 
       queryClient.invalidateQueries({ queryKey: ['student-quizzes'] })
       queryClient.invalidateQueries({ queryKey: ['student-quiz-attempts'] })

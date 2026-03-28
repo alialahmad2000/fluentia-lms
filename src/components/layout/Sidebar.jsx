@@ -6,7 +6,7 @@ import {
   Bot, Users, CreditCard, Settings, LayoutDashboard,
   LogOut, X, ChevronLeft, Zap, FolderOpen, CalendarDays, Calendar,
   Video, ClipboardCheck, UsersRound, GraduationCap, Wrench, ListChecks,
-  Brain, BookOpen, Sparkles, Database, Languages, Shuffle, Lock, Map,
+  Brain, BookOpen, Sparkles, Database, Languages, Shuffle, Lock, Map, Activity,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { useThemeStore } from '../../stores/themeStore'
@@ -99,7 +99,9 @@ const NAV_ITEMS = {
     { to: '/admin/content-bank', label: 'بنك المحتوى', icon: BookOpen },
     { to: '/admin/ai-dashboard', label: 'لوحة الذكاء', icon: Brain },
     { type: 'divider', label: 'أدوات' },
-    { to: '/admin/reports', label: 'التحليلات', icon: BarChart3 },
+    { to: '/admin/reports', label: 'التقارير', icon: BarChart3 },
+    { to: '/admin/analytics', label: 'تحليلات المنصة', icon: Activity },
+    { to: '/admin/daily-reports', label: 'التقرير اليومي', icon: CalendarDays },
     { to: '/trainer/ai-assistant', label: 'المساعد الذكي', icon: Bot },
     { to: '/admin/settings', label: 'الإعدادات', icon: Settings },
   ],

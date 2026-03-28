@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import { X, Send, Loader2, Link2, Save } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
+import { tracker } from '../../services/activityTracker'
 import { parseSupabaseError } from '../../utils/errors'
 import { isOverdue } from '../../utils/dateHelpers'
 import VoiceRecorder from './VoiceRecorder'
@@ -126,7 +127,10 @@ export default function SubmissionForm({ assignment, existingSubmission, student
         if (error) throw new Error(error.message || JSON.stringify(error))
       }
     },
-    onSuccess: () => {
+    onSuccess: (_, { asDraft }) => {
+      if (!asDraft) {
+        try { tracker.track('assignment_submit', { assignment_id: assignment.id, type: assignment.type, is_late: late }) } catch {}
+      }
       queryClient.invalidateQueries({ queryKey: ['student-submissions'] })
       queryClient.invalidateQueries({ queryKey: ['student-pending-assignments'] })
       onClose()

@@ -110,6 +110,7 @@ const AdminTestBank = lazyRetry(() => import('./pages/admin/AdminTestBank'))
 const AdminAIDashboard = lazyRetry(() => import('./pages/admin/AdminAIDashboard'))
 const AdminContentBank = lazyRetry(() => import('./pages/admin/AdminContentBank'))
 const AdminDailyReports = lazyRetry(() => import('./pages/admin/AdminDailyReports'))
+const AdminAnalytics = lazyRetry(() => import('./pages/admin/AdminAnalytics'))
 
 const ForgotPassword = lazyRetry(() => import('./pages/public/ForgotPassword'))
 const ResetPassword = lazyRetry(() => import('./pages/public/ResetPassword'))
@@ -387,6 +388,7 @@ export default function App() {
               <Route path="/admin/ai-dashboard" element={<Page><AdminAIDashboard /></Page>} />
               <Route path="/admin/content-bank" element={<Page><AdminContentBank /></Page>} />
               <Route path="/admin/daily-reports" element={<Page><AdminDailyReports /></Page>} />
+              <Route path="/admin/analytics" element={<Page><AdminAnalytics /></Page>} />
               <Route path="/admin/student/:studentId/progress" element={<Page><StudentProgressDetail /></Page>} />
             </Route>
           </Route>

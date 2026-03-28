@@ -6,6 +6,7 @@ import {
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { tracker } from '../../services/activityTracker'
 
 // ─── Constants ──────────────────────────────────────────────
 const WORDS_PER_SESSION = 15
@@ -644,7 +645,8 @@ function SpellingResults({ results, onTryAgain, onBack }) {
         }).eq('id', profile.id)
       }
     },
-    onSuccess: () => {
+    onSuccess: (_, sessionData) => {
+      try { tracker.track('spelling_complete', { correct: sessionData.correct, total: sessionData.total, xp: sessionData.xp }) } catch {}
       setSaved(true)
       queryClient.invalidateQueries({ queryKey: ['spelling-stats'] })
     },
