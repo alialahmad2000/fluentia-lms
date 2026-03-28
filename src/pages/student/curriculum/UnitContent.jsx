@@ -145,15 +145,23 @@ export default function UnitContent() {
         </button>
 
         <div className="flex items-center gap-3">
-          <div
-            className="w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold flex-shrink-0"
-            style={{
-              background: 'linear-gradient(135deg, var(--accent-sky), var(--accent-violet))',
-              color: '#fff',
-            }}
-          >
-            {unit.unit_number}
-          </div>
+          {unit.cover_image_url ? (
+            <img
+              src={unit.cover_image_url}
+              alt={unit.theme_ar}
+              className="w-12 h-12 rounded-xl object-cover flex-shrink-0"
+            />
+          ) : (
+            <div
+              className="w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold flex-shrink-0"
+              style={{
+                background: 'linear-gradient(135deg, var(--accent-sky), var(--accent-violet))',
+                color: '#fff',
+              }}
+            >
+              {unit.unit_number}
+            </div>
+          )}
           <div>
             <h1 className="text-xl font-bold text-[var(--text-primary)] font-['Tajawal']">
               الوحدة {unit.unit_number}: {unit.theme_ar}

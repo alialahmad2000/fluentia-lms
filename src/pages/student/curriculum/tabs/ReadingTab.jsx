@@ -119,6 +119,18 @@ function ReadingContent({ reading }) {
 
   return (
     <div className="space-y-6">
+      {/* Before-Read Hero Image */}
+      {reading.before_read_image_url && (
+        <div className="rounded-2xl overflow-hidden border border-[var(--border-subtle)]">
+          <img
+            src={reading.before_read_image_url}
+            alt={reading.title_en}
+            className="w-full h-48 sm:h-56 object-cover"
+            loading="lazy"
+          />
+        </div>
+      )}
+
       {/* Before You Read */}
       {reading.before_read_exercise_a && (
         <BeforeReadSection content={reading.before_read_exercise_a} />
