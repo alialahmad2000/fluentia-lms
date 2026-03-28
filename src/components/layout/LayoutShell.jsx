@@ -14,6 +14,8 @@ import { hasPackageAccess } from '../PackageGate'
 import { PACKAGES } from '../../lib/constants'
 import usePullToRefresh from '../../hooks/usePullToRefresh'
 import useActivityTracker from '../../hooks/useActivityTracker'
+import { usePageTracking } from '../../hooks/usePageTracking'
+import { tracker } from '../../services/activityTracker'
 import { useQueryClient } from '@tanstack/react-query'
 
 const GeometricMesh = lazy(() => import('../backgrounds/GeometricMesh'))
@@ -96,6 +98,9 @@ export default function LayoutShell() {
   // Lightweight activity tracking (students only)
   useActivityTracker()
 
+  // Page view tracking (all roles)
+  usePageTracking()
+
   function showToast(msg) {
     setToast(msg)
     setTimeout(() => setToast(null), 2500)
@@ -108,7 +113,7 @@ export default function LayoutShell() {
   const { isRefreshing, pullProgress, pullDistance } = usePullToRefresh(handleRefresh)
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--surface-base)' }} data-role={role}>
+    <div className="min-h-screen" style={{ background: 'var(--surface-base)' }} data-role={role} onClick={() => tracker.touch()} onKeyDown={() => tracker.touch()}>
       {/* Background layers */}
       <Suspense fallback={null}>
         <GeometricMesh />

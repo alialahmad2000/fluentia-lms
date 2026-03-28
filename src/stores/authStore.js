@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { supabase } from '../lib/supabase'
+import { tracker } from '../services/activityTracker'
 
 export const useAuthStore = create((set, get) => ({
   user: null,
@@ -26,6 +27,8 @@ export const useAuthStore = create((set, get) => ({
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === 'SIGNED_IN' && session?.user) {
         await get().fetchProfile(session.user)
+        // Initialize activity tracker
+        tracker.init(session.user.id)
       } else if (event === 'TOKEN_REFRESHED' && session?.user) {
         // Token refreshed — update user object but don't refetch everything
         set({ user: session.user })
@@ -103,6 +106,7 @@ export const useAuthStore = create((set, get) => ({
   },
 
   signOut: async () => {
+    await tracker.destroy()
     await supabase.auth.signOut()
   },
 
