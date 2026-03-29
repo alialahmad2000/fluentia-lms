@@ -131,7 +131,7 @@ export default function useActivityTracker() {
           .from('user_sessions')
           .update({ ended_at: new Date().toISOString() })
           .eq('id', sessionIdRef.current)
-          .then(() => {})
+          .then(({ error }) => { if (error) console.warn('[Tracker] heartbeat:', error.message) })
       }
     }, HEARTBEAT_MS)
 
@@ -167,14 +167,17 @@ export default function useActivityTracker() {
         ],
       }
 
-      // sendBeacon to edge function
+      // Best-effort flush via sendBeacon (POST to RPC endpoint)
       try {
-        const url = `https://nmjexpuycmqcxuxljier.supabase.co/rest/v1/rpc/track_session_end`
-        // Fallback: just update session via beacon-safe endpoint
-        navigator.sendBeacon(
-          `https://nmjexpuycmqcxuxljier.supabase.co/rest/v1/user_sessions?id=eq.${sessionIdRef.current}`,
-          JSON.stringify({ ended_at: now, duration_minutes: Math.round((Date.now() - Date.parse(now)) / 60000) })
-        )
+        const baseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://nmjexpuycmqcxuxljier.supabase.co'
+        const apiKey = import.meta.env.VITE_SUPABASE_ANON_KEY || ''
+        const blob = new Blob([JSON.stringify({
+          session_id: sessionIdRef.current,
+          ended_at: now,
+        })], { type: 'application/json' })
+        // sendBeacon is POST-only; the flush function handles the actual DB update
+        // This is a best-effort signal — the cleanup useEffect handles the rest
+        navigator.sendBeacon?.(`${baseUrl}/rest/v1/rpc/track_session_end?apikey=${apiKey}`, blob)
       } catch {
         // Best effort
       }
@@ -209,7 +212,7 @@ export default function useActivityTracker() {
             duration_minutes: null, // will be computed
           })
           .eq('id', sessionIdRef.current)
-          .then(() => {})
+          .then(({ error }) => { if (error) console.warn('[Tracker] session end:', error.message) })
       }
     }
   }, [userId, isStudent, flushBuffers])

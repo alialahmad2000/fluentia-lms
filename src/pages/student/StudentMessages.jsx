@@ -92,7 +92,7 @@ export default function StudentMessages() {
         return contacts
       }
     },
-    enabled: !!profile?.id,
+    enabled: !!profile?.id && (!isStudent || !!studentData?.group_id),
   })
 
   const [selectedContact, setSelectedContact] = useState(null)

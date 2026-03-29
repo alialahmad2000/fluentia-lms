@@ -192,22 +192,24 @@ export default function GamificationProvider() {
             if (!error) {
               // Award XP
               if (achievement.xp_reward > 0) {
-                await supabase.from('xp_transactions').insert({
+                const { error: xpErr } = await supabase.from('xp_transactions').insert({
                   student_id: studentId,
                   amount: achievement.xp_reward,
                   reason: 'achievement',
                   description: achievement.name_ar,
                 })
+                if (xpErr) console.warn('[Achievement] XP error:', xpErr.message)
               }
 
               // Send notification
-              await supabase.from('notifications').insert({
+              const { error: notifErr } = await supabase.from('notifications').insert({
                 user_id: studentId,
                 type: 'achievement',
                 title: `إنجاز جديد: ${achievement.name_ar}`,
                 body: achievement.description_ar,
                 data: { achievement_id: achievement.id, icon: achievement.icon },
               })
+              if (notifErr) console.warn('[Achievement] Notification error:', notifErr.message)
 
               // Add to activity feed
               const { data: student } = await supabase
@@ -217,7 +219,7 @@ export default function GamificationProvider() {
                 .single()
 
               if (student?.group_id) {
-                await supabase.from('activity_feed').insert({
+                const { error: feedErr } = await supabase.from('activity_feed').insert({
                   group_id: student.group_id,
                   student_id: studentId,
                   type: 'achievement',
@@ -225,6 +227,7 @@ export default function GamificationProvider() {
                   description: achievement.description_ar,
                   data: { icon: achievement.icon, xp: achievement.xp_reward },
                 })
+                if (feedErr) console.warn('[Achievement] Feed error:', feedErr.message)
               }
 
               // Show unlock animation

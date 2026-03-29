@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense, useCallback } from 'react'
+import { useState, useRef, useEffect, lazy, Suspense, useCallback } from 'react'
 import { Outlet, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -86,6 +86,7 @@ export default function LayoutShell() {
   const [collapsed, setCollapsed] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
   const [toast, setToast] = useState(null)
+  const toastTimerRef = useRef(null)
   const { profile, studentData } = useAuthStore()
   const role = profile?.role || 'student'
   const studentPackage = studentData?.package || 'asas'
@@ -95,16 +96,20 @@ export default function LayoutShell() {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
 
-  // Lightweight activity tracking (students only)
+  // Lightweight activity tracking (students only — hook-based, handles sessions + page visits)
   useActivityTracker()
 
-  // Page view tracking (all roles)
+  // Page view tracking (all roles — uses the class-based tracker for analytics_events)
   usePageTracking()
 
-  function showToast(msg) {
+  // Cleanup toast timer on unmount
+  useEffect(() => () => clearTimeout(toastTimerRef.current), [])
+
+  const showToast = useCallback((msg) => {
+    clearTimeout(toastTimerRef.current)
     setToast(msg)
-    setTimeout(() => setToast(null), 2500)
-  }
+    toastTimerRef.current = setTimeout(() => setToast(null), 2500)
+  }, [])
 
   // Pull to refresh — invalidates all queries
   const handleRefresh = useCallback(async () => {

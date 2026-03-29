@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback, useMemo, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BookOpen, Volume2, CheckCircle, XCircle, Lightbulb, MessageSquare, ChevronDown } from 'lucide-react'
@@ -98,6 +98,7 @@ function ReadingContent({ reading }) {
         .order('sort_order')
       return data || []
     },
+    enabled: !!reading?.id,
   })
 
   const { data: questions } = useQuery({
@@ -110,12 +111,14 @@ function ReadingContent({ reading }) {
         .order('sort_order')
       return data || []
     },
+    enabled: !!reading?.id,
   })
 
-  const vocabMap = {}
-  vocabulary?.forEach(v => {
-    vocabMap[v.word.toLowerCase()] = v
-  })
+  const vocabMap = useMemo(() => {
+    const map = {}
+    vocabulary?.forEach(v => { map[v.word.toLowerCase()] = v })
+    return map
+  }, [vocabulary])
 
   return (
     <div className="space-y-6">
@@ -341,6 +344,7 @@ function PassageDisplay({ paragraphs, vocabMap, wordCount }) {
 // ─── Small audio button for vocab tooltip ────────────
 function VocabAudioBtn({ url }) {
   const audioRef = useRef(null)
+  useEffect(() => () => { if (audioRef.current) { audioRef.current.pause(); audioRef.current = null } }, [])
   const play = (e) => {
     e.stopPropagation()
     if (audioRef.current) audioRef.current.pause()
@@ -361,6 +365,7 @@ function VocabAudioBtn({ url }) {
 function AudioButton({ url, label }) {
   const audioRef = useRef(null)
   const [playing, setPlaying] = useState(false)
+  useEffect(() => () => { if (audioRef.current) { audioRef.current.pause(); audioRef.current = null } }, [])
   const play = () => {
     if (audioRef.current) { audioRef.current.pause(); audioRef.current = null; setPlaying(false); return }
     const a = new Audio(url)

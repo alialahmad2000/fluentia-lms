@@ -220,13 +220,13 @@ export default function StudentConversation() {
   function endConversation() {
     const userMessages = messages.filter(m => m.role === 'user').length
     const xp = Math.min(25, userMessages * 3)
-    if (xp > 0) {
+    if (xp > 0 && profile?.id) {
       supabase.from('xp_transactions').insert({
-        student_id: profile?.id,
+        student_id: profile.id,
         amount: xp,
         reason: 'custom',
         description: `محادثة تدريبية: ${scenario.label}`,
-      }).then(() => {})
+      }).then(({ error }) => { if (error) console.warn('[Conv XP]', error.message) })
     }
     setScenario(null)
     setMessages([])

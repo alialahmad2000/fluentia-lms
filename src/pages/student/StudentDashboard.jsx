@@ -34,6 +34,18 @@ function getNextLevel(xp) {
 }
 
 // ─── Stagger animation variants ─────────────────────────
+const TASK_TYPE_ICONS = {
+  vocabulary: '📝', grammar: '📖', reading: '📚', listening: '🎧',
+  writing: '✍️', speaking: '🎤', pronunciation: '🗣️',
+}
+
+const variantColors = {
+  sky: { text: 'var(--accent-sky)', icon: 'bg-sky-500/10 text-sky-400' },
+  amber: { text: 'var(--accent-gold)', icon: 'bg-gold-500/10 text-gold-400' },
+  violet: { text: 'var(--accent-violet)', icon: 'bg-violet-500/10 text-violet-400' },
+  emerald: { text: 'var(--accent-emerald)', icon: 'bg-emerald-500/10 text-emerald-400' },
+}
+
 const stagger = {
   hidden: {},
   show: { transition: { staggerChildren: 0.08 } },
@@ -241,18 +253,6 @@ export default function StudentDashboard() {
   // Show skeleton while core data loads
   const isInitialLoading = !profile || (loadingWeekly && loadingAssignments)
   if (isInitialLoading) return <DashboardSkeleton />
-
-  const TASK_TYPE_ICONS = {
-    vocabulary: '📝', grammar: '📖', reading: '📚', listening: '🎧',
-    writing: '✍️', speaking: '🎤', pronunciation: '🗣️',
-  }
-
-  const variantColors = {
-    sky: { text: 'var(--accent-sky)', icon: 'bg-sky-500/10 text-sky-400' },
-    amber: { text: 'var(--accent-gold)', icon: 'bg-gold-500/10 text-gold-400' },
-    violet: { text: 'var(--accent-violet)', icon: 'bg-violet-500/10 text-violet-400' },
-    emerald: { text: 'var(--accent-emerald)', icon: 'bg-emerald-500/10 text-emerald-400' },
-  }
 
   return (
     <motion.div variants={stagger} initial="hidden" animate="show" className="space-y-8">
@@ -706,7 +706,7 @@ function SmartNudgesWidget({ studentId }) {
 
 function ExercisesCTA({ studentId }) {
   const { data: pendingCount } = useQuery({
-    queryKey: ['pending-exercises-count'],
+    queryKey: ['pending-exercises-count', studentId],
     queryFn: async () => {
       const { count } = await supabase
         .from('targeted_exercises')

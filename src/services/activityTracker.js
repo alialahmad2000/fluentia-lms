@@ -38,6 +38,10 @@ class ActivityTracker {
     // Start heartbeat (every 30 seconds)
     this._startHeartbeat()
 
+    // Remove any stale listeners before adding (prevents accumulation on re-init)
+    document.removeEventListener('visibilitychange', this._handleVisibility)
+    window.removeEventListener('beforeunload', this._handleUnload)
+
     // Track tab visibility changes
     document.addEventListener('visibilitychange', this._handleVisibility)
 

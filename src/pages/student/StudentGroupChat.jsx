@@ -84,6 +84,9 @@ function GroupChatContent() {
       queryClient.invalidateQueries({ queryKey: ['group-chat'] })
       setInput('')
     },
+    onError: (err) => {
+      console.error('[Chat] Send failed:', err.message)
+    },
   })
 
   useEffect(() => {
