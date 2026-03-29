@@ -884,7 +884,7 @@ function AICorrectionResults({ result, onClose, isIELTS = false }) {
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
                 <span className={`text-2xl font-bold ${scoreColor}`}>{score}</span>
-                <span className="text-[9px]" style={{ color: 'var(--text-tertiary)' }}>/ 100</span>
+                <span className="text-[11px]" style={{ color: 'var(--text-tertiary)' }}>/ 100</span>
               </div>
             </div>
           )}

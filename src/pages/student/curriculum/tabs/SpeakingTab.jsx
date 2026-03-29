@@ -242,7 +242,7 @@ function SpeakingTopic({ topic, number, total }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-5 py-3 rounded-xl text-sm font-bold font-['Tajawal'] shadow-lg"
+            className="fixed bottom-24 lg:bottom-6 left-1/2 -translate-x-1/2 z-50 px-5 py-3 rounded-xl text-sm font-bold font-['Tajawal'] shadow-lg"
             style={{ background: 'var(--surface-elevated)', border: '1px solid var(--border-subtle)', color: 'var(--text-primary)' }}
           >
             التسجيل سيكون متاحاً قريباً إن شاء الله

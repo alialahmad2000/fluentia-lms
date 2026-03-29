@@ -138,7 +138,7 @@ function ChatContent() {
   }
 
   return (
-    <div className="flex flex-col h-[calc(100vh-200px)]">
+    <div className="flex flex-col h-[calc(100dvh-280px)] lg:h-[calc(100dvh-200px)]">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div>

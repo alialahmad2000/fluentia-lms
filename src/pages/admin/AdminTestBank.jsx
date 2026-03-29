@@ -743,7 +743,7 @@ export default function AdminTestBank() {
                     return (
                       <div
                         key={`${skill}-${level}`}
-                        className="aspect-square rounded-md flex items-center justify-center text-[9px] font-bold cursor-default"
+                        className="aspect-square rounded-md flex items-center justify-center text-[11px] font-bold cursor-default"
                         style={{
                           backgroundColor: count === 0
                             ? 'rgba(255,255,255,0.03)'

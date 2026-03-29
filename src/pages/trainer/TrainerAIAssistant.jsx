@@ -164,7 +164,7 @@ export default function TrainerAIAssistant() {
   }
 
   return (
-    <div className="flex flex-col h-[calc(100vh-120px)]">
+    <div className="flex flex-col h-[calc(100dvh-200px)] lg:h-[calc(100dvh-120px)]">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">

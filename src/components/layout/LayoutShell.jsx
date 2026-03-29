@@ -234,7 +234,7 @@ export default function LayoutShell() {
                 borderTop: '1px solid var(--border-subtle)',
                 maxHeight: '70vh',
                 overflowY: 'auto',
-                paddingBottom: 'calc(env(safe-area-inset-bottom, 16px) + 80px)',
+                paddingBottom: 'calc(env(safe-area-inset-bottom, 16px) + 96px)',
               }}
             >
               {/* Handle */}
@@ -284,7 +284,7 @@ export default function LayoutShell() {
                       </div>
                       <span className="text-[11px] font-medium text-center leading-tight">{item.label}</span>
                       {isComingSoon && (
-                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: 'var(--accent-amber-glow)', color: 'var(--accent-amber)' }}>قريباً</span>
+                        <span className="text-[11px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: 'var(--accent-amber-glow)', color: 'var(--accent-amber)' }}>قريباً</span>
                       )}
                     </button>
                   )

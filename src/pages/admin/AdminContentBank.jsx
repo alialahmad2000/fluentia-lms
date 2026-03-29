@@ -390,7 +390,7 @@ export default function AdminContentBank() {
         {toast && (
           <motion.div
             initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 40 }}
-            className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-5 py-3 rounded-xl shadow-xl text-sm font-medium"
+            className="fixed bottom-24 lg:bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-5 py-3 rounded-xl shadow-xl text-sm font-medium"
             style={{ background: toast.type === 'success' ? 'var(--accent-emerald)' : 'var(--accent-rose)', color: '#fff' }}
           >
             {toast.type === 'success' ? <BarChart3 size={16} /> : <AlertTriangle size={16} />}

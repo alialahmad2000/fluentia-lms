@@ -148,7 +148,7 @@ function PageSkeleton() {
     <div role="status" aria-busy="true" className="space-y-6 p-2">
       <div className="skeleton h-8 w-48" />
       <div className="skeleton h-4 w-64" />
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
         <div className="skeleton h-24" />
         <div className="skeleton h-24" />
         <div className="skeleton h-24" />

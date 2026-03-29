@@ -337,7 +337,7 @@ export default function StudentPeerRecognition() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 30 }}
-            className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-rose-500/20 border border-rose-500/30 text-rose-300 px-6 py-3 rounded-2xl text-sm font-medium z-50 backdrop-blur-xl"
+            className="fixed bottom-24 lg:bottom-6 left-1/2 -translate-x-1/2 bg-rose-500/20 border border-rose-500/30 text-rose-300 px-6 py-3 rounded-2xl text-sm font-medium z-50 backdrop-blur-xl"
           >
             {toast}
           </motion.div>

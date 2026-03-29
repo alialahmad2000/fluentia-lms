@@ -693,7 +693,7 @@ function BeforeAfterSection({ profileId, studentName }) {
                 transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
               />
             </div>
-            <div className="flex justify-between mt-1 text-[9px] text-muted" dir="ltr">
+            <div className="flex justify-between mt-1 text-[11px] text-muted" dir="ltr">
               <span>0%</span>
               <span>50%</span>
               <span>100%</span>

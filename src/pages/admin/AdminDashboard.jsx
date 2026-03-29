@@ -606,7 +606,7 @@ function AIOverviewCard() {
         <Brain size={18} className="text-violet-400" />
         <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>الذكاء الاصطناعي</h3>
       </div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="rounded-xl p-4 text-center" style={{ background: 'var(--surface-raised)' }}>
           <p className="text-2xl font-bold text-violet-400">{aiStats.analyzed}</p>
           <p className="text-xs text-muted mt-1">ملفات محللة</p>

@@ -148,7 +148,7 @@ export default function StudentAvatar() {
               >
                 <b.Icon size={20} className={locked ? 'text-muted mx-auto' : 'text-violet-400 mx-auto'} />
                 <p className="text-xs text-muted mt-1">{b.label}</p>
-                {locked && <p className="text-[8px] text-red-400">{b.minXp} XP</p>}
+                {locked && <p className="text-[11px] text-red-400">{b.minXp} XP</p>}
               </button>
             )
           })}
@@ -176,7 +176,7 @@ export default function StudentAvatar() {
               >
                 <div className={`w-10 h-10 rounded-xl bg-[var(--sidebar-hover-bg)] mx-auto ${f.ring}`} />
                 <p className="text-xs text-muted mt-1">{f.label}</p>
-                {locked && <p className="text-[8px] text-red-400">{f.minXp} XP</p>}
+                {locked && <p className="text-[11px] text-red-400">{f.minXp} XP</p>}
               </button>
             )
           })}

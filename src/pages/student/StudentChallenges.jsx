@@ -297,7 +297,7 @@ export default function StudentChallenges() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 30 }}
-            className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-sky-500/20 border border-sky-500/30 text-sky-400 px-6 py-3 rounded-2xl text-sm font-medium z-50 backdrop-blur-xl"
+            className="fixed bottom-24 lg:bottom-6 left-1/2 -translate-x-1/2 bg-sky-500/20 border border-sky-500/30 text-sky-400 px-6 py-3 rounded-2xl text-sm font-medium z-50 backdrop-blur-xl"
           >
             <Target size={14} className="inline ml-1" /> {toast}
           </motion.div>

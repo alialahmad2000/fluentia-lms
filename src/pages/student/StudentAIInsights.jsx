@@ -399,7 +399,7 @@ export default function StudentAIInsights() {
               return (
                 <div key={i} className="text-center rounded-xl p-3" style={{ background: 'var(--surface-base)' }}>
                   <p className={`text-lg font-bold ${color}`}>{pct}%</p>
-                  <p className="text-[9px] text-muted mt-0.5">
+                  <p className="text-[11px] text-muted mt-0.5">
                     {new Date(w.week_start).toLocaleDateString('ar-SA', { month: 'short', day: 'numeric' })}
                   </p>
                 </div>

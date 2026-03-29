@@ -499,4 +499,10 @@
   .fl-modal {
     margin-bottom: env(safe-area-inset-bottom, 0px);
   }
+
+  /* Prevent iOS auto-zoom on input focus (requires font-size >= 16px) */
+  input, textarea, select {
+    font-size: 16px;
+    -webkit-appearance: none;
+  }
 }

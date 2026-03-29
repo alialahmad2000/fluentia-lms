@@ -264,7 +264,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
                       <Lock size={13} className="shrink-0" style={{ color: 'var(--accent-gold)', opacity: 0.8 }} />
                     )}
                     {!collapsed && isComingSoon && (
-                      <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full shrink-0" style={{ background: 'var(--accent-amber-glow)', color: 'var(--accent-amber)' }}>قريباً</span>
+                      <span className="text-[11px] font-bold px-1.5 py-0.5 rounded-full shrink-0" style={{ background: 'var(--accent-amber-glow)', color: 'var(--accent-amber)' }}>قريباً</span>
                     )}
                   </>
                 )}
@@ -356,7 +356,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
     <>
       {/* Desktop sidebar */}
       <aside
-        className={`hidden lg:flex flex-col backdrop-blur-2xl transition-all duration-300 ease-apple fixed top-0 right-0 h-screen z-30 ${
+        className={`hidden lg:flex flex-col backdrop-blur-2xl transition-all duration-300 ease-apple fixed top-0 right-0 h-dvh z-30 ${
           collapsed ? 'w-[72px]' : 'w-[260px]'
         }`}
         style={{
@@ -384,7 +384,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 28, stiffness: 320 }}
-              className="fixed top-0 right-0 h-screen w-[280px] backdrop-blur-2xl z-50 lg:hidden"
+              className="fixed top-0 right-0 h-dvh w-[280px] backdrop-blur-2xl z-50 lg:hidden"
               style={{
                 background: 'var(--sidebar-bg)',
                 borderLeft: '1px solid var(--sidebar-border)',

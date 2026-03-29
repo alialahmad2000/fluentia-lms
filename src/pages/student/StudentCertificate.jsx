@@ -277,7 +277,7 @@ function CertificateCard({ cert, studentName, forwardRef }) {
             <div className="rounded-lg p-2" style={{ background: 'white', boxShadow: '0 0 12px rgba(212,175,55,0.25)' }}>
               <QRCodeSVG value={verifyUrl} size={80} />
             </div>
-            <p className="text-[9px]" style={{ color: 'rgba(255,255,255,0.3)' }}>تحقق</p>
+            <p className="text-[11px]" style={{ color: 'rgba(255,255,255,0.3)' }}>تحقق</p>
           </div>
         </div>
       </div>

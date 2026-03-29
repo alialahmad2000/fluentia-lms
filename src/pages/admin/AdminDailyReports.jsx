@@ -217,7 +217,7 @@ export default function AdminDailyReports() {
                         title={`${hour}:00 — ${count} sessions`}
                       />
                       {hour % 3 === 0 && (
-                        <span className="text-[8px] text-[var(--text-muted)]">{hour}</span>
+                        <span className="text-[11px] text-[var(--text-muted)]">{hour}</span>
                       )}
                     </div>
                   )

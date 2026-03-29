@@ -122,7 +122,7 @@ function GroupChatContent() {
   }
 
   return (
-    <div className="flex flex-col h-[calc(100vh-200px)]">
+    <div className="flex flex-col h-[calc(100dvh-280px)] lg:h-[calc(100dvh-200px)]">
       <h1 className="text-page-title mb-4">محادثة المجموعة</h1>
 
       {/* Channel selector */}
