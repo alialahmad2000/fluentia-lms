@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Target, CheckCircle2, Zap, Loader2 } from 'lucide-react'
+import { Target, CheckCircle2, XCircle, Clock } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 
@@ -54,6 +54,14 @@ const DAILY_CHALLENGES = {
   ],
 }
 
+const getHoursUntilMidnight = () => {
+  const now = new Date()
+  const midnight = new Date(now)
+  midnight.setDate(midnight.getDate() + 1)
+  midnight.setHours(0, 0, 0, 0)
+  return Math.ceil((midnight - now) / (1000 * 60 * 60))
+}
+
 export default function DailyChallenge() {
   const { profile, studentData } = useAuthStore()
   const queryClient = useQueryClient()
@@ -68,56 +76,112 @@ export default function DailyChallenge() {
   const dayIndex = new Date().getDate() % (DAILY_CHALLENGES[level]?.length || 7)
   const challenge = DAILY_CHALLENGES[level]?.[dayIndex] || DAILY_CHALLENGES[1][0]
 
-  // Check if already completed today
-  const { data: completedToday } = useQuery({
+  // Check if already completed today — looks for ANY xp_transaction with reason='daily_challenge' today
+  const { data: completionData, isLoading: checkingCompletion } = useQuery({
     queryKey: ['daily-challenge-status', studentId, today],
     queryFn: async () => {
       const todayStart = new Date()
       todayStart.setHours(0, 0, 0, 0)
-      const { count } = await supabase
+      const { data, error } = await supabase
         .from('xp_transactions')
-        .select('*', { count: 'exact', head: true })
+        .select('id, amount, description')
         .eq('student_id', studentId)
         .eq('reason', 'daily_challenge')
         .gte('created_at', todayStart.toISOString())
-      return count > 0
+        .limit(1)
+      if (error) {
+        console.error('Daily challenge check error:', error)
+        return null
+      }
+      if (data && data.length > 0) {
+        return { completed: true, xpEarned: data[0].amount, wasCorrect: data[0].amount > 0 }
+      }
+      return { completed: false }
     },
     enabled: !!studentId,
   })
 
-  // Submit answer
+  const completedToday = completionData?.completed
+
+  // Submit answer — ALWAYS saves a record (correct = 5 XP, incorrect = 0 XP)
   const submitAnswer = useMutation({
     mutationFn: async (answerIndex) => {
       const isCorrect = answerIndex === challenge.answer
       setSelectedAnswer(answerIndex)
       setShowResult(true)
 
-      if (isCorrect) {
-        // Award XP
-        await supabase.from('xp_transactions').insert({
-          student_id: studentId,
-          amount: 5,
-          reason: 'daily_challenge',
-          description: 'تحدي يومي',
-        })
-      }
+      // Always insert — correct gets 5 XP, incorrect gets 0 XP
+      // This ensures completion is persisted regardless of answer correctness
+      const { error } = await supabase.from('xp_transactions').insert({
+        student_id: studentId,
+        amount: isCorrect ? 5 : 0,
+        reason: 'daily_challenge',
+        description: isCorrect ? 'تحدي يومي — إجابة صحيحة' : 'تحدي يومي — إجابة خاطئة',
+      })
+      if (error) console.error('Daily challenge submit error:', error)
       return isCorrect
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['daily-challenge-status'] })
+      queryClient.invalidateQueries({ queryKey: ['student-xp'] })
     },
   })
 
-  if (completedToday) {
+  // Loading skeleton while checking completion
+  if (checkingCompletion) {
     return (
-      <div className="fl-card-static p-7 border-emerald-500/20">
-        <div className="flex items-center gap-4">
-          <div className="w-11 h-11 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-            <CheckCircle2 size={20} className="text-emerald-400" />
+      <div className="fl-card-static p-7">
+        <div className="flex items-center gap-3 mb-5">
+          <div className="w-11 h-11 rounded-xl skeleton" />
+          <div className="flex-1 space-y-2">
+            <div className="h-4 w-28 rounded-lg skeleton" />
+            <div className="h-3 w-20 rounded-lg skeleton" />
           </div>
+        </div>
+        <div className="h-5 w-full rounded-lg skeleton mb-3" />
+        <div className="grid grid-cols-2 gap-3">
+          <div className="h-11 rounded-xl skeleton" />
+          <div className="h-11 rounded-xl skeleton" />
+          <div className="h-11 rounded-xl skeleton" />
+          <div className="h-11 rounded-xl skeleton" />
+        </div>
+      </div>
+    )
+  }
+
+  // Completion state — show "done" card
+  if (completedToday) {
+    const wasCorrect = completionData?.wasCorrect
+    const hoursLeft = getHoursUntilMidnight()
+
+    return (
+      <div className="fl-card-static p-7" style={{ borderColor: wasCorrect ? 'var(--accent-emerald-glow, rgba(16,185,129,0.2))' : 'var(--border-subtle)' }}>
+        <div className="flex flex-col items-center text-center gap-3 py-2">
+          <div
+            className="w-14 h-14 rounded-full flex items-center justify-center"
+            style={{ background: wasCorrect ? 'rgba(16,185,129,0.12)' : 'rgba(239,68,68,0.12)' }}
+          >
+            {wasCorrect
+              ? <CheckCircle2 size={26} className="text-emerald-400" />
+              : <XCircle size={26} className="text-red-400" />
+            }
+          </div>
+
           <div>
-            <p className="text-lg font-semibold text-[var(--text-primary)]">التحدي اليومي</p>
-            <p className="text-sm text-emerald-400">تم إنجاز تحدي اليوم! <span className="badge-green text-xs mr-1">+5 XP</span></p>
+            <p className="text-lg font-bold text-[var(--text-primary)]">
+              {wasCorrect ? 'أنجزتِ تحدي اليوم!' : 'تم محاولة تحدي اليوم'}
+            </p>
+            <p className="text-sm mt-1" style={{ color: wasCorrect ? 'var(--accent-emerald, #34d399)' : 'var(--text-tertiary)' }}>
+              {wasCorrect
+                ? <>أحسنتِ! <span className="badge-green text-xs mr-1">+5 XP</span></>
+                : 'لا بأس، حاولي مرة أخرى بكرة!'
+              }
+            </p>
+          </div>
+
+          <div className="flex items-center gap-1.5 mt-1" style={{ color: 'var(--text-tertiary)' }}>
+            <Clock size={13} />
+            <span className="text-xs">التحدي القادم بعد {hoursLeft} {hoursLeft === 1 ? 'ساعة' : 'ساعات'}</span>
           </div>
         </div>
       </div>
