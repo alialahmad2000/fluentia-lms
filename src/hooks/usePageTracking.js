@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { tracker } from '../services/activityTracker'
+import { useAuthStore } from '../stores/authStore'
 
 // Maps route paths to Arabic page names
 const PAGE_NAMES = {
@@ -31,8 +32,11 @@ const PAGE_NAMES = {
 
 export function usePageTracking() {
   const location = useLocation()
+  const impersonation = useAuthStore((s) => s.impersonation)
 
   useEffect(() => {
+    // Skip tracking during admin impersonation
+    if (impersonation) return
     const path = location.pathname
     let pageName = PAGE_NAMES[path]
 
@@ -43,5 +47,5 @@ export function usePageTracking() {
     }
 
     tracker.pageView(path, pageName)
-  }, [location.pathname])
+  }, [location.pathname, impersonation])
 }

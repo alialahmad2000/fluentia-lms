@@ -11,6 +11,7 @@ import ErrorBoundary, { PageErrorFallback } from './components/ErrorBoundary'
 import GlobalSearch from './components/GlobalSearch'
 import lazyRetry from './utils/lazyRetry'
 import OfflineBanner from './components/OfflineBanner'
+import ImpersonationBanner from './components/ImpersonationBanner'
 import { ToastProvider } from './components/Toast'
 
 import ComingSoon from './pages/student/ComingSoon'
@@ -177,13 +178,19 @@ function LoadingSkeleton() {
 
 // ─── Protected Route ─────────────────────────────────────────
 function ProtectedRoute({ allowedRoles }) {
-  const { user, profile, loading } = useAuthStore()
+  const { user, profile, loading, impersonation, _realProfile } = useAuthStore()
 
   if (loading) return <LoadingSkeleton />
   if (!user) return <Navigate to="/login" replace />
-  if (allowedRoles && !allowedRoles.includes(profile?.role)) {
-    return <Navigate to="/" replace />
-  }
+
+  // Allow admin through when impersonating as another role
+  const realRole = impersonation ? _realProfile?.role : profile?.role
+  const effectiveRole = profile?.role
+  const hasAccess = !allowedRoles
+    || allowedRoles.includes(effectiveRole)
+    || (realRole === 'admin' && impersonation && allowedRoles.includes(impersonation.role))
+
+  if (!hasAccess) return <Navigate to="/" replace />
 
   return <Outlet />
 }
@@ -238,6 +245,7 @@ export default function App() {
       <BrowserRouter>
         <ToastProvider>
         <OfflineBanner />
+        <ImpersonationBanner />
         <ForcePasswordChange />
         <OnboardingModal />
         <GamificationProvider />

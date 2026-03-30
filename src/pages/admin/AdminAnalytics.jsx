@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { supabase } from '../../lib/supabase'
+import ImpersonateButton from '../../components/ImpersonateButton'
 
 // ─── Constants ──────────────────────────────────────────────
 const EVENT_LABELS = {
@@ -498,6 +499,7 @@ export default function AdminAnalytics() {
                 <div key={u.user_id} className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-[rgba(255,255,255,0.03)] transition-colors">
                   <span className="w-2 h-2 rounded-full bg-green-400 flex-shrink-0" />
                   <span className="text-sm font-medium text-[var(--text-primary)] font-['Tajawal'] min-w-[100px]">{u.profile?.full_name || 'مجهول'}</span>
+                  <ImpersonateButton userId={u.user_id} role="student" name={u.profile?.full_name || 'طالب'} />
                   <span className="text-xs text-[var(--text-muted)] flex-1 truncate font-['Tajawal']">{pageName || '—'}</span>
                   <span className="text-xs text-[var(--text-muted)] flex-shrink-0" dir="ltr">{minsSince > 0 ? `${minsSince} د` : ''}</span>
                 </div>
@@ -655,6 +657,7 @@ export default function AdminAnalytics() {
                         {expandedStudent === s.id ? <ChevronUp size={12} /> : <ChevronDown size={12} className="text-[var(--text-muted)]" />}
                         {s.name}
                         {s.group && <span className="text-[10px] text-[var(--text-muted)] bg-[var(--surface-raised)] px-1.5 py-0.5 rounded">{s.group}</span>}
+                        <ImpersonateButton userId={s.id} role="student" name={s.name} />
                       </div>
                     </td>
                     <td className="py-3 px-3 text-[var(--text-secondary)]" dir="ltr">{s.loginCount}</td>

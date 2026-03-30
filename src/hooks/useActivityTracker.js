@@ -49,7 +49,7 @@ const FLUSH_MS = 30_000      // 30 seconds
  * - Uses sendBeacon on tab close
  */
 export default function useActivityTracker() {
-  const { profile } = useAuthStore()
+  const { profile, impersonation } = useAuthStore()
   const location = useLocation()
   const sessionIdRef = useRef(null)
   const pageVisitBuffer = useRef([])
@@ -61,7 +61,8 @@ export default function useActivityTracker() {
   const mountedRef = useRef(true)
 
   const userId = profile?.id
-  const isStudent = profile?.role === 'student'
+  // Don't track activity during admin impersonation
+  const isStudent = profile?.role === 'student' && !impersonation
 
   // ── Flush buffers to DB ───────────────────────────────────
   const flushBuffers = useCallback(async () => {

@@ -6,6 +6,7 @@ import { supabase } from '../../lib/supabase'
 import { ListSkeleton } from '../../components/ui/PageSkeleton'
 import EmptyState from '../../components/ui/EmptyState'
 import UserAvatar from '../../components/common/UserAvatar'
+import ImpersonateButton from '../../components/ImpersonateButton'
 
 export default function AdminTrainers() {
   const queryClient = useQueryClient()
@@ -110,9 +111,12 @@ export default function AdminTrainers() {
                     {t.role === 'admin' && <span className="badge-gold">مدير</span>}
                   </div>
                 </div>
-                <button onClick={() => setEditTrainer(t)} className="btn-icon w-8 h-8 text-muted hover:text-sky-400 transition-all duration-200">
-                  <Edit3 size={16} />
-                </button>
+                <div className="flex items-center gap-1.5">
+                  {t.role !== 'admin' && <ImpersonateButton userId={t.id} role="trainer" name={t.display_name || t.full_name} />}
+                  <button onClick={() => setEditTrainer(t)} className="btn-icon w-8 h-8 text-muted hover:text-sky-400 transition-all duration-200">
+                    <Edit3 size={16} />
+                  </button>
+                </div>
               </div>
 
               <div className="space-y-2">

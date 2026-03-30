@@ -10,6 +10,7 @@ import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import SubTabs from '../../components/common/SubTabs'
 import { ListSkeleton } from '../../components/ui/PageSkeleton'
 import EmptyState from '../../components/ui/EmptyState'
+import ImpersonateButton from '../../components/ImpersonateButton'
 
 const AdminGroups = lazy(() => import('./AdminGroups'))
 const AdminTrainers = lazy(() => import('./AdminTrainers'))
@@ -231,6 +232,7 @@ function StudentsContent() {
                     </td>
                     <td>
                       <div className="flex items-center gap-2">
+                        <ImpersonateButton userId={s.id} role="student" name={getStudentName(s)} />
                         <button onClick={() => { setEditStudent(s); setShowForm(true) }} className="btn-icon w-8 h-8 text-muted hover:text-sky-400 transition-all duration-200">
                           <Edit3 size={14} />
                         </button>

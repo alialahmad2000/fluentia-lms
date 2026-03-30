@@ -11,6 +11,12 @@ export const useAuthStore = create((set, get) => ({
   _authSubscription: null,
   _realtimeChannel: null,
 
+  // ── Impersonation state ──
+  impersonation: null,       // { userId, role, name, returnPath }
+  _realProfile: null,        // admin's original profile
+  _realStudentData: null,
+  _realTrainerData: null,
+
   initialize: async () => {
     // Get initial session
     try {
@@ -22,6 +28,9 @@ export const useAuthStore = create((set, get) => ({
       console.error('[AuthStore] getSession error:', err)
     }
     set({ loading: false })
+
+    // Restore impersonation if admin was viewing as another user
+    await get().restoreImpersonation()
 
     // Listen for auth changes — store subscription so it can be unsubscribed
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
@@ -110,8 +119,127 @@ export const useAuthStore = create((set, get) => ({
     await supabase.auth.signOut()
   },
 
+  // ── Impersonation ──
+  startImpersonation: async (userId, role, name) => {
+    const state = get()
+    // Save admin's real data
+    set({
+      _realProfile: state.profile,
+      _realStudentData: state.studentData,
+      _realTrainerData: state.trainerData,
+      impersonation: { userId, role, name, returnPath: window.location.pathname },
+    })
+
+    // Persist to sessionStorage for refresh survival
+    sessionStorage.setItem('fluentia_impersonation', JSON.stringify({
+      userId, role, name, returnPath: window.location.pathname,
+    }))
+
+    // Fetch impersonated user's profile
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', userId)
+      .single()
+
+    if (!profile) return
+
+    set({ profile })
+
+    if (role === 'student') {
+      const { data: studentData } = await supabase
+        .from('students')
+        .select('*, groups(*)')
+        .eq('id', userId)
+        .single()
+      set({ studentData: studentData || null, trainerData: null })
+    } else if (role === 'trainer') {
+      const { data: trainerData } = await supabase
+        .from('trainers')
+        .select('*')
+        .eq('id', userId)
+        .single()
+      set({ trainerData: trainerData || null, studentData: null })
+    }
+  },
+
+  stopImpersonation: () => {
+    const state = get()
+    const returnPath = state.impersonation?.returnPath || '/admin'
+    set({
+      profile: state._realProfile,
+      studentData: state._realStudentData,
+      trainerData: state._realTrainerData,
+      impersonation: null,
+      _realProfile: null,
+      _realStudentData: null,
+      _realTrainerData: null,
+    })
+    sessionStorage.removeItem('fluentia_impersonation')
+    return returnPath
+  },
+
+  // Restore impersonation from sessionStorage on init (called after auth init)
+  restoreImpersonation: async () => {
+    const stored = sessionStorage.getItem('fluentia_impersonation')
+    if (!stored) return
+    try {
+      const { userId, role, name, returnPath } = JSON.parse(stored)
+      const state = get()
+      // Only restore if admin is logged in
+      if (state.profile?.role !== 'admin') {
+        sessionStorage.removeItem('fluentia_impersonation')
+        return
+      }
+      // Save real data and load impersonated data
+      set({
+        _realProfile: state.profile,
+        _realStudentData: state.studentData,
+        _realTrainerData: state.trainerData,
+        impersonation: { userId, role, name, returnPath },
+      })
+
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single()
+      if (!profile) {
+        sessionStorage.removeItem('fluentia_impersonation')
+        return
+      }
+      set({ profile })
+
+      if (role === 'student') {
+        const { data: studentData } = await supabase
+          .from('students')
+          .select('*, groups(*)')
+          .eq('id', userId)
+          .single()
+        set({ studentData: studentData || null, trainerData: null })
+      } else if (role === 'trainer') {
+        const { data: trainerData } = await supabase
+          .from('trainers')
+          .select('*')
+          .eq('id', userId)
+          .single()
+        set({ trainerData: trainerData || null, studentData: null })
+      }
+    } catch {
+      sessionStorage.removeItem('fluentia_impersonation')
+    }
+  },
+
   // Helpers
-  isAdmin: () => get().profile?.role === 'admin',
-  isTrainer: () => ['trainer', 'admin'].includes(get().profile?.role),
+  isAdmin: () => {
+    const s = get()
+    return s.impersonation ? s._realProfile?.role === 'admin' : s.profile?.role === 'admin'
+  },
+  isTrainer: () => {
+    const s = get()
+    if (s.impersonation) return s._realProfile?.role === 'admin' || ['trainer', 'admin'].includes(s.profile?.role)
+    return ['trainer', 'admin'].includes(s.profile?.role)
+  },
   isStudent: () => get().profile?.role === 'student',
+  isImpersonating: () => !!get().impersonation,
 }))

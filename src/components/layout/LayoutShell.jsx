@@ -87,7 +87,7 @@ export default function LayoutShell() {
   const [moreOpen, setMoreOpen] = useState(false)
   const [toast, setToast] = useState(null)
   const toastTimerRef = useRef(null)
-  const { profile, studentData } = useAuthStore()
+  const { profile, studentData, impersonation } = useAuthStore()
   const role = profile?.role || 'student'
   const studentPackage = studentData?.package || 'asas'
   const tabs = MOBILE_TABS[role] || MOBILE_TABS.student
@@ -118,7 +118,7 @@ export default function LayoutShell() {
   const { isRefreshing, pullProgress, pullDistance } = usePullToRefresh(handleRefresh)
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--surface-base)' }} data-role={role} onClick={() => tracker.touch()} onKeyDown={() => tracker.touch()}>
+    <div className="min-h-screen" style={{ background: 'var(--surface-base)', paddingTop: impersonation ? '40px' : undefined }} data-role={role} onClick={() => tracker.touch()} onKeyDown={() => tracker.touch()}>
       {/* Background layers */}
       <Suspense fallback={null}>
         <GeometricMesh />
