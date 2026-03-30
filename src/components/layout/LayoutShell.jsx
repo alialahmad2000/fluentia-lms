@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, lazy, Suspense, useCallback } from 'react'
+import { useState, useRef, useEffect, lazy, Suspense, useCallback, useMemo } from 'react'
 import { Outlet, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -8,6 +8,7 @@ import {
 } from 'lucide-react'
 import Sidebar from './Sidebar'
 import Header from './Header'
+import ErrorBoundary from '../ErrorBoundary'
 import AIFloatingHelper from '../ai/AIFloatingHelper'
 import { useAuthStore } from '../../stores/authStore'
 import { hasPackageAccess } from '../PackageGate'
@@ -94,10 +95,18 @@ export default function LayoutShell() {
   const moreItems = MORE_ITEMS[role] || []
   const activeColor = TAB_ACTIVE_COLORS[role] || TAB_ACTIVE_COLORS.student
   const navigate = useNavigate()
+  const location = useLocation()
   const queryClient = useQueryClient()
 
   // Lightweight activity tracking (students only — hook-based, handles sessions + page visits)
   useActivityTracker()
+
+  // Scroll to top + close sidebar on navigation
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    setMobileOpen(false)
+    setMoreOpen(false)
+  }, [location.pathname])
 
   // Page view tracking (all roles — uses the class-based tracker for analytics_events)
   usePageTracking()
@@ -118,7 +127,7 @@ export default function LayoutShell() {
   const { isRefreshing, pullProgress, pullDistance } = usePullToRefresh(handleRefresh)
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--surface-base)', paddingTop: impersonation ? '40px' : undefined }} data-role={role} onClick={() => tracker.touch()} onKeyDown={() => tracker.touch()}>
+    <div className="min-h-dvh" style={{ background: 'var(--surface-base)', paddingTop: impersonation ? '40px' : undefined }} data-role={role} onClick={() => tracker.touch()} onKeyDown={() => tracker.touch()}>
       {/* Background layers */}
       <Suspense fallback={null}>
         <GeometricMesh />
@@ -166,8 +175,10 @@ export default function LayoutShell() {
       >
         <Header onMenuToggle={() => setMobileOpen(true)} />
 
-        <main id="main-content" className="px-4 py-6 lg:px-10 lg:py-8 pb-safe-bottom lg:pb-10" style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <Outlet />
+        <main id="main-content" className="px-4 py-6 lg:px-10 lg:py-8 pb-safe-bottom lg:pb-10" style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: 'env(safe-area-inset-top, 0px)' }}>
+          <ErrorBoundary key={location.pathname}>
+            <Outlet />
+          </ErrorBoundary>
         </main>
       </div>
 

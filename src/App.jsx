@@ -162,7 +162,7 @@ function PageSkeleton() {
 // ─── Full-screen Loading Skeleton ────────────────────────────
 function LoadingSkeleton() {
   return (
-    <div role="status" aria-busy="true" className="min-h-screen bg-darkest flex items-center justify-center p-8">
+    <div role="status" aria-busy="true" className="min-h-dvh bg-darkest flex items-center justify-center p-8">
       <div className="w-full max-w-md space-y-6">
         <div className="skeleton h-10 w-48 mx-auto" />
         <div className="skeleton h-4 w-64 mx-auto" />

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, BookOpen, Dumbbell, Lock, ChevronDown, Filter } from 'lucide-react'
 import { supabase } from '../../../lib/supabase'
@@ -298,6 +298,12 @@ function getRandomVerbDistractors(verb, allVerbs) {
 }
 
 function VerbGameRenderer({ gameId, verbs, allVerbs, difficulty, onBack, onComplete }) {
+  // Memoize derived items arrays to prevent child game components from resetting
+  // when the parent re-renders (e.g., from XP notification state change)
+  const matchPairs = useMemo(() => verbs.map(v => ({ id: v.id, question: v.verb_base, answer: v.verb_past })), [verbs])
+  const speedItems = useMemo(() => verbs.map(v => ({ id: v.id, prompt: `${v.meaning_ar} (الماضي)`, answer: v.verb_past, audioUrl: v.audio_past_url })), [verbs])
+  const scrambleItems = useMemo(() => verbs.map(v => ({ id: v.id, word: v.verb_past_participle, hint: `${v.meaning_ar} (التصريف الثالث)`, audioUrl: v.audio_pp_url })), [verbs])
+
   const backToHub = () => onBack()
 
   const handleComplete = (stats) => {
@@ -322,7 +328,7 @@ function VerbGameRenderer({ gameId, verbs, allVerbs, difficulty, onBack, onCompl
     case 'match':
       return (
         <MatchGame
-          pairs={verbs.map(v => ({ id: v.id, question: v.verb_base, answer: v.verb_past }))}
+          pairs={matchPairs}
           title="وصّل الفعل بتصريفه الماضي"
           onComplete={handleComplete}
           onBack={backToHub}
@@ -331,12 +337,7 @@ function VerbGameRenderer({ gameId, verbs, allVerbs, difficulty, onBack, onCompl
     case 'speed':
       return (
         <SpeedTypeGame
-          items={verbs.map(v => ({
-            id: v.id,
-            prompt: `${v.meaning_ar} (الماضي)`,
-            answer: v.verb_past,
-            audioUrl: v.audio_past_url,
-          }))}
+          items={speedItems}
           title="اسمع واكتب التصريف"
           onComplete={handleComplete}
           onBack={backToHub}
@@ -345,44 +346,50 @@ function VerbGameRenderer({ gameId, verbs, allVerbs, difficulty, onBack, onCompl
     case 'scramble':
       return (
         <ScrambleGame
-          items={verbs.map(v => ({
-            id: v.id,
-            word: v.verb_past_participle,
-            hint: `${v.meaning_ar} (التصريف الثالث)`,
-            audioUrl: v.audio_pp_url,
-          }))}
+          items={scrambleItems}
           title="رتّب حروف التصريف الثالث"
           onComplete={handleComplete}
           onBack={backToHub}
         />
       )
-    case 'fill': {
-      const fillItems = verbs.map(v => {
-        const sentence = v.example_sentence
-          ? v.example_sentence.replace(new RegExp(v.verb_past.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), '_____')
-          : `Yesterday I _____ (${v.verb_base}).`
-        return {
-          id: v.id,
-          sentence,
-          correctAnswer: v.verb_past,
-          meaning: v.meaning_ar,
-          distractors: getRandomVerbDistractors(v, allVerbs),
-          audioUrl: v.audio_past_url,
-        }
-      })
-
+    case 'fill':
       return (
-        <FillBlankGame
-          items={fillItems}
-          title="أكمل الجملة بالتصريف الصحيح"
+        <FillBlankGameWrapper
+          verbs={verbs}
+          allVerbs={allVerbs}
           onComplete={handleComplete}
           onBack={backToHub}
         />
       )
-    }
     default:
       return null
   }
+}
+
+// ─── FillBlank wrapper to memoize items ──────────────
+function FillBlankGameWrapper({ verbs, allVerbs, onComplete, onBack }) {
+  const fillItems = useMemo(() => verbs.map(v => {
+    const sentence = v.example_sentence
+      ? v.example_sentence.replace(new RegExp(v.verb_past.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), '_____')
+      : `Yesterday I _____ (${v.verb_base}).`
+    return {
+      id: v.id,
+      sentence,
+      correctAnswer: v.verb_past,
+      meaning: v.meaning_ar,
+      distractors: getRandomVerbDistractors(v, allVerbs),
+      audioUrl: v.audio_past_url,
+    }
+  }), [verbs, allVerbs])
+
+  return (
+    <FillBlankGame
+      items={fillItems}
+      title="أكمل الجملة بالتصريف الصحيح"
+      onComplete={onComplete}
+      onBack={onBack}
+    />
+  )
 }
 
 // ─── Level Dropdown (themed + level-locked) ──────────

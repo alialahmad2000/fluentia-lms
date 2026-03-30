@@ -84,6 +84,16 @@ export default function ScrambleGame({
     if (items.length > 0) initRound()
   }, [items, initRound])
 
+  // Cleanup audio on unmount
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause()
+        audioRef.current = null
+      }
+    }
+  }, [])
+
   // Timer
   useEffect(() => {
     if (!startTime || isComplete) return

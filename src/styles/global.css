@@ -1,4 +1,28 @@
 /* ═══════════════════════════════════════════════════════════
+   iOS SAFE AREA + VIEWPORT FIX
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  --sat: env(safe-area-inset-top, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+}
+
+html, body, #root {
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Prevent iOS input zoom */
+input, textarea, select {
+  font-size: 16px !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
    GLOBAL STYLES + ATMOSPHERE
    Gradient mesh background, grain texture, base typography
    ═══════════════════════════════════════════════════════════ */

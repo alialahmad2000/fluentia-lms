@@ -64,31 +64,32 @@ export default function useActivityTracker() {
   // Don't track activity during admin impersonation
   const isStudent = profile?.role === 'student' && !impersonation
 
-  // ── Flush buffers to DB ───────────────────────────────────
-  const flushBuffers = useCallback(async () => {
+  // ── Flush buffers to DB — fire-and-forget ────────────────
+  const flushBuffers = useCallback(() => {
     if (!sessionIdRef.current) return
 
-    // Flush page visits
-    const visits = pageVisitBuffer.current.splice(0)
-    if (visits.length > 0) {
-      const { error } = await supabase.from('page_visits').insert(visits)
-      if (error) console.warn('[Tracker] page_visits insert error:', error.message)
+    try {
+      // Flush page visits
+      const visits = pageVisitBuffer.current.splice(0)
+      if (visits.length > 0) {
+        supabase.from('page_visits').insert(visits).then(() => {}).catch(() => {})
+      }
+
+      // Flush events
+      const events = eventBuffer.current.splice(0)
+      if (events.length > 0) {
+        supabase.from('activity_events').insert(events).then(() => {}).catch(() => {})
+      }
+
+      // Update session heartbeat + pages count
+      supabase
+        .from('user_sessions')
+        .update({ ended_at: new Date().toISOString(), pages_visited: visits.length })
+        .eq('id', sessionIdRef.current)
+        .then(() => {}).catch(() => {})
+    } catch {
+      // analytics must never crash the app
     }
-
-    // Flush events
-    const events = eventBuffer.current.splice(0)
-    if (events.length > 0) {
-      const { error } = await supabase.from('activity_events').insert(events)
-      if (error) console.warn('[Tracker] activity_events insert error:', error.message)
-    }
-
-    // Update session heartbeat + pages count
-    const { error } = await supabase
-      .from('user_sessions')
-      .update({ ended_at: new Date().toISOString(), pages_visited: visits.length })
-      .eq('id', sessionIdRef.current)
-
-    if (error) console.warn('[Tracker] session heartbeat error:', error.message)
   }, [])
 
   // ── Create session ────────────────────────────────────────

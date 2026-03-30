@@ -33,7 +33,7 @@ class ActivityTracker {
     if (data) this.sessionDbId = data.id
 
     // Track login event
-    await this.track('login', { method: 'email' })
+    this.track('login', { method: 'email' })
 
     // Start heartbeat (every 30 seconds)
     this._startHeartbeat()
@@ -49,29 +49,31 @@ class ActivityTracker {
     window.addEventListener('beforeunload', this._handleUnload)
   }
 
-  // Track any event
-  async track(event, properties = {}) {
+  // Track any event — fire-and-forget, never blocks UI
+  track(event, properties = {}) {
     if (!this.userId) return
 
     this.lastActivity = Date.now()
 
-    const { error } = await supabase.from('analytics_events').insert({
-      user_id: this.userId,
-      event,
-      properties,
-      session_id: this.sessionId,
-      page_path: window.location.pathname,
-      device: this._getDevice(),
-      browser: this._getBrowser(),
-    })
-
-    if (error) console.warn('[Tracker] Event error:', error.message)
+    try {
+      supabase.from('analytics_events').insert({
+        user_id: this.userId,
+        event,
+        properties,
+        session_id: this.sessionId,
+        page_path: window.location.pathname,
+        device: this._getDevice(),
+        browser: this._getBrowser(),
+      }).then(() => {}).catch(() => {})
+    } catch {
+      // analytics must never crash the app
+    }
   }
 
-  // Track page view
-  async pageView(pagePath, pageTitle) {
+  // Track page view — fire-and-forget
+  pageView(pagePath, pageTitle) {
     this.pagesVisited++
-    await this.track('page_view', {
+    this.track('page_view', {
       page: pagePath,
       title: pageTitle,
       page_number: this.pagesVisited,
@@ -82,32 +84,34 @@ class ActivityTracker {
   _startHeartbeat() {
     if (this.heartbeatInterval) clearInterval(this.heartbeatInterval)
 
-    this.heartbeatInterval = setInterval(async () => {
+    this.heartbeatInterval = setInterval(() => {
       if (!this.sessionDbId || !this.userId) return
 
       // Only heartbeat if user was active in last 5 minutes
       const inactiveMs = Date.now() - this.lastActivity
       if (inactiveMs > 5 * 60 * 1000) {
-        await this._endSession()
+        this._endSession().catch(() => {})
         return
       }
 
       const now = new Date().toISOString()
-      const { error } = await supabase.from('user_sessions')
-        .update({
-          last_seen_at: now,
-          pages_visited: this.pagesVisited,
-          is_active: true,
-        })
-        .eq('id', this.sessionDbId)
+      try {
+        supabase.from('user_sessions')
+          .update({
+            last_seen_at: now,
+            pages_visited: this.pagesVisited,
+            is_active: true,
+          })
+          .eq('id', this.sessionDbId)
+          .then(() => {}).catch(() => {})
 
-      if (error) console.warn('[Tracker] Heartbeat error:', error.message)
-
-      // Also update profile last_active_at
-      await supabase.from('profiles')
-        .update({ last_active_at: now })
-        .eq('id', this.userId)
-
+        supabase.from('profiles')
+          .update({ last_active_at: now })
+          .eq('id', this.userId)
+          .then(() => {}).catch(() => {})
+      } catch {
+        // analytics must never crash
+      }
     }, 30000)
   }
 
@@ -165,7 +169,7 @@ class ActivityTracker {
 
   // Cleanup on logout
   async destroy() {
-    await this.track('logout')
+    this.track('logout')
     await this._endSession()
     document.removeEventListener('visibilitychange', this._handleVisibility)
     window.removeEventListener('beforeunload', this._handleUnload)
