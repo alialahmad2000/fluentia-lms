@@ -87,7 +87,7 @@ export default function StudentErrorPatterns() {
       </div>
 
       {/* Summary */}
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
         <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="fl-card p-7 text-center hover:translate-y-[-2px] transition-all duration-200">
           <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center mx-auto mb-2">
             <AlertTriangle size={18} className="text-red-400" />

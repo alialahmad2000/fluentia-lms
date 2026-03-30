@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Target, Clock, Zap, Trophy, CheckCircle2, Loader2, Users } from 'lucide-react'
@@ -26,6 +26,10 @@ export default function StudentChallenges() {
   const queryClient = useQueryClient()
   const [tab, setTab] = useState('active')
   const [toast, setToast] = useState(null)
+  const toastTimerRef = useRef(null)
+
+  // Cleanup toast timer on unmount
+  useEffect(() => () => clearTimeout(toastTimerRef.current), [])
 
   const groupId = studentData?.group_id
 
@@ -102,11 +106,13 @@ export default function StudentChallenges() {
       queryClient.invalidateQueries({ queryKey: ['challenge-participation'] })
       queryClient.invalidateQueries({ queryKey: ['challenge-counts'] })
       setToast('تم الانضمام للتحدي!')
-      setTimeout(() => setToast(null), 2500)
+      clearTimeout(toastTimerRef.current)
+      toastTimerRef.current = setTimeout(() => setToast(null), 2500)
     },
     onError: (err) => {
       setToast(err.message || 'حدث خطأ — حاول مرة أخرى')
-      setTimeout(() => setToast(null), 3000)
+      clearTimeout(toastTimerRef.current)
+      toastTimerRef.current = setTimeout(() => setToast(null), 3000)
     },
   })
 

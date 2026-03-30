@@ -423,7 +423,7 @@ export default function StudentReferral() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.05 }}
-        className="grid grid-cols-3 gap-6"
+        className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6"
       >
         {/* Total referrals */}
         <div className="fl-card-static p-4 text-center hover:translate-y-[-2px] transition-all duration-200">

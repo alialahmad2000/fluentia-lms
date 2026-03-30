@@ -74,7 +74,7 @@ export default function StudentStreakBattles() {
       </div>
 
       {/* My stats */}
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
         <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="fl-card-static p-4 text-center hover:translate-y-[-2px] transition-all duration-200">
           <Flame size={20} className="text-gold-400 mx-auto mb-1" />
           <p className="text-2xl font-bold text-[var(--text-primary)]">{studentData?.current_streak || 0}</p>

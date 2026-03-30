@@ -759,7 +759,7 @@ export default function StudentCertificate() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.05 }}
-        className="grid grid-cols-3 gap-6"
+        className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6"
       >
         {[
           { label: 'إجمالي الشهادات', value: allCerts.length, icon: Award, color: '#D4AF37' },

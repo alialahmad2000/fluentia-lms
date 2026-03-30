@@ -392,7 +392,7 @@ export default function StudentAIInsights() {
             <Clock size={14} className="text-violet-400" />
             المهام الأسبوعية — آخر {weeklyStats.length} أسابيع
           </h3>
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {weeklyStats.map((w, i) => {
               const pct = Math.round(w.completion_percentage || 0)
               const color = pct >= 80 ? 'text-emerald-400' : pct >= 50 ? 'text-sky-400' : pct >= 25 ? 'text-amber-400' : 'text-red-400'

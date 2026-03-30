@@ -88,7 +88,7 @@ function GradesContent() {
   return (
     <div className="space-y-8">
       {/* Summary cards */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="fl-stat-card sky">
           <Award size={22} className="text-sky-400 mb-2" strokeWidth={1.5} />
           <p className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{totalGraded}</p>
