@@ -33,8 +33,8 @@ export default function ScrambleGame({
 }) {
   const [roundItems, setRoundItems] = useState([])
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [scrambledLetters, setScrambledLetters] = useState([]) // { char, id, placed }
-  const [answerSlots, setAnswerSlots] = useState([]) // array of letter ids (or null)
+  const [scrambledLetters, setScrambledLetters] = useState([])
+  const [answerSlots, setAnswerSlots] = useState([])
   const [feedback, setFeedback] = useState(null) // 'correct' | 'wrong'
   const [hintsUsed, setHintsUsed] = useState(0)
   const [totalHints, setTotalHints] = useState(0)
@@ -50,54 +50,52 @@ export default function ScrambleGame({
   const scoreRef = useRef(0)
   const correctRef = useRef(0)
   const totalHintsRef = useRef(0)
-
-  // Refs to avoid stale closures in setTimeout callbacks
   const currentIndexRef = useRef(0)
-  const roundItemsRef = useRef([])
-  const startTimeRef = useRef(null)
 
-  // Keep refs in sync with state
-  currentIndexRef.current = currentIndex
-  roundItemsRef.current = roundItems
-  startTimeRef.current = startTime
+  // Derive current item from state (triggers re-renders)
+  const currentItem = roundItems[currentIndex] || null
 
-  const initWord = useCallback((item) => {
-    if (!item || !item.word) return
-    const scrambled = scrambleWord(item.word).map((char, i) => ({
-      char,
-      id: `${char}-${i}-${Date.now()}`, // unique IDs per word
-      placed: false,
-    }))
-    setScrambledLetters(scrambled)
-    setAnswerSlots(new Array(item.word.length).fill(null))
-    setFeedback(null)
-    setHintsUsed(0)
-  }, [])
-
+  // ── Initialize round: select items, reset all state ──────────
   const initRound = useCallback(() => {
     const selected = shuffle(items).slice(0, itemsPerRound)
     setRoundItems(selected)
     setCurrentIndex(0)
     currentIndexRef.current = 0
-    roundItemsRef.current = selected
     setScore(0)
     setCorrect(0)
     setTotalHints(0)
     setFloatingScore(null)
     setIsComplete(false)
+    setFeedback(null)
     setElapsed(0)
-    const now = Date.now()
-    setStartTime(now)
-    startTimeRef.current = now
+    setStartTime(Date.now())
     scoreRef.current = 0
     correctRef.current = 0
     totalHintsRef.current = 0
-    if (selected.length > 0) initWord(selected[0])
-  }, [items, itemsPerRound, initWord])
+    // Don't call initWord here — the useEffect below handles it
+  }, [items, itemsPerRound])
 
+  // Start a round when items are available
   useEffect(() => {
     if (items.length > 0) initRound()
   }, [items, initRound])
+
+  // ── KEY EFFECT: Regenerate scrambled letters when currentIndex or roundItems change ──
+  useEffect(() => {
+    const item = roundItems[currentIndex]
+    if (!item || !item.word) return
+
+    const word = item.word
+    const scrambled = scrambleWord(word).map((char, i) => ({
+      char,
+      id: `${currentIndex}-${char}-${i}-${Date.now()}`,
+      placed: false,
+    }))
+    setScrambledLetters(scrambled)
+    setAnswerSlots(new Array(word.length).fill(null))
+    setFeedback(null)
+    setHintsUsed(0)
+  }, [currentIndex, roundItems])
 
   // Cleanup audio on unmount
   useEffect(() => {
@@ -118,8 +116,6 @@ export default function ScrambleGame({
     return () => clearInterval(timerRef.current)
   }, [startTime, isComplete])
 
-  const currentItem = roundItems[currentIndex]
-
   const playAudio = useCallback((e) => {
     if (e) e.stopPropagation()
     if (!currentItem?.audioUrl) return
@@ -128,26 +124,26 @@ export default function ScrambleGame({
     audioRef.current.play().catch(() => {})
   }, [currentItem])
 
-  // Advance to next question — uses refs to always have fresh values
+  // ── Advance to next question ─────────────────────────────────
+  // Only changes the index — the useEffect above handles re-initialization
   const advanceToNext = useCallback(() => {
     const idx = currentIndexRef.current
-    const items = roundItemsRef.current
+    const ri = roundItems
 
-    if (idx + 1 >= items.length) {
-      const finalTime = Math.floor((Date.now() - (startTimeRef.current || Date.now())) / 1000)
+    if (idx + 1 >= ri.length) {
+      const finalTime = Math.floor((Date.now() - (startTime || Date.now())) / 1000)
       setElapsed(finalTime)
       setIsComplete(true)
       clearInterval(timerRef.current)
       onComplete?.({ score: scoreRef.current, time: finalTime, hintsUsed: totalHintsRef.current, correct: correctRef.current })
     } else {
       const nextIdx = idx + 1
-      setCurrentIndex(nextIdx)
       currentIndexRef.current = nextIdx
-      initWord(items[nextIdx])
+      setCurrentIndex(nextIdx) // triggers re-render → useEffect regenerates letters
     }
-  }, [onComplete, initWord])
+  }, [roundItems, startTime, onComplete])
 
-  // Auto-advance after correct answer — separate effect to avoid stale closures
+  // ── Auto-advance after correct answer ────────────────────────
   useEffect(() => {
     if (feedback !== 'correct') return
     const timer = setTimeout(() => {
@@ -156,34 +152,27 @@ export default function ScrambleGame({
     return () => clearTimeout(timer)
   }, [feedback, advanceToNext])
 
-  // Check answer whenever answerSlots changes
+  // ── Check answer whenever answerSlots changes ────────────────
   useEffect(() => {
     if (!currentItem || feedback) return
-    // Check if all slots filled
     const allFilled = answerSlots.every(s => s !== null)
     if (!allFilled) return
 
-    // Build the word from answer slots
     const builtWord = answerSlots
       .map(id => scrambledLetters.find(l => l.id === id)?.char || '')
       .join('')
 
     if (builtWord.toLowerCase() === currentItem.word.toLowerCase()) {
-      // Correct — points based on hints used for this word
       const points = hintsUsed === 0 ? 15 : hintsUsed === 1 ? 10 : hintsUsed === 2 ? 5 : 2
-
       scoreRef.current += points
       correctRef.current += 1
       setScore(scoreRef.current)
       setCorrect(correctRef.current)
       setFeedback('correct')
       setFloatingScore({ points, key: Date.now() })
-      // advanceToNext is now triggered by the feedback effect above
     } else {
-      // Wrong
       setFeedback('wrong')
       setTimeout(() => {
-        // Reset — put all letters back
         setScrambledLetters(prev => prev.map(l => ({ ...l, placed: false })))
         setAnswerSlots(new Array(currentItem.word.length).fill(null))
         setFeedback(null)
@@ -193,11 +182,8 @@ export default function ScrambleGame({
 
   const handleTileClick = (letterId) => {
     if (feedback) return
-
     const letter = scrambledLetters.find(l => l.id === letterId)
     if (!letter || letter.placed) return
-
-    // Find first empty slot
     const emptyIdx = answerSlots.indexOf(null)
     if (emptyIdx === -1) return
 
@@ -216,7 +202,6 @@ export default function ScrambleGame({
     const letterId = answerSlots[slotIdx]
     if (!letterId) return
 
-    // Put letter back
     setScrambledLetters(prev =>
       prev.map(l => l.id === letterId ? { ...l, placed: false } : l)
     )
@@ -229,10 +214,8 @@ export default function ScrambleGame({
 
   const handleHint = () => {
     if (feedback || !currentItem) return
-
     const word = currentItem.word
 
-    // Find positions that are NOT yet correctly placed
     const emptyPositions = []
     for (let i = 0; i < word.length; i++) {
       const placedId = answerSlots[i]
@@ -241,7 +224,6 @@ export default function ScrambleGame({
       } else {
         const placedChar = scrambledLetters.find(l => l.id === placedId)?.char
         if (placedChar?.toLowerCase() !== word[i].toLowerCase()) {
-          // Wrong letter — remove it first
           setScrambledLetters(prev =>
             prev.map(l => l.id === placedId ? { ...l, placed: false } : l)
           )
@@ -256,11 +238,7 @@ export default function ScrambleGame({
     }
 
     if (emptyPositions.length === 0) return
-
-    // Pick a RANDOM empty position
     const posToReveal = emptyPositions[Math.floor(Math.random() * emptyPositions.length)]
-
-    // Find the correct letter from available tiles
     const targetChar = word[posToReveal].toLowerCase()
     const available = scrambledLetters.find(
       l => !l.placed && l.char.toLowerCase() === targetChar
@@ -293,7 +271,6 @@ export default function ScrambleGame({
     return 1
   }
 
-  // Shake animation
   const shakeVariants = {
     shake: {
       x: [0, -6, 6, -4, 4, -2, 2, 0],
@@ -301,7 +278,7 @@ export default function ScrambleGame({
     },
   }
 
-  // End screen
+  // ── End screen ──────────────────────────────────────────────
   if (isComplete) {
     const total = roundItems.length
     const stars = getStars(totalHints)
@@ -324,7 +301,6 @@ export default function ScrambleGame({
 
         <h2 className="text-2xl font-bold text-[var(--text-primary)] font-['Tajawal']">أحسنت!</h2>
 
-        {/* Stars */}
         <div className="flex gap-2">
           {[1, 2, 3].map(i => (
             <motion.div
@@ -341,7 +317,6 @@ export default function ScrambleGame({
           ))}
         </div>
 
-        {/* Stats */}
         <div className="flex flex-wrap justify-center gap-3 mt-2">
           <div className="flex flex-col items-center px-4 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
             <span className="text-2xl font-bold text-emerald-400">{score}</span>
@@ -414,130 +389,121 @@ export default function ScrambleGame({
         </div>
       </div>
 
-      {/* Card */}
-      <AnimatePresence mode="wait">
+      {/* Card — no AnimatePresence mode="wait" to avoid blocking next question render */}
+      <div key={`scramble-card-${currentIndex}`} className="w-full">
         <motion.div
-          key={currentItem.id + '-' + currentIndex}
+          key={`scramble-motion-${currentIndex}`}
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.2 }}
-          className="w-full"
+          className="w-full rounded-[20px] p-6 sm:p-8 flex flex-col items-center gap-5 relative"
+          style={{
+            background: 'var(--surface-raised)',
+            border: '1px solid var(--border-subtle)',
+          }}
         >
-          <div
-            key={`scramble-word-${currentIndex}`}
-            className="w-full rounded-[20px] p-6 sm:p-8 flex flex-col items-center gap-5 relative"
-            style={{
-              background: 'var(--surface-raised)',
-              border: '1px solid var(--border-subtle)',
-            }}
-          >
-            {/* Floating score */}
-            <AnimatePresence>
-              {floatingScore && (
-                <motion.span
-                  key={floatingScore.key}
-                  initial={{ opacity: 1, y: 0 }}
-                  animate={{ opacity: 0, y: -40 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.8 }}
-                  className="absolute top-2 left-1/2 -translate-x-1/2 text-lg font-bold text-emerald-400 pointer-events-none z-10"
-                >
-                  +{floatingScore.points}
-                </motion.span>
-              )}
-            </AnimatePresence>
-
-            {/* Clue: Arabic hint + audio */}
-            <div className="flex items-center gap-3">
-              <p className="text-xl font-bold text-[var(--text-primary)] font-['Tajawal']">
-                {currentItem.hint}
-              </p>
-              {currentItem.audioUrl && (
-                <button
-                  onClick={playAudio}
-                  className="w-10 h-10 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center hover:bg-sky-500/30 transition-colors flex-shrink-0"
-                  aria-label="تشغيل النطق"
-                >
-                  <Volume2 size={18} />
-                </button>
-              )}
-            </div>
-
-            {/* Answer slots */}
-            <div dir="ltr" style={{ direction: 'ltr' }} className="flex flex-wrap justify-center gap-2">
-              {answerSlots.map((letterId, idx) => {
-                const letter = letterId
-                  ? scrambledLetters.find(l => l.id === letterId)
-                  : null
-
-                return (
-                  <motion.button
-                    key={`slot-${idx}`}
-                    onClick={() => handleSlotClick(idx)}
-                    variants={feedback === 'wrong' ? shakeVariants : undefined}
-                    animate={feedback === 'wrong' ? 'shake' : undefined}
-                    className={`w-11 h-11 sm:w-12 sm:h-12 rounded-lg border-2 text-lg font-bold font-['Inter'] flex items-center justify-center transition-colors ${
-                      feedback === 'correct' && letter
-                        ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400'
-                        : feedback === 'wrong' && letter
-                          ? 'bg-red-500/20 border-red-500/50 text-red-400'
-                          : letter
-                            ? 'bg-sky-500/15 border-sky-500/40 text-sky-400 cursor-pointer hover:bg-sky-500/25'
-                            : 'border-dashed border-[var(--border-subtle)] bg-transparent'
-                    }`}
-                    disabled={!letter || !!feedback}
-                    layout
-                  >
-                    {letter?.char || ''}
-                  </motion.button>
-                )
-              })}
-            </div>
-
-            {/* Scrambled tiles */}
-            <div dir="ltr" style={{ direction: 'ltr' }} className="flex flex-wrap justify-center gap-2 min-h-[48px]">
-              {scrambledLetters.map((letter) => {
-                if (letter.placed) {
-                  // Invisible placeholder to keep layout stable
-                  return (
-                    <div
-                      key={letter.id}
-                      className="w-11 h-11 sm:w-12 sm:h-12"
-                    />
-                  )
-                }
-
-                return (
-                  <motion.button
-                    key={letter.id}
-                    onClick={() => handleTileClick(letter.id)}
-                    disabled={!!feedback}
-                    className="w-11 h-11 sm:w-12 sm:h-12 rounded-lg border text-lg font-bold font-['Inter'] flex items-center justify-center bg-[var(--surface-base)] border-[var(--border-subtle)] text-[var(--text-primary)] hover:border-sky-500/40 hover:bg-sky-500/10 active:scale-95 transition-all cursor-pointer"
-                    layout
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                  >
-                    {letter.char}
-                  </motion.button>
-                )
-              })}
-            </div>
-
-            {/* Hint button */}
-            {!feedback && answerSlots.some(s => s === null) && (
-              <button
-                onClick={handleHint}
-                className="flex items-center gap-1.5 text-xs text-[var(--text-muted)] hover:text-amber-400 transition-colors font-['Tajawal']"
+          {/* Floating score */}
+          <AnimatePresence>
+            {floatingScore && (
+              <motion.span
+                key={floatingScore.key}
+                initial={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 0, y: -40 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.8 }}
+                className="absolute top-2 left-1/2 -translate-x-1/2 text-lg font-bold text-emerald-400 pointer-events-none z-10"
               >
-                <Lightbulb size={14} />
-                تلميح
+                +{floatingScore.points}
+              </motion.span>
+            )}
+          </AnimatePresence>
+
+          {/* Clue: Arabic hint + audio */}
+          <div className="flex items-center gap-3">
+            <p className="text-xl font-bold text-[var(--text-primary)] font-['Tajawal']">
+              {currentItem.hint}
+            </p>
+            {currentItem.audioUrl && (
+              <button
+                onClick={playAudio}
+                className="w-10 h-10 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center hover:bg-sky-500/30 transition-colors flex-shrink-0"
+                aria-label="تشغيل النطق"
+              >
+                <Volume2 size={18} />
               </button>
             )}
           </div>
+
+          {/* Answer slots */}
+          <div dir="ltr" style={{ direction: 'ltr' }} className="flex flex-wrap justify-center gap-2">
+            {answerSlots.map((letterId, idx) => {
+              const letter = letterId
+                ? scrambledLetters.find(l => l.id === letterId)
+                : null
+
+              return (
+                <motion.button
+                  key={`slot-${currentIndex}-${idx}`}
+                  onClick={() => handleSlotClick(idx)}
+                  variants={feedback === 'wrong' ? shakeVariants : undefined}
+                  animate={feedback === 'wrong' ? 'shake' : undefined}
+                  className={`w-11 h-11 sm:w-12 sm:h-12 rounded-lg border-2 text-lg font-bold font-['Inter'] flex items-center justify-center transition-colors ${
+                    feedback === 'correct' && letter
+                      ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400'
+                      : feedback === 'wrong' && letter
+                        ? 'bg-red-500/20 border-red-500/50 text-red-400'
+                        : letter
+                          ? 'bg-sky-500/15 border-sky-500/40 text-sky-400 cursor-pointer hover:bg-sky-500/25'
+                          : 'border-dashed border-[var(--border-subtle)] bg-transparent'
+                  }`}
+                  disabled={!letter || !!feedback}
+                >
+                  {letter?.char || ''}
+                </motion.button>
+              )
+            })}
+          </div>
+
+          {/* Scrambled tiles */}
+          <div dir="ltr" style={{ direction: 'ltr' }} className="flex flex-wrap justify-center gap-2 min-h-[48px]">
+            {scrambledLetters.map((letter) => {
+              if (letter.placed) {
+                return (
+                  <div
+                    key={letter.id}
+                    className="w-11 h-11 sm:w-12 sm:h-12"
+                  />
+                )
+              }
+
+              return (
+                <motion.button
+                  key={letter.id}
+                  onClick={() => handleTileClick(letter.id)}
+                  disabled={!!feedback}
+                  className="w-11 h-11 sm:w-12 sm:h-12 rounded-lg border text-lg font-bold font-['Inter'] flex items-center justify-center bg-[var(--surface-base)] border-[var(--border-subtle)] text-[var(--text-primary)] hover:border-sky-500/40 hover:bg-sky-500/10 active:scale-95 transition-all cursor-pointer"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                >
+                  {letter.char}
+                </motion.button>
+              )
+            })}
+          </div>
+
+          {/* Hint button */}
+          {!feedback && answerSlots.some(s => s === null) && (
+            <button
+              onClick={handleHint}
+              className="flex items-center gap-1.5 text-xs text-[var(--text-muted)] hover:text-amber-400 transition-colors font-['Tajawal']"
+            >
+              <Lightbulb size={14} />
+              تلميح
+            </button>
+          )}
         </motion.div>
-      </AnimatePresence>
+      </div>
     </div>
   )
 }
