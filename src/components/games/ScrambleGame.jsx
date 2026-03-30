@@ -51,10 +51,21 @@ export default function ScrambleGame({
   const correctRef = useRef(0)
   const totalHintsRef = useRef(0)
 
+  // Refs to avoid stale closures in setTimeout callbacks
+  const currentIndexRef = useRef(0)
+  const roundItemsRef = useRef([])
+  const startTimeRef = useRef(null)
+
+  // Keep refs in sync with state
+  currentIndexRef.current = currentIndex
+  roundItemsRef.current = roundItems
+  startTimeRef.current = startTime
+
   const initWord = useCallback((item) => {
+    if (!item || !item.word) return
     const scrambled = scrambleWord(item.word).map((char, i) => ({
       char,
-      id: `${char}-${i}`,
+      id: `${char}-${i}-${Date.now()}`, // unique IDs per word
       placed: false,
     }))
     setScrambledLetters(scrambled)
@@ -67,13 +78,17 @@ export default function ScrambleGame({
     const selected = shuffle(items).slice(0, itemsPerRound)
     setRoundItems(selected)
     setCurrentIndex(0)
+    currentIndexRef.current = 0
+    roundItemsRef.current = selected
     setScore(0)
     setCorrect(0)
     setTotalHints(0)
     setFloatingScore(null)
     setIsComplete(false)
     setElapsed(0)
-    setStartTime(Date.now())
+    const now = Date.now()
+    setStartTime(now)
+    startTimeRef.current = now
     scoreRef.current = 0
     correctRef.current = 0
     totalHintsRef.current = 0
@@ -113,19 +128,33 @@ export default function ScrambleGame({
     audioRef.current.play().catch(() => {})
   }, [currentItem])
 
+  // Advance to next question — uses refs to always have fresh values
   const advanceToNext = useCallback(() => {
-    if (currentIndex + 1 >= roundItems.length) {
-      const finalTime = Math.floor((Date.now() - startTime) / 1000)
+    const idx = currentIndexRef.current
+    const items = roundItemsRef.current
+
+    if (idx + 1 >= items.length) {
+      const finalTime = Math.floor((Date.now() - (startTimeRef.current || Date.now())) / 1000)
       setElapsed(finalTime)
       setIsComplete(true)
       clearInterval(timerRef.current)
       onComplete?.({ score: scoreRef.current, time: finalTime, hintsUsed: totalHintsRef.current, correct: correctRef.current })
     } else {
-      const nextIdx = currentIndex + 1
+      const nextIdx = idx + 1
       setCurrentIndex(nextIdx)
-      initWord(roundItems[nextIdx])
+      currentIndexRef.current = nextIdx
+      initWord(items[nextIdx])
     }
-  }, [currentIndex, roundItems, startTime, onComplete, initWord])
+  }, [onComplete, initWord])
+
+  // Auto-advance after correct answer — separate effect to avoid stale closures
+  useEffect(() => {
+    if (feedback !== 'correct') return
+    const timer = setTimeout(() => {
+      advanceToNext()
+    }, 1000)
+    return () => clearTimeout(timer)
+  }, [feedback, advanceToNext])
 
   // Check answer whenever answerSlots changes
   useEffect(() => {
@@ -149,9 +178,7 @@ export default function ScrambleGame({
       setCorrect(correctRef.current)
       setFeedback('correct')
       setFloatingScore({ points, key: Date.now() })
-
-      const nextFn = advanceToNext
-      setTimeout(() => nextFn(), 1000)
+      // advanceToNext is now triggered by the feedback effect above
     } else {
       // Wrong
       setFeedback('wrong')

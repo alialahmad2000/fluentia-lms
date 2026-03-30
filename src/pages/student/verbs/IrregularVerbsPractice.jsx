@@ -90,7 +90,7 @@ export default function IrregularVerbsPractice() {
     return () => { mounted = false }
   }, [selectedLevelId])
 
-  const filteredVerbs = verbs.filter(v => {
+  const filteredVerbs = useMemo(() => verbs.filter(v => {
     if (!search.trim()) return true
     const q = search.toLowerCase()
     return (
@@ -99,7 +99,13 @@ export default function IrregularVerbsPractice() {
       v.verb_past_participle.toLowerCase().includes(q) ||
       v.meaning_ar.includes(search)
     )
-  })
+  }), [verbs, search])
+
+  // Memoize the verbs slice passed to game renderer to prevent game reset on parent re-render
+  const gameVerbs = useMemo(() =>
+    gameWordCount === Infinity ? filteredVerbs : filteredVerbs.slice(0, gameWordCount),
+    [filteredVerbs, gameWordCount]
+  )
 
   return (
     <div className="space-y-8 max-w-4xl mx-auto">
@@ -248,7 +254,7 @@ export default function IrregularVerbsPractice() {
       ) : (
         <VerbGameRenderer
           gameId={practiceMode}
-          verbs={gameWordCount === Infinity ? filteredVerbs : filteredVerbs.slice(0, gameWordCount)}
+          verbs={gameVerbs}
           allVerbs={filteredVerbs}
           difficulty={difficulty}
           onBack={() => setPracticeMode(null)}
