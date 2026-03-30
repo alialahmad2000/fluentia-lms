@@ -1,25 +1,14 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Volume2, CheckCircle, RotateCcw, ArrowRight, Star, Timer, Lightbulb, Zap } from 'lucide-react'
 
-function shuffle(arr) {
+function fisherYatesShuffle(arr) {
   const a = [...arr]
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
     ;[a[i], a[j]] = [a[j], a[i]]
   }
   return a
-}
-
-function scrambleWord(word) {
-  const letters = word.split('')
-  let scrambled
-  let attempts = 0
-  do {
-    scrambled = shuffle(letters)
-    attempts++
-  } while (scrambled.join('') === word && attempts < 20)
-  return scrambled
 }
 
 const ITEMS_PER_ROUND = 10
@@ -31,83 +20,139 @@ export default function ScrambleGame({
   onComplete,
   onBack,
 }) {
+  // === CORE STATE ===
   const [roundItems, setRoundItems] = useState([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [scrambledLetters, setScrambledLetters] = useState([])
   const [answerSlots, setAnswerSlots] = useState([])
-  const [feedback, setFeedback] = useState(null) // 'correct' | 'wrong'
+  const [feedback, setFeedback] = useState(null) // null | 'correct' | 'wrong'
+  const [score, setScore] = useState(0)
+  const [correct, setCorrect] = useState(0)
   const [hintsUsed, setHintsUsed] = useState(0)
   const [totalHints, setTotalHints] = useState(0)
-  const [score, setScore] = useState(0)
   const [floatingScore, setFloatingScore] = useState(null)
-  const [correct, setCorrect] = useState(0)
   const [isComplete, setIsComplete] = useState(false)
   const [startTime, setStartTime] = useState(null)
   const [elapsed, setElapsed] = useState(0)
+  const [roundKey, setRoundKey] = useState(0) // bumped to force new round
 
+  // Refs for timeout cleanup and stable values inside callbacks
+  const feedbackTimerRef = useRef(null)
   const audioRef = useRef(null)
   const timerRef = useRef(null)
-  const scoreRef = useRef(0)
-  const correctRef = useRef(0)
-  const totalHintsRef = useRef(0)
-  const currentIndexRef = useRef(0)
 
-  // Derive current item from state (triggers re-renders)
+  // === DERIVED VALUES ===
   const currentItem = roundItems[currentIndex] || null
 
-  // ── Initialize round: select items, reset all state ──────────
-  const initRound = useCallback(() => {
-    const selected = shuffle(items).slice(0, itemsPerRound)
+  const targetWord = useMemo(() => {
+    if (!currentItem) return ''
+    return (currentItem.word || currentItem.base_form || currentItem.english || '').trim()
+  }, [currentItem])
+
+  // === INIT ROUND — runs on mount and when roundKey changes (new round) ===
+  useEffect(() => {
+    if (!items || items.length === 0) return
+    const selected = fisherYatesShuffle(items).slice(0, itemsPerRound)
     setRoundItems(selected)
     setCurrentIndex(0)
-    currentIndexRef.current = 0
     setScore(0)
     setCorrect(0)
     setTotalHints(0)
+    setHintsUsed(0)
     setFloatingScore(null)
     setIsComplete(false)
     setFeedback(null)
     setElapsed(0)
     setStartTime(Date.now())
-    scoreRef.current = 0
-    correctRef.current = 0
-    totalHintsRef.current = 0
-    // Don't call initWord here — the useEffect below handles it
-  }, [items, itemsPerRound])
+  }, [roundKey]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Start a round when items are available
+  // Trigger first round on mount
   useEffect(() => {
-    if (items.length > 0) initRound()
-  }, [items, initRound])
+    if (items && items.length > 0) {
+      setRoundKey(k => k + 1)
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // ── KEY EFFECT: Regenerate scrambled letters when currentIndex or roundItems change ──
+  // === REGENERATE LETTERS when currentIndex or targetWord changes ===
   useEffect(() => {
-    const item = roundItems[currentIndex]
-    if (!item || !item.word) return
+    if (!targetWord) return
 
-    const word = item.word
-    const scrambled = scrambleWord(word).map((char, i) => ({
-      char,
+    const letters = targetWord.split('').map((char, i) => ({
       id: `${currentIndex}-${char}-${i}-${Date.now()}`,
+      char,
       placed: false,
     }))
-    setScrambledLetters(scrambled)
-    setAnswerSlots(new Array(word.length).fill(null))
+
+    // Shuffle, ensure not identical to original
+    let shuffled = fisherYatesShuffle(letters)
+    let attempts = 0
+    while (
+      shuffled.map(l => l.char).join('') === targetWord &&
+      attempts < 20
+    ) {
+      shuffled = fisherYatesShuffle(letters)
+      attempts++
+    }
+
+    setScrambledLetters(shuffled)
+    setAnswerSlots(new Array(targetWord.length).fill(null))
     setFeedback(null)
     setHintsUsed(0)
-  }, [currentIndex, roundItems])
+  }, [currentIndex, targetWord])
 
-  // Cleanup audio on unmount
+  // === CHECK ANSWER when all slots filled ===
   useEffect(() => {
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause()
-        audioRef.current = null
-      }
-    }
-  }, [])
+    // Only check when: no feedback showing, slots exist, all filled
+    if (feedback) return
+    if (answerSlots.length === 0) return
+    if (answerSlots.some(s => s === null)) return
+    if (!currentItem) return
 
-  // Timer
+    const builtWord = answerSlots
+      .map(id => scrambledLetters.find(l => l.id === id)?.char || '')
+      .join('')
+
+    const isCorrect = builtWord.toLowerCase() === targetWord.toLowerCase()
+
+    if (isCorrect) {
+      const points = hintsUsed === 0 ? 15 : hintsUsed === 1 ? 10 : hintsUsed === 2 ? 5 : 2
+      setScore(prev => prev + points)
+      setCorrect(prev => prev + 1)
+      setFeedback('correct')
+      setFloatingScore({ points, key: Date.now() })
+
+      // Auto-advance after delay
+      feedbackTimerRef.current = setTimeout(() => {
+        if (currentIndex + 1 < roundItems.length) {
+          setCurrentIndex(prev => prev + 1)
+          // The useEffect on [currentIndex, targetWord] will regenerate letters
+        } else {
+          // Game complete
+          const finalTime = Math.floor((Date.now() - (startTime || Date.now())) / 1000)
+          setElapsed(finalTime)
+          setIsComplete(true)
+          clearInterval(timerRef.current)
+          try {
+            onComplete?.({
+              score: score + points,
+              time: finalTime,
+              hintsUsed: totalHints,
+              correct: correct + 1,
+            })
+          } catch {}
+        }
+      }, 1000)
+    } else {
+      setFeedback('wrong')
+      feedbackTimerRef.current = setTimeout(() => {
+        setScrambledLetters(prev => prev.map(l => ({ ...l, placed: false })))
+        setAnswerSlots(new Array(targetWord.length).fill(null))
+        setFeedback(null)
+      }, 700)
+    }
+  }, [answerSlots]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // === TIMER ===
   useEffect(() => {
     if (!startTime || isComplete) return
     timerRef.current = setInterval(() => {
@@ -116,6 +161,19 @@ export default function ScrambleGame({
     return () => clearInterval(timerRef.current)
   }, [startTime, isComplete])
 
+  // === CLEANUP on unmount ===
+  useEffect(() => {
+    return () => {
+      if (feedbackTimerRef.current) clearTimeout(feedbackTimerRef.current)
+      if (timerRef.current) clearInterval(timerRef.current)
+      if (audioRef.current) {
+        audioRef.current.pause()
+        audioRef.current = null
+      }
+    }
+  }, [])
+
+  // === HANDLERS ===
   const playAudio = useCallback((e) => {
     if (e) e.stopPropagation()
     if (!currentItem?.audioUrl) return
@@ -124,97 +182,41 @@ export default function ScrambleGame({
     audioRef.current.play().catch(() => {})
   }, [currentItem])
 
-  // ── Advance to next question ─────────────────────────────────
-  // Only changes the index — the useEffect above handles re-initialization
-  const advanceToNext = useCallback(() => {
-    const idx = currentIndexRef.current
-    const ri = roundItems
-
-    if (idx + 1 >= ri.length) {
-      const finalTime = Math.floor((Date.now() - (startTime || Date.now())) / 1000)
-      setElapsed(finalTime)
-      setIsComplete(true)
-      clearInterval(timerRef.current)
-      onComplete?.({ score: scoreRef.current, time: finalTime, hintsUsed: totalHintsRef.current, correct: correctRef.current })
-    } else {
-      const nextIdx = idx + 1
-      currentIndexRef.current = nextIdx
-      setCurrentIndex(nextIdx) // triggers re-render → useEffect regenerates letters
-    }
-  }, [roundItems, startTime, onComplete])
-
-  // ── Auto-advance after correct answer ────────────────────────
-  useEffect(() => {
-    if (feedback !== 'correct') return
-    const timer = setTimeout(() => {
-      advanceToNext()
-    }, 1000)
-    return () => clearTimeout(timer)
-  }, [feedback, advanceToNext])
-
-  // ── Check answer whenever answerSlots changes ────────────────
-  useEffect(() => {
-    if (!currentItem || feedback) return
-    const allFilled = answerSlots.every(s => s !== null)
-    if (!allFilled) return
-
-    const builtWord = answerSlots
-      .map(id => scrambledLetters.find(l => l.id === id)?.char || '')
-      .join('')
-
-    if (builtWord.toLowerCase() === currentItem.word.toLowerCase()) {
-      const points = hintsUsed === 0 ? 15 : hintsUsed === 1 ? 10 : hintsUsed === 2 ? 5 : 2
-      scoreRef.current += points
-      correctRef.current += 1
-      setScore(scoreRef.current)
-      setCorrect(correctRef.current)
-      setFeedback('correct')
-      setFloatingScore({ points, key: Date.now() })
-    } else {
-      setFeedback('wrong')
-      setTimeout(() => {
-        setScrambledLetters(prev => prev.map(l => ({ ...l, placed: false })))
-        setAnswerSlots(new Array(currentItem.word.length).fill(null))
-        setFeedback(null)
-      }, 700)
-    }
-  }, [answerSlots]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  const handleTileClick = (letterId) => {
+  const handleTileClick = useCallback((letterId) => {
     if (feedback) return
-    const letter = scrambledLetters.find(l => l.id === letterId)
-    if (!letter || letter.placed) return
-    const emptyIdx = answerSlots.indexOf(null)
-    if (emptyIdx === -1) return
-
-    setScrambledLetters(prev =>
-      prev.map(l => l.id === letterId ? { ...l, placed: true } : l)
-    )
+    setScrambledLetters(prev => {
+      const letter = prev.find(l => l.id === letterId)
+      if (!letter || letter.placed) return prev
+      return prev.map(l => l.id === letterId ? { ...l, placed: true } : l)
+    })
     setAnswerSlots(prev => {
+      const emptyIdx = prev.indexOf(null)
+      if (emptyIdx === -1) return prev
       const next = [...prev]
       next[emptyIdx] = letterId
       return next
     })
-  }
+  }, [feedback])
 
-  const handleSlotClick = (slotIdx) => {
+  const handleSlotClick = useCallback((slotIdx) => {
     if (feedback) return
-    const letterId = answerSlots[slotIdx]
-    if (!letterId) return
-
-    setScrambledLetters(prev =>
-      prev.map(l => l.id === letterId ? { ...l, placed: false } : l)
-    )
     setAnswerSlots(prev => {
+      const letterId = prev[slotIdx]
+      if (!letterId) return prev
       const next = [...prev]
       next[slotIdx] = null
       return next
     })
-  }
+    setScrambledLetters(prev => {
+      const letterId = answerSlots[slotIdx]
+      if (!letterId) return prev
+      return prev.map(l => l.id === letterId ? { ...l, placed: false } : l)
+    })
+  }, [feedback, answerSlots])
 
-  const handleHint = () => {
+  const handleHint = useCallback(() => {
     if (feedback || !currentItem) return
-    const word = currentItem.word
+    const word = targetWord
 
     const emptyPositions = []
     for (let i = 0; i < word.length; i++) {
@@ -255,10 +257,15 @@ export default function ScrambleGame({
     })
 
     setHintsUsed(h => h + 1)
-    totalHintsRef.current += 1
-    setTotalHints(totalHintsRef.current)
-  }
+    setTotalHints(h => h + 1)
+  }, [feedback, currentItem, targetWord, answerSlots, scrambledLetters])
 
+  const startNewRound = useCallback(() => {
+    if (feedbackTimerRef.current) clearTimeout(feedbackTimerRef.current)
+    setRoundKey(k => k + 1)
+  }, [])
+
+  // === HELPERS ===
   const formatTime = (s) => {
     const m = Math.floor(s / 60)
     const sec = s % 60
@@ -338,7 +345,7 @@ export default function ScrambleGame({
 
         <div className="flex gap-3 mt-4">
           <button
-            onClick={initRound}
+            onClick={startNewRound}
             className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-bold bg-sky-500/20 text-sky-400 border border-sky-500/30 hover:bg-sky-500/30 transition-colors font-['Tajawal']"
           >
             <RotateCcw size={16} />
@@ -358,9 +365,9 @@ export default function ScrambleGame({
     )
   }
 
-  if (!currentItem) return null
+  if (!currentItem || !targetWord) return null
 
-  const progress = currentIndex / roundItems.length
+  const progress = roundItems.length > 0 ? currentIndex / roundItems.length : 0
 
   return (
     <div className="flex flex-col items-center gap-5 w-full max-w-lg mx-auto" dir="rtl">
@@ -389,7 +396,7 @@ export default function ScrambleGame({
         </div>
       </div>
 
-      {/* Card — no AnimatePresence mode="wait" to avoid blocking next question render */}
+      {/* Card */}
       <div key={`scramble-card-${currentIndex}`} className="w-full">
         <motion.div
           key={`scramble-motion-${currentIndex}`}
