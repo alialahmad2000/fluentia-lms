@@ -59,7 +59,7 @@ export default function CurriculumProgress() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('curriculum_levels')
-        .select('id, level_number, name_ar, name_en, color')
+        .select('*')
         .order('level_number')
       if (error) throw error
       return data || []
@@ -303,7 +303,7 @@ function LevelUnits({ level, allStudents, allProgress, filterGroup, onFilterGrou
     queryFn: async () => {
       const { data, error } = await supabase
         .from('curriculum_units')
-        .select('id, unit_number, theme_ar, theme_en, description_ar')
+        .select('*')
         .eq('level_id', level.id)
         .order('unit_number')
       if (error) throw error

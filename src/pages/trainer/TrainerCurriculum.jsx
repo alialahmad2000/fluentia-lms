@@ -230,21 +230,25 @@ function GroupUnits({ group, selectedStudent, onStudentChange, onUnitClick }) {
   })
 
   // Get level + units
-  const { data: levelData, isLoading } = useQuery({
-    queryKey: ['level-units', group.level],
+  const { data: levelData, isLoading, error: levelError } = useQuery({
+    queryKey: ['trainer-level-units', group.id, group.level],
     queryFn: async () => {
-      const { data: level } = await supabase
+      const { data: level, error: lvlErr } = await supabase
         .from('curriculum_levels')
-        .select('id, level_number, name_ar, name_en')
+        .select('*')
         .eq('level_number', group.level)
         .single()
-      if (!level) return { level: null, units: [] }
+      if (lvlErr || !level) {
+        console.error('[TrainerCurriculum] Level query failed:', lvlErr, 'group.level =', group.level)
+        return { level: null, units: [] }
+      }
 
-      const { data: units } = await supabase
+      const { data: units, error: unitsErr } = await supabase
         .from('curriculum_units')
-        .select('id, unit_number, theme_ar, theme_en, description_ar')
+        .select('*')
         .eq('level_id', level.id)
         .order('unit_number')
+      if (unitsErr) console.error('[TrainerCurriculum] Units query failed:', unitsErr)
       return { level, units: units || [] }
     },
   })
