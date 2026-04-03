@@ -3,6 +3,8 @@ import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Headphones, Play, Pause, SkipBack, SkipForward, Eye, EyeOff, CheckCircle, XCircle } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
+import { useAuthStore } from '../../../../stores/authStore'
+import { toast } from '../../../../components/ui/FluentiaToast'
 
 const QUESTION_TYPE_LABELS = {
   main_idea: 'الفكرة الرئيسية',
@@ -20,6 +22,8 @@ const QUESTION_TYPE_COLORS = {
 
 // ─── Main Component ─────────────────────────────────
 export default function ListeningTab({ unitId }) {
+  const { user } = useAuthStore()
+
   const { data: listenings, isLoading } = useQuery({
     queryKey: ['unit-listening', unitId],
     queryFn: async () => {
@@ -48,14 +52,14 @@ export default function ListeningTab({ unitId }) {
   return (
     <div className="space-y-6">
       {listenings.map((listening) => (
-        <ListeningSection key={listening.id} listening={listening} />
+        <ListeningSection key={listening.id} listening={listening} studentId={user?.id} unitId={unitId} />
       ))}
     </div>
   )
 }
 
 // ─── Listening Section ───────────────────────────────
-function ListeningSection({ listening }) {
+function ListeningSection({ listening, studentId, unitId }) {
   const [showTranscript, setShowTranscript] = useState(false)
 
   const exercises = (listening.exercises || []).sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0))
@@ -131,7 +135,7 @@ function ListeningSection({ listening }) {
 
       {/* Exercises */}
       {exercises.length > 0 && (
-        <ListeningExercises exercises={exercises} />
+        <ListeningExercises exercises={exercises} studentId={studentId} unitId={unitId} listeningId={listening.id} />
       )}
     </div>
   )
@@ -256,22 +260,149 @@ function AudioPlayer({ url, duration: initialDuration }) {
 }
 
 // ─── Listening Exercises ─────────────────────────────
-function ListeningExercises({ exercises }) {
+function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
   const [answers, setAnswers] = useState({})
+  const [progressLoading, setProgressLoading] = useState(true)
+  const [isCompleted, setIsCompleted] = useState(false)
+  const hasSaved = useRef(false)
+  const timeRef = useRef(0)
+  const timerRef = useRef(null)
+  const prevAnsweredRef = useRef(0)
+
   const total = exercises.length
   const answered = Object.keys(answers).length
   const correctCount = Object.values(answers).filter(a => a.correct).length
+
+  // Time tracker
+  useEffect(() => {
+    timerRef.current = setInterval(() => { timeRef.current += 1 }, 1000)
+    return () => clearInterval(timerRef.current)
+  }, [])
+
+  // Load saved progress
+  useEffect(() => {
+    if (!studentId || !listeningId) { setProgressLoading(false); return }
+    let isMounted = true
+    const load = async () => {
+      const { data } = await supabase
+        .from('student_curriculum_progress')
+        .select('*')
+        .eq('student_id', studentId)
+        .eq('listening_id', listeningId)
+        .maybeSingle()
+      if (!isMounted) return
+      if (data) {
+        if (data.answers?.questions) {
+          const restored = {}
+          data.answers.questions.forEach(q => {
+            restored[q.questionIndex] = { selected: q.studentAnswer, correct: q.isCorrect }
+          })
+          setAnswers(restored)
+          prevAnsweredRef.current = Object.keys(restored).length
+        }
+        setIsCompleted(data.status === 'completed')
+        if (data.time_spent_seconds) timeRef.current = data.time_spent_seconds
+        if (data.status === 'completed') hasSaved.current = true
+      }
+      setProgressLoading(false)
+    }
+    load()
+    return () => { isMounted = false }
+  }, [studentId, listeningId])
+
+  // Build results for saving
+  const buildResults = useCallback((currentAnswers) => {
+    return exercises.map((ex, idx) => {
+      const ans = currentAnswers[idx]
+      return {
+        questionIndex: idx,
+        question: ex.question_en,
+        studentAnswer: ans?.selected ?? null,
+        correctAnswer: ex.correct_answer_index,
+        isCorrect: ans?.correct || false,
+      }
+    })
+  }, [exercises])
+
+  // Save progress
+  const saveProgress = useCallback(async (currentAnswers, isComplete) => {
+    if (!studentId || !listeningId) return
+    const results = buildResults(currentAnswers)
+    const answeredCount = Object.keys(currentAnswers).length
+    const correct = Object.values(currentAnswers).filter(a => a.correct).length
+    const score = answeredCount > 0 ? Math.round((correct / total) * 100) : 0
+
+    const { error } = await supabase
+      .from('student_curriculum_progress')
+      .upsert({
+        student_id: studentId,
+        unit_id: unitId,
+        listening_id: listeningId,
+        section_type: 'listening',
+        status: isComplete ? 'completed' : 'in_progress',
+        score,
+        answers: { questions: results },
+        time_spent_seconds: timeRef.current,
+        completed_at: isComplete ? new Date().toISOString() : null,
+      }, {
+        onConflict: 'student_id,listening_id',
+      })
+    if (!error && isComplete) {
+      setIsCompleted(true)
+      toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
+    }
+  }, [studentId, unitId, listeningId, total, buildResults])
+
+  // Auto-save after each new answer
+  useEffect(() => {
+    if (progressLoading) return
+    if (answered === 0 || answered <= prevAnsweredRef.current) return
+    prevAnsweredRef.current = answered
+    const isComplete = answered === total
+    if (isComplete && hasSaved.current) return
+    if (isComplete) hasSaved.current = true
+    saveProgress(answers, isComplete)
+  }, [answered, total, answers, progressLoading, saveProgress])
+
+  if (progressLoading) {
+    return (
+      <div className="space-y-4">
+        <div className="h-5 w-28 rounded bg-[rgba(255,255,255,0.06)] animate-pulse" />
+        {Array.from({ length: 3 }).map((_, i) => (
+          <div key={i} className="h-32 rounded-xl bg-[rgba(255,255,255,0.06)] animate-pulse" />
+        ))}
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h3 className="text-base font-bold text-[var(--text-primary)] font-['Tajawal']">أسئلة الاستماع</h3>
-        {answered > 0 && (
-          <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">
-            {correctCount}/{answered} صحيحة
-          </span>
-        )}
+        <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">
+          {answered > 0 ? `${correctCount}/${answered} صحيحة · ` : ''}أجبت على {answered} من {total} أسئلة
+        </span>
       </div>
+
+      {/* Progress bar */}
+      <div className="h-1.5 rounded-full bg-[var(--surface-base)] overflow-hidden">
+        <div
+          className="h-full rounded-full transition-all duration-500"
+          style={{
+            width: `${total > 0 ? (answered / total) * 100 : 0}%`,
+            background: answered === total && total > 0 ? '#10b981' : '#a855f7',
+          }}
+        />
+      </div>
+
+      {/* Completed badge */}
+      {isCompleted && (
+        <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25">
+          <CheckCircle size={16} className="text-emerald-400" />
+          <span className="text-sm font-medium text-emerald-400 font-['Tajawal']">تم إكمال هذا القسم</span>
+        </div>
+      )}
+
       <div className="space-y-4">
         {exercises.map((ex, idx) => (
           <ListeningMCQ
