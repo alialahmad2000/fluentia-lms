@@ -1,8 +1,10 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FileEdit, Lightbulb, Save, Send, Bot, ChevronDown, CheckCircle2, BookOpen, Target } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
+import { useAuthStore } from '../../../../stores/authStore'
+import { toast } from '../../../../components/ui/FluentiaToast'
 
 // ─── Storage helpers ─────────────────────────────────
 const draftKey = (taskId) => `fluentia_writing_draft_${taskId}`
@@ -22,6 +24,8 @@ function countWords(text) {
 
 // ─── Main Component ──────────────────────────────────
 export default function WritingTab({ unitId }) {
+  const { user } = useAuthStore()
+
   const { data: tasks, isLoading } = useQuery({
     queryKey: ['unit-writing', unitId],
     queryFn: async () => {
@@ -51,39 +55,128 @@ export default function WritingTab({ unitId }) {
   return (
     <div className="space-y-6">
       {tasks.map((task, idx) => (
-        <WritingTask key={task.id} task={task} number={idx + 1} total={tasks.length} />
+        <WritingTask key={task.id} task={task} number={idx + 1} total={tasks.length} studentId={user?.id} unitId={unitId} />
       ))}
     </div>
   )
 }
 
 // ─── Writing Task ────────────────────────────────────
-function WritingTask({ task, number, total }) {
-  const [text, setText] = useState(() => loadDraft(task.id))
+function WritingTask({ task, number, total, studentId, unitId }) {
+  const [text, setText] = useState('')
   const [saved, setSaved] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [hintsOpen, setHintsOpen] = useState(false)
+  const [lastSavedAt, setLastSavedAt] = useState(null)
+  const [progressLoading, setProgressLoading] = useState(true)
+  const timeRef = useRef(0)
+  const timerRef = useRef(null)
+  const dbSaveTimer = useRef(null)
 
   const wordCount = countWords(text)
   const inRange = wordCount >= task.word_count_min && wordCount <= task.word_count_max
   const underMin = wordCount > 0 && wordCount < task.word_count_min
 
-  // Auto-save draft on change (debounced)
+  // Time tracker
   useEffect(() => {
+    timerRef.current = setInterval(() => { timeRef.current += 1 }, 1000)
+    return () => clearInterval(timerRef.current)
+  }, [])
+
+  // Load progress from DB first, fall back to localStorage
+  useEffect(() => {
+    if (!studentId || !task.id) {
+      setText(loadDraft(task.id))
+      setProgressLoading(false)
+      return
+    }
+    let isMounted = true
+    const load = async () => {
+      const { data } = await supabase
+        .from('student_curriculum_progress')
+        .select('*')
+        .eq('student_id', studentId)
+        .eq('writing_id', task.id)
+        .maybeSingle()
+      if (!isMounted) return
+      if (data?.answers?.draft) {
+        setText(data.answers.draft)
+        setSubmitted(data.status === 'completed')
+        if (data.time_spent_seconds) timeRef.current = data.time_spent_seconds
+        if (data.answers?.lastSavedAt) setLastSavedAt(new Date(data.answers.lastSavedAt))
+      } else {
+        // Fall back to localStorage
+        setText(loadDraft(task.id))
+      }
+      setProgressLoading(false)
+    }
+    load()
+    return () => { isMounted = false }
+  }, [studentId, task.id])
+
+  // Save to DB
+  const saveToDb = useCallback(async (currentText, isSubmit = false) => {
+    if (!studentId || !task.id) return
+    const wc = countWords(currentText)
+    const meetsMin = wc >= task.word_count_min
+    const now = new Date().toISOString()
+
+    const { error } = await supabase
+      .from('student_curriculum_progress')
+      .upsert({
+        student_id: studentId,
+        unit_id: unitId,
+        writing_id: task.id,
+        section_type: 'writing',
+        status: isSubmit && meetsMin ? 'completed' : 'in_progress',
+        score: null,
+        answers: { draft: currentText, wordCount: wc, lastSavedAt: now },
+        time_spent_seconds: timeRef.current,
+        completed_at: isSubmit && meetsMin ? now : null,
+      }, { onConflict: 'student_id,writing_id' })
+
+    if (!error) setLastSavedAt(new Date(now))
+    return error
+  }, [studentId, unitId, task.id, task.word_count_min])
+
+  // Auto-save to localStorage on change (debounced 500ms)
+  useEffect(() => {
+    if (progressLoading) return
     const t = setTimeout(() => saveDraft(task.id, text), 500)
     return () => clearTimeout(t)
-  }, [text, task.id])
+  }, [text, task.id, progressLoading])
 
-  const handleSave = useCallback(() => {
+  // Auto-save to DB every 30 seconds while typing
+  useEffect(() => {
+    if (progressLoading || submitted) return
+    clearTimeout(dbSaveTimer.current)
+    dbSaveTimer.current = setTimeout(() => {
+      if (text.trim()) saveToDb(text)
+    }, 30000)
+    return () => clearTimeout(dbSaveTimer.current)
+  }, [text, progressLoading, submitted, saveToDb])
+
+  // Save to DB on unmount
+  useEffect(() => {
+    return () => {
+      clearTimeout(dbSaveTimer.current)
+    }
+  }, [])
+
+  const handleSave = useCallback(async () => {
     saveDraft(task.id, text)
+    await saveToDb(text)
     setSaved(true)
     setTimeout(() => setSaved(false), 2000)
-  }, [task.id, text])
+    toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
+  }, [task.id, text, saveToDb])
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = useCallback(async () => {
     saveDraft(task.id, text)
+    await saveToDb(text, true)
     setSubmitted(true)
-  }, [task.id, text])
+    toast({ type: 'success', title: 'تم إرسال كتابتك ✅' })
+  }, [task.id, text, saveToDb])
 
   const taskTypeAr = {
     paragraph: 'فقرة',
@@ -226,8 +319,17 @@ function WritingTask({ task, number, total }) {
         </div>
       )}
 
+      {/* Last saved timestamp */}
+      {lastSavedAt && !submitted && (
+        <p className="text-[11px] text-[var(--text-muted)] font-['Tajawal']">
+          آخر حفظ: <RelativeTime date={lastSavedAt} />
+        </p>
+      )}
+
       {/* Text area */}
-      {!submitted ? (
+      {progressLoading ? (
+        <div className="h-48 rounded-xl bg-[var(--surface-raised)] animate-pulse" />
+      ) : !submitted ? (
         <div className="space-y-3">
           <textarea
             value={text}
@@ -326,6 +428,20 @@ function WritingTask({ task, number, total }) {
       </div>
     </div>
   )
+}
+
+// ─── Relative Time Display ───────────────────────────
+function RelativeTime({ date }) {
+  const [, setTick] = useState(0)
+  useEffect(() => {
+    const id = setInterval(() => setTick(t => t + 1), 30000)
+    return () => clearInterval(id)
+  }, [])
+  const diff = Math.floor((Date.now() - date.getTime()) / 1000)
+  if (diff < 60) return 'الآن'
+  if (diff < 3600) return `قبل ${Math.floor(diff / 60)} دقيقة`
+  if (diff < 86400) return `قبل ${Math.floor(diff / 3600)} ساعة`
+  return `قبل ${Math.floor(diff / 86400)} يوم`
 }
 
 // ─── Skeleton ────────────────────────────────────────
