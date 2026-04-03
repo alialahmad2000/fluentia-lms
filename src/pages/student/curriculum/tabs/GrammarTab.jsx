@@ -1,9 +1,11 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { PenLine, CheckCircle, XCircle, ChevronDown, AlertTriangle, Lightbulb, ArrowLeftRight } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { validateAnswer } from '../../../../utils/answerValidator'
+import { useAuthStore } from '../../../../stores/authStore'
+import { toast } from '../../../../components/ui/FluentiaToast'
 
 const EXERCISE_TYPE_LABELS = {
   fill_blank: 'أكمل الفراغ',
@@ -16,6 +18,8 @@ const EXERCISE_TYPE_LABELS = {
 
 // ─── Main Component ─────────────────────────────────
 export default function GrammarTab({ unitId }) {
+  const { user } = useAuthStore()
+
   const { data: topics, isLoading } = useQuery({
     queryKey: ['unit-grammar', unitId],
     queryFn: async () => {
@@ -48,14 +52,14 @@ export default function GrammarTab({ unitId }) {
   return (
     <div className="space-y-6">
       {topics.map((topic, idx) => (
-        <GrammarTopic key={topic.id} topic={topic} index={idx} defaultOpen={idx === 0} />
+        <GrammarTopic key={topic.id} topic={topic} index={idx} defaultOpen={idx === 0} studentId={user?.id} unitId={unitId} />
       ))}
     </div>
   )
 }
 
 // ─── Grammar Topic Card ──────────────────────────────
-function GrammarTopic({ topic, index, defaultOpen }) {
+function GrammarTopic({ topic, index, defaultOpen, studentId, unitId }) {
   const [open, setOpen] = useState(defaultOpen)
   const [showExercises, setShowExercises] = useState(false)
 
@@ -120,7 +124,7 @@ function GrammarTopic({ topic, index, defaultOpen }) {
                       تمارين ({topic.exercises.length})
                     </button>
                   ) : (
-                    <ExerciseSection exercises={topic.exercises} />
+                    <ExerciseSection exercises={topic.exercises} studentId={studentId} unitId={unitId} grammarId={topic.id} />
                   )}
                 </div>
               )}
@@ -261,22 +265,149 @@ function CommonMistakesSection({ section }) {
 }
 
 // ─── Exercise Section ────────────────────────────────
-function ExerciseSection({ exercises }) {
+function ExerciseSection({ exercises, studentId, unitId, grammarId }) {
   const [answers, setAnswers] = useState({})
+  const [progressLoading, setProgressLoading] = useState(true)
+  const [isCompleted, setIsCompleted] = useState(false)
+  const hasSaved = useRef(false)
+  const timeRef = useRef(0)
+  const timerRef = useRef(null)
+  const prevAnsweredRef = useRef(0)
+
   const total = exercises.length
   const answered = Object.keys(answers).length
   const correctCount = Object.values(answers).filter(a => a.correct).length
+
+  // Time tracker
+  useEffect(() => {
+    timerRef.current = setInterval(() => { timeRef.current += 1 }, 1000)
+    return () => clearInterval(timerRef.current)
+  }, [])
+
+  // Load saved progress
+  useEffect(() => {
+    if (!studentId || !grammarId) { setProgressLoading(false); return }
+    let isMounted = true
+    const load = async () => {
+      const { data } = await supabase
+        .from('student_curriculum_progress')
+        .select('*')
+        .eq('student_id', studentId)
+        .eq('grammar_id', grammarId)
+        .maybeSingle()
+      if (!isMounted) return
+      if (data) {
+        if (data.answers?.exercises) {
+          const restored = {}
+          data.answers.exercises.forEach(ex => {
+            restored[ex.id] = { selected: ex.studentAnswer, correct: ex.isCorrect }
+          })
+          setAnswers(restored)
+          prevAnsweredRef.current = Object.keys(restored).length
+        }
+        setIsCompleted(data.status === 'completed')
+        if (data.time_spent_seconds) timeRef.current = data.time_spent_seconds
+        if (data.status === 'completed') hasSaved.current = true
+      }
+      setProgressLoading(false)
+    }
+    load()
+    return () => { isMounted = false }
+  }, [studentId, grammarId])
+
+  // Build exercise results for saving
+  const buildResults = useCallback((currentAnswers) => {
+    return exercises.map(ex => {
+      const ans = currentAnswers[ex.id]
+      const item = ex.items?.[0]
+      return {
+        id: ex.id,
+        type: ex.exercise_type,
+        studentAnswer: ans?.selected || null,
+        correctAnswer: item?.correct_answer || null,
+        isCorrect: ans?.correct || false,
+      }
+    })
+  }, [exercises])
+
+  // Save progress (partial or complete)
+  const saveProgress = useCallback(async (currentAnswers, isComplete) => {
+    if (!studentId || !grammarId) return
+    const results = buildResults(currentAnswers)
+    const answeredCount = Object.keys(currentAnswers).length
+    const correct = Object.values(currentAnswers).filter(a => a.correct).length
+    const score = answeredCount > 0 ? Math.round((correct / total) * 100) : 0
+
+    const { error } = await supabase
+      .from('student_curriculum_progress')
+      .upsert({
+        student_id: studentId,
+        unit_id: unitId,
+        grammar_id: grammarId,
+        section_type: 'grammar',
+        status: isComplete ? 'completed' : 'in_progress',
+        score,
+        answers: { exercises: results },
+        time_spent_seconds: timeRef.current,
+        completed_at: isComplete ? new Date().toISOString() : null,
+      }, {
+        onConflict: 'student_id,grammar_id',
+      })
+    if (!error && isComplete) {
+      setIsCompleted(true)
+      toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
+    }
+  }, [studentId, unitId, grammarId, total, buildResults])
+
+  // Auto-save after each new answer
+  useEffect(() => {
+    if (progressLoading) return
+    if (answered === 0 || answered <= prevAnsweredRef.current) return
+    prevAnsweredRef.current = answered
+    const isComplete = answered === total
+    if (isComplete && hasSaved.current) return
+    if (isComplete) hasSaved.current = true
+    saveProgress(answers, isComplete)
+  }, [answered, total, answers, progressLoading, saveProgress])
+
+  if (progressLoading) {
+    return (
+      <div className="space-y-3">
+        <div className="h-5 w-20 rounded bg-[rgba(255,255,255,0.06)] animate-pulse" />
+        {Array.from({ length: 3 }).map((_, i) => (
+          <div key={i} className="h-28 rounded-xl bg-[rgba(255,255,255,0.06)] animate-pulse" />
+        ))}
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-bold text-[var(--text-primary)] font-['Tajawal']">التمارين</h3>
-        {answered > 0 && (
-          <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">
-            {correctCount}/{answered} صحيحة
-          </span>
-        )}
+        <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">
+          {answered > 0 ? `${correctCount}/${answered} صحيحة` : ''}{answered > 0 && ' · '}أكملت {answered} من {total} تمارين
+        </span>
       </div>
+
+      {/* Progress bar */}
+      <div className="h-1.5 rounded-full bg-[var(--surface-base)] overflow-hidden">
+        <div
+          className="h-full rounded-full transition-all duration-500"
+          style={{
+            width: `${total > 0 ? (answered / total) * 100 : 0}%`,
+            background: answered === total && total > 0 ? '#10b981' : '#0ea5e9',
+          }}
+        />
+      </div>
+
+      {/* Completed badge */}
+      {isCompleted && (
+        <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25">
+          <CheckCircle size={16} className="text-emerald-400" />
+          <span className="text-sm font-medium text-emerald-400 font-['Tajawal']">تم إكمال هذا القسم</span>
+        </div>
+      )}
 
       <div className="space-y-3">
         {exercises.map((ex, idx) => (
