@@ -3,6 +3,8 @@ import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BookOpen, Volume2, CheckCircle, XCircle, Lightbulb, MessageSquare, ChevronDown } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
+import { useAuthStore } from '../../../../stores/authStore'
+import { toast } from '../../../../components/ui/FluentiaToast'
 
 const QUESTION_TYPE_LABELS = {
   main_idea: 'الفكرة الرئيسية',
@@ -21,6 +23,7 @@ const QUESTION_TYPE_COLORS = {
 // ─── Main Component ─────────────────────────────────
 export default function ReadingTab({ unitId }) {
   const [activeReading, setActiveReading] = useState(0)
+  const { user } = useAuthStore()
 
   const { data: readings, isLoading } = useQuery({
     queryKey: ['unit-readings', unitId],
@@ -79,7 +82,7 @@ export default function ReadingTab({ unitId }) {
           transition={{ duration: 0.2 }}
           className="space-y-6"
         >
-          <ReadingContent reading={reading} />
+          <ReadingContent reading={reading} studentId={user?.id} unitId={unitId} />
         </motion.div>
       </AnimatePresence>
     </div>
@@ -87,7 +90,66 @@ export default function ReadingTab({ unitId }) {
 }
 
 // ─── Reading Content (passage + vocab + questions + critical thinking) ───
-function ReadingContent({ reading }) {
+function ReadingContent({ reading, studentId, unitId }) {
+  const [savedProgress, setSavedProgress] = useState(null)
+  const [progressLoading, setProgressLoading] = useState(true)
+  const [isCompleted, setIsCompleted] = useState(false)
+  const timeRef = useRef(0)
+  const timerRef = useRef(null)
+
+  // Time tracker — starts on mount, stops on unmount
+  useEffect(() => {
+    timerRef.current = setInterval(() => { timeRef.current += 1 }, 1000)
+    return () => clearInterval(timerRef.current)
+  }, [])
+
+  // Load existing progress
+  useEffect(() => {
+    if (!studentId || !reading?.id) { setProgressLoading(false); return }
+    let isMounted = true
+    const load = async () => {
+      const { data } = await supabase
+        .from('student_curriculum_progress')
+        .select('*')
+        .eq('student_id', studentId)
+        .eq('reading_id', reading.id)
+        .maybeSingle()
+      if (!isMounted) return
+      if (data) {
+        setSavedProgress(data)
+        setIsCompleted(data.status === 'completed')
+        if (data.time_spent_seconds) timeRef.current = data.time_spent_seconds
+      }
+      setProgressLoading(false)
+    }
+    load()
+    return () => { isMounted = false }
+  }, [studentId, reading?.id])
+
+  // Save progress callback
+  const handleComprehensionComplete = useCallback(async (answers, score) => {
+    if (!studentId || !reading?.id) return
+    const { error } = await supabase
+      .from('student_curriculum_progress')
+      .upsert({
+        student_id: studentId,
+        unit_id: unitId,
+        reading_id: reading.id,
+        section_type: 'reading',
+        status: 'completed',
+        score,
+        answers,
+        time_spent_seconds: timeRef.current,
+        completed_at: new Date().toISOString(),
+      }, {
+        onConflict: 'student_id,reading_id',
+      })
+    if (!error) {
+      setIsCompleted(true)
+      toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
+    }
+  }, [studentId, reading?.id, unitId])
+
   const { data: vocabulary } = useQuery({
     queryKey: ['reading-vocab', reading.id],
     queryFn: async () => {
@@ -122,6 +184,14 @@ function ReadingContent({ reading }) {
 
   return (
     <div className="space-y-6">
+      {/* Completed badge */}
+      {isCompleted && (
+        <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25">
+          <CheckCircle size={18} className="text-emerald-400" />
+          <span className="text-sm font-medium text-emerald-400 font-['Tajawal']">تم إكمال هذا القسم</span>
+        </div>
+      )}
+
       {/* Before-Read Hero Image */}
       {reading.before_read_image_url && (
         <div className="rounded-2xl overflow-hidden border border-[var(--border-subtle)]">
@@ -204,7 +274,12 @@ function ReadingContent({ reading }) {
 
       {/* Comprehension Questions */}
       {questions?.length > 0 && (
-        <ComprehensionSection questions={questions} />
+        <ComprehensionSection
+          questions={questions}
+          savedAnswers={savedProgress?.answers}
+          progressLoading={progressLoading}
+          onComplete={handleComprehensionComplete}
+        />
       )}
 
       {/* Critical Thinking */}
@@ -467,11 +542,41 @@ function VocabularyBox({ vocabulary }) {
 }
 
 // ─── Comprehension Questions ─────────────────────────
-function ComprehensionSection({ questions }) {
+function ComprehensionSection({ questions, savedAnswers, progressLoading, onComplete }) {
   const [answers, setAnswers] = useState({})
+  const hasSaved = useRef(false)
+
+  // Restore saved answers on load
+  useEffect(() => {
+    if (savedAnswers && typeof savedAnswers === 'object') {
+      setAnswers(savedAnswers)
+      hasSaved.current = true
+    }
+  }, [savedAnswers])
+
   const total = questions.length
   const answered = Object.keys(answers).length
   const correctCount = Object.values(answers).filter(a => a.correct).length
+
+  // Auto-save when all questions answered (only once)
+  useEffect(() => {
+    if (answered === total && total > 0 && !hasSaved.current) {
+      hasSaved.current = true
+      const score = Math.round((correctCount / total) * 100)
+      onComplete?.(answers, score)
+    }
+  }, [answered, total, correctCount, answers, onComplete])
+
+  if (progressLoading) {
+    return (
+      <div className="space-y-4">
+        <div className="h-6 w-32 rounded-lg bg-[var(--surface-raised)] animate-pulse" />
+        {Array.from({ length: 3 }).map((_, i) => (
+          <div key={i} className="h-40 rounded-xl bg-[var(--surface-raised)] animate-pulse" />
+        ))}
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-4">
