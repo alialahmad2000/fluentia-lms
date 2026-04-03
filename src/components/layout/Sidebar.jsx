@@ -77,6 +77,7 @@ const NAV_ITEMS = {
     { to: '/trainer/recordings', label: 'التسجيلات', icon: Video },
     { type: 'divider', label: 'إدارة' },
     { to: '/trainer/students', label: 'الطلاب', icon: GraduationCap },
+    { to: '/trainer/curriculum', label: 'المنهج', icon: BookOpen },
     { to: '/trainer/quiz', label: 'الاختبارات', icon: ClipboardCheck },
     { to: '/trainer/weekly-grading', label: 'المهام الأسبوعية', icon: ListChecks },
     { type: 'divider', label: 'تواصل' },
