@@ -158,8 +158,9 @@ export default function CurriculumBrowser() {
         className="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4"
       >
         {(levels || []).map(level => {
-          const isLocked = level.level_number > currentLevel
           const isCurrent = level.level_number === currentLevel
+          const isCompleted = level.level_number < currentLevel
+          const isLocked = level.level_number > currentLevel
           const totalUnits = unitCounts?.[level.id] || 0
           const completedUnits = progressData?.[level.id] || 0
 
@@ -169,12 +170,13 @@ export default function CurriculumBrowser() {
                 level={level}
                 isLocked={isLocked}
                 isCurrent={isCurrent}
+                isCompleted={isCompleted}
                 completedUnits={completedUnits}
                 totalUnits={totalUnits}
-                onClick={() => {
+                onClick={isCurrent ? () => {
                   tracker.track('unit_opened', { level_id: level.id, level_number: level.level_number, level_name: level.name_ar })
                   navigate(`/student/curriculum/level/${level.level_number}`)
-                }}
+                } : undefined}
               />
             </motion.div>
           )

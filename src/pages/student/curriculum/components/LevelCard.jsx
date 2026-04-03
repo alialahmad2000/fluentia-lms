@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Lock, ChevronLeft } from 'lucide-react'
+import { Lock, ChevronLeft, CheckCircle } from 'lucide-react'
 
 const FALLBACK_COLORS = {
   0: '#4ade80',
@@ -20,19 +20,22 @@ const FALLBACK_EMOJI = {
   5: '💎',
 }
 
-export default function LevelCard({ level, isLocked, isCurrent, completedUnits, totalUnits, onClick }) {
+export default function LevelCard({ level, isLocked, isCurrent, isCompleted, completedUnits, totalUnits, onClick }) {
   const color = level.color || FALLBACK_COLORS[level.level_number] || '#38bdf8'
   const progress = totalUnits > 0 ? (completedUnits / totalUnits) * 100 : 0
   const [iconLoaded, setIconLoaded] = useState(false)
   const [iconError, setIconError] = useState(false)
+  const isClickable = !!onClick
 
   return (
     <motion.div
-      onClick={!isLocked ? onClick : undefined}
+      onClick={isClickable ? onClick : undefined}
       className={`relative rounded-2xl border overflow-hidden transition-all duration-200 min-h-[180px] flex flex-col ${
-        isLocked
+        isLocked || isCompleted
           ? 'cursor-not-allowed opacity-60'
-          : 'cursor-pointer hover:-translate-y-0.5'
+          : isClickable
+            ? 'cursor-pointer hover:-translate-y-0.5'
+            : ''
       } ${
         isCurrent
           ? 'ring-2 ring-offset-0'
@@ -40,16 +43,13 @@ export default function LevelCard({ level, isLocked, isCurrent, completedUnits, 
       }`}
       style={{
         background: 'var(--surface-base)',
-        borderColor: isCurrent ? color : 'var(--border-subtle)',
+        borderColor: isCurrent ? color : isCompleted ? '#4ade8060' : 'var(--border-subtle)',
         ...(isCurrent && {
           ringColor: color,
           boxShadow: `0 0 20px ${color}30, 0 0 40px ${color}15`,
         }),
-        ...(!isLocked && !isCurrent && {
-          '--hover-border': `${color}4D`,
-        }),
       }}
-      whileHover={!isLocked ? {
+      whileHover={isClickable ? {
         borderColor: `${color}4D`,
       } : {}}
     >
@@ -84,13 +84,19 @@ export default function LevelCard({ level, isLocked, isCurrent, completedUnits, 
           )}
         </div>
 
-        {/* Current level badge */}
+        {/* Level status badge */}
         {isCurrent && (
           <span
             className="inline-flex items-center self-start text-xs font-semibold px-2.5 py-1 rounded-lg mb-3"
             style={{ background: `${color}20`, color }}
           >
             مستواك الحالي
+          </span>
+        )}
+        {isCompleted && (
+          <span className="inline-flex items-center gap-1 self-start text-xs font-semibold px-2.5 py-1 rounded-lg mb-3 bg-emerald-500/15 text-emerald-400">
+            <CheckCircle size={12} />
+            مكتمل
           </span>
         )}
 
@@ -130,12 +136,12 @@ export default function LevelCard({ level, isLocked, isCurrent, completedUnits, 
         <div className="mt-auto">
           <div className="flex items-center justify-between text-xs text-[var(--text-muted)] mb-1.5">
             <span>{completedUnits} / {totalUnits} وحدة مكتملة</span>
-            {!isLocked && <ChevronLeft size={14} className="text-[var(--text-muted)]" />}
+            {isCurrent && <ChevronLeft size={14} className="text-[var(--text-muted)]" />}
           </div>
           <div className="h-1 rounded-full overflow-hidden" style={{ background: 'var(--surface-raised)' }}>
             <div
               className="h-full rounded-full transition-all duration-500"
-              style={{ width: `${progress}%`, background: color }}
+              style={{ width: `${isCompleted ? 100 : progress}%`, background: isCompleted ? '#4ade80' : color }}
             />
           </div>
         </div>
@@ -143,7 +149,7 @@ export default function LevelCard({ level, isLocked, isCurrent, completedUnits, 
 
       {/* Lock overlay */}
       {isLocked && (
-        <div className="absolute inset-0 flex items-center justify-center rounded-2xl" style={{ background: 'rgba(0,0,0,0.3)' }}>
+        <div className="absolute inset-0 flex flex-col items-center justify-center rounded-2xl gap-2" style={{ background: 'rgba(0,0,0,0.3)' }}>
           <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: 'var(--surface-base)', border: '1px solid var(--border-subtle)' }}>
             <Lock size={18} className="text-[var(--text-muted)]" />
           </div>

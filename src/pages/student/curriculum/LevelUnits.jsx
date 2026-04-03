@@ -26,10 +26,10 @@ export default function LevelUnits() {
   const currentLevel = studentData?.academic_level ?? 0
   const levelNum = parseInt(levelNumber)
 
-  // Security: redirect if level is above student's current level
+  // Security: redirect if level doesn't match student's current level
   useEffect(() => {
-    if (!isNaN(levelNum) && levelNum > currentLevel) {
-      navigate('/student/curriculum', { replace: true })
+    if (!isNaN(levelNum) && levelNum !== currentLevel) {
+      navigate(`/student/curriculum`, { replace: true })
     }
   }, [levelNum, currentLevel, navigate])
 
