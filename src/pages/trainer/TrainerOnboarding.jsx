@@ -83,6 +83,11 @@ export default function TrainerOnboarding() {
       .update({ onboarding_completed: true })
       .eq('id', user?.id)
     if (error) console.error('Failed to save onboarding:', error)
+    // Update Zustand store so the guard sees the fresh value immediately
+    const current = useAuthStore.getState().trainerData
+    if (current) {
+      useAuthStore.setState({ trainerData: { ...current, onboarding_completed: true } })
+    }
     navigate('/trainer', { replace: true })
   }
 
