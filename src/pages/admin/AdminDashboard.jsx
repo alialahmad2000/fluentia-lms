@@ -8,6 +8,7 @@ import { STUDENT_STATUS, PACKAGES } from '../../lib/constants'
 import { DashboardSkeleton } from '../../components/ui/PageSkeleton'
 import { Link } from 'react-router-dom'
 import UserAvatar from '../../components/common/UserAvatar'
+import CurriculumActivityCard from '../../components/dashboard/CurriculumActivityCard'
 
 export default function AdminDashboard() {
   const { profile } = useAuthStore()
@@ -137,6 +138,24 @@ export default function AdminDashboard() {
     },
   })
 
+  // All groups (for activity card)
+  const { data: allGroups } = useQuery({
+    queryKey: ['admin-all-groups-activity'],
+    queryFn: async () => {
+      const { data } = await supabase.from('groups').select('id, name, code').eq('is_active', true)
+      return data || []
+    },
+  })
+
+  // All student IDs (for activity card)
+  const { data: allStudentIds } = useQuery({
+    queryKey: ['admin-all-student-ids'],
+    queryFn: async () => {
+      const { data } = await supabase.from('students').select('id').eq('status', 'active').is('deleted_at', null)
+      return (data || []).map(s => s.id)
+    },
+  })
+
   // Upcoming payment renewals (next 7 days)
   const { data: upcomingRenewals } = useQuery({
     queryKey: ['admin-upcoming-renewals'],
@@ -228,6 +247,9 @@ export default function AdminDashboard() {
           )
         })}
       </div>
+
+      {/* Curriculum Activity Card */}
+      <CurriculumActivityCard studentIds={allStudentIds} groups={allGroups} mode="admin" delay={0.32} />
 
       {/* Pending Actions — Quick Access */}
       <motion.div

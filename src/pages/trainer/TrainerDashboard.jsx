@@ -7,6 +7,7 @@ import { getGreeting, getArabicDay, formatTime } from '../../utils/dateHelpers'
 import { DashboardSkeleton } from '../../components/ui/PageSkeleton'
 import { Link } from 'react-router-dom'
 import UserAvatar from '../../components/common/UserAvatar'
+import CurriculumActivityCard from '../../components/dashboard/CurriculumActivityCard'
 
 const TRAINER_TIPS = [
   'راجع التسليمات المعلقة لتحفيز طلابك!',
@@ -58,6 +59,22 @@ export default function TrainerDashboard() {
         .eq('status', 'active')
         .is('deleted_at', null)
       return count || 0
+    },
+    enabled: !!groups?.length,
+  })
+
+  // Student IDs for activity card
+  const { data: groupStudentIds } = useQuery({
+    queryKey: ['trainer-student-ids', groups?.map(g => g.id)],
+    queryFn: async () => {
+      if (!groups?.length) return []
+      const { data } = await supabase
+        .from('students')
+        .select('id')
+        .in('group_id', groups.map(g => g.id))
+        .eq('status', 'active')
+        .is('deleted_at', null)
+      return (data || []).map(s => s.id)
     },
     enabled: !!groups?.length,
   })
@@ -251,6 +268,9 @@ export default function TrainerDashboard() {
           ))}
         </div>
       </motion.div>
+
+      {/* Curriculum Activity Card */}
+      <CurriculumActivityCard studentIds={groupStudentIds} groups={groups} mode="trainer" delay={0.39} />
 
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Groups & Schedule */}
