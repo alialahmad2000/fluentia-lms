@@ -303,7 +303,7 @@ function LevelUnits({ level, allStudents, allProgress, filterGroup, onFilterGrou
     queryFn: async () => {
       const { data, error } = await supabase
         .from('curriculum_units')
-        .select('id, unit_number, title_ar, title_en, description_ar')
+        .select('id, unit_number, theme_ar, theme_en, description_ar')
         .eq('level_id', level.id)
         .order('unit_number')
       if (error) throw error
@@ -394,8 +394,8 @@ function LevelUnits({ level, allStudents, allProgress, filterGroup, onFilterGrou
                   <div className="flex items-center justify-between">
                     <div>
                       <span className="text-xs font-bold text-sky-400 font-['Tajawal']">الوحدة {unit.unit_number}</span>
-                      <h3 className="text-sm font-bold text-[var(--text-primary)] font-['Tajawal'] mt-0.5">{unit.title_ar}</h3>
-                      <p className="text-xs text-[var(--text-muted)] font-['Inter'] mt-0.5" dir="ltr">{unit.title_en}</p>
+                      <h3 className="text-sm font-bold text-[var(--text-primary)] font-['Tajawal'] mt-0.5">{unit.theme_ar}</h3>
+                      <p className="text-xs text-[var(--text-muted)] font-['Inter'] mt-0.5" dir="ltr">{unit.theme_en}</p>
                     </div>
                     <ArrowRight size={16} className="text-[var(--text-muted)] flex-shrink-0" />
                   </div>
@@ -464,8 +464,8 @@ function UnitDetail({ level, unit, allStudents, filterGroup, onFilterGroupChange
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <span className="text-xs font-bold text-sky-400 font-['Tajawal']">الوحدة {unit.unit_number} — {level.name_ar}</span>
-          <h2 className="text-lg font-bold text-[var(--text-primary)] font-['Tajawal']">{unit.title_ar}</h2>
-          <p className="text-xs text-[var(--text-muted)] font-['Inter']" dir="ltr">{unit.title_en}</p>
+          <h2 className="text-lg font-bold text-[var(--text-primary)] font-['Tajawal']">{unit.theme_ar}</h2>
+          <p className="text-xs text-[var(--text-muted)] font-['Inter']" dir="ltr">{unit.theme_en}</p>
         </div>
         <div className="flex items-center gap-2">
           <GroupFilter groups={groups} selected={filterGroup} onChange={onFilterGroupChange} />
