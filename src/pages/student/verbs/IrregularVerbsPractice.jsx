@@ -262,6 +262,22 @@ export default function IrregularVerbsPractice() {
             tracker.track('game_completed', { game_type: practiceMode, context: 'irregular_verbs', score: stats?.score, correct: stats?.correct, total: stats?.total })
             const xp = await awardPracticeXP(studentData?.id, `verbs_${practiceMode}`, stats)
             if (xp > 0) { setXpAwarded(xp); setTimeout(() => setXpAwarded(0), 3000) }
+            // Save game session silently
+            const raw = stats._raw || {}
+            const { error } = await supabase.from('game_sessions').insert({
+              student_id: studentData?.id,
+              game_type: practiceMode,
+              context: 'irregular_verbs',
+              score: stats.score,
+              max_score: stats.total,
+              accuracy_percent: stats.total > 0 ? Math.round((stats.score / stats.total) * 10000) / 100 : null,
+              time_seconds: raw.time || null,
+              items_count: stats.total,
+              items_correct: stats.score,
+              details: raw,
+              xp_awarded: xp || 0,
+            })
+            if (error) console.error('Failed to save game session:', error)
           }}
         />
       )}
@@ -317,7 +333,7 @@ function VerbGameRenderer({ gameId, verbs, allVerbs, difficulty, onBack, onCompl
       score: stats?.mastered ?? stats?.correct ?? stats?.score ?? 0,
       total: stats?.total ?? stats?.totalPairs ?? verbs.length,
     }
-    onComplete?.(normalized)
+    onComplete?.({ ...normalized, _raw: stats })
   }
 
   switch (gameId) {

@@ -334,6 +334,22 @@ export default function VocabularyFlashcards() {
               setXpAwarded(xp)
               setTimeout(() => setXpAwarded(0), 3000)
             }
+            // Save game session silently
+            const raw = stats._raw || {}
+            const { error } = await supabase.from('game_sessions').insert({
+              student_id: studentData?.id,
+              game_type: activeGame,
+              context: 'vocabulary',
+              score: stats.score,
+              max_score: stats.total,
+              accuracy_percent: stats.total > 0 ? Math.round((stats.score / stats.total) * 10000) / 100 : null,
+              time_seconds: raw.time || null,
+              items_count: stats.total,
+              items_correct: stats.score,
+              details: raw,
+              xp_awarded: xp || 0,
+            })
+            if (error) console.error('Failed to save game session:', error)
           }}
         />
       )}
@@ -374,7 +390,7 @@ function VocabGameRenderer({ gameId, words, allWords, onBack, onComplete }) {
       score: stats?.mastered ?? stats?.correct ?? stats?.score ?? 0,
       total: stats?.total ?? stats?.totalPairs ?? words.length,
     }
-    onComplete?.(normalized)
+    onComplete?.({ ...normalized, _raw: stats })
   }
 
   switch (gameId) {
