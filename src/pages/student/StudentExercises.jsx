@@ -348,16 +348,7 @@ export default function StudentExercises() {
         description: `إكمال تمرين مخصص: ${exercise.title}`,
       })
 
-      // Update student XP
-      const { error: rpcErr } = await supabase.rpc('increment_xp', { student_id: profile?.id, amount: xp })
-      if (rpcErr) {
-        // Fallback if RPC doesn't exist
-        const { error: fallbackErr } = await supabase
-          .from('students')
-          .update({ xp_total: (studentData?.xp_total || 0) + xp })
-          .eq('id', profile?.id)
-        if (fallbackErr) console.error('[StudentExercises] XP fallback error:', fallbackErr)
-      }
+      // DB trigger on xp_transactions auto-increments students.xp_total
 
       // If score >= 80, mark pattern as potentially resolved
       if (score >= 80 && exercise.pattern_id) {
@@ -409,14 +400,7 @@ export default function StudentExercises() {
         description: `إكمال تمرين عام: ${exercise.title_ar}`,
       })
 
-      const { error: rpcErr } = await supabase.rpc('increment_xp', { student_id: profile?.id, amount: xp })
-      if (rpcErr) {
-        const { error: fallbackErr } = await supabase
-          .from('students')
-          .update({ xp_total: (studentData?.xp_total || 0) + xp })
-          .eq('id', profile?.id)
-        if (fallbackErr) console.error('[StudentExercises] General XP fallback error:', fallbackErr)
-      }
+      // DB trigger on xp_transactions auto-increments students.xp_total
 
       return { score, xp, correct, total: questions.length }
     },

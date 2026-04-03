@@ -337,19 +337,13 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
         data: { xp_earned: 100 },
       })
 
-      // Award XP via xp_transactions
+      // Award XP via xp_transactions — trigger auto-increments students.xp_total
       await supabase.from('xp_transactions').insert({
         student_id: student.id,
         amount: 100,
         reason: 'achievement',
         description: `ترقية إلى المستوى ${newLevelInfo?.cefr}`,
       })
-
-      // Update XP total
-      await supabase
-        .from('students')
-        .update({ xp_total: (student.xp_total || 0) + 100 })
-        .eq('id', student.id)
 
       setAcademicLevel(newLevel)
       setPromotionMsg(`تمت الترقية إلى ${newLevelInfo?.cefr} — ${newLevelInfo?.name_ar} بنجاح`)

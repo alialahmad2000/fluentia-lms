@@ -633,6 +633,7 @@ function SpellingResults({ results, onTryAgain, onBack }) {
       }
 
       // Award XP if 80%+
+      // Only insert into xp_transactions — the DB trigger auto-increments students.xp_total
       if (sessionData.xp > 0) {
         await supabase.from('xp_transactions').insert({
           student_id: profile.id,
@@ -640,9 +641,6 @@ function SpellingResults({ results, onTryAgain, onBack }) {
           reason: 'spelling',
           description: `تدريب إملاء — ${sessionData.correct}/${sessionData.total} صحيح`,
         })
-        await supabase.from('students').update({
-          xp_total: (studentData?.xp_total || 0) + sessionData.xp,
-        }).eq('id', profile.id)
       }
     },
     onSuccess: (_, sessionData) => {
