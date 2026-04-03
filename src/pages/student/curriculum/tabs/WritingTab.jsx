@@ -69,6 +69,7 @@ function WritingTask({ task, number, total, studentId, unitId }) {
   const [hintsOpen, setHintsOpen] = useState(false)
   const [lastSavedAt, setLastSavedAt] = useState(null)
   const [progressLoading, setProgressLoading] = useState(true)
+  const [attemptNumber, setAttemptNumber] = useState(1)
   const timeRef = useRef(0)
   const timerRef = useRef(null)
   const dbSaveTimer = useRef(null)
@@ -104,6 +105,7 @@ function WritingTask({ task, number, total, studentId, unitId }) {
         setSubmitted(data.status === 'completed')
         if (data.time_spent_seconds) timeRef.current = data.time_spent_seconds
         if (data.answers?.lastSavedAt) setLastSavedAt(new Date(data.answers.lastSavedAt))
+        if (data.attempt_number) setAttemptNumber(data.attempt_number)
       } else {
         // Fall back to localStorage
         setText(loadDraft(task.id))
@@ -121,6 +123,8 @@ function WritingTask({ task, number, total, studentId, unitId }) {
     const meetsMin = wc >= task.word_count_min
     const now = new Date().toISOString()
 
+    const newAttemptNumber = isSubmit && meetsMin && submitted ? attemptNumber + 1 : attemptNumber
+
     const { error } = await supabase
       .from('student_curriculum_progress')
       .upsert({
@@ -133,11 +137,15 @@ function WritingTask({ task, number, total, studentId, unitId }) {
         answers: { draft: currentText, wordCount: wc, lastSavedAt: now },
         time_spent_seconds: timeRef.current,
         completed_at: isSubmit && meetsMin ? now : null,
+        attempt_number: newAttemptNumber,
       }, { onConflict: 'student_id,writing_id' })
 
-    if (!error) setLastSavedAt(new Date(now))
+    if (!error) {
+      setLastSavedAt(new Date(now))
+      if (isSubmit && meetsMin) setAttemptNumber(newAttemptNumber)
+    }
     return error
-  }, [studentId, unitId, task.id, task.word_count_min])
+  }, [studentId, unitId, task.id, task.word_count_min, attemptNumber, submitted])
 
   // Auto-save to localStorage on change (debounced 500ms)
   useEffect(() => {

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { PenLine, CheckCircle, XCircle, ChevronDown, AlertTriangle, Lightbulb, ArrowLeftRight } from 'lucide-react'
+import { PenLine, CheckCircle, XCircle, ChevronDown, AlertTriangle, Lightbulb, ArrowLeftRight, RotateCcw, History } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { validateAnswer } from '../../../../utils/answerValidator'
 import { useAuthStore } from '../../../../stores/authStore'
@@ -269,6 +269,10 @@ function ExerciseSection({ exercises, studentId, unitId, grammarId }) {
   const [answers, setAnswers] = useState({})
   const [progressLoading, setProgressLoading] = useState(true)
   const [isCompleted, setIsCompleted] = useState(false)
+  const [attemptNumber, setAttemptNumber] = useState(1)
+  const [attemptHistory, setAttemptHistory] = useState([])
+  const [retrying, setRetrying] = useState(false)
+  const [savedData, setSavedData] = useState(null)
   const hasSaved = useRef(false)
   const timeRef = useRef(0)
   const timerRef = useRef(null)
@@ -297,6 +301,7 @@ function ExerciseSection({ exercises, studentId, unitId, grammarId }) {
         .maybeSingle()
       if (!isMounted) return
       if (data) {
+        setSavedData(data)
         if (data.answers?.exercises) {
           const restored = {}
           data.answers.exercises.forEach(ex => {
@@ -308,12 +313,22 @@ function ExerciseSection({ exercises, studentId, unitId, grammarId }) {
         setIsCompleted(data.status === 'completed')
         if (data.time_spent_seconds) timeRef.current = data.time_spent_seconds
         if (data.status === 'completed') hasSaved.current = true
+        if (data.attempt_number) setAttemptNumber(data.attempt_number)
+        if (Array.isArray(data.attempt_history)) setAttemptHistory(data.attempt_history)
       }
       setProgressLoading(false)
     }
     load()
     return () => { isMounted = false }
   }, [studentId, grammarId])
+
+  // Retry handler
+  const handleRetry = () => {
+    setRetrying(true)
+    setAnswers({})
+    prevAnsweredRef.current = 0
+    hasSaved.current = false
+  }
 
   // Build exercise results for saving
   const buildResults = useCallback((currentAnswers) => {
@@ -338,6 +353,12 @@ function ExerciseSection({ exercises, studentId, unitId, grammarId }) {
     const correct = Object.values(currentAnswers).filter(a => a.correct).length
     const score = answeredCount > 0 ? Math.round((correct / total) * 100) : 0
 
+    const newAttemptNumber = retrying && isComplete ? attemptNumber + 1 : attemptNumber
+    const newHistory = retrying && isComplete && savedData ? [
+      ...attemptHistory,
+      { attempt: attemptNumber, score: savedData.score, completed_at: savedData.completed_at }
+    ] : attemptHistory
+
     const { error } = await supabase
       .from('student_curriculum_progress')
       .upsert({
@@ -350,14 +371,20 @@ function ExerciseSection({ exercises, studentId, unitId, grammarId }) {
         answers: { exercises: results },
         time_spent_seconds: timeRef.current,
         completed_at: isComplete ? new Date().toISOString() : null,
+        attempt_number: newAttemptNumber,
+        attempt_history: newHistory,
       }, {
         onConflict: 'student_id,grammar_id',
       })
     if (!error && isComplete) {
+      setAttemptNumber(newAttemptNumber)
+      setAttemptHistory(newHistory)
+      setSavedData({ ...savedData, score, completed_at: new Date().toISOString(), attempt_number: newAttemptNumber, attempt_history: newHistory })
+      setRetrying(false)
       setIsCompleted(true)
       toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
     }
-  }, [studentId, unitId, grammarId, total, buildResults])
+  }, [studentId, unitId, grammarId, total, buildResults, retrying, attemptNumber, attemptHistory, savedData])
 
   // Auto-save after each new answer
   useEffect(() => {
@@ -401,12 +428,15 @@ function ExerciseSection({ exercises, studentId, unitId, grammarId }) {
         />
       </div>
 
-      {/* Completed badge */}
+      {/* Completed banner with retry */}
       {isCompleted && (
-        <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25">
-          <CheckCircle size={16} className="text-emerald-400" />
-          <span className="text-sm font-medium text-emerald-400 font-['Tajawal']">تم إكمال هذا القسم</span>
-        </div>
+        <CompletedBanner
+          attemptNumber={attemptNumber}
+          attemptHistory={attemptHistory}
+          score={savedData?.score}
+          retrying={retrying}
+          onRetry={handleRetry}
+        />
       )}
 
       <div className="space-y-3">
@@ -814,6 +844,92 @@ function TextInputExercise({ item, answer, onAnswer, exerciseType }) {
         </div>
       )}
     </form>
+  )
+}
+
+// ─── Completed Banner with Retry ─────────────────────
+function CompletedBanner({ attemptNumber, attemptHistory, score, retrying, onRetry }) {
+  const [showHistory, setShowHistory] = useState(false)
+  const hasHistory = attemptHistory?.length > 0
+
+  if (retrying) {
+    return (
+      <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-500/10 border border-sky-500/25">
+        <RotateCcw size={16} className="text-sky-400" />
+        <span className="text-sm font-medium text-sky-400 font-['Tajawal']">
+          إعادة المحاولة {attemptNumber + 1} — أجب على التمارين من جديد
+        </span>
+      </div>
+    )
+  }
+
+  return (
+    <div className="rounded-xl bg-emerald-500/10 border border-emerald-500/25 overflow-hidden">
+      <div className="flex items-center justify-between px-4 py-2.5">
+        <div className="flex items-center gap-2">
+          <CheckCircle size={18} className="text-emerald-400" />
+          <span className="text-sm font-medium text-emerald-400 font-['Tajawal']">
+            تم إكمال هذا القسم
+          </span>
+          {attemptNumber > 1 && (
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-['Tajawal']">
+              المحاولة {attemptNumber}
+            </span>
+          )}
+          {score != null && (
+            <span className="text-xs text-emerald-400/70 font-['Tajawal']">— {score}%</span>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          {hasHistory && (
+            <button
+              onClick={() => setShowHistory(!showHistory)}
+              className="flex items-center gap-1 text-[11px] text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors font-['Tajawal']"
+            >
+              <History size={12} />
+              المحاولات السابقة
+            </button>
+          )}
+          <button
+            onClick={onRetry}
+            className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium text-[var(--text-muted)] hover:text-sky-400 hover:bg-sky-500/10 transition-colors font-['Tajawal'] border border-[var(--border-subtle)]"
+          >
+            <RotateCcw size={12} />
+            إعادة المحاولة
+          </button>
+        </div>
+      </div>
+      <AnimatePresence>
+        {showHistory && hasHistory && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden"
+          >
+            <div className="px-4 pb-3 space-y-1.5" style={{ borderTop: '1px solid rgba(16,185,129,0.15)' }}>
+              <div className="pt-2.5 space-y-1.5">
+                {attemptHistory.map((h, i) => (
+                  <div key={i} className="flex items-center gap-3 text-xs text-[var(--text-muted)] font-['Tajawal']">
+                    <span className="font-medium">المحاولة {h.attempt}</span>
+                    <span>{h.score != null ? `${h.score}%` : '—'}</span>
+                    {h.completed_at && (
+                      <span dir="ltr">{new Date(h.completed_at).toLocaleDateString('ar-SA', { day: 'numeric', month: 'short' })}</span>
+                    )}
+                  </div>
+                ))}
+                <div className="flex items-center gap-3 text-xs text-emerald-400 font-['Tajawal'] font-medium">
+                  <span>المحاولة {attemptNumber}</span>
+                  <span>{score != null ? `${score}%` : '—'}</span>
+                  <span className="text-[10px] text-emerald-400/60">(الحالية)</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   )
 }
 

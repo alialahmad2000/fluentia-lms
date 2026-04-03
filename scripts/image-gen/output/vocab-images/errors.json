@@ -1,0 +1,652 @@
+[
+  {
+    "label": "L0-U2-B-delicious",
+    "word": "delicious",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L0-U12-B-photographer",
+    "word": "photographer",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L0-U12-B-hire",
+    "word": "hire",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L0-U12-B-creative",
+    "word": "creative",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L0-U12-B-professional",
+    "word": "professional",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L1-U6-B-flexible",
+    "word": "flexible",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L1-U6-B-created",
+    "word": "created",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L2-U6-B-anticipate",
+    "word": "anticipate",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L2-U12-A-reached_her_destination",
+    "word": "reached her destination",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L3-U12-A-endeavors",
+    "word": "endeavors",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U4-A-intricate",
+    "word": "intricate",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U10-B-revolutionized",
+    "word": "revolutionized",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U10-B-malleable",
+    "word": "malleable",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U10-B-synthesize",
+    "word": "synthesize",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U10-B-implemented",
+    "word": "implemented",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U10-B-intricate",
+    "word": "intricate",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-embodies",
+    "word": "embodies",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-embody",
+    "word": "embody",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-comprehensive",
+    "word": "comprehensive",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-comprehensive",
+    "word": "comprehensive",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-paradigm",
+    "word": "paradigm",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-paradigm",
+    "word": "paradigm",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-intricate",
+    "word": "intricate",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-intricate",
+    "word": "intricate",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-synthesis",
+    "word": "synthesis",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-synthesis",
+    "word": "synthesis",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-authenticity",
+    "word": "authenticity",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-authenticity",
+    "word": "authenticity",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-scrutinize",
+    "word": "scrutinize",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-implementation",
+    "word": "implementation",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-scrutinize",
+    "word": "scrutinize",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-exhaustive",
+    "word": "exhaustive",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-proliferation",
+    "word": "proliferation",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-exhaustive",
+    "word": "exhaustive",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-meticulous",
+    "word": "meticulous",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-fundamental",
+    "word": "fundamental",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-innovation",
+    "word": "innovation",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-versatility",
+    "word": "versatility",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-proliferation",
+    "word": "proliferation",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-inherent",
+    "word": "inherent",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-attribute",
+    "word": "attribute",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-A-fundamental",
+    "word": "fundamental",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-epitomizes",
+    "word": "epitomizes",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-epitomize",
+    "word": "epitomize",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-emulate",
+    "word": "emulate",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-emulating",
+    "word": "emulating",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-prevalent",
+    "word": "prevalent",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-prevalent",
+    "word": "prevalent",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-momentum",
+    "word": "momentum",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-harmony",
+    "word": "harmony",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-momentum",
+    "word": "momentum",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-constitute",
+    "word": "constitute",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-constitute",
+    "word": "constitute",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-paradigm",
+    "word": "paradigm",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-incorporate",
+    "word": "incorporate",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-paradigm",
+    "word": "paradigm",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-integrated",
+    "word": "integrated",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-framework",
+    "word": "framework",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-incorporated",
+    "word": "incorporated",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-facilitate",
+    "word": "facilitate",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-holistic",
+    "word": "holistic",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-utilizes",
+    "word": "utilizes",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-incorporate",
+    "word": "incorporate",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-framework",
+    "word": "framework",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-implementation",
+    "word": "implementation",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-mimic",
+    "word": "mimic",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-facilitate",
+    "word": "facilitate",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U11-B-holistic",
+    "word": "holistic",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U12-A-sophisticated",
+    "word": "sophisticated",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U12-A-sophisticated",
+    "word": "sophisticated",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U12-A-endeavor",
+    "word": "endeavor",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U12-A-endeavor",
+    "word": "endeavor",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U12-A-breakthroughs",
+    "word": "breakthroughs",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L4-U12-A-breakthrough",
+    "word": "breakthrough",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-A-compelling",
+    "word": "compelling",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-A-exemplifies",
+    "word": "exemplifies",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-A-debunk",
+    "word": "debunk",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-A-scrutiny",
+    "word": "scrutiny",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-A-proliferation",
+    "word": "proliferation",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-A-capitalize",
+    "word": "capitalize",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-A-grandiose",
+    "word": "grandiose",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-A-exaggerated",
+    "word": "exaggerated",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-A-irony",
+    "word": "irony",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-A-antagonistic",
+    "word": "antagonistic",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-A-encompass",
+    "word": "encompass",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-rigorous",
+    "word": "rigorous",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-rigorous",
+    "word": "rigorous",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-venerate",
+    "word": "venerate",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-venerate",
+    "word": "venerate",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-stringent",
+    "word": "stringent",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-dismiss",
+    "word": "dismiss",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-stringent",
+    "word": "stringent",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-reconcile",
+    "word": "reconcile",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-dogmatic",
+    "word": "dogmatic",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-ubiquitous",
+    "word": "ubiquitous",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-disparity",
+    "word": "disparity",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-reconcile",
+    "word": "reconcile",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-dogmatic",
+    "word": "dogmatic",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-undermine",
+    "word": "undermine",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-illuminating",
+    "word": "illuminating",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-perfunctory",
+    "word": "perfunctory",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-disparity",
+    "word": "disparity",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-paradigm",
+    "word": "paradigm",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-undermine",
+    "word": "undermine",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-perpetuate",
+    "word": "perpetuate",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-refine",
+    "word": "refine",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-perfunctory",
+    "word": "perfunctory",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-esoteric",
+    "word": "esoteric",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-paradigm",
+    "word": "paradigm",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-perpetuate",
+    "word": "perpetuate",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-vilify",
+    "word": "vilify",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-transcends",
+    "word": "transcends",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U3-B-discernment",
+    "word": "discernment",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U4-A-staggering",
+    "word": "staggering",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U4-A-staggering",
+    "word": "staggering",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U4-A-anomalies",
+    "word": "anomalies",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U4-A-anomalies",
+    "word": "anomalies",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U4-A-imperative",
+    "word": "imperative",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U4-A-embracing",
+    "word": "embracing",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U4-A-imperative",
+    "word": "imperative",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U4-A-pioneering",
+    "word": "pioneering",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U4-A-unprecedented",
+    "word": "unprecedented",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U10-A-galvanized",
+    "word": "galvanized",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U10-A-emphasis",
+    "word": "emphasis",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U10-A-proliferate",
+    "word": "proliferate",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U11-A-mechanism",
+    "word": "mechanism",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U11-A-salient",
+    "word": "salient",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U11-A-obviate",
+    "word": "obviate",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U11-A-salient",
+    "word": "salient",
+    "error": "fetch failed"
+  },
+  {
+    "label": "L5-U11-A-epitomize",
+    "word": "epitomize",
+    "error": "fetch failed"
+  }
+]

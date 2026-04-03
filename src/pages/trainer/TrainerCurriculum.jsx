@@ -261,7 +261,7 @@ function GroupUnits({ group, selectedStudent, onStudentChange, onUnitClick }) {
       if (!studentIds.length) return []
       const { data } = await supabase
         .from('student_curriculum_progress')
-        .select('student_id, unit_id, section_type, status, score')
+        .select('student_id, unit_id, section_type, status, score, attempt_number')
         .in('student_id', studentIds)
       return data || []
     },
@@ -871,6 +871,11 @@ function ProgressDetailCard({ progress: prog, sectionType }) {
           {prog.score != null && (
             <span className="text-sm font-bold text-[var(--text-primary)] font-['Tajawal']">{prog.score}%</span>
           )}
+          {prog.attempt_number > 1 && (
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-sky-500/15 text-sky-400 font-['Tajawal']">
+              المحاولة {prog.attempt_number}
+            </span>
+          )}
         </div>
         <div className="flex items-center gap-3 text-xs text-[var(--text-muted)] font-['Tajawal']">
           {prog.time_spent_seconds > 0 && (
@@ -881,6 +886,20 @@ function ProgressDetailCard({ progress: prog, sectionType }) {
           )}
         </div>
       </div>
+
+      {/* Attempt history */}
+      {Array.isArray(prog.attempt_history) && prog.attempt_history.length > 0 && (
+        <div className="space-y-1 px-1">
+          <p className="text-[11px] font-bold text-[var(--text-muted)] font-['Tajawal']">المحاولات السابقة:</p>
+          {prog.attempt_history.map((h, i) => (
+            <div key={i} className="flex items-center gap-3 text-[11px] text-[var(--text-muted)] font-['Tajawal']">
+              <span>المحاولة {h.attempt}</span>
+              <span>{h.score != null ? `${h.score}%` : '—'}</span>
+              {h.completed_at && <span dir="ltr">{new Date(h.completed_at).toLocaleDateString('ar-SA', { day: 'numeric', month: 'short' })}</span>}
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Section-specific answer display */}
       {sectionType === 'reading' && <ReadingAnswers answers={answers} />}
