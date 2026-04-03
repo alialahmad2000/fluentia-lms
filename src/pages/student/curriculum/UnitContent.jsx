@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -55,6 +55,33 @@ export default function UnitContent() {
     },
     enabled: !!unitId,
   })
+
+  // Fetch section completion status for this unit
+  const { data: sectionProgress } = useQuery({
+    queryKey: ['unit-section-progress', studentData?.id, unitId],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('student_curriculum_progress')
+        .select('section_type, status')
+        .eq('student_id', studentData?.id)
+        .eq('unit_id', unitId)
+      if (error) throw error
+      return data || []
+    },
+    enabled: !!studentData?.id && !!unitId,
+  })
+
+  const sectionStatusMap = useMemo(() => {
+    const map = {}
+    for (const p of (sectionProgress || [])) {
+      // A section may have multiple rows (e.g., multiple grammar topics) — pick the best status
+      const existing = map[p.section_type]
+      if (!existing || p.status === 'completed' || (p.status === 'in_progress' && existing !== 'completed')) {
+        map[p.section_type] = p.status
+      }
+    }
+    return map
+  }, [sectionProgress])
 
   // Track unit view
   useEffect(() => {
@@ -191,6 +218,8 @@ export default function UnitContent() {
         {TABS.map((tab) => {
           const Icon = tab.icon
           const isActive = activeTab === tab.id
+          const secStatus = sectionStatusMap[tab.id]
+          const dotColor = secStatus === 'completed' ? 'bg-emerald-400' : secStatus === 'in_progress' ? 'bg-amber-400' : null
           return (
             <button
               key={tab.id}
@@ -199,7 +228,7 @@ export default function UnitContent() {
                 tracker.track('tab_switched', { tab_name: tab.id, unit_id: unitId })
                 setActiveTab(tab.id)
               }}
-              className={`flex items-center gap-1.5 px-4 h-12 rounded-xl text-sm font-medium whitespace-nowrap transition-all duration-200 flex-shrink-0 font-['Tajawal'] ${
+              className={`relative flex items-center gap-1.5 px-4 h-12 rounded-xl text-sm font-medium whitespace-nowrap transition-all duration-200 flex-shrink-0 font-['Tajawal'] ${
                 isActive
                   ? 'bg-sky-500/15 text-sky-400 border border-sky-500/30'
                   : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-raised)]'
@@ -207,6 +236,9 @@ export default function UnitContent() {
             >
               <Icon size={16} />
               {tab.label}
+              {dotColor && (
+                <span className={`w-1.5 h-1.5 rounded-full ${dotColor} absolute top-2 left-2`} />
+              )}
             </button>
           )
         })}

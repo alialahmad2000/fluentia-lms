@@ -6,6 +6,7 @@ import { GraduationCap, RefreshCw } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import { tracker } from '../../../services/activityTracker'
+import { calculateUnitCompletion, groupProgressByUnit } from '../../../utils/curriculumProgress'
 import LevelCard from './components/LevelCard'
 
 const container = {
@@ -53,19 +54,19 @@ export default function CurriculumBrowser() {
     },
   })
 
-  // Fetch student progress per unit (completed count per level)
+  // Fetch student section-level progress and calculate unit completions per level
   const { data: progressData } = useQuery({
     queryKey: ['curriculum-progress-summary', profile?.id],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('student_curriculum_progress')
-        .select('unit_id, status')
+        .select('unit_id, section_type, status')
         .eq('student_id', profile?.id)
       if (error) throw error
 
-      // We need to map unit_id to level_id
       if (!data || data.length === 0) return {}
 
+      // Map unit_id → level_id
       const unitIds = [...new Set(data.map(p => p.unit_id))]
       const { data: units } = await supabase
         .from('curriculum_units')
@@ -77,10 +78,13 @@ export default function CurriculumBrowser() {
         unitToLevel[u.id] = u.level_id
       }
 
+      // Group by unit, calculate completion, count completed units per level
+      const byUnit = groupProgressByUnit(data)
       const completedPerLevel = {}
-      for (const p of data) {
-        if (p.status === 'completed') {
-          const levelId = unitToLevel[p.unit_id]
+      for (const [unitId, rows] of Object.entries(byUnit)) {
+        const { status } = calculateUnitCompletion(rows)
+        if (status === 'completed') {
+          const levelId = unitToLevel[unitId]
           if (levelId) {
             completedPerLevel[levelId] = (completedPerLevel[levelId] || 0) + 1
           }

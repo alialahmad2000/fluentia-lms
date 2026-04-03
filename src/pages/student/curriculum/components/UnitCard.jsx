@@ -6,8 +6,9 @@ const STATUS_CONFIG = {
   completed:   { label: 'مكتمل', dotColor: 'bg-emerald-400' },
 }
 
-export default function UnitCard({ unit, levelColor, status = 'not_started', onClick }) {
+export default function UnitCard({ unit, levelColor, status = 'not_started', sectionsCompleted = 0, totalSections = 5, onClick }) {
   const statusCfg = STATUS_CONFIG[status] || STATUS_CONFIG.not_started
+  const pct = totalSections > 0 ? (sectionsCompleted / totalSections) * 100 : 0
 
   return (
     <motion.div
@@ -49,11 +50,26 @@ export default function UnitCard({ unit, levelColor, status = 'not_started', onC
             </p>
           )}
 
-          {/* Status indicator */}
-          <div className="flex items-center gap-1.5 mt-2">
+          {/* Status indicator + section count */}
+          <div className="flex items-center gap-2 mt-2">
             <span className={`w-2 h-2 rounded-full ${statusCfg.dotColor}`} />
             <span className="text-xs text-[var(--text-muted)]">{statusCfg.label}</span>
+            {status !== 'not_started' && (
+              <span className="text-xs text-[var(--text-muted)] mr-1">
+                — {sectionsCompleted}/{totalSections} أقسام
+              </span>
+            )}
           </div>
+
+          {/* Mini progress bar */}
+          {status !== 'not_started' && (
+            <div className="h-1 rounded-full overflow-hidden mt-2" style={{ background: 'var(--surface-raised)' }}>
+              <div
+                className="h-full rounded-full transition-all duration-500"
+                style={{ width: `${pct}%`, background: status === 'completed' ? '#4ade80' : levelColor }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </motion.div>
