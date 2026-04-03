@@ -65,6 +65,7 @@ const StylePreview = lazyRetry(() => import('./pages/student/curriculum/StylePre
 const LevelUnits = lazyRetry(() => import('./pages/student/curriculum/LevelUnits'))
 const UnitContent = lazyRetry(() => import('./pages/student/curriculum/UnitContent'))
 
+const TrainerOnboarding = lazyRetry(() => import('./pages/trainer/TrainerOnboarding'))
 const TrainerDashboard = lazyRetry(() => import('./pages/trainer/TrainerDashboard'))
 const TrainerAssignments = lazyRetry(() => import('./pages/trainer/TrainerAssignments'))
 const TrainerGrading = lazyRetry(() => import('./pages/trainer/TrainerGrading'))
@@ -194,6 +195,16 @@ function ProtectedRoute({ allowedRoles }) {
   if (!hasAccess) return <Navigate to="/" replace />
 
   return <Outlet />
+}
+
+// ─── Trainer Onboarding Guard ─────────────────────────────────
+function TrainerOnboardingGuard({ children }) {
+  const { profile, trainerData } = useAuthStore()
+  // Only redirect trainers (not admins) who haven't completed onboarding
+  if (profile?.role === 'trainer' && trainerData && trainerData.onboarding_completed === false) {
+    return <Navigate to="/trainer/onboarding" replace />
+  }
+  return children
 }
 
 // ─── Role-Based Redirect ─────────────────────────────────────
@@ -342,7 +353,13 @@ export default function App() {
 
           {/* Trainer routes */}
           <Route element={<ProtectedRoute allowedRoles={['trainer', 'admin']} />}>
-            <Route element={<ErrorBoundary><LayoutShell /></ErrorBoundary>}>
+            {/* Onboarding — full-screen, outside LayoutShell */}
+            <Route path="/trainer/onboarding" element={
+              <ErrorBoundary fallback={<PageErrorFallback />}>
+                <Suspense fallback={<LoadingSkeleton />}><TrainerOnboarding /></Suspense>
+              </ErrorBoundary>
+            } />
+            <Route element={<ErrorBoundary><TrainerOnboardingGuard><LayoutShell /></TrainerOnboardingGuard></ErrorBoundary>}>
               <Route path="/trainer" element={<Page><TrainerDashboard /></Page>} />
               <Route path="/trainer/assignments" element={<Page><TrainerAssignments /></Page>} />
               <Route path="/trainer/writing" element={<Page><TrainerGrading /></Page>} />
