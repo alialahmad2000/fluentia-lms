@@ -472,18 +472,7 @@
   }
 }
 
-/* === Safe-area bottom padding for main content — mobile only === */
-/* On mobile (<lg), the fixed bottom nav covers content. Add enough padding to clear it. */
-/* On desktop (>=lg), Tailwind's lg:pb-10 applies instead (no bottom nav visible). */
-/* Uses env() directly for max iOS compatibility, with a generous hardcoded fallback. */
-@media (max-width: 1023px) {
-  .pb-safe-bottom {
-    /* Fallback for browsers that don't support env() */
-    padding-bottom: 120px !important;
-    /* Modern: nav (64px) + home indicator + breathing room */
-    padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px) + 40px) !important;
-  }
-}
+/* Bottom content clearance is handled by a physical spacer div in LayoutShell.jsx */
 
 /* === Fixed elements above bottom nav (toasts, FABs, floating bars) === */
 /* Use on any fixed-position element that should sit above the mobile bottom nav */

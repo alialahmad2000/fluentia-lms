@@ -175,14 +175,19 @@ export default function LayoutShell() {
       >
         <Header onMenuToggle={() => setMobileOpen(true)} />
 
-        <main id="main-content" className="px-4 py-6 lg:px-10 lg:py-8 pb-safe-bottom lg:pb-10" style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <main id="main-content" className="px-4 py-6 lg:px-10 lg:py-8 lg:pb-10" style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <ErrorBoundary key={location.pathname}>
             <Outlet />
           </ErrorBoundary>
+          {/* Bottom spacer — guarantees content is never hidden behind the fixed mobile
+              bottom tab bar. Uses inline style so no CSS class/specificity/layer/purge
+              issue can ever break it. 150px = nav(64) + safe-area(~34) + buffer(~52). */}
+          <div
+            className="lg:hidden"
+            aria-hidden="true"
+            style={{ height: 150, flexShrink: 0 }}
+          />
         </main>
-        {/* Bottom spacer — ensures content is never hidden behind the fixed mobile bottom nav.
-            This is a physical spacer that creates scroll room on mobile, hidden on desktop. */}
-        <div className="h-28 lg:hidden" aria-hidden="true" />
       </div>
 
       {/* AI Floating Helper */}
