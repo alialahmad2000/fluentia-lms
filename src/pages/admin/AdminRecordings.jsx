@@ -1,10 +1,15 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { motion } from 'framer-motion'
-import { PlayCircle, Plus, Trash2, Eye, EyeOff, Loader2, X, Brain, CheckCircle2, Bell } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import {
+  PlayCircle, Plus, Trash2, Eye, EyeOff, Loader2, X, Brain,
+  CheckCircle2, Video, ChevronDown, ExternalLink, Pencil,
+  MessageSquare, BookOpen, Archive, AlertCircle, Link2,
+} from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
+import { toast } from '../../components/ui/FluentiaToast'
 
 const CLASS_TYPES = [
   { value: 'reading', label: 'قراءة' },
@@ -38,7 +43,453 @@ function getEmptyForm() {
   }
 }
 
+function getEmptyCurriculumForm() {
+  return {
+    group_id: '', unit_id: '', part: 'a',
+    google_drive_url: '', recorded_date: new Date().toISOString().split('T')[0],
+    notes: '',
+  }
+}
+
 export default function AdminRecordings() {
+  const { profile } = useAuthStore()
+  const [activeTab, setActiveTab] = useState('curriculum')
+
+  return (
+    <div className="space-y-6">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+        <h1 className="text-page-title">إدارة التسجيلات</h1>
+        <p className="text-muted text-sm mt-1">رفع وإدارة تسجيلات الحصص</p>
+      </motion.div>
+
+      {/* Tabs */}
+      <div className="flex gap-2">
+        {[
+          { id: 'curriculum', label: 'تسجيلات المنهج', icon: BookOpen },
+          { id: 'archive', label: 'الأرشيف', icon: Archive },
+        ].map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`flex items-center gap-1.5 px-4 h-11 rounded-xl text-sm font-medium transition-all font-['Tajawal'] ${
+              activeTab === tab.id
+                ? 'bg-sky-500/15 text-sky-400 border border-sky-500/30'
+                : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-raised)]'
+            }`}
+          >
+            <tab.icon size={15} />
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0, x: 15 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -15 }}
+          transition={{ duration: 0.2 }}
+        >
+          {activeTab === 'curriculum' ? <CurriculumSection /> : <ArchiveSection />}
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  )
+}
+
+// ═══════════════════════════════════════════════════════
+// Curriculum Section — Upload + Requests + List
+// ═══════════════════════════════════════════════════════
+function CurriculumSection() {
+  const { profile } = useAuthStore()
+  const queryClient = useQueryClient()
+  const isAdmin = profile?.role === 'admin'
+  const [showForm, setShowForm] = useState(false)
+  const [form, setForm] = useState(getEmptyCurriculumForm)
+  const [saving, setSaving] = useState(false)
+  const [filterGroup, setFilterGroup] = useState('')
+
+  // Groups (trainer sees own, admin sees all)
+  const { data: groups = [] } = useQuery({
+    queryKey: ['rec-groups', profile?.role],
+    queryFn: async () => {
+      let query = supabase.from('groups').select('id, name, code, level').eq('is_active', true)
+      // Trainer filtering handled by RLS
+      const { data, error } = await query.order('name')
+      if (error) throw error
+      return data || []
+    },
+    staleTime: 60_000,
+  })
+
+  // Units for selected group's level
+  const selectedGroup = groups.find(g => g.id === form.group_id)
+  const { data: units = [] } = useQuery({
+    queryKey: ['rec-units', selectedGroup?.level],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('curriculum_units')
+        .select('id, unit_number, title_ar, title_en')
+        .eq('level', selectedGroup.level)
+        .eq('is_active', true)
+        .order('unit_number')
+      if (error) throw error
+      return data || []
+    },
+    enabled: !!selectedGroup?.level,
+  })
+
+  // All curriculum recordings
+  const { data: recordings = [], isLoading: loadingRecs } = useQuery({
+    queryKey: ['admin-curriculum-recordings'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('class_recordings')
+        .select('*, unit:curriculum_units(unit_number, title_ar, title_en), group:groups(name, code)')
+        .eq('is_archive', false)
+        .not('unit_id', 'is', null)
+        .is('deleted_at', null)
+        .order('created_at', { ascending: false })
+      if (error) throw error
+      return data || []
+    },
+    staleTime: 0,
+  })
+
+  // Pending requests
+  const { data: requests = [] } = useQuery({
+    queryKey: ['recording-requests-pending'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('recording_requests')
+        .select('*, student:profiles!student_id(full_name), unit:curriculum_units(unit_number, title_ar), group:groups(name, code)')
+        .eq('status', 'pending')
+        .order('created_at', { ascending: false })
+      if (error) throw error
+      return data || []
+    },
+    staleTime: 0,
+  })
+
+  const filteredRecs = filterGroup
+    ? recordings.filter(r => r.group_id === filterGroup)
+    : recordings
+
+  const handleSave = async () => {
+    if (!form.google_drive_url.trim() || !form.group_id || !form.unit_id || saving) return
+    setSaving(true)
+
+    const fileId = extractGoogleDriveFileId(form.google_drive_url.trim())
+    const { error } = await supabase.from('class_recordings').upsert({
+      group_id: form.group_id,
+      unit_id: form.unit_id,
+      part: form.part,
+      google_drive_url: form.google_drive_url.trim(),
+      google_drive_file_id: fileId || '',
+      recorded_date: form.recorded_date || null,
+      notes: form.notes.trim() || null,
+      uploaded_by: profile?.id,
+      is_archive: false,
+    }, {
+      onConflict: 'group_id,unit_id,part',
+      ignoreDuplicates: false,
+    })
+
+    if (error) {
+      console.error('[CurriculumUpload] Save error:', error)
+      toast({ type: 'error', title: 'حدث خطأ أثناء الحفظ' })
+    } else {
+      toast({ type: 'success', title: 'تم حفظ التسجيل' })
+
+      // Auto-fulfill matching requests
+      await supabase
+        .from('recording_requests')
+        .update({ status: 'fulfilled', fulfilled_at: new Date().toISOString() })
+        .eq('group_id', form.group_id)
+        .eq('unit_id', form.unit_id)
+        .eq('part', form.part)
+        .eq('status', 'pending')
+
+      // Notify students in this group
+      try {
+        const { data: students } = await supabase
+          .from('students')
+          .select('id')
+          .eq('group_id', form.group_id)
+          .eq('status', 'active')
+          .is('deleted_at', null)
+
+        const unitInfo = units.find(u => u.id === form.unit_id)
+        if (students?.length > 0) {
+          const notifications = students.map(s => ({
+            user_id: s.id,
+            type: 'system',
+            title: 'تسجيل جديد 🎥',
+            body: `تم رفع تسجيل الوحدة ${unitInfo?.unit_number || ''} Part ${form.part.toUpperCase()}`,
+            data: { unit_id: form.unit_id, part: form.part },
+            read: false,
+          }))
+          await supabase.from('notifications').insert(notifications)
+        }
+      } catch {}
+
+      queryClient.invalidateQueries({ queryKey: ['admin-curriculum-recordings'] })
+      queryClient.invalidateQueries({ queryKey: ['recording-requests-pending'] })
+      setForm(prev => ({ ...getEmptyCurriculumForm(), group_id: prev.group_id }))
+      setShowForm(false)
+    }
+    setSaving(false)
+  }
+
+  const handleDeleteRec = async (id) => {
+    if (!confirm('هل أنت متأكد من حذف هذا التسجيل؟')) return
+    await supabase.from('class_recordings').update({ deleted_at: new Date().toISOString() }).eq('id', id)
+    queryClient.invalidateQueries({ queryKey: ['admin-curriculum-recordings'] })
+    toast({ type: 'success', title: 'تم حذف التسجيل' })
+  }
+
+  const handleDismissRequest = async (reqId) => {
+    await supabase.from('recording_requests').update({ status: 'dismissed' }).eq('id', reqId)
+    queryClient.invalidateQueries({ queryKey: ['recording-requests-pending'] })
+    toast({ type: 'success', title: 'تم تجاهل الطلب' })
+  }
+
+  const handleFillFromRequest = (req) => {
+    setForm({
+      group_id: req.group_id,
+      unit_id: req.unit_id,
+      part: req.part,
+      google_drive_url: '',
+      recorded_date: new Date().toISOString().split('T')[0],
+      notes: '',
+    })
+    setShowForm(true)
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Pending Requests */}
+      {requests.length > 0 && (
+        <div className="space-y-3">
+          <h3 className="text-sm font-bold text-amber-400 font-['Tajawal'] flex items-center gap-2">
+            <MessageSquare size={14} />
+            طلبات التسجيل ({requests.length})
+          </h3>
+          {requests.map(req => (
+            <div
+              key={req.id}
+              className="fl-card-static p-4 flex items-center justify-between gap-3"
+              style={{ borderColor: 'rgba(245,158,11,0.15)' }}
+            >
+              <div className="flex-1 min-w-0">
+                <p className="text-sm text-[var(--text-primary)] font-['Tajawal']">
+                  {req.student?.full_name} تطلب تسجيل الوحدة {req.unit?.unit_number} Part {req.part?.toUpperCase()}
+                </p>
+                <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">
+                  {req.group?.code} — {new Date(req.created_at).toLocaleDateString('ar-SA')}
+                </p>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  onClick={() => handleFillFromRequest(req)}
+                  className="px-3 py-1.5 rounded-lg bg-sky-500/10 text-sky-400 text-xs font-bold font-['Tajawal'] border border-sky-500/20 hover:bg-sky-500/20 transition-colors"
+                >
+                  رفع التسجيل
+                </button>
+                <button
+                  onClick={() => handleDismissRequest(req.id)}
+                  className="px-3 py-1.5 rounded-lg text-[var(--text-muted)] text-xs font-['Tajawal'] hover:text-red-400 hover:bg-red-500/10 transition-colors"
+                >
+                  تجاهل
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Upload Toggle */}
+      <button
+        onClick={() => setShowForm(!showForm)}
+        className="btn-primary text-sm px-5 flex items-center gap-2"
+      >
+        <Plus size={16} />
+        إضافة تسجيل منهج
+      </button>
+
+      {/* Upload Form */}
+      <AnimatePresence>
+        {showForm && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="overflow-hidden"
+          >
+            <div className="fl-card-static p-6 space-y-4">
+              <h3 className="text-sm font-bold text-[var(--text-primary)] font-['Tajawal']">إضافة تسجيل جديد</h3>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {/* Group */}
+                <div>
+                  <label className="text-xs text-muted mb-1 block font-['Tajawal']">المجموعة *</label>
+                  <select
+                    className="input-field text-sm w-full"
+                    value={form.group_id}
+                    onChange={e => setForm(f => ({ ...f, group_id: e.target.value, unit_id: '' }))}
+                  >
+                    <option value="">اختر المجموعة</option>
+                    {groups.map(g => <option key={g.id} value={g.id}>{g.code} — {g.name} (مستوى {g.level})</option>)}
+                  </select>
+                </div>
+
+                {/* Unit */}
+                <div>
+                  <label className="text-xs text-muted mb-1 block font-['Tajawal']">الوحدة *</label>
+                  <select
+                    className="input-field text-sm w-full"
+                    value={form.unit_id}
+                    onChange={e => setForm(f => ({ ...f, unit_id: e.target.value }))}
+                    disabled={!form.group_id}
+                  >
+                    <option value="">اختر الوحدة</option>
+                    {units.map(u => <option key={u.id} value={u.id}>الوحدة {u.unit_number}: {u.title_ar || u.title_en}</option>)}
+                  </select>
+                </div>
+
+                {/* Part */}
+                <div>
+                  <label className="text-xs text-muted mb-1 block font-['Tajawal']">الجزء *</label>
+                  <div className="flex gap-2 mt-1">
+                    {['a', 'b'].map(p => (
+                      <button
+                        key={p}
+                        onClick={() => setForm(f => ({ ...f, part: p }))}
+                        className={`flex-1 h-10 rounded-xl text-sm font-bold font-['Inter'] transition-all ${
+                          form.part === p
+                            ? 'bg-sky-500/15 text-sky-400 border border-sky-500/30'
+                            : 'bg-[rgba(255,255,255,0.03)] text-[var(--text-muted)] border border-[var(--border-subtle)] hover:text-[var(--text-primary)]'
+                        }`}
+                      >
+                        Part {p.toUpperCase()}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* URL */}
+                <div>
+                  <label className="text-xs text-muted mb-1 block font-['Tajawal']">رابط التسجيل *</label>
+                  <input
+                    className="input-field text-sm w-full"
+                    value={form.google_drive_url}
+                    onChange={e => setForm(f => ({ ...f, google_drive_url: e.target.value }))}
+                    placeholder="https://drive.google.com/..."
+                    dir="ltr"
+                  />
+                </div>
+
+                {/* Date */}
+                <div>
+                  <label className="text-xs text-muted mb-1 block font-['Tajawal']">تاريخ الحصة</label>
+                  <input
+                    type="date"
+                    className="input-field text-sm w-full"
+                    value={form.recorded_date}
+                    onChange={e => setForm(f => ({ ...f, recorded_date: e.target.value }))}
+                  />
+                </div>
+              </div>
+
+              {/* Notes */}
+              <div>
+                <label className="text-xs text-muted mb-1 block font-['Tajawal']">ملاحظات (اختياري)</label>
+                <input
+                  className="input-field text-sm w-full"
+                  value={form.notes}
+                  onChange={e => setForm(f => ({ ...f, notes: e.target.value }))}
+                  placeholder="ملاحظات إضافية..."
+                />
+              </div>
+
+              <div className="flex gap-3">
+                <button
+                  onClick={handleSave}
+                  disabled={!form.group_id || !form.unit_id || !form.google_drive_url.trim() || saving}
+                  className="btn-primary text-sm px-6 flex items-center gap-2"
+                >
+                  {saving ? <Loader2 size={14} className="animate-spin" /> : <CheckCircle2 size={14} />}
+                  حفظ التسجيل
+                </button>
+                <button onClick={() => setShowForm(false)} className="btn-ghost text-sm">إلغاء</button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Filter + List */}
+      <div className="flex items-center gap-3">
+        <select
+          className="input-field text-sm"
+          value={filterGroup}
+          onChange={e => setFilterGroup(e.target.value)}
+        >
+          <option value="">كل المجموعات</option>
+          {groups.map(g => <option key={g.id} value={g.id}>{g.code} — {g.name}</option>)}
+        </select>
+        <span className="text-xs text-muted font-['Tajawal']">{filteredRecs.length} تسجيل</span>
+      </div>
+
+      {loadingRecs ? (
+        <div className="space-y-3">{[1, 2, 3].map(i => <div key={i} className="skeleton h-16 rounded-2xl" />)}</div>
+      ) : filteredRecs.length > 0 ? (
+        <div className="space-y-2">
+          {filteredRecs.map(rec => (
+            <div key={rec.id} className="fl-card-static p-4 flex items-center justify-between gap-3">
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-[var(--text-primary)] font-['Tajawal'] truncate">
+                  الوحدة {rec.unit?.unit_number}: {rec.unit?.title_ar || rec.unit?.title_en} — Part {rec.part?.toUpperCase()}
+                </p>
+                <div className="flex items-center gap-3 text-xs text-muted font-['Tajawal']">
+                  <span>{rec.group?.code || ''}</span>
+                  {rec.recorded_date && <span>{new Date(rec.recorded_date).toLocaleDateString('ar-SA')}</span>}
+                </div>
+              </div>
+              <div className="flex items-center gap-1.5 shrink-0">
+                <a
+                  href={rec.google_drive_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-icon"
+                  title="فتح"
+                >
+                  <ExternalLink size={14} className="text-sky-400" />
+                </a>
+                <button onClick={() => handleDeleteRec(rec.id)} className="btn-icon" title="حذف">
+                  <Trash2 size={14} className="text-red-400" />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="fl-card-static p-10 text-center">
+          <Video size={32} className="text-muted mx-auto mb-2" />
+          <p className="text-muted text-sm font-['Tajawal']">لا توجد تسجيلات منهج</p>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ═══════════════════════════════════════════════════════
+// Archive Section — Old recordings system
+// ═══════════════════════════════════════════════════════
+function ArchiveSection() {
   const { profile } = useAuthStore()
   const queryClient = useQueryClient()
   const [showForm, setShowForm] = useState(false)
@@ -48,13 +499,14 @@ export default function AdminRecordings() {
   const [saveSuccess, setSaveSuccess] = useState(null)
 
   const { data: recordings, isLoading } = useQuery({
-    queryKey: ['admin-recordings'],
+    queryKey: ['admin-archive-recordings'],
     staleTime: 30_000,
     queryFn: async () => {
       const { data, error } = await supabase
         .from('class_recordings')
         .select('*, uploader:uploaded_by(full_name)')
         .is('deleted_at', null)
+        .or('is_archive.eq.true,unit_id.is.null')
         .order('recorded_date', { ascending: false })
       if (error) throw error
       return data || []
@@ -89,10 +541,10 @@ export default function AdminRecordings() {
         duration_minutes: form.duration_minutes ? parseInt(form.duration_minutes) : null,
         uploaded_by: profile?.id,
         group_id: form.group_id || null,
+        is_archive: true,
       }).select().single()
       if (error) throw error
 
-      // Send notifications to students at the same level
       let notifiedCount = 0
       try {
         const { data: students } = await supabase
@@ -114,14 +566,12 @@ export default function AdminRecordings() {
           const { error: notifErr } = await supabase.from('notifications').insert(notifications)
           if (!notifErr) notifiedCount = students.length
         }
-      } catch {
-        // Don't fail the save if notifications fail
-      }
+      } catch {}
 
       return { recording, notifiedCount }
     },
     onSuccess: (result) => {
-      queryClient.invalidateQueries({ queryKey: ['admin-recordings'] })
+      queryClient.invalidateQueries({ queryKey: ['admin-archive-recordings'] })
       const prevLevel = form.level
       const prevTrack = form.track
       setForm({ ...getEmptyForm(), level: prevLevel, track: prevTrack })
@@ -136,7 +586,7 @@ export default function AdminRecordings() {
       const { error } = await supabase.from('class_recordings').update({ is_visible: visible }).eq('id', id)
       if (error) throw error
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['admin-recordings'] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['admin-archive-recordings'] }),
   })
 
   const deleteRecording = useMutation({
@@ -144,7 +594,7 @@ export default function AdminRecordings() {
       const { error } = await supabase.from('class_recordings').update({ deleted_at: new Date().toISOString() }).eq('id', id)
       if (error) throw error
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['admin-recordings'] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['admin-archive-recordings'] }),
   })
 
   async function handleAIFill() {
@@ -172,7 +622,6 @@ export default function AdminRecordings() {
             groups: (groups || []).map(g => ({ id: g.id, name: g.name })),
           },
         },
-        
       }, { timeoutMs: 15000, retries: 0 })
       const filled = res.data?.filledFields
       if (filled) {
@@ -199,15 +648,12 @@ export default function AdminRecordings() {
   const typeLabels = Object.fromEntries(CLASS_TYPES.map(t => [t.value, t.label]))
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-page-title">التسجيلات</h1>
-          <p className="text-muted text-sm mt-1">إدارة تسجيلات الحصص</p>
-        </motion.div>
+        <h3 className="text-sm font-bold text-[var(--text-primary)] font-['Tajawal']">الأرشيف ({recordings?.length || 0} تسجيل)</h3>
         <button onClick={() => setShowForm(!showForm)} className="btn-primary text-sm px-4 flex items-center gap-2">
           <Plus size={16} />
-          إضافة تسجيل
+          إضافة تسجيل أرشيف
         </button>
       </div>
 
@@ -295,17 +741,13 @@ export default function AdminRecordings() {
 
       {/* Success Banner */}
       {saveSuccess && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="fl-card-static p-4 border-emerald-500/20 flex items-center gap-3"
-        >
+        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="fl-card-static p-4 border-emerald-500/20 flex items-center gap-3">
           <CheckCircle2 size={18} className="text-emerald-400 shrink-0" />
           <p className="text-sm text-emerald-400 font-medium">{saveSuccess}</p>
         </motion.div>
       )}
 
-      {/* Recordings Table */}
+      {/* Recordings List */}
       {isLoading ? (
         <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="skeleton h-20 rounded-2xl" />)}</div>
       ) : recordings?.length > 0 ? (
@@ -314,12 +756,12 @@ export default function AdminRecordings() {
             <div key={rec.id} className="fl-card-static p-5 flex items-center justify-between gap-4">
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <p className="text-sm font-medium truncate" style={{ color: 'var(--text-primary)' }}>{rec.title}</p>
+                  <p className="text-sm font-medium truncate" style={{ color: 'var(--text-primary)' }}>{rec.title || 'تسجيل'}</p>
                   <span className="badge-blue text-xs shrink-0">{typeLabels[rec.class_type] || rec.class_type}</span>
                   <span className="badge-muted text-xs shrink-0">مستوى {rec.level}</span>
                 </div>
                 <div className="flex items-center gap-3 text-xs text-muted">
-                  <span>{new Date(rec.recorded_date).toLocaleDateString('ar-SA')}</span>
+                  {rec.recorded_date && <span>{new Date(rec.recorded_date).toLocaleDateString('ar-SA')}</span>}
                   <span>{rec.uploader?.full_name}</span>
                   <span className="flex items-center gap-1"><Eye size={10} /> {rec.view_count || 0}</span>
                   {rec.is_visible
@@ -353,7 +795,7 @@ export default function AdminRecordings() {
       ) : (
         <div className="fl-card-static p-12 text-center">
           <PlayCircle size={40} className="text-muted mx-auto mb-3" />
-          <p className="text-muted">لا توجد تسجيلات</p>
+          <p className="text-muted">لا توجد تسجيلات أرشيفية</p>
         </div>
       )}
     </div>

@@ -102,7 +102,7 @@ function PartSection({ part, recording, isStaff, unitId, groupId }) {
     )
   }
 
-  return <EmptyRecording part={part} />
+  return <EmptyRecording part={part} unitId={unitId} groupId={groupId} />
 }
 
 // ─── Recording Card ──────────────────────────────────
@@ -332,11 +332,87 @@ function RecordingForm({ part, unitId, groupId, existing, onCancel }) {
   )
 }
 
-// ─── Empty State (Student) ──────────────────────────
-function EmptyRecording({ part }) {
-  const handleRequest = () => {
-    toast({ type: 'success', title: 'تم إرسال الطلب — سيتم رفع التسجيل قريباً' })
+// ─── Empty State (Student) with Request ─────────────
+function EmptyRecording({ part, unitId, groupId }) {
+  const { user } = useAuthStore()
+  const [requested, setRequested] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  // Check for existing pending request
+  const { data: existingRequest } = useQuery({
+    queryKey: ['recording-request', user?.id, unitId, part.id],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('recording_requests')
+        .select('id, created_at')
+        .eq('student_id', user.id)
+        .eq('unit_id', unitId)
+        .eq('part', part.id)
+        .eq('status', 'pending')
+        .maybeSingle()
+      return data
+    },
+    enabled: !!user?.id && !!unitId,
+  })
+
+  // Check if request was made within 24 hours
+  const recentlyRequested = existingRequest && (Date.now() - new Date(existingRequest.created_at).getTime() < 24 * 60 * 60 * 1000)
+
+  const handleRequest = async () => {
+    if (loading || recentlyRequested) return
+    setLoading(true)
+    try {
+      const { error } = await supabase.from('recording_requests').insert({
+        student_id: user.id,
+        group_id: groupId,
+        unit_id: unitId,
+        part: part.id,
+      })
+      if (error) {
+        if (error.code === '23505') {
+          toast({ type: 'info', title: 'تم إرسال طلب مسبقاً لهذا التسجيل' })
+        } else {
+          console.error('[RecordingRequest] Error:', error)
+          toast({ type: 'error', title: 'حدث خطأ أثناء إرسال الطلب' })
+        }
+      } else {
+        // Notify admin + group trainer
+        try {
+          const { data: admins } = await supabase
+            .from('profiles')
+            .select('id')
+            .eq('role', 'admin')
+          const { data: group } = await supabase
+            .from('groups')
+            .select('trainer_id')
+            .eq('id', groupId)
+            .single()
+
+          const recipients = [...(admins || []).map(a => a.id)]
+          if (group?.trainer_id) recipients.push(group.trainer_id)
+
+          if (recipients.length > 0) {
+            const notifications = [...new Set(recipients)].map(uid => ({
+              user_id: uid,
+              type: 'system',
+              title: 'طلب تسجيل 📩',
+              body: `طالب يطلب تسجيل Part ${part.id.toUpperCase()}`,
+              data: { unit_id: unitId, part: part.id, group_id: groupId },
+              read: false,
+            }))
+            await supabase.from('notifications').insert(notifications)
+          }
+        } catch {}
+
+        setRequested(true)
+        toast({ type: 'success', title: 'تم إرسال الطلب — سيتم رفع التسجيل قريباً' })
+      }
+    } finally {
+      setLoading(false)
+    }
   }
+
+  const isDisabled = recentlyRequested || requested || loading
 
   return (
     <div
@@ -352,9 +428,14 @@ function EmptyRecording({ part }) {
       </div>
       <button
         onClick={handleRequest}
-        className="px-4 py-2 rounded-xl text-xs font-bold text-sky-400 border border-sky-500/20 hover:bg-sky-500/10 transition-colors font-['Tajawal']"
+        disabled={isDisabled}
+        className={`px-4 py-2 rounded-xl text-xs font-bold font-['Tajawal'] border transition-colors ${
+          isDisabled
+            ? 'text-emerald-400 border-emerald-500/20 bg-emerald-500/5 cursor-not-allowed'
+            : 'text-sky-400 border-sky-500/20 hover:bg-sky-500/10'
+        }`}
       >
-        اطلب التسجيل 📩
+        {isDisabled ? 'تم إرسال الطلب ✅' : loading ? 'جاري الإرسال...' : 'اطلب التسجيل 📩'}
       </button>
     </div>
   )
