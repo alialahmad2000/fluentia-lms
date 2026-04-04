@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FileEdit, Lightbulb, Save, Send, Bot, ChevronDown, CheckCircle2, BookOpen, Target, GraduationCap } from 'lucide-react'
+import { FileEdit, Lightbulb, Save, Send, ChevronDown, CheckCircle2, BookOpen, Target, GraduationCap, Loader2 } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
@@ -72,6 +72,8 @@ function WritingTask({ task, number, total, studentId, unitId }) {
   const [attemptNumber, setAttemptNumber] = useState(1)
   const [trainerFeedback, setTrainerFeedback] = useState(null)
   const [trainerGrade, setTrainerGrade] = useState(null)
+  const [aiFeedback, setAiFeedback] = useState(null)
+  const [submitting, setSubmitting] = useState(false)
   const timeRef = useRef(0)
   const timerRef = useRef(null)
   const dbSaveTimer = useRef(null)
@@ -110,6 +112,7 @@ function WritingTask({ task, number, total, studentId, unitId }) {
         if (data.attempt_number) setAttemptNumber(data.attempt_number)
         if (data.trainer_feedback) setTrainerFeedback(data.trainer_feedback)
         if (data.trainer_grade) setTrainerGrade(data.trainer_grade)
+        if (data.ai_feedback) setAiFeedback(data.ai_feedback)
       } else {
         // Fall back to localStorage
         setText(loadDraft(task.id))
@@ -184,11 +187,59 @@ function WritingTask({ task, number, total, studentId, unitId }) {
   }, [task.id, text, saveToDb])
 
   const handleSubmit = useCallback(async () => {
+    if (submitting) return
+    setSubmitting(true)
     saveDraft(task.id, text)
+
+    // 1. Save writing to DB first (never block on AI)
     await saveToDb(text, true)
     setSubmitted(true)
-    toast({ type: 'success', title: 'تم إرسال كتابتك ✅' })
-  }, [task.id, text, saveToDb])
+    toast({ type: 'success', title: 'تم إرسال كتابتك — جاري التصحيح...' })
+
+    // 2. Call AI feedback
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session) { setSubmitting(false); return }
+
+      const res = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-writing-feedback`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${session.access_token}`,
+          },
+          body: JSON.stringify({
+            text,
+            assignment_type: task.task_type || 'paragraph',
+          }),
+        }
+      )
+
+      const result = await res.json()
+
+      if (result.feedback) {
+        setAiFeedback(result.feedback)
+        // 3. Save AI feedback to DB
+        const { error } = await supabase
+          .from('student_curriculum_progress')
+          .update({
+            ai_feedback: result.feedback,
+            score: result.feedback.fluency_score ? result.feedback.fluency_score * 10 : null,
+          })
+          .eq('student_id', studentId)
+          .eq('writing_id', task.id)
+        if (error) console.error('[WritingTab] AI feedback save error:', error)
+      } else if (result.limit_reached || result.budget_reached) {
+        toast({ type: 'info', title: result.error })
+      }
+      // If AI unavailable — writing is already saved, trainer will review
+    } catch (err) {
+      console.error('[WritingTab] AI feedback call failed:', err)
+    } finally {
+      setSubmitting(false)
+    }
+  }, [task.id, task.task_type, text, studentId, saveToDb, submitting])
 
   const taskTypeAr = {
     paragraph: 'فقرة',
@@ -382,11 +433,11 @@ function WritingTask({ task, number, total, studentId, unitId }) {
               </button>
               <button
                 onClick={handleSubmit}
-                disabled={wordCount < task.word_count_min}
+                disabled={wordCount < task.word_count_min || submitting}
                 className="flex items-center gap-1.5 px-4 h-9 rounded-xl text-xs font-bold bg-rose-500/15 text-rose-400 border border-rose-500/30 hover:bg-rose-500/25 transition-colors font-['Tajawal'] disabled:opacity-30 disabled:cursor-not-allowed"
               >
-                <Send size={13} />
-                إرسال
+                {submitting ? <Loader2 size={13} className="animate-spin" /> : <Send size={13} />}
+                {submitting ? 'جاري التصحيح...' : 'تسليم للتصحيح'}
               </button>
             </div>
           </div>
@@ -451,20 +502,142 @@ function WritingTask({ task, number, total, studentId, unitId }) {
         </div>
       )}
 
-      {/* AI feedback placeholder */}
-      <div
-        className="rounded-xl p-4 flex items-start gap-3"
-        style={{ background: 'rgba(139,92,246,0.06)', border: '1px solid rgba(139,92,246,0.15)' }}
-      >
-        <Bot size={18} className="text-violet-400 flex-shrink-0 mt-0.5" />
-        <div>
-          <p className="text-sm font-bold text-violet-400 font-['Tajawal']">تقييم بالذكاء الاصطناعي</p>
-          <p className="text-xs text-[var(--text-muted)] font-['Tajawal'] mt-1">
-            بعد الإرسال، سيتم تقييم كتابتك وتقديم ملاحظات فورية لتحسين مستواك — قريباً إن شاء الله
-          </p>
+      {/* AI correction loading */}
+      {submitting && (
+        <div
+          className="rounded-xl p-4 flex items-center gap-3"
+          style={{ background: 'rgba(56,189,248,0.05)', border: '1px solid rgba(56,189,248,0.12)' }}
+        >
+          <Loader2 size={18} className="text-sky-400 animate-spin flex-shrink-0" />
+          <span className="text-sm font-bold text-sky-400 font-['Tajawal']">جاري التصحيح...</span>
         </div>
-      </div>
+      )}
+
+      {/* AI feedback display */}
+      {aiFeedback && <AIFeedbackCard feedback={aiFeedback} />}
     </div>
+  )
+}
+
+// ─── AI Feedback Card ─────────────────────────────────
+function AIFeedbackCard({ feedback }) {
+  const [showCorrected, setShowCorrected] = useState(false)
+  const f = feedback
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="rounded-xl p-5 space-y-4"
+      style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}
+    >
+      {/* Header + fluency score */}
+      <div className="flex items-center justify-between">
+        <h3 className="text-base font-bold text-[var(--text-primary)] font-['Tajawal']">التصحيح</h3>
+        {f.fluency_score != null && (
+          <span className="text-xl font-bold text-sky-400 font-['Inter']">{f.fluency_score}/10</span>
+        )}
+      </div>
+
+      {/* Overall feedback */}
+      {f.overall_feedback && (
+        <p className="text-sm text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed">
+          {f.overall_feedback}
+        </p>
+      )}
+
+      {/* Grammar errors */}
+      {f.grammar_errors?.length > 0 && (
+        <div>
+          <h4 className="text-xs font-bold text-red-400 font-['Tajawal'] mb-2">أخطاء يجب تصحيحها</h4>
+          <div className="space-y-1.5">
+            {f.grammar_errors.map((e, i) => (
+              <div key={i} className="flex flex-wrap items-center gap-2 px-3 py-2 rounded-lg text-xs" style={{ background: 'rgba(239,68,68,0.05)' }}>
+                <span className="line-through text-red-400 font-['Inter']" dir="ltr">{e.error || e.original}</span>
+                <span className="text-emerald-400 font-['Inter']" dir="ltr">{e.correction}</span>
+                {e.rule && <span className="text-[var(--text-muted)] font-['Tajawal']">({e.rule})</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Vocabulary suggestions */}
+      {f.vocabulary_suggestions?.length > 0 && (
+        <div>
+          <h4 className="text-xs font-bold text-amber-400 font-['Tajawal'] mb-2">اقتراحات للمفردات</h4>
+          <div className="space-y-1.5">
+            {f.vocabulary_suggestions.map((v, i) => (
+              <div key={i} className="flex flex-wrap items-center gap-2 px-3 py-2 rounded-lg text-xs" style={{ background: 'rgba(245,158,11,0.05)' }}>
+                <span className="text-[var(--text-muted)] font-['Inter']" dir="ltr">{v.original}</span>
+                <span className="text-amber-400 font-['Inter']" dir="ltr">{v.better}</span>
+                {(v.reason || v.why) && <span className="text-[var(--text-muted)] font-['Tajawal']">({v.reason || v.why})</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Structure assessment */}
+      {f.structure_assessment && (
+        <div>
+          <h4 className="text-xs font-bold text-sky-400 font-['Tajawal'] mb-1">بنية النص</h4>
+          <p className="text-xs text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed">{f.structure_assessment}</p>
+        </div>
+      )}
+
+      {/* Improvement tips */}
+      {f.improvement_tips?.length > 0 && (
+        <div>
+          <h4 className="text-xs font-bold text-emerald-400 font-['Tajawal'] mb-2">نصائح للتحسين</h4>
+          {f.improvement_tips.map((tip, i) => (
+            <p key={i} className="text-xs text-[var(--text-secondary)] font-['Tajawal'] mb-1 flex items-start gap-1.5">
+              <CheckCircle2 size={12} className="text-emerald-400 flex-shrink-0 mt-0.5" />
+              {tip}
+            </p>
+          ))}
+        </div>
+      )}
+
+      {/* Strengths */}
+      {f.strengths?.length > 0 && (
+        <div>
+          <h4 className="text-xs font-bold text-emerald-400 font-['Tajawal'] mb-2">نقاط القوة</h4>
+          {f.strengths.map((s, i) => (
+            <p key={i} className="text-xs text-[var(--text-secondary)] font-['Tajawal'] mb-1 flex items-start gap-1.5">
+              <CheckCircle2 size={12} className="text-emerald-400 flex-shrink-0 mt-0.5" />
+              {s}
+            </p>
+          ))}
+        </div>
+      )}
+
+      {/* Corrected text (expandable) */}
+      {f.corrected_text && (
+        <div>
+          <button
+            onClick={() => setShowCorrected(!showCorrected)}
+            className="text-xs font-bold text-sky-400 hover:text-sky-300 font-['Tajawal'] transition-colors"
+          >
+            {showCorrected ? 'إخفاء النص المصحح' : 'عرض النص المصحح'}
+          </button>
+          <AnimatePresence>
+            {showCorrected && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                className="overflow-hidden"
+              >
+                <p className="mt-2 text-sm text-[var(--text-secondary)] font-['Inter'] leading-[1.8] p-3 rounded-lg" dir="ltr" style={{ background: 'rgba(255,255,255,0.02)' }}>
+                  {f.corrected_text}
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      )}
+    </motion.div>
   )
 }
 

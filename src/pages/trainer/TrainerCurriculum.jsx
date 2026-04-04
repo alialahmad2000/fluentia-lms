@@ -1087,6 +1087,38 @@ function WritingAnswers({ answers, progress: prog }) {
         {answers.draft}
       </div>
 
+      {/* AI feedback (if available) */}
+      {prog?.ai_feedback && (
+        <div className="rounded-xl p-4 space-y-3" style={{ background: 'rgba(139,92,246,0.04)', border: '1px solid rgba(139,92,246,0.12)' }}>
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-violet-400 font-['Tajawal']">التصحيح التلقائي</span>
+            {prog.ai_feedback.fluency_score != null && (
+              <span className="text-sm font-bold text-violet-400 font-['Inter']">{prog.ai_feedback.fluency_score}/10</span>
+            )}
+          </div>
+          {prog.ai_feedback.overall_feedback && (
+            <p className="text-xs text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed">{prog.ai_feedback.overall_feedback}</p>
+          )}
+          {prog.ai_feedback.grammar_errors?.length > 0 && (
+            <div className="space-y-1">
+              {prog.ai_feedback.grammar_errors.map((e, i) => (
+                <div key={i} className="flex flex-wrap items-center gap-2 text-[11px]">
+                  <span className="line-through text-red-400 font-['Inter']" dir="ltr">{e.error || e.original}</span>
+                  <span className="text-emerald-400 font-['Inter']" dir="ltr">{e.correction}</span>
+                </div>
+              ))}
+            </div>
+          )}
+          {prog.ai_feedback.improvement_tips?.length > 0 && (
+            <div className="flex flex-wrap gap-1.5">
+              {prog.ai_feedback.improvement_tips.map((tip, i) => (
+                <span key={i} className="px-2 py-1 rounded-lg text-[10px] font-['Tajawal'] text-violet-300" style={{ background: 'rgba(139,92,246,0.08)' }}>{tip}</span>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Trainer grading section */}
       <div className="rounded-xl p-4 space-y-3" style={{ background: 'rgba(14,165,233,0.04)', border: '1px solid rgba(14,165,233,0.12)' }}>
         <div className="flex items-center gap-2">

@@ -982,7 +982,7 @@ function ProgressCard({ progress: prog, sectionType }) {
       {sectionType === 'reading' && <AnswersList answers={answers} type="reading" />}
       {sectionType === 'grammar' && <GrammarAnswersList answers={answers} />}
       {sectionType === 'listening' && <ListeningAnswersList answers={answers} />}
-      {sectionType === 'writing' && <WritingDetail answers={answers} />}
+      {sectionType === 'writing' && <WritingDetail answers={answers} aiFeedback={prog.ai_feedback} />}
       {sectionType === 'vocabulary' && <VocabDetail answers={answers} />}
       {(sectionType === 'speaking' || sectionType === 'assessment') && (
         <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">البيانات التفصيلية غير متاحة حالياً</p>
@@ -1048,7 +1048,7 @@ function ListeningAnswersList({ answers }) {
   )
 }
 
-function WritingDetail({ answers }) {
+function WritingDetail({ answers, aiFeedback }) {
   if (!answers?.draft) return <NoAnswers />
   return (
     <div className="space-y-3">
@@ -1059,6 +1059,29 @@ function WritingDetail({ answers }) {
       <div className="rounded-xl p-4 text-sm font-['Inter'] text-[var(--text-secondary)] leading-[1.8] whitespace-pre-wrap" dir="ltr" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}>
         {answers.draft}
       </div>
+      {aiFeedback && (
+        <div className="rounded-xl p-4 space-y-2" style={{ background: 'rgba(139,92,246,0.04)', border: '1px solid rgba(139,92,246,0.12)' }}>
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-violet-400 font-['Tajawal']">التصحيح التلقائي</span>
+            {aiFeedback.fluency_score != null && (
+              <span className="text-sm font-bold text-violet-400 font-['Inter']">{aiFeedback.fluency_score}/10</span>
+            )}
+          </div>
+          {aiFeedback.overall_feedback && (
+            <p className="text-xs text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed">{aiFeedback.overall_feedback}</p>
+          )}
+          {aiFeedback.grammar_errors?.length > 0 && (
+            <div className="space-y-1">
+              {aiFeedback.grammar_errors.map((e, i) => (
+                <div key={i} className="flex flex-wrap items-center gap-2 text-[11px]">
+                  <span className="line-through text-red-400 font-['Inter']" dir="ltr">{e.error || e.original}</span>
+                  <span className="text-emerald-400 font-['Inter']" dir="ltr">{e.correction}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   )
 }
