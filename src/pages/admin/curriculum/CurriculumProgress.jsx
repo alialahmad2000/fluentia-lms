@@ -75,6 +75,7 @@ export default function CurriculumProgress() {
       if (error) throw error
       return data || []
     },
+    staleTime: 0,
   })
 
   const { data: allStudents = [] } = useQuery({
@@ -87,6 +88,7 @@ export default function CurriculumProgress() {
       if (error) throw error
       return data || []
     },
+    staleTime: 0,
   })
 
   // ── Stats ──
@@ -443,7 +445,7 @@ function UnitDetail({ level, unit, allStudents, filterGroup, onFilterGroupChange
   }, [allStudents, level.level_number])
 
   // Full progress for this unit
-  const { data: progress = [], isLoading } = useQuery({
+  const { data: progress = [], isPending: progressLoading } = useQuery({
     queryKey: ['admin-unit-progress', unit.id, studentIds.join(',')],
     queryFn: async () => {
       if (!studentIds.length) return []
@@ -456,7 +458,10 @@ function UnitDetail({ level, unit, allStudents, filterGroup, onFilterGroupChange
       return data || []
     },
     enabled: studentIds.length > 0,
+    staleTime: 0,
   })
+
+  const isLoading = studentIds.length > 0 && progressLoading
 
   return (
     <div className="space-y-5">
@@ -503,6 +508,9 @@ function UnitDetail({ level, unit, allStudents, filterGroup, onFilterGroupChange
   )
 }
 
+// Section types shown in the matrix (games use game_sessions table, not progress)
+const MATRIX_SECTIONS = SECTION_TYPES.filter(s => s.id !== 'games')
+
 // ─── All Students Matrix (with group column) ─────────
 function AllStudentsMatrix({ students, progress, activeTab, showGroup }) {
   // If games tab is active with no specific student, show game activity
@@ -516,13 +524,15 @@ function AllStudentsMatrix({ students, progress, activeTab, showGroup }) {
   const studentMap = useMemo(() => {
     const map = {}
     students.forEach(s => { map[s.id] = { student: s, sections: {} } })
-    progress?.forEach(p => {
-      if (map[p.student_id]) {
-        const key = p.section_type
-        if (!map[p.student_id].sections[key]) map[p.student_id].sections[key] = []
-        map[p.student_id].sections[key].push(p)
-      }
-    })
+    if (Array.isArray(progress)) {
+      progress.forEach(p => {
+        if (map[p.student_id]) {
+          const key = p.section_type
+          if (!map[p.student_id].sections[key]) map[p.student_id].sections[key] = []
+          map[p.student_id].sections[key].push(p)
+        }
+      })
+    }
     return map
   }, [students, progress])
 
@@ -557,7 +567,7 @@ function AllStudentsMatrix({ students, progress, activeTab, showGroup }) {
             <tr className="text-xs text-[var(--text-muted)] font-['Tajawal']">
               <th className="text-start pb-3 pr-4 font-medium">الطالب</th>
               {showGroup && <th className="text-center pb-3 px-2 font-medium">المجموعة</th>}
-              {SECTION_TYPES.map(sec => (
+              {MATRIX_SECTIONS.map(sec => (
                 <th key={sec.id} className={`text-center pb-3 px-2 font-medium ${activeTab === sec.id ? 'text-sky-400' : ''}`}>{sec.label}</th>
               ))}
             </tr>
@@ -584,11 +594,11 @@ function AllStudentsMatrix({ students, progress, activeTab, showGroup }) {
                     <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">{student.groups?.code || '—'}</span>
                   </td>
                 )}
-                {SECTION_TYPES.map(sec => {
+                {MATRIX_SECTIONS.map(sec => {
                   const entries = sections[sec.id] || []
                   const hasCompleted = entries.some(e => e.status === 'completed')
-                  const hasProgress = entries.some(e => e.status === 'in_progress')
-                  const bestScore = entries.reduce((max, e) => Math.max(max, e.score || 0), 0)
+                  const hasProgress = entries.length > 0 && !hasCompleted
+                  const bestScore = entries.reduce((max, e) => Math.max(max, Number(e.score) || 0), 0)
                   const status = hasCompleted ? 'completed' : hasProgress ? 'in_progress' : 'not_started'
                   const st = STATUS_STYLES[status]
                   const Icon = st.icon

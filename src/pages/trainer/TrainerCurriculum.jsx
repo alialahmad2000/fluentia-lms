@@ -260,7 +260,7 @@ function GroupUnits({ group, selectedStudent, onStudentChange, onUnitClick }) {
 
   // Get progress for all students
   const studentIds = students?.map(s => s.id) || []
-  const { data: progress } = useQuery({
+  const { data: progress = [] } = useQuery({
     queryKey: ['group-progress', group.id, studentIds.join(',')],
     queryFn: async () => {
       if (!studentIds.length) return []
@@ -269,7 +269,6 @@ function GroupUnits({ group, selectedStudent, onStudentChange, onUnitClick }) {
         .select('student_id, unit_id, section_type, status, score, attempt_number')
         .in('student_id', studentIds)
       if (error) console.error('[TrainerCurriculum] Group progress query failed:', error)
-      console.log('[TrainerCurriculum] Group progress:', data?.length, 'rows for', studentIds.length, 'students')
       return data || []
     },
     enabled: studentIds.length > 0,
@@ -531,7 +530,7 @@ function GroupGameActivity({ studentIds, students }) {
 // ─── Level 3: Unit Detail ────────────────────────────
 function UnitDetail({ group, unit, selectedStudent, onStudentChange, activeTab, onTabChange }) {
   // Get students in group
-  const { data: students } = useQuery({
+  const { data: students = [], isPending: studentsLoading } = useQuery({
     queryKey: ['group-students', group.id],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -541,15 +540,15 @@ function UnitDetail({ group, unit, selectedStudent, onStudentChange, activeTab, 
         .is('deleted_at', null)
         .order('profiles(full_name)')
       if (error) console.error('[TrainerCurriculum] Students query failed:', error)
-      console.log('[TrainerCurriculum] Students loaded:', data?.length, 'for group', group.id)
       return data || []
     },
+    staleTime: 0,
   })
 
-  const studentIds = students?.map(s => s.id) || []
+  const studentIds = students.map(s => s.id)
 
   // Get all progress for this unit
-  const { data: progress, isLoading } = useQuery({
+  const { data: progress = [], isPending: progressLoading } = useQuery({
     queryKey: ['unit-progress', unit.id, studentIds.join(',')],
     queryFn: async () => {
       if (!studentIds.length) return []
@@ -559,12 +558,13 @@ function UnitDetail({ group, unit, selectedStudent, onStudentChange, activeTab, 
         .in('student_id', studentIds)
         .eq('unit_id', unit.id)
       if (error) console.error('[TrainerCurriculum] Progress query failed:', error)
-      console.log('[TrainerCurriculum] Progress loaded:', data?.length, 'rows for unit', unit.id, 'students:', studentIds.length)
       return data || []
     },
     enabled: studentIds.length > 0,
-    staleTime: 0, // Always refetch — critical for showing live student progress
+    staleTime: 0,
   })
+
+  const isLoading = studentsLoading || (studentIds.length > 0 && progressLoading)
 
   return (
     <div className="space-y-5">
@@ -608,6 +608,9 @@ function UnitDetail({ group, unit, selectedStudent, onStudentChange, activeTab, 
   )
 }
 
+// Section types shown in the matrix (games use game_sessions table, not progress)
+const MATRIX_SECTIONS = SECTION_TYPES.filter(s => s.id !== 'games')
+
 // ─── All Students Matrix ─────────────────────────────
 function AllStudentsMatrix({ students, progress, activeTab }) {
   // If games tab is active with no specific student, show group game activity
@@ -622,13 +625,15 @@ function AllStudentsMatrix({ students, progress, activeTab }) {
   const studentMap = useMemo(() => {
     const map = {}
     students.forEach(s => { map[s.id] = { student: s, sections: {} } })
-    progress?.forEach(p => {
-      if (map[p.student_id]) {
-        const key = p.section_type
-        if (!map[p.student_id].sections[key]) map[p.student_id].sections[key] = []
-        map[p.student_id].sections[key].push(p)
-      }
-    })
+    if (Array.isArray(progress)) {
+      progress.forEach(p => {
+        if (map[p.student_id]) {
+          const key = p.section_type
+          if (!map[p.student_id].sections[key]) map[p.student_id].sections[key] = []
+          map[p.student_id].sections[key].push(p)
+        }
+      })
+    }
     return map
   }, [students, progress])
 
@@ -638,7 +643,7 @@ function AllStudentsMatrix({ students, progress, activeTab }) {
         <thead>
           <tr className="text-xs text-[var(--text-muted)] font-['Tajawal']">
             <th className="text-start pb-3 pr-4 font-medium">الطالب</th>
-            {SECTION_TYPES.map(sec => (
+            {MATRIX_SECTIONS.map(sec => (
               <th key={sec.id} className={`text-center pb-3 px-2 font-medium ${activeTab === sec.id ? 'text-sky-400' : ''}`}>
                 {sec.label}
               </th>
@@ -662,11 +667,11 @@ function AllStudentsMatrix({ students, progress, activeTab }) {
                   </span>
                 </div>
               </td>
-              {SECTION_TYPES.map(sec => {
+              {MATRIX_SECTIONS.map(sec => {
                 const entries = sections[sec.id] || []
                 const hasCompleted = entries.some(e => e.status === 'completed')
-                const hasProgress = entries.some(e => e.status === 'in_progress')
-                const bestScore = entries.reduce((max, e) => Math.max(max, e.score || 0), 0)
+                const hasProgress = entries.length > 0 && !hasCompleted
+                const bestScore = entries.reduce((max, e) => Math.max(max, Number(e.score) || 0), 0)
                 const status = hasCompleted ? 'completed' : hasProgress ? 'in_progress' : 'not_started'
                 const st = STATUS_STYLES[status]
                 const Icon = st.icon
