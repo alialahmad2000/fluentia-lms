@@ -25,27 +25,31 @@ const FILTER_OPTIONS = [
 ]
 
 export default function TrainerProgressMatrix() {
-  const { profile } = useAuthStore()
+  const { user, profile } = useAuthStore()
   const isAdmin = profile?.role === 'admin'
+  const trainerId = user?.id
   const [selectedGroupId, setSelectedGroupId] = useState(null)
   const [statusFilter, setStatusFilter] = useState('all')
   const [hoveredCell, setHoveredCell] = useState(null)
 
   // 1. Get groups
   const { data: groups, isLoading: groupsLoading } = useQuery({
-    queryKey: ['matrix-groups', profile?.role],
+    queryKey: ['matrix-groups', trainerId, profile?.role],
     queryFn: async () => {
+      console.log('[ProgressMatrix] Fetching groups, trainerId:', trainerId, 'isAdmin:', isAdmin)
       let q = supabase.from('groups').select('id, name, code, level').eq('is_active', true).order('level')
-      if (!isAdmin) q = q.eq('trainer_id', profile?.id)
-      const { data } = await q
+      if (!isAdmin) q = q.eq('trainer_id', trainerId)
+      const { data, error } = await q
+      console.log('[ProgressMatrix] Groups result:', data, 'error:', error)
       return data || []
     },
-    enabled: !!profile?.id,
+    enabled: !!trainerId,
   })
 
   // Auto-select first group
   const activeGroupId = selectedGroupId || groups?.[0]?.id
   const activeGroup = groups?.find(g => g.id === activeGroupId)
+  console.log('[ProgressMatrix] activeGroup:', activeGroup, 'level:', activeGroup?.level, 'typeof:', typeof activeGroup?.level)
 
   // 2. Get students in selected group
   const { data: students, isLoading: studentsLoading } = useQuery({
@@ -71,11 +75,13 @@ export default function TrainerProgressMatrix() {
   const { data: units, isLoading: unitsLoading } = useQuery({
     queryKey: ['progress-matrix-units', activeGroupId, activeGroup?.level],
     queryFn: async () => {
+      console.log('[ProgressMatrix] Fetching level for level_number:', activeGroup.level)
       const { data: level, error: lvlErr } = await supabase
         .from('curriculum_levels')
         .select('*')
         .eq('level_number', activeGroup.level)
         .single()
+      console.log('[ProgressMatrix] Level result:', level, 'error:', lvlErr)
       if (lvlErr || !level) {
         console.error('[ProgressMatrix] Level query failed:', lvlErr, 'group.level =', activeGroup.level)
         return []
@@ -85,6 +91,7 @@ export default function TrainerProgressMatrix() {
         .select('*')
         .eq('level_id', level.id)
         .order('unit_number')
+      console.log('[ProgressMatrix] Units result:', u?.length, 'units, error:', unitsErr)
       if (unitsErr) console.error('[ProgressMatrix] Units query failed:', unitsErr)
       return u || []
     },
