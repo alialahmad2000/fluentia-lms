@@ -81,11 +81,11 @@ export default function InteractiveCurriculumPage() {
       if (!groupIds.length) return []
       const { data } = await supabase
         .from('students')
-        .select('user_id, group_id, profiles:user_id(full_name, avatar_url)')
+        .select('id, group_id, profiles(full_name, avatar_url)')
         .in('group_id', groupIds)
         .eq('status', 'active')
       return (data || []).map(s => ({
-        user_id: s.user_id,
+        user_id: s.id,
         group_id: s.group_id,
         full_name: s.profiles?.full_name || 'طالب',
         avatar_url: s.profiles?.avatar_url,
