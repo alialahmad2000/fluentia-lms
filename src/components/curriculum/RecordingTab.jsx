@@ -19,7 +19,27 @@ export default function RecordingTab({ unitId }) {
   const { profile, studentData } = useAuthStore()
   const role = profile?.role || 'student'
   const isStaff = role === 'admin' || role === 'trainer'
-  const groupId = studentData?.group_id
+  const studentGroupId = studentData?.group_id
+  const [selectedGroupId, setSelectedGroupId] = useState('')
+
+  // Staff: load groups for selector (admin sees all, trainer sees own via RLS)
+  const { data: groups = [] } = useQuery({
+    queryKey: ['rec-tab-groups'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('groups')
+        .select('id, name, code')
+        .eq('is_active', true)
+        .order('name')
+      if (error) throw error
+      return data || []
+    },
+    enabled: isStaff && !studentGroupId,
+    staleTime: 60_000,
+  })
+
+  // Auto-select first group for staff
+  const groupId = studentGroupId || selectedGroupId || (isStaff && groups.length === 1 ? groups[0].id : '')
 
   const { data: recordings = [], isLoading } = useQuery({
     queryKey: ['unit-recordings', unitId, groupId],
@@ -38,6 +58,52 @@ export default function RecordingTab({ unitId }) {
     staleTime: 0,
   })
 
+  // Staff with no student group: show group selector
+  if (isStaff && !studentGroupId) {
+    if (!groupId) {
+      return (
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+            <Video size={18} className="text-sky-400" />
+            <span className="text-sm font-bold text-[var(--text-primary)] font-['Tajawal']">اختر المجموعة</span>
+          </div>
+          <select
+            className="w-full h-11 px-3 rounded-xl text-sm font-['Tajawal'] text-[var(--text-primary)] focus:outline-none focus:ring-1 focus:ring-sky-500/40"
+            style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+            value={selectedGroupId}
+            onChange={e => setSelectedGroupId(e.target.value)}
+          >
+            <option value="">اختر المجموعة...</option>
+            {groups.map(g => <option key={g.id} value={g.id}>{g.code} — {g.name}</option>)}
+          </select>
+        </div>
+      )
+    }
+
+    // Show group selector + content
+    return (
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <select
+            className="h-9 px-3 rounded-lg text-xs font-['Tajawal'] text-[var(--text-primary)] focus:outline-none focus:ring-1 focus:ring-sky-500/40"
+            style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+            value={selectedGroupId || groupId}
+            onChange={e => setSelectedGroupId(e.target.value)}
+          >
+            {groups.map(g => <option key={g.id} value={g.id}>{g.code} — {g.name}</option>)}
+          </select>
+        </div>
+        <RecordingContent
+          recordings={recordings}
+          isLoading={isLoading}
+          isStaff={isStaff}
+          unitId={unitId}
+          groupId={groupId}
+        />
+      </div>
+    )
+  }
+
   if (!groupId) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 py-20">
@@ -49,6 +115,19 @@ export default function RecordingTab({ unitId }) {
     )
   }
 
+  return (
+    <RecordingContent
+      recordings={recordings}
+      isLoading={isLoading}
+      isStaff={isStaff}
+      unitId={unitId}
+      groupId={groupId}
+    />
+  )
+}
+
+// ─── Recording Content ──────────────────────────────
+function RecordingContent({ recordings, isLoading, isStaff, unitId, groupId }) {
   if (isLoading) return <RecordingSkeleton />
 
   const recordingByPart = {}
