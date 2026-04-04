@@ -5,6 +5,7 @@ import { FileEdit, Lightbulb, Save, Send, ChevronDown, CheckCircle2, BookOpen, T
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
+import WritingFeedback from '../../../../components/curriculum/WritingFeedback'
 
 // ─── Storage helpers ─────────────────────────────────
 const draftKey = (taskId) => `fluentia_writing_draft_${taskId}`
@@ -210,7 +211,8 @@ function WritingTask({ task, number, total, studentId, unitId }) {
             'Authorization': `Bearer ${session.access_token}`,
           },
           body: JSON.stringify({
-            text,
+            writing_text: text,
+            writing_prompt: task.prompt_en || '',
             assignment_type: task.task_type || 'paragraph',
           }),
         }
@@ -514,132 +516,11 @@ function WritingTask({ task, number, total, studentId, unitId }) {
       )}
 
       {/* AI feedback display */}
-      {aiFeedback && <AIFeedbackCard feedback={aiFeedback} />}
+      {aiFeedback && <WritingFeedback feedback={aiFeedback} />}
     </div>
   )
 }
 
-// ─── AI Feedback Card ─────────────────────────────────
-function AIFeedbackCard({ feedback }) {
-  const [showCorrected, setShowCorrected] = useState(false)
-  const f = feedback
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="rounded-xl p-5 space-y-4"
-      style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}
-    >
-      {/* Header + fluency score */}
-      <div className="flex items-center justify-between">
-        <h3 className="text-base font-bold text-[var(--text-primary)] font-['Tajawal']">التصحيح</h3>
-        {f.fluency_score != null && (
-          <span className="text-xl font-bold text-sky-400 font-['Inter']">{f.fluency_score}/10</span>
-        )}
-      </div>
-
-      {/* Overall feedback */}
-      {f.overall_feedback && (
-        <p className="text-sm text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed">
-          {f.overall_feedback}
-        </p>
-      )}
-
-      {/* Grammar errors */}
-      {f.grammar_errors?.length > 0 && (
-        <div>
-          <h4 className="text-xs font-bold text-red-400 font-['Tajawal'] mb-2">أخطاء يجب تصحيحها</h4>
-          <div className="space-y-1.5">
-            {f.grammar_errors.map((e, i) => (
-              <div key={i} className="flex flex-wrap items-center gap-2 px-3 py-2 rounded-lg text-xs" style={{ background: 'rgba(239,68,68,0.05)' }}>
-                <span className="line-through text-red-400 font-['Inter']" dir="ltr">{e.error || e.original}</span>
-                <span className="text-emerald-400 font-['Inter']" dir="ltr">{e.correction}</span>
-                {e.rule && <span className="text-[var(--text-muted)] font-['Tajawal']">({e.rule})</span>}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Vocabulary suggestions */}
-      {f.vocabulary_suggestions?.length > 0 && (
-        <div>
-          <h4 className="text-xs font-bold text-amber-400 font-['Tajawal'] mb-2">اقتراحات للمفردات</h4>
-          <div className="space-y-1.5">
-            {f.vocabulary_suggestions.map((v, i) => (
-              <div key={i} className="flex flex-wrap items-center gap-2 px-3 py-2 rounded-lg text-xs" style={{ background: 'rgba(245,158,11,0.05)' }}>
-                <span className="text-[var(--text-muted)] font-['Inter']" dir="ltr">{v.original}</span>
-                <span className="text-amber-400 font-['Inter']" dir="ltr">{v.better}</span>
-                {(v.reason || v.why) && <span className="text-[var(--text-muted)] font-['Tajawal']">({v.reason || v.why})</span>}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Structure assessment */}
-      {f.structure_assessment && (
-        <div>
-          <h4 className="text-xs font-bold text-sky-400 font-['Tajawal'] mb-1">بنية النص</h4>
-          <p className="text-xs text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed">{f.structure_assessment}</p>
-        </div>
-      )}
-
-      {/* Improvement tips */}
-      {f.improvement_tips?.length > 0 && (
-        <div>
-          <h4 className="text-xs font-bold text-emerald-400 font-['Tajawal'] mb-2">نصائح للتحسين</h4>
-          {f.improvement_tips.map((tip, i) => (
-            <p key={i} className="text-xs text-[var(--text-secondary)] font-['Tajawal'] mb-1 flex items-start gap-1.5">
-              <CheckCircle2 size={12} className="text-emerald-400 flex-shrink-0 mt-0.5" />
-              {tip}
-            </p>
-          ))}
-        </div>
-      )}
-
-      {/* Strengths */}
-      {f.strengths?.length > 0 && (
-        <div>
-          <h4 className="text-xs font-bold text-emerald-400 font-['Tajawal'] mb-2">نقاط القوة</h4>
-          {f.strengths.map((s, i) => (
-            <p key={i} className="text-xs text-[var(--text-secondary)] font-['Tajawal'] mb-1 flex items-start gap-1.5">
-              <CheckCircle2 size={12} className="text-emerald-400 flex-shrink-0 mt-0.5" />
-              {s}
-            </p>
-          ))}
-        </div>
-      )}
-
-      {/* Corrected text (expandable) */}
-      {f.corrected_text && (
-        <div>
-          <button
-            onClick={() => setShowCorrected(!showCorrected)}
-            className="text-xs font-bold text-sky-400 hover:text-sky-300 font-['Tajawal'] transition-colors"
-          >
-            {showCorrected ? 'إخفاء النص المصحح' : 'عرض النص المصحح'}
-          </button>
-          <AnimatePresence>
-            {showCorrected && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                className="overflow-hidden"
-              >
-                <p className="mt-2 text-sm text-[var(--text-secondary)] font-['Inter'] leading-[1.8] p-3 rounded-lg" dir="ltr" style={{ background: 'rgba(255,255,255,0.02)' }}>
-                  {f.corrected_text}
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      )}
-    </motion.div>
-  )
-}
 
 // ─── Relative Time Display ───────────────────────────
 function RelativeTime({ date }) {

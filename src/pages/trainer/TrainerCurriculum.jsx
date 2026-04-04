@@ -11,6 +11,7 @@ import {
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
+import WritingFeedback from '../../components/curriculum/WritingFeedback'
 
 // ─── Status helpers ──────────────────────────────────
 const STATUS_STYLES = {
@@ -717,7 +718,7 @@ function StudentAnswers({ student, progress, activeTab, unitId }) {
   return (
     <div className="space-y-4">
       {studentProgress.map(prog => (
-        <ProgressDetailCard key={prog.id} progress={prog} sectionType={activeTab} />
+        <ProgressDetailCard key={prog.id} progress={prog} sectionType={activeTab} studentName={student.profiles?.full_name} />
       ))}
     </div>
   )
@@ -869,7 +870,7 @@ function StudentGamesView({ studentId, studentName }) {
 }
 
 // ─── Progress Detail Card ────────────────────────────
-function ProgressDetailCard({ progress: prog, sectionType }) {
+function ProgressDetailCard({ progress: prog, sectionType, studentName }) {
   const st = STATUS_STYLES[prog.status] || STATUS_STYLES.not_started
   const Icon = st.icon
   const answers = prog.answers || {}
@@ -931,7 +932,7 @@ function ProgressDetailCard({ progress: prog, sectionType }) {
       {sectionType === 'reading' && <ReadingAnswers answers={answers} />}
       {sectionType === 'grammar' && <GrammarAnswers answers={answers} />}
       {sectionType === 'listening' && <ListeningAnswers answers={answers} />}
-      {sectionType === 'writing' && <WritingAnswers answers={answers} progress={prog} />}
+      {sectionType === 'writing' && <WritingAnswers answers={answers} progress={prog} studentName={studentName} />}
       {sectionType === 'vocabulary' && <VocabularyAnswers answers={answers} />}
       {sectionType === 'speaking' && <SpeakingProgress progress={prog} />}
       {sectionType === 'assessment' && (
@@ -1031,20 +1032,63 @@ function ListeningAnswers({ answers }) {
 const GRADE_OPTIONS = ['A+', 'A', 'B+', 'B', 'C', 'D', 'F']
 const QUICK_FEEDBACK = ['ممتاز!', 'أحسنت', 'يحتاج تحسين', 'أعد المحاولة']
 
-function WritingAnswers({ answers, progress: prog }) {
+function WritingAnswers({ answers, progress: prog, studentName }) {
   const { user } = useAuthStore()
   const queryClient = useQueryClient()
   const [feedback, setFeedback] = useState(prog?.trainer_feedback || '')
   const [grade, setGrade] = useState(prog?.trainer_grade || '')
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [aiLoading, setAiLoading] = useState(false)
+  const [aiFeedback, setAiFeedback] = useState(prog?.ai_feedback || null)
 
   // Sync when prog changes
   useEffect(() => {
     setFeedback(prog?.trainer_feedback || '')
     setGrade(prog?.trainer_grade || '')
+    setAiFeedback(prog?.ai_feedback || null)
     setSaved(false)
-  }, [prog?.id, prog?.trainer_feedback, prog?.trainer_grade])
+  }, [prog?.id, prog?.trainer_feedback, prog?.trainer_grade, prog?.ai_feedback])
+
+  const handleAIEvaluate = async () => {
+    if (aiLoading || !answers?.draft) return
+    setAiLoading(true)
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session) { setAiLoading(false); return }
+      const res = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-writing-feedback`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${session.access_token}`,
+          },
+          body: JSON.stringify({
+            writing_text: answers.draft,
+            student_name: studentName || '',
+          }),
+        }
+      )
+      const result = await res.json()
+      if (result.feedback) {
+        setAiFeedback(result.feedback)
+        // Save to student's progress row
+        if (prog?.id) {
+          await supabase
+            .from('student_curriculum_progress')
+            .update({ ai_feedback: result.feedback })
+            .eq('id', prog.id)
+        }
+      } else if (result.error) {
+        console.error('[WritingAnswers] AI error:', result.error)
+      }
+    } catch (err) {
+      console.error('[WritingAnswers] AI evaluation failed:', err)
+    } finally {
+      setAiLoading(false)
+    }
+  }
 
   const handleSave = async () => {
     if (!prog?.id || !user?.id) return
@@ -1099,37 +1143,24 @@ function WritingAnswers({ answers, progress: prog }) {
         {answers.draft}
       </div>
 
-      {/* AI feedback (if available) */}
-      {prog?.ai_feedback && (
-        <div className="rounded-xl p-4 space-y-3" style={{ background: 'rgba(139,92,246,0.04)', border: '1px solid rgba(139,92,246,0.12)' }}>
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-violet-400 font-['Tajawal']">التصحيح التلقائي</span>
-            {prog.ai_feedback.fluency_score != null && (
-              <span className="text-sm font-bold text-violet-400 font-['Inter']">{prog.ai_feedback.fluency_score}/10</span>
-            )}
-          </div>
-          {prog.ai_feedback.overall_feedback && (
-            <p className="text-xs text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed">{prog.ai_feedback.overall_feedback}</p>
-          )}
-          {prog.ai_feedback.grammar_errors?.length > 0 && (
-            <div className="space-y-1">
-              {prog.ai_feedback.grammar_errors.map((e, i) => (
-                <div key={i} className="flex flex-wrap items-center gap-2 text-[11px]">
-                  <span className="line-through text-red-400 font-['Inter']" dir="ltr">{e.error || e.original}</span>
-                  <span className="text-emerald-400 font-['Inter']" dir="ltr">{e.correction}</span>
-                </div>
-              ))}
-            </div>
-          )}
-          {prog.ai_feedback.improvement_tips?.length > 0 && (
-            <div className="flex flex-wrap gap-1.5">
-              {prog.ai_feedback.improvement_tips.map((tip, i) => (
-                <span key={i} className="px-2 py-1 rounded-lg text-[10px] font-['Tajawal'] text-violet-300" style={{ background: 'rgba(139,92,246,0.08)' }}>{tip}</span>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
+      {/* AI evaluation button */}
+      <button
+        onClick={handleAIEvaluate}
+        disabled={aiLoading}
+        className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-sky-500/30 text-sky-400 text-sm font-bold font-['Tajawal'] hover:bg-sky-500/10 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+      >
+        {aiLoading ? (
+          <>
+            <span className="w-4 h-4 rounded-full border-2 border-sky-400 border-t-transparent animate-spin" />
+            جاري التقييم...
+          </>
+        ) : (
+          <>✨ تقييم ذكاء اصطناعي</>
+        )}
+      </button>
+
+      {/* AI feedback (shared component) */}
+      {aiFeedback && <WritingFeedback feedback={aiFeedback} showEnglish={true} />}
 
       {/* Trainer grading section */}
       <div className="rounded-xl p-4 space-y-3" style={{ background: 'rgba(14,165,233,0.04)', border: '1px solid rgba(14,165,233,0.12)' }}>
