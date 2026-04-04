@@ -180,6 +180,9 @@ export default function LayoutShell() {
             <Outlet />
           </ErrorBoundary>
         </main>
+        {/* Bottom spacer — ensures content is never hidden behind the fixed mobile bottom nav.
+            This is a physical spacer that creates scroll room on mobile, hidden on desktop. */}
+        <div className="h-28 lg:hidden" aria-hidden="true" />
       </div>
 
       {/* AI Floating Helper */}

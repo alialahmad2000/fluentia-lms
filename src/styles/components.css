@@ -458,8 +458,9 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: calc(var(--bottom-nav-height, 64px) + var(--sab));
-    padding-bottom: var(--sab);
+    height: 80px;
+    height: calc(64px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
     background: var(--sidebar-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -474,9 +475,13 @@
 /* === Safe-area bottom padding for main content — mobile only === */
 /* On mobile (<lg), the fixed bottom nav covers content. Add enough padding to clear it. */
 /* On desktop (>=lg), Tailwind's lg:pb-10 applies instead (no bottom nav visible). */
+/* Uses env() directly for max iOS compatibility, with a generous hardcoded fallback. */
 @media (max-width: 1023px) {
   .pb-safe-bottom {
-    padding-bottom: calc(var(--bottom-nav-height, 64px) + var(--sab) + 32px) !important;
+    /* Fallback for browsers that don't support env() */
+    padding-bottom: 120px !important;
+    /* Modern: nav (64px) + home indicator + breathing room */
+    padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px) + 40px) !important;
   }
 }
 
