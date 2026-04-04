@@ -637,8 +637,22 @@ function AllStudentsMatrix({ students, progress, activeTab }) {
     return map
   }, [students, progress])
 
+  // DEBUG: count sections filled
+  const filledCount = Object.values(studentMap).reduce((sum, { sections }) =>
+    sum + Object.values(sections).flat().length, 0)
+
   return (
     <div className="overflow-x-auto scrollbar-hide">
+      {/* DEBUG BANNER — remove after confirming fix */}
+      <div className="rounded-xl p-3 mb-3 text-xs font-mono" style={{ background: 'rgba(234,179,8,0.1)', border: '1px solid rgba(234,179,8,0.3)', color: '#eab308' }}>
+        <div>🔍 DEBUG: students={students?.length || 0}, progress={Array.isArray(progress) ? progress.length : typeof progress}, filledCells={filledCount}</div>
+        {Array.isArray(progress) && progress.length > 0 && (
+          <div>sample: student_id={progress[0].student_id?.slice(0,8)} section={progress[0].section_type} status={progress[0].status}</div>
+        )}
+        {Array.isArray(progress) && progress.length > 0 && students?.length > 0 && (
+          <div>firstStudentInMap={students[0].id?.slice(0,8)} matchInProgress={progress.some(p => p.student_id === students[0].id) ? 'YES' : 'NO'}</div>
+        )}
+      </div>
       <table className="w-full min-w-[600px]">
         <thead>
           <tr className="text-xs text-[var(--text-muted)] font-['Tajawal']">
