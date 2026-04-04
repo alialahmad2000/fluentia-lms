@@ -117,6 +117,10 @@ const AdminContentBank = lazyRetry(() => import('./pages/admin/AdminContentBank'
 const AdminDailyReports = lazyRetry(() => import('./pages/admin/AdminDailyReports'))
 const AdminAnalytics = lazyRetry(() => import('./pages/admin/AdminAnalytics'))
 
+const InteractiveCurriculumLevels = lazyRetry(() => import('./pages/shared/InteractiveCurriculumLevels'))
+const InteractiveCurriculumUnits = lazyRetry(() => import('./pages/shared/InteractiveCurriculumUnits'))
+const InteractiveCurriculumPage = lazyRetry(() => import('./pages/shared/InteractiveCurriculumPage'))
+
 const ForgotPassword = lazyRetry(() => import('./pages/public/ForgotPassword'))
 const ResetPassword = lazyRetry(() => import('./pages/public/ResetPassword'))
 const ParentDashboard = lazyRetry(() => import('./pages/public/ParentDashboard'))
@@ -423,6 +427,9 @@ export default function App() {
               <Route path="/trainer/conversation" element={<Page><TrainerGroupChat /></Page>} />
               <Route path="/trainer/curriculum" element={<Page><TrainerCurriculum /></Page>} />
               <Route path="/trainer/progress-matrix" element={<Page><TrainerProgressMatrix /></Page>} />
+              <Route path="/trainer/interactive-curriculum" element={<Page><InteractiveCurriculumLevels /></Page>} />
+              <Route path="/trainer/interactive-curriculum/:levelId" element={<Page><InteractiveCurriculumUnits /></Page>} />
+              <Route path="/trainer/interactive-curriculum/:levelId/:unitId" element={<Page><InteractiveCurriculumPage /></Page>} />
               <Route path="/trainer/student/:studentId/progress" element={<Page><StudentProgressDetail /></Page>} />
             </Route>
           </Route>
@@ -457,6 +464,9 @@ export default function App() {
               <Route path="/admin/content-bank" element={<Page><AdminContentBank /></Page>} />
               <Route path="/admin/daily-reports" element={<Page><AdminDailyReports /></Page>} />
               <Route path="/admin/analytics" element={<Page><AdminAnalytics /></Page>} />
+              <Route path="/admin/interactive-curriculum" element={<Page><InteractiveCurriculumLevels /></Page>} />
+              <Route path="/admin/interactive-curriculum/:levelId" element={<Page><InteractiveCurriculumUnits /></Page>} />
+              <Route path="/admin/interactive-curriculum/:levelId/:unitId" element={<Page><InteractiveCurriculumPage /></Page>} />
               <Route path="/admin/student/:studentId/progress" element={<Page><StudentProgressDetail /></Page>} />
             </Route>
           </Route>

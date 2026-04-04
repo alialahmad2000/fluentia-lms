@@ -1,0 +1,536 @@
+import { useState, useRef, useCallback, useMemo } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { motion, AnimatePresence } from 'framer-motion'
+import { BookOpen, Volume2, Lightbulb, MessageSquare, ChevronDown, Users } from 'lucide-react'
+import { supabase } from '../../lib/supabase'
+import StudentAnswersOverlay from './StudentAnswersOverlay'
+
+const QUESTION_TYPE_LABELS = {
+  main_idea: 'الفكرة الرئيسية',
+  detail: 'تفاصيل',
+  vocabulary: 'مفردات',
+  inference: 'استنتاج',
+}
+
+const QUESTION_TYPE_COLORS = {
+  main_idea: 'bg-sky-500/15 text-sky-400 border-sky-500/30',
+  detail: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
+  vocabulary: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
+  inference: 'bg-purple-500/15 text-purple-400 border-purple-500/30',
+}
+
+export default function InteractiveReadingTab({ unitId, groupId, students = [] }) {
+  const [activeReading, setActiveReading] = useState(0)
+
+  const { data: readings, isLoading } = useQuery({
+    queryKey: ['unit-readings', unitId],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('curriculum_readings')
+        .select('*')
+        .eq('unit_id', unitId)
+        .order('sort_order')
+      if (error) throw error
+      return data || []
+    },
+    enabled: !!unitId,
+  })
+
+  if (isLoading) return <ReadingSkeleton />
+
+  if (!readings?.length) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-4 py-20">
+        <BookOpen size={40} className="text-[var(--text-muted)]" />
+        <p className="text-[var(--text-muted)] font-['Tajawal']">لا توجد قراءة لهذه الوحدة بعد</p>
+      </div>
+    )
+  }
+
+  const reading = readings[activeReading]
+
+  return (
+    <div className="space-y-5">
+      {/* Sub-tabs for Reading A / B */}
+      {readings.length > 1 && (
+        <div className="flex gap-2">
+          {readings.map((r, i) => (
+            <button
+              key={r.id}
+              onClick={() => setActiveReading(i)}
+              className={`px-5 h-10 rounded-xl text-sm font-bold border transition-colors font-['Tajawal'] ${
+                activeReading === i
+                  ? 'bg-sky-500/20 text-sky-400 border-sky-500/40'
+                  : 'bg-[var(--surface-raised)] text-[var(--text-muted)] border-[var(--border-subtle)] hover:text-[var(--text-primary)]'
+              }`}
+            >
+              القراءة {r.reading_label || String.fromCharCode(65 + i)}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={reading.id}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.2 }}
+          className="space-y-6"
+        >
+          <InteractiveReadingContent
+            reading={reading}
+            unitId={unitId}
+            groupId={groupId}
+            students={students}
+          />
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  )
+}
+
+function InteractiveReadingContent({ reading, unitId, groupId, students }) {
+  const { data: vocabulary } = useQuery({
+    queryKey: ['reading-vocab', reading.id],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('curriculum_vocabulary')
+        .select('*')
+        .eq('reading_id', reading.id)
+        .order('sort_order')
+      return data || []
+    },
+    enabled: !!reading?.id,
+  })
+
+  const { data: questions } = useQuery({
+    queryKey: ['reading-questions', reading.id],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('curriculum_comprehension_questions')
+        .select('*')
+        .eq('reading_id', reading.id)
+        .order('sort_order')
+      return data || []
+    },
+    enabled: !!reading?.id,
+  })
+
+  // Fetch ALL student progress for this reading in ONE query
+  const { data: studentProgress } = useQuery({
+    queryKey: ['ic-reading-progress', reading.id, groupId],
+    queryFn: async () => {
+      const studentIds = students.map(s => s.user_id)
+      if (!studentIds.length) return []
+      const { data } = await supabase
+        .from('student_curriculum_progress')
+        .select('student_id, answers, score, status, completed_at')
+        .eq('reading_id', reading.id)
+        .eq('section_type', 'reading')
+        .in('student_id', studentIds)
+      return data || []
+    },
+    enabled: !!reading?.id && !!groupId && students.length > 0,
+    staleTime: 30000,
+  })
+
+  // Build a map: student_id → answers object
+  const progressMap = useMemo(() => {
+    const map = {}
+    studentProgress?.forEach(p => { map[p.student_id] = p })
+    return map
+  }, [studentProgress])
+
+  const vocabMap = useMemo(() => {
+    const map = {}
+    vocabulary?.forEach(v => { map[v.word.toLowerCase()] = v })
+    return map
+  }, [vocabulary])
+
+  // Build student answers data for a specific question
+  const getStudentAnswersForQuestion = useCallback((questionId, correctAnswer) => {
+    return students.map(s => {
+      const progress = progressMap[s.user_id]
+      const answerData = progress?.answers?.[questionId]
+      return {
+        student_id: s.user_id,
+        full_name: s.full_name || s.profiles?.full_name || 'طالب',
+        avatar_url: s.avatar_url || s.profiles?.avatar_url,
+        attempted: !!answerData,
+        answer: answerData?.selected || '',
+        isCorrect: answerData?.correct ?? false,
+      }
+    })
+  }, [students, progressMap])
+
+  // Stats
+  const completedCount = studentProgress?.filter(p => p.status === 'completed').length || 0
+
+  return (
+    <div className="space-y-6">
+      {/* Completion stats */}
+      <div
+        className="flex items-center gap-2 px-4 py-2.5 rounded-xl"
+        style={{ background: 'rgba(56,189,248,0.08)', border: '1px solid rgba(56,189,248,0.15)' }}
+      >
+        <Users size={16} className="text-sky-400" />
+        <span className="text-sm font-medium text-sky-400 font-['Tajawal']">
+          {completedCount}/{students.length} طلاب أكملوا القراءة
+        </span>
+      </div>
+
+      {/* Before-Read Hero Image */}
+      {reading.before_read_image_url && (
+        <div className="rounded-2xl overflow-hidden border border-[var(--border-subtle)]">
+          <img src={reading.before_read_image_url} alt={reading.title_en} className="w-full h-48 sm:h-56 object-cover" loading="lazy" />
+        </div>
+      )}
+
+      {/* Before You Read */}
+      {reading.before_read_exercise_a && (
+        <BeforeReadSection content={reading.before_read_exercise_a} />
+      )}
+
+      {/* Passage Title */}
+      <div className="space-y-1">
+        <h2 className="text-lg font-bold text-[var(--text-primary)] font-['Inter']" dir="ltr">{reading.title_en}</h2>
+        {reading.title_ar && (
+          <p className="text-sm text-[var(--text-muted)] font-['Tajawal']">{reading.title_ar}</p>
+        )}
+      </div>
+
+      {/* Audio */}
+      {reading.passage_audio_url && <AudioButton url={reading.passage_audio_url} label="استمع للقراءة" />}
+
+      {/* Passage Images */}
+      {reading.passage_image_urls?.length > 0 && (
+        <div className="flex gap-3 overflow-x-auto scrollbar-hide">
+          {reading.passage_image_urls.map((url, idx) => (
+            <div key={idx} className="rounded-xl overflow-hidden border border-[var(--border-subtle)] flex-shrink-0">
+              <img src={url} alt="" className="h-40 sm:h-48 w-auto object-cover" loading="lazy" />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Passage */}
+      <PassageDisplay paragraphs={reading.passage_content?.paragraphs || []} vocabMap={vocabMap} wordCount={reading.passage_word_count} />
+
+      {/* Infographic */}
+      {reading.infographic_image_url && (
+        <div className="rounded-2xl overflow-hidden border border-[var(--border-subtle)]" style={{ background: 'var(--surface-raised)' }}>
+          <img src={reading.infographic_image_url} alt="" className="w-full object-cover" loading="lazy" />
+        </div>
+      )}
+
+      {/* Vocabulary Box */}
+      {vocabulary?.length > 0 && <VocabularyBox vocabulary={vocabulary} />}
+
+      {/* Reading Skill */}
+      {reading.reading_skill_name_en && <ReadingSkillBox reading={reading} />}
+
+      {/* Comprehension Questions — WITH student answers overlay */}
+      {questions?.length > 0 && (
+        <InteractiveComprehensionSection
+          questions={questions}
+          getStudentAnswers={getStudentAnswersForQuestion}
+        />
+      )}
+
+      {/* Critical Thinking */}
+      {reading.critical_thinking_prompt_en && <CriticalThinkingBox reading={reading} />}
+    </div>
+  )
+}
+
+// ─── Comprehension Questions with Overlay ──────────────
+function InteractiveComprehensionSection({ questions, getStudentAnswers }) {
+  const [openOverlay, setOpenOverlay] = useState(null)
+
+  return (
+    <div className="space-y-4">
+      <h3 className="text-base font-bold text-[var(--text-primary)] font-['Tajawal']">أسئلة الفهم</h3>
+      <div className="space-y-4">
+        {questions.map((q, idx) => (
+          <InteractiveMCQ
+            key={q.id}
+            question={q}
+            index={idx}
+            studentAnswers={getStudentAnswers(q.id, q.correct_answer)}
+            isOverlayOpen={openOverlay === q.id}
+            onToggleOverlay={() => setOpenOverlay(prev => prev === q.id ? null : q.id)}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ─── Single MCQ with student answers button ─────────────
+function InteractiveMCQ({ question, index, studentAnswers, isOverlayOpen, onToggleOverlay }) {
+  const typeBadge = QUESTION_TYPE_LABELS[question.question_type] || question.question_type
+  const typeColor = QUESTION_TYPE_COLORS[question.question_type] || QUESTION_TYPE_COLORS.detail
+
+  // Correct answer highlight
+  const correctIdx = question.choices?.findIndex(c => c.toLowerCase().trim() === question.correct_answer?.toLowerCase().trim())
+
+  return (
+    <div
+      className="rounded-xl p-4 sm:p-5 space-y-3"
+      style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
+    >
+      <div className="flex items-start gap-3">
+        <div className="w-7 h-7 rounded-lg bg-sky-500/15 text-sky-400 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
+          {index + 1}
+        </div>
+        <div className="flex-1 space-y-2">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${typeColor} font-['Tajawal']`}>
+              {typeBadge}
+            </span>
+          </div>
+          <p className="text-sm sm:text-[15px] font-medium text-[var(--text-primary)] font-['Inter'] leading-relaxed" dir="ltr">
+            {question.question_en}
+          </p>
+          {question.question_ar && (
+            <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">{question.question_ar}</p>
+          )}
+        </div>
+
+        {/* Student answers toggle button */}
+        <StudentAnswersOverlay
+          questionId={question.id}
+          correctAnswer={question.correct_answer}
+          studentsData={studentAnswers}
+          isOpen={isOverlayOpen}
+          onToggle={onToggleOverlay}
+        />
+      </div>
+
+      {/* Choices — show correct answer highlighted */}
+      <div className="grid grid-cols-1 gap-2 mt-1">
+        {question.choices?.map((choice, i) => {
+          const isCorrect = i === correctIdx
+          return (
+            <div
+              key={i}
+              dir="ltr"
+              className={`text-start px-4 py-3 rounded-xl text-sm font-['Inter'] border ${
+                isCorrect
+                  ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
+                  : 'bg-[var(--surface-base)] border-[var(--border-subtle)] text-[var(--text-secondary)]'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <span
+                  className="w-6 h-6 rounded-md flex items-center justify-center text-[11px] font-bold flex-shrink-0"
+                  style={{
+                    background: isCorrect ? 'rgba(16,185,129,0.2)' : 'var(--surface-raised)',
+                    color: isCorrect ? '#34d399' : 'var(--text-muted)',
+                  }}
+                >
+                  {String.fromCharCode(65 + i)}
+                </span>
+                <span>{choice}</span>
+                {isCorrect && <span className="text-[10px] font-bold text-emerald-400 font-['Tajawal'] mr-auto">✓ الإجابة الصحيحة</span>}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+
+      {/* Explanation always visible for trainer */}
+      {(question.explanation_en || question.explanation_ar) && (
+        <div
+          className="p-3.5 rounded-xl space-y-1"
+          style={{ background: 'rgba(56,189,248,0.06)', border: '1px solid rgba(56,189,248,0.15)' }}
+        >
+          {question.explanation_en && (
+            <p className="text-xs text-[var(--text-secondary)] font-['Inter'] leading-relaxed" dir="ltr">{question.explanation_en}</p>
+          )}
+          {question.explanation_ar && (
+            <p className="text-xs text-[var(--text-muted)] font-['Tajawal']" dir="rtl">{question.explanation_ar}</p>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ─── Shared sub-components (mirrors student ReadingTab) ───
+
+function BeforeReadSection({ content }) {
+  return (
+    <div className="rounded-xl p-5 space-y-3" style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}>
+      <div className="flex items-center gap-2">
+        <Lightbulb size={16} className="text-amber-400" />
+        <h3 className="text-sm font-bold text-amber-400 font-['Tajawal']">قبل القراءة</h3>
+      </div>
+      <div className="text-sm text-[var(--text-secondary)] font-['Inter'] leading-relaxed" dir="ltr">
+        {typeof content === 'string' ? content : JSON.stringify(content)}
+      </div>
+    </div>
+  )
+}
+
+function PassageDisplay({ paragraphs, vocabMap, wordCount }) {
+  return (
+    <div className="rounded-2xl p-5 sm:p-7 space-y-0" style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}>
+      <div dir="ltr" className="space-y-5">
+        {paragraphs.map((para, idx) => (
+          <div key={idx} className="flex gap-3">
+            <div className="flex-shrink-0 mt-1.5">
+              <div className="w-6 h-6 rounded-full bg-sky-500/15 text-sky-400 flex items-center justify-center text-[11px] font-bold">{idx + 1}</div>
+            </div>
+            <p className="text-[16px] sm:text-[17px] leading-[1.85] text-[var(--text-primary)] font-['Inter']">
+              {renderParagraphText(para, vocabMap)}
+            </p>
+          </div>
+        ))}
+      </div>
+      {wordCount > 0 && (
+        <p className="text-xs text-[var(--text-muted)] mt-4 pt-3 font-['Tajawal']" style={{ borderTop: '1px solid var(--border-subtle)' }} dir="rtl">
+          عدد الكلمات: {wordCount}
+        </p>
+      )}
+    </div>
+  )
+}
+
+function renderParagraphText(text, vocabMap) {
+  const parts = text.split(/\*([^*]+)\*/)
+  return parts.map((part, i) => {
+    if (i % 2 === 1) {
+      const vocab = vocabMap[part.toLowerCase()]
+      if (vocab) {
+        return <span key={i} className="text-sky-400 font-semibold border-b border-dotted border-sky-400/50">{part}</span>
+      }
+      return <strong key={i}>{part}</strong>
+    }
+    return <span key={i}>{part}</span>
+  })
+}
+
+function AudioButton({ url, label }) {
+  const audioRef = useRef(null)
+  const [playing, setPlaying] = useState(false)
+  const play = () => {
+    if (audioRef.current) { audioRef.current.pause(); audioRef.current = null; setPlaying(false); return }
+    const a = new Audio(url)
+    audioRef.current = a
+    setPlaying(true)
+    a.onended = () => { setPlaying(false); audioRef.current = null }
+    a.play().catch(() => setPlaying(false))
+  }
+  return (
+    <button
+      onClick={play}
+      className={`flex items-center gap-2 px-4 h-10 rounded-xl text-sm font-medium transition-colors font-['Tajawal'] ${
+        playing ? 'bg-sky-500/20 text-sky-400 border border-sky-500/40' : 'bg-[var(--surface-raised)] text-[var(--text-muted)] border border-[var(--border-subtle)] hover:text-sky-400'
+      }`}
+    >
+      <Volume2 size={16} />
+      {label}
+    </button>
+  )
+}
+
+function VocabularyBox({ vocabulary }) {
+  const [expanded, setExpanded] = useState(false)
+  const audioRef = useRef(null)
+  const playAudio = (url, e) => {
+    e.stopPropagation()
+    if (audioRef.current) audioRef.current.pause()
+    audioRef.current = new Audio(url)
+    audioRef.current.play().catch(() => {})
+  }
+
+  return (
+    <div className="rounded-xl overflow-hidden" style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}>
+      <button onClick={() => setExpanded(!expanded)} className="w-full flex items-center justify-between px-5 py-3.5 transition-colors hover:bg-[rgba(255,255,255,0.02)]">
+        <div className="flex items-center gap-2">
+          <BookOpen size={16} className="text-emerald-400" />
+          <span className="text-sm font-bold text-[var(--text-primary)] font-['Tajawal']">مفردات القراءة ({vocabulary.length})</span>
+        </div>
+        <ChevronDown size={16} className={`text-[var(--text-muted)] transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`} />
+      </button>
+      <AnimatePresence>
+        {expanded && (
+          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }} className="overflow-hidden">
+            <div className="px-5 pb-4 space-y-2" style={{ borderTop: '1px solid var(--border-subtle)' }}>
+              <div className="pt-3 space-y-2">
+                {vocabulary.map(v => (
+                  <div key={v.id} className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg" style={{ background: 'var(--surface-base)' }}>
+                    <div className="flex-1 min-w-0" dir="ltr">
+                      <div className="flex items-center gap-2">
+                        <span className="font-semibold text-sm text-[var(--text-primary)] font-['Inter']">{v.word}</span>
+                        <span className="text-[10px] text-[var(--text-muted)] font-['Inter']">{v.part_of_speech}</span>
+                      </div>
+                      <p className="text-xs text-[var(--text-secondary)] font-['Inter'] mt-0.5">{v.definition_en}</p>
+                    </div>
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">{v.definition_ar}</span>
+                      {v.audio_url && (
+                        <button onClick={(e) => playAudio(v.audio_url, e)} className="w-7 h-7 rounded-full bg-sky-500/15 text-sky-400 flex items-center justify-center hover:bg-sky-500/25 transition-colors flex-shrink-0">
+                          <Volume2 size={13} />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
+function ReadingSkillBox({ reading }) {
+  return (
+    <div className="rounded-xl p-5 space-y-3" style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}>
+      <div className="flex items-center gap-2">
+        <Lightbulb size={16} className="text-amber-400" />
+        <h3 className="text-sm font-bold text-[var(--text-primary)] font-['Tajawal']">
+          مهارة القراءة: <span className="font-['Inter']">{reading.reading_skill_name_en}</span>
+          {reading.reading_skill_name_ar && ` — ${reading.reading_skill_name_ar}`}
+        </h3>
+      </div>
+      {reading.reading_skill_explanation && (
+        <p className="text-sm text-[var(--text-secondary)] font-['Inter'] leading-relaxed" dir="ltr">{reading.reading_skill_explanation}</p>
+      )}
+    </div>
+  )
+}
+
+function CriticalThinkingBox({ reading }) {
+  return (
+    <div className="rounded-xl p-5 space-y-3" style={{ background: 'linear-gradient(135deg, rgba(168,85,247,0.06), rgba(56,189,248,0.06))', border: '1px solid rgba(168,85,247,0.15)' }}>
+      <div className="flex items-center gap-2">
+        <MessageSquare size={16} className="text-purple-400" />
+        <h3 className="text-sm font-bold text-purple-400 font-['Tajawal']">تفكير ناقد</h3>
+      </div>
+      <p className="text-sm text-[var(--text-primary)] font-['Inter'] leading-relaxed" dir="ltr">{reading.critical_thinking_prompt_en}</p>
+      {reading.critical_thinking_prompt_ar && (
+        <p className="text-sm text-[var(--text-muted)] font-['Tajawal']" dir="rtl">{reading.critical_thinking_prompt_ar}</p>
+      )}
+    </div>
+  )
+}
+
+function ReadingSkeleton() {
+  return (
+    <div className="space-y-5">
+      <div className="h-8 w-32 rounded-lg bg-[var(--surface-raised)] animate-pulse" />
+      <div className="h-48 rounded-2xl bg-[var(--surface-raised)] animate-pulse" />
+      <div className="h-6 w-64 rounded-lg bg-[var(--surface-raised)] animate-pulse" />
+      <div className="h-64 rounded-2xl bg-[var(--surface-raised)] animate-pulse" />
+      {Array.from({ length: 3 }).map((_, i) => (
+        <div key={i} className="h-40 rounded-xl bg-[var(--surface-raised)] animate-pulse" />
+      ))}
+    </div>
+  )
+}
