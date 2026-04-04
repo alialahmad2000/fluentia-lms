@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FileEdit, Lightbulb, Save, Send, Bot, ChevronDown, CheckCircle2, BookOpen, Target } from 'lucide-react'
+import { FileEdit, Lightbulb, Save, Send, Bot, ChevronDown, CheckCircle2, BookOpen, Target, GraduationCap } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
@@ -70,6 +70,8 @@ function WritingTask({ task, number, total, studentId, unitId }) {
   const [lastSavedAt, setLastSavedAt] = useState(null)
   const [progressLoading, setProgressLoading] = useState(true)
   const [attemptNumber, setAttemptNumber] = useState(1)
+  const [trainerFeedback, setTrainerFeedback] = useState(null)
+  const [trainerGrade, setTrainerGrade] = useState(null)
   const timeRef = useRef(0)
   const timerRef = useRef(null)
   const dbSaveTimer = useRef(null)
@@ -106,6 +108,8 @@ function WritingTask({ task, number, total, studentId, unitId }) {
         if (data.time_spent_seconds) timeRef.current = data.time_spent_seconds
         if (data.answers?.lastSavedAt) setLastSavedAt(new Date(data.answers.lastSavedAt))
         if (data.attempt_number) setAttemptNumber(data.attempt_number)
+        if (data.trainer_feedback) setTrainerFeedback(data.trainer_feedback)
+        if (data.trainer_grade) setTrainerGrade(data.trainer_grade)
       } else {
         // Fall back to localStorage
         setText(loadDraft(task.id))
@@ -419,6 +423,32 @@ function WritingTask({ task, number, total, studentId, unitId }) {
             تعديل والإرسال مرة أخرى
           </button>
         </motion.div>
+      )}
+
+      {/* Trainer feedback */}
+      {(trainerFeedback || trainerGrade) && (
+        <div
+          className="rounded-xl p-4 space-y-2"
+          style={{ background: 'rgba(14,165,233,0.06)', border: '1px solid rgba(14,165,233,0.15)' }}
+        >
+          <div className="flex items-center gap-2">
+            <GraduationCap size={16} className="text-sky-400" />
+            <span className="text-sm font-bold text-sky-400 font-['Tajawal']">ملاحظات المدرب</span>
+          </div>
+          {trainerGrade && (
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold text-[var(--text-muted)] font-['Tajawal']">التقدير:</span>
+              <span className="px-3 py-0.5 rounded-full text-sm font-bold font-['Inter'] bg-sky-500/20 text-sky-400 border border-sky-500/30">
+                {trainerGrade}
+              </span>
+            </div>
+          )}
+          {trainerFeedback && (
+            <p className="text-sm text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed" dir="rtl">
+              {trainerFeedback}
+            </p>
+          )}
+        </div>
       )}
 
       {/* AI feedback placeholder */}

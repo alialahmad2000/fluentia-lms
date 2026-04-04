@@ -1,11 +1,12 @@
-import { useState, useEffect, useMemo } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useState, useEffect, useMemo, useCallback } from 'react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   BookOpen, Users, ChevronLeft, ChevronDown,
   CheckCircle, Clock, XCircle, FileEdit, PenLine,
   Languages, Headphones, Mic, ClipboardCheck,
   ArrowRight, GraduationCap, Gamepad2, Trophy,
+  Save, MessageSquare,
 } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { supabase } from '../../lib/supabase'
@@ -905,9 +906,10 @@ function ProgressDetailCard({ progress: prog, sectionType }) {
       {sectionType === 'reading' && <ReadingAnswers answers={answers} />}
       {sectionType === 'grammar' && <GrammarAnswers answers={answers} />}
       {sectionType === 'listening' && <ListeningAnswers answers={answers} />}
-      {sectionType === 'writing' && <WritingAnswers answers={answers} />}
+      {sectionType === 'writing' && <WritingAnswers answers={answers} progress={prog} />}
       {sectionType === 'vocabulary' && <VocabularyAnswers answers={answers} />}
-      {(sectionType === 'speaking' || sectionType === 'assessment') && (
+      {sectionType === 'speaking' && <SpeakingProgress progress={prog} />}
+      {sectionType === 'assessment' && (
         <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">البيانات التفصيلية غير متاحة حالياً</p>
       )}
     </div>
@@ -1000,24 +1002,240 @@ function ListeningAnswers({ answers }) {
   )
 }
 
-// ─── Writing Answers ─────────────────────────────────
-function WritingAnswers({ answers }) {
-  if (!answers?.draft) return <NoAnswers />
+// ─── Writing Answers + Trainer Grading ──────────────
+const GRADE_OPTIONS = ['A+', 'A', 'B+', 'B', 'C', 'D', 'F']
+const QUICK_FEEDBACK = ['ممتاز!', 'أحسنت', 'يحتاج تحسين', 'أعد المحاولة']
+
+function WritingAnswers({ answers, progress: prog }) {
+  const { user } = useAuthStore()
+  const queryClient = useQueryClient()
+  const [feedback, setFeedback] = useState(prog?.trainer_feedback || '')
+  const [grade, setGrade] = useState(prog?.trainer_grade || '')
+  const [saving, setSaving] = useState(false)
+  const [saved, setSaved] = useState(false)
+
+  // Sync when prog changes
+  useEffect(() => {
+    setFeedback(prog?.trainer_feedback || '')
+    setGrade(prog?.trainer_grade || '')
+    setSaved(false)
+  }, [prog?.id, prog?.trainer_feedback, prog?.trainer_grade])
+
+  const handleSave = async () => {
+    if (!prog?.id || !user?.id) return
+    setSaving(true)
+    const { error } = await supabase
+      .from('student_curriculum_progress')
+      .update({
+        trainer_feedback: feedback.trim() || null,
+        trainer_grade: grade || null,
+        trainer_graded_at: new Date().toISOString(),
+        trainer_graded_by: user.id,
+      })
+      .eq('id', prog.id)
+
+    setSaving(false)
+    if (error) {
+      console.error('Grading error:', error)
+      alert('حدث خطأ أثناء الحفظ')
+    } else {
+      setSaved(true)
+      queryClient.invalidateQueries({ queryKey: ['unit-progress'] })
+      setTimeout(() => setSaved(false), 3000)
+    }
+  }
+
+  if (!answers?.draft) {
+    return (
+      <div className="text-center py-4">
+        <FileEdit size={24} className="text-[var(--text-muted)] mx-auto mb-2" />
+        <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">لم يُرسل أي كتابة بعد</p>
+      </div>
+    )
+  }
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
+      {/* Writing meta */}
       <div className="flex items-center gap-3 text-xs text-[var(--text-muted)] font-['Tajawal']">
         <span>{answers.wordCount || 0} كلمة</span>
+        {prog?.attempt_number > 1 && <span>المحاولة {prog.attempt_number}</span>}
         {answers.lastSavedAt && (
           <span>آخر حفظ: {new Date(answers.lastSavedAt).toLocaleString('ar-SA')}</span>
         )}
       </div>
+
+      {/* Student's draft */}
       <div
-        className="rounded-xl p-4 text-sm font-['Inter'] text-[var(--text-secondary)] leading-[1.8] whitespace-pre-wrap"
+        className="rounded-xl p-4 text-sm font-['Inter'] text-[var(--text-secondary)] leading-[1.8] whitespace-pre-wrap max-h-80 overflow-y-auto scrollbar-hide"
         dir="ltr"
         style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}
       >
         {answers.draft}
+      </div>
+
+      {/* Trainer grading section */}
+      <div className="rounded-xl p-4 space-y-3" style={{ background: 'rgba(14,165,233,0.04)', border: '1px solid rgba(14,165,233,0.12)' }}>
+        <div className="flex items-center gap-2">
+          <MessageSquare size={14} className="text-sky-400" />
+          <span className="text-xs font-bold text-sky-400 font-['Tajawal']">ملاحظات المدرب</span>
+          {prog?.trainer_graded_at && (
+            <span className="text-[10px] text-[var(--text-muted)] font-['Tajawal'] mr-auto">
+              آخر تقييم: {new Date(prog.trainer_graded_at).toLocaleDateString('ar-SA')}
+            </span>
+          )}
+        </div>
+
+        {/* Quick feedback templates */}
+        <div className="flex flex-wrap gap-1.5">
+          {QUICK_FEEDBACK.map(t => (
+            <button
+              key={t}
+              onClick={() => setFeedback(prev => prev ? `${prev} ${t}` : t)}
+              className="px-2.5 py-1 rounded-lg text-[11px] font-bold font-['Tajawal'] transition-colors bg-[rgba(255,255,255,0.04)] text-[var(--text-muted)] hover:text-sky-400 hover:bg-sky-500/10 border border-[var(--border-subtle)]"
+            >
+              {t}
+            </button>
+          ))}
+        </div>
+
+        {/* Feedback textarea */}
+        <textarea
+          value={feedback}
+          onChange={e => setFeedback(e.target.value)}
+          placeholder="اكتب ملاحظاتك هنا..."
+          rows={3}
+          className="w-full rounded-xl px-4 py-3 text-sm font-['Tajawal'] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] resize-none focus:outline-none focus:ring-1 focus:ring-sky-500/40"
+          style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}
+          dir="rtl"
+        />
+
+        {/* Grade pills */}
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="text-xs font-bold text-[var(--text-muted)] font-['Tajawal']">التقدير:</span>
+          {GRADE_OPTIONS.map(g => (
+            <button
+              key={g}
+              onClick={() => setGrade(grade === g ? '' : g)}
+              className={`px-3 py-1 rounded-full text-xs font-bold font-['Inter'] border transition-all ${
+                grade === g
+                  ? 'bg-sky-500/20 text-sky-400 border-sky-500/40 scale-105'
+                  : 'bg-[rgba(255,255,255,0.03)] text-[var(--text-muted)] border-[var(--border-subtle)] hover:text-[var(--text-primary)]'
+              }`}
+            >
+              {g}
+            </button>
+          ))}
+        </div>
+
+        {/* Save button */}
+        <button
+          onClick={handleSave}
+          disabled={saving || (!feedback.trim() && !grade)}
+          className={`flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-bold font-['Tajawal'] transition-all ${
+            saved
+              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+              : 'bg-sky-500/15 text-sky-400 border border-sky-500/30 hover:bg-sky-500/25 disabled:opacity-40 disabled:cursor-not-allowed'
+          }`}
+        >
+          {saving ? (
+            <Clock size={14} className="animate-spin" />
+          ) : saved ? (
+            <CheckCircle size={14} />
+          ) : (
+            <Save size={14} />
+          )}
+          {saving ? 'جاري الحفظ...' : saved ? 'تم حفظ التقييم ✅' : 'حفظ التقييم'}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// ─── Speaking Progress ──────────────────────────────
+function SpeakingProgress({ progress: prog }) {
+  const { user } = useAuthStore()
+  const queryClient = useQueryClient()
+  const [feedback, setFeedback] = useState(prog?.trainer_feedback || '')
+  const [saving, setSaving] = useState(false)
+  const [saved, setSaved] = useState(false)
+
+  useEffect(() => {
+    setFeedback(prog?.trainer_feedback || '')
+    setSaved(false)
+  }, [prog?.id, prog?.trainer_feedback])
+
+  const handleSave = async () => {
+    if (!prog?.id || !user?.id) return
+    setSaving(true)
+    const { error } = await supabase
+      .from('student_curriculum_progress')
+      .update({
+        trainer_feedback: feedback.trim() || null,
+        trainer_graded_at: new Date().toISOString(),
+        trainer_graded_by: user.id,
+      })
+      .eq('id', prog.id)
+    setSaving(false)
+    if (error) {
+      alert('حدث خطأ أثناء الحفظ')
+    } else {
+      setSaved(true)
+      queryClient.invalidateQueries({ queryKey: ['unit-progress'] })
+      setTimeout(() => setSaved(false), 3000)
+    }
+  }
+
+  if (!prog || prog.status === 'not_started') {
+    return (
+      <div className="text-center py-4">
+        <Mic size={24} className="text-[var(--text-muted)] mx-auto mb-2" />
+        <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">لا توجد مواضيع محادثة مكتملة بعد</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center gap-2 text-xs font-['Tajawal']">
+        <Mic size={14} className="text-emerald-400" />
+        <span className="text-[var(--text-secondary)]">
+          {prog.status === 'completed' ? 'تم إكمال موضوع المحادثة' : 'قيد التنفيذ'}
+        </span>
+        {prog.completed_at && (
+          <span className="text-[var(--text-muted)] mr-auto">
+            {new Date(prog.completed_at).toLocaleDateString('ar-SA')}
+          </span>
+        )}
+      </div>
+
+      {/* Trainer notes */}
+      <div className="rounded-xl p-4 space-y-3" style={{ background: 'rgba(14,165,233,0.04)', border: '1px solid rgba(14,165,233,0.12)' }}>
+        <div className="flex items-center gap-2">
+          <MessageSquare size={14} className="text-sky-400" />
+          <span className="text-xs font-bold text-sky-400 font-['Tajawal']">ملاحظات المدرب</span>
+        </div>
+        <textarea
+          value={feedback}
+          onChange={e => setFeedback(e.target.value)}
+          placeholder="اكتب ملاحظاتك على أداء الطالب في المحادثة..."
+          rows={2}
+          className="w-full rounded-xl px-4 py-3 text-sm font-['Tajawal'] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] resize-none focus:outline-none focus:ring-1 focus:ring-sky-500/40"
+          style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}
+          dir="rtl"
+        />
+        <button
+          onClick={handleSave}
+          disabled={saving || !feedback.trim()}
+          className={`flex items-center gap-2 px-4 py-1.5 rounded-xl text-xs font-bold font-['Tajawal'] transition-all ${
+            saved
+              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+              : 'bg-sky-500/15 text-sky-400 border border-sky-500/30 hover:bg-sky-500/25 disabled:opacity-40 disabled:cursor-not-allowed'
+          }`}
+        >
+          {saving ? <Clock size={12} className="animate-spin" /> : saved ? <CheckCircle size={12} /> : <Save size={12} />}
+          {saving ? 'جاري الحفظ...' : saved ? 'تم الحفظ ✅' : 'حفظ الملاحظات'}
+        </button>
       </div>
     </div>
   )
