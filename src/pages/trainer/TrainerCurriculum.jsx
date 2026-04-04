@@ -264,13 +264,16 @@ function GroupUnits({ group, selectedStudent, onStudentChange, onUnitClick }) {
     queryKey: ['group-progress', group.id, studentIds.join(',')],
     queryFn: async () => {
       if (!studentIds.length) return []
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('student_curriculum_progress')
         .select('student_id, unit_id, section_type, status, score, attempt_number')
         .in('student_id', studentIds)
+      if (error) console.error('[TrainerCurriculum] Group progress query failed:', error)
+      console.log('[TrainerCurriculum] Group progress:', data?.length, 'rows for', studentIds.length, 'students')
       return data || []
     },
     enabled: studentIds.length > 0,
+    staleTime: 0,
   })
 
   // Build progress map: unitId -> { sectionType -> { completed, total } }
@@ -531,12 +534,14 @@ function UnitDetail({ group, unit, selectedStudent, onStudentChange, activeTab, 
   const { data: students } = useQuery({
     queryKey: ['group-students', group.id],
     queryFn: async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('students')
         .select('id, profiles(full_name, avatar_url), academic_level, xp_total')
         .eq('group_id', group.id)
         .is('deleted_at', null)
         .order('profiles(full_name)')
+      if (error) console.error('[TrainerCurriculum] Students query failed:', error)
+      console.log('[TrainerCurriculum] Students loaded:', data?.length, 'for group', group.id)
       return data || []
     },
   })
@@ -554,9 +559,11 @@ function UnitDetail({ group, unit, selectedStudent, onStudentChange, activeTab, 
         .in('student_id', studentIds)
         .eq('unit_id', unit.id)
       if (error) console.error('[TrainerCurriculum] Progress query failed:', error)
+      console.log('[TrainerCurriculum] Progress loaded:', data?.length, 'rows for unit', unit.id, 'students:', studentIds.length)
       return data || []
     },
     enabled: studentIds.length > 0,
+    staleTime: 0, // Always refetch — critical for showing live student progress
   })
 
   return (
