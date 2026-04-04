@@ -457,8 +457,8 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: calc(64px + env(safe-area-inset-bottom, 16px));
-  padding-bottom: env(safe-area-inset-bottom, 16px);
+  height: calc(var(--bottom-nav-height, 64px) + var(--sab));
+  padding-bottom: var(--sab);
   background: var(--sidebar-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -470,8 +470,17 @@
 }
 
 /* === Safe-area bottom padding for main content (mobile) === */
+/* Clears: bottom nav (64px) + safe area bottom (home indicator) + 24px breathing room */
 .pb-safe-bottom {
-  padding-bottom: calc(env(safe-area-inset-bottom, 16px) + 96px);
+  padding-bottom: calc(var(--bottom-nav-height, 64px) + var(--sab) + 24px);
+}
+
+/* === Fixed elements above bottom nav (toasts, FABs, floating bars) === */
+/* Use on any fixed-position element that should sit above the mobile bottom nav */
+@media (max-width: 1023px) {
+  .fixed.bottom-24 {
+    bottom: calc(var(--bottom-nav-height, 64px) + var(--sab) + 16px) !important;
+  }
 }
 
 /* === Mobile responsiveness === */

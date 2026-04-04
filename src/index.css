@@ -13,6 +13,7 @@
   --sab: env(safe-area-inset-bottom, 0px);
   --sal: env(safe-area-inset-left, 0px);
   --sar: env(safe-area-inset-right, 0px);
+  --bottom-nav-height: 64px;
 }
 
 html {
@@ -20,10 +21,8 @@ html {
 }
 
 body {
+  /* Only top safe area on body — bottom is handled by mobile-tab-bar + pb-safe-bottom */
   padding-top: var(--sat);
-  padding-bottom: var(--sab);
-  padding-left: var(--sal);
-  padding-right: var(--sar);
 }
 
 @layer base {

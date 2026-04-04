@@ -245,7 +245,7 @@ export default function LayoutShell() {
                 borderTop: '1px solid var(--border-subtle)',
                 maxHeight: '70vh',
                 overflowY: 'auto',
-                paddingBottom: 'calc(env(safe-area-inset-bottom, 16px) + 96px)',
+                paddingBottom: 'calc(var(--bottom-nav-height, 64px) + var(--sab) + 24px)',
               }}
             >
               {/* Handle */}
@@ -313,7 +313,7 @@ export default function LayoutShell() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 30 }}
-            className="fixed bottom-28 left-1/2 -translate-x-1/2 z-[200] px-5 py-3 rounded-2xl text-sm font-medium text-center max-w-xs"
+            className="fixed bottom-[calc(var(--bottom-nav-height,64px)+var(--sab)+24px)] lg:bottom-8 left-1/2 -translate-x-1/2 z-[200] px-5 py-3 rounded-2xl text-sm font-medium text-center max-w-xs"
             style={{
               background: 'var(--surface-overlay)',
               border: '1px solid var(--border-default)',

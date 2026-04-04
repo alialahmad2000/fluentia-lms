@@ -140,7 +140,7 @@ export default function AIFloatingHelper() {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
             onClick={() => { setIsOpen(true); setMinimized(false) }}
-            className="fixed bottom-24 lg:bottom-6 left-4 lg:left-6 z-[45] w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500 to-violet-600 text-white shadow-xl shadow-violet-500/30 hover:shadow-violet-500/50 flex items-center justify-center transition-shadow duration-300"
+            className="fixed bottom-[calc(var(--bottom-nav-height,64px)+var(--sab)+16px)] lg:bottom-6 left-4 lg:left-6 z-[45] w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500 to-violet-600 text-white shadow-xl shadow-violet-500/30 hover:shadow-violet-500/50 flex items-center justify-center transition-shadow duration-300"
           >
             <Bot size={24} />
           </motion.button>
