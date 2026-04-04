@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useMemo } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, BookOpen, PenLine, Languages, Headphones, FileEdit, Mic, ClipboardCheck } from 'lucide-react'
+import { ArrowRight, BookOpen, PenLine, Languages, Headphones, FileEdit, Mic, ClipboardCheck, Video } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import { tracker } from '../../../services/activityTracker'
@@ -13,6 +13,7 @@ import ListeningTab from './tabs/ListeningTab'
 import WritingTab from './tabs/WritingTab'
 import SpeakingTab from './tabs/SpeakingTab'
 import AssessmentTab from './tabs/AssessmentTab'
+import RecordingTab from '../../../components/curriculum/RecordingTab'
 
 const TABS = [
   { id: 'reading', label: 'القراءة', icon: BookOpen },
@@ -22,6 +23,7 @@ const TABS = [
   { id: 'writing', label: 'الكتابة', icon: FileEdit },
   { id: 'speaking', label: 'المحادثة', icon: Mic },
   { id: 'assessment', label: 'التقييم', icon: ClipboardCheck },
+  { id: 'recording', label: 'التسجيل', icon: Video },
 ]
 
 const LEVEL_NAMES = {
@@ -133,6 +135,7 @@ export default function UnitContent() {
       case 'writing': return <WritingTab unitId={unitId} />
       case 'speaking': return <SpeakingTab unitId={unitId} />
       case 'assessment': return <AssessmentTab unitId={unitId} />
+      case 'recording': return <RecordingTab unitId={unitId} />
       default: return <ReadingTab unitId={unitId} />
     }
   }
