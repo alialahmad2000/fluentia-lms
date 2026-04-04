@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { Users, UserCheck, Layers, CreditCard, TrendingUp, AlertCircle, Flame, Calendar, ArrowUpRight, ArrowDownRight, Brain, Sparkles, ListChecks, FileText, Zap, Activity } from 'lucide-react'
+import { Users, UserCheck, Layers, CreditCard, TrendingUp, AlertCircle, Flame, Calendar, ArrowUpRight, ArrowDownRight, Brain, Sparkles, ListChecks, FileText, Zap, Activity, Smartphone } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { getGreeting } from '../../utils/dateHelpers'
@@ -179,6 +179,24 @@ export default function AdminDashboard() {
     },
   })
 
+  // PWA install stats
+  const { data: pwaStats } = useQuery({
+    queryKey: ['admin-pwa-stats'],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('profiles')
+        .select('id, full_name, pwa_installed')
+        .eq('role', 'student')
+      if (!data) return { installed: 0, total: 0, notInstalled: [] }
+      return {
+        installed: data.filter(s => s.pwa_installed).length,
+        total: data.length,
+        notInstalled: data.filter(s => !s.pwa_installed).map(s => s.full_name),
+      }
+    },
+    staleTime: 60000,
+  })
+
   // Loading state
   const isInitialLoading = !profile
   if (isInitialLoading) return <DashboardSkeleton />
@@ -250,6 +268,37 @@ export default function AdminDashboard() {
 
       {/* Curriculum Activity Card */}
       <CurriculumActivityCard studentIds={allStudentIds} groups={allGroups} mode="admin" delay={0.32} />
+
+      {/* PWA Install Stats */}
+      {pwaStats && pwaStats.total > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.34 }}
+          className="fl-card p-5"
+        >
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-9 h-9 rounded-xl bg-sky-500/10 flex items-center justify-center">
+              <Smartphone size={16} className="text-sky-400" />
+            </div>
+            <div>
+              <h3 className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>تثبيت التطبيق</h3>
+              <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
+                {pwaStats.installed}/{pwaStats.total} طالب ثبّتوا التطبيق
+              </p>
+            </div>
+          </div>
+          <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.06)' }}>
+            <div
+              className="h-full rounded-full bg-sky-500 transition-all duration-500"
+              style={{ width: `${Math.round((pwaStats.installed / pwaStats.total) * 100)}%` }}
+            />
+          </div>
+          <p className="text-[11px] mt-2" style={{ color: 'var(--text-tertiary)' }}>
+            {Math.round((pwaStats.installed / pwaStats.total) * 100)}% — {pwaStats.total - pwaStats.installed} طالب لم يثبّتوا بعد
+          </p>
+        </motion.div>
+      )}
 
       {/* Pending Actions — Quick Access */}
       <motion.div
