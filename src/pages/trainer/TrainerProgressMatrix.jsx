@@ -69,22 +69,26 @@ export default function TrainerProgressMatrix() {
 
   // 3. Get level and units
   const { data: units, isLoading: unitsLoading } = useQuery({
-    queryKey: ['matrix-units', activeGroup?.level],
+    queryKey: ['progress-matrix-units', activeGroupId, activeGroup?.level],
     queryFn: async () => {
-      const { data: level } = await supabase
+      const { data: level, error: lvlErr } = await supabase
         .from('curriculum_levels')
-        .select('id')
+        .select('*')
         .eq('level_number', activeGroup.level)
         .single()
-      if (!level) return []
-      const { data: u } = await supabase
+      if (lvlErr || !level) {
+        console.error('[ProgressMatrix] Level query failed:', lvlErr, 'group.level =', activeGroup.level)
+        return []
+      }
+      const { data: u, error: unitsErr } = await supabase
         .from('curriculum_units')
-        .select('id, unit_number, theme_ar')
+        .select('*')
         .eq('level_id', level.id)
         .order('unit_number')
+      if (unitsErr) console.error('[ProgressMatrix] Units query failed:', unitsErr)
       return u || []
     },
-    enabled: !!activeGroup?.level != null,
+    enabled: !!activeGroup?.level,
   })
 
   // 4. Get ALL progress in one query
