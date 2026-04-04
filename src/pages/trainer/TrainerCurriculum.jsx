@@ -546,7 +546,7 @@ function UnitDetail({ group, unit, selectedStudent, onStudentChange, activeTab, 
       if (!studentIds.length) return []
       const { data } = await supabase
         .from('student_curriculum_progress')
-        .select('*')
+        .select('*, reading:curriculum_readings(title, passage_order)')
         .in('student_id', studentIds)
         .eq('unit_id', unit.id)
       return data || []
@@ -862,6 +862,14 @@ function ProgressDetailCard({ progress: prog, sectionType }) {
       className="rounded-2xl p-5 space-y-4"
       style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}
     >
+      {/* Reading passage label */}
+      {sectionType === 'reading' && prog.reading && (
+        <p className="text-xs font-bold text-sky-400 font-['Tajawal']">
+          القراءة {String.fromCharCode(64 + (prog.reading.passage_order || 1))}
+          {prog.reading.title ? ` — ${prog.reading.title}` : ''}
+        </p>
+      )}
+
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">

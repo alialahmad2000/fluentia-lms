@@ -7,7 +7,19 @@ const REQUIRED_SECTIONS = ['reading', 'grammar', 'listening', 'vocabulary', 'wri
  */
 export function calculateUnitCompletion(sectionProgress = []) {
   const sectionDetails = REQUIRED_SECTIONS.map(type => {
-    const entry = sectionProgress.find(s => s.section_type === type)
+    const entries = sectionProgress.filter(s => s.section_type === type)
+    if (type === 'reading' && entries.length > 1) {
+      // Multiple reading passages — only "completed" if ALL are completed
+      const allCompleted = entries.every(e => e.status === 'completed')
+      const anyStarted = entries.some(e => e.status === 'in_progress' || e.status === 'completed')
+      const avgScore = entries.reduce((sum, e) => sum + (e.score ?? 0), 0) / entries.length
+      return {
+        type,
+        status: allCompleted ? 'completed' : anyStarted ? 'in_progress' : 'not_started',
+        score: allCompleted ? Math.round(avgScore) : null,
+      }
+    }
+    const entry = entries[0]
     return {
       type,
       status: entry?.status || 'not_started',

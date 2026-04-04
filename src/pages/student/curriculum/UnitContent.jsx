@@ -73,11 +73,26 @@ export default function UnitContent() {
 
   const sectionStatusMap = useMemo(() => {
     const map = {}
+    // Group rows by section_type
+    const grouped = {}
     for (const p of (sectionProgress || [])) {
-      // A section may have multiple rows (e.g., multiple grammar topics) — pick the best status
-      const existing = map[p.section_type]
-      if (!existing || p.status === 'completed' || (p.status === 'in_progress' && existing !== 'completed')) {
-        map[p.section_type] = p.status
+      if (!grouped[p.section_type]) grouped[p.section_type] = []
+      grouped[p.section_type].push(p)
+    }
+    for (const [type, rows] of Object.entries(grouped)) {
+      if (type === 'reading' && rows.length > 0) {
+        // Reading may have multiple passages — only "completed" if ALL are completed
+        const allCompleted = rows.every(r => r.status === 'completed')
+        const anyInProgress = rows.some(r => r.status === 'in_progress' || r.status === 'completed')
+        map[type] = allCompleted ? 'completed' : anyInProgress ? 'in_progress' : rows[0].status
+      } else {
+        // Other sections: pick the best status
+        for (const p of rows) {
+          const existing = map[type]
+          if (!existing || p.status === 'completed' || (p.status === 'in_progress' && existing !== 'completed')) {
+            map[type] = p.status
+          }
+        }
       }
     }
     return map
