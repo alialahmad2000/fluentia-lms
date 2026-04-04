@@ -451,7 +451,7 @@ function UnitDetail({ level, unit, allStudents, filterGroup, onFilterGroupChange
       if (!studentIds.length) return []
       const { data, error } = await supabase
         .from('student_curriculum_progress')
-        .select('*, reading:curriculum_readings(title, reading_label)')
+        .select('*, reading:curriculum_readings(title_ar, title_en, reading_label)')
         .in('student_id', studentIds)
         .eq('unit_id', unit.id)
       if (error) throw error
@@ -552,23 +552,8 @@ function AllStudentsMatrix({ students, progress, activeTab, showGroup }) {
 
   if (!students?.length) return <EmptyState message="لا يوجد طلاب" />
 
-  // DEBUG: count sections filled
-  const filledCount = Object.values(studentMap).reduce((sum, { sections }) =>
-    sum + Object.values(sections).flat().length, 0)
-
   return (
     <div className="space-y-3">
-      {/* DEBUG BANNER — remove after confirming fix */}
-      <div className="rounded-xl p-3 mb-3 text-xs font-mono" style={{ background: 'rgba(234,179,8,0.1)', border: '1px solid rgba(234,179,8,0.3)', color: '#eab308' }}>
-        <div>🔍 DEBUG: students={students?.length || 0}, progress={Array.isArray(progress) ? progress.length : typeof progress}, filledCells={filledCount}</div>
-        {Array.isArray(progress) && progress.length > 0 && (
-          <div>sample: student_id={progress[0].student_id?.slice(0,8)} section={progress[0].section_type} status={progress[0].status}</div>
-        )}
-        {Array.isArray(progress) && progress.length > 0 && students?.length > 0 && (
-          <div>firstStudentInMap={students[0].id?.slice(0,8)} matchInProgress={progress.some(p => p.student_id === students[0].id) ? 'YES' : 'NO'}</div>
-        )}
-      </div>
-
       {/* Sort buttons */}
       <div className="flex items-center gap-2 text-xs font-['Tajawal']">
         <span className="text-[var(--text-muted)]">ترتيب:</span>
@@ -988,7 +973,7 @@ function ProgressCard({ progress: prog, sectionType }) {
       {sectionType === 'reading' && prog.reading && (
         <p className="text-xs font-bold text-sky-400 font-['Tajawal']">
           القراءة {prog.reading.reading_label || 'A'}
-          {prog.reading.title ? ` — ${prog.reading.title}` : ''}
+          {prog.reading.title_ar || prog.reading.title_en ? ` — ${prog.reading.title_ar || prog.reading.title_en}` : ''}
         </p>
       )}
       <div className="flex items-center justify-between">
