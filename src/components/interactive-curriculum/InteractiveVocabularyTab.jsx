@@ -1,7 +1,7 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { Languages, Users, BookOpen, CheckCircle, Clock } from 'lucide-react'
+import { Languages, Users, BookOpen, CheckCircle, Clock, ChevronDown, ChevronUp, Puzzle, PenLine, ListChecks, Shuffle } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 
 export default function InteractiveVocabularyTab({ unitId, students = [] }) {
@@ -36,6 +36,30 @@ export default function InteractiveVocabularyTab({ unitId, students = [] }) {
     enabled: !!unitId && students.length > 0,
     staleTime: 30000,
   })
+
+  // Fetch student progress for vocabulary exercises
+  const { data: exerciseProgress } = useQuery({
+    queryKey: ['ic-vocab-exercise-progress', unitId, students.map(s => s.user_id).sort().join()],
+    queryFn: async () => {
+      const studentIds = students.map(s => s.user_id)
+      if (!studentIds.length) return []
+      const { data } = await supabase
+        .from('student_curriculum_progress')
+        .select('student_id, answers, score, status, completed_at')
+        .eq('unit_id', unitId)
+        .eq('section_type', 'vocabulary_exercise')
+        .in('student_id', studentIds)
+      return data || []
+    },
+    enabled: !!unitId && students.length > 0,
+    staleTime: 30000,
+  })
+
+  const exerciseMap = useMemo(() => {
+    const map = {}
+    exerciseProgress?.forEach(p => { map[p.student_id] = p })
+    return map
+  }, [exerciseProgress])
 
   const progressMap = useMemo(() => {
     const map = {}
@@ -164,6 +188,92 @@ export default function InteractiveVocabularyTab({ unitId, students = [] }) {
           </div>
         </div>
       </div>
+
+      {/* Exercise Results */}
+      <ExerciseResults students={students} exerciseMap={exerciseMap} />
+    </div>
+  )
+}
+
+const EXERCISE_LABELS = {
+  match: { label: 'اربط الكلمة بمعناها', icon: Puzzle },
+  fill_blank: { label: 'أكمل الفراغ', icon: PenLine },
+  choose: { label: 'اختر المعنى الصحيح', icon: ListChecks },
+  scramble: { label: 'رتّب الحروف', icon: Shuffle },
+}
+
+function ExerciseResults({ students, exerciseMap }) {
+  const [expanded, setExpanded] = useState(null)
+
+  const exerciseTypes = ['match', 'fill_blank', 'choose', 'scramble']
+  const hasAnyData = students.some(s => exerciseMap[s.user_id])
+
+  if (!hasAnyData) return null
+
+  return (
+    <div className="space-y-3">
+      <h3 className="text-base font-bold text-[var(--text-primary)] font-['Tajawal']">تمارين المفردات</h3>
+
+      {exerciseTypes.map(type => {
+        const info = EXERCISE_LABELS[type]
+        const studentsWithData = students.filter(s => {
+          const p = exerciseMap[s.user_id]
+          return p?.answers?.exercises?.[type]?.completed
+        })
+        if (!studentsWithData.length) return null
+
+        const isExpanded = expanded === type
+
+        return (
+          <div
+            key={type}
+            className="rounded-xl overflow-hidden"
+            style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}
+          >
+            <button
+              onClick={() => setExpanded(isExpanded ? null : type)}
+              className="w-full flex items-center justify-between px-4 py-3 text-right"
+            >
+              <div className="flex items-center gap-2">
+                <info.icon size={14} className="text-sky-400" />
+                <span className="text-sm font-bold font-['Tajawal']" style={{ color: 'var(--text-primary)' }}>{info.label}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
+                  <Users size={12} className="text-sky-400" />
+                  <span className="text-xs font-['Tajawal']" style={{ color: '#38bdf8' }}>{studentsWithData.length}</span>
+                </div>
+                {isExpanded ? <ChevronUp size={14} className="text-[var(--text-muted)]" /> : <ChevronDown size={14} className="text-[var(--text-muted)]" />}
+              </div>
+            </button>
+
+            {isExpanded && (
+              <div className="px-4 pb-3 space-y-1.5">
+                {students.map(student => {
+                  const p = exerciseMap[student.user_id]
+                  const exData = p?.answers?.exercises?.[type]
+                  if (!exData?.completed) return null
+                  return (
+                    <div
+                      key={student.user_id}
+                      className="flex items-center justify-between px-3 py-2 rounded-lg"
+                      style={{ background: 'rgba(255,255,255,0.03)' }}
+                    >
+                      <span className="text-xs font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>{student.full_name}</span>
+                      <span
+                        className="text-xs font-bold font-['Tajawal']"
+                        style={{ color: exData.score >= exData.maxScore * 0.7 ? '#22c55e' : '#f59e0b' }}
+                      >
+                        {exData.score}/{exData.maxScore}
+                      </span>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+        )
+      })}
     </div>
   )
 }

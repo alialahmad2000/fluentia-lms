@@ -5,6 +5,7 @@ import { Languages, Volume2, LayoutGrid, List, RotateCcw, CheckCircle } from 'lu
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
+import VocabularyExercises from './VocabularyExercises'
 
 const POS_AR = {
   noun: 'اسم',
@@ -258,6 +259,9 @@ export default function VocabularyTab({ unitId }) {
           )}
         </div>
       ))}
+
+      {/* Vocabulary Exercises */}
+      <VocabularyExercises unitId={unitId} allWords={allWords} />
     </div>
   )
 }
