@@ -44,7 +44,9 @@ const MASTERY_STYLES = {
 
 // ─── Main Component ──────────────────────────────────
 export default function TrainerCurriculum() {
-  const { user } = useAuthStore()
+  const { user, profile, _realProfile } = useAuthStore()
+  // Admin (or admin impersonating) should see ALL groups
+  const isAdmin = _realProfile?.role === 'admin' || profile?.role === 'admin'
   const [view, setView] = useState({ level: 'groups' }) // groups | units | detail
   const [selectedGroup, setSelectedGroup] = useState(null)
   const [selectedUnit, setSelectedUnit] = useState(null)
@@ -110,7 +112,7 @@ export default function TrainerCurriculum() {
       <AnimatePresence mode="wait">
         {view.level === 'groups' && (
           <motion.div key="groups" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <GroupsOverview trainerId={user?.id} onGroupClick={handleGroupClick} />
+            <GroupsOverview trainerId={user?.id} isAdmin={isAdmin} onGroupClick={handleGroupClick} />
           </motion.div>
         )}
         {view.level === 'units' && selectedGroup && (
@@ -141,16 +143,18 @@ export default function TrainerCurriculum() {
 }
 
 // ─── Level 1: Groups Overview ────────────────────────
-function GroupsOverview({ trainerId, onGroupClick }) {
+function GroupsOverview({ trainerId, isAdmin, onGroupClick }) {
   const { data: groups, isLoading } = useQuery({
-    queryKey: ['trainer-groups', trainerId],
+    queryKey: ['curriculum-groups', isAdmin ? 'all' : trainerId],
     queryFn: async () => {
-      const { data, error } = await supabase
+      let query = supabase
         .from('groups')
         .select('id, name, code, level, max_students')
-        .eq('trainer_id', trainerId)
         .eq('is_active', true)
         .order('name')
+      // Admin sees ALL groups; trainer sees only their assigned groups
+      if (!isAdmin) query = query.eq('trainer_id', trainerId)
+      const { data, error } = await query
       if (error) throw error
 
       // Get student counts
@@ -164,14 +168,14 @@ function GroupsOverview({ trainerId, onGroupClick }) {
       }))
       return enriched
     },
-    enabled: !!trainerId,
+    enabled: isAdmin || !!trainerId,
   })
 
   if (isLoading) return <SkeletonCards count={3} />
 
   if (!groups?.length) {
     return (
-      <EmptyState icon={Users} message="لا توجد مجموعات مسندة إليك حالياً" />
+      <EmptyState icon={Users} message={isAdmin ? "لا توجد مجموعات نشطة حالياً" : "لا توجد مجموعات مسندة إليك حالياً"} />
     )
   }
 
@@ -544,11 +548,12 @@ function UnitDetail({ group, unit, selectedStudent, onStudentChange, activeTab, 
     queryKey: ['unit-progress', unit.id, studentIds.join(',')],
     queryFn: async () => {
       if (!studentIds.length) return []
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('student_curriculum_progress')
         .select('*, reading:curriculum_readings(title, reading_label)')
         .in('student_id', studentIds)
         .eq('unit_id', unit.id)
+      if (error) console.error('[TrainerCurriculum] Progress query failed:', error)
       return data || []
     },
     enabled: studentIds.length > 0,

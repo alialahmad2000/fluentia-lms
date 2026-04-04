@@ -98,6 +98,7 @@ const NAV_ITEMS = {
     { to: '/trainer/quiz', label: 'الاختبارات', icon: ClipboardCheck },
     { to: '/admin/weekly-tasks', label: 'المهام الأسبوعية', icon: ListChecks },
     { to: '/admin/curriculum', label: 'المنهج الدراسي', icon: GraduationCap },
+    { to: '/trainer/curriculum', label: 'تصفّح المنهج', icon: BookOpen },
     { to: '/trainer/progress-matrix', label: 'ماتركس التقدم', icon: BarChart3 },
     { to: '/admin/test-bank', label: 'بنك الأسئلة', icon: Database },
     { to: '/admin/content-bank', label: 'بنك المحتوى', icon: BookOpen },

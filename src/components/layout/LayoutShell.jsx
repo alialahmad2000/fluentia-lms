@@ -71,6 +71,7 @@ const MORE_ITEMS = {
   admin: [
     { to: '/admin/groups', label: 'المجموعات', icon: Users },
     { to: '/admin/trainers', label: 'المدربين', icon: GraduationCap },
+    { to: '/trainer/curriculum', label: 'تصفّح المنهج', icon: FileText },
     { to: '/admin/weekly-tasks', label: 'المهام الأسبوعية', icon: ListChecks },
     { to: '/admin/settings', label: 'الإعدادات', icon: Settings },
   ],
