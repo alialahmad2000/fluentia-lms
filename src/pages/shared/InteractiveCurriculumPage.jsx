@@ -9,6 +9,14 @@ import {
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
 import InteractiveReadingTab from '../../components/interactive-curriculum/InteractiveReadingTab'
+import InteractiveGrammarTab from '../../components/interactive-curriculum/InteractiveGrammarTab'
+import InteractiveVocabularyTab from '../../components/interactive-curriculum/InteractiveVocabularyTab'
+import InteractiveListeningTab from '../../components/interactive-curriculum/InteractiveListeningTab'
+import InteractiveWritingTab from '../../components/interactive-curriculum/InteractiveWritingTab'
+import InteractiveSpeakingTab from '../../components/interactive-curriculum/InteractiveSpeakingTab'
+import InteractiveAssessmentTab from '../../components/interactive-curriculum/InteractiveAssessmentTab'
+import InteractiveGamesTab from '../../components/interactive-curriculum/InteractiveGamesTab'
+import InteractiveRecordingTab from '../../components/interactive-curriculum/InteractiveRecordingTab'
 
 const TABS = [
   { id: 'reading', label: 'القراءة', icon: BookOpen },
@@ -125,17 +133,24 @@ export default function InteractiveCurriculumPage() {
     switch (activeTab) {
       case 'reading':
         return <InteractiveReadingTab unitId={unitId} groupId={selectedGroupId} students={students} />
+      case 'grammar':
+        return <InteractiveGrammarTab unitId={unitId} groupId={selectedGroupId} students={students} />
+      case 'vocabulary':
+        return <InteractiveVocabularyTab unitId={unitId} groupId={selectedGroupId} students={students} />
+      case 'listening':
+        return <InteractiveListeningTab unitId={unitId} groupId={selectedGroupId} students={students} />
+      case 'writing':
+        return <InteractiveWritingTab unitId={unitId} groupId={selectedGroupId} students={students} />
+      case 'speaking':
+        return <InteractiveSpeakingTab unitId={unitId} groupId={selectedGroupId} students={students} />
+      case 'assessment':
+        return <InteractiveAssessmentTab unitId={unitId} groupId={selectedGroupId} students={students} />
+      case 'games':
+        return <InteractiveGamesTab unitId={unitId} groupId={selectedGroupId} students={students} />
+      case 'recording':
+        return <InteractiveRecordingTab unitId={unitId} groupId={selectedGroupId} />
       default:
-        return (
-          <div className="flex flex-col items-center justify-center gap-4 py-20">
-            <div className="w-16 h-16 rounded-2xl bg-sky-500/10 flex items-center justify-center">
-              {(() => { const Tab = TABS.find(t => t.id === activeTab); return Tab ? <Tab.icon size={28} className="text-sky-400" /> : null })()}
-            </div>
-            <p className="text-[var(--text-muted)] font-['Tajawal'] text-center">
-              قريبًا — سيتم إضافة عرض إجابات الطلاب لتاب "{TABS.find(t => t.id === activeTab)?.label}" في التحديث القادم
-            </p>
-          </div>
-        )
+        return null
     }
   }
 
