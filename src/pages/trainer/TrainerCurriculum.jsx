@@ -546,7 +546,7 @@ function UnitDetail({ group, unit, selectedStudent, onStudentChange, activeTab, 
       if (!studentIds.length) return []
       const { data } = await supabase
         .from('student_curriculum_progress')
-        .select('*, reading:curriculum_readings(title, passage_order)')
+        .select('*, reading:curriculum_readings(title, reading_label)')
         .in('student_id', studentIds)
         .eq('unit_id', unit.id)
       return data || []
@@ -865,7 +865,7 @@ function ProgressDetailCard({ progress: prog, sectionType }) {
       {/* Reading passage label */}
       {sectionType === 'reading' && prog.reading && (
         <p className="text-xs font-bold text-sky-400 font-['Tajawal']">
-          القراءة {String.fromCharCode(64 + (prog.reading.passage_order || 1))}
+          القراءة {prog.reading.reading_label || 'A'}
           {prog.reading.title ? ` — ${prog.reading.title}` : ''}
         </p>
       )}

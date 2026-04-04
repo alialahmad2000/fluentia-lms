@@ -169,7 +169,10 @@ function ReadingContent({ reading, studentId, unitId }) {
       }, {
         onConflict: 'student_id,reading_id',
       })
-    if (!error) {
+    if (error) {
+      console.error('[ReadingTab] Save failed for reading_id:', reading.id, error)
+      toast({ type: 'error', title: 'حدث خطأ أثناء الحفظ — حاول مرة ثانية' })
+    } else {
       setAttemptNumber(newAttemptNumber)
       setAttemptHistory(newHistory)
       setSavedProgress({ ...savedProgress, answers, score, completed_at: new Date().toISOString(), attempt_number: newAttemptNumber, attempt_history: newHistory })

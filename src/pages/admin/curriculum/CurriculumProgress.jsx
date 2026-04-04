@@ -449,7 +449,7 @@ function UnitDetail({ level, unit, allStudents, filterGroup, onFilterGroupChange
       if (!studentIds.length) return []
       const { data, error } = await supabase
         .from('student_curriculum_progress')
-        .select('*')
+        .select('*, reading:curriculum_readings(title, reading_label)')
         .in('student_id', studentIds)
         .eq('unit_id', unit.id)
       if (error) throw error
@@ -959,6 +959,13 @@ function ProgressCard({ progress: prog, sectionType }) {
 
   return (
     <div className="rounded-2xl p-5 space-y-4" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
+      {/* Reading passage label */}
+      {sectionType === 'reading' && prog.reading && (
+        <p className="text-xs font-bold text-sky-400 font-['Tajawal']">
+          القراءة {prog.reading.reading_label || 'A'}
+          {prog.reading.title ? ` — ${prog.reading.title}` : ''}
+        </p>
+      )}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold ${st.bg} ${st.text} font-['Tajawal']`}>
