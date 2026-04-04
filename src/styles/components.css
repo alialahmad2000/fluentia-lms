@@ -452,27 +452,32 @@
 }
 
 /* === Mobile Bottom Tab Bar === */
-.mobile-tab-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: calc(var(--bottom-nav-height, 64px) + var(--sab));
-  padding-bottom: var(--sab);
-  background: var(--sidebar-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-top: 1px solid var(--border-subtle);
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-  z-index: 100;
+@layer components {
+  .mobile-tab-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: calc(var(--bottom-nav-height, 64px) + var(--sab));
+    padding-bottom: var(--sab);
+    background: var(--sidebar-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    z-index: 100;
+  }
 }
 
-/* === Safe-area bottom padding for main content (mobile) === */
-/* Clears: bottom nav (64px) + safe area bottom (home indicator) + 24px breathing room */
-.pb-safe-bottom {
-  padding-bottom: calc(var(--bottom-nav-height, 64px) + var(--sab) + 24px);
+/* === Safe-area bottom padding for main content — mobile only === */
+/* On mobile (<lg), the fixed bottom nav covers content. Add enough padding to clear it. */
+/* On desktop (>=lg), Tailwind's lg:pb-10 applies instead (no bottom nav visible). */
+@media (max-width: 1023px) {
+  .pb-safe-bottom {
+    padding-bottom: calc(var(--bottom-nav-height, 64px) + var(--sab) + 32px) !important;
+  }
 }
 
 /* === Fixed elements above bottom nav (toasts, FABs, floating bars) === */
