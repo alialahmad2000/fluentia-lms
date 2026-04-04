@@ -18,7 +18,7 @@ export default function ImpersonationBanner() {
   return (
     <div
       dir="rtl"
-      className="fixed top-0 left-0 right-0 z-[9999] flex items-center justify-between px-5 py-2"
+      className="fixed top-[var(--sat)] left-0 right-0 z-[9999] flex items-center justify-between px-5 py-2"
       style={{
         background: 'linear-gradient(135deg, #f59e0b, #d97706)',
         color: '#0a1225',

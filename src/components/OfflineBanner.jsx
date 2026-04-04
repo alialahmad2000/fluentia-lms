@@ -56,7 +56,7 @@ export default function OfflineBanner() {
           exit={{ y: '-100%', opacity: 0 }}
           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
           className={[
-            'fixed top-0 inset-x-0 z-[9999]',
+            'fixed top-[var(--sat)] inset-x-0 z-[9999]',
             'flex items-center justify-center gap-2',
             'px-6 py-2.5 text-sm font-semibold select-none backdrop-blur-md',
             phase === 'offline'

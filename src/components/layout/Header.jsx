@@ -136,7 +136,7 @@ export default function Header({ onMenuToggle }) {
   return (
     <header
       role="banner"
-      className={`h-16 flex items-center justify-between px-5 lg:px-8 sticky top-0 z-20 transition-all duration-300 ${
+      className={`h-16 flex items-center justify-between px-5 lg:px-8 sticky top-[var(--sat)] z-20 transition-all duration-300 ${
         scrolled ? 'header-scrolled' : ''
       }`}
       style={{ background: scrolled ? undefined : 'transparent' }}

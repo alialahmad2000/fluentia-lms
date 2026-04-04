@@ -137,7 +137,7 @@ export default function LayoutShell() {
       {/* Pull-to-refresh indicator (mobile) */}
       {(pullDistance > 0 || isRefreshing) && (
         <div
-          className="fixed top-0 left-0 right-0 z-[60] flex items-center justify-center lg:hidden"
+          className="fixed top-[var(--sat)] left-0 right-0 z-[60] flex items-center justify-center lg:hidden"
           style={{
             height: `${Math.max(pullDistance, isRefreshing ? 40 : 0)}px`,
             transition: isRefreshing ? 'none' : 'height 0.1s',
@@ -175,7 +175,7 @@ export default function LayoutShell() {
       >
         <Header onMenuToggle={() => setMobileOpen(true)} />
 
-        <main id="main-content" className="px-4 py-6 lg:px-10 lg:py-8 pb-safe-bottom lg:pb-10" style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: 'env(safe-area-inset-top, 0px)' }}>
+        <main id="main-content" className="px-4 py-6 lg:px-10 lg:py-8 pb-safe-bottom lg:pb-10" style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <ErrorBoundary key={location.pathname}>
             <Outlet />
           </ErrorBoundary>

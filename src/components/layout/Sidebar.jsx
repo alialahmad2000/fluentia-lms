@@ -365,6 +365,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
         style={{
           background: 'var(--sidebar-bg)',
           borderLeft: '1px solid var(--sidebar-border)',
+          paddingTop: 'var(--sat)',
         }}
       >
         {sidebarContent}
@@ -391,6 +392,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
               style={{
                 background: 'var(--sidebar-bg)',
                 borderLeft: '1px solid var(--sidebar-border)',
+                paddingTop: 'var(--sat)',
               }}
             >
               {sidebarContent}
