@@ -200,8 +200,12 @@ function ProtectedRoute({ allowedRoles }) {
 
 // ─── Trainer Onboarding Guard ─────────────────────────────────
 function TrainerOnboardingGuard({ children }) {
-  const { profile, trainerData } = useAuthStore()
-  // Only redirect trainers (not admins) who haven't completed onboarding
+  const { profile, trainerData, impersonation, _realProfile } = useAuthStore()
+  // Admin never needs trainer onboarding (even when impersonating as trainer)
+  if (_realProfile?.role === 'admin' || profile?.role === 'admin') {
+    return children
+  }
+  // Only redirect real trainers who haven't completed onboarding
   if (profile?.role === 'trainer' && trainerData && trainerData.onboarding_completed === false) {
     return <Navigate to="/trainer/onboarding" replace />
   }
