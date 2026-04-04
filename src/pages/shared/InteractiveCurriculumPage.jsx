@@ -1,10 +1,10 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
   BookOpen, PenLine, Languages, Headphones, FileEdit, Mic,
-  ClipboardCheck, Gamepad2, Video, ChevronLeft, Users, ChevronDown,
+  ClipboardCheck, Gamepad2, Video, ChevronLeft, Users,
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
@@ -38,8 +38,6 @@ export default function InteractiveCurriculumPage() {
   const basePath = role === 'admin' ? '/admin' : '/trainer'
 
   const [activeTab, setActiveTab] = useState('reading')
-  const [selectedGroupId, setSelectedGroupId] = useState('')
-  const [groupDropdownOpen, setGroupDropdownOpen] = useState(false)
 
   // Fetch unit details
   const { data: unit } = useQuery({
@@ -55,13 +53,15 @@ export default function InteractiveCurriculumPage() {
     enabled: !!unitId,
   })
 
+  const levelNumber = unit?.level?.level_number
+
   // Fetch groups for this level
-  const { data: groups } = useQuery({
-    queryKey: ['ic-groups', unit?.level?.level_number, trainerData?.id, role],
+  const { data: groups = [] } = useQuery({
+    queryKey: ['ic-level-groups', levelNumber, trainerData?.id, role],
     queryFn: async () => {
       let q = supabase.from('groups').select('id, name, level')
-      if (unit?.level?.level_number) {
-        q = q.eq('level', unit.level.level_number)
+      if (levelNumber) {
+        q = q.eq('level', levelNumber)
       }
       if (role === 'trainer' && trainerData?.id) {
         q = q.eq('trainer_id', trainerData.id)
@@ -69,36 +69,34 @@ export default function InteractiveCurriculumPage() {
       const { data } = await q.order('name')
       return data || []
     },
-    enabled: !!unit?.level?.level_number,
+    enabled: !!levelNumber,
   })
 
-  // Auto-select group
-  useEffect(() => {
-    if (groups?.length && !selectedGroupId) {
-      setSelectedGroupId(groups[0].id)
-    }
-  }, [groups, selectedGroupId])
+  // Fetch ALL students in this level (across all groups)
+  const groupIds = useMemo(() => groups.map(g => g.id), [groups])
 
-  // Fetch students for selected group
   const { data: students = [] } = useQuery({
-    queryKey: ['ic-group-students', selectedGroupId],
+    queryKey: ['ic-level-students', groupIds],
     queryFn: async () => {
+      if (!groupIds.length) return []
       const { data } = await supabase
         .from('students')
-        .select('user_id, profiles:user_id(full_name, avatar_url)')
-        .eq('group_id', selectedGroupId)
+        .select('user_id, group_id, profiles:user_id(full_name, avatar_url)')
+        .in('group_id', groupIds)
+        .eq('status', 'active')
       return (data || []).map(s => ({
         user_id: s.user_id,
+        group_id: s.group_id,
         full_name: s.profiles?.full_name || 'طالب',
         avatar_url: s.profiles?.avatar_url,
       }))
     },
-    enabled: !!selectedGroupId,
+    enabled: groupIds.length > 0,
   })
 
   // Tab completion stats
   const { data: tabStats } = useQuery({
-    queryKey: ['ic-tab-stats', unitId, selectedGroupId],
+    queryKey: ['ic-tab-stats', unitId, groupIds],
     queryFn: async () => {
       const studentIds = students.map(s => s.user_id)
       if (!studentIds.length) return {}
@@ -118,37 +116,26 @@ export default function InteractiveCurriculumPage() {
     staleTime: 30000,
   })
 
-  const selectedGroup = groups?.find(g => g.id === selectedGroupId)
-
   const renderTabContent = () => {
-    if (!selectedGroupId) {
-      return (
-        <div className="flex flex-col items-center justify-center gap-4 py-20">
-          <Users size={40} className="text-[var(--text-muted)]" />
-          <p className="text-[var(--text-muted)] font-['Tajawal']">اختر مجموعة لعرض إجابات الطلاب</p>
-        </div>
-      )
-    }
-
     switch (activeTab) {
       case 'reading':
-        return <InteractiveReadingTab unitId={unitId} groupId={selectedGroupId} students={students} />
+        return <InteractiveReadingTab unitId={unitId} students={students} />
       case 'grammar':
-        return <InteractiveGrammarTab unitId={unitId} groupId={selectedGroupId} students={students} />
+        return <InteractiveGrammarTab unitId={unitId} students={students} />
       case 'vocabulary':
-        return <InteractiveVocabularyTab unitId={unitId} groupId={selectedGroupId} students={students} />
+        return <InteractiveVocabularyTab unitId={unitId} students={students} />
       case 'listening':
-        return <InteractiveListeningTab unitId={unitId} groupId={selectedGroupId} students={students} />
+        return <InteractiveListeningTab unitId={unitId} students={students} />
       case 'writing':
-        return <InteractiveWritingTab unitId={unitId} groupId={selectedGroupId} students={students} />
+        return <InteractiveWritingTab unitId={unitId} students={students} />
       case 'speaking':
-        return <InteractiveSpeakingTab unitId={unitId} groupId={selectedGroupId} students={students} />
+        return <InteractiveSpeakingTab unitId={unitId} students={students} />
       case 'assessment':
-        return <InteractiveAssessmentTab unitId={unitId} groupId={selectedGroupId} students={students} />
+        return <InteractiveAssessmentTab unitId={unitId} students={students} />
       case 'games':
-        return <InteractiveGamesTab unitId={unitId} groupId={selectedGroupId} students={students} />
+        return <InteractiveGamesTab unitId={unitId} students={students} />
       case 'recording':
-        return <InteractiveRecordingTab unitId={unitId} groupId={selectedGroupId} />
+        return <InteractiveRecordingTab unitId={unitId} levelNumber={levelNumber} groups={groups} />
       default:
         return null
     }
@@ -178,54 +165,16 @@ export default function InteractiveCurriculumPage() {
           <p className="text-sm text-[var(--text-muted)] font-['Inter']">{unit?.theme_en}</p>
         </div>
 
-        {/* Group selector */}
-        <div className="relative">
-          <button
-            onClick={() => setGroupDropdownOpen(!groupDropdownOpen)}
-            className="flex items-center gap-2 px-4 h-10 rounded-xl text-sm font-medium border transition-colors font-['Tajawal'] min-w-[200px]"
-            style={{
-              background: 'var(--surface-raised)',
-              border: '1px solid var(--border-subtle)',
-              color: 'var(--text-primary)',
-            }}
+        {/* Student count badge */}
+        {students.length > 0 && (
+          <div className="flex items-center gap-2 px-4 h-10 rounded-xl text-sm font-['Tajawal']"
+            style={{ background: 'rgba(56,189,248,0.08)', border: '1px solid rgba(56,189,248,0.2)' }}
           >
-            <Users size={16} className="text-sky-400 flex-shrink-0" />
-            <span className="flex-1 text-start truncate">
-              {selectedGroup?.name || 'اختر المجموعة'}
-            </span>
-            <ChevronDown size={14} className={`text-[var(--text-muted)] transition-transform ${groupDropdownOpen ? 'rotate-180' : ''}`} />
-          </button>
-
-          {groupDropdownOpen && (
-            <>
-              <div className="fixed inset-0 z-40" onClick={() => setGroupDropdownOpen(false)} />
-              <div
-                className="absolute left-0 sm:right-0 sm:left-auto top-12 z-50 w-64 rounded-xl overflow-hidden py-1"
-                style={{ background: 'var(--surface-elevated)', border: '1px solid var(--border-subtle)', boxShadow: '0 8px 24px rgba(0,0,0,0.25)' }}
-              >
-                {groups?.length === 0 ? (
-                  <div className="px-4 py-3 text-sm text-[var(--text-muted)] font-['Tajawal']">
-                    لا توجد مجموعات في هذا المستوى
-                  </div>
-                ) : (
-                  groups?.map(g => (
-                    <button
-                      key={g.id}
-                      onClick={() => { setSelectedGroupId(g.id); setGroupDropdownOpen(false) }}
-                      className={`w-full text-start px-4 py-2.5 text-sm font-['Tajawal'] transition-colors ${
-                        g.id === selectedGroupId
-                          ? 'bg-sky-500/15 text-sky-400'
-                          : 'text-[var(--text-primary)] hover:bg-[rgba(255,255,255,0.05)]'
-                      }`}
-                    >
-                      {g.name}
-                    </button>
-                  ))
-                )}
-              </div>
-            </>
-          )}
-        </div>
+            <Users size={16} className="text-sky-400" />
+            <span className="text-sky-400 font-bold">{students.length}</span>
+            <span className="text-[var(--text-muted)]">طالب في هذا المستوى</span>
+          </div>
+        )}
       </div>
 
       {/* Tab bar */}
@@ -270,7 +219,7 @@ export default function InteractiveCurriculumPage() {
       </motion.div>
 
       {/* Footer stats */}
-      {selectedGroupId && tabStats?.[activeTab] && (
+      {tabStats?.[activeTab] && (
         <div
           className="flex items-center gap-2 px-4 py-3 rounded-xl"
           style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}

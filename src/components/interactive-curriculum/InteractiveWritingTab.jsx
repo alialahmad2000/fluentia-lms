@@ -13,7 +13,7 @@ const TASK_TYPE_LABELS = {
   summary: 'ملخص',
 }
 
-export default function InteractiveWritingTab({ unitId, groupId, students = [] }) {
+export default function InteractiveWritingTab({ unitId, students = [] }) {
   const [activeTask, setActiveTask] = useState(0)
 
   const { data: writingTasks, isLoading } = useQuery({
@@ -81,19 +81,19 @@ export default function InteractiveWritingTab({ unitId, groupId, students = [] }
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2 }}
         >
-          <WritingTaskContent task={task} unitId={unitId} groupId={groupId} students={students} />
+          <WritingTaskContent task={task} unitId={unitId} students={students} />
         </motion.div>
       </AnimatePresence>
     </div>
   )
 }
 
-function WritingTaskContent({ task, unitId, groupId, students }) {
+function WritingTaskContent({ task, unitId, students }) {
   const [expandedStudent, setExpandedStudent] = useState(null)
 
   // Fetch student progress
   const { data: studentProgress } = useQuery({
-    queryKey: ['ic-writing-progress', task.id, groupId],
+    queryKey: ['ic-writing-progress', task.id, students.map(s => s.user_id).sort().join()],
     queryFn: async () => {
       const studentIds = students.map(s => s.user_id)
       if (!studentIds.length) return []
@@ -105,7 +105,7 @@ function WritingTaskContent({ task, unitId, groupId, students }) {
         .in('student_id', studentIds)
       return data || []
     },
-    enabled: !!task?.id && !!groupId && students.length > 0,
+    enabled: !!task?.id && students.length > 0,
     staleTime: 30000,
   })
 

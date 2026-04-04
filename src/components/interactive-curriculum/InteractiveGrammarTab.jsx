@@ -14,7 +14,7 @@ const EXERCISE_TYPE_LABELS = {
   make_question: 'كوّن سؤالاً',
 }
 
-export default function InteractiveGrammarTab({ unitId, groupId, students = [] }) {
+export default function InteractiveGrammarTab({ unitId, students = [] }) {
   const [activeTopic, setActiveTopic] = useState(0)
 
   const { data: grammarTopics, isLoading } = useQuery({
@@ -72,19 +72,19 @@ export default function InteractiveGrammarTab({ unitId, groupId, students = [] }
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2 }}
         >
-          <GrammarTopicContent topic={topic} unitId={unitId} groupId={groupId} students={students} />
+          <GrammarTopicContent topic={topic} unitId={unitId} students={students} />
         </motion.div>
       </AnimatePresence>
     </div>
   )
 }
 
-function GrammarTopicContent({ topic, unitId, groupId, students }) {
+function GrammarTopicContent({ topic, unitId, students }) {
   const exercises = topic.curriculum_grammar_exercises || []
 
   // Fetch all student progress for this grammar topic
   const { data: studentProgress } = useQuery({
-    queryKey: ['ic-grammar-progress', topic.id, groupId],
+    queryKey: ['ic-grammar-progress', topic.id, students.map(s => s.user_id).sort().join()],
     queryFn: async () => {
       const studentIds = students.map(s => s.user_id)
       if (!studentIds.length) return []
@@ -96,7 +96,7 @@ function GrammarTopicContent({ topic, unitId, groupId, students }) {
         .in('student_id', studentIds)
       return data || []
     },
-    enabled: !!topic?.id && !!groupId && students.length > 0,
+    enabled: !!topic?.id && students.length > 0,
     staleTime: 30000,
   })
 

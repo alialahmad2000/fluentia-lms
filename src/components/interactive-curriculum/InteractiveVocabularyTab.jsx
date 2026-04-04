@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { Languages, Users, BookOpen, CheckCircle, Clock } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 
-export default function InteractiveVocabularyTab({ unitId, groupId, students = [] }) {
+export default function InteractiveVocabularyTab({ unitId, students = [] }) {
   // Fetch vocabulary for this unit
   const { data: vocabulary, isLoading: vocabLoading } = useQuery({
     queryKey: ['unit-vocabulary-ic', unitId],
@@ -21,7 +21,7 @@ export default function InteractiveVocabularyTab({ unitId, groupId, students = [
 
   // Fetch student progress for vocabulary
   const { data: studentProgress } = useQuery({
-    queryKey: ['ic-vocabulary-progress', unitId, groupId],
+    queryKey: ['ic-vocabulary-progress', unitId, students.map(s => s.user_id).sort().join()],
     queryFn: async () => {
       const studentIds = students.map(s => s.user_id)
       if (!studentIds.length) return []
@@ -33,7 +33,7 @@ export default function InteractiveVocabularyTab({ unitId, groupId, students = [
         .in('student_id', studentIds)
       return data || []
     },
-    enabled: !!unitId && !!groupId && students.length > 0,
+    enabled: !!unitId && students.length > 0,
     staleTime: 30000,
   })
 

@@ -19,7 +19,7 @@ const QUESTION_TYPE_COLORS = {
   inference: 'bg-purple-500/15 text-purple-400 border-purple-500/30',
 }
 
-export default function InteractiveReadingTab({ unitId, groupId, students = [] }) {
+export default function InteractiveReadingTab({ unitId, students = [] }) {
   const [activeReading, setActiveReading] = useState(0)
 
   const { data: readings, isLoading } = useQuery({
@@ -82,7 +82,7 @@ export default function InteractiveReadingTab({ unitId, groupId, students = [] }
           <InteractiveReadingContent
             reading={reading}
             unitId={unitId}
-            groupId={groupId}
+
             students={students}
           />
         </motion.div>
@@ -91,7 +91,7 @@ export default function InteractiveReadingTab({ unitId, groupId, students = [] }
   )
 }
 
-function InteractiveReadingContent({ reading, unitId, groupId, students }) {
+function InteractiveReadingContent({ reading, unitId, students }) {
   const { data: vocabulary } = useQuery({
     queryKey: ['reading-vocab', reading.id],
     queryFn: async () => {
@@ -120,7 +120,7 @@ function InteractiveReadingContent({ reading, unitId, groupId, students }) {
 
   // Fetch ALL student progress for this reading in ONE query
   const { data: studentProgress } = useQuery({
-    queryKey: ['ic-reading-progress', reading.id, groupId],
+    queryKey: ['ic-reading-progress', reading.id, students.map(s => s.user_id).sort().join()],
     queryFn: async () => {
       const studentIds = students.map(s => s.user_id)
       if (!studentIds.length) return []
@@ -132,7 +132,7 @@ function InteractiveReadingContent({ reading, unitId, groupId, students }) {
         .in('student_id', studentIds)
       return data || []
     },
-    enabled: !!reading?.id && !!groupId && students.length > 0,
+    enabled: !!reading?.id && students.length > 0,
     staleTime: 30000,
   })
 

@@ -18,10 +18,10 @@ const GAME_TYPE_LABELS = {
   flashcards: 'بطاقات',
 }
 
-export default function InteractiveGamesTab({ unitId, groupId, students = [] }) {
+export default function InteractiveGamesTab({ unitId, students = [] }) {
   // Fetch game sessions for students in this group
   const { data: gameSessions, isLoading } = useQuery({
-    queryKey: ['ic-game-sessions', groupId],
+    queryKey: ['ic-game-sessions', unitId, students.map(s => s.user_id).sort().join()],
     queryFn: async () => {
       const studentIds = students.map(s => s.user_id)
       if (!studentIds.length) return []
@@ -33,7 +33,7 @@ export default function InteractiveGamesTab({ unitId, groupId, students = [] }) 
         .limit(200)
       return data || []
     },
-    enabled: !!groupId && students.length > 0,
+    enabled: students.length > 0,
     staleTime: 30000,
   })
 

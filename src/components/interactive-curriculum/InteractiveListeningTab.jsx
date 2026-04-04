@@ -19,7 +19,7 @@ const QUESTION_TYPE_COLORS = {
   inference: 'bg-purple-500/15 text-purple-400 border-purple-500/30',
 }
 
-export default function InteractiveListeningTab({ unitId, groupId, students = [] }) {
+export default function InteractiveListeningTab({ unitId, students = [] }) {
   const [activeListening, setActiveListening] = useState(0)
 
   const { data: listenings, isLoading } = useQuery({
@@ -77,19 +77,19 @@ export default function InteractiveListeningTab({ unitId, groupId, students = []
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2 }}
         >
-          <ListeningContent listening={listening} unitId={unitId} groupId={groupId} students={students} />
+          <ListeningContent listening={listening} unitId={unitId} students={students} />
         </motion.div>
       </AnimatePresence>
     </div>
   )
 }
 
-function ListeningContent({ listening, unitId, groupId, students }) {
+function ListeningContent({ listening, unitId, students }) {
   const questions = listening.exercises?.questions || listening.exercises || []
 
   // Fetch student progress
   const { data: studentProgress } = useQuery({
-    queryKey: ['ic-listening-progress', listening.id, groupId],
+    queryKey: ['ic-listening-progress', listening.id, students.map(s => s.user_id).sort().join()],
     queryFn: async () => {
       const studentIds = students.map(s => s.user_id)
       if (!studentIds.length) return []
@@ -101,7 +101,7 @@ function ListeningContent({ listening, unitId, groupId, students }) {
         .in('student_id', studentIds)
       return data || []
     },
-    enabled: !!listening?.id && !!groupId && students.length > 0,
+    enabled: !!listening?.id && students.length > 0,
     staleTime: 30000,
   })
 

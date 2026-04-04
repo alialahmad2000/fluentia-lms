@@ -12,7 +12,7 @@ const TOPIC_TYPE_LABELS = {
   discussion: 'نقاش',
 }
 
-export default function InteractiveSpeakingTab({ unitId, groupId, students = [] }) {
+export default function InteractiveSpeakingTab({ unitId, students = [] }) {
   const [activeTopic, setActiveTopic] = useState(0)
 
   const { data: speakingTopics, isLoading } = useQuery({
