@@ -1,7 +1,8 @@
-import { useEffect, Suspense, useCallback } from 'react'
+import { useEffect, useRef, Suspense, useCallback } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom'
 import { useAuthStore } from './stores/authStore'
 import { supabase } from './lib/supabase'
+import { queryClient } from './lib/queryClient'
 import LoginPage from './pages/public/LoginPage'
 import LayoutShell from './components/layout/LayoutShell'
 import OnboardingModal from './components/onboarding/OnboardingModal'
@@ -241,14 +242,30 @@ export default function App() {
   }, [initialize])
 
   // Check session validity when user returns to the tab (e.g. after phone lock / background)
-  const handleVisibilityChange = useCallback(() => {
-    if (document.visibilityState === 'visible') {
-      supabase.auth.getSession().then(({ data: { session }, error }) => {
-        // Only redirect if user was previously logged in (not on login page)
-        if ((!session || error) && window.location.pathname !== '/login' && window.location.pathname !== '/forgot-password' && window.location.pathname !== '/reset-password') {
-          window.location.href = '/login'
-        }
-      })
+  const lastVisibleCheck = useRef(0)
+
+  const handleVisibilityChange = useCallback(async () => {
+    if (document.visibilityState !== 'visible') return
+
+    const publicPaths = ['/login', '/forgot-password', '/reset-password', '/test', '/testimonials', '/parent']
+    if (publicPaths.some(p => window.location.pathname.startsWith(p))) return
+
+    // Throttle: don't re-check if we checked less than 10 seconds ago
+    const now = Date.now()
+    if (now - lastVisibleCheck.current < 10000) return
+    lastVisibleCheck.current = now
+
+    try {
+      const { data: { session }, error } = await supabase.auth.getSession()
+      if (!session || error) {
+        // Session expired and couldn't refresh — redirect to login
+        window.location.href = '/login'
+        return
+      }
+      // Session is valid (possibly just refreshed) — invalidate stale queries
+      queryClient.invalidateQueries()
+    } catch {
+      // Network error — don't redirect, let OfflineBanner handle it
     }
   }, [])
 
@@ -256,6 +273,24 @@ export default function App() {
     document.addEventListener('visibilitychange', handleVisibilityChange)
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange)
   }, [handleVisibilityChange])
+
+  // Periodic session keepalive — check every 4 minutes to catch expiry before it causes issues
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession()
+        if (!session) {
+          const publicPaths = ['/login', '/forgot-password', '/reset-password', '/test', '/testimonials', '/parent']
+          if (!publicPaths.some(p => window.location.pathname.startsWith(p))) {
+            window.location.href = '/login'
+          }
+        }
+      } catch {
+        // Network error — ignore, OfflineBanner handles it
+      }
+    }, 4 * 60 * 1000)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <ErrorBoundary>

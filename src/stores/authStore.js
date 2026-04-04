@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { supabase } from '../lib/supabase'
+import { queryClient } from '../lib/queryClient'
 import { tracker } from '../services/activityTracker'
 
 export const useAuthStore = create((set, get) => ({
@@ -39,11 +40,13 @@ export const useAuthStore = create((set, get) => ({
         // Initialize activity tracker
         tracker.init(session.user.id)
       } else if (event === 'TOKEN_REFRESHED' && session?.user) {
-        // Token refreshed — update user object but don't refetch everything
+        // Token refreshed — update user object and invalidate stale queries
         set({ user: session.user })
+        queryClient.invalidateQueries()
       } else if (event === 'SIGNED_OUT') {
         const ch = get()._realtimeChannel
         if (ch) supabase.removeChannel(ch)
+        queryClient.clear()
         set({ user: null, profile: null, studentData: null, trainerData: null, _realtimeChannel: null })
       }
     })

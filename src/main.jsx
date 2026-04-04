@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClientProvider } from '@tanstack/react-query'
 import App from './App'
 import './index.css'
+import { queryClient } from './lib/queryClient'
 
 // ─── Global error recovery — catch unhandled errors that React can't ───
 window.addEventListener('unhandledrejection', (event) => {
@@ -22,26 +23,6 @@ window.addEventListener('error', (event) => {
       window.location.reload()
     }
   }
-})
-
-// ─── React Query — global config ──────────────────────────────
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutes
-      retry: (failureCount, error) => {
-        // Don't retry auth errors
-        if (error?.message?.includes('JWT') || error?.status === 401) return false
-        return failureCount < 2
-      },
-      refetchOnWindowFocus: false,
-    },
-    mutations: {
-      onError: (error) => {
-        console.error('[Mutation Error]', error)
-      },
-    },
-  },
 })
 
 const rootElement = document.getElementById('root')
