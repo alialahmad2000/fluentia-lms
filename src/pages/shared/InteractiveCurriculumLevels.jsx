@@ -89,13 +89,17 @@ export default function InteractiveCurriculumLevels() {
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center text-lg font-bold"
+                      className="w-10 h-10 rounded-xl flex items-center justify-center text-lg font-bold overflow-hidden"
                       style={{
                         background: `${level.color || '#38bdf8'}20`,
                         color: level.color || '#38bdf8',
                       }}
                     >
-                      {level.icon || level.level_number}
+                      {level.icon ? (
+                        <img src={level.icon} alt={level.name_en} className="w-full h-full object-cover" loading="lazy" />
+                      ) : (
+                        level.level_number
+                      )}
                     </div>
                     <div>
                       <h3 className="text-base font-bold text-[var(--text-primary)] font-['Tajawal']">{level.name_ar}</h3>
