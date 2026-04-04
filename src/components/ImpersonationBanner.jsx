@@ -1,10 +1,9 @@
-import { useNavigate } from 'react-router-dom'
 import { Eye, X } from 'lucide-react'
 import { useAuthStore } from '../stores/authStore'
+import { queryClient } from '../lib/queryClient'
 
 export default function ImpersonationBanner() {
   const { impersonation, stopImpersonation } = useAuthStore()
-  const navigate = useNavigate()
 
   if (!impersonation) return null
 
@@ -12,7 +11,10 @@ export default function ImpersonationBanner() {
 
   const handleExit = () => {
     const returnPath = stopImpersonation()
-    navigate(returnPath)
+    // Clear all cached queries so admin's own data is fetched fresh
+    queryClient.clear()
+    // Full page load forces all components to remount with admin context
+    window.location.href = returnPath
   }
 
   return (

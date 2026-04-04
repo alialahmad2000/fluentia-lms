@@ -444,6 +444,13 @@ html.theme-transition *::after {
 /* ═══════════════════════════════════════════════════════════
    REDUCED MOTION
    ═══════════════════════════════════════════════════════════ */
+/* Prevent default overscroll bounce on iOS PWA which conflicts with pull-to-refresh */
+@media all and (display-mode: standalone) {
+  html, body {
+    overscroll-behavior-y: contain;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -1,10 +1,9 @@
-import { useNavigate } from 'react-router-dom'
 import { Eye } from 'lucide-react'
 import { useAuthStore } from '../stores/authStore'
+import { queryClient } from '../lib/queryClient'
 
 export default function ImpersonateButton({ userId, role, name, variant = 'icon' }) {
   const { startImpersonation, impersonation } = useAuthStore()
-  const navigate = useNavigate()
 
   // Don't show while already impersonating
   if (impersonation) return null
@@ -12,7 +11,10 @@ export default function ImpersonateButton({ userId, role, name, variant = 'icon'
   const handleClick = async (e) => {
     e.stopPropagation()
     await startImpersonation(userId, role, name)
-    navigate(role === 'student' ? '/student' : '/trainer')
+    // Clear all cached queries so the impersonated user's data is fetched fresh
+    queryClient.clear()
+    // Full page load forces all components to remount with new user context
+    window.location.href = role === 'student' ? '/student' : '/trainer'
   }
 
   if (variant === 'icon') {
