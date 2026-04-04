@@ -135,7 +135,7 @@ export default function InteractiveCurriculumPage() {
       case 'games':
         return <InteractiveGamesTab unitId={unitId} students={students} />
       case 'recording':
-        return <InteractiveRecordingTab unitId={unitId} levelNumber={levelNumber} groups={groups} />
+        return <InteractiveRecordingTab unitId={unitId} />
       default:
         return null
     }

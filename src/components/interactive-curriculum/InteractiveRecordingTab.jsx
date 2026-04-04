@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { Video, ExternalLink, Pencil, Trash2, Calendar, Link2, Loader2, AlertCircle, Users, ChevronDown } from 'lucide-react'
+import { Video, ExternalLink, Pencil, Trash2, Calendar, Link2, Loader2, AlertCircle } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
 import { toast } from '../ui/FluentiaToast'
@@ -15,93 +15,20 @@ function isGoogleDriveUrl(url) {
   return /drive\.google\.com|docs\.google\.com/.test(url)
 }
 
-export default function InteractiveRecordingTab({ unitId, levelNumber, groups = [] }) {
-  const [selectedGroupId, setSelectedGroupId] = useState('')
-  const [dropdownOpen, setDropdownOpen] = useState(false)
-
-  const selectedGroup = groups.find(g => g.id === selectedGroupId)
-
-  return (
-    <div className="space-y-4">
-      {/* Group selector inside recording tab */}
-      <div className="flex items-center gap-3">
-        <span className="text-sm text-[var(--text-muted)] font-['Tajawal']">المجموعة:</span>
-        <div className="relative">
-          <button
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="flex items-center gap-2 px-4 h-10 rounded-xl text-sm font-medium border transition-colors font-['Tajawal'] min-w-[200px]"
-            style={{
-              background: 'var(--surface-raised)',
-              border: '1px solid var(--border-subtle)',
-              color: 'var(--text-primary)',
-            }}
-          >
-            <Users size={16} className="text-emerald-400 flex-shrink-0" />
-            <span className="flex-1 text-start truncate">
-              {selectedGroup?.name || 'اختر المجموعة'}
-            </span>
-            <ChevronDown size={14} className={`text-[var(--text-muted)] transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
-          </button>
-
-          {dropdownOpen && (
-            <>
-              <div className="fixed inset-0 z-40" onClick={() => setDropdownOpen(false)} />
-              <div
-                className="absolute left-0 sm:right-0 sm:left-auto top-12 z-50 w-64 rounded-xl overflow-hidden py-1"
-                style={{ background: 'var(--surface-elevated)', border: '1px solid var(--border-subtle)', boxShadow: '0 8px 24px rgba(0,0,0,0.25)' }}
-              >
-                {groups.length === 0 ? (
-                  <div className="px-4 py-3 text-sm text-[var(--text-muted)] font-['Tajawal']">
-                    لا توجد مجموعات في هذا المستوى
-                  </div>
-                ) : (
-                  groups.map(g => (
-                    <button
-                      key={g.id}
-                      onClick={() => { setSelectedGroupId(g.id); setDropdownOpen(false) }}
-                      className={`w-full text-start px-4 py-2.5 text-sm font-['Tajawal'] transition-colors ${
-                        g.id === selectedGroupId
-                          ? 'bg-emerald-500/15 text-emerald-400'
-                          : 'text-[var(--text-primary)] hover:bg-[rgba(255,255,255,0.05)]'
-                      }`}
-                    >
-                      {g.name}
-                    </button>
-                  ))
-                )}
-              </div>
-            </>
-          )}
-        </div>
-      </div>
-
-      {!selectedGroupId ? (
-        <div className="flex flex-col items-center justify-center gap-4 py-20">
-          <Users size={40} className="text-[var(--text-muted)]" />
-          <p className="text-[var(--text-muted)] font-['Tajawal']">اختر مجموعة لعرض وإضافة التسجيلات</p>
-        </div>
-      ) : (
-        <RecordingContent unitId={unitId} groupId={selectedGroupId} />
-      )}
-    </div>
-  )
-}
-
-function RecordingContent({ unitId, groupId }) {
+export default function InteractiveRecordingTab({ unitId }) {
   const { data: recordings = [], isLoading } = useQuery({
-    queryKey: ['unit-recordings', unitId, groupId],
+    queryKey: ['unit-recordings', unitId],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('class_recordings')
         .select('*')
         .eq('unit_id', unitId)
-        .eq('group_id', groupId)
         .eq('is_archive', false)
         .is('deleted_at', null)
       if (error) throw error
       return data || []
     },
-    enabled: !!unitId && !!groupId,
+    enabled: !!unitId,
     staleTime: 0,
   })
 
@@ -128,14 +55,13 @@ function RecordingContent({ unitId, groupId }) {
           part={part}
           recording={recordingByPart[part.id]}
           unitId={unitId}
-          groupId={groupId}
         />
       ))}
     </div>
   )
 }
 
-function PartSection({ part, recording, unitId, groupId }) {
+function PartSection({ part, recording, unitId }) {
   const [editing, setEditing] = useState(false)
 
   if (recording && !editing) {
@@ -146,7 +72,6 @@ function PartSection({ part, recording, unitId, groupId }) {
     <RecordingForm
       part={part}
       unitId={unitId}
-      groupId={groupId}
       existing={editing ? recording : null}
       onCancel={editing ? () => setEditing(false) : null}
     />
@@ -223,7 +148,7 @@ function RecordingCard({ recording, part, onEdit }) {
   )
 }
 
-function RecordingForm({ part, unitId, groupId, existing, onCancel }) {
+function RecordingForm({ part, unitId, existing, onCancel }) {
   const { user } = useAuthStore()
   const queryClient = useQueryClient()
   const [url, setUrl] = useState(existing?.google_drive_url || '')
@@ -251,7 +176,6 @@ function RecordingForm({ part, unitId, groupId, existing, onCancel }) {
     } else {
       ;({ error } = await supabase.from('class_recordings').insert({
         ...payload,
-        group_id: groupId,
         unit_id: unitId,
         part: part.id,
         uploaded_by: user.id,
