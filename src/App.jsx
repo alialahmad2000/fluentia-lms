@@ -59,6 +59,7 @@ const StudentWritingLab = lazyRetry(() => import('./pages/student/StudentWriting
 const StudentGroupActivity = lazyRetry(() => import('./pages/student/StudentGroupActivity'))
 const StudentAdaptiveTest = lazyRetry(() => import('./pages/student/StudentAdaptiveTest'))
 const StudentAIInsights = lazyRetry(() => import('./pages/student/StudentAIInsights'))
+const ProgressDashboard = lazyRetry(() => import('./pages/student/ProgressDashboard'))
 const StudentCurriculum = lazyRetry(() => import('./pages/student/StudentCurriculum'))
 const VocabularyFlashcards = lazyRetry(() => import('./pages/student/vocabulary/VocabularyFlashcards'))
 const CurriculumBrowser = lazyRetry(() => import('./pages/student/curriculum/CurriculumBrowser'))
@@ -387,6 +388,7 @@ export default function App() {
               <Route path="/student/group-activity" element={<Page><PackageRoute requiredPackage="talaqa" featureName="نشاط المجموعة"><StudentGroupActivity /></PackageRoute></Page>} />
               <Route path="/student/adaptive-test" element={<Page><PackageRoute requiredPackage="talaqa" featureName="اختبار المستوى"><StudentAdaptiveTest /></PackageRoute></Page>} />
               <Route path="/student/ai-insights" element={<Page><PackageRoute requiredPackage="talaqa" featureName="رؤى ذكية"><StudentAIInsights /></PackageRoute></Page>} />
+              <Route path="/student/progress" element={<Page><ProgressDashboard /></Page>} />
               <Route path="/student/curriculum" element={<Page><CurriculumBrowser /></Page>} />
               <Route path="/student/curriculum/level/:levelNumber" element={<Page><LevelUnits /></Page>} />
               <Route path="/student/curriculum/unit/:unitId" element={<Page><UnitContent /></Page>} />

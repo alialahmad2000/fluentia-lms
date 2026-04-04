@@ -56,6 +56,7 @@ const NAV_ITEMS = {
     { to: '/student/recordings', label: 'التسجيلات', icon: Video },
     { to: '/student/flashcards', label: 'المفردات', icon: Languages },
     { to: '/student/verbs', label: 'الأفعال الشاذة', icon: Shuffle },
+    { to: '/student/progress', label: 'تقدّمي', icon: Activity },
     { type: 'divider', label: 'معامل' },
     { to: '/student/speaking-lab', label: 'معمل التحدث', icon: Mic, requiredPackage: 'tamayuz', comingSoon: true },
     { to: '/student/writing-lab', label: 'معمل الكتابة', icon: PenLine, requiredPackage: 'tamayuz', comingSoon: true },
