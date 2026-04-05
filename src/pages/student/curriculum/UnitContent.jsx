@@ -7,6 +7,8 @@ import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import { tracker } from '../../../services/activityTracker'
 import { useUnitProgress } from '../../../hooks/useUnitProgress'
+import { useUnitStar } from '../../../hooks/useUnitStar'
+import UnitStarCard from '../../../components/UnitStarCard'
 import ReadingTab from './tabs/ReadingTab'
 import GrammarTab from './tabs/GrammarTab'
 import VocabularyTab from './tabs/VocabularyTab'
@@ -64,6 +66,10 @@ export default function UnitContent() {
   const { data: unitProgress } = useUnitProgress(studentData?.id, unitId)
   const tabStatus = unitProgress?.tabStatus || {}
   const overallProgress = unitProgress?.overall || 0
+
+  // Unit Star
+  const groupId = studentData?.group_id
+  const { data: unitStarData } = useUnitStar(unitId, groupId)
 
   // Track unit view
   useEffect(() => {
@@ -226,6 +232,15 @@ export default function UnitContent() {
           </div>
         )}
       </div>
+
+      {/* Unit Star Card */}
+      {unitStarData?.star && (
+        <UnitStarCard
+          star={unitStarData.star}
+          rankings={unitStarData.rankings}
+          currentStudentId={studentData?.id}
+        />
+      )}
 
       {/* Tab bar */}
       <div
