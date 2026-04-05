@@ -184,7 +184,13 @@ RULES:
 - strengths_ar: 2-3 specific things the student did well
 - improvements_ar: 2-3 specific actionable suggestions
 - strengths: a warm encouraging paragraph in Arabic about what they did well
-- improvement_tip: ONE specific next step they can practice immediately`
+- improvement_tip: ONE specific next step they can practice immediately
+
+Keep your response concise but complete:
+- errors: top 5-7 most important errors only
+- vocabulary_upgrades: 2-4 most impactful ones
+- model_sentences: 2-3 sentences only
+- All Arabic feedback: 2-3 sentences each, not paragraphs`
 
     const userContent = writingPrompt
       ? `Prompt: ${writingPrompt}\n\nWriting:\n${writingText}`
@@ -201,7 +207,7 @@ RULES:
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: 2048,
+        max_tokens: 4096,
         system: systemPrompt,
         messages: [{ role: 'user', content: userContent }],
       }),

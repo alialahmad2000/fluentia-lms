@@ -228,7 +228,14 @@ RULES:
 - strengths: warm encouraging paragraph about what they did well
 - improvement_tip: ONE specific next step to practice
 - If transcript is very short or empty, still give encouraging feedback and tips
-- Consider that Whisper transcription may have minor artifacts — don't penalize obvious transcription errors`
+- Consider that Whisper transcription may have minor artifacts — don't penalize obvious transcription errors
+
+Keep your response concise but complete:
+- errors: top 3-5 most important errors only
+- better_expressions: 2-3 most impactful ones
+- fluency_tips: 2-3 tips maximum
+- model_answer: 2-3 sentences only
+- All Arabic feedback: 2-3 sentences each, not paragraphs`
 
         const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
           method: 'POST',
@@ -239,7 +246,7 @@ RULES:
           },
           body: JSON.stringify({
             model: 'claude-sonnet-4-6',
-            max_tokens: 2048,
+            max_tokens: 4096,
             messages: [{ role: 'user', content: claudePrompt }],
           }),
         })
