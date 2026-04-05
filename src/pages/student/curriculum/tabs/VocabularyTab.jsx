@@ -67,7 +67,7 @@ function ProgressRing({ percent, size = 140 }) {
 
 // ─── Main Component ─────────────────────────────────
 export default function VocabularyTab({ unitId }) {
-  const { user } = useAuthStore()
+  const { profile } = useAuthStore()
   const queryClient = useQueryClient()
   const [viewMode, setViewMode] = useState('cards')
   const [filter, setFilter] = useState('all')
@@ -85,7 +85,7 @@ export default function VocabularyTab({ unitId }) {
   const saveTimer = useRef(null)
   const progressIdRef = useRef(null)
 
-  const { masteryMap, isLoading: masteryLoading, masteredCount, learningCount, getMastery } = useVocabularyMastery(user?.id, unitId)
+  const { masteryMap, isLoading: masteryLoading, masteredCount, learningCount, getMastery } = useVocabularyMastery(profile?.id, unitId)
 
   const { data, isLoading } = useQuery({
     queryKey: ['unit-vocabulary', unitId],
@@ -149,13 +149,13 @@ export default function VocabularyTab({ unitId }) {
 
   // Load saved progress
   useEffect(() => {
-    if (!user?.id || !unitId) { setProgressLoading(false); return }
+    if (!profile?.id || !unitId) { setProgressLoading(false); return }
     let isMounted = true
     const load = async () => {
       const { data: row } = await supabase
         .from('student_curriculum_progress')
         .select('*')
-        .eq('student_id', user.id)
+        .eq('student_id', profile.id)
         .eq('unit_id', unitId)
         .eq('section_type', 'vocabulary')
         .maybeSingle()
@@ -171,14 +171,14 @@ export default function VocabularyTab({ unitId }) {
     }
     load()
     return () => { isMounted = false }
-  }, [user?.id, unitId])
+  }, [profile?.id, unitId])
 
   // Save progress
   const saveProgress = useCallback(async (reviewed, total) => {
-    if (!user?.id || !unitId) return
+    if (!profile?.id || !unitId) return
     const reviewedAll = reviewed.size >= total && total > 0
     const row = {
-      student_id: user.id, unit_id: unitId, section_type: 'vocabulary',
+      student_id: profile.id, unit_id: unitId, section_type: 'vocabulary',
       status: reviewedAll ? 'completed' : 'in_progress',
       score: total > 0 ? Math.round((reviewed.size / total) * 100) : 0,
       answers: { reviewedWords: [...reviewed], totalWords: total },
@@ -201,7 +201,7 @@ export default function VocabularyTab({ unitId }) {
         }
       }
     }
-  }, [user?.id, unitId])
+  }, [profile?.id, unitId])
 
   const markReviewed = useCallback((wordId) => {
     setReviewedWords(prev => {
@@ -224,7 +224,7 @@ export default function VocabularyTab({ unitId }) {
 
   const handleMasteryUpdate = useCallback((updated) => {
     if (!updated) return
-    queryClient.setQueryData(['vocabulary-mastery', user?.id, unitId], (prev) => ({
+    queryClient.setQueryData(['vocabulary-mastery', profile?.id, unitId], (prev) => ({
       ...prev,
       [updated.vocabulary_id]: updated,
     }))
@@ -236,7 +236,7 @@ export default function VocabularyTab({ unitId }) {
         else { setExerciseWord(null); setQuickPractice(false) }
       }, 1500)
     }
-  }, [queryClient, user?.id, unitId, quickPractice, allWords, getWordMasteryLevel])
+  }, [queryClient, profile?.id, unitId, quickPractice, allWords, getWordMasteryLevel])
 
   const startQuickPractice = () => {
     if (nextUnmastered) {
@@ -437,7 +437,7 @@ export default function VocabularyTab({ unitId }) {
         word={exerciseWord}
         unitWords={allWords}
         mastery={exerciseWord ? getMastery(exerciseWord.id) : null}
-        studentId={user?.id}
+        studentId={profile?.id}
         isOpen={!!exerciseWord}
         onClose={() => { setExerciseWord(null); setQuickPractice(false) }}
         onMasteryUpdate={handleMasteryUpdate}

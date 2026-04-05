@@ -27,7 +27,7 @@ const EXERCISES = [
 // Main Exercises Component
 // ═════════════════════════════════════════════════════
 export default function VocabularyExercises({ unitId, allWords }) {
-  const { user } = useAuthStore()
+  const { profile } = useAuthStore()
   const [activeExercise, setActiveExercise] = useState(null)
   const [completedExercises, setCompletedExercises] = useState({})
   const [savedProgress, setSavedProgress] = useState(null)
@@ -35,13 +35,13 @@ export default function VocabularyExercises({ unitId, allWords }) {
 
   // Load saved exercise progress
   useEffect(() => {
-    if (!user?.id || !unitId) return
+    if (!profile?.id || !unitId) return
     let mounted = true
     const load = async () => {
       const { data } = await supabase
         .from('student_curriculum_progress')
         .select('*')
-        .eq('student_id', user.id)
+        .eq('student_id', profile.id)
         .eq('unit_id', unitId)
         .eq('section_type', 'vocabulary_exercise')
         .maybeSingle()
@@ -60,11 +60,11 @@ export default function VocabularyExercises({ unitId, allWords }) {
     }
     load()
     return () => { mounted = false }
-  }, [user?.id, unitId])
+  }, [profile?.id, unitId])
 
   // Save exercise result
   const saveResult = useCallback(async (exerciseKey, result) => {
-    if (!user?.id || !unitId) return
+    if (!profile?.id || !unitId) return
 
     const updated = {
       ...completedExercises,
@@ -77,7 +77,7 @@ export default function VocabularyExercises({ unitId, allWords }) {
     const allDone = Object.keys(updated).length >= 4
 
     const row = {
-      student_id: user.id,
+      student_id: profile.id,
       unit_id: unitId,
       section_type: 'vocabulary_exercise',
       status: allDone ? 'completed' : 'in_progress',
@@ -103,14 +103,14 @@ export default function VocabularyExercises({ unitId, allWords }) {
     // Award XP on first full completion
     if (allDone && !savedProgress?.completed_at) {
       await supabase.from('xp_transactions').insert({
-        student_id: user.id,
+        student_id: profile.id,
         amount: 10,
-        reason: 'exercise',
+        reason: 'correct_answer',
         description: 'أكمل تمارين المفردات',
       })
       toast({ type: 'success', title: '+10 XP — أحسنت!' })
     }
-  }, [user?.id, unitId, completedExercises, savedProgress])
+  }, [profile?.id, unitId, completedExercises, savedProgress])
 
   if (!allWords?.length || allWords.length < 4) return null
 

@@ -66,7 +66,7 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
         await supabase.from('xp_transactions').insert({
           student_id: studentId,
           amount: 3,
-          reason: 'exercise',
+          reason: 'correct_answer',
           description: `أتقن تمرين "${word.word}"`,
         }).catch(() => {})
       }
@@ -76,7 +76,7 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
         await supabase.from('xp_transactions').insert({
           student_id: studentId,
           amount: 5,
-          reason: 'exercise',
+          reason: 'correct_answer',
           description: `أتقن كلمة "${word.word}" بالكامل`,
         }).catch(() => {})
         toast({ type: 'success', title: `+5 XP — أتقنت "${word.word}"!` })
