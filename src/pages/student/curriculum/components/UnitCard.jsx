@@ -6,9 +6,8 @@ const STATUS_CONFIG = {
   completed:   { label: 'مكتمل', dotColor: 'bg-emerald-400' },
 }
 
-export default function UnitCard({ unit, levelColor, status = 'not_started', sectionsCompleted = 0, totalSections = 5, onClick }) {
+export default function UnitCard({ unit, levelColor, status = 'not_started', progressPercent = 0, completedCount = 0, activeCount = 0, onClick }) {
   const statusCfg = STATUS_CONFIG[status] || STATUS_CONFIG.not_started
-  const pct = totalSections > 0 ? (sectionsCompleted / totalSections) * 100 : 0
 
   return (
     <motion.div
@@ -50,13 +49,18 @@ export default function UnitCard({ unit, levelColor, status = 'not_started', sec
             </p>
           )}
 
-          {/* Status indicator + section count */}
+          {/* Status indicator + activity count */}
           <div className="flex items-center gap-2 mt-2">
             <span className={`w-2 h-2 rounded-full ${statusCfg.dotColor}`} />
             <span className="text-xs text-[var(--text-muted)]">{statusCfg.label}</span>
-            {status !== 'not_started' && (
+            {status !== 'not_started' && activeCount > 0 && (
               <span className="text-xs text-[var(--text-muted)] mr-1">
-                — {sectionsCompleted}/{totalSections} أقسام
+                — {completedCount}/{activeCount} أنشطة
+              </span>
+            )}
+            {status !== 'not_started' && (
+              <span className="text-xs font-bold font-['Inter'] tabular-nums mr-auto" style={{ color: status === 'completed' ? '#4ade80' : levelColor }}>
+                {progressPercent}%
               </span>
             )}
           </div>
@@ -66,7 +70,7 @@ export default function UnitCard({ unit, levelColor, status = 'not_started', sec
             <div className="h-1 rounded-full overflow-hidden mt-2" style={{ background: 'var(--surface-raised)' }}>
               <div
                 className="h-full rounded-full transition-all duration-500"
-                style={{ width: `${pct}%`, background: status === 'completed' ? '#4ade80' : levelColor }}
+                style={{ width: `${progressPercent}%`, background: status === 'completed' ? '#4ade80' : levelColor }}
               />
             </div>
           )}

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
@@ -6,7 +6,7 @@ import { ArrowRight, BookOpen } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import { tracker } from '../../../services/activityTracker'
-import { calculateUnitCompletion, groupProgressByUnit } from '../../../utils/curriculumProgress'
+import { useLevelProgress } from '../../../hooks/useUnitProgress'
 import UnitCard from './components/UnitCard'
 
 const container = {
@@ -63,32 +63,8 @@ export default function LevelUnits() {
     enabled: !!level?.id,
   })
 
-  // Fetch student section-level progress for units in this level
-  const { data: rawProgress } = useQuery({
-    queryKey: ['curriculum-unit-progress', profile?.id, level?.id],
-    queryFn: async () => {
-      const unitIds = units.map(u => u.id)
-      const { data, error } = await supabase
-        .from('student_curriculum_progress')
-        .select('unit_id, section_type, status, score')
-        .eq('student_id', profile?.id)
-        .in('unit_id', unitIds)
-      if (error) throw error
-      return data || []
-    },
-    enabled: !!profile?.id && !!units && units.length > 0,
-  })
-
-  // Calculate per-unit completion from section progress
-  const progressMap = useMemo(() => {
-    if (!rawProgress) return {}
-    const byUnit = groupProgressByUnit(rawProgress)
-    const map = {}
-    for (const [unitId, rows] of Object.entries(byUnit)) {
-      map[unitId] = calculateUnitCompletion(rows)
-    }
-    return map
-  }, [rawProgress])
+  // Comprehensive progress for all units in this level
+  const { data: progressMap = {} } = useLevelProgress(profile?.id, units)
 
   const isLoading = loadingLevel || loadingUnits
   const levelColor = level?.color || '#38bdf8'
@@ -160,15 +136,18 @@ export default function LevelUnits() {
           className="grid grid-cols-1 md:grid-cols-2 gap-3"
         >
           {units.map(unit => {
-            const completion = progressMap?.[unit.id] || { status: 'not_started', sectionsCompleted: 0, totalSections: 5 }
+            const progress = progressMap[unit.id]
+            const overall = progress?.overall || 0
+            const status = overall === 100 ? 'completed' : overall > 0 ? 'in_progress' : 'not_started'
             return (
               <motion.div key={unit.id} variants={item}>
                 <UnitCard
                   unit={unit}
                   levelColor={levelColor}
-                  status={completion.status}
-                  sectionsCompleted={completion.sectionsCompleted}
-                  totalSections={completion.totalSections}
+                  status={status}
+                  progressPercent={overall}
+                  completedCount={progress?.completedCount || 0}
+                  activeCount={progress?.activeCount || 0}
                   onClick={() => {
                     tracker.track('unit_selected', { unit_id: unit.id, unit_number: unit.unit_number, level: levelNum })
                     navigate(`/student/curriculum/unit/${unit.id}`)

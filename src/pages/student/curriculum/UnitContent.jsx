@@ -1,11 +1,12 @@
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, BookOpen, PenLine, Languages, Headphones, FileEdit, Mic, ClipboardCheck, Video } from 'lucide-react'
+import { ArrowRight, BookOpen, PenLine, Languages, Headphones, FileEdit, Mic, ClipboardCheck, Video, Check } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import { tracker } from '../../../services/activityTracker'
+import { useUnitProgress } from '../../../hooks/useUnitProgress'
 import ReadingTab from './tabs/ReadingTab'
 import GrammarTab from './tabs/GrammarTab'
 import VocabularyTab from './tabs/VocabularyTab'
@@ -59,47 +60,10 @@ export default function UnitContent() {
     enabled: !!unitId,
   })
 
-  // Fetch section completion status for this unit
-  const { data: sectionProgress } = useQuery({
-    queryKey: ['unit-section-progress', studentData?.id, unitId],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('student_curriculum_progress')
-        .select('section_type, status')
-        .eq('student_id', studentData?.id)
-        .eq('unit_id', unitId)
-      if (error) throw error
-      return data || []
-    },
-    enabled: !!studentData?.id && !!unitId,
-  })
-
-  const sectionStatusMap = useMemo(() => {
-    const map = {}
-    // Group rows by section_type
-    const grouped = {}
-    for (const p of (sectionProgress || [])) {
-      if (!grouped[p.section_type]) grouped[p.section_type] = []
-      grouped[p.section_type].push(p)
-    }
-    for (const [type, rows] of Object.entries(grouped)) {
-      if (type === 'reading' && rows.length > 0) {
-        // Reading may have multiple passages — only "completed" if ALL are completed
-        const allCompleted = rows.every(r => r.status === 'completed')
-        const anyInProgress = rows.some(r => r.status === 'in_progress' || r.status === 'completed')
-        map[type] = allCompleted ? 'completed' : anyInProgress ? 'in_progress' : rows[0].status
-      } else {
-        // Other sections: pick the best status
-        for (const p of rows) {
-          const existing = map[type]
-          if (!existing || p.status === 'completed' || (p.status === 'in_progress' && existing !== 'completed')) {
-            map[type] = p.status
-          }
-        }
-      }
-    }
-    return map
-  }, [sectionProgress])
+  // Comprehensive unit progress
+  const { data: unitProgress } = useUnitProgress(studentData?.id, unitId)
+  const tabStatus = unitProgress?.tabStatus || {}
+  const overallProgress = unitProgress?.overall || 0
 
   // Track unit view
   useEffect(() => {
@@ -216,7 +180,7 @@ export default function UnitContent() {
               {unit.unit_number}
             </div>
           )}
-          <div>
+          <div className="flex-1 min-w-0">
             <h1 className="text-xl font-bold text-[var(--text-primary)] font-['Tajawal']">
               الوحدة {unit.unit_number}: {unit.theme_ar}
             </h1>
@@ -226,6 +190,41 @@ export default function UnitContent() {
             </p>
           </div>
         </div>
+
+        {/* Overall progress bar */}
+        {unitProgress && (
+          <div className="mt-3 space-y-1.5">
+            <div className="flex items-center justify-between">
+              <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">
+                التقدم الكلي
+              </span>
+              <div className="flex items-center gap-1.5">
+                {overallProgress === 100 && <Check size={12} className="text-emerald-400" />}
+                <span className={`text-xs font-bold font-['Inter'] tabular-nums ${overallProgress === 100 ? 'text-emerald-400' : 'text-[var(--text-muted)]'}`}>
+                  {overallProgress}%
+                </span>
+              </div>
+            </div>
+            <div className="h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--surface-raised)' }}>
+              <motion.div
+                className="h-full rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: `${overallProgress}%` }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
+                style={{
+                  background: overallProgress === 100
+                    ? 'linear-gradient(90deg, #4ade80, #22c55e)'
+                    : overallProgress > 0
+                      ? 'linear-gradient(90deg, #38bdf8, #818cf8)'
+                      : 'transparent',
+                }}
+              />
+            </div>
+            <div className="flex items-center gap-1 text-[10px] text-[var(--text-muted)] font-['Tajawal']">
+              <span>{unitProgress.completedCount}/{unitProgress.activeCount} أنشطة مكتملة</span>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Tab bar */}
@@ -237,7 +236,7 @@ export default function UnitContent() {
         {TABS.map((tab) => {
           const Icon = tab.icon
           const isActive = activeTab === tab.id
-          const secStatus = sectionStatusMap[tab.id]
+          const secStatus = tabStatus[tab.id]
           const dotColor = secStatus === 'completed' ? 'bg-emerald-400' : secStatus === 'in_progress' ? 'bg-amber-400' : null
           return (
             <button
