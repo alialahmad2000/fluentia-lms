@@ -29,6 +29,7 @@ export default function WritingTab({ unitId }) {
 
   const { data: tasks, isLoading } = useQuery({
     queryKey: ['unit-writing', unitId],
+    placeholderData: (prev) => prev,
     queryFn: async () => {
       const { data } = await supabase
         .from('curriculum_writing')

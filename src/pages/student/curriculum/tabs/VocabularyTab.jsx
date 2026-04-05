@@ -33,6 +33,7 @@ export default function VocabularyTab({ unitId }) {
 
   const { data, isLoading } = useQuery({
     queryKey: ['unit-vocabulary', unitId],
+    placeholderData: (prev) => prev,
     queryFn: async () => {
       const { data: readings } = await supabase
         .from('curriculum_readings')

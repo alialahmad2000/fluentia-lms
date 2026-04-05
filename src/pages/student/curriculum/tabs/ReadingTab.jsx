@@ -27,6 +27,7 @@ export default function ReadingTab({ unitId }) {
 
   const { data: readings, isLoading } = useQuery({
     queryKey: ['unit-readings', unitId],
+    placeholderData: (prev) => prev,
     queryFn: async () => {
       const { data, error } = await supabase
         .from('curriculum_readings')

@@ -22,6 +22,7 @@ export default function GrammarTab({ unitId }) {
 
   const { data: topics, isLoading } = useQuery({
     queryKey: ['unit-grammar', unitId],
+    placeholderData: (prev) => prev,
     queryFn: async () => {
       const { data, error } = await supabase
         .from('curriculum_grammar')

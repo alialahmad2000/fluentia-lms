@@ -46,6 +46,7 @@ export default function UnitContent() {
 
   const { data: unit, isLoading, error } = useQuery({
     queryKey: ['unit-content', unitId],
+    placeholderData: (prev) => prev,
     queryFn: async () => {
       const { data, error } = await supabase
         .from('curriculum_units')

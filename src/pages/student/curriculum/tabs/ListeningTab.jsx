@@ -26,6 +26,7 @@ export default function ListeningTab({ unitId }) {
 
   const { data: listenings, isLoading } = useQuery({
     queryKey: ['unit-listening', unitId],
+    placeholderData: (prev) => prev,
     queryFn: async () => {
       const { data, error } = await supabase
         .from('curriculum_listening')

@@ -40,9 +40,9 @@ export const useAuthStore = create((set, get) => ({
         // Initialize activity tracker
         tracker.init(session.user.id)
       } else if (event === 'TOKEN_REFRESHED' && session?.user) {
-        // Token refreshed — update user object and invalidate stale queries
+        // Token refreshed — update user object, refetch active queries with fresh token
         set({ user: session.user })
-        queryClient.invalidateQueries()
+        queryClient.refetchQueries({ type: 'active' })
       } else if (event === 'SIGNED_OUT') {
         const ch = get()._realtimeChannel
         if (ch) supabase.removeChannel(ch)

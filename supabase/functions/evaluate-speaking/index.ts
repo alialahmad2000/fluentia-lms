@@ -252,8 +252,35 @@ RULES:
 
           // Parse JSON — strip any markdown fences
           const cleanJson = responseText.replace(/```json\n?|```\n?/g, '').trim()
-          aiEvaluation = JSON.parse(cleanJson)
-          aiEvaluation.transcript = transcript
+          try {
+            aiEvaluation = JSON.parse(cleanJson)
+          } catch (parseErr) {
+            console.error('[evaluate-speaking] JSON parse error, attempting repair:', parseErr)
+            // Try to extract partial JSON by finding the last valid closing brace
+            const lastBrace = cleanJson.lastIndexOf('}')
+            if (lastBrace > 0) {
+              try {
+                aiEvaluation = JSON.parse(cleanJson.slice(0, lastBrace + 1))
+              } catch {
+                // Last resort: extract scores with regex
+                const scoreMatch = (key: string) => {
+                  const m = cleanJson.match(new RegExp(`"${key}"\\s*:\\s*(\\d+)`))
+                  return m ? parseInt(m[1]) : null
+                }
+                aiEvaluation = {
+                  grammar_score: scoreMatch('grammar_score'),
+                  vocabulary_score: scoreMatch('vocabulary_score'),
+                  fluency_score: scoreMatch('fluency_score'),
+                  confidence_score: scoreMatch('confidence_score'),
+                  overall_score: scoreMatch('overall_score'),
+                  feedback_ar: 'تم التقييم — بعض التفاصيل قد تكون ناقصة',
+                  feedback_en: 'Evaluation completed — some details may be missing',
+                  suggestions: [],
+                }
+              }
+            }
+          }
+          if (aiEvaluation) aiEvaluation.transcript = transcript
 
           // Log Claude usage
           const costSAR = ((inputTokens * 3 + outputTokens * 15) / 1_000_000) * 3.75

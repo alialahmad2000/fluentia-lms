@@ -14,6 +14,7 @@ export default function SpeakingTab({ unitId }) {
 
   const { data: topics, isLoading } = useQuery({
     queryKey: ['unit-speaking', unitId],
+    placeholderData: (prev) => prev,
     queryFn: async () => {
       const { data } = await supabase
         .from('curriculum_speaking')
