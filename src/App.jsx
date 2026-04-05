@@ -261,14 +261,15 @@ export default function App() {
     lastVisibleCheck.current = now
 
     try {
-      const { data: { session }, error } = await supabase.auth.getSession()
+      // Use refreshSession() — getSession() only reads cache and may return an expired JWT
+      const { data: { session }, error } = await supabase.auth.refreshSession()
       if (!session || error) {
-        // Session expired and couldn't refresh — redirect to login
+        // Session truly expired and couldn't refresh — redirect to login
         window.location.href = '/login'
         return
       }
-      // Session is valid (possibly just refreshed) — invalidate stale queries
-      queryClient.invalidateQueries()
+      // Session refreshed — force active queries to refetch with fresh token
+      queryClient.refetchQueries({ type: 'active' })
     } catch {
       // Network error — don't redirect, let OfflineBanner handle it
     }
@@ -279,11 +280,11 @@ export default function App() {
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange)
   }, [handleVisibilityChange])
 
-  // Periodic session keepalive — check every 4 minutes to catch expiry before it causes issues
+  // Periodic session keepalive — refresh every 4 minutes to catch expiry before it causes issues
   useEffect(() => {
     const interval = setInterval(async () => {
       try {
-        const { data: { session } } = await supabase.auth.getSession()
+        const { data: { session } } = await supabase.auth.refreshSession()
         if (!session) {
           const publicPaths = ['/login', '/forgot-password', '/reset-password', '/test', '/testimonials', '/parent']
           if (!publicPaths.some(p => window.location.pathname.startsWith(p))) {
@@ -295,6 +296,20 @@ export default function App() {
       }
     }, 4 * 60 * 1000)
     return () => clearInterval(interval)
+  }, [])
+
+  // Network reconnection — refresh session and refetch active queries
+  useEffect(() => {
+    const handleOnline = async () => {
+      try {
+        await supabase.auth.refreshSession()
+        queryClient.refetchQueries({ type: 'active' })
+      } catch {
+        // ignore — will retry on next interaction
+      }
+    }
+    window.addEventListener('online', handleOnline)
+    return () => window.removeEventListener('online', handleOnline)
   }, [])
 
   return (
