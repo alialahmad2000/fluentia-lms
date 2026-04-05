@@ -61,9 +61,24 @@ export default function VoiceRecorder({
 
   // Update existing recording when prop changes
   useEffect(() => {
-    if (existingRecording?.audio_url) {
-      setAudioUrl(existingRecording.audio_url)
+    if (existingRecording) {
+      if (existingRecording.audio_url) {
+        setAudioUrl(existingRecording.audio_url)
+      }
+      if (existingRecording.ai_evaluation) {
+        setEvaluation(existingRecording.ai_evaluation)
+      }
       if (state === STATE.IDLE) setState(STATE.UPLOADED)
+
+      // If no audio_url but have audio_path, regenerate signed URL
+      if (!existingRecording.audio_url && existingRecording.audio_path) {
+        supabase.storage
+          .from('voice-notes')
+          .createSignedUrl(existingRecording.audio_path, 60 * 60)
+          .then(({ data }) => {
+            if (data?.signedUrl) setAudioUrl(data.signedUrl)
+          })
+      }
     }
   }, [existingRecording])
 
@@ -307,30 +322,45 @@ export default function VoiceRecorder({
         fileSize: audioBlob?.size,
         mimeType: audioBlob?.type,
       })
-      setError('فشل رفع ��لتسجيل — اضغط لإعادة المحاولة')
+      setError('فشل رفع التسجيل — اضغط لإعادة المحاولة')
       setState(STATE.RECORDED) // Keep the blob so they can retry
     }
   }, [audioBlob, studentId, unitId, questionIndex, elapsed, onUploadComplete])
 
   // ─── Trigger AI Evaluation ───
   const triggerEvaluation = useCallback(async (recordingId) => {
+    if (!recordingId) return
     setEvaluating(true)
     setEvaluation(null)
     try {
       const { data, error } = await invokeWithRetry('evaluate-speaking', {
         body: { recording_id: recordingId },
-      }, { timeoutMs: 60000 })
+      }, { timeoutMs: 90000, retries: 0 })
 
-      if (!error && data?.evaluation) {
-        setEvaluation(data.evaluation)
+      if (error) {
+        console.error('[VoiceRecorder] Evaluation error:', error)
+        return
+      }
+
+      // Handle different response formats (data could be Blob, string, or object)
+      let parsed = data
+      if (data instanceof Blob) {
+        try { parsed = JSON.parse(await data.text()) } catch { parsed = null }
+      } else if (typeof data === 'string') {
+        try { parsed = JSON.parse(data) } catch { parsed = null }
+      }
+
+      if (parsed?.evaluation) {
+        setEvaluation(parsed.evaluation)
+        // Invalidate recordings query so evaluation persists on refresh
+        onUploadComplete?.()
       }
     } catch (err) {
-      console.error('Evaluation failed:', err)
-      // Silent fail — recording is saved, evaluation can be retried by trainer
+      console.error('[VoiceRecorder] Evaluation invoke failed:', err)
     } finally {
       setEvaluating(false)
     }
-  }, [])
+  }, [onUploadComplete])
 
   // ─── Re-record ───
   const reRecord = useCallback(() => {

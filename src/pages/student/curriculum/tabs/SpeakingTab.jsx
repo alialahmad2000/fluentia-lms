@@ -29,13 +29,30 @@ export default function SpeakingTab({ unitId }) {
   const { data: recordings } = useQuery({
     queryKey: ['speaking-recordings', unitId, studentId],
     queryFn: async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('speaking_recordings')
         .select('*')
         .eq('student_id', studentId)
         .eq('unit_id', unitId)
         .order('created_at', { ascending: false })
-      return data || []
+
+      if (error) {
+        console.error('[SpeakingTab] Fetch recordings error:', error)
+        return []
+      }
+
+      // Regenerate signed URLs from audio_path if audio_url is missing or expired
+      const withUrls = await Promise.all((data || []).map(async (rec) => {
+        if (rec.audio_path && !rec.audio_url) {
+          const { data: urlData } = await supabase.storage
+            .from('voice-notes')
+            .createSignedUrl(rec.audio_path, 60 * 60)
+          return { ...rec, audio_url: urlData?.signedUrl || null }
+        }
+        return rec
+      }))
+
+      return withUrls
     },
     enabled: !!unitId && !!studentId,
   })

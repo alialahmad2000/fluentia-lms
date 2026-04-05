@@ -61,13 +61,23 @@ serve(async (req) => {
     // ── Get recording details ──
     const { data: recording, error: recError } = await supabase
       .from('speaking_recordings')
-      .select('*, curriculum_units(title_en, title_ar)')
+      .select('*')
       .eq('id', recording_id)
       .single()
 
     if (recError || !recording) {
+      console.error('[evaluate-speaking] Recording lookup error:', recError?.message, 'id:', recording_id)
       return jsonResponse({ error: 'Recording not found' }, 404)
     }
+
+    // Get unit title separately (avoids FK join issues)
+    let unitTitle = 'Speaking Activity'
+    const { data: unitData } = await supabase
+      .from('curriculum_units')
+      .select('title_en, title_ar')
+      .eq('id', recording.unit_id)
+      .maybeSingle()
+    if (unitData?.title_en) unitTitle = unitData.title_en
 
     // ── Verify ownership ──
     const { data: profile } = await supabase
@@ -152,7 +162,6 @@ serve(async (req) => {
     }
 
     // ── Step 2: Claude Evaluation ──
-    const unitTitle = recording.curriculum_units?.title_en || 'Speaking Activity'
     let aiEvaluation: any = null
 
     if (CLAUDE_API_KEY && transcript && !transcript.startsWith('[')) {
