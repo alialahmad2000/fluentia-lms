@@ -347,6 +347,7 @@ function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId,
 
 // ─── AI Evaluation Card ──────────────────────────────
 function AIEvaluationCard({ evaluation }) {
+  const [showDetails, setShowDetails] = useState(true)
   const CRITERIA_AR = {
     grammar_score: 'القواعد',
     vocabulary_score: 'المفردات',
@@ -359,15 +360,29 @@ function AIEvaluationCard({ evaluation }) {
     .filter(s => s.score != null)
 
   const overall = evaluation.overall_score
+  const errors = evaluation.errors || []
+  const betterExpressions = evaluation.better_expressions || []
+  const fluencyTips = evaluation.fluency_tips || []
+  const modelAnswer = evaluation.model_answer || ''
+  const strengthsText = typeof evaluation.strengths === 'string' ? evaluation.strengths : ''
+  const improvementTip = evaluation.improvement_tip || ''
+  const correctedTranscript = evaluation.corrected_transcript || ''
 
   return (
     <div
       className="rounded-xl p-4 space-y-3"
       style={{ background: 'rgba(56,189,248,0.04)', border: '1px solid rgba(56,189,248,0.12)' }}
     >
-      <div className="flex items-center gap-2">
-        <Bot size={14} className="text-sky-400" />
-        <span className="text-sm font-bold text-sky-400 font-['Tajawal']">تقييم الذكاء الاصطناعي</span>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Bot size={14} className="text-sky-400" />
+          <span className="text-sm font-bold text-sky-400 font-['Tajawal']">تقييم الذكاء الاصطناعي</span>
+        </div>
+        {overall != null && (
+          <span className="text-lg font-bold tabular-nums" style={{ color: overall >= 8 ? '#22c55e' : overall >= 6 ? '#38bdf8' : '#f59e0b' }}>
+            {overall}<span className="text-sm opacity-60">/10</span>
+          </span>
+        )}
       </div>
 
       {/* Score bars */}
@@ -391,22 +406,147 @@ function AIEvaluationCard({ evaluation }) {
         ))}
       </div>
 
-      {/* Overall */}
-      {overall != null && (
-        <div className="flex items-center justify-between pt-2" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-          <span className="text-xs font-bold font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>الدرجة الكلية</span>
-          <span className="text-lg font-bold tabular-nums" style={{ color: overall >= 8 ? '#22c55e' : overall >= 6 ? '#38bdf8' : '#f59e0b' }}>
-            {overall}/10
-          </span>
-        </div>
-      )}
-
-      {/* Feedback */}
+      {/* Feedback summary */}
       {evaluation.feedback_ar && (
         <p className="text-xs text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed pt-1">
           {evaluation.feedback_ar}
         </p>
       )}
+
+      {/* Toggle for detailed feedback */}
+      {(errors.length > 0 || betterExpressions.length > 0 || correctedTranscript || modelAnswer) && (
+        <button
+          onClick={() => setShowDetails(!showDetails)}
+          className="flex items-center gap-1.5 text-xs font-bold text-sky-400 hover:text-sky-300 font-['Tajawal'] transition-colors"
+        >
+          <ChevronDown size={14} className={`transition-transform duration-200 ${showDetails ? 'rotate-180' : ''}`} />
+          {showDetails ? 'إخفاء التفاصيل' : 'عرض التفاصيل'}
+        </button>
+      )}
+
+      <AnimatePresence>
+        {showDetails && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="overflow-hidden space-y-3"
+          >
+            {/* Strengths */}
+            {strengthsText && (
+              <div
+                className="rounded-lg p-3 space-y-1"
+                style={{ background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.12)' }}
+              >
+                <h4 className="text-[11px] font-bold text-emerald-400 font-['Tajawal']">نقاط القوة</h4>
+                <p className="text-xs text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed" dir="rtl">
+                  {strengthsText}
+                </p>
+              </div>
+            )}
+
+            {/* Corrected transcript */}
+            {correctedTranscript && (
+              <div className="space-y-1">
+                <h4 className="text-[11px] font-bold text-sky-400 font-['Tajawal']">النص المصحح</h4>
+                <p
+                  className="text-xs text-[var(--text-secondary)] font-['Inter'] leading-[1.8] p-2.5 rounded-lg"
+                  dir="ltr"
+                  style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}
+                >
+                  {correctedTranscript}
+                </p>
+              </div>
+            )}
+
+            {/* Errors */}
+            {errors.length > 0 && (
+              <div className="space-y-1.5">
+                <h4 className="text-[11px] font-bold text-red-400 font-['Tajawal']">الأخطاء والتصحيحات</h4>
+                {errors.map((e, i) => (
+                  <div
+                    key={i}
+                    className="rounded-lg px-3 py-2 space-y-1"
+                    style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}
+                  >
+                    <div className="flex flex-wrap items-center gap-2 text-xs" dir="ltr">
+                      <span className="line-through text-red-400/70 font-['Inter']">{e.spoken || e.original}</span>
+                      <span className="text-[var(--text-muted)]">→</span>
+                      <span className="text-emerald-400 font-['Inter']">{e.corrected || e.correction}</span>
+                    </div>
+                    {e.rule && (
+                      <p className="text-[11px] text-[var(--text-muted)] font-['Tajawal']" dir="rtl">{e.rule}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Better expressions */}
+            {betterExpressions.length > 0 && (
+              <div className="space-y-1.5">
+                <h4 className="text-[11px] font-bold text-purple-400 font-['Tajawal']">تعبيرات أفضل</h4>
+                {betterExpressions.map((be, i) => (
+                  <div
+                    key={i}
+                    className="rounded-lg px-3 py-2"
+                    style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}
+                  >
+                    <div className="flex items-center gap-2 text-xs" dir="ltr">
+                      <span className="text-[var(--text-muted)] font-['Inter']">{be.basic}</span>
+                      <span className="text-[var(--text-muted)]">→</span>
+                      <span className="text-purple-400 font-bold font-['Inter']">{be.natural}</span>
+                    </div>
+                    {be.context && (
+                      <p className="text-[11px] text-[var(--text-muted)] font-['Tajawal'] mt-1" dir="rtl">{be.context}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Fluency tips */}
+            {fluencyTips.length > 0 && (
+              <div className="space-y-1.5">
+                <h4 className="text-[11px] font-bold text-amber-400 font-['Tajawal']">نصائح للطلاقة</h4>
+                {fluencyTips.map((tip, i) => (
+                  <p key={i} className="text-xs text-[var(--text-secondary)] font-['Tajawal'] flex items-start gap-1.5" dir="rtl">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 flex-shrink-0" />
+                    {tip}
+                  </p>
+                ))}
+              </div>
+            )}
+
+            {/* Model answer */}
+            {modelAnswer && (
+              <div className="space-y-1">
+                <h4 className="text-[11px] font-bold text-sky-400 font-['Tajawal']">إجابة نموذجية</h4>
+                <p
+                  className="text-xs text-[var(--text-secondary)] font-['Inter'] leading-relaxed italic px-3 py-2 rounded-lg"
+                  dir="ltr"
+                  style={{ background: 'rgba(56,189,248,0.04)', borderRight: '2px solid rgba(56,189,248,0.3)' }}
+                >
+                  "{modelAnswer}"
+                </p>
+              </div>
+            )}
+
+            {/* Improvement tip */}
+            {improvementTip && (
+              <div
+                className="rounded-lg p-3 space-y-1"
+                style={{ background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.12)' }}
+              >
+                <h4 className="text-[11px] font-bold text-amber-400 font-['Tajawal']">خطوتك القادمة</h4>
+                <p className="text-xs text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed" dir="rtl">
+                  {improvementTip}
+                </p>
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

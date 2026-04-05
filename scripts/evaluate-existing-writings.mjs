@@ -30,12 +30,14 @@ const LEVEL_CONTEXT = {
   5: 'C1 advanced — complex writing, nuanced expression',
 };
 
+const FORCE = process.argv.includes('--force');
+
 async function evaluateWriting(writingText, level) {
   const levelCtx = LEVEL_CONTEXT[level] || LEVEL_CONTEXT[3];
 
-  const systemPrompt = `You are a professional English writing tutor for Arab students at ${levelCtx} level.
+  const systemPrompt = `You are an expert English teacher for Arabic-speaking students at a Saudi Arabian English academy. A student has submitted a writing exercise at ${levelCtx} level. Your job is NOT just to score — you must TEACH.
 
-Analyze the writing and respond with VALID JSON ONLY (no markdown, no backticks):
+Provide comprehensive educational feedback. Respond ONLY with valid JSON (no markdown, no backticks):
 
 {
   "overall_score": <1-10>,
@@ -43,29 +45,50 @@ Analyze the writing and respond with VALID JSON ONLY (no markdown, no backticks)
   "vocabulary_score": <1-10>,
   "structure_score": <1-10>,
   "fluency_score": <1-10>,
-  "corrected_text": "<full corrected text>",
+
+  "corrected_text": "The full student text rewritten with all corrections applied. Keep their ideas but fix grammar, vocabulary, and structure.",
+
   "errors": [
     {
       "type": "grammar|vocabulary|spelling|punctuation",
-      "original": "<exact error text>",
-      "correction": "<fixed version>",
-      "explanation_ar": "<Arabic explanation>",
-      "explanation_en": "<English explanation>"
+      "original": "exact error text from student writing",
+      "correction": "fixed version",
+      "explanation_ar": "شرح القاعدة بالعربي",
+      "explanation_en": "English explanation"
     }
   ],
-  "strengths_ar": ["<strength in Arabic>"],
-  "improvements_ar": ["<suggestion in Arabic>"],
-  "overall_comment_ar": "<2-3 encouraging sentences in Arabic>",
-  "overall_comment_en": "<same in English>"
+
+  "vocabulary_upgrades": [
+    {
+      "basic": "good",
+      "advanced": "beneficial / advantageous",
+      "example": "AI can be highly beneficial for education."
+    }
+  ],
+
+  "model_sentences": [
+    "Example sentence showing how to express the same idea at a higher level"
+  ],
+
+  "strengths_ar": ["نقطة قوة بالعربي"],
+  "improvements_ar": ["نصيحة للتطوير بالعربي"],
+
+  "strengths": "ملاحظة إيجابية مفصلة عن أداء الطالب بالعربي — جملتين على الأقل",
+  "improvement_tip": "نصيحة واحدة محددة وعملية يقدر الطالب يطبقها فوراً بالعربي",
+
+  "overall_comment_ar": "ملخص التقييم بالعربي — 3-4 جمل",
+  "overall_comment_en": "Same summary in English"
 }
 
-Rules:
-- Max 7 errors, max 3 strengths, max 3 improvements
-- Be encouraging and constructive
-- Quote exact text from the writing for errors
-- Score fairly for the student's level
-- All Arabic text should be natural and warm
-- corrected_text should be the FULL text rewritten correctly`;
+RULES:
+- Adapt feedback complexity to student level
+- Grammar rules explained in Arabic
+- Be encouraging but honest
+- errors: include ALL meaningful errors (up to 10)
+- vocabulary_upgrades: 2-5 basic words with better alternatives
+- model_sentences: 2-3 example sentences at their level
+- strengths: warm encouraging paragraph
+- improvement_tip: ONE specific next step`;
 
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -116,14 +139,19 @@ Rules:
 }
 
 async function main() {
-  console.log('Fetching unevaluated writings...');
+  console.log(`Fetching ${FORCE ? 'ALL' : 'unevaluated'} writings...`);
 
-  const { data: writings, error } = await supabase
+  let query = supabase
     .from('student_curriculum_progress')
     .select('id, student_id, unit_id, answers, score')
     .eq('section_type', 'writing')
-    .not('answers', 'is', null)
-    .is('ai_feedback', null);
+    .not('answers', 'is', null);
+
+  if (!FORCE) {
+    query = query.is('ai_feedback', null);
+  }
+
+  const { data: writings, error } = await query;
 
   if (error) {
     console.error('Query error:', error.message);

@@ -44,10 +44,14 @@ export default function WritingFeedback({ feedback, showEnglish = false }) {
   // Support both old and new field names
   const overallScore = f.overall_score ?? f.fluency_score
   const errors = f.errors || f.grammar_errors || []
-  const strengths = f.strengths_ar || f.strengths || []
+  const strengthsList = f.strengths_ar || (Array.isArray(f.strengths) ? f.strengths : [])
   const improvements = f.improvements_ar || f.improvement_tips || []
   const overallComment = f.overall_comment_ar || f.overall_feedback || ''
   const overallCommentEn = f.overall_comment_en || ''
+  const strengthsText = typeof f.strengths === 'string' ? f.strengths : ''
+  const improvementTip = f.improvement_tip || ''
+  const vocabUpgrades = f.vocabulary_upgrades || []
+  const modelSentences = f.model_sentences || []
 
   return (
     <motion.div
@@ -133,11 +137,24 @@ export default function WritingFeedback({ feedback, showEnglish = false }) {
         </div>
       )}
 
-      {/* Strengths */}
-      {strengths.length > 0 && (
+      {/* Strengths — text paragraph */}
+      {strengthsText && (
+        <div
+          className="rounded-xl p-3.5 space-y-1"
+          style={{ background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.12)' }}
+        >
+          <h4 className="text-xs font-bold text-emerald-400 font-['Tajawal']">نقاط القوة</h4>
+          <p className="text-xs text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed" dir="rtl">
+            {strengthsText}
+          </p>
+        </div>
+      )}
+
+      {/* Strengths — list */}
+      {!strengthsText && strengthsList.length > 0 && (
         <div className="space-y-1.5">
           <h4 className="text-xs font-bold text-emerald-400 font-['Tajawal']">نقاط القوة</h4>
-          {strengths.map((s, i) => (
+          {strengthsList.map((s, i) => (
             <p key={i} className="text-xs text-[var(--text-secondary)] font-['Tajawal'] flex items-start gap-1.5" dir="rtl">
               <CheckCircle2 size={12} className="text-emerald-400 flex-shrink-0 mt-0.5" />
               {s}
@@ -146,7 +163,53 @@ export default function WritingFeedback({ feedback, showEnglish = false }) {
         </div>
       )}
 
-      {/* Improvements */}
+      {/* Vocabulary upgrades */}
+      {vocabUpgrades.length > 0 && (
+        <div className="space-y-2">
+          <h4 className="text-xs font-bold text-purple-400 font-['Tajawal']">ترقية المفردات</h4>
+          <div className="space-y-1.5">
+            {vocabUpgrades.map((vu, i) => (
+              <div
+                key={i}
+                className="rounded-lg px-3 py-2"
+                style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}
+              >
+                <div className="flex items-center gap-2 text-xs" dir="ltr">
+                  <span className="text-[var(--text-muted)] font-['Inter']">{vu.basic}</span>
+                  <span className="text-[var(--text-muted)]">→</span>
+                  <span className="text-purple-400 font-bold font-['Inter']">{vu.advanced}</span>
+                </div>
+                {vu.example && (
+                  <p className="text-[11px] text-[var(--text-muted)] font-['Inter'] mt-1 italic" dir="ltr">
+                    {vu.example}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Model sentences */}
+      {modelSentences.length > 0 && (
+        <div className="space-y-2">
+          <h4 className="text-xs font-bold text-sky-400 font-['Tajawal']">جمل نموذجية</h4>
+          <div className="space-y-1.5">
+            {modelSentences.map((s, i) => (
+              <p
+                key={i}
+                className="text-xs text-[var(--text-secondary)] font-['Inter'] leading-relaxed italic px-3 py-2 rounded-lg"
+                dir="ltr"
+                style={{ background: 'rgba(56,189,248,0.04)', borderRight: '2px solid rgba(56,189,248,0.3)' }}
+              >
+                "{s}"
+              </p>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Improvements — list */}
       {improvements.length > 0 && (
         <div className="space-y-1.5">
           <h4 className="text-xs font-bold text-amber-400 font-['Tajawal']">نصائح للتطوير</h4>
@@ -156,6 +219,19 @@ export default function WritingFeedback({ feedback, showEnglish = false }) {
               {tip}
             </p>
           ))}
+        </div>
+      )}
+
+      {/* Improvement tip — single actionable step */}
+      {improvementTip && (
+        <div
+          className="rounded-xl p-3.5 space-y-1"
+          style={{ background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.12)' }}
+        >
+          <h4 className="text-xs font-bold text-amber-400 font-['Tajawal']">خطوتك القادمة</h4>
+          <p className="text-xs text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed" dir="rtl">
+            {improvementTip}
+          </p>
         </div>
       )}
 

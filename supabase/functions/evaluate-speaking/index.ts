@@ -166,40 +166,69 @@ serve(async (req) => {
 
     if (CLAUDE_API_KEY && transcript && !transcript.startsWith('[')) {
       try {
-        const claudePrompt = `You are an English language teacher evaluating a student's speaking exercise.
+        const claudePrompt = `You are an expert English speaking coach for Arabic-speaking students at a Saudi Arabian English academy. A student has recorded a speaking exercise. Your job is NOT just to score — you must TEACH them to speak better.
 
 Unit/Topic: ${unitTitle}
 Audio Duration: ${durationSec} seconds
-Student Transcript: "${transcript}"
+Student Transcript: """
+${transcript}
+"""
 
-Evaluate the student's speaking on these criteria (score each 1-10):
-1. Grammar — accuracy of grammatical structures
-2. Vocabulary — range and appropriateness of words used
-3. Fluency — smoothness, natural flow, minimal hesitations
-4. Confidence — speaking pace, conviction, minimal filler words
+Provide comprehensive educational feedback. Respond ONLY with valid JSON (no markdown, no backticks):
 
-Then provide:
-- An overall score (1-10, weighted average)
-- Brief feedback in Arabic (2-3 sentences, encouraging tone, specific improvement tips)
-- Brief feedback in English (2-3 sentences)
-- 2-3 specific suggestions for improvement
-
-IMPORTANT: Be encouraging but honest. This is a real student learning English.
-If the transcript is very short, give lower scores but still be kind.
-Consider that Whisper transcription may have minor artifacts — don't penalize obvious transcription errors.
-
-Respond ONLY with valid JSON (no markdown, no backticks):
 {
   "grammar_score": 7,
   "vocabulary_score": 6,
   "fluency_score": 8,
   "confidence_score": 7,
   "overall_score": 7,
-  "feedback_ar": "أداء جيد! القواعد دقيقة بشكل عام...",
-  "feedback_en": "Good performance! Your grammar was mostly accurate...",
-  "suggestions": ["Try using more varied sentence structures", "Practice linking words"],
-  "transcript": "the actual transcript here"
-}`
+
+  "corrected_transcript": "The same content the student said, but rewritten with correct grammar and better vocabulary. Keep their ideas.",
+
+  "errors": [
+    {
+      "spoken": "I am go to school every day",
+      "corrected": "I go to school every day",
+      "rule": "مع الأفعال في Present Simple لا نستخدم am/is/are — نستخدم الفعل مباشرة",
+      "category": "grammar"
+    }
+  ],
+
+  "better_expressions": [
+    {
+      "basic": "I think it's good",
+      "natural": "I believe it's quite beneficial",
+      "context": "عند التعبير عن رأيك، استخدم believe/consider بدل think"
+    }
+  ],
+
+  "fluency_tips": [
+    "نصيحة عملية لتحسين الطلاقة بالعربي"
+  ],
+
+  "model_answer": "How a confident speaker would answer this same topic — 3-4 sentences showing natural flow and good vocabulary.",
+
+  "strengths": "ملاحظة إيجابية مفصلة عن أداء الطالب في التحدث بالعربي — جملتين على الأقل",
+  "improvement_tip": "نصيحة واحدة محددة وعملية لتحسين التحدث بالعربي",
+
+  "feedback_ar": "ملخص التقييم بالعربي — 3-4 جمل تشمل الإيجابيات والتحسينات والتشجيع",
+  "feedback_en": "Same summary in English",
+
+  "suggestions": ["actionable tip 1", "actionable tip 2"],
+  "transcript": "${transcript}"
+}
+
+RULES:
+- Be warm and encouraging — this is a real student who had the courage to record themselves
+- Grammar rules explained in Arabic (students understand Arabic better)
+- errors: include ALL spoken grammar/vocab mistakes (up to 8)
+- better_expressions: 2-4 basic phrases they used with more natural/advanced alternatives
+- fluency_tips: 2-3 practical speaking tips (linking words, filler word alternatives, pacing)
+- model_answer: realistic for their level, not native-speaker level
+- strengths: warm encouraging paragraph about what they did well
+- improvement_tip: ONE specific next step to practice
+- If transcript is very short or empty, still give encouraging feedback and tips
+- Consider that Whisper transcription may have minor artifacts — don't penalize obvious transcription errors`
 
         const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
           method: 'POST',
@@ -210,7 +239,7 @@ Respond ONLY with valid JSON (no markdown, no backticks):
           },
           body: JSON.stringify({
             model: 'claude-sonnet-4-6',
-            max_tokens: 1024,
+            max_tokens: 2048,
             messages: [{ role: 'user', content: claudePrompt }],
           }),
         })
