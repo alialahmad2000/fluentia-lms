@@ -11,6 +11,7 @@ import Header from './Header'
 import ErrorBoundary from '../ErrorBoundary'
 import AIFloatingHelper from '../ai/AIFloatingHelper'
 import PWAInstallBanner from '../pwa/PWAInstallBanner'
+import UpdateBanner from '../UpdateBanner'
 import { useAuthStore } from '../../stores/authStore'
 import { hasPackageAccess } from '../PackageGate'
 import { PACKAGES } from '../../lib/constants'
@@ -130,6 +131,7 @@ export default function LayoutShell() {
 
   return (
     <div className="min-h-dvh" style={{ background: 'var(--surface-base)', paddingTop: impersonation ? '40px' : undefined }} data-role={role} onClick={() => tracker.touch()} onKeyDown={() => tracker.touch()}>
+      <UpdateBanner />
       {/* Background layers */}
       <Suspense fallback={null}>
         <GeometricMesh />

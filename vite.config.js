@@ -1,10 +1,21 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import fs from 'fs'
 
 export default defineConfig({
   plugins: [
     react(),
+    {
+      name: 'version-stamp',
+      buildStart() {
+        const version = JSON.stringify({
+          version: Date.now().toString(36),
+          buildTime: new Date().toISOString(),
+        })
+        fs.writeFileSync('public/version.json', version)
+      },
+    },
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['logo-icon-dark.png', 'logo-icon-light.png', 'logo-full-dark.png', 'logo-full-light.png'],
