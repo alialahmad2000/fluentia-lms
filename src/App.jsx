@@ -1,8 +1,7 @@
-import { useEffect, useRef, Suspense, useCallback } from 'react'
+import { useEffect, useRef, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom'
 import { useAuthStore } from './stores/authStore'
 import { supabase } from './lib/supabase'
-import { queryClient } from './lib/queryClient'
 import LoginPage from './pages/public/LoginPage'
 import LayoutShell from './components/layout/LayoutShell'
 import OnboardingModal from './components/onboarding/OnboardingModal'
@@ -246,70 +245,32 @@ export default function App() {
     initialize()
   }, [initialize])
 
-  // Check session validity when user returns to the tab (e.g. after phone lock / background)
+  // Session refresh when user returns to tab (e.g. after phone lock / background).
+  // ONLY refreshes the token — does NOT refetch queries directly.
+  // The TOKEN_REFRESHED event in authStore handles refetching AFTER the token is valid.
+  // This prevents the race condition where queries fire with an expired JWT.
   const lastVisibleCheck = useRef(0)
 
-  const handleVisibilityChange = useCallback(async () => {
-    if (document.visibilityState !== 'visible') return
-
-    const publicPaths = ['/login', '/forgot-password', '/reset-password', '/test', '/testimonials', '/parent']
-    if (publicPaths.some(p => window.location.pathname.startsWith(p))) return
-
-    // Throttle: don't re-check if we checked less than 10 seconds ago
-    const now = Date.now()
-    if (now - lastVisibleCheck.current < 10000) return
-    lastVisibleCheck.current = now
-
-    try {
-      // Use refreshSession() — getSession() only reads cache and may return an expired JWT
-      const { data: { session }, error } = await supabase.auth.refreshSession()
-      if (!session || error) {
-        // Session truly expired and couldn't refresh — redirect to login
-        window.location.href = '/login'
-        return
-      }
-      // Session refreshed — force active queries to refetch with fresh token
-      queryClient.refetchQueries({ type: 'active' })
-    } catch {
-      // Network error — don't redirect, let OfflineBanner handle it
-    }
-  }, [])
-
   useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState !== 'visible') return
+
+      const publicPaths = ['/login', '/forgot-password', '/reset-password', '/test', '/testimonials', '/parent']
+      if (publicPaths.some(p => window.location.pathname.startsWith(p))) return
+
+      // Throttle: max once per 30 seconds
+      const now = Date.now()
+      if (now - lastVisibleCheck.current < 30000) return
+      lastVisibleCheck.current = now
+
+      // Fire-and-forget: refresh the session token.
+      // If successful, Supabase fires TOKEN_REFRESHED → authStore refetches queries.
+      // If it fails (truly expired), queries will fail → retry logic handles it.
+      supabase.auth.refreshSession().catch(() => {})
+    }
+
     document.addEventListener('visibilitychange', handleVisibilityChange)
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange)
-  }, [handleVisibilityChange])
-
-  // Periodic session keepalive — refresh every 4 minutes to catch expiry before it causes issues
-  useEffect(() => {
-    const interval = setInterval(async () => {
-      try {
-        const { data: { session } } = await supabase.auth.refreshSession()
-        if (!session) {
-          const publicPaths = ['/login', '/forgot-password', '/reset-password', '/test', '/testimonials', '/parent']
-          if (!publicPaths.some(p => window.location.pathname.startsWith(p))) {
-            window.location.href = '/login'
-          }
-        }
-      } catch {
-        // Network error — ignore, OfflineBanner handles it
-      }
-    }, 4 * 60 * 1000)
-    return () => clearInterval(interval)
-  }, [])
-
-  // Network reconnection — refresh session and refetch active queries
-  useEffect(() => {
-    const handleOnline = async () => {
-      try {
-        await supabase.auth.refreshSession()
-        queryClient.refetchQueries({ type: 'active' })
-      } catch {
-        // ignore — will retry on next interaction
-      }
-    }
-    window.addEventListener('online', handleOnline)
-    return () => window.removeEventListener('online', handleOnline)
   }, [])
 
   return (

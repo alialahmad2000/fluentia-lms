@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import { AlertTriangle, RefreshCw, Home } from 'lucide-react'
 import { tracker } from '../services/activityTracker'
+import { supabase } from '../lib/supabase'
 
 export default class ErrorBoundary extends Component {
   constructor(props) {
@@ -15,6 +16,12 @@ export default class ErrorBoundary extends Component {
   componentDidCatch(error, errorInfo) {
     console.error('[ErrorBoundary]', error, errorInfo)
     tracker.track('error_displayed', { error_type: 'boundary', page: window.location.pathname, message: error?.message })
+  }
+
+  handleRetry = async () => {
+    // Refresh session before retry — in case the error was auth-related
+    try { await supabase.auth.refreshSession() } catch {}
+    this.setState({ hasError: false, error: null })
   }
 
   render() {
@@ -38,10 +45,7 @@ export default class ErrorBoundary extends Component {
             </p>
             <div className="flex items-center justify-center gap-3">
               <button
-                onClick={() => {
-                  this.setState({ hasError: false, error: null })
-                  window.location.reload()
-                }}
+                onClick={this.handleRetry}
                 className="flex items-center gap-2 bg-sky-500/10 border border-sky-500/20 text-sky-400 text-sm py-2.5 px-5 rounded-xl hover:bg-sky-500/20 transition-all font-medium"
               >
                 <RefreshCw size={14} />
@@ -52,7 +56,7 @@ export default class ErrorBoundary extends Component {
                   this.setState({ hasError: false, error: null })
                   window.location.href = '/'
                 }}
-                className="flex items-center gap-2 border border-border-subtle text-muted text-sm py-2.5 px-5 rounded-xl hover:text-[var(--text-primary)] transition-all transition-all"
+                className="flex items-center gap-2 border border-border-subtle text-muted text-sm py-2.5 px-5 rounded-xl hover:text-[var(--text-primary)] transition-all"
               >
                 <Home size={14} />
                 الرئيسية
