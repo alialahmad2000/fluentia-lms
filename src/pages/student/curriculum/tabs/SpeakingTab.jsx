@@ -3,15 +3,18 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Mic, ChevronDown, Clock, MessageCircle, Sparkles, Volume2, Bot, GraduationCap } from 'lucide-react'
 import ShareAchievementCard from '../../../../components/ShareAchievementCard'
+import ActivityLeaderboard from '../../../../components/ActivityLeaderboard'
+import { useActivityLeaderboard } from '../../../../hooks/useActivityLeaderboard'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import VoiceRecorder from '../../../../components/VoiceRecorder'
 
 // ─── Main Component ──────────────────────────────────
 export default function SpeakingTab({ unitId }) {
-  const { profile } = useAuthStore()
+  const { profile, studentData } = useAuthStore()
   const studentId = profile?.id
   const studentName = profile?.display_name || profile?.full_name
+  const groupId = studentData?.group_id
   const queryClient = useQueryClient()
 
   const { data: topics, isLoading } = useQuery({
@@ -124,6 +127,7 @@ export default function SpeakingTab({ unitId }) {
           unitId={unitId}
           studentId={studentId}
           studentName={studentName}
+          groupId={groupId}
           existingRecording={latestByQuestion[idx] || null}
           onUploadComplete={handleUploadComplete}
         />
@@ -133,9 +137,10 @@ export default function SpeakingTab({ unitId }) {
 }
 
 // ─── Speaking Topic ──────────────────────────────────
-function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId, studentName, existingRecording, onUploadComplete }) {
+function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId, studentName, groupId, existingRecording, onUploadComplete }) {
   const [tipsOpen, setTipsOpen] = useState(false)
   const [phrasesOpen, setPhrasesOpen] = useState(false)
+  const { data: leaderboard } = useActivityLeaderboard('speaking', unitId, studentId, groupId)
 
   const formatDuration = (seconds) => {
     if (seconds < 60) return `${seconds} ثانية`
@@ -305,6 +310,15 @@ function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId,
       {/* AI Evaluation (if available) */}
       {aiEval && <AIEvaluationCard evaluation={aiEval} />}
 
+      {/* Leaderboard */}
+      {aiEval && leaderboard && leaderboard.rankings?.length > 1 && (
+        <ActivityLeaderboard
+          rankings={leaderboard.rankings}
+          currentStudentId={studentId}
+          totalInGroup={leaderboard.totalInGroup}
+        />
+      )}
+
       {/* Share achievement card */}
       {aiEval && (
         <ShareAchievementCard
@@ -318,6 +332,8 @@ function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId,
             ...(aiEval.fluency_score != null && { fluency: aiEval.fluency_score }),
             ...(aiEval.confidence_score != null && { pronunciation: aiEval.confidence_score }),
           }}
+          leaderboard={leaderboard}
+          currentStudentId={studentId}
         />
       )}
 

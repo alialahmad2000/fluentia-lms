@@ -13,7 +13,7 @@ const getMotivationalMessage = (avgScore, type) => {
 
 const scoreColor = (s) => s >= 8 ? '#22c55e' : s >= 6 ? '#38bdf8' : '#f59e0b'
 
-export default function ShareAchievementCard({ type, studentName, levelName, unitName, studentText, feedback, scores }) {
+export default function ShareAchievementCard({ type, studentName, levelName, unitName, studentText, feedback, scores, leaderboard, currentStudentId }) {
   const cardRef = useRef(null)
   const [isGenerating, setIsGenerating] = useState(false)
 
@@ -290,6 +290,37 @@ export default function ShareAchievementCard({ type, studentName, levelName, uni
             <>
               <SectionDivider label="نصيحة للتحسين" />
               <div style={{ fontSize: '14px', color: '#94a3b8', lineHeight: 1.8, marginBottom: '24px' }}>🎯 {improvementTip}</div>
+            </>
+          )}
+
+          {/* Leaderboard in image */}
+          {leaderboard && leaderboard.rankings?.length > 1 && (
+            <>
+              <SectionDivider label="ترتيب الأداء" />
+              <div style={{ marginBottom: '24px' }}>
+                <div style={{ fontSize: '14px', fontWeight: 700, color: '#94a3b8', marginBottom: '12px' }}>
+                  🏆 ترتيبك: {leaderboard.currentRank ? `المركز ${leaderboard.currentRank} من ${leaderboard.totalSubmitted} طلاب` : `${leaderboard.totalSubmitted} طلاب`}
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  {leaderboard.rankings.map((r) => {
+                    const isMe = r.studentId === currentStudentId
+                    const badge = r.rank === 1 ? '🥇' : r.rank === 2 ? '🥈' : r.rank === 3 ? '🥉' : `  ${r.rank}`
+                    const sc = r.avgScore >= 8 ? '#22c55e' : r.avgScore >= 6 ? '#fbbf24' : '#ef4444'
+                    return (
+                      <div key={r.studentId} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 12px', borderRadius: '8px', background: isMe ? 'rgba(56,189,248,0.08)' : 'rgba(255,255,255,0.015)', border: isMe ? '1px solid rgba(56,189,248,0.2)' : '1px solid transparent' }}>
+                        <span style={{ fontSize: '14px', width: '24px', textAlign: 'center' }}>{badge}</span>
+                        <span style={{ flex: 1, fontSize: '14px', fontWeight: isMe ? 700 : 500, color: isMe ? '#38bdf8' : '#94a3b8' }}>
+                          {r.name}{isMe ? ' (أنت)' : ''}
+                        </span>
+                        <div style={{ width: '56px', height: '6px', borderRadius: '3px', background: 'rgba(255,255,255,0.06)', overflow: 'hidden' }}>
+                          <div style={{ height: '100%', borderRadius: '3px', width: `${(r.avgScore / 10) * 100}%`, background: sc }} />
+                        </div>
+                        <span style={{ fontSize: '13px', fontWeight: 700, color: sc, fontFamily: "'Inter', sans-serif", width: '42px', textAlign: 'left' }}>{r.avgScore}/10</span>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
             </>
           )}
 

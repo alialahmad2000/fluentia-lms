@@ -7,6 +7,8 @@ import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import WritingFeedback from '../../../../components/curriculum/WritingFeedback'
 import ShareAchievementCard from '../../../../components/ShareAchievementCard'
+import ActivityLeaderboard from '../../../../components/ActivityLeaderboard'
+import { useActivityLeaderboard } from '../../../../hooks/useActivityLeaderboard'
 
 // ─── Storage helpers ─────────────────────────────────
 const draftKey = (taskId) => `fluentia_writing_draft_${taskId}`
@@ -58,14 +60,14 @@ export default function WritingTab({ unitId }) {
   return (
     <div className="space-y-6">
       {tasks.map((task, idx) => (
-        <WritingTask key={task.id} task={task} number={idx + 1} total={tasks.length} studentId={profile?.id} unitId={unitId} studentName={profile?.display_name || profile?.full_name} />
+        <WritingTask key={task.id} task={task} number={idx + 1} total={tasks.length} studentId={profile?.id} unitId={unitId} studentName={profile?.display_name || profile?.full_name} groupId={studentData?.group_id} />
       ))}
     </div>
   )
 }
 
 // ─── Writing Task ────────────────────────────────────
-function WritingTask({ task, number, total, studentId, unitId, studentName }) {
+function WritingTask({ task, number, total, studentId, unitId, studentName, groupId }) {
   const [text, setText] = useState('')
   const [saved, setSaved] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -74,6 +76,7 @@ function WritingTask({ task, number, total, studentId, unitId, studentName }) {
   const [progressLoading, setProgressLoading] = useState(true)
   const [attemptNumber, setAttemptNumber] = useState(1)
   const [trainerFeedback, setTrainerFeedback] = useState(null)
+  const { data: leaderboard } = useActivityLeaderboard('writing', unitId, studentId, groupId)
   const [trainerGrade, setTrainerGrade] = useState(null)
   const [aiFeedback, setAiFeedback] = useState(null)
   const [submitting, setSubmitting] = useState(false)
@@ -520,6 +523,15 @@ function WritingTask({ task, number, total, studentId, unitId, studentName }) {
       {/* AI feedback display */}
       {aiFeedback && <WritingFeedback feedback={aiFeedback} />}
 
+      {/* Leaderboard */}
+      {aiFeedback && leaderboard && leaderboard.rankings?.length > 1 && (
+        <ActivityLeaderboard
+          rankings={leaderboard.rankings}
+          currentStudentId={studentId}
+          totalInGroup={leaderboard.totalInGroup}
+        />
+      )}
+
       {/* Share achievement card */}
       {aiFeedback && (
         <ShareAchievementCard
@@ -533,6 +545,8 @@ function WritingTask({ task, number, total, studentId, unitId, studentName }) {
             ...(aiFeedback.structure_score != null && { structure: aiFeedback.structure_score }),
             ...(aiFeedback.fluency_score != null && { fluency: aiFeedback.fluency_score }),
           }}
+          leaderboard={leaderboard}
+          currentStudentId={studentId}
         />
       )}
     </div>
