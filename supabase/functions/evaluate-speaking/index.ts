@@ -214,8 +214,7 @@ Provide comprehensive educational feedback. Respond ONLY with valid JSON (no mar
   "feedback_ar": "ملخص التقييم بالعربي — 3-4 جمل تشمل الإيجابيات والتحسينات والتشجيع",
   "feedback_en": "Same summary in English",
 
-  "suggestions": ["actionable tip 1", "actionable tip 2"],
-  "transcript": "${transcript}"
+  "suggestions": ["actionable tip 1", "actionable tip 2"]
 }
 
 RULES:
@@ -257,32 +256,47 @@ Keep your response concise but complete:
           const inputTokens = claudeData.usage?.input_tokens || 0
           const outputTokens = claudeData.usage?.output_tokens || 0
 
-          // Parse JSON — strip any markdown fences
-          const cleanJson = responseText.replace(/```json\n?|```\n?/g, '').trim()
-          try {
-            aiEvaluation = JSON.parse(cleanJson)
-          } catch (parseErr) {
-            console.error('[evaluate-speaking] JSON parse error, attempting repair:', parseErr)
-            // Try to extract partial JSON by finding the last valid closing brace
-            const lastBrace = cleanJson.lastIndexOf('}')
-            if (lastBrace > 0) {
-              try {
-                aiEvaluation = JSON.parse(cleanJson.slice(0, lastBrace + 1))
-              } catch {
-                // Last resort: extract scores with regex
-                const scoreMatch = (key: string) => {
-                  const m = cleanJson.match(new RegExp(`"${key}"\\s*:\\s*(\\d+)`))
-                  return m ? parseInt(m[1]) : null
-                }
-                aiEvaluation = {
-                  grammar_score: scoreMatch('grammar_score'),
-                  vocabulary_score: scoreMatch('vocabulary_score'),
-                  fluency_score: scoreMatch('fluency_score'),
-                  confidence_score: scoreMatch('confidence_score'),
-                  overall_score: scoreMatch('overall_score'),
-                  feedback_ar: 'تم التقييم — بعض التفاصيل قد تكون ناقصة',
-                  feedback_en: 'Evaluation completed — some details may be missing',
-                  suggestions: [],
+          // Parse JSON — extract between first { and last }
+          console.log('[evaluate-speaking] Raw response length:', responseText.length)
+          const jsonStart = responseText.indexOf('{')
+          const jsonEnd = responseText.lastIndexOf('}')
+          if (jsonStart === -1 || jsonEnd === -1 || jsonEnd <= jsonStart) {
+            console.error('[evaluate-speaking] No JSON object found in response')
+            aiEvaluation = {
+              feedback_ar: 'تم التقييم — بعض التفاصيل قد تكون ناقصة',
+              feedback_en: 'Evaluation completed — some details may be missing',
+              suggestions: [],
+            }
+          } else {
+            const cleanJson = responseText.substring(jsonStart, jsonEnd + 1)
+            try {
+              aiEvaluation = JSON.parse(cleanJson)
+              console.log('[evaluate-speaking] JSON parse SUCCESS, fields:', Object.keys(aiEvaluation).join(', '))
+            } catch (parseErr) {
+              console.error('[evaluate-speaking] JSON parse error, attempting repair:', parseErr)
+              // Try removing trailing incomplete properties
+              const lastValidBrace = cleanJson.lastIndexOf('}')
+              if (lastValidBrace > 0) {
+                try {
+                  aiEvaluation = JSON.parse(cleanJson.slice(0, lastValidBrace + 1))
+                  console.log('[evaluate-speaking] Repaired JSON parse SUCCESS')
+                } catch {
+                  // Last resort: extract scores with regex
+                  const scoreMatch = (key: string) => {
+                    const m = cleanJson.match(new RegExp(`"${key}"\\s*:\\s*(\\d+)`))
+                    return m ? parseInt(m[1]) : null
+                  }
+                  aiEvaluation = {
+                    grammar_score: scoreMatch('grammar_score'),
+                    vocabulary_score: scoreMatch('vocabulary_score'),
+                    fluency_score: scoreMatch('fluency_score'),
+                    confidence_score: scoreMatch('confidence_score'),
+                    overall_score: scoreMatch('overall_score'),
+                    feedback_ar: 'تم التقييم — بعض التفاصيل قد تكون ناقصة',
+                    feedback_en: 'Evaluation completed — some details may be missing',
+                    suggestions: [],
+                  }
+                  console.error('[evaluate-speaking] Fell back to regex score extraction')
                 }
               }
             }

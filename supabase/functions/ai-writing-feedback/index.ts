@@ -227,12 +227,21 @@ Keep your response concise but complete:
     const outputTokens = claudeData.usage?.output_tokens || 0
 
     let feedback: any
-    try {
-      feedback = JSON.parse(rawText.replace(/```json\n?|```\n?/g, '').trim())
-    } catch {
-      console.error('[ai-writing-feedback] Parse failed:', rawText.slice(0, 300))
-      // Fallback: try to extract what we can
+    const jsonStart = rawText.indexOf('{')
+    const jsonEnd = rawText.lastIndexOf('}')
+    if (jsonStart === -1 || jsonEnd === -1 || jsonEnd <= jsonStart) {
+      console.error('[ai-writing-feedback] No JSON object found in response')
       feedback = { overall_comment_ar: rawText.slice(0, 500), fluency_score: 5, overall_score: 5 }
+    } else {
+      const cleanJson = rawText.substring(jsonStart, jsonEnd + 1)
+      try {
+        feedback = JSON.parse(cleanJson)
+        console.log('[ai-writing-feedback] JSON parse SUCCESS, fields:', Object.keys(feedback).join(', '))
+      } catch {
+        console.error('[ai-writing-feedback] Parse failed:', cleanJson.slice(0, 300))
+        // Fallback: try to extract what we can
+        feedback = { overall_comment_ar: rawText.slice(0, 500), fluency_score: 5, overall_score: 5 }
+      }
     }
 
     // Normalize: ensure backward compat fields exist

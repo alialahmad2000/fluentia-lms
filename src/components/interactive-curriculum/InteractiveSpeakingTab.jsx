@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useMemo } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Mic, ChevronDown, Bot, GraduationCap, Clock, Save, Loader2, CheckCircle, User, FileText } from 'lucide-react'
@@ -33,9 +33,11 @@ export default function InteractiveSpeakingTab({ unitId, students = [] }) {
       return data || []
     },
     enabled: !!unitId,
+    placeholderData: (prev) => prev,
   })
 
   // Fetch ALL recordings for this unit (trainer/admin can see all via RLS)
+  // Generate signed URLs in parallel for fast loading
   const { data: recordings, isLoading: loadingRecordings } = useQuery({
     queryKey: ['speaking-recordings-all', unitId],
     queryFn: async () => {
@@ -45,9 +47,28 @@ export default function InteractiveSpeakingTab({ unitId, students = [] }) {
         .eq('unit_id', unitId)
         .order('created_at', { ascending: false })
       if (error) throw error
-      return data || []
+      if (!data?.length) return []
+
+      // Generate signed URLs in parallel
+      const withUrls = await Promise.all(
+        data.map(async (rec) => {
+          if (rec.audio_url && !rec.audio_url.includes('expired')) return rec
+          if (!rec.audio_path) return rec
+          try {
+            const { data: urlData } = await supabase.storage
+              .from('voice-notes')
+              .createSignedUrl(rec.audio_path, 3600)
+            return { ...rec, audio_url: urlData?.signedUrl || rec.audio_url }
+          } catch {
+            return rec
+          }
+        })
+      )
+      return withUrls
     },
     enabled: !!unitId,
+    staleTime: 1000 * 60 * 10,
+    placeholderData: (prev) => prev,
   })
 
   // Group recordings: latest per student per question_index
@@ -227,25 +248,16 @@ export default function InteractiveSpeakingTab({ unitId, students = [] }) {
 // ─── Student Recording Card ──────────────────────
 function StudentRecordingCard({ student, recording, trainerId, onFeedbackSaved }) {
   const [showTranscript, setShowTranscript] = useState(false)
+  const [showRichFeedback, setShowRichFeedback] = useState(false)
   const [feedbackOpen, setFeedbackOpen] = useState(false)
   const [grade, setGrade] = useState(recording.trainer_grade || '')
   const [feedback, setFeedback] = useState(recording.trainer_feedback || '')
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
-  const [playableUrl, setPlayableUrl] = useState(recording.audio_url)
 
   const aiEval = recording.ai_evaluation
   const studentName = student?.profiles?.display_name || student?.profiles?.full_name || 'طالب'
-
-  // Regenerate signed URL if needed
-  const ensurePlayableUrl = useCallback(async () => {
-    if (!playableUrl && recording.audio_path) {
-      const { data } = await supabase.storage
-        .from('voice-notes')
-        .createSignedUrl(recording.audio_path, 60 * 60)
-      if (data?.signedUrl) setPlayableUrl(data.signedUrl)
-    }
-  }, [playableUrl, recording.audio_path])
+  const hasRichFeedback = aiEval && (aiEval.corrected_transcript || aiEval.errors?.length || aiEval.better_expressions?.length || aiEval.fluency_tips?.length || aiEval.model_answer)
 
   const saveTrainerFeedback = async () => {
     if (!grade) return
@@ -341,17 +353,16 @@ function StudentRecordingCard({ student, recording, trainerId, onFeedbackSaved }
       {/* Audio player */}
       <div className="px-4 pb-3">
         <AudioPlayer
-          src={playableUrl}
+          src={recording.audio_url}
           duration={recording.audio_duration_seconds}
           compact
-          onError={ensurePlayableUrl}
         />
       </div>
 
       {/* AI Evaluation details */}
       {aiEval && (
         <div className="px-4 pb-3">
-          <div className="rounded-lg p-3 space-y-2" style={{ background: 'rgba(56,189,248,0.04)', border: '1px solid rgba(56,189,248,0.08)' }}>
+          <div className="rounded-lg p-3 space-y-3" style={{ background: 'rgba(56,189,248,0.04)', border: '1px solid rgba(56,189,248,0.08)' }}>
             <div className="flex items-center gap-1.5">
               <Bot size={12} className="text-sky-400" />
               <span className="text-[10px] font-bold text-sky-400 font-['Tajawal']">تقييم AI</span>
@@ -379,8 +390,111 @@ function StudentRecordingCard({ student, recording, trainerId, onFeedbackSaved }
                 </div>
               ))}
             </div>
+
+            {/* Strengths */}
+            {aiEval.strengths && (
+              <p className="text-[11px] text-emerald-400 font-['Tajawal'] leading-relaxed">{aiEval.strengths}</p>
+            )}
+
+            {/* Feedback summary */}
             {aiEval.feedback_ar && (
-              <p className="text-[10px] text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed pt-1">{aiEval.feedback_ar}</p>
+              <p className="text-[10px] text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed">{aiEval.feedback_ar}</p>
+            )}
+
+            {/* Rich feedback toggle */}
+            {hasRichFeedback && (
+              <>
+                <button
+                  onClick={() => setShowRichFeedback(!showRichFeedback)}
+                  className="flex items-center gap-1.5 text-[10px] font-bold text-sky-400 hover:text-sky-300 transition-colors font-['Tajawal']"
+                >
+                  {showRichFeedback ? 'إخفاء التفاصيل' : 'عرض التفاصيل الكاملة'}
+                  <ChevronDown size={10} className={`transition-transform duration-200 ${showRichFeedback ? 'rotate-180' : ''}`} />
+                </button>
+
+                <AnimatePresence>
+                  {showRichFeedback && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden space-y-3"
+                    >
+                      {/* Corrected transcript */}
+                      {aiEval.corrected_transcript && (
+                        <div className="rounded-lg p-2.5" style={{ background: 'var(--surface-base)' }}>
+                          <p className="text-[10px] font-bold text-emerald-400 font-['Tajawal'] mb-1">النص المصحح</p>
+                          <p className="text-xs text-[var(--text-secondary)] font-['Inter'] leading-relaxed" dir="ltr">{aiEval.corrected_transcript}</p>
+                        </div>
+                      )}
+
+                      {/* Errors */}
+                      {aiEval.errors?.length > 0 && (
+                        <div className="space-y-1.5">
+                          <p className="text-[10px] font-bold text-red-400 font-['Tajawal']">الأخطاء والتصحيحات</p>
+                          {aiEval.errors.map((err, i) => (
+                            <div key={i} className="rounded-lg p-2.5 space-y-1" style={{ background: 'rgba(239,68,68,0.04)', border: '1px solid rgba(239,68,68,0.08)' }}>
+                              <div className="flex items-start gap-2 text-xs font-['Inter']" dir="ltr">
+                                <span className="line-through text-red-400/70">{err.spoken || err.original}</span>
+                                <span className="text-emerald-400">{err.corrected || err.correction}</span>
+                              </div>
+                              {(err.rule || err.explanation_ar) && (
+                                <p className="text-[10px] text-[var(--text-muted)] font-['Tajawal']">{err.rule || err.explanation_ar}</p>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Better expressions */}
+                      {aiEval.better_expressions?.length > 0 && (
+                        <div className="space-y-1.5">
+                          <p className="text-[10px] font-bold text-violet-400 font-['Tajawal']">تعبيرات أفضل</p>
+                          {aiEval.better_expressions.map((expr, i) => (
+                            <div key={i} className="rounded-lg p-2.5" style={{ background: 'rgba(139,92,246,0.04)', border: '1px solid rgba(139,92,246,0.08)' }}>
+                              <div className="flex items-center gap-2 text-xs font-['Inter']" dir="ltr">
+                                <span className="text-[var(--text-muted)]">{expr.basic}</span>
+                                <span className="text-violet-400">→</span>
+                                <span className="text-violet-300 font-medium">{expr.natural}</span>
+                              </div>
+                              {expr.context && <p className="text-[10px] text-[var(--text-muted)] font-['Tajawal'] mt-1">{expr.context}</p>}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Fluency tips */}
+                      {aiEval.fluency_tips?.length > 0 && (
+                        <div className="space-y-1">
+                          <p className="text-[10px] font-bold text-amber-400 font-['Tajawal']">نصائح الطلاقة</p>
+                          {aiEval.fluency_tips.map((tip, i) => (
+                            <div key={i} className="flex items-start gap-1.5 text-[11px] text-[var(--text-secondary)] font-['Tajawal']">
+                              <span className="text-amber-400 mt-0.5">•</span>
+                              <span>{tip}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Model answer */}
+                      {aiEval.model_answer && (
+                        <div className="rounded-lg p-2.5" style={{ background: 'rgba(56,189,248,0.06)', border: '1px solid rgba(56,189,248,0.1)' }}>
+                          <p className="text-[10px] font-bold text-sky-400 font-['Tajawal'] mb-1">الإجابة النموذجية</p>
+                          <p className="text-xs text-[var(--text-secondary)] font-['Inter'] leading-relaxed" dir="ltr">{aiEval.model_answer}</p>
+                        </div>
+                      )}
+
+                      {/* Improvement tip */}
+                      {aiEval.improvement_tip && (
+                        <div className="rounded-lg p-2.5" style={{ background: 'rgba(34,197,94,0.04)', border: '1px solid rgba(34,197,94,0.08)' }}>
+                          <p className="text-[10px] font-bold text-emerald-400 font-['Tajawal'] mb-1">الخطوة التالية</p>
+                          <p className="text-[11px] text-[var(--text-secondary)] font-['Tajawal']">{aiEval.improvement_tip}</p>
+                        </div>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </>
             )}
           </div>
         </div>
