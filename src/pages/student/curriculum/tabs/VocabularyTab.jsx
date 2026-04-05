@@ -1,7 +1,7 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Languages, Volume2, LayoutGrid, List, RotateCcw, CheckCircle, Dumbbell } from 'lucide-react'
+import { Languages, Volume2, LayoutGrid, List, RotateCcw, CheckCircle, Dumbbell, Search, BookOpen, Headphones, PenLine, ChevronLeft } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
@@ -10,32 +10,82 @@ import { useVocabularyMastery } from '../../../../hooks/useVocabularyMastery'
 import WordExerciseModal from '../../../../components/vocabulary/WordExerciseModal'
 
 const POS_AR = {
-  noun: 'اسم',
-  verb: 'فعل',
-  adjective: 'صفة',
-  adverb: 'ظرف',
-  preposition: 'حرف جر',
-  conjunction: 'حرف عطف',
-  pronoun: 'ضمير',
+  noun: 'اسم', verb: 'فعل', adjective: 'صفة', adverb: 'ظرف',
+  preposition: 'حرف جر', conjunction: 'حرف عطف', pronoun: 'ضمير',
+}
+
+const FILTERS = [
+  { key: 'all', label: 'الكل' },
+  { key: 'new', label: 'جديدة' },
+  { key: 'learning', label: 'تتعلمها' },
+  { key: 'mastered', label: 'أتقنتها' },
+]
+
+const container = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { staggerChildren: 0.05 } },
+}
+const cardVariant = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: 'easeOut' } },
+}
+
+// ─── Progress Ring SVG ────────────────────────────────
+function ProgressRing({ percent, size = 140 }) {
+  const stroke = 8
+  const radius = (size - stroke) / 2
+  const circumference = 2 * Math.PI * radius
+  const [offset, setOffset] = useState(circumference)
+
+  useEffect(() => {
+    const timer = requestAnimationFrame(() => {
+      setOffset(circumference - (percent / 100) * circumference)
+    })
+    return () => cancelAnimationFrame(timer)
+  }, [percent, circumference])
+
+  return (
+    <svg width={size} height={size} className="transform -rotate-90">
+      <defs>
+        <linearGradient id="ring-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#38bdf8" />
+          <stop offset="100%" stopColor="#818cf8" />
+        </linearGradient>
+      </defs>
+      <circle cx={size / 2} cy={size / 2} r={radius} stroke="rgba(255,255,255,0.05)" strokeWidth={stroke} fill="none" />
+      <circle
+        cx={size / 2} cy={size / 2} r={radius}
+        stroke="url(#ring-gradient)" strokeWidth={stroke} fill="none"
+        strokeLinecap="round"
+        strokeDasharray={circumference}
+        strokeDashoffset={offset}
+        style={{ transition: 'stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1)' }}
+      />
+    </svg>
+  )
 }
 
 // ─── Main Component ─────────────────────────────────
 export default function VocabularyTab({ unitId }) {
   const { user } = useAuthStore()
-  const [viewMode, setViewMode] = useState('cards') // cards | list
+  const queryClient = useQueryClient()
+  const [viewMode, setViewMode] = useState('cards')
+  const [filter, setFilter] = useState('all')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searchOpen, setSearchOpen] = useState(false)
   const [practiceMode, setPracticeMode] = useState(false)
+  const [quickPractice, setQuickPractice] = useState(false)
   const [reviewedWords, setReviewedWords] = useState(new Set())
   const [isCompleted, setIsCompleted] = useState(false)
   const [progressLoading, setProgressLoading] = useState(true)
-  const [exerciseWord, setExerciseWord] = useState(null) // word object for exercise modal
+  const [exerciseWord, setExerciseWord] = useState(null)
   const hasSavedComplete = useRef(false)
   const timeRef = useRef(0)
   const timerRef = useRef(null)
   const saveTimer = useRef(null)
   const progressIdRef = useRef(null)
 
-  // Per-word mastery tracking
-  const { masteryMap, masteredCount, learningCount, getMastery } = useVocabularyMastery(user?.id, unitId)
+  const { masteryMap, isLoading: masteryLoading, masteredCount, learningCount, getMastery } = useVocabularyMastery(user?.id, unitId)
 
   const { data, isLoading } = useQuery({
     queryKey: ['unit-vocabulary', unitId],
@@ -47,7 +97,6 @@ export default function VocabularyTab({ unitId }) {
         .eq('unit_id', unitId)
         .order('sort_order')
       if (!readings?.length) return []
-
       const result = []
       for (const r of readings) {
         const { data: vocab } = await supabase
@@ -64,6 +113,33 @@ export default function VocabularyTab({ unitId }) {
 
   const allWords = data?.flatMap(d => d.vocabulary) || []
   const totalWords = allWords.length
+  const newCount = totalWords - masteredCount - learningCount
+  const masteryPercent = totalWords > 0 ? Math.round((masteredCount / totalWords) * 100) : 0
+
+  // Filter & search
+  const getWordMasteryLevel = useCallback((wordId) => {
+    const m = getMastery(wordId)
+    if (!m) return 'new'
+    return m.mastery_level || 'new'
+  }, [getMastery])
+
+  const filterWord = useCallback((word) => {
+    if (filter !== 'all' && getWordMasteryLevel(word.id) !== filter) return false
+    if (searchQuery.trim()) {
+      const q = searchQuery.trim().toLowerCase()
+      return word.word?.toLowerCase().includes(q) || word.definition_ar?.includes(q) || word.definition_en?.toLowerCase().includes(q)
+    }
+    return true
+  }, [filter, searchQuery, getWordMasteryLevel])
+
+  // Next un-mastered word for quick practice
+  const nextUnmastered = useMemo(() => {
+    return allWords.find(w => getWordMasteryLevel(w.id) !== 'mastered')
+  }, [allWords, getWordMasteryLevel])
+
+  const unmasteredLeft = useMemo(() => {
+    return allWords.filter(w => getWordMasteryLevel(w.id) !== 'mastered').length
+  }, [allWords, getWordMasteryLevel])
 
   // Time tracker
   useEffect(() => {
@@ -86,9 +162,7 @@ export default function VocabularyTab({ unitId }) {
       if (!isMounted) return
       if (row) {
         progressIdRef.current = row.id
-        if (row.answers?.reviewedWords) {
-          setReviewedWords(new Set(row.answers.reviewedWords))
-        }
+        if (row.answers?.reviewedWords) setReviewedWords(new Set(row.answers.reviewedWords))
         setIsCompleted(row.status === 'completed')
         if (row.time_spent_seconds) timeRef.current = row.time_spent_seconds
         if (row.status === 'completed') hasSavedComplete.current = true
@@ -99,64 +173,46 @@ export default function VocabularyTab({ unitId }) {
     return () => { isMounted = false }
   }, [user?.id, unitId])
 
-  // Save progress to DB
+  // Save progress
   const saveProgress = useCallback(async (reviewed, total) => {
     if (!user?.id || !unitId) return
     const reviewedAll = reviewed.size >= total && total > 0
     const row = {
-      student_id: user.id,
-      unit_id: unitId,
-      section_type: 'vocabulary',
+      student_id: user.id, unit_id: unitId, section_type: 'vocabulary',
       status: reviewedAll ? 'completed' : 'in_progress',
       score: total > 0 ? Math.round((reviewed.size / total) * 100) : 0,
       answers: { reviewedWords: [...reviewed], totalWords: total },
       time_spent_seconds: timeRef.current,
       completed_at: reviewedAll ? new Date().toISOString() : null,
     }
-
     if (progressIdRef.current) {
-      // Update existing
-      const { error } = await supabase
-        .from('student_curriculum_progress')
-        .update(row)
-        .eq('id', progressIdRef.current)
+      const { error } = await supabase.from('student_curriculum_progress').update(row).eq('id', progressIdRef.current)
       if (!error && reviewedAll && !hasSavedComplete.current) {
-        hasSavedComplete.current = true
-        setIsCompleted(true)
-        toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
+        hasSavedComplete.current = true; setIsCompleted(true)
+        toast({ type: 'success', title: 'تم حفظ تقدمك' })
       }
     } else {
-      // Insert new
-      const { data: inserted, error } = await supabase
-        .from('student_curriculum_progress')
-        .insert(row)
-        .select('id')
-        .single()
+      const { data: inserted, error } = await supabase.from('student_curriculum_progress').insert(row).select('id').single()
       if (!error && inserted) {
         progressIdRef.current = inserted.id
         if (reviewedAll && !hasSavedComplete.current) {
-          hasSavedComplete.current = true
-          setIsCompleted(true)
-          toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
+          hasSavedComplete.current = true; setIsCompleted(true)
+          toast({ type: 'success', title: 'تم حفظ تقدمك' })
         }
       }
     }
   }, [user?.id, unitId])
 
-  // Mark a word as reviewed
   const markReviewed = useCallback((wordId) => {
     setReviewedWords(prev => {
       if (prev.has(wordId)) return prev
-      const next = new Set(prev)
-      next.add(wordId)
-      // Debounced save
+      const next = new Set(prev); next.add(wordId)
       clearTimeout(saveTimer.current)
       saveTimer.current = setTimeout(() => saveProgress(next, totalWords), 2000)
       return next
     })
   }, [totalWords, saveProgress])
 
-  // Handle flashcard practice completion
   const handlePracticeComplete = useCallback((reviewedIds) => {
     setReviewedWords(prev => {
       const next = new Set(prev)
@@ -166,13 +222,38 @@ export default function VocabularyTab({ unitId }) {
     })
   }, [totalWords, saveProgress])
 
+  const handleMasteryUpdate = useCallback((updated) => {
+    if (!updated) return
+    queryClient.setQueryData(['vocabulary-mastery', user?.id, unitId], (prev) => ({
+      ...prev,
+      [updated.vocabulary_id]: updated,
+    }))
+    // If in quick practice and word is now mastered, auto-advance
+    if (quickPractice && updated.mastery_level === 'mastered') {
+      setTimeout(() => {
+        const nextWord = allWords.find(w => w.id !== updated.vocabulary_id && getWordMasteryLevel(w.id) !== 'mastered')
+        if (nextWord) setExerciseWord(nextWord)
+        else { setExerciseWord(null); setQuickPractice(false) }
+      }, 1500)
+    }
+  }, [queryClient, user?.id, unitId, quickPractice, allWords, getWordMasteryLevel])
+
+  const startQuickPractice = () => {
+    if (nextUnmastered) {
+      setQuickPractice(true)
+      setExerciseWord(nextUnmastered)
+    }
+  }
+
   if (isLoading || progressLoading) return <VocabSkeleton />
 
   if (allWords.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 py-20">
-        <Languages size={40} className="text-[var(--text-muted)]" />
-        <p className="text-[var(--text-muted)] font-['Tajawal']">لا توجد مفردات لهذه الوحدة بعد</p>
+        <div className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-center">
+          <Languages size={28} className="text-white/20" />
+        </div>
+        <p className="text-white/40 font-['Tajawal'] text-sm">لا توجد مفردات في هذه الوحدة</p>
       </div>
     )
   }
@@ -182,101 +263,171 @@ export default function VocabularyTab({ unitId }) {
   }
 
   return (
-    <div className="space-y-5">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h3 className="text-base font-bold text-[var(--text-primary)] font-['Tajawal']">مفردات الوحدة</h3>
-          <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">
-            {masteredCount > 0 ? (
-              <><span className="text-emerald-400">{masteredCount} أُتقنت</span> · {learningCount > 0 && <><span className="text-amber-400">{learningCount} قيد التعلم</span> · </>}{totalWords - masteredCount - learningCount} جديدة</>
-            ) : (
-              <>راجعت {reviewedWords.size} من {totalWords} كلمة</>
-            )}
-          </p>
+    <div className="space-y-6">
+      {/* ① HERO HEADER */}
+      <div className="relative rounded-2xl overflow-hidden p-6" style={{ background: 'linear-gradient(135deg, rgba(56,189,248,0.05) 0%, rgba(129,140,248,0.05) 100%)', border: '1px solid rgba(255,255,255,0.04)' }}>
+        {/* Subtle glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-60 h-60 rounded-full" style={{ background: 'radial-gradient(circle, rgba(56,189,248,0.06) 0%, transparent 70%)' }} />
+
+        <div className="relative flex flex-col items-center gap-5">
+          {/* Progress Ring */}
+          <div className="relative">
+            <ProgressRing percent={masteryPercent} size={140} />
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <span className="text-3xl font-black text-white font-['Inter']">{masteryPercent}%</span>
+              <span className="text-[10px] text-white/40 font-['Tajawal'] -mt-0.5">إتقان</span>
+            </div>
+          </div>
+
+          {/* Title */}
+          <div className="text-center">
+            <h3 className="text-base font-bold text-white font-['Tajawal']">مفردات الوحدة</h3>
+            <p className="text-xs text-white/40 font-['Tajawal'] mt-0.5">
+              {masteredCount > 0 ? `أتقنت ${masteredCount} من ${totalWords} كلمة` : `${totalWords} كلمة للتعلم`}
+            </p>
+          </div>
+
+          {/* Stats Row */}
+          <div className="flex items-center gap-3 w-full max-w-xs">
+            <StatCard icon="○" count={newCount} label="جديدة" color="rgba(148,163,184,0.6)" bg="rgba(255,255,255,0.03)" />
+            <StatCard icon="◐" count={learningCount} label="تتعلمها" color="#f59e0b" bg="rgba(245,158,11,0.06)" />
+            <StatCard icon="●" count={masteredCount} label="أتقنتها" color="#22c55e" bg="rgba(34,197,94,0.06)" />
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          {/* View toggle */}
-          <div className="flex rounded-lg border border-[var(--border-subtle)] overflow-hidden">
-            <button
-              onClick={() => setViewMode('cards')}
-              className={`w-9 h-9 flex items-center justify-center transition-colors ${viewMode === 'cards' ? 'bg-sky-500/15 text-sky-400' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
+      </div>
+
+      {/* ② FILTER BAR + SEARCH */}
+      <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 flex-1 overflow-x-auto no-scrollbar">
+          {FILTERS.map((f, i) => (
+            <motion.button
+              key={f.key}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: i * 0.05 }}
+              onClick={() => setFilter(f.key)}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold font-['Tajawal'] whitespace-nowrap transition-all border ${
+                filter === f.key
+                  ? 'bg-sky-500/20 text-sky-400 border-sky-500/30'
+                  : 'bg-white/[0.03] text-white/40 border-white/[0.06] hover:text-white/60'
+              }`}
             >
-              <LayoutGrid size={15} />
+              {f.label}
+              {f.key === 'new' && newCount > 0 && <span className="mr-1 opacity-60">{newCount}</span>}
+              {f.key === 'learning' && learningCount > 0 && <span className="mr-1 opacity-60">{learningCount}</span>}
+              {f.key === 'mastered' && masteredCount > 0 && <span className="mr-1 opacity-60">{masteredCount}</span>}
+            </motion.button>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-1.5 flex-shrink-0">
+          {/* Search */}
+          <div className={`flex items-center rounded-full border transition-all overflow-hidden ${searchOpen ? 'w-40 bg-white/[0.03] border-white/[0.1]' : 'w-9 border-transparent'}`}>
+            <button onClick={() => { setSearchOpen(!searchOpen); if (searchOpen) setSearchQuery('') }} className="w-9 h-9 flex items-center justify-center text-white/40 hover:text-white/60 flex-shrink-0">
+              <Search size={14} />
             </button>
-            <button
-              onClick={() => setViewMode('list')}
-              className={`w-9 h-9 flex items-center justify-center transition-colors ${viewMode === 'list' ? 'bg-sky-500/15 text-sky-400' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
-            >
-              <List size={15} />
+            {searchOpen && (
+              <input
+                autoFocus
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="ابحث عن كلمة..."
+                className="bg-transparent text-xs text-white placeholder:text-white/30 outline-none w-full pr-0 pl-2 py-1.5 font-['Tajawal']"
+              />
+            )}
+          </div>
+
+          {/* View toggle */}
+          <div className="flex rounded-lg border border-white/[0.06] overflow-hidden">
+            <button onClick={() => setViewMode('cards')} className={`w-8 h-8 flex items-center justify-center transition-colors ${viewMode === 'cards' ? 'bg-sky-500/15 text-sky-400' : 'text-white/30 hover:text-white/50'}`}>
+              <LayoutGrid size={13} />
+            </button>
+            <button onClick={() => setViewMode('list')} className={`w-8 h-8 flex items-center justify-center transition-colors ${viewMode === 'list' ? 'bg-sky-500/15 text-sky-400' : 'text-white/30 hover:text-white/50'}`}>
+              <List size={13} />
             </button>
           </div>
-          {/* Practice button */}
-          <button
-            onClick={() => setPracticeMode(true)}
-            className="flex items-center gap-1.5 px-4 h-9 rounded-xl text-xs font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30 hover:bg-amber-500/25 transition-colors font-['Tajawal']"
-          >
-            <RotateCcw size={13} />
-            تدريب
-          </button>
+
+          {/* Quick practice */}
+          {unmasteredLeft > 0 && (
+            <button onClick={startQuickPractice} className="flex items-center gap-1.5 px-3.5 h-8 rounded-full text-xs font-bold bg-sky-500/15 text-sky-400 border border-sky-500/25 hover:bg-sky-500/25 transition-colors font-['Tajawal']">
+              <Dumbbell size={12} />
+              تمرّن
+            </button>
+          )}
         </div>
       </div>
 
-      {/* Mastery progress bar (stacked: mastered + learning) */}
-      <div className="h-1.5 rounded-full bg-[var(--surface-base)] overflow-hidden flex">
-        {masteredCount > 0 && (
-          <div className="h-full transition-all duration-500" style={{ width: `${(masteredCount / totalWords) * 100}%`, background: '#10b981' }} />
-        )}
-        {learningCount > 0 && (
-          <div className="h-full transition-all duration-500" style={{ width: `${(learningCount / totalWords) * 100}%`, background: '#f59e0b' }} />
-        )}
-        {masteredCount === 0 && learningCount === 0 && reviewedWords.size > 0 && (
-          <div className="h-full transition-all duration-500" style={{ width: `${(reviewedWords.size / totalWords) * 100}%`, background: '#0ea5e9' }} />
-        )}
-      </div>
-
-      {/* Completed badge */}
-      {masteredCount >= totalWords && totalWords > 0 ? (
-        <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25">
-          <CheckCircle size={16} className="text-emerald-400" />
-          <span className="text-sm font-medium text-emerald-400 font-['Tajawal']">أتقنت جميع المفردات!</span>
-        </div>
-      ) : isCompleted && (
-        <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-500/10 border border-sky-500/25">
-          <CheckCircle size={16} className="text-sky-400" />
-          <span className="text-sm font-medium text-sky-400 font-['Tajawal']">تم مراجعة جميع المفردات — أكمل التمارين لإتقانها</span>
+      {/* Filter empty state */}
+      {allWords.length > 0 && data.every(({ vocabulary }) => vocabulary.filter(filterWord).length === 0) && (
+        <div className="text-center py-12">
+          <p className="text-white/30 text-sm font-['Tajawal']">لا توجد كلمات تطابق الفلتر</p>
         </div>
       )}
 
-      {/* Sections by reading */}
-      {data.map(({ reading, vocabulary }) => (
-        <div key={reading.id} className="space-y-3">
-          {data.length > 1 && (
-            <h4 className="text-sm font-bold text-[var(--text-secondary)] font-['Tajawal']">
-              مفردات القراءة {reading.reading_label}
-            </h4>
-          )}
-          {viewMode === 'cards' ? (
-            <motion.div
-              className="grid grid-cols-1 sm:grid-cols-2 gap-3"
-              initial="hidden"
-              animate="show"
-              variants={{ hidden: {}, show: { transition: { staggerChildren: 0.04 } } }}
-            >
-              {vocabulary.map(v => (
-                <motion.div
-                  key={v.id}
-                  variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
-                >
-                  <WordCard word={v} reviewed={reviewedWords.has(v.id)} mastery={getMastery(v.id)} onView={() => markReviewed(v.id)} onPractice={() => setExerciseWord(v)} />
-                </motion.div>
-              ))}
-            </motion.div>
-          ) : (
-            <WordListView vocabulary={vocabulary} reviewedWords={reviewedWords} getMastery={getMastery} onView={markReviewed} onPractice={setExerciseWord} />
-          )}
+      {/* ③ SECTIONS BY READING */}
+      {data.map(({ reading, vocabulary }) => {
+        const filtered = vocabulary.filter(filterWord)
+        if (filtered.length === 0) return null
+        const sectionMastered = filtered.filter(w => getWordMasteryLevel(w.id) === 'mastered').length
+        return (
+          <div key={reading.id} className="space-y-3">
+            {/* Section header */}
+            {data.length > 1 && (
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  <BookOpen size={13} className="text-white/20" />
+                  <span className="text-xs font-bold text-white/50 font-['Tajawal']">
+                    مفردات القراءة {reading.reading_label}
+                  </span>
+                  <span className="text-[10px] text-white/25 font-['Tajawal']">
+                    {filtered.length} كلمات {sectionMastered > 0 && `· أتقنت ${sectionMastered}`}
+                  </span>
+                </div>
+                <div className="flex-1 h-px bg-white/[0.04]" />
+              </div>
+            )}
+
+            {viewMode === 'cards' ? (
+              <motion.div
+                className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"
+                variants={container}
+                initial="hidden"
+                animate="show"
+              >
+                {filtered.map(v => (
+                  <motion.div key={v.id} variants={cardVariant}>
+                    <WordCard
+                      word={v}
+                      mastery={getMastery(v.id)}
+                      reviewed={reviewedWords.has(v.id)}
+                      onView={() => markReviewed(v.id)}
+                      onPractice={() => setExerciseWord(v)}
+                    />
+                  </motion.div>
+                ))}
+              </motion.div>
+            ) : (
+              <WordListView vocabulary={filtered} getMastery={getMastery} reviewedWords={reviewedWords} onView={markReviewed} onPractice={setExerciseWord} />
+            )}
+          </div>
+        )
+      })}
+
+      {/* ④ COMPLETION / PROGRESS BANNER */}
+      {masteredCount >= totalWords && totalWords > 0 ? (
+        <CompletionBanner />
+      ) : masteredCount > 0 && (
+        <div className="flex items-center gap-3 px-4 py-3 rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs font-bold text-white/60 font-['Tajawal']">
+              أتقنت {masteredCount} من {totalWords} كلمة — واصل!
+            </p>
+            <div className="h-1 rounded-full bg-white/[0.04] mt-1.5 overflow-hidden flex">
+              <div className="h-full rounded-full transition-all duration-700" style={{ width: `${masteryPercent}%`, background: 'linear-gradient(90deg, #38bdf8, #818cf8)' }} />
+            </div>
+          </div>
         </div>
-      ))}
+      )}
 
       {/* Vocabulary Exercises */}
       <VocabularyExercises unitId={unitId} allWords={allWords} />
@@ -288,23 +439,40 @@ export default function VocabularyTab({ unitId }) {
         mastery={exerciseWord ? getMastery(exerciseWord.id) : null}
         studentId={user?.id}
         isOpen={!!exerciseWord}
-        onClose={() => setExerciseWord(null)}
-        onMasteryUpdate={() => {}}
+        onClose={() => { setExerciseWord(null); setQuickPractice(false) }}
+        onMasteryUpdate={handleMasteryUpdate}
       />
+
+      {/* Quick practice indicator */}
+      {quickPractice && exerciseWord && (
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 px-4 py-2 rounded-full text-xs font-bold font-['Tajawal'] text-white/70" style={{ background: 'rgba(10,22,40,0.9)', border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(8px)' }}>
+          كلمة {totalWords - unmasteredLeft + 1} من {totalWords} المتبقية
+        </div>
+      )}
     </div>
   )
 }
 
-// ─── Word Card ───────────────────────────────────────
-function WordCard({ word, reviewed, mastery, onView, onPractice }) {
+// ─── Stat Card ────────────────────────────────────────
+function StatCard({ icon, count, label, color, bg }) {
+  return (
+    <div className="flex-1 flex flex-col items-center gap-1 py-2.5 rounded-xl" style={{ background: bg, border: '1px solid rgba(255,255,255,0.04)' }}>
+      <span className="text-sm" style={{ color }}>{icon}</span>
+      <span className="text-lg font-black text-white font-['Inter']">{count}</span>
+      <span className="text-[10px] text-white/40 font-['Tajawal']">{label}</span>
+    </div>
+  )
+}
+
+// ─── Word Card (Premium) ──────────────────────────────
+function WordCard({ word, mastery, reviewed, onView, onPractice }) {
   const audioRef = useRef(null)
   const viewedRef = useRef(false)
+  const [imgError, setImgError] = useState(false)
+  const [playing, setPlaying] = useState(false)
 
   useEffect(() => {
-    if (!viewedRef.current && onView) {
-      viewedRef.current = true
-      onView()
-    }
+    if (!viewedRef.current && onView) { viewedRef.current = true; onView() }
   }, [onView])
 
   const playAudio = (e) => {
@@ -312,72 +480,122 @@ function WordCard({ word, reviewed, mastery, onView, onPractice }) {
     if (!word.audio_url) return
     if (audioRef.current) audioRef.current.pause()
     audioRef.current = new Audio(word.audio_url)
-    audioRef.current.play().catch(() => {})
+    audioRef.current.onplay = () => setPlaying(true)
+    audioRef.current.onended = () => setPlaying(false)
+    audioRef.current.onerror = () => setPlaying(false)
+    audioRef.current.play().catch(() => setPlaying(false))
   }
 
   const isMastered = mastery?.mastery_level === 'mastered'
   const isLearning = mastery?.mastery_level === 'learning'
   const passedCount = [mastery?.meaning_exercise_passed, mastery?.sentence_exercise_passed, mastery?.listening_exercise_passed].filter(Boolean).length
 
-  const borderColor = isMastered ? 'rgba(16,185,129,0.4)' : isLearning ? 'rgba(245,158,11,0.3)' : reviewed ? 'rgba(56,189,248,0.2)' : 'var(--border-subtle)'
-
   return (
-    <div
-      className="rounded-xl overflow-hidden relative"
-      style={{ background: 'var(--surface-raised)', border: `1px solid ${borderColor}` }}
+    <motion.div
+      whileHover={{ y: -2 }}
+      className="rounded-2xl overflow-hidden cursor-pointer group relative"
+      style={{
+        background: isMastered ? 'rgba(34,197,94,0.03)' : 'rgba(255,255,255,0.025)',
+        border: `1px solid ${isMastered ? 'rgba(34,197,94,0.2)' : isLearning ? 'rgba(245,158,11,0.15)' : 'rgba(255,255,255,0.06)'}`,
+        transition: 'all 0.2s ease-out',
+      }}
+      onClick={() => onPractice?.(word)}
     >
-      {/* Mastery dots */}
-      <div className="absolute top-2 right-2 z-10 flex items-center gap-1">
-        {[0, 1, 2].map(i => (
-          <div key={i} className="w-2 h-2 rounded-full" style={{ background: i < passedCount ? '#22c55e' : 'rgba(255,255,255,0.1)' }} />
-        ))}
-      </div>
-      {word.image_url && (
-        <img src={word.image_url} alt={word.word} className="w-full h-28 object-cover" loading="lazy" />
+      {/* Image section */}
+      {word.image_url && !imgError ? (
+        <div className="relative aspect-[16/10] overflow-hidden">
+          <img
+            src={word.image_url}
+            alt={word.word}
+            className="w-full h-full object-cover"
+            loading="lazy"
+            onError={() => setImgError(true)}
+          />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(transparent 40%, rgba(10,22,40,1) 100%)' }} />
+          {/* Mastery badge */}
+          <div className="absolute top-2 left-2">
+            <div className="w-2.5 h-2.5 rounded-full" style={{ background: isMastered ? '#22c55e' : isLearning ? '#f59e0b' : 'rgba(255,255,255,0.15)', boxShadow: isMastered ? '0 0 6px rgba(34,197,94,0.4)' : 'none' }} />
+          </div>
+        </div>
+      ) : (
+        <div className="relative aspect-[16/10] flex items-center justify-center overflow-hidden" style={{ background: 'rgba(255,255,255,0.015)' }}>
+          <span className="text-2xl sm:text-3xl font-black text-white/[0.06] font-['Inter'] select-none">{word.word}</span>
+          {/* Mastery badge */}
+          <div className="absolute top-2 left-2">
+            <div className="w-2.5 h-2.5 rounded-full" style={{ background: isMastered ? '#22c55e' : isLearning ? '#f59e0b' : 'rgba(255,255,255,0.15)', boxShadow: isMastered ? '0 0 6px rgba(34,197,94,0.4)' : 'none' }} />
+          </div>
+        </div>
       )}
-      <div className="p-4 space-y-2">
+
+      {/* Content */}
+      <div className="p-3 space-y-2">
         <div className="flex items-start justify-between gap-2">
-          <div className="min-w-0">
-            <p className="text-base font-bold text-[var(--text-primary)] font-['Inter']" dir="ltr">{word.word}</p>
-            <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-bold text-white font-['Inter'] leading-tight" dir="ltr">{word.word}</p>
+            <p className="text-[11px] text-white/40 font-['Tajawal'] mt-0.5 line-clamp-1">
               {POS_AR[word.part_of_speech] || word.part_of_speech} · {word.definition_ar}
             </p>
           </div>
           {word.audio_url && (
-            <button onClick={playAudio} className="w-9 h-9 rounded-full bg-sky-500/15 text-sky-400 flex items-center justify-center hover:bg-sky-500/25 transition-colors flex-shrink-0">
-              <Volume2 size={16} />
+            <button
+              onClick={playAudio}
+              className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all"
+              style={{ background: playing ? 'rgba(56,189,248,0.2)' : 'rgba(255,255,255,0.06)' }}
+            >
+              {playing ? (
+                <div className="flex items-end gap-[2px] h-3">
+                  {[0, 1, 2].map(i => (
+                    <motion.div key={i} className="w-[2px] bg-sky-400 rounded-full" animate={{ height: ['4px', '12px', '4px'] }} transition={{ repeat: Infinity, duration: 0.6, delay: i * 0.15 }} />
+                  ))}
+                </div>
+              ) : (
+                <Volume2 size={14} className="text-white/40 group-hover:text-white/60" />
+              )}
             </button>
           )}
         </div>
+
         {word.example_sentence && (
-          <p className="text-xs text-[var(--text-secondary)] font-['Inter'] leading-relaxed italic" dir="ltr">
+          <p className="text-[10px] text-white/25 font-['Inter'] leading-relaxed line-clamp-1 italic" dir="ltr">
             "{word.example_sentence}"
           </p>
         )}
-        {/* Practice button */}
-        <button
-          onClick={() => onPractice?.(word)}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold font-['Tajawal'] border transition-colors min-h-[36px] ${
-            isMastered
-              ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
-              : isLearning
-                ? 'bg-amber-500/10 text-amber-400 border-amber-500/20 hover:bg-amber-500/15'
-                : 'bg-sky-500/10 text-sky-400 border-sky-500/20 hover:bg-sky-500/15'
-          }`}
-        >
-          {isMastered ? (
-            <><CheckCircle size={12} /> أُتقنت</>
-          ) : (
-            <><Dumbbell size={12} /> تمرّن {passedCount > 0 ? `(${passedCount}/3)` : ''}</>
-          )}
-        </button>
+
+        {/* Exercise dots + action */}
+        <div className="flex items-center justify-between pt-1">
+          <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1">
+              {[
+                { passed: mastery?.meaning_exercise_passed, label: 'اختر المعنى' },
+                { passed: mastery?.sentence_exercise_passed, label: 'أكمل الجملة' },
+                { passed: mastery?.listening_exercise_passed, label: 'استمع واختر' },
+              ].map((ex, i) => (
+                <div
+                  key={i}
+                  className="w-2 h-2 rounded-full"
+                  title={ex.label}
+                  style={{ background: ex.passed ? '#22c55e' : 'rgba(255,255,255,0.08)', transition: 'background 0.3s' }}
+                />
+              ))}
+            </div>
+            {passedCount > 0 && passedCount < 3 && (
+              <span className="text-[9px] text-white/20 font-['Tajawal']">{passedCount}/3</span>
+            )}
+          </div>
+
+          <span className={`text-[10px] font-bold font-['Tajawal'] ${
+            isMastered ? 'text-emerald-400/70' : isLearning ? 'text-amber-400/70' : 'text-sky-400/70'
+          }`}>
+            {isMastered ? 'أتقنتها' : isLearning ? 'أكمل التمارين' : 'تمرّن'}
+          </span>
+        </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
 // ─── Word List View ──────────────────────────────────
-function WordListView({ vocabulary, reviewedWords, getMastery, onView, onPractice }) {
+function WordListView({ vocabulary, getMastery, reviewedWords, onView, onPractice }) {
   const audioRef = useRef(null)
 
   const playAudio = (url, e) => {
@@ -388,22 +606,26 @@ function WordListView({ vocabulary, reviewedWords, getMastery, onView, onPractic
   }
 
   return (
-    <div
-      className="rounded-xl overflow-hidden divide-y"
-      style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)', divideColor: 'var(--border-subtle)' }}
-    >
+    <div className="rounded-xl overflow-hidden divide-y divide-white/[0.04]" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}>
       {vocabulary.map(v => {
-        const reviewed = reviewedWords?.has(v.id)
         const mastery = getMastery?.(v.id)
         return (
-          <WordListItem key={v.id} word={v} reviewed={reviewed} mastery={mastery} onView={() => onView?.(v.id)} onPractice={() => onPractice?.(v)} playAudio={playAudio} />
+          <WordListItem
+            key={v.id}
+            word={v}
+            mastery={mastery}
+            reviewed={reviewedWords?.has(v.id)}
+            onView={() => onView?.(v.id)}
+            onPractice={() => onPractice?.(v)}
+            playAudio={playAudio}
+          />
         )
       })}
     </div>
   )
 }
 
-function WordListItem({ word, reviewed, mastery, onView, onPractice, playAudio }) {
+function WordListItem({ word, mastery, reviewed, onView, onPractice, playAudio }) {
   const viewedRef = useRef(false)
   useEffect(() => {
     if (!viewedRef.current && onView) { viewedRef.current = true; onView() }
@@ -414,35 +636,77 @@ function WordListItem({ word, reviewed, mastery, onView, onPractice, playAudio }
   const passedCount = [mastery?.meaning_exercise_passed, mastery?.sentence_exercise_passed, mastery?.listening_exercise_passed].filter(Boolean).length
 
   return (
-    <div className="flex items-center justify-between px-4 py-3 gap-3">
-      <div className="flex items-center gap-3 min-w-0 flex-1" dir="ltr">
-        {/* Mastery dots */}
-        <div className="flex items-center gap-0.5 flex-shrink-0">
+    <div className="flex items-center justify-between px-3 py-3 gap-3 hover:bg-white/[0.01] transition-colors cursor-pointer" onClick={onPractice}>
+      {/* Right side: word info */}
+      <div className="flex items-center gap-3 min-w-0 flex-1">
+        {/* Mastery indicator */}
+        <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: isMastered ? '#22c55e' : isLearning ? '#f59e0b' : 'rgba(255,255,255,0.1)' }} />
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2" dir="ltr">
+            <span className="text-sm font-semibold text-white font-['Inter']">{word.word}</span>
+            <span className="text-[10px] text-white/25 font-['Inter']">{word.part_of_speech}</span>
+          </div>
+          <p className="text-[11px] text-white/35 font-['Tajawal'] line-clamp-1">{word.definition_ar}</p>
+        </div>
+      </div>
+
+      {/* Left side: dots + actions */}
+      <div className="flex items-center gap-2 flex-shrink-0">
+        {/* Exercise dots */}
+        <div className="flex items-center gap-0.5">
           {[0, 1, 2].map(i => (
-            <div key={i} className="w-1.5 h-1.5 rounded-full" style={{ background: i < passedCount ? '#22c55e' : 'rgba(255,255,255,0.1)' }} />
+            <div key={i} className="w-1.5 h-1.5 rounded-full" style={{ background: i < passedCount ? '#22c55e' : 'rgba(255,255,255,0.08)' }} />
           ))}
         </div>
-        <span className="text-sm font-semibold text-[var(--text-primary)] font-['Inter']">{word.word}</span>
-        <span className="text-[10px] text-[var(--text-muted)] font-['Inter']">{word.part_of_speech}</span>
-      </div>
-      <div className="flex items-center gap-2 flex-shrink-0">
-        <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">{word.definition_ar}</span>
         {word.audio_url && (
           <button
-            onClick={(e) => playAudio(word.audio_url, e)}
-            className="w-7 h-7 rounded-full bg-sky-500/10 text-sky-400 flex items-center justify-center hover:bg-sky-500/20 transition-colors"
+            onClick={(e) => { e.stopPropagation(); playAudio(word.audio_url, e) }}
+            className="w-7 h-7 rounded-full bg-white/[0.04] text-white/30 flex items-center justify-center hover:bg-white/[0.08] hover:text-white/50 transition-colors"
           >
             <Volume2 size={12} />
           </button>
         )}
         <button
-          onClick={() => onPractice?.()}
-          className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors flex-shrink-0 ${
-            isMastered ? 'bg-emerald-500/10 text-emerald-400' : isLearning ? 'bg-amber-500/10 text-amber-400 hover:bg-amber-500/20' : 'bg-sky-500/10 text-sky-400 hover:bg-sky-500/20'
+          onClick={(e) => { e.stopPropagation(); onPractice?.() }}
+          className={`px-2.5 py-1 rounded-full text-[10px] font-bold font-['Tajawal'] transition-colors ${
+            isMastered
+              ? 'bg-emerald-500/10 text-emerald-400/70'
+              : 'bg-sky-500/10 text-sky-400/70 hover:bg-sky-500/15'
           }`}
         >
-          {isMastered ? <CheckCircle size={12} /> : <Dumbbell size={12} />}
+          {isMastered ? 'أتقنتها' : 'تمرّن'}
         </button>
+      </div>
+    </div>
+  )
+}
+
+// ─── Completion Banner ────────────────────────────────
+function CompletionBanner() {
+  return (
+    <div className="relative rounded-2xl overflow-hidden px-5 py-6 text-center" style={{ background: 'linear-gradient(135deg, rgba(6,78,59,0.3) 0%, rgba(6,95,70,0.2) 100%)', border: '1px solid rgba(34,197,94,0.2)' }}>
+      {/* CSS confetti */}
+      <style>{`
+        @keyframes confetti-fall { 0% { transform: translateY(-10px) rotate(0deg); opacity: 1; } 100% { transform: translateY(80px) rotate(360deg); opacity: 0; } }
+        .confetti-dot { position: absolute; width: 4px; height: 4px; border-radius: 50%; animation: confetti-fall 3s ease-in-out infinite; }
+      `}</style>
+      {[...Array(12)].map((_, i) => (
+        <div
+          key={i}
+          className="confetti-dot"
+          style={{
+            left: `${8 + (i * 7.5)}%`,
+            top: `${Math.random() * 20}%`,
+            background: ['#22c55e', '#38bdf8', '#818cf8', '#f59e0b', '#ec4899'][i % 5],
+            animationDelay: `${i * 0.25}s`,
+            opacity: 0.5,
+          }}
+        />
+      ))}
+      <div className="relative z-10 space-y-2">
+        <p className="text-3xl">🏆</p>
+        <p className="text-base font-bold text-emerald-300 font-['Tajawal']">أتقنت جميع مفردات الوحدة!</p>
+        <p className="text-xs text-emerald-400/60 font-['Tajawal']">+50 نقطة مكافأة</p>
       </div>
     </div>
   )
@@ -458,54 +722,33 @@ function FlashcardPractice({ words, onBack, onComplete }) {
 
   const word = shuffled[currentIndex]
   if (!word) return null
-
-  // Track current word as seen
   seenIds.add(word.id)
 
-  const next = () => {
-    setFlipped(false)
-    setTimeout(() => setCurrentIndex(i => Math.min(i + 1, shuffled.length - 1)), 150)
-  }
-
-  const prev = () => {
-    setFlipped(false)
-    setTimeout(() => setCurrentIndex(i => Math.max(i - 1, 0)), 150)
-  }
-
+  const next = () => { setFlipped(false); setTimeout(() => setCurrentIndex(i => Math.min(i + 1, shuffled.length - 1)), 150) }
+  const prev = () => { setFlipped(false); setTimeout(() => setCurrentIndex(i => Math.max(i - 1, 0)), 150) }
   const playAudio = () => {
     if (!word.audio_url) return
     if (audioRef.current) audioRef.current.pause()
     audioRef.current = new Audio(word.audio_url)
     audioRef.current.play().catch(() => {})
   }
-
   const isLast = currentIndex >= shuffled.length - 1
-
-  const handleFinish = () => {
-    onComplete?.([...seenIds])
-    onBack()
-  }
+  const handleFinish = () => { onComplete?.([...seenIds]); onBack() }
 
   return (
     <div className="flex flex-col items-center gap-5">
-      {/* Progress */}
-      <div className="w-full flex items-center justify-between text-xs text-[var(--text-muted)] font-['Tajawal']">
+      <div className="w-full flex items-center justify-between text-xs text-white/40 font-['Tajawal']">
         <span>{currentIndex + 1} / {shuffled.length}</span>
         <button onClick={handleFinish} className="text-sky-400 hover:text-sky-300 font-bold">العودة للقائمة</button>
       </div>
-      <div className="w-full h-1.5 rounded-full bg-[rgba(255,255,255,0.06)] overflow-hidden">
-        <div className="h-full rounded-full bg-amber-500 transition-all duration-300" style={{ width: `${((currentIndex + 1) / shuffled.length) * 100}%` }} />
+      <div className="w-full h-1.5 rounded-full bg-white/[0.04] overflow-hidden">
+        <div className="h-full rounded-full transition-all duration-300" style={{ width: `${((currentIndex + 1) / shuffled.length) * 100}%`, background: 'linear-gradient(90deg, #38bdf8, #818cf8)' }} />
       </div>
 
-      {/* Card */}
       <div
         onClick={() => setFlipped(!flipped)}
         className="w-full max-w-sm aspect-[3/2] rounded-2xl cursor-pointer select-none flex items-center justify-center p-6"
-        style={{
-          background: 'var(--surface-raised)',
-          border: '1px solid var(--border-subtle)',
-          perspective: '1000px',
-        }}
+        style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}
       >
         <AnimatePresence mode="wait">
           <motion.div
@@ -518,57 +761,33 @@ function FlashcardPractice({ words, onBack, onComplete }) {
           >
             {!flipped ? (
               <>
-                <p className="text-2xl font-bold text-[var(--text-primary)] font-['Inter']">{word.word}</p>
-                <p className="text-xs text-[var(--text-muted)] font-['Inter']">{word.part_of_speech}</p>
-                <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">اضغط لقلب البطاقة</p>
+                <p className="text-2xl font-bold text-white font-['Inter']">{word.word}</p>
+                <p className="text-xs text-white/30 font-['Inter']">{word.part_of_speech}</p>
+                <p className="text-xs text-white/20 font-['Tajawal']">اضغط لقلب البطاقة</p>
               </>
             ) : (
               <>
-                {word.image_url && (
-                  <img src={word.image_url} alt={word.word} className="w-16 h-16 rounded-lg object-cover" />
-                )}
+                {word.image_url && <img src={word.image_url} alt={word.word} className="w-16 h-16 rounded-lg object-cover" />}
                 <p className="text-lg font-bold text-amber-400 font-['Tajawal']">{word.definition_ar}</p>
-                <p className="text-sm text-[var(--text-secondary)] font-['Inter']">{word.definition_en}</p>
-                {word.example_sentence && (
-                  <p className="text-xs text-[var(--text-muted)] font-['Inter'] italic" dir="ltr">"{word.example_sentence}"</p>
-                )}
+                <p className="text-sm text-white/50 font-['Inter']">{word.definition_en}</p>
+                {word.example_sentence && <p className="text-xs text-white/25 font-['Inter'] italic" dir="ltr">"{word.example_sentence}"</p>}
               </>
             )}
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* Controls */}
       <div className="flex items-center gap-3">
-        <button
-          onClick={prev}
-          disabled={currentIndex === 0}
-          className="h-10 px-5 rounded-xl text-sm font-bold bg-[var(--surface-raised)] text-[var(--text-muted)] border border-[var(--border-subtle)] hover:text-[var(--text-primary)] transition-colors disabled:opacity-30 font-['Tajawal']"
-        >
-          السابق
-        </button>
+        <button onClick={prev} disabled={currentIndex === 0} className="h-10 px-5 rounded-xl text-sm font-bold text-white/40 border border-white/[0.06] hover:text-white/60 transition-colors disabled:opacity-30 font-['Tajawal']" style={{ background: 'rgba(255,255,255,0.025)' }}>السابق</button>
         {word.audio_url && (
-          <button
-            onClick={playAudio}
-            className="w-10 h-10 rounded-full bg-sky-500/15 text-sky-400 flex items-center justify-center hover:bg-sky-500/25 transition-colors"
-          >
+          <button onClick={playAudio} className="w-10 h-10 rounded-full bg-sky-500/10 text-sky-400 flex items-center justify-center hover:bg-sky-500/20 transition-colors">
             <Volume2 size={18} />
           </button>
         )}
         {isLast ? (
-          <button
-            onClick={handleFinish}
-            className="h-10 px-5 rounded-xl text-sm font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30 hover:bg-amber-500/25 transition-colors font-['Tajawal']"
-          >
-            إنهاء
-          </button>
+          <button onClick={handleFinish} className="h-10 px-5 rounded-xl text-sm font-bold bg-amber-500/10 text-amber-400 border border-amber-500/25 hover:bg-amber-500/20 transition-colors font-['Tajawal']">إنهاء</button>
         ) : (
-          <button
-            onClick={next}
-            className="h-10 px-5 rounded-xl text-sm font-bold bg-sky-500/15 text-sky-400 border border-sky-500/30 hover:bg-sky-500/25 transition-colors font-['Tajawal']"
-          >
-            التالي
-          </button>
+          <button onClick={next} className="h-10 px-5 rounded-xl text-sm font-bold bg-sky-500/10 text-sky-400 border border-sky-500/25 hover:bg-sky-500/20 transition-colors font-['Tajawal']">التالي</button>
         )}
       </div>
     </div>
@@ -578,14 +797,25 @@ function FlashcardPractice({ words, onBack, onComplete }) {
 // ─── Skeleton ────────────────────────────────────────
 function VocabSkeleton() {
   return (
-    <div className="space-y-5">
-      <div className="flex items-center justify-between">
-        <div className="h-5 w-32 rounded bg-[var(--surface-raised)] animate-pulse" />
-        <div className="h-9 w-20 rounded-xl bg-[var(--surface-raised)] animate-pulse" />
+    <div className="space-y-6">
+      {/* Hero skeleton */}
+      <div className="rounded-2xl p-6 flex flex-col items-center gap-4" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}>
+        <div className="w-[140px] h-[140px] rounded-full bg-white/[0.03] animate-pulse" />
+        <div className="h-4 w-28 rounded bg-white/[0.04] animate-pulse" />
+        <div className="flex gap-3 w-full max-w-xs">
+          {[0, 1, 2].map(i => <div key={i} className="flex-1 h-16 rounded-xl bg-white/[0.03] animate-pulse" />)}
+        </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      {/* Cards skeleton */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         {Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} className="h-24 rounded-xl bg-[var(--surface-raised)] animate-pulse" />
+          <div key={i} className="rounded-2xl overflow-hidden animate-pulse" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}>
+            <div className="aspect-[16/10] bg-white/[0.02]" />
+            <div className="p-3 space-y-2">
+              <div className="h-3.5 w-16 rounded bg-white/[0.04]" />
+              <div className="h-2.5 w-24 rounded bg-white/[0.03]" />
+            </div>
+          </div>
         ))}
       </div>
     </div>
