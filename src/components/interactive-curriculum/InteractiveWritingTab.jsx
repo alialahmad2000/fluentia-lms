@@ -1,8 +1,9 @@
-import { useState, useMemo } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useState, useMemo, useCallback } from 'react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FileEdit, Users, ChevronDown, CheckCircle, Clock, Star } from 'lucide-react'
+import { FileEdit, Users, ChevronDown, CheckCircle, Clock, Star, Bot, GraduationCap, Save, Loader2 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
+import { useAuthStore } from '../../stores/authStore'
 
 const TASK_TYPE_LABELS = {
   paragraph: 'فقرة',
@@ -12,6 +13,8 @@ const TASK_TYPE_LABELS = {
   story: 'قصة',
   summary: 'ملخص',
 }
+
+const GRADE_OPTIONS = ['A+', 'A', 'B+', 'B', 'C', 'D', 'F']
 
 export default function InteractiveWritingTab({ unitId, students = [] }) {
   const [activeTask, setActiveTask] = useState(0)
@@ -89,9 +92,10 @@ export default function InteractiveWritingTab({ unitId, students = [] }) {
 }
 
 function WritingTaskContent({ task, unitId, students }) {
+  const { user } = useAuthStore()
+  const queryClient = useQueryClient()
   const [expandedStudent, setExpandedStudent] = useState(null)
 
-  // Fetch student progress
   const { data: studentProgress } = useQuery({
     queryKey: ['ic-writing-progress', task.id, students.map(s => s.user_id).sort().join()],
     queryFn: async () => {
@@ -99,7 +103,7 @@ function WritingTaskContent({ task, unitId, students }) {
       if (!studentIds.length) return []
       const { data } = await supabase
         .from('student_curriculum_progress')
-        .select('student_id, answers, score, status, completed_at, trainer_feedback, trainer_grade, ai_feedback')
+        .select('student_id, answers, score, status, completed_at, trainer_feedback, trainer_grade, trainer_graded_at, ai_feedback, attempt_number')
         .eq('writing_id', task.id)
         .eq('section_type', 'writing')
         .in('student_id', studentIds)
@@ -117,6 +121,10 @@ function WritingTaskContent({ task, unitId, students }) {
 
   const submittedCount = studentProgress?.filter(p => p.status === 'completed').length || 0
   const inProgressCount = studentProgress?.filter(p => p.status === 'in_progress').length || 0
+
+  const invalidateProgress = useCallback(() => {
+    queryClient.invalidateQueries({ queryKey: ['ic-writing-progress', task.id] })
+  }, [queryClient, task.id])
 
   return (
     <div className="space-y-6">
@@ -205,12 +213,17 @@ function WritingTaskContent({ task, unitId, students }) {
                         <Star size={10} /> {progress.trainer_grade}
                       </span>
                     )}
+                    {progress?.ai_feedback?.overall_score != null && (
+                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-purple-500/10 text-purple-400">
+                        AI {progress.ai_feedback.overall_score}/10
+                      </span>
+                    )}
                     {!progress && <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">لم تبدأ</span>}
                     {draft && <ChevronDown size={14} className={`text-[var(--text-muted)] transition-transform ${isExpanded ? 'rotate-180' : ''}`} />}
                   </div>
                 </button>
 
-                {/* Expanded: full text + feedback */}
+                {/* Expanded: full text + AI feedback + trainer form */}
                 <AnimatePresence>
                   {isExpanded && draft && (
                     <motion.div
@@ -228,25 +241,18 @@ function WritingTaskContent({ task, unitId, students }) {
                           </p>
                         </div>
 
-                        {/* Trainer feedback */}
-                        {progress?.trainer_feedback && (
-                          <div className="p-3 rounded-lg" style={{ background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.15)' }}>
-                            <p className="text-[10px] font-bold text-amber-400 font-['Tajawal'] mb-1">ملاحظات المدربة</p>
-                            <p className="text-xs text-[var(--text-secondary)] font-['Tajawal']">{progress.trainer_feedback}</p>
-                          </div>
-                        )}
+                        {/* AI feedback */}
+                        {progress?.ai_feedback && <AIFeedbackSummary feedback={progress.ai_feedback} />}
 
-                        {/* AI feedback summary */}
-                        {progress?.ai_feedback && (
-                          <div className="p-3 rounded-lg" style={{ background: 'rgba(168,85,247,0.06)', border: '1px solid rgba(168,85,247,0.15)' }}>
-                            <p className="text-[10px] font-bold text-purple-400 font-['Tajawal'] mb-1">تقييم الذكاء الاصطناعي</p>
-                            <p className="text-xs text-[var(--text-secondary)] font-['Tajawal']">
-                              {progress.ai_feedback.overall_score != null
-                                ? `الدرجة الإجمالية: ${progress.ai_feedback.overall_score}/100`
-                                : 'تم التقييم'}
-                            </p>
-                          </div>
-                        )}
+                        {/* Trainer feedback form */}
+                        <TrainerFeedbackForm
+                          studentId={student.user_id}
+                          writingId={task.id}
+                          existingGrade={progress?.trainer_grade}
+                          existingFeedback={progress?.trainer_feedback}
+                          trainerId={user?.id}
+                          onSaved={invalidateProgress}
+                        />
                       </div>
                     </motion.div>
                   )}
@@ -256,6 +262,173 @@ function WritingTaskContent({ task, unitId, students }) {
           })}
         </div>
       </div>
+    </div>
+  )
+}
+
+// ─── AI Feedback Summary ─────────────────────────
+function AIFeedbackSummary({ feedback }) {
+  const scores = [
+    { key: 'grammar_score', label: 'القواعد' },
+    { key: 'vocabulary_score', label: 'المفردات' },
+    { key: 'structure_score', label: 'التنظيم' },
+    { key: 'fluency_score', label: 'الطلاقة' },
+  ].filter(s => feedback[s.key] != null)
+
+  return (
+    <div className="rounded-lg p-3 space-y-2" style={{ background: 'rgba(168,85,247,0.04)', border: '1px solid rgba(168,85,247,0.12)' }}>
+      <div className="flex items-center gap-1.5">
+        <Bot size={12} className="text-purple-400" />
+        <span className="text-[10px] font-bold text-purple-400 font-['Tajawal']">تقييم AI</span>
+        {feedback.overall_score != null && (
+          <span className="mr-auto text-sm font-bold tabular-nums" style={{ color: feedback.overall_score >= 8 ? '#22c55e' : feedback.overall_score >= 6 ? '#38bdf8' : '#f59e0b' }}>
+            {feedback.overall_score}/10
+          </span>
+        )}
+      </div>
+
+      {scores.length > 0 && (
+        <div className="grid grid-cols-2 gap-x-4 gap-y-1.5">
+          {scores.map(s => (
+            <div key={s.key} className="flex items-center gap-2">
+              <span className="text-[10px] text-[var(--text-muted)] font-['Tajawal'] w-12 flex-shrink-0">{s.label}</span>
+              <div className="flex-1 h-1 rounded-full" style={{ background: 'rgba(255,255,255,0.06)' }}>
+                <div
+                  className="h-full rounded-full"
+                  style={{
+                    width: `${(feedback[s.key] / 10) * 100}%`,
+                    background: feedback[s.key] >= 8 ? '#22c55e' : feedback[s.key] >= 6 ? '#38bdf8' : '#f59e0b',
+                  }}
+                />
+              </div>
+              <span className="text-[10px] font-bold tabular-nums text-[var(--text-primary)]">{feedback[s.key]}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {feedback.overall_comment_ar && (
+        <p className="text-[10px] text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed pt-1">{feedback.overall_comment_ar}</p>
+      )}
+      {/* Fallback for old format */}
+      {!feedback.overall_comment_ar && feedback.overall_feedback_ar && (
+        <p className="text-[10px] text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed pt-1">{feedback.overall_feedback_ar}</p>
+      )}
+    </div>
+  )
+}
+
+// ─── Trainer Feedback Form ───────────────────────
+function TrainerFeedbackForm({ studentId, writingId, existingGrade, existingFeedback, trainerId, onSaved }) {
+  const [grade, setGrade] = useState(existingGrade || '')
+  const [feedback, setFeedback] = useState(existingFeedback || '')
+  const [saving, setSaving] = useState(false)
+  const [saved, setSaved] = useState(false)
+  const [open, setOpen] = useState(false)
+
+  const handleSave = async () => {
+    if (!grade) return
+    setSaving(true)
+    setSaved(false)
+
+    const { error } = await supabase
+      .from('student_curriculum_progress')
+      .update({
+        trainer_grade: grade,
+        trainer_feedback: feedback || null,
+        trainer_graded_at: new Date().toISOString(),
+        trainer_graded_by: trainerId,
+      })
+      .eq('student_id', studentId)
+      .eq('writing_id', writingId)
+
+    if (error) {
+      console.error('Failed to save trainer feedback:', error)
+    } else {
+      // Notify student
+      await supabase.from('notifications').insert({
+        user_id: studentId,
+        type: 'writing_graded',
+        title: 'تم تقييم كتابتك',
+        body: `قيّم المعلم مهمة الكتابة — التقدير: ${grade}`,
+        data: { writing_id: writingId, grade },
+      })
+      setSaved(true)
+      onSaved?.()
+      setTimeout(() => setSaved(false), 2000)
+    }
+    setSaving(false)
+  }
+
+  return (
+    <div style={{ borderTop: '1px solid var(--border-subtle)' }}>
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between py-2.5"
+      >
+        <div className="flex items-center gap-1.5">
+          <GraduationCap size={13} className="text-emerald-400" />
+          <span className="text-xs font-bold text-emerald-400 font-['Tajawal']">تقييم المعلم</span>
+          {existingGrade && <span className="text-[10px] font-bold text-emerald-400 px-1.5 py-0.5 rounded bg-emerald-500/10">{existingGrade}</span>}
+        </div>
+        <ChevronDown size={13} className={`text-[var(--text-muted)] transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="overflow-hidden"
+          >
+            <div className="space-y-3 pb-1">
+              {/* Grade */}
+              <div>
+                <label className="text-[10px] text-[var(--text-muted)] font-['Tajawal'] mb-1 block">التقدير</label>
+                <div className="flex gap-1.5 flex-wrap">
+                  {GRADE_OPTIONS.map(g => (
+                    <button
+                      key={g}
+                      onClick={() => setGrade(g)}
+                      className={`px-3 h-8 rounded-lg text-xs font-bold border transition-colors ${
+                        grade === g
+                          ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40'
+                          : 'bg-[var(--surface-base)] text-[var(--text-muted)] border-[var(--border-subtle)] hover:text-[var(--text-primary)]'
+                      }`}
+                    >
+                      {g}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Feedback text */}
+              <div>
+                <label className="text-[10px] text-[var(--text-muted)] font-['Tajawal'] mb-1 block">ملاحظة (اختياري)</label>
+                <textarea
+                  value={feedback}
+                  onChange={e => setFeedback(e.target.value)}
+                  rows={2}
+                  className="w-full rounded-lg px-3 py-2 text-xs font-['Tajawal'] resize-none outline-none"
+                  style={{ background: 'var(--surface-base)', border: '1px solid var(--border-subtle)', color: 'var(--text-primary)' }}
+                  placeholder="اكتب ملاحظتك هنا..."
+                />
+              </div>
+
+              {/* Save */}
+              <button
+                onClick={handleSave}
+                disabled={!grade || saving}
+                className="flex items-center gap-1.5 px-4 h-9 rounded-lg text-xs font-bold font-['Tajawal'] transition-colors disabled:opacity-40 bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/25"
+              >
+                {saving ? <Loader2 size={13} className="animate-spin" /> : saved ? <CheckCircle size={13} /> : <Save size={13} />}
+                {saving ? 'جاري الحفظ...' : saved ? 'تم الحفظ' : 'حفظ التقييم'}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

@@ -25,7 +25,7 @@ function countWords(text) {
 
 // ─── Main Component ──────────────────────────────────
 export default function WritingTab({ unitId }) {
-  const { user } = useAuthStore()
+  const { profile } = useAuthStore()
 
   const { data: tasks, isLoading } = useQuery({
     queryKey: ['unit-writing', unitId],
@@ -56,7 +56,7 @@ export default function WritingTab({ unitId }) {
   return (
     <div className="space-y-6">
       {tasks.map((task, idx) => (
-        <WritingTask key={task.id} task={task} number={idx + 1} total={tasks.length} studentId={user?.id} unitId={unitId} />
+        <WritingTask key={task.id} task={task} number={idx + 1} total={tasks.length} studentId={profile?.id} unitId={unitId} />
       ))}
     </div>
   )
