@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Mic, Square, RotateCcw, Send, Loader2, CheckCircle, AlertCircle } from 'lucide-react'
+import { Mic, Square, RotateCcw, Send, Loader2, CheckCircle, AlertCircle, Bot } from 'lucide-react'
 import { supabase } from '../lib/supabase'
+import { invokeWithRetry } from '../lib/invokeWithRetry'
 import AudioPlayer from './AudioPlayer'
 
 // ─── Helpers ──────────────────────────────────────
@@ -46,6 +47,8 @@ export default function VoiceRecorder({
   const [audioBlob, setAudioBlob] = useState(null)
   const [audioUrl, setAudioUrl] = useState(existingRecording?.audio_url || null)
   const [uploadProgress, setUploadProgress] = useState(0)
+  const [evaluating, setEvaluating] = useState(false)
+  const [evaluation, setEvaluation] = useState(existingRecording?.ai_evaluation || null)
 
   const recorderRef = useRef(null)
   const streamRef = useRef(null)
@@ -242,6 +245,7 @@ export default function VoiceRecorder({
           unit_id: unitId,
           question_index: questionIndex,
           audio_url: signedUrl,
+          audio_path: filePath,
           audio_duration_seconds: Math.round(elapsed),
           audio_format: mimeType,
           audio_size_bytes: audioBlob.size,
@@ -291,12 +295,35 @@ export default function VoiceRecorder({
       setAudioUrl(signedUrl)
       setState(STATE.UPLOADED)
       onUploadComplete?.(signedUrl, recording.id)
+
+      // Trigger AI evaluation (non-blocking)
+      triggerEvaluation(recording.id)
     } catch (err) {
       console.error('Upload failed:', err)
       setError('فشل رفع التسجيل — اضغط لإعادة المحاولة')
       setState(STATE.RECORDED) // Keep the blob so they can retry
     }
   }, [audioBlob, studentId, unitId, questionIndex, elapsed, onUploadComplete])
+
+  // ─── Trigger AI Evaluation ───
+  const triggerEvaluation = useCallback(async (recordingId) => {
+    setEvaluating(true)
+    setEvaluation(null)
+    try {
+      const { data, error } = await invokeWithRetry('evaluate-speaking', {
+        body: { recording_id: recordingId },
+      }, { timeoutMs: 60000 })
+
+      if (!error && data?.evaluation) {
+        setEvaluation(data.evaluation)
+      }
+    } catch (err) {
+      console.error('Evaluation failed:', err)
+      // Silent fail — recording is saved, evaluation can be retried by trainer
+    } finally {
+      setEvaluating(false)
+    }
+  }, [])
 
   // ─── Re-record ───
   const reRecord = useCallback(() => {
@@ -432,6 +459,39 @@ export default function VoiceRecorder({
               <CheckCircle size={16} />
               <span className="text-sm font-bold font-['Tajawal']">تم الرفع بنجاح</span>
             </div>
+
+            {/* AI Evaluation status */}
+            {evaluating && (
+              <div className="flex items-center justify-center gap-2 py-2">
+                <Loader2 size={14} className="text-sky-400 animate-spin" />
+                <span className="text-xs text-sky-400 font-['Tajawal']">جاري التقييم بالذكاء الاصطناعي...</span>
+              </div>
+            )}
+            {!evaluating && evaluation && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="rounded-xl p-3 space-y-2"
+                style={{ background: 'rgba(56,189,248,0.04)', border: '1px solid rgba(56,189,248,0.12)' }}
+              >
+                <div className="flex items-center gap-1.5">
+                  <Bot size={13} className="text-sky-400" />
+                  <span className="text-xs font-bold text-sky-400 font-['Tajawal']">تقييم الذكاء الاصطناعي</span>
+                  {evaluation.overall_score != null && (
+                    <span className="mr-auto text-sm font-bold tabular-nums" style={{ color: evaluation.overall_score >= 8 ? '#22c55e' : evaluation.overall_score >= 6 ? '#38bdf8' : '#f59e0b' }}>
+                      {evaluation.overall_score}/10
+                    </span>
+                  )}
+                </div>
+                {evaluation.feedback_ar && (
+                  <p className="text-[11px] text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed">{evaluation.feedback_ar}</p>
+                )}
+              </motion.div>
+            )}
+            {!evaluating && !evaluation && state === STATE.UPLOADED && !existingRecording?.ai_evaluation && (
+              <p className="text-[10px] text-center text-[var(--text-muted)] font-['Tajawal']">التقييم سيكون متاحاً قريباً</p>
+            )}
+
             <div className="flex justify-center">
               <button
                 onClick={reRecord}
