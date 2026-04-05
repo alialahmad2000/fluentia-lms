@@ -6,6 +6,7 @@ import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import WritingFeedback from '../../../../components/curriculum/WritingFeedback'
+import ShareAchievementCard from '../../../../components/ShareAchievementCard'
 
 // ─── Storage helpers ─────────────────────────────────
 const draftKey = (taskId) => `fluentia_writing_draft_${taskId}`
@@ -25,7 +26,7 @@ function countWords(text) {
 
 // ─── Main Component ──────────────────────────────────
 export default function WritingTab({ unitId }) {
-  const { profile } = useAuthStore()
+  const { profile, studentData } = useAuthStore()
 
   const { data: tasks, isLoading } = useQuery({
     queryKey: ['unit-writing', unitId],
@@ -57,14 +58,14 @@ export default function WritingTab({ unitId }) {
   return (
     <div className="space-y-6">
       {tasks.map((task, idx) => (
-        <WritingTask key={task.id} task={task} number={idx + 1} total={tasks.length} studentId={profile?.id} unitId={unitId} />
+        <WritingTask key={task.id} task={task} number={idx + 1} total={tasks.length} studentId={profile?.id} unitId={unitId} studentName={profile?.display_name || profile?.full_name} />
       ))}
     </div>
   )
 }
 
 // ─── Writing Task ────────────────────────────────────
-function WritingTask({ task, number, total, studentId, unitId }) {
+function WritingTask({ task, number, total, studentId, unitId, studentName }) {
   const [text, setText] = useState('')
   const [saved, setSaved] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -518,6 +519,22 @@ function WritingTask({ task, number, total, studentId, unitId }) {
 
       {/* AI feedback display */}
       {aiFeedback && <WritingFeedback feedback={aiFeedback} />}
+
+      {/* Share achievement card */}
+      {aiFeedback && (
+        <ShareAchievementCard
+          type="writing"
+          studentName={studentName}
+          studentText={text}
+          feedback={aiFeedback}
+          scores={{
+            ...(aiFeedback.grammar_score != null && { grammar: aiFeedback.grammar_score }),
+            ...(aiFeedback.vocabulary_score != null && { vocabulary: aiFeedback.vocabulary_score }),
+            ...(aiFeedback.structure_score != null && { structure: aiFeedback.structure_score }),
+            ...(aiFeedback.fluency_score != null && { fluency: aiFeedback.fluency_score }),
+          }}
+        />
+      )}
     </div>
   )
 }

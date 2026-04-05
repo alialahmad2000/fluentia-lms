@@ -2,6 +2,7 @@ import { useState, useMemo, useCallback } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Mic, ChevronDown, Clock, MessageCircle, Sparkles, Volume2, Bot, GraduationCap } from 'lucide-react'
+import ShareAchievementCard from '../../../../components/ShareAchievementCard'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import VoiceRecorder from '../../../../components/VoiceRecorder'
@@ -10,6 +11,7 @@ import VoiceRecorder from '../../../../components/VoiceRecorder'
 export default function SpeakingTab({ unitId }) {
   const { profile } = useAuthStore()
   const studentId = profile?.id
+  const studentName = profile?.display_name || profile?.full_name
   const queryClient = useQueryClient()
 
   const { data: topics, isLoading } = useQuery({
@@ -121,6 +123,7 @@ export default function SpeakingTab({ unitId }) {
           questionIndex={idx}
           unitId={unitId}
           studentId={studentId}
+          studentName={studentName}
           existingRecording={latestByQuestion[idx] || null}
           onUploadComplete={handleUploadComplete}
         />
@@ -130,7 +133,7 @@ export default function SpeakingTab({ unitId }) {
 }
 
 // ─── Speaking Topic ──────────────────────────────────
-function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId, existingRecording, onUploadComplete }) {
+function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId, studentName, existingRecording, onUploadComplete }) {
   const [tipsOpen, setTipsOpen] = useState(false)
   const [phrasesOpen, setPhrasesOpen] = useState(false)
 
@@ -301,6 +304,22 @@ function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId,
 
       {/* AI Evaluation (if available) */}
       {aiEval && <AIEvaluationCard evaluation={aiEval} />}
+
+      {/* Share achievement card */}
+      {aiEval && (
+        <ShareAchievementCard
+          type="speaking"
+          studentName={studentName}
+          studentText={existingRecording?.transcript || ''}
+          feedback={aiEval}
+          scores={{
+            ...(aiEval.grammar_score != null && { grammar: aiEval.grammar_score }),
+            ...(aiEval.vocabulary_score != null && { vocabulary: aiEval.vocabulary_score }),
+            ...(aiEval.fluency_score != null && { fluency: aiEval.fluency_score }),
+            ...(aiEval.confidence_score != null && { pronunciation: aiEval.confidence_score }),
+          }}
+        />
+      )}
 
       {/* Trainer Feedback (if available) */}
       {existingRecording?.trainer_reviewed && (
