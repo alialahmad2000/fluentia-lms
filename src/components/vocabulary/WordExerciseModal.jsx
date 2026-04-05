@@ -22,6 +22,13 @@ const EXERCISES = [
 export default function WordExerciseModal({ word, unitWords, mastery, studentId, isOpen, onClose, onMasteryUpdate }) {
   const [activeExercise, setActiveExercise] = useState(null)
 
+  // Hooks must be called before any conditional return (React rules of hooks)
+  const distractors = useMemo(() => {
+    if (!word) return []
+    const others = (unitWords || []).filter(w => w.id !== word.id)
+    return shuffle(others).slice(0, Math.min(3, others.length))
+  }, [word?.id, unitWords])
+
   if (!isOpen || !word) return null
 
   const passedCount = [
@@ -109,12 +116,6 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
         }, { onConflict: 'student_id,vocabulary_id' })
     } catch {}
   }
-
-  // Get distractors from same unit
-  const distractors = useMemo(() => {
-    const others = (unitWords || []).filter(w => w.id !== word.id)
-    return shuffle(others).slice(0, Math.min(3, others.length))
-  }, [word.id, unitWords])
 
   return (
     <AnimatePresence>
