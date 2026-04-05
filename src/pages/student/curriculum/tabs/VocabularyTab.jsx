@@ -1,11 +1,13 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Languages, Volume2, LayoutGrid, List, RotateCcw, CheckCircle } from 'lucide-react'
+import { Languages, Volume2, LayoutGrid, List, RotateCcw, CheckCircle, Dumbbell } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import VocabularyExercises from './VocabularyExercises'
+import { useVocabularyMastery } from '../../../../hooks/useVocabularyMastery'
+import WordExerciseModal from '../../../../components/vocabulary/WordExerciseModal'
 
 const POS_AR = {
   noun: 'اسم',
@@ -25,11 +27,15 @@ export default function VocabularyTab({ unitId }) {
   const [reviewedWords, setReviewedWords] = useState(new Set())
   const [isCompleted, setIsCompleted] = useState(false)
   const [progressLoading, setProgressLoading] = useState(true)
+  const [exerciseWord, setExerciseWord] = useState(null) // word object for exercise modal
   const hasSavedComplete = useRef(false)
   const timeRef = useRef(0)
   const timerRef = useRef(null)
   const saveTimer = useRef(null)
   const progressIdRef = useRef(null)
+
+  // Per-word mastery tracking
+  const { masteryMap, masteredCount, learningCount, getMastery } = useVocabularyMastery(user?.id, unitId)
 
   const { data, isLoading } = useQuery({
     queryKey: ['unit-vocabulary', unitId],
@@ -182,7 +188,11 @@ export default function VocabularyTab({ unitId }) {
         <div>
           <h3 className="text-base font-bold text-[var(--text-primary)] font-['Tajawal']">مفردات الوحدة</h3>
           <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">
-            راجعت {reviewedWords.size} من {totalWords} كلمة
+            {masteredCount > 0 ? (
+              <><span className="text-emerald-400">{masteredCount} أُتقنت</span> · {learningCount > 0 && <><span className="text-amber-400">{learningCount} قيد التعلم</span> · </>}{totalWords - masteredCount - learningCount} جديدة</>
+            ) : (
+              <>راجعت {reviewedWords.size} من {totalWords} كلمة</>
+            )}
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -212,22 +222,29 @@ export default function VocabularyTab({ unitId }) {
         </div>
       </div>
 
-      {/* Progress bar */}
-      <div className="h-1.5 rounded-full bg-[var(--surface-base)] overflow-hidden">
-        <div
-          className="h-full rounded-full transition-all duration-500"
-          style={{
-            width: `${totalWords > 0 ? (reviewedWords.size / totalWords) * 100 : 0}%`,
-            background: reviewedWords.size >= totalWords && totalWords > 0 ? '#10b981' : '#0ea5e9',
-          }}
-        />
+      {/* Mastery progress bar (stacked: mastered + learning) */}
+      <div className="h-1.5 rounded-full bg-[var(--surface-base)] overflow-hidden flex">
+        {masteredCount > 0 && (
+          <div className="h-full transition-all duration-500" style={{ width: `${(masteredCount / totalWords) * 100}%`, background: '#10b981' }} />
+        )}
+        {learningCount > 0 && (
+          <div className="h-full transition-all duration-500" style={{ width: `${(learningCount / totalWords) * 100}%`, background: '#f59e0b' }} />
+        )}
+        {masteredCount === 0 && learningCount === 0 && reviewedWords.size > 0 && (
+          <div className="h-full transition-all duration-500" style={{ width: `${(reviewedWords.size / totalWords) * 100}%`, background: '#0ea5e9' }} />
+        )}
       </div>
 
       {/* Completed badge */}
-      {isCompleted && (
+      {masteredCount >= totalWords && totalWords > 0 ? (
         <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25">
           <CheckCircle size={16} className="text-emerald-400" />
-          <span className="text-sm font-medium text-emerald-400 font-['Tajawal']">تم مراجعة جميع المفردات</span>
+          <span className="text-sm font-medium text-emerald-400 font-['Tajawal']">أتقنت جميع المفردات!</span>
+        </div>
+      ) : isCompleted && (
+        <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-500/10 border border-sky-500/25">
+          <CheckCircle size={16} className="text-sky-400" />
+          <span className="text-sm font-medium text-sky-400 font-['Tajawal']">تم مراجعة جميع المفردات — أكمل التمارين لإتقانها</span>
         </div>
       )}
 
@@ -251,28 +268,38 @@ export default function VocabularyTab({ unitId }) {
                   key={v.id}
                   variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
                 >
-                  <WordCard word={v} reviewed={reviewedWords.has(v.id)} onView={() => markReviewed(v.id)} />
+                  <WordCard word={v} reviewed={reviewedWords.has(v.id)} mastery={getMastery(v.id)} onView={() => markReviewed(v.id)} onPractice={() => setExerciseWord(v)} />
                 </motion.div>
               ))}
             </motion.div>
           ) : (
-            <WordListView vocabulary={vocabulary} reviewedWords={reviewedWords} onView={markReviewed} />
+            <WordListView vocabulary={vocabulary} reviewedWords={reviewedWords} getMastery={getMastery} onView={markReviewed} onPractice={setExerciseWord} />
           )}
         </div>
       ))}
 
       {/* Vocabulary Exercises */}
       <VocabularyExercises unitId={unitId} allWords={allWords} />
+
+      {/* Per-word exercise modal */}
+      <WordExerciseModal
+        word={exerciseWord}
+        unitWords={allWords}
+        mastery={exerciseWord ? getMastery(exerciseWord.id) : null}
+        studentId={user?.id}
+        isOpen={!!exerciseWord}
+        onClose={() => setExerciseWord(null)}
+        onMasteryUpdate={() => {}}
+      />
     </div>
   )
 }
 
 // ─── Word Card ───────────────────────────────────────
-function WordCard({ word, reviewed, onView }) {
+function WordCard({ word, reviewed, mastery, onView, onPractice }) {
   const audioRef = useRef(null)
   const viewedRef = useRef(false)
 
-  // Mark as reviewed when card comes into view / is interacted with
   useEffect(() => {
     if (!viewedRef.current && onView) {
       viewedRef.current = true
@@ -288,23 +315,25 @@ function WordCard({ word, reviewed, onView }) {
     audioRef.current.play().catch(() => {})
   }
 
+  const isMastered = mastery?.mastery_level === 'mastered'
+  const isLearning = mastery?.mastery_level === 'learning'
+  const passedCount = [mastery?.meaning_exercise_passed, mastery?.sentence_exercise_passed, mastery?.listening_exercise_passed].filter(Boolean).length
+
+  const borderColor = isMastered ? 'rgba(16,185,129,0.4)' : isLearning ? 'rgba(245,158,11,0.3)' : reviewed ? 'rgba(56,189,248,0.2)' : 'var(--border-subtle)'
+
   return (
     <div
       className="rounded-xl overflow-hidden relative"
-      style={{ background: 'var(--surface-raised)', border: `1px solid ${reviewed ? 'rgba(16,185,129,0.3)' : 'var(--border-subtle)'}` }}
+      style={{ background: 'var(--surface-raised)', border: `1px solid ${borderColor}` }}
     >
-      {reviewed && (
-        <div className="absolute top-2 right-2 z-10 w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center">
-          <CheckCircle size={12} className="text-emerald-400" />
-        </div>
-      )}
+      {/* Mastery dots */}
+      <div className="absolute top-2 right-2 z-10 flex items-center gap-1">
+        {[0, 1, 2].map(i => (
+          <div key={i} className="w-2 h-2 rounded-full" style={{ background: i < passedCount ? '#22c55e' : 'rgba(255,255,255,0.1)' }} />
+        ))}
+      </div>
       {word.image_url && (
-        <img
-          src={word.image_url}
-          alt={word.word}
-          className="w-full h-28 object-cover"
-          loading="lazy"
-        />
+        <img src={word.image_url} alt={word.word} className="w-full h-28 object-cover" loading="lazy" />
       )}
       <div className="p-4 space-y-2">
         <div className="flex items-start justify-between gap-2">
@@ -315,10 +344,7 @@ function WordCard({ word, reviewed, onView }) {
             </p>
           </div>
           {word.audio_url && (
-            <button
-              onClick={playAudio}
-              className="w-9 h-9 rounded-full bg-sky-500/15 text-sky-400 flex items-center justify-center hover:bg-sky-500/25 transition-colors flex-shrink-0"
-            >
+            <button onClick={playAudio} className="w-9 h-9 rounded-full bg-sky-500/15 text-sky-400 flex items-center justify-center hover:bg-sky-500/25 transition-colors flex-shrink-0">
               <Volume2 size={16} />
             </button>
           )}
@@ -328,13 +354,30 @@ function WordCard({ word, reviewed, onView }) {
             "{word.example_sentence}"
           </p>
         )}
+        {/* Practice button */}
+        <button
+          onClick={() => onPractice?.(word)}
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold font-['Tajawal'] border transition-colors min-h-[36px] ${
+            isMastered
+              ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+              : isLearning
+                ? 'bg-amber-500/10 text-amber-400 border-amber-500/20 hover:bg-amber-500/15'
+                : 'bg-sky-500/10 text-sky-400 border-sky-500/20 hover:bg-sky-500/15'
+          }`}
+        >
+          {isMastered ? (
+            <><CheckCircle size={12} /> أُتقنت</>
+          ) : (
+            <><Dumbbell size={12} /> تمرّن {passedCount > 0 ? `(${passedCount}/3)` : ''}</>
+          )}
+        </button>
       </div>
     </div>
   )
 }
 
 // ─── Word List View ──────────────────────────────────
-function WordListView({ vocabulary, reviewedWords, onView }) {
+function WordListView({ vocabulary, reviewedWords, getMastery, onView, onPractice }) {
   const audioRef = useRef(null)
 
   const playAudio = (url, e) => {
@@ -351,24 +394,34 @@ function WordListView({ vocabulary, reviewedWords, onView }) {
     >
       {vocabulary.map(v => {
         const reviewed = reviewedWords?.has(v.id)
+        const mastery = getMastery?.(v.id)
         return (
-          <WordListItem key={v.id} word={v} reviewed={reviewed} onView={() => onView?.(v.id)} playAudio={playAudio} />
+          <WordListItem key={v.id} word={v} reviewed={reviewed} mastery={mastery} onView={() => onView?.(v.id)} onPractice={() => onPractice?.(v)} playAudio={playAudio} />
         )
       })}
     </div>
   )
 }
 
-function WordListItem({ word, reviewed, onView, playAudio }) {
+function WordListItem({ word, reviewed, mastery, onView, onPractice, playAudio }) {
   const viewedRef = useRef(false)
   useEffect(() => {
     if (!viewedRef.current && onView) { viewedRef.current = true; onView() }
   }, [onView])
 
+  const isMastered = mastery?.mastery_level === 'mastered'
+  const isLearning = mastery?.mastery_level === 'learning'
+  const passedCount = [mastery?.meaning_exercise_passed, mastery?.sentence_exercise_passed, mastery?.listening_exercise_passed].filter(Boolean).length
+
   return (
     <div className="flex items-center justify-between px-4 py-3 gap-3">
       <div className="flex items-center gap-3 min-w-0 flex-1" dir="ltr">
-        {reviewed && <CheckCircle size={12} className="text-emerald-400 flex-shrink-0" />}
+        {/* Mastery dots */}
+        <div className="flex items-center gap-0.5 flex-shrink-0">
+          {[0, 1, 2].map(i => (
+            <div key={i} className="w-1.5 h-1.5 rounded-full" style={{ background: i < passedCount ? '#22c55e' : 'rgba(255,255,255,0.1)' }} />
+          ))}
+        </div>
         <span className="text-sm font-semibold text-[var(--text-primary)] font-['Inter']">{word.word}</span>
         <span className="text-[10px] text-[var(--text-muted)] font-['Inter']">{word.part_of_speech}</span>
       </div>
@@ -382,6 +435,14 @@ function WordListItem({ word, reviewed, onView, playAudio }) {
             <Volume2 size={12} />
           </button>
         )}
+        <button
+          onClick={() => onPractice?.()}
+          className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors flex-shrink-0 ${
+            isMastered ? 'bg-emerald-500/10 text-emerald-400' : isLearning ? 'bg-amber-500/10 text-amber-400 hover:bg-amber-500/20' : 'bg-sky-500/10 text-sky-400 hover:bg-sky-500/20'
+          }`}
+        >
+          {isMastered ? <CheckCircle size={12} /> : <Dumbbell size={12} />}
+        </button>
       </div>
     </div>
   )
