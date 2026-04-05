@@ -220,10 +220,11 @@ export default function VoiceRecorder({
 
       setUploadProgress(30)
 
-      // 1. Upload to storage
+      // 1. Upload to storage (strip codec params for Supabase bucket MIME matching)
+      const uploadContentType = mimeType.split(';')[0]
       const { error: uploadError } = await supabase.storage
         .from('voice-notes')
-        .upload(filePath, audioBlob, { contentType: mimeType, upsert: false })
+        .upload(filePath, audioBlob, { contentType: uploadContentType, upsert: false })
 
       if (uploadError) throw uploadError
       setUploadProgress(60)
@@ -299,8 +300,14 @@ export default function VoiceRecorder({
       // Trigger AI evaluation (non-blocking)
       triggerEvaluation(recording.id)
     } catch (err) {
-      console.error('Upload failed:', err)
-      setError('فشل رفع التسجيل — اضغط لإعادة المحاولة')
+      console.error('Upload failed:', err?.message || err, {
+        studentId,
+        unitId,
+        questionIndex,
+        fileSize: audioBlob?.size,
+        mimeType: audioBlob?.type,
+      })
+      setError('فشل رفع ��لتسجيل — اضغط لإعادة المحاولة')
       setState(STATE.RECORDED) // Keep the blob so they can retry
     }
   }, [audioBlob, studentId, unitId, questionIndex, elapsed, onUploadComplete])

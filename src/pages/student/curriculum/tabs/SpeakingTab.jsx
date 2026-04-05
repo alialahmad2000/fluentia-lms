@@ -8,7 +8,8 @@ import VoiceRecorder from '../../../../components/VoiceRecorder'
 
 // ─── Main Component ──────────────────────────────────
 export default function SpeakingTab({ unitId }) {
-  const { user } = useAuthStore()
+  const { profile } = useAuthStore()
+  const studentId = profile?.id
   const queryClient = useQueryClient()
 
   const { data: topics, isLoading } = useQuery({
@@ -26,17 +27,17 @@ export default function SpeakingTab({ unitId }) {
 
   // Fetch existing recordings for this student + unit
   const { data: recordings } = useQuery({
-    queryKey: ['speaking-recordings', unitId, user?.id],
+    queryKey: ['speaking-recordings', unitId, studentId],
     queryFn: async () => {
       const { data } = await supabase
         .from('speaking_recordings')
         .select('*')
-        .eq('student_id', user.id)
+        .eq('student_id', studentId)
         .eq('unit_id', unitId)
         .order('created_at', { ascending: false })
       return data || []
     },
-    enabled: !!unitId && !!user?.id,
+    enabled: !!unitId && !!studentId,
   })
 
   // Group recordings: latest per question_index
@@ -51,11 +52,11 @@ export default function SpeakingTab({ unitId }) {
   // Save progress after upload
   const handleUploadComplete = useCallback(async () => {
     // Refresh recordings
-    queryClient.invalidateQueries({ queryKey: ['speaking-recordings', unitId, user?.id] })
+    queryClient.invalidateQueries({ queryKey: ['speaking-recordings', unitId, studentId] })
 
     // Update curriculum progress
     const progressRow = {
-      student_id: user.id,
+      student_id: studentId,
       unit_id: unitId,
       section_type: 'speaking',
       status: 'completed',
@@ -66,7 +67,7 @@ export default function SpeakingTab({ unitId }) {
     const { data: existing } = await supabase
       .from('student_curriculum_progress')
       .select('id')
-      .eq('student_id', user.id)
+      .eq('student_id', studentId)
       .eq('unit_id', unitId)
       .eq('section_type', 'speaking')
       .maybeSingle()
@@ -76,7 +77,7 @@ export default function SpeakingTab({ unitId }) {
     } else {
       await supabase.from('student_curriculum_progress').insert(progressRow)
     }
-  }, [unitId, user?.id, queryClient])
+  }, [unitId, studentId, queryClient])
 
   if (isLoading) return <SpeakingSkeleton />
 
@@ -101,7 +102,7 @@ export default function SpeakingTab({ unitId }) {
           total={topics.length}
           questionIndex={idx}
           unitId={unitId}
-          studentId={user?.id}
+          studentId={studentId}
           existingRecording={latestByQuestion[idx] || null}
           onUploadComplete={handleUploadComplete}
         />
