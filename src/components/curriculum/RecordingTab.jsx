@@ -5,6 +5,7 @@ import { Video, ExternalLink, Pencil, Trash2, Calendar, Link2, Loader2, AlertCir
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
 import { toast } from '../../components/ui/FluentiaToast'
+import VideoPlayer from '../VideoPlayer'
 
 const PARTS = [
   { id: 'a', label: 'Part A', labelAr: 'الجزء A (الأحد)' },
@@ -174,15 +175,12 @@ function RecordingCard({ recording, part, isStaff, onEdit }) {
         <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">{recording.notes}</p>
       )}
 
-      <a
-        href={recording.google_drive_url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-sky-500/15 text-sky-400 text-sm font-bold font-['Tajawal'] border border-sky-500/30 hover:bg-sky-500/25 transition-colors"
-      >
-        <ExternalLink size={14} />
-        فتح التسجيل
-      </a>
+      <VideoPlayer
+        url={recording.google_drive_url}
+        title={`تسجيل ${part.label}`}
+        date={recording.recorded_date ? new Date(recording.recorded_date).toLocaleDateString('ar-SA', { day: 'numeric', month: 'long' }) : null}
+        part={part.label}
+      />
     </motion.div>
   )
 }

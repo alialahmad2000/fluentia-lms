@@ -5,6 +5,7 @@ import { PlayCircle, X, Clock, Eye, FileText, Video, ExternalLink, BookOpen, Arc
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
 import EmptyState from '../../components/ui/EmptyState'
+import VideoPlayer from '../../components/VideoPlayer'
 
 const ARABIC_DAYS = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت']
 
@@ -155,27 +156,13 @@ function CurriculumRecordings() {
               const rec = recs.find(r => r.part === partId)
               if (rec) {
                 return (
-                  <div key={partId} className="flex items-center justify-between gap-3 py-2">
-                    <div className="flex items-center gap-2">
-                      <Video size={14} className="text-sky-400" />
-                      <span className="text-sm text-[var(--text-secondary)] font-['Tajawal']">
-                        Part {partId.toUpperCase()}
-                      </span>
-                      {rec.recorded_date && (
-                        <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">
-                          — {new Date(rec.recorded_date).toLocaleDateString('ar-SA', { day: 'numeric', month: 'long' })}
-                        </span>
-                      )}
-                    </div>
-                    <a
-                      href={rec.google_drive_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-500/10 text-sky-400 text-xs font-bold font-['Tajawal'] border border-sky-500/20 hover:bg-sky-500/20 transition-colors"
-                    >
-                      <ExternalLink size={12} />
-                      فتح التسجيل
-                    </a>
+                  <div key={partId} className="py-2">
+                    <VideoPlayer
+                      url={rec.google_drive_url}
+                      title={`Part ${partId.toUpperCase()}`}
+                      date={rec.recorded_date ? new Date(rec.recorded_date).toLocaleDateString('ar-SA', { day: 'numeric', month: 'long' }) : null}
+                      part={`Part ${partId.toUpperCase()}`}
+                    />
                   </div>
                 )
               }

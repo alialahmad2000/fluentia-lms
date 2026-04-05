@@ -10,6 +10,7 @@ import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import { toast } from '../../components/ui/FluentiaToast'
+import VideoPlayer from '../../components/VideoPlayer'
 
 const CLASS_TYPES = [
   { value: 'reading', label: 'قراءة' },
@@ -449,30 +450,25 @@ function CurriculumSection() {
       ) : filteredRecs.length > 0 ? (
         <div className="space-y-2">
           {filteredRecs.map(rec => (
-            <div key={rec.id} className="fl-card-static p-4 flex items-center justify-between gap-3">
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-[var(--text-primary)] font-['Tajawal'] truncate">
-                  الوحدة {rec.unit?.unit_number}: {rec.unit?.title_ar || rec.unit?.title_en} — Part {rec.part?.toUpperCase()}
-                </p>
-                <div className="flex items-center gap-3 text-xs text-muted font-['Tajawal']">
-                  <span>{rec.group?.code || ''}</span>
-                  {rec.recorded_date && <span>{new Date(rec.recorded_date).toLocaleDateString('ar-SA')}</span>}
+            <div key={rec.id} className="fl-card-static p-4 space-y-3">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-[var(--text-primary)] font-['Tajawal'] truncate">
+                    الوحدة {rec.unit?.unit_number}: {rec.unit?.title_ar || rec.unit?.title_en} — Part {rec.part?.toUpperCase()}
+                  </p>
+                  <div className="flex items-center gap-3 text-xs text-muted font-['Tajawal']">
+                    <span>{rec.group?.code || ''}</span>
+                    {rec.recorded_date && <span>{new Date(rec.recorded_date).toLocaleDateString('ar-SA')}</span>}
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-1.5 shrink-0">
-                <a
-                  href={rec.google_drive_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-icon"
-                  title="فتح"
-                >
-                  <ExternalLink size={14} className="text-sky-400" />
-                </a>
-                <button onClick={() => handleDeleteRec(rec.id)} className="btn-icon" title="حذف">
+                <button onClick={() => handleDeleteRec(rec.id)} className="btn-icon shrink-0" title="حذف">
                   <Trash2 size={14} className="text-red-400" />
                 </button>
               </div>
+              <VideoPlayer
+                url={rec.google_drive_url}
+                part={`Part ${rec.part?.toUpperCase()}`}
+              />
             </div>
           ))}
         </div>
