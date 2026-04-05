@@ -1,11 +1,16 @@
-import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useState, useMemo, useCallback } from 'react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Mic, ChevronDown, Clock, MessageCircle, Sparkles, Volume2 } from 'lucide-react'
+import { Mic, ChevronDown, Clock, MessageCircle, Sparkles, Volume2, Bot, GraduationCap } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
+import { useAuthStore } from '../../../../stores/authStore'
+import VoiceRecorder from '../../../../components/VoiceRecorder'
 
 // ─── Main Component ──────────────────────────────────
 export default function SpeakingTab({ unitId }) {
+  const { user } = useAuthStore()
+  const queryClient = useQueryClient()
+
   const { data: topics, isLoading } = useQuery({
     queryKey: ['unit-speaking', unitId],
     queryFn: async () => {
@@ -18,6 +23,60 @@ export default function SpeakingTab({ unitId }) {
     },
     enabled: !!unitId,
   })
+
+  // Fetch existing recordings for this student + unit
+  const { data: recordings } = useQuery({
+    queryKey: ['speaking-recordings', unitId, user?.id],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('speaking_recordings')
+        .select('*')
+        .eq('student_id', user.id)
+        .eq('unit_id', unitId)
+        .order('created_at', { ascending: false })
+      return data || []
+    },
+    enabled: !!unitId && !!user?.id,
+  })
+
+  // Group recordings: latest per question_index
+  const latestByQuestion = useMemo(() => {
+    const map = {}
+    recordings?.forEach(rec => {
+      if (!map[rec.question_index]) map[rec.question_index] = rec
+    })
+    return map
+  }, [recordings])
+
+  // Save progress after upload
+  const handleUploadComplete = useCallback(async () => {
+    // Refresh recordings
+    queryClient.invalidateQueries({ queryKey: ['speaking-recordings', unitId, user?.id] })
+
+    // Update curriculum progress
+    const progressRow = {
+      student_id: user.id,
+      unit_id: unitId,
+      section_type: 'speaking',
+      status: 'completed',
+      completed_at: new Date().toISOString(),
+    }
+
+    // Try upsert using the unique constraint (student_id, unit_id, section_type)
+    const { data: existing } = await supabase
+      .from('student_curriculum_progress')
+      .select('id')
+      .eq('student_id', user.id)
+      .eq('unit_id', unitId)
+      .eq('section_type', 'speaking')
+      .maybeSingle()
+
+    if (existing) {
+      await supabase.from('student_curriculum_progress').update(progressRow).eq('id', existing.id)
+    } else {
+      await supabase.from('student_curriculum_progress').insert(progressRow)
+    }
+  }, [unitId, user?.id, queryClient])
 
   if (isLoading) return <SpeakingSkeleton />
 
@@ -35,22 +94,26 @@ export default function SpeakingTab({ unitId }) {
   return (
     <div className="space-y-6">
       {topics.map((topic, idx) => (
-        <SpeakingTopic key={topic.id} topic={topic} number={idx + 1} total={topics.length} />
+        <SpeakingTopic
+          key={topic.id}
+          topic={topic}
+          number={idx + 1}
+          total={topics.length}
+          questionIndex={idx}
+          unitId={unitId}
+          studentId={user?.id}
+          existingRecording={latestByQuestion[idx] || null}
+          onUploadComplete={handleUploadComplete}
+        />
       ))}
     </div>
   )
 }
 
 // ─── Speaking Topic ──────────────────────────────────
-function SpeakingTopic({ topic, number, total }) {
+function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId, existingRecording, onUploadComplete }) {
   const [tipsOpen, setTipsOpen] = useState(false)
   const [phrasesOpen, setPhrasesOpen] = useState(false)
-  const [showToast, setShowToast] = useState(false)
-
-  const handleRecordClick = () => {
-    setShowToast(true)
-    setTimeout(() => setShowToast(false), 2500)
-  }
 
   const formatDuration = (seconds) => {
     if (seconds < 60) return `${seconds} ثانية`
@@ -66,6 +129,8 @@ function SpeakingTopic({ topic, number, total }) {
     opinion: 'رأي',
     discussion: 'نقاش',
   }
+
+  const aiEval = existingRecording?.ai_evaluation
 
   return (
     <div className="space-y-4">
@@ -215,40 +280,115 @@ function SpeakingTopic({ topic, number, total }) {
         </div>
       )}
 
-      {/* Record button (placeholder) */}
-      <div className="flex flex-col items-center gap-4 py-6">
-        <div className="relative">
-          {/* Pulsing ring */}
-          <div className="absolute inset-0 rounded-full bg-cyan-500/10 animate-ping" style={{ animationDuration: '2s' }} />
-          <button
-            onClick={handleRecordClick}
-            className="relative w-20 h-20 rounded-full bg-cyan-500/15 text-cyan-400 flex items-center justify-center hover:bg-cyan-500/25 transition-colors border border-cyan-500/20"
-          >
-            <Mic size={32} />
-          </button>
+      {/* AI Evaluation (if available) */}
+      {aiEval && <AIEvaluationCard evaluation={aiEval} />}
+
+      {/* Trainer Feedback (if available) */}
+      {existingRecording?.trainer_reviewed && (
+        <div
+          className="rounded-xl p-4 space-y-2"
+          style={{ background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.15)' }}
+        >
+          <div className="flex items-center gap-2">
+            <GraduationCap size={14} className="text-emerald-400" />
+            <span className="text-sm font-bold text-emerald-400 font-['Tajawal']">ملاحظات المعلم</span>
+            {existingRecording.trainer_grade && (
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-400">{existingRecording.trainer_grade}</span>
+            )}
+          </div>
+          {existingRecording.trainer_feedback && (
+            <p className="text-xs text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed">{existingRecording.trainer_feedback}</p>
+          )}
         </div>
-        <span className="px-3 py-1 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-400 font-['Tajawal']">
-          قريباً
-        </span>
-        <p className="text-xs text-[var(--text-muted)] font-['Tajawal'] text-center max-w-xs">
-          اضغط للتسجيل عندما تكون جاهزاً
-        </p>
+      )}
+
+      {/* Voice Recorder */}
+      <div
+        className="rounded-xl p-4"
+        style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}
+      >
+        <VoiceRecorder
+          studentId={studentId}
+          unitId={unitId}
+          questionIndex={questionIndex}
+          maxDuration={180}
+          existingRecording={existingRecording}
+          onUploadComplete={(url, id) => onUploadComplete?.()}
+        />
       </div>
 
-      {/* Toast */}
-      <AnimatePresence>
-        {showToast && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-24 lg:bottom-6 left-1/2 -translate-x-1/2 z-50 px-5 py-3 rounded-xl text-sm font-bold font-['Tajawal'] shadow-lg"
-            style={{ background: 'var(--surface-elevated)', border: '1px solid var(--border-subtle)', color: 'var(--text-primary)' }}
-          >
-            التسجيل سيكون متاحاً قريباً إن شاء الله
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Recording timestamp */}
+      {existingRecording?.created_at && (
+        <p className="text-[10px] text-[var(--text-muted)] font-['Tajawal'] text-center">
+          تم التسجيل بتاريخ {new Date(existingRecording.created_at).toLocaleDateString('ar-SA', { day: 'numeric', month: 'long' })}
+        </p>
+      )}
+    </div>
+  )
+}
+
+// ─── AI Evaluation Card ──────────────────────────────
+function AIEvaluationCard({ evaluation }) {
+  const CRITERIA_AR = {
+    grammar_score: 'القواعد',
+    vocabulary_score: 'المفردات',
+    fluency_score: 'الطلاقة',
+    confidence_score: 'الثقة',
+  }
+
+  const scores = Object.entries(CRITERIA_AR)
+    .map(([key, label]) => ({ key, label, score: evaluation[key] }))
+    .filter(s => s.score != null)
+
+  const overall = evaluation.overall_score
+
+  return (
+    <div
+      className="rounded-xl p-4 space-y-3"
+      style={{ background: 'rgba(56,189,248,0.04)', border: '1px solid rgba(56,189,248,0.12)' }}
+    >
+      <div className="flex items-center gap-2">
+        <Bot size={14} className="text-sky-400" />
+        <span className="text-sm font-bold text-sky-400 font-['Tajawal']">تقييم الذكاء الاصطناعي</span>
+      </div>
+
+      {/* Score bars */}
+      <div className="space-y-2">
+        {scores.map(s => (
+          <div key={s.key}>
+            <div className="flex items-center justify-between text-xs mb-0.5">
+              <span className="font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>{s.label}</span>
+              <span className="font-bold tabular-nums" style={{ color: 'var(--text-primary)' }}>{s.score}/10</span>
+            </div>
+            <div className="w-full h-1.5 rounded-full" style={{ background: 'rgba(255,255,255,0.06)' }}>
+              <div
+                className="h-full rounded-full transition-all duration-500"
+                style={{
+                  width: `${(s.score / 10) * 100}%`,
+                  background: s.score >= 8 ? '#22c55e' : s.score >= 6 ? '#38bdf8' : '#f59e0b',
+                }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Overall */}
+      {overall != null && (
+        <div className="flex items-center justify-between pt-2" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+          <span className="text-xs font-bold font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>الدرجة الكلية</span>
+          <span className="text-lg font-bold tabular-nums" style={{ color: overall >= 8 ? '#22c55e' : overall >= 6 ? '#38bdf8' : '#f59e0b' }}>
+            {overall}/10
+          </span>
+        </div>
+      )}
+
+      {/* Feedback */}
+      {evaluation.feedback_ar && (
+        <p className="text-xs text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed pt-1">
+          {evaluation.feedback_ar}
+        </p>
+      )}
     </div>
   )
 }
