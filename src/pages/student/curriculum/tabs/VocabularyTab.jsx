@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Languages, Volume2, LayoutGrid, List, RotateCcw, CheckCircle, Dumbbell, Search, BookOpen, Headphones, PenLine, ChevronLeft } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
@@ -67,7 +67,7 @@ function ProgressRing({ percent, size = 140 }) {
 
 // ─── Main Component ─────────────────────────────────
 export default function VocabularyTab({ unitId }) {
-  const { profile } = useAuthStore()
+  const { profile, studentData } = useAuthStore()
   const queryClient = useQueryClient()
   const [viewMode, setViewMode] = useState('cards')
   const [filter, setFilter] = useState('all')
@@ -86,6 +86,38 @@ export default function VocabularyTab({ unitId }) {
   const progressIdRef = useRef(null)
 
   const { masteryMap, isLoading: masteryLoading, masteredCount, learningCount, getMastery } = useVocabularyMastery(profile?.id, unitId)
+
+  // Save word to personal list
+  const studentId = studentData?.id
+  const { data: savedWordSet = new Set() } = useQuery({
+    queryKey: ['saved-words-set', studentId],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('student_saved_words')
+        .select('word')
+        .eq('student_id', studentId)
+      return new Set((data || []).map(w => w.word.toLowerCase()))
+    },
+    enabled: !!studentId && profile?.role === 'student',
+  })
+
+  const saveWordMutation = useMutation({
+    mutationFn: async (word) => {
+      const { error } = await supabase.from('student_saved_words').upsert({
+        student_id: studentId,
+        word: word.word,
+        meaning: word.definition_ar,
+        source_unit_id: unitId,
+        context_sentence: word.example_sentence || null,
+      }, { onConflict: 'student_id,word' })
+      if (error) throw error
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['saved-words-set', studentId] })
+      queryClient.invalidateQueries({ queryKey: ['saved-words', studentId] })
+      toast({ type: 'success', title: 'تم حفظ الكلمة 📌' })
+    },
+  })
 
   const { data, isLoading } = useQuery({
     queryKey: ['unit-vocabulary', unitId],
@@ -402,6 +434,9 @@ export default function VocabularyTab({ unitId }) {
                       reviewed={reviewedWords.has(v.id)}
                       onView={() => markReviewed(v.id)}
                       onPractice={() => setExerciseWord(v)}
+                      isSaved={savedWordSet.has?.(v.word?.toLowerCase())}
+                      onSaveWord={() => saveWordMutation.mutate(v)}
+                      isStudent={profile?.role === 'student'}
                     />
                   </motion.div>
                 ))}
@@ -465,7 +500,7 @@ function StatCard({ icon, count, label, color, bg }) {
 }
 
 // ─── Word Card (Premium) ──────────────────────────────
-function WordCard({ word, mastery, reviewed, onView, onPractice }) {
+function WordCard({ word, mastery, reviewed, onView, onPractice, isSaved, onSaveWord, isStudent }) {
   const audioRef = useRef(null)
   const viewedRef = useRef(false)
   const [imgError, setImgError] = useState(false)
@@ -583,11 +618,22 @@ function WordCard({ word, mastery, reviewed, onView, onPractice }) {
             )}
           </div>
 
-          <span className={`text-[10px] font-bold font-['Tajawal'] ${
-            isMastered ? 'text-emerald-400/70' : isLearning ? 'text-amber-400/70' : 'text-sky-400/70'
-          }`}>
-            {isMastered ? 'أتقنتها' : isLearning ? 'أكمل التمارين' : 'تمرّن'}
-          </span>
+          <div className="flex items-center gap-2">
+            {isStudent && (
+              <button
+                onClick={(e) => { e.stopPropagation(); onSaveWord?.() }}
+                className="text-[10px] font-bold font-['Tajawal'] transition-colors"
+                style={{ color: isSaved ? 'rgba(56,189,248,0.7)' : 'rgba(255,255,255,0.25)' }}
+              >
+                {isSaved ? '📌 محفوظة' : '📌 احفظ'}
+              </button>
+            )}
+            <span className={`text-[10px] font-bold font-['Tajawal'] ${
+              isMastered ? 'text-emerald-400/70' : isLearning ? 'text-amber-400/70' : 'text-sky-400/70'
+            }`}>
+              {isMastered ? 'أتقنتها' : isLearning ? 'أكمل التمارين' : 'تمرّن'}
+            </span>
+          </div>
         </div>
       </div>
     </motion.div>

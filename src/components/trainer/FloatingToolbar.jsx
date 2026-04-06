@@ -10,6 +10,7 @@ import AttendancePopup from './AttendancePopup'
 import QuickNotePopup from './QuickNotePopup'
 import TimerPopup from './TimerPopup'
 import UnitProgressPopup from './UnitProgressPopup'
+import HelpRequestsPopup from './HelpRequestsPopup'
 
 const TOOLBAR_BUTTONS = [
   { key: 'classMode', icon: '🎓', label: 'الكلاس', activeLabel: 'إنهاء' },
@@ -18,6 +19,7 @@ const TOOLBAR_BUTTONS = [
   { key: 'note', icon: '📝', label: 'ملاحظة' },
   { key: 'timer', icon: '⏱', label: 'تايمر' },
   { key: 'progress', icon: '📊', label: 'تقدم' },
+  { key: 'helpRequests', icon: '❓', label: 'مساعدة' },
 ]
 
 export default function FloatingToolbar() {
@@ -112,6 +114,9 @@ export default function FloatingToolbar() {
         )}
         {activePopup === 'progress' && groupId && unitId && (
           <UnitProgressPopup groupId={groupId} unitId={unitId} onClose={() => setActivePopup(null)} />
+        )}
+        {activePopup === 'helpRequests' && groupId && (
+          <HelpRequestsPopup groupId={groupId} onClose={() => setActivePopup(null)} />
         )}
       </AnimatePresence>
 

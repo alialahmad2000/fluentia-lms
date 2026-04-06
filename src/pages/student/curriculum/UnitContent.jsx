@@ -1,14 +1,18 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, BookOpen, PenLine, Languages, Headphones, FileEdit, Mic, ClipboardCheck, Video, Check } from 'lucide-react'
+import { ArrowRight, BookOpen, PenLine, Languages, Headphones, FileEdit, Mic, ClipboardCheck, Video, Check, MapPin } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import { tracker } from '../../../services/activityTracker'
 import { useUnitProgress } from '../../../hooks/useUnitProgress'
 import { useUnitStar } from '../../../hooks/useUnitStar'
 import UnitStarCard from '../../../components/UnitStarCard'
+import { toast } from '../../../components/ui/FluentiaToast'
+import StudentFAB from '../../../components/student/StudentFAB'
+import NotesPanel from '../../../components/student/NotesPanel'
+import SavedWordsPanel from '../../../components/student/SavedWordsPanel'
 import ReadingTab from './tabs/ReadingTab'
 import GrammarTab from './tabs/GrammarTab'
 import VocabularyTab from './tabs/VocabularyTab'
@@ -41,11 +45,15 @@ const LEVEL_NAMES = {
 export default function UnitContent() {
   const { unitId } = useParams()
   const navigate = useNavigate()
-  const { studentData } = useAuthStore()
+  const { profile, studentData } = useAuthStore()
   const currentLevel = studentData?.academic_level ?? 0
+  const isStudent = profile?.role === 'student'
   const [activeTab, setActiveTab] = useState('reading')
+  const [showNotes, setShowNotes] = useState(false)
+  const [showWords, setShowWords] = useState(false)
   const tabBarRef = useRef(null)
   const activeTabRef = useRef(null)
+  const queryClient = useQueryClient()
 
   const { data: unit, isLoading, error } = useQuery({
     queryKey: ['unit-content', unitId],
@@ -70,6 +78,79 @@ export default function UnitContent() {
   // Unit Star
   const groupId = studentData?.group_id
   const { data: unitStarData } = useUnitStar(unitId, groupId)
+
+  // Bookmarks for this unit (student only)
+  const { data: bookmarks = [] } = useQuery({
+    queryKey: ['student-bookmarks', studentData?.id, unitId],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('student_bookmarks')
+        .select('section_type')
+        .eq('student_id', studentData.id)
+        .eq('unit_id', unitId)
+      return data?.map(b => b.section_type) || []
+    },
+    enabled: isStudent && !!studentData?.id && !!unitId,
+  })
+
+  // Bookmark current tab
+  const bookmarkMutation = useMutation({
+    mutationFn: async () => {
+      const { error } = await supabase.from('student_bookmarks').upsert({
+        student_id: studentData.id,
+        unit_id: unitId,
+        section_type: activeTab,
+      }, { onConflict: 'student_id,unit_id,section_type' })
+      if (error) throw error
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['student-bookmarks', studentData?.id, unitId] })
+      toast({ type: 'success', title: 'تم الحفظ 📌' })
+    },
+  })
+
+  // Help request
+  const helpMutation = useMutation({
+    mutationFn: async () => {
+      // Rate limit: max 3 per day
+      const today = new Date().toISOString().split('T')[0]
+      const { count } = await supabase
+        .from('help_requests')
+        .select('id', { count: 'exact', head: true })
+        .eq('student_id', studentData.id)
+        .gte('created_at', today)
+      if (count >= 3) throw new Error('rate_limit')
+
+      const { error } = await supabase.from('help_requests').insert({
+        student_id: studentData.id,
+        unit_id: unitId,
+        section_type: activeTab,
+      })
+      if (error) throw error
+    },
+    onSuccess: () => {
+      toast({ type: 'success', title: 'تم إرسال طلبك للمدرب ✅' })
+    },
+    onError: (err) => {
+      if (err.message === 'rate_limit') {
+        toast({ type: 'error', title: 'وصلت الحد الأقصى (3 طلبات باليوم)' })
+      }
+    },
+  })
+
+  const handleBookmark = useCallback(() => {
+    if (bookmarks.includes(activeTab)) {
+      toast({ type: 'success', title: 'هالقسم محفوظ مسبقاً 📌' })
+    } else {
+      bookmarkMutation.mutate()
+    }
+  }, [activeTab, bookmarks, bookmarkMutation])
+
+  const handleHelp = useCallback(() => {
+    if (confirm('تبي المدرب يعرف إنك تحتاج مساعدة بهالقسم؟')) {
+      helpMutation.mutate()
+    }
+  }, [helpMutation])
 
   // Track unit view
   useEffect(() => {
@@ -272,6 +353,9 @@ export default function UnitContent() {
               {dotColor && (
                 <span className={`w-1.5 h-1.5 rounded-full ${dotColor} absolute top-2 left-2`} />
               )}
+              {isStudent && bookmarks.includes(tab.id) && (
+                <MapPin size={10} className="absolute top-1.5 right-1.5 text-sky-400" />
+              )}
             </button>
           )
         })}
@@ -289,6 +373,22 @@ export default function UnitContent() {
           {renderTabContent()}
         </motion.div>
       </AnimatePresence>
+
+      {/* Student Smart Tools */}
+      {isStudent && (
+        <>
+          <StudentFAB
+            onNotes={() => setShowNotes(true)}
+            onBookmark={handleBookmark}
+            onHelp={handleHelp}
+            onWords={() => setShowWords(true)}
+          />
+          <AnimatePresence>
+            {showNotes && <NotesPanel unitId={unitId} onClose={() => setShowNotes(false)} />}
+            {showWords && <SavedWordsPanel unitId={unitId} onClose={() => setShowWords(false)} />}
+          </AnimatePresence>
+        </>
+      )}
     </motion.div>
   )
 }
