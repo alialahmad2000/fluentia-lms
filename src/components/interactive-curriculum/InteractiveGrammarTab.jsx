@@ -159,31 +159,8 @@ function GrammarTopicContent({ topic, unitId, students }) {
 function GrammarExplanation({ content }) {
   const [expanded, setExpanded] = useState(true)
 
-  const renderContent = () => {
-    if (typeof content === 'string') return <p className="text-sm text-[var(--text-secondary)] font-['Inter'] leading-relaxed" dir="ltr">{content}</p>
-    if (!content) return null
-
-    return (
-      <div className="space-y-4">
-        {content.sections?.map((section, idx) => (
-          <div key={idx} className="space-y-2">
-            {section.title && <h4 className="text-sm font-bold text-[var(--text-primary)] font-['Inter']" dir="ltr">{section.title}</h4>}
-            {section.explanation && <p className="text-sm text-[var(--text-secondary)] font-['Inter'] leading-relaxed" dir="ltr">{section.explanation}</p>}
-            {section.formula && (
-              <div className="px-4 py-3 rounded-xl" style={{ background: 'linear-gradient(135deg, rgba(56,189,248,0.08), rgba(168,85,247,0.08))', border: '1px solid rgba(56,189,248,0.15)' }}>
-                <p className="text-sm font-mono text-sky-400 font-['Inter']" dir="ltr">{section.formula}</p>
-              </div>
-            )}
-            {section.examples?.map((ex, i) => (
-              <div key={i} className="px-3 py-2 rounded-lg text-sm font-['Inter']" dir="ltr" style={{ background: 'var(--surface-base)' }}>
-                {typeof ex === 'string' ? ex : ex.sentence || ex.text || JSON.stringify(ex)}
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
-    )
-  }
+  if (!content) return null
+  const sections = content.sections || []
 
   return (
     <div className="rounded-xl overflow-hidden" style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}>
@@ -194,13 +171,110 @@ function GrammarExplanation({ content }) {
       <AnimatePresence>
         {expanded && (
           <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }} className="overflow-hidden">
-            <div className="px-5 pb-4" style={{ borderTop: '1px solid var(--border-subtle)' }}>
-              <div className="pt-3">{renderContent()}</div>
+            <div className="px-5 pb-4 space-y-5" style={{ borderTop: '1px solid var(--border-subtle)' }}>
+              <div className="pt-4 space-y-5">
+                {typeof content === 'string' ? (
+                  <p className="text-sm text-[var(--text-secondary)] font-['Inter'] leading-relaxed" dir="ltr">{content}</p>
+                ) : (
+                  sections.map((section, idx) => (
+                    <ExplanationSectionRenderer key={idx} section={section} />
+                  ))
+                )}
+              </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
     </div>
+  )
+}
+
+// Matches the student GrammarTab's SectionRenderer — renders by section.type
+function ExplanationSectionRenderer({ section }) {
+  switch (section.type) {
+    case 'explanation':
+      return (
+        <div className="space-y-3">
+          {section.content_en && (
+            <div
+              dir="ltr"
+              className="text-sm sm:text-[15px] leading-[1.8] text-[var(--text-primary)] font-['Inter'] grammar-html"
+              dangerouslySetInnerHTML={{ __html: section.content_en }}
+            />
+          )}
+          {section.content_ar && (
+            <div
+              className="rounded-xl px-4 py-3 text-sm text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed"
+              style={{ background: 'var(--surface-base)', borderRight: '3px solid rgba(56,189,248,0.4)' }}
+              dir="rtl"
+            >
+              {section.content_ar}
+            </div>
+          )}
+        </div>
+      )
+    case 'formula':
+      return (
+        <div
+          className="rounded-xl px-5 py-4 text-center"
+          style={{ background: 'linear-gradient(135deg, rgba(56,189,248,0.08), rgba(168,85,247,0.08))', border: '1px solid rgba(56,189,248,0.2)' }}
+        >
+          <p className="text-sm font-bold text-sky-400 font-['Inter'] tracking-wide" dir="ltr">
+            {section.content}
+          </p>
+        </div>
+      )
+    case 'examples':
+      return (
+        <div className="space-y-2">
+          <h4 className="text-xs font-bold text-emerald-400 font-['Tajawal'] flex items-center gap-1.5">أمثلة</h4>
+          <div className="space-y-2">
+            {section.items?.map((ex, i) => (
+              <div key={i} className="rounded-lg px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1" style={{ background: 'var(--surface-base)' }}>
+                <p className="text-sm text-[var(--text-primary)] font-['Inter']" dir="ltr">
+                  {ex.highlight ? highlightText(ex.sentence, ex.highlight) : ex.sentence}
+                </p>
+                {ex.translation_ar && (
+                  <p className="text-xs text-[var(--text-muted)] font-['Tajawal'] sm:text-end flex-shrink-0" dir="rtl">{ex.translation_ar}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+    case 'common_mistakes':
+      return (
+        <div className="space-y-2">
+          <h4 className="text-xs font-bold text-red-400 font-['Tajawal'] flex items-center gap-1.5">أخطاء شائعة</h4>
+          <div className="space-y-2">
+            {section.items?.map((m, i) => (
+              <div key={i} className="rounded-lg px-4 py-3 space-y-1.5" style={{ background: 'var(--surface-base)' }}>
+                <div className="flex items-center gap-3" dir="ltr">
+                  <span className="text-sm text-red-400 line-through font-['Inter']">{m.wrong}</span>
+                  <span className="text-[var(--text-muted)]">→</span>
+                  <span className="text-sm text-emerald-400 font-semibold font-['Inter']">{m.correct}</span>
+                </div>
+                {m.explanation_ar && (
+                  <p className="text-xs text-[var(--text-muted)] font-['Tajawal']" dir="rtl">{m.explanation_ar}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+    default:
+      return null
+  }
+}
+
+function highlightText(sentence, word) {
+  if (!word || !sentence) return sentence
+  const regex = new RegExp(`(${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi')
+  const parts = sentence.split(regex)
+  return parts.map((part, i) =>
+    regex.test(part)
+      ? <span key={i} className="text-sky-400 font-semibold">{part}</span>
+      : <span key={i}>{part}</span>
   )
 }
 
