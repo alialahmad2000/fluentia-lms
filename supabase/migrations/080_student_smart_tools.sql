@@ -48,29 +48,27 @@ ALTER TABLE student_notes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE student_saved_words ENABLE ROW LEVEL SECURITY;
 ALTER TABLE help_requests ENABLE ROW LEVEL SECURITY;
 
--- Students manage own data
+-- Students manage own data (students.id = profiles.id = auth.uid())
 CREATE POLICY "Students manage own bookmarks" ON student_bookmarks
-  FOR ALL USING (student_id IN (SELECT id FROM students WHERE profile_id = auth.uid()));
+  FOR ALL USING (student_id = auth.uid());
 
 CREATE POLICY "Students manage own notes" ON student_notes
-  FOR ALL USING (student_id IN (SELECT id FROM students WHERE profile_id = auth.uid()));
+  FOR ALL USING (student_id = auth.uid());
 
 CREATE POLICY "Students manage own saved words" ON student_saved_words
-  FOR ALL USING (student_id IN (SELECT id FROM students WHERE profile_id = auth.uid()));
+  FOR ALL USING (student_id = auth.uid());
 
 CREATE POLICY "Students create help requests" ON help_requests
-  FOR ALL USING (student_id IN (SELECT id FROM students WHERE profile_id = auth.uid()));
+  FOR ALL USING (student_id = auth.uid());
 
 -- Trainers see help requests for their groups
 CREATE POLICY "Trainers see group help requests" ON help_requests
   FOR SELECT USING (
     EXISTS (
       SELECT 1 FROM students s
-      JOIN group_members gm ON gm.student_id = s.id
-      JOIN groups g ON g.id = gm.group_id
-      JOIN trainers t ON t.id = g.trainer_id
+      JOIN groups g ON g.id = s.group_id
       WHERE s.id = help_requests.student_id
-      AND t.profile_id = auth.uid()
+      AND g.trainer_id = auth.uid()
     )
   );
 
