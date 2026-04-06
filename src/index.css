@@ -25,6 +25,12 @@ body {
   padding-top: var(--sat);
 }
 
+/* Safe area utility classes */
+.safe-top { padding-top: env(safe-area-inset-top, 0px); }
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
+.fixed-top-safe { top: env(safe-area-inset-top, 0px); }
+.fixed-bottom-safe { bottom: env(safe-area-inset-bottom, 0px); }
+
 @layer base {
   html {
     direction: rtl;
@@ -444,11 +450,9 @@ html.theme-transition *::after {
 /* ═══════════════════════════════════════════════════════════
    REDUCED MOTION
    ═══════════════════════════════════════════════════════════ */
-/* Prevent default overscroll bounce on iOS PWA which conflicts with pull-to-refresh */
-@media all and (display-mode: standalone) {
-  html, body {
-    overscroll-behavior-y: contain;
-  }
+/* Disable browser default pull-to-refresh — we have our own */
+html, body {
+  overscroll-behavior-y: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

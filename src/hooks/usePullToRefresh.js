@@ -10,7 +10,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
  * @param {number} [options.threshold=80] - pull distance to trigger refresh
  * @param {boolean} [options.disabled=false] - disable the behavior
  */
-export default function usePullToRefresh(onRefresh, { threshold = 80, disabled = false } = {}) {
+export default function usePullToRefresh(onRefresh, { threshold = 60, disabled = false } = {}) {
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [pullDistance, setPullDistance] = useState(0)
   const startY = useRef(0)

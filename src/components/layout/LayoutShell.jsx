@@ -154,9 +154,9 @@ export default function LayoutShell() {
       {/* Pull-to-refresh indicator (mobile) */}
       {(pullDistance > 0 || isRefreshing) && (
         <div
-          className="fixed top-[var(--sat)] left-0 right-0 z-[60] flex items-center justify-center lg:hidden"
+          className="fixed top-[var(--sat)] left-0 right-0 z-[60] flex flex-col items-center justify-center lg:hidden"
           style={{
-            height: `${Math.max(pullDistance, isRefreshing ? 40 : 0)}px`,
+            height: `${Math.max(pullDistance, isRefreshing ? 50 : 0)}px`,
             transition: isRefreshing ? 'none' : 'height 0.1s',
           }}
         >
@@ -166,11 +166,16 @@ export default function LayoutShell() {
               background: 'var(--surface-raised)',
               border: '1px solid var(--border-subtle)',
               opacity: Math.min(pullProgress, 1),
-              transform: `rotate(${pullProgress * 360}deg)`,
+              transform: isRefreshing ? undefined : `rotate(${pullProgress * 360}deg)`,
             }}
           >
             <Loader2 size={16} className={isRefreshing ? 'animate-spin' : ''} style={{ color: 'var(--accent-sky)' }} />
           </div>
+          {pullDistance > 20 && !isRefreshing && (
+            <span className="text-[10px] mt-1 font-['Tajawal']" style={{ color: 'var(--text-muted)', opacity: Math.min(pullProgress, 1) }}>
+              {pullProgress >= 1 ? 'أفلت للتحديث' : 'اسحب للتحديث'}
+            </span>
+          )}
         </div>
       )}
 

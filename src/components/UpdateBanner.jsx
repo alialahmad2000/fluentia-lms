@@ -55,16 +55,25 @@ export default function UpdateBanner() {
           initial={{ y: -60, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -60, opacity: 0 }}
-          className="fixed top-0 left-0 right-0 z-[9999] bg-gradient-to-r from-sky-600 to-indigo-600 text-white px-4 py-3 flex items-center justify-between shadow-lg"
+          className="fixed left-0 right-0 z-[9999] flex items-center justify-between shadow-lg"
           dir="rtl"
+          style={{
+            top: 0,
+            paddingTop: 'calc(env(safe-area-inset-top, 0px) + 12px)',
+            paddingBottom: '12px',
+            paddingLeft: '16px',
+            paddingRight: '16px',
+            background: 'linear-gradient(to left, rgb(2,132,199), rgb(79,70,229))',
+            backdropFilter: 'blur(8px)',
+          }}
         >
           <div className="flex items-center gap-2">
             <span className="text-lg">🆕</span>
-            <span className="text-sm font-medium font-['Tajawal']">يوجد تحديث جديد للموقع!</span>
+            <span className="text-sm font-medium font-['Tajawal'] text-white">يوجد تحديث جديد للموقع!</span>
           </div>
           <button
             onClick={handleUpdate}
-            className="bg-white/20 hover:bg-white/30 text-white text-sm font-bold px-4 py-1.5 rounded-lg transition-colors font-['Tajawal']"
+            className="bg-white/20 hover:bg-white/30 text-white text-sm font-bold px-4 py-1.5 rounded-lg transition-colors font-['Tajawal'] min-h-[44px] min-w-[44px]"
           >
             تحديث الآن ↻
           </button>

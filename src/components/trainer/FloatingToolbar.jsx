@@ -130,6 +130,7 @@ export default function FloatingToolbar() {
           background: 'rgba(6, 14, 28, 0.95)',
           backdropFilter: 'blur(20px)',
           borderTop: '1px solid rgba(255,255,255,0.08)',
+          paddingBottom: 'env(safe-area-inset-bottom, 0px)',
         }}
       >
         <div className="flex items-center justify-center gap-1 sm:gap-3 h-[60px] max-w-lg mx-auto px-2">
