@@ -211,7 +211,14 @@ function InteractiveExercisesSection({ exercises, getStudentAnswers }) {
     <div className="space-y-4">
       <h3 className="text-base font-bold text-[var(--text-primary)] font-['Tajawal']">التمارين</h3>
       <div className="space-y-4">
-        {exercises.map((ex, idx) => (
+        {exercises.map((ex, idx) => {
+          const items = ex.items || []
+          const firstItem = items[0]
+          const questionText = firstItem?.question || ex.instructions_en || ex.instructions_ar || ''
+          const correctAnswer = firstItem?.correct_answer
+          const options = firstItem?.options || []
+
+          return (
           <div
             key={ex.id}
             className="rounded-xl p-4 sm:p-5 space-y-3"
@@ -225,51 +232,69 @@ function InteractiveExercisesSection({ exercises, getStudentAnswers }) {
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-md border bg-amber-500/15 text-amber-400 border-amber-500/30 font-['Tajawal']">
                   {EXERCISE_TYPE_LABELS[ex.exercise_type] || ex.exercise_type}
                 </span>
-                <p className="text-sm sm:text-[15px] font-medium text-[var(--text-primary)] font-['Inter'] leading-relaxed" dir="ltr">
-                  {ex.question_en || ex.instruction_en || ex.sentence}
-                </p>
-                {(ex.question_ar || ex.instruction_ar) && (
-                  <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">{ex.question_ar || ex.instruction_ar}</p>
+                {ex.instructions_en && (
+                  <p className="text-xs text-[var(--text-muted)] font-['Inter']" dir="ltr">{ex.instructions_en}</p>
                 )}
+                {ex.instructions_ar && (
+                  <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">{ex.instructions_ar}</p>
+                )}
+                {/* Render each item/question in the exercise */}
+                {items.map((item, itemIdx) => (
+                  <div key={itemIdx} className="space-y-2">
+                    {item.question && (
+                      <p className="text-sm sm:text-[15px] font-medium text-[var(--text-primary)] font-['Inter'] leading-relaxed" dir="ltr">
+                        {items.length > 1 && <span className="text-[var(--text-muted)] mr-1">{itemIdx + 1}.</span>}
+                        {item.question}
+                      </p>
+                    )}
+
+                    {/* Show choices if it's a choose type */}
+                    {ex.exercise_type === 'choose' && item.options?.length > 0 && (
+                      <div className="grid grid-cols-1 gap-2 mt-1">
+                        {item.options.map((opt, i) => {
+                          const isCorrect = opt.toLowerCase?.().trim() === item.correct_answer?.toLowerCase?.().trim()
+                          return (
+                            <div key={i} dir="ltr" className={`px-4 py-3 rounded-xl text-sm font-['Inter'] border ${isCorrect ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-[var(--surface-base)] border-[var(--border-subtle)] text-[var(--text-secondary)]'}`}>
+                              <div className="flex items-center gap-3">
+                                <span className="w-6 h-6 rounded-md flex items-center justify-center text-[11px] font-bold flex-shrink-0" style={{ background: isCorrect ? 'rgba(16,185,129,0.2)' : 'var(--surface-raised)', color: isCorrect ? '#34d399' : 'var(--text-muted)' }}>
+                                  {String.fromCharCode(65 + i)}
+                                </span>
+                                <span>{opt}</span>
+                                {isCorrect && <span className="text-emerald-400 text-xs mr-auto">✅</span>}
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    )}
+
+                    {/* Show correct answer for non-choose types */}
+                    {ex.exercise_type !== 'choose' && item.correct_answer && (
+                      <div className="px-3 py-2 rounded-lg text-xs" style={{ background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.15)' }}>
+                        <span className="text-emerald-400 font-['Tajawal']">الإجابة الصحيحة: </span>
+                        <span className="text-emerald-400 font-['Inter']" dir="ltr">{item.correct_answer}</span>
+                      </div>
+                    )}
+
+                    {/* Show explanation if available */}
+                    {item.explanation_ar && (
+                      <p className="text-xs text-[var(--text-muted)] font-['Tajawal'] px-3">{item.explanation_ar}</p>
+                    )}
+                  </div>
+                ))}
               </div>
 
               <StudentAnswersOverlay
                 questionId={ex.id}
-                correctAnswer={ex.correct_answer}
-                studentsData={getStudentAnswers(ex.id, ex.correct_answer)}
+                correctAnswer={correctAnswer}
+                studentsData={getStudentAnswers(ex.id, correctAnswer)}
                 isOpen={openOverlay === ex.id}
                 onToggle={() => setOpenOverlay(prev => prev === ex.id ? null : ex.id)}
               />
             </div>
-
-            {/* Show choices if it's a choose type */}
-            {ex.exercise_type === 'choose' && ex.options?.length > 0 && (
-              <div className="grid grid-cols-1 gap-2 mt-1">
-                {ex.options.map((opt, i) => {
-                  const isCorrect = opt.toLowerCase?.().trim() === ex.correct_answer?.toLowerCase?.().trim()
-                  return (
-                    <div key={i} dir="ltr" className={`px-4 py-3 rounded-xl text-sm font-['Inter'] border ${isCorrect ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-[var(--surface-base)] border-[var(--border-subtle)] text-[var(--text-secondary)]'}`}>
-                      <div className="flex items-center gap-3">
-                        <span className="w-6 h-6 rounded-md flex items-center justify-center text-[11px] font-bold flex-shrink-0" style={{ background: isCorrect ? 'rgba(16,185,129,0.2)' : 'var(--surface-raised)', color: isCorrect ? '#34d399' : 'var(--text-muted)' }}>
-                          {String.fromCharCode(65 + i)}
-                        </span>
-                        <span>{opt}</span>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            )}
-
-            {/* Show correct answer for non-choose types */}
-            {ex.exercise_type !== 'choose' && ex.correct_answer && (
-              <div className="px-3 py-2 rounded-lg text-xs" style={{ background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.15)' }}>
-                <span className="text-emerald-400 font-['Tajawal']">الإجابة الصحيحة: </span>
-                <span className="text-emerald-400 font-['Inter']" dir="ltr">{ex.correct_answer}</span>
-              </div>
-            )}
           </div>
-        ))}
+          )
+        })}
       </div>
     </div>
   )

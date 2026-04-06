@@ -5,16 +5,28 @@ import { Languages, Users, BookOpen, CheckCircle, Clock, ChevronDown, ChevronUp,
 import { supabase } from '../../lib/supabase'
 
 export default function InteractiveVocabularyTab({ unitId, students = [] }) {
-  // Fetch vocabulary for this unit
+  // Fetch vocabulary for this unit (two-step: readings → vocabulary via reading_id)
   const { data: vocabulary, isLoading: vocabLoading } = useQuery({
     queryKey: ['unit-vocabulary-ic', unitId],
     queryFn: async () => {
-      const { data } = await supabase
-        .from('curriculum_vocabulary')
-        .select('*, reading:curriculum_readings(reading_label)')
+      // Step 1: Get readings for this unit
+      const { data: readings } = await supabase
+        .from('curriculum_readings')
+        .select('id, reading_label')
         .eq('unit_id', unitId)
         .order('sort_order')
-      return data || []
+      if (!readings?.length) return []
+      // Step 2: Get vocabulary for each reading
+      const readingIds = readings.map(r => r.id)
+      const { data: vocab } = await supabase
+        .from('curriculum_vocabulary')
+        .select('*')
+        .in('reading_id', readingIds)
+        .order('sort_order')
+      if (!vocab?.length) return []
+      // Attach reading label to each word
+      const readingMap = Object.fromEntries(readings.map(r => [r.id, r]))
+      return vocab.map(v => ({ ...v, reading: readingMap[v.reading_id] || null }))
     },
     enabled: !!unitId,
   })
