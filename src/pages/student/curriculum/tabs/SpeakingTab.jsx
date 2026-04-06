@@ -8,6 +8,7 @@ import { useActivityLeaderboard } from '../../../../hooks/useActivityLeaderboard
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import VoiceRecorder from '../../../../components/VoiceRecorder'
+import { safeCelebrate } from '../../../../lib/celebrations'
 
 // ─── Main Component ──────────────────────────────────
 export default function SpeakingTab({ unitId }) {
@@ -74,6 +75,7 @@ export default function SpeakingTab({ unitId }) {
 
   // Save progress after upload
   const handleUploadComplete = useCallback(async () => {
+    try { safeCelebrate('speaking_uploaded') } catch {}
     // Refresh recordings
     queryClient.invalidateQueries({ queryKey: ['speaking-recordings', unitId, studentId] })
 

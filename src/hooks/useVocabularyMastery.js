@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '../lib/supabase'
+import { safeCelebrate } from '../lib/celebrations'
 
 export function useVocabularyMastery(studentId, unitId) {
   const queryClient = useQueryClient()

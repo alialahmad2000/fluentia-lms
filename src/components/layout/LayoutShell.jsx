@@ -16,6 +16,7 @@ import UpdateBanner from '../UpdateBanner'
 import { useAuthStore } from '../../stores/authStore'
 import { hasPackageAccess } from '../PackageGate'
 import { PACKAGES } from '../../lib/constants'
+import XPFloater from '../ui/XPFloater'
 import usePullToRefresh from '../../hooks/usePullToRefresh'
 import useActivityTracker from '../../hooks/useActivityTracker'
 import { usePageTracking } from '../../hooks/usePageTracking'
@@ -199,6 +200,9 @@ export default function LayoutShell() {
           />
         </main>
       </div>
+
+      {/* XP Floater (global) */}
+      <XPFloater />
 
       {/* AI Floating Helper */}
       <AIFloatingHelper />

@@ -9,6 +9,8 @@ import { isOverdue } from '../../utils/dateHelpers'
 import VoiceRecorder from './VoiceRecorder'
 import ImageUpload from './ImageUpload'
 import FileUpload from './FileUpload'
+import { safeCelebrate } from '../../lib/celebrations'
+import { emitXP } from '../ui/XPFloater'
 
 export default function SubmissionForm({ assignment, existingSubmission, studentId, onClose }) {
   const queryClient = useQueryClient()
@@ -130,6 +132,8 @@ export default function SubmissionForm({ assignment, existingSubmission, student
     onSuccess: (_, { asDraft }) => {
       if (!asDraft) {
         try { tracker.track('assignment_submit', { assignment_id: assignment.id, type: assignment.type, is_late: late }) } catch {}
+        try { safeCelebrate('assignment_submitted') } catch {}
+        try { emitXP(20, 'تسليم واجب') } catch {}
       }
       queryClient.invalidateQueries({ queryKey: ['student-submissions'] })
       queryClient.invalidateQueries({ queryKey: ['student-pending-assignments'] })

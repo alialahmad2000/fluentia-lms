@@ -5,6 +5,7 @@ import { FileEdit, Lightbulb, Save, Send, ChevronDown, CheckCircle2, BookOpen, T
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
+import { safeCelebrate } from '../../../../lib/celebrations'
 import WritingFeedback from '../../../../components/curriculum/WritingFeedback'
 import ShareAchievementCard from '../../../../components/ShareAchievementCard'
 import ActivityLeaderboard from '../../../../components/ActivityLeaderboard'
@@ -201,6 +202,7 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
     await saveToDb(text, true)
     setSubmitted(true)
     toast({ type: 'success', title: 'تم إرسال كتابتك — جاري التصحيح...' })
+    try { safeCelebrate('writing_submitted') } catch {}
 
     // 2. Call AI feedback
     try {

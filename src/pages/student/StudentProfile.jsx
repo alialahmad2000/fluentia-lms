@@ -772,6 +772,7 @@ const THEME_OPTIONS = [
 
 function AppearanceContent() {
   const { theme, setTheme } = useThemeStore()
+  const [soundEnabled, setSoundEnabled] = useState(() => localStorage.getItem('fluentia_sounds') !== 'off')
 
   return (
     <div className="space-y-6">
@@ -847,6 +848,35 @@ function AppearanceContent() {
           )
         })}
       </div>
+
+      {/* Sound Effects Toggle */}
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="fl-card-static p-5">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-amber-500/10 flex items-center justify-center">
+              <span className="text-lg">🔊</span>
+            </div>
+            <div>
+              <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>تأثيرات صوتية</p>
+              <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>أصوات عند كسب XP والإنجازات</p>
+            </div>
+          </div>
+          <button
+            onClick={() => {
+              const next = !soundEnabled
+              setSoundEnabled(next)
+              localStorage.setItem('fluentia_sounds', next ? 'on' : 'off')
+            }}
+            className="relative w-11 h-6 rounded-full transition-colors duration-200"
+            style={{ background: soundEnabled ? 'var(--accent-sky)' : 'var(--surface-overlay)' }}
+          >
+            <span
+              className="absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform duration-200"
+              style={{ transform: soundEnabled ? 'translateX(20px)' : 'translateX(0)' }}
+            />
+          </button>
+        </div>
+      </motion.div>
     </div>
   )
 }

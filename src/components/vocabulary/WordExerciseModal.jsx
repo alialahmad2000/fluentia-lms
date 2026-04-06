@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X, CheckCircle, Volume2, BookOpen, PenLine, Headphones } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { toast } from '../ui/FluentiaToast'
+import { safeCelebrate } from '../../lib/celebrations'
+import { emitXP } from '../ui/XPFloater'
 
 function shuffle(arr) {
   const a = [...arr]
@@ -76,6 +78,8 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
           reason: 'correct_answer',
           description: `أتقن تمرين "${word.word}"`,
         }).catch(() => {})
+        try { emitXP(3, `تمرين "${word.word}"`) } catch {}
+        try { safeCelebrate('correct_answer') } catch {}
       }
 
       // Bonus XP if all 3 mastered
@@ -86,6 +90,8 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
           reason: 'correct_answer',
           description: `أتقن كلمة "${word.word}" بالكامل`,
         }).catch(() => {})
+        try { emitXP(5, `أتقنت "${word.word}"`) } catch {}
+        try { safeCelebrate('word_mastered') } catch {}
         toast({ type: 'success', title: `+5 XP — أتقنت "${word.word}"!` })
       }
     } catch (err) {

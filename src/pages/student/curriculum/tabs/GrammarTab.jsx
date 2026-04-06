@@ -6,6 +6,7 @@ import { supabase } from '../../../../lib/supabase'
 import { validateAnswer } from '../../../../utils/answerValidator'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
+import { safeCelebrate } from '../../../../lib/celebrations'
 
 const EXERCISE_TYPE_LABELS = {
   fill_blank: 'أكمل الفراغ',
@@ -384,6 +385,7 @@ function ExerciseSection({ exercises, studentId, unitId, grammarId }) {
       setRetrying(false)
       setIsCompleted(true)
       toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
+      try { safeCelebrate('grammar_complete') } catch {}
     }
   }, [studentId, unitId, grammarId, total, buildResults, retrying, attemptNumber, attemptHistory, savedData])
 

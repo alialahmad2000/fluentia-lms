@@ -1,4 +1,6 @@
 import { supabase } from '../lib/supabase'
+import { emitXP } from '../components/ui/XPFloater'
+import { safeCelebrate } from '../lib/celebrations'
 
 const DESCRIPTIONS = {
   vocab_anki: 'تدريب المفردات — أنكي',
@@ -52,6 +54,11 @@ export async function awardPracticeXP(studentId, activityType, stats) {
     console.error('XP award error:', error)
     return 0
   }
+
+  try {
+    emitXP(xp, desc)
+    safeCelebrate('xp_gain')
+  } catch {}
 
   return xp
 }

@@ -4,6 +4,8 @@ import { supabase } from '../../lib/supabase'
 import { GAMIFICATION_LEVELS } from '../../lib/constants'
 import AchievementUnlock from './AchievementUnlock'
 import LevelUpCelebration from './LevelUpCelebration'
+import { safeCelebrate } from '../../lib/celebrations'
+import { emitXP } from '../ui/XPFloater'
 
 function getLevel(xp) {
   for (let i = GAMIFICATION_LEVELS.length - 1; i >= 0; i--) {
@@ -119,9 +121,11 @@ export default function GamificationProvider() {
   const [levelUp, setLevelUp] = useState(null)
   const lastCheckedXpRef = useRef(null)
 
+  const [streakCelebration, setStreakCelebration] = useState(null)
   const isStudent = profile?.role === 'student'
   const studentId = profile?.id
   const currentXp = studentData?.xp_total || 0
+  const currentStreak = studentData?.current_streak || 0
 
   // Check for level up when XP changes (real-time via authStore subscription)
   // Uses localStorage to ensure popup only shows once per level-up
@@ -146,11 +150,30 @@ export default function GamificationProvider() {
       if (newLevel.level > lastSeenLevel) {
         setLevelUp(newLevel.level)
         localStorage.setItem(`fluentia_last_seen_level_${studentId}`, String(newLevel.level))
+        try { safeCelebrate('level_up') } catch {}
       }
     }
 
     lastCheckedXpRef.current = currentXp
   }, [currentXp, isStudent, studentId])
+
+  // Check for streak milestones
+  useEffect(() => {
+    if (!isStudent || !studentId || !currentStreak) return
+    const milestones = [7, 14, 30, 60, 90]
+    const currentMilestone = milestones.filter(m => currentStreak >= m).pop()
+    const lastCelebrated = Number(localStorage.getItem(`fluentia_streak_milestone_${studentId}`) || '0')
+    if (currentMilestone && currentMilestone > lastCelebrated) {
+      localStorage.setItem(`fluentia_streak_milestone_${studentId}`, String(currentMilestone))
+      try { safeCelebrate('streak_milestone') } catch {}
+      setUnlockedAchievement({
+        icon: '\uD83D\uDD25',
+        name_ar: `سلسلة ${currentMilestone} يوم!`,
+        description_ar: currentMilestone >= 30 ? 'إنجاز مذهل — استمر!' : 'أحسنت — واصل يومياً!',
+        xp_reward: 0,
+      })
+    }
+  }, [isStudent, studentId, currentStreak])
 
   // Check for new achievements periodically
   const checkAchievements = useCallback(async () => {
@@ -230,8 +253,12 @@ export default function GamificationProvider() {
                 if (feedErr) console.warn('[Achievement] Feed error:', feedErr.message)
               }
 
-              // Show unlock animation
+              // Show unlock animation + celebration
               setUnlockedAchievement(achievement)
+              try { safeCelebrate('achievement_unlocked') } catch {}
+              if (achievement.xp_reward > 0) {
+                try { emitXP(achievement.xp_reward, achievement.name_ar) } catch {}
+              }
               return // Only show one at a time
             }
           }

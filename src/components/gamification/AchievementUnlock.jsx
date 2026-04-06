@@ -1,8 +1,15 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Award, X, Zap } from 'lucide-react'
 
 export default function AchievementUnlock({ achievement, onClose }) {
+  // Auto-close after 5 seconds
+  useEffect(() => {
+    if (!achievement) return
+    const timer = setTimeout(onClose, 5000)
+    return () => clearTimeout(timer)
+  }, [achievement, onClose])
+
   if (!achievement) return null
 
   return (
@@ -110,6 +117,25 @@ export default function AchievementUnlock({ achievement, onClose }) {
                 <Zap size={14} /> +{achievement.xp_reward} XP
               </motion.div>
             )}
+
+            {/* Share button */}
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+              className="mt-4 block w-full py-3 rounded-xl text-sm font-medium transition-colors"
+              style={{ background: 'var(--surface-raised)', color: 'var(--text-secondary)', border: '1px solid var(--border-subtle)' }}
+              onClick={() => {
+                try {
+                  if (navigator.share) {
+                    navigator.share({ text: `حققت إنجاز "${achievement.name_ar}" في Fluentia!` }).catch(() => {})
+                  }
+                } catch {}
+                onClose()
+              }}
+            >
+              شارك إنجازك
+            </motion.button>
           </div>
         </motion.div>
       </motion.div>
