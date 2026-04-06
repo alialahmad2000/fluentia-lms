@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   House, CalendarDays, Video, FileText, Users, Zap, Bot, CreditCard, Settings,
   BarChart3, User, MoreHorizontal, X, Mic, PenLine, MessageSquare, ClipboardCheck,
-  UsersRound, GraduationCap, ListChecks, Loader2, Lock, Map,
+  UsersRound, GraduationCap, ListChecks, Loader2, Lock, Map, StickyNote, TrendingUp,
 } from 'lucide-react'
 import Sidebar from './Sidebar'
 import Header from './Header'
@@ -41,8 +41,8 @@ const MOBILE_TABS = {
   ],
   trainer: [
     { to: '/trainer', label: 'الرئيسية', icon: House },
-    { to: '/trainer/students', label: 'الطلاب', icon: Users },
-    { to: '/trainer/curriculum', label: 'المنهج', icon: FileText },
+    { to: '/trainer/my-students', label: 'الطلاب', icon: Users },
+    { to: '/trainer/grading', label: 'التقييم', icon: ClipboardCheck },
     { to: '/trainer/points', label: 'الحصة', icon: Zap },
   ],
   admin: [
@@ -67,7 +67,9 @@ const MORE_ITEMS = {
     { to: '/student/group-activity', label: 'نشاط المجموعة', icon: UsersRound, requiredPackage: 'talaqa' },
   ],
   trainer: [
-    { to: '/trainer/interactive-curriculum', label: 'المنهج التفاعلي', icon: Map },
+    { to: '/trainer/curriculum', label: 'المنهج', icon: FileText },
+    { to: '/trainer/my-notes', label: 'ملاحظاتي', icon: StickyNote },
+    { to: '/trainer/weekly-report', label: 'تقرير أسبوعي', icon: TrendingUp },
     { to: '/trainer/progress-matrix', label: 'تقدم الطلاب', icon: BarChart3 },
     { to: '/trainer/conversation', label: 'المحادثة', icon: MessageSquare },
     { to: '/trainer/ai-assistant', label: 'المساعد الذكي', icon: Bot },

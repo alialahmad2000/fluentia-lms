@@ -87,6 +87,9 @@ const TrainerQuizGenerator = lazyRetry(() => import('./pages/trainer/TrainerQuiz
 const TrainerWeeklyGrading = lazyRetry(() => import('./pages/trainer/TrainerWeeklyGrading'))
 const TrainerCurriculum = lazyRetry(() => import('./pages/trainer/TrainerCurriculum'))
 const TrainerProgressMatrix = lazyRetry(() => import('./pages/trainer/TrainerProgressMatrix'))
+const MyNotes = lazyRetry(() => import('./pages/trainer/MyNotes'))
+const WeeklyReport = lazyRetry(() => import('./pages/trainer/WeeklyReport'))
+const MyStudents = lazyRetry(() => import('./pages/trainer/MyStudents'))
 const StudentProgressDetail = lazyRetry(() => import('./pages/trainer/StudentProgressDetail'))
 
 const AdminDashboard = lazyRetry(() => import('./pages/admin/AdminDashboard'))
@@ -385,6 +388,7 @@ export default function App() {
               <Route path="/trainer" element={<Page><TrainerDashboard /></Page>} />
               <Route path="/trainer/assignments" element={<Page><TrainerAssignments /></Page>} />
               <Route path="/trainer/writing" element={<Page><TrainerGrading /></Page>} />
+              <Route path="/trainer/grading" element={<Page><TrainerGrading /></Page>} />
               <Route path="/trainer/schedule" element={<Page><TrainerSchedule /></Page>} />
               <Route path="/trainer/notes" element={<Page><TrainerNotes /></Page>} />
               <Route path="/trainer/library" element={<Page><TrainerLibrary /></Page>} />
@@ -408,6 +412,9 @@ export default function App() {
               <Route path="/trainer/interactive-curriculum" element={<Page><InteractiveCurriculumLevels /></Page>} />
               <Route path="/trainer/interactive-curriculum/:levelId" element={<Page><InteractiveCurriculumUnits /></Page>} />
               <Route path="/trainer/interactive-curriculum/:levelId/:unitId" element={<Page><InteractiveCurriculumPage /></Page>} />
+              <Route path="/trainer/my-notes" element={<Page><MyNotes /></Page>} />
+              <Route path="/trainer/weekly-report" element={<Page><WeeklyReport /></Page>} />
+              <Route path="/trainer/my-students" element={<Page><MyStudents /></Page>} />
               <Route path="/trainer/student/:studentId/progress" element={<Page><StudentProgressDetail /></Page>} />
             </Route>
           </Route>

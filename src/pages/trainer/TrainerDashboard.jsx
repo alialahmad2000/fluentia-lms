@@ -73,7 +73,7 @@ export default function TrainerDashboard() {
       if (!currentGroupIds.length) return []
       const { data, error } = await supabase
         .from('students')
-        .select('id, xp_total, current_streak, last_active_at, team_id, group_id, profiles!inner(full_name, display_name, avatar_url)')
+        .select('id, xp_total, current_streak, team_id, group_id, profiles!inner(full_name, display_name, avatar_url, last_active_at)')
         .in('group_id', currentGroupIds)
         .eq('status', 'active')
         .is('deleted_at', null)
@@ -137,8 +137,9 @@ export default function TrainerDashboard() {
   const pendingCount = pendingAssignments.length + pendingSpeaking.length
   const streaksAtRisk = students.filter(s => {
     if (!s.current_streak || s.current_streak === 0) return false
-    if (!s.last_active_at) return true
-    return (Date.now() - new Date(s.last_active_at).getTime()) / 3600000 > 20
+    const lastActive = s.profiles?.last_active_at
+    if (!lastActive) return true
+    return (Date.now() - new Date(lastActive).getTime()) / 3600000 > 20
   }).length
   const avgXP = students.length > 0 ? Math.round(students.reduce((s, st) => s + (st.xp_total || 0), 0) / students.length) : 0
 
@@ -312,7 +313,7 @@ export default function TrainerDashboard() {
                   key={item.id}
                   className="flex items-center gap-3 rounded-xl p-3.5 cursor-pointer transition-all hover:translate-y-[-1px]"
                   style={{ background: 'var(--surface-raised)' }}
-                  onClick={() => navigate('/trainer/writing')}
+                  onClick={() => navigate('/trainer/grading')}
                 >
                   <div className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold" style={{ background: badge.bg, color: badge.color }}>
                     {item.type === 'speaking' ? '🎤' : '📝'}
@@ -346,8 +347,9 @@ export default function TrainerDashboard() {
           <div className="space-y-2.5">
             {students.map(s => {
               const team = s.team_id ? teamsMap[s.team_id] : null
-              const status = getStatus(s.last_active_at)
-              const streakDanger = s.current_streak > 0 && (!s.last_active_at || (Date.now() - new Date(s.last_active_at).getTime()) / 3600000 > 20)
+              const lastActive = s.profiles?.last_active_at
+              const status = getStatus(lastActive)
+              const streakDanger = s.current_streak > 0 && (!lastActive || (Date.now() - new Date(lastActive).getTime()) / 3600000 > 20)
               return (
                 <div
                   key={s.id}
@@ -370,7 +372,7 @@ export default function TrainerDashboard() {
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
                     <span className="text-[10px] font-['Tajawal']" style={{ color: 'var(--text-tertiary)' }}>
-                      {s.last_active_at ? timeAgo(s.last_active_at) : 'لم يدخل'}
+                      {lastActive ? timeAgo(lastActive) : 'لم يدخل'}
                     </span>
                     <span className="text-sm">{status.dot}</span>
                   </div>

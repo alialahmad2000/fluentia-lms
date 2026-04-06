@@ -8,6 +8,7 @@ import {
   LogOut, X, ChevronLeft, Zap, FolderOpen, CalendarDays, Calendar,
   Video, ClipboardCheck, UsersRound, GraduationCap, Wrench, ListChecks,
   Brain, BookOpen, Sparkles, Database, Languages, Shuffle, Lock, Map, Activity,
+  StickyNote, TrendingUp,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { useThemeStore } from '../../stores/themeStore'
@@ -68,11 +69,16 @@ const NAV_ITEMS = {
   trainer: [
     { type: 'divider', label: 'أساسي' },
     { to: '/trainer', label: 'لوحة التحكم', icon: House },
-    { type: 'divider', label: 'إدارة' },
-    { to: '/trainer/students', label: 'الطلاب', icon: GraduationCap },
+    { type: 'divider', label: 'تعليم' },
     { to: '/trainer/curriculum', label: 'المنهج', icon: BookOpen },
     { to: '/trainer/interactive-curriculum', label: 'المنهج التفاعلي', icon: Map },
+    { type: 'divider', label: 'طلاب' },
+    { to: '/trainer/my-students', label: 'الطلاب', icon: Users },
     { to: '/trainer/progress-matrix', label: 'تقدم الطلاب', icon: BarChart3 },
+    { type: 'divider', label: 'مهام' },
+    { to: '/trainer/grading', label: 'التقييم', icon: ClipboardCheck },
+    { to: '/trainer/my-notes', label: 'ملاحظاتي', icon: StickyNote },
+    { to: '/trainer/weekly-report', label: 'تقرير أسبوعي', icon: TrendingUp },
     { type: 'divider', label: 'تواصل' },
     { to: '/trainer/conversation', label: 'المحادثة', icon: MessageSquare },
     { to: '/trainer/ai-assistant', label: 'المساعد الذكي', icon: Bot },
