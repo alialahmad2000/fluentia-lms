@@ -40,9 +40,14 @@ export default function UnitCard({ unit, levelColor, status = 'not_started', pro
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-[var(--text-primary)] text-base mb-0.5 truncate">
-            {unit.theme_ar}
-          </h3>
+          <div className="flex items-center gap-2 mb-0.5">
+            <span className="text-xs font-bold px-2 py-0.5 rounded-full shrink-0" style={{ background: `${levelColor}1A`, color: levelColor }}>
+              الوحدة {unit.unit_number}
+            </span>
+            <h3 className="font-semibold text-[var(--text-primary)] text-base truncate">
+              {unit.theme_ar}
+            </h3>
+          </div>
           {unit.theme_en && (
             <p className="text-sm text-[var(--text-muted)] truncate" dir="ltr">
               {unit.theme_en}

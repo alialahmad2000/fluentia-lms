@@ -23,6 +23,15 @@ export default function CurriculumBrowser() {
   const { profile, studentData } = useAuthStore()
   const navigate = useNavigate()
   const currentLevel = studentData?.academic_level ?? 0
+  const [autoNavDone, setAutoNavDone] = useState(false)
+
+  // Auto-navigate students to their current level
+  useEffect(() => {
+    if (profile?.role === 'student' && currentLevel > 0 && !autoNavDone) {
+      setAutoNavDone(true)
+      navigate(`/student/curriculum/level/${currentLevel}`, { replace: true })
+    }
+  }, [profile?.role, currentLevel, autoNavDone, navigate])
 
   // Fetch all active levels
   const { data: levels, isLoading: loadingLevels, error: levelsError, refetch } = useQuery({
