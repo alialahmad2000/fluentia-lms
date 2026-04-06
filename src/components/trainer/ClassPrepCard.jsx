@@ -64,7 +64,7 @@ export default function ClassPrepCard({ groupId, groupName }) {
 
       const { data: grammar } = await supabase
         .from('curriculum_grammar')
-        .select('topic_en, topic_ar')
+        .select('topic_name_en, topic_name_ar')
         .eq('unit_id', unitId)
         .limit(1)
         .maybeSingle()
@@ -195,7 +195,7 @@ export default function ClassPrepCard({ groupId, groupName }) {
               )}
               {unitContent.grammar && (
                 <p className="text-[12px] font-['Tajawal'] pr-4" style={{ color: 'var(--text-tertiary)' }}>
-                  • قواعد: {unitContent.grammar.topic_en || unitContent.grammar.topic_ar}
+                  • قواعد: {unitContent.grammar.topic_name_en || unitContent.grammar.topic_name_ar}
                 </p>
               )}
             </div>

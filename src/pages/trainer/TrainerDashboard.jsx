@@ -218,9 +218,11 @@ export default function TrainerDashboard() {
 
       {/* ②.5 CURRENT UNIT SELECTOR */}
       {activeGroup && (
-        <motion.div {...stagger(1.5)}>
-          <CurrentUnitSelector groupId={activeGroup.id} groupLevel={activeGroup.level} />
-        </motion.div>
+        <ErrorBoundary fallback={null}>
+          <motion.div {...stagger(1.5)}>
+            <CurrentUnitSelector groupId={activeGroup.id} groupLevel={activeGroup.level} />
+          </motion.div>
+        </ErrorBoundary>
       )}
 
       {/* ③ QUICK STATS */}
