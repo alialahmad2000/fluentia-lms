@@ -35,14 +35,14 @@ const FloatingOrbs = lazy(() => import('../backgrounds/FloatingOrbs'))
 const MOBILE_TABS = {
   student: [
     { to: '/student', label: 'الرئيسية', icon: House },
-    { to: '/student/weekly-tasks', label: 'المهام', icon: FileText },
-    { to: '/student/schedule', label: 'الجدول', icon: CalendarDays },
-    { to: '/student/recordings', label: 'التسجيلات', icon: Video },
+    { to: '/student/curriculum', label: 'المنهج', icon: FileText },
+    { to: '/student/progress', label: 'تقدّمي', icon: BarChart3 },
+    { to: '/student/profile', label: 'حسابي', icon: User },
   ],
   trainer: [
     { to: '/trainer', label: 'الرئيسية', icon: House },
-    { to: '/trainer/assignments', label: 'التدريس', icon: FileText },
     { to: '/trainer/students', label: 'الطلاب', icon: Users },
+    { to: '/trainer/curriculum', label: 'المنهج', icon: FileText },
     { to: '/trainer/points', label: 'الحصة', icon: Zap },
   ],
   admin: [
@@ -58,22 +58,17 @@ const MOBILE_TABS = {
 // comingSoon: true = feature not ready yet (blocks all packages)
 const MORE_ITEMS = {
   student: [
-    { to: '/student/study-plan', label: 'خطة الدراسة', icon: Map },
-    { to: '/student/assignments', label: 'الواجبات', icon: FileText },
+    { to: '/student/flashcards', label: 'المفردات', icon: FileText },
+    { to: '/student/verbs', label: 'الأفعال الشاذة', icon: FileText },
     { to: '/student/speaking-lab', label: 'معمل التحدث', icon: Mic, requiredPackage: 'tamayuz', comingSoon: true },
     { to: '/student/writing-lab', label: 'معمل الكتابة', icon: PenLine, requiredPackage: 'tamayuz', comingSoon: true },
-    { to: '/student/assessments', label: 'الاختبارات', icon: ClipboardCheck, requiredPackage: 'talaqa', comingSoon: true },
-    { to: '/student/grades', label: 'الدرجات', icon: BarChart3, requiredPackage: 'talaqa' },
     { to: '/student/conversation', label: 'المحادثة', icon: MessageSquare },
     { to: '/student/ai-chat', label: 'المساعد الذكي', icon: Bot, requiredPackage: 'talaqa' },
     { to: '/student/group-activity', label: 'نشاط المجموعة', icon: UsersRound, requiredPackage: 'talaqa' },
-    { to: '/student/profile', label: 'حسابي', icon: User },
   ],
   trainer: [
-    { to: '/trainer/schedule', label: 'الجدول', icon: CalendarDays },
-    { to: '/trainer/recordings', label: 'التسجيلات', icon: Video },
-    { to: '/trainer/quiz', label: 'الاختبارات', icon: ClipboardCheck },
-    { to: '/trainer/weekly-grading', label: 'المهام الأسبوعية', icon: ListChecks },
+    { to: '/trainer/interactive-curriculum', label: 'المنهج التفاعلي', icon: Map },
+    { to: '/trainer/progress-matrix', label: 'تقدم الطلاب', icon: BarChart3 },
     { to: '/trainer/conversation', label: 'المحادثة', icon: MessageSquare },
     { to: '/trainer/ai-assistant', label: 'المساعد الذكي', icon: Bot },
   ],
@@ -81,7 +76,6 @@ const MORE_ITEMS = {
     { to: '/admin/groups', label: 'المجموعات', icon: Users },
     { to: '/admin/trainers', label: 'المدربين', icon: GraduationCap },
     { to: '/trainer/curriculum', label: 'تصفّح المنهج', icon: FileText },
-    { to: '/admin/weekly-tasks', label: 'المهام الأسبوعية', icon: ListChecks },
     { to: '/admin/settings', label: 'الإعدادات', icon: Settings },
   ],
 }
