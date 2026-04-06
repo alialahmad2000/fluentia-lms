@@ -17,6 +17,9 @@ import { useAuthStore } from '../../stores/authStore'
 import { hasPackageAccess } from '../PackageGate'
 import { PACKAGES } from '../../lib/constants'
 import XPFloater from '../ui/XPFloater'
+import FloatingToolbar from '../trainer/FloatingToolbar'
+import TimerBadge from '../trainer/TimerBadge'
+import useClassMode from '../../stores/classModeStore'
 import usePullToRefresh from '../../hooks/usePullToRefresh'
 import useActivityTracker from '../../hooks/useActivityTracker'
 import { usePageTracking } from '../../hooks/usePageTracking'
@@ -94,6 +97,7 @@ export default function LayoutShell() {
   const [toast, setToast] = useState(null)
   const toastTimerRef = useRef(null)
   const { profile, studentData, impersonation } = useAuthStore()
+  const isClassMode = useClassMode(s => s.isClassMode)
   const role = profile?.role || 'student'
   const studentPackage = studentData?.package || 'asas'
   const tabs = MOBILE_TABS[role] || MOBILE_TABS.student
@@ -166,20 +170,22 @@ export default function LayoutShell() {
       <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:right-4 focus:z-[100] focus:bg-sky-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm">
         انتقل إلى المحتوى الرئيسي
       </a>
-      <Sidebar
-        open={mobileOpen}
-        onClose={() => setMobileOpen(false)}
-        collapsed={collapsed}
-        onToggleCollapse={() => setCollapsed(!collapsed)}
-      />
+      {!isClassMode && (
+        <Sidebar
+          open={mobileOpen}
+          onClose={() => setMobileOpen(false)}
+          collapsed={collapsed}
+          onToggleCollapse={() => setCollapsed(!collapsed)}
+        />
+      )}
 
       {/* Main content area — offset by sidebar width */}
       <div
         className={`relative z-[1] transition-all duration-300 ease-apple ${
-          collapsed ? 'lg:mr-[72px]' : 'lg:mr-[260px]'
+          isClassMode ? '' : collapsed ? 'lg:mr-[72px]' : 'lg:mr-[260px]'
         }`}
       >
-        <Header onMenuToggle={() => setMobileOpen(true)} />
+        {!isClassMode && <Header onMenuToggle={() => setMobileOpen(true)} />}
         <PWAInstallBanner />
 
         <main id="main-content" className="px-4 py-6 lg:px-10 lg:py-8 lg:pb-10" style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -203,6 +209,12 @@ export default function LayoutShell() {
 
       {/* XP Floater (global) */}
       <XPFloater />
+
+      {/* Timer Badge (visible to all roles when active) */}
+      <TimerBadge />
+
+      {/* Trainer Floating Toolbar (trainer/admin on curriculum pages) */}
+      <FloatingToolbar />
 
       {/* AI Floating Helper */}
       <AIFloatingHelper />
