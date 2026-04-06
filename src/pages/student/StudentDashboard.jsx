@@ -15,6 +15,7 @@ import DailyChallenge from '../../components/gamification/DailyChallenge'
 import MysteryBox from '../../components/gamification/MysteryBox'
 import StudentWowMoments from '../../components/ai/StudentWowMoments'
 import FloatingParticles from '../../components/illustrations/FloatingParticles'
+import AnimatedNumber from '../../components/ui/AnimatedNumber'
 import { DashboardSkeleton } from '../../components/ui/PageSkeleton'
 import { Link, useNavigate } from 'react-router-dom'
 import { tracker } from '../../services/activityTracker'
@@ -282,12 +283,12 @@ export default function StudentDashboard() {
             {/* XP Badge */}
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl" style={{ background: 'var(--accent-sky-glow)' }}>
               <Zap size={16} strokeWidth={1.5} style={{ color: 'var(--accent-sky)' }} />
-              <span className="text-sm font-bold font-data" style={{ color: 'var(--accent-sky)' }}>{xp} XP</span>
+              <span className="text-sm font-bold font-data" style={{ color: 'var(--accent-sky)' }}><AnimatedNumber value={xp} /> XP</span>
             </div>
             {/* Streak Badge */}
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl" style={{ background: 'rgba(245,158,11,0.1)' }}>
               <Flame size={16} strokeWidth={1.5} className="fire-pulse" style={{ color: 'var(--accent-gold)' }} />
-              <span className="text-sm font-bold font-data" style={{ color: 'var(--accent-gold)' }}>{streak} يوم</span>
+              <span className="text-sm font-bold font-data" style={{ color: 'var(--accent-gold)' }}><AnimatedNumber value={streak} duration={0.6} /> يوم</span>
             </div>
             {/* Level Badge */}
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl" style={{ background: 'var(--accent-violet-glow)' }}>

@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, lazy, Suspense, useCallback, useMemo } from 'react'
 import { Outlet, NavLink, useLocation, useNavigate } from 'react-router-dom'
+import AnimatedPage from '../ui/AnimatedPage'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   House, CalendarDays, Video, FileText, Users, Zap, Bot, CreditCard, Settings,
@@ -130,7 +131,7 @@ export default function LayoutShell() {
   const { isRefreshing, pullProgress, pullDistance } = usePullToRefresh(handleRefresh)
 
   return (
-    <div className="min-h-dvh" style={{ background: 'var(--surface-base)', paddingTop: impersonation ? '40px' : undefined }} data-role={role} onClick={() => tracker.touch()} onKeyDown={() => tracker.touch()}>
+    <div className="min-h-dvh gradient-mesh" style={{ background: 'var(--surface-base)', paddingTop: impersonation ? '40px' : undefined }} data-role={role} onClick={() => tracker.touch()} onKeyDown={() => tracker.touch()}>
       <UpdateBanner />
       {/* Background layers */}
       <Suspense fallback={null}>
@@ -182,7 +183,11 @@ export default function LayoutShell() {
 
         <main id="main-content" className="px-4 py-6 lg:px-10 lg:py-8 lg:pb-10" style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <ErrorBoundary key={location.pathname}>
-            <Outlet />
+            <AnimatePresence mode="wait">
+              <AnimatedPage key={location.pathname}>
+                <Outlet />
+              </AnimatedPage>
+            </AnimatePresence>
           </ErrorBoundary>
           {/* Bottom spacer — guarantees content is never hidden behind the fixed mobile
               bottom tab bar. Uses inline style so no CSS class/specificity/layer/purge

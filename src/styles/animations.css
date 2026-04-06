@@ -268,6 +268,47 @@
   100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
 }
 
+/* === Gradient Mesh Background === */
+.gradient-mesh {
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(56, 189, 248, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(99, 102, 241, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(168, 85, 247, 0.02) 0%, transparent 50%);
+}
+
+/* === Gradient Section Header Background === */
+.gradient-header {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.06) 0%, rgba(99, 102, 241, 0.04) 50%, transparent 100%);
+}
+
+/* === Gradient Text (for main page titles — use sparingly) === */
+.gradient-text {
+  background: linear-gradient(135deg, #f0f9ff 0%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* === Premium Skeleton Shimmer (alias) === */
+.skeleton-premium {
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-from, rgba(255,255,255,0.03)) 25%,
+    var(--skeleton-via, rgba(255,255,255,0.08)) 50%,
+    var(--skeleton-to, rgba(255,255,255,0.03)) 75%
+  );
+  background-size: 400% 100%;
+  animation: shimmerWave 2s linear infinite;
+  border-radius: 8px;
+}
+
+/* === Glass Card Accent Border Variants (RTL — right border) === */
+.glass-accent-sky     { border-right: 3px solid rgba(56, 189, 248, 0.5); }
+.glass-accent-amber   { border-right: 3px solid rgba(251, 191, 36, 0.5); }
+.glass-accent-emerald { border-right: 3px solid rgba(52, 211, 153, 0.5); }
+.glass-accent-rose    { border-right: 3px solid rgba(251, 113, 133, 0.5); }
+.glass-accent-violet  { border-right: 3px solid rgba(167, 139, 250, 0.5); }
+
 /* === Reduce Motion === */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

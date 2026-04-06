@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
+import AnimatedNumber from '../../components/ui/AnimatedNumber'
 import { Users, UserCheck, Layers, CreditCard, TrendingUp, AlertCircle, Flame, Calendar, ArrowUpRight, ArrowDownRight, Brain, Sparkles, ListChecks, FileText, Zap, Activity, Smartphone } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
@@ -259,7 +260,7 @@ export default function AdminDashboard() {
                   <card.icon size={20} strokeWidth={1.5} />
                 </div>
               </div>
-              <p className="text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>{card.value}</p>
+              <p className="text-3xl font-bold" style={{ color: 'var(--text-primary)' }}><AnimatedNumber value={typeof card.value === 'number' ? card.value : 0} duration={0.7} /></p>
               {card.sub && <p className="text-xs mt-1" style={{ color: 'var(--text-tertiary)' }}>{card.sub}</p>}
             </motion.div>
           )

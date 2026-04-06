@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
+import AnimatedNumber from '../../components/ui/AnimatedNumber'
 import {
   Users, FileText, Calendar, Clock, CheckCircle2, Brain, Loader2, Sparkles,
   AlertTriangle, Zap, PenLine, ClipboardCheck, ListChecks, Activity,
@@ -236,7 +237,7 @@ export default function TrainerDashboard() {
                 <card.icon size={16} className={`text-${card.accent}-400`} />
               </div>
             </div>
-            <p className="text-2xl sm:text-3xl font-black font-['Tajawal']" style={{ color: 'var(--text-primary)' }}>{card.value}</p>
+            <p className="text-2xl sm:text-3xl font-black font-['Tajawal']" style={{ color: 'var(--text-primary)' }}><AnimatedNumber value={card.value} duration={0.6} /></p>
           </motion.div>
         ))}
       </div>
