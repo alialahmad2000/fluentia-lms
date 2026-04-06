@@ -20,11 +20,13 @@ import XPFloater from '../ui/XPFloater'
 import FloatingToolbar from '../trainer/FloatingToolbar'
 import TimerBadge from '../trainer/TimerBadge'
 import useClassMode from '../../stores/classModeStore'
+import PostClassSummary from '../trainer/PostClassSummary'
 import usePullToRefresh from '../../hooks/usePullToRefresh'
 import useActivityTracker from '../../hooks/useActivityTracker'
 import { usePageTracking } from '../../hooks/usePageTracking'
 import { tracker } from '../../services/activityTracker'
-import { useQueryClient } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { supabase } from '../../lib/supabase'
 
 const GeometricMesh = lazy(() => import('../backgrounds/GeometricMesh'))
 const FloatingOrbs = lazy(() => import('../backgrounds/FloatingOrbs'))
@@ -98,6 +100,11 @@ export default function LayoutShell() {
   const toastTimerRef = useRef(null)
   const { profile, studentData, impersonation } = useAuthStore()
   const isClassMode = useClassMode(s => s.isClassMode)
+  const showPostSummary = useClassMode(s => s.showPostSummary)
+  const classStartedAt = useClassMode(s => s.classStartedAt)
+  const currentUnitId = useClassMode(s => s.currentUnitId)
+  const pointsGiven = useClassMode(s => s.pointsGiven)
+  const dismissSummary = useClassMode(s => s.dismissSummary)
   const role = profile?.role || 'student'
   const studentPackage = studentData?.package || 'asas'
   const tabs = MOBILE_TABS[role] || MOBILE_TABS.student
@@ -215,6 +222,20 @@ export default function LayoutShell() {
 
       {/* Trainer Floating Toolbar (trainer/admin on curriculum pages) */}
       <FloatingToolbar />
+
+      {/* Post-Class Summary Modal */}
+      <AnimatePresence>
+        {showPostSummary && (role === 'trainer' || role === 'admin') && (
+          <PostClassSummaryWrapper
+            unitId={currentUnitId}
+            classStartedAt={classStartedAt}
+            pointsGiven={pointsGiven}
+            profileId={profile?.id}
+            role={role}
+            onClose={dismissSummary}
+          />
+        )}
+      </AnimatePresence>
 
       {/* AI Floating Helper */}
       <AIFloatingHelper />
@@ -361,4 +382,21 @@ export default function LayoutShell() {
       </AnimatePresence>
     </div>
   )
+}
+
+// Small wrapper to resolve groupId for PostClassSummary
+function PostClassSummaryWrapper({ unitId, classStartedAt, pointsGiven, profileId, role, onClose }) {
+  const { data: groups } = useQuery({
+    queryKey: ['post-summary-group', profileId, role],
+    queryFn: async () => {
+      let q = supabase.from('groups').select('id').eq('is_active', true).order('level').limit(1)
+      if (role !== 'admin') q = q.eq('trainer_id', profileId)
+      const { data } = await q
+      return data || []
+    },
+    enabled: !!profileId,
+  })
+  const groupId = groups?.[0]?.id
+  if (!groupId) return null
+  return <PostClassSummary groupId={groupId} unitId={unitId} classStartedAt={classStartedAt} pointsGiven={pointsGiven} onClose={onClose} />
 }

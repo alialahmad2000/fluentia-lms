@@ -14,6 +14,8 @@ import { getGreeting, getArabicDay, formatTime, timeAgo } from '../../utils/date
 import { Link, useNavigate } from 'react-router-dom'
 import UserAvatar from '../../components/common/UserAvatar'
 import ErrorBoundary from '../../components/ErrorBoundary'
+import ClassPrepCard from '../../components/trainer/ClassPrepCard'
+import CurrentUnitSelector from '../../components/trainer/CurrentUnitSelector'
 
 // ─── Section Error Fallback ──────────────────────────
 function SectionError({ label }) {
@@ -214,6 +216,13 @@ export default function TrainerDashboard() {
         </motion.div>
       )}
 
+      {/* ②.5 CURRENT UNIT SELECTOR */}
+      {activeGroup && (
+        <motion.div {...stagger(1.5)}>
+          <CurrentUnitSelector groupId={activeGroup.id} groupLevel={activeGroup.level} />
+        </motion.div>
+      )}
+
       {/* ③ QUICK STATS */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
@@ -241,6 +250,15 @@ export default function TrainerDashboard() {
           </motion.div>
         ))}
       </div>
+
+      {/* ③.5 CLASS PREP CARD */}
+      {activeGroup && (
+        <ErrorBoundary fallback={<SectionError label="تحضير الحصة" />}>
+          <motion.div {...stagger(5)}>
+            <ClassPrepCard groupId={activeGroup.id} groupName={activeGroup.name} />
+          </motion.div>
+        </ErrorBoundary>
+      )}
 
       {/* ④ PENDING SUBMISSIONS */}
       <ErrorBoundary fallback={<SectionError label="التسليمات" />}>

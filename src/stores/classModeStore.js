@@ -6,6 +6,7 @@ const useClassMode = create((set) => ({
   currentUnitId: null,
   pointsGiven: [],
   attendanceMarked: false,
+  showPostSummary: false,
 
   // Timer state (persists across popup close)
   timerSeconds: 0,
@@ -18,10 +19,21 @@ const useClassMode = create((set) => ({
     currentUnitId: unitId,
     pointsGiven: [],
     attendanceMarked: false,
+    showPostSummary: false,
   }),
 
-  endClass: () => set({
+  endClass: () => set((state) => ({
     isClassMode: false,
+    showPostSummary: true,
+    // Keep classStartedAt, currentUnitId, pointsGiven for the summary
+  })),
+
+  dismissSummary: () => set({
+    showPostSummary: false,
+    classStartedAt: null,
+    currentUnitId: null,
+    pointsGiven: [],
+    attendanceMarked: false,
   }),
 
   addPointRecord: (record) => set(state => ({

@@ -13,6 +13,7 @@ import { toast } from '../../../components/ui/FluentiaToast'
 import StudentFAB from '../../../components/student/StudentFAB'
 import NotesPanel from '../../../components/student/NotesPanel'
 import SavedWordsPanel from '../../../components/student/SavedWordsPanel'
+import ClassSummaryView from '../../../components/student/ClassSummaryView'
 import ReadingTab from './tabs/ReadingTab'
 import GrammarTab from './tabs/GrammarTab'
 import VocabularyTab from './tabs/VocabularyTab'
@@ -322,6 +323,9 @@ export default function UnitContent() {
           currentStudentId={studentData?.id}
         />
       )}
+
+      {/* Class Summary (shared by trainer) */}
+      {isStudent && <ClassSummaryView unitId={unitId} />}
 
       {/* Tab bar */}
       <div
