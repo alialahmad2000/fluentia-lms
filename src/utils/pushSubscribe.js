@@ -72,7 +72,7 @@ export async function unsubscribeFromPush(userId) {
   }
 }
 
-function detectDeviceLabel() {
+export function detectDeviceLabel() {
   const ua = navigator.userAgent
   if (/iPad/.test(ua)) return 'iPadOS'
   // iPadOS 13+ reports as Macintosh — detect via touch support

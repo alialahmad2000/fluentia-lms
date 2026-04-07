@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Bell, X, Smartphone } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
-import { isPushSupported, getPushPermission, subscribeUserToPush } from '../../utils/pushSubscribe'
+import { isPushSupported, getPushPermission, subscribeUserToPush, detectDeviceLabel } from '../../utils/pushSubscribe'
 import { toast } from '../ui/FluentiaToast'
 
 const STORAGE_KEY = 'fluentia_push_prompt'
@@ -66,7 +66,7 @@ export default function EnableNotificationsPrompt() {
                   p256dh: subJson.keys.p256dh,
                   auth: subJson.keys.auth,
                   user_agent: navigator.userAgent,
-                  device_label: /iPhone|iPad|iPod/.test(navigator.userAgent) ? 'iOS' : /Android/.test(navigator.userAgent) ? 'Android' : /Mac/.test(navigator.userAgent) ? 'Mac' : /Win/.test(navigator.userAgent) ? 'Windows' : 'Unknown',
+                  device_label: detectDeviceLabel(),
                   is_active: true,
                   last_used_at: new Date().toISOString(),
                 }, { onConflict: 'user_id,endpoint' })
@@ -76,7 +76,14 @@ export default function EnableNotificationsPrompt() {
                 // Silent fail
               }
             } else {
-              // Already in DB — just mark localStorage
+              // Already in DB — update device_label and user_agent in case they're stale
+              try {
+                await supabase.from('push_subscriptions').update({
+                  user_agent: navigator.userAgent,
+                  device_label: detectDeviceLabel(),
+                  last_used_at: new Date().toISOString(),
+                }).eq('id', data.id)
+              } catch { /* silent */ }
               localStorage.setItem(STORAGE_KEY, JSON.stringify({ subscribedAt: new Date().toISOString() }))
             }
           }
