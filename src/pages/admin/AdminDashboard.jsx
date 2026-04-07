@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom'
 import UserAvatar from '../../components/common/UserAvatar'
 import CurriculumActivityCard from '../../components/dashboard/CurriculumActivityCard'
 import EnableNotificationsPrompt from '../../components/notifications/EnableNotificationsPrompt'
+import DeviceInstallStatusWidget from '../../components/admin/DeviceInstallStatusWidget'
 
 export default function AdminDashboard() {
   const { profile } = useAuthStore()
@@ -222,6 +223,9 @@ export default function AdminDashboard() {
 
       {/* Push notifications opt-in */}
       <EnableNotificationsPrompt />
+
+      {/* PWA install + notification status per student */}
+      <DeviceInstallStatusWidget />
 
       {/* Quick summary tip */}
       <motion.div
