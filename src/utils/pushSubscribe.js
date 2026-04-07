@@ -78,8 +78,13 @@ export function detectDeviceLabel() {
   // iPadOS 13+ reports as Macintosh — detect via touch support
   if (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) return 'iPadOS'
   if (/iPhone|iPod/.test(ua)) return 'iOS'
-  if (/Android/.test(ua) && /Mobile/.test(ua)) return 'Android Phone'
-  if (/Android/.test(ua)) return 'Android Tablet'
+  if (/Android/.test(ua)) {
+    // Use screen size to differentiate phone vs tablet — UA "Mobile" flag is unreliable
+    // (many Android tablets, especially Samsung, include "Mobile" in their UA)
+    // 600px smallest dimension is the standard Android tablet threshold
+    const minDim = Math.min(screen.width, screen.height)
+    return minDim >= 600 ? 'Android Tablet' : 'Android Phone'
+  }
   if (/Mac/.test(ua)) return 'Mac'
   if (/Win/.test(ua)) return 'Windows'
   if (/Linux/.test(ua)) return 'Linux'

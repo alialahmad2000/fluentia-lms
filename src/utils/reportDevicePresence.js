@@ -16,15 +16,30 @@ export async function reportDevicePresence(userId) {
   if (!userId) return
 
   // Throttle: don't report more than once every 6 hours
+  // Skip cooldown if last report used old detection (force re-report after detection fix)
+  const DETECTION_FIX_TS = 1744070400000 // 2026-04-08T00:00:00Z — deploy date of screen-size fix
   try {
     const lastReport = parseInt(localStorage.getItem(REPORT_KEY) || '0', 10)
-    if (Date.now() - lastReport < REPORT_COOLDOWN) return
+    if (lastReport > DETECTION_FIX_TS && Date.now() - lastReport < REPORT_COOLDOWN) return
   } catch { return }
 
   const deviceLabel = detectDeviceLabel()
   const endpoint = `app-install://${deviceLabel}`
 
+  // Clean up misclassified Android records (tablets previously detected as phones and vice versa)
+  // This handles the case where screen-size detection corrects a previous UA-based misclassification
+  const androidCounterpart = deviceLabel === 'Android Tablet' ? 'Android Phone'
+    : deviceLabel === 'Android Phone' ? 'Android Tablet'
+    : null
+
   try {
+    if (androidCounterpart) {
+      await supabase.from('push_subscriptions')
+        .delete()
+        .eq('user_id', userId)
+        .eq('endpoint', `app-install://${androidCounterpart}`)
+    }
+
     await supabase.from('push_subscriptions').upsert({
       user_id: userId,
       endpoint,
