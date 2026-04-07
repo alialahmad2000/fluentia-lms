@@ -117,6 +117,7 @@ const UnitEditor = lazyRetry(() => import('./pages/admin/curriculum/UnitEditor')
 const IELTSManagement = lazyRetry(() => import('./pages/admin/curriculum/IELTSManagement'))
 const CurriculumProgress = lazyRetry(() => import('./pages/admin/curriculum/CurriculumProgress'))
 const CurriculumMap = lazyRetry(() => import('./pages/admin/curriculum/CurriculumMap'))
+const ComposeAnnouncement = lazyRetry(() => import('./pages/admin/announcements/ComposeAnnouncement'))
 const AdminTestBank = lazyRetry(() => import('./pages/admin/AdminTestBank'))
 const AdminAIDashboard = lazyRetry(() => import('./pages/admin/AdminAIDashboard'))
 const AdminContentBank = lazyRetry(() => import('./pages/admin/AdminContentBank'))
@@ -454,6 +455,7 @@ export default function App() {
               <Route path="/admin/ai-dashboard" element={<Page><AdminAIDashboard /></Page>} />
               <Route path="/admin/content-bank" element={<Page><AdminContentBank /></Page>} />
               <Route path="/admin/daily-reports" element={<Page><AdminDailyReports /></Page>} />
+              <Route path="/admin/announcements" element={<Page><ComposeAnnouncement /></Page>} />
               <Route path="/admin/analytics" element={<Page><AdminAnalytics /></Page>} />
               <Route path="/admin/interactive-curriculum" element={<Page><InteractiveCurriculumLevels /></Page>} />
               <Route path="/admin/interactive-curriculum/:levelId" element={<Page><InteractiveCurriculumUnits /></Page>} />

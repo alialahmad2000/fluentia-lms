@@ -140,6 +140,7 @@ export const NOTIFICATION_TYPES = {
   test_result:         { label_ar: 'نتيجة اختبار',       icon: '📊', color: 'sky' },
   curriculum_progress: { label_ar: 'تقدم في المنهج',     icon: '📚', color: 'emerald' },
   speaking_feedback:   { label_ar: 'تقييم المحادثة',     icon: '🎤', color: 'violet' },
+  announcement:        { label_ar: 'إعلان',              icon: '📢', color: 'sky' },
 }
 
 // ─── Payment Status Labels ─────────────────────────────────

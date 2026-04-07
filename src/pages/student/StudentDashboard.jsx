@@ -14,6 +14,7 @@ import { getEncouragement } from '../../utils/encouragement'
 import DailyChallenge from '../../components/gamification/DailyChallenge'
 import SrsReviewCard from '../../components/gamification/SrsReviewCard'
 import LevelExitTestCard from '../../components/gamification/LevelExitTestCard'
+import EnableNotificationsPrompt from '../../components/notifications/EnableNotificationsPrompt'
 import MysteryBox from '../../components/gamification/MysteryBox'
 import StudentWowMoments from '../../components/ai/StudentWowMoments'
 import FloatingParticles from '../../components/illustrations/FloatingParticles'
@@ -378,6 +379,9 @@ export default function StudentDashboard() {
           )}
         </motion.div>
       )}
+
+      {/* ═══ 2.5 Push Notifications Prompt ═══ */}
+      <EnableNotificationsPrompt />
 
       {/* ═══ 3. Level Exit Test Card ═══ */}
       <LevelExitTestCard studentId={profile?.id} academicLevel={studentData?.academic_level} />

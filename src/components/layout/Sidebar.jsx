@@ -8,7 +8,7 @@ import {
   LogOut, X, ChevronLeft, Zap, FolderOpen, CalendarDays, Calendar,
   Video, ClipboardCheck, UsersRound, GraduationCap, Wrench, ListChecks,
   Brain, BookOpen, Sparkles, Database, Languages, Shuffle, Lock, Map, Activity,
-  StickyNote, TrendingUp,
+  StickyNote, TrendingUp, Megaphone,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { useThemeStore } from '../../stores/themeStore'
@@ -103,6 +103,7 @@ const NAV_ITEMS = {
     { to: '/admin/analytics', label: 'تحليلات المنصة', icon: Activity },
     { to: '/admin/daily-reports', label: 'التقرير اليومي', icon: CalendarDays },
     { to: '/trainer/ai-assistant', label: 'المساعد الذكي', icon: Bot },
+    { to: '/admin/announcements', label: 'الإعلانات', icon: Megaphone },
     { to: '/admin/settings', label: 'الإعدادات', icon: Settings },
   ],
 }

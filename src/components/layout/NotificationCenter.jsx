@@ -26,6 +26,7 @@ const NOTIFICATION_ROUTES = {
   weekly_tasks_urgent: '/student/weekly-tasks',
   spelling_milestone: '/student/spelling',
   system: null,
+  announcement: null,
 }
 
 function groupNotificationsByDate(notifications) {
@@ -161,8 +162,10 @@ export default function NotificationCenter() {
       }
     }
 
-    // Use link from notification data if available
-    if (notification.data?.link) {
+    // Use action_url or link from notification data if available
+    if (notification.action_url) {
+      route = notification.action_url
+    } else if (notification.data?.link) {
       route = notification.data.link
     }
 
