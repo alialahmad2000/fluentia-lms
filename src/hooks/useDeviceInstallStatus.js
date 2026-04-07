@@ -33,7 +33,7 @@ export function useDeviceInstallStatus() {
       // Fetch active subscriptions
       const { data: subs, error: subsErr } = await supabase
         .from('push_subscriptions')
-        .select('user_id, user_agent, is_active')
+        .select('user_id, user_agent, device_label, is_active')
         .eq('is_active', true)
 
       if (subsErr) throw subsErr
@@ -72,7 +72,7 @@ export function useDeviceInstallStatus() {
         }
 
         for (const sub of userSubs) {
-          const type = parseDeviceType(sub.user_agent)
+          const type = parseDeviceType(sub.user_agent, sub.device_label)
           if (type in devices) devices[type] = true
         }
 

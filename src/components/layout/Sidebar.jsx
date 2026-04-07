@@ -277,7 +277,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
       </nav>
 
       {/* ── Fixed bottom: Profile + Logout ── */}
-      <div className="shrink-0 px-3 py-3" style={{ borderTop: '1px solid var(--border-subtle)', paddingBottom: 'calc(env(safe-area-inset-bottom, 16px) + 12px)' }}>
+      <div className="shrink-0 px-3 py-3" style={{ borderTop: '1px solid var(--border-subtle)', paddingBottom: 'max(calc(env(safe-area-inset-bottom, 0px) + 16px), 28px)' }}>
         {/* Profile card */}
         <div className="mb-2">
           {!collapsed ? (

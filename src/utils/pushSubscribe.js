@@ -74,9 +74,14 @@ export async function unsubscribeFromPush(userId) {
 
 function detectDeviceLabel() {
   const ua = navigator.userAgent
-  if (/iPhone|iPad|iPod/.test(ua)) return 'iOS'
-  if (/Android/.test(ua)) return 'Android'
+  if (/iPad/.test(ua)) return 'iPadOS'
+  // iPadOS 13+ reports as Macintosh — detect via touch support
+  if (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) return 'iPadOS'
+  if (/iPhone|iPod/.test(ua)) return 'iOS'
+  if (/Android/.test(ua) && /Mobile/.test(ua)) return 'Android Phone'
+  if (/Android/.test(ua)) return 'Android Tablet'
   if (/Mac/.test(ua)) return 'Mac'
   if (/Win/.test(ua)) return 'Windows'
+  if (/Linux/.test(ua)) return 'Linux'
   return 'Unknown'
 }
