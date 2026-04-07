@@ -79,11 +79,13 @@ export function detectDeviceLabel() {
   if (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) return 'iPadOS'
   if (/iPhone|iPod/.test(ua)) return 'iOS'
   if (/Android/.test(ua)) {
-    // Use screen size to differentiate phone vs tablet — UA "Mobile" flag is unreliable
-    // (many Android tablets, especially Samsung, include "Mobile" in their UA)
-    // 600px smallest dimension is the standard Android tablet threshold
+    // Detect Android tablet vs phone using multiple signals:
+    // 1. Screen size (CSS px) — lowered to 500px to catch smaller tablets
+    //    (Galaxy Tab A7 Lite ~534px, some 7" tabs ~480px)
+    // 2. UA keywords — Samsung tabs have "SM-T", some include "Tab" or "Tablet"
     const minDim = Math.min(screen.width, screen.height)
-    return minDim >= 600 ? 'Android Tablet' : 'Android Phone'
+    const uaHasTabletHint = /\bSM-T|Tablet|Tab\b/i.test(ua)
+    return (minDim >= 500 || uaHasTabletHint) ? 'Android Tablet' : 'Android Phone'
   }
   if (/Mac/.test(ua)) return 'Mac'
   if (/Win/.test(ua)) return 'Windows'

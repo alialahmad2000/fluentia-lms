@@ -24,9 +24,10 @@ export function detectDevice() {
   if (os === 'ios') type = 'iphone'
   else if (os === 'ipados') type = 'ipad'
   else if (os === 'android') {
-    // Use screen size instead of UA "Mobile" flag — many Android tablets include "Mobile" in UA
+    // Detect tablet vs phone: screen size (lowered to 500px for smaller tabs) + UA keywords
     const minDim = Math.min(screen.width, screen.height)
-    type = minDim >= 600 ? 'android_tablet' : 'android_phone'
+    const uaHasTabletHint = /\bSM-T|Tablet|Tab\b/i.test(ua)
+    type = (minDim >= 500 || uaHasTabletHint) ? 'android_tablet' : 'android_phone'
   }
 
   // Browser detection (order matters)

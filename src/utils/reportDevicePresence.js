@@ -17,7 +17,7 @@ export async function reportDevicePresence(userId) {
 
   // Throttle: don't report more than once every 6 hours
   // Skip cooldown if last report used old detection (force re-report after detection fix)
-  const DETECTION_FIX_TS = 1744070400000 // 2026-04-08T00:00:00Z — deploy date of screen-size fix
+  const DETECTION_FIX_TS = 1744156800000 // 2026-04-09T00:00:00Z — deploy date of tablet detection fix v2
   try {
     const lastReport = parseInt(localStorage.getItem(REPORT_KEY) || '0', 10)
     if (lastReport > DETECTION_FIX_TS && Date.now() - lastReport < REPORT_COOLDOWN) return
