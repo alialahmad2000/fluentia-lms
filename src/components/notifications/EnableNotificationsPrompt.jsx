@@ -25,18 +25,74 @@ export default function EnableNotificationsPrompt() {
 
   useEffect(() => {
     if (!profile?.id) return
-
-    // Check if already granted or not supported
     if (!isPushSupported()) return
+
     const permission = getPushPermission()
-    if (permission === 'granted' || permission === 'denied') return
+
+    // Auto-retry: permission already granted but no active pushManager subscription
+    // This handles the case where user clicked Allow but the subscribe failed
+    // (e.g., VAPID key was missing at build time, network error, etc.)
+    if (permission === 'granted') {
+      const stored = localStorage.getItem(STORAGE_KEY)
+      const alreadySubscribed = stored && JSON.parse(stored).subscribedAt
+      if (!alreadySubscribed) {
+        navigator.serviceWorker.ready.then(reg =>
+          reg.pushManager.getSubscription()
+        ).then(async (sub) => {
+          if (!sub) {
+            // No active browser subscription — re-attempt silently
+            try {
+              await subscribeUserToPush(profile.id)
+              localStorage.setItem(STORAGE_KEY, JSON.stringify({ subscribedAt: new Date().toISOString() }))
+              toast({ type: 'success', title: 'تم تفعيل الإشعارات' })
+            } catch {
+              // Silent fail — will retry on next page load
+            }
+          } else {
+            // Browser subscription exists, ensure it's saved in DB
+            const subJson = sub.toJSON()
+            const { supabase } = await import('../../lib/supabase')
+            const { data } = await supabase
+              .from('push_subscriptions')
+              .select('id')
+              .eq('user_id', profile.id)
+              .eq('endpoint', subJson.endpoint)
+              .maybeSingle()
+            if (!data) {
+              try {
+                await supabase.from('push_subscriptions').upsert({
+                  user_id: profile.id,
+                  endpoint: subJson.endpoint,
+                  p256dh: subJson.keys.p256dh,
+                  auth: subJson.keys.auth,
+                  user_agent: navigator.userAgent,
+                  device_label: /iPhone|iPad|iPod/.test(navigator.userAgent) ? 'iOS' : /Android/.test(navigator.userAgent) ? 'Android' : /Mac/.test(navigator.userAgent) ? 'Mac' : /Win/.test(navigator.userAgent) ? 'Windows' : 'Unknown',
+                  is_active: true,
+                  last_used_at: new Date().toISOString(),
+                }, { onConflict: 'user_id,endpoint' })
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({ subscribedAt: new Date().toISOString() }))
+                toast({ type: 'success', title: 'تم تفعيل الإشعارات' })
+              } catch {
+                // Silent fail
+              }
+            } else {
+              // Already in DB — just mark localStorage
+              localStorage.setItem(STORAGE_KEY, JSON.stringify({ subscribedAt: new Date().toISOString() }))
+            }
+          }
+        })
+      }
+      return
+    }
+
+    if (permission === 'denied') return
 
     // Check dismiss state
     const stored = localStorage.getItem(STORAGE_KEY)
     if (stored) {
       const { dismissed, subscribedAt, remindAfter } = JSON.parse(stored)
-      if (subscribedAt) return // already subscribed
-      if (dismissed && remindAfter && new Date(remindAfter) > new Date()) return // still in cooldown
+      if (subscribedAt) return
+      if (dismissed && remindAfter && new Date(remindAfter) > new Date()) return
     }
 
     setIsIOS(isIOSSafari())
