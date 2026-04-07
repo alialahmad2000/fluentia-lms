@@ -83,7 +83,7 @@ export default function TrainerGrading() {
 
   // Helper to get student name from nested join
   function getStudentName(s) {
-    return s.students?.profiles?.display_name || s.students?.profiles?.full_name || 'طالب'
+    return s.students?.profiles?.full_name || s.students?.profiles?.display_name || 'طالب'
   }
 
   return (
@@ -269,7 +269,7 @@ function GradingModal({ submission, getStudentName, onClose }) {
       }
 
       // Send notification to student
-      const trainerName = profile?.display_name || profile?.full_name || 'المدرب'
+      const trainerName = profile?.full_name || profile?.display_name || 'المدرب'
       const { error: notifErr } = await supabase.from('notifications').insert({
         user_id: submission.student_id,
         type: 'assignment_graded',

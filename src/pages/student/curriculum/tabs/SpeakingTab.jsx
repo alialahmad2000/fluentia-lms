@@ -14,7 +14,7 @@ import { safeCelebrate } from '../../../../lib/celebrations'
 export default function SpeakingTab({ unitId }) {
   const { profile, studentData } = useAuthStore()
   const studentId = profile?.id
-  const studentName = profile?.display_name || profile?.full_name
+  const studentName = profile?.full_name || profile?.display_name
   const groupId = studentData?.group_id
   const queryClient = useQueryClient()
 

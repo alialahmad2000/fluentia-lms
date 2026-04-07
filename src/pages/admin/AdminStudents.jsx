@@ -118,7 +118,7 @@ function StudentsContent() {
   })
 
   function getStudentName(s) {
-    return s.profiles?.display_name || s.profiles?.full_name || 'طالب'
+    return s.profiles?.full_name || s.profiles?.display_name || 'طالب'
   }
 
   function handleExportCSV() {
@@ -860,7 +860,7 @@ function BulkEmailUpdate() {
                     <tr key={s.id}>
                       <td>
                         <p className="text-[var(--text-primary)] font-medium">
-                          {s.profiles?.display_name || s.profiles?.full_name || 'طالب'}
+                          {s.profiles?.full_name || s.profiles?.display_name || 'طالب'}
                         </p>
                       </td>
                       <td className="text-muted">{s.groups?.code || '—'}</td>
@@ -931,7 +931,7 @@ function BulkEmailUpdate() {
                   const student = students?.find(s => s.id === id)
                   return (
                     <div key={id} className="flex items-center justify-between text-sm py-2 px-3 rounded-lg" style={{ background: 'var(--surface-raised)' }}>
-                      <span style={{ color: 'var(--text-primary)' }}>{student?.profiles?.display_name || student?.profiles?.full_name}</span>
+                      <span style={{ color: 'var(--text-primary)' }}>{student?.profiles?.full_name || student?.profiles?.display_name}</span>
                       <span className="text-muted" dir="ltr">{email}</span>
                     </div>
                   )

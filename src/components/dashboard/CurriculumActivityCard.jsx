@@ -46,7 +46,7 @@ export default function CurriculumActivityCard({ studentIds, groups, mode = 'tra
       const map = {}
       ;(data || []).forEach(s => {
         map[s.id] = {
-          name: s.profiles?.display_name || s.profiles?.full_name || 'طالب',
+          name: s.profiles?.full_name || s.profiles?.display_name || 'طالب',
           avatar_url: s.profiles?.avatar_url,
           group_id: s.group_id,
         }
@@ -128,7 +128,7 @@ export default function CurriculumActivityCard({ studentIds, groups, mode = 'tra
         inactive: activeRes.data?.length || 0,
         inactiveStudents: (activeRes.data || []).map(s => ({
           id: s.id,
-          name: s.profiles?.display_name || s.profiles?.full_name || 'طالب',
+          name: s.profiles?.full_name || s.profiles?.display_name || 'طالب',
           avatar_url: s.profiles?.avatar_url,
           lastActive: s.last_active_at,
         })),

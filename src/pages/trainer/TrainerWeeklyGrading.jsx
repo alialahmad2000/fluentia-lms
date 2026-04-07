@@ -152,7 +152,7 @@ export default function TrainerWeeklyGrading() {
   }, [submissions])
 
   function getStudentName(task) {
-    return task.students?.profiles?.display_name || task.students?.profiles?.full_name || 'طالب'
+    return task.students?.profiles?.full_name || task.students?.profiles?.display_name || 'طالب'
   }
 
   return (

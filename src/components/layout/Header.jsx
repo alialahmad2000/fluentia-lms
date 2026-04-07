@@ -54,7 +54,7 @@ export default function Header({ onMenuToggle }) {
   const navigate = useNavigate()
   const role = profile?.role || 'student'
   const config = ROLE_CONFIG[role] || ROLE_CONFIG.student
-  const displayName = profile?.display_name || profile?.full_name || ''
+  const displayName = profile?.full_name || profile?.display_name || ''
   const firstName = displayName
   const packageName = studentData?.package_name || profile?.package_name || null
   const level = studentData?.level ?? profile?.level ?? null

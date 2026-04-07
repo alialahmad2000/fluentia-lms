@@ -39,7 +39,7 @@ export default function StudentActivityFeed() {
         .limit(50)
       return (data || []).map(a => ({
         ...a,
-        studentName: a.student?.profiles?.display_name || a.student?.profiles?.full_name || null,
+        studentName: a.student?.profiles?.full_name || a.student?.profiles?.display_name || null,
       }))
     },
     enabled: !!groupId,

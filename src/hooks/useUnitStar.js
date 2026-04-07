@@ -175,7 +175,7 @@ export function useUnitStar(unitId, groupId) {
           improvements: { writing: false, speaking: false },
         })
 
-        const name = student.profiles?.display_name || student.profiles?.full_name || 'طالب'
+        const name = student.profiles?.full_name || student.profiles?.display_name || 'طالب'
 
         return {
           studentId: student.id,

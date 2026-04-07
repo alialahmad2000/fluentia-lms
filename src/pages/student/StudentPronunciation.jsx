@@ -1107,7 +1107,7 @@ export default function StudentPronunciation() {
             </div>
             <BeforeAfterSection
               profileId={profile?.id}
-              studentName={profile?.display_name || profile?.full_name}
+              studentName={profile?.full_name || profile?.display_name}
             />
           </motion.div>
         </AnimatePresence>

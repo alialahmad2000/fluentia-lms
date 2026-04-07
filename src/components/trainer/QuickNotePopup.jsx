@@ -41,7 +41,7 @@ export default function QuickNotePopup({ groupId, onClose }) {
     enabled: !!groupId,
   })
 
-  const getName = (s) => s.profiles?.display_name || s.profiles?.full_name || 'طالب'
+  const getName = (s) => s.profiles?.full_name || s.profiles?.display_name || 'طالب'
 
   const saveMutation = useMutation({
     mutationFn: async () => {

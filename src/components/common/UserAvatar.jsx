@@ -21,7 +21,7 @@ export default function UserAvatar({
   const [imgLoaded, setImgLoaded] = useState(false)
 
   const avatarUrl = user?.avatar_url
-  const name = user?.display_name || user?.full_name || ''
+  const name = user?.full_name || user?.display_name || ''
   const initial = name.trim()[0] || '?'
   const showImg = avatarUrl && !imgError
 

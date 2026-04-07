@@ -290,7 +290,7 @@ export default function StudentReferral() {
 
   const referralCode = buildReferralCode(profile?.id)
   const referralLink = `${BASE_URL}?ref=${referralCode}`
-  const displayName  = profile?.display_name || profile?.full_name || 'الطالب'
+  const displayName  = profile?.full_name || profile?.display_name || 'الطالب'
 
   // ── My referral count ──
   const { data: myReferrals, isLoading: loadingMine } = useQuery({
@@ -345,7 +345,7 @@ export default function StudentReferral() {
       ;(allStudents || []).forEach(s => {
         const code = buildReferralCode(s.id)
         const sp = Array.isArray(s.profiles) ? s.profiles[0] : s.profiles
-        codeToName[code] = sp?.display_name || sp?.full_name || 'طالب'
+        codeToName[code] = sp?.full_name || sp?.display_name || 'طالب'
       })
 
       return sorted.map(([code, count], i) => ({
@@ -683,7 +683,7 @@ export default function StudentReferral() {
                 <div className="space-y-2">
                   {myReferrals?.map((r, i) => {
                     const rProfile = Array.isArray(r.profiles) ? r.profiles[0] : r.profiles
-                    const rName = rProfile?.display_name || rProfile?.full_name || 'طالب جديد'
+                    const rName = rProfile?.full_name || rProfile?.display_name || 'طالب جديد'
                     return (
                       <motion.div
                         key={r.id}

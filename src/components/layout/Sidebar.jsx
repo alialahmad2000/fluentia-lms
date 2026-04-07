@@ -131,7 +131,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
   const role = profile?.role || 'student'
   const items = NAV_ITEMS[role] || NAV_ITEMS.student
   const accent = ROLE_ACCENTS[role] || ROLE_ACCENTS.student
-  const displayName = profile?.display_name || profile?.full_name || ''
+  const displayName = profile?.full_name || profile?.display_name || ''
   const level = studentData?.level || profile?.level || '—'
   const studentPackage = studentData?.package || 'asas'
   const [sidebarToast, setSidebarToast] = useState(null)

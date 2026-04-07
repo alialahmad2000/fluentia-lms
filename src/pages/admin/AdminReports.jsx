@@ -96,7 +96,7 @@ function ReportsContent() {
     // Export leaderboard
     if (leaderboard?.length) {
       const leaderColumns = [
-        { key: (s) => s.profiles?.display_name || s.profiles?.full_name || 'طالب', label: 'الطالب' },
+        { key: (s) => s.profiles?.full_name || s.profiles?.display_name || 'طالب', label: 'الطالب' },
         { key: (s) => s.groups?.code || '', label: 'المجموعة' },
         { key: 'xp_total', label: 'XP' },
         { key: 'current_streak', label: 'السلسلة' },
@@ -192,7 +192,7 @@ function ReportsContent() {
           <h3 className="text-section-title mb-4" style={{ color: 'var(--text-primary)' }}>أفضل 10 طلاب</h3>
           <div className="space-y-2">
             {leaderboard?.map((s, i) => {
-              const name = s.profiles?.display_name || s.profiles?.full_name || 'طالب'
+              const name = s.profiles?.full_name || s.profiles?.display_name || 'طالب'
               const medals = ['🥇', '🥈', '🥉']
               return (
                 <div key={s.id} className="flex items-center justify-between p-3 rounded-xl" style={{ background: 'var(--surface-raised)' }}>

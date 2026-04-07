@@ -378,7 +378,7 @@ export default function StudentProgressDetail() {
           <UserAvatar user={student} size={56} rounded="xl" />
           <div className="flex-1 min-w-0">
             <h1 className="text-lg font-bold truncate" style={{ color: 'var(--text-primary)' }}>
-              {student.display_name || student.full_name}
+              {student.full_name || student.display_name}
             </h1>
             <div className="flex items-center gap-3 flex-wrap mt-1">
               {studentInfo.package && (

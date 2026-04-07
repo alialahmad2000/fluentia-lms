@@ -179,7 +179,7 @@ export default function AdminChurnPrediction() {
         <div className="space-y-3">
           {filtered.map((prediction, i) => {
             const risk = RISK_CONFIG[prediction.risk_level]
-            const name = prediction.profiles?.display_name || prediction.profiles?.full_name || 'طالب'
+            const name = prediction.profiles?.full_name || prediction.profiles?.display_name || 'طالب'
             const group = prediction.students?.groups?.name || '—'
             const expanded = expandedId === prediction.id
 

@@ -80,7 +80,7 @@ export default function MyNotes() {
     if (filterType !== 'all' && n.note_type !== filterType) return false
     if (searchQuery) {
       const q = searchQuery.toLowerCase()
-      const name = (n.students?.profiles?.display_name || n.students?.profiles?.full_name || '').toLowerCase()
+      const name = (n.students?.profiles?.full_name || n.students?.profiles?.display_name || '').toLowerCase()
       return name.includes(q) || n.content.toLowerCase().includes(q)
     }
     return true
@@ -173,7 +173,7 @@ export default function MyNotes() {
                 <div className="space-y-3">
                   {items.map((note, i) => {
                     const type = NOTE_TYPES[note.note_type] || NOTE_TYPES.observation
-                    const name = note.students?.profiles?.display_name || note.students?.profiles?.full_name || 'طالب'
+                    const name = note.students?.profiles?.full_name || note.students?.profiles?.display_name || 'طالب'
                     return (
                       <motion.div
                         key={note.id}
@@ -287,7 +287,7 @@ function NoteModal({ students, editingNote, trainerId, onClose }) {
             <select className="input-field w-full" value={studentId} onChange={(e) => setStudentId(e.target.value)}>
               <option value="">اختر الطالب...</option>
               {students.map(s => (
-                <option key={s.id} value={s.id}>{s.profiles?.display_name || s.profiles?.full_name}</option>
+                <option key={s.id} value={s.id}>{s.profiles?.full_name || s.profiles?.display_name}</option>
               ))}
             </select>
           </div>

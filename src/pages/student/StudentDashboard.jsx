@@ -122,7 +122,7 @@ function useCountdown(schedule) {
 export default function StudentDashboard() {
   const { profile, studentData } = useAuthStore()
   const navigate = useNavigate()
-  const firstName = profile?.display_name || profile?.full_name || ''
+  const firstName = profile?.full_name || profile?.display_name || ''
 
   // Weekly tasks progress + individual tasks
   const { data: weeklyProgress, isLoading: loadingWeekly } = useQuery({
@@ -217,7 +217,7 @@ export default function StudentDashboard() {
         .limit(3)
       return (data || []).map(a => ({
         ...a,
-        studentName: a.student?.profiles?.display_name || a.student?.profiles?.full_name || null,
+        studentName: a.student?.profiles?.full_name || a.student?.profiles?.display_name || null,
       }))
     },
     enabled: !!studentData?.group_id,
@@ -237,7 +237,7 @@ export default function StudentDashboard() {
         .limit(3)
       return (data || []).map((s, i) => ({
         rank: i + 1,
-        name: s.profiles?.display_name || s.profiles?.full_name || 'طالب',
+        name: s.profiles?.full_name || s.profiles?.display_name || 'طالب',
         xp: s.xp_total,
         isMe: s.id === profile?.id,
       }))

@@ -93,7 +93,7 @@ function QuickPointsContent() {
   })
 
   function getStudentName(s) {
-    return s.profiles?.display_name || s.profiles?.full_name || 'طالب'
+    return s.profiles?.full_name || s.profiles?.display_name || 'طالب'
   }
 
   // Award XP

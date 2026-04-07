@@ -67,7 +67,7 @@ export default function TrainerTeams() {
         if (!map[m.team_id]) map[m.team_id] = []
         map[m.team_id].push({
           id: m.student_id,
-          name: m.students?.profiles?.display_name || m.students?.profiles?.full_name || 'طالب',
+          name: m.students?.profiles?.full_name || m.students?.profiles?.display_name || 'طالب',
           xp: m.students?.xp_total || 0,
         })
       })
@@ -99,7 +99,7 @@ export default function TrainerTeams() {
         .filter(s => !assignedIds.has(s.id))
         .map(s => ({
           id: s.id,
-          name: s.profiles?.display_name || s.profiles?.full_name || 'طالب',
+          name: s.profiles?.full_name || s.profiles?.display_name || 'طالب',
           xp: s.xp_total || 0,
         }))
     },

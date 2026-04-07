@@ -106,13 +106,13 @@ export default function AdminTrainers() {
                 <div className="flex items-center gap-3">
                   <UserAvatar user={t} size={48} rounded="xl" gradient="linear-gradient(135deg, rgba(56,189,248,0.2), rgba(56,189,248,0.1))" />
                   <div>
-                    <p className="text-[var(--text-primary)] font-medium">{t.display_name || t.full_name}</p>
+                    <p className="text-[var(--text-primary)] font-medium">{t.full_name || t.display_name}</p>
                     <p className="text-xs text-muted">{t.email}</p>
                     {t.role === 'admin' && <span className="badge-gold">مدير</span>}
                   </div>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  {t.role !== 'admin' && <ImpersonateButton userId={t.id} role="trainer" name={t.display_name || t.full_name} />}
+                  {t.role !== 'admin' && <ImpersonateButton userId={t.id} role="trainer" name={t.full_name || t.display_name} />}
                   <button onClick={() => setEditTrainer(t)} className="btn-icon w-8 h-8 text-muted hover:text-sky-400 transition-all duration-200">
                     <Edit3 size={16} />
                   </button>

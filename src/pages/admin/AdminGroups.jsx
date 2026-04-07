@@ -130,7 +130,7 @@ export default function AdminGroups() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted">المدرب</span>
-                  <span className="text-[var(--text-primary)]">{g.profiles?.display_name || g.profiles?.full_name || '—'}</span>
+                  <span className="text-[var(--text-primary)]">{g.profiles?.full_name || g.profiles?.display_name || '—'}</span>
                 </div>
                 {g.schedule && (
                   <div className="flex justify-between">
@@ -233,7 +233,7 @@ function GroupFormModal({ group, trainers, onClose, onSave, saving }) {
             <label className="input-label">المدرب</label>
             <select value={trainerId} onChange={(e) => setTrainerId(e.target.value)} className="input-field">
               <option value="">بدون مدرب</option>
-              {trainers?.map(t => <option key={t.id} value={t.id}>{t.display_name || t.full_name}</option>)}
+              {trainers?.map(t => <option key={t.id} value={t.id}>{t.full_name || t.display_name}</option>)}
             </select>
           </div>
           <div>

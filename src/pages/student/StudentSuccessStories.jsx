@@ -273,7 +273,7 @@ export default function StudentSuccessStories() {
           <div className="w-16 h-16 rounded-xl bg-gold-500/10 flex items-center justify-center mx-auto mb-3">
             <Star size={28} className="text-gold-400" />
           </div>
-          <h2 className="text-xl font-bold text-[var(--text-primary)]">{profile?.display_name || profile?.full_name}</h2>
+          <h2 className="text-xl font-bold text-[var(--text-primary)]">{profile?.full_name || profile?.display_name}</h2>
           <p className="text-sm text-muted">
             عضو منذ {new Date(profile?.created_at || Date.now()).toLocaleDateString('ar-SA', { month: 'long', year: 'numeric' })}
           </p>

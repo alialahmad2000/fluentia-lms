@@ -229,7 +229,7 @@ export default function AdminAuditLog() {
                     const actionStyle = getActionStyle(log.action)
                     const isExpanded = expandedId === log.id
                     const hasDiff = log.old_data || log.new_data
-                    const actorName = log.actor?.display_name || log.actor?.full_name || 'غير معروف'
+                    const actorName = log.actor?.full_name || log.actor?.display_name || 'غير معروف'
 
                     return (
                       <motion.tr

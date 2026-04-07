@@ -65,7 +65,7 @@ export default function PostClassSummary({ groupId, unitId, classStartedAt, poin
 
   const studentMap = useMemo(() => {
     const map = {}
-    students.forEach(s => { map[s.id] = s.profiles?.display_name || s.profiles?.full_name || 'طالب' })
+    students.forEach(s => { map[s.id] = s.profiles?.full_name || s.profiles?.display_name || 'طالب' })
     return map
   }, [students])
 
@@ -177,7 +177,7 @@ export default function PostClassSummary({ groupId, unitId, classStartedAt, poin
               <p className="text-[11px] font-bold font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>📝 ملاحظاتك خلال الحصة:</p>
               {sessionNotes.map(n => (
                 <p key={n.id} className="text-[12px] font-['Tajawal'] pr-3" style={{ color: 'var(--text-tertiary)' }}>
-                  • {n.students?.profiles?.display_name || n.students?.profiles?.full_name || ''}: "{n.message || n.title}"
+                  • {n.students?.profiles?.full_name || n.students?.profiles?.display_name || ''}: "{n.message || n.title}"
                 </p>
               ))}
             </div>

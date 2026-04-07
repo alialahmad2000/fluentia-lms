@@ -80,7 +80,7 @@ export default function AdminSmartScheduling() {
         scheduleByDay[day].push({
           group,
           time: schedule.time || '—',
-          trainer: group.profiles?.display_name || group.profiles?.full_name || '—',
+          trainer: group.profiles?.full_name || group.profiles?.display_name || '—',
         })
       }
     }
@@ -206,7 +206,7 @@ export default function AdminSmartScheduling() {
         <div className="space-y-3">
           {!trainers?.length && <p className="text-muted text-sm text-center py-4">لا يوجد مدربون</p>}
           {trainers?.map((trainer, i) => {
-            const name = trainer.display_name || trainer.full_name || 'مدرب'
+            const name = trainer.full_name || trainer.display_name || 'مدرب'
             const trainerGroups = groups?.filter(g => g.trainer_id === trainer.id) || []
             const totalSessions = trainerGroups.reduce((acc, g) => acc + (g.schedule?.days?.length || 0), 0)
 

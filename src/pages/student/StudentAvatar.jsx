@@ -79,7 +79,7 @@ export default function StudentAvatar() {
   const style = AVATAR_STYLES.find(s => s.id === selectedStyle) || AVATAR_STYLES[0]
   const frame = FRAMES.find(f => f.id === selectedFrame) || FRAMES[0]
   const badge = BADGE_ICONS.find(b => b.id === selectedBadge)
-  const initial = displayEmoji || (profile?.display_name || profile?.full_name || '?')[0]
+  const initial = displayEmoji || (profile?.full_name || profile?.display_name || '?')[0]
 
   return (
     <div className="space-y-12">
@@ -105,7 +105,7 @@ export default function StudentAvatar() {
             </div>
           )}
         </div>
-        <h2 className="text-xl font-bold text-[var(--text-primary)] mt-4">{profile?.display_name || profile?.full_name}</h2>
+        <h2 className="text-xl font-bold text-[var(--text-primary)] mt-4">{profile?.full_name || profile?.display_name}</h2>
         <p className="text-sm text-muted">{xp} XP</p>
       </motion.div>
 

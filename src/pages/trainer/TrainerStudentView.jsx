@@ -75,7 +75,7 @@ const TABS = [
 const PACKAGE_LABELS = { asas: 'أساس', talaqa: 'طلاقة', tamayuz: 'تميّز', ielts: 'آيلتس' }
 
 function getStudentName(s) {
-  return s?.profiles?.display_name || s?.profiles?.full_name || s?.display_name || s?.full_name || 'طالب'
+  return s?.profiles?.full_name || s?.profiles?.display_name || s?.full_name || s?.display_name || 'طالب'
 }
 
 // ─── Main Component ────────────────────────────────────────

@@ -739,7 +739,7 @@ export default function StudentCertificate() {
     [allCerts, activeTab]
   )
 
-  const studentName = profile?.display_name || profile?.full_name || 'الطالب'
+  const studentName = profile?.full_name || profile?.display_name || 'الطالب'
 
   return (
     <div className="space-y-12">

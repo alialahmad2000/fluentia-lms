@@ -230,7 +230,7 @@ export default function InteractiveSpeakingTab({ unitId, students = [] }) {
                     <div key={student.id} className="flex items-center gap-2 px-3 py-2 rounded-lg" style={{ background: 'var(--surface-base)' }}>
                       <Clock size={13} className="text-[var(--text-muted)]" />
                       <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">
-                        {student.profiles?.display_name || student.profiles?.full_name || 'طالب'}
+                        {student.profiles?.full_name || student.profiles?.display_name || 'طالب'}
                       </span>
                       <span className="text-[10px] text-[var(--text-muted)] mr-auto font-['Tajawal']">لم تسجل بعد</span>
                     </div>
@@ -256,7 +256,7 @@ function StudentRecordingCard({ student, recording, trainerId, onFeedbackSaved }
   const [saved, setSaved] = useState(false)
 
   const aiEval = recording.ai_evaluation
-  const studentName = student?.profiles?.display_name || student?.profiles?.full_name || 'طالب'
+  const studentName = student?.profiles?.full_name || student?.profiles?.display_name || 'طالب'
   const hasRichFeedback = aiEval && (aiEval.corrected_transcript || aiEval.errors?.length || aiEval.better_expressions?.length || aiEval.fluency_tips?.length || aiEval.model_answer)
 
   const saveTrainerFeedback = async () => {

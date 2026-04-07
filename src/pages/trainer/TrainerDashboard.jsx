@@ -46,7 +46,7 @@ const anim = (i) => ({
 export default function TrainerDashboard() {
   const { profile } = useAuthStore()
   const navigate = useNavigate()
-  const firstName = profile?.display_name || profile?.full_name || ''
+  const firstName = profile?.full_name || profile?.display_name || ''
   const isAdmin = profile?.role === 'admin'
 
   // ── Groups ──
@@ -176,13 +176,13 @@ export default function TrainerDashboard() {
     ...pendingAssignments.map(s => ({
       id: s.id, type: s.assignments?.type || 'custom',
       title: s.assignments?.title || 'واجب',
-      name: s.students?.profiles?.display_name || s.students?.profiles?.full_name || 'طالب',
+      name: s.students?.profiles?.full_name || s.students?.profiles?.display_name || 'طالب',
       date: s.submitted_at || s.created_at,
     })),
     ...pendingSpeaking.map(r => ({
       id: `sp-${r.id}`, type: 'speaking',
       title: 'تسجيل تحدث',
-      name: r.students?.profiles?.display_name || r.students?.profiles?.full_name || 'طالب',
+      name: r.students?.profiles?.full_name || r.students?.profiles?.display_name || 'طالب',
       date: r.created_at,
     })),
   ].sort((a, b) => new Date(a.date) - new Date(b.date))
@@ -362,11 +362,11 @@ export default function TrainerDashboard() {
                   onClick={() => navigate(`/trainer/student/${s.id}/progress`)}
                 >
                   <div className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold" style={{ background: 'rgba(56,189,248,0.1)', color: 'var(--accent-sky)' }}>
-                    {(s.profiles?.display_name || s.profiles?.full_name || '?')[0]}
+                    {(s.profiles?.full_name || s.profiles?.display_name || '?')[0]}
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-[13px] font-medium truncate font-['Tajawal']" style={{ color: 'var(--text-primary)' }}>
-                      {s.profiles?.display_name || s.profiles?.full_name || 'طالب'}
+                      {s.profiles?.full_name || s.profiles?.display_name || 'طالب'}
                     </p>
                     <div className="flex items-center gap-2 mt-0.5 text-[10px]" style={{ color: 'var(--text-tertiary)' }}>
                       <span className={streakDanger ? 'text-red-400' : ''}>🔥 {s.current_streak || 0}</span>

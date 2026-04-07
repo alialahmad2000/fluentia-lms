@@ -769,7 +769,7 @@ export default function StudentSchedule() {
                         if (dayPlans.length === 0) return null
                         const grouped = {}
                         dayPlans.forEach(p => {
-                          const name = p.profiles?.display_name || p.profiles?.full_name || 'طالبة'
+                          const name = p.profiles?.full_name || p.profiles?.display_name || 'طالبة'
                           if (!grouped[name]) grouped[name] = []
                           grouped[name].push(p)
                         })

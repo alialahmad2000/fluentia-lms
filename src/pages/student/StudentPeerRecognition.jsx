@@ -78,8 +78,8 @@ export default function StudentPeerRecognition() {
         const toP = Array.isArray(r.to_profile) ? r.to_profile[0] : r.to_profile
         return {
           ...r,
-          fromName: fromP?.profiles?.display_name || fromP?.profiles?.full_name || 'طالب',
-          toName: toP?.profiles?.display_name || toP?.profiles?.full_name || 'طالب',
+          fromName: fromP?.profiles?.full_name || fromP?.profiles?.display_name || 'طالب',
+          toName: toP?.profiles?.full_name || toP?.profiles?.display_name || 'طالب',
         }
       })
     },
@@ -125,7 +125,7 @@ export default function StudentPeerRecognition() {
         .single()
 
       return {
-        name: topStudent?.display_name || topStudent?.full_name || 'طالب',
+        name: topStudent?.full_name || topStudent?.display_name || 'طالب',
         count: topId[1],
       }
     },
@@ -151,12 +151,12 @@ export default function StudentPeerRecognition() {
         student_id: selectedStudent.id,
         amount: 5,
         reason: 'peer_recognition',
-        description: `شكر من ${profile?.display_name || profile?.full_name}`,
+        description: `شكر من ${profile?.full_name || profile?.display_name}`,
         awarded_by: profile?.id,
       })
 
       // Create notification for receiver
-      const senderName = profile?.display_name || profile?.full_name || 'زميلك'
+      const senderName = profile?.full_name || profile?.display_name || 'زميلك'
       await supabase.from('notifications').insert({
         user_id: selectedStudent.id,
         type: 'peer_recognition',
@@ -181,7 +181,7 @@ export default function StudentPeerRecognition() {
   })
 
   const remainingToday = 3 - (todaySent?.length || 0)
-  const getName = (s) => s.profiles?.display_name || s.profiles?.full_name || 'طالب'
+  const getName = (s) => s.profiles?.full_name || s.profiles?.display_name || 'طالب'
 
   return (
     <div className="space-y-12">

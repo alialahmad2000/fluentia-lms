@@ -40,7 +40,7 @@ export default function QuickPointsPopup({ groupId, onClose }) {
     enabled: !!groupId,
   })
 
-  const getName = (s) => s.profiles?.display_name || s.profiles?.full_name || 'طالب'
+  const getName = (s) => s.profiles?.full_name || s.profiles?.display_name || 'طالب'
 
   const awardMutation = useMutation({
     mutationFn: async ({ studentId, amount, reason }) => {

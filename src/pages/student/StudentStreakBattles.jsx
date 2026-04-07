@@ -103,7 +103,7 @@ export default function StudentStreakBattles() {
         <div className="space-y-2">
           {streakRanking.map((student, i) => {
             const sp = Array.isArray(student.profiles) ? student.profiles[0] : student.profiles
-            const name = sp?.display_name || sp?.full_name || 'طالب'
+            const name = sp?.full_name || sp?.display_name || 'طالب'
             const isMe = student.id === profile?.id
             return (
               <motion.div
@@ -152,7 +152,7 @@ export default function StudentStreakBattles() {
         <div className="space-y-2">
           {xpRanking.map((student, i) => {
             const sp = Array.isArray(student.profiles) ? student.profiles[0] : student.profiles
-            const name = sp?.display_name || sp?.full_name || 'طالب'
+            const name = sp?.full_name || sp?.display_name || 'طالب'
             const isMe = student.id === profile?.id
             return (
               <motion.div

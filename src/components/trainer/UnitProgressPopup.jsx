@@ -51,7 +51,7 @@ export default function UnitProgressPopup({ groupId, unitId, onClose }) {
 
         return {
           id: s.id,
-          name: s.profiles?.display_name || s.profiles?.full_name || 'طالب',
+          name: s.profiles?.full_name || s.profiles?.display_name || 'طالب',
           percentage,
         }
       })

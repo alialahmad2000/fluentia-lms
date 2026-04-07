@@ -86,7 +86,7 @@ export default function AdminPayments() {
   })
 
   function getStudentName(s) {
-    return s?.profiles?.display_name || s?.profiles?.full_name || 'طالب'
+    return s?.profiles?.full_name || s?.profiles?.display_name || 'طالب'
   }
 
   function handleExportCSV() {
@@ -301,7 +301,7 @@ function PaymentFormModal({ payment, students, onClose, onSave, saving }) {
               <option value="">اختر طالب...</option>
               {students?.map(s => (
                 <option key={s.id} value={s.id}>
-                  {s.profiles?.display_name || s.profiles?.full_name}
+                  {s.profiles?.full_name || s.profiles?.display_name}
                 </option>
               ))}
             </select>

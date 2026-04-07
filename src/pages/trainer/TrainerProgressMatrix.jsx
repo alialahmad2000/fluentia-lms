@@ -64,7 +64,7 @@ export default function TrainerProgressMatrix() {
         .order('id')
       return (data || []).map(s => ({
         id: s.id,
-        name: s.profiles?.display_name || s.profiles?.full_name || 'طالب',
+        name: s.profiles?.full_name || s.profiles?.display_name || 'طالب',
         avatar_url: s.profiles?.avatar_url,
       })).sort((a, b) => a.name.localeCompare(b.name, 'ar'))
     },

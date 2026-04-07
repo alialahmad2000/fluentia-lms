@@ -54,7 +54,7 @@ export default function AttendancePopup({ groupId, onClose }) {
     setStatuses(init)
   }, [students, existingAttendance])
 
-  const getName = (s) => s.profiles?.display_name || s.profiles?.full_name || 'طالب'
+  const getName = (s) => s.profiles?.full_name || s.profiles?.display_name || 'طالب'
   const presentCount = Object.values(statuses).filter(s => s === 'present').length
   const totalCount = students?.length || 0
 

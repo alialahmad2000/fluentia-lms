@@ -151,7 +151,7 @@ function GroupChatContent() {
           ) : (
             messages?.map((msg) => {
               const isMe = msg.user_id === profile?.id
-              const name = msg.profiles?.display_name || msg.profiles?.full_name || 'مجهول'
+              const name = msg.profiles?.full_name || msg.profiles?.display_name || 'مجهول'
               const isTrainer = msg.profiles?.role === 'trainer' || msg.profiles?.role === 'admin'
               return (
                 <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>

@@ -152,7 +152,7 @@ export default function AdminWeeklyTasks() {
   }
 
   function getStudentName(set) {
-    return set.students?.profiles?.display_name || set.students?.profiles?.full_name || 'طالب'
+    return set.students?.profiles?.full_name || set.students?.profiles?.display_name || 'طالب'
   }
 
   return (

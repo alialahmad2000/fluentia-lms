@@ -39,7 +39,7 @@ export function useActivityLeaderboard(type, unitId, studentId, groupId) {
           const avg = Math.round(((grammar + vocabulary + fluency) / count) * 10) / 10
 
           const student = groupStudents.find(s => s.id === p.student_id)
-          const name = student?.profiles?.display_name || student?.profiles?.full_name || 'طالب'
+          const name = student?.profiles?.full_name || student?.profiles?.display_name || 'طالب'
           return {
             studentId: p.student_id,
             name,
@@ -80,7 +80,7 @@ export function useActivityLeaderboard(type, unitId, studentId, groupId) {
           const avg = Math.round((total / count) * 10) / 10
 
           const student = groupStudents.find(s => s.id === r.student_id)
-          const name = student?.profiles?.display_name || student?.profiles?.full_name || 'طالب'
+          const name = student?.profiles?.full_name || student?.profiles?.display_name || 'طالب'
           return {
             studentId: r.student_id,
             name,

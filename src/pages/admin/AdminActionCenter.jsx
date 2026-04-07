@@ -19,7 +19,7 @@ const getGreetingTime = () => {
 export default function AdminActionCenter() {
   const { profile } = useAuthStore()
   const navigate = useNavigate()
-  const firstName = profile?.display_name || profile?.full_name || ''
+  const firstName = profile?.full_name || profile?.display_name || ''
 
   // Pending submissions
   const { data: pendingSubmissions } = useQuery({
@@ -132,7 +132,7 @@ export default function AdminActionCenter() {
       color: 'red',
       title: `${overduePayments.length} مدفوعات متأخرة`,
       desc: overduePayments.slice(0, 3).map(p =>
-        `${p.profiles?.display_name || p.profiles?.full_name || '—'}: ${p.amount} ر.س`
+        `${p.profiles?.full_name || p.profiles?.display_name || '—'}: ${p.amount} ر.س`
       ).join(' · '),
       action: () => navigate('/admin/packages'),
       btnLabel: 'عرض المدفوعات',
@@ -310,7 +310,7 @@ export default function AdminActionCenter() {
           </h2>
           <div className="fl-card-static divide-y divide-border-subtle overflow-hidden">
             {inactiveStudents.slice(0, 5).map((s) => {
-              const name = s.profiles?.display_name || s.profiles?.full_name || '—'
+              const name = s.profiles?.full_name || s.profiles?.display_name || '—'
               const lastActive = s.last_active_at
                 ? new Date(s.last_active_at).toLocaleDateString('ar-SA', { month: 'short', day: 'numeric' })
                 : 'لم يسجل دخول'

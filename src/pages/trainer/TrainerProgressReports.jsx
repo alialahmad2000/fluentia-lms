@@ -393,7 +393,7 @@ export default function TrainerProgressReports() {
               <option value="">اختر الطالب</option>
               {students?.map(s => (
                 <option key={s.id} value={s.id}>
-                  {s.profiles?.display_name || s.profiles?.full_name}
+                  {s.profiles?.full_name || s.profiles?.display_name}
                 </option>
               ))}
             </select>

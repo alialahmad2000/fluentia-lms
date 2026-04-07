@@ -109,7 +109,7 @@ export default function ClassPrepCard({ groupId, groupName }) {
 
       const notOpened = students
         .filter(s => !studentsWithProgress.has(s.id))
-        .map(s => s.profiles?.display_name || s.profiles?.full_name || 'طالب')
+        .map(s => s.profiles?.full_name || s.profiles?.display_name || 'طالب')
 
       return {
         reviewed: vocabReviewers.size,

@@ -383,7 +383,7 @@ function ProfileContent() {
                 <img src={profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
               ) : (
                 <div className="w-full h-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 text-2xl font-bold">
-                  {(profile?.display_name || profile?.full_name)?.[0] || '?'}
+                  {(profile?.full_name || profile?.display_name)?.[0] || '?'}
                 </div>
               )}
               <div className="absolute inset-0 rounded-2xl bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">

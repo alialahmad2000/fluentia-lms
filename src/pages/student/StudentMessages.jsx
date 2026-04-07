@@ -29,7 +29,7 @@ export default function StudentMessages() {
         if (!group?.trainers) return []
 
         const trainer = group.trainers
-        const trainerName = trainer.profiles?.display_name || trainer.profiles?.full_name || 'المدرب'
+        const trainerName = trainer.profiles?.full_name || trainer.profiles?.display_name || 'المدرب'
 
         // Count unread
         const { count } = await supabase
@@ -82,7 +82,7 @@ export default function StudentMessages() {
 
             contacts.push({
               id: contactId,
-              name: contactProfile.display_name || contactProfile.full_name || 'طالب',
+              name: contactProfile.full_name || contactProfile.display_name || 'طالب',
               role: 'student',
               unread: count || 0,
             })
@@ -182,7 +182,7 @@ export default function StudentMessages() {
       if (error) throw error
 
       // Send notification to recipient
-      const senderName = profile?.display_name || profile?.full_name || 'مستخدم'
+      const senderName = profile?.full_name || profile?.display_name || 'مستخدم'
       await supabase.from('notifications').insert({
         user_id: selectedContact.id,
         type: 'trainer_note',

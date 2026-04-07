@@ -85,7 +85,7 @@ export default function MyStudents() {
       if (filterTeam !== 'all' && s.team_id !== filterTeam) return false
       if (searchQuery) {
         const q = searchQuery.toLowerCase()
-        const name = (s.profiles?.display_name || s.profiles?.full_name || '').toLowerCase()
+        const name = (s.profiles?.full_name || s.profiles?.display_name || '').toLowerCase()
         return name.includes(q)
       }
       return true
@@ -157,7 +157,7 @@ export default function MyStudents() {
       ) : (
         <div className="space-y-3">
           {filtered.map((s, i) => {
-            const name = s.profiles?.display_name || s.profiles?.full_name || 'طالب'
+            const name = s.profiles?.full_name || s.profiles?.display_name || 'طالب'
             const lastActive = s.profiles?.last_active_at
             const status = getStatus(lastActive)
             const team = s.team_id ? teamsMap[s.team_id] : null

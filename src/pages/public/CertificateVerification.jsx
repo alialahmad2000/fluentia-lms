@@ -175,7 +175,7 @@ export default function CertificateVerification() {
           const match = certs.find((c) => c.id === urlCertId)
           if (match) {
             setCertData(match)
-            setStudentName(profile.display_name || profile.full_name || 'الطالب')
+            setStudentName(profile.full_name || profile.display_name || 'الطالب')
             setStatus('found')
             return
           }

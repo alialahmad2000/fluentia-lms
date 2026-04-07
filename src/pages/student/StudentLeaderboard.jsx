@@ -126,7 +126,7 @@ export default function StudentLeaderboard() {
           ...s,
           rank: i + 1,
           xp: s.xp_total,
-          name: s.profiles?.display_name || s.profiles?.full_name || 'طالب',
+          name: s.profiles?.full_name || s.profiles?.display_name || 'طالب',
           isMe: s.id === profile?.id,
         }))
       }
@@ -165,7 +165,7 @@ export default function StudentLeaderboard() {
         .map(s => ({
           ...s,
           xp: xpMap[s.id] || 0,
-          name: s.profiles?.display_name || s.profiles?.full_name || 'طالب',
+          name: s.profiles?.full_name || s.profiles?.display_name || 'طالب',
           isMe: s.id === profile?.id,
         }))
         .sort((a, b) => b.xp - a.xp)
@@ -242,7 +242,7 @@ export default function StudentLeaderboard() {
           ...s,
           rank: i + 1,
           xp: s.xp_total,
-          name: s.profiles?.display_name || s.profiles?.full_name || 'طالب',
+          name: s.profiles?.full_name || s.profiles?.display_name || 'طالب',
           groupName: s.groups?.code || s.groups?.name || '',
           isMe: s.id === profile?.id,
         }))
@@ -279,7 +279,7 @@ export default function StudentLeaderboard() {
         .map(s => ({
           ...s,
           xp: xpMap[s.id] || 0,
-          name: s.profiles?.display_name || s.profiles?.full_name || 'طالب',
+          name: s.profiles?.full_name || s.profiles?.display_name || 'طالب',
           groupName: s.groups?.code || s.groups?.name || '',
           isMe: s.id === profile?.id,
         }))

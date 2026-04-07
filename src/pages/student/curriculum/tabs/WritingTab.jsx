@@ -61,7 +61,7 @@ export default function WritingTab({ unitId }) {
   return (
     <div className="space-y-6">
       {tasks.map((task, idx) => (
-        <WritingTask key={task.id} task={task} number={idx + 1} total={tasks.length} studentId={profile?.id} unitId={unitId} studentName={profile?.display_name || profile?.full_name} groupId={studentData?.group_id} />
+        <WritingTask key={task.id} task={task} number={idx + 1} total={tasks.length} studentId={profile?.id} unitId={unitId} studentName={profile?.full_name || profile?.display_name} groupId={studentData?.group_id} />
       ))}
     </div>
   )
@@ -242,9 +242,13 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
       } else if (result.limit_reached || result.budget_reached) {
         toast({ type: 'info', title: result.error })
       }
-      // If AI unavailable — writing is already saved, trainer will review
+      // If AI gave an error or was unavailable
+      if (!result.feedback && !result.limit_reached && !result.budget_reached) {
+        toast({ type: 'warning', title: 'التقييم لم يتم — حاول مرة أخرى أو سيراجع المدرب' })
+      }
     } catch (err) {
       console.error('[WritingTab] AI feedback call failed:', err)
+      toast({ type: 'warning', title: 'فشل الاتصال بالتقييم — حاول مرة أخرى' })
     } finally {
       setSubmitting(false)
     }

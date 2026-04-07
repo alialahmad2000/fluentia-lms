@@ -94,7 +94,7 @@ export default function HelpRequestsPopup({ groupId, onClose }) {
             >
               <div className="flex-1 min-w-0">
                 <p className="text-[12px] font-bold font-['Tajawal'] truncate" style={{ color: 'var(--text-primary)' }}>
-                  {req.student?.profiles?.display_name || req.student?.profiles?.full_name || 'طالب'}
+                  {req.student?.profiles?.full_name || req.student?.profiles?.display_name || 'طالب'}
                 </p>
                 <p className="text-[10px] font-['Tajawal']" style={{ color: 'var(--text-muted)' }}>
                   {SECTION_LABELS[req.section_type] || req.section_type} · {timeAgo(req.created_at)}
