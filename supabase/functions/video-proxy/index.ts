@@ -1,26 +1,34 @@
 // Fluentia LMS — Google Drive Video Proxy
 // Streams Google Drive videos with proper CORS + Range headers so the
 // native <video> player works on all devices (phone, tablet, desktop).
-// Deploy: supabase functions deploy video-proxy
+// Deploy: supabase functions deploy video-proxy --no-verify-jwt
 
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
 
-const CORS = {
+const CORS: Record<string, string> = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS',
   'Access-Control-Allow-Headers': 'Range, Authorization',
   'Access-Control-Expose-Headers': 'Content-Range, Content-Length, Accept-Ranges, Content-Type',
 }
 
-function err(msg: string, status = 400) {
+function jsonErr(msg: string, status = 400) {
   return new Response(JSON.stringify({ error: msg }), {
     status,
     headers: { ...CORS, 'Content-Type': 'application/json' },
   })
 }
 
+function isVideoResponse(resp: Response): boolean {
+  const ct = resp.headers.get('Content-Type') || ''
+  return ct.startsWith('video/') || ct === 'application/octet-stream'
+}
+
+async function tryFetch(url: string, headers: Record<string, string>): Promise<Response> {
+  return await fetch(url, { headers, redirect: 'follow' })
+}
+
 serve(async (req: Request) => {
-  // CORS preflight
   if (req.method === 'OPTIONS') {
     return new Response(null, { status: 204, headers: CORS })
   }
@@ -28,51 +36,90 @@ serve(async (req: Request) => {
   const url = new URL(req.url)
   const fileId = url.searchParams.get('id')
   if (!fileId || !/^[a-zA-Z0-9_-]{10,}$/.test(fileId)) {
-    return err('Missing or invalid file id')
+    return jsonErr('Missing or invalid file id')
   }
 
   try {
-    // Forward Range header for seeking support
-    const fetchHeaders: Record<string, string> = {}
+    const fetchHeaders: Record<string, string> = {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    }
     const range = req.headers.get('Range')
     if (range) fetchHeaders['Range'] = range
 
-    // Step 1: Try direct download URL
-    let driveUrl = `https://drive.google.com/uc?export=download&id=${fileId}`
-    let response = await fetch(driveUrl, {
-      headers: fetchHeaders,
-      redirect: 'follow',
-    })
+    // URLs to try in order — different Google Drive endpoints that may work
+    const urls = [
+      // New usercontent domain with confirm=t (skips virus scan)
+      `https://drive.usercontent.google.com/download?id=${fileId}&export=download&confirm=t`,
+      // Classic uc endpoint with confirm
+      `https://drive.google.com/uc?export=download&id=${fileId}&confirm=t`,
+      // Classic uc endpoint without confirm (follows redirect for small files)
+      `https://drive.google.com/uc?export=download&id=${fileId}`,
+    ]
 
-    // Step 2: Handle Google virus-scan confirmation page (files > ~100MB)
-    const ct = response.headers.get('Content-Type') || ''
-    if (ct.includes('text/html')) {
-      const html = await response.text()
+    let response: Response | null = null
+    let lastHtml = ''
 
-      // Extract confirmation token from the warning page
-      const confirmMatch = html.match(/confirm=([a-zA-Z0-9_-]+)/)
-        || html.match(/id="download-form"[\s\S]*?name="confirm"\s+value="([^"]+)"/)
-        || html.match(/\/uc\?export=download[^"]*confirm=([a-zA-Z0-9_-]+)/)
+    for (const tryUrl of urls) {
+      const resp = await tryFetch(tryUrl, fetchHeaders)
 
-      if (confirmMatch) {
-        driveUrl = `https://drive.google.com/uc?export=download&id=${fileId}&confirm=${confirmMatch[1]}`
-        response = await fetch(driveUrl, { headers: fetchHeaders, redirect: 'follow' })
-      } else {
-        // Try the newer usercontent domain
-        const ucUrl = `https://drive.usercontent.google.com/download?id=${fileId}&export=download&confirm=t`
-        response = await fetch(ucUrl, { headers: fetchHeaders, redirect: 'follow' })
+      if (isVideoResponse(resp)) {
+        response = resp
+        break
+      }
 
-        const ct2 = response.headers.get('Content-Type') || ''
-        if (ct2.includes('text/html')) {
-          return err('Could not resolve video stream — check sharing settings', 502)
+      // Got HTML — might be confirmation page, extract token and retry
+      const ct = resp.headers.get('Content-Type') || ''
+      if (ct.includes('text/html')) {
+        const html = await resp.text()
+        lastHtml = html
+
+        // Look for confirmation token in the HTML
+        const tokenMatch = html.match(/confirm=([a-zA-Z0-9_-]+)/)
+          || html.match(/name="confirm"\s+value="([^"]+)"/)
+          || html.match(/&amp;confirm=([^&"]+)/)
+          || html.match(/confirm%3D([a-zA-Z0-9_-]+)/)
+
+        if (tokenMatch) {
+          // Retry with extracted token
+          const confirmedUrl = `https://drive.usercontent.google.com/download?id=${fileId}&export=download&confirm=${tokenMatch[1]}`
+          const confirmedResp = await tryFetch(confirmedUrl, fetchHeaders)
+          if (isVideoResponse(confirmedResp)) {
+            response = confirmedResp
+            break
+          }
+          // Also try classic domain
+          const confirmedUrl2 = `https://drive.google.com/uc?export=download&id=${fileId}&confirm=${tokenMatch[1]}`
+          const confirmedResp2 = await tryFetch(confirmedUrl2, fetchHeaders)
+          if (isVideoResponse(confirmedResp2)) {
+            response = confirmedResp2
+            break
+          }
+        }
+
+        // Check if the HTML contains a download URL we can extract
+        const dlMatch = html.match(/href="(\/uc\?export=download[^"]*)"/)
+          || html.match(/action="([^"]*download[^"]*)"/)
+        if (dlMatch) {
+          let dlUrl = dlMatch[1].replace(/&amp;/g, '&')
+          if (dlUrl.startsWith('/')) dlUrl = `https://drive.google.com${dlUrl}`
+          const dlResp = await tryFetch(dlUrl, fetchHeaders)
+          if (isVideoResponse(dlResp)) {
+            response = dlResp
+            break
+          }
         }
       }
     }
 
-    // Build response headers
+    if (!response) {
+      console.error('[video-proxy] All URL patterns failed for file:', fileId)
+      console.error('[video-proxy] Last HTML snippet:', lastHtml.substring(0, 500))
+      return jsonErr('Could not resolve video stream — file may not be shared publicly', 502)
+    }
+
+    // Build response with CORS headers
     const respHeaders = new Headers(CORS)
-    const videoType = response.headers.get('Content-Type')
-    respHeaders.set('Content-Type', videoType || 'video/mp4')
+    respHeaders.set('Content-Type', response.headers.get('Content-Type') || 'video/mp4')
     respHeaders.set('Accept-Ranges', 'bytes')
     respHeaders.set('Cache-Control', 'public, max-age=3600, s-maxage=7200')
 
@@ -82,13 +129,12 @@ serve(async (req: Request) => {
     const contentRange = response.headers.get('Content-Range')
     if (contentRange) respHeaders.set('Content-Range', contentRange)
 
-    // Stream the video body through without buffering
     return new Response(response.body, {
       status: response.status,
       headers: respHeaders,
     })
   } catch (e) {
     console.error('[video-proxy] Error:', e)
-    return err('Failed to fetch video', 502)
+    return jsonErr('Failed to fetch video', 502)
   }
 })
