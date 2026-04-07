@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, BookOpen, PenLine, Languages, Headphones, FileEdit, Mic, ClipboardCheck, Video, Check, MapPin } from 'lucide-react'
+import { ArrowRight, BookOpen, PenLine, Languages, Headphones, FileEdit, Mic, ClipboardCheck, Video, Check, MapPin, Volume2 } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import { tracker } from '../../../services/activityTracker'
@@ -21,6 +21,7 @@ import ListeningTab from './tabs/ListeningTab'
 import WritingTab from './tabs/WritingTab'
 import SpeakingTab from './tabs/SpeakingTab'
 import AssessmentTab from './tabs/AssessmentTab'
+import PronunciationTab from './tabs/PronunciationTab'
 import RecordingTab from '../../../components/curriculum/RecordingTab'
 
 const TABS = [
@@ -30,6 +31,7 @@ const TABS = [
   { id: 'listening', label: 'الاستماع', icon: Headphones },
   { id: 'writing', label: 'الكتابة', icon: FileEdit },
   { id: 'speaking', label: 'المحادثة', icon: Mic },
+  { id: 'pronunciation', label: 'النطق', icon: Volume2 },
   { id: 'assessment', label: 'التقييم', icon: ClipboardCheck },
   { id: 'recording', label: 'التسجيل', icon: Video },
 ]
@@ -187,6 +189,7 @@ export default function UnitContent() {
       case 'listening': return <ListeningTab unitId={unitId} />
       case 'writing': return <WritingTab unitId={unitId} />
       case 'speaking': return <SpeakingTab unitId={unitId} />
+      case 'pronunciation': return <PronunciationTab unitId={unitId} />
       case 'assessment': return <AssessmentTab unitId={unitId} />
       case 'recording': return <RecordingTab unitId={unitId} />
       default: return <ReadingTab unitId={unitId} />
