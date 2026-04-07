@@ -32,8 +32,8 @@ function getEmbedUrl(url) {
 function getDirectStreamUrl(url) {
   const fileId = getDriveFileId(url)
   if (!fileId) return null
-  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-  return `${supabaseUrl}/functions/v1/video-proxy?id=${fileId}`
+  // Direct Google Drive download URL — works when "Viewers can download" is enabled
+  return `https://drive.usercontent.google.com/download?id=${fileId}&export=download&confirm=t`
 }
 
 export { getEmbedUrl }
@@ -482,7 +482,6 @@ function NativePlayer({ url, streamUrl, onFallback }) {
       <video
         ref={videoRef}
         src={streamUrl}
-        crossOrigin="anonymous"
         className="absolute inset-0 w-full h-full rounded-lg"
         playsInline
         preload="metadata"
