@@ -122,7 +122,7 @@ function useCountdown(schedule) {
 export default function StudentDashboard() {
   const { profile, studentData } = useAuthStore()
   const navigate = useNavigate()
-  const firstName = profile?.display_name || (profile?.full_name || '').split(' ')[0]
+  const firstName = profile?.display_name || profile?.full_name || ''
 
   // Weekly tasks progress + individual tasks
   const { data: weeklyProgress, isLoading: loadingWeekly } = useQuery({

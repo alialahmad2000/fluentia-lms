@@ -19,7 +19,7 @@ const getGreetingTime = () => {
 export default function AdminActionCenter() {
   const { profile } = useAuthStore()
   const navigate = useNavigate()
-  const firstName = (profile?.display_name || profile?.full_name || '').split(' ')[0]
+  const firstName = profile?.display_name || profile?.full_name || ''
 
   // Pending submissions
   const { data: pendingSubmissions } = useQuery({

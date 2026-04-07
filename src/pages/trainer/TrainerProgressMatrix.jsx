@@ -235,8 +235,8 @@ export default function TrainerProgressMatrix() {
             { label: 'متوسط التقدم', value: `${matrix.topStats.avgCompletion}%`, icon: TrendingUp, color: 'text-emerald-400' },
             { label: 'أكثر وحدة مكتملة', value: matrix.topStats.mostCompletedUnit ? `و${matrix.topStats.mostCompletedUnit.unit_number}` : '—', icon: Award, color: 'text-amber-400' },
             { label: 'أقل وحدة مكتملة', value: matrix.topStats.leastCompletedUnit ? `و${matrix.topStats.leastCompletedUnit.unit_number}` : '—', icon: AlertTriangle, color: 'text-red-400' },
-            { label: 'الأنشط', value: matrix.topStats.mostActiveStudent?.name?.split(' ')[0] || '—', icon: Award, color: 'text-emerald-400' },
-            { label: 'الأقل نشاطاً', value: matrix.topStats.leastActiveStudent?.name?.split(' ')[0] || '—', icon: AlertTriangle, color: 'text-amber-400' },
+            { label: 'الأنشط', value: matrix.topStats.mostActiveStudent?.name || '—', icon: Award, color: 'text-emerald-400' },
+            { label: 'الأقل نشاطاً', value: matrix.topStats.leastActiveStudent?.name || '—', icon: AlertTriangle, color: 'text-amber-400' },
           ].map((stat, i) => (
             <div key={i} className="rounded-xl p-3 text-center" style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}>
               <stat.icon size={16} className={`${stat.color} mx-auto mb-1.5`} />

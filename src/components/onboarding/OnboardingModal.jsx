@@ -43,7 +43,7 @@ export default function OnboardingModal() {
       if (user) await fetchProfile(user)
 
       // Send auto-welcome message to group chat + notifications
-      const studentName = trimmedName || profile?.full_name?.split(' ')[0] || 'طالب جديد'
+      const studentName = trimmedName || profile?.full_name || 'طالب جديد'
       if (studentData?.group_id) {
         sendWelcomeMessage(profile.id, studentData.group_id, studentName).catch(() => {})
       }
@@ -60,7 +60,7 @@ export default function OnboardingModal() {
       <div className="text-5xl">🎉</div>
       <h2 className="text-2xl font-semibold text-[var(--text-primary)]">مرحباً في أكاديمية طلاقة!</h2>
       <p className="text-muted">
-        أهلاً {profile?.full_name?.split(' ')[0]}، نسعد بانضمامك لنا.
+        أهلاً {profile?.full_name || 'بك'}، نسعد بانضمامك لنا.
         <br />
         خلينا نعرفك على النظام بسرعة.
       </p>
@@ -92,7 +92,7 @@ export default function OnboardingModal() {
           className="input-field text-center text-lg"
           value={displayName}
           onChange={(e) => setDisplayName(e.target.value)}
-          placeholder={profile?.full_name?.split(' ')[0] || 'اسمك...'}
+          placeholder={profile?.full_name || 'اسمك...'}
         />
         <p className="text-xs text-muted text-center mt-1.5">يمكنك تغييره لاحقاً من الملف الشخصي</p>
       </div>

@@ -46,7 +46,7 @@ const anim = (i) => ({
 export default function TrainerDashboard() {
   const { profile } = useAuthStore()
   const navigate = useNavigate()
-  const firstName = profile?.display_name || (profile?.full_name || '').split(' ')[0]
+  const firstName = profile?.display_name || profile?.full_name || ''
   const isAdmin = profile?.role === 'admin'
 
   // ── Groups ──

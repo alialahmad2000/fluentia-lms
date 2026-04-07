@@ -42,7 +42,7 @@ export function useActivityLeaderboard(type, unitId, studentId, groupId) {
           const name = student?.profiles?.display_name || student?.profiles?.full_name || 'طالب'
           return {
             studentId: p.student_id,
-            name: name.split(' ')[0],
+            name,
             avatar: student?.profiles?.avatar_url,
             avgScore: avg,
             submittedAt: p.updated_at,
@@ -83,7 +83,7 @@ export function useActivityLeaderboard(type, unitId, studentId, groupId) {
           const name = student?.profiles?.display_name || student?.profiles?.full_name || 'طالب'
           return {
             studentId: r.student_id,
-            name: name.split(' ')[0],
+            name,
             avatar: student?.profiles?.avatar_url,
             avgScore: avg,
             submittedAt: r.created_at,

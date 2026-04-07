@@ -15,7 +15,7 @@ import DeviceInstallStatusWidget from '../../components/admin/DeviceInstallStatu
 
 export default function AdminDashboard() {
   const { profile } = useAuthStore()
-  const firstName = profile?.display_name || (profile?.full_name || '').split(' ')[0]
+  const firstName = profile?.display_name || profile?.full_name || ''
 
   // Total active students
   const { data: studentStats } = useQuery({
