@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 export default function UpdateBanner() {
   const [hasUpdate, setHasUpdate] = useState(false)
+  const [updating, setUpdating] = useState(false)
 
   useEffect(() => {
     const check = async () => {
@@ -26,26 +27,26 @@ export default function UpdateBanner() {
     return () => clearInterval(id)
   }, [])
 
-  const handleUpdate = async () => {
-    // Unregister SWs and clear caches before reload
+  const handleUpdate = () => {
+    setUpdating(true)
+
+    // Clear stored version to prevent re-triggering the banner after reload
+    localStorage.removeItem('app_version')
+
+    // Fire cleanup in parallel (don't await — reload immediately after)
     if ('serviceWorker' in navigator) {
-      const regs = await navigator.serviceWorker.getRegistrations().catch(() => [])
-      await Promise.all(regs.map(r => r.unregister())).catch(() => {})
+      navigator.serviceWorker.getRegistrations()
+        .then(regs => regs.forEach(r => r.unregister()))
+        .catch(() => {})
     }
     if ('caches' in window) {
-      const names = await caches.keys().catch(() => [])
-      await Promise.all(names.map(n => caches.delete(n))).catch(() => {})
+      caches.keys()
+        .then(names => names.forEach(n => caches.delete(n)))
+        .catch(() => {})
     }
-    // Fetch latest version and save it BEFORE reloading to prevent re-triggering
-    try {
-      const res = await fetch('/version.json?t=' + Date.now(), { cache: 'no-store' })
-      const data = await res.json()
-      localStorage.setItem('app_version', data.version)
-    } catch {
-      // If fetch fails, remove stored version so it re-syncs on next load instead of looping
-      localStorage.removeItem('app_version')
-    }
-    window.location.reload()
+
+    // Small delay to let cleanup start, then reload
+    setTimeout(() => window.location.reload(), 150)
   }
 
   return (
@@ -73,9 +74,10 @@ export default function UpdateBanner() {
           </div>
           <button
             onClick={handleUpdate}
-            className="bg-white/20 hover:bg-white/30 text-white text-sm font-bold px-4 py-1.5 rounded-lg transition-colors font-['Tajawal'] min-h-[44px] min-w-[44px]"
+            disabled={updating}
+            className="bg-white/20 hover:bg-white/30 text-white text-sm font-bold px-4 py-1.5 rounded-lg transition-colors font-['Tajawal'] min-h-[44px] min-w-[44px] disabled:opacity-70"
           >
-            تحديث الآن ↻
+            {updating ? 'جاري التحديث...' : 'تحديث الآن ↻'}
           </button>
         </motion.div>
       )}
