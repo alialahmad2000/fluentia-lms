@@ -14,7 +14,7 @@ html, body, #root {
 }
 
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Prevent iOS input zoom */

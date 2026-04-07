@@ -484,9 +484,9 @@
 
 /* === Mobile responsiveness === */
 @media (max-width: 767px) {
-  /* Prevent horizontal overflow */
+  /* Prevent horizontal overflow — use 'clip' not 'hidden' to preserve sticky positioning */
   html, body {
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100vw;
   }
 
