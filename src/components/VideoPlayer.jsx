@@ -31,7 +31,10 @@ function getEmbedUrl(url) {
 function getDirectStreamUrl(url) {
   const fileId = getDriveFileId(url)
   if (!fileId) return null
-  return `https://drive.google.com/uc?export=download&id=${fileId}`
+  // Stream through our Supabase Edge Function proxy — handles CORS, Range headers,
+  // and Google's virus-scan confirmation page for large files
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+  return `${supabaseUrl}/functions/v1/video-proxy?id=${fileId}`
 }
 
 export { getEmbedUrl }
@@ -285,13 +288,26 @@ function NativePlayer({ url, streamUrl, onFallback }) {
     else video.pause()
   }, [])
 
+  // Track whether last interaction was touch to prevent double-firing
+  const isTouchRef = useRef(false)
+
   const handleTap = useCallback((e) => {
-    e.preventDefault()
+    // On touch devices, onTouchEnd fires then onClick fires — only handle one
+    if (e.type === 'touchend') {
+      e.preventDefault()
+      isTouchRef.current = true
+    } else if (isTouchRef.current) {
+      // This is the click after a touch — skip it
+      isTouchRef.current = false
+      return
+    }
+
     resetControlsTimer()
 
     const rect = containerRef.current?.getBoundingClientRect()
     if (!rect) return
-    const x = (e.touches?.[0]?.clientX ?? e.clientX) - rect.left
+    const touch = e.changedTouches?.[0]
+    const x = (touch?.clientX ?? e.clientX) - rect.left
     const side = x > rect.width / 2 ? 'right' : 'left'
 
     tapCount.current++
@@ -353,6 +369,7 @@ function NativePlayer({ url, streamUrl, onFallback }) {
       <video
         ref={videoRef}
         src={streamUrl}
+        crossOrigin="anonymous"
         className="absolute inset-0 w-full h-full rounded-lg"
         playsInline
         preload="metadata"
@@ -364,11 +381,13 @@ function NativePlayer({ url, streamUrl, onFallback }) {
         onPause={handlePause}
         onEnded={() => {
           setPlaying(false)
-          // Clear saved progress when video finishes
           const key = getVideoKey(url)
           if (key) localStorage.removeItem(key)
         }}
-        onError={() => onFallback()}
+        onError={(e) => {
+          console.warn('[VideoPlayer] Native player error, falling back to iframe:', e.target?.error?.message)
+          onFallback()
+        }}
       />
 
       {/* Resume banner */}
