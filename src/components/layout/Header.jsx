@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, ChevronDown, User, Sparkles, Settings, LogOut, Zap, Flame, Package, Mail, ChevronLeft } from 'lucide-react'
+import { Menu, ChevronDown, User, Sparkles, Settings, LogOut, Zap, Flame, Package, Mail, ChevronLeft, RefreshCw } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { getGreeting } from '../../utils/dateHelpers'
 import NotificationCenter from './NotificationCenter'
 import ThemeToggle from '../ThemeToggle'
 import UserAvatar from '../common/UserAvatar'
+import HardRefreshModal from '../common/HardRefreshModal'
 
 const ROLE_LABELS = {
   student: 'طالب',
@@ -64,6 +65,7 @@ export default function Header({ onMenuToggle }) {
   const [scrolled, setScrolled] = useState(false)
   const [badgeOpen, setBadgeOpen] = useState(false)
   const [avatarOpen, setAvatarOpen] = useState(false)
+  const [refreshOpen, setRefreshOpen] = useState(false)
   const badgeRef = useRef(null)
   const avatarRef = useRef(null)
   const popoverRef = useRef(null)
@@ -134,6 +136,7 @@ export default function Header({ onMenuToggle }) {
   }, [signOut, navigate])
 
   return (
+    <>
     <header
       role="banner"
       className={`h-16 flex items-center justify-between px-5 lg:px-8 sticky top-0 z-20 transition-all duration-300 ${
@@ -358,6 +361,20 @@ export default function Header({ onMenuToggle }) {
                     <ChevronLeft size={14} />
                   </button>
 
+                  {/* Hard refresh */}
+                  <button
+                    onClick={() => { setAvatarOpen(false); setRefreshOpen(true) }}
+                    className="w-full flex items-center justify-between px-2 py-2 rounded-lg text-[13px] font-medium transition-all duration-200 cursor-pointer font-['Tajawal']"
+                    style={{ color: 'var(--text-secondary)' }}
+                    onMouseEnter={e => { e.currentTarget.style.background = 'var(--surface-raised)'; e.currentTarget.style.color = 'var(--text-primary)' }}
+                    onMouseLeave={e => { e.currentTarget.style.background = ''; e.currentTarget.style.color = 'var(--text-secondary)' }}
+                  >
+                    <div className="flex items-center gap-2">
+                      <RefreshCw size={14} strokeWidth={1.5} />
+                      تحديث التطبيق
+                    </div>
+                  </button>
+
                   {/* Logout */}
                   <button
                     onClick={handleLogout}
@@ -376,5 +393,8 @@ export default function Header({ onMenuToggle }) {
         </div>
       </div>
     </header>
+
+    <HardRefreshModal open={refreshOpen} onClose={() => setRefreshOpen(false)} />
+    </>
   )
 }

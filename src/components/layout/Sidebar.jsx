@@ -8,13 +8,14 @@ import {
   LogOut, X, ChevronLeft, Zap, FolderOpen, CalendarDays, Calendar,
   Video, ClipboardCheck, UsersRound, GraduationCap, Wrench, ListChecks,
   Brain, BookOpen, Sparkles, Database, Languages, Shuffle, Lock, Map, Activity,
-  StickyNote, TrendingUp, Megaphone,
+  StickyNote, TrendingUp, Megaphone, RefreshCw,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { useThemeStore } from '../../stores/themeStore'
 import { hasPackageAccess } from '../PackageGate'
 import { PACKAGES } from '../../lib/constants'
 import UserAvatar from '../common/UserAvatar'
+import HardRefreshModal from '../common/HardRefreshModal'
 
 // ─── Role accent config ──────────────────────────────────────
 const ROLE_ACCENTS = {
@@ -134,6 +135,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
   const level = studentData?.level || profile?.level || '—'
   const studentPackage = studentData?.package || 'asas'
   const [sidebarToast, setSidebarToast] = useState(null)
+  const [refreshOpen, setRefreshOpen] = useState(false)
 
   const profilePath = role === 'admin' ? '/admin/settings' : role === 'trainer' ? '/trainer/students' : '/student/profile'
 
@@ -317,6 +319,19 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
           )}
         </div>
 
+        {/* Hard refresh button */}
+        <button
+          onClick={() => setRefreshOpen(true)}
+          className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all duration-200 w-full min-h-[44px] ${collapsed ? 'justify-center' : ''}`}
+          style={{ color: 'var(--text-tertiary)' }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-primary)'; e.currentTarget.style.background = 'var(--surface-raised)' }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-tertiary)'; e.currentTarget.style.background = 'transparent' }}
+          title="تحديث التطبيق"
+        >
+          <RefreshCw size={18} strokeWidth={1.5} className="shrink-0" />
+          {!collapsed && <span>تحديث التطبيق</span>}
+        </button>
+
         {/* Logout button */}
         <button
           onClick={handleLogout}
@@ -397,6 +412,8 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
           </>
         )}
       </AnimatePresence>
+
+      <HardRefreshModal open={refreshOpen} onClose={() => setRefreshOpen(false)} />
     </>
   )
 }
