@@ -26,26 +26,26 @@ export default function UpdateBanner() {
     return () => clearInterval(id)
   }, [])
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
+    // Unregister SWs and clear caches before reload
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then(regs => {
-        regs.forEach(r => r.unregister())
-      })
+      const regs = await navigator.serviceWorker.getRegistrations().catch(() => [])
+      await Promise.all(regs.map(r => r.unregister())).catch(() => {})
     }
     if ('caches' in window) {
-      caches.keys().then(names => {
-        names.forEach(n => caches.delete(n))
-      })
+      const names = await caches.keys().catch(() => [])
+      await Promise.all(names.map(n => caches.delete(n))).catch(() => {})
     }
-    fetch('/version.json?t=' + Date.now(), { cache: 'no-store' })
-      .then(r => r.json())
-      .then(data => {
-        localStorage.setItem('app_version', data.version)
-        window.location.reload(true)
-      })
-      .catch(() => {
-        window.location.reload(true)
-      })
+    // Fetch latest version and save it BEFORE reloading to prevent re-triggering
+    try {
+      const res = await fetch('/version.json?t=' + Date.now(), { cache: 'no-store' })
+      const data = await res.json()
+      localStorage.setItem('app_version', data.version)
+    } catch {
+      // If fetch fails, remove stored version so it re-syncs on next load instead of looping
+      localStorage.removeItem('app_version')
+    }
+    window.location.reload()
   }
 
   return (

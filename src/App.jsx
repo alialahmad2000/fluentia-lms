@@ -248,7 +248,6 @@ export default function App() {
   const initialize = useAuthStore((s) => s.initialize)
 
   useEffect(() => {
-    sessionStorage.removeItem('chunk_reload')
     initialize()
   }, [initialize])
 

@@ -77,6 +77,14 @@ export default class ErrorBoundary extends Component {
 }
 
 export function PageErrorFallback({ error } = {}) {
+  const handleReload = () => {
+    // Prevent rapid reload loops — cooldown of 5 seconds
+    const lastReload = parseInt(sessionStorage.getItem('page_error_reload_at') || '0', 10)
+    if (Date.now() - lastReload < 5000) return
+    sessionStorage.setItem('page_error_reload_at', Date.now().toString())
+    window.location.reload()
+  }
+
   return (
     <div className="min-h-[40vh] flex items-center justify-center p-8">
       <div className="text-center max-w-sm">
@@ -86,7 +94,7 @@ export function PageErrorFallback({ error } = {}) {
         <h3 className="text-base font-bold text-[var(--text-primary)] mb-1">تعذر تحميل الصفحة</h3>
         <p className="text-xs text-muted mb-4">حاول تحديث الصفحة</p>
         <button
-          onClick={() => window.location.reload()}
+          onClick={handleReload}
           className="flex items-center gap-2 mx-auto bg-sky-500/10 border border-sky-500/20 text-sky-400 text-sm py-2 px-4 rounded-xl hover:bg-sky-500/20 transition-all font-medium"
         >
           <RefreshCw size={14} />

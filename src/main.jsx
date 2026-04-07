@@ -13,13 +13,13 @@ window.addEventListener('unhandledrejection', (event) => {
 
 window.addEventListener('error', (event) => {
   console.error('[Global Error]', event.error)
-  // If it's a chunk loading error, reload once
+  // If it's a chunk loading error, reload once (with 30s cooldown to prevent loops)
   if (event.message?.includes('Failed to fetch dynamically imported module') ||
       event.message?.includes('Loading chunk') ||
       event.message?.includes('Loading CSS chunk')) {
-    const hasReloaded = sessionStorage.getItem('chunk_reload')
-    if (!hasReloaded) {
-      sessionStorage.setItem('chunk_reload', 'true')
+    const lastReload = parseInt(sessionStorage.getItem('chunk_reload_at') || '0', 10)
+    if (Date.now() - lastReload > 30000) {
+      sessionStorage.setItem('chunk_reload_at', Date.now().toString())
       window.location.reload()
     }
   }
