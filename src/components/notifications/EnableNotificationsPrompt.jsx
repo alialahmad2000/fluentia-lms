@@ -102,18 +102,29 @@ export default function EnableNotificationsPrompt() {
   const handleEnable = async () => {
     setLoading(true)
     try {
-      await subscribeUserToPush(profile.id)
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ subscribedAt: new Date().toISOString() }))
-      toast({ type: 'success', title: 'تم تفعيل الإشعارات' })
-      setVisible(false)
-    } catch (err) {
-      if (err.message?.includes('denied')) {
+      // Step 1: Request permission (shows system popup)
+      const permission = await Notification.requestPermission()
+      if (permission !== 'granted') {
         toast({ type: 'error', title: 'تم رفض الإذن — يمكنك تغييره من إعدادات المتصفح' })
         setVisible(false)
-      } else {
-        toast({ type: 'error', title: 'حدث خطأ في تفعيل الإشعارات' })
+        setLoading(false)
+        return
       }
-    } finally {
+
+      // Step 2: Permission granted — immediately show success and hide prompt
+      toast({ type: 'success', title: 'تم تفعيل الإشعارات ✓' })
+      setVisible(false)
+      setLoading(false)
+
+      // Step 3: Complete push subscription in background (silent)
+      try {
+        await subscribeUserToPush(profile.id)
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ subscribedAt: new Date().toISOString() }))
+      } catch {
+        // Subscription will be retried automatically on next page load via the auto-retry logic
+      }
+    } catch (err) {
+      toast({ type: 'error', title: 'حدث خطأ في تفعيل الإشعارات' })
       setLoading(false)
     }
   }
