@@ -358,6 +358,14 @@ function NativePlayer({ url, streamUrl, onFallback }) {
   const tapTimer = useRef(null)
   const isTouchRef = useRef(false)
 
+  // Timeout: if video doesn't start loading within 15s, fall back to iframe
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (loading) { console.warn('[VideoPlayer] Timeout – falling back to iframe'); onFallback() }
+    }, 15000)
+    return () => clearTimeout(timeout)
+  }, [loading, onFallback])
+
   useEffect(() => {
     const saved = loadProgress(url)
     if (saved > 5) { savedTimeRef.current = saved; setShowResume(true) }
@@ -481,6 +489,7 @@ function NativePlayer({ url, streamUrl, onFallback }) {
         controlsList="nodownload"
         onLoadedMetadata={(e) => setDuration(e.target.duration)}
         onLoadedData={() => setLoading(false)}
+        onCanPlay={() => setLoading(false)}
         onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)}
         onPlay={() => setPlaying(true)}
         onPause={handlePause}
