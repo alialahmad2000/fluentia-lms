@@ -231,7 +231,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
               <NavLink
                 key={item.to}
                 to={item.to}
-                end={item.to === `/${role}` || item.to === '/admin' || item.to === '/trainer' || item.to === '/student'}
+                end={item.to === `/${role}` || item.to === '/admin' || item.to === '/trainer' || item.to === '/student' || item.to === '/admin/curriculum'}
                 onClick={(e) => handleNavClick(e, item)}
                 className={({ isActive }) =>
                   `group flex items-center gap-3 px-3 py-2.5 rounded-xl text-[14px] font-medium transition-all duration-200 ${

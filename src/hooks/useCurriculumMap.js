@@ -17,7 +17,7 @@ export function useCurriculumMap() {
         .select(`
           id, unit_number, theme_en, theme_ar, level_id,
           curriculum_readings (
-            id, reading_part, passage_word_count
+            id, reading_label, passage_word_count
           ),
           curriculum_grammar (
             id, topic_name_en, topic_name_ar
@@ -26,7 +26,7 @@ export function useCurriculumMap() {
             id, task_type, prompt_en, word_count_min, word_count_max
           ),
           curriculum_speaking (
-            id, topic_type, prompt_en, min_duration, max_duration
+            id, topic_type, prompt_en, min_duration_seconds, max_duration_seconds
           ),
           curriculum_listening (
             id, audio_url

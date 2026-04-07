@@ -191,8 +191,8 @@ function UnitDetailCard({ unit, vocabCount }) {
   const { data: vocabList, isLoading: vocabLoading } = useUnitVocab(unit.id, showVocab)
 
   const readings = unit.curriculum_readings || []
-  const readingA = readings.find(r => r.reading_part === 'A' || r.reading_part === 'a')
-  const readingB = readings.find(r => r.reading_part === 'B' || r.reading_part === 'b')
+  const readingA = readings.find(r => r.reading_label === 'A' || r.reading_label === 'a')
+  const readingB = readings.find(r => r.reading_label === 'B' || r.reading_label === 'b')
   const grammar = unit.curriculum_grammar?.[0]
   const writing = unit.curriculum_writing?.[0]
   const speaking = unit.curriculum_speaking?.[0]
@@ -273,7 +273,7 @@ function UnitDetailCard({ unit, vocabCount }) {
                 <MetricRow
                   icon={<Mic size={14} />}
                   label="المحادثة"
-                  value={speaking ? `${speaking.topic_type || 'monologue'} (${toAr(speaking.min_duration || 0)}-${toAr(speaking.max_duration || 0)}s)` : '—'}
+                  value={speaking ? `${speaking.topic_type || 'monologue'} (${toAr(speaking.min_duration_seconds || 0)}-${toAr(speaking.max_duration_seconds || 0)}s)` : '—'}
                   status={speaking ? 'ok' : 'missing'}
                 />
                 {/* Listening */}
@@ -411,12 +411,12 @@ function ExportButton({ data }) {
         md += `| Section | Details |\n|---|---|\n`
 
         for (const r of readings) {
-          md += `| Reading ${r.reading_part} | ${r.passage_word_count || 0} words |\n`
+          md += `| Reading ${r.reading_label} | ${r.passage_word_count || 0} words |\n`
         }
         md += `| Vocabulary | ${vc} words |\n`
         md += `| Grammar | ${grammar?.topic_name_en || '—'} |\n`
         md += `| Writing | ${writing?.task_type || '—'} (${writing?.word_count_min || 0}-${writing?.word_count_max || 0} words) |\n`
-        md += `| Speaking | ${speaking?.topic_type || '—'} (${speaking?.min_duration || 0}-${speaking?.max_duration || 0}s) |\n`
+        md += `| Speaking | ${speaking?.topic_type || '—'} (${speaking?.min_duration_seconds || 0}-${speaking?.max_duration_seconds || 0}s) |\n`
         md += `| Listening | ${listening?.audio_url ? 'Audio available' : 'No audio'} |\n`
         md += `| Pronunciation | ${pronunciation?.focus_type || '—'} |\n`
         md += `| Assessment | ${qCount} questions |\n`
