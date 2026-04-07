@@ -358,11 +358,11 @@ function NativePlayer({ url, streamUrl, onFallback }) {
   const tapTimer = useRef(null)
   const isTouchRef = useRef(false)
 
-  // Timeout: if video doesn't start loading within 15s, fall back to iframe
+  // Timeout: if video doesn't start loading within 8s, fall back to iframe
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (loading) { console.warn('[VideoPlayer] Timeout – falling back to iframe'); onFallback() }
-    }, 15000)
+    }, 8000)
     return () => clearTimeout(timeout)
   }, [loading, onFallback])
 

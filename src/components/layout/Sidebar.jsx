@@ -15,7 +15,7 @@ import { useThemeStore } from '../../stores/themeStore'
 import { hasPackageAccess } from '../PackageGate'
 import { PACKAGES } from '../../lib/constants'
 import UserAvatar from '../common/UserAvatar'
-import HardRefreshModal from '../common/HardRefreshModal'
+import { hardRefresh } from '../../utils/hardRefresh'
 
 // ─── Role accent config ──────────────────────────────────────
 const ROLE_ACCENTS = {
@@ -135,7 +135,6 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
   const level = studentData?.level || profile?.level || '—'
   const studentPackage = studentData?.package || 'asas'
   const [sidebarToast, setSidebarToast] = useState(null)
-  const [refreshOpen, setRefreshOpen] = useState(false)
 
   const profilePath = role === 'admin' ? '/admin/settings' : role === 'trainer' ? '/trainer/students' : '/student/profile'
 
@@ -321,7 +320,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
 
         {/* Hard refresh button */}
         <button
-          onClick={() => setRefreshOpen(true)}
+          onClick={hardRefresh}
           className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all duration-200 w-full min-h-[44px] ${collapsed ? 'justify-center' : ''}`}
           style={{ color: 'var(--text-tertiary)' }}
           onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-primary)'; e.currentTarget.style.background = 'var(--surface-raised)' }}
@@ -417,7 +416,6 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
         )}
       </AnimatePresence>
 
-      <HardRefreshModal open={refreshOpen} onClose={() => setRefreshOpen(false)} />
     </>
   )
 }

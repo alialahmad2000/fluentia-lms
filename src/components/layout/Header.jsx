@@ -7,7 +7,7 @@ import { getGreeting } from '../../utils/dateHelpers'
 import NotificationCenter from './NotificationCenter'
 import ThemeToggle from '../ThemeToggle'
 import UserAvatar from '../common/UserAvatar'
-import HardRefreshModal from '../common/HardRefreshModal'
+import { hardRefresh } from '../../utils/hardRefresh'
 
 const ROLE_LABELS = {
   student: 'طالب',
@@ -65,7 +65,6 @@ export default function Header({ onMenuToggle }) {
   const [scrolled, setScrolled] = useState(false)
   const [badgeOpen, setBadgeOpen] = useState(false)
   const [avatarOpen, setAvatarOpen] = useState(false)
-  const [refreshOpen, setRefreshOpen] = useState(false)
   const badgeRef = useRef(null)
   const avatarRef = useRef(null)
   const popoverRef = useRef(null)
@@ -363,7 +362,7 @@ export default function Header({ onMenuToggle }) {
 
                   {/* Hard refresh */}
                   <button
-                    onClick={() => { setAvatarOpen(false); setRefreshOpen(true) }}
+                    onClick={() => { setAvatarOpen(false); hardRefresh() }}
                     className="w-full flex items-center justify-between px-2 py-2 rounded-lg text-[13px] font-medium transition-all duration-200 cursor-pointer font-['Tajawal']"
                     style={{ color: 'var(--text-secondary)' }}
                     onMouseEnter={e => { e.currentTarget.style.background = 'var(--surface-raised)'; e.currentTarget.style.color = 'var(--text-primary)' }}
@@ -394,7 +393,6 @@ export default function Header({ onMenuToggle }) {
       </div>
     </header>
 
-    <HardRefreshModal open={refreshOpen} onClose={() => setRefreshOpen(false)} />
     </>
   )
 }
