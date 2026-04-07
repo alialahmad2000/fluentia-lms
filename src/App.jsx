@@ -246,10 +246,19 @@ function RoleRedirect() {
 // ─── App ─────────────────────────────────────────────────────
 export default function App() {
   const initialize = useAuthStore((s) => s.initialize)
+  const profile = useAuthStore((s) => s.profile)
 
   useEffect(() => {
     initialize()
   }, [initialize])
+
+  // Report device presence for install tracking (runs once per session after auth)
+  useEffect(() => {
+    if (!profile?.id) return
+    import('./utils/reportDevicePresence').then(({ reportDevicePresence }) => {
+      reportDevicePresence(profile.id)
+    }).catch(() => {})
+  }, [profile?.id])
 
   // Session refresh when user returns to tab (e.g. after phone lock / background).
   // ONLY refreshes the token — does NOT refetch queries directly.

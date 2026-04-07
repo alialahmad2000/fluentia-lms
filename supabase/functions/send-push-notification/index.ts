@@ -91,12 +91,13 @@ Deno.serve(async (req) => {
 
     if (insertError) throw insertError
 
-    // Get active push subscriptions for target users
+    // Get active push subscriptions for target users (exclude install-tracking records)
     const { data: subscriptions, error: subError } = await supabaseAdmin
       .from('push_subscriptions')
       .select('user_id, endpoint, p256dh, auth')
       .in('user_id', targetUserIds)
       .eq('is_active', true)
+      .not('endpoint', 'like', 'app-install://%')
 
     if (subError) throw subError
 
