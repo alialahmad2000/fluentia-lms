@@ -11,7 +11,7 @@ import Sidebar from './Sidebar'
 import Header from './Header'
 import ErrorBoundary from '../ErrorBoundary'
 import AIFloatingHelper from '../ai/AIFloatingHelper'
-import PWAInstallBanner from '../pwa/PWAInstallBanner'
+import PWAInstallGate from '../pwa/PWAInstallGate'
 import UpdateBanner from '../UpdateBanner'
 import { useAuthStore } from '../../stores/authStore'
 import { hasPackageAccess } from '../PackageGate'
@@ -194,7 +194,7 @@ export default function LayoutShell() {
         }`}
       >
         {!isClassMode && <Header onMenuToggle={() => setMobileOpen(true)} />}
-        <PWAInstallBanner />
+        <PWAInstallGate />
 
         <main id="main-content" className="px-4 py-6 lg:px-10 lg:py-8 lg:pb-10" style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <ErrorBoundary key={location.pathname}>
