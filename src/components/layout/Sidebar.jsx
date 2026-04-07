@@ -91,6 +91,7 @@ const NAV_ITEMS = {
     { to: '/admin/packages', label: 'المالية', icon: CreditCard },
     { to: '/admin/content', label: 'المحتوى', icon: FolderOpen },
     { to: '/admin/curriculum', label: 'المنهج الدراسي', icon: GraduationCap },
+    { to: '/admin/curriculum/map', label: 'خريطة المنهج', icon: Map },
     { to: '/trainer/curriculum', label: 'تصفّح المنهج', icon: BookOpen },
     { to: '/admin/interactive-curriculum', label: 'المنهج التفاعلي', icon: Map },
     { to: '/trainer/progress-matrix', label: 'ماتركس التقدم', icon: BarChart3 },

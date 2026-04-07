@@ -115,6 +115,7 @@ const LevelDetail = lazyRetry(() => import('./pages/admin/curriculum/LevelDetail
 const UnitEditor = lazyRetry(() => import('./pages/admin/curriculum/UnitEditor'))
 const IELTSManagement = lazyRetry(() => import('./pages/admin/curriculum/IELTSManagement'))
 const CurriculumProgress = lazyRetry(() => import('./pages/admin/curriculum/CurriculumProgress'))
+const CurriculumMap = lazyRetry(() => import('./pages/admin/curriculum/CurriculumMap'))
 const AdminTestBank = lazyRetry(() => import('./pages/admin/AdminTestBank'))
 const AdminAIDashboard = lazyRetry(() => import('./pages/admin/AdminAIDashboard'))
 const AdminContentBank = lazyRetry(() => import('./pages/admin/AdminContentBank'))
@@ -446,6 +447,7 @@ export default function App() {
               <Route path="/admin/curriculum/unit/:unitId" element={<Page><UnitEditor /></Page>} />
               <Route path="/admin/curriculum/ielts" element={<Page><IELTSManagement /></Page>} />
               <Route path="/admin/curriculum/progress" element={<Page><CurriculumProgress /></Page>} />
+              <Route path="/admin/curriculum/map" element={<Page><CurriculumMap /></Page>} />
               <Route path="/admin/test-bank" element={<Page><AdminTestBank /></Page>} />
               <Route path="/admin/ai-dashboard" element={<Page><AdminAIDashboard /></Page>} />
               <Route path="/admin/content-bank" element={<Page><AdminContentBank /></Page>} />
