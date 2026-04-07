@@ -277,7 +277,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
       </nav>
 
       {/* ── Fixed bottom: Profile + Logout ── */}
-      <div className="shrink-0 px-3 py-3" style={{ borderTop: '1px solid var(--border-subtle)', paddingBottom: 'max(calc(env(safe-area-inset-bottom, 0px) + 16px), 28px)' }}>
+      <div className="shrink-0 px-3 py-3" style={{ borderTop: '1px solid var(--border-subtle)' }}>
         {/* Profile card */}
         <div className="mb-2">
           {!collapsed ? (
@@ -343,6 +343,9 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
           <LogOut size={18} strokeWidth={1.5} className="shrink-0" />
           {!collapsed && <span>تسجيل الخروج</span>}
         </button>
+
+        {/* Safe area spacer for phones with gesture bar / home indicator */}
+        <div className="lg:hidden" style={{ height: 'max(env(safe-area-inset-bottom, 20px), 20px)' }} />
       </div>
 
       {/* Sidebar toast */}
@@ -405,6 +408,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
                 background: 'var(--sidebar-bg)',
                 borderLeft: '1px solid var(--sidebar-border)',
                 paddingTop: 'var(--sat)',
+                paddingBottom: 'env(safe-area-inset-bottom, 0px)',
               }}
             >
               {sidebarContent}
