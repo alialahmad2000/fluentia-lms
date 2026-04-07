@@ -11,6 +11,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import ErrorBoundary from '../../components/ErrorBoundary'
 import ClassPrepCard from '../../components/trainer/ClassPrepCard'
 import CurrentUnitSelector from '../../components/trainer/CurrentUnitSelector'
+import EnableNotificationsPrompt from '../../components/notifications/EnableNotificationsPrompt'
 
 // ─── Helpers ─────────────────────────────────────────
 function getGreeting() {
@@ -211,6 +212,9 @@ export default function TrainerDashboard() {
           )}
         </div>
       </motion.div>
+
+      {/* Push notifications opt-in */}
+      <EnableNotificationsPrompt />
 
       {/* ② GROUP SELECTOR */}
       {groups.length > 1 && (

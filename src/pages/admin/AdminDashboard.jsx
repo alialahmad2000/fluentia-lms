@@ -10,6 +10,7 @@ import { DashboardSkeleton } from '../../components/ui/PageSkeleton'
 import { Link } from 'react-router-dom'
 import UserAvatar from '../../components/common/UserAvatar'
 import CurriculumActivityCard from '../../components/dashboard/CurriculumActivityCard'
+import EnableNotificationsPrompt from '../../components/notifications/EnableNotificationsPrompt'
 
 export default function AdminDashboard() {
   const { profile } = useAuthStore()
@@ -218,6 +219,9 @@ export default function AdminDashboard() {
         </h1>
         <p className="text-[15px] mt-2.5" style={{ color: 'var(--text-tertiary)' }}>لوحة تحكم الإدارة</p>
       </motion.div>
+
+      {/* Push notifications opt-in */}
+      <EnableNotificationsPrompt />
 
       {/* Quick summary tip */}
       <motion.div
