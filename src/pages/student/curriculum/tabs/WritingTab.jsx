@@ -367,29 +367,8 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
         </div>
       )}
 
-      {/* Vocabulary to use */}
-      {task.vocabulary_to_use?.length > 0 && (
-        <div
-          className="rounded-xl p-4"
-          style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
-        >
-          <div className="flex items-center gap-2 mb-2">
-            <BookOpen size={14} className="text-sky-400" />
-            <span className="text-sm font-bold text-[var(--text-secondary)] font-['Tajawal']">مفردات مطلوبة</span>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {task.vocabulary_to_use.map((word, i) => (
-              <span
-                key={i}
-                className="px-3 py-1 rounded-lg text-xs font-semibold font-['Inter'] bg-sky-500/10 text-sky-400"
-                dir="ltr"
-              >
-                {word}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
+      {/* Target vocabulary + grammar hints */}
+      <WritingHints task={task} text={text} />
 
       {/* Last saved timestamp */}
       {lastSavedAt && !submitted && (
@@ -568,6 +547,167 @@ function RelativeTime({ date }) {
   if (diff < 3600) return `قبل ${Math.floor(diff / 60)} دقيقة`
   if (diff < 86400) return `قبل ${Math.floor(diff / 3600)} ساعة`
   return `قبل ${Math.floor(diff / 86400)} يوم`
+}
+
+// ─── Writing Hints (vocab chips + grammar + live tracker) ──
+function WritingHints({ task, text }) {
+  const vocabItems = task.vocabulary_to_use || []
+  const grammar = task.grammar_to_use
+  const [expandedWord, setExpandedWord] = useState(null)
+  const [grammarOpen, setGrammarOpen] = useState(false)
+
+  if (!vocabItems.length && !grammar) return null
+
+  // Determine which words the student has used (case-insensitive)
+  const lowerText = (text || '').toLowerCase()
+  const usedWords = vocabItems.filter(v => {
+    const w = typeof v === 'string' ? v : v.word
+    return w && lowerText.includes(w.toLowerCase())
+  })
+  const usedCount = usedWords.length
+  const totalCount = vocabItems.length
+
+  return (
+    <div
+      className="rounded-xl p-4 space-y-4"
+      style={{ background: 'rgba(56,189,248,0.04)', border: '1px solid rgba(56,189,248,0.1)' }}
+    >
+      {/* Target Vocabulary */}
+      {vocabItems.length > 0 && (
+        <div>
+          <div className="flex items-center gap-2 mb-2.5">
+            <Target size={14} className="text-sky-400" />
+            <span className="text-sm font-bold text-[var(--text-secondary)] font-['Tajawal']">
+              كلمات مستهدفة — حاول استخدام {Math.min(6, totalCount)} منها على الأقل
+            </span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {vocabItems.map((v, i) => {
+              const word = typeof v === 'string' ? v : v.word
+              const defAr = typeof v === 'object' ? v.definition_ar : null
+              const example = typeof v === 'object' ? v.example : null
+              const isUsed = word && lowerText.includes(word.toLowerCase())
+              const isExpanded = expandedWord === i
+
+              return (
+                <button
+                  key={i}
+                  onClick={() => setExpandedWord(isExpanded ? null : i)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-semibold font-['Inter'] transition-all border ${
+                    isUsed
+                      ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-300'
+                      : 'bg-[rgba(255,255,255,0.04)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:bg-sky-500/10 hover:border-sky-500/20'
+                  }`}
+                  dir="ltr"
+                >
+                  {isUsed && <span className="mr-1">✓</span>}
+                  {word}
+                </button>
+              )
+            })}
+          </div>
+
+          {/* Expanded word tooltip */}
+          <AnimatePresence>
+            {expandedWord !== null && vocabItems[expandedWord] && typeof vocabItems[expandedWord] === 'object' && (
+              <motion.div
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -5 }}
+                className="mt-2 rounded-lg p-3 text-xs space-y-1"
+                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid var(--border-subtle)' }}
+              >
+                <p className="font-bold text-[var(--text-primary)] font-['Tajawal']" dir="rtl">
+                  {vocabItems[expandedWord].definition_ar}
+                </p>
+                {vocabItems[expandedWord].definition_en && (
+                  <p className="text-[var(--text-muted)] font-['Inter']" dir="ltr">
+                    {vocabItems[expandedWord].definition_en}
+                  </p>
+                )}
+                {vocabItems[expandedWord].example && (
+                  <p className="text-[var(--text-muted)] font-['Inter'] italic" dir="ltr">
+                    "{vocabItems[expandedWord].example}"
+                  </p>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Usage tracker */}
+          <div className="mt-3 flex items-center gap-3">
+            <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.06)' }}>
+              <div
+                className="h-full rounded-full transition-all duration-500"
+                style={{
+                  width: `${totalCount > 0 ? (usedCount / totalCount) * 100 : 0}%`,
+                  background: usedCount >= Math.min(6, totalCount)
+                    ? 'rgb(52,211,153)'
+                    : 'linear-gradient(90deg, rgb(56,189,248), rgb(99,102,241))',
+                }}
+              />
+            </div>
+            <span className="text-[11px] font-bold font-['Tajawal'] shrink-0" style={{ color: usedCount >= Math.min(6, totalCount) ? 'rgb(52,211,153)' : 'var(--text-muted)' }}>
+              استخدمت {usedCount} من {totalCount}
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* Target Grammar */}
+      {grammar && typeof grammar === 'object' && grammar.topic_name_en && (
+        <div>
+          <button
+            onClick={() => setGrammarOpen(!grammarOpen)}
+            className="w-full flex items-center justify-between"
+          >
+            <div className="flex items-center gap-2">
+              <BookOpen size={14} className="text-violet-400" />
+              <span className="text-sm font-bold text-[var(--text-secondary)] font-['Tajawal']">قاعدة نحوية مستهدفة</span>
+            </div>
+            <ChevronDown
+              size={14}
+              className={`text-[var(--text-muted)] transition-transform duration-200 ${grammarOpen ? 'rotate-180' : ''}`}
+            />
+          </button>
+          <div className="flex items-center gap-2 mt-1.5">
+            <span className="px-2.5 py-1 rounded-lg text-[11px] font-bold font-['Inter'] bg-violet-500/10 text-violet-400" dir="ltr">
+              {grammar.topic_name_en}
+            </span>
+            {grammar.topic_name_ar && grammar.topic_name_ar !== grammar.topic_name_en && (
+              <span className="text-[11px] text-[var(--text-muted)] font-['Tajawal']">
+                {grammar.topic_name_ar}
+              </span>
+            )}
+          </div>
+          <AnimatePresence>
+            {grammarOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="overflow-hidden"
+              >
+                <div className="mt-2 rounded-lg p-3 text-xs space-y-1.5" style={{ background: 'rgba(255,255,255,0.04)' }}>
+                  {grammar.explanation_summary && (
+                    <p className="text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed" dir="rtl">
+                      {grammar.explanation_summary}
+                    </p>
+                  )}
+                  {grammar.example_sentence && (
+                    <p className="text-[var(--text-muted)] font-['Inter'] italic" dir="ltr">
+                      {grammar.example_sentence}
+                    </p>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      )}
+    </div>
+  )
 }
 
 // ─── Skeleton ────────────────────────────────────────
