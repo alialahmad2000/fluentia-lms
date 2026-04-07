@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Smartphone, Tablet, Monitor, CheckCircle2, AlertTriangle, XCircle, RefreshCw, EyeOff } from 'lucide-react'
+import { Smartphone, Tablet, Monitor, CheckCircle2, AlertTriangle, XCircle, RefreshCw, EyeOff, Eye } from 'lucide-react'
 import { useDeviceInstallStatus } from '../../hooks/useDeviceInstallStatus'
 
 const STORAGE_KEY = 'device_install_widget_hidden'
+const STORAGE_KEY_AT = 'device_install_widget_hidden_at'
+// Any dismissal before this timestamp is auto-cleared (fix for accidental hide)
+const FIX_TIMESTAMP = 1744042800000 // 2026-04-07T17:00:00Z
 
 function StatCard({ value, label, color }) {
   const colors = {
@@ -49,14 +52,54 @@ function SkeletonRow() {
   )
 }
 
+// Small restore button shown when the widget is hidden
+export function RestoreWidgetButton({ onRestore }) {
+  return (
+    <button
+      onClick={onRestore}
+      className="flex items-center gap-2 px-4 py-2 rounded-full text-sm transition-all hover:scale-[1.02] active:scale-[0.98]"
+      style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)', color: 'var(--text-tertiary)' }}
+      onMouseEnter={e => { e.currentTarget.style.color = 'var(--accent-gold, #f59e0b)'; e.currentTarget.style.borderColor = 'rgba(245,158,11,0.3)' }}
+      onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-tertiary)'; e.currentTarget.style.borderColor = 'var(--border-subtle)' }}
+    >
+      <Eye size={14} />
+      إظهار حالة التثبيت والإشعارات
+    </button>
+  )
+}
+
 export default function DeviceInstallStatusWidget() {
-  const [hidden, setHidden] = useState(() => localStorage.getItem(STORAGE_KEY) === 'true')
+  const [hidden, setHidden] = useState(() => {
+    const dismissed = localStorage.getItem(STORAGE_KEY) === 'true'
+    if (!dismissed) return false
+    // Auto-clear old dismissals from before the fix
+    const dismissedAt = localStorage.getItem(STORAGE_KEY_AT)
+    if (!dismissedAt || parseInt(dismissedAt, 10) < FIX_TIMESTAMP) {
+      localStorage.removeItem(STORAGE_KEY)
+      localStorage.removeItem(STORAGE_KEY_AT)
+      return false
+    }
+    return true
+  })
   const { students, summary, loading, error, refetch } = useDeviceInstallStatus()
 
-  if (hidden) return null
+  if (hidden) {
+    return (
+      <RestoreWidgetButton onRestore={() => {
+        localStorage.removeItem(STORAGE_KEY)
+        localStorage.removeItem(STORAGE_KEY_AT)
+        setHidden(false)
+      }} />
+    )
+  }
 
   const handleHide = () => {
+    const confirmed = window.confirm(
+      'هل أنت متأكد من إخفاء قائمة حالة التثبيت؟\n\nيمكنك إعادة إظهارها من زر "إظهار حالة التثبيت" في أعلى لوحة التحكم.'
+    )
+    if (!confirmed) return
     localStorage.setItem(STORAGE_KEY, 'true')
+    localStorage.setItem(STORAGE_KEY_AT, Date.now().toString())
     setHidden(true)
   }
 
@@ -96,7 +139,7 @@ export default function DeviceInstallStatusWidget() {
             onClick={handleHide}
             className="p-2 rounded-lg transition-all hover:scale-105 active:scale-95"
             style={{ color: 'var(--text-tertiary)' }}
-            title="إخفاء"
+            title="إخفاء مؤقت — يمكن إعادة الإظهار في أي وقت"
           >
             <EyeOff size={14} />
           </button>
