@@ -579,27 +579,9 @@ function IframePlayer({ url, embedUrl }) {
 // ─── Main VideoPlayer ──────────────────────────────────
 
 export default function VideoPlayer({ url, className = '' }) {
-  const [useIframe, setUseIframe] = useState(false)
   const embedUrl = getEmbedUrl(url)
-  const streamUrl = getDirectStreamUrl(url)
 
   if (!url) return null
-
-  const canTryNative = streamUrl && !useIframe
-
-  if (canTryNative) {
-    return (
-      <div className={className}>
-        <NativePlayer url={url} streamUrl={streamUrl} onFallback={() => setUseIframe(true)} />
-        <div className="mt-2 flex justify-end">
-          <a href={url} target="_blank" rel="noopener noreferrer"
-            className="text-[11px] text-[var(--text-muted)] hover:text-sky-400 transition-colors inline-flex items-center gap-1 font-['Tajawal']">
-            <ExternalLink size={10} /> فتح في نافذة جديدة
-          </a>
-        </div>
-      </div>
-    )
-  }
 
   if (embedUrl) {
     return (
