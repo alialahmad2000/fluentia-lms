@@ -134,15 +134,26 @@ function NativePlayer({ url, streamUrl, onFallback }) {
   }, [togglePlay, handleSeek, resetControlsTimer])
 
   const handleFullscreen = useCallback(() => {
+    const container = containerRef.current
     const video = videoRef.current
-    if (!video) return
-    if (video.requestFullscreen) video.requestFullscreen()
-    else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen()
-    else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen()
+    if (!container || !video) return
+
+    // Try container fullscreen first (works on most browsers, keeps custom controls)
+    if (container.requestFullscreen) { container.requestFullscreen(); return }
+    if (container.webkitRequestFullscreen) { container.webkitRequestFullscreen(); return }
+
+    // iOS Safari: use native video fullscreen (only method that works)
+    if (video.webkitEnterFullscreen) { video.webkitEnterFullscreen(); return }
+    if (video.webkitRequestFullscreen) { video.webkitRequestFullscreen(); return }
+
+    // Last resort: try document element
+    const doc = document.documentElement
+    if (doc.requestFullscreen) { doc.requestFullscreen(); return }
+    if (doc.webkitRequestFullscreen) { doc.webkitRequestFullscreen(); return }
   }, [])
 
   return (
-    <div ref={containerRef} className="relative w-full rounded-lg select-none" style={{ aspectRatio: '16 / 9', background: '#000' }}>
+    <div ref={containerRef} className="video-player-container relative w-full rounded-lg select-none" style={{ aspectRatio: '16 / 9', background: '#000' }}>
       {loading && (
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <div className="flex flex-col items-center gap-2">

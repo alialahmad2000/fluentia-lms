@@ -442,6 +442,21 @@
   background-clip: text;
 }
 
+/* === Video Player Fullscreen === */
+.video-player-container:fullscreen,
+.video-player-container:-webkit-full-screen {
+  width: 100vw;
+  height: 100vh;
+  aspect-ratio: auto;
+  border-radius: 0;
+  background: #000;
+}
+.video-player-container:fullscreen video,
+.video-player-container:-webkit-full-screen video {
+  border-radius: 0;
+  object-fit: contain;
+}
+
 /* === Header Glass on Scroll === */
 .header-scrolled {
   background: var(--color-bg-header) !important;
