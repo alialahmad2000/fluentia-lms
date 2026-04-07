@@ -13,6 +13,7 @@ import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/consta
 import { getEncouragement } from '../../utils/encouragement'
 import DailyChallenge from '../../components/gamification/DailyChallenge'
 import SrsReviewCard from '../../components/gamification/SrsReviewCard'
+import LevelExitTestCard from '../../components/gamification/LevelExitTestCard'
 import MysteryBox from '../../components/gamification/MysteryBox'
 import StudentWowMoments from '../../components/ai/StudentWowMoments'
 import FloatingParticles from '../../components/illustrations/FloatingParticles'
@@ -378,7 +379,10 @@ export default function StudentDashboard() {
         </motion.div>
       )}
 
-      {/* ═══ 3. SRS Daily Review ═══ */}
+      {/* ═══ 3. Level Exit Test Card ═══ */}
+      <LevelExitTestCard studentId={profile?.id} academicLevel={studentData?.academic_level} />
+
+      {/* ═══ 4. SRS Daily Review ═══ */}
       <SrsReviewCard studentId={profile?.id} />
 
       {/* ═══ 4. Next Class (prominent) ═══ */}

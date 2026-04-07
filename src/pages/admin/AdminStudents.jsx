@@ -299,6 +299,22 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
   )
   const [promoting, setPromoting] = useState(false)
   const [promotionMsg, setPromotionMsg] = useState('')
+  const [showOverrideConfirm, setShowOverrideConfirm] = useState(false)
+
+  // Fetch exit test status for current level
+  const { data: exitStatus } = useQuery({
+    queryKey: ['exit-status', student.id, academicLevel],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('student_level_exit_status')
+        .select('*')
+        .eq('student_id', student.id)
+        .eq('level_number', parseInt(academicLevel))
+        .maybeSingle()
+      return data
+    },
+    enabled: !!student.id,
+  })
 
   async function handlePromoteLevel() {
     const currentLevel = parseInt(academicLevel)
@@ -423,23 +439,86 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
               </select>
             </div>
           </div>
-          {/* Level Promotion */}
+          {/* Exit Test Status + Level Promotion */}
+          {exitStatus && (
+            <div className={`flex items-center gap-2 py-2 px-3 rounded-xl text-sm ${exitStatus.has_passed ? 'bg-emerald-500/10 border border-emerald-500/20' : 'bg-red-500/10 border border-red-500/20'}`}>
+              {exitStatus.has_passed ? (
+                <>
+                  <CheckCircle2 size={16} className="text-emerald-400" />
+                  <span className="text-emerald-400 font-medium">اجتاز اختبار نهاية المستوى ({exitStatus.best_score}%)</span>
+                </>
+              ) : (
+                <>
+                  <AlertCircle size={16} className="text-red-400" />
+                  <span className="text-red-400 font-medium">لم يجتاز الاختبار بعد</span>
+                  {exitStatus.total_attempts > 0 && (
+                    <span className="text-red-400/60 text-xs">({exitStatus.total_attempts} محاولات)</span>
+                  )}
+                </>
+              )}
+            </div>
+          )}
           <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={handlePromoteLevel}
-              disabled={promoting || parseInt(academicLevel) >= 5}
-              className="btn-secondary text-sm py-2 flex items-center gap-2 whitespace-nowrap"
-            >
-              {promoting ? <Loader2 size={16} className="animate-spin" /> : <ArrowUpCircle size={16} />}
-              ترقية المستوى
-            </button>
+            {exitStatus?.has_passed ? (
+              <button
+                type="button"
+                onClick={handlePromoteLevel}
+                disabled={promoting || parseInt(academicLevel) >= 5}
+                className="btn-secondary text-sm py-2 flex items-center gap-2 whitespace-nowrap"
+              >
+                {promoting ? <Loader2 size={16} className="animate-spin" /> : <ArrowUpCircle size={16} />}
+                ترقية للمستوى التالي
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setShowOverrideConfirm(true)}
+                disabled={promoting || parseInt(academicLevel) >= 5}
+                className="btn-secondary text-sm py-2 flex items-center gap-2 whitespace-nowrap text-amber-400 border-amber-500/30"
+              >
+                {promoting ? <Loader2 size={16} className="animate-spin" /> : <ArrowUpCircle size={16} />}
+                ترقية يدوياً (تخطي الشرط)
+              </button>
+            )}
             {promotionMsg && (
               <span className={`text-xs ${promotionMsg.includes('بنجاح') ? 'text-emerald-400' : promotionMsg.includes('خطأ') ? 'text-red-400' : 'text-amber-400'}`}>
                 {promotionMsg}
               </span>
             )}
           </div>
+
+          {/* Manual override confirmation */}
+          <AnimatePresence>
+            {showOverrideConfirm && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="overflow-hidden"
+              >
+                <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4">
+                  <p className="text-amber-400 text-sm font-medium mb-2">تحذير: الطالب لم يجتاز اختبار نهاية المستوى</p>
+                  <p className="text-amber-400/70 text-xs mb-3">هل أنت متأكد من ترقية الطالب بدون اجتياز الاختبار؟</p>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => { setShowOverrideConfirm(false); handlePromoteLevel() }}
+                      className="btn-primary text-xs py-1.5 px-3 bg-amber-600 hover:bg-amber-500"
+                    >
+                      تأكيد الترقية
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setShowOverrideConfirm(false)}
+                      className="btn-ghost text-xs py-1.5"
+                    >
+                      إلغاء
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           <div className="grid grid-cols-2 gap-6">
             <div>
