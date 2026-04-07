@@ -345,7 +345,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
         </button>
 
         {/* Safe area spacer for phones with gesture bar / home indicator */}
-        <div className="lg:hidden" style={{ height: 'max(env(safe-area-inset-bottom, 20px), 20px)' }} />
+        <div className="lg:hidden" style={{ height: 'max(env(safe-area-inset-bottom, 40px), 40px)' }} />
       </div>
 
       {/* Sidebar toast */}
