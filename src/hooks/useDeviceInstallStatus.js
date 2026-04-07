@@ -6,13 +6,13 @@ export function useDeviceInstallStatus() {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ['admin-device-install-status'],
     queryFn: async () => {
-      // Fetch students with group info
-      const { data: students, error: studentsErr } = await supabase
+      // Fetch all users (admin, trainer, student)
+      const { data: users, error: usersErr } = await supabase
         .from('profiles')
-        .select('id, full_name')
-        .eq('role', 'student')
+        .select('id, full_name, role')
+        .in('role', ['admin', 'trainer', 'student'])
 
-      if (studentsErr) throw studentsErr
+      if (usersErr) throw usersErr
 
       // Fetch student group info
       const { data: studentRows, error: studentRowsErr } = await supabase
@@ -57,11 +57,11 @@ export function useDeviceInstallStatus() {
         subsByUser[sub.user_id].push(sub)
       }
 
-      // Classify each student
-      const result = (students || []).map(student => {
-        const info = studentInfoMap[student.id]
+      // Classify each user
+      const result = (users || []).map(user => {
+        const info = studentInfoMap[user.id]
         const group = info?.group_id ? groupMap[info.group_id] : null
-        const userSubs = subsByUser[student.id] || []
+        const userSubs = subsByUser[user.id] || []
 
         const devices = {
           iphone: false,
@@ -80,12 +80,13 @@ export function useDeviceInstallStatus() {
         const hasTabletDevice = devices.ipad || devices.android_tablet
 
         return {
-          id: student.id,
-          full_name: student.full_name,
+          id: user.id,
+          full_name: user.full_name,
+          role: user.role,
           group_name: group?.name || null,
           group_level: group?.level || null,
           group_id: info?.group_id || null,
-          status: info?.status || 'active',
+          status: user.role === 'student' ? (info?.status || 'active') : 'active',
           devices,
           deviceCount: userSubs.length,
           hasPhone: hasPhoneDevice,
@@ -101,6 +102,11 @@ export function useDeviceInstallStatus() {
         return score(a) - score(b)
       })
 
+      // Split by role
+      const admins = result.filter(u => u.role === 'admin')
+      const trainers = result.filter(u => u.role === 'trainer')
+      const students = result.filter(u => u.role === 'student')
+
       const summary = {
         total: result.length,
         withAnySubscription: result.filter(s => s.deviceCount > 0).length,
@@ -110,13 +116,16 @@ export function useDeviceInstallStatus() {
         missing: result.filter(s => s.deviceCount === 0).length,
       }
 
-      return { students: result, summary }
+      return { users: result, admins, trainers, students, summary }
     },
     staleTime: 60_000,
     placeholderData: (prev) => prev,
   })
 
   return {
+    users: data?.users || [],
+    admins: data?.admins || [],
+    trainers: data?.trainers || [],
     students: data?.students || [],
     summary: data?.summary || { total: 0, withAnySubscription: 0, withPhone: 0, withTablet: 0, complete: 0, missing: 0 },
     loading: isLoading,

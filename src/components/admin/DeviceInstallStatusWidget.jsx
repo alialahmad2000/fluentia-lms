@@ -52,6 +52,48 @@ function SkeletonRow() {
   )
 }
 
+function UserRow({ user }) {
+  return (
+    <div
+      className="flex items-center gap-3 py-2 px-1"
+      style={{ borderBottom: '1px solid var(--border-subtle)' }}
+    >
+      <StatusIcon {...user} />
+      <span className="text-xs font-medium flex-1 min-w-0 truncate" style={{ color: 'var(--text-primary)' }}>
+        {user.full_name}
+      </span>
+
+      {user.deviceCount === 0 ? (
+        <span className="text-[11px]" style={{ color: 'var(--text-tertiary)' }}>لم يثبّت التطبيق</span>
+      ) : (
+        <div className="flex items-center gap-3">
+          <DeviceIndicator active={user.hasPhone} icon={Smartphone} label="جوال" />
+          <DeviceIndicator active={user.hasTablet} icon={Tablet} label="آيباد" />
+          {user.hasDesktop && (
+            <span className="inline-flex items-center gap-0.5" title="كمبيوتر">
+              <Monitor size={12} style={{ color: 'var(--text-tertiary)' }} />
+            </span>
+          )}
+          <span className="text-[10px] px-1.5 py-0.5 rounded-full" style={{
+            background: user.complete ? 'rgba(16,185,129,0.1)' : 'rgba(245,158,11,0.1)',
+            color: user.complete ? '#10b981' : '#f59e0b',
+          }}>
+            {user.complete ? 'مكتمل' : user.hasPhone && !user.hasTablet ? 'ناقص آيباد' : user.hasTablet && !user.hasPhone ? 'ناقص جوال' : 'جزئي'}
+          </span>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function SectionHeader({ title }) {
+  return (
+    <div className="text-base font-bold mt-6 mb-2" style={{ color: 'var(--accent-gold, #f59e0b)' }}>
+      ── {title} ──
+    </div>
+  )
+}
+
 // Small restore button shown when the widget is hidden
 export function RestoreWidgetButton({ onRestore }) {
   return (
@@ -81,7 +123,7 @@ export default function DeviceInstallStatusWidget() {
     }
     return true
   })
-  const { students, summary, loading, error, refetch } = useDeviceInstallStatus()
+  const { users, admins, trainers, students, summary, loading, error, refetch } = useDeviceInstallStatus()
 
   if (hidden) {
     return (
@@ -103,7 +145,7 @@ export default function DeviceInstallStatusWidget() {
     setHidden(true)
   }
 
-  // Group students by group
+  // Group students by group for the students section
   const grouped = {}
   for (const s of students) {
     const key = s.group_id || '_ungrouped'
@@ -157,7 +199,7 @@ export default function DeviceInstallStatusWidget() {
       )}
 
       {/* Loading state */}
-      {loading && !students.length && (
+      {loading && !users.length && (
         <div className="space-y-2">
           <div className="flex gap-3 mb-4">
             {[1, 2, 3, 4].map(i => (
@@ -169,7 +211,7 @@ export default function DeviceInstallStatusWidget() {
       )}
 
       {/* Content */}
-      {!error && (students.length > 0 || !loading) && (
+      {!error && (users.length > 0 || !loading) && (
         <>
           {/* Summary stats */}
           <div className="flex gap-2.5 mb-4 flex-wrap">
@@ -184,61 +226,51 @@ export default function DeviceInstallStatusWidget() {
             <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl mb-4" style={{ background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.12)' }}>
               <AlertTriangle size={14} className="text-amber-400 shrink-0" />
               <p className="text-xs font-medium" style={{ color: 'var(--accent-gold, #f59e0b)' }}>
-                {summary.total - summary.complete} من {summary.total} طالب لم يكملوا التثبيت على الجوال والآيباد
+                {summary.total - summary.complete} من {summary.total} مستخدم لم يكملوا التثبيت على الجوال والآيباد
               </p>
             </div>
           )}
 
           {/* Empty state */}
-          {students.length === 0 && !loading && (
+          {users.length === 0 && !loading && (
             <div className="text-center py-6">
-              <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>لا يوجد طلاب مسجلين</p>
+              <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>لا يوجد مستخدمين مسجلين</p>
             </div>
           )}
 
-          {/* Grouped student list */}
-          {groupEntries.map(([key, group]) => (
-            <div key={key} className="mb-3">
-              <div className="flex items-center gap-2 mb-1.5 mt-3">
-                <span className="text-xs font-bold" style={{ color: 'var(--accent-gold, #f59e0b)' }}>
-                  {group.name}
-                  {group.level && <span className="font-normal" style={{ color: 'var(--text-tertiary)' }}> (Level {group.level})</span>}
-                </span>
-              </div>
-              {group.students.map(student => (
-                <div
-                  key={student.id}
-                  className="flex items-center gap-3 py-2 px-1"
-                  style={{ borderBottom: '1px solid var(--border-subtle)' }}
-                >
-                  <StatusIcon {...student} />
-                  <span className="text-xs font-medium flex-1 min-w-0 truncate" style={{ color: 'var(--text-primary)' }}>
-                    {student.full_name}
-                  </span>
+          {/* Admins section */}
+          {admins.length > 0 && (
+            <>
+              <SectionHeader title="الإدارة" />
+              {admins.map(user => <UserRow key={user.id} user={user} />)}
+            </>
+          )}
 
-                  {student.deviceCount === 0 ? (
-                    <span className="text-[11px]" style={{ color: 'var(--text-tertiary)' }}>لم يثبّت التطبيق</span>
-                  ) : (
-                    <div className="flex items-center gap-3">
-                      <DeviceIndicator active={student.hasPhone} icon={Smartphone} label="جوال" />
-                      <DeviceIndicator active={student.hasTablet} icon={Tablet} label="آيباد" />
-                      {student.hasDesktop && (
-                        <span className="inline-flex items-center gap-0.5" title="كمبيوتر">
-                          <Monitor size={12} style={{ color: 'var(--text-tertiary)' }} />
-                        </span>
-                      )}
-                      <span className="text-[10px] px-1.5 py-0.5 rounded-full" style={{
-                        background: student.complete ? 'rgba(16,185,129,0.1)' : 'rgba(245,158,11,0.1)',
-                        color: student.complete ? '#10b981' : '#f59e0b',
-                      }}>
-                        {student.complete ? 'مكتمل' : student.hasPhone && !student.hasTablet ? 'ناقص آيباد' : student.hasTablet && !student.hasPhone ? 'ناقص جوال' : 'جزئي'}
-                      </span>
-                    </div>
-                  )}
+          {/* Trainers section */}
+          {trainers.length > 0 && (
+            <>
+              <SectionHeader title="المدربون" />
+              {trainers.map(user => <UserRow key={user.id} user={user} />)}
+            </>
+          )}
+
+          {/* Students section */}
+          {students.length > 0 && (
+            <>
+              <SectionHeader title="الطلاب" />
+              {groupEntries.map(([key, group]) => (
+                <div key={key} className="mb-3">
+                  <div className="flex items-center gap-2 mb-1.5 mt-3">
+                    <span className="text-xs font-bold" style={{ color: 'var(--accent-gold, #f59e0b)' }}>
+                      {group.name}
+                      {group.level && <span className="font-normal" style={{ color: 'var(--text-tertiary)' }}> (Level {group.level})</span>}
+                    </span>
+                  </div>
+                  {group.students.map(user => <UserRow key={user.id} user={user} />)}
                 </div>
               ))}
-            </div>
-          ))}
+            </>
+          )}
 
           {/* Placeholder button for future reminder feature */}
           <div className="mt-4 pt-3" style={{ borderTop: '1px solid var(--border-subtle)' }}>
@@ -247,7 +279,7 @@ export default function DeviceInstallStatusWidget() {
               className="text-xs px-4 py-2 rounded-xl opacity-40 cursor-not-allowed"
               style={{ background: 'var(--surface-raised)', color: 'var(--text-tertiary)' }}
             >
-              🔔 إرسال تذكير لجميع الطلاب الناقصين (قريباً)
+              🔔 إرسال تذكير لجميع المستخدمين الناقصين (قريباً)
             </button>
           </div>
         </>
