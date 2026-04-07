@@ -80,7 +80,7 @@ class ActivityTracker {
     })
   }
 
-  // Heartbeat — updates session last_seen_at every 30s
+  // Heartbeat — updates session last_seen_at every 2 minutes (was 30s — too aggressive)
   _startHeartbeat() {
     if (this.heartbeatInterval) clearInterval(this.heartbeatInterval)
 
@@ -96,6 +96,7 @@ class ActivityTracker {
 
       const now = new Date().toISOString()
       try {
+        // Single combined update — profiles.last_active_at updated via session heartbeat
         supabase.from('user_sessions')
           .update({
             last_seen_at: now,
@@ -104,15 +105,10 @@ class ActivityTracker {
           })
           .eq('id', this.sessionDbId)
           .then(() => {}).catch(() => {})
-
-        supabase.from('profiles')
-          .update({ last_active_at: now })
-          .eq('id', this.userId)
-          .then(() => {}).catch(() => {})
       } catch {
         // analytics must never crash
       }
-    }, 30000)
+    }, 120000)
   }
 
   // End session

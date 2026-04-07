@@ -45,8 +45,11 @@
     <link rel="dns-prefetch" href="https://nmjexpuycmqcxuxljier.supabase.co" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" as="style" />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+    <!-- Critical font (Arabic UI) — loaded immediately -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
+    <!-- Secondary fonts — loaded async to not block rendering -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" /></noscript>
     <title>Fluentia Academy — أكاديمية طلاقة</title>
     <script>
       // Apply theme before first paint to prevent flash
@@ -64,7 +67,7 @@
       // One-time service worker + cache purge to fix stale deployments
       // After purge, VitePWA will re-register a fresh SW on next build
       (function() {
-        var PURGE_KEY = 'sw_purge_v2';
+        var PURGE_KEY = 'sw_purge_v3';
         if (localStorage.getItem(PURGE_KEY)) return;
         localStorage.setItem(PURGE_KEY, '1');
         if ('serviceWorker' in navigator) {

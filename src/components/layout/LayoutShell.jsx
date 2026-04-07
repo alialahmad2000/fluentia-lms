@@ -110,8 +110,8 @@ export default function LayoutShell() {
   const location = useLocation()
   const queryClient = useQueryClient()
 
-  // Lightweight activity tracking (students only — hook-based, handles sessions + page visits)
-  useActivityTracker()
+  // Activity tracking handled by the class-based tracker singleton (activityTracker.js)
+  // useActivityTracker() — DISABLED: was creating duplicate sessions + double DB writes
 
   // Scroll to top + close sidebar on navigation
   useEffect(() => {
@@ -141,10 +141,9 @@ export default function LayoutShell() {
   return (
     <div className="min-h-dvh gradient-mesh" style={{ background: 'var(--surface-base)', paddingTop: impersonation ? '40px' : undefined }} data-role={role} onClick={() => tracker.touch()} onKeyDown={() => tracker.touch()}>
       <UpdateBanner />
-      {/* Background layers */}
+      {/* Background layer — lightweight static mesh only (FloatingOrbs removed: blur(80px) causes jank on phones) */}
       <Suspense fallback={null}>
         <GeometricMesh />
-        <FloatingOrbs />
       </Suspense>
 
       {/* Pull-to-refresh indicator (mobile) */}
@@ -198,11 +197,7 @@ export default function LayoutShell() {
 
         <main id="main-content" className="px-4 py-6 lg:px-10 lg:py-8 lg:pb-10" style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <ErrorBoundary key={location.pathname}>
-            <AnimatePresence mode="wait">
-              <AnimatedPage key={location.pathname}>
-                <Outlet />
-              </AnimatedPage>
-            </AnimatePresence>
+            <Outlet />
           </ErrorBoundary>
           {/* Bottom spacer — guarantees content is never hidden behind the fixed mobile
               bottom tab bar. Uses inline style so no CSS class/specificity/layer/purge

@@ -39,9 +39,19 @@ export default defineConfig({
       },
       workbox: {
         importScripts: ['/push-sw.js'],
-        maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        maximumFileSizeToCacheInBytes: 1.5 * 1024 * 1024,
+        // Only precache essential files — not every JS chunk
+        globPatterns: ['**/*.{css,html,ico,png,svg,woff2}'],
         runtimeCaching: [
+          // Cache JS chunks on first use (not precached — loads faster on install)
+          {
+            urlPattern: /\.js$/,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'js-chunks',
+              expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 7 },
+            },
+          },
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
             handler: 'CacheFirst',
@@ -58,22 +68,17 @@ export default defineConfig({
               expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
             },
           },
+          // Supabase API — always go to network, no caching (prevents stale data bugs)
           {
             urlPattern: /^https:\/\/.*\.supabase\.co\/rest\/v1\/.*/i,
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'supabase-api-cache',
-              expiration: { maxEntries: 50, maxAgeSeconds: 60 * 60 },
-              networkTimeoutSeconds: 10,
-              cacheableResponse: { statuses: [0, 200] },
-            },
+            handler: 'NetworkOnly',
           },
           {
             urlPattern: /^https:\/\/.*\.supabase\.co\/storage\/.*/i,
             handler: 'CacheFirst',
             options: {
               cacheName: 'supabase-storage-cache',
-              expiration: { maxEntries: 100, maxAgeSeconds: 60 * 60 * 24 * 30 },
+              expiration: { maxEntries: 50, maxAgeSeconds: 60 * 60 * 24 * 7 },
               cacheableResponse: { statuses: [0, 200] },
             },
           },
