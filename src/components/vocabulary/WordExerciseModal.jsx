@@ -93,6 +93,19 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
         try { emitXP(5, `أتقنت "${word.word}"`) } catch {}
         try { safeCelebrate('word_mastered') } catch {}
         toast({ type: 'success', title: `+5 XP — أتقنت "${word.word}"!` })
+
+        // Create SRS entry for spaced repetition review
+        const tomorrow = new Date()
+        tomorrow.setDate(tomorrow.getDate() + 1)
+        await supabase.from('curriculum_vocabulary_srs').upsert({
+          student_id: studentId,
+          vocabulary_id: word.id,
+          ease_factor: 2.5,
+          interval_days: 1,
+          repetitions: 1,
+          next_review_at: tomorrow.toISOString(),
+          last_quality: 5,
+        }, { onConflict: 'student_id,vocabulary_id', ignoreDuplicates: true }).catch(() => {})
       }
     } catch (err) {
       console.error('[WordExercise] Save failed:', err)

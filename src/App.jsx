@@ -58,6 +58,7 @@ const StudentWritingLab = lazyRetry(() => import('./pages/student/StudentWriting
 const StudentGroupActivity = lazyRetry(() => import('./pages/student/StudentGroupActivity'))
 const StudentAdaptiveTest = lazyRetry(() => import('./pages/student/StudentAdaptiveTest'))
 const StudentAIInsights = lazyRetry(() => import('./pages/student/StudentAIInsights'))
+const DailyReview = lazyRetry(() => import('./pages/student/DailyReview'))
 const ProgressDashboard = lazyRetry(() => import('./pages/student/ProgressDashboard'))
 const StudentCurriculum = lazyRetry(() => import('./pages/student/StudentCurriculum'))
 const VocabularyFlashcards = lazyRetry(() => import('./pages/student/vocabulary/VocabularyFlashcards'))
@@ -342,6 +343,7 @@ export default function App() {
               <Route path="/student/messages" element={<Page><StudentMessages /></Page>} />
               <Route path="/student/ai-chat" element={<Page><PackageRoute requiredPackage="talaqa" featureName="المساعد الذكي"><StudentChatbot /></PackageRoute></Page>} />
               <Route path="/student/vocabulary" element={<Page><StudentVocabulary /></Page>} />
+              <Route path="/student/daily-review" element={<Page><DailyReview /></Page>} />
               <Route path="/student/flashcards" element={<Page><VocabularyFlashcards /></Page>} />
               <Route path="/student/billing" element={<Page><StudentBilling /></Page>} />
               <Route path="/student/exercises" element={<Page><StudentExercises /></Page>} />

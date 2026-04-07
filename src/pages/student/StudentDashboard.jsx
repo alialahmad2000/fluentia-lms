@@ -12,6 +12,7 @@ import { getGreeting, getArabicDay, formatTime, formatDateAr } from '../../utils
 import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/constants'
 import { getEncouragement } from '../../utils/encouragement'
 import DailyChallenge from '../../components/gamification/DailyChallenge'
+import SrsReviewCard from '../../components/gamification/SrsReviewCard'
 import MysteryBox from '../../components/gamification/MysteryBox'
 import StudentWowMoments from '../../components/ai/StudentWowMoments'
 import FloatingParticles from '../../components/illustrations/FloatingParticles'
@@ -376,6 +377,9 @@ export default function StudentDashboard() {
           )}
         </motion.div>
       )}
+
+      {/* ═══ 3. SRS Daily Review ═══ */}
+      <SrsReviewCard studentId={profile?.id} />
 
       {/* ═══ 4. Next Class (prominent) ═══ */}
       <motion.div variants={fadeUp} className="fl-card-static p-6 relative">
