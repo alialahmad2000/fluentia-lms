@@ -1,12 +1,15 @@
 import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Volume2, ChevronDown, ChevronUp, Mic } from 'lucide-react'
+import { Volume2, ChevronDown, ChevronUp, Mic, Check } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
+import { useAuthStore } from '../../../../stores/authStore'
+import PronunciationActivity from '../../../../components/curriculum/PronunciationActivity'
 
 export default function PronunciationTab({ unitId }) {
-  const [expandedItem, setExpandedItem] = useState(null)
-  const [showPractice, setShowPractice] = useState(false)
+  const { profile, studentData } = useAuthStore()
+  const queryClient = useQueryClient()
+  const [showReference, setShowReference] = useState(false)
 
   const { data: pronunciation, isLoading } = useQuery({
     queryKey: ['pronunciation-content', unitId],
@@ -20,6 +23,23 @@ export default function PronunciationTab({ unitId }) {
       return data
     },
     enabled: !!unitId,
+  })
+
+  // Check if already completed
+  const { data: progressRecord } = useQuery({
+    queryKey: ['pronunciation-progress', studentData?.id, unitId],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('student_curriculum_progress')
+        .select('status, score, completed_at')
+        .eq('student_id', studentData.id)
+        .eq('unit_id', unitId)
+        .eq('section_type', 'pronunciation')
+        .maybeSingle()
+      if (error) throw error
+      return data
+    },
+    enabled: !!studentData?.id && !!unitId,
   })
 
   if (isLoading) {
@@ -46,107 +66,108 @@ export default function PronunciationTab({ unitId }) {
     )
   }
 
-  const { focus_type, title_ar, title_en, description_ar, content } = pronunciation
+  const isCompleted = progressRecord?.status === 'completed'
+  const { focus_type, content } = pronunciation
   const items = content?.items || []
   const practiceSentences = content?.practice_sentences || []
-  const ruleSummary = content?.rule_summary_ar
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="fl-card-static p-6 relative overflow-hidden">
-        <div className="card-top-line shimmer" style={{ opacity: 0.3 }} />
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'rgba(245,158,11,0.1)' }}>
-            <Mic size={20} strokeWidth={1.5} className="text-amber-400" />
+      {/* Completed badge */}
+      {isCompleted && (
+        <div className="fl-card-static p-4 flex items-center gap-3" style={{ borderColor: 'rgba(74,222,128,0.2)' }}>
+          <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: 'rgba(74,222,128,0.1)' }}>
+            <Check size={20} className="text-emerald-400" />
           </div>
           <div>
-            <h2 className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>{title_ar}</h2>
-            <p className="text-xs font-['Inter']" style={{ color: 'var(--text-tertiary)' }}>{title_en}</p>
-          </div>
-        </div>
-        <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-          {description_ar}
-        </p>
-        {ruleSummary && (
-          <div className="mt-3 px-4 py-2.5 rounded-xl" style={{ background: 'rgba(56,189,248,0.06)', border: '1px solid rgba(56,189,248,0.1)' }}>
-            <p className="text-sm font-semibold" style={{ color: 'var(--accent-sky)' }}>
-              {ruleSummary}
+            <p className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>تم إنجاز هذا التمرين</p>
+            <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
+              النتيجة: {progressRecord.score}%
             </p>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
-      {/* Items — rendered differently per focus_type */}
-      <div className="space-y-3">
-        <h3 className="text-[15px] font-bold px-1" style={{ color: 'var(--text-primary)' }}>
-          التدريبات ({items.length})
-        </h3>
+      {/* Interactive Activity */}
+      {!isCompleted && (
+        <PronunciationActivity
+          pronunciationData={pronunciation}
+          unitId={unitId}
+          onComplete={() => {
+            queryClient.invalidateQueries({ queryKey: ['pronunciation-progress', studentData?.id, unitId] })
+            queryClient.invalidateQueries({ queryKey: ['unit-progress-comprehensive'] })
+          }}
+        />
+      )}
 
-        {focus_type?.startsWith('minimal_pairs') && (
-          <MinimalPairsView items={items} expandedItem={expandedItem} onToggle={setExpandedItem} />
-        )}
-
-        {focus_type === 'word_stress' && (
-          <WordStressView items={items} expandedItem={expandedItem} onToggle={setExpandedItem} />
-        )}
-
-        {focus_type?.startsWith('connected_speech') && (
-          <ConnectedSpeechView items={items} expandedItem={expandedItem} onToggle={setExpandedItem} />
-        )}
-
-        {focus_type === 'intonation' && (
-          <IntonationView items={items} expandedItem={expandedItem} onToggle={setExpandedItem} />
-        )}
-      </div>
-
-      {/* Practice Sentences */}
-      {practiceSentences.length > 0 && (
+      {/* Reference material (always available, collapsible when completed) */}
+      {isCompleted && (
         <div>
           <button
-            onClick={() => setShowPractice(!showPractice)}
-            className="flex items-center gap-2 text-[15px] font-bold px-1 mb-3 cursor-pointer"
+            onClick={() => setShowReference(!showReference)}
+            className="flex items-center gap-2 text-sm font-bold px-1 mb-3 cursor-pointer"
             style={{ color: 'var(--text-primary)' }}
           >
-            جمل التدريب ({practiceSentences.length})
-            {showPractice ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            مراجعة المحتوى
+            {showReference ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
           </button>
 
           <AnimatePresence>
-            {showPractice && (
+            {showReference && (
               <motion.div
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                className="space-y-2 overflow-hidden"
+                className="space-y-3 overflow-hidden"
               >
-                {practiceSentences.map((s, i) => (
-                  <div key={i} className="fl-card-static p-4">
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex-1">
-                        <p className="text-sm font-['Inter'] font-medium mb-1" style={{ color: 'var(--text-primary)' }}>
-                          {s.sentence_en}
-                        </p>
-                        <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
-                          {s.translation_ar}
-                        </p>
-                        {s.target_words?.length > 0 && (
-                          <div className="flex flex-wrap gap-1.5 mt-2">
-                            {s.target_words.map((w, j) => (
-                              <span key={j} className="text-[10px] px-2 py-0.5 rounded-full" style={{ background: 'rgba(245,158,11,0.1)', color: 'var(--accent-gold)' }}>
-                                {w}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                      <AudioPlaceholder />
-                    </div>
-                  </div>
-                ))}
+                <ReferenceContent
+                  focusType={focus_type}
+                  items={items}
+                  practiceSentences={practiceSentences}
+                />
               </motion.div>
             )}
           </AnimatePresence>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ─── Reference Content (for review after completion) ───
+function ReferenceContent({ focusType, items, practiceSentences }) {
+  const [expandedItem, setExpandedItem] = useState(null)
+
+  return (
+    <div className="space-y-3">
+      {focusType?.startsWith('minimal_pairs') && (
+        <MinimalPairsView items={items} expandedItem={expandedItem} onToggle={setExpandedItem} />
+      )}
+      {focusType === 'word_stress' && (
+        <WordStressView items={items} expandedItem={expandedItem} onToggle={setExpandedItem} />
+      )}
+      {focusType?.startsWith('connected_speech') && (
+        <ConnectedSpeechView items={items} expandedItem={expandedItem} onToggle={setExpandedItem} />
+      )}
+      {focusType === 'intonation' && (
+        <IntonationView items={items} expandedItem={expandedItem} onToggle={setExpandedItem} />
+      )}
+
+      {practiceSentences.length > 0 && (
+        <div className="space-y-2 mt-4">
+          <h4 className="text-xs font-bold px-1" style={{ color: 'var(--text-tertiary)' }}>
+            جمل التدريب ({practiceSentences.length})
+          </h4>
+          {practiceSentences.map((s, i) => (
+            <div key={i} className="fl-card-static p-3">
+              <p className="text-sm font-['Inter'] font-medium" style={{ color: 'var(--text-primary)' }}>
+                {s.sentence_en}
+              </p>
+              <p className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>
+                {s.translation_ar}
+              </p>
+            </div>
+          ))}
         </div>
       )}
     </div>

@@ -32,7 +32,7 @@ const ACTIVITY_DEFINITIONS = [
     key: 'grammar',
     tabKey: 'grammar',
     label: 'القواعد',
-    weight: 15,
+    weight: 13,
     existsCheck: (c) => c.hasGrammar,
     getProgress: (sp) => {
       const record = sp.find(p => p.section_type === 'grammar')
@@ -44,7 +44,7 @@ const ACTIVITY_DEFINITIONS = [
     key: 'listening',
     tabKey: 'listening',
     label: 'الاستماع',
-    weight: 10,
+    weight: 8,
     existsCheck: (c) => c.hasListening,
     getProgress: (sp) => {
       const record = sp.find(p => p.section_type === 'listening')
@@ -56,7 +56,7 @@ const ACTIVITY_DEFINITIONS = [
     key: 'vocabulary',
     tabKey: 'vocabulary',
     label: 'المفردات',
-    weight: 20,
+    weight: 18,
     existsCheck: (c) => c.vocabTotal > 0,
     getProgress: (_sp, _c, vm) => {
       if (!vm || !vm.totalWords || vm.totalWords === 0) return 0
@@ -67,7 +67,7 @@ const ACTIVITY_DEFINITIONS = [
     key: 'writing',
     tabKey: 'writing',
     label: 'الكتابة',
-    weight: 15,
+    weight: 13,
     existsCheck: (c) => c.hasWriting,
     getProgress: (sp) => {
       const record = sp.find(p => p.section_type === 'writing')
@@ -82,7 +82,7 @@ const ACTIVITY_DEFINITIONS = [
     key: 'speaking',
     tabKey: 'speaking',
     label: 'المحادثة',
-    weight: 15,
+    weight: 13,
     existsCheck: (c) => c.hasSpeaking,
     getProgress: (sp) => {
       const record = sp.find(p => p.section_type === 'speaking')
@@ -91,6 +91,18 @@ const ACTIVITY_DEFINITIONS = [
       if (record.ai_feedback) return 0.75
       if (record.status === 'in_progress') return 0.5
       return 0.25
+    },
+  },
+  {
+    key: 'pronunciation',
+    tabKey: 'pronunciation',
+    label: 'النطق',
+    weight: 10,
+    existsCheck: (c) => c.hasPronunciation,
+    getProgress: (sp) => {
+      const record = sp.find(p => p.section_type === 'pronunciation')
+      if (!record) return 0
+      return record.status === 'completed' ? 1 : 0.5
     },
   },
   {
@@ -180,6 +192,7 @@ export function calculateSimpleUnitProgress(progressRows = [], hasVocab = false,
     vocabTotal: hasVocab ? 1 : 0,
     hasWriting: types.has('writing') || true,
     hasSpeaking: types.has('speaking') || true,
+    hasPronunciation: types.has('pronunciation'),
     hasAssessment: false,
   }
 

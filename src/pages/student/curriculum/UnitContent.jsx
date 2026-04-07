@@ -25,15 +25,15 @@ import PronunciationTab from './tabs/PronunciationTab'
 import RecordingTab from '../../../components/curriculum/RecordingTab'
 
 const TABS = [
-  { id: 'reading', label: 'القراءة', icon: BookOpen },
-  { id: 'grammar', label: 'القواعد', icon: PenLine },
-  { id: 'vocabulary', label: 'المفردات', icon: Languages },
-  { id: 'listening', label: 'الاستماع', icon: Headphones },
-  { id: 'writing', label: 'الكتابة', icon: FileEdit },
-  { id: 'speaking', label: 'المحادثة', icon: Mic },
-  { id: 'pronunciation', label: 'النطق', icon: Volume2 },
-  { id: 'assessment', label: 'التقييم', icon: ClipboardCheck },
-  { id: 'recording', label: 'التسجيل', icon: Video },
+  { id: 'reading', label: 'القراءة', shortLabel: 'قراءة', icon: BookOpen },
+  { id: 'grammar', label: 'القواعد', shortLabel: 'قواعد', icon: PenLine },
+  { id: 'vocabulary', label: 'المفردات', shortLabel: 'كلمات', icon: Languages },
+  { id: 'listening', label: 'الاستماع', shortLabel: 'سمع', icon: Headphones },
+  { id: 'writing', label: 'الكتابة', shortLabel: 'كتابة', icon: FileEdit },
+  { id: 'speaking', label: 'المحادثة', shortLabel: 'محادثة', icon: Mic },
+  { id: 'pronunciation', label: 'النطق', shortLabel: 'نطق', icon: Volume2 },
+  { id: 'assessment', label: 'التقييم', shortLabel: 'تقييم', icon: ClipboardCheck },
+  { id: 'recording', label: 'التسجيل', shortLabel: 'تسجيل', icon: Video },
 ]
 
 const LEVEL_NAMES = {
@@ -330,10 +330,10 @@ export default function UnitContent() {
       {/* Class Summary (shared by trainer) */}
       {isStudent && <ClassSummaryView unitId={unitId} />}
 
-      {/* Tab bar */}
+      {/* Tab bar — responsive: scroll on mobile, compact on tablet, full on desktop */}
       <div
         ref={tabBarRef}
-        className="flex gap-1 overflow-x-auto scrollbar-hide sticky top-16 z-10 -mx-4 px-4 py-2"
+        className="flex gap-1 overflow-x-auto scrollbar-hide sticky top-16 z-10 -mx-4 px-4 py-2 snap-x snap-mandatory scroll-smooth"
         style={{ background: 'var(--surface-base)' }}
       >
         {TABS.map((tab) => {
@@ -345,23 +345,29 @@ export default function UnitContent() {
             <button
               key={tab.id}
               ref={isActive ? activeTabRef : undefined}
+              data-tab-id={tab.id}
               onClick={() => {
                 tracker.track('tab_switched', { tab_name: tab.id, unit_id: unitId })
                 setActiveTab(tab.id)
               }}
-              className={`relative flex items-center gap-1.5 px-4 h-12 rounded-xl text-sm font-medium whitespace-nowrap transition-all duration-200 flex-shrink-0 font-['Tajawal'] ${
+              className={`relative flex items-center gap-1 snap-start
+                px-2.5 sm:px-3 lg:px-3.5 h-10 lg:h-11
+                rounded-xl text-xs sm:text-[13px] lg:text-sm
+                font-medium whitespace-nowrap transition-all duration-200
+                flex-shrink-0 font-['Tajawal'] ${
                 isActive
                   ? 'bg-sky-500/15 text-sky-400 border border-sky-500/30'
                   : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-raised)]'
               }`}
             >
-              <Icon size={16} />
-              {tab.label}
+              <Icon size={14} className="lg:w-4 lg:h-4" />
+              <span className="hidden sm:inline">{tab.label}</span>
+              <span className="sm:hidden">{tab.shortLabel || tab.label}</span>
               {dotColor && (
-                <span className={`w-1.5 h-1.5 rounded-full ${dotColor} absolute top-2 left-2`} />
+                <span className={`w-1.5 h-1.5 rounded-full ${dotColor} absolute top-1.5 left-1.5`} />
               )}
               {isStudent && bookmarks.includes(tab.id) && (
-                <MapPin size={10} className="absolute top-1.5 right-1.5 text-sky-400" />
+                <MapPin size={10} className="absolute top-1 right-1 text-sky-400" />
               )}
             </button>
           )

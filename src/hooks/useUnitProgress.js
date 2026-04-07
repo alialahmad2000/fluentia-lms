@@ -29,6 +29,7 @@ export function useUnitProgress(studentId, unitId) {
         { data: writing },
         { data: speaking },
         { data: assessment },
+        { data: pronunciation },
       ] = await Promise.all([
         supabase.from('curriculum_grammar').select('id').eq('unit_id', unitId).limit(1),
         supabase.from('curriculum_listening').select('id').eq('unit_id', unitId).limit(1),
@@ -38,6 +39,7 @@ export function useUnitProgress(studentId, unitId) {
         supabase.from('curriculum_writing').select('id').eq('unit_id', unitId).limit(1),
         supabase.from('curriculum_speaking').select('id').eq('unit_id', unitId).limit(1),
         supabase.from('curriculum_assessments').select('id').eq('unit_id', unitId).limit(1),
+        supabase.from('curriculum_pronunciation').select('id').eq('unit_id', unitId).limit(1),
       ])
 
       const vocabIds = (vocab || []).map(v => v.id)
@@ -51,6 +53,7 @@ export function useUnitProgress(studentId, unitId) {
         hasWriting: writing?.length > 0,
         hasSpeaking: speaking?.length > 0,
         hasAssessment: assessment?.length > 0,
+        hasPronunciation: pronunciation?.length > 0,
       }
 
       // 3. Get student progress records
@@ -139,12 +142,14 @@ export function useLevelProgress(studentId, units) {
         { data: allWriting },
         { data: allSpeaking },
         { data: allAssessments },
+        { data: allPronunciation },
       ] = await Promise.all([
         supabase.from('curriculum_grammar').select('id, unit_id').in('unit_id', unitIds),
         supabase.from('curriculum_listening').select('id, unit_id').in('unit_id', unitIds),
         supabase.from('curriculum_writing').select('id, unit_id').in('unit_id', unitIds),
         supabase.from('curriculum_speaking').select('id, unit_id').in('unit_id', unitIds),
         supabase.from('curriculum_assessments').select('id, unit_id').in('unit_id', unitIds),
+        supabase.from('curriculum_pronunciation').select('id, unit_id').in('unit_id', unitIds),
       ])
 
       // Calculate per unit
@@ -169,6 +174,7 @@ export function useLevelProgress(studentId, units) {
           hasWriting: (allWriting || []).some(w => w.unit_id === uid),
           hasSpeaking: (allSpeaking || []).some(s => s.unit_id === uid),
           hasAssessment: (allAssessments || []).some(a => a.unit_id === uid),
+          hasPronunciation: (allPronunciation || []).some(p => p.unit_id === uid),
         }
 
         const unitProgress = (allProgress || []).filter(p => p.unit_id === uid)
