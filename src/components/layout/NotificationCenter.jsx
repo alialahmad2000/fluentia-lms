@@ -26,6 +26,15 @@ const NOTIFICATION_ROUTES = {
   weekly_tasks_remind: '/student/weekly-tasks',
   weekly_tasks_urgent: '/student/weekly-tasks',
   spelling_milestone: '/student/spelling',
+  challenge_new: '/student/challenges',
+  challenge_reminder: '/student/challenges',
+  challenge_complete: '/student/challenges',
+  creator_challenge: '/student/creator-challenge',
+  test_result: '/student/profile',
+  curriculum_progress: '/student/curriculum',
+  speaking_feedback: '/student/speaking',
+  smart_nudge: '/student',
+  task_completed: '/student/weekly-tasks',
   system: null,
   announcement: null,
 }
@@ -172,22 +181,29 @@ export default function NotificationCenter() {
 
     // Navigate to relevant page
     const role = profile?.role
-    let route = NOTIFICATION_ROUTES[notification.type]
 
-    // Adjust routes for trainer/admin
+    // 1. First priority: action_url or data.link (explicit target from the notification sender)
+    let route = notification.action_url || notification.data?.link || null
+
+    // 2. Fallback: type-based route mapping
+    if (!route) {
+      route = NOTIFICATION_ROUTES[notification.type]
+    }
+
+    // 3. Adjust routes for trainer/admin
     if (role === 'trainer' || role === 'admin') {
       if (notification.type === 'assignment_new' || notification.type === 'assignment_graded') {
-        route = '/trainer/assignments'
+        route = route || '/trainer/assignments'
       } else if (notification.type === 'class_reminder') {
-        route = '/trainer/schedule'
+        route = route || '/trainer/schedule'
       }
     }
 
-    // Use action_url or link from notification data if available
-    if (notification.action_url) {
-      route = notification.action_url
-    } else if (notification.data?.link) {
-      route = notification.data.link
+    // 4. Adjust route for current role — e.g. admin can't access /student/* routes
+    if (route && role === 'admin' && route.startsWith('/student/')) {
+      route = route.replace('/student/', '/admin/')
+    } else if (route && role === 'trainer' && route.startsWith('/student/')) {
+      route = route.replace('/student/', '/trainer/')
     }
 
     if (route) {
@@ -284,8 +300,11 @@ export default function NotificationCenter() {
                         >
                           <button
                             onClick={() => {
-                              // Toggle expand if long body, otherwise navigate
-                              if (isLong && !isExpanded) {
+                              // If notification has an action_url, always navigate
+                              const hasRoute = n.action_url || n.data?.link || NOTIFICATION_ROUTES[n.type]
+                              if (hasRoute) {
+                                handleNotificationClick(n)
+                              } else if (isLong && !isExpanded) {
                                 setExpandedId(n.id)
                                 if (!n.read) markRead.mutate(n.id)
                               } else {
@@ -309,7 +328,7 @@ export default function NotificationCenter() {
                                     initial={{ opacity: 0, height: 0 }}
                                     animate={{ opacity: 1, height: 'auto' }}
                                     exit={{ opacity: 0, height: 0 }}
-                                    className="text-xs mt-1 leading-relaxed"
+                                    className="text-xs mt-1 leading-relaxed whitespace-pre-wrap"
                                     style={{ color: 'var(--text-secondary)' }}
                                   >
                                     {n.body}
