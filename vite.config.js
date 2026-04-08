@@ -43,12 +43,15 @@ export default defineConfig({
         // Only precache essential files — not every JS chunk
         globPatterns: ['**/*.{css,html,ico,png,svg,woff2}', 'push-sw.js'],
         runtimeCaching: [
-          // Cache JS chunks on first use (not precached — loads faster on install)
+          // Cache JS chunks — NetworkFirst ensures fresh code after deployments.
+          // Was StaleWhileRevalidate which served stale/broken JS immediately,
+          // causing "stuck loading" and blank pages after new deployments.
           {
             urlPattern: /\.js$/,
-            handler: 'StaleWhileRevalidate',
+            handler: 'NetworkFirst',
             options: {
               cacheName: 'js-chunks',
+              networkTimeoutSeconds: 3, // Fall back to cache after 3s (offline/slow)
               expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 7 },
             },
           },
@@ -95,6 +98,8 @@ export default defineConfig({
           'vendor-supabase': ['@supabase/supabase-js'],
           'vendor-motion': ['framer-motion'],
           'vendor-zustand': ['zustand'],
+          'vendor-charts': ['recharts'],
+          'vendor-dates': ['date-fns'],
         },
       },
     },

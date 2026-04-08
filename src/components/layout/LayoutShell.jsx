@@ -94,7 +94,12 @@ export default function LayoutShell() {
   const [moreOpen, setMoreOpen] = useState(false)
   const [toast, setToast] = useState(null)
   const toastTimerRef = useRef(null)
-  const { profile, studentData, impersonation } = useAuthStore()
+  // Use individual selectors to avoid re-rendering on every store change.
+  // Previously subscribed to entire store, causing LayoutShell (and all children)
+  // to re-render on any auth state update.
+  const profile = useAuthStore(s => s.profile)
+  const studentData = useAuthStore(s => s.studentData)
+  const impersonation = useAuthStore(s => s.impersonation)
   const isClassMode = useClassMode(s => s.isClassMode)
   const showPostSummary = useClassMode(s => s.showPostSummary)
   const classStartedAt = useClassMode(s => s.classStartedAt)

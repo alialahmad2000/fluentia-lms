@@ -155,7 +155,7 @@ function CurriculumSection() {
       if (error) throw error
       return data || []
     },
-    staleTime: 0,
+    staleTime: 30000,
   })
 
   // Pending requests
@@ -170,7 +170,7 @@ function CurriculumSection() {
       if (error) throw error
       return data || []
     },
-    staleTime: 0,
+    staleTime: 30000,
   })
 
   const filteredRecs = filterGroup

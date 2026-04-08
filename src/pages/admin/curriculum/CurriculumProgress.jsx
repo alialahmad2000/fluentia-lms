@@ -75,7 +75,7 @@ export default function CurriculumProgress() {
       if (error) throw error
       return data || []
     },
-    staleTime: 0,
+    staleTime: 30000,
   })
 
   const { data: allStudents = [] } = useQuery({
@@ -88,7 +88,7 @@ export default function CurriculumProgress() {
       if (error) throw error
       return data || []
     },
-    staleTime: 0,
+    staleTime: 30000,
   })
 
   // ── Stats ──
@@ -458,7 +458,7 @@ function UnitDetail({ level, unit, allStudents, filterGroup, onFilterGroupChange
       return data || []
     },
     enabled: studentIds.length > 0,
-    staleTime: 0,
+    staleTime: 30000,
   })
 
   const isLoading = studentIds.length > 0 && progressLoading

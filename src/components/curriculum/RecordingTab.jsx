@@ -34,7 +34,7 @@ export default function RecordingTab({ unitId }) {
       return data || []
     },
     enabled: !!unitId,
-    staleTime: 0,
+    staleTime: 30000,
   })
 
   return (

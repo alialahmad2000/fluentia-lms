@@ -1,0 +1,29 @@
+{
+  "question_table": "curriculum_comprehension_questions",
+  "reading_table": "curriculum_readings",
+  "fk_column": "reading_id",
+  "question_columns": {
+    "id": "uuid",
+    "reading_id": "uuid",
+    "section": "text",
+    "question_type": "text",
+    "question_en": "text",
+    "question_ar": "text",
+    "choices": "jsonb",
+    "correct_answer": "text",
+    "explanation_en": "text",
+    "explanation_ar": "text",
+    "sort_order": "integer",
+    "created_at": "timestamptz"
+  },
+  "l0_level_id": "cd96175e-76d4-48dc-b34f-83f3228a28b8",
+  "l0_question_count": 120,
+  "questions_per_passage": 5,
+  "question_types": ["main_idea", "detail", "vocabulary", "inference"],
+  "section_value": "mcq",
+  "note_column_mapping": {
+    "prompt_assumed_question_text": "actual_is_question_en",
+    "prompt_assumed_options": "actual_is_choices_jsonb",
+    "prompt_assumed_order_index": "actual_is_sort_order"
+  }
+}

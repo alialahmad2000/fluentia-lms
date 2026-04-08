@@ -273,7 +273,7 @@ function GroupUnits({ group, selectedStudent, onStudentChange, onUnitClick }) {
       return data || []
     },
     enabled: studentIds.length > 0,
-    staleTime: 0,
+    staleTime: 30000,
   })
 
   // Build progress map: unitId -> { sectionType -> { completed, total } }
@@ -543,7 +543,7 @@ function UnitDetail({ group, unit, selectedStudent, onStudentChange, activeTab, 
       if (error) console.error('[TrainerCurriculum] Students query failed:', error)
       return data || []
     },
-    staleTime: 0,
+    staleTime: 30000,
   })
 
   const studentIds = students.map(s => s.id)
@@ -562,7 +562,7 @@ function UnitDetail({ group, unit, selectedStudent, onStudentChange, activeTab, 
       return data || []
     },
     enabled: studentIds.length > 0,
-    staleTime: 0,
+    staleTime: 30000,
   })
 
   const isLoading = studentsLoading || (studentIds.length > 0 && progressLoading)

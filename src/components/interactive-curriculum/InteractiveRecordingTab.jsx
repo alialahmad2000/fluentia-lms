@@ -30,7 +30,7 @@ export default function InteractiveRecordingTab({ unitId }) {
       return data || []
     },
     enabled: !!unitId,
-    staleTime: 0,
+    staleTime: 30000,
   })
 
   if (isLoading) {

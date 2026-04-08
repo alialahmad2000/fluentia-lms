@@ -60,11 +60,16 @@ export const useAuthStore = create((set, get) => ({
 
   fetchProfile: async (user) => {
     try {
-      const { data: profile, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', user.id)
-        .single()
+      // Fetch profile + student/trainer data in parallel to avoid waterfall.
+      // We speculatively fetch both student and trainer data — one will be null.
+      // This cuts auth loading time in half (1 round trip instead of 2).
+      const [profileRes, studentRes, trainerRes] = await Promise.all([
+        supabase.from('profiles').select('*').eq('id', user.id).single(),
+        supabase.from('students').select('*, groups(*)').eq('id', user.id).maybeSingle(),
+        supabase.from('trainers').select('*').eq('id', user.id).maybeSingle(),
+      ])
+
+      const { data: profile, error } = profileRes
 
       if (error || !profile) {
         console.error('[AuthStore] fetchProfile error:', error)
@@ -75,12 +80,7 @@ export const useAuthStore = create((set, get) => ({
       set({ user, profile })
 
       if (profile.role === 'student') {
-        const { data: studentData } = await supabase
-          .from('students')
-          .select('*, groups(*)')
-          .eq('id', user.id)
-          .single()
-        set({ studentData: studentData || null })
+        set({ studentData: studentRes.data || null })
 
         // Subscribe to real-time XP/streak changes for gamification
         const prev = get()._realtimeChannel
@@ -101,12 +101,7 @@ export const useAuthStore = create((set, get) => ({
           .subscribe()
         set({ _realtimeChannel: channel })
       } else if (profile.role === 'trainer') {
-        const { data: trainerData } = await supabase
-          .from('trainers')
-          .select('*')
-          .eq('id', user.id)
-          .single()
-        set({ trainerData: trainerData || null })
+        set({ trainerData: trainerRes.data || null })
       }
     } catch (err) {
       console.error('[AuthStore] fetchProfile crash:', err)

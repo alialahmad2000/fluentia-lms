@@ -99,7 +99,7 @@ function CurriculumRecordings() {
       return data || []
     },
     enabled: !!groupId,
-    staleTime: 0,
+    staleTime: 30000,
   })
 
   if (isLoading) {
