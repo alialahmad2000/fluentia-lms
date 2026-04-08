@@ -9,6 +9,7 @@ import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import VoiceRecorder from '../../../../components/VoiceRecorder'
 import { safeCelebrate } from '../../../../lib/celebrations'
+import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 
 // ─── Main Component ──────────────────────────────────
 export default function SpeakingTab({ unitId }) {
@@ -102,6 +103,7 @@ export default function SpeakingTab({ unitId }) {
     } else {
       await supabase.from('student_curriculum_progress').insert(progressRow)
     }
+    awardCurriculumXP(studentId, 'speaking', null, unitId)
   }, [unitId, studentId, queryClient])
 
   if (isLoading) return <SpeakingSkeleton />

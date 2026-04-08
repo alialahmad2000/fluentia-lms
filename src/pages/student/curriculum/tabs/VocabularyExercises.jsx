@@ -4,6 +4,7 @@ import { CheckCircle, XCircle, RotateCcw, Lightbulb, Shuffle, PenLine, ListCheck
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
+import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 
 // ─── Shuffle helper ───────────────────────────────
 function shuffle(arr) {
@@ -102,13 +103,8 @@ export default function VocabularyExercises({ unitId, allWords }) {
 
     // Award XP on first full completion
     if (allDone && !savedProgress?.completed_at) {
-      await supabase.from('xp_transactions').insert({
-        student_id: profile.id,
-        amount: 10,
-        reason: 'correct_answer',
-        description: 'أكمل تمارين المفردات',
-      })
-      toast({ type: 'success', title: '+10 XP — أحسنت!' })
+      const xp = await awardCurriculumXP(profile.id, 'vocabulary_exercise', row.score, unitId)
+      if (xp > 0) toast({ type: 'success', title: `+${xp} XP — أحسنت!` })
     }
   }, [profile?.id, unitId, completedExercises, savedProgress])
 

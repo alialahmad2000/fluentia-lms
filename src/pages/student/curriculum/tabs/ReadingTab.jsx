@@ -5,6 +5,7 @@ import { BookOpen, Volume2, CheckCircle, XCircle, Lightbulb, MessageSquare, Chev
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
+import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 
 const QUESTION_TYPE_LABELS = {
   main_idea: 'الفكرة الرئيسية',
@@ -180,6 +181,7 @@ function ReadingContent({ reading, studentId, unitId }) {
       setRetrying(false)
       setIsCompleted(true)
       toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
+      awardCurriculumXP(studentId, 'reading', score, unitId)
     }
   }, [studentId, reading?.id, unitId, retrying, attemptNumber, attemptHistory, savedProgress])
 

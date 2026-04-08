@@ -5,6 +5,7 @@ import { Headphones, Play, Pause, SkipBack, SkipForward, Eye, EyeOff, CheckCircl
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
+import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 
 const QUESTION_TYPE_LABELS = {
   main_idea: 'الفكرة الرئيسية',
@@ -378,6 +379,7 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
       setRetrying(false)
       setIsCompleted(true)
       toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
+      awardCurriculumXP(studentId, 'listening', score, unitId)
     }
   }, [studentId, unitId, listeningId, total, buildResults, retrying, attemptNumber, attemptHistory, savedData])
 

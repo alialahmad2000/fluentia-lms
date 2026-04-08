@@ -5,6 +5,7 @@ import { Languages, Volume2, LayoutGrid, List, RotateCcw, CheckCircle, Dumbbell,
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
+import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import VocabularyExercises from './VocabularyExercises'
 import { useVocabularyMastery } from '../../../../hooks/useVocabularyMastery'
 import WordExerciseModal from '../../../../components/vocabulary/WordExerciseModal'
@@ -222,6 +223,7 @@ export default function VocabularyTab({ unitId }) {
       if (!error && reviewedAll && !hasSavedComplete.current) {
         hasSavedComplete.current = true; setIsCompleted(true)
         toast({ type: 'success', title: 'تم حفظ تقدمك' })
+        awardCurriculumXP(profile.id, 'vocabulary', row.score, unitId)
       }
     } else {
       const { data: inserted, error } = await supabase.from('student_curriculum_progress').insert(row).select('id').single()
@@ -230,6 +232,7 @@ export default function VocabularyTab({ unitId }) {
         if (reviewedAll && !hasSavedComplete.current) {
           hasSavedComplete.current = true; setIsCompleted(true)
           toast({ type: 'success', title: 'تم حفظ تقدمك' })
+          awardCurriculumXP(profile.id, 'vocabulary', row.score, unitId)
         }
       }
     }

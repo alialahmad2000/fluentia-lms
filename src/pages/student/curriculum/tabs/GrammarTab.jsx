@@ -7,6 +7,7 @@ import { validateAnswer } from '../../../../utils/answerValidator'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { safeCelebrate } from '../../../../lib/celebrations'
+import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 
 const EXERCISE_TYPE_LABELS = {
   fill_blank: 'أكمل الفراغ',
@@ -386,6 +387,7 @@ function ExerciseSection({ exercises, studentId, unitId, grammarId }) {
       setIsCompleted(true)
       toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
       try { safeCelebrate('grammar_complete') } catch {}
+      awardCurriculumXP(studentId, 'grammar', score, unitId)
     }
   }, [studentId, unitId, grammarId, total, buildResults, retrying, attemptNumber, attemptHistory, savedData])
 

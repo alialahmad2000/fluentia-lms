@@ -5,6 +5,7 @@ import { Volume2, ChevronDown, ChevronUp, Mic, Check } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import PronunciationActivity from '../../../../components/curriculum/PronunciationActivity'
+import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 
 export default function PronunciationTab({ unitId }) {
   const { profile, studentData } = useAuthStore()
@@ -96,6 +97,7 @@ export default function PronunciationTab({ unitId }) {
           onComplete={() => {
             queryClient.invalidateQueries({ queryKey: ['pronunciation-progress', studentData?.id, unitId] })
             queryClient.invalidateQueries({ queryKey: ['unit-progress-comprehensive'] })
+            awardCurriculumXP(studentData?.id, 'pronunciation', null, unitId)
           }}
         />
       )}

@@ -43,6 +43,7 @@ export async function awardPracticeXP(studentId, activityType, stats) {
 
   const desc = DESCRIPTIONS[activityType] || activityType
 
+  // Try direct insert first; fall back to RPC if RLS blocks
   const { error } = await supabase.from('xp_transactions').insert({
     student_id: studentId,
     amount: xp,
@@ -51,8 +52,18 @@ export async function awardPracticeXP(studentId, activityType, stats) {
   })
 
   if (error) {
-    console.error('XP award error:', error)
-    return 0
+    // Fallback: use server-side function (bypasses RLS)
+    const { error: rpcErr } = await supabase.rpc('award_curriculum_xp', {
+      p_student_id: studentId,
+      p_section_type: 'challenge',
+      p_score: Math.round((stats.score / stats.total) * 100),
+      p_unit_id: null,
+      p_description: `${desc} — ${stats.score}/${stats.total}`,
+    })
+    if (rpcErr) {
+      console.error('XP award error (both paths):', error, rpcErr)
+      return 0
+    }
   }
 
   try {
