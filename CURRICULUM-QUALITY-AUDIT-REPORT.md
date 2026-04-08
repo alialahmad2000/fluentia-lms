@@ -5,6 +5,31 @@
 
 ---
 
+## Update — PROMPT 12B Flagged Resolution + UNIQUE Constraint (2026-04-08)
+
+- 229 flagged groups resolved using deep reasoning rubric (no API calls)
+- Decision rules applied: 162 followed Claude's recommendation, 64 by definition quality, 2 by example quality, 1 oldest tiebreaker
+- 229 duplicate entries deleted, 229 best entries kept
+- Mastery records: 0 migrations needed (both mastery IDs were singletons)
+- UNIQUE constraint APPLIED: `uq_vocab_word_pos_per_reading` on `(reading_id, LOWER(word), part_of_speech)`
+- Zero residual duplicates verified before constraint application
+
+New baseline:
+- Total vocab entries: 1,954 (was 2,183)
+- Unique words: 1,279 (unchanged)
+- Per-level:
+  - L0 (Pre-A1): 193
+  - L1 (A1): 238
+  - L2 (A2): 291
+  - L3 (B1): 340
+  - L4 (B2): 411 (was 538)
+  - L5 (C1): 481 (was 583)
+- Unit count: 72 (verified)
+- Mastery records: 158 (verified, 0 orphaned)
+- Duplicate protection: ACTIVE (UNIQUE index enforced at DB level)
+
+---
+
 ## Update — PROMPT 12 Cleanup Executed (2026-04-08)
 
 - Bucket A: 38 entries auto-deleted (identical duplicates, 0 mastery impact)
