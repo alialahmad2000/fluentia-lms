@@ -36,14 +36,9 @@ interface SendPushBody {
   data?: any
   announcement_id?: string
   badge_count?: number
+  skip_in_app?: boolean  // When true, skip inserting in-app notification (caller already did it)
 }
 
-// Escape non-ASCII chars to \uXXXX for safe transit through web-push encryption
-function toAsciiJson(str: string): string {
-  return str.replace(/[\u0080-\uFFFF]/g, (ch) =>
-    '\\u' + ch.charCodeAt(0).toString(16).padStart(4, '0')
-  )
-}
 
 Deno.serve(async (req) => {
   // CORS
@@ -84,27 +79,32 @@ Deno.serve(async (req) => {
       })
     }
 
-    // Insert in-app notifications first
-    const notificationRows = targetUserIds.map(userId => ({
-      user_id: userId,
-      title: payload.title,
-      body: payload.body,
-      icon_url: payload.icon,
-      image_url: payload.image,
-      action_url: payload.url,
-      action_label: payload.action_label,
-      type: payload.type || 'announcement',
-      priority: payload.priority || 'normal',
-      data: payload.data,
-      source_announcement_id: payload.announcement_id,
-    }))
+    // Insert in-app notifications first (unless caller already did it)
+    let insertedNotifications: { id: string; user_id: string }[] | null = null
 
-    const { data: insertedNotifications, error: insertError } = await supabaseAdmin
-      .from('notifications')
-      .insert(notificationRows)
-      .select('id, user_id')
+    if (!payload.skip_in_app) {
+      const notificationRows = targetUserIds.map(userId => ({
+        user_id: userId,
+        title: payload.title,
+        body: payload.body,
+        icon_url: payload.icon,
+        image_url: payload.image,
+        action_url: payload.url,
+        action_label: payload.action_label,
+        type: payload.type || 'announcement',
+        priority: payload.priority || 'normal',
+        data: payload.data,
+        source_announcement_id: payload.announcement_id,
+      }))
 
-    if (insertError) throw insertError
+      const { data, error: insertError } = await supabaseAdmin
+        .from('notifications')
+        .insert(notificationRows)
+        .select('id, user_id')
+
+      if (insertError) throw insertError
+      insertedNotifications = data
+    }
 
     // Get unread count per user for badge
     const { data: unreadCounts } = await supabaseAdmin
@@ -163,13 +163,12 @@ Deno.serve(async (req) => {
       const pushPayload = JSON.stringify(pushData)
 
       try {
-        const asciiPayload = toAsciiJson(pushPayload)
         await webpush.sendNotification(
           {
             endpoint: sub.endpoint,
             keys: { p256dh: sub.p256dh, auth: sub.auth },
           },
-          asciiPayload
+          pushPayload
         )
         sent++
 
