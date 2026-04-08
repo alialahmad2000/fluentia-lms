@@ -29,66 +29,59 @@ export default function EnableNotificationsPrompt() {
 
     const permission = getPushPermission()
 
-    // Auto-retry: permission already granted but no active pushManager subscription
-    // This handles the case where user clicked Allow but the subscribe failed
-    // (e.g., VAPID key was missing at build time, network error, etc.)
+    // Auto-retry: permission already granted — always validate the browser subscription
+    // This handles expired subscriptions, cleared browser data, or VAPID key changes
     if (permission === 'granted') {
-      const stored = localStorage.getItem(STORAGE_KEY)
-      const alreadySubscribed = stored && JSON.parse(stored).subscribedAt
-      if (!alreadySubscribed) {
-        navigator.serviceWorker.ready.then(reg =>
-          reg.pushManager.getSubscription()
-        ).then(async (sub) => {
-          if (!sub) {
-            // No active browser subscription — re-attempt silently
-            try {
-              await subscribeUserToPush(profile.id)
-              localStorage.setItem(STORAGE_KEY, JSON.stringify({ subscribedAt: new Date().toISOString() }))
-              toast({ type: 'success', title: 'تم تفعيل الإشعارات' })
-            } catch {
-              // Silent fail — will retry on next page load
-            }
-          } else {
-            // Browser subscription exists, ensure it's saved in DB
-            const subJson = sub.toJSON()
-            const { supabase } = await import('../../lib/supabase')
-            const { data } = await supabase
+      navigator.serviceWorker.ready.then(reg =>
+        reg.pushManager.getSubscription()
+      ).then(async (sub) => {
+        if (!sub) {
+          // No active browser subscription — re-attempt silently
+          try {
+            await subscribeUserToPush(profile.id)
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({ subscribedAt: new Date().toISOString() }))
+          } catch {
+            // Silent fail — will retry on next page load
+            localStorage.removeItem(STORAGE_KEY)
+          }
+        } else {
+          // Browser subscription exists — check if server-side is still active
+          // (push service may have returned 410 and edge function deactivated it)
+          const subJson = sub.toJSON()
+          const { supabase } = await import('../../lib/supabase')
+          try {
+            const { data: dbSub } = await supabase
               .from('push_subscriptions')
-              .select('id')
+              .select('is_active')
               .eq('user_id', profile.id)
               .eq('endpoint', subJson.endpoint)
               .maybeSingle()
-            if (!data) {
-              try {
-                await supabase.from('push_subscriptions').upsert({
-                  user_id: profile.id,
-                  endpoint: subJson.endpoint,
-                  p256dh: subJson.keys.p256dh,
-                  auth: subJson.keys.auth,
-                  user_agent: navigator.userAgent,
-                  device_label: detectDeviceLabel(),
-                  is_active: true,
-                  last_used_at: new Date().toISOString(),
-                }, { onConflict: 'user_id,endpoint' })
-                localStorage.setItem(STORAGE_KEY, JSON.stringify({ subscribedAt: new Date().toISOString() }))
-                toast({ type: 'success', title: 'تم تفعيل الإشعارات' })
-              } catch {
-                // Silent fail
-              }
+
+            if (dbSub && !dbSub.is_active) {
+              // Server deactivated this subscription (FCM returned 410/404)
+              // Unsubscribe the stale browser subscription and create a fresh one
+              await sub.unsubscribe()
+              await subscribeUserToPush(profile.id)
+              localStorage.setItem(STORAGE_KEY, JSON.stringify({ subscribedAt: new Date().toISOString() }))
             } else {
-              // Already in DB — update device_label and user_agent in case they're stale
-              try {
-                await supabase.from('push_subscriptions').update({
-                  user_agent: navigator.userAgent,
-                  device_label: detectDeviceLabel(),
-                  last_used_at: new Date().toISOString(),
-                }).eq('id', data.id)
-              } catch { /* silent */ }
+              // Subscription is active or new — upsert to ensure DB is in sync
+              await supabase.from('push_subscriptions').upsert({
+                user_id: profile.id,
+                endpoint: subJson.endpoint,
+                p256dh: subJson.keys.p256dh,
+                auth: subJson.keys.auth,
+                user_agent: navigator.userAgent,
+                device_label: detectDeviceLabel(),
+                is_active: true,
+                last_used_at: new Date().toISOString(),
+              }, { onConflict: 'user_id,endpoint' })
               localStorage.setItem(STORAGE_KEY, JSON.stringify({ subscribedAt: new Date().toISOString() }))
             }
+          } catch {
+            // Silent fail
           }
-        })
-      }
+        }
+      })
       return
     }
 
