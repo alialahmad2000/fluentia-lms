@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { StickyNote, Send, Trash2, Loader2, ThumbsUp, AlertTriangle, Eye } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { notifyUser } from '../../utils/notify'
 import { formatDateAr } from '../../utils/dateHelpers'
 
 const NOTE_TYPES = [
@@ -85,12 +86,12 @@ export default function TrainerQuickNotes() {
     mutationFn: async () => {
       if (!selectedStudent || !noteText.trim()) throw new Error('يرجى اختيار طالب وكتابة ملاحظة')
       const typeConfig = NOTE_TYPES.find(n => n.type === noteType)
-      const { error } = await supabase.from('notifications').insert({
-        user_id: selectedStudent.id,
+      const { error } = await notifyUser({
+        userId: selectedStudent.id,
         title: `${typeConfig?.icon} ${typeConfig?.label} من المدرب`,
         body: noteText.trim(),
         type: `trainer_${noteType}`,
-      }).select()
+      })
       if (error) throw error
     },
     onSuccess: () => {

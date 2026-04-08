@@ -8,6 +8,7 @@ import AISubmissionFeedback from '../../components/ai/AISubmissionFeedback'
 import { ASSIGNMENT_TYPES, GRADE_LABELS, SUBMISSION_STATUS } from '../../lib/constants'
 import { formatDateAr, timeAgo } from '../../utils/dateHelpers'
 import { parseSupabaseError } from '../../utils/errors'
+import { notifyUser } from '../../utils/notify'
 import { ListSkeleton } from '../../components/ui/PageSkeleton'
 import EmptyState from '../../components/ui/EmptyState'
 
@@ -268,14 +269,14 @@ function GradingModal({ submission, getStudentName, onClose }) {
         if (xpErr) console.error('[TrainerGrading] XP error:', xpErr)
       }
 
-      // Send notification to student
+      // Send notification to student (in-app + push)
       const trainerName = profile?.full_name || profile?.display_name || 'المدرب'
-      const { error: notifErr } = await supabase.from('notifications').insert({
-        user_id: submission.student_id,
-        type: 'assignment_graded',
+      const { error: notifErr } = await notifyUser({
+        userId: submission.student_id,
         title: `تم تقييم واجبك: ${submission.assignments?.title || 'واجب'}`,
         body: `${trainerName} قيّم واجبك — الدرجة: ${finalGrade} (${numericVal}%)`,
-        data: { link: '/student/assignments' },
+        url: '/student/assignments',
+        type: 'assignment_graded',
       })
       if (notifErr) console.error('[TrainerGrading] Notification error:', notifErr)
 

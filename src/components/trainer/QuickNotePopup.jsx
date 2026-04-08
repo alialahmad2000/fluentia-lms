@@ -4,6 +4,7 @@ import { X, Save, Loader2, CheckCircle2 } from 'lucide-react'
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
+import { notifyUser } from '../../utils/notify'
 
 const NOTE_TYPES = [
   { type: 'trainer_encouragement', label: 'تشجيع', icon: '👏' },
@@ -46,8 +47,8 @@ export default function QuickNotePopup({ groupId, onClose }) {
   const saveMutation = useMutation({
     mutationFn: async () => {
       if (!selectedStudent || !content.trim()) throw new Error('اختر طالب واكتب ملاحظة')
-      const { error } = await supabase.from('notifications').insert({
-        user_id: selectedStudent,
+      const { error } = await notifyUser({
+        userId: selectedStudent,
         title: NOTE_TYPES.find(t => t.type === noteType)?.label || 'ملاحظة',
         body: content.trim(),
         type: noteType,

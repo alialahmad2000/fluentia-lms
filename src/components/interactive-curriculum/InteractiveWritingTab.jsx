@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { FileEdit, Users, ChevronDown, CheckCircle, Clock, Star, Bot, GraduationCap, Save, Loader2 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
+import { notifyUser } from '../../utils/notify'
 
 const TASK_TYPE_LABELS = {
   paragraph: 'فقرة',
@@ -345,12 +346,12 @@ function TrainerFeedbackForm({ studentId, writingId, existingGrade, existingFeed
     if (error) {
       console.error('Failed to save trainer feedback:', error)
     } else {
-      // Notify student
-      await supabase.from('notifications').insert({
-        user_id: studentId,
-        type: 'writing_graded',
+      // Notify student (in-app + push)
+      await notifyUser({
+        userId: studentId,
         title: 'تم تقييم كتابتك',
         body: `قيّم المعلم مهمة الكتابة — التقدير: ${grade}`,
+        type: 'writing_graded',
         data: { writing_id: writingId, grade },
       })
       setSaved(true)

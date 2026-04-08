@@ -5,6 +5,7 @@ import { Mail, Send, Loader2, Check, CheckCheck } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { timeAgo } from '../../utils/dateHelpers'
+import { notifyUser } from '../../utils/notify'
 
 export default function StudentMessages() {
   const { profile, studentData } = useAuthStore()
@@ -181,14 +182,14 @@ export default function StudentMessages() {
       })
       if (error) throw error
 
-      // Send notification to recipient
+      // Send notification to recipient (in-app + push)
       const senderName = profile?.full_name || profile?.display_name || 'مستخدم'
-      await supabase.from('notifications').insert({
-        user_id: selectedContact.id,
-        type: 'trainer_note',
+      await notifyUser({
+        userId: selectedContact.id,
         title: `رسالة من ${senderName}`,
         body: trimmed.substring(0, 100),
-        data: { link: isStudent ? '/student/messages' : '/trainer/messages' },
+        url: isStudent ? '/student/messages' : '/trainer/messages',
+        type: 'trainer_note',
       })
     },
     onSuccess: () => {

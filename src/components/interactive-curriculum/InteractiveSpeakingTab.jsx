@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Mic, ChevronDown, Bot, GraduationCap, Clock, Save, Loader2, CheckCircle, User, FileText } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
+import { notifyUser } from '../../utils/notify'
 import AudioPlayer from '../AudioPlayer'
 
 const TOPIC_TYPE_LABELS = {
@@ -284,16 +285,12 @@ function StudentRecordingCard({ student, recording, trainerId, onFeedbackSaved }
 
     // Notify student
     if (data?.[0]) {
-      await supabase.from('notifications').insert({
-        user_id: recording.student_id,
-        type: 'speaking_reviewed',
+      await notifyUser({
+        userId: recording.student_id,
         title: 'تمت مراجعة تسجيلك',
         body: `قيّم المعلم نشاط التحدث — التقدير: ${grade}`,
-        data: {
-          recording_id: recording.id,
-          unit_id: recording.unit_id,
-          grade,
-        },
+        type: 'speaking_reviewed',
+        data: { recording_id: recording.id, unit_id: recording.unit_id, grade },
       })
     }
 
