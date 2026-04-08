@@ -59,6 +59,7 @@ export default function NotificationCenter() {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
+  const [expandedId, setExpandedId] = useState(null)
   const dropdownRef = useRef(null)
 
   // Close on click outside
@@ -269,34 +270,100 @@ export default function NotificationCenter() {
                     </div>
                     {group.items.map((n) => {
                       const typeConfig = NOTIFICATION_TYPES[n.type] || NOTIFICATION_TYPES.system
+                      const isExpanded = expandedId === n.id
+                      const isLong = n.body && n.body.length > 60
                       return (
-                        <button
+                        <div
                           key={n.id}
-                          onClick={() => handleNotificationClick(n)}
-                          className={`w-full text-right flex items-start gap-3 px-5 py-3.5 transition-all duration-200 ${
+                          className={`w-full text-right transition-all duration-200 ${
                             !n.read ? 'bg-sky-500/[0.03]' : ''
                           }`}
                           style={{ borderBottom: '1px solid var(--border-subtle)' }}
                           onMouseEnter={e => e.currentTarget.style.background = 'var(--surface-raised)'}
                           onMouseLeave={e => e.currentTarget.style.background = !n.read ? 'rgba(56,189,248,0.03)' : ''}
                         >
-                          {/* Icon */}
-                          <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg shrink-0" style={{ background: 'var(--surface-raised)' }}>{typeConfig.icon}</div>
+                          <button
+                            onClick={() => {
+                              // Toggle expand if long body, otherwise navigate
+                              if (isLong && !isExpanded) {
+                                setExpandedId(n.id)
+                                if (!n.read) markRead.mutate(n.id)
+                              } else {
+                                handleNotificationClick(n)
+                              }
+                            }}
+                            className="w-full text-right flex items-start gap-3 px-5 py-3.5"
+                          >
+                            {/* Icon */}
+                            <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg shrink-0" style={{ background: 'var(--surface-raised)' }}>{typeConfig.icon}</div>
 
-                          {/* Content */}
-                          <div className="flex-1 min-w-0">
-                            <p className="text-xs font-medium" style={{ color: !n.read ? 'var(--text-primary)' : 'var(--text-tertiary)' }}>
-                              {n.title}
-                            </p>
-                            <p className="text-xs text-muted truncate mt-0.5">{n.body}</p>
-                            <p className="text-xs text-muted mt-1">{timeAgo(n.created_at)}</p>
-                          </div>
+                            {/* Content */}
+                            <div className="flex-1 min-w-0">
+                              <p className="text-xs font-medium" style={{ color: !n.read ? 'var(--text-primary)' : 'var(--text-tertiary)' }}>
+                                {n.title}
+                              </p>
+                              <AnimatePresence mode="wait">
+                                {isExpanded ? (
+                                  <motion.p
+                                    key="full"
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: 'auto' }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    className="text-xs mt-1 leading-relaxed"
+                                    style={{ color: 'var(--text-secondary)' }}
+                                  >
+                                    {n.body}
+                                  </motion.p>
+                                ) : (
+                                  <motion.p
+                                    key="truncated"
+                                    className={`text-xs text-muted mt-0.5 ${isLong ? 'truncate' : ''}`}
+                                  >
+                                    {n.body}
+                                  </motion.p>
+                                )}
+                              </AnimatePresence>
+                              <div className="flex items-center gap-2 mt-1">
+                                <p className="text-xs text-muted">{timeAgo(n.created_at)}</p>
+                                {isLong && (
+                                  <span className="text-[10px] text-sky-400">
+                                    {isExpanded ? 'إغلاق' : 'عرض المزيد'}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
 
-                          {/* Unread dot */}
-                          {!n.read && (
-                            <div className="w-2 h-2 rounded-full bg-sky-400 shrink-0 mt-2" />
+                            {/* Unread dot */}
+                            {!n.read && (
+                              <div className="w-2 h-2 rounded-full bg-sky-400 shrink-0 mt-2" />
+                            )}
+                          </button>
+
+                          {/* Expanded action bar */}
+                          {isExpanded && (n.action_url || NOTIFICATION_ROUTES[n.type]) && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: 'auto' }}
+                              className="px-5 pb-3 flex items-center gap-2"
+                              style={{ paddingRight: 'calc(1.25rem + 36px + 0.75rem)' }}
+                            >
+                              <button
+                                onClick={() => handleNotificationClick(n)}
+                                className="text-[11px] font-medium px-3 py-1.5 rounded-lg transition-all"
+                                style={{ background: 'rgba(56,189,248,0.1)', color: 'var(--accent-sky)' }}
+                              >
+                                {n.action_label || 'فتح'}
+                              </button>
+                              <button
+                                onClick={() => setExpandedId(null)}
+                                className="text-[11px] px-3 py-1.5 rounded-lg transition-all"
+                                style={{ color: 'var(--text-tertiary)' }}
+                              >
+                                إغلاق
+                              </button>
+                            </motion.div>
                           )}
-                        </button>
+                        </div>
                       )
                     })}
                   </div>
