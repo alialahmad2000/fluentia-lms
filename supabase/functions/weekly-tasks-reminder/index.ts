@@ -92,6 +92,19 @@ serve(async (req) => {
           continue
         }
 
+        // Send push notification
+        await supabase.functions.invoke('send-push-notification', {
+          body: {
+            user_ids: [taskSet.student_id],
+            title,
+            body,
+            url: '/student/weekly-tasks',
+            type: notificationType,
+            priority: isUrgent ? 'high' : 'normal',
+            skip_in_app: true,
+          },
+        })
+
         // Try to send email for urgent reminders
         if (isUrgent) {
           const { data: studentProfile } = await supabase

@@ -173,6 +173,23 @@ serve(async (req) => {
         console.error(`[smart-nudges] Notification insert error for ${studentId}:`, notifErr.message)
       }
 
+      // Send push notification for outside-app delivery
+      try {
+        await supabase.functions.invoke('send-push-notification', {
+          body: {
+            user_ids: [studentId],
+            title: nudge.title_ar,
+            body: nudge.body_ar,
+            url: nudge.action_url,
+            type: 'smart_nudge',
+            priority: nudge.priority === 'high' ? 'high' : 'normal',
+            skip_in_app: true,
+          },
+        })
+      } catch (pushErr: any) {
+        console.error(`[smart-nudges] Push error for ${studentId}:`, pushErr.message)
+      }
+
       // Track for dedup within this run
       recentNudgeSet.add(`${studentId}:${nudge.nudge_type}`)
       return true

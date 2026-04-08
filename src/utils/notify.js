@@ -19,7 +19,7 @@ export async function notifyUser({
   url,
   type = 'system',
   priority = 'normal',
-  sendPush = false,
+  sendPush = true,
   data = null,
 }) {
   if (sendPush) {

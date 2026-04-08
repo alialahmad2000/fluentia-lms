@@ -8,7 +8,7 @@ import {
   LogOut, X, ChevronLeft, Zap, FolderOpen, CalendarDays, Calendar,
   Video, ClipboardCheck, UsersRound, GraduationCap, Wrench, ListChecks,
   Brain, BookOpen, Sparkles, Database, Languages, Shuffle, Lock, Map, Activity,
-  StickyNote, TrendingUp, Megaphone, RefreshCw,
+  StickyNote, TrendingUp, Megaphone, RefreshCw, Clapperboard,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { useThemeStore } from '../../stores/themeStore'
@@ -54,6 +54,8 @@ const NAV_ITEMS = {
     { to: '/student/flashcards', label: 'المفردات', icon: Languages },
     { to: '/student/verbs', label: 'الأفعال الشاذة', icon: Shuffle },
     { to: '/student/progress', label: 'تقدّمي', icon: Activity },
+    { type: 'divider', label: 'مسابقات' },
+    { to: '/student/creator-challenge', label: 'تحدي المبدعين', icon: Clapperboard },
     { type: 'divider', label: 'معامل' },
     { to: '/student/speaking-lab', label: 'معمل التحدث', icon: Mic, requiredPackage: 'tamayuz', comingSoon: true },
     { to: '/student/writing-lab', label: 'معمل الكتابة', icon: PenLine, requiredPackage: 'tamayuz', comingSoon: true },
@@ -105,6 +107,7 @@ const NAV_ITEMS = {
     { to: '/admin/daily-reports', label: 'التقرير اليومي', icon: CalendarDays },
     { to: '/trainer/ai-assistant', label: 'المساعد الذكي', icon: Bot },
     { to: '/admin/announcements', label: 'الإعلانات', icon: Megaphone },
+    { to: '/admin/creator-challenge', label: 'تحدي المبدعين', icon: Clapperboard },
     { to: '/admin/settings', label: 'الإعدادات', icon: Settings },
   ],
 }

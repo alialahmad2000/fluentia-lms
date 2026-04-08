@@ -1,0 +1,79 @@
+{
+  "level_id": "cd96175e-76d4-48dc-b34f-83f3228a28b8",
+  "level_name": "Foundation (Pre-A1)",
+  "readings_table": "curriculum_readings",
+  "readings_columns": {
+    "passage_content": "jsonb (paragraphs array)",
+    "passage_word_count": "integer",
+    "reading_label": "text (A or B)",
+    "title_en": "text",
+    "reading_skill_exercises": "jsonb array (empty for L0)"
+  },
+  "units": [
+    {
+      "id": "97ccbf07-a070-4e7f-b27e-4d4a29bcf8d2",
+      "num": 1,
+      "theme": "Daily Life"
+    },
+    {
+      "id": "a067dbbb-ea5b-4902-938f-ee23952c1c25",
+      "num": 2,
+      "theme": "Food & Cooking"
+    },
+    {
+      "id": "ab2d705a-addc-4aed-9ca2-dc88bce8f448",
+      "num": 3,
+      "theme": "My City"
+    },
+    {
+      "id": "a1c18caa-29d6-4ae7-9ed4-9ca2702f6af4",
+      "num": 4,
+      "theme": "Animals Around Us"
+    },
+    {
+      "id": "ffa3641f-b0c8-412b-a5ab-dc60603018ea",
+      "num": 5,
+      "theme": "Weather & Seasons"
+    },
+    {
+      "id": "0afc0986-f79d-426c-bb15-ee66dd77e5d9",
+      "num": 6,
+      "theme": "Family & Friends"
+    },
+    {
+      "id": "5515ee31-f957-4daa-bdde-4cffda7704c7",
+      "num": 7,
+      "theme": "Shopping & Money"
+    },
+    {
+      "id": "bae5cc8f-ae31-4688-93fb-e2cd73406804",
+      "num": 8,
+      "theme": "Health & Body"
+    },
+    {
+      "id": "89f2e975-060e-4f83-a4bf-b2c86ec56631",
+      "num": 9,
+      "theme": "Hobbies & Free Time"
+    },
+    {
+      "id": "a543f5ca-e28d-4c52-90d1-f2027af29da2",
+      "num": 10,
+      "theme": "Travel Basics"
+    },
+    {
+      "id": "8fa91a36-703f-46ae-a893-e5162de9bf2d",
+      "num": 11,
+      "theme": "Technology Today"
+    },
+    {
+      "id": "2f3df52f-08c0-4fd0-9488-487ddd956140",
+      "num": 12,
+      "theme": "Jobs & Careers"
+    }
+  ],
+  "notes": {
+    "passage_format": "passage_content is {\"paragraphs\": [\"...\", ...]}. Vocab words marked with *asterisks*.",
+    "questions": "reading_skill_exercises is empty for L0 — no comprehension questions to update.",
+    "update_method": "UPDATE curriculum_readings SET passage_content = jsonb, passage_word_count = N WHERE id = X"
+  }
+}

@@ -51,8 +51,16 @@ async function handlePush(event) {
     if (raw.notificationId) {
       try {
         var resp = await fetch(
-          SUPABASE_URL + '/rest/v1/notifications?id=eq.' + raw.notificationId + '&select=title,body,type,action_url,priority,image_url',
-          { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY } }
+          SUPABASE_URL + '/rest/v1/rpc/get_notification_text',
+          {
+            method: 'POST',
+            headers: {
+              'apikey': SUPABASE_ANON_KEY,
+              'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ notif_id: raw.notificationId }),
+          }
         )
         if (resp.ok) {
           var rows = await resp.json()
@@ -61,7 +69,7 @@ async function handlePush(event) {
             payload = {
               title: notif.title || raw.title,
               body: notif.body || raw.body,
-              type: notif.type || raw.type,
+              type: notif.ntype || raw.type,
               url: notif.action_url || raw.url,
               priority: notif.priority || raw.priority,
               image: notif.image_url || raw.image,

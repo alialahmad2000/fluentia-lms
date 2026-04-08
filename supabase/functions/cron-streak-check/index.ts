@@ -65,7 +65,21 @@ serve(async (req) => {
         data: { link: '/student' },
       }))
       await supabase.from('notifications').insert(streakNotifs)
-      results.push(`Sent ${streakNotifs.length} streak warnings`)
+
+      // Send push notifications for streak warnings
+      const streakUserIds = atRiskStudents.map((s: any) => s.id)
+      await supabase.functions.invoke('send-push-notification', {
+        body: {
+          user_ids: streakUserIds,
+          title: 'تحذير الـ Streak 🔥',
+          body: 'سلسلتك على وشك الانتهاء — ادخل الآن وحافظ عليها!',
+          url: '/student',
+          type: 'streak_warning',
+          priority: 'high',
+          skip_in_app: true,
+        },
+      })
+      results.push(`Sent ${streakNotifs.length} streak warnings (with push)`)
 
       // Send email for streaks >= 7 days
       for (const s of atRiskStudents) {
@@ -129,7 +143,21 @@ serve(async (req) => {
           data: { link: '/student/assignments', assignment_id: assignment.id },
         }))
         await supabase.from('notifications').insert(notifs)
-        results.push(`Deadline reminders: ${notifs.length} for "${assignment.title}"`)
+
+        // Send push notifications for deadline reminders
+        const deadlineUserIds = pending.map((s: any) => s.id)
+        await supabase.functions.invoke('send-push-notification', {
+          body: {
+            user_ids: deadlineUserIds,
+            title: 'موعد تسليم قريب ⏰',
+            body: `واجب "${assignment.title}" موعد تسليمه غداً!`,
+            url: '/student/assignments',
+            type: 'assignment_deadline',
+            priority: 'high',
+            skip_in_app: true,
+          },
+        })
+        results.push(`Deadline reminders: ${notifs.length} for "${assignment.title}" (with push)`)
       }
     }
 
@@ -174,6 +202,19 @@ serve(async (req) => {
           title,
           body,
           data: { link: '/student/profile', payment_id: payment.id },
+        })
+
+        // Send push notification for payment reminder
+        await supabase.functions.invoke('send-push-notification', {
+          body: {
+            user_ids: [payment.student_id],
+            title,
+            body,
+            url: '/student/profile',
+            type: 'payment_reminder',
+            priority: 'high',
+            skip_in_app: true,
+          },
         })
         paymentNotifCount++
 
@@ -274,6 +315,19 @@ serve(async (req) => {
                     data: { link: '/student' },
                   })
 
+                  // Send push notification for AI nudge
+                  await supabase.functions.invoke('send-push-notification', {
+                    body: {
+                      user_ids: [s.id],
+                      title: 'وحشتنا! 💙',
+                      body: nudgeText,
+                      url: '/student',
+                      type: 'smart_nudge',
+                      priority: 'normal',
+                      skip_in_app: true,
+                    },
+                  })
+
                   await supabase.from('ai_usage').insert({
                     type: 'smart_nudge',
                     student_id: s.id,
@@ -310,6 +364,19 @@ serve(async (req) => {
                 title: 'تنبيه: طالب غير نشط ⚠️',
                 body: `${name} غير نشط منذ أكثر من 48 ساعة`,
                 data: { link: '/trainer/students', student_id: s.id },
+              })
+
+              // Push to trainer
+              await supabase.functions.invoke('send-push-notification', {
+                body: {
+                  user_ids: [studentGroup.groups.trainer_id],
+                  title: 'تنبيه: طالب غير نشط ⚠️',
+                  body: `${name} غير نشط منذ أكثر من 48 ساعة`,
+                  url: '/trainer/students',
+                  type: 'system',
+                  priority: 'normal',
+                  skip_in_app: true,
+                },
               })
             }
           }
