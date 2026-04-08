@@ -5,22 +5,31 @@
 
 ---
 
-## Update — PROMPT 13 L0 Reading Passage Rewrites (2026-04-08)
+## Session 18 — PROMPT 13 L0 Reading Rewrites
 
-All 24 L0 (Pre-A1) reading passages rewritten to meet quality targets:
+**Date:** 2026-04-08
+**Scope:** All 24 reading passages in L0 (Pre-A1)
 
-| Metric | Target | Achieved Range |
-|---|---|---|
-| Word count | 70-160 | 73-103 |
-| FKGL | 0.0-3.0 | 0.23-2.97 |
-| Avg sentence length | <=12 | 5.1-8.2 |
-| OOV words | 0% | 0% (all 24) |
+### Before
+- Average word count: 205 (range 183-227, all over 160 hard limit)
+- Passages out of FKGL range: 24/24 (range 4.73-9.23, all over 3.0 hard limit)
+- OOV rate: 27-48% per passage
 
-- 24/24 passages rewritten (all previously failed: 183-227 words, FKGL 4.7-9.2)
-- 0 comprehension questions to update (L0 has empty reading_skill_exercises)
-- 12 atomic commits (one per unit), all pushed and verified
-- L0 vocab compliance: 100% across all passages
+### After
+- Average word count: 86.9 (range 73-103)
+- Average FKGL: 1.58 (range 0.23-2.97)
+- Average sentence length: 6.4 (range 5.1-8.2)
+- Pass rate: 24/24 (100%)
+- Vocabulary compliance: 100% L0-pure
+- Questions updated: 0 (L0 has empty reading_skill_exercises)
 - Vocabulary allowlist: 1,012 words (169 L0 curriculum + 843 function/basic words)
+
+### Anti-Mistake Playbook Rules Applied
+- Rule 3: Reading passage length per-level
+- Rule 4: Reading FKGL per-level
+- Rule 12: Discovery first
+- Rule 13: Student work protection (N/A -- L0 has zero students)
+- Rule 14: Atomic per-unit commits (12 commits)
 
 ---
 
@@ -94,7 +103,7 @@ New baseline:
 3. **No uniqueness constraint on vocabulary** — schema allows unlimited duplicates (only PK and FK constraints)
 4. **Vocabulary links through readings** — curriculum_vocabulary.reading_id → curriculum_readings, not direct to units — impacts all queries
 5. **0 reading passages outside target word count** — some passages don't match curriculum_levels.passage_word_range
-6. **137 passages with FKGL outside target range** — readability doesn't match intended difficulty
+6. **137 passages with FKGL outside target range** — readability doesn't match intended difficulty — **IN PROGRESS: L0 done (24/24 fixed)**
 7. **17 potential grammar prerequisite gaps** — topics may appear before their dependencies
 8. **2/100 example sentences missing target word** — reduces learning effectiveness
 9. **0/100 translation issues** — empty, English content, or too short
