@@ -1,6 +1,10 @@
 // ═══════════════════════════════════════════════════════════════
 // Fluentia Push Service Worker — Premium Notification Experience
+// v3 — fetch-based Arabic text fix
 // ═══════════════════════════════════════════════════════════════
+
+var SUPABASE_URL = 'https://nmjexpuycmqcxuxljier.supabase.co'
+var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5tamV4cHV5Y21xY3h1eGxqaWVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMjU2MTgsImV4cCI6MjA4ODcwMTYxOH0.Lznjnw2Pmrr04tFjQD6hRfWp-12JlRagZaCmo59KG8A'
 
 // Vibration patterns per notification category
 const VIBRATION_PATTERNS = {
@@ -34,28 +38,67 @@ const TYPE_CONFIG = {
 self.addEventListener('push', function(event) {
   if (!event.data) return
 
-  let payload
+  event.waitUntil(handlePush(event))
+})
+
+async function handlePush(event) {
+  var payload
   try {
-    let raw = event.data.json()
-    // Unwrap base64-encoded UTF-8 payload (fixes Arabic text corruption)
-    if (raw._b64) {
-      var bin = atob(raw._b64)
-      var bytes = new Uint8Array(bin.length)
-      for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i)
-      payload = JSON.parse(new TextDecoder('utf-8').decode(bytes))
-    } else {
-      payload = raw
+    var raw = event.data.json()
+
+    // Strategy: fetch notification content from server via HTTPS
+    // This completely bypasses web-push encoding issues with Arabic text
+    if (raw.notificationId) {
+      try {
+        var resp = await fetch(
+          SUPABASE_URL + '/rest/v1/notifications?id=eq.' + raw.notificationId + '&select=title,body,type,action_url,priority,image_url',
+          { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY } }
+        )
+        if (resp.ok) {
+          var rows = await resp.json()
+          if (rows && rows[0]) {
+            var notif = rows[0]
+            payload = {
+              title: notif.title || raw.title,
+              body: notif.body || raw.body,
+              type: notif.type || raw.type,
+              url: notif.action_url || raw.url,
+              priority: notif.priority || raw.priority,
+              image: notif.image_url || raw.image,
+              notificationId: raw.notificationId,
+              badgeCount: raw.badgeCount,
+              tag: raw.tag,
+              actions: raw.actions,
+              actionLabel: raw.actionLabel,
+            }
+          }
+        }
+      } catch (fetchErr) {
+        // Fetch failed (offline?) — fall through to payload decode below
+      }
+    }
+
+    // Fallback: decode from push payload if fetch didn't work
+    if (!payload) {
+      if (raw._b64) {
+        var bin = atob(raw._b64)
+        var bytes = new Uint8Array(bin.length)
+        for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i)
+        payload = JSON.parse(new TextDecoder('utf-8').decode(bytes))
+      } else {
+        payload = raw
+      }
     }
   } catch (e) {
-    payload = { title: 'Fluentia', body: event.data.text() }
+    payload = { title: 'Fluentia', body: '' }
   }
 
-  const type = payload.type || 'system'
-  const config = TYPE_CONFIG[type] || TYPE_CONFIG.system
-  const priority = payload.priority || 'normal'
+  var type = payload.type || 'system'
+  var config = TYPE_CONFIG[type] || TYPE_CONFIG.system
+  var priority = payload.priority || 'normal'
 
   // Pick vibration pattern
-  let vibratePattern = VIBRATION_PATTERNS.default
+  var vibratePattern = VIBRATION_PATTERNS.default
   if (priority === 'urgent' || priority === 'high') {
     vibratePattern = VIBRATION_PATTERNS.urgent
   } else if (config.vibrate && VIBRATION_PATTERNS[config.vibrate]) {
@@ -63,22 +106,21 @@ self.addEventListener('push', function(event) {
   }
 
   // Build action buttons
-  const actions = []
+  var actions = []
   if (payload.actions && Array.isArray(payload.actions)) {
-    // Custom actions from server
-    for (const a of payload.actions) {
+    for (var j = 0; j < payload.actions.length; j++) {
+      var a = payload.actions[j]
       actions.push({ action: a.action || 'open', title: a.title, icon: a.icon })
     }
   } else if (payload.actionLabel) {
     actions.push({ action: 'open', title: payload.actionLabel })
   }
-  // Always add a dismiss action if there are other actions
   if (actions.length > 0 && actions.length < 2) {
-    actions.push({ action: 'dismiss', title: '\u{274C} إغلاق' })
+    actions.push({ action: 'dismiss', title: '\u274C Close' })
   }
 
-  const title = payload.title || 'Fluentia Academy'
-  const options = {
+  var title = payload.title || 'Fluentia Academy'
+  var options = {
     body: payload.body || '',
     icon: payload.icon || '/logo-icon-dark.png',
     badge: '/logo-icon-dark.png',
@@ -100,18 +142,14 @@ self.addEventListener('push', function(event) {
     actions: actions,
   }
 
-  // Remove undefined values to keep payload clean
   if (!options.image) delete options.image
 
-  event.waitUntil(
-    self.registration.showNotification(title, options).then(() => {
-      // Update badge count if supported
-      if (navigator.setAppBadge && payload.badgeCount !== undefined) {
-        return navigator.setAppBadge(payload.badgeCount)
-      }
-    })
-  )
-})
+  await self.registration.showNotification(title, options)
+
+  if (navigator.setAppBadge && payload.badgeCount !== undefined) {
+    await navigator.setAppBadge(payload.badgeCount)
+  }
+}
 
 self.addEventListener('notificationclick', function(event) {
   const action = event.action

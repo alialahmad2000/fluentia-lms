@@ -162,15 +162,25 @@ Deno.serve(async (req) => {
 
       const pushPayload = JSON.stringify(pushData)
 
-      // Encode as base64 to safely transit Arabic/non-ASCII through web-push.
-      // Uses TextEncoder for reliable UTF-8 → bytes → base64 conversion.
+      // Send notificationId at top level so SW can fetch content from Supabase.
+      // Also include _b64-encoded full payload as fallback.
+      // The SW will prefer fetching from DB (correct Arabic via HTTPS)
+      // and only fall back to _b64 decode if fetch fails.
       const utf8Bytes = new TextEncoder().encode(pushPayload)
       const binaryChars: string[] = []
       for (let i = 0; i < utf8Bytes.length; i++) {
         binaryChars.push(String.fromCharCode(utf8Bytes[i]))
       }
       const b64 = btoa(binaryChars.join(''))
-      const wrappedPayload = JSON.stringify({ _b64: b64 })
+      const wrappedPayload = JSON.stringify({
+        notificationId: pushData.notificationId,
+        badgeCount: pushData.badgeCount,
+        tag: pushData.tag,
+        type: pushData.type,
+        url: pushData.url,
+        priority: pushData.priority,
+        _b64: b64,
+      })
 
       try {
         await webpush.sendNotification(

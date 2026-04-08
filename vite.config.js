@@ -41,7 +41,7 @@ export default defineConfig({
         importScripts: ['/push-sw.js'],
         maximumFileSizeToCacheInBytes: 1.5 * 1024 * 1024,
         // Only precache essential files — not every JS chunk
-        globPatterns: ['**/*.{css,html,ico,png,svg,woff2}'],
+        globPatterns: ['**/*.{css,html,ico,png,svg,woff2}', 'push-sw.js'],
         runtimeCaching: [
           // Cache JS chunks on first use (not precached — loads faster on install)
           {
