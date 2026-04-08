@@ -317,15 +317,16 @@ export default function NotificationCenter() {
                         >
                           <button
                             onClick={() => {
-                              // If notification has an action_url, always navigate
                               const hasRoute = n.action_url || n.data?.link || NOTIFICATION_ROUTES[n.type]
-                              if (hasRoute) {
-                                handleNotificationClick(n)
-                              } else if (isLong && !isExpanded) {
+                              // Long notifications: expand first so user can read, then navigate via action button
+                              if (isLong && !isExpanded) {
                                 setExpandedId(n.id)
                                 if (!n.read) markRead.mutate(n.id)
-                              } else {
+                              } else if (hasRoute) {
                                 handleNotificationClick(n)
+                              } else {
+                                // Short notification without route — just mark as read
+                                if (!n.read) markRead.mutate(n.id)
                               }
                             }}
                             className="w-full text-right flex items-start gap-3 px-5 py-3.5"
@@ -376,7 +377,7 @@ export default function NotificationCenter() {
                           </button>
 
                           {/* Expanded action bar */}
-                          {isExpanded && (n.action_url || NOTIFICATION_ROUTES[n.type]) && (
+                          {isExpanded && (n.action_url || n.data?.link || NOTIFICATION_ROUTES[n.type]) && (
                             <motion.div
                               initial={{ opacity: 0, height: 0 }}
                               animate={{ opacity: 1, height: 'auto' }}
