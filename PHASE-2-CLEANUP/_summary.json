@@ -1,0 +1,27 @@
+{
+  "total": 2390,
+  "total_unique": 1281,
+  "bucket_a": 38,
+  "bucket_b": 476,
+  "bucket_c": 10,
+  "after_a": 2352,
+  "after_ab": 1876,
+  "identical_dupes": 2,
+  "diff_example_dupes": 31,
+  "diff_def_dupes": 395,
+  "a_by_level": {
+    "0": 1,
+    "1": 3,
+    "2": 2,
+    "4": 21,
+    "5": 11
+  },
+  "b_by_level": {
+    "0": 12,
+    "1": 12,
+    "2": 8,
+    "3": 6,
+    "4": 217,
+    "5": 221
+  }
+}

@@ -1,0 +1,11 @@
+﻿vocab_id,word,level,unit_number,part_of_speech,definition_ar,reason
+a2822881-7350-417a-b0d5-8e055e107b69,exercise,0,8,noun,تمرين / رياضة,different POS (noun) from other entries
+58cabf0b-f2a3-4ece-800a-662fef11ed98,exercise,0,8,verb,يتمرن، يمارس الرياضة,different POS (verb) from other entries
+b725cf84-163a-44a0-b461-4f6eb93e758b,cascading,5,2,adjective,متتالي، متسلسل، متدرج,different POS (adjective) from other entries
+893c2b90-58ec-4767-b2f1-4464640370cd,cascading,5,2,adjective/verb,يسقط أو يتدفق أو يندفع مثل الشلال؛ يحدث في تسلسل من المراحل حيث كل مرحلة تحفز التالية,different POS (adjective/verb) from other entries
+aa5a0085-628d-4959-9b32-c7e63bc9d197,imperative,5,4,noun,ضروري، حتمي، أمر لا بد منه,different POS (noun) from other entries
+e05452a0-1842-4d3f-a8a8-c7ce1a8ff654,imperative,5,4,adjective,حتمي، ضروري للغاية، ملح ويتطلب اهتماماً فورياً,different POS (adjective) from other entries
+a01b2da6-7137-4dd9-9193-0871998d5e0d,pioneering,5,4,verb,رائد، مبتكر، يطور أساليب جديدة,different POS (verb) from other entries
+93b08fbf-f914-4953-9fb0-c940560a54bd,pioneering,5,4,adjective,رائد، مبتكر، يقود في مجال جديد أو يطور طرق حديثة,different POS (adjective) from other entries
+e5463d3a-ab37-4439-9993-14a682444e72,critique,5,9,noun,نقد، تحليل نقدي، مراجعة,different POS (noun) from other entries
+3029fff4-4b44-497c-af71-fa34c16c369e,critique,5,9,noun/verb,نقد، تحليل وتقييم مفصل لشيء ما، تقييم وتحليل بشكل منهجي,different POS (noun/verb) from other entries
