@@ -72,6 +72,27 @@ export async function unsubscribeFromPush(userId) {
   }
 }
 
+// Update the PWA app badge with unread notification count
+export async function updateAppBadge(count) {
+  if ('setAppBadge' in navigator) {
+    if (count > 0) {
+      await navigator.setAppBadge(count)
+    } else {
+      await navigator.clearAppBadge()
+    }
+  }
+}
+
+// Listen for notification click messages from the service worker
+export function listenForSWMessages(onNotificationClick) {
+  if (!('serviceWorker' in navigator)) return
+  navigator.serviceWorker.addEventListener('message', (event) => {
+    if (event.data?.type === 'NOTIFICATION_CLICKED') {
+      onNotificationClick?.(event.data)
+    }
+  })
+}
+
 export function detectDeviceLabel() {
   const ua = navigator.userAgent
   if (/iPad/.test(ua)) return 'iPadOS'

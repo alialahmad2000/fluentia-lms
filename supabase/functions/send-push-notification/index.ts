@@ -2,7 +2,6 @@
 
 import webpush from 'npm:web-push@3.6.7'
 import { createClient } from 'npm:@supabase/supabase-js@2.39.0'
-// Buffer import removed — using base64 wrapping instead
 
 webpush.setVapidDetails(
   Deno.env.get('VAPID_SUBJECT') || 'mailto:admin@fluentia.academy',
@@ -15,6 +14,12 @@ const supabaseAdmin = createClient(
   Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
 )
 
+interface PushAction {
+  action: string
+  title: string
+  icon?: string
+}
+
 interface SendPushBody {
   user_ids?: string[]
   target_roles?: string[]
@@ -22,13 +27,22 @@ interface SendPushBody {
   body: string
   url?: string
   action_label?: string
+  actions?: PushAction[]
   icon?: string
   image?: string
   type?: string
-  priority?: string
+  priority?: string  // 'normal' | 'high' | 'urgent' | 'silent'
   tag?: string
   data?: any
   announcement_id?: string
+  badge_count?: number
+}
+
+// Escape non-ASCII chars to \uXXXX for safe transit through web-push encryption
+function toAsciiJson(str: string): string {
+  return str.replace(/[\u0080-\uFFFF]/g, (ch) =>
+    '\\u' + ch.charCodeAt(0).toString(16).padStart(4, '0')
+  )
 }
 
 Deno.serve(async (req) => {
@@ -92,6 +106,18 @@ Deno.serve(async (req) => {
 
     if (insertError) throw insertError
 
+    // Get unread count per user for badge
+    const { data: unreadCounts } = await supabaseAdmin
+      .from('notifications')
+      .select('user_id')
+      .in('user_id', targetUserIds)
+      .eq('read', false)
+
+    const userBadgeCounts = new Map<string, number>()
+    for (const row of unreadCounts || []) {
+      userBadgeCounts.set(row.user_id, (userBadgeCounts.get(row.user_id) || 0) + 1)
+    }
+
     // Get active push subscriptions for target users (exclude install-tracking records)
     const { data: subscriptions, error: subError } = await supabaseAdmin
       .from('push_subscriptions')
@@ -112,29 +138,38 @@ Deno.serve(async (req) => {
     let sent = 0, failed = 0
 
     for (const sub of subscriptions || []) {
-      const pushPayload = JSON.stringify({
+      // Build rich push payload
+      const pushData: any = {
         title: payload.title,
         body: payload.body,
         icon: payload.icon || '/logo-icon-dark.png',
-        image: payload.image,
         url: payload.url || '/',
+        type: payload.type || 'system',
+        priority: payload.priority || 'normal',
         tag: payload.tag,
-        priority: payload.priority,
-        actionLabel: payload.action_label,
+        timestamp: new Date().toISOString(),
         notificationId: userToNotifId.get(sub.user_id),
-      })
+        badgeCount: userBadgeCounts.get(sub.user_id) || 0,
+      }
+
+      // Optional rich fields
+      if (payload.image) pushData.image = payload.image
+      if (payload.actions?.length) {
+        pushData.actions = payload.actions
+      } else if (payload.action_label) {
+        pushData.actionLabel = payload.action_label
+      }
+
+      const pushPayload = JSON.stringify(pushData)
 
       try {
-        // Base64-wrap the JSON payload so only ASCII goes through web-push encryption
-        // This fixes Arabic text showing as ???? in Deno's npm compat layer
-        const b64 = btoa(unescape(encodeURIComponent(pushPayload)))
-        const wrappedPayload = JSON.stringify({ _b64: b64 })
+        const asciiPayload = toAsciiJson(pushPayload)
         await webpush.sendNotification(
           {
             endpoint: sub.endpoint,
             keys: { p256dh: sub.p256dh, auth: sub.auth },
           },
-          wrappedPayload
+          asciiPayload
         )
         sent++
 

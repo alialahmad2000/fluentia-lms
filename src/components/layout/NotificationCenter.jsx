@@ -7,6 +7,7 @@ import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { timeAgo } from '../../utils/dateHelpers'
 import { NOTIFICATION_TYPES } from '../../lib/constants'
+import { updateAppBadge, listenForSWMessages } from '../../utils/pushSubscribe'
 
 // Map notification types to routes
 const NOTIFICATION_ROUTES = {
@@ -87,8 +88,27 @@ export default function NotificationCenter() {
     refetchInterval: 30000,
   })
 
-  // Unread count
+  // Unread count + sync app badge
   const unreadCount = notifications?.filter(n => !n.read).length || 0
+
+  useEffect(() => {
+    updateAppBadge(unreadCount)
+  }, [unreadCount])
+
+  // Listen for SW notification clicks → mark as read + refetch
+  useEffect(() => {
+    listenForSWMessages((data) => {
+      if (data.notificationId) {
+        supabase
+          .from('notifications')
+          .update({ read: true })
+          .eq('id', data.notificationId)
+          .then(() => {
+            queryClient.invalidateQueries({ queryKey: ['notifications', profile?.id] })
+          })
+      }
+    })
+  }, [])
 
   // Subscribe to real-time notifications
   useEffect(() => {
