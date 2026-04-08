@@ -199,11 +199,28 @@ export default function NotificationCenter() {
       }
     }
 
-    // 4. Adjust route for current role — e.g. admin can't access /student/* routes
-    if (route && role === 'admin' && route.startsWith('/student/')) {
-      route = route.replace('/student/', '/admin/')
-    } else if (route && role === 'trainer' && route.startsWith('/student/')) {
-      route = route.replace('/student/', '/trainer/')
+    // 4. Adjust route for current role — map student routes to known equivalents
+    if (route && route.startsWith('/student/') && (role === 'admin' || role === 'trainer')) {
+      const ROLE_ROUTE_MAP = {
+        admin: {
+          '/student/challenges': '/admin/creator-challenge',
+          '/student/creator-challenge': '/admin/creator-challenge',
+          '/student/assignments': '/admin/reports',
+          '/student/weekly-tasks': '/admin/weekly-tasks',
+          '/student/curriculum': '/admin/curriculum',
+          '/student/profile': '/admin/users',
+        },
+        trainer: {
+          '/student/challenges': '/trainer/challenges',
+          '/student/creator-challenge': '/trainer/challenges',
+          '/student/assignments': '/trainer/assignments',
+          '/student/weekly-tasks': '/trainer/weekly-grading',
+          '/student/curriculum': '/trainer/curriculum',
+          '/student/schedule': '/trainer/schedule',
+          '/student/profile': '/trainer/students',
+        },
+      }
+      route = ROLE_ROUTE_MAP[role]?.[route] || route.replace('/student/', `/${role}/`)
     }
 
     if (route) {
