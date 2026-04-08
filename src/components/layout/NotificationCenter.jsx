@@ -95,7 +95,9 @@ export default function NotificationCenter() {
       return data || []
     },
     enabled: !!profile?.id,
-    refetchInterval: 30000,
+    // Removed 30s polling — realtime subscription (below) handles instant updates.
+    // Polling + realtime = double-fetching, causing unnecessary network churn.
+    refetchInterval: false,
   })
 
   // Unread count + sync app badge

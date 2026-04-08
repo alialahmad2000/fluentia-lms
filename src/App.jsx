@@ -275,9 +275,11 @@ export default function App() {
       const publicPaths = ['/login', '/forgot-password', '/reset-password', '/test', '/testimonials', '/parent']
       if (publicPaths.some(p => window.location.pathname.startsWith(p))) return
 
-      // Throttle: max once per 30 seconds
+      // Throttle: max once per 2 minutes (was 30s — too aggressive).
+      // JWT tokens last 1 hour, so refreshing every 30s on tab focus was wasteful.
+      // Each refresh triggers TOKEN_REFRESHED → invalidateQueries, causing unnecessary lag.
       const now = Date.now()
-      if (now - lastVisibleCheck.current < 30000) return
+      if (now - lastVisibleCheck.current < 120000) return
       lastVisibleCheck.current = now
 
       // Fire-and-forget: refresh the session token.

@@ -62,7 +62,7 @@ export default function UnitProgressPopup({ groupId, unitId, onClose }) {
       return { students: studentProgress, sections: sectionCounts }
     },
     enabled: !!groupId && !!unitId,
-    refetchInterval: 30000, // refresh every 30s
+    refetchInterval: 60000, // reduced from 30s to 60s
   })
 
   const SECTION_LABELS = {

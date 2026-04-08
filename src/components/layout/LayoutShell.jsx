@@ -132,9 +132,11 @@ export default function LayoutShell() {
     toastTimerRef.current = setTimeout(() => setToast(null), 2500)
   }, [])
 
-  // Pull to refresh — invalidates all queries
+  // Pull to refresh — only refetch queries visible on the current page.
+  // Previously invalidated ALL cached queries (100+), causing a massive
+  // refetch storm and perceived lag. Now only refetches active (mounted) queries.
   const handleRefresh = useCallback(async () => {
-    await queryClient.invalidateQueries()
+    await queryClient.refetchQueries({ type: 'active' })
   }, [queryClient])
   const { isRefreshing, pullProgress, pullDistance } = usePullToRefresh(handleRefresh)
 

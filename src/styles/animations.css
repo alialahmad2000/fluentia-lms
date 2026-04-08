@@ -247,6 +247,12 @@
   75%      { transform: translateY(8px) translateX(2px); }
 }
 
+/* === Float Particle (GPU-composited replacement for JS-driven framer-motion particles) === */
+@keyframes floatParticle {
+  0%, 100% { transform: translate(0, 0); opacity: var(--base-opacity, 0.2); }
+  50%      { transform: translate(-5px, 10px); opacity: calc(var(--base-opacity, 0.2) * 1.5); }
+}
+
 /* === Floating Orbs (background) === */
 @keyframes floatSlow {
   0%, 100% { transform: translate(0, 0) scale(1); }

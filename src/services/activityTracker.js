@@ -127,13 +127,12 @@ class ActivityTracker {
     this.heartbeatInterval = null
   }
 
-  // Handle tab visibility
+  // Handle tab visibility — only update internal state, no DB writes.
+  // Previously tracked tab_hidden/tab_visible events which fired DB writes
+  // on every tab switch, causing unnecessary network requests.
   _handleVisibility = () => {
-    if (document.hidden) {
-      this.track('tab_hidden')
-    } else {
+    if (!document.hidden) {
       this.lastActivity = Date.now()
-      this.track('tab_visible')
       if (!this.heartbeatInterval) this._startHeartbeat()
     }
   }

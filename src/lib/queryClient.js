@@ -40,8 +40,7 @@ export const queryClient = new QueryClient({
       // to refetch queries AFTER the token is successfully refreshed.
       refetchOnWindowFocus: false,
       refetchOnReconnect: 'always',
-      // CRITICAL: Always keep previous data during refetch — prevents blank flash.
-      // Even if a refetch fails, the user sees stale data instead of a blank page.
+      // Keep previous data during refetch — prevents blank flash on stale data.
       placeholderData: (previousData) => previousData,
     },
     mutations: {

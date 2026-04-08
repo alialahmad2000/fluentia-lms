@@ -132,7 +132,9 @@ export default function StudentMessages() {
       return data || []
     },
     enabled: !!selectedContact?.id,
-    refetchInterval: 10000,
+    // Removed 10s polling — realtime subscription below handles instant updates.
+    // Polling + realtime = double-fetching, wastes bandwidth and causes lag.
+    refetchInterval: false,
   })
 
   // Real-time subscription

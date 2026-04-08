@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
-import { motion } from 'framer-motion'
 
 /**
  * Floating decorative particles — adds cosmic depth to backgrounds.
- * Uses CSS custom properties for theming.
+ * Uses pure CSS animations (GPU-composited) instead of framer-motion JS animations.
+ * This is critical for mobile performance — 20 JS-driven motion.div loops caused jank.
  */
 export default function FloatingParticles({ count = 20, className = '' }) {
   const particles = useMemo(() => {
@@ -28,7 +28,7 @@ export default function FloatingParticles({ count = 20, className = '' }) {
   return (
     <div className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}>
       {particles.map((p) => (
-        <motion.div
+        <div
           key={p.id}
           className="absolute rounded-full"
           style={{
@@ -38,17 +38,8 @@ export default function FloatingParticles({ count = 20, className = '' }) {
             height: p.size,
             background: p.color,
             opacity: p.opacity,
-          }}
-          animate={{
-            y: [-10, 10, -10],
-            x: [-5, 5, -5],
-            opacity: [p.opacity, p.opacity * 1.5, p.opacity],
-          }}
-          transition={{
-            duration: p.duration,
-            delay: p.delay,
-            repeat: Infinity,
-            ease: 'easeInOut',
+            animation: `floatParticle ${p.duration}s ease-in-out ${p.delay}s infinite`,
+            willChange: 'transform, opacity',
           }}
         />
       ))}

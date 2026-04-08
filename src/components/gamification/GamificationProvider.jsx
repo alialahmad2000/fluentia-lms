@@ -271,17 +271,18 @@ export default function GamificationProvider() {
     }
   }, [isStudent, studentId])
 
-  // Run achievement check on mount and when XP changes
+  // Run achievement check on mount only (not on every XP change — too many DB queries)
+  // The 8 sequential achievement checks were firing on every XP update, causing lag
   useEffect(() => {
     if (!isStudent || !studentId) return
 
-    // Check after a short delay to let data settle
+    // Check after a delay to let initial data settle
     const timer = setTimeout(() => {
       checkAchievements()
-    }, 2000)
+    }, 5000)
 
     return () => clearTimeout(timer)
-  }, [isStudent, studentId, currentXp, checkAchievements])
+  }, [isStudent, studentId]) // removed currentXp dependency
 
   return (
     <>

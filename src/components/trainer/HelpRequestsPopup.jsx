@@ -40,7 +40,7 @@ export default function HelpRequestsPopup({ groupId, onClose }) {
       return data || []
     },
     enabled: !!groupId,
-    refetchInterval: 15000,
+    refetchInterval: 60000, // reduced from 15s to 60s — help requests aren't time-critical
   })
 
   const resolveMutation = useMutation({

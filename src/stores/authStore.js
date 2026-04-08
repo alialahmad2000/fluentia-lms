@@ -40,9 +40,12 @@ export const useAuthStore = create((set, get) => ({
         // Initialize activity tracker
         tracker.init(session.user.id)
       } else if (event === 'TOKEN_REFRESHED' && session?.user) {
-        // Token refreshed — update user object, refetch active queries with fresh token
+        // Token refreshed — update user object, invalidate (not refetch) active queries.
+        // invalidateQueries marks them stale so they refetch on next access,
+        // NOT all at once. refetchQueries({ type: 'active' }) was firing every active
+        // query simultaneously, causing a burst of requests and perceived lag.
         set({ user: session.user })
-        queryClient.refetchQueries({ type: 'active' })
+        queryClient.invalidateQueries({ type: 'active' })
       } else if (event === 'SIGNED_OUT') {
         const ch = get()._realtimeChannel
         if (ch) supabase.removeChannel(ch)

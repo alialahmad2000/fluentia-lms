@@ -67,7 +67,8 @@ function GroupChatContent() {
       return data || []
     },
     enabled: !!groupId,
-    refetchInterval: 10000,
+    // Removed 10s polling — realtime subscription below handles instant updates.
+    refetchInterval: false,
   })
 
   const sendMutation = useMutation({
