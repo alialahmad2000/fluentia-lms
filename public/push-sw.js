@@ -39,7 +39,10 @@ self.addEventListener('push', function(event) {
     let raw = event.data.json()
     // Unwrap base64-encoded UTF-8 payload (fixes Arabic text corruption)
     if (raw._b64) {
-      payload = JSON.parse(decodeURIComponent(escape(atob(raw._b64))))
+      var bin = atob(raw._b64)
+      var bytes = new Uint8Array(bin.length)
+      for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i)
+      payload = JSON.parse(new TextDecoder('utf-8').decode(bytes))
     } else {
       payload = raw
     }

@@ -162,13 +162,23 @@ Deno.serve(async (req) => {
 
       const pushPayload = JSON.stringify(pushData)
 
+      // Encode as base64 to safely transit Arabic/non-ASCII through web-push.
+      // Uses TextEncoder for reliable UTF-8 → bytes → base64 conversion.
+      const utf8Bytes = new TextEncoder().encode(pushPayload)
+      const binaryChars: string[] = []
+      for (let i = 0; i < utf8Bytes.length; i++) {
+        binaryChars.push(String.fromCharCode(utf8Bytes[i]))
+      }
+      const b64 = btoa(binaryChars.join(''))
+      const wrappedPayload = JSON.stringify({ _b64: b64 })
+
       try {
         await webpush.sendNotification(
           {
             endpoint: sub.endpoint,
             keys: { p256dh: sub.p256dh, auth: sub.auth },
           },
-          pushPayload
+          wrappedPayload
         )
         sent++
 
