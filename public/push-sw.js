@@ -6,7 +6,13 @@ self.addEventListener('push', function(event) {
 
   let payload
   try {
-    payload = event.data.json()
+    let raw = event.data.json()
+    // Unwrap base64-encoded UTF-8 payload (fixes Arabic text corruption)
+    if (raw._b64) {
+      payload = JSON.parse(decodeURIComponent(escape(atob(raw._b64))))
+    } else {
+      payload = raw
+    }
   } catch (e) {
     payload = { title: 'Fluentia', body: event.data.text() }
   }

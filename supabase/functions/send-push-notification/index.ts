@@ -2,6 +2,7 @@
 
 import webpush from 'npm:web-push@3.6.7'
 import { createClient } from 'npm:@supabase/supabase-js@2.39.0'
+// Buffer import removed — using base64 wrapping instead
 
 webpush.setVapidDetails(
   Deno.env.get('VAPID_SUBJECT') || 'mailto:admin@fluentia.academy',
@@ -124,12 +125,16 @@ Deno.serve(async (req) => {
       })
 
       try {
+        // Base64-wrap the JSON payload so only ASCII goes through web-push encryption
+        // This fixes Arabic text showing as ???? in Deno's npm compat layer
+        const b64 = btoa(unescape(encodeURIComponent(pushPayload)))
+        const wrappedPayload = JSON.stringify({ _b64: b64 })
         await webpush.sendNotification(
           {
             endpoint: sub.endpoint,
             keys: { p256dh: sub.p256dh, auth: sub.auth },
           },
-          pushPayload
+          wrappedPayload
         )
         sent++
 
