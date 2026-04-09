@@ -69,7 +69,7 @@ export default function AISubmissionFeedback({
       if (result.error) { setError(typeof result.error === 'string' ? result.error : 'خطأ في التحليل'); return }
 
       let fb = result.feedback
-      if (!fb) throw new Error('لم يتم استلام تقييم من الذكاء الاصطناعي')
+      if (!fb) throw new Error('لم يتم استلام التقييم — حاول مرة أخرى')
       // Parse if it's a string (shouldn't happen but safety)
       if (typeof fb === 'string') {
         try {
@@ -134,7 +134,7 @@ export default function AISubmissionFeedback({
           ) : (
             <Sparkles size={16} className="text-violet-400" />
           )}
-          {loading ? 'جاري التحليل بالذكاء الاصطناعي...' : 'تحليل بالذكاء الاصطناعي'}
+          {loading ? 'جاري التحليل...' : 'تحليل المهمة'}
         </button>
       )}
 
@@ -175,7 +175,7 @@ export default function AISubmissionFeedback({
                 <div className="w-9 h-9 rounded-xl bg-violet-500/10 flex items-center justify-center">
                   <Sparkles size={16} className="text-violet-400" />
                 </div>
-                <span className="text-sm font-semibold text-[var(--text-primary)]">تقييم الذكاء الاصطناعي</span>
+                <span className="text-sm font-semibold text-[var(--text-primary)]">التقييم المفصّل</span>
                 {score && (
                   <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold ${scoreColor(score)}`}>
                     {score}

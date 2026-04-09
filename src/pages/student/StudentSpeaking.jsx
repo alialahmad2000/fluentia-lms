@@ -89,7 +89,7 @@ function SpeakingAnalysisCard({ result }) {
       {/* Header */}
       <div className="flex items-center gap-2">
         <Sparkles size={16} className="text-amber-400" />
-        <h4 className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>تحليل الذكاء الاصطناعي</h4>
+        <h4 className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>التحليل المفصّل</h4>
         {result.cefr_assessment && (
           <span className="mr-auto text-xs font-bold px-2 py-0.5 rounded-lg bg-violet-500/15 text-violet-400 border border-violet-500/20">
             CEFR: {result.cefr_assessment}
@@ -369,7 +369,7 @@ function SpeakingTopics() {
                               ) : (
                                 <>
                                   <Sparkles size={14} />
-                                  تحليل بالذكاء الاصطناعي
+                                  تحليل التسجيل
                                 </>
                               )}
                             </button>

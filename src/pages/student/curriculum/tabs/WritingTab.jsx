@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FileEdit, Lightbulb, Save, Send, ChevronDown, CheckCircle2, BookOpen, Target, GraduationCap, Loader2 } from 'lucide-react'
+import { FileEdit, Lightbulb, Save, Send, ChevronDown, CheckCircle2, BookOpen, Target, GraduationCap, Loader2, RefreshCw } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
@@ -194,6 +194,53 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
     toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
   }, [task.id, text, saveToDb])
 
+  // Shared function to fetch AI feedback (used by submit and retry)
+  const fetchFeedback = useCallback(async (writingText) => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session) return null
+
+      const res = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-writing-feedback`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${session.access_token}`,
+          },
+          body: JSON.stringify({
+            writing_text: writingText,
+            writing_prompt: task.prompt_en || '',
+            assignment_type: task.task_type || 'paragraph',
+          }),
+        }
+      )
+
+      const result = await res.json()
+
+      if (result.feedback) {
+        setAiFeedback(result.feedback)
+        // Save feedback to DB
+        const { error } = await supabase
+          .from('student_curriculum_progress')
+          .update({
+            ai_feedback: result.feedback,
+            score: result.feedback.fluency_score ? result.feedback.fluency_score * 10 : null,
+          })
+          .eq('student_id', studentId)
+          .eq('writing_id', task.id)
+        if (error) console.error('[WritingTab] Feedback save error:', error)
+        return true
+      } else if (result.limit_reached || result.budget_reached) {
+        toast({ type: 'info', title: result.error })
+      }
+      return false
+    } catch (err) {
+      console.error('[WritingTab] Feedback call failed:', err)
+      return false
+    }
+  }, [task.id, task.task_type, studentId])
+
   const handleSubmit = useCallback(async () => {
     if (submitting) return
     setSubmitting(true)
@@ -207,54 +254,23 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
     awardCurriculumXP(profile?.id, 'writing', null, unitId)
 
     // 2. Call AI feedback
-    try {
-      const { data: { session } } = await supabase.auth.getSession()
-      if (!session) { setSubmitting(false); return }
-
-      const res = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-writing-feedback`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${session.access_token}`,
-          },
-          body: JSON.stringify({
-            writing_text: text,
-            writing_prompt: task.prompt_en || '',
-            assignment_type: task.task_type || 'paragraph',
-          }),
-        }
-      )
-
-      const result = await res.json()
-
-      if (result.feedback) {
-        setAiFeedback(result.feedback)
-        // 3. Save AI feedback to DB
-        const { error } = await supabase
-          .from('student_curriculum_progress')
-          .update({
-            ai_feedback: result.feedback,
-            score: result.feedback.fluency_score ? result.feedback.fluency_score * 10 : null,
-          })
-          .eq('student_id', studentId)
-          .eq('writing_id', task.id)
-        if (error) console.error('[WritingTab] AI feedback save error:', error)
-      } else if (result.limit_reached || result.budget_reached) {
-        toast({ type: 'info', title: result.error })
-      }
-      // If AI gave an error or was unavailable
-      if (!result.feedback && !result.limit_reached && !result.budget_reached) {
-        toast({ type: 'warning', title: 'التقييم لم يتم — حاول مرة أخرى أو سيراجع المدرب' })
-      }
-    } catch (err) {
-      console.error('[WritingTab] AI feedback call failed:', err)
-      toast({ type: 'warning', title: 'فشل الاتصال بالتقييم — حاول مرة أخرى' })
-    } finally {
-      setSubmitting(false)
+    const success = await fetchFeedback(text)
+    if (!success) {
+      toast({ type: 'warning', title: 'التقييم لم يتم — اضغط "إعادة التصحيح" للمحاولة مرة أخرى' })
     }
-  }, [task.id, task.task_type, text, studentId, saveToDb, submitting])
+    setSubmitting(false)
+  }, [task.id, text, studentId, saveToDb, submitting, fetchFeedback])
+
+  const handleRetryFeedback = useCallback(async () => {
+    if (submitting) return
+    setSubmitting(true)
+    toast({ type: 'info', title: 'جاري إعادة التصحيح...' })
+    const success = await fetchFeedback(text)
+    if (!success) {
+      toast({ type: 'warning', title: 'فشل التصحيح — حاول مرة أخرى لاحقاً' })
+    }
+    setSubmitting(false)
+  }, [text, submitting, fetchFeedback])
 
   const taskTypeAr = {
     paragraph: 'فقرة',
@@ -496,7 +512,7 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
         </div>
       )}
 
-      {/* AI correction loading */}
+      {/* Correction loading */}
       {submitting && (
         <div
           className="rounded-xl p-4 flex items-center gap-3"
@@ -507,8 +523,25 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
         </div>
       )}
 
-      {/* AI feedback display */}
+      {/* Feedback display */}
       {aiFeedback && <WritingFeedback feedback={aiFeedback} />}
+
+      {/* Retry button when submitted but no feedback available */}
+      {submitted && !aiFeedback && !submitting && (
+        <div
+          className="rounded-xl p-4 flex flex-col items-center gap-3"
+          style={{ background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.15)' }}
+        >
+          <p className="text-sm text-amber-400 font-['Tajawal']">لم يتم التصحيح بعد</p>
+          <button
+            onClick={handleRetryFeedback}
+            className="flex items-center gap-1.5 px-4 h-9 rounded-xl text-xs font-bold bg-sky-500/15 text-sky-400 border border-sky-500/30 hover:bg-sky-500/25 transition-colors font-['Tajawal']"
+          >
+            <RefreshCw size={13} />
+            إعادة التصحيح
+          </button>
+        </div>
+      )}
 
       {/* Leaderboard */}
       {aiFeedback && leaderboard && leaderboard.rankings?.length > 1 && (

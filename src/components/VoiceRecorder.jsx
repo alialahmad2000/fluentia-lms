@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Mic, Square, RotateCcw, Send, Loader2, CheckCircle, AlertCircle, Bot } from 'lucide-react'
+import { Mic, Square, RotateCcw, Send, Loader2, CheckCircle, AlertCircle, ClipboardCheck } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import { invokeWithRetry } from '../lib/invokeWithRetry'
 import AudioPlayer from './AudioPlayer'
@@ -34,6 +34,7 @@ const STATE = { IDLE: 'idle', RECORDING: 'recording', RECORDED: 'recorded', UPLO
 // ─── Component ────────────────────────────────────
 export default function VoiceRecorder({
   onUploadComplete,
+  onEvaluationComplete,
   maxDuration = 180,
   studentId,
   unitId,
@@ -352,6 +353,8 @@ export default function VoiceRecorder({
 
       if (parsed?.evaluation) {
         setEvaluation(parsed.evaluation)
+        // Notify parent so detailed feedback shows immediately
+        onEvaluationComplete?.(parsed.evaluation)
         // Invalidate recordings query so evaluation persists on refresh
         onUploadComplete?.()
       }
@@ -360,7 +363,7 @@ export default function VoiceRecorder({
     } finally {
       setEvaluating(false)
     }
-  }, [onUploadComplete])
+  }, [onUploadComplete, onEvaluationComplete])
 
   // ─── Re-record ───
   const reRecord = useCallback(() => {
@@ -501,7 +504,7 @@ export default function VoiceRecorder({
             {evaluating && (
               <div className="flex items-center justify-center gap-2 py-2">
                 <Loader2 size={14} className="text-sky-400 animate-spin" />
-                <span className="text-xs text-sky-400 font-['Tajawal']">جاري التقييم بالذكاء الاصطناعي...</span>
+                <span className="text-xs text-sky-400 font-['Tajawal']">جاري التقييم...</span>
               </div>
             )}
             {!evaluating && evaluation && (
@@ -512,8 +515,8 @@ export default function VoiceRecorder({
                 style={{ background: 'rgba(56,189,248,0.04)', border: '1px solid rgba(56,189,248,0.12)' }}
               >
                 <div className="flex items-center gap-1.5">
-                  <Bot size={13} className="text-sky-400" />
-                  <span className="text-xs font-bold text-sky-400 font-['Tajawal']">تقييم الذكاء الاصطناعي</span>
+                  <ClipboardCheck size={13} className="text-sky-400" />
+                  <span className="text-xs font-bold text-sky-400 font-['Tajawal']">التقييم</span>
                   {evaluation.overall_score != null && (
                     <span className="mr-auto text-sm font-bold tabular-nums" style={{ color: evaluation.overall_score >= 8 ? '#22c55e' : evaluation.overall_score >= 6 ? '#38bdf8' : '#f59e0b' }}>
                       {evaluation.overall_score}/10

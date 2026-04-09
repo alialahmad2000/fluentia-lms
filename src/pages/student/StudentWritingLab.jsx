@@ -92,7 +92,7 @@ export default function StudentWritingLab() {
         </div>
         <div>
           <h1 className="text-page-title" style={{ color: 'var(--text-primary)' }}>معمل الكتابة</h1>
-          <p className="text-sm mt-1" style={{ color: 'var(--text-tertiary)' }}>تدرّب على الكتابة وحسّن مهاراتك بالذكاء الاصطناعي</p>
+          <p className="text-sm mt-1" style={{ color: 'var(--text-tertiary)' }}>تدرّب على الكتابة واحصل على تصحيح فوري</p>
         </div>
       </motion.div>
 
@@ -376,7 +376,7 @@ function SentenceBuildingPanel() {
             {correctionLoading ? (
               <><Loader2 size={16} className="animate-spin" /> جاري التصحيح...</>
             ) : (
-              <><Wand2 size={16} /> تصحيح بالذكاء الاصطناعي</>
+              <><Wand2 size={16} /> تصحيح تلقائي</>
             )}
           </button>
           {(text || feedback) && (
@@ -468,7 +468,7 @@ function SentenceFeedback({ feedback }) {
               <Sparkles size={18} className="text-violet-400" />
             </div>
             <div>
-              <h3 className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>تقييم الذكاء الاصطناعي</h3>
+              <h3 className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>التقييم المفصّل</h3>
               {feedback.vocabulary_level && (
                 <span className="text-[10px] text-muted">مستوى المفردات: {feedback.vocabulary_level}</span>
               )}
@@ -758,7 +758,7 @@ function IELTSPanel({ taskType, prompts, title, subtitle, minWords }) {
             {correctionLoading ? (
               <><Loader2 size={16} className="animate-spin" /> جاري التصحيح...</>
             ) : (
-              <><Wand2 size={16} /> تصحيح بالذكاء الاصطناعي</>
+              <><Wand2 size={16} /> تصحيح تلقائي</>
             )}
           </button>
           {(text || feedback) && (
@@ -857,7 +857,7 @@ function AICorrectionResults({ result, onClose, isIELTS = false }) {
               <Wand2 size={18} className="text-violet-400" />
             </div>
             <div>
-              <h3 className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>تصحيح الذكاء الاصطناعي</h3>
+              <h3 className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>التصحيح المفصّل</h3>
               <p className="text-[10px]" style={{ color: 'var(--text-tertiary)' }}>تحليل وتصحيح تفصيلي للنص</p>
             </div>
           </div>

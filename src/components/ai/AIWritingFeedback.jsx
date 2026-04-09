@@ -66,7 +66,7 @@ export default function AIWritingFeedback({ text, submissionId, assignmentType, 
           ) : (
             <Sparkles size={16} className="text-violet-400" />
           )}
-          {loading ? 'جاري التحليل بالذكاء الاصطناعي...' : 'تحليل بالذكاء الاصطناعي'}
+          {loading ? 'جاري التحليل...' : 'تحليل الكتابة'}
         </button>
       )}
 
@@ -93,7 +93,7 @@ export default function AIWritingFeedback({ text, submissionId, assignmentType, 
                 <div className="w-9 h-9 rounded-xl bg-violet-500/10 flex items-center justify-center">
                   <Sparkles size={16} className="text-violet-400" />
                 </div>
-                <span className="text-sm font-semibold text-[var(--text-primary)]">تقييم الذكاء الاصطناعي</span>
+                <span className="text-sm font-semibold text-[var(--text-primary)]">التقييم المفصّل</span>
                 {feedback.fluency_score && (
                   <span className="badge bg-violet-500/10 text-violet-400 border border-violet-500/20 text-xs">{feedback.fluency_score}/10</span>
                 )}

@@ -1,7 +1,7 @@
 import { useState, useMemo, useCallback } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FileEdit, Users, ChevronDown, CheckCircle, Clock, Star, Bot, GraduationCap, Save, Loader2 } from 'lucide-react'
+import { FileEdit, Users, ChevronDown, CheckCircle, Clock, Star, ClipboardCheck, GraduationCap, Save, Loader2 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
 import { notifyUser } from '../../utils/notify'
@@ -216,7 +216,7 @@ function WritingTaskContent({ task, unitId, students }) {
                     )}
                     {progress?.ai_feedback?.overall_score != null && (
                       <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-purple-500/10 text-purple-400">
-                        AI {progress.ai_feedback.overall_score}/10
+                        {progress.ai_feedback.overall_score}/10
                       </span>
                     )}
                     {!progress && <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">لم تبدأ</span>}
@@ -279,8 +279,8 @@ function AIFeedbackSummary({ feedback }) {
   return (
     <div className="rounded-lg p-3 space-y-2" style={{ background: 'rgba(168,85,247,0.04)', border: '1px solid rgba(168,85,247,0.12)' }}>
       <div className="flex items-center gap-1.5">
-        <Bot size={12} className="text-purple-400" />
-        <span className="text-[10px] font-bold text-purple-400 font-['Tajawal']">تقييم AI</span>
+        <ClipboardCheck size={12} className="text-purple-400" />
+        <span className="text-[10px] font-bold text-purple-400 font-['Tajawal']">التقييم</span>
         {feedback.overall_score != null && (
           <span className="mr-auto text-sm font-bold tabular-nums" style={{ color: feedback.overall_score >= 8 ? '#22c55e' : feedback.overall_score >= 6 ? '#38bdf8' : '#f59e0b' }}>
             {feedback.overall_score}/10

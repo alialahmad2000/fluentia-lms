@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Mic, ChevronDown, Bot, GraduationCap, Clock, Save, Loader2, CheckCircle, User, FileText } from 'lucide-react'
+import { Mic, ChevronDown, ClipboardCheck, GraduationCap, Clock, Save, Loader2, CheckCircle, User, FileText } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
 import { notifyUser } from '../../utils/notify'
@@ -361,8 +361,8 @@ function StudentRecordingCard({ student, recording, trainerId, onFeedbackSaved }
         <div className="px-4 pb-3">
           <div className="rounded-lg p-3 space-y-3" style={{ background: 'rgba(56,189,248,0.04)', border: '1px solid rgba(56,189,248,0.08)' }}>
             <div className="flex items-center gap-1.5">
-              <Bot size={12} className="text-sky-400" />
-              <span className="text-[10px] font-bold text-sky-400 font-['Tajawal']">تقييم AI</span>
+              <ClipboardCheck size={12} className="text-sky-400" />
+              <span className="text-[10px] font-bold text-sky-400 font-['Tajawal']">التقييم</span>
             </div>
             {/* Score bars */}
             <div className="grid grid-cols-2 gap-x-4 gap-y-1.5">

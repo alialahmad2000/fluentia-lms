@@ -1073,7 +1073,7 @@ function FeedbackDisplay({ feedback, autoScore, type }) {
         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-sky-500/20 to-cyan-500/10 flex items-center justify-center">
           <Sparkles className="w-4 h-4 text-sky-400" />
         </div>
-        <h3 className="text-base font-semibold text-[var(--text-secondary)]">تقييم الذكاء الاصطناعي</h3>
+        <h3 className="text-base font-semibold text-[var(--text-secondary)]">التقييم المفصّل</h3>
       </div>
 
       {scoreEntries.length > 0 && (
