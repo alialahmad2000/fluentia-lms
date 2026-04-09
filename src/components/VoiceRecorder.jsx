@@ -41,6 +41,7 @@ export default function VoiceRecorder({
   questionIndex = 0,
   disabled = false,
   existingRecording = null,
+  hideFeedbackInline = false,
 }) {
   const [state, setState] = useState(existingRecording ? STATE.UPLOADED : STATE.IDLE)
   const [elapsed, setElapsed] = useState(0)
@@ -500,14 +501,14 @@ export default function VoiceRecorder({
               <span className="text-sm font-bold font-['Tajawal']">تم الرفع بنجاح</span>
             </div>
 
-            {/* AI Evaluation status */}
+            {/* Evaluation status */}
             {evaluating && (
               <div className="flex items-center justify-center gap-2 py-2">
                 <Loader2 size={14} className="text-sky-400 animate-spin" />
                 <span className="text-xs text-sky-400 font-['Tajawal']">جاري التقييم...</span>
               </div>
             )}
-            {!evaluating && evaluation && (
+            {!hideFeedbackInline && !evaluating && evaluation && (
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -528,7 +529,7 @@ export default function VoiceRecorder({
                 )}
               </motion.div>
             )}
-            {!evaluating && !evaluation && state === STATE.UPLOADED && !existingRecording?.ai_evaluation && (
+            {!hideFeedbackInline && !evaluating && !evaluation && state === STATE.UPLOADED && !existingRecording?.ai_evaluation && (
               <p className="text-[10px] text-center text-[var(--text-muted)] font-['Tajawal']">التقييم سيكون متاحاً قريباً</p>
             )}
 

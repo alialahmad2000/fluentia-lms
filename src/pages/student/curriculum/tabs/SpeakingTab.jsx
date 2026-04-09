@@ -345,7 +345,31 @@ function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId,
         </div>
       )}
 
-      {/* Detailed Evaluation (if available) */}
+      {/* Voice Recorder */}
+      <div
+        className="rounded-xl p-4"
+        style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}
+      >
+        <VoiceRecorder
+          studentId={studentId}
+          unitId={unitId}
+          questionIndex={questionIndex}
+          maxDuration={180}
+          existingRecording={existingRecording}
+          onUploadComplete={(url, id) => onUploadComplete?.()}
+          onEvaluationComplete={(evalData) => setLiveEvaluation(evalData)}
+          hideFeedbackInline
+        />
+      </div>
+
+      {/* Recording timestamp */}
+      {existingRecording?.created_at && (
+        <p className="text-[10px] text-[var(--text-muted)] font-['Tajawal'] text-center">
+          تم التسجيل بتاريخ {new Date(existingRecording.created_at).toLocaleDateString('ar-SA', { day: 'numeric', month: 'long' })}
+        </p>
+      )}
+
+      {/* Detailed Evaluation — shown right AFTER recorder so students always see it */}
       {aiEval && <AIEvaluationCard evaluation={aiEval} />}
 
       {/* Retry button when recording exists but no evaluation */}
@@ -374,6 +398,25 @@ function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId,
         </div>
       )}
 
+      {/* Trainer Feedback (if available) */}
+      {existingRecording?.trainer_reviewed && (
+        <div
+          className="rounded-xl p-4 space-y-2"
+          style={{ background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.15)' }}
+        >
+          <div className="flex items-center gap-2">
+            <GraduationCap size={14} className="text-emerald-400" />
+            <span className="text-sm font-bold text-emerald-400 font-['Tajawal']">ملاحظات المعلم</span>
+            {existingRecording.trainer_grade && (
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-400">{existingRecording.trainer_grade}</span>
+            )}
+          </div>
+          {existingRecording.trainer_feedback && (
+            <p className="text-xs text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed">{existingRecording.trainer_feedback}</p>
+          )}
+        </div>
+      )}
+
       {/* Leaderboard */}
       {aiEval && leaderboard && leaderboard.rankings?.length > 1 && (
         <ActivityLeaderboard
@@ -399,48 +442,6 @@ function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId,
           leaderboard={leaderboard}
           currentStudentId={studentId}
         />
-      )}
-
-      {/* Trainer Feedback (if available) */}
-      {existingRecording?.trainer_reviewed && (
-        <div
-          className="rounded-xl p-4 space-y-2"
-          style={{ background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.15)' }}
-        >
-          <div className="flex items-center gap-2">
-            <GraduationCap size={14} className="text-emerald-400" />
-            <span className="text-sm font-bold text-emerald-400 font-['Tajawal']">ملاحظات المعلم</span>
-            {existingRecording.trainer_grade && (
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-400">{existingRecording.trainer_grade}</span>
-            )}
-          </div>
-          {existingRecording.trainer_feedback && (
-            <p className="text-xs text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed">{existingRecording.trainer_feedback}</p>
-          )}
-        </div>
-      )}
-
-      {/* Voice Recorder */}
-      <div
-        className="rounded-xl p-4"
-        style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}
-      >
-        <VoiceRecorder
-          studentId={studentId}
-          unitId={unitId}
-          questionIndex={questionIndex}
-          maxDuration={180}
-          existingRecording={existingRecording}
-          onUploadComplete={(url, id) => onUploadComplete?.()}
-          onEvaluationComplete={(evalData) => setLiveEvaluation(evalData)}
-        />
-      </div>
-
-      {/* Recording timestamp */}
-      {existingRecording?.created_at && (
-        <p className="text-[10px] text-[var(--text-muted)] font-['Tajawal'] text-center">
-          تم التسجيل بتاريخ {new Date(existingRecording.created_at).toLocaleDateString('ar-SA', { day: 'numeric', month: 'long' })}
-        </p>
       )}
     </div>
   )
