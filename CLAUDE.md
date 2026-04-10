@@ -611,6 +611,24 @@ This is how future sessions know what happened.
 - Status: Complete — build verified
 - Notes: The weekly task system infrastructure (DB, edge functions, pages, sidebar, routes, notifications) was already fully scaffolded. This fix ensures all column names and field references match the actual DB schema so the system works end-to-end.
 
+### April 10, 2026 — Vocabulary Chunks + Quiz System
+- What: Student-selectable chunks (5/10/15/20/25) with sequential unlock (80% mastery gate) plus new Quiz Mode with 3 question types (EN→AR, AR→EN, fill-in-the-blank). Responds to Group 4 feedback about being forced to restart from word 1 every session.
+- Files:
+  - `supabase/migrations/101_vocabulary_chunks_and_quiz.sql` — Adds `profiles.preferred_chunk_size` (INT, CHECK 5/10/15/20/25), new table `vocabulary_quiz_attempts` (student_id, unit_id, chunk_index nullable, chunk_size, total_questions, correct_count, wrong_word_ids UUID[], duration_seconds, xp_awarded) + 3 RLS policies
+  - `src/utils/vocabularyChunks.js` — Pure helpers: splitIntoChunks, computeChunkStatus, annotateChunksWithFilter, generateQuestions, calculateQuizXP (+2/correct, +10 at 100%, +5 at ≥80%)
+  - `src/hooks/useVocabularyChunks.js` — Memoized chunk state + `useChunkSizePreference` for reading/updating profile preference with optimistic update + rollback
+  - `src/hooks/useVocabularyQuiz.js` — Quiz state machine (playing/done) + `saveQuizAttempt()` helper (inserts row + XP via `challenge` reason with RPC fallback)
+  - `src/components/vocabulary/ChunkCard.jsx` — Single chunk card with progress, lock/play/check icon, "تدريب" + "اختبار" buttons
+  - `src/components/vocabulary/ChunkSelector.jsx` — Grid of chunk cards, filter chips (all/new/difficult), chunk size dropdown, "اختبر نفسك على كل الوحدة" button
+  - `src/components/vocabulary/QuizQuestionCard.jsx` — Question card with 2x2 options, instant green/red feedback + example sentence
+  - `src/components/vocabulary/QuizResultScreen.jsx` — Score, time, XP, missed words list, retry/close buttons
+  - `src/components/vocabulary/VocabularyQuiz.jsx` — Full-screen modal wrapper orchestrating question flow + result
+  - `src/pages/student/vocabulary/VocabularyFlashcards.jsx` — Added new "دفعات" tab (only enabled when a specific unit is selected), wired ChunkSelector + VocabularyQuiz modal, reset state on unit change
+- DB: 1 new column (`profiles.preferred_chunk_size`), 1 new table (`vocabulary_quiz_attempts`) + RLS
+- Edge Functions: none
+- Status: Complete — migration pushed to linked Supabase, pure-function smoke tests passing
+- Notes: Used `reason: 'challenge'` for XP instead of adding a new `xp_reason` enum value (avoids PG enum-in-transaction limitation and matches existing xpManager.js pattern). Mastery threshold treats `learning` + `mastered` as passing since the DB has no `reviewing` state. Chunks tab is disabled unless a specific unit is selected from the filter.
+
 ### March 14, 2026 — CLAUDE.md + FLUENTIA-SPEC.md added
 - What: Added project context files for Claude Code auto-read
 - Files: CLAUDE.md, FLUENTIA-SPEC.md

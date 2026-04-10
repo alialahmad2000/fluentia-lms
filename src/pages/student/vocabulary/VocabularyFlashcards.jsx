@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Search, Volume2, List, Layers, Filter, Lock, ChevronDown, Zap } from 'lucide-react'
+import { BookOpen, Search, Volume2, List, Layers, Filter, Lock, ChevronDown, Zap, Brain } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import FlashcardDeck from './components/FlashcardDeck'
@@ -12,6 +12,9 @@ import ScrambleGame from '../../../components/games/ScrambleGame'
 import FillBlankGame from '../../../components/games/FillBlankGame'
 import XPNotification from '../../../components/games/XPNotification'
 import { awardPracticeXP } from '../../../utils/xpManager'
+import ChunkSelector from '../../../components/vocabulary/ChunkSelector'
+import VocabularyQuiz from '../../../components/vocabulary/VocabularyQuiz'
+import { useVocabularyMastery } from '../../../hooks/useVocabularyMastery'
 
 // ─── Skeleton loaders ──────────────────────────────
 function FilterSkeleton() {
@@ -58,10 +61,14 @@ export default function VocabularyFlashcards() {
   const [selectedLevel, setSelectedLevel] = useState(null)
   const [selectedUnit, setSelectedUnit] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
-  const [viewMode, setViewMode] = useState('cards') // 'cards' | 'list' | 'games'
+  const [viewMode, setViewMode] = useState('cards') // 'cards' | 'list' | 'chunks' | 'games'
   const [activeGame, setActiveGame] = useState(null) // null | 'anki' | 'match' | 'speed' | 'scramble' | 'fill'
   const [gameWordCount, setGameWordCount] = useState(10)
   const [xpAwarded, setXpAwarded] = useState(0)
+
+  // Chunks + quiz state
+  const [activeChunk, setActiveChunk] = useState(null) // chunk object when practicing a specific chunk
+  const [quizState, setQuizState] = useState(null)     // { chunkWords, chunkIndex, title } or null
 
   const audioRef = useRef(null)
 
@@ -159,6 +166,37 @@ export default function VocabularyFlashcards() {
     return filtered
   }, [vocab, selectedLevel, selectedUnit, searchQuery])
 
+  // Find unit_id for the currently selected unit (needed for mastery + quiz attempts)
+  const selectedUnitId = useMemo(() => {
+    if (selectedUnit === 'all') return null
+    const unitNum = parseInt(selectedUnit, 10)
+    const match = vocab.find(
+      (v) =>
+        v.reading?.unit?.level_id === selectedLevel &&
+        v.reading?.unit?.unit_number === unitNum,
+    )
+    return match?.reading?.unit_id || null
+  }, [vocab, selectedLevel, selectedUnit])
+
+  const selectedUnitTheme = useMemo(() => {
+    if (!selectedUnitId) return null
+    const match = vocab.find((v) => v.reading?.unit_id === selectedUnitId)
+    return match?.reading?.unit?.theme_ar || null
+  }, [vocab, selectedUnitId])
+
+  const unitLabel = selectedUnitId
+    ? `الوحدة ${parseInt(selectedUnit, 10)}${selectedUnitTheme ? ' — ' + selectedUnitTheme : ''}`
+    : ''
+
+  // Mastery map for the current unit — required for chunk unlock state
+  const { masteryMap } = useVocabularyMastery(studentData?.id, selectedUnitId)
+
+  // Words belonging to the current unit, sorted by sort_order (already ordered from query)
+  const unitWords = useMemo(() => {
+    if (!selectedUnitId) return []
+    return vocab.filter((v) => v.reading?.unit_id === selectedUnitId)
+  }, [vocab, selectedUnitId])
+
   const audioCount = filteredVocab.filter((v) => v.audio_url).length
 
   const playWord = (url) => {
@@ -206,6 +244,22 @@ export default function VocabularyFlashcards() {
     <div className="space-y-8" dir="rtl">
       <XPNotification xp={xpAwarded} />
 
+      <AnimatePresence>
+        {quizState && (
+          <VocabularyQuiz
+            key={`${quizState.chunkIndex}_${quizState.chunkWords?.length || 0}`}
+            chunkWords={quizState.chunkWords}
+            unitWords={unitWords}
+            unitId={selectedUnitId}
+            studentId={studentData?.id}
+            chunkSize={quizState.chunkWords?.length || 10}
+            chunkIndex={quizState.chunkIndex}
+            title={quizState.title}
+            onClose={() => setQuizState(null)}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Header */}
       <div>
         <h1 className="text-page-title font-bold text-[var(--text-primary)]">المفردات</h1>
@@ -229,7 +283,14 @@ export default function VocabularyFlashcards() {
         <div className="relative">
           <select
             value={selectedUnit}
-            onChange={(e) => setSelectedUnit(e.target.value)}
+            onChange={(e) => {
+              setSelectedUnit(e.target.value)
+              setActiveChunk(null)
+              setQuizState(null)
+              if (e.target.value === 'all' && viewMode === 'chunks') {
+                setViewMode('cards')
+              }
+            }}
             className="h-10 pl-7 pr-3 rounded-xl text-sm font-medium appearance-none cursor-pointer bg-[var(--surface-raised)] border border-[var(--border-subtle)] text-[var(--text-primary)] focus:outline-none focus:border-sky-500/50"
           >
             <option value="all">كل الوحدات</option>
@@ -277,29 +338,39 @@ export default function VocabularyFlashcards() {
         )}
       </div>
 
-      {/* Mode toggle — 3 tabs */}
-      <div className="flex items-center gap-1 p-1 rounded-xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] w-fit">
+      {/* Mode toggle — 4 tabs */}
+      <div className="flex items-center gap-1 p-1 rounded-xl bg-[var(--surface-raised)] border border-[var(--border-subtle)] w-fit flex-wrap">
         {[
           { key: 'cards', label: 'بطاقات', icon: Layers },
           { key: 'list', label: 'قائمة', icon: List },
-          { key: 'games', label: 'تدريب', icon: Zap },
-        ].map(({ key, label, icon: Icon }) => (
-          <button
-            key={key}
-            onClick={() => {
-              setViewMode(key)
-              setActiveGame(null)
-            }}
-            className={`flex items-center gap-2 px-4 h-[44px] rounded-lg text-sm font-medium transition-colors ${
-              viewMode === key
-                ? 'bg-sky-500/20 text-sky-400'
-                : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
-            }`}
-          >
-            <Icon size={16} />
-            {label}
-          </button>
-        ))}
+          { key: 'chunks', label: 'دفعات', icon: Brain, requiresUnit: true },
+          { key: 'games', label: 'ألعاب', icon: Zap },
+        ].map(({ key, label, icon: Icon, requiresUnit }) => {
+          const disabled = requiresUnit && !selectedUnitId
+          return (
+            <button
+              key={key}
+              disabled={disabled}
+              title={disabled ? 'اختر وحدة محددة أولاً' : undefined}
+              onClick={() => {
+                if (disabled) return
+                setViewMode(key)
+                setActiveGame(null)
+                setActiveChunk(null)
+              }}
+              className={`flex items-center gap-2 px-4 h-[44px] rounded-lg text-sm font-medium transition-colors ${
+                viewMode === key
+                  ? 'bg-sky-500/20 text-sky-400'
+                  : disabled
+                    ? 'text-[var(--text-muted)] opacity-40 cursor-not-allowed'
+                    : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+              }`}
+            >
+              <Icon size={16} />
+              {label}
+            </button>
+          )
+        })}
       </div>
 
       {/* Content */}
@@ -312,6 +383,54 @@ export default function VocabularyFlashcards() {
         <FlashcardDeck words={filteredVocab} />
       ) : viewMode === 'list' ? (
         <VocabList words={filteredVocab} onPlayAudio={playWord} />
+      ) : viewMode === 'chunks' ? (
+        activeChunk ? (
+          <div>
+            <button
+              onClick={() => setActiveChunk(null)}
+              className="mb-4 text-sm text-sky-400 hover:text-sky-300 transition-colors"
+            >
+              ← العودة إلى الدفعات
+            </button>
+            <VocabularyPractice
+              words={activeChunk.words}
+              onComplete={async (stats) => {
+                const normalized = {
+                  score: stats?.mastered ?? stats?.correct ?? stats?.score ?? 0,
+                  total: stats?.total ?? activeChunk.words.length,
+                }
+                const xp = await awardPracticeXP(studentData?.id, 'vocab_anki', normalized)
+                if (xp > 0) {
+                  setXpAwarded(xp)
+                  setTimeout(() => setXpAwarded(0), 3000)
+                }
+                setActiveChunk(null)
+              }}
+              onBack={() => setActiveChunk(null)}
+            />
+          </div>
+        ) : (
+          <ChunkSelector
+            unitWords={unitWords}
+            masteryMap={masteryMap}
+            unitLabel={unitLabel}
+            onPractice={(chunk) => setActiveChunk(chunk)}
+            onQuiz={(chunk) =>
+              setQuizState({
+                chunkWords: chunk.words,
+                chunkIndex: chunk.index,
+                title: `اختبار الدفعة ${chunk.index + 1}`,
+              })
+            }
+            onFullQuiz={() =>
+              setQuizState({
+                chunkWords: unitWords,
+                chunkIndex: null,
+                title: `اختبار ${unitLabel}`,
+              })
+            }
+          />
+        )
       ) : !activeGame ? (
         <GameHub
           games={VOCAB_GAMES}
