@@ -1,13 +1,11 @@
 import { useState, useRef, useMemo, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, CheckCircle, Volume2, BookOpen, PenLine, Headphones } from 'lucide-react'
+import { X, CheckCircle, Volume2, BookOpen, PenLine, Headphones, Maximize2, AlertTriangle } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { toast } from '../ui/FluentiaToast'
 import { safeCelebrate } from '../../lib/celebrations'
 import { emitXP } from '../ui/XPFloater'
-import WordRelationships from './WordRelationships'
-import WordFamilySection from './WordFamilySection'
-import PronunciationAlert from './PronunciationAlert'
+import WordDetailModal from './WordDetailModal'
 
 function shuffle(arr) {
   const a = [...arr]
@@ -26,6 +24,8 @@ const EXERCISES = [
 
 export default function WordExerciseModal({ word, unitWords, mastery, studentId, isOpen, onClose, onMasteryUpdate }) {
   const [activeExercise, setActiveExercise] = useState(null)
+  const [detailOpen, setDetailOpen] = useState(false)
+  const [detailInitialTab, setDetailInitialTab] = useState('meaning')
 
   // Hooks must be called before any conditional return (React rules of hooks)
   const distractors = useMemo(() => {
@@ -140,6 +140,7 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
   }
 
   return (
+    <>
     <AnimatePresence>
       <motion.div
         initial={{ opacity: 0 }}
@@ -192,13 +193,17 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
               />
             ) : (
               <>
-                {word.pronunciation_alert && (
-                  <PronunciationAlert
-                    alert={word.pronunciation_alert}
-                    word={word.word}
-                    audioUrl={word.audio_url}
-                    compact
-                  />
+                {/* High-severity pronunciation warning — compact, opens النطق tab */}
+                {word.pronunciation_alert?.severity === 'high' && (
+                  <button
+                    type="button"
+                    onClick={() => { setDetailInitialTab('pronunciation'); setDetailOpen(true) }}
+                    className="w-full flex items-center gap-2 px-3 py-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-['Tajawal'] text-right hover:bg-amber-500/15 transition-colors"
+                  >
+                    <AlertTriangle size={14} className="shrink-0 animate-pulse" />
+                    <span className="flex-1">انتبه — فيه تنبيه نطق لهذه الكلمة</span>
+                    <span className="text-amber-400 text-[11px]">عرض</span>
+                  </button>
                 )}
 
                 {/* Exercise list */}
@@ -239,28 +244,29 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
                   </div>
                 )}
 
-                {((word.synonyms && word.synonyms.length > 0) ||
-                  (word.antonyms && word.antonyms.length > 0)) && (
-                  <div className="pt-2 border-t border-white/5">
-                    <WordRelationships
-                      synonyms={word.synonyms || []}
-                      antonyms={word.antonyms || []}
-                      studentId={studentId}
-                    />
-                  </div>
-                )}
-
-                {Array.isArray(word.word_family) && word.word_family.length > 0 && (
-                  <div className="pt-2 border-t border-white/5">
-                    <WordFamilySection wordFamily={word.word_family} studentId={studentId} />
-                  </div>
-                )}
+                {/* Single CTA → opens WordDetailModal with all enrichments tabbed */}
+                <button
+                  type="button"
+                  onClick={() => { setDetailInitialTab('meaning'); setDetailOpen(true) }}
+                  className="w-full mt-2 flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-sm font-['Tajawal'] text-white/80 transition-colors min-h-[48px]"
+                >
+                  <Maximize2 size={15} className="text-sky-300" />
+                  <span>عرض كل التفاصيل (المعنى، المرادفات، العائلة، النطق)</span>
+                </button>
               </>
             )}
           </div>
         </motion.div>
       </motion.div>
     </AnimatePresence>
+    <WordDetailModal
+      word={word}
+      studentId={studentId}
+      isOpen={detailOpen}
+      onClose={() => setDetailOpen(false)}
+      initialTab={detailInitialTab}
+    />
+    </>
   )
 }
 

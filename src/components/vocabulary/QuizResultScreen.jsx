@@ -1,7 +1,7 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Trophy, Clock, Zap, RefreshCw, X } from 'lucide-react'
-import WordRelationships from './WordRelationships'
-import PronunciationAlert from './PronunciationAlert'
+import { Trophy, Clock, Zap, RefreshCw, X, Maximize2, AlertTriangle } from 'lucide-react'
+import WordDetailModal from './WordDetailModal'
 
 function formatDuration(seconds) {
   if (!seconds) return '—'
@@ -25,6 +25,17 @@ export default function QuizResultScreen({
   onReviewWord,
   studentId,
 }) {
+  const [detailWord, setDetailWord] = useState(null)
+  const [detailInitialTab, setDetailInitialTab] = useState('meaning')
+
+  const openDetail = (word, tab = 'meaning') => {
+    setDetailInitialTab(tab)
+    setDetailWord(word)
+    if (typeof onReviewWord === 'function') {
+      try { onReviewWord(word) } catch {}
+    }
+  }
+
   const ratio = totalQuestions > 0 ? correctCount / totalQuestions : 0
   const percent = Math.round(ratio * 100)
 
@@ -98,47 +109,37 @@ export default function QuizResultScreen({
           </h3>
           <div className="space-y-2.5">
             {wrongWords.map((w) => {
-              const hasRels =
-                (w.synonyms && w.synonyms.length > 0) || (w.antonyms && w.antonyms.length > 0)
+              const hasHighAlert = w.pronunciation_alert?.severity === 'high'
               return (
-                <div
+                <button
                   key={w.id}
-                  className="rounded-lg bg-[var(--surface-raised)] border border-[var(--border-subtle)] overflow-hidden"
+                  onClick={() => openDetail(w, 'meaning')}
+                  className="w-full flex items-center gap-3 px-3 py-3 rounded-lg bg-[var(--surface-raised)] border border-[var(--border-subtle)] hover:border-sky-400/30 hover:bg-white/5 transition-colors text-right"
                 >
-                  <button
-                    onClick={() => onReviewWord?.(w)}
-                    className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-white/5 transition-colors text-right"
+                  <span
+                    className="font-semibold text-[var(--text-primary)] min-w-[100px] text-left"
+                    dir="ltr"
                   >
+                    {w.word}
+                  </span>
+                  <span className="flex-1 text-xs text-[var(--text-muted)] truncate text-right">
+                    {w.definition_ar}
+                  </span>
+                  {hasHighAlert && (
                     <span
-                      className="font-semibold text-[var(--text-primary)] min-w-[100px] text-left"
-                      dir="ltr"
+                      className="w-7 h-7 rounded-full bg-amber-500/15 text-amber-400 flex items-center justify-center"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        openDetail(w, 'pronunciation')
+                      }}
+                      role="button"
+                      aria-label="تنبيه نطق"
                     >
-                      {w.word}
+                      <AlertTriangle size={13} className="animate-pulse" />
                     </span>
-                    <span className="flex-1 text-xs text-[var(--text-muted)] truncate">
-                      {w.definition_ar}
-                    </span>
-                  </button>
-                  {hasRels && (
-                    <div className="px-3 pb-3 pt-1 border-t border-white/5">
-                      <WordRelationships
-                        synonyms={w.synonyms || []}
-                        antonyms={w.antonyms || []}
-                        studentId={studentId}
-                      />
-                    </div>
                   )}
-                  {w.pronunciation_alert && (
-                    <div className="px-3 pb-3 pt-1 border-t border-white/5">
-                      <PronunciationAlert
-                        alert={w.pronunciation_alert}
-                        word={w.word}
-                        audioUrl={w.audio_url}
-                        compact
-                      />
-                    </div>
-                  )}
-                </div>
+                  <Maximize2 size={14} className="text-[var(--text-muted)] shrink-0" />
+                </button>
               )
             })}
           </div>
@@ -161,6 +162,14 @@ export default function QuizResultScreen({
           إغلاق
         </button>
       </div>
+
+      <WordDetailModal
+        word={detailWord}
+        studentId={studentId}
+        isOpen={!!detailWord}
+        onClose={() => setDetailWord(null)}
+        initialTab={detailInitialTab}
+      />
     </div>
   )
 }

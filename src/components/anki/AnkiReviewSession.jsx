@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Volume2, X } from 'lucide-react'
+import { Volume2, X, Maximize2, AlertTriangle } from 'lucide-react'
 import { useAnkiSession } from '../../hooks/useAnkiSession'
 import { Rating, formatInterval } from '../../lib/fsrs'
-import WordRelationships from '../vocabulary/WordRelationships'
-import WordFamilySection from '../vocabulary/WordFamilySection'
-import PronunciationAlert from '../vocabulary/PronunciationAlert'
+import WordDetailModal from '../vocabulary/WordDetailModal'
 import AnkiSessionComplete from './AnkiSessionComplete'
 
 /**
@@ -14,6 +12,8 @@ import AnkiSessionComplete from './AnkiSessionComplete'
 export default function AnkiReviewSession({ studentId, settings, onExit, onSettingsChanged }) {
   const { loading, error, current, stats, previews, rate } = useAnkiSession(studentId, settings)
   const [flipped, setFlipped] = useState(false)
+  const [detailOpen, setDetailOpen] = useState(false)
+  const [detailInitialTab, setDetailInitialTab] = useState('meaning')
 
   useEffect(() => {
     setFlipped(false)
@@ -148,27 +148,28 @@ export default function AnkiReviewSession({ studentId, settings, onExit, onSetti
               </>
             ) : (
               <div className="w-full space-y-3 text-center">
-                <div className="text-3xl max-sm:text-2xl font-bold text-slate-100" dir="ltr">
-                  {vocab.word}
-                </div>
-                {vocab.pronunciation_alert?.severity === 'high' && (
-                  <div className="text-right">
-                    <PronunciationAlert
-                      alert={vocab.pronunciation_alert}
-                      word={vocab.word}
-                      audioUrl={vocab.audio_url}
-                      compact
-                    />
+                <div className="flex items-center justify-center gap-2">
+                  <div className="text-3xl max-sm:text-2xl font-bold text-slate-100" dir="ltr">
+                    {vocab.word}
                   </div>
-                )}
+                  {vocab.pronunciation_alert?.severity === 'high' && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setDetailInitialTab('pronunciation')
+                        setDetailOpen(true)
+                      }}
+                      className="w-8 h-8 rounded-full bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 flex items-center justify-center transition-colors"
+                      aria-label="تنبيه نطق"
+                    >
+                      <AlertTriangle size={15} className="animate-pulse" />
+                    </button>
+                  )}
+                </div>
                 {vocab.definition_ar && (
                   <div className="text-lg text-emerald-300 font-['Tajawal']">
                     {vocab.definition_ar}
-                  </div>
-                )}
-                {vocab.definition_en && (
-                  <div className="text-sm text-slate-400" dir="ltr">
-                    {vocab.definition_en}
                   </div>
                 )}
                 {vocab.example_sentence && (
@@ -176,31 +177,20 @@ export default function AnkiReviewSession({ studentId, settings, onExit, onSetti
                     {vocab.example_sentence}
                   </p>
                 )}
-                {(vocab.synonyms?.length > 0 || vocab.antonyms?.length > 0) && (
-                  <div className="pt-2">
-                    <WordRelationships
-                      synonyms={vocab.synonyms || []}
-                      antonyms={vocab.antonyms || []}
-                      studentId={studentId}
-                    />
-                  </div>
-                )}
-                {Array.isArray(vocab.word_family) && vocab.word_family.length > 0 && (
-                  <div className="pt-2">
-                    <WordFamilySection wordFamily={vocab.word_family} studentId={studentId} />
-                  </div>
-                )}
-                {vocab.pronunciation_alert &&
-                  vocab.pronunciation_alert.severity !== 'high' && (
-                    <div className="pt-2 text-right">
-                      <PronunciationAlert
-                        alert={vocab.pronunciation_alert}
-                        word={vocab.word}
-                        audioUrl={vocab.audio_url}
-                        compact
-                      />
-                    </div>
-                  )}
+                <div className="pt-2 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setDetailInitialTab('meaning')
+                      setDetailOpen(true)
+                    }}
+                    className="inline-flex items-center gap-1.5 px-4 h-10 rounded-full bg-slate-700/60 hover:bg-slate-700 text-slate-100 text-sm font-['Tajawal'] font-semibold border border-slate-600/50 transition-colors"
+                  >
+                    <Maximize2 size={14} />
+                    المزيد
+                  </button>
+                </div>
               </div>
             )}
           </motion.div>
@@ -243,6 +233,14 @@ export default function AnkiReviewSession({ studentId, settings, onExit, onSetti
           أظهر الترجمة
         </button>
       )}
+
+      <WordDetailModal
+        word={vocab}
+        studentId={studentId}
+        isOpen={detailOpen}
+        onClose={() => setDetailOpen(false)}
+        initialTab={detailInitialTab}
+      />
     </div>
   )
 }

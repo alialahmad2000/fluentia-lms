@@ -1,9 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Volume2, CheckCircle, RotateCcw, ArrowRight } from 'lucide-react'
-import WordRelationships from '../../../../components/vocabulary/WordRelationships'
-import WordFamilySection from '../../../../components/vocabulary/WordFamilySection'
-import PronunciationAlert from '../../../../components/vocabulary/PronunciationAlert'
+import { Volume2, CheckCircle, RotateCcw, ArrowRight, Maximize2, AlertTriangle } from 'lucide-react'
+import WordDetailModal from '../../../../components/vocabulary/WordDetailModal'
 
 const POS_LABELS = {
   noun: 'اسم',
@@ -35,6 +33,8 @@ export default function VocabularyPractice({ words, onComplete, onBack, studentI
   const [isComplete, setIsComplete] = useState(false)
   const [direction, setDirection] = useState(1)
   const [showButtons, setShowButtons] = useState(false)
+  const [detailOpen, setDetailOpen] = useState(false)
+  const [detailInitialTab, setDetailInitialTab] = useState('meaning')
   const audioRef = useRef(null)
 
   // Initialize deck
@@ -270,9 +270,25 @@ export default function VocabularyPractice({ words, onComplete, onBack, studentI
                   border: '1px solid var(--border-subtle)',
                 }}
               >
-                <span className="text-[28px] sm:text-[32px] font-bold text-[var(--text-primary)]">
-                  {currentWord.word}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-[28px] sm:text-[32px] font-bold text-[var(--text-primary)]">
+                    {currentWord.word}
+                  </span>
+                  {currentWord.pronunciation_alert?.severity === 'high' && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setDetailInitialTab('pronunciation')
+                        setDetailOpen(true)
+                      }}
+                      className="w-7 h-7 rounded-full bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 flex items-center justify-center transition-colors"
+                      aria-label="تنبيه نطق"
+                    >
+                      <AlertTriangle size={14} className="animate-pulse" />
+                    </button>
+                  )}
+                </div>
 
                 {currentWord.part_of_speech && (
                   <span className="px-3 py-1 rounded-full text-xs font-medium bg-[rgba(255,255,255,0.08)] text-[var(--text-muted)]">
@@ -321,46 +337,29 @@ export default function VocabularyPractice({ words, onComplete, onBack, studentI
                   </p>
                 )}
 
-                {currentWord.pronunciation_alert && (
-                  <div className="w-full max-w-[95%]">
-                    <PronunciationAlert
-                      alert={currentWord.pronunciation_alert}
-                      word={currentWord.word}
-                      audioUrl={currentWord.audio_url}
-                      compact
-                    />
-                  </div>
-                )}
-
-                {((currentWord.synonyms && currentWord.synonyms.length > 0) ||
-                  (currentWord.antonyms && currentWord.antonyms.length > 0)) && (
-                  <div className="w-full max-w-[95%]">
-                    <WordRelationships
-                      synonyms={currentWord.synonyms || []}
-                      antonyms={currentWord.antonyms || []}
-                      studentId={studentId}
-                    />
-                  </div>
-                )}
-
-                {Array.isArray(currentWord.word_family) && currentWord.word_family.length > 0 && (
-                  <div className="w-full max-w-[95%]">
-                    <WordFamilySection
-                      wordFamily={currentWord.word_family}
-                      studentId={studentId}
-                    />
-                  </div>
-                )}
-
-                {currentWord.audio_url && (
+                <div className="flex items-center gap-2">
+                  {currentWord.audio_url && (
+                    <button
+                      onClick={playAudio}
+                      className="w-11 h-11 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center hover:bg-sky-500/30 transition-colors"
+                      aria-label="تشغيل النطق"
+                    >
+                      <Volume2 size={20} />
+                    </button>
+                  )}
                   <button
-                    onClick={playAudio}
-                    className="w-11 h-11 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center hover:bg-sky-500/30 transition-colors"
-                    aria-label="تشغيل النطق"
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setDetailInitialTab('meaning')
+                      setDetailOpen(true)
+                    }}
+                    className="inline-flex items-center gap-1.5 px-4 h-11 rounded-full bg-white/5 hover:bg-white/10 text-[var(--text-primary)] text-sm font-semibold border border-[var(--border-subtle)] transition-colors"
                   >
-                    <Volume2 size={20} />
+                    <Maximize2 size={14} />
+                    المزيد
                   </button>
-                )}
+                </div>
               </div>
             </motion.div>
           </div>
@@ -400,6 +399,14 @@ export default function VocabularyPractice({ words, onComplete, onBack, studentI
           )}
         </AnimatePresence>
       </div>
+
+      <WordDetailModal
+        word={currentWord}
+        studentId={studentId}
+        isOpen={detailOpen}
+        onClose={() => setDetailOpen(false)}
+        initialTab={detailInitialTab}
+      />
     </div>
   )
 }
