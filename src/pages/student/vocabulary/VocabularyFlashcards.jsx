@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Search, Volume2, List, Layers, Filter, Lock, ChevronDown, Zap, Brain } from 'lucide-react'
+import { BookOpen, Search, Volume2, List, Layers, Filter, Lock, ChevronDown, Zap, Brain, Flame } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import FlashcardDeck from './components/FlashcardDeck'
@@ -14,6 +14,7 @@ import XPNotification from '../../../components/games/XPNotification'
 import { awardPracticeXP } from '../../../utils/xpManager'
 import ChunkSelector from '../../../components/vocabulary/ChunkSelector'
 import VocabularyQuiz from '../../../components/vocabulary/VocabularyQuiz'
+import AnkiContainer from '../../../components/anki/AnkiContainer'
 import { useVocabularyMastery } from '../../../hooks/useVocabularyMastery'
 
 // ─── Skeleton loaders ──────────────────────────────
@@ -61,7 +62,7 @@ export default function VocabularyFlashcards() {
   const [selectedLevel, setSelectedLevel] = useState(null)
   const [selectedUnit, setSelectedUnit] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
-  const [viewMode, setViewMode] = useState('cards') // 'cards' | 'list' | 'chunks' | 'games'
+  const [viewMode, setViewMode] = useState('cards') // 'cards' | 'list' | 'chunks' | 'games' | 'anki'
   const [activeGame, setActiveGame] = useState(null) // null | 'anki' | 'match' | 'speed' | 'scramble' | 'fill'
   const [gameWordCount, setGameWordCount] = useState(10)
   const [xpAwarded, setXpAwarded] = useState(0)
@@ -344,6 +345,7 @@ export default function VocabularyFlashcards() {
           { key: 'cards', label: 'بطاقات', icon: Layers },
           { key: 'list', label: 'قائمة', icon: List },
           { key: 'chunks', label: 'دفعات', icon: Brain, requiresUnit: true },
+          { key: 'anki', label: 'مراجعة يومية', icon: Flame },
           { key: 'games', label: 'ألعاب', icon: Zap },
         ].map(({ key, label, icon: Icon, requiresUnit }) => {
           const disabled = requiresUnit && !selectedUnitId
@@ -374,7 +376,9 @@ export default function VocabularyFlashcards() {
       </div>
 
       {/* Content */}
-      {filteredVocab.length === 0 ? (
+      {viewMode === 'anki' ? (
+        <AnkiContainer studentId={studentData?.id} onBack={() => setViewMode('cards')} />
+      ) : filteredVocab.length === 0 ? (
         <div className="glass-card p-12 text-center">
           <BookOpen size={40} className="mx-auto text-[var(--text-muted)] opacity-40 mb-4" />
           <p className="text-[var(--text-muted)]">لا توجد مفردات لهذه الوحدة بعد</p>
