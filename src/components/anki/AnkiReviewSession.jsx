@@ -5,6 +5,7 @@ import { useAnkiSession } from '../../hooks/useAnkiSession'
 import { Rating, formatInterval } from '../../lib/fsrs'
 import WordRelationships from '../vocabulary/WordRelationships'
 import WordFamilySection from '../vocabulary/WordFamilySection'
+import PronunciationAlert from '../vocabulary/PronunciationAlert'
 import AnkiSessionComplete from './AnkiSessionComplete'
 
 /**
@@ -150,6 +151,16 @@ export default function AnkiReviewSession({ studentId, settings, onExit, onSetti
                 <div className="text-3xl max-sm:text-2xl font-bold text-slate-100" dir="ltr">
                   {vocab.word}
                 </div>
+                {vocab.pronunciation_alert?.severity === 'high' && (
+                  <div className="text-right">
+                    <PronunciationAlert
+                      alert={vocab.pronunciation_alert}
+                      word={vocab.word}
+                      audioUrl={vocab.audio_url}
+                      compact
+                    />
+                  </div>
+                )}
                 {vocab.definition_ar && (
                   <div className="text-lg text-emerald-300 font-['Tajawal']">
                     {vocab.definition_ar}
@@ -179,6 +190,17 @@ export default function AnkiReviewSession({ studentId, settings, onExit, onSetti
                     <WordFamilySection wordFamily={vocab.word_family} studentId={studentId} />
                   </div>
                 )}
+                {vocab.pronunciation_alert &&
+                  vocab.pronunciation_alert.severity !== 'high' && (
+                    <div className="pt-2 text-right">
+                      <PronunciationAlert
+                        alert={vocab.pronunciation_alert}
+                        word={vocab.word}
+                        audioUrl={vocab.audio_url}
+                        compact
+                      />
+                    </div>
+                  )}
               </div>
             )}
           </motion.div>

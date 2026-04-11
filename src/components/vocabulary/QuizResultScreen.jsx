@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Trophy, Clock, Zap, RefreshCw, X } from 'lucide-react'
 import WordRelationships from './WordRelationships'
+import PronunciationAlert from './PronunciationAlert'
 
 function formatDuration(seconds) {
   if (!seconds) return '—'
@@ -124,6 +125,16 @@ export default function QuizResultScreen({
                         synonyms={w.synonyms || []}
                         antonyms={w.antonyms || []}
                         studentId={studentId}
+                      />
+                    </div>
+                  )}
+                  {w.pronunciation_alert && (
+                    <div className="px-3 pb-3 pt-1 border-t border-white/5">
+                      <PronunciationAlert
+                        alert={w.pronunciation_alert}
+                        word={w.word}
+                        audioUrl={w.audio_url}
+                        compact
                       />
                     </div>
                   )}

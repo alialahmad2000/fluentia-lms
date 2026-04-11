@@ -7,6 +7,7 @@ import { safeCelebrate } from '../../lib/celebrations'
 import { emitXP } from '../ui/XPFloater'
 import WordRelationships from './WordRelationships'
 import WordFamilySection from './WordFamilySection'
+import PronunciationAlert from './PronunciationAlert'
 
 function shuffle(arr) {
   const a = [...arr]
@@ -191,6 +192,15 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
               />
             ) : (
               <>
+                {word.pronunciation_alert && (
+                  <PronunciationAlert
+                    alert={word.pronunciation_alert}
+                    word={word.word}
+                    audioUrl={word.audio_url}
+                    compact
+                  />
+                )}
+
                 {/* Exercise list */}
                 {EXERCISES.map(ex => {
                   const fieldKey = `${ex.key}_exercise_passed`

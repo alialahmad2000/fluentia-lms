@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Volume2, CheckCircle, RotateCcw, ArrowRight } from 'lucide-react'
 import WordRelationships from '../../../../components/vocabulary/WordRelationships'
 import WordFamilySection from '../../../../components/vocabulary/WordFamilySection'
+import PronunciationAlert from '../../../../components/vocabulary/PronunciationAlert'
 
 const POS_LABELS = {
   noun: 'اسم',
@@ -318,6 +319,17 @@ export default function VocabularyPractice({ words, onComplete, onBack, studentI
                   <p className="text-sm italic text-[var(--text-secondary)] text-center max-w-[90%] leading-relaxed">
                     {renderExample(currentWord.example_sentence, currentWord.word)}
                   </p>
+                )}
+
+                {currentWord.pronunciation_alert && (
+                  <div className="w-full max-w-[95%]">
+                    <PronunciationAlert
+                      alert={currentWord.pronunciation_alert}
+                      word={currentWord.word}
+                      audioUrl={currentWord.audio_url}
+                      compact
+                    />
+                  </div>
                 )}
 
                 {((currentWord.synonyms && currentWord.synonyms.length > 0) ||
