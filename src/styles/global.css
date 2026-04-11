@@ -40,13 +40,17 @@ body::after {
     radial-gradient(ellipse 60% 50% at 50% 100%, rgba(251, 191, 36, 0.015), transparent 40%),
     radial-gradient(ellipse 40% 30% at 70% 60%, rgba(52, 211, 153, 0.012), transparent 30%);
 }
+/* Pearl Aurora — iridescent warm mesh: peach · lavender · rose · mint · powder-blue.
+   Significantly more present than the old "frost" mesh — this is what you actually
+   feel across the page. Opacities tuned so card contrast stays AAA. */
 .light body::after,
 [data-theme="frost-white"] body::after {
   background:
-    radial-gradient(ellipse 100% 55% at 15% 0%, rgba(2, 132, 199, 0.09), transparent 60%),
-    radial-gradient(ellipse 90% 70% at 95% 15%, rgba(109, 40, 217, 0.055), transparent 55%),
-    radial-gradient(ellipse 70% 60% at 50% 100%, rgba(180, 83, 9, 0.04), transparent 50%),
-    radial-gradient(ellipse 50% 40% at 75% 55%, rgba(4, 120, 87, 0.03), transparent 45%);
+    radial-gradient(ellipse 75% 55% at 8% -5%, rgba(251, 191, 134, 0.22), transparent 62%),
+    radial-gradient(ellipse 65% 55% at 100% 10%, rgba(196, 160, 255, 0.18), transparent 60%),
+    radial-gradient(ellipse 85% 65% at 50% 105%, rgba(255, 186, 196, 0.15), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 78% 55%, rgba(134, 239, 220, 0.11), transparent 55%),
+    radial-gradient(ellipse 60% 45% at 18% 72%, rgba(173, 216, 255, 0.1), transparent 55%);
 }
 [data-theme="aurora"] body::after {
   background:

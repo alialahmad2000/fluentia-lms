@@ -317,6 +317,27 @@ This is how future sessions know what happened.
 - Status: Complete — `npm run build` succeeds (24.7s, 0 errors)
 - Notes: This is a diagnostic fix, not a root-cause fix. Once Waad retries on the new build she'll either (a) get past the crash thanks to one of the recent hardening changes, or (b) see the real error inline + the `section_crash` event will land in `analytics_events` so we can identify the exact crash site. The `activityTracker`-vs-direct-insert divergence matters: her missing events suggest the tracker has a userId-init race for some sessions, so for diagnostic logging we must go straight through supabase-js.
 
+### April 12, 2026 — Light Theme Redesign: "Pearl Aurora" (warm premium replaces cold frost)
+- What: User said the existing "Frost White" light theme felt "جداً بايخ" (super bland), "فاقع بزيادة" (too harsh/bright) and "غير جذاب اطلاقا" (not attractive at all). Completely redesigned the light-theme token block and the `body::after` gradient mesh into a warm, iridescent "Pearl Aurora" palette. All token names are unchanged so no component code was touched — the entire visual overhaul lives in two CSS files.
+- **What changed (design-tokens.css, `[data-theme="frost-white"]` block):**
+  - Surfaces: cold slate-tinted whites (`#f6f8fb`, `#eef1f6`) → **warm pearl/ivory** (`#faf6ed` page, `#efe8dc` void, `#f5efe0` hover)
+  - Cards: pure `#ffffff` with a barely-there warm tint on hover (`#fffdf6`) / active (`#fffbec`)
+  - Borders: `rgba(15, 23, 42, …)` (cold slate) → `rgba(120, 72, 20, …)` (warm umber)
+  - Text: `#0b1220`/`#334155`/`#64748b` (cold) → `#1c150c`/`#3d342a`/`#7d6f5e` (warm charcoal)
+  - Accents: deeper jewel tones — `sky #0284c7` → `#0e7490` deep teal; `gold #b45309` → `#a16207` richer amber; `violet #6d28d9` → `#7c3aed`; `emerald #047857` → `#0f766e`
+  - **Shadows (biggest cue for premium):** all shadow color stops switched from `rgba(15, 23, 42, …)` cold-gray to `rgba(120, 72, 20, …)` warm-umber — this is the single thing that transforms "paper" into "pearl". Shadow radii also bumped slightly (`md: 4px→6px blur`, `lg: 12px→16px`, `xl: 24px→32px`) for more depth.
+  - Glow shadows: each brand glow now uses its own jewel-tone color at higher opacity (0.18-0.20 vs 0.12-0.14)
+  - Hero gradient: was `#ffffff → #f8fafc → #f1f5f9` (flat gray wash) → now `#fff9ec → #fef1d8 → #fbe6e2 → #f0e5ff` (peach → rose → lavender iridescent wash)
+  - Input focus ring: sky blue → deep teal (`#0e7490`)
+- **What changed (global.css, `.light body::after` mesh):**
+  - Old mesh: 4 cold radial stops (sky blue 0.09 / violet 0.055 / amber 0.04 / emerald 0.03)
+  - New mesh: 5 warm iridescent stops (**peach 0.22** / **lavender 0.18** / **rose 0.15** / mint 0.11 / powder-blue 0.10) — much more present, visually felt without hurting AAA contrast (mesh is fixed and behind cards, cards are still opaque white)
+- Files: `src/styles/design-tokens.css`, `src/styles/global.css`
+- DB: None
+- Edge Functions: None
+- Status: Complete — `npm run build` succeeds (23.9s, 0 errors). Theme is still keyed on `[data-theme="frost-white"]` so `themeStore` and the `ThemeToggle` continue to work unchanged.
+- Notes: The name "Frost White" is now a misnomer (the theme looks like Pearl Aurora, not frost), but I deliberately left the CSS selector as `frost-white` to avoid touching the theme store / toggle / persisted user preferences. If we want the name to reflect the look, a follow-up should add `[data-theme="pearl-aurora"]` as an alias and update the ThemeToggle labels — but that's cosmetic and requires DB+component coordination.
+
 ### April 12, 2026 — ROOT CAUSE: `profile is not defined` Crashing Writing Tab for ALL Students
 - What: Immediately after the diagnostic `SectionErrorBoundary` (previous entry) shipped, Waad retried and the inline error card surfaced the real crash: `ReferenceError: profile is not defined`. This wasn't Waad-specific — it was breaking the Writing tab for **every student** who tried to open it since commit `9f0b12d` landed on 2026-04-11 (writing assistant + WordCountStatus banner). Many students had quietly reported that "writing and speaking sections don't show after clicking" — speaking was never actually broken, but when Writing crashed the route-level error boundary took down the whole unit page, so it *looked* like the entire unit was dead.
 - **Root cause:** In `src/pages/student/curriculum/tabs/WritingTab.jsx` the inner `WritingTask` sub-component referenced `profile?.id` inside `handleSubmit`'s body AND again inside the `useCallback` deps array, but `profile` was only destructured in the OUTER `WritingTab` component (line 34: `const { profile, studentData } = useAuthStore()`) and was never passed down to `WritingTask` as a prop — only `studentId={profile?.id}` was passed. Because the deps array is evaluated on every render, the `ReferenceError` fired immediately when Writing tab mounted, before any click or submit. Any student opening Writing was instantly crashed.
