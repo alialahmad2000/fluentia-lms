@@ -13,7 +13,7 @@ Rewrite reading passages that fail length/FKGL/vocabulary targets. Process **one
 `C:\Users\Dr. Ali\Desktop\fluentia-lms`
 
 ## Mandatory References
-- `PHASE-2-CLEANUP/anti-mistake-playbook.md` -- Rules 3, 4, 12, 13, 14, 15
+- `PHASE-2-CLEANUP/anti-mistake-playbook.md` -- Rules 3, 4, 12, 13, 14, 15, 16
 - `CURRICULUM-QUALITY-AUDIT-REPORT.md` -- current passage data
 - `PHASE-2-CLEANUP/13-FIX-schema.json` -- verified table/column names
 
@@ -93,18 +93,74 @@ FROM curriculum_readings WHERE unit_id = $unit_id ORDER BY reading_label;
 -- Expect 2 passages: Reading A, Reading B
 ```
 
-### Phase A.5 -- Student Work Protection (L1+ only)
-```sql
--- Check if students have progress on these readings
-SELECT COUNT(*) FROM student_reading_progress
-WHERE reading_id IN ($passage_ids);
-```
-If count > 0:
-- Snapshot student state before modifications
-- After rewrite, preserve student completion status
-- Mark with auto-completion marker
+### Phase A.5 — Student Work Protection (L1/L3 ONLY)
 
-**L0 skips this phase (zero students).**
+**Skip this phase for L0, L2, L4, L5 (zero students — no data to protect).**
+
+**Philosophy (Ali's explicit policy):**
+- 🔴 Writing + Speaking = CREATIVE WORK → never delete, never touch (they use `writing_id`/`speaking_id`, not `reading_id` — NOT affected by passage rewrites)
+- 🟡 Comprehension = MECHANICAL WORK → if student completed it, auto-complete the new version on their behalf so they don't see their progress erased
+
+**Step 1: Check for student completions on this unit's passages**
+
+```sql
+SELECT scp.id, scp.student_id, scp.reading_id, scp.section_type,
+       scp.status, scp.score, scp.answers, scp.completed_at,
+       scp.time_spent_seconds
+FROM student_curriculum_progress scp
+WHERE scp.reading_id IN ($passage_ids)
+AND scp.section_type = 'comprehension'
+AND scp.status = 'completed';
+```
+
+If count = 0 → no protection needed, proceed to Phase B.
+
+If count > 0 → **protection required.** Cache these records as `$protected_records`. Log:
+```
+[PROTECTION] L<X>-U<N>: <count> student completion records found for <N> students
+```
+
+**Step 2: After Phase E rewrites questions (but BEFORE Phase F commits)**
+
+For each `$protected_record`:
+1. Read the NEW questions for this passage (from Phase E output)
+2. Build a new `answers` JSONB object with the correct answer for each new question:
+   ```json
+   {
+     "<new_question_id_1>": "<correct_answer_1>",
+     "<new_question_id_2>": "<correct_answer_2>",
+     ...
+   }
+   ```
+   (Match the format of the student's original `answers` JSONB — check a sample record first)
+
+3. Inside the same Phase F transaction, UPDATE the student's progress:
+   ```sql
+   UPDATE student_curriculum_progress
+   SET answers = $new_correct_answers::jsonb,
+       updated_at = NOW()
+   WHERE id = $protected_record_id
+   RETURNING id;
+   -- Rowcount MUST be 1
+   ```
+
+**Step 3: Preserve everything else untouched**
+- `score` → keep original (student earned it)
+- `completed_at` → keep original (reflects when student actually did it)
+- `time_spent_seconds` → keep original
+- `status` → keep 'completed'
+- `ai_feedback` → keep original (if any)
+
+**Step 4: Verify after commit**
+```sql
+SELECT COUNT(*) FROM student_curriculum_progress
+WHERE reading_id IN ($passage_ids)
+AND section_type = 'comprehension'
+AND status = 'completed';
+-- Must equal original count from Step 1
+```
+
+If count changed → **ABORT remaining units and report to Ali.**
 
 ### Phase B -- Analyze Each Passage
 Same FKGL/word count/OOV analysis as V1. Use `passage_content->'paragraphs'` to extract text.
@@ -144,6 +200,11 @@ SET passage_content = $new_content::jsonb,
     updated_at = NOW()
 WHERE id = $passage_id
 RETURNING id;
+-- ASSERTION (Rule 16): If rowcount = 0, this means the target row doesn't exist.
+-- This is the EXACT bug that caused V1 to silently skip 120 questions.
+-- If ANY update returns 0 rows → ROLLBACK this passage and log:
+--   "[ROWCOUNT FAIL] passage_id=X, table=curriculum_readings, expected=1, got=0"
+-- Then SKIP this passage and continue to next. Do NOT silently succeed.
 
 -- Update each question
 UPDATE curriculum_comprehension_questions
@@ -152,6 +213,24 @@ SET question_en = $new_q,
     choices = $new_choices::jsonb
 WHERE id = $question_id
 RETURNING id;
+-- ASSERTION (Rule 16): If rowcount = 0, this means the target row doesn't exist.
+-- This is the EXACT bug that caused V1 to silently skip 120 questions.
+-- If ANY update returns 0 rows → ROLLBACK this passage and log:
+--   "[ROWCOUNT FAIL] passage_id=X, table=curriculum_comprehension_questions, expected=1, got=0"
+-- Then SKIP this passage and continue to next. Do NOT silently succeed.
+
+-- Student Work Protection (L1/L3 only — from Phase A.5)
+-- For each $protected_record cached in Phase A.5 Step 1:
+UPDATE student_curriculum_progress
+SET answers = $new_correct_answers::jsonb,
+    updated_at = NOW()
+WHERE id = $protected_record_id
+RETURNING id;
+-- ASSERTION (Rule 16): If rowcount = 0, this means the target row doesn't exist.
+-- This is the EXACT bug that caused V1 to silently skip 120 questions.
+-- If ANY update returns 0 rows → ROLLBACK this passage and log:
+--   "[ROWCOUNT FAIL] passage_id=X, table=student_curriculum_progress, expected=1, got=0"
+-- Then SKIP this passage and continue to next. Do NOT silently succeed.
 
 COMMIT;
 ```
@@ -172,6 +251,16 @@ SELECT ccq.question_en, ccq.correct_answer, cr.reading_label
 FROM curriculum_comprehension_questions ccq
 JOIN curriculum_readings cr ON cr.id = ccq.reading_id
 WHERE cr.unit_id = $unit_id AND ccq.sort_order = 0;
+
+-- Student protection verification (L1/L3 only)
+-- If protection was triggered in Phase A.5:
+SELECT COUNT(*) FROM student_curriculum_progress
+WHERE reading_id IN (SELECT id FROM curriculum_readings WHERE unit_id = $unit_id)
+AND section_type = 'comprehension'
+AND status = 'completed'
+AND updated_at >= CURRENT_DATE;
+-- Must match the number of protected records from Phase A.5
+-- If mismatch → log WARNING but do not abort (student may have new activity)
 ```
 
 If question count changed or any verification fails -> ROLLBACK and log.
@@ -199,3 +288,12 @@ Log format:
 - Do NOT batch multiple units in one commit
 - Do NOT add or delete passages or questions -- only rewrite existing content
 - Do NOT modify `reading_skill_exercises` JSONB -- it is separate from comprehension questions
+
+---
+
+## Rule 16 — Rowcount Assertions (NEW — Session 19)
+Any SQL UPDATE or DELETE must verify rowcount > 0 after execution.
+If rowcount = 0 and rows were expected, this indicates a schema mismatch or filter bug.
+NEVER treat 0 affected rows as "nothing to do" — treat it as an error.
+This rule was created because PROMPT 13 V1 silently skipped 120 questions
+when the table name was wrong and all UPDATEs returned 0 rows.

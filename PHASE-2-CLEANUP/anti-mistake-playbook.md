@@ -124,3 +124,19 @@ Each Phase 2 prompt should commit ONE level's content at a time. Never batch L2 
 2. Use `ON CONFLICT DO NOTHING` or explicit dedup logic
 3. Log what was skipped vs inserted
 4. Be safely re-runnable without creating duplicates
+
+## Rule 16: Rowcount Assertions (Added Session 19)
+
+**Problem:** PROMPT 13 V1 ran UPDATE queries against a non-existent table name. All UPDATEs returned 0 rows. The workflow treated 0 rows as "nothing to update" and reported "Questions Updated: 0" as a normal result. 120 questions were silently skipped.
+
+**Rule:** Every SQL UPDATE or DELETE that expects to modify rows MUST check rowcount after execution. If rowcount = 0 when rows were expected, treat this as an ERROR — not success.
+
+**Implementation:**
+- After `RETURNING id`: count returned rows
+- If 0 rows returned and > 0 expected: ROLLBACK + log error + skip item
+- If 0 rows returned and 0 expected (e.g., no student progress): OK
+- The distinction is: did Phase 0 tell us rows exist? If yes and UPDATE finds 0, something is wrong.
+
+**Mnemonic:** "Zero rows is never OK unless you expected zero."
+
+**Cross-reference:** Rule 16 is enforced in `prompts/agents/PROMPT-13-MANIFEST-V2.md` Phase F via `-- ASSERTION (Rule 16)` comment blocks after every `RETURNING id;` statement.
