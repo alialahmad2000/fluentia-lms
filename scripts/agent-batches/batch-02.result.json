@@ -1,0 +1,2213 @@
+[
+  {
+    "id": "00395878-b813-43ce-b3bc-d2e626728e2b",
+    "synonyms": [
+      { "word": "decipher", "level": 4 },
+      { "word": "interpret", "level": 3 },
+      { "word": "unravel", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "encode", "level": 3 },
+      { "word": "encrypt", "level": 4 }
+    ]
+  },
+  {
+    "id": "019f6ce5-4c74-47e5-914f-246669be7a16",
+    "synonyms": [
+      { "word": "parochial", "level": 5 },
+      { "word": "insular", "level": 5 },
+      { "word": "chauvinistic", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "multicultural", "level": 4 },
+      { "word": "cosmopolitan", "level": 5 }
+    ]
+  },
+  {
+    "id": "0347dd79-be17-4098-975c-9242fc7935ce",
+    "synonyms": [
+      { "word": "staging", "level": 4 },
+      { "word": "introducing", "level": 2 },
+      { "word": "implementing", "level": 4 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "0491703e-1903-4375-967e-d9d85646de96",
+    "synonyms": [
+      { "word": "modernize", "level": 4 },
+      { "word": "refresh", "level": 3 },
+      { "word": "upgrade", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "outdate", "level": 4 }
+    ]
+  },
+  {
+    "id": "07c07a26-9a37-4353-8b7d-63d1af9588bb",
+    "synonyms": [
+      { "word": "plenty", "level": 2 },
+      { "word": "profusion", "level": 5 },
+      { "word": "wealth", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "scarcity", "level": 4 },
+      { "word": "shortage", "level": 3 },
+      { "word": "lack", "level": 2 }
+    ]
+  },
+  {
+    "id": "09268323-f802-45d1-aa31-e6eb4f2f8ed6",
+    "synonyms": [
+      { "word": "multitudes", "level": 4 },
+      { "word": "masses", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "few", "level": 1 },
+      { "word": "handful", "level": 3 }
+    ]
+  },
+  {
+    "id": "0a0bc58f-cfed-497c-9af6-6de485c188e8",
+    "synonyms": [
+      { "word": "fascinated", "level": 3 },
+      { "word": "enchanted", "level": 4 },
+      { "word": "mesmerized", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "bored", "level": 1 },
+      { "word": "repelled", "level": 4 }
+    ]
+  },
+  {
+    "id": "0b081319-c0da-4e04-97e4-92a605d6340e",
+    "synonyms": [
+      { "word": "sniff", "level": 2 },
+      { "word": "scent", "level": 3 },
+      { "word": "detect", "level": 3 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "0ce183ca-6b17-4baf-9abd-986f23f6e794",
+    "synonyms": [
+      { "word": "stunning", "level": 3 },
+      { "word": "magnificent", "level": 3 },
+      { "word": "breathtaking", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "ordinary", "level": 2 },
+      { "word": "unimpressive", "level": 3 }
+    ]
+  },
+  {
+    "id": "0e79639d-e73f-4dc1-afac-6bc47115fabf",
+    "synonyms": [
+      { "word": "maximize", "level": 4 },
+      { "word": "improve", "level": 2 },
+      { "word": "streamline", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "worsen", "level": 3 },
+      { "word": "impair", "level": 5 }
+    ]
+  },
+  {
+    "id": "10606c15-c6f7-4082-ad50-472d82f882af",
+    "synonyms": [
+      { "word": "accelerate", "level": 4 },
+      { "word": "trigger", "level": 3 },
+      { "word": "stimulate", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "hinder", "level": 4 },
+      { "word": "impede", "level": 5 }
+    ]
+  },
+  {
+    "id": "12170996-92ad-4254-8265-33d6104e7749",
+    "synonyms": [
+      { "word": "produce", "level": 2 },
+      { "word": "create", "level": 1 },
+      { "word": "make", "level": 1 }
+    ],
+    "antonyms": [
+      { "word": "destroy", "level": 2 },
+      { "word": "consume", "level": 3 }
+    ]
+  },
+  {
+    "id": "13c7ac25-68b2-4fa5-bab2-ba043ff6285b",
+    "synonyms": [
+      { "word": "growing", "level": 1 },
+      { "word": "farming", "level": 2 },
+      { "word": "nurturing", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "neglecting", "level": 3 }
+    ]
+  },
+  {
+    "id": "14c862b7-6c82-40b2-8b21-4cae7a2cef48",
+    "synonyms": [
+      { "word": "preface", "level": 5 },
+      { "word": "foreshadow", "level": 5 },
+      { "word": "introduce", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "followed", "level": 1 },
+      { "word": "succeeded", "level": 3 }
+    ]
+  },
+  {
+    "id": "15e50e2e-b3ae-41c4-999e-1e4c575bcd0c",
+    "synonyms": [
+      { "word": "imaginative", "level": 3 },
+      { "word": "original", "level": 2 },
+      { "word": "inventive", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "unimaginative", "level": 3 },
+      { "word": "dull", "level": 2 }
+    ]
+  },
+  {
+    "id": "170dbfaa-c1b3-47ff-9074-00d62da37995",
+    "synonyms": [
+      { "word": "contradictory", "level": 4 },
+      { "word": "opposed", "level": 2 },
+      { "word": "incompatible", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "compatible", "level": 3 },
+      { "word": "harmonious", "level": 4 }
+    ]
+  },
+  {
+    "id": "1800836a-042f-4cd9-88da-ea7b25c1c2cd",
+    "synonyms": [
+      { "word": "merge", "level": 3 },
+      { "word": "unite", "level": 2 },
+      { "word": "blend", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "separate", "level": 2 },
+      { "word": "divide", "level": 2 }
+    ]
+  },
+  {
+    "id": "196fc8df-4265-499d-bd3e-3ef081553a56",
+    "synonyms": [
+      { "word": "consequences", "level": 3 },
+      { "word": "ramifications", "level": 5 },
+      { "word": "repercussions", "level": 5 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "1a99221f-3008-4b5a-a67b-c7bbaaa6d38a",
+    "synonyms": [
+      { "word": "ideal", "level": 3 },
+      { "word": "best", "level": 1 },
+      { "word": "perfect", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "suboptimal", "level": 5 },
+      { "word": "worst", "level": 1 }
+    ]
+  },
+  {
+    "id": "1bdb9230-8ca3-43ac-91f3-1f1d596bbdda",
+    "synonyms": [
+      { "word": "establish", "level": 3 },
+      { "word": "found", "level": 2 },
+      { "word": "create", "level": 1 }
+    ],
+    "antonyms": [
+      { "word": "dismantle", "level": 5 },
+      { "word": "close", "level": 1 }
+    ]
+  },
+  {
+    "id": "1d5f04db-0e4b-4de0-92fd-dc0350c7ca41",
+    "synonyms": [
+      { "word": "model", "level": 2 },
+      { "word": "framework", "level": 4 },
+      { "word": "pattern", "level": 2 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "1e101c04-195c-4215-ab21-8415d7a07dc0",
+    "synonyms": [
+      { "word": "nurture", "level": 4 },
+      { "word": "promote", "level": 3 },
+      { "word": "cultivate", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "hinder", "level": 4 },
+      { "word": "suppress", "level": 4 }
+    ]
+  },
+  {
+    "id": "1eedff0f-c5d1-40ba-b967-4b1b0161410f",
+    "synonyms": [
+      { "word": "polished", "level": 4 },
+      { "word": "sophisticated", "level": 3 },
+      { "word": "cultured", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "crude", "level": 4 },
+      { "word": "coarse", "level": 4 },
+      { "word": "unrefined", "level": 4 }
+    ]
+  },
+  {
+    "id": "1f872d3c-b979-47e5-8558-8e2c86aaeeef",
+    "synonyms": [
+      { "word": "cautious", "level": 3 },
+      { "word": "attentive", "level": 3 },
+      { "word": "vigilant", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "careless", "level": 2 },
+      { "word": "reckless", "level": 4 }
+    ]
+  },
+  {
+    "id": "2075300d-adcf-4f8f-b399-f2f5f75b56cb",
+    "synonyms": [
+      { "word": "pliable", "level": 5 },
+      { "word": "flexible", "level": 3 },
+      { "word": "adaptable", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "rigid", "level": 4 },
+      { "word": "inflexible", "level": 4 }
+    ]
+  },
+  {
+    "id": "21617db0-3e20-489e-9bbd-c2326d552e79",
+    "synonyms": [
+      { "word": "famous", "level": 1 },
+      { "word": "well-liked", "level": 2 },
+      { "word": "trendy", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "unpopular", "level": 2 },
+      { "word": "disliked", "level": 2 }
+    ]
+  },
+  {
+    "id": "237d69e7-e20e-42ac-bbb0-3434b7b3cd0c",
+    "synonyms": [
+      { "word": "weaken", "level": 3 },
+      { "word": "undermine", "level": 5 },
+      { "word": "jeopardize", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "strengthen", "level": 3 },
+      { "word": "reinforce", "level": 4 }
+    ]
+  },
+  {
+    "id": "24fde058-9789-4477-b945-878f51080389",
+    "synonyms": [
+      { "word": "distinctive", "level": 3 },
+      { "word": "singular", "level": 4 },
+      { "word": "exceptional", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "common", "level": 1 },
+      { "word": "ordinary", "level": 2 }
+    ]
+  },
+  {
+    "id": "267599b9-5c1b-4c8e-bd81-c4b119b9b49d",
+    "synonyms": [
+      { "word": "integrate", "level": 4 },
+      { "word": "include", "level": 2 },
+      { "word": "combine", "level": 1 }
+    ],
+    "antonyms": [
+      { "word": "exclude", "level": 3 },
+      { "word": "separate", "level": 2 }
+    ]
+  },
+  {
+    "id": "27e24084-4c32-4db9-9718-e5f34c957104",
+    "synonyms": [
+      { "word": "produce", "level": 2 },
+      { "word": "create", "level": 1 },
+      { "word": "make", "level": 1 }
+    ],
+    "antonyms": [
+      { "word": "consume", "level": 3 },
+      { "word": "destroy", "level": 2 }
+    ]
+  },
+  {
+    "id": "29037f3d-ddae-4fbf-99f7-8c4f9e406b75",
+    "synonyms": [
+      { "word": "rehearse", "level": 3 },
+      { "word": "train", "level": 1 },
+      { "word": "exercise", "level": 2 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "2a3f709f-ca9d-4186-a08d-18611af3a7e3",
+    "synonyms": [
+      { "word": "utilize", "level": 3 },
+      { "word": "exploit", "level": 4 },
+      { "word": "employ", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "waste", "level": 2 },
+      { "word": "squander", "level": 5 }
+    ]
+  },
+  {
+    "id": "2be79541-9243-4654-9e48-72c243146076",
+    "synonyms": [
+      { "word": "polish", "level": 3 },
+      { "word": "perfect", "level": 2 },
+      { "word": "improve", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "worsen", "level": 3 },
+      { "word": "degrade", "level": 4 }
+    ]
+  },
+  {
+    "id": "2d5060cd-3b8c-4159-886e-b8fdaa0bf8f3",
+    "synonyms": [
+      { "word": "fanciful", "level": 5 },
+      { "word": "imaginary", "level": 2 },
+      { "word": "surreal", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "realistic", "level": 3 },
+      { "word": "mundane", "level": 5 }
+    ]
+  },
+  {
+    "id": "2e923449-e3bc-4ec6-b0cb-5e4a58c1d9bf",
+    "synonyms": [
+      { "word": "readjustment", "level": 4 },
+      { "word": "realignment", "level": 5 },
+      { "word": "reconfiguration", "level": 5 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "30310297-c088-4e69-8b4f-8743a67bb5f9",
+    "synonyms": [
+      { "word": "persuasive", "level": 4 },
+      { "word": "convincing", "level": 3 },
+      { "word": "gripping", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "unconvincing", "level": 4 },
+      { "word": "boring", "level": 1 }
+    ]
+  },
+  {
+    "id": "3250637c-f78d-4301-80e1-e0f4cf34074d",
+    "synonyms": [
+      { "word": "developing", "level": 2 },
+      { "word": "progressing", "level": 3 },
+      { "word": "changing", "level": 1 }
+    ],
+    "antonyms": [
+      { "word": "stagnating", "level": 5 },
+      { "word": "regressing", "level": 5 }
+    ]
+  },
+  {
+    "id": "33a60aa0-3a1e-4637-a44d-fd5773eefcf4",
+    "synonyms": [
+      { "word": "consequences", "level": 3 },
+      { "word": "effects", "level": 2 },
+      { "word": "repercussions", "level": 5 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "3502626d-7f82-4198-96ae-472841e9830f",
+    "synonyms": [
+      { "word": "marked", "level": 3 },
+      { "word": "noticeable", "level": 3 },
+      { "word": "conspicuous", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "subtle", "level": 4 },
+      { "word": "slight", "level": 3 }
+    ]
+  },
+  {
+    "id": "366aeedc-c16d-462d-bd52-b8e104f47ce6",
+    "synonyms": [
+      { "word": "arcane", "level": 5 },
+      { "word": "obscure", "level": 4 },
+      { "word": "abstruse", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "accessible", "level": 4 },
+      { "word": "common", "level": 1 }
+    ]
+  },
+  {
+    "id": "3755021e-b19d-4649-870c-fcacbb280da7",
+    "synonyms": [
+      { "word": "credible", "level": 4 },
+      { "word": "believable", "level": 3 },
+      { "word": "reasonable", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "implausible", "level": 5 },
+      { "word": "unbelievable", "level": 3 }
+    ]
+  },
+  {
+    "id": "38e01971-31e5-46b0-8640-62795aa32840",
+    "synonyms": [
+      { "word": "skill", "level": 2 },
+      { "word": "expertise", "level": 4 },
+      { "word": "mastery", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "incompetence", "level": 5 },
+      { "word": "ineptitude", "level": 5 }
+    ]
+  },
+  {
+    "id": "3a23b842-dc6b-44c5-9391-c1c1d5196af5",
+    "synonyms": [
+      { "word": "ascribed", "level": 5 },
+      { "word": "credited", "level": 3 },
+      { "word": "assigned", "level": 3 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "3ad5081e-85fa-43c4-a176-913ae0d272fd",
+    "synonyms": [
+      { "word": "producing", "level": 2 },
+      { "word": "triggering", "level": 3 },
+      { "word": "provoking", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "preventing", "level": 2 },
+      { "word": "stopping", "level": 1 }
+    ]
+  },
+  {
+    "id": "3c647092-e275-4f9d-8917-11d1f7dc49e9",
+    "synonyms": [
+      { "word": "outdated", "level": 3 },
+      { "word": "obsolete", "level": 4 },
+      { "word": "archaic", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "modern", "level": 1 },
+      { "word": "contemporary", "level": 4 }
+    ]
+  },
+  {
+    "id": "3d5cf253-4099-4903-bd5d-6cee3722472d",
+    "synonyms": [
+      { "word": "develop", "level": 2 },
+      { "word": "nurture", "level": 4 },
+      { "word": "foster", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "neglect", "level": 3 },
+      { "word": "hinder", "level": 4 }
+    ]
+  },
+  {
+    "id": "3e4d96b1-fe9f-4f7e-8c26-1f1422d8b53c",
+    "synonyms": [
+      { "word": "stay awake", "level": 1 }
+    ],
+    "antonyms": [
+      { "word": "sleep", "level": 1 }
+    ]
+  },
+  {
+    "id": "3f622838-155d-4d9f-80ea-f2e262d0a06f",
+    "synonyms": [
+      { "word": "exorbitant", "level": 5 },
+      { "word": "excessive", "level": 4 },
+      { "word": "unaffordable", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "affordable", "level": 3 },
+      { "word": "cheap", "level": 1 }
+    ]
+  },
+  {
+    "id": "4095434d-8a64-476d-ad4a-2724743ebaec",
+    "synonyms": [
+      { "word": "capitalizing on", "level": 4 },
+      { "word": "maximizing", "level": 4 },
+      { "word": "exploiting", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "wasting", "level": 2 }
+    ]
+  },
+  {
+    "id": "4198b73f-d368-4ead-b2b6-daf2159624ab",
+    "synonyms": [
+      { "word": "utilized", "level": 3 },
+      { "word": "employed", "level": 3 },
+      { "word": "implemented", "level": 4 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "4418f560-c5a2-4e58-a59a-557aab80ea82",
+    "synonyms": [
+      { "word": "adjusting", "level": 2 },
+      { "word": "acclimating", "level": 5 },
+      { "word": "accommodating", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "resisting", "level": 3 }
+    ]
+  },
+  {
+    "id": "44e373ac-d61f-4c0d-96ff-d5c3f617dbbd",
+    "synonyms": [
+      { "word": "comprehensive", "level": 4 },
+      { "word": "vast", "level": 3 },
+      { "word": "broad", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "limited", "level": 2 },
+      { "word": "narrow", "level": 2 }
+    ]
+  },
+  {
+    "id": "4772677d-c210-4c1e-912e-a6cab2837b8c",
+    "synonyms": [
+      { "word": "links", "level": 2 },
+      { "word": "joins", "level": 1 },
+      { "word": "unites", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "disconnects", "level": 2 },
+      { "word": "separates", "level": 2 }
+    ]
+  },
+  {
+    "id": "48645e66-0d05-40c1-b1b1-98329423a77c",
+    "synonyms": [
+      { "word": "convert", "level": 3 },
+      { "word": "alter", "level": 3 },
+      { "word": "revolutionize", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "preserve", "level": 3 },
+      { "word": "maintain", "level": 3 }
+    ]
+  },
+  {
+    "id": "4a7b18b1-0907-4cd8-9eb4-58cb4b7a8858",
+    "synonyms": [
+      { "word": "convincing", "level": 3 },
+      { "word": "persuasive", "level": 4 },
+      { "word": "gripping", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "boring", "level": 1 },
+      { "word": "unconvincing", "level": 4 }
+    ]
+  },
+  {
+    "id": "4c847b20-a222-43a1-871f-e49da87e9545",
+    "synonyms": [
+      { "word": "theoretical", "level": 4 },
+      { "word": "hypothetical", "level": 5 },
+      { "word": "conjectural", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "factual", "level": 3 },
+      { "word": "proven", "level": 3 }
+    ]
+  },
+  {
+    "id": "4dba1021-57c5-4399-92ee-30498fabe16d",
+    "synonyms": [
+      { "word": "deep", "level": 1 },
+      { "word": "intense", "level": 3 },
+      { "word": "significant", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "superficial", "level": 4 },
+      { "word": "shallow", "level": 2 }
+    ]
+  },
+  {
+    "id": "4edd414c-654f-4643-a2b4-69082753257b",
+    "synonyms": [
+      { "word": "practice", "level": 1 },
+      { "word": "prepare", "level": 2 },
+      { "word": "train", "level": 1 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "5059c974-00e3-42bb-9afc-e8fda8e76d03",
+    "synonyms": [
+      { "word": "maintain", "level": 3 },
+      { "word": "support", "level": 2 },
+      { "word": "preserve", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "abandon", "level": 3 },
+      { "word": "discontinue", "level": 4 }
+    ]
+  },
+  {
+    "id": "521ccf65-5d7a-4cfa-a02d-572cb8e78ec1",
+    "synonyms": [
+      { "word": "division", "level": 2 },
+      { "word": "splintering", "level": 5 },
+      { "word": "breakup", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "unification", "level": 4 },
+      { "word": "integration", "level": 4 }
+    ]
+  },
+  {
+    "id": "538533ef-70c9-46bc-98ad-035e073b54d6",
+    "synonyms": [
+      { "word": "appear", "level": 2 },
+      { "word": "arise", "level": 3 },
+      { "word": "surface", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "disappear", "level": 2 },
+      { "word": "vanish", "level": 3 }
+    ]
+  },
+  {
+    "id": "54ecca9f-ca1a-441f-8f0c-b2f645f08acd",
+    "synonyms": [
+      { "word": "beautiful", "level": 1 },
+      { "word": "appealing", "level": 3 },
+      { "word": "charming", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "unattractive", "level": 2 },
+      { "word": "ugly", "level": 1 }
+    ]
+  },
+  {
+    "id": "563642af-c888-442e-98fd-1ed1c344ddf8",
+    "synonyms": [
+      { "word": "unplug", "level": 3 },
+      { "word": "detach", "level": 4 },
+      { "word": "sever", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "connect", "level": 2 },
+      { "word": "attach", "level": 3 }
+    ]
+  },
+  {
+    "id": "577da201-1048-4ec6-8c8e-892900d73785",
+    "synonyms": [
+      { "word": "carve", "level": 4 },
+      { "word": "mold", "level": 4 },
+      { "word": "shape", "level": 2 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "589756d0-b19a-48c1-b03b-5f7bc3a5783b",
+    "synonyms": [
+      { "word": "vary", "level": 3 },
+      { "word": "expand", "level": 3 },
+      { "word": "broaden", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "standardize", "level": 5 },
+      { "word": "narrow", "level": 2 }
+    ]
+  },
+  {
+    "id": "599cc5c3-180d-4500-8ba7-94aeabb83385",
+    "synonyms": [
+      { "word": "inventive", "level": 4 },
+      { "word": "original", "level": 2 },
+      { "word": "groundbreaking", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "conventional", "level": 4 },
+      { "word": "traditional", "level": 2 }
+    ]
+  },
+  {
+    "id": "5afa87d0-1f53-40f7-8dfc-db0ce72be866",
+    "synonyms": [
+      { "word": "executed", "level": 4 },
+      { "word": "applied", "level": 3 },
+      { "word": "enforced", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "abandoned", "level": 3 }
+    ]
+  },
+  {
+    "id": "5c3199c3-391a-4fdf-b244-dc2c1d55388e",
+    "synonyms": [
+      { "word": "ignored", "level": 2 },
+      { "word": "missed", "level": 1 },
+      { "word": "neglected", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "noticed", "level": 2 },
+      { "word": "recognized", "level": 3 }
+    ]
+  },
+  {
+    "id": "5da6bcfd-df5f-474d-9071-d3d7829c7476",
+    "synonyms": [
+      { "word": "innovation", "level": 4 },
+      { "word": "engineering", "level": 3 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "5ec9ed9c-18a3-4d54-afbd-24fcf25c495f",
+    "synonyms": [
+      { "word": "transform", "level": 4 },
+      { "word": "change", "level": 1 },
+      { "word": "alter", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "preserve", "level": 3 },
+      { "word": "maintain", "level": 3 }
+    ]
+  },
+  {
+    "id": "5fc26fc8-036d-4686-b522-ab8b8a57a430",
+    "synonyms": [
+      { "word": "intimidating", "level": 4 },
+      { "word": "daunting", "level": 5 },
+      { "word": "powerful", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "weak", "level": 1 },
+      { "word": "unimpressive", "level": 3 }
+    ]
+  },
+  {
+    "id": "60e11c55-b5c5-4c1e-a533-cb34fa545992",
+    "synonyms": [
+      { "word": "indicate", "level": 3 },
+      { "word": "denote", "level": 5 },
+      { "word": "represent", "level": 3 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "620ee64b-c160-49f1-8784-b62b19781586",
+    "synonyms": [
+      { "word": "occurrence", "level": 4 },
+      { "word": "event", "level": 2 },
+      { "word": "marvel", "level": 4 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "638ac02e-4300-4b61-b674-464a656e7fe1",
+    "synonyms": [
+      { "word": "persevere", "level": 4 },
+      { "word": "continue", "level": 2 },
+      { "word": "endure", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "quit", "level": 2 },
+      { "word": "surrender", "level": 4 }
+    ]
+  },
+  {
+    "id": "64fb16d4-c4f7-44c0-9ec5-3f51a50df2a4",
+    "synonyms": [
+      { "word": "endure", "level": 4 },
+      { "word": "resist", "level": 3 },
+      { "word": "survive", "level": 1 }
+    ],
+    "antonyms": [
+      { "word": "yield", "level": 4 },
+      { "word": "succumb", "level": 5 }
+    ]
+  },
+  {
+    "id": "665e1770-065c-4013-a065-f2ca15bc10f1",
+    "synonyms": [
+      { "word": "becoming", "level": 2 },
+      { "word": "changing", "level": 1 },
+      { "word": "shifting", "level": 3 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "6786d8f4-926a-42de-91b9-0b9733d4840d",
+    "synonyms": [
+      { "word": "unimaginable", "level": 3 },
+      { "word": "unthinkable", "level": 4 },
+      { "word": "incomprehensible", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "conceivable", "level": 5 },
+      { "word": "plausible", "level": 5 }
+    ]
+  },
+  {
+    "id": "692f79ab-e395-4b0f-ba2a-3369a4e69784",
+    "synonyms": [
+      { "word": "consequences", "level": 3 },
+      { "word": "ramifications", "level": 5 },
+      { "word": "repercussions", "level": 5 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "6a4e232c-bd56-461b-9c20-5f451a0637f7",
+    "synonyms": [
+      { "word": "maneuvering", "level": 4 },
+      { "word": "steering", "level": 3 },
+      { "word": "traversing", "level": 5 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "6b87921f-699d-4060-8a44-22a2ba04d038",
+    "synonyms": [
+      { "word": "shared", "level": 2 },
+      { "word": "reciprocal", "level": 5 },
+      { "word": "common", "level": 1 }
+    ],
+    "antonyms": [
+      { "word": "one-sided", "level": 3 },
+      { "word": "unilateral", "level": 5 }
+    ]
+  },
+  {
+    "id": "6c8f2e60-ea94-4515-9ff3-bcfa8797c955",
+    "synonyms": [
+      { "word": "soared", "level": 2 },
+      { "word": "flourished", "level": 5 },
+      { "word": "succeeded", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "failed", "level": 1 },
+      { "word": "flopped", "level": 4 }
+    ]
+  },
+  {
+    "id": "6dd8649a-5875-4ea6-b88b-9f1545668930",
+    "synonyms": [
+      { "word": "tasty", "level": 1 },
+      { "word": "scrumptious", "level": 4 },
+      { "word": "yummy", "level": 1 }
+    ],
+    "antonyms": [
+      { "word": "disgusting", "level": 3 },
+      { "word": "bland", "level": 4 }
+    ]
+  },
+  {
+    "id": "6f904119-4f05-4006-a1a8-405ffc4d59dc",
+    "synonyms": [
+      { "word": "prolonged", "level": 4 },
+      { "word": "extended", "level": 3 },
+      { "word": "lengthy", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "brief", "level": 3 },
+      { "word": "short", "level": 1 }
+    ]
+  },
+  {
+    "id": "709aad4a-41c1-47bf-90b1-23413c09bcbc",
+    "synonyms": [
+      { "word": "thorough", "level": 4 },
+      { "word": "extensive", "level": 4 },
+      { "word": "complete", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "incomplete", "level": 3 },
+      { "word": "partial", "level": 3 }
+    ]
+  },
+  {
+    "id": "71def0fd-8112-4fe7-8c9b-4424bdf637fc",
+    "synonyms": [
+      { "word": "accelerated", "level": 4 },
+      { "word": "triggered", "level": 3 },
+      { "word": "sparked", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "hindered", "level": 4 },
+      { "word": "impeded", "level": 5 }
+    ]
+  },
+  {
+    "id": "73ac8a95-776a-4de0-be21-821aef34b51a",
+    "synonyms": [
+      { "word": "omnipresent", "level": 5 },
+      { "word": "pervasive", "level": 5 },
+      { "word": "widespread", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "rare", "level": 2 },
+      { "word": "scarce", "level": 4 }
+    ]
+  },
+  {
+    "id": "75b73921-e3c7-4469-bd0f-4b1ac75c5fcc",
+    "synonyms": [
+      { "word": "leisure", "level": 3 },
+      { "word": "spare time", "level": 2 },
+      { "word": "downtime", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "work", "level": 1 }
+    ]
+  },
+  {
+    "id": "76aa792f-1ab7-45c0-b95d-040b5c1d93b1",
+    "synonyms": [
+      { "word": "carry", "level": 1 },
+      { "word": "convey", "level": 4 },
+      { "word": "move", "level": 1 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "77ccc71e-52cf-42f9-b7d3-8c538631e62d",
+    "synonyms": [
+      { "word": "installing", "level": 3 },
+      { "word": "assembling", "level": 3 },
+      { "word": "arranging", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "dismantling", "level": 5 },
+      { "word": "taking down", "level": 2 }
+    ]
+  },
+  {
+    "id": "78cb76b8-9111-43e7-a60f-9cb264ac3f7a",
+    "synonyms": [
+      { "word": "conservation", "level": 2 },
+      { "word": "protection", "level": 2 },
+      { "word": "maintenance", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "destruction", "level": 3 },
+      { "word": "neglect", "level": 3 }
+    ]
+  },
+  {
+    "id": "7a67ff03-69da-40d8-9c0b-436991bcc8cb",
+    "synonyms": [
+      { "word": "hooked on", "level": 3 },
+      { "word": "dependent on", "level": 3 },
+      { "word": "obsessed with", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "indifferent to", "level": 4 }
+    ]
+  },
+  {
+    "id": "7be1f3c5-51f9-4df6-bfb0-9387f335ecac",
+    "synonyms": [
+      { "word": "unparalleled", "level": 5 },
+      { "word": "unmatched", "level": 4 },
+      { "word": "novel", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "common", "level": 1 },
+      { "word": "routine", "level": 3 }
+    ]
+  },
+  {
+    "id": "7cdb4dac-6690-40ac-811a-15eb571f2008",
+    "synonyms": [
+      { "word": "fit", "level": 1 },
+      { "word": "well", "level": 1 },
+      { "word": "wholesome", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "sick", "level": 1 },
+      { "word": "unhealthy", "level": 2 }
+    ]
+  },
+  {
+    "id": "7e21f26c-ba51-436c-a8e6-9daba18893e2",
+    "synonyms": [
+      { "word": "integrate", "level": 4 },
+      { "word": "include", "level": 2 },
+      { "word": "combine", "level": 1 }
+    ],
+    "antonyms": [
+      { "word": "exclude", "level": 3 },
+      { "word": "remove", "level": 2 }
+    ]
+  },
+  {
+    "id": "7f2ed82e-914a-45fd-adfa-1ea5fa3a50c9",
+    "synonyms": [
+      { "word": "considerable", "level": 4 },
+      { "word": "significant", "level": 3 },
+      { "word": "sizable", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "insignificant", "level": 4 },
+      { "word": "minor", "level": 3 }
+    ]
+  },
+  {
+    "id": "80cace59-2a72-412a-97c9-adefa3fb566a",
+    "synonyms": [
+      { "word": "convincing", "level": 3 },
+      { "word": "persuasive", "level": 4 },
+      { "word": "forceful", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "unconvincing", "level": 4 },
+      { "word": "weak", "level": 1 }
+    ]
+  },
+  {
+    "id": "81be10ce-8806-4998-a2a6-8dd22c6d2f7e",
+    "synonyms": [
+      { "word": "advanced", "level": 2 },
+      { "word": "complex", "level": 3 },
+      { "word": "refined", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "simple", "level": 1 },
+      { "word": "basic", "level": 1 }
+    ]
+  },
+  {
+    "id": "828273e3-5aea-4978-ab88-f39af025c138",
+    "synonyms": [
+      { "word": "amass", "level": 5 },
+      { "word": "gather", "level": 2 },
+      { "word": "collect", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "disperse", "level": 4 },
+      { "word": "scatter", "level": 3 }
+    ]
+  },
+  {
+    "id": "844a3d23-7636-4c44-8eac-f4f51857807c",
+    "synonyms": [
+      { "word": "link", "level": 2 },
+      { "word": "join", "level": 1 },
+      { "word": "attach", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "disconnect", "level": 2 },
+      { "word": "separate", "level": 2 }
+    ]
+  },
+  {
+    "id": "857bcc5a-806a-40a2-bcf9-2b6d5c359f31",
+    "synonyms": [
+      { "word": "trial", "level": 3 },
+      { "word": "tribulation", "level": 5 },
+      { "word": "hardship", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "pleasure", "level": 2 },
+      { "word": "delight", "level": 3 }
+    ]
+  },
+  {
+    "id": "867f91d1-97c7-4710-9258-6ff85954a838",
+    "synonyms": [
+      { "word": "intensify", "level": 4 },
+      { "word": "heighten", "level": 4 },
+      { "word": "worsen", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "de-escalate", "level": 5 },
+      { "word": "diminish", "level": 4 }
+    ]
+  },
+  {
+    "id": "87549c3f-69ec-4990-9d11-e83f76a893dc",
+    "synonyms": [
+      { "word": "weaken", "level": 3 },
+      { "word": "sabotage", "level": 4 },
+      { "word": "subvert", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "strengthen", "level": 3 },
+      { "word": "support", "level": 2 }
+    ]
+  },
+  {
+    "id": "889c1275-b292-4700-a0d7-a133dc7a5e6f",
+    "synonyms": [
+      { "word": "rough", "level": 1 },
+      { "word": "uneven", "level": 2 },
+      { "word": "craggy", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "smooth", "level": 1 },
+      { "word": "even", "level": 1 }
+    ]
+  },
+  {
+    "id": "89532cda-72ea-44ff-91f4-ebcf901c60e1",
+    "synonyms": [
+      { "word": "relatives", "level": 2 },
+      { "word": "household", "level": 2 },
+      { "word": "kin", "level": 5 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "8a4a51a2-6840-4037-b17e-fe862fb71ede",
+    "synonyms": [
+      { "word": "eliminate", "level": 4 },
+      { "word": "preclude", "level": 5 },
+      { "word": "avoid", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "necessitate", "level": 5 },
+      { "word": "require", "level": 2 }
+    ]
+  },
+  {
+    "id": "8b805875-0004-4aeb-a48d-7c855e2b1ed8",
+    "synonyms": [
+      { "word": "exemplary", "level": 5 },
+      { "word": "typical", "level": 3 },
+      { "word": "archetypal", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "atypical", "level": 5 }
+    ]
+  },
+  {
+    "id": "8c686133-ff81-42f3-9c79-1c25547b5e5f",
+    "synonyms": [
+      { "word": "unique", "level": 1 },
+      { "word": "characteristic", "level": 3 },
+      { "word": "distinguishing", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "common", "level": 1 },
+      { "word": "ordinary", "level": 2 }
+    ]
+  },
+  {
+    "id": "8db91a96-520a-442f-ad99-510fbbde3ca7",
+    "synonyms": [
+      { "word": "changing", "level": 1 },
+      { "word": "converting", "level": 3 },
+      { "word": "altering", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "preserving", "level": 3 },
+      { "word": "maintaining", "level": 3 }
+    ]
+  },
+  {
+    "id": "8f069eb3-c9a7-46d3-8ceb-8c80fc8bbddd",
+    "synonyms": [
+      { "word": "remove", "level": 2 },
+      { "word": "withdraw", "level": 3 },
+      { "word": "obtain", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "insert", "level": 3 },
+      { "word": "implant", "level": 4 }
+    ]
+  },
+  {
+    "id": "909c4da2-850a-4f69-9005-f04e628632a8",
+    "synonyms": [
+      { "word": "exemplify", "level": 5 },
+      { "word": "embody", "level": 5 },
+      { "word": "symbolize", "level": 4 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "916f0434-f0d8-4482-bf5e-2a10298eac41",
+    "synonyms": [
+      { "word": "contend", "level": 5 },
+      { "word": "rival", "level": 4 },
+      { "word": "vie", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "cooperate", "level": 3 },
+      { "word": "collaborate", "level": 4 }
+    ]
+  },
+  {
+    "id": "92701311-ad81-49c1-9f17-6cc9d2fe13d5",
+    "synonyms": [
+      { "word": "remove", "level": 2 },
+      { "word": "declutter", "level": 4 },
+      { "word": "empty", "level": 1 }
+    ],
+    "antonyms": [
+      { "word": "fill", "level": 1 },
+      { "word": "clutter", "level": 4 }
+    ]
+  },
+  {
+    "id": "93e7dfdc-e7ce-43ee-98bf-3e7bf51a579e",
+    "synonyms": [
+      { "word": "confuse", "level": 2 },
+      { "word": "puzzle", "level": 2 },
+      { "word": "perplex", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "clarify", "level": 3 },
+      { "word": "enlighten", "level": 5 }
+    ]
+  },
+  {
+    "id": "94ea06bd-d74b-4fd1-aa5d-c15aadd5fdaa",
+    "synonyms": [
+      { "word": "reconsider", "level": 4 },
+      { "word": "review", "level": 2 },
+      { "word": "reexamine", "level": 5 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "9644adb7-0354-4058-ab68-395ef2fc8ab4",
+    "synonyms": [
+      { "word": "sustain", "level": 4 },
+      { "word": "prolong", "level": 4 },
+      { "word": "continue", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "end", "level": 1 },
+      { "word": "terminate", "level": 4 }
+    ]
+  },
+  {
+    "id": "9725fe98-fedd-44b1-8b1e-45c5f9a11781",
+    "synonyms": [
+      { "word": "minuscule", "level": 5 },
+      { "word": "negligible", "level": 5 },
+      { "word": "tiny", "level": 1 }
+    ],
+    "antonyms": [
+      { "word": "enormous", "level": 3 },
+      { "word": "immense", "level": 4 }
+    ]
+  },
+  {
+    "id": "97bb1abf-34e0-4011-9842-252055e5e632",
+    "synonyms": [
+      { "word": "intrinsic", "level": 5 },
+      { "word": "innate", "level": 5 },
+      { "word": "natural", "level": 1 }
+    ],
+    "antonyms": [
+      { "word": "acquired", "level": 4 },
+      { "word": "extrinsic", "level": 5 }
+    ]
+  },
+  {
+    "id": "98c156d0-468c-45c4-9380-f80ee4028e99",
+    "synonyms": [
+      { "word": "deep", "level": 1 },
+      { "word": "intense", "level": 3 },
+      { "word": "significant", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "superficial", "level": 4 },
+      { "word": "shallow", "level": 2 }
+    ]
+  },
+  {
+    "id": "9975e444-de47-41b9-9178-22cb6f5247f1",
+    "synonyms": [
+      { "word": "skyrocket", "level": 4 },
+      { "word": "surge", "level": 4 },
+      { "word": "climb", "level": 1 }
+    ],
+    "antonyms": [
+      { "word": "plummet", "level": 5 },
+      { "word": "plunge", "level": 4 }
+    ]
+  },
+  {
+    "id": "9ac98840-f39a-48a8-b1d6-e0d27ade63c8",
+    "synonyms": [
+      { "word": "distribution", "level": 4 },
+      { "word": "scattering", "level": 3 },
+      { "word": "diffusion", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "gathering", "level": 2 },
+      { "word": "concentration", "level": 4 }
+    ]
+  },
+  {
+    "id": "9c8a90b7-3af8-4b3c-8f74-08200c4ebb1f",
+    "synonyms": [
+      { "word": "firm", "level": 2 },
+      { "word": "sturdy", "level": 4 },
+      { "word": "reliable", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "weak", "level": 1 },
+      { "word": "flimsy", "level": 5 }
+    ]
+  },
+  {
+    "id": "9df3913f-27f4-4d73-b6b1-c75aa80036c0",
+    "synonyms": [
+      { "word": "ordinary", "level": 2 },
+      { "word": "usual", "level": 2 },
+      { "word": "widespread", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "rare", "level": 2 },
+      { "word": "unusual", "level": 2 }
+    ]
+  },
+  {
+    "id": "9eed5279-5ed6-4e86-ab7b-7b11b20754c9",
+    "synonyms": [
+      { "word": "meddle", "level": 5 },
+      { "word": "intrude", "level": 4 },
+      { "word": "obstruct", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "help", "level": 1 },
+      { "word": "assist", "level": 3 }
+    ]
+  },
+  {
+    "id": "a01b2da6-7137-4dd9-9193-0871998d5e0d",
+    "synonyms": [
+      { "word": "innovating", "level": 5 },
+      { "word": "trailblazing", "level": 5 },
+      { "word": "leading", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "following", "level": 1 },
+      { "word": "imitating", "level": 4 }
+    ]
+  },
+  {
+    "id": "a0c3e64c-d482-41ec-95c0-f5fab00336f2",
+    "synonyms": [
+      { "word": "unplug", "level": 3 },
+      { "word": "detach", "level": 4 },
+      { "word": "sever", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "connect", "level": 2 },
+      { "word": "link", "level": 2 }
+    ]
+  },
+  {
+    "id": "a19b2824-298f-4bfe-9fc8-880b42ee7cbb",
+    "synonyms": [
+      { "word": "morning meal", "level": 1 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "a366a31f-8d3d-40d9-8c14-52f8486e2f1d",
+    "synonyms": [
+      { "word": "convincing", "level": 3 },
+      { "word": "persuasive", "level": 4 },
+      { "word": "gripping", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "boring", "level": 1 },
+      { "word": "unconvincing", "level": 4 }
+    ]
+  },
+  {
+    "id": "a4d72fc7-1320-40d4-b41f-282cfbf24aff",
+    "synonyms": [
+      { "word": "improving", "level": 2 },
+      { "word": "boosting", "level": 3 },
+      { "word": "augmenting", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "diminishing", "level": 4 },
+      { "word": "weakening", "level": 3 }
+    ]
+  },
+  {
+    "id": "a5f92623-4abf-4f2f-913e-030525ef673f",
+    "synonyms": [
+      { "word": "powerful", "level": 2 },
+      { "word": "sturdy", "level": 4 },
+      { "word": "tough", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "weak", "level": 1 },
+      { "word": "fragile", "level": 4 }
+    ]
+  },
+  {
+    "id": "a79dcdc9-afd5-4354-a274-bfc08fac0cc5",
+    "synonyms": [
+      { "word": "make", "level": 1 },
+      { "word": "produce", "level": 2 },
+      { "word": "invent", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "destroy", "level": 2 },
+      { "word": "demolish", "level": 4 }
+    ]
+  },
+  {
+    "id": "a927b001-3b84-48f0-94ea-625c4fd60ee4",
+    "synonyms": [
+      { "word": "merging", "level": 3 },
+      { "word": "convergence", "level": 4 },
+      { "word": "confluence", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "divergence", "level": 5 },
+      { "word": "separation", "level": 3 }
+    ]
+  },
+  {
+    "id": "a9ee1ba4-d188-48de-8f37-eb7e2b45cf2b",
+    "synonyms": [
+      { "word": "change", "level": 1 },
+      { "word": "convert", "level": 3 },
+      { "word": "alter", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "preserve", "level": 3 },
+      { "word": "maintain", "level": 3 }
+    ]
+  },
+  {
+    "id": "aae7149e-9842-4137-af19-7ae2843275c1",
+    "synonyms": [
+      { "word": "merging", "level": 3 },
+      { "word": "meeting", "level": 1 },
+      { "word": "union", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "divergence", "level": 5 },
+      { "word": "separation", "level": 3 }
+    ]
+  },
+  {
+    "id": "acbec3ed-55c4-44de-8c8f-d5ebe0a52072",
+    "synonyms": [
+      { "word": "development", "level": 2 },
+      { "word": "gestation", "level": 5 },
+      { "word": "maturation", "level": 5 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "ae776800-cb9c-471a-b9c9-7b4f7f4f743e",
+    "synonyms": [
+      { "word": "surpass", "level": 5 },
+      { "word": "exceed", "level": 3 },
+      { "word": "overcome", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "submit", "level": 3 },
+      { "word": "yield", "level": 4 }
+    ]
+  },
+  {
+    "id": "afb02776-0ff1-4c11-8151-b8432c07b95a",
+    "synonyms": [
+      { "word": "use", "level": 1 },
+      { "word": "employ", "level": 3 },
+      { "word": "apply", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "waste", "level": 2 },
+      { "word": "neglect", "level": 3 }
+    ]
+  },
+  {
+    "id": "b1fedbf0-45ad-4e75-83f2-2c0a3a5b034d",
+    "synonyms": [
+      { "word": "reinforced", "level": 4 },
+      { "word": "fortified", "level": 5 },
+      { "word": "bolstered", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "weakened", "level": 2 },
+      { "word": "undermined", "level": 5 }
+    ]
+  },
+  {
+    "id": "b3540a80-3305-48b7-b2c6-4abc9d531d48",
+    "synonyms": [
+      { "word": "consequences", "level": 3 },
+      { "word": "effects", "level": 2 },
+      { "word": "outcomes", "level": 3 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "b4d7b580-37af-4760-9cce-bfc533f3e5ce",
+    "synonyms": [
+      { "word": "convincing", "level": 3 },
+      { "word": "persuasive", "level": 4 },
+      { "word": "gripping", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "unconvincing", "level": 4 },
+      { "word": "boring", "level": 1 }
+    ]
+  },
+  {
+    "id": "b5f9fd15-da69-4903-bb76-2aa2d15855cf",
+    "synonyms": [
+      { "word": "started", "level": 1 },
+      { "word": "initiated", "level": 4 },
+      { "word": "began", "level": 1 }
+    ],
+    "antonyms": [
+      { "word": "finished", "level": 1 },
+      { "word": "completed", "level": 2 }
+    ]
+  },
+  {
+    "id": "b7c4adc3-f379-4fc6-9588-8f452b24523d",
+    "synonyms": [
+      { "word": "balance", "level": 2 },
+      { "word": "compromise", "level": 4 },
+      { "word": "reconcile", "level": 5 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "b906c648-1574-4c2e-be3a-5da19b31b475",
+    "synonyms": [
+      { "word": "transforming", "level": 2 },
+      { "word": "reshaping", "level": 4 },
+      { "word": "overhauling", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "preserving", "level": 3 },
+      { "word": "maintaining", "level": 3 }
+    ]
+  },
+  {
+    "id": "ba4db1af-fdf6-4fa3-a186-5d109080271c",
+    "synonyms": [
+      { "word": "expanding", "level": 3 },
+      { "word": "increasing", "level": 2 },
+      { "word": "developing", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "shrinking", "level": 3 },
+      { "word": "declining", "level": 4 }
+    ]
+  },
+  {
+    "id": "bbaaed8a-ab40-44f6-af35-22535e9812ae",
+    "synonyms": [
+      { "word": "cooperative", "level": 4 },
+      { "word": "collaborative", "level": 4 },
+      { "word": "mutual", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "antagonistic", "level": 5 },
+      { "word": "counterproductive", "level": 5 }
+    ]
+  },
+  {
+    "id": "bd0a73be-a411-4cfb-b87c-645692a2ba16",
+    "synonyms": [
+      { "word": "thick", "level": 1 },
+      { "word": "sticky", "level": 2 },
+      { "word": "gluey", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "thin", "level": 1 },
+      { "word": "runny", "level": 3 }
+    ]
+  },
+  {
+    "id": "be47beac-8f87-4687-b5d9-a3f84c8c44ca",
+    "synonyms": [
+      { "word": "accuracy", "level": 3 },
+      { "word": "exactness", "level": 4 },
+      { "word": "meticulousness", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "inaccuracy", "level": 4 },
+      { "word": "vagueness", "level": 4 }
+    ]
+  },
+  {
+    "id": "c02d07d9-5dad-4812-9712-e72a63587e08",
+    "synonyms": [
+      { "word": "handicrafts", "level": 3 },
+      { "word": "artisanship", "level": 5 },
+      { "word": "trades", "level": 2 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "c15e6fa3-0e4e-4c34-81f3-6d680a9a9745",
+    "synonyms": [
+      { "word": "use", "level": 1 },
+      { "word": "utilize", "level": 3 },
+      { "word": "apply", "level": 2 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "c31253dc-448f-455a-803a-e1645f4b5807",
+    "synonyms": [
+      { "word": "occupations", "level": 4 },
+      { "word": "professions", "level": 3 },
+      { "word": "careers", "level": 2 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "c3f95949-acbf-4a51-95df-c548b62ef41a",
+    "synonyms": [
+      { "word": "monitored", "level": 3 },
+      { "word": "followed", "level": 1 },
+      { "word": "recorded", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "ignored", "level": 2 },
+      { "word": "lost track", "level": 2 }
+    ]
+  },
+  {
+    "id": "c55dd03b-4990-46aa-896e-c7c9ede6c1c7",
+    "synonyms": [
+      { "word": "destroy", "level": 2 },
+      { "word": "ruin", "level": 3 },
+      { "word": "ravage", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "build", "level": 1 },
+      { "word": "restore", "level": 4 }
+    ]
+  },
+  {
+    "id": "c6238b85-4f22-47a6-bffb-8f23b99d4b56",
+    "synonyms": [
+      { "word": "shut down", "level": 2 },
+      { "word": "switch off", "level": 2 },
+      { "word": "power off", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "turn on", "level": 1 },
+      { "word": "switch on", "level": 1 }
+    ]
+  },
+  {
+    "id": "c77086e8-e28b-4e5f-8751-e0bf4da76f2a",
+    "synonyms": [
+      { "word": "harmonize", "level": 5 },
+      { "word": "resolve", "level": 4 },
+      { "word": "settle", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "conflict", "level": 3 },
+      { "word": "clash", "level": 4 }
+    ]
+  },
+  {
+    "id": "c8cfa1ee-50b9-48ec-9b19-d02aa1a6bdcb",
+    "synonyms": [
+      { "word": "contradictory", "level": 4 },
+      { "word": "ironic", "level": 4 },
+      { "word": "incongruous", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "consistent", "level": 3 },
+      { "word": "logical", "level": 3 }
+    ]
+  },
+  {
+    "id": "cad4d406-0941-4a6c-86f7-28446cb3f81b",
+    "synonyms": [
+      { "word": "investigate", "level": 4 },
+      { "word": "examine", "level": 3 },
+      { "word": "discover", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "ignore", "level": 2 }
+    ]
+  },
+  {
+    "id": "cc0df652-58dd-44b9-9b33-643ba77281d2",
+    "synonyms": [
+      { "word": "convergence", "level": 4 },
+      { "word": "junction", "level": 4 },
+      { "word": "merging", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "divergence", "level": 5 },
+      { "word": "separation", "level": 3 }
+    ]
+  },
+  {
+    "id": "ce0f1837-a909-4447-b552-7279571aefb0",
+    "synonyms": [
+      { "word": "preservation", "level": 4 },
+      { "word": "protection", "level": 2 },
+      { "word": "safeguarding", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "destruction", "level": 3 },
+      { "word": "exploitation", "level": 5 }
+    ]
+  },
+  {
+    "id": "cf8515e5-4a39-4cda-a034-813b925f2c79",
+    "synonyms": [
+      { "word": "famous", "level": 1 },
+      { "word": "well-liked", "level": 2 },
+      { "word": "favored", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "unpopular", "level": 2 },
+      { "word": "disliked", "level": 2 }
+    ]
+  },
+  {
+    "id": "d0d53233-26f6-49c7-98fc-5e704d61c2fb",
+    "synonyms": [
+      { "word": "advantages", "level": 3 },
+      { "word": "perks", "level": 4 },
+      { "word": "gains", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "drawbacks", "level": 4 },
+      { "word": "disadvantages", "level": 3 }
+    ]
+  },
+  {
+    "id": "d20eca2c-05d9-47a7-9139-34a0b50ec4f5",
+    "synonyms": [
+      { "word": "discoveries", "level": 2 },
+      { "word": "advances", "level": 3 },
+      { "word": "innovations", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "setbacks", "level": 4 },
+      { "word": "failures", "level": 2 }
+    ]
+  },
+  {
+    "id": "d3a466dc-a754-49d9-b81d-d7cfcabd070b",
+    "synonyms": [
+      { "word": "question", "level": 1 },
+      { "word": "dispute", "level": 4 },
+      { "word": "contest", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "accept", "level": 2 },
+      { "word": "agree", "level": 1 }
+    ]
+  },
+  {
+    "id": "d4e180e1-06a4-4151-8575-3b97868e32ac",
+    "synonyms": [
+      { "word": "evaporate", "level": 4 },
+      { "word": "parch", "level": 5 },
+      { "word": "desiccate", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "fill", "level": 1 },
+      { "word": "flood", "level": 2 }
+    ]
+  },
+  {
+    "id": "d5b01755-bc5f-4710-87ef-df288c26182a",
+    "synonyms": [
+      { "word": "unparalleled", "level": 5 },
+      { "word": "unmatched", "level": 4 },
+      { "word": "novel", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "common", "level": 1 },
+      { "word": "routine", "level": 3 }
+    ]
+  },
+  {
+    "id": "d6bc212b-9ba6-46d6-a010-617183c719c9",
+    "synonyms": [
+      { "word": "ethnobiology", "level": 5 },
+      { "word": "ethnology", "level": 5 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "d7806967-a66d-449a-aace-2d7d118d7142",
+    "synonyms": [
+      { "word": "refill", "level": 2 },
+      { "word": "restock", "level": 3 },
+      { "word": "renew", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "deplete", "level": 5 },
+      { "word": "empty", "level": 1 }
+    ]
+  },
+  {
+    "id": "d8915a9a-f2d7-4d61-bbde-f7534ce80502",
+    "synonyms": [
+      { "word": "chilliest", "level": 2 },
+      { "word": "iciest", "level": 3 },
+      { "word": "frostiest", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "hottest", "level": 1 },
+      { "word": "warmest", "level": 1 }
+    ]
+  },
+  {
+    "id": "d9baf3d7-26a4-46dd-9384-f762feeeda1b",
+    "synonyms": [
+      { "word": "reach", "level": 1 },
+      { "word": "obtain", "level": 3 },
+      { "word": "retrieve", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "block", "level": 2 }
+    ]
+  },
+  {
+    "id": "dad9ccdc-305e-41f2-9021-919d4c5b4f9f",
+    "synonyms": [
+      { "word": "confirmed", "level": 3 },
+      { "word": "verified", "level": 4 },
+      { "word": "substantiated", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "contradicted", "level": 4 },
+      { "word": "refuted", "level": 5 }
+    ]
+  },
+  {
+    "id": "dd09840c-f2c7-48e6-bb7c-be1005324baa",
+    "synonyms": [
+      { "word": "exemplifies", "level": 5 },
+      { "word": "embodies", "level": 5 },
+      { "word": "symbolizes", "level": 4 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "dee81ea0-85ff-4a26-a3c1-47df5463cab8",
+    "synonyms": [
+      { "word": "framework", "level": 4 },
+      { "word": "foundation", "level": 3 },
+      { "word": "facilities", "level": 3 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "e05452a0-1842-4d3f-a8a8-c7ce1a8ff654",
+    "synonyms": [
+      { "word": "essential", "level": 3 },
+      { "word": "crucial", "level": 4 },
+      { "word": "vital", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "optional", "level": 4 },
+      { "word": "unnecessary", "level": 3 }
+    ]
+  },
+  {
+    "id": "e133f3ef-2118-4c8c-83ad-bf202c389470",
+    "synonyms": [
+      { "word": "widespread", "level": 4 },
+      { "word": "common", "level": 1 },
+      { "word": "rampant", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "rare", "level": 2 },
+      { "word": "uncommon", "level": 2 }
+    ]
+  },
+  {
+    "id": "e30502c4-d950-440e-85d5-57481af24415",
+    "synonyms": [
+      { "word": "choreography", "level": 5 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "e44a4f5a-2926-4f78-94b5-6ffa4217b376",
+    "synonyms": [
+      { "word": "endure", "level": 4 },
+      { "word": "persist", "level": 3 },
+      { "word": "withstand", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "die", "level": 1 },
+      { "word": "perish", "level": 4 }
+    ]
+  },
+  {
+    "id": "e4e850d2-5254-44b7-ac9a-b1b644aab759",
+    "synonyms": [
+      { "word": "dare", "level": 3 },
+      { "word": "risk", "level": 2 },
+      { "word": "embark", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "retreat", "level": 4 },
+      { "word": "withdraw", "level": 3 }
+    ]
+  },
+  {
+    "id": "e6452e04-85ab-4904-b70b-175194ab82c4",
+    "synonyms": [
+      { "word": "reducing", "level": 2 },
+      { "word": "decreasing", "level": 3 },
+      { "word": "lessening", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "increasing", "level": 2 },
+      { "word": "adding to", "level": 1 }
+    ]
+  },
+  {
+    "id": "e75b6714-6056-4158-a4d1-1d47406fd1c4",
+    "synonyms": [
+      { "word": "stress", "level": 2 },
+      { "word": "importance", "level": 2 },
+      { "word": "focus", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "neglect", "level": 3 }
+    ]
+  },
+  {
+    "id": "e8d4fc1e-af90-4e6c-9af9-8d723980dad4",
+    "synonyms": [
+      { "word": "consequences", "level": 3 },
+      { "word": "repercussions", "level": 5 },
+      { "word": "implications", "level": 4 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "e99004d9-7d12-4d1f-81c1-e12494db6d5d",
+    "synonyms": [
+      { "word": "population", "level": 2 },
+      { "word": "segment", "level": 4 },
+      { "word": "group", "level": 1 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "eab8b888-285c-4e84-a03c-c6f4c0d1298b",
+    "synonyms": [
+      { "word": "belly", "level": 2 },
+      { "word": "abdomen", "level": 4 },
+      { "word": "tummy", "level": 1 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "ebcd74f6-c264-4700-9411-5b691026f9c6",
+    "synonyms": [
+      { "word": "tackle", "level": 3 },
+      { "word": "handle", "level": 2 },
+      { "word": "confront", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "ignore", "level": 2 },
+      { "word": "avoid", "level": 2 }
+    ]
+  },
+  {
+    "id": "ecbb3089-d018-4281-9772-699399ddf271",
+    "synonyms": [
+      { "word": "slowly", "level": 1 },
+      { "word": "progressively", "level": 4 },
+      { "word": "steadily", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "suddenly", "level": 2 },
+      { "word": "abruptly", "level": 4 }
+    ]
+  },
+  {
+    "id": "eea95564-d9fb-4245-b4b2-1ef54d4d8b9c",
+    "synonyms": [
+      { "word": "chillier", "level": 2 },
+      { "word": "colder", "level": 1 }
+    ],
+    "antonyms": [
+      { "word": "warmer", "level": 1 },
+      { "word": "hotter", "level": 1 }
+    ]
+  },
+  {
+    "id": "ef6a6b4e-963f-4061-baa7-a1eed2065bf7",
+    "synonyms": [
+      { "word": "stimulating", "level": 4 },
+      { "word": "prompting", "level": 4 },
+      { "word": "motivating", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "hindering", "level": 4 },
+      { "word": "discouraging", "level": 3 }
+    ]
+  },
+  {
+    "id": "f0ae9f48-8dc3-471d-9c67-5b378e0700bf",
+    "synonyms": [
+      { "word": "arrangement", "level": 3 },
+      { "word": "configuration", "level": 5 },
+      { "word": "installation", "level": 4 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "f230b7ac-0380-4777-af6a-659567bcaf7b",
+    "synonyms": [
+      { "word": "cleverness", "level": 4 },
+      { "word": "inventiveness", "level": 5 },
+      { "word": "resourcefulness", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "dullness", "level": 4 },
+      { "word": "incompetence", "level": 5 }
+    ]
+  },
+  {
+    "id": "f3377d22-3e48-4cc9-8c3b-5cd40439b8da",
+    "synonyms": [
+      { "word": "imaginative", "level": 3 },
+      { "word": "original", "level": 2 },
+      { "word": "inventive", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "unimaginative", "level": 3 },
+      { "word": "dull", "level": 2 }
+    ]
+  },
+  {
+    "id": "f4aa9319-b397-41e0-b80f-deb2d4288e9e",
+    "synonyms": [
+      { "word": "revived", "level": 4 },
+      { "word": "restored", "level": 4 },
+      { "word": "returned", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "took away", "level": 1 }
+    ]
+  },
+  {
+    "id": "f604dbfd-15dc-42f2-b7ec-fbaacb55f836",
+    "synonyms": [
+      { "word": "adopt", "level": 4 },
+      { "word": "welcome", "level": 2 },
+      { "word": "accept", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "reject", "level": 3 },
+      { "word": "shun", "level": 5 }
+    ]
+  },
+  {
+    "id": "f7b6e30c-0415-49d6-9101-cf97588a0522",
+    "synonyms": [
+      { "word": "cerebral", "level": 5 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "f96ca0e4-e6f7-4cfe-a2c3-a88ac4e7a28d",
+    "synonyms": [
+      { "word": "cuisine", "level": 4 },
+      { "word": "baking", "level": 2 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "fb3891a4-7be7-45af-bed3-84b096b84d85",
+    "synonyms": [
+      { "word": "distribute", "level": 3 },
+      { "word": "divide", "level": 2 },
+      { "word": "split", "level": 2 }
+    ],
+    "antonyms": [
+      { "word": "keep", "level": 1 },
+      { "word": "hoard", "level": 5 }
+    ]
+  },
+  {
+    "id": "fcb6da90-0154-4a78-82ee-6b516b48062a",
+    "synonyms": [
+      { "word": "incorporation", "level": 4 },
+      { "word": "unification", "level": 4 },
+      { "word": "combination", "level": 3 }
+    ],
+    "antonyms": [
+      { "word": "separation", "level": 3 },
+      { "word": "segregation", "level": 5 }
+    ]
+  },
+  {
+    "id": "fe0c1d08-5077-41cd-9581-2d706a8d954a",
+    "synonyms": [
+      { "word": "bans", "level": 3 },
+      { "word": "restrictions", "level": 4 },
+      { "word": "embargoes", "level": 5 }
+    ],
+    "antonyms": [
+      { "word": "permissions", "level": 3 },
+      { "word": "allowances", "level": 4 }
+    ]
+  },
+  {
+    "id": "ff07a96b-cd1e-4184-ac8d-0875ad2d24f9",
+    "synonyms": [
+      { "word": "represents", "level": 3 },
+      { "word": "personifies", "level": 5 },
+      { "word": "exemplifies", "level": 5 }
+    ],
+    "antonyms": []
+  },
+  {
+    "id": "ffc75930-18f4-4149-990a-0a114f3947c0",
+    "synonyms": [
+      { "word": "moved", "level": 1 },
+      { "word": "transferred", "level": 3 },
+      { "word": "displaced", "level": 4 }
+    ],
+    "antonyms": [
+      { "word": "stayed", "level": 1 },
+      { "word": "remained", "level": 3 }
+    ]
+  }
+]

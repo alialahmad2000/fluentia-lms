@@ -5,6 +5,7 @@ import { supabase } from '../../lib/supabase'
 import { toast } from '../ui/FluentiaToast'
 import { safeCelebrate } from '../../lib/celebrations'
 import { emitXP } from '../ui/XPFloater'
+import WordRelationships from './WordRelationships'
 
 function shuffle(arr) {
   const a = [...arr]
@@ -224,6 +225,17 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
                   <div className="text-center py-4 space-y-2">
                     <p className="text-2xl">🌟</p>
                     <p className="text-sm font-bold text-emerald-400 font-['Tajawal']">أتقنت هذه الكلمة!</p>
+                  </div>
+                )}
+
+                {((word.synonyms && word.synonyms.length > 0) ||
+                  (word.antonyms && word.antonyms.length > 0)) && (
+                  <div className="pt-2 border-t border-white/5">
+                    <WordRelationships
+                      synonyms={word.synonyms || []}
+                      antonyms={word.antonyms || []}
+                      studentId={studentId}
+                    />
                   </div>
                 )}
               </>

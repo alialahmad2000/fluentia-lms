@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Trophy, Clock, Zap, RefreshCw, X } from 'lucide-react'
+import WordRelationships from './WordRelationships'
 
 function formatDuration(seconds) {
   if (!seconds) return '—'
@@ -21,6 +22,7 @@ export default function QuizResultScreen({
   onRetry,
   onClose,
   onReviewWord,
+  studentId,
 }) {
   const ratio = totalQuestions > 0 ? correctCount / totalQuestions : 0
   const percent = Math.round(ratio * 100)
@@ -93,24 +95,41 @@ export default function QuizResultScreen({
           <h3 className="text-sm font-semibold text-[var(--text-primary)] mb-3">
             الكلمات التي أخطأت فيها ({wrongWords.length})
           </h3>
-          <div className="space-y-1.5">
-            {wrongWords.map((w) => (
-              <button
-                key={w.id}
-                onClick={() => onReviewWord?.(w)}
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[var(--surface-raised)] border border-[var(--border-subtle)] hover:border-sky-400/40 transition-colors text-right"
-              >
-                <span
-                  className="font-semibold text-[var(--text-primary)] min-w-[100px] text-left"
-                  dir="ltr"
+          <div className="space-y-2.5">
+            {wrongWords.map((w) => {
+              const hasRels =
+                (w.synonyms && w.synonyms.length > 0) || (w.antonyms && w.antonyms.length > 0)
+              return (
+                <div
+                  key={w.id}
+                  className="rounded-lg bg-[var(--surface-raised)] border border-[var(--border-subtle)] overflow-hidden"
                 >
-                  {w.word}
-                </span>
-                <span className="flex-1 text-xs text-[var(--text-muted)] truncate">
-                  {w.definition_ar}
-                </span>
-              </button>
-            ))}
+                  <button
+                    onClick={() => onReviewWord?.(w)}
+                    className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-white/5 transition-colors text-right"
+                  >
+                    <span
+                      className="font-semibold text-[var(--text-primary)] min-w-[100px] text-left"
+                      dir="ltr"
+                    >
+                      {w.word}
+                    </span>
+                    <span className="flex-1 text-xs text-[var(--text-muted)] truncate">
+                      {w.definition_ar}
+                    </span>
+                  </button>
+                  {hasRels && (
+                    <div className="px-3 pb-3 pt-1 border-t border-white/5">
+                      <WordRelationships
+                        synonyms={w.synonyms || []}
+                        antonyms={w.antonyms || []}
+                        studentId={studentId}
+                      />
+                    </div>
+                  )}
+                </div>
+              )
+            })}
           </div>
         </motion.div>
       )}

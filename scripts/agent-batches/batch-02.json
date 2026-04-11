@@ -1,0 +1,1570 @@
+[
+  {
+    "id": "00395878-b813-43ce-b3bc-d2e626728e2b",
+    "word": "decode",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "to discover the meaning of something that is difficult to understand or in a secret code",
+    "definition_ar": "فك الشفرة، حل الرموز، فهم المعنى الخفي"
+  },
+  {
+    "id": "019f6ce5-4c74-47e5-914f-246669be7a16",
+    "word": "ethnocentric",
+    "level": 5,
+    "part_of_speech": "adjective",
+    "definition_en": "evaluating other cultures according to the standards of one's own culture; believing one's own culture is superior",
+    "definition_ar": "متمركز عرقياً، ينظر للثقافات الأخرى من منظور ثقافته فقط"
+  },
+  {
+    "id": "0347dd79-be17-4098-975c-9242fc7935ce",
+    "word": "phasing",
+    "level": 5,
+    "part_of_speech": "verb",
+    "definition_en": "To gradually introduce, remove, or change something in stages",
+    "definition_ar": "إدخال أو إزالة أو تغيير شيء تدريجياً على مراحل"
+  },
+  {
+    "id": "0491703e-1903-4375-967e-d9d85646de96",
+    "word": "update",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "to make something more modern or add new information",
+    "definition_ar": "حدّث، طوّر، أضاف معلومات جديدة"
+  },
+  {
+    "id": "07c07a26-9a37-4353-8b7d-63d1af9588bb",
+    "word": "abundance",
+    "level": 4,
+    "part_of_speech": "noun",
+    "definition_en": "a very large quantity of something; more than enough",
+    "definition_ar": "وفرة، كثرة، غزارة"
+  },
+  {
+    "id": "09268323-f802-45d1-aa31-e6eb4f2f8ed6",
+    "word": "thousands",
+    "level": 1,
+    "part_of_speech": "noun",
+    "definition_en": "a very large number, many groups of one thousand",
+    "definition_ar": "آلاف، الآلاف"
+  },
+  {
+    "id": "0a0bc58f-cfed-497c-9af6-6de485c188e8",
+    "word": "captivated",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "to attract and hold someone's attention completely; to fascinate",
+    "definition_ar": "سحر، أبهر، جذب انتباه شخص بقوة"
+  },
+  {
+    "id": "0b081319-c0da-4e04-97e4-92a605d6340e",
+    "word": "smell",
+    "level": 1,
+    "part_of_speech": "verb",
+    "definition_en": "to notice something using your nose",
+    "definition_ar": "يشم، يتشمم"
+  },
+  {
+    "id": "0ce183ca-6b17-4baf-9abd-986f23f6e794",
+    "word": "spectacular",
+    "level": 2,
+    "part_of_speech": "adjective",
+    "definition_en": "extremely impressive and beautiful to look at",
+    "definition_ar": "مذهل، رائع، مثير للإعجاب"
+  },
+  {
+    "id": "0e79639d-e73f-4dc1-afac-6bc47115fabf",
+    "word": "optimize",
+    "level": 5,
+    "part_of_speech": "verb",
+    "definition_en": "to make the best or most effective use of something; to achieve the highest level of efficiency",
+    "definition_ar": "يحسن، يجعل الشيء في أفضل حالاته، يحقق أقصى استفادة"
+  },
+  {
+    "id": "10606c15-c6f7-4082-ad50-472d82f882af",
+    "word": "catalyze",
+    "level": 4,
+    "part_of_speech": "verb",
+    "definition_en": "To cause or accelerate a significant change or action.",
+    "definition_ar": "يحفز، يسرع، يؤدي إلى"
+  },
+  {
+    "id": "12170996-92ad-4254-8265-33d6104e7749",
+    "word": "generate",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "to produce or create something",
+    "definition_ar": "ينتج، يولد، يخلق"
+  },
+  {
+    "id": "13c7ac25-68b2-4fa5-bab2-ba043ff6285b",
+    "word": "cultivating",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "growing plants or crops, especially with care and attention",
+    "definition_ar": "يزرع، يستنبت، ينمي"
+  },
+  {
+    "id": "14c862b7-6c82-40b2-8b21-4cae7a2cef48",
+    "word": "preceded",
+    "level": 5,
+    "part_of_speech": "verb",
+    "definition_en": "Came before in time, order, or position",
+    "definition_ar": "سبق، تقدم على، حدث قبل"
+  },
+  {
+    "id": "15e50e2e-b3ae-41c4-999e-1e4c575bcd0c",
+    "word": "creative",
+    "level": 1,
+    "part_of_speech": "adjective",
+    "definition_en": "Good at making new and interesting things",
+    "definition_ar": "مبدع، خلاق"
+  },
+  {
+    "id": "170dbfaa-c1b3-47ff-9074-00d62da37995",
+    "word": "antithetical",
+    "level": 5,
+    "part_of_speech": "adjective",
+    "definition_en": "directly opposed or contrasted; mutually incompatible",
+    "definition_ar": "متضاد، متناقض، معاكس"
+  },
+  {
+    "id": "1800836a-042f-4cd9-88da-ea7b25c1c2cd",
+    "word": "combine",
+    "level": 1,
+    "part_of_speech": "verb",
+    "definition_en": "to put two or more things together",
+    "definition_ar": "يجمع، يدمج، يخلط"
+  },
+  {
+    "id": "196fc8df-4265-499d-bd3e-3ef081553a56",
+    "word": "implications",
+    "level": 5,
+    "part_of_speech": "noun",
+    "definition_en": "possible results, effects, or meanings that follow from an action or decision",
+    "definition_ar": "التداعيات، الآثار المحتملة، النتائج المترتبة"
+  },
+  {
+    "id": "1a99221f-3008-4b5a-a67b-c7bbaaa6d38a",
+    "word": "optimal",
+    "level": 4,
+    "part_of_speech": "adjective",
+    "definition_en": "best or most favorable; most effective under particular conditions",
+    "definition_ar": "مثالي، أمثل، الأفضل"
+  },
+  {
+    "id": "1bdb9230-8ca3-43ac-91f3-1f1d596bbdda",
+    "word": "set up",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "to start or create something new, like a business or organization",
+    "definition_ar": "أنشأ، أسس، أقام"
+  },
+  {
+    "id": "1d5f04db-0e4b-4de0-92fd-dc0350c7ca41",
+    "word": "paradigm",
+    "level": 5,
+    "part_of_speech": "noun",
+    "definition_en": "a typical example or pattern; a framework of concepts and methods",
+    "definition_ar": "نموذج، نمط، إطار مفاهيمي"
+  },
+  {
+    "id": "1e101c04-195c-4215-ab21-8415d7a07dc0",
+    "word": "foster",
+    "level": 5,
+    "part_of_speech": "verb",
+    "definition_en": "to encourage the development or growth of something; to promote or nurture",
+    "definition_ar": "يشجع، ينمي، يرعى"
+  },
+  {
+    "id": "1eedff0f-c5d1-40ba-b967-4b1b0161410f",
+    "word": "refined",
+    "level": 4,
+    "part_of_speech": "adjective",
+    "definition_en": "Improved and made more precise, sophisticated, or pure",
+    "definition_ar": "مُحسّن، مُطوّر، مكرر، مهذب"
+  },
+  {
+    "id": "1f872d3c-b979-47e5-8558-8e2c86aaeeef",
+    "word": "careful",
+    "level": 1,
+    "part_of_speech": "adjective",
+    "definition_en": "thinking about what you do to avoid mistakes or danger",
+    "definition_ar": "حذر، حريص، منتبه"
+  },
+  {
+    "id": "2075300d-adcf-4f8f-b399-f2f5f75b56cb",
+    "word": "malleable",
+    "level": 5,
+    "part_of_speech": "adjective",
+    "definition_en": "able to be hammered or pressed into shape without breaking; easily influenced or adaptable to change",
+    "definition_ar": "قابل للتشكيل، مرن، قابل للتأثر"
+  },
+  {
+    "id": "21617db0-3e20-489e-9bbd-c2326d552e79",
+    "word": "popular",
+    "level": 1,
+    "part_of_speech": "adjective",
+    "definition_en": "liked or enjoyed by many people",
+    "definition_ar": "شعبي، محبوب من قبل كثير من الناس"
+  },
+  {
+    "id": "237d69e7-e20e-42ac-bbb0-3434b7b3cd0c",
+    "word": "compromise",
+    "level": 4,
+    "part_of_speech": "verb",
+    "definition_en": "to damage or weaken something, making it less effective or reliable",
+    "definition_ar": "يعرض للخطر، يضر، يقوض"
+  },
+  {
+    "id": "24fde058-9789-4477-b945-878f51080389",
+    "word": "unique",
+    "level": 1,
+    "part_of_speech": "adjective",
+    "definition_en": "different from everything else; one of a kind",
+    "definition_ar": "فريد من نوعه، وحيد"
+  },
+  {
+    "id": "267599b9-5c1b-4c8e-bd81-c4b119b9b49d",
+    "word": "incorporate",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "to include something as part of a whole; to combine",
+    "definition_ar": "يدمج، يُضمّن، يشمل"
+  },
+  {
+    "id": "27e24084-4c32-4db9-9718-e5f34c957104",
+    "word": "generate",
+    "level": 1,
+    "part_of_speech": "verb",
+    "definition_en": "To produce or create something, especially energy or electricity",
+    "definition_ar": "ينتج أو يولد شيئاً، خاصة الطاقة أو الكهرباء"
+  },
+  {
+    "id": "29037f3d-ddae-4fbf-99f7-8c4f9e406b75",
+    "word": "practice",
+    "level": 1,
+    "part_of_speech": "verb",
+    "definition_en": "to do something many times to get better at it",
+    "definition_ar": "يتدرب، يمارس"
+  },
+  {
+    "id": "2a3f709f-ca9d-4186-a08d-18611af3a7e3",
+    "word": "harness",
+    "level": 4,
+    "part_of_speech": "verb",
+    "definition_en": "To control and use the force or strength of something to produce power or achieve something",
+    "definition_ar": "يسخر، يستغل، يوظف (قوة أو طاقة)"
+  },
+  {
+    "id": "2be79541-9243-4654-9e48-72c243146076",
+    "word": "refine",
+    "level": 5,
+    "part_of_speech": "verb",
+    "definition_en": "To improve something by making small changes; to make more precise or exact",
+    "definition_ar": "يحسّن، يهذّب، ينقّح"
+  },
+  {
+    "id": "2d5060cd-3b8c-4159-886e-b8fdaa0bf8f3",
+    "word": "fantastical",
+    "level": 5,
+    "part_of_speech": "adjective",
+    "definition_en": "Seeming impossible to believe; extremely imaginative or unrealistic",
+    "definition_ar": "خيالي، غير قابل للتصديق، وهمي"
+  },
+  {
+    "id": "2e923449-e3bc-4ec6-b0cb-5e4a58c1d9bf",
+    "word": "recalibration",
+    "level": 5,
+    "part_of_speech": "noun",
+    "definition_en": "The process of adjusting or correcting something to improve its accuracy or effectiveness",
+    "definition_ar": "إعادة معايرة، إعادة ضبط وتعديل"
+  },
+  {
+    "id": "30310297-c088-4e69-8b4f-8743a67bb5f9",
+    "word": "compelling",
+    "level": 5,
+    "part_of_speech": "adjective",
+    "definition_en": "Evoking interest, attention, or admiration in a powerfully irresistible way; very convincing or persuasive.",
+    "definition_ar": "مقنع، جذاب، لا يقاوم"
+  },
+  {
+    "id": "3250637c-f78d-4301-80e1-e0f4cf34074d",
+    "word": "evolving",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "changing and developing gradually over time",
+    "definition_ar": "يتطور، يتغير تدريجياً مع الوقت"
+  },
+  {
+    "id": "33a60aa0-3a1e-4637-a44d-fd5773eefcf4",
+    "word": "implications",
+    "level": 4,
+    "part_of_speech": "noun",
+    "definition_en": "possible results or effects of an action or decision; what something suggests or means",
+    "definition_ar": "تداعيات، آثار، مضامين"
+  },
+  {
+    "id": "3502626d-7f82-4198-96ae-472841e9830f",
+    "word": "pronounced",
+    "level": 5,
+    "part_of_speech": "adjective",
+    "definition_en": "Very noticeable or marked; clearly evident",
+    "definition_ar": "واضح، بارز، ملحوظ"
+  },
+  {
+    "id": "366aeedc-c16d-462d-bd52-b8e104f47ce6",
+    "word": "esoteric",
+    "level": 5,
+    "part_of_speech": "adjective",
+    "definition_en": "Intended for or understood by only a particular group with specialized knowledge; obscure and difficult to understand",
+    "definition_ar": "غامض، مبهم، مخصص للخبراء فقط"
+  },
+  {
+    "id": "3755021e-b19d-4649-870c-fcacbb280da7",
+    "word": "plausible",
+    "level": 5,
+    "part_of_speech": "adjective",
+    "definition_en": "Seeming reasonable, believable, or likely to be true",
+    "definition_ar": "معقول، محتمل، قابل للتصديق"
+  },
+  {
+    "id": "38e01971-31e5-46b0-8640-62795aa32840",
+    "word": "prowess",
+    "level": 5,
+    "part_of_speech": "noun",
+    "definition_en": "skill or expertise in a particular activity or field",
+    "definition_ar": "براعة، مهارة، خبرة"
+  },
+  {
+    "id": "3a23b842-dc6b-44c5-9391-c1c1d5196af5",
+    "word": "attributed",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "said to belong to or be caused by someone or something",
+    "definition_ar": "منسوب إلى أو مُعزى إلى شخص أو شيء"
+  },
+  {
+    "id": "3ad5081e-85fa-43c4-a176-913ae0d272fd",
+    "word": "causing",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "making something happen",
+    "definition_ar": "يسبب، يؤدي إلى"
+  },
+  {
+    "id": "3c647092-e275-4f9d-8917-11d1f7dc49e9",
+    "word": "antiquated",
+    "level": 4,
+    "part_of_speech": "adjective",
+    "definition_en": "old-fashioned and no longer suitable for modern conditions; outdated",
+    "definition_ar": "عتيق، قديم الطراز، غير مناسب للعصر الحديث"
+  },
+  {
+    "id": "3d5cf253-4099-4903-bd5d-6cee3722472d",
+    "word": "cultivate",
+    "level": 5,
+    "part_of_speech": "verb",
+    "definition_en": "To develop or improve through care and attention; to foster the growth of something",
+    "definition_ar": "يزرع، ينمي، يطور، يرعى"
+  },
+  {
+    "id": "3e4d96b1-fe9f-4f7e-8c26-1f1422d8b53c",
+    "word": "stay up",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "to remain awake and not go to bed",
+    "definition_ar": "يسهر، لا ينام، يبقى مستيقظاً"
+  },
+  {
+    "id": "3f622838-155d-4d9f-80ea-f2e262d0a06f",
+    "word": "prohibitive",
+    "level": 5,
+    "part_of_speech": "adjective",
+    "definition_en": "So expensive or difficult as to prevent or discourage use or participation",
+    "definition_ar": "مكلف أو صعب جداً بحيث يمنع أو يثني عن الاستخدام أو المشاركة"
+  },
+  {
+    "id": "4095434d-8a64-476d-ad4a-2724743ebaec",
+    "word": "making the most of",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "using something in the best possible way to get maximum benefit",
+    "definition_ar": "الاستفادة القصوى من شيء ما"
+  },
+  {
+    "id": "4198b73f-d368-4ead-b2b6-daf2159624ab",
+    "word": "applied",
+    "level": 4,
+    "part_of_speech": "verb",
+    "definition_en": "Put into practical use; used in a real situation",
+    "definition_ar": "طُبق، استُخدم عملياً"
+  },
+  {
+    "id": "4418f560-c5a2-4e58-a59a-557aab80ea82",
+    "word": "adapting",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "changing to fit new conditions or situations",
+    "definition_ar": "التكيف أو التأقلم مع ظروف جديدة"
+  },
+  {
+    "id": "44e373ac-d61f-4c0d-96ff-d5c3f617dbbd",
+    "word": "extensive",
+    "level": 4,
+    "part_of_speech": "adjective",
+    "definition_en": "covering a large area; having great range or scope; comprehensive",
+    "definition_ar": "واسع، شامل، كبير المدى"
+  },
+  {
+    "id": "4772677d-c210-4c1e-912e-a6cab2837b8c",
+    "word": "connects",
+    "level": 1,
+    "part_of_speech": "verb",
+    "definition_en": "to join or link things or people together",
+    "definition_ar": "يربط، يوصل، يصل"
+  },
+  {
+    "id": "48645e66-0d05-40c1-b1b1-98329423a77c",
+    "word": "transform",
+    "level": 4,
+    "part_of_speech": "verb",
+    "definition_en": "To change something completely, usually in a good way",
+    "definition_ar": "يغيّر جذرياً، يحوّل، يبدّل"
+  },
+  {
+    "id": "4a7b18b1-0907-4cd8-9eb4-58cb4b7a8858",
+    "word": "compelling",
+    "level": 3,
+    "part_of_speech": "adjective",
+    "definition_en": "very interesting and able to hold your attention; convincing and making you want to believe it",
+    "definition_ar": "مقنع أو جذاب أو مثير للاهتمام"
+  },
+  {
+    "id": "4c847b20-a222-43a1-871f-e49da87e9545",
+    "word": "speculative",
+    "level": 4,
+    "part_of_speech": "adjective",
+    "definition_en": "engaged in or based on conjecture rather than knowledge; involving financial risk",
+    "definition_ar": "تكهني، مضارب، مبني على التخمين"
+  },
+  {
+    "id": "4dba1021-57c5-4399-92ee-30498fabe16d",
+    "word": "profound",
+    "level": 4,
+    "part_of_speech": "adjective",
+    "definition_en": "very deep, intense, or having a strong influence or effect",
+    "definition_ar": "عميق، عظيم التأثير، جليل"
+  },
+  {
+    "id": "4edd414c-654f-4643-a2b4-69082753257b",
+    "word": "rehearse",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "to practice something before doing it officially or publicly",
+    "definition_ar": "يتدرب، يتمرن، يبروفة"
+  },
+  {
+    "id": "5059c974-00e3-42bb-9afc-e8fda8e76d03",
+    "word": "sustain",
+    "level": 4,
+    "part_of_speech": "verb",
+    "definition_en": "to keep something alive, existing, or continuing for a long time",
+    "definition_ar": "يحافظ على، يدعم، يستمر"
+  },
+  {
+    "id": "521ccf65-5d7a-4cfa-a02d-572cb8e78ec1",
+    "word": "fragmentation",
+    "level": 5,
+    "part_of_speech": "noun",
+    "definition_en": "the process of breaking or separating something into small parts or pieces",
+    "definition_ar": "تجزؤ، تفتت، انقسام"
+  },
+  {
+    "id": "538533ef-70c9-46bc-98ad-035e073b54d6",
+    "word": "emerge",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "to appear or come out from somewhere; to develop or become known",
+    "definition_ar": "يظهر، ينبثق، يخرج"
+  },
+  {
+    "id": "54ecca9f-ca1a-441f-8f0c-b2f645f08acd",
+    "word": "attractive",
+    "level": 1,
+    "part_of_speech": "adjective",
+    "definition_en": "nice to look at, beautiful or interesting",
+    "definition_ar": "جذاب، جميل"
+  },
+  {
+    "id": "563642af-c888-442e-98fd-1ed1c344ddf8",
+    "word": "disconnect",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "to stop using or break the connection with something, especially technology",
+    "definition_ar": "قطع الاتصال أو التوقف عن استخدام شيء ما"
+  },
+  {
+    "id": "577da201-1048-4ec6-8c8e-892900d73785",
+    "word": "sculpt",
+    "level": 5,
+    "part_of_speech": "verb",
+    "definition_en": "to create or shape something carefully and deliberately, often implying artistic skill.",
+    "definition_ar": "ينحت، يشكل، يصوغ"
+  },
+  {
+    "id": "589756d0-b19a-48c1-b03b-5f7bc3a5783b",
+    "word": "diversify",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "to add variety by including many different types or kinds of things",
+    "definition_ar": "ينوع، يضيف التنوع"
+  },
+  {
+    "id": "599cc5c3-180d-4500-8ba7-94aeabb83385",
+    "word": "innovative",
+    "level": 4,
+    "part_of_speech": "adjective",
+    "definition_en": "Featuring new methods, ideas, or products; creative and original.",
+    "definition_ar": "مبتكر، إبداعي، حديث"
+  },
+  {
+    "id": "5afa87d0-1f53-40f7-8dfc-db0ce72be866",
+    "word": "implemented",
+    "level": 4,
+    "part_of_speech": "verb",
+    "definition_en": "to put a plan or decision into effect; to carry out or execute",
+    "definition_ar": "نفذ، طبق، وضع موضع التنفيذ"
+  },
+  {
+    "id": "5c3199c3-391a-4fdf-b244-dc2c1d55388e",
+    "word": "overlooked",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "to fail to notice or consider something; to ignore something important",
+    "definition_ar": "يتجاهل، يغفل عن، يهمل"
+  },
+  {
+    "id": "5da6bcfd-df5f-474d-9071-d3d7829c7476",
+    "word": "technology",
+    "level": 1,
+    "part_of_speech": "noun",
+    "definition_en": "the use of science to make useful things like computers and machines",
+    "definition_ar": "التكنولوجيا، التقنية"
+  },
+  {
+    "id": "5ec9ed9c-18a3-4d54-afbd-24fcf25c495f",
+    "word": "convert",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "to change something from one form, system, or use to another",
+    "definition_ar": "يحول، يغير، يبدل"
+  },
+  {
+    "id": "5fc26fc8-036d-4686-b522-ab8b8a57a430",
+    "word": "formidable",
+    "level": 3,
+    "part_of_speech": "adjective",
+    "definition_en": "very impressive in size or power, causing fear or respect; very difficult to deal with",
+    "definition_ar": "هائل، مخيف، صعب جداً"
+  },
+  {
+    "id": "60e11c55-b5c5-4c1e-a533-cb34fa545992",
+    "word": "signify",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "to mean something or show that something is important",
+    "definition_ar": "يدل على، يعني، يشير إلى"
+  },
+  {
+    "id": "620ee64b-c160-49f1-8784-b62b19781586",
+    "word": "phenomenon",
+    "level": 4,
+    "part_of_speech": "noun",
+    "definition_en": "a fact or situation that is observed to exist or happen, especially one whose cause is in question",
+    "definition_ar": "ظاهرة، حدث ملحوظ"
+  },
+  {
+    "id": "638ac02e-4300-4b61-b674-464a656e7fe1",
+    "word": "persist",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "to continue doing something despite difficulties or opposition",
+    "definition_ar": "يثابر، يستمر، يصر على"
+  },
+  {
+    "id": "64fb16d4-c4f7-44c0-9ec5-3f51a50df2a4",
+    "word": "withstand",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "to be strong enough to remain unharmed by something harmful or difficult",
+    "definition_ar": "يتحمّل، يقاوم، يصمد أمام"
+  },
+  {
+    "id": "665e1770-065c-4013-a065-f2ca15bc10f1",
+    "word": "turning",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "changing or becoming different",
+    "definition_ar": "يتحول، يصبح"
+  },
+  {
+    "id": "6786d8f4-926a-42de-91b9-0b9733d4840d",
+    "word": "inconceivable",
+    "level": 5,
+    "part_of_speech": "adjective",
+    "definition_en": "impossible to imagine, understand, or believe",
+    "definition_ar": "غير قابل للتصور أو التخيل، مستحيل الفهم"
+  },
+  {
+    "id": "692f79ab-e395-4b0f-ba2a-3369a4e69784",
+    "word": "implications",
+    "level": 5,
+    "part_of_speech": "noun",
+    "definition_en": "The possible results, effects, or meanings of an action or decision",
+    "definition_ar": "تبعات، آثار، دلالات"
+  },
+  {
+    "id": "6a4e232c-bd56-461b-9c20-5f451a0637f7",
+    "word": "navigating",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "finding your way from one place to another",
+    "definition_ar": "الملاحة أو إيجاد الطريق"
+  },
+  {
+    "id": "6b87921f-699d-4060-8a44-22a2ba04d038",
+    "word": "mutual",
+    "level": 3,
+    "part_of_speech": "adjective",
+    "definition_en": "shared by two or more people or groups; affecting each other equally",
+    "definition_ar": "متبادل، مشترك، يؤثر على الطرفين"
+  },
+  {
+    "id": "6c8f2e60-ea94-4515-9ff3-bcfa8797c955",
+    "word": "taken off",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "to become successful or popular very quickly",
+    "definition_ar": "انتشر بسرعة، أقلع، نجح بشكل كبير"
+  },
+  {
+    "id": "6dd8649a-5875-4ea6-b88b-9f1545668930",
+    "word": "delicious",
+    "level": 1,
+    "part_of_speech": "adjective",
+    "definition_en": "having a very good taste; tasty",
+    "definition_ar": "لذيذ، شهي"
+  },
+  {
+    "id": "6f904119-4f05-4006-a1a8-405ffc4d59dc",
+    "word": "protracted",
+    "level": 5,
+    "part_of_speech": "adjective",
+    "definition_en": "continuing for a long time, usually longer than expected or desired",
+    "definition_ar": "طويل الأمد، ممتد لفترة أطول من المتوقع أو المرغوب"
+  },
+  {
+    "id": "709aad4a-41c1-47bf-90b1-23413c09bcbc",
+    "word": "comprehensive",
+    "level": 4,
+    "part_of_speech": "adjective",
+    "definition_en": "including everything that is necessary; complete and thorough",
+    "definition_ar": "شامل، كامل، متكامل"
+  },
+  {
+    "id": "71def0fd-8112-4fe7-8c9b-4424bdf637fc",
+    "word": "catalyzed",
+    "level": 4,
+    "part_of_speech": "verb",
+    "definition_en": "To cause or speed up a reaction, change, or process",
+    "definition_ar": "حفّز، أدى إلى، أسرع عملية"
+  },
+  {
+    "id": "73ac8a95-776a-4de0-be21-821aef34b51a",
+    "word": "ubiquitous",
+    "level": 5,
+    "part_of_speech": "adjective",
+    "definition_en": "Present, appearing, or found everywhere; seeming to be in all places at the same time.",
+    "definition_ar": "موجود في كل مكان، منتشر بكثرة، شائع جداً"
+  },
+  {
+    "id": "75b73921-e3c7-4469-bd0f-4b1ac75c5fcc",
+    "word": "free time",
+    "level": 1,
+    "part_of_speech": "noun",
+    "definition_en": "Time when you are not working or studying and can do what you want",
+    "definition_ar": "الوقت الحر / وقت الفراغ"
+  },
+  {
+    "id": "76aa792f-1ab7-45c0-b95d-040b5c1d93b1",
+    "word": "transport",
+    "level": 1,
+    "part_of_speech": "verb",
+    "definition_en": "to carry or move something from one place to another",
+    "definition_ar": "ينقل، يحمل، يوصل"
+  },
+  {
+    "id": "77ccc71e-52cf-42f9-b7d3-8c538631e62d",
+    "word": "setting up",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "to build or put something in position ready to use",
+    "definition_ar": "ينصب، يركب، يجهز للاستعمال"
+  },
+  {
+    "id": "78cb76b8-9111-43e7-a60f-9cb264ac3f7a",
+    "word": "preservation",
+    "level": 4,
+    "part_of_speech": "noun",
+    "definition_en": "The action of maintaining something in its original state or protecting it from harm or decay.",
+    "definition_ar": "حفظ، صيانة، حماية"
+  },
+  {
+    "id": "7a67ff03-69da-40d8-9c0b-436991bcc8cb",
+    "word": "addicted to",
+    "level": 2,
+    "part_of_speech": "adjective",
+    "definition_en": "unable to stop doing or using something harmful",
+    "definition_ar": "مدمن على، معتاد على بشكل ضار"
+  },
+  {
+    "id": "7be1f3c5-51f9-4df6-bfb0-9387f335ecac",
+    "word": "unprecedented",
+    "level": 4,
+    "part_of_speech": "adjective",
+    "definition_en": "never having happened or existed before; without previous example",
+    "definition_ar": "غير مسبوق، لم يحدث من قبل، فريد"
+  },
+  {
+    "id": "7cdb4dac-6690-40ac-811a-15eb571f2008",
+    "word": "healthy",
+    "level": 1,
+    "part_of_speech": "adjective",
+    "definition_en": "good for your body and mind; not sick",
+    "definition_ar": "صحي، سليم"
+  },
+  {
+    "id": "7e21f26c-ba51-436c-a8e6-9daba18893e2",
+    "word": "incorporate",
+    "level": 4,
+    "part_of_speech": "verb",
+    "definition_en": "to include something as part of a whole; to combine or integrate",
+    "definition_ar": "يدمج، يدرج، يتضمن"
+  },
+  {
+    "id": "7f2ed82e-914a-45fd-adfa-1ea5fa3a50c9",
+    "word": "substantial",
+    "level": 4,
+    "part_of_speech": "adjective",
+    "definition_en": "large in amount, quantity, or degree; considerable and important",
+    "definition_ar": "كبير، هائل، جوهري"
+  },
+  {
+    "id": "80cace59-2a72-412a-97c9-adefa3fb566a",
+    "word": "compelling",
+    "level": 3,
+    "part_of_speech": "adjective",
+    "definition_en": "very convincing and able to persuade you that something is true or important",
+    "definition_ar": "مقنع، مؤثر، لا يقاوم"
+  },
+  {
+    "id": "81be10ce-8806-4998-a2a6-8dd22c6d2f7e",
+    "word": "sophisticated",
+    "level": 3,
+    "part_of_speech": "adjective",
+    "definition_en": "very advanced, complex, or developed using the latest technology or methods",
+    "definition_ar": "متطور، معقد، متقدم تقنياً"
+  },
+  {
+    "id": "828273e3-5aea-4978-ab88-f39af025c138",
+    "word": "accumulate",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "to gradually get more and more of something over time",
+    "definition_ar": "يتراكم، يتجمع، يزداد تدريجياً"
+  },
+  {
+    "id": "844a3d23-7636-4c44-8eac-f4f51857807c",
+    "word": "connect",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "to join or link two or more things together",
+    "definition_ar": "يربط، يوصل"
+  },
+  {
+    "id": "857bcc5a-806a-40a2-bcf9-2b6d5c359f31",
+    "word": "ordeal",
+    "level": 5,
+    "part_of_speech": "noun",
+    "definition_en": "A painful or horrific experience, especially a prolonged difficult situation that tests endurance",
+    "definition_ar": "محنة، تجربة قاسية، موقف صعب ومؤلم"
+  },
+  {
+    "id": "867f91d1-97c7-4710-9258-6ff85954a838",
+    "word": "escalate",
+    "level": 5,
+    "part_of_speech": "verb",
+    "definition_en": "To increase rapidly in intensity, extent, or importance",
+    "definition_ar": "يتصاعد، يزداد بسرعة"
+  },
+  {
+    "id": "87549c3f-69ec-4990-9d11-e83f76a893dc",
+    "word": "undermine",
+    "level": 5,
+    "part_of_speech": "verb",
+    "definition_en": "To weaken or damage something, especially gradually or insidiously.",
+    "definition_ar": "يقوض، يضعف، ينال من"
+  },
+  {
+    "id": "889c1275-b292-4700-a0d7-a133dc7a5e6f",
+    "word": "rugged",
+    "level": 2,
+    "part_of_speech": "adjective",
+    "definition_en": "having a rough, uneven surface; wild and difficult to travel through",
+    "definition_ar": "وعر، خشن، صعب المسلك"
+  },
+  {
+    "id": "89532cda-72ea-44ff-91f4-ebcf901c60e1",
+    "word": "family",
+    "level": 1,
+    "part_of_speech": "noun",
+    "definition_en": "Your mother, father, and other relatives",
+    "definition_ar": "عائلة، أسرة"
+  },
+  {
+    "id": "8a4a51a2-6840-4037-b17e-fe862fb71ede",
+    "word": "obviate",
+    "level": 5,
+    "part_of_speech": "verb",
+    "definition_en": "To remove a need or difficulty; to make unnecessary",
+    "definition_ar": "يلغي الحاجة إلى؛ يجعل غير ضروري"
+  },
+  {
+    "id": "8b805875-0004-4aeb-a48d-7c855e2b1ed8",
+    "word": "paradigmatic",
+    "level": 5,
+    "part_of_speech": "adjective",
+    "definition_en": "Serving as a typical example or pattern of something; relating to a paradigm or fundamental change in approach",
+    "definition_ar": "يخدم كمثال نموذجي أو نمط لشيء ما؛ متعلق بنموذج أو تغيير جوهري في المنهج"
+  },
+  {
+    "id": "8c686133-ff81-42f3-9c79-1c25547b5e5f",
+    "word": "distinctive",
+    "level": 3,
+    "part_of_speech": "adjective",
+    "definition_en": "easily recognizable as different from others; unique and characteristic",
+    "definition_ar": "مميز، فريد، له طابع خاص"
+  },
+  {
+    "id": "8db91a96-520a-442f-ad99-510fbbde3ca7",
+    "word": "transforming",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "changing something completely into a different form",
+    "definition_ar": "تحويل أو تغيير شيء بشكل كامل"
+  },
+  {
+    "id": "8f069eb3-c9a7-46d3-8ceb-8c80fc8bbddd",
+    "word": "extract",
+    "level": 4,
+    "part_of_speech": "verb",
+    "definition_en": "to remove or obtain something from a particular source or place",
+    "definition_ar": "يستخرج، يستخلص، ينتزع"
+  },
+  {
+    "id": "909c4da2-850a-4f69-9005-f04e628632a8",
+    "word": "epitomize",
+    "level": 5,
+    "part_of_speech": "verb",
+    "definition_en": "To be a perfect example of something; to represent in typical fashion the essential characteristics of something.",
+    "definition_ar": "يجسد، يمثل، يكون مثالاً مثالياً على"
+  },
+  {
+    "id": "916f0434-f0d8-4482-bf5e-2a10298eac41",
+    "word": "compete",
+    "level": 1,
+    "part_of_speech": "verb",
+    "definition_en": "to try to win or be better than others in a game or contest",
+    "definition_ar": "يتنافس، يشارك في مسابقة"
+  },
+  {
+    "id": "92701311-ad81-49c1-9f17-6cc9d2fe13d5",
+    "word": "clear out",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "to remove things that are not wanted or needed",
+    "definition_ar": "يزيل، ينظف، يتخلص من"
+  },
+  {
+    "id": "93e7dfdc-e7ce-43ee-98bf-3e7bf51a579e",
+    "word": "baffle",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "to confuse someone completely; to be too difficult to understand",
+    "definition_ar": "يُحيّر، يُربك، يُذهل"
+  },
+  {
+    "id": "94ea06bd-d74b-4fd1-aa5d-c15aadd5fdaa",
+    "word": "revisit",
+    "level": 4,
+    "part_of_speech": "verb",
+    "definition_en": "To consider or examine something again",
+    "definition_ar": "يعيد النظر في، يراجع مرة أخرى"
+  },
+  {
+    "id": "9644adb7-0354-4058-ab68-395ef2fc8ab4",
+    "word": "perpetuate",
+    "level": 5,
+    "part_of_speech": "verb",
+    "definition_en": "to make something continue indefinitely; to preserve from extinction or oblivion.",
+    "definition_ar": "يديم، يخلد، يستمر"
+  },
+  {
+    "id": "9725fe98-fedd-44b1-8b1e-45c5f9a11781",
+    "word": "infinitesimal",
+    "level": 5,
+    "part_of_speech": "adjective",
+    "definition_en": "Extremely small; so small as to be almost nothing",
+    "definition_ar": "متناهي الصغر، ضئيل جداً، لا متناهي في الصغر"
+  },
+  {
+    "id": "97bb1abf-34e0-4011-9842-252055e5e632",
+    "word": "inherent",
+    "level": 4,
+    "part_of_speech": "adjective",
+    "definition_en": "existing as a natural or basic part of something; built-in",
+    "definition_ar": "متأصل، طبيعي، جوهري"
+  },
+  {
+    "id": "98c156d0-468c-45c4-9380-f80ee4028e99",
+    "word": "profound",
+    "level": 4,
+    "part_of_speech": "adjective",
+    "definition_en": "Very deep, intense, or having great meaning or importance",
+    "definition_ar": "عميق، بالغ الأثر، ذو مغزى عظيم"
+  },
+  {
+    "id": "9975e444-de47-41b9-9178-22cb6f5247f1",
+    "word": "soar",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "to increase quickly to a high level",
+    "definition_ar": "يرتفع بسرعة، يحلق عالياً"
+  },
+  {
+    "id": "9ac98840-f39a-48a8-b1d6-e0d27ade63c8",
+    "word": "dispersal",
+    "level": 4,
+    "part_of_speech": "noun",
+    "definition_en": "the spreading or distribution of something over a wide area",
+    "definition_ar": "انتشار، تشتت، توزع"
+  },
+  {
+    "id": "9c8a90b7-3af8-4b3c-8f74-08200c4ebb1f",
+    "word": "solid",
+    "level": 1,
+    "part_of_speech": "adjective",
+    "definition_en": "strong and reliable; not liquid or gas",
+    "definition_ar": "قوي، محكم، صلب"
+  },
+  {
+    "id": "9df3913f-27f4-4d73-b6b1-c75aa80036c0",
+    "word": "common",
+    "level": 1,
+    "part_of_speech": "adjective",
+    "definition_en": "happening often or found in many places",
+    "definition_ar": "شائع، عادي"
+  },
+  {
+    "id": "9eed5279-5ed6-4e86-ab7b-7b11b20754c9",
+    "word": "interfere",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "to prevent something from happening normally or to get involved where you are not wanted",
+    "definition_ar": "يتداخل، يعيق، يتدخل"
+  },
+  {
+    "id": "a01b2da6-7137-4dd9-9193-0871998d5e0d",
+    "word": "pioneering",
+    "level": 5,
+    "part_of_speech": "verb",
+    "definition_en": "developing or being the first to use new methods, ideas, or techniques; leading innovation.",
+    "definition_ar": "رائد، مبتكر، يطور أساليب جديدة"
+  },
+  {
+    "id": "a0c3e64c-d482-41ec-95c0-f5fab00336f2",
+    "word": "disconnect",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "to stop being connected to something, especially technology",
+    "definition_ar": "ينقطع عن، يفصل الاتصال"
+  },
+  {
+    "id": "a19b2824-298f-4bfe-9fc8-880b42ee7cbb",
+    "word": "breakfast",
+    "level": 1,
+    "part_of_speech": "noun",
+    "definition_en": "The first meal you eat in the morning",
+    "definition_ar": "الإفطار - أول وجبة نتناولها في الصباح"
+  },
+  {
+    "id": "a366a31f-8d3d-40d9-8c14-52f8486e2f1d",
+    "word": "compelling",
+    "level": 4,
+    "part_of_speech": "adjective",
+    "definition_en": "Very interesting or exciting; forceful and convincing",
+    "definition_ar": "مقنع، جذاب، مثير للاهتمام"
+  },
+  {
+    "id": "a4d72fc7-1320-40d4-b41f-282cfbf24aff",
+    "word": "enhancing",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "to improve something or make it better, stronger, or more attractive",
+    "definition_ar": "يحسّن، يعزز، يقوي"
+  },
+  {
+    "id": "a5f92623-4abf-4f2f-913e-030525ef673f",
+    "word": "strong",
+    "level": 1,
+    "part_of_speech": "adjective",
+    "definition_en": "Having power; not weak; not easy to break",
+    "definition_ar": "قوي"
+  },
+  {
+    "id": "a79dcdc9-afd5-4354-a274-bfc08fac0cc5",
+    "word": "create",
+    "level": 1,
+    "part_of_speech": "verb",
+    "definition_en": "to make something new",
+    "definition_ar": "يخلق، يصنع، يبتكر"
+  },
+  {
+    "id": "a927b001-3b84-48f0-94ea-625c4fd60ee4",
+    "word": "convergence",
+    "level": 5,
+    "part_of_speech": "noun",
+    "definition_en": "The process or state of converging; the coming together of different elements to form a unified whole.",
+    "definition_ar": "تقارب، التقاء، اندماج"
+  },
+  {
+    "id": "a9ee1ba4-d188-48de-8f37-eb7e2b45cf2b",
+    "word": "transform",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "to change something completely into something different",
+    "definition_ar": "تحويل أو تغيير شيء بشكل كامل"
+  },
+  {
+    "id": "aae7149e-9842-4137-af19-7ae2843275c1",
+    "word": "convergence",
+    "level": 4,
+    "part_of_speech": "noun",
+    "definition_en": "The process of coming together or meeting at a common point; merging of different elements",
+    "definition_ar": "التقارب، التلاقي، أو اجتماع عناصر مختلفة في نقطة مشتركة"
+  },
+  {
+    "id": "acbec3ed-55c4-44de-8c8f-d5ebe0a52072",
+    "word": "incubation",
+    "level": 5,
+    "part_of_speech": "noun",
+    "definition_en": "the process of developing ideas or plans gradually; a period of development before something emerges",
+    "definition_ar": "الحضانة، عملية تطوير الأفكار أو الخطط تدريجياً، فترة تطوير قبل ظهور شيء"
+  },
+  {
+    "id": "ae776800-cb9c-471a-b9c9-7b4f7f4f743e",
+    "word": "transcend",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "go beyond the limits of something; rise above or overcome",
+    "definition_ar": "يتجاوز، يتخطى الحدود، يعلو فوق"
+  },
+  {
+    "id": "afb02776-0ff1-4c11-8151-b8432c07b95a",
+    "word": "utilize",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "to use something in an effective way",
+    "definition_ar": "يستخدم، يستغل، يوظف"
+  },
+  {
+    "id": "b1fedbf0-45ad-4e75-83f2-2c0a3a5b034d",
+    "word": "strengthened",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "made stronger or more powerful",
+    "definition_ar": "قُوِّي، عُزِّز، أصبح أقوى"
+  },
+  {
+    "id": "b3540a80-3305-48b7-b2c6-4abc9d531d48",
+    "word": "implications",
+    "level": 3,
+    "part_of_speech": "noun",
+    "definition_en": "the possible results or effects that might happen because of something",
+    "definition_ar": "التداعيات، الآثار، النتائج المحتملة"
+  },
+  {
+    "id": "b4d7b580-37af-4760-9cce-bfc533f3e5ce",
+    "word": "compelling",
+    "level": 3,
+    "part_of_speech": "adjective",
+    "definition_en": "very interesting and able to hold your attention; convincing",
+    "definition_ar": "مقنع، جذاب، مثير للاهتمام"
+  },
+  {
+    "id": "b5f9fd15-da69-4903-bb76-2aa2d15855cf",
+    "word": "embarked on",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "started doing something new, especially something important or difficult",
+    "definition_ar": "بدأ في شيء جديد أو مهم"
+  },
+  {
+    "id": "b7c4adc3-f379-4fc6-9588-8f452b24523d",
+    "word": "strike a balance",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "To find a middle way between two different things or to manage two opposing needs equally well",
+    "definition_ar": "يحقق التوازن، يوازن بين شيئين"
+  },
+  {
+    "id": "b906c648-1574-4c2e-be3a-5da19b31b475",
+    "word": "revolutionizing",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "changing something completely and dramatically",
+    "definition_ar": "يحدث ثورة في، يغير جذرياً"
+  },
+  {
+    "id": "ba4db1af-fdf6-4fa3-a186-5d109080271c",
+    "word": "growing",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "to increase in size, number, or amount",
+    "definition_ar": "ينمو، يزداد، يتوسع"
+  },
+  {
+    "id": "bbaaed8a-ab40-44f6-af35-22535e9812ae",
+    "word": "synergistic",
+    "level": 5,
+    "part_of_speech": "adjective",
+    "definition_en": "Working together to produce an effect greater than the sum of individual effects",
+    "definition_ar": "تآزري، تفاعلي، متضافر"
+  },
+  {
+    "id": "bd0a73be-a411-4cfb-b87c-645692a2ba16",
+    "word": "viscous",
+    "level": 3,
+    "part_of_speech": "adjective",
+    "definition_en": "thick and sticky, flowing slowly (describing liquids)",
+    "definition_ar": "لزج، كثيف، بطيء الجريان"
+  },
+  {
+    "id": "be47beac-8f87-4687-b5d9-a3f84c8c44ca",
+    "word": "precision",
+    "level": 4,
+    "part_of_speech": "noun",
+    "definition_en": "the quality of being exact and accurate",
+    "definition_ar": "دقة، إتقان، ضبط"
+  },
+  {
+    "id": "c02d07d9-5dad-4812-9712-e72a63587e08",
+    "word": "crafts",
+    "level": 1,
+    "part_of_speech": "noun",
+    "definition_en": "activities where you make things with your hands using special skills",
+    "definition_ar": "الحرف اليدوية، الأعمال الفنية التي تُصنع باليد"
+  },
+  {
+    "id": "c15e6fa3-0e4e-4c34-81f3-6d680a9a9745",
+    "word": "employ",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "to use something for a particular purpose; to give work to someone",
+    "definition_ar": "يستخدم، يوظف (شخص أو شيء) لغرض معين"
+  },
+  {
+    "id": "c31253dc-448f-455a-803a-e1645f4b5807",
+    "word": "jobs",
+    "level": 1,
+    "part_of_speech": "noun",
+    "definition_en": "Work that people do to earn money",
+    "definition_ar": "وظائف، أعمال"
+  },
+  {
+    "id": "c3f95949-acbf-4a51-95df-c548b62ef41a",
+    "word": "kept track",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "to continue to know about what is happening or changing",
+    "definition_ar": "تتبع أو راقب"
+  },
+  {
+    "id": "c55dd03b-4990-46aa-896e-c7c9ede6c1c7",
+    "word": "devastate",
+    "level": 4,
+    "part_of_speech": "verb",
+    "definition_en": "to destroy or damage something severely; to cause great emotional shock",
+    "definition_ar": "يدمر، يخرب بشدة، يصدم عاطفياً"
+  },
+  {
+    "id": "c6238b85-4f22-47a6-bffb-8f23b99d4b56",
+    "word": "turn off",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "to stop a machine or device from working by pressing a button or switch",
+    "definition_ar": "يطفئ أو يوقف تشغيل الجهاز"
+  },
+  {
+    "id": "c77086e8-e28b-4e5f-8751-e0bf4da76f2a",
+    "word": "reconcile",
+    "level": 5,
+    "part_of_speech": "verb",
+    "definition_en": "To find a way to make two different ideas, facts, or situations compatible with each other",
+    "definition_ar": "يوفق بين، يصالح، يجعل الأمور متوافقة"
+  },
+  {
+    "id": "c8cfa1ee-50b9-48ec-9b19-d02aa1a6bdcb",
+    "word": "paradoxical",
+    "level": 5,
+    "part_of_speech": "adjective",
+    "definition_en": "Seemingly contradictory but actually revealing a deeper truth",
+    "definition_ar": "متناقض ظاهرياً، مفارق، يبدو متضارباً"
+  },
+  {
+    "id": "cad4d406-0941-4a6c-86f7-28446cb3f81b",
+    "word": "explore",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "to examine or discuss something carefully",
+    "definition_ar": "يستكشف أو يبحث في موضوع بعمق"
+  },
+  {
+    "id": "cc0df652-58dd-44b9-9b33-643ba77281d2",
+    "word": "confluence",
+    "level": 5,
+    "part_of_speech": "noun",
+    "definition_en": "the coming together or merging of different elements, ideas, or influences",
+    "definition_ar": "التقاء، تلاقي، اجتماع عناصر أو أفكار مختلفة"
+  },
+  {
+    "id": "ce0f1837-a909-4447-b552-7279571aefb0",
+    "word": "conservation",
+    "level": 2,
+    "part_of_speech": "noun",
+    "definition_en": "the protection of nature, wildlife, and natural resources",
+    "definition_ar": "المحافظة على البيئة، حماية الطبيعة"
+  },
+  {
+    "id": "cf8515e5-4a39-4cda-a034-813b925f2c79",
+    "word": "popular",
+    "level": 1,
+    "part_of_speech": "adjective",
+    "definition_en": "Liked or enjoyed by many people",
+    "definition_ar": "شائع، محبوب، مشهور"
+  },
+  {
+    "id": "d0d53233-26f6-49c7-98fc-5e704d61c2fb",
+    "word": "benefits",
+    "level": 2,
+    "part_of_speech": "noun",
+    "definition_en": "good or helpful results that come from something",
+    "definition_ar": "الفوائد أو المنافع الإيجابية"
+  },
+  {
+    "id": "d20eca2c-05d9-47a7-9139-34a0b50ec4f5",
+    "word": "breakthroughs",
+    "level": 4,
+    "part_of_speech": "noun",
+    "definition_en": "important discoveries or developments that solve problems or create new opportunities",
+    "definition_ar": "اختراقات، إنجازات مهمة، اكتشافات حاسمة"
+  },
+  {
+    "id": "d3a466dc-a754-49d9-b81d-d7cfcabd070b",
+    "word": "challenge",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "to question or disagree with something in order to test if it is true",
+    "definition_ar": "تحدي أو التشكيك في شيء لاختبار صحته"
+  },
+  {
+    "id": "d4e180e1-06a4-4151-8575-3b97868e32ac",
+    "word": "dry up",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "to become completely dry with no water left",
+    "definition_ar": "يجف تماماً، ينضب"
+  },
+  {
+    "id": "d5b01755-bc5f-4710-87ef-df288c26182a",
+    "word": "unprecedented",
+    "level": 4,
+    "part_of_speech": "adjective",
+    "definition_en": "Never done or known before; having no previous example or comparison.",
+    "definition_ar": "غير مسبوق، لم يحدث من قبل، فريد"
+  },
+  {
+    "id": "d6bc212b-9ba6-46d6-a010-617183c719c9",
+    "word": "ethnoscience",
+    "level": 5,
+    "part_of_speech": "noun",
+    "definition_en": "The study of traditional knowledge systems and practices of different cultural groups",
+    "definition_ar": "علم الأعراق، دراسة أنظمة المعرفة التقليدية للثقافات المختلفة"
+  },
+  {
+    "id": "d7806967-a66d-449a-aace-2d7d118d7142",
+    "word": "replenish",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "to fill something again or make it full again",
+    "definition_ar": "يجدد، يملأ مرة أخرى، يعيد الإمداد"
+  },
+  {
+    "id": "d8915a9a-f2d7-4d61-bbde-f7534ce80502",
+    "word": "coldest",
+    "level": 1,
+    "part_of_speech": "adjective",
+    "definition_en": "The most cold; having the lowest temperature",
+    "definition_ar": "الأكثر برودة، الأبرد"
+  },
+  {
+    "id": "d9baf3d7-26a4-46dd-9384-f762feeeda1b",
+    "word": "access",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "be able to use or get something",
+    "definition_ar": "يصل إلى، يحصل على"
+  },
+  {
+    "id": "dad9ccdc-305e-41f2-9021-919d4c5b4f9f",
+    "word": "corroborated",
+    "level": 4,
+    "part_of_speech": "verb",
+    "definition_en": "Supported or confirmed by additional evidence or testimony",
+    "definition_ar": "أكد، دعم بأدلة إضافية، عضد"
+  },
+  {
+    "id": "dd09840c-f2c7-48e6-bb7c-be1005324baa",
+    "word": "epitomizes",
+    "level": 5,
+    "part_of_speech": "verb",
+    "definition_en": "To be a perfect example or representation of something",
+    "definition_ar": "يجسد، يمثل المثال الأمثل لـ"
+  },
+  {
+    "id": "dee81ea0-85ff-4a26-a3c1-47df5463cab8",
+    "word": "infrastructure",
+    "level": 5,
+    "part_of_speech": "noun",
+    "definition_en": "the basic physical and organizational structures needed for the operation of a society or enterprise",
+    "definition_ar": "البنية التحتية، الهياكل الأساسية المطلوبة لتشغيل المجتمع أو المؤسسة"
+  },
+  {
+    "id": "e05452a0-1842-4d3f-a8a8-c7ce1a8ff654",
+    "word": "imperative",
+    "level": 5,
+    "part_of_speech": "adjective",
+    "definition_en": "Of vital importance; crucial and requiring immediate attention",
+    "definition_ar": "حتمي، ضروري للغاية، ملح ويتطلب اهتماماً فورياً"
+  },
+  {
+    "id": "e133f3ef-2118-4c8c-83ad-bf202c389470",
+    "word": "prevalent",
+    "level": 3,
+    "part_of_speech": "adjective",
+    "definition_en": "existing commonly or happening often in a particular place or time",
+    "definition_ar": "سائد، منتشر، شائع"
+  },
+  {
+    "id": "e30502c4-d950-440e-85d5-57481af24415",
+    "word": "dancing",
+    "level": 1,
+    "part_of_speech": "noun",
+    "definition_en": "Moving your body to music in a fun way",
+    "definition_ar": "الرقص"
+  },
+  {
+    "id": "e44a4f5a-2926-4f78-94b5-6ffa4217b376",
+    "word": "survive",
+    "level": 1,
+    "part_of_speech": "verb",
+    "definition_en": "To continue to live, especially in difficult conditions",
+    "definition_ar": "البقاء على قيد الحياة، النجاة"
+  },
+  {
+    "id": "e4e850d2-5254-44b7-ac9a-b1b644aab759",
+    "word": "venture",
+    "level": 4,
+    "part_of_speech": "verb",
+    "definition_en": "To go somewhere despite possible risks or dangers; to dare to do something",
+    "definition_ar": "يغامر بالذهاب؛ يجرؤ على فعل شيء رغم المخاطر"
+  },
+  {
+    "id": "e6452e04-85ab-4904-b70b-175194ab82c4",
+    "word": "cutting down on",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "reducing the amount of something you do or use",
+    "definition_ar": "يقلل من، يخفف من"
+  },
+  {
+    "id": "e75b6714-6056-4158-a4d1-1d47406fd1c4",
+    "word": "emphasis",
+    "level": 5,
+    "part_of_speech": "noun",
+    "definition_en": "special importance or attention given to something",
+    "definition_ar": "تأكيد، تركيز، اهتمام خاص"
+  },
+  {
+    "id": "e8d4fc1e-af90-4e6c-9af9-8d723980dad4",
+    "word": "ramifications",
+    "level": 4,
+    "part_of_speech": "noun",
+    "definition_en": "The complex or serious consequences of an action or event",
+    "definition_ar": "تبعات، عواقب، آثار معقدة"
+  },
+  {
+    "id": "e99004d9-7d12-4d1f-81c1-e12494db6d5d",
+    "word": "demographic",
+    "level": 4,
+    "part_of_speech": "noun",
+    "definition_en": "a particular section of a population with shared characteristics such as age, income, or education",
+    "definition_ar": "فئة سكانية، شريحة ديموغرافية"
+  },
+  {
+    "id": "eab8b888-285c-4e84-a03c-c6f4c0d1298b",
+    "word": "stomach",
+    "level": 1,
+    "part_of_speech": "noun",
+    "definition_en": "The part inside your body where food goes after you eat",
+    "definition_ar": "المعدة"
+  },
+  {
+    "id": "ebcd74f6-c264-4700-9411-5b691026f9c6",
+    "word": "address",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "to deal with or work on solving a problem",
+    "definition_ar": "يتعامل مع، يعالج، يتصدى لـ"
+  },
+  {
+    "id": "ecbb3089-d018-4281-9772-699399ddf271",
+    "word": "gradually",
+    "level": 2,
+    "part_of_speech": "adverb",
+    "definition_en": "slowly, step by step, over time",
+    "definition_ar": "تدريجياً، ببطء"
+  },
+  {
+    "id": "eea95564-d9fb-4245-b4b2-1ef54d4d8b9c",
+    "word": "cooler",
+    "level": 1,
+    "part_of_speech": "adjective",
+    "definition_en": "Less hot; having a lower temperature than before",
+    "definition_ar": "أبرد، أقل حرارة"
+  },
+  {
+    "id": "ef6a6b4e-963f-4061-baa7-a1eed2065bf7",
+    "word": "spurring",
+    "level": 5,
+    "part_of_speech": "verb",
+    "definition_en": "Encouraging or stimulating action or development",
+    "definition_ar": "يحفز، يدفع، يشجع"
+  },
+  {
+    "id": "f0ae9f48-8dc3-471d-9c67-5b378e0700bf",
+    "word": "setup",
+    "level": 3,
+    "part_of_speech": "noun",
+    "definition_en": "the process of organizing or arranging something, or the way something is organized",
+    "definition_ar": "الإعداد، التركيب، التنظيم"
+  },
+  {
+    "id": "f230b7ac-0380-4777-af6a-659567bcaf7b",
+    "word": "ingenuity",
+    "level": 5,
+    "part_of_speech": "noun",
+    "definition_en": "The quality of being clever, original, and inventive in solving problems or creating solutions",
+    "definition_ar": "البراعة، الإبداع، القدرة على الابتكار وحل المشكلات"
+  },
+  {
+    "id": "f3377d22-3e48-4cc9-8c3b-5cd40439b8da",
+    "word": "creative",
+    "level": 1,
+    "part_of_speech": "adjective",
+    "definition_en": "using imagination to make new and original things",
+    "definition_ar": "مبدع أو خلاق"
+  },
+  {
+    "id": "f4aa9319-b397-41e0-b80f-deb2d4288e9e",
+    "word": "brought back",
+    "level": 2,
+    "part_of_speech": "verb",
+    "definition_en": "returned something to life or to a previous state",
+    "definition_ar": "أعاد، استرجع، أحيا"
+  },
+  {
+    "id": "f604dbfd-15dc-42f2-b7ec-fbaacb55f836",
+    "word": "embrace",
+    "level": 3,
+    "part_of_speech": "verb",
+    "definition_en": "to accept or support something willingly and enthusiastically",
+    "definition_ar": "يتبنى، يحتضن، يقبل بحماس"
+  },
+  {
+    "id": "f7b6e30c-0415-49d6-9101-cf97588a0522",
+    "word": "cortical",
+    "level": 5,
+    "part_of_speech": "adjective",
+    "definition_en": "relating to the cortex, especially the cerebral cortex of the brain",
+    "definition_ar": "قشري، متعلق بقشرة الدماغ"
+  },
+  {
+    "id": "f96ca0e4-e6f7-4cfe-a2c3-a88ac4e7a28d",
+    "word": "cooking",
+    "level": 1,
+    "part_of_speech": "noun",
+    "definition_en": "Making food by heating and preparing it",
+    "definition_ar": "الطبخ / الطهي"
+  },
+  {
+    "id": "fb3891a4-7be7-45af-bed3-84b096b84d85",
+    "word": "share",
+    "level": 1,
+    "part_of_speech": "verb",
+    "definition_en": "to give something to others or let others use something",
+    "definition_ar": "يشارك، يتشارك"
+  },
+  {
+    "id": "fcb6da90-0154-4a78-82ee-6b516b48062a",
+    "word": "integration",
+    "level": 4,
+    "part_of_speech": "noun",
+    "definition_en": "the process of combining or coordinating separate elements into a unified whole",
+    "definition_ar": "التكامل، الدمج، التوحيد"
+  },
+  {
+    "id": "fe0c1d08-5077-41cd-9581-2d706a8d954a",
+    "word": "prohibitions",
+    "level": 4,
+    "part_of_speech": "noun",
+    "definition_en": "official rules or laws that forbid something",
+    "definition_ar": "محظورات، ممنوعات، قوانين تمنع شيئاً"
+  },
+  {
+    "id": "ff07a96b-cd1e-4184-ac8d-0875ad2d24f9",
+    "word": "embodies",
+    "level": 5,
+    "part_of_speech": "verb",
+    "definition_en": "To represent or express an idea, quality, or feeling in physical or visible form",
+    "definition_ar": "يجسد، يمثل، يحتوي على الصفات الأساسية لشيء ما"
+  },
+  {
+    "id": "ffc75930-18f4-4149-990a-0a114f3947c0",
+    "word": "relocated",
+    "level": 4,
+    "part_of_speech": "verb",
+    "definition_en": "Moved to a new place or position; changed location",
+    "definition_ar": "انتقل إلى مكان جديد؛ غير موقعه"
+  }
+]

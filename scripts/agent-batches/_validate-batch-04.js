@@ -1,0 +1,10 @@
+const d=require('./batch-04.result.json');
+const i=require('./batch-04.json');
+console.log('input:', i.length, 'result:', d.length);
+const emptySyn=d.filter(x=>x.synonyms.length===0).length;
+const emptyAnt=d.filter(x=>x.antonyms.length===0).length;
+console.log('empty syn:', emptySyn, 'empty ant:', emptyAnt);
+const inIds=new Set(i.map(x=>x.id));
+const outIds=new Set(d.map(x=>x.id));
+const missing=[...inIds].filter(x=>!outIds.has(x));
+console.log('missing:', missing.length);

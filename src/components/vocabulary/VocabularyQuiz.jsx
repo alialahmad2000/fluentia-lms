@@ -152,6 +152,7 @@ export default function VocabularyQuiz({
                 durationSeconds={durationSeconds}
                 xpAwarded={xpAwarded}
                 wrongWords={wrongWords}
+                studentId={studentId}
                 onRetry={retry}
                 onClose={onClose}
               />

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Volume2, CheckCircle, RotateCcw, ArrowRight } from 'lucide-react'
+import WordRelationships from '../../../../components/vocabulary/WordRelationships'
 
 const POS_LABELS = {
   noun: 'اسم',
@@ -23,7 +24,7 @@ function shuffle(arr) {
   return a
 }
 
-export default function VocabularyPractice({ words, onComplete, onBack }) {
+export default function VocabularyPractice({ words, onComplete, onBack, studentId }) {
   const [deck, setDeck] = useState([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isFlipped, setIsFlipped] = useState(false)
@@ -316,6 +317,17 @@ export default function VocabularyPractice({ words, onComplete, onBack }) {
                   <p className="text-sm italic text-[var(--text-secondary)] text-center max-w-[90%] leading-relaxed">
                     {renderExample(currentWord.example_sentence, currentWord.word)}
                   </p>
+                )}
+
+                {((currentWord.synonyms && currentWord.synonyms.length > 0) ||
+                  (currentWord.antonyms && currentWord.antonyms.length > 0)) && (
+                  <div className="w-full max-w-[95%]">
+                    <WordRelationships
+                      synonyms={currentWord.synonyms || []}
+                      antonyms={currentWord.antonyms || []}
+                      studentId={studentId}
+                    />
+                  </div>
                 )}
 
                 {currentWord.audio_url && (

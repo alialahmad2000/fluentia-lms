@@ -104,7 +104,7 @@ export default function VocabularyFlashcards() {
       // Fetch all vocabulary with reading → unit join
       const { data: vocabData, error: vocabErr } = await supabase
         .from('curriculum_vocabulary')
-        .select('id, word, definition_en, definition_ar, example_sentence, part_of_speech, audio_url, difficulty_tier, sort_order, reading:curriculum_readings!reading_id(unit_id, unit:curriculum_units!unit_id(unit_number, level_id, theme_ar))')
+        .select('id, word, definition_en, definition_ar, example_sentence, part_of_speech, audio_url, difficulty_tier, sort_order, synonyms, antonyms, reading:curriculum_readings!reading_id(unit_id, unit:curriculum_units!unit_id(unit_number, level_id, theme_ar))')
         .order('sort_order')
 
       if (!isMounted) return
@@ -393,6 +393,7 @@ export default function VocabularyFlashcards() {
               ← العودة إلى الدفعات
             </button>
             <VocabularyPractice
+              studentId={studentData?.id}
               words={activeChunk.words}
               onComplete={async (stats) => {
                 const normalized = {
@@ -443,6 +444,7 @@ export default function VocabularyFlashcards() {
         />
       ) : (
         <VocabGameRenderer
+          studentId={studentData?.id}
           gameId={activeGame}
           words={gameWordCount === Infinity ? filteredVocab : filteredVocab.slice(0, gameWordCount)}
           allWords={filteredVocab}
@@ -502,7 +504,7 @@ function getRandomDistractors(word, allWords, count) {
   return unique
 }
 
-function VocabGameRenderer({ gameId, words, allWords, onBack, onComplete }) {
+function VocabGameRenderer({ gameId, words, allWords, onBack, onComplete, studentId }) {
   const backToHub = () => onBack()
   const handleComplete = (stats) => {
     const normalized = {
@@ -516,6 +518,7 @@ function VocabGameRenderer({ gameId, words, allWords, onBack, onComplete }) {
     case 'anki':
       return (
         <VocabularyPractice
+          studentId={studentId}
           words={words}
           onComplete={handleComplete}
           onBack={backToHub}
