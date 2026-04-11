@@ -300,7 +300,7 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
     setAssistantOpen(false)
     toast({ type: 'success', title: 'تم إرسال كتابتك — جاري التصحيح...' })
     try { safeCelebrate('writing_submitted') } catch {}
-    awardCurriculumXP(profile?.id, 'writing', null, unitId)
+    awardCurriculumXP(studentId, 'writing', null, unitId)
 
     // 2. Call AI feedback
     const success = await fetchFeedback(text)
@@ -308,7 +308,7 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
       toast({ type: 'warning', title: 'التقييم لم يتم — اضغط "إعادة التصحيح" للمحاولة مرة أخرى' })
     }
     setSubmitting(false)
-  }, [task.id, task.word_count_min, text, studentId, saveToDb, submitting, fetchFeedback, profile?.id, unitId])
+  }, [task.id, task.word_count_min, text, studentId, saveToDb, submitting, fetchFeedback, unitId])
 
   const handleRetryFeedback = useCallback(async () => {
     if (submitting) return
