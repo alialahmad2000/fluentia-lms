@@ -14,6 +14,7 @@ import StudentFAB from '../../../components/student/StudentFAB'
 import NotesPanel from '../../../components/student/NotesPanel'
 import SavedWordsPanel from '../../../components/student/SavedWordsPanel'
 import ClassSummaryView from '../../../components/student/ClassSummaryView'
+import SectionErrorBoundary from '../../../components/SectionErrorBoundary'
 import ReadingTab from './tabs/ReadingTab'
 import GrammarTab from './tabs/GrammarTab'
 import VocabularyTab from './tabs/VocabularyTab'
@@ -374,7 +375,8 @@ export default function UnitContent() {
         })}
       </div>
 
-      {/* Tab content */}
+      {/* Tab content — wrapped in a section-level boundary so one broken tab
+          can't take down the whole unit page. Remounts on tab change. */}
       <AnimatePresence mode="wait">
         <motion.div
           key={activeTab}
@@ -383,7 +385,14 @@ export default function UnitContent() {
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.2 }}
         >
-          {renderTabContent()}
+          <SectionErrorBoundary
+            key={activeTab}
+            section={activeTab}
+            sectionLabel={TABS.find(t => t.id === activeTab)?.label}
+            unitId={unitId}
+          >
+            {renderTabContent()}
+          </SectionErrorBoundary>
         </motion.div>
       </AnimatePresence>
 
