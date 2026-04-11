@@ -1,0 +1,2153 @@
+[
+  {
+    "id": "b38f49fc-35d7-47ee-8666-c6bbbd9e1094",
+    "word": "process",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˈprəʊsɛs/",
+      "common_mispronunciation_ar": "بروسيس (مع مد الواو بشكل خاطئ)",
+      "correct_approximation_ar": "بْرُوسِس",
+      "problem_letters": [
+        2,
+        3
+      ],
+      "rule_category": "stress_and_schwa",
+      "explanation_ar": "النبر على المقطع الأول (PRO-cess) في الاسم، والمقطع الثاني يحتوي على شوا خفيفة. كثير من متعلمي اللغة ينطقونها \"بروسيس\" بمد الواو في النهاية، بينما الصوت الصحيح يكون قصيراً.",
+      "similar_words": [
+        "progress",
+        "protest",
+        "product"
+      ],
+      "practice_tip_ar": "اضغط على المقطع الأول \"PRO\" بقوة، وخفّف المقطع الثاني تماماً حتى يصبح \"سِس\" قصيرة."
+    }
+  },
+  {
+    "id": "b3bdaa95-12d9-4e83-ba42-ce738a4d961e",
+    "word": "incorporate",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b3f9e23c-7d68-4634-973e-23a607729f6a",
+    "word": "stewardship",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˈstjuːədʃɪp/",
+      "common_mispronunciation_ar": "ستيواردشيب (مع نطق كل الحروف)",
+      "correct_approximation_ar": "سْتْيُوَردْشِب",
+      "problem_letters": [
+        2,
+        3,
+        4
+      ],
+      "rule_category": "yod_coalescence",
+      "explanation_ar": "حرف W هنا يندمج مع الحرف السابق لينتج صوت \"يُو\" بدل \"وا\". النهاية -ship تُنطق بسرعة بشوا. كثير من متعلمي اللغة يُطيلون \"وارد\" بينما الصوت الصحيح مختصر جداً.",
+      "similar_words": [
+        "steward",
+        "student",
+        "stew"
+      ],
+      "practice_tip_ar": "ابدأ بـ\"سْتْيُو\" ثم \"أرد\" خفيفة ثم \"شِب\" سريعة، كأنها كلمتان قصيرتان مدمجتان."
+    }
+  },
+  {
+    "id": "b40821b7-4055-488c-80e1-ebbeec4bf2df",
+    "word": "attracts",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b4239918-8685-428e-8261-5b30bf7deeaa",
+    "word": "optimization",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˌɒptɪmaɪˈzeɪʃən/",
+      "common_mispronunciation_ar": "أوبتيميزيشن (بنبر على المقطع الأول)",
+      "correct_approximation_ar": "أُبْتِمَايْزِيْشَن",
+      "problem_letters": [
+        7,
+        8
+      ],
+      "rule_category": "stress_shift_with_suffix",
+      "explanation_ar": "النبر الأساسي يقع على \"ZAY\" وليس على بداية الكلمة. حرف I في \"mi\" يُنطق \"آي\" طويلة مع النبر. نهاية -tion دائماً تُنطق \"شَن\" بشوا خفيفة. كثير من متعلمي اللغة يخطئون في مكان النبر.",
+      "similar_words": [
+        "organization",
+        "realization",
+        "civilization"
+      ],
+      "practice_tip_ar": "اضرب النبر الأقوى على \"ZAY\" وقل \"أب-تِ-مَايْ-زِيْ-شَن\" مع إطالة المقطع الرابع."
+    }
+  },
+  {
+    "id": "b4685a2b-75e8-4877-b977-144ba7f3de14",
+    "word": "cleaner",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b4689562-736c-423e-82ae-190d3fba7054",
+    "word": "revolutionize",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˌrɛvəˈluːʃənaɪz/",
+      "common_mispronunciation_ar": "ريفولوشنايز (بدون شوا)",
+      "correct_approximation_ar": "رِڤَلُوشِنَايْز",
+      "problem_letters": [
+        3,
+        7
+      ],
+      "rule_category": "schwa_in_long_word",
+      "explanation_ar": "الكلمة طويلة ولكن معظم مقاطعها تحتوي على شوا خفيفة. النبر على \"LU\" ونهاية -ize تُنطق \"آيز\". كثير من متعلمي اللغة ينطقون كل حرف بنفس القوة، بينما الصحيح إضعاف المقاطع غير المشددة.",
+      "similar_words": [
+        "revolution",
+        "solution",
+        "evolution"
+      ],
+      "practice_tip_ar": "اجعل \"LU\" الأقوى والأطول، واخفض باقي المقاطع حتى تصبح شبه صامتة."
+    }
+  },
+  {
+    "id": "b4b8bd9f-c044-4f11-8b8b-6f01ad1b9da6",
+    "word": "trapped",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b4c207bb-4bed-4379-a895-0527e4f96435",
+    "word": "settling",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b4d7b580-37af-4760-9cce-bfc533f3e5ce",
+    "word": "compelling",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/kəmˈpɛlɪŋ/",
+      "common_mispronunciation_ar": "كومبيلينغ (بنبر على المقطع الأول)",
+      "correct_approximation_ar": "كَمْبِلِنْ",
+      "problem_letters": [
+        0,
+        1
+      ],
+      "rule_category": "stress_on_second_syllable",
+      "explanation_ar": "النبر يقع على المقطع الثاني \"PEL\" وليس الأول. حرف O في \"com\" يُنطق شوا خفيفة جداً. نهاية -ing تُنطق \"إنْ\" أنفية بدون نطق الجيم. كثير من متعلمي اللغة يخطئون في موقع النبر.",
+      "similar_words": [
+        "compel",
+        "compete",
+        "complete"
+      ],
+      "practice_tip_ar": "اضغط على \"PEL\" بقوة وابلع المقطع الأول \"com\" حتى يصبح \"كَم\" سريعة."
+    }
+  },
+  {
+    "id": "b4fef172-d5ca-4863-a984-ae000dc238a8",
+    "word": "antiquated",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˈæntɪkweɪtɪd/",
+      "common_mispronunciation_ar": "أنتيكيتد (بدون نطق QU)",
+      "correct_approximation_ar": "أَنْتِكْوِيْتِد",
+      "problem_letters": [
+        5,
+        6
+      ],
+      "rule_category": "qu_as_kw_and_ed_id",
+      "explanation_ar": "حرف QU في الإنجليزية يُنطق \"كْو\" وليس \"ك\" فقط. نهاية -ated تُنطق \"إيْتِد\" بمقطع إضافي لأن الحرف السابق للـed هو t. كثير من متعلمي اللغة يبتلعون صوت \"و\" في qu.",
+      "similar_words": [
+        "queen",
+        "quick",
+        "equate"
+      ],
+      "practice_tip_ar": "قل \"كْو\" بوضوح عند qu، ثم أضف \"إيْتِد\" كمقطع كامل في النهاية."
+    }
+  },
+  {
+    "id": "b50949c2-80da-4040-9db1-3ad3dbe82815",
+    "word": "instantly",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b550c488-5082-4bfe-b2ba-a14c35c52ba7",
+    "word": "benefit",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b57ae05f-30a0-4335-81fd-89bfbd9966a3",
+    "word": "resonance",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b5aaea0c-d41e-4357-828e-ccf2ce399899",
+    "word": "convenient",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/kənˈviːniənt/",
+      "common_mispronunciation_ar": "كونفينينت (بنطق كامل للمقطع الأول)",
+      "correct_approximation_ar": "كَنْڤِيْنْيِنْت",
+      "problem_letters": [
+        0,
+        1
+      ],
+      "rule_category": "schwa_and_stress",
+      "explanation_ar": "النبر على \"VE\" الطويلة، وحرف O في \"con\" يُضعف لشوا خفيفة. حرف V يُنطق بين الأسنان والشفة السفلى وليس كالـ W. كثير من متعلمي اللغة ينطقون كل المقاطع بقوة واحدة.",
+      "similar_words": [
+        "convene",
+        "convenience",
+        "intervene"
+      ],
+      "practice_tip_ar": "اجعل \"VE\" الأقوى والأطول، وخفّف \"con\" لتصبح \"كَن\" سريعة."
+    }
+  },
+  {
+    "id": "b5c7c117-3a86-4b0a-9064-f8a463ea90d5",
+    "word": "autonomy",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ɔːˈtɒnəmi/",
+      "common_mispronunciation_ar": "أوتونومي (بنبر على الأول)",
+      "correct_approximation_ar": "أُتُونَمِي",
+      "problem_letters": [
+        2,
+        3
+      ],
+      "rule_category": "stress_on_second_syllable",
+      "explanation_ar": "النبر يقع على \"TON\" في المقطع الثاني وليس على \"AU\" في الأول. هذا قلب لما يتوقعه كثير من متعلمي اللغة لأن كلمة \"auto\" بمفردها نبرها على الأول. التحول في موقع النبر عند إضافة المقاطع.",
+      "similar_words": [
+        "autonomous",
+        "economy",
+        "anatomy"
+      ],
+      "practice_tip_ar": "اضرب النبر على \"TON\" بقوة واجعل \"au\" خفيفة كشوا في البداية."
+    }
+  },
+  {
+    "id": "b5dc9e2f-29c4-48a1-b87f-36492276f1b7",
+    "word": "transforming",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b5e5c1cc-a090-467f-aec1-45599b0555fb",
+    "word": "tickets",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b5f5c2fa-154f-4982-b9d6-1d018ce4a906",
+    "word": "sell",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b5f9fd15-da69-4903-bb76-2aa2d15855cf",
+    "word": "embarked on",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b65c2fd3-7123-4407-a971-4d3889024e0b",
+    "word": "useful",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b6bb15b4-cda5-478f-874e-81a8018e37d5",
+    "word": "aggregation",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b6e7e959-49e4-40aa-a543-c92bb5d6b63b",
+    "word": "perfunctory",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/pərˈfʌŋktəri/",
+      "common_mispronunciation_ar": "بيرفونكتوري (بنطق كل حرف)",
+      "correct_approximation_ar": "بَرْفَنْكْتَرِي",
+      "problem_letters": [
+        0,
+        1,
+        8
+      ],
+      "rule_category": "stress_and_multiple_schwa",
+      "explanation_ar": "النبر على \"FUNC\" والبقية مقاطع ضعيفة بشوا. حرف U في \"func\" يُنطق \"أَ\" قصيرة وليس \"يُو\". كثير من متعلمي اللغة ينطقون كل المقاطع بنفس الشدة بينما الصحيح إضعاف ما عدا المقطع المنبور.",
+      "similar_words": [
+        "function",
+        "perfunctorily",
+        "dysfunctional"
+      ],
+      "practice_tip_ar": "اضغط على \"FUNC\" بقوة، وابلع الباقي حتى يصبح شوا خفيفاً."
+    }
+  },
+  {
+    "id": "b6e803ee-bc3a-4689-89bd-6be909ec3cdf",
+    "word": "sophisticated",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/səˈfɪstɪkeɪtɪd/",
+      "common_mispronunciation_ar": "سوفيستيكيتد (مع نبر خاطئ)",
+      "correct_approximation_ar": "سَفِسْتِكِيْتِد",
+      "problem_letters": [
+        2,
+        3
+      ],
+      "rule_category": "ph_as_f_and_ed_id",
+      "explanation_ar": "حرفا PH يُنطقان \"ف\" وليس \"بـ-هـ\". النبر على \"PHIS\" والنهاية -cated تُنطق \"كِيْتِد\" كمقطع كامل لأن الحرف السابق للـed هو t. كثير من متعلمي اللغة يخطئون في PH.",
+      "similar_words": [
+        "philosophy",
+        "phase",
+        "phone"
+      ],
+      "practice_tip_ar": "انطق PH كحرف \"ف\" واحد، واضغط على المقطع الثاني \"PHIS\"."
+    }
+  },
+  {
+    "id": "b6ea9bb0-8188-4ac8-ab4a-0c71510372fb",
+    "word": "universal",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b725cf84-163a-44a0-b461-4f6eb93e758b",
+    "word": "cascading",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b72da96f-b33c-4ff5-8413-e33f6d2d383b",
+    "word": "yield",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b756b99e-9a58-4ddd-a942-74040dee573e",
+    "word": "exemplified",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b7800a38-3002-47f4-b297-454d5d27a7b5",
+    "word": "epitomizes",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b7c4adc3-f379-4fc6-9588-8f452b24523d",
+    "word": "strike a balance",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b7c91907-1864-4edb-8eae-99b9f615b8df",
+    "word": "rice",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b7e171da-1bfe-4f11-aa70-2dbe011bf89c",
+    "word": "monitor",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˈmɒnɪtər/",
+      "common_mispronunciation_ar": "مونيتور (بمد الواو في النهاية)",
+      "correct_approximation_ar": "مُونِتَر",
+      "problem_letters": [
+        5,
+        6
+      ],
+      "rule_category": "schwa_final",
+      "explanation_ar": "نهاية -or تُنطق شوا خفيفة جداً \"أَر\" وليس \"أُور\" الطويلة. النبر على المقطع الأول \"MON\". كثير من متعلمي اللغة يضيفون صوت الواو الممدودة في النهاية وهذا خطأ شائع في كل كلمات -or.",
+      "similar_words": [
+        "doctor",
+        "actor",
+        "visitor"
+      ],
+      "practice_tip_ar": "قل \"مُون\" بقوة ثم \"تَر\" سريعة جداً، لا تمد الواو في النهاية."
+    }
+  },
+  {
+    "id": "b7f3a00a-7f45-431f-a1b2-c3dc79eaf60f",
+    "word": "overcome",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b80e8b32-77a2-4dc5-a5a1-2200fee4294b",
+    "word": "challenges",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b827d1e7-f3a1-41d1-ab1e-581821c94612",
+    "word": "retained",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b85b7a95-a5cd-4faf-8ed8-4107218fc29f",
+    "word": "brings together",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b85fcd2b-4cb0-4350-925c-482283d4fa8a",
+    "word": "magnitude",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˈmæɡnɪtjuːd/",
+      "common_mispronunciation_ar": "ماغنيتود (بدون صوت y)",
+      "correct_approximation_ar": "مَاغْنِتْيُود",
+      "problem_letters": [
+        6,
+        7
+      ],
+      "rule_category": "yod_in_tu",
+      "explanation_ar": "الـTU في النهاية تُنطق \"تْيُو\" في الإنجليزية البريطانية و\"تُو\" في الأمريكية. النبر على المقطع الأول \"MAG\". كثير من متعلمي اللغة يخطئون بنطقها \"تود\" فقط بدون الياء.",
+      "similar_words": [
+        "attitude",
+        "altitude",
+        "gratitude"
+      ],
+      "practice_tip_ar": "قل \"تْيُود\" في النهاية مع لمحة من الياء قبل الواو."
+    }
+  },
+  {
+    "id": "b8d02b47-3121-4cd5-8997-83e35052d939",
+    "word": "escalate",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b8f88de1-745b-4922-908f-603a5a9668da",
+    "word": "comprehensive",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˌkɒmprɪˈhɛnsɪv/",
+      "common_mispronunciation_ar": "كومبريهنسيف (بنبر على الأول)",
+      "correct_approximation_ar": "كُومْپرِهِنْسِڤ",
+      "problem_letters": [
+        7,
+        8
+      ],
+      "rule_category": "stress_on_third_syllable",
+      "explanation_ar": "النبر الرئيسي على \"HEN\" في المقطع الثالث وليس على \"com\" في الأول. نهاية -sive تُنطق \"سِڤ\" بسرعة. كثير من متعلمي اللغة يضغطون على المقطع الأول بالخطأ.",
+      "similar_words": [
+        "comprehend",
+        "extensive",
+        "expensive"
+      ],
+      "practice_tip_ar": "اضغط على \"HEN\" في المنتصف، واجعل \"com\" خفيفة في البداية."
+    }
+  },
+  {
+    "id": "b906c648-1574-4c2e-be3a-5da19b31b475",
+    "word": "revolutionizing",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b9404557-e7c0-48ee-9fe6-a9d4f51a42f2",
+    "word": "champions",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b9474795-1289-4ee8-968f-fc3ca7a8c172",
+    "word": "galvanized",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b964d48b-0c7d-4cae-8f91-5fcb8515836a",
+    "word": "paradigmatic",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˌpærədɪɡˈmætɪk/",
+      "common_mispronunciation_ar": "باراديجماتيك (بدون نطق G)",
+      "correct_approximation_ar": "پَرَدِغْمَاتِك",
+      "problem_letters": [
+        6
+      ],
+      "rule_category": "silent_g_exception",
+      "explanation_ar": "في كلمة paradigm حرف G صامت، لكن في paradigmatic يعود حرف G إلى النطق! هذا استثناء مهم. النبر على \"MAT\" في الرابع. كثير من متعلمي اللغة ينسون نطق G هنا لأنهم اعتادوا صمته في paradigm.",
+      "similar_words": [
+        "paradigm",
+        "diagram",
+        "diagnostic"
+      ],
+      "practice_tip_ar": "تذكر: G صامتة في \"paradigm\" فقط، وتعود للنطق في \"paradigmatic\"."
+    }
+  },
+  {
+    "id": "b96e9394-d73a-4e4a-a513-858ed47e94fa",
+    "word": "transformation",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˌtrænsfərˈmeɪʃən/",
+      "common_mispronunciation_ar": "ترانسفورميشن (بنبر على form)",
+      "correct_approximation_ar": "ترَنْسْفَرْمِيْشَن",
+      "problem_letters": [
+        8,
+        9,
+        10
+      ],
+      "rule_category": "stress_shift_with_suffix",
+      "explanation_ar": "النبر الرئيسي على \"MA\" في الرابع، وليس على \"FORM\" كما في الفعل transform. نهاية -tion دائماً \"شَن\". كثير من متعلمي اللغة يُبقون النبر على form خطأً.",
+      "similar_words": [
+        "information",
+        "formation",
+        "conformation"
+      ],
+      "practice_tip_ar": "النبر ينتقل للأمام مع إضافة -ation — اضغط على \"MA\" وليس \"form\"."
+    }
+  },
+  {
+    "id": "b982ecae-fd88-4f0d-9b82-874ec3668d65",
+    "word": "yields",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b9a9010a-57ac-4404-bb75-40bf66ab15ba",
+    "word": "herald",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˈhɛrəld/",
+      "common_mispronunciation_ar": "هيرالد (بنطق كل الحروف)",
+      "correct_approximation_ar": "هِرَلْد",
+      "problem_letters": [
+        3
+      ],
+      "rule_category": "schwa_in_unstressed",
+      "explanation_ar": "حرف A في المقطع الثاني يُنطق شوا خفيفة جداً وليس \"آ\" واضحة. النبر على \"HER\" في البداية. كثير من متعلمي اللغة ينطقونها \"هيرالد\" بفتح المقطع الثاني، وهذا خطأ.",
+      "similar_words": [
+        "emerald",
+        "oracle",
+        "miracle"
+      ],
+      "practice_tip_ar": "قل \"هِر\" بقوة ثم \"لْد\" سريعة جداً، ولا تطيل حرف A."
+    }
+  },
+  {
+    "id": "b9e9bff1-1e35-421f-b7f3-a652d1ada109",
+    "word": "inhabit",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "b9fc18ce-0de0-45ed-a305-9a98bd05e212",
+    "word": "comfortable",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "high",
+      "ipa": "/ˈkʌmftəbəl/",
+      "common_mispronunciation_ar": "كومفورتابل (بأربعة مقاطع)",
+      "correct_approximation_ar": "كَمْفْتَبِل",
+      "problem_letters": [
+        4,
+        5
+      ],
+      "rule_category": "syllable_reduction_trap",
+      "explanation_ar": "فخ شهير: الكلمة تكتب بأربعة مقاطع لكنها تُنطق بثلاثة فقط! الحرفان \"or\" يختفيان تقريباً. كثير من متعلمي اللغة ينطقونها حرفاً حرفاً \"كوم-فور-تا-بل\" بينما الصحيح \"كَمْف-تَ-بِل\" بسرعة.",
+      "similar_words": [
+        "vegetable",
+        "chocolate",
+        "interesting"
+      ],
+      "practice_tip_ar": "احذف \"or\" من ذهنك تماماً وقل \"كَمْفْ-تَ-بِل\" بثلاث مقاطع فقط."
+    }
+  },
+  {
+    "id": "ba4a6d1a-8497-4d8c-afd9-ddf7f7f512c8",
+    "word": "investing heavily",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "ba4db1af-fdf6-4fa3-a186-5d109080271c",
+    "word": "growing",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "ba635621-7e5b-450d-b9ee-091d49fa637d",
+    "word": "locate",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "ba8440fb-ed1e-48a0-b360-7a7e6c917a00",
+    "word": "confront",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "bac83663-63d2-43a9-a9a2-955bfd7bb705",
+    "word": "penetrate",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "bad77bd4-811a-4e1c-a880-e751bfa43993",
+    "word": "fluctuate",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˈflʌktʃueɪt/",
+      "common_mispronunciation_ar": "فلوكتويت (بدون صوت CH)",
+      "correct_approximation_ar": "فْلَكْتْشُوِيْت",
+      "problem_letters": [
+        4,
+        5
+      ],
+      "rule_category": "tu_as_chu",
+      "explanation_ar": "الـTU في المنتصف تُنطق \"تْشُو\" وليس \"تُو\" فقط. هذا تحوّل شائع عندما تأتي tu قبل حرف متحرك. النبر على \"FLUC\" في البداية. كثير من متعلمي اللغة يخطئون في هذا التحوّل.",
+      "similar_words": [
+        "situation",
+        "mutual",
+        "actual"
+      ],
+      "practice_tip_ar": "عندما ترى \"tu\" متبوعة بحرف متحرك، قل \"تْشُو\" وليس \"تُو\"."
+    }
+  },
+  {
+    "id": "bb14c07c-6d52-4b27-9837-4d3a2167ab02",
+    "word": "synthesize",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "bb359d59-380e-4214-ae08-a1d316f089a8",
+    "word": "trade",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "bb422569-784b-4ed5-bbcd-42f37704fa3d",
+    "word": "comprehensive",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˌkɒmprɪˈhɛnsɪv/",
+      "common_mispronunciation_ar": "كومبريهنسيف (بنبر على الأول)",
+      "correct_approximation_ar": "كُومْپرِهِنْسِڤ",
+      "problem_letters": [
+        7,
+        8
+      ],
+      "rule_category": "stress_on_third_syllable",
+      "explanation_ar": "النبر الرئيسي على \"HEN\" في المقطع الثالث وليس على \"com\" في الأول. نهاية -sive تُنطق \"سِڤ\" بسرعة. كثير من متعلمي اللغة يضغطون على المقطع الأول بالخطأ.",
+      "similar_words": [
+        "comprehend",
+        "extensive",
+        "expensive"
+      ],
+      "practice_tip_ar": "اضغط على \"HEN\" في المنتصف، واجعل \"com\" خفيفة في البداية."
+    }
+  },
+  {
+    "id": "bb65ead3-d6ff-409c-9ed8-5bf03fea842f",
+    "word": "enhances",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "bb829ba3-f877-4212-8204-54f3c80c3ec6",
+    "word": "province",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "bbaaed8a-ab40-44f6-af35-22535e9812ae",
+    "word": "synergistic",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "bbb0ec3f-3204-44fb-b03a-6528e37409ea",
+    "word": "children",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˈtʃɪldrən/",
+      "common_mispronunciation_ar": "تشيلدرين (بمد الـe)",
+      "correct_approximation_ar": "تْشِلْدْرَن",
+      "problem_letters": [
+        5,
+        6
+      ],
+      "rule_category": "schwa_final",
+      "explanation_ar": "حرف E في المقطع الثاني يُنطق شوا خفيفة \"أَ\" وليس \"إي\" طويلة. النبر على \"CHIL\" في البداية. كثير من متعلمي اللغة ينطقونها \"تشيلدرين\" بمد واضح في النهاية وهذا خطأ.",
+      "similar_words": [
+        "chicken",
+        "women",
+        "open"
+      ],
+      "practice_tip_ar": "قل \"تْشِلْد\" بقوة ثم \"رَن\" سريعة جداً بدون مد."
+    }
+  },
+  {
+    "id": "bc10fc1a-b5e7-4149-a924-2faa14daf71f",
+    "word": "efficiency",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ɪˈfɪʃənsi/",
+      "common_mispronunciation_ar": "إفيسيينسي (بنطق cc كاملاً)",
+      "correct_approximation_ar": "إِفِشَنْسِي",
+      "problem_letters": [
+        2,
+        3,
+        4
+      ],
+      "rule_category": "ci_as_sh",
+      "explanation_ar": "الحرفان \"ci\" في منتصف الكلمة يُنطقان \"شـ\" وليس \"سي\". النبر على \"FI\" في المقطع الثاني. حرفا cc يُنطقان صوتاً واحداً. كثير من متعلمي اللغة يحاولون نطق كل حرف بدل الدمج.",
+      "similar_words": [
+        "efficient",
+        "sufficient",
+        "ancient"
+      ],
+      "practice_tip_ar": "انطق \"ci\" كـ \"ش\" واحدة وادمج cc في صوت واحد."
+    }
+  },
+  {
+    "id": "bc53f21e-8b4b-4318-874b-9badcf99c4dd",
+    "word": "germline",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "bc79d5cf-88ab-42c7-918f-15b578790d43",
+    "word": "shortage",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˈʃɔːrtɪdʒ/",
+      "common_mispronunciation_ar": "شورتيج (بمد واضح في النهاية)",
+      "correct_approximation_ar": "شُورْتِج",
+      "problem_letters": [
+        5,
+        6
+      ],
+      "rule_category": "age_as_idj",
+      "explanation_ar": "نهاية -age في هذه الكلمات تُنطق \"إِج\" قصيرة وليس \"إيج\" طويلة أو \"آج\". النبر على المقطع الأول \"SHOR\". كثير من متعلمي اللغة يمدون الـa في النهاية بشكل خاطئ.",
+      "similar_words": [
+        "message",
+        "package",
+        "village"
+      ],
+      "practice_tip_ar": "اختصر \"-age\" إلى \"إِج\" سريعة بدون أي مد."
+    }
+  },
+  {
+    "id": "bc7c0568-2bc7-46b8-adaf-a52662bb9dc0",
+    "word": "pursue",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/pərˈsuː/",
+      "common_mispronunciation_ar": "بورسو (بفتح الـu الأولى)",
+      "correct_approximation_ar": "پَرْسُو",
+      "problem_letters": [
+        1,
+        2
+      ],
+      "rule_category": "ur_as_schwa_r",
+      "explanation_ar": "حرف U في \"pur\" يُنطق شوا مع r خفيفة، وليس \"أو\" طويلة. النبر على المقطع الثاني \"SUE\" مع إطالة الواو. كثير من متعلمي اللغة ينطقون الأول \"بور\" بالخطأ.",
+      "similar_words": [
+        "purpose",
+        "purchase",
+        "survey"
+      ],
+      "practice_tip_ar": "قل \"پَر\" سريعة جداً ثم \"سُوو\" طويلة بقوة."
+    }
+  },
+  {
+    "id": "bc9b6ae0-e8ec-4858-8f0e-7a22d8f9a316",
+    "word": "facilitate",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/fəˈsɪlɪteɪt/",
+      "common_mispronunciation_ar": "فاسيليتيت (بفتح الأول)",
+      "correct_approximation_ar": "فَسِلِتِيْت",
+      "problem_letters": [
+        2,
+        3
+      ],
+      "rule_category": "ci_as_s",
+      "explanation_ar": "الحرفان \"ci\" هنا يُنطقان \"سِ\" وليس \"شِ\" لأن النبر يأتي عليهما مباشرة. النبر على \"CIL\" في المقطع الثاني. حرف A في البداية يُضعف لشوا. كثير من متعلمي اللغة يخطئون بنطقها \"فا\" واضحة.",
+      "similar_words": [
+        "facility",
+        "facilitator",
+        "felicity"
+      ],
+      "practice_tip_ar": "ابلع \"fa\" في البداية واضرب النبر على \"CIL\" بقوة."
+    }
+  },
+  {
+    "id": "bcc0f056-8c1a-461f-9745-fd2676a6349b",
+    "word": "exhibit",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "high",
+      "ipa": "/ɪɡˈzɪbɪt/",
+      "common_mispronunciation_ar": "إكسهيبت (بنطق H)",
+      "correct_approximation_ar": "إِغْزِبِت",
+      "problem_letters": [
+        2,
+        3
+      ],
+      "rule_category": "silent_h_in_ex",
+      "explanation_ar": "حرف H صامت تماماً في هذه الكلمة! والحرفان \"ex\" يُنطقان \"إغز\" بصوت مجهور وليس \"إكس\" بصوت مهموس. النبر على \"HIB\" (التي تصبح \"زِب\"). كثير من متعلمي اللغة ينطقون H بوضوح وهذا خطأ كبير.",
+      "similar_words": [
+        "exhaust",
+        "exhort",
+        "exhume"
+      ],
+      "practice_tip_ar": "احذف H من ذهنك تماماً، وانطق \"ex\" كـ \"إغز\" مجهورة."
+    }
+  },
+  {
+    "id": "bcccd3c4-ac08-40b3-b0cb-abffcceb6ed8",
+    "word": "monitoring",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "bccd2200-04a7-45d8-a741-31d750bbd52e",
+    "word": "debunk",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "bd0a73be-a411-4cfb-b87c-645692a2ba16",
+    "word": "viscous",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˈvɪskəs/",
+      "common_mispronunciation_ar": "فيسكوس (بمد الواو)",
+      "correct_approximation_ar": "ڤِسْكَس",
+      "problem_letters": [
+        4,
+        5
+      ],
+      "rule_category": "ou_as_schwa",
+      "explanation_ar": "نهاية -ous تُنطق شوا خفيفة \"أَس\" وليس \"أُوس\" الطويلة. النبر على المقطع الأول \"VIS\". كثير من متعلمي اللغة يُطيلون صوت الواو في النهاية، بينما الصحيح إضعافه تماماً.",
+      "similar_words": [
+        "famous",
+        "jealous",
+        "nervous"
+      ],
+      "practice_tip_ar": "نهاية -ous دائماً شوا خفيفة، قل \"ڤِسْ-كَس\" بسرعة."
+    }
+  },
+  {
+    "id": "bd0d2c51-db60-4b30-a72f-4142f3adf09a",
+    "word": "participate",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "bd2e0299-600f-4946-a050-234b2010ba1f",
+    "word": "credibility",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "bd395eea-5a18-479f-b273-c33a2d3c195c",
+    "word": "unprecedented",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ʌnˈprɛsɪdɛntɪd/",
+      "common_mispronunciation_ar": "أنبريسيدنتد (بنبر خاطئ)",
+      "correct_approximation_ar": "أَنْپْرِسِدِنْتِد",
+      "problem_letters": [
+        3,
+        4
+      ],
+      "rule_category": "stress_on_second_syllable",
+      "explanation_ar": "النبر على \"PRE\" في المقطع الثاني وليس على \"CEDE\" أو \"dent\". حرف C الأوسط يُنطق \"س\" لأنه قبل e. نهاية -ted تُنطق \"تِد\" كمقطع كامل. كثير من متعلمي اللغة ينبرون على المقطع الخاطئ.",
+      "similar_words": [
+        "precedent",
+        "president",
+        "incident"
+      ],
+      "practice_tip_ar": "اضغط على \"PRE\" مبكراً، وخفّف الباقي حتى تبدو كل المقاطع شوا."
+    }
+  },
+  {
+    "id": "bd754f62-cce4-48b8-bcfe-96348ec6a97b",
+    "word": "purported",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "bd759fa5-8f34-440b-97c3-5193a38b9483",
+    "word": "allocation",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "bdc247f2-8e12-42d2-8adf-6b328d82bac9",
+    "word": "look back",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "be02c032-e496-4337-bb4f-3c9b35aa2067",
+    "word": "expand",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "be134b95-f0d5-4862-997b-c906c918012f",
+    "word": "fostering",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "be2c8496-ee4a-4b90-b461-5584c88e3aab",
+    "word": "assess",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "be47beac-8f87-4687-b5d9-a3f84c8c44ca",
+    "word": "precision",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/prɪˈsɪʒən/",
+      "common_mispronunciation_ar": "بريسيشن (بصوت SH بدل ZH)",
+      "correct_approximation_ar": "پْرِسِژَن",
+      "problem_letters": [
+        5,
+        6
+      ],
+      "rule_category": "si_as_zh",
+      "explanation_ar": "الحرفان \"si\" قبل on يُنطقان صوت \"ژ\" المجهور (مثل ج فرنسية)، وليس \"ش\" المهموس. هذا صوت خاص لا يوجد في معظم اللغات. النبر على \"CI\". كثير من متعلمي اللغة يستخدمون \"ش\" خطأ.",
+      "similar_words": [
+        "decision",
+        "vision",
+        "television"
+      ],
+      "practice_tip_ar": "صوت \"ژ\" مجهور — شغّل الحبال الصوتية. جرّب التدرج من \"ز\" ثم أضف لمسة \"ش\"."
+    }
+  },
+  {
+    "id": "be94a47d-a097-42cd-a371-25989237abaa",
+    "word": "potential",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/pəˈtɛnʃəl/",
+      "common_mispronunciation_ar": "بوتنشيال (بفصل ti عن al)",
+      "correct_approximation_ar": "پَتِنْشَل",
+      "problem_letters": [
+        5,
+        6
+      ],
+      "rule_category": "tial_as_shal",
+      "explanation_ar": "نهاية -tial تُنطق \"شَل\" بصوت ش واحد وليس \"تي-يال\" بحرفين منفصلين. النبر على \"TEN\" في المقطع الثاني. حرف O في البداية يُضعف لشوا. هذا تحوّل شائع في ti قبل متحرك.",
+      "similar_words": [
+        "essential",
+        "initial",
+        "partial"
+      ],
+      "practice_tip_ar": "ادمج ti+al في صوت \"شَل\" واحد سريع، ولا تفصلها لحرفين."
+    }
+  },
+  {
+    "id": "bea5a947-124d-4a17-8397-ce6d93c45215",
+    "word": "ticket",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "bec2ba0d-08d1-4737-a2f2-0a4fbbbe498b",
+    "word": "prefer",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "bf0a2f9e-bce6-43a0-801e-238d525889ec",
+    "word": "sophisticated",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/səˈfɪstɪkeɪtɪd/",
+      "common_mispronunciation_ar": "سوفيستيكيتد (مع نبر خاطئ)",
+      "correct_approximation_ar": "سَفِسْتِكِيْتِد",
+      "problem_letters": [
+        2,
+        3
+      ],
+      "rule_category": "ph_as_f_and_ed_id",
+      "explanation_ar": "حرفا PH يُنطقان \"ف\" وليس \"بـ-هـ\". النبر على \"PHIS\" والنهاية -cated تُنطق \"كِيْتِد\" كمقطع كامل لأن الحرف السابق للـed هو t. كثير من متعلمي اللغة يخطئون في PH.",
+      "similar_words": [
+        "philosophy",
+        "phase",
+        "phone"
+      ],
+      "practice_tip_ar": "انطق PH كحرف \"ف\" واحد، واضغط على المقطع الثاني \"PHIS\"."
+    }
+  },
+  {
+    "id": "bf1654a1-4ecb-4e05-862e-e4235de59b42",
+    "word": "withstand",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "bf2bd171-8679-4e49-b2ee-98a83fcdebf3",
+    "word": "remarkable",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "bf76372b-f666-4c70-a7fa-76d2779e8c51",
+    "word": "tangible",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˈtændʒəbəl/",
+      "common_mispronunciation_ar": "تانغيبل (بصوت G صلبة)",
+      "correct_approximation_ar": "تَانْجَبِل",
+      "problem_letters": [
+        3,
+        4
+      ],
+      "rule_category": "soft_g_before_i",
+      "explanation_ar": "حرف G يُنطق \"ج\" ناعمة (مثل j) قبل حرف i في معظم الكلمات، وليس \"غ\" صلبة. النبر على المقطع الأول \"TAN\". كثير من متعلمي اللغة يخلطون بين G الصلبة والناعمة.",
+      "similar_words": [
+        "eligible",
+        "legible",
+        "fragile"
+      ],
+      "practice_tip_ar": "القاعدة: G قبل i/e/y تصبح \"ج\" ناعمة. قل \"تَان-جَ-بِل\"."
+    }
+  },
+  {
+    "id": "bf91f6d9-93cf-4ef8-a60e-e35f17295c8b",
+    "word": "documents",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "bff34560-18b2-4cc0-8c00-c5ce18030eec",
+    "word": "revelations",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c02d07d9-5dad-4812-9712-e72a63587e08",
+    "word": "crafts",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c033c738-7e34-48b5-8ce8-a0c24712fe51",
+    "word": "expanded",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c091e2aa-fe43-4b1c-b809-a2792905860e",
+    "word": "beach",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c09d98da-2c97-4e3d-b53f-7d4a3337d890",
+    "word": "embody",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c09f7aeb-ffc8-464e-ae39-fa52088f6a06",
+    "word": "taken off",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c0aafc88-bc0e-4eb1-a361-df0671874c67",
+    "word": "catalyze",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˈkætəlaɪz/",
+      "common_mispronunciation_ar": "كاتاليز (بكسر الياء)",
+      "correct_approximation_ar": "كَاتَلَايْز",
+      "problem_letters": [
+        5,
+        6
+      ],
+      "rule_category": "y_as_long_i",
+      "explanation_ar": "حرف Y في المقطع الثالث يُنطق \"آي\" طويلة وليس \"إي\". النبر على المقطع الأول \"CAT\". حرف A في المنتصف يُضعف لشوا. كثير من متعلمي اللغة ينطقون Y كـ \"إي\" خطأً.",
+      "similar_words": [
+        "analyze",
+        "paralyze",
+        "realize"
+      ],
+      "practice_tip_ar": "تذكر: y في نهاية -yze دائماً \"آي\" طويلة مثل \"eye\"."
+    }
+  },
+  {
+    "id": "c0cfc682-5886-406e-bc64-15ed26882a40",
+    "word": "animals",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c0e4f920-f307-41a2-9622-a5926b5d4e90",
+    "word": "substantiate",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c0fa641e-c314-4c43-9c95-70ba46999615",
+    "word": "visa",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c159c982-165e-42f5-b4e8-5491efaa8b88",
+    "word": "increase",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ɪnˈkriːs/ (verb) /ˈɪnkriːs/ (noun)",
+      "common_mispronunciation_ar": "إنكريس (بنبر ثابت)",
+      "correct_approximation_ar": "إِنْكْرِيْس",
+      "problem_letters": [
+        0,
+        1
+      ],
+      "rule_category": "noun_verb_stress_shift",
+      "explanation_ar": "هذه كلمة ذات نبر متحوّل: في الفعل النبر على المقطع الثاني \"CREASE\"، وفي الاسم النبر على المقطع الأول \"IN\". هذا يُغيّر المعنى! كثير من متعلمي اللغة يستخدمون نبراً واحداً بغض النظر عن النوع.",
+      "similar_words": [
+        "record",
+        "present",
+        "object"
+      ],
+      "practice_tip_ar": "فعل = نبر على المقطع الثاني. اسم = نبر على المقطع الأول."
+    }
+  },
+  {
+    "id": "c15e6fa3-0e4e-4c34-81f3-6d680a9a9745",
+    "word": "employ",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c173e6c6-2b4b-497a-9057-3a2b312db58f",
+    "word": "paradigmatic",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˌpærədɪɡˈmætɪk/",
+      "common_mispronunciation_ar": "باراديجماتيك (بدون نطق G)",
+      "correct_approximation_ar": "پَرَدِغْمَاتِك",
+      "problem_letters": [
+        6
+      ],
+      "rule_category": "silent_g_exception",
+      "explanation_ar": "في كلمة paradigm حرف G صامت، لكن في paradigmatic يعود حرف G إلى النطق! هذا استثناء مهم. النبر على \"MAT\" في الرابع. كثير من متعلمي اللغة ينسون نطق G هنا لأنهم اعتادوا صمته في paradigm.",
+      "similar_words": [
+        "paradigm",
+        "diagram",
+        "diagnostic"
+      ],
+      "practice_tip_ar": "تذكر: G صامتة في \"paradigm\" فقط، وتعود للنطق في \"paradigmatic\"."
+    }
+  },
+  {
+    "id": "c17d94f1-8f6f-4948-8f5a-09f5b9b27d97",
+    "word": "mechanisms",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "high",
+      "ipa": "/ˈmɛkənɪzəmz/",
+      "common_mispronunciation_ar": "ميتشانزمز (بصوت CH)",
+      "correct_approximation_ar": "مِكَنِزْمْز",
+      "problem_letters": [
+        2,
+        3
+      ],
+      "rule_category": "ch_as_k",
+      "explanation_ar": "الحرفان \"ch\" هنا يُنطقان \"ك\" وليس \"تش\"! هذا استثناء مهم في كلمات من أصل يوناني. النبر على المقطع الأول \"MECH\". كثير من متعلمي اللغة ينطقونها \"ميتشانزمز\" وهذا خطأ شائع جداً.",
+      "similar_words": [
+        "mechanic",
+        "chemistry",
+        "character"
+      ],
+      "practice_tip_ar": "القاعدة: ch من أصل يوناني = \"ك\". احفظ mechanism, chemistry, character."
+    }
+  },
+  {
+    "id": "c18ef3dd-3cf8-4e58-ba92-f972c0aa0dae",
+    "word": "compelling",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/kəmˈpɛlɪŋ/",
+      "common_mispronunciation_ar": "كومبيلينغ (بنبر على المقطع الأول)",
+      "correct_approximation_ar": "كَمْبِلِنْ",
+      "problem_letters": [
+        0,
+        1
+      ],
+      "rule_category": "stress_on_second_syllable",
+      "explanation_ar": "النبر يقع على المقطع الثاني \"PEL\" وليس الأول. حرف O في \"com\" يُنطق شوا خفيفة جداً. نهاية -ing تُنطق \"إنْ\" أنفية بدون نطق الجيم. كثير من متعلمي اللغة يخطئون في موقع النبر.",
+      "similar_words": [
+        "compel",
+        "compete",
+        "complete"
+      ],
+      "practice_tip_ar": "اضغط على \"PEL\" بقوة وابلع المقطع الأول \"com\" حتى يصبح \"كَم\" سريعة."
+    }
+  },
+  {
+    "id": "c1b2f718-f6f9-4f30-8e7a-467280c8025e",
+    "word": "shifting",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c1f6cc09-62d4-4ce6-8d9c-ed0cbd5df634",
+    "word": "manifests",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c21648d2-2c53-4786-8d94-0d4cb776e460",
+    "word": "weather",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˈwɛðər/",
+      "common_mispronunciation_ar": "ويذير (بصوت th مهموس)",
+      "correct_approximation_ar": "وِذَر",
+      "problem_letters": [
+        2,
+        3
+      ],
+      "rule_category": "voiced_th",
+      "explanation_ar": "الحرفان \"th\" هنا يُنطقان مجهورين \"ذ\" (اهتزاز الحبال الصوتية) وليس \"ث\" المهموس. كثير من متعلمي اللغة يخلطون بين th المجهور في this/weather و th المهموس في think/thick.",
+      "similar_words": [
+        "father",
+        "mother",
+        "brother"
+      ],
+      "practice_tip_ar": "ضع إصبعك على حلقك: th المجهور يهتز. قل \"ذَر\" وليس \"ثَر\"."
+    }
+  },
+  {
+    "id": "c29319a0-d92d-4332-a007-c4a8bc5dfb11",
+    "word": "revelatory",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c2c949ec-3ce8-4021-9566-4e48fa5bf7ac",
+    "word": "account for",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c2eda0e7-0cc1-4d75-a534-017c4846a4b7",
+    "word": "bottleneck",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˈbɒtəlˌnɛk/",
+      "common_mispronunciation_ar": "بوتل-نيك (بتاء مزدوجة)",
+      "correct_approximation_ar": "بَاطِل-نِك",
+      "problem_letters": [
+        2,
+        3
+      ],
+      "rule_category": "double_t_flap",
+      "explanation_ar": "حرفا tt في المنتصف يُنطقان كصوت ط خفيفة (flap) في الإنجليزية الأمريكية، أو t خفيفة جداً في البريطانية. نهاية -le تُنطق \"إِل\" مقطع مستقل. كثير من متعلمي اللغة يُشددون tt خطأً.",
+      "similar_words": [
+        "little",
+        "battle",
+        "settle"
+      ],
+      "practice_tip_ar": "في الأمريكية، انطق tt كحرف ط خفيف وسريع، وأضف \"إِل\" قصيرة."
+    }
+  },
+  {
+    "id": "c31253dc-448f-455a-803a-e1645f4b5807",
+    "word": "jobs",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c32027c9-86f4-41a5-bfb6-342295755f58",
+    "word": "complements",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c324d9ff-915e-4a48-970a-4f70c9904714",
+    "word": "compare",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c35a67d6-6955-4166-9cea-7f4920d215f8",
+    "word": "allocate",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c35a90fd-896a-45f8-aecc-5a603d6a0b96",
+    "word": "paradigm",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "high",
+      "ipa": "/ˈpærədaɪm/",
+      "common_mispronunciation_ar": "باراديغم (بنطق G)",
+      "correct_approximation_ar": "پَرَدَايْم",
+      "problem_letters": [
+        6
+      ],
+      "rule_category": "silent_g_before_m",
+      "explanation_ar": "حرف G صامت تماماً قبل M في نهاية الكلمة! نهاية -igm تُنطق \"آيم\" فقط. هذا فخ شهير. كثير من متعلمي اللغة ينطقون G بوضوح خطأً. لاحظ أن G يعود في \"paradigmatic\".",
+      "similar_words": [
+        "diaphragm",
+        "sign",
+        "reign"
+      ],
+      "practice_tip_ar": "احذف G من ذهنك: \"پَرَ-دَايْم\" فقط، بدون أي غ."
+    }
+  },
+  {
+    "id": "c35b11fb-12d5-49e1-b0c0-13ab25a81da6",
+    "word": "share",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c37a748d-5b4f-4df9-9c6d-0fa6cf10a2d4",
+    "word": "paint",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c3aa85b2-6f9e-49fa-8eb1-b8daeff75a3a",
+    "word": "manifestations",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c3ea03f4-9a3a-493c-8e51-5b15b8a639d8",
+    "word": "food",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c3eacfb9-7c7e-4bd3-b268-9d26845b0d73",
+    "word": "quickly",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c3f95949-acbf-4a51-95df-c548b62ef41a",
+    "word": "kept track",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c4164326-1bf0-4037-bdb3-bfb2bdbb364a",
+    "word": "paradoxical",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c416c299-949f-4f7b-a607-9aacc66854a1",
+    "word": "talk",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "high",
+      "ipa": "/tɔːk/",
+      "common_mispronunciation_ar": "تالك (بنطق L)",
+      "correct_approximation_ar": "تُوك",
+      "problem_letters": [
+        2
+      ],
+      "rule_category": "silent_l_before_k",
+      "explanation_ar": "حرف L صامت تماماً قبل K في هذه الكلمة! الكلمة تُنطق \"تُوك\" فقط. هذا نمط في كلمات -alk حيث L تختفي دائماً. كثير من متعلمي اللغة ينطقون L بوضوح وهذا خطأ شائع جداً.",
+      "similar_words": [
+        "walk",
+        "chalk",
+        "stalk"
+      ],
+      "practice_tip_ar": "القاعدة: L قبل K في -alk = صامتة دائماً. قل \"تُوك\" فقط."
+    }
+  },
+  {
+    "id": "c436c447-d5cd-4ed8-aaf4-af246ba144d5",
+    "word": "erodes",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c44348f2-3352-4a59-9da5-14702e7b1b8d",
+    "word": "turn the tables",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c49d8176-3ee4-4ca0-8322-0c516cffe13d",
+    "word": "repository",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/rɪˈpɒzɪtəri/",
+      "common_mispronunciation_ar": "ريبوزيتوري (بنبر على الأخير)",
+      "correct_approximation_ar": "رِپُوزِتَرِي",
+      "problem_letters": [
+        2,
+        3
+      ],
+      "rule_category": "stress_on_second_syllable",
+      "explanation_ar": "النبر على \"POS\" في المقطع الثاني وليس على المقطع الأول أو الأخير. نهاية -ory تُنطق \"أَري\" شوا. كثير من متعلمي اللغة يضغطون على المقطع الخاطئ لأن الكلمة طويلة.",
+      "similar_words": [
+        "depository",
+        "laboratory",
+        "observatory"
+      ],
+      "practice_tip_ar": "اضغط على \"POS\" الثاني، واخفض باقي المقاطع لشوا خفيفة."
+    }
+  },
+  {
+    "id": "c49f5b49-3cb5-4149-a86b-4a19c1ef1f03",
+    "word": "implementing",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c4bdecef-88fe-4bd5-a74e-9cdcff699d39",
+    "word": "investor sentiment",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c4d0f5ea-461c-40fb-9d80-3305ea535c67",
+    "word": "impetus",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˈɪmpɪtəs/",
+      "common_mispronunciation_ar": "إمبيتوس (بنبر على الثاني)",
+      "correct_approximation_ar": "إِمْپِتَس",
+      "problem_letters": [
+        0,
+        1
+      ],
+      "rule_category": "stress_on_first_syllable",
+      "explanation_ar": "النبر على المقطع الأول \"IM\" وليس على \"pe\" أو \"tus\". نهاية -us تُنطق شوا \"أَس\" خفيفة وليس \"أُوس\". كثير من متعلمي اللغة يضغطون على المقطع الأوسط خطأً.",
+      "similar_words": [
+        "impotent",
+        "impulse",
+        "infinite"
+      ],
+      "practice_tip_ar": "اضرب النبر على \"IM\" قوياً، وابلع باقي المقاطع."
+    }
+  },
+  {
+    "id": "c5316695-ed9b-4077-90f8-9efebd232c8a",
+    "word": "uncanny",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ʌnˈkæni/",
+      "common_mispronunciation_ar": "أنكاني (بنبر على الأول)",
+      "correct_approximation_ar": "أَنْكَانِي",
+      "problem_letters": [
+        2,
+        3
+      ],
+      "rule_category": "stress_on_second_syllable",
+      "explanation_ar": "النبر على \"CAN\" في المقطع الثاني وليس على \"un\" في الأول. الحرفان nn يُنطقان n واحدة. كثير من متعلمي اللغة يُبقون النبر على البادئة un- بالخطأ.",
+      "similar_words": [
+        "unhappy",
+        "unknown",
+        "unusual"
+      ],
+      "practice_tip_ar": "البادئة un- دائماً بدون نبر. اضرب النبر على \"CAN\"."
+    }
+  },
+  {
+    "id": "c55dd03b-4990-46aa-896e-c7c9ede6c1c7",
+    "word": "devastate",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c56bf989-e3a5-4897-959c-284defa622a9",
+    "word": "proliferation",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/prəˌlɪfəˈreɪʃən/",
+      "common_mispronunciation_ar": "برولفيريشن (بنبر خاطئ)",
+      "correct_approximation_ar": "پْرَلِفَرِيْشَن",
+      "problem_letters": [
+        8,
+        9,
+        10
+      ],
+      "rule_category": "stress_in_long_word",
+      "explanation_ar": "النبر الرئيسي على \"RA\" في المقطع الرابع، ونبر ثانوي على \"LIF\". نهاية -tion تُنطق \"شَن\". معظم حرفي O وE يصبحان شوا. كثير من متعلمي اللغة يوزعون النبر بالتساوي.",
+      "similar_words": [
+        "acceleration",
+        "generation",
+        "celebration"
+      ],
+      "practice_tip_ar": "اضرب النبر الأقوى على \"RA\" قبل -tion، واخفض الباقي."
+    }
+  },
+  {
+    "id": "c56c4c85-1157-441c-97b7-35c922c9c9e4",
+    "word": "accelerated",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c5711005-bab2-4885-a65e-0cc1e78146e3",
+    "word": "emphasize",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˈɛmfəsaɪz/",
+      "common_mispronunciation_ar": "إمفاسايز (بنطق ph حرفياً)",
+      "correct_approximation_ar": "إِمْفَسَايْز",
+      "problem_letters": [
+        2,
+        3
+      ],
+      "rule_category": "ph_as_f",
+      "explanation_ar": "الحرفان \"ph\" يُنطقان \"ف\" واحد وليس \"بـ-هـ\". النبر على المقطع الأول \"EM\". نهاية -ize تُنطق \"آيز\". كثير من متعلمي اللغة يحاولون نطق كل حرف من ph على حدة.",
+      "similar_words": [
+        "phase",
+        "photo",
+        "phone"
+      ],
+      "practice_tip_ar": "القاعدة الذهبية: ph = f دائماً. انساها حرفين."
+    }
+  },
+  {
+    "id": "c587e679-ddb1-40d4-8f91-561703242303",
+    "word": "empirical",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ɛmˈpɪrɪkəl/",
+      "common_mispronunciation_ar": "إمبيريكال (بنبر على الأول)",
+      "correct_approximation_ar": "إِمْپِرِكَل",
+      "problem_letters": [
+        2,
+        3
+      ],
+      "rule_category": "stress_on_second_syllable",
+      "explanation_ar": "النبر على \"PIR\" في المقطع الثاني وليس على \"em\" في الأول. حرف I الأول يُنطق \"إِ\" قصيرة. نهاية -cal تُنطق \"كَل\" شوا. كثير من متعلمي اللغة يخطئون في موقع النبر.",
+      "similar_words": [
+        "empire",
+        "imperial",
+        "miraculous"
+      ],
+      "practice_tip_ar": "اضغط على \"PIR\" بقوة، وابلع \"em\" في البداية."
+    }
+  },
+  {
+    "id": "c58e59cd-15e0-44ae-90dc-353604a31b6c",
+    "word": "simple",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c5b9962e-acad-4f29-9037-552495ae111b",
+    "word": "program",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c5cc70ac-7472-406a-8048-56dc5e3fdedb",
+    "word": "life",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c5e637ee-7857-417b-bcd9-57532492e49d",
+    "word": "take for granted",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c5e98912-ae2d-4ec2-b4a0-2a9f8befbb15",
+    "word": "cascade",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c6238b85-4f22-47a6-bffb-8f23b99d4b56",
+    "word": "turn off",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c630982c-3437-4329-be75-07ae7de9d4ac",
+    "word": "famous",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c67b59e5-b122-446d-b295-c9e7d6af84f4",
+    "word": "meaningful",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c69ff8c5-6555-4c4d-a498-98dcc708d318",
+    "word": "regulates",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˈrɛɡjəleɪts/",
+      "common_mispronunciation_ar": "ريغوليتس (بدون صوت y)",
+      "correct_approximation_ar": "رِغْيَلِيْتْس",
+      "problem_letters": [
+        3,
+        4
+      ],
+      "rule_category": "u_as_yu",
+      "explanation_ar": "حرف U بعد g يُنطق \"يُو\" وليس \"أُو\" فقط. النبر على المقطع الأول \"REG\". نهاية -ates تُنطق \"إيْتس\". كثير من متعلمي اللغة يُسقطون صوت الياء الخفية قبل u.",
+      "similar_words": [
+        "regular",
+        "population",
+        "regulate"
+      ],
+      "practice_tip_ar": "بعد g، انطق \"u\" كـ \"يُو\" مع لمحة ياء خفيفة."
+    }
+  },
+  {
+    "id": "c6acf1e0-bb33-49cb-8edf-f41cddff0e4d",
+    "word": "gather",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c6cfea3d-4612-45b4-ac1c-5272a2999802",
+    "word": "systematic",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˌsɪstəˈmætɪk/",
+      "common_mispronunciation_ar": "سيستماتيك (بنبر على الأول)",
+      "correct_approximation_ar": "سِسْتَمَاتِك",
+      "problem_letters": [
+        6,
+        7
+      ],
+      "rule_category": "stress_before_ic",
+      "explanation_ar": "النبر على \"MAT\" في المقطع الثالث (قبل -ic مباشرة)، وليس على \"sys\" في البداية. هذه قاعدة: الكلمات المنتهية بـ -ic يقع نبرها قبل النهاية مباشرة. كثير من متعلمي اللغة يُبقون النبر على المقطع الأول.",
+      "similar_words": [
+        "automatic",
+        "dramatic",
+        "problematic"
+      ],
+      "practice_tip_ar": "قاعدة -ic: النبر على المقطع الذي قبلها مباشرة. اضغط على \"MAT\"."
+    }
+  },
+  {
+    "id": "c7236f6c-5050-4ad6-a546-e16988c09e9c",
+    "word": "skin",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c72f57a3-8248-4969-b95c-20d0b6db99c9",
+    "word": "hinder",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c74791fe-8a63-4219-aba3-0ef37c696514",
+    "word": "facilitating",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c7637600-0840-4e19-b53f-a19897678799",
+    "word": "apps",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c77086e8-e28b-4e5f-8751-e0bf4da76f2a",
+    "word": "reconcile",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˈrɛkənsaɪl/",
+      "common_mispronunciation_ar": "ريكونسيل (بكسر النهاية)",
+      "correct_approximation_ar": "رِكَنْسَايْل",
+      "problem_letters": [
+        7,
+        8
+      ],
+      "rule_category": "cile_as_sail",
+      "explanation_ar": "نهاية -cile تُنطق \"سَايْل\" بصوت آي طويلة وليس \"سِيل\" قصيرة. النبر على المقطع الأول \"REC\". حرف O في المنتصف يُضعف لشوا. كثير من متعلمي اللغة يقصّرون الياء في النهاية.",
+      "similar_words": [
+        "while",
+        "mile",
+        "profile"
+      ],
+      "practice_tip_ar": "النهاية -cile دائماً \"سَايْل\" مع ياء طويلة كما في \"mile\"."
+    }
+  },
+  {
+    "id": "c7897aef-016d-4d30-9761-2722e5cbbcbc",
+    "word": "transcend",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c7aa103f-68f2-451b-a41e-84961726ad66",
+    "word": "point out",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c7b82d1d-9e3d-41cc-812b-ce6a0d9c5e9f",
+    "word": "meander",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/miˈændər/",
+      "common_mispronunciation_ar": "ميندر (بدمج EA)",
+      "correct_approximation_ar": "مِيْ-أَنْدَر",
+      "problem_letters": [
+        1,
+        2,
+        3
+      ],
+      "rule_category": "ea_as_two_syllables",
+      "explanation_ar": "الحرفان EA هنا يُنطقان كمقطعين منفصلين \"مِي-أَن\" وليس مقطع واحد. هذا استثناء نادر. النبر على \"AN\" في المنتصف. كثير من متعلمي اللغة يدمجون EA في صوت واحد خطأً.",
+      "similar_words": [
+        "react",
+        "create",
+        "area"
+      ],
+      "practice_tip_ar": "افصل EA إلى مقطعين: \"مِي\" ثم \"أَن\" متتابعتين."
+    }
+  },
+  {
+    "id": "c7bbc917-69be-420e-8f23-7c3c7c32ea46",
+    "word": "escalated",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c7ee55ab-012f-4b9b-b2fe-e1bb63c6949c",
+    "word": "insurmountable",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˌɪnsərˈmaʊntəbəl/",
+      "common_mispronunciation_ar": "إنسورمونتابل (بنبر خاطئ)",
+      "correct_approximation_ar": "إِنْسَرْمَاوْنْتَبِل",
+      "problem_letters": [
+        5,
+        6,
+        7
+      ],
+      "rule_category": "ou_as_diphthong",
+      "explanation_ar": "الحرفان OU في المنتصف يُنطقان \"آوْ\" ثنائي مثل \"cow\". النبر الرئيسي على \"MOUNT\". كثير من متعلمي اللغة ينطقونها \"مُون\" بدل \"مَاوْن\".",
+      "similar_words": [
+        "mountain",
+        "count",
+        "around"
+      ],
+      "practice_tip_ar": "انطق ou كـ \"آوْ\" ثنائي، واضغط على \"MOUNT\" في المنتصف."
+    }
+  },
+  {
+    "id": "c80c0974-1903-4bc0-bab8-ce12aae5fb24",
+    "word": "travel",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c810f01d-79cd-4d96-9030-1246a9251c45",
+    "word": "reflect",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c8422e50-f9b3-460b-9542-75b45f16f8f6",
+    "word": "incredible",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c87b9644-558e-433e-87be-281c3b0ebe7f",
+    "word": "smart",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c8cfa1ee-50b9-48ec-9b19-d02aa1a6bdcb",
+    "word": "paradoxical",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c8df49c7-da31-4a5e-a842-7173c9b8b814",
+    "word": "big",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c8eac520-1a56-43a8-9df4-962d7ad57a0f",
+    "word": "concern",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c91d9696-a874-4301-8d6b-f6f696db54dc",
+    "word": "compelling",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/kəmˈpɛlɪŋ/",
+      "common_mispronunciation_ar": "كومبيلينغ (بنبر على المقطع الأول)",
+      "correct_approximation_ar": "كَمْبِلِنْ",
+      "problem_letters": [
+        0,
+        1
+      ],
+      "rule_category": "stress_on_second_syllable",
+      "explanation_ar": "النبر يقع على المقطع الثاني \"PEL\" وليس الأول. حرف O في \"com\" يُنطق شوا خفيفة جداً. نهاية -ing تُنطق \"إنْ\" أنفية بدون نطق الجيم. كثير من متعلمي اللغة يخطئون في موقع النبر.",
+      "similar_words": [
+        "compel",
+        "compete",
+        "complete"
+      ],
+      "practice_tip_ar": "اضغط على \"PEL\" بقوة وابلع المقطع الأول \"com\" حتى يصبح \"كَم\" سريعة."
+    }
+  },
+  {
+    "id": "c9215a9f-51b7-4eb4-80ca-0dafa3268961",
+    "word": "experiment",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "c92cac3d-d134-4411-9df1-8e909a7e9093",
+    "word": "caricatures",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˈkærɪkətʃərz/",
+      "common_mispronunciation_ar": "كاريكاتشرز (بنبر خاطئ)",
+      "correct_approximation_ar": "كَرِكَتْشَرْز",
+      "problem_letters": [
+        8,
+        9
+      ],
+      "rule_category": "tu_as_chu",
+      "explanation_ar": "الـTU في النهاية تُنطق \"تْشَر\" وليس \"تُور\". النبر على المقطع الأول \"CAR\". حرف A في المنتصف يُضعف لشوا. كثير من متعلمي اللغة يخطئون في التحوّل من tu إلى chu.",
+      "similar_words": [
+        "feature",
+        "nature",
+        "future"
+      ],
+      "practice_tip_ar": "القاعدة: -ture في النهاية = \"تْشَر\"، وليس \"تُور\"."
+    }
+  },
+  {
+    "id": "c94a175c-d73b-4ac1-8539-146f7f342dd1",
+    "word": "give up",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "caae96b0-e282-44de-8a49-8188cd940f44",
+    "word": "rupture",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˈrʌptʃər/",
+      "common_mispronunciation_ar": "روبتشر (بمد الواو)",
+      "correct_approximation_ar": "رَپْتْشَر",
+      "problem_letters": [
+        3,
+        4
+      ],
+      "rule_category": "ture_as_cher",
+      "explanation_ar": "نهاية -ture تُنطق \"تْشَر\" وليس \"تيور\" أو \"تور\". النبر على المقطع الأول \"RUP\". حرف U يُنطق \"أَ\" قصيرة وليس \"أو\" طويلة. هذا نمط ثابت في -ture.",
+      "similar_words": [
+        "capture",
+        "future",
+        "mixture"
+      ],
+      "practice_tip_ar": "كل كلمة تنتهي بـ -ture تنطق \"تْشَر\" في النهاية، احفظ النمط."
+    }
+  },
+  {
+    "id": "caaecb39-f681-47cf-8323-35a8591ab1cb",
+    "word": "sparked",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "cad28abf-ea8d-4037-b49b-4e58e817607f",
+    "word": "evolved",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "cad4d406-0941-4a6c-86f7-28446cb3f81b",
+    "word": "explore",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "caef5553-7ed1-447c-97e0-5e5b80d0bfc9",
+    "word": "utilizes",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "cb000f41-eab9-499a-b3d3-cf9e800ceb62",
+    "word": "guided tours",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "cb6a98a8-8d6f-46b8-90fb-141220d77d92",
+    "word": "dark",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "cb7737ba-cc3d-4f54-8543-b17a5fde749a",
+    "word": "spices",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "cbb2cc57-400a-4d5b-a976-acba61498a47",
+    "word": "unprecedented",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ʌnˈprɛsɪdɛntɪd/",
+      "common_mispronunciation_ar": "أنبريسيدنتد (بنبر خاطئ)",
+      "correct_approximation_ar": "أَنْپْرِسِدِنْتِد",
+      "problem_letters": [
+        3,
+        4
+      ],
+      "rule_category": "stress_on_second_syllable",
+      "explanation_ar": "النبر على \"PRE\" في المقطع الثاني وليس على \"CEDE\" أو \"dent\". حرف C الأوسط يُنطق \"س\" لأنه قبل e. نهاية -ted تُنطق \"تِد\" كمقطع كامل. كثير من متعلمي اللغة ينبرون على المقطع الخاطئ.",
+      "similar_words": [
+        "precedent",
+        "president",
+        "incident"
+      ],
+      "practice_tip_ar": "اضغط على \"PRE\" مبكراً، وخفّف الباقي حتى تبدو كل المقاطع شوا."
+    }
+  },
+  {
+    "id": "cbb97cb6-f72f-4d91-9a88-8d680b7a6bcb",
+    "word": "easy",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "cbd1baaa-47f5-4198-8d7a-fda306d8ac84",
+    "word": "mapping out",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "cbd47b6d-7c8a-429c-bfab-4f21fc128ea0",
+    "word": "obvious",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "cc084a3d-68da-4e23-810d-3f77509629c1",
+    "word": "evolved",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "cc0df652-58dd-44b9-9b33-643ba77281d2",
+    "word": "confluence",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˈkɒnfluəns/",
+      "common_mispronunciation_ar": "كونفلوينس (بمد الواو)",
+      "correct_approximation_ar": "كُونْفْلُوَنْس",
+      "problem_letters": [
+        5,
+        6
+      ],
+      "rule_category": "ue_as_weak",
+      "explanation_ar": "النبر على المقطع الأول \"CON\" وليس \"flu\". الحرفان UE يُنطقان \"وَ\" ضعيفة وليس \"يُو\" قوية. كثير من متعلمي اللغة ينبرون على المنتصف خطأً.",
+      "similar_words": [
+        "influence",
+        "fluent",
+        "fluid"
+      ],
+      "practice_tip_ar": "اضغط على \"CON\" في البداية، وخفّف \"fluence\" بسرعة."
+    }
+  },
+  {
+    "id": "cc2818da-cbf9-47dd-864c-e936ac12239f",
+    "word": "cultivated",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "cc3bc7a7-508c-46c8-96b8-09878547b0a4",
+    "word": "undergoing",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "cc8b4523-46a2-4d66-ada3-3518ac65a265",
+    "word": "harsh",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "cd1338e0-1031-4ae7-b2f5-10a12697a30f",
+    "word": "workers",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "cd334f52-66c3-42a3-bbf2-20ee14de75d2",
+    "word": "extent",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "cd55bfd5-e329-4a77-acc7-c19a61ac4691",
+    "word": "revolutionize",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˌrɛvəˈluːʃənaɪz/",
+      "common_mispronunciation_ar": "ريفولوشنايز (بدون شوا)",
+      "correct_approximation_ar": "رِڤَلُوشِنَايْز",
+      "problem_letters": [
+        3,
+        7
+      ],
+      "rule_category": "schwa_in_long_word",
+      "explanation_ar": "الكلمة طويلة ولكن معظم مقاطعها تحتوي على شوا خفيفة. النبر على \"LU\" ونهاية -ize تُنطق \"آيز\". كثير من متعلمي اللغة ينطقون كل حرف بنفس القوة، بينما الصحيح إضعاف المقاطع غير المشددة.",
+      "similar_words": [
+        "revolution",
+        "solution",
+        "evolution"
+      ],
+      "practice_tip_ar": "اجعل \"LU\" الأقوى والأطول، واخفض باقي المقاطع حتى تصبح شبه صامتة."
+    }
+  },
+  {
+    "id": "cdabb8f2-66ad-4991-b11b-fa0eefac8201",
+    "word": "nuanced",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˈnjuːɑːnst/",
+      "common_mispronunciation_ar": "نوانسد (بفتح الأول)",
+      "correct_approximation_ar": "نْيُو-أَانْسْت",
+      "problem_letters": [
+        0,
+        1
+      ],
+      "rule_category": "yod_in_nu",
+      "explanation_ar": "حرف N في البداية متبوع بـ u يُنطق \"نْيُو\" في الإنجليزية البريطانية، و\"نُو\" في الأمريكية. نهاية -nced تُنطق \"نْسْت\" بصوت t وليس d. كثير من متعلمي اللغة يحذفون صوت الياء.",
+      "similar_words": [
+        "new",
+        "news",
+        "nude"
+      ],
+      "practice_tip_ar": "ابدأ بـ \"نْيُو\" مع لمحة ياء، ثم \"أَانْسْت\" مع t في النهاية."
+    }
+  },
+  {
+    "id": "cdac8b22-73fe-43a1-9964-3b45aa645ca4",
+    "word": "decimate",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˈdɛsɪmeɪt/",
+      "common_mispronunciation_ar": "ديكيميت (بصوت K)",
+      "correct_approximation_ar": "دِسِمِيْت",
+      "problem_letters": [
+        2
+      ],
+      "rule_category": "soft_c_before_i",
+      "explanation_ar": "حرف C يُنطق \"س\" ناعمة قبل i/e/y، وليس \"ك\" صلبة. النبر على المقطع الأول \"DEC\". نهاية -ate تُنطق \"إيْت\" طويلة. كثير من متعلمي اللغة يخلطون بين C الصلبة والناعمة.",
+      "similar_words": [
+        "decide",
+        "decent",
+        "decimal"
+      ],
+      "practice_tip_ar": "القاعدة: c قبل i/e/y = \"س\" ناعمة. قل \"دِسِ\" وليس \"دِكِ\"."
+    }
+  },
+  {
+    "id": "cdc16748-01cc-4235-8696-c0e6ee9340a9",
+    "word": "conducting",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "ce0f1837-a909-4447-b552-7279571aefb0",
+    "word": "conservation",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˌkɒnsərˈveɪʃən/",
+      "common_mispronunciation_ar": "كونسيرفيشن (بنبر على الأول)",
+      "correct_approximation_ar": "كُونْسَرْڤِيْشَن",
+      "problem_letters": [
+        8,
+        9,
+        10
+      ],
+      "rule_category": "stress_shift_tion",
+      "explanation_ar": "النبر الرئيسي على \"VA\" في المقطع الرابع، وليس على \"con\" كما في الفعل conserve. نهاية -tion تُنطق \"شَن\". كثير من متعلمي اللغة يُبقون النبر على المقطع الأول خطأً.",
+      "similar_words": [
+        "observation",
+        "preservation",
+        "reservation"
+      ],
+      "practice_tip_ar": "مع -ation، النبر ينتقل للمقطع قبل الأخير. اضغط على \"VA\"."
+    }
+  },
+  {
+    "id": "ce1eaa34-77fa-4c23-9610-6c0c48578af9",
+    "word": "inaccessible",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˌɪnəkˈsɛsɪbəl/",
+      "common_mispronunciation_ar": "إناكسيبل (بدون نبر صحيح)",
+      "correct_approximation_ar": "إِنَكْسِسِبِل",
+      "problem_letters": [
+        3,
+        4
+      ],
+      "rule_category": "double_c_as_ks",
+      "explanation_ar": "الحرفان CC في المنتصف يُنطقان \"كْس\" (صوتين مختلفين) وليس \"ك\" واحدة، لأن الـc الثانية قبل e. النبر على \"CES\" في المقطع الثالث. كثير من متعلمي اللغة يدمجون cc في صوت واحد.",
+      "similar_words": [
+        "accept",
+        "access",
+        "success"
+      ],
+      "practice_tip_ar": "انطق cc قبل e/i كـ \"كْس\" بصوتين مختلفين: ك صلبة ثم س ناعمة."
+    }
+  },
+  {
+    "id": "ce83c732-f762-42d1-98b3-4d9cfa0dc557",
+    "word": "collaboration",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "cea4f0b5-7680-4816-8af1-c3a6b5aa1c52",
+    "word": "unprecedented",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ʌnˈprɛsɪdɛntɪd/",
+      "common_mispronunciation_ar": "أنبريسيدنتد (بنبر خاطئ)",
+      "correct_approximation_ar": "أَنْپْرِسِدِنْتِد",
+      "problem_letters": [
+        3,
+        4
+      ],
+      "rule_category": "stress_on_second_syllable",
+      "explanation_ar": "النبر على \"PRE\" في المقطع الثاني وليس على \"CEDE\" أو \"dent\". حرف C الأوسط يُنطق \"س\" لأنه قبل e. نهاية -ted تُنطق \"تِد\" كمقطع كامل. كثير من متعلمي اللغة ينبرون على المقطع الخاطئ.",
+      "similar_words": [
+        "precedent",
+        "president",
+        "incident"
+      ],
+      "practice_tip_ar": "اضغط على \"PRE\" مبكراً، وخفّف الباقي حتى تبدو كل المقاطع شوا."
+    }
+  },
+  {
+    "id": "ced33704-ff0c-403d-8b14-c866f57ad721",
+    "word": "malleable",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˈmæliəbəl/",
+      "common_mispronunciation_ar": "مالليبل (بدمج المقاطع)",
+      "correct_approximation_ar": "مَالِيَبِل",
+      "problem_letters": [
+        3,
+        4
+      ],
+      "rule_category": "eable_as_three_syllables",
+      "explanation_ar": "نهاية -eable هنا تنقسم لثلاثة مقاطع \"لِ-يَ-بِل\" وليس مقطع واحد. النبر على المقطع الأول \"MAL\". الحرفان ll يُنطقان L واحدة. كثير من متعلمي اللغة يدمجون النهاية خطأً.",
+      "similar_words": [
+        "reliable",
+        "variable",
+        "viable"
+      ],
+      "practice_tip_ar": "قسّم النهاية ببطء: \"لِ-يَ-بِل\" ثلاثة مقاطع متتالية."
+    }
+  },
+  {
+    "id": "cf21980d-2570-475a-8c10-5b6d97f3fce2",
+    "word": "elucidating",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ɪˈluːsɪdeɪtɪŋ/",
+      "common_mispronunciation_ar": "إلوسيديتينغ (بصوت ك بدل س)",
+      "correct_approximation_ar": "إِلُوسِدِيْتِنْ",
+      "problem_letters": [
+        4
+      ],
+      "rule_category": "soft_c_before_i",
+      "explanation_ar": "حرف C في المنتصف يُنطق \"س\" لأنه قبل i. النبر على \"LU\" في المقطع الثاني مع إطالة الواو. نهاية -ating تُنطق \"إيْتِنْ\". كثير من متعلمي اللغة ينطقون C كـ \"ك\" خطأً.",
+      "similar_words": [
+        "elucidate",
+        "acidic",
+        "decide"
+      ],
+      "practice_tip_ar": "تذكر: c قبل i = \"س\" ناعمة. قل \"لُو-سِ-دِيْ-تِنْ\"."
+    }
+  },
+  {
+    "id": "cf4e051f-433d-4d05-aec4-bafca6611c2a",
+    "word": "systematic",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˌsɪstəˈmætɪk/",
+      "common_mispronunciation_ar": "سيستماتيك (بنبر على الأول)",
+      "correct_approximation_ar": "سِسْتَمَاتِك",
+      "problem_letters": [
+        6,
+        7
+      ],
+      "rule_category": "stress_before_ic",
+      "explanation_ar": "النبر على \"MAT\" في المقطع الثالث (قبل -ic مباشرة)، وليس على \"sys\" في البداية. هذه قاعدة: الكلمات المنتهية بـ -ic يقع نبرها قبل النهاية مباشرة. كثير من متعلمي اللغة يُبقون النبر على المقطع الأول.",
+      "similar_words": [
+        "automatic",
+        "dramatic",
+        "problematic"
+      ],
+      "practice_tip_ar": "قاعدة -ic: النبر على المقطع الذي قبلها مباشرة. اضغط على \"MAT\"."
+    }
+  }
+]

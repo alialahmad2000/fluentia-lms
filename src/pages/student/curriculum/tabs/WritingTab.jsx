@@ -1,13 +1,14 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FileEdit, Lightbulb, Save, Send, ChevronDown, CheckCircle2, BookOpen, Target, GraduationCap, Loader2, RefreshCw } from 'lucide-react'
+import { FileEdit, Lightbulb, Save, Send, ChevronDown, CheckCircle2, BookOpen, Target, GraduationCap, Loader2, RefreshCw, Sparkles, AlertCircle } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { safeCelebrate } from '../../../../lib/celebrations'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import WritingFeedback from '../../../../components/curriculum/WritingFeedback'
+import WritingAssistant from '../../../../components/curriculum/WritingAssistant'
 import ShareAchievementCard from '../../../../components/ShareAchievementCard'
 import ActivityLeaderboard from '../../../../components/ActivityLeaderboard'
 import { useActivityLeaderboard } from '../../../../hooks/useActivityLeaderboard'
@@ -62,14 +63,14 @@ export default function WritingTab({ unitId }) {
   return (
     <div className="space-y-6">
       {tasks.map((task, idx) => (
-        <WritingTask key={task.id} task={task} number={idx + 1} total={tasks.length} studentId={profile?.id} unitId={unitId} studentName={profile?.full_name || profile?.display_name} groupId={studentData?.group_id} />
+        <WritingTask key={task.id} task={task} number={idx + 1} total={tasks.length} studentId={profile?.id} unitId={unitId} studentName={profile?.full_name || profile?.display_name} groupId={studentData?.group_id} studentLevel={studentData?.academic_level} />
       ))}
     </div>
   )
 }
 
 // ─── Writing Task ────────────────────────────────────
-function WritingTask({ task, number, total, studentId, unitId, studentName, groupId }) {
+function WritingTask({ task, number, total, studentId, unitId, studentName, groupId, studentLevel }) {
   const [text, setText] = useState('')
   const [saved, setSaved] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -82,6 +83,8 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
   const [trainerGrade, setTrainerGrade] = useState(null)
   const [aiFeedback, setAiFeedback] = useState(null)
   const [submitting, setSubmitting] = useState(false)
+  const [assistantOpen, setAssistantOpen] = useState(false)
+  const [submitShake, setSubmitShake] = useState(false)
   const timeRef = useRef(0)
   const timerRef = useRef(null)
   const dbSaveTimer = useRef(null)
@@ -89,6 +92,24 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
   const wordCount = countWords(text)
   const inRange = wordCount >= task.word_count_min && wordCount <= task.word_count_max
   const underMin = wordCount > 0 && wordCount < task.word_count_min
+  const wordsNeeded = Math.max(0, task.word_count_min - wordCount)
+  const progressPct = task.word_count_min > 0
+    ? Math.min(100, Math.round((wordCount / task.word_count_min) * 100))
+    : 0
+
+  // Insert text from the assistant into the draft
+  const handleInsertText = useCallback((newText, replaceOriginal) => {
+    if (!newText) return
+    setText(prev => {
+      if (replaceOriginal && prev.includes(replaceOriginal)) {
+        return prev.replace(replaceOriginal, newText)
+      }
+      if (!prev.trim()) return newText.trim()
+      const needsSpace = !prev.endsWith(' ') && !newText.startsWith(' ')
+      return prev + (needsSpace ? ' ' : '') + newText.trimStart()
+    })
+    toast({ type: 'success', title: 'تم إضافة النص للمسودة ✨' })
+  }, [])
 
   // Time tracker
   useEffect(() => {
@@ -243,12 +264,40 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
 
   const handleSubmit = useCallback(async () => {
     if (submitting) return
+
+    // Word count validation — give clear feedback, never fail silently
+    const currentCount = countWords(text)
+    if (currentCount === 0) {
+      toast({
+        type: 'warning',
+        title: 'ما كتبت شي بعد',
+        description: `ابدأ الكتابة — تحتاج ${task.word_count_min} كلمة على الأقل. المساعد الذكي جاهز يساعدك تبدأ.`,
+      })
+      setAssistantOpen(true)
+      setSubmitShake(true)
+      setTimeout(() => setSubmitShake(false), 600)
+      return
+    }
+    if (currentCount < task.word_count_min) {
+      const needed = task.word_count_min - currentCount
+      toast({
+        type: 'warning',
+        title: `تحتاج ${needed} كلمة إضافية قبل التسليم`,
+        description: `كتبت ${currentCount} كلمة — المطلوب ${task.word_count_min} كلمة على الأقل. افتحت المساعد الذكي يساعدك توسّع كتابتك.`,
+      })
+      setAssistantOpen(true)
+      setSubmitShake(true)
+      setTimeout(() => setSubmitShake(false), 600)
+      return
+    }
+
     setSubmitting(true)
     saveDraft(task.id, text)
 
     // 1. Save writing to DB first (never block on AI)
     await saveToDb(text, true)
     setSubmitted(true)
+    setAssistantOpen(false)
     toast({ type: 'success', title: 'تم إرسال كتابتك — جاري التصحيح...' })
     try { safeCelebrate('writing_submitted') } catch {}
     awardCurriculumXP(profile?.id, 'writing', null, unitId)
@@ -259,7 +308,7 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
       toast({ type: 'warning', title: 'التقييم لم يتم — اضغط "إعادة التصحيح" للمحاولة مرة أخرى' })
     }
     setSubmitting(false)
-  }, [task.id, text, studentId, saveToDb, submitting, fetchFeedback])
+  }, [task.id, task.word_count_min, text, studentId, saveToDb, submitting, fetchFeedback, profile?.id, unitId])
 
   const handleRetryFeedback = useCallback(async () => {
     if (submitting) return
@@ -399,11 +448,37 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
         </p>
       )}
 
+      {/* Writing Assistant (collapsible) */}
+      <AnimatePresence>
+        {!submitted && (
+          <WritingAssistant
+            task={task}
+            text={text}
+            open={assistantOpen}
+            onClose={() => setAssistantOpen(false)}
+            onInsertText={handleInsertText}
+            studentLevel={studentLevel}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Text area */}
       {progressLoading ? (
         <div className="h-48 rounded-xl bg-[var(--surface-raised)] animate-pulse" />
       ) : !submitted ? (
         <div className="space-y-3">
+          {/* Status banner — always visible so the student knows where they stand */}
+          <WordCountStatus
+            wordCount={wordCount}
+            min={task.word_count_min}
+            max={task.word_count_max}
+            wordsNeeded={wordsNeeded}
+            inRange={inRange}
+            underMin={underMin}
+            progressPct={progressPct}
+            onOpenAssistant={() => setAssistantOpen(true)}
+          />
+
           <textarea
             value={text}
             onChange={(e) => setText(e.target.value)}
@@ -419,15 +494,20 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
             onBlur={(e) => e.target.style.borderColor = 'var(--border-subtle)'}
           />
 
-          {/* Word count + actions */}
-          <div className="flex items-center justify-between">
-            <span
-              className={`text-xs font-bold font-['Tajawal'] transition-colors ${
-                inRange ? 'text-emerald-400' : underMin ? 'text-red-400' : 'text-[var(--text-muted)]'
+          {/* Actions row */}
+          <div className="flex items-center justify-between flex-wrap gap-2">
+            <button
+              onClick={() => setAssistantOpen(v => !v)}
+              className={`flex items-center gap-1.5 px-4 h-9 rounded-xl text-xs font-bold transition-all font-['Tajawal'] border ${
+                assistantOpen
+                  ? 'bg-sky-500/20 text-sky-300 border-sky-400/40'
+                  : 'bg-sky-500/10 text-sky-400 border-sky-500/25 hover:bg-sky-500/20'
               }`}
             >
-              {wordCount} / {task.word_count_min}–{task.word_count_max} كلمة
-            </span>
+              <Sparkles size={13} />
+              {assistantOpen ? 'إغلاق المساعد' : 'مساعد الكتابة الذكي'}
+            </button>
+
             <div className="flex items-center gap-2">
               <button
                 onClick={handleSave}
@@ -441,14 +521,20 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
                 {saved ? <CheckCircle2 size={13} /> : <Save size={13} />}
                 {saved ? 'تم الحفظ' : 'حفظ مسودة'}
               </button>
-              <button
+              <motion.button
+                animate={submitShake ? { x: [0, -6, 6, -4, 4, 0] } : { x: 0 }}
+                transition={{ duration: 0.45 }}
                 onClick={handleSubmit}
-                disabled={wordCount < task.word_count_min || submitting}
-                className="flex items-center gap-1.5 px-4 h-9 rounded-xl text-xs font-bold bg-rose-500/15 text-rose-400 border border-rose-500/30 hover:bg-rose-500/25 transition-colors font-['Tajawal'] disabled:opacity-30 disabled:cursor-not-allowed"
+                disabled={submitting}
+                className={`flex items-center gap-1.5 px-4 h-9 rounded-xl text-xs font-bold transition-colors font-['Tajawal'] disabled:cursor-not-allowed border ${
+                  inRange
+                    ? 'bg-rose-500/15 text-rose-400 border-rose-500/30 hover:bg-rose-500/25'
+                    : 'bg-rose-500/10 text-rose-400/70 border-rose-500/20 hover:bg-rose-500/15'
+                }`}
               >
                 {submitting ? <Loader2 size={13} className="animate-spin" /> : <Send size={13} />}
                 {submitting ? 'جاري التصحيح...' : 'تسليم للتصحيح'}
-              </button>
+              </motion.button>
             </div>
           </div>
         </div>
@@ -573,6 +659,101 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
   )
 }
 
+
+// ─── Word Count Status Banner ────────────────────────
+function WordCountStatus({ wordCount, min, max, wordsNeeded, inRange, underMin, progressPct, onOpenAssistant }) {
+  let tone, title, subtitle, Icon
+  if (wordCount === 0) {
+    tone = 'muted'
+    Icon = FileEdit
+    title = 'ابدأ الكتابة'
+    subtitle = `تحتاج ${min} كلمة على الأقل للتسليم`
+  } else if (underMin) {
+    tone = 'warning'
+    Icon = AlertCircle
+    title = `ناقص ${wordsNeeded} كلمة`
+    subtitle = `كتبت ${wordCount} من ${min} كلمة — اكتب ${wordsNeeded} كلمة إضافية لتقدر تسلم`
+  } else if (inRange) {
+    tone = 'success'
+    Icon = CheckCircle2
+    title = 'أنت في المدى المطلوب ✓'
+    subtitle = `كتبت ${wordCount} كلمة — تقدر تسلم الحين أو تكتب أكثر (حتى ${max} كلمة)`
+  } else {
+    tone = 'warning'
+    Icon = AlertCircle
+    title = `تجاوزت الحد الأقصى (${max} كلمة)`
+    subtitle = `كتبت ${wordCount} كلمة — قد تحتاج تقصر النص`
+  }
+
+  const toneStyles = {
+    muted: {
+      bg: 'rgba(255,255,255,0.03)',
+      border: 'var(--border-subtle)',
+      iconColor: 'text-[var(--text-muted)]',
+      titleColor: 'text-[var(--text-primary)]',
+      barColor: 'bg-[var(--text-muted)]',
+    },
+    warning: {
+      bg: 'rgba(245,158,11,0.06)',
+      border: 'rgba(245,158,11,0.22)',
+      iconColor: 'text-amber-400',
+      titleColor: 'text-amber-300',
+      barColor: 'bg-amber-400',
+    },
+    success: {
+      bg: 'rgba(52,211,153,0.06)',
+      border: 'rgba(52,211,153,0.25)',
+      iconColor: 'text-emerald-400',
+      titleColor: 'text-emerald-300',
+      barColor: 'bg-emerald-400',
+    },
+  }
+  const s = toneStyles[tone]
+
+  return (
+    <motion.div
+      layout
+      className="rounded-xl p-3.5 space-y-2"
+      style={{ background: s.bg, border: `1px solid ${s.border}` }}
+    >
+      <div className="flex items-start gap-2.5">
+        <Icon size={16} className={`${s.iconColor} flex-shrink-0 mt-0.5`} />
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center justify-between flex-wrap gap-2">
+            <p className={`text-sm font-bold ${s.titleColor} font-['Tajawal']`}>{title}</p>
+            <span className="text-[11px] text-[var(--text-muted)] font-['Tajawal'] font-bold">
+              {wordCount} / {min}–{max}
+            </span>
+          </div>
+          <p className="text-[11px] text-[var(--text-secondary)] font-['Tajawal'] mt-0.5 leading-relaxed">
+            {subtitle}
+          </p>
+        </div>
+      </div>
+
+      {/* Progress bar toward minimum */}
+      <div className="h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.06)' }}>
+        <motion.div
+          className={`h-full rounded-full ${s.barColor}`}
+          initial={false}
+          animate={{ width: `${progressPct}%` }}
+          transition={{ duration: 0.4, ease: 'easeOut' }}
+        />
+      </div>
+
+      {/* CTA if under min */}
+      {(wordCount === 0 || underMin) && onOpenAssistant && (
+        <button
+          onClick={onOpenAssistant}
+          className="flex items-center gap-1.5 text-[11px] font-bold text-sky-300 hover:text-sky-200 font-['Tajawal'] transition-colors"
+        >
+          <Sparkles size={11} />
+          اطلب مساعدة من المساعد الذكي
+        </button>
+      )}
+    </motion.div>
+  )
+}
 
 // ─── Relative Time Display ───────────────────────────
 function RelativeTime({ date }) {

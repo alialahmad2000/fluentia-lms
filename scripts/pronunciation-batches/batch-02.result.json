@@ -1,0 +1,1488 @@
+[
+  {
+    "id": "1c5d4df6-8cca-48ee-8714-94d368557142",
+    "word": "reduce",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1c8f677d-0eed-4b7e-9b30-dafcb4a50748",
+    "word": "uncovering",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1cf1515d-7471-42bd-88d6-4911daf3aa04",
+    "word": "dichotomies",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "high",
+      "ipa": "/daɪˈkɒtəmiz/",
+      "common_mispronunciation_ar": "ديكوتوميز",
+      "correct_approximation_ar": "داي-كاتِه-ميز",
+      "problem_letters": [0, 1, 2],
+      "rule_category": "greek_ch_as_k",
+      "explanation_ar": "حرفا CH هنا يُنطقان K وليس تش، لأن الكلمة من أصل يوناني. كذلك حرف I في البداية يُنطق (آي) طويلة وليس (إي). النطق الصحيح: داي-كاتِه-ميز.",
+      "similar_words": ["chaos", "chemistry", "character"],
+      "practice_tip_ar": "تذكّر أن CH في الكلمات من أصل يوناني تُنطق K دائماً، والحرف I الأول هنا هو (آي) طويلة."
+    }
+  },
+  {
+    "id": "1d4764b2-49fe-43d1-9d50-ac30312b92e0",
+    "word": "turning to",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1d5d6edb-479a-4fde-a1b5-0740864e6575",
+    "word": "paradigmatic",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˌpærədɪɡˈmætɪk/",
+      "common_mispronunciation_ar": "بارا-ديج-ماتيك",
+      "correct_approximation_ar": "بارا-ديغ-ماتيك",
+      "problem_letters": [6, 7],
+      "rule_category": "gm_pronounced",
+      "explanation_ar": "في الكلمة الأصلية paradigm حرف G صامت، لكن عند إضافة -atic يعود حرف G ليُنطق بوضوح (غ). لا تحذفه كما تفعل في paradigm.",
+      "similar_words": ["paradigm", "diaphragmatic", "phlegmatic"],
+      "practice_tip_ar": "في paradigm حرف G صامت، أما في paradigmatic فحرف G يُنطق (غ) بوضوح. ركّز على المقطع (ديغ)."
+    }
+  },
+  {
+    "id": "1d5f04db-0e4b-4de0-92fd-dc0350c7ca41",
+    "word": "paradigm",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "high",
+      "ipa": "/ˈpærədaɪm/",
+      "common_mispronunciation_ar": "بارا-ديجم",
+      "correct_approximation_ar": "بارا-دايم",
+      "problem_letters": [6],
+      "rule_category": "silent_g_before_m",
+      "explanation_ar": "حرف G صامت تماماً قبل M في نهاية الكلمة. كما أن حرف I يُنطق (آي) طويلة وليس (إي). لا تقل (ديجم) بل (دايم).",
+      "similar_words": ["sign", "design", "resign"],
+      "practice_tip_ar": "احذف حرف G من ذهنك تماماً، وانطق المقطع الأخير كأنه كلمة dime."
+    }
+  },
+  {
+    "id": "1da02514-c5c0-424b-aaa5-455ea43b0a38",
+    "word": "coerced",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/koʊˈɜːrst/",
+      "common_mispronunciation_ar": "كويرسيد",
+      "correct_approximation_ar": "كو-إرست",
+      "problem_letters": [6],
+      "rule_category": "ed_ending_t",
+      "explanation_ar": "الحرفان OE يُنطقان كمقطعين منفصلين (كو-إر) وليس (كوي). كما أن نهاية -ed بعد صوت S تُنطق (ت) وليس (إد). القراءة: كو-إرست.",
+      "similar_words": ["coerce", "coexist", "coordinate"],
+      "practice_tip_ar": "افصل بين حرفي O و E: انطق (كو) ثم (إر) ثم أضف (ست) بدون صوت إد."
+    }
+  },
+  {
+    "id": "1daea946-5f94-43ca-8a3e-12b3d3bc2beb",
+    "word": "sophisticated",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/səˈfɪstɪkeɪtɪd/",
+      "common_mispronunciation_ar": "سوفيستيكيتد",
+      "correct_approximation_ar": "سِ-فِس-تِ-كَي-تِد",
+      "problem_letters": [1, 2],
+      "rule_category": "ph_as_f",
+      "explanation_ar": "حرفا PH يُنطقان F وليس P-H منفصلين. أيضاً المقطع الأول غير مشدد ويُنطق بصوت الشوا الخفيف (سِ) لا (سو). التشديد على المقطع الثاني (فِس).",
+      "similar_words": ["phone", "photograph", "philosophy"],
+      "practice_tip_ar": "PH = F دائماً. التشديد على (فِس)، والمقطع الأول خفيف جداً."
+    }
+  },
+  {
+    "id": "1db7cfe0-688a-40c5-9043-e11dbf03f9b9",
+    "word": "earn",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ɜːrn/",
+      "common_mispronunciation_ar": "إيرن",
+      "correct_approximation_ar": "إرن",
+      "problem_letters": [0, 1],
+      "rule_category": "ear_sound",
+      "explanation_ar": "مجموعة الحروف EAR هنا لا تُنطق (إير) كما في ear (أذن)، بل تُنطق صوتاً واحداً مثل (إر) الطويلة. الكلمة تُنطق كأنها urn تماماً.",
+      "similar_words": ["learn", "early", "heard"],
+      "practice_tip_ar": "تذكّر: earn تُنطق مثل urn. لا تنطقها كما تنطق كلمة ear."
+    }
+  },
+  {
+    "id": "1dc9def6-3724-4102-8d60-2c2d53c6624a",
+    "word": "spectacular",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/spekˈtækjələr/",
+      "common_mispronunciation_ar": "سبيكتاكيولار",
+      "correct_approximation_ar": "سپِك-تا-كيُ-لَر",
+      "problem_letters": [0, 1],
+      "rule_category": "stress_position",
+      "explanation_ar": "التشديد على المقطع الثاني (تا) وليس الأول. حرف S في البداية يليه مباشرة P بدون فاصل (العرب يميلون لإضافة كسرة قبل S). كلمة 4 مقاطع.",
+      "similar_words": ["spectator", "particular", "regular"],
+      "practice_tip_ar": "ابدأ بصوت SP مباشرة بدون كسرة قبلها. التشديد على المقطع الثاني (تا)."
+    }
+  },
+  {
+    "id": "1dd1da3e-7957-4050-9973-633ae0bd131e",
+    "word": "switch",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1de6be96-91eb-455c-bb83-3636aab498dd",
+    "word": "process",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1de84cb4-b8d5-44cf-a901-0b63352fed17",
+    "word": "reflect",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1dedc9c2-4425-4c83-a5fc-10f66d833129",
+    "word": "manifest",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1df4f8bd-287a-436f-be0e-142ba669a304",
+    "word": "capitalize",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1e101c04-195c-4215-ab21-8415d7a07dc0",
+    "word": "foster",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1e1a1092-4902-49be-97bb-080a368c76b6",
+    "word": "depend on",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1e32ef9b-495f-4d42-9fcf-e05e2a5b1e0b",
+    "word": "appreciate",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/əˈpriːʃieɪt/",
+      "common_mispronunciation_ar": "آبريسييت",
+      "correct_approximation_ar": "أ-پري-شي-إيت",
+      "problem_letters": [6, 7],
+      "rule_category": "ci_as_sh",
+      "explanation_ar": "المقطع CI هنا يُنطق (ش) وليس (سي)، فتصبح (بري-شي) وليس (بري-سي). كذلك النهاية -ate تُنطق (إيت) طويلة. كلمة شائعة جداً يخطئ فيها المتعلمون.",
+      "similar_words": ["social", "special", "official"],
+      "practice_tip_ar": "تذكّر أن CI قبل حرف علة تتحول غالباً إلى صوت (ش). انطق: أ-پري-شي-إيت."
+    }
+  },
+  {
+    "id": "1e3833d2-b385-4a56-a4d9-1c1e3faf53a7",
+    "word": "desert",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˈdezərt/",
+      "common_mispronunciation_ar": "ديزرت",
+      "correct_approximation_ar": "دِ-زِرت",
+      "problem_letters": [0],
+      "rule_category": "stress_position",
+      "explanation_ar": "كلمة desert (صحراء - اسم) التشديد على المقطع الأول (دِ-زِرت)، بينما dessert (حلوى) التشديد على المقطع الثاني. نفس الكلمة كفعل (يهجر) تُنطق بتشديد المقطع الثاني أيضاً.",
+      "similar_words": ["dessert", "desolate", "present"],
+      "practice_tip_ar": "صحراء = DE-sert (التشديد على الأول). حلوى = de-SSERT (التشديد على الثاني)."
+    }
+  },
+  {
+    "id": "1e910aed-d4e9-4121-be0d-597cd3f3175e",
+    "word": "fascinate",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "high",
+      "ipa": "/ˈfæsɪneɪt/",
+      "common_mispronunciation_ar": "فاسكينيت",
+      "correct_approximation_ar": "فا-سِ-نِيت",
+      "problem_letters": [3],
+      "rule_category": "silent_c",
+      "explanation_ar": "حرف C صامت تماماً في fascinate. الحرفان SC قبل I يُنطقان S فقط، فتصبح (فا-سِ) وليس (فا-سكي). خطأ شائع جداً.",
+      "similar_words": ["muscle", "scissors", "scene"],
+      "practice_tip_ar": "احذف حرف C من نطقك. قل: فا-سِ-نِيت، ليس فا-سكي-نيت."
+    }
+  },
+  {
+    "id": "1e9ba8c7-6a9f-4157-b70e-19d7a5775a49",
+    "word": "fish",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1ebd83a8-b340-4732-9a16-08f04cb97bbe",
+    "word": "created",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/kriˈeɪtɪd/",
+      "common_mispronunciation_ar": "كريتد",
+      "correct_approximation_ar": "كري-إي-تِد",
+      "problem_letters": [5, 6],
+      "rule_category": "ed_ending_id",
+      "explanation_ar": "النهاية -ed بعد حرف T تُنطق مقطعاً كاملاً (إد) وليس (ت) ولا (د). الكلمة تحتوي على 3 مقاطع: كري-إي-تِد. كثير من المتعلمين يقصّرونها إلى مقطعين.",
+      "similar_words": ["wanted", "needed", "started"],
+      "practice_tip_ar": "بعد T أو D في آخر الفعل، نهاية -ed تُنطق مقطعاً كاملاً: (إد)."
+    }
+  },
+  {
+    "id": "1ec009f4-b590-4a23-b0c7-3be1a58b3667",
+    "word": "proliferation",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/prəˌlɪfəˈreɪʃən/",
+      "common_mispronunciation_ar": "بروليفريشن",
+      "correct_approximation_ar": "پرو-لِ-فِ-رَي-شِن",
+      "problem_letters": [9, 10],
+      "rule_category": "tion_as_shun",
+      "explanation_ar": "النهاية -tion تُنطق دائماً (شِن) وليس (تيون) ولا (سيون). التشديد على المقطع الرابع (رَي). الكلمة تتكون من 5 مقاطع.",
+      "similar_words": ["nation", "station", "education"],
+      "practice_tip_ar": "كل كلمة تنتهي بـ -tion = (شِن). التشديد دائماً قبل النهاية مباشرة."
+    }
+  },
+  {
+    "id": "1ec3ae4c-3a59-4ae4-801b-e0b9cb5c6a89",
+    "word": "died out",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1ee26197-6b72-4718-bd21-07bb1b5d78dc",
+    "word": "ramifications",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1eedff0f-c5d1-40ba-b967-4b1b0161410f",
+    "word": "refined",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1ef63d33-daf8-47f5-87bb-97909183b26d",
+    "word": "embrace",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1ef88c12-db2a-4249-92b1-17d3acf3e4fb",
+    "word": "settling down",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1f0e0b55-f113-440f-b04c-a9f75c9ac2c4",
+    "word": "exciting",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1f116a7c-c6e3-4ae6-8aa9-82bb72da3889",
+    "word": "embracing",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1f488c52-74f5-4dad-b740-ebaf9852ead0",
+    "word": "impact",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1f49cc83-7a62-47a5-8e47-31c2322970e7",
+    "word": "water",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1f629c61-6ea3-4bf0-8fae-193076607ef4",
+    "word": "drivers",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1f6d3779-143c-4973-a543-3815e973c7c5",
+    "word": "expansion",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1f7aa01b-7c2a-410a-9f76-b98db67a1f25",
+    "word": "fare",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1f872d3c-b979-47e5-8558-8e2c86aaeeef",
+    "word": "careful",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1faf9a6e-cfa2-4957-a26b-18ccf623ec9b",
+    "word": "reliability",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1fc2e65e-5ee8-407c-9d78-ff866fa5bd60",
+    "word": "setting trends",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "1fe528fe-454c-4398-a8ea-84af7d18b66e",
+    "word": "crucial",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˈkruːʃəl/",
+      "common_mispronunciation_ar": "كروسيال",
+      "correct_approximation_ar": "كرو-شَل",
+      "problem_letters": [4, 5],
+      "rule_category": "ci_as_sh",
+      "explanation_ar": "المقطع CIA هنا يُنطق (شَل) وليس (سيال). الكلمة مقطعان فقط: كرو-شَل. خطأ شائع أن يُنطقها المتعلمون بثلاثة مقاطع.",
+      "similar_words": ["social", "facial", "special"],
+      "practice_tip_ar": "CI قبل حرف علة غالباً = (ش). قل (كرو-شَل) في مقطعين فقط."
+    }
+  },
+  {
+    "id": "20016d96-4385-4c3e-8697-6ae98ccdb57f",
+    "word": "ingenuity",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˌɪndʒəˈnuːəti/",
+      "common_mispronunciation_ar": "إنجينيوتي",
+      "correct_approximation_ar": "إن-جِ-نُوي-تي",
+      "problem_letters": [2],
+      "rule_category": "g_as_j",
+      "explanation_ar": "حرف G قبل E يُنطق (ج) وليس (غ). التشديد على المقطع الثالث (نُو). الكلمة من 4 مقاطع: إن-جِ-نُو-إ-تي.",
+      "similar_words": ["genius", "generous", "gentle"],
+      "practice_tip_ar": "G قبل E أو I أو Y = (ج) ناعمة. انتبه للتشديد على (نُو)."
+    }
+  },
+  {
+    "id": "202088be-798e-41ff-acee-d627c90ff4dc",
+    "word": "emulates",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2024c39e-f6fb-4994-b5c5-99b1478b3e12",
+    "word": "cutting-edge",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2025340b-399a-48fe-825e-1c8706cea879",
+    "word": "harmony",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "203fe7c2-b804-45d8-94f3-f1d6633f00ff",
+    "word": "inherent",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "20600445-b88b-4aad-a167-489756e005df",
+    "word": "weather",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˈweðər/",
+      "common_mispronunciation_ar": "ويذر",
+      "correct_approximation_ar": "ويذَر",
+      "problem_letters": [2, 3],
+      "rule_category": "voiced_th",
+      "explanation_ar": "حرفا TH هنا صوت مجهور (ذ) كما في this، وليس صوت مهموس (ث) كما في think. أيضاً EA هنا ليست (إي) طويلة بل (إي) قصيرة. تشبه نطق كلمة whether تماماً.",
+      "similar_words": ["leather", "feather", "mother"],
+      "practice_tip_ar": "ضع لسانك بين أسنانك وحرّك حبالك الصوتية لصوت (ذ) المجهور، ليس (ث) المهموس."
+    }
+  },
+  {
+    "id": "2075300d-adcf-4f8f-b399-f2f5f75b56cb",
+    "word": "malleable",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˈmæliəbl/",
+      "common_mispronunciation_ar": "مال-لي-إيبل",
+      "correct_approximation_ar": "ما-لي-أ-بل",
+      "problem_letters": [5, 6],
+      "rule_category": "syllable_count",
+      "explanation_ar": "الكلمة 4 مقاطع: ما-لي-أ-بل. حرف E في EA لا يُنطق مستقلاً بل يندمج مع A ليعطي صوت الشوا الخفيف. لا تضاعف صوت L.",
+      "similar_words": ["variable", "reliable", "amiable"],
+      "practice_tip_ar": "انطقها في 4 مقاطع بسلاسة: ما-لي-أ-بل، بدون تكرار اللام."
+    }
+  },
+  {
+    "id": "208b2ce1-0a58-4e1f-93ed-95364abea90f",
+    "word": "conveyed",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "208cc662-fad4-4a7a-b443-1627547ac486",
+    "word": "implications",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "208d4436-ca7e-404c-99a3-343f1a4c39f3",
+    "word": "music",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "20bb9d40-bce2-4fe2-acb8-7288a1b746e2",
+    "word": "facilitate",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/fəˈsɪlɪteɪt/",
+      "common_mispronunciation_ar": "فاسيليتيت",
+      "correct_approximation_ar": "فِ-سِ-لِ-تِيت",
+      "problem_letters": [2],
+      "rule_category": "c_as_s",
+      "explanation_ar": "حرف C قبل I يُنطق (س) وليس (ك). الكلمة 4 مقاطع والتشديد على المقطع الثاني (سِل). لا تقل (فا-كي-لي).",
+      "similar_words": ["facility", "citizen", "center"],
+      "practice_tip_ar": "C قبل E أو I أو Y = (س). التشديد على المقطع الثاني (سِل)."
+    }
+  },
+  {
+    "id": "20bd4ee7-eb66-4e51-b1bb-f2d2f22a4bf8",
+    "word": "supports",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "20d70925-eef6-49ad-9d3e-e53a6bf21f2d",
+    "word": "feasible",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "20e228d4-af27-4fe2-8b4d-38e2148f4269",
+    "word": "try on",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "210f21c4-1ab5-4a95-8c5b-d0a217c8e14b",
+    "word": "explore",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2153c2b8-9bd2-4daf-8696-cb0316ee0ec3",
+    "word": "implications",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "21617db0-3e20-489e-9bbd-c2326d552e79",
+    "word": "popular",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "216f03b5-e76b-4eb9-ad82-f96c46afec78",
+    "word": "revolutionize",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "216fb7b9-caba-4fb0-8b93-fd320af9cdf0",
+    "word": "setting off",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "21ccacdd-86e7-4022-bd6b-a6c37e972d0c",
+    "word": "mixing",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "22268547-0883-4647-b790-dc8ebb1b8e7f",
+    "word": "changed",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/tʃeɪndʒd/",
+      "common_mispronunciation_ar": "تشينج-إد",
+      "correct_approximation_ar": "تشيينجد",
+      "problem_letters": [5, 6],
+      "rule_category": "ed_ending_d",
+      "explanation_ar": "النهاية -ed بعد صوت مجهور مثل (ج) تُنطق (د) فقط بدون مقطع إضافي. لا تقل (تشينج-إد) بمقطعين، بل (تشيينجد) بمقطع واحد.",
+      "similar_words": ["lived", "judged", "saved"],
+      "practice_tip_ar": "بعد الأصوات المجهورة مثل (ج، ل، ف)، -ed تُضاف كصوت (د) فقط بدون مقطع جديد."
+    }
+  },
+  {
+    "id": "2227dd31-c31b-4c4f-8823-5d10e0ee3170",
+    "word": "reverberations",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "22547805-2c9b-4c53-9286-fac0d44cb8e7",
+    "word": "juxtaposition",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2272b8b0-1de3-4c22-8788-18eff0222292",
+    "word": "recommend",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2281c0b0-5c2e-4452-b67c-67303fd19fc5",
+    "word": "reconceptualize",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2313a1b4-8c57-44a3-95f4-a38ff5c64201",
+    "word": "collaborate",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/kəˈlæbəreɪt/",
+      "common_mispronunciation_ar": "كولابوريت",
+      "correct_approximation_ar": "كِ-لا-بِ-ريت",
+      "problem_letters": [0, 1],
+      "rule_category": "schwa",
+      "explanation_ar": "حرف O الأول في المقطع غير المشدد يُنطق شوا خفيفة جداً (كِ) وليس (كو) قوية. التشديد على المقطع الثاني (لا). النهاية -ate تُنطق (ريت) بـ I طويلة.",
+      "similar_words": ["cooperate", "consider", "continue"],
+      "practice_tip_ar": "O في المقطع الأول غير المشدد يختفي كشوا. لا تنطقه بوضوح (كو)."
+    }
+  },
+  {
+    "id": "237d69e7-e20e-42ac-bbb0-3434b7b3cd0c",
+    "word": "compromise",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2386a95d-7602-49c1-93dd-a7dae568165a",
+    "word": "paradox",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˈpærədɒks/",
+      "common_mispronunciation_ar": "بارادوكس",
+      "correct_approximation_ar": "پا-رَ-داكس",
+      "problem_letters": [0],
+      "rule_category": "stress_position",
+      "explanation_ar": "التشديد على المقطع الأول (پا) وليس الأخير. حرف A الأول يُنطق (آ) قصيرة مفتوحة، وحرف A الثاني شوا خفيفة. خطأ شائع في وضع التشديد.",
+      "similar_words": ["paragraph", "parallel", "parody"],
+      "practice_tip_ar": "التشديد على المقطع الأول، والمقطع الأوسط خفيف جداً."
+    }
+  },
+  {
+    "id": "23a1cc01-8517-4236-a311-16ee46ec909a",
+    "word": "catching on",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "23a6c3b9-2f07-4a67-899d-e1cdfd1a4dce",
+    "word": "ubiquitous",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/juːˈbɪkwɪtəs/",
+      "common_mispronunciation_ar": "يوبيكيتوس",
+      "correct_approximation_ar": "يو-بي-كوِ-تِس",
+      "problem_letters": [4, 5],
+      "rule_category": "qu_as_kw",
+      "explanation_ar": "حرفا QU هنا يُنطقان (كو) وليس (كي). التشديد على المقطع الثاني (بِي). أيضاً النهاية -ous تُنطق (ِس) خفيفة وليس (أوس).",
+      "similar_words": ["quick", "question", "equal"],
+      "practice_tip_ar": "QU في معظم الكلمات = (كو). انطق: يو-بي-كوِ-تِس."
+    }
+  },
+  {
+    "id": "23ee0b2e-fab4-4ee3-a429-30823d8f04a7",
+    "word": "invested",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "242352fd-c5e3-4bde-bf78-9b2ebdc3b920",
+    "word": "prices",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "245bc43d-f8a8-4c7f-9f73-49da29a910ee",
+    "word": "trigger",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "246d2539-155d-4947-8ecf-ed043614bc58",
+    "word": "scale up",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "249dda4f-8760-4a56-81f3-540c613aecc7",
+    "word": "rationale",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "high",
+      "ipa": "/ˌræʃəˈnæl/",
+      "common_mispronunciation_ar": "راشنال (مثل rational)",
+      "correct_approximation_ar": "را-شِ-نال",
+      "problem_letters": [7, 8],
+      "rule_category": "unexpected_ending",
+      "explanation_ar": "الحرف E في النهاية غير صامت هنا، بل يجعل الكلمة مختلفة عن rational. تنتهي بصوت (نال) مع تشديد على النهاية، عكس rational التي تنتهي بـ (نِل) خفيفة.",
+      "similar_words": ["morale", "finale", "locale"],
+      "practice_tip_ar": "rationale تختلف عن rational — التشديد على النهاية (نال) الطويلة."
+    }
+  },
+  {
+    "id": "24d923be-fb6c-4f12-9938-e63a4cf8e662",
+    "word": "underpin",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "24fde058-9789-4477-b945-878f51080389",
+    "word": "unique",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/juˈniːk/",
+      "common_mispronunciation_ar": "يونيكوي",
+      "correct_approximation_ar": "يو-نيك",
+      "problem_letters": [4, 5],
+      "rule_category": "que_as_k",
+      "explanation_ar": "النهاية -que تُنطق (ك) فقط بدون صوت (و) أو (إي). الحرفان U و E صامتان تماماً. الكلمة مقطعان: يو-نيك.",
+      "similar_words": ["technique", "antique", "boutique"],
+      "practice_tip_ar": "-que في نهاية الكلمة = صوت (ك) فقط. احذف الحرفين U و E من نطقك."
+    }
+  },
+  {
+    "id": "2530fb59-370a-4ac7-ad13-5f21abe0a77c",
+    "word": "debunked",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "254f8783-2453-4949-8b8d-b2a6f87cf982",
+    "word": "consolidation",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "259c332b-8b08-4a14-86a0-fa4cc82b5172",
+    "word": "consequential",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "25a68962-00e6-4b92-80ae-ba25db4b1831",
+    "word": "family",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2622bf34-f8a4-4199-bca5-5599b18f5d80",
+    "word": "rigorous",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "26361c42-7b1f-45ab-8671-cbedb2d38dc8",
+    "word": "precipitate",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2646b1e9-439c-4c52-914f-2a361b9997c7",
+    "word": "baseload",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "264e74af-5f7b-43c7-8686-0db4ec55e646",
+    "word": "emerged",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "265ab789-7d20-4675-94ff-b2922f6403f5",
+    "word": "correlation",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "267599b9-5c1b-4c8e-bd81-c4b119b9b49d",
+    "word": "incorporate",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "267ef336-9c0c-44bc-a740-8bcb3600038c",
+    "word": "establish",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "268e8912-5a27-459e-bcdc-7f9b6bc20aee",
+    "word": "democratization",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "268f2c29-5908-4be9-9385-25dd91d85386",
+    "word": "glow",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2698da28-8d20-484a-a663-40f1ef041226",
+    "word": "capital",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "26c070a5-714f-4222-bff7-d7a1864853a1",
+    "word": "proliferation",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "26c652a0-22cd-4c40-bbfc-a01d2c16a6ff",
+    "word": "formidable",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˈfɔːrmɪdəbl/",
+      "common_mispronunciation_ar": "فورميدابل (تشديد على ميد)",
+      "correct_approximation_ar": "فور-مِ-دَ-بل",
+      "problem_letters": [0, 1, 2],
+      "rule_category": "stress_position",
+      "explanation_ar": "التشديد على المقطع الأول (فور) وليس على المقطع الثاني (مِد) كما يظن كثيرون. الكلمة 4 مقاطع ومنها (مِ) و (دَ) خفيفان جداً.",
+      "similar_words": ["admirable", "preferable", "comparable"],
+      "practice_tip_ar": "التشديد على (فور) في البداية. المقاطع الثلاثة التي تليها خفيفة وسريعة."
+    }
+  },
+  {
+    "id": "27299e38-740d-4b70-9a0c-b57471cff34f",
+    "word": "streets",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "278d9823-75a7-4693-b56a-041929247929",
+    "word": "wiped out",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "27a1d8cf-8278-4e3e-b970-795468bab63c",
+    "word": "motivations",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "27e24084-4c32-4db9-9718-e5f34c957104",
+    "word": "generate",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "27e961bd-5a00-4040-af5b-24af60d2cbab",
+    "word": "herald",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "282a8169-4801-4096-921b-b75250e97d88",
+    "word": "integration",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "288ea4bf-9df2-4ee8-b82b-00c621c40cef",
+    "word": "powerful",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "28ba51c1-583f-4a07-b679-288383fcdf63",
+    "word": "drives",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "28c0cbae-1a1c-40cc-8457-9c84910e688c",
+    "word": "complete",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "28c4526a-0708-4319-8fe6-aee042da37ee",
+    "word": "attribute",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˈætrɪbjuːt/ (noun) /əˈtrɪbjuːt/ (verb)",
+      "common_mispronunciation_ar": "أترييبيوت",
+      "correct_approximation_ar": "آ-ترِ-بيوت (اسم) / أ-ترِ-بيوت (فعل)",
+      "problem_letters": [0],
+      "rule_category": "stress_position",
+      "explanation_ar": "التشديد يختلف بحسب نوع الكلمة: كاسم التشديد على المقطع الأول (آ-ترِ-بيوت)، وكفعل التشديد على المقطع الثاني (أ-ترِ-بيوت). هذا نمط شائع في كلمات مثل record و present.",
+      "similar_words": ["record", "present", "object"],
+      "practice_tip_ar": "اسم = تشديد على الأول. فعل = تشديد على الثاني. قاعدة عامة في الإنجليزية."
+    }
+  },
+  {
+    "id": "28eb1732-b768-4c23-b098-103b4fad1596",
+    "word": "resulted in",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "28f228ee-1a5a-489b-a1dd-a2fa200f3a28",
+    "word": "ramifications",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "28f63312-4b52-4695-8207-d5ac6f4ed8d0",
+    "word": "expand",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "29037f3d-ddae-4fbf-99f7-8c4f9e406b75",
+    "word": "practice",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "29097d6a-f515-4157-a07a-f68b4675a065",
+    "word": "meticulous",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/məˈtɪkjələs/",
+      "common_mispronunciation_ar": "ميتيكيولوس",
+      "correct_approximation_ar": "مِ-تِ-كيُ-لِس",
+      "problem_letters": [0, 1],
+      "rule_category": "stress_position",
+      "explanation_ar": "التشديد على المقطع الثاني (تِ) وليس الأول. النهاية -ous تُنطق (ِس) خفيفة وليس (أوس) مفتوحة. 4 مقاطع مع حرف U الطويل في (كيُ).",
+      "similar_words": ["ridiculous", "particular", "spectacular"],
+      "practice_tip_ar": "التشديد على المقطع الثاني. النهاية -ous دائماً شوا خفيفة (ِس)."
+    }
+  },
+  {
+    "id": "29129ad1-891b-445a-9d27-e9da3fa038f1",
+    "word": "common",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "293373df-9c66-4ab6-b089-fb6aa2ec0214",
+    "word": "orbital",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "29377894-384a-48fe-aea4-78954bd5a6f2",
+    "word": "paradigm",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "high",
+      "ipa": "/ˈpærədaɪm/",
+      "common_mispronunciation_ar": "بارا-ديجم",
+      "correct_approximation_ar": "بارا-دايم",
+      "problem_letters": [6],
+      "rule_category": "silent_g_before_m",
+      "explanation_ar": "حرف G صامت تماماً قبل M في نهاية paradigm. النهاية -igm تُنطق (آيم) كأنها كلمة dime الإنجليزية. هذه قاعدة عامة في الكلمات من أصل يوناني.",
+      "similar_words": ["sign", "design", "align"],
+      "practice_tip_ar": "تخيّل أن الكلمة مكتوبة (paradime) واحذف حرف G تماماً من نطقك."
+    }
+  },
+  {
+    "id": "2949eb4e-7cd8-4b6e-bd55-248c60a4db7e",
+    "word": "phenomenon",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/fəˈnɒmɪnən/",
+      "common_mispronunciation_ar": "فينومينون",
+      "correct_approximation_ar": "فِ-نا-مِ-نِن",
+      "problem_letters": [0, 1],
+      "rule_category": "ph_as_f",
+      "explanation_ar": "حرفا PH يُنطقان F وليس P-H منفصلين. التشديد على المقطع الثاني (نا) وليس الأخير. كثير من المتعلمين يخطئون ببدء الكلمة بصوت P.",
+      "similar_words": ["phone", "philosophy", "photograph"],
+      "practice_tip_ar": "PH = F دائماً. التشديد على المقطع الثاني (نا)، والمقاطع الأخرى خفيفة."
+    }
+  },
+  {
+    "id": "29517efe-10c7-448d-b5ca-284b84168063",
+    "word": "sleep",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "29bbf236-3bad-44fc-acd7-f94921d0fd1d",
+    "word": "convergence",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2a0e8c35-39f7-4369-9e89-2695a8aea461",
+    "word": "exciting",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2a3c741f-a7dd-4b77-8e6e-5bc33828d14e",
+    "word": "cultivation",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2a3f709f-ca9d-4186-a08d-18611af3a7e3",
+    "word": "harness",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2ad6e9d0-de08-45f4-b8c0-e4c34efe5c00",
+    "word": "tapestry",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˈtæpəstri/",
+      "common_mispronunciation_ar": "تابيستري",
+      "correct_approximation_ar": "تا-پِ-ستري",
+      "problem_letters": [3],
+      "rule_category": "schwa",
+      "explanation_ar": "حرف E في الوسط يُنطق شوا خفيفة جداً تقترب من الاختفاء، وليس (إي) واضحة. التشديد على المقطع الأول (تا) بوضوح.",
+      "similar_words": ["mystery", "history", "symmetry"],
+      "practice_tip_ar": "E الأوسط شبه مختفي. ركّز على (تا) المشدد ثم سلسلة (پِ-ستري)."
+    }
+  },
+  {
+    "id": "2afe5775-4f96-45ab-ad19-74bcc4f1effd",
+    "word": "withstand",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2b047f57-b1ed-4134-aff3-e9cd675ee52b",
+    "word": "leveraged",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2b5bb24d-3a72-4bb8-a07a-1f656117e774",
+    "word": "watershed",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2b634e74-668a-4805-a37e-bdecc45e8a4d",
+    "word": "participate",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2b74459e-8845-44f4-a8a9-05d99a8c9283",
+    "word": "plagued",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/pleɪɡd/",
+      "common_mispronunciation_ar": "بلاجيود",
+      "correct_approximation_ar": "پليغد",
+      "problem_letters": [3, 4],
+      "rule_category": "silent_ue",
+      "explanation_ar": "الحرفان UE في نهاية الجذر صامتان، و AG يُنطق (إيغ) طويلة. الكلمة مقطع واحد فقط: (پليغد)، وليست ثلاثة مقاطع.",
+      "similar_words": ["plague", "vague", "league"],
+      "practice_tip_ar": "plague تُنطق (پليغ). الحرفان UE صامتان كلياً. أضف صوت (د) للنهاية فقط."
+    }
+  },
+  {
+    "id": "2b796e97-3bf3-44f4-9ee6-975552cdfcaf",
+    "word": "hero",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˈhɪəroʊ/",
+      "common_mispronunciation_ar": "هيرو (قصيرة)",
+      "correct_approximation_ar": "هي-رو",
+      "problem_letters": [0, 1],
+      "rule_category": "vowel_length",
+      "explanation_ar": "حرفا HE يُنطقان (هي) طويلة وليس (هِ) قصيرة. التشديد واضح على المقطع الأول، والمقطع الثاني (رو) أخف. انتبه أن الـ H مهموسة قوية.",
+      "similar_words": ["zero", "here", "heroic"],
+      "practice_tip_ar": "ابدأ بهواء قوي من H ثم مطّ صوت الـ (هي) الطويلة."
+    }
+  },
+  {
+    "id": "2b8779b2-7f23-459d-a40b-cab3283b2fab",
+    "word": "pumping out",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2bd0517d-2991-4361-a387-ebc5ba0ad8ee",
+    "word": "impact",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2be79541-9243-4654-9e48-72c243146076",
+    "word": "refine",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2bf18f92-068c-4fee-ae6f-1d5e9777d5a0",
+    "word": "amazing",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2bfaabe8-cca8-4df3-8bda-5bee340fd544",
+    "word": "food",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2c4fcaaf-52e1-4faf-8240-58f69f65a66a",
+    "word": "ubiquitous",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2c6a1f1c-f37e-4543-82bf-047a942a06f3",
+    "word": "hottest",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2c78ff2d-861d-4658-9d42-ed6820daa200",
+    "word": "paradigm",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2ce4320c-8ddd-4f24-ade5-b4f4621b445b",
+    "word": "undermined",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2ced60eb-3c98-4381-b3e3-2e04f2e7c88b",
+    "word": "devise",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2cfbb185-90c5-43db-9815-598686bfe9e2",
+    "word": "proliferation",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2d3cdc3d-6992-4cdf-af0d-b3989bea21e0",
+    "word": "break records",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2d5060cd-3b8c-4159-886e-b8fdaa0bf8f3",
+    "word": "fantastical",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2dae685a-4f37-447b-b1a4-634f0ca4f2b6",
+    "word": "routes",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2de3b442-ef11-49c4-aca7-cf482c4b156e",
+    "word": "analyzing",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2df9728b-fbc0-4469-8154-f5bc22fb5b0a",
+    "word": "extraction",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2e0a7392-2e77-4197-bcba-3a6d625b7d8b",
+    "word": "compelling",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2e1ab026-fd95-4fc5-a82c-7fb558759e3b",
+    "word": "perplex",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2e45d4d1-c006-40d7-929e-97880bde8156",
+    "word": "display",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2e4628bb-4fe9-49a5-9b73-bb7bb54262e3",
+    "word": "capitalize on",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2e7851c6-a668-47a1-bc31-678afc2b37c6",
+    "word": "making a comeback",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2e819138-3dae-40b0-a985-ddc3ef3f7f84",
+    "word": "process",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2e923449-e3bc-4ec6-b0cb-5e4a58c1d9bf",
+    "word": "recalibration",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2eb64d60-a394-4bc2-bf54-48b6f7a98549",
+    "word": "struck",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2ed4a9ff-67b7-4871-8b32-5125a877f94b",
+    "word": "extrapolate",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2ed55d00-6ce3-4402-8865-b461e871f1a2",
+    "word": "trickle",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2ef3edd7-0766-480f-afe0-293a2784f5ce",
+    "word": "harness",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2f043bba-0030-4173-9805-df5bd736e239",
+    "word": "illuminate",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2f91e2e3-9b52-4d30-a75c-2dbb74443350",
+    "word": "debunk",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "2fcc5fe6-afdb-4104-85d9-423a5ffd6e23",
+    "word": "vegetables",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˈvedʒtəblz/",
+      "common_mispronunciation_ar": "ڤيجيتيبلز (4 مقاطع)",
+      "correct_approximation_ar": "ڤيج-تَ-بلز (3 مقاطع)",
+      "problem_letters": [3],
+      "rule_category": "syllable_count",
+      "explanation_ar": "الكلمة تُنطق في 3 مقاطع فقط وليس 4. حرف E الثاني يُحذف من النطق الطبيعي: (ڤيج-تَ-بلز) وليس (ڤي-جي-تا-بلز). خطأ شائع جداً.",
+      "similar_words": ["chocolate", "comfortable", "interesting"],
+      "practice_tip_ar": "احذف حرف E الثاني من نطقك. كأن الكلمة مكتوبة (vegtables). 3 مقاطع فقط."
+    }
+  },
+  {
+    "id": "30081b3a-70ab-4177-9df1-3f302233138b",
+    "word": "surge",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "3029fff4-4b44-497c-af71-fa34c16c369e",
+    "word": "critique",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "high",
+      "ipa": "/krɪˈtiːk/",
+      "common_mispronunciation_ar": "كريتيكيو",
+      "correct_approximation_ar": "كرِ-تيك",
+      "problem_letters": [5, 6, 7],
+      "rule_category": "que_as_k",
+      "explanation_ar": "النهاية -que تُنطق (ك) فقط. الحرفان U و E صامتان تماماً. أيضاً التشديد على المقطع الثاني (تيك) وليس الأول. خطأ شائع أن يُقرأ مثل critic.",
+      "similar_words": ["technique", "antique", "boutique"],
+      "practice_tip_ar": "-que = (ك) فقط. التشديد على المقطع الثاني. لا تخلط بينها وبين critic."
+    }
+  },
+  {
+    "id": "30310297-c088-4e69-8b4f-8743a67bb5f9",
+    "word": "compelling",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "304d0303-11cd-4726-b885-c833414b9cca",
+    "word": "implementing",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "30eb81a2-0083-4c47-8be0-837055548963",
+    "word": "flowers",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "31199191-b7f8-419f-a67a-b5ab5899c9d4",
+    "word": "periphery",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/pəˈrɪfəri/",
+      "common_mispronunciation_ar": "بيريفيري",
+      "correct_approximation_ar": "پِ-رِ-فِ-ري",
+      "problem_letters": [4, 5],
+      "rule_category": "ph_as_f",
+      "explanation_ar": "حرفا PH يُنطقان F وليس P-H منفصلين. التشديد على المقطع الثاني (رِ). الكلمة 4 مقاطع خفيفة. كثير من المتعلمين يخطئون في مكان التشديد.",
+      "similar_words": ["phone", "photo", "paragraph"],
+      "practice_tip_ar": "PH = F. التشديد على المقطع الثاني (رِ)، والمقاطع الأخرى خفيفة."
+    }
+  },
+  {
+    "id": "31b0e7aa-5cc8-4d44-8b2f-446ddad31a34",
+    "word": "valuable",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˈvæljuəbl/",
+      "common_mispronunciation_ar": "ڤاليوإيبل (4 مقاطع)",
+      "correct_approximation_ar": "ڤال-يو-بل (3 مقاطع)",
+      "problem_letters": [3, 4],
+      "rule_category": "syllable_count",
+      "explanation_ar": "الكلمة تُنطق عادة في 3 مقاطع وليس 4. الحرفان UA يندمجان ولا يُنطقان كصوتين منفصلين. قل (ڤال-يو-بل) بسلاسة.",
+      "similar_words": ["vegetable", "comfortable", "miserable"],
+      "practice_tip_ar": "3 مقاطع فقط: ڤال-يو-بل. لا تفصل بين U و A بوقفة."
+    }
+  },
+  {
+    "id": "31b97a7d-1757-4f0f-9dc6-4d2448fd60fc",
+    "word": "reciprocal",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/rɪˈsɪprəkəl/",
+      "common_mispronunciation_ar": "ريكيبروكال",
+      "correct_approximation_ar": "رِ-سِ-پرِ-كَل",
+      "problem_letters": [2],
+      "rule_category": "c_as_s",
+      "explanation_ar": "حرف C الأول قبل I يُنطق (س)، وحرف C الثاني قبل A يُنطق (ك). نفس الحرف يأخذ صوتين مختلفين في نفس الكلمة. التشديد على المقطع الثاني (سِ).",
+      "similar_words": ["circle", "cycle", "accident"],
+      "practice_tip_ar": "القاعدة: C قبل E/I/Y = (س)، وC قبل A/O/U = (ك). تذكّرها لكل الكلمات."
+    }
+  },
+  {
+    "id": "31df2b9d-6b7d-48f9-aed4-520dbb35f865",
+    "word": "vibrant",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "31f8f59a-2413-49a1-b87e-061238c334df",
+    "word": "volatility",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˌvɒləˈtɪləti/",
+      "common_mispronunciation_ar": "ڤولاتيليتي",
+      "correct_approximation_ar": "ڤا-لِ-تِ-لِ-تي",
+      "problem_letters": [0, 1],
+      "rule_category": "stress_position",
+      "explanation_ar": "التشديد على المقطع الثالث (تِ) وليس الأول. معظم الأحرف (O، A، I الأولى) تُنطق شوا خفيفة. 5 مقاطع متوالية خفيفة. الكلمة صعبة في الإيقاع.",
+      "similar_words": ["ability", "facility", "reality"],
+      "practice_tip_ar": "كل -ility في النهاية: التشديد على المقطع قبل -ity. الأحرف الأخرى شوا."
+    }
+  },
+  {
+    "id": "3219a946-e910-46e7-bbc3-316fc7726d1e",
+    "word": "available",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "323ae254-2797-4520-88c1-be00cadecadb",
+    "word": "train",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "3250637c-f78d-4301-80e1-e0f4cf34074d",
+    "word": "evolving",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "326b335f-2c83-4f18-8658-0f8e0d34d4ae",
+    "word": "improve",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "326c24f7-1be3-4076-bb1a-b6a4b36d1932",
+    "word": "sparse",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "327ee1d4-4cae-4dd9-94d4-dc9f13d16981",
+    "word": "embracing",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "32ca94bb-f77f-483e-97f4-51ec8393c8cb",
+    "word": "variants",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "33088e3a-888b-4787-bc5f-2e70c875e671",
+    "word": "amplify",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "3314c904-4b16-4c64-a29d-4cbf74d56e76",
+    "word": "methodologies",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˌmeθəˈdɒlədʒiz/",
+      "common_mispronunciation_ar": "ميثودولوجيز (بصوت ذ)",
+      "correct_approximation_ar": "مِ-ثِ-دا-لِ-جيز",
+      "problem_letters": [2, 3],
+      "rule_category": "voiceless_th",
+      "explanation_ar": "حرفا TH هنا صوت مهموس (ث) كما في think، وليس مجهور (ذ) كما في this. أيضاً حرف G قبل I يُنطق (ج) ناعمة. التشديد على المقطع الثالث (دا).",
+      "similar_words": ["method", "theology", "mathematics"],
+      "practice_tip_ar": "ث مهموسة بدون صوت من الحبال الصوتية. غير ذ المجهورة في this."
+    }
+  },
+  {
+    "id": "3325178f-bedf-4a99-88e9-2c238653242b",
+    "word": "coherence",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "3383204d-1b61-4c0f-9fbf-63f6184bb851",
+    "word": "mobility",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/moʊˈbɪləti/",
+      "common_mispronunciation_ar": "موبيليتي",
+      "correct_approximation_ar": "مو-بِ-لِ-تي",
+      "problem_letters": [0, 1],
+      "rule_category": "stress_position",
+      "explanation_ar": "التشديد على المقطع الثاني (بِ) وليس الأول. النهاية -ility تحمل دائماً التشديد على المقطع قبل -ity. حرف I في (لِ) شوا خفيفة.",
+      "similar_words": ["ability", "visibility", "stability"],
+      "practice_tip_ar": "كل -ility: التشديد دائماً قبل النهاية مباشرة. لا تُشدد على المقطع الأول."
+    }
+  },
+  {
+    "id": "339925ab-53ec-496b-974e-816003715f92",
+    "word": "epitomizes",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ɪˈpɪtəmaɪzɪz/",
+      "common_mispronunciation_ar": "إبيتوميزيس",
+      "correct_approximation_ar": "إ-پِ-تِ-مايزِز",
+      "problem_letters": [0, 1],
+      "rule_category": "stress_position",
+      "explanation_ar": "التشديد على المقطع الثاني (پِ) وليس الأول. حرف O الأوسط يُنطق شوا خفيفة جداً (تِ) وليس (تو). النهاية -mizes تُنطق (مايزِز) بـ I طويلة.",
+      "similar_words": ["epitome", "anatomy", "economy"],
+      "practice_tip_ar": "التشديد على المقطع الثاني. O الأوسط يختفي تقريباً كصوت شوا."
+    }
+  },
+  {
+    "id": "33a60aa0-3a1e-4637-a44d-fd5773eefcf4",
+    "word": "implications",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "33b96ee8-59a0-4c0f-91b1-f5eafc235b38",
+    "word": "inspire",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "33db3be3-9920-4b19-a3cd-9104ba8d6292",
+    "word": "scroll through",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "high",
+      "ipa": "/skroʊl θruː/",
+      "common_mispronunciation_ar": "سكرول ثروغ",
+      "correct_approximation_ar": "سكرول ثرو",
+      "problem_letters": [9, 10, 11],
+      "rule_category": "silent_gh",
+      "explanation_ar": "حرفا GH في through صامتان تماماً، والكلمة تُنطق (ثرو) بصوت مهموس في البداية. لا تنطق GH ولا تضف صوت (غ) أو (ف) في النهاية.",
+      "similar_words": ["though", "thought", "throughout"],
+      "practice_tip_ar": "GH في through صامتة 100%. انطق الكلمة كأنها مكتوبة (thru)."
+    }
+  },
+  {
+    "id": "33e2a8e6-36b8-491d-a8fe-cb51de2384c7",
+    "word": "implication",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "341ea373-ae9b-4371-8140-3a5be8683d15",
+    "word": "carefully",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "34429080-5765-45e1-8b93-c7abc4bd1f89",
+    "word": "salient",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "34bf92eb-b2f8-4eda-a91e-bd7d5230bbdd",
+    "word": "mimicry",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "34d749e9-18f6-47ac-ba95-54b1bf061578",
+    "word": "adaptations",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "34dd17fd-bde5-401a-a439-65b3caaa728d",
+    "word": "vicious",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˈvɪʃəs/",
+      "common_mispronunciation_ar": "ڤيسيوس",
+      "correct_approximation_ar": "ڤِ-شِس",
+      "problem_letters": [2, 3, 4],
+      "rule_category": "ci_as_sh",
+      "explanation_ar": "المقطع -cious يُنطق (شِس) وليس (سي-أوس). الكلمة مقطعان فقط: ڤِ-شِس. نفس النمط في كلمات مثل delicious و precious.",
+      "similar_words": ["delicious", "suspicious", "precious"],
+      "practice_tip_ar": "النهاية -cious = (شِس) دائماً. انطقها في مقطعين فقط."
+    }
+  },
+  {
+    "id": "34f35247-d5f0-4558-8a8e-bfda09c7a020",
+    "word": "resilience",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/rɪˈzɪliəns/",
+      "common_mispronunciation_ar": "ريسيلينس",
+      "correct_approximation_ar": "رِ-زِ-لي-أنس",
+      "problem_letters": [2],
+      "rule_category": "s_as_z",
+      "explanation_ar": "حرف S الأوسط يُنطق (ز) وليس (س) لأنه بين حرفي علة. التشديد على المقطع الثاني (زِ). النهاية -ience تُنطق (ي-أنس) في مقطعين.",
+      "similar_words": ["resist", "present", "reason"],
+      "practice_tip_ar": "S بين حرفي علة غالباً = (ز). قل (رِ-زِ-لي-أنس) وليس (رِ-سِ)."
+    }
+  },
+  {
+    "id": "3502626d-7f82-4198-96ae-472841e9830f",
+    "word": "pronounced",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/prəˈnaʊnst/",
+      "common_mispronunciation_ar": "برونونسيد",
+      "correct_approximation_ar": "پرِ-ناونست",
+      "problem_letters": [8, 9],
+      "rule_category": "ed_ending_t",
+      "explanation_ar": "النهاية -ed بعد صوت (س) تُنطق (ت) فقط وليس (إد) ولا (د). الكلمة مقطعان: پرِ-ناونست. الحرفان OU يُعطيان صوت ثنائي (آو).",
+      "similar_words": ["announced", "enhanced", "based"],
+      "practice_tip_ar": "بعد الأصوات المهموسة (س، ف، ش) نهاية -ed = (ت) مهموسة فقط."
+    }
+  },
+  {
+    "id": "35187bd3-4e3a-4370-adc4-257d70af3c77",
+    "word": "electric",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "355812c3-dcc5-4caa-90a5-7e758aa78e54",
+    "word": "carved",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "357245d3-69c4-45bf-99b0-574b02200024",
+    "word": "piecing together",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "357586e5-fa6f-4eef-a710-70f5ee14cd39",
+    "word": "striving",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "358e5e9e-a965-4df2-b64d-d871d51053c5",
+    "word": "magnitude",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "35ae14f5-da86-4751-80be-36d8e1b0934a",
+    "word": "communicate",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "35b17b68-e177-4b84-8b93-9c115ca60d02",
+    "word": "calculus",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "low",
+      "ipa": "/ˈkælkjələs/",
+      "common_mispronunciation_ar": "كالكولوس",
+      "correct_approximation_ar": "كال-كيُ-لِس",
+      "problem_letters": [4, 5],
+      "rule_category": "cu_as_kyu",
+      "explanation_ar": "الحرفان CU هنا يُنطقان (كيُ) وليس (كو). هذا صوت ثنائي يشبه الذي في كلمة cute. النهاية -us تُنطق شوا خفيفة (لِس).",
+      "similar_words": ["cute", "cucumber", "curriculum"],
+      "practice_tip_ar": "CU قبل حرف علة غالباً = (كيُ) بصوت (ي) خفيف. قل كما تقول cute."
+    }
+  },
+  {
+    "id": "35d9243a-924b-4171-a8f7-030b4f3a9fe3",
+    "word": "magnitude",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "35e2157c-5223-43f2-b450-4d95b8e9d505",
+    "word": "cook",
+    "pronunciation_alert": null
+  },
+  {
+    "id": "366aeedc-c16d-462d-bd52-b8e104f47ce6",
+    "word": "esoteric",
+    "pronunciation_alert": {
+      "has_alert": true,
+      "severity": "medium",
+      "ipa": "/ˌesəˈterɪk/",
+      "common_mispronunciation_ar": "إيسوتيريك",
+      "correct_approximation_ar": "إِ-سِ-تِ-ريك",
+      "problem_letters": [0, 1],
+      "rule_category": "stress_position",
+      "explanation_ar": "التشديد على المقطع الثالث (تِ) وليس الأول. حرف E الأول يُنطق (إِ) قصيرة وليس (إي) طويلة. حرف O في الوسط شوا خفيفة جداً.",
+      "similar_words": ["generic", "numeric", "academic"],
+      "practice_tip_ar": "التشديد على (تِ) قبل النهاية. الكلمة تنتهي بـ -eric وهي نفس إيقاع generic."
+    }
+  }
+]
