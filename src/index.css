@@ -7,6 +7,77 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════════════════════════════
+   ACCESSIBILITY (a11y) — driven by AccessibilityContext
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Base font size driven by accessibility */
+html { font-size: var(--a11y-base-font, 16px); }
+body { line-height: var(--a11y-line-height, 1.6); }
+
+/* High contrast mode — works on both light and dark themes */
+.a11y-high-contrast {
+  --text-primary: #000000 !important;
+  --text-secondary: #000000 !important;
+  --bg-base: #ffffff !important;
+  --bg-elevated: #ffffff !important;
+  --surface-base: #ffffff !important;
+  --surface-raised: #ffffff !important;
+  --border-subtle: #000000 !important;
+  --border-default: #000000 !important;
+  --sky-primary: #0033cc !important;
+  --accent-sky: #0033cc !important;
+}
+.a11y-high-contrast[data-theme="deep-space"],
+.a11y-high-contrast[data-theme="aurora"] {
+  --text-primary: #ffffff !important;
+  --text-secondary: #ffffff !important;
+  --bg-base: #000000 !important;
+  --bg-elevated: #000000 !important;
+  --surface-base: #000000 !important;
+  --surface-raised: #000000 !important;
+  --border-subtle: #ffffff !important;
+  --border-default: #ffffff !important;
+}
+.a11y-high-contrast * {
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+/* Dyslexia font — falls back to Tajawal if OpenDyslexic unavailable */
+.a11y-dyslexia, .a11y-dyslexia * {
+  font-family: 'OpenDyslexic', 'Tajawal', sans-serif !important;
+  letter-spacing: 0.05em !important;
+  word-spacing: 0.15em !important;
+}
+
+/* Reduce motion */
+.a11y-reduce-motion *, .a11y-reduce-motion *::before, .a11y-reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Keyboard navigation — large visible focus rings */
+.a11y-keyboard-nav *:focus-visible {
+  outline: 3px solid #0284c7 !important;
+  outline-offset: 3px !important;
+  border-radius: 4px;
+}
+
+/* Cursor sizes — inline SVG data URIs to avoid external asset deps */
+.a11y-cursor-large, .a11y-cursor-large * {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24'><path d='M3 2 L3 20 L8 15 L11 22 L14 21 L11 14 L18 14 Z' fill='white' stroke='black' stroke-width='1.5'/></svg>") 2 2, auto;
+}
+.a11y-cursor-xlarge, .a11y-cursor-xlarge * {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24'><path d='M3 2 L3 20 L8 15 L11 22 L14 21 L11 14 L18 14 Z' fill='white' stroke='black' stroke-width='1.5'/></svg>") 3 3, auto;
+}
+
+/* Screen reader mode — hide decorative elements */
+.a11y-screen-reader [aria-hidden="true"] { display: none !important; }
+.a11y-screen-reader .decorative { display: none !important; }
+
 /* iOS PWA Standalone Safe Area Support */
 :root {
   --sat: env(safe-area-inset-top, 0px);

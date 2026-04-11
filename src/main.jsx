@@ -4,6 +4,7 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import App from './App'
 import './index.css'
 import { queryClient } from './lib/queryClient'
+import { AccessibilityProvider } from './contexts/AccessibilityContext'
 
 // ─── Global error recovery — catch unhandled errors that React can't ───
 window.addEventListener('unhandledrejection', (event) => {
@@ -33,7 +34,9 @@ if (!rootElement) {
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <App />
+      <AccessibilityProvider>
+        <App />
+      </AccessibilityProvider>
     </QueryClientProvider>
   </React.StrictMode>,
 )

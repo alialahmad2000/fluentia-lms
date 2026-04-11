@@ -4,6 +4,7 @@ import { Volume2, X } from 'lucide-react'
 import { useAnkiSession } from '../../hooks/useAnkiSession'
 import { Rating, formatInterval } from '../../lib/fsrs'
 import WordRelationships from '../vocabulary/WordRelationships'
+import WordFamilySection from '../vocabulary/WordFamilySection'
 import AnkiSessionComplete from './AnkiSessionComplete'
 
 /**
@@ -171,6 +172,11 @@ export default function AnkiReviewSession({ studentId, settings, onExit, onSetti
                       antonyms={vocab.antonyms || []}
                       studentId={studentId}
                     />
+                  </div>
+                )}
+                {Array.isArray(vocab.word_family) && vocab.word_family.length > 0 && (
+                  <div className="pt-2">
+                    <WordFamilySection wordFamily={vocab.word_family} studentId={studentId} />
                   </div>
                 )}
               </div>

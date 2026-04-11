@@ -1,0 +1,1374 @@
+[
+  {
+    "id": "6ac7e167-76c7-48aa-b9a8-82f42322d462",
+    "word": "habitat",
+    "level": 2,
+    "meaning_en": "the natural home or environment where an animal or plant normally lives",
+    "meaning_ar": "البيئة الطبيعية أو الموطن الذي يعيش فيه الحيوان أو النبات عادة"
+  },
+  {
+    "id": "6afdff00-cfea-4708-8488-1fa527911c18",
+    "word": "reach",
+    "level": 2,
+    "meaning_en": "To arrive at or achieve a particular level, amount, or condition",
+    "meaning_ar": "يصل إلى، يبلغ"
+  },
+  {
+    "id": "6b12a01a-f82a-4eff-bf61-b102ff8a4dfa",
+    "word": "precision",
+    "level": 4,
+    "meaning_en": "The quality of being exact and accurate",
+    "meaning_ar": "الدقة، الضبط"
+  },
+  {
+    "id": "6b3683aa-3907-4a46-b73c-f31193887330",
+    "word": "beautiful",
+    "level": 1,
+    "meaning_en": "Very nice to look at; attractive and pleasing",
+    "meaning_ar": "جميل، حسن المظهر"
+  },
+  {
+    "id": "6b48f789-5c3e-4fa0-97a8-e0792aedb32e",
+    "word": "emulate",
+    "level": 4,
+    "meaning_en": "to try to do something as well as someone else because you admire them; to copy or imitate.",
+    "meaning_ar": "يُحاكي، يُقلد، يُضاهي"
+  },
+  {
+    "id": "6b4a035b-49b9-47de-9770-10f49f87453f",
+    "word": "hire",
+    "level": 0,
+    "meaning_en": "To pay someone to work for you",
+    "meaning_ar": "يوظف، يستأجر"
+  },
+  {
+    "id": "6b6e3c0d-45fd-4511-8f55-76ede091a60a",
+    "word": "advanced",
+    "level": 0,
+    "meaning_en": "very modern and using the newest technology",
+    "meaning_ar": "متقدم، حديث جداً"
+  },
+  {
+    "id": "6b87921f-699d-4060-8a44-22a2ba04d038",
+    "word": "mutual",
+    "level": 3,
+    "meaning_en": "shared by two or more people or groups; affecting each other equally",
+    "meaning_ar": "متبادل، مشترك، يؤثر على الطرفين"
+  },
+  {
+    "id": "6b900b33-813a-4685-b7cc-d570d8889345",
+    "word": "protect",
+    "level": 1,
+    "meaning_en": "to keep someone or something safe from harm or damage",
+    "meaning_ar": "يحمي، يقي"
+  },
+  {
+    "id": "6bec16a0-dd4e-41cd-8f5a-b5df517971d4",
+    "word": "scope",
+    "level": 3,
+    "meaning_en": "the range or extent of something; what is covered or included",
+    "meaning_ar": "نطاق، مجال، حدود"
+  },
+  {
+    "id": "6c08b0fb-24bf-410b-ae0f-6474a6417f57",
+    "word": "successful",
+    "level": 0,
+    "meaning_en": "Achieving what you want; doing well",
+    "meaning_ar": "ناجح"
+  },
+  {
+    "id": "6c2cb38e-6974-437b-a49b-7838521425bc",
+    "word": "eradicate",
+    "level": 4,
+    "meaning_en": "to completely destroy or eliminate something, especially something harmful",
+    "meaning_ar": "يستأصل، يقضي على، يبيد تماماً"
+  },
+  {
+    "id": "6c451407-3795-4071-8fab-ae43d1f7b859",
+    "word": "dynamic",
+    "level": 5,
+    "meaning_en": "characterized by constant change, activity, or progress; energetic and forceful",
+    "meaning_ar": "ديناميكي، متحرك، يتسم بالتغيير والنشاط المستمر"
+  },
+  {
+    "id": "6c5d3988-f2a3-4bac-825e-ea3c37cc5293",
+    "word": "acquire",
+    "level": 3,
+    "meaning_en": "to get, obtain, or develop something over time",
+    "meaning_ar": "يكتسب، يحصل على، يطور شيئاً مع الوقت"
+  },
+  {
+    "id": "6c798443-d875-4e60-a56a-a6f5c0ca7143",
+    "word": "noteworthy",
+    "level": 4,
+    "meaning_en": "Interesting, important, or remarkable enough to deserve attention or notice",
+    "meaning_ar": "جدير بالملاحظة، مهم، لافت للنظر"
+  },
+  {
+    "id": "6c8c65dd-9dc2-4c4c-99bf-4691e0002925",
+    "word": "exquisite",
+    "level": 5,
+    "meaning_en": "extremely beautiful, delicate, or of very high quality; showing great refinement",
+    "meaning_ar": "رائع، دقيق جداً، متقن"
+  },
+  {
+    "id": "6c8ea90f-7ae1-4c32-a6e0-9d604992aff5",
+    "word": "advanced",
+    "level": 2,
+    "meaning_en": "Very developed and sophisticated; at a high level",
+    "meaning_ar": "متطور ومتقدم؛ في مستوى عالٍ"
+  },
+  {
+    "id": "6c8f2e60-ea94-4515-9ff3-bcfa8797c955",
+    "word": "taken off",
+    "level": 3,
+    "meaning_en": "to become successful or popular very quickly",
+    "meaning_ar": "انتشر بسرعة، أقلع، نجح بشكل كبير"
+  },
+  {
+    "id": "6c958bdb-d7e2-4097-80a0-52d2eb3a6ff6",
+    "word": "wisely",
+    "level": 1,
+    "meaning_en": "in a smart and careful way",
+    "meaning_ar": "بحكمة، بذكاء"
+  },
+  {
+    "id": "6c9c9feb-675e-401c-941c-363bb99b87c4",
+    "word": "collaborate",
+    "level": 3,
+    "meaning_en": "To work together with others on a project or task",
+    "meaning_ar": "يتعاون، يتشارك في العمل"
+  },
+  {
+    "id": "6cc2489b-9a49-46ca-befd-eb0ba378d4e4",
+    "word": "harness",
+    "level": 5,
+    "meaning_en": "to control and make use of natural forces or resources; to channel something effectively for a particular purpose.",
+    "meaning_ar": "يسخّر، يستغل، يوظف"
+  },
+  {
+    "id": "6ccc90a0-6a7c-466b-8970-7ffa64f7396c",
+    "word": "profound",
+    "level": 5,
+    "meaning_en": "Very deep, intense, or far-reaching in effect or meaning; showing great knowledge or understanding",
+    "meaning_ar": "عميق، بالغ، شديد التأثير، جوهري"
+  },
+  {
+    "id": "6d0bae2b-1574-4b88-bdd0-301f2232d2f4",
+    "word": "laboratory",
+    "level": 5,
+    "meaning_en": "A place where experiments and research are conducted; here used metaphorically for a testing ground",
+    "meaning_ar": "مختبر، مكان للتجارب والبحوث"
+  },
+  {
+    "id": "6d1b6046-3e12-4a7b-9607-a253e28dd0dc",
+    "word": "businesses",
+    "level": 0,
+    "meaning_en": "Companies or shops that sell things to make money",
+    "meaning_ar": "شركات أو أعمال تجارية"
+  },
+  {
+    "id": "6dc06fe1-6f6c-49dc-a093-f35b9a179502",
+    "word": "released",
+    "level": 2,
+    "meaning_en": "made available to the public, especially movies, books, or music",
+    "meaning_ar": "أُطلق، نُشر، عُرض للجمهور"
+  },
+  {
+    "id": "6dc0a305-c079-43b4-9f22-2b4750a5eace",
+    "word": "pioneering",
+    "level": 3,
+    "meaning_en": "being the first to develop or use new methods, ideas, or techniques",
+    "meaning_ar": "رائد، مبتكر، أول من يطور أو يستخدم طرق جديدة"
+  },
+  {
+    "id": "6dd04487-dcc2-47ef-aa2f-28a10be48274",
+    "word": "synergies",
+    "level": 5,
+    "meaning_en": "the combined effect of different elements working together that is greater than their individual effects",
+    "meaning_ar": "تناغم، تضافر، تآزر"
+  },
+  {
+    "id": "6dd8649a-5875-4ea6-b88b-9f1545668930",
+    "word": "delicious",
+    "level": 1,
+    "meaning_en": "having a very good taste; tasty",
+    "meaning_ar": "لذيذ، شهي"
+  },
+  {
+    "id": "6e22d3a0-71e1-4ac8-909e-4352e6a5317d",
+    "word": "opened doors",
+    "level": 2,
+    "meaning_en": "to create new opportunities or possibilities for someone",
+    "meaning_ar": "فتح الأبواب، وفر الفرص"
+  },
+  {
+    "id": "6e35365b-ecf2-4a66-a76c-c4ebbf7e2c1b",
+    "word": "salient",
+    "level": 5,
+    "meaning_en": "Most noticeable, important, or prominent; standing out clearly",
+    "meaning_ar": "بارز، مهم، واضح"
+  },
+  {
+    "id": "6e656fb5-b228-40aa-82a3-4a171751dbd6",
+    "word": "spring",
+    "level": 0,
+    "meaning_en": "The season after winter when flowers grow and weather gets warm",
+    "meaning_ar": "الربيع، فصل الربيع"
+  },
+  {
+    "id": "6e85c2fb-88ca-40fa-9932-fc8d74477dd5",
+    "word": "investing heavily",
+    "level": 2,
+    "meaning_en": "Spending a lot of money on something expecting future benefits",
+    "meaning_ar": "استثمار مبالغ كبيرة في شيء توقعاً لفوائد مستقبلية"
+  },
+  {
+    "id": "6ec4df94-8dfc-4458-aadd-d07db61290ed",
+    "word": "enigmatic",
+    "level": 5,
+    "meaning_en": "mysterious, puzzling, and difficult to understand or explain",
+    "meaning_ar": "غامض، محيّر، صعب الفهم أو التفسير"
+  },
+  {
+    "id": "6ec5db14-3899-4bfb-84d1-7680cfb079e9",
+    "word": "constructed",
+    "level": 1,
+    "meaning_en": "built or made something, especially a building or structure",
+    "meaning_ar": "بُني، شُيّد، أُنشئ"
+  },
+  {
+    "id": "6f4c307e-f239-4103-b87e-c6249e340b59",
+    "word": "devised",
+    "level": 3,
+    "meaning_en": "to create or invent a plan, system, or method by thinking carefully",
+    "meaning_ar": "ابتكر، وضع، صمم"
+  },
+  {
+    "id": "6f4ca52d-c02a-4c4f-a66b-8b9aa59fb021",
+    "word": "anticipate",
+    "level": 2,
+    "meaning_en": "To expect something to happen and prepare for it before it happens",
+    "meaning_ar": "يتوقع، يستبق"
+  },
+  {
+    "id": "6f6042d2-fbbf-4341-b5a2-f89db49e0d70",
+    "word": "sun",
+    "level": 0,
+    "meaning_en": "The bright, hot star that gives Earth light and heat",
+    "meaning_ar": "الشمس"
+  },
+  {
+    "id": "6f904119-4f05-4006-a1a8-405ffc4d59dc",
+    "word": "protracted",
+    "level": 5,
+    "meaning_en": "continuing for a long time, usually longer than expected or desired",
+    "meaning_ar": "طويل الأمد، ممتد لفترة أطول من المتوقع أو المرغوب"
+  },
+  {
+    "id": "6fa64967-706f-472f-a2cb-e00276f2183f",
+    "word": "groups",
+    "level": 0,
+    "meaning_en": "several people together",
+    "meaning_ar": "مجموعات، جماعات"
+  },
+  {
+    "id": "6fd5b7ae-d6ac-4e40-854e-46196cfb6233",
+    "word": "discern",
+    "level": 5,
+    "meaning_en": "to recognize or identify something with difficulty; to perceive or become aware of",
+    "meaning_ar": "يميز، يدرك، يتبين"
+  },
+  {
+    "id": "6ffdc77d-0a83-400c-8ec3-52ceeae6355d",
+    "word": "mimic",
+    "level": 5,
+    "meaning_en": "To copy or imitate closely; to reproduce the characteristics or behavior of something",
+    "meaning_ar": "يحاكي، يقلد، يستنسخ خصائص أو سلوك شيء ما بدقة"
+  },
+  {
+    "id": "700f7cbb-7e0b-46c8-af74-97f8425115eb",
+    "word": "untenable",
+    "level": 5,
+    "meaning_en": "Not able to be maintained or defended; impossible to continue or support",
+    "meaning_ar": "غير قابل للاستمرار، لا يمكن الدفاع عنه، مستحيل التحمل"
+  },
+  {
+    "id": "70175f10-bc68-4f0e-a015-8901d30be5f0",
+    "word": "advocating",
+    "level": 5,
+    "meaning_en": "Publicly supporting or recommending a particular cause, policy, or way of doing something",
+    "meaning_ar": "يدعو إلى، يؤيد، يدافع عن"
+  },
+  {
+    "id": "70238593-d323-4b73-81b2-d703b8fa76f3",
+    "word": "advanced",
+    "level": 0,
+    "meaning_en": "at a high level; using the newest ideas or methods",
+    "meaning_ar": "متقدم، متطور"
+  },
+  {
+    "id": "70377622-8950-4016-bf26-2f24bb2eabd3",
+    "word": "galvanized",
+    "level": 5,
+    "meaning_en": "To motivate or stimulate someone into taking action; to energize",
+    "meaning_ar": "حفز، شحذ الهمة، دفع للعمل"
+  },
+  {
+    "id": "705e7c9d-c195-4f42-9220-95f19e1ad3ca",
+    "word": "secrets",
+    "level": 1,
+    "meaning_en": "Hidden information or things that are not known by most people",
+    "meaning_ar": "أسرار، معلومات مخفية أو غير معروفة"
+  },
+  {
+    "id": "7086749f-06f9-42f2-a564-e9d8345012bd",
+    "word": "nexus",
+    "level": 5,
+    "meaning_en": "A connection, link, or central point where several things come together; a focal point",
+    "meaning_ar": "رابطة، صلة، نقطة الاتصال، مركز التقاء"
+  },
+  {
+    "id": "709aad4a-41c1-47bf-90b1-23413c09bcbc",
+    "word": "comprehensive",
+    "level": 4,
+    "meaning_en": "including everything that is necessary; complete and thorough",
+    "meaning_ar": "شامل، كامل، متكامل"
+  },
+  {
+    "id": "70a504e2-53dc-44a8-ad06-75643b653848",
+    "word": "dwell on",
+    "level": 3,
+    "meaning_en": "to think or talk about something for too long, especially something unpleasant",
+    "meaning_ar": "يركز على، يفكر كثيراً في، يستغرق في التفكير"
+  },
+  {
+    "id": "70b530c8-4c6a-458b-984d-28e1f7c4e2c1",
+    "word": "compelling",
+    "level": 5,
+    "meaning_en": "evoking interest or attention in a forceful way; convincing and persuasive",
+    "meaning_ar": "مقنع، جذاب، مثير للاهتمام بقوة"
+  },
+  {
+    "id": "70c90c2a-2023-474f-bec8-29e87720fbfd",
+    "word": "precipitated",
+    "level": 5,
+    "meaning_en": "to cause something to happen suddenly or too soon, especially something bad",
+    "meaning_ar": "تسبب في، أدى إلى حدوث شيء فجأة أو قبل أوانه"
+  },
+  {
+    "id": "712b39bd-7f4b-4ef1-b5e3-86c55373e239",
+    "word": "implications",
+    "level": 3,
+    "meaning_en": "the possible results or effects that might happen because of something",
+    "meaning_ar": "التبعات أو النتائج المحتملة"
+  },
+  {
+    "id": "71461984-7030-473e-a5e7-6932d9b3f243",
+    "word": "implementation",
+    "level": 3,
+    "meaning_en": "the process of putting a plan or system into action",
+    "meaning_ar": "التنفيذ، التطبيق"
+  },
+  {
+    "id": "716af84b-3e5c-4e6c-b672-27db0cd5996d",
+    "word": "surpasses",
+    "level": 5,
+    "meaning_en": "To exceed or go beyond in amount, extent, or degree; to be greater or better than",
+    "meaning_ar": "يتجاوز أو يفوق في الكمية أو المدى أو الدرجة؛ يكون أعظم أو أفضل من"
+  },
+  {
+    "id": "71728877-b4a1-4121-9c8c-ec2bdf8e3d33",
+    "word": "appreciation",
+    "level": 4,
+    "meaning_en": "increase in value over time; recognition of the worth or quality of something",
+    "meaning_ar": "ارتفاع في القيمة، تقدير، امتنان"
+  },
+  {
+    "id": "71bb74ac-bf24-4958-bb64-f0beccd3eff1",
+    "word": "optimize",
+    "level": 5,
+    "meaning_en": "To make something as effective, efficient, or functional as possible",
+    "meaning_ar": "يحسن، يجعل الشيء في أفضل حالاته"
+  },
+  {
+    "id": "71bf21d1-5cc9-4071-bc6c-3ed791621368",
+    "word": "participate",
+    "level": 1,
+    "meaning_en": "To take part in an activity with other people",
+    "meaning_ar": "يشارك، يساهم"
+  },
+  {
+    "id": "71def0fd-8112-4fe7-8c9b-4424bdf637fc",
+    "word": "catalyzed",
+    "level": 4,
+    "meaning_en": "To cause or speed up a reaction, change, or process",
+    "meaning_ar": "حفّز، أدى إلى، أسرع عملية"
+  },
+  {
+    "id": "71f017a7-8d95-4ed7-899a-89aaeffaa3a1",
+    "word": "shelter",
+    "level": 2,
+    "meaning_en": "a place that protects you from bad weather or danger",
+    "meaning_ar": "مأوى، ملجأ، مكان آمن"
+  },
+  {
+    "id": "71fdc4df-7188-43bc-9e80-62e1f755157c",
+    "word": "celebrate",
+    "level": 1,
+    "meaning_en": "to do something special and enjoyable for an important day or event",
+    "meaning_ar": "يحتفل، يحتفي"
+  },
+  {
+    "id": "720cd745-9bfc-49ff-b5d9-6dce6706ce39",
+    "word": "confound",
+    "level": 5,
+    "meaning_en": "to cause surprise or confusion by being unexpected or difficult to understand",
+    "meaning_ar": "يُحيّر، يُربك، يُذهل"
+  },
+  {
+    "id": "7226f2f2-2cce-4c42-89a5-6b604ea7e013",
+    "word": "conduct",
+    "level": 3,
+    "meaning_en": "to organize and carry out a particular activity or process",
+    "meaning_ar": "يقوم بـ، ينفذ، يدير"
+  },
+  {
+    "id": "72470035-03f0-4593-bbc0-8c12cc8c2d4a",
+    "word": "redefining",
+    "level": 5,
+    "meaning_en": "To change the meaning or understanding of something, especially by giving it new characteristics or boundaries",
+    "meaning_ar": "إعادة تعريف، تغيير مفهوم أو معنى شيء ما"
+  },
+  {
+    "id": "724702b4-32a3-41f1-8ff1-7448159bd513",
+    "word": "expressing their identity",
+    "level": 2,
+    "meaning_en": "showing who you are through your actions, choices, or appearance",
+    "meaning_ar": "يعبر عن هويته، يظهر شخصيته"
+  },
+  {
+    "id": "7252bc0e-68ab-4f65-9ce0-6db188ee9cbc",
+    "word": "demographic",
+    "level": 4,
+    "meaning_en": "a particular group of people in a population",
+    "meaning_ar": "فئة سكانية، شريحة ديموغرافية"
+  },
+  {
+    "id": "72a03e15-86c3-4d27-b67b-9055e39f9130",
+    "word": "turbulence",
+    "level": 2,
+    "meaning_en": "violent or irregular movement in air or water",
+    "meaning_ar": "اضطراب، عنف في الحركة"
+  },
+  {
+    "id": "73291922-7ab3-4ecc-b3d3-c6604f3e0c7e",
+    "word": "critical",
+    "level": 4,
+    "meaning_en": "Extremely important; at a point where a situation could become very dangerous or serious",
+    "meaning_ar": "حرج، بالغ الأهمية، حاسم"
+  },
+  {
+    "id": "73ac8a95-776a-4de0-be21-821aef34b51a",
+    "word": "ubiquitous",
+    "level": 5,
+    "meaning_en": "Present, appearing, or found everywhere; seeming to be in all places at the same time.",
+    "meaning_ar": "موجود في كل مكان، منتشر بكثرة، شائع جداً"
+  },
+  {
+    "id": "73afacc7-1323-4aec-baf4-07582cd7bcfc",
+    "word": "precipice",
+    "level": 5,
+    "meaning_en": "a very steep or dangerous cliff; a situation of great peril or risk",
+    "meaning_ar": "هاوية، منحدر خطر، موقف حرج"
+  },
+  {
+    "id": "73b1ad65-9715-4dea-beb0-3ccf8e54d12e",
+    "word": "remarkable",
+    "level": 4,
+    "meaning_en": "Unusual and surprising in a way that causes people to take notice",
+    "meaning_ar": "مذهل، ملفت للنظر، استثنائي"
+  },
+  {
+    "id": "73b52e42-873e-48b3-bca5-166b0aa100d6",
+    "word": "habits",
+    "level": 1,
+    "meaning_en": "things you do regularly without thinking about them",
+    "meaning_ar": "عادات"
+  },
+  {
+    "id": "73d4ba52-7464-49f5-82fc-a5a6dcb4b449",
+    "word": "permeate",
+    "level": 5,
+    "meaning_en": "To spread throughout something; to pass through or penetrate gradually into every part of something.",
+    "meaning_ar": "ينتشر في، يتخلل، يسود"
+  },
+  {
+    "id": "73ef3a9a-92ce-411b-a6cc-63505095a7b6",
+    "word": "proliferation",
+    "level": 4,
+    "meaning_en": "Rapid increase in the number or amount of something; widespread growth or expansion.",
+    "meaning_ar": "انتشار، تكاثر، ازدياد سريع"
+  },
+  {
+    "id": "74180b3e-104d-40e4-8a65-5f48df0c2ad8",
+    "word": "digital",
+    "level": 1,
+    "meaning_en": "using computer technology, not film or paper",
+    "meaning_ar": "رقمي"
+  },
+  {
+    "id": "74a57c91-1d73-4259-b655-49bebb10cb9e",
+    "word": "implemented",
+    "level": 3,
+    "meaning_en": "to put a plan or decision into action; to start using something",
+    "meaning_ar": "ينفذ، يطبق، يضع موضع التنفيذ"
+  },
+  {
+    "id": "74bae817-1f44-4fe8-8ca0-e90331197dc6",
+    "word": "evolved",
+    "level": 3,
+    "meaning_en": "developed gradually over time; changed into a better or more advanced form",
+    "meaning_ar": "تطور، تدرج في التطوير، تغير للأفضل"
+  },
+  {
+    "id": "74bd51da-459c-444a-bb19-d2dc38f2a61b",
+    "word": "incredible",
+    "level": 1,
+    "meaning_en": "very amazing and hard to believe",
+    "meaning_ar": "لا يصدق، مدهش جداً"
+  },
+  {
+    "id": "75b73921-e3c7-4469-bd0f-4b1ac75c5fcc",
+    "word": "free time",
+    "level": 0,
+    "meaning_en": "Time when you are not working or studying and can do what you want",
+    "meaning_ar": "الوقت الحر / وقت الفراغ"
+  },
+  {
+    "id": "75bb8683-cb94-4782-ae32-bf41b9ef10a0",
+    "word": "catalyze",
+    "level": 5,
+    "meaning_en": "To cause or accelerate a process or reaction; to act as a stimulus for change or action",
+    "meaning_ar": "يحفز، يعجل، يسرع التفاعل، يكون عاملاً مساعداً"
+  },
+  {
+    "id": "75c14be7-7c19-4b7a-b450-78868a817af1",
+    "word": "combine",
+    "level": 1,
+    "meaning_en": "to put two or more things together",
+    "meaning_ar": "يجمع، يدمج، يخلط"
+  },
+  {
+    "id": "75dd23ab-ca7b-4ef8-bdaa-7b7c92bbb055",
+    "word": "antagonistic",
+    "level": 5,
+    "meaning_en": "Showing opposition, hostility, or unfriendliness",
+    "meaning_ar": "عدائي، معارض، عدواني"
+  },
+  {
+    "id": "76389db2-fb49-4d79-8c8b-b24eab4453ab",
+    "word": "ambitious",
+    "level": 3,
+    "meaning_en": "having a strong desire to succeed or achieve something great; requiring great effort",
+    "meaning_ar": "طموح، يتطلب جهداً كبيراً"
+  },
+  {
+    "id": "76675a79-fc79-405f-b8bc-afe246cd72f2",
+    "word": "earns",
+    "level": 0,
+    "meaning_en": "Gets money by working",
+    "meaning_ar": "يكسب، يحصل على راتب"
+  },
+  {
+    "id": "76746641-96b5-418f-b0ac-2e64cb0212f7",
+    "word": "turning to",
+    "level": 2,
+    "meaning_en": "starting to use or do something different, usually for help",
+    "meaning_ar": "يلجأ إلى، يتجه إلى"
+  },
+  {
+    "id": "768649b2-a925-40f0-ab22-bd8f354f97a8",
+    "word": "ingenious",
+    "level": 3,
+    "meaning_en": "showing creativity and skill in solving problems; very clever",
+    "meaning_ar": "مبتكر، ذكي، بارع في حل المشاكل"
+  },
+  {
+    "id": "768cc2ee-f0a9-4fd7-b3d1-4a3a93d51700",
+    "word": "sending updates",
+    "level": 2,
+    "meaning_en": "giving the newest information about something",
+    "meaning_ar": "إرسال التحديثات أو المعلومات الجديدة"
+  },
+  {
+    "id": "76a7430c-51c5-45a3-887a-d803814106df",
+    "word": "intricate",
+    "level": 4,
+    "meaning_en": "very complicated or detailed; having many connected parts or elements",
+    "meaning_ar": "معقد، مفصل، متداخل"
+  },
+  {
+    "id": "76aa792f-1ab7-45c0-b95d-040b5c1d93b1",
+    "word": "transport",
+    "level": 1,
+    "meaning_en": "to carry or move something from one place to another",
+    "meaning_ar": "ينقل، يحمل، يوصل"
+  },
+  {
+    "id": "76d4c976-e003-4a8f-b248-6e26548bb926",
+    "word": "cutting-edge",
+    "level": 3,
+    "meaning_en": "very modern and advanced; using the newest ideas, methods, or technology",
+    "meaning_ar": "متطور جداً أو حديث"
+  },
+  {
+    "id": "76ef741a-4b65-4f0a-a59c-5d1217c2227f",
+    "word": "fit in",
+    "level": 2,
+    "meaning_en": "be suitable for or match with something",
+    "meaning_ar": "يناسب، يتماشى مع"
+  },
+  {
+    "id": "76fff640-8b4a-4ab5-b9a0-a1fde7fcb163",
+    "word": "remarkable",
+    "level": 1,
+    "meaning_en": "very unusual or special; worth noticing",
+    "meaning_ar": "ملحوظ، مميز، استثنائي"
+  },
+  {
+    "id": "770a28b4-c677-4598-b44e-a0212a2fe2a5",
+    "word": "degradation",
+    "level": 5,
+    "meaning_en": "The process of something being damaged or made worse; deterioration",
+    "meaning_ar": "تدهور، انحطاط، تلف"
+  },
+  {
+    "id": "771d0262-d3a0-4578-98c4-d63366b1137e",
+    "word": "paradigm",
+    "level": 4,
+    "meaning_en": "A typical example, pattern, or model; a way of thinking about something",
+    "meaning_ar": "نموذج فكري، نمط، مفهوم أساسي"
+  },
+  {
+    "id": "77378d59-8d7a-46d2-854e-46d448eef396",
+    "word": "sophistication",
+    "level": 4,
+    "meaning_en": "The quality of being complex, advanced, or refined in development or design.",
+    "meaning_ar": "تطور، تعقيد، رقي"
+  },
+  {
+    "id": "775ed746-e6f5-45c9-9edf-6462a8c8f65a",
+    "word": "reintroduce",
+    "level": 2,
+    "meaning_en": "to bring back something that was removed or had disappeared",
+    "meaning_ar": "إعادة إدخال شيء كان قد أُزيل أو اختفى"
+  },
+  {
+    "id": "77803b9f-f722-492b-971c-bcda05362306",
+    "word": "wonderful",
+    "level": 1,
+    "meaning_en": "very good and making you feel happy",
+    "meaning_ar": "رائع، جميل جداً"
+  },
+  {
+    "id": "779d7070-997c-48af-8748-876897decf87",
+    "word": "lake",
+    "level": 0,
+    "meaning_en": "A large area of water with land all around it",
+    "meaning_ar": "بحيرة"
+  },
+  {
+    "id": "77ccc71e-52cf-42f9-b7d3-8c538631e62d",
+    "word": "setting up",
+    "level": 2,
+    "meaning_en": "to build or put something in position ready to use",
+    "meaning_ar": "ينصب، يركب، يجهز للاستعمال"
+  },
+  {
+    "id": "77de6a69-60c6-42f4-9e6e-79b4caf962b7",
+    "word": "exhaustive",
+    "level": 4,
+    "meaning_en": "extremely thorough and complete; covering all possibilities",
+    "meaning_ar": "شامل، مستفيض، مفصل"
+  },
+  {
+    "id": "77eaf80e-1808-4332-8308-4ca2a66f16c0",
+    "word": "cameras",
+    "level": 0,
+    "meaning_en": "machines that take pictures or videos",
+    "meaning_ar": "كاميرات، آلات تصوير"
+  },
+  {
+    "id": "7801c80c-b5ef-426a-b4cc-2157c03cae2a",
+    "word": "implemented",
+    "level": 3,
+    "meaning_en": "put a plan or system into action; made something start working",
+    "meaning_ar": "نفذ، طبق، أدخل حيز التنفيذ"
+  },
+  {
+    "id": "781fe70d-1783-4d38-aafb-d05f7375efe3",
+    "word": "magnitude",
+    "level": 5,
+    "meaning_en": "The great size, extent, or importance of something",
+    "meaning_ar": "حجم، مقدار، أهمية"
+  },
+  {
+    "id": "7833c9e1-9b6b-4228-a3a1-16516d670331",
+    "word": "synonymous",
+    "level": 3,
+    "meaning_en": "Having the same or nearly the same meaning; closely associated with something",
+    "meaning_ar": "مرادف، مقترن بـ، يعني نفس الشيء"
+  },
+  {
+    "id": "786c77e4-67b2-4451-9b15-057ea7f68cf6",
+    "word": "ingenuity",
+    "level": 4,
+    "meaning_en": "Clever thinking and creativity in solving problems or creating new things",
+    "meaning_ar": "التفكير الذكي والإبداع في حل المشاكل أو إنتاج أشياء جديدة"
+  },
+  {
+    "id": "78a600af-bd8d-4e7d-ac1c-98fc203d9f72",
+    "word": "uncovering",
+    "level": 2,
+    "meaning_en": "Finding or discovering something that was hidden or covered",
+    "meaning_ar": "اكتشاف أو العثور على شيء مخفي أو مدفون"
+  },
+  {
+    "id": "78aa25d4-e9f4-48b6-9e5a-75bef38a620d",
+    "word": "live",
+    "level": 0,
+    "meaning_en": "To have your home in a place; to be alive",
+    "meaning_ar": "يعيش - يسكن في مكان معين أو يكون على قيد الحياة"
+  },
+  {
+    "id": "78c9d421-caf2-4273-931a-21624af77d86",
+    "word": "momentum",
+    "level": 5,
+    "meaning_en": "the force or speed of movement; the strength or continuity of progress in a particular direction",
+    "meaning_ar": "الزخم، القوة الدافعة، قوة التقدم أو الاستمرارية في اتجاه معين"
+  },
+  {
+    "id": "78cb76b8-9111-43e7-a60f-9cb264ac3f7a",
+    "word": "preservation",
+    "level": 4,
+    "meaning_en": "The action of maintaining something in its original state or protecting it from harm or decay.",
+    "meaning_ar": "حفظ، صيانة، حماية"
+  },
+  {
+    "id": "78f18b94-a537-4270-8de2-dd4d9ccd7a0c",
+    "word": "confound",
+    "level": 5,
+    "meaning_en": "to cause surprise or confusion; to prove a theory or expectation to be wrong.",
+    "meaning_ar": "يربك، يحير، يفند"
+  },
+  {
+    "id": "78f40fcb-eb8e-4ac6-8389-0aaf7f218164",
+    "word": "preserving",
+    "level": 2,
+    "meaning_en": "Keeping something safe and protecting it from damage or change",
+    "meaning_ar": "حفظ وحماية شيء من التلف أو التغيير"
+  },
+  {
+    "id": "7919c400-d1f3-46e6-840f-0364a75f015d",
+    "word": "dessert",
+    "level": 0,
+    "meaning_en": "sweet food eaten at the end of a meal",
+    "meaning_ar": "حلوى، تحلية"
+  },
+  {
+    "id": "794dd9ec-0004-467a-9c8b-aafd3e9a146a",
+    "word": "remarkable",
+    "level": 4,
+    "meaning_en": "Extraordinary; worthy of attention; unusual in a good way",
+    "meaning_ar": "ملحوظ، استثنائي، جدير بالإعجاب"
+  },
+  {
+    "id": "795156f6-c023-4d7e-aace-ba052a053283",
+    "word": "dimension",
+    "level": 2,
+    "meaning_en": "an aspect or feature of a situation or problem",
+    "meaning_ar": "بُعد، جانب، مظهر"
+  },
+  {
+    "id": "79760c24-576e-422f-8634-d954bae4c63c",
+    "word": "prediction",
+    "level": 2,
+    "meaning_en": "saying what you think will happen in the future",
+    "meaning_ar": "توقع، تنبؤ، تكهن"
+  },
+  {
+    "id": "797f4899-26d5-479b-b24b-de03cecf2ac6",
+    "word": "meticulous",
+    "level": 4,
+    "meaning_en": "showing great attention to detail and being very careful and precise",
+    "meaning_ar": "دقيق جداً، مُتأنٍ، شديد العناية بالتفاصيل"
+  },
+  {
+    "id": "79bf1184-1297-47ce-a196-13c14a026b35",
+    "word": "sharing photos",
+    "level": 2,
+    "meaning_en": "showing pictures to other people",
+    "meaning_ar": "مشاركة الصور"
+  },
+  {
+    "id": "7a2a9226-f03e-4d95-9c6e-5441bbd7b470",
+    "word": "emulate",
+    "level": 4,
+    "meaning_en": "to copy or imitate someone or something in order to equal or surpass them",
+    "meaning_ar": "يحاكي، يقلد، يسعى لمضاهاة"
+  },
+  {
+    "id": "7a67ff03-69da-40d8-9c0b-436991bcc8cb",
+    "word": "addicted to",
+    "level": 2,
+    "meaning_en": "unable to stop doing or using something harmful",
+    "meaning_ar": "مدمن على، معتاد على بشكل ضار"
+  },
+  {
+    "id": "7a86ffe4-3a22-47da-9144-f967e2f85d2b",
+    "word": "monitor",
+    "level": 4,
+    "meaning_en": "To watch, check, or keep track of something regularly over time.",
+    "meaning_ar": "يراقب، يتابع، يرصد"
+  },
+  {
+    "id": "7a876d58-8ff4-40a1-ba2e-be78c6cb8f90",
+    "word": "emulated",
+    "level": 5,
+    "meaning_en": "To copy or imitate someone or something because you admire them",
+    "meaning_ar": "حاكى، قلّد، اقتدى بـ"
+  },
+  {
+    "id": "7a8fe278-9c81-492a-9e5b-c058cf48ddc7",
+    "word": "dress up",
+    "level": 2,
+    "meaning_en": "to wear nice or formal clothes for a special occasion",
+    "meaning_ar": "يتأنق في الملبس، يرتدي ملابس رسمية"
+  },
+  {
+    "id": "7b02f854-2c45-406a-a792-24b023a22179",
+    "word": "synergy",
+    "level": 5,
+    "meaning_en": "The combined effect of two or more elements working together that is greater than the sum of their individual effects",
+    "meaning_ar": "تآزر، تضافر الجهود لتحقيق نتيجة أفضل"
+  },
+  {
+    "id": "7b24598b-0de0-4ea2-9ca2-11a225bdbede",
+    "word": "catalyst",
+    "level": 4,
+    "meaning_en": "something that causes an important change or event to happen more quickly",
+    "meaning_ar": "محفز، عامل مساعد، باعث"
+  },
+  {
+    "id": "7b2e948d-a6b0-4ac7-a389-1c9a5e13edcb",
+    "word": "react",
+    "level": 3,
+    "meaning_en": "to respond to something that has happened",
+    "meaning_ar": "يتفاعل، يرد فعل، يستجيب"
+  },
+  {
+    "id": "7b4579a9-ded3-4b2f-a355-842d6efa56e4",
+    "word": "colorful",
+    "level": 1,
+    "meaning_en": "having many bright colors",
+    "meaning_ar": "ملون، زاهي الألوان"
+  },
+  {
+    "id": "7b68563d-0ce0-48e3-bdf0-0c816d501744",
+    "word": "intractable",
+    "level": 5,
+    "meaning_en": "Very difficult to solve, manage, or deal with",
+    "meaning_ar": "صعب الحل أو المعالجة؛ مستعصٍ أو عنيد"
+  },
+  {
+    "id": "7b9f8c45-5cb6-4618-baa3-94678151c748",
+    "word": "dramatic",
+    "level": 1,
+    "meaning_en": "Very big, sudden, or noticeable change",
+    "meaning_ar": "تغيير كبير ومفاجئ وملحوظ"
+  },
+  {
+    "id": "7be1f3c5-51f9-4df6-bfb0-9387f335ecac",
+    "word": "unprecedented",
+    "level": 4,
+    "meaning_en": "never having happened or existed before; without previous example",
+    "meaning_ar": "غير مسبوق، لم يحدث من قبل، فريد"
+  },
+  {
+    "id": "7c094668-e9f7-4f97-bd0f-c5a5cdd36ddf",
+    "word": "pivotal",
+    "level": 5,
+    "meaning_en": "Of crucial importance in relation to the development or success of something; central and essential",
+    "meaning_ar": "محوري، أساسي، بالغ الأهمية، حاسم"
+  },
+  {
+    "id": "7c262a31-d03e-4c01-b047-b728abb2d3dd",
+    "word": "cope with",
+    "level": 3,
+    "meaning_en": "to deal with something difficult successfully",
+    "meaning_ar": "يتعامل مع، يواجه، يتأقلم مع"
+  },
+  {
+    "id": "7c4a4942-0aad-41ee-91e3-cb8bec4b209e",
+    "word": "harsh",
+    "level": 3,
+    "meaning_en": "very severe, rough, or unpleasant; difficult to survive in",
+    "meaning_ar": "قاس، صعب، شديد القسوة"
+  },
+  {
+    "id": "7c5b0eea-11c3-49ed-843b-ae585c6f7c46",
+    "word": "proponents",
+    "level": 5,
+    "meaning_en": "People who advocate for or support a particular cause, policy, or idea",
+    "meaning_ar": "أشخاص يدافعون عن أو يدعمون قضية أو سياسة أو فكرة معينة"
+  },
+  {
+    "id": "7c5cca36-7527-4dc1-ab48-14f89d71aa7e",
+    "word": "narrow down",
+    "level": 2,
+    "meaning_en": "reduce the number of choices to make a decision easier",
+    "meaning_ar": "يقلص الخيارات، يحدد الاختيارات"
+  },
+  {
+    "id": "7c715045-407a-4067-aebe-134cbd969188",
+    "word": "synthesis",
+    "level": 4,
+    "meaning_en": "the combination of different ideas, influences, or things to create something new",
+    "meaning_ar": "تركيب، دمج، توليف"
+  },
+  {
+    "id": "7c78abb9-7724-4e19-ad59-662b71068b31",
+    "word": "consolidate",
+    "level": 2,
+    "meaning_en": "to make something stronger or more solid by bringing parts together",
+    "meaning_ar": "يدعم، يقوي، يثبت"
+  },
+  {
+    "id": "7c9ab985-d59b-483b-9eb0-7c99df23de24",
+    "word": "created",
+    "level": 1,
+    "meaning_en": "Made something new; brought something into existence",
+    "meaning_ar": "خلق، أنشأ - صنع شيئاً جديداً؛ أوجد شيئاً لم يكن موجوداً"
+  },
+  {
+    "id": "7cb2afd6-279e-4724-b1ce-1e45fa9996eb",
+    "word": "vulnerabilities",
+    "level": 5,
+    "meaning_en": "Points of weakness that can be exploited or that expose someone/something to harm",
+    "meaning_ar": "نقاط ضعف، مواطن خلل، قابلية للإصابة"
+  },
+  {
+    "id": "7cdb4dac-6690-40ac-811a-15eb571f2008",
+    "word": "healthy",
+    "level": 1,
+    "meaning_en": "good for your body and mind; not sick",
+    "meaning_ar": "صحي، سليم"
+  },
+  {
+    "id": "7d0512d6-4c84-44f2-a5ff-b817b29433a6",
+    "word": "specter",
+    "level": 5,
+    "meaning_en": "Something that haunts or disturbs the mind; a ghostly apparition or threatening possibility",
+    "meaning_ar": "شبح أو طيف؛ شيء يؤرق العقل أو احتمال مهدد"
+  },
+  {
+    "id": "7d0b034c-4a8b-44f4-b6e1-225b08360eb8",
+    "word": "transforming",
+    "level": 2,
+    "meaning_en": "changing something completely to make it different or better",
+    "meaning_ar": "تحويل، تغيير بشكل كامل"
+  },
+  {
+    "id": "7d3362d0-1b11-4bda-b503-69571aa82a5c",
+    "word": "magnitude",
+    "level": 4,
+    "meaning_en": "the great size or extent of something; importance or significance",
+    "meaning_ar": "حجم، مقدار، أهمية"
+  },
+  {
+    "id": "7d618d50-0ed5-421d-ab2a-f255bd0288a9",
+    "word": "dichotomy",
+    "level": 5,
+    "meaning_en": "a division or contrast between two things that are represented as being opposed or entirely different",
+    "meaning_ar": "انقسام، تناقض، تضاد بين شيئين متعارضين"
+  },
+  {
+    "id": "7d929115-cdd2-4432-a22c-17b752f20d7b",
+    "word": "sophisticated",
+    "level": 4,
+    "meaning_en": "Very advanced, complex, or refined; showing great knowledge or experience",
+    "meaning_ar": "متطور، معقد، راقي، متقدم"
+  },
+  {
+    "id": "7d979187-c774-463d-97b3-8c655e81ffab",
+    "word": "convenient",
+    "level": 1,
+    "meaning_en": "easy to use or suitable for your needs",
+    "meaning_ar": "مناسب، مريح، سهل"
+  },
+  {
+    "id": "7db35ba4-697b-4126-be6b-77583c0de0ee",
+    "word": "resilience",
+    "level": 4,
+    "meaning_en": "the ability to recover quickly from difficulties or adapt to challenging situations",
+    "meaning_ar": "مرونة، قدرة على التعافي والتكيف مع الصعوبات"
+  },
+  {
+    "id": "7db89bd4-9037-4f62-a83a-12057c3ed1f7",
+    "word": "ramifications",
+    "level": 4,
+    "meaning_en": "complex or unwelcome consequences of an action or decision",
+    "meaning_ar": "تشعبات، عواقب، آثار معقدة"
+  },
+  {
+    "id": "7e0724de-ab5b-4d28-94eb-d07a7bf737c8",
+    "word": "comprise",
+    "level": 3,
+    "meaning_en": "To consist of; to be made up of; to form or constitute",
+    "meaning_ar": "يتكون من، يشكل، يضم"
+  },
+  {
+    "id": "7e21f26c-ba51-436c-a8e6-9daba18893e2",
+    "word": "incorporate",
+    "level": 4,
+    "meaning_en": "to include something as part of a whole; to combine or integrate",
+    "meaning_ar": "يدمج، يدرج، يتضمن"
+  },
+  {
+    "id": "7e303a56-1c6b-43e6-8fe4-9a416c9fb902",
+    "word": "sophisticated",
+    "level": 4,
+    "meaning_en": "Complex, advanced, or highly developed in design or technique",
+    "meaning_ar": "معقد، متطور، متقدم في التصميم أو التقنية"
+  },
+  {
+    "id": "7e405431-9405-4f54-aefe-d7ca0950278b",
+    "word": "transforming",
+    "level": 3,
+    "meaning_en": "changing something completely in form, appearance, or nature",
+    "meaning_ar": "يحول، يغير جذرياً"
+  },
+  {
+    "id": "7e41c481-2a73-43ed-925d-fbd3eaa98154",
+    "word": "trajectory",
+    "level": 4,
+    "meaning_en": "the path or direction that something follows through time or space",
+    "meaning_ar": "مسار، مسيرة، اتجاه"
+  },
+  {
+    "id": "7e851d80-b38d-4538-86fa-08c80af8702b",
+    "word": "evolve",
+    "level": 4,
+    "meaning_en": "To develop gradually and change into something different or more advanced",
+    "meaning_ar": "يتطور تدريجياً؛ يتغير إلى شيء مختلف أو أكثر تقدماً"
+  },
+  {
+    "id": "7ea64f86-0ad0-4181-871b-b2229396497f",
+    "word": "harness",
+    "level": 5,
+    "meaning_en": "to control and use the power or potential of something effectively",
+    "meaning_ar": "يسخر، يستغل، يوظف"
+  },
+  {
+    "id": "7ee34316-3e3d-4cf4-873c-c8ffe10c7a83",
+    "word": "investing in",
+    "level": 2,
+    "meaning_en": "spending money on something to make it better or get future benefits",
+    "meaning_ar": "الاستثمار في شيء أو إنفاق المال لتحسينه"
+  },
+  {
+    "id": "7eec0db1-1037-4d8e-9c0f-94b263de5d3c",
+    "word": "threshold",
+    "level": 3,
+    "meaning_en": "the beginning of something new or important; the point at which something starts",
+    "meaning_ar": "عتبة، بداية، حد البداية"
+  },
+  {
+    "id": "7ef05f60-a41f-42c0-870f-15497a961626",
+    "word": "reclaimed",
+    "level": 5,
+    "meaning_en": "Took back control or possession of; recovered for a new or better use",
+    "meaning_ar": "استرد، استعاد السيطرة على، أعاد تأهيل أو استخدام لغرض أفضل"
+  },
+  {
+    "id": "7f2cb339-f894-42c5-a7d5-07d1719f8a12",
+    "word": "mob mentality",
+    "level": 4,
+    "meaning_en": "The tendency for people in a group to think and behave in ways they would not normally as individuals",
+    "meaning_ar": "عقلية الحشد - ميل الأشخاص في المجموعة للتفكير والتصرف بطرق لا يفعلونها عادة كأفراد"
+  },
+  {
+    "id": "7f2ed82e-914a-45fd-adfa-1ea5fa3a50c9",
+    "word": "substantial",
+    "level": 4,
+    "meaning_en": "large in amount, quantity, or degree; considerable and important",
+    "meaning_ar": "كبير، هائل، جوهري"
+  },
+  {
+    "id": "7f48e575-09af-48e4-bb6f-11a646acb41b",
+    "word": "checking out",
+    "level": 2,
+    "meaning_en": "leaving a hotel after paying the bill",
+    "meaning_ar": "مغادرة الفندق بعد دفع الحساب"
+  },
+  {
+    "id": "7f6a57cc-8e0f-45b7-abdd-9ab439297c6a",
+    "word": "ramifications",
+    "level": 4,
+    "meaning_en": "complex or unwelcome consequences of an action or event",
+    "meaning_ar": "تداعيات، عواقب، نتائج معقدة"
+  },
+  {
+    "id": "7fb432ba-3b86-4695-98e1-af1b0aa56acd",
+    "word": "reached her destination",
+    "level": 2,
+    "meaning_en": "arrived at the place you wanted to go to",
+    "meaning_ar": "وصلت إلى وجهتها أو هدفها"
+  },
+  {
+    "id": "7fdaf251-9b0a-4e1b-b7d6-eee1cf4c7c1e",
+    "word": "apps",
+    "level": 0,
+    "meaning_en": "small computer programs for phones and tablets",
+    "meaning_ar": "تطبيقات، برامج صغيرة للهاتف"
+  },
+  {
+    "id": "7fec87ae-a49e-4278-a95f-52f6c329177d",
+    "word": "efficiency",
+    "level": 4,
+    "meaning_en": "The ability to do something well without wasting time, money, energy, or materials",
+    "meaning_ar": "كفاءة، فعالية، قدرة على الأداء بأقل هدر"
+  },
+  {
+    "id": "7fecef10-c081-44ae-9f2a-78b96acc38af",
+    "word": "buried",
+    "level": 2,
+    "meaning_en": "hidden or covered completely under something",
+    "meaning_ar": "مدفون أو مخفي تحت شيء ما"
+  },
+  {
+    "id": "803ae69b-e59d-4c0f-b608-a5a9775902a9",
+    "word": "exaggerated",
+    "level": 5,
+    "meaning_en": "Represented as larger, better, or worse than it really is; overstated",
+    "meaning_ar": "مبالغ فيه، مضخم، محرف"
+  },
+  {
+    "id": "807535b9-e46e-49bd-b9a0-55a147ca46d1",
+    "word": "enigmatic",
+    "level": 5,
+    "meaning_en": "mysterious, puzzling, or difficult to understand",
+    "meaning_ar": "غامض، محيّر، صعب الفهم"
+  },
+  {
+    "id": "80acf2a2-3b9a-4a15-afe0-a594775ae94a",
+    "word": "surpass",
+    "level": 5,
+    "meaning_en": "To exceed or go beyond in amount, quality, or degree; to be greater or better than",
+    "meaning_ar": "يتجاوز، يفوق، يتخطى في الكمية أو الجودة"
+  },
+  {
+    "id": "80cace59-2a72-412a-97c9-adefa3fb566a",
+    "word": "compelling",
+    "level": 3,
+    "meaning_en": "very convincing and able to persuade you that something is true or important",
+    "meaning_ar": "مقنع، مؤثر، لا يقاوم"
+  },
+  {
+    "id": "80d6aed8-9941-48d5-9400-78923a3512b1",
+    "word": "manifestation",
+    "level": 4,
+    "meaning_en": "a clear sign or example that shows the existence or truth of something",
+    "meaning_ar": "تجلٍّ، تجسيد، إظهار واضح"
+  },
+  {
+    "id": "80e74fe3-3f77-4516-9a94-227ca6f6eab0",
+    "word": "proliferation",
+    "level": 5,
+    "meaning_en": "Rapid increase in numbers; rapid growth or multiplication of something.",
+    "meaning_ar": "انتشار سريع، تكاثر، ازدياد كبير"
+  },
+  {
+    "id": "81115abf-9bb6-4114-acba-8f0ccf768620",
+    "word": "practice",
+    "level": 2,
+    "meaning_en": "to do something many times to become better at it",
+    "meaning_ar": "يمارس، يتدرب"
+  },
+  {
+    "id": "8121e865-18d7-4973-97bc-066e558d784f",
+    "word": "breakthrough",
+    "level": 4,
+    "meaning_en": "an important discovery or development that represents significant progress",
+    "meaning_ar": "اختراق، إنجاز مهم، تقدم كبير"
+  },
+  {
+    "id": "8124a30e-3389-467c-ab90-6aa27f55123c",
+    "word": "emergent",
+    "level": 5,
+    "meaning_en": "arising or developing as a new or unexpected result from a complex system",
+    "meaning_ar": "ناشئ، متطور، ظاهر"
+  },
+  {
+    "id": "81478527-dc3d-41f1-9c58-92378b2bfa3e",
+    "word": "adapt",
+    "level": 1,
+    "meaning_en": "to change your behavior to fit a new situation",
+    "meaning_ar": "يتكيف، يتأقلم"
+  },
+  {
+    "id": "81542786-1607-4ca8-8dda-c497fa01e727",
+    "word": "setting up",
+    "level": 2,
+    "meaning_en": "arranging or organizing something new",
+    "meaning_ar": "إقامة، تأسيس، إعداد"
+  },
+  {
+    "id": "8157a79d-c9fa-4495-ae35-0ddb8f84e942",
+    "word": "ramifications",
+    "level": 4,
+    "meaning_en": "the complex or unwelcome consequences of an action or event",
+    "meaning_ar": "التشعبات، العواقب المعقدة، التبعات"
+  },
+  {
+    "id": "81a008a0-b01e-4a35-9f89-be55653a95f6",
+    "word": "passport",
+    "level": 0,
+    "meaning_en": "Official book that shows who you are and lets you travel to other countries",
+    "meaning_ar": "جواز السفر"
+  },
+  {
+    "id": "81be10ce-8806-4998-a2a6-8dd22c6d2f7e",
+    "word": "sophisticated",
+    "level": 3,
+    "meaning_en": "very advanced, complex, or developed using the latest technology or methods",
+    "meaning_ar": "متطور، معقد، متقدم تقنياً"
+  },
+  {
+    "id": "81bf6600-80f3-48ff-a7c0-84d9080f5b46",
+    "word": "yield",
+    "level": 3,
+    "meaning_en": "to produce or provide something, especially as a result or reward",
+    "meaning_ar": "ينتج، يحصل على، يعطي"
+  },
+  {
+    "id": "81c240cd-1d83-4eae-9164-716a57c2c55c",
+    "word": "getting tired of",
+    "level": 2,
+    "meaning_en": "becoming bored or annoyed with something you have done for too long",
+    "meaning_ar": "الشعور بالملل أو التعب من شيء ما"
+  },
+  {
+    "id": "81dc696d-1936-42f5-b9eb-d798794f1608",
+    "word": "pivotal",
+    "level": 5,
+    "meaning_en": "Of crucial importance in relation to the development or success of something else.",
+    "meaning_ar": "محوري، حاسم، بالغ الأهمية"
+  },
+  {
+    "id": "81f67707-93f3-481a-a20d-4825687e0140",
+    "word": "protected",
+    "level": 1,
+    "meaning_en": "Kept safe from harm or damage",
+    "meaning_ar": "حَمى، حافظ على، وقى من الضرر"
+  },
+  {
+    "id": "821a2ea2-bcfe-4897-be44-91156fa249f0",
+    "word": "exacerbate",
+    "level": 4,
+    "meaning_en": "to make a problem, bad situation, or negative feeling worse",
+    "meaning_ar": "يفاقم، يزيد سوءاً، يُشدد من حدة"
+  },
+  {
+    "id": "8233e5c7-a7fc-422d-bed6-c830a0835e53",
+    "word": "marvel",
+    "level": 3,
+    "meaning_en": "to feel great surprise, wonder, or admiration about something",
+    "meaning_ar": "يتعجب، يندهش، يُعجب بشيء ما"
+  },
+  {
+    "id": "823d1b36-376a-4cdc-b97f-6540ab96d524",
+    "word": "anticipate",
+    "level": 3,
+    "meaning_en": "to expect something to happen and prepare for it",
+    "meaning_ar": "يتوقع، يستبق، يتنبأ بـ"
+  },
+  {
+    "id": "823fb73a-80a2-46e8-bd7a-d7822836aed1",
+    "word": "unprecedented",
+    "level": 5,
+    "meaning_en": "Never done or known before; having no previous example or comparison",
+    "meaning_ar": "لم يسبق له مثيل، غير مسبوق، فريد من نوعه"
+  },
+  {
+    "id": "826cf97c-570d-4bc7-8631-0c4a515a278d",
+    "word": "vibrant",
+    "level": 2,
+    "meaning_en": "bright, colorful, and full of energy",
+    "meaning_ar": "نابض بالحياة، زاهي الألوان"
+  },
+  {
+    "id": "828273e3-5aea-4978-ab88-f39af025c138",
+    "word": "accumulate",
+    "level": 2,
+    "meaning_en": "to gradually get more and more of something over time",
+    "meaning_ar": "يتراكم، يتجمع، يزداد تدريجياً"
+  },
+  {
+    "id": "828aef42-338a-45d3-8d02-a41733872da4",
+    "word": "diminishing",
+    "level": 4,
+    "meaning_en": "Becoming smaller, fewer, or less; decreasing in size, amount, or importance",
+    "meaning_ar": "متناقص، متضائل، آخذ في الانخفاض"
+  },
+  {
+    "id": "82a11622-9bfc-4637-b7e6-049283cacbce",
+    "word": "encounter",
+    "level": 3,
+    "meaning_en": "to meet or come across something unexpectedly",
+    "meaning_ar": "يواجه، يصادف، يلتقي بـ"
+  },
+  {
+    "id": "834771e8-7f0f-4323-a18a-151ea78fa8f0",
+    "word": "shared",
+    "level": 3,
+    "meaning_en": "to give part of something to others or use something together",
+    "meaning_ar": "شارك، قاسم، تقاسم"
+  },
+  {
+    "id": "835bc9db-8e6e-4db2-93d9-93c2f3eea537",
+    "word": "intensify",
+    "level": 4,
+    "meaning_en": "To become or make something more intense, strong, or extreme in degree.",
+    "meaning_ar": "يشتد، يقوى، يزداد حدة"
+  },
+  {
+    "id": "835c1612-8947-4afa-a41e-f26b1f8c0341",
+    "word": "monitor",
+    "level": 3,
+    "meaning_en": "to watch, check, or observe something carefully over time",
+    "meaning_ar": "يراقب، يتابع، يرصد"
+  },
+  {
+    "id": "837221b3-55c8-469e-86fd-f5abb0f7da3b",
+    "word": "conceived",
+    "level": 3,
+    "meaning_en": "to think of or imagine an idea or plan",
+    "meaning_ar": "تصور، ابتكر فكرة أو خطة"
+  },
+  {
+    "id": "83f5e28f-d4fd-4535-9a99-0eec81074d6a",
+    "word": "pervade",
+    "level": 5,
+    "meaning_en": "To spread throughout; to be present and noticeable in every part of something",
+    "meaning_ar": "يسود، يتخلل، ينتشر في كل مكان، يهيمن على"
+  },
+  {
+    "id": "84150772-7dc0-4fca-b60d-417c8009c26e",
+    "word": "explore",
+    "level": 1,
+    "meaning_en": "To travel around a place to learn about it; to discover new things",
+    "meaning_ar": "يستكشف، يتجول لاكتشاف أشياء جديدة"
+  }
+]

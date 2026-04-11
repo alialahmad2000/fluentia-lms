@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Volume2, CheckCircle, RotateCcw, ArrowRight } from 'lucide-react'
 import WordRelationships from '../../../../components/vocabulary/WordRelationships'
+import WordFamilySection from '../../../../components/vocabulary/WordFamilySection'
 
 const POS_LABELS = {
   noun: 'اسم',
@@ -325,6 +326,15 @@ export default function VocabularyPractice({ words, onComplete, onBack, studentI
                     <WordRelationships
                       synonyms={currentWord.synonyms || []}
                       antonyms={currentWord.antonyms || []}
+                      studentId={studentId}
+                    />
+                  </div>
+                )}
+
+                {Array.isArray(currentWord.word_family) && currentWord.word_family.length > 0 && (
+                  <div className="w-full max-w-[95%]">
+                    <WordFamilySection
+                      wordFamily={currentWord.word_family}
                       studentId={studentId}
                     />
                   </div>

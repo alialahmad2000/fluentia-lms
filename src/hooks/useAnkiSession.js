@@ -97,7 +97,7 @@ export function useAnkiSession(studentId, settings) {
     const { data: newRows, error: nErr } = await supabase
       .from('anki_cards')
       .select(
-        'id, state, stability, difficulty, elapsed_days, scheduled_days, reps, lapses, due_at, last_review_at, vocabulary:curriculum_vocabulary!vocabulary_id(id, word, definition_en, definition_ar, example_sentence, part_of_speech, audio_url, synonyms, antonyms)'
+        'id, state, stability, difficulty, elapsed_days, scheduled_days, reps, lapses, due_at, last_review_at, vocabulary:curriculum_vocabulary!vocabulary_id(id, word, definition_en, definition_ar, example_sentence, part_of_speech, audio_url, synonyms, antonyms, word_family)'
       )
       .eq('student_id', studentId)
       .eq('state', 'new')
@@ -110,7 +110,7 @@ export function useAnkiSession(studentId, settings) {
     let reviewQuery = supabase
       .from('anki_cards')
       .select(
-        'id, state, stability, difficulty, elapsed_days, scheduled_days, reps, lapses, due_at, last_review_at, vocabulary:curriculum_vocabulary!vocabulary_id(id, word, definition_en, definition_ar, example_sentence, part_of_speech, audio_url, synonyms, antonyms)'
+        'id, state, stability, difficulty, elapsed_days, scheduled_days, reps, lapses, due_at, last_review_at, vocabulary:curriculum_vocabulary!vocabulary_id(id, word, definition_en, definition_ar, example_sentence, part_of_speech, audio_url, synonyms, antonyms, word_family)'
       )
       .eq('student_id', studentId)
       .neq('state', 'new')

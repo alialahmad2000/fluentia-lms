@@ -11,6 +11,7 @@ import Sidebar from './Sidebar'
 import Header from './Header'
 import ErrorBoundary from '../ErrorBoundary'
 import AIFloatingHelper from '../ai/AIFloatingHelper'
+import A11yFloatingButton from '../Accessibility/A11yFloatingButton'
 import PWAInstallGate from '../pwa/PWAInstallGate'
 import UpdateBanner from '../UpdateBanner'
 import { useAuthStore } from '../../stores/authStore'
@@ -242,6 +243,9 @@ export default function LayoutShell() {
 
       {/* AI Floating Helper */}
       <AIFloatingHelper />
+
+      {/* Accessibility Floating Button — visible on all pages */}
+      <A11yFloatingButton />
 
       {/* Mobile bottom tab bar */}
       <nav aria-label="التنقل الرئيسي" className="mobile-tab-bar lg:hidden">

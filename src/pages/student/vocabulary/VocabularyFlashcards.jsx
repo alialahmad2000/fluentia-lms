@@ -105,7 +105,7 @@ export default function VocabularyFlashcards() {
       // Fetch all vocabulary with reading → unit join
       const { data: vocabData, error: vocabErr } = await supabase
         .from('curriculum_vocabulary')
-        .select('id, word, definition_en, definition_ar, example_sentence, part_of_speech, audio_url, difficulty_tier, sort_order, synonyms, antonyms, reading:curriculum_readings!reading_id(unit_id, unit:curriculum_units!unit_id(unit_number, level_id, theme_ar))')
+        .select('id, word, definition_en, definition_ar, example_sentence, part_of_speech, audio_url, difficulty_tier, sort_order, synonyms, antonyms, word_family, reading:curriculum_readings!reading_id(unit_id, unit:curriculum_units!unit_id(unit_number, level_id, theme_ar))')
         .order('sort_order')
 
       if (!isMounted) return

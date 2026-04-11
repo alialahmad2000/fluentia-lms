@@ -6,6 +6,7 @@ import { toast } from '../ui/FluentiaToast'
 import { safeCelebrate } from '../../lib/celebrations'
 import { emitXP } from '../ui/XPFloater'
 import WordRelationships from './WordRelationships'
+import WordFamilySection from './WordFamilySection'
 
 function shuffle(arr) {
   const a = [...arr]
@@ -236,6 +237,12 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
                       antonyms={word.antonyms || []}
                       studentId={studentId}
                     />
+                  </div>
+                )}
+
+                {Array.isArray(word.word_family) && word.word_family.length > 0 && (
+                  <div className="pt-2 border-t border-white/5">
+                    <WordFamilySection wordFamily={word.word_family} studentId={studentId} />
                   </div>
                 )}
               </>

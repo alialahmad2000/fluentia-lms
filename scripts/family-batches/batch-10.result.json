@@ -1,0 +1,76 @@
+[
+  {
+    "id": "e8312726-59c1-4b5d-a3c9-5e78267283d4",
+    "word": "disappearing",
+    "word_family": [
+      {
+        "word": "appear",
+        "pos": "verb",
+        "level": 1,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": { "is_base": true, "note_ar": "الفعل الأصلي الذي تُشتق منه باقي العائلة." }
+      },
+      {
+        "word": "disappear",
+        "pos": "verb",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": true,
+        "morphology": {
+          "affix": "dis-",
+          "affix_type": "prefix",
+          "base_word": "appear",
+          "base_pos": "verb",
+          "rule_ar": "البادئة -dis تُضاف قبل الفعل لتعطي معنى معاكساً أو إلغاء الفعل الأصلي.",
+          "similar_examples": ["agree → disagree", "connect → disconnect"]
+        }
+      },
+      {
+        "word": "disappearing",
+        "pos": "adjective",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": true,
+        "morphology": {
+          "affix": "-ing",
+          "affix_type": "suffix",
+          "base_word": "disappear",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ing تُضاف إلى الفعل لتكوّن اسم فاعل أو صفة تصف شيئاً يقوم بالفعل حالياً.",
+          "similar_examples": ["grow → growing", "fade → fading"]
+        }
+      },
+      {
+        "word": "disappearance",
+        "pos": "noun",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": true,
+        "morphology": {
+          "affix": "-ance",
+          "affix_type": "suffix",
+          "base_word": "disappear",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ance تُضاف إلى الفعل لتكوّن اسماً يدل على حالة أو فعل.",
+          "similar_examples": ["perform → performance", "accept → acceptance"]
+        }
+      },
+      {
+        "word": "appearance",
+        "pos": "noun",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ance",
+          "affix_type": "suffix",
+          "base_word": "appear",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ance تُضاف إلى الفعل لتكوّن اسماً يعبّر عن حالة أو فعل الظهور.",
+          "similar_examples": ["resist → resistance", "assist → assistance"]
+        }
+      }
+    ]
+  }
+]

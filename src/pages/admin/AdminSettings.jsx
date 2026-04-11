@@ -11,7 +11,8 @@ const AdminAuditLog = lazy(() => import('./AdminAuditLog'))
 const AdminDataExport = lazy(() => import('./AdminDataExport'))
 
 import { useThemeStore } from '../../stores/themeStore'
-import { Monitor, Moon, Sparkles, Type } from 'lucide-react'
+import { Monitor, Moon, Sparkles, Type, Accessibility as AccessibilityIcon } from 'lucide-react'
+import AccessibilityPanel from '../../components/Accessibility/AccessibilityPanel'
 
 const TABS = [
   { key: 'settings', label: 'الإعدادات', icon: Settings },
@@ -321,6 +322,7 @@ function SettingsContent() {
 // ─── Display & Appearance Settings ───────────────────────
 function DisplaySettings() {
   const { theme, setTheme } = useThemeStore()
+  const [a11yOpen, setA11yOpen] = useState(false)
   const [fontSize, setFontSize] = useState(() => {
     try { return localStorage.getItem('fluentia_font_size') || 'normal' } catch { return 'normal' }
   })
@@ -363,6 +365,31 @@ function DisplaySettings() {
 
   return (
     <div className="space-y-8">
+      {/* Accessibility entry */}
+      <div className="fl-card-static p-6">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+            <AccessibilityIcon size={18} className="text-sky-400" />
+          </div>
+          <div className="flex-1">
+            <h3 className="text-section-title" style={{ color: 'var(--text-primary)' }}>إمكانية الوصول</h3>
+            <p className="text-muted text-sm mt-0.5">حجم الخط، التباين، خط عُسر القراءة، والمزيد</p>
+          </div>
+        </div>
+        <button
+          onClick={() => setA11yOpen(true)}
+          className="w-full sm:w-auto px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors"
+          style={{
+            background: 'var(--accent-sky, #0284c7)',
+            color: '#ffffff',
+            boxShadow: 'var(--shadow-sm)',
+          }}
+        >
+          فتح إعدادات الوصول
+        </button>
+      </div>
+      <AccessibilityPanel open={a11yOpen} onClose={() => setA11yOpen(false)} />
+
       {/* Theme selection */}
       <div className="fl-card-static p-6">
         <div className="flex items-center gap-3 mb-5">
