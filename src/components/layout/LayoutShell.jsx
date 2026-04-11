@@ -288,7 +288,7 @@ export default function LayoutShell() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="fixed inset-0 z-[70] lg:hidden"
-              style={{ background: 'rgba(0,0,0,0.5)' }}
+              style={{ background: 'var(--modal-backdrop)' }}
               onClick={() => setMoreOpen(false)}
             />
             {/* Sheet */}

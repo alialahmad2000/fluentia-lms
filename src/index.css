@@ -19,6 +19,10 @@
 html {
   background-color: #050d1a;
 }
+html.light,
+html[data-theme="frost-white"] {
+  background-color: #f6f8fb;
+}
 
 body {
   /* Only top safe area on body — bottom is handled by mobile-tab-bar + pb-safe-bottom */

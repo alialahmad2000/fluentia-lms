@@ -187,134 +187,160 @@
   --color-kbd-border: rgba(255, 255, 255, 0.10);
 }
 
-/* ────── THEME 2: Frost White (Clean Light) ────── */
+/* ────── THEME 2: Frost White (Premium Light) ──────
+   Redesigned: layered whites · solid glass cards · multi-level shadows ·
+   AAA contrast text · mesh gradient background · warm premium feel.
+   ──────────────────────────────────────────────────── */
 .light,
 [data-theme="frost-white"] {
-  --surface-void:        #f1f5f9;
-  --surface-base:        #f8fafc;
-  --surface-raised:      #ffffff;
-  --surface-overlay:     #ffffff;
-  --surface-interactive: #f1f5f9;
+  /* === Core Surfaces — layered whites, not flat === */
+  --surface-void:        #eef1f6;   /* behind everything */
+  --surface-base:        #f6f8fb;   /* page background  */
+  --surface-raised:      #ffffff;   /* cards, sidebars  */
+  --surface-overlay:     #ffffff;   /* modals, dropdowns */
+  --surface-interactive: #f1f5f9;   /* hover fills, sunken areas */
 
-  --glass-card:          rgba(255, 255, 255, 0.75);
-  --glass-card-hover:    rgba(255, 255, 255, 0.9);
-  --glass-card-active:   rgba(255, 255, 255, 0.95);
-  --glass-elevated:      rgba(255, 255, 255, 0.9);
-  --glass-input:         rgba(0, 0, 0, 0.025);
-  --glass-input-focus:   rgba(0, 0, 0, 0.04);
+  /* === Glass / Cards — SOLID white with proper shadow (not translucent) === */
+  --glass-card:          #ffffff;
+  --glass-card-hover:    #ffffff;
+  --glass-card-active:   #ffffff;
+  --glass-elevated:      #ffffff;
+  --glass-input:         #f4f6fa;
+  --glass-input-focus:   #ffffff;
 
-  --border-subtle:       rgba(0, 0, 0, 0.04);
-  --border-default:      rgba(0, 0, 0, 0.08);
-  --border-strong:       rgba(0, 0, 0, 0.14);
-  --border-focus:        rgba(14, 165, 233, 0.5);
-  --border-glow:         rgba(14, 165, 233, 0.15);
-  --avatar-border:       rgba(0, 0, 0, 0.08);
+  /* === Borders — slightly darker so cards visibly separate from bg === */
+  --border-subtle:       rgba(15, 23, 42, 0.05);
+  --border-default:      rgba(15, 23, 42, 0.08);
+  --border-strong:       rgba(15, 23, 42, 0.14);
+  --border-focus:        rgba(2, 132, 199, 0.5);
+  --border-glow:         rgba(2, 132, 199, 0.25);
+  --avatar-border:       rgba(15, 23, 42, 0.08);
 
-  --text-primary:        #0f172a;
-  --text-secondary:      #475569;
-  --text-tertiary:       #94a3b8;
-  --text-inverse:        #f0f4f8;
-  --text-link:           #0284c7;
+  /* === Typography — AAA contrast on light === */
+  --text-primary:        #0b1220;   /* near-black, crisp */
+  --text-secondary:      #334155;   /* AAA on #ffffff    */
+  --text-tertiary:       #64748b;   /* AA+ muted         */
+  --text-inverse:        #ffffff;
+  --text-link:           #0369a1;
   --text-on-accent:      #ffffff;
 
-  --accent-sky:          #0ea5e9;
+  /* === Brand palette — deeper hues so they pop on white === */
+  --accent-sky:          #0284c7;
   --accent-sky-dim:      #e0f2fe;
-  --accent-sky-glow:     rgba(14, 165, 233, 0.1);
-  --accent-sky-strong:   #0284c7;
+  --accent-sky-glow:     rgba(2, 132, 199, 0.1);
+  --accent-sky-strong:   #0369a1;
 
-  --accent-gold:         #d97706;
+  --accent-gold:         #b45309;
   --accent-gold-dim:     #fef3c7;
-  --accent-gold-glow:    rgba(217, 119, 6, 0.08);
+  --accent-gold-glow:    rgba(180, 83, 9, 0.1);
 
-  --accent-violet:       #7c3aed;
+  --accent-violet:       #6d28d9;
   --accent-violet-dim:   #ede9fe;
-  --accent-violet-glow:  rgba(124, 58, 237, 0.08);
+  --accent-violet-glow:  rgba(109, 40, 217, 0.1);
 
-  --accent-emerald:      #059669;
+  --accent-emerald:      #047857;
   --accent-emerald-dim:  #d1fae5;
-  --accent-emerald-glow: rgba(5, 150, 105, 0.08);
+  --accent-emerald-glow: rgba(4, 120, 87, 0.1);
 
-  --accent-rose:         #e11d48;
+  --accent-rose:         #be123c;
   --accent-rose-dim:     #ffe4e6;
-  --accent-rose-glow:    rgba(225, 29, 72, 0.08);
+  --accent-rose-glow:    rgba(190, 18, 60, 0.1);
 
-  --accent-amber:        #d97706;
+  --accent-amber:        #b45309;
   --accent-amber-dim:    #fef3c7;
-  --accent-amber-glow:   rgba(217, 119, 6, 0.08);
+  --accent-amber-glow:   rgba(180, 83, 9, 0.1);
 
-  --success:             #059669;
-  --success-bg:          rgba(5, 150, 105, 0.06);
-  --success-border:      rgba(5, 150, 105, 0.15);
+  --success:             #047857;
+  --success-bg:          rgba(4, 120, 87, 0.08);
+  --success-border:      rgba(4, 120, 87, 0.2);
 
-  --danger:              #e11d48;
-  --danger-bg:           rgba(225, 29, 72, 0.06);
-  --danger-border:       rgba(225, 29, 72, 0.15);
+  --danger:              #be123c;
+  --danger-bg:           rgba(190, 18, 60, 0.08);
+  --danger-border:       rgba(190, 18, 60, 0.2);
 
-  --warning:             #d97706;
-  --warning-bg:          rgba(217, 119, 6, 0.06);
-  --warning-border:      rgba(217, 119, 6, 0.15);
+  --warning:             #b45309;
+  --warning-bg:          rgba(180, 83, 9, 0.08);
+  --warning-border:      rgba(180, 83, 9, 0.2);
 
-  --info:                #0ea5e9;
-  --info-bg:             rgba(14, 165, 233, 0.06);
-  --info-border:         rgba(14, 165, 233, 0.15);
+  --info:                #0284c7;
+  --info-bg:             rgba(2, 132, 199, 0.08);
+  --info-border:         rgba(2, 132, 199, 0.2);
 
-  --shadow-xs:           0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-sm:           0 2px 4px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
-  --shadow-md:           0 4px 12px rgba(0, 0, 0, 0.06);
-  --shadow-lg:           0 8px 24px rgba(0, 0, 0, 0.08);
-  --shadow-xl:           0 16px 48px rgba(0, 0, 0, 0.1);
-  --shadow-glow-sky:     0 0 20px rgba(14, 165, 233, 0.1);
-  --shadow-glow-gold:    0 0 20px rgba(217, 119, 6, 0.08);
-  --shadow-glow-violet:  0 0 20px rgba(124, 58, 237, 0.08);
-  --shadow-glow-emerald: 0 0 20px rgba(5, 150, 105, 0.08);
-  --shadow-inner:        inset 0 1px 2px rgba(0, 0, 0, 0.04);
+  /* === Shadows — layered multi-stop (premium depth) ===
+     Each shadow uses two stops: a tight proximity shadow + a diffuse depth shadow. */
+  --shadow-xs:           0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-sm:           0 1px 3px rgba(15, 23, 42, 0.06),
+                         0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md:           0 4px 12px rgba(15, 23, 42, 0.06),
+                         0 2px 4px rgba(15, 23, 42, 0.04);
+  --shadow-lg:           0 12px 32px rgba(15, 23, 42, 0.08),
+                         0 4px 8px rgba(15, 23, 42, 0.04);
+  --shadow-xl:           0 24px 48px rgba(15, 23, 42, 0.1),
+                         0 8px 16px rgba(15, 23, 42, 0.06);
+  --shadow-glow-sky:     0 0 0 1px rgba(2, 132, 199, 0.08),
+                         0 8px 24px rgba(2, 132, 199, 0.14),
+                         0 2px 6px rgba(15, 23, 42, 0.04);
+  --shadow-glow-gold:    0 0 0 1px rgba(180, 83, 9, 0.08),
+                         0 8px 24px rgba(180, 83, 9, 0.12),
+                         0 2px 6px rgba(15, 23, 42, 0.04);
+  --shadow-glow-violet:  0 0 0 1px rgba(109, 40, 217, 0.08),
+                         0 8px 24px rgba(109, 40, 217, 0.12),
+                         0 2px 6px rgba(15, 23, 42, 0.04);
+  --shadow-glow-emerald: 0 0 0 1px rgba(4, 120, 87, 0.08),
+                         0 8px 24px rgba(4, 120, 87, 0.12),
+                         0 2px 6px rgba(15, 23, 42, 0.04);
+  --shadow-inner:        inset 0 1px 2px rgba(15, 23, 42, 0.04);
 
   --radius-xs: 6px; --radius-sm: 8px; --radius-md: 12px;
   --radius-lg: 16px; --radius-xl: 20px; --radius-2xl: 24px; --radius-full: 9999px;
 
-  --sidebar-bg:          rgba(255, 255, 255, 0.9);
-  --sidebar-border:      rgba(0, 0, 0, 0.06);
-  --sidebar-active-bg:   rgba(14, 165, 233, 0.08);
-  --sidebar-active-border: #0ea5e9;
-  --sidebar-hover-bg:    rgba(0, 0, 0, 0.03);
-  --sidebar-icon-active: #0ea5e9;
-  --sidebar-icon-default:#94a3b8;
+  /* === Sidebar — clean bright with soft border === */
+  --sidebar-bg:          rgba(255, 255, 255, 0.88);
+  --sidebar-border:      rgba(15, 23, 42, 0.06);
+  --sidebar-active-bg:   rgba(2, 132, 199, 0.09);
+  --sidebar-active-border: #0284c7;
+  --sidebar-hover-bg:    rgba(15, 23, 42, 0.035);
+  --sidebar-icon-active: #0284c7;
+  --sidebar-icon-default:#64748b;
 
   /* === Package Gating === */
-  --package-gate-bg:     rgba(255, 255, 255, 0.6);
-  --sidebar-text-active: #0f172a;
+  --package-gate-bg:     rgba(255, 255, 255, 0.72);
+  --sidebar-text-active: #0b1220;
   --sidebar-text-default:#475569;
 
-  --stat-sky-from:       rgba(14, 165, 233, 0.1);
-  --stat-sky-to:         rgba(14, 165, 233, 0.02);
-  --stat-violet-from:    rgba(124, 58, 237, 0.1);
-  --stat-violet-to:      rgba(124, 58, 237, 0.02);
-  --stat-amber-from:     rgba(217, 119, 6, 0.1);
-  --stat-amber-to:       rgba(217, 119, 6, 0.02);
-  --stat-emerald-from:   rgba(5, 150, 105, 0.1);
-  --stat-emerald-to:     rgba(5, 150, 105, 0.02);
+  /* === Stat card tints — a bit stronger so they read on white === */
+  --stat-sky-from:       rgba(2, 132, 199, 0.12);
+  --stat-sky-to:         rgba(2, 132, 199, 0.015);
+  --stat-violet-from:    rgba(109, 40, 217, 0.11);
+  --stat-violet-to:      rgba(109, 40, 217, 0.015);
+  --stat-amber-from:     rgba(180, 83, 9, 0.12);
+  --stat-amber-to:       rgba(180, 83, 9, 0.015);
+  --stat-emerald-from:   rgba(4, 120, 87, 0.11);
+  --stat-emerald-to:     rgba(4, 120, 87, 0.015);
 
-  --skeleton-from:       rgba(0, 0, 0, 0.03);
-  --skeleton-via:        rgba(0, 0, 0, 0.07);
-  --skeleton-to:         rgba(0, 0, 0, 0.03);
+  --skeleton-from:       rgba(15, 23, 42, 0.04);
+  --skeleton-via:        rgba(15, 23, 42, 0.08);
+  --skeleton-to:         rgba(15, 23, 42, 0.04);
 
-  --hero-gradient-from:  rgba(241, 245, 249, 0.95);
-  --hero-gradient-to:    rgba(226, 232, 240, 0.9);
-  --hero-card-bg:        linear-gradient(135deg, rgba(241,245,249,0.95) 0%, rgba(226,232,240,0.9) 100%);
+  /* === Hero banner — warm mesh gradient === */
+  --hero-gradient-from:  rgba(255, 255, 255, 0.95);
+  --hero-gradient-to:    rgba(241, 245, 249, 0.85);
+  --hero-card-bg:        linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #f1f5f9 100%);
 
-  --modal-backdrop:      rgba(0, 0, 0, 0.4);
+  --modal-backdrop:      rgba(15, 23, 42, 0.35);
 
-  --page-bg-gradient:    radial-gradient(ellipse at 50% 0%, var(--accent-sky-glow) 0%, var(--surface-void) 60%);
+  --page-bg-gradient:    radial-gradient(ellipse at 50% -10%, rgba(2, 132, 199, 0.08) 0%, transparent 60%),
+                         radial-gradient(ellipse at 80% 80%, rgba(180, 83, 9, 0.04) 0%, transparent 55%);
 
-  --canvas-bg:           rgba(241, 245, 249, 0.3);
-  --canvas-stroke:       #0ea5e9;
+  --canvas-bg:           rgba(241, 245, 249, 0.4);
+  --canvas-stroke:       #0284c7;
 
-  --chart-tooltip-bg:    rgba(255, 255, 255, 0.95);
-  --chart-tooltip-border: rgba(0, 0, 0, 0.1);
+  --chart-tooltip-bg:    rgba(255, 255, 255, 0.97);
+  --chart-tooltip-border: rgba(15, 23, 42, 0.1);
 
   --scrollbar-track:     transparent;
-  --scrollbar-thumb:     rgba(0, 0, 0, 0.1);
-  --scrollbar-thumb-hover: rgba(0, 0, 0, 0.18);
+  --scrollbar-thumb:     rgba(15, 23, 42, 0.12);
+  --scrollbar-thumb-hover: rgba(15, 23, 42, 0.22);
 
   /* Backward compatibility */
   --color-bg-base: var(--surface-base);
@@ -323,27 +349,27 @@
   --color-bg-overlay: var(--surface-overlay);
   --color-bg-input: var(--glass-input);
   --color-bg-input-focus: var(--glass-input-focus);
-  --color-bg-hover: var(--glass-card-hover);
+  --color-bg-hover: var(--surface-interactive);
   --color-bg-sidebar: var(--sidebar-bg);
-  --color-bg-header: rgba(255, 255, 255, 0.85);
+  --color-bg-header: rgba(255, 255, 255, 0.82);
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
   --color-text-muted: var(--text-tertiary);
-  --color-text-placeholder: rgba(0, 0, 0, 0.30);
+  --color-text-placeholder: rgba(15, 23, 42, 0.35);
   --color-border-subtle: var(--border-default);
   --color-border-medium: var(--border-strong);
   --color-scrollbar-thumb: var(--scrollbar-thumb);
   --color-scrollbar-hover: var(--scrollbar-thumb-hover);
-  --color-selection-bg: rgba(56, 189, 248, 0.20);
-  --color-selection-text: #0f172a;
-  --color-card-inset: rgba(255, 255, 255, 0.5);
-  --color-card-shadow: rgba(0, 0, 0, 0.06);
-  --color-skeleton: rgba(0, 0, 0, 0.06);
+  --color-selection-bg: rgba(2, 132, 199, 0.22);
+  --color-selection-text: #0b1220;
+  --color-card-inset: rgba(255, 255, 255, 0.6);
+  --color-card-shadow: rgba(15, 23, 42, 0.08);
+  --color-skeleton: rgba(15, 23, 42, 0.06);
   --color-select-option-bg: #ffffff;
-  --color-select-option-text: #0f172a;
-  --color-dropdown-bg: rgba(255, 255, 255, 0.97);
-  --color-kbd-bg: rgba(0, 0, 0, 0.05);
-  --color-kbd-border: rgba(0, 0, 0, 0.10);
+  --color-select-option-text: #0b1220;
+  --color-dropdown-bg: rgba(255, 255, 255, 0.98);
+  --color-kbd-bg: rgba(15, 23, 42, 0.05);
+  --color-kbd-border: rgba(15, 23, 42, 0.1);
 }
 
 /* ────── THEME 3: Aurora (Premium Dark Purple) ────── */

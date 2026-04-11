@@ -254,7 +254,7 @@ export default function Header({ onMenuToggle }) {
             aria-label="الملف الشخصي"
             className="cursor-pointer transition-all duration-200 hover:scale-110 active:scale-95"
             style={{
-              boxShadow: avatarOpen ? '0 4px 16px rgba(56,189,248,0.3)' : '0 2px 8px rgba(0,0,0,0.15)',
+              boxShadow: avatarOpen ? '0 6px 20px var(--accent-sky-glow)' : 'var(--shadow-sm)',
               borderRadius: 12,
             }}
           >
@@ -277,7 +277,7 @@ export default function Header({ onMenuToggle }) {
                   backdropFilter: 'blur(24px)',
                   WebkitBackdropFilter: 'blur(24px)',
                   border: '1px solid var(--border-default, var(--border-subtle))',
-                  boxShadow: '0 8px 30px rgba(0,0,0,0.3)',
+                  boxShadow: 'var(--shadow-xl)',
                 }}
                 dir="rtl"
               >

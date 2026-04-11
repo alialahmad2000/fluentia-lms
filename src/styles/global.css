@@ -43,9 +43,10 @@ body::after {
 .light body::after,
 [data-theme="frost-white"] body::after {
   background:
-    radial-gradient(ellipse 120% 60% at 10% 30%, rgba(14, 165, 233, 0.03), transparent 60%),
-    radial-gradient(ellipse 80% 80% at 85% 15%, rgba(124, 58, 237, 0.02), transparent 50%),
-    radial-gradient(ellipse 60% 50% at 50% 100%, rgba(217, 119, 6, 0.012), transparent 40%);
+    radial-gradient(ellipse 100% 55% at 15% 0%, rgba(2, 132, 199, 0.09), transparent 60%),
+    radial-gradient(ellipse 90% 70% at 95% 15%, rgba(109, 40, 217, 0.055), transparent 55%),
+    radial-gradient(ellipse 70% 60% at 50% 100%, rgba(180, 83, 9, 0.04), transparent 50%),
+    radial-gradient(ellipse 50% 40% at 75% 55%, rgba(4, 120, 87, 0.03), transparent 45%);
 }
 [data-theme="aurora"] body::after {
   background:

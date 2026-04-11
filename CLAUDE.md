@@ -286,6 +286,18 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### April 11, 2026 — Light Theme Premium Redesign (01-light-theme-redesign)
+- What: Rebuilt the frost-white (light) theme for a premium layered feel — Linear/Notion/Raycast-tier polish
+- **Design tokens:** Rewrote the full `[data-theme="frost-white"] / .light` block — layered white surfaces (void/base/raised), solid white glass cards (was flat translucent-white), AAA-contrast text (`--text-secondary #334155`, `--text-tertiary #64748b`), deeper brand accents so they pop on white (`#0284c7`, `#6d28d9`, `#047857`, `#b45309`), multi-level layered shadows (`--shadow-sm/md/lg/xl` each with two stops), and premium glow shadows with 1px accent ring
+- **Global atmosphere:** Enhanced `body::after` mesh gradient for light — 4-layer radial gradients (sky + violet + amber + emerald) for a warm premium feel
+- **Light-scoped component overrides:** Added ~230 lines at bottom of `components.css` under `.light` / `[data-theme="frost-white"]` for `fl-card`, `fl-card-static`, `fl-card-featured`, `fl-stat-card` (all 4 variants), `glass-card*`, sidebar active links, sidebar brand gradient, `header-scrolled`, `fl-btn-primary/secondary`, `fl-input`, badges, tabs, modals, mobile tab bar, progress bar, gradient-text — all get proper premium shadows + solid fills + hover lift
+- **HTML bg fix:** Added `.light/frost-white` variant for the hardcoded html `background-color` so there's no dark flash on theme change
+- **Component cleanups:** Fixed hardcoded shadows in `Header.jsx` (avatar + dropdown) → now use `var(--shadow-xl/sm)`, `var(--accent-sky-glow)`; fixed hardcoded `rgba(0,0,0,0.5)` backdrop in `LayoutShell.jsx` more-sheet → now uses `var(--modal-backdrop)`
+- Files: `src/styles/design-tokens.css`, `src/styles/global.css`, `src/styles/components.css`, `src/index.css`, `src/components/layout/Header.jsx`, `src/components/layout/LayoutShell.jsx`, `CLAUDE.md`
+- DB: No changes
+- Edge Functions: No changes
+- Status: Complete — production build passes (33s), no CSS errors, dark/aurora themes untouched
+
 ### March 17, 2026 — Fix AI Features, Grading, Self-Assessment (PROMPT BF1)
 - What: Audited and fixed all 35 edge functions + frontend AI calls
 - **CORS fix:** Added `Access-Control-Allow-Methods: 'POST, OPTIONS'` to all 35 edge functions — was missing and could cause browser CORS failures

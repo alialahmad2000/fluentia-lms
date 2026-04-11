@@ -497,6 +497,309 @@
   }
 }
 
+/* ═══════════════════════════════════════════════════════════
+   LIGHT-THEME PREMIUM OVERRIDES  (frost-white)
+   Layered whites, multi-level shadows, warm glass, richer lift.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Body base: bake a subtle mesh straight into the page bg ── */
+.light,
+[data-theme="frost-white"] {
+  /* already set as root vars — nothing needed here, body::after handles atmosphere */
+}
+
+/* ── Cards: solid white + proper depth + premium lift on hover ── */
+.light .fl-card,
+.light .fl-card-static,
+[data-theme="frost-white"] .fl-card,
+[data-theme="frost-white"] .fl-card-static {
+  background: #ffffff;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+}
+.light .fl-card:hover,
+[data-theme="frost-white"] .fl-card:hover {
+  background: #ffffff;
+  border-color: var(--border-default);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+}
+.light .fl-card-featured,
+[data-theme="frost-white"] .fl-card-featured {
+  background: #ffffff;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-md);
+}
+.light .fl-card-featured:hover,
+[data-theme="frost-white"] .fl-card-featured:hover {
+  box-shadow: var(--shadow-xl), var(--shadow-glow-sky);
+}
+
+/* glass-card (index.css) — same treatment so tailwind-ish usages get depth */
+.light .glass-card,
+.light .glass-card-raised,
+[data-theme="frost-white"] .glass-card,
+[data-theme="frost-white"] .glass-card-raised {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+}
+.light .glass-card-raised,
+[data-theme="frost-white"] .glass-card-raised {
+  box-shadow: var(--shadow-md);
+}
+.light .glass-card-hover:hover,
+.light .glass-card-interactive:hover,
+[data-theme="frost-white"] .glass-card-hover:hover,
+[data-theme="frost-white"] .glass-card-interactive:hover {
+  background: #ffffff;
+  border-color: var(--border-default);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ── Stat cards: keep gradient tint but anchor with white base + border ── */
+.light .fl-stat-card,
+[data-theme="frost-white"] .fl-stat-card {
+  background-color: #ffffff;
+  background-blend-mode: normal;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+}
+.light .fl-stat-card.sky,
+[data-theme="frost-white"] .fl-stat-card.sky {
+  background-image: linear-gradient(135deg, var(--stat-sky-from), var(--stat-sky-to));
+  border-color: rgba(2, 132, 199, 0.18);
+}
+.light .fl-stat-card.violet,
+[data-theme="frost-white"] .fl-stat-card.violet {
+  background-image: linear-gradient(135deg, var(--stat-violet-from), var(--stat-violet-to));
+  border-color: rgba(109, 40, 217, 0.18);
+}
+.light .fl-stat-card.amber,
+[data-theme="frost-white"] .fl-stat-card.amber {
+  background-image: linear-gradient(135deg, var(--stat-amber-from), var(--stat-amber-to));
+  border-color: rgba(180, 83, 9, 0.18);
+}
+.light .fl-stat-card.emerald,
+[data-theme="frost-white"] .fl-stat-card.emerald {
+  background-image: linear-gradient(135deg, var(--stat-emerald-from), var(--stat-emerald-to));
+  border-color: rgba(4, 120, 87, 0.18);
+}
+.light .fl-stat-card:hover,
+[data-theme="frost-white"] .fl-stat-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+}
+
+/* ── Sidebar active link: deeper tint for better focus on white ── */
+.light .sidebar-link-active-sky,
+[data-theme="frost-white"] .sidebar-link-active-sky {
+  background: rgba(2, 132, 199, 0.1) !important;
+  color: #0369a1 !important;
+  border: 1px solid rgba(2, 132, 199, 0.2) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+.light .sidebar-link-active-sky::after,
+[data-theme="frost-white"] .sidebar-link-active-sky::after {
+  background: #0284c7;
+  box-shadow: -4px 0 12px -2px rgba(2, 132, 199, 0.35);
+}
+.light .sidebar-link-active-sky svg,
+[data-theme="frost-white"] .sidebar-link-active-sky svg {
+  filter: drop-shadow(0 0 4px rgba(2, 132, 199, 0.3));
+}
+.light .sidebar-link-active-emerald,
+[data-theme="frost-white"] .sidebar-link-active-emerald {
+  background: rgba(4, 120, 87, 0.1) !important;
+  color: #047857 !important;
+  border: 1px solid rgba(4, 120, 87, 0.2) !important;
+}
+.light .sidebar-link-active-gold,
+[data-theme="frost-white"] .sidebar-link-active-gold {
+  background: rgba(180, 83, 9, 0.1) !important;
+  color: #b45309 !important;
+  border: 1px solid rgba(180, 83, 9, 0.2) !important;
+}
+
+/* ── Sidebar brand text: deeper gradient for visibility ── */
+.light .sidebar-brand-text,
+[data-theme="frost-white"] .sidebar-brand-text {
+  background: linear-gradient(135deg, #0284c7 0%, #6d28d9 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Header scroll state: white frosted glass ── */
+.light .header-scrolled,
+[data-theme="frost-white"] .header-scrolled {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04), var(--shadow-sm);
+}
+
+/* ── Primary button: solid gradient with proper shadow stack ── */
+.light .fl-btn-primary,
+[data-theme="frost-white"] .fl-btn-primary {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #ffffff;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25) inset,
+              0 4px 12px rgba(2, 132, 199, 0.28),
+              0 2px 4px rgba(15, 23, 42, 0.06);
+}
+.light .fl-btn-primary:hover,
+[data-theme="frost-white"] .fl-btn-primary:hover {
+  background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset,
+              0 8px 20px rgba(2, 132, 199, 0.35),
+              0 3px 6px rgba(15, 23, 42, 0.08);
+  transform: translateY(-1px);
+}
+
+/* ── Secondary button: clean white with border ── */
+.light .fl-btn-secondary,
+[data-theme="frost-white"] .fl-btn-secondary {
+  background: #ffffff;
+  color: var(--text-primary);
+  border-color: var(--border-default);
+  box-shadow: var(--shadow-xs);
+}
+.light .fl-btn-secondary:hover,
+[data-theme="frost-white"] .fl-btn-secondary:hover {
+  background: #ffffff;
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Input field: sunken flat fill w/ focus lift ── */
+.light .fl-input,
+.light .input-field,
+[data-theme="frost-white"] .fl-input,
+[data-theme="frost-white"] .input-field {
+  background: var(--surface-interactive);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.03);
+}
+.light .fl-input:focus,
+.light .input-field:focus,
+[data-theme="frost-white"] .fl-input:focus,
+[data-theme="frost-white"] .input-field:focus {
+  background: #ffffff;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12),
+              0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+/* ── Badges: darker text on light tint for clean pill look ── */
+.light .fl-badge.sky,     [data-theme="frost-white"] .fl-badge.sky     { background: #e0f2fe; color: #0369a1; }
+.light .fl-badge.violet,  [data-theme="frost-white"] .fl-badge.violet  { background: #ede9fe; color: #5b21b6; }
+.light .fl-badge.emerald, [data-theme="frost-white"] .fl-badge.emerald { background: #d1fae5; color: #065f46; }
+.light .fl-badge.amber,   [data-theme="frost-white"] .fl-badge.amber   { background: #fef3c7; color: #92400e; }
+.light .fl-badge.gold,    [data-theme="frost-white"] .fl-badge.gold    { background: #fef3c7; color: #92400e; }
+.light .fl-badge.rose,    [data-theme="frost-white"] .fl-badge.rose    { background: #ffe4e6; color: #9f1239; }
+
+/* ── Tabs / filter pills ── */
+.light .fl-tab,
+[data-theme="frost-white"] .fl-tab {
+  background: #ffffff;
+  border-color: var(--border-subtle);
+  color: var(--text-secondary);
+  box-shadow: var(--shadow-xs);
+}
+.light .fl-tab:hover,
+[data-theme="frost-white"] .fl-tab:hover {
+  background: #ffffff;
+  border-color: var(--border-default);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+}
+.light .fl-tab.active,
+[data-theme="frost-white"] .fl-tab.active {
+  background: #e0f2fe;
+  color: #0369a1;
+  border-color: rgba(2, 132, 199, 0.25);
+}
+
+/* ── Modal surface ── */
+.light .fl-modal,
+[data-theme="frost-white"] .fl-modal {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-xl);
+}
+.light .fl-modal-backdrop,
+[data-theme="frost-white"] .fl-modal-backdrop {
+  background: rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* ── Notification dropdown & small popovers ── */
+.light .fl-notification-dropdown,
+[data-theme="frost-white"] .fl-notification-dropdown {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-xl);
+}
+
+/* ── Toast ── */
+.light .fl-toast,
+[data-theme="frost-white"] .fl-toast {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ── Gradient text: premium sky→indigo→violet gradient for hero numbers ── */
+.light .gradient-text,
+[data-theme="frost-white"] .gradient-text {
+  background: linear-gradient(135deg, #0284c7 0%, #4f46e5 55%, #7c3aed 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Mobile bottom tab bar: true frosted white ── */
+.light .mobile-tab-bar,
+[data-theme="frost-white"] .mobile-tab-bar {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-top: 1px solid var(--border-subtle);
+  box-shadow: 0 -4px 20px rgba(15, 23, 42, 0.05);
+}
+
+/* ── Inputs dropdown options ── */
+.light select.input-field option,
+[data-theme="frost-white"] select.input-field option {
+  background-color: #ffffff;
+  color: var(--text-primary);
+}
+
+/* ── Progress track: subtle dark fill, gradient fill ── */
+.light .fl-progress-track,
+[data-theme="frost-white"] .fl-progress-track {
+  background: rgba(15, 23, 42, 0.08);
+}
+.light .fl-progress-fill,
+[data-theme="frost-white"] .fl-progress-fill {
+  background: linear-gradient(90deg, #0284c7, #6d28d9);
+  box-shadow: 0 0 8px rgba(2, 132, 199, 0.3);
+}
+
+/* ── Data table hover row: subtle tint instead of glass ── */
+.light .data-table tbody tr:hover,
+[data-theme="frost-white"] .data-table tbody tr:hover {
+  background: var(--surface-interactive);
+}
+
 /* === Mobile responsiveness === */
 @media (max-width: 767px) {
   /* Prevent horizontal overflow — use 'clip' not 'hidden' to preserve sticky positioning */
