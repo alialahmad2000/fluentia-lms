@@ -286,6 +286,22 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### April 12, 2026 — Shrink A11y FAB + Temporarily Hide AI Bot FAB (Overlap Fix)
+- What: On mobile/iPad both floating action buttons (accessibility + AI bot helper) were rendering in the same bottom-left corner and visually overlapping/crowding each other. User asked to (1) change the a11y icon, (2) make it noticeably smaller, and (3) temporarily hide the bot FAB entirely so the two no longer clash.
+- **A11y button** (`src/components/Accessibility/A11yFloatingButton.jsx`):
+  - Icon changed from `Accessibility` → `Eye` (smaller, distinct silhouette, still clearly "view/readability settings")
+  - Button shrunk from `w-14 h-14` (56px) → `w-10 h-10` (40px)
+  - Icon size shrunk from 26 → 16, stroke 2 → 2.2 for visual crispness at small size
+  - Position nudged from `left:24 / bottom +24` → `left:16 / bottom +16` to match mobile edge spacing
+  - Tooltip shrunk (`text-xs`→`text-[11px]`, tighter padding) to match new button size
+  - Border `2px` → `1.5px`, shadow `lg` → `md` so it doesn't feel heavy at the smaller scale
+- **AI bot FAB** (`src/components/layout/LayoutShell.jsx`): `<AIFloatingHelper />` commented out with a note explaining it's a temporary disable (Apr 12). The component file is untouched — re-enabling is a one-line uncomment when we're ready to bring it back.
+- Files: `src/components/Accessibility/A11yFloatingButton.jsx`, `src/components/layout/LayoutShell.jsx`
+- DB: No changes
+- Edge Functions: None
+- Status: Complete — `npm run build` succeeds (30.4s, 0 errors)
+- Notes: `AIFloatingHelper.jsx` is kept in the repo and still imported in LayoutShell — only the render call is commented. To restore the bot, uncomment the `<AIFloatingHelper />` line in LayoutShell around line 245.
+
 ### April 12, 2026 — Vocabulary Card Layout Fix — Responsive Tabbed Word Detail (Prompt 37)
 - What: Fixed the vocabulary card overflow issue caused by Session 19 enrichments (synonyms/antonyms, word family, morphology, pronunciation alerts). The 5-6 stacked sections were overflowing on mobile/iPad/laptop, covering navigation and breaking visual rhythm. Replaced with a responsive tabbed layout where each enrichment becomes a tab — primary word info stays visible at all times.
 - **New `WordDetailModal.jsx`:** Single tabbed modal used everywhere a vocabulary detail view is needed. Layout: fixed header + sticky tab bar + scrollable content. Mobile: full-screen `h-[100dvh]`. Tablet: `max-w-2xl max-h-[85vh]` centered. Desktop: `max-w-3xl max-h-[85vh]` centered. ESC closes, backdrop click closes, body scroll-locks while open. z-[70] so it sits above any other modal.

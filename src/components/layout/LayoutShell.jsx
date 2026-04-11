@@ -241,8 +241,9 @@ export default function LayoutShell() {
         )}
       </AnimatePresence>
 
-      {/* AI Floating Helper */}
-      <AIFloatingHelper />
+      {/* AI Floating Helper — temporarily hidden (Apr 12) to avoid overlap with
+          the accessibility FAB on mobile. Re-enable by uncommenting. */}
+      {/* <AIFloatingHelper /> */}
 
       {/* Accessibility Floating Button — visible on all pages */}
       <A11yFloatingButton />
