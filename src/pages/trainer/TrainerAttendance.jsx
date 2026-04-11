@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
-import { UserCheck, UserX, Clock, CheckCircle2, XCircle, AlertCircle, Save, Loader2 } from 'lucide-react'
+import { UserCheck, UserX, Clock, CheckCircle2, XCircle, AlertCircle, Save, Loader2, CalendarDays } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { formatDateAr, formatTime } from '../../utils/dateHelpers'
@@ -13,18 +13,31 @@ const STATUS_CONFIG = {
   excused: { label: 'معذور', icon: AlertCircle, color: 'text-amber-400', bg: 'bg-amber-500/10 border-amber-500/20' },
 }
 
+function todayIso() {
+  const d = new Date()
+  const y = d.getFullYear()
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${y}-${m}-${day}`
+}
+
 export default function TrainerAttendance() {
   const { profile } = useAuthStore()
   const queryClient = useQueryClient()
   const role = profile?.role
   const isAdmin = role === 'admin'
-  const [selectedClass, setSelectedClass] = useState('')
+  // NEW: the primary selector is now group + date, not "pick a class".
+  // Previously, trainers who didn't pre-create classes in the calendar saw an
+  // empty dropdown and had no way to mark attendance at all.
+  const [selectedGroupId, setSelectedGroupId] = useState('')
+  const [selectedDate, setSelectedDate] = useState(todayIso())
+  const [selectedClass, setSelectedClass] = useState('') // resolved class_id (from existing class or synthetic)
   const [attendance, setAttendance] = useState({}) // { studentId: 'present' | 'absent' | 'excused' }
   const [saved, setSaved] = useState(false)
 
   // Groups
   const { data: groups } = useQuery({
-    queryKey: ['trainer-groups', role],
+    queryKey: ['trainer-groups', role, profile?.id],
     queryFn: async () => {
       let query = supabase.from('groups').select('id, name, code').order('level')
       if (!isAdmin) query = query.eq('trainer_id', profile?.id)
@@ -34,41 +47,55 @@ export default function TrainerAttendance() {
     enabled: !!profile?.id,
   })
 
-  // Recent classes (for dropdown)
-  const { data: classes } = useQuery({
-    queryKey: ['trainer-recent-classes', role],
+  // Auto-select first group
+  useEffect(() => {
+    if (groups?.length > 0 && !selectedGroupId) {
+      setSelectedGroupId(groups[0].id)
+    }
+  }, [groups, selectedGroupId])
+
+  // Resolve: is there already a class record for this group + date?
+  // If yes, use it. If no, we'll create one the first time attendance is saved.
+  const { data: existingClass } = useQuery({
+    queryKey: ['attendance-class', selectedGroupId, selectedDate],
     queryFn: async () => {
-      let query = supabase
+      if (!selectedGroupId || !selectedDate) return null
+      let q = supabase
         .from('classes')
-        .select('id, title, topic, date, start_time, group_id, groups(name, code)')
-        .order('date', { ascending: false })
-        .limit(20)
-      if (!isAdmin) query = query.eq('trainer_id', profile?.id)
-      const { data } = await query
-      return data || []
+        .select('id, title, topic, group_id, date')
+        .eq('group_id', selectedGroupId)
+        .eq('date', selectedDate)
+        .order('start_time', { ascending: true })
+        .limit(1)
+      const { data, error } = await q
+      if (error) { console.error('[Attendance] class lookup:', error); return null }
+      return data?.[0] || null
     },
-    enabled: !!profile?.id,
+    enabled: !!selectedGroupId && !!selectedDate,
   })
 
-  // Students for the selected class's group
-  const selectedClassObj = classes?.find(c => c.id === selectedClass)
+  useEffect(() => {
+    setSelectedClass(existingClass?.id || '')
+  }, [existingClass])
+
+  // Students in the selected group — independent of whether a class exists
   const { data: students } = useQuery({
-    queryKey: ['group-students-attendance', selectedClassObj?.group_id],
+    queryKey: ['group-students-attendance', selectedGroupId],
     queryFn: async () => {
-      if (!selectedClassObj?.group_id) return []
+      if (!selectedGroupId) return []
       const { data, error } = await supabase
         .from('students')
         .select('id, profiles(full_name, display_name)')
-        .eq('group_id', selectedClassObj.group_id)
+        .eq('group_id', selectedGroupId)
         .eq('status', 'active')
         .is('deleted_at', null)
       if (error) console.error('[Attendance] Students query error:', error)
       return data || []
     },
-    enabled: !!selectedClassObj?.group_id,
+    enabled: !!selectedGroupId,
   })
 
-  // Existing attendance for this class
+  // Existing attendance for this class (only if class already exists)
   const { data: existingAttendance } = useQuery({
     queryKey: ['class-attendance', selectedClass],
     queryFn: async () => {
@@ -84,18 +111,11 @@ export default function TrainerAttendance() {
     enabled: !!selectedClass,
   })
 
-  // Load existing when class changes
+  // Load existing when class changes — reset otherwise
   useEffect(() => {
-    if (existingAttendance && Object.keys(existingAttendance).length > 0) {
-      setAttendance(existingAttendance)
-    }
-  }, [existingAttendance])
-
-  function handleClassChange(classId) {
-    setSelectedClass(classId)
-    setAttendance({})
+    setAttendance(existingAttendance && Object.keys(existingAttendance).length > 0 ? existingAttendance : {})
     setSaved(false)
-  }
+  }, [existingAttendance, selectedClass, selectedGroupId, selectedDate])
 
   function toggleStatus(studentId) {
     const current = attendance[studentId] || 'absent'
@@ -109,32 +129,52 @@ export default function TrainerAttendance() {
     return s.profiles?.full_name || s.profiles?.display_name || 'طالب'
   }
 
-  // Save attendance
+  // Save attendance — if no class exists for this group+date, create one first.
   const saveMutation = useMutation({
     mutationFn: async () => {
-      if (!selectedClass || !students?.length) return
+      if (!selectedGroupId || !students?.length) {
+        throw new Error('اختر مجموعة وتأكد من وجود طلاب')
+      }
 
+      // Step 1: Resolve class_id — reuse existing or create a new one.
+      let classId = selectedClass
+      if (!classId) {
+        const newClass = {
+          group_id: selectedGroupId,
+          date: selectedDate,
+          title: 'حصة ' + selectedDate,
+          topic: null,
+          trainer_id: profile?.id,
+        }
+        const { data: created, error: createErr } = await supabase
+          .from('classes')
+          .insert(newClass)
+          .select('id')
+          .single()
+        if (createErr) throw createErr
+        classId = created.id
+      }
+
+      // Step 2: Build and upsert attendance records
       const records = students.map(s => ({
-        class_id: selectedClass,
+        class_id: classId,
         student_id: s.id,
         status: attendance[s.id] || 'absent',
         checked_in_via: 'trainer',
         xp_awarded: attendance[s.id] === 'present' ? XP_VALUES.class_attendance : (attendance[s.id] === 'absent' ? XP_VALUES.penalty_absent : 0),
       }))
 
-      // Upsert attendance records
       const { error } = await supabase.from('attendance').upsert(records, { onConflict: 'class_id,student_id' }).select()
       if (error) throw error
 
-      // Award/deduct XP for each student
+      // Step 3: Award/deduct XP for each student (idempotent per class)
       for (const rec of records) {
         if (rec.xp_awarded !== 0) {
-          // Check if XP already awarded for this class
           const { data: existing } = await supabase
             .from('xp_transactions')
             .select('id')
             .eq('student_id', rec.student_id)
-            .eq('related_id', selectedClass)
+            .eq('related_id', classId)
             .in('reason', ['class_attendance', 'penalty_absent'])
             .limit(1)
 
@@ -143,16 +183,20 @@ export default function TrainerAttendance() {
               student_id: rec.student_id,
               amount: rec.xp_awarded,
               reason: rec.xp_awarded > 0 ? 'class_attendance' : 'penalty_absent',
-              related_id: selectedClass,
+              related_id: classId,
               awarded_by: profile?.id,
             }).select()
           }
         }
       }
+
+      return classId
     },
-    onSuccess: () => {
+    onSuccess: (classId) => {
       setSaved(true)
+      if (classId) setSelectedClass(classId)
       queryClient.invalidateQueries({ queryKey: ['class-attendance'] })
+      queryClient.invalidateQueries({ queryKey: ['attendance-class'] })
     },
     onError: (err) => {
       console.error('[Attendance] Save error:', err)
@@ -170,24 +214,45 @@ export default function TrainerAttendance() {
         <p className="text-muted text-sm mt-1">سجّل حضور وغياب الطلاب</p>
       </div>
 
-      {/* Class selector */}
-      <div>
-        <label className="input-label">اختر الحصة</label>
-        <select
-          value={selectedClass}
-          onChange={(e) => handleClassChange(e.target.value)}
-          className="input-field"
-        >
-          <option value="">اختر حصة...</option>
-          {classes?.map(c => (
-            <option key={c.id} value={c.id}>
-              {c.groups?.code} — {c.title || c.topic || 'حصة'} — {formatDateAr(c.date)}
-            </option>
-          ))}
-        </select>
+      {/* Group + date selectors */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="input-label">المجموعة</label>
+          <select
+            value={selectedGroupId}
+            onChange={(e) => setSelectedGroupId(e.target.value)}
+            className="input-field"
+          >
+            <option value="">اختر مجموعة...</option>
+            {groups?.map(g => (
+              <option key={g.id} value={g.id}>
+                {g.code ? `${g.code} — ${g.name}` : g.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="input-label flex items-center gap-2">
+            <CalendarDays size={14} /> التاريخ
+          </label>
+          <input
+            type="date"
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+            className="input-field"
+          />
+        </div>
       </div>
 
-      {selectedClass && students?.length > 0 && (
+      {selectedGroupId && (
+        <p className="text-muted text-xs -mt-6">
+          {existingClass
+            ? `حصة موجودة: ${existingClass.title || existingClass.topic || 'حصة'} — ${formatDateAr(selectedDate)}`
+            : `لا توجد حصة لهذا التاريخ — سيتم إنشاؤها عند حفظ الحضور`}
+        </p>
+      )}
+
+      {selectedGroupId && students?.length > 0 && (
         <>
           {/* Stats */}
           <div className="grid grid-cols-3 gap-6">
@@ -266,9 +331,9 @@ export default function TrainerAttendance() {
         </>
       )}
 
-      {selectedClass && !students?.length && (
+      {selectedGroupId && !students?.length && (
         <div className="fl-card-static p-12 text-center">
-          <p className="text-muted">لا يوجد طلاب في مجموعة هذه الحصة</p>
+          <p className="text-muted">لا يوجد طلاب في هذه المجموعة</p>
         </div>
       )}
     </div>

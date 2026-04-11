@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle2, Clock, ChevronDown, X, Save, Loader2, RotateCcw, Mic, Image, FileText as FileIcon, Link2, Download } from 'lucide-react'
@@ -32,7 +33,11 @@ async function getSignedUrl(bucket, path) {
 export default function TrainerGrading() {
   const { profile } = useAuthStore()
   const queryClient = useQueryClient()
-  const [filterStatus, setFilterStatus] = useState('submitted')
+  const [searchParams, setSearchParams] = useSearchParams()
+  // Default filter: if arriving with ?open=<id> we show "all" so the
+  // target submission is findable even when it's already graded.
+  const openId = searchParams.get('open')
+  const [filterStatus, setFilterStatus] = useState(openId ? 'all' : 'submitted')
   const [gradingSubmission, setGradingSubmission] = useState(null)
 
   const role = profile?.role
@@ -86,6 +91,20 @@ export default function TrainerGrading() {
   function getStudentName(s) {
     return s.students?.profiles?.full_name || s.students?.profiles?.display_name || 'طالب'
   }
+
+  // Deep-link: when we land with ?open=<id>, auto-open the grading modal
+  // for that submission as soon as the list finishes loading. We also
+  // strip the query param so refreshing doesn't keep re-opening it.
+  useEffect(() => {
+    if (!openId || !submissions?.length) return
+    const target = submissions.find(s => s.id === openId)
+    if (target) {
+      setGradingSubmission(target)
+      const next = new URLSearchParams(searchParams)
+      next.delete('open')
+      setSearchParams(next, { replace: true })
+    }
+  }, [openId, submissions])
 
   return (
     <div className="space-y-12">

@@ -178,12 +178,17 @@ export default function TrainerDashboard() {
       title: s.assignments?.title || 'واجب',
       name: s.students?.profiles?.full_name || s.students?.profiles?.display_name || 'طالب',
       date: s.submitted_at || s.created_at,
+      // Deep-link target: open the grading modal for this exact submission
+      href: `/trainer/grading?open=${s.id}`,
     })),
     ...pendingSpeaking.map(r => ({
       id: `sp-${r.id}`, type: 'speaking',
       title: 'تسجيل تحدث',
       name: r.students?.profiles?.full_name || r.students?.profiles?.display_name || 'طالب',
       date: r.created_at,
+      // Speaking recordings don't have a dedicated grading UI yet — send the
+      // trainer to the student's progress detail where they can listen and mark reviewed.
+      href: r.student_id ? `/trainer/student/${r.student_id}/progress` : '/trainer/grading',
     })),
   ].sort((a, b) => new Date(a.date) - new Date(b.date))
 
@@ -317,7 +322,7 @@ export default function TrainerDashboard() {
                   key={item.id}
                   className="flex items-center gap-3 rounded-xl p-3.5 cursor-pointer transition-all hover:translate-y-[-1px]"
                   style={{ background: 'var(--surface-raised)' }}
-                  onClick={() => navigate('/trainer/grading')}
+                  onClick={() => navigate(item.href || '/trainer/grading')}
                 >
                   <div className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold" style={{ background: badge.bg, color: badge.color }}>
                     {item.type === 'speaking' ? '🎤' : '📝'}

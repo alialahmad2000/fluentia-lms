@@ -32,6 +32,16 @@ class ActivityTracker {
 
     if (data) this.sessionDbId = data.id
 
+    // Immediately stamp profiles.last_active_at so trainer dashboards
+    // reflect "this student is online right now" within seconds of login,
+    // rather than waiting for the first heartbeat (2 min later).
+    try {
+      supabase.from('profiles')
+        .update({ last_active_at: new Date().toISOString() })
+        .eq('id', userId)
+        .then(() => {}, () => {})
+    } catch { /* analytics must never crash */ }
+
     // Track login event
     this.track('login', { method: 'email' })
 
@@ -96,7 +106,7 @@ class ActivityTracker {
 
       const now = new Date().toISOString()
       try {
-        // Single combined update — profiles.last_active_at updated via session heartbeat
+        // Update the session record for analytics...
         supabase.from('user_sessions')
           .update({
             last_seen_at: now,
@@ -105,6 +115,18 @@ class ActivityTracker {
           })
           .eq('id', this.sessionDbId)
           .then(() => {}).catch(() => {})
+
+        // ...AND update profiles.last_active_at so the trainer dashboard
+        // "last active" / "status" widget reflects real activity. This was
+        // previously missing — the comment claimed the heartbeat updated it
+        // but the code only ever touched user_sessions, so trainer dashboards
+        // showed stale/random "last seen X days ago" values.
+        if (this.userId) {
+          supabase.from('profiles')
+            .update({ last_active_at: now })
+            .eq('id', this.userId)
+            .then(() => {}, () => {})
+        }
       } catch {
         // analytics must never crash
       }
