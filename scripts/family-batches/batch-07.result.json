@@ -15,7 +15,11 @@
           "base_word": "plasticity",
           "base_pos": "noun",
           "rule_ar": "البادئة neuro- تعني 'عصبي' أو متعلق بالجهاز العصبي، فعند إضافتها إلى اسم تعطي معنى خاصاً بالأعصاب أو الدماغ.",
-          "similar_examples": ["science → neuroscience", "biology → neurobiology", "transmitter → neurotransmitter"]
+          "similar_examples": [
+            "science → neuroscience",
+            "biology → neurobiology",
+            "transmitter → neurotransmitter"
+          ]
         }
       },
       {
@@ -30,7 +34,11 @@
           "base_word": "plastic",
           "base_pos": "adjective",
           "rule_ar": "اللاحقة -ity تُضاف إلى الصفة فتحوّلها إلى اسم يدل على الصفة أو الخاصية المجردة.",
-          "similar_examples": ["elastic → elasticity", "active → activity", "pure → purity"]
+          "similar_examples": [
+            "elastic → elasticity",
+            "active → activity",
+            "pure → purity"
+          ]
         }
       },
       {
@@ -39,7 +47,10 @@
         "level": 3,
         "is_base": true,
         "is_opposite": false,
-        "morphology": { "is_base": true, "note_ar": "الصيغة الأصلية — صفة تعني قابل للتشكيل، ومنها تشتق باقي العائلة" }
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — صفة تعني قابل للتشكيل، ومنها تشتق باقي العائلة"
+        }
       }
     ]
   },
@@ -53,7 +64,10 @@
         "level": 3,
         "is_base": true,
         "is_opposite": false,
-        "morphology": { "is_base": true, "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة" }
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
       },
       {
         "word": "committed",
@@ -67,7 +81,11 @@
           "base_word": "commit",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -ed تُضاف على الفعل فتكوّن صفة تصف الحالة الناتجة عن الفعل، مع مضاعفة الحرف الساكن الأخير في الأفعال القصيرة.",
-          "similar_examples": ["dedicate → dedicated", "devote → devoted", "motivate → motivated"]
+          "similar_examples": [
+            "dedicate → dedicated",
+            "devote → devoted",
+            "motivate → motivated"
+          ]
         }
       },
       {
@@ -82,7 +100,11 @@
           "base_word": "commit",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -ment تُضاف على الفعل لتكوين اسم يدل على نتيجة الفعل أو حالة القيام به.",
-          "similar_examples": ["develop → development", "achieve → achievement", "agree → agreement"]
+          "similar_examples": [
+            "develop → development",
+            "achieve → achievement",
+            "agree → agreement"
+          ]
         }
       }
     ]
@@ -97,7 +119,10 @@
         "level": 3,
         "is_base": true,
         "is_opposite": false,
-        "morphology": { "is_base": true, "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة" }
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
       },
       {
         "word": "implication",
@@ -111,7 +136,11 @@
           "base_word": "imply",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -ation تُضاف على الفعل لتكوين اسم يدل على عملية الفعل أو نتيجته، وتتحول الـ y إلى i.",
-          "similar_examples": ["apply → application", "examine → examination", "inform → information"]
+          "similar_examples": [
+            "apply → application",
+            "examine → examination",
+            "inform → information"
+          ]
         }
       },
       {
@@ -126,7 +155,11 @@
           "base_word": "implication",
           "base_pos": "noun",
           "rule_ar": "اللاحقة -s تُضاف على الاسم المفرد لتكوين صيغة الجمع.",
-          "similar_examples": ["result → results", "effect → effects", "consequence → consequences"]
+          "similar_examples": [
+            "result → results",
+            "effect → effects",
+            "consequence → consequences"
+          ]
         }
       }
     ]
@@ -141,7 +174,10 @@
         "level": 3,
         "is_base": true,
         "is_opposite": false,
-        "morphology": { "is_base": true, "note_ar": "الصيغة الأصلية — الاسم الذي تشتق منه باقي العائلة" }
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الاسم الذي تشتق منه باقي العائلة"
+        }
       },
       {
         "word": "genetic",
@@ -155,7 +191,11 @@
           "base_word": "gene",
           "base_pos": "noun",
           "rule_ar": "اللاحقة -tic (أو -ic) تُضاف على الاسم لتكوين صفة تدل على الانتماء أو الاتصال بما يشير إليه الاسم.",
-          "similar_examples": ["energy → energetic", "athlete → athletic", "drama → dramatic"]
+          "similar_examples": [
+            "energy → energetic",
+            "athlete → athletic",
+            "drama → dramatic"
+          ]
         }
       },
       {
@@ -170,7 +210,11 @@
           "base_word": "genetic",
           "base_pos": "adjective",
           "rule_ar": "اللاحقة -s تُضاف على بعض الصفات المنتهية بـ -ic لتكوين اسم يدل على علم أو مجال دراسة.",
-          "similar_examples": ["economic → economics", "physic → physics", "statistic → statistics"]
+          "similar_examples": [
+            "economic → economics",
+            "physic → physics",
+            "statistic → statistics"
+          ]
         }
       },
       {
@@ -185,7 +229,11 @@
           "base_word": "genetic",
           "base_pos": "adjective",
           "rule_ar": "اللاحقة -ally تُضاف على الصفات المنتهية بـ -ic لتكوين ظرف يصف الكيفية.",
-          "similar_examples": ["basic → basically", "automatic → automatically", "specific → specifically"]
+          "similar_examples": [
+            "basic → basically",
+            "automatic → automatically",
+            "specific → specifically"
+          ]
         }
       }
     ]
@@ -200,7 +248,10 @@
         "level": 1,
         "is_base": true,
         "is_opposite": false,
-        "morphology": { "is_base": true, "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة" }
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
       },
       {
         "word": "requirement",
@@ -214,7 +265,11 @@
           "base_word": "require",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -ment تُضاف على الفعل لتكوين اسم يدل على نتيجة الفعل أو الشيء المطلوب.",
-          "similar_examples": ["develop → development", "state → statement", "agree → agreement"]
+          "similar_examples": [
+            "develop → development",
+            "state → statement",
+            "agree → agreement"
+          ]
         }
       },
       {
@@ -229,7 +284,11 @@
           "base_word": "require",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -ed تُضاف على الفعل لتكوين صفة تصف الحالة الناتجة عن الفعل.",
-          "similar_examples": ["need → needed", "expect → expected", "desire → desired"]
+          "similar_examples": [
+            "need → needed",
+            "expect → expected",
+            "desire → desired"
+          ]
         }
       }
     ]
@@ -244,7 +303,10 @@
         "level": 2,
         "is_base": true,
         "is_opposite": false,
-        "morphology": { "is_base": true, "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة" }
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
       },
       {
         "word": "soaring",
@@ -258,7 +320,11 @@
           "base_word": "soar",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -ing تُضاف على الفعل لتكوين صفة تصف الشيء الذي يقوم بالفعل أو يوصف به.",
-          "similar_examples": ["rise → rising", "grow → growing", "increase → increasing"]
+          "similar_examples": [
+            "rise → rising",
+            "grow → growing",
+            "increase → increasing"
+          ]
         }
       }
     ]
@@ -273,7 +339,10 @@
         "level": 4,
         "is_base": true,
         "is_opposite": false,
-        "morphology": { "is_base": true, "note_ar": "الصيغة الأصلية — الفعل الذي يعني يُثبّط ويشتق منه باقي العائلة" }
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي يعني يُثبّط ويشتق منه باقي العائلة"
+        }
       },
       {
         "word": "daunting",
@@ -287,7 +356,11 @@
           "base_word": "daunt",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -ing تُضاف على الفعل لتكوين صفة تصف الشيء الذي يُحدث الأثر على غيره.",
-          "similar_examples": ["frighten → frightening", "challenge → challenging", "terrify → terrifying"]
+          "similar_examples": [
+            "frighten → frightening",
+            "challenge → challenging",
+            "terrify → terrifying"
+          ]
         }
       },
       {
@@ -302,7 +375,11 @@
           "base_word": "daunted",
           "base_pos": "adjective",
           "rule_ar": "البادئة un- تُضاف على الصفة لتكوين صفة معاكسة في المعنى، أي لم يُصب بالخوف أو التثبيط.",
-          "similar_examples": ["afraid → unafraid", "moved → unmoved", "shaken → unshaken"]
+          "similar_examples": [
+            "afraid → unafraid",
+            "moved → unmoved",
+            "shaken → unshaken"
+          ]
         }
       }
     ]
@@ -317,7 +394,10 @@
         "level": 4,
         "is_base": true,
         "is_opposite": false,
-        "morphology": { "is_base": true, "note_ar": "الصيغة الأصلية — تستخدم فعلاً واسماً وتشتق منها باقي العائلة" }
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — تستخدم فعلاً واسماً وتشتق منها باقي العائلة"
+        }
       },
       {
         "word": "collapsed",
@@ -331,7 +411,11 @@
           "base_word": "collapse",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -d تُضاف على الفعل المنتهي بـ e لتكوين صفة تصف الحالة الناتجة بعد حدوث الفعل.",
-          "similar_examples": ["close → closed", "finish → finished", "damage → damaged"]
+          "similar_examples": [
+            "close → closed",
+            "finish → finished",
+            "damage → damaged"
+          ]
         }
       },
       {
@@ -346,7 +430,11 @@
           "base_word": "collapse",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -ible تُضاف على الفعل لتكوين صفة تدل على قابلية الشيء لحدوث الفعل عليه.",
-          "similar_examples": ["reverse → reversible", "convert → convertible", "divide → divisible"]
+          "similar_examples": [
+            "reverse → reversible",
+            "convert → convertible",
+            "divide → divisible"
+          ]
         }
       }
     ]
@@ -361,7 +449,10 @@
         "level": 4,
         "is_base": true,
         "is_opposite": false,
-        "morphology": { "is_base": true, "note_ar": "الصيغة الأصلية — اسم لا يشتق منه عائلة واسعة في الإنجليزية" }
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — اسم لا يشتق منه عائلة واسعة في الإنجليزية"
+        }
       }
     ]
   },
@@ -375,7 +466,10 @@
         "level": 1,
         "is_base": true,
         "is_opposite": false,
-        "morphology": { "is_base": true, "note_ar": "الصيغة الأصلية — تستخدم فعلاً واسماً وتشتق منها باقي العائلة" }
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — تستخدم فعلاً واسماً وتشتق منها باقي العائلة"
+        }
       },
       {
         "word": "sleepy",
@@ -389,7 +483,11 @@
           "base_word": "sleep",
           "base_pos": "noun",
           "rule_ar": "اللاحقة -y تُضاف على الاسم لتكوين صفة تصف من يتصف بما يشير إليه الاسم.",
-          "similar_examples": ["rain → rainy", "sun → sunny", "noise → noisy"]
+          "similar_examples": [
+            "rain → rainy",
+            "sun → sunny",
+            "noise → noisy"
+          ]
         }
       },
       {
@@ -404,7 +502,11 @@
           "base_word": "sleep",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -er تُضاف على الفعل لتكوين اسم يدل على من يقوم بالفعل.",
-          "similar_examples": ["dream → dreamer", "run → runner", "work → worker"]
+          "similar_examples": [
+            "dream → dreamer",
+            "run → runner",
+            "work → worker"
+          ]
         }
       },
       {
@@ -419,7 +521,11 @@
           "base_word": "sleep",
           "base_pos": "noun",
           "rule_ar": "اللاحقة -less تُضاف على الاسم لتكوين صفة تدل على الخلو أو الافتقار إلى ما يشير إليه الاسم.",
-          "similar_examples": ["hope → hopeless", "care → careless", "end → endless"]
+          "similar_examples": [
+            "hope → hopeless",
+            "care → careless",
+            "end → endless"
+          ]
         }
       },
       {
@@ -434,7 +540,11 @@
           "base_word": "sleep",
           "base_pos": "noun",
           "rule_ar": "البادئة a- القديمة تُضاف على الاسم لتكوين صفة تصف حالة كون الشخص في وضع معيّن.",
-          "similar_examples": ["wake → awake", "live → alive", "float → afloat"]
+          "similar_examples": [
+            "wake → awake",
+            "live → alive",
+            "float → afloat"
+          ]
         }
       }
     ]
@@ -449,7 +559,10 @@
         "level": 4,
         "is_base": true,
         "is_opposite": false,
-        "morphology": { "is_base": true, "note_ar": "الصيغة الأصلية — الاسم الذي تشتق منه باقي العائلة" }
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الاسم الذي تشتق منه باقي العائلة"
+        }
       },
       {
         "word": "paradigmatic",
@@ -463,7 +576,11 @@
           "base_word": "paradigm",
           "base_pos": "noun",
           "rule_ar": "اللاحقة -atic تُضاف على الاسم لتكوين صفة تدل على الانتماء إلى ما يشير إليه الاسم أو كونه مثالاً له.",
-          "similar_examples": ["system → systematic", "problem → problematic", "drama → dramatic"]
+          "similar_examples": [
+            "system → systematic",
+            "problem → problematic",
+            "drama → dramatic"
+          ]
         }
       }
     ]
@@ -478,7 +595,10 @@
         "level": 2,
         "is_base": true,
         "is_opposite": false,
-        "morphology": { "is_base": true, "note_ar": "الصيغة الأصلية — تستخدم فعلاً واسماً وتشتق منها باقي العائلة" }
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — تستخدم فعلاً واسماً وتشتق منها باقي العائلة"
+        }
       },
       {
         "word": "hiking",
@@ -492,7 +612,11 @@
           "base_word": "hike",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -ing تُضاف على الفعل لتكوين اسم يدل على النشاط أو فعل القيام بالشيء، مع حذف حرف e النهائي.",
-          "similar_examples": ["swim → swimming", "run → running", "cook → cooking"]
+          "similar_examples": [
+            "swim → swimming",
+            "run → running",
+            "cook → cooking"
+          ]
         }
       },
       {
@@ -507,7 +631,11 @@
           "base_word": "hike",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -r تُضاف على الفعل المنتهي بـ e لتكوين اسم يدل على الشخص الذي يقوم بالفعل.",
-          "similar_examples": ["write → writer", "dance → dancer", "drive → driver"]
+          "similar_examples": [
+            "write → writer",
+            "dance → dancer",
+            "drive → driver"
+          ]
         }
       }
     ]
@@ -522,7 +650,10 @@
         "level": 1,
         "is_base": true,
         "is_opposite": false,
-        "morphology": { "is_base": true, "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة" }
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
       },
       {
         "word": "treatment",
@@ -536,7 +667,11 @@
           "base_word": "treat",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -ment تُضاف على الفعل لتكوين اسم يدل على نتيجة الفعل أو طريقة القيام به.",
-          "similar_examples": ["develop → development", "manage → management", "agree → agreement"]
+          "similar_examples": [
+            "develop → development",
+            "manage → management",
+            "agree → agreement"
+          ]
         }
       },
       {
@@ -551,7 +686,11 @@
           "base_word": "treat",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -able تُضاف على الفعل لتكوين صفة تدل على قابلية الشيء لحدوث الفعل عليه.",
-          "similar_examples": ["cure → curable", "manage → manageable", "predict → predictable"]
+          "similar_examples": [
+            "cure → curable",
+            "manage → manageable",
+            "predict → predictable"
+          ]
         }
       },
       {
@@ -566,7 +705,11 @@
           "base_word": "treated",
           "base_pos": "adjective",
           "rule_ar": "البادئة un- تُضاف على الصفة لإعطاء المعنى المعاكس، أي عدم حدوث الفعل على الشيء.",
-          "similar_examples": ["tested → untested", "opened → unopened", "finished → unfinished"]
+          "similar_examples": [
+            "tested → untested",
+            "opened → unopened",
+            "finished → unfinished"
+          ]
         }
       }
     ]
@@ -581,7 +724,10 @@
         "level": 2,
         "is_base": true,
         "is_opposite": false,
-        "morphology": { "is_base": true, "note_ar": "الصيغة الأصلية — الاسم الذي تشتق منه باقي العائلة" }
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الاسم الذي تشتق منه باقي العائلة"
+        }
       },
       {
         "word": "methodical",
@@ -595,7 +741,11 @@
           "base_word": "method",
           "base_pos": "noun",
           "rule_ar": "اللاحقة -ical تُضاف على الاسم لتكوين صفة تدل على الاتصاف بما يشير إليه الاسم.",
-          "similar_examples": ["history → historical", "logic → logical", "practice → practical"]
+          "similar_examples": [
+            "history → historical",
+            "logic → logical",
+            "practice → practical"
+          ]
         }
       },
       {
@@ -610,7 +760,11 @@
           "base_word": "method",
           "base_pos": "noun",
           "rule_ar": "اللاحقة -ology تُضاف على الاسم لتكوين اسم جديد يدل على دراسة علمية أو نظام منظم لشيء.",
-          "similar_examples": ["ideal → ideology", "term → terminology", "chronicle → chronology"]
+          "similar_examples": [
+            "ideal → ideology",
+            "term → terminology",
+            "chronicle → chronology"
+          ]
         }
       }
     ]
@@ -625,7 +779,10 @@
         "level": 4,
         "is_base": true,
         "is_opposite": false,
-        "morphology": { "is_base": true, "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة" }
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
       },
       {
         "word": "confident",
@@ -639,7 +796,11 @@
           "base_word": "confide",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -ent تُضاف على الفعل فتحوّله إلى صفة تصف من يتصف بالفعل.",
-          "similar_examples": ["depend → dependent", "differ → different", "persist → persistent"]
+          "similar_examples": [
+            "depend → dependent",
+            "differ → different",
+            "persist → persistent"
+          ]
         }
       },
       {
@@ -654,7 +815,11 @@
           "base_word": "confide",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -ence تُضاف على الفعل لتكوين اسم مجرد يدل على حالة أو صفة.",
-          "similar_examples": ["differ → difference", "exist → existence", "depend → dependence"]
+          "similar_examples": [
+            "differ → difference",
+            "exist → existence",
+            "depend → dependence"
+          ]
         }
       },
       {
@@ -669,7 +834,11 @@
           "base_word": "confident",
           "base_pos": "adjective",
           "rule_ar": "اللاحقة -ly تُضاف على الصفة لتكوين ظرف يصف كيفية حدوث الفعل.",
-          "similar_examples": ["quick → quickly", "quiet → quietly", "careful → carefully"]
+          "similar_examples": [
+            "quick → quickly",
+            "quiet → quietly",
+            "careful → carefully"
+          ]
         }
       },
       {
@@ -684,7 +853,11 @@
           "base_word": "confident",
           "base_pos": "adjective",
           "rule_ar": "البادئة un- تُضاف على الصفة لتكوين معنى معاكس أو نفي للصفة الأصلية.",
-          "similar_examples": ["happy → unhappy", "sure → unsure", "kind → unkind"]
+          "similar_examples": [
+            "happy → unhappy",
+            "sure → unsure",
+            "kind → unkind"
+          ]
         }
       }
     ]
@@ -699,7 +872,10 @@
         "level": 4,
         "is_base": true,
         "is_opposite": false,
-        "morphology": { "is_base": true, "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة" }
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
       },
       {
         "word": "dispersal",
@@ -713,7 +889,11 @@
           "base_word": "disperse",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -al تُضاف على بعض الأفعال لتكوين اسم يدل على فعل القيام بالشيء، مع حذف الـ e النهائية.",
-          "similar_examples": ["arrive → arrival", "remove → removal", "propose → proposal"]
+          "similar_examples": [
+            "arrive → arrival",
+            "remove → removal",
+            "propose → proposal"
+          ]
         }
       },
       {
@@ -728,7 +908,11 @@
           "base_word": "disperse",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -ion تُضاف على الفعل لتكوين اسم يدل على عملية أو حالة الفعل.",
-          "similar_examples": ["discuss → discussion", "confuse → confusion", "decide → decision"]
+          "similar_examples": [
+            "discuss → discussion",
+            "confuse → confusion",
+            "decide → decision"
+          ]
         }
       }
     ]
@@ -743,7 +927,10 @@
         "level": 4,
         "is_base": true,
         "is_opposite": false,
-        "morphology": { "is_base": true, "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة" }
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
       },
       {
         "word": "precedent",
@@ -757,7 +944,11 @@
           "base_word": "precede",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -ent تُضاف على الفعل لتكوين اسم يدل على شيء يسبق أو يمهد لغيره.",
-          "similar_examples": ["reside → resident", "depend → dependent", "preside → president"]
+          "similar_examples": [
+            "reside → resident",
+            "depend → dependent",
+            "preside → president"
+          ]
         }
       },
       {
@@ -772,7 +963,11 @@
           "base_word": "precedent",
           "base_pos": "noun",
           "rule_ar": "اللاحقة -ed تُضاف على الاسم لتكوين صفة تدل على وجود ما يشير إليه الاسم.",
-          "similar_examples": ["talent → talented", "skill → skilled", "gift → gifted"]
+          "similar_examples": [
+            "talent → talented",
+            "skill → skilled",
+            "gift → gifted"
+          ]
         }
       },
       {
@@ -787,7 +982,11 @@
           "base_word": "precedented",
           "base_pos": "adjective",
           "rule_ar": "البادئة un- تُضاف على الصفة لتكوين معنى معاكس، أي عدم وجود سابق لما يشار إليه.",
-          "similar_examples": ["known → unknown", "expected → unexpected", "matched → unmatched"]
+          "similar_examples": [
+            "known → unknown",
+            "expected → unexpected",
+            "matched → unmatched"
+          ]
         }
       }
     ]
@@ -802,7 +1001,10 @@
         "level": 5,
         "is_base": true,
         "is_opposite": false,
-        "morphology": { "is_base": true, "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة" }
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
       },
       {
         "word": "perseverance",
@@ -816,7 +1018,11 @@
           "base_word": "persevere",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -ance تُضاف على الفعل لتكوين اسم مجرد يدل على حالة أو صفة ناتجة عن الفعل.",
-          "similar_examples": ["perform → performance", "accept → acceptance", "appear → appearance"]
+          "similar_examples": [
+            "perform → performance",
+            "accept → acceptance",
+            "appear → appearance"
+          ]
         }
       }
     ]
@@ -831,7 +1037,10 @@
         "level": 3,
         "is_base": true,
         "is_opposite": false,
-        "morphology": { "is_base": true, "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة" }
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
       },
       {
         "word": "hindrance",
@@ -845,7 +1054,11 @@
           "base_word": "hinder",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -ance تُضاف على الفعل لتكوين اسم يدل على نتيجة الفعل أو الشيء الذي يحدثه، مع حذف الحرف الساكن الأخير.",
-          "similar_examples": ["enter → entrance", "appear → appearance", "accept → acceptance"]
+          "similar_examples": [
+            "enter → entrance",
+            "appear → appearance",
+            "accept → acceptance"
+          ]
         }
       }
     ]
@@ -860,7 +1073,10 @@
         "level": 5,
         "is_base": true,
         "is_opposite": false,
-        "morphology": { "is_base": true, "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة" }
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
       },
       {
         "word": "amplification",
@@ -874,7 +1090,11 @@
           "base_word": "amplify",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -ication تُضاف على الأفعال المنتهية بـ -ify لتكوين اسم يدل على عملية القيام بالفعل.",
-          "similar_examples": ["clarify → clarification", "identify → identification", "simplify → simplification"]
+          "similar_examples": [
+            "clarify → clarification",
+            "identify → identification",
+            "simplify → simplification"
+          ]
         }
       },
       {
@@ -889,7 +1109,11 @@
           "base_word": "amplify",
           "base_pos": "verb",
           "rule_ar": "اللاحقة -ier تُضاف على الأفعال المنتهية بـ y لتكوين اسم يدل على ما أو من يقوم بالفعل.",
-          "similar_examples": ["identify → identifier", "modify → modifier", "classify → classifier"]
+          "similar_examples": [
+            "identify → identifier",
+            "modify → modifier",
+            "classify → classifier"
+          ]
         }
       }
     ]
@@ -904,7 +1128,10 @@
         "level": 3,
         "is_base": true,
         "is_opposite": false,
-        "morphology": { "is_base": true, "note_ar": "الصيغة الأصلية — الصفة التي تشتق منها باقي العائلة" }
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الصفة التي تشتق منها باقي العائلة"
+        }
       },
       {
         "word": "vulnerability",
@@ -918,7 +1145,11 @@
           "base_word": "vulnerable",
           "base_pos": "adjective",
           "rule_ar": "اللاحقة -ity تُضاف على الصفة لتكوين اسم مجرد يدل على الخاصية أو الحالة، مع حذف الـ e النهائية.",
-          "similar_examples": ["able → ability", "responsible → responsibility", "possible → possibility"]
+          "similar_examples": [
+            "able → ability",
+            "responsible → responsibility",
+            "possible → possibility"
+          ]
         }
       },
       {
@@ -933,7 +1164,4384 @@
           "base_word": "vulnerable",
           "base_pos": "adjective",
           "rule_ar": "البادئة in- تُضاف على الصفة لتكوين معنى معاكس أو نفي للصفة الأصلية.",
-          "similar_examples": ["visible → invisible", "capable → incapable", "correct → incorrect"]
+          "similar_examples": [
+            "visible → invisible",
+            "capable → incapable",
+            "correct → incorrect"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "b27c0451-9a1f-48d6-a31e-0892b4b74681",
+    "word": "bread",
+    "word_family": [
+      {
+        "word": "bread",
+        "pos": "noun",
+        "level": 0,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الاسم الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "breadth",
+        "pos": "noun",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-th",
+          "affix_type": "suffix",
+          "base_word": "broad",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -th تُضاف على بعض الصفات لتكوين اسم يدل على الصفة أو المقدار، وهذه كلمة مرتبطة بالأصل القديم.",
+          "similar_examples": [
+            "wide → width",
+            "long → length",
+            "deep → depth"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a19b2824-298f-4bfe-9fc8-880b42ee7cbb",
+    "word": "breakfast",
+    "word_family": [
+      {
+        "word": "break",
+        "pos": "verb",
+        "level": 1,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "breakfast",
+        "pos": "noun",
+        "level": 0,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": null,
+          "affix_type": "compound",
+          "base_word": "break",
+          "base_pos": "verb",
+          "rule_ar": "كلمة مركبة من break و fast، أي كسر الصيام، فتدل على الوجبة الأولى في الصباح بعد الصيام الليلي.",
+          "similar_examples": [
+            "sun + rise → sunrise",
+            "day + light → daylight",
+            "after + noon → afternoon"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a2822881-7350-417a-b0d5-8e055e107b69",
+    "word": "exercise",
+    "word_family": [
+      {
+        "word": "exercise",
+        "pos": "verb",
+        "level": 0,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — تستخدم فعلاً واسماً وتشتق منها باقي العائلة"
+        }
+      }
+    ]
+  },
+  {
+    "id": "a7578fb1-6e47-4b8f-b6ee-4832548a5e96",
+    "word": "family",
+    "word_family": [
+      {
+        "word": "family",
+        "pos": "noun",
+        "level": 0,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الاسم الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "familial",
+        "pos": "adjective",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-al",
+          "affix_type": "suffix",
+          "base_word": "family",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -al تُضاف على الاسم لتكوين صفة تدل على الانتماء إلى ما يشير إليه الاسم، مع تعديل النهاية.",
+          "similar_examples": [
+            "culture → cultural",
+            "nature → natural",
+            "person → personal"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "ae2256ff-95f4-4a2b-9192-29720368f256",
+    "word": "food",
+    "word_family": [
+      {
+        "word": "food",
+        "pos": "noun",
+        "level": 0,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الاسم الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "feed",
+        "pos": "verb",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "irregular": true,
+          "affix": null,
+          "base_word": "food",
+          "base_pos": "noun",
+          "note_ar": "كلمة مشتقة قديماً من نفس أصل food، فتحولت الحركة لتكوّن فعلاً يعني إعطاء الطعام.",
+          "similar_examples": [
+            "blood → bleed",
+            "breath → breathe",
+            "gold → gild"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a50feca9-e913-41ab-bd5d-2a7c70071098",
+    "word": "friendly",
+    "word_family": [
+      {
+        "word": "friend",
+        "pos": "noun",
+        "level": 0,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الاسم الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "friendly",
+        "pos": "adjective",
+        "level": 0,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ly",
+          "affix_type": "suffix",
+          "base_word": "friend",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -ly تُضاف على الاسم لتكوين صفة تدل على الاتصاف بما يشير إليه الاسم.",
+          "similar_examples": [
+            "love → lovely",
+            "love → lovely",
+            "day → daily"
+          ]
+        }
+      },
+      {
+        "word": "friendship",
+        "pos": "noun",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ship",
+          "affix_type": "suffix",
+          "base_word": "friend",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -ship تُضاف على الاسم لتكوين اسم مجرد يدل على العلاقة أو الحالة.",
+          "similar_examples": [
+            "member → membership",
+            "leader → leadership",
+            "partner → partnership"
+          ]
+        }
+      },
+      {
+        "word": "unfriendly",
+        "pos": "adjective",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": true,
+        "morphology": {
+          "affix": "un-",
+          "affix_type": "prefix",
+          "base_word": "friendly",
+          "base_pos": "adjective",
+          "rule_ar": "البادئة un- تُضاف على الصفة لتكوين معنى معاكس أو نفي للصفة الأصلية.",
+          "similar_examples": [
+            "kind → unkind",
+            "happy → unhappy",
+            "fair → unfair"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "b3303673-ec90-4ad9-9977-a4dd35d733ed",
+    "word": "healthy",
+    "word_family": [
+      {
+        "word": "health",
+        "pos": "noun",
+        "level": 1,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الاسم الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "healthy",
+        "pos": "adjective",
+        "level": 0,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-y",
+          "affix_type": "suffix",
+          "base_word": "health",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -y تُضاف على الاسم لتكوين صفة تصف من يتمتع بما يشير إليه الاسم.",
+          "similar_examples": [
+            "wealth → wealthy",
+            "dirt → dirty",
+            "luck → lucky"
+          ]
+        }
+      },
+      {
+        "word": "unhealthy",
+        "pos": "adjective",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": true,
+        "morphology": {
+          "affix": "un-",
+          "affix_type": "prefix",
+          "base_word": "healthy",
+          "base_pos": "adjective",
+          "rule_ar": "البادئة un- تُضاف على الصفة لتكوين معنى معاكس أو نفي للصفة الأصلية.",
+          "similar_examples": [
+            "happy → unhappy",
+            "safe → unsafe",
+            "clean → unclean"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "af5c8223-ec3d-4557-a513-dde9c940b9c7",
+    "word": "heart",
+    "word_family": [
+      {
+        "word": "heart",
+        "pos": "noun",
+        "level": 0,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الاسم الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "hearty",
+        "pos": "adjective",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-y",
+          "affix_type": "suffix",
+          "base_word": "heart",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -y تُضاف على الاسم لتكوين صفة تدل على الاتصاف بما يشير إليه الاسم من قوة وحماس.",
+          "similar_examples": [
+            "wealth → wealthy",
+            "health → healthy",
+            "speed → speedy"
+          ]
+        }
+      },
+      {
+        "word": "heartless",
+        "pos": "adjective",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": true,
+        "morphology": {
+          "affix": "-less",
+          "affix_type": "suffix",
+          "base_word": "heart",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -less تُضاف على الاسم لتكوين صفة تدل على الخلو أو الافتقار إلى ما يشير إليه الاسم.",
+          "similar_examples": [
+            "hope → hopeless",
+            "care → careless",
+            "use → useless"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "9f2010e4-44e2-40ee-a724-c43828995ab3",
+    "word": "move",
+    "word_family": [
+      {
+        "word": "move",
+        "pos": "verb",
+        "level": 0,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "movement",
+        "pos": "noun",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ment",
+          "affix_type": "suffix",
+          "base_word": "move",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ment تُضاف على الفعل لتكوين اسم يدل على فعل التحرك أو نتيجته.",
+          "similar_examples": [
+            "develop → development",
+            "state → statement",
+            "agree → agreement"
+          ]
+        }
+      },
+      {
+        "word": "mover",
+        "pos": "noun",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-r",
+          "affix_type": "suffix",
+          "base_word": "move",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -r تُضاف على الفعل المنتهي بـ e لتكوين اسم يدل على من أو ما يقوم بالفعل.",
+          "similar_examples": [
+            "write → writer",
+            "dance → dancer",
+            "drive → driver"
+          ]
+        }
+      },
+      {
+        "word": "movable",
+        "pos": "adjective",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-able",
+          "affix_type": "suffix",
+          "base_word": "move",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -able تُضاف على الفعل لتكوين صفة تدل على قابلية الشيء لحدوث الفعل عليه.",
+          "similar_examples": [
+            "love → lovable",
+            "use → usable",
+            "like → likable"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a6a06267-4433-4220-864b-474793f30f66",
+    "word": "recipe",
+    "word_family": [
+      {
+        "word": "recipe",
+        "pos": "noun",
+        "level": 0,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الاسم ولا تشتق منه عائلة واسعة في الإنجليزية"
+        }
+      }
+    ]
+  },
+  {
+    "id": "aa56720b-1bb1-4876-877f-a5cd7e406952",
+    "word": "relax",
+    "word_family": [
+      {
+        "word": "relax",
+        "pos": "verb",
+        "level": 0,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "relaxation",
+        "pos": "noun",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ation",
+          "affix_type": "suffix",
+          "base_word": "relax",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ation تُضاف على الفعل لتكوين اسم يدل على عملية الفعل أو حالته.",
+          "similar_examples": [
+            "inform → information",
+            "explore → exploration",
+            "prepare → preparation"
+          ]
+        }
+      },
+      {
+        "word": "relaxed",
+        "pos": "adjective",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ed",
+          "affix_type": "suffix",
+          "base_word": "relax",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ed تُضاف على الفعل لتكوين صفة تصف الحالة الناتجة عن الفعل.",
+          "similar_examples": [
+            "tire → tired",
+            "bore → bored",
+            "excite → excited"
+          ]
+        }
+      },
+      {
+        "word": "relaxing",
+        "pos": "adjective",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ing",
+          "affix_type": "suffix",
+          "base_word": "relax",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ing تُضاف على الفعل لتكوين صفة تصف الشيء الذي يسبب الحالة.",
+          "similar_examples": [
+            "tire → tiring",
+            "bore → boring",
+            "excite → exciting"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "9eb8e036-6a6f-424f-988a-eb223e09d855",
+    "word": "soft",
+    "word_family": [
+      {
+        "word": "soft",
+        "pos": "adjective",
+        "level": 0,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الصفة التي تشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "soften",
+        "pos": "verb",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-en",
+          "affix_type": "suffix",
+          "base_word": "soft",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -en تُضاف على الصفة لتكوين فعل يدل على جعل الشيء يتصف بما تشير إليه الصفة.",
+          "similar_examples": [
+            "hard → harden",
+            "weak → weaken",
+            "sharp → sharpen"
+          ]
+        }
+      },
+      {
+        "word": "softness",
+        "pos": "noun",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ness",
+          "affix_type": "suffix",
+          "base_word": "soft",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ness تُضاف على الصفة لتكوين اسم مجرد يدل على الصفة أو الخاصية.",
+          "similar_examples": [
+            "hard → hardness",
+            "kind → kindness",
+            "dark → darkness"
+          ]
+        }
+      },
+      {
+        "word": "softly",
+        "pos": "adverb",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ly",
+          "affix_type": "suffix",
+          "base_word": "soft",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ly تُضاف على الصفة لتكوين ظرف يصف كيفية حدوث الفعل.",
+          "similar_examples": [
+            "quick → quickly",
+            "slow → slowly",
+            "quiet → quietly"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a5f92623-4abf-4f2f-913e-030525ef673f",
+    "word": "strong",
+    "word_family": [
+      {
+        "word": "strong",
+        "pos": "adjective",
+        "level": 0,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الصفة التي تشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "strength",
+        "pos": "noun",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-th",
+          "affix_type": "suffix",
+          "base_word": "strong",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -th تُضاف على الصفة لتكوين اسم مجرد يدل على الخاصية، مع تغيير الحركة.",
+          "similar_examples": [
+            "long → length",
+            "wide → width",
+            "deep → depth"
+          ]
+        }
+      },
+      {
+        "word": "strengthen",
+        "pos": "verb",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-en",
+          "affix_type": "suffix",
+          "base_word": "strength",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -en تُضاف على الاسم أو الصفة لتكوين فعل يدل على جعل الشيء قوياً.",
+          "similar_examples": [
+            "length → lengthen",
+            "weak → weaken",
+            "hard → harden"
+          ]
+        }
+      },
+      {
+        "word": "strongly",
+        "pos": "adverb",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ly",
+          "affix_type": "suffix",
+          "base_word": "strong",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ly تُضاف على الصفة لتكوين ظرف يصف كيفية حدوث الفعل.",
+          "similar_examples": [
+            "quick → quickly",
+            "slow → slowly",
+            "quiet → quietly"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a94bd88c-2fca-4232-bd75-66003a15dd35",
+    "word": "sugar",
+    "word_family": [
+      {
+        "word": "sugar",
+        "pos": "noun",
+        "level": 0,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الاسم الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "sugary",
+        "pos": "adjective",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-y",
+          "affix_type": "suffix",
+          "base_word": "sugar",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -y تُضاف على الاسم لتكوين صفة تصف الشيء الذي يحتوي على ما يشير إليه الاسم.",
+          "similar_examples": [
+            "salt → salty",
+            "spice → spicy",
+            "taste → tasty"
+          ]
+        }
+      },
+      {
+        "word": "sugarless",
+        "pos": "adjective",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": true,
+        "morphology": {
+          "affix": "-less",
+          "affix_type": "suffix",
+          "base_word": "sugar",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -less تُضاف على الاسم لتكوين صفة تدل على الخلو أو الافتقار إلى ما يشير إليه الاسم.",
+          "similar_examples": [
+            "salt → saltless",
+            "taste → tasteless",
+            "use → useless"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "b10d3f27-3a09-4641-a2ea-15773810f50e",
+    "word": "trees",
+    "word_family": [
+      {
+        "word": "tree",
+        "pos": "noun",
+        "level": 0,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية المفردة — الاسم الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "trees",
+        "pos": "noun",
+        "level": 0,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-s",
+          "affix_type": "suffix",
+          "base_word": "tree",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -s تُضاف على الاسم المفرد لتكوين صيغة الجمع.",
+          "similar_examples": [
+            "book → books",
+            "dog → dogs",
+            "car → cars"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "aeda2a0e-19c2-440e-89c2-375f040f1fb0",
+    "word": "anxious",
+    "word_family": [
+      {
+        "word": "anxious",
+        "pos": "adjective",
+        "level": 1,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الصفة التي تشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "anxiety",
+        "pos": "noun",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ety",
+          "affix_type": "suffix",
+          "base_word": "anxious",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ety تُضاف على الصفة لتكوين اسم مجرد يدل على الحالة أو الشعور.",
+          "similar_examples": [
+            "various → variety",
+            "sober → sobriety",
+            "gay → gaiety"
+          ]
+        }
+      },
+      {
+        "word": "anxiously",
+        "pos": "adverb",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ly",
+          "affix_type": "suffix",
+          "base_word": "anxious",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ly تُضاف على الصفة لتكوين ظرف يصف كيفية حدوث الفعل.",
+          "similar_examples": [
+            "nervous → nervously",
+            "curious → curiously",
+            "serious → seriously"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a856017f-1a44-48f5-9b35-45bee46b5ada",
+    "word": "bright",
+    "word_family": [
+      {
+        "word": "bright",
+        "pos": "adjective",
+        "level": 1,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الصفة التي تشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "brighten",
+        "pos": "verb",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-en",
+          "affix_type": "suffix",
+          "base_word": "bright",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -en تُضاف على الصفة لتكوين فعل يدل على جعل الشيء يتصف بما تشير إليه الصفة.",
+          "similar_examples": [
+            "dark → darken",
+            "light → lighten",
+            "wide → widen"
+          ]
+        }
+      },
+      {
+        "word": "brightness",
+        "pos": "noun",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ness",
+          "affix_type": "suffix",
+          "base_word": "bright",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ness تُضاف على الصفة لتكوين اسم مجرد يدل على الصفة أو الخاصية.",
+          "similar_examples": [
+            "dark → darkness",
+            "kind → kindness",
+            "soft → softness"
+          ]
+        }
+      },
+      {
+        "word": "brightly",
+        "pos": "adverb",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ly",
+          "affix_type": "suffix",
+          "base_word": "bright",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ly تُضاف على الصفة لتكوين ظرف يصف كيفية حدوث الفعل.",
+          "similar_examples": [
+            "quick → quickly",
+            "slow → slowly",
+            "loud → loudly"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a08fbaf9-57aa-4402-9f4f-cf6a267068d7",
+    "word": "brilliant",
+    "word_family": [
+      {
+        "word": "brilliant",
+        "pos": "adjective",
+        "level": 1,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الصفة التي تشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "brilliance",
+        "pos": "noun",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ance",
+          "affix_type": "suffix",
+          "base_word": "brilliant",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ance تُضاف على الصفات المنتهية بـ -ant لتكوين اسم مجرد يدل على الخاصية.",
+          "similar_examples": [
+            "important → importance",
+            "distant → distance",
+            "elegant → elegance"
+          ]
+        }
+      },
+      {
+        "word": "brilliantly",
+        "pos": "adverb",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ly",
+          "affix_type": "suffix",
+          "base_word": "brilliant",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ly تُضاف على الصفة لتكوين ظرف يصف كيفية حدوث الفعل.",
+          "similar_examples": [
+            "perfect → perfectly",
+            "clever → cleverly",
+            "bright → brightly"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a80530f8-022b-4de9-ad45-0a7b81cc4dba",
+    "word": "carefully",
+    "word_family": [
+      {
+        "word": "care",
+        "pos": "verb",
+        "level": 1,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — تستخدم فعلاً واسماً وتشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "careful",
+        "pos": "adjective",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ful",
+          "affix_type": "suffix",
+          "base_word": "care",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -ful تُضاف على الاسم لتكوين صفة تدل على الامتلاء بما يشير إليه الاسم.",
+          "similar_examples": [
+            "help → helpful",
+            "use → useful",
+            "hope → hopeful"
+          ]
+        }
+      },
+      {
+        "word": "carefully",
+        "pos": "adverb",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ly",
+          "affix_type": "suffix",
+          "base_word": "careful",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ly تُضاف على الصفة لتكوين ظرف يصف كيفية حدوث الفعل.",
+          "similar_examples": [
+            "hopeful → hopefully",
+            "useful → usefully",
+            "helpful → helpfully"
+          ]
+        }
+      },
+      {
+        "word": "careless",
+        "pos": "adjective",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": true,
+        "morphology": {
+          "affix": "-less",
+          "affix_type": "suffix",
+          "base_word": "care",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -less تُضاف على الاسم لتكوين صفة تدل على الخلو أو الافتقار إلى ما يشير إليه الاسم.",
+          "similar_examples": [
+            "hope → hopeless",
+            "use → useless",
+            "help → helpless"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "9df3913f-27f4-4d73-b6b1-c75aa80036c0",
+    "word": "common",
+    "word_family": [
+      {
+        "word": "common",
+        "pos": "adjective",
+        "level": 1,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الصفة التي تشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "commonly",
+        "pos": "adverb",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ly",
+          "affix_type": "suffix",
+          "base_word": "common",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ly تُضاف على الصفة لتكوين ظرف يصف كيفية حدوث الفعل أو تكراره.",
+          "similar_examples": [
+            "usual → usually",
+            "normal → normally",
+            "regular → regularly"
+          ]
+        }
+      },
+      {
+        "word": "uncommon",
+        "pos": "adjective",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": true,
+        "morphology": {
+          "affix": "un-",
+          "affix_type": "prefix",
+          "base_word": "common",
+          "base_pos": "adjective",
+          "rule_ar": "البادئة un- تُضاف على الصفة لتكوين معنى معاكس أو نفي للصفة الأصلية.",
+          "similar_examples": [
+            "usual → unusual",
+            "likely → unlikely",
+            "fair → unfair"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a79dcdc9-afd5-4354-a274-bfc08fac0cc5",
+    "word": "create",
+    "word_family": [
+      {
+        "word": "create",
+        "pos": "verb",
+        "level": 1,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "creation",
+        "pos": "noun",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ion",
+          "affix_type": "suffix",
+          "base_word": "create",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ion تُضاف على الفعل لتكوين اسم يدل على عملية الفعل أو نتيجته، مع حذف الـ e النهائية.",
+          "similar_examples": [
+            "act → action",
+            "operate → operation",
+            "educate → education"
+          ]
+        }
+      },
+      {
+        "word": "creative",
+        "pos": "adjective",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ive",
+          "affix_type": "suffix",
+          "base_word": "create",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ive تُضاف على الفعل لتكوين صفة تدل على الاتصاف بالفعل أو الميل إليه.",
+          "similar_examples": [
+            "act → active",
+            "effect → effective",
+            "support → supportive"
+          ]
+        }
+      },
+      {
+        "word": "creator",
+        "pos": "noun",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-or",
+          "affix_type": "suffix",
+          "base_word": "create",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -or تُضاف على الفعل لتكوين اسم يدل على من يقوم بالفعل.",
+          "similar_examples": [
+            "act → actor",
+            "direct → director",
+            "invent → inventor"
+          ]
+        }
+      },
+      {
+        "word": "creativity",
+        "pos": "noun",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ity",
+          "affix_type": "suffix",
+          "base_word": "creative",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ity تُضاف على الصفة لتكوين اسم مجرد يدل على الخاصية أو الحالة.",
+          "similar_examples": [
+            "active → activity",
+            "pure → purity",
+            "able → ability"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "9e8fca4c-62c0-4f76-aae9-2c5ded74bd84",
+    "word": "creative",
+    "word_family": [
+      {
+        "word": "create",
+        "pos": "verb",
+        "level": 1,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "creative",
+        "pos": "adjective",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ive",
+          "affix_type": "suffix",
+          "base_word": "create",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ive تُضاف على الفعل لتكوين صفة تدل على الاتصاف بالفعل أو الميل إليه.",
+          "similar_examples": [
+            "act → active",
+            "effect → effective",
+            "support → supportive"
+          ]
+        }
+      },
+      {
+        "word": "creatively",
+        "pos": "adverb",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ly",
+          "affix_type": "suffix",
+          "base_word": "creative",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ly تُضاف على الصفة لتكوين ظرف يصف كيفية حدوث الفعل.",
+          "similar_examples": [
+            "active → actively",
+            "effective → effectively",
+            "quick → quickly"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a891ea78-d0b6-4613-b34e-a827cb6833ae",
+    "word": "enormous",
+    "word_family": [
+      {
+        "word": "enormous",
+        "pos": "adjective",
+        "level": 1,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الصفة التي تشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "enormously",
+        "pos": "adverb",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ly",
+          "affix_type": "suffix",
+          "base_word": "enormous",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ly تُضاف على الصفة لتكوين ظرف يصف درجة الفعل أو مقداره.",
+          "similar_examples": [
+            "huge → hugely",
+            "vast → vastly",
+            "great → greatly"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "af71f7cb-b413-4b3c-9f6e-388d44a4b194",
+    "word": "extremely",
+    "word_family": [
+      {
+        "word": "extreme",
+        "pos": "adjective",
+        "level": 2,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الصفة التي تشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "extremely",
+        "pos": "adverb",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ly",
+          "affix_type": "suffix",
+          "base_word": "extreme",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ly تُضاف على الصفة لتكوين ظرف يصف درجة الفعل أو الصفة.",
+          "similar_examples": [
+            "quick → quickly",
+            "slow → slowly",
+            "loud → loudly"
+          ]
+        }
+      },
+      {
+        "word": "extremist",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ist",
+          "affix_type": "suffix",
+          "base_word": "extreme",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ist تُضاف على الاسم أو الصفة لتكوين اسم يدل على من يتبنى موقفاً أو عقيدة.",
+          "similar_examples": [
+            "active → activist",
+            "art → artist",
+            "real → realist"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a0c0dead-3d28-437a-b92a-16b108e91ee5",
+    "word": "helped",
+    "word_family": [
+      {
+        "word": "help",
+        "pos": "verb",
+        "level": 0,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — تستخدم فعلاً واسماً وتشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "helped",
+        "pos": "verb",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ed",
+          "affix_type": "suffix",
+          "base_word": "help",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ed تُضاف على الفعل لتكوين صيغة الماضي أو التصريف الثالث.",
+          "similar_examples": [
+            "walk → walked",
+            "play → played",
+            "work → worked"
+          ]
+        }
+      },
+      {
+        "word": "helpful",
+        "pos": "adjective",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ful",
+          "affix_type": "suffix",
+          "base_word": "help",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -ful تُضاف على الاسم لتكوين صفة تدل على الامتلاء بما يشير إليه الاسم أو إفادته.",
+          "similar_examples": [
+            "use → useful",
+            "care → careful",
+            "hope → hopeful"
+          ]
+        }
+      },
+      {
+        "word": "helper",
+        "pos": "noun",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-er",
+          "affix_type": "suffix",
+          "base_word": "help",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -er تُضاف على الفعل لتكوين اسم يدل على من يقوم بالفعل.",
+          "similar_examples": [
+            "teach → teacher",
+            "work → worker",
+            "play → player"
+          ]
+        }
+      },
+      {
+        "word": "helpless",
+        "pos": "adjective",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": true,
+        "morphology": {
+          "affix": "-less",
+          "affix_type": "suffix",
+          "base_word": "help",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -less تُضاف على الاسم لتكوين صفة تدل على الخلو أو الافتقار إلى ما يشير إليه الاسم.",
+          "similar_examples": [
+            "hope → hopeless",
+            "use → useless",
+            "care → careless"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a1406135-543c-45ae-846c-b6443da2f865",
+    "word": "loud",
+    "word_family": [
+      {
+        "word": "loud",
+        "pos": "adjective",
+        "level": 1,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الصفة التي تشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "loudly",
+        "pos": "adverb",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ly",
+          "affix_type": "suffix",
+          "base_word": "loud",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ly تُضاف على الصفة لتكوين ظرف يصف كيفية حدوث الفعل.",
+          "similar_examples": [
+            "quick → quickly",
+            "slow → slowly",
+            "soft → softly"
+          ]
+        }
+      },
+      {
+        "word": "loudness",
+        "pos": "noun",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ness",
+          "affix_type": "suffix",
+          "base_word": "loud",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ness تُضاف على الصفة لتكوين اسم مجرد يدل على الصفة أو الخاصية.",
+          "similar_examples": [
+            "soft → softness",
+            "kind → kindness",
+            "dark → darkness"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a4e6c02e-baaa-4622-8253-9e16ed24ef7c",
+    "word": "popular",
+    "word_family": [
+      {
+        "word": "popular",
+        "pos": "adjective",
+        "level": 1,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الصفة التي تشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "popularity",
+        "pos": "noun",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ity",
+          "affix_type": "suffix",
+          "base_word": "popular",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ity تُضاف على الصفة لتكوين اسم مجرد يدل على الخاصية أو الحالة.",
+          "similar_examples": [
+            "active → activity",
+            "able → ability",
+            "pure → purity"
+          ]
+        }
+      },
+      {
+        "word": "popularize",
+        "pos": "verb",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ize",
+          "affix_type": "suffix",
+          "base_word": "popular",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ize تُضاف على الصفة لتكوين فعل يدل على جعل الشيء يتصف بما تشير إليه الصفة.",
+          "similar_examples": [
+            "modern → modernize",
+            "legal → legalize",
+            "real → realize"
+          ]
+        }
+      },
+      {
+        "word": "unpopular",
+        "pos": "adjective",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": true,
+        "morphology": {
+          "affix": "un-",
+          "affix_type": "prefix",
+          "base_word": "popular",
+          "base_pos": "adjective",
+          "rule_ar": "البادئة un- تُضاف على الصفة لتكوين معنى معاكس أو نفي للصفة الأصلية.",
+          "similar_examples": [
+            "known → unknown",
+            "fair → unfair",
+            "kind → unkind"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a1f164f3-37ba-4348-8ecd-f799a4b34e91",
+    "word": "quality",
+    "word_family": [
+      {
+        "word": "quality",
+        "pos": "noun",
+        "level": 1,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الاسم الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "qualitative",
+        "pos": "adjective",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ative",
+          "affix_type": "suffix",
+          "base_word": "quality",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -ative تُضاف على الاسم لتكوين صفة تدل على الاتصاف بما يشير إليه الاسم، مع تعديل النهاية.",
+          "similar_examples": [
+            "quantity → quantitative",
+            "inform → informative",
+            "talk → talkative"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "b197d4f4-f04b-4577-b7cf-515a82b0f637",
+    "word": "safely",
+    "word_family": [
+      {
+        "word": "safe",
+        "pos": "adjective",
+        "level": 1,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الصفة التي تشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "safely",
+        "pos": "adverb",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ly",
+          "affix_type": "suffix",
+          "base_word": "safe",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ly تُضاف على الصفة لتكوين ظرف يصف كيفية حدوث الفعل.",
+          "similar_examples": [
+            "quick → quickly",
+            "nice → nicely",
+            "loud → loudly"
+          ]
+        }
+      },
+      {
+        "word": "safety",
+        "pos": "noun",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ty",
+          "affix_type": "suffix",
+          "base_word": "safe",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ty تُضاف على الصفة لتكوين اسم مجرد يدل على الخاصية أو الحالة.",
+          "similar_examples": [
+            "certain → certainty",
+            "cruel → cruelty",
+            "honest → honesty"
+          ]
+        }
+      },
+      {
+        "word": "unsafe",
+        "pos": "adjective",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": true,
+        "morphology": {
+          "affix": "un-",
+          "affix_type": "prefix",
+          "base_word": "safe",
+          "base_pos": "adjective",
+          "rule_ar": "البادئة un- تُضاف على الصفة لتكوين معنى معاكس أو نفي للصفة الأصلية.",
+          "similar_examples": [
+            "kind → unkind",
+            "happy → unhappy",
+            "fair → unfair"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "9c8a90b7-3af8-4b3c-8f74-08200c4ebb1f",
+    "word": "solid",
+    "word_family": [
+      {
+        "word": "solid",
+        "pos": "adjective",
+        "level": 1,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الصفة التي تشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "solidify",
+        "pos": "verb",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ify",
+          "affix_type": "suffix",
+          "base_word": "solid",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ify تُضاف على الصفة لتكوين فعل يدل على جعل الشيء يتصف بما تشير إليه الصفة.",
+          "similar_examples": [
+            "simple → simplify",
+            "pure → purify",
+            "intense → intensify"
+          ]
+        }
+      },
+      {
+        "word": "solidity",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ity",
+          "affix_type": "suffix",
+          "base_word": "solid",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ity تُضاف على الصفة لتكوين اسم مجرد يدل على الخاصية أو الحالة.",
+          "similar_examples": [
+            "pure → purity",
+            "able → ability",
+            "rapid → rapidity"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a6196611-2971-4bd4-bbef-4d58fad3a3b8",
+    "word": "spectacular",
+    "word_family": [
+      {
+        "word": "spectacle",
+        "pos": "noun",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الاسم الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "spectacular",
+        "pos": "adjective",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ar",
+          "affix_type": "suffix",
+          "base_word": "spectacle",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -ar تُضاف على الاسم لتكوين صفة تدل على الانتماء إلى ما يشير إليه الاسم.",
+          "similar_examples": [
+            "circle → circular",
+            "pole → polar",
+            "angle → angular"
+          ]
+        }
+      },
+      {
+        "word": "spectacularly",
+        "pos": "adverb",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ly",
+          "affix_type": "suffix",
+          "base_word": "spectacular",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ly تُضاف على الصفة لتكوين ظرف يصف كيفية حدوث الفعل.",
+          "similar_examples": [
+            "quick → quickly",
+            "slow → slowly",
+            "perfect → perfectly"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "9eaa9f39-cedf-4e9e-8573-b29bbbde4cc5",
+    "word": "strengthens",
+    "word_family": [
+      {
+        "word": "strong",
+        "pos": "adjective",
+        "level": 0,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الصفة التي تشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "strength",
+        "pos": "noun",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-th",
+          "affix_type": "suffix",
+          "base_word": "strong",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -th تُضاف على الصفة لتكوين اسم مجرد يدل على الخاصية، مع تغيير الحركة.",
+          "similar_examples": [
+            "long → length",
+            "wide → width",
+            "deep → depth"
+          ]
+        }
+      },
+      {
+        "word": "strengthen",
+        "pos": "verb",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-en",
+          "affix_type": "suffix",
+          "base_word": "strength",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -en تُضاف على الاسم لتكوين فعل يدل على جعل الشيء قوياً.",
+          "similar_examples": [
+            "length → lengthen",
+            "weak → weaken",
+            "hard → harden"
+          ]
+        }
+      },
+      {
+        "word": "strengthens",
+        "pos": "verb",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-s",
+          "affix_type": "suffix",
+          "base_word": "strengthen",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -s تُضاف على الفعل مع ضمير الغائب المفرد في صيغة المضارع.",
+          "similar_examples": [
+            "work → works",
+            "play → plays",
+            "help → helps"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a588fd2e-0adf-4cb8-b54f-5fba9d477a18",
+    "word": "sustainable",
+    "word_family": [
+      {
+        "word": "sustain",
+        "pos": "verb",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "sustainable",
+        "pos": "adjective",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-able",
+          "affix_type": "suffix",
+          "base_word": "sustain",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -able تُضاف على الفعل لتكوين صفة تدل على قابلية الشيء لحدوث الفعل عليه.",
+          "similar_examples": [
+            "manage → manageable",
+            "predict → predictable",
+            "enjoy → enjoyable"
+          ]
+        }
+      },
+      {
+        "word": "sustainability",
+        "pos": "noun",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ity",
+          "affix_type": "suffix",
+          "base_word": "sustainable",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ity تُضاف على الصفة لتكوين اسم مجرد يدل على الخاصية أو الحالة، مع حذف الـ e النهائية.",
+          "similar_examples": [
+            "able → ability",
+            "responsible → responsibility",
+            "possible → possibility"
+          ]
+        }
+      },
+      {
+        "word": "unsustainable",
+        "pos": "adjective",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": true,
+        "morphology": {
+          "affix": "un-",
+          "affix_type": "prefix",
+          "base_word": "sustainable",
+          "base_pos": "adjective",
+          "rule_ar": "البادئة un- تُضاف على الصفة لتكوين معنى معاكس أو نفي للصفة الأصلية.",
+          "similar_examples": [
+            "stable → unstable",
+            "able → unable",
+            "stoppable → unstoppable"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "ab9aeb07-2f55-47fc-9e73-7681bf620a37",
+    "word": "talented",
+    "word_family": [
+      {
+        "word": "talent",
+        "pos": "noun",
+        "level": 1,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الاسم الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "talented",
+        "pos": "adjective",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ed",
+          "affix_type": "suffix",
+          "base_word": "talent",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -ed تُضاف على الاسم لتكوين صفة تدل على امتلاك ما يشير إليه الاسم.",
+          "similar_examples": [
+            "skill → skilled",
+            "gift → gifted",
+            "experience → experienced"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a28da673-d511-4914-af34-d8fca82fe060",
+    "word": "address",
+    "word_family": [
+      {
+        "word": "address",
+        "pos": "verb",
+        "level": 2,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — تستخدم فعلاً واسماً وتشتق منها باقي العائلة"
+        }
+      }
+    ]
+  },
+  {
+    "id": "9bda657c-cbf1-4a63-8bd3-8957064d5b25",
+    "word": "adjusts",
+    "word_family": [
+      {
+        "word": "adjust",
+        "pos": "verb",
+        "level": 2,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "adjusts",
+        "pos": "verb",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-s",
+          "affix_type": "suffix",
+          "base_word": "adjust",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -s تُضاف على الفعل مع ضمير الغائب المفرد في صيغة المضارع.",
+          "similar_examples": [
+            "work → works",
+            "play → plays",
+            "help → helps"
+          ]
+        }
+      },
+      {
+        "word": "adjustment",
+        "pos": "noun",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ment",
+          "affix_type": "suffix",
+          "base_word": "adjust",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ment تُضاف على الفعل لتكوين اسم يدل على نتيجة الفعل أو عمليته.",
+          "similar_examples": [
+            "develop → development",
+            "agree → agreement",
+            "state → statement"
+          ]
+        }
+      },
+      {
+        "word": "adjustable",
+        "pos": "adjective",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-able",
+          "affix_type": "suffix",
+          "base_word": "adjust",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -able تُضاف على الفعل لتكوين صفة تدل على قابلية الشيء لحدوث الفعل عليه.",
+          "similar_examples": [
+            "manage → manageable",
+            "predict → predictable",
+            "enjoy → enjoyable"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a9482f22-2bc6-4800-af1f-a8527effefd3",
+    "word": "consumption",
+    "word_family": [
+      {
+        "word": "consume",
+        "pos": "verb",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "consumption",
+        "pos": "noun",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ption",
+          "affix_type": "suffix",
+          "base_word": "consume",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ption تُضاف على الأفعال المنتهية بـ -ume لتكوين اسم يدل على عملية الفعل.",
+          "similar_examples": [
+            "assume → assumption",
+            "resume → resumption",
+            "presume → presumption"
+          ]
+        }
+      },
+      {
+        "word": "consumer",
+        "pos": "noun",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-r",
+          "affix_type": "suffix",
+          "base_word": "consume",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -r تُضاف على الفعل المنتهي بـ e لتكوين اسم يدل على من يقوم بالفعل.",
+          "similar_examples": [
+            "write → writer",
+            "drive → driver",
+            "produce → producer"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a0c3e64c-d482-41ec-95c0-f5fab00336f2",
+    "word": "disconnect",
+    "word_family": [
+      {
+        "word": "connect",
+        "pos": "verb",
+        "level": 1,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "disconnect",
+        "pos": "verb",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": true,
+        "morphology": {
+          "affix": "dis-",
+          "affix_type": "prefix",
+          "base_word": "connect",
+          "base_pos": "verb",
+          "rule_ar": "البادئة dis- تُضاف على الفعل لتكوين فعل معاكس في المعنى يدل على إلغاء أو عكس الفعل.",
+          "similar_examples": [
+            "appear → disappear",
+            "agree → disagree",
+            "approve → disapprove"
+          ]
+        }
+      },
+      {
+        "word": "connection",
+        "pos": "noun",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ion",
+          "affix_type": "suffix",
+          "base_word": "connect",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ion تُضاف على الفعل لتكوين اسم يدل على عملية الفعل أو نتيجته.",
+          "similar_examples": [
+            "act → action",
+            "select → selection",
+            "inject → injection"
+          ]
+        }
+      },
+      {
+        "word": "disconnection",
+        "pos": "noun",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": true,
+        "morphology": {
+          "affix": "dis-",
+          "affix_type": "prefix",
+          "base_word": "connection",
+          "base_pos": "noun",
+          "rule_ar": "البادئة dis- تُضاف على الاسم لتكوين معنى معاكس أو انقطاع لما يشير إليه الاسم.",
+          "similar_examples": [
+            "agreement → disagreement",
+            "order → disorder",
+            "approval → disapproval"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "9e10925d-f1f9-40b6-9ffa-126679fa2ced",
+    "word": "harvest",
+    "word_family": [
+      {
+        "word": "harvest",
+        "pos": "verb",
+        "level": 2,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — تستخدم فعلاً واسماً وتشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "harvester",
+        "pos": "noun",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-er",
+          "affix_type": "suffix",
+          "base_word": "harvest",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -er تُضاف على الفعل لتكوين اسم يدل على من أو ما يقوم بالفعل.",
+          "similar_examples": [
+            "work → worker",
+            "farm → farmer",
+            "teach → teacher"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "b274a953-5c0d-46e4-8197-9c404cf08ea3",
+    "word": "implementing",
+    "word_family": [
+      {
+        "word": "implement",
+        "pos": "verb",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — تستخدم فعلاً واسماً وتشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "implementing",
+        "pos": "verb",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ing",
+          "affix_type": "suffix",
+          "base_word": "implement",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ing تُضاف على الفعل لتكوين صيغة المضارع المستمر أو اسم الفاعل.",
+          "similar_examples": [
+            "work → working",
+            "play → playing",
+            "develop → developing"
+          ]
+        }
+      },
+      {
+        "word": "implementation",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ation",
+          "affix_type": "suffix",
+          "base_word": "implement",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ation تُضاف على الفعل لتكوين اسم يدل على عملية الفعل أو تطبيقه.",
+          "similar_examples": [
+            "inform → information",
+            "prepare → preparation",
+            "present → presentation"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "9cbb853f-a74d-45e3-a056-e6c98061dba2",
+    "word": "leading",
+    "word_family": [
+      {
+        "word": "lead",
+        "pos": "verb",
+        "level": 1,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "leading",
+        "pos": "adjective",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ing",
+          "affix_type": "suffix",
+          "base_word": "lead",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ing تُضاف على الفعل لتكوين صفة تصف الشيء الذي يقوم بالفعل.",
+          "similar_examples": [
+            "follow → following",
+            "grow → growing",
+            "rise → rising"
+          ]
+        }
+      },
+      {
+        "word": "leader",
+        "pos": "noun",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-er",
+          "affix_type": "suffix",
+          "base_word": "lead",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -er تُضاف على الفعل لتكوين اسم يدل على من يقوم بالفعل.",
+          "similar_examples": [
+            "teach → teacher",
+            "work → worker",
+            "play → player"
+          ]
+        }
+      },
+      {
+        "word": "leadership",
+        "pos": "noun",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ship",
+          "affix_type": "suffix",
+          "base_word": "leader",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -ship تُضاف على الاسم لتكوين اسم مجرد يدل على الحالة أو المنصب.",
+          "similar_examples": [
+            "friend → friendship",
+            "member → membership",
+            "partner → partnership"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "9f3407f3-d8fb-4d26-be21-a3fa7e2c2968",
+    "word": "overwhelmed",
+    "word_family": [
+      {
+        "word": "overwhelm",
+        "pos": "verb",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "overwhelmed",
+        "pos": "adjective",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ed",
+          "affix_type": "suffix",
+          "base_word": "overwhelm",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ed تُضاف على الفعل لتكوين صفة تصف الحالة الناتجة عن الفعل.",
+          "similar_examples": [
+            "tire → tired",
+            "excite → excited",
+            "confuse → confused"
+          ]
+        }
+      },
+      {
+        "word": "overwhelming",
+        "pos": "adjective",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ing",
+          "affix_type": "suffix",
+          "base_word": "overwhelm",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ing تُضاف على الفعل لتكوين صفة تصف الشيء الذي يسبب الحالة.",
+          "similar_examples": [
+            "tire → tiring",
+            "excite → exciting",
+            "confuse → confusing"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a3fd79bb-22b7-4fae-bb73-a8993ee7de87",
+    "word": "perspectives",
+    "word_family": [
+      {
+        "word": "perspective",
+        "pos": "noun",
+        "level": 2,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية المفردة — الاسم الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "perspectives",
+        "pos": "noun",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-s",
+          "affix_type": "suffix",
+          "base_word": "perspective",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -s تُضاف على الاسم المفرد لتكوين صيغة الجمع.",
+          "similar_examples": [
+            "view → views",
+            "idea → ideas",
+            "opinion → opinions"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "b2a2b462-666c-4682-aa7b-f7e32d4b429c",
+    "word": "murals",
+    "word_family": [
+      {
+        "word": "mural",
+        "pos": "noun",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية المفردة — الاسم الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "murals",
+        "pos": "noun",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-s",
+          "affix_type": "suffix",
+          "base_word": "mural",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -s تُضاف على الاسم المفرد لتكوين صيغة الجمع.",
+          "similar_examples": [
+            "wall → walls",
+            "painting → paintings",
+            "picture → pictures"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "ad7da832-f784-469f-a11a-0280f6a0dcc7",
+    "word": "species",
+    "word_family": [
+      {
+        "word": "species",
+        "pos": "noun",
+        "level": 2,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — اسم مفرده وجمعه على نفس الصيغة"
+        }
+      }
+    ]
+  },
+  {
+    "id": "b1fedbf0-45ad-4e75-83f2-2c0a3a5b034d",
+    "word": "strengthened",
+    "word_family": [
+      {
+        "word": "strong",
+        "pos": "adjective",
+        "level": 0,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الصفة التي تشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "strength",
+        "pos": "noun",
+        "level": 1,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-th",
+          "affix_type": "suffix",
+          "base_word": "strong",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -th تُضاف على الصفة لتكوين اسم مجرد يدل على الخاصية، مع تغيير الحركة.",
+          "similar_examples": [
+            "long → length",
+            "wide → width",
+            "deep → depth"
+          ]
+        }
+      },
+      {
+        "word": "strengthen",
+        "pos": "verb",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-en",
+          "affix_type": "suffix",
+          "base_word": "strength",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -en تُضاف على الاسم لتكوين فعل يدل على جعل الشيء قوياً.",
+          "similar_examples": [
+            "length → lengthen",
+            "weak → weaken",
+            "hard → harden"
+          ]
+        }
+      },
+      {
+        "word": "strengthened",
+        "pos": "verb",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ed",
+          "affix_type": "suffix",
+          "base_word": "strengthen",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ed تُضاف على الفعل لتكوين صيغة الماضي أو التصريف الثالث.",
+          "similar_examples": [
+            "work → worked",
+            "play → played",
+            "walk → walked"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a0630c85-aa96-4de2-955c-bb0c0585e54c",
+    "word": "threaten",
+    "word_family": [
+      {
+        "word": "threat",
+        "pos": "noun",
+        "level": 2,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الاسم الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "threaten",
+        "pos": "verb",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-en",
+          "affix_type": "suffix",
+          "base_word": "threat",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -en تُضاف على الاسم لتكوين فعل يدل على القيام بما يشير إليه الاسم.",
+          "similar_examples": [
+            "fright → frighten",
+            "length → lengthen",
+            "strength → strengthen"
+          ]
+        }
+      },
+      {
+        "word": "threatening",
+        "pos": "adjective",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ing",
+          "affix_type": "suffix",
+          "base_word": "threaten",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ing تُضاف على الفعل لتكوين صفة تصف الشيء الذي يسبب الحالة.",
+          "similar_examples": [
+            "frighten → frightening",
+            "terrify → terrifying",
+            "alarm → alarming"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a9ee1ba4-d188-48de-8f37-eb7e2b45cf2b",
+    "word": "transform",
+    "word_family": [
+      {
+        "word": "transform",
+        "pos": "verb",
+        "level": 2,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "transformation",
+        "pos": "noun",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ation",
+          "affix_type": "suffix",
+          "base_word": "transform",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ation تُضاف على الفعل لتكوين اسم يدل على عملية الفعل أو نتيجته.",
+          "similar_examples": [
+            "inform → information",
+            "explore → exploration",
+            "prepare → preparation"
+          ]
+        }
+      },
+      {
+        "word": "transformative",
+        "pos": "adjective",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ative",
+          "affix_type": "suffix",
+          "base_word": "transform",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ative تُضاف على الفعل لتكوين صفة تدل على الاتصاف بالفعل أو القدرة عليه.",
+          "similar_examples": [
+            "inform → informative",
+            "create → creative",
+            "talk → talkative"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "9f1349a2-4861-4c0e-bb35-b79440a92ad3",
+    "word": "transport",
+    "word_family": [
+      {
+        "word": "transport",
+        "pos": "verb",
+        "level": 2,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — تستخدم فعلاً واسماً وتشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "transportation",
+        "pos": "noun",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ation",
+          "affix_type": "suffix",
+          "base_word": "transport",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ation تُضاف على الفعل لتكوين اسم يدل على عملية الفعل أو وسيلته.",
+          "similar_examples": [
+            "inform → information",
+            "prepare → preparation",
+            "present → presentation"
+          ]
+        }
+      },
+      {
+        "word": "transporter",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-er",
+          "affix_type": "suffix",
+          "base_word": "transport",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -er تُضاف على الفعل لتكوين اسم يدل على من أو ما يقوم بالفعل.",
+          "similar_examples": [
+            "work → worker",
+            "drive → driver",
+            "teach → teacher"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "9db04cd0-0040-4922-8ea8-4bf8a8554751",
+    "word": "utilize",
+    "word_family": [
+      {
+        "word": "utilize",
+        "pos": "verb",
+        "level": 2,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "utilization",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ation",
+          "affix_type": "suffix",
+          "base_word": "utilize",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ation تُضاف على الفعل لتكوين اسم يدل على عملية الفعل، مع حذف الـ e النهائية.",
+          "similar_examples": [
+            "organize → organization",
+            "realize → realization",
+            "modernize → modernization"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "9c3c3ea0-dc42-45f3-8261-1bb41f566568",
+    "word": "vanished",
+    "word_family": [
+      {
+        "word": "vanish",
+        "pos": "verb",
+        "level": 2,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "vanished",
+        "pos": "verb",
+        "level": 2,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ed",
+          "affix_type": "suffix",
+          "base_word": "vanish",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ed تُضاف على الفعل لتكوين صيغة الماضي أو التصريف الثالث.",
+          "similar_examples": [
+            "finish → finished",
+            "push → pushed",
+            "wash → washed"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a08a33d3-7e86-4018-814d-d1c569bf746c",
+    "word": "ingredients",
+    "word_family": [
+      {
+        "word": "ingredient",
+        "pos": "noun",
+        "level": 1,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية المفردة — الاسم الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "ingredients",
+        "pos": "noun",
+        "level": 0,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-s",
+          "affix_type": "suffix",
+          "base_word": "ingredient",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -s تُضاف على الاسم المفرد لتكوين صيغة الجمع.",
+          "similar_examples": [
+            "book → books",
+            "item → items",
+            "part → parts"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "9f481497-b612-4490-a115-52ee8c284c61",
+    "word": "lens",
+    "word_family": [
+      {
+        "word": "lens",
+        "pos": "noun",
+        "level": 1,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الاسم الذي لا تشتق منه عائلة واسعة"
+        }
+      }
+    ]
+  },
+  {
+    "id": "a9c0cb88-5c45-45f8-a6e8-92dc1d59f7ec",
+    "word": "temperature",
+    "word_family": [
+      {
+        "word": "temperature",
+        "pos": "noun",
+        "level": 0,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الاسم الذي تشتق منه باقي العائلة"
+        }
+      }
+    ]
+  },
+  {
+    "id": "b1963f19-c69a-4e0b-9dbc-f8bf44eb57ab",
+    "word": "accommodate",
+    "word_family": [
+      {
+        "word": "accommodate",
+        "pos": "verb",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "accommodation",
+        "pos": "noun",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ation",
+          "affix_type": "suffix",
+          "base_word": "accommodate",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ation تُضاف على الفعل لتكوين اسم يدل على عملية الفعل أو نتيجته، مع حذف الـ e النهائية.",
+          "similar_examples": [
+            "inform → information",
+            "prepare → preparation",
+            "explore → exploration"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a9fe235b-cae0-45be-befb-b514f008256e",
+    "word": "adhere",
+    "word_family": [
+      {
+        "word": "adhere",
+        "pos": "verb",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "adherence",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ence",
+          "affix_type": "suffix",
+          "base_word": "adhere",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ence تُضاف على الفعل لتكوين اسم مجرد يدل على حالة أو صفة ناتجة عن الفعل.",
+          "similar_examples": [
+            "differ → difference",
+            "exist → existence",
+            "depend → dependence"
+          ]
+        }
+      },
+      {
+        "word": "adherent",
+        "pos": "noun",
+        "level": 5,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ent",
+          "affix_type": "suffix",
+          "base_word": "adhere",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ent تُضاف على الفعل لتكوين اسم يدل على من يقوم بالفعل أو يتبنى الموقف.",
+          "similar_examples": [
+            "depend → dependent",
+            "reside → resident",
+            "preside → president"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "9e5827ca-a7f0-4470-b1ab-db77cc8ecd48",
+    "word": "beneficial",
+    "word_family": [
+      {
+        "word": "benefit",
+        "pos": "noun",
+        "level": 2,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — تستخدم اسماً وفعلاً وتشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "beneficial",
+        "pos": "adjective",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ial",
+          "affix_type": "suffix",
+          "base_word": "benefit",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -ial تُضاف على الاسم لتكوين صفة تدل على الاتصاف بما يشير إليه الاسم.",
+          "similar_examples": [
+            "face → facial",
+            "office → official",
+            "finance → financial"
+          ]
+        }
+      },
+      {
+        "word": "beneficially",
+        "pos": "adverb",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ly",
+          "affix_type": "suffix",
+          "base_word": "beneficial",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ly تُضاف على الصفة لتكوين ظرف يصف كيفية حدوث الفعل.",
+          "similar_examples": [
+            "official → officially",
+            "financial → financially",
+            "special → specially"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "9cfdcbf1-32f2-4d66-b280-33b011cfacbe",
+    "word": "compelling",
+    "word_family": [
+      {
+        "word": "compel",
+        "pos": "verb",
+        "level": 4,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "compelling",
+        "pos": "adjective",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ing",
+          "affix_type": "suffix",
+          "base_word": "compel",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ing تُضاف على الفعل لتكوين صفة تصف الشيء الذي يُحدث الأثر، مع مضاعفة الحرف الساكن.",
+          "similar_examples": [
+            "begin → beginning",
+            "run → running",
+            "swim → swimming"
+          ]
+        }
+      },
+      {
+        "word": "compulsion",
+        "pos": "noun",
+        "level": 5,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-sion",
+          "affix_type": "suffix",
+          "base_word": "compel",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -sion تُضاف على الفعل لتكوين اسم يدل على نتيجة الفعل، مع تغيير جذر الفعل.",
+          "similar_examples": [
+            "expel → expulsion",
+            "repel → repulsion",
+            "impel → impulsion"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a44a280f-dcb4-4ddb-b92c-f2eb8e64cfa9",
+    "word": "configured",
+    "word_family": [
+      {
+        "word": "configure",
+        "pos": "verb",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "configured",
+        "pos": "adjective",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-d",
+          "affix_type": "suffix",
+          "base_word": "configure",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -d تُضاف على الفعل المنتهي بـ e لتكوين صفة تصف الحالة الناتجة عن الفعل.",
+          "similar_examples": [
+            "close → closed",
+            "complete → completed",
+            "prepare → prepared"
+          ]
+        }
+      },
+      {
+        "word": "configuration",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ation",
+          "affix_type": "suffix",
+          "base_word": "configure",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ation تُضاف على الفعل لتكوين اسم يدل على عملية الفعل أو نتيجته.",
+          "similar_examples": [
+            "inform → information",
+            "prepare → preparation",
+            "explore → exploration"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a43e603b-35cb-4bd1-824d-5322a65ec26b",
+    "word": "cope",
+    "word_family": [
+      {
+        "word": "cope",
+        "pos": "verb",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      }
+    ]
+  },
+  {
+    "id": "a0f74aa3-d923-40ea-b523-9b1b42381d7d",
+    "word": "demonstrate",
+    "word_family": [
+      {
+        "word": "demonstrate",
+        "pos": "verb",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "demonstration",
+        "pos": "noun",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ion",
+          "affix_type": "suffix",
+          "base_word": "demonstrate",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ion تُضاف على الفعل لتكوين اسم يدل على عملية الفعل أو نتيجته، مع حذف الـ e النهائية.",
+          "similar_examples": [
+            "create → creation",
+            "operate → operation",
+            "educate → education"
+          ]
+        }
+      },
+      {
+        "word": "demonstrative",
+        "pos": "adjective",
+        "level": 5,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ive",
+          "affix_type": "suffix",
+          "base_word": "demonstrate",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ive تُضاف على الفعل لتكوين صفة تدل على الاتصاف بالفعل أو الميل إليه.",
+          "similar_examples": [
+            "create → creative",
+            "act → active",
+            "effect → effective"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "aaa9ea02-ca37-4fec-91a1-78677d121c8f",
+    "word": "embarked",
+    "word_family": [
+      {
+        "word": "embark",
+        "pos": "verb",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "embarked",
+        "pos": "verb",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ed",
+          "affix_type": "suffix",
+          "base_word": "embark",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ed تُضاف على الفعل لتكوين صيغة الماضي أو التصريف الثالث.",
+          "similar_examples": [
+            "work → worked",
+            "park → parked",
+            "mark → marked"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a0d9cccd-9540-45c7-828a-1c37470a7ef5",
+    "word": "emphasizes",
+    "word_family": [
+      {
+        "word": "emphasize",
+        "pos": "verb",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "emphasizes",
+        "pos": "verb",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-s",
+          "affix_type": "suffix",
+          "base_word": "emphasize",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -s تُضاف على الفعل مع ضمير الغائب المفرد في صيغة المضارع.",
+          "similar_examples": [
+            "realize → realizes",
+            "organize → organizes",
+            "recognize → recognizes"
+          ]
+        }
+      },
+      {
+        "word": "emphasis",
+        "pos": "noun",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "irregular": true,
+          "affix": null,
+          "base_word": "emphasize",
+          "base_pos": "verb",
+          "note_ar": "الاسم يأتي من أصل يوناني، والفعل اشتق منه بإضافة -ize، ثم يعودان ليتبادلا في الاستخدام.",
+          "similar_examples": [
+            "analyze → analysis",
+            "hypothesize → hypothesis",
+            "synthesize → synthesis"
+          ]
+        }
+      },
+      {
+        "word": "emphatic",
+        "pos": "adjective",
+        "level": 5,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-atic",
+          "affix_type": "suffix",
+          "base_word": "emphasis",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -atic تُضاف على الاسم لتكوين صفة تدل على الاتصاف بما يشير إليه الاسم.",
+          "similar_examples": [
+            "system → systematic",
+            "drama → dramatic",
+            "problem → problematic"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a4d72fc7-1320-40d4-b41f-282cfbf24aff",
+    "word": "enhancing",
+    "word_family": [
+      {
+        "word": "enhance",
+        "pos": "verb",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "enhancing",
+        "pos": "verb",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ing",
+          "affix_type": "suffix",
+          "base_word": "enhance",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ing تُضاف على الفعل لتكوين صيغة المضارع المستمر أو اسم الفاعل، مع حذف الـ e النهائية.",
+          "similar_examples": [
+            "dance → dancing",
+            "write → writing",
+            "make → making"
+          ]
+        }
+      },
+      {
+        "word": "enhancement",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ment",
+          "affix_type": "suffix",
+          "base_word": "enhance",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ment تُضاف على الفعل لتكوين اسم يدل على نتيجة الفعل أو عمليته.",
+          "similar_examples": [
+            "develop → development",
+            "achieve → achievement",
+            "advance → advancement"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "ae714c87-5984-4109-a1f9-69cc1485878f",
+    "word": "estimate",
+    "word_family": [
+      {
+        "word": "estimate",
+        "pos": "verb",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — تستخدم فعلاً واسماً وتشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "estimation",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ion",
+          "affix_type": "suffix",
+          "base_word": "estimate",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ion تُضاف على الفعل لتكوين اسم يدل على عملية الفعل أو نتيجته، مع حذف الـ e النهائية.",
+          "similar_examples": [
+            "create → creation",
+            "operate → operation",
+            "educate → education"
+          ]
+        }
+      },
+      {
+        "word": "overestimate",
+        "pos": "verb",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "over-",
+          "affix_type": "prefix",
+          "base_word": "estimate",
+          "base_pos": "verb",
+          "rule_ar": "البادئة over- تُضاف على الفعل لتكوين معنى المبالغة أو تجاوز الحد.",
+          "similar_examples": [
+            "work → overwork",
+            "eat → overeat",
+            "pay → overpay"
+          ]
+        }
+      },
+      {
+        "word": "underestimate",
+        "pos": "verb",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": true,
+        "morphology": {
+          "affix": "under-",
+          "affix_type": "prefix",
+          "base_word": "estimate",
+          "base_pos": "verb",
+          "rule_ar": "البادئة under- تُضاف على الفعل لتكوين معنى التقليل أو النقص عن الحد المطلوب.",
+          "similar_examples": [
+            "pay → underpay",
+            "value → undervalue",
+            "rate → underrate"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a836785e-e45d-4abe-b4b5-dc2c4767caeb",
+    "word": "feasible",
+    "word_family": [
+      {
+        "word": "feasible",
+        "pos": "adjective",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الصفة التي تشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "feasibility",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ity",
+          "affix_type": "suffix",
+          "base_word": "feasible",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ity تُضاف على الصفة لتكوين اسم مجرد يدل على الخاصية أو الحالة، مع حذف الـ e النهائية.",
+          "similar_examples": [
+            "able → ability",
+            "responsible → responsibility",
+            "possible → possibility"
+          ]
+        }
+      },
+      {
+        "word": "infeasible",
+        "pos": "adjective",
+        "level": 5,
+        "is_base": false,
+        "is_opposite": true,
+        "morphology": {
+          "affix": "in-",
+          "affix_type": "prefix",
+          "base_word": "feasible",
+          "base_pos": "adjective",
+          "rule_ar": "البادئة in- تُضاف على الصفة لتكوين معنى معاكس أو نفي للصفة الأصلية.",
+          "similar_examples": [
+            "visible → invisible",
+            "capable → incapable",
+            "correct → incorrect"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "9eed5279-5ed6-4e86-ab7b-7b11b20754c9",
+    "word": "interfere",
+    "word_family": [
+      {
+        "word": "interfere",
+        "pos": "verb",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "interference",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ence",
+          "affix_type": "suffix",
+          "base_word": "interfere",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ence تُضاف على الفعل لتكوين اسم مجرد يدل على حالة أو فعل، مع حذف الـ e النهائية.",
+          "similar_examples": [
+            "differ → difference",
+            "exist → existence",
+            "depend → dependence"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "abc1fba2-787e-496b-8c4e-ac41f38f6aa9",
+    "word": "maintain",
+    "word_family": [
+      {
+        "word": "maintain",
+        "pos": "verb",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "maintenance",
+        "pos": "noun",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ance",
+          "affix_type": "suffix",
+          "base_word": "maintain",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ance تُضاف على الفعل لتكوين اسم يدل على عملية الفعل أو نتيجته، مع تعديل في الجذر.",
+          "similar_examples": [
+            "appear → appearance",
+            "accept → acceptance",
+            "enter → entrance"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a5b28520-56ba-4ac1-aff8-dfcfa952a1df",
+    "word": "manipulate",
+    "word_family": [
+      {
+        "word": "manipulate",
+        "pos": "verb",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "manipulation",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ion",
+          "affix_type": "suffix",
+          "base_word": "manipulate",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ion تُضاف على الفعل لتكوين اسم يدل على عملية الفعل أو نتيجته، مع حذف الـ e النهائية.",
+          "similar_examples": [
+            "create → creation",
+            "operate → operation",
+            "regulate → regulation"
+          ]
+        }
+      },
+      {
+        "word": "manipulative",
+        "pos": "adjective",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ive",
+          "affix_type": "suffix",
+          "base_word": "manipulate",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ive تُضاف على الفعل لتكوين صفة تدل على الاتصاف بالفعل أو الميل إليه.",
+          "similar_examples": [
+            "create → creative",
+            "act → active",
+            "effect → effective"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a8881894-e534-4a05-aba7-88095f61a7a0",
+    "word": "overcome",
+    "word_family": [
+      {
+        "word": "come",
+        "pos": "verb",
+        "level": 0,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "overcome",
+        "pos": "verb",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "over-",
+          "affix_type": "prefix",
+          "base_word": "come",
+          "base_pos": "verb",
+          "rule_ar": "البادئة over- تُضاف على الفعل لتكوين معنى التغلب أو التفوق على الشيء.",
+          "similar_examples": [
+            "take → overtake",
+            "throw → overthrow",
+            "look → overlook"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a5009180-ea5d-41c3-900f-445a93045a55",
+    "word": "perplex",
+    "word_family": [
+      {
+        "word": "perplex",
+        "pos": "verb",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "perplexed",
+        "pos": "adjective",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ed",
+          "affix_type": "suffix",
+          "base_word": "perplex",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ed تُضاف على الفعل لتكوين صفة تصف الحالة الناتجة عن الفعل.",
+          "similar_examples": [
+            "confuse → confused",
+            "puzzle → puzzled",
+            "bewilder → bewildered"
+          ]
+        }
+      },
+      {
+        "word": "perplexing",
+        "pos": "adjective",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ing",
+          "affix_type": "suffix",
+          "base_word": "perplex",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ing تُضاف على الفعل لتكوين صفة تصف الشيء الذي يسبب الحالة.",
+          "similar_examples": [
+            "confuse → confusing",
+            "puzzle → puzzling",
+            "bewilder → bewildering"
+          ]
+        }
+      },
+      {
+        "word": "perplexity",
+        "pos": "noun",
+        "level": 5,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ity",
+          "affix_type": "suffix",
+          "base_word": "perplex",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ity تُضاف هنا لتكوين اسم مجرد يدل على حالة الحيرة أو الخاصية.",
+          "similar_examples": [
+            "able → ability",
+            "complex → complexity",
+            "pure → purity"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "9eef870c-1278-4125-a8bf-ea467058a513",
+    "word": "supplement",
+    "word_family": [
+      {
+        "word": "supplement",
+        "pos": "noun",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — تستخدم اسماً وفعلاً وتشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "supplementary",
+        "pos": "adjective",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ary",
+          "affix_type": "suffix",
+          "base_word": "supplement",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -ary تُضاف على الاسم لتكوين صفة تدل على الاتصاف بما يشير إليه الاسم.",
+          "similar_examples": [
+            "element → elementary",
+            "moment → momentary",
+            "caution → cautionary"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "ae776800-cb9c-471a-b9c9-7b4f7f4f743e",
+    "word": "transcend",
+    "word_family": [
+      {
+        "word": "transcend",
+        "pos": "verb",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "transcendent",
+        "pos": "adjective",
+        "level": 5,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ent",
+          "affix_type": "suffix",
+          "base_word": "transcend",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ent تُضاف على الفعل فتحوّله إلى صفة تصف من يقوم بالفعل أو ما يتصف به.",
+          "similar_examples": [
+            "depend → dependent",
+            "differ → different",
+            "persist → persistent"
+          ]
+        }
+      },
+      {
+        "word": "transcendence",
+        "pos": "noun",
+        "level": 5,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ence",
+          "affix_type": "suffix",
+          "base_word": "transcend",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ence تُضاف على الفعل لتكوين اسم مجرد يدل على حالة أو صفة.",
+          "similar_examples": [
+            "exist → existence",
+            "differ → difference",
+            "depend → dependence"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "afb02776-0ff1-4c11-8151-b8432c07b95a",
+    "word": "utilize",
+    "word_family": [
+      {
+        "word": "utilize",
+        "pos": "verb",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "utility",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ity",
+          "affix_type": "suffix",
+          "base_word": "utile",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ity تُضاف على الصفة لتكوين اسم مجرد يدل على الخاصية أو المنفعة.",
+          "similar_examples": [
+            "able → ability",
+            "pure → purity",
+            "real → reality"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "b0ed0523-1f00-404d-a2bc-2c8c5adc8c47",
+    "word": "adaptive",
+    "word_family": [
+      {
+        "word": "adapt",
+        "pos": "verb",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "adaptive",
+        "pos": "adjective",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ive",
+          "affix_type": "suffix",
+          "base_word": "adapt",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ive تُضاف على الفعل لتكوين صفة تدل على الاتصاف بالفعل أو القدرة عليه.",
+          "similar_examples": [
+            "act → active",
+            "create → creative",
+            "effect → effective"
+          ]
+        }
+      },
+      {
+        "word": "adaptation",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ation",
+          "affix_type": "suffix",
+          "base_word": "adapt",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ation تُضاف على الفعل لتكوين اسم يدل على عملية الفعل أو نتيجته.",
+          "similar_examples": [
+            "inform → information",
+            "prepare → preparation",
+            "explore → exploration"
+          ]
+        }
+      },
+      {
+        "word": "adaptable",
+        "pos": "adjective",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-able",
+          "affix_type": "suffix",
+          "base_word": "adapt",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -able تُضاف على الفعل لتكوين صفة تدل على قابلية الشيء لحدوث الفعل.",
+          "similar_examples": [
+            "manage → manageable",
+            "predict → predictable",
+            "enjoy → enjoyable"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a4d8dc20-3eba-443f-8e47-bfbee21e084e",
+    "word": "anticipate",
+    "word_family": [
+      {
+        "word": "anticipate",
+        "pos": "verb",
+        "level": 4,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "anticipation",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ion",
+          "affix_type": "suffix",
+          "base_word": "anticipate",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ion تُضاف على الفعل لتكوين اسم يدل على عملية الفعل أو نتيجته، مع حذف الـ e النهائية.",
+          "similar_examples": [
+            "create → creation",
+            "operate → operation",
+            "educate → education"
+          ]
+        }
+      },
+      {
+        "word": "anticipatory",
+        "pos": "adjective",
+        "level": 5,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ory",
+          "affix_type": "suffix",
+          "base_word": "anticipate",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ory تُضاف على الفعل لتكوين صفة تدل على الاتصاف بالفعل أو الغرض منه.",
+          "similar_examples": [
+            "introduce → introductory",
+            "oblige → obligatory",
+            "regulate → regulatory"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "ac56a099-0866-46c1-9b62-c622a8784192",
+    "word": "breakthroughs",
+    "word_family": [
+      {
+        "word": "break",
+        "pos": "verb",
+        "level": 1,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "breakthrough",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": null,
+          "affix_type": "compound",
+          "base_word": "break",
+          "base_pos": "verb",
+          "rule_ar": "كلمة مركبة من break و through فتدل على الاختراق أو الإنجاز المفاجئ الذي يتجاوز العوائق.",
+          "similar_examples": [
+            "break + down → breakdown",
+            "break + up → breakup",
+            "break + out → breakout"
+          ]
+        }
+      },
+      {
+        "word": "breakthroughs",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-s",
+          "affix_type": "suffix",
+          "base_word": "breakthrough",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -s تُضاف على الاسم المفرد لتكوين صيغة الجمع.",
+          "similar_examples": [
+            "book → books",
+            "event → events",
+            "change → changes"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "af06f5de-d695-4cee-b316-acc1c3a460d3",
+    "word": "catalyze",
+    "word_family": [
+      {
+        "word": "catalyze",
+        "pos": "verb",
+        "level": 4,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "catalyst",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-yst",
+          "affix_type": "suffix",
+          "base_word": "catalyze",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -yst (أو -ist) تُضاف على الجذر لتكوين اسم يدل على الشيء الذي يقوم بالفعل.",
+          "similar_examples": [
+            "analyze → analyst",
+            "paralyze → paralyst",
+            "psychology → psychologist"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "ab281dd4-48bf-443c-9661-c51d67fd9f90",
+    "word": "cognitive",
+    "word_family": [
+      {
+        "word": "cognition",
+        "pos": "noun",
+        "level": 5,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الاسم الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "cognitive",
+        "pos": "adjective",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ive",
+          "affix_type": "suffix",
+          "base_word": "cognition",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -ive تُضاف على الاسم لتكوين صفة تدل على الانتماء أو الاتصال بما يشير إليه الاسم.",
+          "similar_examples": [
+            "intuition → intuitive",
+            "construct → constructive",
+            "perceive → perceptive"
+          ]
+        }
+      },
+      {
+        "word": "cognitively",
+        "pos": "adverb",
+        "level": 5,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ly",
+          "affix_type": "suffix",
+          "base_word": "cognitive",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ly تُضاف على الصفة لتكوين ظرف يصف كيفية حدوث الفعل.",
+          "similar_examples": [
+            "active → actively",
+            "effective → effectively",
+            "creative → creatively"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a763b7a4-0c17-4002-8fc6-26fb0df1708e",
+    "word": "complexity",
+    "word_family": [
+      {
+        "word": "complex",
+        "pos": "adjective",
+        "level": 2,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الصفة التي تشتق منها باقي العائلة"
+        }
+      },
+      {
+        "word": "complexity",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ity",
+          "affix_type": "suffix",
+          "base_word": "complex",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ity تُضاف على الصفة لتكوين اسم مجرد يدل على الخاصية أو الحالة.",
+          "similar_examples": [
+            "able → ability",
+            "pure → purity",
+            "real → reality"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "9fff7676-9cfd-4254-af7c-334c32503307",
+    "word": "emergence",
+    "word_family": [
+      {
+        "word": "emerge",
+        "pos": "verb",
+        "level": 3,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "emergence",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ence",
+          "affix_type": "suffix",
+          "base_word": "emerge",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ence تُضاف على الفعل لتكوين اسم مجرد يدل على حالة أو فعل، مع حذف الـ e النهائية.",
+          "similar_examples": [
+            "differ → difference",
+            "exist → existence",
+            "depend → dependence"
+          ]
+        }
+      },
+      {
+        "word": "emerging",
+        "pos": "adjective",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ing",
+          "affix_type": "suffix",
+          "base_word": "emerge",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ing تُضاف على الفعل لتكوين صفة تصف الشيء الذي يقوم بالفعل، مع حذف الـ e النهائية.",
+          "similar_examples": [
+            "rise → rising",
+            "grow → growing",
+            "develop → developing"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "ae44b978-1f3f-4980-a265-23b3973d8dab",
+    "word": "innovation",
+    "word_family": [
+      {
+        "word": "innovate",
+        "pos": "verb",
+        "level": 4,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "innovation",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ion",
+          "affix_type": "suffix",
+          "base_word": "innovate",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ion تُضاف على الفعل لتكوين اسم يدل على عملية الفعل أو نتيجته، مع حذف الـ e النهائية.",
+          "similar_examples": [
+            "create → creation",
+            "operate → operation",
+            "educate → education"
+          ]
+        }
+      },
+      {
+        "word": "innovative",
+        "pos": "adjective",
+        "level": 3,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ive",
+          "affix_type": "suffix",
+          "base_word": "innovate",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ive تُضاف على الفعل لتكوين صفة تدل على الاتصاف بالفعل أو الميل إليه.",
+          "similar_examples": [
+            "create → creative",
+            "act → active",
+            "effect → effective"
+          ]
+        }
+      },
+      {
+        "word": "innovator",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-or",
+          "affix_type": "suffix",
+          "base_word": "innovate",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -or تُضاف على الفعل لتكوين اسم يدل على من يقوم بالفعل.",
+          "similar_examples": [
+            "create → creator",
+            "invent → inventor",
+            "act → actor"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "9f9283e3-01ea-4237-b8eb-b9b07ac0e268",
+    "word": "integration",
+    "word_family": [
+      {
+        "word": "integrate",
+        "pos": "verb",
+        "level": 4,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الفعل الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "integration",
+        "pos": "noun",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ion",
+          "affix_type": "suffix",
+          "base_word": "integrate",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -ion تُضاف على الفعل لتكوين اسم يدل على عملية الفعل أو نتيجته، مع حذف الـ e النهائية.",
+          "similar_examples": [
+            "create → creation",
+            "operate → operation",
+            "educate → education"
+          ]
+        }
+      },
+      {
+        "word": "integrated",
+        "pos": "adjective",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-d",
+          "affix_type": "suffix",
+          "base_word": "integrate",
+          "base_pos": "verb",
+          "rule_ar": "اللاحقة -d تُضاف على الفعل المنتهي بـ e لتكوين صفة تصف الحالة الناتجة عن الفعل.",
+          "similar_examples": [
+            "close → closed",
+            "complete → completed",
+            "prepare → prepared"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "aaca8fb4-9781-415b-b636-9a7254ccf725",
+    "word": "fundamental",
+    "word_family": [
+      {
+        "word": "fundament",
+        "pos": "noun",
+        "level": 5,
+        "is_base": true,
+        "is_opposite": false,
+        "morphology": {
+          "is_base": true,
+          "note_ar": "الصيغة الأصلية — الاسم الذي تشتق منه باقي العائلة"
+        }
+      },
+      {
+        "word": "fundamental",
+        "pos": "adjective",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-al",
+          "affix_type": "suffix",
+          "base_word": "fundament",
+          "base_pos": "noun",
+          "rule_ar": "اللاحقة -al تُضاف على الاسم لتكوين صفة تدل على الاتصاف بما يشير إليه الاسم.",
+          "similar_examples": [
+            "culture → cultural",
+            "nature → natural",
+            "center → central"
+          ]
+        }
+      },
+      {
+        "word": "fundamentally",
+        "pos": "adverb",
+        "level": 4,
+        "is_base": false,
+        "is_opposite": false,
+        "morphology": {
+          "affix": "-ly",
+          "affix_type": "suffix",
+          "base_word": "fundamental",
+          "base_pos": "adjective",
+          "rule_ar": "اللاحقة -ly تُضاف على الصفة لتكوين ظرف يصف كيفية حدوث الفعل.",
+          "similar_examples": [
+            "natural → naturally",
+            "cultural → culturally",
+            "central → centrally"
+          ]
         }
       }
     ]

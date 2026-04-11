@@ -832,3 +832,130 @@
     -webkit-appearance: none;
   }
 }
+
+/* =========================================================
+   WordFamilySection — LIGHT THEME OVERRIDES
+   ========================================================= */
+.light .wf-section,
+[data-theme="frost-white"] .wf-section {
+  background: var(--glass-card);
+  border-color: var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+}
+.light .wf-section .text-slate-300,
+.light .wf-section .text-slate-400,
+[data-theme="frost-white"] .wf-section .text-slate-300,
+[data-theme="frost-white"] .wf-section .text-slate-400 {
+  color: var(--text-secondary);
+}
+.light .wf-section .text-slate-500,
+[data-theme="frost-white"] .wf-section .text-slate-500 {
+  color: var(--text-tertiary);
+}
+.light .wf-section .text-slate-100,
+.light .wf-section .text-slate-200,
+[data-theme="frost-white"] .wf-section .text-slate-100,
+[data-theme="frost-white"] .wf-section .text-slate-200 {
+  color: var(--text-primary);
+}
+.light .wf-section .border-slate-700,
+.light .wf-section .border-slate-800\/60,
+[data-theme="frost-white"] .wf-section .border-slate-700,
+[data-theme="frost-white"] .wf-section .border-slate-800\/60 {
+  border-color: var(--border-subtle);
+}
+.light .wf-section tr.hover\:bg-slate-800\/60:hover,
+[data-theme="frost-white"] .wf-section tr.hover\:bg-slate-800\/60:hover {
+  background-color: rgba(2, 132, 199, 0.06);
+}
+.light .wf-section .bg-sky-950\/40,
+[data-theme="frost-white"] .wf-section .bg-sky-950\/40 {
+  background-color: rgba(2, 132, 199, 0.08);
+}
+.light .wf-section .bg-slate-900\/60,
+[data-theme="frost-white"] .wf-section .bg-slate-900\/60 {
+  background-color: var(--surface-raised);
+  border-color: var(--border-subtle);
+}
+.light .wf-section .bg-slate-800,
+[data-theme="frost-white"] .wf-section .bg-slate-800 {
+  background-color: var(--surface-interactive);
+}
+.light .wf-section button.text-slate-400,
+[data-theme="frost-white"] .wf-section button.text-slate-400 {
+  color: var(--text-tertiary);
+}
+.light .wf-section button.text-slate-400:hover,
+[data-theme="frost-white"] .wf-section button.text-slate-400:hover {
+  color: var(--accent-gold);
+  background-color: rgba(180, 83, 9, 0.1);
+}
+.light .wf-section .bg-slate-800\/70,
+[data-theme="frost-white"] .wf-section .bg-slate-800\/70 {
+  background-color: var(--surface-interactive);
+}
+
+/* Morphology card — regular (light) */
+.light .wf-section .mt-2.rounded-xl.border.border-slate-700.bg-slate-900,
+[data-theme="frost-white"] .wf-section .mt-2.rounded-xl.border.border-slate-700.bg-slate-900 {
+  background: var(--surface-raised);
+  border-color: var(--border-subtle);
+  box-shadow: var(--shadow-md);
+}
+
+/* Morphology card — base (light) */
+.light .wf-section .border-sky-500\/30.bg-sky-950\/40,
+[data-theme="frost-white"] .wf-section .border-sky-500\/30.bg-sky-950\/40 {
+  background: rgba(2, 132, 199, 0.06);
+  border-color: rgba(2, 132, 199, 0.35);
+}
+
+/* Morphology card — irregular (light) */
+.light .wf-section .border-amber-700\/50.bg-amber-950\/30,
+[data-theme="frost-white"] .wf-section .border-amber-700\/50.bg-amber-950\/30 {
+  background: rgba(180, 83, 9, 0.06);
+  border-color: rgba(180, 83, 9, 0.35);
+}
+.light .wf-section .text-amber-100,
+.light .wf-section .text-amber-50,
+[data-theme="frost-white"] .wf-section .text-amber-100,
+[data-theme="frost-white"] .wf-section .text-amber-50 {
+  color: var(--text-primary);
+}
+.light .wf-section .text-amber-300,
+.light .wf-section .text-amber-400,
+.light .wf-section .text-amber-200\/70,
+[data-theme="frost-white"] .wf-section .text-amber-300,
+[data-theme="frost-white"] .wf-section .text-amber-400,
+[data-theme="frost-white"] .wf-section .text-amber-200\/70 {
+  color: var(--accent-gold);
+}
+
+/* Level badges — darken text on light for AAA contrast */
+.light .wf-section .text-emerald-300,
+[data-theme="frost-white"] .wf-section .text-emerald-300 {
+  color: #047857;
+}
+.light .wf-section .text-sky-300,
+[data-theme="frost-white"] .wf-section .text-sky-300 {
+  color: #0369a1;
+}
+.light .wf-section .text-amber-300:not(svg),
+[data-theme="frost-white"] .wf-section .text-amber-300:not(svg) {
+  color: #b45309;
+}
+.light .wf-section .text-orange-300,
+[data-theme="frost-white"] .wf-section .text-orange-300 {
+  color: #c2410c;
+}
+.light .wf-section .text-rose-300,
+[data-theme="frost-white"] .wf-section .text-rose-300 {
+  color: #be123c;
+}
+
+/* Mastered tag — darker emerald text on light */
+.light .wf-section .bg-emerald-500\/20.text-emerald-300,
+[data-theme="frost-white"] .wf-section .bg-emerald-500\/20.text-emerald-300 {
+  background-color: rgba(4, 120, 87, 0.12);
+  color: #047857;
+}

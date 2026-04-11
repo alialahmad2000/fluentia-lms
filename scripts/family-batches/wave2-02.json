@@ -1,0 +1,646 @@
+[
+  {
+    "id": "131e1f10-bf78-46e3-b860-b66d923bf2e2",
+    "word": "trajectory",
+    "level": "high_frequency",
+    "meaning_en": "The path or direction of development; a course of action or progress",
+    "meaning_ar": "مسار، اتجاه التطور، مسيرة التقدم"
+  },
+  {
+    "id": "627826d9-5e4f-4455-adf8-2ea51920ad7c",
+    "word": "recharge",
+    "level": "high_frequency",
+    "meaning_en": "to rest and get your energy back",
+    "meaning_ar": "يستعيد طاقته، يشحن نفسه، يرتاح"
+  },
+  {
+    "id": "8eb373c4-2b3e-4adc-9da5-a601b0128c84",
+    "word": "confluence",
+    "level": "high_frequency",
+    "meaning_en": "A situation where different things come together and combine",
+    "meaning_ar": "التقاء أو اجتماع أشياء مختلفة في مكان أو وقت واحد"
+  },
+  {
+    "id": "96cb50e3-d068-425a-94ae-a3a4b6b29b59",
+    "word": "surpasses",
+    "level": "high_frequency",
+    "meaning_en": "to be better than or exceed something in quality or achievement",
+    "meaning_ar": "يتفوق على، يفوق، يتجاوز"
+  },
+  {
+    "id": "85c606ce-a24d-4aa3-9fdd-7deb3300a4b7",
+    "word": "obstacle",
+    "level": "high_frequency",
+    "meaning_en": "something that blocks your way or prevents you from achieving something",
+    "meaning_ar": "عقبة، حاجز، عائق"
+  },
+  {
+    "id": "a695a57b-fa10-4175-894f-f030c4481a80",
+    "word": "blueprint",
+    "level": "high_frequency",
+    "meaning_en": "A detailed plan or model that can be followed to achieve something",
+    "meaning_ar": "مخطط، نموذج، خطة مفصلة"
+  },
+  {
+    "id": "f0ae9f48-8dc3-471d-9c67-5b378e0700bf",
+    "word": "setup",
+    "level": "high_frequency",
+    "meaning_en": "the process of organizing or arranging something, or the way something is organized",
+    "meaning_ar": "الإعداد، التركيب، التنظيم"
+  },
+  {
+    "id": "c35a90fd-896a-45f8-aecc-5a603d6a0b96",
+    "word": "paradigm",
+    "level": "high_frequency",
+    "meaning_en": "a typical example or pattern; a framework of ideas and beliefs that shapes how we understand something",
+    "meaning_ar": "نموذج، إطار فكري، مثال نمطي"
+  },
+  {
+    "id": "918b32db-3172-42fa-9fc3-826e05794c93",
+    "word": "sports",
+    "level": "high_frequency",
+    "meaning_en": "Games and activities where people exercise and compete",
+    "meaning_ar": "الرياضة"
+  },
+  {
+    "id": "9eb4c1c3-b2ed-4dd6-badd-2ab4cb5e0843",
+    "word": "soaring",
+    "level": "high_frequency",
+    "meaning_en": "rising very high or increasing very quickly",
+    "meaning_ar": "مرتفع جداً، محلق، متصاعد بسرعة"
+  },
+  {
+    "id": "a1bc835b-b654-4e1e-bbc3-b338e96d1d9b",
+    "word": "aerodynamic",
+    "level": "high_frequency",
+    "meaning_en": "Having a shape that moves easily through air with little resistance; related to how air flows around objects",
+    "meaning_ar": "انسيابي، متعلق بعلم الديناميكا الهوائية"
+  },
+  {
+    "id": "33a60aa0-3a1e-4637-a44d-fd5773eefcf4",
+    "word": "implications",
+    "level": "high_frequency",
+    "meaning_en": "possible results or effects of an action or decision; what something suggests or means",
+    "meaning_ar": "تداعيات، آثار، مضامين"
+  },
+  {
+    "id": "16d0fc1c-fbf3-48b0-8f60-baeda7b8412c",
+    "word": "scrutiny",
+    "level": "high_frequency",
+    "meaning_en": "Critical observation, examination, or investigation",
+    "meaning_ar": "فحص دقيق، تمحيص، مراقبة عن كثب"
+  },
+  {
+    "id": "ded38159-e6e1-4d78-b9ef-627db30cab05",
+    "word": "magnitude",
+    "level": "high_frequency",
+    "meaning_en": "The great size, extent, or importance of something",
+    "meaning_ar": "الحجم الكبير أو المدى أو الأهمية لشيء ما"
+  },
+  {
+    "id": "8a4a51a2-6840-4037-b17e-fe862fb71ede",
+    "word": "obviate",
+    "level": "high_frequency",
+    "meaning_en": "To remove a need or difficulty; to make unnecessary",
+    "meaning_ar": "يلغي الحاجة إلى؛ يجعل غير ضروري"
+  },
+  {
+    "id": "17d1248f-07e8-4efd-b00f-940a668424e5",
+    "word": "epitomizes",
+    "level": "high_frequency",
+    "meaning_en": "To be a perfect example or representation of something; to embody the essential characteristics",
+    "meaning_ar": "يجسد، يمثل المثال الأمثل، يلخص الخصائص الأساسية"
+  },
+  {
+    "id": "06df9980-215e-4914-820d-9af4d440390b",
+    "word": "exemplifies",
+    "level": "high_frequency",
+    "meaning_en": "To serve as a typical example or illustration of something",
+    "meaning_ar": "يمثل مثالاً على، يجسد"
+  },
+  {
+    "id": "0a440130-b3b3-480f-bfbf-aceedf9a6184",
+    "word": "calculus",
+    "level": "high_frequency",
+    "meaning_en": "A system of calculation or reasoning, especially regarding a decision or course of action",
+    "meaning_ar": "نظام حساب أو تفكير، خاصة فيما يتعلق باتخاذ قرار أو مسار عمل"
+  },
+  {
+    "id": "2b5bb24d-3a72-4bb8-a07a-1f656117e774",
+    "word": "watershed",
+    "level": "high_frequency",
+    "meaning_en": "a crucial turning point; a moment of significant change or development",
+    "meaning_ar": "نقطة تحول، لحظة فاصلة، حدث مفصلي"
+  },
+  {
+    "id": "93e05d1e-b729-4188-a9d1-4dd285807f79",
+    "word": "paradigmatic",
+    "level": "high_frequency",
+    "meaning_en": "Serving as a typical example or pattern; exemplary",
+    "meaning_ar": "نموذجي؛ يشكل مثالاً مثالياً"
+  },
+  {
+    "id": "3029fff4-4b44-497c-af71-fa34c16c369e",
+    "word": "critique",
+    "level": "high_frequency",
+    "meaning_en": "a detailed analysis and assessment of something; to evaluate and analyze systematically",
+    "meaning_ar": "نقد، تحليل وتقييم مفصل لشيء ما، تقييم وتحليل بشكل منهجي"
+  },
+  {
+    "id": "bb829ba3-f877-4212-8204-54f3c80c3ec6",
+    "word": "province",
+    "level": "high_frequency",
+    "meaning_en": "An area of activity or knowledge; a sphere of operation or control; domain",
+    "meaning_ar": "مجال، اختصاص، نطاق، مقاطعة"
+  },
+  {
+    "id": "70175f10-bc68-4f0e-a015-8901d30be5f0",
+    "word": "advocating",
+    "level": "high_frequency",
+    "meaning_en": "Publicly supporting or recommending a particular cause, policy, or way of doing something",
+    "meaning_ar": "يدعو إلى، يؤيد، يدافع عن"
+  },
+  {
+    "id": "29377894-384a-48fe-aea4-78954bd5a6f2",
+    "word": "paradigm",
+    "level": "academic",
+    "meaning_en": "a typical example or pattern of something; a model or framework for understanding concepts.",
+    "meaning_ar": "نموذج، نمط، إطار مفاهيمي"
+  },
+  {
+    "id": "22547805-2c9b-4c53-9286-fac0d44cb8e7",
+    "word": "juxtaposition",
+    "level": "low_frequency",
+    "meaning_en": "the fact of two different things being placed close together, often for comparison",
+    "meaning_ar": "تجاور، وضع جنباً إلى جنب، مقارنة"
+  },
+  {
+    "id": "af741306-1806-4ea0-9afe-61518d6340d4",
+    "word": "proliferation",
+    "level": "academic",
+    "meaning_en": "Rapid increase in numbers or rapid spread of something.",
+    "meaning_ar": "انتشار سريع، تكاثر، تزايد"
+  },
+  {
+    "id": "d6d9a76b-6198-4eaf-bc71-14d76fd69086",
+    "word": "preconceptions",
+    "level": "academic",
+    "meaning_en": "ideas or opinions formed beforehand without adequate evidence or experience",
+    "meaning_ar": "أفكار مسبقة، تصورات مسبقة، أحكام مسبقة"
+  },
+  {
+    "id": "f9136bcc-d0c4-48cb-898c-72ca15595e4f",
+    "word": "leverage",
+    "level": "high_frequency",
+    "meaning_en": "to use something effectively to achieve a desired result",
+    "meaning_ar": "يستغل، يستفيد من، يوظف"
+  },
+  {
+    "id": "7ea64f86-0ad0-4181-871b-b2229396497f",
+    "word": "harness",
+    "level": "high_frequency",
+    "meaning_en": "to control and use the power or potential of something effectively",
+    "meaning_ar": "يسخر، يستغل، يوظف"
+  },
+  {
+    "id": "5eb1503d-4b13-462f-95f4-2b88c5f1f527",
+    "word": "encompassing",
+    "level": "high_frequency",
+    "meaning_en": "including comprehensively; covering or containing a wide range of elements",
+    "meaning_ar": "شامل، يتضمن، يحتوي على"
+  },
+  {
+    "id": "537f9582-6413-4181-9f97-5f5d3fffc85b",
+    "word": "recalibrated",
+    "level": "academic",
+    "meaning_en": "to adjust or modify something again in order to achieve accuracy or optimal performance.",
+    "meaning_ar": "أعاد معايرة، أعاد ضبط، أعاد تعديل"
+  },
+  {
+    "id": "77eaf80e-1808-4332-8308-4ca2a66f16c0",
+    "word": "cameras",
+    "level": "high_frequency",
+    "meaning_en": "machines that take pictures or videos",
+    "meaning_ar": "كاميرات، آلات تصوير"
+  },
+  {
+    "id": "373240eb-655c-454b-89ae-bf9903047794",
+    "word": "groundbreaking",
+    "level": "high_frequency",
+    "meaning_en": "completely new and different in a way that changes how people think or do things",
+    "meaning_ar": "رائد، مبتكر، يحدث تغييراً جذرياً"
+  },
+  {
+    "id": "28f228ee-1a5a-489b-a1dd-a2fa200f3a28",
+    "word": "ramifications",
+    "level": "high_frequency",
+    "meaning_en": "The complex or unwelcome consequences of an action or event",
+    "meaning_ar": "تبعات، تداعيات، عواقب معقدة، آثار متشعبة"
+  },
+  {
+    "id": "c56bf989-e3a5-4897-959c-284defa622a9",
+    "word": "proliferation",
+    "level": "high_frequency",
+    "meaning_en": "rapid increase in the number or amount of something; rapid spread",
+    "meaning_ar": "الانتشار السريع، التكاثر، الزيادة السريعة"
+  },
+  {
+    "id": "d592a69a-eca2-4d09-b61f-0760912c701e",
+    "word": "unprecedented",
+    "level": "high_frequency",
+    "meaning_en": "never having happened or existed before",
+    "meaning_ar": "غير مسبوق، لم يحدث من قبل"
+  },
+  {
+    "id": "caef5553-7ed1-447c-97e0-5e5b80d0bfc9",
+    "word": "utilizes",
+    "level": "high_frequency",
+    "meaning_en": "makes practical and effective use of; employs for a particular purpose",
+    "meaning_ar": "يستخدم، يوظف، يستفيد من"
+  },
+  {
+    "id": "6184145f-06f8-4b7e-aec1-5ab4dba7dd61",
+    "word": "paradigm",
+    "level": "academic",
+    "meaning_en": "a typical example or pattern of something; a model or framework of ideas and methods",
+    "meaning_ar": "نموذج، نمط، إطار فكري"
+  },
+  {
+    "id": "7a2a9226-f03e-4d95-9c6e-5441bbd7b470",
+    "word": "emulate",
+    "level": "academic",
+    "meaning_en": "to copy or imitate someone or something in order to equal or surpass them",
+    "meaning_ar": "يحاكي، يقلد، يسعى لمضاهاة"
+  },
+  {
+    "id": "0e43f26a-9540-43c7-a840-c6bd6e1a5fa6",
+    "word": "manifests",
+    "level": "high_frequency",
+    "meaning_en": "To show or display something clearly; to become apparent or visible",
+    "meaning_ar": "يُظهر أو يعرض شيئاً بوضوح؛ يصبح واضحاً أو مرئياً"
+  },
+  {
+    "id": "339925ab-53ec-496b-974e-816003715f92",
+    "word": "epitomizes",
+    "level": "high_frequency",
+    "meaning_en": "To be a perfect example of something; to represent in typical fashion",
+    "meaning_ar": "يجسد أو يمثل؛ يكون مثالاً مثالياً على"
+  },
+  {
+    "id": "170dbfaa-c1b3-47ff-9074-00d62da37995",
+    "word": "antithetical",
+    "level": "low_frequency",
+    "meaning_en": "directly opposed or contrasted; mutually incompatible",
+    "meaning_ar": "متضاد، متناقض، معاكس"
+  },
+  {
+    "id": "cdabb8f2-66ad-4991-b11b-fa0eefac8201",
+    "word": "nuanced",
+    "level": "high_frequency",
+    "meaning_en": "characterized by subtle distinctions or variations; showing awareness of complexity",
+    "meaning_ar": "دقيق التفاصيل، يراعي الفروق الدقيقة، متأن"
+  },
+  {
+    "id": "7d0512d6-4c84-44f2-a5ff-b817b29433a6",
+    "word": "specter",
+    "level": "high_frequency",
+    "meaning_en": "Something that haunts or disturbs the mind; a ghostly apparition or threatening possibility",
+    "meaning_ar": "شبح أو طيف؛ شيء يؤرق العقل أو احتمال مهدد"
+  },
+  {
+    "id": "ffc28c1f-1a84-46b3-9ba7-46936cb0d6c5",
+    "word": "harnessed",
+    "level": "high_frequency",
+    "meaning_en": "To control and make use of resources or forces effectively",
+    "meaning_ar": "يسخّر، يستغل، يوظف"
+  },
+  {
+    "id": "85871e76-c3a6-41ab-8fce-e90e2a49d2ef",
+    "word": "stores",
+    "level": "high_frequency",
+    "meaning_en": "shops or places where you can buy things",
+    "meaning_ar": "متاجر، محلات تجارية"
+  },
+  {
+    "id": "34429080-5765-45e1-8b93-c7abc4bd1f89",
+    "word": "salient",
+    "level": "academic",
+    "meaning_en": "Most noticeable, important, or prominent; standing out clearly from the rest.",
+    "meaning_ar": "بارز، واضح، مهم"
+  },
+  {
+    "id": "828aef42-338a-45d3-8d02-a41733872da4",
+    "word": "diminishing",
+    "level": "high_frequency",
+    "meaning_en": "Becoming smaller, fewer, or less; decreasing in size, amount, or importance",
+    "meaning_ar": "متناقص، متضائل، آخذ في الانخفاض"
+  },
+  {
+    "id": "a01b2da6-7137-4dd9-9193-0871998d5e0d",
+    "word": "pioneering",
+    "level": "high_frequency",
+    "meaning_en": "developing or being the first to use new methods, ideas, or techniques; leading innovation.",
+    "meaning_ar": "رائد، مبتكر، يطور أساليب جديدة"
+  },
+  {
+    "id": "4c847b20-a222-43a1-871f-e49da87e9545",
+    "word": "speculative",
+    "level": "academic",
+    "meaning_en": "engaged in or based on conjecture rather than knowledge; involving financial risk",
+    "meaning_ar": "تكهني، مضارب، مبني على التخمين"
+  },
+  {
+    "id": "e8eddc87-91c4-4fb4-8fd5-55b7af5a0e9a",
+    "word": "vindicate",
+    "level": "low_frequency",
+    "meaning_en": "to clear someone of blame or suspicion; to show or prove to be right or justified.",
+    "meaning_ar": "يُبرئ، يُثبت صحة، يُنصف"
+  },
+  {
+    "id": "0987f2ef-eaf6-421e-9bbc-819a25f4c3a7",
+    "word": "avenues",
+    "level": "high_frequency",
+    "meaning_en": "Ways, methods, or approaches to achieve something (figurative use)",
+    "meaning_ar": "طرق، سبل، مسارات (مجازياً)"
+  },
+  {
+    "id": "e6462e06-ba76-434f-9687-0e8e6521cd6f",
+    "word": "prevalent",
+    "level": "academic",
+    "meaning_en": "existing very commonly or happening frequently in a particular place or time",
+    "meaning_ar": "سائد، شائع، منتشر"
+  },
+  {
+    "id": "dd09840c-f2c7-48e6-bb7c-be1005324baa",
+    "word": "epitomizes",
+    "level": "high_frequency",
+    "meaning_en": "To be a perfect example or representation of something",
+    "meaning_ar": "يجسد، يمثل المثال الأمثل لـ"
+  },
+  {
+    "id": "26c070a5-714f-4222-bff7-d7a1864853a1",
+    "word": "proliferation",
+    "level": "high_frequency",
+    "meaning_en": "Rapid increase in numbers; rapid reproduction or spread",
+    "meaning_ar": "تكاثر، انتشار سريع، تزايد"
+  },
+  {
+    "id": "7c5b0eea-11c3-49ed-843b-ae585c6f7c46",
+    "word": "proponents",
+    "level": "high_frequency",
+    "meaning_en": "People who advocate for or support a particular cause, policy, or idea",
+    "meaning_ar": "أشخاص يدافعون عن أو يدعمون قضية أو سياسة أو فكرة معينة"
+  },
+  {
+    "id": "2949eb4e-7cd8-4b6e-bd55-248c60a4db7e",
+    "word": "phenomenon",
+    "level": "high_frequency",
+    "meaning_en": "an observable fact or event; something remarkable or extraordinary",
+    "meaning_ar": "ظاهرة، حدث ملحوظ"
+  },
+  {
+    "id": "1693c2e6-2af4-42ef-b7c1-8e84a6e1057e",
+    "word": "orchestrates",
+    "level": "academic",
+    "meaning_en": "to organize and coordinate different elements to work together effectively",
+    "meaning_ar": "ينسق، ينظم، يدبر"
+  },
+  {
+    "id": "aacce3c0-45e6-432b-8471-dbb2d9f06704",
+    "word": "confluence",
+    "level": "low_frequency",
+    "meaning_en": "a situation where two or more things come together and combine; the meeting or flowing together of different elements",
+    "meaning_ar": "التقاء، تلاقي، اندماج"
+  },
+  {
+    "id": "605bc389-364d-4152-b2de-b5a1982e0079",
+    "word": "galvanize",
+    "level": "academic",
+    "meaning_en": "to stimulate or shock someone into taking action; to inspire with urgency",
+    "meaning_ar": "يحفز، يحث، يدفع للعمل"
+  },
+  {
+    "id": "bccd2200-04a7-45d8-a741-31d750bbd52e",
+    "word": "debunk",
+    "level": "high_frequency",
+    "meaning_en": "To expose the falseness of a belief, myth, or claim",
+    "meaning_ar": "يفضح، يكشف زيف، يدحض"
+  },
+  {
+    "id": "2530fb59-370a-4ac7-ad13-5f21abe0a77c",
+    "word": "debunked",
+    "level": "high_frequency",
+    "meaning_en": "proved that something is false or not as good as people think",
+    "meaning_ar": "فنّد، أثبت خطأ، دحض"
+  },
+  {
+    "id": "66799766-714a-40d4-b78b-0fd625d88492",
+    "word": "normalized",
+    "level": "high_frequency",
+    "meaning_en": "made normal or standard; brought into conformity with a standard",
+    "meaning_ar": "طبيع، جُعل عادياً أو معيارياً، أصبح مقبولاً كحالة طبيعية"
+  },
+  {
+    "id": "36832fe1-db16-4d70-93dd-b488e1796dd6",
+    "word": "off-grid",
+    "level": "high_frequency",
+    "meaning_en": "not connected to public utilities like electricity or water supply",
+    "meaning_ar": "غير متصل بالشبكة العامة، معزول عن الخدمات"
+  },
+  {
+    "id": "66a2d953-608f-4d00-af9a-51b6ab1b2dc8",
+    "word": "articulate",
+    "level": "high_frequency",
+    "meaning_en": "To express thoughts or feelings clearly and effectively in words",
+    "meaning_ar": "يعبر عن؛ يوضح بطريقة واضحة ومفهومة"
+  },
+  {
+    "id": "851fdb1f-568c-420d-90b5-4f2e08ad974d",
+    "word": "compromised",
+    "level": "high_frequency",
+    "meaning_en": "Weakened, damaged, or made less effective; put at risk",
+    "meaning_ar": "مُعرّض للخطر، مُتضرر، أصبح أقل فعالية"
+  },
+  {
+    "id": "ad60c3ab-398f-4c2f-96d6-34aeb4dc2ed2",
+    "word": "proliferation",
+    "level": "high_frequency",
+    "meaning_en": "rapid increase in the number or amount of something; widespread growth",
+    "meaning_ar": "انتشار سريع، تكاثر، ازدياد واسع النطاق"
+  },
+  {
+    "id": "d702a0a3-f980-4d01-b8c3-2ce557a685ba",
+    "word": "proliferation",
+    "level": "high_frequency",
+    "meaning_en": "Rapid increase or growth in number or amount; multiplication",
+    "meaning_ar": "الانتشار السريع؛ التكاثر أو الزيادة الكبيرة في العدد"
+  },
+  {
+    "id": "00774d7c-c086-4612-9b69-3521aae72c78",
+    "word": "vilify",
+    "level": "high_frequency",
+    "meaning_en": "To speak or write about someone or something in a very critical or hostile way",
+    "meaning_ar": "يشوّه سمعة، يذم، ينتقد بشدة"
+  },
+  {
+    "id": "47addc00-baba-4d19-8d0b-aa5bf4515da2",
+    "word": "mainstream",
+    "level": "high_frequency",
+    "meaning_en": "accepted or used by most people; normal and conventional",
+    "meaning_ar": "سائد، رئيسي، تقليدي"
+  },
+  {
+    "id": "7919c400-d1f3-46e6-840f-0364a75f015d",
+    "word": "dessert",
+    "level": "high_frequency",
+    "meaning_en": "sweet food eaten at the end of a meal",
+    "meaning_ar": "حلوى، تحلية"
+  },
+  {
+    "id": "b6e7e959-49e4-40aa-a543-c92bb5d6b63b",
+    "word": "perfunctory",
+    "level": "high_frequency",
+    "meaning_en": "Done without care or interest as a routine duty; superficial",
+    "meaning_ar": "شكلي، سطحي، روتيني بلا اهتمام"
+  },
+  {
+    "id": "ddcda3d5-5ec5-4817-9c45-6ec01e25bdf6",
+    "word": "validate",
+    "level": "academic",
+    "meaning_en": "to check or prove that something is true, accurate, or acceptable",
+    "meaning_ar": "يصدق على، يؤكد صحة، يعتمد"
+  },
+  {
+    "id": "ff4038dd-4496-4e13-aed4-30052c5c1c86",
+    "word": "exclusive",
+    "level": "high_frequency",
+    "meaning_en": "limited to only one person or group; not shared with others",
+    "meaning_ar": "حصري، مقتصر على، خاص بفئة معينة فقط"
+  },
+  {
+    "id": "5b607543-9ace-44bc-bfdb-7b1ae378fb79",
+    "word": "surmount",
+    "level": "academic",
+    "meaning_en": "to overcome a difficulty or obstacle; to succeed in dealing with a problem",
+    "meaning_ar": "يتغلب على، يتجاوز، يذلل"
+  },
+  {
+    "id": "8adf575a-b9fc-48f7-b07a-447e63b2bf0a",
+    "word": "excavate",
+    "level": "high_frequency",
+    "meaning_en": "to dig and remove earth to make a hole in the ground",
+    "meaning_ar": "يحفر، ينقب، يستخرج بالحفر"
+  },
+  {
+    "id": "3a81bef7-172b-436c-accf-ba2f192aa25c",
+    "word": "circumstantial",
+    "level": "high_frequency",
+    "meaning_en": "Based on circumstances or indirect evidence rather than direct proof",
+    "meaning_ar": "قائم على القرائن، غير مباشر في الإثبات"
+  },
+  {
+    "id": "958db3e5-a927-4a2a-9225-af708f124284",
+    "word": "breathtaking",
+    "level": "high_frequency",
+    "meaning_en": "extremely beautiful or amazing in a way that surprises you",
+    "meaning_ar": "خلاب، مذهل، يحبس الأنفاس"
+  },
+  {
+    "id": "c49d8176-3ee4-4ca0-8322-0c516cffe13d",
+    "word": "repository",
+    "level": "academic",
+    "meaning_en": "a place or container where things are stored; a source of extensive information on a subject",
+    "meaning_ar": "مستودع، مخزن، مصدر"
+  },
+  {
+    "id": "d2d351f1-c7ea-4a08-b1ce-8f4715996d5c",
+    "word": "speculative",
+    "level": "high_frequency",
+    "meaning_en": "based on theory or guesswork rather than proven facts; involving conjecture",
+    "meaning_ar": "تخميني، افتراضي، نظري"
+  },
+  {
+    "id": "1a29c63c-8209-420c-997d-0221e8ba11ab",
+    "word": "erode",
+    "level": "academic",
+    "meaning_en": "To gradually wear away or diminish something through persistent action or influence.",
+    "meaning_ar": "يتآكل، ينحت، يقوض تدريجياً"
+  },
+  {
+    "id": "386469bb-a42c-4f33-97da-b334a824e348",
+    "word": "intricate",
+    "level": "high_frequency",
+    "meaning_en": "Very complicated or detailed; having many small parts or details",
+    "meaning_ar": "معقد، متشابك، مُفصل"
+  },
+  {
+    "id": "8545687d-eb3e-45c1-9007-5d08afa24ee5",
+    "word": "synthesis",
+    "level": "academic",
+    "meaning_en": "the combination of different ideas, influences, or objects into a coherent whole.",
+    "meaning_ar": "تركيب، دمج، توليف"
+  },
+  {
+    "id": "d187d5cc-b0f3-4b47-8fd9-96c2787f6e7c",
+    "word": "neuroprotective",
+    "level": "high_frequency",
+    "meaning_en": "having the ability to protect nerve cells from damage or degeneration",
+    "meaning_ar": "واقي للأعصاب، يحمي الخلايا العصبية من التلف"
+  },
+  {
+    "id": "fdcabf84-b729-428c-a58b-1f59ac22d82f",
+    "word": "framework",
+    "level": "academic",
+    "meaning_en": "a basic structure or system of rules and ideas that supports something",
+    "meaning_ar": "إطار، هيكل، نظام أساسي"
+  },
+  {
+    "id": "66ff44ac-8774-4baf-9a0e-c01faf9045fa",
+    "word": "flourished",
+    "level": "academic",
+    "meaning_en": "to grow or develop successfully and become very popular or widespread",
+    "meaning_ar": "ازدهر، نما بقوة، تطور"
+  },
+  {
+    "id": "19261573-1fa3-4c4e-a460-49e991dac124",
+    "word": "volatility",
+    "level": "high_frequency",
+    "meaning_en": "liability to change rapidly and unpredictably, especially in terms of prices or emotions",
+    "meaning_ar": "تقلب، عدم استقرار، تذبذب"
+  },
+  {
+    "id": "44c4076c-c529-4acd-ae9d-170d1a237897",
+    "word": "nuanced",
+    "level": "high_frequency",
+    "meaning_en": "Characterized by subtle differences in expression, meaning, or response; sophisticated and detailed",
+    "meaning_ar": "دقيق، معقد، ذو أبعاد متعددة"
+  },
+  {
+    "id": "66280d65-fc99-4f62-82b8-d6c948239812",
+    "word": "trajectory",
+    "level": "high_frequency",
+    "meaning_en": "The path or direction of development; the course something follows through time or space",
+    "meaning_ar": "مسار، مسيرة، اتجاه التطور"
+  },
+  {
+    "id": "8d5147de-0e9e-48ad-9f62-f8707edbf509",
+    "word": "compelling",
+    "level": "high_frequency",
+    "meaning_en": "Very interesting or exciting in a way that holds your attention completely",
+    "meaning_ar": "مقنع، جذاب، مثير للاهتمام بشدة"
+  },
+  {
+    "id": "c4d0f5ea-461c-40fb-9d80-3305ea535c67",
+    "word": "impetus",
+    "level": "academic",
+    "meaning_en": "something that encourages a process or activity to develop more quickly",
+    "meaning_ar": "دافع، حافز، قوة دافعة"
+  },
+  {
+    "id": "ec7e7b05-0cfe-4b6c-a686-ea08834b7d9d",
+    "word": "burgeon",
+    "level": "academic",
+    "meaning_en": "to grow or develop rapidly and flourish",
+    "meaning_ar": "ينمو بسرعة، يزدهر، يتوسع"
+  }
+]

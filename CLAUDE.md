@@ -286,6 +286,21 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### April 11, 2026 — Word Families with Morphology Explanations (35-word-families)
+- What: Added full word family JSONB data + morphology ("ليش؟") explanations for every vocabulary word. Students now see the complete derivational family of any word with Arabic explanations of why each derivative has its part of speech (affix + base + rule + similar examples).
+- **Migration `104_add_word_families.sql`:** Added `word_family JSONB DEFAULT '[]'::jsonb` + `word_family_generated_at TIMESTAMPTZ` columns on `curriculum_vocabulary`, plus partial index for pending rows and GIN index on the JSONB payload
+- **Generation pipeline:** 10 parallel wave-1 agents (`scripts/family-batches/batch-01..10.json`) generated 1,060 families, then 8 parallel wave-2 agents covered the remaining 735 uncovered single words (`wave2-01..08.json`). Final coverage: **1,794 / 1,954 vocabulary rows (91.8%)** — the 160 uncovered are all multi-word phrases which the prompt intentionally skips (effective single-word coverage = 100%).
+- **Scripts:** `split-vocab-families.cjs` (batcher), `load-families.cjs` (validates, links cross-refs, clamps levels, upserts), `verify-families.cjs` (coverage + quality audit with random sample)
+- **JSON schema per member:** `{word, pos, level, is_base, is_opposite, vocabulary_id, morphology: {affix, affix_type, base_word, base_pos, rule_ar, similar_examples}}`. Irregular forms flagged with `morphology.irregular: true` + `note_ar`. Base form uses `morphology.is_base: true`.
+- **Quality stats:** 5,942 total family members, 4,148 derivatives, 99.9% of regular derivatives have an affix, 2.4% flagged irregular, 2,645 members cross-linked to other vocabulary rows (44.5%)
+- **New component `WordFamilySection.jsx`:** always-visible table on desktop (columns: الكلمة | النوع | المستوى | الحالة | ليش؟) + stacked cards on mobile. Base word highlighted with ⭐, negatives with ↔, mastered derivatives show "تعرفها ✓" (queries `vocabulary_word_mastery`). Click ⓘ → inline morphology card showing affix + base + rule_ar + chip examples. Three card variants: regular (slate), base (sky), irregular (amber with warning icon).
+- **Light-theme adaptation:** Added ~100 lines of `.light / [data-theme="frost-white"]` overrides in `components.css` scoped to `.wf-section` — remaps all hardcoded dark-slate classes to premium light tokens (white surfaces, layered shadows, AAA-contrast text, darker badge text for contrast)
+- **Integration mounts (3 points):** Already wired in `AnkiReviewSession.jsx`, `WordExerciseModal.jsx`, and `VocabularyPractice.jsx` (flashcard-back rich view). Renders below synonyms/antonyms section.
+- Files: `supabase/migrations/104_add_word_families.sql`, `src/components/vocabulary/WordFamilySection.jsx`, `src/styles/components.css`, `scripts/load-families.cjs`, `scripts/verify-families.cjs`, `scripts/split-vocab-families.cjs`, `scripts/family-batches/batch-*.json` + `batch-*.result.json` + `wave2-*.json` + `wave2-*.result.json`, `src/components/anki/AnkiReviewSession.jsx`, `src/components/vocabulary/WordExerciseModal.jsx`, `src/pages/student/vocabulary/components/VocabularyPractice.jsx`, `CLAUDE.md`
+- DB: `curriculum_vocabulary.word_family` JSONB + `word_family_generated_at` TIMESTAMPTZ (+2 indexes), 1,794 rows populated
+- Edge Functions: No changes
+- Status: Complete — production build passes (25s), verifier reports 91.8% coverage / 99.9% affix quality / 2.4% irregular
+
 ### April 11, 2026 — Light Theme Premium Redesign (01-light-theme-redesign)
 - What: Rebuilt the frost-white (light) theme for a premium layered feel — Linear/Notion/Raycast-tier polish
 - **Design tokens:** Rewrote the full `[data-theme="frost-white"] / .light` block — layered white surfaces (void/base/raised), solid white glass cards (was flat translucent-white), AAA-contrast text (`--text-secondary #334155`, `--text-tertiary #64748b`), deeper brand accents so they pop on white (`#0284c7`, `#6d28d9`, `#047857`, `#b45309`), multi-level layered shadows (`--shadow-sm/md/lg/xl` each with two stops), and premium glow shadows with 1px accent ring

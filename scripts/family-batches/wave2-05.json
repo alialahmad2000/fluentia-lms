@@ -1,0 +1,646 @@
+[
+  {
+    "id": "85fe3022-19ff-4a79-b859-925ed6dbe434",
+    "word": "devices",
+    "level": "high_frequency",
+    "meaning_en": "machines or tools made for a special purpose",
+    "meaning_ar": "أجهزة، أدوات"
+  },
+  {
+    "id": "8cf85fd7-5552-45ec-8b7a-e3f63c88adfb",
+    "word": "droughts",
+    "level": "high_frequency",
+    "meaning_en": "long periods of time when there is no rain",
+    "meaning_ar": "فترات الجفاف، القحط"
+  },
+  {
+    "id": "b7c91907-1864-4edb-8eae-99b9f615b8df",
+    "word": "rice",
+    "level": "high_frequency",
+    "meaning_en": "Small white or brown grains that people cook and eat",
+    "meaning_ar": "أرز"
+  },
+  {
+    "id": "bd759fa5-8f34-440b-97c3-5193a38b9483",
+    "word": "allocation",
+    "level": "high_frequency",
+    "meaning_en": "The process of distributing or assigning resources, duties, or funds for a particular purpose",
+    "meaning_ar": "توزيع، تخصيص الموارد أو المهام"
+  },
+  {
+    "id": "834771e8-7f0f-4323-a18a-151ea78fa8f0",
+    "word": "shared",
+    "level": "high_frequency",
+    "meaning_en": "to give part of something to others or use something together",
+    "meaning_ar": "شارك، قاسم، تقاسم"
+  },
+  {
+    "id": "90fc979a-f435-4a21-866a-83d27d74c3d2",
+    "word": "barrier",
+    "level": "high_frequency",
+    "meaning_en": "something that prevents or makes it difficult to achieve something",
+    "meaning_ar": "حاجز، عقبة تمنع أو تصعب تحقيق شيء ما"
+  },
+  {
+    "id": "249dda4f-8760-4a56-81f3-540c613aecc7",
+    "word": "rationale",
+    "level": "high_frequency",
+    "meaning_en": "The logical reason or explanation for an action or belief",
+    "meaning_ar": "المبرر، التبرير المنطقي، الأساس المنطقي"
+  },
+  {
+    "id": "66d6104a-8e8d-4129-aabd-cb821a5c97fc",
+    "word": "intact",
+    "level": "high_frequency",
+    "meaning_en": "complete and not damaged; remaining in original condition",
+    "meaning_ar": "سليم، غير تالف، كامل"
+  },
+  {
+    "id": "265ab789-7d20-4675-94ff-b2922f6403f5",
+    "word": "correlation",
+    "level": "high_frequency",
+    "meaning_en": "A mutual relationship or connection between two or more things where one tends to vary with the other",
+    "meaning_ar": "ترابط، علاقة، صلة متبادلة"
+  },
+  {
+    "id": "3c296cdd-aa6d-45aa-af97-b1573874e621",
+    "word": "breakthrough",
+    "level": "high_frequency",
+    "meaning_en": "an important discovery or development that solves a problem",
+    "meaning_ar": "اختراق، اكتشاف مهم، تطور حاسم"
+  },
+  {
+    "id": "f7d4875f-bf0b-4c48-9824-76c44b186234",
+    "word": "trap",
+    "level": "high_frequency",
+    "meaning_en": "to catch and hold something so it cannot escape or move",
+    "meaning_ar": "يحبس، يحجز، يصطاد"
+  },
+  {
+    "id": "1968b97a-0be9-493d-88f1-e7041cea3e38",
+    "word": "embodies",
+    "level": "high_frequency",
+    "meaning_en": "to represent or express an idea, quality, or feeling in a physical form",
+    "meaning_ar": "يجسد، يمثل، يحتوي على"
+  },
+  {
+    "id": "30081b3a-70ab-4177-9df1-3f302233138b",
+    "word": "surge",
+    "level": "high_frequency",
+    "meaning_en": "a sudden powerful forward or upward movement; a sudden increase in something",
+    "meaning_ar": "تدفق مفاجئ، ارتفاع حاد، زيادة مفاجئة"
+  },
+  {
+    "id": "692f79ab-e395-4b0f-ba2a-3369a4e69784",
+    "word": "implications",
+    "level": "high_frequency",
+    "meaning_en": "The possible results, effects, or meanings of an action or decision",
+    "meaning_ar": "تبعات، آثار، دلالات"
+  },
+  {
+    "id": "6f904119-4f05-4006-a1a8-405ffc4d59dc",
+    "word": "protracted",
+    "level": "high_frequency",
+    "meaning_en": "continuing for a long time, usually longer than expected or desired",
+    "meaning_ar": "طويل الأمد، ممتد لفترة أطول من المتوقع أو المرغوب"
+  },
+  {
+    "id": "ff07a96b-cd1e-4184-ac8d-0875ad2d24f9",
+    "word": "embodies",
+    "level": "high_frequency",
+    "meaning_en": "To represent or express an idea, quality, or feeling in physical or visible form",
+    "meaning_ar": "يجسد، يمثل، يحتوي على الصفات الأساسية لشيء ما"
+  },
+  {
+    "id": "ab801fdb-4873-4852-a0d8-0d872d611f80",
+    "word": "transcends",
+    "level": "high_frequency",
+    "meaning_en": "To go beyond the usual limits; to be greater or more important than",
+    "meaning_ar": "يتجاوز، يفوق، يسمو فوق"
+  },
+  {
+    "id": "b17c747c-fba1-44db-a392-44b3e3ea211f",
+    "word": "expanses",
+    "level": "high_frequency",
+    "meaning_en": "Wide continuous areas of land, sea, or space",
+    "meaning_ar": "مساحات واسعة ومترامية الأطراف"
+  },
+  {
+    "id": "c17d94f1-8f6f-4948-8f5a-09f5b9b27d97",
+    "word": "mechanisms",
+    "level": "academic",
+    "meaning_en": "systems of parts working together in a machine or a process by which something takes place",
+    "meaning_ar": "آليات، نظم العمل"
+  },
+  {
+    "id": "78c9d421-caf2-4273-931a-21624af77d86",
+    "word": "momentum",
+    "level": "high_frequency",
+    "meaning_en": "the force or speed of movement; the strength or continuity of progress in a particular direction",
+    "meaning_ar": "الزخم، القوة الدافعة، قوة التقدم أو الاستمرارية في اتجاه معين"
+  },
+  {
+    "id": "ad1cefca-ab5b-4247-99a9-8e6a5dd8b727",
+    "word": "synthesis",
+    "level": "low_frequency",
+    "meaning_en": "The combination of ideas, knowledge, or elements to form a connected whole.",
+    "meaning_ar": "تركيب، دمج، توليف"
+  },
+  {
+    "id": "d0d86bc1-d7c9-4409-ad9b-8410005343e9",
+    "word": "nuances",
+    "level": "high_frequency",
+    "meaning_en": "subtle differences in meaning, expression, opinion, or behavior; fine distinctions",
+    "meaning_ar": "الفروقات الدقيقة، التفاصيل الرقيقة، الاختلافات الخفية"
+  },
+  {
+    "id": "781fe70d-1783-4d38-aafb-d05f7375efe3",
+    "word": "magnitude",
+    "level": "high_frequency",
+    "meaning_en": "The great size, extent, or importance of something",
+    "meaning_ar": "حجم، مقدار، أهمية"
+  },
+  {
+    "id": "b3398ad6-5c91-4fbb-ae4e-27bcc541e9fb",
+    "word": "paradigm",
+    "level": "high_frequency",
+    "meaning_en": "A typical example or pattern; a framework of ideas or beliefs",
+    "meaning_ar": "نموذج، نمط، إطار فكري"
+  },
+  {
+    "id": "aad2609d-747a-4d24-999d-d37c0bfc8a00",
+    "word": "implementation",
+    "level": "high_frequency",
+    "meaning_en": "the process of putting a decision or plan into effect; execution",
+    "meaning_ar": "تنفيذ، تطبيق، تطبيق عملي"
+  },
+  {
+    "id": "df365ea8-89ce-4f2e-a56d-4252d4de0845",
+    "word": "implications",
+    "level": "high_frequency",
+    "meaning_en": "The possible results, effects, or meanings of an action or decision",
+    "meaning_ar": "تداعيات، آثار، عواقب محتملة"
+  },
+  {
+    "id": "31199191-b7f8-419f-a67a-b5ab5899c9d4",
+    "word": "periphery",
+    "level": "academic",
+    "meaning_en": "the outer limits or edge of an area or object; the less important part of a group or activity",
+    "meaning_ar": "الأطراف، الهامش، المحيط"
+  },
+  {
+    "id": "fefd55c6-3408-4ca3-a78f-2e114a1d132d",
+    "word": "stratified",
+    "level": "high_frequency",
+    "meaning_en": "arranged in layers or levels, especially referring to social classes or groups",
+    "meaning_ar": "مُطبّق، مُرتّب في طبقات أو مستويات، خاصة الطبقات الاجتماعية"
+  },
+  {
+    "id": "196fc8df-4265-499d-bd3e-3ef081553a56",
+    "word": "implications",
+    "level": "high_frequency",
+    "meaning_en": "possible results, effects, or meanings that follow from an action or decision",
+    "meaning_ar": "التداعيات، الآثار المحتملة، النتائج المترتبة"
+  },
+  {
+    "id": "3502626d-7f82-4198-96ae-472841e9830f",
+    "word": "pronounced",
+    "level": "high_frequency",
+    "meaning_en": "Very noticeable or marked; clearly evident",
+    "meaning_ar": "واضح، بارز، ملحوظ"
+  },
+  {
+    "id": "6999e6a6-dff2-4a59-8af9-9816132c0016",
+    "word": "warm",
+    "level": "high_frequency",
+    "meaning_en": "having a comfortable temperature, not cold or hot",
+    "meaning_ar": "دافئ، معتدل الحرارة"
+  },
+  {
+    "id": "bf2bd171-8679-4e49-b2ee-98a83fcdebf3",
+    "word": "remarkable",
+    "level": "high_frequency",
+    "meaning_en": "extraordinary and worthy of attention; unusual in a way that surprises or impresses",
+    "meaning_ar": "ملحوظ، رائع، استثنائي"
+  },
+  {
+    "id": "bf0a2f9e-bce6-43a0-801e-238d525889ec",
+    "word": "sophisticated",
+    "level": "high_frequency",
+    "meaning_en": "highly developed and complex; having great knowledge or experience",
+    "meaning_ar": "متطور، معقد، راقي"
+  },
+  {
+    "id": "3d5cf253-4099-4903-bd5d-6cee3722472d",
+    "word": "cultivate",
+    "level": "high_frequency",
+    "meaning_en": "To develop or improve through care and attention; to foster the growth of something",
+    "meaning_ar": "يزرع، ينمي، يطور، يرعى"
+  },
+  {
+    "id": "2e1ab026-fd95-4fc5-a82c-7fb558759e3b",
+    "word": "perplex",
+    "level": "high_frequency",
+    "meaning_en": "to confuse or puzzle someone completely, making them unable to understand something",
+    "meaning_ar": "يُحيّر، يُربك، يجعل شخصاً غير قادر على الفهم"
+  },
+  {
+    "id": "df123be2-a3ed-48c5-80b7-dee29beca798",
+    "word": "phenomenon",
+    "level": "academic",
+    "meaning_en": "A fact or situation that is observed to exist or happen, especially one whose cause or explanation is in question.",
+    "meaning_ar": "ظاهرة، حدث ملحوظ، واقعة"
+  },
+  {
+    "id": "bc53f21e-8b4b-4318-874b-9badcf99c4dd",
+    "word": "germline",
+    "level": "high_frequency",
+    "meaning_en": "the sequence of cells in an organism that pass genetic material to offspring",
+    "meaning_ar": "الخط الجرثومي، الخلايا التناسلية التي تنقل الجينات للذرية"
+  },
+  {
+    "id": "1039bd2e-7412-4d0c-b43b-223d5ea08f26",
+    "word": "ramifications",
+    "level": "academic",
+    "meaning_en": "A consequence of an action or event, especially when complex or unwelcome; the implications or effects of something.",
+    "meaning_ar": "تبعات، نتائج، آثار مترتبة"
+  },
+  {
+    "id": "1a75179f-0aa8-4f4d-8c06-ef8e5814e30e",
+    "word": "versatility",
+    "level": "high_frequency",
+    "meaning_en": "the ability to be used for many different purposes or to adapt to different situations",
+    "meaning_ar": "التنوع، المرونة، القدرة على التكيف"
+  },
+  {
+    "id": "13da072c-31c1-4360-a028-0e5b08a9c5ca",
+    "word": "rigorous",
+    "level": "high_frequency",
+    "meaning_en": "Extremely thorough, accurate, and demanding high standards",
+    "meaning_ar": "صارم، دقيق، شديد الاهتمام بالتفاصيل"
+  },
+  {
+    "id": "857bcc5a-806a-40a2-bcf9-2b6d5c359f31",
+    "word": "ordeal",
+    "level": "high_frequency",
+    "meaning_en": "A painful or horrific experience, especially a prolonged difficult situation that tests endurance",
+    "meaning_ar": "محنة، تجربة قاسية، موقف صعب ومؤلم"
+  },
+  {
+    "id": "c173e6c6-2b4b-497a-9057-3a2b312db58f",
+    "word": "paradigmatic",
+    "level": "academic",
+    "meaning_en": "serving as a typical example or pattern of something; representing a fundamental change in approach or underlying assumptions",
+    "meaning_ar": "نموذجي، نمطي، يمثل تغييراً جوهرياً"
+  },
+  {
+    "id": "8748548a-695d-41f5-a8bd-77d8d8542135",
+    "word": "intractable",
+    "level": "academic",
+    "meaning_en": "very difficult to control, manage, or solve; stubbornly resistant to treatment or solution.",
+    "meaning_ar": "عصي على الحل، مستعصي، صعب المراس"
+  },
+  {
+    "id": "a2be2fb8-6481-4ce8-b435-09f3ee75b41f",
+    "word": "quintessential",
+    "level": "low_frequency",
+    "meaning_en": "representing the most perfect example of a particular type or quality",
+    "meaning_ar": "نموذجي، مثالي، جوهري"
+  },
+  {
+    "id": "a695ab34-5bb6-4d2c-a306-592bb1c990a3",
+    "word": "ephemeral",
+    "level": "high_frequency",
+    "meaning_en": "Lasting for a very short time; temporary or fleeting",
+    "meaning_ar": "عابر، مؤقت، قصير المدى"
+  },
+  {
+    "id": "93a84c73-5273-43a0-8458-9da7b3ccf1a6",
+    "word": "popular",
+    "level": "high_frequency",
+    "meaning_en": "liked by many people",
+    "meaning_ar": "شائع، محبوب، مشهور"
+  },
+  {
+    "id": "f5cace36-ea2e-4b0b-955d-0477bfac5949",
+    "word": "contemplate",
+    "level": "high_frequency",
+    "meaning_en": "to think carefully about something for a long time, or to consider doing something",
+    "meaning_ar": "يتأمل، يتدبر، يفكر مليّاً في"
+  },
+  {
+    "id": "a14d8215-0594-4ac8-9836-e8bcfa045993",
+    "word": "strategies",
+    "level": "high_frequency",
+    "meaning_en": "detailed plans designed to achieve specific long-term goals",
+    "meaning_ar": "الاستراتيجيات، الخطط، الاستراتيجيات"
+  },
+  {
+    "id": "a366a31f-8d3d-40d9-8c14-52f8486e2f1d",
+    "word": "compelling",
+    "level": "high_frequency",
+    "meaning_en": "Very interesting or exciting; forceful and convincing",
+    "meaning_ar": "مقنع، جذاب، مثير للاهتمام"
+  },
+  {
+    "id": "a9c6f622-b991-4add-9100-dae050d8feb6",
+    "word": "implications",
+    "level": "academic",
+    "meaning_en": "possible results or consequences that may follow from an action or decision",
+    "meaning_ar": "التداعيات، الآثار المترتبة، النتائج المحتملة"
+  },
+  {
+    "id": "c55dd03b-4990-46aa-896e-c7c9ede6c1c7",
+    "word": "devastate",
+    "level": "high_frequency",
+    "meaning_en": "to destroy or damage something severely; to cause great emotional shock",
+    "meaning_ar": "يدمر، يخرب بشدة، يصدم عاطفياً"
+  },
+  {
+    "id": "e6239220-ffdd-438d-bcc3-dbb15dd6fa28",
+    "word": "expanse",
+    "level": "high_frequency",
+    "meaning_en": "A wide continuous area of something, especially land, sea, or space",
+    "meaning_ar": "مساحة واسعة، امتداد شاسع"
+  },
+  {
+    "id": "2227dd31-c31b-4c4f-8823-5d10e0ee3170",
+    "word": "reverberations",
+    "level": "high_frequency",
+    "meaning_en": "Continuing effects or consequences that spread outward from an event",
+    "meaning_ar": "آثار أو عواقب مستمرة تنتشر خارجاً من حدث ما"
+  },
+  {
+    "id": "f0732168-1bf7-4731-a271-7b85d6452ea2",
+    "word": "circumvent",
+    "level": "high_frequency",
+    "meaning_en": "To find a way around an obstacle or problem; to avoid or overcome by cleverness",
+    "meaning_ar": "يتحايل على، يتجاوز، يجد طريقة للالتفاف حول عقبة أو مشكلة"
+  },
+  {
+    "id": "5cc01e8f-c4ac-4f39-9b41-50e2155e62c0",
+    "word": "axiomatic",
+    "level": "high_frequency",
+    "meaning_en": "Self-evidently true; taken as a given principle that needs no proof",
+    "meaning_ar": "بديهي، مسلم به، لا يحتاج إثبات"
+  },
+  {
+    "id": "fcdc495e-6b69-456f-b8ac-28b52d07f3f6",
+    "word": "interplay",
+    "level": "high_frequency",
+    "meaning_en": "the way in which different things have an effect on each other and work together",
+    "meaning_ar": "التفاعل، التأثير المتبادل بين أشياء مختلفة وكيفية عملها معاً"
+  },
+  {
+    "id": "6dd04487-dcc2-47ef-aa2f-28a10be48274",
+    "word": "synergies",
+    "level": "high_frequency",
+    "meaning_en": "the combined effect of different elements working together that is greater than their individual effects",
+    "meaning_ar": "تناغم، تضافر، تآزر"
+  },
+  {
+    "id": "bff34560-18b2-4cc0-8c00-c5ce18030eec",
+    "word": "revelations",
+    "level": "high_frequency",
+    "meaning_en": "surprising discoveries or disclosures of previously unknown facts or truths",
+    "meaning_ar": "اكتشافات مفاجئة أو كشوفات لحقائق لم تكن معروفة من قبل"
+  },
+  {
+    "id": "ea16abe4-495f-4a00-a954-3a828236a37d",
+    "word": "implications",
+    "level": "high_frequency",
+    "meaning_en": "the possible results, effects, or meanings that follow from an action or statement",
+    "meaning_ar": "الآثار المحتملة، النتائج، أو المعاني التي تنتج عن عمل أو بيان"
+  },
+  {
+    "id": "44231067-43ca-4020-a02d-050eebce7298",
+    "word": "calculus",
+    "level": "high_frequency",
+    "meaning_en": "A method of calculation or reasoning; a system for making decisions (not the mathematical calculus)",
+    "meaning_ar": "طريقة حساب أو تفكير، نظام اتخاذ القرارات"
+  },
+  {
+    "id": "803ae69b-e59d-4c0f-b608-a5a9775902a9",
+    "word": "exaggerated",
+    "level": "high_frequency",
+    "meaning_en": "Represented as larger, better, or worse than it really is; overstated",
+    "meaning_ar": "مبالغ فيه، مضخم، محرف"
+  },
+  {
+    "id": "367ff4fe-5f40-4e0d-a71d-30b591f3608c",
+    "word": "paradigm",
+    "level": "academic",
+    "meaning_en": "A typical example or pattern of something; a conceptual framework or model used to understand and explain certain aspects of reality.",
+    "meaning_ar": "نموذج، نمط، إطار مفاهيمي"
+  },
+  {
+    "id": "7e303a56-1c6b-43e6-8fe4-9a416c9fb902",
+    "word": "sophisticated",
+    "level": "high_frequency",
+    "meaning_en": "Complex, advanced, or highly developed in design or technique",
+    "meaning_ar": "معقد، متطور، متقدم في التصميم أو التقنية"
+  },
+  {
+    "id": "57a65523-1ad6-4d6f-950d-9889c6edebf0",
+    "word": "succumb",
+    "level": "academic",
+    "meaning_en": "to yield to an overwhelming force or pressure; to die from the effect of a disease or injury",
+    "meaning_ar": "يستسلم، يخضع، يموت متأثراً بـ"
+  },
+  {
+    "id": "73b1ad65-9715-4dea-beb0-3ccf8e54d12e",
+    "word": "remarkable",
+    "level": "high_frequency",
+    "meaning_en": "Unusual and surprising in a way that causes people to take notice",
+    "meaning_ar": "مذهل، ملفت للنظر، استثنائي"
+  },
+  {
+    "id": "9695f762-14b2-4b97-b21e-127a71f2c357",
+    "word": "intricate",
+    "level": "high_frequency",
+    "meaning_en": "very complicated or detailed; having many small parts that work together",
+    "meaning_ar": "معقد، متشابك، مفصل"
+  },
+  {
+    "id": "b9474795-1289-4ee8-968f-fc3ca7a8c172",
+    "word": "galvanized",
+    "level": "high_frequency",
+    "meaning_en": "to stimulate into action; to energize or motivate strongly",
+    "meaning_ar": "حفّز، نشّط، حرّك للعمل"
+  },
+  {
+    "id": "e0af59a3-0fc4-4a4a-b657-c77a9467ba0c",
+    "word": "adapted",
+    "level": "high_frequency",
+    "meaning_en": "Changed or modified to suit new conditions or different uses; adjusted to fit a particular environment",
+    "meaning_ar": "متكيف، تأقلم، تكيف مع"
+  },
+  {
+    "id": "23a6c3b9-2f07-4a67-899d-e1cdfd1a4dce",
+    "word": "ubiquitous",
+    "level": "high_frequency",
+    "meaning_en": "present everywhere; existing or found everywhere at the same time",
+    "meaning_ar": "منتشر في كل مكان، موجود بكثرة"
+  },
+  {
+    "id": "658f3107-0e0f-4a49-9f2d-c80d952b1230",
+    "word": "symbiotic",
+    "level": "low_frequency",
+    "meaning_en": "involving a mutually beneficial relationship between different people or groups",
+    "meaning_ar": "تكافلي، تبادلي المنفعة، متفاعل"
+  },
+  {
+    "id": "85a0e055-87c2-4ffd-8acd-da2b4652850d",
+    "word": "counterintuitive",
+    "level": "high_frequency",
+    "meaning_en": "Opposite to what seems naturally right or expected; contrary to common sense",
+    "meaning_ar": "مخالف للحدس، عكس المتوقع"
+  },
+  {
+    "id": "c18ef3dd-3cf8-4e58-ba92-f972c0aa0dae",
+    "word": "compelling",
+    "level": "high_frequency",
+    "meaning_en": "very interesting and attracting attention; convincing",
+    "meaning_ar": "مقنع، جذاب، آسر"
+  },
+  {
+    "id": "e5463d3a-ab37-4439-9993-14a682444e72",
+    "word": "critique",
+    "level": "academic",
+    "meaning_en": "a detailed analysis and assessment of something, especially a literary, philosophical, or artistic work",
+    "meaning_ar": "نقد، تحليل نقدي، مراجعة"
+  },
+  {
+    "id": "2e0a7392-2e77-4197-bcba-3a6d625b7d8b",
+    "word": "compelling",
+    "level": "high_frequency",
+    "meaning_en": "Very interesting and able to capture attention; convincing",
+    "meaning_ar": "مقنع، جذاب، يستحوذ على الانتباه"
+  },
+  {
+    "id": "67d935da-d6f8-47ae-8c96-1109e7c50d7b",
+    "word": "imperatives",
+    "level": "academic",
+    "meaning_en": "essential or urgent requirements; things that are absolutely necessary or required",
+    "meaning_ar": "ضرورات، متطلبات حتمية، أولويات"
+  },
+  {
+    "id": "931494cc-bebe-42be-af66-d0df02950381",
+    "word": "stewardship",
+    "level": "high_frequency",
+    "meaning_en": "The careful and responsible management or care of something entrusted to one's care",
+    "meaning_ar": "الإدارة المسؤولة، الرعاية الحكيمة للموارد"
+  },
+  {
+    "id": "62db2910-3b00-4235-85bd-dd1e0e9e8e09",
+    "word": "collaborative",
+    "level": "high_frequency",
+    "meaning_en": "involving people working together to achieve something",
+    "meaning_ar": "تعاوني، تشاركي"
+  },
+  {
+    "id": "a06924ca-af57-48bf-9974-30007e11efdf",
+    "word": "orchestration",
+    "level": "high_frequency",
+    "meaning_en": "The careful organization and coordination of complex activities or elements to achieve a desired result",
+    "meaning_ar": "تنسيق، تنظيم دقيق، ترتيب معقد"
+  },
+  {
+    "id": "c92cac3d-d134-4411-9df1-8e909a7e9093",
+    "word": "caricatures",
+    "level": "high_frequency",
+    "meaning_en": "Exaggerated or distorted representations, especially unflattering ones",
+    "meaning_ar": "رسوم كاريكاتورية؛ تمثيل مبالغ فيه أو مشوه"
+  },
+  {
+    "id": "f17c3bcb-0400-4b98-9b55-7eaeaa64fe14",
+    "word": "parallels",
+    "level": "high_frequency",
+    "meaning_en": "similarities or comparisons between two different things, situations, or people",
+    "meaning_ar": "أوجه التشابه أو المقارنات بين شيئين أو موقفين أو شخصين مختلفين"
+  },
+  {
+    "id": "26c652a0-22cd-4c40-bbfc-a01d2c16a6ff",
+    "word": "formidable",
+    "level": "high_frequency",
+    "meaning_en": "Inspiring fear or respect through being impressively large, powerful, or capable; difficult to deal with",
+    "meaning_ar": "مهيب أو مخيف بسبب القوة أو الحجم؛ صعب التعامل معه"
+  },
+  {
+    "id": "4d49b327-02dd-45ea-9249-985b0b5554c6",
+    "word": "reciprocal",
+    "level": "high_frequency",
+    "meaning_en": "given, felt, or done in return; mutual; involving exchange between two parties",
+    "meaning_ar": "متبادل، تفاعلي، قائم على رد الفعل المتبادل"
+  },
+  {
+    "id": "a081fae2-e350-4786-a510-676a356c6eae",
+    "word": "valorize",
+    "level": "high_frequency",
+    "meaning_en": "to give or ascribe value or validity to something; to enhance the value or status of",
+    "meaning_ar": "يُقدِّر، يُعطي قيمة أو أهمية لشيء، يُعزز من قيمة أو مكانة شيء"
+  },
+  {
+    "id": "de9b7e8e-a6ad-4325-8b75-958df75ab73f",
+    "word": "stringent",
+    "level": "academic",
+    "meaning_en": "very strict, precise, and demanding exact conformity to rules",
+    "meaning_ar": "صارم، شديد، متشدد"
+  },
+  {
+    "id": "2025340b-399a-48fe-825e-1c8706cea879",
+    "word": "harmony",
+    "level": "high_frequency",
+    "meaning_en": "a state of agreement, balance, or peaceful coexistence; working together effectively",
+    "meaning_ar": "انسجام، توافق، تناغم"
+  },
+  {
+    "id": "70377622-8950-4016-bf26-2f24bb2eabd3",
+    "word": "galvanized",
+    "level": "high_frequency",
+    "meaning_en": "To motivate or stimulate someone into taking action; to energize",
+    "meaning_ar": "حفز، شحذ الهمة، دفع للعمل"
+  },
+  {
+    "id": "2281c0b0-5c2e-4452-b67c-67303fd19fc5",
+    "word": "reconceptualize",
+    "level": "high_frequency",
+    "meaning_en": "To form a new understanding or interpretation of something; to rethink fundamentally",
+    "meaning_ar": "يعيد تصور، يعيد فهم أو تفسير شيء بطريقة جديدة ومختلفة"
+  },
+  {
+    "id": "4ff0cb72-3675-4a39-808d-cb0e4ca3483f",
+    "word": "influx",
+    "level": "high_frequency",
+    "meaning_en": "the arrival of large numbers of people or things",
+    "meaning_ar": "تدفق، وافد كبير"
+  },
+  {
+    "id": "8157a79d-c9fa-4495-ae35-0ddb8f84e942",
+    "word": "ramifications",
+    "level": "high_frequency",
+    "meaning_en": "the complex or unwelcome consequences of an action or event",
+    "meaning_ar": "التشعبات، العواقب المعقدة، التبعات"
+  },
+  {
+    "id": "a32546ce-ba49-4c80-a5af-776e5a621fc1",
+    "word": "integrated",
+    "level": "high_frequency",
+    "meaning_en": "combined or coordinated to form a unified whole; working together harmoniously",
+    "meaning_ar": "متكامل، مدمج، منسق ليشكل كلاً موحداً"
+  },
+  {
+    "id": "debb7b02-deb6-48b1-ad37-78446205827e",
+    "word": "dissipate",
+    "level": "high_frequency",
+    "meaning_en": "to gradually disappear, scatter, or break up",
+    "meaning_ar": "يتبدد، يتفرق، يختفي تدريجياً"
+  },
+  {
+    "id": "fc40550e-d9b8-4aa4-8c51-b48c96578bd1",
+    "word": "convergence",
+    "level": "low_frequency",
+    "meaning_en": "the process of coming together or becoming similar; a meeting point",
+    "meaning_ar": "تقارب، التقاء، اندماج"
+  }
+]

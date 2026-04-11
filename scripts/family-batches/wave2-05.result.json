@@ -1,0 +1,812 @@
+[
+  {
+    "id": "85fe3022-19ff-4a79-b859-925ed6dbe434",
+    "word": "devices",
+    "word_family": [
+      {"word":"devise","pos":"verb","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"device","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":null,"affix_type":null,"base_word":"devise","base_pos":"verb","rule_ar":"تحويل الفعل devise إلى اسم device يتم عبر تغيير الحرف s إلى c دون إضافة لاحقة، وهو تحويل صوتي-إملائي","similar_examples":["advise → advice","practise → practice"],"irregular":true}}
+    ]
+  },
+  {
+    "id": "8cf85fd7-5552-45ec-8b7a-e3f63c88adfb",
+    "word": "droughts",
+    "word_family": [
+      {"word":"drought","pos":"noun","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"droughty","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-y","affix_type":"suffix","base_word":"drought","base_pos":"noun","rule_ar":"اللاحقة -y تُضاف إلى الاسم لتحويله إلى صفة تصف اتصاف الشيء بخاصية ذلك الاسم","similar_examples":["rain → rainy","wind → windy","dust → dusty"]}}
+    ]
+  },
+  {
+    "id": "b7c91907-1864-4edb-8eae-99b9f615b8df",
+    "word": "rice",
+    "word_family": [
+      {"word":"rice","pos":"noun","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"كلمة أصلية مفردة لا تشتق منها عائلة كبيرة في الإنجليزية"}}
+    ]
+  },
+  {
+    "id": "bd759fa5-8f34-440b-97c3-5193a38b9483",
+    "word": "allocation",
+    "word_family": [
+      {"word":"allocate","pos":"verb","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"allocation","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-tion","affix_type":"suffix","base_word":"allocate","base_pos":"verb","rule_ar":"اللاحقة -tion تُضاف إلى الفعل لتحويله إلى اسم يدل على عملية أو نتيجة الفعل","similar_examples":["educate → education","create → creation","donate → donation"]}},
+      {"word":"allocated","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ed","affix_type":"suffix","base_word":"allocate","base_pos":"verb","rule_ar":"اللاحقة -ed تحول الفعل إلى صفة مفعولية تدل على ما وقع عليه الفعل","similar_examples":["dedicate → dedicated","complicate → complicated"]}},
+      {"word":"unallocated","pos":"adjective","level":4,"is_base":false,"is_opposite":true,"morphology":{"affix":"un-","affix_type":"prefix","base_word":"allocated","base_pos":"adjective","rule_ar":"البادئة un- تضاف إلى الصفة لتعطي معنى النفي والعكس","similar_examples":["used → unused","known → unknown"]}}
+    ]
+  },
+  {
+    "id": "834771e8-7f0f-4323-a18a-151ea78fa8f0",
+    "word": "shared",
+    "word_family": [
+      {"word":"share","pos":"verb","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"shared","pos":"adjective","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ed","affix_type":"suffix","base_word":"share","base_pos":"verb","rule_ar":"اللاحقة -ed تحول الفعل إلى صفة مفعولية تصف شيئاً وقع عليه الفعل","similar_examples":["use → used","love → loved"]}},
+      {"word":"sharing","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ing","affix_type":"suffix","base_word":"share","base_pos":"verb","rule_ar":"اللاحقة -ing تُضاف إلى الفعل لتحويله إلى اسم يدل على عملية القيام بالفعل","similar_examples":["build → building","read → reading"]}},
+      {"word":"unshared","pos":"adjective","level":3,"is_base":false,"is_opposite":true,"morphology":{"affix":"un-","affix_type":"prefix","base_word":"shared","base_pos":"adjective","rule_ar":"البادئة un- تضاف إلى الصفة لتعطي معنى النفي والعكس","similar_examples":["known → unknown","wanted → unwanted"]}}
+    ]
+  },
+  {
+    "id": "90fc979a-f435-4a21-866a-83d27d74c3d2",
+    "word": "barrier",
+    "word_family": [
+      {"word":"bar","pos":"verb","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة بمعنى يمنع أو يحجز"}},
+      {"word":"barrier","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ier","affix_type":"suffix","base_word":"bar","base_pos":"verb","rule_ar":"اللاحقة -ier (تطوير من -ier الفرنسية) تُضاف إلى الفعل لتحويله إلى اسم يدل على أداة أو شيء يقوم بالفعل","similar_examples":["carry → carrier","cash → cashier"]}}
+    ]
+  },
+  {
+    "id": "249dda4f-8760-4a56-81f3-540c613aecc7",
+    "word": "rationale",
+    "word_family": [
+      {"word":"ration","pos":"noun","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق الكلمات المتصلة بمفهوم العقل والحصة"}},
+      {"word":"rational","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-al","affix_type":"suffix","base_word":"ration","base_pos":"noun","rule_ar":"اللاحقة -al تُضاف إلى الاسم لتحويله إلى صفة تصف ما يتعلق بذلك الاسم","similar_examples":["nation → national","person → personal"]}},
+      {"word":"rationale","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-e","affix_type":"suffix","base_word":"rational","base_pos":"adjective","rule_ar":"إضافة الحرف -e إلى الصفة rational تحولها إلى اسم يدل على المبرر أو الأساس المنطقي","similar_examples":["moral → morale","local → locale"]}},
+      {"word":"irrational","pos":"adjective","level":3,"is_base":false,"is_opposite":true,"morphology":{"affix":"ir-","affix_type":"prefix","base_word":"rational","base_pos":"adjective","rule_ar":"البادئة ir- (صورة من in-) تضاف إلى الصفات التي تبدأ بحرف r لتعطي معنى النفي والعكس","similar_examples":["regular → irregular","responsible → irresponsible"]}}
+    ]
+  },
+  {
+    "id": "66d6104a-8e8d-4129-aabd-cb821a5c97fc",
+    "word": "intact",
+    "word_family": [
+      {"word":"intact","pos":"adjective","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — كلمة لاتينية تعني غير ممسوس أو كامل"}}
+    ]
+  },
+  {
+    "id": "265ab789-7d20-4675-94ff-b2922f6403f5",
+    "word": "correlation",
+    "word_family": [
+      {"word":"correlate","pos":"verb","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"correlation","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-tion","affix_type":"suffix","base_word":"correlate","base_pos":"verb","rule_ar":"اللاحقة -tion تُضاف إلى الفعل لتحويله إلى اسم يدل على عملية أو نتيجة الفعل","similar_examples":["relate → relation","create → creation"]}},
+      {"word":"correlated","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ed","affix_type":"suffix","base_word":"correlate","base_pos":"verb","rule_ar":"اللاحقة -ed تحول الفعل إلى صفة مفعولية","similar_examples":["relate → related","elevate → elevated"]}},
+      {"word":"uncorrelated","pos":"adjective","level":5,"is_base":false,"is_opposite":true,"morphology":{"affix":"un-","affix_type":"prefix","base_word":"correlated","base_pos":"adjective","rule_ar":"البادئة un- تضاف إلى الصفة لتعطي معنى النفي والعكس","similar_examples":["related → unrelated","known → unknown"]}}
+    ]
+  },
+  {
+    "id": "3c296cdd-aa6d-45aa-af97-b1573874e621",
+    "word": "breakthrough",
+    "word_family": [
+      {"word":"break","pos":"verb","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"breakthrough","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":null,"affix_type":"compound","base_word":"break","base_pos":"verb","rule_ar":"كلمة مركبة من break و through تعني الاختراق أو التقدم الحاسم، وهي من المركبات الإنجليزية الشائعة","similar_examples":["break + down → breakdown","break + out → breakout"],"irregular":true}}
+    ]
+  },
+  {
+    "id": "f7d4875f-bf0b-4c48-9824-76c44b186234",
+    "word": "trap",
+    "word_family": [
+      {"word":"trap","pos":"verb","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"trapped","pos":"adjective","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ed","affix_type":"suffix","base_word":"trap","base_pos":"verb","rule_ar":"اللاحقة -ed تحول الفعل إلى صفة مفعولية، مع مضاعفة الحرف الأخير p لأن الفعل قصير ينتهي بحرف ساكن مسبوق بحرف صوتي","similar_examples":["stop → stopped","plan → planned"]}},
+      {"word":"trapper","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-er","affix_type":"suffix","base_word":"trap","base_pos":"verb","rule_ar":"اللاحقة -er تُضاف إلى الفعل لتحويله إلى اسم يدل على الفاعل، مع مضاعفة الحرف الأخير","similar_examples":["run → runner","swim → swimmer"]}}
+    ]
+  },
+  {
+    "id": "1968b97a-0be9-493d-88f1-e7041cea3e38",
+    "word": "embodies",
+    "word_family": [
+      {"word":"body","pos":"noun","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"embody","pos":"verb","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"em-","affix_type":"prefix","base_word":"body","base_pos":"noun","rule_ar":"البادئة em- (صورة من en-) تُضاف إلى الاسم لتحويله إلى فعل بمعنى جعل الشيء يتخذ صورة مجسدة","similar_examples":["power → empower","bitter → embitter"]}},
+      {"word":"embodiment","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ment","affix_type":"suffix","base_word":"embody","base_pos":"verb","rule_ar":"اللاحقة -ment تُضاف إلى الفعل لتحويله إلى اسم يدل على نتيجة أو حالة الفعل","similar_examples":["develop → development","achieve → achievement"]}},
+      {"word":"disembody","pos":"verb","level":5,"is_base":false,"is_opposite":true,"morphology":{"affix":"dis-","affix_type":"prefix","base_word":"embody","base_pos":"verb","rule_ar":"البادئة dis- تضاف إلى الفعل لتعطي معنى عكس الفعل أو إزالة صفته","similar_examples":["appear → disappear","connect → disconnect"]}}
+    ]
+  },
+  {
+    "id": "30081b3a-70ab-4177-9df1-3f302233138b",
+    "word": "surge",
+    "word_family": [
+      {"word":"surge","pos":"verb","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"surging","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ing","affix_type":"suffix","base_word":"surge","base_pos":"verb","rule_ar":"اللاحقة -ing تحول الفعل إلى صفة فاعلية تصف الشيء حال قيامه بالفعل","similar_examples":["rise → rising","grow → growing"]}}
+    ]
+  },
+  {
+    "id": "692f79ab-e395-4b0f-ba2a-3369a4e69784",
+    "word": "implications",
+    "word_family": [
+      {"word":"imply","pos":"verb","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"implication","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ation","affix_type":"suffix","base_word":"imply","base_pos":"verb","rule_ar":"اللاحقة -ation تُضاف إلى الفعل بعد تحويل y إلى i لتحويله إلى اسم يدل على نتيجة الفعل","similar_examples":["apply → application","classify → classification"]}},
+      {"word":"implicit","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-it","affix_type":"suffix","base_word":"imply","base_pos":"verb","rule_ar":"اللاحقة -it المشتقة من اللاتينية تحول الفعل إلى صفة تصف ما هو مفهوم ضمناً","similar_examples":["explicit","licit"],"irregular":true}}
+    ]
+  },
+  {
+    "id": "6f904119-4f05-4006-a1a8-405ffc4d59dc",
+    "word": "protracted",
+    "word_family": [
+      {"word":"protract","pos":"verb","level":5,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"protracted","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ed","affix_type":"suffix","base_word":"protract","base_pos":"verb","rule_ar":"اللاحقة -ed تحول الفعل إلى صفة مفعولية تصف شيئاً تم إطالته","similar_examples":["extend → extended","prolong → prolonged"]}},
+      {"word":"protraction","pos":"noun","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ion","affix_type":"suffix","base_word":"protract","base_pos":"verb","rule_ar":"اللاحقة -ion تُضاف إلى الفعل لتحويله إلى اسم يدل على عملية أو نتيجة الفعل","similar_examples":["react → reaction","subtract → subtraction"]}}
+    ]
+  },
+  {
+    "id": "ff07a96b-cd1e-4184-ac8d-0875ad2d24f9",
+    "word": "embodies",
+    "word_family": [
+      {"word":"body","pos":"noun","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"embody","pos":"verb","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"em-","affix_type":"prefix","base_word":"body","base_pos":"noun","rule_ar":"البادئة em- تحول الاسم إلى فعل بمعنى جعل الشيء يتخذ شكلاً مجسداً","similar_examples":["power → empower","bitter → embitter"]}},
+      {"word":"embodiment","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ment","affix_type":"suffix","base_word":"embody","base_pos":"verb","rule_ar":"اللاحقة -ment تحول الفعل إلى اسم يدل على نتيجة أو حالة الفعل","similar_examples":["develop → development","achieve → achievement"]}}
+    ]
+  },
+  {
+    "id": "ab801fdb-4873-4852-a0d8-0d872d611f80",
+    "word": "transcends",
+    "word_family": [
+      {"word":"transcend","pos":"verb","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"transcendent","pos":"adjective","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ent","affix_type":"suffix","base_word":"transcend","base_pos":"verb","rule_ar":"اللاحقة -ent تحول الفعل إلى صفة تصف من يتصف بالفعل","similar_examples":["depend → dependent","differ → different"]}},
+      {"word":"transcendence","pos":"noun","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ence","affix_type":"suffix","base_word":"transcend","base_pos":"verb","rule_ar":"اللاحقة -ence تحول الفعل إلى اسم يدل على الحالة أو الصفة","similar_examples":["differ → difference","depend → dependence"]}}
+    ]
+  },
+  {
+    "id": "b17c747c-fba1-44db-a392-44b3e3ea211f",
+    "word": "expanses",
+    "word_family": [
+      {"word":"expand","pos":"verb","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"expanse","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-se","affix_type":"suffix","base_word":"expand","base_pos":"verb","rule_ar":"تغيير الحرف d إلى se يحول الفعل إلى اسم يدل على المساحة الناتجة عن الفعل","similar_examples":["defend → defense","offend → offense"],"irregular":true}},
+      {"word":"expansion","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-sion","affix_type":"suffix","base_word":"expand","base_pos":"verb","rule_ar":"اللاحقة -sion تُضاف إلى الفعل بعد حذف d لتحويله إلى اسم يدل على عملية الفعل","similar_examples":["extend → extension","decide → decision"]}},
+      {"word":"expansive","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ive","affix_type":"suffix","base_word":"expand","base_pos":"verb","rule_ar":"اللاحقة -ive تحول الفعل إلى صفة تصف ميل الشيء إلى القيام بالفعل","similar_examples":["create → creative","act → active"]}}
+    ]
+  },
+  {
+    "id": "c17d94f1-8f6f-4948-8f5a-09f5b9b27d97",
+    "word": "mechanisms",
+    "word_family": [
+      {"word":"mechanism","pos":"noun","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"mechanical","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ical","affix_type":"suffix","base_word":"mechanism","base_pos":"noun","rule_ar":"اللاحقة -ical تُضاف إلى الاسم لتحويله إلى صفة تصف ما يتعلق بذلك الاسم","similar_examples":["history → historical","method → methodical"]}},
+      {"word":"mechanize","pos":"verb","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ize","affix_type":"suffix","base_word":"mechanism","base_pos":"noun","rule_ar":"اللاحقة -ize تحول الاسم إلى فعل بمعنى جعل الشيء يأخذ صفة الاسم","similar_examples":["modern → modernize","computer → computerize"]}},
+      {"word":"mechanically","pos":"adverb","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ly","affix_type":"suffix","base_word":"mechanical","base_pos":"adjective","rule_ar":"اللاحقة -ly تُضاف إلى الصفة لتحويلها إلى ظرف يصف طريقة حدوث الفعل","similar_examples":["quick → quickly","slow → slowly"]}}
+    ]
+  },
+  {
+    "id": "78c9d421-caf2-4273-931a-21624af77d86",
+    "word": "momentum",
+    "word_family": [
+      {"word":"momentum","pos":"noun","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — كلمة لاتينية الأصل لا تشتق منها عائلة واسعة"}},
+      {"word":"momentous","pos":"adjective","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ous","affix_type":"suffix","base_word":"momentum","base_pos":"noun","rule_ar":"اللاحقة -ous تُضاف إلى الاسم (بعد حذف -um) لتحويله إلى صفة تصف اتصاف الشيء بالأهمية أو الخاصية","similar_examples":["danger → dangerous","fame → famous"]}}
+    ]
+  },
+  {
+    "id": "ad1cefca-ab5b-4247-99a9-8e6a5dd8b727",
+    "word": "synthesis",
+    "word_family": [
+      {"word":"synthesize","pos":"verb","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"synthesis","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-is","affix_type":"suffix","base_word":"synthesize","base_pos":"verb","rule_ar":"اللاحقة -is اليونانية تحول الفعل إلى اسم يدل على عملية أو نتيجة الفعل","similar_examples":["analyze → analysis","hypothesize → hypothesis"],"irregular":true}},
+      {"word":"synthetic","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ic","affix_type":"suffix","base_word":"synthesis","base_pos":"noun","rule_ar":"اللاحقة -ic تحول الاسم إلى صفة تصف ما يتعلق بذلك الاسم أو مصنوع بطريقته","similar_examples":["history → historic","base → basic"]}}
+    ]
+  },
+  {
+    "id": "d0d86bc1-d7c9-4409-ad9b-8410005343e9",
+    "word": "nuances",
+    "word_family": [
+      {"word":"nuance","pos":"noun","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — كلمة فرنسية الأصل لا تشتق منها عائلة واسعة"}},
+      {"word":"nuanced","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ed","affix_type":"suffix","base_word":"nuance","base_pos":"noun","rule_ar":"اللاحقة -ed تُضاف إلى الاسم لتحويله إلى صفة تصف شيئاً يحتوي على الخاصية","similar_examples":["talent → talented","skill → skilled"]}}
+    ]
+  },
+  {
+    "id": "781fe70d-1783-4d38-aafb-d05f7375efe3",
+    "word": "magnitude",
+    "word_family": [
+      {"word":"magnitude","pos":"noun","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — كلمة لاتينية الأصل من magnus بمعنى كبير"}}
+    ]
+  },
+  {
+    "id": "b3398ad6-5c91-4fbb-ae4e-27bcc541e9fb",
+    "word": "paradigm",
+    "word_family": [
+      {"word":"paradigm","pos":"noun","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"paradigmatic","pos":"adjective","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-atic","affix_type":"suffix","base_word":"paradigm","base_pos":"noun","rule_ar":"اللاحقة -atic تحول الاسم إلى صفة تصف ما يتعلق بذلك النموذج أو النمط","similar_examples":["system → systematic","problem → problematic"]}}
+    ]
+  },
+  {
+    "id": "aad2609d-747a-4d24-999d-d37c0bfc8a00",
+    "word": "implementation",
+    "word_family": [
+      {"word":"implement","pos":"verb","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"implementation","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ation","affix_type":"suffix","base_word":"implement","base_pos":"verb","rule_ar":"اللاحقة -ation تُضاف إلى الفعل لتحويله إلى اسم يدل على عملية تنفيذ الفعل","similar_examples":["organize → organization","inform → information"]}}
+    ]
+  },
+  {
+    "id": "df365ea8-89ce-4f2e-a56d-4252d4de0845",
+    "word": "implications",
+    "word_family": [
+      {"word":"imply","pos":"verb","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"implication","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ation","affix_type":"suffix","base_word":"imply","base_pos":"verb","rule_ar":"اللاحقة -ation تضاف إلى الفعل بعد تحويل y إلى i لتحويله إلى اسم","similar_examples":["apply → application","classify → classification"]}},
+      {"word":"implicit","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-it","affix_type":"suffix","base_word":"imply","base_pos":"verb","rule_ar":"اللاحقة -it تحول الفعل إلى صفة تصف ما هو ضمني غير معلن","similar_examples":["explicit","licit"],"irregular":true}}
+    ]
+  },
+  {
+    "id": "31199191-b7f8-419f-a67a-b5ab5899c9d4",
+    "word": "periphery",
+    "word_family": [
+      {"word":"periphery","pos":"noun","level":5,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"peripheral","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-al","affix_type":"suffix","base_word":"periphery","base_pos":"noun","rule_ar":"اللاحقة -al تُضاف إلى الاسم (مع تحويل y إلى a) لتحويله إلى صفة تصف ما يتعلق بالأطراف","similar_examples":["history → historical","memory → memorial"]}}
+    ]
+  },
+  {
+    "id": "fefd55c6-3408-4ca3-a78f-2e114a1d132d",
+    "word": "stratified",
+    "word_family": [
+      {"word":"stratify","pos":"verb","level":5,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"stratified","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ied","affix_type":"suffix","base_word":"stratify","base_pos":"verb","rule_ar":"اللاحقة -ed مع تحويل y إلى i تحول الفعل إلى صفة مفعولية","similar_examples":["classify → classified","modify → modified"]}},
+      {"word":"stratification","pos":"noun","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ication","affix_type":"suffix","base_word":"stratify","base_pos":"verb","rule_ar":"اللاحقة -ication تحول الفعل المنتهي بـ -ify إلى اسم يدل على عملية الفعل","similar_examples":["classify → classification","simplify → simplification"]}}
+    ]
+  },
+  {
+    "id": "196fc8df-4265-499d-bd3e-3ef081553a56",
+    "word": "implications",
+    "word_family": [
+      {"word":"imply","pos":"verb","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"implication","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ation","affix_type":"suffix","base_word":"imply","base_pos":"verb","rule_ar":"اللاحقة -ation تحول الفعل إلى اسم يدل على نتيجة الفعل","similar_examples":["apply → application","classify → classification"]}}
+    ]
+  },
+  {
+    "id": "3502626d-7f82-4198-96ae-472841e9830f",
+    "word": "pronounced",
+    "word_family": [
+      {"word":"pronounce","pos":"verb","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"pronounced","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ed","affix_type":"suffix","base_word":"pronounce","base_pos":"verb","rule_ar":"اللاحقة -ed تحول الفعل إلى صفة تصف ما هو واضح أو بارز","similar_examples":["mark → marked","determine → determined"]}},
+      {"word":"pronunciation","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ation","affix_type":"suffix","base_word":"pronounce","base_pos":"verb","rule_ar":"اللاحقة -ation تحول الفعل إلى اسم مع حذف o وتعديل طفيف في الجذر","similar_examples":["denounce → denunciation"],"irregular":true}},
+      {"word":"mispronounced","pos":"adjective","level":4,"is_base":false,"is_opposite":true,"morphology":{"affix":"mis-","affix_type":"prefix","base_word":"pronounced","base_pos":"adjective","rule_ar":"البادئة mis- تعطي معنى الخطأ أو عدم الصحة في تنفيذ الفعل","similar_examples":["understood → misunderstood","read → misread"]}}
+    ]
+  },
+  {
+    "id": "6999e6a6-dff2-4a59-8af9-9816132c0016",
+    "word": "warm",
+    "word_family": [
+      {"word":"warm","pos":"adjective","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"warmth","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-th","affix_type":"suffix","base_word":"warm","base_pos":"adjective","rule_ar":"اللاحقة -th تُضاف إلى الصفة لتحويلها إلى اسم يدل على الحالة أو الصفة المجردة","similar_examples":["strong → strength","wide → width"]}},
+      {"word":"warmly","pos":"adverb","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ly","affix_type":"suffix","base_word":"warm","base_pos":"adjective","rule_ar":"اللاحقة -ly تحول الصفة إلى ظرف يصف طريقة حدوث الفعل","similar_examples":["quick → quickly","soft → softly"]}},
+      {"word":"warming","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ing","affix_type":"suffix","base_word":"warm","base_pos":"verb","rule_ar":"اللاحقة -ing تحول الفعل إلى اسم يدل على عملية الفعل","similar_examples":["build → building","feel → feeling"]}}
+    ]
+  },
+  {
+    "id": "bf2bd171-8679-4e49-b2ee-98a83fcdebf3",
+    "word": "remarkable",
+    "word_family": [
+      {"word":"remark","pos":"verb","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"remarkable","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-able","affix_type":"suffix","base_word":"remark","base_pos":"verb","rule_ar":"اللاحقة -able تُضاف إلى الفعل لتحويله إلى صفة تصف ما يستحق القيام بالفعل عليه","similar_examples":["read → readable","notice → noticeable"]}},
+      {"word":"remarkably","pos":"adverb","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ly","affix_type":"suffix","base_word":"remarkable","base_pos":"adjective","rule_ar":"اللاحقة -ly تحول الصفة إلى ظرف مع حذف e وإضافة y","similar_examples":["probable → probably","notable → notably"]}},
+      {"word":"unremarkable","pos":"adjective","level":4,"is_base":false,"is_opposite":true,"morphology":{"affix":"un-","affix_type":"prefix","base_word":"remarkable","base_pos":"adjective","rule_ar":"البادئة un- تضاف إلى الصفة لتعطي معنى النفي والعكس","similar_examples":["able → unable","known → unknown"]}}
+    ]
+  },
+  {
+    "id": "bf0a2f9e-bce6-43a0-801e-238d525889ec",
+    "word": "sophisticated",
+    "word_family": [
+      {"word":"sophisticate","pos":"verb","level":5,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"sophisticated","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ed","affix_type":"suffix","base_word":"sophisticate","base_pos":"verb","rule_ar":"اللاحقة -ed تحول الفعل إلى صفة مفعولية تصف شيئاً متطوراً أو معقداً","similar_examples":["educate → educated","complicate → complicated"]}},
+      {"word":"sophistication","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ation","affix_type":"suffix","base_word":"sophisticate","base_pos":"verb","rule_ar":"اللاحقة -ation تحول الفعل إلى اسم يدل على حالة التطور","similar_examples":["educate → education","create → creation"]}},
+      {"word":"unsophisticated","pos":"adjective","level":4,"is_base":false,"is_opposite":true,"morphology":{"affix":"un-","affix_type":"prefix","base_word":"sophisticated","base_pos":"adjective","rule_ar":"البادئة un- تضاف إلى الصفة لتعطي معنى النفي والعكس","similar_examples":["educated → uneducated","known → unknown"]}}
+    ]
+  },
+  {
+    "id": "3d5cf253-4099-4903-bd5d-6cee3722472d",
+    "word": "cultivate",
+    "word_family": [
+      {"word":"cultivate","pos":"verb","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"cultivation","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ion","affix_type":"suffix","base_word":"cultivate","base_pos":"verb","rule_ar":"اللاحقة -ion تحول الفعل إلى اسم يدل على عملية الفعل، بعد حذف e","similar_examples":["create → creation","educate → education"]}},
+      {"word":"cultivated","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-d","affix_type":"suffix","base_word":"cultivate","base_pos":"verb","rule_ar":"اللاحقة -ed تحول الفعل إلى صفة مفعولية تصف ما تم تنميته أو تطويره","similar_examples":["educate → educated","refine → refined"]}},
+      {"word":"cultivator","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-or","affix_type":"suffix","base_word":"cultivate","base_pos":"verb","rule_ar":"اللاحقة -or تحول الفعل إلى اسم فاعل يدل على من يقوم بالفعل","similar_examples":["create → creator","educate → educator"]}}
+    ]
+  },
+  {
+    "id": "2e1ab026-fd95-4fc5-a82c-7fb558759e3b",
+    "word": "perplex",
+    "word_family": [
+      {"word":"perplex","pos":"verb","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"perplexed","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ed","affix_type":"suffix","base_word":"perplex","base_pos":"verb","rule_ar":"اللاحقة -ed تحول الفعل إلى صفة مفعولية تصف شخصاً وقعت عليه الحيرة","similar_examples":["confuse → confused","bewilder → bewildered"]}},
+      {"word":"perplexing","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ing","affix_type":"suffix","base_word":"perplex","base_pos":"verb","rule_ar":"اللاحقة -ing تحول الفعل إلى صفة فاعلية تصف ما يسبب الحيرة","similar_examples":["confuse → confusing","puzzle → puzzling"]}},
+      {"word":"perplexity","pos":"noun","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ity","affix_type":"suffix","base_word":"perplex","base_pos":"verb","rule_ar":"اللاحقة -ity تحول الجذر إلى اسم يدل على حالة الحيرة","similar_examples":["complex → complexity","able → ability"]}}
+    ]
+  },
+  {
+    "id": "df123be2-a3ed-48c5-80b7-dee29beca798",
+    "word": "phenomenon",
+    "word_family": [
+      {"word":"phenomenon","pos":"noun","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — كلمة يونانية الأصل، جمعها phenomena"}},
+      {"word":"phenomena","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":null,"affix_type":null,"base_word":"phenomenon","base_pos":"noun","rule_ar":"جمع شاذ يوناني الأصل، يحول -on إلى -a لتكوين الجمع","similar_examples":["criterion → criteria"],"irregular":true}},
+      {"word":"phenomenal","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-al","affix_type":"suffix","base_word":"phenomenon","base_pos":"noun","rule_ar":"اللاحقة -al تحول الاسم إلى صفة تصف ما هو استثنائي أو يتعلق بالظاهرة","similar_examples":["person → personal","nation → national"]}}
+    ]
+  },
+  {
+    "id": "bc53f21e-8b4b-4318-874b-9badcf99c4dd",
+    "word": "germline",
+    "word_family": [
+      {"word":"germline","pos":"noun","level":5,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"كلمة مركبة من germ وline، مصطلح علمي في علم الأحياء"}}
+    ]
+  },
+  {
+    "id": "1039bd2e-7412-4d0c-b43b-223d5ea08f26",
+    "word": "ramifications",
+    "word_family": [
+      {"word":"ramify","pos":"verb","level":5,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"ramification","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ication","affix_type":"suffix","base_word":"ramify","base_pos":"verb","rule_ar":"اللاحقة -ication تحول الفعل المنتهي بـ -ify إلى اسم يدل على التشعب أو النتائج","similar_examples":["classify → classification","modify → modification"]}}
+    ]
+  },
+  {
+    "id": "1a75179f-0aa8-4f4d-8c06-ef8e5814e30e",
+    "word": "versatility",
+    "word_family": [
+      {"word":"versatile","pos":"adjective","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"versatility","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ity","affix_type":"suffix","base_word":"versatile","base_pos":"adjective","rule_ar":"اللاحقة -ity تحول الصفة إلى اسم يدل على حالة أو صفة، مع حذف e","similar_examples":["able → ability","stable → stability"]}}
+    ]
+  },
+  {
+    "id": "13da072c-31c1-4360-a028-0e5b08a9c5ca",
+    "word": "rigorous",
+    "word_family": [
+      {"word":"rigor","pos":"noun","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"rigorous","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ous","affix_type":"suffix","base_word":"rigor","base_pos":"noun","rule_ar":"اللاحقة -ous تحول الاسم إلى صفة تصف اتصاف الشيء بالصرامة","similar_examples":["danger → dangerous","fame → famous"]}},
+      {"word":"rigorously","pos":"adverb","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ly","affix_type":"suffix","base_word":"rigorous","base_pos":"adjective","rule_ar":"اللاحقة -ly تحول الصفة إلى ظرف يصف طريقة حدوث الفعل","similar_examples":["famous → famously","serious → seriously"]}}
+    ]
+  },
+  {
+    "id": "857bcc5a-806a-40a2-bcf9-2b6d5c359f31",
+    "word": "ordeal",
+    "word_family": [
+      {"word":"ordeal","pos":"noun","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — كلمة إنجليزية قديمة لا تشتق منها عائلة واسعة"}}
+    ]
+  },
+  {
+    "id": "c173e6c6-2b4b-497a-9057-3a2b312db58f",
+    "word": "paradigmatic",
+    "word_family": [
+      {"word":"paradigm","pos":"noun","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"paradigmatic","pos":"adjective","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-atic","affix_type":"suffix","base_word":"paradigm","base_pos":"noun","rule_ar":"اللاحقة -atic تحول الاسم إلى صفة تصف ما يتعلق بالنموذج أو النمط","similar_examples":["system → systematic","problem → problematic"]}}
+    ]
+  },
+  {
+    "id": "8748548a-695d-41f5-a8bd-77d8d8542135",
+    "word": "intractable",
+    "word_family": [
+      {"word":"tract","pos":"noun","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الجذر اللاتيني tract بمعنى جذب أو سحب، منه تشتق العائلة"}},
+      {"word":"tractable","pos":"adjective","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-able","affix_type":"suffix","base_word":"tract","base_pos":"noun","rule_ar":"اللاحقة -able تضاف لتحول الجذر إلى صفة تصف ما يمكن التحكم فيه أو التعامل معه","similar_examples":["manage → manageable","control → controllable"]}},
+      {"word":"intractable","pos":"adjective","level":5,"is_base":false,"is_opposite":true,"morphology":{"affix":"in-","affix_type":"prefix","base_word":"tractable","base_pos":"adjective","rule_ar":"البادئة in- تضاف إلى الصفة لتعطي معنى النفي والعكس","similar_examples":["visible → invisible","complete → incomplete"]}}
+    ]
+  },
+  {
+    "id": "a2be2fb8-6481-4ce8-b435-09f3ee75b41f",
+    "word": "quintessential",
+    "word_family": [
+      {"word":"quintessence","pos":"noun","level":5,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"quintessential","pos":"adjective","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ial","affix_type":"suffix","base_word":"quintessence","base_pos":"noun","rule_ar":"اللاحقة -ial تحول الاسم إلى صفة تصف ما هو جوهري أو مثالي، مع حذف e","similar_examples":["essence → essential","substance → substantial"]}},
+      {"word":"quintessentially","pos":"adverb","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ly","affix_type":"suffix","base_word":"quintessential","base_pos":"adjective","rule_ar":"اللاحقة -ly تحول الصفة إلى ظرف يصف طريقة الفعل","similar_examples":["essential → essentially","typical → typically"]}}
+    ]
+  },
+  {
+    "id": "a695ab34-5bb6-4d2c-a306-592bb1c990a3",
+    "word": "ephemeral",
+    "word_family": [
+      {"word":"ephemeral","pos":"adjective","level":5,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — كلمة يونانية الأصل تعني ما يدوم يوماً واحداً"}}
+    ]
+  },
+  {
+    "id": "93a84c73-5273-43a0-8458-9da7b3ccf1a6",
+    "word": "popular",
+    "word_family": [
+      {"word":"popular","pos":"adjective","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"popularity","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ity","affix_type":"suffix","base_word":"popular","base_pos":"adjective","rule_ar":"اللاحقة -ity تحول الصفة إلى اسم يدل على الحالة أو الصفة المجردة","similar_examples":["able → ability","real → reality"]}},
+      {"word":"popularize","pos":"verb","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ize","affix_type":"suffix","base_word":"popular","base_pos":"adjective","rule_ar":"اللاحقة -ize تحول الصفة إلى فعل بمعنى جعل الشيء يتصف بالصفة","similar_examples":["modern → modernize","legal → legalize"]}},
+      {"word":"unpopular","pos":"adjective","level":2,"is_base":false,"is_opposite":true,"morphology":{"affix":"un-","affix_type":"prefix","base_word":"popular","base_pos":"adjective","rule_ar":"البادئة un- تضاف إلى الصفة لتعطي معنى النفي والعكس","similar_examples":["happy → unhappy","known → unknown"]}}
+    ]
+  },
+  {
+    "id": "f5cace36-ea2e-4b0b-955d-0477bfac5949",
+    "word": "contemplate",
+    "word_family": [
+      {"word":"contemplate","pos":"verb","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"contemplation","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ion","affix_type":"suffix","base_word":"contemplate","base_pos":"verb","rule_ar":"اللاحقة -ion تحول الفعل إلى اسم يدل على عملية التفكير العميق، مع حذف e","similar_examples":["create → creation","relate → relation"]}},
+      {"word":"contemplative","pos":"adjective","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ive","affix_type":"suffix","base_word":"contemplate","base_pos":"verb","rule_ar":"اللاحقة -ive تحول الفعل إلى صفة تصف ميل الشيء إلى القيام بالفعل","similar_examples":["create → creative","meditate → meditative"]}}
+    ]
+  },
+  {
+    "id": "a14d8215-0594-4ac8-9836-e8bcfa045993",
+    "word": "strategies",
+    "word_family": [
+      {"word":"strategy","pos":"noun","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"strategic","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ic","affix_type":"suffix","base_word":"strategy","base_pos":"noun","rule_ar":"اللاحقة -ic تحول الاسم إلى صفة تصف ما يتعلق بالاستراتيجية، مع حذف y","similar_examples":["history → historic","economy → economic"]}},
+      {"word":"strategically","pos":"adverb","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ally","affix_type":"suffix","base_word":"strategic","base_pos":"adjective","rule_ar":"اللاحقة -ally تحول الصفة إلى ظرف يصف طريقة الفعل","similar_examples":["historic → historically","basic → basically"]}},
+      {"word":"strategist","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ist","affix_type":"suffix","base_word":"strategy","base_pos":"noun","rule_ar":"اللاحقة -ist تحول الاسم إلى اسم يدل على شخص متخصص في المجال","similar_examples":["art → artist","science → scientist"]}}
+    ]
+  },
+  {
+    "id": "a366a31f-8d3d-40d9-8c14-52f8486e2f1d",
+    "word": "compelling",
+    "word_family": [
+      {"word":"compel","pos":"verb","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"compelling","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ing","affix_type":"suffix","base_word":"compel","base_pos":"verb","rule_ar":"اللاحقة -ing تحول الفعل إلى صفة فاعلية مع مضاعفة الحرف الأخير l","similar_examples":["run → running","begin → beginning"]}},
+      {"word":"compulsion","pos":"noun","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-sion","affix_type":"suffix","base_word":"compel","base_pos":"verb","rule_ar":"اللاحقة -sion تحول الفعل إلى اسم مع تحويل el إلى uls","similar_examples":["expel → expulsion","repel → repulsion"],"irregular":true}}
+    ]
+  },
+  {
+    "id": "a9c6f622-b991-4add-9100-dae050d8feb6",
+    "word": "implications",
+    "word_family": [
+      {"word":"imply","pos":"verb","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"implication","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ation","affix_type":"suffix","base_word":"imply","base_pos":"verb","rule_ar":"اللاحقة -ation تُضاف إلى الفعل بعد تحويل y إلى i لتحويله إلى اسم","similar_examples":["apply → application","classify → classification"]}}
+    ]
+  },
+  {
+    "id": "c55dd03b-4990-46aa-896e-c7c9ede6c1c7",
+    "word": "devastate",
+    "word_family": [
+      {"word":"devastate","pos":"verb","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"devastation","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ion","affix_type":"suffix","base_word":"devastate","base_pos":"verb","rule_ar":"اللاحقة -ion تحول الفعل إلى اسم يدل على نتيجة الفعل، مع حذف e","similar_examples":["create → creation","relate → relation"]}},
+      {"word":"devastating","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ing","affix_type":"suffix","base_word":"devastate","base_pos":"verb","rule_ar":"اللاحقة -ing تحول الفعل إلى صفة فاعلية تصف ما يسبب الدمار","similar_examples":["exhaust → exhausting","overwhelm → overwhelming"]}},
+      {"word":"devastated","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-d","affix_type":"suffix","base_word":"devastate","base_pos":"verb","rule_ar":"اللاحقة -ed تحول الفعل إلى صفة مفعولية تصف من وقع عليه الدمار","similar_examples":["exhaust → exhausted","overwhelm → overwhelmed"]}}
+    ]
+  },
+  {
+    "id": "e6239220-ffdd-438d-bcc3-dbb15dd6fa28",
+    "word": "expanse",
+    "word_family": [
+      {"word":"expand","pos":"verb","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"expanse","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-se","affix_type":"suffix","base_word":"expand","base_pos":"verb","rule_ar":"تحويل d إلى se يحول الفعل إلى اسم يدل على المساحة الناتجة","similar_examples":["defend → defense","offend → offense"],"irregular":true}},
+      {"word":"expansion","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-sion","affix_type":"suffix","base_word":"expand","base_pos":"verb","rule_ar":"اللاحقة -sion تحول الفعل إلى اسم يدل على عملية التوسع","similar_examples":["extend → extension","decide → decision"]}},
+      {"word":"expansive","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ive","affix_type":"suffix","base_word":"expand","base_pos":"verb","rule_ar":"اللاحقة -ive تحول الفعل إلى صفة تصف ميل الشيء إلى التوسع","similar_examples":["create → creative","act → active"]}}
+    ]
+  },
+  {
+    "id": "2227dd31-c31b-4c4f-8823-5d10e0ee3170",
+    "word": "reverberations",
+    "word_family": [
+      {"word":"reverberate","pos":"verb","level":5,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"reverberation","pos":"noun","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ion","affix_type":"suffix","base_word":"reverberate","base_pos":"verb","rule_ar":"اللاحقة -ion تحول الفعل إلى اسم يدل على صدى الصوت أو الأثر المستمر","similar_examples":["create → creation","relate → relation"]}}
+    ]
+  },
+  {
+    "id": "f0732168-1bf7-4731-a271-7b85d6452ea2",
+    "word": "circumvent",
+    "word_family": [
+      {"word":"circumvent","pos":"verb","level":5,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — من اللاتينية circum (حول) و venire (يأتي)"}},
+      {"word":"circumvention","pos":"noun","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ion","affix_type":"suffix","base_word":"circumvent","base_pos":"verb","rule_ar":"اللاحقة -ion تحول الفعل إلى اسم يدل على عملية الالتفاف على شيء","similar_examples":["invent → invention","prevent → prevention"]}}
+    ]
+  },
+  {
+    "id": "5cc01e8f-c4ac-4f39-9b41-50e2155e62c0",
+    "word": "axiomatic",
+    "word_family": [
+      {"word":"axiom","pos":"noun","level":5,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"axiomatic","pos":"adjective","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-atic","affix_type":"suffix","base_word":"axiom","base_pos":"noun","rule_ar":"اللاحقة -atic تحول الاسم إلى صفة تصف ما يتعلق بالبدهية أو المسلمات","similar_examples":["system → systematic","problem → problematic"]}}
+    ]
+  },
+  {
+    "id": "fcdc495e-6b69-456f-b8ac-28b52d07f3f6",
+    "word": "interplay",
+    "word_family": [
+      {"word":"play","pos":"verb","level":1,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"interplay","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"inter-","affix_type":"prefix","base_word":"play","base_pos":"verb","rule_ar":"البادئة inter- تضاف إلى الكلمة لتعطي معنى التفاعل أو التبادل بين الأشياء","similar_examples":["act → interact","change → interchange"]}}
+    ]
+  },
+  {
+    "id": "6dd04487-dcc2-47ef-aa2f-28a10be48274",
+    "word": "synergies",
+    "word_family": [
+      {"word":"synergy","pos":"noun","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"synergistic","pos":"adjective","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-istic","affix_type":"suffix","base_word":"synergy","base_pos":"noun","rule_ar":"اللاحقة -istic تحول الاسم إلى صفة تصف ما يتعلق بالتآزر أو التعاون","similar_examples":["character → characteristic","art → artistic"]}}
+    ]
+  },
+  {
+    "id": "bff34560-18b2-4cc0-8c00-c5ce18030eec",
+    "word": "revelations",
+    "word_family": [
+      {"word":"reveal","pos":"verb","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"revelation","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ation","affix_type":"suffix","base_word":"reveal","base_pos":"verb","rule_ar":"اللاحقة -ation تحول الفعل إلى اسم مع تعديل الجذر (حذف a ودمج -ation)","similar_examples":["revise → revision"],"irregular":true}},
+      {"word":"revealing","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ing","affix_type":"suffix","base_word":"reveal","base_pos":"verb","rule_ar":"اللاحقة -ing تحول الفعل إلى صفة فاعلية تصف ما يكشف شيئاً","similar_examples":["interest → interesting","surprise → surprising"]}}
+    ]
+  },
+  {
+    "id": "ea16abe4-495f-4a00-a954-3a828236a37d",
+    "word": "implications",
+    "word_family": [
+      {"word":"imply","pos":"verb","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"implication","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ation","affix_type":"suffix","base_word":"imply","base_pos":"verb","rule_ar":"اللاحقة -ation تحول الفعل إلى اسم بعد تحويل y إلى i","similar_examples":["apply → application","classify → classification"]}}
+    ]
+  },
+  {
+    "id": "44231067-43ca-4020-a02d-050eebce7298",
+    "word": "calculus",
+    "word_family": [
+      {"word":"calculate","pos":"verb","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"calculus","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-us","affix_type":"suffix","base_word":"calculate","base_pos":"verb","rule_ar":"اللاحقة اللاتينية -us تحول الجذر إلى اسم يدل على نظام حساب أو تفكير","similar_examples":["stimulate → stimulus","focus"],"irregular":true}},
+      {"word":"calculation","pos":"noun","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ion","affix_type":"suffix","base_word":"calculate","base_pos":"verb","rule_ar":"اللاحقة -ion تحول الفعل إلى اسم يدل على عملية الفعل، مع حذف e","similar_examples":["create → creation","relate → relation"]}}
+    ]
+  },
+  {
+    "id": "803ae69b-e59d-4c0f-b608-a5a9775902a9",
+    "word": "exaggerated",
+    "word_family": [
+      {"word":"exaggerate","pos":"verb","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"exaggerated","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-d","affix_type":"suffix","base_word":"exaggerate","base_pos":"verb","rule_ar":"اللاحقة -ed تحول الفعل إلى صفة مفعولية تصف ما تم المبالغة فيه","similar_examples":["complicate → complicated","educate → educated"]}},
+      {"word":"exaggeration","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ion","affix_type":"suffix","base_word":"exaggerate","base_pos":"verb","rule_ar":"اللاحقة -ion تحول الفعل إلى اسم يدل على عملية المبالغة، مع حذف e","similar_examples":["create → creation","relate → relation"]}}
+    ]
+  },
+  {
+    "id": "367ff4fe-5f40-4e0d-a71d-30b591f3608c",
+    "word": "paradigm",
+    "word_family": [
+      {"word":"paradigm","pos":"noun","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"paradigmatic","pos":"adjective","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-atic","affix_type":"suffix","base_word":"paradigm","base_pos":"noun","rule_ar":"اللاحقة -atic تحول الاسم إلى صفة تصف ما يتعلق بالنموذج أو النمط","similar_examples":["system → systematic","problem → problematic"]}}
+    ]
+  },
+  {
+    "id": "7e303a56-1c6b-43e6-8fe4-9a416c9fb902",
+    "word": "sophisticated",
+    "word_family": [
+      {"word":"sophisticate","pos":"verb","level":5,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"sophisticated","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-d","affix_type":"suffix","base_word":"sophisticate","base_pos":"verb","rule_ar":"اللاحقة -ed تحول الفعل إلى صفة مفعولية تصف شيئاً متطوراً","similar_examples":["educate → educated","complicate → complicated"]}},
+      {"word":"sophistication","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ion","affix_type":"suffix","base_word":"sophisticate","base_pos":"verb","rule_ar":"اللاحقة -ion تحول الفعل إلى اسم يدل على التطور والرقي، مع حذف e","similar_examples":["create → creation","educate → education"]}}
+    ]
+  },
+  {
+    "id": "57a65523-1ad6-4d6f-950d-9889c6edebf0",
+    "word": "succumb",
+    "word_family": [
+      {"word":"succumb","pos":"verb","level":5,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — كلمة لاتينية الأصل لا تشتق منها عائلة واسعة"}}
+    ]
+  },
+  {
+    "id": "73b1ad65-9715-4dea-beb0-3ccf8e54d12e",
+    "word": "remarkable",
+    "word_family": [
+      {"word":"remark","pos":"verb","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"remarkable","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-able","affix_type":"suffix","base_word":"remark","base_pos":"verb","rule_ar":"اللاحقة -able تحول الفعل إلى صفة تصف ما يستحق الملاحظة","similar_examples":["read → readable","notice → noticeable"]}},
+      {"word":"remarkably","pos":"adverb","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ly","affix_type":"suffix","base_word":"remarkable","base_pos":"adjective","rule_ar":"اللاحقة -ly تحول الصفة إلى ظرف مع حذف e وإضافة y","similar_examples":["probable → probably","notable → notably"]}},
+      {"word":"unremarkable","pos":"adjective","level":4,"is_base":false,"is_opposite":true,"morphology":{"affix":"un-","affix_type":"prefix","base_word":"remarkable","base_pos":"adjective","rule_ar":"البادئة un- تضاف إلى الصفة لتعطي معنى النفي","similar_examples":["able → unable","known → unknown"]}}
+    ]
+  },
+  {
+    "id": "9695f762-14b2-4b97-b21e-127a71f2c357",
+    "word": "intricate",
+    "word_family": [
+      {"word":"intricate","pos":"adjective","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"intricacy","pos":"noun","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-cy","affix_type":"suffix","base_word":"intricate","base_pos":"adjective","rule_ar":"اللاحقة -cy تحول الصفة إلى اسم يدل على الصفة المجردة، مع حذف te","similar_examples":["accurate → accuracy","delicate → delicacy"]}},
+      {"word":"intricately","pos":"adverb","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ly","affix_type":"suffix","base_word":"intricate","base_pos":"adjective","rule_ar":"اللاحقة -ly تحول الصفة إلى ظرف يصف طريقة الفعل","similar_examples":["delicate → delicately","accurate → accurately"]}}
+    ]
+  },
+  {
+    "id": "b9474795-1289-4ee8-968f-fc3ca7a8c172",
+    "word": "galvanized",
+    "word_family": [
+      {"word":"galvanize","pos":"verb","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"galvanized","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-d","affix_type":"suffix","base_word":"galvanize","base_pos":"verb","rule_ar":"اللاحقة -ed تحول الفعل إلى صفة مفعولية تصف ما تم تحفيزه","similar_examples":["energize → energized","motivate → motivated"]}},
+      {"word":"galvanization","pos":"noun","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ation","affix_type":"suffix","base_word":"galvanize","base_pos":"verb","rule_ar":"اللاحقة -ation تحول الفعل المنتهي بـ -ize إلى اسم يدل على عملية الفعل","similar_examples":["organize → organization","civilize → civilization"]}}
+    ]
+  },
+  {
+    "id": "e0af59a3-0fc4-4a4a-b657-c77a9467ba0c",
+    "word": "adapted",
+    "word_family": [
+      {"word":"adapt","pos":"verb","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"adapted","pos":"adjective","level":2,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ed","affix_type":"suffix","base_word":"adapt","base_pos":"verb","rule_ar":"اللاحقة -ed تحول الفعل إلى صفة مفعولية تصف ما تم تكييفه","similar_examples":["modify → modified","adjust → adjusted"]}},
+      {"word":"adaptation","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ation","affix_type":"suffix","base_word":"adapt","base_pos":"verb","rule_ar":"اللاحقة -ation تحول الفعل إلى اسم يدل على عملية التكيف","similar_examples":["inform → information","organize → organization"]}},
+      {"word":"adaptable","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-able","affix_type":"suffix","base_word":"adapt","base_pos":"verb","rule_ar":"اللاحقة -able تحول الفعل إلى صفة تصف ما يمكن تكييفه","similar_examples":["read → readable","accept → acceptable"]}}
+    ]
+  },
+  {
+    "id": "23a6c3b9-2f07-4a67-899d-e1cdfd1a4dce",
+    "word": "ubiquitous",
+    "word_family": [
+      {"word":"ubiquitous","pos":"adjective","level":5,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"ubiquity","pos":"noun","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ity","affix_type":"suffix","base_word":"ubiquitous","base_pos":"adjective","rule_ar":"اللاحقة -ity تحول الصفة إلى اسم يدل على حالة الانتشار في كل مكان، مع حذف -ous","similar_examples":["curious → curiosity","various → variety"],"irregular":true}},
+      {"word":"ubiquitously","pos":"adverb","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ly","affix_type":"suffix","base_word":"ubiquitous","base_pos":"adjective","rule_ar":"اللاحقة -ly تحول الصفة إلى ظرف يصف طريقة الفعل","similar_examples":["famous → famously","serious → seriously"]}}
+    ]
+  },
+  {
+    "id": "658f3107-0e0f-4a49-9f2d-c80d952b1230",
+    "word": "symbiotic",
+    "word_family": [
+      {"word":"symbiosis","pos":"noun","level":5,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"symbiotic","pos":"adjective","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-tic","affix_type":"suffix","base_word":"symbiosis","base_pos":"noun","rule_ar":"اللاحقة -tic تحول الاسم المنتهي بـ -sis إلى صفة، مع حذف -sis","similar_examples":["hypnosis → hypnotic","neurosis → neurotic"]}},
+      {"word":"symbiotically","pos":"adverb","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ally","affix_type":"suffix","base_word":"symbiotic","base_pos":"adjective","rule_ar":"اللاحقة -ally تحول الصفة المنتهية بـ -ic إلى ظرف","similar_examples":["basic → basically","historic → historically"]}}
+    ]
+  },
+  {
+    "id": "85a0e055-87c2-4ffd-8acd-da2b4652850d",
+    "word": "counterintuitive",
+    "word_family": [
+      {"word":"intuition","pos":"noun","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"intuitive","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ive","affix_type":"suffix","base_word":"intuition","base_pos":"noun","rule_ar":"اللاحقة -ive تحول الاسم إلى صفة تصف ما يتعلق بالحدس، مع حذف -on","similar_examples":["action → active","creation → creative"]}},
+      {"word":"counterintuitive","pos":"adjective","level":5,"is_base":false,"is_opposite":true,"morphology":{"affix":"counter-","affix_type":"prefix","base_word":"intuitive","base_pos":"adjective","rule_ar":"البادئة counter- تضاف إلى الصفة لتعطي معنى المضاد أو المعاكس","similar_examples":["productive → counterproductive","act → counteract"]}}
+    ]
+  },
+  {
+    "id": "c18ef3dd-3cf8-4e58-ba92-f972c0aa0dae",
+    "word": "compelling",
+    "word_family": [
+      {"word":"compel","pos":"verb","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"compelling","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ling","affix_type":"suffix","base_word":"compel","base_pos":"verb","rule_ar":"اللاحقة -ing تحول الفعل إلى صفة فاعلية مع مضاعفة الحرف الأخير l","similar_examples":["run → running","begin → beginning"]}},
+      {"word":"compellingly","pos":"adverb","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ly","affix_type":"suffix","base_word":"compelling","base_pos":"adjective","rule_ar":"اللاحقة -ly تحول الصفة إلى ظرف يصف طريقة الفعل","similar_examples":["interesting → interestingly","surprising → surprisingly"]}}
+    ]
+  },
+  {
+    "id": "e5463d3a-ab37-4439-9993-14a682444e72",
+    "word": "critique",
+    "word_family": [
+      {"word":"critic","pos":"noun","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"critique","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-que","affix_type":"suffix","base_word":"critic","base_pos":"noun","rule_ar":"اللاحقة -que (فرنسية الأصل) تُضاف إلى الاسم لتحويله إلى اسم يدل على التحليل النقدي","similar_examples":["boutique","unique"],"irregular":true}},
+      {"word":"critical","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-al","affix_type":"suffix","base_word":"critic","base_pos":"noun","rule_ar":"اللاحقة -al تحول الاسم إلى صفة تصف ما يتعلق بالنقد","similar_examples":["person → personal","nation → national"]}},
+      {"word":"criticism","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ism","affix_type":"suffix","base_word":"critic","base_pos":"noun","rule_ar":"اللاحقة -ism تحول الاسم إلى اسم يدل على ممارسة أو مذهب","similar_examples":["hero → heroism","real → realism"]}}
+    ]
+  },
+  {
+    "id": "2e0a7392-2e77-4197-bcba-3a6d625b7d8b",
+    "word": "compelling",
+    "word_family": [
+      {"word":"compel","pos":"verb","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"compelling","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ing","affix_type":"suffix","base_word":"compel","base_pos":"verb","rule_ar":"اللاحقة -ing تحول الفعل إلى صفة فاعلية مع مضاعفة l","similar_examples":["run → running","begin → beginning"]}},
+      {"word":"compulsion","pos":"noun","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-sion","affix_type":"suffix","base_word":"compel","base_pos":"verb","rule_ar":"اللاحقة -sion تحول الفعل إلى اسم مع تعديل el إلى uls","similar_examples":["expel → expulsion","repel → repulsion"],"irregular":true}}
+    ]
+  },
+  {
+    "id": "67d935da-d6f8-47ae-8c96-1109e7c50d7b",
+    "word": "imperatives",
+    "word_family": [
+      {"word":"imperative","pos":"noun","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"imperatively","pos":"adverb","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ly","affix_type":"suffix","base_word":"imperative","base_pos":"adjective","rule_ar":"اللاحقة -ly تحول الصفة إلى ظرف يصف طريقة الفعل","similar_examples":["active → actively","creative → creatively"]}}
+    ]
+  },
+  {
+    "id": "931494cc-bebe-42be-af66-d0df02950381",
+    "word": "stewardship",
+    "word_family": [
+      {"word":"steward","pos":"noun","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"stewardship","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ship","affix_type":"suffix","base_word":"steward","base_pos":"noun","rule_ar":"اللاحقة -ship تحول الاسم إلى اسم يدل على المكانة أو المسؤولية أو الحالة","similar_examples":["friend → friendship","leader → leadership"]}}
+    ]
+  },
+  {
+    "id": "62db2910-3b00-4235-85bd-dd1e0e9e8e09",
+    "word": "collaborative",
+    "word_family": [
+      {"word":"collaborate","pos":"verb","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"collaboration","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ion","affix_type":"suffix","base_word":"collaborate","base_pos":"verb","rule_ar":"اللاحقة -ion تحول الفعل إلى اسم يدل على عملية التعاون، مع حذف e","similar_examples":["create → creation","relate → relation"]}},
+      {"word":"collaborative","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ive","affix_type":"suffix","base_word":"collaborate","base_pos":"verb","rule_ar":"اللاحقة -ive تحول الفعل إلى صفة تصف ما يتعلق بالتعاون، مع حذف e","similar_examples":["create → creative","cooperate → cooperative"]}},
+      {"word":"collaborator","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-or","affix_type":"suffix","base_word":"collaborate","base_pos":"verb","rule_ar":"اللاحقة -or تحول الفعل إلى اسم فاعل يدل على الشخص المتعاون","similar_examples":["create → creator","educate → educator"]}}
+    ]
+  },
+  {
+    "id": "a06924ca-af57-48bf-9974-30007e11efdf",
+    "word": "orchestration",
+    "word_family": [
+      {"word":"orchestra","pos":"noun","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"orchestrate","pos":"verb","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ate","affix_type":"suffix","base_word":"orchestra","base_pos":"noun","rule_ar":"اللاحقة -ate تحول الاسم إلى فعل بمعنى تنسيق أو ترتيب عدة عناصر","similar_examples":["origin → originate","active → activate"]}},
+      {"word":"orchestration","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ion","affix_type":"suffix","base_word":"orchestrate","base_pos":"verb","rule_ar":"اللاحقة -ion تحول الفعل إلى اسم يدل على عملية التنسيق، مع حذف e","similar_examples":["create → creation","relate → relation"]}}
+    ]
+  },
+  {
+    "id": "c92cac3d-d134-4411-9df1-8e909a7e9093",
+    "word": "caricatures",
+    "word_family": [
+      {"word":"caricature","pos":"noun","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"caricaturist","pos":"noun","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ist","affix_type":"suffix","base_word":"caricature","base_pos":"noun","rule_ar":"اللاحقة -ist تحول الاسم إلى اسم يدل على الشخص الذي يمارس فن الكاريكاتير، مع حذف e","similar_examples":["art → artist","science → scientist"]}}
+    ]
+  },
+  {
+    "id": "f17c3bcb-0400-4b98-9b55-7eaeaa64fe14",
+    "word": "parallels",
+    "word_family": [
+      {"word":"parallel","pos":"noun","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"paralleled","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ed","affix_type":"suffix","base_word":"parallel","base_pos":"verb","rule_ar":"اللاحقة -ed تحول الفعل إلى صفة مفعولية تصف ما تم مقارنته","similar_examples":["match → matched","compare → compared"]}},
+      {"word":"unparalleled","pos":"adjective","level":4,"is_base":false,"is_opposite":true,"morphology":{"affix":"un-","affix_type":"prefix","base_word":"paralleled","base_pos":"adjective","rule_ar":"البادئة un- تضاف إلى الصفة لتعطي معنى النفي، فتدل على ما لا يوجد له مثيل","similar_examples":["matched → unmatched","rivaled → unrivaled"]}}
+    ]
+  },
+  {
+    "id": "26c652a0-22cd-4c40-bbfc-a01d2c16a6ff",
+    "word": "formidable",
+    "word_family": [
+      {"word":"formidable","pos":"adjective","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"formidably","pos":"adverb","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ly","affix_type":"suffix","base_word":"formidable","base_pos":"adjective","rule_ar":"اللاحقة -ly تحول الصفة إلى ظرف مع حذف e وإضافة y","similar_examples":["probable → probably","notable → notably"]}}
+    ]
+  },
+  {
+    "id": "4d49b327-02dd-45ea-9249-985b0b5554c6",
+    "word": "reciprocal",
+    "word_family": [
+      {"word":"reciprocate","pos":"verb","level":5,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"reciprocal","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-al","affix_type":"suffix","base_word":"reciprocate","base_pos":"verb","rule_ar":"اللاحقة -al تحول الفعل إلى صفة تصف ما هو متبادل، مع حذف -ate","similar_examples":["origin → original","person → personal"]}},
+      {"word":"reciprocity","pos":"noun","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ity","affix_type":"suffix","base_word":"reciprocal","base_pos":"adjective","rule_ar":"اللاحقة -ity تحول الصفة إلى اسم يدل على حالة التبادل","similar_examples":["able → ability","real → reality"]}},
+      {"word":"reciprocally","pos":"adverb","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ly","affix_type":"suffix","base_word":"reciprocal","base_pos":"adjective","rule_ar":"اللاحقة -ly تحول الصفة إلى ظرف يصف طريقة الفعل","similar_examples":["final → finally","general → generally"]}}
+    ]
+  },
+  {
+    "id": "a081fae2-e350-4786-a510-676a356c6eae",
+    "word": "valorize",
+    "word_family": [
+      {"word":"valor","pos":"noun","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة بمعنى القيمة أو الشجاعة"}},
+      {"word":"valorize","pos":"verb","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ize","affix_type":"suffix","base_word":"valor","base_pos":"noun","rule_ar":"اللاحقة -ize تحول الاسم إلى فعل بمعنى إعطاء قيمة أو أهمية للشيء","similar_examples":["modern → modernize","memory → memorize"]}},
+      {"word":"valorization","pos":"noun","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ation","affix_type":"suffix","base_word":"valorize","base_pos":"verb","rule_ar":"اللاحقة -ation تحول الفعل المنتهي بـ -ize إلى اسم يدل على عملية الفعل","similar_examples":["organize → organization","realize → realization"]}}
+    ]
+  },
+  {
+    "id": "de9b7e8e-a6ad-4325-8b75-958df75ab73f",
+    "word": "stringent",
+    "word_family": [
+      {"word":"stringent","pos":"adjective","level":5,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — كلمة لاتينية الأصل"}},
+      {"word":"stringency","pos":"noun","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-cy","affix_type":"suffix","base_word":"stringent","base_pos":"adjective","rule_ar":"اللاحقة -cy تحول الصفة المنتهية بـ -ent إلى اسم يدل على الحالة، مع حذف t","similar_examples":["urgent → urgency","frequent → frequency"]}},
+      {"word":"stringently","pos":"adverb","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ly","affix_type":"suffix","base_word":"stringent","base_pos":"adjective","rule_ar":"اللاحقة -ly تحول الصفة إلى ظرف يصف طريقة الفعل","similar_examples":["urgent → urgently","different → differently"]}}
+    ]
+  },
+  {
+    "id": "2025340b-399a-48fe-825e-1c8706cea879",
+    "word": "harmony",
+    "word_family": [
+      {"word":"harmony","pos":"noun","level":2,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"harmonious","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ious","affix_type":"suffix","base_word":"harmony","base_pos":"noun","rule_ar":"اللاحقة -ious تحول الاسم إلى صفة تصف اتصاف الشيء بالانسجام، مع تحويل y إلى i","similar_examples":["victory → victorious","industry → industrious"]}},
+      {"word":"harmonize","pos":"verb","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ize","affix_type":"suffix","base_word":"harmony","base_pos":"noun","rule_ar":"اللاحقة -ize تحول الاسم إلى فعل بمعنى جعل الأشياء منسجمة","similar_examples":["memory → memorize","sympathy → sympathize"]}},
+      {"word":"disharmony","pos":"noun","level":4,"is_base":false,"is_opposite":true,"morphology":{"affix":"dis-","affix_type":"prefix","base_word":"harmony","base_pos":"noun","rule_ar":"البادئة dis- تضاف إلى الاسم لتعطي معنى النفي والعكس","similar_examples":["order → disorder","trust → distrust"]}}
+    ]
+  },
+  {
+    "id": "70377622-8950-4016-bf26-2f24bb2eabd3",
+    "word": "galvanized",
+    "word_family": [
+      {"word":"galvanize","pos":"verb","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"galvanized","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-d","affix_type":"suffix","base_word":"galvanize","base_pos":"verb","rule_ar":"اللاحقة -ed تحول الفعل إلى صفة مفعولية تصف ما تم تحفيزه","similar_examples":["energize → energized","motivate → motivated"]}},
+      {"word":"galvanizing","pos":"adjective","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ing","affix_type":"suffix","base_word":"galvanize","base_pos":"verb","rule_ar":"اللاحقة -ing تحول الفعل إلى صفة فاعلية تصف ما يحفز ويدفع للعمل، مع حذف e","similar_examples":["inspire → inspiring","motivate → motivating"]}}
+    ]
+  },
+  {
+    "id": "2281c0b0-5c2e-4452-b67c-67303fd19fc5",
+    "word": "reconceptualize",
+    "word_family": [
+      {"word":"concept","pos":"noun","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"conceptual","pos":"adjective","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ual","affix_type":"suffix","base_word":"concept","base_pos":"noun","rule_ar":"اللاحقة -ual تحول الاسم إلى صفة تصف ما يتعلق بالمفهوم","similar_examples":["fact → factual","habit → habitual"]}},
+      {"word":"conceptualize","pos":"verb","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ize","affix_type":"suffix","base_word":"conceptual","base_pos":"adjective","rule_ar":"اللاحقة -ize تحول الصفة إلى فعل بمعنى جعل الشيء مفهوماً","similar_examples":["visual → visualize","real → realize"]}},
+      {"word":"reconceptualize","pos":"verb","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"re-","affix_type":"prefix","base_word":"conceptualize","base_pos":"verb","rule_ar":"البادئة re- تضاف إلى الفعل لتعطي معنى إعادة القيام بالفعل","similar_examples":["build → rebuild","think → rethink"]}}
+    ]
+  },
+  {
+    "id": "4ff0cb72-3675-4a39-808d-cb0e4ca3483f",
+    "word": "influx",
+    "word_family": [
+      {"word":"influx","pos":"noun","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — كلمة لاتينية الأصل من in و fluere بمعنى يتدفق"}}
+    ]
+  },
+  {
+    "id": "8157a79d-c9fa-4495-ae35-0ddb8f84e942",
+    "word": "ramifications",
+    "word_family": [
+      {"word":"ramify","pos":"verb","level":5,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"ramification","pos":"noun","level":4,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ication","affix_type":"suffix","base_word":"ramify","base_pos":"verb","rule_ar":"اللاحقة -ication تحول الفعل المنتهي بـ -ify إلى اسم يدل على العواقب والتشعبات","similar_examples":["classify → classification","modify → modification"]}}
+    ]
+  },
+  {
+    "id": "a32546ce-ba49-4c80-a5af-776e5a621fc1",
+    "word": "integrated",
+    "word_family": [
+      {"word":"integrate","pos":"verb","level":3,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"integrated","pos":"adjective","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-d","affix_type":"suffix","base_word":"integrate","base_pos":"verb","rule_ar":"اللاحقة -ed تحول الفعل إلى صفة مفعولية تصف ما تم دمجه","similar_examples":["create → created","educate → educated"]}},
+      {"word":"integration","pos":"noun","level":3,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ion","affix_type":"suffix","base_word":"integrate","base_pos":"verb","rule_ar":"اللاحقة -ion تحول الفعل إلى اسم يدل على عملية الدمج، مع حذف e","similar_examples":["create → creation","relate → relation"]}},
+      {"word":"disintegrated","pos":"adjective","level":4,"is_base":false,"is_opposite":true,"morphology":{"affix":"dis-","affix_type":"prefix","base_word":"integrated","base_pos":"adjective","rule_ar":"البادئة dis- تضاف إلى الصفة لتعطي معنى العكس أو التفكك","similar_examples":["connected → disconnected","organized → disorganized"]}}
+    ]
+  },
+  {
+    "id": "debb7b02-deb6-48b1-ad37-78446205827e",
+    "word": "dissipate",
+    "word_family": [
+      {"word":"dissipate","pos":"verb","level":5,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"dissipation","pos":"noun","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ion","affix_type":"suffix","base_word":"dissipate","base_pos":"verb","rule_ar":"اللاحقة -ion تحول الفعل إلى اسم يدل على عملية التبدد، مع حذف e","similar_examples":["create → creation","relate → relation"]}}
+    ]
+  },
+  {
+    "id": "fc40550e-d9b8-4aa4-8c51-b48c96578bd1",
+    "word": "convergence",
+    "word_family": [
+      {"word":"converge","pos":"verb","level":4,"is_base":true,"is_opposite":false,"morphology":{"is_base":true,"note_ar":"الصيغة الأصلية — منها تشتق باقي العائلة"}},
+      {"word":"convergence","pos":"noun","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ence","affix_type":"suffix","base_word":"converge","base_pos":"verb","rule_ar":"اللاحقة -ence تحول الفعل إلى اسم يدل على حالة الفعل، مع حذف e","similar_examples":["differ → difference","depend → dependence"]}},
+      {"word":"convergent","pos":"adjective","level":5,"is_base":false,"is_opposite":false,"morphology":{"affix":"-ent","affix_type":"suffix","base_word":"converge","base_pos":"verb","rule_ar":"اللاحقة -ent تحول الفعل إلى صفة تصف ما يتلاقى ويتقارب، مع حذف e","similar_examples":["differ → different","depend → dependent"]}},
+      {"word":"divergence","pos":"noun","level":5,"is_base":false,"is_opposite":true,"morphology":{"affix":"di-","affix_type":"prefix","base_word":"convergence","base_pos":"noun","rule_ar":"تغيير البادئة من con- إلى di- يعطي معنى التباعد بدلاً من التقارب","similar_examples":["converge → diverge"]}}
+    ]
+  }
+]

@@ -357,7 +357,7 @@ export default function WordFamilySection({ wordFamily, studentId }) {
   return (
     <div
       dir="rtl"
-      className="mt-4 rounded-xl border border-slate-700 bg-slate-800/40 p-4 font-['Tajawal']"
+      className="wf-section mt-4 rounded-xl border border-slate-700 bg-slate-800/40 p-4 font-['Tajawal']"
     >
       <div className="mb-3 text-sm font-medium text-slate-300">📚 عائلة الكلمة</div>
 
