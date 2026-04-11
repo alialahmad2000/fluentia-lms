@@ -3,6 +3,17 @@ import { supabase } from '../lib/supabase'
 import { queryClient } from '../lib/queryClient'
 import { tracker } from '../services/activityTracker'
 
+// Promise.race timeout wrapper. Prevents hanging auth calls (iOS Safari with
+// a stale refresh token or flaky network) from leaving the app stuck on the
+// loading screen forever. Rejects with a labeled error on timeout.
+const withTimeout = (promise, ms, label) =>
+  Promise.race([
+    promise,
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error(`[AuthStore] ${label} timed out after ${ms}ms`)), ms)
+    ),
+  ])
+
 export const useAuthStore = create((set, get) => ({
   user: null,
   profile: null,
@@ -19,19 +30,45 @@ export const useAuthStore = create((set, get) => ({
   _realTrainerData: null,
 
   initialize: async () => {
-    // Get initial session
+    // Get initial session. Wrap in timeouts so the app never hangs on boot:
+    // if getSession() or fetchProfile() stall (iOS Safari with a stale token,
+    // flaky network, slow storage access), we still flip `loading: false`
+    // so the user lands on /login instead of staring at a dark screen.
     try {
-      const { data: { session } } = await supabase.auth.getSession()
+      const sessionResult = await withTimeout(
+        supabase.auth.getSession(),
+        6000,
+        'getSession'
+      )
+      const session = sessionResult?.data?.session
       if (session?.user) {
-        await get().fetchProfile(session.user)
+        try {
+          await withTimeout(get().fetchProfile(session.user), 8000, 'fetchProfile')
+        } catch (err) {
+          console.error('[AuthStore] fetchProfile error:', err)
+          // Profile fetch failed/timed out — clear partial state and let the
+          // user re-authenticate. signOut with scope 'local' removes the
+          // local session without a network round-trip that could also hang.
+          try { await supabase.auth.signOut({ scope: 'local' }) } catch {}
+          set({ user: null, profile: null, studentData: null, trainerData: null })
+        }
       }
     } catch (err) {
       console.error('[AuthStore] getSession error:', err)
+      // getSession hung or threw — nuke any corrupted local session so the
+      // next login starts from a clean slate.
+      try { await supabase.auth.signOut({ scope: 'local' }) } catch {}
+    } finally {
+      set({ loading: false })
     }
-    set({ loading: false })
 
-    // Restore impersonation if admin was viewing as another user
-    await get().restoreImpersonation()
+    // Restore impersonation if admin was viewing as another user.
+    // Non-blocking: if this stalls, loading is already false so user can interact.
+    try {
+      await withTimeout(get().restoreImpersonation(), 5000, 'restoreImpersonation')
+    } catch (err) {
+      console.error('[AuthStore] restoreImpersonation error:', err)
+    }
 
     // Listen for auth changes — store subscription so it can be unsubscribed
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {

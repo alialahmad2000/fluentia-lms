@@ -1,4 +1,4 @@
-import { useEffect, useRef, Suspense } from 'react'
+import { useEffect, useRef, useState, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom'
 import { useAuthStore } from './stores/authStore'
 import { supabase } from './lib/supabase'
@@ -176,19 +176,108 @@ function PageSkeleton() {
   )
 }
 
-// ─── Full-screen Loading Skeleton ────────────────────────────
+// ─── Full-screen Boot Screen ─────────────────────────────────
+// Shown while authStore.initialize() is running. Must be *visibly* something
+// on every device, because the previous skeleton-only version rendered as a
+// near-invisible dark page on mobile (skeleton CSS vars are ~2-6% opacity
+// white on a dark bg) — users perceived it as "nothing loaded."
+//
+// After 6 seconds of loading, a reload escape-hatch appears so users aren't
+// permanently stuck if the app fails to boot (e.g. stale SW, corrupt token).
 function LoadingSkeleton() {
+  const [showReload, setShowReload] = useState(false)
+
+  useEffect(() => {
+    const t = setTimeout(() => setShowReload(true), 6000)
+    return () => clearTimeout(t)
+  }, [])
+
+  const handleReload = () => {
+    // Clear local auth + SW caches to recover from a corrupted boot state,
+    // then hard-reload. Wrapped in try/catch so storage errors don't block.
+    try { localStorage.removeItem('sw_purge_v3') } catch {}
+    try {
+      if ('caches' in window) {
+        caches.keys().then((names) => Promise.all(names.map((n) => caches.delete(n))))
+      }
+    } catch {}
+    try {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then((regs) => regs.forEach((r) => r.unregister()))
+      }
+    } catch {}
+    window.location.reload()
+  }
+
   return (
-    <div role="status" aria-busy="true" className="min-h-dvh bg-darkest flex items-center justify-center p-8">
-      <div className="w-full max-w-md space-y-6">
-        <div className="skeleton h-10 w-48 mx-auto" />
-        <div className="skeleton h-4 w-64 mx-auto" />
-        <div className="space-y-4 mt-10">
-          <div className="skeleton h-16 w-full" />
-          <div className="skeleton h-16 w-full" />
-          <div className="skeleton h-12 w-3/4" />
+    <div
+      role="status"
+      aria-busy="true"
+      aria-live="polite"
+      className="min-h-dvh flex items-center justify-center p-8"
+      style={{ background: 'var(--surface-base, #060e1c)' }}
+    >
+      <div className="flex flex-col items-center gap-6 text-center max-w-sm">
+        {/* Logo — always visible, independent of CSS vars */}
+        <img
+          src="/logo-icon-dark.png"
+          alt="Fluentia Academy"
+          className="h-16 w-16 rounded-2xl"
+          style={{ filter: 'drop-shadow(0 0 24px rgba(56,189,248,0.35))' }}
+          onError={(e) => { e.currentTarget.style.display = 'none' }}
+        />
+
+        {/* Spinner — uses inline styles so it shows even if Tailwind fails to load */}
+        <div
+          aria-hidden="true"
+          style={{
+            width: 40,
+            height: 40,
+            borderRadius: '50%',
+            border: '3px solid rgba(255,255,255,0.12)',
+            borderTopColor: '#38bdf8',
+            animation: 'fluentia-boot-spin 0.9s linear infinite',
+          }}
+        />
+
+        {/* Arabic loading text — bright enough to be readable on every screen */}
+        <div style={{ color: '#e2e8f0', fontFamily: 'Tajawal, sans-serif' }}>
+          <p style={{ fontSize: 16, fontWeight: 600, margin: 0 }}>جاري تحميل أكاديمية طلاقة...</p>
+          <p style={{ fontSize: 13, marginTop: 6, color: '#94a3b8' }}>
+            لحظات من فضلك
+          </p>
         </div>
+
+        {/* Escape hatch — appears after 6s if boot is taking too long */}
+        {showReload && (
+          <button
+            type="button"
+            onClick={handleReload}
+            style={{
+              marginTop: 8,
+              padding: '12px 24px',
+              borderRadius: 12,
+              border: '1px solid rgba(56,189,248,0.35)',
+              background: 'rgba(56,189,248,0.12)',
+              color: '#7dd3fc',
+              fontFamily: 'Tajawal, sans-serif',
+              fontSize: 14,
+              fontWeight: 600,
+              cursor: 'pointer',
+              minHeight: 44,
+            }}
+          >
+            التحميل يأخذ وقتاً أطول من المعتاد — اضغط لإعادة المحاولة
+          </button>
+        )}
       </div>
+
+      {/* Inline keyframes so spinner works even if external CSS is broken */}
+      <style>{`
+        @keyframes fluentia-boot-spin {
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   )
 }

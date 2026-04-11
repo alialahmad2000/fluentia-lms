@@ -286,6 +286,19 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### April 11, 2026 — Fix Blank-Screen Boot Bug (Fatima's issue)
+- What: Fixed a critical boot-time bug where the app showed only a dark page with nothing visible on mobile devices (reported by student Fatima, seen on iPhone/iPad via app + browser). Two independent failure modes collapsed into the same symptom.
+- **Root cause 1 — auth init could hang forever:** `authStore.initialize()` awaited `supabase.auth.getSession()` and `fetchProfile()` with NO timeout. On iOS Safari with a stale refresh token, flaky network, or slow storage access, these calls could hang indefinitely, leaving `loading: true` forever. `<RoleRedirect />` / `<ProtectedRoute />` rendered the `LoadingSkeleton` the whole time — user never reached `/login`.
+- **Root cause 2 — LoadingSkeleton was nearly invisible:** The full-screen boot loader used `.skeleton` elements whose CSS vars (`--skeleton-from/via/to`) are `rgba(255,255,255,0.02–0.06)` — essentially invisible on a bright mobile screen. Even when loading was working, the user perceived "just a dark page, nothing at all."
+- **Fix 1 — timeout wrapper in `authStore.initialize()`:** Added `withTimeout()` helper that wraps every supabase auth call. `getSession()` times out at 6s, `fetchProfile()` at 8s, `restoreImpersonation()` at 5s. On timeout, local session is cleared via `supabase.auth.signOut({ scope: 'local' })` and `loading` is flipped to `false` in a `finally` block so the user always lands on `/login`.
+- **Fix 2 — rewrote `LoadingSkeleton` in `App.jsx`:** Replaced the invisible skeleton shimmers with a visually obvious boot screen — Fluentia logo + bright spinner (inline styles, works even if Tailwind fails to load) + Arabic "جاري تحميل أكاديمية طلاقة..." text + an escape-hatch "reload" button that appears after 6 seconds. The reload handler clears service worker registrations + caches + the `sw_purge_v3` flag, then hard-reloads to recover from any corrupted boot state.
+- **Inline keyframes + inline styles:** The new boot screen uses inline `<style>` for the spinner animation and inline style props for colors/spacing. This is intentional — if a broken JS chunk or stale SW breaks Tailwind CSS, the boot screen STILL renders correctly, so the user can always see the reload button.
+- Files: `src/stores/authStore.js` (timeout wrapper + initialize() rewrite), `src/App.jsx` (LoadingSkeleton → boot screen with escape hatch, added useState import)
+- DB: No schema changes
+- Edge Functions: None
+- Status: Complete — production build verified (`npm run build` succeeds, 31s, 0 errors)
+- Notes: For Fatima specifically, tell her to do a single hard-refresh (or reinstall the PWA) after this deploys. If the new boot screen appears and sits for 6+ seconds, she can tap the reload button which will force-clear her stale state.
+
 ### April 11, 2026 — Word Families with Morphology Explanations (35-word-families)
 - What: Added full word family JSONB data + morphology ("ليش؟") explanations for every vocabulary word. Students now see the complete derivational family of any word with Arabic explanations of why each derivative has its part of speech (affix + base + rule + similar examples).
 - **Migration `104_add_word_families.sql`:** Added `word_family JSONB DEFAULT '[]'::jsonb` + `word_family_generated_at TIMESTAMPTZ` columns on `curriculum_vocabulary`, plus partial index for pending rows and GIN index on the JSONB payload
