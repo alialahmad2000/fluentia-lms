@@ -593,11 +593,17 @@ function FillBlankExercise({ item, answer, onAnswer }) {
   const inputRef = useRef(null)
 
   const acceptedAnswers = item.accepted_answers || [item.correct_answer]
+  const expectedWordCount = (acceptedAnswers[0] || '').split(/\s+/).filter(Boolean).length
+  const placeholder = expectedWordCount <= 1
+    ? '____ (one word)'
+    : `____ (${expectedWordCount} words)`
 
   const handleSubmit = (e) => {
     e.preventDefault()
     if (answer || !input.trim()) return
-    const correct = validateAnswer(input.trim(), acceptedAnswers)
+    const correct = validateAnswer(input.trim(), acceptedAnswers, {
+      fullSentence: item.question,
+    })
     onAnswer({ selected: input.trim(), correct })
   }
 
@@ -610,7 +616,7 @@ function FillBlankExercise({ item, answer, onAnswer }) {
           value={answer ? answer.selected : input}
           onChange={e => setInput(e.target.value)}
           disabled={!!answer}
-          placeholder="اكتب الإجابة..."
+          placeholder={placeholder}
           className={`flex-1 h-10 px-4 rounded-xl text-sm font-['Inter'] border outline-none transition-colors ${
             answer?.correct
               ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-400'
@@ -629,6 +635,11 @@ function FillBlankExercise({ item, answer, onAnswer }) {
           </button>
         )}
       </div>
+      {!answer && (
+        <p className="text-[10px] text-[var(--text-muted)] font-['Tajawal']" dir="rtl">
+          اكتب الكلمة الناقصة فقط — لا تعيد كتابة الجملة كاملة
+        </p>
+      )}
       {answer && !answer.correct && (
         <div
           className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs"
@@ -856,6 +867,9 @@ function TextInputExercise({ item, answer, onAnswer, exerciseType }) {
 function CompletedBanner({ attemptNumber, attemptHistory, score, retrying, onRetry }) {
   const [showHistory, setShowHistory] = useState(false)
   const hasHistory = attemptHistory?.length > 0
+  const bestScore = hasHistory
+    ? Math.max(score || 0, ...attemptHistory.map(h => h.score || 0))
+    : score
 
   if (retrying) {
     return (
@@ -883,6 +897,11 @@ function CompletedBanner({ attemptNumber, attemptHistory, score, retrying, onRet
           )}
           {score != null && (
             <span className="text-xs text-emerald-400/70 font-['Tajawal']">— {score}%</span>
+          )}
+          {hasHistory && bestScore != null && bestScore !== score && (
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 font-['Tajawal']">
+              أفضل: {bestScore}%
+            </span>
           )}
         </div>
         <div className="flex items-center gap-2">
@@ -919,6 +938,9 @@ function CompletedBanner({ attemptNumber, attemptHistory, score, retrying, onRet
                   <div key={i} className="flex items-center gap-3 text-xs text-[var(--text-muted)] font-['Tajawal']">
                     <span className="font-medium">المحاولة {h.attempt}</span>
                     <span>{h.score != null ? `${h.score}%` : '—'}</span>
+                    {h.score === bestScore && (
+                      <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amber-500/15 text-amber-400">الأفضل</span>
+                    )}
                     {h.completed_at && (
                       <span dir="ltr">{new Date(h.completed_at).toLocaleDateString('ar-SA', { day: 'numeric', month: 'short' })}</span>
                     )}
@@ -928,6 +950,9 @@ function CompletedBanner({ attemptNumber, attemptHistory, score, retrying, onRet
                   <span>المحاولة {attemptNumber}</span>
                   <span>{score != null ? `${score}%` : '—'}</span>
                   <span className="text-[10px] text-emerald-400/60">(الحالية)</span>
+                  {score === bestScore && (
+                    <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amber-500/15 text-amber-400">الأفضل</span>
+                  )}
                 </div>
               </div>
             </div>

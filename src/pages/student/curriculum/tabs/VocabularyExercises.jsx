@@ -5,6 +5,7 @@ import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
+import { validateAnswer } from '../../../../utils/answerValidator'
 
 // ─── Shuffle helper ───────────────────────────────
 function shuffle(arr) {
@@ -301,8 +302,8 @@ function FillBlankExercise({ words, onComplete, onBack }) {
   const handleSubmit = () => {
     setSubmitted(true)
     const score = effectiveItems.filter(w => {
-      const ans = (answers[w.id] || '').trim().toLowerCase()
-      return ans === w.word.toLowerCase()
+      const ans = (answers[w.id] || '').trim()
+      return validateAnswer(ans, [w.word], { fullSentence: w.example_sentence })
     }).length
     setTimeout(() => onComplete({ score, maxScore: effectiveItems.length, answers }), 1500)
   }
@@ -316,9 +317,9 @@ function FillBlankExercise({ words, onComplete, onBack }) {
           const sentence = w.example_sentence
             ? w.example_sentence.replace(new RegExp(w.word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), '___')
             : `The meaning is: ${w.definition_en} → ___`
-          const userAns = (answers[w.id] || '').trim().toLowerCase()
-          const isCorrect = submitted && userAns === w.word.toLowerCase()
-          const isWrong = submitted && userAns !== w.word.toLowerCase()
+          const userAns = (answers[w.id] || '').trim()
+          const isCorrect = submitted && validateAnswer(userAns, [w.word], { fullSentence: w.example_sentence })
+          const isWrong = submitted && !isCorrect
 
           return (
             <div
@@ -337,9 +338,14 @@ function FillBlankExercise({ words, onComplete, onBack }) {
                 value={answers[w.id] || ''}
                 onChange={e => setAnswers(prev => ({ ...prev, [w.id]: e.target.value }))}
                 disabled={submitted}
-                placeholder="Type the word..."
+                placeholder="____ (one word)"
                 className="w-full px-3 py-2 rounded-lg text-sm font-['Inter'] bg-[var(--surface-base)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-sky-500/50 outline-none transition-colors"
               />
+              {!submitted && i === 0 && (
+                <p className="text-[10px] text-[var(--text-muted)] font-['Tajawal']" dir="rtl">
+                  اكتب الكلمة الناقصة فقط — لا تعيد كتابة الجملة كاملة
+                </p>
+              )}
               {submitted && isWrong && (
                 <p className="text-xs text-emerald-400 font-['Inter']" dir="ltr">
                   Correct answer: <strong>{w.word}</strong>
