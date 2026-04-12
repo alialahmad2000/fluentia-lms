@@ -380,7 +380,7 @@ function StudentRecordingCard({ student, recording, trainerId, onFeedbackSaved, 
                 { key: 'grammar_score', label: 'القواعد' },
                 { key: 'vocabulary_score', label: 'المفردات' },
                 { key: 'fluency_score', label: 'الطلاقة' },
-                { key: 'confidence_score', label: 'الثقة' },
+                { key: 'task_completion_score', label: 'إتمام المهمة' },
               ].filter(s => aiEval[s.key] != null).map(s => (
                 <div key={s.key} className="flex items-center gap-2">
                   <span className="text-[10px] text-[var(--text-muted)] font-['Tajawal'] w-12 flex-shrink-0">{s.label}</span>

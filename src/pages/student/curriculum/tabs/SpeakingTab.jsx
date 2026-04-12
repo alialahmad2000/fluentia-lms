@@ -437,7 +437,7 @@ function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId,
             ...(aiEval.grammar_score != null && { grammar: aiEval.grammar_score }),
             ...(aiEval.vocabulary_score != null && { vocabulary: aiEval.vocabulary_score }),
             ...(aiEval.fluency_score != null && { fluency: aiEval.fluency_score }),
-            ...(aiEval.confidence_score != null && { pronunciation: aiEval.confidence_score }),
+            ...((aiEval.task_completion_score ?? aiEval.confidence_score) != null && { pronunciation: aiEval.task_completion_score ?? aiEval.confidence_score }),
           }}
           leaderboard={leaderboard}
           currentStudentId={studentId}
@@ -454,7 +454,7 @@ function AIEvaluationCard({ evaluation }) {
     grammar_score: 'القواعد',
     vocabulary_score: 'المفردات',
     fluency_score: 'الطلاقة',
-    confidence_score: 'الثقة',
+    task_completion_score: 'إتمام المهمة',
   }
 
   const scores = Object.entries(CRITERIA_AR)

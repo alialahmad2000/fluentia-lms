@@ -73,8 +73,8 @@ export function useActivityLeaderboard(type, unitId, studentId, groupId) {
           const grammar = ev.grammar_score || 0
           const vocabulary = ev.vocabulary_score || 0
           const fluency = ev.fluency_score || 0
-          const confidence = ev.confidence_score || 0
-          const vals = [ev.grammar_score, ev.vocabulary_score, ev.fluency_score, ev.confidence_score].filter(v => v != null)
+          const confidence = ev.task_completion_score ?? ev.confidence_score ?? 0
+          const vals = [ev.grammar_score, ev.vocabulary_score, ev.fluency_score, ev.task_completion_score ?? ev.confidence_score].filter(v => v != null)
           const count = vals.length || 1
           const total = grammar + vocabulary + fluency + confidence
           const avg = Math.round((total / count) * 10) / 10

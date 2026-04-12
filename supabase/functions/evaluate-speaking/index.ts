@@ -335,7 +335,6 @@ Respond ONLY with valid JSON (no markdown, no backticks, no explanation outside 
                     vocabulary_score: scoreMatch('vocabulary_score'),
                     fluency_score: scoreMatch('fluency_score'),
                     task_completion_score: scoreMatch('task_completion_score'),
-                    confidence_score: scoreMatch('task_completion_score'), // backward compat
                     overall_score: scoreMatch('overall_score'),
                     feedback_ar: 'تم التقييم — بعض التفاصيل قد تكون ناقصة',
                     feedback_en: 'Evaluation completed — some details may be missing',
@@ -348,15 +347,11 @@ Respond ONLY with valid JSON (no markdown, no backticks, no explanation outside 
           }
           if (aiEvaluation) {
             aiEvaluation.transcript = transcript
-            // Backward compat: map task_completion_score → confidence_score for UI
-            if (aiEvaluation.task_completion_score != null && aiEvaluation.confidence_score == null) {
-              aiEvaluation.confidence_score = aiEvaluation.task_completion_score
-            }
             // Validate overall_score is actually calculated, not hardcoded 7
             const g = aiEvaluation.grammar_score || 0
             const v = aiEvaluation.vocabulary_score || 0
             const f = aiEvaluation.fluency_score || 0
-            const t = aiEvaluation.task_completion_score || aiEvaluation.confidence_score || 0
+            const t = aiEvaluation.task_completion_score || 0
             const calculated = Math.round(g * 0.25 + v * 0.20 + f * 0.30 + t * 0.25)
             if (aiEvaluation.overall_score === 7 && Math.abs(calculated - 7) > 0.5) {
               aiEvaluation.overall_score = calculated
@@ -389,7 +384,7 @@ Respond ONLY with valid JSON (no markdown, no backticks, no explanation outside 
         grammar_score: null,
         vocabulary_score: null,
         fluency_score: null,
-        confidence_score: null,
+        task_completion_score: null,
         overall_score: null,
         feedback_ar: 'تم تفريغ الصوت بنجاح. التقييم التلقائي غير متاح حالياً — سيراجع المعلم تسجيلك.',
         feedback_en: 'Transcript saved. AI evaluation unavailable — your trainer will review.',

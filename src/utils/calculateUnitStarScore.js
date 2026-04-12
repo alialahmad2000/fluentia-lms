@@ -60,7 +60,7 @@ export function calculateUnitStarScore({
   if (aiScores?.speaking) {
     const s = aiScores.speaking
     const parts = [s.grammar_score || 0, s.vocabulary_score || 0, s.fluency_score || 0]
-    if (s.confidence_score) parts.push(s.confidence_score)
+    if (s.task_completion_score || s.confidence_score) parts.push(s.task_completion_score || s.confidence_score)
     const speakingAvg = parts.reduce((a, b) => a + b, 0) / parts.length
     scoreValues.push(speakingAvg)
     if (speakingAvg >= 9) {

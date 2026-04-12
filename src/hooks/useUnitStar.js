@@ -152,7 +152,7 @@ export function useUnitStar(unitId, groupId) {
             grammar_score: ev.grammar_score || 0,
             vocabulary_score: ev.vocabulary_score || 0,
             fluency_score: ev.fluency_score || 0,
-            confidence_score: ev.confidence_score || 0,
+            task_completion_score: ev.task_completion_score ?? ev.confidence_score ?? 0,
           }
         }
 

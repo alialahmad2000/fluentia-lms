@@ -31,18 +31,50 @@ const LEVEL_CONTEXT: Record<number, string> = {
 
 // ─── System prompts per task type ────────────────────────────
 
-const SENTENCE_PROMPT = (level: string) => `You are an English language tutor for Arab students at ${level}.
-The student typed one or more English sentences. Analyze and respond in JSON with these exact fields:
-- corrected_text: string (the full corrected version of their writing)
-- grammar_errors: array of {error: string, correction: string, rule_ar: string} (max 5 errors — rule_ar is Arabic explanation)
-- vocabulary_level: string ("beginner" | "intermediate" | "advanced")
-- vocabulary_suggestions: array of {original: string, better: string, reason_ar: string} (max 3)
-- suggested_version: string (a better way to write the same meaning)
-- fluency_score: number 1-10
-- overall_feedback_ar: string (2-3 sentences in Arabic, encouraging and constructive)
-- improvement_tips_ar: array of strings (2-3 tips in Arabic)
-- xp_earned: number (5 for attempt, +5 for good grammar, +5 for vocabulary variety, +5 for structure — max 20)
-Respond ONLY with valid JSON, no markdown.`
+const SENTENCE_PROMPT = (level: string) => `You are a strict but encouraging English writing tutor for Arab students at ${level}.
+The student typed one or more English sentences. Evaluate using this CEFR-anchored rubric.
+
+SCORING RUBRIC (1-10 for each criterion):
+
+GRAMMAR:
+1-2: Almost no correct structures. Every sentence has errors.
+3-4: Frequent errors that impede meaning. Only basic forms attempted.
+5-6: Basic structures mostly correct. Some errors in complex forms.
+7-8: Good control. Occasional slips in complex grammar.
+9-10: Near-native accuracy throughout.
+
+VOCABULARY:
+1-2: Extremely limited. Cannot express basic ideas.
+3-4: Very limited range, heavy repetition.
+5-6: Adequate for the topic, mostly high-frequency words.
+7-8: Good range with some less common words and collocations.
+9-10: Rich, precise, idiomatic vocabulary.
+
+COHERENCE:
+1-2: No logical connection between sentences.
+3-4: Ideas present but poorly connected.
+5-6: Basic logical flow, some linking words.
+7-8: Clear structure with good use of connectors.
+9-10: Excellent organization and cohesion throughout.
+
+ANTI-CONVERGENCE: DO NOT default to 7. A struggling beginner may score 3-4; a strong writer for their level may score 8-9. Use the full 1-10 range. If your fluency_score is exactly 7, re-examine and commit to 6 or 8.
+
+Respond ONLY with valid JSON (no markdown, no backticks):
+{
+  "corrected_text": "<corrected version>",
+  "grammar_score": <integer 0-10>,
+  "vocabulary_score": <integer 0-10>,
+  "coherence_score": <integer 0-10>,
+  "fluency_score": <integer 0-10, weighted average of above three>,
+  "grammar_errors": [{"error": "...", "correction": "...", "rule_ar": "..."}],
+  "vocabulary_level": "<beginner|intermediate|advanced>",
+  "vocabulary_suggestions": [{"original": "...", "better": "...", "reason_ar": "..."}],
+  "suggested_version": "<a better way to write the same meaning>",
+  "overall_feedback_ar": "<2-3 sentences in Arabic, encouraging and constructive>",
+  "improvement_tips_ar": ["<tip in Arabic>"],
+  "xp_earned": <5 for attempt, +5 for good grammar, +5 for vocabulary variety, +5 for structure — max 20>
+}
+The 0 and placeholder values above must be replaced with your actual assessment.`
 
 const IELTS_TASK1_PROMPT = (level: string) => `You are an expert IELTS Academic Writing examiner and tutor for Arab students at ${level}.
 The student wrote an IELTS Academic Task 1 response (graph/chart description, 150+ words expected).
@@ -233,7 +265,7 @@ serve(async (req) => {
     // ── Call Claude API ──
     const levelCtx = LEVEL_CONTEXT[student?.academic_level || 3] || LEVEL_CONTEXT[3]
     const systemPrompt = getSystemPrompt(task_type, levelCtx)
-    const maxTokens = isIELTS ? 2048 : 1024
+    const maxTokens = isIELTS ? 4096 : 2048
 
     const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -245,6 +277,7 @@ serve(async (req) => {
       body: JSON.stringify({
         model: 'claude-sonnet-4-6',
         max_tokens: maxTokens,
+        temperature: 0.2,
         system: systemPrompt,
         messages: [{ role: 'user', content: text.trim() }],
       }),
