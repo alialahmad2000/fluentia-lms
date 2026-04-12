@@ -72,9 +72,14 @@ export function useUnitProgress(studentId, unitId) {
           .eq('student_id', studentId)
           .in('vocabulary_id', vocabIds)
 
+        const masteryArr = mastery || []
+        const masteredCount = masteryArr.filter(m => m.mastery_level === 'mastered').length
+        const learningCount = masteryArr.filter(m => m.mastery_level === 'learning').length
         vocabularyMastery = {
           totalWords: vocabIds.length,
-          masteredCount: (mastery || []).filter(m => m.mastery_level === 'mastered').length,
+          masteredCount,
+          learningCount,
+          newCount: vocabIds.length - masteredCount - learningCount,
         }
       }
 
@@ -179,15 +184,22 @@ export function useLevelProgress(studentId, units) {
 
         const unitProgress = (allProgress || []).filter(p => p.unit_id === uid)
 
+        let vocMastery = null
+        if (unitVocabIds.length > 0) {
+          const mc = unitMastery.filter(m => m.mastery_level === 'mastered').length
+          const lc = unitMastery.filter(m => m.mastery_level === 'learning').length
+          vocMastery = {
+            totalWords: unitVocabIds.length,
+            masteredCount: mc,
+            learningCount: lc,
+            newCount: unitVocabIds.length - mc - lc,
+          }
+        }
+
         result[uid] = calculateUnitProgress({
           unitContent,
           studentProgress: unitProgress,
-          vocabularyMastery: unitVocabIds.length > 0
-            ? {
-                totalWords: unitVocabIds.length,
-                masteredCount: unitMastery.filter(m => m.mastery_level === 'mastered').length,
-              }
-            : null,
+          vocabularyMastery: vocMastery,
         })
       }
 

@@ -1,0 +1,32 @@
+-- ============================================
+-- 113: Vocabulary Progress — Verification & Documentation
+-- No schema changes needed; RLS + XP triggers are correct.
+-- ============================================
+
+-- VERIFICATION RESULTS (2026-04-13):
+--
+-- 1. Mastery tiers: CHECK constraint allows 'new', 'learning', 'mastered' (3 of 5)
+--    'seen' and 'reviewing' do not exist in DB — absent tiers default to weight 0
+--
+-- 2. RLS on vocabulary_quiz_attempts:
+--    INSERT policy: WITH CHECK (auth.uid() = student_id) ✅
+--    0 rows in table — quizzes not yet used by students, not an RLS issue
+--
+-- 3. XP trigger on xp_transactions:
+--    on_xp_transaction_insert → update_student_xp() ✅
+--    No trigger needed on vocabulary_quiz_attempts — XP inserted client-side
+--
+-- 4. Backfill: NOT NEEDED
+--    Diagnosis confirmed "XP Not Owed" — all XP paths work correctly
+--    Bug was perceptual: progress bar only counted 'mastered', ignoring 'learning'
+--
+-- 5. Data: 308 mastery records across 8 students
+--    307 mastered, 1 learning, 0 new
+--
+-- CODE CHANGES (this commit):
+--   - calculateUnitProgress.js: 5-tier weighted formula (new=0, learning=50%, mastered=100%)
+--   - useUnitProgress.js: passes learningCount + newCount to progress calculator
+--   - VocabularyTab.jsx: progress ring uses weighted formula
+--   - useVocabularyQuiz.js: .select() after .insert() to detect silent RLS failures
+
+SELECT 1; -- no-op migration for tracking purposes

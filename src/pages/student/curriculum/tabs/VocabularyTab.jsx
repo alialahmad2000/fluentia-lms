@@ -147,7 +147,9 @@ export default function VocabularyTab({ unitId }) {
   const allWords = data?.flatMap(d => d.vocabulary) || []
   const totalWords = allWords.length
   const newCount = totalWords - masteredCount - learningCount
-  const masteryPercent = totalWords > 0 ? Math.round((masteredCount / totalWords) * 100) : 0
+  const masteryPercent = totalWords > 0
+    ? Math.round(((masteredCount * 1.0 + learningCount * 0.5) / totalWords) * 100)
+    : 0
 
   // Filter & search
   const getWordMasteryLevel = useCallback((wordId) => {

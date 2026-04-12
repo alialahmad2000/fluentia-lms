@@ -3,6 +3,18 @@
  * Tracks all activities with weighted progress.
  */
 
+/**
+ * 5-tier mastery weights (absent tiers default to 0).
+ * Actual DB has: new, learning, mastered.
+ */
+export const MASTERY_WEIGHTS = {
+  new: 0,
+  seen: 0.25,
+  learning: 0.5,
+  reviewing: 0.75,
+  mastered: 1.0,
+}
+
 const ACTIVITY_DEFINITIONS = [
   {
     key: 'reading_a',
@@ -60,7 +72,11 @@ const ACTIVITY_DEFINITIONS = [
     existsCheck: (c) => c.vocabTotal > 0,
     getProgress: (_sp, _c, vm) => {
       if (!vm || !vm.totalWords || vm.totalWords === 0) return 0
-      return vm.masteredCount / vm.totalWords
+      const weightedSum =
+        (vm.newCount || 0) * MASTERY_WEIGHTS.new +
+        (vm.learningCount || 0) * MASTERY_WEIGHTS.learning +
+        (vm.masteredCount || 0) * MASTERY_WEIGHTS.mastered
+      return weightedSum / vm.totalWords
     },
   },
   {

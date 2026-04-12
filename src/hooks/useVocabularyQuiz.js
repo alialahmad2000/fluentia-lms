@@ -107,7 +107,7 @@ export async function saveQuizAttempt({
   const result = { attemptSaved: false, xpSaved: false, error: null }
 
   try {
-    const { error: insertErr } = await supabase
+    const { data: inserted, error: insertErr } = await supabase
       .from('vocabulary_quiz_attempts')
       .insert({
         student_id: studentId,
@@ -120,9 +120,13 @@ export async function saveQuizAttempt({
         duration_seconds: durationSeconds,
         xp_awarded: xpAwarded,
       })
+      .select()
     if (insertErr) {
       result.error = insertErr
       console.error('Failed to save quiz attempt:', insertErr)
+    } else if (!inserted?.length) {
+      result.error = new Error('Quiz attempt insert returned 0 rows — possible RLS block')
+      console.error('Silent RLS failure on vocabulary_quiz_attempts')
     } else {
       result.attemptSaved = true
     }
