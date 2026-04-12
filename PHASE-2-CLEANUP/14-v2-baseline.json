@@ -1,0 +1,29 @@
+{
+  "curriculum_vocabulary": 1954,
+  "curriculum_writing": 72,
+  "curriculum_speaking": 72,
+  "xp_transactions": 244,
+  "student_curriculum_progress": 117,
+  "profiles": 15,
+  "readings_by_level": {
+    "0": 24,
+    "1": 24,
+    "2": 24,
+    "3": 24,
+    "4": 24,
+    "5": 24
+  },
+  "questions_by_level": {
+    "0": 120,
+    "1": 144,
+    "2": 168,
+    "3": 192,
+    "4": 240,
+    "5": 288
+  },
+  "total_readings": 144,
+  "total_questions": 1152,
+  "l1_completions": [],
+  "l0_completions_count": 0,
+  "timestamp": "2026-04-12T14:33:30.241Z"
+}
