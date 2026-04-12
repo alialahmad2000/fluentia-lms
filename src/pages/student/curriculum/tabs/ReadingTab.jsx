@@ -1,11 +1,12 @@
 import { useState, useRef, useCallback, useMemo, useEffect } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Volume2, CheckCircle, XCircle, Lightbulb, MessageSquare, ChevronDown, RotateCcw, History, Clock, ImageOff } from 'lucide-react'
+import { BookOpen, Volume2, CheckCircle, XCircle, Lightbulb, MessageSquare, ChevronDown, RotateCcw, History, Clock, ImageOff, Eye, EyeOff, StickyNote, Headphones } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
+import TextSelectionTooltip from '../../../../components/student/TextSelectionTooltip'
 
 const QUESTION_TYPE_LABELS = {
   main_idea: 'الفكرة الرئيسية',
@@ -247,9 +248,110 @@ function ReadingContent({ reading, studentId, unitId }) {
   }, [vocabulary])
 
   const readingTime = estimateReadingTime(reading.passage_word_count)
+  const passageRef = useRef(null)
+  const queryClient = useQueryClient()
+  const [focusMode, setFocusMode] = useState(false)
+  const [focusParagraph, setFocusParagraph] = useState(0)
+  const [scrollProgress, setScrollProgress] = useState(0)
+  const [savedWordSet, setSavedWordSet] = useState(new Set())
+
+  // Fetch student's saved words to highlight them
+  const { data: savedWords } = useQuery({
+    queryKey: ['saved-words-set', studentId],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('student_saved_words')
+        .select('word')
+        .eq('student_id', studentId)
+      return data || []
+    },
+    enabled: !!studentId,
+  })
+
+  useEffect(() => {
+    if (savedWords) {
+      setSavedWordSet(new Set(savedWords.map(w => w.word.toLowerCase())))
+    }
+  }, [savedWords])
+
+  const handleWordSaved = useCallback((word) => {
+    setSavedWordSet(prev => new Set([...prev, word.toLowerCase()]))
+    queryClient.invalidateQueries({ queryKey: ['saved-words-set', studentId] })
+    queryClient.invalidateQueries({ queryKey: ['saved-words', studentId] })
+  }, [studentId, queryClient])
+
+  // Reading progress bar — track scroll
+  useEffect(() => {
+    const container = passageRef.current
+    if (!container) return
+    const handler = () => {
+      const rect = container.getBoundingClientRect()
+      const total = container.scrollHeight - container.clientHeight
+      if (total <= 0) { setScrollProgress(100); return }
+      const scrolled = -rect.top + window.innerHeight / 2
+      const pct = Math.min(100, Math.max(0, (scrolled / container.scrollHeight) * 100))
+      setScrollProgress(Math.round(pct))
+    }
+    window.addEventListener('scroll', handler, { passive: true })
+    handler()
+    return () => window.removeEventListener('scroll', handler)
+  }, [])
+
+  // Focus mode — IntersectionObserver
+  useEffect(() => {
+    if (!focusMode || !passageRef.current) return
+    const paragraphs = passageRef.current.querySelectorAll('[data-paragraph-index]')
+    if (!paragraphs.length) return
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const idx = parseInt(entry.target.dataset.paragraphIndex, 10)
+            if (!isNaN(idx)) setFocusParagraph(idx)
+          }
+        })
+      },
+      { threshold: 0.5 }
+    )
+    paragraphs.forEach(p => observer.observe(p))
+    return () => observer.disconnect()
+  }, [focusMode])
+
+  // Fetch reading notes per paragraph
+  const { data: readingNotes = [] } = useQuery({
+    queryKey: ['reading-notes', studentId, reading.id],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('reading_notes')
+        .select('*')
+        .eq('student_id', studentId)
+        .eq('reading_id', reading.id)
+        .order('paragraph_index')
+      return data || []
+    },
+    enabled: !!studentId && !!reading?.id,
+  })
+
+  const notesByParagraph = useMemo(() => {
+    const map = {}
+    readingNotes.forEach(n => { map[n.paragraph_index] = n })
+    return map
+  }, [readingNotes])
 
   return (
     <div className="space-y-6">
+      {/* Reading Progress Bar */}
+      <div className="sticky top-16 z-20 -mx-4 px-4">
+        <div className="h-1 rounded-full overflow-hidden bg-slate-800/50">
+          <motion.div
+            className="h-full rounded-full"
+            style={{ background: 'linear-gradient(90deg, #38bdf8, #fbbf24)' }}
+            animate={{ width: `${scrollProgress}%` }}
+            transition={{ duration: 0.3 }}
+          />
+        </div>
+      </div>
+
       {/* Completed badge + retry */}
       {isCompleted && (
         <CompletedBanner
@@ -288,7 +390,7 @@ function ReadingContent({ reading, studentId, unitId }) {
 
         {/* Card Body */}
         <div className="p-6 md:p-8 space-y-6">
-          {/* Title Block */}
+          {/* Title Block + Toolbar */}
           <div className="space-y-3">
             <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight font-['Inter']" dir="ltr">
               {reading.title_en}
@@ -311,6 +413,24 @@ function ReadingContent({ reading, studentId, unitId }) {
               {reading.passage_audio_url && (
                 <AudioButton url={reading.passage_audio_url} label="استمع للقراءة" />
               )}
+              {!reading.passage_audio_url && (
+                <span className="inline-flex items-center gap-1.5 text-xs text-slate-600 font-['Tajawal'] cursor-default" title="قريبا">
+                  <Headphones size={12} />
+                  استماع
+                </span>
+              )}
+              {/* Focus Mode Toggle */}
+              <button
+                onClick={() => setFocusMode(!focusMode)}
+                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 font-['Tajawal'] border ${
+                  focusMode
+                    ? 'bg-amber-500/15 text-amber-400 border-amber-500/30'
+                    : 'bg-slate-800/50 text-slate-400 border-slate-700/50 hover:text-slate-200'
+                }`}
+              >
+                {focusMode ? <EyeOff size={12} /> : <Eye size={12} />}
+                {focusMode ? 'إلغاء التركيز' : 'وضع التركيز'}
+              </button>
             </div>
             <div className="border-b border-slate-800/50 pb-0" />
           </div>
@@ -337,11 +457,30 @@ function ReadingContent({ reading, studentId, unitId }) {
             </div>
           )}
 
-          {/* Passage */}
-          <PassageDisplay
-            paragraphs={reading.passage_content?.paragraphs || []}
-            vocabMap={vocabMap}
-          />
+          {/* Passage with text selection + focus mode */}
+          <div ref={passageRef} className="relative">
+            <PassageDisplay
+              paragraphs={reading.passage_content?.paragraphs || []}
+              vocabMap={vocabMap}
+              savedWordSet={savedWordSet}
+              focusMode={focusMode}
+              focusParagraph={focusParagraph}
+              notesByParagraph={notesByParagraph}
+              studentId={studentId}
+              readingId={reading.id}
+              unitId={unitId}
+            />
+            {/* Text selection tooltip */}
+            {studentId && (
+              <TextSelectionTooltip
+                containerRef={passageRef}
+                studentId={studentId}
+                unitId={unitId}
+                readingId={reading.id}
+                onWordSaved={handleWordSaved}
+              />
+            )}
+          </div>
         </div>
       </div>
 
@@ -407,9 +546,12 @@ function BeforeReadSection({ content }) {
 }
 
 // ─── Passage Display ─────────────────────────────────
-function PassageDisplay({ paragraphs, vocabMap }) {
+function PassageDisplay({ paragraphs, vocabMap, savedWordSet, focusMode, focusParagraph, notesByParagraph, studentId, readingId, unitId }) {
   const [activeTooltip, setActiveTooltip] = useState(null)
+  const [editingNote, setEditingNote] = useState(null)
+  const [noteText, setNoteText] = useState('')
   const tooltipTimeout = useRef(null)
+  const queryClient = useQueryClient()
 
   const showTooltip = useCallback((word) => {
     clearTimeout(tooltipTimeout.current)
@@ -419,6 +561,43 @@ function PassageDisplay({ paragraphs, vocabMap }) {
   const hideTooltip = useCallback(() => {
     tooltipTimeout.current = setTimeout(() => setActiveTooltip(null), 200)
   }, [])
+
+  // Save/update paragraph note
+  const saveNote = async (paragraphIndex) => {
+    if (!studentId || !readingId || !noteText.trim()) return
+    const existing = notesByParagraph[paragraphIndex]
+    if (existing) {
+      await supabase.from('reading_notes').update({ note_text: noteText.trim(), updated_at: new Date().toISOString() }).eq('id', existing.id)
+    } else {
+      await supabase.from('reading_notes').insert({
+        student_id: studentId,
+        reading_id: readingId,
+        unit_id: unitId,
+        paragraph_index: paragraphIndex,
+        note_text: noteText.trim(),
+      })
+    }
+    queryClient.invalidateQueries({ queryKey: ['reading-notes', studentId, readingId] })
+    setEditingNote(null)
+    setNoteText('')
+  }
+
+  const renderWord = (word, wordIdx, pIdx) => {
+    // Check if this word is in saved words
+    const cleanWord = word.replace(/[.,!?;:'"()]/g, '').toLowerCase()
+    const isSaved = savedWordSet?.has(cleanWord)
+
+    return (
+      <span
+        key={`${pIdx}-w-${wordIdx}`}
+        data-word-index={wordIdx}
+        className={isSaved ? 'bg-amber-400/20 border-b-2 border-amber-400 rounded px-0.5' : ''}
+        title={isSaved ? 'محفوظة في قاموسك' : undefined}
+      >
+        {word}{' '}
+      </span>
+    )
+  }
 
   const renderParagraph = (text, pIdx) => {
     // Split by *word* patterns (vocab highlights)
@@ -460,7 +639,6 @@ function PassageDisplay({ paragraphs, vocabMap }) {
                     <p className="text-slate-300 font-['Inter'] text-xs leading-relaxed">{vocab.definition_en}</p>
                     <p className="text-slate-400 font-['Tajawal'] text-xs" dir="rtl">{vocab.definition_ar}</p>
                     {vocab.audio_url && <VocabAudioBtn url={vocab.audio_url} />}
-                    {/* Arrow */}
                     <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-slate-800 border-r border-b border-slate-700" />
                   </motion.div>
                 )}
@@ -471,24 +649,102 @@ function PassageDisplay({ paragraphs, vocabMap }) {
         // Vocab word not found in map — render bold with accent color
         return <strong key={i} className="font-semibold text-sky-300">{part}</strong>
       }
-      return <span key={i}>{part}</span>
+      // Regular text — wrap each word in a span for saved-word highlighting + audio sync
+      const words = part.split(/(\s+)/)
+      let wordIdx = 0
+      return words.map((word, wi) => {
+        if (/^\s+$/.test(word)) return <span key={`${i}-${wi}`}> </span>
+        return renderWord(word, wordIdx++, pIdx)
+      })
     })
   }
 
   return (
     <div dir="ltr" className="space-y-6">
-      {paragraphs.map((para, idx) => (
-        <div key={idx} className="flex gap-4">
-          <div className="flex-shrink-0 mt-1.5">
-            <div className="w-7 h-7 md:w-7 md:h-7 rounded-full bg-slate-800 border border-slate-700 text-slate-400 flex items-center justify-center text-sm font-semibold">
-              {idx + 1}
+      {paragraphs.map((para, idx) => {
+        const isFocused = !focusMode || focusParagraph === idx
+        const hasNote = notesByParagraph[idx]
+        return (
+          <div
+            key={idx}
+            data-paragraph-index={idx}
+            className={`group flex gap-4 transition-opacity duration-300 ${isFocused ? 'opacity-100' : 'opacity-20'}`}
+          >
+            <div className="flex flex-col items-center gap-1 flex-shrink-0 mt-1.5">
+              <div className="w-7 h-7 rounded-full bg-slate-800 border border-slate-700 text-slate-400 flex items-center justify-center text-sm font-semibold">
+                {idx + 1}
+              </div>
+              {/* Note indicator/button */}
+              {studentId && (
+                <button
+                  onClick={() => { setEditingNote(editingNote === idx ? null : idx); setNoteText(hasNote?.note_text || '') }}
+                  className={`w-5 h-5 rounded flex items-center justify-center transition-all ${
+                    hasNote
+                      ? 'text-amber-400 opacity-100'
+                      : 'text-slate-600 opacity-0 group-hover:opacity-100'
+                  }`}
+                  title={hasNote ? 'تعديل الملاحظة' : 'إضافة ملاحظة'}
+                >
+                  <StickyNote size={12} />
+                </button>
+              )}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-lg leading-[1.9] text-slate-200 font-['Inter']">
+                {renderParagraph(para, idx)}
+              </p>
+              {/* Inline note editor */}
+              <AnimatePresence>
+                {editingNote === idx && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="mt-3 p-3 rounded-xl bg-slate-800/50 border border-slate-700/40 space-y-2">
+                      <textarea
+                        value={noteText}
+                        onChange={(e) => setNoteText(e.target.value)}
+                        placeholder="اكتب ملاحظتك هنا..."
+                        dir="rtl"
+                        rows={2}
+                        className="w-full resize-none rounded-lg px-3 py-2 text-sm font-['Tajawal'] bg-slate-900/50 text-slate-200 border border-slate-700/40 placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-sky-500/30"
+                      />
+                      <div className="flex gap-2 justify-end" dir="rtl">
+                        <button
+                          onClick={() => saveNote(idx)}
+                          disabled={!noteText.trim()}
+                          className="px-3 py-1.5 rounded-lg text-xs font-medium font-['Tajawal'] bg-sky-500/15 text-sky-400 hover:bg-sky-500/25 transition-colors disabled:opacity-30"
+                        >
+                          حفظ
+                        </button>
+                        <button
+                          onClick={() => setEditingNote(null)}
+                          className="px-3 py-1.5 rounded-lg text-xs font-medium font-['Tajawal'] text-slate-400 hover:text-slate-200 transition-colors"
+                        >
+                          إلغاء
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              {/* Saved note display */}
+              {hasNote && editingNote !== idx && (
+                <div
+                  className="mt-2 px-3 py-2 rounded-lg bg-amber-500/5 border border-amber-500/15 cursor-pointer hover:bg-amber-500/10 transition-colors"
+                  onClick={() => { setEditingNote(idx); setNoteText(hasNote.note_text) }}
+                  dir="rtl"
+                >
+                  <p className="text-xs text-amber-300/80 font-['Tajawal'] leading-relaxed">{hasNote.note_text}</p>
+                </div>
+              )}
             </div>
           </div>
-          <p className="text-lg leading-[1.9] text-slate-200 font-['Inter']">
-            {renderParagraph(para, idx)}
-          </p>
-        </div>
-      ))}
+        )
+      })}
     </div>
   )
 }

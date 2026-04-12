@@ -404,6 +404,7 @@ export default function UnitContent() {
             onBookmark={handleBookmark}
             onHelp={handleHelp}
             onWords={() => setShowWords(true)}
+            onAddWord={() => setShowWords(true)}
           />
           <AnimatePresence>
             {showNotes && <NotesPanel unitId={unitId} onClose={() => setShowNotes(false)} />}
