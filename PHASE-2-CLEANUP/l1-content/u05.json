@@ -1,0 +1,150 @@
+{
+  "unit_number": 5,
+  "theme": "Famous Places",
+  "passages": [
+    {
+      "reading_label": "A",
+      "title_en": "Amazing Places Around the World",
+      "paragraphs": [
+        "The world has many amazing places to see and learn about. Some of these places are very old and very famous. People from all over the world come to visit them. Each place has its own special story to tell.",
+        "In Egypt, the big pyramids stand tall in the desert. They were built a very long time ago by many workers. The pyramids were homes for old kings after they died. Today, they are one of the wonders of the world.",
+        "In China, there is a very long wall made of stone. It was built to keep the people safe from other lands. The wall goes over hills and across many fields. It is so long that you can walk on it for many days.",
+        "In France, a tall tower stands in the middle of the city. It is made of iron and is over one hundred years old. People go up to the top to see the whole city below. These famous places bring us close to old times."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["The world has many famous old places with special stories.", "Only one country has famous places.", "Famous places are all new and small.", "Nobody visits old places anymore."],
+          "correct_answer": "The world has many famous old places with special stories.",
+          "explanation_en": "The passage talks about many famous old places around the world.",
+          "explanation_ar": "يتحدث النص عن العديد من الأماكن القديمة المشهورة حول العالم."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "Who were the pyramids homes for?",
+          "question_ar": "لمن كانت الأهرامات بيوتاً؟",
+          "choices": ["Old kings after they died", "Young children", "New farmers", "Tired birds"],
+          "correct_answer": "Old kings after they died",
+          "explanation_en": "The passage says the pyramids were homes for old kings after they died.",
+          "explanation_ar": "يقول النص إن الأهرامات كانت بيوتاً للملوك القدامى بعد وفاتهم."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "detail",
+          "question_en": "Where is the very long wall made of stone?",
+          "question_ar": "أين يقع الجدار الطويل جداً المصنوع من الحجر؟",
+          "choices": ["In China", "In France", "In Egypt", "In India"],
+          "correct_answer": "In China",
+          "explanation_en": "The passage says in China there is a very long wall made of stone.",
+          "explanation_ar": "يقول النص إنه في الصين يوجد جدار طويل جداً مصنوع من الحجر."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'tower' means:",
+          "question_ar": "في النص، كلمة 'tower' تعني:",
+          "choices": ["A very tall building", "A small kind of bird", "A warm kind of clothes", "A long river"],
+          "correct_answer": "A very tall building",
+          "explanation_en": "'Tower' is a very tall building that stands high above other buildings.",
+          "explanation_ar": "'Tower' هي مبنى طويل جداً يقف عالياً فوق المباني الأخرى."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "detail",
+          "question_en": "What is the tall tower in France made of?",
+          "question_ar": "مم صنع البرج الطويل في فرنسا؟",
+          "choices": ["Iron", "Wood", "Paper", "Glass"],
+          "correct_answer": "Iron",
+          "explanation_en": "The passage says the tall tower is made of iron and is over one hundred years old.",
+          "explanation_ar": "يقول النص إن البرج الطويل مصنوع من الحديد وعمره أكثر من مئة عام."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why do people visit these famous old places?",
+          "question_ar": "لماذا يزور الناس هذه الأماكن القديمة المشهورة؟",
+          "choices": ["To feel close to old times and learn their stories.", "To hide from warm days.", "To make the places smaller.", "To stop people from traveling."],
+          "correct_answer": "To feel close to old times and learn their stories.",
+          "explanation_en": "The passage says these places bring us close to old times and have special stories.",
+          "explanation_ar": "يقول النص إن هذه الأماكن تقربنا من الأزمنة القديمة ولها قصص خاصة."
+        }
+      ]
+    },
+    {
+      "reading_label": "B",
+      "title_en": "The Magic of Light Festivals",
+      "paragraphs": [
+        "Many cities around the world have their own light festivals. On these days, the streets are bright with many colors. People come together to see the pretty lights at night. The cold air feels warm when the lights turn on.",
+        "In France, a big light festival takes place in the winter. People put small lights in their windows and on the streets. Every part of the city glows with soft warm light. Many people come from other lands to see it.",
+        "In India, people keep a big light day in the fall. They put small lamps around their homes and in the gardens. Children play and eat sweet food with their family. The whole country is bright with these pretty lamps.",
+        "Light festivals make the dark night feel like a dream. They help people feel joy and come close to family. Every light tells a small story of hope and peace. These days bring people from many places together."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["Light festivals bring people close and fill the night with colors.", "Lights only happen in one country.", "Light festivals only take place in the morning.", "People do not like light festivals."],
+          "correct_answer": "Light festivals bring people close and fill the night with colors.",
+          "explanation_en": "The passage talks about how light festivals bring people together and fill nights with color.",
+          "explanation_ar": "يتحدث النص عن كيف تجمع مهرجانات الأضواء الناس وتملأ الليالي بالألوان."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "When is the big light festival in France?",
+          "question_ar": "متى يقام مهرجان الأضواء الكبير في فرنسا؟",
+          "choices": ["In the winter", "In the summer", "In the spring", "In the early morning"],
+          "correct_answer": "In the winter",
+          "explanation_en": "The passage says in France a big light festival takes place in the winter.",
+          "explanation_ar": "يقول النص إن مهرجان الأضواء الكبير في فرنسا يقام في الشتاء."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'lamps' means:",
+          "question_ar": "في النص، كلمة 'lamps' تعني:",
+          "choices": ["Small lights people use at home", "Big soft songs", "Warm pieces of clothing", "Small round foods"],
+          "correct_answer": "Small lights people use at home",
+          "explanation_en": "'Lamps' are small lights that people put around their homes to make light.",
+          "explanation_ar": "'Lamps' هي أضواء صغيرة يضعها الناس حول منازلهم لإضاءة المكان."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "detail",
+          "question_en": "Where do people in India put their small lamps?",
+          "question_ar": "أين يضع الناس في الهند مصابيحهم الصغيرة؟",
+          "choices": ["Around their homes and in their gardens", "Inside the water only", "On top of the hills only", "Under the ground"],
+          "correct_answer": "Around their homes and in their gardens",
+          "explanation_en": "The passage says people in India put small lamps around their homes and in gardens.",
+          "explanation_ar": "يقول النص إن الناس في الهند يضعون المصابيح الصغيرة حول منازلهم وفي حدائقهم."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "detail",
+          "question_en": "What do children do at the light festival in India?",
+          "question_ar": "ماذا يفعل الأطفال في مهرجان الأضواء في الهند؟",
+          "choices": ["They play and eat sweet food with their family.", "They work in the fields all day.", "They sleep under the trees.", "They run far from home."],
+          "correct_answer": "They play and eat sweet food with their family.",
+          "explanation_en": "The passage says children play and eat sweet food with their family.",
+          "explanation_ar": "يقول النص إن الأطفال يلعبون ويأكلون الطعام الحلو مع عائلاتهم."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why do light festivals make people feel joy?",
+          "question_ar": "لماذا تجعل مهرجانات الأضواء الناس يشعرون بالفرح؟",
+          "choices": ["They bring family and friends close in a warm way.", "They make the night very long and cold.", "They stop people from seeing each other.", "They keep everyone far from home."],
+          "correct_answer": "They bring family and friends close in a warm way.",
+          "explanation_en": "The passage says light festivals help people feel joy and come close to family.",
+          "explanation_ar": "يقول النص إن مهرجانات الأضواء تساعد الناس على الشعور بالفرح والتقرب من العائلة."
+        }
+      ]
+    }
+  ]
+}

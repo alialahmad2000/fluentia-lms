@@ -113,6 +113,7 @@ export const CORE_A1 = new Set([
   'hunter','hunters','spot','spots','nearby','together','apart','alone','each','every','another',
   'well','wells','better','best','worse','worst',
   'dance','dances','danced','dancing','dancer','dancers','clap','claps','clapped','clapping','screen','screens','pick','picks','picked','picking','brush','brushes','brushed','brushing','drum','drums','drew','drawn','draws','drawing','drawings','scene','scenes','actor','actors','actress','actresses',
+  'lamp','lamps','torch','torches','candle','candles','flame','flames','iron','irons','stone','stones','brick','bricks','rope','ropes','wire','wires','string','strings','chain','chains','glass','glasses','mirror','mirrors','shelf','shelves','basket','baskets','pot','pots','pan','pans','tray','trays','rug','rugs','carpet','carpets','curtain','curtains','pillow','pillows','blanket','blankets','couch','sofa','sofas',
   'eye','eyes','spot','spots','thing','things','place','places','kind','kinds','sort','sorts','fact','facts',
   'amazing','amazingly','special','specially','really','truly','actually','maybe','perhaps','probably',
   // Topic words for all L1 units
