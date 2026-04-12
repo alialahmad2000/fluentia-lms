@@ -1,0 +1,150 @@
+{
+  "unit_number": 7,
+  "theme": "Sports Stars",
+  "passages": [
+    {
+      "reading_label": "A",
+      "title_en": "Saudi Arabia's Rising Sports Stars",
+      "paragraphs": [
+        "In the last few years, many young Saudi people have become sports stars. They work very hard every day to be the best. They train in the early morning and in the warm afternoon. Now, the world is watching them with pride.",
+        "Saudi football players are very strong and fast on the field. They play in big games that people watch all around the world. The team has become better each year with new young players. Fans come to cheer them in a big bright stadium.",
+        "Saudi lands also have very good runners and tennis players. Some of them have won big prizes in other countries. Young girls are now playing sports too, and this is a good change. They show the world what they can do on the field.",
+        "Sports help young Saudi people grow strong in body and mind. It teaches them how to work together as a team. Every win gives their country joy and a smile. The story of Saudi sports is just starting to get very bright."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["Young Saudi people are becoming strong sports stars on the world stage.", "Saudi people do not like sports at all.", "Only one kind of sport is played in Saudi lands.", "Sports are only for old people."],
+          "correct_answer": "Young Saudi people are becoming strong sports stars on the world stage.",
+          "explanation_en": "The passage talks about how young Saudi people are becoming famous sports stars.",
+          "explanation_ar": "يتحدث النص عن كيف أصبح الشباب السعوديون نجوماً رياضيين مشهورين."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "When do the young sports stars train?",
+          "question_ar": "متى يتدرب نجوم الرياضة الشباب؟",
+          "choices": ["In the early morning and warm afternoon", "Only at night", "Only on the weekend", "Only in the cold winter"],
+          "correct_answer": "In the early morning and warm afternoon",
+          "explanation_en": "The passage says they train in the early morning and in the warm afternoon.",
+          "explanation_ar": "يقول النص إنهم يتدربون في الصباح الباكر وبعد الظهر الدافئ."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "detail",
+          "question_en": "What has happened with young Saudi girls in sports?",
+          "question_ar": "ماذا حدث مع الفتيات السعوديات الشابات في الرياضة؟",
+          "choices": ["They are now playing sports too.", "They have stopped playing all games.", "They only watch from home.", "They do not care about sports."],
+          "correct_answer": "They are now playing sports too.",
+          "explanation_en": "The passage says young girls are now playing sports and this is a good change.",
+          "explanation_ar": "يقول النص إن الفتيات الشابات يلعبن الرياضة الآن وهذا تغيير جيد."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'train' means:",
+          "question_ar": "في النص، كلمة 'train' تعني:",
+          "choices": ["Work hard to get better at a sport", "Eat a big warm meal", "Sing a long song", "Paint a small picture"],
+          "correct_answer": "Work hard to get better at a sport",
+          "explanation_en": "'Train' means to work hard to get better at something like a sport.",
+          "explanation_ar": "'Train' تعني العمل بجد للتحسن في شيء ما مثل الرياضة."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'fans' means:",
+          "question_ar": "في النص، كلمة 'fans' تعني:",
+          "choices": ["People who love and watch a team", "Small warm clothes", "Kinds of birds in a garden", "Old pictures on a wall"],
+          "correct_answer": "People who love and watch a team",
+          "explanation_en": "'Fans' are people who love a team and go to watch them play.",
+          "explanation_ar": "'Fans' هم أشخاص يحبون فريقاً ويذهبون لمشاهدته يلعب."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why are sports good for young Saudi people?",
+          "question_ar": "لماذا الرياضة جيدة للشباب السعودي؟",
+          "choices": ["They make the body and mind strong and teach teamwork.", "They stop people from working or studying.", "They keep people alone at home.", "They are only for fun and nothing else."],
+          "correct_answer": "They make the body and mind strong and teach teamwork.",
+          "explanation_en": "The passage says sports help them grow strong in body and mind and learn to work as a team.",
+          "explanation_ar": "يقول النص إن الرياضة تساعدهم على النمو بقوة في الجسم والعقل وتعلمهم العمل كفريق."
+        }
+      ]
+    },
+    {
+      "reading_label": "B",
+      "title_en": "Breaking Barriers in Sports",
+      "paragraphs": [
+        "Sports are for everyone, but it was not always this way. Long ago, some people could not play the games they loved. Women, for one, could not play in many big teams. Today, things have changed for the better in many lands.",
+        "Brave athletes have opened doors for new groups of players. Some women have become famous for winning in very hard sports. They show young girls that they can play any game they want. Every year, more girls join teams and have fun.",
+        "Sports are also now more open for people with a body that works in a different way. Some great players can not see or can not walk. Still, they win big prizes and make the world proud. They show that a strong mind can do very big things.",
+        "Breaking old rules in sports has made them much better for all. It helps people see each other in a kind new light. When we all play, we all win in some way. Sports now bring people from every land together."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["Sports have become more open for women and people of all kinds.", "Sports are only for very strong men.", "Nobody plays sports today.", "Only one group can play in big teams."],
+          "correct_answer": "Sports have become more open for women and people of all kinds.",
+          "explanation_en": "The passage talks about how sports are now open to women and new groups of players.",
+          "explanation_ar": "يتحدث النص عن كيف أصبحت الرياضة مفتوحة للنساء ومجموعات جديدة من اللاعبين."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "Who could not play in many big teams long ago?",
+          "question_ar": "من لم يكن يستطيع اللعب في العديد من الفرق الكبيرة منذ زمن طويل؟",
+          "choices": ["Women", "Old men", "Children only", "Farmers"],
+          "correct_answer": "Women",
+          "explanation_en": "The passage says long ago women could not play in many big teams.",
+          "explanation_ar": "يقول النص إنه منذ زمن طويل لم تكن النساء يستطعن اللعب في العديد من الفرق الكبيرة."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "detail",
+          "question_en": "What do some great players with a different body show the world?",
+          "question_ar": "ماذا يظهر بعض اللاعبين العظام ذوي الجسم المختلف للعالم؟",
+          "choices": ["A strong mind can do very big things.", "Sports are too hard for anyone.", "Only very tall people can play.", "Sports should only be for kids."],
+          "correct_answer": "A strong mind can do very big things.",
+          "explanation_en": "The passage says these players show that a strong mind can do very big things.",
+          "explanation_ar": "يقول النص إن هؤلاء اللاعبين يظهرون أن العقل القوي يمكنه فعل أشياء كبيرة جداً."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'athletes' means:",
+          "question_ar": "في النص، كلمة 'athletes' تعني:",
+          "choices": ["People who play sports for their work", "People who cook food", "People who sell clothes", "People who paint homes"],
+          "correct_answer": "People who play sports for their work",
+          "explanation_en": "'Athletes' are people who play sports, often as their work.",
+          "explanation_ar": "'Athletes' هم أشخاص يمارسون الرياضة، غالباً كعملهم."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'rules' means:",
+          "question_ar": "في النص، كلمة 'rules' تعني:",
+          "choices": ["The ways you must do something", "Small red flowers", "Long sweet songs", "Bright city lights"],
+          "correct_answer": "The ways you must do something",
+          "explanation_en": "'Rules' are the ways you must do something, like in a game or a sport.",
+          "explanation_ar": "'Rules' هي الطرق التي يجب أن تقوم بها بشيء ما، مثل في لعبة أو رياضة."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why has sports become better for everyone today?",
+          "question_ar": "لماذا أصبحت الرياضة أفضل للجميع اليوم؟",
+          "choices": ["Because brave players helped break old rules and opened doors.", "Because nobody plays sports anymore.", "Because sports are only for one group.", "Because old rules were always good."],
+          "correct_answer": "Because brave players helped break old rules and opened doors.",
+          "explanation_en": "The passage says brave athletes have opened doors and broken old rules in sports.",
+          "explanation_ar": "يقول النص إن الرياضيين الشجعان فتحوا الأبواب وكسروا القواعد القديمة في الرياضة."
+        }
+      ]
+    }
+  ]
+}
