@@ -101,11 +101,43 @@ export const CORE_A1 = new Set([
   // Feelings and social
   'happy','sad','angry','tired','hungry','thirsty','scared','proud','busy','free','safe','calm','alone','together','with','apart','pair','team','teams','class','classes','classroom','lesson','lessons','question','questions','answer','answers','test','tests','exam','exams','homework','study','studied','teacher','teachers','student','students',
   // Misc tiny
-  'maybe','yes','no','okay','ok','please','thanks','hello','hi','bye','goodbye','welcome','sorry','across','among','amongst','against','along','around','beside','inside','outside','behind','toward','towards','upon','without','beyond','beneath','nearby','next',
+  'maybe','yes','no','okay','ok','please','thanks','hello','hi','bye','goodbye','welcome','sorry','across','among','amongst','against','along','around','beside','inside','outside','behind','toward','towards','upon','without','beyond','beneath','nearby','next','away','lay','laid','laying','lays',
+  // Comparatives/superlatives of FUNCTION_WORDS basics
+  'bigger','biggest','smaller','smallest','longer','longest','shorter','shortest','higher','highest','lower','lowest','faster','fastest','slower','slowest','hotter','hottest','colder','coldest','warmer','warmest','cooler','coolest','older','oldest','younger','youngest','newer','newest','harder','hardest','easier','easiest','happier','happiest','sadder','saddest','stronger','strongest','weaker','weakest','deeper','deepest','wider','widest','thicker','thickest','thinner','thinnest','richer','richest','poorer','poorest','cleaner','cleanest','dirtier','dirtiest','busier','busiest','quieter','quietest','louder','loudest','brighter','brightest','darker','darkest','safer','safest','kinder','kindest','nicer','nicest','funnier','funniest','heavier','heaviest','lighter','lightest','sharper','sharpest','smoother','smoothest','rougher','roughest','wetter','wettest','drier','driest','softer','softest','fresher','freshest',
   // Words that are logically derivative of allowlist content but missed by suffix rules
   'different','story','stories','meaning','means','meant','lucky','luck',
   // Additional basic A1 words
   'own','event','events','tall','short','above','below','inside','outside','under','over','near','far','next','last','ready','able','possible','necessary','special','simple','clear','different','similar','modern','traditional','central','western','eastern','northern','southern','older','younger','meaning','meanings','older','eldest','elder','tasty','yummy','juicy','tasty','crunchy','salty','spicy','sweet','sour','bitter',
+  // Common A1 descriptors / small nouns missed by curriculum allowlist
+  'tiny','huge','giant','amazing','wonderful','beautiful','pretty','ugly','clever','quick','quickly','slow','slowly','loud','loudly','quiet','quietly','gently','soft','softly','rough','smooth','bright','dim','warm','cool','hot','cold','fresh','stale','clean','dirty','wet','dry','full','empty','noisy','silent',
+  'hunter','hunters','spot','spots','nearby','together','apart','alone','each','every','another',
+  'eye','eyes','spot','spots','thing','things','place','places','kind','kinds','sort','sorts','fact','facts',
+  'amazing','amazingly','special','specially','really','truly','actually','maybe','perhaps','probably',
+  // Topic words for all L1 units
+  // Ocean life
+  'creature','creatures','whale','whales','shark','sharks','dolphin','dolphins','octopus','octopuses','jellyfish','turtle','turtles','crab','crabs','starfish','coral','corals','reef','reefs','wave','waves','tide','tides','shell','shells','deep','depth','depths','dive','dives','diver','divers','dove','dived','diving','pearl','pearls','salt','salty','shore','shores','mystery','mysteries','hidden','calm',
+  // Space
+  'space','spaces','planet','planets','rocket','rockets','spacecraft','satellite','satellites','galaxy','galaxies','universe','star','stars','moon','moons','comet','comets','asteroid','asteroids','sun','sunlight','astronaut','astronauts','mission','missions','launch','launches','launching','orbit','orbits','orbited','orbiting','gravity','sky','skies','telescope','telescopes','mars','venus','jupiter','saturn','mercury','neptune','uranus','pluto','solar','solar system','outer','space','cosmic','cosmos','alien','aliens',
+  // Music & Art
+  'song','songs','singer','singers','band','bands','concert','concerts','guitar','guitars','piano','pianos','drum','drums','violin','violins','flute','flutes','trumpet','trumpets','note','notes','tune','tunes','rhythm','rhythms','melody','melodies','beat','beats','voice','voices','lyric','lyrics','album','albums','artist','artists','painter','painters','painting','paintings','canvas','canvases','brush','brushes','paint','paints','sketch','sketches','poem','poems','poet','poets','stage','stages','studio','studios','museum','museums','gallery','galleries','exhibit','exhibits','exhibition','exhibitions','theater','theaters','theatre',
+  // Famous places
+  'famous','landmark','landmarks','monument','monuments','castle','castles','palace','palaces','pyramid','pyramids','statue','statues','fountain','fountains','tower','towers','bridge','bridges','temple','temples','ruin','ruins','wonder','wonders','tourist','tourists','visitor','visitors','guide','guides','souvenir','souvenirs','postcard','postcards','map','maps','atlas','passport','passports','ticket','tickets',
+  // Inventions
+  'invention','inventions','inventor','inventors','invent','invents','invented','inventing','machine','machines','engine','engines','wheel','wheels','tool','tools','device','devices','gadget','gadgets','engineer','engineers','engineering','science','sciences','scientist','scientists','experiment','experiments','laboratory','labs','discovery','discoveries','useful','practical','clever','smart','bright','solution','solutions',
+  // Sports
+  'sport','sports','athlete','athletes','team','teams','coach','coaches','player','players','captain','captains','champion','champions','championship','championships','game','games','match','matches','goal','goals','race','races','runner','runners','runner','medal','medals','trophy','trophies','prize','prizes','winner','winners','loser','losers','score','scores','point','points','field','fields','court','courts','stadium','stadiums','ball','balls','bat','bats','racket','rackets','helmet','helmets','jersey','jerseys','soccer','football','basketball','tennis','baseball','volleyball','cricket','rugby','hockey','golf','boxing','karate','judo','running','swimming','cycling','skiing','horseback','gymnastics','marathon','marathons',
+  // Ancient civilizations
+  'ancient','old','history','historic','historical','civilization','civilizations','empire','empires','king','kings','queen','queens','kingdom','kingdoms','pharaoh','pharaohs','tomb','tombs','mummy','mummies','scroll','scrolls','script','scripts','artifact','artifacts','dig','digs','digger','diggers','excavation','excavations','ruins','ruin','relic','relics','dynasty','dynasties','era','eras','age','ages','century','centuries','millennium','millennia','decade','decades','bronze','iron','stone','wood','wooden','metal','metallic','gold','golden','silver','copper','clay','carve','carves','carved','carving','carvings',
+  // Photography
+  'camera','cameras','lens','lenses','photo','photos','photograph','photographs','photography','photographer','photographers','picture','pictures','image','images','snapshot','snapshots','portrait','portraits','landscape','landscapes','shot','shots','album','albums','flash','flashes','zoom','zooms','tripod','tripods','frame','frames','blur','blurs','blurry','focus','focused','focusing','lighting','brightness','angle','angles','studio','studios','subject','subjects','scene','scenes','backdrop','backdrops',
+  // Cuisines
+  'cuisine','cuisines','dish','dishes','meal','meals','recipe','recipes','ingredient','ingredients','spice','spices','herb','herbs','flavor','flavors','flavour','flavours','taste','tastes','chef','chefs','cook','cooks','cooking','cooked','kitchen','kitchens','bakery','bakeries','restaurant','restaurants','cafe','cafes','diner','diners','menu','menus','waiter','waiters','waitress','waitresses','plate','plates','bowl','bowls','fork','forks','knife','knives','spoon','spoons','cup','cups','glass','glasses','napkin','napkins','table','tables','rice','bread','noodle','noodles','soup','soups','salad','salads','sandwich','sandwiches','pizza','burger','burgers','cake','cakes','pie','pies','cookie','cookies','candy','candies','chocolate','chocolates','ice','cream','icecream','yogurt','butter','cheese','cheeses','sugar','honey','jam','jams','sauce','sauces','oil','oils','vinegar','pepper','chili','curry','curries','stew','stews','grill','grills','grilled','grilling','roast','roasts','roasted','fry','fries','fried','frying','boil','boils','boiled','boiling','steam','steamed','raw','cooked',
+  // Social media / digital
+  'social','media','internet','internets','web','website','websites','online','offline','app','apps','application','applications','post','posts','posted','posting','comment','comments','commented','like','likes','liked','share','shares','shared','sharing','follow','follower','followers','following','profile','profiles','account','accounts','password','passwords','login','logins','logout','chat','chats','chatted','chatting','message','messages','text','texts','texted','texting','emoji','emojis','video','videos','stream','streams','streamed','streaming','download','downloads','downloaded','upload','uploads','uploaded','photo','photos','feed','feeds','friend','friends','link','links','click','clicks','tap','taps','tapped','scroll','scrolled','scrolling','notification','notifications','digital','detox','privacy','safety','cyber','cyber','hacker','hackers','spam','scam','troll','trolls','influencer','influencers','viral','trend','trends','trendy','network','networks','networking','community','communities','platform','platforms',
+  // Green living
+  'green','eco','environment','environments','environmental','nature','natural','naturally','planet','planets','pollution','pollute','polluted','clean','cleaner','cleanest','dirty','recycle','recycles','recycled','recycling','reuse','reuses','reused','reusing','reduce','reduces','reduced','reducing','trash','garbage','waste','wastes','wasted','wasting','renewable','renewables','sustainable','energy','energies','solar','wind','hydro','electric','electricity','power','powered','powers','panel','panels','battery','batteries','bulb','bulbs','appliance','appliances','carbon','emission','emissions','climate','weather','warming','cool','cooler','heat','heated','insulate','insulated','insulation','conserve','conserves','conserved','conservation','preserve','preserves','preserved','preservation','forest','forests','wildlife','species','endangered','extinction','extinct','ecosystem','ecosystems','habitat','habitats','rainforest','rainforests','arctic','antarctic','glacier','glaciers',
+  // Missed basics
+  'easy','easily','hard','harder','hardest','simple','simply','certain','certainly','sure','surely','possible','possibly','great','greater','greatest','greatly','often','sometimes','usually','rarely','ever','never','nowadays','today','tomorrow','yesterday','everyday','weekend','weekends','hour','hours','minute','minutes','moment','moments','second','seconds','day','days','week','weeks','month','months','year','years','age','ages','decade','decades','century','centuries',
   // Extras picked up by validator
   'lot','lots','mom','moms','dad','dads','mum','mums','feast','feasts','tale','tales','mind','minds','party','parties','feast','celebration','celebrations','gift','present','presents','guest','guests','neighbor','neighbors','neighbour','neighbours','crowd','crowds','culture','cultures','country','countries','nation','nations','land','lands','coast','coasts','river','lake','pond','bay','gulf','harbor','port','ports','highway','highways','avenue','avenues','alley','alleys','lane','lanes','square','squares','temple','temples','mosque','mosques','church','churches','cathedral','cathedrals','shrine','shrines','palace','palaces','castle','castles','tower','towers','fort','forts','gate','gates','arch','arches','statue','statues','monument','monuments','fountain','fountains','bridge','bridges',
   'hike','hikes','hiked','trip','trips','journey','journeys','visit','visits','tour','tours','adventure','adventures','explore','explores','explored','exploring','camp','camps','camped','camping','swim','swims','swam','swimming','surf','surfs','surfed','surfing','ski','skis','skied','skiing','skate','skates','skated','skating','hunt','hunts','hunted','hunting','fish','fishes','fished','fishing','climb','climbs','climbed','climbing',
@@ -145,25 +177,23 @@ export const PROPER_NOUNS = new Set([
 export function computeOOV(text, allowlist) {
   const words = splitWords(text)
   const oov = []
+  const inAny = (w) => FUNCTION_WORDS.has(w) || CORE_A1.has(w) || PROPER_NOUNS.has(w) || allowlist.has(w)
   for (const w of words) {
     if (!w || /^[0-9]+$/.test(w)) continue
     const bare = w.replace(/'s$/, '').replace(/'$/, '')
     if (!bare) continue
-    if (FUNCTION_WORDS.has(bare)) continue
-    if (CORE_A1.has(bare)) continue
-    if (PROPER_NOUNS.has(bare)) continue
-    if (allowlist.has(bare)) continue
-    if (bare.endsWith('s') && allowlist.has(bare.slice(0, -1))) continue
-    if (bare.endsWith('es') && allowlist.has(bare.slice(0, -2))) continue
-    if (bare.endsWith('ed') && allowlist.has(bare.slice(0, -2))) continue
-    if (bare.endsWith('ed') && allowlist.has(bare.slice(0, -1))) continue
-    if (bare.endsWith('ing') && allowlist.has(bare.slice(0, -3))) continue
-    if (bare.endsWith('ing') && allowlist.has(bare.slice(0, -3) + 'e')) continue
-    if (bare.endsWith('er') && allowlist.has(bare.slice(0, -2))) continue
-    if (bare.endsWith('est') && allowlist.has(bare.slice(0, -3))) continue
-    if (bare.endsWith('ly') && allowlist.has(bare.slice(0, -2))) continue
-    if (bare.endsWith('ies') && allowlist.has(bare.slice(0, -3) + 'y')) continue
-    if (bare.endsWith('ied') && allowlist.has(bare.slice(0, -3) + 'y')) continue
+    if (inAny(bare)) continue
+    if (bare.endsWith('s') && inAny(bare.slice(0, -1))) continue
+    if (bare.endsWith('es') && inAny(bare.slice(0, -2))) continue
+    if (bare.endsWith('ed') && inAny(bare.slice(0, -2))) continue
+    if (bare.endsWith('ed') && inAny(bare.slice(0, -1))) continue
+    if (bare.endsWith('ing') && inAny(bare.slice(0, -3))) continue
+    if (bare.endsWith('ing') && inAny(bare.slice(0, -3) + 'e')) continue
+    if (bare.endsWith('er') && inAny(bare.slice(0, -2))) continue
+    if (bare.endsWith('est') && inAny(bare.slice(0, -3))) continue
+    if (bare.endsWith('ly') && inAny(bare.slice(0, -2))) continue
+    if (bare.endsWith('ies') && inAny(bare.slice(0, -3) + 'y')) continue
+    if (bare.endsWith('ied') && inAny(bare.slice(0, -3) + 'y')) continue
     oov.push(bare)
   }
   return oov

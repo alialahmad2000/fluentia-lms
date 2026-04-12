@@ -1,0 +1,150 @@
+{
+  "unit_number": 2,
+  "theme": "Ocean Life",
+  "passages": [
+    {
+      "reading_label": "A",
+      "title_en": "Amazing Ocean Creatures",
+      "paragraphs": [
+        "The ocean is full of many kinds of fish. Some are very big, and others are very small. Each one has its own way to live in the water. They make the ocean a special place of wonder.",
+        "Whales are the biggest animals in the ocean. They sing long songs to other whales far away. Dolphins are smart and like to play in the waves. They live in big groups and help each other every day.",
+        "Sharks swim fast and have very sharp teeth. They hunt smaller fish in the dark blue water. Small fish swim in big groups called schools. This way they stay safe from bigger hunters in the sea.",
+        "Turtles live a very long life in the warm ocean. They come to the shore to lay eggs in the sand. All these animals call the ocean their home. We must keep the water clean for them every day."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["The sea has many kinds of creatures that live in different ways.", "Only whales live in the sea.", "The sea is empty and quiet.", "Sharks are the smallest fish in the water."],
+          "correct_answer": "The sea has many kinds of creatures that live in different ways.",
+          "explanation_en": "The passage talks about many kinds of sea creatures and how each one lives.",
+          "explanation_ar": "يتحدث النص عن أنواع كثيرة من مخلوقات البحر وكيف يعيش كل منها."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "What can whales do?",
+          "question_ar": "ماذا يمكن أن تفعل الحيتان؟",
+          "choices": ["Sing long songs", "Run very fast", "Fly in the sky", "Eat plants on land"],
+          "correct_answer": "Sing long songs",
+          "explanation_en": "The passage says whales sing very long songs to other whales.",
+          "explanation_ar": "يقول النص إن الحيتان تغني أغاني طويلة جداً لحيتان أخرى."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "detail",
+          "question_en": "Why do small fish swim in schools?",
+          "question_ar": "لماذا تسبح الأسماك الصغيرة في مجموعات؟",
+          "choices": ["To stay safe from bigger fish", "To learn their lessons", "To find warm water", "To sleep all day"],
+          "correct_answer": "To stay safe from bigger fish",
+          "explanation_en": "The passage says small fish swim in schools to stay safe from bigger fish.",
+          "explanation_ar": "يقول النص إن الأسماك الصغيرة تسبح في مجموعات لتبقى بأمان من الأسماك الأكبر."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'schools' means:",
+          "question_ar": "في النص، كلمة 'schools' تعني:",
+          "choices": ["Big groups of fish", "Places for lessons", "Kinds of boats", "Old songs"],
+          "correct_answer": "Big groups of fish",
+          "explanation_en": "'Schools' here means big groups of fish swimming together.",
+          "explanation_ar": "'Schools' هنا تعني مجموعات كبيرة من الأسماك تسبح معاً."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'shore' means:",
+          "question_ar": "في النص، كلمة 'shore' تعني:",
+          "choices": ["The edge of the sea", "The middle of the sea", "The top of a tree", "The bottom of a bowl"],
+          "correct_answer": "The edge of the sea",
+          "explanation_en": "'Shore' means the edge of the sea where the water meets the sand.",
+          "explanation_ar": "'Shore' تعني حافة البحر حيث يلتقي الماء بالرمل."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why should we keep the sea water clean?",
+          "question_ar": "لماذا يجب أن نحافظ على نظافة ماء البحر؟",
+          "choices": ["So sea creatures can live well in their home.", "So people can sing in the water.", "So the sand can stay bright.", "So the schools of fish can get bigger."],
+          "correct_answer": "So sea creatures can live well in their home.",
+          "explanation_en": "The passage says we must keep the water clean so the creatures can live.",
+          "explanation_ar": "يقول النص إنه يجب أن نحافظ على نظافة الماء حتى تستطيع المخلوقات أن تعيش."
+        }
+      ]
+    },
+    {
+      "reading_label": "B",
+      "title_en": "The Deep Sea Mystery",
+      "paragraphs": [
+        "Deep in the ocean, it is very dark and cold. Light from the sun can not reach so far down. Many kinds of fish live in these deep waters. They have their own way to make light in the dark.",
+        "Some deep sea fish have very big eyes to see small things. Others make their own bright spots of light. This light helps them find food in the dark water. It also keeps the bigger hunters far away.",
+        "People do not know every fish in the deep sea. It is very hard to go so deep into the water. Brave divers use strong machines to see the deep. Each year, they find new kinds of fish and plants.",
+        "The deep sea holds many secrets and many old tales. It is a mystery that people really love to study. The more we learn, the more we want to keep it safe. Every fish is part of this great ocean home."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["The deep sea has many kinds of fish and many secrets.", "The sun shines bright in the deep sea.", "People can walk on the deep sea floor.", "All fish live close to the shore."],
+          "correct_answer": "The deep sea has many kinds of fish and many secrets.",
+          "explanation_en": "The passage is about the deep sea and the fish and secrets it holds.",
+          "explanation_ar": "يدور النص حول أعماق البحر والأسماك والأسرار التي يحتويها."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "Why is the deep sea dark?",
+          "question_ar": "لماذا أعماق البحر مظلمة؟",
+          "choices": ["Sunlight can not reach so far down.", "All the fish sleep there.", "The water is thick and red.", "There are no plants at all."],
+          "correct_answer": "Sunlight can not reach so far down.",
+          "explanation_en": "The passage says light from the sun can not reach so far down.",
+          "explanation_ar": "يقول النص إن ضوء الشمس لا يمكن أن يصل إلى هذا العمق."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "detail",
+          "question_en": "What do divers use to see the deep sea?",
+          "question_ar": "ماذا يستخدم الغواصون لرؤية أعماق البحر؟",
+          "choices": ["Strong machines", "Bright paint", "Long books", "Hot lights"],
+          "correct_answer": "Strong machines",
+          "explanation_en": "The passage says divers use strong machines to see the deep sea.",
+          "explanation_ar": "يقول النص إن الغواصين يستخدمون آلات قوية لرؤية أعماق البحر."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'divers' means:",
+          "question_ar": "في النص، كلمة 'divers' تعني:",
+          "choices": ["People who go under the water", "Fish that fly", "Small boats on top of the sea", "Big cold rocks"],
+          "correct_answer": "People who go under the water",
+          "explanation_en": "'Divers' are people who go under the water to look around.",
+          "explanation_ar": "'Divers' هم الأشخاص الذين ينزلون تحت الماء للنظر حولهم."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'mystery' means:",
+          "question_ar": "في النص، كلمة 'mystery' تعني:",
+          "choices": ["Something we do not know yet", "A sweet food for kids", "A bright yellow color", "A loud song in the park"],
+          "correct_answer": "Something we do not know yet",
+          "explanation_en": "'Mystery' means something we do not know or understand yet.",
+          "explanation_ar": "'Mystery' تعني شيئاً لا نعرفه أو نفهمه بعد."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why do people want to keep learning about the deep sea?",
+          "question_ar": "لماذا يريد الناس الاستمرار في التعلم عن أعماق البحر؟",
+          "choices": ["To know more about it and keep it safe.", "To make the sea smaller.", "To paint the water a new color.", "To catch all the fish in the sea."],
+          "correct_answer": "To know more about it and keep it safe.",
+          "explanation_en": "The passage says the more we know, the more we want to keep the sea safe.",
+          "explanation_ar": "يقول النص إنه كلما عرفنا أكثر، أردنا أن نحافظ على البحر آمناً."
+        }
+      ]
+    }
+  ]
+}
