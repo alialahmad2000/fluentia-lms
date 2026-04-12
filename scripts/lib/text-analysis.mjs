@@ -112,6 +112,7 @@ export const CORE_A1 = new Set([
   'tiny','huge','giant','amazing','wonderful','beautiful','pretty','ugly','clever','quick','quickly','slow','slowly','loud','loudly','quiet','quietly','gently','soft','softly','rough','smooth','bright','dim','warm','cool','hot','cold','fresh','stale','clean','dirty','wet','dry','full','empty','noisy','silent',
   'hunter','hunters','spot','spots','nearby','together','apart','alone','each','every','another',
   'well','wells','better','best','worse','worst',
+  'dance','dances','danced','dancing','dancer','dancers','clap','claps','clapped','clapping','screen','screens','pick','picks','picked','picking','brush','brushes','brushed','brushing','drum','drums','drew','drawn','draws','drawing','drawings','scene','scenes','actor','actors','actress','actresses',
   'eye','eyes','spot','spots','thing','things','place','places','kind','kinds','sort','sorts','fact','facts',
   'amazing','amazingly','special','specially','really','truly','actually','maybe','perhaps','probably',
   // Topic words for all L1 units

@@ -1,0 +1,150 @@
+{
+  "unit_number": 4,
+  "theme": "Music & Art",
+  "passages": [
+    {
+      "reading_label": "A",
+      "title_en": "Art Speaks Every Language",
+      "paragraphs": [
+        "Art is a very special way to share what we feel. A painting, a song, or a dance can say so much. People do not need to speak the same words. Art can tell a story to every person in the world.",
+        "Long ago, people made art on the walls of their homes. They drew pictures of animals, trees, and the big sky. These old pictures still teach us about life from long ago. Art helps us keep our old stories safe.",
+        "Music is another kind of art that people really love. A soft song can make us feel calm and happy. A loud drum can make us want to dance and clap. Many children learn to play music at a young age.",
+        "Every country has its own art and its own music. Some use old songs and some use new sounds too. When we share art, we learn about other people. Art helps all of us feel close to the world."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["Art is a special way to share feelings and stories with everyone.", "Only old people like art and music.", "Art is only on walls and nowhere else.", "Music is bad for children."],
+          "correct_answer": "Art is a special way to share feelings and stories with everyone.",
+          "explanation_en": "The passage talks about how art and music help people share feelings and stories.",
+          "explanation_ar": "يتحدث النص عن كيف يساعد الفن والموسيقى الناس على مشاركة المشاعر والقصص."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "What did people draw on the walls long ago?",
+          "question_ar": "ماذا رسم الناس على الجدران منذ زمن طويل؟",
+          "choices": ["Animals, trees, and the sky", "New cars and phones", "Small numbers and signs", "Big food plates"],
+          "correct_answer": "Animals, trees, and the sky",
+          "explanation_en": "The passage says people drew pictures of animals, trees, and the sky.",
+          "explanation_ar": "يقول النص إن الناس رسموا صوراً للحيوانات والأشجار والسماء."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "detail",
+          "question_en": "What can a soft song do?",
+          "question_ar": "ماذا يمكن أن تفعل أغنية ناعمة؟",
+          "choices": ["Make us feel calm and happy", "Make us run very fast", "Make us hungry for food", "Make us jump in the sea"],
+          "correct_answer": "Make us feel calm and happy",
+          "explanation_en": "The passage says a soft song can make us feel calm and happy.",
+          "explanation_ar": "يقول النص إن الأغنية الناعمة يمكن أن تجعلنا نشعر بالهدوء والسعادة."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'painting' means:",
+          "question_ar": "في النص، كلمة 'painting' تعني:",
+          "choices": ["A picture made with colors", "A kind of food", "A small box", "A long song"],
+          "correct_answer": "A picture made with colors",
+          "explanation_en": "'Painting' is a picture that people make with colors on paper or walls.",
+          "explanation_ar": "'Painting' هي صورة يصنعها الناس بالألوان على الورق أو الجدران."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'drum' means:",
+          "question_ar": "في النص، كلمة 'drum' تعني:",
+          "choices": ["A music tool you hit to make sound", "A long soft song", "A kind of clothes", "A small picture"],
+          "correct_answer": "A music tool you hit to make sound",
+          "explanation_en": "'Drum' is a music tool you hit with your hands or sticks.",
+          "explanation_ar": "'Drum' هي أداة موسيقية تضربها بيديك أو بعصا."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why is sharing art a good thing for people?",
+          "question_ar": "لماذا تعتبر مشاركة الفن شيئاً جيداً للناس؟",
+          "choices": ["It helps us learn about other people and feel close to them.", "It makes people work harder all day.", "It stops people from eating food.", "It makes all art the same."],
+          "correct_answer": "It helps us learn about other people and feel close to them.",
+          "explanation_en": "The passage says when we share art we learn about others and feel close.",
+          "explanation_ar": "يقول النص إنه عندما نشارك الفن نتعلم عن الآخرين ونشعر بالقرب."
+        }
+      ]
+    },
+    {
+      "reading_label": "B",
+      "title_en": "Digital Art Changes Everything",
+      "paragraphs": [
+        "Today, many people make art with a computer or a phone. This new kind of art is called digital art. You do not need paper or paint to make it. You just need a good idea and a few tools.",
+        "A digital artist can paint on a screen with a pen. The pen feels like a real brush in your hand. You can pick any color you want with just a tap. If you make a wrong line, you can fix it very fast.",
+        "Many young artists share their work on the internet. Other people can see the art from every country. They leave kind words and learn new ways to paint. This helps new artists grow and make better art.",
+        "Digital art is now used in many places around the world. We see it in books, on phones, and in long movies. It has opened new doors for people who love art. Every day, digital art gets better and more amazing."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["Digital art is a new way to make and share art.", "Only old artists make digital art.", "Digital art is not used in books.", "Paper and paint are better than computers."],
+          "correct_answer": "Digital art is a new way to make and share art.",
+          "explanation_en": "The passage is about how digital art is new and lets people share their work.",
+          "explanation_ar": "يدور النص حول كيف أن الفن الرقمي جديد ويتيح للناس مشاركة أعمالهم."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "What does a digital artist use to paint on a screen?",
+          "question_ar": "ماذا يستخدم الفنان الرقمي للرسم على الشاشة؟",
+          "choices": ["A pen that feels like a brush", "A big cup of water", "A long red rope", "A small song"],
+          "correct_answer": "A pen that feels like a brush",
+          "explanation_en": "The passage says a digital artist paints on a screen with a pen that feels like a brush.",
+          "explanation_ar": "يقول النص إن الفنان الرقمي يرسم على الشاشة بقلم يشبه الفرشاة."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "detail",
+          "question_en": "Where do young artists share their work?",
+          "question_ar": "أين يشارك الفنانون الشباب أعمالهم؟",
+          "choices": ["On the internet", "In the kitchen only", "On big rocks outside", "In small paper books"],
+          "correct_answer": "On the internet",
+          "explanation_en": "The passage says many young artists share their work on the internet.",
+          "explanation_ar": "يقول النص إن العديد من الفنانين الشباب يشاركون أعمالهم على الإنترنت."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'digital' means:",
+          "question_ar": "في النص، كلمة 'digital' تعني:",
+          "choices": ["Made with a computer or phone", "Made with warm water", "Made with bread and milk", "Made with wood and rope"],
+          "correct_answer": "Made with a computer or phone",
+          "explanation_en": "'Digital' means made with a computer or phone, not with paper.",
+          "explanation_ar": "'Digital' تعني مصنوعة بجهاز كمبيوتر أو هاتف، وليس بالورق."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'brush' means:",
+          "question_ar": "في النص، كلمة 'brush' تعني:",
+          "choices": ["A tool for painting", "A small boat", "A kind of food", "A long road"],
+          "correct_answer": "A tool for painting",
+          "explanation_en": "'Brush' is the small tool artists use to put paint on a canvas.",
+          "explanation_ar": "'Brush' هي الأداة الصغيرة التي يستخدمها الفنانون لوضع الطلاء على القماش."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why has digital art opened new doors for artists?",
+          "question_ar": "لماذا فتح الفن الرقمي أبواباً جديدة للفنانين؟",
+          "choices": ["It lets them share their work with people all over the world.", "It makes them work only at night.", "It stops them from drawing at all.", "It makes paper more important."],
+          "correct_answer": "It lets them share their work with people all over the world.",
+          "explanation_en": "The passage says digital art lets artists share and learn new ways to paint.",
+          "explanation_ar": "يقول النص إن الفن الرقمي يتيح للفنانين المشاركة وتعلم طرق جديدة للرسم."
+        }
+      ]
+    }
+  ]
+}
