@@ -1,0 +1,150 @@
+{
+  "unit_number": 6,
+  "theme": "Inventions",
+  "passages": [
+    {
+      "reading_label": "A",
+      "title_en": "Simple Ideas That Changed Everything",
+      "paragraphs": [
+        "Some very simple things changed the whole world forever. The wheel is one of the best things people ever made. Long ago, people could not move big rocks or wood. The wheel made it easy to carry very heavy things.",
+        "Paper is another small thing that changed life for all. Before paper, people drew on stones and dry animal skins. Paper made it easy to write stories and keep them safe. Today, we use paper every day at school and at home.",
+        "The light bulb was a very bright idea from the past. Before the light bulb, people used small fire lamps at night. The light bulb is safer and gives more light. It helps us read, cook, and work after the sun goes down.",
+        "These simple ideas make our lives better every day. We do not always think about how useful they are. Each idea started with one person and one good thought. Small things can make a very big change in the world."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["Simple ideas like the wheel and paper have changed the world.", "Only big ideas can change the world.", "The wheel is not useful today.", "Paper is not important at school."],
+          "correct_answer": "Simple ideas like the wheel and paper have changed the world.",
+          "explanation_en": "The passage talks about how simple inventions made a very big change in life.",
+          "explanation_ar": "يتحدث النص عن كيف أحدثت الاختراعات البسيطة تغييراً كبيراً جداً في الحياة."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "What did the wheel help people do?",
+          "question_ar": "ماذا ساعدت العجلة الناس على فعله؟",
+          "choices": ["Carry heavy things easily", "Cook warm food", "Sing long songs", "Paint their homes"],
+          "correct_answer": "Carry heavy things easily",
+          "explanation_en": "The passage says the wheel made it easy to carry very heavy things.",
+          "explanation_ar": "يقول النص إن العجلة سهلت حمل الأشياء الثقيلة جداً."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "detail",
+          "question_en": "What did people use before they had paper?",
+          "question_ar": "ماذا استخدم الناس قبل أن يكون لديهم ورق؟",
+          "choices": ["Stones and dry animal skins", "New books from stores", "Small cups and bowls", "Bright colored paints"],
+          "correct_answer": "Stones and dry animal skins",
+          "explanation_en": "The passage says before paper, people drew on stones and dry animal skins.",
+          "explanation_ar": "يقول النص إنه قبل الورق، رسم الناس على الحجارة وجلود الحيوانات الجافة."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'wheel' means:",
+          "question_ar": "في النص، كلمة 'wheel' تعني:",
+          "choices": ["A round part that turns to move things", "A kind of warm food", "A small red flower", "A long piece of rope"],
+          "correct_answer": "A round part that turns to move things",
+          "explanation_en": "'Wheel' is a round part that turns and helps carry or move things.",
+          "explanation_ar": "'Wheel' هو جزء دائري يدور ويساعد على حمل أو نقل الأشياء."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'bulb' means:",
+          "question_ar": "في النص، كلمة 'bulb' تعني:",
+          "choices": ["A small part that gives light", "A long soft song", "A warm kind of bread", "A small sea animal"],
+          "correct_answer": "A small part that gives light",
+          "explanation_en": "'Bulb' is the small part of a lamp that gives light when you turn it on.",
+          "explanation_ar": "'Bulb' هو الجزء الصغير من المصباح الذي يعطي ضوءاً عند تشغيله."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why should we think about these small ideas?",
+          "question_ar": "لماذا يجب أن نفكر في هذه الأفكار الصغيرة؟",
+          "choices": ["Because even small ideas can make big changes in the world.", "Because small ideas are not useful at all.", "Because the world is always the same.", "Because we do not need new ideas."],
+          "correct_answer": "Because even small ideas can make big changes in the world.",
+          "explanation_en": "The passage says small things can make a very big change in the world.",
+          "explanation_ar": "يقول النص إن الأشياء الصغيرة يمكن أن تحدث تغييراً كبيراً جداً في العالم."
+        }
+      ]
+    },
+    {
+      "reading_label": "B",
+      "title_en": "Ancient Arab Inventions That Changed Medicine",
+      "paragraphs": [
+        "Long ago, Arab lands made many useful ideas that helped people. Many of these ideas are about health and how to care for sick people. These ideas helped doctors around the world for many years. Some of them are still in use today.",
+        "One Arab doctor was named Ibn Sina, and he was very smart. He wrote a big book about health and how to fix many kinds of sickness. His book was used in many other countries for hundreds of years. Doctors read it to learn the best way to help people.",
+        "Arab workers made new tools for doctors to use on sick people. Some tools helped them fix broken bones in a safer way. Other tools helped them clean and close a deep cut. These tools made it easier to help sick people get well.",
+        "Arab health work changed the way the world cares for sick people. Many ideas from those old days are still used by doctors. These old thinkers opened new doors in health for all of us. We say thanks to them for their very hard work."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["Old Arab ideas helped the world care for sick people.", "Doctors never used old Arab books.", "All new tools come from one place only.", "Old ideas are not useful for health today."],
+          "correct_answer": "Old Arab ideas helped the world care for sick people.",
+          "explanation_en": "The passage talks about how old Arab ideas changed health work around the world.",
+          "explanation_ar": "يتحدث النص عن كيف غيرت الأفكار العربية القديمة الرعاية الصحية حول العالم."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "What did Ibn Sina write?",
+          "question_ar": "ماذا كتب ابن سينا؟",
+          "choices": ["A big book about health and sickness", "A short story for children", "A list of new songs", "A map of the desert"],
+          "correct_answer": "A big book about health and sickness",
+          "explanation_en": "The passage says Ibn Sina wrote a big book about health and how to fix sickness.",
+          "explanation_ar": "يقول النص إن ابن سينا كتب كتاباً كبيراً عن الصحة وكيفية علاج الأمراض."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'sickness' means:",
+          "question_ar": "في النص، كلمة 'sickness' تعني:",
+          "choices": ["When a person is not well", "A kind of old song", "A warm piece of clothes", "A big rock in the desert"],
+          "correct_answer": "When a person is not well",
+          "explanation_en": "'Sickness' is when a person is not well and needs help to feel better.",
+          "explanation_ar": "'Sickness' هي عندما لا يكون الشخص بصحة جيدة ويحتاج إلى مساعدة ليشعر بتحسن."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "detail",
+          "question_en": "What did the new tools help doctors do?",
+          "question_ar": "ماذا ساعدت الأدوات الجديدة الأطباء على فعله؟",
+          "choices": ["Fix broken bones and clean deep cuts", "Cook big meals for the workers", "Build new homes in the desert", "Paint tall towers with bright colors"],
+          "correct_answer": "Fix broken bones and clean deep cuts",
+          "explanation_en": "The passage says some tools helped fix broken bones and clean deep cuts.",
+          "explanation_ar": "يقول النص إن بعض الأدوات ساعدت في إصلاح العظام المكسورة وتنظيف الجروح العميقة."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'tools' means:",
+          "question_ar": "في النص، كلمة 'tools' تعني:",
+          "choices": ["Things you use with your hands to do work", "Kinds of songs people sing", "Small warm clothes for kids", "Bright colors for a painting"],
+          "correct_answer": "Things you use with your hands to do work",
+          "explanation_en": "'Tools' are things you use with your hands to help you do work.",
+          "explanation_ar": "'Tools' هي أشياء تستخدمها بيديك لمساعدتك في العمل."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why are these old Arab ideas still important today?",
+          "question_ar": "لماذا لا تزال هذه الأفكار العربية القديمة مهمة اليوم؟",
+          "choices": ["Because they still help doctors care for sick people.", "Because they are only stories from long ago.", "Because they stopped being used years ago.", "Because they are only for children."],
+          "correct_answer": "Because they still help doctors care for sick people.",
+          "explanation_en": "The passage says many ideas from those old days are still used by doctors today.",
+          "explanation_ar": "يقول النص إن العديد من الأفكار من تلك الأيام القديمة لا تزال تستخدم من قبل الأطباء اليوم."
+        }
+      ]
+    }
+  ]
+}
