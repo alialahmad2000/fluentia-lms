@@ -200,14 +200,14 @@ export default function InteractiveSpeakingTab({ unitId, students = [], highligh
             ) : (
               <div className="space-y-3">
                 {/* Students who recorded */}
-                {students.filter(s => recordedStudentIds.has(s.id)).map(student => (
+                {students.filter(s => recordedStudentIds.has(s.user_id)).map(student => (
                   <StudentRecordingCard
-                    key={student.id}
+                    key={student.user_id}
                     student={student}
-                    recording={questionRecordings[student.id]}
+                    recording={questionRecordings[student.user_id]}
                     trainerId={user?.id}
                     onFeedbackSaved={() => queryClient.invalidateQueries({ queryKey: ['speaking-recordings-all', unitId] })}
-                    autoOpen={student.id === highlightStudent}
+                    autoOpen={student.user_id === highlightStudent}
                   />
                 ))}
 
@@ -225,14 +225,14 @@ export default function InteractiveSpeakingTab({ unitId, students = [], highligh
             )}
 
             {/* Students who haven't recorded */}
-            {totalStudents > 0 && students.filter(s => !recordedStudentIds.has(s.id)).length > 0 && (
+            {totalStudents > 0 && students.filter(s => !recordedStudentIds.has(s.user_id)).length > 0 && (
               <ExpandableSection title={`لم يسجلوا بعد (${totalStudents - recordedCount})`}>
                 <div className="space-y-2">
-                  {students.filter(s => !recordedStudentIds.has(s.id)).map(student => (
-                    <div key={student.id} className="flex items-center gap-2 px-3 py-2 rounded-lg" style={{ background: 'var(--surface-base)' }}>
+                  {students.filter(s => !recordedStudentIds.has(s.user_id)).map(student => (
+                    <div key={student.user_id} className="flex items-center gap-2 px-3 py-2 rounded-lg" style={{ background: 'var(--surface-base)' }}>
                       <Clock size={13} className="text-[var(--text-muted)]" />
                       <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">
-                        {student.profiles?.full_name || student.profiles?.display_name || 'طالب'}
+                        {student.full_name || 'طالب'}
                       </span>
                       <span className="text-[10px] text-[var(--text-muted)] mr-auto font-['Tajawal']">لم تسجل بعد</span>
                     </div>
@@ -266,7 +266,7 @@ function StudentRecordingCard({ student, recording, trainerId, onFeedbackSaved, 
   const [saved, setSaved] = useState(false)
 
   const aiEval = recording.ai_evaluation
-  const studentName = student?.profiles?.full_name || student?.profiles?.display_name || 'طالب'
+  const studentName = student?.full_name || student?.profiles?.full_name || student?.profiles?.display_name || 'طالب'
   const hasRichFeedback = aiEval && (aiEval.corrected_transcript || aiEval.errors?.length || aiEval.better_expressions?.length || aiEval.fluency_tips?.length || aiEval.model_answer)
 
   const saveTrainerFeedback = async () => {

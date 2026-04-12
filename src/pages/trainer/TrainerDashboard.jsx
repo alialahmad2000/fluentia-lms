@@ -112,6 +112,7 @@ export default function TrainerDashboard() {
       return data || []
     },
     enabled: currentGroupIds.length > 0,
+    refetchInterval: 30000,
   })
 
   // ── Pending Speaking ──
@@ -132,6 +133,7 @@ export default function TrainerDashboard() {
       return data || []
     },
     enabled: students.length > 0,
+    refetchInterval: 30000,
   })
 
   // ── Pending Writing (curriculum) ──
@@ -154,6 +156,7 @@ export default function TrainerDashboard() {
       return data || []
     },
     enabled: students.length > 0,
+    refetchInterval: 30000,
   })
 
   // ── Computed stats ──
@@ -173,10 +176,10 @@ export default function TrainerDashboard() {
   }, [teams])
 
   const getStatus = (lastActive) => {
-    if (!lastActive) return { dot: '🔴', label: 'غائب', color: 'rgb(239,68,68)' }
+    if (!lastActive) return { dot: '⚪', label: 'لم يدخل', color: 'rgb(148,163,184)' }
     const days = (Date.now() - new Date(lastActive).getTime()) / 86400000
-    if (days < 2) return { dot: '🟢', label: 'نشط', color: 'rgb(52,211,153)' }
-    if (days <= 5) return { dot: '🟡', label: 'خامل', color: 'rgb(251,191,36)' }
+    if (days < 1) return { dot: '🟢', label: 'نشط', color: 'rgb(52,211,153)' }
+    if (days <= 3) return { dot: '🟡', label: 'خامل', color: 'rgb(251,191,36)' }
     return { dot: '🔴', label: 'غائب', color: 'rgb(239,68,68)' }
   }
 

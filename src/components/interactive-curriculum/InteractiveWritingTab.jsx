@@ -98,13 +98,6 @@ function WritingTaskContent({ task, unitId, students, highlightStudent }) {
   const [expandedStudent, setExpandedStudent] = useState(highlightStudent || null)
   const highlightRef = useRef(null)
 
-  // Auto-scroll to highlighted student
-  useEffect(() => {
-    if (highlightStudent && highlightRef.current) {
-      setTimeout(() => highlightRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300)
-    }
-  }, [highlightStudent, studentProgress])
-
   const { data: studentProgress } = useQuery({
     queryKey: ['ic-writing-progress', task.id, students.map(s => s.user_id).sort().join()],
     queryFn: async () => {
@@ -121,6 +114,13 @@ function WritingTaskContent({ task, unitId, students, highlightStudent }) {
     enabled: !!task?.id && students.length > 0,
     staleTime: 30000,
   })
+
+  // Auto-scroll to highlighted student after data loads
+  useEffect(() => {
+    if (highlightStudent && highlightRef.current && studentProgress) {
+      setTimeout(() => highlightRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300)
+    }
+  }, [highlightStudent, studentProgress])
 
   const progressMap = useMemo(() => {
     const map = {}
@@ -262,6 +262,7 @@ function WritingTaskContent({ task, unitId, students, highlightStudent }) {
                           existingFeedback={progress?.trainer_feedback}
                           trainerId={user?.id}
                           onSaved={invalidateProgress}
+                          autoOpen={student.user_id === highlightStudent}
                         />
                       </div>
                     </motion.div>
@@ -329,19 +330,19 @@ function AIFeedbackSummary({ feedback }) {
 }
 
 // ─── Trainer Feedback Form ───────────────────────
-function TrainerFeedbackForm({ studentId, writingId, existingGrade, existingFeedback, trainerId, onSaved }) {
+function TrainerFeedbackForm({ studentId, writingId, existingGrade, existingFeedback, trainerId, onSaved, autoOpen }) {
   const [grade, setGrade] = useState(existingGrade || '')
   const [feedback, setFeedback] = useState(existingFeedback || '')
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(autoOpen || false)
 
   const handleSave = async () => {
     if (!grade) return
     setSaving(true)
     setSaved(false)
 
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from('student_curriculum_progress')
       .update({
         trainer_grade: grade,
@@ -351,9 +352,12 @@ function TrainerFeedbackForm({ studentId, writingId, existingGrade, existingFeed
       })
       .eq('student_id', studentId)
       .eq('writing_id', writingId)
+      .select()
 
     if (error) {
       console.error('Failed to save trainer feedback:', error)
+    } else if (!data?.length) {
+      console.error('RLS prevented save — check permissions')
     } else {
       // Notify student (in-app + push)
       await notifyUser({
