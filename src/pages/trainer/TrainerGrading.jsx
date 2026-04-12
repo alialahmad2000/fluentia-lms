@@ -44,7 +44,7 @@ export default function TrainerGrading() {
   const isAdmin = role === 'admin'
 
   // Trainer's groups (only needed for non-admin)
-  const { data: groups } = useQuery({
+  const { data: groups, isLoading: groupsLoading } = useQuery({
     queryKey: ['trainer-groups', role],
     queryFn: async () => {
       const { data } = await supabase
@@ -57,7 +57,7 @@ export default function TrainerGrading() {
   })
 
   // Submissions — admin sees ALL, trainer sees only their groups
-  const { data: submissions, isLoading, error: queryError } = useQuery({
+  const { data: submissions = [], isLoading, error: queryError } = useQuery({
     queryKey: ['trainer-all-submissions', filterStatus, role],
     queryFn: async () => {
       let query = supabase
@@ -140,9 +140,9 @@ export default function TrainerGrading() {
         <div className="fl-card-static p-12 text-center">
           <p className="text-red-400">فشل تحميل التسليمات — حاول مرة أخرى</p>
         </div>
-      ) : isLoading ? (
+      ) : isLoading || (!isAdmin && groupsLoading) ? (
         <ListSkeleton />
-      ) : submissions?.length === 0 ? (
+      ) : submissions.length === 0 ? (
         <EmptyState
           icon={CheckCircle2}
           title={filterStatus === 'submitted' ? 'لا توجد تسليمات بانتظار التقييم' : 'لا توجد تسليمات'}
