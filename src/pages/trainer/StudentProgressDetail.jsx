@@ -6,6 +6,7 @@ import {
   ArrowRight, ChevronDown, ChevronUp, BookOpen, Gamepad2, PenTool,
   Clock, Trophy, Target, Flame, Star, RotateCcw, Volume2,
   CheckCircle2, XCircle, AlertTriangle, Sparkles, MessageSquare,
+  Zap, UserCheck, ClipboardList,
 } from 'lucide-react'
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid,
@@ -198,6 +199,50 @@ export default function StudentProgressDetail() {
         .order('created_at', { ascending: false })
         .limit(50)
       return data || []
+    },
+    enabled: !!studentId,
+  })
+
+  // ── Fetch attendance ────────────────────────────
+  const { data: attendanceData } = useQuery({
+    queryKey: ['student-attendance', studentId],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('attendance')
+        .select('id, status, class_number, unit_id, created_at, units:unit_id(unit_number, theme_ar)')
+        .eq('student_id', studentId)
+        .order('created_at', { ascending: false })
+      return data || []
+    },
+    enabled: !!studentId,
+  })
+
+  // ── Fetch trainer notes ────────────────────────
+  const { data: trainerNotes } = useQuery({
+    queryKey: ['student-trainer-notes', studentId],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('trainer_notes')
+        .select('id, content, note_type, created_at, profiles:trainer_id(full_name)')
+        .eq('student_id', studentId)
+        .order('created_at', { ascending: false })
+        .limit(20)
+      return data || []
+    },
+    enabled: !!studentId,
+  })
+
+  // ── Fetch skill snapshots ─────────────────────
+  const { data: skillSnapshot } = useQuery({
+    queryKey: ['student-skill-snapshot', studentId],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('skill_snapshots')
+        .select('*')
+        .eq('student_id', studentId)
+        .order('snapshot_date', { ascending: false })
+        .limit(1)
+      return data?.[0] || null
     },
     enabled: !!studentId,
   })
@@ -414,18 +459,39 @@ export default function StudentProgressDetail() {
                   ⭐ {studentInfo.xp_total} XP
                 </span>
               )}
-              {studentInfo.streak_days > 0 && (
+              {studentInfo.current_streak > 0 && (
                 <span className="text-xs font-bold" style={{ color: 'var(--accent-rose)' }}>
-                  🔥 {studentInfo.streak_days} يوم متتالي
+                  🔥 {studentInfo.current_streak} يوم متتالي
                 </span>
               )}
               <span className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
-                آخر نشاط: {timeAgo(studentInfo.last_active_at)}
+                آخر نشاط: {timeAgo(student.last_active_at || studentInfo.last_active_at)}
               </span>
             </div>
           </div>
         </div>
       </div>
+
+      {/* ── Quick Actions ─────────────────────────── */}
+      {currentUser?.role === 'trainer' || currentUser?.role === 'admin' ? (
+        <div className="flex gap-2 flex-wrap">
+          {[
+            { to: `/trainer/points?student=${studentId}`, label: 'أضف نقاط', icon: Zap },
+            { to: `/trainer/student-notes?student=${studentId}`, label: 'أرسل ملاحظة', icon: MessageSquare },
+            { to: '/trainer/attendance', label: 'سجل حضور', icon: UserCheck },
+          ].map(a => (
+            <button
+              key={a.to}
+              onClick={() => navigate(a.to)}
+              className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium transition-all hover:translate-y-[-1px] min-h-[36px]"
+              style={{ background: 'rgba(56,189,248,0.08)', color: 'var(--accent-sky)', border: '1px solid rgba(56,189,248,0.15)' }}
+            >
+              <a.icon size={14} />
+              {a.label}
+            </button>
+          ))}
+        </div>
+      ) : null}
 
       {/* ── Tabs ────────────────────────────────────── */}
       <div className="flex gap-1 overflow-x-auto scrollbar-none -mx-4 px-4 sticky top-0 z-10 py-2"
@@ -454,6 +520,9 @@ export default function StudentProgressDetail() {
           stats={overviewStats}
           activityChart={activityChart}
           loading={loadingProgress}
+          attendance={attendanceData || []}
+          trainerNotes={trainerNotes || []}
+          skillSnapshot={skillSnapshot}
         />
       )}
 
@@ -492,8 +561,20 @@ export default function StudentProgressDetail() {
 // ═══════════════════════════════════════════════════════════════
 // TAB 1: Overview
 // ═══════════════════════════════════════════════════════════════
-function OverviewTab({ progressByUnit, units, stats, activityChart, loading }) {
+function OverviewTab({ progressByUnit, units, stats, activityChart, loading, attendance, trainerNotes, skillSnapshot }) {
   if (loading) return <SkeletonSection />
+
+  // Attendance stats
+  const attendancePresent = attendance.filter(a => a.status === 'present').length
+  const attendanceTotal = attendance.length
+  const attendanceRate = attendanceTotal > 0 ? Math.round((attendancePresent / attendanceTotal) * 100) : 0
+
+  const NOTE_TYPE_LABELS = {
+    encouragement: { label: 'تشجيع', color: 'var(--accent-emerald)' },
+    observation: { label: 'ملاحظة', color: 'var(--accent-sky)' },
+    warning: { label: 'تنبيه', color: 'var(--accent-amber)' },
+    reminder: { label: 'تذكير', color: 'var(--accent-violet)' },
+  }
 
   return (
     <div className="space-y-5">
@@ -544,6 +625,97 @@ function OverviewTab({ progressByUnit, units, stats, activityChart, loading }) {
         <MiniStat icon={Gamepad2} label="ألعاب هالأسبوع" value={stats.gamesThisWeek} color="violet" />
         <MiniStat icon={Star} label="كلمات مُتقنة" value={`${stats.masteredWords} من ${stats.totalWords}`} color="amber" />
       </div>
+
+      {/* Skill Radar */}
+      {skillSnapshot ? (
+        <Card title="مهارات الطالب">
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+            {[
+              { key: 'grammar', label: 'القواعد' },
+              { key: 'vocabulary', label: 'المفردات' },
+              { key: 'speaking', label: 'التحدث' },
+              { key: 'listening', label: 'الاستماع' },
+              { key: 'reading', label: 'القراءة' },
+              { key: 'writing', label: 'الكتابة' },
+            ].map(skill => {
+              const val = skillSnapshot[skill.key] || 0
+              const color = val >= 70 ? 'var(--accent-emerald)' : val >= 40 ? 'var(--accent-amber)' : 'var(--accent-rose)'
+              return (
+                <div key={skill.key} className="text-center p-3 rounded-xl" style={{ background: 'var(--surface-overlay)' }}>
+                  <div className="text-lg font-bold" style={{ color }}>{val}%</div>
+                  <div className="text-[10px] mt-1" style={{ color: 'var(--text-tertiary)' }}>{skill.label}</div>
+                </div>
+              )
+            })}
+          </div>
+        </Card>
+      ) : (
+        <Card title="مهارات الطالب">
+          <EmptyState text="لا توجد بيانات مهارات بعد — ستظهر بعد أول تقييم شامل" />
+        </Card>
+      )}
+
+      {/* Attendance Summary */}
+      <Card title="ملخص الحضور">
+        {attendance.length === 0 ? (
+          <EmptyState text="لا يوجد سجل حضور بعد" />
+        ) : (
+          <div>
+            <div className="flex items-center gap-4 mb-4">
+              <div className="flex items-center gap-2">
+                <UserCheck size={16} style={{ color: 'var(--accent-emerald)' }} />
+                <span className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>
+                  {attendanceRate}% حضور
+                </span>
+              </div>
+              <span className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
+                ({attendancePresent} من {attendanceTotal} حصة)
+              </span>
+            </div>
+            <div className="flex gap-1.5 flex-wrap">
+              {attendance.slice(0, 20).map(a => (
+                <div
+                  key={a.id}
+                  className="w-7 h-7 rounded-lg flex items-center justify-center text-[10px] font-bold cursor-default"
+                  style={{
+                    background: a.status === 'present' ? 'rgba(16,185,129,0.15)' : a.status === 'late' ? 'rgba(245,158,11,0.15)' : 'rgba(239,68,68,0.15)',
+                    color: a.status === 'present' ? 'var(--accent-emerald)' : a.status === 'late' ? 'var(--accent-amber)' : 'var(--accent-rose)',
+                  }}
+                  title={`${a.units?.unit_number ? 'و' + a.units.unit_number : ''} حصة ${a.class_number || '?'} — ${a.status === 'present' ? 'حاضر' : a.status === 'late' ? 'متأخر' : 'غائب'}`}
+                >
+                  {a.status === 'present' ? '✓' : a.status === 'late' ? '⏰' : '✗'}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </Card>
+
+      {/* Trainer Notes */}
+      <Card title="ملاحظات المدرب">
+        {trainerNotes.length === 0 ? (
+          <EmptyState text="لا توجد ملاحظات بعد" />
+        ) : (
+          <div className="space-y-2">
+            {trainerNotes.slice(0, 5).map(note => {
+              const typeInfo = NOTE_TYPE_LABELS[note.note_type] || NOTE_TYPE_LABELS.observation
+              return (
+                <div key={note.id} className="p-3 rounded-xl" style={{ background: 'var(--surface-overlay)' }}>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md" style={{ color: typeInfo.color, background: `${typeInfo.color}15` }}>
+                      {typeInfo.label}
+                    </span>
+                    <span className="text-[10px]" style={{ color: 'var(--text-tertiary)' }}>
+                      {note.profiles?.full_name || 'مدرب'} · {timeAgo(note.created_at)}
+                    </span>
+                  </div>
+                  <p className="text-sm leading-relaxed" style={{ color: 'var(--text-primary)' }}>{note.content}</p>
+                </div>
+              )
+            })}
+          </div>
+        )}
+      </Card>
 
       {/* Activity Chart */}
       <Card title="النشاط — آخر 30 يوم">

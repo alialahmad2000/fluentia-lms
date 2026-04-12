@@ -524,6 +524,7 @@ export default function App() {
               <Route path="/trainer/weekly-report" element={<Page><WeeklyReport /></Page>} />
               <Route path="/trainer/my-students" element={<Page><MyStudents /></Page>} />
               <Route path="/trainer/student/:studentId/progress" element={<Page><StudentProgressDetail /></Page>} />
+              <Route path="/trainer/student/:studentId" element={<Page><StudentProgressDetail /></Page>} />
             </Route>
           </Route>
 
