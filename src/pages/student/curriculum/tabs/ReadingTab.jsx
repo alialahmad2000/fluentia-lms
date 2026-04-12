@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, useMemo, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Volume2, CheckCircle, XCircle, Lightbulb, MessageSquare, ChevronDown, RotateCcw, History } from 'lucide-react'
+import { BookOpen, Volume2, CheckCircle, XCircle, Lightbulb, MessageSquare, ChevronDown, RotateCcw, History, Clock, ImageOff } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
@@ -19,6 +19,35 @@ const QUESTION_TYPE_COLORS = {
   detail: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
   vocabulary: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
   inference: 'bg-purple-500/15 text-purple-400 border-purple-500/30',
+}
+
+function estimateReadingTime(wordCount) {
+  if (!wordCount || wordCount <= 0) return null
+  return Math.max(1, Math.ceil(wordCount / 200))
+}
+
+// ─── Premium Image with fallback ─────────────────────
+function PremiumImage({ src, alt, className, aspectClass = 'aspect-[16/9]' }) {
+  const [failed, setFailed] = useState(false)
+
+  if (!src || failed) {
+    return (
+      <div className={`${aspectClass} bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center ${className || ''}`}>
+        <ImageOff size={32} className="text-slate-600" />
+      </div>
+    )
+  }
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={`${aspectClass} w-full object-cover ${className || ''}`}
+      loading="lazy"
+      decoding="async"
+      onError={() => setFailed(true)}
+    />
+  )
 }
 
 // ─── Main Component ─────────────────────────────────
@@ -46,8 +75,8 @@ export default function ReadingTab({ unitId }) {
   if (!readings?.length) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 py-20">
-        <BookOpen size={40} className="text-[var(--text-muted)]" />
-        <p className="text-[var(--text-muted)] font-['Tajawal']">لا توجد قراءة لهذه الوحدة بعد</p>
+        <BookOpen size={40} className="text-slate-600" />
+        <p className="text-slate-500 font-['Tajawal']">لا توجد قراءة لهذه الوحدة بعد</p>
       </div>
     )
   }
@@ -55,7 +84,7 @@ export default function ReadingTab({ unitId }) {
   const reading = readings[activeReading]
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6 max-w-3xl mx-auto">
       {/* Sub-tabs for Reading A / B */}
       {readings.length > 1 && (
         <div className="flex gap-2">
@@ -63,10 +92,10 @@ export default function ReadingTab({ unitId }) {
             <button
               key={r.id}
               onClick={() => setActiveReading(i)}
-              className={`px-5 h-10 rounded-xl text-sm font-bold border transition-colors font-['Tajawal'] ${
+              className={`px-5 h-10 rounded-xl text-sm font-bold border transition-all duration-200 font-['Tajawal'] ${
                 activeReading === i
-                  ? 'bg-sky-500/20 text-sky-400 border-sky-500/40'
-                  : 'bg-[var(--surface-raised)] text-[var(--text-muted)] border-[var(--border-subtle)] hover:text-[var(--text-primary)]'
+                  ? 'bg-sky-500/20 text-sky-400 border-sky-500/40 shadow-lg shadow-sky-500/5'
+                  : 'bg-slate-900/50 text-slate-400 border-slate-800/60 hover:text-slate-200 hover:border-slate-700'
               }`}
             >
               القراءة {r.reading_label || String.fromCharCode(65 + i)}
@@ -180,7 +209,7 @@ function ReadingContent({ reading, studentId, unitId }) {
       setSavedProgress({ ...savedProgress, answers, score, completed_at: new Date().toISOString(), attempt_number: newAttemptNumber, attempt_history: newHistory })
       setRetrying(false)
       setIsCompleted(true)
-      toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
+      toast({ type: 'success', title: 'تم حفظ تقدمك' })
       awardCurriculumXP(studentId, 'reading', score, unitId)
     }
   }, [studentId, reading?.id, unitId, retrying, attemptNumber, attemptHistory, savedProgress])
@@ -217,6 +246,8 @@ function ReadingContent({ reading, studentId, unitId }) {
     return map
   }, [vocabulary])
 
+  const readingTime = estimateReadingTime(reading.passage_word_count)
+
   return (
     <div className="space-y-6">
       {/* Completed badge + retry */}
@@ -230,73 +261,104 @@ function ReadingContent({ reading, studentId, unitId }) {
         />
       )}
 
-      {/* Before-Read Hero Image */}
-      {reading.before_read_image_url && (
-        <div className="rounded-2xl overflow-hidden border border-[var(--border-subtle)]">
-          <img
-            src={reading.before_read_image_url}
-            alt={reading.title_en}
-            className="w-full h-48 sm:h-56 object-cover"
-            loading="lazy"
+      {/* ─── Premium Passage Card ─── */}
+      <div className="relative rounded-2xl overflow-hidden bg-slate-900/50 border border-slate-800/60 hover:border-slate-700 transition-colors duration-300">
+        {/* Gradient accent line */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-sky-500/30 to-transparent" />
+
+        {/* A/B Badge */}
+        {reading.reading_label && (
+          <div className="absolute top-4 left-4 z-10">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 text-xs font-bold font-['Inter'] backdrop-blur-sm">
+              Passage {reading.reading_label}
+            </span>
+          </div>
+        )}
+
+        {/* Hero Image */}
+        {reading.before_read_image_url && (
+          <div className="rounded-t-2xl overflow-hidden border-b border-slate-700/40">
+            <PremiumImage
+              src={reading.before_read_image_url}
+              alt={reading.title_en}
+              className="shadow-2xl shadow-black/30"
+            />
+          </div>
+        )}
+
+        {/* Card Body */}
+        <div className="p-6 md:p-8 space-y-6">
+          {/* Title Block */}
+          <div className="space-y-3">
+            <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight font-['Inter']" dir="ltr">
+              {reading.title_en}
+            </h2>
+            {reading.title_ar && (
+              <p className="text-base md:text-lg text-slate-400 font-medium font-['Tajawal']">{reading.title_ar}</p>
+            )}
+            <div className="flex items-center gap-3 flex-wrap">
+              {readingTime && (
+                <span className="inline-flex items-center gap-1.5 text-xs text-slate-400 font-['Inter']">
+                  <Clock size={12} className="text-slate-500" />
+                  {readingTime} min read
+                </span>
+              )}
+              {reading.passage_word_count > 0 && (
+                <span className="text-xs text-slate-500 font-['Inter']">
+                  {reading.passage_word_count} words
+                </span>
+              )}
+              {reading.passage_audio_url && (
+                <AudioButton url={reading.passage_audio_url} label="استمع للقراءة" />
+              )}
+            </div>
+            <div className="border-b border-slate-800/50 pb-0" />
+          </div>
+
+          {/* Before You Read */}
+          {reading.before_read_exercise_a && (
+            <BeforeReadSection content={reading.before_read_exercise_a} />
+          )}
+
+          {/* Passage Images (inline) */}
+          {reading.passage_image_urls?.length > 0 && (
+            <div className="space-y-3">
+              {reading.passage_image_urls.map((url, idx) => (
+                <div key={idx} className="max-w-xl mx-auto my-6">
+                  <div className="rounded-lg overflow-hidden border border-slate-700/40 shadow-lg">
+                    <PremiumImage
+                      src={url}
+                      alt={`${reading.title_en} — illustration ${idx + 1}`}
+                      aspectClass="aspect-[16/10]"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Passage */}
+          <PassageDisplay
+            paragraphs={reading.passage_content?.paragraphs || []}
+            vocabMap={vocabMap}
           />
         </div>
-      )}
-
-      {/* Before You Read */}
-      {reading.before_read_exercise_a && (
-        <BeforeReadSection content={reading.before_read_exercise_a} />
-      )}
-
-      {/* Passage Title */}
-      <div className="space-y-1">
-        <h2 className="text-lg font-bold text-[var(--text-primary)] font-['Inter']" dir="ltr">
-          {reading.title_en}
-        </h2>
-        {reading.title_ar && (
-          <p className="text-sm text-[var(--text-muted)] font-['Tajawal']">{reading.title_ar}</p>
-        )}
       </div>
-
-      {/* Audio button */}
-      {reading.passage_audio_url && (
-        <AudioButton url={reading.passage_audio_url} label="استمع للقراءة" />
-      )}
-
-      {/* Passage Image(s) */}
-      {reading.passage_image_urls?.length > 0 && (
-        <div className="flex gap-3 overflow-x-auto scrollbar-hide">
-          {reading.passage_image_urls.map((url, idx) => (
-            <div key={idx} className="rounded-xl overflow-hidden border border-[var(--border-subtle)] flex-shrink-0">
-              <img
-                src={url}
-                alt={`${reading.title_en} — illustration ${idx + 1}`}
-                className="h-40 sm:h-48 w-auto object-cover"
-                loading="lazy"
-              />
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Passage */}
-      <PassageDisplay
-        paragraphs={reading.passage_content?.paragraphs || []}
-        vocabMap={vocabMap}
-        wordCount={reading.passage_word_count}
-      />
 
       {/* Infographic */}
       {reading.infographic_image_url && (
-        <div
-          className="rounded-2xl overflow-hidden border border-[var(--border-subtle)]"
-          style={{ background: 'var(--surface-raised)' }}
-        >
-          <img
-            src={reading.infographic_image_url}
-            alt={`Infographic: ${reading.title_en}`}
-            className="w-full object-cover"
-            loading="lazy"
-          />
+        <div className="max-w-xl mx-auto">
+          <div className="rounded-xl overflow-hidden border border-slate-700/40 shadow-lg">
+            <PremiumImage
+              src={reading.infographic_image_url}
+              alt={`Infographic: ${reading.title_en}`}
+              aspectClass=""
+              className="w-full"
+            />
+          </div>
+          <p className="text-sm text-slate-500 text-center mt-2 italic font-['Inter']">
+            Infographic
+          </p>
         </div>
       )}
 
@@ -332,15 +394,12 @@ function ReadingContent({ reading, studentId, unitId }) {
 // ─── Before Read Section ─────────────────────────────
 function BeforeReadSection({ content }) {
   return (
-    <div
-      className="rounded-xl p-5 space-y-3"
-      style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
-    >
+    <div className="rounded-xl p-5 space-y-3 bg-amber-500/5 border border-amber-500/15">
       <div className="flex items-center gap-2">
         <Lightbulb size={16} className="text-amber-400" />
         <h3 className="text-sm font-bold text-amber-400 font-['Tajawal']">قبل القراءة</h3>
       </div>
-      <div className="text-sm text-[var(--text-secondary)] font-['Inter'] leading-relaxed" dir="ltr">
+      <div className="text-sm text-slate-300 font-['Inter'] leading-relaxed" dir="ltr">
         {typeof content === 'string' ? content : JSON.stringify(content)}
       </div>
     </div>
@@ -348,7 +407,7 @@ function BeforeReadSection({ content }) {
 }
 
 // ─── Passage Display ─────────────────────────────────
-function PassageDisplay({ paragraphs, vocabMap, wordCount }) {
+function PassageDisplay({ paragraphs, vocabMap }) {
   const [activeTooltip, setActiveTooltip] = useState(null)
   const tooltipTimeout = useRef(null)
 
@@ -375,7 +434,7 @@ function PassageDisplay({ paragraphs, vocabMap, wordCount }) {
                 onMouseEnter={() => showTooltip(`${pIdx}-${i}`)}
                 onMouseLeave={hideTooltip}
                 onClick={() => setActiveTooltip(prev => prev === `${pIdx}-${i}` ? null : `${pIdx}-${i}`)}
-                className="text-sky-400 font-semibold border-b border-dotted border-sky-400/50 hover:border-sky-400 transition-colors cursor-pointer"
+                className="text-sky-300 font-semibold border-b border-dotted border-sky-400/50 hover:border-sky-400 transition-colors cursor-pointer"
               >
                 {part}
               </button>
@@ -388,69 +447,48 @@ function PassageDisplay({ paragraphs, vocabMap, wordCount }) {
                     transition={{ duration: 0.15 }}
                     onMouseEnter={() => showTooltip(`${pIdx}-${i}`)}
                     onMouseLeave={hideTooltip}
-                    className="absolute z-30 bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 rounded-xl p-3 space-y-1.5 text-sm"
-                    style={{
-                      background: 'var(--surface-elevated, var(--surface-raised))',
-                      border: '1px solid var(--border-subtle)',
-                      boxShadow: '0 8px 24px rgba(0,0,0,0.25)',
-                    }}
+                    className="absolute z-30 bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 rounded-xl p-3 space-y-1.5 text-sm bg-slate-800 border border-slate-700"
+                    style={{ boxShadow: '0 8px 24px rgba(0,0,0,0.4)' }}
                   >
                     {vocab.image_url && (
                       <img src={vocab.image_url} alt={vocab.word} className="w-full h-20 rounded-lg object-cover -mt-1" loading="lazy" />
                     )}
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-[var(--text-primary)] font-['Inter']">{vocab.word}</span>
-                      <span className="text-[10px] text-[var(--text-muted)] font-['Inter']">{vocab.part_of_speech}</span>
+                      <span className="font-bold text-white font-['Inter']">{vocab.word}</span>
+                      <span className="text-[10px] text-slate-400 font-['Inter']">{vocab.part_of_speech}</span>
                     </div>
-                    <p className="text-[var(--text-secondary)] font-['Inter'] text-xs leading-relaxed">{vocab.definition_en}</p>
-                    <p className="text-[var(--text-muted)] font-['Tajawal'] text-xs" dir="rtl">{vocab.definition_ar}</p>
+                    <p className="text-slate-300 font-['Inter'] text-xs leading-relaxed">{vocab.definition_en}</p>
+                    <p className="text-slate-400 font-['Tajawal'] text-xs" dir="rtl">{vocab.definition_ar}</p>
                     {vocab.audio_url && <VocabAudioBtn url={vocab.audio_url} />}
                     {/* Arrow */}
-                    <div
-                      className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45"
-                      style={{
-                        background: 'var(--surface-elevated, var(--surface-raised))',
-                        borderRight: '1px solid var(--border-subtle)',
-                        borderBottom: '1px solid var(--border-subtle)',
-                      }}
-                    />
+                    <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-slate-800 border-r border-b border-slate-700" />
                   </motion.div>
                 )}
               </AnimatePresence>
             </span>
           )
         }
-        // Vocab word not found in map — render bold
-        return <strong key={i}>{part}</strong>
+        // Vocab word not found in map — render bold with accent color
+        return <strong key={i} className="font-semibold text-sky-300">{part}</strong>
       }
       return <span key={i}>{part}</span>
     })
   }
 
   return (
-    <div
-      className="rounded-2xl p-5 sm:p-7 space-y-0"
-      style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
-    >
-      <div dir="ltr" className="space-y-5">
-        {paragraphs.map((para, idx) => (
-          <div key={idx} className="flex gap-3">
-            <div className="flex-shrink-0 mt-1.5">
-              <div className="w-6 h-6 rounded-full bg-sky-500/15 text-sky-400 flex items-center justify-center text-[11px] font-bold">
-                {idx + 1}
-              </div>
+    <div dir="ltr" className="space-y-6">
+      {paragraphs.map((para, idx) => (
+        <div key={idx} className="flex gap-4">
+          <div className="flex-shrink-0 mt-1.5">
+            <div className="w-7 h-7 md:w-7 md:h-7 rounded-full bg-slate-800 border border-slate-700 text-slate-400 flex items-center justify-center text-sm font-semibold">
+              {idx + 1}
             </div>
-            <p className="text-[16px] sm:text-[17px] leading-[1.85] text-[var(--text-primary)] font-['Inter']">
-              {renderParagraph(para, idx)}
-            </p>
           </div>
-        ))}
-      </div>
-      {wordCount > 0 && (
-        <p className="text-xs text-[var(--text-muted)] mt-4 pt-3 font-['Tajawal']" style={{ borderTop: '1px solid var(--border-subtle)' }} dir="rtl">
-          عدد الكلمات: {wordCount}
-        </p>
-      )}
+          <p className="text-lg leading-[1.9] text-slate-200 font-['Inter']">
+            {renderParagraph(para, idx)}
+          </p>
+        </div>
+      ))}
     </div>
   )
 }
@@ -491,11 +529,13 @@ function AudioButton({ url, label }) {
   return (
     <button
       onClick={play}
-      className={`flex items-center gap-2 px-4 h-10 rounded-xl text-sm font-medium transition-colors font-['Tajawal'] ${
-        playing ? 'bg-sky-500/20 text-sky-400 border border-sky-500/40' : 'bg-[var(--surface-raised)] text-[var(--text-muted)] border border-[var(--border-subtle)] hover:text-sky-400'
+      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 font-['Tajawal'] ${
+        playing
+          ? 'bg-sky-500/20 text-sky-400 border border-sky-500/40'
+          : 'bg-slate-800/50 text-slate-400 border border-slate-700/50 hover:text-sky-400 hover:border-sky-500/30'
       }`}
     >
-      <Volume2 size={16} />
+      <Volume2 size={12} />
       {label}
     </button>
   )
@@ -514,23 +554,20 @@ function VocabularyBox({ vocabulary }) {
   }
 
   return (
-    <div
-      className="rounded-xl overflow-hidden"
-      style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
-    >
+    <div className="rounded-2xl overflow-hidden bg-slate-900/50 border border-slate-800/60">
       <button
         onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center justify-between px-5 py-3.5 transition-colors hover:bg-[rgba(255,255,255,0.02)]"
+        className="w-full flex items-center justify-between px-6 py-4 transition-colors hover:bg-slate-800/20"
       >
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
           <BookOpen size={16} className="text-emerald-400" />
-          <span className="text-sm font-bold text-[var(--text-primary)] font-['Tajawal']">
+          <span className="text-sm font-bold text-white font-['Tajawal']">
             مفردات القراءة ({vocabulary.length})
           </span>
         </div>
         <ChevronDown
           size={16}
-          className={`text-[var(--text-muted)] transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
+          className={`text-slate-400 transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
         />
       </button>
 
@@ -543,27 +580,26 @@ function VocabularyBox({ vocabulary }) {
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="px-5 pb-4 space-y-2" style={{ borderTop: '1px solid var(--border-subtle)' }}>
-              <div className="pt-3 space-y-2">
+            <div className="px-6 pb-5 space-y-2 border-t border-slate-800/50">
+              <div className="pt-4 space-y-2">
                 {vocabulary.map(v => (
                   <div
                     key={v.id}
-                    className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg"
-                    style={{ background: 'var(--surface-base)' }}
+                    className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl bg-slate-800/40 border border-slate-700/30"
                   >
                     <div className="flex-1 min-w-0" dir="ltr">
                       <div className="flex items-center gap-2">
-                        <span className="font-semibold text-sm text-[var(--text-primary)] font-['Inter']">{v.word}</span>
-                        <span className="text-[10px] text-[var(--text-muted)] font-['Inter']">{v.part_of_speech}</span>
+                        <span className="font-semibold text-sm text-white font-['Inter']">{v.word}</span>
+                        <span className="text-[10px] text-slate-500 font-['Inter']">{v.part_of_speech}</span>
                       </div>
-                      <p className="text-xs text-[var(--text-secondary)] font-['Inter'] mt-0.5">{v.definition_en}</p>
+                      <p className="text-xs text-slate-300 font-['Inter'] mt-0.5">{v.definition_en}</p>
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">
-                      <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">{v.definition_ar}</span>
+                      <span className="text-xs text-slate-400 font-['Tajawal']">{v.definition_ar}</span>
                       {v.audio_url && (
                         <button
                           onClick={(e) => playAudio(v.audio_url, e)}
-                          className="w-7 h-7 rounded-full bg-sky-500/15 text-sky-400 flex items-center justify-center hover:bg-sky-500/25 transition-colors flex-shrink-0"
+                          className="w-7 h-7 rounded-full bg-sky-500/10 text-sky-400 flex items-center justify-center hover:bg-sky-500/20 transition-colors flex-shrink-0"
                         >
                           <Volume2 size={13} />
                         </button>
@@ -609,9 +645,9 @@ function ComprehensionSection({ questions, savedAnswers, progressLoading, onComp
   if (progressLoading) {
     return (
       <div className="space-y-4">
-        <div className="h-6 w-32 rounded-lg bg-[var(--surface-raised)] animate-pulse" />
+        <div className="h-6 w-32 rounded-lg bg-slate-800 animate-pulse" />
         {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="h-40 rounded-xl bg-[var(--surface-raised)] animate-pulse" />
+          <div key={i} className="h-40 rounded-xl bg-slate-800 animate-pulse" />
         ))}
       </div>
     )
@@ -620,9 +656,9 @@ function ComprehensionSection({ questions, savedAnswers, progressLoading, onComp
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-base font-bold text-[var(--text-primary)] font-['Tajawal']">أسئلة الفهم</h3>
+        <h3 className="text-base font-bold text-white font-['Tajawal']">أسئلة الفهم</h3>
         {answered > 0 && (
-          <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">
+          <span className="text-xs text-slate-400 font-['Tajawal']">
             {correctCount}/{answered} صحيحة
           </span>
         )}
@@ -673,10 +709,7 @@ function MCQQuestion({ question, index, answer, onAnswer }) {
   const typeColor = QUESTION_TYPE_COLORS[question.question_type] || QUESTION_TYPE_COLORS.detail
 
   return (
-    <div
-      className="rounded-xl p-4 sm:p-5 space-y-3"
-      style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
-    >
+    <div className="rounded-2xl p-5 sm:p-6 space-y-3 bg-slate-900/50 border border-slate-800/60">
       <div className="flex items-start gap-3">
         <div className="w-7 h-7 rounded-lg bg-sky-500/15 text-sky-400 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
           {index + 1}
@@ -687,11 +720,11 @@ function MCQQuestion({ question, index, answer, onAnswer }) {
               {typeBadge}
             </span>
           </div>
-          <p className="text-sm sm:text-[15px] font-medium text-[var(--text-primary)] font-['Inter'] leading-relaxed" dir="ltr">
+          <p className="text-sm sm:text-[15px] font-medium text-white font-['Inter'] leading-relaxed" dir="ltr">
             {question.question_en}
           </p>
           {question.question_ar && (
-            <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">{question.question_ar}</p>
+            <p className="text-xs text-slate-400 font-['Tajawal']">{question.question_ar}</p>
           )}
         </div>
       </div>
@@ -716,15 +749,15 @@ function MCQQuestion({ question, index, answer, onAnswer }) {
                   : showWrong
                     ? 'bg-red-500/15 border-red-500/40 text-red-400'
                     : answer
-                      ? 'bg-[var(--surface-base)] border-[var(--border-subtle)] text-[var(--text-muted)] opacity-60'
-                      : 'bg-[var(--surface-base)] border-[var(--border-subtle)] text-[var(--text-primary)] hover:border-sky-500/40 hover:bg-sky-500/5 cursor-pointer'
+                      ? 'bg-slate-800/30 border-slate-700/30 text-slate-500 opacity-60'
+                      : 'bg-slate-800/30 border-slate-700/40 text-slate-200 hover:border-sky-500/40 hover:bg-sky-500/5 cursor-pointer'
               }`}
             >
               <div className="flex items-center gap-3">
                 <span className="w-6 h-6 rounded-md flex items-center justify-center text-[11px] font-bold flex-shrink-0"
                   style={{
-                    background: showCorrect ? 'rgba(16,185,129,0.2)' : showWrong ? 'rgba(239,68,68,0.2)' : 'var(--surface-raised)',
-                    color: showCorrect ? '#34d399' : showWrong ? '#f87171' : 'var(--text-muted)',
+                    background: showCorrect ? 'rgba(16,185,129,0.2)' : showWrong ? 'rgba(239,68,68,0.2)' : 'rgba(51,65,85,0.5)',
+                    color: showCorrect ? '#34d399' : showWrong ? '#f87171' : '#94a3b8',
                   }}
                 >
                   {showCorrect ? <CheckCircle size={14} /> : showWrong ? <XCircle size={14} /> : String.fromCharCode(65 + i)}
@@ -754,12 +787,12 @@ function MCQQuestion({ question, index, answer, onAnswer }) {
               }}
             >
               {question.explanation_en && (
-                <p className="text-xs text-[var(--text-secondary)] font-['Inter'] leading-relaxed" dir="ltr">
+                <p className="text-xs text-slate-300 font-['Inter'] leading-relaxed" dir="ltr">
                   {question.explanation_en}
                 </p>
               )}
               {question.explanation_ar && (
-                <p className="text-xs text-[var(--text-muted)] font-['Tajawal']" dir="rtl">
+                <p className="text-xs text-slate-400 font-['Tajawal']" dir="rtl">
                   {question.explanation_ar}
                 </p>
               )}
@@ -774,19 +807,16 @@ function MCQQuestion({ question, index, answer, onAnswer }) {
 // ─── Reading Skill Box ───────────────────────────────
 function ReadingSkillBox({ reading }) {
   return (
-    <div
-      className="rounded-xl p-5 space-y-3"
-      style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
-    >
+    <div className="rounded-2xl p-5 sm:p-6 space-y-3 bg-slate-900/50 border border-slate-800/60">
       <div className="flex items-center gap-2">
         <Lightbulb size={16} className="text-amber-400" />
-        <h3 className="text-sm font-bold text-[var(--text-primary)] font-['Tajawal']">
+        <h3 className="text-sm font-bold text-white font-['Tajawal']">
           مهارة القراءة: <span className="font-['Inter']">{reading.reading_skill_name_en}</span>
           {reading.reading_skill_name_ar && ` — ${reading.reading_skill_name_ar}`}
         </h3>
       </div>
       {reading.reading_skill_explanation && (
-        <p className="text-sm text-[var(--text-secondary)] font-['Inter'] leading-relaxed" dir="ltr">
+        <p className="text-sm text-slate-300 font-['Inter'] leading-relaxed" dir="ltr">
           {reading.reading_skill_explanation}
         </p>
       )}
@@ -798,7 +828,7 @@ function ReadingSkillBox({ reading }) {
 function CriticalThinkingBox({ reading }) {
   return (
     <div
-      className="rounded-xl p-5 space-y-3"
+      className="rounded-2xl p-5 sm:p-6 space-y-3"
       style={{
         background: 'linear-gradient(135deg, rgba(168,85,247,0.06), rgba(56,189,248,0.06))',
         border: '1px solid rgba(168,85,247,0.15)',
@@ -808,11 +838,11 @@ function CriticalThinkingBox({ reading }) {
         <MessageSquare size={16} className="text-purple-400" />
         <h3 className="text-sm font-bold text-purple-400 font-['Tajawal']">تفكير ناقد</h3>
       </div>
-      <p className="text-sm text-[var(--text-primary)] font-['Inter'] leading-relaxed" dir="ltr">
+      <p className="text-sm text-slate-200 font-['Inter'] leading-relaxed" dir="ltr">
         {reading.critical_thinking_prompt_en}
       </p>
       {reading.critical_thinking_prompt_ar && (
-        <p className="text-sm text-[var(--text-muted)] font-['Tajawal']" dir="rtl">
+        <p className="text-sm text-slate-400 font-['Tajawal']" dir="rtl">
           {reading.critical_thinking_prompt_ar}
         </p>
       )}
@@ -857,7 +887,7 @@ function CompletedBanner({ attemptNumber, attemptHistory, score, retrying, onRet
           {hasHistory && (
             <button
               onClick={() => setShowHistory(!showHistory)}
-              className="flex items-center gap-1 text-[11px] text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors font-['Tajawal']"
+              className="flex items-center gap-1 text-[11px] text-slate-400 hover:text-white transition-colors font-['Tajawal']"
             >
               <History size={12} />
               المحاولات السابقة
@@ -865,7 +895,7 @@ function CompletedBanner({ attemptNumber, attemptHistory, score, retrying, onRet
           )}
           <button
             onClick={onRetry}
-            className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium text-[var(--text-muted)] hover:text-sky-400 hover:bg-sky-500/10 transition-colors font-['Tajawal'] border border-[var(--border-subtle)]"
+            className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-sky-400 hover:bg-sky-500/10 transition-colors font-['Tajawal'] border border-slate-700/50"
           >
             <RotateCcw size={12} />
             إعادة المحاولة
@@ -881,10 +911,10 @@ function CompletedBanner({ attemptNumber, attemptHistory, score, retrying, onRet
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="px-4 pb-3 space-y-1.5" style={{ borderTop: '1px solid rgba(16,185,129,0.15)' }}>
+            <div className="px-4 pb-3 space-y-1.5 border-t border-emerald-500/15">
               <div className="pt-2.5 space-y-1.5">
                 {attemptHistory.map((h, i) => (
-                  <div key={i} className="flex items-center gap-3 text-xs text-[var(--text-muted)] font-['Tajawal']">
+                  <div key={i} className="flex items-center gap-3 text-xs text-slate-400 font-['Tajawal']">
                     <span className="font-medium">المحاولة {h.attempt}</span>
                     <span>{h.score != null ? `${h.score}%` : '—'}</span>
                     {h.completed_at && (
@@ -909,26 +939,32 @@ function CompletedBanner({ attemptNumber, attemptHistory, score, retrying, onRet
 // ─── Skeleton ────────────────────────────────────────
 function ReadingSkeleton() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-3xl mx-auto">
       <div className="flex gap-2">
-        <div className="h-10 w-24 rounded-xl bg-[var(--surface-raised)] animate-pulse" />
-        <div className="h-10 w-24 rounded-xl bg-[var(--surface-raised)] animate-pulse" />
+        <div className="h-10 w-24 rounded-xl bg-slate-800 animate-pulse" />
+        <div className="h-10 w-24 rounded-xl bg-slate-800 animate-pulse" />
       </div>
-      <div className="h-6 w-48 rounded-lg bg-[var(--surface-raised)] animate-pulse" />
-      <div className="rounded-2xl p-6 space-y-4" style={{ background: 'var(--surface-raised)' }}>
-        {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="flex gap-3">
-            <div className="w-6 h-6 rounded-full bg-[rgba(255,255,255,0.06)] animate-pulse flex-shrink-0" />
-            <div className="flex-1 space-y-2">
-              <div className="h-4 rounded bg-[rgba(255,255,255,0.06)] animate-pulse" />
-              <div className="h-4 w-3/4 rounded bg-[rgba(255,255,255,0.06)] animate-pulse" />
-            </div>
+      <div className="rounded-2xl overflow-hidden bg-slate-900/50 border border-slate-800/60">
+        <div className="aspect-[16/9] bg-slate-800 animate-pulse" />
+        <div className="p-8 space-y-6">
+          <div className="space-y-3">
+            <div className="h-8 w-3/4 rounded-lg bg-slate-800 animate-pulse" />
+            <div className="h-5 w-1/2 rounded-lg bg-slate-800 animate-pulse" />
           </div>
-        ))}
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="flex gap-4">
+              <div className="w-7 h-7 rounded-full bg-slate-800 animate-pulse flex-shrink-0" />
+              <div className="flex-1 space-y-2">
+                <div className="h-5 rounded bg-slate-800 animate-pulse" />
+                <div className="h-5 w-5/6 rounded bg-slate-800 animate-pulse" />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="space-y-3">
+      <div className="space-y-4">
         {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="h-32 rounded-xl bg-[var(--surface-raised)] animate-pulse" />
+          <div key={i} className="h-36 rounded-2xl bg-slate-800 animate-pulse" />
         ))}
       </div>
     </div>
