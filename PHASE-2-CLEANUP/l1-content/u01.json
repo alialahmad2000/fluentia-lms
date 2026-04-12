@@ -1,0 +1,150 @@
+{
+  "unit_number": 1,
+  "theme": "Cultural Festivals",
+  "passages": [
+    {
+      "reading_label": "A",
+      "title_en": "Colors and Joy Around the World",
+      "paragraphs": [
+        "People love to keep their big days in every land. On these days, homes are warm and bright. Friends and family come to share food. They wear new clothes and sing songs in the streets.",
+        "In India, there is a spring feast full of bright paint. People throw paint, smile, and share food with friends. In China, the new year comes with red lights and lucky gifts. Red is a color that means luck and joy. Kids wait to get small gifts from their family.",
+        "In Saudi lands, families keep the end of Ramadan with tasty food. Kids wake up early, put on new clothes, and visit their grandparents. They eat sweet food and listen to stories from older family. Moms and dads give money to each child at home.",
+        "These big days bring people close in a warm way. They help us keep the old ways of our family life. Each land is a little different, but the happy feeling is the same."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["People share big days in happy and bright ways around the world.", "Red is the only important color for any big day.", "Saudi lands have the biggest days of the year.", "Only kids enjoy these big days."],
+          "correct_answer": "People share big days in happy and bright ways around the world.",
+          "explanation_en": "The passage talks about how people in many lands share big days with color, food, and family.",
+          "explanation_ar": "يتحدث النص عن كيفية مشاركة الناس في أراضٍ كثيرة للأيام الكبيرة بالألوان والطعام والعائلة."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "What do people throw in the spring day?",
+          "question_ar": "ماذا يرمي الناس في يوم الربيع؟",
+          "choices": ["Bright paint", "Red lights", "Small gifts", "Sweet food"],
+          "correct_answer": "Bright paint",
+          "explanation_en": "The passage says people throw bright paint in the spring day.",
+          "explanation_ar": "يقول النص إن الناس يرمون طلاءً ملوناً في يوم الربيع."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "detail",
+          "question_en": "What does red mean in the new year day?",
+          "question_ar": "ماذا يعني الأحمر في يوم السنة الجديدة؟",
+          "choices": ["Joy and good luck", "Cold winter days", "Long trips", "New work"],
+          "correct_answer": "Joy and good luck",
+          "explanation_en": "The passage says red is a lucky color and means joy.",
+          "explanation_ar": "يقول النص إن الأحمر لون محظوظ ويعني الفرح."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "detail",
+          "question_en": "What do kids do at the end of Ramadan?",
+          "question_ar": "ماذا يفعل الأطفال في نهاية رمضان؟",
+          "choices": ["They go to their grandparents.", "They go to school all day.", "They sleep all day.", "They work in the fields."],
+          "correct_answer": "They go to their grandparents.",
+          "explanation_en": "The passage says kids put on new clothes and go to their grandparents.",
+          "explanation_ar": "يقول النص إن الأطفال يرتدون ملابس جديدة ويذهبون إلى أجدادهم."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'lucky' means:",
+          "question_ar": "في النص، كلمة 'lucky' تعني:",
+          "choices": ["Bringing good things", "Very old", "Very loud", "Cold and wet"],
+          "correct_answer": "Bringing good things",
+          "explanation_en": "'Lucky' means something that brings good things and joy.",
+          "explanation_ar": "'Lucky' تعني شيئاً يجلب أشياء جيدة وفرحاً."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why do these big days matter to people?",
+          "question_ar": "لماذا هذه الأيام الكبيرة مهمة للناس؟",
+          "choices": ["They bring family and friends close.", "They make people work all day.", "They only happen once a year for kids.", "They keep people far from home."],
+          "correct_answer": "They bring family and friends close.",
+          "explanation_en": "The passage says big days bring people close and help them keep old ways of life.",
+          "explanation_ar": "يقول النص إن الأيام الكبيرة تقرب الناس وتساعدهم على الحفاظ على نمط الحياة القديم."
+        }
+      ]
+    },
+    {
+      "reading_label": "B",
+      "title_en": "Colors That Tell Stories",
+      "paragraphs": [
+        "Colors are important in every festival and special day. Each color has its own meaning and story. People use colors in a very careful way to show feelings.",
+        "White often means peace and a new start in life. Many people wear white for special days and big events. Red can mean love, luck, or joy. In many countries, red is a bright and powerful color. Yellow is the color of the sun in the morning sky. It can mean warm feelings and a happy heart.",
+        "Green is the color of fresh plants and tall trees. It can mean a new start and a lot of hope. Blue is the color of the deep sea and the big sky. It can mean peace and a calm feeling for everyone. Gold is the color of the sun at the end of the day. It can mean a very special time for all.",
+        "When you see colors in a festival, remember their stories and meanings. Colors show the feelings of the people. Colors help us share joy with family and friends in many ways."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["Colors in big days have their own tales and meanings.", "Red is the only color worth using.", "People wear white every day.", "Big days do not use any colors at all."],
+          "correct_answer": "Colors in big days have their own tales and meanings.",
+          "explanation_en": "The passage explains how each color has a meaning in big days.",
+          "explanation_ar": "يشرح النص كيف أن كل لون له معنى في الأيام الكبيرة."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "What does white often mean?",
+          "question_ar": "ماذا يعني اللون الأبيض عادةً؟",
+          "choices": ["Peace and a new start", "Dark and cold", "Fast and loud", "Hard work"],
+          "correct_answer": "Peace and a new start",
+          "explanation_en": "The passage says white means peace and a new start in life.",
+          "explanation_ar": "يقول النص إن الأبيض يعني السلام وبداية جديدة."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "detail",
+          "question_en": "What is green the color of?",
+          "question_ar": "ما هو لون النباتات والأشجار؟",
+          "choices": ["Plants and trees", "Water and sky", "Sun and sand", "Snow and ice"],
+          "correct_answer": "Plants and trees",
+          "explanation_en": "The passage says green is the color of fresh plants and trees.",
+          "explanation_ar": "يقول النص إن الأخضر هو لون النباتات والأشجار."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "detail",
+          "question_en": "What can blue mean?",
+          "question_ar": "ماذا يمكن أن يعني اللون الأزرق؟",
+          "choices": ["Peace and a calm feel", "Anger and speed", "Hunger and food", "Money and work"],
+          "correct_answer": "Peace and a calm feel",
+          "explanation_en": "The passage says blue can mean peace and a calm feel.",
+          "explanation_ar": "يقول النص إن الأزرق يمكن أن يعني السلام وشعوراً هادئاً."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'calm' means:",
+          "question_ar": "في النص، كلمة 'calm' تعني:",
+          "choices": ["Peaceful and quiet", "Fast and loud", "Hot and dry", "New and strange"],
+          "correct_answer": "Peaceful and quiet",
+          "explanation_en": "'Calm' means peaceful and without noise.",
+          "explanation_ar": "'Calm' تعني هادئ وبدون ضوضاء."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why should we keep the tales of colors in mind?",
+          "question_ar": "لماذا يجب أن نتذكر حكايات الألوان؟",
+          "choices": ["Because colors show feelings and old ways.", "Because colors are always the same.", "Because we need to paint our homes.", "Because colors make us tired."],
+          "correct_answer": "Because colors show feelings and old ways.",
+          "explanation_en": "The passage says colors show feelings and what is important in old ways.",
+          "explanation_ar": "يقول النص إن الألوان تظهر المشاعر وما هو مهم في نمط الحياة القديم."
+        }
+      ]
+    }
+  ]
+}

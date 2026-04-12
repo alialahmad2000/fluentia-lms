@@ -1,0 +1,3128 @@
+{
+  "L0_id": "cd96175e-76d4-48dc-b34f-83f3228a28b8",
+  "L1_id": "2755b494-c7ff-4bdc-96ac-7ab735dc038c",
+  "allowlist": [
+    "abundant",
+    "accurate",
+    "active",
+    "adapt",
+    "adapted",
+    "advanced",
+    "affordable",
+    "airport",
+    "amazing",
+    "ancient",
+    "animals",
+    "anxious",
+    "apps",
+    "arrive",
+    "attractive",
+    "attracts",
+    "available",
+    "balls",
+    "beach",
+    "beautiful",
+    "benefits",
+    "big",
+    "body",
+    "bones",
+    "book",
+    "brave",
+    "bread",
+    "breakfast",
+    "bright",
+    "brilliant",
+    "buildings",
+    "businesses",
+    "buy",
+    "cameras",
+    "capital",
+    "capture",
+    "carbon-neutral",
+    "careful",
+    "carefully",
+    "celebrate",
+    "challenges",
+    "champions",
+    "changed",
+    "chat",
+    "children",
+    "cleaner",
+    "clear",
+    "climb",
+    "clouds",
+    "coffee",
+    "coldest",
+    "collaborate",
+    "colorful",
+    "combine",
+    "comfortable",
+    "commitment",
+    "common",
+    "communicate",
+    "compare",
+    "compete",
+    "complete",
+    "confident",
+    "connect",
+    "connected",
+    "connects",
+    "constructed",
+    "consume",
+    "continue",
+    "convenient",
+    "cook",
+    "cooking",
+    "cool",
+    "cooler",
+    "crafts",
+    "create",
+    "created",
+    "creative",
+    "customers",
+    "dancing",
+    "dangerous",
+    "dark",
+    "dates",
+    "deepest",
+    "delete",
+    "delicious",
+    "demonstrate",
+    "describe",
+    "desert",
+    "dessert",
+    "detailed",
+    "develop",
+    "devices",
+    "digital",
+    "discounts",
+    "discover",
+    "discovered",
+    "display",
+    "dissolve",
+    "documents",
+    "dramatic",
+    "dream",
+    "drivers",
+    "dry",
+    "earn",
+    "earns",
+    "easily",
+    "easy",
+    "eat",
+    "economy",
+    "electric",
+    "employees",
+    "enjoy",
+    "enormous",
+    "equipment",
+    "estimate",
+    "exciting",
+    "exercise",
+    "expensive",
+    "experiment",
+    "experiments",
+    "explore",
+    "extremely",
+    "family",
+    "famous",
+    "fascinated",
+    "fish",
+    "flexible",
+    "flowers",
+    "focus",
+    "food",
+    "free",
+    "free time",
+    "fresh",
+    "friendly",
+    "friends",
+    "gather",
+    "generate",
+    "glow",
+    "good",
+    "government",
+    "grandparents",
+    "grew",
+    "groups",
+    "grow",
+    "habits",
+    "happy",
+    "harsh",
+    "healthy",
+    "heart",
+    "helped",
+    "hero",
+    "hide",
+    "hire",
+    "home",
+    "hot",
+    "hotel",
+    "hottest",
+    "huge",
+    "hunt",
+    "identify",
+    "important",
+    "impressive",
+    "improve",
+    "increase",
+    "incredible",
+    "ingredients",
+    "insects",
+    "inspire",
+    "installing",
+    "instant",
+    "instantly",
+    "inventions",
+    "invests",
+    "job",
+    "jobs",
+    "lake",
+    "launched",
+    "lens",
+    "life",
+    "lights",
+    "listen",
+    "live",
+    "loud",
+    "love",
+    "lower",
+    "luggage",
+    "magnificent",
+    "manager",
+    "manages",
+    "mobile",
+    "money",
+    "morning",
+    "move",
+    "music",
+    "neighborhoods",
+    "new",
+    "obvious",
+    "paint",
+    "parks",
+    "participate",
+    "passport",
+    "patterns",
+    "peaceful",
+    "people",
+    "perfect",
+    "photographer",
+    "photography",
+    "pictures",
+    "places",
+    "plants",
+    "popular",
+    "powerful",
+    "practice",
+    "prefer",
+    "prepare",
+    "prices",
+    "professional",
+    "profitable",
+    "program",
+    "protect",
+    "protected",
+    "proud",
+    "quality",
+    "quickly",
+    "rain",
+    "rare",
+    "reach",
+    "reading",
+    "recipe",
+    "recommend",
+    "reduce",
+    "relax",
+    "remarkable",
+    "remember",
+    "represent",
+    "require",
+    "responsibility",
+    "restaurants",
+    "rice",
+    "robots",
+    "routes",
+    "safely",
+    "save",
+    "scored",
+    "seasons",
+    "secrets",
+    "sell",
+    "settings",
+    "shaped",
+    "share",
+    "shop",
+    "showers",
+    "sick",
+    "significant",
+    "simple",
+    "skin",
+    "sleep",
+    "small",
+    "smart",
+    "smell",
+    "smile",
+    "snow",
+    "soft",
+    "solid",
+    "special",
+    "spectacular",
+    "spend",
+    "spices",
+    "sports",
+    "spring",
+    "stomach",
+    "stores",
+    "streets",
+    "strengthens",
+    "strong",
+    "studied",
+    "successful",
+    "successfully",
+    "suddenly",
+    "sugar",
+    "sun",
+    "sunny",
+    "supports",
+    "surface",
+    "survive",
+    "sustainable",
+    "swim",
+    "system",
+    "talented",
+    "talk",
+    "taste",
+    "technology",
+    "temperature",
+    "thousands",
+    "ticket",
+    "tickets",
+    "trade",
+    "traditional",
+    "traffic",
+    "train",
+    "transforms",
+    "transport",
+    "transportation",
+    "travel",
+    "treat",
+    "trees",
+    "unique",
+    "universal",
+    "useful",
+    "valuable",
+    "vegetables",
+    "visa",
+    "visit",
+    "wake",
+    "wake up",
+    "walk",
+    "warm",
+    "water",
+    "wear",
+    "weather",
+    "wisely",
+    "wonderful",
+    "work",
+    "workers",
+    "worry"
+  ],
+  "units": [
+    {
+      "id": "49ed7c2c-fa1b-47b2-bb5c-34074beeafdc",
+      "unit_number": 1,
+      "title_en": "Cultural Festivals",
+      "readings": [
+        {
+          "id": "76d1051f-3e7c-4263-af48-98700a879bad",
+          "reading_label": "A",
+          "title_en": "Colors and Joy Around the World",
+          "passage_content": {
+            "paragraphs": [
+              "Every year, millions of people around the world *celebrate* special festivals that bring color, music, and happiness to their communities. These cultural events help people remember their history and share their traditions with family and friends.",
+              "One of the most *colorful* festivals in the world is Holi, the Festival of Colors in India. During this spring celebration, people throw bright colored powders at each other and dance in the streets. The festival is very *popular* with young people, and over 200 million people participate each year. The colors represent the arrival of spring and the victory of good over evil.",
+              "In Saudi Arabia, the Janadriyah National Festival is a *wonderful* celebration of Saudi culture and heritage. This annual event features traditional music, poetry, handicrafts, and delicious local food. Families *gather* together to enjoy camel races, falconry displays, and folk dances. The festival *attracts* more than two million visitors from around the kingdom and other countries.",
+              "Many festivals around the world share similar elements. People wear *special* clothes, prepare *traditional* foods, and perform cultural dances. These celebrations help younger generations learn about their culture and feel *proud* of their heritage. Festivals also bring tourists to different regions, which helps local businesses and communities grow.",
+              "Today, social media helps festivals become known worldwide. People share photos and videos of their celebrations, and this *connects* people from different cultures. Whether it's the lantern festivals in China, harvest celebrations in Europe, or cultural festivals in the Middle East, these events remind us that joy and community are universal human experiences."
+            ]
+          },
+          "passage_word_count": 267,
+          "questions": [
+            {
+              "id": "35502d5d-358c-4ec1-9ef3-12a40e2881f8",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is the main idea of this passage?",
+              "question_ar": null,
+              "choices": [
+                "Festivals are only popular in India and Saudi Arabia",
+                "Festivals around the world help people celebrate their culture and bring communities together",
+                "Social media is the most important part of festivals"
+              ],
+              "correct_answer": "Festivals around the world help people celebrate their culture and bring communities together",
+              "explanation_en": "The passage discusses how festivals worldwide help people celebrate culture and connect communities.",
+              "explanation_ar": "النص يتحدث عن كيف تساعد المهرجانات حول العالم الناس على الاحتفال بثقافتهم وربط المجتمعات",
+              "sort_order": 0
+            },
+            {
+              "id": "b5e28295-d240-46f9-b746-62c72a55037e",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How many people participate in Holi every year?",
+              "question_ar": null,
+              "choices": [
+                "Over 200 million people",
+                "Two million people",
+                "Millions of people"
+              ],
+              "correct_answer": "Over 200 million people",
+              "explanation_en": "The passage clearly states that over 200 million people participate in Holi each year.",
+              "explanation_ar": "النص يذكر بوضوح أن أكثر من 200 مليون شخص يشاركون في مهرجان هولي كل عام",
+              "sort_order": 1
+            },
+            {
+              "id": "1748dc08-f03f-4e2a-936c-d0c11687a211",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "What activities can people see at the Janadriyah National Festival?",
+              "question_ar": null,
+              "choices": [
+                "Only traditional music and poetry",
+                "Camel races, falconry displays, and folk dances",
+                "Only local food and handicrafts"
+              ],
+              "correct_answer": "Camel races, falconry displays, and folk dances",
+              "explanation_en": "The passage mentions camel races, falconry displays, and folk dances as activities at Janadriyah.",
+              "explanation_ar": "النص يذكر سباق الإبل وعروض الصقارة والرقصات الشعبية كأنشطة في مهرجان الجنادرية",
+              "sort_order": 2
+            },
+            {
+              "id": "66f3a2c2-d424-4a75-be2c-9fe36a67ef2c",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does the word 'gather' mean in the passage?",
+              "question_ar": null,
+              "choices": [
+                "Come together",
+                "Cook food",
+                "Dance"
+              ],
+              "correct_answer": "Come together",
+              "explanation_en": "In this context, 'gather' means families come together to enjoy the festival activities.",
+              "explanation_ar": "في هذا السياق، كلمة 'gather' تعني أن العائلات تجتمع معاً للاستمتاع بأنشطة المهرجان",
+              "sort_order": 3
+            },
+            {
+              "id": "d829e3bb-670c-43c1-8b0d-cbb2ec0306cd",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does the word 'attracts' mean in the passage?",
+              "question_ar": null,
+              "choices": [
+                "Brings or draws people to come",
+                "Pushes people away",
+                "Makes people tired"
+              ],
+              "correct_answer": "Brings or draws people to come",
+              "explanation_en": "The festival 'attracts' visitors means it brings or draws people to come and participate.",
+              "explanation_ar": "المهرجان 'يجذب' الزوار يعني أنه يجلب أو يستقطب الناس للحضور والمشاركة",
+              "sort_order": 4
+            },
+            {
+              "id": "559c9663-63d9-4e2d-af3f-ffc6a933e1bd",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "Why do festivals help younger generations?",
+              "question_ar": null,
+              "choices": [
+                "They can eat special food",
+                "They learn about their culture and feel proud of their heritage",
+                "They can take photos for social media"
+              ],
+              "correct_answer": "They learn about their culture and feel proud of their heritage",
+              "explanation_en": "The passage states festivals help younger generations learn about their culture and feel proud of their heritage.",
+              "explanation_ar": "النص يذكر أن المهرجانات تساعد الأجيال الأصغر على تعلم ثقافتهم والشعور بالفخر بتراثهم",
+              "sort_order": 5
+            }
+          ]
+        },
+        {
+          "id": "0d3b261d-f139-4dec-9958-581a35986661",
+          "reading_label": "B",
+          "title_en": "Colors That Tell Stories",
+          "passage_content": {
+            "paragraphs": [
+              "Festival clothing around the world is more than just *beautiful* fabric. Every color, pattern, and design tells a story about culture and history. When people wear traditional clothes at festivals, they *celebrate* their identity and share their heritage with others.",
+              "In many cultures, specific colors have *special* meanings during festivals. Red often represents good luck and happiness in Chinese New Year celebrations. Women *wear* bright red dresses and decorations to welcome prosperity. In India, people throw colorful powder during Holi festival. The *bright* yellow, pink, and blue colors *represent* joy, love, and new beginnings. Each color has a purpose and meaning.",
+              "Festival clothing also shows social connections within communities. Families often *prepare* matching outfits months before big celebrations. Mothers and daughters *spend* hours choosing fabrics and designs together. This preparation time *strengthens* family bonds and passes traditions to younger generations. In Scotland, different clans wear specific tartan patterns during Highland Games. These patterns help people identify their family history and connect with relatives.",
+              "Today, festival fashion continues to evolve while keeping traditional elements. Modern designers *combine* ancient patterns with contemporary styles. Young people can honor their culture while expressing personal creativity. Fashion shows now feature traditional festival wear from different countries. This helps people around the world appreciate diverse cultural expressions through clothing.",
+              "Festival clothing serves as a bridge between past and present. It helps communities maintain their cultural identity in our globalized world. When someone wears traditional festival dress, they carry forward centuries of stories, beliefs, and artistic traditions. These colorful celebrations remind us that diversity makes our world more interesting and beautiful."
+            ]
+          },
+          "passage_word_count": 287,
+          "questions": [
+            {
+              "id": "273c037a-5b9b-4a41-93be-b88c7360f7fb",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is the main idea of this passage?",
+              "question_ar": null,
+              "choices": [
+                "Festival clothing is expensive to buy",
+                "Festival clothing tells stories about culture and history",
+                "Festival clothing is only for young people"
+              ],
+              "correct_answer": "Festival clothing tells stories about culture and history",
+              "explanation_en": "The passage focuses on how festival clothing represents culture, history, and identity.",
+              "explanation_ar": "النص يركز على كيف تمثل ملابس المهرجانات الثقافة والتاريخ والهوية",
+              "sort_order": 0
+            },
+            {
+              "id": "cb1f2b42-bdc8-4f88-9dc0-8eae2ce1b948",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "What color represents good luck in Chinese New Year?",
+              "question_ar": null,
+              "choices": [
+                "Blue",
+                "Red",
+                "Yellow"
+              ],
+              "correct_answer": "Red",
+              "explanation_en": "The passage states that red often represents good luck and happiness in Chinese New Year celebrations.",
+              "explanation_ar": "النص يذكر أن اللون الأحمر يمثل الحظ الجيد والسعادة في احتفالات السنة الصينية الجديدة",
+              "sort_order": 1
+            },
+            {
+              "id": "ece9af1e-4db3-45bf-98fc-1788928151d6",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "In Scotland, what do different clans wear during Highland Games?",
+              "question_ar": null,
+              "choices": [
+                "Red dresses",
+                "Tartan patterns",
+                "Colorful powder"
+              ],
+              "correct_answer": "Tartan patterns",
+              "explanation_en": "The passage mentions that different clans wear specific tartan patterns during Highland Games.",
+              "explanation_ar": "النص يذكر أن العشائر المختلفة ترتدي أنماط التارتان المحددة خلال ألعاب المرتفعات",
+              "sort_order": 2
+            },
+            {
+              "id": "0a049683-e109-4203-a0a9-3f9f1a53741e",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does the word 'bright' mean in this passage?",
+              "question_ar": null,
+              "choices": [
+                "Dark",
+                "Very colorful and strong",
+                "Small"
+              ],
+              "correct_answer": "Very colorful and strong",
+              "explanation_en": "In the context of describing festival colors, 'bright' means very colorful and strong.",
+              "explanation_ar": "في سياق وصف ألوان المهرجانات، كلمة 'bright' تعني ملون جداً وقوي",
+              "sort_order": 3
+            },
+            {
+              "id": "f9082930-bca7-41c1-a99f-f702ade4de0e",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does the word 'represent' mean in this passage?",
+              "question_ar": null,
+              "choices": [
+                "To hide something",
+                "To mean or stand for something",
+                "To buy something"
+              ],
+              "correct_answer": "To mean or stand for something",
+              "explanation_en": "In the context of colors having meanings, 'represent' means to mean or stand for something.",
+              "explanation_ar": "في سياق الألوان التي لها معاني، كلمة 'represent' تعني أن تعني أو تمثل شيئاً ما",
+              "sort_order": 4
+            },
+            {
+              "id": "b0b82d20-6760-453e-a904-c573e8978609",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "Why do families prepare matching outfits together?",
+              "question_ar": null,
+              "choices": [
+                "To save money",
+                "To strengthen family bonds and pass traditions",
+                "To win competitions"
+              ],
+              "correct_answer": "To strengthen family bonds and pass traditions",
+              "explanation_en": "The passage explains that preparation time strengthens family bonds and passes traditions to younger generations.",
+              "explanation_ar": "النص يوضح أن وقت التحضير يقوي الروابط العائلية وينقل التقاليد للأجيال الأصغر",
+              "sort_order": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1de8e161-81eb-416e-af87-c136d93f3930",
+      "unit_number": 2,
+      "title_en": "Ocean Life",
+      "readings": [
+        {
+          "id": "fd8f24d7-02c5-4c7c-a07d-99656ff83c7f",
+          "reading_label": "A",
+          "title_en": "Amazing Ocean Creatures",
+          "passage_content": {
+            "paragraphs": [
+              "The ocean is home to millions of *amazing* creatures. From tiny fish to giant whales, sea animals live in every part of the water. Scientists believe the ocean contains more than 230,000 different species, but they discover new ones every year.",
+              "Many ocean animals are *beautiful* and colorful. Tropical fish *swim* near coral reefs in bright blues, yellows, and reds. These small fish *move* quickly through the warm water to escape from bigger fish. In the Red Sea, near Saudi Arabia, divers can see over 1,200 types of fish. The water there is *clear* and perfect for watching sea life.",
+              "Some ocean creatures are *huge* and truly incredible. Blue whales are the largest animals on Earth. They can grow to 30 meters long and weigh 200 tons. These gentle giants *eat* tiny sea animals called krill. A blue whale can consume 4 tons of krill every day during feeding season.",
+              "The deep ocean is *dark* and mysterious. Strange fish live there that never see sunlight. Some of these deep-sea creatures *glow* in the dark to find food or communicate with other fish. Scientists use special submarines to *explore* these deep waters. They still find new species regularly.",
+              "Ocean animals are *important* for our planet. They help keep the water clean and provide food for millions of people. Many countries work together to protect sea creatures and their homes. When we learn about ocean life, we understand why we must take care of our seas."
+            ]
+          },
+          "passage_word_count": 247,
+          "questions": [
+            {
+              "id": "ae895b65-0a7a-4dc6-ac6b-466982ae609d",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is the main idea of this passage?",
+              "question_ar": null,
+              "choices": [
+                "The ocean has many different animals",
+                "Blue whales are very big",
+                "Fish live in warm water"
+              ],
+              "correct_answer": "The ocean has many different animals",
+              "explanation_en": "The passage talks about many different ocean animals and their characteristics.",
+              "explanation_ar": "النص يتحدث عن حيوانات البحر المختلفة وخصائصها",
+              "sort_order": 0
+            },
+            {
+              "id": "b90abe39-7639-4cb6-a7cd-aeaba46b6610",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How long can blue whales grow?",
+              "question_ar": null,
+              "choices": [
+                "20 meters",
+                "30 meters",
+                "40 meters"
+              ],
+              "correct_answer": "30 meters",
+              "explanation_en": "The passage clearly states that blue whales can grow to 30 meters long.",
+              "explanation_ar": "النص يذكر بوضوح أن الحيتان الزرقاء يمكن أن تنمو إلى 30 متراً",
+              "sort_order": 1
+            },
+            {
+              "id": "1ea82859-072f-4196-8e65-67c97321130d",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How many types of fish can divers see in the Red Sea?",
+              "question_ar": null,
+              "choices": [
+                "Over 1,000 types",
+                "Over 1,200 types",
+                "Over 1,500 types"
+              ],
+              "correct_answer": "Over 1,200 types",
+              "explanation_en": "The passage mentions that divers can see over 1,200 types of fish in the Red Sea.",
+              "explanation_ar": "النص يذكر أن الغواصين يمكنهم رؤية أكثر من 1,200 نوع من الأسماك في البحر الأحمر",
+              "sort_order": 2
+            },
+            {
+              "id": "150188a0-87fb-488f-bd87-0a58bd9a8d76",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does 'huge' mean in the passage?",
+              "question_ar": null,
+              "choices": [
+                "Very small",
+                "Very big",
+                "Very fast"
+              ],
+              "correct_answer": "Very big",
+              "explanation_en": "The word 'huge' means very big, as shown when describing large ocean creatures like blue whales.",
+              "explanation_ar": "كلمة 'huge' تعني كبير جداً، كما يظهر عند وصف المخلوقات البحرية الكبيرة مثل الحيتان الزرقاء",
+              "sort_order": 3
+            },
+            {
+              "id": "f747b757-b5b1-43e2-b2d4-a82b492e4f9d",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does 'clear' mean in the passage?",
+              "question_ar": null,
+              "choices": [
+                "Easy to see through",
+                "Very cold",
+                "Very deep"
+              ],
+              "correct_answer": "Easy to see through",
+              "explanation_en": "The word 'clear' describes water that is easy to see through, perfect for watching sea life.",
+              "explanation_ar": "كلمة 'clear' تصف الماء الذي يمكن الرؤية من خلاله بسهولة، مما يجعله مثالياً لمشاهدة الحياة البحرية",
+              "sort_order": 4
+            },
+            {
+              "id": "254f7536-ea38-4d7e-a774-c2a7e78c2030",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "Why do small tropical fish move quickly?",
+              "question_ar": null,
+              "choices": [
+                "To find food",
+                "To escape from bigger fish",
+                "To play with other fish"
+              ],
+              "correct_answer": "To escape from bigger fish",
+              "explanation_en": "The passage states that small fish move quickly through the water to escape from bigger fish.",
+              "explanation_ar": "النص يذكر أن الأسماك الصغيرة تتحرك بسرعة في الماء للهروب من الأسماك الأكبر",
+              "sort_order": 5
+            }
+          ]
+        },
+        {
+          "id": "c812db3e-470a-40bd-b10e-40188e5699dc",
+          "reading_label": "B",
+          "title_en": "The Deep Sea Mystery",
+          "passage_content": {
+            "paragraphs": [
+              "Deep in the ocean, far below the *surface*, there is a world of complete darkness. This is the deep sea, where the water pressure is *enormous* and no sunlight can reach. For many years, scientists thought nothing could *survive* in this *harsh* environment. However, they were wrong.",
+              "In 2019, researchers used special submarines to *explore* the Mariana Trench in the Pacific Ocean. This trench is the *deepest* part of our planet's oceans, reaching down 11,000 meters below sea level. The scientists made an *incredible* discovery. They found many strange creatures living in this dark world, including fish with huge eyes, jellyfish that glow in the dark, and worms longer than a school bus.",
+              "These deep-sea animals have *adapted* to their difficult home in amazing ways. Some fish produce their own light to find food in the darkness. Others have enormous mouths to catch any food that falls from above. The water temperature in the deep sea is very cold, usually around 2-4 degrees Celsius, but these creatures have special blood that helps them stay alive.",
+              "Today, scientists continue to study the deep ocean because they believe it holds many secrets. They estimate that humans have only explored about 5% of the deep sea. Each research trip brings new discoveries. Some researchers think the deep ocean might help us understand how life began on Earth. Others believe we can find new medicines from deep-sea creatures that could help *treat* human diseases.",
+              "The deep sea remains one of Earth's last unexplored frontiers. With new technology, scientists hope to uncover more mysteries from this fascinating underwater world."
+            ]
+          },
+          "passage_word_count": 312,
+          "questions": [
+            {
+              "id": "5ca7707c-2d65-4f61-bc6b-c3dc095fdf7a",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is the main topic of this passage?",
+              "question_ar": null,
+              "choices": [
+                "Life and discoveries in the deep sea",
+                "How submarines work underwater",
+                "The temperature of ocean water"
+              ],
+              "correct_answer": "Life and discoveries in the deep sea",
+              "explanation_en": "The passage focuses on deep-sea life and scientific discoveries in the ocean depths.",
+              "explanation_ar": "النص يركز على الحياة في أعماق البحار والاكتشافات العلمية في أعماق المحيطات",
+              "sort_order": 0
+            },
+            {
+              "id": "b5b23030-b9db-437d-a133-3284a0df397e",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How deep is the Mariana Trench?",
+              "question_ar": null,
+              "choices": [
+                "5,000 meters",
+                "11,000 meters",
+                "2,000 meters"
+              ],
+              "correct_answer": "11,000 meters",
+              "explanation_en": "The passage states the Mariana Trench reaches down 11,000 meters below sea level.",
+              "explanation_ar": "النص يذكر أن خندق ماريانا يصل إلى عمق 11000 متر تحت سطح البحر",
+              "sort_order": 1
+            },
+            {
+              "id": "f928cb36-2631-4fe9-9419-575e18adf1e5",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "What temperature is the deep sea water?",
+              "question_ar": null,
+              "choices": [
+                "10-15 degrees Celsius",
+                "2-4 degrees Celsius",
+                "20-25 degrees Celsius"
+              ],
+              "correct_answer": "2-4 degrees Celsius",
+              "explanation_en": "The passage mentions the water temperature is usually around 2-4 degrees Celsius.",
+              "explanation_ar": "النص يذكر أن درجة حرارة الماء عادة حوالي 2-4 درجات مئوية",
+              "sort_order": 2
+            },
+            {
+              "id": "c80b1a73-2a0f-402e-ac58-322fd6885d31",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does 'enormous' mean in this passage?",
+              "question_ar": null,
+              "choices": [
+                "Very small",
+                "Very large",
+                "Very fast"
+              ],
+              "correct_answer": "Very large",
+              "explanation_en": "In the context of water pressure, 'enormous' means very large or huge.",
+              "explanation_ar": "في سياق ضغط الماء، كلمة 'enormous' تعني كبير جداً أو ضخم",
+              "sort_order": 3
+            },
+            {
+              "id": "3454b93e-fca6-4109-b8ef-6598c2e3b4cb",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does 'harsh' mean when describing the deep sea environment?",
+              "question_ar": null,
+              "choices": [
+                "Easy and comfortable",
+                "Difficult and dangerous",
+                "Warm and bright"
+              ],
+              "correct_answer": "Difficult and dangerous",
+              "explanation_en": "The passage describes the deep sea as having no light and enormous pressure, making it a difficult environment.",
+              "explanation_ar": "النص يصف أعماق البحار بأنها بلا ضوء وذات ضغط هائل، مما يجعلها بيئة صعبة",
+              "sort_order": 4
+            },
+            {
+              "id": "570a07d8-3499-431d-aaa8-9ec25473df2a",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "Why do scientists think the deep ocean is important to study?",
+              "question_ar": null,
+              "choices": [
+                "It has good weather",
+                "It might help us understand life and find new medicines",
+                "It is easy to explore"
+              ],
+              "correct_answer": "It might help us understand life and find new medicines",
+              "explanation_en": "The passage mentions scientists believe the deep ocean might help understand how life began and provide new medicines.",
+              "explanation_ar": "النص يذكر أن العلماء يعتقدون أن أعماق المحيطات قد تساعد في فهم بداية الحياة وتوفير أدوية جديدة",
+              "sort_order": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dfefdb76-330a-4ac3-9102-95e1b792a5a6",
+      "unit_number": 3,
+      "title_en": "Space Exploration",
+      "readings": [
+        {
+          "id": "facd74da-54a6-453e-baed-aa995011718e",
+          "reading_label": "A",
+          "title_en": "Journey to the Stars",
+          "passage_content": {
+            "paragraphs": [
+              "Space exploration has always *fascinated* people around the world. For thousands of years, humans looked up at the night sky and wondered what was beyond Earth. Today, we are living in an exciting time when space travel is becoming real.",
+              "Modern space exploration began in the 1950s when the first satellites were *launched* into space. Since then, astronauts have traveled to the moon, and *powerful* rockets have carried spacecraft to distant planets. The International Space Station orbits Earth every 90 minutes, and astronauts live there for months at a time. They conduct important *experiments* and take amazing photographs of our planet.",
+              "Today, space agencies from many countries work together on space missions. NASA from America, ESA from Europe, and other organizations *collaborate* to explore Mars, Jupiter, and beyond. These missions *require* years of planning and billions of dollars, but they help us understand our universe better. Scientists have discovered that Mars once had water, and they continue to search for signs of life on other planets.",
+              "Private companies are also joining space exploration. Companies like SpaceX have made space travel more *affordable* and accessible. They can now *transport* astronauts to the space station and bring them back safely to Earth. Some companies are even planning tourist trips to space for ordinary people.",
+              "Space exploration *benefits* everyone on Earth. Satellites help us communicate, predict weather, and navigate with GPS. Medical research in space has led to new treatments for diseases. As we continue to explore space, we *discover* new technologies that improve life on our home planet. The future of space exploration looks very bright, and perhaps one day, humans will live on other worlds."
+            ]
+          },
+          "passage_word_count": 312,
+          "questions": [
+            {
+              "id": "37e76b62-5364-4773-8306-05b33f6a91a4",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is the main topic of this passage?",
+              "question_ar": null,
+              "choices": [
+                "Space exploration and how it helps people",
+                "The moon and planets in our solar system",
+                "How to become an astronaut"
+              ],
+              "correct_answer": "Space exploration and how it helps people",
+              "explanation_en": "The passage discusses space exploration from the past to present and its benefits to humanity.",
+              "explanation_ar": "النص يتحدث عن استكشاف الفضاء من الماضي إلى الحاضر وفوائده للبشرية",
+              "sort_order": 0
+            },
+            {
+              "id": "a3dcb857-c5e1-4228-b796-58b427c3e99a",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "When did modern space exploration begin?",
+              "question_ar": null,
+              "choices": [
+                "In the 1940s",
+                "In the 1950s",
+                "In the 1960s"
+              ],
+              "correct_answer": "In the 1950s",
+              "explanation_en": "The passage clearly states that modern space exploration began in the 1950s.",
+              "explanation_ar": "النص يذكر بوضوح أن استكشاف الفضاء الحديث بدأ في الخمسينيات",
+              "sort_order": 1
+            },
+            {
+              "id": "c2443f02-3f3d-43cb-a11c-5517150c6efc",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How often does the International Space Station orbit Earth?",
+              "question_ar": null,
+              "choices": [
+                "Every 60 minutes",
+                "Every 90 minutes",
+                "Every 120 minutes"
+              ],
+              "correct_answer": "Every 90 minutes",
+              "explanation_en": "The passage states that the International Space Station orbits Earth every 90 minutes.",
+              "explanation_ar": "النص يذكر أن محطة الفضاء الدولية تدور حول الأرض كل 90 دقيقة",
+              "sort_order": 2
+            },
+            {
+              "id": "cd593a53-3e61-44ce-8b2e-d56f1c551852",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does the word 'launched' mean in the passage?",
+              "question_ar": null,
+              "choices": [
+                "Sent into space",
+                "Built on Earth",
+                "Brought back home"
+              ],
+              "correct_answer": "Sent into space",
+              "explanation_en": "In this context, 'launched' means sent into space, referring to satellites being sent up from Earth.",
+              "explanation_ar": "في هذا السياق، 'launched' تعني أُرسلت إلى الفضاء، في إشارة إلى الأقمار الصناعية التي تُرسل من الأرض",
+              "sort_order": 3
+            },
+            {
+              "id": "302b6382-cd2f-41ee-b65f-66752e18b1f9",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does 'collaborate' mean in the passage?",
+              "question_ar": null,
+              "choices": [
+                "Work together",
+                "Fight each other",
+                "Travel alone"
+              ],
+              "correct_answer": "Work together",
+              "explanation_en": "'Collaborate' means to work together, as the passage describes space agencies working together on missions.",
+              "explanation_ar": "'Collaborate' تعني العمل معاً، كما يصف النص وكالات الفضاء التي تعمل معاً في المهام",
+              "sort_order": 4
+            },
+            {
+              "id": "a9e158de-fb42-41ae-872f-4f0bc8566846",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "Why do private companies want to join space exploration?",
+              "question_ar": null,
+              "choices": [
+                "To make space travel cheaper and easier",
+                "To build houses on Mars",
+                "To take pictures of Earth"
+              ],
+              "correct_answer": "To make space travel cheaper and easier",
+              "explanation_en": "The passage mentions that private companies have made space travel more affordable and accessible.",
+              "explanation_ar": "النص يذكر أن الشركات الخاصة جعلت السفر إلى الفضاء أكثر تكلفة معقولة وسهولة في الوصول إليه",
+              "sort_order": 5
+            }
+          ]
+        },
+        {
+          "id": "d7fa776f-f0dc-4585-a3ea-1046ef633e73",
+          "reading_label": "B",
+          "title_en": "Saudi Arabia Reaches for the Stars",
+          "passage_content": {
+            "paragraphs": [
+              "Saudi Arabia is making *impressive* progress in space exploration. The Kingdom has big dreams and *solid* plans for the future. In 2023, two Saudi astronauts traveled to the International Space Station. Rayyanah Barnawi became the first Saudi woman in space, and Ali Alqarni joined her on this historic mission.",
+              "The Saudi Space Commission *manages* all space activities in the country. They work *carefully* to develop new technologies and train skilled people. The commission has many *exciting* projects planned for the next ten years. They want to build satellites, study Earth from space, and help other countries with space research.",
+              "Saudi astronauts do *important* work during their space missions. They conduct scientific experiments and take photos of Earth. Rayyanah Barnawi performed medical research in space that could help people on Earth. She studied how the human body changes in zero gravity. This research is *valuable* for future space travelers.",
+              "The Kingdom also *supports* young people who want to study space science. Universities now offer special programs about astronomy and space technology. Students can learn about rocket design, satellite communication, and space medicine. Many young Saudis *dream* of becoming astronauts or space engineers.",
+              "Saudi Arabia's space program shows the world that the Kingdom is ready for the future. The country *invests* billions of dollars in space technology every year. By 2030, Saudi Arabia wants to be a leader in space exploration in the Middle East. This ambitious goal matches Vision 2030's plan to diversify the economy and build new industries."
+            ]
+          },
+          "passage_word_count": 347,
+          "questions": [
+            {
+              "id": "356de301-a7fe-40c2-bc74-a8ab099f54dd",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is the main topic of this passage?",
+              "question_ar": null,
+              "choices": [
+                "Saudi Arabia's space program",
+                "How to become an astronaut",
+                "The International Space Station"
+              ],
+              "correct_answer": "Saudi Arabia's space program",
+              "explanation_en": "The passage focuses on Saudi Arabia's progress and plans in space exploration.",
+              "explanation_ar": "النص يركز على تقدم المملكة العربية السعودية وخططها في استكشاف الفضاء",
+              "sort_order": 0
+            },
+            {
+              "id": "39690241-9271-496b-859d-ccd1f1ed019e",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "Who was the first Saudi woman in space?",
+              "question_ar": null,
+              "choices": [
+                "Ali Alqarni",
+                "Rayyanah Barnawi",
+                "The passage doesn't say"
+              ],
+              "correct_answer": "Rayyanah Barnawi",
+              "explanation_en": "The passage clearly states that Rayyanah Barnawi became the first Saudi woman in space.",
+              "explanation_ar": "النص يذكر بوضوح أن ريانة برناوي أصبحت أول امرأة سعودية في الفضاء",
+              "sort_order": 1
+            },
+            {
+              "id": "b908604c-a0e3-4a58-9e53-3e67d31ff5fc",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does the word 'manages' mean in the passage?",
+              "question_ar": null,
+              "choices": [
+                "controls and organizes",
+                "builds and creates",
+                "studies and learns"
+              ],
+              "correct_answer": "controls and organizes",
+              "explanation_en": "In this context, 'manages' means the commission controls and organizes all space activities.",
+              "explanation_ar": "في هذا السياق، 'manages' تعني أن الهيئة تتحكم وتنظم جميع الأنشطة الفضائية",
+              "sort_order": 2
+            },
+            {
+              "id": "d6cb1902-817b-42f8-b136-e5de12664b74",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "What kind of research did Rayyanah Barnawi do in space?",
+              "question_ar": null,
+              "choices": [
+                "Medical research",
+                "Weather research",
+                "Moon research"
+              ],
+              "correct_answer": "Medical research",
+              "explanation_en": "The passage states that Rayyanah Barnawi performed medical research in space.",
+              "explanation_ar": "النص يذكر أن ريانة برناوي أجرت بحوثاً طبية في الفضاء",
+              "sort_order": 3
+            },
+            {
+              "id": "c686882e-dc75-483e-98e4-5626f17231f2",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "When does Saudi Arabia want to be a leader in space exploration in the Middle East?",
+              "question_ar": null,
+              "choices": [
+                "By 2025",
+                "By 2030",
+                "By 2035"
+              ],
+              "correct_answer": "By 2030",
+              "explanation_en": "The passage clearly states that by 2030, Saudi Arabia wants to be a leader in space exploration in the Middle East.",
+              "explanation_ar": "النص يذكر بوضوح أن المملكة العربية السعودية تريد أن تكون رائدة في استكشاف الفضاء في الشرق الأوسط بحلول عام 2030",
+              "sort_order": 4
+            },
+            {
+              "id": "f5df5bb5-ce67-4750-aa87-1cce6b6e46f0",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "Why does Saudi Arabia support young people in space science education?",
+              "question_ar": null,
+              "choices": [
+                "To help other countries",
+                "To prepare future space workers",
+                "To save money"
+              ],
+              "correct_answer": "To prepare future space workers",
+              "explanation_en": "The passage suggests that supporting education helps prepare future astronauts and space engineers.",
+              "explanation_ar": "النص يشير إلى أن دعم التعليم يساعد في إعداد رواد الفضاء والمهندسين المستقبليين",
+              "sort_order": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "95530744-5815-4ca5-bb10-756b25cc66d6",
+      "unit_number": 4,
+      "title_en": "Music & Art",
+      "readings": [
+        {
+          "id": "5a3594c9-d07f-4ede-848e-23c1388e0572",
+          "reading_label": "A",
+          "title_en": "Art Speaks Every Language",
+          "passage_content": {
+            "paragraphs": [
+              "Art and music are *universal* languages that people understand everywhere. From the colorful markets of Marrakech to the busy streets of Tokyo, artists *create* beautiful works that speak to our hearts. They use different materials and styles, but their message is always the same: humans need to express themselves.",
+              "In Saudi Arabia, traditional art forms are becoming *popular* again among young people. Calligraphy artists *carefully* write Arabic letters in beautiful designs. These artists spend years learning to hold their brushes correctly and make each letter perfect. At the same time, modern Saudi artists *paint* on large canvases in galleries across Riyadh and Jeddah. They mix traditional Arabian colors with contemporary styles to tell new stories about their country.",
+              "Music also brings people together in *amazing* ways. Scientists have discovered that listening to music makes our brains release chemicals that make us feel happy. When people *listen* to traditional oud music or modern pop songs, their heart rate often matches the rhythm. This happens to people from every culture and age group. Music festivals around the world prove that melodies can make strangers become friends.",
+              "Today, social media helps artists share their work *quickly* with millions of people. A young painter in Abha can post her artwork online and receive comments from art lovers in Paris, New York, and Mumbai within hours. This *instant* connection means that artistic ideas travel faster than ever before. Many artists say this global sharing makes their work more *creative* and inspired.",
+              "Whether someone draws, paints, sings, or plays instruments, art remains one of humanity's greatest gifts. It helps us understand each other better and shows us that people everywhere share similar dreams, hopes, and feelings."
+            ]
+          },
+          "passage_word_count": 298,
+          "questions": [
+            {
+              "id": "f50e0525-5d13-4c45-aeac-3826a5e4b9f8",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is the main idea of this passage?",
+              "question_ar": null,
+              "choices": [
+                "Art and music help people from different places understand each other",
+                "Social media is the best way to share art",
+                "Saudi Arabia has the most beautiful art in the world"
+              ],
+              "correct_answer": "Art and music help people from different places understand each other",
+              "explanation_en": "The passage explains how art and music are universal languages that connect people everywhere.",
+              "explanation_ar": "النص يوضح كيف أن الفن والموسيقى لغات عالمية تربط الناس في كل مكان.",
+              "sort_order": 0
+            },
+            {
+              "id": "8cc43a92-d9ce-4859-be5a-37d68540e00a",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "What do calligraphy artists in Saudi Arabia do?",
+              "question_ar": null,
+              "choices": [
+                "They sing traditional songs",
+                "They write Arabic letters in beautiful designs",
+                "They paint on large canvases"
+              ],
+              "correct_answer": "They write Arabic letters in beautiful designs",
+              "explanation_en": "The passage states that calligraphy artists carefully write Arabic letters in beautiful designs.",
+              "explanation_ar": "النص يذكر أن فناني الخط يكتبون الحروف العربية بتصاميم جميلة بعناية.",
+              "sort_order": 1
+            },
+            {
+              "id": "25b8535e-76b7-4539-8f26-e164f1c874a3",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "What happens when people listen to music?",
+              "question_ar": null,
+              "choices": [
+                "They become artists",
+                "Their heart rate matches the rhythm",
+                "They learn new languages"
+              ],
+              "correct_answer": "Their heart rate matches the rhythm",
+              "explanation_en": "The passage explains that when people listen to music, their heart rate often matches the rhythm.",
+              "explanation_ar": "النص يوضح أنه عندما يستمع الناس للموسيقى، غالباً ما يتطابق معدل نبضات قلبهم مع الإيقاع.",
+              "sort_order": 2
+            },
+            {
+              "id": "960c66b2-9e07-4cbf-819e-1fadebc752d2",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "In the passage, what does 'universal' mean?",
+              "question_ar": null,
+              "choices": [
+                "Only for one country",
+                "Understood by people everywhere",
+                "Very expensive"
+              ],
+              "correct_answer": "Understood by people everywhere",
+              "explanation_en": "Universal means something that applies to or is understood by people everywhere in the world.",
+              "explanation_ar": "كلمة 'عالمي' تعني شيئاً ينطبق على أو يفهمه الناس في كل مكان في العالم.",
+              "sort_order": 3
+            },
+            {
+              "id": "14e8b7b8-2914-47c6-a423-3cdec67eebba",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "In the passage, what does 'instant' mean?",
+              "question_ar": null,
+              "choices": [
+                "Very slow",
+                "Happening immediately",
+                "Very difficult"
+              ],
+              "correct_answer": "Happening immediately",
+              "explanation_en": "Instant means happening immediately or right away, without delay.",
+              "explanation_ar": "كلمة 'فوري' تعني يحدث على الفور أو مباشرة، دون تأخير.",
+              "sort_order": 4
+            },
+            {
+              "id": "658472e8-9069-444e-825b-4bd7364f3ed6",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "Why can a painter in Abha share her work with people in other countries?",
+              "question_ar": null,
+              "choices": [
+                "Because she travels to many places",
+                "Because she uses social media",
+                "Because she speaks many languages"
+              ],
+              "correct_answer": "Because she uses social media",
+              "explanation_en": "The passage mentions that social media helps artists share their work quickly with millions of people worldwide.",
+              "explanation_ar": "النص يذكر أن وسائل التواصل الاجتماعي تساعد الفنانين على مشاركة أعمالهم بسرعة مع ملايين الناس حول العالم.",
+              "sort_order": 5
+            }
+          ]
+        },
+        {
+          "id": "59528adc-bf75-4881-914e-2e158527d163",
+          "reading_label": "B",
+          "title_en": "Digital Art Changes Everything",
+          "passage_content": {
+            "paragraphs": [
+              "Twenty years ago, artists needed *expensive* materials like paint, brushes, and canvas to create beautiful artwork. Today, digital art is changing how people make and share creative work around the world.",
+              "Digital artists use computers, tablets, and special software to *create* amazing paintings, drawings, and designs. They can *experiment* with thousands of colors without buying paint. They can make mistakes and fix them *instantly* with the click of a button. Sarah Al-Rashid, a digital artist from Riyadh, says, \"I can *practice* drawing every day without spending money on new materials. My tablet became my art studio.\"",
+              "The internet helps digital artists share their work with millions of people. Artists can post their creations on social media and art websites. Some artists sell their digital paintings online and make good money. In 2023, the global digital art market was worth over $13 billion. Many young people now choose digital art because it is more *convenient* than traditional painting.",
+              "Digital art also creates new job opportunities. Video game companies need digital artists to design characters and backgrounds. Movie studios hire artists to create *special* effects and animation. Advertising agencies want creative people who can make *attractive* designs for websites and social media. These jobs did not exist thirty years ago.",
+              "However, some people *worry* that digital art might replace traditional art completely. Art teachers believe both types of art are important. Traditional painting teaches students about color mixing and brush techniques. Digital art teaches them about technology and modern design. The best approach is to *combine* both methods and give students many different ways to express their creativity."
+            ]
+          },
+          "passage_word_count": 287,
+          "questions": [
+            {
+              "id": "fe50ce9e-7606-4903-a3fb-3abaff327a9b",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is the main topic of this passage?",
+              "question_ar": null,
+              "choices": [
+                "How expensive art materials are",
+                "How digital art is changing creativity",
+                "How to use computers for work"
+              ],
+              "correct_answer": "How digital art is changing creativity",
+              "explanation_en": "The passage discusses how digital art is transforming the way people create and share artwork.",
+              "explanation_ar": "النص يتحدث عن كيف يغير الفن الرقمي طريقة إنتاج ومشاركة الأعمال الفنية",
+              "sort_order": 0
+            },
+            {
+              "id": "36de45ae-1c2d-470d-8a6d-3e8e4d969b4a",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "Who is Sarah Al-Rashid?",
+              "question_ar": null,
+              "choices": [
+                "A traditional painter",
+                "A digital artist from Riyadh",
+                "An art teacher"
+              ],
+              "correct_answer": "A digital artist from Riyadh",
+              "explanation_en": "The passage clearly states that Sarah Al-Rashid is a digital artist from Riyadh.",
+              "explanation_ar": "النص ينص بوضوح أن سارة الرشيد فنانة رقمية من الرياض",
+              "sort_order": 1
+            },
+            {
+              "id": "1b8c04cc-e63e-4778-a1c4-89812491fd06",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How much was the global digital art market worth in 2023?",
+              "question_ar": null,
+              "choices": [
+                "Over $13 billion",
+                "Over $30 billion",
+                "Over $3 billion"
+              ],
+              "correct_answer": "Over $13 billion",
+              "explanation_en": "The passage states that in 2023, the global digital art market was worth over $13 billion.",
+              "explanation_ar": "النص يذكر أن السوق العالمي للفن الرقمي في عام 2023 كان يساوي أكثر من 13 مليار دولار",
+              "sort_order": 2
+            },
+            {
+              "id": "e23d98a5-5bc9-476c-9250-c3b684d7ca45",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does the word 'convenient' mean in the passage?",
+              "question_ar": null,
+              "choices": [
+                "Easy and comfortable to use",
+                "Very expensive",
+                "Difficult to learn"
+              ],
+              "correct_answer": "Easy and comfortable to use",
+              "explanation_en": "In this context, 'convenient' means easy and comfortable to use, which is why young people prefer digital art.",
+              "explanation_ar": "في هذا السياق، 'مناسب' تعني سهل ومريح في الاستخدام",
+              "sort_order": 3
+            },
+            {
+              "id": "853db1d5-b755-4599-9f09-c5ec4acfa566",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does the word 'create' mean in the passage?",
+              "question_ar": null,
+              "choices": [
+                "To buy something",
+                "To make something new",
+                "To copy something"
+              ],
+              "correct_answer": "To make something new",
+              "explanation_en": "'Create' means to make something new, like digital paintings and drawings.",
+              "explanation_ar": "'إنشاء' تعني صنع شيء جديد، مثل الرسوم واللوحات الرقمية",
+              "sort_order": 4
+            },
+            {
+              "id": "17467f64-bfe7-4b38-8baa-7966f0b3c875",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "Why do some people worry about digital art?",
+              "question_ar": null,
+              "choices": [
+                "It costs too much money",
+                "It might replace traditional art completely",
+                "It is too difficult to learn"
+              ],
+              "correct_answer": "It might replace traditional art completely",
+              "explanation_en": "The passage mentions that some people worry digital art might replace traditional art completely.",
+              "explanation_ar": "النص يذكر أن بعض الناس قلقون من أن الفن الرقمي قد يحل محل الفن التقليدي بالكامل",
+              "sort_order": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9a560631-9d0b-4b5a-a3d5-567c1779ab6e",
+      "unit_number": 5,
+      "title_en": "Famous Places",
+      "readings": [
+        {
+          "id": "f23d9dfa-3add-44b6-93c5-8b813e3f2ce8",
+          "reading_label": "A",
+          "title_en": "Amazing Places Around the World",
+          "passage_content": {
+            "paragraphs": [
+              "Every year, millions of people *travel* to see the world's most *famous* places. These destinations are special because they show us different cultures, history, and natural beauty. From ancient buildings to modern cities, these places tell amazing stories about our world.",
+              "One of the most *popular* tourist destinations is Paris, France. The Eiffel Tower stands 324 meters tall and attracts over 6 million visitors each year. People come from everywhere to see this *incredible* metal structure. Another *wonderful* place is the Great Wall of China. This wall is over 21,000 kilometers long and took hundreds of years to build. Visitors can *walk* along parts of the wall and imagine the workers who built it long ago.",
+              "Natural places can be just as *exciting* as man-made ones. Niagara Falls, between Canada and the United States, moves 168,000 cubic meters of water every minute. The sound is so *loud* that people can hear it from far away. In Africa, millions of tourists visit to see wild animals in their natural homes. Safari parks let people watch elephants, lions, and giraffes *safely* from special vehicles.",
+              "Some places become famous because they are *unique* in the world. The Dead Sea, between Jordan and Palestine, is so salty that people can float on the water without trying. The salt makes the water very thick and heavy. These special places remind us that our planet has many wonders waiting for us to discover them.",
+              "Whether natural or built by humans, famous places connect people from different countries and backgrounds. They help us learn about other cultures and see the beauty that exists everywhere in our world."
+            ]
+          },
+          "passage_word_count": 297,
+          "questions": [
+            {
+              "id": "544bdb2d-61c5-42e5-a90a-f4f59f69ad6f",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is the main idea of this passage?",
+              "question_ar": null,
+              "choices": [
+                "Famous places around the world attract many visitors",
+                "Paris is the best tourist destination",
+                "Natural places are better than man-made places"
+              ],
+              "correct_answer": "Famous places around the world attract many visitors",
+              "explanation_en": "The passage discusses various famous destinations that millions of people visit each year.",
+              "explanation_ar": "النص يتحدث عن أماكن مشهورة مختلفة حول العالم يزورها ملايين الأشخاص كل عام",
+              "sort_order": 0
+            },
+            {
+              "id": "dca754e9-fec4-445b-9a5a-2d8e9b19f25b",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How tall is the Eiffel Tower?",
+              "question_ar": null,
+              "choices": [
+                "324 meters",
+                "168 meters",
+                "21,000 meters"
+              ],
+              "correct_answer": "324 meters",
+              "explanation_en": "The passage clearly states that the Eiffel Tower stands 324 meters tall.",
+              "explanation_ar": "النص يذكر بوضوح أن برج إيفل يبلغ ارتفاعه 324 متر",
+              "sort_order": 1
+            },
+            {
+              "id": "5aebd9ad-4b60-42bc-90fd-c7cd7a5d15c6",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How long is the Great Wall of China?",
+              "question_ar": null,
+              "choices": [
+                "6,000 kilometers",
+                "over 21,000 kilometers",
+                "324 kilometers"
+              ],
+              "correct_answer": "over 21,000 kilometers",
+              "explanation_en": "The text states that the Great Wall of China is over 21,000 kilometers long.",
+              "explanation_ar": "النص يذكر أن سور الصين العظيم يزيد طوله عن 21,000 كيلومتر",
+              "sort_order": 2
+            },
+            {
+              "id": "038407ce-89c7-4389-a220-67938b4e348f",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does 'incredible' mean in the passage?",
+              "question_ar": null,
+              "choices": [
+                "very amazing",
+                "very small",
+                "very old"
+              ],
+              "correct_answer": "very amazing",
+              "explanation_en": "In this context, 'incredible' means very amazing or wonderful when describing the Eiffel Tower.",
+              "explanation_ar": "في هذا السياق، كلمة 'incredible' تعني مذهل جداً أو رائع عند وصف برج إيفل",
+              "sort_order": 3
+            },
+            {
+              "id": "43687cec-da52-42b5-bc4b-8f5fe61fe35a",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "What makes the Dead Sea special?",
+              "question_ar": null,
+              "choices": [
+                "It has many fish",
+                "People can float without trying",
+                "It is very cold"
+              ],
+              "correct_answer": "People can float without trying",
+              "explanation_en": "The passage explains that the Dead Sea is so salty that people can float on the water without trying.",
+              "explanation_ar": "النص يوضح أن البحر الميت مالح جداً لدرجة أن الناس يمكنهم الطفو على الماء دون محاولة",
+              "sort_order": 4
+            },
+            {
+              "id": "3e597877-8d0e-42dc-b914-7a798de70355",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "Why do people visit safari parks in Africa?",
+              "question_ar": null,
+              "choices": [
+                "To swim in the water",
+                "To see wild animals safely",
+                "To climb mountains"
+              ],
+              "correct_answer": "To see wild animals safely",
+              "explanation_en": "The passage mentions that safari parks let people watch elephants, lions, and giraffes safely from special vehicles.",
+              "explanation_ar": "النص يذكر أن حدائق السفاري تتيح للناس مشاهدة الفيلة والأسود والزرافات بأمان من مركبات خاصة",
+              "sort_order": 5
+            }
+          ]
+        },
+        {
+          "id": "5cf42d5b-f08a-45fe-b939-b102d8abd97d",
+          "reading_label": "B",
+          "title_en": "The Magic of Light Festivals",
+          "passage_content": {
+            "paragraphs": [
+              "Every year, millions of people travel to see *spectacular* light festivals that transform ordinary cities into magical wonderlands. These events combine art, technology, and culture to create unforgettable experiences for visitors from around the world.",
+              "The Festival of Lights in Lyon, France, is one of the most *famous* celebrations of its kind. For four nights in December, the entire city becomes a giant outdoor art gallery. Local artists and international designers *create* amazing light shows on buildings, bridges, and monuments. The festival began over 150 years ago when people placed candles in their windows to thank Mary, the mother of Jesus, for protecting their city from disease. Today, more than four million visitors *arrive* each year to witness this *incredible* display.",
+              "In Singapore, the annual light festival *transforms* the Gardens by the Bay into a colorful paradise. Giant artificial trees, called Supertrees, *glow* with thousands of LED lights that dance to music. The show runs every evening and is completely free for visitors. These 50-meter tall structures also collect rainwater and generate solar energy during the day, making them both beautiful and environmentally friendly.",
+              "Saudi Arabia has joined this global tradition with its own *brilliant* light festivals. The Noor Riyadh festival *attracts* thousands of visitors to the capital city each year. International and local artists use light to tell stories about Saudi culture and history. The festival features over 190 artworks across the city, making Riyadh one of the largest outdoor art galleries in the world.",
+              "These festivals prove that light can *connect* people across different cultures and backgrounds. Whether in France, Singapore, or Saudi Arabia, families gather together under the night sky to share moments of wonder and joy. Light festivals remind us that art and beauty can bring communities together in powerful and meaningful ways."
+            ]
+          },
+          "passage_word_count": 312,
+          "questions": [
+            {
+              "id": "c301e0f5-4d86-4ad7-b948-f13e1f774fe0",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is the main topic of this passage?",
+              "question_ar": null,
+              "choices": [
+                "Different cities around the world",
+                "Light festivals in different countries",
+                "Art and technology"
+              ],
+              "correct_answer": "Light festivals in different countries",
+              "explanation_en": "The passage discusses light festivals in Lyon, Singapore, and Saudi Arabia.",
+              "explanation_ar": "النص يتحدث عن مهرجانات الأضواء في ليون وسنغافورة والمملكة العربية السعودية",
+              "sort_order": 0
+            },
+            {
+              "id": "afb85c25-c3eb-4d55-984b-6fd153a2d856",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How many visitors come to Lyon's Festival of Lights each year?",
+              "question_ar": null,
+              "choices": [
+                "More than four million",
+                "About two million",
+                "Over one million"
+              ],
+              "correct_answer": "More than four million",
+              "explanation_en": "The text clearly states that more than four million visitors arrive each year.",
+              "explanation_ar": "النص يذكر بوضوح أن أكثر من أربعة ملايين زائر يأتون كل عام",
+              "sort_order": 1
+            },
+            {
+              "id": "205041c6-4258-48b7-9565-1bb147161782",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does the word 'spectacular' mean in the first paragraph?",
+              "question_ar": null,
+              "choices": [
+                "Very impressive and exciting",
+                "Very expensive",
+                "Very difficult to see"
+              ],
+              "correct_answer": "Very impressive and exciting",
+              "explanation_en": "Spectacular means very impressive and amazing to see.",
+              "explanation_ar": "كلمة spectacular تعني مذهل ومثير للإعجاب",
+              "sort_order": 2
+            },
+            {
+              "id": "919db26b-8aff-40a6-81f5-f611642f955f",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "Where can people see the Supertrees light show?",
+              "question_ar": null,
+              "choices": [
+                "In Lyon, France",
+                "In Singapore",
+                "In Saudi Arabia"
+              ],
+              "correct_answer": "In Singapore",
+              "explanation_en": "The passage mentions that Supertrees are located in Singapore's Gardens by the Bay.",
+              "explanation_ar": "النص يذكر أن الأشجار العملاقة توجد في حدائق الخليج في سنغافورة",
+              "sort_order": 3
+            },
+            {
+              "id": "1cf61953-7029-46af-96f6-87d62305b8ab",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "The Lyon Festival of Lights started because people wanted to:",
+              "question_ar": null,
+              "choices": [
+                "Thank Mary for protecting their city",
+                "Show their artistic skills",
+                "Attract more tourists"
+              ],
+              "correct_answer": "Thank Mary for protecting their city",
+              "explanation_en": "The text explains that people placed candles to thank Mary for protecting their city from disease.",
+              "explanation_ar": "النص يوضح أن الناس وضعوا الشموع لشكر مريم على حماية مدينتهم من المرض",
+              "sort_order": 4
+            },
+            {
+              "id": "cb5967a7-78d5-49b7-bf11-3a1667cb72ad",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "What can we understand about light festivals from this passage?",
+              "question_ar": null,
+              "choices": [
+                "They only happen in winter",
+                "They bring people together",
+                "They are very expensive to visit"
+              ],
+              "correct_answer": "They bring people together",
+              "explanation_en": "The passage concludes that light festivals connect people and bring communities together.",
+              "explanation_ar": "النص يخلص إلى أن مهرجانات الأضواء تربط الناس وتجمع المجتمعات معاً",
+              "sort_order": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "55a4d6c2-9130-40db-983d-ed412ba446a7",
+      "unit_number": 6,
+      "title_en": "Inventions",
+      "readings": [
+        {
+          "id": "074b5897-63b9-4446-a7d4-6ab9f80baff9",
+          "reading_label": "A",
+          "title_en": "Simple Ideas That Changed Everything",
+          "passage_content": {
+            "paragraphs": [
+              "Every day, we use hundreds of *inventions* without thinking about them. From the moment we wake up to an alarm clock to the time we turn off the lights at night, inventions help us live better lives. But many of the most important inventions started as *simple* ideas that solved everyday problems.",
+              "The wheel is one of humanity's greatest inventions. People *created* the first wheels around 3500 BC in Mesopotamia, which is now modern-day Iraq. At first, people used wheels to make pottery. Later, they *discovered* that wheels could help move heavy things. This *amazing* invention changed transportation forever. Today, we see wheels everywhere - on cars, bicycles, shopping carts, and suitcases.",
+              "Another *useful* invention is the refrigerator. Before refrigerators, people had to eat food *quickly* or it would become bad. In hot countries like Saudi Arabia, keeping food fresh was very difficult. The first electric refrigerator appeared in 1911, but it was very expensive. By 1950, most American families owned one. This invention *helped* people store food safely and reduced food waste by 40%.",
+              "Some inventions seem so *obvious* now that we cannot imagine life without them. The zipper, invented in 1893, replaced buttons and made getting dressed much faster. The paper clip, created in 1867, became the *perfect* way to hold papers together. These small inventions prove that you don't need to be a famous scientist to create something important.",
+              "Today, inventors around the world continue to solve problems and make life easier. Many successful inventors say the same thing: the best inventions start with noticing a problem in daily life and thinking of a better way to do things."
+            ]
+          },
+          "passage_word_count": 312,
+          "questions": [
+            {
+              "id": "9063a8e2-dd30-449d-a23a-632356fef584",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is the main idea of this passage?",
+              "question_ar": null,
+              "choices": [
+                "Inventions are very expensive to make",
+                "Many important inventions started as simple ideas to solve problems",
+                "Only scientists can create useful inventions"
+              ],
+              "correct_answer": "Many important inventions started as simple ideas to solve problems",
+              "explanation_en": "The passage explains how inventions help us daily and many started as simple ideas to solve everyday problems.",
+              "explanation_ar": "النص يوضح كيف تساعدنا الاختراعات يومياً وكيف أن العديد منها بدأ كأفكار بسيطة لحل المشاكل اليومية",
+              "sort_order": 0
+            },
+            {
+              "id": "82bc0d68-4f0e-4a1d-8b66-bde86ccd45a2",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "When did people first create wheels?",
+              "question_ar": null,
+              "choices": [
+                "Around 1911",
+                "Around 3500 BC",
+                "Around 1950"
+              ],
+              "correct_answer": "Around 3500 BC",
+              "explanation_en": "The passage states that people created the first wheels around 3500 BC in Mesopotamia.",
+              "explanation_ar": "النص يذكر أن الناس اخترعوا أول عجلة حوالي عام 3500 قبل الميلاد في بلاد الرافدين",
+              "sort_order": 1
+            },
+            {
+              "id": "11267cfc-e23f-499e-877c-24bfae9750a8",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How much did refrigerators reduce food waste?",
+              "question_ar": null,
+              "choices": [
+                "By 30%",
+                "By 40%",
+                "By 50%"
+              ],
+              "correct_answer": "By 40%",
+              "explanation_en": "The passage clearly states that refrigerators reduced food waste by 40%.",
+              "explanation_ar": "النص يذكر بوضوح أن الثلاجات قللت من هدر الطعام بنسبة 40%",
+              "sort_order": 2
+            },
+            {
+              "id": "1d93a24e-dabc-4aa8-97a8-1c247a2de99f",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does the word 'simple' mean in this passage?",
+              "question_ar": null,
+              "choices": [
+                "Very expensive",
+                "Easy and not complicated",
+                "Very big"
+              ],
+              "correct_answer": "Easy and not complicated",
+              "explanation_en": "In this context, 'simple' means easy and not complicated, referring to basic ideas that solve problems.",
+              "explanation_ar": "في هذا السياق، كلمة 'بسيط' تعني سهل وغير معقد، وتشير إلى أفكار أساسية تحل المشاكل",
+              "sort_order": 3
+            },
+            {
+              "id": "a97ae480-3d91-4a43-88ef-ed99573f110c",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does 'quickly' mean in the sentence about eating food?",
+              "question_ar": null,
+              "choices": [
+                "Very slowly",
+                "In a short time",
+                "Very carefully"
+              ],
+              "correct_answer": "In a short time",
+              "explanation_en": "The word 'quickly' means in a short time, referring to eating food fast before it spoiled.",
+              "explanation_ar": "كلمة 'بسرعة' تعني في وقت قصير، وتشير إلى أكل الطعام بسرعة قبل أن يفسد",
+              "sort_order": 4
+            },
+            {
+              "id": "2ae9c60c-f55e-4b1c-b8be-d9add0f8acb1",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "Why do inventors today continue to create new things?",
+              "question_ar": null,
+              "choices": [
+                "To become famous",
+                "To solve problems and make life easier",
+                "To make money only"
+              ],
+              "correct_answer": "To solve problems and make life easier",
+              "explanation_en": "The passage states that inventors continue to solve problems and make life easier, following the same pattern as past inventions.",
+              "explanation_ar": "النص يذكر أن المخترعين يستمرون في حل المشاكل وتسهيل الحياة، متبعين نفس نمط الاختراعات السابقة",
+              "sort_order": 5
+            }
+          ]
+        },
+        {
+          "id": "a882498d-285d-4418-bc4b-07d9365cf79f",
+          "reading_label": "B",
+          "title_en": "Ancient Arab Inventions That Changed Medicine",
+          "passage_content": {
+            "paragraphs": [
+              "Many people think modern medicine started in Europe, but this is not *accurate*. The truth is that Arab and Muslim scientists made *incredible* medical inventions between 800 and 1400 CE. These inventions still help doctors *treat* patients today.",
+              "Al-Razi, a Persian doctor who lived in Baghdad, was the first person to *identify* the difference between smallpox and measles. Before his work, doctors could not tell these diseases apart. He also invented the first *flexible* surgical tools. Al-Razi wrote more than 200 medical books that European doctors *studied* for centuries.",
+              "In Cordoba, Spain, Al-Zahrawi became known as the father of modern surgery. He *created* over 200 surgical instruments, including the first surgical scissors and forceps. His most important invention was surgical thread made from cat intestines. This thread could *dissolve* inside the body after surgery, so patients did not need a second operation to remove it. Today, doctors still use this same idea.",
+              "Ibn al-Nafis, working in Damascus, made another *remarkable* discovery. He was the first doctor to correctly describe how blood moves through the heart and lungs. European doctors did not understand this process until 300 years later. His work helped future doctors *develop* better treatments for heart problems.",
+              "These Arab scientists worked during the Islamic Golden Age, when Muslim cities like Baghdad, Cairo, and Cordoba had the world's best hospitals and medical schools. They translated Greek medical texts, added their own discoveries, and created the foundation of modern medicine. Without their inventions, healthcare today would be very different."
+            ]
+          },
+          "passage_word_count": 267,
+          "questions": [
+            {
+              "id": "5269b6fe-507a-4635-9653-c5cb52cc3805",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is the main idea of this passage?",
+              "question_ar": null,
+              "choices": [
+                "European doctors invented modern medicine",
+                "Arab and Muslim scientists made important medical discoveries",
+                "Modern hospitals are better than old hospitals"
+              ],
+              "correct_answer": "Arab and Muslim scientists made important medical discoveries",
+              "explanation_en": "The passage focuses on the important medical inventions made by Arab and Muslim scientists between 800 and 1400 CE.",
+              "explanation_ar": "النص يركز على الاختراعات الطبية المهمة التي قام بها العلماء العرب والمسلمون بين عامي 800 و1400 ميلادية",
+              "sort_order": 0
+            },
+            {
+              "id": "5caf4da1-11a8-4f90-919a-c1d2c3a0a9de",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "Who was the first person to know the difference between smallpox and measles?",
+              "question_ar": null,
+              "choices": [
+                "Al-Zahrawi",
+                "Al-Razi",
+                "Ibn al-Nafis"
+              ],
+              "correct_answer": "Al-Razi",
+              "explanation_en": "The passage states that Al-Razi was the first person to identify the difference between smallpox and measles.",
+              "explanation_ar": "ينص المقطع على أن الرازي كان أول من حدد الفرق بين الجدري والحصبة",
+              "sort_order": 1
+            },
+            {
+              "id": "214ade57-07b3-4b5a-81a5-074ef62cfb8d",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does 'treat' mean in this passage?",
+              "question_ar": null,
+              "choices": [
+                "to give food to patients",
+                "to help sick people get better",
+                "to study diseases"
+              ],
+              "correct_answer": "to help sick people get better",
+              "explanation_en": "In medical context, 'treat' means to help sick people get better by giving them medicine or care.",
+              "explanation_ar": "في السياق الطبي، 'treat' تعني مساعدة المرضى على الشفاء من خلال إعطائهم الدواء أو الرعاية",
+              "sort_order": 2
+            },
+            {
+              "id": "88d01884-6ba2-4f92-aa5d-259285254187",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "Where did Al-Zahrawi work?",
+              "question_ar": null,
+              "choices": [
+                "Baghdad",
+                "Damascus",
+                "Cordoba, Spain"
+              ],
+              "correct_answer": "Cordoba, Spain",
+              "explanation_en": "The passage clearly states that Al-Zahrawi worked in Cordoba, Spain.",
+              "explanation_ar": "ينص المقطع بوضوح أن الزهراوي عمل في قرطبة، إسبانيا",
+              "sort_order": 3
+            },
+            {
+              "id": "b57938c2-76fe-4a2c-a73f-d09bab6ea5e3",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does 'incredible' mean in this passage?",
+              "question_ar": null,
+              "choices": [
+                "very amazing",
+                "very difficult",
+                "very old"
+              ],
+              "correct_answer": "very amazing",
+              "explanation_en": "'Incredible' means very amazing or wonderful, describing the impressive medical inventions.",
+              "explanation_ar": "'Incredible' تعني مذهلة جداً أو رائعة، وتصف الاختراعات الطبية المثيرة للإعجاب",
+              "sort_order": 4
+            },
+            {
+              "id": "aff79ccf-1e24-4fd6-8ee2-3e1cc0703d84",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "Why were Arab scientists important for modern medicine?",
+              "question_ar": null,
+              "choices": [
+                "They only translated Greek books",
+                "They created the foundation of modern medicine",
+                "They built the first hospitals"
+              ],
+              "correct_answer": "They created the foundation of modern medicine",
+              "explanation_en": "The passage concludes that Arab scientists created the foundation of modern medicine through their discoveries and inventions.",
+              "explanation_ar": "يختتم المقطع بأن العلماء العرب وضعوا أسس الطب الحديث من خلال اكتشافاتهم واختراعاتهم",
+              "sort_order": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f3a651e1-3ae8-4028-a5fa-42e44f5af75b",
+      "unit_number": 7,
+      "title_en": "Sports Stars",
+      "readings": [
+        {
+          "id": "2e2c9994-ce65-4c6a-aa6e-2c83cb190c72",
+          "reading_label": "A",
+          "title_en": "Saudi Arabia's Rising Sports Stars",
+          "passage_content": {
+            "paragraphs": [
+              "Saudi Arabia is quickly becoming home to many *talented* sports stars. The Kingdom now supports athletes in soccer, tennis, boxing, and many other sports. These *champions* represent their country with pride in international competitions around the world.",
+              "Sarah Al-Attar made history as one of the first Saudi women to *compete* in the Olympics. She ran in the 800-meter race at the 2012 London Olympics. Her *brave* decision opened doors for many other Saudi women athletes. Today, more than 2,000 Saudi women actively participate in organized sports programs across the Kingdom.",
+              "Football remains the most *popular* sport in Saudi Arabia. The national team *successfully* qualified for the 2018 and 2022 World Cups. Captain Salman Al-Faraj became a *hero* to millions of Saudi fans. He *scored* important goals and led his team with great skill. The Saudi Professional League now attracts world-famous players like Cristiano Ronaldo and Karim Benzema.",
+              "The government invests heavily in sports development through Vision 2030. New sports academies *train* young athletes from age six to eighteen. These programs focus on both physical fitness and mental strength. Sports scientists work with coaches to help athletes reach their full potential. The Kingdom spent over $2 billion on sports infrastructure in the past five years.",
+              "Today's Saudi athletes *inspire* the next generation of sports stars. They show that with hard work and dedication, anyone can achieve their dreams. Whether in individual sports like tennis or team sports like basketball, Saudi Arabia continues to produce world-class athletes who make their nation proud."
+            ]
+          },
+          "passage_word_count": 267,
+          "questions": [
+            {
+              "id": "2cdbec2a-9cd0-4301-abbf-d0bdb89b17a4",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is the main topic of this passage?",
+              "question_ar": null,
+              "choices": [
+                "Saudi Arabia's sports development",
+                "The 2022 World Cup in Qatar",
+                "Women's rights in the Middle East"
+              ],
+              "correct_answer": "Saudi Arabia's sports development",
+              "explanation_en": "The passage discusses how Saudi Arabia is developing sports and supporting athletes in many different sports.",
+              "explanation_ar": "المقال يتحدث عن تطوير الرياضة في المملكة العربية السعودية ودعم الرياضيين في رياضات مختلفة",
+              "sort_order": 0
+            },
+            {
+              "id": "cc8ce08a-a876-4cba-a86d-e1a9d7827021",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "Who was Sarah Al-Attar?",
+              "question_ar": null,
+              "choices": [
+                "A tennis player",
+                "One of the first Saudi women in the Olympics",
+                "A football coach"
+              ],
+              "correct_answer": "One of the first Saudi women in the Olympics",
+              "explanation_en": "The passage states that Sarah Al-Attar made history as one of the first Saudi women to compete in the Olympics.",
+              "explanation_ar": "المقال يذكر أن سارة العطار صنعت التاريخ كواحدة من أول النساء السعوديات اللواتي شاركن في الأولمبياد",
+              "sort_order": 1
+            },
+            {
+              "id": "1f99430e-46cf-46b0-910f-bc3f07ce4b61",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How much money did Saudi Arabia spend on sports infrastructure?",
+              "question_ar": null,
+              "choices": [
+                "Over $1 billion",
+                "Over $2 billion",
+                "Over $3 billion"
+              ],
+              "correct_answer": "Over $2 billion",
+              "explanation_en": "The passage clearly states that the Kingdom spent over $2 billion on sports infrastructure in the past five years.",
+              "explanation_ar": "المقال ينص بوضوح أن المملكة أنفقت أكثر من 2 مليار دولار على البنية التحتية الرياضية في السنوات الخمس الماضية",
+              "sort_order": 2
+            },
+            {
+              "id": "a9de2a5e-7370-4b3c-a445-b51a3818fd82",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does the word 'talented' mean in the passage?",
+              "question_ar": null,
+              "choices": [
+                "Having natural ability",
+                "Very famous",
+                "Very rich"
+              ],
+              "correct_answer": "Having natural ability",
+              "explanation_en": "In this context, 'talented' means having natural skill or ability in sports.",
+              "explanation_ar": "في هذا السياق، كلمة 'talented' تعني وجود مهارة أو قدرة طبيعية في الرياضة",
+              "sort_order": 3
+            },
+            {
+              "id": "b8d467d0-f8d4-4e69-a43a-ced8f17d9410",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does 'compete' mean in the passage?",
+              "question_ar": null,
+              "choices": [
+                "To take part in a race or game",
+                "To watch sports",
+                "To teach sports"
+              ],
+              "correct_answer": "To take part in a race or game",
+              "explanation_en": "The word 'compete' means to participate in a contest or competition, as Sarah Al-Attar did in the Olympics.",
+              "explanation_ar": "كلمة 'compete' تعني المشاركة في مسابقة أو منافسة، كما فعلت سارة العطار في الأولمبياد",
+              "sort_order": 4
+            },
+            {
+              "id": "cb4ddc36-ee71-4b5e-967d-1aef66c72610",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "Why do sports academies train children from age six?",
+              "question_ar": null,
+              "choices": [
+                "Because children are too old after eighteen",
+                "Because starting young helps develop better athletes",
+                "Because it's cheaper to train young children"
+              ],
+              "correct_answer": "Because starting young helps develop better athletes",
+              "explanation_en": "Training from a young age allows athletes to develop their skills over many years and reach their full potential.",
+              "explanation_ar": "التدريب من سن صغيرة يسمح للرياضيين بتطوير مهاراتهم على مدى سنوات عديدة والوصول لإمكاناتهم الكاملة",
+              "sort_order": 5
+            }
+          ]
+        },
+        {
+          "id": "d060f681-7e1b-405f-9cde-7b59ab1a6354",
+          "reading_label": "B",
+          "title_en": "Breaking Barriers in Sports",
+          "passage_content": {
+            "paragraphs": [
+              "Sports have always been about pushing limits, but today's female athletes are doing something even more *powerful*. They are breaking down old barriers and showing the world what women can achieve. From tennis courts to soccer fields, these *brave* women are making history every day.",
+              "Sarah Al-Attar made headlines when she became the first Saudi woman to *compete* in track and field at the Olympics in 2012. She ran the 800-meter race in London, and her participation was a *significant* moment for Saudi sports. Today, more Saudi women are following her path. They *train* hard every day, working with coaches and using modern equipment to improve their skills.",
+              "The numbers tell an amazing story. In 2021, women made up 49% of all Olympic athletes, compared to just 23% in 1988. This *dramatic* increase shows how much has changed. Female athletes now *earn* millions of dollars from sponsorships and prize money. Tennis player Naomi Osaka earned $55 million in 2021, making her the highest-paid female athlete in the world.",
+              "These athletes don't just win medals – they *inspire* millions of young girls. When Serena Williams played tennis, she showed *incredible* strength and determination. Her success opened doors for other players from different backgrounds. Similarly, when footballer Megan Rapinoe scored goals for her team, she proved that women's sports could be just as exciting as men's sports.",
+              "Today's sports stars understand their *responsibility* to be role models. They visit schools, support charities, and encourage young people to follow their dreams. Through their hard work and dedication, they are creating a better future for the next generation of athletes."
+            ]
+          },
+          "passage_word_count": 287,
+          "questions": [
+            {
+              "id": "b614a1d2-802a-4105-be3c-c99f0472e43f",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is the main idea of this passage?",
+              "question_ar": null,
+              "choices": [
+                "Female athletes are breaking barriers and inspiring others",
+                "Sports are getting more expensive",
+                "Only tennis players are successful"
+              ],
+              "correct_answer": "Female athletes are breaking barriers and inspiring others",
+              "explanation_en": "The passage focuses on how female athletes are breaking down barriers and making history.",
+              "explanation_ar": "النص يركز على كيف أن الرياضيات يكسرن الحواجز ويصنعن التاريخ",
+              "sort_order": 0
+            },
+            {
+              "id": "46db47f4-6dbb-4098-b884-e792bca84479",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "Who was the first Saudi woman to compete in track and field at the Olympics?",
+              "question_ar": null,
+              "choices": [
+                "Naomi Osaka",
+                "Sarah Al-Attar",
+                "Serena Williams"
+              ],
+              "correct_answer": "Sarah Al-Attar",
+              "explanation_en": "The passage states that Sarah Al-Attar was the first Saudi woman to compete in track and field at the Olympics in 2012.",
+              "explanation_ar": "النص يذكر أن سارة العطار كانت أول امرأة سعودية تشارك في ألعاب القوى في الأولمبياد عام 2012",
+              "sort_order": 1
+            },
+            {
+              "id": "c3f2c0d3-e457-44bc-af91-21fb55ee2539",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How much money did Naomi Osaka earn in 2021?",
+              "question_ar": null,
+              "choices": [
+                "$23 million",
+                "$49 million",
+                "$55 million"
+              ],
+              "correct_answer": "$55 million",
+              "explanation_en": "The passage clearly states that Naomi Osaka earned $55 million in 2021.",
+              "explanation_ar": "النص يذكر بوضوح أن ناومي أوساكا حصلت على 55 مليون دولار في عام 2021",
+              "sort_order": 2
+            },
+            {
+              "id": "30345f2c-7c52-46eb-a95e-4d4c562d0fae",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does the word 'compete' mean in this passage?",
+              "question_ar": null,
+              "choices": [
+                "to watch",
+                "to participate in a contest",
+                "to quit"
+              ],
+              "correct_answer": "to participate in a contest",
+              "explanation_en": "In the context, 'compete' means to participate in the Olympic games.",
+              "explanation_ar": "في هذا السياق، 'تتنافس' تعني المشاركة في الألعاب الأولمبية",
+              "sort_order": 3
+            },
+            {
+              "id": "2fbe1767-6b45-4bc8-82f3-53abcb255596",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does 'dramatic' mean when talking about the increase in female athletes?",
+              "question_ar": null,
+              "choices": [
+                "very big",
+                "very small",
+                "very slow"
+              ],
+              "correct_answer": "very big",
+              "explanation_en": "The word 'dramatic' describes the large change from 23% to 49% of female Olympic athletes.",
+              "explanation_ar": "كلمة 'dramatic' تصف التغيير الكبير من 23% إلى 49% من الرياضيات الأولمبيات",
+              "sort_order": 4
+            },
+            {
+              "id": "d2d03a3c-fdf3-420d-89a2-cd1c28a0afb9",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "Why do female athletes visit schools and support charities?",
+              "question_ar": null,
+              "choices": [
+                "Because they want to be famous",
+                "Because they understand their responsibility to be role models",
+                "Because they need more money"
+              ],
+              "correct_answer": "Because they understand their responsibility to be role models",
+              "explanation_en": "The passage states that athletes understand their responsibility to be role models and help young people.",
+              "explanation_ar": "النص يذكر أن الرياضيات يفهمن مسؤوليتهن كقدوة ومساعدة الشباب",
+              "sort_order": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "34f36fbb-3cc6-4f5f-be54-491491297386",
+      "unit_number": 8,
+      "title_en": "Ancient Civilizations",
+      "readings": [
+        {
+          "id": "635a21e7-a303-436a-8236-87daa74f7d14",
+          "reading_label": "A",
+          "title_en": "Lost Cities Tell Ancient Stories",
+          "passage_content": {
+            "paragraphs": [
+              "Deep under the desert sand and jungle leaves, *ancient* cities wait for discovery. These lost places tell amazing stories about people who lived thousands of years ago. Archaeologists are scientists who *carefully* dig up these old cities to learn about past civilizations.",
+              "One of the most *famous* ancient cities is Pompeii in Italy. In 79 AD, a volcano *suddenly* covered this Roman city with ash and rock. The ash *protected* the city for almost 2,000 years. Today, visitors can walk through Pompeii's streets and see houses, shops, and even food that people left behind. The city shows us exactly how Romans lived, worked, and ate their meals.",
+              "In Cambodia, the *magnificent* temple city of Angkor Wat *attracts* millions of visitors every year. Built in the 12th century, this *enormous* stone city was once the center of the Khmer Empire. The temples cover 400 square kilometers - that's bigger than many modern cities! Kings and thousands of workers spent 30 years building these beautiful temples with *detailed* stone carvings.",
+              "Archaeologists *continue* to find new ancient cities around the world. In 2018, scientists discovered a huge Maya city in Guatemala using special airplane technology. This city had 60,000 buildings hidden under thick jungle trees. Each new discovery helps us understand how ancient people built their homes, grew their food, and created their art.",
+              "These ancient civilizations teach us that people have always been creative and intelligent. They built incredible cities, created beautiful art, and developed smart ways to solve problems. Their stories remind us that human civilization has a long and fascinating history."
+            ]
+          },
+          "passage_word_count": 267,
+          "questions": [
+            {
+              "id": "3cf34fca-e606-44bb-bffe-8985cd311d3a",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is the main topic of this passage?",
+              "question_ar": null,
+              "choices": [
+                "Modern cities and buildings",
+                "Ancient cities and what we learn from them",
+                "How to become an archaeologist"
+              ],
+              "correct_answer": "Ancient cities and what we learn from them",
+              "explanation_en": "The passage discusses ancient cities like Pompeii and Angkor Wat and explains what archaeologists learn from them.",
+              "explanation_ar": "النص يتحدث عن المدن القديمة مثل بومبي وأنغكور وات ويشرح ما يتعلمه علماء الآثار منها",
+              "sort_order": 0
+            },
+            {
+              "id": "0dd7c3aa-3b0d-43ee-b86e-7997e68980aa",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "What covered the city of Pompeii in 79 AD?",
+              "question_ar": null,
+              "choices": [
+                "Sand from the desert",
+                "Ash and rock from a volcano",
+                "Water from the sea"
+              ],
+              "correct_answer": "Ash and rock from a volcano",
+              "explanation_en": "The passage clearly states that a volcano covered Pompeii with ash and rock in 79 AD.",
+              "explanation_ar": "النص يذكر بوضوح أن بركاناً غطى بومبي بالرماد والصخور في عام 79 ميلادي",
+              "sort_order": 1
+            },
+            {
+              "id": "1565ebed-ebe1-4dec-a3d6-47b22d518f23",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How long did it take to build Angkor Wat?",
+              "question_ar": null,
+              "choices": [
+                "12 years",
+                "30 years",
+                "400 years"
+              ],
+              "correct_answer": "30 years",
+              "explanation_en": "The passage states that kings and workers spent 30 years building the temples at Angkor Wat.",
+              "explanation_ar": "النص يذكر أن الملوك والعمال قضوا 30 عاماً في بناء معابد أنغكور وات",
+              "sort_order": 2
+            },
+            {
+              "id": "fd2a681c-078e-4374-9a85-9c1b5f06131c",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does the word 'enormous' mean in the passage?",
+              "question_ar": null,
+              "choices": [
+                "Very old",
+                "Very big",
+                "Very beautiful"
+              ],
+              "correct_answer": "Very big",
+              "explanation_en": "The word 'enormous' means very big or huge, describing the large size of Angkor Wat.",
+              "explanation_ar": "كلمة 'enormous' تعني كبير جداً أو ضخم، وتصف الحجم الكبير لأنغكور وات",
+              "sort_order": 3
+            },
+            {
+              "id": "c9e26c90-dc63-437f-b2d8-71f8a32d566c",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How did scientists find the Maya city in Guatemala?",
+              "question_ar": null,
+              "choices": [
+                "By walking in the jungle",
+                "By using airplane technology",
+                "By asking local people"
+              ],
+              "correct_answer": "By using airplane technology",
+              "explanation_en": "The passage mentions that scientists discovered the Maya city using special airplane technology.",
+              "explanation_ar": "النص يذكر أن العلماء اكتشفوا مدينة المايا باستخدام تكنولوجيا الطائرات الخاصة",
+              "sort_order": 4
+            },
+            {
+              "id": "603e9988-677e-4d5b-813c-dd1ac6ea0537",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "Why can we learn so much about Roman life from Pompeii?",
+              "question_ar": null,
+              "choices": [
+                "Because it was a very big city",
+                "Because the ash protected everything for 2,000 years",
+                "Because Romans wrote many books there"
+              ],
+              "correct_answer": "Because the ash protected everything for 2,000 years",
+              "explanation_en": "The volcanic ash preserved the city and everything in it, allowing us to see exactly how Romans lived.",
+              "explanation_ar": "الرماد البركاني حافظ على المدينة وكل شيء فيها، مما يسمح لنا برؤية كيف عاش الرومان بالضبط",
+              "sort_order": 5
+            }
+          ]
+        },
+        {
+          "id": "33e04971-5fc5-4324-b54c-4816dc4409e6",
+          "reading_label": "B",
+          "title_en": "The Amazing Pyramids of Egypt",
+          "passage_content": {
+            "paragraphs": [
+              "The Great Pyramid of Giza in Egypt is one of the most *incredible* structures ever built by humans. This ancient wonder was *constructed* over 4,500 years ago for Pharaoh Khufu, and it remained the world's tallest building for almost 4,000 years. The pyramid stands 146 meters high and contains approximately 2.3 million stone blocks.",
+              "Building the pyramids required *thousands* of workers who labored for many years. These skilled builders had to *transport* massive stone blocks from quarries located far away. Each block weighed between 2 to 15 tons. Workers used wooden rollers, ramps, and ropes to move these heavy stones. They worked *carefully* to place each block in exactly the right position.",
+              "The construction process was *extremely* complex and required advanced planning. Ancient Egyptian engineers designed the pyramids with mathematical precision. The base of the Great Pyramid covers 13 acres of land, and each side is perfectly aligned with the four directions: north, south, east, and west. Scientists believe it took approximately 20 years to *complete* this magnificent structure.",
+              "Today, archaeologists continue to make *exciting* discoveries about pyramid construction. Recent studies using modern technology have revealed hidden chambers inside the Great Pyramid. These findings help us understand how ancient Egyptians achieved such remarkable engineering without modern machines. The pyramids *demonstrate* the incredible skills and knowledge of these ancient civilizations.",
+              "Visiting the pyramids remains a *popular* experience for millions of tourists each year. Standing before these ancient monuments, visitors can appreciate the dedication and expertise of the builders who created these lasting symbols of human achievement thousands of years ago."
+            ]
+          },
+          "passage_word_count": 312,
+          "questions": [
+            {
+              "id": "58067254-e38f-468c-ad67-4a7de7423321",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is the Great Pyramid of Giza?",
+              "question_ar": null,
+              "choices": [
+                "A very old building in Egypt",
+                "A modern tourist hotel",
+                "A small house for workers"
+              ],
+              "correct_answer": "A very old building in Egypt",
+              "explanation_en": "The passage describes the Great Pyramid as an ancient structure built over 4,500 years ago in Egypt.",
+              "explanation_ar": "النص يصف الهرم الأكبر كبناء قديم تم بناؤه منذ أكثر من 4500 عام في مصر",
+              "sort_order": 0
+            },
+            {
+              "id": "72f7c000-8c0e-43f4-ba0d-2b22fed01488",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How long did it take to build the Great Pyramid?",
+              "question_ar": null,
+              "choices": [
+                "10 years",
+                "20 years",
+                "50 years"
+              ],
+              "correct_answer": "20 years",
+              "explanation_en": "The passage states that scientists believe it took approximately 20 years to complete the Great Pyramid.",
+              "explanation_ar": "ينص المقطع على أن العلماء يعتقدون أن بناء الهرم الأكبر استغرق حوالي 20 عاماً",
+              "sort_order": 1
+            },
+            {
+              "id": "753aaf2f-2bf1-4860-a527-2b243966b6ba",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How much did each stone block weigh?",
+              "question_ar": null,
+              "choices": [
+                "Between 2 to 15 tons",
+                "100 tons",
+                "Less than 1 ton"
+              ],
+              "correct_answer": "Between 2 to 15 tons",
+              "explanation_en": "The passage clearly states that each block weighed between 2 to 15 tons.",
+              "explanation_ar": "ينص المقطع بوضوح أن كل كتلة حجرية كانت تزن بين 2 إلى 15 طن",
+              "sort_order": 2
+            },
+            {
+              "id": "50d56b2b-c98e-4c9d-ab11-c38b080fc25c",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does 'transport' mean in the passage?",
+              "question_ar": null,
+              "choices": [
+                "To move from one place to another",
+                "To break into pieces",
+                "To paint with colors"
+              ],
+              "correct_answer": "To move from one place to another",
+              "explanation_en": "In the context, 'transport' means to move the heavy stone blocks from quarries to the pyramid site.",
+              "explanation_ar": "في السياق، كلمة 'transport' تعني نقل الكتل الحجرية الثقيلة من المحاجر إلى موقع الهرم",
+              "sort_order": 3
+            },
+            {
+              "id": "1cb2939d-8ec8-4b6d-87a9-a7e59126557c",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does 'thousands' mean in the passage?",
+              "question_ar": null,
+              "choices": [
+                "A very large number of people",
+                "Three people",
+                "Ten people"
+              ],
+              "correct_answer": "A very large number of people",
+              "explanation_en": "'Thousands' refers to a very large number of workers needed to build the pyramid.",
+              "explanation_ar": "كلمة 'thousands' تشير إلى عدد كبير جداً من العمال المطلوبين لبناء الهرم",
+              "sort_order": 4
+            },
+            {
+              "id": "709f3b70-86c8-45d4-9756-fb9573d0586a",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "Why do many people visit the pyramids today?",
+              "question_ar": null,
+              "choices": [
+                "They want to see the amazing old buildings",
+                "They want to live there",
+                "They want to buy stones"
+              ],
+              "correct_answer": "They want to see the amazing old buildings",
+              "explanation_en": "The passage suggests people visit to appreciate these remarkable ancient structures and human achievements.",
+              "explanation_ar": "يشير النص إلى أن الناس يزورون الأهرام لتقدير هذه المباني القديمة الرائعة والإنجازات البشرية",
+              "sort_order": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "357a1833-dd03-4232-8218-19d5d297edd8",
+      "unit_number": 9,
+      "title_en": "Photography",
+      "readings": [
+        {
+          "id": "a06e190b-ff65-46b7-969a-52a6bdb21298",
+          "reading_label": "A",
+          "title_en": "Capturing Life Through Photography",
+          "passage_content": {
+            "paragraphs": [
+              "Photography is one of the most *popular* hobbies in the world today. From family gatherings to beautiful sunsets, people love to *capture* special moments with their cameras. In Saudi Arabia, photography has become an important way for young people to express themselves and share their culture with others.",
+              "Modern cameras make it *easy* to take great photos. Most people use their smartphones to take pictures because they are *convenient* and always available. However, professional photographers often prefer *digital* cameras because they produce higher quality images. These cameras have special *settings* that help photographers control light, color, and focus. The *lens* is the most important part of any camera because it determines how clear and sharp the photo will be.",
+              "Saudi photographers are becoming famous around the world for their *creative* work. They take amazing pictures of the country's landscapes, from the red sands of the Empty Quarter to the modern buildings in Riyadh and Jeddah. Many young Saudi women are learning photography and starting their own businesses. They photograph weddings, family events, and fashion shows. Social media platforms like Instagram have over 2 billion users worldwide, and many Saudi photographers use these apps to *display* their work and attract new clients.",
+              "Photography is more than just pointing and clicking a camera. Good photographers must *practice* regularly to improve their skills. They learn about composition, lighting, and timing. They also study the work of famous photographers from different countries. With patience and dedication, anyone can learn to take beautiful photos that tell meaningful stories."
+            ]
+          },
+          "passage_word_count": 347,
+          "questions": [
+            {
+              "id": "c18ae13e-b2ab-4020-8db1-7339167f11ce",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is the main topic of this passage?",
+              "question_ar": null,
+              "choices": [
+                "Photography as a hobby and art",
+                "How to use smartphones",
+                "Famous people in Saudi Arabia"
+              ],
+              "correct_answer": "Photography as a hobby and art",
+              "explanation_en": "The passage discusses photography as a popular hobby and its importance in Saudi Arabia.",
+              "explanation_ar": "النص يتحدث عن التصوير كهواية شائعة وأهميته في المملكة العربية السعودية",
+              "sort_order": 0
+            },
+            {
+              "id": "b5a06f56-67d4-4042-bb7d-b57b6ed63d40",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "What do most people use to take pictures?",
+              "question_ar": null,
+              "choices": [
+                "Professional cameras",
+                "Smartphones",
+                "Old film cameras"
+              ],
+              "correct_answer": "Smartphones",
+              "explanation_en": "The passage states that most people use their smartphones to take pictures because they are convenient.",
+              "explanation_ar": "النص يذكر أن معظم الناس يستخدمون هواتفهم الذكية لالتقاط الصور لأنها مريحة",
+              "sort_order": 1
+            },
+            {
+              "id": "2f473cfd-d70a-4e1b-92cb-f37313103f2e",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "What is the most important part of any camera?",
+              "question_ar": null,
+              "choices": [
+                "The settings",
+                "The lens",
+                "The screen"
+              ],
+              "correct_answer": "The lens",
+              "explanation_en": "The passage clearly states that the lens is the most important part of any camera.",
+              "explanation_ar": "النص ينص بوضوح على أن العدسة هي أهم جزء في أي كاميرا",
+              "sort_order": 2
+            },
+            {
+              "id": "80b4486c-009b-4c18-ad16-9c578574334f",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "In the passage, what does 'capture' mean?",
+              "question_ar": null,
+              "choices": [
+                "To catch something",
+                "To take a photo of something",
+                "To buy something"
+              ],
+              "correct_answer": "To take a photo of something",
+              "explanation_en": "In photography context, 'capture' means to take a photo of special moments.",
+              "explanation_ar": "في سياق التصوير، 'capture' تعني التقاط صورة للحظات المميزة",
+              "sort_order": 3
+            },
+            {
+              "id": "a5ae77f2-c2b4-415d-a936-12f73c458aa5",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How many users does Instagram have?",
+              "question_ar": null,
+              "choices": [
+                "Over 1 billion users",
+                "Over 2 billion users",
+                "Over 3 billion users"
+              ],
+              "correct_answer": "Over 2 billion users",
+              "explanation_en": "The passage states that Instagram has over 2 billion users worldwide.",
+              "explanation_ar": "النص يذكر أن إنستغرام لديه أكثر من 2 مليار مستخدم حول العالم",
+              "sort_order": 4
+            },
+            {
+              "id": "67a91ec4-e934-41c2-ae08-f5e47de692e6",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "Why do young Saudi women learn photography?",
+              "question_ar": null,
+              "choices": [
+                "Only for fun",
+                "To start their own businesses",
+                "To travel around the world"
+              ],
+              "correct_answer": "To start their own businesses",
+              "explanation_en": "The passage mentions that young Saudi women learn photography and start their own businesses photographing events.",
+              "explanation_ar": "النص يذكر أن الشابات السعوديات يتعلمن التصوير ويبدأن أعمالهن الخاصة في تصوير المناسبات",
+              "sort_order": 5
+            }
+          ]
+        },
+        {
+          "id": "a03db754-37ba-4d7c-bbaf-3ada190715bd",
+          "reading_label": "B",
+          "title_en": "Desert Photography Magic",
+          "passage_content": {
+            "paragraphs": [
+              "Professional photographers face many *challenges* when they work in Saudi Arabia's desert regions. The extreme heat, bright sunlight, and moving sand create difficult conditions. However, these same conditions also create some of the world's most *spectacular* desert photographs.",
+              "Many photographers *prefer* to work during the golden hours - early morning and late evening. During these times, the sun is *lower* in the sky and creates beautiful, soft light. The famous photographer Ahmed Al-Rashid says, \"The desert looks completely different at sunrise. The sand dunes change from gold to orange to red.\" He has been photographing Saudi deserts for over fifteen years and has learned to *adapt* to the harsh environment.",
+              "Desert photography requires special *equipment* and techniques. Photographers must *protect* their cameras from sand and extreme temperatures. They often use special covers and filters. The Empty Quarter, or Rub' al Khali, covers about 650,000 square kilometers and is one of the most photographed desert locations in the Kingdom. Its massive sand dunes can reach heights of 250 meters.",
+              "Today, many young Saudi photographers are becoming *famous* for their desert images on social media. They use both traditional cameras and modern smartphones to capture the beauty of their homeland. These photographers often *travel* long distances to find the perfect shot. Their work shows the world that Saudi Arabia's deserts are not empty places, but lands full of natural beauty and constantly changing colors.",
+              "The growing popularity of desert photography has also helped tourism in Saudi Arabia. Visitors from around the world now come to see and photograph the same *amazing* landscapes that local photographers have been capturing for years."
+            ]
+          },
+          "passage_word_count": 267,
+          "questions": [
+            {
+              "id": "e1b79bae-b2ef-4302-a290-c9341f41fa07",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is the main topic of this passage?",
+              "question_ar": null,
+              "choices": [
+                "Taking pictures in Saudi Arabian deserts",
+                "Famous photographers in Saudi Arabia",
+                "Tourism in the Middle East"
+              ],
+              "correct_answer": "Taking pictures in Saudi Arabian deserts",
+              "explanation_en": "The passage focuses on photography in Saudi Arabia's desert regions and the challenges and beauty involved.",
+              "explanation_ar": "النص يركز على التصوير في المناطق الصحراوية في المملكة العربية السعودية والتحديات والجمال المرتبط بذلك",
+              "sort_order": 0
+            },
+            {
+              "id": "2d68f1ac-8bb2-46d1-9dd9-9b92f52b68aa",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "When do many photographers like to work in the desert?",
+              "question_ar": null,
+              "choices": [
+                "At noon when the sun is high",
+                "Early morning and late evening",
+                "Only at night"
+              ],
+              "correct_answer": "Early morning and late evening",
+              "explanation_en": "The passage states that photographers prefer to work during the golden hours - early morning and late evening.",
+              "explanation_ar": "ينص المقطع على أن المصورين يفضلون العمل خلال الساعات الذهبية - في الصباح الباكر وفي المساء المتأخر",
+              "sort_order": 1
+            },
+            {
+              "id": "8e7dfd0c-3d7b-4489-bbb9-55834b2bd07b",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How tall can sand dunes in the Empty Quarter become?",
+              "question_ar": null,
+              "choices": [
+                "150 meters",
+                "250 meters",
+                "350 meters"
+              ],
+              "correct_answer": "250 meters",
+              "explanation_en": "The passage specifically mentions that sand dunes in the Empty Quarter can reach heights of 250 meters.",
+              "explanation_ar": "يذكر النص تحديداً أن الكثبان الرملية في الربع الخالي يمكن أن تصل إلى ارتفاع 250 متراً",
+              "sort_order": 2
+            },
+            {
+              "id": "a3c06c68-6810-4f77-8c74-0b87e07fe70a",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does the word 'spectacular' mean in this passage?",
+              "question_ar": null,
+              "choices": [
+                "Very beautiful and impressive",
+                "Very difficult",
+                "Very expensive"
+              ],
+              "correct_answer": "Very beautiful and impressive",
+              "explanation_en": "In this context, 'spectacular' describes the amazing and impressive desert photographs.",
+              "explanation_ar": "في هذا السياق، تصف كلمة 'spectacular' الصور الصحراوية المذهلة والمثيرة للإعجاب",
+              "sort_order": 3
+            },
+            {
+              "id": "31f5bda9-21db-4bc8-8de4-fbc6d28025a6",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does 'adapt' mean in this passage?",
+              "question_ar": null,
+              "choices": [
+                "To change and adjust to difficult conditions",
+                "To take many pictures",
+                "To travel to new places"
+              ],
+              "correct_answer": "To change and adjust to difficult conditions",
+              "explanation_en": "The photographer has learned to 'adapt' means he adjusted to working in the harsh desert environment.",
+              "explanation_ar": "تعلم المصور أن 'يتكيف' يعني أنه تأقلم مع العمل في البيئة الصحراوية القاسية",
+              "sort_order": 4
+            },
+            {
+              "id": "90f8bec5-f1d8-4fac-8aa1-1cc687c96942",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "Why has desert photography helped tourism in Saudi Arabia?",
+              "question_ar": null,
+              "choices": [
+                "Because it shows people the natural beauty of the deserts",
+                "Because cameras are cheaper now",
+                "Because the weather is getting better"
+              ],
+              "correct_answer": "Because it shows people the natural beauty of the deserts",
+              "explanation_en": "The passage suggests that seeing beautiful desert photographs attracts visitors who want to see these landscapes themselves.",
+              "explanation_ar": "يشير النص إلى أن رؤية الصور الصحراوية الجميلة تجذب الزوار الذين يريدون أن يروا هذه المناظر الطبيعية بأنفسهم",
+              "sort_order": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "290f3fbe-d9ec-41cb-93d3-aa2401ee6c7c",
+      "unit_number": 10,
+      "title_en": "World Cuisines",
+      "readings": [
+        {
+          "id": "bb7081a8-7c02-4ea7-aef2-e48d77a709d2",
+          "reading_label": "A",
+          "title_en": "Food Brings the World Together",
+          "passage_content": {
+            "paragraphs": [
+              "Food is one of the most *powerful* ways people share their culture with others. Around the world, every country has special dishes that tell stories about their history, climate, and traditions. When we eat food from different places, we learn about new cultures and make connections with people from far away.",
+              "Many popular world cuisines started hundreds of years ago. Italian pasta became famous because wheat grew well in Italy's *sunny* climate. Japanese sushi developed because Japan is surrounded by ocean and has lots of fresh fish. Indian food uses many *spices* because traders brought them from different parts of Asia. These ingredients *shaped* the way people cooked in each country.",
+              "Today, international restaurants are *common* in most big cities. In London, there are over 12,000 restaurants serving food from around the world. People can *taste* Thai curry, Mexican tacos, and Lebanese hummus all in the same neighborhood. Food festivals also *celebrate* different cuisines. The largest food festival in the world happens in Singapore every year, where 50 countries *share* their traditional dishes.",
+              "Social media has made world cuisines even more popular. Young people *discover* new recipes on Instagram and YouTube every day. They see colorful photos of Korean bibimbap or Moroccan tagine and want to try making them at home. Food bloggers travel to different countries and *describe* local dishes to millions of followers online.",
+              "World cuisines teach us that people everywhere love to cook and eat together. Food connects us across languages and borders. When we try a new dish, we open our minds to different ways of living and thinking. This makes our world smaller and more friendly."
+            ]
+          },
+          "passage_word_count": 287,
+          "questions": [
+            {
+              "id": "a7e42e21-0af9-4ab7-a995-d3b72fba9e3f",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is the main idea of this passage?",
+              "question_ar": null,
+              "choices": [
+                "Food helps people share their culture with others",
+                "Italian pasta is very popular around the world",
+                "Social media makes cooking easier for young people"
+              ],
+              "correct_answer": "Food helps people share their culture with others",
+              "explanation_en": "The passage focuses on how food connects people and cultures throughout.",
+              "explanation_ar": "النص يركز على كيف يربط الطعام بين الناس والثقافات المختلفة",
+              "sort_order": 0
+            },
+            {
+              "id": "d1a11620-5eb1-4dc3-aed7-59679fd3afa5",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "Why did Italian pasta become famous?",
+              "question_ar": null,
+              "choices": [
+                "Because Italy has many restaurants",
+                "Because wheat grew well in Italy's sunny climate",
+                "Because Italian people travel a lot"
+              ],
+              "correct_answer": "Because wheat grew well in Italy's sunny climate",
+              "explanation_en": "The passage directly states that Italian pasta became famous because wheat grew well in Italy's sunny climate.",
+              "explanation_ar": "النص يذكر مباشرة أن المعكرونة الإيطالية أصبحت مشهورة لأن القمح نما جيداً في مناخ إيطاليا المشمس",
+              "sort_order": 1
+            },
+            {
+              "id": "41dcd0de-164f-4b5a-b137-36796e313e81",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How many restaurants are there in London?",
+              "question_ar": null,
+              "choices": [
+                "Over 12,000 restaurants",
+                "About 50 restaurants",
+                "Less than 1,000 restaurants"
+              ],
+              "correct_answer": "Over 12,000 restaurants",
+              "explanation_en": "The passage clearly states there are over 12,000 restaurants in London.",
+              "explanation_ar": "النص يذكر بوضوح أن هناك أكثر من 12,000 مطعم في لندن",
+              "sort_order": 2
+            },
+            {
+              "id": "cecfc0c1-6e9b-4c11-80b3-c6222194d696",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does 'powerful' mean in the first sentence?",
+              "question_ar": null,
+              "choices": [
+                "Very strong and effective",
+                "Very expensive",
+                "Very difficult"
+              ],
+              "correct_answer": "Very strong and effective",
+              "explanation_en": "In this context, 'powerful' means very strong and effective at sharing culture.",
+              "explanation_ar": "في هذا السياق، 'قوي' يعني فعال جداً في مشاركة الثقافة",
+              "sort_order": 3
+            },
+            {
+              "id": "a810c6f6-b2d4-42b9-92d8-d5cdb6e3770c",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does 'spices' mean in the second paragraph?",
+              "question_ar": null,
+              "choices": [
+                "Special cooking ingredients that add flavor",
+                "Types of vegetables",
+                "Cooking tools"
+              ],
+              "correct_answer": "Special cooking ingredients that add flavor",
+              "explanation_en": "Spices are special ingredients used in cooking to add flavor to food.",
+              "explanation_ar": "التوابل هي مكونات خاصة تُستخدم في الطبخ لإضافة النكهة للطعام",
+              "sort_order": 4
+            },
+            {
+              "id": "d914df0b-0c27-40b9-bf60-379f38c89eea",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "Why do young people want to try new dishes at home?",
+              "question_ar": null,
+              "choices": [
+                "Because they see colorful photos on social media",
+                "Because restaurants are too expensive",
+                "Because their parents tell them to cook"
+              ],
+              "correct_answer": "Because they see colorful photos on social media",
+              "explanation_en": "The passage suggests young people are inspired by colorful photos they see on Instagram and YouTube.",
+              "explanation_ar": "النص يشير إلى أن الشباب يتأثرون بالصور الملونة التي يرونها على وسائل التواصل الاجتماعي",
+              "sort_order": 5
+            }
+          ]
+        },
+        {
+          "id": "763410ec-0986-46fa-a570-7a011f38f449",
+          "reading_label": "B",
+          "title_en": "The Ancient Spice Routes",
+          "passage_content": {
+            "paragraphs": [
+              "Long ago, spices were more valuable than gold. Merchants traveled thousands of miles to *trade* these precious seasonings. The spice routes connected Asia, the Middle East, and Europe for over 1,500 years. These ancient paths changed how people cook around the world.",
+              "The journey began in tropical places like India, Sri Lanka, and Indonesia. Here, farmers *grew* black pepper, cinnamon, cardamom, and nutmeg in the *warm* climate. These spices were *rare* and expensive because they only grew in certain places. Arab traders were the first to bring these treasures to the Middle East and North Africa.",
+              "Spice trading was not easy work. Traders faced many dangers on land and sea. They traveled through *dangerous* deserts and sailed across stormy oceans. A single trip could take two years! Despite these challenges, the spice trade was very *profitable*. Some spices cost more than their weight in silver. Venice became one of the richest cities in Europe because of spice trading.",
+              "Today, we can *easily* buy spices from any grocery store. We often forget how these simple ingredients *changed* world history. Spices led to the discovery of new lands and created connections between different cultures. They made food more *delicious* and helped preserve meat before refrigerators existed.",
+              "The legacy of the spice routes lives on in modern kitchens. When we add Saudi baharat to our rice or Indian curry powder to our chicken, we continue this ancient tradition. Each spice tells a story of adventure, discovery, and the human desire to make food taste better. The next time you *smell* cinnamon or taste black pepper, remember the brave traders who brought these flavors to your table."
+            ]
+          },
+          "passage_word_count": 312,
+          "questions": [
+            {
+              "id": "c00691b3-1c7e-4e78-b366-261763dd5eb4",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is the main idea of this passage?",
+              "question_ar": null,
+              "choices": [
+                "Spices were very expensive and important in the past",
+                "Venice was a rich city",
+                "Traders traveled by boat"
+              ],
+              "correct_answer": "Spices were very expensive and important in the past",
+              "explanation_en": "The passage explains how spices were valuable and changed world history through trade.",
+              "explanation_ar": "النص يشرح كيف كانت التوابل ثمينة وغيرت التاريخ العالمي من خلال التجارة",
+              "sort_order": 0
+            },
+            {
+              "id": "a1c487b2-cc83-49a7-a046-e1f4b29019f0",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "Where did spices like black pepper and cinnamon come from?",
+              "question_ar": null,
+              "choices": [
+                "Europe and Africa",
+                "India, Sri Lanka, and Indonesia",
+                "The Middle East"
+              ],
+              "correct_answer": "India, Sri Lanka, and Indonesia",
+              "explanation_en": "The passage states that spices grew in tropical places like India, Sri Lanka, and Indonesia.",
+              "explanation_ar": "النص يذكر أن التوابل نمت في الأماكن الاستوائية مثل الهند وسريلانكا وإندونيسيا",
+              "sort_order": 1
+            },
+            {
+              "id": "2fc547b3-2e03-47c8-9884-8ee5f16ddba4",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How long could one trading trip take?",
+              "question_ar": null,
+              "choices": [
+                "Six months",
+                "One year",
+                "Two years"
+              ],
+              "correct_answer": "Two years",
+              "explanation_en": "The passage clearly states that a single trip could take two years.",
+              "explanation_ar": "النص يذكر بوضوح أن الرحلة الواحدة يمكن أن تستغرق سنتين",
+              "sort_order": 2
+            },
+            {
+              "id": "6688b300-42d4-4d3f-b8f7-1263956a00de",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "In the passage, what does 'rare' mean?",
+              "question_ar": null,
+              "choices": [
+                "Very common",
+                "Hard to find",
+                "Very big"
+              ],
+              "correct_answer": "Hard to find",
+              "explanation_en": "Rare means hard to find, which is why the spices were expensive.",
+              "explanation_ar": "نادر يعني صعب الإيجاد، وهذا سبب كون التوابل باهظة الثمن",
+              "sort_order": 3
+            },
+            {
+              "id": "c5e26ddb-df1f-4fce-a88e-30dbf3dad8bd",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "In the passage, what does 'easily' mean?",
+              "question_ar": null,
+              "choices": [
+                "With difficulty",
+                "Without problems",
+                "Very slowly"
+              ],
+              "correct_answer": "Without problems",
+              "explanation_en": "Easily means without problems or difficulties, unlike in the past.",
+              "explanation_ar": "بسهولة يعني بدون مشاكل أو صعوبات، على عكس الماضي",
+              "sort_order": 4
+            },
+            {
+              "id": "2ee1ed18-e77f-4629-b2a8-d4f97a095905",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "Why did Venice become very rich?",
+              "question_ar": null,
+              "choices": [
+                "Because it had good weather",
+                "Because of spice trading",
+                "Because it was near the ocean"
+              ],
+              "correct_answer": "Because of spice trading",
+              "explanation_en": "The passage states that Venice became rich because of spice trading.",
+              "explanation_ar": "النص يذكر أن البندقية أصبحت غنية بسبب تجارة التوابل",
+              "sort_order": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8bf43cee-3a7d-4d85-b33f-362c3dcc5f33",
+      "unit_number": 11,
+      "title_en": "Social Media",
+      "readings": [
+        {
+          "id": "558b7c93-8dbe-473c-9db2-6421139b112f",
+          "reading_label": "A",
+          "title_en": "Social Media Around the World",
+          "passage_content": {
+            "paragraphs": [
+              "Social media has changed how people *communicate* around the world. Today, more than 4.8 billion people use social media platforms to stay *connected* with friends and family. From Saudi Arabia to Japan, people *share* photos, videos, and messages every day.",
+              "Different countries have *popular* social media apps. In Saudi Arabia, Instagram and Snapchat are very *common* among young people. They use these apps to share pictures of food, travel, and daily life. In China, people prefer WeChat and Weibo. These platforms help them *chat* with friends and follow news. WhatsApp is the most used messaging app in Brazil, India, and many Middle Eastern countries.",
+              "Social media *habits* are different around the world too. In the United States, people spend about 2.5 hours on social media each day. In the Philippines, people spend even more time - almost 4 hours daily! Saudi users are very *active* on social media, especially during Ramadan and Eid celebrations when families share special moments.",
+              "Businesses also use social media to *reach* customers. Small companies in Riyadh use Instagram to sell traditional clothes and handmade crafts. Coffee shops in Jeddah post pictures of their drinks to attract young customers. This helps local businesses grow and become more successful.",
+              "Social media brings people together, but it's important to use it *wisely*. Experts suggest taking breaks from screens and spending time with family and friends in person. The best social media users know how to balance online and offline life."
+            ]
+          },
+          "passage_word_count": 267,
+          "questions": [
+            {
+              "id": "6649afdb-dc59-49cf-828e-38b2fa065af0",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is the main topic of this passage?",
+              "question_ar": null,
+              "choices": [
+                "How to make friends online",
+                "How social media is used around the world",
+                "Why social media is bad for people"
+              ],
+              "correct_answer": "How social media is used around the world",
+              "explanation_en": "The passage talks about how people in different countries use social media platforms and apps.",
+              "explanation_ar": "النص يتحدث عن كيفية استخدام الناس في مختلف البلدان لمنصات وتطبيقات وسائل التواصل الاجتماعي",
+              "sort_order": 0
+            },
+            {
+              "id": "0d0a6660-f734-4437-89fa-13d0a212a8db",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How many people use social media platforms today?",
+              "question_ar": null,
+              "choices": [
+                "More than 4.8 billion people",
+                "About 2.5 million people",
+                "Almost 4 thousand people"
+              ],
+              "correct_answer": "More than 4.8 billion people",
+              "explanation_en": "The passage states that more than 4.8 billion people use social media platforms.",
+              "explanation_ar": "ينص المقال على أن أكثر من 4.8 مليار شخص يستخدمون منصات وسائل التواصل الاجتماعي",
+              "sort_order": 1
+            },
+            {
+              "id": "7744a836-9907-4641-9c9c-825d754a5316",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "Which apps are popular with young people in Saudi Arabia?",
+              "question_ar": null,
+              "choices": [
+                "WeChat and Weibo",
+                "Instagram and Snapchat",
+                "WhatsApp and Facebook"
+              ],
+              "correct_answer": "Instagram and Snapchat",
+              "explanation_en": "The passage mentions that Instagram and Snapchat are very common among young people in Saudi Arabia.",
+              "explanation_ar": "يذكر النص أن إنستغرام وسناب شات شائعان جداً بين الشباب في المملكة العربية السعودية",
+              "sort_order": 2
+            },
+            {
+              "id": "f01ca475-e03e-4bc6-ae3a-84150c1add50",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does the word 'active' mean in this passage?",
+              "question_ar": null,
+              "choices": [
+                "Using social media a lot",
+                "Running and exercising",
+                "Working very hard"
+              ],
+              "correct_answer": "Using social media a lot",
+              "explanation_en": "In this context, 'active' means Saudi users use social media frequently, especially during celebrations.",
+              "explanation_ar": "في هذا السياق، 'نشطون' تعني أن المستخدمين السعوديين يستخدمون وسائل التواصل الاجتماعي بكثرة، خاصة أثناء الاحتفالات",
+              "sort_order": 3
+            },
+            {
+              "id": "763e6694-ac3c-450d-a0cf-4c6db6448b29",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How do small businesses in Saudi Arabia use social media?",
+              "question_ar": null,
+              "choices": [
+                "To play games with customers",
+                "To sell clothes and crafts",
+                "To teach people languages"
+              ],
+              "correct_answer": "To sell clothes and crafts",
+              "explanation_en": "The passage says small companies in Riyadh use Instagram to sell traditional clothes and handmade crafts.",
+              "explanation_ar": "ينص المقال على أن الشركات الصغيرة في الرياض تستخدم إنستغرام لبيع الملابس التقليدية والحرف اليدوية",
+              "sort_order": 4
+            },
+            {
+              "id": "76982815-6447-405c-94d7-11d21f2d2fb8",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "What do experts think people should do?",
+              "question_ar": null,
+              "choices": [
+                "Use social media more hours every day",
+                "Take breaks from screens and meet people in person",
+                "Only use social media for business"
+              ],
+              "correct_answer": "Take breaks from screens and meet people in person",
+              "explanation_en": "The passage mentions that experts suggest taking breaks from screens and spending time with family and friends in person.",
+              "explanation_ar": "يذكر النص أن الخبراء ينصحون بأخذ فترات راحة من الشاشات وقضاء الوقت مع الأهل والأصدقاء شخصياً",
+              "sort_order": 5
+            }
+          ]
+        },
+        {
+          "id": "5f22076f-4654-4774-86f6-579b4b26700b",
+          "reading_label": "B",
+          "title_en": "Digital Detox Around the World",
+          "passage_content": {
+            "paragraphs": [
+              "In today's connected world, millions of people are choosing to take breaks from social media and technology. This practice is called a 'digital detox,' and it is becoming *popular* across many countries, including Saudi Arabia.",
+              "Sarah, a 25-year-old graphic designer from Riyadh, decided to *delete* all social media apps from her phone for one month. 'I was spending four hours every day scrolling through Instagram and Twitter,' she explains. 'I wanted to *focus* more on my real relationships and hobbies.' During her digital break, Sarah started reading books again and spent more *quality* time with her family. She felt less stressed and more *creative* at work.",
+              "Research shows that the average person checks their phone 96 times per day. Many people report feeling *anxious* when they cannot access their social media accounts. Dr. Ahmad Hassan, a psychologist at King Saud University, says that taking regular breaks from technology can *improve* mental health. 'When people disconnect from their devices, they often sleep better and feel more *peaceful*,' he notes.",
+              "Digital detox retreats are now *available* in countries like India, Thailand, and the United States. These special vacation places do not allow phones or computers. Guests spend their time doing yoga, hiking, or learning new skills. Some retreats report that 78% of visitors continue to use less social media after they return home.",
+              "The goal is not to stop using technology completely. Instead, people want to create a *healthy* balance between their online and offline lives. As Sarah discovered, sometimes the best way to connect with the world is to first disconnect from our screens."
+            ]
+          },
+          "passage_word_count": 287,
+          "questions": [
+            {
+              "id": "4c7253a0-f18d-4b7f-bf54-4bef89063a39",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is a 'digital detox'?",
+              "question_ar": null,
+              "choices": [
+                "Taking breaks from social media and technology",
+                "Using more social media every day",
+                "Buying new phones and computers"
+              ],
+              "correct_answer": "Taking breaks from social media and technology",
+              "explanation_en": "The passage clearly defines digital detox as taking breaks from social media and technology.",
+              "explanation_ar": "النص يوضح أن الانقطاع الرقمي يعني أخذ استراحة من وسائل التواصل الاجتماعي والتكنولوجيا",
+              "sort_order": 0
+            },
+            {
+              "id": "1f28e148-df64-4cce-9db0-15f60197ce03",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How long did Sarah delete her social media apps?",
+              "question_ar": null,
+              "choices": [
+                "One week",
+                "One month",
+                "One year"
+              ],
+              "correct_answer": "One month",
+              "explanation_en": "The passage states that Sarah deleted all social media apps from her phone for one month.",
+              "explanation_ar": "النص يذكر أن سارة حذفت تطبيقات وسائل التواصل الاجتماعي لمدة شهر واحد",
+              "sort_order": 1
+            },
+            {
+              "id": "6683ba7c-2329-40a8-87c4-17cefc66f2b1",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How many times does the average person check their phone per day?",
+              "question_ar": null,
+              "choices": [
+                "78 times",
+                "96 times",
+                "25 times"
+              ],
+              "correct_answer": "96 times",
+              "explanation_en": "The passage clearly states that research shows the average person checks their phone 96 times per day.",
+              "explanation_ar": "النص يذكر بوضوح أن الأبحاث تظهر أن الشخص العادي يتحقق من هاتفه 96 مرة في اليوم",
+              "sort_order": 2
+            },
+            {
+              "id": "415cb382-c6b9-4dd5-8d85-b11d6229e943",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does the word 'popular' mean in the passage?",
+              "question_ar": null,
+              "choices": [
+                "Expensive",
+                "Liked by many people",
+                "Difficult"
+              ],
+              "correct_answer": "Liked by many people",
+              "explanation_en": "In this context, 'popular' means liked or chosen by many people across many countries.",
+              "explanation_ar": "في هذا السياق، كلمة 'شائع' تعني محبوب أو مختار من قبل الكثير من الناس",
+              "sort_order": 3
+            },
+            {
+              "id": "9549ac51-8d78-4524-839f-9ff8b751f405",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does 'anxious' mean in the passage?",
+              "question_ar": null,
+              "choices": [
+                "Happy and excited",
+                "Worried and nervous",
+                "Tired and sleepy"
+              ],
+              "correct_answer": "Worried and nervous",
+              "explanation_en": "The word 'anxious' means feeling worried or nervous, especially when people cannot access their social media.",
+              "explanation_ar": "كلمة 'قلق' تعني الشعور بالاهتمام أو التوتر، خاصة عندما لا يستطيع الناس الوصول لوسائل التواصل",
+              "sort_order": 4
+            },
+            {
+              "id": "9e532a8c-e1b2-4f0f-890d-a45f4ff3a2ec",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "Why do people go to digital detox retreats?",
+              "question_ar": null,
+              "choices": [
+                "To use more technology",
+                "To learn how to use phones better",
+                "To take a break from phones and computers"
+              ],
+              "correct_answer": "To take a break from phones and computers",
+              "explanation_en": "The passage mentions these retreats don't allow phones or computers, so people go there to disconnect from technology.",
+              "explanation_ar": "النص يذكر أن هذه المراكز لا تسمح بالهواتف أو الحاسوب، لذلك الناس يذهبون للانقطاع عن التكنولوجيا",
+              "sort_order": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "73c7463e-df09-452a-b369-41334805d8a6",
+      "unit_number": 12,
+      "title_en": "Green Living",
+      "readings": [
+        {
+          "id": "34f048e4-23c7-4d39-bb7a-0b3d2e63764b",
+          "reading_label": "A",
+          "title_en": "Saudi Arabia Goes Green",
+          "passage_content": {
+            "paragraphs": [
+              "Saudi Arabia is making big changes to protect the environment. The Kingdom has started many new projects to create a *cleaner* future for its people. These green living projects show how the country cares about nature and wants to *reduce* pollution.",
+              "The Saudi Green Initiative is one of the most important environmental programs in the world. This project plans to plant 10 billion trees across the Kingdom. The trees will help *improve* air quality and make cities cooler. Workers have already started planting trees in Riyadh, Jeddah, and other major cities. The government wants to *increase* green spaces by 40% in the next ten years.",
+              "Many Saudi families are learning to live in more *sustainable* ways. They are using less water and electricity at home. Some people buy *electric* cars instead of regular cars. These cars don't produce harmful gases. Solar panels are becoming *popular* on house rooftops. The sun in Saudi Arabia is very strong, so solar energy works very well here.",
+              "The Red Sea Project is another example of green living. This new tourist destination will use 100% renewable energy. The project will *protect* coral reefs and sea animals. Visitors can enjoy beautiful beaches while the environment stays safe. The project creates jobs for local people too.",
+              "Young Saudis are very excited about these environmental changes. They *participate* in tree planting events and beach cleaning activities. Universities teach students about green technology and environmental science. These young people will help Saudi Arabia become one of the most environmentally friendly countries in the world. The future looks very *bright* for green living in the Kingdom."
+            ]
+          },
+          "passage_word_count": 267,
+          "questions": [
+            {
+              "id": "a5fd4fd5-bc9d-45f0-9eed-a31977481a18",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is the main topic of this passage?",
+              "question_ar": null,
+              "choices": [
+                "Saudi Arabia's environmental projects",
+                "How to plant trees in cities",
+                "The Red Sea tourist activities"
+              ],
+              "correct_answer": "Saudi Arabia's environmental projects",
+              "explanation_en": "The passage discusses various environmental initiatives and green living projects in Saudi Arabia.",
+              "explanation_ar": "النص يتحدث عن المشاريع البيئية ومشاريع العيش الأخضر في المملكة العربية السعودية",
+              "sort_order": 0
+            },
+            {
+              "id": "9beebc6c-971f-4331-8e9b-c2cd99e66ca6",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How many trees does the Saudi Green Initiative plan to plant?",
+              "question_ar": null,
+              "choices": [
+                "40 billion trees",
+                "10 billion trees",
+                "100 million trees"
+              ],
+              "correct_answer": "10 billion trees",
+              "explanation_en": "The passage clearly states that the Saudi Green Initiative plans to plant 10 billion trees.",
+              "explanation_ar": "النص يذكر بوضوح أن مبادرة السعودية الخضراء تخطط لزراعة 10 مليار شجرة",
+              "sort_order": 1
+            },
+            {
+              "id": "f463885f-e9d3-4857-86d1-d2b92381e6b7",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does the word 'sustainable' mean in this passage?",
+              "question_ar": null,
+              "choices": [
+                "Very expensive",
+                "Good for the environment",
+                "Very difficult"
+              ],
+              "correct_answer": "Good for the environment",
+              "explanation_en": "In the context of using less water and electricity, 'sustainable' means environmentally friendly.",
+              "explanation_ar": "في سياق استخدام كمية أقل من الماء والكهرباء، كلمة 'مستدام' تعني صديق للبيئة",
+              "sort_order": 2
+            },
+            {
+              "id": "5349fdc3-804a-4339-9adc-f0d57d354fb5",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "What percentage will green spaces increase in the next ten years?",
+              "question_ar": null,
+              "choices": [
+                "30%",
+                "50%",
+                "40%"
+              ],
+              "correct_answer": "40%",
+              "explanation_en": "The passage states that the government wants to increase green spaces by 40% in the next ten years.",
+              "explanation_ar": "النص يذكر أن الحكومة تريد زيادة المساحات الخضراء بنسبة 40% في السنوات العشر القادمة",
+              "sort_order": 3
+            },
+            {
+              "id": "0063c469-1ac1-4705-8a45-351741c3f044",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "Why do solar panels work well in Saudi Arabia?",
+              "question_ar": null,
+              "choices": [
+                "Because they are cheap",
+                "Because the sun is very strong",
+                "Because people like them"
+              ],
+              "correct_answer": "Because the sun is very strong",
+              "explanation_en": "The passage mentions that solar panels work well because the sun in Saudi Arabia is very strong.",
+              "explanation_ar": "النص يذكر أن الألواح الشمسية تعمل بشكل جيد لأن الشمس في السعودية قوية جداً",
+              "sort_order": 4
+            },
+            {
+              "id": "d84c1271-877a-4aba-a60c-be69c76878d9",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does 'electric' mean when talking about cars?",
+              "question_ar": null,
+              "choices": [
+                "Cars that use gasoline",
+                "Cars that use electricity",
+                "Cars that are very fast"
+              ],
+              "correct_answer": "Cars that use electricity",
+              "explanation_en": "Electric cars are vehicles that run on electricity instead of gasoline.",
+              "explanation_ar": "السيارات الكهربائية هي المركبات التي تعمل بالكهرباء بدلاً من البنزين",
+              "sort_order": 5
+            }
+          ]
+        },
+        {
+          "id": "212b4a0d-072e-4acd-85a3-6d7d910f0589",
+          "reading_label": "B",
+          "title_en": "Saudi Arabia's Solar Revolution",
+          "passage_content": {
+            "paragraphs": [
+              "Saudi Arabia is making a *dramatic* change in how it produces energy. The country wants to *generate* 50% of its electricity from renewable sources by 2030. This is part of Saudi Vision 2030, which aims to create a more *sustainable* future for the Kingdom.",
+              "The NEOM megacity project in the northwest shows Saudi Arabia's *commitment* to green living. NEOM will be completely powered by renewable energy, including solar and wind power. The city will *consume* zero carbon and produce zero waste. Construction workers are already *installing* thousands of solar panels across the desert landscape. These panels can produce enough electricity to power millions of homes.",
+              "Solar energy works perfectly in Saudi Arabia because the country has sunshine almost every day of the year. The desert regions receive more than 2,500 hours of sunlight annually. Scientists *estimate* that Saudi Arabia could produce 20 times more energy than it currently uses, just from solar power alone. This *abundant* sunshine makes the Kingdom one of the best places in the world for solar energy projects.",
+              "The Red Sea Project is another example of Saudi Arabia's green future. This luxury tourism destination will be completely *carbon-neutral*. Visitors will enjoy beautiful beaches and coral reefs while staying in hotels powered entirely by renewable energy. The project will also *protect* the natural environment and create jobs for thousands of Saudis.",
+              "Experts believe that Saudi Arabia's investment in renewable energy will inspire other countries in the region. The Kingdom is proving that oil-rich nations can successfully transition to clean energy while maintaining economic growth."
+            ]
+          },
+          "passage_word_count": 347,
+          "questions": [
+            {
+              "id": "3e7966fc-5ba2-4c35-8eab-0c51bff13ead",
+              "section": "mcq",
+              "question_type": "main_idea",
+              "question_en": "What is Saudi Arabia's main goal for electricity by 2030?",
+              "question_ar": null,
+              "choices": [
+                "To stop using oil completely",
+                "To get 50% of electricity from renewable energy",
+                "To build more cities in the desert"
+              ],
+              "correct_answer": "To get 50% of electricity from renewable energy",
+              "explanation_en": "The passage clearly states that Saudi Arabia wants to generate 50% of its electricity from renewable sources by 2030.",
+              "explanation_ar": "النص يذكر بوضوح أن السعودية تريد توليد 50% من الكهرباء من المصادر المتجددة بحلول 2030",
+              "sort_order": 0
+            },
+            {
+              "id": "16382980-c113-45a7-8ea0-6705735ed89a",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "How many hours of sunlight does Saudi Arabia get each year?",
+              "question_ar": null,
+              "choices": [
+                "More than 1,500 hours",
+                "More than 2,500 hours",
+                "More than 3,500 hours"
+              ],
+              "correct_answer": "More than 2,500 hours",
+              "explanation_en": "The passage states that desert regions receive more than 2,500 hours of sunlight annually.",
+              "explanation_ar": "النص يذكر أن المناطق الصحراوية تحصل على أكثر من 2,500 ساعة من أشعة الشمس سنوياً",
+              "sort_order": 1
+            },
+            {
+              "id": "a98b4f05-24c6-4d7e-847b-3f0e72f5a416",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does 'generate' mean in this passage?",
+              "question_ar": null,
+              "choices": [
+                "To buy",
+                "To produce",
+                "To save"
+              ],
+              "correct_answer": "To produce",
+              "explanation_en": "In this context, 'generate' means to produce electricity from renewable sources.",
+              "explanation_ar": "في هذا السياق، كلمة 'generate' تعني إنتاج الكهرباء من المصادر المتجددة",
+              "sort_order": 2
+            },
+            {
+              "id": "230de9eb-e9a7-4b20-a28e-b7f0eb5a949b",
+              "section": "mcq",
+              "question_type": "detail",
+              "question_en": "The NEOM city will produce how much carbon?",
+              "question_ar": null,
+              "choices": [
+                "Very little carbon",
+                "Zero carbon",
+                "Some carbon"
+              ],
+              "correct_answer": "Zero carbon",
+              "explanation_en": "The passage clearly states that NEOM will consume zero carbon and produce zero waste.",
+              "explanation_ar": "النص يذكر بوضوح أن نيوم ستستهلك صفر كربون وتنتج صفر نفايات",
+              "sort_order": 3
+            },
+            {
+              "id": "6513782f-6cd0-4cad-9e6a-715c1d23faa3",
+              "section": "mcq",
+              "question_type": "vocabulary",
+              "question_en": "What does 'abundant' mean in the passage?",
+              "question_ar": null,
+              "choices": [
+                "Very little",
+                "Very much",
+                "Sometimes available"
+              ],
+              "correct_answer": "Very much",
+              "explanation_en": "Abundant means plentiful or very much, referring to the large amount of sunshine in Saudi Arabia.",
+              "explanation_ar": "كلمة 'abundant' تعني وفير أو كثير جداً، وتشير إلى كمية أشعة الشمس الكبيرة في السعودية",
+              "sort_order": 4
+            },
+            {
+              "id": "3de6a296-e2cd-427b-8680-195ce615ba84",
+              "section": "mcq",
+              "question_type": "inference",
+              "question_en": "Why is Saudi Arabia good for solar energy?",
+              "question_ar": null,
+              "choices": [
+                "Because it has many workers",
+                "Because it has sunshine almost every day",
+                "Because it has lots of oil"
+              ],
+              "correct_answer": "Because it has sunshine almost every day",
+              "explanation_en": "The passage explains that solar energy works perfectly in Saudi Arabia because the country has sunshine almost every day of the year.",
+              "explanation_ar": "النص يوضح أن الطاقة الشمسية تعمل بشكل مثالي في السعودية لأن البلد يحصل على أشعة الشمس تقريباً كل يوم في السنة",
+              "sort_order": 5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
