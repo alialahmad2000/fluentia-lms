@@ -1,0 +1,150 @@
+{
+  "unit_number": 12,
+  "theme": "Green Living",
+  "passages": [
+    {
+      "reading_label": "A",
+      "title_en": "Saudi Arabia Goes Green",
+      "paragraphs": [
+        "Saudi lands are working hard to live in a green and clean way. The country has started many plans to keep the earth safe. People are planting more trees in the city and the desert. This helps to cool the air and make the land more green.",
+        "One big plan is to plant many new trees all around Saudi lands. The trees will help clean the air and give some shade. They will also help small animals find a home in the desert. Green parks are also being built in the big cities.",
+        "Saudi lands are also working hard on clean and green power. They use the sun and the wind to make new power for the country. These clean ways do not hurt the air or the land at all. They are much better for the earth than old ways of work.",
+        "Young people in Saudi lands are learning about green living at school. They learn to use less water and not waste food at home. Small steps like these can make a very big change over time. Every person can help keep our earth clean and safe."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["Saudi lands are working hard to live in a clean and green way.", "Saudi lands do not care about the earth.", "Only new trees are being planted, nothing else.", "Green living is not important in Saudi lands."],
+          "correct_answer": "Saudi lands are working hard to live in a clean and green way.",
+          "explanation_en": "The passage talks about how Saudi lands are working on clean power, trees, and green living.",
+          "explanation_ar": "يتحدث النص عن كيف تعمل أراضي السعودية على الطاقة النظيفة والأشجار والعيش الأخضر."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "What does planting trees do for the land?",
+          "question_ar": "ماذا تفعل زراعة الأشجار للأرض؟",
+          "choices": ["It helps cool the air and makes the land more green.", "It makes the air very hot.", "It takes all the water from the ground.", "It keeps people far from home."],
+          "correct_answer": "It helps cool the air and makes the land more green.",
+          "explanation_en": "The passage says planting trees helps cool the air and make the land more green.",
+          "explanation_ar": "يقول النص إن زراعة الأشجار تساعد على تبريد الهواء وجعل الأرض أكثر خضرة."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'shade' means:",
+          "question_ar": "في النص، كلمة 'shade' تعني:",
+          "choices": ["A cool place under a tree away from the sun", "A very loud song", "A warm piece of food", "A small bright light"],
+          "correct_answer": "A cool place under a tree away from the sun",
+          "explanation_en": "'Shade' is the cool place under a tree or roof where the sun does not hit.",
+          "explanation_ar": "'Shade' هو المكان البارد تحت شجرة أو سقف حيث لا تصل الشمس."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "detail",
+          "question_en": "How does Saudi lands make clean power?",
+          "question_ar": "كيف تصنع أراضي السعودية طاقة نظيفة؟",
+          "choices": ["By using the sun and the wind", "By cutting all the trees", "By burning all the books", "By keeping the land dry"],
+          "correct_answer": "By using the sun and the wind",
+          "explanation_en": "The passage says Saudi lands use the sun and the wind to make new power for the country.",
+          "explanation_ar": "يقول النص إن أراضي السعودية تستخدم الشمس والرياح لصنع طاقة جديدة للبلاد."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "inference",
+          "question_en": "Why are small steps important for the earth?",
+          "question_ar": "لماذا الخطوات الصغيرة مهمة للأرض؟",
+          "choices": ["Small steps can make a very big change over time.", "Small steps do not matter at all.", "Small steps make the earth very hot.", "Small steps keep people inside."],
+          "correct_answer": "Small steps can make a very big change over time.",
+          "explanation_en": "The passage says small steps like these can make a very big change over time.",
+          "explanation_ar": "يقول النص إن خطوات صغيرة مثل هذه يمكن أن تحدث تغييراً كبيراً جداً مع مرور الوقت."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'waste' means:",
+          "question_ar": "في النص، كلمة 'waste' تعني:",
+          "choices": ["To use more than you need and throw away the rest", "To cook warm food", "To paint a small picture", "To walk in the park"],
+          "correct_answer": "To use more than you need and throw away the rest",
+          "explanation_en": "'Waste' means to use more than you need and throw away the rest.",
+          "explanation_ar": "'Waste' تعني استخدام أكثر مما تحتاج ورمي الباقي."
+        }
+      ]
+    },
+    {
+      "reading_label": "B",
+      "title_en": "Saudi Arabia's Solar Revolution",
+      "paragraphs": [
+        "Saudi lands have a lot of strong sun every day of the year. This makes it a very good place to make power from the sun. Big fields of solar panels are now being built in the hot desert. They turn the sun into clean power for homes and schools.",
+        "Solar power does not hurt the earth or the air at all. It does not make any smoke or bad smells from its work. The sun is always there, so the power will never run out. This is very different from old ways of making power.",
+        "These new solar fields have made many new jobs for people. Workers help to build and fix the big solar panels every day. Others plan new fields and check that everything works well. Young people are learning about solar power at school too.",
+        "The plan is for Saudi lands to use more solar power each year. This will help the country be a leader in green power. Other lands may also learn from this and do the same. The sun in the desert is now a very big gift for the earth."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["Saudi lands are using the sun to make clean power for homes and schools.", "The sun is too hot to use at all.", "Solar power is not clean or good.", "Nobody uses solar power in Saudi lands."],
+          "correct_answer": "Saudi lands are using the sun to make clean power for homes and schools.",
+          "explanation_en": "The passage talks about how Saudi lands use big solar fields to make clean power.",
+          "explanation_ar": "يتحدث النص عن كيف تستخدم أراضي السعودية حقول الطاقة الشمسية الكبيرة لصنع طاقة نظيفة."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "Why is Saudi lands a good place to make solar power?",
+          "question_ar": "لماذا أراضي السعودية مكان جيد لصنع الطاقة الشمسية؟",
+          "choices": ["It has a lot of strong sun every day of the year", "It has a lot of snow every day", "It has very cold nights", "It has many deep rivers"],
+          "correct_answer": "It has a lot of strong sun every day of the year",
+          "explanation_en": "The passage says Saudi lands have a lot of strong sun every day of the year.",
+          "explanation_ar": "يقول النص إن أراضي السعودية لديها الكثير من الشمس القوية كل يوم من السنة."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'panels' means:",
+          "question_ar": "في النص، كلمة 'panels' تعني:",
+          "choices": ["Flat pieces that turn sunlight into power", "Small warm songs", "Long red flowers", "Bright kinds of food"],
+          "correct_answer": "Flat pieces that turn sunlight into power",
+          "explanation_en": "'Panels' are flat pieces that catch sunlight and turn it into power.",
+          "explanation_ar": "'Panels' هي قطع مسطحة تلتقط ضوء الشمس وتحوله إلى طاقة."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "detail",
+          "question_en": "What has the new solar fields made for people?",
+          "question_ar": "ماذا صنعت حقول الطاقة الشمسية الجديدة للناس؟",
+          "choices": ["Many new jobs", "Big new boats", "Warm new clothes", "Small new pets"],
+          "correct_answer": "Many new jobs",
+          "explanation_en": "The passage says new solar fields have made many new jobs for people.",
+          "explanation_ar": "يقول النص إن الحقول الشمسية الجديدة صنعت وظائف جديدة كثيرة للناس."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'solar' means:",
+          "question_ar": "في النص، كلمة 'solar' تعني:",
+          "choices": ["From the sun", "From a tall tree", "From the deep sea", "From a cold rock"],
+          "correct_answer": "From the sun",
+          "explanation_en": "'Solar' means from the sun, like solar power or solar lights.",
+          "explanation_ar": "'Solar' تعني من الشمس، مثل الطاقة الشمسية أو الأضواء الشمسية."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why will Saudi lands be a leader in green power?",
+          "question_ar": "لماذا ستكون أراضي السعودية رائدة في الطاقة الخضراء؟",
+          "choices": ["It plans to use more solar power each year.", "It stops using the sun for work.", "It cuts all the big trees down.", "It keeps people far from school."],
+          "correct_answer": "It plans to use more solar power each year.",
+          "explanation_en": "The passage says the plan is for Saudi lands to use more solar power each year.",
+          "explanation_ar": "يقول النص إن الخطة هي أن تستخدم أراضي السعودية المزيد من الطاقة الشمسية كل عام."
+        }
+      ]
+    }
+  ]
+}
