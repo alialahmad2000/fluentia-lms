@@ -1,0 +1,150 @@
+{
+  "unit_number": 11,
+  "theme": "Social Media",
+  "passages": [
+    {
+      "reading_label": "A",
+      "title_en": "Social Media Around the World",
+      "paragraphs": [
+        "Social media is a new way for people to share with others online. We can send photos, short videos, and notes in one second. Friends from far away can see our life every day. Social media makes the world feel small and close.",
+        "In many lands, young people use social media the most. They share photos of their food, their family, and their trips. Some of them follow singers, writers, and other famous people. It is fun to see what is new in other parts of the world.",
+        "Social media also helps us learn new things every day. Teachers share short lessons that students can watch at home. People find new ideas about food, art, and music online. Some students use it to do their school work in a better way.",
+        "But social media is not all good news for people. Some people spend too much time on their phones each day. It is good to keep a kind balance in our life. We should also spend time with family and friends face to face."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["Social media helps people share and learn but we should use it in a balanced way.", "Social media is only bad for people.", "Only old people use social media.", "Social media has no good side at all."],
+          "correct_answer": "Social media helps people share and learn but we should use it in a balanced way.",
+          "explanation_en": "The passage talks about how social media helps people and how we should use it in a balanced way.",
+          "explanation_ar": "يتحدث النص عن كيف تساعد وسائل التواصل الاجتماعي الناس وكيف يجب أن نستخدمها بطريقة متوازنة."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "What do young people share on social media?",
+          "question_ar": "ماذا يشارك الشباب على وسائل التواصل الاجتماعي؟",
+          "choices": ["Photos of their food, family, and trips", "Only small numbers", "Only old books", "Only warm clothes"],
+          "correct_answer": "Photos of their food, family, and trips",
+          "explanation_en": "The passage says young people share photos of their food, family, and trips.",
+          "explanation_ar": "يقول النص إن الشباب يشاركون صور طعامهم وعائلاتهم ورحلاتهم."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "detail",
+          "question_en": "How can teachers use social media?",
+          "question_ar": "كيف يمكن للمعلمين استخدام وسائل التواصل الاجتماعي؟",
+          "choices": ["To share small lessons students can watch at home", "To sell small foods to kids", "To build new homes", "To stop students from learning"],
+          "correct_answer": "To share small lessons students can watch at home",
+          "explanation_en": "The passage says teachers share small lessons that students can watch at home.",
+          "explanation_ar": "يقول النص إن المعلمين يشاركون دروساً صغيرة يمكن للطلاب مشاهدتها في المنزل."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'online' means:",
+          "question_ar": "في النص، كلمة 'online' تعني:",
+          "choices": ["On the internet", "Inside a warm room", "On top of a hill", "In a small box"],
+          "correct_answer": "On the internet",
+          "explanation_en": "'Online' means on the internet, where people can share and find things.",
+          "explanation_ar": "'Online' تعني على الإنترنت، حيث يمكن للناس المشاركة وإيجاد الأشياء."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "detail",
+          "question_en": "What is one bad side of social media?",
+          "question_ar": "ما هو الجانب السيئ لوسائل التواصل الاجتماعي؟",
+          "choices": ["Some people spend too much time on their phones", "It makes people work less", "It keeps all family close", "It gives people new books"],
+          "correct_answer": "Some people spend too much time on their phones",
+          "explanation_en": "The passage says some people spend too much time on their phones each day.",
+          "explanation_ar": "يقول النص إن بعض الناس يقضون الكثير من الوقت على هواتفهم كل يوم."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why should we spend time with family face to face?",
+          "question_ar": "لماذا يجب أن نقضي وقتاً مع العائلة وجهاً لوجه؟",
+          "choices": ["To keep a kind balance and stay close to them.", "To stop using phones at all.", "To be alone all day.", "To make our phones faster."],
+          "correct_answer": "To keep a kind balance and stay close to them.",
+          "explanation_en": "The passage says it is important to keep a kind balance and spend time with family face to face.",
+          "explanation_ar": "يقول النص إنه من المهم الحفاظ على توازن لطيف وقضاء الوقت مع العائلة وجهاً لوجه."
+        }
+      ]
+    },
+    {
+      "reading_label": "B",
+      "title_en": "Digital Detox Around the World",
+      "paragraphs": [
+        "A digital detox is a short time without any phone or screen. People take a break from social media and other online things. They do this to feel more rested and to think clearly. It is a new idea that many people love to try.",
+        "In some lands, people go to a quiet place for a digital detox. They walk in the woods, sit by the sea, or read a paper book. They leave their phones at home or turn them off for days. This helps their mind feel calm and fresh again.",
+        "Doctors say that too much screen time is not good for us. It can make our eyes tired and our mind busy all the time. A short break helps people sleep better at night. It also helps them feel more happy in the day.",
+        "You can try a small digital detox at home too. Turn off your phone for one hour and do something else. Read a book, play with your family, or draw a picture. Each small break helps you feel a bit more rested and calm."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["A digital detox is a short break from phones that helps people feel rested.", "A digital detox is a kind of new phone.", "People should use their phones all day long.", "A digital detox is only for old people."],
+          "correct_answer": "A digital detox is a short break from phones that helps people feel rested.",
+          "explanation_en": "The passage talks about how a digital detox is a short break that helps people rest and feel calm.",
+          "explanation_ar": "يتحدث النص عن كيف أن فصل الأجهزة الرقمية استراحة قصيرة تساعد الناس على الراحة والشعور بالهدوء."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "Where do people go for a digital detox?",
+          "question_ar": "إلى أين يذهب الناس للتخلص من الأجهزة الرقمية؟",
+          "choices": ["A quiet place like the woods or by the sea", "A very loud and busy city", "A small hot kitchen", "A big bright school"],
+          "correct_answer": "A quiet place like the woods or by the sea",
+          "explanation_en": "The passage says people go to a quiet place and walk in the woods or sit by the sea.",
+          "explanation_ar": "يقول النص إن الناس يذهبون إلى مكان هادئ ويمشون في الغابات أو يجلسون بجانب البحر."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "detail",
+          "question_en": "What can too much screen time do to us?",
+          "question_ar": "ماذا يمكن أن يفعل الكثير من وقت الشاشة لنا؟",
+          "choices": ["Make our eyes tired and our mind busy", "Make us feel very strong", "Make us sleep all day", "Make our food more tasty"],
+          "correct_answer": "Make our eyes tired and our mind busy",
+          "explanation_en": "The passage says too much screen time can make our eyes tired and our mind busy.",
+          "explanation_ar": "يقول النص إن الكثير من وقت الشاشة يمكن أن يجعل أعيننا متعبة وعقلنا مشغولاً."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'detox' means:",
+          "question_ar": "في النص، كلمة 'detox' تعني:",
+          "choices": ["A short time to stop doing something and feel better", "A kind of warm food", "A small bright light", "A long soft song"],
+          "correct_answer": "A short time to stop doing something and feel better",
+          "explanation_en": "'Detox' means a short time to stop doing something like using phones to help you feel better.",
+          "explanation_ar": "'Detox' تعني فترة قصيرة للتوقف عن القيام بشيء ما مثل استخدام الهواتف لمساعدتك على الشعور بتحسن."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'screen' means:",
+          "question_ar": "في النص، كلمة 'screen' تعني:",
+          "choices": ["The flat glass part of a phone or computer", "A kind of warm hat", "A small red bird", "A long wooden stick"],
+          "correct_answer": "The flat glass part of a phone or computer",
+          "explanation_en": "'Screen' is the flat glass part of a phone or computer where you see things.",
+          "explanation_ar": "'Screen' هو الجزء الزجاجي المسطح من الهاتف أو الكمبيوتر حيث ترى الأشياء."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why is a digital detox good for you?",
+          "question_ar": "لماذا فصل الأجهزة الرقمية جيد لك؟",
+          "choices": ["It helps you sleep better, feel happy, and rest your mind.", "It makes your phone very bright.", "It makes your school work harder.", "It keeps you sad all day."],
+          "correct_answer": "It helps you sleep better, feel happy, and rest your mind.",
+          "explanation_en": "The passage says a short break helps people sleep better and feel more happy.",
+          "explanation_ar": "يقول النص إن الاستراحة القصيرة تساعد الناس على النوم بشكل أفضل والشعور بمزيد من السعادة."
+        }
+      ]
+    }
+  ]
+}
