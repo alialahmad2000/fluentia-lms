@@ -5,6 +5,44 @@
 
 ---
 
+## Session 19 — PROMPT 13 L1 Reading Rewrites
+
+**Date:** 2026-04-12
+**Scope:** All 24 reading passages + 144 comprehension questions in L1 (A1)
+
+### Before
+- Average word count: ~255 (all over 200 target)
+- Passages out of FKGL range: 24/24 (mostly FKGL 6-10, all over 4.0 target)
+- Heavy OOV load: 80-140 out-of-allowlist words per passage
+
+### After
+- Average word count: 172 (range 151-190, target 120-200)
+- Average FKGL: 3.21 (range 2.42-3.85, target 2.0-4.0)
+- Average sentence length: 10.68 (range 9.44-11.88, target 8-12)
+- Pass rate: 24/24 (100%)
+- Vocabulary compliance: 100% (L0+L1 allowlist + core A1 basics + proper nouns)
+- Questions updated: 144/144 (IDs preserved by sort_order mapping)
+
+### Student Work Protection
+- Total student records checked: 0
+- Records auto-completed: 0
+- Students affected: 0
+- Writing/speaking submissions: untouched (separate FK columns verified)
+
+### Rules Applied
+- Rule 3: Reading passage length per-level ✓
+- Rule 4: Reading FKGL per-level ✓
+- Rule 12: Discovery first ✓
+- Rule 13: Student work protection ✓
+- Rule 14: Atomic per-unit commits ✓
+- Rule 16: Rowcount assertions (readings, questions, student_curriculum_progress) ✓
+
+### Commits
+- 12 per-unit commits (U01–U12), each with applied + validated metrics
+- 1 finalize commit with audit report update
+
+---
+
 ## Session 18 — PROMPT 13 L0 Reading Rewrites
 
 **Date:** 2026-04-08
