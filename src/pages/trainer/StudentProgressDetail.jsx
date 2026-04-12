@@ -84,11 +84,15 @@ export default function StudentProgressDetail() {
   const { data: student, isLoading: loadingStudent } = useQuery({
     queryKey: ['student-profile-detail', studentId],
     queryFn: async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('profiles')
         .select('*, students(*, groups(name, code, level), teams(name, color))')
         .eq('id', studentId)
         .single()
+      if (error) {
+        console.error('StudentProgressDetail: failed to load student', studentId, error.message)
+        return null
+      }
       return data
     },
     enabled: !!studentId,

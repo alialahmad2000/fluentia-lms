@@ -186,9 +186,7 @@ export default function TrainerDashboard() {
       title: 'تسجيل تحدث',
       name: r.students?.profiles?.full_name || r.students?.profiles?.display_name || 'طالب',
       date: r.created_at,
-      // Speaking recordings don't have a dedicated grading UI yet — send the
-      // trainer to the student's progress detail where they can listen and mark reviewed.
-      href: r.student_id ? `/trainer/student/${r.student_id}/progress` : '/trainer/grading',
+      href: '/trainer/grading',
     })),
   ].sort((a, b) => new Date(a.date) - new Date(b.date))
 

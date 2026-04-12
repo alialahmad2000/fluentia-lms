@@ -286,6 +286,16 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### April 12, 2026 — Fix Trainer Dashboard "الطالب غير موجود" Bug
+- What: Clicking a pending speaking recording in the trainer dashboard's "واجبات تنتظر التصحيح" section was navigating to `/trainer/student/:id/progress` which showed "الطالب غير موجود" (student not found) instead of taking the trainer to the grading page. Root cause: speaking recordings had no dedicated grading UI, so the code routed to `StudentProgressDetail` — but that page's `.single()` query silently swallowed errors, returning null and triggering the "not found" message.
+- **Fix 1 — TrainerDashboard.jsx:** Changed speaking recording `href` from `/trainer/student/${r.student_id}/progress` to `/trainer/grading` so all pending items (assignments AND speaking) go to the grading page.
+- **Fix 2 — StudentProgressDetail.jsx:** Added proper error handling to the `.single()` query — destructures `error`, logs it with student ID for debugging, returns null gracefully instead of silently swallowing.
+- Files: `src/pages/trainer/TrainerDashboard.jsx`, `src/pages/trainer/StudentProgressDetail.jsx`
+- DB: No changes
+- Edge Functions: None
+- Status: Complete
+- Notes: The trainer now always lands on `/trainer/grading` for any pending item, which is the correct destination for both assignment submissions and speaking recordings.
+
 ### April 12, 2026 — Convert Prompts 31/35/36 to Single Sequential Agent (Prompt 38)
 - What: Refactored Prompts 31 (Synonyms/Antonyms), 35 (Word Families + Morphology), and 36 (Pronunciation Alerts) from the previous "split into 10 batches and run 10 Claude Code tabs in parallel" pattern into a single sequential agent that processes the entire vocabulary table in chunks, committing progress between chunks. Root cause for the change: each separate Claude Code tab loaded its own full context (system prompt + skills + discovery + rules), so the cost was ~10× the tokens of doing the same work in one run, and it burned the Claude Code Max weekly quota in hours.
 - **New canonical prompt files** (written into `prompts/agents/`, which previously only held the per-batch manager files): `31-synonyms-antonyms-system.md` (batch 50), `35-word-families.md` (batch 30 — smaller because morphology explanations are longer per word), `36-pronunciation-alerts.md` (batch 50). Each prompt now describes a single processing loop: `--fetch N → reason in one pass → --apply → git commit chore(...) processed words N-M → loop`. PART A (database/migration) and PART C (UI component) were preserved verbatim from the original prompts; only the generation section was rewritten.
