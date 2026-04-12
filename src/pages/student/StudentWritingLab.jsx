@@ -182,11 +182,11 @@ function SentenceBuildingPanel() {
     queryFn: async () => {
       const { data } = await supabase
         .from('writing_history')
-        .select('id, original_text, feedback, fluency_score, xp_earned, created_at, prompt_used')
+        .select('id, original_text, feedback, fluency_score, xp_earned, created_at, prompt_used, attempt_number, is_latest, is_best')
         .eq('student_id', profile?.id)
         .eq('task_type', 'sentence_building')
         .order('created_at', { ascending: false })
-        .limit(10)
+        .limit(20)
       return data || []
     },
     enabled: !!profile?.id,
@@ -438,12 +438,19 @@ function SentenceBuildingPanel() {
             <div className="px-5 pb-4 space-y-3 max-h-[400px] overflow-y-auto">
               {history.map((item) => (
                 <div key={item.id} className="rounded-xl p-3 text-sm" style={{ background: 'var(--surface-base)', border: '1px solid var(--border-subtle)' }}>
-                  <p className="text-xs text-muted mb-1" dir="ltr">
-                    <Clock size={10} className="inline mr-1" />
-                    {new Date(item.created_at).toLocaleDateString('ar-SA', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
-                    {item.fluency_score && <span className="mr-2 font-bold" style={{ color: 'var(--accent-sky)' }}>{item.fluency_score}/10</span>}
-                    {item.xp_earned && <span className="mr-2 text-amber-400">+{item.xp_earned} XP</span>}
-                  </p>
+                  <div className="flex items-center justify-between mb-1">
+                    <p className="text-xs text-muted" dir="ltr">
+                      <Clock size={10} className="inline mr-1" />
+                      {new Date(item.created_at).toLocaleDateString('ar-SA', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                      {item.attempt_number > 1 && <span className="mr-1 text-violet-400">محاولة {item.attempt_number}</span>}
+                    </p>
+                    <div className="flex items-center gap-1.5">
+                      {item.fluency_score != null && <span className="text-xs font-bold" style={{ color: 'var(--accent-sky)' }}>{item.fluency_score}/10</span>}
+                      {item.xp_earned > 0 && <span className="text-xs text-amber-400">+{item.xp_earned} XP</span>}
+                      {item.is_best && <span className="px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-emerald-500/15 text-emerald-400">الأفضل</span>}
+                      {item.is_latest && !item.is_best && <span className="px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-sky-500/15 text-sky-400">الأحدث</span>}
+                    </div>
+                  </div>
                   <p className="text-xs truncate" dir="ltr" style={{ color: 'var(--text-secondary)' }}>{item.original_text}</p>
                   {item.prompt_used && <p className="text-[10px] text-muted mt-1">{item.prompt_used}</p>}
                 </div>

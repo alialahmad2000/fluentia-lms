@@ -1,7 +1,7 @@
 import { useState, useMemo, useCallback } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Mic, ChevronDown, Clock, MessageCircle, Sparkles, Volume2, ClipboardCheck, GraduationCap, RefreshCw, Loader2 } from 'lucide-react'
+import { Mic, ChevronDown, Clock, MessageCircle, Sparkles, Volume2, ClipboardCheck, GraduationCap, RefreshCw, Loader2, History } from 'lucide-react'
 import ShareAchievementCard from '../../../../components/ShareAchievementCard'
 import ActivityLeaderboard from '../../../../components/ActivityLeaderboard'
 import { useActivityLeaderboard } from '../../../../hooks/useActivityLeaderboard'
@@ -67,11 +67,20 @@ export default function SpeakingTab({ unitId }) {
     enabled: !!unitId && !!studentId,
   })
 
-  // Group recordings: latest per question_index
+  // Group recordings: latest per question_index + all attempts
   const latestByQuestion = useMemo(() => {
     const map = {}
     recordings?.forEach(rec => {
       if (!map[rec.question_index]) map[rec.question_index] = rec
+    })
+    return map
+  }, [recordings])
+
+  const attemptsByQuestion = useMemo(() => {
+    const map = {}
+    recordings?.forEach(rec => {
+      if (!map[rec.question_index]) map[rec.question_index] = []
+      map[rec.question_index].push(rec)
     })
     return map
   }, [recordings])
@@ -135,6 +144,7 @@ export default function SpeakingTab({ unitId }) {
           studentName={studentName}
           groupId={groupId}
           existingRecording={latestByQuestion[idx] || null}
+          allAttempts={attemptsByQuestion[idx] || []}
           onUploadComplete={handleUploadComplete}
         />
       ))}
@@ -143,11 +153,12 @@ export default function SpeakingTab({ unitId }) {
 }
 
 // ─── Speaking Topic ──────────────────────────────────
-function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId, studentName, groupId, existingRecording, onUploadComplete }) {
+function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId, studentName, groupId, existingRecording, allAttempts = [], onUploadComplete }) {
   const [tipsOpen, setTipsOpen] = useState(false)
   const [phrasesOpen, setPhrasesOpen] = useState(false)
   const [liveEvaluation, setLiveEvaluation] = useState(null)
   const [retrying, setRetrying] = useState(false)
+  const [attemptsOpen, setAttemptsOpen] = useState(false)
   const { data: leaderboard } = useActivityLeaderboard('speaking', unitId, studentId, groupId)
 
   const handleRetryEvaluation = useCallback(async () => {
@@ -414,6 +425,80 @@ function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId,
           {existingRecording.trainer_feedback && (
             <p className="text-xs text-[var(--text-secondary)] font-['Tajawal'] leading-relaxed">{existingRecording.trainer_feedback}</p>
           )}
+        </div>
+      )}
+
+      {/* Attempt History */}
+      {allAttempts.length > 1 && (
+        <div
+          className="rounded-xl overflow-hidden"
+          style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
+        >
+          <button
+            onClick={() => setAttemptsOpen(!attemptsOpen)}
+            className="w-full flex items-center justify-between px-4 py-3 text-left"
+          >
+            <div className="flex items-center gap-2">
+              <History size={14} className="text-violet-400" />
+              <span className="text-sm font-bold text-[var(--text-secondary)] font-['Tajawal']">
+                جميع المحاولات ({allAttempts.length})
+              </span>
+            </div>
+            <ChevronDown
+              size={14}
+              className={`text-[var(--text-muted)] transition-transform duration-200 ${attemptsOpen ? 'rotate-180' : ''}`}
+            />
+          </button>
+          <AnimatePresence>
+            {attemptsOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="overflow-hidden"
+              >
+                <div className="px-4 pb-3 space-y-2">
+                  {allAttempts.map((attempt) => {
+                    const score = attempt.ai_evaluation?.overall_score
+                    return (
+                      <div
+                        key={attempt.id}
+                        className="flex items-center justify-between py-2 px-3 rounded-lg text-xs"
+                        style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-[var(--text-muted)] font-['Tajawal']">
+                            محاولة {attempt.attempt_number || '—'}
+                          </span>
+                          <span className="text-[var(--text-muted)] text-[10px]">
+                            {new Date(attempt.created_at).toLocaleDateString('ar-SA', { day: 'numeric', month: 'short' })}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          {score != null && (
+                            <span className="font-bold tabular-nums" style={{ color: score >= 8 ? '#22c55e' : score >= 6 ? '#38bdf8' : '#f59e0b' }}>
+                              {score}/10
+                            </span>
+                          )}
+                          {attempt.is_best && (
+                            <span className="px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-emerald-500/15 text-emerald-400">
+                              الأفضل
+                            </span>
+                          )}
+                          {attempt.is_latest && (
+                            <span className="px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-sky-500/15 text-sky-400">
+                              الأحدث
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       )}
 
