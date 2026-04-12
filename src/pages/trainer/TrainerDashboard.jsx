@@ -123,7 +123,7 @@ export default function TrainerDashboard() {
       if (!studentIds.length) return []
       const { data, error } = await supabase
         .from('speaking_recordings')
-        .select('id, student_id, created_at, students:student_id(profiles(full_name, display_name))')
+        .select('id, student_id, unit_id, created_at, students:student_id(profiles(full_name, display_name)), units:unit_id(level_id)')
         .in('student_id', studentIds)
         .eq('trainer_reviewed', false)
         .order('created_at', { ascending: true })
@@ -134,8 +134,30 @@ export default function TrainerDashboard() {
     enabled: students.length > 0,
   })
 
+  // ── Pending Writing (curriculum) ──
+  const { data: pendingWriting = [] } = useQuery({
+    queryKey: ['trainer-pending-writing', currentGroupIds],
+    queryFn: async () => {
+      if (!currentGroupIds.length) return []
+      const studentIds = students.map(s => s.id)
+      if (!studentIds.length) return []
+      const { data, error } = await supabase
+        .from('student_curriculum_progress')
+        .select('id, student_id, unit_id, writing_id, completed_at, units:unit_id(level_id)')
+        .eq('section_type', 'writing')
+        .eq('status', 'completed')
+        .is('trainer_graded_at', null)
+        .in('student_id', studentIds)
+        .order('completed_at', { ascending: true })
+        .limit(10)
+      if (error) { console.error('[Dashboard] writing:', error.message); return [] }
+      return data || []
+    },
+    enabled: students.length > 0,
+  })
+
   // ── Computed stats ──
-  const pendingCount = pendingAssignments.length + pendingSpeaking.length
+  const pendingCount = pendingAssignments.length + pendingSpeaking.length + pendingWriting.length
   const streaksAtRisk = students.filter(s => {
     if (!s.current_streak || s.current_streak === 0) return false
     const lastActive = s.profiles?.last_active_at
@@ -171,6 +193,12 @@ export default function TrainerDashboard() {
     )
   }
 
+  // Helper: find student name from students array
+  const getStudentName = (studentId) => {
+    const s = students.find(st => st.id === studentId)
+    return s?.profiles?.full_name || s?.profiles?.display_name || 'طالب'
+  }
+
   // ── All pending items merged ──
   const allPending = [
     ...pendingAssignments.map(s => ({
@@ -178,7 +206,6 @@ export default function TrainerDashboard() {
       title: s.assignments?.title || 'واجب',
       name: s.students?.profiles?.full_name || s.students?.profiles?.display_name || 'طالب',
       date: s.submitted_at || s.created_at,
-      // Deep-link target: open the grading modal for this exact submission
       href: `/trainer/grading?open=${s.id}`,
     })),
     ...pendingSpeaking.map(r => ({
@@ -186,7 +213,18 @@ export default function TrainerDashboard() {
       title: 'تسجيل تحدث',
       name: r.students?.profiles?.full_name || r.students?.profiles?.display_name || 'طالب',
       date: r.created_at,
-      href: '/trainer/grading',
+      href: r.units?.level_id && r.unit_id
+        ? `/trainer/interactive-curriculum/${r.units.level_id}/${r.unit_id}?tab=speaking&student=${r.student_id}`
+        : '/trainer/grading',
+    })),
+    ...pendingWriting.map(w => ({
+      id: `wr-${w.id}`, type: 'writing',
+      title: 'مهمة كتابة',
+      name: getStudentName(w.student_id),
+      date: w.completed_at,
+      href: w.units?.level_id && w.unit_id
+        ? `/trainer/interactive-curriculum/${w.units.level_id}/${w.unit_id}?tab=writing&student=${w.student_id}`
+        : '/trainer/grading',
     })),
   ].sort((a, b) => new Date(a.date) - new Date(b.date))
 

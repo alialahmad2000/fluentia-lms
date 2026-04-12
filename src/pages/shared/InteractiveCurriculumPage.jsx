@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
   BookOpen, PenLine, Languages, Headphones, FileEdit, Mic,
@@ -33,11 +33,15 @@ const TABS = [
 export default function InteractiveCurriculumPage() {
   const { levelId, unitId } = useParams()
   const navigate = useNavigate()
+  const [searchParams, setSearchParams] = useSearchParams()
   const { profile, trainerData } = useAuthStore()
   const role = profile?.role
   const basePath = role === 'admin' ? '/admin' : '/trainer'
 
-  const [activeTab, setActiveTab] = useState('reading')
+  // Deep-link support: ?tab=writing&student=uuid
+  const tabParam = searchParams.get('tab')
+  const highlightStudent = searchParams.get('student')
+  const [activeTab, setActiveTab] = useState(tabParam || 'reading')
 
   // Fetch unit details
   const { data: unit } = useQuery({
@@ -127,9 +131,9 @@ export default function InteractiveCurriculumPage() {
       case 'listening':
         return <InteractiveListeningTab unitId={unitId} students={students} />
       case 'writing':
-        return <InteractiveWritingTab unitId={unitId} students={students} />
+        return <InteractiveWritingTab unitId={unitId} students={students} highlightStudent={activeTab === 'writing' ? highlightStudent : null} />
       case 'speaking':
-        return <InteractiveSpeakingTab unitId={unitId} students={students} />
+        return <InteractiveSpeakingTab unitId={unitId} students={students} highlightStudent={activeTab === 'speaking' ? highlightStudent : null} />
       case 'assessment':
         return <InteractiveAssessmentTab unitId={unitId} students={students} />
       case 'games':

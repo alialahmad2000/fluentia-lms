@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useMemo, useCallback, useEffect, useRef } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FileEdit, Users, ChevronDown, CheckCircle, Clock, Star, ClipboardCheck, GraduationCap, Save, Loader2 } from 'lucide-react'
@@ -17,7 +17,7 @@ const TASK_TYPE_LABELS = {
 
 const GRADE_OPTIONS = ['A+', 'A', 'B+', 'B', 'C', 'D', 'F']
 
-export default function InteractiveWritingTab({ unitId, students = [] }) {
+export default function InteractiveWritingTab({ unitId, students = [], highlightStudent }) {
   const [activeTask, setActiveTask] = useState(0)
 
   const { data: writingTasks, isLoading } = useQuery({
@@ -85,17 +85,25 @@ export default function InteractiveWritingTab({ unitId, students = [] }) {
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2 }}
         >
-          <WritingTaskContent task={task} unitId={unitId} students={students} />
+          <WritingTaskContent task={task} unitId={unitId} students={students} highlightStudent={highlightStudent} />
         </motion.div>
       </AnimatePresence>
     </div>
   )
 }
 
-function WritingTaskContent({ task, unitId, students }) {
+function WritingTaskContent({ task, unitId, students, highlightStudent }) {
   const { user } = useAuthStore()
   const queryClient = useQueryClient()
-  const [expandedStudent, setExpandedStudent] = useState(null)
+  const [expandedStudent, setExpandedStudent] = useState(highlightStudent || null)
+  const highlightRef = useRef(null)
+
+  // Auto-scroll to highlighted student
+  useEffect(() => {
+    if (highlightStudent && highlightRef.current) {
+      setTimeout(() => highlightRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300)
+    }
+  }, [highlightStudent, studentProgress])
 
   const { data: studentProgress } = useQuery({
     queryKey: ['ic-writing-progress', task.id, students.map(s => s.user_id).sort().join()],
@@ -176,8 +184,9 @@ function WritingTaskContent({ task, unitId, students }) {
             return (
               <div
                 key={student.user_id}
+                ref={student.user_id === highlightStudent ? highlightRef : undefined}
                 className="rounded-xl overflow-hidden"
-                style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
+                style={{ background: 'var(--surface-raised)', border: student.user_id === highlightStudent ? '1px solid rgba(56,189,248,0.4)' : '1px solid var(--border-subtle)' }}
               >
                 <button
                   onClick={() => draft && setExpandedStudent(isExpanded ? null : student.user_id)}

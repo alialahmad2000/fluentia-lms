@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Mic, ChevronDown, ClipboardCheck, GraduationCap, Clock, Save, Loader2, CheckCircle, User, FileText } from 'lucide-react'
@@ -17,7 +17,7 @@ const TOPIC_TYPE_LABELS = {
 
 const GRADE_OPTIONS = ['A+', 'A', 'B+', 'B', 'C', 'D', 'F']
 
-export default function InteractiveSpeakingTab({ unitId, students = [] }) {
+export default function InteractiveSpeakingTab({ unitId, students = [], highlightStudent }) {
   const { user } = useAuthStore()
   const queryClient = useQueryClient()
   const [activeTopic, setActiveTopic] = useState(0)
@@ -207,6 +207,7 @@ export default function InteractiveSpeakingTab({ unitId, students = [] }) {
                     recording={questionRecordings[student.id]}
                     trainerId={user?.id}
                     onFeedbackSaved={() => queryClient.invalidateQueries({ queryKey: ['speaking-recordings-all', unitId] })}
+                    autoOpen={student.id === highlightStudent}
                   />
                 ))}
 
@@ -247,10 +248,18 @@ export default function InteractiveSpeakingTab({ unitId, students = [] }) {
 }
 
 // ─── Student Recording Card ──────────────────────
-function StudentRecordingCard({ student, recording, trainerId, onFeedbackSaved }) {
+function StudentRecordingCard({ student, recording, trainerId, onFeedbackSaved, autoOpen }) {
+  const cardRef = useRef(null)
   const [showTranscript, setShowTranscript] = useState(false)
   const [showRichFeedback, setShowRichFeedback] = useState(false)
-  const [feedbackOpen, setFeedbackOpen] = useState(false)
+  const [feedbackOpen, setFeedbackOpen] = useState(autoOpen || false)
+
+  // Auto-scroll when deep-linked
+  useEffect(() => {
+    if (autoOpen && cardRef.current) {
+      setTimeout(() => cardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300)
+    }
+  }, [autoOpen])
   const [grade, setGrade] = useState(recording.trainer_grade || '')
   const [feedback, setFeedback] = useState(recording.trainer_feedback || '')
   const [saving, setSaving] = useState(false)
@@ -302,8 +311,9 @@ function StudentRecordingCard({ student, recording, trainerId, onFeedbackSaved }
 
   return (
     <div
+      ref={cardRef}
       className="rounded-xl overflow-hidden"
-      style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
+      style={{ background: 'var(--surface-raised)', border: autoOpen ? '1px solid rgba(56,189,248,0.4)' : '1px solid var(--border-subtle)' }}
     >
       {/* Header */}
       <div className="px-4 py-3 flex items-center gap-3">
