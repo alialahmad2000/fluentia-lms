@@ -1,0 +1,150 @@
+{
+  "unit_number": 9,
+  "theme": "Photography",
+  "passages": [
+    {
+      "reading_label": "A",
+      "title_en": "Capturing Life Through Photography",
+      "paragraphs": [
+        "Photos are pictures that keep small moments for us. We can look at them many years later to remember a day. A good photo can tell a long story in just one small picture. People all over the world love to take photos.",
+        "Long ago, photos were only in black and white. People could not take many photos in one day. Today, we have small cameras inside our phones. We can take many photos in a very short time.",
+        "Some people take photos for their work and study. They take photos of people, animals, and pretty places. A good photo worker knows how to use light in a smart way. They also wait for the right time to take the best photo.",
+        "Every photo is a small gift from the past to the future. We keep photos to help us remember the people we love. We share photos with other people to show our life. Photos help us feel close when we are far apart."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["Photos keep special moments and help us remember.", "Photos are not useful for people today.", "Only old people take photos.", "Photos have no story to tell."],
+          "correct_answer": "Photos keep special moments and help us remember.",
+          "explanation_en": "The passage talks about how photos keep special moments and help us remember life.",
+          "explanation_ar": "يتحدث النص عن كيف تحفظ الصور اللحظات الخاصة وتساعدنا على التذكر."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "How were photos long ago?",
+          "question_ar": "كيف كانت الصور منذ زمن طويل؟",
+          "choices": ["Only in black and white", "Only very large", "Only on big walls", "Only in warm colors"],
+          "correct_answer": "Only in black and white",
+          "explanation_en": "The passage says long ago photos were only in black and white.",
+          "explanation_ar": "يقول النص إنه منذ زمن طويل كانت الصور بالأبيض والأسود فقط."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "detail",
+          "question_en": "Where are small cameras found today?",
+          "question_ar": "أين توجد الكاميرات الصغيرة اليوم؟",
+          "choices": ["Inside our phones", "Only in big stores", "Only on high hills", "Only in cold winter"],
+          "correct_answer": "Inside our phones",
+          "explanation_en": "The passage says today we have small cameras inside our phones.",
+          "explanation_ar": "يقول النص إننا اليوم لدينا كاميرات صغيرة داخل هواتفنا."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'moment' means:",
+          "question_ar": "في النص، كلمة 'moment' تعني:",
+          "choices": ["A very short piece of time", "A long kind of song", "A small sweet food", "A piece of warm clothing"],
+          "correct_answer": "A very short piece of time",
+          "explanation_en": "'Moment' means a very short piece of time, like a second or two.",
+          "explanation_ar": "'Moment' تعني جزءاً قصيراً جداً من الوقت، مثل ثانية أو ثانيتين."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "detail",
+          "question_en": "What does a good photographer know?",
+          "question_ar": "ماذا يعرف المصور الجيد؟",
+          "choices": ["How to use light in a smart way", "How to cook big meals", "How to build tall towers", "How to sing loud songs"],
+          "correct_answer": "How to use light in a smart way",
+          "explanation_en": "The passage says a good photographer knows how to use light in a smart way.",
+          "explanation_ar": "يقول النص إن المصور الجيد يعرف كيف يستخدم الضوء بطريقة ذكية."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why do people keep and share photos?",
+          "question_ar": "لماذا يحتفظ الناس بالصور ويشاركونها؟",
+          "choices": ["To remember people they love and feel close to them.", "To make the photos very small.", "To hide them in a dark box.", "To stop people from seeing each other."],
+          "correct_answer": "To remember people they love and feel close to them.",
+          "explanation_en": "The passage says photos help us feel close to the people we love.",
+          "explanation_ar": "يقول النص إن الصور تساعدنا على الشعور بالقرب من الأشخاص الذين نحبهم."
+        }
+      ]
+    },
+    {
+      "reading_label": "B",
+      "title_en": "Desert Photography Magic",
+      "paragraphs": [
+        "The desert is a very beautiful place to take photos. The sand and the sky make pretty shapes in the light. Every part of the day looks different in the desert. Photographers love to go there for the amazing views.",
+        "Early in the morning, the sun is soft and warm. It makes the sand look pink and orange on all the hills. Late in the day, the light turns gold at sunset. A good photo at this time can be very special.",
+        "At night, the desert sky is full of bright stars. With a long camera, a photographer can see even the dim lights. They can take photos of the big moon and the shining stars. The dark night turns into a bright photo for all to see.",
+        "Taking photos in the desert is not always easy to do. The sun can be very hot and the wind can blow sand. But the photos from the desert are some of the best in the world. They show us the true beauty of this quiet place."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["The desert is a very beautiful place for photography.", "The desert is a very ugly place.", "Nobody takes photos in the desert.", "The desert has no light at night."],
+          "correct_answer": "The desert is a very beautiful place for photography.",
+          "explanation_en": "The passage talks about how the desert is beautiful and good for taking photos.",
+          "explanation_ar": "يتحدث النص عن كيف أن الصحراء جميلة وجيدة لالتقاط الصور."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "What color is the sand in the early morning?",
+          "question_ar": "ما لون الرمال في الصباح الباكر؟",
+          "choices": ["Pink and orange", "Only black", "Only blue", "Only white"],
+          "correct_answer": "Pink and orange",
+          "explanation_en": "The passage says the sand looks pink and orange on all the hills in the early morning.",
+          "explanation_ar": "يقول النص إن الرمال تبدو وردية وبرتقالية على كل التلال في الصباح الباكر."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "detail",
+          "question_en": "What can you see in the desert sky at night?",
+          "question_ar": "ماذا يمكنك أن ترى في سماء الصحراء ليلاً؟",
+          "choices": ["Bright stars and a big moon", "Many small cars", "Long green rivers", "Warm winter clothes"],
+          "correct_answer": "Bright stars and a big moon",
+          "explanation_en": "The passage says at night the desert sky is full of bright stars and has a big moon.",
+          "explanation_ar": "يقول النص إن سماء الصحراء ليلاً مليئة بالنجوم الساطعة والقمر الكبير."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'sunset' means:",
+          "question_ar": "في النص، كلمة 'sunset' تعني:",
+          "choices": ["The time when the sun goes down", "A small warm bird", "A kind of soft cloth", "A sweet food at home"],
+          "correct_answer": "The time when the sun goes down",
+          "explanation_en": "'Sunset' is the time of day when the sun goes down in the sky.",
+          "explanation_ar": "'Sunset' هو الوقت من اليوم الذي تغرب فيه الشمس في السماء."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'views' means:",
+          "question_ar": "في النص، كلمة 'views' تعني:",
+          "choices": ["Things you can see from a place", "Small round foods", "Kinds of clothes for work", "Long ropes in a boat"],
+          "correct_answer": "Things you can see from a place",
+          "explanation_en": "'Views' are the things you can see from a place, like the sky or hills.",
+          "explanation_ar": "'Views' هي الأشياء التي يمكنك رؤيتها من مكان ما، مثل السماء أو التلال."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why is the desert hard for a photographer?",
+          "question_ar": "لماذا الصحراء صعبة على المصور؟",
+          "choices": ["The sun is very hot and the wind can blow sand.", "The desert has no light at all.", "There is no sand to see.", "The desert is too cold and wet."],
+          "correct_answer": "The sun is very hot and the wind can blow sand.",
+          "explanation_en": "The passage says the sun can be very hot and the wind can blow sand.",
+          "explanation_ar": "يقول النص إن الشمس يمكن أن تكون حارة جداً والرياح يمكن أن تذري الرمال."
+        }
+      ]
+    }
+  ]
+}
