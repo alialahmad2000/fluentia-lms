@@ -1,0 +1,150 @@
+{
+  "unit_number": 3,
+  "theme": "Space Exploration",
+  "passages": [
+    {
+      "reading_label": "A",
+      "title_en": "A Journey to the Stars",
+      "paragraphs": [
+        "People have always looked up at the sky at night. They saw bright stars and a round white moon. For many years, people wanted to know more about space. They had many questions about the stars and planets.",
+        "Long ago, people built their first rockets to fly up high. A rocket is a very strong machine that can leave the earth. In 1969, two men walked on the moon for the first time. It was a very big day for all people.",
+        "Today, scientists send rockets and machines into space. These machines take pictures of far away planets. They help us learn about Mars and other stars. Some machines even look at places far outside our solar system.",
+        "Space is very big and still full of secrets. Every year, we learn something new about the stars. One day, people may live on other planets. The sky at night still holds many amazing stories for us."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["People have studied space for many years and still learn new things.", "Only two men have ever looked at the sky.", "Space is small and empty.", "Rockets are not used today at all."],
+          "correct_answer": "People have studied space for many years and still learn new things.",
+          "explanation_en": "The passage tells how people have looked at space for a long time and keep learning.",
+          "explanation_ar": "يخبرنا النص كيف ينظر الناس إلى الفضاء منذ زمن طويل ويستمرون في التعلم."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "What is a rocket?",
+          "question_ar": "ما هو الصاروخ؟",
+          "choices": ["A strong machine that can leave the earth", "A kind of star in the sky", "A small boat on the sea", "A book about the moon"],
+          "correct_answer": "A strong machine that can leave the earth",
+          "explanation_en": "The passage says a rocket is a strong machine that can leave the earth.",
+          "explanation_ar": "يقول النص إن الصاروخ آلة قوية يمكنها مغادرة الأرض."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "detail",
+          "question_en": "When did two men walk on the moon?",
+          "question_ar": "متى مشى رجلان على القمر؟",
+          "choices": ["In 1969", "In 1869", "In 2020", "In 1200"],
+          "correct_answer": "In 1969",
+          "explanation_en": "The passage says that in 1969 two men walked on the moon for the first time.",
+          "explanation_ar": "يقول النص إنه في عام 1969 مشى رجلان على القمر لأول مرة."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'planets' means:",
+          "question_ar": "في النص، كلمة 'planets' تعني:",
+          "choices": ["Big round worlds in space", "Small lights at home", "Cold rocks on the ground", "Warm clothes for winter"],
+          "correct_answer": "Big round worlds in space",
+          "explanation_en": "'Planets' are big round worlds that move around a star in space.",
+          "explanation_ar": "'Planets' هي عوالم كبيرة دائرية تدور حول نجم في الفضاء."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'scientists' means:",
+          "question_ar": "في النص، كلمة 'scientists' تعني:",
+          "choices": ["People who study and learn about things", "People who paint houses", "People who play music", "People who sell food"],
+          "correct_answer": "People who study and learn about things",
+          "explanation_en": "'Scientists' are people who study and learn about the world and space.",
+          "explanation_ar": "'Scientists' هم أشخاص يدرسون ويتعلمون عن العالم والفضاء."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why do people still want to learn about space?",
+          "question_ar": "لماذا لا يزال الناس يريدون التعلم عن الفضاء؟",
+          "choices": ["Because space holds many secrets we do not know.", "Because space is very small and easy.", "Because the moon is near our homes.", "Because rockets are old and slow."],
+          "correct_answer": "Because space holds many secrets we do not know.",
+          "explanation_en": "The passage says space is full of secrets and we learn something new each year.",
+          "explanation_ar": "يقول النص إن الفضاء مليء بالأسرار ونتعلم شيئاً جديداً كل عام."
+        }
+      ]
+    },
+    {
+      "reading_label": "B",
+      "title_en": "Saudi Arabia Reaches for the Stars",
+      "paragraphs": [
+        "Saudi lands have a long story with the stars. Long ago, people used the stars to find their way in the desert. They knew the sky very well at night. The stars helped them travel from one place to another.",
+        "Today, Saudi lands work hard on space study too. The country has its own space center for learning and work. Young people study to be scientists and space workers. They want to help the world learn more about space.",
+        "A man from Saudi lands went to space many years ago. His name was Sultan, and he was a pilot first. He flew on a space machine to see the earth from far up. He was the first Arab man to travel to space.",
+        "Now, more Saudi people are going to space to study. They do tests and take pictures from very high up. Space study helps Saudi lands grow and learn. The young people of today dream of the stars too."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["Saudi lands have a long story with the stars and space.", "Saudi lands do not care about the sky.", "Only one man has seen the stars there.", "Space is not important in Saudi lands."],
+          "correct_answer": "Saudi lands have a long story with the stars and space.",
+          "explanation_en": "The passage is about how Saudi lands work with stars and space, from old days to today.",
+          "explanation_ar": "يدور النص حول كيف تتعامل أراضي السعودية مع النجوم والفضاء، من الأيام القديمة إلى اليوم."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "Why did people use stars long ago?",
+          "question_ar": "لماذا استخدم الناس النجوم منذ زمن طويل؟",
+          "choices": ["To find their way in the desert", "To catch fish in the sea", "To paint their homes", "To cook warm food"],
+          "correct_answer": "To find their way in the desert",
+          "explanation_en": "The passage says people used the stars to find their way in the desert.",
+          "explanation_ar": "يقول النص إن الناس استخدموا النجوم للعثور على طريقهم في الصحراء."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'pilot' means:",
+          "question_ar": "في النص، كلمة 'pilot' تعني:",
+          "choices": ["A person who flies a plane or space machine", "A person who cooks food", "A small kind of bird", "A warm piece of clothing"],
+          "correct_answer": "A person who flies a plane or space machine",
+          "explanation_en": "'Pilot' is a person who flies a plane or a space machine.",
+          "explanation_ar": "'Pilot' هو شخص يقود طائرة أو آلة فضائية."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "detail",
+          "question_en": "Who was the first Arab man to go to space?",
+          "question_ar": "من كان أول رجل عربي ذهب إلى الفضاء؟",
+          "choices": ["Sultan", "A young student", "A farmer", "A cook"],
+          "correct_answer": "Sultan",
+          "explanation_en": "The passage says his name was Sultan, a pilot who flew to space.",
+          "explanation_ar": "يقول النص إن اسمه كان سلطان، وهو طيار طار إلى الفضاء."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "detail",
+          "question_en": "What do young Saudi people study today?",
+          "question_ar": "ماذا يدرس الشباب السعوديون اليوم؟",
+          "choices": ["To be scientists and space workers", "To paint old houses", "To grow trees in the desert", "To make warm clothes"],
+          "correct_answer": "To be scientists and space workers",
+          "explanation_en": "The passage says young people study to be scientists and space workers.",
+          "explanation_ar": "يقول النص إن الشباب يدرسون ليصبحوا علماء وعمال فضاء."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why is space study important for Saudi lands today?",
+          "question_ar": "لماذا دراسة الفضاء مهمة لأراضي السعودية اليوم؟",
+          "choices": ["It helps the country grow and learn new things.", "It makes the desert warmer.", "It stops people from looking at the sky.", "It ends all kinds of old work."],
+          "correct_answer": "It helps the country grow and learn new things.",
+          "explanation_en": "The passage says space study helps Saudi lands grow and learn.",
+          "explanation_ar": "يقول النص إن دراسة الفضاء تساعد أراضي السعودية على النمو والتعلم."
+        }
+      ]
+    }
+  ]
+}
