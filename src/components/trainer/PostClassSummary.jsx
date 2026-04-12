@@ -32,19 +32,19 @@ export default function PostClassSummary({ groupId, unitId, classStartedAt, poin
     enabled: !!groupId,
   })
 
-  // Get today's attendance
+  // Get attendance for this unit (both classes)
   const today = new Date().toISOString().split('T')[0]
   const { data: attendance } = useQuery({
-    queryKey: ['post-class-attendance', groupId, today],
+    queryKey: ['post-class-attendance', groupId, unitId],
     queryFn: async () => {
-      const classId = `${groupId}_${today}`
       const { data } = await supabase
         .from('attendance')
         .select('student_id, status')
-        .eq('class_id', classId)
+        .eq('group_id', groupId)
+        .eq('unit_id', unitId)
       return data || []
     },
-    enabled: !!groupId,
+    enabled: !!groupId && !!unitId,
   })
 
   // Get today's notes for this group

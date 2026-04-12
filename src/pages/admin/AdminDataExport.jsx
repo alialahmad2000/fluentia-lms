@@ -93,14 +93,15 @@ const EXPORT_OPTIONS = [
     query: async () => {
       const { data } = await supabase
         .from('attendance')
-        .select('id, status, date, profiles:student_id(full_name), classes(title, groups(code))')
-        .order('date', { ascending: false })
+        .select('id, status, class_number, created_at, profiles:student_id(full_name), groups:group_id(code), units:unit_id(unit_number, theme_ar)')
+        .order('created_at', { ascending: false })
         .limit(1000)
       return (data || []).map(a => ({
         الطالب: a.profiles?.full_name || '',
-        المجموعة: a.classes?.groups?.code || '',
-        الحصة: a.classes?.title || '',
-        التاريخ: a.date,
+        المجموعة: a.groups?.code || '',
+        الوحدة: a.units ? `الوحدة ${a.units.unit_number} — ${a.units.theme_ar}` : '',
+        الحصة: a.class_number ? `الحصة ${a.class_number}` : '',
+        التاريخ: a.created_at?.split('T')[0] || '',
         الحالة: a.status,
       }))
     },

@@ -11,9 +11,21 @@ export default function AttendancePopup({ groupId, onClose }) {
   const queryClient = useQueryClient()
   const markAttendance = useClassMode(s => s.markAttendance)
   const attendanceMarked = useClassMode(s => s.attendanceMarked)
-  const [statuses, setStatuses] = useState({}) // studentId -> 'present' | 'absent'
+  const [statuses, setStatuses] = useState({})
+  const [classNumber, setClassNumber] = useState(1)
   const [saved, setSaved] = useState(false)
-  const today = new Date().toISOString().split('T')[0]
+
+  // Get group's current unit
+  const { data: group } = useQuery({
+    queryKey: ['group-current-unit', groupId],
+    queryFn: async () => {
+      const { data } = await supabase.from('groups').select('current_unit_id').eq('id', groupId).single()
+      return data
+    },
+    enabled: !!groupId,
+  })
+
+  const unitId = group?.current_unit_id
 
   const { data: students } = useQuery({
     queryKey: ['group-students', groupId],
@@ -30,17 +42,20 @@ export default function AttendancePopup({ groupId, onClose }) {
     enabled: !!groupId,
   })
 
-  // Check if already marked today
+  // Check existing attendance for this unit + class_number
   const { data: existingAttendance } = useQuery({
-    queryKey: ['attendance-today', groupId, today],
+    queryKey: ['attendance-popup', groupId, unitId, classNumber],
     queryFn: async () => {
+      if (!unitId) return []
       const { data } = await supabase
         .from('attendance')
         .select('student_id, status')
-        .eq('class_id', `${groupId}_${today}`)
+        .eq('unit_id', unitId)
+        .eq('class_number', classNumber)
+        .eq('group_id', groupId)
       return data || []
     },
-    enabled: !!groupId,
+    enabled: !!groupId && !!unitId,
   })
 
   // Initialize: all present, or load existing
@@ -67,25 +82,53 @@ export default function AttendancePopup({ groupId, onClose }) {
 
   const saveMutation = useMutation({
     mutationFn: async () => {
-      const classId = `${groupId}_${today}`
+      if (!unitId) throw new Error('لم يتم تحديد الوحدة الحالية للمجموعة')
       const records = Object.entries(statuses).map(([studentId, status]) => ({
-        class_id: classId,
         student_id: studentId,
+        unit_id: unitId,
+        class_number: classNumber,
+        group_id: groupId,
         status,
         checked_in_via: 'trainer',
+        recorded_by: profile?.id,
       }))
-      const { error } = await supabase.from('attendance').upsert(records, { onConflict: 'class_id,student_id' })
+      const { data, error } = await supabase
+        .from('attendance')
+        .upsert(records, { onConflict: 'student_id,unit_id,class_number' })
+        .select()
       if (error) throw error
+      if (!data?.length) throw new Error('RLS prevented save')
     },
     onSuccess: () => {
       setSaved(true)
       markAttendance()
-      queryClient.invalidateQueries({ queryKey: ['attendance-today'] })
+      queryClient.invalidateQueries({ queryKey: ['attendance-popup'] })
+      queryClient.invalidateQueries({ queryKey: ['unit-attendance'] })
       setTimeout(onClose, 2000)
     },
   })
 
   const alreadySaved = attendanceMarked || existingAttendance?.length > 0
+
+  if (!unitId) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 20 }}
+        className="fixed bottom-[72px] left-4 right-4 sm:left-auto sm:right-4 sm:w-[320px] z-[65] rounded-2xl overflow-hidden"
+        style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)', backdropFilter: 'blur(20px)' }}
+      >
+        <div className="px-4 py-3 flex items-center justify-between" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
+          <h3 className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>✋ تسجيل الحضور</h3>
+          <button onClick={onClose} className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-white/5"><X size={14} style={{ color: 'var(--text-muted)' }} /></button>
+        </div>
+        <div className="p-6 text-center">
+          <p className="text-sm text-[var(--text-muted)]">حدد الوحدة الحالية للمجموعة أولاً من لوحة التحكم</p>
+        </div>
+      </motion.div>
+    )
+  }
 
   return (
     <motion.div
@@ -105,13 +148,26 @@ export default function AttendancePopup({ groupId, onClose }) {
             <X size={14} style={{ color: 'var(--text-muted)' }} />
           </button>
         </div>
-        <p className="text-[11px] mt-1" style={{ color: 'var(--text-tertiary)' }}>
-          {new Date().toLocaleDateString('ar-SA', { weekday: 'long', day: 'numeric', month: 'long' })}
-        </p>
+        {/* Class 1 / 2 toggle */}
+        <div className="flex gap-1.5 mt-2">
+          {[1, 2].map(cn => (
+            <button
+              key={cn}
+              onClick={() => setClassNumber(cn)}
+              className={`flex-1 text-[11px] font-bold py-1.5 rounded-lg border transition-colors ${
+                classNumber === cn
+                  ? 'bg-sky-500/15 text-sky-400 border-sky-500/30'
+                  : 'text-[var(--text-muted)] border-[var(--border-subtle)] hover:text-[var(--text-primary)]'
+              }`}
+            >
+              {cn === 1 ? 'الحصة ١' : 'الحصة ٢'}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Students */}
-      <div className="overflow-y-auto p-3 space-y-1.5" style={{ maxHeight: 'calc(60vh - 140px)' }}>
+      <div className="overflow-y-auto p-3 space-y-1.5" style={{ maxHeight: 'calc(60vh - 160px)' }}>
         {students?.map(s => {
           const isPresent = statuses[s.id] === 'present'
           return (

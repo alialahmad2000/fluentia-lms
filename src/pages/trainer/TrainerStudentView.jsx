@@ -223,7 +223,7 @@ function StudentDetailView({ student, isAdmin, onBack }) {
     queryFn: async () => {
       const { data } = await supabase
         .from('attendance')
-        .select('id, status, xp_awarded, created_at, classes:class_id(title, date)')
+        .select('id, status, xp_awarded, created_at, unit_id, class_number, classes:class_id(title, date), units:unit_id(unit_number, theme_ar)')
         .eq('student_id', student.id)
         .order('created_at', { ascending: false })
       return data || []
@@ -777,17 +777,23 @@ function AttendanceTab({ attendance }) {
   const total = attendance?.length || 0
   const rate = total > 0 ? Math.round((presentCount / total) * 100) : null
 
-  // Group by month for calendar dots
-  const byMonth = useMemo(() => {
+  // Group by unit for visual display
+  const byUnit = useMemo(() => {
     const map = {}
     for (const a of attendance || []) {
-      const date = a.classes?.date || a.created_at?.split('T')[0]
-      if (!date) continue
-      const month = date.substring(0, 7) // YYYY-MM
-      if (!map[month]) map[month] = []
-      map[month].push({ date, status: a.status })
+      const key = a.unit_id
+        ? `الوحدة ${a.units?.unit_number || '?'}`
+        : (a.classes?.date || a.created_at?.split('T')[0] || '').substring(0, 7)
+      if (!key) continue
+      if (!map[key]) map[key] = []
+      map[key].push({
+        label: a.unit_id
+          ? `الحصة ${a.class_number}`
+          : (a.classes?.date || a.created_at?.split('T')[0]),
+        status: a.status,
+      })
     }
-    return Object.entries(map).sort((a, b) => b[0].localeCompare(a[0]))
+    return Object.entries(map)
   }, [attendance])
 
   // Trend: compare last 10 vs previous 10
@@ -853,11 +859,11 @@ function AttendanceTab({ attendance }) {
         </div>
       )}
 
-      {/* Calendar dots by month */}
+      {/* Attendance by unit */}
       <div className="space-y-4">
-        {byMonth.map(([month, records]) => (
-          <div key={month} className="fl-card-static p-4">
-            <h4 className="text-xs font-medium text-muted mb-3">{month}</h4>
+        {byUnit.map(([groupLabel, records]) => (
+          <div key={groupLabel} className="fl-card-static p-4">
+            <h4 className="text-xs font-medium text-muted mb-3">{groupLabel}</h4>
             <div className="flex flex-wrap gap-2">
               {records.map((r, i) => {
                 const config = STATUS_LABELS[r.status] || STATUS_LABELS.absent
@@ -865,7 +871,7 @@ function AttendanceTab({ attendance }) {
                   <div key={i} className="group relative">
                     <div className={`w-6 h-6 rounded-full ${config.bg} opacity-80 hover:opacity-100 transition-opacity cursor-default`} />
                     <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 hidden group-hover:block bg-dark-800 text-[var(--text-primary)] text-xs px-2 py-1 rounded whitespace-nowrap z-10">
-                      {r.date} — {config.label}
+                      {r.label} — {config.label}
                     </div>
                   </div>
                 )
@@ -881,11 +887,17 @@ function AttendanceTab({ attendance }) {
         {(attendance || []).map(a => {
           const config = STATUS_LABELS[a.status] || STATUS_LABELS.absent
           const Icon = config.icon
+          const title = a.unit_id
+            ? `الوحدة ${a.units?.unit_number || '?'} — الحصة ${a.class_number}`
+            : (a.classes?.title || 'حصة')
+          const subtitle = a.unit_id
+            ? (a.units?.theme_ar || '')
+            : formatDateAr(a.classes?.date || a.created_at)
           return (
             <div key={a.id} className="flex items-center justify-between p-2.5 rounded-xl" style={{ background: 'var(--surface-raised)' }}>
               <div>
-                <p className="text-xs text-[var(--text-primary)]">{a.classes?.title || 'حصة'}</p>
-                <p className="text-xs text-muted">{formatDateAr(a.classes?.date || a.created_at)}</p>
+                <p className="text-xs text-[var(--text-primary)]">{title}</p>
+                <p className="text-xs text-muted">{subtitle}</p>
               </div>
               <div className="flex items-center gap-1">
                 <Icon size={12} className={config.color} />
