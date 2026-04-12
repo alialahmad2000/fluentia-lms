@@ -124,9 +124,21 @@ export default function AdminGroups() {
                   <span className="text-muted">المستوى</span>
                   <span className="text-[var(--text-primary)]">{ACADEMIC_LEVELS[g.level]?.cefr || g.level}</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                   <span className="text-muted">الطلاب</span>
-                  <span className="text-[var(--text-primary)]">{g.student_count}/{g.max_students}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[var(--text-primary)]">{g.student_count}/{g.max_students}</span>
+                    {g.student_count >= 10 && (
+                      <span className="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full whitespace-nowrap">
+                        افتح قروب جديد
+                      </span>
+                    )}
+                    {g.student_count >= 8 && g.student_count < 10 && (
+                      <span className="bg-yellow-500 text-white text-[10px] px-2 py-0.5 rounded-full whitespace-nowrap">
+                        اقترب من الحد
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted">المدرب</span>
