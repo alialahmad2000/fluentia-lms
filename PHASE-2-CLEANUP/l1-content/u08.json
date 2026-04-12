@@ -1,0 +1,150 @@
+{
+  "unit_number": 8,
+  "theme": "Ancient Civilizations",
+  "passages": [
+    {
+      "reading_label": "A",
+      "title_en": "Lost Cities Tell Ancient Stories",
+      "paragraphs": [
+        "Long ago, many old cities were covered by sand and trees. The people who lived in them left a very long time ago. These lost cities tell us amazing stories of life from the past. Today, workers dig deep to find and study these old places.",
+        "One lost city was found in a hot desert many years ago. Workers found tall stone walls and old pots inside the ground. They also found small coins and carved pictures of kings. These old things help us learn how people lived long ago.",
+        "In the forest of a warm land, another city was hidden for many years. The trees had grown all over its old stone walls. Workers cut them away to find the streets and homes. It was like a big puzzle made of stone and wood.",
+        "Lost cities are like books of stone from the past. Every pot and wall has a small story to tell. The more we learn, the more we know about old people and places. Each new find helps us feel close to the past."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["Lost cities from long ago teach us about life in the past.", "Lost cities are not important for people today.", "All old cities are still full of people.", "Nobody cares about old cities."],
+          "correct_answer": "Lost cities from long ago teach us about life in the past.",
+          "explanation_en": "The passage talks about how lost cities tell us stories and teach us about the past.",
+          "explanation_ar": "يتحدث النص عن كيف تخبرنا المدن المفقودة بقصص وتعلمنا عن الماضي."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "What did workers find inside the ground in the desert city?",
+          "question_ar": "ماذا وجد العمال داخل الأرض في مدينة الصحراء؟",
+          "choices": ["Tall stone walls, pots, coins, and carved pictures", "New books from stores", "Small warm clothes", "Long soft songs"],
+          "correct_answer": "Tall stone walls, pots, coins, and carved pictures",
+          "explanation_en": "The passage says workers found tall stone walls, old pots, small coins and carved pictures.",
+          "explanation_ar": "يقول النص إن العمال وجدوا جدراناً حجرية طويلة وأواني قديمة وعملات صغيرة وصوراً محفورة."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "detail",
+          "question_en": "Why was the forest city hard to see?",
+          "question_ar": "لماذا كان من الصعب رؤية مدينة الغابة؟",
+          "choices": ["Trees had grown all over its old stone walls", "It was made of paper", "It was under the sea", "It was too small to see"],
+          "correct_answer": "Trees had grown all over its old stone walls",
+          "explanation_en": "The passage says the trees had grown all over its old stone walls.",
+          "explanation_ar": "يقول النص إن الأشجار قد نمت فوق جدرانها الحجرية القديمة."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'coins' means:",
+          "question_ar": "في النص، كلمة 'coins' تعني:",
+          "choices": ["Small round pieces of metal used for money", "Large books with pictures", "Tall stones that stand on hills", "Warm kinds of food"],
+          "correct_answer": "Small round pieces of metal used for money",
+          "explanation_en": "'Coins' are small round pieces of metal that people use for money.",
+          "explanation_ar": "'Coins' هي قطع معدنية صغيرة مستديرة يستخدمها الناس كنقود."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "detail",
+          "question_en": "What did the workers do in the forest city?",
+          "question_ar": "ماذا فعل العمال في مدينة الغابة؟",
+          "choices": ["They cut the trees to find streets and homes.", "They planted new trees all day.", "They built a new school.", "They left without looking."],
+          "correct_answer": "They cut the trees to find streets and homes.",
+          "explanation_en": "The passage says workers cut the trees away to find the streets and homes.",
+          "explanation_ar": "يقول النص إن العمال قطعوا الأشجار ليجدوا الشوارع والمنازل."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why are lost cities like books of stone?",
+          "question_ar": "لماذا المدن المفقودة مثل كتب من الحجر؟",
+          "choices": ["Because each old thing tells a small story about the past.", "Because they are made of paper.", "Because nobody reads them.", "Because they are new and bright."],
+          "correct_answer": "Because each old thing tells a small story about the past.",
+          "explanation_en": "The passage says every pot and wall has a small story to tell.",
+          "explanation_ar": "يقول النص إن كل إناء وجدار له قصة صغيرة ليرويها."
+        }
+      ]
+    },
+    {
+      "reading_label": "B",
+      "title_en": "The Amazing Pyramids of Egypt",
+      "paragraphs": [
+        "The pyramids of Egypt are some of the oldest and most amazing things in the world. They were built more than four thousand years ago in a hot desert land. The biggest pyramid is very tall and made of many big stones. People still come from far away to see them today.",
+        "Old Egypt was a great land with many kings called pharaohs. The pyramids were built to be homes for the pharaohs after they died. The workers cut very big stones and moved them with ropes and wood. It took many years to build just one pyramid.",
+        "Inside each pyramid, there were small rooms and long halls. The kings left gold and other things for their life after death. Writers drew small pictures on the walls to tell old stories. These old writings help us learn about the life of old Egypt.",
+        "The pyramids show us how smart and strong the old people were. They did not have any big machines to help with the work. They used only ropes, wood, stones, and their own strong hands. The pyramids still stand tall and will stand for many more years."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["The pyramids are amazing and show how smart the old people of Egypt were.", "The pyramids are new and made of wood.", "Nobody built the pyramids.", "The pyramids are only for kids to play inside."],
+          "correct_answer": "The pyramids are amazing and show how smart the old people of Egypt were.",
+          "explanation_en": "The passage talks about how the pyramids show the smart work of old Egypt.",
+          "explanation_ar": "يتحدث النص عن كيف تظهر الأهرامات العمل الذكي لمصر القديمة."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "How long ago were the pyramids built?",
+          "question_ar": "منذ متى بنيت الأهرامات؟",
+          "choices": ["More than four thousand years ago", "Only one hundred years ago", "Just last year", "Two weeks ago"],
+          "correct_answer": "More than four thousand years ago",
+          "explanation_en": "The passage says the pyramids were built more than four thousand years ago.",
+          "explanation_ar": "يقول النص إن الأهرامات بنيت منذ أكثر من أربعة آلاف سنة."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "detail",
+          "question_en": "What did workers use to move the big stones?",
+          "question_ar": "ماذا استخدم العمال لتحريك الحجارة الكبيرة؟",
+          "choices": ["Ropes and wood", "Big trucks", "Small cars", "Warm cups"],
+          "correct_answer": "Ropes and wood",
+          "explanation_en": "The passage says workers moved the stones with ropes and wood.",
+          "explanation_ar": "يقول النص إن العمال نقلوا الحجارة بالحبال والخشب."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'pharaohs' means:",
+          "question_ar": "في النص، كلمة 'pharaohs' تعني:",
+          "choices": ["Old kings of Egypt", "Small birds in the sky", "Kinds of food", "Warm clothes for winter"],
+          "correct_answer": "Old kings of Egypt",
+          "explanation_en": "'Pharaohs' were the old kings of Egypt.",
+          "explanation_ar": "'Pharaohs' هم ملوك مصر القدماء."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'halls' means:",
+          "question_ar": "في النص، كلمة 'halls' تعني:",
+          "choices": ["Long open spaces inside a building", "Small sweet foods", "Bright colored flowers", "Warm soft clothes"],
+          "correct_answer": "Long open spaces inside a building",
+          "explanation_en": "'Halls' are long open spaces inside a building that you can walk through.",
+          "explanation_ar": "'Halls' هي ممرات طويلة مفتوحة داخل المبنى يمكنك المرور من خلالها."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why do the pyramids show that old Egyptians were very smart?",
+          "question_ar": "لماذا تظهر الأهرامات أن المصريين القدماء كانوا أذكياء جداً؟",
+          "choices": ["They built them with only ropes, wood, and their hands.", "They had very big new machines.", "They used paper and paint only.", "They did not build them at all."],
+          "correct_answer": "They built them with only ropes, wood, and their hands.",
+          "explanation_en": "The passage says they used only ropes, wood, stones, and their own strong hands.",
+          "explanation_ar": "يقول النص إنهم استخدموا فقط الحبال والخشب والحجارة وأيديهم القوية."
+        }
+      ]
+    }
+  ]
+}
