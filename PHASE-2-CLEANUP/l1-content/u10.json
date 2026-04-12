@@ -1,0 +1,150 @@
+{
+  "unit_number": 10,
+  "theme": "World Cuisines",
+  "passages": [
+    {
+      "reading_label": "A",
+      "title_en": "Food Brings the World Together",
+      "paragraphs": [
+        "Food is a wonderful way to bring people from all lands together. Every country has its own dishes that tell a long story. When we try new food, we learn about other people. A warm meal can make new friends very fast.",
+        "In Italy, people love to make pizza with fresh cheese and tomato. In Japan, they have a dish called sushi with rice and fish. In the land of India, warm curry with many spices is cooked every day. Each dish uses what grows best in that land.",
+        "In Saudi lands, rice with meat is a very special dish for family days. The meat is soft and the rice has many smells from spices. People sit on the floor and share the food from one big plate. It is a warm and kind way to eat a meal.",
+        "When people travel, they often try the new food of other lands. This helps them know the people and the land in a deep way. Food is more than just eating, it is a kind of story. Every meal tells us about a home far away."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["Food brings people together and tells stories of different lands.", "Food is only for special days.", "People only eat one kind of food.", "Food does not tell any story."],
+          "correct_answer": "Food brings people together and tells stories of different lands.",
+          "explanation_en": "The passage talks about how food brings people from all lands together.",
+          "explanation_ar": "يتحدث النص عن كيف أن الطعام يجمع الناس من جميع الأراضي."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "What dish do people love in Italy?",
+          "question_ar": "ما الطبق الذي يحبه الناس في إيطاليا؟",
+          "choices": ["Pizza with fresh cheese and tomato", "Sushi with rice and fish", "Warm curry with spices", "Rice with meat"],
+          "correct_answer": "Pizza with fresh cheese and tomato",
+          "explanation_en": "The passage says in Italy people love to make pizza with fresh cheese and tomato.",
+          "explanation_ar": "يقول النص إنه في إيطاليا يحب الناس صنع البيتزا بالجبن الطازج والطماطم."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "detail",
+          "question_en": "How do people in Saudi lands share a meal?",
+          "question_ar": "كيف يتشارك الناس في أراضي السعودية وجبة الطعام؟",
+          "choices": ["They sit on the floor and share from one big plate", "They eat alone in a small room", "They only eat at tall tables", "They do not share food at all"],
+          "correct_answer": "They sit on the floor and share from one big plate",
+          "explanation_en": "The passage says people sit on the floor and share the food from one big plate.",
+          "explanation_ar": "يقول النص إن الناس يجلسون على الأرض ويتشاركون الطعام من طبق كبير واحد."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'spices' means:",
+          "question_ar": "في النص، كلمة 'spices' تعني:",
+          "choices": ["Things you add to food to make it taste better", "Kinds of small birds", "Warm winter clothes", "Long pieces of rope"],
+          "correct_answer": "Things you add to food to make it taste better",
+          "explanation_en": "'Spices' are things you add to food to give it more taste.",
+          "explanation_ar": "'Spices' هي أشياء تضيفها إلى الطعام لتعطيه مذاقاً أفضل."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'meal' means:",
+          "question_ar": "في النص، كلمة 'meal' تعني:",
+          "choices": ["Food you eat at a set time", "A small red flower", "A warm song to sing", "A tall stone wall"],
+          "correct_answer": "Food you eat at a set time",
+          "explanation_en": "'Meal' is the food you eat at a set time, like dinner or lunch.",
+          "explanation_ar": "'Meal' هو الطعام الذي تأكله في وقت محدد، مثل العشاء أو الغداء."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why is food more than just eating?",
+          "question_ar": "لماذا يعتبر الطعام أكثر من مجرد أكل؟",
+          "choices": ["Food tells a story about a home and its people.", "Food keeps people far from each other.", "Food is only for work and nothing else.", "Food has no meaning at all."],
+          "correct_answer": "Food tells a story about a home and its people.",
+          "explanation_en": "The passage says food is a kind of story and every meal tells us about a home far away.",
+          "explanation_ar": "يقول النص إن الطعام نوع من القصة وكل وجبة تخبرنا عن منزل بعيد."
+        }
+      ]
+    },
+    {
+      "reading_label": "B",
+      "title_en": "The Ancient Spice Routes",
+      "paragraphs": [
+        "Long ago, spices were very important to people from many lands. They made food taste good and kept it fresh for days. Spices like pepper and other warm ones grew only in some places. People from other lands wanted to buy them very much.",
+        "Workers used big boats and camels to move spices from one land to another. These long roads across lands and seas are called the spice routes. A spice trip could take many weeks or even many months. People brave the long trip for their work and food.",
+        "The spice routes were not just for food and work. People met others from far away lands on these roads. They shared new ideas, new words, and new ways of life. This helped many lands learn from each other in a kind way.",
+        "Today, we can buy spices from the store very fast. But long ago, a small bag of spices cost a lot of money. The spice routes made the world feel much smaller. They helped people see that the world is one big home for all."
+      ],
+      "questions": [
+        {
+          "sort_order": 0,
+          "question_type": "main_idea",
+          "question_en": "What is the main idea of the passage?",
+          "question_ar": "ما هي الفكرة الرئيسية للنص؟",
+          "choices": ["The old spice routes helped people from many lands trade and share ideas.", "Spices are not important today.", "Only one land had spices long ago.", "People do not use spices anymore."],
+          "correct_answer": "The old spice routes helped people from many lands trade and share ideas.",
+          "explanation_en": "The passage talks about how old spice routes helped people trade and share ideas.",
+          "explanation_ar": "يتحدث النص عن كيف ساعدت طرق التوابل القديمة الناس على التجارة ومشاركة الأفكار."
+        },
+        {
+          "sort_order": 1,
+          "question_type": "detail",
+          "question_en": "What did people use to move spices from one land to another?",
+          "question_ar": "ماذا استخدم الناس لنقل التوابل من أرض إلى أخرى؟",
+          "choices": ["Big boats and camels", "Small red cars", "New phones", "Warm songs"],
+          "correct_answer": "Big boats and camels",
+          "explanation_en": "The passage says workers used big boats and camels to move spices.",
+          "explanation_ar": "يقول النص إن العمال استخدموا القوارب الكبيرة والجمال لنقل التوابل."
+        },
+        {
+          "sort_order": 2,
+          "question_type": "detail",
+          "question_en": "What else did people share on the spice routes?",
+          "question_ar": "ماذا شارك الناس أيضاً على طرق التوابل؟",
+          "choices": ["New ideas, new words, and new ways of life", "Old clothes from home", "Dark winter nights", "Small stones from the ground"],
+          "correct_answer": "New ideas, new words, and new ways of life",
+          "explanation_en": "The passage says people shared new ideas, new words, and new ways of life.",
+          "explanation_ar": "يقول النص إن الناس شاركوا أفكاراً جديدة وكلمات جديدة وطرق حياة جديدة."
+        },
+        {
+          "sort_order": 3,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'routes' means:",
+          "question_ar": "في النص، كلمة 'routes' تعني:",
+          "choices": ["Long roads or paths people travel on", "Small warm breads", "Kinds of bright lights", "Sweet foods for kids"],
+          "correct_answer": "Long roads or paths people travel on",
+          "explanation_en": "'Routes' are long roads or paths that people travel on from place to place.",
+          "explanation_ar": "'Routes' هي طرق أو مسارات طويلة يسافر عليها الناس من مكان إلى آخر."
+        },
+        {
+          "sort_order": 4,
+          "question_type": "vocabulary",
+          "question_en": "In the passage, 'trade' means:",
+          "question_ar": "في النص، كلمة 'trade' تعني:",
+          "choices": ["To buy and sell things with other people", "To eat a big meal at home", "To sing a long song", "To walk in a bright park"],
+          "correct_answer": "To buy and sell things with other people",
+          "explanation_en": "'Trade' means to buy and sell things with people from other places.",
+          "explanation_ar": "'Trade' تعني شراء وبيع الأشياء مع الناس من أماكن أخرى."
+        },
+        {
+          "sort_order": 5,
+          "question_type": "inference",
+          "question_en": "Why did the spice routes make the world feel smaller?",
+          "question_ar": "لماذا جعلت طرق التوابل العالم يشعر بأنه أصغر؟",
+          "choices": ["They brought people from far lands close together.", "They made the world very big and cold.", "They kept people far apart.", "They stopped people from travel."],
+          "correct_answer": "They brought people from far lands close together.",
+          "explanation_en": "The passage says the spice routes helped people see the world is one big home.",
+          "explanation_ar": "يقول النص إن طرق التوابل ساعدت الناس على رؤية أن العالم منزل كبير واحد."
+        }
+      ]
+    }
+  ]
+}
