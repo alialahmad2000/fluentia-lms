@@ -78,7 +78,8 @@ export default function StudentFAB({ onNotes, onBookmark, onHelp, onWords, onAdd
     movedPx.current = 0
     dragStart.current = { x: pos.x, y: pos.y }
     pointerStart.current = { px: e.clientX, py: e.clientY }
-    e.target.setPointerCapture(e.pointerId)
+    // Use currentTarget (the button) not target (could be the icon SVG child)
+    e.currentTarget.setPointerCapture(e.pointerId)
   }, [pos])
 
   const handlePointerMove = useCallback((e) => {
@@ -172,10 +173,10 @@ export default function StudentFAB({ onNotes, onBookmark, onHelp, onWords, onAdd
               transition={{ duration: 0.2 }}
               className="rounded-2xl overflow-hidden py-2"
               style={{
-                background: 'rgba(30,41,59,0.95)',
+                background: 'var(--glass-elevated)',
                 backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(255,255,255,0.1)',
-                boxShadow: '0 20px 60px rgba(0,0,0,0.4)',
+                border: '1px solid var(--border-default)',
+                boxShadow: 'var(--shadow-xl)',
               }}
             >
               {ACTIONS.map((action, i) => {
@@ -187,11 +188,13 @@ export default function StudentFAB({ onNotes, onBookmark, onHelp, onWords, onAdd
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.15, delay: i * 0.03 }}
                     onClick={() => handleAction(action.key)}
-                    className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium font-['Tajawal'] transition-colors hover:bg-white/5"
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium font-['Tajawal'] transition-colors"
+                    onMouseEnter={e => e.currentTarget.style.background = 'var(--glass-card-hover)'}
+                    onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                     dir="rtl"
                   >
                     <Icon size={16} className={action.color} />
-                    <span className="text-slate-200">{action.label}</span>
+                    <span style={{ color: 'var(--text-primary)' }}>{action.label}</span>
                   </motion.button>
                 )
               })}
@@ -209,12 +212,12 @@ export default function StudentFAB({ onNotes, onBookmark, onHelp, onWords, onAdd
         className="w-14 h-14 rounded-full flex items-center justify-center shadow-2xl select-none"
         style={{
           background: open
-            ? 'rgba(30,41,59,0.95)'
-            : 'linear-gradient(135deg, #38bdf8, #fbbf24)',
-          border: '1px solid rgba(255,255,255,0.15)',
+            ? 'var(--glass-elevated)'
+            : `linear-gradient(135deg, var(--accent-sky), var(--accent-gold))`,
+          border: '1px solid var(--border-default)',
           boxShadow: open
-            ? '0 8px 32px rgba(0,0,0,0.3)'
-            : '0 8px 32px rgba(56,189,248,0.3)',
+            ? 'var(--shadow-lg)'
+            : 'var(--shadow-glow-sky)',
           cursor: isDragging.current ? 'grabbing' : 'grab',
         }}
       >
@@ -222,7 +225,7 @@ export default function StudentFAB({ onNotes, onBookmark, onHelp, onWords, onAdd
           animate={{ rotate: open ? 45 : 0 }}
           transition={{ duration: 0.2 }}
         >
-          <Plus size={22} className={open ? 'text-slate-300' : 'text-white'} />
+          <Plus size={22} style={{ color: open ? 'var(--text-secondary)' : 'var(--text-on-accent)' }} />
         </motion.div>
       </motion.button>
     </div>

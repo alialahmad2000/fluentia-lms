@@ -35,7 +35,8 @@ export default function AttemptsHistory({ allAttempts, exercises }) {
       <button
         onClick={() => setExpanded(!expanded)}
         className="w-full flex items-center justify-between px-5 py-4 transition-colors"
-        style={{ ':hover': { background: 'var(--glass-card-hover)' } }}
+        onMouseEnter={e => e.currentTarget.style.background = 'var(--glass-card-hover)'}
+        onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
       >
         <div className="flex items-center gap-2">
           <History size={16} style={{ color: 'var(--text-tertiary)' }} />

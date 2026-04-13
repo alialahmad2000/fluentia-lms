@@ -1,19 +1,18 @@
 /* ─── Grammar Page Atmospheric Background ─── */
 .grammar-page {
-  min-height: 100vh;
   background:
     radial-gradient(1200px 600px at 90% -10%, var(--accent-sky-glow) 0%, transparent 60%),
-    radial-gradient(900px 500px at -10% 110%, var(--accent-violet-glow) 0%, transparent 55%),
-    var(--surface-void);
+    radial-gradient(900px 500px at -10% 110%, var(--accent-violet-glow) 0%, transparent 55%);
   color: var(--text-primary);
   position: relative;
   overflow-x: hidden;
   transition: background 300ms ease, color 300ms ease;
 }
 
+/* Grid overlay — scoped to grammar section, not the entire viewport */
 .grammar-page::before {
   content: '';
-  position: fixed;
+  position: absolute;
   inset: 0;
   background-image:
     linear-gradient(var(--border-subtle) 1px, transparent 1px),
@@ -25,6 +24,7 @@
   z-index: 0;
 }
 
+/* Floating orb */
 .grammar-page::after {
   content: '';
   position: absolute;
@@ -38,9 +38,14 @@
   z-index: 0;
 }
 
-/* Dial down orb + grid in light theme */
-[data-theme="frost-white"] .grammar-page::after { opacity: 0.35; }
-[data-theme="frost-white"] .grammar-page::before { opacity: 0.4; }
+/* Frost-white: tone down atmospheric effects */
+[data-theme="frost-white"] .grammar-page::after { opacity: 0.25; }
+[data-theme="frost-white"] .grammar-page::before { opacity: 0.3; }
+[data-theme="frost-white"] .grammar-page {
+  background:
+    radial-gradient(1200px 600px at 90% -10%, var(--accent-sky-glow) 0%, transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, var(--accent-violet-glow) 0%, transparent 55%);
+}
 
 /* ─── Glass Card base ─── */
 .grammar-glass {
