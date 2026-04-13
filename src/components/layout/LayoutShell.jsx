@@ -17,6 +17,7 @@ import UpdateBanner from '../UpdateBanner'
 import { useAuthStore } from '../../stores/authStore'
 import { hasPackageAccess } from '../PackageGate'
 import { PACKAGES } from '../../lib/constants'
+import ResetPageButton from '../ResetPageButton'
 import XPFloater from '../ui/XPFloater'
 import FloatingToolbar from '../trainer/FloatingToolbar'
 import TimerBadge from '../trainer/TimerBadge'
@@ -247,6 +248,9 @@ export default function LayoutShell() {
 
       {/* Accessibility Floating Button — visible on all pages */}
       <A11yFloatingButton />
+
+      {/* Universal Reset Page Button */}
+      <ResetPageButton />
 
       {/* Mobile bottom tab bar */}
       <nav aria-label="التنقل الرئيسي" className="mobile-tab-bar lg:hidden">

@@ -11,6 +11,7 @@ import TextSelectionTooltip from '../../../../components/student/TextSelectionTo
 import PageHelp from '../../../../components/PageHelp'
 import { usePointerType } from '../../../../hooks/usePointerType'
 import { useReadingPrefs } from '../../../../hooks/useReadingPrefs'
+import { usePageReset } from '../../../../hooks/usePageReset'
 
 const QUESTION_TYPE_LABELS = {
   main_idea: 'الفكرة الرئيسية',
@@ -268,6 +269,17 @@ function ReadingContent({ reading, studentId, unitId }) {
   const [vocabQuiz, setVocabQuiz] = useState(null)
   const [quizLoading, setQuizLoading] = useState(false)
   const [quizAnswers, setQuizAnswers] = useState({})
+
+  // Register page-specific reset actions
+  usePageReset(() => {
+    document.querySelectorAll('audio').forEach(a => a.pause())
+    setFocusMode(false)
+    setFocusParagraph(0)
+    setPrefsOpen(false)
+    setSummaryAr(null)
+    setVocabQuiz(null)
+    setQuizAnswers({})
+  })
 
   // Fetch student's saved words to highlight them
   const { data: savedWords } = useQuery({

@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { PenLine, MessageCircle } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
+import { usePageReset } from '../../../../hooks/usePageReset'
 import GrammarPageShell from '../../../../components/grammar/GrammarPageShell'
 import GrammarHeader from '../../../../components/grammar/GrammarHeader'
 import LessonCard from '../../../../components/grammar/LessonCard'
@@ -13,6 +14,9 @@ import ExerciseSection from '../../../../components/grammar/ExerciseSection'
 // ─── Main Component ─────────────────────────────────
 export default function GrammarTab({ unitId }) {
   const { user, profile } = useAuthStore()
+
+  // Register page-specific reset (UI-only, never clears answers)
+  usePageReset(() => {})
 
   const { data: topics, isLoading } = useQuery({
     queryKey: ['unit-grammar', unitId],

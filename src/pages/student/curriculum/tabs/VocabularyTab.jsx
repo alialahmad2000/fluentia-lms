@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Languages, Volume2, LayoutGrid, List, RotateCcw, CheckCircle, Dumbbell, Search, BookOpen, Headphones, PenLine, ChevronLeft } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
+import { usePageReset } from '../../../../hooks/usePageReset'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import VocabularyExercises from './VocabularyExercises'
@@ -82,6 +83,16 @@ export default function VocabularyTab({ unitId }) {
   const [exerciseWord, setExerciseWord] = useState(null)
   const hasSavedComplete = useRef(false)
   const timeRef = useRef(0)
+
+  // Register page-specific reset actions
+  usePageReset(() => {
+    setSearchQuery('')
+    setSearchOpen(false)
+    setFilter('all')
+    setPracticeMode(false)
+    setQuickPractice(false)
+    setExerciseWord(null)
+  })
   const timerRef = useRef(null)
   const saveTimer = useRef(null)
   const progressIdRef = useRef(null)
