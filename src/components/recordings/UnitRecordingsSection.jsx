@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Video, X, CheckCircle2 } from 'lucide-react'
+import { Video, X, CheckCircle2, Sparkles } from 'lucide-react'
 import { useUnitRecordings } from '../../hooks/useUnitRecordings'
 import { useRecordingProgress } from '../../hooks/useRecordingProgress'
 import { useRecordingChapters } from '../../hooks/useRecordingChapters'
@@ -8,6 +8,8 @@ import { useRecordingBookmarks } from '../../hooks/useRecordingBookmarks'
 import { useAuthStore } from '../../stores/authStore'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '../../lib/supabase'
+import { toast } from '../ui/FluentiaToast'
+import { celebrations } from '../../lib/celebrations'
 import PremiumVideoPlayer from './PremiumVideoPlayer'
 import RecordingPanel from './RecordingPanel'
 
@@ -35,9 +37,7 @@ export default function UnitRecordingsSection({ unitId }) {
         <div className="w-16 h-16 rounded-2xl bg-white/[0.03] flex items-center justify-center">
           <Video size={28} className="text-[var(--text-muted)]" />
         </div>
-        <p className="text-sm text-[var(--text-muted)] font-['Tajawal']">
-          لا توجد تسجيلات لهذه الوحدة بعد
-        </p>
+        <p className="text-sm text-[var(--text-muted)] font-['Tajawal']">لا توجد تسجيلات لهذه الوحدة بعد</p>
       </div>
     )
   }
@@ -87,10 +87,9 @@ function RecordingCard({ recording, studentId, index, onPlay }) {
 
   const watchedPercent = progress?.watched_percent || 0
   const isCompleted = !!progress?.completed_at
+  const xpAwarded = !!progress?.xp_awarded
   const formattedDate = recording.recorded_date
-    ? new Date(recording.recorded_date).toLocaleDateString('ar-SA', {
-        year: 'numeric', month: 'long', day: 'numeric'
-      })
+    ? new Date(recording.recorded_date).toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' })
     : null
 
   const partLabel = recording.part === 'a' ? 'الجزء A' : recording.part === 'b' ? 'الجزء B' : ''
@@ -105,30 +104,56 @@ function RecordingCard({ recording, studentId, index, onPlay }) {
       className="relative rounded-2xl overflow-hidden cursor-pointer group transition-all hover:ring-1 hover:ring-sky-500/30 hover:shadow-lg"
       style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}
     >
-      <div className="relative h-32 bg-gradient-to-br from-sky-900/40 via-indigo-900/30 to-purple-900/20 flex items-center justify-center">
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          className="w-14 h-14 rounded-full bg-sky-400/90 flex items-center justify-center shadow-xl group-hover:bg-sky-400 transition"
-        >
-          <Video size={24} className="text-white" />
-        </motion.div>
+      {/* Thumbnail or gradient */}
+      <div className="relative h-32 overflow-hidden">
+        {recording.thumbnail_url ? (
+          <img
+            src={recording.thumbnail_url}
+            alt={title}
+            loading="lazy"
+            className="w-full h-full object-cover transition-transform group-hover:scale-105"
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-sky-900/40 via-indigo-900/30 to-purple-900/20" />
+        )}
 
+        {/* Play overlay */}
+        <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="w-14 h-14 rounded-full bg-sky-400/90 flex items-center justify-center shadow-xl group-hover:bg-sky-400 transition"
+          >
+            <Video size={24} className="text-white" />
+          </motion.div>
+        </div>
+
+        {/* Duration badge */}
         {recording.duration_seconds && (
           <span className="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-black/70 text-white/90 text-[11px] font-['Inter'] tabular-nums">
             {formatDuration(recording.duration_seconds)}
           </span>
         )}
 
+        {/* Watched ring */}
         {watchedPercent > 0 && (
           <div className="absolute top-2 left-2">
             <WatchedRing percent={watchedPercent} size={32} />
           </div>
         )}
 
+        {/* Completed badge */}
         {isCompleted && (
           <div className="absolute top-2 right-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-400/90 text-white text-[10px] font-bold font-['Tajawal']">
             <CheckCircle2 size={10} />
             مكتمل
+          </div>
+        )}
+
+        {/* XP motivator — show when not yet awarded */}
+        {!xpAwarded && !isCompleted && (
+          <div className="absolute bottom-2 right-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-400/20 border border-amber-400/30 text-amber-400 text-[10px] font-bold font-['Tajawal']">
+            <Sparkles size={10} />
+            +25 نقطة
           </div>
         )}
       </div>
@@ -153,8 +178,10 @@ function PlayerModal({ recording, onClose }) {
   const { progress, save, forceSave } = useRecordingProgress(recording.id)
   const { chapters } = useRecordingChapters(recording.id)
   const { bookmarks, addBookmark } = useRecordingBookmarks(recording.id)
+  const { user } = useAuthStore()
   const queryClient = useQueryClient()
   const playerContainerRef = useRef(null)
+  const xpAwardedRef = useRef(false)
 
   const [showPanel, setShowPanel] = useState(false)
   const [panelTab, setPanelTab] = useState('chapters')
@@ -165,13 +192,53 @@ function PlayerModal({ recording, onClose }) {
 
   const handleProgress = useCallback((data) => { save(data) }, [save])
 
-  const handleComplete = useCallback(() => {
-    forceSave({ position: 0, percent: 100, speed: 1, completed: true })
+  const handleComplete = useCallback(async () => {
+    // Save completion
+    await forceSave({ position: 0, percent: 100, speed: 1, completed: true })
+
+    // Award XP if not already awarded
+    if (!xpAwardedRef.current && !progress?.xp_awarded && user?.id) {
+      xpAwardedRef.current = true
+
+      try {
+        // Atomically update xp_awarded = true only if currently false
+        const { data: updated, error: updateErr } = await supabase
+          .from('recording_progress')
+          .update({ xp_awarded: true, completed_at: new Date().toISOString() })
+          .eq('student_id', user.id)
+          .eq('recording_id', recording.id)
+          .eq('xp_awarded', false)
+          .select()
+
+        if (updateErr || !updated?.length) {
+          // Already awarded or error — don't insert XP
+          return
+        }
+
+        // Insert XP transaction
+        const { error: xpErr } = await supabase.from('xp_transactions').insert({
+          student_id: user.id,
+          amount: 25,
+          reason: 'recording_complete',
+          description: 'مشاهدة تسجيل الكلاس كاملاً',
+          related_id: recording.id,
+        })
+
+        if (!xpErr) {
+          toast({ type: 'xp', title: 'مبروك! +25 نقطة لمشاهدة التسجيل كاملاً' })
+          try { celebrations.sparkle() } catch {}
+        }
+      } catch (e) {
+        console.error('[XP] Award error:', e)
+      }
+    }
+
     queryClient.invalidateQueries({ queryKey: ['recording-progress'] })
-  }, [forceSave, queryClient])
+  }, [forceSave, progress?.xp_awarded, user?.id, recording.id, queryClient])
 
   const handleClose = useCallback(() => {
     queryClient.invalidateQueries({ queryKey: ['recording-progress'] })
+    queryClient.invalidateQueries({ queryKey: ['unit-recordings'] })
     onClose()
   }, [onClose, queryClient])
 
@@ -184,7 +251,6 @@ function PlayerModal({ recording, onClose }) {
       setShowPanel(true)
       setPanelTab('notes')
       setAutoAddNote(true)
-      // Reset autoAddNote flag after a tick
       setTimeout(() => setAutoAddNote(false), 100)
     } else if (tab) {
       setShowPanel(true)
@@ -223,7 +289,6 @@ function PlayerModal({ recording, onClose }) {
         onClick={(e) => e.stopPropagation()}
         dir="rtl"
       >
-        {/* Main player area */}
         <div className="flex-1 min-w-0" ref={playerContainerRef}>
           <button
             onClick={handleClose}
@@ -252,10 +317,10 @@ function PlayerModal({ recording, onClose }) {
             onAddBookmark={handleAddBookmark}
             onTogglePanel={handleTogglePanel}
             showPanel={showPanel}
+            xpAwarded={!!progress?.xp_awarded}
           />
         </div>
 
-        {/* Side panel */}
         <AnimatePresence>
           {showPanel && (
             <RecordingPanel

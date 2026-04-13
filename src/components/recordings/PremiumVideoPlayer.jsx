@@ -3,9 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   Play, Pause, Volume2, VolumeX, Maximize, Minimize,
   SkipBack, SkipForward, Loader2, PictureInPicture2,
-  Bookmark, List,
+  Bookmark, List, Repeat, X,
 } from 'lucide-react'
 import { resolveStreamUrl, invalidateStreamUrl, extractFileId } from '../../lib/driveStream'
+import { toast } from '../ui/FluentiaToast'
+import { supabase } from '../../lib/supabase'
 
 const SPEEDS = [0.5, 0.75, 1, 1.25, 1.5, 2]
 const SPEED_STORAGE_KEY = 'fluentia_playback_speed'
@@ -24,12 +26,14 @@ export default function PremiumVideoPlayer({
   recording,
   onProgress,
   onComplete,
+  onXPAwarded,
   initialPosition = 0,
   chapters = [],
   bookmarks = [],
   onAddBookmark,
   onTogglePanel,
   showPanel = false,
+  xpAwarded = false,
 }) {
   const videoRef = useRef(null)
   const containerRef = useRef(null)
@@ -38,6 +42,9 @@ export default function PremiumVideoPlayer({
   const saveIntervalRef = useRef(null)
   const hasCompletedRef = useRef(false)
   const doubleTapTimerRef = useRef({ left: null, right: null })
+  const thumbnailCapturedRef = useRef(false)
+  const cumulativeWatchRef = useRef(0) // real seconds watched (not seeked)
+  const lastTimeRef = useRef(0)
 
   const [playing, setPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
@@ -58,9 +65,14 @@ export default function PremiumVideoPlayer({
   const [showBigPlay, setShowBigPlay] = useState(true)
   const [doubleTapSide, setDoubleTapSide] = useState(null)
   const [retrying, setRetrying] = useState(false)
-  const [bookmarkInput, setBookmarkInput] = useState(null) // { seconds } when adding
+  const [bookmarkInput, setBookmarkInput] = useState(null)
   const [bookmarkLabel, setBookmarkLabel] = useState('')
   const [hoveredChapter, setHoveredChapter] = useState(null)
+
+  // A-B Loop state
+  const [loopA, setLoopA] = useState(null)
+  const [loopB, setLoopB] = useState(null)
+  const loopActive = loopA !== null && loopB !== null
 
   const fileId = useMemo(() => extractFileId(recording?.google_drive_url), [recording?.google_drive_url])
   const streamUrl = useMemo(() => resolveStreamUrl(fileId), [fileId])
@@ -70,6 +82,36 @@ export default function PremiumVideoPlayer({
     if (!chapters.length || !currentTime) return null
     return [...chapters].reverse().find(c => currentTime >= c.start_seconds)
   }, [chapters, currentTime])
+
+  // ─── A-B Loop logic ─────────────────────────────────
+  const setLoopPoint = useCallback((point) => {
+    const v = videoRef.current
+    if (!v) return
+    const t = Math.floor(v.currentTime * 10) / 10
+
+    if (point === 'A') {
+      setLoopA(t)
+      if (loopB !== null && t >= loopB - 0.5) {
+        setLoopB(null)
+        toast({ type: 'error', title: 'يجب أن تكون نقطة B بعد نقطة A' })
+      }
+    } else {
+      if (loopA === null) {
+        toast({ type: 'error', title: 'حدد نقطة A أولاً' })
+        return
+      }
+      if (t <= loopA + 0.5) {
+        toast({ type: 'error', title: 'يجب أن تكون نقطة B بعد نقطة A' })
+        return
+      }
+      setLoopB(t)
+    }
+  }, [loopA, loopB])
+
+  const clearLoop = useCallback(() => {
+    setLoopA(null)
+    setLoopB(null)
+  }, [])
 
   // ─── Auto-resume ─────────────────────────────────────
   useEffect(() => {
@@ -114,6 +156,51 @@ export default function PremiumVideoPlayer({
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // ─── Thumbnail capture ──────────────────────────────
+  const captureThumbnail = useCallback(async () => {
+    if (thumbnailCapturedRef.current) return
+    if (recording?.thumbnail_url) return
+    const v = videoRef.current
+    if (!v || !v.videoWidth || !v.duration) return
+
+    thumbnailCapturedRef.current = true
+
+    try {
+      // Seek to 10% mark for capture
+      const captureTime = v.duration * 0.1
+      const canvas = document.createElement('canvas')
+      canvas.width = 640
+      canvas.height = 360
+      const ctx = canvas.getContext('2d')
+
+      // Use current frame if close enough, otherwise we use what we have
+      ctx.drawImage(v, 0, 0, 640, 360)
+      const base64 = canvas.toDataURL('image/jpeg', 0.8)
+
+      // Send to edge function
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session) return
+
+      const res = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/save-recording-thumbnail`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${session.access_token}`,
+          },
+          body: JSON.stringify({ recording_id: recording.id, image_base64: base64 }),
+        }
+      )
+      const result = await res.json()
+      if (result.success) {
+        console.log('[Thumbnail] Saved:', result.url)
+      }
+    } catch (e) {
+      console.error('[Thumbnail] Capture error:', e)
+    }
+  }, [recording?.id, recording?.thumbnail_url])
+
   // ─── Controls auto-hide ─────────────────────────────
   const resetControlsTimer = useCallback(() => {
     setShowControls(true)
@@ -130,18 +217,41 @@ export default function PremiumVideoPlayer({
   const handleTimeUpdate = useCallback(() => {
     const v = videoRef.current
     if (!v) return
-    setCurrentTime(v.currentTime)
+    const ct = v.currentTime
+    setCurrentTime(ct)
     setDuration(v.duration || 0)
     if (v.buffered.length > 0) setBuffered(v.buffered.end(v.buffered.length - 1))
+
+    // Cumulative watch time tracker (only counts real playback, not seeks)
+    const delta = ct - lastTimeRef.current
+    if (delta > 0 && delta < 2) {
+      // Normal playback: delta is small and positive
+      cumulativeWatchRef.current += delta
+    }
+    lastTimeRef.current = ct
+
+    // A-B Loop enforcement
+    if (loopActive && ct >= loopB) {
+      v.currentTime = loopA
+      return
+    }
+
+    // Completion check (only if cumulative watch >= 80% of duration)
     if (v.duration && !hasCompletedRef.current) {
-      const pct = (v.currentTime / v.duration) * 100
-      if (pct >= 90) {
+      const pct = (ct / v.duration) * 100
+      const realWatchPct = (cumulativeWatchRef.current / v.duration) * 100
+      if (pct >= 90 && realWatchPct >= 80) {
         hasCompletedRef.current = true
         onComplete?.()
-        onProgress?.({ position: v.currentTime, percent: pct, speed: v.playbackRate, completed: true })
+        onProgress?.({ position: ct, percent: pct, speed: v.playbackRate, completed: true })
       }
     }
-  }, [onComplete, onProgress])
+
+    // Trigger thumbnail capture after a few seconds of playback
+    if (ct > 5 && !thumbnailCapturedRef.current) {
+      captureThumbnail()
+    }
+  }, [onComplete, onProgress, loopActive, loopA, loopB, captureThumbnail])
 
   const handlePlay = useCallback(() => {
     setPlaying(true)
@@ -188,19 +298,32 @@ export default function PremiumVideoPlayer({
 
   const skip = useCallback((seconds) => {
     const v = videoRef.current
-    if (v) v.currentTime = Math.max(0, Math.min(v.duration || 0, v.currentTime + seconds))
-  }, [])
+    if (!v) return
+    const newTime = Math.max(0, Math.min(v.duration || 0, v.currentTime + seconds))
+    // If seeking outside A-B loop range, clear loop
+    if (loopActive && (newTime < loopA || newTime > loopB)) {
+      clearLoop()
+      toast({ type: 'info', title: 'تم إلغاء التكرار' })
+    }
+    v.currentTime = newTime
+  }, [loopActive, loopA, loopB, clearLoop])
 
   const seekTo = useCallback((seconds) => {
     const v = videoRef.current
     if (v) {
-      v.currentTime = Math.max(0, Math.min(v.duration || 0, seconds))
+      const newTime = Math.max(0, Math.min(v.duration || 0, seconds))
+      // Clear loop if seeking outside range
+      if (loopActive && (newTime < loopA || newTime > loopB)) {
+        clearLoop()
+        toast({ type: 'info', title: 'تم إلغاء التكرار' })
+      }
+      v.currentTime = newTime
       if (onProgress) {
         const percent = v.duration ? (v.currentTime / v.duration) * 100 : 0
         onProgress({ position: v.currentTime, percent, speed: v.playbackRate, completed: percent >= 90 })
       }
     }
-  }, [onProgress])
+  }, [onProgress, loopActive, loopA, loopB, clearLoop])
 
   const seek = useCallback((e) => {
     const v = videoRef.current
@@ -328,6 +451,12 @@ export default function PremiumVideoPlayer({
           e.preventDefault()
           if (onTogglePanel) onTogglePanel('notes', true)
           break
+        case '[':
+          e.preventDefault(); setLoopPoint('A'); break
+        case ']':
+          e.preventDefault(); setLoopPoint('B'); break
+        case '\\':
+          e.preventDefault(); clearLoop(); break
         case 'Escape':
           if (bookmarkInput) { setBookmarkInput(null); break }
           if (isFullscreen) { e.preventDefault(); toggleFullscreen() }
@@ -343,7 +472,7 @@ export default function PremiumVideoPlayer({
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [togglePlay, skip, changeVolume, toggleMute, toggleFullscreen, isFullscreen, resetControlsTimer, startBookmarkAdd, onTogglePanel, bookmarkInput])
+  }, [togglePlay, skip, changeVolume, toggleMute, toggleFullscreen, isFullscreen, resetControlsTimer, startBookmarkAdd, onTogglePanel, bookmarkInput, setLoopPoint, clearLoop])
 
   // ─── Mobile double-tap ──────────────────────────────
   const handleDoubleTap = useCallback((side) => {
@@ -367,8 +496,10 @@ export default function PremiumVideoPlayer({
   // ─── Progress bar values ────────────────────────────
   const playedPct = duration ? (currentTime / duration) * 100 : 0
   const bufferedPct = duration ? (buffered / duration) * 100 : 0
+  const loopAPct = duration && loopA !== null ? (loopA / duration) * 100 : null
+  const loopBPct = duration && loopB !== null ? (loopB / duration) * 100 : null
 
-  // Expose currentTime + seekTo for parent (modal)
+  // Expose currentTime + seekTo for parent
   useEffect(() => {
     if (containerRef.current) {
       containerRef.current.__playerApi = { getCurrentTime: () => currentTime, seekTo }
@@ -392,11 +523,11 @@ export default function PremiumVideoPlayer({
       onTouchStart={resetControlsTimer}
       dir="ltr"
     >
-      {/* Video element */}
       <video
         ref={videoRef}
         src={streamUrl}
         className="w-full h-full object-contain"
+        crossOrigin="anonymous"
         playsInline
         preload="metadata"
         onTimeUpdate={handleTimeUpdate}
@@ -429,6 +560,20 @@ export default function PremiumVideoPlayer({
           />
         )}
       </AnimatePresence>
+
+      {/* Top-right badge: A-B loop indicator */}
+      {loopActive && (
+        <div className="absolute top-3 right-3 px-2.5 py-1 rounded-lg bg-amber-500/20 border border-amber-500/30 text-amber-400 text-xs font-bold font-['Inter'] pointer-events-none" style={{ zIndex: 14 }}>
+          A-B
+        </div>
+      )}
+
+      {/* Top-left badge: speed indicator */}
+      {speed !== 1 && playing && (
+        <div className="absolute top-3 left-3 px-2 py-1 rounded-lg bg-black/60 text-amber-400 text-xs font-bold font-['Inter'] pointer-events-none" style={{ zIndex: 14 }}>
+          {speed}x
+        </div>
+      )}
 
       {/* Center overlay: big play + loading */}
       <AnimatePresence>
@@ -525,21 +670,20 @@ export default function PremiumVideoPlayer({
           onMouseMove={handleProgressHover}
           onMouseLeave={() => { setHoverTime(null); setHoveredChapter(null) }}
         >
+          {/* A-B Loop highlight range */}
+          {loopAPct !== null && loopBPct !== null && (
+            <div
+              className="absolute top-0 h-full bg-amber-400/30 pointer-events-none rounded-full"
+              style={{ right: `${loopAPct}%`, width: `${loopBPct - loopAPct}%` }}
+            />
+          )}
+
           {/* Buffered */}
-          <div
-            className="absolute top-0 rounded-full h-full bg-white/40 pointer-events-none"
-            style={{ right: 0, width: `${bufferedPct}%` }}
-          />
+          <div className="absolute top-0 rounded-full h-full bg-white/40 pointer-events-none" style={{ right: 0, width: `${bufferedPct}%` }} />
           {/* Played */}
-          <div
-            className="absolute top-0 rounded-full h-full bg-sky-400 pointer-events-none"
-            style={{ right: 0, width: `${playedPct}%` }}
-          />
+          <div className="absolute top-0 rounded-full h-full bg-sky-400 pointer-events-none" style={{ right: 0, width: `${playedPct}%` }} />
           {/* Scrubber dot */}
-          <div
-            className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-sky-400 shadow-md opacity-0 group-hover/progress:opacity-100 transition-opacity pointer-events-none"
-            style={{ right: `calc(${playedPct}% - 7px)` }}
-          />
+          <div className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-sky-400 shadow-md opacity-0 group-hover/progress:opacity-100 transition-opacity pointer-events-none" style={{ right: `calc(${playedPct}% - 7px)` }} />
 
           {/* Chapter markers */}
           {duration > 0 && chapters.map(ch => {
@@ -561,13 +705,7 @@ export default function PremiumVideoPlayer({
           {duration > 0 && bookmarks.map(bm => {
             const pct = (bm.position_seconds / duration) * 100
             return (
-              <div
-                key={bm.id}
-                className="absolute -top-3 pointer-events-auto cursor-pointer"
-                style={{ right: `calc(${pct}% - 6px)` }}
-                title={bm.label || 'علامة مرجعية'}
-                onClick={(e) => { e.stopPropagation(); seekTo(bm.position_seconds) }}
-              >
+              <div key={bm.id} className="absolute -top-3 pointer-events-auto cursor-pointer" style={{ right: `calc(${pct}% - 6px)` }} title={bm.label || 'علامة مرجعية'} onClick={(e) => { e.stopPropagation(); seekTo(bm.position_seconds) }}>
                 <Bookmark size={12} className="text-sky-400 fill-sky-400/50" />
               </div>
             )
@@ -575,32 +713,22 @@ export default function PremiumVideoPlayer({
 
           {/* Hovered chapter tooltip */}
           {hoveredChapter && (
-            <div
-              className="absolute -top-10 px-2 py-1 rounded bg-black/90 border border-amber-400/20 text-amber-400 text-xs font-['Tajawal'] pointer-events-none whitespace-nowrap"
-              style={{ right: `${(hoveredChapter.start_seconds / duration) * 100}%`, transform: 'translateX(50%)' }}
-            >
+            <div className="absolute -top-10 px-2 py-1 rounded bg-black/90 border border-amber-400/20 text-amber-400 text-xs font-['Tajawal'] pointer-events-none whitespace-nowrap" style={{ right: `${(hoveredChapter.start_seconds / duration) * 100}%`, transform: 'translateX(50%)' }}>
               {hoveredChapter.title_ar}
             </div>
           )}
 
           {/* Hover time tooltip */}
           {hoverTime && !hoveredChapter && (
-            <div
-              className="absolute -top-8 -translate-x-1/2 px-2 py-0.5 rounded bg-black/90 text-white text-xs font-['Inter'] pointer-events-none whitespace-nowrap"
-              style={{ left: hoverPos }}
-            >
+            <div className="absolute -top-8 -translate-x-1/2 px-2 py-0.5 rounded bg-black/90 text-white text-xs font-['Inter'] pointer-events-none whitespace-nowrap" style={{ left: hoverPos }}>
               {hoverTime}
             </div>
           )}
         </div>
 
         {/* Bottom bar */}
-        <div className="flex items-center gap-1.5">
-          <button
-            onClick={togglePlay}
-            className="p-2 rounded-lg hover:bg-white/10 transition text-white"
-            aria-label={playing ? 'إيقاف مؤقت' : 'تشغيل'}
-          >
+        <div className="flex items-center gap-1">
+          <button onClick={togglePlay} className="p-2 rounded-lg hover:bg-white/10 transition text-white" aria-label={playing ? 'إيقاف مؤقت' : 'تشغيل'}>
             {playing ? <Pause size={20} fill="white" /> : <Play size={20} fill="white" />}
           </button>
 
@@ -618,13 +746,41 @@ export default function PremiumVideoPlayer({
 
           <div className="flex-1" />
 
+          {/* A-B Loop buttons */}
+          <button
+            onClick={() => setLoopPoint('A')}
+            className={`px-1.5 py-1 rounded-lg text-xs font-bold font-['Inter'] transition ${
+              loopA !== null ? 'text-amber-400 bg-amber-400/15' : 'text-white/50 hover:text-amber-400 hover:bg-white/10'
+            }`}
+            aria-label="تعيين نقطة البداية للتكرار"
+            title="كرر مقطعاً لممارسة النطق"
+          >
+            A
+          </button>
+          <button
+            onClick={() => setLoopPoint('B')}
+            className={`px-1.5 py-1 rounded-lg text-xs font-bold font-['Inter'] transition ${
+              loopB !== null ? 'text-amber-400 bg-amber-400/15' : 'text-white/50 hover:text-amber-400 hover:bg-white/10'
+            }`}
+            aria-label="تعيين نقطة النهاية للتكرار"
+          >
+            B
+          </button>
+          {loopActive && (
+            <button
+              onClick={clearLoop}
+              className="p-1 rounded-lg text-amber-400 hover:bg-amber-400/15 transition"
+              aria-label="إلغاء التكرار"
+            >
+              <X size={14} />
+            </button>
+          )}
+
           {/* Speed menu */}
           <div className="relative">
             <button
               onClick={() => setShowSpeedMenu(!showSpeedMenu)}
-              className={`px-2 py-1 rounded-lg hover:bg-white/10 transition text-xs font-bold font-['Inter'] ${
-                speed !== 1 ? 'text-amber-400' : 'text-white/80'
-              }`}
+              className={`px-2 py-1 rounded-lg hover:bg-white/10 transition text-xs font-bold font-['Inter'] ${speed !== 1 ? 'text-amber-400' : 'text-white/80'}`}
               aria-label="سرعة التشغيل"
             >
               {speed}x
@@ -639,13 +795,7 @@ export default function PremiumVideoPlayer({
                   style={{ zIndex: 30 }}
                 >
                   {SPEEDS.map((s) => (
-                    <button
-                      key={s}
-                      onClick={() => { setSpeed(s); setShowSpeedMenu(false) }}
-                      className={`block w-full px-4 py-1.5 text-xs font-['Inter'] text-center hover:bg-white/10 transition whitespace-nowrap ${
-                        speed === s ? 'text-amber-400 font-bold' : 'text-white/70'
-                      }`}
-                    >
+                    <button key={s} onClick={() => { setSpeed(s); setShowSpeedMenu(false) }} className={`block w-full px-4 py-1.5 text-xs font-['Inter'] text-center hover:bg-white/10 transition whitespace-nowrap ${speed === s ? 'text-amber-400 font-bold' : 'text-white/70'}`}>
                       {s}x
                     </button>
                   ))}
@@ -659,45 +809,27 @@ export default function PremiumVideoPlayer({
             <button onClick={toggleMute} className="p-2 rounded-lg hover:bg-white/10 transition text-white" aria-label={muted ? 'تشغيل الصوت' : 'كتم الصوت'}>
               {muted || volume === 0 ? <VolumeX size={18} /> : <Volume2 size={18} />}
             </button>
-            <input
-              type="range" min="0" max="1" step="0.05"
-              value={muted ? 0 : volume}
-              onChange={(e) => changeVolume(parseFloat(e.target.value))}
-              className="w-0 group-hover/vol:w-20 transition-all duration-200 accent-sky-400 h-1 cursor-pointer"
-              dir="ltr"
-            />
+            <input type="range" min="0" max="1" step="0.05" value={muted ? 0 : volume} onChange={(e) => changeVolume(parseFloat(e.target.value))} className="w-0 group-hover/vol:w-20 transition-all duration-200 accent-sky-400 h-1 cursor-pointer" dir="ltr" />
           </div>
 
-          {/* Add Bookmark */}
           {onAddBookmark && (
-            <button
-              onClick={startBookmarkAdd}
-              className="p-2 rounded-lg hover:bg-white/10 transition text-white/70 hover:text-sky-400"
-              aria-label="إضافة علامة"
-            >
+            <button onClick={startBookmarkAdd} className="p-2 rounded-lg hover:bg-white/10 transition text-white/70 hover:text-sky-400" aria-label="إضافة علامة">
               <Bookmark size={16} />
             </button>
           )}
 
-          {/* Panel toggle */}
           {onTogglePanel && (
-            <button
-              onClick={() => onTogglePanel()}
-              className={`p-2 rounded-lg hover:bg-white/10 transition ${showPanel ? 'text-sky-400' : 'text-white/70'}`}
-              aria-label="اللوحة الجانبية"
-            >
+            <button onClick={() => onTogglePanel()} className={`p-2 rounded-lg hover:bg-white/10 transition ${showPanel ? 'text-sky-400' : 'text-white/70'}`} aria-label="اللوحة الجانبية">
               <List size={16} />
             </button>
           )}
 
-          {/* PiP */}
           {document.pictureInPictureEnabled && (
             <button onClick={togglePiP} className="p-2 rounded-lg hover:bg-white/10 transition text-white hidden sm:block" aria-label="صورة في صورة">
               <PictureInPicture2 size={18} />
             </button>
           )}
 
-          {/* Fullscreen */}
           <button onClick={toggleFullscreen} className="p-2 rounded-lg hover:bg-white/10 transition text-white" aria-label={isFullscreen ? 'خروج من ملء الشاشة' : 'ملء الشاشة'}>
             {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
           </button>

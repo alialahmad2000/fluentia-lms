@@ -1,10 +1,10 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   PlayCircle, Plus, Trash2, Eye, EyeOff, Loader2, X, Brain,
   CheckCircle2, Video, ChevronDown, ExternalLink, Pencil,
-  MessageSquare, BookOpen, Archive, AlertCircle, Link2,
+  MessageSquare, BookOpen, Archive, AlertCircle, Link2, ImagePlus,
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
@@ -270,6 +270,66 @@ function CurriculumSection() {
     setShowForm(true)
   }
 
+  // Manual thumbnail upload
+  const thumbnailInputRef = useRef(null)
+  const [thumbnailRecId, setThumbnailRecId] = useState(null)
+  const [uploadingThumb, setUploadingThumb] = useState(false)
+
+  const handleThumbnailClick = (recId) => {
+    setThumbnailRecId(recId)
+    thumbnailInputRef.current?.click()
+  }
+
+  const handleThumbnailUpload = async (e) => {
+    const file = e.target.files?.[0]
+    if (!file || !thumbnailRecId) return
+    e.target.value = ''
+    setUploadingThumb(true)
+
+    try {
+      const reader = new FileReader()
+      const base64 = await new Promise((resolve, reject) => {
+        reader.onload = () => resolve(reader.result)
+        reader.onerror = reject
+        reader.readAsDataURL(file)
+      })
+
+      const { data: { session } } = await supabase.auth.getSession()
+      const res = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/save-recording-thumbnail`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${session?.access_token}`,
+          },
+          body: JSON.stringify({ recording_id: thumbnailRecId, image_base64: base64 }),
+        }
+      )
+      const result = await res.json()
+      if (result.url || result.skipped) {
+        // Force overwrite if already exists
+        if (result.skipped) {
+          // Upload directly via storage + update DB
+          const bytes = Uint8Array.from(atob(base64.replace(/^data:image\/\w+;base64,/, '')), c => c.charCodeAt(0))
+          await supabase.storage.from('recording-thumbnails').upload(`${thumbnailRecId}.jpg`, bytes, { contentType: 'image/jpeg', upsert: true })
+          const { data: urlData } = supabase.storage.from('recording-thumbnails').getPublicUrl(`${thumbnailRecId}.jpg`)
+          await supabase.from('class_recordings').update({ thumbnail_url: urlData.publicUrl + '?t=' + Date.now() }).eq('id', thumbnailRecId)
+        }
+        toast({ type: 'success', title: 'تم تحديث الصورة المصغرة' })
+        queryClient.invalidateQueries({ queryKey: ['admin-curriculum-recordings'] })
+      } else {
+        toast({ type: 'error', title: result.error || 'فشل رفع الصورة' })
+      }
+    } catch (err) {
+      console.error('[Thumbnail] Upload error:', err)
+      toast({ type: 'error', title: 'حدث خطأ أثناء رفع الصورة' })
+    } finally {
+      setUploadingThumb(false)
+      setThumbnailRecId(null)
+    }
+  }
+
   return (
     <div className="space-y-6">
       {/* Pending Requests */}
@@ -471,6 +531,17 @@ function CurriculumSection() {
                   <BookOpen size={12} className="inline ml-1" />
                   فصول
                 </button>
+                <button
+                  onClick={() => handleThumbnailClick(rec.id)}
+                  disabled={uploadingThumb && thumbnailRecId === rec.id}
+                  className="px-2.5 py-1.5 rounded-lg text-xs font-bold font-['Tajawal'] text-purple-400 bg-purple-500/10 border border-purple-500/20 hover:bg-purple-500/20 transition shrink-0"
+                  title="رفع صورة مصغرة"
+                >
+                  {uploadingThumb && thumbnailRecId === rec.id
+                    ? <Loader2 size={12} className="inline ml-1 animate-spin" />
+                    : <ImagePlus size={12} className="inline ml-1" />}
+                  صورة
+                </button>
                 <button onClick={() => handleDeleteRec(rec.id)} className="btn-icon shrink-0" title="حذف">
                   <Trash2 size={14} className="text-red-400" />
                 </button>
@@ -488,6 +559,15 @@ function CurriculumSection() {
           <p className="text-muted text-sm font-['Tajawal']">لا توجد تسجيلات منهج</p>
         </div>
       )}
+
+      {/* Hidden thumbnail file input */}
+      <input
+        ref={thumbnailInputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={handleThumbnailUpload}
+      />
 
       {/* Chapter Manager Modal */}
       <AnimatePresence>
