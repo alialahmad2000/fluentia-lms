@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Swords, Trophy, Clock, Zap, Shield, Crown, X, RotateCcw, ArrowLeft, Lock, Flame, Search, BookOpen, Languages, PenTool, Headphones, Blocks } from 'lucide-react'
+import { Swords, Trophy, Clock, Zap, Shield, Crown, X, RotateCcw, ArrowLeft, Lock, Flame, Search, BookOpen, Languages, PenTool, Headphones, Blocks, HelpCircle, Info, ChevronDown, Send, Check } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
 import { useToast } from '../../components/Toast'
@@ -12,12 +12,48 @@ const FONT_LINK = 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@5
 
 // ─── Game Types ────────────────────────────────────────
 const GAME_TYPES = [
-  { id: 'vocab_sprint', label: 'سباق المفردات', icon: BookOpen, desc: 'اختبر مفرداتك ضد خصمك', active: true, gradient: 'from-violet-500 to-cyan-400', accent: 'violet' },
-  { id: 'irregular_verbs', label: 'الأفعال الشاذة', icon: RotateCcw, desc: 'تصريفات الأفعال', active: false, gradient: 'from-amber-500 to-red-500', accent: 'amber' },
-  { id: 'grammar_clash', label: 'صراع القواعد', icon: PenTool, desc: 'قواعد اللغة', active: false, gradient: 'from-emerald-500 to-teal-400', accent: 'emerald' },
-  { id: 'sentence_builder', label: 'بناء الجمل', icon: Blocks, desc: 'رتّب الكلمات', active: false, gradient: 'from-blue-500 to-indigo-500', accent: 'blue' },
-  { id: 'listening_lightning', label: 'برق الاستماع', icon: Headphones, desc: 'استمع وأجب', active: false, gradient: 'from-pink-500 to-purple-500', accent: 'pink' },
+  { id: 'vocab_sprint', label: 'سباق المفردات', icon: BookOpen, desc: 'اختبر مفرداتك ضد خصمك', active: true, gradient: 'from-violet-500 to-cyan-400', accent: 'violet', timer: 8 },
+  { id: 'irregular_verbs', label: 'الأفعال الشاذة', icon: RotateCcw, desc: 'تصريفات الأفعال', active: true, gradient: 'from-amber-500 to-red-500', accent: 'amber', timer: 10 },
+  { id: 'grammar_clash', label: 'صراع القواعد', icon: PenTool, desc: 'قواعد اللغة', active: true, gradient: 'from-emerald-500 to-teal-400', accent: 'emerald', timer: 10 },
+  { id: 'sentence_builder', label: 'بناء الجمل', icon: Blocks, desc: 'رتّب الكلمات', active: true, gradient: 'from-blue-500 to-indigo-500', accent: 'blue', timer: 15 },
+  { id: 'listening_lightning', label: 'برق الاستماع', icon: Headphones, desc: 'استمع وأجب', active: false, gradient: 'from-pink-500 to-purple-500', accent: 'pink', timer: 10 },
 ]
+
+// ─── Per-game help content ─────────────────────────────
+const GAME_HELP = {
+  vocab_sprint: {
+    title: 'سباق المفردات',
+    skill: 'معاني الكلمات من منهجك',
+    steps: ['تظهر لك كلمة إنجليزية', 'اختر المعنى العربي الصحيح من 4 خيارات', 'كلما أجبت أسرع زادت نقاطك', 'أجب على 10 جولات للفوز'],
+    timer: '8 ثوانٍ × 10 جولات',
+    scoring: 'إجابة صحيحة = 10 + بونس السرعة (10 - عدد الثواني)',
+    tip: 'كلما أجبت أسرع زادت نقاطك — لا تتردد!',
+  },
+  irregular_verbs: {
+    title: 'الأفعال الشاذة',
+    skill: 'صيغ past و past participle',
+    steps: ['يظهر لك فعل إنجليزي', 'اكتب الصيغة المطلوبة (past أو past participle)', 'اضغط إرسال أو Enter', '10 جولات — دقة الكتابة مهمة'],
+    timer: '10 ثوانٍ × 10 جولات',
+    scoring: 'إجابة صحيحة = 10 + بونس السرعة (10 - عدد الثواني)',
+    tip: 'راجع جدول الأفعال الشاذة قبل المبارزة — التكرار يصنع المعجزات!',
+  },
+  grammar_clash: {
+    title: 'صراع القواعد',
+    skill: 'قواعد من الدروس التي أكملتها',
+    steps: ['يظهر لك سؤال قواعد', 'اختر الإجابة الصحيحة من 4 خيارات', 'الأسئلة من دروسك المكتملة فقط', 'أسرع إجابة صحيحة = نقاط أعلى'],
+    timer: '10 ثوانٍ × 10 جولات',
+    scoring: 'إجابة صحيحة = 10 + بونس السرعة (10 - عدد الثواني)',
+    tip: 'اقرأ السؤال كاملاً قبل ما تختار — الدقة أهم من السرعة!',
+  },
+  sentence_builder: {
+    title: 'بناء الجمل',
+    skill: 'ترتيب الكلمات لجملة صحيحة',
+    steps: ['تظهر لك كلمات مبعثرة', 'اضغط الكلمات بالترتيب الصحيح لبناء الجملة', 'اضغط على كلمة مختارة لإزالتها', 'رتّب كل الكلمات بالترتيب الصحيح'],
+    timer: '15 ثانية × 10 جولات',
+    scoring: 'إجابة صحيحة = 10 + بونس السرعة (15 - عدد الثواني)، الحد الأقصى 20',
+    tip: 'ابدأ بالفاعل ثم الفعل — بناء الجملة الإنجليزية يتبع نمط SVO!',
+  },
+}
 
 // ─── Helpers ────────────────────────────────────────────
 function streakEmoji(streak) {
@@ -53,12 +89,284 @@ function DisplayNum({ children, className = '' }) {
   )
 }
 
+function getGameType(id) {
+  return GAME_TYPES.find(g => g.id === id)
+}
+
+// ─── Global Rules Modal ─────────────────────────────────
+function DuelRulesModal({ open, onClose }) {
+  if (!open) return null
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center" onClick={onClose}>
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+      <motion.div
+        initial={{ opacity: 0, y: 100 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 100 }}
+        onClick={e => e.stopPropagation()}
+        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 md:p-8 z-10"
+        dir="rtl"
+        style={{
+          background: 'linear-gradient(to bottom, rgba(15,10,30,0.98), rgba(10,5,20,0.99))',
+          border: '1px solid rgba(255,255,255,0.1)',
+          boxShadow: '0 -8px 40px rgba(139,92,246,0.15)',
+        }}
+      >
+        {/* Close button */}
+        <button onClick={onClose} className="absolute top-4 left-4 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+          <X className="w-4 h-4 text-white" />
+        </button>
+
+        <div className="space-y-6">
+          {/* Title */}
+          <div className="text-center">
+            <h2 className="text-2xl font-black bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent">
+              الشرح والقواعد
+            </h2>
+          </div>
+
+          {/* Section 1 */}
+          <div>
+            <h3 className="text-lg font-bold text-white mb-2">ما هي المبارزات؟</h3>
+            <p className="text-sm text-slate-300 leading-relaxed">
+              المبارزات تحديات مباشرة بينك وبين زملائك من نفس مستواك. هدفها تثبت ما تعلمته بطريقة ممتعة وسريعة، وتصعد لوحة الشرف.
+            </p>
+          </div>
+
+          {/* Section 2 — XP */}
+          <div>
+            <h3 className="text-lg font-bold text-white mb-3">نظام النقاط (XP)</h3>
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                { emoji: '🏆', label: 'فوز', value: '+20', color: 'emerald' },
+                { emoji: '💔', label: 'خسارة', value: '-10', color: 'red' },
+                { emoji: '🤝', label: 'تعادل', value: '+5', color: 'cyan' },
+              ].map(item => (
+                <GlassCard key={item.label} className="p-3 text-center">
+                  <div className="text-2xl mb-1">{item.emoji}</div>
+                  <div className="text-xs text-slate-400 mb-1">{item.label}</div>
+                  <div className={`text-sm font-bold text-${item.color}-400`}>{item.value} نقطة</div>
+                </GlassCard>
+              ))}
+            </div>
+          </div>
+
+          {/* Section 3 — Grace */}
+          <div>
+            <h3 className="text-lg font-bold text-white mb-2">نظام الحماية للمبتدئين 🛡️</h3>
+            <p className="text-sm text-slate-300 leading-relaxed">
+              أول 10 مبارزات ما راح تخسر فيها أي نقاط، حتى لو خسرت. هذي فرصة تتعلم بدون ضغط. بعد العشر، الخسارة تبدأ تنقص نقاطك.
+            </p>
+          </div>
+
+          {/* Section 4 — Daily limits */}
+          <div>
+            <h3 className="text-lg font-bold text-white mb-3">حدود يومية لحمايتك</h3>
+            <div className="space-y-2">
+              {[
+                { icon: '🚫', text: 'حد أقصى 5 مبارزات ضد نفس الشخص في اليوم' },
+                { icon: '🛟', text: 'حد أقصى -30 نقطة خسارة في اليوم (بعدها تقف الخسارة)' },
+                { icon: '⚡', text: 'بونس +5 نقاط إضافية لأول فوز يومي' },
+              ].map((item, i) => (
+                <div key={i} className="flex items-start gap-2 text-sm text-slate-300">
+                  <span className="text-base">{item.icon}</span>
+                  <span>{item.text}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Section 5 — Matchmaking */}
+          <div>
+            <h3 className="text-lg font-bold text-white mb-3">كيف يختار النظام خصمك</h3>
+            <div className="space-y-2">
+              {[
+                { n: '1', text: 'أولاً: لاعب من فريقك' },
+                { n: '2', text: 'ثم: لاعب من قروبك' },
+                { n: '3', text: 'ثم: لاعب من نفس مستواك في الأكاديمية' },
+              ].map(item => (
+                <div key={item.n} className="flex items-center gap-3 text-sm text-slate-300">
+                  <div className="w-6 h-6 rounded-full bg-violet-500/20 flex items-center justify-center text-xs font-bold text-violet-300 shrink-0">
+                    {item.n}
+                  </div>
+                  <span>{item.text}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Section 6 — ELO */}
+          <div>
+            <h3 className="text-lg font-bold text-white mb-2">تصنيف ELO</h3>
+            <p className="text-sm text-slate-300 leading-relaxed">
+              كل لاعب يبدأ بـ 1000 نقطة ELO. الفوز يرفعها والخسارة تنزلها — كلما فزت على لاعب أقوى منك، ترتفع ELO أسرع.
+            </p>
+          </div>
+
+          {/* Section 7 — Fair play */}
+          <div>
+            <h3 className="text-lg font-bold text-white mb-3">الأمانة والنزاهة</h3>
+            <div className="space-y-2">
+              {[
+                'مستحيل الغش تقنياً — السيرفر يتحقق من كل إجابة',
+                'الانقطاع المتعمّد = خسارة تلقائية بعد 20 ثانية',
+                'نفس السؤال يُعرض للاثنين بنفس التوقيت بالضبط',
+              ].map((text, i) => (
+                <div key={i} className="flex items-start gap-2 text-sm text-slate-300">
+                  <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <span>{text}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Close button */}
+          <button
+            onClick={onClose}
+            className="w-full py-3 rounded-xl bg-white/5 border border-white/10 text-sm font-bold text-slate-300 hover:bg-white/10 transition-colors"
+          >
+            فهمت!
+          </button>
+
+          {/* Don't show again checkbox */}
+          <label className="flex items-center justify-center gap-2 text-xs text-slate-500 cursor-pointer">
+            <input
+              type="checkbox"
+              className="rounded border-white/20"
+              onChange={e => {
+                if (e.target.checked) localStorage.setItem('duels_intro_seen', 'true')
+                else localStorage.removeItem('duels_intro_seen')
+              }}
+              defaultChecked={localStorage.getItem('duels_intro_seen') === 'true'}
+            />
+            لا تظهر تلقائياً
+          </label>
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
+// ─── Per-Game Explainer Modal ────────────────────────────
+function GameExplainerModal({ gameId, open, onClose, onStart }) {
+  if (!open || !gameId) return null
+  const game = getGameType(gameId)
+  const help = GAME_HELP[gameId]
+  if (!game || !help) return null
+  const Icon = game.icon
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center" onClick={onClose}>
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+      <motion.div
+        initial={{ opacity: 0, y: 100 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 100 }}
+        onClick={e => e.stopPropagation()}
+        className="relative w-full max-w-md max-h-[85vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-6 z-10"
+        dir="rtl"
+        style={{
+          background: 'linear-gradient(to bottom, rgba(15,10,30,0.98), rgba(10,5,20,0.99))',
+          border: '1px solid rgba(255,255,255,0.1)',
+          boxShadow: '0 -8px 40px rgba(139,92,246,0.15)',
+        }}
+      >
+        <button onClick={onClose} className="absolute top-4 left-4 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+          <X className="w-4 h-4 text-white" />
+        </button>
+
+        <div className="space-y-5">
+          {/* Header */}
+          <div className="text-center space-y-3">
+            <div className={`w-16 h-16 mx-auto rounded-2xl flex items-center justify-center bg-gradient-to-br ${game.gradient}`}>
+              <Icon className="w-8 h-8 text-white" />
+            </div>
+            <h3 className="text-xl font-black text-white">{help.title}</h3>
+          </div>
+
+          {/* What we test */}
+          <div>
+            <div className="text-xs font-bold text-slate-500 mb-1">ماذا نختبر؟</div>
+            <p className="text-sm text-slate-300">{help.skill}</p>
+          </div>
+
+          {/* How to play */}
+          <div>
+            <div className="text-xs font-bold text-slate-500 mb-2">كيف تلعب؟</div>
+            <div className="space-y-2">
+              {help.steps.map((step, i) => (
+                <div key={i} className="flex items-start gap-2 text-sm text-slate-300">
+                  <div className="w-5 h-5 rounded-full bg-violet-500/20 flex items-center justify-center text-[10px] font-bold text-violet-300 shrink-0 mt-0.5">
+                    {i + 1}
+                  </div>
+                  <span>{step}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Duration */}
+          <div className="flex items-center gap-2">
+            <Clock className="w-4 h-4 text-slate-500" />
+            <span className="text-xs font-bold text-slate-500">المدة:</span>
+            <span className="text-sm text-slate-300">{help.timer}</span>
+          </div>
+
+          {/* Scoring */}
+          <div className="flex items-start gap-2">
+            <Zap className="w-4 h-4 text-slate-500 mt-0.5" />
+            <div>
+              <span className="text-xs font-bold text-slate-500">النقاط: </span>
+              <span className="text-sm text-slate-300">{help.scoring}</span>
+            </div>
+          </div>
+
+          {/* Tip */}
+          <GlassCard className="p-3 flex items-start gap-2" style={{ background: 'rgba(139,92,246,0.1)', border: '1px solid rgba(139,92,246,0.2)' }}>
+            <span className="text-base">💡</span>
+            <div>
+              <div className="text-xs font-bold text-violet-300 mb-0.5">نصيحة</div>
+              <p className="text-sm text-slate-300">{help.tip}</p>
+            </div>
+          </GlassCard>
+
+          {/* Start button */}
+          <button
+            onClick={() => { onClose(); onStart(gameId) }}
+            className={`w-full py-3.5 rounded-xl font-bold text-white text-sm bg-gradient-to-r ${game.gradient}`}
+            style={{ boxShadow: '0 0 20px rgba(139,92,246,0.3)' }}
+          >
+            <div className="flex items-center justify-center gap-2">
+              <Swords className="w-4 h-4" />
+              ابدأ التحدي
+            </div>
+          </button>
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
 // ─── Phase: LOBBY ──────────────────────────────────────
-function DuelLobby({ onStart, stats }) {
+function DuelLobby({ onStart, stats, onOpenRules }) {
+  const [explainerGame, setExplainerGame] = useState(null)
+
   return (
     <div className="space-y-8">
       {/* Hero */}
       <div className="text-center space-y-4 pt-4">
+        <div className="flex items-center justify-between px-1">
+          <div /> {/* spacer for RTL */}
+          <button
+            onClick={onOpenRules}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white hover:bg-white/5 border border-white/10 transition-colors"
+          >
+            <HelpCircle className="w-3.5 h-3.5" />
+            الشرح والقواعد
+          </button>
+        </div>
+
         <h1 className="text-5xl md:text-7xl font-black leading-tight">
           <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
             قاعة التحدي
@@ -98,63 +406,87 @@ function DuelLobby({ onStart, stats }) {
         {GAME_TYPES.map((game) => {
           const Icon = game.icon
           return (
-            <motion.button
+            <motion.div
               key={game.id}
-              whileHover={game.active ? { y: -4 } : {}}
-              whileTap={game.active ? { scale: 0.98 } : {}}
-              onClick={() => game.active && onStart(game.id)}
-              className={`relative rounded-2xl p-5 text-right transition-all aspect-[4/5] flex flex-col justify-between overflow-hidden ${
-                game.active ? 'cursor-pointer' : 'cursor-not-allowed'
-              }`}
-              style={{
-                background: game.active
-                  ? 'rgba(255,255,255,0.05)'
-                  : 'rgba(255,255,255,0.02)',
-                backdropFilter: game.active ? 'blur(20px)' : 'blur(4px)',
-                border: `1px solid ${game.active ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.04)'}`,
-                opacity: game.active ? 1 : 0.5,
-              }}
+              className="relative"
             >
-              {/* Gradient accent line at top */}
-              <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${game.gradient}`} style={{ opacity: game.active ? 1 : 0.3 }} />
-
-              {/* Icon */}
-              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center bg-gradient-to-br ${game.gradient} mb-auto`} style={{ opacity: game.active ? 0.9 : 0.4 }}>
-                <Icon className="w-7 h-7 text-white" />
-              </div>
-
-              <div>
-                <div className="text-lg font-bold text-white mb-1">{game.label}</div>
-                <div className="text-xs text-slate-400">{game.desc}</div>
-              </div>
-
-              {/* Locked badge */}
-              {!game.active && (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-black/60 backdrop-blur-sm border border-white/10">
-                    <Lock className="w-3.5 h-3.5 text-amber-400" />
-                    <span className="text-xs font-bold text-amber-400">قريباً</span>
-                  </div>
-                </div>
-              )}
-
-              {/* CTA for active */}
+              {/* Info icon */}
               {game.active && (
-                <div className="mt-4">
-                  <div className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r ${game.gradient} text-white font-bold text-sm shadow-lg`}
-                    style={{ boxShadow: '0 0 20px rgba(139,92,246,0.3)' }}>
-                    <Swords className="w-4 h-4" />
-                    ابدأ الآن
-                  </div>
-                </div>
+                <button
+                  onClick={(e) => { e.stopPropagation(); setExplainerGame(game.id) }}
+                  className="absolute top-3 left-3 z-10 w-7 h-7 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+                >
+                  <Info className="w-3.5 h-3.5 text-slate-400" />
+                </button>
               )}
-            </motion.button>
+
+              <motion.button
+                whileHover={game.active ? { y: -4 } : {}}
+                whileTap={game.active ? { scale: 0.98 } : {}}
+                onClick={() => game.active && onStart(game.id)}
+                className={`w-full relative rounded-2xl p-5 text-right transition-all aspect-[4/5] flex flex-col justify-between overflow-hidden ${
+                  game.active ? 'cursor-pointer' : 'cursor-not-allowed'
+                }`}
+                style={{
+                  background: game.active
+                    ? 'rgba(255,255,255,0.05)'
+                    : 'rgba(255,255,255,0.02)',
+                  backdropFilter: game.active ? 'blur(20px)' : 'blur(4px)',
+                  border: `1px solid ${game.active ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.04)'}`,
+                  opacity: game.active ? 1 : 0.5,
+                }}
+              >
+                {/* Gradient accent line at top */}
+                <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${game.gradient}`} style={{ opacity: game.active ? 1 : 0.3 }} />
+
+                {/* Icon */}
+                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center bg-gradient-to-br ${game.gradient} mb-auto`} style={{ opacity: game.active ? 0.9 : 0.4 }}>
+                  <Icon className="w-7 h-7 text-white" />
+                </div>
+
+                <div>
+                  <div className="text-lg font-bold text-white mb-1">{game.label}</div>
+                  <div className="text-xs text-slate-400">{game.desc}</div>
+                </div>
+
+                {/* Locked badge */}
+                {!game.active && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-black/60 backdrop-blur-sm border border-white/10">
+                      <Lock className="w-3.5 h-3.5 text-amber-400" />
+                      <span className="text-xs font-bold text-amber-400">قريباً</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* CTA for active */}
+                {game.active && (
+                  <div className="mt-4">
+                    <div className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r ${game.gradient} text-white font-bold text-sm shadow-lg`}
+                      style={{ boxShadow: '0 0 20px rgba(139,92,246,0.3)' }}>
+                      <Swords className="w-4 h-4" />
+                      ابدأ الآن
+                    </div>
+                  </div>
+                )}
+              </motion.button>
+            </motion.div>
           )
         })}
       </div>
 
       {/* Leaderboard Preview */}
       <DuelLeaderboardWidget />
+
+      {/* Per-game explainer modal */}
+      <AnimatePresence>
+        <GameExplainerModal
+          gameId={explainerGame}
+          open={!!explainerGame}
+          onClose={() => setExplainerGame(null)}
+          onStart={onStart}
+        />
+      </AnimatePresence>
     </div>
   )
 }
@@ -345,7 +677,9 @@ function DuelSearching({ gameType, onCancel, onMatched, userId }) {
 function DuelGame({ match, userId, onFinished }) {
   const [round, setRound] = useState(1)
   const [question, setQuestion] = useState(null)
-  const [timer, setTimer] = useState(8)
+  const gameConfig = getGameType(match.game_type) || GAME_TYPES[0]
+  const timerMax = gameConfig.timer
+  const [timer, setTimer] = useState(timerMax)
   const [selected, setSelected] = useState(null)
   const [result, setResult] = useState(null)
   const [scoreA, setScoreA] = useState(0)
@@ -353,7 +687,13 @@ function DuelGame({ match, userId, onFinished }) {
   const [opponentAnswered, setOpponentAnswered] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [interRound, setInterRound] = useState(false)
+  const [showTooltip, setShowTooltip] = useState(false)
+  // Irregular verbs text input
+  const [textAnswer, setTextAnswer] = useState('')
+  // Sentence builder chip ordering
+  const [selectedChips, setSelectedChips] = useState([])
   const timerRef = useRef(null)
+  const inputRef = useRef(null)
   const { toast } = useToast()
 
   const isPlayerA = userId === match.player_a.id
@@ -361,6 +701,11 @@ function DuelGame({ match, userId, onFinished }) {
   const opponent = isPlayerA ? match.player_b : match.player_a
   const myScore = isPlayerA ? scoreA : scoreB
   const oppScore = isPlayerA ? scoreB : scoreA
+
+  const qType = question?.type || 'meaning_mcq'
+  const isMCQ = qType === 'meaning_mcq' || qType === 'grammar_mcq'
+  const isTextInput = qType === 'irregular_form'
+  const isChipOrder = qType === 'sentence_order'
 
   useEffect(() => {
     const channel = supabase.channel(`duel:${userId}`)
@@ -378,20 +723,25 @@ function DuelGame({ match, userId, onFinished }) {
   useEffect(() => {
     async function loadQuestion() {
       setSelected(null); setResult(null); setOpponentAnswered(false)
-      setSubmitting(false); setInterRound(false); setTimer(8)
+      setSubmitting(false); setInterRound(false); setTimer(timerMax)
+      setTextAnswer(''); setSelectedChips([])
       const { data } = await supabase.functions.invoke('duel-question-next', {
         body: { duel_id: match.duel_id, round_number: round }
       })
-      if (data?.question) setQuestion(data.question)
+      if (data?.question) {
+        setQuestion(data.question)
+        // Auto-focus text input for irregular verbs
+        setTimeout(() => inputRef.current?.focus(), 200)
+      }
     }
     loadQuestion()
-  }, [round, match.duel_id])
+  }, [round, match.duel_id, timerMax])
 
   useEffect(() => {
     if (!question || selected !== null || result) return
     timerRef.current = setInterval(() => {
       setTimer(t => {
-        if (t <= 1) { clearInterval(timerRef.current); handleAnswer(-1); return 0 }
+        if (t <= 1) { clearInterval(timerRef.current); handleSubmitAnswer(null); return 0 }
         if (t <= 4) playTick()
         return t - 1
       })
@@ -399,17 +749,55 @@ function DuelGame({ match, userId, onFinished }) {
     return () => clearInterval(timerRef.current)
   }, [question, selected, result])
 
-  async function handleAnswer(index) {
+  async function handleSubmitAnswer(answer) {
     if (selected !== null || submitting) return
-    setSelected(index); setSubmitting(true)
+    setSelected(answer !== null ? answer : '__timeout__')
+    setSubmitting(true)
     clearInterval(timerRef.current); vibrate(30)
+
+    // Determine what to send
+    let sendAnswer = answer
+    if (answer === null) {
+      // Timeout — send wrong answer based on type
+      if (isMCQ) sendAnswer = -1
+      else if (isTextInput) sendAnswer = ''
+      else if (isChipOrder) sendAnswer = []
+    }
+
     const { data } = await supabase.functions.invoke('duel-answer-submit', {
-      body: { duel_id: match.duel_id, round_number: round, answer: index }
+      body: { duel_id: match.duel_id, round_number: round, answer: sendAnswer }
     })
     if (data?.is_correct) { playCorrect(); vibrate(50) }
     else { playWrong(); vibrate([50, 30, 50]) }
     setSubmitting(false)
   }
+
+  function handleMCQAnswer(index) {
+    handleSubmitAnswer(index)
+  }
+
+  function handleTextSubmit() {
+    if (!textAnswer.trim()) return
+    handleSubmitAnswer(textAnswer.trim())
+  }
+
+  function handleChipTap(word, chipIndex) {
+    if (selected !== null) return
+    // Add chip to selection
+    setSelectedChips(prev => [...prev, { word, chipIndex }])
+  }
+
+  function handleChipRemove(orderIndex) {
+    if (selected !== null) return
+    setSelectedChips(prev => prev.filter((_, i) => i !== orderIndex))
+  }
+
+  // Auto-submit when all chips are selected for sentence builder
+  useEffect(() => {
+    if (isChipOrder && question?.chips && selectedChips.length === question.chips.length && selected === null) {
+      handleSubmitAnswer(selectedChips.map(c => c.word))
+    }
+  }, [selectedChips, question, isChipOrder, selected])
 
   useEffect(() => {
     if (!result) return
@@ -421,8 +809,18 @@ function DuelGame({ match, userId, onFinished }) {
   }, [result, round, match.round_count])
 
   // Timer percentage for SVG circle
-  const timerPct = (timer / 8) * 100
+  const timerPct = (timer / timerMax) * 100
   const circumference = 2 * Math.PI * 22
+
+  // Question prompt text
+  const questionPrompt = isMCQ
+    ? (qType === 'grammar_mcq' ? 'اختر الإجابة الصحيحة' : 'ما معنى هذه الكلمة؟')
+    : isTextInput
+    ? `اكتب صيغة ${question?.ask === 'past' ? 'الماضي (past)' : 'التصريف الثالث (past participle)'}`
+    : 'رتّب الكلمات لتكوين جملة صحيحة'
+
+  // Tooltip text
+  const tooltipText = `${timerMax}s — ${isMCQ ? 'اختر الإجابة الصحيحة' : isTextInput ? 'اكتب الإجابة' : 'رتّب الكلمات'}`
 
   return (
     <div className="space-y-5 max-w-2xl mx-auto">
@@ -533,51 +931,217 @@ function DuelGame({ match, userId, onFinished }) {
             boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.1), 0 8px 32px rgba(0,0,0,0.3)',
           }}
         >
-          <div className="text-xs text-slate-500 mb-3">ما معنى هذه الكلمة؟</div>
-          <div className="text-3xl md:text-5xl font-black text-white" dir="ltr" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-            {question.word}
+          {/* In-game tooltip icon */}
+          <div className="absolute top-3 left-3">
+            <button
+              onClick={() => setShowTooltip(!showTooltip)}
+              className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+            >
+              <Info className="w-3 h-3 text-slate-500" />
+            </button>
+            {showTooltip && (
+              <div className="absolute top-8 left-0 px-3 py-1.5 rounded-lg bg-black/90 border border-white/10 text-[10px] text-slate-300 whitespace-nowrap z-10">
+                {tooltipText}
+              </div>
+            )}
           </div>
+
+          <div className="text-xs text-slate-500 mb-3">{questionPrompt}</div>
+
+          {/* MCQ / Grammar: show word */}
+          {isMCQ && (
+            <div className="text-3xl md:text-5xl font-black text-white" dir="ltr" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+              {question.word}
+            </div>
+          )}
+
+          {/* Irregular form: show word + ask type */}
+          {isTextInput && (
+            <div className="space-y-2">
+              <div className="text-3xl md:text-5xl font-black text-white" dir="ltr" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                {question.word}
+              </div>
+              {question.meaning_ar && (
+                <div className="text-sm text-slate-400">{question.meaning_ar}</div>
+              )}
+            </div>
+          )}
+
+          {/* Sentence order: show instruction */}
+          {isChipOrder && (
+            <div className="text-lg font-bold text-slate-300">
+              اضغط الكلمات بالترتيب الصحيح
+            </div>
+          )}
         </motion.div>
       )}
 
-      {/* Answer buttons */}
+      {/* ─── Answer Area ─── */}
       {question && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {question.choices.map((choice, i) => {
-            const isSelected = selected === i
-            const isRevealed = result !== null
-            const isCorrectChoice = isRevealed && result.correct_index === i
-            const isWrongSelected = isRevealed && isSelected && !isCorrectChoice
+        <>
+          {/* MCQ answer buttons */}
+          {isMCQ && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {question.choices.map((choice, i) => {
+                const isSelected = selected === i
+                const isRevealed = result !== null
+                const isCorrectChoice = isRevealed && result.correct_index === i
+                const isWrongSelected = isRevealed && isSelected && !isCorrectChoice
 
-            let bg = 'rgba(255,255,255,0.05)'
-            let border = 'rgba(255,255,255,0.08)'
-            let glow = 'none'
-            if (isSelected && !isRevealed) { bg = 'rgba(139,92,246,0.3)'; border = 'rgba(139,92,246,0.6)'; glow = '0 0 20px rgba(139,92,246,0.3)' }
-            if (isCorrectChoice && isRevealed) { bg = 'rgba(34,197,94,0.2)'; border = 'rgba(34,197,94,0.6)'; glow = '0 0 20px rgba(34,197,94,0.2)' }
-            if (isWrongSelected) { bg = 'rgba(239,68,68,0.2)'; border = 'rgba(239,68,68,0.6)'; glow = '0 0 20px rgba(239,68,68,0.2)' }
+                let bg = 'rgba(255,255,255,0.05)'
+                let border = 'rgba(255,255,255,0.08)'
+                let glow = 'none'
+                if (isSelected && !isRevealed) { bg = 'rgba(139,92,246,0.3)'; border = 'rgba(139,92,246,0.6)'; glow = '0 0 20px rgba(139,92,246,0.3)' }
+                if (isCorrectChoice && isRevealed) { bg = 'rgba(34,197,94,0.2)'; border = 'rgba(34,197,94,0.6)'; glow = '0 0 20px rgba(34,197,94,0.2)' }
+                if (isWrongSelected) { bg = 'rgba(239,68,68,0.2)'; border = 'rgba(239,68,68,0.6)'; glow = '0 0 20px rgba(239,68,68,0.2)' }
 
-            return (
-              <motion.button
-                key={i}
-                whileTap={selected === null ? { scale: 0.97 } : {}}
-                whileHover={selected === null ? { scale: 1.01 } : {}}
-                onClick={() => handleAnswer(i)}
-                disabled={selected !== null}
-                className="p-4 md:p-5 rounded-2xl text-right font-bold text-base transition-all backdrop-blur-xl"
+                return (
+                  <motion.button
+                    key={i}
+                    whileTap={selected === null ? { scale: 0.97 } : {}}
+                    whileHover={selected === null ? { scale: 1.01 } : {}}
+                    onClick={() => handleMCQAnswer(i)}
+                    disabled={selected !== null}
+                    className="p-4 md:p-5 rounded-2xl text-right font-bold text-base transition-all backdrop-blur-xl"
+                    style={{
+                      background: bg,
+                      border: `1.5px solid ${border}`,
+                      boxShadow: glow,
+                      color: isWrongSelected ? '#fca5a5' : isCorrectChoice ? '#86efac' : 'white',
+                      opacity: selected !== null && !isSelected && !isCorrectChoice ? 0.4 : 1,
+                    }}
+                  >
+                    <span className="text-xs text-slate-600 ml-2" dir="ltr">{i + 1}</span>
+                    {choice}
+                  </motion.button>
+                )
+              })}
+            </div>
+          )}
+
+          {/* Text input for irregular verbs */}
+          {isTextInput && (
+            <div className="space-y-3">
+              <div className="flex gap-2">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={textAnswer}
+                  onChange={e => setTextAnswer(e.target.value)}
+                  onKeyDown={e => { if (e.key === 'Enter') handleTextSubmit() }}
+                  disabled={selected !== null}
+                  placeholder={question.ask === 'past' ? 'اكتب صيغة الماضي...' : 'اكتب التصريف الثالث...'}
+                  dir="ltr"
+                  className="flex-1 px-5 py-4 rounded-2xl text-lg font-bold text-white text-center placeholder-slate-600 outline-none transition-all"
+                  style={{
+                    background: selected !== null
+                      ? (result?.correct_answer && textAnswer.trim().toLowerCase() === result.correct_answer.toLowerCase()
+                        ? 'rgba(34,197,94,0.2)' : 'rgba(239,68,68,0.2)')
+                      : 'rgba(255,255,255,0.05)',
+                    border: selected !== null
+                      ? (result?.correct_answer && textAnswer.trim().toLowerCase() === result.correct_answer.toLowerCase()
+                        ? '1.5px solid rgba(34,197,94,0.6)' : '1.5px solid rgba(239,68,68,0.6)')
+                      : '1.5px solid rgba(255,255,255,0.1)',
+                    backdropFilter: 'blur(20px)',
+                    fontFamily: "'Space Grotesk', sans-serif",
+                  }}
+                />
+                <motion.button
+                  whileTap={selected === null ? { scale: 0.95 } : {}}
+                  onClick={handleTextSubmit}
+                  disabled={selected !== null || !textAnswer.trim()}
+                  className="px-5 py-4 rounded-2xl font-bold text-white transition-all"
+                  style={{
+                    background: textAnswer.trim() ? 'rgba(139,92,246,0.6)' : 'rgba(255,255,255,0.05)',
+                    border: '1.5px solid rgba(139,92,246,0.4)',
+                    opacity: selected !== null ? 0.5 : 1,
+                  }}
+                >
+                  <Send className="w-5 h-5" />
+                </motion.button>
+              </div>
+              {/* Show correct answer after reveal */}
+              {result && result.correct_answer && (
+                <div className="text-center text-sm">
+                  <span className="text-slate-500">الإجابة الصحيحة: </span>
+                  <span className="text-emerald-400 font-bold" dir="ltr" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>{result.correct_answer}</span>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Chip ordering for sentence builder */}
+          {isChipOrder && (
+            <div className="space-y-4">
+              {/* Selected chips (sentence being built) */}
+              <div
+                className="min-h-[56px] rounded-2xl p-3 flex flex-wrap gap-2 items-center justify-center"
+                dir="ltr"
                 style={{
-                  background: bg,
-                  border: `1.5px solid ${border}`,
-                  boxShadow: glow,
-                  color: isWrongSelected ? '#fca5a5' : isCorrectChoice ? '#86efac' : 'white',
-                  opacity: selected !== null && !isSelected && !isCorrectChoice ? 0.4 : 1,
+                  background: 'rgba(255,255,255,0.03)',
+                  border: '1.5px dashed rgba(255,255,255,0.1)',
                 }}
               >
-                <span className="text-xs text-slate-600 ml-2" dir="ltr">{i + 1}</span>
-                {choice}
-              </motion.button>
-            )
-          })}
-        </div>
+                {selectedChips.length === 0 && (
+                  <span className="text-sm text-slate-600">اضغط الكلمات بالترتيب...</span>
+                )}
+                {selectedChips.map((chip, i) => (
+                  <motion.button
+                    key={`selected-${i}`}
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    whileTap={selected === null ? { scale: 0.95 } : {}}
+                    onClick={() => handleChipRemove(i)}
+                    disabled={selected !== null}
+                    className="px-3 py-1.5 rounded-lg text-sm font-bold text-white transition-all"
+                    style={{
+                      background: 'rgba(139,92,246,0.3)',
+                      border: '1px solid rgba(139,92,246,0.5)',
+                    }}
+                  >
+                    {chip.word}
+                  </motion.button>
+                ))}
+              </div>
+
+              {/* Available chips */}
+              <div className="flex flex-wrap gap-2 justify-center" dir="ltr">
+                {question.chips.map((word, i) => {
+                  const isUsed = selectedChips.some(c => c.chipIndex === i)
+                  const isRevealed = result !== null
+
+                  return (
+                    <motion.button
+                      key={`chip-${i}`}
+                      whileTap={!isUsed && selected === null ? { scale: 0.95 } : {}}
+                      onClick={() => !isUsed && handleChipTap(word, i)}
+                      disabled={isUsed || selected !== null}
+                      className="px-4 py-2.5 rounded-xl text-sm font-bold transition-all"
+                      style={{
+                        background: isUsed ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.08)',
+                        border: `1.5px solid ${isUsed ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.12)'}`,
+                        color: isUsed ? 'rgba(255,255,255,0.15)' : 'white',
+                        opacity: isUsed ? 0.3 : 1,
+                      }}
+                    >
+                      {word}
+                    </motion.button>
+                  )
+                })}
+              </div>
+
+              {/* Show correct order after reveal */}
+              {result && result.correct_order && (
+                <div className="text-center text-sm" dir="ltr">
+                  <span className="text-slate-500">الترتيب الصحيح: </span>
+                  <span className="text-emerald-400 font-bold" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                    {result.correct_order.join(' ')}
+                  </span>
+                </div>
+              )}
+            </div>
+          )}
+        </>
       )}
 
       {/* Waiting for opponent */}
@@ -638,11 +1202,27 @@ function DuelFinish({ result, match, userId, onRematch, onNewOpponent, onExit })
   const oppScoreFinal = isPlayerA ? result.score_b : result.score_a
   const me = isPlayerA ? match.player_a : match.player_b
   const opponent = isPlayerA ? match.player_b : match.player_a
+  const [showXpBreakdown, setShowXpBreakdown] = useState(false)
 
   useEffect(() => {
     if (won) { playWin(); vibrate([100, 50, 100]) }
     else if (!draw) { playLose(); vibrate(200) }
   }, [won, draw])
+
+  // Build XP breakdown
+  const xpBreakdown = []
+  if (won) {
+    xpBreakdown.push({ label: 'فوز', value: '+20' })
+    if (myXp > 20) xpBreakdown.push({ label: 'بونس أول فوز يومي', value: '+5' })
+  } else if (draw) {
+    xpBreakdown.push({ label: 'تعادل', value: '+5' })
+  } else {
+    if (myXp < 0) xpBreakdown.push({ label: 'خسارة', value: `${myXp}` })
+    else if (myXp === 0 && myGrace > 0) xpBreakdown.push({ label: 'خسارة (محمي)', value: '0' })
+  }
+  if (xpBreakdown.length > 0) {
+    xpBreakdown.push({ label: 'الإجمالي', value: myXp > 0 ? `+${myXp}` : `${myXp}`, bold: true })
+  }
 
   return (
     <div className="space-y-8 text-center max-w-lg mx-auto pt-8">
@@ -753,6 +1333,41 @@ function DuelFinish({ result, match, userId, onRematch, onNewOpponent, onExit })
         </motion.div>
       </div>
 
+      {/* XP Breakdown */}
+      <div className="text-center">
+        <button
+          onClick={() => setShowXpBreakdown(!showXpBreakdown)}
+          className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-slate-300 transition-colors"
+        >
+          <Info className="w-3 h-3" />
+          لماذا هذا التغيير في XP؟
+          <ChevronDown className={`w-3 h-3 transition-transform ${showXpBreakdown ? 'rotate-180' : ''}`} />
+        </button>
+        <AnimatePresence>
+          {showXpBreakdown && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="overflow-hidden"
+            >
+              <GlassCard className="mt-2 p-3 text-sm max-w-xs mx-auto">
+                {xpBreakdown.map((item, i) => (
+                  <div key={i} className={`flex items-center justify-between py-1 ${item.bold ? 'border-t border-white/10 mt-1 pt-2' : ''}`}>
+                    <span className={`text-slate-400 ${item.bold ? 'font-bold text-white' : ''}`}>{item.label}</span>
+                    <span className={`font-bold ${
+                      item.value.startsWith('+') ? 'text-emerald-400' : item.value.startsWith('-') ? 'text-red-400' : 'text-slate-300'
+                    } ${item.bold ? 'text-base' : ''}`}>
+                      <DisplayNum>{item.value}</DisplayNum>
+                    </span>
+                  </div>
+                ))}
+              </GlassCard>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
       {/* Action Buttons */}
       <div className="flex flex-col gap-3 max-w-xs mx-auto pt-4">
         <motion.button
@@ -790,6 +1405,14 @@ export default function StudentDuels() {
   const [match, setMatch] = useState(null)
   const [finishResult, setFinishResult] = useState(null)
   const [stats, setStats] = useState(null)
+  const [showRules, setShowRules] = useState(false)
+
+  // First-visit auto-open
+  useEffect(() => {
+    if (!localStorage.getItem('duels_intro_seen')) {
+      setShowRules(true)
+    }
+  }, [])
 
   useEffect(() => {
     async function loadStats() {
@@ -842,7 +1465,7 @@ export default function StudentDuels() {
         <AnimatePresence mode="wait">
           {phase === 'lobby' && (
             <motion.div key="lobby" initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }} transition={{ duration: 0.2 }}>
-              <DuelLobby onStart={handleStartSearch} stats={stats} />
+              <DuelLobby onStart={handleStartSearch} stats={stats} onOpenRules={() => setShowRules(true)} />
             </motion.div>
           )}
           {phase === 'searching' && (
@@ -862,6 +1485,11 @@ export default function StudentDuels() {
           )}
         </AnimatePresence>
       </div>
+
+      {/* Global Rules Modal */}
+      <AnimatePresence>
+        {showRules && <DuelRulesModal open={showRules} onClose={() => setShowRules(false)} />}
+      </AnimatePresence>
     </>
   )
 }

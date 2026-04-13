@@ -32,58 +32,47 @@ Deno.serve(async (req) => {
 
     const userId = user.id
 
-    // Get duel
     const { data: duel, error: duelErr } = await supabase
-      .from('duels')
-      .select('*')
-      .eq('id', duel_id)
-      .single()
-
+      .from('duels').select('*').eq('id', duel_id).single()
     if (duelErr || !duel) return json({ error: 'Duel not found' }, 404)
-
-    // Verify player is in this duel
-    if (duel.player_a !== userId && duel.player_b !== userId) {
-      return json({ error: 'Not your duel' }, 403)
-    }
-
-    if (duel.status !== 'active') {
-      return json({ error: 'Duel is not active' }, 400)
-    }
-
-    if (round_number < 1 || round_number > duel.round_count) {
-      return json({ error: 'Invalid round number' }, 400)
-    }
+    if (duel.player_a !== userId && duel.player_b !== userId) return json({ error: 'Not your duel' }, 403)
+    if (duel.status !== 'active') return json({ error: 'Duel is not active' }, 400)
+    if (round_number < 1 || round_number > duel.round_count) return json({ error: 'Invalid round number' }, 400)
 
     const questionIndex = round_number - 1
     const questions = duel.questions as any[]
+    if (!questions[questionIndex]) return json({ error: 'Question not found' }, 404)
 
-    if (!questions[questionIndex]) {
-      return json({ error: 'Question not found' }, 404)
-    }
-
-    // Record server timestamp for when question was sent to this player
+    // Record server timestamp
     const now = Date.now()
     const updatedQuestions = [...questions]
-    if (!updatedQuestions[questionIndex].sent_at) {
-      updatedQuestions[questionIndex].sent_at = {}
-    }
+    if (!updatedQuestions[questionIndex].sent_at) updatedQuestions[questionIndex].sent_at = {}
     updatedQuestions[questionIndex].sent_at[userId] = now
 
-    await supabase
-      .from('duels')
+    await supabase.from('duels')
       .update({ questions: updatedQuestions, current_round: round_number })
       .eq('id', duel_id)
 
-    // Return question WITHOUT correct answer
+    // Return question WITHOUT correct answers — format depends on type
     const q = questions[questionIndex]
+    const question: any = { type: q.type }
+
+    if (q.type === 'meaning_mcq' || q.type === 'grammar_mcq') {
+      question.word = q.word
+      question.choices = q.choices
+      if (q.explanation_ar) question.explanation_ar = q.explanation_ar
+    } else if (q.type === 'irregular_form') {
+      question.word = q.word
+      question.ask = q.ask
+      question.meaning_ar = q.meaning_ar
+    } else if (q.type === 'sentence_order') {
+      question.chips = q.chips
+    }
+
     return json({
       round_number,
       total_rounds: duel.round_count,
-      question: {
-        type: q.type,
-        word: q.word,
-        choices: q.choices,
-      },
+      question,
       server_timestamp: now,
     })
   } catch (err) {
