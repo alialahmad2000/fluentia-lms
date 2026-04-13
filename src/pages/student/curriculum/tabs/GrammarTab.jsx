@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { PenLine } from 'lucide-react'
+import { PenLine, MessageCircle } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import GrammarPageShell from '../../../../components/grammar/GrammarPageShell'
@@ -62,6 +62,23 @@ export default function GrammarTab({ unitId }) {
 function GrammarTopic({ topic, studentId, unitId, studentLevel }) {
   const [bestScore, setBestScore] = useState(null)
   const [attemptNumber, setAttemptNumber] = useState(1)
+  const exerciseMounted = useRef(false)
+
+  const hasExercises = topic.exercises?.length > 0
+
+  // C1: Dev guard — warn if exercises exist but section didn't mount
+  useEffect(() => {
+    if (!hasExercises) return
+    const timer = setTimeout(() => {
+      if (!exerciseMounted.current) {
+        console.error('[Grammar] exercises exist but ExerciseSection did not mount', {
+          topicId: topic.id,
+          exercisesCount: topic.exercises.length,
+        })
+      }
+    }, 2000)
+    return () => clearTimeout(timer)
+  }, [hasExercises, topic.id, topic.exercises?.length])
 
   const sections = topic.explanation_content?.sections || []
 
@@ -94,20 +111,32 @@ function GrammarTopic({ topic, studentId, unitId, studentLevel }) {
       <CommonMistakesCard items={mistakesSection?.items} />
 
       {/* Exercises — always inline */}
-      {topic.exercises?.length > 0 && (
-        <ExerciseSection
-          exercises={topic.exercises}
-          studentId={studentId}
-          unitId={unitId}
-          grammarId={topic.id}
-          grammarTopic={topic.topic_name_en}
-          studentLevel={studentLevel}
-          ruleSnippet={ruleSnippet}
-          onAttemptUpdate={(score, attempt, best) => {
-            if (best != null) setBestScore(best)
-            if (attempt != null) setAttemptNumber(attempt)
-          }}
-        />
+      {hasExercises ? (
+        <div ref={() => { exerciseMounted.current = true }}>
+          <ExerciseSection
+            exercises={topic.exercises}
+            studentId={studentId}
+            unitId={unitId}
+            grammarId={topic.id}
+            grammarTopic={topic.topic_name_en}
+            studentLevel={studentLevel}
+            ruleSnippet={ruleSnippet}
+            onAttemptUpdate={(score, attempt, best) => {
+              if (best != null) setBestScore(best)
+              if (attempt != null) setAttemptNumber(attempt)
+            }}
+          />
+        </div>
+      ) : (
+        <div className="grammar-glass p-6 text-center space-y-3 mt-8">
+          <MessageCircle size={24} style={{ color: 'var(--text-tertiary)', margin: '0 auto' }} />
+          <p className="text-sm font-['Tajawal']" style={{ color: 'var(--text-tertiary)' }}>
+            لا توجد تمارين لهذا الدرس بعد
+          </p>
+          <p className="text-xs font-['Tajawal']" style={{ color: 'var(--accent-sky)' }}>
+            تواصلي مع المدرب لإضافتها
+          </p>
+        </div>
       )}
     </GrammarPageShell>
   )

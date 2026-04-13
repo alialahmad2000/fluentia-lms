@@ -7,10 +7,9 @@ import { awardCurriculumXP } from '../../utils/curriculumXP'
 import ExerciseCard from './ExerciseCard'
 import ExerciseSummary from './ExerciseSummary'
 import AttemptsHistory from './AttemptsHistory'
-import { useFadeIn } from './useFadeIn'
 
 export default function ExerciseSection({ exercises, studentId, unitId, grammarId, onAttemptUpdate, grammarTopic, studentLevel, ruleSnippet }) {
-  const sectionRef = useFadeIn()
+  const sectionRef = useRef(null)
   const [answers, setAnswers] = useState({})
   const [progressLoading, setProgressLoading] = useState(true)
   const [isCompleted, setIsCompleted] = useState(false)
@@ -292,7 +291,7 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
   }
 
   return (
-    <div ref={sectionRef} className="grammar-fade-in space-y-4 mt-8">
+    <div ref={sectionRef} className="space-y-4 mt-8">
       {/* Section header */}
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">

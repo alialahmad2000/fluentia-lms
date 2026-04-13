@@ -61,7 +61,7 @@ function ExceptionBlock({ exception, defaultOpen }) {
                   <tr style={{ background: 'var(--glass-card)' }}>
                     <th className="px-3 py-2 text-start font-['Inter'] font-bold" style={{ color: 'var(--text-tertiary)' }}>Base</th>
                     <th className="px-3 py-2 text-start font-['Inter'] font-bold" style={{ color: 'var(--success)' }}>Correct</th>
-                    {exception.examples.some(e => e.wrong) && (
+                    {exception.examples.some(e => (e.wrong || e.common_mistake)) && (
                       <th className="px-3 py-2 text-start font-['Inter'] font-bold" style={{ color: 'var(--danger)' }}>Common mistake</th>
                     )}
                   </tr>
@@ -75,9 +75,9 @@ function ExceptionBlock({ exception, defaultOpen }) {
                       <td className="px-3 py-2 font-['Inter'] font-semibold" dir="ltr" style={{ color: 'var(--success)' }}>
                         {ex.correct || ex.past}
                       </td>
-                      {exception.examples.some(e => e.wrong) && (
+                      {exception.examples.some(e => (e.wrong || e.common_mistake)) && (
                         <td className="px-3 py-2 font-['Inter'] line-through" dir="ltr" style={{ color: 'var(--danger)', opacity: 0.7 }}>
-                          {ex.wrong || '—'}
+                          {(ex.wrong || ex.common_mistake) || '—'}
                         </td>
                       )}
                     </tr>
