@@ -8,7 +8,7 @@ import {
   LogOut, X, ChevronLeft, Zap, FolderOpen, CalendarDays, Calendar,
   Video, ClipboardCheck, UsersRound, GraduationCap, Wrench, ListChecks,
   Brain, BookOpen, Sparkles, Database, Languages, Shuffle, Lock, Map, Activity,
-  StickyNote, TrendingUp, Megaphone, RefreshCw, Clapperboard,
+  StickyNote, TrendingUp, Megaphone, RefreshCw, Clapperboard, Swords,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { useThemeStore } from '../../stores/themeStore'
@@ -55,6 +55,7 @@ const NAV_ITEMS = {
     { to: '/student/verbs', label: 'الأفعال الشاذة', icon: Shuffle },
     { to: '/student/progress', label: 'تقدّمي', icon: Activity },
     { type: 'divider', label: 'مسابقات' },
+    { to: '/student/duels', label: 'المبارزات', icon: Swords },
     { to: '/student/creator-challenge', label: 'تحدي المبدعين', icon: Clapperboard },
     { type: 'divider', label: 'معامل' },
     { to: '/student/speaking-lab', label: 'معمل التحدث', icon: Mic, requiredPackage: 'tamayuz', comingSoon: true },
