@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import {
   BarChart3,
@@ -5,9 +6,13 @@ import {
   TrendingDown,
   Minus,
   CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react'
 import AnimatedNumber from '../../ui/AnimatedNumber'
 import { useWeekSummary } from '../../../hooks/dashboard/useWeekSummary'
+import { useHistoryBounds } from '../../../hooks/dashboard/useHistoryBounds'
+import { riyadhToday, riyadhWeekStart, addDays, formatArabicWeekLabel } from '../../../utils/riyadhTime'
 
 /* ── skill type config ── */
 const SKILL_MAP = {
@@ -20,6 +25,8 @@ const SKILL_MAP = {
 }
 
 const SKILL_ORDER = ['reading', 'grammar', 'vocabulary', 'listening', 'speaking', 'writing']
+
+const DAY_LABELS = ['أحد','إثنين','ثلاثاء','أربعاء','خميس','جمعة','سبت']
 
 /* ── skeleton loader ── */
 function SkeletonRow({ width = '100%', height = 12 }) {
@@ -41,17 +48,14 @@ function SkeletonRow({ width = '100%', height = 12 }) {
 function LoadingSkeleton() {
   return (
     <div className="fl-card-static p-5 space-y-5">
-      {/* header */}
       <div className="flex items-center justify-between">
         <SkeletonRow width="140px" height={20} />
         <SkeletonRow width="180px" height={24} />
       </div>
-      {/* xp bar */}
       <div className="space-y-2">
         <SkeletonRow width="200px" height={14} />
         <SkeletonRow width="100%" height={12} />
       </div>
-      {/* skill bars */}
       <div className="space-y-3">
         {Array.from({ length: 6 }).map((_, i) => (
           <div key={i} className="flex items-center gap-3">
@@ -61,9 +65,7 @@ function LoadingSkeleton() {
           </div>
         ))}
       </div>
-      {/* units line */}
       <SkeletonRow width="60%" height={14} />
-      {/* active days */}
       <div className="flex items-center gap-2">
         <SkeletonRow width="140px" height={14} />
         <div className="flex gap-1.5">
@@ -77,8 +79,8 @@ function LoadingSkeleton() {
 }
 
 /* ── comparison badge ── */
-function ComparisonBadge({ comparisonPct, xpLastWeek }) {
-  if (xpLastWeek === 0) return null
+function ComparisonBadge({ comparisonPct, xpPrevWeek }) {
+  if (xpPrevWeek === 0) return null
 
   if (comparisonPct > 0) {
     return (
@@ -91,7 +93,7 @@ function ComparisonBadge({ comparisonPct, xpLastWeek }) {
         }}
       >
         <TrendingUp size={14} />
-        <span>↗ +{comparisonPct}% من الأسبوع الماضي</span>
+        <span>↗ +{comparisonPct}% من الأسبوع السابق</span>
       </span>
     )
   }
@@ -107,12 +109,11 @@ function ComparisonBadge({ comparisonPct, xpLastWeek }) {
         }}
       >
         <TrendingDown size={14} />
-        <span>↘ {comparisonPct}% من الأسبوع الماضي</span>
+        <span>↘ {comparisonPct}% من الأسبوع السابق</span>
       </span>
     )
   }
 
-  /* comparison_pct === 0 && xp_last_week > 0 */
   return (
     <span
       className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full"
@@ -123,7 +124,7 @@ function ComparisonBadge({ comparisonPct, xpLastWeek }) {
       }}
     >
       <Minus size={14} />
-      <span>= نفس الأسبوع الماضي</span>
+      <span>= نفس الأسبوع السابق</span>
     </span>
   )
 }
@@ -203,77 +204,92 @@ function UnitsCompletedLine({ units }) {
   )
 }
 
-/* ── active-days dots ── */
-function ActiveDaysDots({ activeDaysCount }) {
-  const days = Array.from({ length: 7 }).map((_, i) => i < activeDaysCount)
-  /* reverse so filled dots appear from the right in RTL */
-  const dotsRtl = [...days].reverse()
+/* ── active-days dots (Sunday→Saturday with labels) ── */
+function ActiveDaysDots({ activeDaysCount, activeDaysMask }) {
+  const mask = activeDaysMask && activeDaysMask.length === 7
+    ? activeDaysMask
+    : Array.from({ length: 7 }).map((_, i) => i < activeDaysCount)
 
   return (
-    <div className="flex items-center gap-2.5 flex-wrap">
+    <div className="space-y-1.5">
       <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
         أيام نشطة: <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>{activeDaysCount}</span> من ٧
       </span>
-      <div className="flex gap-1.5" dir="rtl">
-        {dotsRtl.map((filled, i) => (
-          <span
-            key={i}
-            className="block rounded-full"
-            style={{
-              width: 10,
-              height: 10,
-              background: filled ? 'var(--accent-violet)' : 'rgba(255, 255, 255, 0.08)',
-              boxShadow: filled ? '0 0 6px var(--accent-violet-glow)' : 'none',
-              transition: 'background 0.3s, box-shadow 0.3s',
-            }}
-          />
+      <div className="flex gap-2" dir="rtl">
+        {mask.map((filled, i) => (
+          <div key={i} className="flex flex-col items-center gap-1">
+            <span
+              className="block rounded-full"
+              style={{
+                width: 10,
+                height: 10,
+                background: filled ? 'var(--accent-violet)' : 'rgba(255, 255, 255, 0.08)',
+                boxShadow: filled ? '0 0 6px var(--accent-violet-glow)' : 'none',
+                transition: 'background 0.3s, box-shadow 0.3s',
+              }}
+            />
+            <span className="text-[9px]" style={{ color: 'var(--text-tertiary)' }}>
+              {DAY_LABELS[i]}
+            </span>
+          </div>
         ))}
       </div>
     </div>
   )
 }
 
-/* ── empty state ── */
-function EmptyState() {
+/* ── nav button ── */
+function NavBtn({ onClick, disabled, ariaLabel, children }) {
   return (
-    <div className="fl-card-static p-5">
-      <motion.div
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="flex flex-col items-center justify-center text-center py-8 gap-3"
-      >
-        <BarChart3 size={36} style={{ color: 'var(--text-tertiary)' }} />
-        <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-          ابدأ أسبوعك بنشاط! كل نشاط يقربك من هدفك
-        </p>
-      </motion.div>
-    </div>
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={ariaLabel}
+      className="p-1.5 rounded-lg transition-colors"
+      style={{
+        background: disabled ? 'transparent' : 'rgba(255,255,255,0.06)',
+        color: disabled ? 'var(--text-tertiary)' : 'var(--text-secondary)',
+        cursor: disabled ? 'not-allowed' : 'pointer',
+        opacity: disabled ? 0.3 : 1,
+      }}
+    >
+      {children}
+    </button>
   )
 }
 
 /* ── main widget ── */
 export default function WeeklyProgressWidget({ studentId }) {
-  const { data, isLoading } = useWeekSummary(studentId)
+  const [weekStart, setWeekStart] = useState(null)
+  const { data, isLoading } = useWeekSummary(studentId, weekStart)
+  const { data: bounds } = useHistoryBounds(studentId)
+
+  const isCurrentWeek = data?.is_current_week !== false
+  const currentWeekStart = weekStart ?? riyadhWeekStart(riyadhToday())
+
+  const canGoBack = bounds
+    ? currentWeekStart.getTime() > new Date(bounds.earliest_week_start).getTime()
+    : false
 
   if (isLoading) return <LoadingSkeleton />
 
-  if (!data || (data.xp_week === 0 && data.active_days_count === 0)) {
-    return <EmptyState />
-  }
+  const isEmpty = !data || (data.xp_week === 0 && data.active_days_count === 0)
 
   const {
     xp_week = 0,
-    xp_last_week = 0,
+    xp_prev_week = 0,
     comparison_pct = 0,
     weekly_goal_xp = 1,
     weekly_goal_pct = 0,
     activities_by_type = {},
     units_completed_this_week = [],
     active_days_count = 0,
-  } = data
+    active_days_mask = null,
+  } = data || {}
 
   const maxActivity = Math.max(...Object.values(activities_by_type), 1)
+
+  const weekLabel = formatArabicWeekLabel(currentWeekStart)
 
   return (
     <motion.div
@@ -282,69 +298,118 @@ export default function WeeklyProgressWidget({ studentId }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, ease: 'easeOut' }}
     >
-      {/* ── header ── */}
+      {/* ── header with nav ── */}
       <div className="flex items-center justify-between flex-wrap gap-2">
-        <h3
-          className="flex items-center gap-2 text-base font-bold"
-          style={{ color: 'var(--text-primary)' }}
-        >
-          <BarChart3 size={18} style={{ color: 'var(--accent-violet)' }} />
-          هذا الأسبوع
-        </h3>
-        <ComparisonBadge comparisonPct={comparison_pct} xpLastWeek={xp_last_week} />
-      </div>
+        <div className="flex items-center gap-1.5">
+          <NavBtn
+            onClick={() => setWeekStart(addDays(currentWeekStart, -7))}
+            disabled={!canGoBack}
+            ariaLabel="الأسبوع السابق"
+          >
+            <ChevronRight size={16} />
+          </NavBtn>
 
-      {/* ── main XP bar ── */}
-      <div className="space-y-2">
-        <div className="flex items-baseline gap-1 text-sm" style={{ color: 'var(--text-secondary)' }}>
-          <AnimatedNumber value={xp_week} className="font-bold text-lg" style={{ color: 'var(--text-primary)' }} />
-          <span>/</span>
-          <span>{weekly_goal_xp} XP</span>
-          <span className="mr-1.5 text-xs" style={{ color: 'var(--text-tertiary)' }}>
-            (<AnimatedNumber value={weekly_goal_pct} className="font-semibold" />%)
-          </span>
-        </div>
+          <h3
+            className="flex items-center gap-2 text-sm font-bold"
+            style={{ color: 'var(--text-primary)' }}
+          >
+            <BarChart3 size={18} style={{ color: 'var(--accent-violet)' }} />
+            {weekLabel}
+          </h3>
 
-        <div className="fl-progress-track" style={{ height: 12, borderRadius: 6 }}>
-          <motion.div
-            className="fl-progress-fill"
-            initial={{ width: 0 }}
-            animate={{ width: `${Math.min(weekly_goal_pct, 100)}%` }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
-            style={{
-              height: '100%',
-              borderRadius: 6,
-              background: 'linear-gradient(90deg, var(--accent-violet), var(--accent-sky))',
-              boxShadow: '0 0 12px var(--accent-violet-glow)',
+          <NavBtn
+            onClick={() => {
+              const next = addDays(currentWeekStart, 7)
+              const curWk = riyadhWeekStart(riyadhToday())
+              if (next.getTime() >= curWk.getTime()) setWeekStart(null)
+              else setWeekStart(next)
             }}
-          />
+            disabled={isCurrentWeek}
+            ariaLabel="الأسبوع التالي"
+          >
+            <ChevronLeft size={16} />
+          </NavBtn>
+
+          {!isCurrentWeek && (
+            <button
+              onClick={() => setWeekStart(null)}
+              className="text-[10px] px-2.5 py-1 rounded-full font-medium transition-colors mr-1"
+              style={{
+                background: 'rgba(56,189,248,0.1)',
+                color: 'var(--accent-sky)',
+              }}
+            >
+              ← هذا الأسبوع
+            </button>
+          )}
         </div>
+
+        <ComparisonBadge comparisonPct={comparison_pct} xpPrevWeek={xp_prev_week} />
       </div>
 
-      {/* ── skills breakdown ── */}
-      <div className="space-y-2.5">
-        {SKILL_ORDER.map((key, index) => {
-          const cfg = SKILL_MAP[key]
-          const count = activities_by_type[key] ?? 0
-          return (
-            <SkillBar
-              key={key}
-              label={cfg.label}
-              color={cfg.color}
-              glow={cfg.glow}
-              count={count}
-              maxCount={maxActivity}
-              index={index}
-            />
-          )
-        })}
-      </div>
+      {/* ── empty week ── */}
+      {isEmpty ? (
+        <div className="flex flex-col items-center justify-center text-center py-8 gap-3">
+          <BarChart3 size={36} style={{ color: 'var(--text-tertiary)' }} />
+          <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+            {isCurrentWeek ? 'ابدأ أسبوعك بنشاط! كل نشاط يقربك من هدفك' : 'لم يكن هناك نشاط في هذا الأسبوع'}
+          </p>
+        </div>
+      ) : (
+        <>
+          {/* ── main XP bar ── */}
+          <div className="space-y-2">
+            <div className="flex items-baseline gap-1 text-sm" style={{ color: 'var(--text-secondary)' }}>
+              <AnimatedNumber value={xp_week} className="font-bold text-lg" style={{ color: 'var(--text-primary)' }} />
+              <span>/</span>
+              <span>{weekly_goal_xp} XP</span>
+              <span className="mr-1.5 text-xs" style={{ color: 'var(--text-tertiary)' }}>
+                (<AnimatedNumber value={weekly_goal_pct} className="font-semibold" />%)
+              </span>
+            </div>
 
-      {/* ── units completed ── */}
-      <UnitsCompletedLine units={units_completed_this_week} />
+            <div className="fl-progress-track" style={{ height: 12, borderRadius: 6 }}>
+              <motion.div
+                className="fl-progress-fill"
+                initial={{ width: 0 }}
+                animate={{ width: `${Math.min(weekly_goal_pct, 100)}%` }}
+                transition={{ duration: 0.7, ease: 'easeOut' }}
+                style={{
+                  height: '100%',
+                  borderRadius: 6,
+                  background: 'linear-gradient(90deg, var(--accent-violet), var(--accent-sky))',
+                  boxShadow: '0 0 12px var(--accent-violet-glow)',
+                }}
+              />
+            </div>
+          </div>
 
-      {/* ── active days ── */}
-      <ActiveDaysDots activeDaysCount={active_days_count} />
+          {/* ── skills breakdown ── */}
+          <div className="space-y-2.5">
+            {SKILL_ORDER.map((key, index) => {
+              const cfg = SKILL_MAP[key]
+              const count = activities_by_type[key] ?? 0
+              return (
+                <SkillBar
+                  key={key}
+                  label={cfg.label}
+                  color={cfg.color}
+                  glow={cfg.glow}
+                  count={count}
+                  maxCount={maxActivity}
+                  index={index}
+                />
+              )
+            })}
+          </div>
+
+          {/* ── units completed ── */}
+          <UnitsCompletedLine units={units_completed_this_week} />
+
+          {/* ── active days ── */}
+          <ActiveDaysDots activeDaysCount={active_days_count} activeDaysMask={active_days_mask} />
+        </>
+      )}
     </motion.div>
   )
 }
