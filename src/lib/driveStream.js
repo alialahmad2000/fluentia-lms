@@ -7,15 +7,20 @@ const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
 const cache = new Map() // fileId → { url, expiresAt }
 const CACHE_TTL = 50 * 60 * 1000 // 50 minutes
 
+const isDebug = () => typeof localStorage !== 'undefined' && localStorage.getItem('fluentia_debug') === '1'
+
 export async function resolveStreamUrl(fileId, { forceRefresh = false } = {}) {
   if (!fileId) return null
 
   if (!forceRefresh) {
     const cached = cache.get(fileId)
     if (cached && Date.now() < cached.expiresAt) {
+      if (isDebug()) console.log('[driveStream] Cache hit for', fileId)
       return cached.url
     }
   }
+
+  if (isDebug()) console.log('[driveStream] Requesting URL for', fileId, forceRefresh ? '(force refresh)' : '')
 
   // Get current session token for auth
   let tokenParam = ''
@@ -23,13 +28,20 @@ export async function resolveStreamUrl(fileId, { forceRefresh = false } = {}) {
     const { data: { session } } = await supabase.auth.getSession()
     if (session?.access_token) {
       tokenParam = `&token=${session.access_token}`
+      if (isDebug()) console.log('[driveStream] Session valid, user:', session.user?.id)
+    } else {
+      if (isDebug()) console.warn('[driveStream] No session found')
     }
-  } catch {}
+  } catch (e) {
+    if (isDebug()) console.error('[driveStream] Session error:', e.message)
+  }
 
   // Build the proxy URL — the edge function streams the video
   // Auth token as query param since <video> can't set Authorization header
   const bustParam = forceRefresh ? `&_t=${Date.now()}` : ''
   const url = `${SUPABASE_URL}/functions/v1/video-proxy?id=${fileId}${tokenParam}${bustParam}`
+
+  if (isDebug()) console.log('[driveStream] Returning proxy URL (first 80):', url.substring(0, 80))
 
   cache.set(fileId, { url, expiresAt: Date.now() + CACHE_TTL })
   return url

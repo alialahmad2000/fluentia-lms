@@ -85,16 +85,53 @@ export default function PremiumVideoPlayer({
   const loopActive = loopA !== null && loopB !== null
 
   const fileId = useMemo(() => extractFileId(recording?.google_drive_url), [recording?.google_drive_url])
+  const isDebugMode = typeof window !== 'undefined' && localStorage.getItem('fluentia_debug') === '1'
+
   // resolveStreamUrl is now async (fetches auth token) — use sync fallback initially, then async with token
   const [streamUrl, setStreamUrl] = useState(() => resolveStreamUrlSync(fileId))
   useEffect(() => {
     if (!fileId) return
     let cancelled = false
+    if (isDebugMode) console.log('[Player] Resolving stream URL for fileId:', fileId)
     resolveStreamUrl(fileId).then(url => {
-      if (!cancelled && url) setStreamUrl(url)
+      if (!cancelled && url) {
+        if (isDebugMode) console.log('[Player] Stream URL resolved (first 100):', url.substring(0, 100))
+        setStreamUrl(url)
+      }
     })
     return () => { cancelled = true }
-  }, [fileId])
+  }, [fileId, isDebugMode])
+
+  // ─── Deep logging for mobile debugging ─────────────
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video || !isDebugMode) return
+
+    const log = (event) => {
+      console.log(`[Player:${event}]`, {
+        recordingId: recording?.id,
+        fileId,
+        src: video.src?.substring(0, 100),
+        currentTime: video.currentTime,
+        readyState: video.readyState,
+        networkState: video.networkState,
+        error: video.error ? { code: video.error.code, message: video.error.message } : null,
+        userAgent: navigator.userAgent,
+        isOnline: navigator.onLine,
+        connectionType: navigator.connection?.effectiveType,
+      })
+    }
+
+    const events = ['loadstart', 'loadedmetadata', 'loadeddata', 'canplay',
+                    'play', 'playing', 'waiting', 'stalled', 'error', 'abort', 'suspend']
+    const handlers = events.map(ev => {
+      const handler = () => log(ev)
+      video.addEventListener(ev, handler)
+      return { ev, handler }
+    })
+
+    return () => handlers.forEach(({ ev, handler }) => video.removeEventListener(ev, handler))
+  }, [recording?.id, fileId, isDebugMode])
 
   // Current chapter
   const currentChapter = useMemo(() => {
@@ -681,6 +718,34 @@ export default function PremiumVideoPlayer({
             </a>
           </div>
         </div>
+      )}
+
+      {/* Debug state button (visible only in debug mode) */}
+      {isDebugMode && (
+        <button
+          onClick={() => {
+            const v = videoRef.current
+            console.log('[Manual] Video element state:', {
+              src: v?.src?.substring(0, 120),
+              currentSrc: v?.currentSrc?.substring(0, 120),
+              error: v?.error ? { code: v.error.code, message: v.error.message } : null,
+              readyState: v?.readyState,
+              networkState: v?.networkState,
+              paused: v?.paused,
+              duration: v?.duration,
+              currentTime: v?.currentTime,
+              buffered: v?.buffered ? Array.from({ length: v.buffered.length }, (_, i) =>
+                [v.buffered.start(i).toFixed(1), v.buffered.end(i).toFixed(1)]) : [],
+              userAgent: navigator.userAgent,
+              online: navigator.onLine,
+              connection: navigator.connection?.effectiveType,
+            })
+          }}
+          className="absolute top-2 right-2 px-2 py-1 rounded bg-yellow-500/80 text-black text-[10px] font-bold"
+          style={{ zIndex: 30 }}
+        >
+          🔍 Log State
+        </button>
       )}
 
       {/* Bookmark inline input */}

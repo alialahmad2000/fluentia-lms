@@ -6,6 +6,16 @@ import './index.css'
 import { queryClient } from './lib/queryClient'
 import { AccessibilityProvider } from './contexts/AccessibilityContext'
 
+// Mobile debug console — activate via ?debug=1 or localStorage
+if (new URLSearchParams(window.location.search).get('debug') === '1' ||
+    localStorage.getItem('fluentia_debug') === '1') {
+  localStorage.setItem('fluentia_debug', '1')
+  import('eruda').then(eruda => {
+    eruda.default.init()
+    console.log('[Fluentia] Eruda debug console activated')
+  })
+}
+
 // ─── Global error recovery — catch unhandled errors that React can't ───
 window.addEventListener('unhandledrejection', (event) => {
   console.error('[Unhandled Rejection]', event.reason)

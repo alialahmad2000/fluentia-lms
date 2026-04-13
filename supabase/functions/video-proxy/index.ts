@@ -38,6 +38,10 @@ serve(async (req: Request) => {
   }
 
   const url = new URL(req.url)
+  console.log(`[proxy] Request: ${req.method} ${url.pathname}${url.search.substring(0, 80)}`)
+  console.log(`[proxy] User-Agent: ${req.headers.get('user-agent')?.substring(0, 80)}`)
+  console.log(`[proxy] Range: ${req.headers.get('range') || 'none'}`)
+
   const fileId = url.searchParams.get('id')
   if (!fileId || !/^[a-zA-Z0-9_-]{10,}$/.test(fileId)) {
     return jsonErr('Missing or invalid file id')
@@ -167,6 +171,8 @@ serve(async (req: Request) => {
 
       return jsonErr(reason, 502)
     }
+
+    console.log(`[proxy] Drive response: status=${response.status}, ct=${response.headers.get('content-type')}, len=${response.headers.get('content-length')}`)
 
     // Build response with CORS headers
     const respHeaders = new Headers(CORS)
