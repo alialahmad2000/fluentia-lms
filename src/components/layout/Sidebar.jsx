@@ -377,6 +377,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
     <>
       {/* Desktop sidebar */}
       <aside
+        data-sidebar-root
         className={`hidden lg:flex flex-col backdrop-blur-2xl transition-all duration-300 ease-apple fixed top-0 right-0 h-dvh z-30 ${
           collapsed ? 'w-[72px]' : 'w-[260px]'
         }`}

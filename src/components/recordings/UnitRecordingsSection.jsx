@@ -5,6 +5,7 @@ import { useUnitRecordings } from '../../hooks/useUnitRecordings'
 import { useRecordingProgress } from '../../hooks/useRecordingProgress'
 import { useRecordingChapters } from '../../hooks/useRecordingChapters'
 import { useRecordingBookmarks } from '../../hooks/useRecordingBookmarks'
+import { useSidebarWidth } from '../../hooks/useSidebarWidth'
 import { useAuthStore } from '../../stores/authStore'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '../../lib/supabase'
@@ -182,6 +183,7 @@ function PlayerModal({ recording, onClose }) {
   const queryClient = useQueryClient()
   const playerContainerRef = useRef(null)
   const xpAwardedRef = useRef(false)
+  const sidebarWidth = useSidebarWidth()
 
   const [showPanel, setShowPanel] = useState(false)
   const [panelTab, setPanelTab] = useState('chapters')
@@ -270,12 +272,19 @@ function PlayerModal({ recording, onClose }) {
     el?.__playerApi?.seekTo?.(seconds)
   }, [])
 
+  // On desktop (lg+), offset modal by sidebar width (RTL = right side)
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024
+  const modalStyle = isMobile
+    ? { top: 0, bottom: 0, left: 0, right: 0 }
+    : { top: 0, bottom: 0, left: 0, right: sidebarWidth }
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+      className="fixed z-50 flex items-center justify-center p-4 sm:p-6"
+      style={{ ...modalStyle, transition: 'right 300ms ease' }}
       onClick={handleClose}
     >
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
