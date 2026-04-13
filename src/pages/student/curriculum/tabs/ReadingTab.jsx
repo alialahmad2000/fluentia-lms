@@ -280,7 +280,16 @@ function ReadingContent({ reading, studentId, unitId }) {
   }, [savedWords])
 
   const handleWordSaved = useCallback((word) => {
-    setSavedWordSet(prev => new Set([...prev, word.toLowerCase()]))
+    if (word.startsWith('__remove__')) {
+      const removed = word.replace('__remove__', '').toLowerCase()
+      setSavedWordSet(prev => {
+        const next = new Set(prev)
+        next.delete(removed)
+        return next
+      })
+    } else {
+      setSavedWordSet(prev => new Set([...prev, word.toLowerCase()]))
+    }
     queryClient.invalidateQueries({ queryKey: ['saved-words-set', studentId] })
     queryClient.invalidateQueries({ queryKey: ['saved-words', studentId] })
   }, [studentId, queryClient])
@@ -551,6 +560,7 @@ function ReadingContent({ reading, studentId, unitId }) {
                 unitId={unitId}
                 readingId={reading.id}
                 onWordSaved={handleWordSaved}
+                savedWordSet={savedWordSet}
               />
             )}
           </div>
