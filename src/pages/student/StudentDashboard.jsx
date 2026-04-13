@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import {
   Flame, Zap, Trophy, BookOpen, Calendar, ArrowLeft, CreditCard, Crosshair,
   CalendarDays, FileText, ClipboardCheck, Video, UsersRound,
-  Clock, Activity, Sparkles, CheckCircle2, Circle,
+  Clock, Sparkles, CheckCircle2, Circle,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
@@ -22,6 +22,10 @@ import AnimatedNumber from '../../components/ui/AnimatedNumber'
 import { DashboardSkeleton } from '../../components/ui/PageSkeleton'
 import { Link, useNavigate } from 'react-router-dom'
 import { tracker } from '../../services/activityTracker'
+import DailyProgressWidget from '../../components/student/dashboard/DailyProgressWidget'
+import WeeklyProgressWidget from '../../components/student/dashboard/WeeklyProgressWidget'
+import PersonalDictionaryWidget from '../../components/student/dashboard/PersonalDictionaryWidget'
+import LiveLevelActivityFeed from '../../components/student/dashboard/LiveLevelActivityFeed'
 
 function getLevel(xp) {
   for (let i = GAMIFICATION_LEVELS.length - 1; i >= 0; i--) {
@@ -205,45 +209,7 @@ export default function StudentDashboard() {
   const nextClassTime = schedule?.time
   const countdown = useCountdown(schedule)
 
-  // Activity feed preview (3 latest)
-  const { data: activityPreview } = useQuery({
-    queryKey: ['dashboard-activity-preview', studentData?.group_id],
-    queryFn: async () => {
-      const { data } = await supabase
-        .from('activity_feed')
-        .select('id, type, title, created_at, student:student_id(profiles(display_name, full_name))')
-        .eq('group_id', studentData?.group_id)
-        .order('created_at', { ascending: false })
-        .limit(3)
-      return (data || []).map(a => ({
-        ...a,
-        studentName: a.student?.profiles?.full_name || a.student?.profiles?.display_name || null,
-      }))
-    },
-    enabled: !!studentData?.group_id,
-  })
-
-  // Leaderboard preview (top 3)
-  const { data: leaderboardPreview } = useQuery({
-    queryKey: ['dashboard-leaderboard-preview', studentData?.group_id],
-    queryFn: async () => {
-      const { data } = await supabase
-        .from('students')
-        .select('id, xp_total, profiles(display_name, full_name)')
-        .eq('group_id', studentData?.group_id)
-        .eq('status', 'active')
-        .is('deleted_at', null)
-        .order('xp_total', { ascending: false })
-        .limit(3)
-      return (data || []).map((s, i) => ({
-        rank: i + 1,
-        name: s.profiles?.full_name || s.profiles?.display_name || 'طالب',
-        xp: s.xp_total,
-        isMe: s.id === profile?.id,
-      }))
-    },
-    enabled: !!studentData?.group_id,
-  })
+  // Activity feed + leaderboard preview — replaced by LiveLevelActivityFeed widget
 
   // Encouragement message
   const encouragement = getEncouragement({
@@ -318,6 +284,14 @@ export default function StudentDashboard() {
             </div>
           </div>
         </div>
+      </motion.div>
+
+      {/* ═══ NEW: Dashboard V2 widgets ═══ */}
+      <motion.div className="space-y-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>
+        <DailyProgressWidget studentId={profile?.id} />
+        <WeeklyProgressWidget studentId={profile?.id} />
+        <PersonalDictionaryWidget studentId={profile?.id} />
+        <LiveLevelActivityFeed studentId={profile?.id} />
       </motion.div>
 
       {/* ═══ 2. Weekly Tasks — Horizontal Scrollable Mini Cards ═══ */}
@@ -515,88 +489,7 @@ export default function StudentDashboard() {
       {/* ═══ 7. Wow Moments ═══ */}
       <StudentWowMoments />
 
-      {/* ═══ 8. Community: Activity + Leaderboard ═══ */}
-      <motion.div variants={fadeUp} className="grid lg:grid-cols-2 gap-5">
-        {/* Activity preview */}
-        <div className="fl-card-static p-5">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center">
-                <Activity size={16} strokeWidth={1.5} style={{ color: 'var(--accent-sky)' }} />
-              </div>
-              <h3 className="text-[15px] font-bold" style={{ color: 'var(--text-primary)' }}>نشاط المجموعة</h3>
-            </div>
-            <button
-              onClick={() => navigate('/student/group-activity')}
-              className="text-[12px] font-medium transition-colors cursor-pointer"
-              style={{ color: 'var(--accent-sky)' }}
-            >
-              عرض الكل ←
-            </button>
-          </div>
-          {activityPreview?.length > 0 ? (
-            <div className="space-y-2.5">
-              {activityPreview.map((a) => (
-                <div key={a.id} className="flex items-center gap-2.5 py-1.5" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
-                  <div className="w-2 h-2 rounded-full shrink-0" style={{ background: 'var(--accent-sky)' }} />
-                  <p className="text-[12px] truncate flex-1" style={{ color: 'var(--text-secondary)' }}>
-                    {a.studentName && <span className="font-medium" style={{ color: 'var(--accent-sky)' }}>{a.studentName} </span>}
-                    {a.title}
-                  </p>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-[12px] py-3 text-center" style={{ color: 'var(--text-tertiary)' }}>لا يوجد نشاط بعد</p>
-          )}
-        </div>
-
-        {/* Leaderboard preview */}
-        <div className="fl-card-static p-5">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gold-500/10 flex items-center justify-center">
-                <Trophy size={16} strokeWidth={1.5} style={{ color: 'var(--accent-gold)' }} />
-              </div>
-              <h3 className="text-[15px] font-bold" style={{ color: 'var(--text-primary)' }}>المتصدرين</h3>
-            </div>
-            <button
-              onClick={() => navigate('/student/group-activity?tab=leaderboard')}
-              className="text-[12px] font-medium transition-colors cursor-pointer"
-              style={{ color: 'var(--accent-gold)' }}
-            >
-              عرض الكل ←
-            </button>
-          </div>
-          {leaderboardPreview?.length > 0 ? (
-            <div className="space-y-2">
-              {leaderboardPreview.map((p) => (
-                <div
-                  key={p.rank}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-xl ${p.isMe ? 'bg-sky-500/5 ring-1 ring-sky-500/10' : ''}`}
-                  style={!p.isMe ? { background: 'var(--surface-raised)' } : undefined}
-                >
-                  <span className={`text-[13px] font-bold w-5 text-center ${p.rank === 1 ? 'text-gold-400' : ''}`} style={p.rank !== 1 ? { color: 'var(--text-tertiary)' } : undefined}>
-                    {p.rank}
-                  </span>
-                  <div className="w-7 h-7 rounded-lg flex items-center justify-center text-[11px] font-bold shrink-0" style={{ background: p.isMe ? 'var(--accent-sky-glow)' : 'var(--surface-overlay)', color: p.isMe ? 'var(--accent-sky)' : 'var(--text-tertiary)' }}>
-                    {p.name?.[0] || '?'}
-                  </div>
-                  <span className="text-[13px] font-medium flex-1 truncate" style={{ color: 'var(--text-primary)' }}>
-                    {p.name}
-                    {p.isMe && <span className="text-[11px] mr-1" style={{ color: 'var(--accent-sky)' }}>(أنت)</span>}
-                  </span>
-                  <span className="text-[12px] font-bold font-data" style={{ color: p.rank === 1 ? 'var(--accent-gold)' : 'var(--text-tertiary)' }}>
-                    {p.xp} XP
-                  </span>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-[12px] py-3 text-center" style={{ color: 'var(--text-tertiary)' }}>لا توجد بيانات</p>
-          )}
-        </div>
-      </motion.div>
+      {/* ═══ 8. Community: replaced by LiveLevelActivityFeed above ═══ */}
 
       {/* ═══ 9. Daily Challenge + Mystery Box ═══ */}
       <motion.div variants={fadeUp} className="grid lg:grid-cols-2 gap-5">
