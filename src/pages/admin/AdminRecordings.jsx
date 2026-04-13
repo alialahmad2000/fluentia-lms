@@ -14,6 +14,7 @@ import { toast } from '../../components/ui/FluentiaToast'
 import VideoPlayer from '../../components/VideoPlayer'
 import ChapterManager from '../../components/recordings/ChapterManager'
 import { extractFileId, testStreamUrl } from '../../lib/driveStream'
+import { Activity, HeartPulse, FileWarning, Ban, HelpCircle, RefreshCw, Copy, ExternalLink as ExtLink } from 'lucide-react'
 
 const CLASS_TYPES = [
   { value: 'reading', label: 'قراءة' },
@@ -71,6 +72,7 @@ export default function AdminRecordings() {
         {[
           { id: 'curriculum', label: 'تسجيلات المنهج', icon: BookOpen },
           { id: 'archive', label: 'الأرشيف', icon: Archive },
+          { id: 'health', label: 'صحة التسجيلات', icon: HeartPulse },
         ].map(tab => (
           <button
             key={tab.id}
@@ -95,7 +97,7 @@ export default function AdminRecordings() {
           exit={{ opacity: 0, x: -15 }}
           transition={{ duration: 0.2 }}
         >
-          {activeTab === 'curriculum' ? <CurriculumSection /> : <ArchiveSection />}
+          {activeTab === 'curriculum' ? <CurriculumSection /> : activeTab === 'health' ? <RecordingHealthDashboard /> : <ArchiveSection />}
         </motion.div>
       </AnimatePresence>
     </div>
@@ -186,6 +188,17 @@ function CurriculumSection() {
     setSaving(true)
 
     const fileId = extractGoogleDriveFileId(form.google_drive_url.trim())
+
+    // Pre-save health check — block broken recordings
+    if (fileId) {
+      const check = await testStreamUrl(fileId)
+      if (!check.ok) {
+        toast({ type: 'error', title: 'الملف غير متاح', description: 'عدّل إعدادات المشاركة في Drive أولاً — يجب أن يكون "أي شخص لديه الرابط"' })
+        setSaving(false)
+        return
+      }
+    }
+
     const { error } = await supabase.from('class_recordings').upsert({
       group_id: form.group_id,
       unit_id: form.unit_id,
@@ -646,6 +659,245 @@ function CurriculumSection() {
 }
 
 // ═══════════════════════════════════════════════════════
+// Recording Health Dashboard
+// ═══════════════════════════════════════════════════════
+function RecordingHealthDashboard() {
+  const queryClient = useQueryClient()
+  const [scanning, setScanning] = useState(false)
+  const [expanded, setExpanded] = useState(null) // status key
+
+  // Fetch health data
+  const { data: healthData = [], isLoading, refetch } = useQuery({
+    queryKey: ['recording-health'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('recording_health')
+        .select('*, recording:class_recordings(id, title, google_drive_url, google_drive_file_id, unit_id, group_id, part, unit:curriculum_units(unit_number, title_ar, title_en), group:groups(name, code))')
+        .order('checked_at', { ascending: false })
+      if (error) throw error
+      return data || []
+    },
+    staleTime: 30000,
+  })
+
+  const grouped = {
+    OK: healthData.filter(h => h.status === 'OK'),
+    NOT_PUBLIC: healthData.filter(h => h.status === 'NOT_PUBLIC'),
+    WEBM_FORMAT: healthData.filter(h => h.status === 'WEBM_FORMAT'),
+    UNRESOLVABLE: healthData.filter(h => h.status === 'UNRESOLVABLE'),
+    UNKNOWN_FORMAT: healthData.filter(h => h.status === 'UNKNOWN_FORMAT'),
+    NO_RANGE_SUPPORT: healthData.filter(h => h.status === 'NO_RANGE_SUPPORT'),
+    WRONG_MIME: healthData.filter(h => h.status === 'WRONG_MIME'),
+  }
+
+  const handleRescan = async () => {
+    setScanning(true)
+    try {
+      // Fetch all recordings
+      const { data: recordings } = await supabase
+        .from('class_recordings')
+        .select('id, google_drive_url, google_drive_file_id')
+        .is('deleted_at', null)
+
+      if (!recordings?.length) {
+        toast({ type: 'info', title: 'لا توجد تسجيلات للفحص' })
+        setScanning(false)
+        return
+      }
+
+      const results = []
+      for (const rec of recordings) {
+        const fid = extractFileId(rec.google_drive_url)
+        if (!fid) {
+          results.push({
+            recording_id: rec.id,
+            checked_at: new Date().toISOString(),
+            status: 'UNRESOLVABLE',
+            error_detail: 'No file ID in URL',
+            is_mp4: false, is_webm: false,
+          })
+          continue
+        }
+
+        const test = await testStreamUrl(fid)
+        results.push({
+          recording_id: rec.id,
+          checked_at: new Date().toISOString(),
+          status: test.ok ? 'OK' : 'UNRESOLVABLE',
+          content_type: test.contentType || null,
+          bytes_status: test.status || null,
+          error_detail: test.error || null,
+          is_mp4: test.contentType?.includes('mp4') || false,
+          is_webm: test.contentType?.includes('webm') || false,
+        })
+      }
+
+      // Upsert
+      const { error } = await supabase
+        .from('recording_health')
+        .upsert(results, { onConflict: 'recording_id' })
+
+      if (error) {
+        toast({ type: 'error', title: 'فشل حفظ النتائج' })
+      } else {
+        toast({ type: 'success', title: `تم فحص ${results.length} تسجيل` })
+        refetch()
+      }
+    } catch (e) {
+      toast({ type: 'error', title: e.message })
+    }
+    setScanning(false)
+  }
+
+  const handleRescanOne = async (recordingId, driveUrl) => {
+    const fid = extractFileId(driveUrl)
+    if (!fid) return
+    const test = await testStreamUrl(fid)
+    await supabase.from('recording_health').upsert({
+      recording_id: recordingId,
+      checked_at: new Date().toISOString(),
+      status: test.ok ? 'OK' : 'UNRESOLVABLE',
+      content_type: test.contentType || null,
+      bytes_status: test.status || null,
+      error_detail: test.error || null,
+      is_mp4: test.contentType?.includes('mp4') || false,
+      is_webm: test.contentType?.includes('webm') || false,
+    }, { onConflict: 'recording_id' })
+    refetch()
+    toast({ type: 'success', title: 'تم إعادة الفحص' })
+  }
+
+  const copyDriveLink = (url) => {
+    const fid = extractFileId(url)
+    if (fid) {
+      navigator.clipboard.writeText(`https://drive.google.com/file/d/${fid}/view`)
+      toast({ type: 'success', title: 'تم نسخ الرابط' })
+    }
+  }
+
+  const statusConfig = {
+    OK: { color: 'emerald', label: 'سليمة', icon: CheckCircle },
+    NOT_PUBLIC: { color: 'red', label: 'غير عامة', icon: Ban },
+    WEBM_FORMAT: { color: 'amber', label: 'تحتاج تحويل', icon: FileWarning },
+    UNRESOLVABLE: { color: 'gray', label: 'غير متاحة', icon: AlertCircle },
+    UNKNOWN_FORMAT: { color: 'orange', label: 'صيغة مجهولة', icon: HelpCircle },
+    NO_RANGE_SUPPORT: { color: 'yellow', label: 'بدون Range', icon: AlertCircle },
+    WRONG_MIME: { color: 'pink', label: 'MIME خاطئ', icon: AlertCircle },
+  }
+
+  const getRecLabel = (h) => {
+    const rec = h.recording
+    if (!rec) return h.recording_id.substring(0, 8)
+    const unit = rec.unit
+    if (unit) return `الوحدة ${unit.unit_number} Part ${rec.part?.toUpperCase()} — ${rec.group?.code || ''}`
+    return rec.title || h.recording_id.substring(0, 8)
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Stats */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        {Object.entries(statusConfig).filter(([k]) => grouped[k]?.length > 0 || k === 'OK').map(([key, cfg]) => (
+          <div
+            key={key}
+            className={`fl-card-static p-4 cursor-pointer transition hover:ring-1 hover:ring-${cfg.color}-500/30 ${expanded === key ? `ring-1 ring-${cfg.color}-500/30` : ''}`}
+            onClick={() => setExpanded(expanded === key ? null : key)}
+          >
+            <div className="flex items-center gap-2 mb-1">
+              <cfg.icon size={14} className={`text-${cfg.color}-400`} />
+              <span className={`text-xs font-bold font-['Tajawal'] text-${cfg.color}-400`}>{cfg.label}</span>
+            </div>
+            <p className="text-2xl font-bold text-[var(--text-primary)] font-['Inter']">{grouped[key]?.length || 0}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Scan button */}
+      <div className="flex items-center gap-3">
+        <button
+          onClick={handleRescan}
+          disabled={scanning}
+          className="px-4 py-2 rounded-xl text-sm font-bold font-['Tajawal'] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition flex items-center gap-2"
+        >
+          {scanning ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />}
+          فحص شامل الآن
+        </button>
+        <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">
+          {healthData.length > 0 ? `آخر فحص: ${new Date(healthData[0]?.checked_at).toLocaleString('ar-SA')}` : 'لم يتم الفحص بعد'}
+        </span>
+        <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">
+          إجمالي: {healthData.length}
+        </span>
+      </div>
+
+      {isLoading && (
+        <div className="space-y-3">{[1, 2, 3].map(i => <div key={i} className="skeleton h-12 rounded-2xl" />)}</div>
+      )}
+
+      {/* Expanded section */}
+      <AnimatePresence mode="wait">
+        {expanded && grouped[expanded]?.length > 0 && (
+          <motion.div
+            key={expanded}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="overflow-hidden"
+          >
+            <div className="fl-card-static p-4 space-y-2">
+              <h3 className={`text-sm font-bold font-['Tajawal'] text-${statusConfig[expanded]?.color}-400 mb-3`}>
+                {statusConfig[expanded]?.label} ({grouped[expanded].length})
+              </h3>
+              <div className="space-y-1.5 max-h-80 overflow-y-auto">
+                {grouped[expanded].map(h => (
+                  <div key={h.recording_id} className="flex items-center gap-3 text-xs p-2.5 rounded-lg bg-[rgba(255,255,255,0.02)] border border-[var(--border-subtle)]">
+                    <span className="text-[var(--text-primary)] font-['Tajawal'] truncate flex-1">
+                      {getRecLabel(h)}
+                    </span>
+                    {h.error_detail && (
+                      <span className="text-[var(--text-muted)] font-['Inter'] text-[10px] max-w-[200px] truncate shrink-0">
+                        {h.error_detail}
+                      </span>
+                    )}
+                    <div className="flex items-center gap-1 shrink-0">
+                      <button
+                        onClick={() => copyDriveLink(h.recording?.google_drive_url)}
+                        className="p-1 rounded hover:bg-white/10 text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                        title="نسخ رابط Drive"
+                      >
+                        <Copy size={12} />
+                      </button>
+                      {h.recording?.google_drive_url && (
+                        <a
+                          href={`https://drive.google.com/file/d/${extractFileId(h.recording.google_drive_url)}/view`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1 rounded hover:bg-white/10 text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                          title="افتح في Drive"
+                        >
+                          <ExtLink size={12} />
+                        </a>
+                      )}
+                      <button
+                        onClick={() => handleRescanOne(h.recording_id, h.recording?.google_drive_url)}
+                        className="p-1 rounded hover:bg-white/10 text-[var(--text-muted)] hover:text-emerald-400"
+                        title="أعد الفحص"
+                      >
+                        <RefreshCw size={12} />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
+// ═══════════════════════════════════════════════════════
 // Archive Section — Old recordings system
 // ═══════════════════════════════════════════════════════
 function ArchiveSection() {
@@ -687,6 +939,10 @@ function ArchiveSection() {
       const fileId = extractGoogleDriveFileId(form.google_drive_url)
       if (!fileId) throw new Error('رابط Google Drive غير صالح')
       if (!form.title.trim()) throw new Error('العنوان مطلوب')
+
+      // Pre-save health check
+      const check = await testStreamUrl(fileId)
+      if (!check.ok) throw new Error('الملف غير متاح علنياً — عدّل إعدادات المشاركة في Drive أولاً')
 
       const { data: recording, error } = await supabase.from('class_recordings').insert({
         title: form.title.trim(),

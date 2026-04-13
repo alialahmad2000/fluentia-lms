@@ -595,10 +595,26 @@ export default function PremiumVideoPlayer({
     }
   }, [currentTime, seekTo])
 
+  // iOS WebM detection — iOS Safari cannot play VP9/WebM
+  const isIOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent)
+  const isWebM = recording?.content_type === 'video/webm' || recording?.format === 'webm'
+
   if (!streamUrl) {
     return (
       <div className="rounded-2xl bg-black flex items-center justify-center h-64">
         <p className="text-white/40 text-sm font-['Tajawal']">لا يمكن تشغيل الفيديو</p>
+      </div>
+    )
+  }
+
+  if (isIOS && isWebM) {
+    return (
+      <div className="rounded-2xl bg-black flex items-center justify-center h-64 px-6 text-center" dir="rtl">
+        <div className="space-y-3">
+          <AlertCircle className="w-12 h-12 text-amber-400 mx-auto" />
+          <p className="text-white text-sm font-['Tajawal']">هذا التسجيل يعمل على الحاسوب أو Android فقط حالياً.</p>
+          <p className="text-white/50 text-xs font-['Tajawal']">جاري معالجته ليعمل على iPhone قريباً.</p>
+        </div>
       </div>
     )
   }
