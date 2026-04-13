@@ -136,6 +136,7 @@ const PartnersSubmitted = lazyRetry(() => import('./pages/partners/PartnersSubmi
 const PartnersTerms = lazyRetry(() => import('./pages/partners/PartnersTerms'))
 const AffiliatesList = lazyRetry(() => import('./pages/admin/AffiliatesList'))
 const AffiliateDetail = lazyRetry(() => import('./pages/admin/AffiliateDetail'))
+const AffiliatesDashboard = lazyRetry(() => import('./pages/admin/AffiliatesDashboard'))
 
 const ForgotPassword = lazyRetry(() => import('./pages/public/ForgotPassword'))
 const ResetPassword = lazyRetry(() => import('./pages/public/ResetPassword'))
@@ -585,6 +586,7 @@ export default function App() {
               <Route path="/admin/analytics" element={<Page><AdminAnalytics /></Page>} />
               <Route path="/admin/creator-challenge" element={<Page><AdminCreatorChallenge /></Page>} />
               <Route path="/admin/affiliates" element={<Page><AffiliatesList /></Page>} />
+              <Route path="/admin/affiliates/dashboard" element={<Page><AffiliatesDashboard /></Page>} />
               <Route path="/admin/affiliates/:id" element={<Page><AffiliateDetail /></Page>} />
               <Route path="/admin/interactive-curriculum" element={<Page><InteractiveCurriculumLevels /></Page>} />
               <Route path="/admin/interactive-curriculum/:levelId" element={<Page><InteractiveCurriculumUnits /></Page>} />

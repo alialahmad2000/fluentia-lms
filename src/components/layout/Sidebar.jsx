@@ -110,6 +110,7 @@ const NAV_ITEMS = {
     { to: '/admin/announcements', label: 'الإعلانات', icon: Megaphone },
     { to: '/admin/creator-challenge', label: 'تحدي المبدعين', icon: Clapperboard },
     { to: '/admin/affiliates', label: 'الشركاء', icon: Handshake },
+    { to: '/admin/affiliates/dashboard', label: 'لوحة أداء الشركاء', icon: TrendingUp },
     { to: '/admin/settings', label: 'الإعدادات', icon: Settings },
   ],
 }

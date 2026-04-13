@@ -637,6 +637,13 @@ function AddStudentModal({ groups, onClose, onSuccess }) {
         enrollment_date: new Date().toISOString(),
       }, { onConflict: 'id' })
 
+      // Attribute student to affiliate (via lead record, non-blocking)
+      import('../../utils/affiliateAttribution').then(({ attributeStudent }) => {
+        attributeStudent({ studentId: userId, email: email.trim(), phone: phone.trim() || null })
+          .then(r => { if (r.attributed) console.log('[Affiliate] Student attributed to', r.ref_code) })
+          .catch(() => {})
+      })
+
       setCreatedStudent({ email: email.trim(), password: tempPassword, name: fullName.trim() })
     } catch (err) {
       setError(err.message || 'حدث خطأ أثناء إنشاء الحساب')

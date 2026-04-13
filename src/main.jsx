@@ -5,6 +5,10 @@ import App from './App'
 import './index.css'
 import { queryClient } from './lib/queryClient'
 import { AccessibilityProvider } from './contexts/AccessibilityContext'
+import { captureRefFromUrl } from './utils/affiliateTracking'
+
+// Capture affiliate ref code from URL on app load
+captureRefFromUrl()
 
 // Mobile debug console — activate via ?debug=1 or localStorage
 if (new URLSearchParams(window.location.search).get('debug') === '1' ||

@@ -73,6 +73,19 @@ export default function AdminPayments() {
       } else {
         const { error } = await supabase.from('payments').insert({ ...paymentData, recorded_by: profile?.id }).select()
         if (error) throw error
+        // Trigger affiliate conversion on first payment
+        if (paymentData.student_id) {
+          const { count } = await supabase
+            .from('payments')
+            .select('*', { count: 'exact', head: true })
+            .eq('student_id', paymentData.student_id)
+            .is('deleted_at', null)
+          if (count === 1) {
+            supabase.functions.invoke('register-conversion', {
+              body: { student_id: paymentData.student_id, first_payment_at: new Date().toISOString() }
+            }).then(r => console.log('[Affiliate] Conversion:', r.data)).catch(() => {})
+          }
+        }
       }
     },
     onSuccess: () => {
