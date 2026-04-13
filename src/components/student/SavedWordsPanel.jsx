@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { X, Trash2, Search, ChevronDown, ChevronUp } from 'lucide-react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -70,25 +70,33 @@ export default function SavedWordsPanel({ unitId, onClose }) {
     addMutation.mutate({ word: newWord.trim(), meaning: newMeaning.trim() || null })
   }
 
+  // Close on ESC
+  useEffect(() => {
+    const handler = (e) => { if (e.key === 'Escape') onClose?.() }
+    document.addEventListener('keydown', handler)
+    return () => document.removeEventListener('keydown', handler)
+  }, [onClose])
+
   const filtered = search
     ? words.filter(w => w.word.toLowerCase().includes(search.toLowerCase()) || w.meaning?.includes(search))
     : words
 
   return (
     <>
-      {/* Backdrop (mobile) */}
-      <div className="fixed inset-0 z-[41] bg-black/30 lg:hidden" onClick={onClose} />
+      {/* Backdrop */}
+      <div className="fixed inset-0 z-[55] bg-black/40 backdrop-blur-sm" onClick={onClose} />
 
       <motion.div
-        initial={{ x: '100%' }}
-        animate={{ x: 0 }}
-        exit={{ x: '100%' }}
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 20 }}
         transition={{ type: 'spring', damping: 30, stiffness: 400 }}
-        className="fixed z-[42] lg:top-0 lg:right-0 lg:w-[340px] lg:h-full bottom-0 left-0 right-0 lg:left-auto lg:bottom-auto max-h-[60vh] lg:max-h-full rounded-t-2xl lg:rounded-none overflow-hidden"
+        className="fixed z-[60] bottom-0 left-0 right-0 max-h-[70vh] rounded-t-2xl lg:rounded-2xl lg:bottom-auto lg:left-auto lg:right-auto lg:top-1/2 lg:-translate-y-1/2 lg:max-h-[80vh] lg:w-[480px] lg:max-w-[calc(100vw-var(--sidebar-width,260px)-64px)] lg:mx-auto lg:inset-x-0 lg:me-[calc(var(--sidebar-width,260px)+32px)] overflow-hidden"
         style={{
           background: 'var(--surface-raised)',
-          borderInlineStart: '1px solid var(--border-subtle)',
+          border: '1px solid var(--border-default)',
           backdropFilter: 'blur(20px)',
+          boxShadow: '0 24px 80px rgba(0,0,0,0.5)',
         }}
         dir="rtl"
       >

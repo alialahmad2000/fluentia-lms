@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, useMemo, useEffect } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Volume2, CheckCircle, XCircle, Lightbulb, MessageSquare, ChevronDown, RotateCcw, History, Clock, ImageOff, Eye, EyeOff, StickyNote, Headphones } from 'lucide-react'
+import { BookOpen, Volume2, CheckCircle, XCircle, Lightbulb, MessageSquare, ChevronDown, RotateCcw, History, Clock, ImageOff, Eye, EyeOff, StickyNote, Headphones, FileText, Loader2, Zap } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
@@ -254,6 +254,11 @@ function ReadingContent({ reading, studentId, unitId }) {
   const [focusParagraph, setFocusParagraph] = useState(0)
   const [scrollProgress, setScrollProgress] = useState(0)
   const [savedWordSet, setSavedWordSet] = useState(new Set())
+  const [summaryAr, setSummaryAr] = useState(null)
+  const [summaryLoading, setSummaryLoading] = useState(false)
+  const [vocabQuiz, setVocabQuiz] = useState(null)
+  const [quizLoading, setQuizLoading] = useState(false)
+  const [quizAnswers, setQuizAnswers] = useState({})
 
   // Fetch student's saved words to highlight them
   const { data: savedWords } = useQuery({
@@ -279,6 +284,46 @@ function ReadingContent({ reading, studentId, unitId }) {
     queryClient.invalidateQueries({ queryKey: ['saved-words-set', studentId] })
     queryClient.invalidateQueries({ queryKey: ['saved-words', studentId] })
   }, [studentId, queryClient])
+
+  // AI Arabic Summary
+  const handleSummary = useCallback(async () => {
+    if (summaryAr || summaryLoading) return
+    setSummaryLoading(true)
+    try {
+      const passageText = (reading.passage_content?.paragraphs || []).join('\n\n')
+      const resp = await fetch('/api/passage-summary', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ passage_id: reading.id, passage_text: passageText }),
+      })
+      const data = await resp.json()
+      if (data.summary_ar) setSummaryAr(data.summary_ar)
+    } catch {
+      toast({ type: 'error', title: 'فشل تحميل الملخص' })
+    } finally {
+      setSummaryLoading(false)
+    }
+  }, [reading, summaryAr, summaryLoading])
+
+  // Auto vocab quiz from saved words
+  const handleVocabQuiz = useCallback(async () => {
+    if (quizLoading || vocabQuiz) return
+    setQuizLoading(true)
+    try {
+      const wordsArr = Array.from(savedWordSet).slice(0, 5).map(w => ({ word: w }))
+      const resp = await fetch('/api/generate-vocab-quiz', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ words: wordsArr }),
+      })
+      const data = await resp.json()
+      if (data.questions?.length) setVocabQuiz(data.questions)
+    } catch {
+      toast({ type: 'error', title: 'فشل إنشاء الاختبار' })
+    } finally {
+      setQuizLoading(false)
+    }
+  }, [savedWordSet, quizLoading, vocabQuiz])
 
   // Reading progress bar — track scroll
   useEffect(() => {
@@ -431,6 +476,34 @@ function ReadingContent({ reading, studentId, unitId }) {
                 {focusMode ? <EyeOff size={12} /> : <Eye size={12} />}
                 {focusMode ? 'إلغاء التركيز' : 'وضع التركيز'}
               </button>
+              {/* AI Arabic Summary */}
+              <button
+                onClick={handleSummary}
+                disabled={summaryLoading}
+                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 font-['Tajawal'] border ${
+                  summaryAr
+                    ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
+                    : 'bg-slate-800/50 text-slate-400 border-slate-700/50 hover:text-emerald-400 hover:border-emerald-500/30'
+                }`}
+              >
+                {summaryLoading ? <Loader2 size={12} className="animate-spin" /> : <FileText size={12} />}
+                ملخص بالعربي
+              </button>
+              {/* Vocab Quiz (show when ≥3 saved words) */}
+              {savedWordSet.size >= 3 && (
+                <button
+                  onClick={handleVocabQuiz}
+                  disabled={quizLoading}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 font-['Tajawal'] border ${
+                    vocabQuiz
+                      ? 'bg-violet-500/15 text-violet-400 border-violet-500/30'
+                      : 'bg-slate-800/50 text-slate-400 border-slate-700/50 hover:text-violet-400 hover:border-violet-500/30'
+                  }`}
+                >
+                  {quizLoading ? <Loader2 size={12} className="animate-spin" /> : <Zap size={12} />}
+                  اختبار مفرداتي
+                </button>
+              )}
             </div>
             <div className="border-b border-slate-800/50 pb-0" />
           </div>
@@ -483,6 +556,90 @@ function ReadingContent({ reading, studentId, unitId }) {
           </div>
         </div>
       </div>
+
+      {/* AI Arabic Summary */}
+      <AnimatePresence>
+        {summaryAr && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25 }}
+            className="overflow-hidden"
+          >
+            <div
+              className="rounded-2xl p-5 sm:p-6 space-y-2"
+              style={{
+                background: 'linear-gradient(135deg, rgba(16,185,129,0.06), rgba(56,189,248,0.06))',
+                border: '1px solid rgba(16,185,129,0.15)',
+              }}
+              dir="rtl"
+            >
+              <div className="flex items-center gap-2">
+                <FileText size={16} className="text-emerald-400" />
+                <h3 className="text-sm font-bold text-emerald-400 font-['Tajawal']">ملخص بالعربي</h3>
+              </div>
+              <p className="text-sm text-slate-200 font-['Tajawal'] leading-relaxed">{summaryAr}</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Vocab Quiz from saved words */}
+      <AnimatePresence>
+        {vocabQuiz && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25 }}
+            className="overflow-hidden"
+          >
+            <div className="rounded-2xl overflow-hidden bg-slate-900/50 border border-slate-800/60 p-5 sm:p-6 space-y-4">
+              <div className="flex items-center gap-2" dir="rtl">
+                <Zap size={16} className="text-violet-400" />
+                <h3 className="text-sm font-bold text-violet-400 font-['Tajawal']">اختبار مفرداتك المحفوظة</h3>
+              </div>
+              {vocabQuiz.map((q, qi) => (
+                <div key={qi} className="space-y-2">
+                  <p className="text-sm text-white font-['Inter']" dir="ltr">{qi + 1}. {q.question}</p>
+                  <div className="grid grid-cols-1 gap-1.5">
+                    {q.options?.map((opt, oi) => {
+                      const answered = quizAnswers[qi] !== undefined
+                      const isSelected = quizAnswers[qi] === oi
+                      const isCorrect = oi === q.correct_index
+                      return (
+                        <button
+                          key={oi}
+                          onClick={() => !answered && setQuizAnswers(prev => ({ ...prev, [qi]: oi }))}
+                          disabled={answered}
+                          dir="ltr"
+                          className={`text-start px-3 py-2 rounded-xl text-sm font-['Inter'] border transition-all ${
+                            answered && isCorrect
+                              ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-400'
+                              : answered && isSelected && !isCorrect
+                                ? 'bg-red-500/15 border-red-500/40 text-red-400'
+                                : answered
+                                  ? 'bg-slate-800/30 border-slate-700/30 text-slate-500 opacity-50'
+                                  : 'bg-slate-800/30 border-slate-700/40 text-slate-200 hover:border-violet-500/40 cursor-pointer'
+                          }`}
+                        >
+                          {opt}
+                        </button>
+                      )
+                    })}
+                  </div>
+                  {quizAnswers[qi] !== undefined && q.explanation_ar && (
+                    <p className="text-xs text-slate-400 font-['Tajawal'] pr-2" dir="rtl">
+                      {q.explanation_ar}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Infographic */}
       {reading.infographic_image_url && (
@@ -550,7 +707,11 @@ function PassageDisplay({ paragraphs, vocabMap, savedWordSet, focusMode, focusPa
   const [activeTooltip, setActiveTooltip] = useState(null)
   const [editingNote, setEditingNote] = useState(null)
   const [noteText, setNoteText] = useState('')
+  const [hoverMeaning, setHoverMeaning] = useState(null) // { word, meaning_ar, x, y }
   const tooltipTimeout = useRef(null)
+  const hoverTimeout = useRef(null)
+  const hoverLeaveTimeout = useRef(null)
+  const meaningCache = useRef({})
   const queryClient = useQueryClient()
 
   const showTooltip = useCallback((word) => {
@@ -560,6 +721,45 @@ function PassageDisplay({ paragraphs, vocabMap, savedWordSet, focusMode, focusPa
 
   const hideTooltip = useCallback(() => {
     tooltipTimeout.current = setTimeout(() => setActiveTooltip(null), 200)
+  }, [])
+
+  // Hover quick meaning for any word
+  const handleWordHover = useCallback(async (e, word) => {
+    const cleanWord = word.replace(/[.,!?;:'"()\[\]]/g, '').trim()
+    if (!cleanWord || cleanWord.length < 2) return
+    // Skip if it's a curriculum vocab word (already has tooltip)
+    if (vocabMap[cleanWord.toLowerCase()]) return
+
+    clearTimeout(hoverTimeout.current)
+    clearTimeout(hoverLeaveTimeout.current)
+    hoverTimeout.current = setTimeout(async () => {
+      // Check cache first
+      if (meaningCache.current[cleanWord.toLowerCase()]) {
+        const rect = e.target.getBoundingClientRect()
+        setHoverMeaning({ word: cleanWord, ...meaningCache.current[cleanWord.toLowerCase()], x: rect.left + rect.width / 2, y: rect.top })
+        return
+      }
+      try {
+        const resp = await fetch('/api/vocab-quick-meaning', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ word: cleanWord }),
+        })
+        if (resp.ok) {
+          const data = await resp.json()
+          if (data.meaning_ar) {
+            meaningCache.current[cleanWord.toLowerCase()] = data
+            const rect = e.target.getBoundingClientRect()
+            setHoverMeaning({ word: cleanWord, ...data, x: rect.left + rect.width / 2, y: rect.top })
+          }
+        }
+      } catch {}
+    }, 500)
+  }, [vocabMap])
+
+  const handleWordLeave = useCallback(() => {
+    clearTimeout(hoverTimeout.current)
+    hoverLeaveTimeout.current = setTimeout(() => setHoverMeaning(null), 300)
   }, [])
 
   // Save/update paragraph note
@@ -591,8 +791,10 @@ function PassageDisplay({ paragraphs, vocabMap, savedWordSet, focusMode, focusPa
       <span
         key={`${pIdx}-w-${wordIdx}`}
         data-word-index={wordIdx}
-        className={isSaved ? 'bg-amber-400/20 border-b-2 border-amber-400 rounded px-0.5' : ''}
+        className={`cursor-default transition-colors hover:text-sky-200 ${isSaved ? 'bg-amber-400/20 border-b-2 border-amber-400 rounded px-0.5' : ''}`}
         title={isSaved ? 'محفوظة في قاموسك' : undefined}
+        onMouseEnter={(e) => handleWordHover(e, word)}
+        onMouseLeave={handleWordLeave}
       >
         {word}{' '}
       </span>
@@ -660,7 +862,40 @@ function PassageDisplay({ paragraphs, vocabMap, savedWordSet, focusMode, focusPa
   }
 
   return (
-    <div dir="ltr" className="space-y-6">
+    <div dir="ltr" className="space-y-6 relative">
+      {/* Hover quick meaning tooltip */}
+      <AnimatePresence>
+        {hoverMeaning && (
+          <motion.div
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 4 }}
+            transition={{ duration: 0.12 }}
+            className="fixed z-40 pointer-events-none"
+            style={{
+              left: Math.min(hoverMeaning.x, window.innerWidth - 180),
+              top: hoverMeaning.y - 48,
+            }}
+          >
+            <div
+              className="px-3 py-1.5 rounded-lg text-xs font-medium shadow-lg"
+              style={{
+                background: 'rgba(15,23,42,0.95)',
+                border: '1px solid rgba(56,189,248,0.25)',
+                backdropFilter: 'blur(12px)',
+              }}
+            >
+              <span className="text-sky-300 font-['Inter'] font-semibold">{hoverMeaning.word}</span>
+              {hoverMeaning.part_of_speech && (
+                <span className="text-slate-500 text-[10px] ml-1.5">{hoverMeaning.part_of_speech}</span>
+              )}
+              <span className="text-slate-300 font-['Tajawal'] mr-2 ml-1">—</span>
+              <span className="text-amber-300 font-['Tajawal']">{hoverMeaning.meaning_ar}</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {paragraphs.map((para, idx) => {
         const isFocused = !focusMode || focusParagraph === idx
         const hasNote = notesByParagraph[idx]

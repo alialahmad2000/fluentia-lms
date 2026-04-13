@@ -1,19 +1,20 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Plus, BookOpen, Zap, StickyNote, Moon, Search } from 'lucide-react'
+import { Plus, BookOpen, Zap, StickyNote, Search, Target, Flag } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 
 const ACTIONS = [
-  { key: 'words', icon: BookOpen, label: 'كلماتي', color: 'text-sky-400' },
-  { key: 'notes', icon: StickyNote, label: 'ملاحظاتي', color: 'text-amber-400' },
   { key: 'add-word', icon: Plus, label: 'إضافة مفردة جديدة', color: 'text-emerald-400' },
-  { key: 'bookmark', icon: Zap, label: 'علّم هنا', color: 'text-violet-400' },
-  { key: 'help', icon: Search, label: 'ما فهمت', color: 'text-rose-400' },
+  { key: 'words', icon: BookOpen, label: 'قاموسي', color: 'text-sky-400' },
+  { key: 'flags', icon: Flag, label: 'أعلام ملاحظاتي', color: 'text-rose-400' },
+  { key: 'notes', icon: StickyNote, label: 'ملاحظة سريعة', color: 'text-amber-400' },
+  { key: 'practice', icon: Target, label: 'تدريب سريع', color: 'text-violet-400' },
+  { key: 'search', icon: Search, label: 'بحث في المفردات', color: 'text-sky-300' },
 ]
 
 const STORAGE_PREFIX = 'fab-position-'
 
-export default function StudentFAB({ onNotes, onBookmark, onHelp, onWords, onAddWord }) {
+export default function StudentFAB({ onNotes, onBookmark, onHelp, onWords, onAddWord, onFlags, onPractice, onSearch }) {
   const [open, setOpen] = useState(false)
   const { profile } = useAuthStore()
   const fabRef = useRef(null)
@@ -131,6 +132,9 @@ export default function StudentFAB({ onNotes, onBookmark, onHelp, onWords, onAdd
       case 'help': onHelp?.(); break
       case 'words': onWords?.(); break
       case 'add-word': onAddWord?.(); break
+      case 'flags': onFlags?.(); break
+      case 'practice': onPractice?.(); break
+      case 'search': onSearch?.(); break
     }
   }
 
@@ -142,7 +146,7 @@ export default function StudentFAB({ onNotes, onBookmark, onHelp, onWords, onAdd
   return (
     <div
       ref={fabRef}
-      className="fixed z-40"
+      className="fixed z-50"
       style={{
         left: pos.x,
         top: pos.y,
