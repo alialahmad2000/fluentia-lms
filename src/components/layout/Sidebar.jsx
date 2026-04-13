@@ -8,7 +8,7 @@ import {
   LogOut, X, ChevronLeft, Zap, FolderOpen, CalendarDays, Calendar,
   Video, ClipboardCheck, UsersRound, GraduationCap, Wrench, ListChecks,
   Brain, BookOpen, Sparkles, Database, Languages, Shuffle, Lock, Map, Activity,
-  StickyNote, TrendingUp, Megaphone, RefreshCw, Clapperboard, Swords,
+  StickyNote, TrendingUp, Megaphone, RefreshCw, Clapperboard, Swords, Handshake,
 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { useThemeStore } from '../../stores/themeStore'
@@ -109,6 +109,7 @@ const NAV_ITEMS = {
     { to: '/trainer/ai-assistant', label: 'المساعد الذكي', icon: Bot },
     { to: '/admin/announcements', label: 'الإعلانات', icon: Megaphone },
     { to: '/admin/creator-challenge', label: 'تحدي المبدعين', icon: Clapperboard },
+    { to: '/admin/affiliates', label: 'الشركاء', icon: Handshake },
     { to: '/admin/settings', label: 'الإعدادات', icon: Settings },
   ],
 }

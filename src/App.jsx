@@ -131,6 +131,12 @@ const InteractiveCurriculumLevels = lazyRetry(() => import('./pages/shared/Inter
 const InteractiveCurriculumUnits = lazyRetry(() => import('./pages/shared/InteractiveCurriculumUnits'))
 const InteractiveCurriculumPage = lazyRetry(() => import('./pages/shared/InteractiveCurriculumPage'))
 
+const PartnersLanding = lazyRetry(() => import('./pages/partners/PartnersLanding'))
+const PartnersSubmitted = lazyRetry(() => import('./pages/partners/PartnersSubmitted'))
+const PartnersTerms = lazyRetry(() => import('./pages/partners/PartnersTerms'))
+const AffiliatesList = lazyRetry(() => import('./pages/admin/AffiliatesList'))
+const AffiliateDetail = lazyRetry(() => import('./pages/admin/AffiliateDetail'))
+
 const ForgotPassword = lazyRetry(() => import('./pages/public/ForgotPassword'))
 const ResetPassword = lazyRetry(() => import('./pages/public/ResetPassword'))
 const ParentDashboard = lazyRetry(() => import('./pages/public/ParentDashboard'))
@@ -428,6 +434,21 @@ export default function App() {
               <Suspense fallback={<LoadingSkeleton />}><CertificateVerification /></Suspense>
             </ErrorBoundary>
           } />
+          <Route path="/partners" element={
+            <ErrorBoundary fallback={<PageErrorFallback />}>
+              <Suspense fallback={<LoadingSkeleton />}><PartnersLanding /></Suspense>
+            </ErrorBoundary>
+          } />
+          <Route path="/partners/submitted" element={
+            <ErrorBoundary fallback={<PageErrorFallback />}>
+              <Suspense fallback={<LoadingSkeleton />}><PartnersSubmitted /></Suspense>
+            </ErrorBoundary>
+          } />
+          <Route path="/partners/terms" element={
+            <ErrorBoundary fallback={<PageErrorFallback />}>
+              <Suspense fallback={<LoadingSkeleton />}><PartnersTerms /></Suspense>
+            </ErrorBoundary>
+          } />
 
           {/* Student routes */}
           <Route element={<ProtectedRoute allowedRoles={['student']} />}>
@@ -563,6 +584,8 @@ export default function App() {
               <Route path="/admin/announcements" element={<Page><ComposeAnnouncement /></Page>} />
               <Route path="/admin/analytics" element={<Page><AdminAnalytics /></Page>} />
               <Route path="/admin/creator-challenge" element={<Page><AdminCreatorChallenge /></Page>} />
+              <Route path="/admin/affiliates" element={<Page><AffiliatesList /></Page>} />
+              <Route path="/admin/affiliates/:id" element={<Page><AffiliateDetail /></Page>} />
               <Route path="/admin/interactive-curriculum" element={<Page><InteractiveCurriculumLevels /></Page>} />
               <Route path="/admin/interactive-curriculum/:levelId" element={<Page><InteractiveCurriculumUnits /></Page>} />
               <Route path="/admin/interactive-curriculum/:levelId/:unitId" element={<Page><InteractiveCurriculumPage /></Page>} />
