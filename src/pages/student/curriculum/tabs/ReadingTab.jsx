@@ -1,4 +1,5 @@
-import { useState, useRef, useCallback, useMemo, useEffect } from 'react'
+import { useState, useRef, useCallback, useMemo, useEffect, useLayoutEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BookOpen, Volume2, CheckCircle, XCircle, Lightbulb, MessageSquare, ChevronDown, RotateCcw, History, Clock, ImageOff, Eye, EyeOff, StickyNote, Headphones, FileText, Loader2, Zap } from 'lucide-react'
@@ -712,9 +713,115 @@ function BeforeReadSection({ content }) {
   )
 }
 
+// ─── Smart tooltip position (viewport-aware, sidebar-aware) ────
+function computeTooltipPosition(targetEl, tooltipW = 280, tooltipH = 240) {
+  const rect = targetEl.getBoundingClientRect()
+  const vw = window.innerWidth
+  const vh = window.innerHeight
+  const margin = 12
+
+  const sidebar = document.querySelector('[data-sidebar]') || document.querySelector('aside') || document.querySelector('.sidebar')
+  const sidebarRect = sidebar?.getBoundingClientRect()
+
+  let minX = margin
+  let maxX = vw - tooltipW - margin
+  if (sidebarRect) {
+    if (sidebarRect.left > vw / 2) maxX = Math.min(maxX, sidebarRect.left - margin)
+    else minX = Math.max(minX, sidebarRect.right + margin)
+  }
+
+  let left = rect.left + rect.width / 2 - tooltipW / 2
+  left = Math.max(minX, Math.min(maxX, left))
+
+  let top = rect.bottom + 8
+  let placement = 'bottom'
+  if (top + tooltipH + margin > vh) {
+    top = rect.top - tooltipH - 8
+    placement = 'top'
+    if (top < margin) top = margin
+  }
+
+  return { top, left, placement }
+}
+
+// ─── Portal-based vocab tooltip ────────────────────
+function VocabTooltipPortal({ vocab, targetRef, onMouseEnter, onMouseLeave }) {
+  const tooltipRef = useRef(null)
+  const [pos, setPos] = useState(null)
+
+  useLayoutEffect(() => {
+    if (!targetRef) return
+    const update = () => {
+      const p = computeTooltipPosition(targetRef, 280, 240)
+      setPos(p)
+    }
+    update()
+    window.addEventListener('resize', update)
+    window.addEventListener('scroll', update, true)
+    return () => {
+      window.removeEventListener('resize', update)
+      window.removeEventListener('scroll', update, true)
+    }
+  }, [targetRef])
+
+  if (!pos) return null
+
+  const arrowSide = pos.placement === 'bottom' ? 'top' : 'bottom'
+
+  return createPortal(
+    <motion.div
+      ref={tooltipRef}
+      initial={{ opacity: 0, y: pos.placement === 'bottom' ? 4 : -4 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: pos.placement === 'bottom' ? 4 : -4 }}
+      transition={{ duration: 0.15 }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      className="w-[280px] rounded-xl p-3 space-y-1.5 text-sm"
+      style={{
+        position: 'fixed',
+        top: pos.top,
+        left: pos.left,
+        zIndex: 70,
+        background: 'rgba(15,23,42,0.95)',
+        border: '1px solid rgba(51,65,85,0.8)',
+        backdropFilter: 'blur(16px)',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
+      }}
+    >
+      {vocab.image_url && (
+        <img src={vocab.image_url} alt={vocab.word} className="w-full h-20 rounded-lg object-cover -mt-1" loading="lazy" />
+      )}
+      <div className="flex items-center justify-between">
+        <span className="font-bold text-white font-['Inter']">{vocab.word}</span>
+        <span className="text-[10px] text-slate-400 font-['Inter']">{vocab.part_of_speech}</span>
+      </div>
+      <p className="text-slate-300 font-['Inter'] text-xs leading-relaxed">{vocab.definition_en}</p>
+      <p className="text-slate-400 font-['Tajawal'] text-xs" dir="rtl">{vocab.definition_ar}</p>
+      {vocab.audio_url && <VocabAudioBtn url={vocab.audio_url} />}
+      {/* Arrow */}
+      <div
+        className="absolute w-3 h-3 rotate-45"
+        style={{
+          [arrowSide]: '-6px',
+          left: '50%',
+          marginLeft: '-6px',
+          background: 'rgba(15,23,42,0.95)',
+          borderRight: arrowSide === 'top' ? '1px solid rgba(51,65,85,0.8)' : 'none',
+          borderBottom: arrowSide === 'top' ? '1px solid rgba(51,65,85,0.8)' : 'none',
+          borderLeft: arrowSide === 'bottom' ? '1px solid rgba(51,65,85,0.8)' : 'none',
+          borderTop: arrowSide === 'bottom' ? '1px solid rgba(51,65,85,0.8)' : 'none',
+        }}
+      />
+    </motion.div>,
+    document.body
+  )
+}
+
 // ─── Passage Display ─────────────────────────────────
 function PassageDisplay({ paragraphs, vocabMap, savedWordSet, focusMode, focusParagraph, notesByParagraph, studentId, readingId, unitId }) {
   const [activeTooltip, setActiveTooltip] = useState(null)
+  const [activeTooltipEl, setActiveTooltipEl] = useState(null)
   const [editingNote, setEditingNote] = useState(null)
   const [noteText, setNoteText] = useState('')
   const [hoverMeaning, setHoverMeaning] = useState(null) // { word, meaning_ar, x, y }
@@ -724,14 +831,25 @@ function PassageDisplay({ paragraphs, vocabMap, savedWordSet, focusMode, focusPa
   const meaningCache = useRef({})
   const queryClient = useQueryClient()
 
-  const showTooltip = useCallback((word) => {
+  const showTooltip = useCallback((word, el) => {
     clearTimeout(tooltipTimeout.current)
     setActiveTooltip(word)
+    if (el) setActiveTooltipEl(el)
   }, [])
 
   const hideTooltip = useCallback(() => {
-    tooltipTimeout.current = setTimeout(() => setActiveTooltip(null), 200)
+    tooltipTimeout.current = setTimeout(() => { setActiveTooltip(null); setActiveTooltipEl(null) }, 200)
   }, [])
+
+  // Close vocab tooltip on Escape or significant scroll
+  useEffect(() => {
+    if (!activeTooltip) return
+    const onKey = (e) => { if (e.key === 'Escape') { setActiveTooltip(null); setActiveTooltipEl(null) } }
+    const onScroll = () => { setActiveTooltip(null); setActiveTooltipEl(null) }
+    window.addEventListener('keydown', onKey)
+    window.addEventListener('scroll', onScroll, true)
+    return () => { window.removeEventListener('keydown', onKey); window.removeEventListener('scroll', onScroll, true) }
+  }, [activeTooltip])
 
   // Hover quick meaning for any word
   const handleWordHover = useCallback(async (e, word) => {
@@ -819,40 +937,28 @@ function PassageDisplay({ paragraphs, vocabMap, savedWordSet, focusMode, focusPa
         // This is a highlighted vocab word
         const vocab = vocabMap[part.toLowerCase()]
         if (vocab) {
+          const tooltipKey = `${pIdx}-${i}`
           return (
             <span key={i} className="relative inline">
               <button
-                onMouseEnter={() => showTooltip(`${pIdx}-${i}`)}
+                onMouseEnter={(e) => showTooltip(tooltipKey, e.currentTarget)}
                 onMouseLeave={hideTooltip}
-                onClick={() => setActiveTooltip(prev => prev === `${pIdx}-${i}` ? null : `${pIdx}-${i}`)}
+                onClick={(e) => {
+                  if (activeTooltip === tooltipKey) { setActiveTooltip(null); setActiveTooltipEl(null) }
+                  else showTooltip(tooltipKey, e.currentTarget)
+                }}
                 className="text-sky-300 font-semibold border-b border-dotted border-sky-400/50 hover:border-sky-400 transition-colors cursor-pointer"
               >
                 {part}
               </button>
               <AnimatePresence>
-                {activeTooltip === `${pIdx}-${i}` && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 4 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 4 }}
-                    transition={{ duration: 0.15 }}
-                    onMouseEnter={() => showTooltip(`${pIdx}-${i}`)}
+                {activeTooltip === tooltipKey && activeTooltipEl && (
+                  <VocabTooltipPortal
+                    vocab={vocab}
+                    targetRef={activeTooltipEl}
+                    onMouseEnter={() => showTooltip(tooltipKey)}
                     onMouseLeave={hideTooltip}
-                    className="absolute z-30 bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 rounded-xl p-3 space-y-1.5 text-sm bg-slate-800 border border-slate-700"
-                    style={{ boxShadow: '0 8px 24px rgba(0,0,0,0.4)' }}
-                  >
-                    {vocab.image_url && (
-                      <img src={vocab.image_url} alt={vocab.word} className="w-full h-20 rounded-lg object-cover -mt-1" loading="lazy" />
-                    )}
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-white font-['Inter']">{vocab.word}</span>
-                      <span className="text-[10px] text-slate-400 font-['Inter']">{vocab.part_of_speech}</span>
-                    </div>
-                    <p className="text-slate-300 font-['Inter'] text-xs leading-relaxed">{vocab.definition_en}</p>
-                    <p className="text-slate-400 font-['Tajawal'] text-xs" dir="rtl">{vocab.definition_ar}</p>
-                    {vocab.audio_url && <VocabAudioBtn url={vocab.audio_url} />}
-                    <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-slate-800 border-r border-b border-slate-700" />
-                  </motion.div>
+                  />
                 )}
               </AnimatePresence>
             </span>
@@ -873,18 +979,21 @@ function PassageDisplay({ paragraphs, vocabMap, savedWordSet, focusMode, focusPa
 
   return (
     <div dir="ltr" className="space-y-6 relative">
-      {/* Hover quick meaning tooltip */}
-      <AnimatePresence>
-        {hoverMeaning && (
+      {/* Hover quick meaning tooltip — portal to body */}
+      {hoverMeaning && createPortal(
+        <AnimatePresence>
           <motion.div
+            key="hover-meaning"
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 4 }}
             transition={{ duration: 0.12 }}
-            className="fixed z-40 pointer-events-none"
+            className="pointer-events-none"
             style={{
-              left: Math.min(hoverMeaning.x, window.innerWidth - 180),
-              top: hoverMeaning.y - 48,
+              position: 'fixed',
+              zIndex: 70,
+              left: Math.max(12, Math.min(hoverMeaning.x - 90, window.innerWidth - 192)),
+              top: hoverMeaning.y < 60 ? hoverMeaning.y + 28 : hoverMeaning.y - 48,
             }}
           >
             <div
@@ -903,8 +1012,9 @@ function PassageDisplay({ paragraphs, vocabMap, savedWordSet, focusMode, focusPa
               <span className="text-amber-300 font-['Tajawal']">{hoverMeaning.meaning_ar}</span>
             </div>
           </motion.div>
-        )}
-      </AnimatePresence>
+        </AnimatePresence>,
+        document.body
+      )}
 
       {paragraphs.map((para, idx) => {
         const isFocused = !focusMode || focusParagraph === idx
