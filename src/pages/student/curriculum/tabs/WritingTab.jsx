@@ -1,12 +1,13 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FileEdit, Lightbulb, Save, Send, ChevronDown, CheckCircle2, BookOpen, Target, GraduationCap, Loader2, RefreshCw, Sparkles, AlertCircle } from 'lucide-react'
+import { FileEdit, Lightbulb, Save, Send, ChevronDown, CheckCircle2, BookOpen, Target, GraduationCap, Loader2, Sparkles, AlertCircle, Clock } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { safeCelebrate } from '../../../../lib/celebrations'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
+import { invokeWithRetry } from '../../../../lib/invokeWithRetry'
 import WritingFeedback from '../../../../components/curriculum/WritingFeedback'
 import WritingAssistant from '../../../../components/curriculum/WritingAssistant'
 import ShareAchievementCard from '../../../../components/ShareAchievementCard'
@@ -85,6 +86,8 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
   const [submitting, setSubmitting] = useState(false)
   const [assistantOpen, setAssistantOpen] = useState(false)
   const [submitShake, setSubmitShake] = useState(false)
+  const [evalStatus, setEvalStatus] = useState(null) // pending|evaluating|completed|failed|escalated
+  const [progressRowId, setProgressRowId] = useState(null)
   const timeRef = useRef(0)
   const timerRef = useRef(null)
   const dbSaveTimer = useRef(null)
@@ -142,6 +145,8 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
         if (data.trainer_feedback) setTrainerFeedback(data.trainer_feedback)
         if (data.trainer_grade) setTrainerGrade(data.trainer_grade)
         if (data.ai_feedback) setAiFeedback(data.ai_feedback)
+        if (data.evaluation_status) setEvalStatus(data.evaluation_status)
+        if (data.id) setProgressRowId(data.id)
       } else {
         // Fall back to localStorage
         setText(loadDraft(task.id))
@@ -161,7 +166,7 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
 
     const newAttemptNumber = isSubmit && meetsMin && submitted ? attemptNumber + 1 : attemptNumber
 
-    const { error } = await supabase
+    const { data: upsertData, error } = await supabase
       .from('student_curriculum_progress')
       .upsert({
         student_id: studentId,
@@ -174,11 +179,19 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
         time_spent_seconds: timeRef.current,
         completed_at: isSubmit && meetsMin ? now : null,
         attempt_number: newAttemptNumber,
+        ...(isSubmit && meetsMin ? {
+          evaluation_status: 'pending',
+          evaluation_attempts: 0,
+          evaluation_last_error: null,
+        } : {}),
       }, { onConflict: 'student_id,writing_id' })
+      .select('id')
+      .single()
 
     if (!error) {
       setLastSavedAt(new Date(now))
       if (isSubmit && meetsMin) setAttemptNumber(newAttemptNumber)
+      if (upsertData?.id) setProgressRowId(upsertData.id)
     }
     return error
   }, [studentId, unitId, task.id, task.word_count_min, attemptNumber, submitted])
@@ -207,6 +220,33 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
     }
   }, [])
 
+  // Realtime subscription — live updates when sweeper completes evaluation
+  useEffect(() => {
+    if (!studentId || !task.id) return
+    const channel = supabase
+      .channel(`writing-eval-${task.id}-${studentId}`)
+      .on('postgres_changes', {
+        event: 'UPDATE',
+        schema: 'public',
+        table: 'student_curriculum_progress',
+        filter: `writing_id=eq.${task.id}`,
+      }, (payload) => {
+        if (payload.new.student_id !== studentId) return
+        if (payload.new.ai_feedback && payload.new.evaluation_status === 'completed' && !aiFeedback) {
+          setAiFeedback(payload.new.ai_feedback)
+          setEvalStatus('completed')
+          if (payload.new.score) {} // score already set by the edge function
+          toast({ type: 'success', title: 'وصل تصحيحك! ✨' })
+        } else if (payload.new.evaluation_status === 'escalated') {
+          setEvalStatus('escalated')
+        } else if (payload.new.evaluation_status) {
+          setEvalStatus(payload.new.evaluation_status)
+        }
+      })
+      .subscribe()
+    return () => supabase.removeChannel(channel)
+  }, [studentId, task.id, aiFeedback])
+
   const handleSave = useCallback(async () => {
     saveDraft(task.id, text)
     await saveToDb(text)
@@ -215,49 +255,53 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
     toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
   }, [task.id, text, saveToDb])
 
-  // Shared function to fetch AI feedback (used by submit and retry)
+  // Shared function to fetch AI feedback with retry
   const fetchFeedback = useCallback(async (writingText) => {
+    setEvalStatus('evaluating')
     try {
-      const { data: { session } } = await supabase.auth.getSession()
-      if (!session) return null
-
-      const res = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-writing-feedback`,
+      const { data: result, error } = await invokeWithRetry(
+        'ai-writing-feedback',
         {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${session.access_token}`,
-          },
-          body: JSON.stringify({
+          body: {
             writing_text: writingText,
             writing_prompt: task.prompt_en || '',
             assignment_type: task.task_type || 'paragraph',
-          }),
-        }
+            _writing_id: task.id,
+          },
+        },
+        { timeoutMs: 60000, retries: 2 }
       )
 
-      const result = await res.json()
+      if (error) {
+        console.error('[WritingTab] Feedback error:', error)
+        // Don't panic — sweeper will handle it
+        setEvalStatus('pending')
+        return false
+      }
 
-      if (result.feedback) {
+      if (result?.feedback) {
         setAiFeedback(result.feedback)
+        setEvalStatus('completed')
         // Save feedback to DB
-        const { error } = await supabase
+        await supabase
           .from('student_curriculum_progress')
           .update({
             ai_feedback: result.feedback,
             score: result.feedback.fluency_score ? result.feedback.fluency_score * 10 : null,
+            evaluation_status: 'completed',
+            evaluation_completed_at: new Date().toISOString(),
           })
           .eq('student_id', studentId)
           .eq('writing_id', task.id)
-        if (error) console.error('[WritingTab] Feedback save error:', error)
         return true
-      } else if (result.limit_reached || result.budget_reached) {
+      } else if (result?.limit_reached || result?.budget_reached) {
         toast({ type: 'info', title: result.error })
+        setEvalStatus(null)
       }
       return false
     } catch (err) {
       console.error('[WritingTab] Feedback call failed:', err)
+      setEvalStatus('pending')
       return false
     }
   }, [task.id, task.task_type, studentId])
@@ -302,24 +346,14 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
     try { safeCelebrate('writing_submitted') } catch {}
     awardCurriculumXP(studentId, 'writing', null, unitId)
 
-    // 2. Call AI feedback
+    // 2. Call AI feedback (with built-in retries)
     const success = await fetchFeedback(text)
     if (!success) {
-      toast({ type: 'warning', title: 'التقييم لم يتم — اضغط "إعادة التصحيح" للمحاولة مرة أخرى' })
+      // Don't show scary error — sweeper catches it automatically
+      toast({ type: 'info', title: 'جاري التصحيح في الخلفية — سيظهر تلقائياً خلال دقائق' })
     }
     setSubmitting(false)
   }, [task.id, task.word_count_min, text, studentId, saveToDb, submitting, fetchFeedback, unitId])
-
-  const handleRetryFeedback = useCallback(async () => {
-    if (submitting) return
-    setSubmitting(true)
-    toast({ type: 'info', title: 'جاري إعادة التصحيح...' })
-    const success = await fetchFeedback(text)
-    if (!success) {
-      toast({ type: 'warning', title: 'فشل التصحيح — حاول مرة أخرى لاحقاً' })
-    }
-    setSubmitting(false)
-  }, [text, submitting, fetchFeedback])
 
   const taskTypeAr = {
     paragraph: 'فقرة',
@@ -612,20 +646,30 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
       {/* Feedback display */}
       {aiFeedback && <WritingFeedback feedback={aiFeedback} />}
 
-      {/* Retry button when submitted but no feedback available */}
-      {submitted && !aiFeedback && !submitting && (
+      {/* Status-aware evaluation messages */}
+      {submitted && !aiFeedback && !submitting && evalStatus && evalStatus !== 'completed' && (
         <div
-          className="rounded-xl p-4 flex flex-col items-center gap-3"
-          style={{ background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.15)' }}
+          className="rounded-xl p-4 flex items-center gap-3"
+          style={{
+            background: evalStatus === 'escalated' ? 'rgba(245,158,11,0.06)' : 'rgba(56,189,248,0.05)',
+            border: `1px solid ${evalStatus === 'escalated' ? 'rgba(245,158,11,0.15)' : 'rgba(56,189,248,0.12)'}`,
+          }}
         >
-          <p className="text-sm text-amber-400 font-['Tajawal']">لم يتم التصحيح بعد</p>
-          <button
-            onClick={handleRetryFeedback}
-            className="flex items-center gap-1.5 px-4 h-9 rounded-xl text-xs font-bold bg-sky-500/15 text-sky-400 border border-sky-500/30 hover:bg-sky-500/25 transition-colors font-['Tajawal']"
-          >
-            <RefreshCw size={13} />
-            إعادة التصحيح
-          </button>
+          {evalStatus === 'escalated' ? (
+            <>
+              <GraduationCap size={18} className="text-amber-400 flex-shrink-0" />
+              <span className="text-sm font-bold text-amber-400 font-['Tajawal']">
+                كتابتك مُرسلة للمعلم لمراجعتها شخصياً
+              </span>
+            </>
+          ) : (
+            <>
+              <Clock size={18} className="text-sky-400 animate-pulse flex-shrink-0" />
+              <span className="text-sm font-bold text-sky-400 font-['Tajawal']">
+                جاري التصحيح في الخلفية — سيظهر هنا تلقائياً خلال دقائق
+              </span>
+            </>
+          )}
         </div>
       )}
 
