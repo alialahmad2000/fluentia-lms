@@ -47,8 +47,9 @@ serve(async (req: Request) => {
     return jsonErr('Missing or invalid file id')
   }
 
-  // Verify authentication — accept Authorization header or token query param
-  // (<video> elements can't send Authorization headers, so token param is the fallback)
+  // Log authentication — non-blocking (Drive files are public, auth is for audit only)
+  // Previously this returned 401 on expired tokens, which broke mobile playback
+  // when sessions expired while the app was backgrounded
   const authHeader = req.headers.get('Authorization')
   const tokenParam = url.searchParams.get('token')
   const token = authHeader?.replace('Bearer ', '') || tokenParam
@@ -59,13 +60,14 @@ serve(async (req: Request) => {
       })
       const { data: { user }, error } = await supabase.auth.getUser()
       if (error || !user) {
-        return jsonErr('Invalid or expired session', 401)
+        console.warn(`[proxy] Auth failed (non-blocking): ${error?.message || 'no user'}`)
+      } else {
+        console.log(`[proxy] Authenticated user: ${user.id}`)
       }
-    } catch {
-      return jsonErr('Auth verification failed', 401)
+    } catch (e) {
+      console.warn(`[proxy] Auth error (non-blocking): ${e.message}`)
     }
   }
-  // Note: if no token provided, still allow (backwards compat during migration)
 
   try {
     const fetchHeaders: Record<string, string> = {

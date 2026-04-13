@@ -22,10 +22,24 @@ export async function resolveStreamUrl(fileId, { forceRefresh = false } = {}) {
 
   if (isDebug()) console.log('[driveStream] Requesting URL for', fileId, forceRefresh ? '(force refresh)' : '')
 
-  // Get current session token for auth
+  // Get current session token for auth (refresh if near expiry)
   let tokenParam = ''
   try {
-    const { data: { session } } = await supabase.auth.getSession()
+    let { data: { session } } = await supabase.auth.getSession()
+
+    // Refresh if token expires in less than 5 minutes (mobile sessions expire when backgrounded)
+    if (session) {
+      const expiresAt = (session.expires_at || 0) * 1000
+      if (expiresAt - Date.now() < 5 * 60 * 1000) {
+        if (isDebug()) console.log('[driveStream] Session near expiry, refreshing...')
+        const { data: refreshed } = await supabase.auth.refreshSession()
+        if (refreshed?.session) {
+          session = refreshed.session
+          if (isDebug()) console.log('[driveStream] Session refreshed successfully')
+        }
+      }
+    }
+
     if (session?.access_token) {
       tokenParam = `&token=${session.access_token}`
       if (isDebug()) console.log('[driveStream] Session valid, user:', session.user?.id)
