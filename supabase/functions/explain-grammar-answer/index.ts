@@ -121,27 +121,31 @@ Deno.serve(async (req) => {
     }
     const parsed = JSON.parse(rawText.slice(start, end + 1));
 
-    // Track usage
+    // Track usage (fire-and-forget, ignore errors)
     const inputTokens = data.usage?.input_tokens || 0;
     const outputTokens = data.usage?.output_tokens || 0;
-    await supabase.from('ai_usage').insert({
-      type: 'grammar_explain',
-      student_id: user.id,
-      model: 'claude-sonnet-4-20250514',
-      input_tokens: inputTokens,
-      output_tokens: outputTokens,
-      estimated_cost_sar: ((inputTokens * 3 + outputTokens * 15) / 1_000_000) * 3.75,
-    }).catch(() => {});
+    try {
+      await supabase.from('ai_usage').insert({
+        type: 'grammar_explain',
+        student_id: user.id,
+        model: 'claude-sonnet-4-20250514',
+        input_tokens: inputTokens,
+        output_tokens: outputTokens,
+        estimated_cost_sar: ((inputTokens * 3 + outputTokens * 15) / 1_000_000) * 3.75,
+      });
+    } catch {}
 
-    // Cache
-    await supabase.from('grammar_explanation_cache').insert({
-      cache_key: cacheKey,
-      question_text: questionText,
-      student_answer: studentAnswer || '',
-      correct_answer: correctAnswer,
-      tldr_ar: parsed.tldr_ar || '',
-      explanation_html: parsed.explanation_html || '',
-    }).catch(() => {});
+    // Cache (fire-and-forget, ignore errors)
+    try {
+      await supabase.from('grammar_explanation_cache').insert({
+        cache_key: cacheKey,
+        question_text: questionText,
+        student_answer: studentAnswer || '',
+        correct_answer: correctAnswer,
+        tldr_ar: parsed.tldr_ar || '',
+        explanation_html: parsed.explanation_html || '',
+      });
+    } catch {}
 
     return jsonRes(parsed);
   } catch (e) {

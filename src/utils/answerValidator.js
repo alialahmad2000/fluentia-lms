@@ -1,6 +1,7 @@
 /**
  * Answer validation utilities for grammar exercises, weekly tasks, etc.
- * Handles: multiple valid answers, partial answers, flexible matching.
+ * Handles: multiple valid answers, partial answers, flexible matching,
+ * multi-blank separator tolerance (comma, dash, slash, etc.).
  */
 
 /**
@@ -10,8 +11,9 @@ function normalize(str) {
   return (str || '')
     .trim()
     .toLowerCase()
+    .replace(/[\u2018\u2019\u2032`]/g, "'")  // smart quotes → straight
+    .replace(/[\u201C\u201D]/g, '"')
     .replace(/\s*,\s*/g, ', ')     // normalize comma spacing
-    .replace(/[''`]/g, "'")        // normalize apostrophes
     .replace(/\s+/g, ' ')          // collapse whitespace
 }
 
@@ -19,7 +21,53 @@ function normalize(str) {
  * Strip punctuation for looser comparison.
  */
 function stripPunctuation(str) {
-  return str.replace(/[.!?;,'"()]/g, '').trim()
+  return str.replace(/[.!?;,'"()[\]{}]/g, '').trim()
+}
+
+/**
+ * Split a multi-blank answer string into ordered tokens.
+ * Splits on: comma, dash, slash, semicolon, " and ", " & ", newlines.
+ */
+function splitMultiBlank(s) {
+  return (s || '')
+    .split(/[,;/\\\n]|\s*-\s*|\s*–\s*|\s*—\s*|\s+&\s+|\s+and\s+/i)
+    .map(t => t.trim())
+    .filter(Boolean)
+}
+
+/**
+ * Normalize a single token for comparison: lowercase, strip punctuation, collapse whitespace.
+ */
+function normalizeToken(s) {
+  return (s || '')
+    .toLowerCase()
+    .replace(/[\u2018\u2019\u2032`]/g, "'")
+    .replace(/[\u201C\u201D]/g, '"')
+    .replace(/[.!?;,:"()\[\]{}]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+/**
+ * Compare two answers considering multi-blank separator differences.
+ * Returns true if the ordered tokens match after normalization.
+ */
+function compareMultiBlank(student, correct) {
+  const studentTokens = splitMultiBlank(student).map(normalizeToken).filter(Boolean)
+  const correctTokens = splitMultiBlank(correct).map(normalizeToken).filter(Boolean)
+
+  if (studentTokens.length === 0 || correctTokens.length === 0) return false
+
+  // Same number of tokens — compare token by token
+  if (studentTokens.length === correctTokens.length) {
+    return studentTokens.every((tok, i) => tok === correctTokens[i])
+  }
+
+  // Different token count — try joining and comparing as single normalized strings
+  // This handles cases like "would detect" being one token vs two
+  const studentJoined = studentTokens.join(' ')
+  const correctJoined = correctTokens.join(' ')
+  return studentJoined === correctJoined
 }
 
 /**
@@ -50,9 +98,12 @@ export function validateAnswer(studentAnswer, acceptedAnswers, options = {}) {
 
     // 3. Contraction equivalence: "don't" = "do not", "it's" = "it is", etc.
     if (stripPunctuation(expandContractions(normStudent)) === stripPunctuation(expandContractions(normAccepted))) return true
+
+    // 4. Multi-blank separator-tolerant match (handles comma vs dash vs slash etc.)
+    if (compareMultiBlank(studentAnswer, ans)) return true
   }
 
-  // 4. Full-sentence detection for fill-blank:
+  // 5. Full-sentence detection for fill-blank:
   //    Student typed the whole sentence but blank expected just the word
   if (options.fullSentence) {
     const normInput = stripPunctuation(normStudent)
@@ -66,7 +117,7 @@ export function validateAnswer(studentAnswer, acceptedAnswers, options = {}) {
     }
   }
 
-  // 5. Partial answer matching (for error_correction / transform)
+  // 6. Partial answer matching (for error_correction / transform)
   if (options.allowPartial && options.originalSentence) {
     const normOriginal = normalize(options.originalSentence)
     for (const ans of accepted) {
