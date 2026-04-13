@@ -70,15 +70,20 @@ function GrammarTopic({ topic, studentId, unitId, studentLevel }) {
 
   const hasExercises = topic.exercises?.length > 0
 
-  // C1: Dev guard — warn if exercises exist but section didn't mount
+  // Guard: warn if exercises exist but section didn't mount or DOM count mismatches
   useEffect(() => {
     if (!hasExercises) return
     const timer = setTimeout(() => {
       if (!exerciseMounted.current) {
-        console.error('[Grammar] exercises exist but ExerciseSection did not mount', {
+        console.error('[GrammarTab] exercises exist but ExerciseSection did not mount', {
           topicId: topic.id,
           exercisesCount: topic.exercises.length,
         })
+      }
+      // Verify DOM actually contains exercise card nodes
+      const found = document.querySelectorAll('[data-grammar-exercise-card]').length
+      if (found !== topic.exercises.length) {
+        console.error('[GrammarTab] DB has ' + topic.exercises.length + ' exercises but ' + found + ' rendered in DOM')
       }
     }, 2000)
     return () => clearTimeout(timer)

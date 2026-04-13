@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Sparkles } from 'lucide-react'
-import { useFadeIn } from './useFadeIn'
 import ExplainModal from './ExplainModal'
 import MCQQuestion from './exercise-types/MCQQuestion'
 import FillBlankQuestion from './exercise-types/FillBlankQuestion'
@@ -18,7 +17,6 @@ const TYPE_LABELS = {
 }
 
 export default function ExerciseCard({ exercise, index, total, answer, onAnswer, grammarTopic, studentLevel, ruleSnippet }) {
-  const ref = useFadeIn()
   const [explainOpen, setExplainOpen] = useState(false)
   const item = exercise.items?.[0]
   if (!item) return null
@@ -38,7 +36,7 @@ export default function ExerciseCard({ exercise, index, total, answer, onAnswer,
   } : null
 
   return (
-    <div ref={ref} className="grammar-glass grammar-fade-in p-5 sm:p-6 space-y-4">
+    <div data-grammar-exercise-card className="grammar-glass p-5 sm:p-6 space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
