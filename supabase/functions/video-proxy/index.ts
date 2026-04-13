@@ -73,22 +73,35 @@ serve(async (req: Request) => {
         const html = await resp.text()
         lastHtml = html
 
-        // Look for confirmation token in the HTML
+        // Look for confirmation token in the HTML (multiple formats)
         const tokenMatch = html.match(/confirm=([a-zA-Z0-9_-]+)/)
           || html.match(/name="confirm"\s+value="([^"]+)"/)
           || html.match(/&amp;confirm=([^&"]+)/)
           || html.match(/confirm%3D([a-zA-Z0-9_-]+)/)
 
-        if (tokenMatch) {
-          // Retry with extracted token
-          const confirmedUrl = `https://drive.usercontent.google.com/download?id=${fileId}&export=download&confirm=${tokenMatch[1]}`
+        // Look for UUID token (new Drive UI 2024+)
+        const uuidMatch = html.match(/uuid=([a-zA-Z0-9_-]+)/)
+          || html.match(/name="uuid"\s+value="([^"]+)"/)
+          || html.match(/uuid%3D([a-zA-Z0-9_-]+)/)
+
+        const confirmToken = tokenMatch?.[1]
+        const uuidToken = uuidMatch?.[1]
+
+        if (confirmToken || uuidToken) {
+          // Build URL with both tokens
+          let tokenParams = ''
+          if (confirmToken) tokenParams += `&confirm=${confirmToken}`
+          if (uuidToken) tokenParams += `&uuid=${uuidToken}`
+
+          // Try usercontent domain first
+          const confirmedUrl = `https://drive.usercontent.google.com/download?id=${fileId}&export=download${tokenParams}`
           const confirmedResp = await tryFetch(confirmedUrl, fetchHeaders)
           if (isVideoResponse(confirmedResp)) {
             response = confirmedResp
             break
           }
           // Also try classic domain
-          const confirmedUrl2 = `https://drive.google.com/uc?export=download&id=${fileId}&confirm=${tokenMatch[1]}`
+          const confirmedUrl2 = `https://drive.google.com/uc?export=download&id=${fileId}${tokenParams}`
           const confirmedResp2 = await tryFetch(confirmedUrl2, fetchHeaders)
           if (isVideoResponse(confirmedResp2)) {
             response = confirmedResp2
@@ -99,6 +112,7 @@ serve(async (req: Request) => {
         // Check if the HTML contains a download URL we can extract
         const dlMatch = html.match(/href="(\/uc\?export=download[^"]*)"/)
           || html.match(/action="([^"]*download[^"]*)"/)
+          || html.match(/href="(https:\/\/drive\.usercontent\.google\.com\/download[^"]*)"/)
         if (dlMatch) {
           let dlUrl = dlMatch[1].replace(/&amp;/g, '&')
           if (dlUrl.startsWith('/')) dlUrl = `https://drive.google.com${dlUrl}`
@@ -114,7 +128,20 @@ serve(async (req: Request) => {
     if (!response) {
       console.error('[video-proxy] All URL patterns failed for file:', fileId)
       console.error('[video-proxy] Last HTML snippet:', lastHtml.substring(0, 500))
-      return jsonErr('Could not resolve video stream — file may not be shared publicly', 502)
+
+      // Provide specific error based on HTML content
+      let reason = 'Could not resolve video stream'
+      if (lastHtml.includes('Google Drive - Virus scan warning')) {
+        reason = 'File too large for virus scan — confirm token extraction failed'
+      } else if (lastHtml.includes('you need access') || lastHtml.includes('Request access')) {
+        reason = 'File is not shared publicly — check sharing settings'
+      } else if (lastHtml.includes('the file you have requested does not exist') || lastHtml.includes('Sorry, the file you')) {
+        reason = 'File not found — it may have been deleted or moved'
+      } else if (lastHtml.includes('Too many users')) {
+        reason = 'Too many users viewing this file — try again later'
+      }
+
+      return jsonErr(reason, 502)
     }
 
     // Build response with CORS headers

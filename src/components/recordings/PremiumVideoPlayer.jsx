@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   Play, Pause, Volume2, VolumeX, Maximize, Minimize,
   SkipBack, SkipForward, Loader2, PictureInPicture2,
-  Bookmark, List, Repeat, X,
+  Bookmark, List, Repeat, X, AlertCircle, RefreshCw,
 } from 'lucide-react'
 import { resolveStreamUrl, invalidateStreamUrl, extractFileId } from '../../lib/driveStream'
 import { toast } from '../ui/FluentiaToast'
@@ -20,6 +20,16 @@ function formatTime(s) {
   const sec = s % 60
   if (h > 0) return `${h}:${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`
   return `${m}:${String(sec).padStart(2, '0')}`
+}
+
+function mapErrorToArabic(code) {
+  switch (code) {
+    case 1: return 'توقف التحميل'
+    case 2: return 'مشكلة في الاتصال بالشبكة'
+    case 3: return 'صيغة الفيديو غير مدعومة'
+    case 4: return 'الرابط غير صالح أو انتهت صلاحيته'
+    default: return 'حدث خطأ أثناء تحميل الفيديو'
+  }
 }
 
 export default function PremiumVideoPlayer({
@@ -59,12 +69,12 @@ export default function PremiumVideoPlayer({
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [showControls, setShowControls] = useState(true)
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
+  const [playbackError, setPlaybackError] = useState(null) // { code, message }
   const [hoverTime, setHoverTime] = useState(null)
   const [hoverPos, setHoverPos] = useState(0)
   const [showBigPlay, setShowBigPlay] = useState(true)
   const [doubleTapSide, setDoubleTapSide] = useState(null)
-  const [retrying, setRetrying] = useState(false)
+  const retryAttemptedRef = useRef(false)
   const [bookmarkInput, setBookmarkInput] = useState(null)
   const [bookmarkLabel, setBookmarkLabel] = useState('')
   const [hoveredChapter, setHoveredChapter] = useState(null)
@@ -271,23 +281,49 @@ export default function PremiumVideoPlayer({
   }, [onProgress])
 
   const handleError = useCallback(async () => {
-    if (!retrying && fileId) {
-      setRetrying(true)
-      setError(false)
+    const v = videoRef.current
+    const err = v?.error
+    const code = err?.code
+    console.error('[PremiumVideoPlayer] Video error:', {
+      code, message: err?.message,
+      recordingId: recording?.id, fileId,
+      currentTime: v?.currentTime,
+    })
+
+    // Auto-retry once with fresh URL for network/src errors
+    if ((code === 2 || code === 4 || !code) && !retryAttemptedRef.current && fileId) {
+      retryAttemptedRef.current = true
+      const savedTime = v?.currentTime || 0
       invalidateStreamUrl(fileId)
-      const newUrl = resolveStreamUrl(fileId)
-      const v = videoRef.current
-      if (v) {
-        const pos = v.currentTime
-        v.src = newUrl
-        v.currentTime = pos
-        try { await v.play() } catch {}
+      const freshUrl = resolveStreamUrl(fileId, { forceRefresh: true })
+      if (v && freshUrl) {
+        v.src = freshUrl
+        v.load()
+        v.addEventListener('loadedmetadata', () => {
+          if (savedTime > 1) v.currentTime = savedTime
+          v.play().catch(() => {})
+        }, { once: true })
+        return
       }
-      setRetrying(false)
-    } else {
-      setError(true)
     }
-  }, [fileId, retrying])
+
+    // Show error UI
+    const msg = mapErrorToArabic(code)
+    setPlaybackError({ code, message: msg })
+  }, [fileId, recording?.id])
+
+  const handleManualRetry = useCallback(() => {
+    retryAttemptedRef.current = false
+    setPlaybackError(null)
+    const v = videoRef.current
+    if (v && fileId) {
+      invalidateStreamUrl(fileId)
+      const freshUrl = resolveStreamUrl(fileId, { forceRefresh: true })
+      v.src = freshUrl
+      v.load()
+      v.play().catch(() => {})
+    }
+  }, [fileId])
 
   // ─── Controls ────────────────────────────────────────
   const togglePlay = useCallback(() => {
@@ -330,16 +366,16 @@ export default function PremiumVideoPlayer({
     const bar = progressBarRef.current
     if (!v || !bar) return
     const rect = bar.getBoundingClientRect()
-    const ratio = 1 - ((e.clientX - rect.left) / rect.width)
-    seekTo(ratio * (v.duration || 0))
+    const ratio = (e.clientX - rect.left) / rect.width
+    seekTo(Math.max(0, Math.min(1, ratio)) * (v.duration || 0))
   }, [seekTo])
 
   const handleProgressHover = useCallback((e) => {
     const bar = progressBarRef.current
     if (!bar || !duration) return
     const rect = bar.getBoundingClientRect()
-    const ratio = 1 - ((e.clientX - rect.left) / rect.width)
-    setHoverTime(formatTime(ratio * duration))
+    const ratio = (e.clientX - rect.left) / rect.width
+    setHoverTime(formatTime(Math.max(0, Math.min(1, ratio)) * duration))
     setHoverPos(e.clientX - rect.left)
   }, [duration])
 
@@ -424,15 +460,15 @@ export default function PremiumVideoPlayer({
         case 'K':
           e.preventDefault(); togglePlay(); break
         case 'ArrowLeft':
-          e.preventDefault(); skip(5); break
-        case 'ArrowRight':
           e.preventDefault(); skip(-5); break
+        case 'ArrowRight':
+          e.preventDefault(); skip(5); break
         case 'j':
         case 'J':
-          e.preventDefault(); skip(-10); break
+          e.preventDefault(); skip(-10); break  // J = backward (YouTube standard)
         case 'l':
         case 'L':
-          e.preventDefault(); skip(10); break
+          e.preventDefault(); skip(10); break   // L = forward (YouTube standard)
         case 'ArrowUp':
           e.preventDefault(); changeVolume(Math.min(1, v.volume + 0.1)); break
         case 'ArrowDown':
@@ -481,7 +517,7 @@ export default function PremiumVideoPlayer({
     if (timer) {
       clearTimeout(timer)
       doubleTapTimerRef.current[key] = null
-      const seconds = side === 'left' ? 10 : -10
+      const seconds = side === 'left' ? -10 : 10
       skip(seconds)
       setDoubleTapSide(side)
       setTimeout(() => setDoubleTapSide(null), 500)
@@ -534,7 +570,7 @@ export default function PremiumVideoPlayer({
         onPlay={handlePlay}
         onPause={handlePause}
         onWaiting={() => setLoading(true)}
-        onCanPlay={() => { setLoading(false); setError(false) }}
+        onCanPlay={() => { setLoading(false); setPlaybackError(null) }}
         onLoadedMetadata={(e) => setDuration(e.target.duration || 0)}
         onError={handleError}
       />
@@ -602,17 +638,20 @@ export default function PremiumVideoPlayer({
       </AnimatePresence>
 
       {/* Error overlay */}
-      {error && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/80" style={{ zIndex: 20 }}>
-          <div className="text-center space-y-3">
-            <p className="text-white/60 text-sm font-['Tajawal']">حدث خطأ في تحميل الفيديو</p>
-            <button
-              onClick={() => { setError(false); handleError() }}
-              className="px-4 py-2 rounded-xl bg-sky-500/20 text-sky-400 text-sm font-['Tajawal'] border border-sky-500/30 hover:bg-sky-500/30 transition"
-            >
-              إعادة المحاولة
-            </button>
-          </div>
+      {playbackError && (
+        <div className="absolute inset-0 bg-black/80 flex items-center justify-center flex-col gap-4 p-6 text-center" style={{ zIndex: 20 }} dir="rtl">
+          <AlertCircle className="w-16 h-16 text-red-400" />
+          <p className="text-white text-lg font-['Tajawal']">{playbackError.message}</p>
+          {playbackError.code && (
+            <p className="text-white/40 text-xs font-['Inter']">Error code: {playbackError.code}</p>
+          )}
+          <button
+            onClick={handleManualRetry}
+            className="px-6 py-3 bg-sky-500 hover:bg-sky-600 rounded-xl text-white font-medium font-['Tajawal'] flex items-center gap-2 transition"
+          >
+            <RefreshCw size={16} />
+            إعادة المحاولة
+          </button>
         </div>
       )}
 
@@ -645,14 +684,14 @@ export default function PremiumVideoPlayer({
         )}
       </AnimatePresence>
 
-      {/* Controls overlay */}
+      {/* Controls overlay — dir="ltr" so progress bar fills left-to-right (time axis is universal) */}
       <motion.div
         initial={false}
         animate={{ opacity: showControls || !playing ? 1 : 0 }}
         transition={{ duration: 0.2 }}
         className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent pt-16 pb-3 px-3"
         style={{ zIndex: 12, pointerEvents: showControls || !playing ? 'auto' : 'none' }}
-        dir="rtl"
+        dir="ltr"
       >
         {/* Current chapter label */}
         {currentChapter && (
@@ -674,16 +713,16 @@ export default function PremiumVideoPlayer({
           {loopAPct !== null && loopBPct !== null && (
             <div
               className="absolute top-0 h-full bg-amber-400/30 pointer-events-none rounded-full"
-              style={{ right: `${loopAPct}%`, width: `${loopBPct - loopAPct}%` }}
+              style={{ left: `${loopAPct}%`, width: `${loopBPct - loopAPct}%` }}
             />
           )}
 
           {/* Buffered */}
-          <div className="absolute top-0 rounded-full h-full bg-white/40 pointer-events-none" style={{ right: 0, width: `${bufferedPct}%` }} />
+          <div className="absolute top-0 rounded-full h-full bg-white/40 pointer-events-none" style={{ left: 0, width: `${bufferedPct}%` }} />
           {/* Played */}
-          <div className="absolute top-0 rounded-full h-full bg-sky-400 pointer-events-none" style={{ right: 0, width: `${playedPct}%` }} />
+          <div className="absolute top-0 rounded-full h-full bg-sky-400 pointer-events-none" style={{ left: 0, width: `${playedPct}%` }} />
           {/* Scrubber dot */}
-          <div className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-sky-400 shadow-md opacity-0 group-hover/progress:opacity-100 transition-opacity pointer-events-none" style={{ right: `calc(${playedPct}% - 7px)` }} />
+          <div className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-sky-400 shadow-md opacity-0 group-hover/progress:opacity-100 transition-opacity pointer-events-none" style={{ left: `calc(${playedPct}% - 7px)` }} />
 
           {/* Chapter markers */}
           {duration > 0 && chapters.map(ch => {
@@ -692,7 +731,7 @@ export default function PremiumVideoPlayer({
               <div
                 key={ch.id}
                 className="absolute -top-1 w-0.5 h-3 bg-amber-400 pointer-events-auto cursor-pointer"
-                style={{ right: `${pct}%` }}
+                style={{ left: `${pct}%` }}
                 title={ch.title_ar}
                 onMouseEnter={() => setHoveredChapter(ch)}
                 onMouseLeave={() => setHoveredChapter(null)}
@@ -705,7 +744,7 @@ export default function PremiumVideoPlayer({
           {duration > 0 && bookmarks.map(bm => {
             const pct = (bm.position_seconds / duration) * 100
             return (
-              <div key={bm.id} className="absolute -top-3 pointer-events-auto cursor-pointer" style={{ right: `calc(${pct}% - 6px)` }} title={bm.label || 'علامة مرجعية'} onClick={(e) => { e.stopPropagation(); seekTo(bm.position_seconds) }}>
+              <div key={bm.id} className="absolute -top-3 pointer-events-auto cursor-pointer" style={{ left: `calc(${pct}% - 6px)` }} title={bm.label || 'علامة مرجعية'} onClick={(e) => { e.stopPropagation(); seekTo(bm.position_seconds) }}>
                 <Bookmark size={12} className="text-sky-400 fill-sky-400/50" />
               </div>
             )
@@ -713,7 +752,7 @@ export default function PremiumVideoPlayer({
 
           {/* Hovered chapter tooltip */}
           {hoveredChapter && (
-            <div className="absolute -top-10 px-2 py-1 rounded bg-black/90 border border-amber-400/20 text-amber-400 text-xs font-['Tajawal'] pointer-events-none whitespace-nowrap" style={{ right: `${(hoveredChapter.start_seconds / duration) * 100}%`, transform: 'translateX(50%)' }}>
+            <div className="absolute -top-10 px-2 py-1 rounded bg-black/90 border border-amber-400/20 text-amber-400 text-xs font-['Tajawal'] pointer-events-none whitespace-nowrap" style={{ left: `${(hoveredChapter.start_seconds / duration) * 100}%`, transform: 'translateX(-50%)' }}>
               {hoveredChapter.title_ar}
             </div>
           )}

@@ -5,6 +5,7 @@ import {
   PlayCircle, Plus, Trash2, Eye, EyeOff, Loader2, X, Brain,
   CheckCircle2, Video, ChevronDown, ExternalLink, Pencil,
   MessageSquare, BookOpen, Archive, AlertCircle, Link2, ImagePlus,
+  Search, XCircle, CheckCircle,
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
@@ -12,6 +13,7 @@ import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import { toast } from '../../components/ui/FluentiaToast'
 import VideoPlayer from '../../components/VideoPlayer'
 import ChapterManager from '../../components/recordings/ChapterManager'
+import { extractFileId, testStreamUrl } from '../../lib/driveStream'
 
 const CLASS_TYPES = [
   { value: 'reading', label: 'قراءة' },
@@ -280,6 +282,33 @@ function CurriculumSection() {
     thumbnailInputRef.current?.click()
   }
 
+  // Diagnostic scan
+  const [scanResults, setScanResults] = useState(null) // { total, pass, fail: [{ rec, error }] }
+  const [scanning, setScanning] = useState(false)
+
+  const handleDiagnosticScan = async () => {
+    setScanning(true)
+    setScanResults(null)
+    const results = { total: recordings.length, pass: 0, fail: [] }
+
+    for (const rec of recordings) {
+      const fid = extractFileId(rec.google_drive_url)
+      if (!fid) {
+        results.fail.push({ rec, error: 'No file ID in URL' })
+        continue
+      }
+      const test = await testStreamUrl(fid)
+      if (test.ok) {
+        results.pass++
+      } else {
+        results.fail.push({ rec, error: test.error })
+      }
+    }
+
+    setScanResults(results)
+    setScanning(false)
+  }
+
   const handleThumbnailUpload = async (e) => {
     const file = e.target.files?.[0]
     if (!file || !thumbnailRecId) return
@@ -494,8 +523,8 @@ function CurriculumSection() {
         )}
       </AnimatePresence>
 
-      {/* Filter + List */}
-      <div className="flex items-center gap-3">
+      {/* Filter + List + Diagnostic */}
+      <div className="flex items-center gap-3 flex-wrap">
         <select
           className="input-field text-sm"
           value={filterGroup}
@@ -505,7 +534,41 @@ function CurriculumSection() {
           {groups.map(g => <option key={g.id} value={g.id}>{g.code} — {g.name}</option>)}
         </select>
         <span className="text-xs text-muted font-['Tajawal']">{filteredRecs.length} تسجيل</span>
+        <button
+          onClick={handleDiagnosticScan}
+          disabled={scanning || !recordings.length}
+          className="px-3 py-1.5 rounded-lg text-xs font-bold font-['Tajawal'] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition flex items-center gap-1.5 mr-auto"
+        >
+          {scanning ? <Loader2 size={12} className="animate-spin" /> : <Search size={12} />}
+          فحص التسجيلات
+        </button>
       </div>
+
+      {/* Diagnostic scan results */}
+      {scanResults && (
+        <div className="fl-card-static p-4 space-y-3">
+          <div className="flex items-center gap-4 text-sm font-['Tajawal']">
+            <span className="text-[var(--text-primary)] font-bold">نتائج الفحص</span>
+            <span className="text-emerald-400 flex items-center gap-1"><CheckCircle size={12} /> {scanResults.pass} ناجح</span>
+            <span className="text-red-400 flex items-center gap-1"><XCircle size={12} /> {scanResults.fail.length} فاشل</span>
+            <span className="text-[var(--text-muted)]">من {scanResults.total}</span>
+            <button onClick={() => setScanResults(null)} className="mr-auto text-[var(--text-muted)] hover:text-[var(--text-primary)]"><X size={14} /></button>
+          </div>
+          {scanResults.fail.length > 0 && (
+            <div className="space-y-1.5 max-h-60 overflow-y-auto">
+              {scanResults.fail.map(({ rec, error }) => (
+                <div key={rec.id} className="flex items-center gap-3 text-xs p-2 rounded-lg bg-red-500/5 border border-red-500/10">
+                  <XCircle size={12} className="text-red-400 shrink-0" />
+                  <span className="text-[var(--text-primary)] font-['Tajawal'] truncate flex-1">
+                    الوحدة {rec.unit?.unit_number} Part {rec.part?.toUpperCase()} — {rec.group?.code}
+                  </span>
+                  <span className="text-red-400/70 font-['Inter'] shrink-0">{error}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {loadingRecs ? (
         <div className="space-y-3">{[1, 2, 3].map(i => <div key={i} className="skeleton h-16 rounded-2xl" />)}</div>
