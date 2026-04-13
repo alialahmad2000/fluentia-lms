@@ -300,6 +300,33 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
   const [promoting, setPromoting] = useState(false)
   const [promotionMsg, setPromotionMsg] = useState('')
   const [showOverrideConfirm, setShowOverrideConfirm] = useState(false)
+  const [resettingTier, setResettingTier] = useState(false)
+
+  // Fetch player preference for this student
+  const { data: playerPref, refetch: refetchPref } = useQuery({
+    queryKey: ['player-pref', student.id],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('student_player_preference')
+        .select('*')
+        .eq('student_id', student.id)
+        .maybeSingle()
+      return data
+    },
+    enabled: !!student.id,
+  })
+
+  async function handleResetPlayerTier() {
+    setResettingTier(true)
+    await supabase.from('student_player_preference').upsert({
+      student_id: student.id,
+      preferred_tier: 1,
+      consecutive_tier1_failures: 0,
+      updated_at: new Date().toISOString(),
+    })
+    await refetchPref()
+    setResettingTier(false)
+  }
 
   // Fetch exit test status for current level
   const { data: exitStatus } = useQuery({
@@ -549,6 +576,27 @@ function EditStudentModal({ student, groups, onClose, onSave, saving, queryClien
               <input type="number" min={1} max={31} value={paymentDay} onChange={(e) => setPaymentDay(e.target.value)} className="input-field" dir="ltr" placeholder="1-31" />
             </div>
           </div>
+
+          {/* Player Tier Preference */}
+          {playerPref && playerPref.preferred_tier > 1 && (
+            <div className="flex items-center justify-between py-3 px-4 rounded-xl" style={{ background: 'rgba(251,191,36,0.06)', border: '1px solid rgba(251,191,36,0.15)' }}>
+              <div>
+                <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>مشغل الفيديو</p>
+                <p className="text-xs text-muted">
+                  المشغل المفضل: Tier {playerPref.preferred_tier} · إخفاقات متتالية: {playerPref.consecutive_tier1_failures}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={handleResetPlayerTier}
+                disabled={resettingTier}
+                className="text-xs px-3 py-1.5 rounded-lg font-medium transition-all"
+                style={{ background: 'rgba(56,189,248,0.1)', color: 'var(--accent-sky)', border: '1px solid rgba(56,189,248,0.2)' }}
+              >
+                {resettingTier ? <Loader2 size={12} className="animate-spin" /> : 'أعد ضبط للمشغل الكامل'}
+              </button>
+            </div>
+          )}
 
           {/* IELTS Writing Access Toggle */}
           {pkg !== 'ielts' && (
