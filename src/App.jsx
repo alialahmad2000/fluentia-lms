@@ -137,6 +137,17 @@ const PartnersTerms = lazyRetry(() => import('./pages/partners/PartnersTerms'))
 const AffiliatesList = lazyRetry(() => import('./pages/admin/AffiliatesList'))
 const AffiliateDetail = lazyRetry(() => import('./pages/admin/AffiliateDetail'))
 const AffiliatesDashboard = lazyRetry(() => import('./pages/admin/AffiliatesDashboard'))
+const AffiliatePayouts = lazyRetry(() => import('./pages/admin/AffiliatePayouts'))
+const AffiliateMaterialsAdmin = lazyRetry(() => import('./pages/admin/AffiliateMaterialsAdmin'))
+
+const PartnerLayout = lazyRetry(() => import('./layouts/PartnerLayout'))
+const PartnerRoute = lazyRetry(() => import('./components/PartnerRoute'))
+const PartnerDashboard = lazyRetry(() => import('./pages/partner/PartnerDashboard'))
+const PartnerConversions = lazyRetry(() => import('./pages/partner/PartnerConversions'))
+const PartnerPayouts = lazyRetry(() => import('./pages/partner/PartnerPayouts'))
+const PartnerMaterials = lazyRetry(() => import('./pages/partner/PartnerMaterials'))
+const PartnerSettings = lazyRetry(() => import('./pages/partner/PartnerSettings'))
+const PartnerSuspended = lazyRetry(() => import('./pages/partner/PartnerSuspended'))
 
 const ForgotPassword = lazyRetry(() => import('./pages/public/ForgotPassword'))
 const ResetPassword = lazyRetry(() => import('./pages/public/ResetPassword'))
@@ -337,6 +348,8 @@ function RoleRedirect() {
       return <Navigate to="/trainer" replace />
     case 'admin':
       return <Navigate to="/admin" replace />
+    case 'affiliate':
+      return <Navigate to="/partner" replace />
     default:
       return <Navigate to="/login" replace />
   }
@@ -587,11 +600,41 @@ export default function App() {
               <Route path="/admin/creator-challenge" element={<Page><AdminCreatorChallenge /></Page>} />
               <Route path="/admin/affiliates" element={<Page><AffiliatesList /></Page>} />
               <Route path="/admin/affiliates/dashboard" element={<Page><AffiliatesDashboard /></Page>} />
+              <Route path="/admin/affiliates/payouts" element={<Page><AffiliatePayouts /></Page>} />
+              <Route path="/admin/affiliates/materials" element={<Page><AffiliateMaterialsAdmin /></Page>} />
               <Route path="/admin/affiliates/:id" element={<Page><AffiliateDetail /></Page>} />
               <Route path="/admin/interactive-curriculum" element={<Page><InteractiveCurriculumLevels /></Page>} />
               <Route path="/admin/interactive-curriculum/:levelId" element={<Page><InteractiveCurriculumUnits /></Page>} />
               <Route path="/admin/interactive-curriculum/:levelId/:unitId" element={<Page><InteractiveCurriculumPage /></Page>} />
               <Route path="/admin/student/:studentId/progress" element={<Page><StudentProgressDetail /></Page>} />
+            </Route>
+          </Route>
+
+          {/* Partner suspended (accessible without full partner auth) */}
+          <Route path="/partner/suspended" element={
+            <ErrorBoundary fallback={<PageErrorFallback />}>
+              <Suspense fallback={<LoadingSkeleton />}><PartnerSuspended /></Suspense>
+            </ErrorBoundary>
+          } />
+
+          {/* Partner portal routes */}
+          <Route element={
+            <ErrorBoundary fallback={<PageErrorFallback />}>
+              <Suspense fallback={<LoadingSkeleton />}>
+                <PartnerRoute />
+              </Suspense>
+            </ErrorBoundary>
+          }>
+            <Route element={
+              <Suspense fallback={<LoadingSkeleton />}>
+                <PartnerLayout />
+              </Suspense>
+            }>
+              <Route path="/partner" element={<Page><PartnerDashboard /></Page>} />
+              <Route path="/partner/conversions" element={<Page><PartnerConversions /></Page>} />
+              <Route path="/partner/payouts" element={<Page><PartnerPayouts /></Page>} />
+              <Route path="/partner/materials" element={<Page><PartnerMaterials /></Page>} />
+              <Route path="/partner/settings" element={<Page><PartnerSettings /></Page>} />
             </Route>
           </Route>
 

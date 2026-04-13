@@ -111,6 +111,8 @@ const NAV_ITEMS = {
     { to: '/admin/creator-challenge', label: 'تحدي المبدعين', icon: Clapperboard },
     { to: '/admin/affiliates', label: 'الشركاء', icon: Handshake },
     { to: '/admin/affiliates/dashboard', label: 'لوحة أداء الشركاء', icon: TrendingUp },
+    { to: '/admin/affiliates/payouts', label: 'المدفوعات', icon: CreditCard },
+    { to: '/admin/affiliates/materials', label: 'المواد التسويقية', icon: FolderOpen },
     { to: '/admin/settings', label: 'الإعدادات', icon: Settings },
   ],
 }

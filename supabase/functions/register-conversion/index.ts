@@ -64,6 +64,15 @@ serve(async (req) => {
       return new Response(JSON.stringify({ ok: false, reason: "db_error", detail: error.message }), { status: 200, headers });
     }
 
+    // Notify affiliate about new conversion
+    try {
+      await supabase.functions.invoke('send-affiliate-email', {
+        body: { affiliate_id: student.affiliate_id, template: 'new_conversion' },
+      });
+    } catch (emailErr) {
+      console.error("Email notification error (non-fatal):", emailErr);
+    }
+
     return new Response(JSON.stringify({ ok: true, conversion_id: conv.id }), { status: 200, headers });
   } catch (err) {
     console.error("register-conversion error:", err);

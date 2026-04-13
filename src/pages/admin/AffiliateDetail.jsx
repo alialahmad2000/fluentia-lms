@@ -107,6 +107,29 @@ export default function AffiliateDetail() {
         .eq('id', id)
       if (error) throw error
 
+      // Create/update profile with 'affiliate' role so they can log in to /partner
+      if (affiliate.user_id) {
+        await supabase.from('profiles').update({ role: 'affiliate' }).eq('id', affiliate.user_id)
+      } else {
+        // Create auth user + profile for the affiliate
+        const tempPass = 'Fluentia!' + Math.random().toString(36).slice(2, 8)
+        const { data: authData } = await supabase.auth.signUp({
+          email: affiliate.email,
+          password: tempPass,
+          options: { data: { full_name: affiliate.full_name } },
+        })
+        if (authData?.user?.id) {
+          await supabase.from('profiles').upsert({
+            id: authData.user.id,
+            full_name: affiliate.full_name,
+            email: affiliate.email,
+            phone: affiliate.phone,
+            role: 'affiliate',
+          }, { onConflict: 'id' })
+          await supabase.from('affiliates').update({ user_id: authData.user.id }).eq('id', id)
+        }
+      }
+
       // Send approval email via edge function
       try {
         const { data: { session } } = await supabase.auth.getSession()
