@@ -6,6 +6,7 @@ import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
 import { toast } from '../../components/ui/FluentiaToast'
 import VideoPlayer from '../VideoPlayer'
+import UnitRecordingsSection from '../recordings/UnitRecordingsSection'
 
 const PARTS = [
   { id: 'a', label: 'Part A', labelAr: 'الجزء A (الأحد)' },
@@ -21,6 +22,12 @@ export default function RecordingTab({ unitId }) {
   const role = profile?.role || 'student'
   const isStaff = role === 'admin' || role === 'trainer'
 
+  // Students get the premium player experience
+  if (!isStaff) {
+    return <UnitRecordingsSection unitId={unitId} />
+  }
+
+  // Staff get the admin upload/edit UI (unchanged)
   const { data: recordings = [], isLoading } = useQuery({
     queryKey: ['unit-recordings', unitId],
     queryFn: async () => {
