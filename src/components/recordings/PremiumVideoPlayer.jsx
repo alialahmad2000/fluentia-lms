@@ -5,7 +5,7 @@ import {
   SkipBack, SkipForward, Loader2, PictureInPicture2,
   Bookmark, List, Repeat, X, AlertCircle, RefreshCw,
 } from 'lucide-react'
-import { resolveStreamUrl, invalidateStreamUrl, extractFileId } from '../../lib/driveStream'
+import { resolveStreamUrl, resolveStreamUrlSync, invalidateStreamUrl, extractFileId } from '../../lib/driveStream'
 import { toast } from '../ui/FluentiaToast'
 import { supabase } from '../../lib/supabase'
 
@@ -24,10 +24,10 @@ function formatTime(s) {
 
 function mapErrorToArabic(code) {
   switch (code) {
-    case 1: return 'توقف التحميل'
-    case 2: return 'مشكلة في الاتصال بالشبكة'
-    case 3: return 'صيغة الفيديو غير مدعومة'
-    case 4: return 'الرابط غير صالح أو انتهت صلاحيته'
+    case 1: return 'توقف التحميل — حاول مرة أخرى'
+    case 2: return 'مشكلة في الاتصال — تأكد من الإنترنت'
+    case 3: return 'صيغة الفيديو غير مدعومة على هذا الجهاز'
+    case 4: return 'تعذر الوصول للتسجيل — أعد المحاولة'
     default: return 'حدث خطأ أثناء تحميل الفيديو'
   }
 }
@@ -85,7 +85,16 @@ export default function PremiumVideoPlayer({
   const loopActive = loopA !== null && loopB !== null
 
   const fileId = useMemo(() => extractFileId(recording?.google_drive_url), [recording?.google_drive_url])
-  const streamUrl = useMemo(() => resolveStreamUrl(fileId), [fileId])
+  // resolveStreamUrl is now async (fetches auth token) — use sync fallback initially, then async with token
+  const [streamUrl, setStreamUrl] = useState(() => resolveStreamUrlSync(fileId))
+  useEffect(() => {
+    if (!fileId) return
+    let cancelled = false
+    resolveStreamUrl(fileId).then(url => {
+      if (!cancelled && url) setStreamUrl(url)
+    })
+    return () => { cancelled = true }
+  }, [fileId])
 
   // Current chapter
   const currentChapter = useMemo(() => {
@@ -295,16 +304,18 @@ export default function PremiumVideoPlayer({
       retryAttemptedRef.current = true
       const savedTime = v?.currentTime || 0
       invalidateStreamUrl(fileId)
-      const freshUrl = resolveStreamUrl(fileId, { forceRefresh: true })
-      if (v && freshUrl) {
-        v.src = freshUrl
-        v.load()
-        v.addEventListener('loadedmetadata', () => {
-          if (savedTime > 1) v.currentTime = savedTime
-          v.play().catch(() => {})
-        }, { once: true })
-        return
-      }
+      resolveStreamUrl(fileId, { forceRefresh: true }).then(freshUrl => {
+        if (v && freshUrl) {
+          v.src = freshUrl
+          setStreamUrl(freshUrl)
+          v.load()
+          v.addEventListener('loadedmetadata', () => {
+            if (savedTime > 1) v.currentTime = savedTime
+            v.play().catch(() => {})
+          }, { once: true })
+        }
+      })
+      return
     }
 
     // Show error UI
@@ -315,13 +326,18 @@ export default function PremiumVideoPlayer({
   const handleManualRetry = useCallback(() => {
     retryAttemptedRef.current = false
     setPlaybackError(null)
+    setLoading(true)
     const v = videoRef.current
     if (v && fileId) {
       invalidateStreamUrl(fileId)
-      const freshUrl = resolveStreamUrl(fileId, { forceRefresh: true })
-      v.src = freshUrl
-      v.load()
-      v.play().catch(() => {})
+      resolveStreamUrl(fileId, { forceRefresh: true }).then(freshUrl => {
+        if (v && freshUrl) {
+          v.src = freshUrl
+          setStreamUrl(freshUrl)
+          v.load()
+          v.play().catch(() => {})
+        }
+      })
     }
   }, [fileId])
 
@@ -565,6 +581,7 @@ export default function PremiumVideoPlayer({
         className="w-full h-full object-contain"
         crossOrigin="anonymous"
         playsInline
+        webkit-playsinline="true"
         preload="metadata"
         onTimeUpdate={handleTimeUpdate}
         onPlay={handlePlay}
@@ -641,17 +658,28 @@ export default function PremiumVideoPlayer({
       {playbackError && (
         <div className="absolute inset-0 bg-black/80 flex items-center justify-center flex-col gap-4 p-6 text-center" style={{ zIndex: 20 }} dir="rtl">
           <AlertCircle className="w-16 h-16 text-red-400" />
-          <p className="text-white text-lg font-['Tajawal']">{playbackError.message}</p>
+          <p className="text-white text-lg font-['Tajawal']">تعذر تشغيل التسجيل</p>
+          <p className="text-white/60 text-sm font-['Tajawal']">تأكد من اتصالك بالإنترنت ثم أعد المحاولة</p>
           {playbackError.code && (
-            <p className="text-white/40 text-xs font-['Inter']">Error code: {playbackError.code}</p>
+            <p className="text-white/30 text-xs font-['Inter']">Error code: {playbackError.code}</p>
           )}
-          <button
-            onClick={handleManualRetry}
-            className="px-6 py-3 bg-sky-500 hover:bg-sky-600 rounded-xl text-white font-medium font-['Tajawal'] flex items-center gap-2 transition"
-          >
-            <RefreshCw size={16} />
-            إعادة المحاولة
-          </button>
+          <div className="flex items-center gap-3 flex-wrap justify-center">
+            <button
+              onClick={handleManualRetry}
+              className="px-6 py-3 bg-sky-500 hover:bg-sky-600 rounded-xl text-white font-medium font-['Tajawal'] flex items-center gap-2 transition"
+            >
+              <RefreshCw size={16} />
+              إعادة المحاولة
+            </button>
+            <a
+              href="https://wa.me/966558669974?text=%D9%85%D8%B4%D9%83%D9%84%D8%A9%20%D9%81%D9%8A%20%D8%AA%D8%B4%D8%BA%D9%8A%D9%84%20%D8%A7%D9%84%D8%AA%D8%B3%D8%AC%D9%8A%D9%84"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-3 bg-white/10 hover:bg-white/15 rounded-xl text-white/70 text-sm font-['Tajawal'] transition"
+            >
+              تواصل مع الدعم
+            </a>
+          </div>
         </div>
       )}
 

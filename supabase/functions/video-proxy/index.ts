@@ -4,6 +4,10 @@
 // Deploy: supabase functions deploy video-proxy --no-verify-jwt
 
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+
+const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!
+const SUPABASE_ANON_KEY = Deno.env.get('SUPABASE_ANON_KEY')!
 
 const CORS: Record<string, string> = {
   'Access-Control-Allow-Origin': '*',
@@ -38,6 +42,26 @@ serve(async (req: Request) => {
   if (!fileId || !/^[a-zA-Z0-9_-]{10,}$/.test(fileId)) {
     return jsonErr('Missing or invalid file id')
   }
+
+  // Verify authentication — accept Authorization header or token query param
+  // (<video> elements can't send Authorization headers, so token param is the fallback)
+  const authHeader = req.headers.get('Authorization')
+  const tokenParam = url.searchParams.get('token')
+  const token = authHeader?.replace('Bearer ', '') || tokenParam
+  if (token) {
+    try {
+      const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+        global: { headers: { Authorization: `Bearer ${token}` } },
+      })
+      const { data: { user }, error } = await supabase.auth.getUser()
+      if (error || !user) {
+        return jsonErr('Invalid or expired session', 401)
+      }
+    } catch {
+      return jsonErr('Auth verification failed', 401)
+    }
+  }
+  // Note: if no token provided, still allow (backwards compat during migration)
 
   try {
     const fetchHeaders: Record<string, string> = {

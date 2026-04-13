@@ -1,11 +1,13 @@
 // Drive stream URL resolver — calls edge function, caches 50min per fileId
 
+import { supabase } from './supabase'
+
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
 
 const cache = new Map() // fileId → { url, expiresAt }
 const CACHE_TTL = 50 * 60 * 1000 // 50 minutes
 
-export function resolveStreamUrl(fileId, { forceRefresh = false } = {}) {
+export async function resolveStreamUrl(fileId, { forceRefresh = false } = {}) {
   if (!fileId) return null
 
   if (!forceRefresh) {
@@ -15,8 +17,35 @@ export function resolveStreamUrl(fileId, { forceRefresh = false } = {}) {
     }
   }
 
+  // Get current session token for auth
+  let tokenParam = ''
+  try {
+    const { data: { session } } = await supabase.auth.getSession()
+    if (session?.access_token) {
+      tokenParam = `&token=${session.access_token}`
+    }
+  } catch {}
+
   // Build the proxy URL — the edge function streams the video
-  // Add cache-buster when forcing refresh to avoid browser/CDN cache
+  // Auth token as query param since <video> can't set Authorization header
+  const bustParam = forceRefresh ? `&_t=${Date.now()}` : ''
+  const url = `${SUPABASE_URL}/functions/v1/video-proxy?id=${fileId}${tokenParam}${bustParam}`
+
+  cache.set(fileId, { url, expiresAt: Date.now() + CACHE_TTL })
+  return url
+}
+
+// Synchronous version for initial render (uses cache only, no auth fetch)
+export function resolveStreamUrlSync(fileId, { forceRefresh = false } = {}) {
+  if (!fileId) return null
+
+  if (!forceRefresh) {
+    const cached = cache.get(fileId)
+    if (cached && Date.now() < cached.expiresAt) {
+      return cached.url
+    }
+  }
+
   const bustParam = forceRefresh ? `&_t=${Date.now()}` : ''
   const url = `${SUPABASE_URL}/functions/v1/video-proxy?id=${fileId}${bustParam}`
 
