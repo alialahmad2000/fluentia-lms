@@ -39,7 +39,7 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
     return () => clearInterval(timerRef.current)
   }, [])
 
-  // Load saved progress
+  // Load saved progress — display-only for completed attempts, hydrate only in-progress
   useEffect(() => {
     if (!studentId || !grammarId) { setProgressLoading(false); return }
     let isMounted = true
@@ -56,27 +56,31 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
       if (rows && rows.length > 0) {
         setAllAttempts(rows)
         const latest = rows.find(r => r.is_latest) || rows[0]
-        setCurrentRowId(latest.id)
         setAttemptNumber(latest.attempt_number || 1)
 
         const best = rows.reduce((b, r) => (r.score || 0) > (b?.score || 0) ? r : b, rows[0])
         setBestScore(best?.score ?? null)
         onAttemptUpdate?.(null, latest.attempt_number || 1, best?.score ?? null)
 
-        if (latest.answers?.exercises) {
-          const restored = {}
-          latest.answers.exercises.forEach(ex => {
-            restored[ex.id] = { selected: ex.studentAnswer, correct: ex.isCorrect }
-          })
-          setAnswers(restored)
-          prevAnsweredRef.current = Object.keys(restored).length
-        }
-
-        setIsCompleted(latest.status === 'completed')
-        if (latest.time_spent_seconds) timeRef.current = latest.time_spent_seconds
         if (latest.status === 'completed') {
-          hasSaved.current = true
+          // Completed attempt: show summary badge but keep exercises FRESH
+          // Do NOT hydrate answers — student sees empty cards ready for a new attempt
+          setIsCompleted(true)
           setShowSummary(true)
+          hasSaved.current = true
+          // No currentRowId — next answer will create a fresh DB row
+        } else {
+          // In-progress attempt: restore partial answers so student can continue
+          setCurrentRowId(latest.id)
+          if (latest.time_spent_seconds) timeRef.current = latest.time_spent_seconds
+          if (latest.answers?.exercises) {
+            const restored = {}
+            latest.answers.exercises.forEach(ex => {
+              restored[ex.id] = { selected: ex.studentAnswer, correct: ex.isCorrect }
+            })
+            setAnswers(restored)
+            prevAnsweredRef.current = Object.keys(restored).length
+          }
         }
       }
       setProgressLoading(false)
@@ -99,48 +103,19 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
     return () => observer.disconnect()
   }, [allAnswered, isCompleted])
 
-  // Retry handler
-  const handleRetry = async () => {
-    const nextAttempt = attemptNumber + 1
-
-    await supabase
-      .from('student_curriculum_progress')
-      .update({ is_latest: false })
-      .eq('student_id', studentId)
-      .eq('grammar_id', grammarId)
-
-    const { data: newRow, error } = await supabase
-      .from('student_curriculum_progress')
-      .insert({
-        student_id: studentId,
-        unit_id: unitId,
-        grammar_id: grammarId,
-        section_type: 'grammar',
-        status: 'in_progress',
-        score: 0,
-        answers: null,
-        time_spent_seconds: 0,
-        completed_at: null,
-        attempt_number: nextAttempt,
-        is_latest: true,
-        is_best: false,
-      })
-      .select()
-      .single()
-
-    if (!error && newRow) {
-      setCurrentRowId(newRow.id)
-      setAttemptNumber(nextAttempt)
-      setRetrying(true)
-      setIsCompleted(false)
-      setShowSummary(false)
-      setAnswers({})
-      prevAnsweredRef.current = 0
-      hasSaved.current = false
-      timeRef.current = 0
-      setRetryKey(k => k + 1)
-      onAttemptUpdate?.(null, nextAttempt, null)
-    }
+  // Retry handler — resets local state only; DB write happens on first answer via auto-save
+  const handleRetry = () => {
+    setCurrentRowId(null)
+    setRetrying(true)
+    setIsCompleted(false)
+    setShowSummary(false)
+    setAnswers({})
+    prevAnsweredRef.current = 0
+    hasSaved.current = false
+    timeRef.current = 0
+    setRetryKey(k => k + 1)
+    // Keep bestScore and attemptNumber — header badge still shows best score
+    // attemptNumber will be incremented when the new row is inserted by saveProgress
   }
 
   // Build results
@@ -213,7 +188,19 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
         onAttemptUpdate?.(score, attemptNumber, rows?.[0]?.score ?? score)
       }
     } else {
-      // First ever attempt
+      // No currentRowId — either first-ever attempt or fresh start after completed
+      const hasExisting = allAttempts.length > 0
+      const nextAttemptNum = hasExisting ? attemptNumber + 1 : 1
+
+      // If previous rows exist, flip their is_latest
+      if (hasExisting) {
+        await supabase
+          .from('student_curriculum_progress')
+          .update({ is_latest: false })
+          .eq('student_id', studentId)
+          .eq('grammar_id', grammarId)
+      }
+
       const { data: newRow, error } = await supabase
         .from('student_curriculum_progress')
         .insert({
@@ -226,28 +213,53 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
           answers: { exercises: results },
           time_spent_seconds: timeRef.current,
           completed_at: isComplete ? new Date().toISOString() : null,
-          attempt_number: 1,
+          attempt_number: nextAttemptNum,
           is_latest: true,
-          is_best: true,
+          is_best: !hasExisting,
         })
         .select()
         .single()
 
       if (!error && newRow) {
         setCurrentRowId(newRow.id)
+        setAttemptNumber(nextAttemptNum)
         if (isComplete) {
-          setBestScore(score)
+          // Recompute best
+          const { data: bestRows } = await supabase
+            .from('student_curriculum_progress')
+            .select('id, score')
+            .eq('student_id', studentId)
+            .eq('grammar_id', grammarId)
+            .eq('status', 'completed')
+            .order('score', { ascending: false })
+
+          if (bestRows?.length > 0) {
+            await supabase.from('student_curriculum_progress').update({ is_best: false }).eq('student_id', studentId).eq('grammar_id', grammarId)
+            await supabase.from('student_curriculum_progress').update({ is_best: true }).eq('id', bestRows[0].id)
+            setBestScore(bestRows[0].score)
+          } else {
+            setBestScore(score)
+          }
+
           setIsCompleted(true)
           setShowSummary(true)
-          setAllAttempts([newRow])
           toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
           try { safeCelebrate('grammar_complete') } catch {}
           awardCurriculumXP(studentId, 'grammar', score, unitId)
-          onAttemptUpdate?.(score, 1, score)
+
+          // Reload all attempts
+          const { data: allRows } = await supabase
+            .from('student_curriculum_progress')
+            .select('*')
+            .eq('student_id', studentId)
+            .eq('grammar_id', grammarId)
+            .order('attempt_number', { ascending: false })
+          if (allRows) setAllAttempts(allRows)
+          onAttemptUpdate?.(score, nextAttemptNum, bestRows?.[0]?.score ?? score)
         }
       }
     }
-  }, [studentId, unitId, grammarId, total, buildResults, currentRowId, onAttemptUpdate])
+  }, [studentId, unitId, grammarId, total, buildResults, currentRowId, onAttemptUpdate, allAttempts, attemptNumber])
 
   // Auto-save after each answer
   useEffect(() => {
