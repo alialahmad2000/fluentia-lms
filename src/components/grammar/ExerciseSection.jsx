@@ -9,7 +9,7 @@ import ExerciseSummary from './ExerciseSummary'
 import AttemptsHistory from './AttemptsHistory'
 import { useFadeIn } from './useFadeIn'
 
-export default function ExerciseSection({ exercises, studentId, unitId, grammarId, onAttemptUpdate }) {
+export default function ExerciseSection({ exercises, studentId, unitId, grammarId, onAttemptUpdate, grammarTopic, studentLevel, ruleSnippet }) {
   const sectionRef = useFadeIn()
   const [answers, setAnswers] = useState({})
   const [progressLoading, setProgressLoading] = useState(true)
@@ -340,6 +340,9 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
               total={total}
               answer={answers[ex.id]}
               onAnswer={(ans) => setAnswers(prev => ({ ...prev, [ex.id]: ans }))}
+              grammarTopic={grammarTopic}
+              studentLevel={studentLevel}
+              ruleSnippet={ruleSnippet}
             />
           </div>
         ))}

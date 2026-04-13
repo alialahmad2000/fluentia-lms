@@ -322,6 +322,55 @@
   color: var(--text-secondary);
 }
 
+/* ─── AI Explain button ─── */
+.grammar-explain-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 10px;
+  background: var(--info-bg);
+  border: 1px solid var(--info-border);
+  color: var(--accent-sky);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 150ms ease;
+  font-family: 'Tajawal', sans-serif;
+}
+.grammar-explain-btn:hover {
+  background: var(--accent-sky-glow);
+  transform: translateY(-1px);
+}
+
+/* ─── AI Explanation rendered HTML ─── */
+.grammar-explain-content p {
+  margin-bottom: 0.5rem;
+}
+.grammar-explain-content code {
+  background: var(--glass-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-family: 'Inter', monospace;
+  font-size: 0.85em;
+  color: var(--accent-sky);
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+.grammar-explain-content strong {
+  color: var(--accent-sky);
+  font-weight: 700;
+}
+.grammar-explain-content ul,
+.grammar-explain-content ol {
+  padding-right: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.grammar-explain-content li {
+  margin-bottom: 0.25rem;
+}
+
 /* ─── Circular progress ring ─── */
 .grammar-progress-ring {
   transform: rotate(-90deg);

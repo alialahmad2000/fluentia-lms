@@ -1,4 +1,7 @@
+import { useState } from 'react'
+import { Sparkles } from 'lucide-react'
 import { useFadeIn } from './useFadeIn'
+import ExplainModal from './ExplainModal'
 import MCQQuestion from './exercise-types/MCQQuestion'
 import FillBlankQuestion from './exercise-types/FillBlankQuestion'
 import ErrorCorrectionQuestion from './exercise-types/ErrorCorrectionQuestion'
@@ -14,13 +17,25 @@ const TYPE_LABELS = {
   make_question: 'كوّن سؤالاً',
 }
 
-export default function ExerciseCard({ exercise, index, total, answer, onAnswer }) {
+export default function ExerciseCard({ exercise, index, total, answer, onAnswer, grammarTopic, studentLevel, ruleSnippet }) {
   const ref = useFadeIn()
+  const [explainOpen, setExplainOpen] = useState(false)
   const item = exercise.items?.[0]
   if (!item) return null
 
   const typeLabel = TYPE_LABELS[exercise.exercise_type] || exercise.exercise_type
   const num = String(index + 1).padStart(2, '0')
+
+  // Build payload for AI explanation
+  const explainPayload = answer ? {
+    questionText: item.question,
+    studentAnswer: answer.selected,
+    correctAnswer: item.correct_answer,
+    isCorrect: answer.correct,
+    grammarTopic: grammarTopic || '',
+    studentLevel: studentLevel || 'A1',
+    ruleSnippet: ruleSnippet || '',
+  } : null
 
   return (
     <div ref={ref} className="grammar-glass grammar-fade-in p-5 sm:p-6 space-y-4">
@@ -67,6 +82,24 @@ export default function ExerciseCard({ exercise, index, total, answer, onAnswer 
           {item.explanation_ar}
         </div>
       )}
+
+      {/* "اشرح لي" AI tutor button — shown after any answer */}
+      {answer && (
+        <button
+          className="grammar-explain-btn"
+          onClick={() => setExplainOpen(true)}
+        >
+          <Sparkles size={14} />
+          اشرح لي
+        </button>
+      )}
+
+      {/* AI Explain Modal */}
+      <ExplainModal
+        open={explainOpen}
+        onClose={() => setExplainOpen(false)}
+        payload={explainPayload}
+      />
     </div>
   )
 }
