@@ -119,14 +119,17 @@ export default function TextSelectionTooltip({ containerRef, studentId, unitId, 
 
     setAiLoading(true)
     try {
-      const { data, error } = await supabase.functions.invoke('vocab-assist', {
-        body: {
+      const resp = await fetch('/api/vocab-assist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           word: tooltip.text,
           context_sentence: tooltip.contextSentence,
           action_type: actionType,
-        },
+        }),
       })
-      if (error) throw error
+      const data = await resp.json()
+      if (!resp.ok) throw new Error(data.error || 'AI request failed')
       setAiResult(data)
       aiCache.current[cacheKey] = data
     } catch (err) {
