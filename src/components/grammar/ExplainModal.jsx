@@ -28,7 +28,7 @@ export default function ExplainModal({ open, onClose, payload }) {
 
       setResult(data)
     } catch (e) {
-      setError(e.message || 'حدث خطأ')
+      setError(e.message?.includes('Edge Function') ? 'تعذّر الاتصال بالخدمة، حاولي مرة أخرى' : (e.message || 'حدث خطأ'))
     } finally {
       setLoading(false)
     }

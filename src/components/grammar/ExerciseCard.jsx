@@ -16,12 +16,22 @@ const TYPE_LABELS = {
   make_question: 'كوّن سؤالاً',
 }
 
+const FALLBACK_INSTRUCTIONS = {
+  fill_blank: 'املئي الفراغ بالكلمة المناسبة',
+  choose: 'اختاري الإجابة الصحيحة',
+  error_correction: 'صحّحي الخطأ في الجملة',
+  reorder: 'رتّبي الكلمات لتكوين جملة صحيحة',
+  transform: 'حوّلي الجملة حسب المطلوب',
+  make_question: 'كوّني سؤالاً من الجملة',
+}
+
 export default function ExerciseCard({ exercise, index, total, answer, onAnswer, grammarTopic, studentLevel, ruleSnippet }) {
   const [explainOpen, setExplainOpen] = useState(false)
   const item = exercise.items?.[0]
   if (!item) return null
 
   const typeLabel = TYPE_LABELS[exercise.exercise_type] || exercise.exercise_type
+  const instruction = item.instruction_ar || FALLBACK_INSTRUCTIONS[exercise.exercise_type] || 'أجيبي عن السؤال'
   const num = String(index + 1).padStart(2, '0')
 
   // Build payload for AI explanation
@@ -50,6 +60,12 @@ export default function ExerciseCard({ exercise, index, total, answer, onAnswer,
         >
           {typeLabel}
         </span>
+      </div>
+
+      {/* Instruction */}
+      <div className="exercise-instruction" dir="rtl">
+        <span className="instruction-icon">💡</span>
+        <span>{instruction}</span>
       </div>
 
       {/* Question text */}

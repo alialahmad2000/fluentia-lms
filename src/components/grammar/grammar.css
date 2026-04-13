@@ -343,6 +343,22 @@
   transform: translateY(-1px);
 }
 
+/* ─── Exercise Instruction ─── */
+.exercise-instruction {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent-sky) 8%, transparent);
+  border-right: 3px solid var(--accent-sky);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: 'Tajawal', sans-serif;
+  line-height: 1.5;
+}
+.exercise-instruction .instruction-icon { font-size: 16px; }
+
 /* ─── AI Explanation rendered HTML ─── */
 .grammar-explain-content p {
   margin-bottom: 0.5rem;
