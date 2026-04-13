@@ -69,17 +69,10 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
           hasSaved.current = true
           // No currentRowId — next answer will create a fresh DB row
         } else {
-          // In-progress attempt: restore partial answers so student can continue
-          setCurrentRowId(latest.id)
-          if (latest.time_spent_seconds) timeRef.current = latest.time_spent_seconds
-          if (latest.answers?.exercises) {
-            const restored = {}
-            latest.answers.exercises.forEach(ex => {
-              restored[ex.id] = { selected: ex.studentAnswer, correct: ex.isCorrect }
-            })
-            setAnswers(restored)
-            prevAnsweredRef.current = Object.keys(restored).length
-          }
+          // In-progress attempt: do NOT hydrate previous answers.
+          // Students must always see a fresh state on page load.
+          // The in-progress row will be superseded by a new row on first answer.
+          // This prevents the bug where exercises appear pre-checked with ✓/✗ marks.
         }
       }
       setProgressLoading(false)
@@ -87,6 +80,14 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
     load()
     return () => { isMounted = false }
   }, [studentId, grammarId])
+
+  // Regression guard: no question should be pre-answered on mount
+  useEffect(() => {
+    const preAnswered = Object.keys(answers).length
+    if (preAnswered > 0 && !isCompleted && !retrying) {
+      console.error('[ExerciseSection] REGRESSION: ' + preAnswered + ' questions pre-answered on mount — some code is hydrating state from an old submission')
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Sticky CTA visibility
   useEffect(() => {
@@ -298,12 +299,19 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
           <Target size={16} style={{ color: 'var(--accent-sky)' }} />
           <h2 className="text-sm font-bold font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>تمارين · {total} أسئلة</h2>
         </div>
-        {retrying && (
-          <span className="flex items-center gap-1 text-xs font-['Tajawal']" style={{ color: 'var(--accent-sky)' }}>
-            <RotateCcw size={12} />
-            محاولة {attemptNumber}
-          </span>
-        )}
+        <div className="flex items-center gap-2">
+          {bestScore != null && (
+            <span className="text-[11px] font-bold px-2 py-0.5 rounded-md font-['Tajawal']" style={{ background: 'var(--success-bg, rgba(74,222,128,0.1))', color: 'var(--success)', border: '1px solid var(--success-border, rgba(74,222,128,0.2))' }}>
+              أفضل درجة: {bestScore}%
+            </span>
+          )}
+          {retrying && (
+            <span className="flex items-center gap-1 text-xs font-['Tajawal']" style={{ color: 'var(--accent-sky)' }}>
+              <RotateCcw size={12} />
+              محاولة {attemptNumber}
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Progress dots */}
