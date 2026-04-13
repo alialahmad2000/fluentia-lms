@@ -21,7 +21,7 @@ export default function ErrorCorrectionQuestion({ item, answer, onAnswer }) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-3" dir="ltr">
-      <p className="text-xs text-white/30 font-['Tajawal']" dir="rtl">اكتب الجملة الصحيحة:</p>
+      <p className="text-xs font-['Tajawal']" dir="rtl" style={{ color: 'var(--text-tertiary)' }}>اكتب الجملة الصحيحة:</p>
       <div className="flex items-center gap-2">
         <input
           type="text"
@@ -35,7 +35,8 @@ export default function ErrorCorrectionQuestion({ item, answer, onAnswer }) {
           <button
             type="submit"
             disabled={!input.trim()}
-            className="grammar-option px-5 font-['Tajawal'] font-bold text-sm text-sky-400 border-sky-500/30 hover:bg-sky-500/10 disabled:opacity-30"
+            className="grammar-option px-5 font-['Tajawal'] font-bold text-sm disabled:opacity-30"
+            style={{ color: 'var(--accent-sky)', borderColor: 'var(--info-border)' }}
           >
             تحقق
           </button>
@@ -43,13 +44,13 @@ export default function ErrorCorrectionQuestion({ item, answer, onAnswer }) {
       </div>
 
       {answer && answer.correct && (
-        <p className="text-sm text-emerald-400 font-['Tajawal'] font-medium">أحسنت! ✨</p>
+        <p className="text-sm font-['Tajawal'] font-medium" style={{ color: 'var(--success)' }}>أحسنت! ✨</p>
       )}
 
       {answer && !answer.correct && (
         <div className="grammar-explanation-bar text-xs" dir="rtl">
-          <span className="text-white/40 font-['Tajawal']">الإجابة الصحيحة: </span>
-          <span className="text-emerald-400 font-semibold font-['Inter']" dir="ltr">{item.correct_answer}</span>
+          <span className="font-['Tajawal']" style={{ color: 'var(--text-tertiary)' }}>الإجابة الصحيحة: </span>
+          <span className="font-semibold font-['Inter']" dir="ltr" style={{ color: 'var(--success)' }}>{item.correct_answer}</span>
         </div>
       )}
     </form>

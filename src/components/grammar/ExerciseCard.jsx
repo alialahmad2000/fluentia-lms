@@ -27,15 +27,20 @@ export default function ExerciseCard({ exercise, index, total, answer, onAnswer 
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <span className="text-xs font-bold text-white/25 font-['Inter']">{num} / {String(total).padStart(2, '0')}</span>
+          <span className="text-xs font-bold font-['Inter']" style={{ color: 'var(--text-tertiary)' }}>
+            {num} / {String(total).padStart(2, '0')}
+          </span>
         </div>
-        <span className="text-[10px] font-bold px-2.5 py-1 rounded-md bg-sky-500/8 text-sky-400/70 border border-sky-500/15 font-['Tajawal']">
+        <span
+          className="text-[10px] font-bold px-2.5 py-1 rounded-md font-['Tajawal']"
+          style={{ background: 'var(--info-bg)', color: 'var(--accent-sky)', border: '1px solid var(--info-border)' }}
+        >
           {typeLabel}
         </span>
       </div>
 
       {/* Question text */}
-      <p className="text-[17px] font-medium text-white/90 font-['Inter'] leading-relaxed" dir="ltr">
+      <p className="text-[17px] font-medium font-['Inter'] leading-relaxed" dir="ltr" style={{ color: 'var(--text-primary)' }}>
         {item.question}
       </p>
 

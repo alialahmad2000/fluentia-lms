@@ -284,11 +284,11 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
       {/* Section header */}
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
-          <Target size={16} className="text-sky-400/70" />
-          <h2 className="text-sm font-bold text-white/70 font-['Tajawal']">تمارين · {total} أسئلة</h2>
+          <Target size={16} style={{ color: 'var(--accent-sky)' }} />
+          <h2 className="text-sm font-bold font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>تمارين · {total} أسئلة</h2>
         </div>
         {retrying && (
-          <span className="flex items-center gap-1 text-xs text-sky-400 font-['Tajawal']">
+          <span className="flex items-center gap-1 text-xs font-['Tajawal']" style={{ color: 'var(--accent-sky)' }}>
             <RotateCcw size={12} />
             محاولة {attemptNumber}
           </span>

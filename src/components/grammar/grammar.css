@@ -2,11 +2,13 @@
 .grammar-page {
   min-height: 100vh;
   background:
-    radial-gradient(1200px 600px at 90% -10%, rgba(56,189,248,0.10) 0%, transparent 60%),
-    radial-gradient(900px 500px at -10% 110%, rgba(139,92,246,0.08) 0%, transparent 55%),
-    linear-gradient(180deg, #060e1c 0%, #081325 100%);
+    radial-gradient(1200px 600px at 90% -10%, var(--accent-sky-glow) 0%, transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, var(--accent-violet-glow) 0%, transparent 55%),
+    var(--surface-void);
+  color: var(--text-primary);
   position: relative;
   overflow-x: hidden;
+  transition: background 300ms ease, color 300ms ease;
 }
 
 .grammar-page::before {
@@ -14,8 +16,8 @@
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    linear-gradient(var(--border-subtle) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px);
   background-size: 48px 48px;
   pointer-events: none;
   mask-image: radial-gradient(ellipse at center, black 40%, transparent 85%);
@@ -30,46 +32,54 @@
   right: 10%;
   width: 380px;
   height: 380px;
-  background: radial-gradient(circle, rgba(56,189,248,0.18) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--accent-sky-glow) 0%, transparent 70%);
   filter: blur(60px);
   pointer-events: none;
   z-index: 0;
 }
 
+/* Dial down orb + grid in light theme */
+[data-theme="frost-white"] .grammar-page::after { opacity: 0.35; }
+[data-theme="frost-white"] .grammar-page::before { opacity: 0.4; }
+
 /* ─── Glass Card base ─── */
 .grammar-glass {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: var(--glass-card);
+  border: 1px solid var(--border-default);
   border-radius: 1rem;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  color: var(--text-primary);
+  transition: background 200ms ease, border-color 200ms ease;
 }
 
 /* ─── Rule block accent bar ─── */
 .grammar-rule-block {
-  background: rgba(56,189,248,0.05);
-  border-right: 3px solid rgba(56,189,248,0.5);
+  background: var(--info-bg);
+  border-right: 3px solid var(--accent-sky);
   border-radius: 0.75rem;
   padding: 1rem 1.25rem;
+  color: var(--text-primary);
 }
 
 /* ─── Formula box ─── */
 .grammar-formula {
-  background: linear-gradient(135deg, rgba(56,189,248,0.08), rgba(168,85,247,0.08));
-  border: 1px solid rgba(56,189,248,0.2);
+  background: var(--info-bg);
+  border: 1px solid var(--info-border);
   border-radius: 0.75rem;
   padding: 1rem 1.5rem;
   text-align: center;
   font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
   font-size: 1.125rem;
   letter-spacing: 0.02em;
+  color: var(--text-primary);
 }
 
 /* ─── Section heading ─── */
 .grammar-heading {
   font-size: 1.125rem;
   font-weight: 600;
-  color: #7dd3fc;
+  color: var(--accent-sky);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 0.5rem;
@@ -86,21 +96,22 @@
   padding: 0.75rem 1rem;
   font-size: 0.75rem;
   font-weight: 700;
-  color: rgba(255,255,255,0.4);
+  color: var(--text-tertiary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid var(--border-default);
 }
 
 .grammar-table td {
   padding: 1rem;
   font-size: 0.9375rem;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-subtle);
   transition: background 0.15s;
 }
 
 .grammar-table tr:hover td {
-  background: rgba(255,255,255,0.02);
+  background: var(--glass-card-hover);
 }
 
 /* ─── Example row ─── */
@@ -111,14 +122,15 @@
   padding: 0.75rem 1rem;
   border-radius: 0.75rem;
   transition: background 0.15s;
+  color: var(--text-primary);
 }
 
 .grammar-example-row:hover {
-  background: rgba(255,255,255,0.02);
+  background: var(--glass-card-hover);
 }
 
 .grammar-example-wrong {
-  text-decoration: underline wavy rgba(244,63,94,0.6);
+  text-decoration: underline wavy var(--accent-rose);
   text-underline-offset: 4px;
 }
 
@@ -126,8 +138,9 @@
 .grammar-option {
   padding: 0.875rem 1.25rem;
   border-radius: 0.75rem;
-  background: rgba(255,255,255,0.03);
-  border: 1.5px solid rgba(255,255,255,0.08);
+  background: var(--glass-input);
+  border: 1.5px solid var(--border-default);
+  color: var(--text-primary);
   cursor: pointer;
   transition: transform 0.15s ease-out, border-color 0.15s, background 0.15s, box-shadow 0.15s;
   min-height: 44px;
@@ -139,12 +152,12 @@
 
 .grammar-option:not(:disabled):hover {
   transform: translateY(-2px);
-  border-color: rgba(56,189,248,0.3);
-  background: rgba(56,189,248,0.05);
+  border-color: var(--accent-sky);
+  background: var(--accent-sky-glow);
 }
 
 .grammar-option:focus-visible {
-  outline: 2px solid #38bdf8;
+  outline: 2px solid var(--accent-sky);
   outline-offset: 2px;
 }
 
@@ -153,14 +166,15 @@
   transform: none;
 }
 
+/* Correctness states — kept as semantic colors, not theme bg */
 .grammar-option--correct {
-  background: rgba(74,222,128,0.12) !important;
-  border-color: #4ade80 !important;
+  background: var(--success-bg) !important;
+  border-color: var(--success) !important;
 }
 
 .grammar-option--wrong {
-  background: rgba(244,63,94,0.12) !important;
-  border-color: #f43f5e !important;
+  background: var(--danger-bg) !important;
+  border-color: var(--danger) !important;
 }
 
 .grammar-option--dimmed {
@@ -168,44 +182,49 @@
 }
 
 .grammar-option--reveal-correct {
-  border-color: rgba(74,222,128,0.5) !important;
+  border-color: var(--success) !important;
 }
 
 /* ─── Exercise input fields ─── */
 .grammar-input {
-  background: rgba(255,255,255,0.03);
-  border: 1.5px solid rgba(255,255,255,0.1);
+  background: var(--glass-input);
+  border: 1.5px solid var(--border-default);
   border-radius: 0.75rem;
   padding: 0.75rem 1rem;
-  color: white;
+  color: var(--text-primary);
   font-size: 0.9375rem;
   outline: none;
   transition: border-color 0.15s;
   min-height: 44px;
 }
 
+.grammar-input::placeholder {
+  color: var(--text-tertiary);
+}
+
 .grammar-input:focus {
-  border-color: rgba(56,189,248,0.5);
+  border-color: var(--border-focus);
 }
 
 .grammar-input--correct {
-  background: rgba(74,222,128,0.08);
-  border-color: rgba(74,222,128,0.5);
-  color: #4ade80;
+  background: var(--success-bg);
+  border-color: var(--success-border);
+  color: var(--success);
 }
 
 .grammar-input--wrong {
-  background: rgba(244,63,94,0.08);
-  border-color: rgba(244,63,94,0.5);
-  color: #f87171;
+  background: var(--danger-bg);
+  border-color: var(--danger-border);
+  color: var(--danger);
 }
 
 /* ─── Reorder chips ─── */
 .grammar-chip {
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--glass-input);
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
   cursor: pointer;
   transition: transform 0.15s, background 0.15s, border-color 0.15s;
   font-size: 0.875rem;
@@ -216,14 +235,14 @@
 
 .grammar-chip:hover:not(:disabled) {
   transform: translateY(-1px);
-  border-color: rgba(56,189,248,0.4);
-  background: rgba(56,189,248,0.08);
+  border-color: var(--accent-sky);
+  background: var(--accent-sky-glow);
 }
 
 .grammar-chip--selected {
-  background: rgba(56,189,248,0.15);
-  border-color: rgba(56,189,248,0.4);
-  color: #7dd3fc;
+  background: var(--info-bg);
+  border-color: var(--accent-sky);
+  color: var(--accent-sky);
 }
 
 .grammar-chip--used {
@@ -237,17 +256,17 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.1);
+  background: var(--border-default);
   transition: background 0.3s, transform 0.3s;
 }
 
 .grammar-dot--correct {
-  background: #4ade80;
+  background: var(--success);
   transform: scale(1.1);
 }
 
 .grammar-dot--wrong {
-  background: #f43f5e;
+  background: var(--danger);
   transform: scale(1.1);
 }
 
@@ -260,20 +279,20 @@
   z-index: 40;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(56,189,248,0.3);
+  background: var(--glass-elevated);
+  border: 1px solid var(--info-border);
   border-radius: 999px;
   padding: 0.75rem 2rem;
   padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
   font-weight: 700;
-  color: #38bdf8;
+  color: var(--accent-sky);
   cursor: pointer;
   transition: background 0.15s, transform 0.15s;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  box-shadow: var(--shadow-lg);
 }
 
 .grammar-sticky-cta:hover {
-  background: rgba(56,189,248,0.15);
+  background: var(--accent-sky-glow);
   transform: translateX(-50%) translateY(-2px);
 }
 
@@ -291,10 +310,11 @@
 
 /* ─── Explanation feedback bar ─── */
 .grammar-explanation-bar {
-  border-right: 3px solid rgba(251,191,36,0.5);
-  background: rgba(251,191,36,0.05);
+  border-right: 3px solid var(--accent-gold);
+  background: var(--warning-bg);
   border-radius: 0.5rem;
   padding: 0.75rem 1rem;
+  color: var(--text-secondary);
 }
 
 /* ─── Circular progress ring ─── */

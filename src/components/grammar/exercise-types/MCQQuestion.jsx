@@ -18,7 +18,7 @@ export default function MCQQuestion({ item, answer, onAnswer }) {
           const showCorrect = answer && isCorrect
           const showWrong = answer && isSelected && !answer.correct
 
-          const label = String.fromCharCode(65 + i) // A, B, C, D
+          const label = String.fromCharCode(65 + i)
 
           let cls = 'grammar-option'
           if (showCorrect) cls += ' grammar-option--correct'
@@ -35,18 +35,17 @@ export default function MCQQuestion({ item, answer, onAnswer }) {
               className={cls}
               dir="ltr"
             >
-              <span className="text-xs text-white/25 font-bold mr-1 font-['Inter']">({label})</span>
-              <span className="font-['Inter'] font-medium text-white/90">{opt}</span>
-              {showCorrect && <CheckCircle size={16} className="text-emerald-400 mr-auto flex-shrink-0" />}
-              {showWrong && <XCircle size={16} className="text-rose-400 mr-auto flex-shrink-0" />}
+              <span className="text-xs font-bold mr-1 font-['Inter']" style={{ color: 'var(--text-tertiary)' }}>({label})</span>
+              <span className="font-['Inter'] font-medium" style={{ color: 'var(--text-primary)' }}>{opt}</span>
+              {showCorrect && <CheckCircle size={16} className="mr-auto flex-shrink-0" style={{ color: 'var(--success)' }} />}
+              {showWrong && <XCircle size={16} className="mr-auto flex-shrink-0" style={{ color: 'var(--danger)' }} />}
             </button>
           )
         })}
       </div>
 
-      {/* Inline feedback */}
       {answer && answer.correct && (
-        <p className="text-sm text-emerald-400 font-['Tajawal'] font-medium">أحسنت! ✨</p>
+        <p className="text-sm font-['Tajawal'] font-medium" style={{ color: 'var(--success)' }}>أحسنت! ✨</p>
       )}
     </div>
   )

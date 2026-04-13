@@ -37,8 +37,8 @@ export default function GrammarTab({ unitId }) {
   if (!topics?.length) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 py-20">
-        <PenLine size={40} className="text-[var(--text-muted)]" />
-        <p className="text-[var(--text-muted)] font-['Tajawal']">لا توجد قواعد لهذه الوحدة بعد</p>
+        <PenLine size={40} style={{ color: 'var(--text-tertiary)' }} />
+        <p style={{ color: 'var(--text-tertiary)' }} className="font-['Tajawal']">لا توجد قواعد لهذه الوحدة بعد</p>
       </div>
     )
   }
@@ -101,9 +101,9 @@ function GrammarSkeleton() {
     <div className="space-y-6 py-8">
       {Array.from({ length: 2 }).map((_, i) => (
         <div key={i} className="space-y-4">
-          <div className="h-8 w-48 rounded-lg bg-[rgba(255,255,255,0.06)] animate-pulse" />
-          <div className="h-40 rounded-2xl bg-[rgba(255,255,255,0.04)] animate-pulse" />
-          <div className="h-32 rounded-2xl bg-[rgba(255,255,255,0.04)] animate-pulse" />
+          <div className="h-8 w-48 rounded-lg animate-pulse" style={{ background: 'var(--skeleton-from)' }} />
+          <div className="h-40 rounded-2xl animate-pulse" style={{ background: 'var(--skeleton-from)' }} />
+          <div className="h-32 rounded-2xl animate-pulse" style={{ background: 'var(--skeleton-from)' }} />
         </div>
       ))}
     </div>

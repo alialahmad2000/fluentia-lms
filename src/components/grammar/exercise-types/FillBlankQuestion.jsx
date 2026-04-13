@@ -37,26 +37,27 @@ export default function FillBlankQuestion({ item, answer, onAnswer }) {
           <button
             type="submit"
             disabled={!input.trim()}
-            className="grammar-option px-5 font-['Tajawal'] font-bold text-sm text-sky-400 border-sky-500/30 hover:bg-sky-500/10 disabled:opacity-30"
+            className="grammar-option px-5 font-['Tajawal'] font-bold text-sm disabled:opacity-30"
+            style={{ color: 'var(--accent-sky)', borderColor: 'var(--info-border)' }}
           >
             تحقق
           </button>
         )}
       </div>
       {!answer && (
-        <p id="fill-blank-hint" className="text-[11px] text-white/25 font-['Tajawal']" dir="rtl">
+        <p id="fill-blank-hint" className="text-[11px] font-['Tajawal']" dir="rtl" style={{ color: 'var(--text-tertiary)' }}>
           اكتب الكلمة الناقصة فقط — لا تعيد كتابة الجملة كاملة
         </p>
       )}
 
       {answer && answer.correct && (
-        <p className="text-sm text-emerald-400 font-['Tajawal'] font-medium">أحسنت! ✨</p>
+        <p className="text-sm font-['Tajawal'] font-medium" style={{ color: 'var(--success)' }}>أحسنت! ✨</p>
       )}
 
       {answer && !answer.correct && (
         <div className="grammar-explanation-bar text-xs" dir="rtl">
-          <span className="text-white/40 font-['Tajawal']">الإجابة الصحيحة: </span>
-          <span className="text-emerald-400 font-semibold font-['Inter']" dir="ltr">{item.correct_answer}</span>
+          <span className="font-['Tajawal']" style={{ color: 'var(--text-tertiary)' }}>الإجابة الصحيحة: </span>
+          <span className="font-semibold font-['Inter']" dir="ltr" style={{ color: 'var(--success)' }}>{item.correct_answer}</span>
         </div>
       )}
     </form>

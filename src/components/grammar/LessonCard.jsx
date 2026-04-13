@@ -6,7 +6,7 @@ function highlightWord(sentence, word) {
   const parts = sentence.split(regex)
   return parts.map((part, i) =>
     regex.test(part)
-      ? <span key={i} className="text-sky-400 font-semibold">{part}</span>
+      ? <span key={i} style={{ color: 'var(--accent-sky)', fontWeight: 600 }}>{part}</span>
       : <span key={i}>{part}</span>
   )
 }
@@ -15,18 +15,16 @@ function RuleBlock({ section }) {
   return (
     <div className="space-y-3">
       {section.content_en && (
-        <div
-          className="grammar-rule-block"
-          dir="ltr"
-        >
+        <div className="grammar-rule-block" dir="ltr">
           <div
-            className="text-[15px] leading-[1.9] text-white/90 font-['Inter'] grammar-html"
+            className="text-[15px] leading-[1.9] font-['Inter'] grammar-html"
+            style={{ color: 'var(--text-primary)' }}
             dangerouslySetInnerHTML={{ __html: section.content_en }}
           />
         </div>
       )}
       {section.content_ar && (
-        <p className="text-sm text-white/50 font-['Tajawal'] leading-relaxed pr-4" dir="rtl">
+        <p className="text-sm font-['Tajawal'] leading-relaxed pr-4" dir="rtl" style={{ color: 'var(--text-secondary)' }}>
           {section.content_ar}
         </p>
       )}
@@ -37,7 +35,7 @@ function RuleBlock({ section }) {
 function FormulaBlock({ section }) {
   return (
     <div className="grammar-formula" dir="ltr">
-      <p className="text-sky-300 font-semibold tracking-wide">
+      <p className="font-semibold tracking-wide" style={{ color: 'var(--accent-sky)' }}>
         {section.content}
       </p>
     </div>
@@ -49,13 +47,13 @@ function ExamplesBlock({ section }) {
     <div className="space-y-2">
       {section.items?.map((ex, i) => (
         <div key={i} className="grammar-example-row">
-          <span className="text-sky-400 text-sm mt-0.5 flex-shrink-0">✓</span>
+          <span className="text-sm mt-0.5 flex-shrink-0" style={{ color: 'var(--accent-sky)' }}>✓</span>
           <div className="flex-1">
-            <p className="text-[15px] text-white/90 font-['Inter']" dir="ltr">
+            <p className="text-[15px] font-['Inter']" dir="ltr" style={{ color: 'var(--text-primary)' }}>
               {highlightWord(ex.sentence, ex.highlight)}
             </p>
             {ex.translation_ar && (
-              <p className="text-xs text-white/35 font-['Tajawal'] mt-0.5" dir="rtl">
+              <p className="text-xs font-['Tajawal'] mt-0.5" dir="rtl" style={{ color: 'var(--text-tertiary)' }}>
                 {ex.translation_ar}
               </p>
             )}
@@ -83,7 +81,7 @@ export default function LessonCard({ sections }) {
     <div ref={ref} className="grammar-glass grammar-fade-in p-5 sm:p-7 space-y-5 mb-6">
       <div className="flex items-center gap-2 mb-1">
         <span className="text-base">📘</span>
-        <h2 className="text-sm font-bold text-white/70 font-['Tajawal']">الشرح</h2>
+        <h2 className="text-sm font-bold font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>الشرح</h2>
       </div>
 
       <div className="space-y-5">
