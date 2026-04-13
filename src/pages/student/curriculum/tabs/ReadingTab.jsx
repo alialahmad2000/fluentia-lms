@@ -2,12 +2,15 @@ import { useState, useRef, useCallback, useMemo, useEffect, useLayoutEffect } fr
 import { createPortal } from 'react-dom'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Volume2, CheckCircle, XCircle, Lightbulb, MessageSquare, ChevronDown, RotateCcw, History, Clock, ImageOff, Eye, EyeOff, StickyNote, Headphones, FileText, Loader2, Zap } from 'lucide-react'
+import { BookOpen, Volume2, CheckCircle, XCircle, Lightbulb, MessageSquare, ChevronDown, RotateCcw, History, Clock, ImageOff, Eye, EyeOff, StickyNote, Headphones, FileText, Loader2, Zap, Settings } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import TextSelectionTooltip from '../../../../components/student/TextSelectionTooltip'
+import PageHelp from '../../../../components/PageHelp'
+import { usePointerType } from '../../../../hooks/usePointerType'
+import { useReadingPrefs } from '../../../../hooks/useReadingPrefs'
 
 const QUESTION_TYPE_LABELS = {
   main_idea: 'الفكرة الرئيسية',
@@ -118,6 +121,8 @@ export default function ReadingTab({ unitId }) {
           <ReadingContent reading={reading} studentId={user?.id} unitId={unitId} />
         </motion.div>
       </AnimatePresence>
+
+      <PageHelp pageKey="curriculum.reading.passage" />
     </div>
   )
 }
@@ -251,6 +256,9 @@ function ReadingContent({ reading, studentId, unitId }) {
   const readingTime = estimateReadingTime(reading.passage_word_count)
   const passageRef = useRef(null)
   const queryClient = useQueryClient()
+  const pointerType = usePointerType()
+  const { prefs, setPref } = useReadingPrefs()
+  const [prefsOpen, setPrefsOpen] = useState(false)
   const [focusMode, setFocusMode] = useState(false)
   const [focusParagraph, setFocusParagraph] = useState(0)
   const [scrollProgress, setScrollProgress] = useState(0)
@@ -514,6 +522,60 @@ function ReadingContent({ reading, studentId, unitId }) {
                   اختبار مفرداتي
                 </button>
               )}
+              {/* Reading Assistance Settings */}
+              <div className="relative">
+                <button
+                  onClick={() => setPrefsOpen(!prefsOpen)}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 font-['Tajawal'] border ${
+                    prefsOpen
+                      ? 'bg-sky-500/15 text-sky-400 border-sky-500/30'
+                      : 'bg-slate-800/50 text-slate-400 border-slate-700/50 hover:text-slate-200'
+                  }`}
+                >
+                  <Settings size={12} />
+                  مساعدات القراءة
+                </button>
+                <AnimatePresence>
+                  {prefsOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute top-full mt-2 right-0 z-50 w-72 rounded-xl p-4 space-y-3"
+                      dir="rtl"
+                      style={{
+                        background: 'rgba(15,23,42,0.97)', backdropFilter: 'blur(20px)',
+                        border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 12px 40px rgba(0,0,0,0.4)',
+                      }}
+                    >
+                      <h4 className="text-xs font-bold text-white/70 font-['Tajawal']">مساعدات القراءة</h4>
+                      <PrefsToggle
+                        label="ترجمة سريعة عند تحريك المؤشر أو الضغطة الأولى"
+                        desc="عرض معنى الكلمة عند تمرير المؤشر (لابتوب) أو أول ضغطة (موبايل)"
+                        checked={prefs.quick_translation_on_hover_tap}
+                        onChange={(v) => setPref('quick_translation_on_hover_tap', v)}
+                        disabled={!prefs.word_assistance_enabled}
+                      />
+                      <PrefsToggle
+                        label="القائمة التفصيلية عند النقر / الضغط المطوّل"
+                        desc="خيارات مثل: أضف لمفرداتي، شرح بالسياق، أمثلة جديدة"
+                        checked={prefs.detailed_menu_on_click_longpress}
+                        onChange={(v) => setPref('detailed_menu_on_click_longpress', v)}
+                        disabled={!prefs.word_assistance_enabled}
+                      />
+                      <div className="pt-2 border-t border-white/5">
+                        <PrefsToggle
+                          label="تفعيل جميع المساعدات"
+                          checked={prefs.word_assistance_enabled}
+                          onChange={(v) => setPref('word_assistance_enabled', v)}
+                          master
+                        />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
             <div className="border-b border-slate-800/50 pb-0" />
           </div>
@@ -552,9 +614,11 @@ function ReadingContent({ reading, studentId, unitId }) {
               studentId={studentId}
               readingId={reading.id}
               unitId={unitId}
+              wordAssistanceEnabled={prefs.word_assistance_enabled}
+              hoverEnabled={prefs.quick_translation_on_hover_tap}
             />
-            {/* Text selection tooltip */}
-            {studentId && (
+            {/* Text selection tooltip — pointer-aware */}
+            {studentId && prefs.word_assistance_enabled && (prefs.quick_translation_on_hover_tap || prefs.detailed_menu_on_click_longpress) && (
               <TextSelectionTooltip
                 containerRef={passageRef}
                 studentId={studentId}
@@ -562,6 +626,9 @@ function ReadingContent({ reading, studentId, unitId }) {
                 readingId={reading.id}
                 onWordSaved={handleWordSaved}
                 savedWordSet={savedWordSet}
+                pointerType={pointerType}
+                quickTranslationEnabled={prefs.quick_translation_on_hover_tap}
+                detailedMenuEnabled={prefs.detailed_menu_on_click_longpress}
               />
             )}
           </div>
@@ -819,7 +886,7 @@ function VocabTooltipPortal({ vocab, targetRef, onMouseEnter, onMouseLeave }) {
 }
 
 // ─── Passage Display ─────────────────────────────────
-function PassageDisplay({ paragraphs, vocabMap, savedWordSet, focusMode, focusParagraph, notesByParagraph, studentId, readingId, unitId }) {
+function PassageDisplay({ paragraphs, vocabMap, savedWordSet, focusMode, focusParagraph, notesByParagraph, studentId, readingId, unitId, wordAssistanceEnabled = true, hoverEnabled = true }) {
   const [activeTooltip, setActiveTooltip] = useState(null)
   const [activeTooltipEl, setActiveTooltipEl] = useState(null)
   const [editingNote, setEditingNote] = useState(null)
@@ -921,8 +988,8 @@ function PassageDisplay({ paragraphs, vocabMap, savedWordSet, focusMode, focusPa
         data-word-index={wordIdx}
         className={`cursor-default transition-colors hover:text-sky-200 ${isSaved ? 'bg-amber-400/20 border-b-2 border-amber-400 rounded px-0.5' : ''}`}
         title={isSaved ? 'محفوظة في قاموسك' : undefined}
-        onMouseEnter={(e) => handleWordHover(e, word)}
-        onMouseLeave={handleWordLeave}
+        onMouseEnter={wordAssistanceEnabled && hoverEnabled ? (e) => handleWordHover(e, word) : undefined}
+        onMouseLeave={wordAssistanceEnabled && hoverEnabled ? handleWordLeave : undefined}
       >
         {word}{' '}
       </span>
@@ -938,11 +1005,14 @@ function PassageDisplay({ paragraphs, vocabMap, savedWordSet, focusMode, focusPa
         const vocab = vocabMap[part.toLowerCase()]
         if (vocab) {
           const tooltipKey = `${pIdx}-${i}`
+          if (!wordAssistanceEnabled) {
+            return <strong key={i} className="font-semibold text-sky-300">{part}</strong>
+          }
           return (
             <span key={i} className="relative inline">
               <button
-                onMouseEnter={(e) => showTooltip(tooltipKey, e.currentTarget)}
-                onMouseLeave={hideTooltip}
+                onMouseEnter={hoverEnabled ? (e) => showTooltip(tooltipKey, e.currentTarget) : undefined}
+                onMouseLeave={hoverEnabled ? hideTooltip : undefined}
                 onClick={(e) => {
                   if (activeTooltip === tooltipKey) { setActiveTooltip(null); setActiveTooltipEl(null) }
                   else showTooltip(tooltipKey, e.currentTarget)
@@ -1577,6 +1647,26 @@ function ReadingSkeleton() {
         {Array.from({ length: 3 }).map((_, i) => (
           <div key={i} className="h-36 rounded-2xl bg-slate-800 animate-pulse" />
         ))}
+      </div>
+    </div>
+  )
+}
+
+// ─── Reading Preferences Toggle ──────────────────────
+function PrefsToggle({ label, desc, checked, onChange, disabled, master }) {
+  return (
+    <div className={`flex items-start gap-3 ${disabled ? 'opacity-40 pointer-events-none' : ''}`}>
+      <div className="pt-0.5 flex-shrink-0">
+        <button
+          onClick={() => onChange(!checked)}
+          className={`w-8 h-[18px] rounded-full transition-colors relative ${checked ? (master ? 'bg-sky-500' : 'bg-sky-500/60') : 'bg-white/10'}`}
+        >
+          <div className={`absolute top-[2px] w-[14px] h-[14px] rounded-full bg-white transition-transform ${checked ? 'translate-x-[16px]' : 'translate-x-[2px]'}`} />
+        </button>
+      </div>
+      <div className="flex-1 min-w-0 cursor-pointer" onClick={() => onChange(!checked)}>
+        <span className={`text-xs font-bold font-['Tajawal'] block ${master ? 'text-white/80' : 'text-white/60'}`}>{label}</span>
+        {desc && <p className="text-[10px] text-white/30 font-['Tajawal'] leading-relaxed mt-0.5">{desc}</p>}
       </div>
     </div>
   )
