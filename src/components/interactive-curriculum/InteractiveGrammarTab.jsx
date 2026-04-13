@@ -90,10 +90,11 @@ function GrammarTopicContent({ topic, unitId, students }) {
       if (!studentIds.length) return []
       const { data } = await supabase
         .from('student_curriculum_progress')
-        .select('student_id, answers, score, status, completed_at')
+        .select('student_id, answers, score, status, completed_at, is_best')
         .eq('grammar_id', topic.id)
         .eq('section_type', 'grammar')
         .in('student_id', studentIds)
+        .neq('is_best', false)
       return data || []
     },
     enabled: !!topic?.id && students.length > 0,

@@ -273,9 +273,11 @@ function ExerciseSection({ exercises, studentId, unitId, grammarId }) {
   const [progressLoading, setProgressLoading] = useState(true)
   const [isCompleted, setIsCompleted] = useState(false)
   const [attemptNumber, setAttemptNumber] = useState(1)
-  const [attemptHistory, setAttemptHistory] = useState([])
+  const [allAttempts, setAllAttempts] = useState([]) // all DB rows
   const [retrying, setRetrying] = useState(false)
-  const [savedData, setSavedData] = useState(null)
+  const [currentRowId, setCurrentRowId] = useState(null) // DB row id for current attempt
+  const [retryKey, setRetryKey] = useState(0) // forces exercise remount
+  const [bestScore, setBestScore] = useState(null)
   const hasSaved = useRef(false)
   const timeRef = useRef(0)
   const timerRef = useRef(null)
@@ -291,33 +293,46 @@ function ExerciseSection({ exercises, studentId, unitId, grammarId }) {
     return () => clearInterval(timerRef.current)
   }, [])
 
-  // Load saved progress
+  // Load saved progress — get latest attempt + all attempts for history
   useEffect(() => {
     if (!studentId || !grammarId) { setProgressLoading(false); return }
     let isMounted = true
     const load = async () => {
-      const { data } = await supabase
+      // Fetch ALL attempts for this grammar topic
+      const { data: rows } = await supabase
         .from('student_curriculum_progress')
         .select('*')
         .eq('student_id', studentId)
         .eq('grammar_id', grammarId)
-        .maybeSingle()
+        .order('attempt_number', { ascending: false })
+
       if (!isMounted) return
-      if (data) {
-        setSavedData(data)
-        if (data.answers?.exercises) {
+
+      if (rows && rows.length > 0) {
+        setAllAttempts(rows)
+
+        // Find the latest row (is_latest=true, or fallback to highest attempt_number)
+        const latest = rows.find(r => r.is_latest) || rows[0]
+        setCurrentRowId(latest.id)
+        setAttemptNumber(latest.attempt_number || 1)
+
+        // Find best score
+        const best = rows.reduce((b, r) => (r.score || 0) > (b?.score || 0) ? r : b, rows[0])
+        setBestScore(best?.score ?? null)
+
+        // Restore answers from latest attempt
+        if (latest.answers?.exercises) {
           const restored = {}
-          data.answers.exercises.forEach(ex => {
+          latest.answers.exercises.forEach(ex => {
             restored[ex.id] = { selected: ex.studentAnswer, correct: ex.isCorrect }
           })
           setAnswers(restored)
           prevAnsweredRef.current = Object.keys(restored).length
         }
-        setIsCompleted(data.status === 'completed')
-        if (data.time_spent_seconds) timeRef.current = data.time_spent_seconds
-        if (data.status === 'completed') hasSaved.current = true
-        if (data.attempt_number) setAttemptNumber(data.attempt_number)
-        if (Array.isArray(data.attempt_history)) setAttemptHistory(data.attempt_history)
+
+        setIsCompleted(latest.status === 'completed')
+        if (latest.time_spent_seconds) timeRef.current = latest.time_spent_seconds
+        if (latest.status === 'completed') hasSaved.current = true
       }
       setProgressLoading(false)
     }
@@ -325,12 +340,48 @@ function ExerciseSection({ exercises, studentId, unitId, grammarId }) {
     return () => { isMounted = false }
   }, [studentId, grammarId])
 
-  // Retry handler
-  const handleRetry = () => {
-    setRetrying(true)
-    setAnswers({})
-    prevAnsweredRef.current = 0
-    hasSaved.current = false
+  // Retry handler — create a new attempt row immediately
+  const handleRetry = async () => {
+    const nextAttempt = attemptNumber + 1
+
+    // 1. Flip all existing rows to is_latest=false
+    await supabase
+      .from('student_curriculum_progress')
+      .update({ is_latest: false })
+      .eq('student_id', studentId)
+      .eq('grammar_id', grammarId)
+
+    // 2. Insert new in-progress row
+    const { data: newRow, error } = await supabase
+      .from('student_curriculum_progress')
+      .insert({
+        student_id: studentId,
+        unit_id: unitId,
+        grammar_id: grammarId,
+        section_type: 'grammar',
+        status: 'in_progress',
+        score: 0,
+        answers: null,
+        time_spent_seconds: 0,
+        completed_at: null,
+        attempt_number: nextAttempt,
+        is_latest: true,
+        is_best: false,
+      })
+      .select()
+      .single()
+
+    if (!error && newRow) {
+      setCurrentRowId(newRow.id)
+      setAttemptNumber(nextAttempt)
+      setRetrying(true)
+      setIsCompleted(false)
+      setAnswers({})
+      prevAnsweredRef.current = 0
+      hasSaved.current = false
+      timeRef.current = 0
+      setRetryKey(k => k + 1) // force exercise components to remount
+    }
   }
 
   // Build exercise results for saving
@@ -348,7 +399,7 @@ function ExerciseSection({ exercises, studentId, unitId, grammarId }) {
     })
   }, [exercises])
 
-  // Save progress (partial or complete)
+  // Save progress — UPDATE current row by id (or INSERT if no row yet)
   const saveProgress = useCallback(async (currentAnswers, isComplete) => {
     if (!studentId || !grammarId) return
     const results = buildResults(currentAnswers)
@@ -356,40 +407,97 @@ function ExerciseSection({ exercises, studentId, unitId, grammarId }) {
     const correct = Object.values(currentAnswers).filter(a => a.correct).length
     const score = answeredCount > 0 ? Math.round((correct / total) * 100) : 0
 
-    const newAttemptNumber = retrying && isComplete ? attemptNumber + 1 : attemptNumber
-    const newHistory = retrying && isComplete && savedData ? [
-      ...attemptHistory,
-      { attempt: attemptNumber, score: savedData.score, completed_at: savedData.completed_at }
-    ] : attemptHistory
+    if (currentRowId) {
+      // Update existing row
+      const { error } = await supabase
+        .from('student_curriculum_progress')
+        .update({
+          status: isComplete ? 'completed' : 'in_progress',
+          score,
+          answers: { exercises: results },
+          time_spent_seconds: timeRef.current,
+          completed_at: isComplete ? new Date().toISOString() : null,
+        })
+        .eq('id', currentRowId)
 
-    const { error } = await supabase
-      .from('student_curriculum_progress')
-      .upsert({
-        student_id: studentId,
-        unit_id: unitId,
-        grammar_id: grammarId,
-        section_type: 'grammar',
-        status: isComplete ? 'completed' : 'in_progress',
-        score,
-        answers: { exercises: results },
-        time_spent_seconds: timeRef.current,
-        completed_at: isComplete ? new Date().toISOString() : null,
-        attempt_number: newAttemptNumber,
-        attempt_history: newHistory,
-      }, {
-        onConflict: 'student_id,grammar_id',
-      })
-    if (!error && isComplete) {
-      setAttemptNumber(newAttemptNumber)
-      setAttemptHistory(newHistory)
-      setSavedData({ ...savedData, score, completed_at: new Date().toISOString(), attempt_number: newAttemptNumber, attempt_history: newHistory })
-      setRetrying(false)
-      setIsCompleted(true)
-      toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
-      try { safeCelebrate('grammar_complete') } catch {}
-      awardCurriculumXP(studentId, 'grammar', score, unitId)
+      if (!error && isComplete) {
+        await recomputeBest(score)
+        setRetrying(false)
+        setIsCompleted(true)
+        toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
+        try { safeCelebrate('grammar_complete') } catch {}
+        awardCurriculumXP(studentId, 'grammar', score, unitId)
+        // Reload all attempts
+        const { data: rows } = await supabase
+          .from('student_curriculum_progress')
+          .select('*')
+          .eq('student_id', studentId)
+          .eq('grammar_id', grammarId)
+          .order('attempt_number', { ascending: false })
+        if (rows) setAllAttempts(rows)
+      }
+    } else {
+      // First ever attempt — insert
+      const { data: newRow, error } = await supabase
+        .from('student_curriculum_progress')
+        .insert({
+          student_id: studentId,
+          unit_id: unitId,
+          grammar_id: grammarId,
+          section_type: 'grammar',
+          status: isComplete ? 'completed' : 'in_progress',
+          score,
+          answers: { exercises: results },
+          time_spent_seconds: timeRef.current,
+          completed_at: isComplete ? new Date().toISOString() : null,
+          attempt_number: 1,
+          is_latest: true,
+          is_best: true,
+        })
+        .select()
+        .single()
+
+      if (!error && newRow) {
+        setCurrentRowId(newRow.id)
+        if (isComplete) {
+          setBestScore(score)
+          setIsCompleted(true)
+          setAllAttempts([newRow])
+          toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
+          try { safeCelebrate('grammar_complete') } catch {}
+          awardCurriculumXP(studentId, 'grammar', score, unitId)
+        }
+      }
     }
-  }, [studentId, unitId, grammarId, total, buildResults, retrying, attemptNumber, attemptHistory, savedData])
+  }, [studentId, unitId, grammarId, total, buildResults, currentRowId])
+
+  // Recompute is_best across all attempts for this grammar topic
+  const recomputeBest = async (newScore) => {
+    const { data: rows } = await supabase
+      .from('student_curriculum_progress')
+      .select('id, score, attempt_number')
+      .eq('student_id', studentId)
+      .eq('grammar_id', grammarId)
+      .eq('status', 'completed')
+      .order('score', { ascending: false })
+      .order('attempt_number', { ascending: false })
+
+    if (rows && rows.length > 0) {
+      const bestId = rows[0].id
+      // Set all to not best
+      await supabase
+        .from('student_curriculum_progress')
+        .update({ is_best: false })
+        .eq('student_id', studentId)
+        .eq('grammar_id', grammarId)
+      // Set the best one
+      await supabase
+        .from('student_curriculum_progress')
+        .update({ is_best: true })
+        .eq('id', bestId)
+      setBestScore(rows[0].score)
+    }
+  }
 
   // Auto-save after each new answer
   useEffect(() => {
@@ -434,20 +542,31 @@ function ExerciseSection({ exercises, studentId, unitId, grammarId }) {
       </div>
 
       {/* Completed banner with retry */}
-      {isCompleted && (
+      {isCompleted && !retrying && (
         <CompletedBanner
           attemptNumber={attemptNumber}
-          attemptHistory={attemptHistory}
-          score={savedData?.score}
-          retrying={retrying}
+          allAttempts={allAttempts}
+          bestScore={bestScore}
+          currentScore={allAttempts.find(a => a.is_latest)?.score ?? null}
           onRetry={handleRetry}
+          exercises={exercises}
         />
+      )}
+
+      {/* Retrying indicator */}
+      {retrying && (
+        <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-500/10 border border-sky-500/25">
+          <RotateCcw size={16} className="text-sky-400" />
+          <span className="text-sm font-medium text-sky-400 font-['Tajawal']">
+            محاولة {attemptNumber} — أجب على التمارين من جديد
+          </span>
+        </div>
       )}
 
       <div className="space-y-3">
         {exercises.map((ex, idx) => (
           <ExerciseCard
-            key={ex.id}
+            key={`${ex.id}-${retryKey}`}
             exercise={ex}
             index={idx}
             answer={answers[ex.id]}
@@ -467,10 +586,30 @@ function ExerciseSection({ exercises, studentId, unitId, grammarId }) {
           }}
         >
           <CheckCircle size={20} className={correctCount === total ? 'text-emerald-400' : 'text-sky-400'} />
-          <p className="text-sm font-medium font-['Tajawal']" style={{ color: correctCount === total ? '#34d399' : '#38bdf8' }}>
-            {correctCount === total ? 'ممتاز! أجبت على جميع التمارين بشكل صحيح' : `أجبت على ${correctCount} من ${total} بشكل صحيح`}
-          </p>
+          <div>
+            <p className="text-sm font-medium font-['Tajawal']" style={{ color: correctCount === total ? '#34d399' : '#38bdf8' }}>
+              {correctCount === total ? 'ممتاز! أجبت على جميع التمارين بشكل صحيح' : `أجبت على ${correctCount} من ${total} بشكل صحيح`}
+            </p>
+            {bestScore != null && bestScore > 0 && (
+              <p className="text-[11px] text-[var(--text-muted)] font-['Tajawal'] mt-0.5">
+                محاولة رقم {attemptNumber} {bestScore != null && ` · أفضل درجة: ${bestScore}%`}
+              </p>
+            )}
+          </div>
         </motion.div>
+      )}
+
+      {/* After completion: retry button */}
+      {isCompleted && !retrying && answered === total && (
+        <div className="flex gap-2 pt-1">
+          <button
+            onClick={handleRetry}
+            className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-bold bg-sky-500/10 text-sky-400 border border-sky-500/25 hover:bg-sky-500/20 transition-colors font-['Tajawal']"
+          >
+            <RotateCcw size={14} />
+            محاولة جديدة
+          </button>
+        </div>
       )}
     </div>
   )
@@ -863,55 +1002,43 @@ function TextInputExercise({ item, answer, onAnswer, exerciseType }) {
   )
 }
 
-// ─── Completed Banner with Retry ─────────────────────
-function CompletedBanner({ attemptNumber, attemptHistory, score, retrying, onRetry }) {
+// ─── Completed Banner with Retry + Full Attempt History ──
+function CompletedBanner({ attemptNumber, allAttempts, bestScore, currentScore, onRetry, exercises }) {
   const [showHistory, setShowHistory] = useState(false)
-  const hasHistory = attemptHistory?.length > 0
-  const bestScore = hasHistory
-    ? Math.max(score || 0, ...attemptHistory.map(h => h.score || 0))
-    : score
-
-  if (retrying) {
-    return (
-      <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-500/10 border border-sky-500/25">
-        <RotateCcw size={16} className="text-sky-400" />
-        <span className="text-sm font-medium text-sky-400 font-['Tajawal']">
-          إعادة المحاولة {attemptNumber + 1} — أجب على التمارين من جديد
-        </span>
-      </div>
-    )
-  }
+  const [viewingAttempt, setViewingAttempt] = useState(null) // attempt row to view read-only
+  const hasMultiple = allAttempts.length > 1
+  const completedAttempts = allAttempts.filter(a => a.status === 'completed')
 
   return (
     <div className="rounded-xl bg-emerald-500/10 border border-emerald-500/25 overflow-hidden">
-      <div className="flex items-center justify-between px-4 py-2.5">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5">
+        <div className="flex items-center gap-2 flex-wrap">
           <CheckCircle size={18} className="text-emerald-400" />
           <span className="text-sm font-medium text-emerald-400 font-['Tajawal']">
             تم إكمال هذا القسم
           </span>
           {attemptNumber > 1 && (
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-['Tajawal']">
-              المحاولة {attemptNumber}
+              محاولة {attemptNumber}
             </span>
           )}
-          {score != null && (
-            <span className="text-xs text-emerald-400/70 font-['Tajawal']">— {score}%</span>
+          {currentScore != null && (
+            <span className="text-xs text-emerald-400/70 font-['Tajawal']">— {currentScore}%</span>
           )}
-          {hasHistory && bestScore != null && bestScore !== score && (
+          {bestScore != null && bestScore !== currentScore && (
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 font-['Tajawal']">
-              أفضل: {bestScore}%
+              أفضل درجة: {bestScore}%
             </span>
           )}
         </div>
         <div className="flex items-center gap-2">
-          {hasHistory && (
+          {hasMultiple && (
             <button
-              onClick={() => setShowHistory(!showHistory)}
+              onClick={() => { setShowHistory(!showHistory); setViewingAttempt(null) }}
               className="flex items-center gap-1 text-[11px] text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors font-['Tajawal']"
             >
               <History size={12} />
-              المحاولات السابقة
+              جميع المحاولات ({completedAttempts.length})
             </button>
           )}
           <button
@@ -919,12 +1046,14 @@ function CompletedBanner({ attemptNumber, attemptHistory, score, retrying, onRet
             className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium text-[var(--text-muted)] hover:text-sky-400 hover:bg-sky-500/10 transition-colors font-['Tajawal'] border border-[var(--border-subtle)]"
           >
             <RotateCcw size={12} />
-            إعادة المحاولة
+            محاولة جديدة
           </button>
         </div>
       </div>
+
+      {/* Attempt history panel */}
       <AnimatePresence>
-        {showHistory && hasHistory && (
+        {showHistory && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
@@ -934,27 +1063,72 @@ function CompletedBanner({ attemptNumber, attemptHistory, score, retrying, onRet
           >
             <div className="px-4 pb-3 space-y-1.5" style={{ borderTop: '1px solid rgba(16,185,129,0.15)' }}>
               <div className="pt-2.5 space-y-1.5">
-                {attemptHistory.map((h, i) => (
-                  <div key={i} className="flex items-center gap-3 text-xs text-[var(--text-muted)] font-['Tajawal']">
-                    <span className="font-medium">المحاولة {h.attempt}</span>
-                    <span>{h.score != null ? `${h.score}%` : '—'}</span>
-                    {h.score === bestScore && (
-                      <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amber-500/15 text-amber-400">الأفضل</span>
-                    )}
-                    {h.completed_at && (
-                      <span dir="ltr">{new Date(h.completed_at).toLocaleDateString('ar-SA', { day: 'numeric', month: 'short' })}</span>
-                    )}
-                  </div>
-                ))}
-                <div className="flex items-center gap-3 text-xs text-emerald-400 font-['Tajawal'] font-medium">
-                  <span>المحاولة {attemptNumber}</span>
-                  <span>{score != null ? `${score}%` : '—'}</span>
-                  <span className="text-[10px] text-emerald-400/60">(الحالية)</span>
-                  {score === bestScore && (
-                    <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amber-500/15 text-amber-400">الأفضل</span>
-                  )}
-                </div>
+                {completedAttempts.map((row) => {
+                  const isBest = row.is_best
+                  const isLatest = row.is_latest
+                  return (
+                    <button
+                      key={row.id}
+                      onClick={() => setViewingAttempt(viewingAttempt?.id === row.id ? null : row)}
+                      className={`w-full flex items-center gap-3 text-xs py-1.5 px-2 rounded-lg transition-colors hover:bg-white/5 ${
+                        isLatest ? 'text-emerald-400 font-medium' : 'text-[var(--text-muted)]'
+                      } font-['Tajawal']`}
+                    >
+                      <span className="font-medium">محاولة {row.attempt_number || 1}</span>
+                      <span>{row.score != null ? `${Math.round(row.score)}%` : '—'}</span>
+                      {isBest && (
+                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amber-500/15 text-amber-400">الأفضل</span>
+                      )}
+                      {isLatest && (
+                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400">الأحدث</span>
+                      )}
+                      {row.completed_at && (
+                        <span className="text-[var(--text-muted)]" dir="ltr">
+                          {new Date(row.completed_at).toLocaleDateString('ar-SA', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
+                        </span>
+                      )}
+                      <ChevronDown size={12} className={`mr-auto transition-transform ${viewingAttempt?.id === row.id ? 'rotate-180' : ''}`} />
+                    </button>
+                  )
+                })}
               </div>
+
+              {/* Read-only view of a past attempt */}
+              <AnimatePresence>
+                {viewingAttempt && viewingAttempt.answers?.exercises && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="mt-2 p-3 rounded-lg space-y-2" style={{ background: 'var(--surface-base)', border: '1px solid var(--border-subtle)' }}>
+                      <p className="text-[10px] font-bold text-[var(--text-muted)] font-['Tajawal']">
+                        إجابات المحاولة {viewingAttempt.attempt_number}
+                      </p>
+                      {viewingAttempt.answers.exercises.map((ex, i) => {
+                        const exerciseDef = exercises?.find(e => e.id === ex.id)
+                        return (
+                          <div key={i} className="flex items-start gap-2 text-xs">
+                            <span className={`mt-0.5 ${ex.isCorrect ? 'text-emerald-400' : 'text-red-400'}`}>
+                              {ex.isCorrect ? '✅' : '❌'}
+                            </span>
+                            <div className="flex-1">
+                              <span className="text-[var(--text-muted)] font-['Tajawal']">{EXERCISE_TYPE_LABELS[ex.type] || ex.type} — </span>
+                              <span className="text-[var(--text-secondary)] font-['Inter']" dir="ltr">
+                                {typeof ex.studentAnswer === 'string' ? ex.studentAnswer : JSON.stringify(ex.studentAnswer)}
+                              </span>
+                              {!ex.isCorrect && ex.correctAnswer && (
+                                <span className="text-emerald-400/70 font-['Inter'] mr-2" dir="ltr"> → {ex.correctAnswer}</span>
+                              )}
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </motion.div>
         )}

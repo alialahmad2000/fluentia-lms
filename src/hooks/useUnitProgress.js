@@ -56,12 +56,13 @@ export function useUnitProgress(studentId, unitId) {
         hasPronunciation: pronunciation?.length > 0,
       }
 
-      // 3. Get student progress records
+      // 3. Get student progress records (filter is_best to avoid duplicate grammar rows)
       const { data: progressRecords } = await supabase
         .from('student_curriculum_progress')
-        .select('section_type, status, reading_id, ai_feedback, answers')
+        .select('section_type, status, reading_id, ai_feedback, answers, is_best')
         .eq('student_id', studentId)
         .eq('unit_id', unitId)
+        .neq('is_best', false)
 
       // 4. Get vocabulary mastery if vocab exists
       let vocabularyMastery = null
@@ -106,12 +107,13 @@ export function useLevelProgress(studentId, units) {
     queryFn: async () => {
       if (!unitIds.length) return {}
 
-      // Batch: all progress records for all units
+      // Batch: all progress records for all units (filter is_best to avoid duplicate grammar rows)
       const { data: allProgress } = await supabase
         .from('student_curriculum_progress')
-        .select('unit_id, section_type, status, reading_id, ai_feedback, answers')
+        .select('unit_id, section_type, status, reading_id, ai_feedback, answers, is_best')
         .eq('student_id', studentId)
         .in('unit_id', unitIds)
+        .neq('is_best', false)
 
       // Batch: all readings for all units (to know A/B and vocab)
       const { data: allReadings } = await supabase
