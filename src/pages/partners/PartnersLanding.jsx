@@ -21,7 +21,7 @@ import {
   AlertCircle,
   Loader2,
 } from 'lucide-react';
-import supabase from '../../lib/supabase';
+import { supabase } from '../../lib/supabase';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
