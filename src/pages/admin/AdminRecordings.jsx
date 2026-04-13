@@ -893,6 +893,65 @@ function RecordingHealthDashboard() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Fallback events log */}
+      <FallbackEventsSection />
+    </div>
+  )
+}
+
+function FallbackEventsSection() {
+  const { data: fallbackStats = [], isLoading } = useQuery({
+    queryKey: ['fallback-events-stats'],
+    queryFn: async () => {
+      // Get fallback events grouped by recording, ordered by frequency
+      const { data, error } = await supabase
+        .from('recording_fallback_events')
+        .select('recording_id, tier_used, reason, occurred_at, recording:class_recordings(title, google_drive_url, unit_id, part, unit:curriculum_units(unit_number, title_ar), group:groups(code))')
+        .order('occurred_at', { ascending: false })
+        .limit(100)
+      if (error) throw error
+      // Group by recording_id
+      const grouped = {}
+      for (const ev of (data || [])) {
+        if (!grouped[ev.recording_id]) {
+          grouped[ev.recording_id] = { recording: ev.recording, events: [], tier2: 0, tier3: 0 }
+        }
+        grouped[ev.recording_id].events.push(ev)
+        if (ev.tier_used === 2) grouped[ev.recording_id].tier2++
+        if (ev.tier_used === 3) grouped[ev.recording_id].tier3++
+      }
+      return Object.values(grouped).sort((a, b) => (b.tier2 + b.tier3) - (a.tier2 + a.tier3))
+    },
+    staleTime: 60000,
+  })
+
+  if (isLoading || fallbackStats.length === 0) return null
+
+  return (
+    <div className="fl-card-static p-4 space-y-3">
+      <h3 className="text-sm font-bold text-amber-400 font-['Tajawal'] flex items-center gap-2">
+        <Activity size={14} />
+        سجل المشغل الاحتياطي ({fallbackStats.reduce((s, r) => s + r.tier2 + r.tier3, 0)} حدث)
+      </h3>
+      <div className="space-y-1.5 max-h-60 overflow-y-auto">
+        {fallbackStats.map((stat, i) => {
+          const rec = stat.recording
+          const label = rec?.unit
+            ? `الوحدة ${rec.unit.unit_number} Part ${rec.part?.toUpperCase()} — ${rec.group?.code || ''}`
+            : (rec?.title || 'تسجيل')
+          return (
+            <div key={i} className="flex items-center gap-3 text-xs p-2 rounded-lg bg-amber-500/5 border border-amber-500/10">
+              <span className="text-[var(--text-primary)] font-['Tajawal'] truncate flex-1">{label}</span>
+              <span className="text-amber-400 font-['Inter'] shrink-0">T2: {stat.tier2}</span>
+              {stat.tier3 > 0 && <span className="text-red-400 font-['Inter'] shrink-0">T3: {stat.tier3}</span>}
+              <span className="text-[var(--text-muted)] font-['Inter'] text-[10px] shrink-0">
+                {new Date(stat.events[0]?.occurred_at).toLocaleDateString('ar-SA')}
+              </span>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }

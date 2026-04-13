@@ -11,7 +11,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '../../lib/supabase'
 import { toast } from '../ui/FluentiaToast'
 import { celebrations } from '../../lib/celebrations'
-import PremiumVideoPlayer from './PremiumVideoPlayer'
+import RecordingPlayerWithFallback from './RecordingPlayerWithFallback'
 import RecordingPanel from './RecordingPanel'
 
 // ─── Main Section ────────────────────────────────────────
@@ -316,7 +316,7 @@ function PlayerModal({ recording, onClose }) {
             )}
           </h3>
 
-          <PremiumVideoPlayer
+          <RecordingPlayerWithFallback
             recording={recording}
             onProgress={handleProgress}
             onComplete={handleComplete}

@@ -44,6 +44,8 @@ export default function PremiumVideoPlayer({
   onTogglePanel,
   showPanel = false,
   xpAwarded = false,
+  onFallback,
+  onPlaybackStarted,
 }) {
   const videoRef = useRef(null)
   const containerRef = useRef(null)
@@ -313,7 +315,8 @@ export default function PremiumVideoPlayer({
     setPlaying(true)
     setShowBigPlay(false)
     resetControlsTimer()
-  }, [resetControlsTimer])
+    onPlaybackStarted?.()
+  }, [resetControlsTimer, onPlaybackStarted])
 
   const handlePause = useCallback(() => {
     setPlaying(false)
@@ -355,10 +358,14 @@ export default function PremiumVideoPlayer({
       return
     }
 
-    // Show error UI
-    const msg = mapErrorToArabic(code)
-    setPlaybackError({ code, message: msg })
-  }, [fileId, recording?.id])
+    // Bubble up to fallback wrapper if available, else show error UI
+    if (onFallback) {
+      onFallback({ code, message: err?.message, networkState: videoRef.current?.networkState })
+    } else {
+      const msg = mapErrorToArabic(code)
+      setPlaybackError({ code, message: msg })
+    }
+  }, [fileId, recording?.id, onFallback])
 
   const handleManualRetry = useCallback(() => {
     retryAttemptedRef.current = false
