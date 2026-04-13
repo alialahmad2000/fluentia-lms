@@ -11,7 +11,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '../../lib/supabase'
 import { toast } from '../ui/FluentiaToast'
 import { celebrations } from '../../lib/celebrations'
-import RecordingPlayerWithFallback from './RecordingPlayerWithFallback'
+import RecordingPlayerCascade from './RecordingPlayerCascade'
 import RecordingPanel from './RecordingPanel'
 
 // ─── Main Section ────────────────────────────────────────
@@ -316,7 +316,7 @@ function PlayerModal({ recording, onClose }) {
             )}
           </h3>
 
-          <RecordingPlayerWithFallback
+          <RecordingPlayerCascade
             recording={recording}
             onProgress={handleProgress}
             onComplete={handleComplete}

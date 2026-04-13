@@ -73,6 +73,7 @@ export default function AdminRecordings() {
           { id: 'curriculum', label: 'تسجيلات المنهج', icon: BookOpen },
           { id: 'archive', label: 'الأرشيف', icon: Archive },
           { id: 'health', label: 'صحة التسجيلات', icon: HeartPulse },
+          { id: 'tiers', label: 'إحصائيات المشغلات', icon: Activity },
         ].map(tab => (
           <button
             key={tab.id}
@@ -97,7 +98,7 @@ export default function AdminRecordings() {
           exit={{ opacity: 0, x: -15 }}
           transition={{ duration: 0.2 }}
         >
-          {activeTab === 'curriculum' ? <CurriculumSection /> : activeTab === 'health' ? <RecordingHealthDashboard /> : <ArchiveSection />}
+          {activeTab === 'curriculum' ? <CurriculumSection /> : activeTab === 'health' ? <RecordingHealthDashboard /> : activeTab === 'tiers' ? <TierStatsSection /> : <ArchiveSection />}
         </motion.div>
       </AnimatePresence>
     </div>
@@ -1270,6 +1271,124 @@ function ArchiveSection() {
         <div className="fl-card-static p-12 text-center">
           <PlayCircle size={40} className="text-muted mx-auto mb-3" />
           <p className="text-muted">لا توجد تسجيلات أرشيفية</p>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ═══════════════════════════════════════════════════════
+// Tier Stats Section — Per-recording playback tier stats
+// ═══════════════════════════════════════════════════════
+function TierStatsSection() {
+  const queryClient = useQueryClient()
+  const [computing, setComputing] = useState(false)
+
+  const { data: stats = [], isLoading } = useQuery({
+    queryKey: ['tier-stats'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('recording_tier_stats')
+        .select('*, class_recordings(title, google_drive_file_id)')
+        .order('tier1_success_rate', { ascending: true })
+      if (error) throw error
+      return data || []
+    },
+    staleTime: 60_000,
+  })
+
+  const handleCompute = async () => {
+    setComputing(true)
+    try {
+      const { error } = await supabase.rpc('compute_recording_tier_stats')
+      if (error) throw error
+      toast({ type: 'success', title: 'تم حساب الإحصائيات بنجاح' })
+      queryClient.invalidateQueries({ queryKey: ['tier-stats'] })
+    } catch (e) {
+      toast({ type: 'error', title: 'خطأ في حساب الإحصائيات' })
+    }
+    setComputing(false)
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <h2 className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>إحصائيات المشغلات</h2>
+        <button
+          onClick={handleCompute}
+          disabled={computing}
+          className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all"
+          style={{
+            background: 'rgba(56,189,248,0.1)',
+            color: 'var(--accent-sky)',
+            border: '1px solid rgba(56,189,248,0.2)',
+          }}
+        >
+          <RefreshCw size={14} className={computing ? 'animate-spin' : ''} />
+          احسب الإحصائيات الآن
+        </button>
+      </div>
+
+      {isLoading ? (
+        <div className="fl-card-static p-8 text-center">
+          <Loader2 size={24} className="animate-spin mx-auto text-muted" />
+        </div>
+      ) : stats.length === 0 ? (
+        <div className="fl-card-static p-8 text-center">
+          <Activity size={32} className="text-muted mx-auto mb-3" />
+          <p className="text-muted text-sm">لا توجد إحصائيات بعد. اضغط "احسب" لتحليل بيانات التشغيل.</p>
+        </div>
+      ) : (
+        <div className="fl-card-static overflow-hidden">
+          <table className="w-full text-sm" dir="rtl">
+            <thead>
+              <tr className="border-b border-white/10">
+                <th className="text-right p-3 font-medium text-muted">التسجيل</th>
+                <th className="text-center p-3 font-medium text-muted">Tier 1 %</th>
+                <th className="text-center p-3 font-medium text-muted">Tier 2 %</th>
+                <th className="text-center p-3 font-medium text-muted">المشغل الموصى</th>
+                <th className="text-center p-3 font-medium text-muted">محاولات</th>
+              </tr>
+            </thead>
+            <tbody>
+              {stats.map(s => (
+                <tr key={s.recording_id} className="border-b border-white/5 hover:bg-white/[0.02]">
+                  <td className="p-3 font-['Tajawal']">
+                    <div className="flex items-center gap-2">
+                      {s.tier1_success_rate < 50 && (
+                        <AlertCircle size={14} className="text-red-400 flex-shrink-0" />
+                      )}
+                      <span style={{ color: 'var(--text-primary)' }}>{s.class_recordings?.title || s.recording_id.slice(0, 8)}</span>
+                    </div>
+                  </td>
+                  <td className="p-3 text-center">
+                    <span
+                      className="px-2 py-0.5 rounded-md text-xs font-bold"
+                      style={{
+                        background: s.tier1_success_rate >= 80 ? 'rgba(52,211,153,0.15)' : s.tier1_success_rate >= 50 ? 'rgba(251,191,36,0.15)' : 'rgba(248,113,113,0.15)',
+                        color: s.tier1_success_rate >= 80 ? 'var(--accent-emerald)' : s.tier1_success_rate >= 50 ? 'var(--accent-gold)' : '#f87171',
+                      }}
+                    >
+                      {Number(s.tier1_success_rate).toFixed(0)}%
+                    </span>
+                  </td>
+                  <td className="p-3 text-center">
+                    <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>
+                      {Number(s.tier2_success_rate).toFixed(0)}%
+                    </span>
+                  </td>
+                  <td className="p-3 text-center">
+                    <span className="px-2 py-0.5 rounded-md text-xs font-bold" style={{ background: 'rgba(255,255,255,0.06)', color: 'var(--text-primary)' }}>
+                      Tier {s.recommended_starting_tier}
+                    </span>
+                  </td>
+                  <td className="p-3 text-center" style={{ color: 'var(--text-secondary)' }}>
+                    {s.total_attempts}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </div>
