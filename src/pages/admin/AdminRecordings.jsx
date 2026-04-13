@@ -11,6 +11,7 @@ import { useAuthStore } from '../../stores/authStore'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import { toast } from '../../components/ui/FluentiaToast'
 import VideoPlayer from '../../components/VideoPlayer'
+import ChapterManager from '../../components/recordings/ChapterManager'
 
 const CLASS_TYPES = [
   { value: 'reading', label: 'قراءة' },
@@ -110,6 +111,7 @@ function CurriculumSection() {
   const [form, setForm] = useState(getEmptyCurriculumForm)
   const [saving, setSaving] = useState(false)
   const [filterGroup, setFilterGroup] = useState('')
+  const [chapterRecId, setChapterRecId] = useState(null)
 
   // Groups (trainer sees own, admin sees all)
   const { data: groups = [] } = useQuery({
@@ -461,6 +463,14 @@ function CurriculumSection() {
                     {rec.recorded_date && <span>{new Date(rec.recorded_date).toLocaleDateString('ar-SA')}</span>}
                   </div>
                 </div>
+                <button
+                  onClick={() => setChapterRecId(rec.id)}
+                  className="px-2.5 py-1.5 rounded-lg text-xs font-bold font-['Tajawal'] text-amber-400 bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 transition shrink-0"
+                  title="إدارة الفصول"
+                >
+                  <BookOpen size={12} className="inline ml-1" />
+                  فصول
+                </button>
                 <button onClick={() => handleDeleteRec(rec.id)} className="btn-icon shrink-0" title="حذف">
                   <Trash2 size={14} className="text-red-400" />
                 </button>
@@ -478,6 +488,16 @@ function CurriculumSection() {
           <p className="text-muted text-sm font-['Tajawal']">لا توجد تسجيلات منهج</p>
         </div>
       )}
+
+      {/* Chapter Manager Modal */}
+      <AnimatePresence>
+        {chapterRecId && (
+          <ChapterManager
+            recordingId={chapterRecId}
+            onClose={() => setChapterRecId(null)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   )
 }

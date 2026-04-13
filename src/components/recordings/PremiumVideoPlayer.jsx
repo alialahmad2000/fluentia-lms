@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   Play, Pause, Volume2, VolumeX, Maximize, Minimize,
   SkipBack, SkipForward, Loader2, PictureInPicture2,
+  Bookmark, List,
 } from 'lucide-react'
 import { resolveStreamUrl, invalidateStreamUrl, extractFileId } from '../../lib/driveStream'
 
@@ -19,7 +20,17 @@ function formatTime(s) {
   return `${m}:${String(sec).padStart(2, '0')}`
 }
 
-export default function PremiumVideoPlayer({ recording, onProgress, onComplete, initialPosition = 0 }) {
+export default function PremiumVideoPlayer({
+  recording,
+  onProgress,
+  onComplete,
+  initialPosition = 0,
+  chapters = [],
+  bookmarks = [],
+  onAddBookmark,
+  onTogglePanel,
+  showPanel = false,
+}) {
   const videoRef = useRef(null)
   const containerRef = useRef(null)
   const progressBarRef = useRef(null)
@@ -45,11 +56,20 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
   const [hoverTime, setHoverTime] = useState(null)
   const [hoverPos, setHoverPos] = useState(0)
   const [showBigPlay, setShowBigPlay] = useState(true)
-  const [doubleTapSide, setDoubleTapSide] = useState(null) // 'left' | 'right'
+  const [doubleTapSide, setDoubleTapSide] = useState(null)
   const [retrying, setRetrying] = useState(false)
+  const [bookmarkInput, setBookmarkInput] = useState(null) // { seconds } when adding
+  const [bookmarkLabel, setBookmarkLabel] = useState('')
+  const [hoveredChapter, setHoveredChapter] = useState(null)
 
   const fileId = useMemo(() => extractFileId(recording?.google_drive_url), [recording?.google_drive_url])
   const streamUrl = useMemo(() => resolveStreamUrl(fileId), [fileId])
+
+  // Current chapter
+  const currentChapter = useMemo(() => {
+    if (!chapters.length || !currentTime) return null
+    return [...chapters].reverse().find(c => currentTime >= c.start_seconds)
+  }, [chapters, currentTime])
 
   // ─── Auto-resume ─────────────────────────────────────
   useEffect(() => {
@@ -77,12 +97,7 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
       const v = videoRef.current
       if (v && !v.paused && onProgress) {
         const percent = v.duration ? (v.currentTime / v.duration) * 100 : 0
-        onProgress({
-          position: v.currentTime,
-          percent,
-          speed: v.playbackRate,
-          completed: false,
-        })
+        onProgress({ position: v.currentTime, percent, speed: v.playbackRate, completed: false })
       }
     }, 5000)
     return () => clearInterval(saveIntervalRef.current)
@@ -94,12 +109,7 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
       const v = videoRef.current
       if (v && onProgress) {
         const percent = v.duration ? (v.currentTime / v.duration) * 100 : 0
-        onProgress({
-          position: v.currentTime,
-          percent,
-          speed: v.playbackRate,
-          completed: percent >= 90,
-        })
+        onProgress({ position: v.currentTime, percent, speed: v.playbackRate, completed: percent >= 90 })
       }
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
@@ -122,24 +132,13 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
     if (!v) return
     setCurrentTime(v.currentTime)
     setDuration(v.duration || 0)
-
-    // Update buffered
-    if (v.buffered.length > 0) {
-      setBuffered(v.buffered.end(v.buffered.length - 1))
-    }
-
-    // Completion check
+    if (v.buffered.length > 0) setBuffered(v.buffered.end(v.buffered.length - 1))
     if (v.duration && !hasCompletedRef.current) {
       const pct = (v.currentTime / v.duration) * 100
       if (pct >= 90) {
         hasCompletedRef.current = true
         onComplete?.()
-        onProgress?.({
-          position: v.currentTime,
-          percent: pct,
-          speed: v.playbackRate,
-          completed: true,
-        })
+        onProgress?.({ position: v.currentTime, percent: pct, speed: v.playbackRate, completed: true })
       }
     }
   }, [onComplete, onProgress])
@@ -154,7 +153,6 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
     setPlaying(false)
     setShowControls(true)
     clearTimeout(controlsTimerRef.current)
-    // Save on pause
     const v = videoRef.current
     if (v && onProgress) {
       const percent = v.duration ? (v.currentTime / v.duration) * 100 : 0
@@ -163,7 +161,6 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
   }, [onProgress])
 
   const handleError = useCallback(async () => {
-    // On 403, try re-resolving URL
     if (!retrying && fileId) {
       setRetrying(true)
       setError(false)
@@ -194,20 +191,25 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
     if (v) v.currentTime = Math.max(0, Math.min(v.duration || 0, v.currentTime + seconds))
   }, [])
 
+  const seekTo = useCallback((seconds) => {
+    const v = videoRef.current
+    if (v) {
+      v.currentTime = Math.max(0, Math.min(v.duration || 0, seconds))
+      if (onProgress) {
+        const percent = v.duration ? (v.currentTime / v.duration) * 100 : 0
+        onProgress({ position: v.currentTime, percent, speed: v.playbackRate, completed: percent >= 90 })
+      }
+    }
+  }, [onProgress])
+
   const seek = useCallback((e) => {
     const v = videoRef.current
     const bar = progressBarRef.current
     if (!v || !bar) return
     const rect = bar.getBoundingClientRect()
-    // RTL: progress fills right-to-left
     const ratio = 1 - ((e.clientX - rect.left) / rect.width)
-    v.currentTime = Math.max(0, ratio * (v.duration || 0))
-    // Save on seek
-    if (onProgress) {
-      const percent = v.duration ? (v.currentTime / v.duration) * 100 : 0
-      onProgress({ position: v.currentTime, percent, speed: v.playbackRate, completed: percent >= 90 })
-    }
-  }, [onProgress])
+    seekTo(ratio * (v.duration || 0))
+  }, [seekTo])
 
   const handleProgressHover = useCallback((e) => {
     const bar = progressBarRef.current
@@ -229,7 +231,6 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
       } else if (el.webkitRequestFullscreen) {
         await el.webkitRequestFullscreen()
       } else {
-        // iOS Safari fallback
         const v = videoRef.current
         if (v?.webkitEnterFullscreen) v.webkitEnterFullscreen()
       }
@@ -240,20 +241,14 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
     const v = videoRef.current
     if (!v) return
     try {
-      if (document.pictureInPictureElement) {
-        await document.exitPictureInPicture()
-      } else if (v.requestPictureInPicture) {
-        await v.requestPictureInPicture()
-      }
+      if (document.pictureInPictureElement) await document.exitPictureInPicture()
+      else if (v.requestPictureInPicture) await v.requestPictureInPicture()
     } catch {}
   }, [])
 
   const toggleMute = useCallback(() => {
     const v = videoRef.current
-    if (v) {
-      v.muted = !v.muted
-      setMuted(v.muted)
-    }
+    if (v) { v.muted = !v.muted; setMuted(v.muted) }
   }, [])
 
   const changeVolume = useCallback((val) => {
@@ -264,6 +259,23 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
       if (val > 0 && v.muted) { v.muted = false; setMuted(false) }
     }
   }, [])
+
+  // ─── Bookmark inline add ────────────────────────────
+  const startBookmarkAdd = useCallback(() => {
+    const v = videoRef.current
+    if (v) {
+      setBookmarkInput({ seconds: Math.floor(v.currentTime) })
+      setBookmarkLabel('')
+    }
+  }, [])
+
+  const confirmBookmarkAdd = useCallback(() => {
+    if (bookmarkInput && onAddBookmark) {
+      onAddBookmark({ position_seconds: bookmarkInput.seconds, label: bookmarkLabel.trim() || null })
+    }
+    setBookmarkInput(null)
+    setBookmarkLabel('')
+  }, [bookmarkInput, bookmarkLabel, onAddBookmark])
 
   // ─── Fullscreen change listener ──────────────────────
   useEffect(() => {
@@ -279,7 +291,6 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
   // ─── Keyboard shortcuts ──────────────────────────────
   useEffect(() => {
     const handler = (e) => {
-      // Don't capture if typing in input
       if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return
       const v = videoRef.current
       if (!v) return
@@ -290,9 +301,9 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
         case 'K':
           e.preventDefault(); togglePlay(); break
         case 'ArrowLeft':
-          e.preventDefault(); skip(5); break // RTL: left = forward
+          e.preventDefault(); skip(5); break
         case 'ArrowRight':
-          e.preventDefault(); skip(-5); break // RTL: right = backward
+          e.preventDefault(); skip(-5); break
         case 'j':
         case 'J':
           e.preventDefault(); skip(-10); break
@@ -309,11 +320,19 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
         case 'f':
         case 'F':
           e.preventDefault(); toggleFullscreen(); break
+        case 'b':
+        case 'B':
+          e.preventDefault(); startBookmarkAdd(); break
+        case 'n':
+        case 'N':
+          e.preventDefault()
+          if (onTogglePanel) onTogglePanel('notes', true)
+          break
         case 'Escape':
+          if (bookmarkInput) { setBookmarkInput(null); break }
           if (isFullscreen) { e.preventDefault(); toggleFullscreen() }
           break
         default:
-          // 0-9 jump to percentage
           if (e.key >= '0' && e.key <= '9') {
             e.preventDefault()
             const pct = parseInt(e.key) * 10
@@ -324,17 +343,15 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [togglePlay, skip, changeVolume, toggleMute, toggleFullscreen, isFullscreen, resetControlsTimer])
+  }, [togglePlay, skip, changeVolume, toggleMute, toggleFullscreen, isFullscreen, resetControlsTimer, startBookmarkAdd, onTogglePanel, bookmarkInput])
 
   // ─── Mobile double-tap ──────────────────────────────
   const handleDoubleTap = useCallback((side) => {
     const key = side === 'left' ? 'left' : 'right'
     const timer = doubleTapTimerRef.current[key]
-
     if (timer) {
       clearTimeout(timer)
       doubleTapTimerRef.current[key] = null
-      // Double tap detected — in RTL, left=forward, right=backward
       const seconds = side === 'left' ? 10 : -10
       skip(seconds)
       setDoubleTapSide(side)
@@ -351,6 +368,13 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
   const playedPct = duration ? (currentTime / duration) * 100 : 0
   const bufferedPct = duration ? (buffered / duration) * 100 : 0
 
+  // Expose currentTime + seekTo for parent (modal)
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.__playerApi = { getCurrentTime: () => currentTime, seekTo }
+    }
+  }, [currentTime, seekTo])
+
   if (!streamUrl) {
     return (
       <div className="rounded-2xl bg-black flex items-center justify-center h-64">
@@ -366,7 +390,7 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
       style={{ aspectRatio: '16/9' }}
       onMouseMove={resetControlsTimer}
       onTouchStart={resetControlsTimer}
-      dir="ltr" // Video controls are LTR internally, RTL mirroring done via layout
+      dir="ltr"
     >
       {/* Video element */}
       <video
@@ -384,18 +408,10 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
         onError={handleError}
       />
 
-      {/* Double-tap zones (mobile) */}
+      {/* Double-tap zones */}
       <div className="absolute inset-0 flex pointer-events-auto" style={{ zIndex: 5 }}>
-        <div
-          className="w-1/2 h-full"
-          onDoubleClick={() => handleDoubleTap('left')}
-          onClick={(e) => { if (e.detail === 1) setTimeout(() => {}, 250) }}
-        />
-        <div
-          className="w-1/2 h-full"
-          onDoubleClick={() => handleDoubleTap('right')}
-          onClick={(e) => { if (e.detail === 1) setTimeout(() => {}, 250) }}
-        />
+        <div className="w-1/2 h-full" onDoubleClick={() => handleDoubleTap('left')} />
+        <div className="w-1/2 h-full" onDoubleClick={() => handleDoubleTap('right')} />
       </div>
 
       {/* Double-tap ripple */}
@@ -455,6 +471,35 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
         </div>
       )}
 
+      {/* Bookmark inline input */}
+      <AnimatePresence>
+        {bookmarkInput && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="absolute top-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-2 rounded-xl bg-black/90 border border-sky-500/30 shadow-xl"
+            style={{ zIndex: 25 }}
+            dir="rtl"
+          >
+            <Bookmark size={14} className="text-sky-400 flex-shrink-0" />
+            <span className="text-xs text-sky-400 font-mono flex-shrink-0">{formatTime(bookmarkInput.seconds)}</span>
+            <input
+              autoFocus
+              value={bookmarkLabel}
+              onChange={e => setBookmarkLabel(e.target.value)}
+              placeholder="ملاحظة (اختياري)"
+              className="bg-transparent text-sm text-white/90 placeholder:text-white/30 outline-none w-40 font-['Tajawal']"
+              onKeyDown={e => {
+                if (e.key === 'Enter') confirmBookmarkAdd()
+                if (e.key === 'Escape') { setBookmarkInput(null); setBookmarkLabel('') }
+              }}
+            />
+            <button onClick={confirmBookmarkAdd} className="text-xs text-sky-400 font-bold font-['Tajawal'] hover:text-sky-300">حفظ</button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Controls overlay */}
       <motion.div
         initial={false}
@@ -464,6 +509,13 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
         style={{ zIndex: 12, pointerEvents: showControls || !playing ? 'auto' : 'none' }}
         dir="rtl"
       >
+        {/* Current chapter label */}
+        {currentChapter && (
+          <div className="mb-1.5 px-1">
+            <span className="text-xs text-amber-400/80 font-['Tajawal']">{currentChapter.title_ar}</span>
+          </div>
+        )}
+
         {/* Progress bar */}
         <div
           ref={progressBarRef}
@@ -471,7 +523,7 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
           style={{ background: 'rgba(255,255,255,0.2)' }}
           onClick={seek}
           onMouseMove={handleProgressHover}
-          onMouseLeave={() => setHoverTime(null)}
+          onMouseLeave={() => { setHoverTime(null); setHoveredChapter(null) }}
         >
           {/* Buffered */}
           <div
@@ -488,8 +540,51 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
             className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-sky-400 shadow-md opacity-0 group-hover/progress:opacity-100 transition-opacity pointer-events-none"
             style={{ right: `calc(${playedPct}% - 7px)` }}
           />
+
+          {/* Chapter markers */}
+          {duration > 0 && chapters.map(ch => {
+            const pct = (ch.start_seconds / duration) * 100
+            return (
+              <div
+                key={ch.id}
+                className="absolute -top-1 w-0.5 h-3 bg-amber-400 pointer-events-auto cursor-pointer"
+                style={{ right: `${pct}%` }}
+                title={ch.title_ar}
+                onMouseEnter={() => setHoveredChapter(ch)}
+                onMouseLeave={() => setHoveredChapter(null)}
+                onClick={(e) => { e.stopPropagation(); seekTo(ch.start_seconds) }}
+              />
+            )
+          })}
+
+          {/* Bookmark markers */}
+          {duration > 0 && bookmarks.map(bm => {
+            const pct = (bm.position_seconds / duration) * 100
+            return (
+              <div
+                key={bm.id}
+                className="absolute -top-3 pointer-events-auto cursor-pointer"
+                style={{ right: `calc(${pct}% - 6px)` }}
+                title={bm.label || 'علامة مرجعية'}
+                onClick={(e) => { e.stopPropagation(); seekTo(bm.position_seconds) }}
+              >
+                <Bookmark size={12} className="text-sky-400 fill-sky-400/50" />
+              </div>
+            )
+          })}
+
+          {/* Hovered chapter tooltip */}
+          {hoveredChapter && (
+            <div
+              className="absolute -top-10 px-2 py-1 rounded bg-black/90 border border-amber-400/20 text-amber-400 text-xs font-['Tajawal'] pointer-events-none whitespace-nowrap"
+              style={{ right: `${(hoveredChapter.start_seconds / duration) * 100}%`, transform: 'translateX(50%)' }}
+            >
+              {hoveredChapter.title_ar}
+            </div>
+          )}
+
           {/* Hover time tooltip */}
-          {hoverTime && (
+          {hoverTime && !hoveredChapter && (
             <div
               className="absolute -top-8 -translate-x-1/2 px-2 py-0.5 rounded bg-black/90 text-white text-xs font-['Inter'] pointer-events-none whitespace-nowrap"
               style={{ left: hoverPos }}
@@ -501,7 +596,6 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
 
         {/* Bottom bar */}
         <div className="flex items-center gap-1.5">
-          {/* Play/Pause */}
           <button
             onClick={togglePlay}
             className="p-2 rounded-lg hover:bg-white/10 transition text-white"
@@ -510,30 +604,18 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
             {playing ? <Pause size={20} fill="white" /> : <Play size={20} fill="white" />}
           </button>
 
-          {/* Skip back (RTL: on the RIGHT of play = after play button) */}
-          <button
-            onClick={() => skip(-10)}
-            className="p-2 rounded-lg hover:bg-white/10 transition text-white"
-            aria-label="رجوع ١٠ ثواني"
-          >
+          <button onClick={() => skip(-10)} className="p-2 rounded-lg hover:bg-white/10 transition text-white" aria-label="رجوع ١٠ ثواني">
             <SkipBack size={18} />
           </button>
 
-          {/* Skip forward (RTL: on the LEFT) */}
-          <button
-            onClick={() => skip(10)}
-            className="p-2 rounded-lg hover:bg-white/10 transition text-white"
-            aria-label="تقديم ١٠ ثواني"
-          >
+          <button onClick={() => skip(10)} className="p-2 rounded-lg hover:bg-white/10 transition text-white" aria-label="تقديم ١٠ ثواني">
             <SkipForward size={18} />
           </button>
 
-          {/* Time display */}
           <span className="text-white/80 text-xs font-['Inter'] tabular-nums mx-1 select-none" dir="ltr">
             {formatTime(currentTime)} / {formatTime(duration)}
           </span>
 
-          {/* Spacer */}
           <div className="flex-1" />
 
           {/* Speed menu */}
@@ -574,18 +656,11 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
 
           {/* Volume */}
           <div className="hidden sm:flex items-center gap-1 group/vol">
-            <button
-              onClick={toggleMute}
-              className="p-2 rounded-lg hover:bg-white/10 transition text-white"
-              aria-label={muted ? 'تشغيل الصوت' : 'كتم الصوت'}
-            >
+            <button onClick={toggleMute} className="p-2 rounded-lg hover:bg-white/10 transition text-white" aria-label={muted ? 'تشغيل الصوت' : 'كتم الصوت'}>
               {muted || volume === 0 ? <VolumeX size={18} /> : <Volume2 size={18} />}
             </button>
             <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.05"
+              type="range" min="0" max="1" step="0.05"
               value={muted ? 0 : volume}
               onChange={(e) => changeVolume(parseFloat(e.target.value))}
               className="w-0 group-hover/vol:w-20 transition-all duration-200 accent-sky-400 h-1 cursor-pointer"
@@ -593,23 +668,37 @@ export default function PremiumVideoPlayer({ recording, onProgress, onComplete, 
             />
           </div>
 
+          {/* Add Bookmark */}
+          {onAddBookmark && (
+            <button
+              onClick={startBookmarkAdd}
+              className="p-2 rounded-lg hover:bg-white/10 transition text-white/70 hover:text-sky-400"
+              aria-label="إضافة علامة"
+            >
+              <Bookmark size={16} />
+            </button>
+          )}
+
+          {/* Panel toggle */}
+          {onTogglePanel && (
+            <button
+              onClick={() => onTogglePanel()}
+              className={`p-2 rounded-lg hover:bg-white/10 transition ${showPanel ? 'text-sky-400' : 'text-white/70'}`}
+              aria-label="اللوحة الجانبية"
+            >
+              <List size={16} />
+            </button>
+          )}
+
           {/* PiP */}
           {document.pictureInPictureEnabled && (
-            <button
-              onClick={togglePiP}
-              className="p-2 rounded-lg hover:bg-white/10 transition text-white hidden sm:block"
-              aria-label="صورة في صورة"
-            >
+            <button onClick={togglePiP} className="p-2 rounded-lg hover:bg-white/10 transition text-white hidden sm:block" aria-label="صورة في صورة">
               <PictureInPicture2 size={18} />
             </button>
           )}
 
           {/* Fullscreen */}
-          <button
-            onClick={toggleFullscreen}
-            className="p-2 rounded-lg hover:bg-white/10 transition text-white"
-            aria-label={isFullscreen ? 'خروج من ملء الشاشة' : 'ملء الشاشة'}
-          >
+          <button onClick={toggleFullscreen} className="p-2 rounded-lg hover:bg-white/10 transition text-white" aria-label={isFullscreen ? 'خروج من ملء الشاشة' : 'ملء الشاشة'}>
             {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
           </button>
         </div>
