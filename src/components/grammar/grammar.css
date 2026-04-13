@@ -1,0 +1,321 @@
+/* ─── Grammar Page Atmospheric Background ─── */
+.grammar-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 600px at 90% -10%, rgba(56,189,248,0.10) 0%, transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, rgba(139,92,246,0.08) 0%, transparent 55%),
+    linear-gradient(180deg, #060e1c 0%, #081325 100%);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.grammar-page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 85%);
+  z-index: 0;
+}
+
+.grammar-page::after {
+  content: '';
+  position: absolute;
+  top: 80px;
+  right: 10%;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(56,189,248,0.18) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── Glass Card base ─── */
+.grammar-glass {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 1rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ─── Rule block accent bar ─── */
+.grammar-rule-block {
+  background: rgba(56,189,248,0.05);
+  border-right: 3px solid rgba(56,189,248,0.5);
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+}
+
+/* ─── Formula box ─── */
+.grammar-formula {
+  background: linear-gradient(135deg, rgba(56,189,248,0.08), rgba(168,85,247,0.08));
+  border: 1px solid rgba(56,189,248,0.2);
+  border-radius: 0.75rem;
+  padding: 1rem 1.5rem;
+  text-align: center;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 1.125rem;
+  letter-spacing: 0.02em;
+}
+
+/* ─── Section heading ─── */
+.grammar-heading {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #7dd3fc;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+/* ─── Comparison table ─── */
+.grammar-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.grammar-table th {
+  padding: 0.75rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.grammar-table td {
+  padding: 1rem;
+  font-size: 0.9375rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: background 0.15s;
+}
+
+.grammar-table tr:hover td {
+  background: rgba(255,255,255,0.02);
+}
+
+/* ─── Example row ─── */
+.grammar-example-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  transition: background 0.15s;
+}
+
+.grammar-example-row:hover {
+  background: rgba(255,255,255,0.02);
+}
+
+.grammar-example-wrong {
+  text-decoration: underline wavy rgba(244,63,94,0.6);
+  text-underline-offset: 4px;
+}
+
+/* ─── Exercise option cards ─── */
+.grammar-option {
+  padding: 0.875rem 1.25rem;
+  border-radius: 0.75rem;
+  background: rgba(255,255,255,0.03);
+  border: 1.5px solid rgba(255,255,255,0.08);
+  cursor: pointer;
+  transition: transform 0.15s ease-out, border-color 0.15s, background 0.15s, box-shadow 0.15s;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+}
+
+.grammar-option:not(:disabled):hover {
+  transform: translateY(-2px);
+  border-color: rgba(56,189,248,0.3);
+  background: rgba(56,189,248,0.05);
+}
+
+.grammar-option:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 2px;
+}
+
+.grammar-option:disabled {
+  cursor: default;
+  transform: none;
+}
+
+.grammar-option--correct {
+  background: rgba(74,222,128,0.12) !important;
+  border-color: #4ade80 !important;
+}
+
+.grammar-option--wrong {
+  background: rgba(244,63,94,0.12) !important;
+  border-color: #f43f5e !important;
+}
+
+.grammar-option--dimmed {
+  opacity: 0.4;
+}
+
+.grammar-option--reveal-correct {
+  border-color: rgba(74,222,128,0.5) !important;
+}
+
+/* ─── Exercise input fields ─── */
+.grammar-input {
+  background: rgba(255,255,255,0.03);
+  border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: white;
+  font-size: 0.9375rem;
+  outline: none;
+  transition: border-color 0.15s;
+  min-height: 44px;
+}
+
+.grammar-input:focus {
+  border-color: rgba(56,189,248,0.5);
+}
+
+.grammar-input--correct {
+  background: rgba(74,222,128,0.08);
+  border-color: rgba(74,222,128,0.5);
+  color: #4ade80;
+}
+
+.grammar-input--wrong {
+  background: rgba(244,63,94,0.08);
+  border-color: rgba(244,63,94,0.5);
+  color: #f87171;
+}
+
+/* ─── Reorder chips ─── */
+.grammar-chip {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+  transition: transform 0.15s, background 0.15s, border-color 0.15s;
+  font-size: 0.875rem;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.grammar-chip:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: rgba(56,189,248,0.4);
+  background: rgba(56,189,248,0.08);
+}
+
+.grammar-chip--selected {
+  background: rgba(56,189,248,0.15);
+  border-color: rgba(56,189,248,0.4);
+  color: #7dd3fc;
+}
+
+.grammar-chip--used {
+  opacity: 0.25;
+  cursor: default;
+  transform: none;
+}
+
+/* ─── Progress dots ─── */
+.grammar-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  transition: background 0.3s, transform 0.3s;
+}
+
+.grammar-dot--correct {
+  background: #4ade80;
+  transform: scale(1.1);
+}
+
+.grammar-dot--wrong {
+  background: #f43f5e;
+  transform: scale(1.1);
+}
+
+/* ─── Sticky CTA ─── */
+.grammar-sticky-cta {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(56,189,248,0.3);
+  border-radius: 999px;
+  padding: 0.75rem 2rem;
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+  font-weight: 700;
+  color: #38bdf8;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+}
+
+.grammar-sticky-cta:hover {
+  background: rgba(56,189,248,0.15);
+  transform: translateX(-50%) translateY(-2px);
+}
+
+/* ─── Fade-in on scroll ─── */
+.grammar-fade-in {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.grammar-fade-in--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Explanation feedback bar ─── */
+.grammar-explanation-bar {
+  border-right: 3px solid rgba(251,191,36,0.5);
+  background: rgba(251,191,36,0.05);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+}
+
+/* ─── Circular progress ring ─── */
+.grammar-progress-ring {
+  transform: rotate(-90deg);
+}
+
+/* ─── Reduced motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  .grammar-fade-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .grammar-option:not(:disabled):hover {
+    transform: none;
+  }
+  .grammar-chip:hover:not(:disabled) {
+    transform: none;
+  }
+  .grammar-sticky-cta:hover {
+    transform: translateX(-50%);
+  }
+}
