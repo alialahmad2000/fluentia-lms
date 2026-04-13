@@ -30,7 +30,7 @@ export default function UnitRecordingsSection({ unitId }) {
     )
   }
 
-  const visible = recordings.filter(r => !r.deleted_at && !r.is_archive)
+  const visible = recordings.filter(r => !r.deleted_at && !r.is_archive && r.playable !== false)
 
   if (visible.length === 0) {
     return (

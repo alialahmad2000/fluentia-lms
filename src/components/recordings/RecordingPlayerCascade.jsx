@@ -41,37 +41,60 @@ export default function RecordingPlayerCascade({
   const playbackStartedRef = useRef(false)
   const failureTimerRef = useRef(null)
 
-  // Determine starting tier from smart memory
+  // Determine starting tier from tier_test_results + smart memory
   useEffect(() => {
     let alive = true
     async function pickStartingTier() {
       try {
         const userId = user?.id
-        if (!userId) { setInitialized(true); return }
+        const device = detectDeviceType()
 
-        const [prefRes, statsRes] = await Promise.all([
-          supabase
-            .from('student_player_preference')
-            .select('preferred_tier')
-            .eq('student_id', userId)
-            .maybeSingle(),
-          supabase
-            .from('recording_tier_stats')
-            .select('recommended_starting_tier')
-            .eq('recording_id', recording.id)
-            .maybeSingle(),
-        ])
+        // Fetch tier test results for this recording
+        const { data: recData } = await supabase
+          .from('class_recordings')
+          .select('tier_test_results')
+          .eq('id', recording.id)
+          .maybeSingle()
 
         if (!alive) return
 
-        const studentTier = prefRes.data?.preferred_tier || 1
-        const recordingTier = statsRes.data?.recommended_starting_tier || 1
-        const startTier = Math.max(studentTier, recordingTier)
+        const workingTiers = recData?.tier_test_results?.[device] || []
 
-        if (startTier > 1) {
-          console.log(`[Cascade] Smart memory → starting at tier ${startTier}`)
+        // If we have test data, start from the best known-working tier
+        if (workingTiers.length > 0) {
+          const startTier = workingTiers[0] // lowest working tier
+          console.log(`[Cascade] Tier test data → ${device} working tiers: [${workingTiers}], starting at ${startTier}`)
+          setCurrentTier(startTier)
+          if (alive) setInitialized(true)
+          return
         }
-        setCurrentTier(startTier)
+
+        // Fallback to student preference + recording stats
+        if (userId) {
+          const [prefRes, statsRes] = await Promise.all([
+            supabase
+              .from('student_player_preference')
+              .select('preferred_tier')
+              .eq('student_id', userId)
+              .maybeSingle(),
+            supabase
+              .from('recording_tier_stats')
+              .select('recommended_starting_tier')
+              .eq('recording_id', recording.id)
+              .maybeSingle(),
+          ])
+
+          if (!alive) return
+
+          const studentTier = prefRes.data?.preferred_tier || 1
+          const recordingTier = statsRes.data?.recommended_starting_tier || 1
+          const startTier = Math.max(studentTier, recordingTier)
+
+          if (startTier > 1) {
+            console.log(`[Cascade] Smart memory → starting at tier ${startTier}`)
+          }
+          setCurrentTier(startTier)
+        }
       } catch {
         // Fallback to tier 1
       }
@@ -117,8 +140,14 @@ export default function RecordingPlayerCascade({
       supabase.rpc('increment_student_tier1_failures', { uid: user.id }).catch(() => {})
     }
 
-    // Escalate to next tier
-    const nextTier = currentTier + 1
+    // Escalate to next tier, skipping dead tiers (3,4,5 have 0% success)
+    let nextTier = currentTier + 1
+    while (nextTier < PLAYER_TIERS.length) {
+      const nextConfig = getTierConfig(nextTier)
+      if (!nextConfig.deadTier) break
+      console.log(`[Cascade] Skipping dead tier ${nextTier}`)
+      nextTier++
+    }
     if (nextTier > PLAYER_TIERS.length) {
       console.error('[Cascade] All tiers exhausted')
       return
