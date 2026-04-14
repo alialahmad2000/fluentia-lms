@@ -6,7 +6,7 @@ import { supabase } from '../lib/supabase'
 export default class ErrorBoundary extends Component {
   constructor(props) {
     super(props)
-    this.state = { hasError: false, error: null }
+    this.state = { hasError: false, error: null, errorInfo: null }
   }
 
   static getDerivedStateFromError(error) {
@@ -15,6 +15,7 @@ export default class ErrorBoundary extends Component {
 
   componentDidCatch(error, errorInfo) {
     console.error('[ErrorBoundary]', error, errorInfo)
+    this.setState({ errorInfo })
     tracker.track('error_displayed', { error_type: 'boundary', page: window.location.pathname, message: error?.message })
   }
 
@@ -62,10 +63,11 @@ export default class ErrorBoundary extends Component {
                 الرئيسية
               </button>
             </div>
-            {import.meta.env.DEV && this.state.error && (
-              <pre className="mt-6 text-left text-xs text-red-400/60 bg-red-500/5 rounded-xl p-3 overflow-auto max-h-40" dir="ltr">
-                {this.state.error.toString()}
-              </pre>
+            {this.state.error && (
+              <details className="mt-6 text-left text-xs text-red-400/60 bg-red-500/5 rounded-xl p-3 overflow-auto max-h-60" dir="ltr">
+                <summary className="cursor-pointer text-red-400 mb-2">Technical details</summary>
+                <pre style={{whiteSpace:'pre-wrap'}}>{this.state.error?.toString()}{'\n\n'}{this.state.errorInfo?.componentStack}</pre>
+              </details>
             )}
           </div>
         </div>

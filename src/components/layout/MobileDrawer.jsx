@@ -95,6 +95,7 @@ export default function MobileDrawer({ open, onClose, nav }) {
                   </div>
                   <div className="space-y-0.5">
                     {section.items.map((item) => {
+                      if (!item || !item.to || !item.icon) return null
                       const Icon = item.icon
                       const isDashboard = item.to === `/${role}` || item.to === '/student' || item.to === '/trainer' || item.to === '/admin'
                       const active = isDashboard ? location.pathname === item.to : location.pathname.startsWith(item.to)

@@ -56,7 +56,8 @@ const showToast = (msg) => {
 
 export default function HeaderThemeButton() {
   const user = useAuthStore((s) => s.user)
-  const isImpersonating = useAuthStore((s) => s.isImpersonating())
+  const impersonation = useAuthStore((s) => s.impersonation)
+  const isImpersonating = !!impersonation
   const [open, setOpen] = useState(false)
   const [current, setCurrent] = useState(() =>
     document.documentElement.getAttribute('data-theme') || DEFAULT_THEME

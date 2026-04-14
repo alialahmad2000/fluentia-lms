@@ -18,7 +18,8 @@ export default function MobileBar({ nav, onMoreClick, role }) {
       }}
     >
       <div className="flex items-center justify-around w-full max-w-lg mx-auto" style={{ height: 64 }}>
-        {nav.mobileBar.map((item) => {
+        {(nav.mobileBar || []).map((item) => {
+          if (!item) return null
           if (item.id === 'more') {
             return (
               <button

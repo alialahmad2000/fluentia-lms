@@ -69,6 +69,7 @@ export default function Sidebar({ nav, collapsed, onToggle }) {
             )}
             <div className="space-y-0.5">
               {section.items.map((item) => {
+                if (!item || !item.to || !item.icon) return null
                 const active = isActive(item.to)
                 const Icon = item.icon
                 return (
