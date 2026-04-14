@@ -23,14 +23,15 @@ const RANK_STYLES = {
 }
 
 const PERIOD_OPTIONS = [
+  { value: 'day', label: 'اليوم' },
   { value: 'week', label: 'هذا الأسبوع' },
   { value: 'month', label: 'هذا الشهر' },
-  { value: 'all', label: 'كل الأوقات' },
+  { value: 'all', label: 'الكل' },
 ]
 
 const TAB_OPTIONS = [
-  { value: 'group', label: 'المجموعة', icon: Users },
-  { value: 'teams', label: 'الفرق', icon: Users },
+  { value: 'group', label: 'مجموعتي', icon: Users },
+  { value: 'level', label: 'مستواي', icon: Medal },
   { value: 'academy', label: 'الأكاديمية', icon: Trophy },
 ]
 
@@ -131,10 +132,13 @@ export default function StudentLeaderboard() {
         }))
       }
 
-      // For week/month — sum XP from transactions
+      // For day/week/month — sum XP from transactions
       const now = new Date()
       let startDate
-      if (period === 'week') {
+      if (period === 'day') {
+        startDate = new Date(now)
+        startDate.setHours(0, 0, 0, 0)
+      } else if (period === 'week') {
         const day = now.getDay()
         startDate = new Date(now)
         startDate.setDate(now.getDate() - day)
@@ -174,35 +178,27 @@ export default function StudentLeaderboard() {
     enabled: !!groupId && tab === 'group',
   })
 
-  // Team leaderboard
-  const { data: teamRanking, isLoading: teamsLoading } = useQuery({
-    queryKey: ['leaderboard-teams', groupId],
+  // Level leaderboard — uses RPC
+  const myLevel = studentData?.academic_level
+  const { data: levelRanking, isLoading: levelLoading } = useQuery({
+    queryKey: ['leaderboard-level', myLevel, period],
     queryFn: async () => {
-      const { data } = await supabase
-        .from('teams')
-        .select('id, name, emoji, color, total_xp')
-        .eq('group_id', groupId)
-        .order('total_xp', { ascending: false })
-
-      // Get member counts
-      const teamIds = (data || []).map(t => t.id)
-      const { data: members } = await supabase
-        .from('team_members')
-        .select('team_id')
-        .in('team_id', teamIds)
-
-      const memberCount = {}
-      ;(members || []).forEach(m => {
-        memberCount[m.team_id] = (memberCount[m.team_id] || 0) + 1
+      const { data, error } = await supabase.rpc('get_level_leaderboard', {
+        p_level: myLevel,
+        p_period: period,
       })
-
-      return (data || []).map((t, i) => ({
-        ...t,
-        rank: i + 1,
-        memberCount: memberCount[t.id] || 0,
+      if (error) throw error
+      return (data || []).map(s => ({
+        id: s.student_id,
+        rank: s.rank,
+        xp: Number(s.xp_total),
+        name: s.display_name || 'طالب',
+        avatar_url: s.avatar_url,
+        groupName: s.group_name || '',
+        isMe: s.student_id === profile?.id,
       }))
     },
-    enabled: !!groupId && tab === 'teams',
+    enabled: myLevel != null && tab === 'level',
   })
 
   // Weekly task completion map for weekly period indicator
@@ -250,7 +246,10 @@ export default function StudentLeaderboard() {
 
       const now = new Date()
       let startDate
-      if (period === 'week') {
+      if (period === 'day') {
+        startDate = new Date(now)
+        startDate.setHours(0, 0, 0, 0)
+      } else if (period === 'week') {
         const day = now.getDay()
         startDate = new Date(now)
         startDate.setDate(now.getDate() - day)
@@ -290,8 +289,8 @@ export default function StudentLeaderboard() {
     enabled: tab === 'academy',
   })
 
-  const isLoading = tab === 'group' ? groupLoading : tab === 'teams' ? teamsLoading : academyLoading
-  const ranking = tab === 'group' ? groupRanking : tab === 'academy' ? academyData : null
+  const isLoading = tab === 'group' ? groupLoading : tab === 'level' ? levelLoading : academyLoading
+  const ranking = tab === 'group' ? groupRanking : tab === 'level' ? levelRanking : academyData
   const myRank = ranking?.find(r => r.isMe)
 
   return (
@@ -325,8 +324,8 @@ export default function StudentLeaderboard() {
         ))}
       </div>
 
-      {/* Period filter (not for teams) */}
-      {tab !== 'teams' && (
+      {/* Period filter */}
+      {(
         <div className="flex gap-2">
           {PERIOD_OPTIONS.map(p => (
             <button
@@ -346,7 +345,7 @@ export default function StudentLeaderboard() {
       )}
 
       {/* My Rank banner */}
-      {myRank && tab !== 'teams' && (
+      {myRank && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -366,7 +365,7 @@ export default function StudentLeaderboard() {
             </div>
             <div className="flex flex-col items-end gap-2">
               <div className="text-left">
-                <p className="text-lg font-bold text-sky-400">{myRank.xp} XP</p>
+                <p className="text-lg font-bold text-sky-400" style={{ fontVariantNumeric: 'tabular-nums' }}>{myRank.xp} XP</p>
                 <p className="text-xs text-muted">{getLevel(myRank.xp_total || myRank.xp).title_ar}</p>
               </div>
               <ShareRankButton rank={myRank.rank} total={ranking?.length || 0} />
@@ -378,42 +377,91 @@ export default function StudentLeaderboard() {
       {/* Loading */}
       {isLoading && <ListSkeleton rows={5} />}
 
-      {/* Group / Academy Ranking */}
-      {!isLoading && tab !== 'teams' && ranking && (
+      {/* ═══ Podium — Top 3 ═══ */}
+      {!isLoading && ranking && ranking.length >= 3 && (
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-end justify-center gap-3 pt-4 pb-2"
+        >
+          {[1, 0, 2].map(idx => {
+            const player = ranking[idx]
+            if (!player) return null
+            const podiumHeight = idx === 0 ? 'h-28' : idx === 1 ? 'h-20' : 'h-16'
+            const podiumGrad = idx === 0
+              ? 'from-yellow-500/20 to-yellow-600/5 border-yellow-500/30'
+              : idx === 1
+                ? 'from-slate-300/15 to-slate-400/5 border-slate-300/30'
+                : 'from-amber-600/15 to-amber-700/5 border-amber-600/30'
+            const crownColor = idx === 0 ? 'text-yellow-400' : idx === 1 ? 'text-slate-300' : 'text-amber-500'
+            const medals = ['🥇', '🥈', '🥉']
+            return (
+              <motion.div
+                key={player.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 + idx * 0.1 }}
+                className="flex flex-col items-center gap-1.5"
+                style={{ width: idx === 0 ? 120 : 100 }}
+              >
+                <div className="relative">
+                  <div className={`${idx === 0 ? 'w-16 h-16' : 'w-12 h-12'} rounded-full flex items-center justify-center text-lg font-bold border-2 ${
+                    player.isMe ? 'bg-sky-500/20 text-sky-400 border-sky-500/40' : `bg-gradient-to-b ${podiumGrad}`
+                  }`}>
+                    {player.avatar_url
+                      ? <img src={player.avatar_url} alt="" className="w-full h-full rounded-full object-cover" />
+                      : <span className={crownColor}>{player.name?.[0] || '?'}</span>
+                    }
+                  </div>
+                  <span className="absolute -top-2 -right-1 text-sm">{medals[idx]}</span>
+                </div>
+                <p className="text-xs font-medium text-[var(--text-primary)] truncate max-w-full text-center">
+                  {player.name}{player.isMe ? ' (أنت)' : ''}
+                </p>
+                <p className="text-xs font-bold text-gold-400" style={{ fontVariantNumeric: 'tabular-nums' }}>{player.xp} XP</p>
+                <div className={`w-full ${podiumHeight} rounded-t-xl bg-gradient-to-b ${podiumGrad} border border-b-0 flex items-center justify-center`}>
+                  <span className={`text-lg font-bold ${crownColor}`}>{player.rank}</span>
+                </div>
+              </motion.div>
+            )
+          })}
+        </motion.div>
+      )}
+
+      {/* ═══ Ranking List ═══ */}
+      {!isLoading && ranking && (
         <div className="space-y-2">
-          {ranking.map((player, index) => {
-            const style = RANK_STYLES[index] || {}
+          {ranking.slice(3).map((player, i) => {
+            const index = i + 3
             const level = getLevel(player.xp_total || player.xp)
-            const RankIcon = style.icon || null
 
             return (
               <motion.div
                 key={player.id}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.08 }}
+                transition={{ delay: index * 0.04 }}
                 className={`flex items-center gap-4 p-4 rounded-2xl border transition-all duration-200 hover:translate-y-[-2px] ${
                   player.isMe
                     ? 'bg-sky-500/10 border-sky-500/20 ring-1 ring-sky-500/10'
-                    : style.bg
-                      ? `${style.bg} ${style.border}`
-                      : 'border-border-subtle'
+                    : 'border-border-subtle'
                 }`}
-                style={!player.isMe && !style.bg ? { background: 'var(--surface-raised)' } : undefined}
+                style={!player.isMe ? { background: 'var(--surface-raised)' } : undefined}
               >
                 {/* Rank */}
-                <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-sm font-bold ${
-                  style.text || 'text-muted'
-                } ${style.bg || ''}`}
-                  style={!style.bg ? { background: 'var(--surface-raised)' } : undefined}>
-                  {RankIcon ? <RankIcon size={16} /> : player.rank}
+                <div className="w-8 h-8 rounded-xl flex items-center justify-center text-sm font-bold text-muted"
+                  style={{ background: 'var(--surface-raised)', fontVariantNumeric: 'tabular-nums' }}>
+                  {player.rank}
                 </div>
 
                 {/* Avatar */}
                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg font-bold shrink-0 ${
                   player.isMe ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30' : 'bg-[var(--sidebar-hover-bg)] text-[var(--text-tertiary)]'
                 }`}>
-                  {player.name?.[0] || '?'}
+                  {player.avatar_url
+                    ? <img src={player.avatar_url} alt="" className="w-10 h-10 rounded-xl object-cover" />
+                    : (player.name?.[0] || '?')
+                  }
                 </div>
 
                 {/* Info */}
@@ -429,7 +477,7 @@ export default function StudentLeaderboard() {
                         <Flame size={10} /> {player.current_streak}
                       </span>
                     )}
-                    {tab === 'academy' && player.groupName && (
+                    {(tab === 'academy' || tab === 'level') && player.groupName && (
                       <span className="badge-blue text-xs">{player.groupName}</span>
                     )}
                   </div>
@@ -437,7 +485,7 @@ export default function StudentLeaderboard() {
 
                 {/* XP */}
                 <div className="text-left flex items-center gap-2">
-                  <p className={`text-sm font-bold ${index === 0 ? 'text-gold-400' : 'text-[var(--text-primary)]'}`}>
+                  <p className={`text-sm font-bold text-[var(--text-primary)]`} style={{ fontVariantNumeric: 'tabular-nums' }}>
                     {player.xp} XP
                   </p>
                   {period === 'week' && weeklyCompletionMap?.[player.id] && (
@@ -458,46 +506,6 @@ export default function StudentLeaderboard() {
               icon={BarChart3}
               title="لا توجد بيانات للفترة المحددة"
               description="ستظهر النتائج عند بدء النشاط"
-            />
-          )}
-        </div>
-      )}
-
-      {/* Teams Ranking */}
-      {!isLoading && tab === 'teams' && teamRanking && (
-        <div className="space-y-3">
-          {teamRanking.length > 0 ? teamRanking.map((team, index) => {
-            const style = RANK_STYLES[index] || {}
-            return (
-              <motion.div
-                key={team.id}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.08 }}
-                className={`flex items-center gap-5 p-5 rounded-2xl border hover:translate-y-[-2px] transition-all duration-200 ${
-                  style.bg ? `${style.bg} ${style.border}` : 'border-border-subtle'
-                }`}
-              >
-                <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-sm font-bold ${style.text || 'text-muted'}`}>
-                  {team.rank}
-                </div>
-                <div className="text-3xl">{team.emoji || '🏆'}</div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold text-[var(--text-primary)]">{team.name}</p>
-                  <p className="text-xs text-[var(--text-tertiary)]">{team.memberCount} أعضاء</p>
-                </div>
-                <div className="text-left">
-                  <p className={`text-lg font-bold ${index === 0 ? 'text-gold-400' : 'text-[var(--text-primary)]'}`}>
-                    {team.total_xp || 0} XP
-                  </p>
-                </div>
-              </motion.div>
-            )
-          }) : (
-            <EmptyState
-              icon={Users}
-              title="لم يتم إنشاء فرق بعد"
-              description="سيقوم المدرب بإنشاء الفرق قريباً"
             />
           )}
         </div>
