@@ -5,7 +5,7 @@ import { Menu, ChevronDown, User, Sparkles, Settings, LogOut, Zap, Flame, Packag
 import { useAuthStore } from '../../stores/authStore'
 import { getGreeting } from '../../utils/dateHelpers'
 import NotificationCenter from './NotificationCenter'
-import ThemeToggle from '../ThemeToggle'
+import HeaderThemeButton from '../../design-system/HeaderThemeButton'
 import UserAvatar from '../common/UserAvatar'
 import { hardRefresh } from '../../utils/hardRefresh'
 
@@ -161,7 +161,7 @@ export default function Header({ onMenuToggle }) {
 
       {/* Left side: theme toggle + role badge + notifications + avatar */}
       <div className="flex items-center gap-2.5">
-        <ThemeToggle />
+        <HeaderThemeButton />
 
         {/* Role badge with dropdown */}
         <div className="relative" ref={badgeRef}>

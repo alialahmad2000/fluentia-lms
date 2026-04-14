@@ -27,6 +27,8 @@ import DailyProgressWidget from '../../components/student/dashboard/DailyProgres
 import WeeklyProgressWidget from '../../components/student/dashboard/WeeklyProgressWidget'
 import PersonalDictionaryWidget from '../../components/student/dashboard/PersonalDictionaryWidget'
 import LiveLevelActivityFeed from '../../components/student/dashboard/LiveLevelActivityFeed'
+import StreakWidget from '../../components/student/StreakWidget'
+import TeamCard from '../../components/student/TeamCard'
 
 function getLevel(xp) {
   for (let i = GAMIFICATION_LEVELS.length - 1; i >= 0; i--) {
@@ -294,6 +296,12 @@ export default function StudentDashboard() {
         <PersonalDictionaryWidget studentId={profile?.id} />
         <LiveLevelActivityFeed studentId={profile?.id} />
       </motion.div>
+
+      {/* ═══ 1.5 Streak + Team widgets ═══ */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <StreakWidget profileId={profile?.id} />
+        <TeamCard groupId={studentData?.group_id} />
+      </div>
 
       {/* ═══ 2. Weekly Tasks — Horizontal Scrollable Mini Cards ═══ */}
       {weeklyProgress && (

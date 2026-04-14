@@ -9,5 +9,5 @@ export const THEMES = [
   { id: 'minimal', label: 'الحد الأدنى', colors: ['#0284c7', '#7c3aed', '#d97706'] },
 ]
 
-export const DEFAULT_THEME = 'aurora-cinematic'
+export const DEFAULT_THEME = 'night'
 export const THEME_STORAGE_KEY = 'fluentia-theme'

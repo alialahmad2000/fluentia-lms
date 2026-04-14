@@ -9,7 +9,6 @@ import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/consta
 import { timeAgo } from '../../utils/dateHelpers'
 import NotificationSettings from '../../components/layout/NotificationSettings'
 import ImmersionToggle from '../../components/ImmersionToggle'
-import { useThemeStore } from '../../stores/themeStore'
 import SubTabs from '../../components/common/SubTabs'
 import StudentAIProfile from '../../components/ai/StudentAIProfile'
 
@@ -734,67 +733,81 @@ function ProfileContent() {
   )
 }
 
-const THEME_OPTIONS = [
+const DS_THEME_OPTIONS = [
   {
-    key: 'deep-space',
-    label: 'الفضاء العميق',
-    labelEn: 'Deep Space',
-    description: 'تجربة داكنة مع لمسات سماوية',
+    key: 'night',
+    label: 'ليل الذهب',
+    description: 'فخامة ذهبية هادئة، مثالية للتركيز الليلي',
     icon: Moon,
+    bg: '#05070d',
+    accent: '#e9b949',
+    accentSecondary: '#8c95b8',
+    colors: ['#e9b949', '#5a4a8c', '#1f3a5f'],
+  },
+  {
+    key: 'aurora-cinematic',
+    label: 'الشفق السينمائي',
+    description: 'أجواء سينمائية بألوان السماء والبنفسج',
+    icon: Sparkles,
     bg: '#060e1c',
     accent: '#38bdf8',
-    accentSecondary: '#818cf8',
-    preview: ['#060e1c', '#0a1225', '#38bdf8', '#818cf8'],
+    accentSecondary: '#a78bfa',
+    colors: ['#38bdf8', '#a78bfa', '#fbbf24'],
   },
   {
-    key: 'frost-white',
-    label: 'الجليد الأبيض',
-    labelEn: 'Frost White',
+    key: 'minimal',
+    label: 'الحد الأدنى',
     description: 'مظهر فاتح نظيف ومريح للعين',
     icon: Sun,
-    bg: '#f8f9fc',
-    accent: '#6366f1',
-    accentSecondary: '#8b5cf6',
-    preview: ['#f8f9fc', '#ffffff', '#6366f1', '#8b5cf6'],
-  },
-  {
-    key: 'aurora',
-    label: 'الشفق القطبي',
-    labelEn: 'Aurora',
-    description: 'تجربة داكنة فاخرة بألوان بنفسجية',
-    icon: Sparkles,
-    bg: '#0c0a1d',
-    accent: '#a78bfa',
-    accentSecondary: '#38bdf8',
-    preview: ['#0c0a1d', '#1a1538', '#a78bfa', '#38bdf8'],
+    bg: '#f8f9fb',
+    accent: '#0284c7',
+    accentSecondary: '#7c3aed',
+    colors: ['#0284c7', '#7c3aed', '#d97706'],
   },
 ]
 
 function AppearanceContent() {
-  const { theme, setTheme } = useThemeStore()
+  const { user } = useAuthStore()
+  const isImpersonating = useAuthStore((s) => s.isImpersonating())
+  const [currentTheme, setCurrentTheme] = useState(() =>
+    document.documentElement.getAttribute('data-theme') || 'night'
+  )
   const [soundEnabled, setSoundEnabled] = useState(() => localStorage.getItem('fluentia_sounds') !== 'off')
+  const [saving, setSaving] = useState(false)
+
+  const handleThemeChange = async (themeId) => {
+    const { applyTheme, saveThemePreference } = await import('../../design-system/applyTheme')
+    applyTheme(themeId)
+    setCurrentTheme(themeId)
+
+    // Save to DB — only if NOT impersonating
+    const effectiveUserId = isImpersonating ? null : user?.id
+    if (effectiveUserId) {
+      setSaving(true)
+      await saveThemePreference(supabase, effectiveUserId, themeId)
+      setSaving(false)
+    }
+  }
 
   return (
     <div className="space-y-6">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h2 className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>اختر المظهر</h2>
-        <p className="text-sm text-muted mt-1">اختر الثيم المفضل لتجربتك</p>
+        <h2 className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>مظهر المنصة</h2>
+        <p className="text-sm text-muted mt-1">اختاري الثيم اللي يريحك — يُحفظ ويتبعك على كل أجهزتك</p>
       </motion.div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        {THEME_OPTIONS.map((t, i) => {
-          const isActive = theme === t.key
+        {DS_THEME_OPTIONS.map((t, i) => {
+          const isActive = currentTheme === t.key
           return (
             <motion.button
               key={t.key}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.08 }}
-              onClick={() => setTheme(t.key)}
+              onClick={() => handleThemeChange(t.key)}
               className={`relative text-right p-5 rounded-2xl border-2 transition-all duration-300 cursor-pointer ${
-                isActive
-                  ? 'ring-2 ring-offset-2'
-                  : 'hover:scale-[1.02]'
+                isActive ? 'ring-2 ring-offset-2' : 'hover:scale-[1.02]'
               }`}
               style={{
                 background: isActive ? 'var(--glass-card-active)' : 'var(--glass-card)',
@@ -803,32 +816,21 @@ function AppearanceContent() {
                 '--tw-ring-offset-color': 'var(--surface-base)',
               }}
             >
-              {/* Active check */}
               {isActive && (
-                <div
-                  className="absolute top-3 left-3 w-6 h-6 rounded-full flex items-center justify-center"
-                  style={{ background: t.accent }}
-                >
+                <div className="absolute top-3 left-3 w-6 h-6 rounded-full flex items-center justify-center" style={{ background: t.accent }}>
                   <Check size={14} className="text-white" />
                 </div>
               )}
 
-              {/* Theme preview strip */}
+              {/* Color dots */}
               <div className="flex gap-1.5 mb-4">
-                {t.preview.map((color, ci) => (
-                  <div
-                    key={ci}
-                    className="w-8 h-8 rounded-lg"
-                    style={{ background: color, border: '1px solid rgba(128,128,128,0.2)' }}
-                  />
+                {t.colors.map((color, ci) => (
+                  <div key={ci} className="w-8 h-8 rounded-lg" style={{ background: color, border: '1px solid rgba(128,128,128,0.2)' }} />
                 ))}
               </div>
 
-              {/* Mini preview card */}
-              <div
-                className="rounded-xl p-3 mb-4"
-                style={{ background: t.bg, border: `1px solid ${t.accent}22` }}
-              >
+              {/* Mini preview */}
+              <div className="rounded-xl p-3 mb-4" style={{ background: t.bg, border: `1px solid ${t.accent}22` }}>
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-4 h-4 rounded-full" style={{ background: t.accent }} />
                   <div className="h-2 rounded-full flex-1" style={{ background: `${t.accent}30` }} />
@@ -844,10 +846,18 @@ function AppearanceContent() {
                 <span className="font-bold text-sm" style={{ color: 'var(--text-primary)' }}>{t.label}</span>
               </div>
               <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>{t.description}</p>
+
+              {isActive && (
+                <span className="mt-2 inline-block text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: `${t.accent}20`, color: t.accent }}>
+                  مفعّل
+                </span>
+              )}
             </motion.button>
           )
         })}
       </div>
+
+      {saving && <p className="text-xs text-muted text-center">جاري الحفظ...</p>}
 
       {/* Sound Effects Toggle */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="fl-card-static p-5">

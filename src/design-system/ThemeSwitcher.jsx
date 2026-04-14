@@ -1,7 +1,9 @@
 import { useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAuthStore } from '@/stores/authStore'
-import { ADMIN_UUIDS, THEMES, THEME_STORAGE_KEY, DEFAULT_THEME } from './constants'
+import { ADMIN_UUIDS, THEMES, DEFAULT_THEME } from './constants'
+import { applyTheme as applyThemeHelper, saveThemePreference } from './applyTheme'
+import { supabase } from '@/lib/supabase'
 import { SectionHeader } from './components'
 import { PrimaryButton, SecondaryButton } from './components/Buttons'
 import PremiumCard from './components/PremiumCard'
@@ -70,14 +72,16 @@ export default function ThemeSwitcher() {
   const currentTheme = document.documentElement.getAttribute('data-theme') || DEFAULT_THEME
 
   const applyTheme = useCallback((themeId) => {
-    document.documentElement.setAttribute('data-theme', themeId)
-    try { localStorage.setItem(THEME_STORAGE_KEY, themeId) } catch {}
+    applyThemeHelper(themeId)
 
     const theme = THEMES.find((t) => t.id === themeId)
     flash()
     showThemeToast(theme?.label || themeId)
     forceUpdate((n) => n + 1)
-  }, [])
+
+    // Also persist to DB for admin
+    if (user?.id) saveThemePreference(supabase, user.id, themeId)
+  }, [user?.id])
 
   return (
     <>
@@ -177,6 +181,9 @@ export default function ThemeSwitcher() {
             boxShadow: '0 12px 40px rgba(0,0,0,0.5)',
           }}
         >
+          {/* Admin label */}
+          <span className="text-[10px] font-bold font-['Tajawal'] shrink-0 hidden sm:inline" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>أدمن</span>
+
           {THEMES.map((theme) => {
             const isActive = currentTheme === theme.id
             return (
@@ -297,7 +304,7 @@ export default function ThemeSwitcher() {
                 direction: 'rtl',
               }}
             >
-              أنت تشاهد وضع المعاينة كأدمن — الطلاب لا يرون هذا.
+              أدمن — اختبار الثيمات. الطلاب يغيرون المظهر من الهيدر.
             </motion.div>
           )}
         </AnimatePresence>

@@ -21,6 +21,7 @@ import { hasPackageAccess } from './components/PackageGate'
 // ─── Design System (Phase 0) ────────────────────────────────
 import ThemeProvider from './design-system/ThemeProvider'
 import ThemeSwitcher from './design-system/ThemeSwitcher'
+import ThemeOnboardingHint from './design-system/ThemeOnboardingHint'
 import { AuroraBackground } from './design-system/components'
 
 // ─── Lazy-loaded Pages (with chunk retry on stale deploys) ───
@@ -414,6 +415,7 @@ export default function App() {
         <ThemeProvider />
         <AuroraBackground />
         <ThemeSwitcher />
+        <ThemeOnboardingHint />
         <OfflineBanner />
         <ImpersonationBanner />
         <ForcePasswordChange />
