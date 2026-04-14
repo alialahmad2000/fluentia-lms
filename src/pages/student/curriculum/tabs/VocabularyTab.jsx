@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Languages, Volume2, LayoutGrid, List, RotateCcw, CheckCircle, Dumbbell, Search, BookOpen, Headphones, PenLine, ChevronLeft } from 'lucide-react'
+import { Languages, Volume2, LayoutGrid, List, RotateCcw, CheckCircle, Dumbbell, Search, BookOpen, Headphones, PenLine, ChevronLeft, ChevronDown } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { usePageReset } from '../../../../hooks/usePageReset'
@@ -81,6 +81,7 @@ export default function VocabularyTab({ unitId }) {
   const [isCompleted, setIsCompleted] = useState(false)
   const [progressLoading, setProgressLoading] = useState(true)
   const [exerciseWord, setExerciseWord] = useState(null)
+  const [collapsedTiers, setCollapsedTiers] = useState({ extended: true, mastery: true })
   const hasSavedComplete = useRef(false)
   const timeRef = useRef(0)
 
@@ -412,11 +413,20 @@ export default function VocabularyTab({ unitId }) {
         </div>
       )}
 
-      {/* ③ SECTIONS BY READING */}
+      {/* ③ SECTIONS BY READING → TIER */}
       {data.map(({ reading, vocabulary }) => {
         const filtered = vocabulary.filter(filterWord)
         if (filtered.length === 0) return null
         const sectionMastered = filtered.filter(w => getWordMasteryLevel(w.id) === 'mastered').length
+
+        // Group by tier
+        const hasTiers = filtered.some(w => w.tier)
+        const tierGroups = hasTiers ? [
+          { key: 'core', label: 'الأساسية', color: '#38bdf8', bg: 'rgba(56,189,248,0.08)', words: filtered.filter(w => !w.tier || w.tier === 'core') },
+          { key: 'extended', label: 'الإضافية', color: '#94a3b8', bg: 'rgba(148,163,184,0.08)', words: filtered.filter(w => w.tier === 'extended') },
+          { key: 'mastery', label: 'المتقدمة', color: '#d4af37', bg: 'rgba(212,175,55,0.08)', words: filtered.filter(w => w.tier === 'mastery'), hint: 'للمراجعة لاحقاً' },
+        ].filter(g => g.words.length > 0) : [{ key: 'all', words: filtered }]
+
         return (
           <div key={reading.id} className="space-y-3">
             {/* Section header */}
@@ -435,31 +445,78 @@ export default function VocabularyTab({ unitId }) {
               </div>
             )}
 
-            {viewMode === 'cards' ? (
-              <motion.div
-                className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"
-                variants={container}
-                initial="hidden"
-                animate="show"
-              >
-                {filtered.map(v => (
-                  <motion.div key={v.id} variants={cardVariant}>
-                    <WordCard
-                      word={v}
-                      mastery={getMastery(v.id)}
-                      reviewed={reviewedWords.has(v.id)}
-                      onView={() => markReviewed(v.id)}
-                      onPractice={() => setExerciseWord(v)}
-                      isSaved={savedWordSet.has?.(v.word?.toLowerCase())}
-                      onSaveWord={() => saveWordMutation.mutate(v)}
-                      isStudent={profile?.role === 'student'}
-                    />
-                  </motion.div>
-                ))}
-              </motion.div>
-            ) : (
-              <WordListView vocabulary={filtered} getMastery={getMastery} reviewedWords={reviewedWords} onView={markReviewed} onPractice={setExerciseWord} />
-            )}
+            {tierGroups.map(tg => {
+              const isCollapsed = tg.key !== 'all' && tg.key !== 'core' && collapsedTiers[tg.key]
+              const toggleCollapse = () => setCollapsedTiers(prev => ({ ...prev, [tg.key]: !prev[tg.key] }))
+
+              return (
+                <div key={tg.key} className="space-y-3">
+                  {/* Tier header (only if tiers exist) */}
+                  {tg.key !== 'all' && (
+                    <button
+                      onClick={toggleCollapse}
+                      className="w-full flex items-center gap-2 py-2 px-1 group"
+                    >
+                      <span
+                        className="px-2.5 py-0.5 rounded-full text-[11px] font-bold font-['Tajawal']"
+                        style={{ background: tg.bg, color: tg.color, border: `1px solid ${tg.color}22` }}
+                      >
+                        {tg.label}
+                      </span>
+                      <span className="text-[10px] text-white/25 font-['Tajawal']">
+                        {tg.words.length} كلمة
+                        {tg.hint && <span className="mr-1 text-white/15">· {tg.hint}</span>}
+                      </span>
+                      <div className="flex-1 h-px bg-white/[0.03]" />
+                      <ChevronDown
+                        size={14}
+                        className="text-white/20 transition-transform"
+                        style={{ transform: isCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)' }}
+                      />
+                    </button>
+                  )}
+
+                  {/* Words grid/list */}
+                  <AnimatePresence initial={false}>
+                    {!isCollapsed && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        style={{ overflow: 'hidden' }}
+                      >
+                        {viewMode === 'cards' ? (
+                          <motion.div
+                            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"
+                            variants={container}
+                            initial="hidden"
+                            animate="show"
+                          >
+                            {tg.words.map(v => (
+                              <motion.div key={v.id} variants={cardVariant}>
+                                <WordCard
+                                  word={v}
+                                  mastery={getMastery(v.id)}
+                                  reviewed={reviewedWords.has(v.id)}
+                                  onView={() => markReviewed(v.id)}
+                                  onPractice={() => setExerciseWord(v)}
+                                  isSaved={savedWordSet.has?.(v.word?.toLowerCase())}
+                                  onSaveWord={() => saveWordMutation.mutate(v)}
+                                  isStudent={profile?.role === 'student'}
+                                />
+                              </motion.div>
+                            ))}
+                          </motion.div>
+                        ) : (
+                          <WordListView vocabulary={tg.words} getMastery={getMastery} reviewedWords={reviewedWords} onView={markReviewed} onPractice={setExerciseWord} />
+                        )}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              )
+            })}
           </div>
         )
       })}
@@ -586,6 +643,14 @@ function WordCard({ word, mastery, reviewed, onView, onPractice, isSaved, onSave
             <p className="text-[11px] text-white/40 font-['Tajawal'] mt-0.5 line-clamp-1">
               {POS_AR[word.part_of_speech] || word.part_of_speech} · {word.definition_ar}
             </p>
+            {word.tier && word.tier !== 'core' && (
+              <span className="inline-block mt-0.5 px-1.5 py-px rounded text-[9px] font-bold font-['Tajawal']" style={{
+                background: word.tier === 'extended' ? 'rgba(148,163,184,0.1)' : 'rgba(212,175,55,0.1)',
+                color: word.tier === 'extended' ? '#94a3b8' : '#d4af37',
+              }}>
+                {word.tier === 'extended' ? 'إضافية' : 'متقدمة'}
+              </span>
+            )}
           </div>
           {word.audio_url && (
             <button
