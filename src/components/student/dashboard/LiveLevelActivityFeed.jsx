@@ -6,6 +6,7 @@ import { supabase } from '../../../lib/supabase'
 import { useAuthStore } from '../../../stores/authStore'
 import { useLevelActivityFeed } from '../../../hooks/dashboard/useLevelActivityFeed'
 import { useLevelTopMovers } from '../../../hooks/dashboard/useLevelTopMovers'
+import { initialsFromDisplayName } from '../../../utils/names'
 
 /* ------------------------------------------------------------------ */
 /*  Constants                                                          */
@@ -45,8 +46,8 @@ function getAvatarColor(id, rank) {
 
 function AvatarCircle({ url, name, id, size = 40, rank, isCaller }) {
   const sizeClass = size === 40 ? 'w-10 h-10' : 'w-8 h-8'
-  const textClass = size === 40 ? 'text-sm' : 'text-xs'
-  const letter = name ? name.charAt(0) : '?'
+  const textClass = size === 40 ? 'text-xs' : 'text-[10px]'
+  const initials = initialsFromDisplayName(name)
 
   return (
     <div
@@ -62,7 +63,7 @@ function AvatarCircle({ url, name, id, size = 40, rank, isCaller }) {
           loading="lazy"
         />
       ) : (
-        <span className={textClass}>{letter}</span>
+        <span className={textClass}>{initials}</span>
       )}
     </div>
   )
@@ -258,17 +259,17 @@ function MoverCard({ mover, rank }) {
       <div className="flex flex-col items-center gap-1.5 pt-1">
         <AvatarCircle
           url={mover.avatar_url}
-          name={mover.first_name}
+          name={mover.display_name}
           id={mover.student_id}
           size={40}
           rank={rank}
           isCaller={false}
         />
         <span
-          className="text-sm font-bold truncate w-full"
+          className="text-sm font-bold line-clamp-2 leading-tight w-full"
           style={{ color: 'var(--text-primary)' }}
         >
-          {mover.first_name}
+          {mover.display_name}
         </span>
         <span
           className="text-xs font-semibold"

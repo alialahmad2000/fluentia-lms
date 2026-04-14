@@ -11,6 +11,7 @@ import { supabase } from '../../lib/supabase'
 import { getGreeting, getArabicDay, formatTime, formatDateAr } from '../../utils/dateHelpers'
 import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/constants'
 import { getEncouragement } from '../../utils/encouragement'
+import { firstNameFrom } from '../../utils/names'
 import DailyChallenge from '../../components/gamification/DailyChallenge'
 import SrsReviewCard from '../../components/gamification/SrsReviewCard'
 import LevelExitTestCard from '../../components/gamification/LevelExitTestCard'
@@ -126,7 +127,7 @@ function useCountdown(schedule) {
 export default function StudentDashboard() {
   const { profile, studentData } = useAuthStore()
   const navigate = useNavigate()
-  const firstName = profile?.full_name || profile?.display_name || ''
+  const firstName = firstNameFrom(profile?.full_name) || profile?.display_name || ''
 
   // Weekly tasks progress + individual tasks
   const { data: weeklyProgress, isLoading: loadingWeekly } = useQuery({
