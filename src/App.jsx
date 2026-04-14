@@ -18,6 +18,11 @@ import ComingSoon from './pages/student/ComingSoon'
 import LockedFeature from './pages/student/LockedFeature'
 import { hasPackageAccess } from './components/PackageGate'
 
+// ─── Design System (Phase 0) ────────────────────────────────
+import ThemeProvider from './design-system/ThemeProvider'
+import ThemeSwitcher from './design-system/ThemeSwitcher'
+import { AuroraBackground } from './design-system/components'
+
 // ─── Lazy-loaded Pages (with chunk retry on stale deploys) ───
 const StudentDashboard = lazyRetry(() => import('./pages/student/StudentDashboard'))
 const StudentAssignments = lazyRetry(() => import('./pages/student/StudentAssignments'))
@@ -406,6 +411,9 @@ export default function App() {
     <ErrorBoundary>
       <BrowserRouter>
         <ToastProvider>
+        <ThemeProvider />
+        <AuroraBackground />
+        <ThemeSwitcher />
         <OfflineBanner />
         <ImpersonationBanner />
         <ForcePasswordChange />

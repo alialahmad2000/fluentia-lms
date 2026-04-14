@@ -815,6 +815,14 @@ This is how future sessions know what happened.
 - Status: Complete — migration pushed to linked Supabase, pure-function smoke tests passing
 - Notes: Used `reason: 'challenge'` for XP instead of adding a new `xp_reason` enum value (avoids PG enum-in-transaction limitation and matches existing xpManager.js pattern). Mastery threshold treats `learning` + `mastered` as passing since the DB has no `reviewing` state. Chunks tab is disabled unless a specific unit is selected from the filter.
 
+### April 14, 2026 — Design System Phase 0 Foundation
+- What: Built the Fluentia Design System foundation — 3 swappable themes (aurora-cinematic, night, minimal), component library, cinematic motion layer, admin-only ThemeSwitcher
+- Files: `src/design-system/themes.css`, `src/design-system/constants.js`, `src/design-system/ThemeProvider.jsx`, `src/design-system/ThemeSwitcher.jsx`, `src/design-system/components/` (AuroraBackground, GlassPanel, PremiumCard, SectionHeader, StatOrb, Buttons, CinematicTransition, StaggeredList, EmptyState, DSLoadingSkeleton), `DESIGN-SYSTEM.md`
+- Modified: `src/index.css` (import themes.css), `src/App.jsx` (mount ThemeProvider, AuroraBackground, ThemeSwitcher)
+- DB: None
+- Status: Complete — build passes, no existing pages modified
+- Notes: CSS vars prefixed with `--ds-` to avoid collision with legacy design-tokens.css. ThemeSwitcher gated to admin UUID `e5528ced-b3e2-45bb-8c89-9368dc9b5b96`. Default theme: `aurora-cinematic`. See `DESIGN-SYSTEM.md` for full reference.
+
 ### March 14, 2026 — CLAUDE.md + FLUENTIA-SPEC.md added
 - What: Added project context files for Claude Code auto-read
 - Files: CLAUDE.md, FLUENTIA-SPEC.md
