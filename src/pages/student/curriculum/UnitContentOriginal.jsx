@@ -1,13 +1,14 @@
-// Unit Page Premium V2 — cinematic learning journey
-// Safety net: UnitContentOriginal.jsx preserved until 2026-04-21
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, Check } from 'lucide-react'
+import { ArrowRight, BookOpen, PenLine, Languages, Headphones, FileEdit, Mic, ClipboardCheck, Video, Check, MapPin, Volume2 } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import { tracker } from '../../../services/activityTracker'
+import { useUnitProgress } from '../../../hooks/useUnitProgress'
+import { useUnitStar } from '../../../hooks/useUnitStar'
+import UnitStarCard from '../../../components/UnitStarCard'
 import { toast } from '../../../components/ui/FluentiaToast'
 import StudentFAB from '../../../components/student/StudentFAB'
 import NotesPanel from '../../../components/student/NotesPanel'
@@ -24,28 +25,17 @@ import AssessmentTab from './tabs/AssessmentTab'
 import PronunciationTab from './tabs/PronunciationTab'
 import RecordingTab from '../../../components/curriculum/RecordingTab'
 import { CinematicBg, CINEMATIC_TOKENS as V1, useCinematicMotion } from './_premiumPrimitives'
-import {
-  TrophyButton,
-  TrophyModal,
-  MissionGrid,
-  SmartNextStepCTA,
-  UnitIntroCinematic,
-  AmbientParticles,
-  CelebrationLayer,
-  useUnitData,
-  useUnitTheme,
-} from './unit-v2'
 
 const TABS = [
-  { id: 'reading', label: 'القراءة' },
-  { id: 'grammar', label: 'القواعد' },
-  { id: 'vocabulary', label: 'المفردات' },
-  { id: 'listening', label: 'الاستماع' },
-  { id: 'writing', label: 'الكتابة' },
-  { id: 'speaking', label: 'المحادثة' },
-  { id: 'pronunciation', label: 'النطق' },
-  { id: 'assessment', label: 'التقييم' },
-  { id: 'recording', label: 'التسجيل' },
+  { id: 'reading', label: 'القراءة', shortLabel: 'قراءة', icon: BookOpen },
+  { id: 'grammar', label: 'القواعد', shortLabel: 'قواعد', icon: PenLine },
+  { id: 'vocabulary', label: 'المفردات', shortLabel: 'كلمات', icon: Languages },
+  { id: 'listening', label: 'الاستماع', shortLabel: 'سمع', icon: Headphones },
+  { id: 'writing', label: 'الكتابة', shortLabel: 'كتابة', icon: FileEdit },
+  { id: 'speaking', label: 'المحادثة', shortLabel: 'محادثة', icon: Mic },
+  { id: 'pronunciation', label: 'النطق', shortLabel: 'نطق', icon: Volume2 },
+  { id: 'assessment', label: 'التقييم', shortLabel: 'تقييم', icon: ClipboardCheck },
+  { id: 'recording', label: 'التسجيل', shortLabel: 'تسجيل', icon: Video },
 ]
 
 const LEVEL_NAMES = {
@@ -60,40 +50,39 @@ const LEVEL_NAMES = {
 export default function UnitContent() {
   const { unitId } = useParams()
   const navigate = useNavigate()
-  const [searchParams, setSearchParams] = useSearchParams()
   const { profile, studentData } = useAuthStore()
   const currentLevel = studentData?.academic_level ?? 0
   const isStudent = profile?.role === 'student'
+  const [activeTab, setActiveTab] = useState('reading')
+  const [showNotes, setShowNotes] = useState(false)
+  const [showWords, setShowWords] = useState(false)
+  const tabBarRef = useRef(null)
+  const activeTabRef = useRef(null)
   const queryClient = useQueryClient()
   const m = useCinematicMotion()
 
-  // V2 unified data hook
-  const unitData = useUnitData(unitId)
-  const { unit, progress, starRanking, nextStep, loading: unitDataLoading, error: unitDataError } = unitData
+  const { data: unit, isLoading, error } = useQuery({
+    queryKey: ['unit-content', unitId],
+    placeholderData: (prev) => prev,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('curriculum_units')
+        .select('*, level:curriculum_levels(*)')
+        .eq('id', unitId)
+        .single()
+      if (error) throw error
+      return data
+    },
+    enabled: !!unitId,
+  })
 
-  // Active activity from URL param — null = show mission grid
-  const activeActivity = searchParams.get('activity') || null
+  const { data: unitProgress } = useUnitProgress(studentData?.id, unitId)
+  const tabStatus = unitProgress?.tabStatus || {}
+  const overallProgress = unitProgress?.overall || 0
 
-  // V2 state
-  const [trophyOpen, setTrophyOpen] = useState(false)
-  const [introSeen, setIntroSeen] = useState(false)
-  const [showNotes, setShowNotes] = useState(false)
-  const [showWords, setShowWords] = useState(false)
+  const groupId = studentData?.group_id
+  const { data: unitStarData } = useUnitStar(unitId, groupId)
 
-  // Particle type from unit theme
-  const particleType = useUnitTheme(unit?.theme_en, unit?.theme_ar)
-
-  // Check if intro already seen
-  useEffect(() => {
-    if (unit?.id) {
-      const key = `fluentia_unit_intro_${unit.id}_seen`
-      if (localStorage.getItem(key) === 'true') {
-        setIntroSeen(true)
-      }
-    }
-  }, [unit?.id])
-
-  // Bookmarks (preserved from V1)
   const { data: bookmarks = [] } = useQuery({
     queryKey: ['student-bookmarks', studentData?.id, unitId],
     queryFn: async () => {
@@ -112,7 +101,7 @@ export default function UnitContent() {
       const { error } = await supabase.from('student_bookmarks').upsert({
         student_id: studentData.id,
         unit_id: unitId,
-        section_type: activeActivity || 'reading',
+        section_type: activeTab,
       }, { onConflict: 'student_id,unit_id,section_type' })
       if (error) throw error
     },
@@ -131,26 +120,31 @@ export default function UnitContent() {
         .eq('student_id', studentData.id)
         .gte('created_at', today)
       if (count >= 3) throw new Error('rate_limit')
+
       const { error } = await supabase.from('help_requests').insert({
         student_id: studentData.id,
         unit_id: unitId,
-        section_type: activeActivity || 'reading',
+        section_type: activeTab,
       })
       if (error) throw error
     },
-    onSuccess: () => toast({ type: 'success', title: 'تم إرسال طلبك للمدرب ✅' }),
+    onSuccess: () => {
+      toast({ type: 'success', title: 'تم إرسال طلبك للمدرب ✅' })
+    },
     onError: (err) => {
-      if (err.message === 'rate_limit') toast({ type: 'error', title: 'وصلت الحد الأقصى (3 طلبات باليوم)' })
+      if (err.message === 'rate_limit') {
+        toast({ type: 'error', title: 'وصلت الحد الأقصى (3 طلبات باليوم)' })
+      }
     },
   })
 
   const handleBookmark = useCallback(() => {
-    if (bookmarks.includes(activeActivity || 'reading')) {
+    if (bookmarks.includes(activeTab)) {
       toast({ type: 'success', title: 'هالقسم محفوظ مسبقاً 📌' })
     } else {
       bookmarkMutation.mutate()
     }
-  }, [activeActivity, bookmarks, bookmarkMutation])
+  }, [activeTab, bookmarks, bookmarkMutation])
 
   const handleHelp = useCallback(() => {
     if (confirm('تبي المدرب يعرف إنك تحتاج مساعدة بهالقسم؟')) {
@@ -158,34 +152,47 @@ export default function UnitContent() {
     }
   }, [helpMutation])
 
-  // Track unit view
   useEffect(() => {
     if (unit) {
       try { tracker.track('curriculum_unit_view', { unit_id: unitId, unit_name: unit.title_ar || unit.title_en, level: unit.level?.level_number }) } catch {}
     }
   }, [unit, unitId])
 
-  // Guard: redirect if student can't access this level
   useEffect(() => {
     if (unit?.level?.level_number != null && unit.level.level_number > currentLevel) {
       navigate('/student/curriculum', { replace: true })
     }
   }, [unit, currentLevel, navigate])
 
-  // Navigate to activity — uses URL search param
-  const handleActivitySelect = useCallback((key) => {
-    tracker.track('mission_card_clicked', { activity: key, unit_id: unitId })
-    setSearchParams({ activity: key }, { replace: true })
-  }, [unitId, setSearchParams])
+  useEffect(() => {
+    if (activeTabRef.current && tabBarRef.current) {
+      const bar = tabBarRef.current
+      const tab = activeTabRef.current
+      const barRect = bar.getBoundingClientRect()
+      const tabRect = tab.getBoundingClientRect()
+      const scrollLeft = tab.offsetLeft - barRect.width / 2 + tabRect.width / 2
+      bar.scrollTo({ left: scrollLeft, behavior: 'smooth' })
+    }
+  }, [activeTab])
 
-  // Return to mission grid
-  const handleBackToGrid = useCallback(() => {
-    setSearchParams({}, { replace: true })
-  }, [setSearchParams])
+  // Arrow-key navigation within tab list (RTL-aware)
+  const handleTabKeyDown = useCallback((e) => {
+    const tabIds = TABS.map(t => t.id)
+    const idx = tabIds.indexOf(activeTab)
+    let nextIdx = idx
+    // In RTL, ArrowRight = previous, ArrowLeft = next
+    if (e.key === 'ArrowRight') nextIdx = Math.max(0, idx - 1)
+    else if (e.key === 'ArrowLeft') nextIdx = Math.min(tabIds.length - 1, idx + 1)
+    else if (e.key === 'Home') nextIdx = 0
+    else if (e.key === 'End') nextIdx = tabIds.length - 1
+    else return
 
-  // Render activity content (same as old tab content — PRESERVED)
-  const renderActivityContent = (key) => {
-    switch (key) {
+    e.preventDefault()
+    setActiveTab(tabIds[nextIdx])
+  }, [activeTab])
+
+  const renderTabContent = () => {
+    switch (activeTab) {
       case 'reading': return <ReadingTab unitId={unitId} />
       case 'grammar': return <GrammarTab unitId={unitId} />
       case 'vocabulary': return <VocabularyTab unitId={unitId} />
@@ -199,8 +206,7 @@ export default function UnitContent() {
     }
   }
 
-  // Loading state
-  if (unitDataLoading) {
+  if (isLoading) {
     return (
       <div className="w-full max-w-4xl mx-auto px-4 py-6 space-y-6" dir="rtl">
         <div className="space-y-3">
@@ -208,16 +214,17 @@ export default function UnitContent() {
           <div className="h-8 w-64 rounded-lg bg-[var(--surface-raised)] animate-pulse" />
           <div className="h-4 w-48 rounded-lg bg-[var(--surface-raised)] animate-pulse" />
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-8">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="h-48 rounded-2xl bg-[var(--surface-raised)] animate-pulse" />
+        <div className="flex gap-2">
+          {Array.from({ length: 7 }).map((_, i) => (
+            <div key={i} className="h-12 w-24 rounded-xl bg-[var(--surface-raised)] animate-pulse flex-shrink-0" />
           ))}
         </div>
+        <div className="h-64 rounded-2xl bg-[var(--surface-raised)] animate-pulse" />
       </div>
     )
   }
 
-  if (unitDataError || !unit) {
+  if (error || !unit) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 py-20" dir="rtl">
         <p className="font-['Tajawal']" style={{ color: V1.textDim, fontSize: V1.type.bodyLg }}>لم يتم العثور على الوحدة</p>
@@ -235,27 +242,9 @@ export default function UnitContent() {
   const levelNum = unit.level?.level_number ?? ''
   const levelName = LEVEL_NAMES[levelNum] || ''
   const coverUrl = unit.cover_image_url || unit.level?.cover_image_url
-  const activeLabel = TABS.find(t => t.id === activeActivity)?.label
-
-  // Current student rank for trophy button badge
-  const currentRank = starRanking?.currentStudentRank || null
 
   return (
     <div dir="rtl" style={{ minHeight: '100vh', position: 'relative' }}>
-
-      {/* Ambient particles — behind everything */}
-      <AmbientParticles type={particleType} />
-
-      {/* Unit intro cinematic — first visit only */}
-      {unit && !introSeen && (
-        <UnitIntroCinematic
-          unit={unit}
-          onDone={() => setIntroSeen(true)}
-        />
-      )}
-
-      {/* Celebration layer — global event listener */}
-      <CelebrationLayer />
 
       <CinematicBg coverUrl={coverUrl} />
 
@@ -264,26 +253,17 @@ export default function UnitContent() {
         className="w-full max-w-4xl mx-auto px-4 py-6 space-y-5"
         style={{ position: 'relative', zIndex: 10 }}
       >
-        {/* ════ HERO HEADER ════ */}
+        {/* Header */}
         <div className="space-y-2">
-          {/* Back button + Trophy button row */}
-          <div className="flex items-center justify-between">
-            <button
-              onClick={() => activeActivity ? handleBackToGrid() : navigate(-1)}
-              className="flex items-center gap-1.5 transition-colors font-['Tajawal']"
-              style={{ color: V1.accentGold, opacity: 0.6, fontSize: V1.type.bodySm, background: 'none', border: 'none' }}
-            >
-              <ArrowRight size={16} />
-              {activeActivity ? 'العودة للوحدة' : 'العودة'}
-            </button>
+          <button
+            onClick={() => navigate(-1)}
+            className="cinematic-card flex items-center gap-1.5 transition-colors font-['Tajawal']"
+            style={{ color: V1.accentGold, opacity: 0.6, fontSize: V1.type.bodySm, background: 'none', border: 'none' }}
+          >
+            <ArrowRight size={16} />
+            العودة
+          </button>
 
-            <TrophyButton
-              rank={currentRank}
-              onClick={() => setTrophyOpen(true)}
-            />
-          </div>
-
-          {/* Unit title block */}
           <div style={{ position: 'relative', overflow: 'hidden', padding: '8px 0' }}>
             <div style={{
               position: 'absolute', top: -10, left: 0, fontSize: V1.type.bgType, fontWeight: 800,
@@ -335,18 +315,17 @@ export default function UnitContent() {
             <div style={{ marginTop: '12px', height: '1px', background: `linear-gradient(90deg, ${V1.accentGoldStrong}, ${V1.accentGoldSoft}, transparent)` }} />
           </div>
 
-          {/* Progress bar — compact, merged into header */}
-          {progress && (
+          {unitProgress && (
             <div className="mt-3 space-y-1.5">
               <div className="flex items-center justify-between">
                 <span className="font-['Tajawal']" style={{ color: V1.textDim, fontSize: V1.type.bodyXs }}>
                   التقدم الكلي
                 </span>
                 <div className="flex items-center gap-1.5">
-                  {progress.percentage === 100 && <Check size={12} className="text-emerald-400" />}
+                  {overallProgress === 100 && <Check size={12} className="text-emerald-400" />}
                   <span className="font-bold font-['Inter'] tabular-nums"
-                    style={{ color: progress.percentage === 100 ? '#4ade80' : V1.textDim, fontSize: V1.type.bodyXs }}>
-                    {progress.percentage}%
+                    style={{ color: overallProgress === 100 ? '#4ade80' : V1.textDim, fontSize: V1.type.bodyXs }}>
+                    {overallProgress}%
                   </span>
                 </div>
               </div>
@@ -354,87 +333,121 @@ export default function UnitContent() {
                 <motion.div
                   className="h-full rounded-full"
                   initial={{ width: 0 }}
-                  animate={{ width: `${progress.percentage}%` }}
+                  animate={{ width: `${overallProgress}%` }}
                   transition={{ duration: m.reduced ? 0 : 0.6, ease: 'easeOut' }}
                   style={{
-                    background: progress.percentage === 100
+                    background: overallProgress === 100
                       ? 'linear-gradient(90deg, #4ade80, #22c55e)'
-                      : progress.percentage > 0
+                      : overallProgress > 0
                         ? V1.goldGradient
                         : 'transparent',
                   }}
                 />
               </div>
               <div className="flex items-center gap-1 font-['Tajawal']" style={{ color: V1.textDim, fontSize: V1.type.bodyXs }}>
-                <span>{progress.completedCount}/{progress.totalCount} أنشطة مكتملة</span>
+                <span>{unitProgress.completedCount}/{unitProgress.activeCount} أنشطة مكتملة</span>
               </div>
             </div>
           )}
         </div>
 
-        {/* Class summary (preserved) */}
-        {isStudent && !activeActivity && <ClassSummaryView unitId={unitId} />}
+        {/* Unit Star Card — glass treatment */}
+        {unitStarData?.star && (
+          <div style={{
+            background: V1.accentGoldSoft,
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            border: `1px solid ${V1.accentGoldStrong}`,
+            borderRadius: '16px',
+            overflow: 'hidden',
+          }}>
+            <UnitStarCard
+              star={unitStarData.star}
+              rankings={unitStarData.rankings}
+              currentStudentId={studentData?.id}
+            />
+          </div>
+        )}
 
-        {/* ════ MISSION GRID or ACTIVITY CONTENT ════ */}
-        <AnimatePresence mode="wait">
-          {!activeActivity ? (
-            <motion.div
-              key="mission-grid"
-              initial={m.reduced ? {} : { opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={m.reduced ? {} : { opacity: 0, y: -20 }}
-              transition={{ duration: m.reduced ? 0 : 0.3 }}
-            >
-              {/* Smart CTA — primary action */}
-              <SmartNextStepCTA
-                nextStep={nextStep}
-                onNavigate={handleActivitySelect}
-              />
+        {isStudent && <ClassSummaryView unitId={unitId} />}
 
-              {/* Mission Grid */}
-              <div style={{ marginTop: '24px' }}>
-                <MissionGrid
-                  activities={unitData.activities}
-                  onSelect={handleActivitySelect}
-                />
-              </div>
-            </motion.div>
-          ) : (
-            <motion.div
-              key={`activity-${activeActivity}`}
-              initial={m.reduced ? {} : { opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={m.reduced ? {} : { opacity: 0, x: 20 }}
-              transition={{ duration: m.reduced ? 0 : 0.25 }}
-            >
-              {/* Activity label */}
-              {activeLabel && (
-                <div className="flex items-center gap-2 mb-4 font-['Tajawal']" style={{ color: V1.textDim, fontSize: V1.type.bodySm }}>
-                  <button
-                    onClick={handleBackToGrid}
-                    style={{ color: V1.accentGold, background: 'none', border: 'none', cursor: 'pointer' }}
-                    className="font-['Tajawal']"
-                  >
-                    الوحدة
-                  </button>
-                  <span style={{ color: V1.textFaint }}>›</span>
-                  <span>{activeLabel}</span>
-                </div>
-              )}
-
-              {/* Activity content — SACRED, unchanged */}
-              <SectionErrorBoundary
-                section={activeActivity}
-                sectionLabel={activeLabel}
-                unitId={unitId}
+        {/* Tab bar — accessible tablist */}
+        <div
+          ref={tabBarRef}
+          role="tablist"
+          aria-label="أقسام الوحدة"
+          onKeyDown={handleTabKeyDown}
+          className="flex gap-1 overflow-x-auto scrollbar-hide sticky top-16 z-10 -mx-4 px-4 py-2 snap-x snap-mandatory scroll-smooth"
+          style={{ background: `${V1.bg}ee`, backdropFilter: 'blur(12px)' }}
+        >
+          {TABS.map((tab) => {
+            const Icon = tab.icon
+            const isActive = activeTab === tab.id
+            const secStatus = tabStatus[tab.id]
+            const dotColor = secStatus === 'completed' ? 'bg-emerald-400' : secStatus === 'in_progress' ? 'bg-amber-400' : null
+            return (
+              <button
+                key={tab.id}
+                ref={isActive ? activeTabRef : undefined}
+                data-tab-id={tab.id}
+                role="tab"
+                aria-selected={isActive}
+                tabIndex={isActive ? 0 : -1}
+                onClick={() => {
+                  tracker.track('tab_switched', { tab_name: tab.id, unit_id: unitId })
+                  setActiveTab(tab.id)
+                }}
+                className={`relative flex items-center gap-1 snap-start
+                  px-2.5 sm:px-3 lg:px-3.5 h-10 lg:h-11
+                  rounded-xl text-xs sm:text-[13px] lg:text-sm
+                  font-medium whitespace-nowrap transition-all
+                  flex-shrink-0 font-['Tajawal'] cinematic-card`}
+                style={isActive ? {
+                  background: V1.accentGoldSoft,
+                  color: V1.accentGold,
+                  border: `1px solid ${V1.accentGoldStrong}`,
+                  boxShadow: V1.glowGold,
+                  transitionDuration: V1.duration.fast,
+                } : {
+                  color: V1.textDim,
+                  border: '1px solid transparent',
+                  transitionDuration: V1.duration.fast,
+                }}
               >
-                {renderActivityContent(activeActivity)}
-              </SectionErrorBoundary>
-            </motion.div>
-          )}
+                <Icon size={14} className="lg:w-4 lg:h-4" />
+                <span className="hidden sm:inline">{tab.label}</span>
+                <span className="sm:hidden">{tab.shortLabel || tab.label}</span>
+                {dotColor && (
+                  <span className={`w-1.5 h-1.5 rounded-full ${dotColor} absolute top-1.5 left-1.5`} />
+                )}
+                {isStudent && bookmarks.includes(tab.id) && (
+                  <MapPin size={10} className="absolute top-1 right-1" style={{ color: V1.accentGold }} />
+                )}
+              </button>
+            )
+          })}
+        </div>
+
+        {/* Tab content */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={m.reduced ? { opacity: 1 } : { opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={m.reduced ? { opacity: 1 } : { opacity: 0, x: -20 }}
+            transition={{ duration: m.reduced ? 0 : 0.2 }}
+          >
+            <SectionErrorBoundary
+              key={activeTab}
+              section={activeTab}
+              sectionLabel={TABS.find(t => t.id === activeTab)?.label}
+              unitId={unitId}
+            >
+              {renderTabContent()}
+            </SectionErrorBoundary>
+          </motion.div>
         </AnimatePresence>
 
-        {/* Student FAB (preserved) */}
         {isStudent && (
           <>
             <StudentFAB
@@ -451,17 +464,6 @@ export default function UnitContent() {
           </>
         )}
       </motion.div>
-
-      {/* Trophy modal */}
-      <AnimatePresence>
-        {trophyOpen && (
-          <TrophyModal
-            data={{ star: starRanking?.star, rankings: starRanking?.rankings }}
-            currentStudentId={studentData?.id}
-            onClose={() => setTrophyOpen(false)}
-          />
-        )}
-      </AnimatePresence>
     </div>
   )
 }
