@@ -83,9 +83,9 @@ export default function MobileDrawer({ open, onClose, nav }) {
 
             <div style={{ height: 1, margin: '0 16px', background: 'var(--ds-border-subtle, var(--border-subtle))' }} />
 
-            {/* Sections */}
+            {/* Sections — use drawerSections (full list) when available */}
             <div className="px-3 py-4 space-y-5">
-              {nav.sections.map((section) => (
+              {(nav.drawerSections || nav.sections).map((section) => (
                 <div key={section.id}>
                   <div
                     className="px-3 mb-2 text-[11px] font-semibold"

@@ -52,12 +52,20 @@
     <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=Playfair+Display:wght@700;800;900&family=Inter+Tight:wght@400;600;800&family=Amiri:wght@700&display=swap" rel="stylesheet" /></noscript>
     <title>Fluentia Academy — أكاديمية طلاقة</title>
     <script>
-      // Apply theme before first paint to prevent flash
-      (function(){
-        var t = 'dark';
-        try { t = localStorage.getItem('fluentia_theme') || 'dark' } catch(e){}
-        if (t === 'auto') t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-        document.documentElement.classList.add(t);
+      // Apply design-system theme before first paint to prevent flash
+      (function() {
+        try {
+          var saved = localStorage.getItem('fluentia-theme');
+          var valid = ['aurora-cinematic', 'night', 'minimal'];
+          var theme = (saved && valid.indexOf(saved) > -1) ? saved : 'night';
+          document.documentElement.setAttribute('data-theme', theme);
+          // Backward-compat class for legacy CSS (.dark / .light)
+          document.documentElement.classList.remove('dark', 'light');
+          document.documentElement.classList.add(theme === 'minimal' ? 'light' : 'dark');
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'night');
+          document.documentElement.classList.add('dark');
+        }
       })();
     </script>
   </head>
