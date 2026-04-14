@@ -1,0 +1,26 @@
+-- LEGENDARY-B2: L1 Vocabulary Expansion to 650 CEFR-A1/A2 words (tiered)
+-- Applied via scripts/staging/l1_vocab_*.cjs → direct INSERT into curriculum_vocabulary
+-- This migration is a documentation marker — the actual data was inserted via the staging scripts.
+--
+-- Summary:
+--   480 new vocabulary words inserted into L1 (level_id = '2755b494-c7ff-4bdc-96ac-7ab735dc038c')
+--   All marked: added_in_prompt = 'LEGENDARY-B2', appears_in_passage = false
+--   Attached to first reading of each unit (FK requirement)
+--   Tiers: core/extended/mastery
+--   CEFR: A1 (~18%) + A2 (~82%)
+--   Sources: CEFR-J (~60%), NGSL (~40%)
+--
+-- Verification:
+--   L1 unique final: 657 (target >= 650) ✓
+--   Every unit >= 56 unique ✓
+--   L1 readings unchanged: 24 ✓
+--   No student data affected (0 active L1 students) ✓
+--
+-- To verify post-hoc:
+-- SELECT COUNT(DISTINCT LOWER(word)) FROM curriculum_vocabulary v
+-- JOIN curriculum_readings r ON r.id = v.reading_id
+-- JOIN curriculum_units u ON u.id = r.unit_id
+-- WHERE u.level_id = '2755b494-c7ff-4bdc-96ac-7ab735dc038c';
+-- Expected: >= 657
+
+SELECT 'LEGENDARY-B2: L1 vocab expansion marker migration' AS info;
