@@ -1,234 +1,173 @@
-import { useState, useRef, useEffect, lazy, Suspense, useCallback, useMemo } from 'react'
-import { Outlet, NavLink, useLocation, useNavigate } from 'react-router-dom'
-import AnimatedPage from '../ui/AnimatedPage'
-import { motion, AnimatePresence } from 'framer-motion'
-import {
-  House, CalendarDays, Video, FileText, Users, Zap, Bot, CreditCard, Settings,
-  BarChart3, User, MoreHorizontal, X, Mic, PenLine, MessageSquare, ClipboardCheck,
-  UsersRound, GraduationCap, ListChecks, Loader2, Lock, Map, StickyNote, TrendingUp,
-} from 'lucide-react'
+import { useState, useRef, useEffect, useCallback, lazy, Suspense } from 'react'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { AnimatePresence, motion } from 'framer-motion'
+import { Loader2 } from 'lucide-react'
 import Sidebar from './Sidebar'
 import Header from './Header'
+import MobileBar from './MobileBar'
+import MobileDrawer from './MobileDrawer'
 import ErrorBoundary from '../ErrorBoundary'
-import AIFloatingHelper from '../ai/AIFloatingHelper'
-import A11yFloatingButton from '../Accessibility/A11yFloatingButton'
 import PWAInstallGate from '../pwa/PWAInstallGate'
 import UpdateBanner from '../UpdateBanner'
-import { useAuthStore } from '../../stores/authStore'
-import { hasPackageAccess } from '../PackageGate'
-import { PACKAGES } from '../../lib/constants'
+import A11yFloatingButton from '../Accessibility/A11yFloatingButton'
 import ResetPageButton from '../ResetPageButton'
 import XPFloater from '../ui/XPFloater'
 import FloatingToolbar from '../trainer/FloatingToolbar'
 import TimerBadge from '../trainer/TimerBadge'
-import useClassMode from '../../stores/classModeStore'
-import PostClassSummary from '../trainer/PostClassSummary'
-import usePullToRefresh from '../../hooks/usePullToRefresh'
-import useActivityTracker from '../../hooks/useActivityTracker'
-import { usePageTracking } from '../../hooks/usePageTracking'
-import { tracker } from '../../services/activityTracker'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { supabase } from '../../lib/supabase'
+import { useAuthStore } from '@/stores/authStore'
+import { getNavForRole } from '@/config/navigation'
+import useClassMode from '@/stores/classModeStore'
+import usePullToRefresh from '@/hooks/usePullToRefresh'
+import { usePageTracking } from '@/hooks/usePageTracking'
+import { tracker } from '@/services/activityTracker'
+import { useQueryClient, useQuery } from '@tanstack/react-query'
+import { supabase } from '@/lib/supabase'
 
 const GeometricMesh = lazy(() => import('../backgrounds/GeometricMesh'))
-const FloatingOrbs = lazy(() => import('../backgrounds/FloatingOrbs'))
-
-// Bottom tab bar items per role (mobile only — top 4 + More)
-const MOBILE_TABS = {
-  student: [
-    { to: '/student', label: 'الرئيسية', icon: House },
-    { to: '/student/curriculum', label: 'المنهج', icon: FileText },
-    { to: '/student/progress', label: 'تقدّمي', icon: BarChart3 },
-    { to: '/student/profile', label: 'حسابي', icon: User },
-  ],
-  trainer: [
-    { to: '/trainer', label: 'الرئيسية', icon: House },
-    { to: '/trainer/my-students', label: 'الطلاب', icon: Users },
-    { to: '/trainer/grading', label: 'التقييم', icon: ClipboardCheck },
-    { to: '/trainer/points', label: 'الحصة', icon: Zap },
-  ],
-  admin: [
-    { to: '/admin', label: 'الرئيسية', icon: House },
-    { to: '/admin/users', label: 'الطلاب', icon: Users },
-    { to: '/admin/packages', label: 'المالية', icon: CreditCard },
-    { to: '/admin/reports', label: 'التحليلات', icon: BarChart3 },
-  ],
-}
-
-// Extra items for the "More" bottom sheet
-// requiredPackage: minimum package needed (omit for all-access)
-// comingSoon: true = feature not ready yet (blocks all packages)
-const MORE_ITEMS = {
-  student: [
-    { to: '/student/flashcards', label: 'المفردات', icon: FileText },
-    { to: '/student/verbs', label: 'الأفعال الشاذة', icon: FileText },
-    { to: '/student/speaking-lab', label: 'معمل التحدث', icon: Mic, requiredPackage: 'tamayuz', comingSoon: true },
-    { to: '/student/writing-lab', label: 'معمل الكتابة', icon: PenLine, requiredPackage: 'tamayuz', comingSoon: true },
-    { to: '/student/conversation', label: 'المحادثة', icon: MessageSquare },
-    { to: '/student/ai-chat', label: 'المساعد الذكي', icon: Bot, requiredPackage: 'talaqa' },
-    { to: '/student/group-activity', label: 'نشاط المجموعة', icon: UsersRound, requiredPackage: 'talaqa' },
-  ],
-  trainer: [
-    { to: '/trainer/curriculum', label: 'المنهج', icon: FileText },
-    { to: '/trainer/my-notes', label: 'ملاحظاتي', icon: StickyNote },
-    { to: '/trainer/weekly-report', label: 'تقرير أسبوعي', icon: TrendingUp },
-    { to: '/trainer/progress-matrix', label: 'تقدم الطلاب', icon: BarChart3 },
-    { to: '/trainer/conversation', label: 'المحادثة', icon: MessageSquare },
-    { to: '/trainer/ai-assistant', label: 'المساعد الذكي', icon: Bot },
-  ],
-  admin: [
-    { to: '/admin/groups', label: 'المجموعات', icon: Users },
-    { to: '/admin/trainers', label: 'المدربين', icon: GraduationCap },
-    { to: '/trainer/curriculum', label: 'تصفّح المنهج', icon: FileText },
-    { to: '/admin/settings', label: 'الإعدادات', icon: Settings },
-  ],
-}
-
-const TAB_ACTIVE_COLORS = {
-  student: 'text-sky-400',
-  trainer: 'text-emerald-400',
-  admin: 'text-gold-400',
-}
 
 export default function LayoutShell() {
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [collapsed, setCollapsed] = useState(false)
-  const [moreOpen, setMoreOpen] = useState(false)
-  const [toast, setToast] = useState(null)
-  const toastTimerRef = useRef(null)
-  // Use individual selectors to avoid re-rendering on every store change.
-  // Previously subscribed to entire store, causing LayoutShell (and all children)
-  // to re-render on any auth state update.
-  const profile = useAuthStore(s => s.profile)
-  const studentData = useAuthStore(s => s.studentData)
-  const impersonation = useAuthStore(s => s.impersonation)
-  const isClassMode = useClassMode(s => s.isClassMode)
-  const showPostSummary = useClassMode(s => s.showPostSummary)
-  const classStartedAt = useClassMode(s => s.classStartedAt)
-  const currentUnitId = useClassMode(s => s.currentUnitId)
-  const pointsGiven = useClassMode(s => s.pointsGiven)
-  const dismissSummary = useClassMode(s => s.dismissSummary)
+  const [drawerOpen, setDrawerOpen] = useState(false)
+  const [collapsed, setCollapsed] = useState(() => {
+    try { return localStorage.getItem('fluentia-sidebar-collapsed') === '1' } catch { return false }
+  })
+
+  const profile = useAuthStore((s) => s.profile)
+  const studentData = useAuthStore((s) => s.studentData)
+  const impersonation = useAuthStore((s) => s.impersonation)
+  const isClassMode = useClassMode((s) => s.isClassMode)
+  const showPostSummary = useClassMode((s) => s.showPostSummary)
+  const classStartedAt = useClassMode((s) => s.classStartedAt)
+  const currentUnitId = useClassMode((s) => s.currentUnitId)
+  const pointsGiven = useClassMode((s) => s.pointsGiven)
+  const dismissSummary = useClassMode((s) => s.dismissSummary)
+
   const role = profile?.role || 'student'
-  const studentPackage = studentData?.package || 'asas'
-  const tabs = MOBILE_TABS[role] || MOBILE_TABS.student
-  const moreItems = MORE_ITEMS[role] || []
-  const activeColor = TAB_ACTIVE_COLORS[role] || TAB_ACTIVE_COLORS.student
+  const nav = getNavForRole(role)
   const navigate = useNavigate()
   const location = useLocation()
   const queryClient = useQueryClient()
 
-  // Activity tracking handled by the class-based tracker singleton (activityTracker.js)
-  // useActivityTracker() — DISABLED: was creating duplicate sessions + double DB writes
+  // Persist collapsed state
+  const handleToggleCollapsed = useCallback(() => {
+    setCollapsed((v) => {
+      const next = !v
+      try { localStorage.setItem('fluentia-sidebar-collapsed', next ? '1' : '0') } catch {}
+      return next
+    })
+  }, [])
 
-  // Scroll to top + close sidebar on navigation
+  // Scroll to top + close drawers on navigation
   useEffect(() => {
     window.scrollTo(0, 0)
     setMobileOpen(false)
-    setMoreOpen(false)
+    setDrawerOpen(false)
   }, [location.pathname])
 
-  // Page view tracking (all roles — uses the class-based tracker for analytics_events)
+  // Page view tracking
   usePageTracking()
 
-  // Cleanup toast timer on unmount
-  useEffect(() => () => clearTimeout(toastTimerRef.current), [])
-
-  const showToast = useCallback((msg) => {
-    clearTimeout(toastTimerRef.current)
-    setToast(msg)
-    toastTimerRef.current = setTimeout(() => setToast(null), 2500)
-  }, [])
-
-  // Pull to refresh — only refetch queries visible on the current page.
-  // Previously invalidated ALL cached queries (100+), causing a massive
-  // refetch storm and perceived lag. Now only refetches active (mounted) queries.
+  // Pull to refresh
   const handleRefresh = useCallback(async () => {
     await queryClient.refetchQueries({ type: 'active' })
   }, [queryClient])
   const { isRefreshing, pullProgress, pullDistance } = usePullToRefresh(handleRefresh)
 
+  // Impersonation banner height CSS variable
+  useEffect(() => {
+    document.documentElement.style.setProperty('--impersonation-banner-height', impersonation ? '44px' : '0px')
+    return () => document.documentElement.style.setProperty('--impersonation-banner-height', '0px')
+  }, [impersonation])
+
+  const openDrawer = useCallback(() => setDrawerOpen(true), [])
+  const closeDrawer = useCallback(() => setDrawerOpen(false), [])
+
   return (
-    <div className="min-h-dvh gradient-mesh" style={{ background: 'var(--surface-base)', paddingTop: impersonation ? '40px' : undefined }} data-role={role} onClick={() => tracker.touch()} onKeyDown={() => tracker.touch()}>
+    <div
+      className="min-h-dvh"
+      style={{ background: 'var(--ds-bg-base, var(--surface-base))', paddingTop: impersonation ? '44px' : undefined }}
+      data-role={role}
+      onClick={() => tracker.touch()}
+      onKeyDown={() => tracker.touch()}
+    >
       <UpdateBanner />
-      {/* Background layer — lightweight static mesh only (FloatingOrbs removed: blur(80px) causes jank on phones) */}
+
+      {/* Background */}
       <Suspense fallback={null}>
         <GeometricMesh />
       </Suspense>
 
-      {/* Pull-to-refresh indicator (mobile) */}
+      {/* Pull-to-refresh (mobile) */}
       {(pullDistance > 0 || isRefreshing) && (
         <div
           className="fixed top-[var(--sat)] left-0 right-0 z-[60] flex flex-col items-center justify-center lg:hidden"
           style={{
-            height: `${Math.max(pullDistance, isRefreshing ? 50 : 0)}px`,
+            height: Math.max(pullDistance, isRefreshing ? 50 : 0),
             transition: isRefreshing ? 'none' : 'height 0.1s',
           }}
         >
           <div
             className="w-8 h-8 rounded-full flex items-center justify-center"
             style={{
-              background: 'var(--surface-raised)',
-              border: '1px solid var(--border-subtle)',
+              background: 'var(--ds-surface-1, var(--surface-raised))',
+              border: '1px solid var(--ds-border-subtle, var(--border-subtle))',
               opacity: Math.min(pullProgress, 1),
               transform: isRefreshing ? undefined : `rotate(${pullProgress * 360}deg)`,
             }}
           >
-            <Loader2 size={16} className={isRefreshing ? 'animate-spin' : ''} style={{ color: 'var(--accent-sky)' }} />
+            <Loader2 size={16} className={isRefreshing ? 'animate-spin' : ''} style={{ color: 'var(--ds-accent-primary, var(--accent-sky))' }} />
           </div>
           {pullDistance > 20 && !isRefreshing && (
-            <span className="text-[10px] mt-1 font-['Tajawal']" style={{ color: 'var(--text-muted)', opacity: Math.min(pullProgress, 1) }}>
+            <span className="text-[10px] mt-1 font-['Tajawal']" style={{ color: 'var(--ds-text-tertiary, var(--text-muted))', opacity: Math.min(pullProgress, 1) }}>
               {pullProgress >= 1 ? 'أفلت للتحديث' : 'اسحب للتحديث'}
             </span>
           )}
         </div>
       )}
 
-      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:right-4 focus:z-[100] focus:bg-sky-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm">
+      {/* Skip to content */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:right-4 focus:z-[100] focus:bg-sky-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm"
+      >
         انتقل إلى المحتوى الرئيسي
       </a>
+
+      {/* Sidebar (desktop only) */}
       {!isClassMode && (
-        <Sidebar
-          open={mobileOpen}
-          onClose={() => setMobileOpen(false)}
-          collapsed={collapsed}
-          onToggleCollapse={() => setCollapsed(!collapsed)}
-        />
+        <Sidebar nav={nav} collapsed={collapsed} onToggle={handleToggleCollapsed} />
       )}
 
-      {/* Main content area — offset by sidebar width */}
+      {/* Main content area */}
       <div
-        className={`relative z-[1] transition-all duration-300 ease-apple ${
-          isClassMode ? '' : collapsed ? 'lg:mr-[72px]' : 'lg:mr-[260px]'
+        className={`relative z-[1] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          isClassMode ? '' : collapsed ? 'lg:mr-[76px]' : 'lg:mr-[264px]'
         }`}
       >
-        {!isClassMode && <Header onMenuToggle={() => setMobileOpen(true)} />}
+        {!isClassMode && (
+          <Header
+            nav={nav}
+            showMenuButton
+            onMenuClick={openDrawer}
+          />
+        )}
         <PWAInstallGate />
 
-        <main id="main-content" className="px-4 py-6 lg:px-10 lg:py-8 lg:pb-10" style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <main id="main-content" className="px-4 py-6 lg:px-10 lg:py-8 lg:pb-10" style={{ maxWidth: 1200, margin: '0 auto' }}>
           <ErrorBoundary key={location.pathname}>
             <Outlet />
           </ErrorBoundary>
-          {/* Bottom spacer — guarantees content is never hidden behind the fixed mobile
-              bottom tab bar. Uses inline style so no CSS class/specificity/layer/purge
-              issue can ever break it. 150px = nav(64) + safe-area(~34) + buffer(~52). */}
-          <div
-            className="lg:hidden"
-            aria-hidden="true"
-            style={{ height: 150, flexShrink: 0 }}
-          />
+          {/* Bottom spacer for mobile nav */}
+          <div className="lg:hidden" aria-hidden="true" style={{ height: 150, flexShrink: 0 }} />
         </main>
       </div>
 
-      {/* XP Floater (global) */}
+      {/* Floating elements */}
       <XPFloater />
-
-      {/* Timer Badge (visible to all roles when active) */}
       <TimerBadge />
-
-      {/* Trainer Floating Toolbar (trainer/admin on curriculum pages) */}
       <FloatingToolbar />
 
-      {/* Post-Class Summary Modal */}
+      {/* Post-Class Summary */}
       <AnimatePresence>
         {showPostSummary && (role === 'trainer' || role === 'admin') && (
           <PostClassSummaryWrapper
@@ -242,162 +181,21 @@ export default function LayoutShell() {
         )}
       </AnimatePresence>
 
-      {/* AI Floating Helper — temporarily hidden (Apr 12) to avoid overlap with
-          the accessibility FAB on mobile. Re-enable by uncommenting. */}
-      {/* <AIFloatingHelper /> */}
-
-      {/* Accessibility Floating Button — visible on all pages */}
       <A11yFloatingButton />
-
-      {/* Universal Reset Page Button */}
       <ResetPageButton />
 
-      {/* Mobile bottom tab bar */}
-      <nav aria-label="التنقل الرئيسي" className="mobile-tab-bar lg:hidden">
-        <div className="flex items-center justify-around w-full max-w-lg mx-auto h-16">
-          {tabs.map((tab) => (
-            <NavLink
-              key={tab.to}
-              to={tab.to}
-              end={tab.to === `/${role}` || tab.to === '/admin' || tab.to === '/trainer' || tab.to === '/student'}
-              className={({ isActive }) =>
-                `flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-[10px] font-medium transition-all duration-200 min-w-[56px] min-h-[44px] justify-center ${
-                  isActive ? `${activeColor} bg-[var(--surface-raised)]` : 'text-muted'
-                }`
-              }
-            >
-              {({ isActive }) => (
-                <>
-                  <tab.icon size={20} style={isActive ? { filter: `drop-shadow(0 0 4px currentColor)` } : undefined} />
-                  <span>{tab.label}</span>
-                </>
-              )}
-            </NavLink>
-          ))}
-          {/* More button */}
-          <button
-            onClick={() => setMoreOpen(true)}
-            className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-[10px] font-medium transition-all duration-200 min-w-[56px] min-h-[44px] justify-center ${
-              moreOpen ? `${activeColor} bg-[var(--surface-raised)]` : 'text-muted'
-            }`}
-          >
-            <MoreHorizontal size={20} />
-            <span>المزيد</span>
-          </button>
-        </div>
-      </nav>
+      {/* Mobile bottom bar */}
+      {!isClassMode && <MobileBar nav={nav} onMoreClick={openDrawer} role={role} />}
 
-      {/* More bottom sheet */}
-      <AnimatePresence>
-        {moreOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[70] lg:hidden"
-              style={{ background: 'var(--modal-backdrop)' }}
-              onClick={() => setMoreOpen(false)}
-            />
-            {/* Sheet */}
-            <motion.div
-              initial={{ y: '100%' }}
-              animate={{ y: 0 }}
-              exit={{ y: '100%' }}
-              transition={{ type: 'spring', damping: 30, stiffness: 400 }}
-              className="fixed bottom-0 left-0 right-0 z-[71] rounded-t-2xl lg:hidden"
-              style={{
-                background: 'var(--surface-raised)',
-                borderTop: '1px solid var(--border-subtle)',
-                maxHeight: '70vh',
-                overflowY: 'auto',
-                paddingBottom: 'calc(var(--bottom-nav-height, 64px) + var(--sab) + 24px)',
-              }}
-            >
-              {/* Handle */}
-              <div className="flex justify-center py-3">
-                <div className="w-10 h-1 rounded-full" style={{ background: 'var(--border-default)' }} />
-              </div>
-              {/* Header */}
-              <div className="flex items-center justify-between px-5 pb-3">
-                <h3 className="text-[15px] font-bold" style={{ color: 'var(--text-primary)' }}>المزيد</h3>
-                <button onClick={() => setMoreOpen(false)} className="p-2 rounded-lg" style={{ color: 'var(--text-tertiary)' }}>
-                  <X size={18} />
-                </button>
-              </div>
-              {/* Items grid */}
-              <div className="grid grid-cols-4 gap-1 px-4 pb-6">
-                {moreItems.map((item) => {
-                  const isComingSoon = item.comingSoon
-                  const isLocked = !isComingSoon && item.requiredPackage && role === 'student' && !hasPackageAccess(studentPackage, item.requiredPackage)
-
-                  return (
-                    <button
-                      key={item.to}
-                      onClick={() => {
-                        if (isComingSoon) {
-                          showToast('نشتغل عليها! بتكون جاهزة قريب إن شاء الله')
-                          return
-                        }
-                        if (isLocked) {
-                          const pkgName = PACKAGES[item.requiredPackage]?.name_ar || item.requiredPackage
-                          showToast(`هالميزة متاحة لـ${pkgName} وأعلى`)
-                          return
-                        }
-                        tracker.track('nav_clicked', { item: item.label, to: item.to, source: 'bottom_sheet' })
-                        setMoreOpen(false)
-                        navigate(item.to)
-                      }}
-                      className="flex flex-col items-center gap-1.5 py-3 px-2 rounded-xl transition-colors min-h-[72px] justify-center relative"
-                      style={{ color: isComingSoon || isLocked ? 'var(--text-tertiary)' : 'var(--text-secondary)', opacity: isComingSoon || isLocked ? 0.6 : 1 }}
-                    >
-                      <div className="w-10 h-10 rounded-xl flex items-center justify-center relative" style={{ background: 'var(--surface-overlay)' }}>
-                        <item.icon size={18} strokeWidth={1.5} />
-                        {isLocked && (
-                          <div className="absolute -top-1 -left-1 w-4 h-4 rounded-full flex items-center justify-center" style={{ background: 'var(--accent-gold-glow)' }}>
-                            <Lock size={9} style={{ color: 'var(--accent-gold)' }} />
-                          </div>
-                        )}
-                      </div>
-                      <span className="text-[11px] font-medium text-center leading-tight">{item.label}</span>
-                      {isComingSoon && (
-                        <span className="text-[11px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: 'var(--accent-amber-glow)', color: 'var(--accent-amber)' }}>قريباً</span>
-                      )}
-                    </button>
-                  )
-                })}
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-
-      {/* Toast notification */}
-      <AnimatePresence>
-        {toast && (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 30 }}
-            className="fixed bottom-[calc(var(--bottom-nav-height,64px)+var(--sab)+24px)] lg:bottom-8 left-1/2 -translate-x-1/2 z-[200] px-5 py-3 rounded-2xl text-sm font-medium text-center max-w-xs"
-            style={{
-              background: 'var(--surface-overlay)',
-              border: '1px solid var(--border-default)',
-              color: 'var(--text-primary)',
-              boxShadow: 'var(--shadow-lg)',
-            }}
-          >
-            {toast}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Mobile drawer */}
+      <MobileDrawer open={drawerOpen} onClose={closeDrawer} nav={nav} />
     </div>
   )
 }
 
-// Small wrapper to resolve groupId for PostClassSummary
+// Resolve groupId for PostClassSummary
 function PostClassSummaryWrapper({ unitId, classStartedAt, pointsGiven, profileId, role, onClose }) {
+  const PostClassSummary = lazy(() => import('../trainer/PostClassSummary'))
   const { data: groups } = useQuery({
     queryKey: ['post-summary-group', profileId, role],
     queryFn: async () => {
@@ -410,5 +208,9 @@ function PostClassSummaryWrapper({ unitId, classStartedAt, pointsGiven, profileI
   })
   const groupId = groups?.[0]?.id
   if (!groupId) return null
-  return <PostClassSummary groupId={groupId} unitId={unitId} classStartedAt={classStartedAt} pointsGiven={pointsGiven} onClose={onClose} />
+  return (
+    <Suspense fallback={null}>
+      <PostClassSummary groupId={groupId} unitId={unitId} classStartedAt={classStartedAt} pointsGiven={pointsGiven} onClose={onClose} />
+    </Suspense>
+  )
 }
