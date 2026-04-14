@@ -14,6 +14,19 @@ const SECTION_LABELS = {
   assessment: 'التقييم',
 }
 
+// Skill impact deltas per section type (LEGENDARY-A convention)
+const SKILL_IMPACT = {
+  reading:    { reading: 2 },
+  writing:    { writing: 2 },
+  speaking:   { speaking: 2 },
+  listening:  { listening: 2 },
+  grammar:    { grammar: 2 },
+  vocabulary: { vocabulary: 2 },
+  vocabulary_exercise: { vocabulary: 1 },
+  pronunciation: { speaking: 1 },
+  assessment: { grammar: 1, vocabulary: 1, reading: 1, listening: 1 },
+}
+
 /**
  * Award XP for completing a curriculum activity.
  * Uses server-side function to bypass RLS and prevent double-awarding.
@@ -28,6 +41,7 @@ export async function awardCurriculumXP(studentId, sectionType, score, unitId) {
   if (!studentId || !sectionType) return 0
 
   try {
+    // TODO: remove after all readers migrated to unified_activity_log (LEGENDARY-E)
     const { data, error } = await supabase.rpc('award_curriculum_xp', {
       p_student_id: studentId,
       p_section_type: sectionType,
@@ -46,6 +60,20 @@ export async function awardCurriculumXP(studentId, sectionType, score, unitId) {
       const label = SECTION_LABELS[sectionType] || sectionType
       emitXP(xp, `إكمال ${label}`)
       safeCelebrate('xp_gain')
+
+      // LEGENDARY-A: Also log to unified activity ledger (dual-write until full migration)
+      supabase.rpc('log_activity', {
+        p_student_id: studentId,
+        p_event_type: 'unit_tab_completed',
+        p_event_subtype: sectionType,
+        p_ref_table: 'curriculum_units',
+        p_ref_id: unitId || null,
+        p_xp_delta: xp,
+        p_skill_impact: SKILL_IMPACT[sectionType] || {},
+        p_metadata: { score: score ?? null, section_label: label },
+      }).then(({ error: logErr }) => {
+        if (logErr) console.warn('[curriculumXP] log_activity error:', logErr.message)
+      })
     }
 
     return xp
