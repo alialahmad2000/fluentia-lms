@@ -54,7 +54,6 @@ export default function StudentStudyPlan() {
         .from('curriculum_units')
         .select('id, unit_number, theme_ar, theme_en, description_ar, estimated_minutes, grammar_topic_ids')
         .eq('level_id', levelId)
-        .eq('is_published', true)
         .order('unit_number', { ascending: true })
 
       if (unitErr) console.error('Error fetching units:', unitErr)

@@ -62,7 +62,6 @@ export function useCurriculumData() {
         .from('curriculum_units')
         .select('*')
         .eq('level_id', level.id)
-        .eq('is_published', true)
         .order('unit_number')
       if (error) throw error
       return data || []
