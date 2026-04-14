@@ -1,9 +1,9 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useMemo } from 'react'
-import { useAuthStore } from '../../../../stores/authStore'
-import { supabase } from '../../../../lib/supabase'
-import { useLevelProgress } from '../../../../hooks/useUnitProgress'
+import { useAuthStore } from '../../../stores/authStore'
+import { supabase } from '../../../lib/supabase'
+import { useLevelProgress } from '../../../hooks/useUnitProgress'
 
 const CHAPTER_NAMES = [
   { name: 'الفصل الأول', theme: 'أساسيات' },
