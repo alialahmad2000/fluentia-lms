@@ -24,7 +24,7 @@ import SpeakingTab from './tabs/SpeakingTab'
 import AssessmentTab from './tabs/AssessmentTab'
 import PronunciationTab from './tabs/PronunciationTab'
 import RecordingTab from '../../../components/curriculum/RecordingTab'
-import { CinematicBg, CINEMATIC_TOKENS as V1 } from './_premiumPrimitives'
+import { CinematicBg, CINEMATIC_TOKENS as V1, useCinematicMotion } from './_premiumPrimitives'
 
 const TABS = [
   { id: 'reading', label: 'القراءة', shortLabel: 'قراءة', icon: BookOpen },
@@ -59,6 +59,7 @@ export default function UnitContent() {
   const tabBarRef = useRef(null)
   const activeTabRef = useRef(null)
   const queryClient = useQueryClient()
+  const m = useCinematicMotion()
 
   const { data: unit, isLoading, error } = useQuery({
     queryKey: ['unit-content', unitId],
@@ -75,16 +76,13 @@ export default function UnitContent() {
     enabled: !!unitId,
   })
 
-  // Comprehensive unit progress
   const { data: unitProgress } = useUnitProgress(studentData?.id, unitId)
   const tabStatus = unitProgress?.tabStatus || {}
   const overallProgress = unitProgress?.overall || 0
 
-  // Unit Star
   const groupId = studentData?.group_id
   const { data: unitStarData } = useUnitStar(unitId, groupId)
 
-  // Bookmarks for this unit (student only)
   const { data: bookmarks = [] } = useQuery({
     queryKey: ['student-bookmarks', studentData?.id, unitId],
     queryFn: async () => {
@@ -98,7 +96,6 @@ export default function UnitContent() {
     enabled: isStudent && !!studentData?.id && !!unitId,
   })
 
-  // Bookmark current tab
   const bookmarkMutation = useMutation({
     mutationFn: async () => {
       const { error } = await supabase.from('student_bookmarks').upsert({
@@ -114,10 +111,8 @@ export default function UnitContent() {
     },
   })
 
-  // Help request
   const helpMutation = useMutation({
     mutationFn: async () => {
-      // Rate limit: max 3 per day
       const today = new Date().toISOString().split('T')[0]
       const { count } = await supabase
         .from('help_requests')
@@ -157,21 +152,18 @@ export default function UnitContent() {
     }
   }, [helpMutation])
 
-  // Track unit view
   useEffect(() => {
     if (unit) {
       try { tracker.track('curriculum_unit_view', { unit_id: unitId, unit_name: unit.title_ar || unit.title_en, level: unit.level?.level_number }) } catch {}
     }
   }, [unit, unitId])
 
-  // Security: redirect if level is above student's current level
   useEffect(() => {
     if (unit?.level?.level_number != null && unit.level.level_number > currentLevel) {
       navigate('/student/curriculum', { replace: true })
     }
   }, [unit, currentLevel, navigate])
 
-  // Scroll active tab into view on mobile
   useEffect(() => {
     if (activeTabRef.current && tabBarRef.current) {
       const bar = tabBarRef.current
@@ -181,6 +173,22 @@ export default function UnitContent() {
       const scrollLeft = tab.offsetLeft - barRect.width / 2 + tabRect.width / 2
       bar.scrollTo({ left: scrollLeft, behavior: 'smooth' })
     }
+  }, [activeTab])
+
+  // Arrow-key navigation within tab list (RTL-aware)
+  const handleTabKeyDown = useCallback((e) => {
+    const tabIds = TABS.map(t => t.id)
+    const idx = tabIds.indexOf(activeTab)
+    let nextIdx = idx
+    // In RTL, ArrowRight = previous, ArrowLeft = next
+    if (e.key === 'ArrowRight') nextIdx = Math.max(0, idx - 1)
+    else if (e.key === 'ArrowLeft') nextIdx = Math.min(tabIds.length - 1, idx + 1)
+    else if (e.key === 'Home') nextIdx = 0
+    else if (e.key === 'End') nextIdx = tabIds.length - 1
+    else return
+
+    e.preventDefault()
+    setActiveTab(tabIds[nextIdx])
   }, [activeTab])
 
   const renderTabContent = () => {
@@ -198,7 +206,6 @@ export default function UnitContent() {
     }
   }
 
-  // Loading skeleton
   if (isLoading) {
     return (
       <div className="w-full max-w-4xl mx-auto px-4 py-6 space-y-6" dir="rtl">
@@ -220,10 +227,11 @@ export default function UnitContent() {
   if (error || !unit) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 py-20" dir="rtl">
-        <p className="text-[var(--text-muted)] font-['Tajawal']">لم يتم العثور على الوحدة</p>
+        <p className="font-['Tajawal']" style={{ color: V1.textDim, fontSize: V1.type.bodyLg }}>لم يتم العثور على الوحدة</p>
         <button
           onClick={() => navigate('/student/curriculum')}
-          className="text-sm text-sky-400 hover:text-sky-300 font-['Tajawal']"
+          className="font-['Tajawal']"
+          style={{ fontSize: V1.type.bodySm, color: V1.accentCyan }}
         >
           العودة للمنهج
         </button>
@@ -238,14 +246,10 @@ export default function UnitContent() {
   return (
     <div dir="rtl" style={{ minHeight: '100vh', position: 'relative' }}>
 
-      {/* Cinematic ambient background */}
       <CinematicBg coverUrl={coverUrl} />
 
-      {/* Content layer */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
+        {...m.heroEntry}
         className="w-full max-w-4xl mx-auto px-4 py-6 space-y-5"
         style={{ position: 'relative', zIndex: 10 }}
       >
@@ -253,20 +257,18 @@ export default function UnitContent() {
         <div className="space-y-2">
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center gap-1.5 text-sm transition-colors font-['Tajawal']"
-            style={{ color: `${V1.accentGold}99` }}
+            className="cinematic-card flex items-center gap-1.5 transition-colors font-['Tajawal']"
+            style={{ color: V1.accentGold, opacity: 0.6, fontSize: V1.type.bodySm, background: 'none', border: 'none' }}
           >
             <ArrowRight size={16} />
             العودة
           </button>
 
-          {/* Unit header — cinematic upgrade */}
           <div style={{ position: 'relative', overflow: 'hidden', padding: '8px 0' }}>
-            {/* Decorative unit number */}
             <div style={{
-              position: 'absolute', top: -10, left: 0, fontSize: '180px', fontWeight: 800,
+              position: 'absolute', top: -10, left: 0, fontSize: V1.type.bgType, fontWeight: 800,
               fontFamily: "'Inter Tight', sans-serif", lineHeight: 1,
-              background: `linear-gradient(135deg, ${V1.accentGold}, ${V1.accentCyan})`,
+              background: V1.goldGradient,
               WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent',
               opacity: 0.06, pointerEvents: 'none', userSelect: 'none',
             }} dir="ltr">
@@ -279,15 +281,16 @@ export default function UnitContent() {
                   src={unit.cover_image_url}
                   alt={unit.theme_ar}
                   className="w-14 h-14 rounded-xl object-cover flex-shrink-0"
-                  style={{ border: `1px solid ${V1.accentGold}20` }}
+                  style={{ border: `1px solid ${V1.accentGoldSoft}` }}
                 />
               ) : (
                 <div
-                  className="w-14 h-14 rounded-xl flex items-center justify-center text-lg font-bold flex-shrink-0"
+                  className="w-14 h-14 rounded-xl flex items-center justify-center font-bold flex-shrink-0"
                   style={{
-                    background: `linear-gradient(135deg, ${V1.accentGold}20, ${V1.accentCyan}20)`,
+                    fontSize: V1.type.bodyLg,
+                    background: V1.accentGoldSoft,
                     color: V1.accentGold,
-                    border: `1px solid ${V1.accentGold}20`,
+                    border: `1px solid ${V1.accentGoldSoft}`,
                   }}
                 >
                   {unit.unit_number}
@@ -296,67 +299,65 @@ export default function UnitContent() {
               <div className="flex-1 min-w-0">
                 <h1 style={{
                   fontFamily: "'Playfair Display', 'Amiri', serif",
-                  fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 700,
+                  fontSize: V1.type.md, fontWeight: 700,
                   color: V1.textPrimary,
-                  lineHeight: 1.2,
+                  lineHeight: V1.leading.tight,
                 }}>
                   الوحدة {unit.unit_number}: {unit.theme_ar}
                 </h1>
-                <p className="text-sm font-['Tajawal']" style={{ color: V1.textDim }}>
+                <p className="font-['Tajawal']" style={{ color: V1.textDim, fontSize: V1.type.bodySm }}>
                   المستوى {levelNum}{levelName && ` — ${levelName}`}
                   {unit.level?.name_ar && ` · ${unit.level.name_ar}`}
                 </p>
               </div>
             </div>
 
-            {/* Gold divider */}
-            <div style={{ marginTop: '12px', height: '1px', background: `linear-gradient(90deg, ${V1.accentGold}40, ${V1.accentGold}10, transparent)` }} />
+            <div style={{ marginTop: '12px', height: '1px', background: `linear-gradient(90deg, ${V1.accentGoldStrong}, ${V1.accentGoldSoft}, transparent)` }} />
           </div>
 
-          {/* Overall progress bar */}
           {unitProgress && (
             <div className="mt-3 space-y-1.5">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-['Tajawal']" style={{ color: V1.textDim }}>
+                <span className="font-['Tajawal']" style={{ color: V1.textDim, fontSize: V1.type.bodyXs }}>
                   التقدم الكلي
                 </span>
                 <div className="flex items-center gap-1.5">
                   {overallProgress === 100 && <Check size={12} className="text-emerald-400" />}
-                  <span className={`text-xs font-bold font-['Inter'] tabular-nums ${overallProgress === 100 ? 'text-emerald-400' : ''}`}
-                    style={{ color: overallProgress === 100 ? undefined : V1.textDim }}>
+                  <span className="font-bold font-['Inter'] tabular-nums"
+                    style={{ color: overallProgress === 100 ? '#4ade80' : V1.textDim, fontSize: V1.type.bodyXs }}>
                     {overallProgress}%
                   </span>
                 </div>
               </div>
-              <div className="h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.08)' }}>
+              <div className="h-1.5 rounded-full overflow-hidden" style={{ background: V1.border }}>
                 <motion.div
                   className="h-full rounded-full"
                   initial={{ width: 0 }}
                   animate={{ width: `${overallProgress}%` }}
-                  transition={{ duration: 0.6, ease: 'easeOut' }}
+                  transition={{ duration: m.reduced ? 0 : 0.6, ease: 'easeOut' }}
                   style={{
                     background: overallProgress === 100
                       ? 'linear-gradient(90deg, #4ade80, #22c55e)'
                       : overallProgress > 0
-                        ? `linear-gradient(90deg, ${V1.accentCyan}, ${V1.accentGold})`
+                        ? V1.goldGradient
                         : 'transparent',
                   }}
                 />
               </div>
-              <div className="flex items-center gap-1 text-[10px] font-['Tajawal']" style={{ color: V1.textDim }}>
+              <div className="flex items-center gap-1 font-['Tajawal']" style={{ color: V1.textDim, fontSize: V1.type.bodyXs }}>
                 <span>{unitProgress.completedCount}/{unitProgress.activeCount} أنشطة مكتملة</span>
               </div>
             </div>
           )}
         </div>
 
-        {/* Unit Star Card — glass-morphism treatment */}
+        {/* Unit Star Card — glass treatment */}
         {unitStarData?.star && (
           <div style={{
-            background: `rgba(245,200,66,0.03)`,
+            background: V1.accentGoldSoft,
             backdropFilter: 'blur(16px)',
             WebkitBackdropFilter: 'blur(16px)',
-            border: `1px solid rgba(245,200,66,0.15)`,
+            border: `1px solid ${V1.accentGoldStrong}`,
             borderRadius: '16px',
             overflow: 'hidden',
           }}>
@@ -368,12 +369,14 @@ export default function UnitContent() {
           </div>
         )}
 
-        {/* Class Summary (shared by trainer) */}
         {isStudent && <ClassSummaryView unitId={unitId} />}
 
-        {/* Tab bar — cinematic gold active tab */}
+        {/* Tab bar — accessible tablist */}
         <div
           ref={tabBarRef}
+          role="tablist"
+          aria-label="أقسام الوحدة"
+          onKeyDown={handleTabKeyDown}
           className="flex gap-1 overflow-x-auto scrollbar-hide sticky top-16 z-10 -mx-4 px-4 py-2 snap-x snap-mandatory scroll-smooth"
           style={{ background: `${V1.bg}ee`, backdropFilter: 'blur(12px)' }}
         >
@@ -387,6 +390,9 @@ export default function UnitContent() {
                 key={tab.id}
                 ref={isActive ? activeTabRef : undefined}
                 data-tab-id={tab.id}
+                role="tab"
+                aria-selected={isActive}
+                tabIndex={isActive ? 0 : -1}
                 onClick={() => {
                   tracker.track('tab_switched', { tab_name: tab.id, unit_id: unitId })
                   setActiveTab(tab.id)
@@ -394,16 +400,18 @@ export default function UnitContent() {
                 className={`relative flex items-center gap-1 snap-start
                   px-2.5 sm:px-3 lg:px-3.5 h-10 lg:h-11
                   rounded-xl text-xs sm:text-[13px] lg:text-sm
-                  font-medium whitespace-nowrap transition-all duration-200
-                  flex-shrink-0 font-['Tajawal']`}
+                  font-medium whitespace-nowrap transition-all
+                  flex-shrink-0 font-['Tajawal'] cinematic-card`}
                 style={isActive ? {
-                  background: `${V1.accentGold}12`,
+                  background: V1.accentGoldSoft,
                   color: V1.accentGold,
-                  border: `1px solid ${V1.accentGold}30`,
-                  boxShadow: `0 0 12px ${V1.accentGold}10`,
+                  border: `1px solid ${V1.accentGoldStrong}`,
+                  boxShadow: V1.glowGold,
+                  transitionDuration: V1.duration.fast,
                 } : {
                   color: V1.textDim,
                   border: '1px solid transparent',
+                  transitionDuration: V1.duration.fast,
                 }}
               >
                 <Icon size={14} className="lg:w-4 lg:h-4" />
@@ -424,10 +432,10 @@ export default function UnitContent() {
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
-            initial={{ opacity: 0, x: 20 }}
+            initial={m.reduced ? { opacity: 1 } : { opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.2 }}
+            exit={m.reduced ? { opacity: 1 } : { opacity: 0, x: -20 }}
+            transition={{ duration: m.reduced ? 0 : 0.2 }}
           >
             <SectionErrorBoundary
               key={activeTab}
@@ -440,7 +448,6 @@ export default function UnitContent() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Student Smart Tools */}
         {isStudent && (
           <>
             <StudentFAB

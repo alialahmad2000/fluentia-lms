@@ -185,6 +185,49 @@
   --color-dropdown-bg: rgba(5, 13, 26, 0.97);
   --color-kbd-bg: rgba(255, 255, 255, 0.05);
   --color-kbd-border: rgba(255, 255, 255, 0.10);
+
+  /* ========== CINEMATIC V1 TOKENS (dark default) ========== */
+  --cinematic-bg: #0a0a0f;
+  --cinematic-bg-layer: #111119;
+  --cinematic-bg-elevated: rgba(255, 255, 255, 0.03);
+  --cinematic-accent-cyan: #00d4ff;
+  --cinematic-accent-cyan-soft: rgba(0, 212, 255, 0.12);
+  --cinematic-accent-cyan-strong: rgba(0, 212, 255, 0.4);
+  --cinematic-accent-gold: #f5c842;
+  --cinematic-accent-gold-soft: rgba(245, 200, 66, 0.1);
+  --cinematic-accent-gold-strong: rgba(245, 200, 66, 0.4);
+  --cinematic-text-primary: #ffffff;
+  --cinematic-text-secondary: #d1d5db;
+  --cinematic-text-dim: #9ca3af;
+  --cinematic-text-faint: #6b7280;
+  --cinematic-border: rgba(255, 255, 255, 0.08);
+  --cinematic-border-hover: rgba(245, 200, 66, 0.4);
+  --cinematic-overlay: rgba(10, 10, 15, 0.92);
+  --cinematic-overlay-soft: rgba(10, 10, 15, 0.4);
+  --cinematic-shine: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.08) 50%, transparent 60%);
+  --cinematic-gold-gradient: linear-gradient(135deg, #f5c842, #00d4ff);
+  --cinematic-glow-gold: 0 0 32px rgba(245, 200, 66, 0.25);
+  --cinematic-glow-cyan: 0 0 32px rgba(0, 212, 255, 0.25);
+  --cinematic-shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
+  --cinematic-shadow-hover: 0 20px 48px rgba(0, 0, 0, 0.5), 0 8px 16px rgba(245, 200, 66, 0.1);
+  --cinematic-film-grain-opacity: 0.04;
+  --cinematic-heading-massive: clamp(3.5rem, 9vw, 6rem);
+  --cinematic-heading-xl: clamp(2.5rem, 5vw, 4.5rem);
+  --cinematic-heading-lg: clamp(1.75rem, 3.2vw, 3rem);
+  --cinematic-heading-md: clamp(1.25rem, 2.2vw, 2rem);
+  --cinematic-heading-sm: clamp(1.125rem, 1.6vw, 1.5rem);
+  --cinematic-body-lg: clamp(1rem, 1.2vw, 1.125rem);
+  --cinematic-body: 1rem;
+  --cinematic-body-sm: 0.875rem;
+  --cinematic-body-xs: 0.75rem;
+  --cinematic-bg-typography: clamp(8rem, 15vw, 15rem);
+  --cinematic-leading-tight: 1.15;
+  --cinematic-leading-normal: 1.5;
+  --cinematic-leading-relaxed: 1.7;
+  --cinematic-duration-fast: 200ms;
+  --cinematic-duration-medium: 400ms;
+  --cinematic-duration-slow: 800ms;
+  --cinematic-duration-ambient: 60000ms;
 }
 
 /* ────── THEME 2: Pearl Aurora (Premium Warm Light) ──────
@@ -380,6 +423,32 @@
   --color-dropdown-bg: rgba(255, 253, 248, 0.98);
   --color-kbd-bg: rgba(120, 72, 20, 0.06);
   --color-kbd-border: rgba(120, 72, 20, 0.12);
+
+  /* ========== CINEMATIC V1 TOKENS — LIGHT MODE ========== */
+  --cinematic-bg: #fdfaf3;
+  --cinematic-bg-layer: #f5efe3;
+  --cinematic-bg-elevated: rgba(255, 255, 255, 0.85);
+  --cinematic-accent-cyan: #0284c7;
+  --cinematic-accent-cyan-soft: rgba(2, 132, 199, 0.08);
+  --cinematic-accent-cyan-strong: rgba(2, 132, 199, 0.3);
+  --cinematic-accent-gold: #b8860b;
+  --cinematic-accent-gold-soft: rgba(184, 134, 11, 0.1);
+  --cinematic-accent-gold-strong: rgba(184, 134, 11, 0.4);
+  --cinematic-text-primary: #1a1a1a;
+  --cinematic-text-secondary: #4b4b4b;
+  --cinematic-text-dim: #6b6b6b;
+  --cinematic-text-faint: #8a8a8a;
+  --cinematic-border: rgba(0, 0, 0, 0.08);
+  --cinematic-border-hover: rgba(184, 134, 11, 0.4);
+  --cinematic-overlay: rgba(253, 250, 243, 0.92);
+  --cinematic-overlay-soft: rgba(253, 250, 243, 0.4);
+  --cinematic-shine: linear-gradient(135deg, transparent 40%, rgba(0,0,0,0.03) 50%, transparent 60%);
+  --cinematic-gold-gradient: linear-gradient(135deg, #b8860b, #0284c7);
+  --cinematic-glow-gold: 0 0 32px rgba(184, 134, 11, 0.2);
+  --cinematic-glow-cyan: 0 0 32px rgba(2, 132, 199, 0.2);
+  --cinematic-shadow-card: 0 4px 16px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+  --cinematic-shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(184, 134, 11, 0.08);
+  --cinematic-film-grain-opacity: 0.02;
 }
 
 /* ────── THEME 3: Aurora (Premium Dark Purple) ────── */
