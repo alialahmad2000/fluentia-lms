@@ -170,6 +170,49 @@ export function EmptyState() {
   )
 }
 
+/* ═══════════════════════════════════════════════
+   CINEMATIC_TOKENS — V1 design tokens
+   ═══════════════════════════════════════════════ */
+export const CINEMATIC_TOKENS = {
+  bg: '#0a0a0f',
+  bgLayer: '#111119',
+  accentCyan: '#00d4ff',
+  accentGold: '#f5c842',
+  textPrimary: '#ffffff',
+  textDim: '#9ca3af',
+  border: 'rgba(255,255,255,0.08)',
+  borderHover: 'rgba(245,200,66,0.4)',
+  bgLight: '#fdfaf3',
+  bgLayerLight: '#f5efe3',
+  textPrimaryLight: '#1a1a1a',
+  textDimLight: '#6b6b6b',
+  borderLight: 'rgba(0,0,0,0.08)',
+}
+
+/* ═══════════════════════════════════════════════
+   CinematicBg — V1 ambient background layer
+   ═══════════════════════════════════════════════ */
+export function CinematicBg({ coverUrl }) {
+  return (
+    <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }} aria-hidden>
+      <div style={{ position: 'absolute', inset: 0, background: CINEMATIC_TOKENS.bg }} />
+      {coverUrl && (
+        <div style={{
+          position: 'absolute', inset: 0,
+          backgroundImage: `url(${coverUrl})`, backgroundSize: 'cover', backgroundPosition: 'center',
+          filter: 'blur(40px) brightness(0.35) saturate(1.3)', transform: 'scale(1.1)',
+        }} />
+      )}
+      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, transparent 0%, rgba(10,10,15,0.4) 50%, rgba(10,10,15,0.95) 100%)' }} />
+      {/* Film grain */}
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.04, mixBlendMode: 'overlay', backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")` }} />
+      {/* Cinematic lines */}
+      <div style={{ position: 'absolute', top: '20%', left: 0, right: 0, height: '1px', background: `linear-gradient(90deg, transparent, ${CINEMATIC_TOKENS.accentGold}30, transparent)` }} />
+      <div style={{ position: 'absolute', top: '75%', left: 0, right: 0, height: '1px', background: `linear-gradient(90deg, transparent, ${CINEMATIC_TOKENS.accentCyan}25, transparent)` }} />
+    </div>
+  )
+}
+
 /* Keyframes injection */
 if (typeof document !== 'undefined' && !document.getElementById('shared-kf')) {
   const style = document.createElement('style')

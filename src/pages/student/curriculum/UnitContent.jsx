@@ -24,6 +24,7 @@ import SpeakingTab from './tabs/SpeakingTab'
 import AssessmentTab from './tabs/AssessmentTab'
 import PronunciationTab from './tabs/PronunciationTab'
 import RecordingTab from '../../../components/curriculum/RecordingTab'
+import { CinematicBg, CINEMATIC_TOKENS as V1 } from './_premiumPrimitives'
 
 const TABS = [
   { id: 'reading', label: 'القراءة', shortLabel: 'قراءة', icon: BookOpen },
@@ -201,19 +202,16 @@ export default function UnitContent() {
   if (isLoading) {
     return (
       <div className="w-full max-w-4xl mx-auto px-4 py-6 space-y-6" dir="rtl">
-        {/* Header skeleton */}
         <div className="space-y-3">
           <div className="h-4 w-32 rounded-lg bg-[var(--surface-raised)] animate-pulse" />
           <div className="h-8 w-64 rounded-lg bg-[var(--surface-raised)] animate-pulse" />
           <div className="h-4 w-48 rounded-lg bg-[var(--surface-raised)] animate-pulse" />
         </div>
-        {/* Tab bar skeleton */}
         <div className="flex gap-2">
           {Array.from({ length: 7 }).map((_, i) => (
             <div key={i} className="h-12 w-24 rounded-xl bg-[var(--surface-raised)] animate-pulse flex-shrink-0" />
           ))}
         </div>
-        {/* Content skeleton */}
         <div className="h-64 rounded-2xl bg-[var(--surface-raised)] animate-pulse" />
       </div>
     )
@@ -235,183 +233,230 @@ export default function UnitContent() {
 
   const levelNum = unit.level?.level_number ?? ''
   const levelName = LEVEL_NAMES[levelNum] || ''
+  const coverUrl = unit.cover_image_url || unit.level?.cover_image_url
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.3 }}
-      className="w-full max-w-4xl mx-auto px-4 py-6 space-y-5"
-      dir="rtl"
-    >
-      {/* Header */}
-      <div className="space-y-2">
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center gap-1.5 text-sm text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors font-['Tajawal']"
-        >
-          <ArrowRight size={16} />
-          العودة
-        </button>
+    <div dir="rtl" style={{ minHeight: '100vh', position: 'relative' }}>
 
-        <div className="flex items-center gap-3">
-          {unit.cover_image_url ? (
-            <img
-              src={unit.cover_image_url}
-              alt={unit.theme_ar}
-              className="w-12 h-12 rounded-xl object-cover flex-shrink-0"
-            />
-          ) : (
-            <div
-              className="w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold flex-shrink-0"
-              style={{
-                background: 'linear-gradient(135deg, var(--accent-sky), var(--accent-violet))',
-                color: '#fff',
-              }}
-            >
-              {unit.unit_number}
+      {/* Cinematic ambient background */}
+      <CinematicBg coverUrl={coverUrl} />
+
+      {/* Content layer */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
+        className="w-full max-w-4xl mx-auto px-4 py-6 space-y-5"
+        style={{ position: 'relative', zIndex: 10 }}
+      >
+        {/* Header */}
+        <div className="space-y-2">
+          <button
+            onClick={() => navigate(-1)}
+            className="flex items-center gap-1.5 text-sm transition-colors font-['Tajawal']"
+            style={{ color: `${V1.accentGold}99` }}
+          >
+            <ArrowRight size={16} />
+            العودة
+          </button>
+
+          {/* Unit header — cinematic upgrade */}
+          <div style={{ position: 'relative', overflow: 'hidden', padding: '8px 0' }}>
+            {/* Decorative unit number */}
+            <div style={{
+              position: 'absolute', top: -10, left: 0, fontSize: '180px', fontWeight: 800,
+              fontFamily: "'Inter Tight', sans-serif", lineHeight: 1,
+              background: `linear-gradient(135deg, ${V1.accentGold}, ${V1.accentCyan})`,
+              WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent',
+              opacity: 0.06, pointerEvents: 'none', userSelect: 'none',
+            }} dir="ltr">
+              {String(unit.unit_number).padStart(2, '0')}
             </div>
-          )}
-          <div className="flex-1 min-w-0">
-            <h1 className="text-xl font-bold text-[var(--text-primary)] font-['Tajawal']">
-              الوحدة {unit.unit_number}: {unit.theme_ar}
-            </h1>
-            <p className="text-sm text-[var(--text-muted)] font-['Tajawal']">
-              المستوى {levelNum}{levelName && ` — ${levelName}`}
-              {unit.level?.name_ar && ` · ${unit.level.name_ar}`}
-            </p>
-          </div>
-        </div>
 
-        {/* Overall progress bar */}
-        {unitProgress && (
-          <div className="mt-3 space-y-1.5">
-            <div className="flex items-center justify-between">
-              <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">
-                التقدم الكلي
-              </span>
-              <div className="flex items-center gap-1.5">
-                {overallProgress === 100 && <Check size={12} className="text-emerald-400" />}
-                <span className={`text-xs font-bold font-['Inter'] tabular-nums ${overallProgress === 100 ? 'text-emerald-400' : 'text-[var(--text-muted)]'}`}>
-                  {overallProgress}%
-                </span>
+            <div className="flex items-center gap-3" style={{ position: 'relative' }}>
+              {unit.cover_image_url ? (
+                <img
+                  src={unit.cover_image_url}
+                  alt={unit.theme_ar}
+                  className="w-14 h-14 rounded-xl object-cover flex-shrink-0"
+                  style={{ border: `1px solid ${V1.accentGold}20` }}
+                />
+              ) : (
+                <div
+                  className="w-14 h-14 rounded-xl flex items-center justify-center text-lg font-bold flex-shrink-0"
+                  style={{
+                    background: `linear-gradient(135deg, ${V1.accentGold}20, ${V1.accentCyan}20)`,
+                    color: V1.accentGold,
+                    border: `1px solid ${V1.accentGold}20`,
+                  }}
+                >
+                  {unit.unit_number}
+                </div>
+              )}
+              <div className="flex-1 min-w-0">
+                <h1 style={{
+                  fontFamily: "'Playfair Display', 'Amiri', serif",
+                  fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 700,
+                  color: V1.textPrimary,
+                  lineHeight: 1.2,
+                }}>
+                  الوحدة {unit.unit_number}: {unit.theme_ar}
+                </h1>
+                <p className="text-sm font-['Tajawal']" style={{ color: V1.textDim }}>
+                  المستوى {levelNum}{levelName && ` — ${levelName}`}
+                  {unit.level?.name_ar && ` · ${unit.level.name_ar}`}
+                </p>
               </div>
             </div>
-            <div className="h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--surface-raised)' }}>
-              <motion.div
-                className="h-full rounded-full"
-                initial={{ width: 0 }}
-                animate={{ width: `${overallProgress}%` }}
-                transition={{ duration: 0.6, ease: 'easeOut' }}
-                style={{
-                  background: overallProgress === 100
-                    ? 'linear-gradient(90deg, #4ade80, #22c55e)'
-                    : overallProgress > 0
-                      ? 'linear-gradient(90deg, #38bdf8, #818cf8)'
-                      : 'transparent',
-                }}
-              />
+
+            {/* Gold divider */}
+            <div style={{ marginTop: '12px', height: '1px', background: `linear-gradient(90deg, ${V1.accentGold}40, ${V1.accentGold}10, transparent)` }} />
+          </div>
+
+          {/* Overall progress bar */}
+          {unitProgress && (
+            <div className="mt-3 space-y-1.5">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-['Tajawal']" style={{ color: V1.textDim }}>
+                  التقدم الكلي
+                </span>
+                <div className="flex items-center gap-1.5">
+                  {overallProgress === 100 && <Check size={12} className="text-emerald-400" />}
+                  <span className={`text-xs font-bold font-['Inter'] tabular-nums ${overallProgress === 100 ? 'text-emerald-400' : ''}`}
+                    style={{ color: overallProgress === 100 ? undefined : V1.textDim }}>
+                    {overallProgress}%
+                  </span>
+                </div>
+              </div>
+              <div className="h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.08)' }}>
+                <motion.div
+                  className="h-full rounded-full"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${overallProgress}%` }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
+                  style={{
+                    background: overallProgress === 100
+                      ? 'linear-gradient(90deg, #4ade80, #22c55e)'
+                      : overallProgress > 0
+                        ? `linear-gradient(90deg, ${V1.accentCyan}, ${V1.accentGold})`
+                        : 'transparent',
+                  }}
+                />
+              </div>
+              <div className="flex items-center gap-1 text-[10px] font-['Tajawal']" style={{ color: V1.textDim }}>
+                <span>{unitProgress.completedCount}/{unitProgress.activeCount} أنشطة مكتملة</span>
+              </div>
             </div>
-            <div className="flex items-center gap-1 text-[10px] text-[var(--text-muted)] font-['Tajawal']">
-              <span>{unitProgress.completedCount}/{unitProgress.activeCount} أنشطة مكتملة</span>
-            </div>
+          )}
+        </div>
+
+        {/* Unit Star Card — glass-morphism treatment */}
+        {unitStarData?.star && (
+          <div style={{
+            background: `rgba(245,200,66,0.03)`,
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            border: `1px solid rgba(245,200,66,0.15)`,
+            borderRadius: '16px',
+            overflow: 'hidden',
+          }}>
+            <UnitStarCard
+              star={unitStarData.star}
+              rankings={unitStarData.rankings}
+              currentStudentId={studentData?.id}
+            />
           </div>
         )}
-      </div>
 
-      {/* Unit Star Card */}
-      {unitStarData?.star && (
-        <UnitStarCard
-          star={unitStarData.star}
-          rankings={unitStarData.rankings}
-          currentStudentId={studentData?.id}
-        />
-      )}
+        {/* Class Summary (shared by trainer) */}
+        {isStudent && <ClassSummaryView unitId={unitId} />}
 
-      {/* Class Summary (shared by trainer) */}
-      {isStudent && <ClassSummaryView unitId={unitId} />}
-
-      {/* Tab bar — responsive: scroll on mobile, compact on tablet, full on desktop */}
-      <div
-        ref={tabBarRef}
-        className="flex gap-1 overflow-x-auto scrollbar-hide sticky top-16 z-10 -mx-4 px-4 py-2 snap-x snap-mandatory scroll-smooth"
-        style={{ background: 'var(--surface-base)' }}
-      >
-        {TABS.map((tab) => {
-          const Icon = tab.icon
-          const isActive = activeTab === tab.id
-          const secStatus = tabStatus[tab.id]
-          const dotColor = secStatus === 'completed' ? 'bg-emerald-400' : secStatus === 'in_progress' ? 'bg-amber-400' : null
-          return (
-            <button
-              key={tab.id}
-              ref={isActive ? activeTabRef : undefined}
-              data-tab-id={tab.id}
-              onClick={() => {
-                tracker.track('tab_switched', { tab_name: tab.id, unit_id: unitId })
-                setActiveTab(tab.id)
-              }}
-              className={`relative flex items-center gap-1 snap-start
-                px-2.5 sm:px-3 lg:px-3.5 h-10 lg:h-11
-                rounded-xl text-xs sm:text-[13px] lg:text-sm
-                font-medium whitespace-nowrap transition-all duration-200
-                flex-shrink-0 font-['Tajawal'] ${
-                isActive
-                  ? 'bg-sky-500/15 text-sky-400 border border-sky-500/30'
-                  : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-raised)]'
-              }`}
-            >
-              <Icon size={14} className="lg:w-4 lg:h-4" />
-              <span className="hidden sm:inline">{tab.label}</span>
-              <span className="sm:hidden">{tab.shortLabel || tab.label}</span>
-              {dotColor && (
-                <span className={`w-1.5 h-1.5 rounded-full ${dotColor} absolute top-1.5 left-1.5`} />
-              )}
-              {isStudent && bookmarks.includes(tab.id) && (
-                <MapPin size={10} className="absolute top-1 right-1 text-sky-400" />
-              )}
-            </button>
-          )
-        })}
-      </div>
-
-      {/* Tab content — wrapped in a section-level boundary so one broken tab
-          can't take down the whole unit page. Remounts on tab change. */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.2 }}
+        {/* Tab bar — cinematic gold active tab */}
+        <div
+          ref={tabBarRef}
+          className="flex gap-1 overflow-x-auto scrollbar-hide sticky top-16 z-10 -mx-4 px-4 py-2 snap-x snap-mandatory scroll-smooth"
+          style={{ background: `${V1.bg}ee`, backdropFilter: 'blur(12px)' }}
         >
-          <SectionErrorBoundary
-            key={activeTab}
-            section={activeTab}
-            sectionLabel={TABS.find(t => t.id === activeTab)?.label}
-            unitId={unitId}
-          >
-            {renderTabContent()}
-          </SectionErrorBoundary>
-        </motion.div>
-      </AnimatePresence>
+          {TABS.map((tab) => {
+            const Icon = tab.icon
+            const isActive = activeTab === tab.id
+            const secStatus = tabStatus[tab.id]
+            const dotColor = secStatus === 'completed' ? 'bg-emerald-400' : secStatus === 'in_progress' ? 'bg-amber-400' : null
+            return (
+              <button
+                key={tab.id}
+                ref={isActive ? activeTabRef : undefined}
+                data-tab-id={tab.id}
+                onClick={() => {
+                  tracker.track('tab_switched', { tab_name: tab.id, unit_id: unitId })
+                  setActiveTab(tab.id)
+                }}
+                className={`relative flex items-center gap-1 snap-start
+                  px-2.5 sm:px-3 lg:px-3.5 h-10 lg:h-11
+                  rounded-xl text-xs sm:text-[13px] lg:text-sm
+                  font-medium whitespace-nowrap transition-all duration-200
+                  flex-shrink-0 font-['Tajawal']`}
+                style={isActive ? {
+                  background: `${V1.accentGold}12`,
+                  color: V1.accentGold,
+                  border: `1px solid ${V1.accentGold}30`,
+                  boxShadow: `0 0 12px ${V1.accentGold}10`,
+                } : {
+                  color: V1.textDim,
+                  border: '1px solid transparent',
+                }}
+              >
+                <Icon size={14} className="lg:w-4 lg:h-4" />
+                <span className="hidden sm:inline">{tab.label}</span>
+                <span className="sm:hidden">{tab.shortLabel || tab.label}</span>
+                {dotColor && (
+                  <span className={`w-1.5 h-1.5 rounded-full ${dotColor} absolute top-1.5 left-1.5`} />
+                )}
+                {isStudent && bookmarks.includes(tab.id) && (
+                  <MapPin size={10} className="absolute top-1 right-1" style={{ color: V1.accentGold }} />
+                )}
+              </button>
+            )
+          })}
+        </div>
 
-      {/* Student Smart Tools */}
-      {isStudent && (
-        <>
-          <StudentFAB
-            onNotes={() => setShowNotes(true)}
-            onBookmark={handleBookmark}
-            onHelp={handleHelp}
-            onWords={() => setShowWords(true)}
-            onAddWord={() => setShowWords(true)}
-          />
-          <AnimatePresence>
-            {showNotes && <NotesPanel unitId={unitId} onClose={() => setShowNotes(false)} />}
-            {showWords && <SavedWordsPanel unitId={unitId} onClose={() => setShowWords(false)} />}
-          </AnimatePresence>
-        </>
-      )}
-    </motion.div>
+        {/* Tab content */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.2 }}
+          >
+            <SectionErrorBoundary
+              key={activeTab}
+              section={activeTab}
+              sectionLabel={TABS.find(t => t.id === activeTab)?.label}
+              unitId={unitId}
+            >
+              {renderTabContent()}
+            </SectionErrorBoundary>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Student Smart Tools */}
+        {isStudent && (
+          <>
+            <StudentFAB
+              onNotes={() => setShowNotes(true)}
+              onBookmark={handleBookmark}
+              onHelp={handleHelp}
+              onWords={() => setShowWords(true)}
+              onAddWord={() => setShowWords(true)}
+            />
+            <AnimatePresence>
+              {showNotes && <NotesPanel unitId={unitId} onClose={() => setShowNotes(false)} />}
+              {showWords && <SavedWordsPanel unitId={unitId} onClose={() => setShowWords(false)} />}
+            </AnimatePresence>
+          </>
+        )}
+      </motion.div>
+    </div>
   )
 }
