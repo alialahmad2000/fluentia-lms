@@ -10,6 +10,8 @@ import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import VocabularyExercises from './VocabularyExercises'
 import { useVocabularyMastery } from '../../../../hooks/useVocabularyMastery'
 import WordExerciseModal from '../../../../components/vocabulary/WordExerciseModal'
+import { useSRSCounts, useSRSDue } from '../../../../hooks/useSRS'
+import ReviewOverlay from '../../../../components/student/vocabulary/ReviewOverlay'
 
 const POS_AR = {
   noun: 'اسم', verb: 'فعل', adjective: 'صفة', adverb: 'ظرف',
@@ -100,6 +102,10 @@ export default function VocabularyTab({ unitId }) {
 
   const { masteryMap, isLoading: masteryLoading, masteredCount, learningCount, getMastery } = useVocabularyMastery(profile?.id, unitId)
 
+  // SRS review state
+  const [reviewOpen, setReviewOpen] = useState(false)
+  const { data: srsDueWords, refetch: refetchSRSDue } = useSRSDue(studentData?.id, { limit: 50, enabled: !!studentData?.id && profile?.role === 'student' })
+
   // Save word to personal list
   const studentId = studentData?.id
   const { data: savedWordSet = new Set() } = useQuery({
@@ -116,19 +122,35 @@ export default function VocabularyTab({ unitId }) {
 
   const saveWordMutation = useMutation({
     mutationFn: async (word) => {
-      const { error } = await supabase.from('student_saved_words').upsert({
+      const { data, error } = await supabase.from('student_saved_words').upsert({
         student_id: studentId,
         word: word.word,
         meaning: word.definition_ar,
         source_unit_id: unitId,
         context_sentence: word.example_sentence || null,
-      }, { onConflict: 'student_id,word' })
+        curriculum_vocabulary_id: word.id || null,
+        source: 'manual',
+        next_review_at: new Date().toISOString(),
+      }, { onConflict: 'student_id,word' }).select()
       if (error) throw error
+      // Log activity for SRS
+      if (data?.[0]) {
+        supabase.rpc('log_activity', {
+          p_student_id: studentId,
+          p_event_type: 'vocab_added',
+          p_ref_table: 'student_saved_words',
+          p_ref_id: data[0].id,
+          p_xp_delta: 5,
+          p_skill_impact: { vocabulary: 1 },
+          p_metadata: { source: 'manual' },
+        }).catch(() => {})
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['saved-words-set', studentId] })
       queryClient.invalidateQueries({ queryKey: ['saved-words', studentId] })
-      toast({ type: 'success', title: 'تم حفظ الكلمة 📌' })
+      queryClient.invalidateQueries({ queryKey: ['srs-counts', studentId] })
+      toast({ type: 'success', title: '✨ أضيفت لقاموسك' })
     },
   })
 
@@ -158,6 +180,13 @@ export default function VocabularyTab({ unitId }) {
 
   const allWords = data?.flatMap(d => d.vocabulary) || []
   const totalWords = allWords.length
+
+  // Filter SRS due words scoped to this unit
+  const unitDueWords = useMemo(() => {
+    if (!srsDueWords?.length || !allWords.length) return []
+    const vocabIds = new Set(allWords.map(w => w.id))
+    return srsDueWords.filter(w => w.curriculum_vocabulary_id && vocabIds.has(w.curriculum_vocabulary_id))
+  }, [srsDueWords, allWords])
   const newCount = totalWords - masteredCount - learningCount
   const masteryPercent = totalWords > 0
     ? Math.round(((masteredCount * 1.0 + learningCount * 0.5) / totalWords) * 100)
@@ -406,6 +435,33 @@ export default function VocabularyTab({ unitId }) {
         </div>
       </div>
 
+      {/* SRS Due section (scoped to this unit) */}
+      {profile?.role === 'student' && unitDueWords.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="rounded-xl px-4 py-3 flex items-center justify-between"
+          style={{ background: 'rgba(56,189,248,0.05)', border: '1px solid rgba(56,189,248,0.15)' }}
+        >
+          <div className="flex items-center gap-2">
+            <span className="text-sm">🧠</span>
+            <div>
+              <p className="text-xs font-bold text-sky-400 font-['Tajawal']">
+                للمراجعة ({unitDueWords.length})
+              </p>
+              <p className="text-[10px] text-white/30 font-['Tajawal']">كلمات من هذه الوحدة حان وقت مراجعتها</p>
+            </div>
+          </div>
+          <button
+            onClick={() => { refetchSRSDue().then(() => setReviewOpen(true)) }}
+            className="px-3.5 py-1.5 rounded-lg text-[11px] font-bold text-sky-300 font-['Tajawal'] transition-all hover:bg-sky-500/15"
+            style={{ background: 'rgba(56,189,248,0.1)', border: '1px solid rgba(56,189,248,0.2)' }}
+          >
+            ابدأ المراجعة ◀
+          </button>
+        </motion.div>
+      )}
+
       {/* Filter empty state */}
       {allWords.length > 0 && data.every(({ vocabulary }) => vocabulary.filter(filterWord).length === 0) && (
         <div className="text-center py-12">
@@ -557,6 +613,13 @@ export default function VocabularyTab({ unitId }) {
           كلمة {totalWords - unmasteredLeft + 1} من {totalWords} المتبقية
         </div>
       )}
+
+      {/* SRS Review Overlay */}
+      <ReviewOverlay
+        isOpen={reviewOpen}
+        onClose={() => { setReviewOpen(false); refetchSRSDue() }}
+        words={unitDueWords}
+      />
     </div>
   )
 }

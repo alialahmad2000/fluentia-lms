@@ -5,6 +5,8 @@ import AnimatedNumber from '../../ui/AnimatedNumber'
 import { Link } from 'react-router-dom'
 import { useDictionaryStats } from '../../../hooks/dashboard/useDictionaryStats'
 import { usePersonalDictionary } from '../../../hooks/dashboard/usePersonalDictionary'
+import { useSRSCounts, useSRSDue } from '../../../hooks/useSRS'
+import ReviewOverlay from '../vocabulary/ReviewOverlay'
 
 const MASTERY_CONFIG = {
   new: { label: 'جديد', bg: 'rgba(56,189,248,0.12)', border: 'rgba(56,189,248,0.25)', color: 'var(--accent-sky)' },
@@ -167,12 +169,19 @@ function EmptyState() {
 export default function PersonalDictionaryWidget({ studentId }) {
   const { data: stats, isLoading: statsLoading } = useDictionaryStats(studentId)
   const { data: words, isLoading: wordsLoading } = usePersonalDictionary(studentId, { limit: 6 })
+  const { data: srsCounts } = useSRSCounts(studentId)
+  const { data: dueWords, refetch: refetchDue } = useSRSDue(studentId, { enabled: (srsCounts?.due_today ?? 0) > 0 })
+  const [reviewOpen, setReviewOpen] = useState(false)
 
   const audioRef = useRef(null)
   const [audioState, setAudioState] = useState({ playingId: null, loadingId: null, playing: false })
 
   const isLoading = statsLoading || wordsLoading
   const totalWords = stats?.total_words ?? 0
+
+  const openReview = useCallback(() => {
+    refetchDue().then(() => setReviewOpen(true))
+  }, [refetchDue])
 
   const handlePlayAudio = useCallback((word) => {
     if (!word.audio_url) return
@@ -258,6 +267,21 @@ export default function PersonalDictionaryWidget({ studentId }) {
       {/* Content */}
       {!isLoading && totalWords > 0 && (
         <>
+          {/* SRS Review pill */}
+          {(srsCounts?.due_today ?? 0) > 0 ? (
+            <button
+              onClick={openReview}
+              className="w-full flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 mb-4 text-sm font-bold font-['Tajawal'] transition-all hover:scale-[1.01] active:scale-[0.99]"
+              style={{ background: 'rgba(56,189,248,0.08)', border: '1px solid rgba(56,189,248,0.2)', color: 'var(--accent-sky)' }}
+            >
+              🧠 <span>{srsCounts.due_today} كلمة للمراجعة اليوم</span>
+            </button>
+          ) : srsCounts && totalWords > 0 && (
+            <div className="text-center text-xs text-white/25 font-['Tajawal'] mb-3">
+              كل شي تحت السيطرة ✨ ولا كلمة تنتظر مراجعتك
+            </div>
+          )}
+
           {/* Stat mini-cards */}
           <div className="grid grid-cols-3 gap-3 mb-4">
             <StatMiniCard value={stats.total_words} label="كلمة كلية" color="sky" />
@@ -293,6 +317,12 @@ export default function PersonalDictionaryWidget({ studentId }) {
           </div>
         </>
       )}
+
+      <ReviewOverlay
+        isOpen={reviewOpen}
+        onClose={() => setReviewOpen(false)}
+        words={dueWords ?? []}
+      />
     </motion.div>
   )
 }

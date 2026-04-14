@@ -199,6 +199,7 @@ export default function TextSelectionTooltip({
         student_id: studentId, word: tooltip.text,
         context_sentence: tooltip.contextSentence,
         source_unit_id: unitId, source: 'reading_passage', source_reference: readingId,
+        next_review_at: new Date().toISOString(),
       })
       if (error) {
         if (error.code === '23505') { toast({ type: 'info', title: 'الكلمة محفوظة مسبقاً' }); setSaveState('saved') }

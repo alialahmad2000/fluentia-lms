@@ -61,6 +61,13 @@ export async function awardCurriculumXP(studentId, sectionType, score, unitId) {
       emitXP(xp, `إكمال ${label}`)
       safeCelebrate('xp_gain')
 
+      // LEGENDARY-C1: Auto-enqueue core vocabulary words into SRS on vocabulary section completion
+      if (sectionType === 'vocabulary' && unitId) {
+        autoEnqueueUnitVocab(studentId, unitId).catch(err =>
+          console.warn('[curriculumXP] SRS auto-enqueue error:', err)
+        )
+      }
+
       // LEGENDARY-A: Also log to unified activity ledger (dual-write until full migration)
       supabase.rpc('log_activity', {
         p_student_id: studentId,
@@ -81,4 +88,45 @@ export async function awardCurriculumXP(studentId, sectionType, score, unitId) {
     console.error('[curriculumXP] Error:', err)
     return 0
   }
+}
+
+/**
+ * LEGENDARY-C1: Auto-enqueue core vocabulary words into student_saved_words (SRS)
+ * when a vocabulary section is completed. Stagger next_review_at across 3 days.
+ */
+async function autoEnqueueUnitVocab(studentId, unitId) {
+  // Get readings for this unit
+  const { data: readings } = await supabase
+    .from('curriculum_readings')
+    .select('id')
+    .eq('unit_id', unitId)
+  if (!readings?.length) return
+
+  const readingIds = readings.map(r => r.id)
+
+  // Get core-tier vocabulary
+  const { data: coreWords } = await supabase
+    .from('curriculum_vocabulary')
+    .select('id, word, definition_ar, example_sentence')
+    .in('reading_id', readingIds)
+    .or('tier.eq.core,tier.is.null')
+
+  if (!coreWords?.length) return
+
+  // Build upsert rows with staggered next_review_at
+  const rows = coreWords.map((w, i) => ({
+    student_id: studentId,
+    word: w.word,
+    meaning: w.definition_ar,
+    source_unit_id: unitId,
+    context_sentence: w.example_sentence || null,
+    curriculum_vocabulary_id: w.id,
+    source: 'unit_complete',
+    next_review_at: new Date(Date.now() + (i % 3) * 86400000).toISOString(),
+  }))
+
+  await supabase.from('student_saved_words').upsert(rows, {
+    onConflict: 'student_id,word',
+    ignoreDuplicates: true,
+  })
 }
