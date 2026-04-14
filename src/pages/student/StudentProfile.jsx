@@ -768,7 +768,8 @@ const DS_THEME_OPTIONS = [
 
 function AppearanceContent() {
   const { user } = useAuthStore()
-  const isImpersonating = useAuthStore((s) => s.isImpersonating())
+  const impersonation = useAuthStore((s) => s.impersonation)
+  const isImpersonating = !!impersonation
   const [currentTheme, setCurrentTheme] = useState(() =>
     document.documentElement.getAttribute('data-theme') || 'night'
   )

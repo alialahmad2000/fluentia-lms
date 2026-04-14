@@ -63,7 +63,7 @@ export default class ErrorBoundary extends Component {
                 الرئيسية
               </button>
             </div>
-            {this.state.error && (
+            {import.meta.env.DEV && this.state.error && (
               <details className="mt-6 text-left text-xs text-red-400/60 bg-red-500/5 rounded-xl p-3 overflow-auto max-h-60" dir="ltr">
                 <summary className="cursor-pointer text-red-400 mb-2">Technical details</summary>
                 <pre style={{whiteSpace:'pre-wrap'}}>{this.state.error?.toString()}{'\n\n'}{this.state.errorInfo?.componentStack}</pre>
