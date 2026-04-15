@@ -66,11 +66,6 @@ export default function ThemeSwitcher() {
   const [showPreview, setShowPreview] = useState(false)
   const [, forceUpdate] = useState(0)
 
-  // Gate: only admin UUIDs
-  if (!user?.id || !ADMIN_UUIDS.includes(user.id)) return null
-
-  const currentTheme = document.documentElement.getAttribute('data-theme') || DEFAULT_THEME
-
   const applyTheme = useCallback((themeId) => {
     applyThemeHelper(themeId)
 
@@ -82,6 +77,11 @@ export default function ThemeSwitcher() {
     // Also persist to DB for admin
     if (user?.id) saveThemePreference(supabase, user.id, themeId)
   }, [user?.id])
+
+  // Gate: only admin UUIDs — AFTER all hooks
+  if (!user?.id || !ADMIN_UUIDS.includes(user.id)) return null
+
+  const currentTheme = document.documentElement.getAttribute('data-theme') || DEFAULT_THEME
 
   return (
     <>
