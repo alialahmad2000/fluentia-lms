@@ -209,7 +209,7 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
     clearTimeout(dbSaveTimer.current)
     dbSaveTimer.current = setTimeout(() => {
       if (text.trim()) saveToDb(text)
-    }, 30000)
+    }, 1500)
     return () => clearTimeout(dbSaveTimer.current)
   }, [text, progressLoading, submitted, saveToDb])
 

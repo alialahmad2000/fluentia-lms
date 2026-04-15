@@ -131,9 +131,17 @@ export default function StudentDashboard() {
   const navigate = useNavigate()
   const firstName = firstNameFrom(profile?.full_name) || profile?.display_name || ''
 
+  // Defer non-critical widgets — render after initial paint
+  const [showSecondary, setShowSecondary] = useState(false)
+  useEffect(() => {
+    const t = setTimeout(() => setShowSecondary(true), 300)
+    return () => clearTimeout(t)
+  }, [])
+
   // Weekly tasks progress + individual tasks
   const { data: weeklyProgress, isLoading: loadingWeekly } = useQuery({
     queryKey: ['dashboard-weekly-progress', profile?.id],
+    staleTime: 30000,
     queryFn: async () => {
       const now = new Date()
       const sunday = new Date(now)
@@ -155,6 +163,7 @@ export default function StudentDashboard() {
   // Individual weekly tasks for horizontal cards
   const { data: weeklyTasks } = useQuery({
     queryKey: ['dashboard-weekly-tasks-detail', weeklyProgress?.id],
+    staleTime: 30000,
     queryFn: async () => {
       const { data } = await supabase
         .from('weekly_tasks')
@@ -169,6 +178,7 @@ export default function StudentDashboard() {
   // Pending assignments count
   const { data: pendingAssignments, isLoading: loadingAssignments } = useQuery({
     queryKey: ['student-pending-assignments'],
+    staleTime: 60000,
     queryFn: async () => {
       const { count } = await supabase
         .from('assignments')
@@ -185,6 +195,7 @@ export default function StudentDashboard() {
   // Payment status
   const { data: nextPayment } = useQuery({
     queryKey: ['student-next-payment'],
+    staleTime: 120000,
     queryFn: async () => {
       const { data } = await supabase
         .from('payments')
@@ -459,8 +470,8 @@ export default function StudentDashboard() {
         </div>
       </motion.div>
 
-      {/* ═══ Smart Nudges ═══ */}
-      <SmartNudgesWidget studentId={profile?.id} />
+      {/* ═══ Smart Nudges (deferred) ═══ */}
+      {showSecondary && <SmartNudgesWidget studentId={profile?.id} />}
 
       {/* ═══ 7. Quick Access Grid ═══ */}
       <motion.div variants={fadeUp}>
@@ -495,16 +506,18 @@ export default function StudentDashboard() {
         </div>
       </motion.div>
 
-      {/* ═══ 7. Wow Moments ═══ */}
-      <StudentWowMoments />
+      {/* ═══ 7. Wow Moments (deferred) ═══ */}
+      {showSecondary && <StudentWowMoments />}
 
       {/* ═══ 8. Community: replaced by LiveLevelActivityFeed above ═══ */}
 
-      {/* ═══ 9. Daily Challenge + Mystery Box ═══ */}
-      <motion.div variants={fadeUp} className="grid lg:grid-cols-2 gap-5">
-        <DailyChallenge />
-        <MysteryBox />
-      </motion.div>
+      {/* ═══ 9. Daily Challenge + Mystery Box (deferred) ═══ */}
+      {showSecondary && (
+        <motion.div variants={fadeUp} className="grid lg:grid-cols-2 gap-5">
+          <DailyChallenge />
+          <MysteryBox />
+        </motion.div>
+      )}
 
       {/* ═══ 11. Payment Status ═══ */}
       {nextPayment && (
@@ -533,8 +546,8 @@ export default function StudentDashboard() {
         </motion.div>
       )}
 
-      {/* ═══ 12. Targeted Exercises CTA ═══ */}
-      <ExercisesCTA studentId={profile?.id} />
+      {/* ═══ 12. Targeted Exercises CTA (deferred) ═══ */}
+      {showSecondary && <ExercisesCTA studentId={profile?.id} />}
 
       {/* ═══ Motivational Footer ═══ */}
       <p className="text-center text-[13px] italic pb-4" style={{ color: 'var(--text-tertiary)', opacity: 0.6 }}>
@@ -547,6 +560,7 @@ export default function StudentDashboard() {
 function SmartNudgesWidget({ studentId }) {
   const { data: nudges } = useQuery({
     queryKey: ['dashboard-nudges', studentId],
+    staleTime: 60000,
     queryFn: async () => {
       const { data } = await supabase
         .from('smart_nudges')

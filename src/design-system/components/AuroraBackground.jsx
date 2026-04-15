@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 
 const NOISE_SVG = `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E")`
@@ -23,6 +24,66 @@ const STARS = [
 
 export default function AuroraBackground() {
   const reducedMotion = useReducedMotion()
+  const [renderMode, setRenderMode] = useState('full') // 'full' | 'reduced' | 'static'
+
+  useEffect(() => {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches
+    const isLowEnd = navigator.hardwareConcurrency != null && navigator.hardwareConcurrency <= 4
+
+    if (reducedMotion || (isMobile && isLowEnd)) {
+      setRenderMode('static')
+    } else if (isMobile) {
+      setRenderMode('reduced')
+    }
+  }, [reducedMotion])
+
+  // Static: lightweight CSS gradient only (no blobs, no animation)
+  if (renderMode === 'static') {
+    return (
+      <div
+        className="fixed inset-0 pointer-events-none"
+        style={{ zIndex: -1 }}
+        aria-hidden
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(ellipse at center, var(--ds-aurora-1) 0%, transparent 70%)',
+            opacity: 0.15,
+          }}
+        />
+      </div>
+    )
+  }
+
+  // Reduced: 1 static blob, no animation
+  if (renderMode === 'reduced') {
+    return (
+      <div
+        className="fixed inset-0 overflow-hidden pointer-events-none"
+        style={{ zIndex: -1 }}
+        aria-hidden
+      >
+        <div
+          className="absolute blur-2xl rounded-full"
+          style={{
+            width: '50vw',
+            height: '50vw',
+            top: '20%',
+            left: '25%',
+            background: 'var(--ds-aurora-1)',
+            opacity: 'var(--ds-aurora-opacity)',
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(ellipse at center, transparent 40%, var(--ds-bg-base, #060e1c) 100%)',
+          }}
+        />
+      </div>
+    )
+  }
 
   return (
     <div
@@ -30,22 +91,22 @@ export default function AuroraBackground() {
       style={{ zIndex: -1 }}
       aria-hidden="true"
     >
-      {/* Aurora blobs */}
+      {/* Aurora blobs — blur reduced from blur-3xl (64px) to blur-2xl (40px) */}
       {BLOB_PATHS.map((blob, i) => (
         <motion.div
           key={i}
-          className="absolute blur-3xl rounded-full"
+          className="absolute blur-2xl rounded-full"
           style={{
             width: '70vw',
             height: '70vw',
             background: `var(--ds-aurora-${i + 1})`,
             opacity: 'var(--ds-aurora-opacity)',
           }}
-          animate={reducedMotion ? {} : {
+          animate={{
             x: blob.x,
             y: blob.y,
           }}
-          transition={reducedMotion ? {} : {
+          transition={{
             duration: blob.dur,
             repeat: Infinity,
             ease: 'linear',

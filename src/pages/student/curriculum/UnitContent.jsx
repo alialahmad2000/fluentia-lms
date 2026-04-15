@@ -1,6 +1,6 @@
 // Unit Page Premium V2 — cinematic learning journey
 // Safety net: UnitContentOriginal.jsx preserved until 2026-04-21
-import { useState, useEffect, useRef, useCallback } from 'react'
+import React, { useState, useEffect, useRef, useCallback, Suspense } from 'react'
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -14,15 +14,17 @@ import NotesPanel from '../../../components/student/NotesPanel'
 import SavedWordsPanel from '../../../components/student/SavedWordsPanel'
 import ClassSummaryView from '../../../components/student/ClassSummaryView'
 import SectionErrorBoundary from '../../../components/SectionErrorBoundary'
-import ReadingTab from './tabs/ReadingTab'
-import GrammarTab from './tabs/GrammarTab'
-import VocabularyTab from './tabs/VocabularyTab'
-import ListeningTab from './tabs/ListeningTab'
-import WritingTab from './tabs/WritingTab'
-import SpeakingTab from './tabs/SpeakingTab'
-import AssessmentTab from './tabs/AssessmentTab'
-import PronunciationTab from './tabs/PronunciationTab'
-import RecordingTab from '../../../components/curriculum/RecordingTab'
+
+// Lazy-load activity tabs — cuts initial chunk from ~455KB to ~150KB
+const ReadingTab = React.lazy(() => import('./tabs/ReadingTab'))
+const GrammarTab = React.lazy(() => import('./tabs/GrammarTab'))
+const VocabularyTab = React.lazy(() => import('./tabs/VocabularyTab'))
+const ListeningTab = React.lazy(() => import('./tabs/ListeningTab'))
+const WritingTab = React.lazy(() => import('./tabs/WritingTab'))
+const SpeakingTab = React.lazy(() => import('./tabs/SpeakingTab'))
+const AssessmentTab = React.lazy(() => import('./tabs/AssessmentTab'))
+const PronunciationTab = React.lazy(() => import('./tabs/PronunciationTab'))
+const RecordingTab = React.lazy(() => import('../../../components/curriculum/RecordingTab'))
 import { CinematicBg, CINEMATIC_TOKENS as V1, useCinematicMotion } from './_premiumPrimitives'
 import {
   TrophyButton,
@@ -428,7 +430,15 @@ export default function UnitContent() {
                 sectionLabel={activeLabel}
                 unitId={unitId}
               >
-                {renderActivityContent(activeActivity)}
+                <Suspense fallback={
+                  <div className="space-y-4 mt-4">
+                    <div className="h-8 w-48 rounded-lg bg-[var(--surface-raised)] animate-pulse" />
+                    <div className="h-32 rounded-xl bg-[var(--surface-raised)] animate-pulse" />
+                    <div className="h-32 rounded-xl bg-[var(--surface-raised)] animate-pulse" />
+                  </div>
+                }>
+                  {renderActivityContent(activeActivity)}
+                </Suspense>
               </SectionErrorBoundary>
             </motion.div>
           )}

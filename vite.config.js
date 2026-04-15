@@ -42,6 +42,7 @@ export default defineConfig({
         maximumFileSizeToCacheInBytes: 1.5 * 1024 * 1024,
         // Only precache essential files — not every JS chunk
         globPatterns: ['**/*.{css,html,ico,png,svg,woff2}', 'push-sw.js'],
+        globIgnores: ['**/eruda*', '**/debug*'],
         runtimeCaching: [
           // Cache JS chunks — NetworkFirst ensures fresh code after deployments.
           // Was StaleWhileRevalidate which served stale/broken JS immediately,

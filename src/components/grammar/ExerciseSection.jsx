@@ -69,10 +69,25 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
           hasSaved.current = true
           // No currentRowId — next answer will create a fresh DB row
         } else {
-          // In-progress attempt: do NOT hydrate previous answers.
-          // Students must always see a fresh state on page load.
-          // The in-progress row will be superseded by a new row on first answer.
-          // This prevents the bug where exercises appear pre-checked with ✓/✗ marks.
+          // IMPORTANT: This hydrates in-progress answers so students don't lose work
+          // when navigating between tabs. Do NOT revert this to a "fresh state" reset —
+          // the student's data lives in DB and must be restored on mount.
+          // Grading state is tracked separately via `correct` — we only show correct/wrong
+          // marks AFTER the student re-answers, not during restoration.
+          if (latest.answers?.exercises) {
+            const restored = {}
+            latest.answers.exercises.forEach(r => {
+              if (r.studentAnswer != null) {
+                // Restore only the selected value — omit `correct` so UI stays in "in-progress" mode
+                restored[r.id] = { selected: r.studentAnswer }
+              }
+            })
+            if (Object.keys(restored).length > 0) {
+              setAnswers(restored)
+              prevAnsweredRef.current = Object.keys(restored).length
+            }
+          }
+          if (latest.id) setCurrentRowId(latest.id)
         }
       }
       setProgressLoading(false)
@@ -81,11 +96,12 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
     return () => { isMounted = false }
   }, [studentId, grammarId])
 
-  // Regression guard: no question should be pre-answered on mount
+  // Regression guard: answers at mount=0 (hydration happens async via the load effect above)
+  // If answers appear synchronously before the load effect, that's a real regression.
   useEffect(() => {
     const preAnswered = Object.keys(answers).length
-    if (preAnswered > 0 && !isCompleted && !retrying) {
-      console.error('[ExerciseSection] REGRESSION: ' + preAnswered + ' questions pre-answered on mount — some code is hydrating state from an old submission')
+    if (preAnswered > 0 && !isCompleted && !retrying && !progressLoading) {
+      console.warn('[ExerciseSection] Answers present on initial render — expected if restoring in-progress work')
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -319,8 +335,8 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
         {exercises.map((ex, i) => {
           const a = answers[ex.id]
           let cls = 'grammar-dot'
-          if (a?.correct) cls += ' grammar-dot--correct'
-          else if (a && !a.correct) cls += ' grammar-dot--wrong'
+          if (a?.correct === true) cls += ' grammar-dot--correct'
+          else if (a && a.correct === false) cls += ' grammar-dot--wrong'
           return <div key={ex.id} className={cls} />
         })}
       </div>
