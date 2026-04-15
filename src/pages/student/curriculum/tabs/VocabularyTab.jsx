@@ -25,10 +25,12 @@ const FILTERS = [
   { key: 'mastered', label: 'أتقنتها' },
 ]
 
-const container = {
+const PAGE_SIZE = 40
+
+const makeContainer = (count) => ({
   hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.05 } },
-}
+  show: { opacity: 1, transition: { staggerChildren: count > 30 ? 0.02 : 0.05 } },
+})
 const cardVariant = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: 'easeOut' } },
@@ -542,31 +544,17 @@ export default function VocabularyTab({ unitId }) {
                         transition={{ duration: 0.2 }}
                         style={{ overflow: 'hidden' }}
                       >
-                        {viewMode === 'cards' ? (
-                          <motion.div
-                            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"
-                            variants={container}
-                            initial="hidden"
-                            animate="show"
-                          >
-                            {tg.words.map(v => (
-                              <motion.div key={v.id} variants={cardVariant}>
-                                <WordCard
-                                  word={v}
-                                  mastery={getMastery(v.id)}
-                                  reviewed={reviewedWords.has(v.id)}
-                                  onView={() => markReviewed(v.id)}
-                                  onPractice={() => setExerciseWord(v)}
-                                  isSaved={savedWordSet.has?.(v.word?.toLowerCase())}
-                                  onSaveWord={() => saveWordMutation.mutate(v)}
-                                  isStudent={profile?.role === 'student'}
-                                />
-                              </motion.div>
-                            ))}
-                          </motion.div>
-                        ) : (
-                          <WordListView vocabulary={tg.words} getMastery={getMastery} reviewedWords={reviewedWords} onView={markReviewed} onPractice={setExerciseWord} />
-                        )}
+                        <PaginatedTier
+                          words={tg.words}
+                          viewMode={viewMode}
+                          getMastery={getMastery}
+                          reviewedWords={reviewedWords}
+                          markReviewed={markReviewed}
+                          setExerciseWord={setExerciseWord}
+                          savedWordSet={savedWordSet}
+                          saveWordMutation={saveWordMutation}
+                          profile={profile}
+                        />
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -624,6 +612,65 @@ export default function VocabularyTab({ unitId }) {
   )
 }
 
+// ─── Paginated Tier (prevents 500+ DOM nodes at once) ─
+function PaginatedTier({ words, viewMode, getMastery, reviewedWords, markReviewed, setExerciseWord, savedWordSet, saveWordMutation, profile }) {
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
+  const visible = words.slice(0, visibleCount)
+  const hasMore = visibleCount < words.length
+
+  if (viewMode === 'cards') {
+    return (
+      <>
+        <motion.div
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"
+          variants={makeContainer(visible.length)}
+          initial="hidden"
+          animate="show"
+        >
+          {visible.map(v => (
+            <motion.div key={v.id} variants={cardVariant}>
+              <WordCard
+                word={v}
+                mastery={getMastery(v.id)}
+                reviewed={reviewedWords.has(v.id)}
+                onView={() => markReviewed(v.id)}
+                onPractice={() => setExerciseWord(v)}
+                isSaved={savedWordSet.has?.(v.word?.toLowerCase())}
+                onSaveWord={() => saveWordMutation.mutate(v)}
+                isStudent={profile?.role === 'student'}
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+        {hasMore && (
+          <button
+            onClick={() => setVisibleCount(c => c + PAGE_SIZE)}
+            className="w-full py-2.5 mt-3 rounded-xl text-xs font-bold font-['Tajawal'] text-white/40 hover:text-white/60 transition-colors"
+            style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)' }}
+          >
+            عرض المزيد ({words.length - visibleCount} متبقي)
+          </button>
+        )}
+      </>
+    )
+  }
+
+  return (
+    <>
+      <WordListView vocabulary={visible} getMastery={getMastery} reviewedWords={reviewedWords} onView={markReviewed} onPractice={setExerciseWord} />
+      {hasMore && (
+        <button
+          onClick={() => setVisibleCount(c => c + PAGE_SIZE)}
+          className="w-full py-2.5 mt-3 rounded-xl text-xs font-bold font-['Tajawal'] text-white/40 hover:text-white/60 transition-colors"
+          style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)' }}
+        >
+          عرض المزيد ({words.length - visibleCount} متبقي)
+        </button>
+      )}
+    </>
+  )
+}
+
 // ─── Stat Card ────────────────────────────────────────
 function StatCard({ icon, count, label, color, bg }) {
   return (
@@ -638,13 +685,8 @@ function StatCard({ icon, count, label, color, bg }) {
 // ─── Word Card (Premium) ──────────────────────────────
 function WordCard({ word, mastery, reviewed, onView, onPractice, isSaved, onSaveWord, isStudent }) {
   const audioRef = useRef(null)
-  const viewedRef = useRef(false)
   const [imgError, setImgError] = useState(false)
   const [playing, setPlaying] = useState(false)
-
-  useEffect(() => {
-    if (!viewedRef.current && onView) { viewedRef.current = true; onView() }
-  }, [onView])
 
   const playAudio = (e) => {
     e.stopPropagation()
@@ -670,7 +712,7 @@ function WordCard({ word, mastery, reviewed, onView, onPractice, isSaved, onSave
         border: `1px solid ${isMastered ? 'rgba(34,197,94,0.2)' : isLearning ? 'rgba(245,158,11,0.15)' : 'rgba(255,255,255,0.06)'}`,
         transition: 'all 0.2s ease-out',
       }}
-      onClick={() => onPractice?.(word)}
+      onClick={() => { onView?.(); onPractice?.(word) }}
     >
       {/* Image section */}
       {word.image_url && !imgError ? (
@@ -816,17 +858,12 @@ function WordListView({ vocabulary, getMastery, reviewedWords, onView, onPractic
 }
 
 function WordListItem({ word, mastery, reviewed, onView, onPractice, playAudio }) {
-  const viewedRef = useRef(false)
-  useEffect(() => {
-    if (!viewedRef.current && onView) { viewedRef.current = true; onView() }
-  }, [onView])
-
   const isMastered = mastery?.mastery_level === 'mastered'
   const isLearning = mastery?.mastery_level === 'learning'
   const passedCount = [mastery?.meaning_exercise_passed, mastery?.sentence_exercise_passed, mastery?.listening_exercise_passed].filter(Boolean).length
 
   return (
-    <div className="flex items-center justify-between px-3 py-3 gap-3 hover:bg-white/[0.01] transition-colors cursor-pointer" onClick={onPractice}>
+    <div className="flex items-center justify-between px-3 py-3 gap-3 hover:bg-white/[0.01] transition-colors cursor-pointer" onClick={() => { onView?.(); onPractice?.() }}>
       {/* Right side: word info */}
       <div className="flex items-center gap-3 min-w-0 flex-1">
         {/* Mastery indicator */}
