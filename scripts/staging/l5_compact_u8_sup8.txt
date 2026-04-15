@@ -1,0 +1,48 @@
+particle swarm optimization|noun|C1|NAWL|neutral|core|8|تحسين سرب جسيمات|optimization inspired by bird flocking
+ant colony optimization|noun|C1|NAWL|neutral|core|8|تحسين مستعمرة نمل|optimization inspired by ant foraging
+artificial bee colony|noun|C1|NAWL|neutral|extended|8|مستعمرة نحل اصطناعية|optimization inspired by bee behavior
+firefly algorithm|noun|C1|NAWL|neutral|mastery|8|خوارزمية يراعات|optimization inspired by firefly flashing
+cuckoo search|noun|C1|NAWL|neutral|mastery|8|بحث وقواق|optimization inspired by cuckoo nesting
+bat algorithm|noun|C1|NAWL|neutral|mastery|8|خوارزمية خفافيش|optimization inspired by bat echolocation
+grey wolf optimizer|noun|C1|NAWL|neutral|mastery|8|محسن ذئب رمادي|optimization inspired by wolf hierarchy
+whale optimization|noun|C1|NAWL|neutral|mastery|8|تحسين حوت|optimization inspired by whale feeding
+evolutionary algorithm|noun|C1|NAWL|neutral|core|8|خوارزمية تطورية|optimization using natural selection principles
+genetic programming|noun|C1|NAWL|neutral|extended|8|برمجة وراثية|evolving computer programs automatically
+crossover operator|noun|C1|NAWL|neutral|extended|8|مشغل تقاطع|combining parent solutions to create new ones
+mutation operator|noun|C1|NAWL|neutral|extended|8|مشغل طفرة|randomly changing a solution
+selection pressure|noun|C1|AWL|neutral|extended|8|ضغط انتقائي حسابي|how strongly better solutions are favored
+tournament selection|noun|C1|NAWL|neutral|mastery|8|انتقاء بطولة|choosing the best from a random subset
+elitism|noun|C1|NAWL|neutral|extended|8|نخبوية حسابية|preserving the best solutions across generations
+multi-objective optimization|noun|C1|AWL|neutral|extended|8|تحسين متعدد الأهداف|optimizing several goals simultaneously
+Pareto front|noun|C1|NAWL|neutral|mastery|8|جبهة باريتو|the set of best trade-off solutions
+combinatorial explosion|noun|C1|NAWL|neutral|extended|8|انفجار توافقي|a rapid growth of possible combinations
+NP-hard problem|noun|C1|NAWL|neutral|extended|8|مسألة صعبة حسابياً|a problem with no known efficient solution
+traveling salesman problem|noun|C1|NAWL|neutral|core|8|مسألة البائع المتجول|finding the shortest route through all cities
+vehicle routing problem|noun|C1|NAWL|neutral|extended|8|مسألة توجيه مركبات|finding optimal delivery routes
+bin packing problem|noun|C1|NAWL|neutral|extended|8|مسألة تعبئة حاويات|fitting items into the fewest containers
+scheduling problem|noun|C1|AWL|neutral|core|8|مسألة جدولة|assigning tasks to time slots efficiently
+resource allocation|noun|C1|AWL|neutral|core|8|تخصيص موارد|distributing resources optimally
+swarm intelligence application|noun|C1|NAWL|neutral|core|8|تطبيق ذكاء سرب|using swarm algorithms in real problems
+drone swarm|noun|C1|NAWL|neutral|core|8|سرب طائرات مسيرة|multiple drones working together
+search and rescue robot|noun|C1|NAWL|neutral|extended|8|روبوت بحث وإنقاذ|a robot finding people in emergencies
+warehouse robot|noun|C1|NAWL|neutral|extended|8|روبوت مستودع|a robot moving goods in a warehouse
+autonomous vehicle platoon|noun|C1|NAWL|neutral|extended|8|رتل مركبات ذاتية|self-driving vehicles traveling in formation
+traffic flow optimization|noun|C1|AWL|neutral|extended|8|تحسين تدفق مرور|using algorithms to reduce congestion
+smart city|noun|C1|NAWL|neutral|core|8|مدينة ذكية|a city using technology for better services
+Internet of Things|noun|C1|NAWL|neutral|core|8|إنترنت الأشياء|everyday objects connected to the internet
+sensor network|noun|C1|NAWL|neutral|extended|8|شبكة حساسات|connected sensors collecting data
+edge computing|noun|C1|NAWL|neutral|extended|8|حوسبة حافة|processing data near its source
+fog computing|noun|C1|NAWL|neutral|mastery|8|حوسبة ضبابية|computing between cloud and edge devices
+mesh network|noun|C1|NAWL|neutral|extended|8|شبكة شبكية|devices connecting directly to each other
+ad hoc network|noun|C1|NAWL|neutral|extended|8|شبكة مخصصة|a temporary network formed on demand
+self-healing network|noun|C1|NAWL|neutral|mastery|8|شبكة ذاتية الإصلاح|a network that repairs itself after failure
+distributed ledger|noun|C1|NAWL|neutral|extended|8|سجل موزع|a database shared across many locations
+consensus mechanism|noun|C1|NAWL|neutral|extended|8|آلية إجماع|how distributed systems agree on data
+proof of work|noun|C1|NAWL|neutral|extended|8|إثبات عمل|verifying transactions through computation
+proof of stake|noun|C1|NAWL|neutral|extended|8|إثبات حصة|verifying transactions through ownership
+federated learning|noun|C1|NAWL|neutral|mastery|8|تعلم اتحادي|training AI across devices without sharing data
+multi-agent reinforcement learning|noun|C1|NAWL|neutral|mastery|8|تعلم تعزيزي متعدد الوكلاء|multiple AI agents learning together
+cooperative game theory|noun|C1|NAWL|neutral|extended|8|نظرية ألعاب تعاونية|studying how groups form and share benefits
+mechanism design|noun|C1|NAWL|neutral|mastery|8|تصميم آليات|designing rules to achieve desired outcomes
+auction theory|noun|C1|NAWL|neutral|mastery|8|نظرية مزادات|studying optimal bidding strategies
+Vickrey auction|noun|C1|NAWL|neutral|mastery|8|مزاد فيكري|a sealed-bid auction where second price wins

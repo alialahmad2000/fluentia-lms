@@ -1,0 +1,75 @@
+swarm robotics|noun|C1|NAWL|neutral|core|8|روبوتات سرب|robots working together like insects
+flocking behavior|noun|C1|NAWL|neutral|core|8|سلوك تجمع|coordinated movement in groups
+schooling|noun|C1|CEFR-J|neutral|extended|8|تدفق أسماك|fish swimming together in formation
+murmuration|noun|C1|NAWL|neutral|mastery|8|تموج طيور|starlings flying in shifting patterns
+quorum sensing|noun|C1|NAWL|neutral|extended|8|استشعار نصاب|bacteria communicating through chemicals
+stigmergy|noun|C2|NAWL|formal|mastery|8|ستيجمرجي|indirect coordination through the environment
+pheromone trail|noun|C1|NAWL|neutral|core|8|مسار فيرمون|a chemical path left by insects
+waggle dance|noun|C1|NAWL|neutral|extended|8|رقصة اهتزاز|a bee's dance communicating food location
+scout bee|noun|C1|CEFR-J|neutral|extended|8|نحلة كشافة|a bee searching for new resources
+nurse bee|noun|C1|CEFR-J|neutral|extended|8|نحلة مربية|a bee caring for larvae
+division of labor|noun|C1|AWL|neutral|core|8|تقسيم عمل|different members doing different tasks
+task allocation|noun|C1|AWL|neutral|extended|8|تخصيص مهام|assigning work to group members
+threshold model|noun|C1|NAWL|neutral|mastery|8|نموذج عتبة|individuals responding at different stimulus levels
+self-organization|noun|C1|AWL|neutral|core|8|تنظيم ذاتي|order emerging without central control
+bottom-up control|noun|C1|NAWL|neutral|extended|8|تحكم من أسفل|organization from individual level up
+top-down control|noun|C1|NAWL|neutral|extended|8|تحكم من أعلى|organization from a central authority
+distributed system|noun|C1|AWL|neutral|core|8|نظام موزع|a system spread across many agents
+decentralized network|noun|C1|AWL|neutral|core|8|شبكة لامركزية|a network without a single authority
+resilient system|noun|C1|AWL|neutral|core|8|نظام مرن|a system recovering quickly from failure
+fault tolerance|noun|C1|NAWL|neutral|extended|8|تحمل أعطال|continuing to function despite errors
+redundancy|noun|C1|AWL|neutral|extended|8|تكرارية|duplicate components ensuring reliability
+scalability|noun|C1|AWL|neutral|core|8|قابلية توسع|the ability to grow efficiently
+load balancing|noun|C1|NAWL|neutral|extended|8|موازنة أحمال|distributing work evenly across resources
+consensus algorithm|noun|C1|NAWL|neutral|extended|8|خوارزمية إجماع|a process for group agreement
+Byzantine fault|noun|C1|NAWL|neutral|mastery|8|خطأ بيزنطي|a failure where components give conflicting information
+leader election|noun|C1|NAWL|neutral|mastery|8|انتخاب قائد|choosing a coordinator in a distributed system
+gossip protocol|noun|C1|NAWL|neutral|mastery|8|بروتوكول نميمة|spreading information peer to peer
+epidemic algorithm|noun|C1|NAWL|neutral|mastery|8|خوارزمية وبائية|information spreading like a disease
+cellular automaton|noun|C1|NAWL|neutral|extended|8|آلة خلوية|a grid of cells following simple rules
+Conway's Game of Life|noun|C1|NAWL|neutral|mastery|8|لعبة الحياة|a famous cellular automaton simulation
+Langton's ant|noun|C1|NAWL|neutral|mastery|8|نملة لانغتون|a simple model producing complex behavior
+agent-based model|noun|C1|NAWL|neutral|extended|8|نموذج قائم على وكلاء|simulating individual agent interactions
+multi-agent system|noun|C1|NAWL|neutral|core|8|نظام متعدد الوكلاء|software agents interacting together
+reinforcement signal|noun|C1|NAWL|neutral|extended|8|إشارة تعزيز|feedback guiding learning behavior
+reward shaping|noun|C1|NAWL|neutral|mastery|8|تشكيل مكافأة|designing rewards to guide learning
+exploration-exploitation|noun|C1|NAWL|neutral|extended|8|استكشاف واستثمار|balancing trying new options with using known ones
+simulated annealing|noun|C1|NAWL|neutral|extended|8|تلدين محاكى|optimization inspired by metal cooling
+tabu search|noun|C1|NAWL|neutral|mastery|8|بحث محرم|optimization avoiding recently visited solutions
+differential evolution|noun|C1|NAWL|neutral|mastery|8|تطور تفاضلي|optimization using population differences
+coevolution|noun|C1|NAWL|neutral|extended|8|تطور مشترك|two species evolving in response to each other
+arms race dynamics|noun|C1|NAWL|neutral|extended|8|ديناميكيات سباق تسلح|competing adaptations driving evolution
+Red Queen effect|noun|C1|NAWL|neutral|mastery|8|تأثير الملكة الحمراء|constant adaptation to keep up with rivals
+frequency-dependent selection|noun|C1|NAWL|neutral|mastery|8|انتقاء معتمد على التردد|fitness depending on trait commonness
+kin selection|noun|C1|NAWL|neutral|extended|8|انتقاء قرابة|favoring relatives to spread shared genes
+Hamilton's rule|noun|C1|NAWL|neutral|mastery|8|قاعدة هاملتون|when altruism is genetically favored
+reciprocal altruism|noun|C1|NAWL|neutral|extended|8|إيثار متبادل|helping others expecting future help
+tit-for-tat|noun|C1|NAWL|neutral|extended|8|معاملة بالمثل|cooperating then copying the other's move
+prisoner's dilemma|noun|C1|NAWL|neutral|core|8|معضلة السجين|a game theory cooperation problem
+Nash equilibrium|noun|C1|NAWL|neutral|extended|8|توازن ناش|no player benefits from changing strategy alone
+Pareto optimality|noun|C1|NAWL|neutral|mastery|8|أمثلية باريتو|no one can improve without harming another
+evolutionary stable strategy|noun|C1|NAWL|neutral|mastery|8|استراتيجية مستقرة تطورياً|a strategy resistant to invasion
+tragedy of the commons|noun|C1|NAWL|neutral|core|8|مأساة المشاعات|overusing shared resources for individual gain
+public goods game|noun|C1|NAWL|neutral|extended|8|لعبة سلع عامة|a game testing contribution to shared resources
+free rider problem|noun|C1|NAWL|neutral|core|8|مشكلة الراكب المجاني|benefiting without contributing
+social dilemma|noun|C1|NAWL|neutral|extended|8|معضلة اجتماعية|individual interest conflicting with group welfare
+collective action problem|noun|C1|AWL|neutral|extended|8|مشكلة عمل جماعي|difficulty coordinating group behavior
+network topology|noun|C1|NAWL|neutral|extended|8|طوبولوجيا شبكة|the arrangement of connections in a network
+small-world network|noun|C1|NAWL|neutral|extended|8|شبكة عالم صغير|a network where most nodes connect through few steps
+scale-free network|noun|C1|NAWL|neutral|mastery|8|شبكة حرة الحجم|a network with a few highly connected nodes
+hub node|noun|C1|NAWL|neutral|extended|8|عقدة محورية|a highly connected point in a network
+preferential attachment|noun|C1|NAWL|neutral|mastery|8|ارتباط تفضيلي|new connections favoring well-connected nodes
+network resilience|noun|C1|AWL|neutral|extended|8|مرونة شبكة|a network's ability to withstand failures
+cascade failure|noun|C1|NAWL|neutral|extended|8|فشل متتالي|a chain of failures spreading through a system
+percolation threshold|noun|C1|NAWL|neutral|mastery|8|عتبة تسرب|the point at which a network becomes connected
+information cascade|noun|C1|AWL|neutral|extended|8|سلسلة معلومات|people copying others instead of thinking independently
+herding behavior|noun|C1|NAWL|neutral|extended|8|سلوك قطيع|following the crowd without independent thought
+groupthink|noun|C1|NAWL|neutral|core|8|تفكير جماعي|conformity suppressing critical thinking
+wisdom of crowds|noun|C1|NAWL|neutral|core|8|حكمة الجموع|groups making better decisions than individuals
+prediction market|noun|C1|NAWL|neutral|extended|8|سوق تنبؤ|a market where people bet on future events
+Delphi method|noun|C1|NAWL|neutral|mastery|8|طريقة دلفي|collecting expert opinions iteratively
+crowd-sourcing|noun|C1|NAWL|neutral|core|8|تعهيد جماعي|outsourcing tasks to a large group
+open-source intelligence|noun|C1|NAWL|neutral|extended|8|استخبارات مفتوحة المصدر|gathering information from public sources
+citizen science|noun|C1|NAWL|neutral|core|8|علم مواطنين|public participation in scientific research
+participatory sensing|noun|C1|NAWL|neutral|mastery|8|استشعار تشاركي|using personal devices to collect data
+swarm mapping|noun|C1|NAWL|neutral|mastery|8|رسم خرائط سرب|collaborative crisis mapping by volunteers

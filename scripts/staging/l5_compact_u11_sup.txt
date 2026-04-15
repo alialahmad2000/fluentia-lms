@@ -1,0 +1,103 @@
+anthropology|noun|C1|AWL|neutral|core|11|أنثروبولوجيا|the study of human societies and cultures
+sociology|noun|C1|AWL|neutral|core|11|علم اجتماع|the study of society and social behavior
+linguistics|noun|C1|AWL|neutral|core|11|لسانيات|the scientific study of language
+archaeology|noun|C1|CEFR-J|neutral|core|11|علم آثار|the study of human history through excavation
+ethnography|noun|C1|NAWL|neutral|core|11|إثنوغرافيا|the study of peoples and cultures
+demography|noun|C1|AWL|neutral|core|11|ديموغرافيا|the study of population statistics
+geography|noun|B2|CEFR-J|neutral|core|11|جغرافيا|the study of the earth and its features
+cartography|noun|C1|NAWL|neutral|core|11|رسم خرائط|the science of making maps
+migration|noun|C1|AWL|neutral|core|11|هجرة بشرية|the movement of people between regions
+urbanization|noun|C1|AWL|neutral|core|11|تمدن|the growth of cities and urban areas
+industrialization|noun|C1|AWL|neutral|core|11|تصنيع|the development of industries in a country
+modernization|noun|C1|AWL|neutral|core|11|تحديث|the process of adapting to modern methods
+westernization|noun|C1|AWL|neutral|core|11|تغريب|adopting Western culture and practices
+orientalism|noun|C1|NAWL|neutral|core|11|استشراقية|the study or depiction of Eastern cultures
+exoticism|noun|C1|NAWL|neutral|core|11|غرابة|the charm of something unfamiliar
+appropriation|noun|C1|AWL|neutral|core|11|استيلاء ثقافي|taking elements from another culture
+commodification|noun|C1|AWL|neutral|core|11|تحويل لسلعة|turning cultural elements into products
+authenticity|noun|C1|AWL|neutral|core|11|أصالة ثقافية|the quality of being genuine
+preservation|noun|C1|AWL|neutral|core|11|صون|keeping cultural elements intact
+revitalization|noun|C1|AWL|neutral|core|11|إحياء|giving new life to cultural practices
+renaissance|noun|C1|CEFR-J|neutral|core|11|إحياء ثقافي|a revival of art and learning
+enlightenment|noun|C1|CEFR-J|neutral|core|11|تنوير|a philosophical movement emphasizing reason
+reformation|noun|C1|AWL|neutral|core|11|إصلاح|a movement for religious or social change
+revolution|noun|B2|AWL|neutral|core|11|ثورة|a dramatic change in society or government
+coup|noun|C1|CEFR-J|neutral|core|11|انقلاب|a sudden seizure of government power
+uprising|noun|C1|CEFR-J|neutral|core|11|انتفاضة|an act of rebellion against authority
+resistance|noun|C1|AWL|neutral|core|11|مقاومة|the act of opposing authority
+liberation|noun|C1|AWL|neutral|core|11|تحرر|the act of setting free from oppression
+independence|noun|B2|AWL|neutral|core|11|استقلال|freedom from outside control
+decolonization|noun|C1|AWL|neutral|core|11|إنهاء استعمار|the process of ending colonial rule
+postcolonialism|noun|C1|NAWL|neutral|core|11|ما بعد الاستعمار|the study of colonialism's lasting effects
+neoliberalism|noun|C1|NAWL|neutral|core|11|ليبرالية جديدة|a political approach favoring free markets
+populism|noun|C1|NAWL|neutral|core|11|شعبوية|politics appealing to ordinary people
+authoritarianism|noun|C1|AWL|neutral|core|11|سلطوية|enforcing strict obedience to authority
+totalitarianism|noun|C1|NAWL|neutral|core|11|شمولية|a system of absolute state control
+propaganda|noun|C1|CEFR-J|neutral|core|11|دعاية|biased information to promote a cause
+censorship|noun|C1|CEFR-J|neutral|core|11|رقابة|the suppression of speech or information
+dissidence|noun|C1|NAWL|neutral|core|11|معارضة سياسية|opposition to official policy
+activism|noun|C1|AWL|neutral|core|11|نشاطية|campaigning for political or social change
+advocacy|noun|C1|AWL|neutral|core|11|مناصرة|public support for a cause
+solidarity|noun|C1|AWL|neutral|core|11|تكاتف|unity based on shared interests
+coalition|noun|C1|AWL|neutral|core|11|ائتلاف|an alliance of groups for joint action
+alliance|noun|C1|AWL|neutral|core|11|تحالف|a union formed for mutual benefit
+pact|noun|C1|CEFR-J|neutral|core|11|ميثاق|a formal agreement between parties
+accord|noun|C1|AWL|neutral|core|11|اتفاق|an official agreement between parties
+détente|noun|C2|NAWL|formal|extended|11|تهدئة|the easing of strained relations
+rapprochement|noun|C2|NAWL|formal|extended|11|تقارب|the restoration of harmonious relations
+reconciliation|noun|C1|AWL|neutral|extended|11|مصالحة|the restoration of friendly relations
+restitution|noun|C1|AWL|neutral|extended|11|تعويض|compensation for loss or damage
+reparation|noun|C1|AWL|neutral|extended|11|تعويضات|making amends for wrongdoing
+truth commission|noun|C1|NAWL|neutral|extended|11|لجنة حقيقة|a body examining past human rights abuses
+transitional justice|noun|C1|NAWL|neutral|extended|11|عدالة انتقالية|accountability after political violence
+humanitarian|adjective|C1|AWL|neutral|extended|11|إنساني|concerned with human welfare
+philanthropy|noun|C1|CEFR-J|neutral|extended|11|خيرية|charitable activity for the public good
+altruism|noun|C1|CEFR-J|neutral|extended|11|إيثار|selfless concern for others' welfare
+empathy|noun|C1|CEFR-J|neutral|extended|11|تعاطف|understanding another's feelings
+compassion|noun|C1|CEFR-J|neutral|extended|11|رحمة|sympathetic concern for others' suffering
+benevolence|noun|C1|CEFR-J|neutral|extended|11|إحسان|the quality of being well-meaning
+magnanimity|noun|C1|CEFR-J|neutral|extended|11|كرم|generosity of spirit
+hospitality|noun|C1|CEFR-J|neutral|extended|11|ضيافة|the friendly reception of guests
+etiquette|noun|C1|CEFR-J|neutral|extended|11|آداب|the customary rules of polite behavior
+decorum|noun|C1|CEFR-J|neutral|extended|11|لياقة|behavior conforming to accepted standards
+protocol|noun|C1|AWL|neutral|extended|11|بروتوكول اجتماعي|the accepted code of conduct
+convention|noun|C1|AWL|neutral|extended|11|عرف|an accepted way of behaving
+norm|noun|C1|AWL|neutral|extended|11|معيار|a standard of behavior expected in a group
+mores|noun|C1|NAWL|neutral|extended|11|أعراف|the customs and conventions of a community
+folkway|noun|C1|NAWL|neutral|extended|11|عادة شعبية|a traditional behavior of a group
+taboo|noun|C1|CEFR-J|neutral|extended|11|محظور|a social or religious prohibition
+stigma|noun|C1|AWL|neutral|extended|11|وصمة|a mark of disgrace associated with a condition
+ostracism|noun|C1|CEFR-J|neutral|extended|11|نبذ|exclusion from a group or society
+exile|noun|C1|CEFR-J|neutral|extended|11|منفى|forced absence from one's country
+deportation|noun|C1|AWL|neutral|extended|11|ترحيل|the expulsion of a foreigner from a country
+expulsion|noun|C1|AWL|neutral|extended|11|طرد|the act of forcing someone out
+internment|noun|C1|CEFR-J|neutral|extended|11|اعتقال|the imprisonment of people during wartime
+displacement|noun|C1|AWL|neutral|extended|11|تهجير|the forced movement of people from their home
+resettlement|noun|C1|AWL|neutral|extended|11|إعادة توطين|establishing people in a new place
+repatriation|noun|C1|AWL|neutral|extended|11|إعادة للوطن|returning people to their own country
+naturalization|noun|C1|AWL|neutral|extended|11|تجنس|the process of becoming a citizen
+assimilation|noun|C1|AWL|neutral|mastery|11|تمثل ثقافي|fully adopting the dominant culture
+acculturation|noun|C1|NAWL|neutral|mastery|11|تثقيف|adapting to a new culture
+enculturation|noun|C2|NAWL|formal|mastery|11|تنشئة ثقافية|learning the norms of one's own culture
+socialization|noun|C1|AWL|neutral|mastery|11|تنشئة اجتماعية|learning to behave in an acceptable way
+internalization|noun|C1|AWL|neutral|mastery|11|استدخال|making beliefs or attitudes part of oneself
+habitus|noun|C2|NAWL|formal|mastery|11|عادات مكتسبة|deeply ingrained habits and dispositions
+cultural capital|noun|C1|AWL|neutral|mastery|11|رأس مال ثقافي|knowledge and skills conferring social status
+social capital|noun|C1|AWL|neutral|mastery|11|رأس مال اجتماعي|networks and relationships providing advantages
+symbolic capital|noun|C1|AWL|neutral|mastery|11|رأس مال رمزي|prestige and honor accumulated in a field
+soft power|noun|C1|NAWL|neutral|mastery|11|قوة ناعمة|influence through culture rather than coercion
+hard power|noun|C1|NAWL|neutral|mastery|11|قوة صلبة|influence through military or economic force
+smart power|noun|C1|NAWL|neutral|mastery|11|قوة ذكية|combining soft and hard power strategies
+public diplomacy|noun|C1|AWL|neutral|mastery|11|دبلوماسية عامة|influencing foreign audiences through communication
+track two diplomacy|noun|C1|NAWL|neutral|mastery|11|دبلوماسية المسار الثاني|informal diplomacy by non-officials
+shuttle diplomacy|noun|C1|NAWL|neutral|mastery|11|دبلوماسية مكوكية|a mediator traveling between disputing parties
+summit|noun|C1|CEFR-J|neutral|mastery|11|قمة|a meeting between heads of government
+bilateral|adjective|C1|AWL|neutral|mastery|11|ثنائي الطرف|involving two parties
+multilateral|adjective|C1|AWL|neutral|mastery|11|متعدد الأطراف|involving more than two parties
+supranational|adjective|C1|AWL|neutral|mastery|11|فوق وطني|having power above national governments
+intergovernmental|adjective|C1|AWL|neutral|mastery|11|حكومي دولي|between governments of different countries
+nongovernmental|adjective|C1|AWL|neutral|mastery|11|غير حكومي|independent of government
+civil society|noun|C1|AWL|neutral|mastery|11|مجتمع مدني|organizations independent of government
+grassroots|adjective|C1|CEFR-J|neutral|mastery|11|شعبي|ordinary people forming the base of an activity
+bottom-up|adjective|C1|CEFR-J|neutral|mastery|11|من القاعدة|starting from the most basic level
+top-down|adjective|C1|CEFR-J|neutral|mastery|11|من القمة|starting from the highest level of authority

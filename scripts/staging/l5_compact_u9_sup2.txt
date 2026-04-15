@@ -1,0 +1,88 @@
+drama|noun|B2|CEFR-J|neutral|core|9|دراما|a genre of literature meant to be performed
+comedy|noun|B2|CEFR-J|neutral|core|9|كوميديا|a genre of entertainment meant to amuse
+tragedy|noun|C1|CEFR-J|neutral|core|9|مأساة|a serious drama ending in catastrophe
+tragicomedy|noun|C1|NAWL|neutral|core|9|مأساة هزلية|a play mixing tragic and comic elements
+farce|noun|C1|CEFR-J|neutral|core|9|مسرحية هزلية|a comedy based on absurd situations
+melodrama|noun|C1|CEFR-J|neutral|core|9|ميلودراما|drama with exaggerated emotions
+monologue|noun|C1|CEFR-J|neutral|core|9|مونولوج|a long speech by one character
+dialogue|noun|C1|AWL|neutral|core|9|حوار|conversation between characters
+soliloquy|noun|C1|CEFR-J|neutral|core|9|مناجاة|a speech revealing a character's thoughts
+aside|noun|C1|CEFR-J|neutral|core|9|كلام جانبي|a remark heard by the audience but not other characters
+prologue|noun|C1|CEFR-J|neutral|core|9|مقدمة|an introduction to a literary work
+epilogue|noun|C1|CEFR-J|neutral|core|9|خاتمة|a concluding section of a work
+act|noun|C1|CEFR-J|neutral|core|9|فصل مسرحي|a major division of a play
+scene|noun|B2|CEFR-J|neutral|core|9|مشهد|a subdivision of an act in a play
+curtain call|noun|C1|CEFR-J|neutral|core|9|تحية ختامية|the appearance of actors after a performance
+ensemble|noun|C1|CEFR-J|neutral|core|9|فرقة|a group of performers working together
+repertory|noun|C1|CEFR-J|neutral|core|9|ذخيرة فنية|a company performing several plays
+mise en scène|noun|C2|NAWL|formal|core|9|إخراج مسرحي|the arrangement of scenery and actors on stage
+blocking|noun|C1|CEFR-J|neutral|core|9|ترتيب حركة|the positioning of actors on stage
+choreography|noun|C1|CEFR-J|neutral|core|9|تصميم رقصات|the design of dance movements
+set design|noun|C1|CEFR-J|neutral|core|9|تصميم ديكور|creating the physical environment of a play
+costume design|noun|C1|CEFR-J|neutral|core|9|تصميم أزياء|creating clothes for performers
+lighting design|noun|C1|CEFR-J|neutral|core|9|تصميم إضاءة|planning the illumination of a performance
+sound design|noun|C1|CEFR-J|neutral|core|9|تصميم صوتي|creating the audio landscape of a production
+props|noun|C1|CEFR-J|neutral|core|9|إكسسوارات|objects used on stage during a performance
+backdrop|noun|C1|CEFR-J|neutral|core|9|خلفية مسرحية|the painted scenery behind a stage
+proscenium|noun|C2|NAWL|formal|core|9|إطار المسرح|the arch framing the opening of a stage
+thrust stage|noun|C1|NAWL|neutral|core|9|مسرح بارز|a stage extending into the audience
+theater in the round|noun|C1|NAWL|neutral|core|9|مسرح دائري|a stage surrounded by audience on all sides
+black box|noun|C1|CEFR-J|neutral|core|9|صندوق أسود مسرحي|a simple adaptable theater space
+auditorium|noun|C1|CEFR-J|neutral|core|9|قاعة عروض|the part of a theater for the audience
+gallery|noun|C1|CEFR-J|neutral|core|9|معرض فني|a room for displaying art
+exhibition|noun|C1|AWL|neutral|core|9|معرض|a public display of works of art
+retrospective|noun|C1|AWL|neutral|core|9|استعراض|an exhibition showing an artist's career
+vernissage|noun|C2|NAWL|formal|core|9|افتتاح معرض|a private viewing before a public exhibition
+installation art|noun|C1|NAWL|neutral|extended|9|فن تجهيزي|art designed for a specific space
+site-specific|adjective|C1|NAWL|neutral|extended|9|خاص بالموقع|art created for a particular location
+land art|noun|C1|NAWL|neutral|extended|9|فن أرضي|art made from natural landscape materials
+environmental art|noun|C1|NAWL|neutral|extended|9|فن بيئي|art addressing environmental concerns
+public art|noun|C1|CEFR-J|neutral|extended|9|فن عام|art in public spaces
+street art|noun|C1|CEFR-J|neutral|extended|9|فن الشارع|art created in public locations
+graffiti|noun|C1|CEFR-J|neutral|extended|9|غرافيتي|writing or drawings on public surfaces
+mural art|noun|C1|CEFR-J|neutral|extended|9|فن جداري|large-scale painting on walls
+stencil|noun|C1|CEFR-J|neutral|extended|9|إستنسل|a template for creating repeated designs
+printmaking|noun|C1|CEFR-J|neutral|extended|9|طباعة فنية|the art of producing prints
+woodblock|noun|C1|CEFR-J|neutral|extended|9|قالب خشبي|a print made from a carved block
+screen printing|noun|C1|CEFR-J|neutral|extended|9|طباعة شاشة|a printing method using a mesh screen
+intaglio|noun|C2|NAWL|formal|extended|9|حفر غائر|a printing method using incised images
+relief printing|noun|C1|NAWL|neutral|extended|9|طباعة بارزة|printing from a raised surface
+monotype|noun|C1|NAWL|neutral|extended|9|طباعة فريدة|a unique print from a single plate
+edition|noun|C1|CEFR-J|neutral|extended|9|إصدار فني|a set of identical prints
+original|noun|C1|CEFR-J|neutral|extended|9|عمل أصلي|the first version of an artwork
+reproduction|noun|C1|AWL|neutral|extended|9|نسخة|a copy of an original artwork
+facsimile|noun|C1|CEFR-J|neutral|extended|9|نسخة طبق الأصل|an exact copy of a document or artwork
+pigment|noun|C1|CEFR-J|neutral|extended|9|لون|a colored substance used in paint
+medium|noun|C1|AWL|neutral|extended|9|وسط فني|the material or technique used in art
+watercolor|noun|C1|CEFR-J|neutral|extended|9|ألوان مائية|paint dissolved in water
+oil paint|noun|C1|CEFR-J|neutral|extended|9|ألوان زيتية|paint using oil as a binder
+acrylic|noun|C1|CEFR-J|neutral|extended|9|أكريليك|a fast-drying synthetic paint
+tempera|noun|C1|NAWL|neutral|extended|9|تمبرا|paint using egg yolk as a binder
+encaustic|noun|C2|NAWL|formal|extended|9|شمعية|painting using heated beeswax
+gouache|noun|C1|CEFR-J|neutral|extended|9|غواش|opaque watercolor paint
+ink wash|noun|C1|CEFR-J|neutral|extended|9|غسل حبري|a technique using diluted ink
+charcoal|noun|C1|CEFR-J|neutral|extended|9|فحم رسم|a drawing material made from burnt wood
+pastel|noun|C1|CEFR-J|neutral|extended|9|باستيل|a soft colored drawing stick
+graphite|noun|C1|CEFR-J|neutral|extended|9|غرافيت|the carbon material in pencils
+sketch|noun|B2|CEFR-J|neutral|mastery|9|رسم أولي|a quick rough drawing
+draft|noun|C1|CEFR-J|neutral|mastery|9|مسودة|a preliminary version of a work
+study|noun|C1|CEFR-J|neutral|mastery|9|دراسة فنية|a preliminary drawing exploring an idea
+maquette|noun|C2|NAWL|formal|mastery|9|نموذج مصغر|a small model of a planned sculpture
+armature|noun|C1|NAWL|neutral|mastery|9|هيكل داخلي|a framework supporting a sculpture
+patina|noun|C1|CEFR-J|neutral|mastery|9|صدأ زخرفي|a surface coating developed with age
+gilding|noun|C1|CEFR-J|neutral|mastery|9|تذهيب|covering with a thin layer of gold
+lacquer|noun|C1|CEFR-J|neutral|mastery|9|ورنيش|a coating giving a glossy finish
+varnish|noun|C1|CEFR-J|neutral|mastery|9|طلاء شفاف|a clear protective coating for paintings
+fixative|noun|C1|NAWL|neutral|mastery|9|مثبت|a spray protecting drawings from smudging
+mount|noun|C1|CEFR-J|neutral|mastery|9|حامل|a backing for displaying artwork
+frame|noun|B2|CEFR-J|neutral|mastery|9|إطار|a border enclosing a picture
+mat|noun|C1|CEFR-J|neutral|mastery|9|حاشية|a border between a picture and its frame
+conservation|noun|C1|AWL|neutral|mastery|9|ترميم فني|protecting artworks from decay
+restoration|noun|C1|AWL|neutral|mastery|9|إصلاح فني|repairing damaged artworks
+deacidification|noun|C2|NAWL|formal|mastery|9|إزالة حموضة|treating paper to prevent deterioration
+fumigation|noun|C1|CEFR-J|neutral|mastery|9|تبخير|using gas to eliminate pests from artworks
+climate control|noun|C1|CEFR-J|neutral|mastery|9|تحكم مناخي|maintaining ideal conditions for artworks
+UV protection|noun|C1|CEFR-J|neutral|mastery|9|حماية من الأشعة|shielding artworks from ultraviolet light
+humidity control|noun|C1|CEFR-J|neutral|mastery|9|ضبط رطوبة|maintaining ideal moisture levels
+archival|adjective|C1|NAWL|neutral|mastery|9|أرشيفي|materials designed for long-term preservation
+catalogue raisonné|noun|C2|NAWL|formal|mastery|9|فهرس شامل|a complete list of an artist's works

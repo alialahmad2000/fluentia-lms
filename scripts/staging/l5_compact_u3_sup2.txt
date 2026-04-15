@@ -1,0 +1,132 @@
+hypothesis|noun|C1|AWL|neutral|core|3|فرضية|a proposed explanation for a phenomenon
+empirical|adjective|C1|AWL|neutral|core|3|تجريبي|based on observation and experiment
+methodology|noun|C1|AWL|neutral|core|3|منهجية|a system of methods used in research
+peer review|noun|C1|AWL|neutral|core|3|مراجعة أقران|evaluation of research by experts
+replication|noun|C1|AWL|neutral|core|3|تكرار تجربة|repeating an experiment to verify results
+falsifiability|noun|C1|NAWL|neutral|core|3|قابلية الدحض|the ability to be proven wrong
+paradigm|noun|C1|AWL|neutral|core|3|نموذج فكري|a framework of accepted beliefs
+paradigm shift|noun|C1|AWL|neutral|core|3|تحول فكري|a fundamental change in approach
+anomaly|noun|C1|AWL|neutral|core|3|شذوذ|something that deviates from the norm
+outlier|noun|C1|NAWL|neutral|core|3|قيمة شاذة|a data point far from others
+correlation|noun|C1|AWL|neutral|core|3|ارتباط|a mutual relationship between variables
+causation|noun|C1|AWL|neutral|core|3|سببية|the relationship between cause and effect
+variable|noun|C1|AWL|neutral|core|3|متغير|a factor that can change in an experiment
+control group|noun|C1|AWL|neutral|core|3|مجموعة ضابطة|a group unchanged for comparison
+placebo|noun|C1|CEFR-J|neutral|core|3|دواء وهمي|a harmless substance given as treatment
+double-blind|adjective|C1|NAWL|neutral|core|3|مزدوج التعمية|a study where neither subject nor researcher knows the treatment
+randomization|noun|C1|AWL|neutral|core|3|عشوأة|assigning subjects randomly to groups
+sample size|noun|C1|AWL|neutral|core|3|حجم عينة|the number of subjects in a study
+statistical significance|noun|C1|AWL|neutral|core|3|دلالة إحصائية|results unlikely to occur by chance
+p-value|noun|C1|NAWL|neutral|core|3|قيمة احتمالية|the probability of results occurring by chance
+confidence interval|noun|C1|AWL|neutral|core|3|فاصل ثقة|the range likely containing the true value
+margin of error|noun|C1|AWL|neutral|core|3|هامش خطأ|the amount of uncertainty in a result
+standard deviation|noun|C1|AWL|neutral|core|3|انحراف معياري|a measure of data spread
+mean|noun|C1|CEFR-J|neutral|core|3|متوسط حسابي|the average of a set of values
+median|noun|C1|CEFR-J|neutral|core|3|وسيط|the middle value in a data set
+mode|noun|C1|CEFR-J|neutral|core|3|منوال|the most frequent value in a data set
+bias|noun|C1|AWL|neutral|core|3|تحيز|a systematic error in results
+confirmation bias|noun|C1|NAWL|neutral|core|3|تحيز تأكيدي|favoring information supporting existing beliefs
+selection bias|noun|C1|AWL|neutral|core|3|تحيز اختيار|error from non-random sample selection
+publication bias|noun|C1|NAWL|neutral|core|3|تحيز نشر|tendency to publish positive results only
+survivorship bias|noun|C1|NAWL|neutral|extended|3|تحيز الناجين|focusing on successes while ignoring failures
+hindsight bias|noun|C1|NAWL|neutral|extended|3|تحيز بأثر رجعي|believing past events were predictable
+anchoring bias|noun|C1|NAWL|neutral|extended|3|تحيز مرساة|relying too heavily on initial information
+cognitive bias|noun|C1|NAWL|neutral|extended|3|تحيز معرفي|a systematic pattern of deviation in judgment
+logical fallacy|noun|C1|NAWL|neutral|extended|3|مغالطة منطقية|an error in reasoning
+straw man|noun|C1|CEFR-J|neutral|extended|3|حجة رجل القش|misrepresenting an argument to attack it
+ad hominem|noun|C1|NAWL|neutral|extended|3|هجوم شخصي|attacking the person instead of the argument
+red herring|noun|C1|CEFR-J|neutral|extended|3|خدعة|an irrelevant topic used to divert attention
+circular reasoning|noun|C1|NAWL|neutral|extended|3|استدلال دائري|using the conclusion as a premise
+false dilemma|noun|C1|NAWL|neutral|extended|3|معضلة زائفة|presenting only two options when more exist
+slippery slope|noun|C1|CEFR-J|neutral|extended|3|منحدر زلق|arguing one event leads to extreme consequences
+appeal to authority|noun|C1|NAWL|neutral|extended|3|احتكام للسلطة|using authority as evidence
+appeal to emotion|noun|C1|NAWL|neutral|extended|3|استدراج عاطفي|using emotions instead of logic
+bandwagon effect|noun|C1|NAWL|neutral|extended|3|تأثير القطيع|following the majority without analysis
+groupthink|noun|C1|NAWL|neutral|extended|3|تفكير جماعي|conformity overriding critical thinking
+skepticism|noun|C1|CEFR-J|neutral|core|3|شكوكية|a questioning attitude toward claims
+critical thinking|noun|C1|AWL|neutral|core|3|تفكير نقدي|analyzing facts to form a judgment
+evidence|noun|B2|AWL|neutral|core|3|دليل|information supporting a conclusion
+conjecture|noun|C1|AWL|neutral|extended|3|تخمين|an opinion without sufficient evidence
+inference|noun|C1|AWL|neutral|extended|3|استنتاج|a conclusion drawn from evidence
+deduction|noun|C1|AWL|neutral|extended|3|استنباط|reasoning from general to specific
+induction|noun|C1|AWL|neutral|extended|3|استقراء|reasoning from specific to general
+abduction|noun|C1|NAWL|neutral|extended|3|استدلال أفضل تفسير|inference to the best explanation
+axiom|noun|C1|AWL|neutral|extended|3|بديهية|a self-evident truth
+postulate|noun|C1|AWL|neutral|extended|3|مسلمة|a statement assumed to be true
+theorem|noun|C1|AWL|neutral|extended|3|مبرهنة|a statement proven by reasoning
+corollary|noun|C1|NAWL|neutral|mastery|3|نتيجة طبيعية|a consequence following from a theorem
+lemma|noun|C2|NAWL|formal|mastery|3|مبرهنة مساعدة|a minor theorem used in proving another
+proof|noun|C1|CEFR-J|neutral|core|3|برهان|evidence establishing a fact or truth
+refutation|noun|C1|AWL|neutral|extended|3|دحض|proving a statement to be wrong
+debunk|verb|C1|CEFR-J|neutral|core|3|يفند|to expose the falseness of a claim
+pseudoscience|noun|C1|NAWL|neutral|core|3|علم زائف|beliefs falsely presented as scientific
+quackery|noun|C1|CEFR-J|neutral|extended|3|شعوذة طبية|fraudulent medical practice
+charlatan|noun|C1|CEFR-J|neutral|extended|3|دجال|a person falsely claiming to have expertise
+empiricism|noun|C1|AWL|neutral|extended|3|تجريبية|the theory that knowledge comes from experience
+rationalism|noun|C1|AWL|neutral|extended|3|عقلانية|the theory that reason is the source of knowledge
+positivism|noun|C1|AWL|neutral|mastery|3|وضعية|the theory that knowledge comes from observable facts
+constructivism|noun|C1|AWL|neutral|mastery|3|بنائية|the theory that knowledge is constructed
+relativism|noun|C1|AWL|neutral|mastery|3|نسبية معرفية|the view that truth depends on perspective
+objectivity|noun|C1|AWL|neutral|core|3|موضوعية|freedom from personal bias
+subjectivity|noun|C1|AWL|neutral|core|3|ذاتية|influence of personal feelings
+reproducibility|noun|C1|NAWL|neutral|core|3|قابلية إعادة الإنتاج|the ability to duplicate experimental results
+validity|noun|C1|AWL|neutral|core|3|صدق|the accuracy of a test or measure
+reliability|noun|C1|AWL|neutral|core|3|ثبات|the consistency of a test or measure
+accuracy|noun|C1|CEFR-J|neutral|core|3|دقة|the degree of correctness
+precision|noun|C1|AWL|neutral|core|3|ضبط|the degree of exactness
+systematic error|noun|C1|AWL|neutral|extended|3|خطأ منهجي|a consistent repeatable error
+random error|noun|C1|NAWL|neutral|extended|3|خطأ عشوائي|an unpredictable variation in data
+calibration|noun|C1|AWL|neutral|extended|3|معايرة|adjusting an instrument for accuracy
+apparatus|noun|C1|CEFR-J|neutral|extended|3|جهاز|equipment used for an experiment
+reagent|noun|C1|NAWL|neutral|extended|3|كاشف|a substance used in a chemical reaction
+catalyst|noun|C1|NAWL|neutral|extended|3|محفز|a substance speeding up a reaction
+inhibitor|noun|C1|NAWL|neutral|mastery|3|مثبط|a substance slowing down a reaction
+titration|noun|C1|NAWL|neutral|mastery|3|معايرة كيميائية|determining concentration by gradual addition
+spectroscopy|noun|C1|NAWL|neutral|mastery|3|مطيافية|analyzing matter using light
+chromatography|noun|C1|NAWL|neutral|mastery|3|كروماتوغرافيا|separating mixtures for analysis
+centrifuge|noun|C1|NAWL|neutral|mastery|3|جهاز طرد مركزي|a machine spinning samples at high speed
+electrophoresis|noun|C2|NAWL|formal|mastery|3|رحلان كهربائي|separating molecules by electric charge
+mass spectrometry|noun|C1|NAWL|neutral|mastery|3|مطيافية كتلة|identifying molecules by mass
+PCR|noun|C1|NAWL|neutral|mastery|3|تفاعل سلسلة|a technique for copying DNA sequences
+genome|noun|C1|NAWL|neutral|extended|3|جينوم|the complete set of genetic material
+gene|noun|B2|CEFR-J|neutral|core|3|جين|a unit of heredity
+mutation|noun|C1|CEFR-J|neutral|core|3|طفرة|a change in genetic material
+allele|noun|C1|NAWL|neutral|extended|3|أليل|an alternative form of a gene
+genotype|noun|C1|NAWL|neutral|extended|3|نمط وراثي|the genetic makeup of an organism
+phenotype|noun|C1|NAWL|neutral|extended|3|نمط ظاهري|the observable characteristics of an organism
+dominant|adjective|C1|AWL|neutral|core|3|سائد|a trait expressed over another
+recessive|adjective|C1|NAWL|neutral|core|3|متنحي|a trait hidden by a dominant one
+heredity|noun|C1|CEFR-J|neutral|core|3|وراثة|the passing of traits to offspring
+chromosome|noun|C1|CEFR-J|neutral|extended|3|كروموسوم|a structure carrying genetic information
+DNA|noun|B2|CEFR-J|neutral|core|3|حمض نووي|the molecule carrying genetic instructions
+RNA|noun|C1|NAWL|neutral|extended|3|حمض نووي ريبوزي|a molecule essential for protein synthesis
+protein synthesis|noun|C1|NAWL|neutral|mastery|3|تخليق بروتين|the process of building proteins from genes
+transcription|noun|C1|AWL|neutral|mastery|3|نسخ وراثي|copying DNA information to RNA
+translation|noun|C1|AWL|neutral|mastery|3|ترجمة وراثية|converting RNA information into protein
+epigenetics|noun|C1|NAWL|neutral|mastery|3|علم التخلق|changes in gene expression without DNA alteration
+stem cell|noun|C1|NAWL|neutral|extended|3|خلية جذعية|an undifferentiated cell that can specialize
+clinical trial|noun|C1|NAWL|neutral|core|3|تجربة سريرية|a study testing medical treatments on people
+informed consent|noun|C1|AWL|neutral|core|3|موافقة مستنيرة|agreement after understanding risks
+ethics committee|noun|C1|AWL|neutral|extended|3|لجنة أخلاقيات|a group overseeing research conduct
+longitudinal study|noun|C1|AWL|neutral|extended|3|دراسة طولية|research tracking subjects over time
+cross-sectional|adjective|C1|AWL|neutral|extended|3|مقطعي|studying a population at one point in time
+meta-analysis|noun|C1|NAWL|neutral|extended|3|تحليل تلوي|combining results from multiple studies
+systematic review|noun|C1|AWL|neutral|extended|3|مراجعة منهجية|a comprehensive summary of research
+case study|noun|C1|AWL|neutral|core|3|دراسة حالة|an in-depth investigation of a single subject
+cohort study|noun|C1|NAWL|neutral|mastery|3|دراسة أترابية|tracking a group sharing a characteristic
+retrospective study|noun|C1|AWL|neutral|mastery|3|دراسة استعادية|analyzing past data to find patterns
+prospective study|noun|C1|AWL|neutral|mastery|3|دراسة استباقية|following subjects forward in time
+qualitative|adjective|C1|AWL|neutral|core|3|نوعي|based on descriptions rather than numbers
+quantitative|adjective|C1|AWL|neutral|core|3|كمي|based on measurable data
+data set|noun|C1|AWL|neutral|core|3|مجموعة بيانات|a collection of related data
+regression|noun|C1|AWL|neutral|extended|3|انحدار|analyzing the relationship between variables
+variance|noun|C1|AWL|neutral|extended|3|تباين|the measure of how data points differ
+chi-square|noun|C1|NAWL|neutral|mastery|3|كاي تربيع|a test for relationships between categories
+t-test|noun|C1|NAWL|neutral|mastery|3|اختبار تي|a test comparing two group means
+ANOVA|noun|C1|NAWL|neutral|mastery|3|تحليل تباين|a test comparing means of multiple groups
+null hypothesis|noun|C1|NAWL|neutral|core|3|فرضية صفرية|the assumption of no effect
+alternative hypothesis|noun|C1|NAWL|neutral|extended|3|فرضية بديلة|the assumption that an effect exists
+Type I error|noun|C1|NAWL|neutral|mastery|3|خطأ من النوع الأول|rejecting a true null hypothesis
+Type II error|noun|C1|NAWL|neutral|mastery|3|خطأ من النوع الثاني|failing to reject a false null hypothesis
+effect size|noun|C1|NAWL|neutral|mastery|3|حجم الأثر|the magnitude of a research finding
+power analysis|noun|C1|NAWL|neutral|mastery|3|تحليل قوة|determining the sample size needed

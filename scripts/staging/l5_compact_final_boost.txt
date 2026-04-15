@@ -1,0 +1,56 @@
+creative process|noun|C1|AWL|neutral|core|9|عملية إبداعية|the steps involved in making art
+artistic expression|noun|C1|AWL|neutral|core|9|تعبير فني|communicating ideas through art
+aesthetic judgment|noun|C1|AWL|neutral|extended|9|حكم جمالي|evaluating the beauty of art
+artistic integrity|noun|C1|AWL|neutral|core|9|نزاهة فنية|staying true to one's creative vision
+creative collaboration|noun|C1|AWL|neutral|core|9|تعاون إبداعي|artists working together
+artistic legacy|noun|C1|AWL|neutral|extended|9|إرث فني|the lasting impact of an artist's work
+creative renaissance|noun|C1|NAWL|neutral|extended|9|نهضة إبداعية|a revival of artistic activity
+artistic discipline|noun|C1|AWL|neutral|extended|9|انضباط فني|committed practice in creative work
+visual literacy|noun|C1|AWL|neutral|core|9|محو أمية بصرية|understanding visual communication
+color theory|noun|C1|NAWL|neutral|core|9|نظرية ألوان|the study of how colors interact
+composition|noun|C1|AWL|neutral|core|9|تكوين فني|the arrangement of elements in art
+perspective drawing|noun|C1|CEFR-J|neutral|core|9|رسم منظوري|creating depth on a flat surface
+chiaroscuro|noun|C1|NAWL|neutral|mastery|9|تباين ضوء وظل|using light and shadow for dramatic effect
+impasto|noun|C1|NAWL|neutral|mastery|9|طلاء سميك|thick paint applied in layers
+sfumato|noun|C2|NAWL|formal|mastery|9|تدرج ضبابي|soft blending of colors and tones
+trompe l'oeil|noun|C1|NAWL|neutral|mastery|9|خداع بصري|a painting creating an optical illusion
+plein air|noun|C1|NAWL|neutral|extended|9|رسم في الهواء الطلق|painting outdoors directly from nature
+mixed media|noun|C1|CEFR-J|neutral|core|9|وسائط مختلطة|art combining different materials
+collage|noun|C1|CEFR-J|neutral|core|9|كولاج|art made by assembling different materials
+assemblage|noun|C1|NAWL|neutral|extended|9|تجميع فني|three-dimensional collage using found objects
+found object art|noun|C1|NAWL|neutral|extended|9|فن الأشياء الموجودة|art using everyday items
+readymade|noun|C1|NAWL|neutral|mastery|9|جاهز صنع|a manufactured object presented as art
+biodiversity loss|noun|C1|NAWL|neutral|core|6|فقدان تنوع حيوي|the decline of species variety
+ecosystem collapse|noun|C1|NAWL|neutral|core|6|انهيار نظام بيئي|the failure of an ecosystem to function
+habitat loss|noun|C1|NAWL|neutral|core|6|فقدان موائل|the destruction of natural living spaces
+habitat restoration|noun|C1|NAWL|neutral|core|6|استعادة موائل|rebuilding damaged natural environments
+wetland restoration|noun|C1|NAWL|neutral|extended|6|استعادة أراضي رطبة|rebuilding waterlogged ecosystems
+grassland restoration|noun|C1|NAWL|neutral|extended|6|استعادة مراعي|rebuilding natural grassland habitats
+marine biodiversity|noun|C1|NAWL|neutral|core|6|تنوع حيوي بحري|the variety of ocean life
+freshwater biodiversity|noun|C1|NAWL|neutral|extended|6|تنوع حيوي مياه عذبة|the variety of life in rivers and lakes
+terrestrial biodiversity|noun|C1|NAWL|neutral|extended|6|تنوع حيوي أرضي|the variety of life on land
+urban biodiversity|noun|C1|NAWL|neutral|extended|6|تنوع حيوي حضري|wildlife living in cities
+pollinator garden|noun|C1|NAWL|neutral|extended|6|حديقة ملقحات|a garden attracting pollinating insects
+native species|noun|C1|NAWL|neutral|core|6|نوع أصيل|a species naturally found in an area
+introduced species|noun|C1|NAWL|neutral|extended|6|نوع مدخل|a species brought to a new area by humans
+feral population|noun|C1|NAWL|neutral|extended|6|مجتمع وحشي|domestic animals living in the wild
+wave function collapse|noun|C1|NAWL|neutral|extended|10|انهيار دالة موجية|a quantum state becoming definite
+quantum decoherence|noun|C1|NAWL|neutral|extended|10|فقدان تماسك كمي|quantum effects disappearing in large systems
+quantum coherence|noun|C1|NAWL|neutral|extended|10|تماسك كمي|maintaining quantum properties
+quantum phase transition|noun|C1|NAWL|neutral|mastery|10|تحول طوري كمي|a change in matter at absolute zero
+topological insulator|noun|C1|NAWL|neutral|mastery|10|عازل طوبولوجي|a material conducting only on its surface
+graphene|noun|C1|NAWL|neutral|core|10|غرافين|a single layer of carbon atoms
+quantum material|noun|C1|NAWL|neutral|extended|10|مادة كمية|a material with quantum properties
+metamaterial|noun|C1|NAWL|neutral|mastery|10|مادة خارقة|an engineered material with unusual properties
+photovoltaic cell|noun|C1|NAWL|neutral|core|10|خلية كهروضوئية|a device converting light to electricity
+thermoelectric material|noun|C1|NAWL|neutral|mastery|10|مادة كهروحرارية|a material converting heat to electricity
+climate tipping point|noun|C1|NAWL|neutral|core|4|نقطة تحول مناخية|a threshold causing irreversible change
+climate debt|noun|C1|NAWL|neutral|extended|4|دين مناخي|historical responsibility for emissions
+climate equity|noun|C1|AWL|neutral|extended|4|إنصاف مناخي|fair sharing of climate burdens
+intergenerational equity|noun|C1|AWL|neutral|extended|4|إنصاف بين أجيال|fairness between present and future generations
+precautionary principle|noun|C1|AWL|neutral|core|4|مبدأ احترازي|acting to prevent harm despite uncertainty
+polluter pays principle|noun|C1|AWL|neutral|extended|4|مبدأ الملوث يدفع|those causing pollution bear the costs
+common but differentiated responsibilities|noun|C1|AWL|neutral|mastery|4|مسؤوليات مشتركة متباينة|all countries share responsibility unequally
+technology leapfrogging|noun|C1|NAWL|neutral|extended|4|قفز تقني|developing countries skipping older technology
+climate-proof infrastructure|noun|C1|NAWL|neutral|extended|4|بنية مقاومة للمناخ|infrastructure designed to withstand climate impacts
+sponge city|noun|C1|NAWL|neutral|extended|4|مدينة إسفنجية|a city designed to absorb floodwater

@@ -1,0 +1,67 @@
+telescope design|noun|C1|NAWL|neutral|core|10|تصميم تلسكوبي|the engineering of telescopes
+reflecting telescope|noun|C1|NAWL|neutral|extended|10|تلسكوب عاكس|a telescope using mirrors
+refracting telescope|noun|C1|NAWL|neutral|extended|10|تلسكوب كاسر|a telescope using lenses
+radio telescope|noun|C1|NAWL|neutral|extended|10|تلسكوب راديوي|a telescope detecting radio waves
+space telescope|noun|C1|NAWL|neutral|core|10|تلسكوب فضائي|a telescope orbiting in space
+James Webb|noun|C1|NAWL|neutral|core|10|جيمس ويب|the most powerful space telescope
+Hubble telescope|noun|C1|CEFR-J|neutral|core|10|تلسكوب هابل|a space telescope launched in 1990
+aperture|noun|C1|NAWL|neutral|extended|10|فتحة عدسة|the opening collecting light in a telescope
+focal length|noun|C1|NAWL|neutral|extended|10|بعد بؤري|the distance between lens and focus
+resolution|noun|C1|AWL|neutral|core|10|دقة تصوير|the ability to distinguish fine detail
+adaptive optics|noun|C1|NAWL|neutral|mastery|10|بصريات تكيفية|correcting atmospheric distortion in real time
+coronagraph|noun|C2|NAWL|formal|mastery|10|مرسمة إكليلية|a device blocking starlight to see planets
+spectrograph|noun|C1|NAWL|neutral|extended|10|مطياف|a device separating light into its spectrum
+CCD|noun|C1|NAWL|neutral|extended|10|جهاز اقتران شحنة|a light-sensitive electronic detector
+photometry|noun|C1|NAWL|neutral|extended|10|قياس ضوئي|measuring the brightness of celestial objects
+astrometry|noun|C1|NAWL|neutral|mastery|10|قياس فلكي|precisely measuring star positions
+celestial mechanics|noun|C1|NAWL|neutral|extended|10|ميكانيكا سماوية|the physics of celestial body motion
+Kepler's laws|noun|C1|NAWL|neutral|core|10|قوانين كبلر|three laws of planetary motion
+Newton's law of gravitation|noun|C1|CEFR-J|neutral|core|10|قانون الجاذبية لنيوتن|the force between two masses
+escape velocity|noun|C1|NAWL|neutral|extended|10|سرعة إفلات|the speed needed to leave a gravitational field
+orbital mechanics|noun|C1|NAWL|neutral|extended|10|ميكانيكا مدارية|the physics of spacecraft orbits
+Lagrange point|noun|C1|NAWL|neutral|mastery|10|نقطة لاغرانج|a stable point in a gravitational system
+Hohmann transfer|noun|C2|NAWL|formal|mastery|10|نقل هوهمان|an efficient orbit change maneuver
+delta-v|noun|C1|NAWL|neutral|mastery|10|دلتا في|the change in velocity for orbital maneuvers
+perihelion|noun|C1|NAWL|neutral|extended|10|حضيض شمسي|the closest point to the sun in an orbit
+aphelion|noun|C1|NAWL|neutral|extended|10|أوج شمسي|the farthest point from the sun in an orbit
+perigee|noun|C1|NAWL|neutral|mastery|10|حضيض أرضي|the closest point to Earth in an orbit
+apogee|noun|C1|NAWL|neutral|mastery|10|أوج أرضي|the farthest point from Earth in an orbit
+geostationary orbit|noun|C1|NAWL|neutral|extended|10|مدار ثابت|an orbit matching Earth's rotation
+low Earth orbit|noun|C1|NAWL|neutral|core|10|مدار أرضي منخفض|an orbit close to Earth's surface
+satellite|noun|B2|CEFR-J|neutral|core|10|قمر صناعي|an object orbiting a planet
+space station|noun|C1|CEFR-J|neutral|core|10|محطة فضاء|a habitable structure in orbit
+ISS|noun|C1|NAWL|neutral|core|10|محطة فضاء دولية|the international space station
+spacewalk|noun|C1|CEFR-J|neutral|extended|10|سير فضائي|activity outside a spacecraft
+docking|noun|C1|CEFR-J|neutral|extended|10|التحام|connecting two spacecraft
+rover|noun|C1|CEFR-J|neutral|core|10|مركبة استكشاف|a vehicle exploring a planet's surface
+lander|noun|C1|CEFR-J|neutral|extended|10|مركبة هبوط|a spacecraft designed to land on a body
+probe|noun|C1|CEFR-J|neutral|core|10|مسبار|an unmanned spacecraft for exploration
+flyby|noun|C1|NAWL|neutral|extended|10|تحليق|passing close to a celestial body
+gravity assist|noun|C1|NAWL|neutral|mastery|10|مساعدة جاذبية|using a planet's gravity to change speed
+sample return|noun|C1|NAWL|neutral|mastery|10|إعادة عينة|collecting material from space and returning it
+Voyager|noun|C1|CEFR-J|neutral|extended|10|فوياجر|NASA probes reaching interstellar space
+Cassini|noun|C1|NAWL|neutral|mastery|10|كاسيني|a probe that studied Saturn
+New Horizons|noun|C1|NAWL|neutral|mastery|10|آفاق جديدة|a probe that visited Pluto
+Mars mission|noun|C1|CEFR-J|neutral|core|10|مهمة مريخ|a space expedition to Mars
+lunar mission|noun|C1|CEFR-J|neutral|core|10|مهمة قمرية|a space expedition to the Moon
+Artemis program|noun|C1|NAWL|neutral|extended|10|برنامج أرتميس|NASA's program to return to the Moon
+space colonization|noun|C1|NAWL|neutral|extended|10|استعمار فضائي|establishing settlements beyond Earth
+terraforming|noun|C1|NAWL|neutral|mastery|10|تحويل كوكبي|making a planet habitable
+space elevator|noun|C1|NAWL|neutral|mastery|10|مصعد فضائي|a cable from Earth to orbit
+space debris|noun|C1|CEFR-J|neutral|core|10|حطام فضائي|abandoned objects orbiting Earth
+Kessler syndrome|noun|C1|NAWL|neutral|mastery|10|متلازمة كيسلر|a cascade of space debris collisions
+space weather|noun|C1|NAWL|neutral|extended|10|طقس فضائي|conditions in space affecting technology
+astrobiology|noun|C1|NAWL|neutral|core|10|علم أحياء فلكي|the study of life in the universe
+biosignature|noun|C1|NAWL|neutral|extended|10|بصمة حيوية|evidence of life on another world
+Drake equation|noun|C1|NAWL|neutral|extended|10|معادلة دريك|estimating civilizations in the galaxy
+Fermi paradox|noun|C1|NAWL|neutral|extended|10|مفارقة فيرمي|why we have not detected alien life
+SETI|noun|C1|NAWL|neutral|core|10|بحث عن ذكاء|the search for extraterrestrial intelligence
+technosignature|noun|C1|NAWL|neutral|mastery|10|بصمة تقنية|evidence of technology from another civilization
+habitable planet|noun|C1|NAWL|neutral|core|10|كوكب صالح للحياة|a planet able to support life
+Goldilocks zone|noun|C1|NAWL|neutral|extended|10|منطقة المعتدلة|the region around a star suitable for life
+water ice|noun|C1|CEFR-J|neutral|extended|10|جليد مائي|frozen water on other celestial bodies
+subsurface ocean|noun|C1|NAWL|neutral|mastery|10|محيط تحت سطحي|liquid water beneath an icy surface
+Europa|noun|C1|NAWL|neutral|extended|10|يوروبا|Jupiter's moon with a subsurface ocean
+Enceladus|noun|C1|NAWL|neutral|mastery|10|إنسيلادوس|Saturn's moon with water geysers
+Titan|noun|C1|CEFR-J|neutral|extended|10|تيتان|Saturn's largest moon with an atmosphere
+Ganymede|noun|C1|NAWL|neutral|mastery|10|غانيميد|the largest moon in the solar system

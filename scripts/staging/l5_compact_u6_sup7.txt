@@ -1,0 +1,86 @@
+apex predator|noun|C1|NAWL|neutral|core|6|مفترس قمة|a predator at the top of a food chain
+keystone species|noun|C1|NAWL|neutral|core|6|نوع حجر أساس|a species critical to its ecosystem
+indicator species|noun|C1|NAWL|neutral|extended|6|نوع مؤشر|a species reflecting ecosystem health
+umbrella species|noun|C1|NAWL|neutral|extended|6|نوع مظلة|a species whose protection helps others
+flagship species|noun|C1|NAWL|neutral|extended|6|نوع رائد|a charismatic species used for conservation
+endemic species|noun|C1|NAWL|neutral|core|6|نوع متوطن|a species found only in one area
+invasive species|noun|C1|NAWL|neutral|core|6|نوع غازي|a non-native species causing harm
+biological invasion|noun|C1|NAWL|neutral|extended|6|غزو بيولوجي|the spread of non-native species
+ballast water|noun|C1|NAWL|neutral|mastery|6|ماء صابورة|water carried in ships spreading organisms
+biofouling|noun|C1|NAWL|neutral|mastery|6|تلوث حيوي|organisms growing on submerged surfaces
+trophic cascade|noun|C1|NAWL|neutral|extended|6|تسلسل غذائي|indirect effects through a food chain
+trophic level|noun|C1|NAWL|neutral|extended|6|مستوى غذائي|a position in a food chain
+primary producer|noun|C1|NAWL|neutral|core|6|منتج أولي|an organism making food from sunlight
+primary consumer|noun|C1|NAWL|neutral|core|6|مستهلك أولي|an organism eating producers
+secondary consumer|noun|C1|NAWL|neutral|extended|6|مستهلك ثانوي|an organism eating primary consumers
+decomposer|noun|C1|NAWL|neutral|core|6|محلل|an organism breaking down dead matter
+detritivore|noun|C1|NAWL|neutral|extended|6|آكل فتات|an organism feeding on dead organic matter
+biogeochemical cycle|noun|C1|NAWL|neutral|extended|6|دورة كيميائية حيوية|the movement of elements through Earth systems
+nitrogen cycle|noun|C1|NAWL|neutral|core|6|دورة نيتروجين|the circulation of nitrogen in nature
+nitrogen fixation|noun|C1|NAWL|neutral|extended|6|تثبيت نيتروجين|converting atmospheric nitrogen to usable forms
+phosphorus cycle|noun|C1|NAWL|neutral|extended|6|دورة فوسفور|the movement of phosphorus in ecosystems
+eutrophication|noun|C1|NAWL|neutral|extended|6|تخثث|excessive nutrients causing algal growth
+algal bloom|noun|C1|NAWL|neutral|core|6|ازدهار طحلبي|rapid algae growth in water
+dead zone|noun|C1|CEFR-J|neutral|core|6|منطقة ميتة|an area with too little oxygen for life
+hypoxia|noun|C1|NAWL|neutral|extended|6|نقص أكسجين|dangerously low oxygen levels
+anoxia|noun|C1|NAWL|neutral|mastery|6|انعدام أكسجين|complete absence of oxygen
+dissolved oxygen|noun|C1|NAWL|neutral|extended|6|أكسجين مذاب|oxygen available in water for organisms
+water quality index|noun|C1|NAWL|neutral|extended|6|مؤشر جودة مياه|a measure of water condition
+biological oxygen demand|noun|C1|NAWL|neutral|mastery|6|طلب أكسجين حيوي|oxygen needed to decompose organic matter
+bioaccumulation|noun|C1|NAWL|neutral|extended|6|تراكم حيوي|toxins building up in an organism
+biomagnification|noun|C1|NAWL|neutral|extended|6|تضخم حيوي|toxins increasing up the food chain
+persistent organic pollutant|noun|C1|NAWL|neutral|extended|6|ملوث عضوي ثابت|a long-lasting chemical harmful to life
+microplastic|noun|C1|NAWL|neutral|core|6|بلاستيك دقيق|tiny plastic particles polluting the environment
+nanoplastic|noun|C1|NAWL|neutral|mastery|6|بلاستيك نانوي|extremely small plastic fragments
+marine debris|noun|C1|NAWL|neutral|core|6|حطام بحري|human-made waste in the ocean
+ocean gyre|noun|C1|NAWL|neutral|extended|6|دوامة محيطية|a large system of circular ocean currents
+coral reef|noun|C1|CEFR-J|neutral|core|6|شعب مرجانية|an underwater ecosystem built by corals
+reef restoration|noun|C1|NAWL|neutral|extended|6|استعادة شعب|rebuilding damaged coral reefs
+marine protected area|noun|C1|NAWL|neutral|core|6|منطقة بحرية محمية|an ocean area with restricted activities
+no-take zone|noun|C1|NAWL|neutral|extended|6|منطقة حظر صيد|an area where all fishing is banned
+sustainable fishery|noun|C1|AWL|neutral|core|6|مصيدة مستدامة|fishing that maintains fish populations
+bycatch|noun|C1|NAWL|neutral|extended|6|صيد عرضي|unintended species caught while fishing
+overfishing|noun|C1|CEFR-J|neutral|core|6|صيد جائر|catching fish faster than they reproduce
+fish stock|noun|C1|CEFR-J|neutral|extended|6|مخزون سمكي|the population of a fish species
+maximum sustainable yield|noun|C1|AWL|neutral|mastery|6|أقصى عائد مستدام|the most that can be harvested sustainably
+ecosystem service|noun|C1|AWL|neutral|core|6|خدمة نظام بيئي|benefits nature provides to humans
+pollination service|noun|C1|NAWL|neutral|extended|6|خدمة تلقيح|insects pollinating crops
+seed dispersal|noun|C1|NAWL|neutral|extended|6|نثر بذور|spreading seeds to new locations
+biological control|noun|C1|NAWL|neutral|extended|6|مكافحة حيوية|using organisms to manage pests
+integrated pest management|noun|C1|NAWL|neutral|extended|6|إدارة آفات متكاملة|combining methods to control pests
+agroecology|noun|C1|NAWL|neutral|extended|6|إيكولوجيا زراعية|applying ecology to agriculture
+permaculture|noun|C1|NAWL|neutral|extended|6|زراعة مستدامة|sustainable agricultural design
+rewilding|noun|C1|NAWL|neutral|core|6|إعادة توحش|restoring natural processes to an area
+wildlife corridor|noun|C1|NAWL|neutral|core|6|ممر حياة برية|a strip of land connecting habitats
+habitat fragmentation|noun|C1|NAWL|neutral|core|6|تجزئة موائل|breaking habitats into smaller pieces
+edge effect|noun|C1|NAWL|neutral|extended|6|تأثير حافة|changes at the boundary of habitats
+ecotone|noun|C1|NAWL|neutral|mastery|6|نطاق انتقالي|the transition zone between two ecosystems
+succession|noun|C1|AWL|neutral|extended|6|تعاقب بيئي|the gradual change of an ecosystem over time
+pioneer species|noun|C1|NAWL|neutral|extended|6|نوع رائد|the first species to colonize a new area
+climax community|noun|C1|NAWL|neutral|mastery|6|مجتمع ذروة|the final stage of ecological succession
+disturbance ecology|noun|C1|NAWL|neutral|mastery|6|إيكولوجيا اضطراب|studying how disruptions shape ecosystems
+resilience ecology|noun|C1|AWL|neutral|extended|6|إيكولوجيا مرونة|studying how ecosystems recover from stress
+adaptive management|noun|C1|AWL|neutral|extended|6|إدارة تكيفية|adjusting strategies based on outcomes
+citizen conservation|noun|C1|NAWL|neutral|extended|6|حفظ مواطنين|public participation in conservation efforts
+community-based conservation|noun|C1|AWL|neutral|extended|6|حفظ مجتمعي|local communities managing natural resources
+payment for ecosystem services|noun|C1|AWL|neutral|mastery|6|دفع مقابل خدمات بيئية|compensating landowners for conservation
+biodiversity offset|noun|C1|NAWL|neutral|mastery|6|تعويض تنوع حيوي|compensating for habitat loss elsewhere
+species reintroduction|noun|C1|NAWL|neutral|core|6|إعادة إدخال أنواع|returning a species to its former habitat
+captive breeding|noun|C1|NAWL|neutral|core|6|تربية أسر|breeding animals in controlled environments
+seed bank|noun|C1|CEFR-J|neutral|core|6|بنك بذور|a store of seeds for conservation
+gene bank|noun|C1|NAWL|neutral|extended|6|بنك جينات|a facility preserving genetic material
+cryopreservation|noun|C1|NAWL|neutral|mastery|6|حفظ بالتبريد|preserving biological material at very low temperatures
+ex situ conservation|noun|C1|NAWL|neutral|extended|6|حفظ خارج موطن|protecting species outside their natural habitat
+in situ conservation|noun|C1|NAWL|neutral|extended|6|حفظ في موطن|protecting species in their natural habitat
+biosphere reserve|noun|C1|NAWL|neutral|extended|6|محمية محيط حيوي|a protected area promoting sustainability
+Ramsar site|noun|C1|NAWL|neutral|mastery|6|موقع رامسار|an internationally important wetland
+CITES|noun|C1|NAWL|neutral|extended|6|اتفاقية سايتس|a treaty regulating wildlife trade
+Red List|noun|C1|NAWL|neutral|core|6|قائمة حمراء|a list of threatened species
+critically endangered|adjective|C1|AWL|neutral|core|6|مهدد بالانقراض بشدة|at extremely high risk of extinction
+vulnerable species|noun|C1|AWL|neutral|core|6|نوع هش|a species at risk of becoming endangered
+least concern|noun|C1|AWL|neutral|extended|6|أقل قلق|a species not at significant risk
+extinction debt|noun|C1|NAWL|neutral|mastery|6|دين انقراض|future extinctions from past habitat loss
+Lazarus species|noun|C1|NAWL|neutral|mastery|6|نوع لعازر|a species thought extinct then rediscovered
+living fossil|noun|C1|CEFR-J|neutral|extended|6|أحفورة حية|a species unchanged for millions of years
+coextinction|noun|C1|NAWL|neutral|mastery|6|انقراض مشترك|extinction of one species causing another's
+sixth mass extinction|noun|C1|NAWL|neutral|core|6|انقراض جماعي سادس|the current loss of biodiversity

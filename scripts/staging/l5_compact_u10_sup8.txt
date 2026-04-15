@@ -1,0 +1,36 @@
+quantum mechanics|noun|C1|NAWL|neutral|core|10|ميكانيكا كمية|the physics of subatomic particles
+quantum field theory|noun|C1|NAWL|neutral|extended|10|نظرية حقل كمي|combining quantum mechanics with special relativity
+quantum electrodynamics|noun|C1|NAWL|neutral|mastery|10|ديناميكا كهربية كمية|the quantum theory of electromagnetic interactions
+quantum chromodynamics|noun|C1|NAWL|neutral|mastery|10|ديناميكا لونية كمية|the quantum theory of the strong force
+gauge symmetry|noun|C1|NAWL|neutral|mastery|10|تناظر معياري|a symmetry underlying fundamental forces
+symmetry breaking|noun|C1|NAWL|neutral|extended|10|كسر تناظر|a symmetry being lost in a physical system
+Higgs mechanism|noun|C1|NAWL|neutral|extended|10|آلية هيغز|how particles acquire mass
+Feynman diagram|noun|C1|NAWL|neutral|extended|10|مخطط فاينمان|a picture representing particle interactions
+renormalization|noun|C2|NAWL|formal|mastery|10|إعادة تنظيم|removing infinities from quantum calculations
+virtual particle|noun|C1|NAWL|neutral|extended|10|جسيم افتراضي|a temporary particle in quantum interactions
+vacuum energy|noun|C1|NAWL|neutral|extended|10|طاقة فراغ|energy present in empty space
+Casimir effect|noun|C1|NAWL|neutral|mastery|10|تأثير كاسيمير|a force between close parallel plates
+Lamb shift|noun|C2|NAWL|formal|mastery|10|إزاحة لامب|a small energy shift in hydrogen atoms
+spin-orbit coupling|noun|C1|NAWL|neutral|mastery|10|ارتباط مغزلي-مداري|interaction between spin and orbital motion
+fine structure|noun|C1|NAWL|neutral|mastery|10|بنية دقيقة|small energy splittings in atomic spectra
+hyperfine structure|noun|C1|NAWL|neutral|mastery|10|بنية فائقة الدقة|very small energy splittings from nuclear effects
+spectroscopy|noun|C1|NAWL|neutral|core|10|مطيافية|studying matter by its interaction with light
+emission spectrum|noun|C1|NAWL|neutral|extended|10|طيف انبعاث|light emitted by excited atoms
+absorption spectrum|noun|C1|NAWL|neutral|extended|10|طيف امتصاص|light absorbed by atoms at specific frequencies
+spectral line|noun|C1|NAWL|neutral|extended|10|خط طيفي|a bright or dark line in a spectrum
+Doppler effect|noun|C1|NAWL|neutral|core|10|تأثير دوبلر|frequency changing due to motion
+interferometer|noun|C1|NAWL|neutral|extended|10|مقياس تداخل|a device measuring wave interference
+laser|noun|C1|CEFR-J|neutral|core|10|ليزر|a device producing coherent light
+photon|noun|C1|NAWL|neutral|core|10|فوتون|a particle of light
+quantum optics|noun|C1|NAWL|neutral|extended|10|بصريات كمية|studying light at the quantum level
+squeezed light|noun|C1|NAWL|neutral|mastery|10|ضوء مضغوط|light with reduced quantum noise
+quantum vacuum|noun|C1|NAWL|neutral|mastery|10|فراغ كمي|empty space with quantum fluctuations
+zero-point energy|noun|C1|NAWL|neutral|mastery|10|طاقة نقطة صفر|the minimum energy of a quantum system
+wave-particle duality|noun|C1|NAWL|neutral|core|10|ازدواجية موجة-جسيم|matter behaving as both waves and particles
+matter wave|noun|C1|NAWL|neutral|extended|10|موجة مادة|the wave nature of particles
+electron diffraction|noun|C1|NAWL|neutral|extended|10|حيود إلكتروني|electrons bending around obstacles like waves
+neutron diffraction|noun|C1|NAWL|neutral|mastery|10|حيود نيوتروني|using neutrons to study material structure
+X-ray crystallography|noun|C1|NAWL|neutral|extended|10|بلورات أشعة سينية|determining crystal structure with X-rays
+electron microscope|noun|C1|NAWL|neutral|core|10|مجهر إلكتروني|a microscope using electrons for imaging
+scanning tunneling microscope|noun|C1|NAWL|neutral|mastery|10|مجهر نفق ماسح|imaging atoms using quantum tunneling
+atomic force microscope|noun|C1|NAWL|neutral|extended|10|مجهر قوة ذرية|imaging surfaces by scanning with a fine tip

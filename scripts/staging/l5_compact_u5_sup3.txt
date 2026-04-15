@@ -1,0 +1,104 @@
+reactor|noun|C1|NAWL|neutral|core|5|مفاعل|a device for controlled nuclear reactions
+fission|noun|C1|NAWL|neutral|core|5|انشطار|splitting an atomic nucleus
+fusion|noun|C1|NAWL|neutral|core|5|اندماج نووي|combining atomic nuclei
+uranium|noun|C1|CEFR-J|neutral|core|5|يورانيوم|a radioactive element used as nuclear fuel
+plutonium|noun|C1|CEFR-J|neutral|core|5|بلوتونيوم|a radioactive element used in weapons
+thorium|noun|C1|NAWL|neutral|extended|5|ثوريوم|a radioactive element for future reactors
+enrichment|noun|C1|AWL|neutral|core|5|تخصيب|increasing the concentration of an isotope
+centrifuge|noun|C1|NAWL|neutral|core|5|جهاز طرد مركزي نووي|a machine for separating isotopes
+isotope|noun|C1|NAWL|neutral|core|5|نظير|atoms with different numbers of neutrons
+half-life|noun|C1|NAWL|neutral|core|5|عمر نصف|the time for half a radioactive substance to decay
+decay|noun|C1|CEFR-J|neutral|core|5|اضمحلال|the process of radioactive disintegration
+radiation|noun|C1|CEFR-J|neutral|core|5|إشعاع|energy emitted from radioactive material
+alpha particle|noun|C1|NAWL|neutral|extended|5|جسيم ألفا|a helium nucleus emitted during decay
+beta particle|noun|C1|NAWL|neutral|extended|5|جسيم بيتا|an electron emitted during decay
+gamma ray|noun|C1|NAWL|neutral|extended|5|أشعة غاما|high-energy electromagnetic radiation
+neutron|noun|C1|CEFR-J|neutral|core|5|نيوترون|an uncharged particle in an atomic nucleus
+proton|noun|C1|CEFR-J|neutral|core|5|بروتون|a positively charged particle
+electron|noun|C1|CEFR-J|neutral|core|5|إلكترون|a negatively charged particle
+chain reaction|noun|C1|NAWL|neutral|core|5|تفاعل تسلسلي|a self-sustaining series of nuclear reactions
+critical mass|noun|C1|NAWL|neutral|core|5|كتلة حرجة|the minimum amount needed for chain reaction
+control rod|noun|C1|NAWL|neutral|extended|5|قضيب تحكم|a device absorbing neutrons in a reactor
+moderator|noun|C1|AWL|neutral|extended|5|مهدئ نووي|a material slowing down neutrons
+coolant|noun|C1|NAWL|neutral|extended|5|مبرد|a substance removing heat from a reactor
+containment|noun|C1|AWL|neutral|core|5|احتواء|a structure preventing radioactive release
+meltdown|noun|C1|CEFR-J|neutral|core|5|انصهار|overheating causing reactor core damage
+fallout|noun|C1|CEFR-J|neutral|core|5|تساقط إشعاعي|radioactive particles spreading after an explosion
+contamination|noun|C1|AWL|neutral|core|5|تلوث إشعاعي|the spread of radioactive material
+decontamination|noun|C1|AWL|neutral|extended|5|إزالة تلوث|removing radioactive material
+dosimeter|noun|C1|NAWL|neutral|extended|5|مقياس جرعة|a device measuring radiation exposure
+Geiger counter|noun|C1|NAWL|neutral|extended|5|عداد غايغر|a device detecting radiation
+sievert|noun|C1|NAWL|neutral|extended|5|سيفرت|a unit measuring radiation dose
+becquerel|noun|C1|NAWL|neutral|mastery|5|بيكريل|a unit of radioactive decay
+rem|noun|C1|NAWL|neutral|mastery|5|ريم|a unit of radiation dose
+shielding|noun|C1|CEFR-J|neutral|core|5|تدريع|material blocking radiation
+lead shielding|noun|C1|CEFR-J|neutral|extended|5|تدريع رصاصي|using lead to block radiation
+concrete shielding|noun|C1|CEFR-J|neutral|extended|5|تدريع خرساني|using concrete to block radiation
+spent fuel|noun|C1|NAWL|neutral|core|5|وقود مستنفد|used nuclear fuel no longer efficient
+reprocessing|noun|C1|AWL|neutral|extended|5|إعادة معالجة|extracting usable material from spent fuel
+vitrification|noun|C2|NAWL|formal|mastery|5|تزجيج نفايات|encasing waste in glass for disposal
+geological repository|noun|C1|NAWL|neutral|extended|5|مستودع جيولوجي|underground storage for nuclear waste
+dry cask|noun|C1|NAWL|neutral|mastery|5|حاوية جافة|a container for storing spent fuel
+interim storage|noun|C1|AWL|neutral|extended|5|تخزين مؤقت|temporary storage of nuclear waste
+permanent disposal|noun|C1|AWL|neutral|extended|5|تخلص دائم|final storage of nuclear waste
+proliferation|noun|C1|AWL|neutral|core|5|انتشار نووي|the spread of nuclear weapons
+non-proliferation|noun|C1|AWL|neutral|core|5|عدم انتشار|preventing the spread of nuclear weapons
+NPT|noun|C1|NAWL|neutral|core|5|معاهدة عدم الانتشار|the non-proliferation treaty
+IAEA|noun|C1|NAWL|neutral|core|5|الوكالة الدولية للطاقة الذرية|the nuclear energy oversight agency
+safeguards|noun|C1|AWL|neutral|core|5|ضمانات نووية|measures preventing misuse of nuclear material
+inspection|noun|C1|AWL|neutral|core|5|تفتيش نووي|official examination of nuclear facilities
+verification|noun|C1|AWL|neutral|core|5|تحقق نووي|confirming compliance with agreements
+deterrence|noun|C1|AWL|neutral|core|5|ردع نووي|discouraging attack through threat of retaliation
+disarmament|noun|C1|AWL|neutral|core|5|نزع سلاح|reducing or eliminating weapons
+arms control|noun|C1|AWL|neutral|core|5|تحكم بالأسلحة|agreements limiting military weapons
+nuclear test ban|noun|C1|NAWL|neutral|extended|5|حظر تجارب نووية|prohibiting nuclear weapon testing
+CTBT|noun|C1|NAWL|neutral|mastery|5|معاهدة حظر تجارب شامل|comprehensive nuclear test ban treaty
+START|noun|C1|NAWL|neutral|mastery|5|معاهدة خفض أسلحة|strategic arms reduction treaty
+warhead|noun|C1|CEFR-J|neutral|extended|5|رأس حربي|the explosive part of a missile
+ballistic missile|noun|C1|NAWL|neutral|extended|5|صاروخ بالستي|a missile following a ballistic trajectory
+ICBM|noun|C1|NAWL|neutral|mastery|5|صاروخ عابر قارات|intercontinental ballistic missile
+submarine-launched|adjective|C1|NAWL|neutral|mastery|5|إطلاق من غواصة|fired from an underwater vessel
+nuclear submarine|noun|C1|CEFR-J|neutral|extended|5|غواصة نووية|a submarine powered by nuclear energy
+aircraft carrier|noun|C1|CEFR-J|neutral|extended|5|حاملة طائرات|a warship carrying aircraft
+nuclear winter|noun|C1|NAWL|neutral|extended|5|شتاء نووي|global cooling from nuclear war debris
+electromagnetic pulse|noun|C1|NAWL|neutral|mastery|5|نبضة كهرومغناطيسية|a burst of energy disabling electronics
+Chernobyl|noun|C1|CEFR-J|neutral|core|5|تشيرنوبل|the site of a major nuclear disaster
+Fukushima|noun|C1|CEFR-J|neutral|core|5|فوكوشيما|the site of a nuclear accident in Japan
+Three Mile Island|noun|C1|CEFR-J|neutral|extended|5|ثري مايل آيلاند|the site of a US nuclear incident
+exclusion zone|noun|C1|NAWL|neutral|extended|5|منطقة حظر|an area banned for public entry
+evacuation|noun|C1|AWL|neutral|core|5|إخلاء|removing people from a dangerous area
+emergency protocol|noun|C1|AWL|neutral|core|5|بروتوكول طوارئ|procedures for handling emergencies
+risk assessment|noun|C1|AWL|neutral|core|5|تقييم مخاطر|evaluating potential dangers
+safety margin|noun|C1|AWL|neutral|extended|5|هامش أمان|the extra capacity beyond minimum requirements
+redundancy|noun|C1|AWL|neutral|extended|5|نظام احتياطي|backup systems preventing failure
+fail-safe|adjective|C1|NAWL|neutral|extended|5|آمن عند العطل|designed to return to a safe state on failure
+passive safety|noun|C1|NAWL|neutral|mastery|5|أمان سلبي|safety features working without human action
+active safety|noun|C1|NAWL|neutral|mastery|5|أمان نشط|safety features requiring human action
+generation IV|noun|C1|NAWL|neutral|extended|5|الجيل الرابع|advanced nuclear reactor designs
+small modular reactor|noun|C1|NAWL|neutral|core|5|مفاعل معياري صغير|a compact prefabricated nuclear reactor
+breeder reactor|noun|C1|NAWL|neutral|mastery|5|مفاعل مولد|a reactor producing more fuel than it consumes
+fast reactor|noun|C1|NAWL|neutral|mastery|5|مفاعل سريع|a reactor using fast neutrons
+molten salt reactor|noun|C1|NAWL|neutral|mastery|5|مفاعل ملح منصهر|a reactor using liquid salt as coolant
+pebble bed reactor|noun|C2|NAWL|formal|mastery|5|مفاعل كرات حصوية|a reactor using spherical fuel elements
+ITER|noun|C1|NAWL|neutral|extended|5|مشروع آيتر|the international fusion energy project
+tokamak|noun|C2|NAWL|formal|mastery|5|توكاماك|a device for magnetic plasma containment
+plasma|noun|C1|NAWL|neutral|core|5|بلازما|superheated gas with charged particles
+magnetic confinement|noun|C1|NAWL|neutral|mastery|5|حبس مغناطيسي|using magnetic fields to contain plasma
+inertial confinement|noun|C2|NAWL|formal|mastery|5|حبس بالقصور|using lasers to compress fusion fuel
+deuterium|noun|C1|NAWL|neutral|mastery|5|ديوتيريوم|a hydrogen isotope for fusion
+tritium|noun|C1|NAWL|neutral|mastery|5|تريتيوم|a radioactive hydrogen isotope
+helium-3|noun|C1|NAWL|neutral|mastery|5|هيليوم 3|a rare helium isotope for future fusion
+energy density|noun|C1|NAWL|neutral|core|5|كثافة طاقة|the amount of energy per unit volume
+baseload|noun|C1|NAWL|neutral|extended|5|حمل أساسي|the minimum constant power demand
+peak demand|noun|C1|NAWL|neutral|extended|5|ذروة طلب|the highest electricity demand period
+grid stability|noun|C1|NAWL|neutral|extended|5|استقرار شبكة|maintaining steady power distribution
+capacity factor|noun|C1|NAWL|neutral|mastery|5|عامل استطاعة|the ratio of actual to maximum output
+levelized cost|noun|C1|NAWL|neutral|mastery|5|تكلفة معتدلة|the average cost of energy over a plant's life
+decommissioning|noun|C1|AWL|neutral|core|5|إيقاف تشغيل|shutting down a nuclear facility permanently
+site remediation|noun|C1|AWL|neutral|extended|5|معالجة موقع|cleaning a contaminated nuclear site
+public perception|noun|C1|AWL|neutral|core|5|تصور عام|the general view of nuclear energy
+NIMBY|noun|C1|NAWL|neutral|extended|5|ليس في حيي|opposition to local development
+energy security|noun|C1|AWL|neutral|core|5|أمن طاقة|ensuring reliable energy supply
+energy independence|noun|C1|AWL|neutral|core|5|استقلال طاقوي|producing energy without foreign dependence
+energy mix|noun|C1|NAWL|neutral|core|5|مزيج طاقة|the combination of energy sources used
+decarbonization|noun|C1|NAWL|neutral|core|5|إزالة كربون|reducing carbon dioxide emissions

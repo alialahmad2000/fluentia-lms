@@ -1,0 +1,66 @@
+thermohaline|adjective|C2|NAWL|formal|extended|4|حراري ملحي|relating to ocean circulation driven by temperature and salt
+convection|noun|C1|NAWL|neutral|extended|4|حمل حراري|heat transfer through fluid movement
+conduction|noun|C1|NAWL|neutral|extended|4|توصيل حراري|heat transfer through direct contact
+radiation|noun|C1|CEFR-J|neutral|core|4|إشعاع حراري|energy transfer through electromagnetic waves
+evapotranspiration|noun|C2|NAWL|formal|mastery|4|نتح تبخري|water loss from soil and plants
+precipitation|noun|C1|AWL|neutral|core|4|هطول|rain snow or other forms of water falling
+runoff|noun|C1|CEFR-J|neutral|core|4|جريان سطحي|water flowing over land into streams
+infiltration|noun|C1|AWL|neutral|extended|4|تسرب مائي|water seeping into the ground
+water cycle|noun|C1|CEFR-J|neutral|core|4|دورة مياه|the continuous movement of water on Earth
+carbon cycle|noun|C1|NAWL|neutral|core|4|دورة كربون|the movement of carbon through ecosystems
+nitrogen cycle|noun|C1|NAWL|neutral|extended|4|دورة نيتروجين|the circulation of nitrogen in nature
+phosphorus cycle|noun|C1|NAWL|neutral|mastery|4|دورة فسفور|the movement of phosphorus through ecosystems
+biogeochemical cycle|noun|C1|NAWL|neutral|mastery|4|دورة جيوكيميائية حيوية|the circulation of elements through ecosystems
+carbon sink|noun|C1|NAWL|neutral|core|4|بالوعة كربون|a system absorbing more carbon than it releases
+carbon source|noun|C1|NAWL|neutral|extended|4|مصدر كربون|a system releasing more carbon than it absorbs
+flux|noun|C1|NAWL|neutral|extended|4|تدفق|the rate of transfer of a substance
+aerosol|noun|C1|NAWL|neutral|extended|4|هباء جوي|tiny particles suspended in the atmosphere
+particulate matter|noun|C1|NAWL|neutral|extended|4|جسيمات معلقة|tiny solid or liquid particles in air
+smog|noun|C1|CEFR-J|neutral|core|4|ضباب دخاني|polluted fog in urban areas
+acid rain|noun|C1|CEFR-J|neutral|core|4|مطر حمضي|rain with abnormally high acidity
+ozone depletion|noun|C1|NAWL|neutral|core|4|استنفاد أوزون|thinning of the protective ozone layer
+CFC|noun|C1|NAWL|neutral|extended|4|كلوروفلوروكربون|chemicals destroying the ozone layer
+Montreal Protocol|noun|C1|NAWL|neutral|extended|4|بروتوكول مونتريال|a treaty phasing out ozone-depleting substances
+Kyoto Protocol|noun|C1|NAWL|neutral|extended|4|بروتوكول كيوتو|an early treaty on greenhouse gas reduction
+emission standard|noun|C1|AWL|neutral|extended|4|معيار انبعاث|limits on pollutant release
+air quality index|noun|C1|NAWL|neutral|extended|4|مؤشر جودة هواء|a measure of air pollution levels
+pollutant|noun|C1|CEFR-J|neutral|core|4|ملوث|a substance harming the environment
+contaminant|noun|C1|AWL|neutral|extended|4|مادة ملوثة|a substance making something impure
+leachate|noun|C1|NAWL|neutral|mastery|4|راشح|liquid that has seeped through waste
+effluent|noun|C1|NAWL|neutral|mastery|4|نفاية سائلة|liquid waste discharged from a factory
+sewage|noun|C1|CEFR-J|neutral|core|4|مياه صرف|waste water from buildings
+wastewater treatment|noun|C1|NAWL|neutral|extended|4|معالجة مياه عادمة|cleaning water before releasing it
+composting|noun|C1|CEFR-J|neutral|extended|4|تسميد عضوي|converting organic waste to fertilizer
+landfill|noun|C1|CEFR-J|neutral|core|4|مكب نفايات|a site for disposing of waste
+incineration|noun|C1|NAWL|neutral|extended|4|حرق نفايات|burning waste at high temperatures
+recycling|noun|B2|CEFR-J|neutral|core|4|إعادة تدوير|converting waste into reusable material
+upcycling|noun|C1|NAWL|neutral|extended|4|إعادة تدوير إبداعية|transforming waste into higher-value products
+downcycling|noun|C1|NAWL|neutral|mastery|4|تدوير تنازلي|recycling into lower-quality material
+waste hierarchy|noun|C1|NAWL|neutral|extended|4|تسلسل نفايات|ranking waste management strategies
+zero waste|noun|C1|NAWL|neutral|extended|4|صفر نفايات|eliminating all waste sent to landfills
+extended producer responsibility|noun|C1|NAWL|neutral|mastery|4|مسؤولية منتج|manufacturers responsible for product lifecycle
+microplastic|noun|C1|NAWL|neutral|core|4|بلاستيك دقيق|tiny plastic particles in the environment
+nanoplastic|noun|C1|NAWL|neutral|mastery|4|بلاستيك نانوي|extremely small plastic particles
+biodegradable|adjective|C1|NAWL|neutral|core|4|قابل للتحلل|able to decompose naturally
+compostable|adjective|C1|NAWL|neutral|extended|4|قابل للتسميد|able to break down into compost
+bioplastic|noun|C1|NAWL|neutral|extended|4|بلاستيك حيوي|plastic made from renewable resources
+single-use|adjective|C1|CEFR-J|neutral|core|4|أحادي الاستخدام|designed to be used only once
+disposable|adjective|C1|CEFR-J|neutral|core|4|يمكن التخلص منه|intended to be thrown away after use
+reusable|adjective|C1|CEFR-J|neutral|core|4|قابل لإعادة الاستخدام|able to be used again
+durable|adjective|C1|AWL|neutral|core|4|متين|designed to last a long time
+planned obsolescence|noun|C1|NAWL|neutral|extended|4|تقادم مخطط|designing products to become outdated
+right to repair|noun|C1|NAWL|neutral|extended|4|حق الإصلاح|allowing consumers to fix their products
+environmental impact|noun|C1|AWL|neutral|core|4|أثر بيئي|the effect of human activity on nature
+ecological footprint|noun|C1|NAWL|neutral|core|4|بصمة بيئية|total environmental demand of a person
+overshoot day|noun|C1|NAWL|neutral|extended|4|يوم تجاوز|when humanity uses more than Earth can renew
+planetary boundary|noun|C1|NAWL|neutral|extended|4|حد كوكبي|a safe limit for environmental change
+Anthropocene|noun|C1|NAWL|neutral|core|4|حقبة بشرية|the current geological age of human impact
+Holocene|noun|C1|NAWL|neutral|extended|4|هولوسين|the current warm geological epoch
+paleoclimate|noun|C1|NAWL|neutral|mastery|4|مناخ قديم|the climate of past geological periods
+ice core|noun|C1|NAWL|neutral|extended|4|عينة جليدية|a cylinder of ice preserving climate history
+tree ring|noun|C1|CEFR-J|neutral|extended|4|حلقة شجرة|a growth ring indicating annual conditions
+sediment core|noun|C1|NAWL|neutral|mastery|4|عينة رسوبية|a sample of layered sediment for climate study
+proxy data|noun|C1|NAWL|neutral|mastery|4|بيانات بديلة|indirect evidence of past climate conditions
+anomaly|noun|C1|AWL|neutral|extended|4|شذوذ مناخي|a deviation from normal conditions
+mean temperature|noun|C1|AWL|neutral|core|4|متوسط حرارة|the average temperature over a period
+pre-industrial|adjective|C1|AWL|neutral|core|4|ما قبل صناعي|before widespread industrial activity

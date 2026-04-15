@@ -1,0 +1,73 @@
+neuralgia|noun|C1|NAWL|neutral|extended|7|ألم عصبي|sharp pain along a nerve
+neuropathy|noun|C1|NAWL|neutral|extended|7|اعتلال عصبي|damage to peripheral nerves
+multiple sclerosis|noun|C1|CEFR-J|neutral|extended|7|تصلب متعدد|a disease damaging nerve coverings
+ALS|noun|C1|NAWL|neutral|extended|7|تصلب جانبي|a disease destroying motor neurons
+Huntington's disease|noun|C1|NAWL|neutral|mastery|7|مرض هنتنغتون|a genetic brain disorder
+CTE|noun|C1|NAWL|neutral|mastery|7|اعتلال دماغي رضي|brain damage from repeated head impacts
+traumatic brain injury|noun|C1|NAWL|neutral|core|7|إصابة دماغية رضية|brain damage from external force
+spinal cord injury|noun|C1|NAWL|neutral|extended|7|إصابة حبل شوكي|damage to the spinal cord
+paralysis|noun|C1|CEFR-J|neutral|core|7|شلل|loss of muscle function
+quadriplegia|noun|C1|NAWL|neutral|mastery|7|شلل رباعي|paralysis of all four limbs
+paraplegia|noun|C1|NAWL|neutral|mastery|7|شلل سفلي|paralysis of the lower body
+hemiplegia|noun|C1|NAWL|neutral|mastery|7|شلل نصفي|paralysis of one side of the body
+neural stem cell|noun|C1|NAWL|neutral|mastery|7|خلية جذعية عصبية|a cell that can become any type of neuron
+gene therapy|noun|C1|NAWL|neutral|extended|7|علاج جيني|treating disease by modifying genes
+CRISPR|noun|C1|NAWL|neutral|extended|7|كريسبر|a technology for editing DNA
+deep brain stimulation|noun|C1|NAWL|neutral|extended|7|تحفيز دماغي عميق|implanting electrodes in the brain
+vagus nerve stimulation|noun|C1|NAWL|neutral|mastery|7|تحفيز عصب مبهم|stimulating the vagus nerve for treatment
+cochlear implant|noun|C1|NAWL|neutral|extended|7|زرعة قوقعية|a device restoring hearing
+retinal implant|noun|C1|NAWL|neutral|mastery|7|زرعة شبكية|a device restoring partial vision
+brain organoid|noun|C2|NAWL|formal|mastery|7|عضوي دماغي|a miniature brain grown in a lab
+in vitro model|noun|C1|NAWL|neutral|mastery|7|نموذج مختبري|studying cells outside the body
+animal model|noun|C1|NAWL|neutral|extended|7|نموذج حيواني|using animals to study human disease
+knockout mouse|noun|C1|NAWL|neutral|mastery|7|فأر معدل جينياً|a mouse with a deactivated gene
+biomarker|noun|C1|NAWL|neutral|core|7|مؤشر حيوي|a measurable indicator of health
+blood-brain barrier|noun|C1|NAWL|neutral|core|7|حاجز دماغي دموي|a barrier protecting the brain from toxins
+drug delivery|noun|C1|NAWL|neutral|extended|7|إيصال دوائي|getting medicine to the target in the body
+nanotechnology|noun|C1|NAWL|neutral|extended|7|تقنية نانوية|using microscopic particles for treatment
+precision medicine|noun|C1|NAWL|neutral|core|7|طب دقيق|tailoring treatment to individual characteristics
+personalized medicine|noun|C1|NAWL|neutral|core|7|طب شخصي|customizing healthcare to each patient
+pharmacogenomics|noun|C2|NAWL|formal|mastery|7|علم جينوم دوائي|using genetics to predict drug response
+neuroinformatics|noun|C2|NAWL|formal|mastery|7|معلوماتية عصبية|managing brain data with computers
+brain atlas|noun|C1|NAWL|neutral|extended|7|أطلس دماغي|a detailed map of brain regions
+Allen Brain Atlas|noun|C1|NAWL|neutral|mastery|7|أطلس ألن الدماغي|a comprehensive gene expression brain map
+Human Connectome Project|noun|C1|NAWL|neutral|extended|7|مشروع الاتصالوم البشري|mapping the brain's wiring diagram
+Blue Brain Project|noun|C1|NAWL|neutral|mastery|7|مشروع الدماغ الأزرق|simulating the brain with computers
+whole-brain emulation|noun|C1|NAWL|neutral|mastery|7|محاكاة دماغ كامل|copying a brain into a computer
+artificial general intelligence|noun|C1|NAWL|neutral|extended|7|ذكاء عام اصطناعي|machines matching human intelligence
+narrow AI|noun|C1|NAWL|neutral|extended|7|ذكاء ضيق|AI specialized for one task
+cognitive computing|noun|C1|NAWL|neutral|extended|7|حوسبة معرفية|computers simulating human thought
+neuromorphic computing|noun|C1|NAWL|neutral|mastery|7|حوسبة عصبية الشكل|computer chips modeled on the brain
+spiking neural network|noun|C1|NAWL|neutral|mastery|7|شبكة عصبية نبضية|a network mimicking real neuron firing
+reservoir computing|noun|C2|NAWL|formal|mastery|7|حوسبة مستودع|a computing approach using random networks
+neuromarketing|noun|C1|NAWL|neutral|extended|7|تسويق عصبي|using brain science in marketing
+neuroeconomics|noun|C1|NAWL|neutral|extended|7|اقتصاد عصبي|studying brain activity during decisions
+neurolaw|noun|C1|NAWL|neutral|mastery|7|قانون عصبي|neuroscience applied to legal questions
+neuropolitics|noun|C1|NAWL|neutral|mastery|7|سياسة عصبية|studying political behavior through brain science
+neuroeducation|noun|C1|NAWL|neutral|extended|7|تعليم عصبي|applying brain science to education
+neurolinguistics|noun|C1|NAWL|neutral|extended|7|لسانيات عصبية|studying language processing in the brain
+psycholinguistics|noun|C1|NAWL|neutral|extended|7|لسانيات نفسية|studying mental processes in language
+language acquisition|noun|C1|AWL|neutral|core|7|اكتساب لغة|the process of learning a language
+bilingual brain|noun|C1|NAWL|neutral|extended|7|دماغ ثنائي اللغة|how the brain manages two languages
+cognitive aging|noun|C1|AWL|neutral|core|7|شيخوخة معرفية|mental changes with age
+brain fitness|noun|C1|CEFR-J|neutral|core|7|لياقة دماغية|maintaining brain health through activities
+neuroplastic training|noun|C1|NAWL|neutral|extended|7|تدريب مرونة عصبية|exercises to improve brain function
+cognitive training|noun|C1|AWL|neutral|core|7|تدريب معرفي|exercises to improve mental abilities
+brain gym|noun|C1|CEFR-J|neutral|extended|7|تمارين دماغية|activities designed to stimulate the brain
+neuromyth|noun|C1|NAWL|neutral|extended|7|خرافة عصبية|a misconception about the brain
+ten percent myth|noun|C1|CEFR-J|neutral|extended|7|خرافة عشرة بالمئة|the false claim we use only 10% of our brain
+left-brain right-brain myth|noun|C1|NAWL|neutral|extended|7|خرافة نصفي الدماغ|the false idea of strict brain lateralization
+learning styles myth|noun|C1|NAWL|neutral|extended|7|خرافة أساليب تعلم|the unsupported idea of fixed learning styles
+Mozart effect myth|noun|C1|NAWL|neutral|mastery|7|خرافة تأثير موزارت|the unproven claim music makes you smarter
+growth mindset|noun|C1|NAWL|neutral|core|7|عقلية نمو|believing abilities can be developed
+fixed mindset|noun|C1|NAWL|neutral|core|7|عقلية ثابتة|believing abilities are unchangeable
+grit|noun|C1|CEFR-J|neutral|core|7|عزيمة عصبية|passion and perseverance for long-term goals
+resilience|noun|C1|AWL|neutral|core|7|مرونة عصبية|the ability to recover from adversity
+stress response|noun|C1|AWL|neutral|core|7|استجابة إجهاد|the body's reaction to perceived threats
+fight-or-flight|noun|C1|CEFR-J|neutral|core|7|كر أو فر|the body's emergency response system
+rest-and-digest|noun|C1|NAWL|neutral|extended|7|راحة وهضم|the body's calming response
+allostatic load|noun|C2|NAWL|formal|mastery|7|حمل أليوستاتي|the cumulative cost of chronic stress
+burnout|noun|C1|CEFR-J|neutral|core|7|إنهاك|exhaustion from prolonged stress
+compassion fatigue|noun|C1|NAWL|neutral|extended|7|إرهاق تعاطفي|emotional exhaustion from helping others
+secondary trauma|noun|C1|NAWL|neutral|mastery|7|صدمة ثانوية|stress from exposure to others' trauma
+post-traumatic growth|noun|C1|NAWL|neutral|mastery|7|نمو ما بعد الصدمة|positive change following adversity

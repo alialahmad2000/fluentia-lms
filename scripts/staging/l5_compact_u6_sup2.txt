@@ -1,0 +1,89 @@
+wildlife|noun|B2|CEFR-J|neutral|core|6|حياة برية|animals living in natural conditions
+fauna|noun|C1|CEFR-J|neutral|core|6|حيوانات|the animals of a particular region
+flora|noun|C1|CEFR-J|neutral|core|6|نباتات|the plants of a particular region
+vegetation|noun|C1|AWL|neutral|core|6|غطاء نباتي|plants collectively in an area
+undergrowth|noun|C1|CEFR-J|neutral|core|6|نمو سفلي|dense plants growing beneath trees
+thicket|noun|C1|CEFR-J|neutral|core|6|أجمة|a dense group of bushes or trees
+grove|noun|C1|CEFR-J|neutral|core|6|بستان|a small group of trees
+copse|noun|C1|CEFR-J|neutral|core|6|حرجة|a small area of trees
+meadow|noun|C1|CEFR-J|neutral|core|6|مرعى|a field of grass and wildflowers
+pasture|noun|C1|CEFR-J|neutral|core|6|مرعى ماشية|land used for grazing livestock
+heath|noun|C1|CEFR-J|neutral|core|6|أرض وعرية|an open area of uncultivated land
+moor|noun|C1|CEFR-J|neutral|core|6|أرض خلاء|a broad area of open uncultivated upland
+dune|noun|C1|CEFR-J|neutral|core|6|كثيب رملي|a mound of sand formed by wind
+cliff|noun|B2|CEFR-J|neutral|core|6|جرف|a steep rock face
+gorge|noun|C1|CEFR-J|neutral|core|6|مضيق|a narrow valley between steep cliffs
+ravine|noun|C1|CEFR-J|neutral|core|6|واد ضيق|a deep narrow valley
+canyon|noun|C1|CEFR-J|neutral|core|6|أخدود|a deep gorge with a river flowing through it
+plateau|noun|C1|CEFR-J|neutral|core|6|هضبة|a flat elevated area of land
+ridge|noun|C1|CEFR-J|neutral|core|6|سلسلة تلال|a long narrow hilltop or mountain
+basin|noun|C1|CEFR-J|neutral|core|6|حوض|a hollow area surrounded by higher land
+crater|noun|C1|CEFR-J|neutral|core|6|فوهة بركانية|a bowl-shaped depression from a volcano
+caldera|noun|C1|NAWL|neutral|core|6|كالديرا|a large volcanic crater
+archipelago|noun|C1|CEFR-J|neutral|core|6|أرخبيل|a chain of islands
+peninsula|noun|C1|CEFR-J|neutral|core|6|شبه جزيرة|a narrow piece of land jutting into water
+isthmus|noun|C1|CEFR-J|neutral|core|6|برزخ|a narrow strip of land connecting two larger areas
+promontory|noun|C1|CEFR-J|neutral|core|6|نتوء صخري|a point of high land extending into the sea
+bay|noun|B2|CEFR-J|neutral|core|6|خليج|a broad inlet of the sea
+cove|noun|C1|CEFR-J|neutral|core|6|خليج صغير|a small sheltered bay
+inlet|noun|C1|CEFR-J|neutral|core|6|مدخل مائي|a small arm of the sea
+strait|noun|C1|CEFR-J|neutral|core|6|مضيق بحري|a narrow passage of water
+channel|noun|C1|CEFR-J|neutral|core|6|قناة|a stretch of water between two landmasses
+migration route|noun|C1|CEFR-J|neutral|extended|6|طريق هجرة|the path animals follow during migration
+flyway|noun|C1|NAWL|neutral|extended|6|ممر طيران|a route regularly used by migratory birds
+spawning ground|noun|C1|CEFR-J|neutral|extended|6|أرض تفريخ|a place where fish lay eggs
+breeding ground|noun|C1|CEFR-J|neutral|extended|6|أرض تكاثر|an area where animals reproduce
+nesting site|noun|C1|CEFR-J|neutral|extended|6|موقع تعشيش|a place where birds build nests
+roosting|noun|C1|CEFR-J|neutral|extended|6|مبيت|a place where birds rest at night
+territory|noun|C1|CEFR-J|neutral|extended|6|إقليم حيواني|an area defended by an animal
+home range|noun|C1|NAWL|neutral|extended|6|نطاق معيشي|the area an animal regularly uses
+foraging area|noun|C1|CEFR-J|neutral|extended|6|منطقة رعي|an area where animals search for food
+predator-prey|noun|C1|NAWL|neutral|extended|6|مفترس-فريسة|the relationship between hunters and hunted
+apex predator|noun|C1|NAWL|neutral|extended|6|مفترس قمة|the top predator in a food chain
+scavenger|noun|C1|CEFR-J|neutral|extended|6|قمّام|an animal feeding on dead organisms
+decomposer|noun|C1|NAWL|neutral|extended|6|محلل|an organism breaking down dead matter
+detritus|noun|C1|NAWL|neutral|extended|6|حطام عضوي|dead organic material in an ecosystem
+nutrient cycling|noun|C1|NAWL|neutral|extended|6|تدوير مغذيات|the movement of nutrients through ecosystems
+primary production|noun|C1|NAWL|neutral|extended|6|إنتاج أولي|the creation of organic matter by photosynthesis
+secondary production|noun|C1|NAWL|neutral|extended|6|إنتاج ثانوي|the generation of biomass by consumers
+net primary productivity|noun|C1|NAWL|neutral|extended|6|إنتاجية أولية صافية|the rate of biomass accumulation by plants
+gross primary productivity|noun|C2|NAWL|formal|extended|6|إنتاجية أولية إجمالية|the total rate of photosynthesis
+standing crop|noun|C1|NAWL|neutral|extended|6|محصول قائم|the total biomass present at one time
+biomass|noun|C1|NAWL|neutral|extended|6|كتلة إحيائية|the total mass of organisms in an area
+turnover rate|noun|C1|NAWL|neutral|extended|6|معدل تجدد|the rate at which a population replaces itself
+doubling time|noun|C1|NAWL|neutral|extended|6|وقت التضاعف|the time for a population to double
+demographic transition|noun|C1|AWL|neutral|extended|6|تحول ديمغرافي|the shift from high to low birth rates
+r-selection|noun|C2|NAWL|formal|extended|6|استراتيجية آر|a reproductive strategy favoring many offspring
+K-selection|noun|C2|NAWL|formal|extended|6|استراتيجية كي|a reproductive strategy favoring fewer offspring
+survivorship curve|noun|C1|NAWL|neutral|extended|6|منحنى بقاء|a graph showing survival rates by age
+age structure|noun|C1|AWL|neutral|extended|6|هيكل عمري|the distribution of ages in a population
+sex ratio|noun|C1|NAWL|neutral|extended|6|نسبة جنس|the proportion of males to females
+fecundity|noun|C1|NAWL|neutral|extended|6|خصوبة|the ability to produce offspring
+recruitment|noun|C1|AWL|neutral|extended|6|تجنيد حيوي|the addition of new individuals to a population
+dispersal|noun|C1|AWL|neutral|extended|6|انتشار حيوي|the movement of organisms from their birth site
+range expansion|noun|C1|AWL|neutral|mastery|6|توسع النطاق|a species extending its geographic distribution
+range contraction|noun|C1|AWL|neutral|mastery|6|تقلص النطاق|a species losing parts of its distribution
+phenological shift|noun|C2|NAWL|formal|mastery|6|تحول فصلي|changes in timing of biological events
+mismatch|noun|C1|CEFR-J|neutral|mastery|6|عدم تطابق|when species' timing no longer aligns
+trophic mismatch|noun|C2|NAWL|formal|mastery|6|عدم تطابق غذائي|disrupted timing between predators and prey
+phenotypic plasticity|noun|C2|NAWL|formal|mastery|6|لدونة مظهرية|an organism changing traits in response to environment
+acclimatization|noun|C1|NAWL|neutral|mastery|6|تأقلم|physiological adjustment to new conditions
+thermoregulation|noun|C1|NAWL|neutral|mastery|6|تنظيم حراري|maintaining body temperature within limits
+ectotherm|noun|C2|NAWL|formal|mastery|6|متغير الحرارة|an animal whose temperature varies with environment
+endotherm|noun|C2|NAWL|formal|mastery|6|ثابت الحرارة|an animal maintaining constant body temperature
+homeotherm|noun|C2|NAWL|formal|mastery|6|متجانس الحرارة|an animal with stable internal temperature
+poikilotherm|noun|C2|NAWL|formal|mastery|6|متباين الحرارة|an animal with variable body temperature
+torpor|noun|C2|NAWL|formal|mastery|6|خمول|a state of decreased physiological activity
+estivation|noun|C2|NAWL|formal|mastery|6|سبات صيفي|a state of dormancy during hot periods
+diapause|noun|C2|NAWL|formal|mastery|6|سكون|a period of suspended development in insects
+quiescence|noun|C1|NAWL|neutral|mastery|6|هدوء|a state of inactivity or dormancy
+dormancy|noun|C1|CEFR-J|neutral|mastery|6|سبات|a period of minimal metabolic activity
+senescence|noun|C1|NAWL|neutral|mastery|6|شيخوخة|the process of aging in organisms
+longevity|noun|C1|CEFR-J|neutral|mastery|6|طول عمر|a long duration of life
+lifespan|noun|C1|CEFR-J|neutral|mastery|6|فترة حياة|the typical length of life of a species
+generation time|noun|C1|NAWL|neutral|mastery|6|زمن جيل|the average time between two generations
+gestation|noun|C1|CEFR-J|neutral|mastery|6|حمل|the development period before birth
+incubation|noun|C1|CEFR-J|neutral|mastery|6|حضانة بيض|the period of warming eggs before hatching
+fledging|noun|C1|CEFR-J|neutral|mastery|6|تكسو بالريش|the stage when young birds develop feathers
+weaning|noun|C1|CEFR-J|neutral|mastery|6|فطام|the process of a young animal switching from milk
+imprinting|noun|C1|NAWL|neutral|mastery|6|طبع|a rapid learning process in young animals

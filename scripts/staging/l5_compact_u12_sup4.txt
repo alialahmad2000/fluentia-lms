@@ -1,0 +1,65 @@
+productivity|noun|C1|AWL|neutral|core|12|إنتاجية|output per unit of input
+efficiency|noun|C1|AWL|neutral|core|12|كفاءة|achieving maximum output with minimum waste
+innovation|noun|C1|AWL|neutral|core|12|ابتكار اقتصادي|a new idea or method in business
+entrepreneur|noun|C1|AWL|neutral|core|12|رائد أعمال|a person starting a business
+startup|noun|C1|NAWL|neutral|core|12|شركة ناشئة|a newly established company
+incubator|noun|C1|NAWL|neutral|extended|12|حاضنة أعمال|an organization supporting new businesses
+accelerator|noun|C1|NAWL|neutral|extended|12|مسرع أعمال|a program speeding business development
+IPO|noun|C1|NAWL|neutral|extended|12|طرح عام أولي|the first sale of stock to the public
+merger|noun|C1|AWL|neutral|core|12|اندماج|combining two companies into one
+acquisition|noun|C1|AWL|neutral|core|12|استحواذ|purchasing another company
+hostile takeover|noun|C1|NAWL|neutral|mastery|12|استحواذ عدائي|buying a company against its will
+due diligence|noun|C1|AWL|neutral|extended|12|العناية الواجبة|thorough investigation before a deal
+compliance|noun|C1|AWL|neutral|core|12|امتثال|following rules and regulations
+regulation|noun|C1|AWL|neutral|core|12|تنظيم|rules imposed by authority
+antitrust|noun|C1|NAWL|neutral|extended|12|مكافحة احتكار|laws preventing unfair business practices
+intellectual property rights|noun|C1|AWL|neutral|extended|12|حقوق ملكية فكرية اقتصادية|legal protection of inventions
+patent|noun|C1|AWL|neutral|core|12|براءة اختراع|exclusive right to an invention
+trademark|noun|C1|CEFR-J|neutral|core|12|علامة تجارية|a symbol identifying a company
+brand equity|noun|C1|NAWL|neutral|extended|12|قيمة علامة تجارية|the commercial value of a brand
+market segmentation|noun|C1|AWL|neutral|extended|12|تقسيم سوقي|dividing a market into groups
+target market|noun|C1|AWL|neutral|core|12|سوق مستهدف|the group of consumers aimed at
+consumer behavior|noun|C1|AWL|neutral|core|12|سلوك مستهلك|how people make buying decisions
+disposable income|noun|C1|AWL|neutral|core|12|دخل متاح|income left after taxes
+discretionary spending|noun|C1|AWL|neutral|extended|12|إنفاق اختياري|spending on non-essential items
+cost of living|noun|C1|CEFR-J|neutral|core|12|تكلفة معيشة|the amount needed for basic expenses
+real wage|noun|C1|AWL|neutral|extended|12|أجر حقيقي|wages adjusted for inflation
+nominal wage|noun|C1|AWL|neutral|extended|12|أجر اسمي|wages without inflation adjustment
+human capital|noun|C1|AWL|neutral|core|12|رأسمال بشري|the skills and knowledge of workers
+social capital|noun|C1|AWL|neutral|extended|12|رأسمال اجتماعي|the value of social networks
+natural capital|noun|C1|AWL|neutral|extended|12|رأسمال طبيعي|the value of natural resources
+physical capital|noun|C1|AWL|neutral|extended|12|رأسمال مادي|machinery and buildings for production
+infrastructure|noun|C1|AWL|neutral|core|12|بنية تحتية|basic systems supporting an economy
+public-private partnership|noun|C1|AWL|neutral|extended|12|شراكة عامة خاصة|cooperation between government and business
+concession agreement|noun|C1|AWL|neutral|mastery|12|عقد امتياز|granting rights to operate a public service
+sovereign risk|noun|C1|AWL|neutral|mastery|12|مخاطرة سيادية|the risk of a government defaulting
+country risk|noun|C1|AWL|neutral|extended|12|مخاطرة قطرية|the risk of investing in a specific country
+political risk|noun|C1|AWL|neutral|extended|12|مخاطرة سياسية|risk from political instability
+corruption index|noun|C1|NAWL|neutral|extended|12|مؤشر فساد|a ranking of countries by corruption level
+ease of business|noun|C1|NAWL|neutral|extended|12|سهولة ممارسة أعمال|how simple it is to start a business
+economic indicator|noun|C1|AWL|neutral|core|12|مؤشر اقتصادي|data showing economic health
+leading indicator|noun|C1|AWL|neutral|extended|12|مؤشر استباقي|a sign predicting future economic trends
+lagging indicator|noun|C1|AWL|neutral|extended|12|مؤشر متأخر|a sign confirming past trends
+unemployment rate|noun|C1|AWL|neutral|core|12|معدل بطالة|the percentage of jobless workers
+labor force participation|noun|C1|AWL|neutral|extended|12|مشاركة قوى عاملة|the percentage of working-age adults employed
+structural unemployment|noun|C1|AWL|neutral|mastery|12|بطالة هيكلية|joblessness from economic changes
+frictional unemployment|noun|C1|NAWL|neutral|mastery|12|بطالة احتكاكية|short-term joblessness between positions
+cyclical unemployment|noun|C1|NAWL|neutral|mastery|12|بطالة دورية|joblessness from economic downturns
+underemployment|noun|C1|AWL|neutral|extended|12|بطالة مقنعة|working below one's skill level
+gig worker|noun|C1|NAWL|neutral|core|12|عامل مؤقت|a person doing short-term freelance work
+remote work|noun|C1|CEFR-J|neutral|core|12|عمل عن بعد|working away from the traditional office
+hybrid work|noun|C1|NAWL|neutral|extended|12|عمل هجين|combining remote and office work
+digital nomad|noun|C1|NAWL|neutral|extended|12|رحال رقمي|a person working while traveling
+knowledge economy|noun|C1|AWL|neutral|core|12|اقتصاد معرفي|an economy based on intellectual capital
+service economy|noun|C1|AWL|neutral|core|12|اقتصاد خدمي|an economy dominated by services
+industrial economy|noun|C1|AWL|neutral|core|12|اقتصاد صناعي|an economy based on manufacturing
+agrarian economy|noun|C1|AWL|neutral|extended|12|اقتصاد زراعي|an economy based on farming
+post-industrial|adjective|C1|AWL|neutral|extended|12|ما بعد صناعي|an economy shifted from manufacturing to services
+economic growth|noun|C1|AWL|neutral|core|12|نمو اقتصادي|an increase in production of goods
+economic development|noun|C1|AWL|neutral|core|12|تنمية اقتصادية|improving quality of life and well-being
+HDI|noun|C1|NAWL|neutral|extended|12|مؤشر تنمية بشرية|human development index
+Sustainable Development Goals|noun|C1|NAWL|neutral|core|12|أهداف تنمية مستدامة|the UN goals for global development
+aid effectiveness|noun|C1|AWL|neutral|extended|12|فعالية مساعدات|how well aid achieves its goals
+capacity building|noun|C1|AWL|neutral|extended|12|بناء قدرات اقتصادية|developing skills and institutions
+technology transfer|noun|C1|AWL|neutral|extended|12|نقل تكنولوجيا|sharing technology between countries
+brain circulation|noun|C1|NAWL|neutral|mastery|12|دوران عقول|the movement of skilled workers globally

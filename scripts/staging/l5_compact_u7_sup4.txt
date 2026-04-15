@@ -1,0 +1,63 @@
+cerebral cortex|noun|C1|NAWL|neutral|core|7|قشرة دماغية|the outer layer of the brain
+grey matter|noun|C1|CEFR-J|neutral|core|7|مادة رمادية|brain tissue containing nerve cell bodies
+white matter|noun|C1|CEFR-J|neutral|core|7|مادة بيضاء|brain tissue containing nerve fibers
+neural pathway|noun|C1|NAWL|neutral|core|7|مسار عصبي|a route connecting brain regions
+neural circuit|noun|C1|NAWL|neutral|extended|7|دارة عصبية|a network of interconnected neurons
+connectomics|noun|C2|NAWL|formal|mastery|7|علم اتصالات دماغية|mapping all neural connections
+tractography|noun|C2|NAWL|formal|mastery|7|تتبع مسارات|imaging white matter pathways
+diffusion tensor imaging|noun|C2|NAWL|formal|mastery|7|تصوير موتر انتشاري|MRI technique for brain fiber tracking
+voxel|noun|C1|NAWL|neutral|mastery|7|فوكسل|a three-dimensional pixel in brain imaging
+spatial resolution|noun|C1|AWL|neutral|extended|7|دقة مكانية|the detail level of brain images
+temporal resolution|noun|C1|AWL|neutral|extended|7|دقة زمنية|the time precision of brain measurements
+magnetoencephalography|noun|C2|NAWL|formal|mastery|7|تخطيط مغناطيسي دماغي|measuring magnetic fields from brain activity
+near-infrared spectroscopy|noun|C2|NAWL|formal|mastery|7|تحليل طيفي قريب الأشعة|measuring brain activity using infrared light
+brain mapping|noun|C1|NAWL|neutral|core|7|رسم خرائط دماغية|creating detailed maps of brain structure
+Human Brain Project|noun|C1|NAWL|neutral|extended|7|مشروع الدماغ البشري|a large research initiative on the brain
+BRAIN Initiative|noun|C1|NAWL|neutral|extended|7|مبادرة الدماغ|a US program advancing neuroscience
+cognitive neuroscience|noun|C1|NAWL|neutral|core|7|علم أعصاب معرفي|studying the brain basis of mental processes
+affective neuroscience|noun|C1|NAWL|neutral|extended|7|علم أعصاب عاطفي|studying the neural basis of emotions
+social neuroscience|noun|C1|NAWL|neutral|extended|7|علم أعصاب اجتماعي|studying neural basis of social behavior
+developmental neuroscience|noun|C1|NAWL|neutral|extended|7|علم أعصاب نمائي|studying brain development across the lifespan
+computational neuroscience|noun|C1|NAWL|neutral|mastery|7|علم أعصاب حاسوبي|using mathematical models of the brain
+behavioral neuroscience|noun|C1|NAWL|neutral|extended|7|علم أعصاب سلوكي|studying neural basis of behavior
+clinical neuroscience|noun|C1|NAWL|neutral|extended|7|علم أعصاب سريري|applying neuroscience to treat disorders
+neuroethics|noun|C1|NAWL|neutral|extended|7|أخلاقيات عصبية|ethical issues in neuroscience research
+neurodeterminism|noun|C2|NAWL|formal|mastery|7|حتمية عصبية|the view that behavior is determined by the brain
+free will|noun|C1|CEFR-J|neutral|core|7|إرادة حرة|the ability to choose one's actions
+determinism|noun|C1|AWL|neutral|extended|7|حتمية سلوكية|the view that all actions are caused
+compatibilism|noun|C2|NAWL|formal|mastery|7|توافقية|free will is compatible with determinism
+mind-body problem|noun|C1|NAWL|neutral|extended|7|مشكلة عقل-جسد|the relationship between mind and brain
+dualism|noun|C1|AWL|neutral|extended|7|ثنائية|mind and body are separate substances
+monism|noun|C1|AWL|neutral|mastery|7|أحادية|mind and body are one substance
+qualia|noun|C2|NAWL|formal|mastery|7|كيفيات|subjective conscious experiences
+sentience|noun|C1|NAWL|neutral|extended|7|إحساس واعي|the capacity to feel and experience
+artificial consciousness|noun|C1|NAWL|neutral|mastery|7|وعي اصطناعي|the possibility of machine consciousness
+Turing test|noun|C1|NAWL|neutral|extended|7|اختبار تورينغ|a test of machine intelligence
+Chinese room|noun|C1|NAWL|neutral|mastery|7|غرفة صينية|an argument against machine understanding
+embodied cognition|noun|C1|NAWL|neutral|mastery|7|إدراك مجسد|the body's role in shaping thought
+situated cognition|noun|C1|NAWL|neutral|mastery|7|إدراك موقعي|thinking influenced by the environment
+distributed cognition|noun|C1|NAWL|neutral|mastery|7|إدراك موزع|thinking spread across people and tools
+extended mind|noun|C1|NAWL|neutral|mastery|7|عقل ممتد|the mind extending beyond the brain
+predictive processing|noun|C1|NAWL|neutral|mastery|7|معالجة تنبؤية|the brain constantly predicting sensory input
+Bayesian brain|noun|C1|NAWL|neutral|mastery|7|دماغ بايزي|the brain as a probabilistic inference machine
+global workspace theory|noun|C1|NAWL|neutral|mastery|7|نظرية فضاء عمل|a theory of consciousness as information broadcasting
+integrated information theory|noun|C1|NAWL|neutral|mastery|7|نظرية معلومات متكاملة|measuring consciousness by information integration
+neural correlate|noun|C1|NAWL|neutral|extended|7|مرتبط عصبي|brain activity associated with consciousness
+binding problem|noun|C1|NAWL|neutral|mastery|7|مشكلة الربط|how the brain combines separate sensory features
+attention deficit|noun|C1|NAWL|neutral|extended|7|عجز انتباه|difficulty maintaining focus
+sensory processing|noun|C1|NAWL|neutral|extended|7|معالجة حسية|the brain interpreting sensory information
+motor cortex|noun|C1|NAWL|neutral|core|7|قشرة حركية|the brain region controlling movement
+somatosensory cortex|noun|C1|NAWL|neutral|extended|7|قشرة حسية جسدية|the brain region processing touch
+visual cortex|noun|C1|NAWL|neutral|core|7|قشرة بصرية|the brain region processing vision
+auditory cortex|noun|C1|NAWL|neutral|extended|7|قشرة سمعية|the brain region processing sound
+olfactory cortex|noun|C1|NAWL|neutral|mastery|7|قشرة شمية|the brain region processing smell
+gustatory cortex|noun|C1|NAWL|neutral|mastery|7|قشرة ذوقية|the brain region processing taste
+association cortex|noun|C1|NAWL|neutral|mastery|7|قشرة ترابطية|brain areas integrating multiple inputs
+homunculus|noun|C1|NAWL|neutral|mastery|7|نموذج بشري مصغر|a map of body parts on the brain surface
+phantom limb|noun|C1|NAWL|neutral|extended|7|طرف شبحي|feeling a limb that has been amputated
+neuroplastic change|noun|C1|NAWL|neutral|extended|7|تغير مرن عصبي|the brain reorganizing after injury
+critical period|noun|C1|AWL|neutral|core|7|فترة حرجة|a time window for optimal brain development
+sensitive period|noun|C1|AWL|neutral|extended|7|فترة حساسة|a time when the brain is especially responsive
+enriched environment|noun|C1|AWL|neutral|extended|7|بيئة غنية|surroundings that stimulate brain development
+brain reserve|noun|C1|NAWL|neutral|mastery|7|احتياطي دماغي|extra brain capacity protecting against decline
+cognitive reserve|noun|C1|NAWL|neutral|mastery|7|احتياطي معرفي|mental resilience built through education

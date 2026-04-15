@@ -1,0 +1,83 @@
+observation|noun|C1|AWL|neutral|core|3|ملاحظة|the act of watching carefully
+experiment|noun|B2|AWL|neutral|core|3|تجربة|a test to discover something
+laboratory|noun|B2|CEFR-J|neutral|core|3|مختبر|a room for scientific research
+field study|noun|C1|AWL|neutral|extended|3|دراسة ميدانية|research conducted in natural settings
+survey research|noun|C1|AWL|neutral|extended|3|بحث مسحي|gathering data through questionnaires
+interview method|noun|C1|AWL|neutral|extended|3|طريقة مقابلة|collecting data through questioning
+focus group|noun|C1|AWL|neutral|extended|3|مجموعة تركيز|a guided discussion for research
+participant observation|noun|C1|AWL|neutral|mastery|3|ملاحظة مشاركة|observing while being part of the group
+ethnography|noun|C1|NAWL|neutral|mastery|3|إثنوغرافيا|studying cultures through immersion
+action research|noun|C1|AWL|neutral|mastery|3|بحث إجرائي|research aimed at solving practical problems
+grounded theory|noun|C1|NAWL|neutral|mastery|3|نظرية مؤسسة|building theory from collected data
+phenomenology|noun|C1|NAWL|neutral|mastery|3|ظاهريات|studying lived experience
+discourse analysis|noun|C1|AWL|neutral|mastery|3|تحليل خطاب|studying language in context
+content analysis|noun|C1|AWL|neutral|extended|3|تحليل محتوى|systematically analyzing text
+thematic analysis|noun|C1|AWL|neutral|extended|3|تحليل موضوعي|identifying patterns in qualitative data
+triangulation|noun|C1|NAWL|neutral|extended|3|تثليث|using multiple methods to verify findings
+operationalization|noun|C1|AWL|neutral|mastery|3|أجرأة|defining concepts as measurable variables
+reliability coefficient|noun|C1|NAWL|neutral|mastery|3|معامل ثبات|a number indicating measurement consistency
+validity coefficient|noun|C1|NAWL|neutral|mastery|3|معامل صدق|a number indicating measurement accuracy
+internal validity|noun|C1|AWL|neutral|extended|3|صدق داخلي|the accuracy of causal conclusions
+external validity|noun|C1|AWL|neutral|extended|3|صدق خارجي|the generalizability of findings
+construct validity|noun|C1|AWL|neutral|mastery|3|صدق بنائي|whether a test measures what it claims
+face validity|noun|C1|AWL|neutral|mastery|3|صدق ظاهري|whether a test appears to measure its target
+criterion validity|noun|C1|AWL|neutral|mastery|3|صدق معياري|whether a test predicts relevant outcomes
+confounding variable|noun|C1|AWL|neutral|extended|3|متغير مربك|a hidden factor affecting results
+dependent variable|noun|C1|AWL|neutral|core|3|متغير تابع|the factor being measured
+independent variable|noun|C1|AWL|neutral|core|3|متغير مستقل|the factor being manipulated
+moderating variable|noun|C1|AWL|neutral|extended|3|متغير معدل|a factor influencing the strength of a relationship
+mediating variable|noun|C1|AWL|neutral|extended|3|متغير وسيط|a factor explaining how a relationship works
+extraneous variable|noun|C1|AWL|neutral|extended|3|متغير خارجي|an unwanted variable affecting results
+operational definition|noun|C1|AWL|neutral|extended|3|تعريف إجرائي|defining a concept by how it is measured
+literature review|noun|C1|AWL|neutral|core|3|مراجعة أدبيات|a survey of published research
+abstract|noun|C1|AWL|neutral|core|3|ملخص بحث|a brief summary of a research paper
+citation|noun|C1|AWL|neutral|core|3|اقتباس مرجعي|a reference to another source
+bibliography|noun|C1|CEFR-J|neutral|core|3|قائمة مراجع|a list of sources used in research
+footnote|noun|C1|CEFR-J|neutral|extended|3|حاشية|a note at the bottom of a page
+appendix|noun|C1|CEFR-J|neutral|extended|3|ملحق|supplementary material at the end
+methodology section|noun|C1|AWL|neutral|extended|3|قسم منهجية|the part of a paper describing methods
+findings section|noun|C1|AWL|neutral|extended|3|قسم نتائج|the part of a paper presenting results
+discussion section|noun|C1|AWL|neutral|extended|3|قسم مناقشة|the part interpreting results
+conclusion|noun|B2|AWL|neutral|core|3|خلاصة|the final section summarizing key points
+implication|noun|C1|AWL|neutral|core|3|تضمين|a possible effect or consequence
+limitation|noun|C1|AWL|neutral|core|3|محددات بحث|a weakness in the study design
+recommendation|noun|C1|AWL|neutral|core|3|توصية|a suggestion for future action
+generalizability|noun|C1|AWL|neutral|extended|3|قابلية تعميم|the extent findings apply broadly
+transferability|noun|C1|AWL|neutral|mastery|3|قابلية نقل|applicability of findings to other contexts
+saturation|noun|C1|AWL|neutral|mastery|3|تشبع بحثي|the point where no new information emerges
+informed consent form|noun|C1|AWL|neutral|extended|3|نموذج موافقة|a document participants sign before a study
+anonymity|noun|C1|AWL|neutral|core|3|إخفاء هوية|keeping participants' identities secret
+confidentiality|noun|C1|AWL|neutral|core|3|سرية|keeping research data private
+ethical approval|noun|C1|AWL|neutral|core|3|موافقة أخلاقية|permission to conduct research
+research ethics|noun|C1|AWL|neutral|core|3|أخلاقيات بحث|moral principles guiding research
+conflict of interest|noun|C1|AWL|neutral|core|3|تضارب مصالح|a situation where bias may arise
+funding source|noun|C1|AWL|neutral|extended|3|مصدر تمويل|the organization paying for research
+grant proposal|noun|C1|AWL|neutral|extended|3|مقترح منحة|a request for research funding
+research agenda|noun|C1|AWL|neutral|extended|3|أجندة بحثية|planned research priorities
+paradigmatic|adjective|C1|AWL|neutral|mastery|3|نموذجي|serving as a typical example
+epistemology|noun|C1|NAWL|neutral|mastery|3|نظرية معرفة|the study of knowledge
+ontology|noun|C1|NAWL|neutral|mastery|3|وجوديات|the study of the nature of being
+methodology|noun|C1|AWL|neutral|core|3|علم مناهج|the study of research methods
+axiology|noun|C2|NAWL|formal|mastery|3|علم قيم|the study of values in research
+hermeneutics|noun|C2|NAWL|formal|mastery|3|تأويلية|the theory of interpretation
+pragmatism|noun|C1|AWL|neutral|extended|3|برغماتية|focusing on practical consequences
+reductionism|noun|C1|NAWL|neutral|mastery|3|اختزالية|explaining complex phenomena by simple parts
+holism|noun|C1|NAWL|neutral|mastery|3|شمولية|viewing systems as wholes not parts
+determinism|noun|C1|AWL|neutral|mastery|3|حتمية|the view that all events are predetermined
+stochastic|adjective|C1|NAWL|neutral|mastery|3|عشوائي|randomly determined
+heuristic approach|noun|C1|NAWL|neutral|extended|3|نهج اكتشافي|using practical methods to find solutions
+algorithm|noun|C1|NAWL|neutral|extended|3|خوارزمية بحثية|a step-by-step procedure for solving problems
+model|noun|B2|AWL|neutral|core|3|نموذج|a simplified representation of reality
+simulation|noun|C1|AWL|neutral|extended|3|محاكاة|imitating a process using a model
+prediction|noun|C1|AWL|neutral|core|3|تنبؤ|a statement about future events
+verification|noun|C1|AWL|neutral|core|3|تحقق|confirming that results are correct
+validation|noun|C1|AWL|neutral|core|3|مصادقة|confirming that a model serves its purpose
+replication crisis|noun|C1|NAWL|neutral|core|3|أزمة تكرار|the failure to reproduce research results
+open access|noun|C1|NAWL|neutral|core|3|وصول مفتوح|freely available research publications
+preprint|noun|C1|NAWL|neutral|extended|3|نسخة أولية|a paper shared before peer review
+retraction|noun|C1|AWL|neutral|extended|3|سحب بحث|withdrawing a published paper
+erratum|noun|C2|NAWL|formal|mastery|3|تصحيح خطأ|a correction to a published paper
+corrigendum|noun|C2|NAWL|formal|mastery|3|ملحق تصحيح|an error correction by the author
+impact factor|noun|C1|NAWL|neutral|extended|3|عامل تأثير|a measure of a journal's influence
+h-index|noun|C1|NAWL|neutral|mastery|3|مؤشر إتش|a measure of a researcher's productivity
+citation index|noun|C1|NAWL|neutral|mastery|3|مؤشر اقتباس|a database tracking research references

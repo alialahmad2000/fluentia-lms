@@ -1,0 +1,59 @@
+interferometer|noun|C1|NAWL|neutral|extended|10|مقياس تداخل|a device measuring wave interference
+diffraction|noun|C1|NAWL|neutral|core|10|حيود|the bending of waves around obstacles
+interference|noun|C1|NAWL|neutral|core|10|تداخل|the combination of overlapping waves
+refraction|noun|C1|CEFR-J|neutral|core|10|انكسار|the bending of light passing between media
+reflection|noun|C1|CEFR-J|neutral|core|10|انعكاس|light bouncing off a surface
+absorption|noun|C1|AWL|neutral|core|10|امتصاص|taking in energy from radiation
+scattering|noun|C1|NAWL|neutral|extended|10|تبعثر|light being deflected in many directions
+polarization|noun|C1|AWL|neutral|extended|10|استقطاب ضوئي|restricting light waves to one plane
+wavelength|noun|C1|NAWL|neutral|core|10|طول موجة|the distance between wave crests
+frequency|noun|C1|AWL|neutral|core|10|تردد|the number of waves per second
+amplitude|noun|C1|AWL|neutral|core|10|سعة موجة|the maximum displacement of a wave
+spectrum|noun|C1|AWL|neutral|core|10|طيف|the range of electromagnetic wavelengths
+visible spectrum|noun|C1|CEFR-J|neutral|core|10|طيف مرئي|the part of the spectrum the eye detects
+infrared|noun|C1|CEFR-J|neutral|core|10|تحت أحمر|radiation just below visible light
+ultraviolet|noun|C1|CEFR-J|neutral|core|10|فوق بنفسجي|radiation just above visible light
+X-ray|noun|C1|CEFR-J|neutral|core|10|أشعة سينية|high-energy electromagnetic radiation
+radio wave|noun|C1|CEFR-J|neutral|core|10|موجة راديو|low-energy electromagnetic radiation
+microwave|noun|C1|CEFR-J|neutral|extended|10|ميكروويف|electromagnetic radiation for heating
+speed of light|noun|C1|CEFR-J|neutral|core|10|سرعة الضوء|the maximum speed in the universe
+laser|noun|C1|CEFR-J|neutral|core|10|ليزر|a device emitting coherent light
+coherent light|noun|C1|NAWL|neutral|extended|10|ضوء متماسك|light waves in phase with each other
+fiber optics|noun|C1|NAWL|neutral|extended|10|ألياف بصرية|transmitting light through thin fibers
+holography|noun|C1|NAWL|neutral|mastery|10|تصوير مجسم|creating three-dimensional images with light
+Planck's constant|noun|C1|NAWL|neutral|core|10|ثابت بلانك|a fundamental constant in quantum mechanics
+photoelectric effect|noun|C1|NAWL|neutral|core|10|تأثير كهروضوئي|electrons released by light hitting metal
+Compton scattering|noun|C2|NAWL|formal|mastery|10|تبعثر كومبتون|photon scattering off electrons
+pair production|noun|C2|NAWL|formal|mastery|10|إنتاج أزواج|a photon creating a particle and antiparticle
+antimatter|noun|C1|NAWL|neutral|extended|10|مادة مضادة|matter with opposite charge to normal matter
+positron|noun|C1|NAWL|neutral|extended|10|بوزيترون|the antiparticle of the electron
+annihilation|noun|C1|NAWL|neutral|extended|10|إفناء|a particle and antiparticle destroying each other
+baryon|noun|C1|NAWL|neutral|mastery|10|باريون|a particle made of three quarks
+meson|noun|C1|NAWL|neutral|mastery|10|ميزون|a particle made of a quark and antiquark
+hadron|noun|C1|NAWL|neutral|extended|10|هادرون|a particle made of quarks
+particle accelerator|noun|C1|NAWL|neutral|core|10|مسرع جسيمات|a machine accelerating subatomic particles
+Large Hadron Collider|noun|C1|NAWL|neutral|extended|10|مصادم هادروني كبير|the world's largest particle accelerator
+detector|noun|C1|CEFR-J|neutral|core|10|كاشف|a device identifying particles
+calorimeter|noun|C1|NAWL|neutral|mastery|10|مسعر|a device measuring particle energy
+scintillator|noun|C2|NAWL|formal|mastery|10|ومضي|a material emitting light when hit by radiation
+cloud chamber|noun|C1|NAWL|neutral|mastery|10|غرفة سحاب|a device visualizing particle tracks
+cosmic ray|noun|C1|NAWL|neutral|extended|10|أشعة كونية|high-energy particles from space
+neutrino detector|noun|C1|NAWL|neutral|mastery|10|كاشف نيوترينو|a device for detecting neutrinos
+dark matter detector|noun|C1|NAWL|neutral|mastery|10|كاشف مادة مظلمة|equipment searching for dark matter
+symmetry|noun|C1|AWL|neutral|core|10|تناظر|a property unchanged under transformation
+conservation law|noun|C1|AWL|neutral|core|10|قانون حفظ|a quantity remaining constant in physics
+momentum|noun|C1|AWL|neutral|core|10|زخم|the product of mass and velocity
+angular momentum|noun|C1|NAWL|neutral|extended|10|زخم زاوي|rotational equivalent of linear momentum
+energy conservation|noun|C1|AWL|neutral|core|10|حفظ طاقة|energy cannot be created or destroyed
+entropy|noun|C1|NAWL|neutral|core|10|إنتروبيا|a measure of disorder in a system
+thermodynamics|noun|C1|NAWL|neutral|core|10|ديناميكا حرارية|the study of heat and energy
+first law of thermodynamics|noun|C1|NAWL|neutral|extended|10|القانون الأول|energy is conserved
+second law of thermodynamics|noun|C1|NAWL|neutral|extended|10|القانون الثاني|entropy always increases
+absolute zero|noun|C1|NAWL|neutral|extended|10|صفر مطلق|the lowest possible temperature
+Kelvin|noun|C1|CEFR-J|neutral|extended|10|كلفن|a unit of temperature measurement
+Bose-Einstein condensate|noun|C2|NAWL|formal|mastery|10|تكاثف بوز-آينشتاين|a state of matter at near absolute zero
+superconductor|noun|C1|NAWL|neutral|extended|10|موصل فائق|a material with zero electrical resistance
+superfluidity|noun|C2|NAWL|formal|mastery|10|ميوعة فائقة|fluid with zero viscosity at low temperature
+plasma state|noun|C1|NAWL|neutral|extended|10|حالة بلازما|the fourth state of matter
+phase transition|noun|C1|NAWL|neutral|extended|10|تحول طوري|changing from one state of matter to another
+critical point|noun|C1|NAWL|neutral|mastery|10|نقطة حرجة|conditions where phases become indistinguishable

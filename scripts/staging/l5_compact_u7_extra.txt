@@ -1,0 +1,101 @@
+neurology|noun|C1|NAWL|neutral|core|7|طب الأعصاب|the branch of medicine dealing with the nervous system
+neuroanatomy|noun|C2|NAWL|formal|core|7|تشريح عصبي|the anatomy of the nervous system
+neurophysiology|noun|C2|NAWL|formal|core|7|فيزيولوجيا عصبية|the physiology of the nervous system
+neuromodulation|noun|C2|NAWL|formal|core|7|تعديل عصبي|altering nerve activity through stimulation
+neurofeedback|noun|C2|NAWL|formal|core|7|ارتجاع عصبي|training the brain using real-time monitoring
+neurogenesis|noun|C2|NAWL|formal|core|7|تكوين عصبي|the formation of new neurons
+apoptosis|noun|C2|NAWL|formal|core|7|موت خلوي مبرمج|programmed cell death
+glia|noun|C2|NAWL|formal|core|7|خلايا دبقية|non-neuronal cells supporting the nervous system
+astrocyte|noun|C2|NAWL|formal|core|7|خلية نجمية|a star-shaped brain support cell
+oligodendrocyte|noun|C2|NAWL|formal|core|7|خلية قليلة التغصنات|a cell producing myelin in the brain
+myelin|noun|C1|NAWL|neutral|core|7|ميالين|an insulating sheath around nerve fibers
+reflex|noun|B2|CEFR-J|neutral|core|7|منعكس|an involuntary and nearly instantaneous response
+sensory|adjective|C1|CEFR-J|neutral|core|7|حسي|relating to sensation or the senses
+motor|adjective|C1|CEFR-J|neutral|core|7|حركي|relating to muscular movement
+somatic|adjective|C1|NAWL|neutral|core|7|جسدي|relating to the body as distinct from the mind
+autonomic|adjective|C1|NAWL|neutral|core|7|لاإرادي|functioning involuntarily
+sympathetic|adjective|C1|CEFR-J|neutral|core|7|ودي|part of the nervous system for fight-or-flight
+parasympathetic|adjective|C2|NAWL|formal|core|7|لاودي|part of the nervous system for rest-and-digest
+ventricle|noun|C1|NAWL|neutral|core|7|بطين|a fluid-filled cavity in the brain
+cerebrospinal|adjective|C2|NAWL|formal|core|7|دماغي شوكي|relating to the brain and spinal cord fluid
+thalamus|noun|C2|NAWL|formal|core|7|مهاد|a brain relay station for sensory information
+hypothalamus|noun|C1|NAWL|neutral|core|7|تحت المهاد|a brain region controlling basic functions
+cerebellum|noun|C1|NAWL|neutral|core|7|مخيخ|the brain part coordinating movement
+brainstem|noun|C1|CEFR-J|neutral|core|7|جذع الدماغ|the base of the brain connecting to the spine
+medulla|noun|C1|NAWL|neutral|core|7|نخاع مستطيل|the lower part of the brainstem
+pons|noun|C2|NAWL|formal|core|7|جسر دماغي|a brain part bridging the cerebellum
+basal ganglia|noun|C2|NAWL|formal|core|7|عقد قاعدية|brain structures involved in movement control
+cingulate|adjective|C2|NAWL|formal|core|7|حزامي|relating to a brain region involved in emotion
+insular|adjective|C2|NAWL|formal|core|7|جزيري|relating to the brain's insula region
+parietal|adjective|C1|NAWL|neutral|core|7|جداري|relating to the top side of the brain
+occipital|adjective|C1|NAWL|neutral|core|7|قذالي|relating to the back of the brain
+temporal|adjective|C1|AWL|neutral|core|7|صدغي|relating to the sides of the brain
+frontal|adjective|C1|CEFR-J|neutral|core|7|جبهي|relating to the front of the brain
+lateralization|noun|C1|NAWL|neutral|extended|7|تخصص نصفي|the dominance of one brain hemisphere
+commissure|noun|C2|NAWL|formal|extended|7|صوار|a band of nerve fibers connecting brain halves
+corpus callosum|noun|C2|NAWL|formal|extended|7|جسم ثفني|the nerve fibers connecting brain hemispheres
+action potential|noun|C1|NAWL|neutral|extended|7|جهد فعل|an electrical signal traveling along a nerve
+resting potential|noun|C1|NAWL|neutral|extended|7|جهد راحة|the electrical charge of an inactive neuron
+depolarization|noun|C2|NAWL|formal|extended|7|إزالة الاستقطاب|the reduction of electrical potential in a cell
+repolarization|noun|C2|NAWL|formal|extended|7|إعادة الاستقطاب|the restoration of resting potential
+refractory period|noun|C2|NAWL|formal|extended|7|فترة عصيان|the time a neuron cannot fire again
+long-term potentiation|noun|C2|NAWL|formal|extended|7|تقوية طويلة المدى|strengthening of synapses based on activity
+habituation|noun|C1|NAWL|neutral|extended|7|تعود|decreased response to repeated stimulation
+sensitization|noun|C1|NAWL|neutral|extended|7|تحسس|increased response after stimulation
+extinction|noun|C1|AWL|neutral|extended|7|انطفاء|the fading of a conditioned response
+consolidation|noun|C1|AWL|neutral|extended|7|تعزيز ذاكرة|the process of stabilizing a memory
+encoding|noun|C1|AWL|neutral|extended|7|ترميز|the initial recording of information in memory
+retrieval|noun|C1|AWL|neutral|extended|7|استرجاع|the process of accessing stored memories
+amnesia|noun|C1|CEFR-J|neutral|extended|7|فقدان ذاكرة|loss of memory
+aphasia|noun|C1|NAWL|neutral|extended|7|حبسة|loss of ability to understand or produce speech
+agnosia|noun|C2|NAWL|formal|extended|7|عمه|inability to recognize objects or people
+apraxia|noun|C2|NAWL|formal|extended|7|تعذر الأداء|inability to perform purposeful movements
+ataxia|noun|C2|NAWL|formal|extended|7|ترنح|loss of coordination of muscle movements
+dyskinesia|noun|C2|NAWL|formal|extended|7|خلل الحركة|abnormal involuntary movements
+tremor|noun|C1|CEFR-J|neutral|extended|7|رعشة|involuntary rhythmic shaking
+seizure|noun|C1|CEFR-J|neutral|extended|7|نوبة|a sudden uncontrolled electrical brain disturbance
+epilepsy|noun|C1|CEFR-J|neutral|extended|7|صرع|a disorder causing recurrent seizures
+stroke|noun|B2|CEFR-J|neutral|extended|7|سكتة دماغية|brain damage from interrupted blood supply
+ischemia|noun|C2|NAWL|formal|extended|7|نقص تروية|inadequate blood supply to an organ
+aneurysm|noun|C1|CEFR-J|neutral|extended|7|أم الدم|a bulge in a blood vessel wall
+lesion|noun|C1|NAWL|neutral|extended|7|آفة|an area of tissue damage
+tumor|noun|C1|CEFR-J|neutral|extended|7|ورم|an abnormal growth of tissue
+meninges|noun|C2|NAWL|formal|extended|7|سحايا|the membranes surrounding the brain
+encephalitis|noun|C2|NAWL|formal|extended|7|التهاب دماغي|inflammation of the brain
+meningitis|noun|C1|CEFR-J|neutral|extended|7|التهاب سحايا|inflammation of the brain membranes
+sclerosis|noun|C1|CEFR-J|neutral|extended|7|تصلب|hardening of body tissue
+Parkinson's|noun|C1|CEFR-J|neutral|extended|7|باركنسون|a disorder affecting movement
+Alzheimer's|noun|C1|CEFR-J|neutral|extended|7|ألزهايمر|a progressive brain disease causing dementia
+schizophrenia|noun|C1|CEFR-J|neutral|extended|7|فصام|a mental disorder with distorted thinking
+bipolar|adjective|C1|CEFR-J|neutral|extended|7|ثنائي القطب|a condition of alternating mood episodes
+anxiety|noun|B2|CEFR-J|neutral|extended|7|قلق|a feeling of worry and unease
+depression|noun|B2|CEFR-J|neutral|extended|7|اكتئاب|a mood disorder causing persistent sadness
+neuroticism|noun|C1|NAWL|neutral|extended|7|عصابية|a personality trait of emotional instability
+psychosomatic|adjective|C1|NAWL|neutral|extended|7|نفسجسدي|caused by mental factors rather than physical
+placebo effect|noun|C1|CEFR-J|neutral|extended|7|أثر وهمي|improvement caused by belief in treatment
+neurotherapy|noun|C2|NAWL|formal|mastery|7|علاج عصبي|treatment using brain stimulation techniques
+transcranial|adjective|C2|NAWL|formal|mastery|7|عبر الجمجمة|through or across the skull
+optogenetics|noun|C2|NAWL|formal|mastery|7|علم البصريات الوراثي|using light to control neurons
+connectome|noun|C2|NAWL|formal|mastery|7|خريطة اتصالات دماغية|a map of neural connections in the brain
+synaptogenesis|noun|C2|NAWL|formal|mastery|7|تكوين المشابك|the formation of synapses during development
+pruning|noun|C1|CEFR-J|neutral|mastery|7|تشذيب عصبي|the elimination of unused neural connections
+default mode|noun|C1|NAWL|neutral|mastery|7|وضع افتراضي|brain activity when not focused on tasks
+executive function|noun|C1|AWL|neutral|mastery|7|وظائف تنفيذية|higher-order cognitive processes
+working memory|noun|C1|AWL|neutral|mastery|7|ذاكرة عاملة|short-term memory used for processing
+episodic memory|noun|C1|NAWL|neutral|mastery|7|ذاكرة عرضية|memory of personal experiences and events
+semantic memory|noun|C1|NAWL|neutral|mastery|7|ذاكرة دلالية|memory of facts and general knowledge
+procedural memory|noun|C1|NAWL|neutral|mastery|7|ذاكرة إجرائية|memory of how to perform tasks
+implicit memory|noun|C1|NAWL|neutral|mastery|7|ذاكرة ضمنية|unconscious memory affecting behavior
+explicit memory|noun|C1|NAWL|neutral|mastery|7|ذاكرة صريحة|conscious recollection of information
+metacognition|noun|C1|AWL|neutral|mastery|7|ما وراء المعرفة|awareness of one's own thinking processes
+introspection|noun|C1|CEFR-J|neutral|mastery|7|استبطان|the examination of one's own mental processes
+qualia|noun|C2|NAWL|formal|mastery|7|كواليا|subjective conscious experiences
+dualism|noun|C1|NAWL|neutral|mastery|7|ثنائية|the theory that mind and body are separate
+monism|noun|C2|NAWL|formal|mastery|7|أحادية|the theory that mind and body are one
+functionalism|noun|C1|NAWL|neutral|mastery|7|وظيفية|the theory that mental states are functional roles
+behaviorism|noun|C1|NAWL|neutral|mastery|7|سلوكية|the theory that behavior is learned
+cognitivism|noun|C1|NAWL|neutral|mastery|7|معرفية|the theory focusing on mental processes
+connectionism|noun|C2|NAWL|formal|mastery|7|ترابطية|modeling cognition using neural networks
+embodiment|noun|C1|AWL|neutral|mastery|7|تجسيد|the view that cognition involves the whole body
+nativism|noun|C1|NAWL|neutral|mastery|7|فطرية|the theory that abilities are innate
+empiricism|noun|C1|NAWL|neutral|mastery|7|تجريبية عصبية|the view that knowledge comes from experience

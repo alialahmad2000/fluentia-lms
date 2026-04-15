@@ -1,0 +1,88 @@
+energy|noun|B2|CEFR-J|neutral|core|5|طاقة|the capacity for doing work
+power plant|noun|C1|CEFR-J|neutral|core|5|محطة طاقة|a facility generating electricity
+reactor core|noun|C1|NAWL|neutral|core|5|قلب المفاعل|the central part of a nuclear reactor
+fuel assembly|noun|C1|NAWL|neutral|core|5|تجمع وقود|a bundle of fuel rods in a reactor
+cladding|noun|C1|NAWL|neutral|core|5|تكسية|the outer layer of a nuclear fuel rod
+zirconium|noun|C2|NAWL|formal|core|5|زركونيوم|a metal used for nuclear fuel cladding
+boron|noun|C1|NAWL|neutral|core|5|بورون|an element used to absorb neutrons
+cadmium|noun|C1|NAWL|neutral|core|5|كادميوم|a metal used in reactor control rods
+hafnium|noun|C2|NAWL|formal|core|5|هافنيوم|a metal used for nuclear reactor parts
+graphite|noun|C1|CEFR-J|neutral|core|5|غرافيت|a form of carbon used as a moderator
+steam|noun|B2|CEFR-J|neutral|core|5|بخار|water in gaseous form
+pressure vessel|noun|C1|NAWL|neutral|core|5|وعاء ضغط|a container designed to hold high pressure
+pump|noun|B2|CEFR-J|neutral|core|5|مضخة|a device for moving fluids
+valve|noun|C1|CEFR-J|neutral|core|5|صمام|a device controlling fluid flow
+pipe|noun|B2|CEFR-J|neutral|core|5|أنبوب|a tube for conveying fluid
+concrete|noun|B2|CEFR-J|neutral|core|5|خرسانة|a building material used for containment
+steel|noun|B2|CEFR-J|neutral|core|5|فولاذ|a strong alloy used in construction
+reinforcement|noun|C1|AWL|neutral|core|5|تسليح|strengthening material within a structure
+seismic|adjective|C1|NAWL|neutral|core|5|زلزالي|relating to earthquakes
+tsunami-proof|adjective|C1|CEFR-J|neutral|core|5|مقاوم للتسونامي|designed to withstand tsunami impact
+backup|noun|C1|CEFR-J|neutral|core|5|نسخة احتياطية|a system used when the main one fails
+diesel generator|noun|C1|CEFR-J|neutral|core|5|مولد ديزل|a backup power source
+battery|noun|B2|CEFR-J|neutral|core|5|بطارية|a device storing electrical energy
+cooling tower|noun|C1|CEFR-J|neutral|core|5|برج تبريد|a structure for cooling water in a plant
+stack|noun|C1|CEFR-J|neutral|core|5|مدخنة|a chimney or funnel for releasing gases
+ventilation|noun|C1|CEFR-J|neutral|core|5|تهوية|the provision of fresh air
+filtration|noun|C1|CEFR-J|neutral|core|5|تصفية|the process of removing particles from air
+scrubber|noun|C1|NAWL|neutral|core|5|غاسل|a device removing pollutants from gases
+decommission|verb|C1|AWL|neutral|core|5|يوقف تشغيل|to shut down and dismantle a facility
+demolition|noun|C1|CEFR-J|neutral|core|5|هدم|the destruction of a building
+remediate|verb|C1|AWL|neutral|core|5|يعالج|to clean up contaminated land
+brownfield|noun|C1|NAWL|neutral|core|5|أرض ملوثة|a previously used contaminated site
+greenfield|noun|C1|NAWL|neutral|core|5|أرض بكر|an undeveloped site for new construction
+site selection|noun|C1|AWL|neutral|extended|5|اختيار موقع|choosing a location for a facility
+environmental impact|noun|C1|AWL|neutral|extended|5|أثر بيئي|the effect of an activity on the environment
+risk assessment|noun|C1|AWL|neutral|extended|5|تقييم مخاطر|evaluating potential dangers
+cost-benefit|noun|C1|AWL|neutral|extended|5|تكلفة-منفعة|comparing costs to expected benefits
+levelized cost|noun|C1|NAWL|neutral|extended|5|تكلفة معيارية|the average cost of energy over a plant's lifetime
+capacity|noun|C1|AWL|neutral|extended|5|سعة|the maximum output of a power plant
+load factor|noun|C1|NAWL|neutral|extended|5|عامل حمولة|the ratio of actual to maximum output
+dispatch|noun|C1|CEFR-J|neutral|extended|5|إرسال|the allocation of electricity to the grid
+intermittent|adjective|C1|AWL|neutral|extended|5|متقطع|occurring at irregular intervals
+baseload power|noun|C1|NAWL|neutral|extended|5|طاقة أساسية|constant minimum electricity demand
+peak demand|noun|C1|NAWL|neutral|extended|5|طلب ذروة|the maximum electricity consumption
+grid stability|noun|C1|NAWL|neutral|extended|5|استقرار شبكة|maintaining consistent electricity supply
+blackout risk|noun|C1|CEFR-J|neutral|extended|5|خطر انقطاع|the possibility of total power failure
+energy storage|noun|C1|AWL|neutral|extended|5|تخزين طاقة|saving energy for later use
+pumped hydro|noun|C1|NAWL|neutral|extended|5|طاقة مائية مضخوخة|storing energy by pumping water uphill
+flywheel|noun|C1|CEFR-J|neutral|extended|5|حذافة|a rotating device storing kinetic energy
+compressed air|noun|C1|CEFR-J|neutral|extended|5|هواء مضغوط|air stored under pressure for energy
+lithium-ion|noun|C1|NAWL|neutral|extended|5|ليثيوم أيون|a type of rechargeable battery
+sodium-ion|noun|C2|NAWL|formal|extended|5|صوديوم أيون|an alternative rechargeable battery type
+hydrogen fuel|noun|C1|NAWL|neutral|extended|5|وقود هيدروجيني|using hydrogen as an energy carrier
+electrolysis|noun|C1|NAWL|neutral|extended|5|تحليل كهربائي|splitting water into hydrogen and oxygen
+fuel cell|noun|C1|NAWL|neutral|extended|5|خلية وقود|a device converting hydrogen to electricity
+smart grid|noun|C1|NAWL|neutral|extended|5|شبكة ذكية|an electricity network using digital technology
+microgrid|noun|C1|NAWL|neutral|extended|5|شبكة مصغرة|a local electricity distribution system
+distributed generation|noun|C1|NAWL|neutral|extended|5|توليد موزع|producing electricity near the point of use
+net metering|noun|C1|NAWL|neutral|extended|5|صافي قياس|allowing consumers to sell excess power back
+feed-in tariff|noun|C1|NAWL|neutral|extended|5|تعرفة تغذية|a guaranteed price for renewable energy
+renewable portfolio|noun|C1|NAWL|neutral|extended|5|محفظة متجددة|requiring utilities to use renewable sources
+carbon capture|noun|C1|NAWL|neutral|extended|5|التقاط كربون|capturing CO2 before it enters the atmosphere
+sequestration|noun|C1|AWL|neutral|extended|5|عزل كربوني|storing captured CO2 underground
+pipeline transport|noun|C1|CEFR-J|neutral|extended|5|نقل بأنابيب|moving materials through pipelines
+geological storage|noun|C1|NAWL|neutral|extended|5|تخزين جيولوجي|storing substances in underground formations
+saline aquifer|noun|C2|NAWL|formal|extended|5|طبقة ملحية|a formation containing salty water for CO2 storage
+depleted reservoir|noun|C1|NAWL|neutral|extended|5|خزان مستنفد|an empty oil or gas field for storage
+enhanced oil recovery|noun|C1|NAWL|neutral|mastery|5|استخلاص نفط معزز|using CO2 injection to extract more oil
+supercritical CO2|noun|C2|NAWL|formal|mastery|5|ثاني أكسيد كربون فوق حرج|CO2 above critical temperature and pressure
+turbine efficiency|noun|C1|NAWL|neutral|mastery|5|كفاءة توربين|the ratio of useful work to energy input
+Rankine cycle|noun|C2|NAWL|formal|mastery|5|دورة رانكن|a thermodynamic cycle for steam power
+Brayton cycle|noun|C2|NAWL|formal|mastery|5|دورة برايتون|a thermodynamic cycle for gas turbines
+combined cycle|noun|C1|NAWL|neutral|mastery|5|دورة مشتركة|using gas and steam turbines together
+cogeneration|noun|C1|NAWL|neutral|mastery|5|توليد مشترك|producing electricity and heat together
+district heating|noun|C1|NAWL|neutral|mastery|5|تدفئة مركزية|centralized heating for multiple buildings
+heat pump|noun|C1|CEFR-J|neutral|mastery|5|مضخة حرارية|a device transferring heat between locations
+geothermal energy|noun|C1|NAWL|neutral|mastery|5|طاقة حرارية أرضية|energy from Earth's internal heat
+tidal energy|noun|C1|NAWL|neutral|mastery|5|طاقة مدية|energy from tidal movements
+wave energy|noun|C1|NAWL|neutral|mastery|5|طاقة أمواج|energy harnessed from ocean waves
+osmotic power|noun|C2|NAWL|formal|mastery|5|طاقة تناضحية|energy from salt concentration differences
+thermoelectric|adjective|C1|NAWL|neutral|mastery|5|كهروحراري|converting temperature differences to electricity
+piezoelectric|adjective|C2|NAWL|formal|mastery|5|كهرضغطي|converting mechanical stress to electricity
+triboelectric|adjective|C2|NAWL|formal|mastery|5|كهراحتكاكي|converting friction to electricity
+energy poverty|noun|C1|NAWL|neutral|mastery|5|فقر طاقوي|lack of access to affordable energy
+energy justice|noun|C1|NAWL|neutral|mastery|5|عدالة طاقوية|fair distribution of energy benefits and burdens
+energy transition|noun|C1|AWL|neutral|mastery|5|تحول طاقوي|the shift from fossil fuels to renewables
+decarbonization|noun|C1|NAWL|neutral|mastery|5|إزالة الكربون|reducing carbon emissions from energy
+electrification|noun|C1|AWL|neutral|mastery|5|كهربة|converting systems to run on electricity

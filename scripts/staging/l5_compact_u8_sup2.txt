@@ -1,0 +1,82 @@
+agent|noun|C1|AWL|neutral|core|8|عميل|an entity acting in an environment
+behavior|noun|B2|CEFR-J|neutral|core|8|سلوك|the way an organism acts
+instinct|noun|C1|CEFR-J|neutral|core|8|غريزة|an innate pattern of behavior
+communication|noun|B2|AWL|neutral|core|8|تواصل|the exchange of information between agents
+signal|noun|C1|CEFR-J|neutral|core|8|إشارة حيوية|a transmission conveying information between organisms
+waggle dance|noun|C2|NAWL|neutral|core|8|رقصة الاهتزاز|a figure-eight dance by bees indicating food location
+trail|noun|C1|CEFR-J|neutral|core|8|أثر|a path marked by pheromones or other signals
+recruitment|noun|C1|AWL|neutral|core|8|تجنيد|enlisting new individuals for a task
+division of labor|noun|C1|AWL|neutral|core|8|تقسيم عمل|distributing tasks among group members
+specialization|noun|C1|AWL|neutral|core|8|تخصص|focusing on a particular function
+generalist|noun|C1|CEFR-J|neutral|core|8|عام|an organism performing many functions
+queen|noun|B2|CEFR-J|neutral|core|8|ملكة نحل|the reproductive female in a colony
+worker|noun|B2|CEFR-J|neutral|core|8|عاملة|a non-reproductive member performing tasks
+drone|noun|C1|CEFR-J|neutral|core|8|ذكر نحل|a male bee or an unmanned aircraft
+caste|noun|C1|CEFR-J|neutral|core|8|طبقة|a group with a specific role in a colony
+nest|noun|B2|CEFR-J|neutral|core|8|عش|a structure built for shelter and breeding
+hive|noun|C1|CEFR-J|neutral|core|8|خلية نحل|a structure housing a colony of bees
+mound|noun|C1|CEFR-J|neutral|core|8|كومة|a raised mass of earth built by insects
+colony|noun|C1|CEFR-J|neutral|core|8|مستعمرة حشرية|a community of organisms living together
+superorganism|noun|C2|NAWL|formal|core|8|كائن فوقي|a colony functioning as a single organism
+swarm behavior|noun|C1|NAWL|neutral|core|8|سلوك سربي|collective movement patterns in groups
+flocking behavior|noun|C1|NAWL|neutral|core|8|سلوك قطيعي|coordinated movement in bird groups
+herding|noun|C1|CEFR-J|neutral|core|8|رعي جماعي|the collective movement of mammals
+schooling behavior|noun|C1|NAWL|neutral|core|8|سلوك سباحة جماعي|coordinated swimming in fish groups
+alignment|noun|C1|AWL|neutral|core|8|محاذاة|matching direction with nearby agents
+separation|noun|C1|AWL|neutral|core|8|تباعد|maintaining distance from nearby agents
+cohesion|noun|C1|AWL|neutral|core|8|تماسك|staying close to the group center
+local rule|noun|C1|NAWL|neutral|core|8|قاعدة محلية|a simple rule each agent follows
+global pattern|noun|C1|AWL|neutral|core|8|نمط كلي|a large-scale pattern from local interactions
+neighbor|noun|B2|CEFR-J|neutral|core|8|جار|an agent near another in a system
+interaction radius|noun|C1|NAWL|neutral|extended|8|نصف قطر تفاعل|the distance within which agents interact
+Reynolds rules|noun|C2|NAWL|formal|extended|8|قواعد رينولدز|the three rules governing flocking simulation
+boid|noun|C2|NAWL|formal|extended|8|طائر محاكى|a simulated bird-like object in flocking
+cellular automata|noun|C1|NAWL|neutral|extended|8|أوتوماتا خلوي|a grid of cells evolving by simple rules
+Game of Life|noun|C1|NAWL|neutral|extended|8|لعبة الحياة|a cellular automaton simulating life patterns
+Langton's ant|noun|C2|NAWL|formal|extended|8|نملة لانغتون|a two-dimensional cellular automaton
+random walk|noun|C1|NAWL|neutral|extended|8|مشي عشوائي|a path consisting of random successive steps
+Lévy flight|noun|C2|NAWL|formal|extended|8|طيران ليفي|a random walk with occasional long jumps
+Brownian motion|noun|C1|NAWL|neutral|extended|8|حركة براونية|random movement of particles in fluid
+Monte Carlo|noun|C1|NAWL|neutral|extended|8|مونتي كارلو|a computational technique using random sampling
+evolutionary algorithm|noun|C1|NAWL|neutral|extended|8|خوارزمية تطورية|optimization inspired by natural evolution
+crossover|noun|C1|CEFR-J|neutral|extended|8|عبور وراثي|combining parts of two solutions
+selection|noun|C1|AWL|neutral|extended|8|اختيار|choosing the best solutions for reproduction
+elitism|noun|C1|CEFR-J|neutral|extended|8|نخبوية|keeping the best solutions unchanged
+diversity|noun|C1|AWL|neutral|extended|8|تنوع حلول|the variety of solutions in a population
+population size|noun|C1|AWL|neutral|extended|8|حجم مجموعة|the number of candidate solutions
+generation|noun|C1|AWL|neutral|extended|8|جيل|one cycle of the evolutionary algorithm
+convergence rate|noun|C1|AWL|neutral|extended|8|معدل تقارب|the speed at which a solution is approached
+premature convergence|noun|C1|NAWL|neutral|extended|8|تقارب مبكر|settling on a poor solution too early
+niching|noun|C2|NAWL|formal|extended|8|تفريخ|maintaining multiple distinct solutions
+multi-objective|adjective|C1|NAWL|neutral|extended|8|متعدد الأهداف|optimizing more than one goal simultaneously
+Pareto front|noun|C2|NAWL|formal|extended|8|جبهة باريتو|the set of optimal trade-off solutions
+dominance|noun|C1|AWL|neutral|extended|8|هيمنة|one solution being better in all objectives
+feasibility|noun|C1|AWL|neutral|extended|8|جدوى|whether a solution satisfies all constraints
+penalty function|noun|C1|NAWL|neutral|extended|8|دالة عقوبة|a function penalizing constraint violations
+repair operator|noun|C2|NAWL|formal|extended|8|مشغل إصلاح|a method fixing infeasible solutions
+neighborhood|noun|C1|CEFR-J|neutral|extended|8|جوار|the set of solutions near a given solution
+perturbation|noun|C1|AWL|neutral|mastery|8|اضطراب حلول|a small change to a solution
+intensification|noun|C1|AWL|neutral|mastery|8|تكثيف|focusing search around promising areas
+diversification|noun|C1|AWL|neutral|mastery|8|تنويع|exploring new areas of the search space
+restart|noun|C1|CEFR-J|neutral|mastery|8|إعادة تشغيل|beginning the search from a new starting point
+hybrid algorithm|noun|C1|NAWL|neutral|mastery|8|خوارزمية هجينة|combining different optimization methods
+memetic algorithm|noun|C2|NAWL|formal|mastery|8|خوارزمية ميمية|a genetic algorithm with local search
+cultural algorithm|noun|C2|NAWL|formal|mastery|8|خوارزمية ثقافية|an optimization method using cultural knowledge
+differential evolution|noun|C2|NAWL|formal|mastery|8|تطور تفاضلي|an optimization using vector differences
+scatter search|noun|C2|NAWL|formal|mastery|8|بحث متناثر|an optimization using reference set combinations
+variable neighborhood|noun|C2|NAWL|formal|mastery|8|جوار متغير|systematically changing neighborhood structures
+path relinking|noun|C2|NAWL|formal|mastery|8|ربط مسارات|combining elements from different solutions
+bee algorithm|noun|C1|NAWL|neutral|mastery|8|خوارزمية نحل|optimization inspired by honey bee foraging
+firefly algorithm|noun|C2|NAWL|formal|mastery|8|خوارزمية يراع|optimization inspired by firefly flashing
+cuckoo search|noun|C2|NAWL|formal|mastery|8|بحث وقواق|optimization inspired by cuckoo nesting
+bat algorithm|noun|C2|NAWL|formal|mastery|8|خوارزمية خفاش|optimization inspired by bat echolocation
+whale optimization|noun|C2|NAWL|formal|mastery|8|تحسين حوت|optimization inspired by whale hunting
+grey wolf|noun|C2|NAWL|formal|mastery|8|ذئب رمادي|optimization inspired by wolf pack hierarchy
+harmony search|noun|C2|NAWL|formal|mastery|8|بحث انسجام|optimization inspired by musical improvisation
+water cycle|noun|C1|NAWL|neutral|mastery|8|دورة مائية|optimization inspired by water movement
+galaxy search|noun|C2|NAWL|formal|mastery|8|بحث مجري|optimization inspired by galactic motion
+social learning|noun|C1|NAWL|neutral|mastery|8|تعلم اجتماعي|optimization using social interaction
+imitation|noun|C1|CEFR-J|neutral|mastery|8|تقليد|copying behavior from successful agents
+innovation|noun|C1|AWL|neutral|mastery|8|ابتكار حلول|creating new solutions through exploration
+exploitation rate|noun|C1|AWL|neutral|mastery|8|معدل استغلال|the degree of refining known solutions
+exploration rate|noun|C1|AWL|neutral|mastery|8|معدل استكشاف|the degree of searching for new solutions

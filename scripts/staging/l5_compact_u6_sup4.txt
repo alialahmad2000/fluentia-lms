@@ -1,0 +1,73 @@
+photosynthesis|noun|C1|CEFR-J|neutral|core|6|تمثيل ضوئي|converting sunlight to energy in plants
+respiration|noun|C1|CEFR-J|neutral|core|6|تنفس خلوي|releasing energy from organic molecules
+transpiration|noun|C1|NAWL|neutral|extended|6|نتح|water loss through plant leaves
+chlorophyll|noun|C1|NAWL|neutral|extended|6|كلوروفيل|the green pigment in plants
+cellulose|noun|C1|NAWL|neutral|extended|6|سيلولوز|a structural component of plant cell walls
+lignin|noun|C1|NAWL|neutral|mastery|6|لجنين|a substance giving rigidity to plant cells
+stamen|noun|C1|CEFR-J|neutral|extended|6|سداة|the pollen-producing part of a flower
+pistil|noun|C1|CEFR-J|neutral|extended|6|مدقة|the seed-producing part of a flower
+pollen|noun|C1|CEFR-J|neutral|core|6|حبوب لقاح|powdery grains enabling plant reproduction
+nectar|noun|C1|CEFR-J|neutral|extended|6|رحيق|sweet liquid attracting pollinators
+pollinator|noun|C1|NAWL|neutral|core|6|ملقح|an animal transferring pollen between plants
+symbiont|noun|C1|NAWL|neutral|mastery|6|كائن متعايش|an organism living in symbiosis
+mycorrhiza|noun|C2|NAWL|formal|mastery|6|فطر جذري|a fungus living in plant roots
+lichen|noun|C1|NAWL|neutral|extended|6|أشنة|a partnership of fungus and algae
+plankton|noun|C1|CEFR-J|neutral|core|6|عوالق|tiny organisms floating in water
+phytoplankton|noun|C1|NAWL|neutral|extended|6|عوالق نباتية|microscopic photosynthetic organisms in water
+zooplankton|noun|C1|NAWL|neutral|extended|6|عوالق حيوانية|tiny animals floating in water
+benthic|adjective|C1|NAWL|neutral|mastery|6|قاعي|relating to the bottom of a body of water
+pelagic|adjective|C1|NAWL|neutral|mastery|6|سطحي بحري|relating to the open sea
+littoral|adjective|C1|NAWL|neutral|mastery|6|ساحلي|relating to the shore of a body of water
+intertidal|adjective|C1|NAWL|neutral|mastery|6|مدي|the area between high and low tide
+estuary|noun|C1|NAWL|neutral|extended|6|مصب نهر|where a river meets the sea
+delta|noun|C1|CEFR-J|neutral|extended|6|دلتا|a fan-shaped area where a river deposits sediment
+watershed|noun|C1|CEFR-J|neutral|extended|6|حوض تصريف|an area draining into a single river
+riparian|adjective|C1|NAWL|neutral|mastery|6|ضفي|relating to the banks of a river
+floodplain|noun|C1|CEFR-J|neutral|extended|6|سهل فيضي|flat land beside a river prone to flooding
+aquatic|adjective|C1|CEFR-J|neutral|core|6|مائي|relating to water environments
+terrestrial|adjective|C1|AWL|neutral|core|6|أرضي|relating to land environments
+arboreal|adjective|C1|NAWL|neutral|extended|6|شجري|relating to trees
+canopy|noun|C1|CEFR-J|neutral|core|6|غطاء شجري|the upper layer of forest trees
+understory|noun|C1|NAWL|neutral|extended|6|طبقة تحتية|vegetation below the main canopy
+forest floor|noun|C1|CEFR-J|neutral|extended|6|أرض غابة|the ground surface of a forest
+old-growth forest|noun|C1|NAWL|neutral|extended|6|غابة أصلية|a forest undisturbed for centuries
+secondary forest|noun|C1|NAWL|neutral|extended|6|غابة ثانوية|forest regrown after disturbance
+tropical rainforest|noun|C1|CEFR-J|neutral|core|6|غابة استوائية|a dense forest in warm wet climates
+boreal forest|noun|C1|NAWL|neutral|extended|6|غابة شمالية|forest in cold northern regions
+temperate forest|noun|C1|NAWL|neutral|extended|6|غابة معتدلة|forest in moderate climate zones
+savanna|noun|C1|CEFR-J|neutral|extended|6|سافانا|a grassland with scattered trees
+steppe|noun|C1|CEFR-J|neutral|extended|6|سهوب|a large flat grassland
+tundra|noun|C1|CEFR-J|neutral|core|6|تندرا|a cold treeless region
+taiga|noun|C1|NAWL|neutral|extended|6|تايغا|a biome of coniferous forests
+desert|noun|B2|CEFR-J|neutral|core|6|صحراء|a dry barren region
+oasis|noun|C1|CEFR-J|neutral|extended|6|واحة|a fertile area in a desert
+chaparral|noun|C1|NAWL|neutral|mastery|6|أدغال|a shrubland in Mediterranean climates
+alpine|adjective|C1|CEFR-J|neutral|extended|6|ألبي|relating to high mountains
+montane|adjective|C1|NAWL|neutral|mastery|6|جبلي|relating to mountain regions
+elevation|noun|C1|AWL|neutral|core|6|ارتفاع|height above sea level
+latitude|noun|C1|AWL|neutral|core|6|خط عرض|distance from the equator
+longitude|noun|C1|AWL|neutral|extended|6|خط طول|distance east or west of the prime meridian
+biogeography|noun|C1|NAWL|neutral|extended|6|جغرافيا حيوية|the study of species distribution
+endemic species|noun|C1|NAWL|neutral|extended|6|نوع متوطن|a species native to a single region
+range|noun|C1|CEFR-J|neutral|core|6|نطاق توزع|the area in which a species lives
+migration route|noun|C1|CEFR-J|neutral|extended|6|مسار هجرة|the path followed by migrating animals
+flyway|noun|C1|NAWL|neutral|mastery|6|ممر طيران|a route used by migrating birds
+spawning ground|noun|C1|CEFR-J|neutral|mastery|6|مكان تبويض|a place where fish lay eggs
+nesting site|noun|C1|CEFR-J|neutral|extended|6|موقع تعشيش|a place where birds build nests
+breeding ground|noun|C1|CEFR-J|neutral|extended|6|أرض تكاثر|an area where animals reproduce
+hibernation|noun|C1|CEFR-J|neutral|core|6|سبات شتوي|winter dormancy in animals
+estivation|noun|C2|NAWL|formal|mastery|6|سبات صيفي|summer dormancy in animals
+torpor|noun|C1|NAWL|neutral|mastery|6|خمول|a state of reduced activity to save energy
+adaptation|noun|C1|AWL|neutral|core|6|تكيف حيوي|a feature helping survival in an environment
+natural selection|noun|C1|AWL|neutral|core|6|انتقاء طبيعي|survival of the fittest organisms
+speciation|noun|C1|NAWL|neutral|extended|6|انتواع|the formation of new species
+coevolution|noun|C1|NAWL|neutral|mastery|6|تطور مشترك|two species evolving in response to each other
+convergent evolution|noun|C1|NAWL|neutral|mastery|6|تطور متقارب|unrelated species developing similar features
+divergent evolution|noun|C1|NAWL|neutral|mastery|6|تطور متباعد|related species developing different features
+adaptive radiation|noun|C1|NAWL|neutral|mastery|6|انتشار تكيفي|rapid diversification from a common ancestor
+biodiversity hotspot|noun|C1|NAWL|neutral|core|6|بؤرة تنوع حيوي|an area with exceptional species richness
+threatened ecosystem|noun|C1|AWL|neutral|core|6|نظام بيئي مهدد|an ecosystem at risk of collapse
+degradation|noun|C1|AWL|neutral|core|6|تدهور بيئي|the deterioration of an ecosystem
+remediation|noun|C1|AWL|neutral|extended|6|معالجة بيئية|restoring a damaged environment
+bioremediation|noun|C1|NAWL|neutral|mastery|6|معالجة حيوية|using organisms to clean pollution
+phytoremediation|noun|C2|NAWL|formal|mastery|6|معالجة نباتية|using plants to remove pollutants

@@ -1,0 +1,64 @@
+neural pathway|noun|C1|NAWL|neutral|core|7|مسار عصبي|a route connecting brain regions
+white matter|noun|C1|NAWL|neutral|core|7|مادة بيضاء|myelinated nerve fibers in the brain
+gray matter|noun|C1|NAWL|neutral|core|7|مادة رمادية|nerve cell bodies in the brain
+glial cell|noun|C1|NAWL|neutral|extended|7|خلية دبقية|a support cell in the nervous system
+astrocyte|noun|C1|NAWL|neutral|mastery|7|خلية نجمية|a star-shaped brain support cell
+oligodendrocyte|noun|C2|NAWL|formal|mastery|7|خلية قليلة التغصن|a cell producing myelin in the brain
+microglia|noun|C1|NAWL|neutral|mastery|7|دبيقة|immune cells of the central nervous system
+blood flow|noun|C1|CEFR-J|neutral|core|7|تدفق دم|the movement of blood through the brain
+cerebrovascular disease|noun|C1|NAWL|neutral|extended|7|مرض وعائي دماغي|diseases affecting brain blood vessels
+stroke|noun|C1|CEFR-J|neutral|core|7|سكتة دماغية|a blockage or bleed in the brain
+ischemic stroke|noun|C1|NAWL|neutral|extended|7|سكتة إقفارية|a stroke from a blocked blood vessel
+hemorrhagic stroke|noun|C1|NAWL|neutral|extended|7|سكتة نزفية|a stroke from a burst blood vessel
+aneurysm|noun|C1|NAWL|neutral|extended|7|أم دم|a bulge in a blood vessel wall
+brain tumor|noun|C1|CEFR-J|neutral|core|7|ورم دماغي|an abnormal growth in the brain
+glioma|noun|C1|NAWL|neutral|mastery|7|ورم دبقي|a tumor originating from glial cells
+meningioma|noun|C1|NAWL|neutral|mastery|7|ورم سحائي|a tumor in the brain's protective membranes
+dementia|noun|C1|CEFR-J|neutral|core|7|خرف|a decline in mental ability
+Alzheimer's disease|noun|C1|CEFR-J|neutral|core|7|مرض ألزهايمر|a progressive brain disease causing memory loss
+Parkinson's disease|noun|C1|CEFR-J|neutral|core|7|مرض باركنسون|a disease affecting movement control
+Lewy body dementia|noun|C1|NAWL|neutral|mastery|7|خرف أجسام ليوي|dementia with abnormal protein deposits
+vascular dementia|noun|C1|NAWL|neutral|extended|7|خرف وعائي|dementia caused by reduced blood flow
+frontotemporal dementia|noun|C1|NAWL|neutral|mastery|7|خرف جبهي صدغي|dementia affecting personality and language
+cognitive decline|noun|C1|AWL|neutral|core|7|تراجع معرفي|gradual loss of mental abilities
+mild cognitive impairment|noun|C1|AWL|neutral|extended|7|ضعف معرفي خفيف|memory problems beyond normal aging
+neuroprotection|noun|C1|NAWL|neutral|extended|7|حماية عصبية|protecting neurons from damage
+antioxidant|noun|C1|NAWL|neutral|core|7|مضاد أكسدة|a substance preventing cell damage
+anti-inflammatory|adjective|C1|NAWL|neutral|core|7|مضاد التهاب|reducing inflammation
+omega-3 fatty acid|noun|C1|NAWL|neutral|extended|7|حمض أوميغا 3|a fat beneficial for brain health
+Mediterranean diet|noun|C1|CEFR-J|neutral|core|7|نظام غذائي متوسطي|an eating pattern supporting brain health
+aerobic exercise|noun|C1|NAWL|neutral|core|7|تمارين هوائية|exercise that increases heart rate
+mindfulness meditation|noun|C1|NAWL|neutral|core|7|تأمل يقظة|focused awareness of the present moment
+cognitive behavioral therapy|noun|C1|NAWL|neutral|core|7|علاج سلوكي معرفي|therapy changing negative thought patterns
+psychotherapy|noun|C1|NAWL|neutral|core|7|علاج نفسي|treating mental health through conversation
+pharmacotherapy|noun|C1|NAWL|neutral|extended|7|علاج دوائي|treating conditions with medication
+selective serotonin reuptake inhibitor|noun|C1|NAWL|neutral|extended|7|مثبط استرداد سيروتونين|a common antidepressant type
+benzodiazepine|noun|C1|NAWL|neutral|mastery|7|بنزوديازيبين|a sedative used for anxiety
+antipsychotic|noun|C1|NAWL|neutral|extended|7|مضاد ذهان|a medication for psychotic symptoms
+mood stabilizer|noun|C1|NAWL|neutral|extended|7|مثبت مزاج|a medication preventing mood swings
+stimulant medication|noun|C1|NAWL|neutral|extended|7|دواء منبه|a drug increasing alertness and attention
+neurological examination|noun|C1|NAWL|neutral|extended|7|فحص عصبي|testing nervous system function
+lumbar puncture|noun|C1|NAWL|neutral|mastery|7|بزل قطني|collecting cerebrospinal fluid for testing
+electroencephalography|noun|C1|NAWL|neutral|extended|7|تخطيط كهربية دماغ|recording brain electrical activity
+functional MRI|noun|C1|NAWL|neutral|core|7|رنين مغناطيسي وظيفي|imaging brain activity in real time
+PET scan|noun|C1|NAWL|neutral|extended|7|مسح بوزيتروني|imaging brain metabolism
+magnetoencephalography|noun|C2|NAWL|formal|mastery|7|تصوير مغناطيسي دماغي|measuring brain magnetic fields
+diffusion tensor imaging|noun|C1|NAWL|neutral|mastery|7|تصوير موتر انتشار|mapping brain fiber tracts
+brain-computer interface|noun|C1|NAWL|neutral|core|7|واجهة دماغ-حاسوب|connecting the brain to a computer
+neural prosthetic|noun|C1|NAWL|neutral|extended|7|طرف عصبي اصطناعي|a device replacing lost neural function
+neuroprosthesis|noun|C1|NAWL|neutral|mastery|7|بديل عصبي|an implant restoring neural function
+transcranial magnetic stimulation|noun|C1|NAWL|neutral|extended|7|تحفيز مغناطيسي عبر الجمجمة|stimulating the brain with magnets
+transcranial direct current stimulation|noun|C1|NAWL|neutral|mastery|7|تحفيز تيار مباشر عبر الجمجمة|stimulating the brain with weak electricity
+neurofeedback|noun|C1|NAWL|neutral|extended|7|تغذية راجعة عصبية|training the brain using real-time signals
+biofeedback|noun|C1|NAWL|neutral|extended|7|تغذية راجعة حيوية|using body signals to improve health
+optogenetics|noun|C1|NAWL|neutral|mastery|7|بصريات وراثية|controlling neurons with light
+chemogenetics|noun|C2|NAWL|formal|mastery|7|كيميائيات وراثية|controlling neurons with designer drugs
+connectomics|noun|C1|NAWL|neutral|mastery|7|علم التوصيلات|mapping all brain connections
+synapse|noun|C1|NAWL|neutral|core|7|تشابك عصبي|the gap between two neurons
+action potential|noun|C1|NAWL|neutral|core|7|جهد فعل|an electrical signal traveling along a neuron
+resting potential|noun|C1|NAWL|neutral|extended|7|جهد راحة|the electrical charge of an inactive neuron
+depolarization|noun|C1|NAWL|neutral|extended|7|إزالة استقطاب|a neuron becoming more positive
+repolarization|noun|C1|NAWL|neutral|mastery|7|إعادة استقطاب|a neuron returning to resting state
+long-term potentiation|noun|C1|NAWL|neutral|extended|7|تقوية طويلة الأمد|strengthening synapses through repeated use
+long-term depression|noun|C1|NAWL|neutral|mastery|7|إضعاف طويل الأمد|weakening synapses from reduced use
+Hebbian learning|noun|C1|NAWL|neutral|mastery|7|تعلم هيبي|neurons that fire together wire together

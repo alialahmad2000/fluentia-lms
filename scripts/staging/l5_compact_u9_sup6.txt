@@ -1,0 +1,88 @@
+artistic vision|noun|C1|AWL|neutral|core|9|رؤية فنية|a unique creative perspective
+creative block|noun|C1|CEFR-J|neutral|core|9|عائق إبداعي|inability to produce creative work
+flow state|noun|C1|NAWL|neutral|core|9|حالة تدفق|complete immersion in an activity
+incubation period|noun|C1|NAWL|neutral|extended|9|فترة حضانة إبداعية|unconscious processing before a breakthrough
+eureka moment|noun|C1|CEFR-J|neutral|core|9|لحظة يوريكا|a sudden flash of insight
+lateral thinking|noun|C1|NAWL|neutral|core|9|تفكير جانبي|solving problems through indirect approaches
+divergent thinking|noun|C1|NAWL|neutral|core|9|تفكير تباعدي|generating many different ideas
+convergent thinking|noun|C1|NAWL|neutral|extended|9|تفكير تقاربي|narrowing down to the best solution
+brainstorming|noun|C1|CEFR-J|neutral|core|9|عصف ذهني|generating ideas freely in a group
+mind mapping|noun|C1|CEFR-J|neutral|core|9|خريطة ذهنية|visually organizing ideas and connections
+conceptual blending|noun|C1|NAWL|neutral|extended|9|مزج مفاهيمي|combining ideas to create something new
+analogical reasoning|noun|C1|NAWL|neutral|extended|9|استدلال تشابهي|using similarities to solve problems
+abductive reasoning|noun|C1|NAWL|neutral|mastery|9|استدلال اختطافي|inferring the best explanation
+serendipity|noun|C1|CEFR-J|neutral|core|9|صدفة سعيدة|a fortunate accidental discovery
+happy accident|noun|C1|CEFR-J|neutral|extended|9|حادث سعيد|an unintended positive outcome
+cross-pollination|noun|C1|NAWL|neutral|extended|9|تلقيح متبادل|ideas spreading between different fields
+interdisciplinary creativity|noun|C1|AWL|neutral|extended|9|إبداع متعدد التخصصات|innovation from combining disciplines
+polymathy|noun|C2|NAWL|formal|mastery|9|موسوعية|expertise in many different subjects
+Renaissance man|noun|C1|CEFR-J|neutral|extended|9|رجل عصر النهضة|a person skilled in many areas
+prodigy|noun|C1|CEFR-J|neutral|core|9|نابغة|a young person with exceptional talent
+savant|noun|C1|NAWL|neutral|extended|9|عبقري متخصص|a person with extraordinary ability in one area
+autotelic personality|noun|C2|NAWL|formal|mastery|9|شخصية ذاتية الغاية|a person driven by internal motivation
+intrinsic motivation|noun|C1|AWL|neutral|core|9|دافع داخلي|motivation from personal satisfaction
+extrinsic motivation|noun|C1|AWL|neutral|extended|9|دافع خارجي|motivation from external rewards
+self-determination theory|noun|C1|AWL|neutral|extended|9|نظرية تقرير ذات|a theory of motivation based on needs
+autonomy|noun|C1|AWL|neutral|core|9|استقلالية|the freedom to make one's own choices
+mastery orientation|noun|C1|AWL|neutral|extended|9|توجه إتقاني|focusing on skill development over performance
+deliberate creation|noun|C1|NAWL|neutral|extended|9|خلق متعمد|intentional and focused creative work
+prolific output|noun|C1|AWL|neutral|extended|9|إنتاج غزير|creating a large volume of work
+artistic residency|noun|C1|CEFR-J|neutral|extended|9|إقامة فنية|a program supporting artists' work
+atelier|noun|C1|NAWL|neutral|extended|9|مشغل فني|an artist's or designer's workshop
+studio practice|noun|C1|CEFR-J|neutral|core|9|ممارسة استوديو|regular creative work in a studio
+art collective|noun|C1|AWL|neutral|extended|9|تجمع فني|a group of artists working together
+collaborative art|noun|C1|AWL|neutral|extended|9|فن تعاوني|art created by multiple people
+installation art|noun|C1|NAWL|neutral|core|9|فن تركيبي|three-dimensional works transforming a space
+site-specific art|noun|C1|NAWL|neutral|extended|9|فن موقعي|art created for a particular location
+land art|noun|C1|CEFR-J|neutral|extended|9|فن أرضي|art using natural landscape as material
+ephemeral art|noun|C1|NAWL|neutral|extended|9|فن زائل|art designed to be temporary
+performance art|noun|C1|CEFR-J|neutral|core|9|فن أدائي|art involving live action
+happening|noun|C1|CEFR-J|neutral|mastery|9|حدث فني|a spontaneous artistic event
+Fluxus|noun|C1|NAWL|neutral|mastery|9|فلوكسوس|an avant-garde art movement
+conceptual art|noun|C1|NAWL|neutral|core|9|فن مفاهيمي|art where the idea matters most
+minimalism|noun|C1|NAWL|neutral|core|9|تبسيطية|art using the simplest forms
+maximalism|noun|C1|NAWL|neutral|extended|9|تعظيمية|art using elaborate excess
+art brut|noun|C1|NAWL|neutral|mastery|9|فن خام|art by untrained outsider artists
+folk art|noun|C1|CEFR-J|neutral|core|9|فن شعبي|traditional art of ordinary people
+vernacular art|noun|C1|NAWL|neutral|extended|9|فن محلي|art native to a particular place
+kitsch|noun|C1|NAWL|neutral|extended|9|فن رديء|art considered to be in poor taste
+camp|noun|C1|CEFR-J|neutral|mastery|9|ذوق مبالغ|deliberately exaggerated and theatrical style
+pastiche|noun|C1|NAWL|neutral|extended|9|محاكاة أسلوبية|a work imitating another's style
+parody|noun|C1|CEFR-J|neutral|core|9|محاكاة ساخرة|a humorous imitation of a work
+satire|noun|C1|CEFR-J|neutral|core|9|هجاء|using humor to criticize society
+irony|noun|C1|CEFR-J|neutral|core|9|سخرية|expressing meaning by saying the opposite
+subtext|noun|C1|NAWL|neutral|extended|9|نص فرعي|the underlying meaning in a work
+allegory|noun|C1|NAWL|neutral|extended|9|رمزية|a story with a hidden moral meaning
+symbolism|noun|C1|CEFR-J|neutral|core|9|رمزية فنية|using symbols to represent ideas
+motif|noun|C1|NAWL|neutral|core|9|زخرفة متكررة|a recurring theme or design element
+leitmotif|noun|C1|NAWL|neutral|mastery|9|لحن دال|a recurring musical theme for a character
+thematic development|noun|C1|AWL|neutral|extended|9|تطوير موضوعي|expanding a theme throughout a work
+narrative arc|noun|C1|NAWL|neutral|core|9|قوس سردي|the progression of a story
+character arc|noun|C1|NAWL|neutral|extended|9|قوس شخصية|a character's transformation over time
+unreliable narrator|noun|C1|NAWL|neutral|extended|9|راوي غير موثوق|a narrator whose account cannot be trusted
+stream of consciousness|noun|C1|NAWL|neutral|extended|9|تيار وعي|writing mimicking continuous thought
+magical realism|noun|C1|NAWL|neutral|core|9|واقعية سحرية|blending magical elements with reality
+metafiction|noun|C1|NAWL|neutral|mastery|9|ما وراء القص|fiction about the nature of fiction
+intertextuality|noun|C1|NAWL|neutral|extended|9|تناص|connections between different texts
+palimpsest|noun|C2|NAWL|formal|mastery|9|طرس|a work with traces of earlier versions
+ekphrasis|noun|C2|NAWL|formal|mastery|9|إكفراسيس|a vivid literary description of art
+aestheticism|noun|C1|NAWL|neutral|extended|9|جمالية|the belief that art exists for beauty alone
+formalism|noun|C1|NAWL|neutral|extended|9|شكلانية|analyzing art through its formal elements
+structuralism|noun|C1|NAWL|neutral|extended|9|بنيوية|studying culture through underlying structures
+post-structuralism|noun|C1|NAWL|neutral|mastery|9|ما بعد بنيوية|questioning fixed structures and meanings
+deconstructionism|noun|C1|NAWL|neutral|mastery|9|تفكيكية|analyzing contradictions within texts
+cultural capital|noun|C1|AWL|neutral|extended|9|رأسمال ثقافي|social assets like education and taste
+creative economy|noun|C1|AWL|neutral|core|9|اقتصاد إبداعي|economic activity based on creativity
+intellectual property|noun|C1|AWL|neutral|core|9|ملكية فكرية|legal rights over creative works
+copyright infringement|noun|C1|AWL|neutral|extended|9|انتهاك حقوق نشر|unauthorized use of copyrighted material
+fair use|noun|C1|AWL|neutral|extended|9|استخدام عادل|limited use of copyrighted material without permission
+public domain|noun|C1|AWL|neutral|core|9|ملك عام|works free from copyright restrictions
+creative commons|noun|C1|NAWL|neutral|core|9|مشاع إبداعي|flexible copyright licenses for sharing
+artistic freedom|noun|C1|AWL|neutral|core|9|حرية فنية|the right to create without censorship
+censorship|noun|C1|CEFR-J|neutral|core|9|رقابة|suppressing artistic or intellectual expression
+self-censorship|noun|C1|NAWL|neutral|extended|9|رقابة ذاتية|restricting one's own expression
+patronage system|noun|C1|AWL|neutral|extended|9|نظام رعاية|financial support for artists
+arts funding|noun|C1|AWL|neutral|core|9|تمويل فنون|money allocated to support the arts
+cultural policy|noun|C1|AWL|neutral|extended|9|سياسة ثقافية|government decisions about culture and arts
+cultural diplomacy|noun|C1|AWL|neutral|extended|9|دبلوماسية ثقافية|using culture to build international relations
+soft power|noun|C1|AWL|neutral|core|9|قوة ناعمة|influence through culture rather than force

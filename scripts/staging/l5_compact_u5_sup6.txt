@@ -1,0 +1,89 @@
+atomic number|noun|C1|NAWL|neutral|core|5|عدد ذري|the number of protons in an atom
+mass number|noun|C1|NAWL|neutral|extended|5|عدد كتلي|the total protons and neutrons in a nucleus
+binding energy|noun|C1|NAWL|neutral|extended|5|طاقة ربط|energy holding a nucleus together
+strong nuclear force|noun|C1|NAWL|neutral|extended|5|قوة نووية قوية|the force binding protons and neutrons
+weak nuclear force|noun|C1|NAWL|neutral|extended|5|قوة نووية ضعيفة|the force responsible for radioactive decay
+nuclear transmutation|noun|C1|NAWL|neutral|mastery|5|تحويل نووي|changing one element into another
+transuranium element|noun|C2|NAWL|formal|mastery|5|عنصر ما بعد يورانيوم|elements heavier than uranium
+actinide|noun|C1|NAWL|neutral|mastery|5|أكتينيد|a series of radioactive metallic elements
+lanthanide|noun|C1|NAWL|neutral|mastery|5|لانثانيد|a series of rare earth elements
+nuclear isomer|noun|C2|NAWL|formal|mastery|5|متماكب نووي|a nucleus in an excited energy state
+nuclear spin|noun|C1|NAWL|neutral|mastery|5|دوران نووي|the angular momentum of a nucleus
+magnetic resonance|noun|C1|NAWL|neutral|extended|5|رنين مغناطيسي|nuclei absorbing electromagnetic radiation
+cyclotron|noun|C1|NAWL|neutral|mastery|5|سيكلوترون|a machine accelerating charged particles
+synchrotron|noun|C1|NAWL|neutral|mastery|5|سنكروترون|a circular particle accelerator
+linear accelerator|noun|C1|NAWL|neutral|extended|5|مسرع خطي|a straight-line particle accelerator
+particle detector|noun|C1|NAWL|neutral|extended|5|كاشف جسيمات|a device sensing subatomic particles
+scintillation counter|noun|C1|NAWL|neutral|mastery|5|عداد وميض|a detector measuring radiation flashes
+cloud chamber|noun|C1|NAWL|neutral|mastery|5|غرفة سحاب|a device showing particle tracks
+bubble chamber|noun|C1|NAWL|neutral|mastery|5|غرفة فقاعات|a vessel revealing charged particle paths
+nuclear forensics|noun|C1|NAWL|neutral|extended|5|طب شرعي نووي|analyzing nuclear materials for origin
+nuclear safeguard|noun|C1|AWL|neutral|core|5|ضمانة نووية|measures preventing nuclear misuse
+nuclear inspection|noun|C1|AWL|neutral|core|5|تفتيش نووي|verifying compliance with nuclear agreements
+IAEA|noun|C1|NAWL|neutral|core|5|وكالة طاقة ذرية دولية|the International Atomic Energy Agency
+Non-Proliferation Treaty|noun|C1|AWL|neutral|core|5|معاهدة عدم انتشار|an agreement limiting nuclear weapons spread
+Comprehensive Test Ban Treaty|noun|C1|AWL|neutral|extended|5|معاهدة حظر تجارب شامل|banning all nuclear test explosions
+nuclear-free zone|noun|C1|NAWL|neutral|extended|5|منطقة خالية من الأسلحة النووية|an area banning nuclear weapons
+disarmament verification|noun|C1|AWL|neutral|extended|5|تحقق من نزع سلاح|confirming weapons have been destroyed
+stockpile stewardship|noun|C1|NAWL|neutral|mastery|5|إدارة مخزون|maintaining nuclear weapons without testing
+nuclear winter|noun|C1|NAWL|neutral|extended|5|شتاء نووي|global cooling from nuclear war debris
+electromagnetic pulse|noun|C1|NAWL|neutral|extended|5|نبضة كهرومغناطيسية|a burst of energy disabling electronics
+fallout shelter|noun|C1|CEFR-J|neutral|extended|5|ملجأ نووي|a structure protecting from nuclear fallout
+decontamination|noun|C1|AWL|neutral|core|5|إزالة تلوث|removing radioactive substances
+remediation|noun|C1|AWL|neutral|extended|5|معالجة بيئية|cleaning up contaminated environments
+bioremediation|noun|C1|NAWL|neutral|mastery|5|معالجة حيوية|using organisms to clean pollution
+phytoremediation|noun|C2|NAWL|formal|mastery|5|معالجة نباتية|using plants to remove contaminants
+vitrification|noun|C2|NAWL|formal|mastery|5|تزجيج|turning waste into glass for safe storage
+dry cask storage|noun|C1|NAWL|neutral|extended|5|تخزين جاف|storing spent fuel in sealed containers
+spent fuel pool|noun|C1|NAWL|neutral|extended|5|بركة وقود مستنفد|a water pool cooling used nuclear fuel
+fuel rod|noun|C1|NAWL|neutral|core|5|قضيب وقود|a tube containing nuclear fuel pellets
+fuel assembly|noun|C1|NAWL|neutral|extended|5|مجموعة وقود|a bundle of fuel rods
+fuel enrichment|noun|C1|NAWL|neutral|core|5|تخصيب وقود|increasing the concentration of fissile material
+centrifuge cascade|noun|C1|NAWL|neutral|mastery|5|سلسلة طرد مركزي|connected centrifuges for enrichment
+gaseous diffusion|noun|C1|NAWL|neutral|mastery|5|انتشار غازي|separating isotopes through porous barriers
+laser enrichment|noun|C1|NAWL|neutral|mastery|5|تخصيب ليزري|using lasers to separate isotopes
+yellowcake|noun|C1|NAWL|neutral|extended|5|كعكة صفراء|concentrated uranium oxide powder
+uranium hexafluoride|noun|C1|NAWL|neutral|mastery|5|هكسافلوريد يورانيوم|a uranium compound used in enrichment
+nuclear fuel cycle|noun|C1|NAWL|neutral|core|5|دورة وقود نووي|the complete process of nuclear fuel use
+front end|noun|C1|CEFR-J|neutral|extended|5|مرحلة أمامية|the preparation stages of nuclear fuel
+back end|noun|C1|CEFR-J|neutral|extended|5|مرحلة خلفية|the disposal stages of nuclear fuel
+reprocessing|noun|C1|AWL|neutral|extended|5|إعادة معالجة|recovering useful material from spent fuel
+mixed oxide fuel|noun|C1|NAWL|neutral|mastery|5|وقود أكسيد مختلط|fuel blending plutonium and uranium
+breeder reactor|noun|C1|NAWL|neutral|extended|5|مفاعل مولد|a reactor producing more fuel than it uses
+fast reactor|noun|C1|NAWL|neutral|extended|5|مفاعل سريع|a reactor using fast neutrons
+thermal reactor|noun|C1|NAWL|neutral|extended|5|مفاعل حراري|a reactor using slow neutrons
+pressurized water reactor|noun|C1|NAWL|neutral|extended|5|مفاعل ماء مضغوط|the most common reactor type
+boiling water reactor|noun|C1|NAWL|neutral|extended|5|مفاعل ماء مغلي|a reactor where water boils directly
+heavy water reactor|noun|C1|NAWL|neutral|extended|5|مفاعل ماء ثقيل|a reactor using deuterium oxide
+molten salt reactor|noun|C1|NAWL|neutral|mastery|5|مفاعل ملح منصهر|a reactor using liquid salt as fuel
+pebble bed reactor|noun|C1|NAWL|neutral|mastery|5|مفاعل حصى|a reactor using spherical fuel elements
+small modular reactor|noun|C1|NAWL|neutral|core|5|مفاعل صغير معياري|a compact factory-built reactor
+Generation IV reactor|noun|C1|NAWL|neutral|extended|5|مفاعل جيل رابع|next-generation nuclear reactor designs
+nuclear microreactor|noun|C1|NAWL|neutral|mastery|5|مفاعل نووي مصغر|a very small portable reactor
+floating nuclear plant|noun|C1|NAWL|neutral|mastery|5|محطة نووية عائمة|a reactor mounted on a barge
+nuclear submarine|noun|C1|CEFR-J|neutral|extended|5|غواصة نووية|a submarine powered by nuclear energy
+nuclear icebreaker|noun|C1|NAWL|neutral|mastery|5|كاسحة جليد نووية|a ship using nuclear power to break ice
+radioisotope thermoelectric generator|noun|C2|NAWL|formal|mastery|5|مولد كهروحراري نظيري|a device producing electricity from decay heat
+nuclear battery|noun|C1|NAWL|neutral|extended|5|بطارية نووية|a long-lasting battery using radioactive decay
+nuclear medicine|noun|C1|NAWL|neutral|core|5|طب نووي|using radioactive materials for diagnosis
+positron emission tomography|noun|C1|NAWL|neutral|extended|5|تصوير مقطعي بوزيتروني|a medical imaging technique using positrons
+single-photon emission|noun|C1|NAWL|neutral|mastery|5|انبعاث فوتون أحادي|a nuclear imaging technique
+radiotracer|noun|C1|NAWL|neutral|extended|5|متتبع إشعاعي|a radioactive substance tracking biological processes
+brachytherapy|noun|C2|NAWL|formal|mastery|5|معالجة كثبية|placing radioactive sources inside the body
+proton therapy|noun|C1|NAWL|neutral|extended|5|علاج بروتوني|using proton beams to treat cancer
+carbon ion therapy|noun|C1|NAWL|neutral|mastery|5|علاج أيون كربون|using carbon ions to treat tumors
+nuclear desalination|noun|C1|NAWL|neutral|extended|5|تحلية نووية|using nuclear heat to purify seawater
+industrial radiography|noun|C1|NAWL|neutral|mastery|5|تصوير صناعي إشعاعي|using radiation to inspect materials
+food irradiation|noun|C1|NAWL|neutral|extended|5|تشعيع غذائي|using radiation to preserve food
+sterile insect technique|noun|C1|NAWL|neutral|mastery|5|تقنية حشرة عقيمة|releasing sterile insects for pest control
+mutation breeding|noun|C1|NAWL|neutral|mastery|5|تربية طفرية|using radiation to create plant varieties
+nuclear clock|noun|C1|NAWL|neutral|mastery|5|ساعة نووية|an ultra-precise clock using nuclear transitions
+nuclear fusion ignition|noun|C1|NAWL|neutral|extended|5|اشتعال اندماج نووي|achieving self-sustaining fusion reactions
+inertial confinement|noun|C1|NAWL|neutral|mastery|5|حصر بالقصور الذاتي|using lasers to compress fusion fuel
+magnetic confinement|noun|C1|NAWL|neutral|mastery|5|حصر مغناطيسي|containing plasma with magnetic fields
+stellarator|noun|C2|NAWL|formal|mastery|5|ستيلاريتور|a twisted magnetic fusion device
+tokamak|noun|C1|NAWL|neutral|extended|5|توكاماك|a donut-shaped fusion reactor
+ITER|noun|C1|NAWL|neutral|core|5|إيتر|an international fusion research project
+plasma physics|noun|C1|NAWL|neutral|extended|5|فيزياء بلازما|the study of ionized gases
+Lawson criterion|noun|C2|NAWL|formal|mastery|5|معيار لوسون|conditions needed for fusion energy gain
+energy breakeven|noun|C1|NAWL|neutral|extended|5|تعادل طاقة|producing as much fusion energy as input

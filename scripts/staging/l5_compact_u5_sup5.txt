@@ -1,0 +1,73 @@
+nuclear safety culture|noun|C1|AWL|neutral|core|5|ثقافة أمان نووي|organizational commitment to nuclear safety
+defense in depth|noun|C1|AWL|neutral|core|5|دفاع عميق|multiple layers of safety protection
+probabilistic risk assessment|noun|C1|NAWL|neutral|mastery|5|تقييم مخاطر احتمالي|using probability to assess nuclear risks
+deterministic safety analysis|noun|C1|NAWL|neutral|mastery|5|تحليل أمان حتمي|analyzing worst-case nuclear scenarios
+beyond design basis|noun|C1|NAWL|neutral|mastery|5|ما فوق أساس التصميم|events exceeding reactor design limits
+design basis accident|noun|C1|NAWL|neutral|mastery|5|حادثة أساس تصميم|the worst accident a reactor is designed for
+loss of coolant|noun|C1|NAWL|neutral|extended|5|فقدان مبرد|a reactor emergency from coolant failure
+station blackout|noun|C1|NAWL|neutral|mastery|5|انقطاع كلي|total loss of power at a nuclear plant
+hydrogen explosion|noun|C1|NAWL|neutral|extended|5|انفجار هيدروجيني|an explosion from hydrogen gas buildup
+core damage|noun|C1|NAWL|neutral|extended|5|تلف قلب|damage to a nuclear reactor's fuel
+corium|noun|C2|NAWL|formal|mastery|5|كوريوم|molten material from a reactor meltdown
+iodine-131|noun|C1|NAWL|neutral|extended|5|يود 131|a radioactive isotope from nuclear accidents
+cesium-137|noun|C1|NAWL|neutral|extended|5|سيزيوم 137|a long-lived radioactive isotope
+strontium-90|noun|C1|NAWL|neutral|mastery|5|سترونتيوم 90|a radioactive isotope absorbed by bones
+thyroid cancer|noun|C1|CEFR-J|neutral|extended|5|سرطان درقي|cancer linked to radiation exposure
+leukemia|noun|C1|CEFR-J|neutral|extended|5|لوكيميا|blood cancer from radiation exposure
+radiation sickness|noun|C1|CEFR-J|neutral|core|5|مرض إشعاعي|illness from extreme radiation exposure
+epidemiological study|noun|C1|AWL|neutral|extended|5|دراسة وبائية نووية|studying health effects of radiation
+linear no-threshold|noun|C1|NAWL|neutral|mastery|5|خطي بلا عتبة|any radiation dose carries risk
+hormesis|noun|C2|NAWL|formal|mastery|5|هورميسيس|low radiation doses having beneficial effects
+background radiation|noun|C1|NAWL|neutral|core|5|إشعاع خلفي|natural radiation from the environment
+cosmic radiation|noun|C1|NAWL|neutral|extended|5|إشعاع كوني|radiation from outer space
+terrestrial radiation|noun|C1|NAWL|neutral|extended|5|إشعاع أرضي|radiation from Earth's rocks and soil
+radon|noun|C1|NAWL|neutral|extended|5|رادون|a radioactive gas from soil
+potassium-40|noun|C1|NAWL|neutral|mastery|5|بوتاسيوم 40|a naturally radioactive isotope in food
+nuclear medicine|noun|C1|NAWL|neutral|core|5|طب نووي|using radioactive materials for diagnosis
+radiotherapy|noun|C1|NAWL|neutral|core|5|علاج إشعاعي|treating disease with radiation
+medical isotope|noun|C1|NAWL|neutral|extended|5|نظير طبي|radioactive material for medical use
+technetium-99m|noun|C1|NAWL|neutral|mastery|5|تكنيتيوم 99|an isotope used in medical imaging
+cobalt-60|noun|C1|NAWL|neutral|mastery|5|كوبالت 60|an isotope used in radiation therapy
+food irradiation|noun|C1|NAWL|neutral|extended|5|تشعيع غذائي|using radiation to preserve food
+industrial radiography|noun|C1|NAWL|neutral|mastery|5|تصوير صناعي إشعاعي|using radiation to inspect materials
+smoke detector|noun|C1|CEFR-J|neutral|extended|5|كاشف دخان|a device using radioactive material
+americium-241|noun|C2|NAWL|formal|mastery|5|أمريسيوم 241|an isotope used in smoke detectors
+nuclear desalination|noun|C1|NAWL|neutral|extended|5|تحلية نووية|using nuclear energy to remove salt from water
+district heating|noun|C1|NAWL|neutral|extended|5|تدفئة مركزية|using reactor heat for buildings
+hydrogen production|noun|C1|NAWL|neutral|extended|5|إنتاج هيدروجين|using nuclear energy to produce hydrogen
+process heat|noun|C1|NAWL|neutral|mastery|5|حرارة عملية|using reactor heat for industrial purposes
+nuclear propulsion|noun|C1|NAWL|neutral|mastery|5|دفع نووي|using nuclear energy for ship or space propulsion
+radioisotope thermoelectric generator|noun|C2|NAWL|formal|mastery|5|مولد كهروحراري نظيري|using radioactive decay for electricity in space
+nuclear fuel cycle|noun|C1|NAWL|neutral|core|5|دورة وقود نووي|the complete process from mining to disposal
+front end|noun|C1|CEFR-J|neutral|extended|5|مرحلة أمامية|the stages before nuclear fuel is used
+back end|noun|C1|CEFR-J|neutral|extended|5|مرحلة خلفية|the stages after nuclear fuel is used
+conversion|noun|C1|AWL|neutral|extended|5|تحويل نووي|changing uranium ore into usable form
+yellowcake|noun|C1|NAWL|neutral|extended|5|كعكة صفراء|concentrated uranium ore powder
+hex|noun|C1|NAWL|neutral|mastery|5|سادس فلوريد|uranium hexafluoride gas for enrichment
+LEU|noun|C1|NAWL|neutral|extended|5|يورانيوم منخفض التخصيب|low-enriched uranium for power reactors
+HEU|noun|C1|NAWL|neutral|mastery|5|يورانيوم عالي التخصيب|highly enriched uranium for weapons
+weapons-grade|adjective|C1|NAWL|neutral|extended|5|صالح للأسلحة|enriched enough for nuclear weapons
+reactor-grade|adjective|C1|NAWL|neutral|extended|5|صالح للمفاعلات|enriched enough for power generation
+MOX fuel|noun|C1|NAWL|neutral|mastery|5|وقود مختلط|mixed oxide fuel from recycled plutonium
+PUREX process|noun|C2|NAWL|formal|mastery|5|عملية بيوركس|a method for extracting plutonium
+high-level waste|noun|C1|NAWL|neutral|core|5|نفايات عالية المستوى|the most radioactive waste
+intermediate-level waste|noun|C1|NAWL|neutral|extended|5|نفايات متوسطة المستوى|moderately radioactive waste
+low-level waste|noun|C1|NAWL|neutral|core|5|نفايات منخفضة المستوى|slightly radioactive waste
+transuranic waste|noun|C1|NAWL|neutral|mastery|5|نفايات ما فوق اليورانيوم|waste containing elements heavier than uranium
+Yucca Mountain|noun|C1|NAWL|neutral|extended|5|جبل يوكا|a proposed US nuclear waste repository
+Onkalo|noun|C1|NAWL|neutral|mastery|5|أونكالو|a Finnish underground waste repository
+nuclear renaissance|noun|C1|NAWL|neutral|core|5|نهضة نووية|renewed interest in nuclear energy
+energy transition|noun|C1|AWL|neutral|core|5|انتقال طاقوي|shifting from fossil fuels to clean energy
+clean energy|noun|C1|CEFR-J|neutral|core|5|طاقة نظيفة|energy from non-polluting sources
+low-carbon|adjective|C1|NAWL|neutral|core|5|منخفض الكربون|producing minimal carbon emissions
+zero-emission|adjective|C1|NAWL|neutral|core|5|صفر انبعاثات|producing no harmful emissions
+dispatch|noun|C1|AWL|neutral|extended|5|تشغيل توليد|sending electricity to where it is needed
+dispatchable|adjective|C1|NAWL|neutral|mastery|5|قابل للتشغيل|able to be turned on when needed
+intermittent|adjective|C1|AWL|neutral|extended|5|متقطع|not continuous or steady
+variable output|noun|C1|AWL|neutral|extended|5|إنتاج متغير|electricity generation that fluctuates
+storage capacity|noun|C1|AWL|neutral|extended|5|سعة تخزين|the ability to store energy
+pumped hydro|noun|C1|NAWL|neutral|mastery|5|مائية مضخوخة|storing energy by pumping water uphill
+compressed air|noun|C1|CEFR-J|neutral|mastery|5|هواء مضغوط|storing energy in compressed air tanks
+flywheel|noun|C1|NAWL|neutral|mastery|5|حذافة|storing energy in a spinning wheel
+smart meter|noun|C1|NAWL|neutral|extended|5|عداد ذكي|a device monitoring energy use in real time
+demand response|noun|C1|NAWL|neutral|mastery|5|استجابة طلب|adjusting electricity use to match supply

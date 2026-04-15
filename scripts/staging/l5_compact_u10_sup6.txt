@@ -1,0 +1,81 @@
+wave function|noun|C1|NAWL|neutral|core|10|دالة موجية|a mathematical description of a quantum state
+probability amplitude|noun|C1|NAWL|neutral|extended|10|سعة احتمالية|a complex number related to quantum probability
+quantum state|noun|C1|NAWL|neutral|core|10|حالة كمية|the complete description of a quantum system
+eigenstate|noun|C1|NAWL|neutral|mastery|10|حالة ذاتية|a definite state of a quantum observable
+eigenvalue|noun|C1|NAWL|neutral|mastery|10|قيمة ذاتية|a measurable value of a quantum property
+observable|noun|C1|AWL|neutral|extended|10|مقدار قابل للقياس|a physical quantity that can be measured
+Hermitian operator|noun|C2|NAWL|formal|mastery|10|مؤثر هرميتي|a mathematical operator for observables
+Hilbert space|noun|C2|NAWL|formal|mastery|10|فضاء هلبرت|the mathematical space of quantum states
+Dirac notation|noun|C1|NAWL|neutral|mastery|10|ترميز ديراك|a notation system for quantum mechanics
+bra-ket notation|noun|C1|NAWL|neutral|mastery|10|ترميز قوسين|symbols representing quantum states
+quantum number|noun|C1|NAWL|neutral|extended|10|عدد كمي|a number describing quantum properties
+spin quantum number|noun|C1|NAWL|neutral|extended|10|عدد كمي مغزلي|describing intrinsic angular momentum
+orbital quantum number|noun|C1|NAWL|neutral|mastery|10|عدد كمي مداري|describing electron orbit shape
+Pauli exclusion principle|noun|C1|NAWL|neutral|extended|10|مبدأ استبعاد باولي|no two electrons can share all quantum numbers
+Heisenberg uncertainty|noun|C1|NAWL|neutral|core|10|مبدأ عدم يقين هايزنبرغ|limits on knowing position and momentum together
+complementarity principle|noun|C1|NAWL|neutral|extended|10|مبدأ تكامل|wave and particle aspects are complementary
+correspondence principle|noun|C1|NAWL|neutral|mastery|10|مبدأ تطابق|quantum mechanics agrees with classical at large scales
+quantum tunneling|noun|C1|NAWL|neutral|core|10|نفق كمي|particles passing through energy barriers
+tunnel diode|noun|C1|NAWL|neutral|mastery|10|صمام ثنائي نفقي|a semiconductor using quantum tunneling
+quantum well|noun|C1|NAWL|neutral|mastery|10|بئر كمية|a thin layer confining particles
+quantum dot|noun|C1|NAWL|neutral|extended|10|نقطة كمية|a tiny semiconductor with quantum properties
+quantum wire|noun|C1|NAWL|neutral|mastery|10|سلك كمي|a very thin wire showing quantum effects
+quantum confinement|noun|C1|NAWL|neutral|mastery|10|حصر كمي|restricting particles to very small spaces
+band gap|noun|C1|NAWL|neutral|extended|10|فجوة نطاق|an energy range with no electron states
+semiconductor|noun|C1|NAWL|neutral|core|10|شبه موصل|a material with controllable conductivity
+superconductor|noun|C1|NAWL|neutral|core|10|موصل فائق|a material with zero electrical resistance
+Cooper pair|noun|C1|NAWL|neutral|mastery|10|زوج كوبر|two electrons bound together in a superconductor
+BCS theory|noun|C2|NAWL|formal|mastery|10|نظرية بي سي إس|a theory explaining superconductivity
+superfluidity|noun|C1|NAWL|neutral|mastery|10|ميوعة فائقة|a liquid flowing without friction
+Bose-Einstein condensate|noun|C1|NAWL|neutral|extended|10|تكاثف بوز-آينشتاين|atoms merging into a single quantum state
+boson|noun|C1|NAWL|neutral|extended|10|بوزون|a particle that can share quantum states
+fermion|noun|C1|NAWL|neutral|extended|10|فرميون|a particle obeying the exclusion principle
+Higgs boson|noun|C1|NAWL|neutral|core|10|بوزون هيغز|the particle giving mass to other particles
+Standard Model|noun|C1|NAWL|neutral|core|10|نموذج معياري|the theory of fundamental particles and forces
+quark|noun|C1|NAWL|neutral|core|10|كوارك|a fundamental particle inside protons and neutrons
+lepton|noun|C1|NAWL|neutral|extended|10|لبتون|a light fundamental particle like an electron
+gluon|noun|C1|NAWL|neutral|extended|10|غلوون|a particle carrying the strong force
+W boson|noun|C1|NAWL|neutral|mastery|10|بوزون دبليو|a particle carrying the weak force
+Z boson|noun|C1|NAWL|neutral|mastery|10|بوزون زد|a neutral particle carrying the weak force
+neutrino oscillation|noun|C1|NAWL|neutral|mastery|10|تذبذب نيوترينو|neutrinos changing type as they travel
+antimatter|noun|C1|NAWL|neutral|core|10|مادة مضادة|matter with opposite charge properties
+positron|noun|C1|NAWL|neutral|extended|10|بوزيترون|the antimatter counterpart of an electron
+pair production|noun|C1|NAWL|neutral|mastery|10|إنتاج زوجي|energy converting into a particle and antiparticle
+annihilation|noun|C1|CEFR-J|neutral|extended|10|إبادة|matter and antimatter destroying each other
+CP violation|noun|C2|NAWL|formal|mastery|10|انتهاك تناظر|a difference between matter and antimatter behavior
+baryon asymmetry|noun|C2|NAWL|formal|mastery|10|عدم تناظر باريوني|why the universe has more matter than antimatter
+cosmic inflation|noun|C1|NAWL|neutral|extended|10|تضخم كوني|the rapid expansion of the early universe
+cosmic microwave background|noun|C1|NAWL|neutral|extended|10|إشعاع خلفية كوني|radiation from the early universe
+redshift|noun|C1|NAWL|neutral|core|10|انزياح أحمر|light stretching as objects move away
+blueshift|noun|C1|NAWL|neutral|extended|10|انزياح أزرق|light compressing as objects approach
+Hubble constant|noun|C1|NAWL|neutral|extended|10|ثابت هابل|the rate of the universe's expansion
+dark energy|noun|C1|NAWL|neutral|core|10|طاقة مظلمة|the force accelerating the universe's expansion
+dark matter|noun|C1|NAWL|neutral|core|10|مادة مظلمة|invisible matter detected by gravity
+gravitational lensing|noun|C1|NAWL|neutral|extended|10|عدسة جاذبية|light bending around massive objects
+gravitational wave|noun|C1|NAWL|neutral|core|10|موجة جاذبية|ripples in spacetime from massive events
+LIGO|noun|C1|NAWL|neutral|extended|10|ليغو|a gravitational wave observatory
+neutron star|noun|C1|NAWL|neutral|core|10|نجم نيوتروني|an extremely dense collapsed star
+pulsar|noun|C1|NAWL|neutral|extended|10|نباض|a rotating neutron star emitting radiation
+magnetar|noun|C1|NAWL|neutral|mastery|10|مغنطار|a neutron star with an extreme magnetic field
+black hole merger|noun|C1|NAWL|neutral|extended|10|اندماج ثقوب سوداء|two black holes combining
+event horizon|noun|C1|NAWL|neutral|core|10|أفق حدث|the boundary around a black hole
+Hawking radiation|noun|C1|NAWL|neutral|extended|10|إشعاع هوكينغ|radiation emitted by black holes
+singularity|noun|C1|NAWL|neutral|extended|10|تفرد|a point of infinite density
+wormhole|noun|C1|NAWL|neutral|extended|10|ثقب دودي|a theoretical tunnel through spacetime
+multiverse|noun|C1|NAWL|neutral|extended|10|أكوان متعددة|the idea of many parallel universes
+string theory|noun|C1|NAWL|neutral|core|10|نظرية الأوتار|a theory where particles are vibrating strings
+extra dimensions|noun|C1|NAWL|neutral|extended|10|أبعاد إضافية|hidden spatial dimensions beyond the three known
+loop quantum gravity|noun|C1|NAWL|neutral|mastery|10|جاذبية كمية حلقية|a theory quantizing spacetime itself
+quantum foam|noun|C1|NAWL|neutral|mastery|10|رغوة كمية|the turbulent structure of spacetime at tiny scales
+Planck scale|noun|C1|NAWL|neutral|mastery|10|مقياس بلانك|the smallest meaningful length in physics
+grand unified theory|noun|C1|NAWL|neutral|extended|10|نظرية توحيد كبرى|combining three fundamental forces
+theory of everything|noun|C1|NAWL|neutral|core|10|نظرية كل شيء|a single theory explaining all forces
+quantum gravity|noun|C1|NAWL|neutral|extended|10|جاذبية كمية|the unification of quantum mechanics and gravity
+holographic principle|noun|C1|NAWL|neutral|mastery|10|مبدأ هولوغرافي|the universe as information on a boundary
+information paradox|noun|C1|NAWL|neutral|mastery|10|مفارقة معلومات|whether black holes destroy information
+quantum information|noun|C1|NAWL|neutral|extended|10|معلومات كمية|information stored in quantum systems
+quantum key distribution|noun|C1|NAWL|neutral|extended|10|توزيع مفتاح كمي|secure communication using quantum physics
+post-quantum cryptography|noun|C1|NAWL|neutral|mastery|10|تشفير ما بعد كمي|encryption resistant to quantum computers
+quantum advantage|noun|C1|NAWL|neutral|extended|10|أفضلية كمية|quantum computers outperforming classical ones
+quantum error correction|noun|C1|NAWL|neutral|mastery|10|تصحيح خطأ كمي|protecting quantum data from errors
+topological qubit|noun|C2|NAWL|formal|mastery|10|كيوبت طوبولوجي|a qubit resistant to noise

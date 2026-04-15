@@ -1,0 +1,91 @@
+nuclear|adjective|B2|CEFR-J|neutral|core|5|نووي|relating to the nucleus of an atom
+atom|noun|B2|CEFR-J|neutral|core|5|ذرة|the smallest unit of a chemical element
+element|noun|B2|CEFR-J|neutral|core|5|عنصر|a substance that cannot be broken down further
+periodic table|noun|C1|CEFR-J|neutral|core|5|جدول دوري|a table organizing chemical elements
+radioactivity|noun|C1|CEFR-J|neutral|core|5|نشاط إشعاعي|the emission of radiation from unstable atoms
+alpha particle|noun|C1|NAWL|neutral|core|5|جسيم ألفا|a helium nucleus emitted in radioactive decay
+beta particle|noun|C1|NAWL|neutral|core|5|جسيم بيتا|an electron emitted in radioactive decay
+gamma ray|noun|C1|CEFR-J|neutral|core|5|أشعة غاما|high-energy electromagnetic radiation
+chain reaction|noun|C1|CEFR-J|neutral|core|5|تفاعل متسلسل|a self-sustaining sequence of nuclear reactions
+critical mass|noun|C1|NAWL|neutral|core|5|كتلة حرجة|the minimum mass needed for a chain reaction
+fuel rod|noun|C1|CEFR-J|neutral|core|5|قضيب وقود|a metal tube containing nuclear fuel
+control rod|noun|C1|CEFR-J|neutral|core|5|قضيب تحكم|a rod absorbing neutrons to control a reactor
+turbine|noun|C1|CEFR-J|neutral|core|5|عنفة|a machine converting energy to rotation
+generator|noun|C1|CEFR-J|neutral|core|5|مولد|a machine converting mechanical energy to electricity
+grid|noun|C1|CEFR-J|neutral|core|5|شبكة كهربائية|a network for distributing electricity
+baseload|noun|C1|NAWL|neutral|core|5|حمل أساسي|the minimum amount of electric power needed
+peak load|noun|C1|NAWL|neutral|core|5|حمل ذروة|the maximum electricity demand
+capacity factor|noun|C1|NAWL|neutral|core|5|عامل سعة|the ratio of actual output to maximum output
+efficiency|noun|C1|AWL|neutral|core|5|كفاءة|the ratio of useful output to total input
+watt|noun|B2|CEFR-J|neutral|core|5|واط|a unit of electrical power
+megawatt|noun|C1|CEFR-J|neutral|core|5|ميغاواط|one million watts of power
+gigawatt|noun|C1|NAWL|neutral|core|5|غيغاواط|one billion watts of power
+kilowatt-hour|noun|C1|CEFR-J|neutral|core|5|كيلوواط ساعة|a unit of energy consumption
+voltage|noun|C1|CEFR-J|neutral|core|5|فولتية|the electrical potential difference
+current|noun|C1|CEFR-J|neutral|core|5|تيار كهربائي|the flow of electric charge
+resistance|noun|C1|AWL|neutral|core|5|مقاومة|opposition to the flow of electric current
+conductor|noun|C1|CEFR-J|neutral|core|5|موصل|a material allowing electricity to flow
+insulator|noun|C1|CEFR-J|neutral|core|5|عازل|a material that resists electricity flow
+semiconductor|noun|C1|NAWL|neutral|core|5|شبه موصل|a material with intermediate conductivity
+transformer|noun|C1|CEFR-J|neutral|core|5|محول|a device changing voltage levels
+circuit|noun|C1|CEFR-J|neutral|core|5|دائرة كهربائية|a path through which current flows
+blackout|noun|C1|CEFR-J|neutral|core|5|انقطاع كهرباء|a complete loss of electrical power
+brownout|noun|C1|CEFR-J|neutral|core|5|انخفاض جهد|a partial reduction in electrical voltage
+safety margin|noun|C1|AWL|neutral|extended|5|هامش أمان|an extra capacity beyond what is needed
+redundancy|noun|C1|AWL|neutral|extended|5|احتياطية|backup systems to ensure reliability
+fail-safe|adjective|C1|CEFR-J|neutral|extended|5|آمن عند الفشل|designed to revert to a safe condition
+leak|noun|B2|CEFR-J|neutral|extended|5|تسرب|the unintended escape of radiation or fluid
+breach|noun|C1|AWL|neutral|extended|5|اختراق|a break in containment structure
+exclusion zone|noun|C1|CEFR-J|neutral|extended|5|منطقة استبعاد|an area from which people are banned
+evacuation|noun|C1|AWL|neutral|extended|5|إخلاء|the urgent removal of people from danger
+decontamination|noun|C1|AWL|neutral|extended|5|تطهير|the removal of harmful substances
+monitoring|noun|C1|AWL|neutral|extended|5|رصد|the continuous observation of conditions
+dosimeter|noun|C2|NAWL|formal|extended|5|مقياس جرعات|a device measuring radiation exposure
+half-value layer|noun|C2|NAWL|formal|extended|5|طبقة نصف قيمة|material thickness halving radiation intensity
+lead shielding|noun|C1|CEFR-J|neutral|extended|5|درع رصاصي|using lead to block radiation
+concrete cask|noun|C1|CEFR-J|neutral|extended|5|حاوية خرسانية|a concrete container for nuclear waste
+spent fuel|noun|C1|NAWL|neutral|extended|5|وقود مستنفد|nuclear fuel that can no longer sustain reactions
+reprocessing|noun|C1|AWL|neutral|extended|5|إعادة معالجة|extracting usable material from spent fuel
+waste stream|noun|C1|NAWL|neutral|extended|5|مجرى نفايات|the flow of waste through management stages
+low-level waste|noun|C1|NAWL|neutral|extended|5|نفايات منخفضة|mildly radioactive waste
+intermediate waste|noun|C1|NAWL|neutral|extended|5|نفايات متوسطة|moderately radioactive waste
+high-level waste|noun|C1|NAWL|neutral|extended|5|نفايات عالية|intensely radioactive waste
+geological disposal|noun|C1|NAWL|neutral|extended|5|تخزين جيولوجي|burying nuclear waste deep underground
+dry cask storage|noun|C1|NAWL|neutral|extended|5|تخزين جاف|storing spent fuel in sealed containers
+cooling pond|noun|C1|CEFR-J|neutral|extended|5|بركة تبريد|a pool where spent fuel rods are cooled
+reactor vessel|noun|C1|NAWL|neutral|extended|5|وعاء المفاعل|the container holding the reactor core
+pressurizer|noun|C2|NAWL|formal|extended|5|جهاز ضغط|a device maintaining pressure in a reactor
+steam generator|noun|C1|CEFR-J|neutral|extended|5|مولد بخار|a device converting water to steam
+condenser|noun|C1|CEFR-J|neutral|extended|5|مكثف|a device converting steam back to water
+heat exchanger|noun|C1|NAWL|neutral|extended|5|مبادل حراري|a device transferring heat between fluids
+boiling water reactor|noun|C1|NAWL|neutral|extended|5|مفاعل ماء مغلي|a reactor where water boils in the core
+pressurized water|noun|C1|NAWL|neutral|extended|5|مفاعل ماء مضغوط|a reactor using pressurized water as coolant
+heavy water|noun|C1|NAWL|neutral|extended|5|ماء ثقيل|water containing deuterium
+fast breeder|noun|C1|NAWL|neutral|extended|5|مفاعل سريع|a reactor using fast neutrons
+molten salt|noun|C1|NAWL|neutral|extended|5|ملح منصهر|salt in liquid state used in reactors
+small modular reactor|noun|C1|NAWL|neutral|extended|5|مفاعل صغير|a compact prefabricated nuclear reactor
+Generation IV|noun|C1|NAWL|neutral|extended|5|الجيل الرابع|next-generation nuclear reactor designs
+proliferation risk|noun|C1|AWL|neutral|mastery|5|خطر انتشار|the danger of nuclear weapons spreading
+enrichment cascade|noun|C2|NAWL|formal|mastery|5|سلسلة تخصيب|connected centrifuges for uranium enrichment
+weapons-grade|adjective|C1|NAWL|neutral|mastery|5|صالح للسلاح|enriched to a level suitable for weapons
+civilian nuclear|adjective|C1|AWL|neutral|mastery|5|نووي مدني|relating to peaceful uses of nuclear energy
+dual-use|adjective|C1|AWL|neutral|mastery|5|مزدوج الاستخدام|having both civilian and military applications
+safeguards|noun|C1|AWL|neutral|mastery|5|ضمانات|measures to prevent nuclear weapon development
+inspectorate|noun|C1|AWL|neutral|mastery|5|هيئة تفتيش|a body responsible for official inspections
+non-proliferation|noun|C1|AWL|neutral|mastery|5|عدم انتشار|preventing the spread of nuclear weapons
+test ban|noun|C1|AWL|neutral|mastery|5|حظر تجارب|prohibiting nuclear weapon testing
+comprehensive|adjective|C1|AWL|neutral|mastery|5|شامل|complete and including everything
+denuclearization|noun|C1|NAWL|neutral|mastery|5|نزع النووي|the removal of nuclear weapons
+stockpile|noun|C1|CEFR-J|neutral|mastery|5|مخزون|a reserve supply of nuclear materials
+warhead|noun|C1|CEFR-J|neutral|mastery|5|رأس حربي|the explosive part of a missile
+intercontinental|adjective|C1|AWL|neutral|mastery|5|عابر للقارات|traveling between continents
+ballistic|adjective|C1|CEFR-J|neutral|mastery|5|بالستي|relating to the flight of projectiles
+missile defense|noun|C1|CEFR-J|neutral|mastery|5|دفاع صاروخي|systems designed to intercept missiles
+first strike|noun|C1|CEFR-J|neutral|mastery|5|ضربة أولى|an initial nuclear attack
+second strike|noun|C1|NAWL|neutral|mastery|5|ضربة ثانية|a retaliatory nuclear response
+mutual assured|noun|C1|NAWL|neutral|mastery|5|دمار مؤكد متبادل|the doctrine of deterrence through annihilation
+nuclear winter|noun|C1|CEFR-J|neutral|mastery|5|شتاء نووي|global cooling from nuclear war debris
+electromagnetic pulse|noun|C1|NAWL|neutral|mastery|5|نبض كهرومغناطيسي|radiation destroying electronic equipment
+fallout shelter|noun|C1|CEFR-J|neutral|mastery|5|ملجأ نووي|a structure protecting from nuclear fallout
+civil defense|noun|C1|CEFR-J|neutral|mastery|5|دفاع مدني|organized protection of civilians
+emergency response|noun|C1|AWL|neutral|mastery|5|استجابة طوارئ|coordinated action in a crisis situation

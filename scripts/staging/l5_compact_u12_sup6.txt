@@ -1,0 +1,55 @@
+economic indicator|noun|C1|AWL|neutral|core|12|مؤشر اقتصادي|a statistic showing economic health
+gross domestic product|noun|C1|AWL|neutral|core|12|ناتج محلي إجمالي|the total value of goods and services produced
+GDP per capita|noun|C1|AWL|neutral|core|12|ناتج محلي للفرد|GDP divided by population
+purchasing power parity|noun|C1|AWL|neutral|extended|12|تعادل قوة شرائية|comparing economies using local prices
+Gini coefficient|noun|C1|NAWL|neutral|extended|12|معامل جيني|a measure of income inequality
+Human Development Index|noun|C1|AWL|neutral|extended|12|مؤشر تنمية بشرية|a composite measure of human well-being
+poverty line|noun|C1|AWL|neutral|core|12|خط فقر|the minimum income for basic needs
+extreme poverty|noun|C1|AWL|neutral|core|12|فقر مدقع|living on less than two dollars a day
+income inequality|noun|C1|AWL|neutral|core|12|عدم مساواة دخل|the gap between rich and poor
+wealth concentration|noun|C1|AWL|neutral|extended|12|تركز ثروة|wealth held by a small percentage
+middle-income trap|noun|C1|NAWL|neutral|extended|12|فخ الدخل المتوسط|a country stuck at moderate income levels
+structural adjustment|noun|C1|AWL|neutral|extended|12|تعديل هيكلي|economic reforms imposed by lenders
+austerity measure|noun|C1|AWL|neutral|extended|12|إجراء تقشفي|cutting government spending to reduce debt
+national debt|noun|C1|AWL|neutral|core|12|دين وطني|money owed by a government
+debt-to-GDP ratio|noun|C1|AWL|neutral|extended|12|نسبة دين للناتج|national debt compared to economic output
+sovereign default|noun|C1|AWL|neutral|mastery|12|تعثر سيادي|a government failing to pay its debts
+credit rating|noun|C1|NAWL|neutral|extended|12|تصنيف ائتماني|an assessment of creditworthiness
+capital flight|noun|C1|AWL|neutral|extended|12|هروب رؤوس أموال|money rapidly leaving a country
+dollarization|noun|C1|NAWL|neutral|mastery|12|دولرة|adopting a foreign currency
+hyperinflation|noun|C1|NAWL|neutral|extended|12|تضخم جامح|extremely rapid price increases
+stagflation|noun|C1|NAWL|neutral|extended|12|ركود تضخمي|stagnation combined with inflation
+deflation|noun|C1|NAWL|neutral|extended|12|انكماش|a sustained decrease in prices
+recession|noun|C1|CEFR-J|neutral|core|12|ركود|a significant decline in economic activity
+depression|noun|C1|CEFR-J|neutral|core|12|كساد|a severe and prolonged economic downturn
+economic cycle|noun|C1|AWL|neutral|core|12|دورة اقتصادية|the pattern of economic expansion and contraction
+boom and bust|noun|C1|CEFR-J|neutral|core|12|ازدهار وانهيار|rapid growth followed by sharp decline
+systemic risk|noun|C1|AWL|neutral|extended|12|خطر نظامي|risk threatening the entire financial system
+too big to fail|noun|C1|NAWL|neutral|extended|12|أكبر من أن يفشل|institutions whose failure would harm the economy
+moral hazard|noun|C1|NAWL|neutral|extended|12|خطر أخلاقي|taking risks because others bear the cost
+adverse selection|noun|C1|AWL|neutral|mastery|12|اختيار عكسي|a market where informed parties have advantage
+asymmetric information|noun|C1|AWL|neutral|extended|12|معلومات غير متماثلة|one party knowing more than the other
+transaction cost|noun|C1|AWL|neutral|extended|12|تكلفة معاملة|expenses of making an economic exchange
+opportunity cost|noun|C1|AWL|neutral|core|12|تكلفة فرصة|the value of the next best alternative
+comparative advantage|noun|C1|AWL|neutral|core|12|ميزة نسبية|producing at a lower opportunity cost
+absolute advantage|noun|C1|AWL|neutral|extended|12|ميزة مطلقة|producing more with the same resources
+economies of scale|noun|C1|AWL|neutral|core|12|وفورات حجم|lower costs from larger production
+diseconomies of scale|noun|C1|AWL|neutral|mastery|12|عدم وفورات حجم|rising costs from being too large
+market equilibrium|noun|C1|AWL|neutral|core|12|توازن سوق|where supply meets demand
+price elasticity|noun|C1|AWL|neutral|extended|12|مرونة سعرية|how demand changes with price
+diminishing returns|noun|C1|AWL|neutral|extended|12|عوائد متناقصة|declining benefit from additional input
+marginal cost|noun|C1|AWL|neutral|extended|12|تكلفة هامشية|the cost of producing one more unit
+marginal utility|noun|C1|AWL|neutral|extended|12|منفعة هامشية|the satisfaction from one more unit
+consumer surplus|noun|C1|AWL|neutral|extended|12|فائض مستهلك|the benefit of paying less than willing
+producer surplus|noun|C1|AWL|neutral|extended|12|فائض منتج|revenue above the minimum a seller would accept
+deadweight loss|noun|C1|NAWL|neutral|mastery|12|خسارة فادحة|economic inefficiency from market distortions
+rent-seeking|noun|C1|NAWL|neutral|mastery|12|سعي ريعي|gaining wealth without creating value
+creative destruction|noun|C1|NAWL|neutral|extended|12|تدمير إبداعي|innovation replacing outdated industries
+disruptive innovation|noun|C1|NAWL|neutral|core|12|ابتكار تخريبي|innovation transforming an existing market
+first-mover advantage|noun|C1|NAWL|neutral|extended|12|ميزة المتحرك أولاً|the benefit of entering a market first
+network externality|noun|C1|AWL|neutral|mastery|12|خارجية شبكية|value increasing as more people use a product
+value chain|noun|C1|AWL|neutral|core|12|سلسلة قيمة|the full range of activities to deliver a product
+supply chain management|noun|C1|AWL|neutral|core|12|إدارة سلسلة إمداد|coordinating the flow of goods and services
+just-in-time manufacturing|noun|C1|NAWL|neutral|extended|12|تصنيع في الوقت المحدد|producing only what is needed when needed
+lean production|noun|C1|NAWL|neutral|extended|12|إنتاج رشيق|minimizing waste in manufacturing
+total quality management|noun|C1|AWL|neutral|extended|12|إدارة جودة شاملة|continuous improvement in all operations

@@ -1,0 +1,99 @@
+athlete|noun|B2|CEFR-J|neutral|core|2|رياضي|a person trained to compete in sports
+competitor|noun|B2|CEFR-J|neutral|core|2|متنافس|a person taking part in a contest
+coach|noun|B2|CEFR-J|neutral|core|2|مدرب|a person who trains athletes
+trainer|noun|B2|CEFR-J|neutral|core|2|مدرب شخصي|a person supervising physical exercise
+physiotherapist|noun|C1|CEFR-J|neutral|core|2|معالج طبيعي|a therapist treating injury through exercise
+nutritionist|noun|C1|CEFR-J|neutral|core|2|أخصائي تغذية|an expert in diet and nutrition
+psychologist|noun|C1|CEFR-J|neutral|core|2|أخصائي نفسي|an expert in mental processes
+scout|noun|C1|CEFR-J|neutral|core|2|كشاف مواهب|a person who identifies talented athletes
+referee|noun|B2|CEFR-J|neutral|core|2|حكم|an official who watches a game
+umpire|noun|C1|CEFR-J|neutral|core|2|حكم ميداني|an official enforcing rules in certain sports
+commentator|noun|C1|CEFR-J|neutral|core|2|معلق|a person who provides commentary on events
+spectator|noun|C1|CEFR-J|neutral|core|2|متفرج|a person watching a sporting event
+venue|noun|C1|AWL|neutral|core|2|ملعب|the place where an event is held
+stadium|noun|B2|CEFR-J|neutral|core|2|استاد|a large sports ground
+arena|noun|C1|CEFR-J|neutral|core|2|حلبة|an enclosed area for sports events
+gymnasium|noun|C1|CEFR-J|neutral|core|2|صالة رياضية|a room equipped for physical exercise
+track|noun|B2|CEFR-J|neutral|core|2|مضمار|a prepared course for racing
+field|noun|B2|CEFR-J|neutral|core|2|ميدان|an area of ground used for sports
+court|noun|B2|CEFR-J|neutral|core|2|ملعب محكم|an enclosed area for ball games
+pool|noun|B2|CEFR-J|neutral|core|2|حوض سباحة|a facility for swimming
+rink|noun|C1|CEFR-J|neutral|core|2|حلبة جليد|a surface for ice skating or hockey
+velodrome|noun|C2|NAWL|neutral|core|2|مضمار دراجات|a track for bicycle racing
+circuit|noun|C1|CEFR-J|neutral|core|2|حلبة سباق|a track for motor racing
+course|noun|B2|CEFR-J|neutral|core|2|مسار|a route or direction followed in a race
+warm-up|noun|B2|CEFR-J|neutral|core|2|إحماء|preparatory exercises before activity
+cool-down|noun|C1|CEFR-J|neutral|core|2|تبريد|gentle exercises after intense activity
+stretching|noun|B2|CEFR-J|neutral|core|2|إطالة|lengthening muscles to improve flexibility
+flexibility|noun|C1|AWL|neutral|core|2|مرونة جسدية|the range of motion in joints
+mobility|noun|C1|AWL|neutral|core|2|حركية|the ability to move freely
+balance|noun|B2|CEFR-J|neutral|core|2|توازن|the ability to remain steady
+posture|noun|C1|CEFR-J|neutral|core|2|وضعية|the position of the body when standing
+gait|noun|C1|CEFR-J|neutral|core|2|مشية|a person's manner of walking
+stride|noun|C1|CEFR-J|neutral|core|2|خطوة واسعة|a long step in walking or running
+pace|noun|C1|CEFR-J|neutral|core|2|وتيرة جري|the speed of walking or running
+acceleration|noun|C1|AWL|neutral|core|2|تسارع|an increase in speed
+deceleration|noun|C1|AWL|neutral|core|2|تباطؤ|a decrease in speed
+impact|noun|C1|AWL|neutral|core|2|صدم|the force of a collision
+collision|noun|C1|CEFR-J|neutral|core|2|اصطدام|a crash between two objects
+momentum|noun|C1|AWL|neutral|core|2|زخم رياضي|the force gained by movement
+trajectory|noun|C1|AWL|neutral|core|2|مسار رياضي|the path of a moving object
+aerodynamics|noun|C1|NAWL|neutral|extended|2|ديناميكا هوائية|the study of air flow around objects
+drag|noun|C1|CEFR-J|neutral|extended|2|مقاومة هوائية|the force resisting motion through air
+lift|noun|C1|CEFR-J|neutral|extended|2|قوة رفع|an upward force on a moving object
+thrust|noun|C1|CEFR-J|neutral|extended|2|قوة دفع|a force propelling something forward
+torque|noun|C1|NAWL|neutral|extended|2|عزم دوران|a force causing rotation
+leverage|noun|C1|AWL|neutral|extended|2|رافعة|the use of a lever to gain advantage
+biomechanics|noun|C1|NAWL|neutral|extended|2|ميكانيكا جسدية|the mechanics of body movement
+ergonomics|noun|C1|NAWL|neutral|extended|2|هندسة بشرية|designing equipment for efficiency
+wearable|noun|C1|NAWL|neutral|extended|2|جهاز قابل للارتداء|a device worn to monitor performance
+GPS tracker|noun|C1|CEFR-J|neutral|extended|2|متتبع موقع|a device tracking position via satellite
+heart rate monitor|noun|C1|CEFR-J|neutral|extended|2|جهاز مراقبة نبض|a device measuring heartbeat
+VO2 max|noun|C1|NAWL|neutral|extended|2|أقصى استهلاك أكسجين|the maximum oxygen the body can use
+lactate threshold|noun|C1|NAWL|neutral|extended|2|عتبة لاكتات|the intensity where lactate builds up
+anaerobic threshold|noun|C1|NAWL|neutral|extended|2|عتبة لاهوائية|the point where anaerobic metabolism begins
+power output|noun|C1|NAWL|neutral|extended|2|إنتاج قوة|the rate of energy generated during exercise
+wattage|noun|C1|NAWL|neutral|extended|2|واطية|the amount of electrical power in watts
+cadence|noun|C1|CEFR-J|neutral|extended|2|تواتر حركي|the number of steps or revolutions per minute
+stroke rate|noun|C1|CEFR-J|neutral|extended|2|معدل ضربات|the number of swimming or rowing strokes per minute
+split time|noun|C1|CEFR-J|neutral|extended|2|وقت تقسيمي|the time for a portion of a race
+personal best|noun|C1|CEFR-J|neutral|extended|2|أفضل شخصي|the best performance achieved by an athlete
+world record|noun|B2|CEFR-J|neutral|extended|2|رقم قياسي عالمي|the best performance ever achieved globally
+qualifying time|noun|C1|CEFR-J|neutral|extended|2|وقت تأهيلي|the time needed to enter a competition
+handicapping|noun|C1|CEFR-J|neutral|extended|2|إعاقة تنافسية|giving advantages to equalize competition
+classification|noun|C1|AWL|neutral|extended|2|تصنيف رياضي|grouping athletes by ability or disability
+weight class|noun|C1|CEFR-J|neutral|extended|2|فئة وزنية|a division based on body weight
+age group|noun|C1|CEFR-J|neutral|extended|2|فئة عمرية|a division based on age
+gender division|noun|C1|AWL|neutral|extended|2|تقسيم جنسي|separate competition for men and women
+anti-doping|noun|C1|NAWL|neutral|extended|2|مكافحة منشطات|preventing the use of banned substances
+blood test|noun|C1|CEFR-J|neutral|extended|2|فحص دم|analysis of blood for banned substances
+urine test|noun|C1|CEFR-J|neutral|extended|2|فحص بول|analysis of urine for banned substances
+biological passport|noun|C1|NAWL|neutral|extended|2|جواز حيوي|a long-term profile of an athlete's blood values
+whereabouts|noun|C1|CEFR-J|neutral|extended|2|أماكن تواجد|an athlete's reported location for testing
+therapeutic use exemption|noun|C1|NAWL|neutral|extended|2|إعفاء علاجي|permission to use a banned substance medically
+retirement|noun|C1|CEFR-J|neutral|mastery|2|اعتزال|ending one's competitive career
+comeback|noun|C1|CEFR-J|neutral|mastery|2|عودة|returning to competition after a break
+dynasty|noun|C1|CEFR-J|neutral|mastery|2|سلالة رياضية|a succession of champions from one team
+underdog story|noun|C1|CEFR-J|neutral|mastery|2|قصة المستضعف|a narrative of unexpected victory
+Cinderella run|noun|C1|CEFR-J|informal|mastery|2|مسيرة سندريلا|an unexpected success in a tournament
+dark horse|noun|C1|CEFR-J|informal|mastery|2|حصان أسود|a little-known competitor who performs well
+giant killer|noun|C1|CEFR-J|neutral|mastery|2|قاتل العمالقة|a weaker competitor defeating a stronger one
+clean sweep|noun|C1|CEFR-J|neutral|mastery|2|اكتساح|winning every event in a competition
+grand slam|noun|C1|CEFR-J|neutral|mastery|2|بطولة كبرى|winning all major events in a sport
+triple crown|noun|C1|CEFR-J|neutral|mastery|2|تاج ثلاثي|winning three specified major events
+hat trick|noun|C1|CEFR-J|neutral|mastery|2|هاتريك|scoring three goals in one game
+shutout|noun|C1|CEFR-J|neutral|mastery|2|إقصاء دون أهداف|preventing the opponent from scoring
+blowout|noun|C1|CEFR-J|informal|mastery|2|فوز ساحق|a very one-sided victory
+upset|noun|C1|CEFR-J|neutral|mastery|2|مفاجأة|a victory by an unexpected winner
+rivalry|noun|C1|CEFR-J|neutral|mastery|2|تنافس حاد|intense competition between opponents
+grudge match|noun|C1|CEFR-J|neutral|mastery|2|مباراة ثأرية|a contest between bitter rivals
+exhibition|noun|C1|CEFR-J|neutral|mastery|2|مباراة استعراضية|a non-competitive display of skill
+invitational|noun|C1|CEFR-J|neutral|mastery|2|بطولة بدعوة|a competition by invitation only
+sponsorship|noun|C1|CEFR-J|neutral|mastery|2|رعاية تجارية|financial support from a company
+endorsement|noun|C1|AWL|neutral|mastery|2|تأييد تجاري|publicly recommending a product
+merchandising|noun|C1|CEFR-J|neutral|mastery|2|تسويق بضائع|selling products related to a sports brand
+broadcasting|noun|C1|CEFR-J|neutral|mastery|2|بث|transmitting programs to a wide audience
+viewership|noun|C1|CEFR-J|neutral|mastery|2|نسبة مشاهدة|the number of people watching a broadcast
+ratings|noun|C1|CEFR-J|neutral|mastery|2|تقييمات|a measure of the popularity of a broadcast
+attendance|noun|C1|AWL|neutral|mastery|2|حضور|the number of people present at an event
+capacity|noun|C1|AWL|neutral|mastery|2|سعة|the maximum number a venue can hold

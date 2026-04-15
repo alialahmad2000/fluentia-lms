@@ -1,0 +1,112 @@
+sculpture|noun|C1|CEFR-J|neutral|core|9|نحت|the art of carving or modeling three-dimensional forms
+ceramics|noun|C1|CEFR-J|neutral|core|9|خزف|objects made from fired clay
+pottery|noun|B2|CEFR-J|neutral|core|9|فخار|objects made from baked clay
+mosaic|noun|C1|CEFR-J|neutral|core|9|فسيفساء|a picture made from small pieces
+tapestry|noun|C1|CEFR-J|neutral|core|9|نسيج مزخرف|a heavy cloth with woven designs
+woodcut|noun|C1|CEFR-J|neutral|core|9|حفر خشبي|a print made from a carved wood block
+etching|noun|C1|CEFR-J|neutral|core|9|حفر حمضي|a print made from an etched metal plate
+lithography|noun|C1|NAWL|neutral|core|9|طباعة حجرية|printing from a smooth stone or plate
+engraving|noun|C1|CEFR-J|neutral|core|9|نقش|cutting a design into a hard surface
+calligraphy|noun|C1|CEFR-J|neutral|core|9|خط|the art of beautiful handwriting
+typography|noun|C1|NAWL|neutral|core|9|طباعة حروف|the art of arranging printed type
+layout|noun|C1|CEFR-J|neutral|core|9|تخطيط|the arrangement of elements on a page
+design|noun|B2|CEFR-J|neutral|core|9|تصميم|a plan for making something
+illustration|noun|C1|CEFR-J|neutral|core|9|رسم توضيحي|a drawing explaining or decorating text
+caricature|noun|C1|CEFR-J|neutral|core|9|كاريكاتير|an exaggerated portrait for comic effect
+portrait|noun|C1|CEFR-J|neutral|core|9|صورة شخصية|a painting or photograph of a person
+landscape|noun|B2|CEFR-J|neutral|core|9|منظر طبيعي|a painting of natural scenery
+still life|noun|C1|CEFR-J|neutral|core|9|طبيعة صامتة|a painting of inanimate objects
+mural|noun|C1|CEFR-J|neutral|core|9|جدارية|a large painting on a wall
+fresco|noun|C1|CEFR-J|neutral|core|9|رسم جصي|a painting on fresh plaster
+installation|noun|C1|AWL|neutral|core|9|تركيب فني|a three-dimensional artistic work
+performance art|noun|C1|CEFR-J|neutral|core|9|فن أدائي|art presented through action
+conceptual art|noun|C1|NAWL|neutral|core|9|فن مفاهيمي|art where the idea matters most
+kinetic art|noun|C1|NAWL|neutral|core|9|فن حركي|art incorporating physical movement
+digital art|noun|C1|CEFR-J|neutral|core|9|فن رقمي|art created using computer technology
+mixed media|noun|C1|CEFR-J|neutral|core|9|وسائط مختلطة|art using multiple materials
+collage|noun|C1|CEFR-J|neutral|core|9|ملصقة فنية|art made by gluing materials to a surface
+assemblage|noun|C1|CEFR-J|neutral|core|9|تجميع فني|three-dimensional art from found objects
+found object|noun|C1|CEFR-J|neutral|core|9|عنصر موجود|an everyday object used as art
+readymade|noun|C1|NAWL|neutral|core|9|جاهز فني|an ordinary object presented as art
+pathos|noun|C1|CEFR-J|neutral|core|9|شفقة|a quality evoking pity or sadness
+ethos|noun|C1|CEFR-J|neutral|core|9|أخلاقيات|the characteristic spirit of a culture
+logos|noun|C1|CEFR-J|neutral|core|9|منطق|the appeal to logic and reason
+rhetoric|noun|C1|AWL|neutral|core|9|خطابة|the art of effective persuasion
+narrative|noun|C1|AWL|neutral|core|9|سرد|the telling of a story
+protagonist|noun|C1|CEFR-J|neutral|core|9|شخصية رئيسية|the leading character in a story
+antagonist|noun|C1|CEFR-J|neutral|core|9|خصم|a character opposing the protagonist
+climax|noun|C1|CEFR-J|neutral|core|9|ذروة|the most intense point of a narrative
+denouement|noun|C2|NAWL|formal|core|9|حل العقدة|the final part resolving the plot
+exposition|noun|C1|AWL|neutral|core|9|عرض|the introduction of background information
+rising action|noun|C1|CEFR-J|neutral|core|9|تصاعد|the series of events building toward a climax
+falling action|noun|C1|CEFR-J|neutral|core|9|تراجع|the events following the climax
+resolution|noun|C1|AWL|neutral|core|9|خاتمة|the end of a story's conflict
+theme|noun|B2|CEFR-J|neutral|core|9|موضوع|the central idea of a work
+symbolism|noun|C1|AWL|neutral|core|9|رمزية فنية|representing ideas through symbols
+foreshadowing|noun|C1|CEFR-J|neutral|core|9|تمهيد|hinting at future events in a story
+flashback|noun|C1|CEFR-J|neutral|core|9|استرجاع|a scene set in an earlier time
+stream of consciousness|noun|C1|NAWL|neutral|extended|9|تيار الوعي|a narrative following thought patterns
+unreliable narrator|noun|C1|NAWL|neutral|extended|9|راوٍ غير موثوق|a narrator whose credibility is compromised
+omniscient|adjective|C1|CEFR-J|neutral|extended|9|كلي العلم|knowing everything about all characters
+point of view|noun|C1|CEFR-J|neutral|extended|9|وجهة نظر|the perspective from which a story is told
+tone|noun|C1|CEFR-J|neutral|extended|9|نبرة|the attitude conveyed in a literary work
+voice|noun|C1|CEFR-J|neutral|extended|9|صوت أدبي|the distinctive style of an author
+register|noun|C1|AWL|neutral|extended|9|مستوى لغوي|the level of formality in language
+diction|noun|C1|CEFR-J|neutral|extended|9|اختيار ألفاظ|the choice and use of words
+syntax|noun|C1|AWL|neutral|extended|9|تركيب جملي|the arrangement of words in sentences
+imagery|noun|C1|CEFR-J|neutral|extended|9|تصوير|language creating vivid mental pictures
+simile|noun|C1|CEFR-J|neutral|extended|9|تشبيه|a comparison using like or as
+personification|noun|C1|CEFR-J|neutral|extended|9|تشخيص|giving human qualities to non-human things
+hyperbole|noun|C1|CEFR-J|neutral|extended|9|مبالغة|deliberate exaggeration for emphasis
+litotes|noun|C2|NAWL|formal|extended|9|تقليل|understatement for emphasis
+oxymoron|noun|C1|CEFR-J|neutral|extended|9|تناقض لفظي|combining contradictory terms
+synecdoche|noun|C2|NAWL|formal|extended|9|مجاز مرسل|a part representing the whole
+metonymy|noun|C2|NAWL|formal|extended|9|كناية|substituting a related term for another
+allusion|noun|C1|CEFR-J|neutral|extended|9|تلميح|an indirect reference to something
+intertextuality|noun|C1|NAWL|neutral|extended|9|تناص|the relationship between texts
+ekphrasis|noun|C2|NAWL|formal|extended|9|وصف فني|a literary description of a visual artwork
+prosody|noun|C1|NAWL|neutral|extended|9|عروض|the patterns of rhythm and sound in poetry
+meter|noun|C1|CEFR-J|neutral|extended|9|وزن|the rhythmic pattern in poetry
+verse|noun|C1|CEFR-J|neutral|extended|9|بيت شعري|a single line of poetry
+stanza|noun|C1|CEFR-J|neutral|extended|9|مقطع شعري|a group of lines in a poem
+couplet|noun|C1|CEFR-J|neutral|extended|9|بيت مزدوج|two consecutive rhyming lines
+sonnet|noun|C1|CEFR-J|neutral|extended|9|سونيت|a fourteen-line poem
+haiku|noun|C1|CEFR-J|neutral|extended|9|هايكو|a three-line Japanese poem
+ode|noun|C1|CEFR-J|neutral|extended|9|قصيدة مدح|a poem addressed to a person or thing
+elegy|noun|C1|CEFR-J|neutral|extended|9|رثاء|a poem mourning a death
+epic|noun|C1|CEFR-J|neutral|extended|9|ملحمة|a long poem about heroic deeds
+ballad|noun|C1|CEFR-J|neutral|extended|9|أغنية قصصية|a narrative poem or song
+lyric|noun|C1|CEFR-J|neutral|extended|9|غنائية|a short poem expressing personal feelings
+free verse|noun|C1|CEFR-J|neutral|extended|9|شعر حر|poetry without regular meter or rhyme
+blank verse|noun|C1|CEFR-J|neutral|extended|9|شعر مرسل|unrhymed poetry in regular meter
+alliteration|noun|C1|CEFR-J|neutral|extended|9|جناس|repetition of initial consonant sounds
+assonance|noun|C1|NAWL|neutral|extended|9|سجع|repetition of vowel sounds
+consonance|noun|C1|NAWL|neutral|extended|9|توافق صوتي|repetition of consonant sounds
+onomatopoeia|noun|C1|CEFR-J|neutral|extended|9|محاكاة صوتية|words imitating natural sounds
+enjambment|noun|C2|NAWL|formal|extended|9|تضمين|continuing a sentence across line breaks
+caesura|noun|C2|NAWL|formal|extended|9|وقفة شعرية|a pause within a line of poetry
+anaphora|noun|C2|NAWL|formal|extended|9|تكرار بدائي|repetition of words at the start of clauses
+epiphora|noun|C2|NAWL|formal|mastery|9|تكرار نهائي|repetition of words at the end of clauses
+chiasmus|noun|C2|NAWL|formal|mastery|9|تقابل عكسي|reversing the order of words in parallel phrases
+zeugma|noun|C2|NAWL|formal|mastery|9|تجريد|using one word to govern different phrases
+anadiplosis|noun|C2|NAWL|formal|mastery|9|رد العجز|repeating the last word at the start of the next
+epistrophe|noun|C2|NAWL|formal|mastery|9|ترديد|repetition of a word at the end of clauses
+polysyndeton|noun|C2|NAWL|formal|mastery|9|كثرة عطف|the deliberate use of many conjunctions
+asyndeton|noun|C2|NAWL|formal|mastery|9|حذف عطف|the deliberate omission of conjunctions
+catachresis|noun|C2|NAWL|formal|mastery|9|استعارة بعيدة|the deliberate misuse of a word
+malapropism|noun|C2|NAWL|formal|mastery|9|خطأ لفظي|the mistaken use of a similar-sounding word
+neologism|noun|C1|NAWL|neutral|mastery|9|ابتكار لغوي|a newly coined word or expression
+archaism|noun|C1|NAWL|neutral|mastery|9|لفظ قديم|the use of old-fashioned language
+euphemism|noun|C1|CEFR-J|neutral|mastery|9|تلطيف|a mild expression for something harsh
+dysphemism|noun|C2|NAWL|formal|mastery|9|تقبيح|a harsh expression for something neutral
+cacophony|noun|C1|CEFR-J|neutral|mastery|9|نشاز|a harsh discordant mixture of sounds
+euphony|noun|C1|CEFR-J|neutral|mastery|9|عذوبة|the quality of having a pleasant sound
+verisimilitude|noun|C2|NAWL|formal|mastery|9|واقعية|the appearance of being true or real
+mimesis|noun|C2|NAWL|formal|mastery|9|محاكاة|the imitation of the real world in art
+diegesis|noun|C2|NAWL|formal|mastery|9|سرد|the narrative told by a narrator
+catharsis|noun|C1|CEFR-J|neutral|mastery|9|تطهير|the purging of emotions through drama
+hamartia|noun|C2|NAWL|formal|mastery|9|خطيئة مأساوية|a fatal flaw leading to a hero's downfall
+hubris|noun|C1|CEFR-J|neutral|mastery|9|غطرسة|excessive pride leading to downfall
+nemesis|noun|C1|CEFR-J|neutral|mastery|9|عدو قدري|an agent of retribution or downfall
+peripeteia|noun|C2|NAWL|formal|mastery|9|انقلاب|a sudden reversal of fortune in drama
+anagnorisis|noun|C2|NAWL|formal|mastery|9|لحظة اكتشاف|the moment of recognition in drama

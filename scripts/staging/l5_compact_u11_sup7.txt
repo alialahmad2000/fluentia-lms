@@ -1,0 +1,40 @@
+acculturation|noun|C1|AWL|neutral|extended|11|تثاقف|cultural changes from contact between groups
+enculturation|noun|C1|NAWL|neutral|extended|11|تنشئة ثقافية|learning the norms of one's own culture
+socialization|noun|C1|AWL|neutral|core|11|تنشئة اجتماعية|learning to function in society
+cultural shock|noun|C1|CEFR-J|neutral|core|11|صدمة ثقافية|disorientation in a new culture
+reverse culture shock|noun|C1|NAWL|neutral|extended|11|صدمة ثقافية عكسية|difficulty readjusting to one's own culture
+cultural adaptation|noun|C1|AWL|neutral|core|11|تكيف ثقافي|adjusting to a different cultural environment
+cultural broker|noun|C1|NAWL|neutral|extended|11|وسيط ثقافي|a person bridging two cultures
+cultural sensitivity|noun|C1|AWL|neutral|core|11|حساسية ثقافية|awareness of cultural differences
+cultural literacy|noun|C1|AWL|neutral|core|11|محو أمية ثقافية|knowledge of cultural references and norms
+xenophobia|noun|C1|NAWL|neutral|core|11|رهاب الأجانب|fear or hatred of foreigners
+Islamophobia|noun|C1|NAWL|neutral|extended|11|إسلاموفوبيا|prejudice against Muslims
+antisemitism|noun|C1|NAWL|neutral|extended|11|معاداة سامية|prejudice against Jewish people
+racial profiling|noun|C1|NAWL|neutral|extended|11|تنميط عرقي|targeting people based on race
+structural racism|noun|C1|AWL|neutral|extended|11|عنصرية هيكلية|racism embedded in institutions
+microaggression|noun|C1|NAWL|neutral|extended|11|عدوان مصغر|subtle discriminatory comments
+implicit bias|noun|C1|AWL|neutral|core|11|تحيز ضمني|unconscious prejudice affecting behavior
+affirmative action|noun|C1|AWL|neutral|extended|11|تمييز إيجابي|policies favoring disadvantaged groups
+social cohesion|noun|C1|AWL|neutral|core|11|تماسك اجتماعي|bonds holding society together
+civic engagement|noun|C1|AWL|neutral|core|11|مشاركة مدنية|participating in community and political life
+civil society|noun|C1|AWL|neutral|core|11|مجتمع مدني|organizations independent of government
+grassroots movement|noun|C1|NAWL|neutral|core|11|حركة شعبية|organized action from ordinary citizens
+nonviolent resistance|noun|C1|NAWL|neutral|core|11|مقاومة سلمية|opposing injustice without violence
+civil disobedience|noun|C1|NAWL|neutral|extended|11|عصيان مدني|deliberately breaking unjust laws
+boycott|noun|C1|CEFR-J|neutral|core|11|مقاطعة|refusing to buy or use as a protest
+sanction|noun|C1|AWL|neutral|core|11|عقوبة|a penalty for violating rules or norms
+economic coercion|noun|C1|AWL|neutral|extended|11|إكراه اقتصادي|using economic pressure to force action
+debt diplomacy|noun|C1|NAWL|neutral|extended|11|دبلوماسية ديون|using loans to gain political influence
+foreign aid|noun|C1|AWL|neutral|core|11|مساعدة خارجية|financial help given to other countries
+development aid|noun|C1|AWL|neutral|core|11|مساعدة تنموية|support for economic and social improvement
+humanitarian corridor|noun|C1|NAWL|neutral|extended|11|ممر إنساني|a safe passage for aid delivery
+peacekeeping mission|noun|C1|AWL|neutral|core|11|مهمة حفظ سلام|a military operation maintaining peace
+ceasefire agreement|noun|C1|NAWL|neutral|core|11|اتفاق وقف إطلاق نار|an agreement to stop fighting
+peace treaty|noun|C1|CEFR-J|neutral|core|11|معاهدة سلام|a formal agreement ending conflict
+conflict resolution|noun|C1|AWL|neutral|core|11|حل نزاعات|methods for ending disputes peacefully
+mediation|noun|C1|AWL|neutral|core|11|وساطة|a neutral party helping resolve a dispute
+arbitration|noun|C1|AWL|neutral|extended|11|تحكيم|a binding resolution by a third party
+track-two diplomacy|noun|C1|NAWL|neutral|mastery|11|دبلوماسية مسار ثاني|unofficial dialogue to resolve conflict
+citizen diplomacy|noun|C1|NAWL|neutral|extended|11|دبلوماسية مواطنين|ordinary people building international ties
+people-to-people exchange|noun|C1|NAWL|neutral|extended|11|تبادل شعبي|direct cultural contact between nations
+student exchange|noun|C1|CEFR-J|neutral|core|11|تبادل طلابي|students studying in another country

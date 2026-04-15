@@ -1,0 +1,85 @@
+cognitive bias|noun|C1|AWL|neutral|core|3|تحيز معرفي|a systematic error in thinking
+confirmation bias|noun|C1|AWL|neutral|core|3|تحيز تأكيدي|seeking information that supports existing beliefs
+anchoring bias|noun|C1|AWL|neutral|extended|3|تحيز ترسيخ|over-relying on the first piece of information
+availability heuristic|noun|C1|NAWL|neutral|extended|3|استدلال التوافر|judging by how easily examples come to mind
+representativeness heuristic|noun|C1|NAWL|neutral|mastery|3|استدلال التمثيل|judging probability by similarity
+hindsight bias|noun|C1|AWL|neutral|extended|3|تحيز بأثر رجعي|believing past events were predictable
+survivorship bias|noun|C1|NAWL|neutral|extended|3|تحيز الناجين|focusing on successes and ignoring failures
+selection bias|noun|C1|AWL|neutral|core|3|تحيز اختيار|a biased sample not representing the population
+response bias|noun|C1|AWL|neutral|extended|3|تحيز استجابة|participants answering inaccurately in studies
+observer bias|noun|C1|AWL|neutral|extended|3|تحيز مراقب|researchers influencing results unconsciously
+publication bias|noun|C1|AWL|neutral|core|3|تحيز نشر|favoring positive results for publication
+funding bias|noun|C1|AWL|neutral|extended|3|تحيز تمويل|research influenced by who pays for it
+conflict of interest|noun|C1|AWL|neutral|core|3|تضارب مصالح|personal interest affecting professional judgment
+disclosure|noun|C1|AWL|neutral|core|3|إفصاح|revealing potential conflicts openly
+transparency|noun|C1|AWL|neutral|core|3|شفافية|openness in sharing methods and results
+accountability|noun|C1|AWL|neutral|core|3|مساءلة|being responsible for one's actions
+self-correction|noun|C1|AWL|neutral|core|3|تصحيح ذاتي|science fixing its own errors over time
+retraction|noun|C1|AWL|neutral|extended|3|سحب بحث|withdrawing a published paper
+erratum|noun|C1|NAWL|neutral|mastery|3|تصويب|a correction to a published work
+corrigendum|noun|C2|NAWL|formal|mastery|3|تعديل رسمي|a formal correction in a publication
+meta-analysis|noun|C1|AWL|neutral|core|3|تحليل بعدي|combining results from multiple studies
+systematic review|noun|C1|AWL|neutral|core|3|مراجعة منهجية|a comprehensive review of all relevant studies
+effect size|noun|C1|AWL|neutral|extended|3|حجم تأثير|the magnitude of a research finding
+statistical power|noun|C1|AWL|neutral|extended|3|قوة إحصائية|the ability to detect a true effect
+confidence interval|noun|C1|AWL|neutral|core|3|فاصل ثقة|a range likely containing the true value
+margin of error|noun|C1|AWL|neutral|core|3|هامش خطأ|the range of uncertainty in an estimate
+standard deviation|noun|C1|AWL|neutral|core|3|انحراف معياري|a measure of data spread
+variance|noun|C1|AWL|neutral|extended|3|تباين|how much data points differ from the mean
+outlier|noun|C1|AWL|neutral|core|3|قيمة شاذة|a data point far from others
+normal distribution|noun|C1|AWL|neutral|core|3|توزيع طبيعي|a bell-shaped probability distribution
+skewed distribution|noun|C1|AWL|neutral|extended|3|توزيع منحرف|an asymmetric probability distribution
+regression analysis|noun|C1|AWL|neutral|extended|3|تحليل انحدار|measuring relationships between variables
+correlation coefficient|noun|C1|AWL|neutral|extended|3|معامل ارتباط|a number showing the strength of a relationship
+spurious correlation|noun|C1|NAWL|neutral|extended|3|ارتباط زائف|a misleading statistical connection
+confounding variable|noun|C1|AWL|neutral|core|3|متغير مربك|an uncontrolled factor affecting results
+control group|noun|C1|AWL|neutral|core|3|مجموعة ضابطة|a group not receiving the treatment
+experimental group|noun|C1|AWL|neutral|core|3|مجموعة تجريبية|a group receiving the treatment
+randomized trial|noun|C1|AWL|neutral|core|3|تجربة عشوائية|an experiment with random group assignment
+double-blind study|noun|C1|NAWL|neutral|core|3|دراسة مزدوجة التعمية|neither subject nor researcher knows the group
+placebo effect|noun|C1|NAWL|neutral|core|3|تأثير وهمي|improvement from belief in treatment
+nocebo effect|noun|C1|NAWL|neutral|mastery|3|تأثير ضار وهمي|harm from expecting negative effects
+informed consent|noun|C1|AWL|neutral|core|3|موافقة مستنيرة|agreeing to participate with full knowledge
+debriefing|noun|C1|CEFR-J|neutral|extended|3|إحاطة بعدية|explaining the study to participants afterward
+ethical review|noun|C1|AWL|neutral|core|3|مراجعة أخلاقية|evaluation of research ethics
+beneficence|noun|C1|NAWL|neutral|extended|3|إحسان أخلاقي|the obligation to do good in research
+non-maleficence|noun|C1|NAWL|neutral|extended|3|عدم إيذاء|the obligation to avoid causing harm
+justice in research|noun|C1|AWL|neutral|extended|3|عدالة في البحث|fair distribution of research benefits and burdens
+scientific skepticism|noun|C1|AWL|neutral|core|3|شك علمي|questioning claims until proven
+pseudoscience|noun|C1|NAWL|neutral|core|3|علم زائف|beliefs falsely presented as scientific
+conspiracy theory|noun|C1|CEFR-J|neutral|core|3|نظرية مؤامرة|an unproven explanation blaming hidden groups
+misinformation|noun|C1|NAWL|neutral|core|3|معلومات مضللة|false information spread unintentionally
+disinformation|noun|C1|NAWL|neutral|core|3|تضليل متعمد|false information spread deliberately
+fact-checking|noun|C1|CEFR-J|neutral|core|3|تحقق من الحقائق|verifying the accuracy of claims
+source evaluation|noun|C1|AWL|neutral|core|3|تقييم مصادر|assessing the reliability of information
+media literacy|noun|C1|AWL|neutral|core|3|محو أمية إعلامية|the ability to critically evaluate media
+critical appraisal|noun|C1|AWL|neutral|extended|3|تقييم نقدي|systematically evaluating research quality
+evidence hierarchy|noun|C1|AWL|neutral|extended|3|هرمية أدلة|ranking evidence by reliability
+level of evidence|noun|C1|AWL|neutral|extended|3|مستوى دليل|the strength of a research finding
+burden of proof|noun|C1|AWL|neutral|core|3|عبء إثبات|the obligation to prove a claim
+logical fallacy|noun|C1|NAWL|neutral|core|3|مغالطة منطقية|an error in reasoning
+straw man argument|noun|C1|NAWL|neutral|extended|3|حجة رجل قش|misrepresenting an opponent's argument
+ad hominem|noun|C1|NAWL|neutral|extended|3|مهاجمة شخصية|attacking the person rather than the argument
+false dichotomy|noun|C1|NAWL|neutral|extended|3|ثنائية زائفة|presenting only two options when more exist
+slippery slope|noun|C1|CEFR-J|neutral|extended|3|منحدر زلق|arguing one event will lead to extreme consequences
+appeal to authority|noun|C1|NAWL|neutral|extended|3|استئناف للسلطة|using an authority's opinion as proof
+appeal to nature|noun|C1|NAWL|neutral|mastery|3|استئناف للطبيعة|assuming natural means good
+cherry-picking|noun|C1|NAWL|neutral|extended|3|انتقاء انتقائي|selecting only supporting evidence
+moving the goalposts|noun|C1|CEFR-J|neutral|mastery|3|تحريك أهداف|changing the criteria when proven wrong
+Dunning-Kruger effect|noun|C1|NAWL|neutral|extended|3|تأثير دانينغ كروغر|unskilled people overestimating their ability
+groupthink|noun|C1|NAWL|neutral|extended|3|تفكير جمعي|conformity suppressing critical thinking
+echo chamber|noun|C1|NAWL|neutral|core|3|غرفة صدى|an environment reinforcing existing beliefs
+filter bubble|noun|C1|NAWL|neutral|core|3|فقاعة تصفية|algorithms showing only matching viewpoints
+information overload|noun|C1|AWL|neutral|core|3|حمل معلومات زائد|too much information to process effectively
+data visualization|noun|C1|AWL|neutral|core|3|تمثيل بياني|presenting data through visual formats
+misleading graph|noun|C1|AWL|neutral|extended|3|رسم بياني مضلل|a graph designed to deceive
+statistical literacy|noun|C1|AWL|neutral|extended|3|محو أمية إحصائية|understanding and using statistics correctly
+numeracy|noun|C1|NAWL|neutral|extended|3|إلمام حسابي|basic mathematical understanding
+quantitative reasoning|noun|C1|AWL|neutral|extended|3|استدلال كمي|using numerical evidence in arguments
+qualitative reasoning|noun|C1|AWL|neutral|extended|3|استدلال نوعي|analyzing non-numerical evidence
+mixed methods|noun|C1|AWL|neutral|extended|3|أساليب مختلطة|combining quantitative and qualitative research
+triangulation|noun|C1|AWL|neutral|extended|3|تثليث|using multiple methods to verify findings
+case study|noun|C1|AWL|neutral|core|3|دراسة حالة|an in-depth analysis of a single instance
+longitudinal study|noun|C1|AWL|neutral|core|3|دراسة طولية|research tracking subjects over time
+cross-sectional study|noun|C1|AWL|neutral|extended|3|دراسة مقطعية|research examining a population at one time
+cohort study|noun|C1|AWL|neutral|extended|3|دراسة أترابية|following a group with shared characteristics

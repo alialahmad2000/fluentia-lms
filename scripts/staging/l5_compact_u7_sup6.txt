@@ -1,0 +1,78 @@
+cerebral cortex|noun|C1|NAWL|neutral|core|7|قشرة دماغية|the brain's outer layer for thinking
+prefrontal cortex|noun|C1|NAWL|neutral|core|7|قشرة أمام جبهية|the brain region for planning and decisions
+temporal lobe|noun|C1|NAWL|neutral|core|7|فص صدغي|the brain region for hearing and memory
+parietal lobe|noun|C1|NAWL|neutral|extended|7|فص جداري|the brain region for spatial awareness
+occipital lobe|noun|C1|NAWL|neutral|extended|7|فص قفوي|the brain region for vision
+frontal lobe|noun|C1|NAWL|neutral|core|7|فص جبهي|the brain region for personality and movement
+brain hemisphere|noun|C1|NAWL|neutral|core|7|نصف كرة دماغية|one half of the brain
+corpus callosum|noun|C1|NAWL|neutral|extended|7|جسم ثفني|the bridge connecting brain hemispheres
+limbic system|noun|C1|NAWL|neutral|core|7|جهاز حوفي|the brain's emotional processing center
+amygdala|noun|C1|NAWL|neutral|core|7|لوزة دماغية|the brain's fear and emotion center
+hippocampus|noun|C1|NAWL|neutral|core|7|حصين|the brain's memory formation center
+thalamus|noun|C1|NAWL|neutral|extended|7|مهاد|the brain's sensory relay station
+hypothalamus|noun|C1|NAWL|neutral|extended|7|وطاء|the brain's hormone and temperature regulator
+basal ganglia|noun|C1|NAWL|neutral|extended|7|عقد قاعدية|brain structures controlling movement
+cerebellum|noun|C1|NAWL|neutral|core|7|مخيخ|the brain region for coordination and balance
+brainstem|noun|C1|NAWL|neutral|core|7|جذع دماغ|the brain's life support center
+medulla oblongata|noun|C1|NAWL|neutral|extended|7|بصلة سيسائية|the brainstem controlling vital functions
+pons|noun|C1|NAWL|neutral|mastery|7|جسر|a brainstem structure linking brain regions
+reticular formation|noun|C1|NAWL|neutral|mastery|7|تشكيل شبكي|a network regulating consciousness and alertness
+cranial nerve|noun|C1|NAWL|neutral|extended|7|عصب قحفي|a nerve emerging directly from the brain
+autonomic nervous system|noun|C1|NAWL|neutral|core|7|جهاز عصبي ذاتي|the system controlling involuntary functions
+sympathetic nervous system|noun|C1|NAWL|neutral|extended|7|جهاز عصبي ودي|the system activating the body for action
+parasympathetic nervous system|noun|C1|NAWL|neutral|extended|7|جهاز عصبي لاودي|the system calming the body
+enteric nervous system|noun|C1|NAWL|neutral|mastery|7|جهاز عصبي معوي|the nervous system of the gut
+neurotransmitter|noun|C1|NAWL|neutral|core|7|ناقل عصبي|a chemical carrying signals between neurons
+dopamine|noun|C1|NAWL|neutral|core|7|دوبامين|a chemical linked to reward and motivation
+serotonin|noun|C1|NAWL|neutral|core|7|سيروتونين|a chemical regulating mood and sleep
+norepinephrine|noun|C1|NAWL|neutral|extended|7|نورإبينفرين|a chemical for alertness and attention
+acetylcholine|noun|C1|NAWL|neutral|extended|7|أستيل كولين|a chemical for muscle movement and memory
+GABA|noun|C1|NAWL|neutral|extended|7|غابا|the brain's main inhibitory chemical
+glutamate|noun|C1|NAWL|neutral|extended|7|غلوتامات|the brain's main excitatory chemical
+endorphin|noun|C1|NAWL|neutral|core|7|إندورفين|a natural painkiller produced by the brain
+oxytocin|noun|C1|NAWL|neutral|core|7|أوكسيتوسين|a hormone promoting bonding and trust
+cortisol|noun|C1|NAWL|neutral|core|7|كورتيزول|the body's main stress hormone
+melatonin|noun|C1|NAWL|neutral|core|7|ميلاتونين|a hormone regulating sleep cycles
+circadian rhythm|noun|C1|NAWL|neutral|core|7|إيقاع يومي|the body's internal 24-hour clock
+sleep cycle|noun|C1|CEFR-J|neutral|core|7|دورة نوم|the stages of sleep repeated nightly
+REM sleep|noun|C1|NAWL|neutral|core|7|نوم حركة عين سريعة|the sleep stage with dreaming
+slow-wave sleep|noun|C1|NAWL|neutral|extended|7|نوم موجة بطيئة|the deepest stage of sleep
+sleep deprivation|noun|C1|NAWL|neutral|core|7|حرمان من النوم|not getting enough sleep
+insomnia|noun|C1|CEFR-J|neutral|core|7|أرق|difficulty falling or staying asleep
+sleep apnea|noun|C1|NAWL|neutral|extended|7|انقطاع تنفس نومي|breathing stopping during sleep
+narcolepsy|noun|C1|NAWL|neutral|mastery|7|سبات مرضي|uncontrollable episodes of falling asleep
+lucid dreaming|noun|C1|NAWL|neutral|extended|7|حلم واضح|being aware while dreaming
+memory consolidation|noun|C1|NAWL|neutral|extended|7|تثبيت ذاكرة|strengthening memories during sleep
+working memory|noun|C1|AWL|neutral|core|7|ذاكرة عاملة|holding information temporarily for tasks
+long-term memory|noun|C1|CEFR-J|neutral|core|7|ذاكرة طويلة المدى|storing information permanently
+short-term memory|noun|C1|CEFR-J|neutral|core|7|ذاكرة قصيرة المدى|holding information briefly
+episodic memory|noun|C1|NAWL|neutral|extended|7|ذاكرة حلقية|remembering personal experiences
+semantic memory|noun|C1|NAWL|neutral|extended|7|ذاكرة دلالية|remembering facts and concepts
+procedural memory|noun|C1|NAWL|neutral|extended|7|ذاكرة إجرائية|remembering how to do things
+implicit memory|noun|C1|NAWL|neutral|extended|7|ذاكرة ضمنية|unconscious memory influencing behavior
+explicit memory|noun|C1|NAWL|neutral|extended|7|ذاكرة صريحة|conscious recall of facts and events
+amnesia|noun|C1|CEFR-J|neutral|core|7|فقدان ذاكرة|the inability to remember
+retrograde amnesia|noun|C1|NAWL|neutral|extended|7|فقدان ذاكرة رجعي|losing memories from before an event
+anterograde amnesia|noun|C1|NAWL|neutral|mastery|7|فقدان ذاكرة أمامي|inability to form new memories
+false memory|noun|C1|NAWL|neutral|extended|7|ذاكرة زائفة|remembering events that did not happen
+eyewitness testimony|noun|C1|NAWL|neutral|extended|7|شهادة شاهد عيان|a witness's account of an event
+memory bias|noun|C1|AWL|neutral|extended|7|تحيز ذاكرة|systematic errors in remembering
+flashbulb memory|noun|C1|NAWL|neutral|mastery|7|ذاكرة ومضية|a vivid memory of a dramatic event
+mnemonic device|noun|C1|NAWL|neutral|extended|7|أداة تذكر|a technique for improving memory
+spaced repetition|noun|C1|NAWL|neutral|core|7|تكرار متباعد|reviewing at increasing intervals
+retrieval practice|noun|C1|NAWL|neutral|extended|7|ممارسة استرجاع|testing yourself to strengthen memory
+encoding|noun|C1|AWL|neutral|extended|7|ترميز|converting information for memory storage
+attention deficit|noun|C1|NAWL|neutral|core|7|نقص انتباه|difficulty maintaining focus
+selective attention|noun|C1|AWL|neutral|extended|7|انتباه انتقائي|focusing on one thing while ignoring others
+sustained attention|noun|C1|AWL|neutral|extended|7|انتباه مستمر|maintaining focus over a long period
+divided attention|noun|C1|AWL|neutral|extended|7|انتباه مقسم|paying attention to multiple things
+executive function|noun|C1|AWL|neutral|core|7|وظيفة تنفيذية|mental skills for planning and self-control
+cognitive flexibility|noun|C1|AWL|neutral|core|7|مرونة معرفية|the ability to switch between tasks
+inhibitory control|noun|C1|NAWL|neutral|extended|7|تحكم تثبيطي|the ability to resist impulses
+decision fatigue|noun|C1|NAWL|neutral|extended|7|إرهاق قرارات|reduced quality of decisions after many choices
+cognitive reserve|noun|C1|AWL|neutral|extended|7|احتياطي معرفي|the brain's resilience to damage
+brain-derived neurotrophic factor|noun|C1|NAWL|neutral|mastery|7|عامل تغذية عصبية|a protein supporting brain cell growth
+neurogenesis|noun|C1|NAWL|neutral|extended|7|تكون عصبي|the creation of new brain cells
+synaptogenesis|noun|C1|NAWL|neutral|mastery|7|تكون تشابكي|the formation of new synaptic connections
+synaptic pruning|noun|C1|NAWL|neutral|extended|7|تقليم تشابكي|eliminating unused neural connections
+myelination|noun|C1|NAWL|neutral|extended|7|تغمد ميلين|coating nerve fibers for faster signals

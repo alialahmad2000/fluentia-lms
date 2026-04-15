@@ -1,0 +1,52 @@
+city-state|noun|C1|NAWL|neutral|core|1|دولة مدينة|an independent city governing itself
+empire|noun|C1|CEFR-J|neutral|core|1|إمبراطورية|a group of territories under one ruler
+vassal state|noun|C1|NAWL|neutral|extended|1|دولة تابعة|a state subordinate to another
+tributary system|noun|C1|NAWL|neutral|extended|1|نظام جزية|paying wealth to a dominant power
+feudal lord|noun|C1|CEFR-J|neutral|extended|1|سيد إقطاعي|a landowner in the feudal system
+serfdom|noun|C1|NAWL|neutral|extended|1|عبودية أرض|peasants bound to work the land
+indentured servitude|noun|C1|NAWL|neutral|mastery|1|خدمة بعقد|working for a set period to pay a debt
+corvée labor|noun|C2|NAWL|formal|mastery|1|سخرة|forced unpaid labor for the state
+agrarian society|noun|C1|AWL|neutral|core|1|مجتمع زراعي|a society based on farming
+pastoral society|noun|C1|NAWL|neutral|extended|1|مجتمع رعوي|a society based on herding animals
+nomadic lifestyle|noun|C1|CEFR-J|neutral|core|1|نمط حياة بدوي|moving from place to place for survival
+sedentary settlement|noun|C1|AWL|neutral|extended|1|مستوطنة مستقرة|a permanent community in one location
+urban planning|noun|C1|AWL|neutral|core|1|تخطيط حضري|designing the layout of a city
+public works|noun|C1|AWL|neutral|core|1|أشغال عامة|government-built infrastructure
+monumental architecture|noun|C1|NAWL|neutral|core|1|عمارة ضخمة|large impressive buildings
+sacred geometry|noun|C1|NAWL|neutral|mastery|1|هندسة مقدسة|geometric patterns in religious architecture
+bas-relief|noun|C1|NAWL|neutral|extended|1|نحت بارز|a sculpture slightly raised from a surface
+cuneiform|noun|C1|NAWL|neutral|core|1|كتابة مسمارية|an ancient writing system using wedge shapes
+hieratic script|noun|C1|NAWL|neutral|mastery|1|خط هيراطيقي|a simplified form of Egyptian hieroglyphs
+demotic script|noun|C1|NAWL|neutral|mastery|1|خط ديموطيقي|a late Egyptian writing system
+Rosetta Stone|noun|C1|NAWL|neutral|extended|1|حجر رشيد|a stone that helped decode hieroglyphs
+oral tradition|noun|C1|NAWL|neutral|core|1|تقليد شفهي|passing knowledge through spoken word
+epic poetry|noun|C1|CEFR-J|neutral|core|1|شعر ملحمي|long narrative poems about heroes
+creation myth|noun|C1|NAWL|neutral|extended|1|أسطورة خلق|a story explaining the origin of the world
+cosmogony|noun|C2|NAWL|formal|mastery|1|علم نشأة الكون|the study of the origin of the universe
+polytheism|noun|C1|NAWL|neutral|extended|1|تعدد آلهة|the worship of many gods
+monotheism|noun|C1|NAWL|neutral|extended|1|توحيد|the worship of one god
+divine right|noun|C1|NAWL|neutral|extended|1|حق إلهي|the belief that rulers are chosen by God
+theocracy|noun|C1|NAWL|neutral|extended|1|حكم ديني|government by religious leaders
+bureaucracy|noun|C1|AWL|neutral|core|1|بيروقراطية|a system of government officials
+census|noun|C1|AWL|neutral|core|1|تعداد سكاني|counting the population
+taxation system|noun|C1|AWL|neutral|core|1|نظام ضريبي|a method for collecting taxes
+granary|noun|C1|NAWL|neutral|extended|1|مخزن حبوب|a building for storing grain
+irrigation canal|noun|C1|NAWL|neutral|core|1|قناة ري|a waterway for farming
+qanat|noun|C1|NAWL|neutral|mastery|1|قناة|an underground water channel
+aqueduct|noun|C1|NAWL|neutral|extended|1|قناطر مياه|a channel carrying water over long distances
+terrace farming|noun|C1|NAWL|neutral|extended|1|زراعة مدرجات|farming on stepped hillsides
+slash-and-burn|noun|C1|NAWL|neutral|extended|1|قطع وحرق|clearing land by cutting and burning vegetation
+deforestation|noun|C1|AWL|neutral|core|1|إزالة غابات|cutting down forests on a large scale
+soil depletion|noun|C1|NAWL|neutral|extended|1|استنزاف تربة|the loss of nutrients in farmland
+salinization|noun|C1|NAWL|neutral|extended|1|تملح|salt accumulating in soil from irrigation
+carrying capacity|noun|C1|NAWL|neutral|extended|1|طاقة استيعابية|the maximum population an area can support
+population pressure|noun|C1|AWL|neutral|core|1|ضغط سكاني|demands from a growing population
+demographic transition|noun|C1|AWL|neutral|extended|1|تحول ديموغرافي|shifting from high to low birth and death rates
+migration wave|noun|C1|CEFR-J|neutral|core|1|موجة هجرة|a large movement of people
+cultural diffusion|noun|C1|AWL|neutral|core|1|انتشار ثقافي|the spread of ideas between societies
+trade route|noun|C1|CEFR-J|neutral|core|1|طريق تجاري|a path used for trading goods
+Silk Road|noun|C1|CEFR-J|neutral|core|1|طريق الحرير|the ancient trade route across Asia
+maritime trade|noun|C1|NAWL|neutral|core|1|تجارة بحرية|trading by sea
+barter system|noun|C1|NAWL|neutral|extended|1|نظام مقايضة|exchanging goods without money
+commodity money|noun|C1|NAWL|neutral|extended|1|نقد سلعي|using valuable goods as currency
+coinage|noun|C1|NAWL|neutral|extended|1|سك عملة|making metal coins for trade

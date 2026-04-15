@@ -1,0 +1,64 @@
+taxonomy|noun|C1|AWL|neutral|core|6|تصنيف أحيائي|the classification of living organisms
+phylogenetics|noun|C1|NAWL|neutral|extended|6|تطوريات عرقية|studying evolutionary relationships
+clade|noun|C1|NAWL|neutral|mastery|6|فرع تطوري|a group sharing a common ancestor
+taxon|noun|C1|NAWL|neutral|mastery|6|وحدة تصنيفية|a group of organisms in classification
+binomial nomenclature|noun|C1|NAWL|neutral|mastery|6|تسمية ثنائية|the two-part naming system for species
+genus|noun|C1|NAWL|neutral|extended|6|جنس أحيائي|a group of closely related species
+family|noun|C1|CEFR-J|neutral|core|6|عائلة أحيائية|a group of related genera
+order|noun|C1|CEFR-J|neutral|core|6|رتبة أحيائية|a group of related families
+class|noun|C1|CEFR-J|neutral|core|6|صف أحيائي|a group of related orders
+phylum|noun|C1|NAWL|neutral|extended|6|شعبة أحيائية|a major division of the animal kingdom
+kingdom|noun|C1|CEFR-J|neutral|core|6|مملكة أحيائية|the highest major grouping of organisms
+domain|noun|C1|AWL|neutral|extended|6|نطاق أحيائي|the highest level of biological classification
+vertebrate|noun|C1|CEFR-J|neutral|core|6|فقاري|an animal with a backbone
+invertebrate|noun|C1|CEFR-J|neutral|core|6|لافقاري|an animal without a backbone
+mammal|noun|B2|CEFR-J|neutral|core|6|ثديي|a warm-blooded animal nursing young
+reptile|noun|C1|CEFR-J|neutral|core|6|زاحف|a cold-blooded scaly animal
+amphibian|noun|C1|CEFR-J|neutral|core|6|برمائي|an animal living on land and in water
+arthropod|noun|C1|NAWL|neutral|extended|6|مفصلي|an animal with jointed legs
+mollusk|noun|C1|CEFR-J|neutral|extended|6|رخوي|a soft-bodied animal often with a shell
+crustacean|noun|C1|CEFR-J|neutral|extended|6|قشري|an arthropod with a hard shell
+arachnid|noun|C1|NAWL|neutral|extended|6|عنكبوتي|an eight-legged arthropod
+insect|noun|B2|CEFR-J|neutral|core|6|حشرة|a six-legged arthropod
+larva|noun|C1|CEFR-J|neutral|extended|6|يرقة|the immature form of an insect
+pupa|noun|C1|NAWL|neutral|mastery|6|خادرة|the resting stage before adult insect
+metamorphosis|noun|C1|NAWL|neutral|extended|6|تحول كامل|a dramatic change in body form
+chrysalis|noun|C1|CEFR-J|neutral|mastery|6|شرنقة|the pupal case of a butterfly
+cocoon|noun|C1|CEFR-J|neutral|extended|6|شرنقة حريرية|a silk covering for a pupa
+exoskeleton|noun|C1|NAWL|neutral|extended|6|هيكل خارجي|a hard outer covering of an animal
+endoskeleton|noun|C1|NAWL|neutral|mastery|6|هيكل داخلي|an internal skeleton
+fossil|noun|C1|CEFR-J|neutral|core|6|أحفورة|preserved remains of ancient organisms
+fossil record|noun|C1|NAWL|neutral|extended|6|سجل أحفوري|the history of life recorded in fossils
+paleontology|noun|C1|NAWL|neutral|extended|6|علم أحافير|the study of ancient life through fossils
+stratigraphy|noun|C1|NAWL|neutral|mastery|6|علم الطبقات الأرضية|studying rock layers to understand Earth's history
+geological time scale|noun|C1|NAWL|neutral|extended|6|مقياس زمن جيولوجي|the timeline of Earth's history
+Cambrian explosion|noun|C1|NAWL|neutral|mastery|6|انفجار كمبري|rapid evolution of complex animals
+Permian extinction|noun|C1|NAWL|neutral|mastery|6|انقراض بيرمي|the largest mass extinction event
+Cretaceous extinction|noun|C1|NAWL|neutral|extended|6|انقراض طباشيري|the extinction killing the dinosaurs
+biodiversity loss|noun|C1|AWL|neutral|core|6|فقدان تنوع حيوي|the decline in variety of life
+defaunation|noun|C2|NAWL|formal|mastery|6|تجريد حيواني|the loss of animal species from ecosystems
+insect decline|noun|C1|NAWL|neutral|core|6|انحدار حشرات|the decreasing number of insects
+pollinator decline|noun|C1|NAWL|neutral|core|6|انخفاض ملقحات|the loss of pollinating animals
+colony collapse disorder|noun|C1|NAWL|neutral|extended|6|انهيار خلايا نحل|sudden disappearance of bee colonies
+neonicotinoid|noun|C1|NAWL|neutral|mastery|6|مبيد نيونيكوتينويد|an insecticide harmful to bees
+pesticide drift|noun|C1|NAWL|neutral|mastery|6|انجراف مبيد|pesticides moving beyond target area
+bioaccumulation|noun|C1|NAWL|neutral|extended|6|تراكم حيوي|buildup of toxins in organisms
+biomagnification|noun|C1|NAWL|neutral|extended|6|تضخم حيوي|increasing toxin concentration up the food chain
+persistent organic pollutant|noun|C1|NAWL|neutral|mastery|6|ملوث عضوي ثابت|a long-lasting toxic chemical
+heavy metal contamination|noun|C1|NAWL|neutral|extended|6|تلوث معادن ثقيلة|pollution from toxic metals
+mercury poisoning|noun|C1|CEFR-J|neutral|extended|6|تسمم زئبقي|illness from mercury exposure
+lead contamination|noun|C1|CEFR-J|neutral|extended|6|تلوث رصاص|pollution from lead in the environment
+oil spill|noun|C1|CEFR-J|neutral|core|6|تسرب نفطي|accidental release of petroleum into water
+biosphere integrity|noun|C1|NAWL|neutral|mastery|6|سلامة غلاف حيوي|maintaining the health of Earth's living systems
+planetary health|noun|C1|NAWL|neutral|core|6|صحة كوكبية|the health of human civilization and natural systems
+One Health|noun|C1|NAWL|neutral|extended|6|صحة واحدة|connecting human animal and environmental health
+zoonotic disease|noun|C1|NAWL|neutral|core|6|مرض حيواني المصدر|disease transmitted from animals to humans
+pandemic|noun|C1|CEFR-J|neutral|core|6|جائحة|a worldwide outbreak of disease
+spillover event|noun|C1|NAWL|neutral|extended|6|حدث انتقال|a pathogen jumping from animal to human
+bushmeat trade|noun|C1|NAWL|neutral|mastery|6|تجارة لحوم برية|trading wild animal meat increasing disease risk
+wildlife trafficking|noun|C1|NAWL|neutral|core|6|تهريب حياة برية|illegal trade in wild animals
+habitat destruction|noun|C1|AWL|neutral|core|6|تدمير موطن|eliminating the natural home of species
+land use change|noun|C1|AWL|neutral|core|6|تغير استخدام أراض|converting land from one purpose to another
+urban sprawl|noun|C1|NAWL|neutral|core|6|زحف عمراني|uncontrolled expansion of urban areas
+light pollution|noun|C1|CEFR-J|neutral|extended|6|تلوث ضوئي|artificial light harming wildlife
+noise pollution|noun|C1|CEFR-J|neutral|extended|6|تلوث ضوضائي|harmful levels of sound

@@ -1,0 +1,60 @@
+microorganism|noun|C1|NAWL|neutral|core|6|كائن دقيق|a tiny living organism
+bacterium|noun|C1|CEFR-J|neutral|core|6|بكتيريا|a single-celled microorganism
+virus|noun|B2|CEFR-J|neutral|core|6|فيروس|an infectious agent requiring a host
+fungus|noun|C1|CEFR-J|neutral|core|6|فطر|a spore-producing organism
+protist|noun|C1|NAWL|neutral|extended|6|أولي|a eukaryotic microorganism
+archaea|noun|C1|NAWL|neutral|mastery|6|عتائق|single-celled organisms distinct from bacteria
+microbiome|noun|C1|NAWL|neutral|core|6|ميكروبيوم|the community of microorganisms in an environment
+soil microbiome|noun|C1|NAWL|neutral|extended|6|ميكروبيوم تربة|microorganisms living in soil
+gut microbiome|noun|C1|NAWL|neutral|extended|6|ميكروبيوم أمعاء|microorganisms living in the digestive system
+antibiotic resistance|noun|C1|NAWL|neutral|core|6|مقاومة مضادات حيوية|bacteria surviving antibiotic treatment
+superbug|noun|C1|CEFR-J|neutral|extended|6|بكتيريا خارقة|a bacterium resistant to many antibiotics
+horizontal gene transfer|noun|C1|NAWL|neutral|mastery|6|نقل جيني أفقي|genes transferred between unrelated organisms
+plasmid|noun|C1|NAWL|neutral|mastery|6|بلازميد|a small DNA molecule in bacteria
+conjugation|noun|C1|NAWL|neutral|mastery|6|اقتران بكتيري|bacteria exchanging genetic material
+selective pressure|noun|C1|AWL|neutral|extended|6|ضغط انتقائي|environmental factors favoring certain traits
+fitness|noun|C1|AWL|neutral|core|6|لياقة تطورية|an organism's ability to survive and reproduce
+allele frequency|noun|C1|NAWL|neutral|mastery|6|تردد أليلي|how common a gene variant is in a population
+genetic drift|noun|C1|NAWL|neutral|extended|6|انحراف وراثي|random changes in gene frequency
+bottleneck effect|noun|C1|NAWL|neutral|mastery|6|تأثير عنق زجاجة|population reduction reducing genetic diversity
+founder effect|noun|C1|NAWL|neutral|mastery|6|تأثير المؤسس|a small group starting a new population
+gene flow|noun|C1|NAWL|neutral|extended|6|تدفق جيني|movement of genes between populations
+reproductive isolation|noun|C1|NAWL|neutral|extended|6|عزل تكاثري|preventing interbreeding between populations
+geographic isolation|noun|C1|NAWL|neutral|extended|6|عزل جغرافي|physical barriers preventing gene flow
+allopatric speciation|noun|C1|NAWL|neutral|mastery|6|انتواع متباعد|new species from geographic separation
+sympatric speciation|noun|C1|NAWL|neutral|mastery|6|انتواع متعايش|new species without geographic separation
+hybrid zone|noun|C1|NAWL|neutral|mastery|6|منطقة تهجين|an area where different species interbreed
+introgression|noun|C2|NAWL|formal|mastery|6|تسلل جيني|gene flow between species through hybridization
+phylogeography|noun|C2|NAWL|formal|mastery|6|جغرافيا عرقية|studying geographic distribution of genetic lines
+molecular clock|noun|C1|NAWL|neutral|mastery|6|ساعة جزيئية|estimating time since species diverged
+common ancestor|noun|C1|NAWL|neutral|core|6|سلف مشترك|the shared ancestor of related species
+tree of life|noun|C1|CEFR-J|neutral|core|6|شجرة حياة|the evolutionary relationships of all organisms
+biodiversity monitoring|noun|C1|NAWL|neutral|core|6|مراقبة تنوع حيوي|tracking changes in species populations
+population census|noun|C1|AWL|neutral|extended|6|تعداد سكاني حيوي|counting individuals in a population
+abundance estimate|noun|C1|AWL|neutral|extended|6|تقدير وفرة|calculating how many of a species exist
+occupancy modeling|noun|C1|NAWL|neutral|mastery|6|نمذجة احتلال|estimating where species are found
+species distribution model|noun|C1|NAWL|neutral|mastery|6|نموذج توزع أنواع|predicting where species live
+remote monitoring|noun|C1|AWL|neutral|extended|6|مراقبة عن بعد|observing wildlife using technology
+acoustic monitoring|noun|C1|NAWL|neutral|extended|6|مراقبة صوتية|detecting animals by their sounds
+bioacoustics|noun|C1|NAWL|neutral|mastery|6|صوتيات حيوية|studying animal sounds
+telemetry|noun|C1|NAWL|neutral|extended|6|قياس عن بعد|tracking animals with electronic devices
+satellite tracking|noun|C1|CEFR-J|neutral|extended|6|تتبع أقمار صناعية|following animals using satellites
+GPS collar|noun|C1|CEFR-J|neutral|extended|6|طوق تحديد موقع|a device tracking animal movements
+drone survey|noun|C1|NAWL|neutral|extended|6|مسح طائرة مسيرة|using drones to count wildlife
+LiDAR|noun|C1|NAWL|neutral|mastery|6|ليدار|laser scanning for mapping terrain
+GIS mapping|noun|C1|NAWL|neutral|extended|6|رسم خرائط جغرافية|digital mapping of environmental data
+conservation genetics|noun|C1|NAWL|neutral|extended|6|وراثيات حفظ|using genetics to protect species
+population viability analysis|noun|C1|NAWL|neutral|mastery|6|تحليل جدوى سكانية|predicting a population's survival chances
+minimum viable population|noun|C1|NAWL|neutral|mastery|6|حد أدنى لسكان قابل للحياة|the smallest population that can survive
+effective population size|noun|C1|NAWL|neutral|mastery|6|حجم سكان فعال|the number of individuals contributing genes
+inbreeding depression|noun|C1|NAWL|neutral|mastery|6|اكتئاب زواج أقارب|reduced fitness from breeding among relatives
+outbreeding depression|noun|C1|NAWL|neutral|mastery|6|اكتئاب تهجين خارجي|reduced fitness from breeding distant populations
+genetic rescue|noun|C1|NAWL|neutral|mastery|6|إنقاذ وراثي|introducing genes to prevent extinction
+assisted migration|noun|C1|NAWL|neutral|mastery|6|هجرة مساعدة|moving species to more suitable habitats
+de-extinction|noun|C1|NAWL|neutral|mastery|6|إعادة إحياء|reviving an extinct species using technology
+surrogate species|noun|C1|NAWL|neutral|mastery|6|نوع بديل|a related species used in conservation
+translocation|noun|C1|AWL|neutral|extended|6|نقل حيوي|moving organisms to new locations
+head-starting|noun|C1|NAWL|neutral|mastery|6|تنشئة مبكرة|raising young animals before release
+soft release|noun|C1|NAWL|neutral|mastery|6|إطلاق تدريجي|gradually introducing animals to the wild
+hard release|noun|C1|NAWL|neutral|mastery|6|إطلاق مباشر|immediately releasing animals into the wild
+conservation triage|noun|C1|NAWL|neutral|mastery|6|فرز حفظ|prioritizing which species to protect

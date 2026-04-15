@@ -1,0 +1,84 @@
+literary criticism|noun|C1|AWL|neutral|core|9|نقد أدبي|the study and evaluation of literature
+formalism|noun|C1|AWL|neutral|extended|9|شكلانية|analyzing the structure of a text
+structuralism|noun|C1|AWL|neutral|extended|9|بنيوية|studying underlying structures in texts
+post-structuralism|noun|C1|AWL|neutral|mastery|9|ما بعد بنيوية|questioning fixed structures of meaning
+deconstruction|noun|C1|AWL|neutral|mastery|9|تفكيكية|revealing contradictions in texts
+reader-response|noun|C1|NAWL|neutral|mastery|9|استجابة قارئ|focusing on the reader's experience
+new historicism|noun|C1|NAWL|neutral|mastery|9|تاريخية جديدة|connecting texts to historical context
+feminist criticism|noun|C1|AWL|neutral|extended|9|نقد نسوي|analyzing gender in literature
+postcolonial criticism|noun|C1|AWL|neutral|extended|9|نقد ما بعد استعماري|analyzing effects of colonialism in texts
+ecocriticism|noun|C1|NAWL|neutral|mastery|9|نقد بيئي|analyzing nature in literature
+intertextuality|noun|C1|NAWL|neutral|extended|9|تناص|connections between different texts
+metatextuality|noun|C2|NAWL|formal|mastery|9|ميتا نصية|a text commenting on another text
+palimpsest|noun|C1|NAWL|neutral|mastery|9|نص متراكب أدبي|a text containing traces of earlier writing
+unreliable narrator|noun|C1|NAWL|neutral|extended|9|راوي غير موثوق|a narrator whose account cannot be trusted
+stream of consciousness|noun|C1|NAWL|neutral|extended|9|تيار وعي|a narrative mimicking thought flow
+magical realism|noun|C1|NAWL|neutral|extended|9|واقعية سحرية|realistic fiction with magical elements
+dystopia|noun|C1|CEFR-J|neutral|core|9|ديستوبيا|an imagined oppressive society
+utopia|noun|C1|CEFR-J|neutral|core|9|يوتوبيا|an imagined perfect society
+bildungsroman|noun|C2|NAWL|formal|mastery|9|رواية نمو|a novel about a character's moral growth
+picaresque|adjective|C2|NAWL|formal|mastery|9|رواية تشردية|relating to a story of a rogue's adventures
+epistolary|adjective|C1|NAWL|neutral|mastery|9|رسائلي|a novel written as a series of letters
+novella|noun|C1|CEFR-J|neutral|extended|9|رواية قصيرة|a short novel
+short story|noun|B2|CEFR-J|neutral|core|9|قصة قصيرة|a brief fictional narrative
+flash fiction|noun|C1|NAWL|neutral|extended|9|قصة خاطفة|an extremely short story
+prose|noun|C1|CEFR-J|neutral|core|9|نثر|written language in ordinary form
+verse|noun|C1|CEFR-J|neutral|core|9|شعر|writing arranged in lines with rhythm
+stanza|noun|C1|CEFR-J|neutral|core|9|مقطع شعري|a group of lines in a poem
+couplet|noun|C1|CEFR-J|neutral|extended|9|بيت شعري|two lines of verse
+quatrain|noun|C1|NAWL|neutral|extended|9|رباعية|a four-line stanza
+sonnet|noun|C1|CEFR-J|neutral|extended|9|سونيتة|a fourteen-line poem
+haiku|noun|C1|CEFR-J|neutral|extended|9|هايكو|a three-line Japanese poem
+free verse|noun|C1|CEFR-J|neutral|core|9|شعر حر|poetry without regular meter
+blank verse|noun|C1|CEFR-J|neutral|extended|9|شعر مرسل|unrhymed iambic pentameter
+meter|noun|C1|CEFR-J|neutral|core|9|بحر شعري|the rhythmic pattern in poetry
+iambic|adjective|C1|NAWL|neutral|mastery|9|تفعيلة خفيفة ثقيلة|a rhythmic pattern of unstressed-stressed syllables
+pentameter|noun|C1|NAWL|neutral|mastery|9|خماسي التفعيلة|a line with five metrical feet
+rhyme scheme|noun|C1|CEFR-J|neutral|core|9|نمط قافية|the pattern of rhymes in a poem
+alliteration|noun|C1|CEFR-J|neutral|core|9|جناس|repetition of initial sounds
+assonance|noun|C1|NAWL|neutral|extended|9|توافق صوتي|repetition of vowel sounds
+onomatopoeia|noun|C1|CEFR-J|neutral|extended|9|محاكاة صوتية|words imitating sounds
+simile|noun|C1|CEFR-J|neutral|core|9|تشبيه|comparing using like or as
+personification|noun|C1|CEFR-J|neutral|core|9|تشخيص|giving human qualities to non-human things
+hyperbole|noun|C1|CEFR-J|neutral|core|9|مبالغة|extreme exaggeration for effect
+understatement|noun|C1|CEFR-J|neutral|extended|9|تقليل|representing something as less than it is
+oxymoron|noun|C1|CEFR-J|neutral|extended|9|تناقض ظاهري|combining contradictory terms
+paradox|noun|C1|CEFR-J|neutral|core|9|مفارقة|a seemingly contradictory statement
+litotes|noun|C2|NAWL|formal|mastery|9|تلطيف|affirmation through double negation
+synecdoche|noun|C2|NAWL|formal|mastery|9|مجاز مرسل|using a part to represent the whole
+metonymy|noun|C1|NAWL|neutral|extended|9|كناية|substituting a related word for something
+anaphora|noun|C1|NAWL|neutral|mastery|9|تكرار بدائي|repeating words at the beginning of clauses
+enjambment|noun|C1|NAWL|neutral|mastery|9|تدفق شعري|continuing a sentence beyond the line break
+caesura|noun|C2|NAWL|formal|mastery|9|وقفة شعرية|a pause within a line of poetry
+volta|noun|C2|NAWL|formal|mastery|9|تحول شعري|the turn or shift in a sonnet
+denouement|noun|C1|NAWL|neutral|extended|9|حل العقدة|the resolution of a story
+climax|noun|C1|CEFR-J|neutral|core|9|ذروة|the most intense point of a story
+rising action|noun|C1|CEFR-J|neutral|core|9|تصاعد الأحداث|events building toward the climax
+falling action|noun|C1|CEFR-J|neutral|extended|9|تراجع الأحداث|events after the climax
+exposition|noun|C1|AWL|neutral|core|9|تمهيد قصصي|the introduction of background information
+foreshadowing|noun|C1|CEFR-J|neutral|extended|9|تلميح مبكر|hinting at future events in a story
+flashback|noun|C1|CEFR-J|neutral|core|9|استرجاع|a scene from the past inserted in the narrative
+in medias res|noun|C1|NAWL|neutral|mastery|9|وسط الأحداث|beginning a story in the middle of action
+deus ex machina|noun|C1|NAWL|neutral|mastery|9|حل مفاجئ|an unexpected resolution to a plot
+dramatic irony|noun|C1|CEFR-J|neutral|extended|9|مفارقة درامية|the audience knows what characters do not
+verbal irony|noun|C1|CEFR-J|neutral|extended|9|مفارقة لفظية|saying the opposite of what is meant
+situational irony|noun|C1|CEFR-J|neutral|extended|9|مفارقة ظرفية|events contrary to expectation
+tragic flaw|noun|C1|CEFR-J|neutral|extended|9|عيب مأساوي|a hero's fatal weakness
+hubris|noun|C1|NAWL|neutral|extended|9|غطرسة|excessive pride leading to downfall
+catharsis|noun|C1|NAWL|neutral|extended|9|تطهير عاطفي|emotional release through art
+poetic justice|noun|C1|CEFR-J|neutral|extended|9|عدالة شعرية|virtue rewarded and vice punished
+comic relief|noun|C1|CEFR-J|neutral|extended|9|استراحة كوميدية|humor easing tension in a serious work
+suspension of disbelief|noun|C1|NAWL|neutral|mastery|9|تعليق عدم تصديق|accepting unrealistic elements in fiction
+fourth wall|noun|C1|CEFR-J|neutral|extended|9|الجدار الرابع|the imaginary barrier between performers and audience
+breaking the fourth wall|noun|C1|NAWL|neutral|mastery|9|كسر الجدار الرابع|directly addressing the audience
+immersive theater|noun|C1|NAWL|neutral|mastery|9|مسرح غامر|theater where audience participates
+site-specific theater|noun|C1|NAWL|neutral|mastery|9|مسرح موقعي|theater performed in non-traditional spaces
+devised theater|noun|C1|NAWL|neutral|mastery|9|مسرح مبتكر|theater created collaboratively without a script
+verbatim theater|noun|C1|NAWL|neutral|mastery|9|مسرح حرفي|theater using real people's words
+documentary theater|noun|C1|NAWL|neutral|mastery|9|مسرح وثائقي|theater based on factual events
+physical theater|noun|C1|CEFR-J|neutral|extended|9|مسرح جسدي|theater emphasizing physical movement
+puppet theater|noun|C1|CEFR-J|neutral|extended|9|مسرح دمى|theater using puppets
+shadow theater|noun|C1|CEFR-J|neutral|extended|9|مسرح ظل|theater using shadows for storytelling
+mime|noun|C1|CEFR-J|neutral|extended|9|تمثيل صامت|acting without words
+clown|noun|C1|CEFR-J|neutral|extended|9|مهرج|a performer using comedy and physical humor
+acrobatics|noun|C1|CEFR-J|neutral|extended|9|بهلوانية|impressive physical feats in performance

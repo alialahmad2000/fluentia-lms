@@ -1,0 +1,89 @@
+communication|noun|B2|AWL|neutral|core|11|اتصال|the exchange of information between people
+media|noun|B2|AWL|neutral|core|11|إعلام|channels for mass communication
+journalism|noun|C1|CEFR-J|neutral|core|11|صحافة|the activity of gathering and reporting news
+broadcasting|noun|C1|CEFR-J|neutral|core|11|بث إعلامي|transmitting programs to a wide audience
+print media|noun|C1|CEFR-J|neutral|core|11|إعلام مطبوع|newspapers and magazines
+digital media|noun|C1|NAWL|neutral|core|11|إعلام رقمي|information transmitted electronically
+social media|noun|C1|CEFR-J|neutral|core|11|وسائل تواصل اجتماعي|online platforms for sharing content
+platform|noun|C1|AWL|neutral|core|11|منصة|a digital service enabling communication
+algorithm|noun|C1|NAWL|neutral|core|11|خوارزمية إعلامية|a process determining content visibility
+misinformation|noun|C1|NAWL|neutral|core|11|معلومات مضللة|false information spread unintentionally
+disinformation|noun|C1|NAWL|neutral|core|11|تضليل|deliberately false information
+fact-checking|noun|C1|NAWL|neutral|core|11|تحقق من الحقائق|verifying the accuracy of claims
+media literacy|noun|C1|NAWL|neutral|core|11|محو أمية إعلامية|the ability to critically evaluate media
+digital literacy|noun|C1|NAWL|neutral|core|11|محو أمية رقمية|the ability to use digital technology effectively
+information overload|noun|C1|NAWL|neutral|core|11|فائض معلومات|excessive information hindering decision-making
+echo chamber|noun|C1|NAWL|neutral|core|11|غرفة صدى|an environment reinforcing existing beliefs
+filter bubble|noun|C1|NAWL|neutral|core|11|فقاعة ترشيح|personalized information limiting exposure
+polarization|noun|C1|AWL|neutral|core|11|استقطاب|division into opposing groups
+radicalization|noun|C1|AWL|neutral|core|11|تطرف|the process of adopting extreme views
+extremism|noun|C1|AWL|neutral|core|11|تطرفية|holding extreme political or religious views
+terrorism|noun|C1|AWL|neutral|core|11|إرهاب|the use of violence for political aims
+counterterrorism|noun|C1|AWL|neutral|core|11|مكافحة إرهاب|actions taken to prevent terrorism
+peacekeeping|noun|C1|AWL|neutral|core|11|حفظ سلام|maintaining peace through international forces
+peacebuilding|noun|C1|AWL|neutral|core|11|بناء سلام|activities to prevent conflict
+conflict resolution|noun|C1|AWL|neutral|core|11|حل نزاعات|methods for settling disputes
+negotiation|noun|C1|AWL|neutral|core|11|مفاوضات|discussion aimed at reaching agreement
+compromise|noun|C1|AWL|neutral|core|11|تسوية|an agreement where each side concedes
+concession|noun|C1|AWL|neutral|core|11|تنازل|something given up in negotiation
+leverage|noun|C1|AWL|neutral|core|11|نفوذ|the power to influence a situation
+sanction|noun|C1|AWL|neutral|core|11|عقوبة دولية|a punitive measure against a country
+embargo|noun|C1|CEFR-J|neutral|core|11|حصار|an official ban on trade or communication
+blockade|noun|C1|CEFR-J|neutral|core|11|حصار عسكري|preventing the movement of goods
+ceasefire|noun|C1|CEFR-J|neutral|core|11|وقف إطلاق نار|a temporary suspension of fighting
+armistice|noun|C1|CEFR-J|neutral|core|11|هدنة|a formal agreement to stop fighting
+truce|noun|C1|CEFR-J|neutral|core|11|هدنة مؤقتة|a temporary ceasefire
+demilitarized zone|noun|C1|NAWL|neutral|core|11|منطقة منزوعة السلاح|an area where military forces are banned
+neutral zone|noun|C1|CEFR-J|neutral|extended|11|منطقة محايدة|a territory not belonging to either party
+buffer state|noun|C1|NAWL|neutral|extended|11|دولة حاجزة|a country between two rival powers
+proxy war|noun|C1|NAWL|neutral|extended|11|حرب بالوكالة|a conflict fought through substitutes
+asymmetric warfare|noun|C1|NAWL|neutral|extended|11|حرب غير متماثلة|conflict between unequal forces
+guerrilla warfare|noun|C1|CEFR-J|neutral|extended|11|حرب عصابات|irregular fighting by small groups
+insurgency|noun|C1|NAWL|neutral|extended|11|تمرد مسلح|a violent uprising against authority
+counterinsurgency|noun|C1|NAWL|neutral|extended|11|مكافحة تمرد|military action against insurgents
+civil war|noun|C1|CEFR-J|neutral|extended|11|حرب أهلية|a war between citizens of the same country
+failed state|noun|C1|NAWL|neutral|extended|11|دولة فاشلة|a state unable to maintain order
+state building|noun|C1|AWL|neutral|extended|11|بناء دولة|creating new governmental institutions
+nation building|noun|C1|AWL|neutral|extended|11|بناء أمة|developing a national identity
+capacity building|noun|C1|AWL|neutral|extended|11|بناء قدرات|developing abilities and resources
+institution building|noun|C1|AWL|neutral|extended|11|بناء مؤسسات|creating effective organizations
+governance reform|noun|C1|AWL|neutral|extended|11|إصلاح حكم|improving government systems
+anticorruption|noun|C1|AWL|neutral|extended|11|مكافحة فساد|efforts to prevent corrupt practices
+transparency initiative|noun|C1|AWL|neutral|extended|11|مبادرة شفافية|programs promoting openness
+accountability mechanism|noun|C1|AWL|neutral|extended|11|آلية مساءلة|systems ensuring responsible behavior
+rule of law|noun|C1|AWL|neutral|extended|11|سيادة القانون|the principle that law governs a nation
+due process|noun|C1|AWL|neutral|extended|11|إجراءات قانونية|fair treatment through the legal system
+habeas corpus|noun|C1|NAWL|neutral|extended|11|أمر إحضار|the right to challenge unlawful detention
+presumption of innocence|noun|C1|AWL|neutral|extended|11|قرينة البراءة|assuming innocence until proven guilty
+burden of proof|noun|C1|AWL|neutral|extended|11|عبء الإثبات|the obligation to prove an assertion
+judicial review|noun|C1|AWL|neutral|extended|11|مراجعة قضائية|courts reviewing government actions
+constitutional court|noun|C1|AWL|neutral|extended|11|محكمة دستورية|a court interpreting the constitution
+supreme court|noun|C1|AWL|neutral|extended|11|محكمة عليا|the highest court in a legal system
+international court|noun|C1|AWL|neutral|extended|11|محكمة دولية|a court judging disputes between nations
+tribunal|noun|C1|AWL|neutral|extended|11|محكمة خاصة|a court for specific matters
+ombudsman|noun|C1|NAWL|neutral|mastery|11|أمين مظالم|an official investigating complaints
+whistleblower|noun|C1|CEFR-J|neutral|mastery|11|مبلغ|a person reporting wrongdoing
+asylum seeker|noun|C1|CEFR-J|neutral|mastery|11|طالب لجوء|a person applying for international protection
+internally displaced|noun|C1|AWL|neutral|mastery|11|نازح داخلي|a person forced to move within their country
+refugee camp|noun|C1|CEFR-J|neutral|mastery|11|مخيم لاجئين|a settlement for displaced people
+humanitarian corridor|noun|C1|NAWL|neutral|mastery|11|ممر إنساني|a safe passage for aid delivery
+humanitarian aid|noun|C1|AWL|neutral|mastery|11|مساعدة إنسانية|assistance given to people in need
+development aid|noun|C1|AWL|neutral|mastery|11|مساعدة تنموية|assistance promoting economic development
+foreign aid|noun|C1|AWL|neutral|mastery|11|مساعدة خارجية|help given by one country to another
+conditionality|noun|C1|AWL|neutral|mastery|11|شروط مسبقة|conditions attached to aid
+tied aid|noun|C1|NAWL|neutral|mastery|11|مساعدة مشروطة|aid requiring spending in the donor country
+untied aid|noun|C1|NAWL|neutral|mastery|11|مساعدة غير مشروطة|aid with no spending restrictions
+bilateral aid|noun|C1|AWL|neutral|mastery|11|مساعدة ثنائية|aid from one country to another
+multilateral aid|noun|C1|AWL|neutral|mastery|11|مساعدة متعددة|aid channeled through international organizations
+NGO|noun|C1|CEFR-J|neutral|mastery|11|منظمة غير حكومية|a non-governmental organization
+INGO|noun|C1|NAWL|neutral|mastery|11|منظمة دولية غير حكومية|an international non-governmental organization
+think tank|noun|C1|NAWL|neutral|mastery|11|مركز أبحاث|an organization providing policy research
+lobby group|noun|C1|CEFR-J|neutral|mastery|11|جماعة ضغط|an organization seeking to influence policy
+advocacy group|noun|C1|AWL|neutral|mastery|11|مجموعة مناصرة|an organization promoting a cause
+civil disobedience|noun|C1|AWL|neutral|mastery|11|عصيان مدني|nonviolent resistance to government authority
+nonviolent resistance|noun|C1|AWL|neutral|mastery|11|مقاومة سلمية|opposing authority without using force
+sit-in|noun|C1|CEFR-J|neutral|mastery|11|اعتصام|a protest by occupying a place
+boycott|noun|C1|CEFR-J|neutral|mastery|11|مقاطعة|refusing to buy or participate as a protest
+strike|noun|C1|CEFR-J|neutral|mastery|11|إضراب|refusing to work as a protest
+demonstration|noun|C1|AWL|neutral|mastery|11|مظاهرة|a public protest or rally
+petition|noun|C1|CEFR-J|neutral|mastery|11|عريضة|a formal written request signed by many people

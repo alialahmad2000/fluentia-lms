@@ -1,0 +1,122 @@
+terrain|noun|C1|CEFR-J|neutral|core|4|تضاريس أرضية|a stretch of land with particular features
+altitude|noun|C1|CEFR-J|neutral|core|4|ارتفاع|the height above sea level
+latitude|noun|C1|CEFR-J|neutral|core|4|خط عرض|the distance north or south of the equator
+longitude|noun|C1|CEFR-J|neutral|core|4|خط طول|the distance east or west of the prime meridian
+equator|noun|B2|CEFR-J|neutral|core|4|خط الاستواء|the imaginary line around the earth's middle
+hemisphere|noun|C1|CEFR-J|neutral|core|4|نصف الكرة|one half of the earth
+polar|adjective|C1|CEFR-J|neutral|core|4|قطبي|relating to the north or south pole
+tropical|adjective|B2|CEFR-J|neutral|core|4|استوائي|relating to the region near the equator
+subtropical|adjective|C1|NAWL|neutral|core|4|شبه استوائي|relating to regions near the tropics
+temperate|adjective|C1|CEFR-J|neutral|core|4|معتدل|having a mild climate
+continental|adjective|C1|AWL|neutral|core|4|قاري|relating to the interior of a continent
+maritime|adjective|C1|CEFR-J|neutral|core|4|بحري|relating to the sea
+arid|adjective|C1|CEFR-J|neutral|core|4|قاحل|extremely dry with little rainfall
+semiarid|adjective|C1|NAWL|neutral|core|4|شبه قاحل|having relatively low rainfall
+humid|adjective|C1|CEFR-J|neutral|core|4|رطب|having high moisture in the air
+alpine|adjective|C1|CEFR-J|neutral|core|4|ألبي|relating to high mountain regions
+subalpine|adjective|C2|NAWL|formal|core|4|شبه ألبي|just below the alpine zone
+treeline|noun|C1|CEFR-J|neutral|core|4|خط الشجر|the altitude above which trees cannot grow
+snowline|noun|C1|CEFR-J|neutral|core|4|خط الثلج|the altitude above which snow remains year-round
+ice cap|noun|C1|CEFR-J|neutral|core|4|غطاء جليدي|a permanent covering of ice
+ice sheet|noun|C1|CEFR-J|neutral|core|4|صفيحة جليدية|a mass of glacial ice covering land
+iceberg|noun|B2|CEFR-J|neutral|core|4|جبل جليدي|a large mass of ice floating in the sea
+sea ice|noun|C1|CEFR-J|neutral|core|4|جليد بحري|frozen ocean water
+thaw|noun|C1|CEFR-J|neutral|core|4|ذوبان|the melting of ice and snow
+melt|verb|B2|CEFR-J|neutral|core|4|يذوب|to change from solid to liquid by heating
+freeze|verb|B2|CEFR-J|neutral|core|4|يتجمد|to change from liquid to solid by cooling
+evaporate|verb|C1|CEFR-J|neutral|core|4|يتبخر|to change from liquid to vapor
+condense|verb|C1|CEFR-J|neutral|core|4|يتكثف|to change from vapor to liquid
+sublimate|verb|C1|NAWL|neutral|core|4|يتسامى|to change directly from solid to gas
+transpiration|noun|C1|NAWL|neutral|core|4|نتح|the release of water vapor from plant leaves
+percolation|noun|C1|NAWL|neutral|core|4|ارتشاح|the filtering of water through soil
+infiltration|noun|C1|AWL|neutral|core|4|تسرب|the movement of water into soil
+saturation|noun|C1|AWL|neutral|core|4|إشباع|the state of being fully soaked
+absorption|noun|C1|AWL|neutral|core|4|امتصاص أرضي|the taking in of water by soil
+capillary|adjective|C1|NAWL|neutral|core|4|شعيري|relating to the movement of water in narrow spaces
+discharge|noun|C1|AWL|neutral|core|4|تصريف|the outflow of water from a source
+current|noun|C1|CEFR-J|neutral|core|4|تيار|a body of water or air moving in a direction
+tide|noun|B2|CEFR-J|neutral|core|4|مد وجزر|the regular rise and fall of sea level
+wave|noun|B2|CEFR-J|neutral|core|4|موجة|a moving ridge on the surface of water
+swell|noun|C1|CEFR-J|neutral|core|4|تموج|a large wave that does not break
+surf|noun|C1|CEFR-J|neutral|core|4|أمواج شاطئية|waves breaking on the shore
+breaker|noun|C1|CEFR-J|neutral|core|4|موجة كاسرة|a wave breaking into foam on the shore
+rip current|noun|C1|CEFR-J|neutral|core|4|تيار سحب|a strong narrow current flowing seaward
+undertow|noun|C1|CEFR-J|neutral|core|4|تيار سفلي|a current below the surface pulling away from shore
+gyre|noun|C2|NAWL|formal|core|4|دوامة محيطية|a large system of rotating ocean currents
+eddy|noun|C1|CEFR-J|neutral|core|4|دوامة|a circular current of water
+vortex|noun|C1|CEFR-J|neutral|core|4|إعصار دوامي|a spinning mass of fluid
+jet stream|noun|C1|CEFR-J|neutral|core|4|تيار نفاث|a fast-flowing air current in the upper atmosphere
+trade wind|noun|C1|CEFR-J|neutral|core|4|رياح تجارية|a prevailing wind blowing toward the equator
+westerly|noun|C1|CEFR-J|neutral|core|4|رياح غربية|a wind blowing from the west
+easterly|noun|C1|CEFR-J|neutral|core|4|رياح شرقية|a wind blowing from the east
+doldrums|noun|C1|CEFR-J|neutral|extended|4|منطقة الركود|a region of calm near the equator
+Coriolis|adjective|C2|NAWL|formal|extended|4|كوريوليس|the effect of earth's rotation on moving objects
+inversion|noun|C1|AWL|neutral|extended|4|انقلاب حراري|a reversal of normal temperature gradient
+front|noun|C1|CEFR-J|neutral|extended|4|جبهة جوية|the boundary between air masses
+occluded front|noun|C2|NAWL|formal|extended|4|جبهة محتبسة|a front formed when a cold front overtakes a warm one
+cold front|noun|C1|CEFR-J|neutral|extended|4|جبهة باردة|the leading edge of a cold air mass
+warm front|noun|C1|CEFR-J|neutral|extended|4|جبهة دافئة|the leading edge of a warm air mass
+stationary front|noun|C1|NAWL|neutral|extended|4|جبهة ثابتة|a boundary between air masses that barely moves
+anticyclone|noun|C1|NAWL|neutral|extended|4|مرتفع جوي|a weather system with high pressure
+depression|noun|C1|CEFR-J|neutral|extended|4|منخفض جوي|a weather system with low pressure
+squall|noun|C1|CEFR-J|neutral|extended|4|زوبعة|a sudden violent gust of wind
+gale|noun|C1|CEFR-J|neutral|extended|4|عاصفة شديدة|a very strong wind
+derecho|noun|C2|NAWL|formal|extended|4|عاصفة خطية|a widespread long-lived windstorm
+supercell|noun|C2|NAWL|formal|extended|4|خلية عاصفة خارقة|a severe thunderstorm with a rotating updraft
+microburst|noun|C2|NAWL|formal|extended|4|انفجار هوائي صغير|a sudden downdraft of air causing high winds
+downdraft|noun|C1|CEFR-J|neutral|extended|4|تيار هابط|a downward air current
+updraft|noun|C1|CEFR-J|neutral|extended|4|تيار صاعد|an upward air current
+convective|adjective|C1|NAWL|neutral|extended|4|حملي|relating to the movement of heated air
+orographic|adjective|C2|NAWL|formal|extended|4|تضاريسي|relating to mountains affecting weather
+rain shadow|noun|C1|CEFR-J|neutral|extended|4|ظل مطري|a dry area on the leeward side of mountains
+windward|adjective|C1|CEFR-J|neutral|extended|4|مواجه للريح|facing the direction from which wind blows
+leeward|adjective|C1|CEFR-J|neutral|extended|4|محمي من الريح|sheltered from the wind
+topsoil|noun|C1|CEFR-J|neutral|extended|4|تربة سطحية|the fertile upper layer of soil
+subsoil|noun|C1|CEFR-J|neutral|extended|4|تربة تحتية|the layer of soil beneath the topsoil
+regolith|noun|C2|NAWL|formal|extended|4|ثرى|loose rock and dust covering bedrock
+alluvium|noun|C2|NAWL|formal|extended|4|طمي نهري|sediment deposited by flowing water
+colluvium|noun|C2|NAWL|formal|extended|4|منحدرات|loose rock fragments on a slope
+tillite|noun|C2|NAWL|formal|extended|4|رسوب جليدي|rock formed from glacial deposits
+laterite|noun|C2|NAWL|formal|extended|4|لاتيريت|iron-rich soil in tropical regions
+podzol|noun|C2|NAWL|formal|extended|4|بودزول|acidic soil found in cool climates
+chernozem|noun|C2|NAWL|formal|extended|4|تربة سوداء|fertile black soil of grassland regions
+permafrost thaw|noun|C1|NAWL|neutral|extended|4|ذوبان الجليد الدائم|the melting of permanently frozen ground
+thermokarst|noun|C2|NAWL|formal|extended|4|حفر حرارية|land surface formed by thawing permafrost
+methane clathrate|noun|C2|NAWL|formal|extended|4|هيدرات الميثان|frozen methane in ocean sediments
+carbon budget|noun|C1|NAWL|neutral|extended|4|ميزانية كربون|the amount of CO2 that can be emitted
+emission target|noun|C1|AWL|neutral|extended|4|هدف انبعاثات|a goal for reducing greenhouse gas output
+Paris Agreement|noun|C1|NAWL|neutral|extended|4|اتفاقية باريس|the 2015 global climate treaty
+Kyoto Protocol|noun|C1|NAWL|neutral|extended|4|بروتوكول كيوتو|the 1997 emissions reduction treaty
+IPCC|noun|C1|NAWL|neutral|extended|4|هيئة المناخ الدولية|the UN panel on climate change
+climate model|noun|C1|NAWL|neutral|extended|4|نموذج مناخي|a mathematical simulation of the climate
+scenario|noun|C1|AWL|neutral|extended|4|سيناريو|a possible sequence of future events
+projection|noun|C1|AWL|neutral|extended|4|إسقاط|a forecast based on current trends
+baseline|noun|C1|AWL|neutral|extended|4|خط أساس|a starting point for comparisons
+anomaly|noun|C1|AWL|neutral|mastery|4|شذوذ مناخي|a deviation from the long-term average
+variability|noun|C1|AWL|neutral|mastery|4|تقلب مناخي|the degree of change in climate conditions
+oscillation|noun|C1|AWL|neutral|mastery|4|تذبذب مناخي|a regular fluctuation in climate patterns
+El Niño|noun|C1|CEFR-J|neutral|mastery|4|النينيو|warming of eastern Pacific Ocean waters
+La Niña|noun|C1|CEFR-J|neutral|mastery|4|لانينيا|cooling of eastern Pacific Ocean waters
+ENSO|noun|C2|NAWL|formal|mastery|4|إنسو|El Niño-Southern Oscillation climate pattern
+NAO|noun|C2|NAWL|formal|mastery|4|تذبذب شمال الأطلسي|the North Atlantic Oscillation
+PDO|noun|C2|NAWL|formal|mastery|4|تذبذب المحيط الهادئ|the Pacific Decadal Oscillation
+AMO|noun|C2|NAWL|formal|mastery|4|تذبذب الأطلسي|the Atlantic Multidecadal Oscillation
+teleconnection|noun|C2|NAWL|formal|mastery|4|ربط عن بعد|climate anomalies linked across distances
+forcing|noun|C1|NAWL|neutral|mastery|4|دافع مناخي|an influence changing Earth's energy balance
+sensitivity|noun|C1|AWL|neutral|mastery|4|حساسية مناخية|the response of climate to doubled CO2
+equilibrium climate|noun|C2|NAWL|formal|mastery|4|توازن مناخي|the steady state after forcing changes
+transient response|noun|C2|NAWL|formal|mastery|4|استجابة عابرة|the climate change during the forcing period
+committed warming|noun|C1|NAWL|neutral|mastery|4|احترار مؤكد|future warming locked in by past emissions
+overshoot|noun|C1|NAWL|neutral|mastery|4|تجاوز|exceeding a temperature target temporarily
+negative emissions|noun|C1|NAWL|neutral|mastery|4|انبعاثات سلبية|removing CO2 from the atmosphere
+direct air capture|noun|C1|NAWL|neutral|mastery|4|التقاط هواء مباشر|filtering CO2 directly from the air
+BECCS|noun|C2|NAWL|formal|mastery|4|بيكس|bioenergy with carbon capture and storage
+solar radiation management|noun|C2|NAWL|formal|mastery|4|إدارة إشعاع شمسي|reflecting sunlight to cool the earth
+stratospheric injection|noun|C2|NAWL|formal|mastery|4|حقن ستراتوسفيري|adding particles to reflect sunlight
+marine cloud brightening|noun|C2|NAWL|formal|mastery|4|تفتيح سحب بحرية|increasing cloud reflectivity over oceans
+ocean fertilization|noun|C1|NAWL|neutral|mastery|4|تخصيب محيطي|adding nutrients to increase ocean CO2 absorption
+enhanced weathering|noun|C1|NAWL|neutral|mastery|4|تجوية معززة|spreading minerals to absorb CO2
+biosequestration|noun|C2|NAWL|formal|mastery|4|احتجاز حيوي|using biological processes to store carbon
+afforestation|noun|C1|AWL|neutral|mastery|4|تحريج|planting trees on non-forest land
+blue carbon|noun|C1|NAWL|neutral|mastery|4|كربون أزرق|carbon stored in ocean and coastal ecosystems
+soil carbon|noun|C1|NAWL|neutral|mastery|4|كربون التربة|carbon stored in earth's soil

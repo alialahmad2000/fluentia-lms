@@ -1,0 +1,80 @@
+astronomy|noun|C1|CEFR-J|neutral|core|10|علم فلك|the scientific study of celestial objects
+telescope|noun|B2|CEFR-J|neutral|core|10|تلسكوب|an optical instrument for observing distant objects
+observatory|noun|C1|CEFR-J|neutral|core|10|مرصد|a building for astronomical observation
+planetarium|noun|C1|CEFR-J|neutral|core|10|قبة سماوية|a theater for projecting star images
+constellation|noun|C1|CEFR-J|neutral|core|10|كوكبة|a recognized pattern of stars
+galaxy|noun|C1|CEFR-J|neutral|core|10|مجرة|a system of millions of stars
+Milky Way|noun|C1|CEFR-J|neutral|core|10|درب التبانة|the galaxy containing our solar system
+solar system|noun|B2|CEFR-J|neutral|core|10|نظام شمسي|the sun and its orbiting planets
+planet|noun|B2|CEFR-J|neutral|core|10|كوكب|a celestial body orbiting a star
+moon|noun|B2|CEFR-J|neutral|core|10|قمر|a natural satellite of a planet
+asteroid|noun|C1|CEFR-J|neutral|core|10|كويكب|a small rocky body orbiting the sun
+comet|noun|C1|CEFR-J|neutral|core|10|مذنب|an icy body orbiting the sun
+meteor|noun|C1|CEFR-J|neutral|core|10|شهاب|a streak of light from a space particle
+meteorite|noun|C1|CEFR-J|neutral|core|10|نيزك|a space rock that reaches Earth's surface
+orbit|noun|C1|CEFR-J|neutral|core|10|مدار|the path of a body around another
+rotation|noun|C1|AWL|neutral|core|10|دوران|spinning on an axis
+revolution|noun|C1|AWL|neutral|core|10|دورة مدارية|one complete orbit around another body
+eclipse|noun|C1|CEFR-J|neutral|core|10|كسوف|the obscuring of one celestial body by another
+phase|noun|C1|AWL|neutral|core|10|طور|a stage in a cycle of changes
+retrograde|adjective|C1|NAWL|neutral|core|10|تراجعي|appearing to move backward
+exoplanet|noun|C1|NAWL|neutral|core|10|كوكب خارجي|a planet outside our solar system
+habitable zone|noun|C1|NAWL|neutral|core|10|منطقة صالحة للحياة|the distance from a star allowing liquid water
+transit method|noun|C1|NAWL|neutral|core|10|طريقة العبور|detecting planets by dimming starlight
+radial velocity|noun|C1|NAWL|neutral|core|10|سرعة شعاعية|detecting planets by stellar wobble
+direct imaging|noun|C1|NAWL|neutral|core|10|تصوير مباشر|photographing an exoplanet directly
+spectral analysis|noun|C1|NAWL|neutral|core|10|تحليل طيفي|studying the light spectrum of objects
+absorption line|noun|C1|NAWL|neutral|core|10|خط امتصاص|a dark line in a spectrum from absorbed light
+emission line|noun|C1|NAWL|neutral|core|10|خط إصدار|a bright line in a spectrum from emitted light
+blackbody|noun|C1|NAWL|neutral|core|10|جسم أسود|an idealized object absorbing all radiation
+Wien's law|noun|C2|NAWL|formal|core|10|قانون فين|relating peak wavelength to temperature
+Stefan-Boltzmann|noun|C2|NAWL|formal|core|10|ستيفان-بولتزمان|relating luminosity to temperature
+Hertzsprung-Russell|noun|C2|NAWL|formal|extended|10|هرتزشبرونغ-راسل|a diagram classifying stars
+main sequence|noun|C1|NAWL|neutral|extended|10|التسلسل الرئيسي|the band of stars fusing hydrogen
+red giant|noun|C1|CEFR-J|neutral|extended|10|عملاق أحمر|an evolved star with an expanded atmosphere
+blue giant|noun|C1|CEFR-J|neutral|extended|10|عملاق أزرق|a hot luminous massive star
+brown dwarf|noun|C1|NAWL|neutral|extended|10|قزم بني|a failed star too small for fusion
+variable star|noun|C1|NAWL|neutral|extended|10|نجم متغير|a star whose brightness changes
+Cepheid variable|noun|C2|NAWL|formal|extended|10|نجم قيفاوي|a pulsating star used to measure distances
+binary star|noun|C1|NAWL|neutral|extended|10|نجم ثنائي|two stars orbiting each other
+eclipsing binary|noun|C2|NAWL|formal|extended|10|ثنائي كسوفي|stars passing in front of each other
+spectroscopic binary|noun|C2|NAWL|formal|extended|10|ثنائي طيفي|stars detected by spectral shifts
+star cluster|noun|C1|CEFR-J|neutral|extended|10|عنقود نجمي|a group of stars bound by gravity
+globular cluster|noun|C1|NAWL|neutral|extended|10|عنقود كروي|a dense spherical group of old stars
+open cluster|noun|C1|NAWL|neutral|extended|10|عنقود مفتوح|a loose group of young stars
+planetary nebula|noun|C1|NAWL|neutral|extended|10|سديم كوكبي|gas expelled by a dying star
+emission nebula|noun|C1|NAWL|neutral|extended|10|سديم إصداري|a cloud of gas glowing from starlight
+reflection nebula|noun|C1|NAWL|neutral|extended|10|سديم انعكاسي|a cloud reflecting light from nearby stars
+dark nebula|noun|C1|NAWL|neutral|extended|10|سديم معتم|a cloud blocking light from behind
+molecular cloud|noun|C1|NAWL|neutral|extended|10|سحابة جزيئية|a dense gas cloud where stars form
+stellar nursery|noun|C1|CEFR-J|neutral|extended|10|حضانة نجمية|a region where new stars are born
+accretion|noun|C1|NAWL|neutral|extended|10|تراكم كوني|the gradual accumulation of matter
+solar wind|noun|C1|CEFR-J|neutral|extended|10|رياح شمسية|a stream of particles from the sun
+magnetosphere|noun|C1|NAWL|neutral|extended|10|غلاف مغناطيسي|the magnetic field surrounding a planet
+aurora|noun|C1|CEFR-J|neutral|extended|10|شفق قطبي|a natural light display near the poles
+sunspot|noun|C1|CEFR-J|neutral|extended|10|بقعة شمسية|a dark spot on the sun's surface
+solar flare|noun|C1|CEFR-J|neutral|extended|10|توهج شمسي|a sudden eruption of energy on the sun
+coronal mass ejection|noun|C2|NAWL|formal|extended|10|قذف كتلي إكليلي|a massive burst of solar plasma
+heliosphere|noun|C2|NAWL|formal|extended|10|غلاف شمسي|the region of space influenced by the sun
+Kuiper belt|noun|C1|NAWL|neutral|extended|10|حزام كايبر|a ring of icy bodies beyond Neptune
+Oort cloud|noun|C1|NAWL|neutral|extended|10|سحابة أورت|a distant sphere of icy objects
+zodiac|noun|C1|CEFR-J|neutral|mastery|10|دائرة البروج|the band of constellations along the ecliptic
+ecliptic|noun|C1|NAWL|neutral|mastery|10|مسار الشمس|the sun's apparent path across the sky
+equinox|noun|C1|CEFR-J|neutral|mastery|10|اعتدال|the day when day and night are equal
+solstice|noun|C1|CEFR-J|neutral|mastery|10|انقلاب شمسي|the longest or shortest day of the year
+precession|noun|C1|NAWL|neutral|mastery|10|مبادرة|the slow wobble of Earth's rotational axis
+nutation|noun|C2|NAWL|formal|mastery|10|ميلان|a periodic oscillation in Earth's axial tilt
+aberration|noun|C1|AWL|neutral|mastery|10|زيغ|the apparent shift of a star's position
+proper motion|noun|C1|NAWL|neutral|mastery|10|حركة ذاتية|a star's movement across the sky
+radial velocity|noun|C1|NAWL|neutral|mastery|10|سرعة خط البصر|a star's motion toward or away from us
+transverse velocity|noun|C2|NAWL|formal|mastery|10|سرعة عرضية|a star's motion across the line of sight
+standard candle|noun|C1|NAWL|neutral|mastery|10|شمعة معيارية|an object with known luminosity for distance measurement
+cosmic distance ladder|noun|C1|NAWL|neutral|mastery|10|سلم المسافات الكونية|a succession of distance measurement methods
+Hubble constant|noun|C1|NAWL|neutral|mastery|10|ثابت هابل|the rate of expansion of the universe
+cosmic expansion|noun|C1|NAWL|neutral|mastery|10|تمدد كوني|the increasing size of the universe
+dark flow|noun|C2|NAWL|formal|mastery|10|تدفق مظلم|the motion of galaxy clusters in one direction
+great attractor|noun|C2|NAWL|formal|mastery|10|الجاذب العظيم|a gravitational anomaly pulling galaxies
+cosmic web|noun|C1|NAWL|neutral|mastery|10|شبكة كونية|the large-scale structure of the universe
+filament|noun|C1|NAWL|neutral|mastery|10|خيط كوني|a thread-like structure of galaxies
+void|noun|C1|CEFR-J|neutral|mastery|10|فراغ كوني|a vast empty region between galaxy clusters
+supercluster|noun|C2|NAWL|formal|mastery|10|عنقود عملاق|a cluster of galaxy clusters

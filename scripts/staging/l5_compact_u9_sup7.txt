@@ -1,0 +1,51 @@
+artistic movement|noun|C1|AWL|neutral|core|9|حركة فنية|a group of artists sharing a style
+avant-garde|noun|C1|NAWL|neutral|core|9|طليعية|experimental and innovative art
+Dadaism|noun|C1|NAWL|neutral|extended|9|دادائية|an art movement rejecting logic and reason
+Surrealism|noun|C1|NAWL|neutral|core|9|سريالية|art exploring the unconscious mind
+Expressionism|noun|C1|NAWL|neutral|core|9|تعبيرية|art conveying emotional experience
+Impressionism|noun|C1|NAWL|neutral|core|9|انطباعية|art capturing light and atmosphere
+Post-Impressionism|noun|C1|NAWL|neutral|extended|9|ما بعد انطباعية|art moving beyond Impressionism
+Cubism|noun|C1|NAWL|neutral|extended|9|تكعيبية|art showing multiple perspectives at once
+Futurism|noun|C1|NAWL|neutral|extended|9|مستقبلية|art celebrating speed and technology
+Art Nouveau|noun|C1|NAWL|neutral|extended|9|فن جديد|a decorative style inspired by nature
+Art Deco|noun|C1|NAWL|neutral|extended|9|آرت ديكو|a geometric decorative style
+Bauhaus|noun|C1|NAWL|neutral|extended|9|باوهاوس|a school merging art and industrial design
+Abstract Expressionism|noun|C1|NAWL|neutral|extended|9|تعبيرية تجريدية|spontaneous abstract painting
+Pop Art|noun|C1|CEFR-J|neutral|core|9|فن شعبي|art drawn from popular culture
+street art|noun|C1|CEFR-J|neutral|core|9|فن شارع|art created in public spaces
+digital art|noun|C1|CEFR-J|neutral|core|9|فن رقمي|art created using digital technology
+generative art|noun|C1|NAWL|neutral|extended|9|فن توليدي|art created by autonomous systems
+interactive art|noun|C1|NAWL|neutral|extended|9|فن تفاعلي|art requiring viewer participation
+immersive experience|noun|C1|NAWL|neutral|core|9|تجربة غامرة|an environment fully engaging the senses
+virtual reality art|noun|C1|NAWL|neutral|extended|9|فن واقع افتراضي|art experienced through VR technology
+augmented reality art|noun|C1|NAWL|neutral|extended|9|فن واقع معزز|art overlaying digital content on reality
+sound art|noun|C1|NAWL|neutral|extended|9|فن صوتي|art using sound as its medium
+kinetic art|noun|C1|NAWL|neutral|extended|9|فن حركي|art that moves or appears to move
+light art|noun|C1|CEFR-J|neutral|extended|9|فن ضوئي|art using light as its primary medium
+textile art|noun|C1|CEFR-J|neutral|extended|9|فن نسيجي|art made from fabric and fiber
+ceramic art|noun|C1|CEFR-J|neutral|extended|9|فن خزفي|art made from clay
+glassblowing|noun|C1|CEFR-J|neutral|extended|9|نفخ زجاج|shaping glass by blowing air into it
+printmaking|noun|C1|NAWL|neutral|extended|9|فن طباعة|creating art through printing techniques
+lithography|noun|C1|NAWL|neutral|mastery|9|طباعة حجرية|printing from a flat stone or plate
+etching|noun|C1|NAWL|neutral|mastery|9|حفر فني|printing from an acid-treated plate
+woodcut|noun|C1|NAWL|neutral|mastery|9|حفر خشبي|printing from a carved wooden block
+calligraphy|noun|C1|CEFR-J|neutral|core|9|خط|the art of beautiful handwriting
+typography|noun|C1|NAWL|neutral|extended|9|طباعة حروفية|the art of arranging type
+graphic design|noun|C1|CEFR-J|neutral|core|9|تصميم جرافيكي|visual communication through design
+industrial design|noun|C1|AWL|neutral|extended|9|تصميم صناعي|designing manufactured products
+user experience design|noun|C1|AWL|neutral|core|9|تصميم تجربة مستخدم|designing products for ease of use
+design thinking|noun|C1|AWL|neutral|core|9|تفكير تصميمي|a creative problem-solving approach
+rapid prototyping|noun|C1|AWL|neutral|extended|9|نمذجة سريعة|quickly building a model to test ideas
+iteration|noun|C1|AWL|neutral|core|9|تكرار|repeating a process to improve
+critique|noun|C1|CEFR-J|neutral|core|9|نقد فني|a detailed evaluation of creative work
+art criticism|noun|C1|AWL|neutral|core|9|نقد فني مكتوب|written analysis of artwork
+art curation|noun|C1|NAWL|neutral|extended|9|تنسيق فني|selecting and organizing art exhibitions
+gallery opening|noun|C1|CEFR-J|neutral|extended|9|افتتاح معرض|a public event launching an exhibition
+art auction|noun|C1|CEFR-J|neutral|extended|9|مزاد فني|a sale where artworks are bid on
+art market|noun|C1|CEFR-J|neutral|core|9|سوق فني|the buying and selling of art
+provenance|noun|C1|NAWL|neutral|extended|9|مصدر عمل فني|the history of ownership of an artwork
+art forgery|noun|C1|NAWL|neutral|extended|9|تزوير فني|creating fake artworks for profit
+restoration|noun|C1|AWL|neutral|core|9|ترميم فني|repairing and preserving artworks
+conservation ethics|noun|C1|AWL|neutral|extended|9|أخلاقيات ترميم|principles for preserving artwork
+cultural repatriation|noun|C1|AWL|neutral|extended|9|إعادة قطع ثقافية|returning cultural artifacts to their origin
+looted art|noun|C1|NAWL|neutral|extended|9|فن منهوب|artwork stolen during conflict

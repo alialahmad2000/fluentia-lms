@@ -1,0 +1,49 @@
+sportsmanship|noun|C1|CEFR-J|neutral|core|2|روح رياضية عالية|ethical behavior and fair play in sports
+mental health|noun|C1|CEFR-J|neutral|core|2|صحة نفسية|psychological well-being
+sports psychology|noun|C1|NAWL|neutral|core|2|علم نفس رياضي|applying psychology to athletic performance
+cognitive load|noun|C1|NAWL|neutral|extended|2|حمل معرفي رياضي|mental demands during competition
+choking under pressure|noun|C1|NAWL|neutral|extended|2|اختناق تحت الضغط|failing to perform when stakes are high
+performance anxiety|noun|C1|CEFR-J|neutral|core|2|قلق أداء|nervousness affecting performance
+zone|noun|C1|CEFR-J|neutral|core|2|حالة تدفق رياضي|a state of optimal performance
+muscle memory|noun|C1|CEFR-J|neutral|core|2|ذاكرة عضلية|automatic physical responses from practice
+motor learning|noun|C1|NAWL|neutral|extended|2|تعلم حركي|the process of acquiring movement skills
+skill acquisition|noun|C1|AWL|neutral|extended|2|اكتساب مهارة|developing new physical abilities
+deliberate practice|noun|C1|NAWL|neutral|core|2|تمرين متعمد|focused practice for improvement
+overload principle|noun|C1|NAWL|neutral|extended|2|مبدأ زيادة الحمل|gradually increasing training demands
+progressive overload|noun|C1|NAWL|neutral|extended|2|حمل تصاعدي|systematically increasing exercise intensity
+specificity principle|noun|C1|NAWL|neutral|extended|2|مبدأ خصوصية|training specific to the desired outcome
+reversibility principle|noun|C1|NAWL|neutral|extended|2|مبدأ عكسية|losing fitness when training stops
+individual differences|noun|C1|AWL|neutral|extended|2|فروقات فردية|variation in response to training
+cross-training|noun|C1|CEFR-J|neutral|core|2|تدريب متنوع|using different activities for fitness
+circuit training|noun|C1|CEFR-J|neutral|extended|2|تدريب دائري|rotating through exercise stations
+HIIT|noun|C1|NAWL|neutral|core|2|تدريب فتري عالي الشدة|high-intensity interval training
+Tabata|noun|C1|NAWL|neutral|mastery|2|تاباتا|a specific high-intensity workout protocol
+Fartlek|noun|C1|NAWL|neutral|mastery|2|فارتلك|variable-speed running training
+tempo run|noun|C1|CEFR-J|neutral|extended|2|جري بإيقاع ثابت|running at a comfortably hard pace
+negative split|noun|C1|NAWL|neutral|mastery|2|تقسيم سلبي|running the second half faster
+pacing strategy|noun|C1|NAWL|neutral|extended|2|استراتيجية إيقاع|planning speed distribution in a race
+heat acclimatization|noun|C1|NAWL|neutral|mastery|2|تأقلم حرارة|adapting to exercise in hot conditions
+cold acclimatization|noun|C1|NAWL|neutral|mastery|2|تأقلم برودة|adapting to exercise in cold conditions
+wind chill|noun|C1|CEFR-J|neutral|mastery|2|تأثير رياح|the cooling effect of wind on the body
+heat index|noun|C1|CEFR-J|neutral|mastery|2|مؤشر حرارة|the combined effect of heat and humidity
+body composition|noun|C1|NAWL|neutral|core|2|تركيب جسمي|the ratio of fat to muscle and bone
+lean body mass|noun|C1|NAWL|neutral|extended|2|كتلة جسم نحيلة|body weight minus fat
+body mass index|noun|C1|NAWL|neutral|core|2|مؤشر كتلة جسم|weight relative to height
+skinfold measurement|noun|C1|NAWL|neutral|mastery|2|قياس ثنية جلد|measuring fat by pinching skin
+hydrostatic weighing|noun|C1|NAWL|neutral|mastery|2|وزن هيدروستاتيكي|measuring body fat underwater
+DEXA scan|noun|C1|NAWL|neutral|mastery|2|فحص كثافة عظام|measuring body composition with X-rays
+lactate threshold|noun|C1|NAWL|neutral|extended|2|عتبة لاكتات|the intensity where lactic acid builds up
+ventilatory threshold|noun|C1|NAWL|neutral|mastery|2|عتبة تنفسية|the intensity where breathing rate increases sharply
+respiratory exchange ratio|noun|C1|NAWL|neutral|mastery|2|نسبة تبادل تنفسي|the ratio of CO2 produced to O2 consumed
+graded exercise test|noun|C1|NAWL|neutral|mastery|2|اختبار جهد تصاعدي|a test increasing intensity to measure fitness
+Wingate test|noun|C1|NAWL|neutral|mastery|2|اختبار وينغيت|a test of anaerobic power
+Cooper test|noun|C1|NAWL|neutral|mastery|2|اختبار كوبر|a 12-minute running fitness test
+functional movement screen|noun|C1|NAWL|neutral|mastery|2|فحص حركة وظيفية|testing basic movement patterns
+range of motion|noun|C1|CEFR-J|neutral|extended|2|مدى حركة|the extent a joint can move
+joint stability|noun|C1|CEFR-J|neutral|extended|2|ثبات مفصل|the ability of a joint to resist displacement
+core stability|noun|C1|CEFR-J|neutral|core|2|ثبات جذع|the ability to control trunk position
+neuromuscular control|noun|C1|NAWL|neutral|extended|2|تحكم عصبي عضلي|the nervous system managing movement
+power output|noun|C1|NAWL|neutral|extended|2|إنتاج قدرة|the rate of doing work
+force production|noun|C1|NAWL|neutral|extended|2|إنتاج قوة|generating physical force
+peak power|noun|C1|NAWL|neutral|extended|2|قدرة ذروية|the maximum force generated
+rate of force development|noun|C1|NAWL|neutral|mastery|2|معدل تطور قوة|how quickly force is produced

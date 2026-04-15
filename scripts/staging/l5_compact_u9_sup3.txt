@@ -1,0 +1,104 @@
+creativity|noun|C1|AWL|neutral|core|9|إبداع|the ability to produce original ideas
+imagination|noun|B2|CEFR-J|neutral|core|9|خيال|the ability to form mental images
+inspiration|noun|C1|CEFR-J|neutral|core|9|إلهام|a sudden creative idea
+innovation|noun|C1|AWL|neutral|core|9|ابتكار|introducing something new
+originality|noun|C1|CEFR-J|neutral|core|9|أصالة|the quality of being new and unique
+genius|noun|C1|CEFR-J|neutral|core|9|عبقرية|exceptional intellectual ability
+prodigy|noun|C1|CEFR-J|neutral|core|9|نابغة|a person with exceptional talent at a young age
+virtuoso|noun|C1|CEFR-J|neutral|core|9|بارع|a person highly skilled in music or art
+savant|noun|C1|NAWL|neutral|extended|9|عالم بارع|a person with extraordinary knowledge
+polymath|noun|C1|NAWL|neutral|extended|9|موسوعي|a person with expertise in many subjects
+Renaissance man|noun|C1|CEFR-J|neutral|extended|9|رجل عصر النهضة|a person skilled in many areas
+autodidact|noun|C2|NAWL|formal|extended|9|عصامي|a self-taught person
+apprenticeship|noun|C1|CEFR-J|neutral|core|9|تلمذة|training under a skilled person
+mentorship|noun|C1|CEFR-J|neutral|core|9|إرشاد|guidance from an experienced person
+masterclass|noun|C1|CEFR-J|neutral|extended|9|درس متقدم|an advanced class by an expert
+workshop|noun|B2|CEFR-J|neutral|core|9|ورشة عمل|a practical training session
+atelier|noun|C1|NAWL|neutral|extended|9|مرسم|an artist's studio
+studio|noun|B2|CEFR-J|neutral|core|9|استوديو|a room for creating art
+commission|noun|C1|AWL|neutral|core|9|تكليف فني|a request to create a work of art
+patron|noun|C1|CEFR-J|neutral|core|9|راعي فنون|a person financially supporting art
+patronage|noun|C1|AWL|neutral|core|9|رعاية فنية|financial support for artists
+grant|noun|C1|AWL|neutral|core|9|منحة|money given for a specific purpose
+residency|noun|C1|CEFR-J|neutral|extended|9|إقامة فنية|a program for artists to create work
+fellowship|noun|C1|AWL|neutral|extended|9|زمالة فنية|financial support for study or research
+copyright|noun|C1|AWL|neutral|core|9|حقوق نشر|legal protection of creative work
+intellectual property|noun|C1|AWL|neutral|core|9|ملكية فكرية|legal rights to creative works
+royalty|noun|C1|CEFR-J|neutral|extended|9|حقوق مالية|payment for use of creative work
+plagiarism|noun|C1|AWL|neutral|core|9|سرقة أدبية|copying someone else's work as your own
+attribution|noun|C1|AWL|neutral|core|9|إسناد|crediting the creator of a work
+public domain|noun|C1|AWL|neutral|extended|9|ملك عام|creative work free from copyright
+creative commons|noun|C1|NAWL|neutral|extended|9|مشاع إبداعي|a licensing system for sharing work
+aesthetic|adjective|C1|AWL|neutral|core|9|جمالي|relating to beauty and art
+avant-garde|adjective|C1|NAWL|neutral|core|9|طليعي|new and experimental in art
+contemporary|adjective|C1|AWL|neutral|core|9|معاصر|belonging to the present time
+classical|adjective|B2|AWL|neutral|core|9|كلاسيكي|following traditional forms
+neoclassical|adjective|C1|NAWL|neutral|extended|9|كلاسيكي جديد|reviving classical styles
+Romantic|adjective|C1|CEFR-J|neutral|extended|9|رومانسي|emphasizing emotion and nature
+Impressionism|noun|C1|CEFR-J|neutral|extended|9|انطباعية|a style capturing light and color
+Expressionism|noun|C1|CEFR-J|neutral|extended|9|تعبيرية|a style expressing emotional experience
+Surrealism|noun|C1|CEFR-J|neutral|extended|9|سريالية|a style exploring the unconscious mind
+Cubism|noun|C1|CEFR-J|neutral|extended|9|تكعيبية|a style using geometric forms
+Abstract Expressionism|noun|C1|NAWL|neutral|mastery|9|تعبيرية تجريدية|a style emphasizing spontaneous painting
+Minimalism|noun|C1|NAWL|neutral|extended|9|حد أدنوية|a style using simple forms and colors
+Pop Art|noun|C1|CEFR-J|neutral|extended|9|فن شعبي|art based on popular culture
+Conceptual Art|noun|C1|NAWL|neutral|extended|9|فن مفاهيمي|art where the idea is more important
+performance art|noun|C1|NAWL|neutral|extended|9|فن أدائي|art presented through live action
+happening|noun|C1|CEFR-J|neutral|mastery|9|حدث فني|a spontaneous artistic event
+Fluxus|noun|C2|NAWL|formal|mastery|9|فلوكسس|an interdisciplinary art movement
+Dadaism|noun|C1|NAWL|neutral|mastery|9|دادائية|an anti-art movement rejecting convention
+Art Nouveau|noun|C1|NAWL|neutral|extended|9|فن جديد|a decorative style inspired by natural forms
+Art Deco|noun|C1|CEFR-J|neutral|extended|9|فن ديكو|a decorative style with geometric patterns
+Bauhaus|noun|C1|NAWL|neutral|extended|9|باوهاوس|a German school uniting art and design
+Arts and Crafts|noun|C1|CEFR-J|neutral|extended|9|فنون وحرف|a movement valuing handmade objects
+folk art|noun|C1|CEFR-J|neutral|core|9|فن شعبي تراثي|traditional art of ordinary people
+naive art|noun|C1|NAWL|neutral|mastery|9|فن ساذج|art by untrained artists
+outsider art|noun|C1|NAWL|neutral|mastery|9|فن خارجي|art created outside mainstream culture
+kitsch|noun|C1|CEFR-J|neutral|extended|9|فن مبتذل|art considered to be in poor taste
+camp|noun|C1|CEFR-J|neutral|mastery|9|فن مبالغ فيه|deliberately exaggerated art style
+pastiche|noun|C1|NAWL|neutral|mastery|9|محاكاة فنية|a work imitating the style of another
+parody|noun|C1|CEFR-J|neutral|core|9|محاكاة ساخرة|a humorous imitation of a work
+satire|noun|C1|CEFR-J|neutral|core|9|هجاء فني|using humor to criticize
+irony|noun|C1|CEFR-J|neutral|core|9|مفارقة|expressing meaning through opposite words
+metaphor|noun|C1|CEFR-J|neutral|core|9|استعارة|describing one thing as another
+allegory|noun|C1|AWL|neutral|extended|9|رمزية|a story with a hidden meaning
+symbolism|noun|C1|AWL|neutral|core|9|رمز|using symbols to represent ideas
+motif|noun|C1|AWL|neutral|core|9|فكرة متكررة|a recurring theme or element
+leitmotif|noun|C2|NAWL|formal|mastery|9|لحن متكرر|a recurring musical theme
+theme|noun|B2|AWL|neutral|core|9|موضوع فني|the central idea of a work
+narrative|noun|C1|AWL|neutral|core|9|سردية|the telling of a story
+protagonist|noun|C1|CEFR-J|neutral|core|9|بطل|the main character in a story
+antagonist|noun|C1|CEFR-J|neutral|core|9|خصم|the character opposing the protagonist
+anti-hero|noun|C1|CEFR-J|neutral|extended|9|بطل مضاد|a protagonist lacking heroic qualities
+archetype|noun|C1|AWL|neutral|core|9|نموذج أصلي|a universal symbolic character
+trope|noun|C1|NAWL|neutral|extended|9|مجاز فني|a commonly used theme or device
+cliché|noun|C1|CEFR-J|neutral|core|9|عبارة مبتذلة|an overused expression or idea
+subtext|noun|C1|NAWL|neutral|extended|9|نص ضمني|an underlying meaning in a work
+nuance|noun|C1|AWL|neutral|core|9|فارق دقيق|a subtle difference in meaning
+ambiguity|noun|C1|AWL|neutral|core|9|غموض|having more than one meaning
+juxtaposition|noun|C1|AWL|neutral|extended|9|تجاور|placing things side by side for contrast
+contrast|noun|B2|AWL|neutral|core|9|تباين|the difference between elements
+harmony|noun|C1|CEFR-J|neutral|core|9|تناغم|a pleasing combination of elements
+proportion|noun|C1|AWL|neutral|core|9|تناسب|the relationship between parts
+symmetry|noun|C1|AWL|neutral|core|9|تماثل|balance between opposite sides
+asymmetry|noun|C1|AWL|neutral|extended|9|عدم تماثل|lack of balance between sides
+rhythm|noun|C1|CEFR-J|neutral|core|9|إيقاع|a repeated pattern of movement or sound
+composition|noun|C1|AWL|neutral|core|9|تكوين فني|the arrangement of elements in a work
+perspective|noun|C1|AWL|neutral|core|9|منظور|a technique creating depth on a flat surface
+vanishing point|noun|C1|NAWL|neutral|extended|9|نقطة تلاشي|where parallel lines appear to meet
+chiaroscuro|noun|C2|NAWL|formal|mastery|9|تقنية الظل والنور|the use of light and dark in art
+trompe l'oeil|noun|C2|NAWL|formal|mastery|9|خداع بصري|art creating an illusion of reality
+sfumato|noun|C2|NAWL|formal|mastery|9|تدرج ضبابي|a soft blending technique in painting
+impasto|noun|C1|NAWL|neutral|mastery|9|طلاء سميك|thick application of paint
+glaze|noun|C1|CEFR-J|neutral|extended|9|طبقة شفافة|a thin transparent layer of paint
+underpainting|noun|C1|NAWL|neutral|mastery|9|طلاء تحتي|the first layer of paint
+palette|noun|C1|CEFR-J|neutral|core|9|لوحة ألوان|the range of colors used by an artist
+hue|noun|C1|CEFR-J|neutral|core|9|صبغة|the name of a color
+saturation|noun|C1|NAWL|neutral|extended|9|تشبع لوني|the intensity of a color
+value|noun|C1|CEFR-J|neutral|extended|9|قيمة لونية|the lightness or darkness of a color
+tint|noun|C1|CEFR-J|neutral|extended|9|لون فاتح|a color mixed with white
+shade|noun|C1|CEFR-J|neutral|extended|9|لون داكن|a color mixed with black
+tone|noun|C1|CEFR-J|neutral|core|9|درجة لون|a color modified by adding grey
+complementary colors|noun|C1|CEFR-J|neutral|extended|9|ألوان متكاملة|colors opposite on the color wheel
+warm colors|noun|C1|CEFR-J|neutral|extended|9|ألوان دافئة|colors suggesting warmth
+cool colors|noun|C1|CEFR-J|neutral|extended|9|ألوان باردة|colors suggesting coolness

@@ -1,0 +1,105 @@
+archaeology|noun|C1|CEFR-J|neutral|core|1|آثار|the study of human history through physical remains
+tomb|noun|C1|CEFR-J|neutral|core|1|قبر|a burial place for the dead
+burial|noun|C1|CEFR-J|neutral|core|1|دفن|the act of placing a body in the ground
+funerary|adjective|C1|NAWL|neutral|core|1|جنائزي|relating to funeral rites
+cremation|noun|C1|CEFR-J|neutral|core|1|حرق الجثث|burning a dead body to ashes
+pyre|noun|C1|CEFR-J|neutral|core|1|محرقة جنائزية|a heap of wood for burning a body
+cenotaph|noun|C2|NAWL|formal|core|1|نصب تذكاري|a monument to someone buried elsewhere
+stele|noun|C2|NAWL|formal|core|1|لوحة تذكارية|an upright stone slab with inscription
+petroglyph|noun|C2|NAWL|formal|core|1|نقش صخري|a carving on a rock surface
+pictograph|noun|C1|NAWL|neutral|core|1|صورة كتابية|a drawing representing an idea
+glyph|noun|C1|NAWL|neutral|core|1|رمز منقوش|a carved or painted symbol
+decipher|verb|C1|CEFR-J|neutral|core|1|يفك شفرة|to succeed in understanding unclear writing
+transliteration|noun|C1|NAWL|neutral|core|1|نقحرة|writing in the letters of a different alphabet
+linguistic|adjective|C1|AWL|neutral|core|1|لغوي|relating to language
+philology|noun|C1|NAWL|neutral|core|1|فقه اللغة|the study of language in historical texts
+paleography|noun|C2|NAWL|formal|core|1|علم الخطوط القديمة|the study of ancient handwriting
+epigraphy|noun|C2|NAWL|formal|core|1|علم النقوش|the study of inscriptions
+numismatics|noun|C2|NAWL|formal|core|1|علم المسكوكات|the study of coins and medals
+ceramic|adjective|C1|CEFR-J|neutral|core|1|خزفي|relating to pottery or similar material
+terracotta|noun|C1|CEFR-J|neutral|core|1|فخار مشوي|a type of brownish-red pottery
+bronze|noun|B2|CEFR-J|neutral|core|1|برونز|an alloy of copper and tin
+iron|noun|B2|CEFR-J|neutral|core|1|حديد|a strong metallic element
+copper|noun|B2|CEFR-J|neutral|core|1|نحاس|a reddish-brown metallic element
+tin|noun|C1|CEFR-J|neutral|core|1|قصدير|a silvery-white metallic element
+gold|noun|B2|CEFR-J|neutral|core|1|ذهب|a precious yellow metallic element
+silver|noun|B2|CEFR-J|neutral|core|1|فضة|a precious whitish metallic element
+jade|noun|C1|CEFR-J|neutral|core|1|يشم|a green ornamental stone
+obsidian|noun|C1|CEFR-J|neutral|core|1|حجر السبج|dark volcanic glass used for tools
+flint|noun|C1|CEFR-J|neutral|core|1|حجر صوان|a hard stone used for making fire and tools
+spearhead|noun|C1|CEFR-J|neutral|core|1|رأس رمح|the pointed tip of a spear
+arrowhead|noun|C1|CEFR-J|neutral|core|1|رأس سهم|the pointed tip of an arrow
+axe|noun|B2|CEFR-J|neutral|core|1|فأس|a tool for chopping wood
+chisel|noun|C1|CEFR-J|neutral|core|1|إزميل|a tool for carving stone or wood
+awl|noun|C1|CEFR-J|neutral|core|1|مخرز|a pointed tool for making holes
+spindle|noun|C1|CEFR-J|neutral|core|1|مغزل|a tool for spinning thread
+pestle|noun|C1|CEFR-J|neutral|core|1|مدقة|a tool for grinding substances in a mortar
+mortar|noun|C1|CEFR-J|neutral|core|1|هاون|a bowl for grinding with a pestle
+amphora|noun|C1|NAWL|neutral|extended|1|جرة|a two-handled vase for storing liquids
+chalice|noun|C1|CEFR-J|neutral|extended|1|كأس|a large drinking cup
+goblet|noun|C1|CEFR-J|neutral|extended|1|كوب|a drinking glass with a stem
+urn|noun|C1|CEFR-J|neutral|extended|1|جرن|a container for ashes or ceremonial use
+brazier|noun|C1|CEFR-J|neutral|extended|1|منقل|a portable device for burning charcoal
+crucible|noun|C1|CEFR-J|neutral|extended|1|بوتقة|a container for melting metals
+anvil|noun|C1|CEFR-J|neutral|extended|1|سندان|a heavy block for shaping metal
+bellows|noun|C1|CEFR-J|neutral|extended|1|منفاخ|a device for blowing air on a fire
+tanning|noun|C1|CEFR-J|neutral|extended|1|دباغة|converting raw hide into leather
+dyeing|noun|C1|CEFR-J|neutral|extended|1|صباغة|coloring materials with dye
+weaving|noun|C1|CEFR-J|neutral|extended|1|نسج|making cloth by interlacing threads
+embroidery|noun|C1|CEFR-J|neutral|extended|1|تطريز|decorating cloth with needlework
+glazing|noun|C1|CEFR-J|neutral|extended|1|تزجيج|applying a glassy coating to pottery
+tempering|noun|C1|NAWL|neutral|extended|1|تقسية|heating and cooling metal for hardness
+annealing|noun|C1|NAWL|neutral|extended|1|تلدين|heating metal to reduce hardness
+plating|noun|C1|CEFR-J|neutral|extended|1|طلاء معدني|covering one metal with another
+filigree|noun|C1|CEFR-J|neutral|extended|1|تشبيك|delicate ornamental work in metal
+inlay|noun|C1|CEFR-J|neutral|extended|1|ترصيع|decorating by embedding material in a surface
+relief|noun|C1|CEFR-J|neutral|extended|1|نحت بارز|sculpture where figures project from a background
+bas-relief|noun|C1|NAWL|neutral|extended|1|نحت منخفض|a slightly raised sculpted surface
+high relief|noun|C1|NAWL|neutral|extended|1|نحت عالي|a deeply raised sculpted surface
+lintel|noun|C1|CEFR-J|neutral|extended|1|عتبة علوية|a horizontal beam over a doorway
+keystone|noun|C1|CEFR-J|neutral|extended|1|حجر القنطرة|the central stone of an arch
+arch|noun|C1|CEFR-J|neutral|extended|1|قوس|a curved structure spanning an opening
+vault|noun|C1|CEFR-J|neutral|extended|1|قبو|an arched ceiling or roof
+dome|noun|C1|CEFR-J|neutral|extended|1|قبة|a rounded roof or ceiling
+minaret|noun|C1|CEFR-J|neutral|extended|1|مئذنة|a tower attached to a mosque
+pagoda|noun|C1|CEFR-J|neutral|extended|1|معبد|a many-tiered Asian tower
+pyramid|noun|B2|CEFR-J|neutral|extended|1|هرم|a monumental structure with a square base
+sphinx|noun|C1|CEFR-J|neutral|extended|1|أبو الهول|a mythical creature with a human head and lion body
+colossus|noun|C1|CEFR-J|neutral|extended|1|تمثال ضخم|a statue of enormous size
+monolithic|adjective|C1|CEFR-J|neutral|extended|1|صرحي|formed of a single large block
+cyclopean|adjective|C2|NAWL|formal|extended|1|عملاق|made of massive irregular stone blocks
+ashlar|noun|C2|NAWL|formal|extended|1|حجر مشذب|finely cut stone for building
+rubble|noun|C1|CEFR-J|neutral|extended|1|أنقاض|broken stone used in construction
+mortar|noun|C1|CEFR-J|neutral|extended|1|ملاط|a mixture for binding stones
+plaster|noun|C1|CEFR-J|neutral|extended|1|جص|a soft mixture for coating walls
+stucco|noun|C1|CEFR-J|neutral|extended|1|جص خارجي|plaster used for decorating exteriors
+thatch|noun|C1|CEFR-J|neutral|extended|1|قش|dried plant material used for roofing
+timber|noun|C1|CEFR-J|neutral|extended|1|خشب بناء|wood prepared for building
+wattle|noun|C1|CEFR-J|neutral|extended|1|أغصان منسوجة|interwoven sticks used for walls
+daub|noun|C1|CEFR-J|neutral|extended|1|طين تغطية|mud or clay spread on walls
+adobe|noun|C1|CEFR-J|neutral|extended|1|طوب لبن|sun-dried brick made from clay
+mudbrick|noun|C1|CEFR-J|neutral|extended|1|لبنة|a building block made of dried mud
+kiln-fired|adjective|C1|CEFR-J|neutral|mastery|1|مشوي بالفرن|baked in a kiln for hardness
+potsherd|noun|C2|NAWL|formal|mastery|1|شقفة|a broken piece of pottery
+midden|noun|C2|NAWL|formal|mastery|1|تل نفايات|an ancient refuse heap
+stratum|noun|C1|AWL|neutral|mastery|1|طبقة أثرية|a layer of archaeological material
+excavate|verb|C1|CEFR-J|neutral|mastery|1|ينقب|to dig out and remove earth
+survey|noun|C1|AWL|neutral|mastery|1|مسح أثري|a systematic examination of an area
+grid|noun|C1|CEFR-J|neutral|mastery|1|شبكة أثرية|a system of squares for recording finds
+trench|noun|C1|CEFR-J|neutral|mastery|1|خندق حفر|a narrow dug area for archaeological work
+sieve|noun|C1|CEFR-J|neutral|mastery|1|غربال|a mesh for separating fine material
+trowel|noun|C1|CEFR-J|neutral|mastery|1|مجرفة|a small tool for digging
+carbon dating|noun|C1|NAWL|neutral|mastery|1|تأريخ كربوني|determining age using radioactive carbon
+dendrochronology|noun|C2|NAWL|formal|mastery|1|تأريخ حلقات الشجر|dating using tree ring patterns
+thermoluminescence|noun|C2|NAWL|formal|mastery|1|وميض حراري|dating ceramics by measuring light emission
+potassium-argon|noun|C2|NAWL|formal|mastery|1|بوتاسيوم-أرغون|dating volcanic rocks by gas analysis
+stratigraphy|noun|C1|NAWL|neutral|mastery|1|تطبق أثري|the study of archaeological layers
+seriation|noun|C2|NAWL|formal|mastery|1|تسلسل نمطي|arranging artifacts in chronological order
+typology|noun|C1|AWL|neutral|mastery|1|تصنيف نمطي|classifying objects by shared characteristics
+context|noun|C1|AWL|neutral|mastery|1|سياق أثري|the position and associations of an artifact
+assemblage|noun|C1|CEFR-J|neutral|mastery|1|مجموعة أثرية|a group of artifacts found together
+hoard|noun|C1|CEFR-J|neutral|mastery|1|كنز مدفون|a hidden store of valuables
+cache|noun|C1|CEFR-J|neutral|mastery|1|مخبأ|a hidden collection of objects
+votive|adjective|C2|NAWL|formal|mastery|1|نذري|offered as a fulfillment of a vow
+amulet|noun|C1|CEFR-J|neutral|mastery|1|تعويذة|an object worn for protection
+talisman|noun|C1|CEFR-J|neutral|mastery|1|طلسم|an object believed to have magical power

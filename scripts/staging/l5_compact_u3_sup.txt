@@ -1,0 +1,127 @@
+phenomenon|noun|C1|AWL|neutral|core|3|ظاهرة|an observable fact or event
+observation|noun|B2|AWL|neutral|core|3|ملاحظة|the act of closely watching something
+experiment|noun|B2|CEFR-J|neutral|core|3|تجربة|a scientific procedure to test a hypothesis
+laboratory|noun|B2|CEFR-J|neutral|core|3|مختبر|a room equipped for scientific experiments
+apparatus|noun|C1|CEFR-J|neutral|core|3|جهاز|equipment used for scientific experiments
+instrument|noun|B2|CEFR-J|neutral|core|3|أداة|a tool used for precise measurement
+microscope|noun|B2|CEFR-J|neutral|core|3|مجهر|an instrument for viewing tiny objects
+spectrometer|noun|C1|NAWL|neutral|core|3|مطياف|an instrument for measuring light spectra
+oscilloscope|noun|C2|NAWL|formal|core|3|راسم ذبذبات|an instrument displaying electrical signals
+centrifuge|noun|C1|NAWL|neutral|core|3|طرد مركزي|a machine spinning substances to separate them
+reagent|noun|C1|NAWL|neutral|core|3|كاشف|a substance used in a chemical reaction
+catalyst|noun|C1|AWL|neutral|core|3|محفز|a substance that speeds up a chemical reaction
+solvent|noun|C1|CEFR-J|neutral|core|3|مذيب|a liquid able to dissolve other substances
+solute|noun|C1|NAWL|neutral|core|3|مذاب|a substance dissolved in a solvent
+precipitate|noun|C1|AWL|neutral|core|3|راسب|a solid formed in a liquid during a reaction
+titration|noun|C2|NAWL|formal|core|3|معايرة كيميائية|adding a reagent to determine concentration
+distillation|noun|C1|CEFR-J|neutral|core|3|تقطير|purifying a liquid by heating and cooling
+chromatography|noun|C2|NAWL|formal|core|3|كروماتوغرافيا|separating mixtures for analysis
+electrophoresis|noun|C2|NAWL|formal|core|3|رحلان كهربائي|separating molecules by electric field
+spectroscopy|noun|C1|NAWL|neutral|core|3|تحليل طيفي|the study of interaction between matter and light
+calorimetry|noun|C2|NAWL|formal|core|3|قياس حرارة|measuring the heat of chemical reactions
+gravimetry|noun|C2|NAWL|formal|core|3|قياس ثقالي|measuring quantities by weight
+interferometry|noun|C2|NAWL|formal|core|3|تداخل قياسي|measurement using wave interference
+fluorescence|noun|C1|NAWL|neutral|core|3|فلورة|the emission of light by a substance
+luminescence|noun|C1|NAWL|neutral|core|3|تألق|the emission of light without heat
+absorption|noun|C1|AWL|neutral|core|3|امتصاص|taking in energy or a substance
+refraction|noun|C1|CEFR-J|neutral|core|3|انكسار ضوئي|the bending of light through a medium
+diffusion|noun|C1|AWL|neutral|core|3|انتشار|the spreading of particles in a medium
+osmosis|noun|C1|CEFR-J|neutral|core|3|تناضح|the passage of water through a membrane
+entropy|noun|C1|NAWL|neutral|core|3|إنتروبيا|a measure of disorder in a system
+equilibrium|noun|C1|AWL|neutral|core|3|توازن كيميائي|a state of balance in a system
+thermodynamics|noun|C1|NAWL|neutral|core|3|ديناميكا حرارية|the study of heat and energy transfer
+kinetics|noun|C1|NAWL|neutral|core|3|حركيات|the study of rates of chemical reactions
+stoichiometry|noun|C2|NAWL|formal|core|3|قياس التفاعل|the calculation of chemical reaction quantities
+isomer|noun|C1|NAWL|neutral|core|3|متزامر|a molecule with same formula but different structure
+polymer|noun|C1|CEFR-J|neutral|core|3|بوليمر|a substance made of repeating molecular units
+monomer|noun|C1|NAWL|neutral|core|3|مونومر|a molecule that can bond to form a polymer
+enzyme|noun|C1|CEFR-J|neutral|core|3|إنزيم|a biological catalyst speeding reactions
+substrate|noun|C1|AWL|neutral|core|3|ركيزة|the substance acted upon by an enzyme
+protein|noun|B2|CEFR-J|neutral|core|3|بروتين|a large molecule essential for body function
+nucleotide|noun|C1|NAWL|neutral|core|3|نوكليوتيد|a building block of DNA and RNA
+genome|noun|C1|NAWL|neutral|core|3|مجين|the complete set of genetic material
+chromosome|noun|C1|CEFR-J|neutral|core|3|صبغي|a structure carrying genetic information
+allele|noun|C1|NAWL|neutral|core|3|أليل|a variant form of a gene
+phenotype|noun|C1|NAWL|neutral|core|3|مظهر وراثي|the observable characteristics of an organism
+genotype|noun|C1|NAWL|neutral|core|3|تركيب وراثي|the genetic makeup of an organism
+mutation|noun|C1|AWL|neutral|core|3|طفرة وراثية|a permanent change in DNA sequence
+transcription|noun|C1|AWL|neutral|core|3|نسخ|copying DNA into RNA
+translation|noun|C1|AWL|neutral|core|3|ترجمة وراثية|converting RNA into protein
+mitosis|noun|C1|NAWL|neutral|extended|3|انقسام متساوي|cell division producing identical cells
+meiosis|noun|C1|NAWL|neutral|extended|3|انقسام اختزالي|cell division producing reproductive cells
+apoptosis|noun|C2|NAWL|formal|extended|3|موت خلوي|programmed cell death
+homeostasis|noun|C1|NAWL|neutral|extended|3|توازن حيوي|maintaining stable internal conditions
+phototropism|noun|C2|NAWL|formal|extended|3|انتحاء ضوئي|plant growth toward light
+geotropism|noun|C2|NAWL|formal|extended|3|انتحاء أرضي|plant growth in response to gravity
+taxonomy|noun|C1|AWL|neutral|extended|3|علم التصنيف|the classification of organisms
+phylogenetics|noun|C2|NAWL|formal|extended|3|تصنيف تطوري|the study of evolutionary relationships
+cladistics|noun|C2|NAWL|formal|extended|3|علم التفرع|a method of classifying organisms by ancestry
+biostatistics|noun|C1|NAWL|neutral|extended|3|إحصاء حيوي|statistics applied to biological data
+bioinformatics|noun|C1|NAWL|neutral|extended|3|معلوماتية حيوية|computing applied to biological data
+epidemiology|noun|C1|NAWL|neutral|extended|3|وبائيات|the study of disease distribution
+etiology|noun|C1|NAWL|neutral|extended|3|علم الأسباب|the study of disease causes
+pathology|noun|C1|NAWL|neutral|extended|3|علم الأمراض|the study of disease mechanisms
+prognosis|noun|C1|CEFR-J|neutral|extended|3|توقع مرضي|the likely course of a disease
+diagnosis|noun|C1|CEFR-J|neutral|extended|3|تشخيص|the identification of a disease
+symptom|noun|B2|CEFR-J|neutral|extended|3|عرض|a sign of a disease or condition
+syndrome|noun|C1|CEFR-J|neutral|extended|3|متلازمة|a group of symptoms occurring together
+aetiology|noun|C1|NAWL|neutral|extended|3|مسببات|the cause or origin of a disease
+prophylaxis|noun|C2|NAWL|formal|extended|3|وقاية|action taken to prevent disease
+immunization|noun|C1|CEFR-J|neutral|extended|3|تحصين|protection against disease through vaccination
+antibody|noun|C1|CEFR-J|neutral|extended|3|جسم مضاد|a protein produced by the immune system
+antigen|noun|C1|NAWL|neutral|extended|3|مستضد|a substance triggering an immune response
+pathogen|noun|C1|NAWL|neutral|extended|3|ممرض|an organism causing disease
+virulence|noun|C1|NAWL|neutral|extended|3|ضراوة|the severity of a pathogen
+contagion|noun|C1|CEFR-J|neutral|extended|3|عدوى|the spread of disease by contact
+vector|noun|C1|AWL|neutral|extended|3|حامل مرض|an organism transmitting disease
+reservoir|noun|C1|CEFR-J|neutral|extended|3|خزان وبائي|a host harboring a pathogen
+incubation|noun|C1|CEFR-J|neutral|extended|3|حضانة|the period before symptoms appear
+quarantine|noun|C1|CEFR-J|neutral|extended|3|حجر صحي|isolation to prevent disease spread
+asymptomatic|adjective|C1|NAWL|neutral|extended|3|بلا أعراض|showing no symptoms of disease
+comorbidity|noun|C1|NAWL|neutral|extended|3|أمراض مصاحبة|the presence of multiple diseases
+prevalence|noun|C1|AWL|neutral|extended|3|انتشار|the proportion of cases in a population
+incidence|noun|C1|AWL|neutral|extended|3|حدوث|the rate of new cases of a disease
+mortality|noun|C1|AWL|neutral|extended|3|وفيات|the rate of death in a population
+morbidity|noun|C1|NAWL|neutral|extended|3|مراضة|the rate of disease in a population
+endemic|adjective|C1|NAWL|neutral|extended|3|مستوطن|regularly found in a particular area
+pandemic|adjective|C1|NAWL|neutral|extended|3|وبائي عالمي|a disease spread across the world
+zoonotic|adjective|C2|NAWL|formal|extended|3|حيواني المنشأ|transmitted from animals to humans
+nosocomial|adjective|C2|NAWL|formal|extended|3|مستشفائي|originating in a hospital
+iatrogenic|adjective|C2|NAWL|formal|extended|3|طبي المنشأ|caused by medical treatment
+empirical|adjective|C1|AWL|neutral|mastery|3|قائم على التجربة|based on direct observation
+theoretical|adjective|C1|AWL|neutral|mastery|3|نظري|based on theory rather than practice
+qualitative|adjective|C1|AWL|neutral|mastery|3|نوعي|relating to the nature rather than amount
+quantitative|adjective|C1|AWL|neutral|mastery|3|كمي|relating to measurement of quantity
+descriptive|adjective|C1|AWL|neutral|mastery|3|وصفي|concerned with describing rather than explaining
+explanatory|adjective|C1|AWL|neutral|mastery|3|تفسيري|serving to explain something
+predictive|adjective|C1|AWL|neutral|mastery|3|تنبؤي|relating to making predictions
+retrospective|adjective|C1|AWL|neutral|mastery|3|استرجاعي|looking back at past events
+prospective|adjective|C1|AWL|neutral|mastery|3|استشرافي|looking forward to future events
+observational|adjective|C1|AWL|neutral|mastery|3|رصدي|based on watching rather than experimenting
+interventional|adjective|C1|NAWL|neutral|mastery|3|تدخلي|involving active treatment or change
+correlational|adjective|C1|AWL|neutral|mastery|3|ارتباطي|examining relationships between variables
+experimental|adjective|C1|AWL|neutral|mastery|3|تجريبي بحت|relating to scientific experiments
+quasi-experimental|adjective|C1|AWL|neutral|mastery|3|شبه تجريبي|resembling but not fully controlled
+naturalistic|adjective|C1|NAWL|neutral|mastery|3|طبيعاني|studying subjects in natural settings
+ethnographic|adjective|C1|NAWL|neutral|mastery|3|إثنوغرافي|studying cultures through observation
+phenomenological|adjective|C2|NAWL|formal|mastery|3|ظاهراتي|studying consciousness and experience
+grounded theory|noun|C1|NAWL|neutral|mastery|3|نظرية مؤسسة|theory developed from systematic data analysis
+case study|noun|C1|AWL|neutral|mastery|3|دراسة حالة|detailed analysis of a single instance
+cohort study|noun|C1|NAWL|neutral|mastery|3|دراسة أترابية|following a group over time
+clinical trial|noun|C1|NAWL|neutral|mastery|3|تجربة سريرية|a study testing a medical treatment
+randomized|adjective|C1|AWL|neutral|mastery|3|عشوائي|assigned by chance
+stratified|adjective|C1|AWL|neutral|mastery|3|طبقي|divided into distinct groups
+longitudinal|adjective|C1|AWL|neutral|mastery|3|زمني طولي|conducted over a long period of time
+attrition|noun|C1|AWL|neutral|mastery|3|تسرب|the loss of participants from a study
+confound|verb|C1|AWL|neutral|mastery|3|يُشوش|to introduce a confusing variable
+covariate|noun|C2|NAWL|formal|mastery|3|متغير مشترك|a variable that may affect the outcome
+multivariate|adjective|C1|AWL|neutral|mastery|3|متعدد المتغيرات|involving multiple dependent variables
+univariate|adjective|C1|AWL|neutral|mastery|3|أحادي المتغير|involving a single variable
+parametric|adjective|C1|NAWL|neutral|mastery|3|معلمي|based on assumptions about data distribution
+nonparametric|adjective|C1|NAWL|neutral|mastery|3|لامعلمي|not assuming data distribution
+robust|adjective|C1|AWL|neutral|mastery|3|متين|strong and unlikely to fail
+artifact|noun|C1|CEFR-J|neutral|mastery|3|خطأ منهجي|an error introduced by the research method
+replicability|noun|C2|NAWL|formal|mastery|3|إمكانية التكرار|the ability to reproduce a study
+statistical power|noun|C1|NAWL|neutral|mastery|3|قوة إحصائية|the probability of detecting a true effect
+Type I error|noun|C1|NAWL|neutral|mastery|3|خطأ من النوع الأول|incorrectly rejecting a true null hypothesis
+Type II error|noun|C1|NAWL|neutral|mastery|3|خطأ من النوع الثاني|failing to reject a false null hypothesis

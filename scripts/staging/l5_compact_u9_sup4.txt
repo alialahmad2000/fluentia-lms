@@ -1,0 +1,82 @@
+opera|noun|C1|CEFR-J|neutral|core|9|أوبرا|a drama set to music
+aria|noun|C1|NAWL|neutral|extended|9|آريا|a solo song in an opera
+recitative|noun|C2|NAWL|formal|mastery|9|تلاوة غنائية|speech-like singing in opera
+libretto|noun|C1|NAWL|neutral|extended|9|نص أوبرالي|the text of an opera
+overture|noun|C1|CEFR-J|neutral|extended|9|مقدمة موسيقية|an orchestral introduction to an opera
+symphony|noun|C1|CEFR-J|neutral|core|9|سيمفونية|a large composition for orchestra
+concerto|noun|C1|CEFR-J|neutral|extended|9|كونشيرتو|a piece for solo instrument and orchestra
+sonata|noun|C1|CEFR-J|neutral|extended|9|سوناتا|a composition for one or two instruments
+chamber music|noun|C1|CEFR-J|neutral|extended|9|موسيقى حجرة|music for a small group of instruments
+quartet|noun|C1|CEFR-J|neutral|extended|9|رباعي|a group of four performers
+orchestra|noun|B2|CEFR-J|neutral|core|9|أوركسترا|a large group of musicians
+conductor|noun|C1|CEFR-J|neutral|core|9|قائد أوركسترا|a person directing an orchestra
+baton|noun|C1|CEFR-J|neutral|extended|9|عصا قيادة|a stick used by a conductor
+score|noun|C1|CEFR-J|neutral|core|9|نوتة موسيقية|the written form of a musical composition
+notation|noun|C1|AWL|neutral|core|9|تدوين موسيقي|a system for writing music
+clef|noun|C1|CEFR-J|neutral|extended|9|مفتاح موسيقي|a symbol indicating pitch range
+key|noun|C1|CEFR-J|neutral|core|9|مقام|the tonal center of a musical piece
+chord|noun|C1|CEFR-J|neutral|core|9|وتر موسيقي|three or more notes played together
+melody|noun|C1|CEFR-J|neutral|core|9|لحن|a sequence of musical notes
+counterpoint|noun|C1|NAWL|neutral|extended|9|نقطة مضادة|independent melodies played together
+fugue|noun|C1|NAWL|neutral|mastery|9|فوغا|a composition with interweaving themes
+cadence|noun|C1|NAWL|neutral|extended|9|خاتمة موسيقية|a sequence of chords ending a phrase
+modulation|noun|C1|AWL|neutral|extended|9|تحويل مقامي|changing key within a composition
+dynamics|noun|C1|AWL|neutral|core|9|ديناميكيات|the variation of loudness in music
+crescendo|noun|C1|CEFR-J|neutral|extended|9|تصاعد|a gradual increase in loudness
+diminuendo|noun|C1|NAWL|neutral|mastery|9|تناقص|a gradual decrease in loudness
+forte|noun|C1|CEFR-J|neutral|extended|9|قوي|a direction to play loudly
+piano|noun|C1|CEFR-J|neutral|extended|9|هادئ موسيقي|a direction to play softly
+staccato|noun|C1|NAWL|neutral|mastery|9|متقطع|short detached notes
+legato|noun|C1|NAWL|neutral|mastery|9|متصل|smooth connected notes
+vibrato|noun|C1|CEFR-J|neutral|extended|9|اهتزاز صوتي|a slight variation in pitch
+tremolo|noun|C1|NAWL|neutral|mastery|9|ارتعاش|a rapid repetition of a note
+improvisation|noun|C1|AWL|neutral|core|9|ارتجال|creating music spontaneously
+syncopation|noun|C1|NAWL|neutral|extended|9|تنافر إيقاعي|stressing beats not normally emphasized
+polyrhythm|noun|C1|NAWL|neutral|mastery|9|تعدد إيقاعي|multiple rhythms played simultaneously
+time signature|noun|C1|CEFR-J|neutral|extended|9|ميزان إيقاعي|indicating beats per measure
+measure|noun|C1|CEFR-J|neutral|core|9|مازورة|a unit of musical time
+octave|noun|C1|CEFR-J|neutral|extended|9|أوكتاف|the interval between two notes of the same name
+interval|noun|C1|AWL|neutral|extended|9|فاصل نغمي|the distance between two pitches
+scale|noun|C1|CEFR-J|neutral|core|9|سلم موسيقي|a sequence of notes in ascending order
+major scale|noun|C1|CEFR-J|neutral|extended|9|سلم كبير|a bright-sounding scale pattern
+minor scale|noun|C1|CEFR-J|neutral|extended|9|سلم صغير|a darker-sounding scale pattern
+pentatonic|adjective|C1|NAWL|neutral|mastery|9|خماسي الأنغام|a five-note scale
+chromatic|adjective|C1|NAWL|neutral|mastery|9|لوني موسيقي|using all twelve tones
+atonal|adjective|C1|NAWL|neutral|mastery|9|لا مقامي|music without a tonal center
+dissonance|noun|C1|NAWL|neutral|extended|9|تنافر|a combination of notes that clashes
+consonance|noun|C1|NAWL|neutral|extended|9|توافق|a combination of notes that sounds pleasant
+timbre|noun|C1|NAWL|neutral|core|9|جرس صوت|the quality distinguishing different sounds
+acoustics|noun|C1|NAWL|neutral|core|9|صوتيات|the science of sound
+resonance|noun|C1|NAWL|neutral|extended|9|رنين|the reinforcement of sound vibrations
+amplification|noun|C1|AWL|neutral|extended|9|تضخيم|increasing the volume of sound
+reverb|noun|C1|CEFR-J|neutral|extended|9|صدى|sound reflecting off surfaces
+soundscape|noun|C1|NAWL|neutral|extended|9|مشهد صوتي|the overall acoustic environment
+sampling|noun|C1|AWL|neutral|core|9|أخذ عينات|using recorded sounds in new music
+synthesizer|noun|C1|CEFR-J|neutral|extended|9|مصنع صوت|an electronic instrument generating sounds
+digital audio|noun|C1|NAWL|neutral|extended|9|صوت رقمي|sound stored as digital data
+mixing|noun|C1|CEFR-J|neutral|extended|9|مزج صوتي|combining multiple audio tracks
+mastering|noun|C1|CEFR-J|neutral|mastery|9|إتقان صوتي|the final step in audio production
+soundtrack|noun|C1|CEFR-J|neutral|core|9|موسيقى تصويرية|music accompanying a film
+score composer|noun|C1|CEFR-J|neutral|extended|9|مؤلف موسيقى|a person writing music for films
+arrangement|noun|C1|AWL|neutral|core|9|توزيع موسيقي|adapting music for different instruments
+orchestration|noun|C1|NAWL|neutral|extended|9|تنسيق أوركسترالي|assigning music to different instruments
+transposition|noun|C1|NAWL|neutral|mastery|9|نقل مقامي|shifting music to a different key
+transcription|noun|C1|AWL|neutral|extended|9|تدوين سماعي|writing down music heard
+sight-reading|noun|C1|CEFR-J|neutral|mastery|9|قراءة فورية|playing music without prior practice
+conservatory|noun|C1|CEFR-J|neutral|extended|9|معهد موسيقي|a school for music education
+recital|noun|C1|CEFR-J|neutral|core|9|حفل عزف|a musical performance by a soloist
+encore|noun|C1|CEFR-J|neutral|extended|9|إعادة أداء|an extra piece performed after applause
+premiere|noun|C1|CEFR-J|neutral|core|9|عرض أول|the first public performance of a work
+debut|noun|C1|CEFR-J|neutral|core|9|ظهور أول|a first public appearance
+audition|noun|C1|CEFR-J|neutral|core|9|اختبار أداء|a trial performance for a role
+casting|noun|C1|CEFR-J|neutral|core|9|اختيار ممثلين|selecting performers for roles
+rehearsal|noun|C1|CEFR-J|neutral|core|9|بروفة|a practice session before performance
+dress rehearsal|noun|C1|CEFR-J|neutral|extended|9|بروفة نهائية|the final practice with costumes
+stage fright|noun|C1|CEFR-J|neutral|extended|9|رهبة مسرح|anxiety before performing
+ovation|noun|C1|CEFR-J|neutral|extended|9|تصفيق حار|enthusiastic prolonged applause
+standing ovation|noun|C1|CEFR-J|neutral|mastery|9|تصفيق وقوفاً|applause where the audience stands
+critique|noun|C1|AWL|neutral|core|9|نقد فني|a detailed evaluation of a work
+review|noun|B2|AWL|neutral|core|9|مراجعة فنية|a critical assessment of a performance
+canon|noun|C1|AWL|neutral|extended|9|مرجعية فنية|the most important works in a field
+oeuvre|noun|C2|NAWL|formal|mastery|9|أعمال فنية كاملة|the complete works of an artist
+magnum opus|noun|C1|NAWL|neutral|mastery|9|تحفة فنية|an artist's greatest work

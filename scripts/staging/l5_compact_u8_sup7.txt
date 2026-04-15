@@ -1,0 +1,59 @@
+ant colony|noun|C1|CEFR-J|neutral|core|8|مستعمرة نمل|a community of ants living together
+termite mound|noun|C1|CEFR-J|neutral|extended|8|تلة نمل أبيض|a structure built by termites
+superorganism|noun|C1|NAWL|neutral|extended|8|كائن فائق|a colony acting as a single organism
+eusociality|noun|C2|NAWL|formal|mastery|8|اجتماعية حقيقية|the highest level of social organization
+caste system|noun|C1|NAWL|neutral|extended|8|نظام طبقي حشري|different roles within a colony
+queen bee|noun|C1|CEFR-J|neutral|core|8|ملكة نحل|the reproductive female in a bee colony
+worker bee|noun|C1|CEFR-J|neutral|core|8|نحلة عاملة|a non-reproductive female bee
+drone bee|noun|C1|NAWL|neutral|extended|8|ذكر نحل|a male bee whose role is to mate
+colony collapse|noun|C1|NAWL|neutral|core|8|انهيار مستعمرة|the sudden loss of most bees in a hive
+pollinator decline|noun|C1|NAWL|neutral|core|8|تراجع ملقحات|the decrease in pollinating insect populations
+neonicotinoid|noun|C1|NAWL|neutral|mastery|8|نيونيكوتينويد|a pesticide harmful to bees
+migration pattern|noun|C1|NAWL|neutral|core|8|نمط هجرة|the regular movement route of animals
+bird migration|noun|C1|CEFR-J|neutral|core|8|هجرة طيور|the seasonal movement of birds
+V-formation|noun|C1|NAWL|neutral|extended|8|تشكيل حرف في|birds flying in a V shape to save energy
+magnetic navigation|noun|C1|NAWL|neutral|extended|8|ملاحة مغناطيسية|using Earth's magnetic field for direction
+echolocation|noun|C1|NAWL|neutral|extended|8|تحديد بالصدى|using sound echoes to navigate
+biosonar|noun|C1|NAWL|neutral|mastery|8|سونار حيوي|biological sonar used by animals
+swarm behavior|noun|C1|NAWL|neutral|core|8|سلوك سرب|coordinated group movement
+collective decision-making|noun|C1|AWL|neutral|core|8|اتخاذ قرار جماعي|a group choosing together without a leader
+emergent property|noun|C1|AWL|neutral|core|8|خاصية ناشئة|a property arising from simple interactions
+complex adaptive system|noun|C1|AWL|neutral|extended|8|نظام تكيفي معقد|a system adapting through agent interactions
+nonlinear dynamics|noun|C1|NAWL|neutral|extended|8|ديناميكيات غير خطية|behavior where small changes have big effects
+chaos theory|noun|C1|NAWL|neutral|core|8|نظرية فوضى|studying unpredictable deterministic systems
+butterfly effect|noun|C1|NAWL|neutral|core|8|تأثير الفراشة|small changes causing large consequences
+strange attractor|noun|C1|NAWL|neutral|mastery|8|جاذب غريب|a pattern in chaotic systems
+fractal|noun|C1|NAWL|neutral|extended|8|كسيري|a pattern repeating at every scale
+self-similarity|noun|C1|NAWL|neutral|extended|8|تشابه ذاتي|a pattern looking the same at all scales
+power law|noun|C1|NAWL|neutral|extended|8|قانون قوة|a mathematical relationship in complex systems
+Zipf's law|noun|C1|NAWL|neutral|mastery|8|قانون زيبف|a frequency distribution in natural data
+Benford's law|noun|C1|NAWL|neutral|mastery|8|قانون بنفورد|a pattern in the leading digits of data
+Metcalfe's law|noun|C1|NAWL|neutral|mastery|8|قانون ميتكالف|a network's value grows with its users
+network effect|noun|C1|NAWL|neutral|core|8|تأثير شبكة|a product becoming more valuable with more users
+positive feedback loop|noun|C1|NAWL|neutral|core|8|حلقة تغذية إيجابية|an effect amplifying itself
+negative feedback loop|noun|C1|NAWL|neutral|core|8|حلقة تغذية سلبية|an effect reducing itself
+homeostasis|noun|C1|NAWL|neutral|extended|8|توازن داخلي|maintaining stable internal conditions
+systems thinking|noun|C1|AWL|neutral|core|8|تفكير منظومي|understanding how parts interact as a whole
+feedback mechanism|noun|C1|AWL|neutral|core|8|آلية تغذية راجعة|a process where output influences input
+tipping point|noun|C1|NAWL|neutral|core|8|نقطة تحول|the moment when change becomes irreversible
+phase transition|noun|C1|NAWL|neutral|extended|8|تحول طوري|a sudden change in a system's behavior
+critical mass|noun|C1|NAWL|neutral|core|8|كتلة حرجة|the minimum needed for a chain reaction
+self-replication|noun|C1|NAWL|neutral|extended|8|تكرار ذاتي|a system copying itself
+autopoiesis|noun|C2|NAWL|formal|mastery|8|تكون ذاتي|a system creating and maintaining itself
+cybernetics|noun|C1|NAWL|neutral|extended|8|سبرانية|the study of control and communication systems
+control theory|noun|C1|AWL|neutral|extended|8|نظرية تحكم|mathematics of regulating systems
+optimization problem|noun|C1|AWL|neutral|core|8|مشكلة تحسين|finding the best solution among options
+heuristic search|noun|C1|NAWL|neutral|extended|8|بحث استدلالي|using rules of thumb to find solutions
+metaheuristic|noun|C1|NAWL|neutral|mastery|8|ما فوق استدلالي|a general strategy for optimization
+fitness landscape|noun|C1|NAWL|neutral|extended|8|مشهد لياقة|a map of how good solutions are
+local optimum|noun|C1|NAWL|neutral|extended|8|أمثل محلي|the best solution in a nearby area
+global optimum|noun|C1|NAWL|neutral|extended|8|أمثل عام|the absolute best solution overall
+convergence|noun|C1|AWL|neutral|extended|8|تقارب|approaching a stable solution
+population dynamics|noun|C1|AWL|neutral|extended|8|ديناميكيات سكانية|how populations change over time
+carrying capacity|noun|C1|NAWL|neutral|core|8|سعة استيعابية|the maximum population an environment supports
+Lotka-Volterra model|noun|C1|NAWL|neutral|mastery|8|نموذج لوتكا فولتيرا|equations modeling predator-prey dynamics
+predator-prey cycle|noun|C1|NAWL|neutral|extended|8|دورة مفترس-فريسة|population oscillations between hunters and prey
+symbiotic relationship|noun|C1|NAWL|neutral|core|8|علاقة تكافلية|a close relationship between different species
+mutualism|noun|C1|NAWL|neutral|extended|8|تبادل منفعة|both species benefit from interaction
+commensalism|noun|C1|NAWL|neutral|mastery|8|تعايش انتفاعي|one species benefits without affecting the other
+parasitism|noun|C1|NAWL|neutral|extended|8|تطفل|one species benefits at the other's expense

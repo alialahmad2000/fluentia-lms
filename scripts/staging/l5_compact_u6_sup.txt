@@ -1,0 +1,103 @@
+biodiversity loss|noun|C1|AWL|neutral|core|6|فقدان التنوع|the decline in the variety of life
+habitat loss|noun|C1|CEFR-J|neutral|core|6|فقدان الموطن|the destruction of natural living areas
+overexploitation|noun|C1|AWL|neutral|core|6|استغلال مفرط|using resources faster than they can recover
+poaching|noun|C1|CEFR-J|neutral|core|6|صيد جائر|the illegal hunting of animals
+trafficking|noun|C1|CEFR-J|neutral|core|6|اتجار|the illegal trade in wildlife
+ivory|noun|C1|CEFR-J|neutral|core|6|عاج|the hard white material from elephant tusks
+bushmeat|noun|C1|NAWL|neutral|core|6|لحوم برية|meat from wild animals
+deforestation|noun|C1|CEFR-J|neutral|core|6|قطع أشجار|the clearing of forests
+slash-and-burn|noun|C1|CEFR-J|neutral|core|6|قطع وحرق|clearing land by cutting and burning vegetation
+clear-cutting|noun|C1|CEFR-J|neutral|core|6|قطع شامل|removing all trees from an area
+selective logging|noun|C1|NAWL|neutral|core|6|قطع انتقائي|cutting only certain trees
+old-growth|adjective|C1|NAWL|neutral|core|6|غابة عتيقة|forest that has never been logged
+rainforest|noun|B2|CEFR-J|neutral|core|6|غابة مطيرة|a dense tropical forest
+cloud forest|noun|C1|NAWL|neutral|core|6|غابة ضبابية|a forest frequently covered in low clouds
+temperate forest|noun|C1|CEFR-J|neutral|core|6|غابة معتدلة|a forest in moderate climate zones
+boreal forest|noun|C1|NAWL|neutral|core|6|غابة شمالية|a forest of the cold northern regions
+taiga|noun|C1|CEFR-J|neutral|core|6|تايغا|a biome of coniferous forests
+chaparral|noun|C2|NAWL|formal|core|6|أحراش|a biome of drought-resistant shrubs
+steppe|noun|C1|CEFR-J|neutral|core|6|سهب|a large flat grassy treeless area
+prairie|noun|C1|CEFR-J|neutral|core|6|مرج|a large open area of grassland
+grassland|noun|C1|CEFR-J|neutral|core|6|أرض عشبية|an area of open grassy land
+scrubland|noun|C1|CEFR-J|neutral|core|6|أرض شجيرات|an area of low-growing vegetation
+desert|noun|B2|CEFR-J|neutral|core|6|صحراء|an arid region with little rainfall
+oasis|noun|C1|CEFR-J|neutral|core|6|واحة|a fertile area in a desert
+biosphere reserve|noun|C1|NAWL|neutral|core|6|محمية محيط حيوي|a protected area for conservation
+national park|noun|B2|CEFR-J|neutral|core|6|حديقة وطنية|a protected area of natural beauty
+wildlife corridor|noun|C1|NAWL|neutral|core|6|ممر حياة برية|a passage linking wildlife habitats
+marine sanctuary|noun|C1|CEFR-J|neutral|core|6|محمية بحرية|a protected area of ocean
+wetland|noun|C1|CEFR-J|neutral|core|6|أرض مبللة|an area of land covered with water
+estuary|noun|C1|CEFR-J|neutral|core|6|مصب|the tidal mouth of a large river
+mangrove|noun|C1|CEFR-J|neutral|core|6|شجر القرم|a tree growing in coastal saltwater
+seagrass|noun|C1|NAWL|neutral|core|6|عشب بحري|flowering plants growing in shallow marine areas
+kelp|noun|C1|CEFR-J|neutral|core|6|عشب البحر|large brown seaweed forming underwater forests
+coral reef|noun|B2|CEFR-J|neutral|core|6|شعب مرجانية|an underwater structure built by coral organisms
+bleaching|noun|C1|CEFR-J|neutral|core|6|تبييض|the loss of color in coral due to stress
+acidification|noun|C1|NAWL|neutral|core|6|تحمض بحري|increasing acidity of ocean water
+overfishing|noun|C1|CEFR-J|neutral|core|6|صيد مفرط|catching fish faster than they can reproduce
+bycatch|noun|C1|NAWL|neutral|core|6|صيد عرضي|unwanted fish caught with the target catch
+trawling|noun|C1|CEFR-J|neutral|core|6|جر شباك|dragging a net along the sea floor
+aquaculture|noun|C1|NAWL|neutral|core|6|استزراع سمكي|the farming of aquatic organisms
+mariculture|noun|C2|NAWL|formal|core|6|استزراع بحري|the farming of marine organisms
+hatchery|noun|C1|CEFR-J|neutral|core|6|مفقس|a facility for breeding fish or poultry
+stocking|noun|C1|CEFR-J|neutral|core|6|تخزين سمكي|releasing bred fish into natural waters
+sustainable yield|noun|C1|AWL|neutral|core|6|عائد مستدام|harvest rate that can be maintained indefinitely
+quota|noun|C1|AWL|neutral|core|6|حصة صيد|the maximum amount that can be caught
+moratorium|noun|C1|NAWL|neutral|core|6|حظر مؤقت|a temporary ban on an activity
+protected area|noun|C1|AWL|neutral|extended|6|منطقة محمية|land managed to conserve biodiversity
+wilderness area|noun|C1|CEFR-J|neutral|extended|6|منطقة برية|land retaining its natural character
+ecotourism|noun|C1|NAWL|neutral|extended|6|سياحة بيئية|responsible travel to natural areas
+carbon offset|noun|C1|NAWL|neutral|extended|6|تعويض كربوني|compensating for emissions
+payment for ecosystem|noun|C1|NAWL|neutral|extended|6|دفع مقابل خدمات|compensating landowners for conservation
+REDD+|noun|C2|NAWL|formal|extended|6|ريد بلس|reducing emissions from deforestation
+biodiversity action plan|noun|C1|NAWL|neutral|extended|6|خطة تنوع حيوي|a strategy for conserving biological diversity
+red list|noun|C1|CEFR-J|neutral|extended|6|قائمة حمراء|a catalog of threatened species
+CITES|noun|C1|NAWL|neutral|extended|6|اتفاقية سايتس|a treaty regulating wildlife trade
+Ramsar|noun|C1|NAWL|neutral|extended|6|اتفاقية رامسار|a treaty for wetland conservation
+CBD|noun|C1|NAWL|neutral|extended|6|اتفاقية التنوع|the Convention on Biological Diversity
+Nagoya Protocol|noun|C2|NAWL|formal|extended|6|بروتوكول ناغويا|rules on access to genetic resources
+biopiracy|noun|C2|NAWL|formal|extended|6|قرصنة حيوية|exploitation of natural resources without consent
+bioprospecting|noun|C2|NAWL|formal|extended|6|تنقيب حيوي|searching nature for commercially valuable resources
+germplasm|noun|C2|NAWL|formal|extended|6|مادة وراثية|genetic resources of an organism
+seed bank|noun|C1|CEFR-J|neutral|extended|6|بنك بذور|a facility storing seeds for conservation
+gene bank|noun|C1|NAWL|neutral|extended|6|بنك جينات|a repository of genetic material
+cryopreservation|noun|C2|NAWL|formal|extended|6|حفظ بالتبريد|preserving cells at very low temperatures
+cloning|noun|C1|CEFR-J|neutral|extended|6|استنساخ|creating a genetically identical organism
+de-extinction|noun|C2|NAWL|formal|extended|6|إلغاء انقراض|bringing extinct species back to life
+genetic rescue|noun|C1|NAWL|neutral|extended|6|إنقاذ وراثي|introducing genes to reduce inbreeding
+assisted migration|noun|C1|NAWL|neutral|extended|6|هجرة مساعدة|moving species to more suitable habitats
+translocation|noun|C1|NAWL|neutral|extended|6|نقل بيئي|moving organisms to a new location
+headstarting|noun|C2|NAWL|formal|extended|6|تربية مبكرة|raising young animals before release
+surrogate species|noun|C1|NAWL|neutral|extended|6|نوع بديل|a species representing another in research
+indicator species|noun|C1|NAWL|neutral|extended|6|نوع دال|a species reflecting environmental changes
+bioindicator|noun|C1|NAWL|neutral|extended|6|مؤشر حيوي|an organism indicating environmental quality
+ecological footprint|noun|C1|NAWL|neutral|extended|6|بصمة بيئية|human demand on the natural environment
+planetary boundaries|noun|C1|NAWL|neutral|extended|6|حدود كوكبية|environmental limits for human safety
+tipping point|noun|C1|CEFR-J|neutral|extended|6|نقطة حرجة|a critical threshold triggering major change
+cascading effect|noun|C1|AWL|neutral|extended|6|أثر متتالي|a chain of events triggered by one change
+trophic cascade|noun|C1|NAWL|neutral|extended|6|تسلسل غذائي|the effect of predators on food chains
+mesopredator release|noun|C2|NAWL|formal|extended|6|إطلاق مفترس وسيط|increase in mid-level predators when top predators decline
+competitive exclusion|noun|C1|NAWL|neutral|mastery|6|إقصاء تنافسي|one species eliminates another from a niche
+character displacement|noun|C2|NAWL|formal|mastery|6|إزاحة صفات|divergence in traits to reduce competition
+resource partitioning|noun|C1|NAWL|neutral|mastery|6|تقسيم الموارد|species using different parts of a resource
+optimal foraging|noun|C1|NAWL|neutral|mastery|6|بحث أمثل|strategy maximizing energy gain from food
+Lotka-Volterra|noun|C2|NAWL|formal|mastery|6|لوتكا-فولتيرا|equations modeling predator-prey dynamics
+metapopulation|noun|C2|NAWL|formal|mastery|6|ميتاجماعة|a group of interconnected local populations
+source-sink|noun|C1|NAWL|neutral|mastery|6|مصدر-مصب|populations where emigration exceeds immigration
+edge effect|noun|C1|NAWL|neutral|mastery|6|أثر الحافة|changes at the boundary of two habitats
+island biogeography|noun|C2|NAWL|formal|mastery|6|جغرافيا حيوية جزيرية|the ecology of isolated habitats
+species-area curve|noun|C2|NAWL|formal|mastery|6|منحنى أنواع-مساحة|the relationship between area and species count
+minimum viable population|noun|C2|NAWL|formal|mastery|6|عدد أدنى حيوي|the smallest population that can survive
+effective population size|noun|C2|NAWL|formal|mastery|6|حجم فعلي|the number of breeding individuals in a population
+genetic diversity|noun|C1|AWL|neutral|mastery|6|تنوع وراثي|the variety of genes within a species
+Hardy-Weinberg|noun|C2|NAWL|formal|mastery|6|هاردي-واينبرغ|equilibrium conditions for allele frequencies
+founder effect|noun|C1|NAWL|neutral|mastery|6|أثر المؤسس|genetic changes from a small founding group
+bottleneck effect|noun|C1|NAWL|neutral|mastery|6|أثر عنق الزجاجة|reduced genetic diversity after population crash
+allopatric|adjective|C2|NAWL|formal|mastery|6|متباعد|speciation through geographic isolation
+sympatric|adjective|C2|NAWL|formal|mastery|6|متعايش|speciation without geographic isolation
+peripatric|adjective|C2|NAWL|formal|mastery|6|محيطي|speciation in small peripheral populations
+parapatric|adjective|C2|NAWL|formal|mastery|6|متاخم|speciation with partial geographic overlap
+adaptive radiation|noun|C1|NAWL|neutral|mastery|6|إشعاع تكيفي|rapid diversification of species
+convergent evolution|noun|C1|NAWL|neutral|mastery|6|تطور تقاربي|unrelated species developing similar traits
+divergent evolution|noun|C1|NAWL|neutral|mastery|6|تطور تباعدي|related species becoming increasingly different
+cospeciation|noun|C2|NAWL|formal|mastery|6|تنوع مشترك|two lineages speciating in parallel

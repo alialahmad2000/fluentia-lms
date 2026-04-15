@@ -1,0 +1,119 @@
+cognition|noun|C1|AWL|neutral|core|7|معرفة|the mental action of acquiring knowledge
+attention|noun|B2|CEFR-J|neutral|core|7|انتباه|the act of focusing mental resources
+concentration|noun|B2|CEFR-J|neutral|core|7|تركيز|the ability to direct attention
+vigilance|noun|C1|CEFR-J|neutral|core|7|يقظة|the state of keeping careful watch
+arousal|noun|C1|NAWL|neutral|core|7|استثارة|a state of physiological alertness
+alertness|noun|C1|CEFR-J|neutral|core|7|تأهب|the quality of being watchful
+fatigue|noun|C1|CEFR-J|neutral|core|7|إجهاد عقلي|extreme tiredness affecting cognition
+sleep|noun|B2|CEFR-J|neutral|core|7|نوم|a natural state of rest for the body
+circadian|adjective|C1|NAWL|neutral|core|7|يومي|relating to the 24-hour biological cycle
+insomnia|noun|C1|CEFR-J|neutral|core|7|أرق|the inability to sleep
+narcolepsy|noun|C2|NAWL|formal|core|7|خدار|a disorder causing sudden sleep attacks
+apnea|noun|C1|CEFR-J|neutral|core|7|انقطاع تنفس|temporary cessation of breathing during sleep
+REM|noun|C1|NAWL|neutral|core|7|نوم حركة العين|rapid eye movement sleep stage
+dreaming|noun|B2|CEFR-J|neutral|core|7|حلم|experiencing images during sleep
+lucid dreaming|noun|C1|NAWL|neutral|core|7|حلم واعي|being aware that one is dreaming
+emotion|noun|B2|CEFR-J|neutral|core|7|عاطفة|a strong feeling derived from circumstances
+affect|noun|C1|AWL|neutral|core|7|وجدان|the experience of feeling an emotion
+mood|noun|B2|CEFR-J|neutral|core|7|مزاج|a temporary state of mind
+temperament|noun|C1|CEFR-J|neutral|core|7|مزاج فطري|a person's innate emotional nature
+personality|noun|B2|CEFR-J|neutral|core|7|شخصية|the combination of traits forming character
+trait|noun|C1|AWL|neutral|core|7|سمة|a distinguishing quality of a person
+intelligence|noun|B2|CEFR-J|neutral|core|7|ذكاء|the ability to acquire and apply knowledge
+aptitude|noun|C1|CEFR-J|neutral|core|7|استعداد|a natural ability to do something
+talent|noun|B2|CEFR-J|neutral|core|7|موهبة|a natural aptitude or skill
+genius|noun|C1|CEFR-J|neutral|core|7|عبقرية|exceptional intellectual ability
+learning|noun|B2|CEFR-J|neutral|core|7|تعلم|the acquisition of knowledge through study
+memory|noun|B2|CEFR-J|neutral|core|7|ذاكرة|the faculty of storing and retrieving information
+recall|noun|C1|CEFR-J|neutral|core|7|استذكار|the act of remembering something
+recognition|noun|C1|AWL|neutral|core|7|تعرف|identifying something previously encountered
+forgetting|noun|C1|CEFR-J|neutral|core|7|نسيان|the inability to recall information
+interference|noun|C1|AWL|neutral|core|7|تداخل ذاكري|disruption of memory by other information
+decay|noun|C1|CEFR-J|neutral|core|7|تلاشي ذاكري|the gradual loss of memory over time
+rehearsal|noun|C1|CEFR-J|neutral|core|7|تكرار ذاكري|the repetition of information to remember it
+elaboration|noun|C1|AWL|neutral|core|7|تفصيل|connecting new information to existing knowledge
+schema|noun|C1|AWL|neutral|core|7|مخطط ذهني|a mental framework for organizing information
+prototype|noun|C1|AWL|neutral|core|7|نموذج أولي|the best example of a category
+categorization|noun|C1|AWL|neutral|core|7|تصنيف ذهني|the process of grouping things by type
+language|noun|B2|CEFR-J|neutral|core|7|لغة|the system of communication through words
+syntax|noun|C1|AWL|neutral|core|7|تركيب نحوي|the rules of sentence structure
+semantics|noun|C1|NAWL|neutral|core|7|دلالة|the study of meaning in language
+pragmatics|noun|C1|NAWL|neutral|core|7|تداولية|the study of language use in context
+phonology|noun|C1|NAWL|neutral|core|7|علم الأصوات|the system of sounds in a language
+morphology|noun|C1|NAWL|neutral|core|7|صرف|the study of word formation
+bilingualism|noun|C1|NAWL|neutral|core|7|ثنائية لغوية|the ability to speak two languages
+aphasia|noun|C1|NAWL|neutral|extended|7|حبسة كلامية|loss of language ability from brain damage
+dyslexia|noun|C1|CEFR-J|neutral|extended|7|عسر قراءة|difficulty in reading despite normal intelligence
+dysgraphia|noun|C2|NAWL|formal|extended|7|عسر كتابة|difficulty in writing
+dyscalculia|noun|C2|NAWL|formal|extended|7|عسر حساب|difficulty with numbers and mathematics
+prosopagnosia|noun|C2|NAWL|formal|extended|7|عمى وجوه|inability to recognize faces
+synesthesia|noun|C1|NAWL|neutral|extended|7|حس تزامني|experiencing one sense through another
+eidetic|adjective|C2|NAWL|formal|extended|7|صوري|relating to vivid mental images
+mnemonics|noun|C1|CEFR-J|neutral|extended|7|تقنيات تذكر|memory-aiding techniques
+chunking|noun|C1|NAWL|neutral|extended|7|تقطيع|organizing information into meaningful groups
+priming|noun|C1|NAWL|neutral|extended|7|تهيئة|influencing a response through prior exposure
+anchoring|noun|C1|NAWL|neutral|extended|7|ترسيخ|relying heavily on initial information
+framing|noun|C1|AWL|neutral|extended|7|تأطير|presenting information in a particular way
+heuristic|noun|C1|AWL|neutral|extended|7|اختصار ذهني|a mental shortcut for quick decisions
+confirmation bias|noun|C1|NAWL|neutral|extended|7|تحيز تأكيدي|favoring information confirming existing beliefs
+availability heuristic|noun|C1|NAWL|neutral|extended|7|استدلال التوافر|judging probability by ease of recall
+representativeness|noun|C1|AWL|neutral|extended|7|تمثيلية|judging based on similarity to a prototype
+sunk cost fallacy|noun|C1|NAWL|neutral|extended|7|مغالطة التكلفة الغارقة|continuing due to past investment
+cognitive dissonance|noun|C1|NAWL|neutral|extended|7|تنافر معرفي|discomfort from conflicting beliefs
+Dunning-Kruger|noun|C1|NAWL|neutral|extended|7|أثر دانينغ-كروجر|overestimating one's own competence
+hindsight bias|noun|C1|NAWL|neutral|extended|7|تحيز بأثر رجعي|believing past events were predictable
+groupthink|noun|C1|NAWL|neutral|extended|7|تفكير جماعي|poor decisions from group conformity pressure
+bystander effect|noun|C1|NAWL|neutral|extended|7|أثر المتفرج|not helping when others are present
+deindividuation|noun|C2|NAWL|formal|extended|7|فقدان الفردية|losing self-awareness in a group
+obedience|noun|C1|CEFR-J|neutral|extended|7|طاعة|compliance with authority
+conformity|noun|C1|AWL|neutral|extended|7|امتثال|adjusting behavior to match group norms
+persuasion|noun|C1|CEFR-J|neutral|extended|7|إقناع|the action of convincing someone
+attitude|noun|B2|CEFR-J|neutral|extended|7|موقف|a settled way of thinking or feeling
+stereotype|noun|C1|CEFR-J|neutral|extended|7|قالب نمطي|a fixed oversimplified image
+prejudice|noun|C1|CEFR-J|neutral|extended|7|تحيز|preconceived opinion not based on reason
+implicit bias|noun|C1|NAWL|neutral|extended|7|تحيز ضمني|unconscious attitudes affecting judgment
+attribution|noun|C1|AWL|neutral|extended|7|إسناد|assigning a cause to behavior
+fundamental attribution|noun|C1|NAWL|neutral|extended|7|خطأ إسناد أساسي|overemphasizing personality in explaining behavior
+self-serving bias|noun|C1|NAWL|neutral|extended|7|تحيز ذاتي|attributing success to self, failure to others
+motivation|noun|B2|AWL|neutral|extended|7|دافعية|the reason for acting in a particular way
+drive|noun|C1|CEFR-J|neutral|extended|7|حافز فطري|an innate biological need
+instinct|noun|C1|CEFR-J|neutral|extended|7|غريزة|an innate pattern of behavior
+conditioning|noun|C1|AWL|neutral|extended|7|إشراط|learning through association or consequences
+reinforcement|noun|C1|AWL|neutral|extended|7|تعزيز|strengthening behavior through reward
+punishment|noun|B2|CEFR-J|neutral|extended|7|عقاب|a consequence weakening behavior
+extinction|noun|C1|AWL|neutral|extended|7|إطفاء سلوكي|the weakening of a learned response
+generalization|noun|C1|AWL|neutral|extended|7|تعميم|responding similarly to related stimuli
+discrimination|noun|C1|AWL|neutral|extended|7|تمييز محفزات|distinguishing between different stimuli
+shaping|noun|C1|AWL|neutral|mastery|7|تشكيل|reinforcing successive approximations of behavior
+scaffolding|noun|C1|AWL|neutral|mastery|7|دعائم تعلم|support given during the learning process
+zone of proximal|noun|C1|NAWL|neutral|mastery|7|منطقة النمو القريبة|the gap between actual and potential development
+assimilation|noun|C1|AWL|neutral|mastery|7|استيعاب معرفي|incorporating new information into existing schemas
+accommodation|noun|C1|AWL|neutral|mastery|7|مواءمة معرفية|modifying schemas to fit new information
+equilibration|noun|C2|NAWL|formal|mastery|7|موازنة معرفية|balancing assimilation and accommodation
+sensorimotor|adjective|C2|NAWL|formal|mastery|7|حسي حركي|relating to sensation and movement
+preoperational|adjective|C2|NAWL|formal|mastery|7|ما قبل العمليات|the stage before logical thinking
+concrete operational|adjective|C2|NAWL|formal|mastery|7|عمليات محسوسة|the stage of logical thinking about concrete events
+formal operational|adjective|C2|NAWL|formal|mastery|7|عمليات مجردة|the stage of abstract logical thinking
+conservation|noun|C1|AWL|neutral|mastery|7|حفظ الكميات|understanding that quantity remains despite appearance changes
+egocentrism|noun|C1|NAWL|neutral|mastery|7|تمركز ذاتي|inability to see from another's perspective
+theory of mind|noun|C1|NAWL|neutral|mastery|7|نظرية العقل|understanding that others have different beliefs
+executive function|noun|C1|AWL|neutral|mastery|7|وظيفة تنفيذية|cognitive processes controlling behavior
+inhibitory control|noun|C1|NAWL|neutral|mastery|7|تحكم تثبيطي|the ability to suppress impulsive responses
+cognitive flexibility|noun|C1|AWL|neutral|mastery|7|مرونة معرفية|the ability to switch between thinking about concepts
+working memory|noun|C1|AWL|neutral|mastery|7|ذاكرة عملية|holding and manipulating information temporarily
+attention deficit|noun|C1|CEFR-J|neutral|mastery|7|عجز انتباه|difficulty sustaining focus
+autism spectrum|noun|C1|CEFR-J|neutral|mastery|7|طيف التوحد|a developmental condition affecting social interaction
+neurodiversity|noun|C1|NAWL|neutral|mastery|7|تنوع عصبي|natural variations in brain function
+neurotypical|adjective|C1|NAWL|neutral|mastery|7|عصبي نموذجي|having typical neurological development
+neuroatypical|adjective|C1|NAWL|neutral|mastery|7|عصبي غير نموذجي|having atypical neurological development
+psychopharmacology|noun|C2|NAWL|formal|mastery|7|علم الأدوية النفسية|the study of drugs affecting mind and behavior
+antidepressant|noun|C1|CEFR-J|neutral|mastery|7|مضاد اكتئاب|a drug used to treat depression
+anxiolytic|noun|C2|NAWL|formal|mastery|7|مزيل قلق|a drug used to reduce anxiety
+antipsychotic|noun|C1|NAWL|neutral|mastery|7|مضاد ذهان|a drug used to manage psychosis
+stimulant|noun|C1|CEFR-J|neutral|mastery|7|منبه|a drug that increases alertness
+sedative|noun|C1|CEFR-J|neutral|mastery|7|مهدئ|a drug that reduces activity
+analgesic|noun|C1|NAWL|neutral|mastery|7|مسكن ألم|a drug that relieves pain
+anesthetic|noun|C1|CEFR-J|neutral|mastery|7|مخدر|a drug that causes loss of sensation
+tolerance|noun|C1|AWL|neutral|mastery|7|تحمل دوائي|needing more of a drug for the same effect
+dependence|noun|C1|AWL|neutral|mastery|7|اعتمادية|the state of relying on a substance
+withdrawal|noun|C1|AWL|neutral|mastery|7|انسحاب|symptoms from stopping a substance

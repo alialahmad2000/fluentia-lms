@@ -1,0 +1,156 @@
+excavation|noun|C1|AWL|neutral|core|1|تنقيب|the systematic digging up of archaeological remains
+artifact|noun|C1|CEFR-J|neutral|core|1|أثر قديم|an object made by humans in earlier times
+stratigraphy|noun|C2|NAWL|formal|core|1|علم الطبقات|the study of geological or archaeological layers
+antiquity|noun|C1|CEFR-J|neutral|core|1|عصور قديمة|the ancient past, especially before the Middle Ages
+chronology|noun|C1|AWL|neutral|core|1|تسلسل زمني|the arrangement of events in time order
+dynasty|noun|B2|CEFR-J|neutral|core|1|سلالة حاكمة|a succession of rulers from the same family
+sovereignty|noun|C1|AWL|formal|core|1|سيادة|supreme authority over a territory
+theocracy|noun|C1|NAWL|formal|core|1|حكم ديني|government by religious leaders
+oligarchy|noun|C1|NAWL|formal|core|1|حكم الأقلية|government by a small group of powerful people
+tribute|noun|C1|CEFR-J|neutral|core|1|جزية|payment made by one state to another as submission
+garrison|noun|C1|CEFR-J|neutral|core|1|حامية عسكرية|troops stationed in a fortress or town
+fortification|noun|C1|CEFR-J|neutral|core|1|تحصين|defensive military construction
+siege|noun|C1|CEFR-J|neutral|core|1|حصار|a military blockade of a city or fortress
+agrarian|adjective|C1|AWL|formal|core|1|زراعي|relating to cultivated land or farming
+nomadic|adjective|C1|CEFR-J|neutral|core|1|بدوي|living as a wanderer with no fixed home
+pastoral|adjective|C1|CEFR-J|neutral|core|1|رعوي|relating to herding livestock
+urbanization|noun|C1|AWL|neutral|core|1|تحضر|the process of becoming more city-like
+irrigation|noun|B2|CEFR-J|neutral|core|1|ري|supplying water to land for agriculture
+aqueduct|noun|C1|CEFR-J|neutral|core|1|قناة مائية|a channel for carrying water over long distances
+terrace|noun|C1|CEFR-J|neutral|core|1|مصطبة|a leveled area of land for farming on slopes
+subsistence|noun|C1|AWL|neutral|core|1|كفاف|the minimum needed to maintain life
+famine|noun|B2|CEFR-J|neutral|core|1|مجاعة|extreme scarcity of food
+drought|noun|B2|CEFR-J|neutral|core|1|جفاف|prolonged period without rainfall
+epidemic|noun|B2|CEFR-J|neutral|core|1|وباء|a widespread occurrence of disease
+pandemic|noun|C1|NAWL|neutral|core|1|جائحة|a disease spread over the whole world
+plague|noun|C1|CEFR-J|neutral|core|1|طاعون|a deadly epidemic disease
+migration|noun|C1|AWL|neutral|core|1|هجرة|movement of people from one region to another
+diaspora|noun|C1|CEFR-J|neutral|core|1|شتات|the spread of people from their homeland
+assimilation|noun|C1|AWL|formal|core|1|استيعاب|absorption into a different cultural group
+conquest|noun|C1|CEFR-J|neutral|core|1|فتح|the subjugation of a people or territory
+colonization|noun|C1|AWL|neutral|core|1|استعمار|establishing control over a foreign territory
+imperialism|noun|C1|AWL|neutral|core|1|إمبريالية|policy of extending power through colonization
+feudalism|noun|C1|CEFR-J|neutral|core|1|إقطاعية|medieval system of land ownership and duties
+vassal|noun|C1|CEFR-J|neutral|core|1|تابع|a person who held land under the feudal system
+serfdom|noun|C1|CEFR-J|neutral|core|1|عبودية الأرض|the state of being a feudal laborer
+aristocracy|noun|C1|CEFR-J|neutral|core|1|أرستقراطية|the highest social class; rule by nobility
+patriarchy|noun|C1|NAWL|neutral|core|1|نظام أبوي|a system where men hold primary power
+matrilineal|adjective|C2|NAWL|formal|core|1|أمومي النسب|tracing descent through the mother's line
+polytheism|noun|C1|NAWL|neutral|core|1|تعدد الآلهة|belief in multiple gods
+monotheism|noun|C1|NAWL|neutral|core|1|توحيد|belief in a single god
+pantheon|noun|C1|CEFR-J|neutral|core|1|مجمع آلهة|all the gods of a particular religion
+ritual|noun|B2|CEFR-J|neutral|core|1|طقس|a ceremonial act or series of acts
+inscription|noun|C1|CEFR-J|neutral|core|1|نقش|text carved into a surface
+hieroglyph|noun|C1|CEFR-J|neutral|core|1|هيروغليفي|a pictorial symbol used in ancient writing
+cuneiform|noun|C1|NAWL|formal|core|1|كتابة مسمارية|an ancient wedge-shaped writing system
+manuscript|noun|C1|CEFR-J|neutral|core|1|مخطوطة|a handwritten document or book
+codex|noun|C2|NAWL|formal|core|1|مخطوطة قديمة|an ancient manuscript in book form
+papyrus|noun|C1|CEFR-J|neutral|core|1|ورق بردي|material from reeds used for writing in ancient Egypt
+parchment|noun|C1|CEFR-J|neutral|core|1|رق|animal skin prepared for writing
+topography|noun|C1|AWL|neutral|extended|1|تضاريس|the physical features of an area of land
+cartography|noun|C1|NAWL|formal|extended|1|رسم الخرائط|the science of making maps
+megalith|noun|C2|NAWL|formal|extended|1|حجر ضخم|a large stone used in prehistoric monuments
+monolith|noun|C1|CEFR-J|neutral|extended|1|عمود حجري|a large single upright block of stone
+obelisk|noun|C1|CEFR-J|neutral|extended|1|مسلة|a tall tapering stone pillar
+ziggurat|noun|C2|NAWL|formal|extended|1|زقورة|a terraced pyramid in ancient Mesopotamia
+acropolis|noun|C1|CEFR-J|neutral|extended|1|أكروبول|a fortified hilltop in ancient Greek cities
+amphitheater|noun|C1|CEFR-J|neutral|extended|1|مدرج|an open circular arena for performances
+mausoleum|noun|C1|CEFR-J|neutral|extended|1|ضريح|a grand tomb or memorial building
+necropolis|noun|C2|NAWL|formal|extended|1|مدينة الموتى|a large ancient cemetery
+sarcophagus|noun|C1|CEFR-J|neutral|extended|1|تابوت حجري|a stone coffin from ancient times
+embalming|noun|C1|CEFR-J|neutral|extended|1|تحنيط|preserving a dead body from decay
+mummification|noun|C1|CEFR-J|neutral|extended|1|تحنيط المومياء|the process of preserving a body as a mummy
+libation|noun|C2|NAWL|formal|extended|1|سكب طقسي|a ritual pouring of liquid as an offering
+oracle|noun|C1|CEFR-J|neutral|extended|1|عرّاف|a priest who delivered messages from the gods
+divination|noun|C1|NAWL|neutral|extended|1|عرافة|the practice of seeking supernatural knowledge
+animism|noun|C1|NAWL|neutral|extended|1|أرواحية|belief that objects possess spiritual essence
+totemism|noun|C2|NAWL|formal|extended|1|طوطمية|belief in a spiritual bond with a natural object
+shamanism|noun|C1|NAWL|neutral|extended|1|شامانية|practice of reaching altered states for healing
+syncretism|noun|C2|NAWL|formal|extended|1|توفيقية|the merging of different religious beliefs
+heresy|noun|C1|CEFR-J|neutral|extended|1|هرطقة|belief contrary to orthodox religious doctrine
+iconoclasm|noun|C2|NAWL|formal|extended|1|تحطيم الأيقونات|the destruction of religious images
+schism|noun|C1|CEFR-J|neutral|extended|1|انشقاق|a split within a religious organization
+edict|noun|C1|CEFR-J|neutral|extended|1|مرسوم|an official order issued by authority
+decree|noun|C1|CEFR-J|neutral|extended|1|قرار رسمي|an authoritative order having legal force
+mandate|noun|C1|AWL|neutral|extended|1|تفويض|authority to carry out a policy
+annex|verb|C1|AWL|neutral|extended|1|يضم|to add territory by appropriation
+cede|verb|C1|AWL|formal|extended|1|يتنازل عن|to give up rights or territory
+usurp|verb|C1|CEFR-J|neutral|extended|1|يغتصب السلطة|to seize power without legal authority
+abdicate|verb|C1|CEFR-J|neutral|extended|1|يتنازل عن العرش|to renounce a throne or authority
+depose|verb|C1|CEFR-J|neutral|extended|1|يعزل|to remove a ruler from power
+enthrone|verb|C1|CEFR-J|neutral|extended|1|يتوّج|to install a monarch on a throne
+insurrection|noun|C1|CEFR-J|neutral|extended|1|تمرد|a violent uprising against authority
+sedition|noun|C1|CEFR-J|neutral|extended|1|تحريض|incitement of resistance to lawful authority
+treason|noun|C1|CEFR-J|neutral|extended|1|خيانة عظمى|the crime of betraying one's country
+allegiance|noun|C1|CEFR-J|neutral|extended|1|ولاء|loyalty to a ruler or government
+hegemony|noun|C1|NAWL|formal|extended|1|هيمنة|dominance of one group over others
+suzerainty|noun|C2|NAWL|formal|extended|1|سيادة عليا|a dominant state controlling foreign affairs
+autonomy|noun|C1|AWL|neutral|extended|1|حكم ذاتي|the right of self-government
+confederation|noun|C1|AWL|neutral|extended|1|اتحاد كونفدرالي|an alliance of independent states
+mercenary|noun|C1|CEFR-J|neutral|extended|1|مرتزق|a soldier paid to fight for a foreign army
+conscription|noun|C1|CEFR-J|neutral|extended|1|تجنيد إجباري|compulsory military service
+catapult|noun|C1|CEFR-J|neutral|extended|1|منجنيق|a device for hurling projectiles in warfare
+chariot|noun|C1|CEFR-J|neutral|extended|1|عربة حربية|a two-wheeled horse-drawn vehicle for war
+metallurgy|noun|C1|NAWL|neutral|extended|1|علم المعادن|the science of extracting and working metals
+smelting|noun|C1|CEFR-J|neutral|extended|1|صهر المعادن|extracting metal from ore by heating
+alloy|noun|C1|CEFR-J|neutral|extended|1|سبيكة|a metal made by mixing two or more metals
+forge|verb|C1|CEFR-J|neutral|extended|1|يصهر|to shape metal by heating and hammering
+kiln|noun|C1|CEFR-J|neutral|extended|1|فرن حرق|an oven for firing ceramics or bricks
+loom|noun|C1|CEFR-J|neutral|extended|1|نول|a device for weaving cloth
+granary|noun|C1|CEFR-J|neutral|extended|1|مخزن حبوب|a storehouse for threshed grain
+cistern|noun|C1|CEFR-J|neutral|extended|1|صهريج|an underground reservoir for storing water
+buttress|noun|C1|CEFR-J|neutral|extended|1|دعامة|a projecting support built against a wall
+rampart|noun|C1|CEFR-J|neutral|extended|1|سور|a defensive wall of a castle or city
+moat|noun|C1|CEFR-J|neutral|extended|1|خندق مائي|a wide trench around a castle filled with water
+citadel|noun|C1|CEFR-J|neutral|extended|1|قلعة|a fortress commanding a city
+bastion|noun|C1|CEFR-J|neutral|extended|1|معقل|a projecting part of a fortification
+parapet|noun|C1|CEFR-J|neutral|extended|1|حاجز|a low wall along the edge of a roof or bridge
+turret|noun|C1|CEFR-J|neutral|extended|1|برج صغير|a small tower on a building or wall
+pilaster|noun|C2|NAWL|formal|mastery|1|عمود مسطح|a rectangular column projecting from a wall
+portico|noun|C1|CEFR-J|neutral|mastery|1|رواق|a porch with a roof supported by columns
+fresco|noun|C1|CEFR-J|neutral|mastery|1|لوحة جدارية|painting done on wet plaster
+mosaic|noun|C1|CEFR-J|neutral|mastery|1|فسيفساء|a picture made from small colored pieces
+frieze|noun|C1|CEFR-J|neutral|mastery|1|إفريز|a decorative band on a building
+pediment|noun|C2|NAWL|formal|mastery|1|جبهة مثلثية|the triangular front of a classical building
+colonnade|noun|C1|CEFR-J|neutral|mastery|1|أعمدة متراصة|a row of evenly spaced columns
+atrium|noun|C1|CEFR-J|neutral|mastery|1|بهو|an open central hall in a Roman house
+vestibule|noun|C1|CEFR-J|neutral|mastery|1|دهليز|an entrance hall or lobby
+forum|noun|C1|CEFR-J|neutral|mastery|1|منتدى|a public square in ancient Roman cities
+agora|noun|C2|NAWL|formal|mastery|1|ساحة عامة|a public gathering place in ancient Greek cities
+bazaar|noun|B2|CEFR-J|neutral|mastery|1|سوق|a marketplace in Middle Eastern countries
+caravan|noun|B2|CEFR-J|neutral|mastery|1|قافلة|a group of travelers journeying together
+emporium|noun|C1|CEFR-J|neutral|mastery|1|متجر كبير|a large retail store or trading center
+tribute|verb|C1|CEFR-J|neutral|mastery|1|يقدم جزية|to pay a contribution to a ruler or state
+barter|verb|C1|CEFR-J|neutral|mastery|1|يقايض|to exchange goods without using money
+tithe|noun|C1|CEFR-J|neutral|mastery|1|عُشر|a tax of one tenth paid to the church
+levy|noun|C1|AWL|neutral|mastery|1|ضريبة|a tax or fee imposed by authority
+corvée|noun|C2|NAWL|formal|mastery|1|سخرة|unpaid labor required by a feudal lord
+peonage|noun|C2|NAWL|formal|mastery|1|عبودية ديون|a system of forced labor for debt repayment
+manumission|noun|C2|NAWL|formal|mastery|1|عتق|formal release from slavery
+emancipation|noun|C1|AWL|neutral|mastery|1|تحرير|the freeing of someone from restrictions
+enfranchise|verb|C1|AWL|formal|mastery|1|يمنح حق التصويت|to give the right to vote
+disenfranchise|verb|C1|AWL|formal|mastery|1|يحرم من حق التصويت|to deprive of the right to vote
+patrician|noun|C1|CEFR-J|neutral|mastery|1|نبيل|a member of the Roman aristocracy
+plebeian|noun|C1|CEFR-J|neutral|mastery|1|عامي|an ordinary citizen in ancient Rome
+consul|noun|C1|CEFR-J|neutral|mastery|1|قنصل|a chief magistrate in the Roman Republic
+praetor|noun|C2|NAWL|formal|mastery|1|قاضي روماني|a Roman magistrate ranking below a consul
+tribune|noun|C1|CEFR-J|neutral|mastery|1|منبر|a representative of the Roman people
+senate|noun|C1|CEFR-J|neutral|mastery|1|مجلس شيوخ|a governing council in ancient Rome
+republic|noun|B2|CEFR-J|neutral|mastery|1|جمهورية|a state governed by elected representatives
+tyranny|noun|C1|CEFR-J|neutral|mastery|1|استبداد|cruel and oppressive government
+despot|noun|C1|CEFR-J|neutral|mastery|1|مستبد|a ruler who holds absolute power
+satrap|noun|C2|NAWL|formal|mastery|1|حاكم ولاية|a provincial governor in ancient Persia
+viceroy|noun|C1|CEFR-J|neutral|mastery|1|نائب الملك|a ruler acting on behalf of a sovereign
+regent|noun|C1|CEFR-J|neutral|mastery|1|وصي على العرش|a person ruling during a monarch's absence
+succession|noun|C1|AWL|neutral|mastery|1|خلافة|the order in which rulers follow each other
+interregnum|noun|C2|NAWL|formal|mastery|1|فترة بين عهدين|a period between two reigns
+epoch|noun|C1|AWL|neutral|mastery|1|حقبة|a distinctive period of history
+millennium|noun|C1|CEFR-J|neutral|mastery|1|ألفية|a period of one thousand years
+annals|noun|C1|CEFR-J|neutral|mastery|1|سجلات تاريخية|historical records of events year by year
+chronicle|noun|C1|CEFR-J|neutral|mastery|1|سجل تاريخي|a factual written account of historical events
+historiography|noun|C2|NAWL|formal|mastery|1|علم كتابة التاريخ|the study of historical writing methods
+provenance|noun|C1|AWL|neutral|mastery|1|مصدر|the place of origin of an artifact
+relic|noun|C1|CEFR-J|neutral|mastery|1|أثر|an object surviving from the past
+patina|noun|C2|NAWL|neutral|mastery|1|زنجار|a surface coating formed by age on metal or stone
+erosion|noun|C1|AWL|neutral|mastery|1|تآكل|gradual destruction of material by natural forces
+sediment|noun|C1|AWL|neutral|mastery|1|رواسب|matter that settles to the bottom of a liquid

@@ -1,0 +1,174 @@
+endurance|noun|C1|CEFR-J|neutral|core|2|تحمل|the ability to withstand prolonged effort
+stamina|noun|C1|CEFR-J|neutral|core|2|قوة تحمل|sustained physical or mental energy
+resilience|noun|C1|AWL|neutral|core|2|مرونة نفسية|the capacity to recover from difficulty
+perseverance|noun|C1|CEFR-J|neutral|core|2|مثابرة|continued effort despite difficulty
+tenacity|noun|C1|NAWL|neutral|core|2|عناد إيجابي|the quality of holding firmly to a purpose
+grit|noun|C1|CEFR-J|neutral|core|2|عزيمة|courage and determination
+discipline|noun|B2|AWL|neutral|core|2|انضباط|controlled behavior or training
+regimen|noun|C1|CEFR-J|neutral|core|2|نظام تدريب|a systematic plan for health or training
+conditioning|noun|C1|CEFR-J|neutral|core|2|تكييف بدني|the process of training for physical fitness
+aerobic|adjective|C1|CEFR-J|neutral|core|2|هوائي|relating to exercise requiring oxygen
+anaerobic|adjective|C1|NAWL|neutral|core|2|لاهوائي|relating to exercise without oxygen
+isometric|adjective|C1|NAWL|neutral|core|2|متساوي القياس|exercise involving static muscle contraction
+plyometric|adjective|C2|NAWL|formal|core|2|بلايومتري|exercise involving explosive movements
+calisthenics|noun|C1|NAWL|neutral|core|2|تمارين رياضية|exercises using body weight
+repetition|noun|C1|CEFR-J|neutral|core|2|تكرار|performing a movement multiple times
+set|noun|B2|CEFR-J|neutral|core|2|مجموعة تمارين|a group of exercise repetitions
+interval|noun|C1|AWL|neutral|core|2|فاصل زمني|a pause between periods of activity
+tempo|noun|C1|CEFR-J|neutral|core|2|إيقاع|the speed of an exercise or activity
+intensity|noun|C1|AWL|neutral|core|2|شدة تمرين|the degree of effort in exercise
+plateau|noun|C1|CEFR-J|neutral|core|2|هضبة أداء|a period of no improvement
+overtraining|noun|C1|NAWL|neutral|core|2|إفراط تدريب|excessive training causing harm
+recovery|noun|C1|CEFR-J|neutral|core|2|تعافي|the process of returning to normal after exertion
+periodization|noun|C2|NAWL|formal|core|2|تقسيم فترات|systematic planning of training phases
+tapering|noun|C1|NAWL|neutral|core|2|تقليل تدريجي|reducing training intensity before competition
+dehydration|noun|C1|CEFR-J|neutral|core|2|جفاف|loss of water from the body
+electrolyte|noun|C1|NAWL|neutral|core|2|إلكتروليت|a mineral carrying electric charge in the body
+glycogen|noun|C1|NAWL|neutral|extended|2|غليكوجين|stored sugar used for energy
+metabolism|noun|C1|CEFR-J|neutral|extended|2|أيض|chemical processes in living organisms
+catabolism|noun|C2|NAWL|formal|extended|2|هدم حيوي|the breakdown of complex molecules
+anabolism|noun|C2|NAWL|formal|extended|2|بناء حيوي|the synthesis of complex molecules
+lactate|noun|C1|NAWL|neutral|extended|2|لاكتات|a substance produced during intense exercise
+threshold|noun|C1|AWL|neutral|extended|2|عتبة أداء|the point at which a change begins
+VO2 max|noun|C1|NAWL|neutral|extended|2|أقصى استهلاك أكسجين|maximum oxygen uptake during exercise
+cardiac output|noun|C1|NAWL|neutral|extended|2|نتاج قلبي|the volume of blood pumped per minute
+heart rate|noun|B2|CEFR-J|neutral|extended|2|معدل نبض|the number of heartbeats per minute
+resting heart rate|noun|C1|NAWL|neutral|extended|2|نبض راحة|heartbeat frequency at complete rest
+blood pressure|noun|B2|CEFR-J|neutral|extended|2|ضغط دم|the force of blood against artery walls
+capillary|noun|C1|CEFR-J|neutral|extended|2|شعيرة دموية|a tiny blood vessel
+mitochondria|noun|C1|NAWL|neutral|extended|2|ميتوكوندريا|organelles producing cellular energy
+oxidation|noun|C1|NAWL|neutral|extended|2|أكسدة|a chemical reaction with oxygen
+ATP|noun|C1|NAWL|neutral|extended|2|أدينوسين ثلاثي الفوسفات|the energy currency of cells
+creatine|noun|C1|NAWL|neutral|extended|2|كرياتين|a compound supplying energy to muscles
+myoglobin|noun|C2|NAWL|formal|extended|2|ميوغلوبين|an oxygen-storing protein in muscles
+hemoglobin|noun|C1|CEFR-J|neutral|extended|2|هيموغلوبين|the oxygen-carrying protein in blood
+tendon|noun|C1|CEFR-J|neutral|extended|2|وتر|tissue connecting muscle to bone
+ligament|noun|C1|CEFR-J|neutral|extended|2|رباط|tissue connecting bone to bone
+cartilage|noun|C1|CEFR-J|neutral|extended|2|غضروف|flexible tissue covering joints
+meniscus|noun|C1|NAWL|neutral|extended|2|هلالة|cartilage in the knee joint
+rotator cuff|noun|C1|NAWL|neutral|extended|2|كفة مدورة|muscles stabilizing the shoulder
+hamstring|noun|C1|CEFR-J|neutral|extended|2|عضلة خلفية|muscles at the back of the thigh
+quadriceps|noun|C1|CEFR-J|neutral|extended|2|عضلة أمامية|muscles at the front of the thigh
+glute|noun|C1|CEFR-J|neutral|extended|2|عضلة أليوية|a muscle of the buttock
+deltoid|noun|C1|NAWL|neutral|mastery|2|دالية|the triangular shoulder muscle
+trapezius|noun|C1|NAWL|neutral|mastery|2|شبه منحرفة|a large muscle of the upper back
+pectoral|adjective|C1|NAWL|neutral|mastery|2|صدري|relating to the chest muscles
+abdominal|adjective|C1|CEFR-J|neutral|mastery|2|بطني|relating to the stomach area
+oblique|adjective|C1|NAWL|neutral|mastery|2|مائلة|a side abdominal muscle
+flexor|noun|C1|NAWL|neutral|mastery|2|عضلة قابضة|a muscle that bends a joint
+extensor|noun|C1|NAWL|neutral|mastery|2|عضلة باسطة|a muscle that straightens a joint
+pronation|noun|C2|NAWL|formal|mastery|2|كب|inward rotation of the foot or hand
+supination|noun|C2|NAWL|formal|mastery|2|استلقاء|outward rotation of the foot or hand
+dorsiflexion|noun|C2|NAWL|formal|mastery|2|عطف ظهري|bending the foot upward
+plantarflexion|noun|C2|NAWL|formal|mastery|2|عطف أخمصي|pointing the foot downward
+concentric|adjective|C1|NAWL|neutral|mastery|2|متراكز|muscle contraction while shortening
+eccentric|adjective|C1|NAWL|neutral|mastery|2|متراخي|muscle contraction while lengthening
+proprioception|noun|C2|NAWL|formal|mastery|2|حس عميق|awareness of body position
+kinesthesia|noun|C2|NAWL|formal|mastery|2|حس حركي|the sense of body movement
+biomechanics|noun|C1|NAWL|neutral|core|2|ميكانيكا حيوية|the study of body movement
+kinesiology|noun|C1|NAWL|neutral|core|2|علم الحركة|the study of human movement
+ergonomics|noun|C1|NAWL|neutral|core|2|هندسة بشرية|designing for human efficiency
+physiology|noun|C1|CEFR-J|neutral|core|2|علم وظائف الأعضاء|the study of body functions
+anatomy|noun|C1|CEFR-J|neutral|core|2|تشريح|the study of body structure
+rehabilitation|noun|C1|AWL|neutral|core|2|تأهيل|the process of restoring health
+physiotherapy|noun|C1|CEFR-J|neutral|core|2|علاج طبيعي|treatment of injury through exercise
+cryotherapy|noun|C1|NAWL|neutral|extended|2|علاج بالتبريد|treatment using extreme cold
+hydrotherapy|noun|C1|NAWL|neutral|extended|2|علاج مائي|treatment using water
+acupuncture|noun|C1|CEFR-J|neutral|extended|2|وخز إبر|treatment using thin needles
+massage|noun|B2|CEFR-J|neutral|extended|2|تدليك|rubbing the body for relaxation or healing
+stretching|noun|B2|CEFR-J|neutral|extended|2|تمدد|extending muscles to improve flexibility
+warm-up|noun|B2|CEFR-J|neutral|extended|2|إحماء|light exercise before intense activity
+cooldown|noun|C1|CEFR-J|neutral|extended|2|تبريد|gentle exercise after intense activity
+sprain|noun|C1|CEFR-J|neutral|mastery|2|التواء|stretching or tearing of a ligament
+strain|noun|C1|CEFR-J|neutral|mastery|2|شد عضلي|injury to a muscle or tendon
+fracture|noun|C1|CEFR-J|neutral|mastery|2|كسر|a break in a bone
+dislocation|noun|C1|CEFR-J|neutral|mastery|2|خلع|displacement of a bone from its joint
+concussion|noun|C1|CEFR-J|neutral|mastery|2|ارتجاج|a brain injury from a blow
+contusion|noun|C1|NAWL|neutral|mastery|2|كدمة|a bruise from blunt impact
+inflammation|noun|C1|CEFR-J|neutral|mastery|2|التهاب|swelling and redness from injury
+swelling|noun|C1|CEFR-J|neutral|mastery|2|تورم|an abnormal enlargement of body tissue
+scar tissue|noun|C1|CEFR-J|neutral|mastery|2|نسيج ندبي|fibrous tissue replacing normal tissue
+atrophy|noun|C1|NAWL|neutral|mastery|2|ضمور|wasting away of body tissue
+hypertrophy|noun|C1|NAWL|neutral|mastery|2|تضخم|excessive growth of body tissue
+flexibility|noun|C1|CEFR-J|neutral|core|2|مرونة|the ability to bend without breaking
+agility|noun|C1|CEFR-J|neutral|core|2|رشاقة|the ability to move quickly and easily
+coordination|noun|C1|AWL|neutral|core|2|تنسيق حركي|the ability to use different body parts together
+balance|noun|B2|CEFR-J|neutral|core|2|توازن|the ability to remain steady
+reflexes|noun|C1|CEFR-J|neutral|core|2|ردود فعل|automatic responses to stimuli
+reaction time|noun|C1|CEFR-J|neutral|extended|2|زمن رد فعل|the time taken to respond to a stimulus
+acceleration|noun|C1|AWL|neutral|extended|2|تسارع|the rate of increasing speed
+deceleration|noun|C1|AWL|neutral|extended|2|تباطؤ|the rate of decreasing speed
+velocity|noun|C1|AWL|neutral|extended|2|سرعة اتجاهية|speed in a specific direction
+momentum|noun|C1|AWL|neutral|extended|2|زخم حركي|the force of a moving body
+torque|noun|C1|NAWL|neutral|extended|2|عزم دوران|a twisting force causing rotation
+leverage|noun|C1|AWL|neutral|extended|2|رافعة ميكانيكية|using a lever to gain mechanical advantage
+trajectory|noun|C1|AWL|neutral|extended|2|مسار حركي|the path of a moving object
+propulsion|noun|C1|NAWL|neutral|extended|2|دفع|the force driving something forward
+drag|noun|C1|CEFR-J|neutral|extended|2|مقاومة هوائية|air resistance slowing movement
+friction|noun|C1|CEFR-J|neutral|extended|2|احتكاك|resistance between surfaces in contact
+traction|noun|C1|CEFR-J|neutral|extended|2|قوة جر|grip between a surface and a moving object
+sprint|noun|B2|CEFR-J|neutral|core|2|عدو سريع|running at full speed over a short distance
+marathon|noun|B2|CEFR-J|neutral|core|2|ماراثون|a long-distance running race
+triathlon|noun|C1|CEFR-J|neutral|core|2|سباق ثلاثي|a race combining swimming cycling and running
+decathlon|noun|C1|CEFR-J|neutral|core|2|عشاري|a combined event of ten track and field contests
+pentathlon|noun|C1|CEFR-J|neutral|core|2|خماسي|a combined event of five sports
+relay|noun|C1|CEFR-J|neutral|core|2|تتابع|a race where team members take turns
+hurdle|noun|C1|CEFR-J|neutral|core|2|حاجز|a barrier to jump over in racing
+pole vault|noun|C1|CEFR-J|neutral|extended|2|قفز بالزانة|jumping over a high bar using a pole
+javelin|noun|C1|CEFR-J|neutral|extended|2|رمح|a spear thrown in athletics
+discus|noun|C1|CEFR-J|neutral|extended|2|قرص|a heavy disc thrown in athletics
+shot put|noun|C1|CEFR-J|neutral|extended|2|رمي جلة|throwing a heavy ball in athletics
+high jump|noun|B2|CEFR-J|neutral|extended|2|وثب عالي|jumping over a horizontal bar
+long jump|noun|B2|CEFR-J|neutral|extended|2|وثب طويل|jumping for maximum horizontal distance
+triple jump|noun|C1|CEFR-J|neutral|extended|2|وثب ثلاثي|a jump combining hop step and jump
+steeplechase|noun|C1|CEFR-J|neutral|mastery|2|سباق موانع|a race with obstacles and water jumps
+heptathlon|noun|C1|NAWL|neutral|mastery|2|سباعي|a combined event of seven athletic contests
+personal best|noun|C1|CEFR-J|neutral|core|2|أفضل رقم شخصي|an athlete's highest achievement
+world record|noun|B2|CEFR-J|neutral|core|2|رقم قياسي عالمي|the best ever performance globally
+qualifying round|noun|C1|CEFR-J|neutral|extended|2|جولة تأهيلية|a preliminary competition
+semifinal|noun|B2|CEFR-J|neutral|extended|2|نصف نهائي|the round before the final
+podium|noun|C1|CEFR-J|neutral|extended|2|منصة تتويج|a platform for awarding prizes
+medal|noun|B2|CEFR-J|neutral|core|2|ميدالية|a metal award for achievement
+trophy|noun|B2|CEFR-J|neutral|core|2|كأس|a prize for winning a competition
+championship|noun|B2|CEFR-J|neutral|core|2|بطولة|a competition to determine the best
+tournament|noun|B2|CEFR-J|neutral|core|2|دورة|a series of competitive events
+seeding|noun|C1|CEFR-J|neutral|extended|2|تصنيف لاعبين|ranking competitors before a tournament
+handicap|noun|C1|CEFR-J|neutral|extended|2|إعاقة تنافسية|an advantage given to equalize competition
+doping|noun|C1|CEFR-J|neutral|core|2|منشطات|using banned substances to improve performance
+anti-doping|adjective|C1|NAWL|neutral|core|2|مكافحة منشطات|relating to preventing illegal drug use
+blood doping|noun|C1|NAWL|neutral|mastery|2|تنشيط دم|increasing red blood cells artificially
+EPO|noun|C1|NAWL|neutral|mastery|2|إريثروبويتين|a hormone boosting red blood cell production
+steroid|noun|C1|CEFR-J|neutral|mastery|2|ستيرويد|a synthetic hormone for muscle growth
+testosterone|noun|C1|CEFR-J|neutral|mastery|2|تستوستيرون|a male hormone affecting strength
+supplement|noun|C1|CEFR-J|neutral|core|2|مكمل غذائي|an additional substance taken for health
+nutrition|noun|B2|CEFR-J|neutral|core|2|تغذية|the process of taking in food
+calorie|noun|B2|CEFR-J|neutral|core|2|سعرة حرارية|a unit of energy in food
+protein|noun|B2|CEFR-J|neutral|core|2|بروتين|a nutrient essential for muscle growth
+carbohydrate|noun|B2|CEFR-J|neutral|core|2|كربوهيدرات|a nutrient providing energy
+fat|noun|B2|CEFR-J|neutral|core|2|دهون|a nutrient for energy storage
+fiber|noun|B2|CEFR-J|neutral|core|2|ألياف غذائية|plant material aiding digestion
+vitamin|noun|B2|CEFR-J|neutral|core|2|فيتامين|an essential nutrient in small amounts
+mineral|noun|B2|CEFR-J|neutral|core|2|معدن غذائي|an inorganic nutrient needed by the body
+hydration|noun|C1|CEFR-J|neutral|core|2|ترطيب|maintaining adequate body water levels
+isotonic|adjective|C1|NAWL|neutral|extended|2|متساوي التوتر|having the same concentration as body fluid
+hypertonic|adjective|C1|NAWL|neutral|mastery|2|مفرط التوتر|having higher concentration than body fluid
+hypotonic|adjective|C1|NAWL|neutral|mastery|2|ناقص التوتر|having lower concentration than body fluid
+caffeine|noun|C1|CEFR-J|neutral|extended|2|كافيين|a stimulant found in coffee and tea
+antioxidant|noun|C1|NAWL|neutral|extended|2|مضاد أكسدة|a substance preventing cell damage
+amino acid|noun|C1|NAWL|neutral|extended|2|حمض أميني|a building block of protein
+omega-3|noun|C1|NAWL|neutral|extended|2|أوميغا 3|a fatty acid beneficial for health
+probiotic|noun|C1|NAWL|neutral|extended|2|بروبيوتيك|a beneficial microorganism for digestion
+micronutrient|noun|C1|NAWL|neutral|mastery|2|مغذيات دقيقة|vitamins and minerals needed in tiny amounts
+macronutrient|noun|C1|NAWL|neutral|mastery|2|مغذيات كبرى|nutrients needed in large quantities
+bioavailability|noun|C2|NAWL|formal|mastery|2|توافر حيوي|the degree a nutrient is absorbed
+glycemic index|noun|C1|NAWL|neutral|mastery|2|مؤشر سكري|a measure of how food raises blood sugar
+basal metabolic rate|noun|C1|NAWL|neutral|mastery|2|معدل أيض أساسي|energy used at complete rest
+thermoregulation|noun|C1|NAWL|neutral|mastery|2|تنظيم حراري|the body's control of its temperature
+acclimatization|noun|C1|AWL|neutral|mastery|2|تأقلم|gradual adjustment to new conditions
+altitude training|noun|C1|NAWL|neutral|mastery|2|تدريب مرتفعات|exercising at high elevation for fitness gains
+hypoxia|noun|C1|NAWL|neutral|mastery|2|نقص أكسجين|a deficiency of oxygen in the body
+lactic acid|noun|C1|NAWL|neutral|extended|2|حمض لبني|a substance causing muscle fatigue
+muscle fiber|noun|C1|CEFR-J|neutral|extended|2|ليف عضلي|a single muscle cell
+fast-twitch|adjective|C1|NAWL|neutral|mastery|2|سريع الانقباض|muscle fibers for quick powerful movements
+slow-twitch|adjective|C1|NAWL|neutral|mastery|2|بطيء الانقباض|muscle fibers for endurance activities
+neuromuscular|adjective|C1|NAWL|neutral|mastery|2|عصبي عضلي|relating to nerves and muscles

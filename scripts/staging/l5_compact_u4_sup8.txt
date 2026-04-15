@@ -1,0 +1,41 @@
+climate feedback|noun|C1|NAWL|neutral|core|4|تغذية راجعة مناخية|a process amplifying or reducing warming
+ice-albedo feedback|noun|C1|NAWL|neutral|extended|4|تغذية راجعة جليد-انعكاسية|ice loss causing more warming
+water vapor feedback|noun|C1|NAWL|neutral|extended|4|تغذية راجعة بخار ماء|warming increasing atmospheric moisture
+cloud feedback|noun|C1|NAWL|neutral|mastery|4|تغذية راجعة سحابية|clouds affecting Earth's energy balance
+carbon cycle feedback|noun|C1|NAWL|neutral|extended|4|تغذية راجعة دورة كربون|warming releasing more carbon
+methane clathrate|noun|C1|NAWL|neutral|mastery|4|هيدرات ميثان|frozen methane in ocean sediments
+permafrost carbon|noun|C1|NAWL|neutral|extended|4|كربون تربة صقيعية|carbon stored in frozen ground
+soil carbon|noun|C1|NAWL|neutral|extended|4|كربون تربة|carbon stored in the ground
+biochar|noun|C1|NAWL|neutral|extended|4|فحم حيوي|charcoal used to store carbon in soil
+direct air capture|noun|C1|NAWL|neutral|core|4|التقاط هواء مباشر|removing CO2 directly from the air
+carbon capture and storage|noun|C1|NAWL|neutral|core|4|التقاط وتخزين كربون|capturing CO2 and storing it underground
+bioenergy with carbon capture|noun|C1|NAWL|neutral|extended|4|طاقة حيوية مع التقاط كربون|burning biomass and capturing the CO2
+enhanced weathering|noun|C1|NAWL|neutral|mastery|4|تجوية معززة|spreading minerals to absorb CO2
+ocean alkalinity enhancement|noun|C1|NAWL|neutral|mastery|4|تعزيز قلوية المحيط|adding minerals to the ocean to absorb CO2
+solar radiation management|noun|C1|NAWL|neutral|mastery|4|إدارة إشعاع شمسي|reflecting sunlight to cool the Earth
+stratospheric aerosol injection|noun|C1|NAWL|neutral|mastery|4|حقن هباء ستراتوسفيري|spraying particles to reflect sunlight
+marine cloud brightening|noun|C1|NAWL|neutral|mastery|4|تبييض سحب بحرية|making clouds more reflective
+geoengineering|noun|C1|NAWL|neutral|core|4|هندسة جيولوجية|deliberately modifying the climate
+negative emission technology|noun|C1|NAWL|neutral|extended|4|تقنية انبعاث سلبي|methods that remove CO2 from the atmosphere
+climate overshoot|noun|C1|NAWL|neutral|extended|4|تجاوز مناخي|temporarily exceeding a temperature target
+carbon removal|noun|C1|NAWL|neutral|core|4|إزالة كربون|taking CO2 out of the atmosphere
+carbon mineralization|noun|C1|NAWL|neutral|mastery|4|تمعدن كربوني|converting CO2 into solid minerals
+carbon utilization|noun|C1|NAWL|neutral|extended|4|استخدام كربون|converting captured CO2 into useful products
+climate monitoring|noun|C1|NAWL|neutral|core|4|مراقبة مناخية|tracking climate changes systematically
+climate indicator|noun|C1|AWL|neutral|extended|4|مؤشر مناخي|a measurable sign of climate change
+atmospheric CO2 level|noun|C1|NAWL|neutral|core|4|مستوى ثاني أكسيد كربون|the concentration of CO2 in the air
+Keeling curve|noun|C1|NAWL|neutral|mastery|4|منحنى كيلينغ|the graph showing rising atmospheric CO2
+global mean temperature|noun|C1|AWL|neutral|core|4|متوسط حرارة عالمية|the average temperature of Earth's surface
+ocean heat content|noun|C1|NAWL|neutral|extended|4|محتوى حراري محيطي|the amount of heat stored in the ocean
+Arctic amplification|noun|C1|NAWL|neutral|extended|4|تضخيم قطبي|the Arctic warming faster than the rest
+polar vortex|noun|C1|NAWL|neutral|extended|4|دوامة قطبية|a large area of cold air around the poles
+jet stream|noun|C1|NAWL|neutral|core|4|تيار نفاث|a fast-moving wind in the upper atmosphere
+El Niño|noun|C1|NAWL|neutral|core|4|إل نينيو|warm ocean currents affecting global weather
+La Niña|noun|C1|NAWL|neutral|core|4|لا نينيا|cool ocean currents affecting global weather
+Indian Ocean Dipole|noun|C1|NAWL|neutral|mastery|4|ثنائي قطب المحيط الهندي|temperature differences in the Indian Ocean
+Atlantic Meridional Overturning Circulation|noun|C2|NAWL|formal|mastery|4|دوران أطلسي طولي|a major ocean current system
+monsoon pattern|noun|C1|NAWL|neutral|extended|4|نمط موسمي|seasonal wind and rain patterns
+extreme weather event|noun|C1|NAWL|neutral|core|4|حدث طقس متطرف|an unusual and severe weather occurrence
+attribution science|noun|C1|NAWL|neutral|extended|4|علم إسناد|linking extreme weather to climate change
+compound event|noun|C1|NAWL|neutral|mastery|4|حدث مركب|multiple climate hazards occurring together
+cascading impact|noun|C1|NAWL|neutral|extended|4|تأثير متتالي|one climate effect triggering others

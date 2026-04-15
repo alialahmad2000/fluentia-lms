@@ -1,0 +1,139 @@
+hypothesis|noun|C1|AWL|neutral|core|3|فرضية|a proposed explanation for a phenomenon
+empirical|adjective|C1|AWL|neutral|core|3|تجريبي|based on observation and experiment
+methodology|noun|C1|AWL|neutral|core|3|منهجية|a system of methods used in a study
+peer review|noun|C1|AWL|neutral|core|3|مراجعة الأقران|evaluation of work by experts in the field
+replication|noun|C1|AWL|neutral|core|3|تكرار التجربة|repeating an experiment to verify results
+falsification|noun|C1|AWL|neutral|core|3|تزييف|proving a statement to be false
+paradigm|noun|C1|AWL|neutral|core|3|نموذج معرفي|a framework of concepts in a scientific field
+anomaly|noun|C1|AWL|neutral|core|3|شذوذ|something that deviates from the expected pattern
+correlation|noun|C1|AWL|neutral|core|3|ارتباط|a mutual relationship between two variables
+causation|noun|C1|AWL|neutral|core|3|علاقة سببية|the relationship between cause and effect
+variable|noun|B2|AWL|neutral|core|3|متغير|a factor that can change in an experiment
+control group|noun|C1|NAWL|neutral|core|3|مجموعة ضابطة|a group not receiving the experimental treatment
+placebo|noun|C1|CEFR-J|neutral|core|3|علاج وهمي|an inactive treatment used in experiments
+bias|noun|C1|AWL|neutral|core|3|تحيز|a tendency to favor one view over another
+objectivity|noun|C1|AWL|neutral|core|3|موضوعية|judgment based on facts rather than feelings
+subjectivity|noun|C1|AWL|neutral|core|3|ذاتية|judgment influenced by personal feelings
+reproducibility|noun|C1|NAWL|neutral|core|3|قابلية التكرار|the ability to reproduce experimental results
+validity|noun|C1|AWL|neutral|core|3|صحة|the degree to which a test measures what it claims
+reliability|noun|C1|AWL|neutral|core|3|موثوقية|the consistency of measurement results
+sample|noun|B2|AWL|neutral|core|3|عينة|a subset of a population used for study
+population|noun|B2|AWL|neutral|core|3|مجتمع إحصائي|the entire group being studied
+randomization|noun|C1|AWL|neutral|core|3|تعشية|the random assignment of subjects to groups
+double-blind|adjective|C1|NAWL|neutral|core|3|مزدوج التعمية|a study where neither subject nor researcher knows assignment
+longitudinal|adjective|C1|AWL|neutral|core|3|طولي|a study conducted over a long period
+cross-sectional|adjective|C1|AWL|neutral|core|3|مقطعي|a study examining data at one point in time
+meta-analysis|noun|C1|NAWL|formal|core|3|تحليل تجميعي|statistical analysis combining multiple studies
+systematic review|noun|C1|AWL|neutral|core|3|مراجعة منهجية|a thorough summary of all relevant studies
+evidence|noun|B2|AWL|neutral|core|3|دليل|facts supporting or disproving a claim
+inference|noun|C1|AWL|neutral|core|3|استنتاج|a conclusion drawn from evidence and reasoning
+deduction|noun|C1|AWL|neutral|core|3|استنباط|reasoning from general to specific
+induction|noun|C1|AWL|neutral|core|3|استقراء|reasoning from specific to general
+abduction|noun|C1|AWL|neutral|core|3|استدلال|inference to the best explanation
+conjecture|noun|C1|CEFR-J|neutral|core|3|تخمين|an opinion based on incomplete information
+postulate|noun|C1|AWL|formal|core|3|مسلّمة|a statement assumed to be true
+axiom|noun|C1|NAWL|neutral|core|3|بديهية|a self-evident truth needing no proof
+theorem|noun|C1|NAWL|neutral|core|3|مبرهنة|a statement proved by logical reasoning
+proposition|noun|C1|AWL|neutral|core|3|قضية|a statement offered for consideration
+premise|noun|C1|AWL|neutral|core|3|مقدمة منطقية|a statement forming the basis of an argument
+syllogism|noun|C2|NAWL|formal|core|3|قياس منطقي|a form of reasoning with two premises and a conclusion
+tautology|noun|C2|NAWL|formal|core|3|حشو|a statement that is true by definition
+fallacy|noun|C1|AWL|neutral|core|3|مغالطة|a mistaken belief based on unsound reasoning
+dogma|noun|C1|CEFR-J|neutral|core|3|عقيدة جامدة|a set of beliefs held by a group without question
+skepticism|noun|C1|AWL|neutral|core|3|شكوكية|an attitude of doubt toward claims
+pseudoscience|noun|C1|NAWL|neutral|core|3|علم زائف|beliefs mistakenly regarded as scientific
+quackery|noun|C1|CEFR-J|informal|core|3|دجل|dishonest medical practices
+charlatan|noun|C1|CEFR-J|neutral|core|3|دجال|a person falsely claiming expertise
+confounding|adjective|C1|AWL|neutral|extended|3|مربك|a variable that distorts the observed relationship
+extrapolation|noun|C1|AWL|neutral|extended|3|استقراء|extending known data into unknown areas
+interpolation|noun|C1|AWL|neutral|extended|3|استكمال|estimating values within a range of known data
+regression|noun|C1|AWL|neutral|extended|3|انحدار|a statistical method for estimating relationships
+deviation|noun|C1|AWL|neutral|extended|3|انحراف معياري|the amount by which a value differs from the mean
+significance|noun|C1|AWL|neutral|extended|3|دلالة إحصائية|the likelihood that a result is not due to chance
+probability|noun|C1|AWL|neutral|extended|3|احتمال|the likelihood of an event occurring
+stochastic|adjective|C2|NAWL|formal|extended|3|عشوائي|having a random probability distribution
+deterministic|adjective|C1|AWL|neutral|extended|3|حتمي|determined entirely by initial conditions
+Bayesian|adjective|C2|NAWL|formal|extended|3|بايزي|relating to probability based on prior knowledge
+frequentist|adjective|C2|NAWL|formal|extended|3|تكراري|based on frequency of observed events
+null hypothesis|noun|C1|AWL|neutral|extended|3|فرضية صفرية|a hypothesis that there is no effect
+p-value|noun|C1|NAWL|neutral|extended|3|القيمة الاحتمالية|the probability of obtaining observed results if null hypothesis is true
+confidence interval|noun|C1|AWL|neutral|extended|3|فترة ثقة|a range likely to contain the true value
+effect size|noun|C1|NAWL|neutral|extended|3|حجم الأثر|a measure of the strength of a phenomenon
+outlier|noun|C1|AWL|neutral|extended|3|قيمة شاذة|a data point far from others in a sample
+skewness|noun|C2|NAWL|formal|extended|3|التواء|asymmetry in a statistical distribution
+kurtosis|noun|C2|NAWL|formal|extended|3|تفلطح|the sharpness of a distribution's peak
+histogram|noun|C1|NAWL|neutral|extended|3|مخطط تكراري|a bar chart showing frequency distribution
+scatterplot|noun|C1|NAWL|neutral|extended|3|مخطط انتشار|a graph showing relationship between two variables
+taxonomy|noun|C1|AWL|neutral|extended|3|تصنيف|the classification of things into groups
+nomenclature|noun|C1|NAWL|formal|extended|3|تسمية|a system of names used in a discipline
+epistemology|noun|C1|NAWL|formal|extended|3|نظرية المعرفة|the study of the nature of knowledge
+ontology|noun|C2|NAWL|formal|extended|3|أنطولوجيا|the study of the nature of being
+empiricism|noun|C1|NAWL|formal|extended|3|تجريبية|the theory that knowledge comes from experience
+rationalism|noun|C1|NAWL|formal|extended|3|عقلانية|the theory that reason is the source of knowledge
+positivism|noun|C1|NAWL|formal|extended|3|وضعية|the theory that knowledge comes from scientific observation
+constructivism|noun|C1|NAWL|formal|extended|3|بنائية|the theory that knowledge is constructed by learners
+relativism|noun|C1|NAWL|formal|extended|3|نسبية|the doctrine that knowledge is relative
+reductionism|noun|C1|NAWL|formal|extended|3|اختزالية|explaining complex phenomena through simpler components
+holism|noun|C1|NAWL|formal|extended|3|شمولية|the idea that systems should be viewed as wholes
+parsimony|noun|C1|NAWL|formal|extended|3|اقتصاد|the principle of choosing the simplest explanation
+heuristic|noun|C1|AWL|neutral|extended|3|استدلالي|a practical method for solving problems
+algorithm|noun|C1|NAWL|neutral|extended|3|خوارزمية|a step-by-step problem-solving procedure
+iteration|noun|C1|AWL|neutral|extended|3|تكرار|the repetition of a process
+calibration|noun|C1|AWL|neutral|extended|3|معايرة|adjusting an instrument for accuracy
+standardization|noun|C1|AWL|neutral|extended|3|توحيد المعايير|making things conform to a standard
+quantification|noun|C1|AWL|neutral|extended|3|تكميم|the expression of something as a quantity
+operationalization|noun|C2|AWL|formal|extended|3|أجرأة|defining a concept in measurable terms
+triangulation|noun|C1|AWL|neutral|extended|3|تثليث|using multiple methods to study a phenomenon
+saturation|noun|C1|AWL|neutral|extended|3|تشبع|the point where no new information emerges
+corroboration|noun|C1|AWL|neutral|extended|3|تأييد|evidence that confirms a statement
+refutation|noun|C1|AWL|neutral|extended|3|دحض|the proving of a statement to be wrong
+retraction|noun|C1|CEFR-J|neutral|extended|3|سحب|the withdrawal of a published paper
+errata|noun|C2|NAWL|formal|extended|3|تصويبات|a list of errors in a publication
+addendum|noun|C1|NAWL|formal|extended|3|ملحق|additional material added to a document
+corrigendum|noun|C2|NAWL|formal|extended|3|تصحيح|a correction to a published work
+appendix|noun|C1|CEFR-J|neutral|extended|3|ملحق|supplementary material at the end of a book
+bibliography|noun|C1|CEFR-J|neutral|extended|3|ببليوغرافيا|a list of sources on a particular subject
+citation|noun|C1|AWL|neutral|extended|3|اقتباس|a reference to a published source
+abstract|noun|C1|AWL|neutral|extended|3|ملخص|a summary of a research paper
+dissertation|noun|C1|AWL|neutral|extended|3|أطروحة|a long essay on a particular subject
+thesis|noun|C1|AWL|neutral|extended|3|رسالة|a statement to be proved or a long academic paper
+monograph|noun|C1|NAWL|formal|extended|3|دراسة متخصصة|a detailed study of a single subject
+compendium|noun|C1|NAWL|formal|extended|3|مختصر|a collection of concise information
+anthology|noun|C1|CEFR-J|neutral|extended|3|مختارات|a collection of literary works
+treatise|noun|C1|CEFR-J|neutral|extended|3|رسالة علمية|a formal written work on a subject
+fabrication|noun|C1|CEFR-J|neutral|mastery|3|تلفيق|the invention of false data or results
+plagiarism|noun|C1|CEFR-J|neutral|mastery|3|انتحال|presenting another's work as one's own
+misconduct|noun|C1|AWL|neutral|mastery|3|سوء سلوك|unacceptable behavior in research
+ethics|noun|C1|AWL|neutral|mastery|3|أخلاقيات|moral principles governing behavior
+consent|noun|C1|AWL|neutral|mastery|3|موافقة|permission for something to happen
+confidentiality|noun|C1|AWL|neutral|mastery|3|سرية|the state of keeping information private
+anonymity|noun|C1|AWL|neutral|mastery|3|مجهولية|the condition of being unnamed
+disclosure|noun|C1|AWL|neutral|mastery|3|إفصاح|the revealing of previously secret information
+transparency|noun|C1|AWL|neutral|mastery|3|شفافية|openness and accountability
+accountability|noun|C1|AWL|neutral|mastery|3|مساءلة|the obligation to account for one's actions
+governance|noun|C1|AWL|neutral|mastery|3|حوكمة|the system of rules and practices
+oversight|noun|C1|AWL|neutral|mastery|3|رقابة|supervisory authority or an unintentional omission
+audit|noun|C1|AWL|neutral|mastery|3|تدقيق|an official examination of accounts
+compliance|noun|C1|AWL|neutral|mastery|3|امتثال|acting in accordance with rules
+protocol|noun|C1|AWL|neutral|mastery|3|بروتوكول|a set of rules governing a procedure
+paradigm shift|noun|C1|AWL|neutral|mastery|3|تحول نموذجي|a fundamental change in approach
+consensus|noun|C1|AWL|neutral|mastery|3|إجماع|general agreement among a group
+dissent|noun|C1|AWL|neutral|mastery|3|معارضة|the holding of opinions at variance
+controversy|noun|C1|AWL|neutral|mastery|3|جدل|prolonged public disagreement or debate
+polemic|noun|C1|CEFR-J|formal|mastery|3|مناظرة|a strong verbal or written attack on a position
+critique|noun|C1|AWL|neutral|mastery|3|نقد|a detailed analysis and assessment
+scrutiny|noun|C1|AWL|neutral|mastery|3|تمحيص|critical examination or close observation
+rigor|noun|C1|AWL|neutral|mastery|3|صرامة|thoroughness and accuracy in research
+precision|noun|C1|AWL|neutral|mastery|3|دقة|the degree of exactness in measurement
+accuracy|noun|B2|AWL|neutral|mastery|3|صواب|the quality of being correct
+veracity|noun|C1|CEFR-J|neutral|mastery|3|مصداقية|truthfulness and accuracy
+plausibility|noun|C1|AWL|neutral|mastery|3|معقولية|the quality of seeming reasonable
+credibility|noun|C1|AWL|neutral|mastery|3|مصداقية علمية|the quality of being trusted and believed
+tenability|noun|C2|NAWL|formal|mastery|3|قابلية الدفاع|the ability to be maintained or defended
+robustness|noun|C1|AWL|neutral|mastery|3|متانة|the quality of being strong and effective
+generalizability|noun|C2|NAWL|formal|mastery|3|قابلية التعميم|the extent to which findings apply broadly
+transferability|noun|C1|AWL|neutral|mastery|3|قابلية النقل|the extent to which findings apply to other contexts
+applicability|noun|C1|AWL|neutral|mastery|3|قابلية التطبيق|relevance to a particular situation
+pragmatism|noun|C1|NAWL|neutral|mastery|3|براغماتية|a practical approach to problems
+instrumentalism|noun|C2|NAWL|formal|mastery|3|أداتية|the view that theories are useful tools not truths
+operationalism|noun|C2|NAWL|formal|mastery|3|عملياتية|defining concepts by the operations measuring them

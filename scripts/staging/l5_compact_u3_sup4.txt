@@ -1,0 +1,85 @@
+empirical evidence|noun|C1|AWL|neutral|core|3|دليل تجريبي|data gathered through observation
+anecdotal evidence|noun|C1|CEFR-J|neutral|core|3|دليل قصصي|evidence based on personal stories
+circumstantial evidence|noun|C1|AWL|neutral|extended|3|دليل ظرفي|indirect evidence implying a conclusion
+corroboration|noun|C1|AWL|neutral|extended|3|تأييد|evidence supporting another claim
+verifiable|adjective|C1|AWL|neutral|core|3|قابل للتحقق|able to be checked for truth
+falsifiable|adjective|C1|NAWL|neutral|core|3|قابل للتكذيب|able to be proven false
+testable|adjective|C1|AWL|neutral|core|3|قابل للاختبار|able to be tested experimentally
+observable|adjective|C1|AWL|neutral|core|3|قابل للملاحظة|able to be seen or measured
+measurable|adjective|C1|AWL|neutral|core|3|قابل للقياس|able to be quantified
+reproducible|adjective|C1|AWL|neutral|core|3|قابل للاستنساخ|able to be repeated with same results
+peer-reviewed|adjective|C1|AWL|neutral|core|3|محكم أقراناً|evaluated by expert reviewers
+scholarly|adjective|C1|CEFR-J|neutral|core|3|أكاديمي|relating to academic research
+rigorous|adjective|C1|AWL|neutral|core|3|صارم|thorough and careful
+systematic|adjective|C1|AWL|neutral|core|3|منهجي|following a fixed method
+analytical|adjective|C1|AWL|neutral|core|3|تحليلي|using analysis to examine
+theoretical|adjective|C1|AWL|neutral|core|3|نظري|based on theory rather than practice
+applied|adjective|C1|AWL|neutral|core|3|تطبيقي|relating to practical use
+basic research|noun|C1|AWL|neutral|core|3|بحث أساسي|research for knowledge without application
+applied research|noun|C1|AWL|neutral|core|3|بحث تطبيقي|research solving practical problems
+translational research|noun|C1|AWL|neutral|extended|3|بحث ترجمي|converting discoveries into practice
+interdisciplinary|adjective|C1|AWL|neutral|core|3|متعدد التخصصات|involving multiple fields
+multidisciplinary|adjective|C1|AWL|neutral|extended|3|مشترك التخصصات|drawing from several disciplines
+transdisciplinary|adjective|C1|AWL|neutral|mastery|3|عبر تخصصي|transcending traditional disciplines
+cross-disciplinary|adjective|C1|AWL|neutral|extended|3|عابر تخصصات|bridging different academic fields
+paradigmatic shift|noun|C1|AWL|neutral|extended|3|تحول نموذجي|a fundamental change in thinking
+scientific method|noun|C1|AWL|neutral|core|3|منهج علمي|systematic approach to investigation
+scientific consensus|noun|C1|AWL|neutral|core|3|إجماع علمي|widespread agreement among scientists
+scientific revolution|noun|C1|AWL|neutral|extended|3|ثورة علمية|a dramatic change in scientific thinking
+Copernican revolution|noun|C1|NAWL|neutral|mastery|3|ثورة كوبرنيكية|the shift to heliocentric astronomy
+Darwinian revolution|noun|C1|NAWL|neutral|mastery|3|ثورة داروينية|the acceptance of evolution by natural selection
+paradigm war|noun|C1|AWL|neutral|mastery|3|صراع نماذج|conflict between competing scientific views
+normal science|noun|C1|AWL|neutral|extended|3|علم طبيعي|research within an accepted paradigm
+revolutionary science|noun|C1|AWL|neutral|mastery|3|علم ثوري|research challenging the accepted paradigm
+incommensurability|noun|C2|NAWL|formal|mastery|3|لا قابلية مقارنة|inability to compare different paradigms
+theory-laden|adjective|C1|NAWL|neutral|mastery|3|محمل بنظرية|observations influenced by existing theory
+underdetermination|noun|C2|NAWL|formal|mastery|3|نقص تحديد|evidence not uniquely supporting one theory
+Occam's razor|noun|C1|NAWL|neutral|extended|3|شفرة أوكام|preferring the simplest explanation
+parsimony|noun|C1|AWL|neutral|extended|3|اقتصاد تفسيري|simplicity in explanation
+elegance|noun|C1|CEFR-J|neutral|extended|3|أناقة نظرية|beauty and simplicity in a theory
+predictive power|noun|C1|AWL|neutral|extended|3|قوة تنبؤية|a theory's ability to predict outcomes
+explanatory power|noun|C1|AWL|neutral|extended|3|قوة تفسيرية|a theory's ability to explain phenomena
+scope|noun|C1|AWL|neutral|core|3|نطاق|the range of phenomena a theory covers
+unification|noun|C1|AWL|neutral|extended|3|توحيد نظري|combining separate theories into one
+consilience|noun|C2|NAWL|formal|mastery|3|تقارب علمي|agreement between different fields
+demarcation problem|noun|C1|NAWL|neutral|mastery|3|مشكلة فصل|distinguishing science from non-science
+scientific literacy|noun|C1|AWL|neutral|core|3|محو أمية علمية|understanding scientific concepts
+science communication|noun|C1|AWL|neutral|core|3|تواصل علمي|making science understandable to the public
+public understanding of science|noun|C1|AWL|neutral|extended|3|فهم عام للعلم|the public's grasp of scientific ideas
+science policy|noun|C1|AWL|neutral|extended|3|سياسة علمية|government decisions about science
+science funding|noun|C1|AWL|neutral|extended|3|تمويل علمي|money allocated for scientific research
+research output|noun|C1|AWL|neutral|extended|3|ناتج بحثي|the results of research activity
+intellectual honesty|noun|C1|AWL|neutral|core|3|أمانة فكرية|truthfulness in presenting evidence
+academic freedom|noun|C1|AWL|neutral|core|3|حرية أكاديمية|the right to teach and research freely
+plagiarism detection|noun|C1|AWL|neutral|extended|3|كشف انتحال|software identifying copied content
+data fabrication|noun|C1|AWL|neutral|extended|3|تلفيق بيانات|inventing false research data
+data falsification|noun|C1|AWL|neutral|extended|3|تزوير بيانات|manipulating research data dishonestly
+research misconduct|noun|C1|AWL|neutral|core|3|سوء سلوك بحثي|violating standards of research ethics
+authorship dispute|noun|C1|AWL|neutral|extended|3|نزاع تأليف|disagreement over research credit
+predatory journal|noun|C1|NAWL|neutral|extended|3|مجلة مفترسة|a journal exploiting authors for fees
+open science|noun|C1|AWL|neutral|core|3|علم مفتوح|making research freely accessible
+citizen scientist|noun|C1|NAWL|neutral|extended|3|عالم مواطن|a non-professional participating in research
+preregistration|noun|C1|NAWL|neutral|mastery|3|تسجيل مسبق|publicly recording research plans before conducting
+registered report|noun|C1|NAWL|neutral|mastery|3|تقرير مسجل|a paper accepted before data collection
+data sharing|noun|C1|AWL|neutral|extended|3|مشاركة بيانات|making research data publicly available
+metadata|noun|C1|NAWL|neutral|extended|3|بيانات وصفية|data describing other data
+FAIR principles|noun|C1|NAWL|neutral|mastery|3|مبادئ فير|findable accessible interoperable reusable data
+DOI|noun|C1|NAWL|neutral|extended|3|معرف رقمي|a digital object identifier for publications
+ORCID|noun|C1|NAWL|neutral|mastery|3|معرف باحث|a unique identifier for researchers
+research ethics board|noun|C1|AWL|neutral|extended|3|مجلس أخلاقيات بحث|a committee reviewing research proposals
+institutional review board|noun|C1|AWL|neutral|extended|3|لجنة مراجعة مؤسسية|a group protecting research participants
+Belmont Report|noun|C1|NAWL|neutral|mastery|3|تقرير بلمونت|foundational principles for research ethics
+Helsinki Declaration|noun|C1|NAWL|neutral|mastery|3|إعلان هلسنكي|ethical guidelines for medical research
+vulnerable population|noun|C1|AWL|neutral|extended|3|فئة ضعيفة|groups needing extra research protection
+power imbalance|noun|C1|AWL|neutral|extended|3|عدم توازن قوة|unequal authority in research relationships
+gatekeeping|noun|C1|AWL|neutral|extended|3|حراسة بوابة|controlling access to information or opportunities
+ivory tower|noun|C1|CEFR-J|neutral|extended|3|برج عاجي|academic isolation from practical concerns
+publish or perish|noun|C1|NAWL|neutral|core|3|انشر أو اهلك|pressure to publish for career advancement
+tenure|noun|C1|AWL|neutral|core|3|تثبيت أكاديمي|permanent university employment
+peer pressure|noun|C1|CEFR-J|neutral|extended|3|ضغط أقران|influence from colleagues
+scientific integrity|noun|C1|AWL|neutral|core|3|نزاهة علمية|adherence to ethical standards in research
+reproducibility crisis|noun|C1|NAWL|neutral|core|3|أزمة استنساخ|widespread failure to replicate findings
+file drawer problem|noun|C1|NAWL|neutral|mastery|3|مشكلة الدرج|unpublished negative results
+HARKing|noun|C1|NAWL|neutral|mastery|3|فرضنة بعدية|hypothesizing after results are known
+p-hacking|noun|C1|NAWL|neutral|mastery|3|تلاعب بقيمة بي|manipulating data to achieve significance
+garden of forking paths|noun|C1|NAWL|neutral|mastery|3|حديقة مسارات متشعبة|many analytical choices biasing results

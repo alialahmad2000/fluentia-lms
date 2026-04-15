@@ -1,0 +1,60 @@
+cultural assimilation|noun|C1|AWL|neutral|core|11|استيعاب ثقافي|adopting the culture of another group
+cultural integration|noun|C1|AWL|neutral|core|11|اندماج ثقافي|combining elements of different cultures
+multiculturalism|noun|C1|AWL|neutral|core|11|تعددية ثقافية|a society embracing diverse cultures
+cultural pluralism|noun|C1|AWL|neutral|extended|11|تعددية حضارية|coexistence of distinct cultural groups
+ethnocentrism|noun|C1|NAWL|neutral|extended|11|عرقية مركزية|judging other cultures by one's own standards
+cultural relativism|noun|C1|AWL|neutral|extended|11|نسبية ثقافية|understanding cultures on their own terms
+cultural imperialism|noun|C1|AWL|neutral|extended|11|إمبريالية ثقافية|imposing one culture on another
+cultural appropriation|noun|C1|AWL|neutral|core|11|استيلاء ثقافي|adopting elements of another culture improperly
+cultural exchange|noun|C1|AWL|neutral|core|11|تبادل ثقافي|sharing cultural practices between groups
+cultural heritage|noun|C1|AWL|neutral|core|11|تراث ثقافي|traditions passed down through generations
+intangible heritage|noun|C1|AWL|neutral|extended|11|تراث غير مادي|non-physical cultural practices
+world heritage site|noun|C1|CEFR-J|neutral|core|11|موقع تراث عالمي|a place of cultural or natural significance
+cultural preservation|noun|C1|AWL|neutral|core|11|حفظ ثقافي|protecting cultural traditions from disappearing
+language revitalization|noun|C1|AWL|neutral|extended|11|إحياء لغوي|reviving a declining language
+endangered language|noun|C1|NAWL|neutral|extended|11|لغة مهددة|a language at risk of disappearing
+lingua franca|noun|C1|NAWL|neutral|core|11|لغة تواصل مشتركة|a common language between different groups
+pidgin|noun|C1|NAWL|neutral|extended|11|لغة تماس|a simplified language for basic communication
+creole|noun|C1|NAWL|neutral|extended|11|لغة كريولية|a stable language developed from pidgin
+code-switching|noun|C1|NAWL|neutral|extended|11|تبديل لغوي|alternating between languages in conversation
+translanguaging|noun|C1|NAWL|neutral|mastery|11|تعبير متعدد اللغات|using multiple languages as one system
+intercultural competence|noun|C1|AWL|neutral|core|11|كفاءة بين ثقافية|the ability to communicate across cultures
+cultural intelligence|noun|C1|AWL|neutral|core|11|ذكاء ثقافي|skill in understanding different cultures
+cross-cultural communication|noun|C1|AWL|neutral|core|11|تواصل عبر ثقافي|communication between different cultures
+high-context culture|noun|C1|NAWL|neutral|extended|11|ثقافة سياق عالي|communication relying on implicit cues
+low-context culture|noun|C1|NAWL|neutral|extended|11|ثقافة سياق منخفض|communication relying on explicit messages
+power distance|noun|C1|AWL|neutral|extended|11|مسافة سلطة|acceptance of unequal power distribution
+individualism-collectivism|noun|C1|AWL|neutral|extended|11|فردية وجماعية|the spectrum from self to group focus
+uncertainty avoidance|noun|C1|AWL|neutral|extended|11|تجنب غموض|a society's tolerance for ambiguity
+diplomatic immunity|noun|C1|AWL|neutral|extended|11|حصانة دبلوماسية|legal protection for diplomats
+consular service|noun|C1|NAWL|neutral|extended|11|خدمة قنصلية|government services for citizens abroad
+bilateral agreement|noun|C1|AWL|neutral|extended|11|اتفاق ثنائي|an agreement between two countries
+multilateral agreement|noun|C1|AWL|neutral|extended|11|اتفاق متعدد الأطراف|an agreement among several countries
+treaty ratification|noun|C1|AWL|neutral|extended|11|تصديق معاهدة|formally approving a treaty
+international tribunal|noun|C1|AWL|neutral|extended|11|محكمة دولية|a court for international disputes
+International Court of Justice|noun|C1|AWL|neutral|core|11|محكمة العدل الدولية|the main UN judicial body
+International Criminal Court|noun|C1|AWL|neutral|core|11|محكمة جنائية دولية|a court for war crimes and genocide
+war crime|noun|C1|CEFR-J|neutral|core|11|جريمة حرب|a serious violation of laws of war
+crime against humanity|noun|C1|AWL|neutral|core|11|جريمة ضد الإنسانية|widespread attacks against civilians
+genocide|noun|C1|CEFR-J|neutral|core|11|إبادة جماعية|deliberate destruction of a group
+ethnic cleansing|noun|C1|NAWL|neutral|extended|11|تطهير عرقي|forcing an ethnic group from an area
+truth and reconciliation|noun|C1|AWL|neutral|extended|11|حقيقة ومصالحة|a process for addressing past injustice
+transitional justice|noun|C1|AWL|neutral|extended|11|عدالة انتقالية|justice during political transition
+restorative justice|noun|C1|AWL|neutral|extended|11|عدالة تصالحية|repairing harm rather than punishing
+reparations|noun|C1|AWL|neutral|extended|11|تعويضات|compensation for historical wrongs
+collective memory|noun|C1|AWL|neutral|core|11|ذاكرة جماعية|shared recollection of a group's history
+historical narrative|noun|C1|AWL|neutral|core|11|سردية تاريخية|a story explaining past events
+revisionism|noun|C1|NAWL|neutral|extended|11|تعديلية تاريخية|reinterpreting historical events
+historical denialism|noun|C1|NAWL|neutral|mastery|11|إنكار تاريخي|refusing to accept established historical facts
+cultural trauma|noun|C1|AWL|neutral|extended|11|صدمة ثقافية|a painful event affecting a whole group
+intergenerational trauma|noun|C1|NAWL|neutral|extended|11|صدمة عابرة للأجيال|trauma passed down through generations
+diaspora|noun|C1|NAWL|neutral|core|11|شتات|people dispersed from their homeland
+transnationalism|noun|C1|AWL|neutral|extended|11|عابر للقوميات|maintaining ties across national borders
+cosmopolitanism|noun|C1|NAWL|neutral|extended|11|عالمية مواطنة|identifying as a citizen of the world
+global citizenship|noun|C1|AWL|neutral|core|11|مواطنة عالمية|responsibility toward the global community
+human security|noun|C1|AWL|neutral|core|11|أمن إنساني|protecting people from critical threats
+humanitarian intervention|noun|C1|AWL|neutral|extended|11|تدخل إنساني|military action to prevent atrocities
+responsibility to protect|noun|C1|AWL|neutral|extended|11|مسؤولية حماية|the duty to prevent mass atrocities
+soft law|noun|C1|AWL|neutral|mastery|11|قانون ناعم|non-binding international agreements
+hard law|noun|C1|AWL|neutral|mastery|11|قانون صلب|legally binding international agreements
+norm diffusion|noun|C1|AWL|neutral|mastery|11|انتشار معايير|how international norms spread

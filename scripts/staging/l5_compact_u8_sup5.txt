@@ -1,0 +1,72 @@
+optimization|noun|C1|AWL|neutral|core|8|تحسين|finding the best solution to a problem
+objective|noun|C1|AWL|neutral|core|8|هدف تحسين|the goal being optimized
+minimize|verb|C1|AWL|neutral|core|8|يقلل|to reduce to the smallest possible value
+maximize|verb|C1|AWL|neutral|core|8|يعظم|to increase to the largest possible value
+feasible solution|noun|C1|AWL|neutral|extended|8|حل ممكن|a solution satisfying all constraints
+infeasible solution|noun|C1|AWL|neutral|extended|8|حل غير ممكن|a solution violating some constraints
+optimal solution|noun|C1|AWL|neutral|core|8|حل أمثل|the best possible solution
+suboptimal|adjective|C1|AWL|neutral|extended|8|دون الأمثل|not the best but acceptable
+approximation|noun|C1|AWL|neutral|core|8|تقريب|a close but not exact solution
+iteration|noun|C1|AWL|neutral|core|8|تكرار حسابي|one cycle of a repetitive process
+convergence|noun|C1|AWL|neutral|core|8|تقارب حسابي|approaching a final result
+stagnation|noun|C1|AWL|neutral|extended|8|ركود خوارزمي|no improvement over iterations
+termination criterion|noun|C1|AWL|neutral|extended|8|معيار إنهاء|the condition for stopping an algorithm
+parameter tuning|noun|C1|AWL|neutral|extended|8|ضبط معاملات|adjusting algorithm settings for performance
+sensitivity analysis|noun|C1|AWL|neutral|extended|8|تحليل حساسية|studying how inputs affect outputs
+benchmark problem|noun|C1|AWL|neutral|extended|8|مشكلة معيارية|a standard problem for testing algorithms
+computational complexity|noun|C1|NAWL|neutral|extended|8|تعقيد حسابي|the resources needed to solve a problem
+polynomial time|noun|C1|NAWL|neutral|mastery|8|زمن متعدد حدود|solvable in reasonable time
+exponential time|noun|C1|NAWL|neutral|mastery|8|زمن أسي|requiring impractically long time
+combinatorial explosion|noun|C1|NAWL|neutral|mastery|8|انفجار توافقي|rapid growth of possible combinations
+brute force|noun|C1|CEFR-J|neutral|extended|8|قوة غاشمة|trying every possible solution
+divide and conquer|noun|C1|CEFR-J|neutral|extended|8|فرق تسد|breaking a problem into smaller parts
+dynamic programming|noun|C1|NAWL|neutral|extended|8|برمجة ديناميكية|solving problems by combining subproblems
+linear programming|noun|C1|NAWL|neutral|extended|8|برمجة خطية|optimizing linear objectives with constraints
+integer programming|noun|C1|NAWL|neutral|mastery|8|برمجة صحيحة|optimization with integer variables
+quadratic programming|noun|C1|NAWL|neutral|mastery|8|برمجة تربيعية|optimization with quadratic objectives
+convex optimization|noun|C1|NAWL|neutral|mastery|8|تحسين محدب|optimization where any local minimum is global
+stochastic optimization|noun|C1|NAWL|neutral|mastery|8|تحسين عشوائي|optimization using randomness
+robust optimization|noun|C1|NAWL|neutral|mastery|8|تحسين متين|optimization considering uncertainty
+multi-objective optimization|noun|C1|NAWL|neutral|extended|8|تحسين متعدد أهداف|optimizing several goals at once
+weighted sum|noun|C1|NAWL|neutral|mastery|8|مجموع مرجح|combining objectives using weights
+trade-off|noun|C1|AWL|neutral|core|8|مقايضة|giving up one thing for another
+decision variable|noun|C1|AWL|neutral|extended|8|متغير قرار|a variable whose value is chosen
+bounds|noun|C1|CEFR-J|neutral|extended|8|حدود|limits on variable values
+equality constraint|noun|C1|AWL|neutral|mastery|8|قيد مساواة|a requirement expressed as an equation
+inequality constraint|noun|C1|AWL|neutral|mastery|8|قيد متباينة|a requirement expressed as an inequality
+Lagrangian|noun|C2|NAWL|formal|mastery|8|لاغرانجي|a function combining objective and constraints
+dual problem|noun|C1|NAWL|neutral|mastery|8|مشكلة مزدوجة|an alternative view of an optimization problem
+relaxation|noun|C1|CEFR-J|neutral|mastery|8|تخفيف قيود|loosening constraints to simplify a problem
+agent-based model|noun|C1|NAWL|neutral|core|8|نموذج قائم على وكلاء|simulating individual agents and their interactions
+cellular automaton|noun|C1|NAWL|neutral|extended|8|آلي خلوي|a grid of cells following simple rules
+emergence property|noun|C1|AWL|neutral|extended|8|خاصية ناشئة|a characteristic arising from simple interactions
+phase transition|noun|C1|NAWL|neutral|mastery|8|تحول طوري سلوكي|a sudden change in collective behavior
+critical threshold|noun|C1|AWL|neutral|extended|8|عتبة حرجة|the point triggering a phase change
+percolation|noun|C1|NAWL|neutral|mastery|8|تسرب|the spread of connections through a network
+power law|noun|C1|NAWL|neutral|mastery|8|قانون قوة|a relationship where one variable varies as a power
+scale-free network|noun|C1|NAWL|neutral|mastery|8|شبكة خالية من المقياس|a network with hubs connecting many nodes
+small-world network|noun|C1|NAWL|neutral|mastery|8|شبكة عالم صغير|a network with short paths between nodes
+degree distribution|noun|C1|NAWL|neutral|mastery|8|توزيع درجات|the pattern of connections in a network
+hub|noun|C1|CEFR-J|neutral|extended|8|محور|a highly connected node in a network
+centrality|noun|C1|AWL|neutral|extended|8|مركزية|the importance of a node in a network
+betweenness|noun|C1|NAWL|neutral|mastery|8|بينية|the extent a node lies on shortest paths
+clustering coefficient|noun|C1|NAWL|neutral|mastery|8|معامل تجمع|the degree nodes' neighbors are also connected
+graph theory|noun|C1|NAWL|neutral|extended|8|نظرية رسوم بيانية|the mathematical study of networks
+adjacency matrix|noun|C1|NAWL|neutral|mastery|8|مصفوفة تجاور|a matrix representing graph connections
+shortest path|noun|C1|NAWL|neutral|extended|8|أقصر مسار|the minimum distance between two nodes
+Dijkstra's algorithm|noun|C1|NAWL|neutral|mastery|8|خوارزمية ديكسترا|finding the shortest path in a graph
+minimum spanning tree|noun|C1|NAWL|neutral|mastery|8|شجرة امتداد دنيا|connecting all nodes with minimum total weight
+maximum flow|noun|C1|NAWL|neutral|mastery|8|تدفق أقصى|the greatest flow possible through a network
+bipartite graph|noun|C1|NAWL|neutral|mastery|8|رسم ثنائي التقسيم|a graph with two distinct node sets
+matching problem|noun|C1|NAWL|neutral|mastery|8|مشكلة مطابقة|pairing elements from two sets optimally
+assignment problem|noun|C1|NAWL|neutral|mastery|8|مشكلة تعيين|assigning tasks to workers optimally
+set cover problem|noun|C1|NAWL|neutral|mastery|8|مشكلة تغطية مجموعة|finding the smallest set covering all elements
+facility location|noun|C1|NAWL|neutral|extended|8|تحديد موقع مرفق|choosing optimal locations for services
+job shop scheduling|noun|C1|NAWL|neutral|mastery|8|جدولة ورشة عمل|scheduling jobs across machines
+resource allocation|noun|C1|AWL|neutral|core|8|تخصيص موارد|distributing resources among competing needs
+supply chain optimization|noun|C1|AWL|neutral|extended|8|تحسين سلسلة إمداد|improving the flow of goods and services
+inventory management|noun|C1|AWL|neutral|extended|8|إدارة مخزون|controlling the storage of goods
+demand forecasting|noun|C1|AWL|neutral|extended|8|تنبؤ بالطلب|predicting future customer needs
+simulation optimization|noun|C1|AWL|neutral|mastery|8|تحسين محاكاة|using simulation to find optimal solutions
+digital optimization|noun|C1|NAWL|neutral|extended|8|تحسين رقمي|using computers to find best solutions
+real-time optimization|noun|C1|NAWL|neutral|mastery|8|تحسين فوري|optimizing while the system is running

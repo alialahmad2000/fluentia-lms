@@ -1,0 +1,229 @@
+neuron|noun|C1|CEFR-J|neutral|core|7|خلية عصبية|a nerve cell that transmits electrical signals
+synapse|noun|C1|NAWL|neutral|core|7|مشبك عصبي|the junction between two nerve cells
+cortex|noun|C1|CEFR-J|neutral|core|7|قشرة دماغية|the outer layer of the brain
+cognition|noun|C1|AWL|formal|core|7|إدراك|the mental process of acquiring knowledge
+neuroplasticity|noun|C1|NAWL|neutral|core|7|مرونة عصبية|the brain's ability to reorganize neural pathways
+dopamine|noun|C1|CEFR-J|neutral|core|7|دوبامين|a neurotransmitter associated with pleasure and reward
+serotonin|noun|C1|CEFR-J|neutral|core|7|سيروتونين|a neurotransmitter that regulates mood and sleep
+amygdala|noun|C1|NAWL|neutral|core|7|لوزة دماغية|a brain region involved in processing emotions
+hippocampus|noun|C1|NAWL|neutral|core|7|حُصين|a brain structure crucial for memory formation
+stimulus|noun|C1|AWL|neutral|core|7|محفز|something that provokes a response in an organism
+neural|adjective|C1|NAWL|neutral|core|7|عصبي|relating to nerves or the nervous system
+cognitive|adjective|C1|AWL|neutral|core|7|معرفي|relating to mental processes of perception and learning
+cerebral|adjective|C1|CEFR-J|formal|core|7|دماغي|relating to the brain or intellect
+inhibit|verb|C1|AWL|neutral|core|7|يثبّط|to slow or prevent a process or action
+stimulate|verb|B2|AWL|neutral|core|7|يحفّز|to encourage development or increased activity
+perceive|verb|C1|AWL|neutral|core|7|يدرك|to become aware of through the senses
+neurotransmitter|noun|C1|NAWL|neutral|core|7|ناقل عصبي|a chemical messenger between neurons
+consciousness|noun|C1|CEFR-J|neutral|core|7|وعي|the state of being aware of one's surroundings
+hemisphere|noun|C1|CEFR-J|neutral|core|7|نصف كرة|one half of the brain or globe
+prefrontal|adjective|C1|NAWL|formal|core|7|أمام جبهي|relating to the front part of the frontal lobe
+receptor|noun|C1|NAWL|neutral|core|7|مستقبِل|a cell structure that responds to specific stimuli
+plasticity|noun|C1|AWL|neutral|core|7|لدونة|the quality of being easily shaped or changed
+axon|noun|C1|NAWL|neutral|core|7|محور عصبي|the long projection of a nerve cell
+dendrite|noun|C1|NAWL|neutral|core|7|تغصن|a branched extension of a nerve cell
+inhibition|noun|C1|AWL|neutral|core|7|تثبيط|the restraining or slowing of a process
+excitatory|adjective|C2|NAWL|formal|core|7|استثاري|causing increased activity in neurons
+proprioception|noun|C2|NAWL|formal|core|7|استقبال حسي ذاتي|awareness of body position in space
+limbic|adjective|C1|NAWL|neutral|core|7|حوفي|relating to the brain system controlling emotions
+nociceptor|noun|C2|NAWL|formal|core|7|مستقبل ألم|a sensory neuron that responds to pain
+endorphin|noun|C1|CEFR-J|neutral|core|7|إندورفين|a natural pain-relieving chemical in the brain
+melatonin|noun|C1|CEFR-J|neutral|core|7|ميلاتونين|a hormone that regulates sleep cycles
+neurodegeneration|noun|C1|NAWL|formal|core|7|تنكس عصبي|progressive loss of neuron structure or function
+dementia|noun|C1|CEFR-J|neutral|core|7|خرف|a syndrome of declining mental ability
+synaptic|adjective|C1|NAWL|formal|extended|7|مشبكي|relating to the junction between nerve cells
+neuroimaging|noun|C1|NAWL|formal|extended|7|تصوير عصبي|techniques for imaging brain structure and function
+electroencephalography|noun|C2|NAWL|formal|extended|7|تخطيط كهربائي للدماغ|recording electrical activity of the brain
+neurochemistry|noun|C1|NAWL|formal|extended|7|كيمياء عصبية|the study of chemicals in the nervous system
+afferent|adjective|C2|NAWL|formal|extended|7|وارد|carrying signals toward the brain
+efferent|adjective|C2|NAWL|formal|extended|7|صادر|carrying signals away from the brain
+neuroethics|noun|C2|NAWL|formal|extended|7|أخلاقيات عصبية|ethical issues related to neuroscience
+lateralization|noun|C2|NAWL|formal|extended|7|تجانب|specialization of brain hemispheres
+myelination|noun|C2|NAWL|formal|extended|7|تميلن|formation of myelin sheath around nerve fibers
+autonomic|adjective|C1|NAWL|formal|extended|7|ذاتي|relating to involuntary nervous system functions
+somatosensory|adjective|C2|NAWL|formal|extended|7|حسي جسدي|relating to bodily sensations
+oscillation|noun|C1|AWL|neutral|extended|7|تذبذب|rhythmic fluctuation in brain activity
+biomarker|noun|C1|NAWL|neutral|extended|7|مؤشر حيوي|a measurable indicator of a biological condition
+paradigm|noun|C1|AWL|neutral|extended|7|نموذج|a typical example or pattern
+atrophy|noun|C1|CEFR-J|neutral|extended|7|ضمور|progressive decline of body tissue
+prognosis|noun|C1|CEFR-J|neutral|extended|7|تكهن|a forecast of the likely outcome of a condition
+swarm|noun|B2|CEFR-J|neutral|core|8|سرب|a large group of insects or animals moving together
+collective|adjective|C1|AWL|neutral|core|8|جماعي|done by or shared among a group
+emergence|noun|C1|AWL|neutral|core|8|نشوء|the process of coming into being
+algorithm|noun|C1|NAWL|neutral|core|8|خوارزمية|a step-by-step procedure for calculations
+optimization|noun|C1|AWL|formal|core|8|تحسين|the action of making the best of something
+decentralized|adjective|C1|AWL|neutral|core|8|لامركزي|distributed among many rather than controlled centrally
+autonomous|adjective|B2|AWL|neutral|core|8|مستقل|acting independently without external control
+collaborate|verb|B2|AWL|neutral|core|8|يتعاون|to work jointly with others
+aggregate|verb|C1|AWL|neutral|core|8|يجمّع|to collect into a whole from separate parts
+simulate|verb|C1|AWL|neutral|core|8|يحاكي|to imitate the behavior of a system
+adaptation|noun|B2|AWL|neutral|core|8|تأقلم|adjustment to environmental conditions
+heuristic|noun|B2|NAWL|neutral|core|8|استدلال|a practical problem-solving approach
+pheromone|noun|C1|CEFR-J|neutral|core|8|فيرومون|a chemical substance secreted to affect others
+foraging|noun|C1|CEFR-J|neutral|core|8|بحث عن الغذاء|searching for food or provisions
+stigmergy|noun|C2|NAWL|formal|core|8|تلقين بيئي|indirect coordination through environmental modification
+consensus|noun|B2|AWL|neutral|core|8|توافق|general agreement in a group
+threshold|noun|B2|AWL|neutral|core|8|حد فاصل|a critical point that triggers a change
+convergence|noun|C1|AWL|neutral|core|8|تقارب|the process of coming together
+iteration|noun|C1|AWL|neutral|core|8|تكرار|repetition of a process to approach a result
+scalability|noun|C1|NAWL|neutral|core|8|قابلية التوسع|ability to handle growing amounts of work
+redundancy|noun|C1|AWL|neutral|core|8|تكرارية|duplication to ensure system reliability
+stochastic|adjective|C2|NAWL|formal|core|8|عشوائي|randomly determined; having a probabilistic pattern
+emergent|adjective|C1|AWL|neutral|core|8|ناشئ|arising from collective interaction
+robust|adjective|B2|AWL|neutral|core|8|متين|strong and effective in all conditions
+topology|noun|C1|NAWL|formal|extended|8|طوبولوجيا|the study of geometric properties of space
+feedback|noun|B2|CEFR-J|neutral|extended|8|تغذية راجعة|information about performance used for adjustment
+entropy|noun|C1|NAWL|neutral|extended|8|إنتروبيا|a measure of disorder in a system
+biomimicry|noun|C1|NAWL|neutral|extended|8|محاكاة حيوية|design inspired by biological systems
+metaheuristic|noun|C2|NAWL|formal|extended|8|ميتاهيوريستك|a higher-level problem-solving strategy
+probabilistic|adjective|C1|AWL|formal|extended|8|احتمالي|based on or involving probability
+gradient|noun|C1|AWL|neutral|extended|8|تدرج|a rate of change in a quantity
+parameter|noun|C1|AWL|neutral|extended|8|معامل|a variable that defines system characteristics
+trajectory|noun|B2|AWL|neutral|extended|8|مسار حركي|the path followed by a moving object
+perturbation|noun|C1|AWL|formal|extended|8|اضطراب|a deviation from a regular pattern
+nonlinear|adjective|C1|NAWL|neutral|extended|8|غير خطي|not arranged in a straight line; unpredictable
+bifurcation|noun|C2|NAWL|formal|extended|8|تشعب|division into two branches or parts
+attractor|noun|C2|NAWL|formal|extended|8|جاذب|a state toward which a system tends to evolve
+creativity|noun|B2|CEFR-J|neutral|core|9|إبداع|the use of imagination to produce original ideas
+innovation|noun|B2|AWL|neutral|core|9|ابتكار|the introduction of something new
+genius|noun|B2|CEFR-J|neutral|core|9|عبقرية|exceptional intellectual or creative power
+inspiration|noun|B2|CEFR-J|neutral|core|9|إلهام|the process of being mentally stimulated
+intuition|noun|C1|AWL|neutral|core|9|حدس|the ability to understand without conscious reasoning
+aesthetic|adjective|C1|AWL|neutral|core|9|جمالي|relating to beauty or the appreciation of beauty
+imagination|noun|B2|CEFR-J|neutral|core|9|خيال|the faculty of forming mental images
+originality|noun|C1|CEFR-J|neutral|core|9|أصالة|the quality of being novel or unusual
+composition|noun|C1|AWL|neutral|core|9|تأليف|the arrangement of parts to form a whole
+abstraction|noun|C1|AWL|formal|core|9|تجريد|the quality of dealing with ideas rather than concrete things
+perception|noun|C1|AWL|neutral|core|9|تصور|the way something is understood or interpreted
+renaissance|noun|C1|CEFR-J|neutral|core|9|نهضة|a revival of interest in art and learning
+epiphany|noun|C1|CEFR-J|neutral|core|9|لحظة إلهام|a moment of sudden insight or revelation
+ingenuity|noun|C1|CEFR-J|neutral|core|9|ابتكارية|the quality of being clever and inventive
+protagonist|noun|C1|CEFR-J|neutral|core|9|بطل|the main character in a story or event
+avant-garde|noun|C1|CEFR-J|formal|core|9|طليعة فنية|new and experimental ideas in art
+subversive|adjective|C1|CEFR-J|neutral|core|9|تخريبي|seeking to undermine established systems
+paradox|noun|C1|AWL|neutral|core|9|مفارقة|a seemingly contradictory statement that may be true
+archetype|noun|C1|CEFR-J|formal|core|9|نموذج أصلي|a typical example of a person or thing
+catharsis|noun|C1|CEFR-J|formal|core|9|تنفيس|the purging of emotions through art
+muse|noun|C1|CEFR-J|neutral|core|9|ملهمة|a source of artistic inspiration
+prolific|adjective|B2|CEFR-J|neutral|core|9|مثمر|producing many works or results
+virtuosity|noun|C1|CEFR-J|formal|core|9|براعة فنية|great skill in music or another artistic pursuit
+eclectic|adjective|C1|CEFR-J|neutral|core|9|انتقائي|drawing from a variety of styles or sources
+juxtaposition|noun|C1|AWL|formal|extended|9|تجاور|placing things close together for contrast
+motif|noun|C1|CEFR-J|neutral|extended|9|زخرف|a recurring theme or design in artistic work
+allegory|noun|B2|CEFR-J|formal|extended|9|رواية رمزية|a story with a hidden moral meaning
+dichotomy|noun|B2|AWL|neutral|extended|9|ازدواجية|a division into two contrasting things
+provocative|adjective|C1|CEFR-J|neutral|extended|9|استفزازي|causing strong reactions or discussion
+nuance|noun|B2|CEFR-J|neutral|extended|9|تفاصيل دقيقة|a subtle difference in shade of meaning
+ethereal|adjective|C1|CEFR-J|neutral|extended|9|أثيري|extremely delicate and light; heavenly
+subliminal|adjective|C1|CEFR-J|neutral|extended|9|دون حسي|below the threshold of conscious awareness
+iconoclastic|adjective|C2|CEFR-J|formal|extended|9|مخالف للتقاليد|challenging established customs or beliefs
+idiosyncrasy|noun|C1|CEFR-J|neutral|extended|9|خصوصية|a distinctive personal characteristic
+synesthesia|noun|C2|NAWL|formal|extended|9|حس مزدوج|experiencing one sense through another
+metamorphosis|noun|C1|CEFR-J|neutral|extended|9|تحول جذري|a complete transformation
+evocative|adjective|C1|CEFR-J|neutral|extended|9|مثير للذكريات|bringing strong images or emotions to mind
+quantum|adjective|C1|CEFR-J|neutral|core|10|كمّي|relating to the smallest discrete units of energy
+particle|noun|B2|CEFR-J|neutral|core|10|جسيم|a tiny piece of matter smaller than an atom
+entanglement|noun|C1|NAWL|neutral|core|10|تشابك|a quantum connection between particles
+superposition|noun|C1|NAWL|formal|core|10|تراكب|existing in multiple states simultaneously
+uncertainty|noun|C1|AWL|neutral|core|10|عدم يقين|the state of being imprecise or unknown
+wavelength|noun|C1|CEFR-J|neutral|core|10|طول موجي|the distance between successive wave crests
+photon|noun|C1|CEFR-J|neutral|core|10|فوتون|a particle representing a quantum of light
+electron|noun|B2|CEFR-J|neutral|core|10|إلكترون|a negatively charged subatomic particle
+interference|noun|C1|AWL|neutral|core|10|تداخل|the combination of waves to form a new pattern
+spectrum|noun|C1|AWL|neutral|core|10|طيف|a range of wavelengths of electromagnetic radiation
+relativity|noun|C1|CEFR-J|neutral|core|10|نسبية|Einstein's theory relating space, time, and gravity
+symmetry|noun|C1|AWL|neutral|core|10|تناظر|exact correspondence in form on opposite sides
+antimatter|noun|C1|CEFR-J|neutral|core|10|مادة مضادة|matter composed of antiparticles
+hypothesis|noun|C1|AWL|neutral|core|10|فرضية|a proposed explanation to be tested
+observable|adjective|C1|AWL|neutral|core|10|قابل للرصد|able to be noticed or measured
+deterministic|adjective|C1|AWL|formal|core|10|حتمي|completely determined by prior causes
+probabilistic|adjective|B2|AWL|neutral|core|10|احتمالي|based on probability rather than certainty
+coherence|noun|C1|AWL|neutral|core|10|ترابط|the quality of forming a unified whole
+decoherence|noun|C2|NAWL|formal|core|10|فقدان الترابط|loss of quantum coherence through interaction
+qubit|noun|C2|NAWL|neutral|core|10|كيوبت|the basic unit of quantum information
+tunneling|noun|C1|NAWL|neutral|core|10|نفق كمي|passage of particles through energy barriers
+duality|noun|C1|AWL|neutral|core|10|ازدواجية|the existence of two contrasting natures
+oscillation|noun|B2|AWL|neutral|extended|10|اهتزاز|movement back and forth at regular intervals
+perturbation|noun|B2|AWL|formal|extended|10|اضطراب كمي|a slight disturbance to a system
+eigenvalue|noun|C2|NAWL|formal|extended|10|قيمة ذاتية|a special scalar in linear algebra
+spin|noun|C1|CEFR-J|neutral|extended|10|دوران|an intrinsic angular momentum of a particle
+boson|noun|C2|NAWL|formal|extended|10|بوزون|a particle that carries force between matter particles
+fermion|noun|C2|NAWL|formal|extended|10|فيرميون|a particle obeying the Pauli exclusion principle
+cosmology|noun|C1|CEFR-J|neutral|extended|10|علم الكونيات|the study of the origin of the universe
+singularity|noun|C1|CEFR-J|neutral|extended|10|تفرد|a point of infinite density in spacetime
+entropy|noun|B2|NAWL|neutral|extended|10|فوضى حرارية|a measure of disorder in a thermodynamic system
+isotope|noun|B2|CEFR-J|neutral|extended|10|نظير ذري|an atom variant with different neutron count
+cultural|adjective|B2|AWL|neutral|core|11|ثقافي|relating to the customs and beliefs of a society
+globalization|noun|C1|AWL|neutral|core|11|عولمة|the integration of economies and societies worldwide
+assimilation|noun|B2|AWL|neutral|core|11|اندماج ثقافي|adoption of the customs of a dominant culture
+acculturation|noun|C1|NAWL|formal|core|11|تثاقف|cultural change through contact with another culture
+diaspora|noun|C1|CEFR-J|neutral|core|11|شتات|the dispersion of a people from their homeland
+pluralism|noun|C1|NAWL|formal|core|11|تعددية|coexistence of diverse groups in a society
+ethnocentrism|noun|C1|NAWL|formal|core|11|عرقية مركزية|judging others by one's own cultural standards
+intercultural|adjective|C1|AWL|neutral|core|11|بين ثقافي|relating to interaction between cultures
+cosmopolitan|adjective|B2|CEFR-J|neutral|core|11|عالمي|familiar with many cultures
+indigenous|adjective|B2|AWL|neutral|core|11|أصلي|originating in a particular region
+bilingual|adjective|B2|CEFR-J|neutral|core|11|ثنائي اللغة|speaking two languages fluently
+multilateral|adjective|C1|AWL|formal|core|11|متعدد الأطراف|involving three or more parties
+stereotype|noun|B2|CEFR-J|neutral|core|11|صورة نمطية|a widely held oversimplified image
+xenophobia|noun|C1|CEFR-J|neutral|core|11|رهاب الأجانب|dislike or prejudice against foreigners
+tolerant|adjective|B2|CEFR-J|neutral|core|11|متسامح|willing to accept different opinions or behaviors
+hybrid|adjective|C1|AWL|neutral|core|11|هجين|composed of mixed elements from different sources
+transnational|adjective|C1|AWL|formal|core|11|عبر وطني|extending across national boundaries
+vernacular|noun|C1|CEFR-J|neutral|core|11|لغة عامية|the language spoken by ordinary people
+kinship|noun|C1|CEFR-J|neutral|core|11|قرابة|a family relationship or connection
+taboo|noun|C1|CEFR-J|neutral|core|11|محرّم|a social custom prohibiting certain actions
+etiquette|noun|C1|CEFR-J|neutral|core|11|آداب سلوك|customary rules governing social behavior
+reciprocity|noun|C1|AWL|formal|core|11|تبادلية|the practice of exchanging things for mutual benefit
+solidarity|noun|C1|AWL|neutral|core|11|تضامن|unity based on shared interests or goals
+patrimony|noun|C1|NAWL|formal|extended|11|تراث|cultural heritage inherited from ancestors
+lingua franca|noun|C1|CEFR-J|neutral|extended|11|لغة مشتركة|a common language used between speakers of different languages
+hegemony|noun|C1|NAWL|formal|extended|11|هيمنة ثقافية|cultural dominance of one group over others
+postcolonial|adjective|C1|NAWL|formal|extended|11|ما بعد استعماري|relating to the period after colonial rule
+orientalism|noun|C1|NAWL|formal|extended|11|استشراق|Western portrayal of Eastern cultures
+syncretism|noun|C2|NAWL|formal|extended|11|توفيق|blending of different religious or cultural traditions
+anthropological|adjective|C1|AWL|formal|extended|11|أنثروبولوجي|relating to the study of human societies
+egalitarian|adjective|C1|CEFR-J|formal|extended|11|مساواتي|believing in equal rights for all people
+commodification|noun|C1|AWL|formal|extended|11|تسليع|turning something into a commercial product
+homogenization|noun|C1|AWL|formal|extended|11|تنميط|making things uniform or similar
+resource|noun|B2|CEFR-J|neutral|core|12|مورد|a supply of materials that can be drawn on
+commodity|noun|C1|AWL|neutral|core|12|سلعة|a raw material or primary agricultural product
+scarcity|noun|B2|AWL|neutral|core|12|ندرة|insufficient supply relative to demand
+surplus|noun|C1|AWL|neutral|core|12|فائض|an amount that exceeds what is needed
+inflation|noun|C1|AWL|neutral|core|12|تضخم|a general increase in prices over time
+deflation|noun|C1|AWL|neutral|core|12|انكماش|a decrease in the general price level
+tariff|noun|C1|AWL|neutral|core|12|تعريفة جمركية|a tax on imported goods
+subsidy|noun|C1|AWL|neutral|core|12|دعم حكومي|financial assistance granted by the government
+monopoly|noun|C1|AWL|neutral|core|12|احتكار|exclusive control of a commodity or service
+oligopoly|noun|C1|NAWL|formal|core|12|احتكار القلة|a market controlled by a small number of firms
+depreciation|noun|C1|AWL|formal|core|12|استهلاك|a decrease in value over time
+fiscal|adjective|C1|AWL|formal|core|12|مالي|relating to government revenue and expenditure
+monetary|adjective|C1|AWL|neutral|core|12|نقدي|relating to money or currency
+equity|noun|C1|AWL|neutral|core|12|حقوق ملكية|the value of shares or fairness
+dividend|noun|C1|AWL|neutral|core|12|عائد|a payment from company profits to shareholders
+procurement|noun|C1|AWL|formal|core|12|شراء حكومي|the action of obtaining supplies
+austerity|noun|C1|CEFR-J|neutral|core|12|تقشف|strict economy and reduced spending
+deregulation|noun|C1|AWL|formal|core|12|تحرير|removal of government regulations
+embargo|noun|C1|CEFR-J|neutral|core|12|حظر تجاري|an official ban on trade with a country
+divestiture|noun|C1|AWL|formal|core|12|تصفية استثمارات|the sale of business assets
+leverage|noun|C1|AWL|neutral|core|12|رافعة مالية|the use of borrowed capital for investment
+hedge|verb|C1|CEFR-J|neutral|core|12|يتحوط|to protect against financial risk
+arbitrage|noun|C1|NAWL|formal|core|12|مراجحة|profiting from price differences in different markets
+liquidation|noun|C1|AWL|formal|core|12|تصفية|converting assets into cash
+amortization|noun|C1|NAWL|formal|extended|12|إطفاء|gradually writing off the cost of an asset
+collateral|noun|C1|AWL|neutral|extended|12|ضمان|property pledged as security for a loan
+fungible|adjective|C2|NAWL|formal|extended|12|قابل للاستبدال|able to replace or be replaced by another identical item
+macroeconomic|adjective|C1|AWL|formal|extended|12|اقتصاد كلي|relating to the economy as a whole
+microeconomic|adjective|C1|AWL|formal|extended|12|اقتصاد جزئي|relating to individual economic agents
+externality|noun|C1|AWL|formal|extended|12|عامل خارجي|a side effect of economic activity
+elasticity|noun|C1|AWL|neutral|extended|12|مرونة|the degree of response to price changes
+fiduciary|adjective|C2|NAWL|formal|extended|12|ائتماني|involving trust, especially financial
+insolvency|noun|C1|CEFR-J|formal|extended|12|إعسار|inability to pay debts when due
+protectionism|noun|C1|NAWL|formal|extended|12|حمائية|shielding domestic industries from foreign competition
+quantitative|adjective|B2|AWL|neutral|extended|12|كمّي|relating to measurement of quantity
+mercantilism|noun|C1|NAWL|formal|mastery|12|مذهب تجاري|economic theory favoring trade surplus
+autarky|noun|C2|NAWL|formal|mastery|12|اكتفاء ذاتي|economic self-sufficiency of a country
+stagflation|noun|C1|NAWL|neutral|mastery|12|ركود تضخمي|simultaneous inflation and economic stagnation
+oligopsony|noun|C2|NAWL|formal|mastery|12|احتكار شراء القلة|a market with few buyers
+monopsony|noun|C2|NAWL|formal|mastery|12|احتكار الشراء|a market with only one buyer
+securitization|noun|C1|NAWL|formal|mastery|12|تسنيد|converting assets into marketable securities

@@ -1,0 +1,118 @@
+artistry|noun|C1|CEFR-J|neutral|core|9|فنية|great skill in creating art
+masterpiece|noun|B2|CEFR-J|neutral|core|9|تحفة|an outstanding work of art
+magnum opus|noun|C2|NAWL|formal|core|9|عمل عظيم|an artist's greatest work
+oeuvre|noun|C2|NAWL|formal|core|9|أعمال كاملة|the complete works of an artist
+repertoire|noun|C1|CEFR-J|neutral|core|9|مخزون فني|the range of works an artist can perform
+genre|noun|C1|CEFR-J|neutral|core|9|نوع أدبي|a category of artistic composition
+medium|noun|C1|AWL|neutral|core|9|وسيط فني|the material used to create art
+canvas|noun|B2|CEFR-J|neutral|core|9|لوحة قماشية|a surface for painting
+palette|noun|C1|CEFR-J|neutral|core|9|لوحة ألوان|a range of colors used by an artist
+pigment|noun|C1|CEFR-J|neutral|core|9|صبغة|a substance that gives color
+hue|noun|C1|CEFR-J|neutral|core|9|لون|the attribute of color determined by wavelength
+saturation|noun|C1|AWL|neutral|core|9|تشبع لوني|the intensity of a color
+texture|noun|C1|CEFR-J|neutral|core|9|ملمس|the feel or appearance of a surface
+contour|noun|C1|CEFR-J|neutral|core|9|محيط|an outline representing a shape
+perspective|noun|C1|AWL|neutral|core|9|منظور|the art of representing three-dimensional space
+symmetry|noun|C1|AWL|neutral|core|9|تماثل|balanced proportions in design
+proportion|noun|C1|AWL|neutral|core|9|نسبة|the relationship of parts to the whole
+harmony|noun|C1|CEFR-J|neutral|core|9|انسجام|the pleasing arrangement of parts
+dissonance|noun|C1|NAWL|neutral|core|9|تنافر|a lack of harmony or agreement
+rhythm|noun|B2|CEFR-J|neutral|core|9|إيقاع|a pattern of movement or sound
+cadence|noun|C1|CEFR-J|neutral|core|9|وقع|the rise and fall of sounds
+timbre|noun|C1|CEFR-J|neutral|core|9|جرس صوتي|the quality of a musical sound
+melody|noun|B2|CEFR-J|neutral|core|9|لحن|a sequence of musical notes
+chord|noun|C1|CEFR-J|neutral|core|9|وتر موسيقي|a group of notes sounded together
+orchestration|noun|C1|CEFR-J|neutral|core|9|توزيع موسيقي|the arrangement of music for an orchestra
+improvisation|noun|C1|CEFR-J|neutral|core|9|ارتجال|creating or performing spontaneously
+virtuosity|noun|C1|CEFR-J|formal|core|9|إتقان فني|exceptional skill in performance
+craftsmanship|noun|C1|CEFR-J|neutral|core|9|حرفية|skill in making things by hand
+technique|noun|B2|AWL|neutral|core|9|تقنية|a method of doing something skillfully
+brushstroke|noun|C1|CEFR-J|neutral|core|9|ضربة فرشاة|a mark made by a brush on a surface
+chiaroscuro|noun|C2|NAWL|formal|core|9|تباين ضوء وظل|the use of light and shadow in art
+sfumato|noun|C2|NAWL|formal|core|9|تدرج ضبابي|a soft blending technique in painting
+impasto|noun|C2|NAWL|formal|core|9|طلاء سميك|thick layers of paint on canvas
+minimalism|noun|C1|CEFR-J|neutral|core|9|بساطة فنية|an art movement using simple forms
+surrealism|noun|C1|CEFR-J|neutral|core|9|سريالية|art depicting dreamlike imagery
+expressionism|noun|C1|CEFR-J|neutral|core|9|تعبيرية|art emphasizing emotional experience
+impressionism|noun|C1|CEFR-J|neutral|core|9|انطباعية|art capturing light and color effects
+cubism|noun|C1|CEFR-J|neutral|core|9|تكعيبية|art using geometric fragmented forms
+abstract|adjective|C1|AWL|neutral|core|9|تجريدي|art not representing external reality
+figurative|adjective|C1|AWL|neutral|core|9|تشكيلي|art representing recognizable forms
+realism|noun|C1|AWL|neutral|core|9|واقعية|art depicting subjects as they appear
+naturalism|noun|C1|NAWL|neutral|core|9|طبيعية|art closely imitating nature
+romanticism|noun|C1|CEFR-J|neutral|core|9|رومانسية|art emphasizing emotion and individualism
+classicism|noun|C1|CEFR-J|neutral|core|9|كلاسيكية|art following ancient Greek and Roman models
+modernism|noun|C1|AWL|neutral|core|9|حداثة|a movement breaking with traditional forms
+postmodernism|noun|C1|AWL|neutral|core|9|ما بعد الحداثة|art questioning established conventions
+vanguard|noun|C1|CEFR-J|neutral|extended|9|طليعة|the leaders of new developments in art
+manifesto|noun|C1|CEFR-J|neutral|extended|9|بيان|a public declaration of artistic principles
+aesthetic|noun|C1|AWL|neutral|extended|9|جمالية|a set of principles governing beauty
+sublime|adjective|C1|CEFR-J|neutral|extended|9|سامي|of outstanding spiritual or artistic worth
+grotesque|adjective|C1|CEFR-J|neutral|extended|9|غرائبي|comically or repulsively ugly
+macabre|adjective|C1|CEFR-J|neutral|extended|9|مخيف|disturbing because of death or injury themes
+poignant|adjective|C1|CEFR-J|neutral|extended|9|مؤثر|evoking a keen sense of sadness
+visceral|adjective|C1|CEFR-J|neutral|extended|9|حشوي|felt deep within rather than intellectually
+cerebral|adjective|C1|CEFR-J|neutral|extended|9|فكري|intellectual rather than emotional
+esoteric|adjective|C1|CEFR-J|neutral|extended|9|باطني|intended for a small group with special knowledge
+enigmatic|adjective|C1|CEFR-J|neutral|extended|9|غامض|difficult to interpret or understand
+ephemeral|adjective|C1|CEFR-J|neutral|extended|9|زائل|lasting for a very short time
+transcendent|adjective|C1|AWL|neutral|extended|9|متسامٍ|surpassing ordinary limits
+seminal|adjective|C1|AWL|neutral|extended|9|مؤسس|strongly influencing later developments
+derivative|adjective|C1|AWL|neutral|extended|9|مشتق|imitative of another artist's work
+pastiche|noun|C1|CEFR-J|neutral|extended|9|محاكاة فنية|an artistic work imitating another's style
+parody|noun|C1|CEFR-J|neutral|extended|9|محاكاة ساخرة|a humorous imitation of an artistic work
+satire|noun|C1|CEFR-J|neutral|extended|9|هجاء|humor used to criticize society
+irony|noun|C1|CEFR-J|neutral|extended|9|سخرية|expression conveying the opposite of literal meaning
+metaphor|noun|C1|CEFR-J|neutral|extended|9|استعارة|a figure of speech comparing unlike things
+allegory|noun|C1|CEFR-J|neutral|extended|9|قصة رمزية|a story with a hidden moral meaning
+symbolism|noun|C1|AWL|neutral|extended|9|رمزية|the use of symbols to represent ideas
+motif|noun|C1|CEFR-J|neutral|extended|9|عنصر متكرر|a recurring element in artistic work
+leitmotif|noun|C2|NAWL|formal|extended|9|لحن موجه|a recurring musical theme
+crescendo|noun|C1|CEFR-J|neutral|extended|9|تصاعد|a gradual increase in loudness
+diminuendo|noun|C1|CEFR-J|neutral|extended|9|تناقص|a gradual decrease in loudness
+staccato|noun|C1|CEFR-J|neutral|extended|9|متقطع|short detached musical notes
+legato|noun|C1|CEFR-J|neutral|extended|9|متصل|smooth connected musical notes
+sonata|noun|C1|CEFR-J|neutral|extended|9|سوناتا|a musical composition for instruments
+concerto|noun|C1|CEFR-J|neutral|extended|9|كونشرتو|a musical composition for solo and orchestra
+symphony|noun|C1|CEFR-J|neutral|extended|9|سيمفونية|an elaborate musical composition for orchestra
+overture|noun|C1|CEFR-J|neutral|extended|9|مقدمة موسيقية|an orchestral introduction to an opera
+libretto|noun|C1|CEFR-J|neutral|extended|9|نص أوبرالي|the text of an opera or musical
+aria|noun|C1|CEFR-J|neutral|extended|9|أغنية أوبرالية|a self-contained piece for one voice in an opera
+recitative|noun|C2|NAWL|formal|extended|9|تلاوة موسيقية|speech-like singing in opera
+fugue|noun|C1|CEFR-J|neutral|extended|9|فوغا|a musical composition with interwoven parts
+counterpoint|noun|C1|CEFR-J|neutral|extended|9|نقطة مقابلة|the art of combining musical melodies
+polyphony|noun|C2|NAWL|formal|extended|9|تعدد أصوات|music combining multiple independent melodies
+monophony|noun|C2|NAWL|formal|extended|9|أحادية الصوت|music with a single melodic line
+homophony|noun|C2|NAWL|formal|extended|9|تجانس صوتي|music with one dominant melody and accompaniment
+atonality|noun|C2|NAWL|formal|extended|9|لانغمية|music lacking a tonal center
+chromaticism|noun|C2|NAWL|formal|extended|9|لونية|the use of all twelve musical tones
+diatonic|adjective|C2|NAWL|formal|extended|9|سلمي|relating to the seven-note musical scale
+pentatonic|adjective|C2|NAWL|formal|extended|9|خماسي النغمات|a five-note musical scale
+curation|noun|C1|AWL|neutral|mastery|9|تنسيق فني|the selection and organization of art
+patronage|noun|C1|CEFR-J|neutral|mastery|9|رعاية فنية|financial support for the arts
+philanthropy|noun|C1|CEFR-J|neutral|mastery|9|عمل خيري|charitable giving to promote welfare
+connoisseur|noun|C1|CEFR-J|neutral|mastery|9|خبير|an expert judge in matters of fine art
+dilettante|noun|C2|NAWL|formal|mastery|9|هاوٍ|a person with a superficial interest in art
+autodidact|noun|C2|NAWL|formal|mastery|9|عصامي|a self-taught person
+polymath|noun|C1|CEFR-J|neutral|mastery|9|موسوعي المعرفة|a person of wide-ranging knowledge
+savant|noun|C1|CEFR-J|neutral|mastery|9|عالم|a person of profound knowledge
+prodigy|noun|C1|CEFR-J|neutral|mastery|9|معجزة|a person with exceptional early talent
+wunderkind|noun|C2|NAWL|neutral|mastery|9|طفل عبقري|a young person who achieves great success
+bohemian|adjective|C1|CEFR-J|neutral|mastery|9|بوهيمي|relating to an unconventional artistic lifestyle
+zeitgeist|noun|C1|CEFR-J|neutral|mastery|9|روح العصر|the spirit of the times
+milieu|noun|C1|CEFR-J|neutral|mastery|9|بيئة اجتماعية|the social environment of a person
+salon|noun|C1|CEFR-J|neutral|mastery|9|صالون|a gathering of artists and intellectuals
+atelier|noun|C2|NAWL|neutral|mastery|9|مشغل فني|an artist's studio or workshop
+plein air|noun|C2|NAWL|formal|mastery|9|رسم في الهواء الطلق|painting outdoors
+trompe l'oeil|noun|C2|NAWL|formal|mastery|9|خداع بصري|a realistic painting creating an illusion
+chiaroscuro|noun|C2|NAWL|formal|mastery|9|لعبة الظل|the treatment of light and shade in drawing
+foreshortening|noun|C1|NAWL|neutral|mastery|9|تقصير منظوري|depicting an object as shorter than it is
+sfumato|noun|C2|NAWL|formal|mastery|9|ضبابية|a technique of softly blending colors
+grisaille|noun|C2|NAWL|formal|mastery|9|رسم رمادي|painting in shades of gray
+patina|noun|C1|CEFR-J|neutral|mastery|9|طبقة زمنية|a surface appearance developed with age
+provenance|noun|C1|AWL|neutral|mastery|9|أصل فني|the history of ownership of a work of art
+attribution|noun|C1|AWL|neutral|mastery|9|نسبة فنية|assigning a work to a particular artist
+authentication|noun|C1|AWL|neutral|mastery|9|توثيق|verifying the genuineness of a work
+forgery|noun|C1|CEFR-J|neutral|mastery|9|تزوير|making a fake work of art
+restoration|noun|C1|AWL|neutral|mastery|9|ترميم|the repair and preservation of artworks
+conservation|noun|C1|AWL|neutral|mastery|9|حفظ فني|protecting artworks from deterioration

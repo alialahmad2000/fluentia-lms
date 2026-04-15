@@ -1,0 +1,68 @@
+biodiversity hotspot|noun|C1|NAWL|neutral|core|6|نقطة ساخنة تنوع|an area with exceptional species richness
+species richness|noun|C1|NAWL|neutral|core|6|ثراء أنواع|the number of different species in an area
+species evenness|noun|C1|NAWL|neutral|extended|6|تساوي أنواع|how equally individuals are distributed among species
+Shannon diversity index|noun|C1|NAWL|neutral|mastery|6|مؤشر شانون للتنوع|a measure of community diversity
+Simpson diversity index|noun|C1|NAWL|neutral|mastery|6|مؤشر سيمبسون للتنوع|the probability of two random individuals being different
+alpha diversity|noun|C1|NAWL|neutral|mastery|6|تنوع ألفا|diversity within a single community
+beta diversity|noun|C1|NAWL|neutral|mastery|6|تنوع بيتا|diversity between communities
+gamma diversity|noun|C1|NAWL|neutral|mastery|6|تنوع غاما|total regional diversity
+functional diversity|noun|C1|AWL|neutral|extended|6|تنوع وظيفي|the variety of ecological roles in a community
+genetic diversity|noun|C1|NAWL|neutral|core|6|تنوع جيني|the variety of genes in a population
+phenotypic plasticity|noun|C1|NAWL|neutral|mastery|6|مرونة مظهرية|an organism adjusting to its environment
+adaptive radiation|noun|C1|NAWL|neutral|extended|6|تشعب تكيفي|many species evolving from one ancestor
+convergent evolution|noun|C1|NAWL|neutral|extended|6|تطور متقارب|unrelated species developing similar features
+coevolutionary arms race|noun|C1|NAWL|neutral|mastery|6|سباق تسلح تطوري مشترك|species driving each other's evolution
+mimicry|noun|C1|NAWL|neutral|extended|6|تقليد|one species resembling another for protection
+camouflage|noun|C1|CEFR-J|neutral|core|6|تمويه|blending in with the environment
+cryptic coloration|noun|C1|NAWL|neutral|mastery|6|تلوين خفي|coloring that hides an animal
+aposematic coloring|noun|C1|NAWL|neutral|mastery|6|تلوين تحذيري|bright colors warning predators
+sexual selection|noun|C1|NAWL|neutral|extended|6|انتقاء جنسي|traits favored for mating
+natural selection|noun|C1|NAWL|neutral|core|6|انتقاء طبيعي|survival of the fittest organisms
+artificial selection|noun|C1|NAWL|neutral|core|6|انتقاء اصطناعي|humans breeding for desired traits
+domestication|noun|C1|NAWL|neutral|core|6|تدجين|adapting wild species for human use
+monoculture|noun|C1|NAWL|neutral|core|6|محصول أحادي|growing a single crop over a wide area
+crop diversity|noun|C1|NAWL|neutral|core|6|تنوع محاصيل|growing many different crop varieties
+heirloom variety|noun|C1|NAWL|neutral|extended|6|صنف موروث|a traditional plant variety preserved over time
+genetically modified organism|noun|C1|NAWL|neutral|core|6|كائن معدل وراثياً|an organism with altered DNA
+biofortification|noun|C1|NAWL|neutral|mastery|6|تعزيز حيوي|breeding crops with extra nutrients
+biosecurity|noun|C1|NAWL|neutral|extended|6|أمن حيوي|protecting against biological threats
+quarantine protocol|noun|C1|AWL|neutral|extended|6|بروتوكول حجر|rules preventing disease spread
+zoonotic disease|noun|C1|NAWL|neutral|core|6|مرض حيواني المنشأ|a disease jumping from animals to humans
+spillover event|noun|C1|NAWL|neutral|extended|6|حدث انتقال|a pathogen jumping to a new host species
+wildlife trade|noun|C1|NAWL|neutral|core|6|تجارة حياة برية|buying and selling wild animals
+poaching|noun|C1|CEFR-J|neutral|core|6|صيد غير مشروع|illegally hunting protected animals
+ivory trade|noun|C1|NAWL|neutral|extended|6|تجارة عاج|the buying and selling of elephant tusks
+bushmeat trade|noun|C1|NAWL|neutral|extended|6|تجارة لحوم أدغال|hunting wild animals for food
+illegal logging|noun|C1|NAWL|neutral|core|6|قطع أشجار غير قانوني|cutting trees without permission
+deforestation rate|noun|C1|AWL|neutral|core|6|معدل إزالة غابات|the speed at which forests are lost
+forest degradation|noun|C1|AWL|neutral|extended|6|تدهور غابات|the decline in forest quality
+old-growth forest|noun|C1|NAWL|neutral|extended|6|غابة قديمة النمو|a forest that has never been logged
+secondary forest|noun|C1|NAWL|neutral|extended|6|غابة ثانوية|a forest regrown after clearing
+canopy cover|noun|C1|NAWL|neutral|extended|6|غطاء مظلة|the percentage of ground shaded by trees
+understory|noun|C1|NAWL|neutral|extended|6|طبقة سفلى|the layer of vegetation beneath the canopy
+epiphyte|noun|C1|NAWL|neutral|mastery|6|نبات فوقي|a plant growing on another without harming it
+mycorrhiza|noun|C1|NAWL|neutral|mastery|6|فطر جذري|a fungus partnering with plant roots
+symbiosis|noun|C1|NAWL|neutral|core|6|تكافل|a close relationship between different species
+mutualistic relationship|noun|C1|NAWL|neutral|extended|6|علاقة تبادلية|both species benefit from interaction
+parasitic relationship|noun|C1|NAWL|neutral|extended|6|علاقة تطفلية|one species benefits at the other's expense
+commensalistic relationship|noun|C1|NAWL|neutral|mastery|6|علاقة انتفاعية|one benefits without affecting the other
+interspecific competition|noun|C1|NAWL|neutral|extended|6|تنافس بين أنواع|competition between different species
+intraspecific competition|noun|C1|NAWL|neutral|extended|6|تنافس ضمن نوع|competition within the same species
+competitive exclusion|noun|C1|NAWL|neutral|mastery|6|استبعاد تنافسي|one species outcompeting another
+niche partitioning|noun|C1|NAWL|neutral|mastery|6|تقسيم بيئي|species dividing resources to coexist
+ecological niche|noun|C1|NAWL|neutral|core|6|مكانة بيئية|a species' role in its ecosystem
+realized niche|noun|C1|NAWL|neutral|mastery|6|مكانة فعلية|the niche a species actually occupies
+fundamental niche|noun|C1|NAWL|neutral|mastery|6|مكانة أساسية|the niche a species could occupy without competition
+r-selected species|noun|C1|NAWL|neutral|mastery|6|نوع مختار آر|species producing many offspring with low survival
+K-selected species|noun|C1|NAWL|neutral|mastery|6|نوع مختار كاي|species producing few offspring with high survival
+life history strategy|noun|C1|NAWL|neutral|extended|6|استراتيجية تاريخ حياة|how an organism allocates energy to survival
+phenology|noun|C1|NAWL|neutral|extended|6|فينولوجيا|studying the timing of biological events
+migration timing|noun|C1|NAWL|neutral|extended|6|توقيت هجرة|when animals move between habitats
+breeding season|noun|C1|CEFR-J|neutral|core|6|موسم تكاثر|the time of year animals reproduce
+hibernation|noun|C1|CEFR-J|neutral|core|6|سبات شتوي|an animal sleeping through winter
+estivation|noun|C1|NAWL|neutral|mastery|6|سبات صيفي|an animal dormant during hot periods
+diapause|noun|C1|NAWL|neutral|mastery|6|سكون حشري|a period of suspended development in insects
+torpor|noun|C1|NAWL|neutral|mastery|6|خمول|a state of reduced activity to save energy
+thermoregulation|noun|C1|NAWL|neutral|extended|6|تنظيم حراري|controlling body temperature
+ectotherm|noun|C1|NAWL|neutral|extended|6|كائن خارجي الحرارة|an animal whose temperature depends on the environment
+endotherm|noun|C1|NAWL|neutral|extended|6|كائن داخلي الحرارة|an animal generating its own body heat

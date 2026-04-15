@@ -1,0 +1,41 @@
+personal best|noun|C1|CEFR-J|neutral|core|2|أفضل أداء شخصي|an individual's highest achievement
+world record|noun|C1|CEFR-J|neutral|core|2|رقم قياسي عالمي|the best performance ever recorded globally
+qualifying round|noun|C1|CEFR-J|neutral|core|2|جولة تأهيلية|a preliminary competition to advance
+elimination round|noun|C1|CEFR-J|neutral|extended|2|جولة إقصائية|a round where losers are removed
+podium finish|noun|C1|CEFR-J|neutral|extended|2|منصة تتويج|finishing in the top three places
+medal tally|noun|C1|CEFR-J|neutral|extended|2|حصيلة ميداليات|the count of medals won
+Olympic legacy|noun|C1|AWL|neutral|extended|2|إرث أولمبي|the lasting impact of hosting the Olympics
+Paralympic Games|noun|C1|CEFR-J|neutral|core|2|ألعاب بارالمبية|an international competition for disabled athletes
+adaptive sport|noun|C1|AWL|neutral|core|2|رياضة تكيفية|sport modified for people with disabilities
+doping control|noun|C1|NAWL|neutral|core|2|مراقبة منشطات|testing athletes for banned substances
+blood doping|noun|C1|NAWL|neutral|extended|2|تنشيط دموي|increasing red blood cells artificially
+gene doping|noun|C1|NAWL|neutral|mastery|2|تنشيط جيني|using genetic modification to enhance performance
+therapeutic use exemption|noun|C1|NAWL|neutral|mastery|2|إعفاء استخدام علاجي|permission to use a banned substance medically
+anti-doping agency|noun|C1|NAWL|neutral|extended|2|وكالة مكافحة منشطات|an organization enforcing drug-free sport
+biological passport|noun|C1|NAWL|neutral|mastery|2|جواز بيولوجي|tracking an athlete's biological markers over time
+sports governance|noun|C1|AWL|neutral|extended|2|حوكمة رياضية|the management and regulation of sports
+match fixing|noun|C1|NAWL|neutral|extended|2|تلاعب بنتائج|illegally predetermining a competition's outcome
+sports diplomacy|noun|C1|AWL|neutral|extended|2|دبلوماسية رياضية|using sport to improve international relations
+sports analytics|noun|C1|AWL|neutral|core|2|تحليلات رياضية|using data to improve athletic performance
+biomechanical analysis|noun|C1|NAWL|neutral|extended|2|تحليل ميكانيكي حيوي|studying body movement scientifically
+motion capture|noun|C1|NAWL|neutral|extended|2|التقاط حركة|recording body movements digitally
+wearable technology|noun|C1|NAWL|neutral|core|2|تقنية قابلة للارتداء|electronic devices worn on the body
+heart rate monitor|noun|C1|CEFR-J|neutral|core|2|جهاز مراقبة نبض|a device tracking heartbeats
+GPS tracking|noun|C1|CEFR-J|neutral|core|2|تتبع جي بي إس|using satellites to track athlete movement
+sleep tracking|noun|C1|CEFR-J|neutral|extended|2|تتبع نوم|monitoring sleep patterns for recovery
+altitude training|noun|C1|NAWL|neutral|extended|2|تدريب مرتفعات|training at high elevation for performance
+hypoxic training|noun|C1|NAWL|neutral|mastery|2|تدريب نقص أكسجين|exercising in low-oxygen conditions
+periodization|noun|C1|NAWL|neutral|extended|2|دورية تدريب|planning training in cycles
+tapering|noun|C1|NAWL|neutral|extended|2|تخفيف تدريب|reducing training before competition
+detraining|noun|C1|NAWL|neutral|mastery|2|فقدان لياقة|losing fitness after stopping training
+active recovery|noun|C1|NAWL|neutral|core|2|استعادة نشطة|light exercise to speed recovery
+cryotherapy|noun|C1|NAWL|neutral|extended|2|علاج بالتبريد|using cold for recovery and healing
+sports nutrition|noun|C1|CEFR-J|neutral|core|2|تغذية رياضية|eating to support athletic performance
+carbohydrate loading|noun|C1|NAWL|neutral|extended|2|تحميل كربوهيدرات|eating extra carbs before a competition
+electrolyte balance|noun|C1|NAWL|neutral|extended|2|توازن إلكتروليت|maintaining mineral levels during exercise
+hydration strategy|noun|C1|NAWL|neutral|core|2|استراتيجية ترطيب|a plan for drinking during exercise
+protein synthesis|noun|C1|NAWL|neutral|extended|2|تخليق بروتين|the body building new protein
+ergogenic aid|noun|C1|NAWL|neutral|mastery|2|مساعد أداء|a substance or device enhancing performance
+sports rehabilitation|noun|C1|AWL|neutral|core|2|تأهيل رياضي|recovering from sports injuries
+return-to-play protocol|noun|C1|NAWL|neutral|extended|2|بروتوكول عودة للعب|steps for safely resuming sport after injury
+concussion protocol|noun|C1|NAWL|neutral|core|2|بروتوكول ارتجاج|procedures following a head injury

@@ -1,0 +1,81 @@
+international law|noun|C1|AWL|neutral|core|11|قانون دولي|rules governing relations between nations
+customary law|noun|C1|AWL|neutral|extended|11|قانون عرفي|law based on established practice
+treaty law|noun|C1|AWL|neutral|extended|11|قانون معاهدات|law derived from formal agreements
+jus cogens|noun|C2|NAWL|formal|mastery|11|قواعد آمرة|fundamental principles of international law
+erga omnes|noun|C2|NAWL|formal|mastery|11|التزامات تجاه الجميع|obligations owed to all states
+jurisdiction|noun|C1|AWL|neutral|core|11|اختصاص قضائي|the authority to administer justice
+extrajudicial|adjective|C1|AWL|neutral|mastery|11|خارج القضاء|occurring outside the judicial system
+martial law|noun|C1|CEFR-J|neutral|extended|11|أحكام عرفية|military authority replacing civil law
+state of emergency|noun|C1|AWL|neutral|core|11|حالة طوارئ|special powers during a crisis
+curfew|noun|C1|CEFR-J|neutral|extended|11|حظر تجول|a regulation requiring people to stay indoors
+coup d'état|noun|C1|NAWL|neutral|core|11|انقلاب|a sudden seizure of government power
+junta|noun|C1|NAWL|neutral|extended|11|مجلس عسكري|a military group ruling after a coup
+regime|noun|C1|AWL|neutral|core|11|نظام حكم|a system or form of government
+puppet state|noun|C1|NAWL|neutral|mastery|11|دولة دمية|a state controlled by a foreign power
+client state|noun|C1|NAWL|neutral|mastery|11|دولة تابعة|a state dependent on a more powerful one
+satellite state|noun|C1|NAWL|neutral|mastery|11|دولة مدارية|a country under another's political influence
+sphere of influence|noun|C1|AWL|neutral|extended|11|نطاق نفوذ|an area of dominant political influence
+containment policy|noun|C1|AWL|neutral|extended|11|سياسة احتواء|preventing the spread of an ideology
+appeasement|noun|C1|CEFR-J|neutral|extended|11|استرضاء|making concessions to avoid conflict
+brinkmanship|noun|C1|NAWL|neutral|mastery|11|سياسة حافة الهاوية|pushing a dangerous situation to the limit
+Cold War|noun|C1|CEFR-J|neutral|core|11|حرب باردة|a state of tension without direct fighting
+arms race|noun|C1|CEFR-J|neutral|core|11|سباق تسلح|competition to build military weapons
+nuclear deterrence|noun|C1|NAWL|neutral|extended|11|ردع نووي|preventing attack through nuclear threat
+mutual assured destruction|noun|C1|NAWL|neutral|mastery|11|دمار متبادل مؤكد|both sides destroyed in nuclear exchange
+first strike|noun|C1|NAWL|neutral|mastery|11|ضربة أولى|an initial nuclear attack
+second strike|noun|C1|NAWL|neutral|mastery|11|ضربة ثانية|a retaliatory nuclear attack
+nuclear umbrella|noun|C1|NAWL|neutral|mastery|11|مظلة نووية|nuclear protection for allied nations
+military alliance|noun|C1|AWL|neutral|core|11|تحالف عسكري|a formal defense agreement
+NATO|noun|C1|NAWL|neutral|core|11|ناتو|the North Atlantic Treaty Organization
+UN Security Council|noun|C1|NAWL|neutral|core|11|مجلس أمن|the UN body for peace and security
+veto power|noun|C1|AWL|neutral|core|11|حق نقض|the power to reject a decision
+resolution|noun|C1|AWL|neutral|core|11|قرار أممي|a formal decision by an international body
+mandate|noun|C1|AWL|neutral|extended|11|تفويض|authority given to act on behalf of others
+blue helmet|noun|C1|CEFR-J|neutral|extended|11|خوذة زرقاء|a UN peacekeeping soldier
+rules of engagement|noun|C1|AWL|neutral|extended|11|قواعد اشتباك|guidelines for military force use
+proportionality|noun|C1|AWL|neutral|extended|11|تناسب|using force appropriate to the threat
+collateral damage|noun|C1|NAWL|neutral|extended|11|أضرار جانبية|unintended civilian casualties
+civilian casualty|noun|C1|CEFR-J|neutral|core|11|ضحية مدنية|a non-military person killed in conflict
+refugee|noun|C1|CEFR-J|neutral|core|11|لاجئ|a person fleeing war or persecution
+UNHCR|noun|C1|NAWL|neutral|core|11|مفوضية لاجئين|the UN refugee agency
+resettlement|noun|C1|AWL|neutral|extended|11|إعادة توطين|relocating refugees to a new country
+repatriation|noun|C1|AWL|neutral|extended|11|إعادة لوطن|returning refugees to their home country
+stateless person|noun|C1|AWL|neutral|extended|11|شخص عديم جنسية|a person without recognized citizenship
+identity politics|noun|C1|AWL|neutral|core|11|سياسات هوية|politics based on group identity
+intersectionality|noun|C1|NAWL|neutral|extended|11|تقاطعية|overlapping forms of discrimination
+deradicalization|noun|C1|AWL|neutral|extended|11|إزالة تطرف|programs reversing extremist beliefs
+countering violent extremism|noun|C1|AWL|neutral|extended|11|مكافحة تطرف عنيف|preventing radicalization to violence
+hate speech|noun|C1|CEFR-J|neutral|core|11|خطاب كراهية|speech inciting hatred against a group
+online radicalization|noun|C1|NAWL|neutral|extended|11|تطرف إلكتروني|becoming extremist through the internet
+content moderation|noun|C1|NAWL|neutral|core|11|إدارة محتوى|reviewing and filtering online content
+deepfake|noun|C1|NAWL|neutral|core|11|تزييف عميق|AI-generated fake video or audio
+information warfare|noun|C1|NAWL|neutral|core|11|حرب معلومات|using information to undermine opponents
+hybrid warfare|noun|C1|NAWL|neutral|extended|11|حرب هجينة|combining military and non-military tactics
+gray zone warfare|noun|C1|NAWL|neutral|mastery|11|حرب منطقة رمادية|conflict below the threshold of war
+fifth column|noun|C1|NAWL|neutral|mastery|11|طابور خامس|a group undermining from within
+agent provocateur|noun|C1|NAWL|neutral|mastery|11|عميل استفزاز|a person inciting others to break the law
+psychological operations|noun|C1|NAWL|neutral|mastery|11|عمليات نفسية|influencing behavior through communication
+media manipulation|noun|C1|NAWL|neutral|core|11|تلاعب إعلامي|controlling information to influence opinion
+narrative warfare|noun|C1|NAWL|neutral|mastery|11|حرب سرديات|competing stories to shape public opinion
+strategic communication|noun|C1|AWL|neutral|extended|11|اتصال استراتيجي|using communication to achieve goals
+public opinion|noun|C1|AWL|neutral|core|11|رأي عام|the collective view of a population
+polling|noun|C1|CEFR-J|neutral|core|11|استطلاع رأي|surveying public opinion
+exit poll|noun|C1|CEFR-J|neutral|extended|11|استطلاع خروج|surveying voters after they vote
+margin of victory|noun|C1|AWL|neutral|extended|11|هامش فوز|the difference between winner and runner-up
+mandate|noun|C1|AWL|neutral|core|11|تفويض شعبي|popular authorization for a policy
+legitimacy|noun|C1|AWL|neutral|core|11|شرعية|the rightfulness of a government
+constitutional amendment|noun|C1|AWL|neutral|extended|11|تعديل دستوري|a formal change to a constitution
+referendum|noun|C1|AWL|neutral|core|11|استفتاء|a direct vote on a specific issue
+plebiscite|noun|C1|NAWL|neutral|mastery|11|تصويت شعبي|a direct vote on a national question
+suffrage|noun|C1|AWL|neutral|core|11|حق اقتراع|the right to vote
+enfranchisement|noun|C1|AWL|neutral|extended|11|منح حق تصويت|granting the right to vote
+disenfranchisement|noun|C1|AWL|neutral|extended|11|حرمان من تصويت|taking away the right to vote
+proportional representation|noun|C1|AWL|neutral|extended|11|تمثيل نسبي|seats allocated by vote share
+first-past-the-post|noun|C1|NAWL|neutral|mastery|11|أول من يصل يفوز|the candidate with most votes wins
+coalition government|noun|C1|AWL|neutral|core|11|حكومة ائتلافية|a government formed by multiple parties
+minority government|noun|C1|AWL|neutral|extended|11|حكومة أقلية|a government without a majority
+political party|noun|C1|AWL|neutral|core|11|حزب سياسي|an organized group seeking power
+opposition party|noun|C1|AWL|neutral|core|11|حزب معارضة|a party opposing the government
+shadow cabinet|noun|C1|NAWL|neutral|mastery|11|حكومة ظل|the opposition's alternative ministers
+backbencher|noun|C1|NAWL|neutral|mastery|11|نائب عادي|a legislator not holding office
+filibuster|noun|C1|NAWL|neutral|mastery|11|عرقلة برلمانية|delaying legislative action through long speeches

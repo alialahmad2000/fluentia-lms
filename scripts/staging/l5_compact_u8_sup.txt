@@ -1,0 +1,104 @@
+intelligence|noun|B2|CEFR-J|neutral|core|8|ذكاء اصطناعي|the capacity for learning and reasoning
+artificial intelligence|noun|C1|NAWL|neutral|core|8|ذكاء صنعي|computer systems performing human tasks
+machine learning|noun|C1|NAWL|neutral|core|8|تعلم آلي|systems improving from experience
+data mining|noun|C1|NAWL|neutral|core|8|تنقيب بيانات|discovering patterns in large datasets
+big data|noun|C1|NAWL|neutral|core|8|بيانات ضخمة|extremely large datasets for analysis
+cloud computing|noun|C1|NAWL|neutral|core|8|حوسبة سحابية|computing services delivered over the internet
+distributed computing|noun|C1|NAWL|neutral|core|8|حوسبة موزعة|computation across multiple networked computers
+quantum computing|noun|C1|NAWL|neutral|core|8|حوسبة كمية|computing using quantum mechanical phenomena
+supercomputer|noun|C1|CEFR-J|neutral|core|8|حاسوب فائق|an extremely powerful computer
+processor|noun|B2|CEFR-J|neutral|core|8|معالج|the component executing computer instructions
+bandwidth|noun|C1|NAWL|neutral|core|8|عرض نطاق|the data transfer capacity of a network
+latency|noun|C1|NAWL|neutral|core|8|زمن استجابة|the delay before data transfer begins
+throughput|noun|C1|NAWL|neutral|core|8|إنتاجية|the amount of data processed per unit time
+protocol|noun|C1|AWL|neutral|core|8|بروتوكول|a set of rules for data exchange
+encryption|noun|C1|NAWL|neutral|core|8|تشفير|converting data into a coded form
+decryption|noun|C1|NAWL|neutral|core|8|فك تشفير|converting coded data back to normal
+authentication|noun|C1|AWL|neutral|core|8|مصادقة|verifying identity before granting access
+authorization|noun|C1|AWL|neutral|core|8|تخويل|granting permission to access resources
+firewall|noun|C1|CEFR-J|neutral|core|8|جدار ناري|a security system controlling network traffic
+malware|noun|C1|CEFR-J|neutral|core|8|برمجيات خبيثة|software designed to harm computers
+virus|noun|B2|CEFR-J|neutral|core|8|فيروس حاسوبي|a program that replicates and spreads
+phishing|noun|C1|CEFR-J|neutral|core|8|تصيد|tricking users into revealing information
+ransomware|noun|C1|NAWL|neutral|core|8|برنامج فدية|malware demanding payment to restore access
+botnet|noun|C1|NAWL|neutral|core|8|شبكة بوتنت|a network of compromised computers
+denial of service|noun|C1|NAWL|neutral|core|8|حرمان خدمة|an attack overwhelming a system with requests
+vulnerability|noun|C1|AWL|neutral|core|8|ثغرة|a weakness in a system that can be exploited
+patch|noun|C1|CEFR-J|neutral|core|8|رقعة أمنية|an update fixing a software vulnerability
+automation|noun|C1|AWL|neutral|core|8|أتمتة|the use of technology to perform tasks
+robotics|noun|C1|NAWL|neutral|core|8|روبوتية|the branch of technology dealing with robots
+sensor|noun|C1|CEFR-J|neutral|core|8|مستشعر|a device detecting environmental changes
+actuator|noun|C1|NAWL|neutral|core|8|محرك|a device converting signals to physical action
+servo|noun|C1|NAWL|neutral|core|8|محرك مؤازر|a motor providing precise position control
+telemetry|noun|C1|NAWL|neutral|core|8|قياس عن بعد|the wireless transmission of measurements
+signal|noun|B2|CEFR-J|neutral|core|8|إشارة|a transmission conveying information
+noise|noun|C1|CEFR-J|neutral|core|8|تشويش|unwanted disturbance in a signal
+filter|noun|C1|CEFR-J|neutral|core|8|مرشح|a device removing unwanted components
+amplifier|noun|C1|CEFR-J|neutral|core|8|مضخم|a device increasing signal strength
+transducer|noun|C1|NAWL|neutral|extended|8|محول طاقة|a device converting one form of energy to another
+oscillator|noun|C1|NAWL|neutral|extended|8|مذبذب|a device producing periodic signals
+modulation|noun|C1|AWL|neutral|extended|8|تضمين|varying a signal to carry information
+demodulation|noun|C2|NAWL|formal|extended|8|فك تضمين|extracting information from a modulated signal
+analog|adjective|C1|CEFR-J|neutral|extended|8|تناظري|relating to continuous signals
+digital|adjective|B2|CEFR-J|neutral|extended|8|رقمي|relating to discrete numerical values
+binary|adjective|C1|NAWL|neutral|extended|8|ثنائي|a system using only two values
+hexadecimal|adjective|C2|NAWL|formal|extended|8|ست عشري|a number system based on sixteen
+floating point|noun|C1|NAWL|neutral|extended|8|فاصلة عائمة|a method of representing real numbers
+integer|noun|C1|CEFR-J|neutral|extended|8|عدد صحيح|a whole number without fractions
+array|noun|C1|NAWL|neutral|extended|8|مصفوفة|an ordered collection of data elements
+stack|noun|C1|CEFR-J|neutral|extended|8|مكدس|a data structure using last-in first-out
+queue|noun|C1|CEFR-J|neutral|extended|8|طابور|a data structure using first-in first-out
+tree|noun|C1|CEFR-J|neutral|extended|8|شجرة بيانات|a hierarchical data structure
+graph|noun|C1|AWL|neutral|extended|8|رسم بياني|a structure of nodes connected by edges
+hash table|noun|C1|NAWL|neutral|extended|8|جدول تجزئة|a structure mapping keys to values
+sorting|noun|C1|CEFR-J|neutral|extended|8|فرز|arranging data in a particular order
+searching|noun|C1|CEFR-J|neutral|extended|8|بحث|finding specific data in a collection
+recursion|noun|C1|NAWL|neutral|extended|8|عودية|a function calling itself to solve problems
+abstraction|noun|C1|AWL|neutral|extended|8|تجريد|hiding complex details behind a simple interface
+encapsulation|noun|C1|AWL|neutral|extended|8|تغليف|bundling data with methods that operate on it
+inheritance|noun|C1|AWL|neutral|extended|8|وراثة|a class receiving properties from another class
+polymorphism|noun|C1|NAWL|neutral|extended|8|تعدد أشكال|objects taking many forms
+concurrency|noun|C1|NAWL|neutral|extended|8|تزامنية|multiple processes executing simultaneously
+parallelism|noun|C1|AWL|neutral|extended|8|توازي|simultaneous execution of multiple tasks
+deadlock|noun|C1|NAWL|neutral|extended|8|جمود|two processes each waiting for the other
+race condition|noun|C1|NAWL|neutral|extended|8|حالة سباق|a bug from timing-dependent behavior
+mutex|noun|C2|NAWL|formal|extended|8|قفل متبادل|a mechanism ensuring exclusive access
+semaphore|noun|C1|NAWL|neutral|extended|8|إشارة ضوئية|a signal controlling concurrent access
+throughput|noun|C1|NAWL|neutral|extended|8|معدل إنتاج|the rate of processing per unit time
+load balancing|noun|C1|NAWL|neutral|extended|8|توزيع حمل|distributing work across multiple systems
+clustering|noun|C1|AWL|neutral|extended|8|تعنقد|grouping similar elements together
+classification|noun|C1|AWL|neutral|extended|8|تصنيف|assigning items to predefined categories
+regression|noun|C1|AWL|neutral|extended|8|انحدار|predicting a continuous value from inputs
+supervised learning|noun|C1|NAWL|neutral|extended|8|تعلم خاضع|learning from labeled training data
+unsupervised learning|noun|C1|NAWL|neutral|extended|8|تعلم غير خاضع|finding patterns in unlabeled data
+overfitting|noun|C1|NAWL|neutral|extended|8|فرط تخصيص|a model fitting training data too closely
+underfitting|noun|C1|NAWL|neutral|extended|8|قصور تخصيص|a model too simple to capture patterns
+bias-variance|noun|C1|NAWL|neutral|extended|8|تحيز-تباين|the tradeoff between model simplicity and accuracy
+cross-validation|noun|C1|NAWL|neutral|extended|8|تحقق متقاطع|testing a model on different data subsets
+hyperparameter|noun|C2|NAWL|formal|extended|8|معامل فوقي|a setting controlling the learning process
+feature extraction|noun|C1|NAWL|neutral|extended|8|استخراج ميزات|selecting relevant data attributes
+dimensionality|noun|C1|AWL|neutral|extended|8|أبعادية|the number of features in a dataset
+convolutional|adjective|C2|NAWL|formal|mastery|8|التفافي|a network architecture for image processing
+recurrent|adjective|C1|AWL|neutral|mastery|8|تكراري|a network architecture for sequential data
+transformer|noun|C1|CEFR-J|neutral|mastery|8|محول عصبي|an architecture using attention mechanisms
+attention mechanism|noun|C1|NAWL|neutral|mastery|8|آلية انتباه|a technique weighting input importance
+generative|adjective|C1|AWL|neutral|mastery|8|توليدي|creating new data from learned patterns
+discriminative|adjective|C1|AWL|neutral|mastery|8|تمييزي|distinguishing between different categories
+adversarial|adjective|C1|AWL|neutral|mastery|8|تنافسي|involving competing neural networks
+transfer learning|noun|C1|NAWL|neutral|mastery|8|نقل تعلم|applying knowledge from one task to another
+fine-tuning|noun|C1|CEFR-J|neutral|mastery|8|ضبط دقيق|adjusting a pre-trained model for a new task
+embedding|noun|C1|AWL|neutral|mastery|8|تضمين|representing data as dense vectors
+tokenization|noun|C1|NAWL|neutral|mastery|8|ترميز نصي|breaking text into individual units
+natural language|noun|C1|NAWL|neutral|mastery|8|لغة طبيعية|human language as opposed to computer code
+computer vision|noun|C1|NAWL|neutral|mastery|8|رؤية حاسوبية|enabling computers to interpret images
+object detection|noun|C1|NAWL|neutral|mastery|8|كشف أجسام|identifying objects in images
+segmentation|noun|C1|AWL|neutral|mastery|8|تقسيم صوري|dividing an image into meaningful regions
+speech recognition|noun|C1|NAWL|neutral|mastery|8|تعرف كلام|converting spoken language to text
+sentiment analysis|noun|C1|NAWL|neutral|mastery|8|تحليل مشاعر|determining emotional tone in text
+recommendation|noun|C1|AWL|neutral|mastery|8|توصية|suggesting items based on preferences
+autonomous vehicle|noun|C1|NAWL|neutral|mastery|8|مركبة ذاتية|a self-driving transportation vehicle
+Internet of Things|noun|C1|NAWL|neutral|mastery|8|إنترنت الأشياء|interconnected everyday devices
+edge computing|noun|C1|NAWL|neutral|mastery|8|حوسبة طرفية|processing data near its source
+digital twin|noun|C1|NAWL|neutral|mastery|8|توأم رقمي|a virtual replica of a physical system
+augmented reality|noun|C1|NAWL|neutral|mastery|8|واقع معزز|overlaying digital information on the real world
+virtual reality|noun|C1|CEFR-J|neutral|mastery|8|واقع افتراضي|a simulated three-dimensional environment

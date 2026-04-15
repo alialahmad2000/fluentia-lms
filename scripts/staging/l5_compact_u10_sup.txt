@@ -1,0 +1,90 @@
+physics|noun|B2|CEFR-J|neutral|core|10|فيزياء|the science of matter and energy
+mechanics|noun|C1|CEFR-J|neutral|core|10|ميكانيكا|the branch of physics dealing with motion
+dynamics|noun|C1|AWL|neutral|core|10|ديناميكا|the study of forces and motion
+statics|noun|C1|NAWL|neutral|core|10|إستاتيكا|the study of forces in equilibrium
+thermodynamics|noun|C1|NAWL|neutral|core|10|ثرموديناميكا|the study of heat and energy
+optics|noun|C1|CEFR-J|neutral|core|10|بصريات|the study of light and vision
+acoustics|noun|C1|CEFR-J|neutral|core|10|صوتيات|the study of sound
+fluid dynamics|noun|C1|NAWL|neutral|core|10|ديناميكا موائع|the study of fluids in motion
+plasma physics|noun|C1|NAWL|neutral|core|10|فيزياء بلازما|the study of ionized gases
+nuclear physics|noun|C1|NAWL|neutral|core|10|فيزياء نووية|the study of atomic nuclei
+particle physics|noun|C1|NAWL|neutral|core|10|فيزياء جسيمات|the study of subatomic particles
+astrophysics|noun|C1|CEFR-J|neutral|core|10|فيزياء فلكية|the physics of celestial objects
+quantum mechanics|noun|C1|NAWL|neutral|core|10|ميكانيكا كمية|the physics of atomic and subatomic systems
+general relativity|noun|C1|NAWL|neutral|core|10|نسبية عامة|Einstein's theory of gravity as curved spacetime
+special relativity|noun|C1|NAWL|neutral|core|10|نسبية خاصة|Einstein's theory of uniform motion
+force|noun|B2|CEFR-J|neutral|core|10|قوة|an influence causing a change in motion
+mass|noun|B2|CEFR-J|neutral|core|10|كتلة|the quantity of matter in a body
+weight|noun|B2|CEFR-J|neutral|core|10|وزن|the force of gravity on an object
+energy|noun|B2|CEFR-J|neutral|core|10|طاقة|the capacity to do work
+work|noun|B2|CEFR-J|neutral|core|10|شغل|the transfer of energy by a force
+power|noun|B2|CEFR-J|neutral|core|10|قدرة|the rate of doing work
+pressure|noun|B2|CEFR-J|neutral|core|10|ضغط|force applied per unit area
+density|noun|C1|AWL|neutral|core|10|كثافة|mass per unit volume
+viscosity|noun|C1|NAWL|neutral|core|10|لزوجة|a fluid's resistance to flow
+friction|noun|C1|CEFR-J|neutral|core|10|احتكاك|resistance to motion between surfaces
+elasticity|noun|C1|AWL|neutral|core|10|مرونة|the ability to return to original shape
+conductivity|noun|C1|NAWL|neutral|core|10|موصلية|the ability to conduct heat or electricity
+resistivity|noun|C1|NAWL|neutral|core|10|مقاومية|the resistance of a material to current flow
+capacitance|noun|C1|NAWL|neutral|core|10|سعة|the ability to store electric charge
+inductance|noun|C1|NAWL|neutral|core|10|محاثة|the property of generating electromotive force
+magnetic field|noun|C1|CEFR-J|neutral|core|10|حقل مغناطيسي|a region of magnetic force
+electric field|noun|C1|CEFR-J|neutral|core|10|حقل كهربائي|a region of electrical force
+potential|noun|C1|AWL|neutral|core|10|جهد|stored energy available for conversion
+kinetic energy|noun|C1|CEFR-J|neutral|core|10|طاقة حركية|energy due to motion
+potential energy|noun|C1|CEFR-J|neutral|core|10|طاقة كامنة|stored energy due to position
+thermal energy|noun|C1|CEFR-J|neutral|core|10|طاقة حرارية|energy from the temperature of matter
+nuclear energy|noun|C1|CEFR-J|neutral|core|10|طاقة نووية|energy from atomic nucleus reactions
+chemical energy|noun|C1|CEFR-J|neutral|core|10|طاقة كيميائية|energy stored in molecular bonds
+electromagnetic|adjective|C1|NAWL|neutral|core|10|كهرومغناطيسي|relating to electric and magnetic fields together
+conservation of energy|noun|C1|AWL|neutral|extended|10|حفظ الطاقة|energy cannot be created or destroyed
+conservation of momentum|noun|C1|AWL|neutral|extended|10|حفظ الزخم|total momentum remains constant
+Newton's laws|noun|C1|CEFR-J|neutral|extended|10|قوانين نيوتن|three fundamental laws of classical mechanics
+Kepler's laws|noun|C1|NAWL|neutral|extended|10|قوانين كبلر|three laws of planetary motion
+Faraday's law|noun|C1|NAWL|neutral|extended|10|قانون فاراداي|changing magnetic fields produce electric fields
+Coulomb's law|noun|C1|NAWL|neutral|extended|10|قانون كولوم|the force between electric charges
+Ohm's law|noun|C1|CEFR-J|neutral|extended|10|قانون أوم|the relationship between voltage and current
+Boyle's law|noun|C1|CEFR-J|neutral|extended|10|قانون بويل|pressure and volume are inversely related
+Charles's law|noun|C1|NAWL|neutral|extended|10|قانون شارل|volume and temperature are proportional
+ideal gas law|noun|C1|NAWL|neutral|extended|10|قانون الغاز المثالي|relating pressure, volume, and temperature
+Bernoulli's principle|noun|C1|NAWL|neutral|extended|10|مبدأ برنولي|faster fluid creates lower pressure
+Archimedes' principle|noun|C1|CEFR-J|neutral|extended|10|مبدأ أرخميدس|buoyant force equals displaced fluid weight
+Heisenberg|noun|C1|NAWL|neutral|extended|10|هايزنبرغ|the uncertainty principle of quantum mechanics
+Pauli exclusion|noun|C1|NAWL|neutral|extended|10|مبدأ باولي|no two fermions can have the same quantum state
+Planck constant|noun|C1|NAWL|neutral|extended|10|ثابت بلانك|the fundamental quantum of action
+speed of light|noun|C1|CEFR-J|neutral|extended|10|سرعة الضوء|the maximum speed in the universe
+gravitational constant|noun|C1|NAWL|neutral|extended|10|ثابت الجاذبية|the fundamental constant of gravity
+Boltzmann constant|noun|C1|NAWL|neutral|extended|10|ثابت بولتزمان|relating temperature to energy
+Avogadro constant|noun|C1|NAWL|neutral|extended|10|ثابت أفوغادرو|the number of particles in a mole
+fine structure constant|noun|C2|NAWL|formal|extended|10|ثابت البنية الدقيقة|characterizing electromagnetic interaction strength
+standard model|noun|C1|NAWL|neutral|extended|10|نموذج معياري|the theory of fundamental particles and forces
+gauge theory|noun|C2|NAWL|formal|extended|10|نظرية معيارية|a theory based on symmetry groups
+quantum field theory|noun|C2|NAWL|formal|extended|10|نظرية حقول كمية|combining quantum mechanics with fields
+quantum electrodynamics|noun|C2|NAWL|formal|extended|10|ديناميكا كمية كهربائية|the quantum theory of electromagnetic force
+quantum chromodynamics|noun|C2|NAWL|formal|extended|10|ديناميكا لونية كمية|the quantum theory of the strong force
+electroweak|adjective|C2|NAWL|formal|extended|10|كهروضعيفي|the unified electromagnetic and weak forces
+grand unification|noun|C2|NAWL|formal|extended|10|توحيد كبير|a theory unifying three fundamental forces
+theory of everything|noun|C1|NAWL|neutral|extended|10|نظرية كل شيء|a hypothetical theory unifying all forces
+M-theory|noun|C2|NAWL|formal|extended|10|نظرية إم|a theory proposing 11 spacetime dimensions
+brane|noun|C2|NAWL|formal|mastery|10|غشاء كوني|a multidimensional object in string theory
+compactification|noun|C2|NAWL|formal|mastery|10|تضاؤل أبعاد|curling extra dimensions into tiny spaces
+Calabi-Yau|noun|C2|NAWL|formal|mastery|10|كالابي-ياو|a type of manifold in string theory
+holographic|adjective|C1|NAWL|neutral|mastery|10|هولوغرافي|relating to encoding information on a boundary
+information paradox|noun|C2|NAWL|formal|mastery|10|مفارقة المعلومات|the question of information loss in black holes
+Hawking radiation|noun|C1|NAWL|neutral|mastery|10|إشعاع هوكينغ|theoretical radiation emitted by black holes
+Penrose diagram|noun|C2|NAWL|formal|mastery|10|مخطط بنروز|a diagram of spacetime structure
+Feynman diagram|noun|C2|NAWL|formal|mastery|10|مخطط فاينمان|a pictorial representation of particle interactions
+path integral|noun|C2|NAWL|formal|mastery|10|تكامل مسار|summing over all possible histories
+wave function|noun|C1|NAWL|neutral|mastery|10|دالة موجية|a mathematical description of quantum state
+collapse|noun|C1|AWL|neutral|mastery|10|انهيار موجي|the reduction of quantum possibilities to one
+measurement problem|noun|C1|NAWL|neutral|mastery|10|مشكلة القياس|the question of how observation affects quantum systems
+hidden variables|noun|C1|NAWL|neutral|mastery|10|متغيرات خفية|hypothetical underlying factors in quantum mechanics
+nonlocality|noun|C2|NAWL|formal|mastery|10|لامحلية|the correlation of distant quantum particles
+quantum teleportation|noun|C1|NAWL|neutral|mastery|10|نقل كمي|transferring quantum states between particles
+quantum cryptography|noun|C1|NAWL|neutral|mastery|10|تشفير كمي|encoding messages using quantum principles
+quantum sensing|noun|C1|NAWL|neutral|mastery|10|استشعار كمي|using quantum effects for precise measurement
+quantum error correction|noun|C2|NAWL|formal|mastery|10|تصحيح أخطاء كمية|protecting quantum information from errors
+topological|adjective|C2|NAWL|formal|mastery|10|طوبولوجي|relating to properties unchanged by deformation
+superconductivity|noun|C1|NAWL|neutral|mastery|10|موصلية فائقة|zero electrical resistance at low temperatures
+superfluidity|noun|C2|NAWL|formal|mastery|10|ميوعة فائقة|a fluid flowing without viscosity
+Bose-Einstein condensate|noun|C2|NAWL|formal|mastery|10|تكاثف بوز-أينشتاين|a state of matter at near absolute zero

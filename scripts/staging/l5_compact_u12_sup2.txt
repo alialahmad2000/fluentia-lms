@@ -1,0 +1,129 @@
+scarcity|noun|C1|AWL|neutral|core|12|ندرة|the state of being in short supply
+abundance|noun|C1|CEFR-J|neutral|core|12|وفرة|a plentiful supply of something
+commodity|noun|C1|AWL|neutral|core|12|سلعة|a raw material traded in markets
+supply chain|noun|C1|AWL|neutral|core|12|سلسلة إمداد|the sequence of processes in production
+logistics|noun|C1|NAWL|neutral|core|12|لوجستيات|the management of resource flow
+procurement|noun|C1|AWL|neutral|core|12|مشتريات|obtaining goods or services
+inventory|noun|C1|AWL|neutral|core|12|مخزون|the total goods available for sale
+surplus|noun|C1|AWL|neutral|core|12|فائض|an amount exceeding what is needed
+deficit|noun|C1|AWL|neutral|core|12|عجز|the amount by which something falls short
+quota|noun|C1|AWL|neutral|core|12|حصة|a limited quantity allowed
+tariff|noun|C1|AWL|neutral|core|12|تعرفة|a tax on imported goods
+subsidy|noun|C1|AWL|neutral|core|12|دعم حكومي|government financial support
+incentive|noun|C1|AWL|neutral|core|12|حافز|something encouraging a particular action
+disincentive|noun|C1|AWL|neutral|extended|12|عامل تثبيط|something discouraging a particular action
+monopoly|noun|C1|AWL|neutral|core|12|احتكار|exclusive control of a market
+oligopoly|noun|C1|NAWL|neutral|core|12|احتكار قلة|a market controlled by a few firms
+cartel|noun|C1|NAWL|neutral|core|12|كارتل|an agreement among producers to fix prices
+market share|noun|C1|AWL|neutral|core|12|حصة سوقية|the portion of a market controlled by a company
+market capitalization|noun|C1|AWL|neutral|extended|12|رسملة سوقية|the total value of a company's shares
+equity|noun|C1|AWL|neutral|core|12|حقوق ملكية|the value of shares in a company
+dividend|noun|C1|NAWL|neutral|core|12|أرباح موزعة|a payment from company profits to shareholders
+bond|noun|C1|CEFR-J|neutral|core|12|سند مالي|a loan to a government or corporation
+yield|noun|C1|AWL|neutral|core|12|عائد|the income return on an investment
+portfolio|noun|C1|AWL|neutral|core|12|محفظة مالية|a collection of investments
+asset|noun|C1|AWL|neutral|core|12|أصل مالي|something of value owned
+liability|noun|C1|AWL|neutral|core|12|التزام مالي|something owed to another
+depreciation|noun|C1|AWL|neutral|core|12|إهلاك|the decrease in value over time
+amortization|noun|C1|NAWL|neutral|extended|12|إطفاء|spreading costs over a period
+liquidity|noun|C1|AWL|neutral|core|12|سيولة|how easily an asset can be converted to cash
+solvency|noun|C1|NAWL|neutral|extended|12|ملاءة مالية|the ability to meet long-term obligations
+insolvency|noun|C1|NAWL|neutral|extended|12|إعسار|inability to pay debts
+bankruptcy|noun|C1|CEFR-J|neutral|core|12|إفلاس|legal declaration of inability to pay debts
+inflation|noun|C1|AWL|neutral|core|12|تضخم|a general increase in prices
+deflation|noun|C1|NAWL|neutral|core|12|انكماش|a general decrease in prices
+stagflation|noun|C1|NAWL|neutral|extended|12|ركود تضخمي|stagnation combined with inflation
+hyperinflation|noun|C1|NAWL|neutral|extended|12|تضخم مفرط|extremely rapid price increases
+recession|noun|C1|AWL|neutral|core|12|ركود اقتصادي|a period of economic decline
+depression|noun|C1|CEFR-J|neutral|core|12|كساد|a severe prolonged economic downturn
+GDP|noun|C1|AWL|neutral|core|12|ناتج محلي إجمالي|the total value of goods and services produced
+GNP|noun|C1|AWL|neutral|extended|12|ناتج قومي إجمالي|total output including overseas earnings
+per capita|adjective|C1|AWL|neutral|core|12|للفرد|for each person
+purchasing power|noun|C1|AWL|neutral|core|12|قوة شرائية|the value of money in terms of goods
+consumer price index|noun|C1|AWL|neutral|extended|12|مؤشر أسعار|a measure of average price changes
+fiscal policy|noun|C1|AWL|neutral|core|12|سياسة مالية|government taxation and spending decisions
+monetary policy|noun|C1|AWL|neutral|core|12|سياسة نقدية|central bank management of money supply
+interest rate|noun|C1|AWL|neutral|core|12|سعر فائدة|the cost of borrowing money
+central bank|noun|C1|AWL|neutral|core|12|بنك مركزي|an institution managing national currency
+quantitative easing|noun|C1|NAWL|neutral|extended|12|تيسير كمي|increasing money supply to stimulate growth
+austerity|noun|C1|AWL|neutral|extended|12|تقشف|strict economic measures to reduce spending
+stimulus|noun|C1|AWL|neutral|extended|12|تحفيز اقتصادي|government spending to boost the economy
+trade balance|noun|C1|AWL|neutral|core|12|ميزان تجاري|the difference between exports and imports
+trade deficit|noun|C1|AWL|neutral|core|12|عجز تجاري|importing more than exporting
+trade surplus|noun|C1|AWL|neutral|extended|12|فائض تجاري|exporting more than importing
+foreign exchange|noun|C1|AWL|neutral|core|12|صرف أجنبي|converting one currency to another
+exchange rate|noun|C1|AWL|neutral|core|12|سعر صرف|the price of one currency in another
+devaluation|noun|C1|AWL|neutral|extended|12|تخفيض قيمة|deliberate lowering of currency value
+revaluation|noun|C1|AWL|neutral|extended|12|إعادة تقييم|increasing the value of a currency
+float|verb|C1|AWL|neutral|extended|12|تعويم|allowing a currency to find its market value
+peg|noun|C1|CEFR-J|neutral|extended|12|ربط عملة|fixing a currency to another
+dollarization|noun|C1|NAWL|neutral|mastery|12|دولرة|adopting the US dollar as currency
+remittance|noun|C1|AWL|neutral|extended|12|حوالة مالية|money sent to another country
+FDI|noun|C1|NAWL|neutral|core|12|استثمار أجنبي مباشر|foreign direct investment in a country
+privatization|noun|C1|AWL|neutral|core|12|خصخصة|transferring ownership from public to private
+nationalization|noun|C1|AWL|neutral|core|12|تأميم|transferring ownership from private to public
+deregulation|noun|C1|AWL|neutral|extended|12|تحرير قطاع|removing government regulations
+liberalization|noun|C1|AWL|neutral|extended|12|تحرير اقتصادي|reducing government restrictions on trade
+protectionism|noun|C1|AWL|neutral|core|12|حمائية|shielding domestic industry from competition
+free trade|noun|C1|AWL|neutral|core|12|تجارة حرة|trade without government restrictions
+WTO|noun|C1|NAWL|neutral|core|12|منظمة تجارة عالمية|the world trade organization
+IMF|noun|C1|NAWL|neutral|core|12|صندوق نقد دولي|the international monetary fund
+World Bank|noun|C1|NAWL|neutral|core|12|بنك دولي|an institution financing development
+microfinance|noun|C1|NAWL|neutral|extended|12|تمويل صغير|small loans to low-income individuals
+microcredit|noun|C1|NAWL|neutral|extended|12|ائتمان صغير|small loans for entrepreneurship
+venture capital|noun|C1|NAWL|neutral|extended|12|رأسمال مخاطر|funding for startup companies
+angel investor|noun|C1|NAWL|neutral|extended|12|مستثمر ملاك|an individual funding startups
+crowdfunding|noun|C1|NAWL|neutral|extended|12|تمويل جماعي|raising money from many small contributions
+blockchain|noun|C1|NAWL|neutral|extended|12|سلسلة كتل|a decentralized digital ledger
+cryptocurrency|noun|C1|NAWL|neutral|extended|12|عملة مشفرة|a digital currency using cryptography
+fintech|noun|C1|NAWL|neutral|extended|12|تكنولوجيا مالية|technology in financial services
+gig economy|noun|C1|NAWL|neutral|core|12|اقتصاد الأعمال المؤقتة|a labor market of short-term jobs
+sharing economy|noun|C1|NAWL|neutral|core|12|اقتصاد تشاركي|an economy based on shared access
+platform economy|noun|C1|NAWL|neutral|extended|12|اقتصاد منصات|economic activity through digital platforms
+automation|noun|C1|AWL|neutral|core|12|أتمتة|using machines to perform tasks
+outsourcing|noun|C1|AWL|neutral|core|12|إسناد خارجي|contracting work to external providers
+offshoring|noun|C1|NAWL|neutral|extended|12|نقل إنتاج|moving operations to another country
+reshoring|noun|C1|NAWL|neutral|extended|12|إعادة إنتاج محلي|bringing operations back to the home country
+supply shock|noun|C1|NAWL|neutral|extended|12|صدمة عرض|a sudden change in supply
+demand shock|noun|C1|NAWL|neutral|extended|12|صدمة طلب|a sudden change in demand
+elasticity|noun|C1|AWL|neutral|core|12|مرونة سعرية|responsiveness of demand to price change
+inelastic|adjective|C1|AWL|neutral|extended|12|غير مرن|demand not responsive to price changes
+marginal cost|noun|C1|AWL|neutral|core|12|تكلفة هامشية|the cost of producing one more unit
+opportunity cost|noun|C1|AWL|neutral|core|12|تكلفة فرصة|the value of the next best alternative
+sunk cost|noun|C1|NAWL|neutral|extended|12|تكلفة غارقة|a cost that cannot be recovered
+externality|noun|C1|AWL|neutral|core|12|عوامل خارجية|an indirect cost or benefit to others
+market failure|noun|C1|AWL|neutral|core|12|فشل سوق|when markets fail to allocate efficiently
+public good|noun|C1|AWL|neutral|core|12|سلعة عامة|a good available to all without exclusion
+commons|noun|C1|CEFR-J|neutral|extended|12|موارد مشتركة|shared resources available to all
+tragedy of the commons|noun|C1|NAWL|neutral|extended|12|مأساة المشاعات|depletion of shared resources
+Pigouvian tax|noun|C2|NAWL|formal|mastery|12|ضريبة بيغوفية|a tax correcting negative externalities
+moral hazard|noun|C1|NAWL|neutral|extended|12|خطر أخلاقي|risk-taking due to lack of consequences
+adverse selection|noun|C1|NAWL|neutral|mastery|12|اختيار عكسي|market imbalance from information asymmetry
+information asymmetry|noun|C1|AWL|neutral|mastery|12|عدم تماثل معلومات|unequal information between parties
+game theory|noun|C1|NAWL|neutral|core|12|نظرية ألعاب|mathematical analysis of strategic decisions
+Nash equilibrium|noun|C1|NAWL|neutral|mastery|12|توازن ناش|a stable state in strategic interaction
+prisoner's dilemma|noun|C1|NAWL|neutral|extended|12|معضلة السجين|a scenario showing why cooperation fails
+zero-sum game|noun|C1|NAWL|neutral|extended|12|لعبة محصلة صفرية|a situation where one's gain equals another's loss
+positive-sum game|noun|C1|NAWL|neutral|mastery|12|لعبة محصلة إيجابية|a situation where all parties can benefit
+behavioral economics|noun|C1|NAWL|neutral|core|12|اقتصاد سلوكي|studying psychological influences on economic decisions
+nudge|noun|C1|CEFR-J|neutral|core|12|توجيه ناعم|a subtle prompt influencing behavior
+rational choice|noun|C1|AWL|neutral|extended|12|اختيار عقلاني|decision-making to maximize benefit
+bounded rationality|noun|C1|NAWL|neutral|mastery|12|عقلانية محدودة|limited ability to make optimal decisions
+utility|noun|C1|AWL|neutral|core|12|منفعة|the satisfaction gained from consumption
+diminishing returns|noun|C1|AWL|neutral|core|12|عوائد متناقصة|decreasing benefit from additional input
+economies of scale|noun|C1|AWL|neutral|core|12|وفورات حجم|cost advantages from large-scale production
+diseconomies of scale|noun|C1|AWL|neutral|mastery|12|عدم وفورات حجم|cost disadvantages from excessive growth
+comparative advantage|noun|C1|AWL|neutral|core|12|ميزة نسبية|producing goods at lower opportunity cost
+absolute advantage|noun|C1|AWL|neutral|extended|12|ميزة مطلقة|producing goods using fewer resources
+specialization|noun|C1|AWL|neutral|core|12|تخصص إنتاجي|focusing production on specific goods
+diversification|noun|C1|AWL|neutral|core|12|تنويع اقتصادي|spreading investments across sectors
+Dutch disease|noun|C1|NAWL|neutral|mastery|12|المرض الهولندي|resource wealth harming other economic sectors
+resource curse|noun|C1|NAWL|neutral|core|12|لعنة الموارد|natural wealth leading to poor development
+sovereign wealth fund|noun|C1|NAWL|neutral|extended|12|صندوق ثروة سيادي|a state-owned investment fund
+pension fund|noun|C1|CEFR-J|neutral|extended|12|صندوق تقاعد|a fund providing retirement income
+hedge fund|noun|C1|NAWL|neutral|extended|12|صندوق تحوط|an investment fund using complex strategies
+derivatives|noun|C1|NAWL|neutral|mastery|12|مشتقات مالية|financial instruments based on underlying assets
+futures|noun|C1|NAWL|neutral|mastery|12|عقود آجلة|contracts to buy or sell at a future date
+options|noun|C1|NAWL|neutral|mastery|12|خيارات مالية|contracts giving the right to buy or sell
+speculation|noun|C1|AWL|neutral|extended|12|مضاربة|trading hoping for quick profit
+arbitrage|noun|C1|NAWL|neutral|mastery|12|موازنة سعرية|profiting from price differences in markets

@@ -1,0 +1,51 @@
+climate model|noun|C1|NAWL|neutral|core|4|نموذج مناخي|a computer simulation of Earth's climate
+general circulation model|noun|C1|NAWL|neutral|extended|4|نموذج دوران عام|a model of atmospheric and ocean circulation
+downscaling|noun|C1|NAWL|neutral|mastery|4|تصغير نطاق|converting global climate data to local scales
+climate scenario|noun|C1|AWL|neutral|core|4|سيناريو مناخي|a projection of future climate conditions
+representative concentration pathway|noun|C1|NAWL|neutral|mastery|4|مسار تركيز تمثيلي|a greenhouse gas scenario for modeling
+shared socioeconomic pathway|noun|C1|NAWL|neutral|mastery|4|مسار اجتماعي اقتصادي مشترك|a scenario combining social and economic trends
+tipping element|noun|C1|NAWL|neutral|extended|4|عنصر نقطة تحول|a climate component that can shift abruptly
+climate sensitivity|noun|C1|AWL|neutral|extended|4|حساسية مناخية|how much warming results from doubled CO2
+equilibrium climate sensitivity|noun|C1|AWL|neutral|mastery|4|حساسية مناخية توازنية|long-term warming from doubled CO2
+transient climate response|noun|C1|NAWL|neutral|mastery|4|استجابة مناخية عابرة|warming at the time CO2 doubles
+radiative forcing|noun|C1|NAWL|neutral|extended|4|تأثير إشعاعي|the change in energy balance from a factor
+greenhouse effect|noun|C1|CEFR-J|neutral|core|4|تأثير الدفيئة|gases trapping heat in the atmosphere
+methane emission|noun|C1|NAWL|neutral|core|4|انبعاث ميثان|the release of methane gas
+nitrous oxide|noun|C1|NAWL|neutral|extended|4|أكسيد نيتروز|a potent greenhouse gas from agriculture
+fluorinated gas|noun|C1|NAWL|neutral|mastery|4|غاز مفلور|synthetic greenhouse gases with high warming potential
+global warming potential|noun|C1|NAWL|neutral|extended|4|قدرة احترار عالمي|a gas's warming effect compared to CO2
+carbon dioxide equivalent|noun|C1|NAWL|neutral|extended|4|مكافئ ثاني أكسيد كربون|a standard unit for comparing greenhouse gases
+emissions inventory|noun|C1|AWL|neutral|extended|4|جرد انبعاثات|a catalog of greenhouse gas sources
+carbon accounting|noun|C1|NAWL|neutral|extended|4|محاسبة كربونية|measuring and tracking carbon emissions
+Scope 1 emissions|noun|C1|NAWL|neutral|mastery|4|انبعاثات نطاق أول|direct emissions from owned sources
+Scope 2 emissions|noun|C1|NAWL|neutral|mastery|4|انبعاثات نطاق ثاني|indirect emissions from purchased energy
+Scope 3 emissions|noun|C1|NAWL|neutral|mastery|4|انبعاثات نطاق ثالث|all other indirect emissions in a value chain
+science-based target|noun|C1|NAWL|neutral|extended|4|هدف قائم على علم|an emissions reduction goal aligned with science
+nationally determined contribution|noun|C1|AWL|neutral|extended|4|مساهمة وطنية محددة|a country's climate action plan
+Paris Agreement|noun|C1|NAWL|neutral|core|4|اتفاقية باريس|the 2015 global climate accord
+Glasgow Climate Pact|noun|C1|NAWL|neutral|mastery|4|ميثاق غلاسكو المناخي|the 2021 climate agreement
+IPCC|noun|C1|NAWL|neutral|core|4|هيئة حكومية للمناخ|the Intergovernmental Panel on Climate Change
+UNFCCC|noun|C1|NAWL|neutral|extended|4|اتفاقية إطار المناخ|the UN Framework Convention on Climate Change
+climate adaptation|noun|C1|AWL|neutral|core|4|تكيف مناخي|adjusting to the effects of climate change
+climate mitigation|noun|C1|AWL|neutral|core|4|تخفيف مناخي|reducing greenhouse gas emissions
+climate resilience|noun|C1|AWL|neutral|core|4|مرونة مناخية|the ability to withstand climate impacts
+maladaptation|noun|C1|NAWL|neutral|extended|4|سوء تكيف|adaptation that increases vulnerability
+transformative adaptation|noun|C1|AWL|neutral|mastery|4|تكيف تحويلي|fundamental changes to address climate risks
+nature-based solution|noun|C1|NAWL|neutral|core|4|حل قائم على الطبيعة|using ecosystems to address climate challenges
+ecosystem-based adaptation|noun|C1|AWL|neutral|extended|4|تكيف قائم على نظام بيئي|using nature to reduce climate vulnerability
+climate-smart agriculture|noun|C1|NAWL|neutral|extended|4|زراعة ذكية مناخياً|farming adapted to climate change
+drought-resistant crop|noun|C1|NAWL|neutral|extended|4|محصول مقاوم للجفاف|a plant variety surviving dry conditions
+flood barrier|noun|C1|CEFR-J|neutral|core|4|حاجز فيضان|a structure preventing flood damage
+seawall|noun|C1|CEFR-J|neutral|extended|4|جدار بحري|a wall protecting land from the sea
+managed retreat|noun|C1|NAWL|neutral|extended|4|انسحاب مدار|relocating away from climate-threatened areas
+climate migration|noun|C1|NAWL|neutral|core|4|هجرة مناخية|people moving due to climate change
+climate refugee|noun|C1|NAWL|neutral|core|4|لاجئ مناخي|a person displaced by climate impacts
+early warning system|noun|C1|AWL|neutral|core|4|نظام إنذار مبكر|technology alerting people to climate dangers
+heat action plan|noun|C1|NAWL|neutral|extended|4|خطة عمل حرارية|a plan protecting people during heatwaves
+cooling center|noun|C1|CEFR-J|neutral|extended|4|مركز تبريد|a public place for relief from extreme heat
+wildfire management|noun|C1|NAWL|neutral|extended|4|إدارة حرائق غابات|controlling and preventing forest fires
+prescribed burn|noun|C1|NAWL|neutral|extended|4|حرق مقرر|deliberately burning to prevent wildfires
+firebreak|noun|C1|CEFR-J|neutral|extended|4|فاصل حريق|a gap preventing fire from spreading
+climate anxiety|noun|C1|NAWL|neutral|core|4|قلق مناخي|emotional distress about climate change
+eco-grief|noun|C1|NAWL|neutral|extended|4|حزن بيئي|sadness over environmental destruction
+solastalgia|noun|C2|NAWL|formal|mastery|4|حنين مكاني|distress from environmental change at home

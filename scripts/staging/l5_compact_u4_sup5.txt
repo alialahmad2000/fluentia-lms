@@ -1,0 +1,86 @@
+climate change|noun|C1|AWL|neutral|core|4|تغير مناخي|long-term shifts in temperature and weather
+global warming|noun|C1|CEFR-J|neutral|core|4|احترار عالمي|the increase in Earth's average temperature
+anthropogenic|adjective|C1|NAWL|neutral|core|4|بشري المنشأ|caused by human activity
+troposphere|noun|C1|NAWL|neutral|extended|4|تروبوسفير|the lowest layer of the atmosphere
+stratosphere|noun|C1|NAWL|neutral|extended|4|ستراتوسفير|the second layer of the atmosphere
+atmosphere|noun|C1|CEFR-J|neutral|core|4|غلاف جوي|the layer of gases surrounding Earth
+hydrosphere|noun|C1|NAWL|neutral|extended|4|غلاف مائي|all water on Earth's surface
+lithosphere|noun|C1|NAWL|neutral|extended|4|غلاف صخري|the solid outer layer of Earth
+cryosphere|noun|C1|NAWL|neutral|extended|4|غلاف جليدي|the frozen water on Earth
+pedosphere|noun|C2|NAWL|formal|mastery|4|غلاف تربة|the outermost layer of Earth's soil
+climate system|noun|C1|NAWL|neutral|core|4|نظام مناخي|the complex system governing climate
+climate variability|noun|C1|AWL|neutral|extended|4|تقلب مناخي|natural fluctuations in climate
+climate sensitivity|noun|C1|AWL|neutral|extended|4|حساسية مناخية متقدمة|temperature response to CO2 doubling
+equilibrium climate sensitivity|noun|C2|NAWL|formal|mastery|4|حساسية توازن مناخي|long-term warming from CO2 doubling
+transient climate response|noun|C2|NAWL|formal|mastery|4|استجابة مناخية عابرة|warming at time of CO2 doubling
+radiative forcing|noun|C1|NAWL|neutral|extended|4|إجبار إشعاعي|the change in energy balance
+climate forcing|noun|C1|NAWL|neutral|extended|4|إجبار مناخي|a factor influencing climate
+positive forcing|noun|C1|NAWL|neutral|mastery|4|إجبار إيجابي|a factor warming the climate
+negative forcing|noun|C1|NAWL|neutral|mastery|4|إجبار سلبي|a factor cooling the climate
+greenhouse effect|noun|C1|CEFR-J|neutral|core|4|تأثير الدفيئة|gases trapping heat in the atmosphere
+enhanced greenhouse effect|noun|C1|NAWL|neutral|extended|4|تأثير دفيئة معزز|increased warming from human emissions
+water vapor feedback|noun|C1|NAWL|neutral|mastery|4|تغذية بخار مائي|warming increasing water vapor which traps more heat
+ice-albedo feedback|noun|C1|NAWL|neutral|mastery|4|تغذية جليد-بياض|melting ice reducing reflectivity causing more warming
+cloud feedback|noun|C1|NAWL|neutral|mastery|4|تغذية سحابية|clouds' variable effect on warming
+methane feedback|noun|C1|NAWL|neutral|mastery|4|تغذية ميثان|thawing permafrost releasing methane
+ocean heat content|noun|C1|NAWL|neutral|extended|4|محتوى حرارة محيط|heat stored in the ocean
+ocean circulation|noun|C1|NAWL|neutral|extended|4|دورة محيطية|the movement of water through the ocean
+Gulf Stream|noun|C1|CEFR-J|neutral|extended|4|تيار خليجي|a warm ocean current in the Atlantic
+Atlantic meridional|noun|C1|NAWL|neutral|mastery|4|دورة أطلسية عمودية|the Atlantic overturning circulation
+upwelling|noun|C1|NAWL|neutral|mastery|4|ارتفاع مائي|cold deep water rising to the surface
+downwelling|noun|C1|NAWL|neutral|mastery|4|هبوط مائي|warm surface water sinking to the depths
+ocean conveyor belt|noun|C1|NAWL|neutral|extended|4|حزام نقل محيطي|global ocean circulation pattern
+Jet Stream|noun|C1|CEFR-J|neutral|extended|4|تيار نفاث|a narrow fast-moving air current
+trade wind|noun|C1|CEFR-J|neutral|extended|4|رياح تجارية|prevailing winds near the equator
+Coriolis effect|noun|C1|NAWL|neutral|mastery|4|تأثير كوريوليس|the deflection of moving objects by Earth's rotation
+atmospheric pressure|noun|C1|CEFR-J|neutral|core|4|ضغط جوي|the force exerted by the atmosphere
+barometric pressure|noun|C1|NAWL|neutral|extended|4|ضغط بارومتري|air pressure measured by a barometer
+humidity|noun|C1|CEFR-J|neutral|core|4|رطوبة|the amount of moisture in the air
+relative humidity|noun|C1|CEFR-J|neutral|extended|4|رطوبة نسبية|moisture relative to maximum capacity
+dew point|noun|C1|NAWL|neutral|extended|4|نقطة ندى|temperature at which condensation occurs
+frost|noun|C1|CEFR-J|neutral|core|4|صقيع|ice crystals forming on cold surfaces
+permafrost thaw|noun|C1|NAWL|neutral|core|4|ذوبان جليد دائم|the melting of permanently frozen ground
+thermokarst|noun|C2|NAWL|formal|mastery|4|تضاريس حرارية|landscape features from permafrost thaw
+methane hydrate|noun|C1|NAWL|neutral|mastery|4|هيدرات ميثان|frozen methane in ocean sediments
+clathrate|noun|C2|NAWL|formal|mastery|4|مركب إطاري|ice trapping gas molecules
+soil carbon|noun|C1|NAWL|neutral|extended|4|كربون تربة|carbon stored in soil
+peat|noun|C1|CEFR-J|neutral|extended|4|خث|partially decomposed plant material in wetlands
+peatland|noun|C1|NAWL|neutral|extended|4|أرض خثية|a wetland containing peat
+carbon budget|noun|C1|NAWL|neutral|core|4|ميزانية كربون|the amount of CO2 that can still be emitted
+emission pathway|noun|C1|AWL|neutral|extended|4|مسار انبعاثات|a projected trend of future emissions
+RCP scenario|noun|C1|NAWL|neutral|mastery|4|سيناريو مسار تركيز|representative concentration pathway
+SSP scenario|noun|C1|NAWL|neutral|mastery|4|سيناريو مسار اجتماعي|shared socioeconomic pathway
+integrated assessment model|noun|C1|NAWL|neutral|mastery|4|نموذج تقييم متكامل|a model combining climate and economics
+general circulation model|noun|C1|NAWL|neutral|mastery|4|نموذج دوران عام|a computer model of Earth's climate
+downscaling|noun|C1|NAWL|neutral|mastery|4|تصغير نموذج|translating global models to local predictions
+climate attribution|noun|C1|AWL|neutral|extended|4|إسناد مناخي|linking weather events to climate change
+extreme event attribution|noun|C1|NAWL|neutral|mastery|4|إسناد أحداث متطرفة|determining climate's role in extreme weather
+compound event|noun|C1|NAWL|neutral|mastery|4|حدث مركب|multiple hazards occurring simultaneously
+cascade effect|noun|C1|NAWL|neutral|extended|4|تأثير متسلسل|one event triggering a chain of impacts
+maladaptation|noun|C1|AWL|neutral|extended|4|تكيف خاطئ|adaptation that increases vulnerability
+nature-based solution|noun|C1|NAWL|neutral|core|4|حل قائم على الطبيعة|using ecosystems to address climate change
+blue carbon|noun|C1|NAWL|neutral|extended|4|كربون أزرق|carbon captured by ocean ecosystems
+green infrastructure|noun|C1|NAWL|neutral|core|4|بنية خضراء|natural systems for urban sustainability
+urban heat island|noun|C1|NAWL|neutral|core|4|جزيرة حرارة حضرية|cities being warmer than surrounding areas
+cool roof|noun|C1|NAWL|neutral|extended|4|سقف بارد|a roof reflecting sunlight to reduce heat
+green roof|noun|C1|NAWL|neutral|extended|4|سقف أخضر|a roof covered with vegetation
+sponge city|noun|C1|NAWL|neutral|mastery|4|مدينة إسفنجية|a city designed to absorb rainwater
+climate-resilient city|noun|C1|AWL|neutral|extended|4|مدينة مقاومة للمناخ|a city prepared for climate impacts
+flood barrier|noun|C1|CEFR-J|neutral|extended|4|حاجز فيضان|a structure preventing flooding
+seawall|noun|C1|CEFR-J|neutral|extended|4|جدار بحري|a wall protecting coast from waves
+levee|noun|C1|CEFR-J|neutral|extended|4|سد نهري|an embankment preventing river overflow
+breakwater|noun|C1|CEFR-J|neutral|mastery|4|كاسر أمواج|a barrier protecting harbor from waves
+managed retreat|noun|C1|NAWL|neutral|mastery|4|انسحاب مدار|deliberately moving from threatened areas
+climate migration|noun|C1|NAWL|neutral|core|4|هجرة مناخية|people moving due to climate impacts
+environmental refugee|noun|C1|NAWL|neutral|extended|4|لاجئ بيئي|a person displaced by environmental change
+loss and damage fund|noun|C1|AWL|neutral|mastery|4|صندوق خسائر وأضرار|financing climate harm in vulnerable nations
+green climate fund|noun|C1|NAWL|neutral|extended|4|صندوق مناخ أخضر|a fund supporting climate action globally
+carbon market|noun|C1|NAWL|neutral|core|4|سوق كربون|a market for trading emission permits
+carbon credit|noun|C1|NAWL|neutral|core|4|رصيد كربوني|a permit to emit a unit of carbon
+voluntary carbon market|noun|C1|NAWL|neutral|mastery|4|سوق كربون طوعي|non-mandatory emission trading
+REDD+|noun|C1|NAWL|neutral|mastery|4|ريد بلس|reducing emissions from deforestation
+just transition|noun|C1|AWL|neutral|core|4|انتقال عادل|ensuring fairness when shifting to clean energy
+energy poverty|noun|C1|AWL|neutral|core|4|فقر طاقوي|lacking access to affordable energy
+climate literacy|noun|C1|NAWL|neutral|extended|4|محو أمية مناخية|understanding climate science
+eco-anxiety|noun|C1|NAWL|neutral|extended|4|قلق بيئي|emotional distress about environmental crisis
+solastalgia|noun|C2|NAWL|formal|mastery|4|حنين بيئي|distress from environmental change at home

@@ -1,0 +1,121 @@
+culture|noun|B2|CEFR-J|neutral|core|11|ثقافة|the customs and social behavior of a society
+civilization|noun|B2|CEFR-J|neutral|core|11|حضارة|an advanced state of human society
+heritage|noun|C1|AWL|neutral|core|11|تراث|valued traditions passed through generations
+tradition|noun|B2|CEFR-J|neutral|core|11|تقليد|a long-established custom or belief
+custom|noun|B2|CEFR-J|neutral|core|11|عادة|a traditional practice of a community
+ritual|noun|C1|CEFR-J|neutral|core|11|طقس|a ceremonial act performed regularly
+ceremony|noun|B2|CEFR-J|neutral|core|11|مراسم|a formal event on a special occasion
+folklore|noun|C1|CEFR-J|neutral|core|11|فلكلور|traditional beliefs and stories of a community
+mythology|noun|C1|CEFR-J|neutral|core|11|أساطير|a collection of myths of a particular culture
+legend|noun|B2|CEFR-J|neutral|core|11|أسطورة|a traditional story popularly regarded as historical
+narrative|noun|C1|AWL|neutral|core|11|سردية|a spoken or written account of events
+oral tradition|noun|C1|CEFR-J|neutral|core|11|تراث شفهي|cultural material transmitted by word of mouth
+identity|noun|C1|AWL|neutral|core|11|هوية|the characteristics determining who someone is
+ethnicity|noun|C1|AWL|neutral|core|11|عرقية|the fact of belonging to a social group
+nationality|noun|B2|AWL|neutral|core|11|جنسية|membership of a particular nation
+citizenship|noun|C1|AWL|neutral|core|11|مواطنة|the status of being a citizen
+immigration|noun|C1|AWL|neutral|core|11|هجرة|moving to a foreign country to live
+emigration|noun|C1|AWL|neutral|core|11|هجرة خارجية|leaving one's country to live elsewhere
+refugee|noun|B2|CEFR-J|neutral|core|11|لاجئ|a person forced to leave their country
+asylum|noun|C1|CEFR-J|neutral|core|11|لجوء|protection granted to a political refugee
+integration|noun|C1|AWL|neutral|core|11|اندماج|the process of combining into a whole
+segregation|noun|C1|AWL|neutral|core|11|فصل عنصري|the enforced separation of different groups
+discrimination|noun|C1|AWL|neutral|core|11|تمييز|unjust treatment based on group membership
+prejudice|noun|C1|CEFR-J|neutral|core|11|تعصب|preconceived opinion not based on experience
+racism|noun|C1|CEFR-J|neutral|core|11|عنصرية|discrimination based on race
+colonialism|noun|C1|AWL|neutral|core|11|استعمار|the practice of acquiring political control
+imperialism|noun|C1|AWL|neutral|core|11|إمبريالية|extending a country's power through domination
+nationalism|noun|C1|AWL|neutral|core|11|قومية|patriotic feeling based on national identity
+patriotism|noun|C1|CEFR-J|neutral|core|11|وطنية|love of and devotion to one's country
+sovereignty|noun|C1|AWL|formal|core|11|سيادة|the authority of a state over its territory
+diplomacy|noun|C1|AWL|neutral|core|11|دبلوماسية|managing international relations through negotiation
+embassy|noun|C1|CEFR-J|neutral|core|11|سفارة|an ambassador's official residence abroad
+treaty|noun|C1|AWL|neutral|core|11|معاهدة|a formal agreement between states
+sanction|noun|C1|AWL|neutral|core|11|جزاء|a measure used to enforce international law
+mediation|noun|C1|AWL|neutral|core|11|وساطة|intervention to resolve a dispute
+arbitration|noun|C1|AWL|neutral|core|11|تحكيم|settlement of a dispute by a third party
+protocol|noun|C1|AWL|neutral|core|11|بروتوكول|rules governing diplomatic conduct
+convention|noun|C1|AWL|neutral|core|11|اتفاقية|an agreement between countries
+charter|noun|C1|AWL|neutral|core|11|ميثاق|a written grant of rights by a sovereign
+constitution|noun|C1|AWL|neutral|core|11|دستور|the fundamental law of a nation
+amendment|noun|C1|AWL|neutral|core|11|تعديل|a change to a law or document
+legislation|noun|C1|AWL|neutral|core|11|تشريع|laws collectively
+jurisdiction|noun|C1|AWL|neutral|core|11|سلطة قضائية|the official power to make legal decisions
+extradition|noun|C1|AWL|neutral|extended|11|تسليم|handing over a person accused of a crime
+repatriation|noun|C1|AWL|neutral|extended|11|إعادة وطن|returning someone to their own country
+naturalization|noun|C1|AWL|neutral|extended|11|تجنيس|the process of becoming a citizen
+statelessness|noun|C1|AWL|neutral|extended|11|انعدام الجنسية|the condition of having no nationality
+sovereignty|noun|C1|AWL|formal|extended|11|سيادة وطنية|the full right of self-governance
+self-determination|noun|C1|AWL|neutral|extended|11|تقرير المصير|the right of people to choose their own government
+autonomy|noun|C1|AWL|neutral|extended|11|حكم ذاتي|the right of self-government
+devolution|noun|C1|AWL|neutral|extended|11|تفويض السلطة|the transfer of power to a lower level
+federalism|noun|C1|AWL|neutral|extended|11|فيدرالية|a system dividing power between central and regional
+secession|noun|C1|AWL|neutral|extended|11|انفصال|the withdrawal of a group from a larger entity
+irredentism|noun|C2|NAWL|formal|extended|11|تحرير أراضي|claiming foreign territory on ethnic grounds
+balkanization|noun|C2|NAWL|formal|extended|11|تفكك|the division of a region into smaller hostile states
+partition|noun|C1|AWL|neutral|extended|11|تقسيم|the division of a country into separate parts
+annexation|noun|C1|AWL|neutral|extended|11|ضم|the addition of territory by political action
+genocide|noun|C1|CEFR-J|neutral|extended|11|إبادة جماعية|the deliberate killing of a large group
+ethnic cleansing|noun|C1|CEFR-J|neutral|extended|11|تطهير عرقي|the mass removal of an ethnic group
+apartheid|noun|C1|CEFR-J|neutral|extended|11|فصل عنصري|a system of institutionalized racial segregation
+emancipation|noun|C1|AWL|neutral|extended|11|تحرر|freedom from legal or political restrictions
+suffrage|noun|C1|AWL|neutral|extended|11|حق الاقتراع|the right to vote in elections
+enfranchisement|noun|C1|AWL|neutral|extended|11|منح حق التصويت|the granting of the right to vote
+disenfranchisement|noun|C1|AWL|neutral|extended|11|حرمان من التصويت|the denial of the right to vote
+civil rights|noun|C1|AWL|neutral|extended|11|حقوق مدنية|rights of citizens to equality and freedom
+human rights|noun|B2|AWL|neutral|extended|11|حقوق إنسان|basic rights belonging to every person
+inalienable|adjective|C1|AWL|formal|extended|11|غير قابل للتصرف|unable to be taken away
+universal|adjective|B2|AWL|neutral|extended|11|عالمي|applicable to all people or situations
+declaration|noun|C1|AWL|neutral|extended|11|إعلان|a formal public statement
+proclamation|noun|C1|CEFR-J|neutral|extended|11|بيان رسمي|a public announcement of importance
+manifesto|noun|C1|CEFR-J|neutral|extended|11|بيان مبادئ|a public declaration of policy
+ideology|noun|C1|AWL|neutral|extended|11|أيديولوجيا|a system of ideas forming a political theory
+doctrine|noun|C1|AWL|neutral|extended|11|مذهب|a belief or set of beliefs held by a group
+dogma|noun|C1|CEFR-J|neutral|extended|11|جمود فكري|a principle laid down by authority
+orthodoxy|noun|C1|CEFR-J|neutral|extended|11|سلفية|adherence to accepted or traditional beliefs
+heterodoxy|noun|C2|NAWL|formal|extended|11|خروج عن المألوف|holding opinions different from established beliefs
+heresy|noun|C1|CEFR-J|neutral|extended|11|هرطقة|belief contrary to accepted doctrine
+blasphemy|noun|C1|CEFR-J|neutral|extended|11|تجديف|speaking irreverently about sacred things
+sacrilege|noun|C1|CEFR-J|neutral|extended|11|تدنيس|violation of something regarded as sacred
+syncretism|noun|C2|NAWL|formal|extended|11|توفيقية|the merging of different religious beliefs
+ecumenism|noun|C2|NAWL|formal|extended|11|حركة مسكونية|promoting unity among different religions
+interfaith|adjective|C1|CEFR-J|neutral|extended|11|بين أديان|relating to different religions
+secularism|noun|C1|AWL|neutral|extended|11|علمانية|the separation of religion from public affairs
+theocracy|noun|C1|NAWL|neutral|extended|11|حكومة دينية|government by religious leaders
+caliphate|noun|C1|CEFR-J|neutral|extended|11|خلافة|an Islamic state led by a caliph
+sultanate|noun|C1|CEFR-J|neutral|extended|11|سلطنة|a state governed by a sultan
+monarchy|noun|C1|CEFR-J|neutral|extended|11|ملكية|a form of government with a monarch
+republic|noun|B2|CEFR-J|neutral|extended|11|جمهورية|a state governed by elected representatives
+democracy|noun|B2|CEFR-J|neutral|extended|11|ديمقراطية|government by the people
+autocracy|noun|C1|NAWL|neutral|extended|11|حكم فردي|government by a single person with absolute power
+oligarchy|noun|C1|NAWL|neutral|mastery|11|حكم القلة|government by a small privileged group
+plutocracy|noun|C2|NAWL|formal|mastery|11|حكم أثرياء|government by the wealthy
+meritocracy|noun|C1|NAWL|neutral|mastery|11|حكم الأكفاء|a system rewarding talent and effort
+technocracy|noun|C1|NAWL|neutral|mastery|11|تكنوقراطية|government by technical experts
+bureaucracy|noun|C1|AWL|neutral|mastery|11|بيروقراطية|a system of government by many officials
+kleptocracy|noun|C2|NAWL|formal|mastery|11|حكم لصوص|government by corrupt leaders
+kakistocracy|noun|C2|NAWL|formal|mastery|11|حكم الأسوأ|government by the least qualified
+stratocracy|noun|C2|NAWL|formal|mastery|11|حكم عسكري|government by military officers
+timocracy|noun|C2|NAWL|formal|mastery|11|حكم الملاك|government by property owners
+gerontocracy|noun|C2|NAWL|formal|mastery|11|حكم الشيوخ|government by elders
+matriarchy|noun|C1|NAWL|neutral|mastery|11|نظام أمومي|a social system led by women
+patriarchy|noun|C1|NAWL|neutral|mastery|11|سلطة أبوية|a social system where men hold primary power
+egalitarianism|noun|C1|NAWL|neutral|mastery|11|مساواتية|the belief in equal rights for all
+feminism|noun|C1|CEFR-J|neutral|mastery|11|نسوية|advocacy of women's rights and equality
+intersectionality|noun|C1|NAWL|neutral|mastery|11|تقاطعية|the overlap of social categorizations
+marginalization|noun|C1|AWL|neutral|mastery|11|تهميش|treating a group as insignificant
+subaltern|noun|C2|NAWL|formal|mastery|11|مهمش|a person of lower rank or position
+alterity|noun|C2|NAWL|formal|mastery|11|غيرية|the state of being fundamentally other
+hybridity|noun|C1|AWL|neutral|mastery|11|هجنة|the quality of being culturally mixed
+creolization|noun|C2|NAWL|formal|mastery|11|تكريول|the merging of cultures into a new form
+pidginization|noun|C2|NAWL|formal|mastery|11|تبسيط لغوي|the development of a simplified language
+lingua franca|noun|C1|CEFR-J|neutral|mastery|11|لغة تواصل|a language used between speakers of different tongues
+diglossia|noun|C2|NAWL|formal|mastery|11|ازدواج لغوي|the use of two dialects in a community
+code-switching|noun|C1|NAWL|neutral|mastery|11|تبديل لغوي|alternating between two or more languages
+translanguaging|noun|C2|NAWL|formal|mastery|11|عبر لغوي|using multiple languages as one system
+sociolect|noun|C2|NAWL|formal|mastery|11|لهجة اجتماعية|a dialect used by a social group
+idiolect|noun|C2|NAWL|formal|mastery|11|لهجة فردية|the language unique to an individual
+register|noun|C1|AWL|neutral|mastery|11|سجل لغوي|a variety of language used in a particular context
+pragmatics|noun|C1|NAWL|neutral|mastery|11|تداولية|the study of language use in context
+semiotics|noun|C1|NAWL|neutral|mastery|11|سيميائية|the study of signs and symbols
+iconography|noun|C1|NAWL|neutral|mastery|11|علم الرموز|the study of visual imagery and symbolism

@@ -1,0 +1,49 @@
+nuclear power plant|noun|C1|NAWL|neutral|core|5|محطة طاقة نووية|a facility generating electricity from fission
+nuclear reactor|noun|C1|NAWL|neutral|core|5|مفاعل نووي|a device sustaining a nuclear chain reaction
+chain reaction|noun|C1|NAWL|neutral|core|5|تفاعل سلسلي|each fission causing more fissions
+nuclear fission|noun|C1|NAWL|neutral|core|5|انشطار نووي|splitting a heavy atom to release energy
+nuclear fusion|noun|C1|NAWL|neutral|core|5|اندماج نووي|combining light atoms to release energy
+radioactive decay|noun|C1|NAWL|neutral|core|5|اضمحلال إشعاعي|an atom releasing energy spontaneously
+half-life|noun|C1|NAWL|neutral|core|5|نصف عمر|the time for half the atoms to decay
+isotope|noun|C1|NAWL|neutral|core|5|نظير|atoms of the same element with different masses
+alpha particle|noun|C1|NAWL|neutral|extended|5|جسيم ألفا|a particle of two protons and two neutrons
+beta particle|noun|C1|NAWL|neutral|extended|5|جسيم بيتا|an electron emitted during decay
+gamma ray|noun|C1|NAWL|neutral|core|5|أشعة غاما|high-energy electromagnetic radiation
+neutron radiation|noun|C1|NAWL|neutral|extended|5|إشعاع نيوتروني|radiation consisting of free neutrons
+ionizing radiation|noun|C1|NAWL|neutral|core|5|إشعاع مؤين|radiation with enough energy to remove electrons
+radiation dose|noun|C1|NAWL|neutral|core|5|جرعة إشعاعية|the amount of radiation absorbed
+sievert|noun|C1|NAWL|neutral|extended|5|سيفرت|a unit measuring radiation's health effect
+becquerel|noun|C1|NAWL|neutral|extended|5|بيكريل|a unit of radioactive decay rate
+gray unit|noun|C1|NAWL|neutral|mastery|5|وحدة غراي|a unit of absorbed radiation dose
+acute radiation syndrome|noun|C1|NAWL|neutral|extended|5|متلازمة إشعاع حاد|illness from a large radiation dose
+chronic exposure|noun|C1|NAWL|neutral|extended|5|تعرض مزمن|long-term low-level radiation exposure
+linear no-threshold model|noun|C1|NAWL|neutral|mastery|5|نموذج خطي بلا عتبة|any radiation dose carries some risk
+hormesis|noun|C2|NAWL|formal|mastery|5|تأثير هرميسي|low doses of radiation being beneficial
+uranium|noun|C1|NAWL|neutral|core|5|يورانيوم|a radioactive element used for fuel
+plutonium|noun|C1|NAWL|neutral|core|5|بلوتونيوم|a radioactive element for weapons and fuel
+thorium|noun|C1|NAWL|neutral|extended|5|ثوريوم|an element that can be used as nuclear fuel
+uranium enrichment|noun|C1|NAWL|neutral|core|5|تخصيب يورانيوم|increasing the percentage of fissile uranium
+weapons-grade material|noun|C1|NAWL|neutral|extended|5|مادة بدرجة سلاح|nuclear material pure enough for a weapon
+reactor-grade material|noun|C1|NAWL|neutral|extended|5|مادة بدرجة مفاعل|nuclear material for power generation
+criticality accident|noun|C1|NAWL|neutral|extended|5|حادث حرجية|an uncontrolled nuclear chain reaction
+meltdown|noun|C1|NAWL|neutral|core|5|انصهار نووي|the melting of a reactor core
+Chernobyl disaster|noun|C1|NAWL|neutral|core|5|كارثة تشيرنوبل|the 1986 nuclear accident in Ukraine
+Fukushima accident|noun|C1|NAWL|neutral|core|5|حادثة فوكوشيما|the 2011 nuclear accident in Japan
+Three Mile Island|noun|C1|NAWL|neutral|extended|5|جزيرة ثري مايل|the 1979 US nuclear accident
+International Nuclear Event Scale|noun|C1|NAWL|neutral|mastery|5|مقياس حوادث نووية دولي|a scale rating nuclear event severity
+nuclear waste disposal|noun|C1|NAWL|neutral|core|5|التخلص من نفايات نووية|safely storing radioactive waste
+Yucca Mountain|noun|C1|NAWL|neutral|mastery|5|جبل يوكا|a proposed US nuclear waste repository
+Onkalo repository|noun|C1|NAWL|neutral|mastery|5|مستودع أونكالو|Finland's deep geological repository
+nuclear proliferation|noun|C1|AWL|neutral|core|5|انتشار نووي|the spread of nuclear weapons
+nuclear deterrent|noun|C1|NAWL|neutral|extended|5|رادع نووي|weapons preventing attack through fear
+strategic weapon|noun|C1|AWL|neutral|extended|5|سلاح استراتيجي|a weapon targeting an enemy's heartland
+tactical weapon|noun|C1|AWL|neutral|extended|5|سلاح تكتيكي|a weapon for use on the battlefield
+dirty bomb|noun|C1|NAWL|neutral|extended|5|قنبلة قذرة|a conventional bomb spreading radioactive material
+nuclear terrorism|noun|C1|NAWL|neutral|extended|5|إرهاب نووي|the threat of terrorist nuclear attack
+arms control|noun|C1|AWL|neutral|core|5|ضبط أسلحة|agreements limiting weapons
+START treaty|noun|C1|NAWL|neutral|extended|5|معاهدة ستارت|a US-Russia nuclear arms reduction treaty
+nuclear taboo|noun|C1|NAWL|neutral|mastery|5|محرمة نووية|the norm against using nuclear weapons
+peaceful nuclear explosion|noun|C1|NAWL|neutral|mastery|5|انفجار نووي سلمي|using nuclear blasts for civilian purposes
+nuclear energy debate|noun|C1|NAWL|neutral|core|5|جدل الطاقة النووية|the argument over nuclear power's role
+carbon-free energy|noun|C1|NAWL|neutral|core|5|طاقة خالية من الكربون|energy produced without carbon emissions
+energy density|noun|C1|NAWL|neutral|extended|5|كثافة طاقة|the amount of energy stored per unit

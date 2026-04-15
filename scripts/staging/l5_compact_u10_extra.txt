@@ -1,0 +1,98 @@
+quark|noun|C1|NAWL|neutral|core|10|كوارك|a fundamental constituent of matter
+lepton|noun|C2|NAWL|formal|core|10|لبتون|a subatomic particle not subject to strong force
+hadron|noun|C2|NAWL|formal|core|10|هادرون|a composite subatomic particle made of quarks
+meson|noun|C2|NAWL|formal|core|10|ميزون|a subatomic particle made of a quark pair
+baryon|noun|C2|NAWL|formal|core|10|باريون|a subatomic particle made of three quarks
+gluon|noun|C2|NAWL|formal|core|10|غلوون|a particle mediating the strong force
+muon|noun|C2|NAWL|formal|core|10|ميون|an unstable subatomic particle similar to an electron
+neutrino|noun|C1|NAWL|neutral|core|10|نيوترينو|a nearly massless subatomic particle
+positron|noun|C1|NAWL|neutral|core|10|بوزيترون|the antimatter counterpart of the electron
+annihilation|noun|C1|AWL|neutral|core|10|إبادة|the destruction of matter by antimatter
+decay|noun|C1|CEFR-J|neutral|core|10|تحلل|the breakdown of a particle into lighter ones
+half-life|noun|C1|NAWL|neutral|core|10|عمر نصفي|the time for half of radioactive atoms to decay
+acceleration|noun|C1|AWL|neutral|core|10|تسارع|the rate of change of velocity
+velocity|noun|C1|AWL|neutral|core|10|سرعة متجهة|the speed of something in a given direction
+momentum|noun|C1|AWL|neutral|core|10|زخم|the quantity of motion of a moving body
+inertia|noun|C1|AWL|neutral|core|10|قصور ذاتي|the tendency of a body to resist changes in motion
+gravity|noun|B2|CEFR-J|neutral|core|10|جاذبية|the force attracting objects toward Earth
+electromagnetism|noun|C1|NAWL|neutral|core|10|كهرومغناطيسية|the interaction of electric and magnetic forces
+strong force|noun|C1|NAWL|neutral|core|10|قوة نووية شديدة|the force binding quarks together
+weak force|noun|C1|NAWL|neutral|core|10|قوة نووية ضعيفة|the force responsible for radioactive decay
+unification|noun|C1|AWL|neutral|core|10|توحيد|the combining of separate theories into one
+field|noun|C1|AWL|neutral|core|10|حقل|a region where a force acts on matter
+vacuum|noun|C1|CEFR-J|neutral|core|10|فراغ|space devoid of matter
+dimension|noun|C1|AWL|neutral|core|10|بُعد|a measurable extent of a physical quantity
+spacetime|noun|C1|NAWL|neutral|core|10|زمكان|the four-dimensional continuum of physics
+curvature|noun|C1|AWL|neutral|core|10|انحناء|the degree of bending in spacetime
+black hole|noun|C1|CEFR-J|neutral|core|10|ثقب أسود|a region where gravity prevents anything from escaping
+event horizon|noun|C1|NAWL|neutral|core|10|أفق الحدث|the boundary around a black hole
+dark matter|noun|C1|NAWL|neutral|core|10|مادة مظلمة|invisible matter making up most of the universe
+dark energy|noun|C1|NAWL|neutral|core|10|طاقة مظلمة|the force accelerating universal expansion
+redshift|noun|C1|NAWL|neutral|core|10|انزياح أحمر|the lengthening of light wavelength from receding objects
+blueshift|noun|C1|NAWL|neutral|core|10|انزياح أزرق|the shortening of light wavelength from approaching objects
+Doppler effect|noun|C1|NAWL|neutral|core|10|أثر دوبلر|the change in frequency due to relative motion
+diffraction|noun|C1|NAWL|neutral|core|10|حيود|the bending of waves around obstacles
+refraction|noun|C1|CEFR-J|neutral|core|10|انكسار|the bending of light passing between media
+reflection|noun|B2|CEFR-J|neutral|core|10|انعكاس|the bouncing back of light from a surface
+polarization|noun|C1|AWL|neutral|core|10|استقطاب|restricting light vibration to one direction
+scattering|noun|C1|AWL|neutral|extended|10|تشتت|the deflection of light by particles
+absorption|noun|C1|AWL|neutral|extended|10|امتصاص|the taking in of energy by matter
+luminosity|noun|C1|NAWL|neutral|extended|10|سطوع|the intrinsic brightness of a celestial object
+magnitude|noun|C1|AWL|neutral|extended|10|قدر|a measure of the brightness of a star
+parallax|noun|C2|NAWL|formal|extended|10|اختلاف منظر|apparent shift in position from different viewpoints
+parsec|noun|C2|NAWL|formal|extended|10|فرسخ فلكي|a unit of astronomical distance
+light-year|noun|C1|CEFR-J|neutral|extended|10|سنة ضوئية|the distance light travels in one year
+nebula|noun|C1|CEFR-J|neutral|extended|10|سديم|a cloud of gas and dust in space
+supernova|noun|C1|CEFR-J|neutral|extended|10|مستعر أعظم|the explosive death of a massive star
+pulsar|noun|C1|NAWL|neutral|extended|10|نجم نابض|a rotating neutron star emitting radiation
+quasar|noun|C1|NAWL|neutral|extended|10|كوازار|an extremely luminous active galactic nucleus
+magnetar|noun|C2|NAWL|formal|extended|10|نجم مغناطيسي|a neutron star with an extremely strong magnetic field
+white dwarf|noun|C1|CEFR-J|neutral|extended|10|قزم أبيض|the dense remnant of a low-mass star
+neutron star|noun|C1|NAWL|neutral|extended|10|نجم نيوتروني|the extremely dense remnant of a massive star
+protostar|noun|C2|NAWL|formal|extended|10|نجم أولي|a contracting cloud of gas forming a star
+accretion disk|noun|C2|NAWL|formal|extended|10|قرص تراكمي|a disk of matter spiraling into a compact object
+gravitational wave|noun|C1|NAWL|neutral|extended|10|موجة جاذبية|a ripple in spacetime caused by massive objects
+cosmic ray|noun|C1|CEFR-J|neutral|extended|10|أشعة كونية|high-energy particles from outer space
+Higgs boson|noun|C1|NAWL|neutral|extended|10|بوزون هيغز|the particle giving mass to other particles
+Standard Model|noun|C1|NAWL|neutral|extended|10|النموذج المعياري|the theory of fundamental particles and forces
+string theory|noun|C1|NAWL|neutral|extended|10|نظرية الأوتار|a theory proposing one-dimensional strings as fundamental
+supersymmetry|noun|C2|NAWL|formal|extended|10|تناظر فائق|a symmetry relating fermions and bosons
+multiverse|noun|C1|NAWL|neutral|extended|10|أكوان متعددة|the hypothetical set of all possible universes
+inflation|noun|C1|AWL|neutral|extended|10|تضخم كوني|the rapid expansion of the early universe
+Big Bang|noun|C1|CEFR-J|neutral|extended|10|الانفجار العظيم|the origin event of the universe
+cosmic microwave|noun|C1|NAWL|neutral|extended|10|إشعاع كوني|the thermal radiation from the early universe
+nucleosynthesis|noun|C2|NAWL|formal|extended|10|تخليق نووي|the creation of new atomic nuclei
+baryogenesis|noun|C2|NAWL|formal|extended|10|تكوين باريوني|the production of matter over antimatter
+recombination|noun|C1|NAWL|neutral|extended|10|إعادة اتحاد|the epoch when atoms first formed
+chronology|noun|C1|AWL|neutral|extended|10|تسلسل كوني|the sequence of events in cosmic history
+Planck scale|noun|C2|NAWL|formal|mastery|10|مقياس بلانك|the smallest meaningful units in physics
+quantum foam|noun|C2|NAWL|formal|mastery|10|رغوة كمية|the fluctuating structure of spacetime
+wormhole|noun|C1|CEFR-J|neutral|mastery|10|ثقب دودي|a theoretical tunnel through spacetime
+time dilation|noun|C1|NAWL|neutral|mastery|10|تمدد الزمن|time passing differently due to speed or gravity
+length contraction|noun|C1|NAWL|neutral|mastery|10|تقلص الطول|shortening of objects at high speeds
+mass-energy|noun|C1|NAWL|neutral|mastery|10|طاقة كتلة|the equivalence of mass and energy
+frame of reference|noun|C1|NAWL|neutral|mastery|10|إطار مرجعي|a coordinate system for measuring motion
+Lorentz|adjective|C2|NAWL|formal|mastery|10|لورنتزي|relating to transformations in special relativity
+Minkowski|adjective|C2|NAWL|formal|mastery|10|مينكوفسكي|relating to four-dimensional spacetime geometry
+geodesic|noun|C2|NAWL|formal|mastery|10|خط جيوديسي|the shortest path between two points in curved space
+tensor|noun|C2|NAWL|formal|mastery|10|موتر|a mathematical object describing physical quantities
+matrix|noun|C1|AWL|neutral|mastery|10|مصفوفة|a rectangular array of numbers
+Hamiltonian|noun|C2|NAWL|formal|mastery|10|هاملتوني|an operator representing total energy
+Lagrangian|noun|C2|NAWL|formal|mastery|10|لاغرانجي|a function describing a system's dynamics
+variational|adjective|C2|NAWL|formal|mastery|10|تباينية|relating to the optimization of functionals
+perturbative|adjective|C2|NAWL|formal|mastery|10|اضطرابي|relating to small corrections in calculations
+renormalization|noun|C2|NAWL|formal|mastery|10|إعادة تطبيع|removing infinities from quantum calculations
+gauge|noun|C1|AWL|neutral|mastery|10|معيار|a standard of measurement in physics
+parity|noun|C1|AWL|neutral|mastery|10|تناظر|the symmetry of a physical system under reflection
+conservation law|noun|C1|AWL|neutral|mastery|10|قانون حفظ|a law stating a quantity remains constant
+Noether's theorem|noun|C2|NAWL|formal|mastery|10|مبرهنة نويثر|symmetry implies a conservation law
+complementarity|noun|C1|AWL|neutral|mastery|10|تكاملية|the wave-particle duality of quantum objects
+correspondence|noun|C1|AWL|neutral|mastery|10|تطابق|the principle linking quantum and classical physics
+degenerate|adjective|C1|AWL|neutral|mastery|10|منحل|having the same energy level despite different states
+exclusion principle|noun|C1|NAWL|neutral|mastery|10|مبدأ الاستبعاد|no two identical fermions can occupy the same state
+Bell's theorem|noun|C2|NAWL|formal|mastery|10|مبرهنة بيل|proving quantum entanglement is real
+EPR paradox|noun|C2|NAWL|formal|mastery|10|مفارقة EPR|a thought experiment questioning quantum mechanics
+Schrödinger|noun|C1|NAWL|neutral|mastery|10|شرودنغر|a thought experiment about quantum superposition
+Copenhagen|noun|C1|NAWL|neutral|mastery|10|كوبنهاغن|the standard interpretation of quantum mechanics
+many-worlds|noun|C2|NAWL|formal|mastery|10|عوالم متعددة|an interpretation where all possibilities occur
+pilot wave|noun|C2|NAWL|formal|mastery|10|موجة موجهة|a deterministic interpretation of quantum mechanics

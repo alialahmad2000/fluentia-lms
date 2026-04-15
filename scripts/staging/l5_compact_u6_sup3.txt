@@ -1,0 +1,114 @@
+biodiversity|noun|C1|AWL|neutral|core|6|تنوع بيولوجي|the variety of life in an ecosystem
+ecosystem|noun|C1|AWL|neutral|core|6|نظام بيئي|a community of living organisms
+habitat|noun|C1|CEFR-J|neutral|core|6|موطن|the natural environment of an organism
+niche|noun|C1|AWL|neutral|core|6|مكانة بيئية|the role of a species in its ecosystem
+biome|noun|C1|NAWL|neutral|core|6|إقليم حيوي|a large naturally occurring community
+biosphere|noun|C1|NAWL|neutral|core|6|غلاف حيوي|the part of Earth supporting life
+ecology|noun|C1|AWL|neutral|core|6|علم بيئة|the study of organisms and their environment
+population|noun|B2|AWL|neutral|core|6|تجمع سكاني|a group of organisms of the same species
+community|noun|B2|AWL|neutral|core|6|مجتمع حيوي|different species living together
+food chain|noun|C1|CEFR-J|neutral|core|6|سلسلة غذائية|the transfer of energy through organisms
+food web|noun|C1|CEFR-J|neutral|core|6|شبكة غذائية|interconnected food chains
+trophic level|noun|C1|NAWL|neutral|core|6|مستوى غذائي|a position in a food chain
+producer|noun|C1|CEFR-J|neutral|core|6|منتج حيوي|an organism making its own food
+consumer|noun|C1|CEFR-J|neutral|core|6|مستهلك حيوي|an organism eating other organisms
+decomposer|noun|C1|NAWL|neutral|core|6|محلل حيوي|an organism breaking down dead matter
+herbivore|noun|C1|CEFR-J|neutral|core|6|آكل عشب|an animal eating only plants
+carnivore|noun|C1|CEFR-J|neutral|core|6|آكل لحوم|an animal eating only meat
+omnivore|noun|C1|CEFR-J|neutral|core|6|آكل كل شيء|an animal eating both plants and meat
+predator|noun|C1|CEFR-J|neutral|core|6|مفترس|an animal hunting others for food
+prey|noun|C1|CEFR-J|neutral|core|6|فريسة|an animal hunted by a predator
+apex predator|noun|C1|NAWL|neutral|extended|6|مفترس قمة|a predator with no natural enemies
+keystone species|noun|C1|NAWL|neutral|core|6|نوع أساسي|a species with a disproportionate effect
+indicator species|noun|C1|NAWL|neutral|extended|6|نوع مؤشر|a species reflecting environmental conditions
+umbrella species|noun|C1|NAWL|neutral|extended|6|نوع مظلة|a species whose protection helps many others
+flagship species|noun|C1|NAWL|neutral|extended|6|نوع رمزي|a species used to promote conservation
+endemic|adjective|C1|NAWL|neutral|core|6|متوطن|native to a specific region
+indigenous|adjective|C1|AWL|neutral|core|6|أصلي|naturally occurring in a place
+invasive species|noun|C1|NAWL|neutral|core|6|نوع غازي|a non-native species causing harm
+alien species|noun|C1|NAWL|neutral|extended|6|نوع دخيل|a species introduced outside its range
+feral|adjective|C1|CEFR-J|neutral|extended|6|متوحش|a domesticated animal returned to the wild
+naturalized|adjective|C1|AWL|neutral|extended|6|متأقلم|a non-native species established in a new area
+extirpation|noun|C2|NAWL|formal|mastery|6|انقراض محلي|local extinction of a species
+extinction|noun|C1|CEFR-J|neutral|core|6|انقراض|the complete disappearance of a species
+mass extinction|noun|C1|NAWL|neutral|core|6|انقراض جماعي|a rapid loss of many species
+Holocene extinction|noun|C1|NAWL|neutral|extended|6|انقراض الهولوسين|the current ongoing extinction event
+background extinction|noun|C1|NAWL|neutral|mastery|6|انقراض خلفي|the normal rate of species loss
+extinction debt|noun|C1|NAWL|neutral|mastery|6|دين انقراض|future extinctions caused by past actions
+red list|noun|C1|NAWL|neutral|core|6|قائمة حمراء|a list of threatened species
+endangered|adjective|C1|CEFR-J|neutral|core|6|مهدد بالانقراض|at serious risk of extinction
+vulnerable|adjective|C1|AWL|neutral|core|6|معرض للخطر|likely to become endangered
+critically endangered|adjective|C1|NAWL|neutral|core|6|مهدد بشدة|extremely high risk of extinction
+threatened|adjective|C1|CEFR-J|neutral|core|6|مهدد|facing possible extinction
+conservation|noun|C1|AWL|neutral|core|6|حفظ بيئي|protecting natural resources
+preservation|noun|C1|AWL|neutral|core|6|صون طبيعة|keeping ecosystems in their natural state
+restoration ecology|noun|C1|AWL|neutral|extended|6|بيئة ترميمية|rebuilding damaged ecosystems
+rewilding|noun|C1|NAWL|neutral|extended|6|إعادة توحش|returning land to a natural state
+reintroduction|noun|C1|AWL|neutral|extended|6|إعادة إدخال|releasing species into former habitats
+captive breeding|noun|C1|NAWL|neutral|extended|6|تربية أسر|breeding animals in controlled environments
+gene bank|noun|C1|NAWL|neutral|extended|6|بنك جينات|a storage facility for genetic material
+seed vault|noun|C1|NAWL|neutral|extended|6|خزنة بذور|a secure storage for plant seeds
+cryopreservation|noun|C1|NAWL|neutral|mastery|6|حفظ بالتجميد|preserving cells at very low temperatures
+ex situ|adjective|C1|NAWL|neutral|mastery|6|خارج الموقع|conservation away from natural habitat
+in situ|adjective|C1|NAWL|neutral|mastery|6|في الموقع|conservation in the natural habitat
+protected area|noun|C1|AWL|neutral|core|6|منطقة محمية|land managed for conservation
+national park|noun|B2|CEFR-J|neutral|core|6|حديقة وطنية|a large protected natural area
+wildlife reserve|noun|C1|CEFR-J|neutral|core|6|محمية حياة برية|an area protecting wild animals
+marine reserve|noun|C1|CEFR-J|neutral|extended|6|محمية بحرية|an ocean area protected from exploitation
+biosphere reserve|noun|C1|NAWL|neutral|extended|6|محمية حيوية|an area designated for conservation
+wildlife corridor|noun|C1|NAWL|neutral|extended|6|ممر حياة برية|a route connecting habitat areas
+buffer zone|noun|C1|AWL|neutral|extended|6|منطقة عازلة|an area between protected and unprotected land
+carrying capacity|noun|C1|AWL|neutral|core|6|سعة استيعابية|the maximum population an area can support
+overshoot|noun|C1|NAWL|neutral|extended|6|تجاوز|exceeding the carrying capacity
+population dynamics|noun|C1|AWL|neutral|extended|6|ديناميكا سكانية|changes in population size over time
+birth rate|noun|C1|CEFR-J|neutral|core|6|معدل ولادة|the number of births per unit of population
+mortality rate|noun|C1|AWL|neutral|core|6|معدل وفيات|the number of deaths per unit of population
+growth rate|noun|C1|AWL|neutral|core|6|معدل نمو|the rate of population increase
+exponential growth|noun|C1|AWL|neutral|extended|6|نمو أسي|growth rate proportional to current size
+logistic growth|noun|C1|NAWL|neutral|extended|6|نمو لوجستي|growth leveling off at carrying capacity
+r-selection|noun|C2|NAWL|formal|mastery|6|انتقاء آر|reproductive strategy of many offspring
+K-selection|noun|C2|NAWL|formal|mastery|6|انتقاء كي|reproductive strategy of few well-nurtured offspring
+succession|noun|C1|AWL|neutral|core|6|تعاقب بيئي|the gradual change in species composition
+pioneer species|noun|C1|NAWL|neutral|extended|6|نوع رائد|the first species to colonize new habitat
+climax community|noun|C1|NAWL|neutral|mastery|6|مجتمع ذروة|the final stable stage of succession
+disturbance|noun|C1|AWL|neutral|extended|6|اضطراب بيئي|an event changing ecosystem structure
+resilience|noun|C1|AWL|neutral|core|6|مرونة بيئية|an ecosystem's ability to recover from disturbance
+fragmentation|noun|C1|AWL|neutral|core|6|تجزؤ موطن|breaking habitat into smaller pieces
+deforestation|noun|C1|AWL|neutral|core|6|إزالة غابات|clearing forests for other uses
+overexploitation|noun|C1|AWL|neutral|core|6|استغلال مفرط|harvesting resources beyond sustainability
+overfishing|noun|C1|CEFR-J|neutral|core|6|صيد جائر|catching fish faster than reproduction
+bycatch|noun|C1|NAWL|neutral|extended|6|صيد عرضي|unwanted marine creatures caught in fishing
+trawling|noun|C1|CEFR-J|neutral|extended|6|جر شبكة|dragging nets along the ocean floor
+poaching|noun|C1|CEFR-J|neutral|core|6|صيد غير قانوني|illegal hunting or fishing
+illegal wildlife trade|noun|C1|NAWL|neutral|core|6|تجارة حياة برية غير قانونية|the unlawful trade of animal products
+ivory trade|noun|C1|CEFR-J|neutral|extended|6|تجارة عاج|buying and selling elephant tusks
+bushmeat|noun|C1|NAWL|neutral|extended|6|لحم طرائد|meat from wild animals
+CITES|noun|C1|NAWL|neutral|core|6|سايتس|a treaty regulating wildlife trade
+CBD|noun|C1|NAWL|neutral|core|6|اتفاقية التنوع|the convention on biological diversity
+Nagoya Protocol|noun|C1|NAWL|neutral|mastery|6|بروتوكول ناغويا|a treaty on genetic resource access
+biopiracy|noun|C1|NAWL|neutral|mastery|6|قرصنة بيولوجية|exploiting genetic resources without consent
+bioprospecting|noun|C1|NAWL|neutral|mastery|6|تنقيب حيوي|searching for useful biological compounds
+ecosystem services|noun|C1|AWL|neutral|core|6|خدمات نظام بيئي|benefits provided by ecosystems
+pollination|noun|C1|CEFR-J|neutral|core|6|تلقيح|transferring pollen for plant reproduction
+seed dispersal|noun|C1|CEFR-J|neutral|extended|6|نشر بذور|spreading seeds away from parent plants
+nutrient cycling|noun|C1|NAWL|neutral|extended|6|دورة مغذيات|the recycling of nutrients in ecosystems
+carbon sequestration|noun|C1|NAWL|neutral|core|6|عزل كربون|storing carbon to prevent atmospheric release
+water purification|noun|C1|CEFR-J|neutral|extended|6|تنقية مياه|ecosystems cleaning water naturally
+soil formation|noun|C1|CEFR-J|neutral|extended|6|تكوين تربة|the natural process of creating soil
+erosion control|noun|C1|CEFR-J|neutral|extended|6|مكافحة تعرية|preventing soil loss
+flood regulation|noun|C1|AWL|neutral|extended|6|تنظيم فيضانات|ecosystems reducing flood risk
+climate regulation|noun|C1|AWL|neutral|extended|6|تنظيم مناخ|ecosystems influencing climate patterns
+genetic diversity|noun|C1|AWL|neutral|core|6|تنوع وراثي|the variety of genes in a population
+species richness|noun|C1|NAWL|neutral|extended|6|ثراء أنواع|the number of species in an area
+species evenness|noun|C1|NAWL|neutral|mastery|6|تساوي أنواع|the equal distribution of species
+alpha diversity|noun|C1|NAWL|neutral|mastery|6|تنوع ألفا|diversity within a single ecosystem
+beta diversity|noun|C1|NAWL|neutral|mastery|6|تنوع بيتا|diversity between different ecosystems
+gamma diversity|noun|C1|NAWL|neutral|mastery|6|تنوع غاما|total diversity across a landscape
+Shannon index|noun|C2|NAWL|formal|mastery|6|مؤشر شانون|a measure of species diversity
+Simpson index|noun|C2|NAWL|formal|mastery|6|مؤشر سيمبسون|a measure of diversity dominance
+transect|noun|C1|NAWL|neutral|extended|6|خط مسح|a path for sampling organisms
+quadrat|noun|C1|NAWL|neutral|extended|6|مربع عينة|a small area for counting organisms
+mark-recapture|noun|C1|NAWL|neutral|mastery|6|وسم وإعادة صيد|estimating population by marking individuals
+camera trap|noun|C1|CEFR-J|neutral|extended|6|كاميرا مصيدة|a device photographing animals automatically
+eDNA|noun|C1|NAWL|neutral|mastery|6|حمض نووي بيئي|environmental DNA for detecting species
+citizen science|noun|C1|NAWL|neutral|extended|6|علم مواطن|public participation in scientific research

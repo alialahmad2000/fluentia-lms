@@ -1,0 +1,105 @@
+globalization|noun|C1|AWL|neutral|core|11|عولمة|the increasing integration of world economies
+localization|noun|C1|AWL|neutral|core|11|توطين|adapting products for local markets
+glocalization|noun|C1|NAWL|neutral|extended|11|عولمة محلية|adapting global products to local cultures
+multiculturalism|noun|C1|AWL|neutral|core|11|تعددية ثقافية|the coexistence of diverse cultures
+interculturalism|noun|C1|AWL|neutral|extended|11|تفاعل ثقافي|active exchange between cultures
+cultural assimilation|noun|C1|AWL|neutral|core|11|اندماج ثقافي|adopting the culture of a dominant group
+cultural integration|noun|C1|AWL|neutral|core|11|تكامل ثقافي|combining elements from different cultures
+cultural appropriation|noun|C1|NAWL|neutral|core|11|استيلاء ثقافي|adopting elements from another culture inappropriately
+cultural sensitivity|noun|C1|AWL|neutral|core|11|حساسية ثقافية|awareness of cultural differences
+cultural competence|noun|C1|AWL|neutral|core|11|كفاءة ثقافية|the ability to interact across cultures
+cultural identity|noun|C1|AWL|neutral|core|11|هوية ثقافية|the sense of belonging to a culture
+cultural heritage|noun|C1|AWL|neutral|core|11|تراث ثقافي|traditions and artifacts of a culture
+intangible heritage|noun|C1|NAWL|neutral|extended|11|تراث غير مادي|non-physical cultural traditions
+tangible heritage|noun|C1|NAWL|neutral|extended|11|تراث مادي|physical objects of cultural value
+UNESCO|noun|C1|NAWL|neutral|core|11|يونسكو|the UN cultural and educational organization
+World Heritage Site|noun|C1|NAWL|neutral|core|11|موقع تراث عالمي|a place of outstanding cultural value
+diaspora|noun|C1|AWL|neutral|core|11|شتات|a scattered population sharing a common origin
+migration|noun|C1|AWL|neutral|core|11|هجرة|the movement of people to a new area
+immigration|noun|C1|AWL|neutral|core|11|هجرة وافدة|moving into a new country
+emigration|noun|C1|AWL|neutral|core|11|هجرة مغادرة|leaving one's country to live elsewhere
+brain drain|noun|C1|NAWL|neutral|core|11|هجرة عقول|educated people leaving their country
+brain gain|noun|C1|NAWL|neutral|extended|11|اكتساب عقول|attracting skilled people from abroad
+remittance|noun|C1|AWL|neutral|extended|11|تحويلات مالية|money sent home by workers abroad
+expatriate|noun|C1|CEFR-J|neutral|extended|11|مغترب|a person living outside their home country
+repatriation|noun|C1|AWL|neutral|extended|11|إعادة وطن|returning to one's home country
+assimilation|noun|C1|AWL|neutral|core|11|استيعاب|the process of becoming part of a new culture
+acculturation|noun|C1|NAWL|neutral|extended|11|تثاقف|cultural change from contact between groups
+ethnocentrism|noun|C1|NAWL|neutral|core|11|تمركز عرقي|judging others by one's own cultural standards
+cultural relativism|noun|C1|AWL|neutral|core|11|نسبية ثقافية|understanding cultures on their own terms
+stereotype|noun|C1|CEFR-J|neutral|core|11|صورة نمطية|an oversimplified image of a group
+prejudice|noun|C1|CEFR-J|neutral|core|11|تحامل|preconceived negative opinion
+discrimination|noun|C1|AWL|neutral|core|11|تمييز|unfair treatment based on group membership
+racism|noun|C1|CEFR-J|neutral|core|11|عنصرية|discrimination based on race
+xenophobia|noun|C1|NAWL|neutral|core|11|كراهية أجانب|fear or hatred of foreigners
+Islamophobia|noun|C1|NAWL|neutral|extended|11|إسلاموفوبيا|prejudice against Muslims
+antisemitism|noun|C1|NAWL|neutral|extended|11|معاداة سامية|hostility toward Jewish people
+sexism|noun|C1|CEFR-J|neutral|core|11|تمييز جنسي|discrimination based on gender
+ageism|noun|C1|NAWL|neutral|extended|11|تمييز عمري|discrimination based on age
+ableism|noun|C1|NAWL|neutral|extended|11|تمييز ضد ذوي إعاقة|discrimination based on disability
+microaggression|noun|C1|NAWL|neutral|extended|11|عدوان خفي|a subtle discriminatory comment or action
+implicit bias|noun|C1|NAWL|neutral|extended|11|تحيز ضمني|unconscious attitudes toward a group
+affirmative action|noun|C1|AWL|neutral|extended|11|تمييز إيجابي|policies favoring disadvantaged groups
+equity|noun|C1|AWL|neutral|core|11|إنصاف|fairness in access and opportunity
+inclusion|noun|C1|AWL|neutral|core|11|شمولية|ensuring all people are welcomed
+diversity|noun|C1|AWL|neutral|core|11|تنوع ثقافي|the presence of different groups
+tolerance|noun|C1|AWL|neutral|core|11|تسامح|accepting differences in others
+pluralism|noun|C1|AWL|neutral|core|11|تعددية|a system where diverse groups coexist
+secularism|noun|C1|AWL|neutral|core|11|علمانية|separation of religion from public affairs
+theocracy|noun|C1|NAWL|neutral|extended|11|حكم ديني|government based on religious authority
+democracy|noun|B2|AWL|neutral|core|11|ديمقراطية|government by the people
+autocracy|noun|C1|NAWL|neutral|core|11|حكم استبدادي|government by one person
+oligarchy|noun|C1|NAWL|neutral|extended|11|حكم أقلية|government by a small group
+meritocracy|noun|C1|NAWL|neutral|extended|11|حكم جدارة|a system rewarding talent and effort
+technocracy|noun|C1|NAWL|neutral|mastery|11|حكم تقني|government by technical experts
+bureaucracy|noun|C1|AWL|neutral|core|11|بيروقراطية|a system of administration by officials
+sovereignty|noun|C1|AWL|neutral|core|11|سيادة|supreme authority over a territory
+self-determination|noun|C1|AWL|neutral|core|11|تقرير مصير|the right of people to govern themselves
+autonomy|noun|C1|AWL|neutral|core|11|حكم ذاتي|the right to self-governance
+federation|noun|C1|AWL|neutral|core|11|اتحاد فيدرالي|a union of self-governing states
+confederation|noun|C1|AWL|neutral|extended|11|اتحاد كونفيدرالي|a loose alliance of independent states
+unilateralism|noun|C1|AWL|neutral|extended|11|أحادية|acting independently without allies
+bilateralism|noun|C1|AWL|neutral|extended|11|ثنائية|cooperation between two countries
+multilateralism|noun|C1|AWL|neutral|core|11|تعددية أطراف|cooperation among three or more countries
+diplomacy|noun|C1|AWL|neutral|core|11|دبلوماسية|managing international relations
+ambassador|noun|C1|CEFR-J|neutral|core|11|سفير|an official representative abroad
+consulate|noun|C1|CEFR-J|neutral|extended|11|قنصلية|an office representing a foreign government
+embassy|noun|C1|CEFR-J|neutral|core|11|سفارة|the main diplomatic office abroad
+treaty|noun|C1|AWL|neutral|core|11|معاهدة|a formal agreement between countries
+ratification|noun|C1|AWL|neutral|extended|11|تصديق|formal approval of an agreement
+protocol|noun|C1|AWL|neutral|core|11|بروتوكول|rules of diplomatic procedure
+summit|noun|C1|CEFR-J|neutral|core|11|قمة|a meeting of heads of state
+envoy|noun|C1|CEFR-J|neutral|extended|11|مبعوث|a diplomatic messenger
+mediator|noun|C1|AWL|neutral|core|11|وسيط|a person helping resolve disputes
+arbitration|noun|C1|AWL|neutral|extended|11|تحكيم|resolving disputes through a third party
+human rights|noun|C1|AWL|neutral|core|11|حقوق إنسان|fundamental rights belonging to all people
+civil rights|noun|C1|AWL|neutral|core|11|حقوق مدنية|rights of citizens to equality
+civil liberties|noun|C1|AWL|neutral|core|11|حريات مدنية|individual freedoms protected by law
+freedom of speech|noun|C1|AWL|neutral|core|11|حرية تعبير|the right to express opinions
+freedom of press|noun|C1|AWL|neutral|core|11|حرية صحافة|the right to publish without censorship
+freedom of religion|noun|C1|AWL|neutral|core|11|حرية دين|the right to practice any religion
+freedom of assembly|noun|C1|AWL|neutral|extended|11|حرية تجمع|the right to gather peacefully
+Geneva Convention|noun|C1|NAWL|neutral|core|11|اتفاقية جنيف|treaties on humanitarian treatment in war
+Universal Declaration|noun|C1|AWL|neutral|core|11|إعلان عالمي|the UN declaration of human rights
+ICC|noun|C1|NAWL|neutral|extended|11|محكمة جنائية دولية|the international criminal court
+war crime|noun|C1|CEFR-J|neutral|core|11|جريمة حرب|a violation of the laws of war
+genocide|noun|C1|AWL|neutral|core|11|إبادة جماعية|deliberate killing of a national or ethnic group
+ethnic cleansing|noun|C1|NAWL|neutral|core|11|تطهير عرقي|forcing an ethnic group from an area
+crimes against humanity|noun|C1|AWL|neutral|core|11|جرائم ضد الإنسانية|widespread attacks on civilians
+transitional justice|noun|C1|AWL|neutral|extended|11|عدالة انتقالية|justice after mass violence
+truth commission|noun|C1|AWL|neutral|extended|11|لجنة حقيقة|a body investigating past human rights abuses
+reconciliation|noun|C1|AWL|neutral|core|11|مصالحة|restoring peaceful relations
+reparation|noun|C1|AWL|neutral|extended|11|تعويضات|compensation for past wrongs
+amnesty|noun|C1|AWL|neutral|extended|11|عفو عام|a pardon for political offenses
+impunity|noun|C1|AWL|neutral|mastery|11|إفلات من عقاب|freedom from punishment for wrongdoing
+collective memory|noun|C1|AWL|neutral|extended|11|ذاكرة جماعية|shared memories of a group
+memorialization|noun|C1|AWL|neutral|mastery|11|تخليد ذكرى|preserving the memory of events
+historical revisionism|noun|C1|NAWL|neutral|mastery|11|تنقيح تاريخي|reinterpreting historical events
+propaganda|noun|C1|CEFR-J|neutral|core|11|دعاية|information used to promote a political cause
+censorship|noun|C1|CEFR-J|neutral|core|11|رقابة|suppressing information deemed objectionable
+surveillance|noun|C1|AWL|neutral|core|11|مراقبة|close observation of people
+data privacy|noun|C1|NAWL|neutral|core|11|خصوصية بيانات|protecting personal information
+digital rights|noun|C1|NAWL|neutral|extended|11|حقوق رقمية|rights related to internet access and use
+net neutrality|noun|C1|NAWL|neutral|extended|11|حيادية شبكة|treating all internet data equally
+cybersecurity|noun|C1|NAWL|neutral|core|11|أمن سيبراني|protecting systems from digital attacks
+cyberwarfare|noun|C1|NAWL|neutral|extended|11|حرب سيبرانية|using technology to attack nations

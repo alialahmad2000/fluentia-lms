@@ -1,0 +1,44 @@
+quantum sensor|noun|C1|NAWL|neutral|core|10|حساس كمي|a device using quantum effects for measurement
+atomic clock|noun|C1|NAWL|neutral|core|10|ساعة ذرية|the most precise timekeeping device
+quantum metrology|noun|C1|NAWL|neutral|extended|10|قياسات كمية|using quantum states for precise measurement
+quantum imaging|noun|C1|NAWL|neutral|extended|10|تصوير كمي|creating images using quantum properties
+quantum radar|noun|C1|NAWL|neutral|mastery|10|رادار كمي|detecting objects using entangled photons
+quantum communication|noun|C1|NAWL|neutral|extended|10|اتصال كمي|transmitting information using quantum states
+quantum network|noun|C1|NAWL|neutral|extended|10|شبكة كمية|connecting quantum devices for communication
+quantum internet|noun|C1|NAWL|neutral|extended|10|إنترنت كمي|a future network based on quantum principles
+quantum repeater|noun|C1|NAWL|neutral|mastery|10|مكرر كمي|a device extending quantum communication range
+quantum memory|noun|C1|NAWL|neutral|mastery|10|ذاكرة كمية|storing quantum information for later use
+quantum simulator|noun|C1|NAWL|neutral|extended|10|محاكي كمي|a device simulating quantum systems
+quantum annealing|noun|C1|NAWL|neutral|mastery|10|تلدين كمي|using quantum effects for optimization
+adiabatic quantum computing|noun|C2|NAWL|formal|mastery|10|حوسبة كمية ثابتة الحرارة|solving problems through slow quantum changes
+quantum gate|noun|C1|NAWL|neutral|extended|10|بوابة كمية|a basic operation on quantum bits
+quantum circuit|noun|C1|NAWL|neutral|extended|10|دارة كمية|a sequence of quantum operations
+quantum algorithm|noun|C1|NAWL|neutral|core|10|خوارزمية كمية|a procedure designed for quantum computers
+Shor's algorithm|noun|C1|NAWL|neutral|mastery|10|خوارزمية شور|a quantum algorithm for factoring numbers
+Grover's algorithm|noun|C1|NAWL|neutral|mastery|10|خوارزمية غروفر|a quantum algorithm for searching databases
+quantum supremacy|noun|C1|NAWL|neutral|core|10|تفوق كمي|a quantum computer outperforming all classical ones
+decoherence|noun|C1|NAWL|neutral|extended|10|فقدان تماسك|quantum states losing their properties
+quantum noise|noun|C1|NAWL|neutral|extended|10|ضوضاء كمية|random disturbances in quantum systems
+qubit|noun|C1|NAWL|neutral|core|10|كيوبت|a quantum bit of information
+superconducting qubit|noun|C1|NAWL|neutral|extended|10|كيوبت فائق التوصيل|a qubit made from superconducting materials
+trapped ion qubit|noun|C1|NAWL|neutral|mastery|10|كيوبت أيون محصور|a qubit using a confined charged atom
+photonic qubit|noun|C1|NAWL|neutral|mastery|10|كيوبت ضوئي|a qubit encoded in a photon
+quantum entanglement|noun|C1|NAWL|neutral|core|10|تشابك كمي|particles linked regardless of distance
+Bell inequality|noun|C1|NAWL|neutral|mastery|10|متراجحة بيل|a test proving quantum entanglement is real
+EPR paradox|noun|C1|NAWL|neutral|mastery|10|مفارقة إي بي آر|a thought experiment about entanglement
+quantum teleportation|noun|C1|NAWL|neutral|extended|10|نقل كمي آني|transferring quantum states between particles
+no-cloning theorem|noun|C1|NAWL|neutral|mastery|10|مبرهنة عدم استنساخ|the impossibility of copying quantum states
+quantum cryptography|noun|C1|NAWL|neutral|core|10|تشفير كمي|security based on quantum mechanics
+BB84 protocol|noun|C1|NAWL|neutral|mastery|10|بروتوكول بي بي 84|the first quantum key distribution method
+quantum random number generator|noun|C1|NAWL|neutral|mastery|10|مولد أعداد عشوائية كمي|generating true randomness from quantum physics
+measurement problem|noun|C1|NAWL|neutral|extended|10|مشكلة القياس|why measurement changes quantum systems
+Copenhagen interpretation|noun|C1|NAWL|neutral|extended|10|تفسير كوبنهاغن|the standard interpretation of quantum mechanics
+many-worlds interpretation|noun|C1|NAWL|neutral|extended|10|تفسير العوالم المتعددة|every measurement splits the universe
+pilot wave theory|noun|C1|NAWL|neutral|mastery|10|نظرية الموجة المرشدة|a deterministic interpretation of quantum mechanics
+Schrödinger's cat|noun|C1|NAWL|neutral|core|10|قطة شرودنغر|a thought experiment about quantum states
+double-slit experiment|noun|C1|NAWL|neutral|core|10|تجربة الشق المزدوج|demonstrating wave-particle duality
+photoelectric effect|noun|C1|NAWL|neutral|core|10|تأثير كهروضوئي|light releasing electrons from a surface
+Compton scattering|noun|C1|NAWL|neutral|mastery|10|تشتت كومبتون|X-rays bouncing off electrons
+blackbody radiation|noun|C1|NAWL|neutral|extended|10|إشعاع جسم أسود|radiation from a perfect absorber
+Planck's constant|noun|C1|NAWL|neutral|extended|10|ثابت بلانك|the fundamental quantum of action
+de Broglie wavelength|noun|C1|NAWL|neutral|extended|10|طول موجة دي بروي|the wavelength of a moving particle

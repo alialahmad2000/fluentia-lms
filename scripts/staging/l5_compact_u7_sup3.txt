@@ -1,0 +1,61 @@
+neuroscience|noun|C1|NAWL|neutral|core|7|علم أعصاب|the study of the nervous system
+nervous system|noun|C1|CEFR-J|neutral|core|7|جهاز عصبي|the network of nerves in the body
+central nervous system|noun|C1|NAWL|neutral|core|7|جهاز عصبي مركزي|the brain and spinal cord
+peripheral nervous system|noun|C1|NAWL|neutral|extended|7|جهاز عصبي طرفي|nerves outside the brain and spinal cord
+autonomic nervous system|noun|C1|NAWL|neutral|extended|7|جهاز عصبي ذاتي|controls involuntary body functions
+sympathetic nervous system|noun|C1|NAWL|neutral|extended|7|جهاز عصبي ودي|activates fight-or-flight response
+parasympathetic nervous system|noun|C1|NAWL|neutral|mastery|7|جهاز عصبي لاودي|promotes rest and digestion
+somatic nervous system|noun|C1|NAWL|neutral|mastery|7|جهاز عصبي جسدي|controls voluntary muscle movement
+spinal cord|noun|C1|CEFR-J|neutral|core|7|حبل شوكي|the main nerve pathway from the brain
+receptor|noun|C1|NAWL|neutral|core|7|مستقبل|a structure receiving chemical signals
+ion channel|noun|C1|NAWL|neutral|extended|7|قناة أيونية|a protein allowing ions through cell membrane
+action potential|noun|C1|NAWL|neutral|core|7|كمون فعل|an electrical signal traveling along a neuron
+resting potential|noun|C1|NAWL|neutral|extended|7|كمون راحة|the electrical charge of an inactive neuron
+depolarization|noun|C1|NAWL|neutral|extended|7|إزالة استقطاب|a decrease in electrical charge across a membrane
+repolarization|noun|C1|NAWL|neutral|mastery|7|إعادة استقطاب|restoring the resting charge of a neuron
+refractory period|noun|C1|NAWL|neutral|mastery|7|فترة عصيان|a period when a neuron cannot fire again
+threshold potential|noun|C1|NAWL|neutral|mastery|7|كمون عتبة|the minimum stimulus to trigger firing
+excitatory|adjective|C1|NAWL|neutral|extended|7|تنبيهي|increasing the likelihood of a nerve impulse
+inhibitory|adjective|C1|NAWL|neutral|extended|7|تثبيطي|decreasing the likelihood of a nerve impulse
+synaptic cleft|noun|C1|NAWL|neutral|extended|7|شق تشابكي|the gap between two neurons
+vesicle|noun|C1|NAWL|neutral|mastery|7|حويصلة|a small sac containing neurotransmitter
+reuptake|noun|C1|NAWL|neutral|mastery|7|إعادة امتصاص|reabsorption of neurotransmitter
+neurological|adjective|C1|NAWL|neutral|core|7|عصبي|relating to the nervous system
+psychiatric|adjective|C1|CEFR-J|neutral|core|7|نفسي|relating to mental illness
+psychological|adjective|C1|AWL|neutral|core|7|سيكولوجي|relating to the mind
+cognitive|adjective|C1|AWL|neutral|core|7|إدراكي|relating to mental processes
+behavioral|adjective|C1|CEFR-J|neutral|core|7|سلوكي|relating to behavior
+developmental|adjective|C1|AWL|neutral|core|7|نمائي|relating to growth and change
+clinical|adjective|C1|AWL|neutral|core|7|سريري|relating to medical treatment
+therapeutic|adjective|C1|AWL|neutral|core|7|علاجي|relating to healing
+psychotherapy|noun|C1|CEFR-J|neutral|core|7|علاج نفسي|treatment of mental disorders by talking
+cognitive behavioral therapy|noun|C1|NAWL|neutral|core|7|علاج معرفي سلوكي|therapy changing negative thought patterns
+mindfulness|noun|C1|CEFR-J|neutral|core|7|يقظة ذهنية|awareness of the present moment
+meditation|noun|C1|CEFR-J|neutral|core|7|تأمل|a practice for mental calm
+biofeedback|noun|C1|NAWL|neutral|extended|7|تغذية حيوية راجعة|learning to control body processes
+neurofeedback|noun|C1|NAWL|neutral|mastery|7|تغذية عصبية راجعة|training brain activity using real-time data
+PTSD|noun|C1|CEFR-J|neutral|core|7|اضطراب ما بعد الصدمة|a disorder from experiencing trauma
+anxiety disorder|noun|C1|CEFR-J|neutral|core|7|اضطراب قلق|excessive worry and fear
+depression|noun|C1|CEFR-J|neutral|core|7|اكتئاب|a mood disorder causing persistent sadness
+bipolar disorder|noun|C1|NAWL|neutral|extended|7|اضطراب ثنائي القطب|a disorder with mood swings
+schizophrenia|noun|C1|NAWL|neutral|extended|7|فصام|a disorder affecting thinking and perception
+OCD|noun|C1|CEFR-J|neutral|extended|7|وسواس قهري|a disorder with unwanted repetitive thoughts
+ADHD|noun|C1|CEFR-J|neutral|core|7|فرط نشاط|a disorder affecting attention and behavior
+autism spectrum|noun|C1|NAWL|neutral|core|7|طيف توحد|a range of neurodevelopmental conditions
+dyslexia|noun|C1|CEFR-J|neutral|extended|7|عسر قراءة|difficulty with reading
+aphasia|noun|C1|NAWL|neutral|mastery|7|حبسة|loss of ability to understand or produce language
+agnosia|noun|C2|NAWL|formal|mastery|7|عمه|inability to recognize objects or faces
+apraxia|noun|C2|NAWL|formal|mastery|7|تعذر أداء|inability to perform learned movements
+neurodiversity|noun|C1|NAWL|neutral|core|7|تنوع عصبي|the range of differences in brain function
+neurotypical|adjective|C1|NAWL|neutral|extended|7|عصبي نمطي|having typical neurological development
+neuroatypical|adjective|C1|NAWL|neutral|extended|7|عصبي لانمطي|having atypical neurological development
+consciousness|noun|C1|AWL|neutral|core|7|وعي|the state of being aware
+unconscious|adjective|C1|CEFR-J|neutral|core|7|لاواعي|not aware of surroundings
+subconscious|adjective|C1|CEFR-J|neutral|extended|7|تحت واعي|the part of mind below awareness
+altered state|noun|C1|NAWL|neutral|extended|7|حالة وعي متغيرة|a different pattern of consciousness
+lucid dreaming|noun|C1|NAWL|neutral|mastery|7|حلم واعي|awareness of dreaming while asleep
+hypnosis|noun|C1|CEFR-J|neutral|extended|7|تنويم مغناطيسي|an induced state of heightened suggestibility
+anesthesia|noun|C1|CEFR-J|neutral|extended|7|تخدير|loss of sensation for medical procedures
+coma|noun|C1|CEFR-J|neutral|extended|7|غيبوبة|a state of prolonged unconsciousness
+vegetative state|noun|C1|NAWL|neutral|mastery|7|حالة إنباتية|wakefulness without awareness
+brain death|noun|C1|CEFR-J|neutral|mastery|7|موت دماغي|irreversible loss of brain function

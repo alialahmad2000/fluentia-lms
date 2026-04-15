@@ -1,0 +1,102 @@
+swarm intelligence|noun|C1|NAWL|neutral|core|8|ذكاء سربي|collective behavior of decentralized systems
+ant colony|noun|B2|CEFR-J|neutral|core|8|مستعمرة نمل|a group of ants living together
+bee colony|noun|B2|CEFR-J|neutral|core|8|مستعمرة نحل|a group of bees living in a hive
+flocking|noun|C1|CEFR-J|neutral|core|8|تجمع سربي|the movement pattern of birds in groups
+schooling|noun|C1|CEFR-J|neutral|core|8|سباحة سربية|the coordinated swimming of fish groups
+murmuration|noun|C2|NAWL|neutral|core|8|تموج سربي|the swirling movement of starling flocks
+self-organization|noun|C1|NAWL|neutral|core|8|تنظيم ذاتي|order arising without external direction
+bottom-up|adjective|C1|CEFR-J|neutral|core|8|من الأسفل للأعلى|progressing from details to general principles
+top-down|adjective|C1|CEFR-J|neutral|core|8|من الأعلى للأسفل|progressing from general principles to details
+distributed|adjective|C1|AWL|neutral|core|8|موزع|spread across multiple agents or locations
+parallel|adjective|B2|AWL|neutral|core|8|متوازي|occurring at the same time or side by side
+synchronization|noun|C1|AWL|neutral|core|8|تزامن|the coordination of events to operate in unison
+coordination|noun|B2|AWL|neutral|core|8|تنسيق جماعي|the organization of activities for harmony
+cooperation|noun|B2|AWL|neutral|core|8|تعاون|working together toward a common goal
+competition|noun|B2|AWL|neutral|core|8|تنافس|the act of competing against others
+altruism|noun|C1|CEFR-J|neutral|core|8|إيثار|selfless concern for the welfare of others
+reciprocity|noun|C1|AWL|neutral|core|8|معاملة بالمثل|mutual exchange of advantages
+fitness|noun|C1|AWL|neutral|core|8|لياقة تطورية|an organism's ability to survive and reproduce
+selection pressure|noun|C1|NAWL|neutral|core|8|ضغط انتقائي|environmental forces that influence evolution
+coevolution|noun|C1|NAWL|neutral|core|8|تطور مشترك|reciprocal evolution of interacting species
+complexity|noun|C1|AWL|neutral|core|8|تعقيد|the state of having many interconnected parts
+chaos theory|noun|C1|NAWL|neutral|core|8|نظرية الفوضى|the study of unpredictable dynamic systems
+fractal|noun|C1|NAWL|neutral|core|8|كسيري|a pattern that repeats at every scale
+network|noun|B2|CEFR-J|neutral|core|8|شبكة|a system of interconnected elements
+node|noun|C1|NAWL|neutral|core|8|عقدة|a point of connection in a network
+edge|noun|C1|CEFR-J|neutral|core|8|حافة|a connection between two nodes
+hub|noun|C1|CEFR-J|neutral|core|8|محور|a highly connected node in a network
+cluster|noun|C1|AWL|neutral|core|8|عنقود|a group of similar things close together
+modularity|noun|C1|AWL|neutral|core|8|وحدوية|the degree to which a system can be separated
+resilience|noun|C1|AWL|neutral|core|8|مرونة شبكية|the ability of a network to withstand disruption
+adaptability|noun|C1|AWL|neutral|core|8|قابلية التكيف|the ability to adjust to new conditions
+homeostasis|noun|C1|NAWL|neutral|core|8|توازن داخلي|the maintenance of stable internal conditions
+equilibrium|noun|C1|AWL|neutral|core|8|توازن|a state of balance between opposing forces
+steady state|noun|C1|NAWL|neutral|core|8|حالة مستقرة|a condition that does not change over time
+basin of attraction|noun|C2|NAWL|formal|extended|8|حوض جذب|a region of states that converge to an attractor
+phase space|noun|C1|NAWL|neutral|extended|8|فضاء طوري|all possible states of a system
+state space|noun|C1|NAWL|neutral|extended|8|فضاء حالات|the set of all possible configurations
+landscape|noun|C1|CEFR-J|neutral|extended|8|مشهد تكيفي|a metaphor for the fitness of possible solutions
+fitness landscape|noun|C1|NAWL|neutral|extended|8|مشهد لياقة|a mapping of genotypes to reproductive success
+local optimum|noun|C1|NAWL|neutral|extended|8|أمثلية محلية|the best solution in a limited region
+global optimum|noun|C1|NAWL|neutral|extended|8|أمثلية شاملة|the absolute best solution overall
+exploitation|noun|C1|AWL|neutral|extended|8|استغلال|using known good solutions
+exploration|noun|C1|AWL|neutral|extended|8|استكشاف|searching for new solutions
+trade-off|noun|C1|AWL|neutral|extended|8|مقايضة|a balance between competing factors
+constraint|noun|C1|AWL|neutral|extended|8|قيد|a limitation or restriction
+objective function|noun|C1|NAWL|neutral|extended|8|دالة هدف|a function to be optimized
+genetic algorithm|noun|C1|NAWL|neutral|extended|8|خوارزمية جينية|an optimization method inspired by evolution
+particle swarm|noun|C1|NAWL|neutral|extended|8|سرب جسيمات|an optimization method inspired by flocking
+simulated annealing|noun|C1|NAWL|neutral|extended|8|تلدين محاكى|an optimization technique inspired by metallurgy
+tabu search|noun|C2|NAWL|formal|extended|8|بحث محرم|an optimization method avoiding revisited solutions
+neural network|noun|C1|NAWL|neutral|extended|8|شبكة عصبية|a computing system inspired by the brain
+deep learning|noun|C1|NAWL|neutral|extended|8|تعلم عميق|machine learning using multiple neural layers
+reinforcement learning|noun|C1|NAWL|neutral|extended|8|تعلم معزز|learning from rewards and penalties
+agent-based modeling|noun|C1|NAWL|neutral|extended|8|نمذجة عميلة|simulating interactions of autonomous agents
+cellular automaton|noun|C1|NAWL|neutral|extended|8|أوتوماتا خلوية|a grid of cells following simple rules
+lattice|noun|C1|NAWL|neutral|extended|8|شبكية|a regular arrangement of points or objects
+percolation|noun|C1|NAWL|neutral|extended|8|ترشيح|the spread of influence through a network
+diffusion|noun|C1|AWL|neutral|extended|8|انتشار|the spreading of something widely
+propagation|noun|C1|AWL|neutral|extended|8|انتقال|the spreading or transmission of something
+cascade|noun|C1|CEFR-J|neutral|extended|8|تتابع|a series of events each causing the next
+domino effect|noun|C1|CEFR-J|neutral|extended|8|أثر الدومينو|a chain reaction of events
+tipping point|noun|C1|CEFR-J|neutral|extended|8|نقطة تحول|the critical moment of irreversible change
+phase transition|noun|C1|NAWL|neutral|extended|8|انتقال طوري|a fundamental change in system behavior
+criticality|noun|C1|NAWL|neutral|extended|8|حرجية|the state at which a phase transition occurs
+power law|noun|C1|NAWL|neutral|extended|8|قانون قوة|a relationship where a change causes a proportional change
+scale-free|adjective|C1|NAWL|neutral|extended|8|بلا مقياس|a network lacking a characteristic node degree
+small world|noun|C1|NAWL|neutral|extended|8|عالم صغير|a network where most nodes are reachable in few steps
+random graph|noun|C1|NAWL|neutral|extended|8|رسم بياني عشوائي|a graph generated by random connections
+degree distribution|noun|C1|NAWL|neutral|extended|8|توزيع درجات|the probability of nodes having certain connections
+centrality|noun|C1|AWL|neutral|extended|8|مركزية|the importance of a node in a network
+betweenness|noun|C1|NAWL|neutral|extended|8|وسطية|a measure of a node's bridging role
+eigenvector|noun|C2|NAWL|formal|extended|8|متجه ذاتي|a vector unchanged in direction by a transformation
+adjacency|noun|C1|NAWL|neutral|extended|8|تجاور|the state of being next to something
+connectivity|noun|C1|AWL|neutral|extended|8|ترابطية|the degree of connection between components
+robustness|noun|C1|AWL|neutral|mastery|8|صلابة|the ability to withstand perturbations
+antifragility|noun|C2|NAWL|formal|mastery|8|مضاد الهشاشة|improving under stress and disorder
+autopoiesis|noun|C2|NAWL|formal|mastery|8|إنتاج ذاتي|a system capable of reproducing itself
+dissipative structure|noun|C2|NAWL|formal|mastery|8|بنية تبديدية|an ordered structure in a far-from-equilibrium system
+synergetics|noun|C2|NAWL|formal|mastery|8|تآزرية|the study of self-organization in systems
+cybernetics|noun|C1|NAWL|neutral|mastery|8|سبرانية|the study of control systems in machines and biology
+automata theory|noun|C2|NAWL|formal|mastery|8|نظرية الأوتوماتا|the study of abstract mathematical machines
+computability|noun|C2|NAWL|formal|mastery|8|قابلية الحوسبة|the ability of a problem to be solved by a computer
+decidability|noun|C2|NAWL|formal|mastery|8|قابلية القرار|whether a problem can be definitively answered
+halting problem|noun|C2|NAWL|formal|mastery|8|مسألة التوقف|whether a program will finish or run forever
+Turing machine|noun|C1|NAWL|neutral|mastery|8|آلة تورنغ|a theoretical computing device
+von Neumann|noun|C1|NAWL|neutral|mastery|8|فون نويمان|a computer architecture with shared memory
+Boolean|adjective|C1|NAWL|neutral|mastery|8|بولياني|relating to binary logic operations
+heuristic search|noun|C1|NAWL|neutral|mastery|8|بحث استدلالي|a search method using rules of thumb
+greedy algorithm|noun|C1|NAWL|neutral|mastery|8|خوارزمية جشعة|an algorithm choosing locally optimal steps
+divide and conquer|noun|C1|NAWL|neutral|mastery|8|فرّق تسد|breaking a problem into smaller subproblems
+dynamic programming|noun|C1|NAWL|neutral|mastery|8|برمجة ديناميكية|solving problems by breaking into subproblems
+backtracking|noun|C1|NAWL|neutral|mastery|8|تراجع|undoing choices to explore alternatives
+branch and bound|noun|C2|NAWL|formal|mastery|8|تفريع وتقييد|systematically enumerating candidate solutions
+swarm robotics|noun|C1|NAWL|neutral|mastery|8|روبوتات سربية|multi-robot systems inspired by swarm behavior
+drone swarm|noun|C1|CEFR-J|neutral|mastery|8|سرب طائرات مسيرة|a group of coordinated unmanned aircraft
+consensus algorithm|noun|C1|NAWL|neutral|mastery|8|خوارزمية إجماع|a protocol for distributed agreement
+quorum sensing|noun|C2|NAWL|formal|mastery|8|استشعار النصاب|bacterial coordination based on population density
+chemotaxis|noun|C2|NAWL|formal|mastery|8|انجذاب كيميائي|movement directed by chemical concentration
+phototaxis|noun|C2|NAWL|formal|mastery|8|انجذاب ضوئي|movement directed by light
+gravitaxis|noun|C2|NAWL|formal|mastery|8|انجذاب جاذبي|movement directed by gravity
+thigmotaxis|noun|C2|NAWL|formal|mastery|8|انجذاب لمسي|movement directed by touch
+rheotaxis|noun|C2|NAWL|formal|mastery|8|انجذاب تياري|movement directed by water current

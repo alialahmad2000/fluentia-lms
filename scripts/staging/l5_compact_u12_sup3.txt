@@ -1,0 +1,98 @@
+raw material|noun|C1|CEFR-J|neutral|core|12|مادة خام|unprocessed material used in manufacturing
+extraction|noun|C1|AWL|neutral|core|12|استخراج|removing resources from the earth
+mining|noun|C1|CEFR-J|neutral|core|12|تعدين|extracting minerals from the ground
+quarrying|noun|C1|CEFR-J|neutral|extended|12|مقالع|extracting stone from open pits
+smelting|noun|C1|CEFR-J|neutral|extended|12|صهر|extracting metal from ore by heating
+refining|noun|C1|AWL|neutral|core|12|تكرير|purifying a raw substance
+ore|noun|C1|CEFR-J|neutral|core|12|خام|rock containing extractable metal
+deposit|noun|C1|AWL|neutral|core|12|رواسب|a natural accumulation of a mineral
+reserve|noun|C1|AWL|neutral|core|12|احتياطي|known resources that can be extracted
+proven reserves|noun|C1|AWL|neutral|extended|12|احتياطي مؤكد|resources confirmed to be extractable
+depletion|noun|C1|AWL|neutral|core|12|نضوب|the reduction of a resource through use
+peak oil|noun|C1|NAWL|neutral|core|12|ذروة نفط|the maximum rate of oil production
+barrel|noun|C1|CEFR-J|neutral|core|12|برميل|a unit of oil measurement
+OPEC|noun|C1|NAWL|neutral|core|12|أوبك|the organization of petroleum exporters
+pipeline|noun|C1|CEFR-J|neutral|core|12|خط أنابيب|a tube for transporting oil or gas
+refinery|noun|C1|CEFR-J|neutral|core|12|مصفاة|a facility processing crude oil
+petrochemical|noun|C1|NAWL|neutral|extended|12|بتروكيماوي|a chemical derived from petroleum
+natural gas|noun|C1|CEFR-J|neutral|core|12|غاز طبيعي|a fossil fuel found underground
+LNG|noun|C1|NAWL|neutral|extended|12|غاز طبيعي مسال|liquefied natural gas for transport
+fracking|noun|C1|NAWL|neutral|core|12|تكسير هيدروليكي|extracting gas by fracturing rock
+shale|noun|C1|CEFR-J|neutral|extended|12|صخر زيتي|a fine-grained sedimentary rock
+coal|noun|B2|CEFR-J|neutral|core|12|فحم|a black combustible rock
+lignite|noun|C1|NAWL|neutral|mastery|12|فحم بني|low-grade brown coal
+anthracite|noun|C1|NAWL|neutral|mastery|12|فحم صلب|high-quality hard coal
+rare earth|noun|C1|NAWL|neutral|core|12|أتربة نادرة|minerals essential for technology
+lithium|noun|C1|NAWL|neutral|core|12|ليثيوم|a metal used in batteries
+cobalt|noun|C1|NAWL|neutral|extended|12|كوبالت|a metal used in electronics
+coltan|noun|C1|NAWL|neutral|mastery|12|كولتان|a mineral used in electronic devices
+tungsten|noun|C1|NAWL|neutral|mastery|12|تنغستن|a hard metal for industrial use
+titanium|noun|C1|CEFR-J|neutral|extended|12|تيتانيوم|a strong lightweight metal
+aluminum|noun|B2|CEFR-J|neutral|core|12|ألمنيوم|a lightweight silvery metal
+bauxite|noun|C1|NAWL|neutral|mastery|12|بوكسيت|the ore from which aluminum is extracted
+phosphate|noun|C1|NAWL|neutral|extended|12|فوسفات|a mineral used in fertilizers
+potash|noun|C1|NAWL|neutral|extended|12|بوتاس|a potassium compound for fertilizers
+fertilizer|noun|C1|CEFR-J|neutral|core|12|سماد|a substance added to soil for growth
+pesticide|noun|C1|CEFR-J|neutral|core|12|مبيد حشري|a chemical killing pests
+herbicide|noun|C1|CEFR-J|neutral|extended|12|مبيد أعشاب|a chemical killing unwanted plants
+fungicide|noun|C1|NAWL|neutral|mastery|12|مبيد فطري|a chemical killing fungi
+GMO|noun|C1|NAWL|neutral|core|12|كائن معدل وراثياً|a genetically modified organism
+monoculture|noun|C1|NAWL|neutral|extended|12|زراعة أحادية|growing a single crop over a large area
+crop rotation|noun|C1|CEFR-J|neutral|extended|12|دورة زراعية|alternating crops to maintain soil health
+aquaculture|noun|C1|NAWL|neutral|extended|12|استزراع مائي|farming aquatic organisms
+hydroponics|noun|C1|NAWL|neutral|extended|12|زراعة مائية|growing plants without soil
+vertical farming|noun|C1|NAWL|neutral|extended|12|زراعة عمودية|growing crops in stacked layers
+food security|noun|C1|AWL|neutral|core|12|أمن غذائي|reliable access to sufficient food
+food sovereignty|noun|C1|AWL|neutral|extended|12|سيادة غذائية|the right to define food systems
+famine|noun|C1|CEFR-J|neutral|core|12|مجاعة|extreme scarcity of food
+malnutrition|noun|C1|CEFR-J|neutral|core|12|سوء تغذية|inadequate or unbalanced nutrition
+food waste|noun|C1|CEFR-J|neutral|core|12|هدر غذائي|discarding edible food
+supply elasticity|noun|C1|AWL|neutral|extended|12|مرونة عرض|how supply responds to price changes
+price volatility|noun|C1|AWL|neutral|core|12|تقلب أسعار|rapid unpredictable price changes
+futures market|noun|C1|NAWL|neutral|extended|12|سوق عقود آجلة|trading commodities for future delivery
+spot price|noun|C1|NAWL|neutral|extended|12|سعر فوري|the current market price
+hedging|noun|C1|NAWL|neutral|extended|12|تحوط|reducing risk through offsetting positions
+index fund|noun|C1|NAWL|neutral|extended|12|صندوق مؤشر|a fund tracking a market index
+mutual fund|noun|C1|NAWL|neutral|extended|12|صندوق مشترك|a pooled investment fund
+ETF|noun|C1|NAWL|neutral|mastery|12|صندوق متداول|an exchange-traded fund
+market correction|noun|C1|NAWL|neutral|mastery|12|تصحيح سوقي|a decline reversing overvalued prices
+bear market|noun|C1|NAWL|neutral|extended|12|سوق هابطة|a market with declining prices
+bull market|noun|C1|NAWL|neutral|extended|12|سوق صاعدة|a market with rising prices
+bubble|noun|C1|CEFR-J|neutral|core|12|فقاعة مالية|unsustainable price inflation in assets
+crash|noun|C1|CEFR-J|neutral|core|12|انهيار مالي|a sudden severe drop in value
+bailout|noun|C1|NAWL|neutral|core|12|إنقاذ مالي|financial assistance to prevent collapse
+too big to fail|noun|C1|NAWL|neutral|extended|12|أكبر من أن يسقط|institutions whose failure would be catastrophic
+systemic risk|noun|C1|AWL|neutral|extended|12|مخاطرة نظامية|risk of collapse of an entire system
+contagion|noun|C1|CEFR-J|neutral|mastery|12|عدوى مالية|the spread of economic crisis between markets
+leverage ratio|noun|C1|AWL|neutral|mastery|12|نسبة رافعة|the proportion of debt to equity
+credit rating|noun|C1|NAWL|neutral|extended|12|تصنيف ائتماني|an evaluation of creditworthiness
+sovereign debt|noun|C1|AWL|neutral|extended|12|دين سيادي|money owed by a national government
+national debt|noun|C1|AWL|neutral|core|12|دين وطني|the total amount a government owes
+budget deficit|noun|C1|AWL|neutral|core|12|عجز ميزانية|spending exceeding revenue
+fiscal cliff|noun|C1|NAWL|neutral|mastery|12|هاوية مالية|a sudden combination of tax increases and spending cuts
+progressive tax|noun|C1|AWL|neutral|extended|12|ضريبة تصاعدية|higher rates for higher incomes
+regressive tax|noun|C1|AWL|neutral|extended|12|ضريبة تراجعية|affecting lower incomes more
+flat tax|noun|C1|NAWL|neutral|mastery|12|ضريبة موحدة|a single tax rate for all income levels
+tax haven|noun|C1|NAWL|neutral|core|12|ملاذ ضريبي|a country with very low taxes
+tax evasion|noun|C1|NAWL|neutral|core|12|تهرب ضريبي|illegally avoiding taxes
+tax avoidance|noun|C1|NAWL|neutral|extended|12|تجنب ضريبي|legally minimizing tax payments
+offshore account|noun|C1|NAWL|neutral|extended|12|حساب خارجي|a bank account in another country
+money laundering|noun|C1|CEFR-J|neutral|core|12|غسل أموال|concealing the origin of illegal money
+sanctions evasion|noun|C1|AWL|neutral|mastery|12|تهرب من عقوبات|circumventing international penalties
+Gini coefficient|noun|C1|NAWL|neutral|extended|12|معامل جيني|a measure of income inequality
+wealth gap|noun|C1|CEFR-J|neutral|core|12|فجوة ثروة|the difference between rich and poor
+poverty line|noun|C1|CEFR-J|neutral|core|12|خط فقر|the minimum income for basic needs
+extreme poverty|noun|C1|CEFR-J|neutral|core|12|فقر مدقع|living on less than the minimum daily amount
+middle class|noun|C1|CEFR-J|neutral|core|12|طبقة وسطى|the social group between rich and poor
+social mobility|noun|C1|AWL|neutral|core|12|حراك اجتماعي|the ability to change socioeconomic status
+universal basic income|noun|C1|AWL|neutral|extended|12|دخل أساسي شامل|a guaranteed payment to all citizens
+welfare state|noun|C1|AWL|neutral|core|12|دولة رفاهية|a government providing social services
+social safety net|noun|C1|AWL|neutral|core|12|شبكة أمان اجتماعي|programs protecting people from hardship
+unemployment insurance|noun|C1|AWL|neutral|extended|12|تأمين بطالة|payments to jobless workers
+minimum wage|noun|C1|AWL|neutral|core|12|حد أدنى للأجور|the lowest legal pay rate
+living wage|noun|C1|NAWL|neutral|extended|12|أجر معيشي|income sufficient for basic needs
+collective bargaining|noun|C1|AWL|neutral|extended|12|مفاوضة جماعية|workers negotiating as a group
+labor union|noun|C1|AWL|neutral|core|12|نقابة عمالية|an organization of workers
+informal economy|noun|C1|AWL|neutral|core|12|اقتصاد غير رسمي|economic activity outside official regulation
+shadow economy|noun|C1|NAWL|neutral|extended|12|اقتصاد خفي|unreported economic activity
+black market|noun|C1|CEFR-J|neutral|core|12|سوق سوداء|illegal trade in goods or services

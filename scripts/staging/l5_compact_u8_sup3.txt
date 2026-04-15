@@ -1,0 +1,97 @@
+swarm|noun|C1|CEFR-J|neutral|core|8|سرب|a large group of insects or other creatures
+colony optimization|noun|C1|NAWL|neutral|core|8|تحسين مستعمرة|problem-solving inspired by ant colonies
+pheromone|noun|C1|NAWL|neutral|core|8|فيرومون|a chemical signal between organisms
+stigmergy|noun|C2|NAWL|formal|core|8|تنسيق بيئي|indirect coordination through environmental signals
+self-organization|noun|C1|NAWL|neutral|core|8|تنظيم ذاتي|order arising without central control
+emergence|noun|C1|AWL|neutral|core|8|نشوء|complex patterns from simple interactions
+decentralized|adjective|C1|AWL|neutral|core|8|لامركزي|distributed without central authority
+distributed system|noun|C1|AWL|neutral|core|8|نظام موزع|a system spread across multiple locations
+parallel processing|noun|C1|NAWL|neutral|core|8|معالجة متوازية|performing multiple computations simultaneously
+scalability|noun|C1|AWL|neutral|core|8|قابلية توسع|ability to handle growing work
+robustness|noun|C1|AWL|neutral|core|8|متانة|ability to function despite failures
+fault tolerance|noun|C1|NAWL|neutral|core|8|تحمل أعطال|continuing operation despite component failure
+redundancy|noun|C1|AWL|neutral|extended|8|تكرار احتياطي|duplication providing backup
+feedback|noun|B2|AWL|neutral|core|8|تغذية راجعة|information about the result of a process
+positive feedback|noun|C1|AWL|neutral|core|8|تغذية إيجابية|feedback amplifying a change
+negative feedback|noun|C1|AWL|neutral|core|8|تغذية سلبية|feedback dampening a change
+threshold|noun|C1|AWL|neutral|core|8|عتبة|the level at which something starts
+quorum sensing|noun|C1|NAWL|neutral|extended|8|استشعار نصاب|bacteria detecting their population density
+biofilm|noun|C1|NAWL|neutral|extended|8|غشاء حيوي|a colony of microorganisms on a surface
+symbiosis|noun|C1|NAWL|neutral|core|8|تكافل|a close relationship between different species
+mutualism|noun|C1|NAWL|neutral|extended|8|تبادل منفعة|a relationship benefiting both species
+commensalism|noun|C1|NAWL|neutral|extended|8|تعايش|one species benefits without harming another
+parasitism|noun|C1|NAWL|neutral|extended|8|تطفل|one species benefits at another's expense
+mimicry|noun|C1|CEFR-J|neutral|extended|8|محاكاة|resembling another species for advantage
+camouflage|noun|C1|CEFR-J|neutral|extended|8|تمويه|concealing by blending with surroundings
+aposematism|noun|C2|NAWL|formal|mastery|8|تحذير لوني|warning coloration deterring predators
+altruism|noun|C1|AWL|neutral|core|8|إيثار|behavior benefiting others at personal cost
+kin selection|noun|C1|NAWL|neutral|extended|8|انتقاء قرابي|helping relatives to spread shared genes
+reciprocal altruism|noun|C1|NAWL|neutral|mastery|8|إيثار متبادل|helping others expecting future help
+Hamilton's rule|noun|C2|NAWL|formal|mastery|8|قاعدة هاملتون|the condition for altruism to evolve
+inclusive fitness|noun|C1|NAWL|neutral|mastery|8|لياقة شاملة|fitness including effects on relatives
+group selection|noun|C1|AWL|neutral|extended|8|انتقاء جماعي|natural selection acting on groups
+multilevel selection|noun|C1|NAWL|neutral|mastery|8|انتقاء متعدد المستويات|selection operating at multiple levels
+eusociality|noun|C2|NAWL|formal|extended|8|اجتماعية حقيقية|the highest level of social organization
+haplodiploidy|noun|C2|NAWL|formal|mastery|8|نظام وراثي نصفي|a sex determination system in social insects
+polyandry|noun|C2|NAWL|formal|mastery|8|تعدد أزواج|a queen mating with multiple males
+brood care|noun|C1|NAWL|neutral|extended|8|رعاية صغار|caring for offspring in a colony
+trophallaxis|noun|C2|NAWL|formal|mastery|8|تبادل غذائي|food sharing between colony members
+tandem running|noun|C1|NAWL|neutral|extended|8|جري مزدوج|an ant leading another to a food source
+scout|noun|C1|CEFR-J|neutral|core|8|مستكشف|an individual searching for resources
+foraging|noun|C1|CEFR-J|neutral|core|8|تغذي|searching for food in the wild
+optimal foraging|noun|C1|NAWL|neutral|extended|8|تغذي أمثل|maximizing energy intake while foraging
+patch exploitation|noun|C1|NAWL|neutral|mastery|8|استغلال رقعة|harvesting resources from a specific area
+marginal value theorem|noun|C2|NAWL|formal|mastery|8|نظرية القيمة الهامشية|when to leave a depleting resource
+exploitation-exploration|noun|C1|NAWL|neutral|core|8|استغلال واستكشاف|balancing known and unknown solutions
+ant colony optimization|noun|C1|NAWL|neutral|core|8|تحسين مستعمرة نمل|solving problems using artificial ant behavior
+particle swarm|noun|C1|NAWL|neutral|core|8|سرب جسيمات|optimization using moving particles
+artificial bee colony|noun|C1|NAWL|neutral|extended|8|مستعمرة نحل اصطناعية|optimization mimicking bee behavior
+fitness function|noun|C1|NAWL|neutral|core|8|دالة لياقة|measuring the quality of a solution
+objective function|noun|C1|AWL|neutral|core|8|دالة هدف|the function to be optimized
+constraint|noun|C1|AWL|neutral|core|8|قيد|a restriction on possible solutions
+search space|noun|C1|NAWL|neutral|core|8|فضاء بحث|the set of all possible solutions
+landscape|noun|C1|CEFR-J|neutral|extended|8|مشهد لياقة|the surface of fitness values
+local optimum|noun|C1|NAWL|neutral|core|8|أمثلية محلية|the best solution in a neighborhood
+global optimum|noun|C1|NAWL|neutral|core|8|أمثلية شاملة|the best solution overall
+metaheuristic|noun|C1|NAWL|neutral|core|8|ما وراء استدلالي|a high-level problem-solving strategy
+heuristic|noun|C1|NAWL|neutral|core|8|استدلالي|a practical method for finding good solutions
+greedy algorithm|noun|C1|NAWL|neutral|extended|8|خوارزمية جشعة|choosing the best option at each step
+simulated annealing|noun|C1|NAWL|neutral|extended|8|تخمير محاكى|optimization mimicking metal cooling
+tabu search|noun|C1|NAWL|neutral|extended|8|بحث محظور|avoiding recently visited solutions
+genetic algorithm|noun|C1|NAWL|neutral|core|8|خوارزمية وراثية|optimization using genetic principles
+chromosome|noun|C1|CEFR-J|neutral|extended|8|كروموسوم حوسبي|a solution encoded as a string
+gene|noun|C1|CEFR-J|neutral|extended|8|جين حوسبي|a single element in an encoded solution
+mutation rate|noun|C1|NAWL|neutral|extended|8|معدل طفرة|the probability of random change
+tournament selection|noun|C1|NAWL|neutral|mastery|8|اختيار بطولة|selecting parents through competition
+roulette selection|noun|C1|NAWL|neutral|mastery|8|اختيار روليت|selecting parents based on fitness proportion
+encoding|noun|C1|AWL|neutral|extended|8|ترميز|representing a solution as data
+binary encoding|noun|C1|NAWL|neutral|mastery|8|ترميز ثنائي|representing solutions as binary strings
+real-valued encoding|noun|C1|NAWL|neutral|mastery|8|ترميز حقيقي|representing solutions as real numbers
+permutation encoding|noun|C1|NAWL|neutral|mastery|8|ترميز تبديلي|representing solutions as sequences
+NP-hard|adjective|C2|NAWL|formal|extended|8|صعب حسابياً|a problem with no known efficient solution
+traveling salesman|noun|C1|NAWL|neutral|extended|8|بائع متجول|finding the shortest route through cities
+vehicle routing|noun|C1|NAWL|neutral|extended|8|توجيه مركبات|optimizing delivery routes
+scheduling|noun|C1|AWL|neutral|extended|8|جدولة|assigning tasks to time slots
+bin packing|noun|C1|NAWL|neutral|mastery|8|تعبئة حاويات|fitting items into containers efficiently
+knapsack problem|noun|C1|NAWL|neutral|mastery|8|مشكلة الحقيبة|selecting items to maximize value within weight
+graph coloring|noun|C1|NAWL|neutral|mastery|8|تلوين رسم بياني|assigning colors to graph nodes
+network flow|noun|C1|NAWL|neutral|mastery|8|تدفق شبكة|optimizing flow through a network
+multi-agent system|noun|C1|NAWL|neutral|core|8|نظام متعدد الوكلاء|multiple autonomous entities cooperating
+consensus|noun|C1|AWL|neutral|core|8|إجماع|agreement among agents in a system
+negotiation protocol|noun|C1|AWL|neutral|extended|8|بروتوكول تفاوض|rules for agents to reach agreement
+auction mechanism|noun|C1|NAWL|neutral|extended|8|آلية مزاد|allocating resources through bidding
+game theory|noun|C1|NAWL|neutral|extended|8|نظرية ألعاب|mathematical analysis of strategic decisions
+Nash equilibrium|noun|C1|NAWL|neutral|mastery|8|توازن ناش|a stable outcome in a strategic game
+cooperative game|noun|C1|NAWL|neutral|mastery|8|لعبة تعاونية|a game where players form coalitions
+competitive game|noun|C1|NAWL|neutral|mastery|8|لعبة تنافسية|a game where players act against each other
+zero-sum|adjective|C1|NAWL|neutral|mastery|8|محصلة صفرية|one player's gain is another's loss
+swarm robotics|noun|C1|NAWL|neutral|core|8|روبوتات سرب|multiple robots coordinating autonomously
+formation control|noun|C1|NAWL|neutral|extended|8|تحكم تشكيل|maintaining spatial arrangements in robot groups
+task allocation|noun|C1|AWL|neutral|extended|8|تخصيص مهام|distributing work among agents
+load balancing|noun|C1|NAWL|neutral|extended|8|موازنة حمل|distributing work evenly across resources
+self-healing|adjective|C1|NAWL|neutral|extended|8|ذاتي الإصلاح|able to recover from damage automatically
+adaptive behavior|noun|C1|AWL|neutral|core|8|سلوك تكيفي|behavior that changes with conditions
+learning rate|noun|C1|AWL|neutral|extended|8|معدل تعلم|the speed of acquiring new behavior
+reinforcement learning|noun|C1|NAWL|neutral|core|8|تعلم تعزيزي|learning through rewards and penalties
+Q-learning|noun|C1|NAWL|neutral|mastery|8|تعلم كيو|a model-free reinforcement learning algorithm
+policy gradient|noun|C2|NAWL|formal|mastery|8|تدرج سياسة|optimizing behavior directly

@@ -1,0 +1,97 @@
+albedo|noun|C1|NAWL|neutral|extended|4|انعكاسية سطح|the reflectivity of a surface
+permafrost thaw|noun|C1|NAWL|neutral|core|4|ذوبان تربة صقيعية|frozen ground melting due to warming
+thermohaline circulation|noun|C2|NAWL|formal|mastery|4|دورة حرارية ملحية|ocean circulation driven by temperature and salinity
+ocean acidification|noun|C1|NAWL|neutral|core|4|تحمض المحيطات|seawater becoming more acidic from CO2
+coral bleaching|noun|C1|NAWL|neutral|core|4|ابيضاض مرجاني|corals losing their color from heat stress
+sea level rise|noun|C1|CEFR-J|neutral|core|4|ارتفاع مستوى البحر|oceans rising due to melting ice and expansion
+glacial retreat|noun|C1|NAWL|neutral|extended|4|تراجع جليدي|glaciers shrinking over time
+ice sheet|noun|C1|CEFR-J|neutral|core|4|صفيحة جليدية|a large mass of glacial ice
+thermal expansion|noun|C1|NAWL|neutral|extended|4|تمدد حراري|water expanding as it warms
+storm surge|noun|C1|CEFR-J|neutral|core|4|عاصفة مدية|abnormal rise in sea level during a storm
+flash flood|noun|C1|CEFR-J|neutral|core|4|فيضان خاطف|a sudden local flood
+drought index|noun|C1|NAWL|neutral|extended|4|مؤشر جفاف|a measure of drought severity
+water table|noun|C1|CEFR-J|neutral|extended|4|منسوب مياه جوفية|the underground level of water saturation
+aquifer depletion|noun|C1|NAWL|neutral|extended|4|استنزاف خزان جوفي|using groundwater faster than it recharges
+desalination plant|noun|C1|NAWL|neutral|extended|4|محطة تحلية|a facility converting seawater to freshwater
+rainwater harvesting|noun|C1|CEFR-J|neutral|core|4|حصاد مياه أمطار|collecting rain for later use
+graywater recycling|noun|C1|NAWL|neutral|extended|4|إعادة تدوير مياه رمادية|reusing lightly used household water
+drip irrigation|noun|C1|CEFR-J|neutral|core|4|ري بالتنقيط|watering crops slowly at the root
+agroforestry|noun|C1|NAWL|neutral|extended|4|حراجة زراعية|combining trees with crops or livestock
+cover crop|noun|C1|NAWL|neutral|extended|4|محصول تغطية|plants grown to protect the soil
+no-till farming|noun|C1|NAWL|neutral|extended|4|زراعة بدون حرث|farming without plowing the soil
+crop rotation|noun|C1|CEFR-J|neutral|core|4|تناوب محاصيل|alternating crops to maintain soil health
+soil erosion|noun|C1|CEFR-J|neutral|core|4|تآكل تربة|the wearing away of topsoil
+land degradation|noun|C1|AWL|neutral|core|4|تدهور أراضي|the decline in land quality
+desertification|noun|C1|AWL|neutral|core|4|تصحر|fertile land becoming desert
+reforestation|noun|C1|AWL|neutral|core|4|إعادة تشجير|planting trees on deforested land
+afforestation|noun|C1|AWL|neutral|extended|4|تشجير|planting trees where none existed
+mangrove restoration|noun|C1|NAWL|neutral|extended|4|استعادة أشجار القرم|replanting coastal mangrove forests
+wetland conservation|noun|C1|NAWL|neutral|extended|4|حفظ أراضي رطبة|protecting waterlogged ecosystems
+peat bog|noun|C1|CEFR-J|neutral|extended|4|مستنقع خث|a wetland with accumulated plant material
+carbon sink|noun|C1|NAWL|neutral|core|4|بالوعة كربون|a system that absorbs more carbon than it releases
+blue carbon|noun|C1|NAWL|neutral|extended|4|كربون أزرق|carbon stored in marine ecosystems
+carbon budget|noun|C1|NAWL|neutral|extended|4|ميزانية كربون|the maximum CO2 allowed to limit warming
+net zero|noun|C1|NAWL|neutral|core|4|صافي صفر|balancing emissions with removals
+carbon offset|noun|C1|NAWL|neutral|core|4|تعويض كربوني|compensating emissions by reducing them elsewhere
+emissions trading|noun|C1|AWL|neutral|extended|4|تداول انبعاثات|buying and selling pollution permits
+cap and trade|noun|C1|NAWL|neutral|extended|4|سقف وتداول|limiting emissions with tradable permits
+carbon tax|noun|C1|AWL|neutral|core|4|ضريبة كربون|a tax on fossil fuel carbon content
+green bond|noun|C1|NAWL|neutral|extended|4|سند أخضر|a bond funding environmental projects
+climate finance|noun|C1|AWL|neutral|core|4|تمويل مناخي|money for climate mitigation and adaptation
+loss and damage|noun|C1|AWL|neutral|extended|4|خسائر وأضرار|harm from climate change beyond adaptation
+climate justice|noun|C1|AWL|neutral|core|4|عدالة مناخية|fairness in addressing climate change
+environmental racism|noun|C1|NAWL|neutral|extended|4|عنصرية بيئية|disproportionate pollution affecting minorities
+frontline community|noun|C1|NAWL|neutral|extended|4|مجتمع خط أمامي|communities most affected by climate change
+climate litigation|noun|C1|NAWL|neutral|mastery|4|تقاضي مناخي|lawsuits related to climate change
+stranded asset|noun|C1|NAWL|neutral|mastery|4|أصل عالق|an investment losing value due to climate policy
+just transition|noun|C1|AWL|neutral|extended|4|انتقال عادل|shifting to green economy fairly
+green economy|noun|C1|AWL|neutral|core|4|اقتصاد أخضر|an economy focused on sustainability
+circular economy|noun|C1|AWL|neutral|core|4|اقتصاد دائري|an economy minimizing waste through reuse
+cradle-to-cradle|noun|C1|NAWL|neutral|mastery|4|من المهد إلى المهد|designing products for complete recycling
+life cycle assessment|noun|C1|AWL|neutral|extended|4|تقييم دورة حياة|evaluating environmental impact of a product
+ecological footprint|noun|C1|AWL|neutral|core|4|بصمة بيئية|the demand humans place on nature
+water footprint|noun|C1|NAWL|neutral|extended|4|بصمة مائية|total water used to produce a product
+virtual water|noun|C1|NAWL|neutral|mastery|4|مياه افتراضية|water embedded in traded goods
+food mile|noun|C1|NAWL|neutral|extended|4|ميل غذائي|the distance food travels to consumers
+urban heat island|noun|C1|NAWL|neutral|extended|4|جزيرة حرارية حضرية|cities being warmer than surrounding areas
+green infrastructure|noun|C1|AWL|neutral|core|4|بنية تحتية خضراء|natural systems managing urban water and heat
+bioswale|noun|C1|NAWL|neutral|mastery|4|مستنقع حيوي|a channel designed to filter stormwater
+permeable pavement|noun|C1|NAWL|neutral|mastery|4|رصف نفاذ|paving that allows water to pass through
+cool roof|noun|C1|CEFR-J|neutral|extended|4|سطح بارد|a roof designed to reflect sunlight
+green roof|noun|C1|CEFR-J|neutral|extended|4|سطح أخضر|a roof covered with vegetation
+passive house|noun|C1|NAWL|neutral|extended|4|منزل سلبي|a building with minimal energy use
+net-zero building|noun|C1|NAWL|neutral|extended|4|مبنى صافي صفر|a building producing as much energy as it uses
+building envelope|noun|C1|NAWL|neutral|mastery|4|غلاف مبنى|the physical barrier between interior and exterior
+thermal bridge|noun|C1|NAWL|neutral|mastery|4|جسر حراري|a path allowing heat to escape a building
+energy audit|noun|C1|AWL|neutral|extended|4|تدقيق طاقة|assessing a building's energy efficiency
+smart grid|noun|C1|NAWL|neutral|extended|4|شبكة ذكية|an electricity network using digital technology
+microgrid|noun|C1|NAWL|neutral|extended|4|شبكة صغيرة|a local energy grid operating independently
+energy storage|noun|C1|AWL|neutral|core|4|تخزين طاقة|saving energy for later use
+pumped hydro|noun|C1|NAWL|neutral|mastery|4|ضخ مائي|storing energy by pumping water uphill
+flywheel storage|noun|C1|NAWL|neutral|mastery|4|تخزين دولاب موازنة|storing energy in a spinning mass
+compressed air storage|noun|C1|NAWL|neutral|mastery|4|تخزين هواء مضغوط|storing energy as compressed air
+grid parity|noun|C1|NAWL|neutral|mastery|4|تكافؤ شبكة|renewable energy costing the same as fossil fuel
+levelized cost|noun|C1|NAWL|neutral|mastery|4|تكلفة معيارية|the average cost of energy over a plant's lifetime
+capacity factor|noun|C1|NAWL|neutral|mastery|4|عامل سعة|actual output compared to maximum output
+intermittency|noun|C1|NAWL|neutral|extended|4|تقطع|the variable nature of renewable energy
+baseload power|noun|C1|NAWL|neutral|extended|4|طاقة حمل أساسي|the minimum electricity demand
+peak demand|noun|C1|NAWL|neutral|extended|4|طلب ذروة|the highest electricity consumption period
+demand response|noun|C1|NAWL|neutral|extended|4|استجابة طلب|adjusting consumption to match supply
+vehicle-to-grid|noun|C1|NAWL|neutral|mastery|4|مركبة إلى شبكة|electric cars feeding power back to the grid
+electrification|noun|C1|AWL|neutral|core|4|كهربة|switching from fossil fuels to electricity
+decarbonization|noun|C1|AWL|neutral|core|4|إزالة كربون|reducing carbon dioxide emissions
+hydrogen economy|noun|C1|NAWL|neutral|extended|4|اقتصاد هيدروجيني|using hydrogen as an energy carrier
+green hydrogen|noun|C1|NAWL|neutral|extended|4|هيدروجين أخضر|hydrogen made using renewable energy
+synthetic fuel|noun|C1|NAWL|neutral|extended|4|وقود اصطناعي|fuel made from CO2 and hydrogen
+bioenergy|noun|C1|NAWL|neutral|extended|4|طاقة حيوية|energy from biological sources
+geothermal energy|noun|C1|NAWL|neutral|core|4|طاقة حرارية أرضية|heat energy from the earth
+tidal energy|noun|C1|NAWL|neutral|extended|4|طاقة مدية|energy from ocean tides
+wave energy|noun|C1|NAWL|neutral|extended|4|طاقة أمواج|energy from ocean waves
+offshore wind|noun|C1|NAWL|neutral|core|4|رياح بحرية|wind turbines installed at sea
+floating solar|noun|C1|NAWL|neutral|mastery|4|طاقة شمسية عائمة|solar panels on water surfaces
+agrivoltaics|noun|C2|NAWL|formal|mastery|4|زراعة كهروضوئية|combining solar panels with farming
+concentrated solar|noun|C1|NAWL|neutral|extended|4|طاقة شمسية مركزة|using mirrors to concentrate sunlight
+solar thermal|noun|C1|NAWL|neutral|extended|4|حرارة شمسية|using sunlight to generate heat
+heat pump|noun|C1|CEFR-J|neutral|core|4|مضخة حرارية|a device transferring heat between spaces
+district heating|noun|C1|NAWL|neutral|extended|4|تدفئة مركزية|centralized heating for multiple buildings
+combined heat and power|noun|C1|NAWL|neutral|mastery|4|توليد مشترك|generating electricity and useful heat together

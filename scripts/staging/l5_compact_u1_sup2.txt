@@ -1,0 +1,62 @@
+sarcophagus|noun|C1|NAWL|neutral|core|1|تابوت حجري|a stone coffin often decorated with carvings
+mausoleum|noun|C1|CEFR-J|neutral|core|1|ضريح|a large impressive tomb building
+necropolis|noun|C2|NAWL|formal|core|1|مدينة الموتى|a large ancient cemetery
+catacomb|noun|C1|CEFR-J|neutral|core|1|سرداب|an underground burial passage
+ossuary|noun|C2|NAWL|formal|core|1|مستودع عظام|a container for storing bones
+reliquary|noun|C2|NAWL|formal|core|1|صندوق ذخائر|a container for religious relics
+barrow|noun|C1|CEFR-J|neutral|core|1|تل دفن|an ancient burial mound
+cairn|noun|C1|CEFR-J|neutral|core|1|كومة حجارة|a mound of stones as a memorial
+dolmen|noun|C2|NAWL|formal|core|1|دولمن|a megalithic stone table structure
+menhir|noun|C2|NAWL|formal|core|1|حجر منتصب|a tall upright stone monument
+megalith|noun|C1|NAWL|neutral|core|1|صخرة ضخمة|a large stone used in ancient structures
+henge|noun|C1|NAWL|neutral|core|1|دائرة حجرية|a circular prehistoric monument
+cromlech|noun|C2|NAWL|formal|extended|1|حلقة حجارة|a circle of standing stones
+trilithon|noun|C2|NAWL|formal|extended|1|ثلاثية حجرية|two upright stones with a lintel
+obelisk|noun|C1|CEFR-J|neutral|extended|1|مسلة|a tall four-sided stone pillar
+ziggurat|noun|C1|NAWL|neutral|extended|1|زقورة|a stepped pyramid of ancient Mesopotamia
+cuneiform|noun|C1|NAWL|neutral|extended|1|كتابة مسمارية|wedge-shaped writing of ancient Mesopotamia
+hieroglyph|noun|C1|CEFR-J|neutral|extended|1|هيروغليفية|a picture used as a writing symbol
+papyrus|noun|C1|CEFR-J|neutral|extended|1|ورق بردي|ancient writing material from reeds
+parchment|noun|C1|CEFR-J|neutral|extended|1|رق|writing material from animal skin
+palimpsest|noun|C2|NAWL|formal|extended|1|مخطوط ممحو|a manuscript reused after erasing original text
+codex|noun|C1|NAWL|neutral|extended|1|مخطوطة قديمة|an ancient manuscript in book form
+cartouche|noun|C2|NAWL|formal|extended|1|خرطوش|an oval frame enclosing royal names in Egyptian writing
+scarab|noun|C1|CEFR-J|neutral|extended|1|جعران|a beetle-shaped amulet of ancient Egypt
+canopic|adjective|C2|NAWL|formal|mastery|1|كانوبي|relating to jars holding mummified organs
+embalm|verb|C1|CEFR-J|neutral|mastery|1|يحنط|to preserve a body from decay
+mummify|verb|C1|CEFR-J|neutral|mastery|1|يحول لمومياء|to preserve a body by drying
+natron|noun|C2|NAWL|formal|mastery|1|نطرون|a mineral salt used in mummification
+shroud|noun|C1|CEFR-J|neutral|mastery|1|كفن|a cloth wrapping for a dead body
+desiccation|noun|C1|NAWL|neutral|mastery|1|تجفيف|the process of drying out completely
+patination|noun|C2|NAWL|formal|mastery|1|تزنجر|the formation of a surface layer over time
+provenance|noun|C1|AWL|neutral|core|1|مصدر أثري|the origin and history of an artifact
+antiquarian|noun|C1|CEFR-J|neutral|core|1|محب آثار|a person who studies or collects old objects
+artifact|noun|C1|AWL|neutral|core|1|قطعة أثرية|an object made by humans in the past
+relic|noun|C1|CEFR-J|neutral|core|1|أثر باقي|an object surviving from the past
+remnant|noun|C1|CEFR-J|neutral|core|1|بقية|a remaining piece of something
+vestige|noun|C1|AWL|neutral|core|1|أثر ضئيل|a trace of something that no longer exists
+ruin|noun|B2|CEFR-J|neutral|core|1|أطلال|the remains of a destroyed building
+citadel|noun|C1|CEFR-J|neutral|extended|1|قلعة|a fortress protecting a city
+rampart|noun|C1|CEFR-J|neutral|extended|1|سور حصن|a defensive wall of a castle
+battlement|noun|C1|CEFR-J|neutral|extended|1|شرفة حربية|a wall with gaps for defense
+moat|noun|C1|CEFR-J|neutral|extended|1|خندق مائي|a water-filled trench around a castle
+drawbridge|noun|C1|CEFR-J|neutral|extended|1|جسر متحرك|a bridge that can be raised
+portcullis|noun|C2|NAWL|formal|extended|1|باب حديدي|a heavy gate that slides vertically
+parapet|noun|C1|CEFR-J|neutral|extended|1|حاجز سطح|a low wall along the edge of a roof
+buttress|noun|C1|CEFR-J|neutral|extended|1|دعامة|a projecting support for a wall
+pillar|noun|B2|CEFR-J|neutral|core|1|عمود|a tall vertical structure supporting a building
+colonnade|noun|C1|NAWL|neutral|core|1|صف أعمدة|a row of columns
+pediment|noun|C1|NAWL|neutral|mastery|1|جبهة مثلثة|the triangular front of a classical building
+frieze|noun|C1|CEFR-J|neutral|mastery|1|إفريز|a horizontal decorative band on a building
+cornice|noun|C1|CEFR-J|neutral|mastery|1|كورنيش|a decorative molding at the top of a wall
+capital|noun|C1|CEFR-J|neutral|mastery|1|تاج عمود|the top part of a column
+shaft|noun|C1|CEFR-J|neutral|mastery|1|بدن عمود|the main body of a column
+plinth|noun|C1|CEFR-J|neutral|mastery|1|قاعدة عمود|the base on which a column stands
+entablature|noun|C2|NAWL|formal|mastery|1|عتب أعمدة|the horizontal structure above columns
+caryatid|noun|C2|NAWL|formal|mastery|1|عمود تمثالي|a female figure used as a column
+acropolis|noun|C1|NAWL|neutral|extended|1|أكروبوليس|a fortified hilltop in a Greek city
+agora|noun|C1|NAWL|neutral|extended|1|أغورا|a marketplace in ancient Greece
+forum|noun|C1|AWL|neutral|extended|1|منتدى|the public square of an ancient Roman city
+aqueduct|noun|C1|CEFR-J|neutral|extended|1|قناة مياه|a channel for carrying water
+cistern|noun|C1|CEFR-J|neutral|extended|1|صهريج|an underground reservoir for water
+granary|noun|C1|CEFR-J|neutral|extended|1|مخزن حبوب|a storehouse for grain

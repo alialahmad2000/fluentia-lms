@@ -1,0 +1,86 @@
+technique|noun|C1|AWL|neutral|core|2|تقنية|a particular way of doing something
+strategy|noun|C1|AWL|neutral|core|2|استراتيجية|a plan for achieving a goal
+visualization|noun|C1|AWL|neutral|core|2|تصور ذهني|forming mental images of success
+mental rehearsal|noun|C1|NAWL|neutral|extended|2|تمرين ذهني|practicing in the mind before performing
+focus|noun|B2|CEFR-J|neutral|core|2|تركيز|concentrated attention on a task
+concentration|noun|C1|CEFR-J|neutral|core|2|تركيز ذهني|complete mental attention
+determination|noun|C1|CEFR-J|neutral|core|2|إصرار|firmness of purpose
+motivation|noun|C1|AWL|neutral|core|2|تحفيز|a reason for acting in a certain way
+drive|noun|C1|CEFR-J|neutral|core|2|دافع|an innate need or urge
+willpower|noun|C1|CEFR-J|neutral|core|2|قوة إرادة|control exercised to restrain impulses
+self-discipline|noun|C1|CEFR-J|neutral|core|2|ضبط نفس|the ability to control one's behavior
+mental toughness|noun|C1|NAWL|neutral|core|2|صلابة ذهنية|resilience under pressure
+composure|noun|C1|CEFR-J|neutral|extended|2|رباطة جأش|calmness under pressure
+poise|noun|C1|CEFR-J|neutral|extended|2|هدوء مسيطر|graceful self-assurance
+peak performance|noun|C1|NAWL|neutral|core|2|أداء ذروي|the highest level of functioning
+optimal|adjective|C1|AWL|neutral|core|2|أمثل|the best possible
+benchmark|noun|C1|AWL|neutral|extended|2|معيار قياسي|a standard for comparison
+threshold|noun|C1|AWL|neutral|extended|2|عتبة جسدية|the point where change begins
+breakthrough|noun|C1|CEFR-J|neutral|core|2|اختراق|a sudden advance or achievement
+setback|noun|C1|CEFR-J|neutral|core|2|نكسة|a reversal in progress
+comeback|noun|C1|CEFR-J|neutral|core|2|عودة قوية|a return to former strength
+underdog|noun|C1|CEFR-J|neutral|extended|2|طرف ضعيف|a competitor expected to lose
+rival|noun|C1|CEFR-J|neutral|core|2|منافس|a person competing against another
+contender|noun|C1|CEFR-J|neutral|core|2|متنافس|a person likely to win
+frontrunner|noun|C1|CEFR-J|neutral|extended|2|متصدر|the leading competitor
+pace setter|noun|C1|NAWL|neutral|extended|2|محدد الإيقاع|a person who sets the speed
+draft|noun|C1|CEFR-J|neutral|extended|2|سحب هوائي|riding in the wake of another for less resistance
+breakaway|noun|C1|CEFR-J|neutral|extended|2|انفصال عن المجموعة|separating from the main group in a race
+peloton|noun|C1|NAWL|neutral|mastery|2|مجموعة دراجات|the main group of riders in cycling
+split time|noun|C1|CEFR-J|neutral|extended|2|زمن تقسيمي|time recorded at an intermediate point
+lap time|noun|C1|CEFR-J|neutral|extended|2|زمن لفة|the time taken for one circuit
+photo finish|noun|C1|CEFR-J|neutral|mastery|2|نهاية متقاربة|a race ending so close it needs a photograph
+disqualification|noun|C1|AWL|neutral|extended|2|استبعاد|exclusion from a competition
+foul|noun|C1|CEFR-J|neutral|core|2|مخالفة|an unfair action in a competition
+penalty|noun|C1|CEFR-J|neutral|core|2|عقوبة رياضية|punishment for breaking rules
+suspension|noun|C1|AWL|neutral|extended|2|إيقاف|temporarily banning from competition
+eligibility|noun|C1|AWL|neutral|extended|2|أهلية|meeting requirements to compete
+amateur|noun|C1|CEFR-J|neutral|core|2|هاوي|a person doing something without pay
+professional|noun|B2|AWL|neutral|core|2|محترف|a person doing something for pay
+semi-professional|adjective|C1|CEFR-J|neutral|extended|2|شبه محترف|partly professional and partly amateur
+collegiate|adjective|C1|CEFR-J|neutral|extended|2|جامعي رياضي|relating to university-level sports
+varsity|noun|C1|CEFR-J|neutral|mastery|2|فريق جامعي|the main team representing a university
+intramural|adjective|C1|NAWL|neutral|mastery|2|داخلي رياضي|sports played within one institution
+draft pick|noun|C1|CEFR-J|neutral|mastery|2|اختيار موسمي|selecting new players for a team
+scouting|noun|C1|CEFR-J|neutral|extended|2|استكشاف مواهب|searching for talented athletes
+recruitment|noun|C1|AWL|neutral|extended|2|تجنيد رياضي|attracting athletes to a team
+scholarship|noun|C1|AWL|neutral|core|2|منحة رياضية|financial aid for student athletes
+endorsement|noun|C1|AWL|neutral|extended|2|رعاية تجارية|public support for a product by an athlete
+sponsorship|noun|C1|CEFR-J|neutral|core|2|رعاية|financial support in exchange for promotion
+merchandise|noun|C1|CEFR-J|neutral|extended|2|بضائع رياضية|goods relating to a team or athlete
+franchise|noun|C1|AWL|neutral|extended|2|امتياز رياضي|a licensed sports team
+league|noun|B2|CEFR-J|neutral|core|2|دوري|an organized group of sports teams
+division|noun|C1|CEFR-J|neutral|core|2|قسم رياضي|a section within a league
+conference|noun|C1|AWL|neutral|extended|2|مؤتمر رياضي|a group of teams within a league
+regular season|noun|C1|CEFR-J|neutral|core|2|موسم عادي|the main part of a sports season
+playoffs|noun|C1|CEFR-J|neutral|core|2|تصفيات|elimination rounds after the season
+overtime|noun|C1|CEFR-J|neutral|core|2|وقت إضافي|additional playing time after a tie
+shootout|noun|C1|CEFR-J|neutral|extended|2|ركلات ترجيحية|deciding a tie by alternating attempts
+aggregate score|noun|C1|CEFR-J|neutral|extended|2|مجموع نقاط|the combined score from multiple games
+home advantage|noun|C1|CEFR-J|neutral|extended|2|ميزة الأرض|the benefit of playing in one's own venue
+crowd|noun|B2|CEFR-J|neutral|core|2|جمهور|spectators at an event
+spectator|noun|C1|CEFR-J|neutral|core|2|مشاهد|a person watching an event
+stadium|noun|B2|CEFR-J|neutral|core|2|ملعب|a large venue for sports events
+arena|noun|C1|CEFR-J|neutral|core|2|حلبة|an enclosed area for events
+venue|noun|C1|CEFR-J|neutral|core|2|مكان فعالية|the location of an event
+referee|noun|B2|CEFR-J|neutral|core|2|حكم|an official enforcing rules
+umpire|noun|C1|CEFR-J|neutral|extended|2|حكم كرة|an official in certain sports
+linesman|noun|C1|CEFR-J|neutral|extended|2|حكم خط|an official watching boundary lines
+VAR|noun|C1|NAWL|neutral|extended|2|حكم فيديو|video technology assisting referees
+goal-line technology|noun|C1|NAWL|neutral|mastery|2|تقنية خط مرمى|technology determining if a goal was scored
+instant replay|noun|C1|CEFR-J|neutral|extended|2|إعادة فورية|reviewing recorded footage during a game
+offside|noun|C1|CEFR-J|neutral|extended|2|تسلل|being in an illegal position
+handball|noun|C1|CEFR-J|neutral|extended|2|لمسة يد|illegal touching of the ball
+advantage rule|noun|C1|CEFR-J|neutral|mastery|2|ميزة استمرار|continuing play after a foul benefits the other team
+sportsmanship|noun|C1|CEFR-J|neutral|core|2|روح رياضية|fair and generous behavior in sports
+fair play|noun|C1|CEFR-J|neutral|core|2|لعب نظيف|playing according to the rules and spirit
+gamesmanship|noun|C1|NAWL|neutral|mastery|2|حيل رياضية|using dubious methods to win
+time-wasting|noun|C1|CEFR-J|neutral|mastery|2|مماطلة|deliberately delaying play
+simulation|noun|C1|AWL|neutral|mastery|2|تمثيل سقوط|pretending to be fouled
+diving|noun|C1|CEFR-J|neutral|mastery|2|تمثيل إسقاط|falling intentionally to win a foul
+transfer|noun|C1|CEFR-J|neutral|core|2|انتقال لاعب|moving a player between teams
+loan|noun|C1|CEFR-J|neutral|extended|2|إعارة لاعب|temporarily sending a player to another team
+free agent|noun|C1|CEFR-J|neutral|extended|2|لاعب حر|a player not under contract
+salary cap|noun|C1|NAWL|neutral|mastery|2|سقف رواتب|a limit on total team spending
+transfer window|noun|C1|CEFR-J|neutral|extended|2|نافذة انتقالات|the period when transfers are allowed
+buyout clause|noun|C1|NAWL|neutral|mastery|2|شرط شراء|the price to release a player from contract

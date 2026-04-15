@@ -1,0 +1,128 @@
+neuron|noun|C1|CEFR-J|neutral|core|7|خلية عصبية|a cell transmitting nerve impulses
+synapse|noun|C1|NAWL|neutral|core|7|تشابك عصبي|the junction between two nerve cells
+dendrite|noun|C1|NAWL|neutral|core|7|تغصن|a branching extension of a nerve cell receiving signals
+axon|noun|C1|NAWL|neutral|core|7|محور عصبي|a long extension of a nerve cell transmitting signals
+myelin|noun|C1|NAWL|neutral|core|7|ميالين|the insulating sheath around nerve fibers
+neurotransmitter|noun|C1|NAWL|neutral|core|7|ناقل عصبي|a chemical messenger between neurons
+dopamine|noun|C1|NAWL|neutral|core|7|دوبامين|a neurotransmitter related to reward
+serotonin|noun|C1|NAWL|neutral|core|7|سيروتونين|a neurotransmitter affecting mood
+norepinephrine|noun|C1|NAWL|neutral|core|7|نورإبينفرين|a neurotransmitter for alertness
+acetylcholine|noun|C1|NAWL|neutral|extended|7|أستيل كولين|a neurotransmitter for muscle control
+GABA|noun|C1|NAWL|neutral|extended|7|غابا|an inhibitory neurotransmitter
+glutamate|noun|C1|NAWL|neutral|extended|7|غلوتامات|the main excitatory neurotransmitter
+endorphin|noun|C1|CEFR-J|neutral|core|7|إندورفين|a natural painkiller produced by the body
+oxytocin|noun|C1|NAWL|neutral|extended|7|أوكسيتوسين|a hormone linked to bonding
+cortisol|noun|C1|NAWL|neutral|core|7|كورتيزول|a stress hormone
+adrenaline|noun|C1|CEFR-J|neutral|core|7|أدرينالين|a hormone triggering the fight-or-flight response
+melatonin|noun|C1|NAWL|neutral|extended|7|ميلاتونين|a hormone regulating sleep
+hippocampus|noun|C1|NAWL|neutral|core|7|حصين|a brain region crucial for memory
+amygdala|noun|C1|NAWL|neutral|core|7|لوزة دماغية|a brain region processing emotions
+prefrontal cortex|noun|C1|NAWL|neutral|core|7|قشرة أمامية|the brain area for decision-making
+cerebellum|noun|C1|NAWL|neutral|core|7|مخيخ|the brain region coordinating movement
+cerebrum|noun|C1|NAWL|neutral|core|7|مخ|the largest part of the brain
+brain stem|noun|C1|CEFR-J|neutral|core|7|جذع الدماغ|the base of the brain controlling basic functions
+thalamus|noun|C1|NAWL|neutral|extended|7|مهاد|a relay station for sensory information
+hypothalamus|noun|C1|NAWL|neutral|extended|7|وطاء|a brain region controlling body temperature and hunger
+pituitary|noun|C1|NAWL|neutral|extended|7|غدة نخامية|the master gland controlling hormones
+pineal gland|noun|C1|NAWL|neutral|extended|7|غدة صنوبرية|a gland producing melatonin
+corpus callosum|noun|C1|NAWL|neutral|extended|7|جسم ثفني|the bridge connecting brain hemispheres
+temporal lobe|noun|C1|NAWL|neutral|core|7|فص صدغي|a brain region for hearing and language
+parietal lobe|noun|C1|NAWL|neutral|extended|7|فص جداري|a brain region for spatial awareness
+occipital lobe|noun|C1|NAWL|neutral|extended|7|فص قذالي|a brain region for vision
+frontal lobe|noun|C1|NAWL|neutral|core|7|فص جبهي|a brain region for reasoning
+Broca's area|noun|C1|NAWL|neutral|extended|7|منطقة بروكا|a brain region for speech production
+Wernicke's area|noun|C1|NAWL|neutral|extended|7|منطقة فيرنيكه|a brain region for language comprehension
+lateralization|noun|C1|AWL|neutral|extended|7|جانبية دماغية|functional differences between brain hemispheres
+neuroplasticity|noun|C1|NAWL|neutral|core|7|مرونة عصبية|the brain's ability to reorganize itself
+neurogenesis|noun|C1|NAWL|neutral|extended|7|تكوين عصبي|the growth of new neurons
+synaptogenesis|noun|C2|NAWL|formal|mastery|7|تشابك جديد|the formation of new synapses
+pruning|noun|C1|CEFR-J|neutral|extended|7|تقليم عصبي|the elimination of unused neural connections
+myelination|noun|C1|NAWL|neutral|mastery|7|تكون الميالين|the process of forming myelin sheaths
+long-term potentiation|noun|C2|NAWL|formal|mastery|7|تقوية طويلة الأمد|strengthening of synapses through activity
+habituation|noun|C1|AWL|neutral|extended|7|تعود|decreased response to repeated stimulation
+sensitization|noun|C1|AWL|neutral|extended|7|تحسس|increased response after strong stimulation
+classical conditioning|noun|C1|AWL|neutral|core|7|اشتراط كلاسيكي|learning by associating two stimuli
+operant conditioning|noun|C1|AWL|neutral|core|7|اشتراط إجرائي|learning through rewards and punishments
+reinforcement|noun|C1|AWL|neutral|core|7|تعزيز|strengthening behavior through consequences
+extinction|noun|C1|CEFR-J|neutral|extended|7|انطفاء|the disappearance of a learned response
+stimulus|noun|C1|AWL|neutral|core|7|منبه|something causing a response
+response|noun|B2|CEFR-J|neutral|core|7|استجابة|a reaction to a stimulus
+reflex|noun|C1|CEFR-J|neutral|core|7|منعكس|an automatic involuntary reaction
+cognition|noun|C1|AWL|neutral|core|7|إدراك|the mental process of knowing
+perception|noun|C1|AWL|neutral|core|7|إدراك حسي|interpreting sensory information
+attention|noun|B2|CEFR-J|neutral|core|7|انتباه|focusing mental resources on something
+selective attention|noun|C1|AWL|neutral|extended|7|انتباه انتقائي|focusing on one thing while ignoring others
+sustained attention|noun|C1|AWL|neutral|extended|7|انتباه مستمر|maintaining focus over a long period
+divided attention|noun|C1|AWL|neutral|extended|7|انتباه موزع|focusing on multiple tasks simultaneously
+working memory|noun|C1|AWL|neutral|core|7|ذاكرة عاملة|temporary storage for active processing
+short-term memory|noun|C1|CEFR-J|neutral|core|7|ذاكرة قصيرة|brief retention of information
+long-term memory|noun|C1|CEFR-J|neutral|core|7|ذاكرة طويلة|permanent storage of information
+episodic memory|noun|C1|NAWL|neutral|extended|7|ذاكرة حدثية|memory of personal experiences
+semantic memory|noun|C1|NAWL|neutral|extended|7|ذاكرة دلالية|memory of facts and concepts
+procedural memory|noun|C1|NAWL|neutral|extended|7|ذاكرة إجرائية|memory of how to perform actions
+implicit memory|noun|C1|NAWL|neutral|mastery|7|ذاكرة ضمنية|unconscious memory of skills and habits
+explicit memory|noun|C1|NAWL|neutral|mastery|7|ذاكرة صريحة|conscious recall of facts and events
+encoding|noun|C1|AWL|neutral|core|7|تشفير عصبي|converting information for brain storage
+retrieval|noun|C1|AWL|neutral|core|7|استرجاع|accessing stored information
+consolidation|noun|C1|AWL|neutral|extended|7|تعزيز ذاكري|stabilizing a memory after initial encoding
+amnesia|noun|C1|CEFR-J|neutral|extended|7|فقدان ذاكرة|partial or total memory loss
+retrograde amnesia|noun|C1|NAWL|neutral|mastery|7|فقد ذاكرة رجعي|inability to recall past memories
+anterograde amnesia|noun|C1|NAWL|neutral|mastery|7|فقد ذاكرة تقدمي|inability to form new memories
+confabulation|noun|C2|NAWL|formal|mastery|7|تلفيق ذكريات|creating false memories without intent
+déjà vu|noun|C1|CEFR-J|neutral|extended|7|سبق رؤية|the feeling of having experienced something before
+flashbulb memory|noun|C1|NAWL|neutral|mastery|7|ذاكرة ومضية|a vivid memory of a significant event
+priming|noun|C1|NAWL|neutral|extended|7|تمهيد عصبي|exposure to one stimulus affecting response to another
+schema|noun|C1|AWL|neutral|core|7|مخطط ذهني|a mental framework organizing knowledge
+heuristic|noun|C1|NAWL|neutral|core|7|اختصار ذهني|a mental shortcut for problem-solving
+metacognition|noun|C1|NAWL|neutral|extended|7|ما وراء المعرفة|awareness of one's own thinking
+executive function|noun|C1|NAWL|neutral|core|7|وظيفة تنفيذية|higher-order cognitive processes
+inhibition|noun|C1|AWL|neutral|extended|7|كف عصبي|suppressing automatic responses
+cognitive load|noun|C1|NAWL|neutral|extended|7|حمل معرفي|the amount of mental effort being used
+mental model|noun|C1|NAWL|neutral|extended|7|نموذج ذهني|an internal representation of reality
+theory of mind|noun|C1|NAWL|neutral|core|7|نظرية العقل|understanding others' mental states
+empathy|noun|C1|CEFR-J|neutral|core|7|تعاطف|the ability to share another's feelings
+mirror neuron|noun|C1|NAWL|neutral|extended|7|خلية مرآتية|a neuron firing when observing an action
+affect|noun|C1|AWL|neutral|core|7|وجدان|an emotional state or feeling
+arousal|noun|C1|CEFR-J|neutral|extended|7|استثارة|a state of heightened alertness
+valence|noun|C1|NAWL|neutral|extended|7|تكافأ|the positive or negative quality of an emotion
+emotional regulation|noun|C1|AWL|neutral|core|7|تنظيم عاطفي|controlling emotional responses
+cognitive dissonance|noun|C1|NAWL|neutral|extended|7|تنافر معرفي|discomfort from conflicting beliefs
+intrinsic motivation|noun|C1|AWL|neutral|core|7|دافع داخلي|motivation from internal satisfaction
+extrinsic motivation|noun|C1|AWL|neutral|core|7|دافع خارجي|motivation from external rewards
+self-efficacy|noun|C1|AWL|neutral|extended|7|فاعلية ذاتية|belief in one's ability to succeed
+learned helplessness|noun|C1|NAWL|neutral|mastery|7|عجز مكتسب|passivity from repeated failure
+flow state|noun|C1|NAWL|neutral|extended|7|حالة انسياب|complete absorption in an activity
+circadian rhythm|noun|C1|NAWL|neutral|core|7|إيقاع يومي|the body's internal 24-hour cycle
+REM sleep|noun|C1|CEFR-J|neutral|core|7|نوم حركة العين|sleep phase with rapid eye movement
+non-REM sleep|noun|C1|NAWL|neutral|extended|7|نوم بلا حركة عين|deeper sleep phases without dreaming
+insomnia|noun|C1|CEFR-J|neutral|extended|7|أرق|difficulty falling or staying asleep
+narcolepsy|noun|C1|NAWL|neutral|mastery|7|سبات مرضي|a disorder causing sudden sleep attacks
+sleep apnea|noun|C1|NAWL|neutral|mastery|7|انقطاع نفس نومي|interrupted breathing during sleep
+EEG|noun|C1|NAWL|neutral|core|7|تخطيط كهربائي دماغي|recording electrical brain activity
+fMRI|noun|C1|NAWL|neutral|core|7|رنين مغناطيسي وظيفي|brain imaging using blood flow
+PET scan|noun|C1|NAWL|neutral|extended|7|تصوير مقطعي|brain imaging using radioactive tracers
+CT scan|noun|C1|CEFR-J|neutral|extended|7|تصوير طبقي محوري|X-ray cross-sectional imaging
+transcranial|adjective|C2|NAWL|formal|mastery|7|عبر الجمجمة|through the skull
+neuromodulation|noun|C2|NAWL|formal|mastery|7|تعديل عصبي|altering nerve activity with technology
+optogenetics|noun|C2|NAWL|formal|mastery|7|وراثيات ضوئية|controlling neurons with light
+brain-computer interface|noun|C1|NAWL|neutral|core|7|واجهة دماغ حاسوب|technology linking brain to computer
+neuroprosthetics|noun|C2|NAWL|formal|mastery|7|أطراف عصبية صناعية|artificial devices replacing nervous system function
+neurodegeneration|noun|C1|NAWL|neutral|extended|7|تنكس عصبي|progressive loss of nerve function
+Alzheimer's|noun|C1|CEFR-J|neutral|extended|7|ألزهايمر|a disease causing memory loss
+Parkinson's|noun|C1|CEFR-J|neutral|extended|7|باركنسون|a disease affecting movement
+epilepsy|noun|C1|CEFR-J|neutral|extended|7|صرع|a disorder causing seizures
+seizure|noun|C1|CEFR-J|neutral|extended|7|نوبة صرع|a sudden electrical disturbance in the brain
+concussion|noun|C1|CEFR-J|neutral|extended|7|ارتجاج دماغي|a brain injury from impact
+stroke|noun|C1|CEFR-J|neutral|core|7|سكتة دماغية|brain damage from blocked blood supply
+aneurysm|noun|C1|NAWL|neutral|mastery|7|تمدد وعائي|a dangerous bulge in a blood vessel
+neurotoxin|noun|C1|NAWL|neutral|mastery|7|سم عصبي|a substance damaging nervous tissue
+psychopharmacology|noun|C2|NAWL|formal|mastery|7|علم أدوية نفسية|the study of drugs affecting the mind
+antidepressant|noun|C1|CEFR-J|neutral|extended|7|مضاد اكتئاب|a medication treating depression
+anxiolytic|noun|C2|NAWL|formal|mastery|7|مزيل قلق|a medication reducing anxiety
+antipsychotic|noun|C1|NAWL|neutral|mastery|7|مضاد ذهان|a medication treating psychosis
+placebo effect|noun|C1|NAWL|neutral|core|7|تأثير وهمي|improvement from belief in treatment
+nocebo effect|noun|C2|NAWL|formal|mastery|7|تأثير سلبي وهمي|worsening from negative expectations
+neuroimaging|noun|C1|NAWL|neutral|core|7|تصوير عصبي|techniques for visualizing brain structure
+connectome|noun|C2|NAWL|formal|mastery|7|خريطة اتصالات دماغية|a map of neural connections in the brain
+default mode network|noun|C1|NAWL|neutral|mastery|7|شبكة الوضع الافتراضي|brain regions active during rest
+salience network|noun|C2|NAWL|formal|mastery|7|شبكة الأهمية|brain regions detecting important stimuli

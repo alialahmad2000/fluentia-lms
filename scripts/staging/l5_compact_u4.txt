@@ -1,0 +1,137 @@
+adaptation|noun|C1|AWL|neutral|core|4|تكيّف|the process of adjusting to new conditions
+mitigation|noun|C1|AWL|neutral|core|4|تخفيف|the action of reducing severity of something
+sustainability|noun|C1|AWL|neutral|core|4|استدامة|meeting present needs without compromising the future
+ecosystem|noun|B2|CEFR-J|neutral|core|4|نظام بيئي|a community of interacting organisms
+biodiversity|noun|C1|AWL|neutral|core|4|تنوع بيولوجي|the variety of life in a particular habitat
+deforestation|noun|B2|CEFR-J|neutral|core|4|إزالة الغابات|the clearing of trees from forests
+desertification|noun|C1|NAWL|neutral|core|4|تصحر|the process of land becoming desert
+erosion|noun|C1|AWL|neutral|core|4|تعرية|the gradual wearing away of land by natural forces
+greenhouse|noun|B2|CEFR-J|neutral|core|4|دفيئة|a structure for growing plants in warmth
+emission|noun|C1|AWL|neutral|core|4|انبعاث|the discharge of gas or radiation
+carbon|noun|B2|CEFR-J|neutral|core|4|كربون|a chemical element found in all organic matter
+methane|noun|C1|CEFR-J|neutral|core|4|ميثان|a greenhouse gas produced by decomposition
+ozone|noun|C1|CEFR-J|neutral|core|4|أوزون|a gas layer in the atmosphere blocking UV rays
+atmosphere|noun|B2|CEFR-J|neutral|core|4|غلاف جوي|the envelope of gases surrounding Earth
+troposphere|noun|C2|NAWL|formal|core|4|تروبوسفير|the lowest layer of the atmosphere
+stratosphere|noun|C1|CEFR-J|neutral|core|4|ستراتوسفير|the atmosphere layer above the troposphere
+precipitation|noun|C1|AWL|neutral|core|4|هطول|rain, snow, sleet, or hail falling to the ground
+evaporation|noun|C1|CEFR-J|neutral|core|4|تبخر|the process of liquid becoming vapor
+condensation|noun|C1|CEFR-J|neutral|core|4|تكثف|the conversion of vapor to liquid
+humidity|noun|B2|CEFR-J|neutral|core|4|رطوبة|the amount of water vapor in the air
+monsoon|noun|C1|CEFR-J|neutral|core|4|رياح موسمية|a seasonal wind bringing heavy rainfall
+cyclone|noun|C1|CEFR-J|neutral|core|4|إعصار|a system of winds rotating around a low-pressure center
+tornado|noun|B2|CEFR-J|neutral|core|4|إعصار قمعي|a violent rotating column of air
+tsunami|noun|B2|CEFR-J|neutral|core|4|تسونامي|a large ocean wave caused by an earthquake
+glacier|noun|C1|CEFR-J|neutral|core|4|نهر جليدي|a slowly moving mass of ice
+permafrost|noun|C1|NAWL|neutral|core|4|تربة متجمدة|permanently frozen ground
+tundra|noun|C1|CEFR-J|neutral|core|4|تندرا|a vast flat treeless Arctic region
+savanna|noun|C1|CEFR-J|neutral|core|4|سافانا|a grassy plain with scattered trees
+wetland|noun|C1|CEFR-J|neutral|core|4|أرض رطبة|an area of land saturated with water
+estuary|noun|C1|CEFR-J|neutral|core|4|مصب نهري|the mouth of a river where it meets the sea
+aquifer|noun|C1|NAWL|neutral|core|4|طبقة مياه جوفية|an underground layer of water-bearing rock
+watershed|noun|C1|CEFR-J|neutral|core|4|مستجمع مائي|an area draining into a river system
+reservoir|noun|C1|CEFR-J|neutral|core|4|خزان|a large natural or artificial lake for water supply
+salinity|noun|C1|NAWL|neutral|core|4|ملوحة|the concentration of salt in water
+acidification|noun|C1|NAWL|neutral|core|4|تحمض|the process of becoming more acidic
+eutrophication|noun|C2|NAWL|formal|core|4|إثراء غذائي|excessive nutrient enrichment of water
+algae|noun|C1|CEFR-J|neutral|core|4|طحالب|simple plants growing in water
+coral|noun|B2|CEFR-J|neutral|core|4|مرجان|marine organisms forming tropical reefs
+reef|noun|C1|CEFR-J|neutral|core|4|شعاب|a ridge of rock or coral near the surface
+mangrove|noun|C1|CEFR-J|neutral|core|4|أشجار المانغروف|tropical trees growing in coastal mud
+canopy|noun|C1|CEFR-J|neutral|core|4|مظلة غابة|the uppermost layer of tree branches
+photosynthesis|noun|C1|CEFR-J|neutral|core|4|بناء ضوئي|the process plants use to convert sunlight to food
+sequestration|noun|C1|AWL|formal|core|4|احتجاز|the capture and storage of carbon dioxide
+renewable|adjective|B2|AWL|neutral|core|4|متجدد|capable of being replaced by natural processes
+nonrenewable|adjective|C1|AWL|neutral|core|4|غير متجدد|not able to be replaced once used
+fossil fuel|noun|B2|CEFR-J|neutral|core|4|وقود أحفوري|fuel formed from ancient organic matter
+geothermal|adjective|C1|NAWL|neutral|core|4|حراري أرضي|relating to heat from the earth's interior
+hydroelectric|adjective|C1|CEFR-J|neutral|core|4|كهرومائي|producing electricity from flowing water
+photovoltaic|adjective|C1|NAWL|formal|core|4|كهروضوئي|converting sunlight directly into electricity
+biomass|noun|C1|NAWL|neutral|core|4|كتلة حيوية|organic matter used as fuel
+biofuel|noun|C1|NAWL|neutral|core|4|وقود حيوي|fuel derived from biological sources
+turbine|noun|C1|CEFR-J|neutral|core|4|توربين|a rotary engine driven by water, steam, or gas
+infrastructure|noun|C1|AWL|neutral|core|4|بنية تحتية|basic physical systems of a society
+vulnerability|noun|C1|AWL|neutral|extended|4|هشاشة|susceptibility to harm or damage
+resilience|noun|C1|AWL|neutral|extended|4|صمود|the ability to recover from difficulties
+threshold|noun|C1|AWL|neutral|extended|4|عتبة حرجة|a critical point beyond which change occurs
+feedback loop|noun|C1|NAWL|neutral|extended|4|حلقة تغذية راجعة|a cycle where output affects input
+tipping point|noun|C1|CEFR-J|neutral|extended|4|نقطة تحول|the critical point triggering irreversible change
+albedo|noun|C2|NAWL|formal|extended|4|بياض|the reflectivity of a surface
+radiative|adjective|C2|NAWL|formal|extended|4|إشعاعي|relating to the emission of radiation
+aerosol|noun|C1|NAWL|neutral|extended|4|رذاذ|tiny particles suspended in the atmosphere
+particulate|noun|C1|NAWL|neutral|extended|4|جسيمات|tiny solid or liquid particles in the air
+pollutant|noun|C1|CEFR-J|neutral|extended|4|ملوث|a substance that contaminates the environment
+effluent|noun|C1|NAWL|neutral|extended|4|مخلفات سائلة|liquid waste discharged into water
+contaminant|noun|C1|AWL|neutral|extended|4|مادة ملوثة|a substance that makes something impure
+toxicity|noun|C1|AWL|neutral|extended|4|سمية|the degree to which a substance is poisonous
+pathogen|noun|C1|NAWL|neutral|extended|4|عامل ممرض|an organism causing disease
+vector|noun|C1|AWL|neutral|extended|4|ناقل|an organism that transmits disease
+endemic|adjective|C1|NAWL|neutral|extended|4|متوطن|native to a particular area
+invasive|adjective|C1|CEFR-J|neutral|extended|4|غازي|spreading rapidly and displacing native species
+symbiosis|noun|C1|NAWL|neutral|extended|4|تكافل|a close interaction between two different organisms
+mutualism|noun|C1|NAWL|neutral|extended|4|تبادل المنفعة|a relationship beneficial to both organisms
+parasitism|noun|C1|NAWL|neutral|extended|4|تطفل|a relationship where one benefits at the other's expense
+predation|noun|C1|NAWL|neutral|extended|4|افتراس|the hunting of prey by a predator
+herbivore|noun|C1|CEFR-J|neutral|extended|4|عاشب|an animal that feeds on plants
+carnivore|noun|C1|CEFR-J|neutral|extended|4|لاحم|an animal that feeds on other animals
+omnivore|noun|C1|CEFR-J|neutral|extended|4|قارت|an animal that eats both plants and meat
+apex predator|noun|C1|CEFR-J|neutral|extended|4|مفترس أعلى|a predator at the top of the food chain
+keystone species|noun|C1|NAWL|neutral|extended|4|نوع محوري|a species with a disproportionate ecological impact
+indicator species|noun|C1|NAWL|neutral|extended|4|نوع مؤشر|a species reflecting environmental conditions
+extinction|noun|C1|AWL|neutral|extended|4|انقراض|the dying out of a species
+conservation|noun|C1|AWL|neutral|extended|4|حفظ|the protection of natural resources
+preservation|noun|C1|AWL|neutral|extended|4|صون|maintaining something in its existing state
+restoration|noun|C1|AWL|neutral|extended|4|استعادة|returning something to its original condition
+reforestation|noun|C1|AWL|neutral|extended|4|إعادة التحريج|replanting trees in a deforested area
+afforestation|noun|C1|NAWL|neutral|extended|4|تشجير|planting trees on previously unforested land
+reclamation|noun|C1|AWL|neutral|extended|4|استصلاح|restoring land to a productive state
+remediation|noun|C1|AWL|neutral|extended|4|معالجة|cleaning up environmental contamination
+phytoremediation|noun|C2|NAWL|formal|extended|4|معالجة نباتية|using plants to clean contaminated soil
+bioremediation|noun|C2|NAWL|formal|extended|4|معالجة حيوية|using organisms to remove contaminants
+carbon footprint|noun|C1|CEFR-J|neutral|extended|4|بصمة كربونية|the total greenhouse gases produced by an entity
+carbon neutral|adjective|C1|NAWL|neutral|extended|4|محايد كربونياً|having net zero carbon dioxide emissions
+cap and trade|noun|C1|NAWL|neutral|extended|4|تحديد وتداول|a system of emission permits that can be traded
+carbon tax|noun|C1|NAWL|neutral|extended|4|ضريبة كربون|a fee on the burning of carbon-based fuels
+offset|noun|C1|AWL|neutral|extended|4|تعويض|a reduction to compensate for emissions
+subsidy|noun|C1|AWL|neutral|extended|4|إعانة|financial support for environmentally friendly practices
+incentive|noun|C1|AWL|neutral|extended|4|حافز|something that motivates an action
+disincentive|noun|C1|AWL|neutral|extended|4|رادع|something that discourages an action
+mandate|noun|C1|AWL|neutral|extended|4|تكليف|an authoritative command or instruction
+moratorium|noun|C1|NAWL|neutral|extended|4|تعليق مؤقت|a temporary suspension of an activity
+compliance|noun|C1|AWL|neutral|extended|4|التزام|acting in accordance with regulations
+enforcement|noun|C1|AWL|neutral|extended|4|تطبيق|ensuring laws are obeyed
+microclimate|noun|C1|NAWL|neutral|mastery|4|مناخ محلي|the climate of a very small area
+macroclimate|noun|C2|NAWL|formal|mastery|4|مناخ عام|the climate of a large geographic area
+paleoclimatology|noun|C2|NAWL|formal|mastery|4|مناخ قديم|the study of past climates
+dendrochronology|noun|C2|NAWL|formal|mastery|4|علم حلقات الأشجار|dating events using tree ring patterns
+phenology|noun|C2|NAWL|formal|mastery|4|علم الفينولوجيا|the study of seasonal natural phenomena
+biogeochemistry|noun|C2|NAWL|formal|mastery|4|كيمياء جيولوجية حيوية|the study of chemical cycles in ecosystems
+limnology|noun|C2|NAWL|formal|mastery|4|علم البحيرات|the study of inland waters
+hydrology|noun|C1|NAWL|neutral|mastery|4|علم المياه|the study of water distribution and movement
+oceanography|noun|C1|CEFR-J|neutral|mastery|4|علم المحيطات|the study of oceans and their phenomena
+bathymetry|noun|C2|NAWL|formal|mastery|4|قياس أعماق|the measurement of water depth
+cryosphere|noun|C2|NAWL|formal|mastery|4|غلاف جليدي|the frozen water parts of the Earth
+lithosphere|noun|C1|NAWL|neutral|mastery|4|غلاف صخري|the rigid outer part of the Earth
+biosphere|noun|C1|CEFR-J|neutral|mastery|4|غلاف حيوي|the regions of Earth where life exists
+hydrosphere|noun|C1|NAWL|neutral|mastery|4|غلاف مائي|all the water on Earth's surface
+pedosphere|noun|C2|NAWL|formal|mastery|4|غلاف تربة|the outermost layer of the Earth containing soil
+isotherm|noun|C2|NAWL|formal|mastery|4|خط حرارة متساوية|a line connecting points of equal temperature
+isobar|noun|C2|NAWL|formal|mastery|4|خط ضغط متساوي|a line connecting points of equal pressure
+synoptic|adjective|C2|NAWL|formal|mastery|4|شامل|relating to a general view of weather conditions
+convection|noun|C1|NAWL|neutral|mastery|4|حمل حراري|the transfer of heat through fluid movement
+conduction|noun|C1|NAWL|neutral|mastery|4|توصيل حراري|the transfer of heat through direct contact
+radiation|noun|C1|AWL|neutral|mastery|4|إشعاع|the emission of energy as electromagnetic waves
+insolation|noun|C2|NAWL|formal|mastery|4|إشعاع شمسي|the amount of solar radiation reaching a surface
+thermohaline|adjective|C2|NAWL|formal|mastery|4|حراري ملحي|relating to temperature and salinity of ocean water
+upwelling|noun|C1|NAWL|neutral|mastery|4|تيار صاعد|the rising of cold water from the ocean depths
+subsidence|noun|C1|NAWL|neutral|mastery|4|هبوط|the sinking of land surface
+accretion|noun|C1|NAWL|neutral|mastery|4|تراكم|the gradual growth by accumulation
+sedimentation|noun|C1|AWL|neutral|mastery|4|ترسيب|the settling of particles from suspension
+stratification|noun|C1|AWL|neutral|mastery|4|تطبق|the formation of distinct layers
+aeolian|adjective|C2|NAWL|formal|mastery|4|ريحي|relating to the action of wind
+fluvial|adjective|C2|NAWL|formal|mastery|4|نهري|relating to the action of rivers
+glacial|adjective|C1|AWL|neutral|mastery|4|جليدي|relating to glaciers or ice ages
+interglacial|adjective|C2|NAWL|formal|mastery|4|بين جليدي|a warm period between ice ages
+Holocene|noun|C2|NAWL|formal|mastery|4|هولوسين|the current geological epoch
+Anthropocene|noun|C2|NAWL|formal|mastery|4|أنثروبوسين|the proposed epoch of human influence on Earth
+geoengineering|noun|C1|NAWL|neutral|mastery|4|هندسة جيولوجية|deliberate large-scale intervention in Earth's climate

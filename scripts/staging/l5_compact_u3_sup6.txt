@@ -1,0 +1,39 @@
+operationalization|noun|C1|AWL|neutral|extended|3|تفعيل مفهوم|defining a concept for measurement
+construct validity|noun|C1|AWL|neutral|extended|3|صدق بنائي|measuring what it claims to measure
+internal validity|noun|C1|AWL|neutral|extended|3|صدق داخلي|the accuracy of cause-effect conclusions
+external validity|noun|C1|AWL|neutral|extended|3|صدق خارجي|how well findings generalize
+ecological validity|noun|C1|AWL|neutral|mastery|3|صدق بيئي|how well findings apply to real life
+reliability|noun|C1|AWL|neutral|core|3|موثوقية|consistency of measurement
+inter-rater reliability|noun|C1|AWL|neutral|mastery|3|موثوقية بين محكمين|agreement between different evaluators
+test-retest reliability|noun|C1|AWL|neutral|mastery|3|موثوقية إعادة اختبار|consistency when repeated over time
+sampling method|noun|C1|AWL|neutral|core|3|طريقة أخذ عينات|how participants are chosen for a study
+random sampling|noun|C1|AWL|neutral|core|3|أخذ عينات عشوائي|selecting participants by chance
+stratified sampling|noun|C1|AWL|neutral|extended|3|أخذ عينات طبقي|dividing a population into groups before sampling
+convenience sampling|noun|C1|AWL|neutral|extended|3|أخذ عينات ملائمة|choosing easily available participants
+sample size|noun|C1|AWL|neutral|core|3|حجم عينة|the number of participants in a study
+generalizability|noun|C1|AWL|neutral|core|3|قابلية تعميم|applying findings to a broader population
+replication study|noun|C1|AWL|neutral|core|3|دراسة تكرارية|repeating research to verify findings
+null hypothesis|noun|C1|AWL|neutral|core|3|فرضية صفرية|the assumption of no effect
+alternative hypothesis|noun|C1|AWL|neutral|extended|3|فرضية بديلة|the assumption that an effect exists
+Type I error|noun|C1|AWL|neutral|extended|3|خطأ نوع أول|falsely finding an effect
+Type II error|noun|C1|AWL|neutral|extended|3|خطأ نوع ثاني|failing to detect a real effect
+p-value|noun|C1|AWL|neutral|core|3|قيمة احتمالية|the probability of results under null hypothesis
+Bayesian analysis|noun|C1|NAWL|neutral|mastery|3|تحليل بايزي|updating probability with new evidence
+frequentist approach|noun|C1|NAWL|neutral|mastery|3|منهج تكراري|interpreting probability as long-run frequency
+independent variable|noun|C1|AWL|neutral|core|3|متغير مستقل|the factor changed by the researcher
+dependent variable|noun|C1|AWL|neutral|core|3|متغير تابع|the factor measured in an experiment
+moderating variable|noun|C1|AWL|neutral|extended|3|متغير معدل|a factor changing the strength of a relationship
+mediating variable|noun|C1|AWL|neutral|extended|3|متغير وسيط|a factor explaining how an effect occurs
+operational definition|noun|C1|AWL|neutral|extended|3|تعريف إجرائي|a precise definition for measurement
+literature review|noun|C1|AWL|neutral|core|3|مراجعة أدبيات|a survey of existing research
+research gap|noun|C1|AWL|neutral|core|3|فجوة بحثية|an unanswered question in the field
+theoretical framework|noun|C1|AWL|neutral|core|3|إطار نظري|the theory guiding a study
+conceptual framework|noun|C1|AWL|neutral|extended|3|إطار مفاهيمي|a map of key concepts and relationships
+research design|noun|C1|AWL|neutral|core|3|تصميم بحث|the overall strategy for a study
+pilot study|noun|C1|AWL|neutral|core|3|دراسة تجريبية|a small trial run of a study
+field study|noun|C1|AWL|neutral|core|3|دراسة ميدانية|research conducted in a natural setting
+ethnography|noun|C1|NAWL|neutral|extended|3|إثنوغرافيا|studying cultures through immersion
+grounded theory|noun|C1|NAWL|neutral|mastery|3|نظرية مؤسسة|building theory from collected data
+phenomenology|noun|C1|NAWL|neutral|mastery|3|فينومينولوجيا|studying lived experiences
+action research|noun|C1|AWL|neutral|extended|3|بحث إجرائي|research aimed at solving practical problems
+participatory research|noun|C1|AWL|neutral|extended|3|بحث تشاركي|involving participants in the research process

@@ -1,0 +1,124 @@
+reactor|noun|C1|CEFR-J|neutral|core|5|مفاعل|a container in which nuclear reactions occur
+fission|noun|C1|NAWL|neutral|core|5|انشطار|the splitting of an atomic nucleus
+fusion|noun|C1|AWL|neutral|core|5|اندماج نووي|the combining of atomic nuclei
+uranium|noun|C1|CEFR-J|neutral|core|5|يورانيوم|a radioactive element used as nuclear fuel
+plutonium|noun|C1|CEFR-J|neutral|core|5|بلوتونيوم|a radioactive element used in nuclear weapons
+isotope|noun|C1|CEFR-J|neutral|core|5|نظير|a variant of an element with different neutrons
+radioactive|adjective|B2|CEFR-J|neutral|core|5|مشع|emitting radiation from nuclear decay
+radiation|noun|B2|AWL|neutral|core|5|إشعاع|energy emitted as particles or waves
+contamination|noun|C1|AWL|neutral|core|5|تلوث إشعاعي|the presence of unwanted radioactive material
+decontamination|noun|C1|AWL|neutral|core|5|إزالة التلوث|removing radioactive substances from an area
+half-life|noun|C1|NAWL|neutral|core|5|نصف عمر|the time for half of radioactive atoms to decay
+decay|noun|C1|CEFR-J|neutral|core|5|اضمحلال|the gradual decrease of radioactivity
+enrichment|noun|C1|AWL|neutral|core|5|تخصيب|increasing the proportion of a specific isotope
+centrifuge|noun|C1|NAWL|neutral|core|5|جهاز طرد مركزي|a machine using rotation to separate substances
+moderator|noun|C1|AWL|neutral|core|5|مهدئ|a substance that slows neutrons in a reactor
+coolant|noun|C1|CEFR-J|neutral|core|5|مبرد|a fluid used to prevent overheating
+containment|noun|C1|AWL|neutral|core|5|احتواء|the action of keeping something under control
+meltdown|noun|C1|CEFR-J|neutral|core|5|انصهار نووي|severe overheating of a nuclear reactor core
+fallout|noun|C1|CEFR-J|neutral|core|5|تساقط إشعاعي|radioactive particles from a nuclear explosion
+proliferation|noun|C1|AWL|neutral|core|5|انتشار|the rapid spread of nuclear weapons
+deterrence|noun|C1|AWL|neutral|core|5|ردع|the prevention of action through fear of consequences
+disarmament|noun|C1|AWL|neutral|core|5|نزع سلاح|the reduction of military weapons
+treaty|noun|C1|AWL|neutral|core|5|معاهدة|a formal agreement between nations
+sanction|noun|C1|AWL|neutral|core|5|عقوبة|a penalty for disobeying international law
+inspection|noun|C1|AWL|neutral|core|5|تفتيش|official examination of compliance
+safeguard|noun|C1|AWL|neutral|core|5|ضمانة|a measure to protect against risk
+precaution|noun|C1|CEFR-J|neutral|core|5|احتياط|an action taken in advance to prevent harm
+protocol|noun|C1|AWL|neutral|core|5|بروتوكول|a set of rules governing procedures
+moratorium|noun|C1|NAWL|neutral|core|5|وقف اختياري|a temporary prohibition of an activity
+referendum|noun|C1|AWL|neutral|core|5|استفتاء|a direct vote on a political question
+advocacy|noun|C1|AWL|neutral|core|5|مناصرة|public support for a cause or policy
+activism|noun|C1|AWL|neutral|core|5|نشاط حقوقي|campaigning for political or social change
+lobby|verb|C1|CEFR-J|neutral|core|5|يمارس ضغط|to seek to influence a decision maker
+stakeholder|noun|C1|AWL|neutral|core|5|صاحب مصلحة|a person with an interest in an enterprise
+transparency|noun|C1|AWL|neutral|core|5|شفافية|openness and accountability in operations
+accountability|noun|C1|AWL|neutral|core|5|مسؤولية|being answerable for one's actions
+regulation|noun|C1|AWL|neutral|core|5|تنظيم|a rule made by authority
+deregulation|noun|C1|AWL|neutral|core|5|رفع القيود|the removal of government controls
+privatization|noun|C1|AWL|neutral|core|5|خصخصة|transferring from public to private ownership
+nationalization|noun|C1|AWL|neutral|core|5|تأميم|transferring from private to state ownership
+subsidy|noun|C1|AWL|neutral|core|5|دعم|financial aid granted by the government
+tariff|noun|C1|AWL|neutral|core|5|رسوم جمركية|a tax on imports or exports
+embargo|noun|C1|CEFR-J|neutral|core|5|حظر|an official ban on trade or activity
+sovereignty|noun|C1|AWL|formal|core|5|سيادة|the authority of a state to govern itself
+jurisdiction|noun|C1|AWL|neutral|core|5|ولاية قضائية|the official power to make legal decisions
+compliance|noun|C1|AWL|neutral|core|5|امتثال|conformity with rules or standards
+neutron|noun|C1|CEFR-J|neutral|extended|5|نيوترون|a subatomic particle with no electric charge
+proton|noun|C1|CEFR-J|neutral|extended|5|بروتون|a positively charged subatomic particle
+electron|noun|B2|CEFR-J|neutral|extended|5|إلكترون|a negatively charged subatomic particle
+nucleus|noun|C1|AWL|neutral|extended|5|نواة|the central part of an atom
+atomic|adjective|B2|CEFR-J|neutral|extended|5|ذري|relating to an atom or atoms
+molecular|adjective|C1|AWL|neutral|extended|5|جزيئي|relating to molecules
+ionizing|adjective|C1|NAWL|neutral|extended|5|مؤين|having enough energy to remove electrons
+dosimetry|noun|C2|NAWL|formal|extended|5|قياس الجرعات|the measurement of radiation doses
+sievert|noun|C2|NAWL|formal|extended|5|سيفرت|a unit measuring radiation dose effect
+becquerel|noun|C2|NAWL|formal|extended|5|بيكريل|a unit measuring radioactive decay rate
+geiger|noun|C1|CEFR-J|neutral|extended|5|عداد غايغر|a device for measuring radioactivity
+shielding|noun|C1|CEFR-J|neutral|extended|5|تدريع|material used to block radiation
+breeder|noun|C1|CEFR-J|neutral|extended|5|مفاعل مولد|a reactor producing more fissile material
+thorium|noun|C2|NAWL|neutral|extended|5|ثوريوم|a radioactive element as alternative nuclear fuel
+deuterium|noun|C2|NAWL|formal|extended|5|ديوتيريوم|a heavy isotope of hydrogen
+tritium|noun|C2|NAWL|formal|extended|5|تريتيوم|a radioactive isotope of hydrogen
+tokamak|noun|C2|NAWL|formal|extended|5|توكاماك|a device for producing nuclear fusion
+stellarator|noun|C2|NAWL|formal|extended|5|ستيلاراتور|an alternative fusion reactor design
+plasma|noun|C1|CEFR-J|neutral|extended|5|بلازما|an ionized gas at extremely high temperatures
+superconductor|noun|C1|NAWL|neutral|extended|5|موصل فائق|a material with zero electrical resistance
+cryogenic|adjective|C2|NAWL|formal|extended|5|بالغ البرودة|relating to very low temperatures
+thermal|adjective|C1|AWL|neutral|extended|5|حراري|relating to heat
+exothermic|adjective|C1|NAWL|neutral|extended|5|طارد للحرارة|a reaction that releases heat
+endothermic|adjective|C1|NAWL|neutral|extended|5|ماص للحرارة|a reaction that absorbs heat
+criticality|noun|C1|NAWL|neutral|extended|5|حالة حرجة|the condition where a nuclear chain reaction sustains
+subcritical|adjective|C2|NAWL|formal|extended|5|تحت حرج|below the level needed for chain reaction
+supercritical|adjective|C2|NAWL|formal|extended|5|فوق حرج|above the level needed for chain reaction
+transmutation|noun|C2|NAWL|formal|extended|5|تحويل عناصر|changing one element into another
+vitrification|noun|C2|NAWL|formal|extended|5|تزجيج|converting waste into glass for safe storage
+repository|noun|C1|AWL|neutral|extended|5|مستودع|a facility for storing nuclear waste
+decommissioning|noun|C1|AWL|neutral|extended|5|إيقاف تشغيل|shutting down and dismantling a nuclear facility
+remediation|noun|C1|AWL|neutral|extended|5|إصلاح بيئي|cleaning up contaminated land
+dosage|noun|C1|CEFR-J|neutral|extended|5|جرعة|the quantity of radiation or medicine
+carcinogen|noun|C1|NAWL|neutral|extended|5|مادة مسرطنة|a substance capable of causing cancer
+mutagen|noun|C2|NAWL|formal|extended|5|مادة مطفرة|an agent that causes genetic mutation
+teratogen|noun|C2|NAWL|formal|extended|5|مادة مشوهة|a substance causing birth defects
+epidemiology|noun|C1|NAWL|neutral|extended|5|علم الأوبئة|the study of disease patterns in populations
+thyroid|noun|C1|CEFR-J|neutral|extended|5|غدة درقية|a gland affected by radioactive iodine
+leukemia|noun|C1|CEFR-J|neutral|extended|5|سرطان الدم|a type of cancer of blood cells
+chromosome|noun|C1|CEFR-J|neutral|extended|5|كروموسوم|a structure carrying genetic information
+mutation|noun|C1|AWL|neutral|extended|5|طفرة|a change in the DNA sequence
+genome|noun|C1|NAWL|neutral|extended|5|جينوم|the complete set of genetic material
+biodosimetry|noun|C2|NAWL|formal|extended|5|قياس حيوي للجرعات|measuring radiation exposure via biological changes
+geopolitics|noun|C1|AWL|neutral|mastery|5|جيوسياسة|politics influenced by geographical factors
+brinkmanship|noun|C1|CEFR-J|neutral|mastery|5|سياسة حافة الهاوية|pursuing a dangerous policy to the limits
+escalation|noun|C1|AWL|neutral|mastery|5|تصعيد|an increase in intensity of conflict
+de-escalation|noun|C1|AWL|neutral|mastery|5|تهدئة|reduction of the intensity of a conflict
+rapprochement|noun|C2|NAWL|formal|mastery|5|تقارب|the establishment of harmonious relations
+détente|noun|C2|NAWL|formal|mastery|5|انفراج|the easing of hostility between countries
+multilateral|adjective|C1|AWL|neutral|mastery|5|متعدد الأطراف|involving multiple countries or parties
+bilateral|adjective|C1|AWL|neutral|mastery|5|ثنائي|involving two parties or countries
+unilateral|adjective|C1|AWL|neutral|mastery|5|أحادي الجانب|involving only one party
+ratification|noun|C1|AWL|formal|mastery|5|مصادقة|the formal approval of a treaty
+signatory|noun|C1|AWL|neutral|mastery|5|موقع|a party that has signed an agreement
+verification|noun|C1|AWL|neutral|mastery|5|تحقق|confirming the truth or accuracy of something
+compliance|noun|C1|AWL|neutral|mastery|5|التزام تنظيمي|acting in accordance with international rules
+non-compliance|noun|C1|AWL|neutral|mastery|5|عدم امتثال|failure to follow rules or standards
+whistleblower|noun|C1|CEFR-J|neutral|mastery|5|مبلغ عن مخالفات|a person exposing misconduct
+advocacy|noun|C1|AWL|neutral|mastery|5|دعوة|the act of publicly supporting a cause
+referendum|noun|C1|AWL|neutral|mastery|5|استفتاء شعبي|a public vote on a specific issue
+plebiscite|noun|C2|NAWL|formal|mastery|5|استفتاء عام|a direct vote of the electorate
+mandate|noun|C1|AWL|neutral|mastery|5|انتداب|authority given by voters to act
+constituency|noun|C1|AWL|neutral|mastery|5|دائرة انتخابية|a group of voters in a specific area
+legislature|noun|C1|AWL|neutral|mastery|5|هيئة تشريعية|the branch of government that makes laws
+judiciary|noun|C1|AWL|neutral|mastery|5|سلطة قضائية|the branch of government that interprets laws
+executive|noun|C1|AWL|neutral|mastery|5|سلطة تنفيذية|the branch of government that enforces laws
+bureaucracy|noun|C1|AWL|neutral|mastery|5|بيروقراطية|a system of government by many officials
+technocracy|noun|C1|NAWL|neutral|mastery|5|حكم التكنوقراط|government by technical experts
+meritocracy|noun|C1|NAWL|neutral|mastery|5|نظام الجدارة|a system where the able rise to positions of power
+plutocracy|noun|C2|NAWL|formal|mastery|5|حكم الأثرياء|government by the wealthy
+kleptocracy|noun|C2|NAWL|formal|mastery|5|حكم اللصوص|government by thieves who exploit the people
+autarky|noun|C2|NAWL|formal|mastery|5|اكتفاء ذاتي|national economic self-sufficiency
+hegemony|noun|C1|NAWL|neutral|mastery|5|هيمنة|leadership or dominance by one state
+imperialism|noun|C1|AWL|neutral|mastery|5|استعمارية|a policy of extending a country's power
+colonialism|noun|C1|AWL|neutral|mastery|5|استعمار|the policy of acquiring control over other nations
+neocolonialism|noun|C1|NAWL|neutral|mastery|5|استعمار جديد|indirect control over developing countries
+irredentism|noun|C2|NAWL|formal|mastery|5|أيروندنتيسم|claiming territory based on historical ties
+balkanization|noun|C2|NAWL|formal|mastery|5|بلقنة|the fragmentation of a region into smaller states

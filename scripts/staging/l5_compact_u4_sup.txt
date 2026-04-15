@@ -1,0 +1,123 @@
+temperature|noun|B2|CEFR-J|neutral|core|4|درجة حرارة|the degree of heat present in a substance
+climate|noun|B2|CEFR-J|neutral|core|4|مناخ|the weather conditions of a region over time
+weather|noun|B2|CEFR-J|neutral|core|4|طقس|the state of the atmosphere at a given time
+forecast|noun|B2|CEFR-J|neutral|core|4|توقعات|a prediction of future weather conditions
+barometer|noun|C1|CEFR-J|neutral|core|4|بارومتر|an instrument measuring atmospheric pressure
+hygrometer|noun|C2|NAWL|formal|core|4|مقياس رطوبة|an instrument measuring humidity
+anemometer|noun|C2|NAWL|formal|core|4|مقياس ريح|an instrument measuring wind speed
+satellite|noun|B2|CEFR-J|neutral|core|4|قمر صناعي|an object orbiting earth for data collection
+radar|noun|B2|CEFR-J|neutral|core|4|رادار|a system for detecting objects using radio waves
+buoy|noun|C1|CEFR-J|neutral|core|4|عوامة|a floating device for collecting ocean data
+seismograph|noun|C1|CEFR-J|neutral|core|4|مقياس زلازل|an instrument detecting earthquakes
+richter|noun|C1|CEFR-J|neutral|core|4|ريختر|a scale measuring earthquake magnitude
+epicenter|noun|C1|CEFR-J|neutral|core|4|مركز سطحي|the point on the surface above an earthquake
+tectonic|adjective|C1|NAWL|neutral|core|4|تكتوني|relating to the structure of the earth's crust
+volcanic|adjective|B2|CEFR-J|neutral|core|4|بركاني|relating to or produced by volcanoes
+magma|noun|C1|CEFR-J|neutral|core|4|صهارة|molten rock beneath the earth's surface
+lava|noun|B2|CEFR-J|neutral|core|4|حمم|molten rock that flows from a volcano
+ash|noun|B2|CEFR-J|neutral|core|4|رماد بركاني|fine particles ejected by a volcano
+eruption|noun|C1|CEFR-J|neutral|core|4|انفجار بركاني|the sudden explosion of a volcano
+landslide|noun|C1|CEFR-J|neutral|core|4|انزلاق أرضي|the sliding of a mass of earth
+avalanche|noun|C1|CEFR-J|neutral|core|4|انهيار ثلجي|a mass of snow sliding down a mountain
+flood|noun|B2|CEFR-J|neutral|core|4|فيضان|an overflow of water onto dry land
+wildfire|noun|C1|CEFR-J|neutral|core|4|حريق غابات|an uncontrolled fire in natural areas
+heatwave|noun|C1|CEFR-J|neutral|core|4|موجة حر|a prolonged period of abnormally hot weather
+blizzard|noun|C1|CEFR-J|neutral|core|4|عاصفة ثلجية|a severe snowstorm with strong winds
+hurricane|noun|B2|CEFR-J|neutral|core|4|إعصار مداري|a large rotating tropical storm
+typhoon|noun|C1|CEFR-J|neutral|core|4|تايفون|a tropical storm in the Pacific
+storm surge|noun|C1|CEFR-J|neutral|core|4|عرام عاصفة|rising water caused by a storm
+levee|noun|C1|CEFR-J|neutral|core|4|سد ترابي|an embankment preventing river overflow
+dam|noun|B2|CEFR-J|neutral|core|4|سد|a barrier across a river holding back water
+spillway|noun|C2|NAWL|neutral|core|4|مفيض|a passage for surplus water from a dam
+desalination|noun|C1|NAWL|neutral|core|4|تحلية|removing salt from seawater
+purification|noun|C1|CEFR-J|neutral|core|4|تنقية|the process of making water clean
+filtration|noun|C1|CEFR-J|neutral|core|4|ترشيح|passing liquid through a filter to clean it
+chlorination|noun|C1|NAWL|neutral|core|4|تعقيم بالكلور|adding chlorine to purify water
+sanitation|noun|C1|CEFR-J|neutral|core|4|صرف صحي|conditions relating to public health
+sewage|noun|C1|CEFR-J|neutral|core|4|مياه صرف|waste water from homes and factories
+landfill|noun|C1|CEFR-J|neutral|core|4|مدفن نفايات|a site for disposing of waste by burial
+incinerator|noun|C1|CEFR-J|neutral|core|4|محرقة|a device for burning waste material
+recycling|noun|B2|CEFR-J|neutral|core|4|إعادة تدوير|converting waste into reusable material
+composting|noun|C1|CEFR-J|neutral|core|4|تسميد|the process of recycling organic waste
+biodegradable|adjective|C1|NAWL|neutral|core|4|قابل للتحلل|capable of being decomposed by organisms
+carbon dioxide|noun|B2|CEFR-J|neutral|core|4|ثاني أكسيد الكربون|a greenhouse gas produced by burning fuel
+nitrous oxide|noun|C1|NAWL|neutral|core|4|أكسيد النيتروز|a potent greenhouse gas
+sulfur dioxide|noun|C1|NAWL|neutral|core|4|ثاني أكسيد الكبريت|a gas causing acid rain
+acid rain|noun|C1|CEFR-J|neutral|core|4|مطر حمضي|rainfall made acidic by pollution
+smog|noun|C1|CEFR-J|neutral|core|4|ضباب دخاني|fog contaminated by pollutants
+haze|noun|C1|CEFR-J|neutral|core|4|ضبابية|a slight obscuration of the atmosphere
+depletion|noun|C1|AWL|neutral|extended|4|نضوب|the reduction of something to very low levels
+degradation|noun|C1|AWL|neutral|extended|4|تدهور|the process of something becoming worse
+deterioration|noun|C1|AWL|neutral|extended|4|تفاقم|the process of becoming progressively worse
+contamination|noun|C1|AWL|neutral|extended|4|تلويث|the action of making impure
+biochar|noun|C2|NAWL|formal|extended|4|فحم حيوي|charcoal used as a soil amendment
+hydroponics|noun|C1|NAWL|neutral|extended|4|زراعة مائية|growing plants without soil in nutrient solution
+aquaponics|noun|C2|NAWL|neutral|extended|4|زراعة مائية سمكية|combining fish farming with plant growing
+agroecology|noun|C1|NAWL|neutral|extended|4|زراعة بيئية|farming based on ecological principles
+precision farming|noun|C1|NAWL|neutral|extended|4|زراعة دقيقة|using technology to optimize crop production
+drip irrigation|noun|C1|CEFR-J|neutral|extended|4|ري بالتنقيط|watering plants at the root through tubes
+terracing|noun|C1|CEFR-J|neutral|extended|4|مدرجات|creating level areas on slopes for farming
+windbreak|noun|C1|CEFR-J|neutral|extended|4|مصد رياح|a barrier protecting crops from wind
+mulching|noun|C1|CEFR-J|neutral|extended|4|تغطية التربة|covering soil to retain moisture
+cover crop|noun|C1|NAWL|neutral|extended|4|محصول تغطية|a crop grown to protect the soil
+crop rotation|noun|C1|CEFR-J|neutral|extended|4|دورة زراعية|alternating crops in successive seasons
+intercropping|noun|C1|NAWL|neutral|extended|4|زراعة بينية|growing two crops simultaneously
+fallow|adjective|C1|CEFR-J|neutral|extended|4|بور|farmland left unplanted to recover
+salinization|noun|C1|NAWL|neutral|extended|4|تملح|the accumulation of salt in soil
+waterlogging|noun|C1|CEFR-J|neutral|extended|4|تشبع مائي|soil saturated with excess water
+compaction|noun|C1|NAWL|neutral|extended|4|انضغاط|the compression of soil reducing air space
+soil profile|noun|C1|NAWL|neutral|extended|4|مقطع تربة|the vertical cross-section of soil layers
+horizon|noun|C1|CEFR-J|neutral|extended|4|أفق تربة|a distinct layer of soil
+humus|noun|C1|CEFR-J|neutral|extended|4|دبال|dark organic material in soil
+loam|noun|C1|CEFR-J|neutral|extended|4|تربة طفالية|a fertile soil of sand, silt, and clay
+clay|noun|B2|CEFR-J|neutral|extended|4|طين|a fine-grained soil that holds water
+silt|noun|C1|CEFR-J|neutral|extended|4|طمي|fine sediment deposited by water
+gravel|noun|B2|CEFR-J|neutral|extended|4|حصى|small stones used in construction
+bedrock|noun|C1|CEFR-J|neutral|extended|4|صخر أساسي|the solid rock beneath surface deposits
+aquiclude|noun|C2|NAWL|formal|extended|4|طبقة كتيمة|a layer preventing water flow
+artesian|adjective|C2|NAWL|formal|extended|4|ارتوازي|relating to a well where water rises naturally
+water table|noun|C1|CEFR-J|neutral|extended|4|منسوب مياه|the upper level of underground water
+groundwater|noun|C1|CEFR-J|neutral|extended|4|مياه جوفية|water held underground in soil and rock
+runoff|noun|C1|CEFR-J|neutral|extended|4|جريان سطحي|water flowing over land after rainfall
+catchment|noun|C1|CEFR-J|neutral|extended|4|مجمع مياه|an area from which rainfall drains
+tributary|noun|C1|CEFR-J|neutral|extended|4|رافد|a river flowing into a larger river
+delta|noun|C1|CEFR-J|neutral|extended|4|دلتا|a triangular area at a river mouth
+floodplain|noun|C1|CEFR-J|neutral|extended|4|سهل فيضي|flat land beside a river that floods
+meander|noun|C1|CEFR-J|neutral|extended|4|تعرج|a winding curve of a river
+oxbow|noun|C1|CEFR-J|neutral|extended|4|بحيرة هلالية|a U-shaped lake formed from a river bend
+atoll|noun|C1|CEFR-J|neutral|extended|4|جزيرة مرجانية|a ring-shaped coral reef enclosing a lagoon
+lagoon|noun|C1|CEFR-J|neutral|extended|4|بحيرة ضحلة|a shallow body of water near the coast
+marsh|noun|C1|CEFR-J|neutral|extended|4|مستنقع|a low-lying wet area
+swamp|noun|C1|CEFR-J|neutral|extended|4|مستنقع شجري|a wetland with trees and dense vegetation
+bog|noun|C1|CEFR-J|neutral|extended|4|مستنقع خثي|a wetland with spongy ground
+peat|noun|C1|CEFR-J|neutral|extended|4|خث|partially decomposed plant material in bogs
+carbon sink|noun|C1|NAWL|neutral|mastery|4|مصرف كربوني|a natural system absorbing carbon dioxide
+carbon source|noun|C1|NAWL|neutral|mastery|4|مصدر كربوني|a process releasing carbon dioxide
+biogeochemical cycle|noun|C2|NAWL|formal|mastery|4|دورة جيوكيميائية حيوية|the cycling of elements through Earth systems
+nitrogen cycle|noun|C1|NAWL|neutral|mastery|4|دورة النيتروجين|the circulation of nitrogen in nature
+phosphorus cycle|noun|C1|NAWL|neutral|mastery|4|دورة الفسفور|the movement of phosphorus through ecosystems
+sulfur cycle|noun|C1|NAWL|neutral|mastery|4|دورة الكبريت|the movement of sulfur through the environment
+water cycle|noun|B2|CEFR-J|neutral|mastery|4|دورة الماء|the continuous movement of water on Earth
+rock cycle|noun|C1|CEFR-J|neutral|mastery|4|دورة الصخور|the transformation of rocks between types
+plate tectonics|noun|C1|NAWL|neutral|mastery|4|صفائح تكتونية|the movement of Earth's lithospheric plates
+subduction|noun|C1|NAWL|neutral|mastery|4|اندساس|one tectonic plate sliding under another
+rifting|noun|C1|NAWL|neutral|mastery|4|تصدع|the splitting apart of tectonic plates
+orogenesis|noun|C2|NAWL|formal|mastery|4|تكون الجبال|the process of mountain formation
+isostasy|noun|C2|NAWL|formal|mastery|4|توازن قشري|the balance of Earth's crust above the mantle
+weathering|noun|C1|CEFR-J|neutral|mastery|4|تجوية|the breakdown of rocks by natural processes
+frost wedging|noun|C1|CEFR-J|neutral|mastery|4|تجوية صقيعية|rocks cracking due to freezing water
+oxidation|noun|C1|NAWL|neutral|mastery|4|أكسدة|a chemical reaction with oxygen
+leaching|noun|C1|CEFR-J|neutral|mastery|4|ترشيح|the removal of minerals from soil by water
+karst|noun|C2|NAWL|formal|mastery|4|كارست|landscape formed from dissolving rock
+stalactite|noun|C1|CEFR-J|neutral|mastery|4|صواعد|a mineral formation hanging from a cave ceiling
+stalagmite|noun|C1|CEFR-J|neutral|mastery|4|هوابط|a mineral formation rising from a cave floor
+geomorphology|noun|C2|NAWL|formal|mastery|4|جيومورفولوجيا|the study of landforms and their processes
+pedogenesis|noun|C2|NAWL|formal|mastery|4|تكون التربة|the process of soil formation
+loess|noun|C2|NAWL|formal|mastery|4|لوس|fine-grained windblown sediment
+moraine|noun|C1|NAWL|neutral|mastery|4|ركام جليدي|debris deposited by a glacier
+esker|noun|C2|NAWL|formal|mastery|4|حافة جليدية|a ridge of gravel left by a glacier
+drumlin|noun|C2|NAWL|formal|mastery|4|تلة جليدية|an elongated hill shaped by glacial ice
+erratic|noun|C1|NAWL|neutral|mastery|4|صخرة شاردة|a boulder transported by glacial ice
+fjord|noun|C1|CEFR-J|neutral|mastery|4|مضيق بحري|a long narrow inlet carved by a glacier
+cirque|noun|C2|NAWL|formal|mastery|4|سيرك جليدي|a bowl-shaped depression carved by glaciation
+arête|noun|C2|NAWL|formal|mastery|4|حافة جبلية|a sharp ridge between two glacial valleys

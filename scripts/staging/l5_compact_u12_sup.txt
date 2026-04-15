@@ -1,0 +1,112 @@
+trade|noun|B2|CEFR-J|neutral|core|12|تجارة|the buying and selling of goods
+commerce|noun|C1|CEFR-J|neutral|core|12|تبادل تجاري|the activity of buying and selling
+industry|noun|B2|CEFR-J|neutral|core|12|صناعة|economic activity relating to manufacturing
+manufacturing|noun|C1|AWL|neutral|core|12|تصنيع|the making of goods on a large scale
+agriculture|noun|B2|CEFR-J|neutral|core|12|زراعة|the practice of farming
+mining|noun|C1|CEFR-J|neutral|core|12|تعدين|the extraction of minerals from the earth
+forestry|noun|C1|CEFR-J|neutral|core|12|حراجة|the management of forests
+fishery|noun|C1|CEFR-J|neutral|core|12|مصيدة أسماك|an area where fish are caught commercially
+petroleum|noun|C1|CEFR-J|neutral|core|12|نفط|a liquid used as fuel and raw material
+crude oil|noun|C1|CEFR-J|neutral|core|12|نفط خام|unrefined petroleum
+natural gas|noun|B2|CEFR-J|neutral|core|12|غاز طبيعي|a fossil fuel used for heating and electricity
+coal|noun|B2|CEFR-J|neutral|core|12|فحم|a combustible rock used as fuel
+ore|noun|C1|CEFR-J|neutral|core|12|خام|a naturally occurring mineral containing metal
+refinery|noun|C1|CEFR-J|neutral|core|12|مصفاة|a facility for purifying crude materials
+smelter|noun|C1|CEFR-J|neutral|core|12|مصهر|a facility for extracting metal from ore
+pipeline|noun|C1|CEFR-J|neutral|core|12|خط أنابيب|a system of pipes for transporting fluids
+tanker|noun|C1|CEFR-J|neutral|core|12|ناقلة|a ship designed to carry liquid cargo
+freight|noun|C1|CEFR-J|neutral|core|12|شحن|goods transported by truck, train, or ship
+logistics|noun|C1|AWL|neutral|core|12|لوجستيات|the detailed coordination of complex operations
+supply chain|noun|C1|AWL|neutral|core|12|سلسلة إمداد|the network from production to consumer
+inventory|noun|C1|AWL|neutral|core|12|مخزون|a complete list of goods in stock
+warehouse|noun|B2|CEFR-J|neutral|core|12|مستودع|a building for storing goods
+distribution|noun|C1|AWL|neutral|core|12|توزيع|the delivery of goods to retailers
+wholesale|noun|C1|CEFR-J|neutral|core|12|بيع بالجملة|selling goods in large quantities
+retail|noun|B2|CEFR-J|neutral|core|12|بيع بالتجزئة|selling goods directly to consumers
+markup|noun|C1|CEFR-J|neutral|core|12|هامش ربح|the amount added to cost to determine price
+margin|noun|C1|AWL|neutral|core|12|هامش|the difference between cost and selling price
+profit|noun|B2|CEFR-J|neutral|core|12|ربح|financial gain from business activities
+loss|noun|B2|CEFR-J|neutral|core|12|خسارة|the amount by which costs exceed revenue
+break-even|noun|C1|CEFR-J|neutral|core|12|نقطة تعادل|the point where revenue equals costs
+overhead|noun|C1|CEFR-J|neutral|core|12|تكاليف عامة|the ongoing costs of running a business
+capital|noun|C1|AWL|neutral|core|12|رأس مال|wealth used to produce more wealth
+investment|noun|B2|AWL|neutral|core|12|استثمار|putting money into something for profit
+return on investment|noun|C1|AWL|neutral|core|12|عائد على الاستثمار|the profit relative to the cost
+compound interest|noun|C1|CEFR-J|neutral|core|12|فائدة مركبة|interest calculated on both principal and accumulated interest
+simple interest|noun|C1|CEFR-J|neutral|core|12|فائدة بسيطة|interest calculated only on the principal
+mortgage|noun|C1|CEFR-J|neutral|core|12|رهن عقاري|a loan secured on property
+insurance|noun|B2|CEFR-J|neutral|core|12|تأمين|protection against financial loss
+premium|noun|C1|AWL|neutral|core|12|قسط تأمين|the amount paid for insurance coverage
+deductible|noun|C1|CEFR-J|neutral|core|12|مبلغ مقتطع|the amount paid before insurance covers costs
+annuity|noun|C1|NAWL|neutral|core|12|راتب سنوي|a fixed sum paid at regular intervals
+pension|noun|C1|CEFR-J|neutral|core|12|معاش تقاعدي|a regular payment to retired people
+trust|noun|C1|AWL|neutral|extended|12|ائتمان|a financial arrangement managed by a third party
+endowment|noun|C1|AWL|neutral|extended|12|وقف|a fund providing income for an institution
+foundation|noun|C1|AWL|neutral|extended|12|مؤسسة|an organization funded for charitable purposes
+grant|noun|C1|AWL|neutral|extended|12|منحة|a sum of money given for a specific purpose
+stipend|noun|C1|CEFR-J|neutral|extended|12|راتب|a fixed regular payment
+scholarship|noun|B2|CEFR-J|neutral|extended|12|منحة دراسية|a financial award for education
+tuition|noun|C1|CEFR-J|neutral|extended|12|رسوم دراسية|the cost of instruction at a school
+fee|noun|B2|CEFR-J|neutral|extended|12|رسم|a payment for professional services
+royalty|noun|C1|CEFR-J|neutral|extended|12|إتاوة|a payment for the use of intellectual property
+patent|noun|C1|AWL|neutral|extended|12|براءة اختراع|an exclusive right to an invention
+copyright|noun|C1|AWL|neutral|extended|12|حق تأليف|the exclusive right to a creative work
+trademark|noun|C1|CEFR-J|neutral|extended|12|علامة تجارية|a symbol identifying a company's products
+intellectual property|noun|C1|AWL|neutral|extended|12|ملكية فكرية|creations of the mind protected by law
+licensing|noun|C1|AWL|neutral|extended|12|ترخيص|granting permission to use property
+franchise|noun|C1|CEFR-J|neutral|extended|12|امتياز تجاري|the right to sell products under a brand
+merger|noun|C1|AWL|neutral|extended|12|اندماج|the combining of two companies
+acquisition|noun|C1|AWL|neutral|extended|12|استحواذ|buying one company by another
+hostile takeover|noun|C1|NAWL|neutral|extended|12|استحواذ عدائي|acquiring a company against its will
+leveraged buyout|noun|C1|NAWL|neutral|extended|12|شراء بالرافعة|acquiring a company using borrowed money
+due diligence|noun|C1|AWL|neutral|extended|12|عناية واجبة|investigation before a business transaction
+audit|noun|C1|AWL|neutral|extended|12|مراجعة حسابات|an official examination of financial records
+compliance|noun|C1|AWL|neutral|extended|12|امتثال تنظيمي|following rules and regulations
+governance|noun|C1|AWL|neutral|extended|12|حوكمة مؤسسية|the system of managing an organization
+stakeholder|noun|C1|AWL|neutral|extended|12|أصحاب مصلحة|a person with an interest in a business
+shareholder|noun|C1|AWL|neutral|extended|12|مساهم|an owner of shares in a company
+board of directors|noun|C1|AWL|neutral|extended|12|مجلس إدارة|a group overseeing company management
+fiduciary duty|noun|C1|NAWL|neutral|extended|12|واجب ائتماني|the legal obligation to act in another's interest
+transparency|noun|C1|AWL|neutral|extended|12|شفافية مالية|openness in financial dealings
+disclosure|noun|C1|AWL|neutral|extended|12|إفصاح مالي|the release of financial information
+prospectus|noun|C1|AWL|neutral|extended|12|نشرة إصدار|a document describing a financial offering
+securities|noun|C1|AWL|neutral|extended|12|أوراق مالية|tradable financial instruments
+equity market|noun|C1|AWL|neutral|extended|12|سوق أسهم|a market for trading company shares
+bond market|noun|C1|AWL|neutral|extended|12|سوق سندات|a market for trading debt instruments
+foreign exchange|noun|C1|AWL|neutral|extended|12|صرف أجنبي|the exchange of one currency for another
+hedge fund|noun|C1|NAWL|neutral|extended|12|صندوق تحوط|an investment fund using complex strategies
+mutual fund|noun|C1|NAWL|neutral|extended|12|صندوق استثمار مشترك|a fund pooling money from many investors
+index fund|noun|C1|NAWL|neutral|extended|12|صندوق مؤشر|a fund tracking a market index
+exchange-traded fund|noun|C1|NAWL|neutral|extended|12|صندوق متداول|a fund traded on stock exchanges
+real estate investment|noun|C1|AWL|neutral|mastery|12|استثمار عقاري|investment in property
+sovereign wealth fund|noun|C1|NAWL|neutral|mastery|12|صندوق سيادي|a state-owned investment fund
+central bank|noun|C1|AWL|neutral|mastery|12|بنك مركزي|the national authority managing currency
+reserve currency|noun|C1|AWL|neutral|mastery|12|عملة احتياطية|a currency held by central banks worldwide
+gold standard|noun|C1|CEFR-J|neutral|mastery|12|معيار ذهبي|a monetary system backed by gold
+fiat currency|noun|C1|NAWL|neutral|mastery|12|عملة ورقية|money not backed by a physical commodity
+inflation targeting|noun|C1|NAWL|neutral|mastery|12|استهداف تضخم|a policy of maintaining a set inflation rate
+Phillips curve|noun|C2|NAWL|formal|mastery|12|منحنى فيلبس|the relationship between inflation and unemployment
+Laffer curve|noun|C2|NAWL|formal|mastery|12|منحنى لافر|the relationship between tax rates and revenue
+Lorenz curve|noun|C2|NAWL|formal|mastery|12|منحنى لورنتز|a graphical representation of income inequality
+poverty trap|noun|C1|NAWL|neutral|mastery|12|فخ الفقر|a cycle making it hard to escape poverty
+middle-income trap|noun|C1|NAWL|neutral|mastery|12|فخ الدخل المتوسط|stagnation at a moderate income level
+Dutch disease|noun|C1|NAWL|neutral|mastery|12|المرض الهولندي|decline from reliance on natural resources
+resource curse|noun|C1|NAWL|neutral|mastery|12|لعنة الموارد|paradoxical poverty despite natural wealth
+rentier state|noun|C1|NAWL|neutral|mastery|12|دولة ريعية|a state deriving income from external rents
+failed state|noun|C1|NAWL|neutral|mastery|12|دولة فاشلة|a state unable to perform basic functions
+fragile state|noun|C1|NAWL|neutral|mastery|12|دولة هشة|a state vulnerable to crisis and conflict
+developing country|noun|C1|AWL|neutral|mastery|12|دولة نامية|a country with a less developed economy
+emerging market|noun|C1|AWL|neutral|mastery|12|سوق ناشئ|an economy transitioning to developed status
+frontier market|noun|C1|NAWL|neutral|mastery|12|سوق حدودي|a less developed emerging market
+BRICS|noun|C1|NAWL|neutral|mastery|12|بريكس|a group of major emerging economies
+G7|noun|C1|CEFR-J|neutral|mastery|12|مجموعة السبع|the seven largest advanced economies
+G20|noun|C1|CEFR-J|neutral|mastery|12|مجموعة العشرين|the twenty largest economies
+OPEC|noun|C1|CEFR-J|neutral|mastery|12|أوبك|the organization of petroleum exporting countries
+WTO|noun|C1|CEFR-J|neutral|mastery|12|منظمة التجارة العالمية|the World Trade Organization
+IMF|noun|C1|CEFR-J|neutral|mastery|12|صندوق النقد الدولي|the International Monetary Fund
+World Bank|noun|C1|CEFR-J|neutral|mastery|12|البنك الدولي|an international financial institution
+structural adjustment|noun|C1|NAWL|neutral|mastery|12|تعديل هيكلي|economic reforms required by international lenders
+conditionality|noun|C1|AWL|neutral|mastery|12|مشروطية|conditions attached to financial assistance
+austerity measures|noun|C1|AWL|neutral|mastery|12|إجراءات تقشفية|policies to reduce government spending
+fiscal policy|noun|C1|AWL|neutral|mastery|12|سياسة مالية|government decisions on spending and taxation
+monetary policy|noun|C1|AWL|neutral|mastery|12|سياسة نقدية|central bank decisions on money supply

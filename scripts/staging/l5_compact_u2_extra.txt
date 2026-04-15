@@ -1,0 +1,147 @@
+endurance|noun|C1|CEFR-J|neutral|core|2|تحمل|the ability to withstand prolonged hardship
+stamina|noun|B2|CEFR-J|neutral|core|2|قدرة على التحمل|the physical or mental strength to sustain effort
+perseverance|noun|C1|AWL|neutral|core|2|مثابرة|persistence in doing something despite difficulty
+tenacity|noun|C1|CEFR-J|neutral|core|2|إصرار|the quality of holding firmly to a purpose
+resilience|noun|C1|AWL|neutral|core|2|مرونة نفسية|the capacity to recover quickly from difficulties
+fortitude|noun|C1|CEFR-J|formal|core|2|شجاعة|courage in the face of pain or adversity
+determination|noun|B2|AWL|neutral|core|2|عزيمة|firmness of purpose or resolve
+ambition|noun|B2|CEFR-J|neutral|core|2|طموح|a strong desire to achieve something
+aspiration|noun|C1|AWL|neutral|core|2|تطلع|a hope or ambition for achieving something
+motivation|noun|B2|AWL|neutral|core|2|حافز|a reason for acting in a particular way
+discipline|noun|B2|AWL|neutral|core|2|انضباط|training to act in accordance with rules
+regimen|noun|C1|CEFR-J|neutral|core|2|نظام|a prescribed course of exercise or diet
+intensity|noun|C1|AWL|neutral|core|2|شدة|the quality of being intense
+exertion|noun|C1|CEFR-J|neutral|core|2|جهد بدني|physical or mental effort
+fatigue|noun|C1|CEFR-J|neutral|core|2|إرهاق|extreme tiredness from mental or physical effort
+exhaustion|noun|B2|CEFR-J|neutral|core|2|إنهاك|a state of extreme physical or mental tiredness
+recuperation|noun|C1|CEFR-J|neutral|core|2|تعافي|recovery from illness or exertion
+rehabilitation|noun|C1|AWL|neutral|core|2|إعادة تأهيل|restoration to health through therapy
+physiology|noun|C1|AWL|neutral|core|2|علم وظائف الأعضاء|the study of how living organisms function
+biomechanics|noun|C1|NAWL|neutral|core|2|ميكانيكا حيوية|the study of body movement mechanics
+kinesiology|noun|C2|NAWL|formal|core|2|علم الحركة|the study of human body movement
+aerobic|adjective|C1|CEFR-J|neutral|core|2|هوائي|relating to exercise that increases oxygen intake
+anaerobic|adjective|C1|NAWL|neutral|core|2|لاهوائي|relating to exercise without oxygen
+cardiovascular|adjective|C1|NAWL|neutral|core|2|قلبي وعائي|relating to the heart and blood vessels
+metabolism|noun|C1|CEFR-J|neutral|core|2|أيض|chemical processes in the body for energy
+calorie|noun|B2|CEFR-J|neutral|core|2|سعرة حرارية|a unit of energy in food
+hydration|noun|C1|CEFR-J|neutral|core|2|ترطيب|the process of providing adequate water
+nutrition|noun|B2|CEFR-J|neutral|core|2|تغذية|the process of taking in food for health
+supplement|noun|B2|AWL|neutral|core|2|مكمل غذائي|a product taken to add nutrients to the diet
+doping|noun|C1|CEFR-J|neutral|core|2|منشطات|the use of banned substances in sports
+sportsmanship|noun|B2|CEFR-J|neutral|core|2|روح رياضية|fair and generous behavior in sport
+tournament|noun|B2|CEFR-J|neutral|core|2|بطولة|a series of contests in a sport
+championship|noun|B2|CEFR-J|neutral|core|2|بطولة كبرى|a contest to determine the best
+qualifier|noun|C1|CEFR-J|neutral|core|2|تصفيات|a match to decide who proceeds to the main event
+podium|noun|C1|CEFR-J|neutral|core|2|منصة تتويج|a platform for award winners
+sprint|noun|B2|CEFR-J|neutral|core|2|عدو سريع|a short fast race
+marathon|noun|B2|CEFR-J|neutral|core|2|ماراثون|a long-distance running race
+triathlon|noun|C1|CEFR-J|neutral|core|2|سباق ثلاثي|a race combining swimming, cycling, and running
+decathlon|noun|C1|CEFR-J|neutral|core|2|عشاري|a combined event of ten athletic contests
+relay|noun|B2|CEFR-J|neutral|core|2|تتابع|a race between teams taking turns
+hurdle|noun|C1|CEFR-J|neutral|core|2|حاجز|a barrier to be jumped over in a race
+javelin|noun|C1|CEFR-J|neutral|core|2|رمح|a light spear thrown in athletics
+discus|noun|C1|CEFR-J|neutral|core|2|قرص|a heavy disc thrown in athletics
+opponent|noun|B2|CEFR-J|neutral|core|2|خصم|a person competing against another
+rivalry|noun|C1|CEFR-J|neutral|core|2|منافسة|competition for the same objective
+underdog|noun|C1|CEFR-J|informal|core|2|مستضعف|a competitor thought unlikely to win
+prodigy|noun|C1|CEFR-J|neutral|core|2|طفل معجزة|a young person with exceptional ability
+mentorship|noun|C1|AWL|neutral|core|2|إرشاد|guidance provided by an experienced person
+regalia|noun|C1|CEFR-J|neutral|extended|2|شعارات رسمية|ceremonial objects or clothing
+accolade|noun|C1|CEFR-J|neutral|extended|2|تقدير|an award or expression of praise
+commendation|noun|C1|AWL|neutral|extended|2|ثناء|formal praise or an official award
+citation|noun|C1|AWL|neutral|extended|2|استشهاد|a reference to a source or an award mention
+laurel|noun|C1|CEFR-J|neutral|extended|2|غار|a wreath symbolizing victory
+pinnacle|noun|C1|CEFR-J|neutral|extended|2|قمة|the highest point of achievement
+zenith|noun|C1|CEFR-J|neutral|extended|2|ذروة|the time at which something is most powerful
+apex|noun|C1|CEFR-J|neutral|extended|2|أعلى نقطة|the top or highest point of something
+feat|noun|C1|CEFR-J|neutral|extended|2|إنجاز بارز|a remarkable achievement or accomplishment
+exploit|noun|C1|CEFR-J|neutral|extended|2|عمل بطولي|a bold or daring achievement
+milestone|noun|B2|CEFR-J|neutral|extended|2|معلم فارق|a significant stage or event
+breakthrough|noun|B2|CEFR-J|neutral|extended|2|اختراق|a sudden important development
+benchmark|noun|C1|AWL|neutral|extended|2|مرجع قياسي|a standard against which things are compared
+threshold|noun|C1|AWL|neutral|extended|2|عتبة|the point at which something begins
+caliber|noun|C1|CEFR-J|neutral|extended|2|مستوى|the quality of someone's ability
+prowess|noun|C1|CEFR-J|neutral|extended|2|براعة|great skill or bravery
+virtuoso|noun|C1|CEFR-J|neutral|extended|2|بارع|a person highly skilled in music or another art
+dexterity|noun|C1|CEFR-J|neutral|extended|2|مهارة يدوية|skill in performing tasks with the hands
+agility|noun|C1|CEFR-J|neutral|extended|2|رشاقة|the ability to move quickly and easily
+reflexes|noun|B2|CEFR-J|neutral|extended|2|ردود أفعال|automatic responses to stimuli
+coordination|noun|B2|AWL|neutral|extended|2|تنسيق|the ability to use different body parts together
+proprioception|noun|C2|NAWL|formal|extended|2|حس ذاتي|awareness of body position and movement
+kinesthetic|adjective|C2|NAWL|formal|extended|2|حركي|relating to awareness of body movement
+aerodynamic|adjective|C1|NAWL|neutral|extended|2|ديناميكي هوائي|relating to the motion of air around objects
+hydrodynamic|adjective|C2|NAWL|formal|extended|2|ديناميكي مائي|relating to forces acting on fluids
+ergogenic|adjective|C2|NAWL|formal|extended|2|معزز للأداء|enhancing physical performance
+anabolic|adjective|C1|NAWL|neutral|extended|2|بنائي|relating to building up body tissue
+catabolic|adjective|C2|NAWL|formal|extended|2|هدمي|relating to breaking down body tissue
+glycogen|noun|C1|NAWL|neutral|extended|2|جليكوجين|a substance that stores energy in muscles
+lactate|noun|C1|NAWL|neutral|extended|2|لاكتات|a salt produced during intense exercise
+cortisol|noun|C1|NAWL|neutral|extended|2|كورتيزول|a stress hormone produced by the adrenal gland
+testosterone|noun|C1|CEFR-J|neutral|extended|2|تستوستيرون|a hormone that promotes muscle growth
+adrenaline|noun|B2|CEFR-J|neutral|extended|2|أدرينالين|a hormone released in response to stress
+ligament|noun|C1|CEFR-J|neutral|extended|2|رباط|a band of tissue connecting bones
+tendon|noun|C1|CEFR-J|neutral|extended|2|وتر|a cord of tissue connecting muscle to bone
+cartilage|noun|C1|CEFR-J|neutral|extended|2|غضروف|flexible tissue found in joints
+fracture|noun|B2|CEFR-J|neutral|extended|2|كسر|a break in a bone
+sprain|noun|B2|CEFR-J|neutral|extended|2|التواء|an injury from twisting a ligament
+concussion|noun|C1|CEFR-J|neutral|extended|2|ارتجاج|a brain injury caused by a blow to the head
+attrition|noun|C1|AWL|neutral|extended|2|إنهاك تدريجي|gradual reduction in strength through sustained pressure
+overtraining|noun|C1|CEFR-J|neutral|extended|2|إفراط في التدريب|excessive exercise leading to decreased performance
+periodization|noun|C2|NAWL|formal|extended|2|تقسيم فترات|systematic planning of athletic training
+plyometrics|noun|C2|NAWL|neutral|extended|2|تمارين بليومترية|exercises involving rapid stretching and contracting
+isometric|adjective|C1|NAWL|neutral|extended|2|متساوي القياس|involving muscle contraction without movement
+isotonic|adjective|C2|NAWL|formal|extended|2|متساوي التوتر|involving muscle contraction with movement
+calisthenics|noun|C1|CEFR-J|neutral|extended|2|تمارين سويدية|bodyweight exercises for fitness
+interval|noun|B2|AWL|neutral|extended|2|فترة|a pause between periods of activity
+tempo|noun|C1|CEFR-J|neutral|extended|2|إيقاع|the speed at which an exercise is performed
+cadence|noun|C1|CEFR-J|neutral|extended|2|وتيرة|the rhythm of movement or speech
+pacing|noun|C1|CEFR-J|neutral|extended|2|توزيع الجهد|controlling speed to conserve energy
+tactic|noun|C1|AWL|neutral|extended|2|تكتيك|an action planned to achieve a specific end
+strategy|noun|B2|AWL|neutral|extended|2|استراتيجية|a plan of action for achieving a long-term goal
+formation|noun|C1|CEFR-J|neutral|extended|2|تشكيلة|an arrangement of players on the field
+counterattack|noun|C1|CEFR-J|neutral|extended|2|هجوم مضاد|an attack made in response to an opponent's attack
+overtime|noun|B2|CEFR-J|neutral|extended|2|وقت إضافي|extra time added to decide a tied game
+aggregate|noun|C1|AWL|neutral|extended|2|مجموع|the total score from multiple matches
+seeding|noun|C1|CEFR-J|neutral|extended|2|تصنيف|ranking of competitors in a tournament
+handicap|noun|C1|CEFR-J|neutral|extended|2|إعاقة|a disadvantage imposed on a strong competitor
+disqualification|noun|C1|CEFR-J|neutral|extended|2|إقصاء|the exclusion of a competitor for rule violation
+infraction|noun|C1|CEFR-J|neutral|extended|2|مخالفة|a violation of a rule or regulation
+adjudication|noun|C1|AWL|formal|mastery|2|تحكيم|the formal judgment of a dispute
+arbitration|noun|C1|AWL|formal|mastery|2|تحكيم رسمي|resolution of a dispute by an impartial third party
+jurisdiction|noun|C1|AWL|neutral|mastery|2|اختصاص قضائي|the authority to make legal decisions
+sovereignty|noun|C1|AWL|formal|mastery|2|سيادة رياضية|supreme authority within a particular domain
+autonomy|noun|C1|AWL|neutral|mastery|2|استقلالية|the right to self-governance
+accreditation|noun|C1|AWL|neutral|mastery|2|اعتماد|official recognition of meeting standards
+ratification|noun|C1|AWL|formal|mastery|2|تصديق|formal approval of an agreement
+protocol|noun|C1|AWL|neutral|mastery|2|بروتوكول|the official procedure for a ceremony
+precedent|noun|C1|AWL|neutral|mastery|2|سابقة|an earlier event used as a guide
+stipulation|noun|C1|AWL|neutral|mastery|2|شرط|a condition laid down in an agreement
+exemption|noun|C1|AWL|neutral|mastery|2|إعفاء|freedom from an obligation or penalty
+sanction|noun|C1|AWL|neutral|mastery|2|عقوبة|a penalty for disobeying a rule
+probation|noun|C1|CEFR-J|neutral|mastery|2|فترة اختبار|a period of testing someone's behavior
+reinstatement|noun|C1|AWL|neutral|mastery|2|إعادة|the restoration to a former position
+vindication|noun|C1|CEFR-J|neutral|mastery|2|تبرئة|the clearing of blame or suspicion
+redemption|noun|C1|CEFR-J|neutral|mastery|2|فداء|the act of saving or being saved from error
+culmination|noun|C1|CEFR-J|neutral|mastery|2|تتويج|the highest or climactic point
+apotheosis|noun|C2|NAWL|formal|mastery|2|قمة الكمال|the highest point in development
+transcendence|noun|C1|AWL|formal|mastery|2|تسامي|existence beyond the normal range
+epitome|noun|C1|CEFR-J|neutral|mastery|2|مثال أعلى|a perfect example of a quality
+paragon|noun|C1|CEFR-J|neutral|mastery|2|نموذج مثالي|a model of excellence
+archetype|noun|C1|CEFR-J|neutral|mastery|2|نموذج أصلي|a typical example of a certain person
+paradigm|noun|C1|AWL|neutral|mastery|2|نموذج|a typical example or pattern of something
+phenomenon|noun|C1|AWL|neutral|mastery|2|ظاهرة|a remarkable person, thing, or event
+anomaly|noun|C1|AWL|neutral|mastery|2|شذوذ|something that deviates from the norm
+aberration|noun|C1|AWL|neutral|mastery|2|انحراف|a departure from what is normal
+deviance|noun|C1|AWL|neutral|mastery|2|انحراف سلوكي|departure from usual standards
+controversy|noun|C1|AWL|neutral|mastery|2|جدل|prolonged public disagreement
+polemic|noun|C1|CEFR-J|formal|mastery|2|جدال حاد|a strong verbal or written attack
+rhetoric|noun|C1|AWL|neutral|mastery|2|بلاغة|the art of effective persuasive speaking
+eloquence|noun|C1|CEFR-J|neutral|mastery|2|فصاحة|fluent or persuasive speaking
+charisma|noun|C1|CEFR-J|neutral|mastery|2|كاريزما|compelling attractiveness inspiring devotion
+magnetism|noun|C1|CEFR-J|neutral|mastery|2|جاذبية|the ability to attract and charm others
+aura|noun|C1|CEFR-J|neutral|mastery|2|هالة|a distinctive atmosphere surrounding a person
+mystique|noun|C1|CEFR-J|neutral|mastery|2|غموض جذاب|an air of mystery making something fascinating
+legacy|noun|C1|AWL|neutral|mastery|2|إرث|something handed down by a predecessor
+posterity|noun|C1|CEFR-J|neutral|mastery|2|أجيال قادمة|all future generations of people
+immortality|noun|C1|CEFR-J|neutral|mastery|2|خلود|the quality of living or lasting forever
+commemoration|noun|C1|AWL|neutral|mastery|2|إحياء ذكرى|an act of honoring the memory of someone

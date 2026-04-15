@@ -1,0 +1,92 @@
+quantum|adjective|C1|NAWL|neutral|core|10|كمي|relating to the smallest discrete quantity
+photon|noun|C1|NAWL|neutral|core|10|فوتون|a particle of light
+wave-particle duality|noun|C1|NAWL|neutral|core|10|ازدواجية موجة-جسيم|matter behaving as both wave and particle
+uncertainty principle|noun|C1|NAWL|neutral|core|10|مبدأ عدم اليقين|limits on knowing position and momentum
+superposition|noun|C1|NAWL|neutral|core|10|تراكب كمي|existing in multiple states simultaneously
+entanglement|noun|C1|NAWL|neutral|core|10|تشابك كمي|particles remaining connected over distance
+quantum tunneling|noun|C1|NAWL|neutral|core|10|نفق كمي|particles passing through barriers
+Schrödinger equation|noun|C1|NAWL|neutral|core|10|معادلة شرودنغر|the fundamental equation of quantum mechanics
+wave function|noun|C1|NAWL|neutral|core|10|دالة موجة|a mathematical description of quantum state
+probability amplitude|noun|C1|NAWL|neutral|extended|10|سعة احتمالية|the complex number determining probability
+Born rule|noun|C2|NAWL|formal|mastery|10|قاعدة بورن|calculating probability from wave function
+collapse|noun|C1|CEFR-J|neutral|core|10|انهيار كمي|the wave function reducing to one state
+measurement problem|noun|C1|NAWL|neutral|extended|10|مشكلة القياس|how measurement affects quantum systems
+Copenhagen interpretation|noun|C1|NAWL|neutral|extended|10|تفسير كوبنهاغن|the standard interpretation of quantum mechanics
+many-worlds|noun|C1|NAWL|neutral|extended|10|عوالم متعددة|every measurement creates parallel universes
+hidden variables|noun|C1|NAWL|neutral|mastery|10|متغيرات مخفية|unknown factors determining quantum outcomes
+Bell's theorem|noun|C1|NAWL|neutral|mastery|10|مبرهنة بيل|proving quantum mechanics is non-local
+decoherence|noun|C1|NAWL|neutral|extended|10|فك تماسك|loss of quantum behavior through environment
+qubit|noun|C1|NAWL|neutral|core|10|بت كمي|the basic unit of quantum information
+quantum gate|noun|C1|NAWL|neutral|extended|10|بوابة كمية|an operation on qubits
+quantum circuit|noun|C1|NAWL|neutral|extended|10|دارة كمية|a sequence of quantum gates
+quantum computer|noun|C1|NAWL|neutral|core|10|حاسوب كمي|a computer using quantum mechanics
+quantum supremacy|noun|C1|NAWL|neutral|extended|10|تفوق كمي|solving problems beyond classical computers
+quantum algorithm|noun|C1|NAWL|neutral|extended|10|خوارزمية كمية|a procedure for quantum computation
+Shor's algorithm|noun|C2|NAWL|formal|mastery|10|خوارزمية شور|a quantum algorithm for factoring numbers
+Grover's algorithm|noun|C2|NAWL|formal|mastery|10|خوارزمية غروفر|a quantum search algorithm
+quantum error correction|noun|C1|NAWL|neutral|mastery|10|تصحيح خطأ كمي|protecting quantum information from errors
+quantum cryptography|noun|C1|NAWL|neutral|extended|10|تشفير كمي|secure communication using quantum mechanics
+quantum key distribution|noun|C1|NAWL|neutral|mastery|10|توزيع مفتاح كمي|sharing encryption keys using quantum states
+quantum teleportation|noun|C1|NAWL|neutral|extended|10|نقل كمي آني|transferring quantum states between particles
+spin|noun|C1|NAWL|neutral|core|10|لف مغزلي|intrinsic angular momentum of a particle
+Pauli exclusion principle|noun|C1|NAWL|neutral|extended|10|مبدأ استبعاد باولي|no two fermions can share the same state
+fermion|noun|C1|NAWL|neutral|extended|10|فرميون|a particle with half-integer spin
+boson|noun|C1|NAWL|neutral|extended|10|بوزون|a particle with integer spin
+Higgs boson|noun|C1|NAWL|neutral|core|10|بوزون هيغز|the particle giving mass to others
+Standard Model|noun|C1|NAWL|neutral|core|10|النموذج المعياري|the theory of fundamental particles
+quark|noun|C1|NAWL|neutral|core|10|كوارك|a fundamental constituent of matter
+lepton|noun|C1|NAWL|neutral|extended|10|لبتون|a fundamental light particle
+neutrino|noun|C1|NAWL|neutral|extended|10|نيوترينو|a nearly massless particle
+muon|noun|C1|NAWL|neutral|mastery|10|ميون|a heavier version of the electron
+gluon|noun|C1|NAWL|neutral|mastery|10|غلوون|a particle carrying the strong force
+W boson|noun|C2|NAWL|formal|mastery|10|بوزون دبليو|a particle carrying the weak force
+Z boson|noun|C2|NAWL|formal|mastery|10|بوزون زد|a neutral particle carrying the weak force
+strong force|noun|C1|NAWL|neutral|core|10|قوة نووية قوية|the force binding quarks together
+weak force|noun|C1|NAWL|neutral|core|10|قوة نووية ضعيفة|the force responsible for radioactive decay
+electromagnetic force|noun|C1|NAWL|neutral|core|10|قوة كهرومغناطيسية|the force between charged particles
+gravitational force|noun|C1|CEFR-J|neutral|core|10|قوة جاذبية|the attractive force between masses
+unified field theory|noun|C1|NAWL|neutral|extended|10|نظرية حقل موحد|combining all fundamental forces
+string theory|noun|C1|NAWL|neutral|core|10|نظرية الأوتار|a theory where particles are vibrating strings
+extra dimensions|noun|C1|NAWL|neutral|extended|10|أبعاد إضافية|dimensions beyond the usual three
+multiverse|noun|C1|NAWL|neutral|extended|10|أكوان متعددة|the hypothetical set of all universes
+dark matter|noun|C1|NAWL|neutral|core|10|مادة مظلمة|invisible matter detected by gravity
+dark energy|noun|C1|NAWL|neutral|core|10|طاقة مظلمة|mysterious force accelerating expansion
+cosmological constant|noun|C1|NAWL|neutral|mastery|10|ثابت كوني|a constant in Einstein's field equations
+Big Bang|noun|C1|CEFR-J|neutral|core|10|الانفجار العظيم|the event beginning the universe
+cosmic inflation|noun|C1|NAWL|neutral|extended|10|تضخم كوني|rapid expansion after the Big Bang
+cosmic microwave background|noun|C1|NAWL|neutral|extended|10|إشعاع خلفي كوني|radiation from the early universe
+redshift|noun|C1|NAWL|neutral|core|10|انزياح أحمر|light shifting to longer wavelengths
+blueshift|noun|C1|NAWL|neutral|extended|10|انزياح أزرق|light shifting to shorter wavelengths
+Doppler effect|noun|C1|NAWL|neutral|core|10|تأثير دوبلر|change in frequency due to motion
+gravitational lensing|noun|C1|NAWL|neutral|extended|10|عدسة جاذبية|bending of light by massive objects
+gravitational wave|noun|C1|NAWL|neutral|core|10|موجة جاذبية|ripples in spacetime from massive events
+LIGO|noun|C1|NAWL|neutral|extended|10|مرصد ليغو|a gravitational wave detector
+black hole|noun|C1|CEFR-J|neutral|core|10|ثقب أسود|a region of extreme gravity
+event horizon|noun|C1|NAWL|neutral|core|10|أفق حدث|the boundary of a black hole
+singularity|noun|C1|NAWL|neutral|extended|10|نقطة تفرد|a point of infinite density
+Hawking radiation|noun|C1|NAWL|neutral|mastery|10|إشعاع هوكينغ|radiation emitted by black holes
+white dwarf|noun|C1|NAWL|neutral|extended|10|قزم أبيض|a small dense remnant star
+neutron star|noun|C1|NAWL|neutral|extended|10|نجم نيوتروني|an extremely dense collapsed star
+pulsar|noun|C1|NAWL|neutral|extended|10|نباض|a rotating neutron star emitting beams
+magnetar|noun|C2|NAWL|formal|mastery|10|نجم مغناطيسي|a neutron star with extreme magnetic field
+supernova|noun|C1|CEFR-J|neutral|core|10|مستعر أعظم|a massive stellar explosion
+nova|noun|C1|CEFR-J|neutral|extended|10|مستعر|a sudden brightening of a star
+quasar|noun|C1|NAWL|neutral|extended|10|كوازار|an extremely luminous active galaxy
+active galactic nucleus|noun|C1|NAWL|neutral|mastery|10|نواة مجرة نشطة|the bright center of an energetic galaxy
+Chandrasekhar limit|noun|C2|NAWL|formal|mastery|10|حد شاندراسيخار|the maximum mass of a white dwarf
+Schwarzschild radius|noun|C2|NAWL|formal|mastery|10|نصف قطر شوارتزشيلد|the size of a black hole's event horizon
+spacetime|noun|C1|NAWL|neutral|core|10|زمكان|the four-dimensional fabric of the universe
+general relativity|noun|C1|NAWL|neutral|core|10|نسبية عامة|Einstein's theory of gravity as curved spacetime
+special relativity|noun|C1|NAWL|neutral|core|10|نسبية خاصة|Einstein's theory of motion at high speeds
+time dilation|noun|C1|NAWL|neutral|extended|10|تمدد زمني|time passing at different rates
+length contraction|noun|C1|NAWL|neutral|extended|10|تقلص طولي|objects shortening at high speeds
+mass-energy equivalence|noun|C1|NAWL|neutral|core|10|تكافؤ كتلة-طاقة|E=mc², mass and energy are interchangeable
+light-year|noun|C1|CEFR-J|neutral|core|10|سنة ضوئية|the distance light travels in one year
+parsec|noun|C1|NAWL|neutral|extended|10|فرسخ فلكي|a unit of astronomical distance
+astronomical unit|noun|C1|NAWL|neutral|core|10|وحدة فلكية|the distance from Earth to the Sun
+parallax|noun|C1|NAWL|neutral|extended|10|اختلاف منظر|apparent shift of an object viewed from different positions
+spectral type|noun|C1|NAWL|neutral|extended|10|نوع طيفي|classification of stars by their spectrum
+luminosity|noun|C1|NAWL|neutral|core|10|لمعان|the total energy output of a star
+magnitude|noun|C1|AWL|neutral|core|10|قدر|a measure of star brightness
+apparent magnitude|noun|C1|NAWL|neutral|extended|10|قدر ظاهري|how bright a star appears from Earth
+absolute magnitude|noun|C1|NAWL|neutral|extended|10|قدر مطلق|how bright a star would be at a standard distance

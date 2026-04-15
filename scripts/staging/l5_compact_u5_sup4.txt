@@ -1,0 +1,68 @@
+nuclear physics|noun|C1|NAWL|neutral|core|5|فيزياء نووية|the study of atomic nuclei
+atomic structure|noun|C1|NAWL|neutral|core|5|بنية ذرية|the arrangement of particles in an atom
+nucleus|noun|C1|CEFR-J|neutral|core|5|نواة|the central part of an atom
+atomic number|noun|C1|NAWL|neutral|core|5|عدد ذري|the number of protons in an atom
+mass number|noun|C1|NAWL|neutral|extended|5|عدد كتلي|the total of protons and neutrons
+periodic table|noun|C1|CEFR-J|neutral|core|5|جدول دوري|the arrangement of chemical elements
+element|noun|B2|CEFR-J|neutral|core|5|عنصر|a substance made of one type of atom
+compound|noun|C1|CEFR-J|neutral|core|5|مركب|a substance made of different elements
+molecule|noun|C1|CEFR-J|neutral|core|5|جزيء|two or more atoms bonded together
+chemical bond|noun|C1|NAWL|neutral|extended|5|رابطة كيميائية|a force holding atoms together
+covalent bond|noun|C1|NAWL|neutral|extended|5|رابطة تساهمية|atoms sharing electrons
+ionic bond|noun|C1|NAWL|neutral|extended|5|رابطة أيونية|atoms transferring electrons
+valence|noun|C1|NAWL|neutral|mastery|5|تكافؤ|the combining capacity of an element
+orbital|noun|C1|NAWL|neutral|mastery|5|مدار إلكتروني|a region where an electron is likely found
+shell|noun|C1|CEFR-J|neutral|extended|5|غلاف إلكتروني|an energy level around a nucleus
+binding energy|noun|C1|NAWL|neutral|extended|5|طاقة ربط|energy holding a nucleus together
+mass defect|noun|C1|NAWL|neutral|mastery|5|نقص كتلة|the difference between nuclear mass and component mass
+nuclear force|noun|C1|NAWL|neutral|extended|5|قوة نووية|the force binding protons and neutrons
+radioactivity|noun|C1|CEFR-J|neutral|core|5|نشاط إشعاعي|the emission of radiation from unstable atoms
+transmutation|noun|C1|NAWL|neutral|mastery|5|تحول عنصري|changing one element into another
+daughter nucleus|noun|C1|NAWL|neutral|mastery|5|نواة ابنة|the product of radioactive decay
+parent nucleus|noun|C1|NAWL|neutral|mastery|5|نواة أم|the original nucleus before decay
+decay chain|noun|C1|NAWL|neutral|mastery|5|سلسلة اضمحلال|a series of radioactive decays
+activity|noun|C1|AWL|neutral|extended|5|نشاط إشعاعي كمي|the rate of radioactive decay
+specific activity|noun|C1|NAWL|neutral|mastery|5|نشاط نوعي|activity per unit mass of material
+absorbed dose|noun|C1|NAWL|neutral|extended|5|جرعة ممتصة|energy deposited per unit mass
+equivalent dose|noun|C1|NAWL|neutral|mastery|5|جرعة مكافئة|dose adjusted for radiation type
+exposure limit|noun|C1|AWL|neutral|core|5|حد تعرض|the maximum allowed radiation dose
+occupational exposure|noun|C1|AWL|neutral|extended|5|تعرض مهني|radiation dose received at work
+ALARA|noun|C1|NAWL|neutral|mastery|5|منخفض قدر الإمكان|keeping radiation as low as reasonably achievable
+health physics|noun|C1|NAWL|neutral|mastery|5|فيزياء صحية|the science of radiation protection
+somatic effect|noun|C1|NAWL|neutral|mastery|5|تأثير جسدي|radiation damage to body cells
+genetic effect|noun|C1|NAWL|neutral|mastery|5|تأثير وراثي|radiation damage to reproductive cells
+acute exposure|noun|C1|AWL|neutral|extended|5|تعرض حاد|receiving a large dose in a short time
+chronic exposure|noun|C1|AWL|neutral|extended|5|تعرض مزمن|receiving small doses over a long time
+stochastic effect|noun|C2|NAWL|formal|mastery|5|تأثير عشوائي|radiation effect with probability proportional to dose
+deterministic effect|noun|C2|NAWL|formal|mastery|5|تأثير حتمي|radiation effect above a threshold dose
+pressurized water reactor|noun|C1|NAWL|neutral|extended|5|مفاعل ماء مضغوط|the most common nuclear reactor type
+boiling water reactor|noun|C1|NAWL|neutral|extended|5|مفاعل ماء مغلي|a reactor where water boils in the core
+CANDU reactor|noun|C1|NAWL|neutral|mastery|5|مفاعل كاندو|a reactor using heavy water
+heavy water|noun|C1|NAWL|neutral|extended|5|ماء ثقيل|water containing deuterium
+light water|noun|C1|NAWL|neutral|extended|5|ماء خفيف|ordinary water used in reactors
+fuel rod|noun|C1|NAWL|neutral|extended|5|قضيب وقود|a tube containing nuclear fuel pellets
+fuel pellet|noun|C1|NAWL|neutral|extended|5|كرية وقود|a small cylinder of nuclear fuel
+cladding|noun|C1|NAWL|neutral|mastery|5|تغليف وقود|the metal tube encasing fuel pellets
+reactor vessel|noun|C1|NAWL|neutral|extended|5|وعاء مفاعل|the container holding the reactor core
+turbine|noun|C1|CEFR-J|neutral|core|5|توربين|a machine driven by steam or water
+generator|noun|C1|CEFR-J|neutral|core|5|مولد|a machine producing electricity
+condenser|noun|C1|NAWL|neutral|extended|5|مكثف|a device cooling steam back to water
+cooling tower|noun|C1|CEFR-J|neutral|core|5|برج تبريد|a tall structure releasing excess heat
+heat exchanger|noun|C1|NAWL|neutral|extended|5|مبادل حراري|a device transferring heat between fluids
+steam generator|noun|C1|CEFR-J|neutral|extended|5|مولد بخار|a device converting water to steam
+thermal efficiency|noun|C1|NAWL|neutral|extended|5|كفاءة حرارية|the ratio of useful output to input energy
+load factor|noun|C1|NAWL|neutral|mastery|5|عامل حمولة|the average output relative to maximum
+outage|noun|C1|CEFR-J|neutral|extended|5|انقطاع|a period when a plant is shut down
+refueling|noun|C1|CEFR-J|neutral|extended|5|إعادة تزويد بالوقود|replacing used fuel in a reactor
+maintenance shutdown|noun|C1|AWL|neutral|extended|5|إغلاق صيانة|stopping operations for repairs
+scram|noun|C1|NAWL|neutral|mastery|5|إيقاف طوارئ|emergency shutdown of a reactor
+INES scale|noun|C1|NAWL|neutral|mastery|5|مقياس إينس|a scale rating nuclear event severity
+regulatory body|noun|C1|AWL|neutral|core|5|هيئة تنظيمية|an organization overseeing nuclear safety
+licensing|noun|C1|AWL|neutral|core|5|ترخيص|granting permission to operate a facility
+environmental impact assessment|noun|C1|AWL|neutral|extended|5|تقييم أثر بيئي|evaluating environmental effects of a project
+public hearing|noun|C1|AWL|neutral|extended|5|جلسة استماع عامة|a meeting for public input on a project
+stakeholder|noun|C1|AWL|neutral|core|5|صاحب مصلحة|a person with interest in a project
+cost-benefit analysis|noun|C1|AWL|neutral|core|5|تحليل تكلفة-فائدة|weighing costs against benefits
+opportunity cost|noun|C1|AWL|neutral|extended|5|تكلفة فرصة نووية|the value of alternatives given up
+externality|noun|C1|AWL|neutral|extended|5|عوامل خارجية نووية|unpriced effects on third parties
+social license|noun|C1|AWL|neutral|extended|5|رخصة اجتماعية|community acceptance of a project

@@ -1,0 +1,95 @@
+resource curse|noun|C1|NAWL|neutral|core|12|لعنة الموارد|natural wealth leading to poor development
+Dutch disease|noun|C1|NAWL|neutral|extended|12|مرض هولندي|resource exports harming other industries
+commodity dependence|noun|C1|AWL|neutral|extended|12|اعتماد على سلع|an economy relying on raw material exports
+terms of trade|noun|C1|AWL|neutral|extended|12|شروط تبادل|the ratio of export to import prices
+trade deficit|noun|C1|AWL|neutral|core|12|عجز تجاري|importing more than exporting
+trade surplus|noun|C1|AWL|neutral|core|12|فائض تجاري|exporting more than importing
+balance of payments|noun|C1|AWL|neutral|extended|12|ميزان مدفوعات|a record of all international transactions
+current account|noun|C1|AWL|neutral|extended|12|حساب جاري|international trade in goods and services
+capital account|noun|C1|AWL|neutral|extended|12|حساب رأسمالي|international investment flows
+foreign direct investment|noun|C1|AWL|neutral|core|12|استثمار أجنبي مباشر|investing directly in another country
+portfolio investment|noun|C1|AWL|neutral|extended|12|استثمار محفظة|investing in foreign stocks and bonds
+sovereign wealth fund|noun|C1|AWL|neutral|core|12|صندوق ثروة سيادي|a state-owned investment fund
+pension fund|noun|C1|AWL|neutral|core|12|صندوق تقاعد|savings managed for retirement payments
+hedge fund|noun|C1|NAWL|neutral|extended|12|صندوق تحوط|a private investment fund using diverse strategies
+venture capital|noun|C1|NAWL|neutral|core|12|رأسمال مخاطر|funding for early-stage companies
+angel investor|noun|C1|NAWL|neutral|extended|12|مستثمر ملاك|a wealthy individual funding startups
+crowdfunding|noun|C1|NAWL|neutral|core|12|تمويل جماعي|raising money from many small contributors
+microfinance|noun|C1|NAWL|neutral|core|12|تمويل أصغر|small loans for low-income borrowers
+financial inclusion|noun|C1|AWL|neutral|core|12|شمول مالي|access to financial services for all
+digital banking|noun|C1|NAWL|neutral|core|12|خدمات مصرفية رقمية|banking through electronic platforms
+mobile money|noun|C1|CEFR-J|neutral|core|12|أموال جوال|financial services through mobile phones
+cryptocurrency|noun|C1|NAWL|neutral|core|12|عملة مشفرة|a digital currency using cryptography
+blockchain|noun|C1|NAWL|neutral|core|12|سلسلة كتل|a decentralized digital ledger
+smart contract|noun|C1|NAWL|neutral|extended|12|عقد ذكي|a self-executing digital agreement
+decentralized finance|noun|C1|NAWL|neutral|extended|12|تمويل لامركزي|financial services without intermediaries
+central bank digital currency|noun|C1|NAWL|neutral|extended|12|عملة رقمية مركزية|a digital currency issued by a central bank
+monetary policy|noun|C1|AWL|neutral|core|12|سياسة نقدية|central bank actions affecting money supply
+fiscal policy|noun|C1|AWL|neutral|core|12|سياسة مالية|government spending and taxation decisions
+quantitative easing|noun|C1|NAWL|neutral|extended|12|تيسير كمي|central bank buying assets to inject money
+interest rate|noun|C1|CEFR-J|neutral|core|12|سعر فائدة|the cost of borrowing money
+yield curve|noun|C1|NAWL|neutral|extended|12|منحنى عائد|a graph of bond interest rates over time
+bond market|noun|C1|CEFR-J|neutral|core|12|سوق سندات|a market for buying and selling debt
+derivatives market|noun|C1|NAWL|neutral|extended|12|سوق مشتقات|a market for financial contracts
+futures contract|noun|C1|NAWL|neutral|extended|12|عقد آجل|an agreement to buy or sell at a future date
+options contract|noun|C1|NAWL|neutral|extended|12|عقد خيارات|the right to buy or sell at a set price
+commodity market|noun|C1|AWL|neutral|core|12|سوق سلع|a market for raw materials
+spot price|noun|C1|NAWL|neutral|extended|12|سعر فوري|the current market price for immediate delivery
+price volatility|noun|C1|AWL|neutral|core|12|تقلب أسعار|rapid and unpredictable price changes
+market speculation|noun|C1|AWL|neutral|extended|12|مضاربة سوقية|trading based on predicted price changes
+market manipulation|noun|C1|AWL|neutral|extended|12|تلاعب بالسوق|artificially influencing market prices
+insider trading|noun|C1|NAWL|neutral|extended|12|تداول من الداخل|trading using non-public information
+regulatory framework|noun|C1|AWL|neutral|core|12|إطار تنظيمي|the rules governing economic activity
+antitrust law|noun|C1|AWL|neutral|extended|12|قانون مكافحة احتكار|laws preventing monopolistic practices
+natural monopoly|noun|C1|AWL|neutral|extended|12|احتكار طبيعي|a market best served by one provider
+oligopoly|noun|C1|NAWL|neutral|extended|12|احتكار قلة|a market dominated by a few sellers
+monopsony|noun|C2|NAWL|formal|mastery|12|احتكار شراء|a market with only one buyer
+market failure|noun|C1|AWL|neutral|core|12|فشل سوق|when markets don't allocate efficiently
+externality|noun|C1|AWL|neutral|core|12|عوامل خارجية|a cost or benefit affecting uninvolved parties
+Pigouvian tax|noun|C2|NAWL|formal|mastery|12|ضريبة بيغو|a tax correcting negative externalities
+public good|noun|C1|AWL|neutral|core|12|سلعة عامة|a good available to all without exclusion
+common pool resource|noun|C1|AWL|neutral|extended|12|مورد مشترك|a shared resource at risk of overuse
+tragedy of the commons|noun|C1|NAWL|neutral|core|12|مأساة المشاعات|overusing shared resources individually
+Ostrom's principles|noun|C1|NAWL|neutral|mastery|12|مبادئ أوستروم|rules for managing shared resources
+property rights|noun|C1|AWL|neutral|core|12|حقوق ملكية|legal rights to own and use resources
+intellectual property rights|noun|C1|AWL|neutral|core|12|حقوق ملكية فكرية|legal protection for creative works
+patent system|noun|C1|AWL|neutral|extended|12|نظام براءات|granting exclusive rights to inventions
+technology transfer|noun|C1|AWL|neutral|extended|12|نقل تقنية|sharing technology between countries
+brain drain|noun|C1|NAWL|neutral|core|12|هجرة عقول|skilled workers leaving for other countries
+brain gain|noun|C1|NAWL|neutral|extended|12|اكتساب عقول|attracting skilled workers from abroad
+remittance|noun|C1|AWL|neutral|core|12|حوالة مالية|money sent home by workers abroad
+diaspora economy|noun|C1|NAWL|neutral|extended|12|اقتصاد شتات|economic activity by emigrant communities
+informal economy|noun|C1|AWL|neutral|core|12|اقتصاد غير رسمي|economic activity outside official systems
+shadow economy|noun|C1|NAWL|neutral|extended|12|اقتصاد ظل|unreported economic activity
+gig economy|noun|C1|NAWL|neutral|core|12|اقتصاد مهام|work based on short-term contracts
+platform economy|noun|C1|NAWL|neutral|extended|12|اقتصاد منصات|business through digital platforms
+sharing economy|noun|C1|NAWL|neutral|core|12|اقتصاد مشاركة|sharing access to goods and services
+subscription economy|noun|C1|NAWL|neutral|extended|12|اقتصاد اشتراك|business based on recurring payments
+attention economy|noun|C1|NAWL|neutral|extended|12|اقتصاد انتباه|competition for people's attention
+data economy|noun|C1|NAWL|neutral|extended|12|اقتصاد بيانات|economic value of data and information
+knowledge economy|noun|C1|AWL|neutral|core|12|اقتصاد معرفة|an economy driven by information and expertise
+innovation ecosystem|noun|C1|AWL|neutral|core|12|نظام ابتكار بيئي|the environment supporting new ideas
+industrial cluster|noun|C1|AWL|neutral|extended|12|تجمع صناعي|geographically concentrated industries
+special economic zone|noun|C1|AWL|neutral|extended|12|منطقة اقتصادية خاصة|an area with different business regulations
+free trade zone|noun|C1|AWL|neutral|extended|12|منطقة تجارة حرة|an area with reduced trade barriers
+trade agreement|noun|C1|AWL|neutral|core|12|اتفاقية تجارية|a pact between countries on trade rules
+tariff barrier|noun|C1|AWL|neutral|extended|12|حاجز جمركي|taxes on imported goods
+non-tariff barrier|noun|C1|AWL|neutral|extended|12|حاجز غير جمركي|trade restrictions other than taxes
+import quota|noun|C1|AWL|neutral|extended|12|حصة استيراد|a limit on the quantity of imports
+trade sanction|noun|C1|AWL|neutral|core|12|عقوبة تجارية|restricting trade to pressure a country
+embargo|noun|C1|CEFR-J|neutral|core|12|حظر تجاري|a complete ban on trade with a country
+economic blockade|noun|C1|AWL|neutral|extended|12|حصار اقتصادي|preventing goods from entering a country
+food security|noun|C1|AWL|neutral|core|12|أمن غذائي|reliable access to sufficient food
+food sovereignty|noun|C1|AWL|neutral|extended|12|سيادة غذائية|a country's right to define its food system
+water security|noun|C1|AWL|neutral|core|12|أمن مائي|reliable access to clean water
+energy security|noun|C1|AWL|neutral|core|12|أمن طاقة|reliable access to affordable energy
+supply chain resilience|noun|C1|AWL|neutral|core|12|مرونة سلسلة إمداد|ability to withstand supply disruptions
+nearshoring|noun|C1|NAWL|neutral|extended|12|نقل إنتاج قريب|moving production to nearby countries
+reshoring|noun|C1|NAWL|neutral|extended|12|إعادة إنتاج محلي|bringing production back home
+strategic reserve|noun|C1|AWL|neutral|extended|12|احتياطي استراتيجي|stockpiles of essential resources
+resource nationalism|noun|C1|AWL|neutral|extended|12|قومية موارد|a country controlling its own resources
+extraction tax|noun|C1|AWL|neutral|extended|12|ضريبة استخراج|a tax on mining natural resources
+depletion allowance|noun|C1|NAWL|neutral|mastery|12|بدل نضوب|a tax deduction for resource extraction
+proven reserves|noun|C1|AWL|neutral|extended|12|احتياطيات مؤكدة|resources confirmed to be recoverable
+peak oil|noun|C1|NAWL|neutral|extended|12|ذروة نفط|the point of maximum oil production
+energy return on investment|noun|C1|NAWL|neutral|mastery|12|عائد طاقة على استثمار|the energy gained versus energy used to produce it

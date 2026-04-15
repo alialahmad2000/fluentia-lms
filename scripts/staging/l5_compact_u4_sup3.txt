@@ -1,0 +1,121 @@
+greenhouse gas|noun|C1|AWL|neutral|core|4|غاز دفيئة|a gas trapping heat in the atmosphere
+carbon dioxide|noun|B2|CEFR-J|neutral|core|4|ثاني أكسيد الكربون|a gas produced by burning fossil fuels
+methane|noun|C1|CEFR-J|neutral|core|4|ميثان|a potent greenhouse gas
+nitrous oxide|noun|C1|NAWL|neutral|core|4|أكسيد النيتروز|a greenhouse gas from agriculture
+ozone|noun|C1|CEFR-J|neutral|core|4|أوزون|a gas layer protecting from UV radiation
+carbon footprint|noun|C1|NAWL|neutral|core|4|بصمة كربونية|total greenhouse gas emissions by a person
+carbon offset|noun|C1|NAWL|neutral|core|4|تعويض كربوني|compensating for emissions by reducing them elsewhere
+carbon capture|noun|C1|NAWL|neutral|core|4|احتجاز كربون|removing carbon dioxide from the atmosphere
+carbon neutral|adjective|C1|NAWL|neutral|core|4|محايد كربونياً|producing no net carbon emissions
+net zero|noun|C1|NAWL|neutral|core|4|صفر صافي|achieving balance between emissions and removals
+emission|noun|C1|AWL|neutral|core|4|انبعاث|the release of gas into the atmosphere
+fossil fuel|noun|C1|CEFR-J|neutral|core|4|وقود أحفوري|fuel formed from ancient organisms
+renewable energy|noun|C1|AWL|neutral|core|4|طاقة متجددة|energy from sources that replenish naturally
+solar panel|noun|C1|CEFR-J|neutral|core|4|لوح شمسي|a device converting sunlight to electricity
+wind turbine|noun|C1|CEFR-J|neutral|core|4|توربين رياح|a machine generating electricity from wind
+hydropower|noun|C1|NAWL|neutral|core|4|طاقة مائية|electricity generated from water flow
+geothermal|adjective|C1|NAWL|neutral|core|4|حراري أرضي|relating to heat from within the Earth
+biomass|noun|C1|NAWL|neutral|extended|4|كتلة حيوية|organic matter used as fuel
+biofuel|noun|C1|NAWL|neutral|extended|4|وقود حيوي|fuel derived from biological material
+tidal energy|noun|C1|NAWL|neutral|extended|4|طاقة مدية|electricity generated from ocean tides
+wave energy|noun|C1|NAWL|neutral|extended|4|طاقة أمواج|electricity generated from ocean waves
+photovoltaic|adjective|C1|NAWL|neutral|extended|4|كهروضوئي|converting light directly into electricity
+inverter|noun|C1|NAWL|neutral|extended|4|محول تيار|a device converting DC to AC electricity
+battery storage|noun|C1|CEFR-J|neutral|extended|4|تخزين بطارية|storing energy in batteries for later use
+smart grid|noun|C1|NAWL|neutral|extended|4|شبكة ذكية|an intelligent electricity distribution system
+microgrid|noun|C1|NAWL|neutral|extended|4|شبكة مصغرة|a small independent power network
+off-grid|adjective|C1|CEFR-J|neutral|extended|4|منفصل عن الشبكة|not connected to the main power supply
+energy efficiency|noun|C1|AWL|neutral|core|4|كفاءة طاقة|using less energy for the same output
+insulation|noun|C1|CEFR-J|neutral|core|4|عزل حراري|material preventing heat transfer
+retrofit|noun|C1|NAWL|neutral|extended|4|تحديث مبنى|upgrading an existing building for efficiency
+weatherization|noun|C1|NAWL|neutral|extended|4|تهيئة مناخية|protecting a building from weather
+thermal mass|noun|C1|NAWL|neutral|mastery|4|كتلة حرارية|material absorbing and storing heat
+passive cooling|noun|C1|NAWL|neutral|mastery|4|تبريد سلبي|cooling buildings without mechanical systems
+green building|noun|C1|NAWL|neutral|core|4|بناء أخضر|environmentally responsible construction
+LEED certification|noun|C1|NAWL|neutral|extended|4|شهادة ليد|a green building rating system
+permafrost|noun|C1|NAWL|neutral|core|4|تربة دائمة التجمد|permanently frozen ground
+thawing|noun|C1|CEFR-J|neutral|core|4|ذوبان|the melting of frozen material
+glacier|noun|C1|CEFR-J|neutral|core|4|نهر جليدي|a large mass of moving ice
+ice sheet|noun|C1|CEFR-J|neutral|core|4|غطاء جليدي|a large area of glacial ice
+ice cap|noun|C1|CEFR-J|neutral|extended|4|قلنسوة جليدية|a dome-shaped ice mass
+sea ice|noun|C1|CEFR-J|neutral|core|4|جليد بحري|frozen seawater
+iceberg|noun|C1|CEFR-J|neutral|core|4|جبل جليدي|a large floating mass of ice
+sea level rise|noun|C1|NAWL|neutral|core|4|ارتفاع مستوى البحر|increasing ocean levels from warming
+thermal expansion|noun|C1|NAWL|neutral|extended|4|تمدد حراري|volume increase from heating
+storm surge|noun|C1|CEFR-J|neutral|extended|4|عاصفة مدية|abnormal rise of water during a storm
+coastal erosion|noun|C1|CEFR-J|neutral|extended|4|تآكل ساحلي|wearing away of shoreline
+saltwater intrusion|noun|C1|NAWL|neutral|mastery|4|تسرب ملحي|seawater contaminating freshwater
+desertification|noun|C1|AWL|neutral|core|4|تصحر|land becoming increasingly arid
+drought|noun|C1|CEFR-J|neutral|core|4|جفاف|a prolonged period without rain
+flood|noun|B2|CEFR-J|neutral|core|4|فيضان|an overflow of water onto land
+wildfire|noun|C1|CEFR-J|neutral|core|4|حريق غابات|an uncontrolled fire in a natural area
+heatwave|noun|C1|CEFR-J|neutral|core|4|موجة حر|a prolonged period of extreme heat
+cyclone|noun|C1|CEFR-J|neutral|extended|4|إعصار دوار|a large rotating storm system
+typhoon|noun|C1|CEFR-J|neutral|extended|4|إعصار استوائي|a tropical storm in the Pacific
+hurricane|noun|C1|CEFR-J|neutral|extended|4|إعصار أطلسي|a tropical storm in the Atlantic
+tornado|noun|C1|CEFR-J|neutral|extended|4|إعصار قمعي|a violently rotating column of air
+monsoon|noun|C1|CEFR-J|neutral|extended|4|رياح موسمية|seasonal wind bringing heavy rain
+El Niño|noun|C1|NAWL|neutral|extended|4|النينيو|a warm ocean current affecting weather
+La Niña|noun|C1|NAWL|neutral|extended|4|النينيا|a cool ocean current affecting weather
+albedo|noun|C2|NAWL|formal|mastery|4|بياض انعكاسي|the reflectivity of a surface
+feedback loop|noun|C1|NAWL|neutral|core|4|حلقة تغذية راجعة|a cycle amplifying or dampening change
+tipping point|noun|C1|NAWL|neutral|core|4|نقطة تحول|the point where change becomes irreversible
+resilience|noun|C1|AWL|neutral|core|4|صمود مناخي|the ability to recover from climate impacts
+adaptation|noun|C1|AWL|neutral|core|4|تكيف مناخي|adjusting to new climate conditions
+mitigation|noun|C1|AWL|neutral|core|4|تخفيف آثار|reducing the severity of climate change
+vulnerability|noun|C1|AWL|neutral|core|4|هشاشة مناخية|susceptibility to climate damage
+exposure|noun|C1|AWL|neutral|extended|4|تعرض مناخي|the degree of contact with climate hazards
+sensitivity|noun|C1|AWL|neutral|extended|4|حساسية مناخية|the degree to which a system is affected
+adaptive capacity|noun|C1|AWL|neutral|extended|4|قدرة تكيفية|the ability to adjust to climate change
+climate model|noun|C1|AWL|neutral|core|4|نموذج مناخي|a computer simulation of climate
+scenario|noun|C1|AWL|neutral|core|4|سيناريو مناخي|a possible future climate pathway
+projection|noun|C1|AWL|neutral|core|4|إسقاط مناخي|a forecast of future conditions
+baseline|noun|C1|AWL|neutral|extended|4|خط أساس|a starting point for comparison
+benchmark|noun|C1|AWL|neutral|extended|4|معيار مرجعي|a standard for measuring performance
+indicator|noun|C1|AWL|neutral|extended|4|مؤشر مناخي|a measure of environmental change
+monitoring|noun|C1|AWL|neutral|core|4|رصد مناخي|systematic observation of conditions
+remote sensing|noun|C1|NAWL|neutral|extended|4|استشعار عن بعد|gathering data from satellites
+satellite imagery|noun|C1|NAWL|neutral|extended|4|صور أقمار صناعية|photographs taken from space
+GIS|noun|C1|NAWL|neutral|extended|4|نظام معلومات جغرافية|geographic information system
+climate justice|noun|C1|AWL|neutral|core|4|عدالة مناخية|fairness in addressing climate impacts
+environmental justice|noun|C1|AWL|neutral|extended|4|عدالة بيئية|fair treatment regarding environmental laws
+climate refugee|noun|C1|NAWL|neutral|extended|4|لاجئ مناخي|a person displaced by climate change
+climate anxiety|noun|C1|NAWL|neutral|extended|4|قلق مناخي|distress about environmental problems
+greenwashing|noun|C1|NAWL|neutral|core|4|غسل أخضر|misleading claims about environmental practices
+carbon tax|noun|C1|NAWL|neutral|core|4|ضريبة كربون|a tax on carbon emissions
+cap and trade|noun|C1|NAWL|neutral|extended|4|سقف وتداول|a market-based emission reduction system
+Paris Agreement|noun|C1|NAWL|neutral|core|4|اتفاقية باريس|a global treaty on climate change
+IPCC|noun|C1|NAWL|neutral|core|4|الهيئة الحكومية للمناخ|the intergovernmental panel on climate change
+COP|noun|C1|NAWL|neutral|extended|4|مؤتمر أطراف|conference of parties on climate
+NDC|noun|C1|NAWL|neutral|mastery|4|مساهمة وطنية|nationally determined climate contribution
+loss and damage|noun|C1|AWL|neutral|mastery|4|خسائر وأضرار|climate impacts beyond adaptation capacity
+climate finance|noun|C1|AWL|neutral|extended|4|تمويل مناخي|funding for climate action
+green bond|noun|C1|NAWL|neutral|mastery|4|سند أخضر|a bond financing environmental projects
+circular economy|noun|C1|NAWL|neutral|core|4|اقتصاد دائري|an economy minimizing waste
+cradle to cradle|noun|C1|NAWL|neutral|mastery|4|من المهد للمهد|designing products for continuous reuse
+life cycle assessment|noun|C1|AWL|neutral|mastery|4|تقييم دورة حياة|evaluating environmental impact of a product
+sustainability|noun|C1|AWL|neutral|core|4|استدامة|meeting needs without harming future generations
+regenerative|adjective|C1|AWL|neutral|extended|4|تجديدي|restoring and renewing natural systems
+agroforestry|noun|C1|NAWL|neutral|extended|4|حراجة زراعية|combining trees with crops
+permaculture|noun|C1|NAWL|neutral|extended|4|زراعة مستدامة|sustainable agricultural design
+reforestation|noun|C1|AWL|neutral|core|4|إعادة تشجير|planting trees on cleared land
+afforestation|noun|C1|AWL|neutral|extended|4|تشجير|planting trees on previously treeless land
+wetland|noun|C1|CEFR-J|neutral|extended|4|أراضي رطبة|land saturated with water
+mangrove|noun|C1|CEFR-J|neutral|extended|4|أشجار القرم|trees growing in coastal saltwater
+coral reef|noun|C1|CEFR-J|neutral|extended|4|شعاب مرجانية|underwater structures built by coral
+bleaching|noun|C1|CEFR-J|neutral|extended|4|ابيضاض مرجاني|coral losing color from heat stress
+ocean acidification|noun|C1|NAWL|neutral|core|4|تحمض المحيط|oceans becoming more acidic from CO2
+dead zone|noun|C1|CEFR-J|neutral|mastery|4|منطقة ميتة|an area with insufficient oxygen for life
+eutrophication|noun|C1|NAWL|neutral|mastery|4|إثراء غذائي|excessive nutrient enrichment of water
+algal bloom|noun|C1|NAWL|neutral|mastery|4|ازدهار طحلبي|rapid growth of algae in water
+watershed|noun|C1|CEFR-J|neutral|extended|4|مستجمع مياه|an area draining into a water body
+aquifer|noun|C1|NAWL|neutral|extended|4|طبقة مياه جوفية|underground layer holding water
+groundwater|noun|C1|CEFR-J|neutral|core|4|مياه جوفية|water held underground in rocks
+water table|noun|C1|CEFR-J|neutral|extended|4|منسوب مياه|the upper level of groundwater
+desalination|noun|C1|NAWL|neutral|extended|4|تحلية|removing salt from seawater
+water scarcity|noun|C1|AWL|neutral|core|4|شح مياه|insufficient water resources
+water stress|noun|C1|AWL|neutral|extended|4|إجهاد مائي|demand exceeding available water supply
+irrigation|noun|C1|CEFR-J|neutral|core|4|ري|supplying water to crops
+drip irrigation|noun|C1|NAWL|neutral|extended|4|ري بالتنقيط|efficient watering directly to plant roots
+rainwater harvesting|noun|C1|NAWL|neutral|extended|4|حصاد مطري|collecting rain for later use
+greywater|noun|C1|NAWL|neutral|mastery|4|مياه رمادية|wastewater from sinks and showers

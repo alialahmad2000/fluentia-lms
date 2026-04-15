@@ -1,0 +1,138 @@
+species|noun|B2|CEFR-J|neutral|core|6|نوع|a group of organisms capable of interbreeding
+habitat|noun|B2|CEFR-J|neutral|core|6|موطن|the natural home of an organism
+ecosystem|noun|B2|AWL|neutral|core|6|منظومة بيئية|a biological community of interacting organisms
+biodiversity|noun|C1|AWL|neutral|core|6|تنوع أحيائي|the variety of plant and animal life
+conservation|noun|C1|AWL|neutral|core|6|محافظة|the protection of natural resources
+extinction|noun|C1|AWL|neutral|core|6|انقراض|the complete disappearance of a species
+endangered|adjective|B2|CEFR-J|neutral|core|6|مهدد بالانقراض|at risk of becoming extinct
+vulnerable|adjective|C1|AWL|neutral|core|6|معرض للخطر|susceptible to harm or danger
+endemic|adjective|C1|NAWL|neutral|core|6|متوطن|native to a specific geographic area
+indigenous|adjective|C1|AWL|neutral|core|6|أصلي|originating naturally in a particular region
+invasive|adjective|C1|CEFR-J|neutral|core|6|غازي|tending to spread and harm native species
+migratory|adjective|C1|CEFR-J|neutral|core|6|مهاجر|relating to seasonal movement of animals
+hibernation|noun|C1|CEFR-J|neutral|core|6|سبات شتوي|a state of inactivity during winter
+metamorphosis|noun|C1|CEFR-J|neutral|core|6|تحول|a dramatic change in form during development
+pollination|noun|C1|CEFR-J|neutral|core|6|تلقيح|the transfer of pollen between flowers
+germination|noun|C1|CEFR-J|neutral|core|6|إنبات|the process of a seed beginning to grow
+photosynthesis|noun|C1|CEFR-J|neutral|core|6|تمثيل ضوئي|the process plants use to make food from light
+decomposition|noun|C1|AWL|neutral|core|6|تحلل|the breakdown of organic matter
+symbiosis|noun|C1|NAWL|neutral|core|6|تعايش|a close relationship between different organisms
+mutualism|noun|C1|NAWL|neutral|core|6|تبادلية|an interaction benefiting both organisms
+parasitism|noun|C1|NAWL|neutral|core|6|طفيلية|a relationship harmful to one organism
+commensalism|noun|C2|NAWL|formal|core|6|تعايش أحادي النفع|one benefits while the other is unaffected
+predation|noun|C1|NAWL|neutral|core|6|افتراس حيوي|the hunting of prey animals
+camouflage|noun|C1|CEFR-J|neutral|core|6|تمويه|concealing appearance to blend with surroundings
+mimicry|noun|C1|CEFR-J|neutral|core|6|تقليد|resembling another species for protection
+adaptation|noun|C1|AWL|neutral|core|6|تكيف حيوي|a feature that helps survival in an environment
+natural selection|noun|C1|CEFR-J|neutral|core|6|انتقاء طبيعي|the process by which organisms evolve
+speciation|noun|C1|NAWL|neutral|core|6|تنوع أنواع|the formation of new distinct species
+phylogeny|noun|C2|NAWL|formal|core|6|تطور السلالات|the evolutionary history of a species
+taxonomy|noun|C1|AWL|neutral|core|6|تصنيف أحيائي|the classification of organisms
+genus|noun|C1|NAWL|neutral|core|6|جنس|a rank in classification above species
+phylum|noun|C1|NAWL|neutral|core|6|شعبة|a major division of living organisms
+kingdom|noun|B2|CEFR-J|neutral|core|6|مملكة حيوية|the highest classification of living organisms
+vertebrate|noun|C1|CEFR-J|neutral|core|6|فقاري|an animal with a backbone
+invertebrate|noun|C1|CEFR-J|neutral|core|6|لافقاري|an animal without a backbone
+mammal|noun|B2|CEFR-J|neutral|core|6|ثديي|a warm-blooded animal that nurses its young
+reptile|noun|B2|CEFR-J|neutral|core|6|زاحف|a cold-blooded scaly animal
+amphibian|noun|C1|CEFR-J|neutral|core|6|برمائي|an animal living in water and on land
+crustacean|noun|C1|CEFR-J|neutral|core|6|قشري|an arthropod with a hard shell
+arachnid|noun|C1|CEFR-J|neutral|core|6|عنكبوتي|an eight-legged arthropod
+mollusk|noun|C1|CEFR-J|neutral|core|6|رخوي|a soft-bodied invertebrate often with a shell
+plankton|noun|C1|CEFR-J|neutral|core|6|عوالق|tiny organisms drifting in water
+microorganism|noun|C1|CEFR-J|neutral|core|6|كائن مجهري|an organism too small to see unaided
+bacterium|noun|C1|CEFR-J|neutral|core|6|بكتيريا|a microscopic single-celled organism
+fungus|noun|C1|CEFR-J|neutral|core|6|فطر|an organism including molds and mushrooms
+lichen|noun|C1|CEFR-J|neutral|core|6|أشنة|a composite organism of fungus and alga
+canopy|noun|C1|CEFR-J|neutral|core|6|غطاء أشجار|the upper layer of branches in a forest
+understory|noun|C1|NAWL|neutral|core|6|طبقة سفلية|the vegetation layer below the canopy
+rhizosphere|noun|C2|NAWL|formal|core|6|محيط الجذور|the area of soil around plant roots
+mycelium|noun|C2|NAWL|formal|core|6|خيوط فطرية|the network of fungal threads
+chlorophyll|noun|C1|CEFR-J|neutral|core|6|كلوروفيل|the green pigment in plants for photosynthesis
+trophic|adjective|C1|NAWL|neutral|extended|6|غذائي|relating to feeding and nutrition in an ecosystem
+food web|noun|C1|CEFR-J|neutral|extended|6|شبكة غذائية|a system of interconnected food chains
+biomagnification|noun|C2|NAWL|formal|extended|6|تضخم حيوي|increasing concentration of toxins up the food chain
+bioaccumulation|noun|C2|NAWL|formal|extended|6|تراكم حيوي|the buildup of substances in an organism
+carrying capacity|noun|C1|NAWL|neutral|extended|6|قدرة استيعابية|the maximum population an environment can sustain
+population dynamics|noun|C1|AWL|neutral|extended|6|ديناميكيات سكانية|the study of changes in population size
+exponential growth|noun|C1|AWL|neutral|extended|6|نمو أسي|growth at a constantly increasing rate
+logistic growth|noun|C1|NAWL|neutral|extended|6|نمو لوجستي|growth that levels off at carrying capacity
+niche|noun|C1|AWL|neutral|extended|6|مكانة بيئية|the role and position of a species in its ecosystem
+ecotone|noun|C2|NAWL|formal|extended|6|منطقة انتقالية|a transition area between two ecosystems
+biome|noun|C1|NAWL|neutral|extended|6|إقليم حيوي|a large naturally occurring community
+succession|noun|C1|AWL|neutral|extended|6|تعاقب بيئي|the gradual change of an ecological community
+climax community|noun|C1|NAWL|neutral|extended|6|مجتمع ذروي|the stable end stage of ecological succession
+pioneer species|noun|C1|NAWL|neutral|extended|6|نوع رائد|the first species to colonize a new area
+keystone species|noun|C1|NAWL|neutral|extended|6|نوع أساسي|a species with a critical ecosystem role
+umbrella species|noun|C1|NAWL|neutral|extended|6|نوع مظلي|a species whose conservation protects others
+flagship species|noun|C1|NAWL|neutral|extended|6|نوع رمزي|a charismatic species representing conservation
+sentinel species|noun|C1|NAWL|neutral|extended|6|نوع حارس|a species indicating environmental health
+biodiversity hotspot|noun|C1|NAWL|neutral|extended|6|بؤرة تنوع|a region with exceptionally high biodiversity
+gene pool|noun|C1|CEFR-J|neutral|extended|6|مجمع جيني|the total genetic diversity within a population
+genetic drift|noun|C1|NAWL|neutral|extended|6|انجراف وراثي|random changes in gene frequency
+bottleneck|noun|C1|CEFR-J|neutral|extended|6|عنق زجاجة|a sharp reduction in population size
+inbreeding|noun|C1|CEFR-J|neutral|extended|6|تزاوج داخلي|breeding between closely related organisms
+outbreeding|noun|C1|NAWL|neutral|extended|6|تزاوج خارجي|breeding between unrelated organisms
+hybridization|noun|C1|AWL|neutral|extended|6|تهجين|the crossing of genetically different organisms
+phenotype|noun|C1|NAWL|neutral|extended|6|نمط ظاهري|the observable characteristics of an organism
+genotype|noun|C1|NAWL|neutral|extended|6|نمط وراثي|the genetic makeup of an organism
+allele|noun|C1|NAWL|neutral|extended|6|أليل|a variant form of a gene
+dominant|adjective|B2|AWL|neutral|extended|6|سائد|a gene expressed when one copy is present
+recessive|adjective|C1|NAWL|neutral|extended|6|متنحي|a gene only expressed when two copies exist
+chromosomal|adjective|C1|NAWL|neutral|extended|6|كروموسومي|relating to chromosomes
+epigenetic|adjective|C2|NAWL|formal|extended|6|فوق جيني|relating to changes in gene expression
+translocation|noun|C1|NAWL|neutral|extended|6|نقل كروموسومي|the movement of a chromosome segment
+fragmentation|noun|C1|AWL|neutral|extended|6|تجزئة|the breaking of habitat into smaller patches
+corridor|noun|C1|CEFR-J|neutral|extended|6|ممر بيئي|a strip connecting separated habitats
+buffer zone|noun|C1|CEFR-J|neutral|extended|6|منطقة عازلة|an area reducing impact between zones
+sanctuary|noun|C1|CEFR-J|neutral|extended|6|محمية|a protected area for wildlife
+reserve|noun|C1|AWL|neutral|extended|6|محمية طبيعية|an area set aside for nature conservation
+captive breeding|noun|C1|NAWL|neutral|extended|6|تربية في الأسر|breeding endangered species in controlled settings
+reintroduction|noun|C1|AWL|neutral|extended|6|إعادة إدخال|releasing captive-bred animals into the wild
+rewilding|noun|C1|NAWL|neutral|extended|6|إعادة تبرير|restoring natural processes to an ecosystem
+transhumance|noun|C2|NAWL|formal|extended|6|ترحال رعوي|seasonal movement of livestock between pastures
+agroforestry|noun|C1|NAWL|neutral|extended|6|زراعة حراجية|combining trees with crops or livestock
+permaculture|noun|C1|NAWL|neutral|extended|6|زراعة مستدامة|a self-sustaining agricultural system
+monoculture|noun|C1|NAWL|neutral|extended|6|زراعة أحادية|growing a single crop over a wide area
+polyculture|noun|C1|NAWL|neutral|extended|6|زراعة متعددة|growing multiple crops in the same space
+silviculture|noun|C2|NAWL|formal|mastery|6|زراعة الغابات|the management and cultivation of forests
+arboriculture|noun|C2|NAWL|formal|mastery|6|رعاية الأشجار|the cultivation and care of trees
+dendrology|noun|C2|NAWL|formal|mastery|6|علم الأشجار|the study of trees and shrubs
+bryology|noun|C2|NAWL|formal|mastery|6|علم الطحالب|the study of mosses and liverworts
+mycology|noun|C2|NAWL|formal|mastery|6|علم الفطريات|the study of fungi
+entomology|noun|C1|CEFR-J|neutral|mastery|6|علم الحشرات|the study of insects
+ornithology|noun|C1|CEFR-J|neutral|mastery|6|علم الطيور|the study of birds
+herpetology|noun|C2|NAWL|formal|mastery|6|علم الزواحف|the study of reptiles and amphibians
+ichthyology|noun|C2|NAWL|formal|mastery|6|علم الأسماك|the study of fish
+primatology|noun|C2|NAWL|formal|mastery|6|علم الرئيسيات|the study of primates
+ethology|noun|C1|NAWL|neutral|mastery|6|علم سلوك الحيوان|the study of animal behavior
+zoology|noun|C1|CEFR-J|neutral|mastery|6|علم الحيوان|the scientific study of animals
+botany|noun|C1|CEFR-J|neutral|mastery|6|علم النبات|the scientific study of plants
+ecology|noun|C1|AWL|neutral|mastery|6|علم البيئة|the study of organisms and their environment
+phytoplankton|noun|C1|NAWL|neutral|mastery|6|عوالق نباتية|microscopic aquatic photosynthetic organisms
+zooplankton|noun|C1|NAWL|neutral|mastery|6|عوالق حيوانية|tiny animals drifting in water
+benthic|adjective|C2|NAWL|formal|mastery|6|قاعي|relating to the bottom of a body of water
+pelagic|adjective|C2|NAWL|formal|mastery|6|بحري عائم|relating to the open sea
+littoral|adjective|C2|NAWL|formal|mastery|6|ساحلي|relating to the shore of a lake or sea
+riparian|adjective|C2|NAWL|formal|mastery|6|ضفافي|relating to the banks of a river
+estuarine|adjective|C2|NAWL|formal|mastery|6|مصبي|relating to the mouth of a river
+intertidal|adjective|C2|NAWL|formal|mastery|6|بين مدي|between high and low tide marks
+subtidal|adjective|C2|NAWL|formal|mastery|6|تحت مدي|below the low tide mark
+detritivore|noun|C2|NAWL|formal|mastery|6|آكل الفتات|an organism feeding on dead organic matter
+saprophyte|noun|C2|NAWL|formal|mastery|6|كائن رمي|an organism feeding on decaying matter
+epiphyte|noun|C2|NAWL|formal|mastery|6|نبات هوائي|a plant growing on another plant
+endophyte|noun|C2|NAWL|formal|mastery|6|نبات داخلي|an organism living inside a plant
+halophyte|noun|C2|NAWL|formal|mastery|6|نبات ملحي|a plant adapted to saline conditions
+xerophyte|noun|C2|NAWL|formal|mastery|6|نبات جفافي|a plant adapted to dry conditions
+hydrophyte|noun|C2|NAWL|formal|mastery|6|نبات مائي|a plant growing in water
+mesophyte|noun|C2|NAWL|formal|mastery|6|نبات معتدل|a plant adapted to moderate conditions
+allelopathy|noun|C2|NAWL|formal|mastery|6|أليلوباثي|chemical inhibition of one plant by another
+mycorrhiza|noun|C2|NAWL|formal|mastery|6|فطر جذري|a symbiotic association of fungus and plant roots
+nitrogen fixation|noun|C1|NAWL|neutral|mastery|6|تثبيت النيتروجين|converting atmospheric nitrogen to usable form
+denitrification|noun|C2|NAWL|formal|mastery|6|نزع النيتروجين|the reduction of nitrates by bacteria
+eutrophication|noun|C1|NAWL|neutral|mastery|6|تخثر مائي|excessive enrichment of water with nutrients
+anoxia|noun|C2|NAWL|formal|mastery|6|نقص أكسجين|the absence of oxygen in water
+hypoxia|noun|C2|NAWL|formal|mastery|6|نقص تأكسج|dangerously low oxygen levels in water
+algal bloom|noun|C1|NAWL|neutral|mastery|6|ازدهار طحلبي|rapid growth of algae in water
+red tide|noun|C1|CEFR-J|neutral|mastery|6|مد أحمر|a bloom of toxic algae coloring the sea
+dead zone|noun|C1|CEFR-J|neutral|mastery|6|منطقة ميتة|an area with too little oxygen for marine life

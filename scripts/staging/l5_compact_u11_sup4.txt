@@ -1,0 +1,65 @@
+lingua franca|noun|C1|NAWL|neutral|core|11|لغة مشتركة|a language used between speakers of different languages
+pidgin|noun|C1|NAWL|neutral|extended|11|لغة هجينة|a simplified language for communication
+creole|noun|C1|NAWL|neutral|extended|11|لغة كريولية|a pidgin that becomes a native language
+code-switching|noun|C1|NAWL|neutral|extended|11|تبديل لغوي|alternating between languages in conversation
+bilingualism|noun|C1|NAWL|neutral|core|11|ثنائية لغوية|the ability to speak two languages
+multilingualism|noun|C1|NAWL|neutral|core|11|تعدد لغوي|the ability to speak many languages
+language shift|noun|C1|NAWL|neutral|extended|11|تحول لغوي|a community changing its primary language
+language death|noun|C1|NAWL|neutral|extended|11|موت لغة|the disappearance of a spoken language
+language revitalization|noun|C1|NAWL|neutral|mastery|11|إحياء لغة|efforts to restore a dying language
+language policy|noun|C1|AWL|neutral|extended|11|سياسة لغوية|official decisions about language use
+linguistic imperialism|noun|C1|NAWL|neutral|mastery|11|هيمنة لغوية|dominance of one language over others
+soft power|noun|C1|NAWL|neutral|core|11|قوة ناعمة|influence through culture rather than force
+hard power|noun|C1|NAWL|neutral|core|11|قوة صلبة|influence through military or economic force
+smart power|noun|C1|NAWL|neutral|extended|11|قوة ذكية|combining soft and hard power
+cultural diplomacy|noun|C1|AWL|neutral|core|11|دبلوماسية ثقافية|promoting culture to build international relations
+public diplomacy|noun|C1|AWL|neutral|extended|11|دبلوماسية عامة|engaging foreign publics directly
+track two diplomacy|noun|C1|NAWL|neutral|mastery|11|دبلوماسية مسار ثاني|unofficial diplomatic discussions
+backchanneling|noun|C1|NAWL|neutral|mastery|11|قناة خلفية|secret unofficial communication
+détente|noun|C1|NAWL|neutral|extended|11|انفراج|easing of strained relations
+rapprochement|noun|C1|NAWL|neutral|mastery|11|تقارب|establishing friendly relations after conflict
+normalization|noun|C1|AWL|neutral|extended|11|تطبيع|establishing normal diplomatic relations
+recognition|noun|C1|AWL|neutral|core|11|اعتراف دبلوماسي|officially acknowledging a state
+territorial integrity|noun|C1|AWL|neutral|extended|11|سلامة أراضي|respecting existing borders
+border dispute|noun|C1|CEFR-J|neutral|extended|11|نزاع حدودي|a disagreement over boundaries
+separatism|noun|C1|AWL|neutral|extended|11|انفصالية|a movement seeking independence
+irredentism|noun|C2|NAWL|formal|mastery|11|استرداد أراضي|claiming territory based on historical ties
+annexation|noun|C1|AWL|neutral|extended|11|ضم|incorporating territory into a state
+occupation|noun|C1|AWL|neutral|core|11|احتلال|military control of foreign territory
+colonialism|noun|C1|AWL|neutral|core|11|استعمار|domination of one country by another
+imperialism|noun|C1|AWL|neutral|core|11|إمبريالية|extending power through colonization
+neocolonialism|noun|C1|NAWL|neutral|extended|11|استعمار جديد|indirect control through economic means
+decolonization|noun|C1|AWL|neutral|core|11|إنهاء استعمار|the process of ending colonial rule
+postcolonialism|noun|C1|AWL|neutral|extended|11|ما بعد استعمار|studying effects of colonial rule
+orientalism|noun|C1|NAWL|neutral|mastery|11|استشراق|Western study and portrayal of Eastern cultures
+subaltern|noun|C2|NAWL|formal|mastery|11|مهمش|a person of lower social status
+hegemony|noun|C1|AWL|neutral|core|11|هيمنة|dominance of one group over others
+power dynamics|noun|C1|AWL|neutral|core|11|ديناميكيات قوة|the way power is distributed in relationships
+geopolitics|noun|C1|NAWL|neutral|core|11|جيوسياسة|politics influenced by geography
+realpolitik|noun|C1|NAWL|neutral|extended|11|سياسة واقعية|politics based on practical interests
+balance of power|noun|C1|AWL|neutral|core|11|توازن قوى|distribution of power among states
+sphere of influence|noun|C1|AWL|neutral|extended|11|مجال نفوذ|an area dominated by a particular state
+superpower|noun|C1|CEFR-J|neutral|core|11|قوة عظمى|a very powerful and influential nation
+emerging power|noun|C1|AWL|neutral|extended|11|قوة صاعدة|a nation gaining international influence
+middle power|noun|C1|NAWL|neutral|mastery|11|قوة متوسطة|a state with moderate international influence
+failed state|noun|C1|NAWL|neutral|extended|11|دولة منهارة|a state unable to maintain basic functions
+fragile state|noun|C1|NAWL|neutral|extended|11|دولة هشة|a state vulnerable to crisis
+governance|noun|C1|AWL|neutral|core|11|حوكمة|the way an organization is managed
+good governance|noun|C1|AWL|neutral|core|11|حكم رشيد|effective and accountable management
+corruption|noun|C1|AWL|neutral|core|11|فساد|dishonest behavior by those in power
+kleptocracy|noun|C1|NAWL|neutral|mastery|11|حكم لصوصي|government by corrupt leaders stealing resources
+nepotism|noun|C1|NAWL|neutral|extended|11|محسوبية|favoring relatives for positions
+cronyism|noun|C1|NAWL|neutral|mastery|11|محاباة|favoring friends and associates
+patronage|noun|C1|AWL|neutral|extended|11|رعاية سياسية|giving positions to political supporters
+clientelism|noun|C2|NAWL|formal|mastery|11|زبائنية|exchanging political favors for support
+electoral fraud|noun|C1|AWL|neutral|extended|11|تزوير انتخابي|illegal manipulation of elections
+gerrymandering|noun|C1|NAWL|neutral|mastery|11|تلاعب دوائر|manipulating electoral boundaries
+voter suppression|noun|C1|NAWL|neutral|mastery|11|قمع تصويت|preventing people from voting
+political asylum|noun|C1|AWL|neutral|core|11|لجوء سياسي|protection for political refugees
+statelessness|noun|C1|AWL|neutral|extended|11|انعدام جنسية|lacking citizenship in any country
+citizenship|noun|C1|AWL|neutral|core|11|مواطنة|the status of being a citizen
+naturalization|noun|C1|AWL|neutral|extended|11|تجنيس|becoming a citizen of a new country
+dual citizenship|noun|C1|AWL|neutral|extended|11|جنسية مزدوجة|holding citizenship in two countries
+passport|noun|B2|CEFR-J|neutral|core|11|جواز سفر|a document allowing international travel
+visa|noun|C1|CEFR-J|neutral|core|11|تأشيرة|permission to enter a foreign country
+extradition|noun|C1|NAWL|neutral|mastery|11|تسليم مجرمين|handing over a suspect to another country

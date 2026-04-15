@@ -1,0 +1,78 @@
+nuclear liability|noun|C1|AWL|neutral|core|5|مسؤولية نووية|legal responsibility for nuclear accidents
+nuclear insurance|noun|C1|AWL|neutral|extended|5|تأمين نووي|coverage for nuclear damage claims
+Price-Anderson Act|noun|C1|NAWL|neutral|mastery|5|قانون برايس أندرسون|a US law limiting nuclear liability
+nuclear regulatory body|noun|C1|AWL|neutral|core|5|هيئة تنظيمية نووية|an authority overseeing nuclear activities
+safety culture|noun|C1|AWL|neutral|core|5|ثقافة أمان|attitudes prioritizing safety in organizations
+defense in depth|noun|C1|NAWL|neutral|extended|5|دفاع في العمق|multiple safety layers in nuclear design
+passive safety|noun|C1|AWL|neutral|extended|5|أمان سلبي|safety features working without human action
+containment structure|noun|C1|NAWL|neutral|core|5|هيكل احتواء|a barrier preventing radioactive release
+emergency core cooling|noun|C1|NAWL|neutral|extended|5|تبريد طوارئ قلب|systems preventing reactor overheating
+scram|noun|C1|NAWL|neutral|extended|5|إيقاف طارئ|emergency shutdown of a nuclear reactor
+control rod|noun|C1|NAWL|neutral|core|5|قضيب تحكم|a rod absorbing neutrons to control a reactor
+moderator|noun|C1|AWL|neutral|extended|5|مهدئ نيوتروني|a material slowing down neutrons
+coolant|noun|C1|NAWL|neutral|core|5|مبرد|a substance removing heat from a reactor
+primary circuit|noun|C1|NAWL|neutral|extended|5|دارة أولية|the loop carrying heat from the reactor
+secondary circuit|noun|C1|NAWL|neutral|extended|5|دارة ثانوية|the loop generating steam for electricity
+steam generator|noun|C1|NAWL|neutral|extended|5|مولد بخار|a device producing steam from reactor heat
+turbine generator|noun|C1|NAWL|neutral|extended|5|مولد توربيني|a machine converting steam to electricity
+capacity utilization|noun|C1|AWL|neutral|extended|5|استخدام سعة|the percentage of maximum output being used
+baseload generation|noun|C1|NAWL|neutral|extended|5|توليد حمل أساسي|continuous power production meeting minimum demand
+load following|noun|C1|NAWL|neutral|mastery|5|متابعة حمل|adjusting reactor output to match demand
+refueling outage|noun|C1|NAWL|neutral|mastery|5|توقف إعادة تزويد|a planned shutdown to replace fuel
+reactor vessel|noun|C1|NAWL|neutral|extended|5|وعاء مفاعل|the container holding the reactor core
+reactor core|noun|C1|NAWL|neutral|core|5|قلب مفاعل|the central part where fission occurs
+neutron flux|noun|C1|NAWL|neutral|mastery|5|تدفق نيوتروني|the rate of neutrons passing through an area
+criticality|noun|C1|NAWL|neutral|extended|5|حرجية|a self-sustaining nuclear chain reaction
+subcritical|adjective|C1|NAWL|neutral|extended|5|دون حرج|below the level of sustained fission
+supercritical|adjective|C1|NAWL|neutral|mastery|5|فوق حرج|above the level needed for sustained fission
+prompt criticality|noun|C1|NAWL|neutral|mastery|5|حرجية فورية|an uncontrolled rapid chain reaction
+delayed neutron|noun|C1|NAWL|neutral|mastery|5|نيوترون متأخر|a neutron released after fission products decay
+fission product|noun|C1|NAWL|neutral|extended|5|ناتج انشطار|an atom created when a nucleus splits
+transuranic waste|noun|C1|NAWL|neutral|mastery|5|نفاية ما بعد يورانيوم|waste containing elements heavier than uranium
+low-level waste|noun|C1|NAWL|neutral|extended|5|نفاية منخفضة المستوى|slightly radioactive waste from operations
+intermediate-level waste|noun|C1|NAWL|neutral|extended|5|نفاية متوسطة المستوى|moderately radioactive waste requiring shielding
+high-level waste|noun|C1|NAWL|neutral|core|5|نفاية عالية المستوى|intensely radioactive waste from fuel
+geological repository|noun|C1|NAWL|neutral|extended|5|مستودع جيولوجي|deep underground storage for nuclear waste
+deep borehole|noun|C1|NAWL|neutral|mastery|5|بئر عميقة|a very deep hole for waste disposal
+waste package|noun|C1|NAWL|neutral|extended|5|حاوية نفايات|a sealed container for radioactive waste
+engineered barrier|noun|C1|NAWL|neutral|mastery|5|حاجز هندسي|a human-made shield around nuclear waste
+natural barrier|noun|C1|NAWL|neutral|mastery|5|حاجز طبيعي|geological features containing nuclear waste
+dose limit|noun|C1|NAWL|neutral|core|5|حد جرعة|the maximum allowed radiation exposure
+occupational exposure|noun|C1|AWL|neutral|extended|5|تعرض مهني|radiation received during work
+public exposure|noun|C1|AWL|neutral|extended|5|تعرض عام|radiation received by the general public
+dosimeter|noun|C1|NAWL|neutral|extended|5|مقياس جرعة|a device measuring radiation exposure
+Geiger counter|noun|C1|NAWL|neutral|core|5|عداد غايغر|a device detecting radiation
+radiation shielding|noun|C1|NAWL|neutral|core|5|حماية إشعاعية|materials blocking harmful radiation
+lead shielding|noun|C1|CEFR-J|neutral|extended|5|حماية رصاصية|using lead to block radiation
+concrete shielding|noun|C1|CEFR-J|neutral|extended|5|حماية خرسانية|using concrete to block radiation
+water shielding|noun|C1|CEFR-J|neutral|extended|5|حماية مائية|using water to absorb radiation
+biological shield|noun|C1|NAWL|neutral|mastery|5|درع بيولوجي|protection for living organisms from radiation
+nuclear emergency|noun|C1|NAWL|neutral|core|5|طوارئ نووية|a situation involving nuclear danger
+evacuation zone|noun|C1|CEFR-J|neutral|core|5|منطقة إخلاء|an area cleared during a nuclear event
+exclusion zone|noun|C1|AWL|neutral|core|5|منطقة استبعاد|a permanently restricted area after an accident
+potassium iodide|noun|C1|NAWL|neutral|extended|5|يوديد بوتاسيوم|a medicine protecting the thyroid from radiation
+nuclear phase-out|noun|C1|NAWL|neutral|core|5|تخلص تدريجي نووي|gradually closing all nuclear plants
+energy transition|noun|C1|AWL|neutral|core|5|تحول طاقوي|shifting from fossil to renewable energy
+energy mix|noun|C1|AWL|neutral|core|5|مزيج طاقة|the combination of energy sources used
+grid stability|noun|C1|NAWL|neutral|extended|5|استقرار شبكة|maintaining reliable electricity supply
+dispatchable power|noun|C1|NAWL|neutral|mastery|5|طاقة قابلة للتوزيع|electricity available on demand
+nuclear renaissance|noun|C1|NAWL|neutral|extended|5|نهضة نووية|renewed interest in nuclear energy
+public acceptance|noun|C1|AWL|neutral|core|5|قبول عام|the public's willingness to support something
+risk perception|noun|C1|AWL|neutral|core|5|إدراك مخاطر|how people understand and evaluate risks
+dread risk|noun|C1|NAWL|neutral|mastery|5|خطر مرعب|a risk causing disproportionate fear
+NIMBY|noun|C1|NAWL|neutral|extended|5|ليس في فنائي|opposing development near one's home
+social license|noun|C1|AWL|neutral|extended|5|ترخيص اجتماعي|community approval for an activity
+stakeholder engagement|noun|C1|AWL|neutral|extended|5|إشراك أصحاب مصلحة|involving affected parties in decisions
+environmental impact assessment|noun|C1|AWL|neutral|core|5|تقييم أثر بيئي|evaluating a project's environmental effects
+cost-benefit analysis|noun|C1|AWL|neutral|core|5|تحليل تكلفة-منفعة|comparing costs and benefits of a decision
+levelized cost of electricity|noun|C1|NAWL|neutral|mastery|5|تكلفة معيارية للكهرباء|the average cost of producing electricity
+overnight cost|noun|C1|NAWL|neutral|mastery|5|تكلفة فورية|the cost of building a plant excluding financing
+construction delay|noun|C1|CEFR-J|neutral|extended|5|تأخير بناء|a project taking longer than planned
+cost overrun|noun|C1|AWL|neutral|extended|5|تجاوز تكلفة|spending more than budgeted
+decommissioning fund|noun|C1|AWL|neutral|extended|5|صندوق تفكيك|money set aside for closing a nuclear plant
+decommissioning process|noun|C1|AWL|neutral|core|5|عملية تفكيك|safely closing and dismantling a nuclear facility
+brownfield site|noun|C1|NAWL|neutral|extended|5|موقع ملوث|land previously used for industrial purposes
+greenfield site|noun|C1|NAWL|neutral|extended|5|موقع بكر|land not previously developed
+site selection|noun|C1|AWL|neutral|extended|5|اختيار موقع|choosing a location for a nuclear plant
+seismic assessment|noun|C1|NAWL|neutral|extended|5|تقييم زلزالي|evaluating earthquake risk for a site
+flood risk assessment|noun|C1|AWL|neutral|extended|5|تقييم خطر فيضان|evaluating flood danger for a site

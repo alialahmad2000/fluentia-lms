@@ -1,0 +1,67 @@
+neural network|noun|C1|NAWL|neutral|core|8|شبكة عصبية|a computing system inspired by biological brains
+deep learning|noun|C1|NAWL|neutral|core|8|تعلم عميق|machine learning with many processing layers
+machine learning|noun|C1|NAWL|neutral|core|8|تعلم آلي|computers learning from data without programming
+artificial intelligence|noun|C1|NAWL|neutral|core|8|ذكاء اصطناعي|machines simulating human intelligence
+supervised learning|noun|C1|NAWL|neutral|core|8|تعلم موجه|learning from labeled examples
+unsupervised learning|noun|C1|NAWL|neutral|extended|8|تعلم غير موجه|finding patterns in unlabeled data
+classification|noun|C1|AWL|neutral|core|8|تصنيف|assigning items to categories
+clustering|noun|C1|NAWL|neutral|extended|8|تجميع|grouping similar data points together
+regression analysis|noun|C1|AWL|neutral|extended|8|تحليل انحدار|predicting continuous values
+decision tree|noun|C1|NAWL|neutral|extended|8|شجرة قرار|a model splitting data by conditions
+random forest|noun|C1|NAWL|neutral|mastery|8|غابة عشوائية|many decision trees combined
+gradient descent|noun|C1|NAWL|neutral|extended|8|هبوط تدريجي|optimizing by following the slope
+backpropagation|noun|C1|NAWL|neutral|extended|8|انتشار خلفي|training neural networks by error correction
+overfitting|noun|C1|NAWL|neutral|core|8|إفراط تلاؤم|a model too closely matching training data
+underfitting|noun|C1|NAWL|neutral|extended|8|نقص تلاؤم|a model too simple for the data
+bias-variance tradeoff|noun|C1|NAWL|neutral|mastery|8|مفاضلة تحيز-تباين|balancing simplicity and accuracy
+cross-validation|noun|C1|NAWL|neutral|extended|8|تحقق متقاطع|testing a model on different data splits
+training set|noun|C1|NAWL|neutral|core|8|مجموعة تدريب|data used to build a model
+test set|noun|C1|NAWL|neutral|core|8|مجموعة اختبار|data used to evaluate a model
+validation set|noun|C1|NAWL|neutral|extended|8|مجموعة تحقق|data used to tune a model
+feature|noun|C1|AWL|neutral|core|8|ميزة بيانات|a measurable property of the data
+feature extraction|noun|C1|AWL|neutral|extended|8|استخراج ميزات|identifying relevant data properties
+dimensionality reduction|noun|C1|NAWL|neutral|mastery|8|خفض أبعاد|reducing the number of variables
+principal component analysis|noun|C1|NAWL|neutral|mastery|8|تحليل مكونات رئيسية|finding the main axes of variation
+normalization|noun|C1|AWL|neutral|extended|8|تطبيع|scaling data to a standard range
+activation function|noun|C1|NAWL|neutral|extended|8|دالة تنشيط|a function determining neuron output
+convolutional network|noun|C1|NAWL|neutral|extended|8|شبكة التفافية|a neural network for image processing
+recurrent network|noun|C1|NAWL|neutral|extended|8|شبكة تكرارية|a neural network for sequential data
+transformer|noun|C1|NAWL|neutral|core|8|محول نصي|an architecture for processing sequences
+attention mechanism|noun|C1|NAWL|neutral|extended|8|آلية انتباه|focusing on relevant parts of input
+generative model|noun|C1|NAWL|neutral|extended|8|نموذج توليدي|a model creating new data samples
+discriminative model|noun|C1|NAWL|neutral|mastery|8|نموذج تمييزي|a model distinguishing between categories
+GAN|noun|C1|NAWL|neutral|mastery|8|شبكة تنافسية توليدية|two networks competing to generate data
+autoencoder|noun|C1|NAWL|neutral|mastery|8|مشفر ذاتي|a network learning compressed representations
+transfer learning|noun|C1|NAWL|neutral|extended|8|تعلم نقلي|applying knowledge from one task to another
+fine-tuning|noun|C1|NAWL|neutral|extended|8|ضبط دقيق|adjusting a pretrained model for a new task
+hyperparameter|noun|C1|NAWL|neutral|mastery|8|معامل فوقي|a setting controlling the learning process
+epoch|noun|C1|CEFR-J|neutral|extended|8|حقبة تدريب|one complete pass through training data
+batch size|noun|C1|NAWL|neutral|mastery|8|حجم دفعة|the number of samples in one training step
+loss function|noun|C1|NAWL|neutral|extended|8|دالة خسارة|a measure of model prediction error
+optimizer|noun|C1|NAWL|neutral|extended|8|محسن|an algorithm updating model weights
+regularization|noun|C1|AWL|neutral|mastery|8|تنظيم|techniques preventing overfitting
+dropout|noun|C1|NAWL|neutral|mastery|8|إسقاط عشوائي|randomly disabling neurons during training
+natural language processing|noun|C1|NAWL|neutral|core|8|معالجة لغة طبيعية|teaching computers to understand language
+computer vision|noun|C1|NAWL|neutral|core|8|رؤية حاسوبية|enabling computers to interpret images
+speech recognition|noun|C1|NAWL|neutral|core|8|التعرف على الكلام|converting spoken words to text
+sentiment analysis|noun|C1|NAWL|neutral|extended|8|تحليل مشاعر|determining the emotional tone of text
+named entity recognition|noun|C1|NAWL|neutral|mastery|8|التعرف على الكيانات|identifying names and places in text
+object detection|noun|C1|NAWL|neutral|extended|8|كشف أجسام|identifying objects in images
+image segmentation|noun|C1|NAWL|neutral|mastery|8|تجزئة صور|dividing an image into meaningful parts
+recommendation system|noun|C1|NAWL|neutral|extended|8|نظام توصية|suggesting items based on preferences
+anomaly detection|noun|C1|NAWL|neutral|extended|8|كشف شذوذ|identifying unusual patterns in data
+time series|noun|C1|NAWL|neutral|extended|8|سلسلة زمنية|data points collected over time
+data mining|noun|C1|NAWL|neutral|core|8|تنقيب بيانات|discovering patterns in large datasets
+big data|noun|C1|NAWL|neutral|core|8|بيانات ضخمة|extremely large and complex datasets
+cloud computing|noun|C1|NAWL|neutral|core|8|حوسبة سحابية|remote computing services over the internet
+edge computing|noun|C1|NAWL|neutral|mastery|8|حوسبة حافة|processing data near its source
+IoT|noun|C1|NAWL|neutral|extended|8|إنترنت الأشياء|the network of connected devices
+digital twin|noun|C1|NAWL|neutral|mastery|8|توأم رقمي|a virtual replica of a physical system
+autonomous system|noun|C1|NAWL|neutral|core|8|نظام مستقل|a system operating without human control
+drone swarm|noun|C1|NAWL|neutral|extended|8|سرب طائرات مسيرة|multiple coordinated unmanned aircraft
+sensor network|noun|C1|NAWL|neutral|extended|8|شبكة مستشعرات|distributed sensors collecting data
+mesh network|noun|C1|NAWL|neutral|mastery|8|شبكة شبكية|a network where nodes relay data
+protocol|noun|C1|AWL|neutral|extended|8|بروتوكول|a set of rules for data exchange
+latency|noun|C1|NAWL|neutral|extended|8|زمن استجابة|the delay in data transmission
+throughput|noun|C1|NAWL|neutral|mastery|8|إنتاجية|the amount of data processed per unit time
+bandwidth|noun|C1|NAWL|neutral|extended|8|عرض نطاق|the capacity of a communication channel
