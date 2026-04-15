@@ -14,6 +14,7 @@ import NotesPanel from '../../../components/student/NotesPanel'
 import SavedWordsPanel from '../../../components/student/SavedWordsPanel'
 import ClassSummaryView from '../../../components/student/ClassSummaryView'
 import SectionErrorBoundary from '../../../components/SectionErrorBoundary'
+import { useCurriculumPreview } from '../../../contexts/CurriculumPreviewContext'
 
 // Lazy-load activity tabs — cuts initial chunk from ~455KB to ~150KB
 const ReadingTab = React.lazy(() => import('./tabs/ReadingTab'))
@@ -64,8 +65,9 @@ export default function UnitContent() {
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
   const { profile, studentData } = useAuthStore()
-  const currentLevel = studentData?.academic_level ?? 0
-  const isStudent = profile?.role === 'student'
+  const { canSeeAllLevels, basePath } = useCurriculumPreview()
+  const currentLevel = canSeeAllLevels ? 999 : (studentData?.academic_level ?? 0)
+  const isStudent = profile?.role === 'student' && !canSeeAllLevels
   const queryClient = useQueryClient()
   const m = useCinematicMotion()
 
@@ -170,7 +172,7 @@ export default function UnitContent() {
   // Guard: redirect if student can't access this level
   useEffect(() => {
     if (unit?.level?.level_number != null && unit.level.level_number > currentLevel) {
-      navigate('/student/curriculum', { replace: true })
+      navigate(basePath, { replace: true })
     }
   }, [unit, currentLevel, navigate])
 
@@ -224,7 +226,7 @@ export default function UnitContent() {
       <div className="flex flex-col items-center justify-center gap-4 py-20" dir="rtl">
         <p className="font-['Tajawal']" style={{ color: V1.textDim, fontSize: V1.type.bodyLg }}>لم يتم العثور على الوحدة</p>
         <button
-          onClick={() => navigate('/student/curriculum')}
+          onClick={() => navigate(basePath)}
           className="font-['Tajawal']"
           style={{ fontSize: V1.type.bodySm, color: V1.accentCyan }}
         >

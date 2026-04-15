@@ -8,21 +8,23 @@ import { supabase } from '../../../lib/supabase'
 import { tracker } from '../../../services/activityTracker'
 import { calculateUnitCompletion, groupProgressByUnit } from '../../../utils/curriculumProgress'
 import { ProgressRing, CINEMATIC_TOKENS as V1, useCinematicMotion } from './_premiumPrimitives'
+import { useCurriculumPreview } from '../../../contexts/CurriculumPreviewContext'
 
 export default function CurriculumBrowser() {
   const { profile, studentData } = useAuthStore()
   const navigate = useNavigate()
-  const currentLevel = studentData?.academic_level ?? 0
+  const { canSeeAllLevels, basePath } = useCurriculumPreview()
+  const currentLevel = canSeeAllLevels ? 999 : (studentData?.academic_level ?? 0)
   const [autoNavDone, setAutoNavDone] = useState(false)
   const m = useCinematicMotion()
 
-  // Auto-navigate students to their current level
+  // Auto-navigate students to their current level (skip in preview mode)
   useEffect(() => {
-    if (profile?.role === 'student' && currentLevel > 0 && !autoNavDone) {
+    if (!canSeeAllLevels && profile?.role === 'student' && currentLevel > 0 && !autoNavDone) {
       setAutoNavDone(true)
-      navigate(`/student/curriculum/level/${currentLevel}`, { replace: true })
+      navigate(`${basePath}/level/${currentLevel}`, { replace: true })
     }
-  }, [profile?.role, currentLevel, autoNavDone, navigate])
+  }, [profile?.role, currentLevel, autoNavDone, navigate, canSeeAllLevels, basePath])
 
   // Fetch all active levels
   const { data: levels, isLoading: loadingLevels, error: levelsError, refetch } = useQuery({
@@ -275,7 +277,7 @@ export default function CurriculumBrowser() {
 
             const handleClick = () => {
               tracker.track('unit_opened', { level_id: level.id, level_number: level.level_number, level_name: level.name_ar })
-              navigate(`/student/curriculum/level/${level.level_number}`)
+              navigate(`${basePath}/level/${level.level_number}`)
             }
             const handleKey = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClick() } }
 

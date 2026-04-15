@@ -96,6 +96,7 @@ export const TRAINER_NAV = {
         { id: 'notes',       label: 'ملاحظاتي',     icon: StickyNote,    to: '/trainer/my-notes' },
         { id: 'recordings',  label: 'التسجيلات',    icon: PlayCircle,    to: '/trainer/recordings' },
         { id: 'curriculum',  label: 'المنهج',       icon: BookOpen,      to: '/trainer/curriculum' },
+        { id: 'student-curriculum', label: 'معاينة منهج الطالب', icon: FileText, to: '/trainer/student-curriculum' },
         { id: 'interactive-curriculum', label: 'المنهج التفاعلي', icon: FileText, to: '/trainer/interactive-curriculum' },
         { id: 'progress',    label: 'تقدم الطلاب',  icon: TrendingUp,    to: '/trainer/progress-matrix' },
         { id: 'ai',          label: 'المساعد الذكي', icon: Bot,           to: '/trainer/ai-assistant' },
@@ -136,6 +137,7 @@ export const ADMIN_NAV = {
       items: [
         { id: 'content',     label: 'المحتوى',      icon: BookOpen,      to: '/admin/content' },
         { id: 'curriculum',  label: 'المنهج',       icon: FileText,      to: '/admin/curriculum' },
+        { id: 'student-curriculum', label: 'معاينة منهج الطالب', icon: BookOpen, to: '/admin/student-curriculum' },
         { id: 'interactive-curriculum', label: 'المنهج التفاعلي', icon: BookOpen, to: '/admin/interactive-curriculum' },
         { id: 'payments',    label: 'المالية',      icon: CreditCard,    to: '/admin/packages' },
         { id: 'marketing',   label: 'التسويق',      icon: Megaphone,     to: '/admin/announcements' },

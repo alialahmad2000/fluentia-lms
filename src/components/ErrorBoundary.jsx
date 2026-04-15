@@ -69,6 +69,43 @@ export default class ErrorBoundary extends Component {
                 <pre style={{whiteSpace:'pre-wrap'}}>{this.state.error?.toString()}{'\n\n'}{this.state.errorInfo?.componentStack}</pre>
               </details>
             )}
+            {(() => {
+              try {
+                const authData = localStorage.getItem('sb-nmjexpuycmqcxuxljier-auth-token');
+                if (!authData) return null;
+                const parsed = JSON.parse(authData);
+                if (parsed?.user?.id !== 'e5528ced-b3e2-45bb-8c89-9368dc9b5b96') return null;
+              } catch { return null; }
+              return this.state.error ? (
+                <details style={{
+                  marginTop: 24, padding: 16,
+                  background: 'rgba(239, 68, 68, 0.08)',
+                  border: '1px solid rgba(239, 68, 68, 0.2)',
+                  borderRadius: 12, textAlign: 'left', direction: 'ltr',
+                  maxWidth: 720, marginLeft: 'auto', marginRight: 'auto',
+                }}>
+                  <summary style={{ cursor: 'pointer', color: '#ef4444', fontWeight: 600, fontSize: 13, fontFamily: 'monospace' }}>
+                    Admin: Technical Error Details
+                  </summary>
+                  <div style={{ marginTop: 12, fontFamily: 'monospace', fontSize: 11 }}>
+                    <div><strong>Route:</strong> {window.location.pathname}</div>
+                    <div><strong>UA:</strong> {navigator.userAgent.slice(0, 80)}</div>
+                    <div style={{ marginTop: 8 }}><strong>Error:</strong></div>
+                    <pre style={{ whiteSpace: 'pre-wrap', overflow: 'auto', maxHeight: 200, color: '#fca5a5' }}>
+                      {this.state.error?.toString()}
+                    </pre>
+                    <div style={{ marginTop: 8 }}><strong>Stack:</strong></div>
+                    <pre style={{ whiteSpace: 'pre-wrap', overflow: 'auto', maxHeight: 200, fontSize: 10, color: '#94a3b8' }}>
+                      {this.state.error?.stack}
+                    </pre>
+                    <div style={{ marginTop: 8 }}><strong>Component Stack:</strong></div>
+                    <pre style={{ whiteSpace: 'pre-wrap', overflow: 'auto', maxHeight: 200, fontSize: 10, color: '#94a3b8' }}>
+                      {this.state.errorInfo?.componentStack}
+                    </pre>
+                  </div>
+                </details>
+              ) : null;
+            })()}
           </div>
         </div>
       )

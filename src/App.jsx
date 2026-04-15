@@ -133,6 +133,8 @@ const AdminDailyReports = lazyRetry(() => import('./pages/admin/AdminDailyReport
 const AdminAnalytics = lazyRetry(() => import('./pages/admin/AdminAnalytics'))
 const AdminCreatorChallenge = lazyRetry(() => import('./pages/admin/AdminCreatorChallenge'))
 
+const AdminCurriculumPreview = lazyRetry(() => import('./pages/admin/AdminCurriculumPreview'))
+const TrainerCurriculumPreview = lazyRetry(() => import('./pages/trainer/TrainerCurriculumPreview'))
 const InteractiveCurriculumLevels = lazyRetry(() => import('./pages/shared/InteractiveCurriculumLevels'))
 const InteractiveCurriculumUnits = lazyRetry(() => import('./pages/shared/InteractiveCurriculumUnits'))
 const InteractiveCurriculumPage = lazyRetry(() => import('./pages/shared/InteractiveCurriculumPage'))
@@ -564,6 +566,9 @@ export default function App() {
               <Route path="/trainer/conversation" element={<Page><TrainerGroupChat /></Page>} />
               <Route path="/trainer/curriculum" element={<Page><TrainerCurriculum /></Page>} />
               <Route path="/trainer/progress-matrix" element={<Page><TrainerProgressMatrix /></Page>} />
+              <Route path="/trainer/student-curriculum" element={<Page><TrainerCurriculumPreview><CurriculumBrowser /></TrainerCurriculumPreview></Page>} />
+              <Route path="/trainer/student-curriculum/level/:levelNumber" element={<Page><TrainerCurriculumPreview><LevelUnits /></TrainerCurriculumPreview></Page>} />
+              <Route path="/trainer/student-curriculum/unit/:unitId" element={<Page><TrainerCurriculumPreview><UnitContent /></TrainerCurriculumPreview></Page>} />
               <Route path="/trainer/interactive-curriculum" element={<Page><InteractiveCurriculumLevels /></Page>} />
               <Route path="/trainer/interactive-curriculum/:levelId" element={<Page><InteractiveCurriculumUnits /></Page>} />
               <Route path="/trainer/interactive-curriculum/:levelId/:unitId" element={<Page><InteractiveCurriculumPage /></Page>} />
@@ -613,6 +618,9 @@ export default function App() {
               <Route path="/admin/affiliates/payouts" element={<Page><AffiliatePayouts /></Page>} />
               <Route path="/admin/affiliates/materials" element={<Page><AffiliateMaterialsAdmin /></Page>} />
               <Route path="/admin/affiliates/:id" element={<Page><AffiliateDetail /></Page>} />
+              <Route path="/admin/student-curriculum" element={<Page><AdminCurriculumPreview><CurriculumBrowser /></AdminCurriculumPreview></Page>} />
+              <Route path="/admin/student-curriculum/level/:levelNumber" element={<Page><AdminCurriculumPreview><LevelUnits /></AdminCurriculumPreview></Page>} />
+              <Route path="/admin/student-curriculum/unit/:unitId" element={<Page><AdminCurriculumPreview><UnitContent /></AdminCurriculumPreview></Page>} />
               <Route path="/admin/interactive-curriculum" element={<Page><InteractiveCurriculumLevels /></Page>} />
               <Route path="/admin/interactive-curriculum/:levelId" element={<Page><InteractiveCurriculumUnits /></Page>} />
               <Route path="/admin/interactive-curriculum/:levelId/:unitId" element={<Page><InteractiveCurriculumPage /></Page>} />

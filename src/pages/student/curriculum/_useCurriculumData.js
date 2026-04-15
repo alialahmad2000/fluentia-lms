@@ -1,9 +1,10 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useContext } from 'react'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import { useLevelProgress } from '../../../hooks/useUnitProgress'
+import { CurriculumPreviewContext } from '../../../contexts/CurriculumPreviewContext'
 
 const CHAPTER_NAMES = [
   { name: 'الفصل الأول', theme: 'أساسيات' },
@@ -32,14 +33,15 @@ export function useCurriculumData() {
   const { levelNumber } = useParams()
   const navigate = useNavigate()
   const { profile, studentData } = useAuthStore()
-  const currentLevel = studentData?.academic_level ?? 0
+  const { canSeeAllLevels, basePath } = useContext(CurriculumPreviewContext) || {}
+  const currentLevel = canSeeAllLevels ? 999 : (studentData?.academic_level ?? 0)
   const levelNum = parseInt(levelNumber)
 
   useEffect(() => {
-    if (!isNaN(levelNum) && levelNum !== currentLevel) {
-      navigate('/student/curriculum', { replace: true })
+    if (!canSeeAllLevels && !isNaN(levelNum) && levelNum !== currentLevel) {
+      navigate(basePath || '/student/curriculum', { replace: true })
     }
-  }, [levelNum, currentLevel, navigate])
+  }, [levelNum, currentLevel, navigate, canSeeAllLevels, basePath])
 
   const { data: level, isLoading: loadingLevel } = useQuery({
     queryKey: ['curriculum-level', levelNum],

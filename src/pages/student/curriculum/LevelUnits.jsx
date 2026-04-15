@@ -3,9 +3,11 @@ import { ArrowRight, ArrowLeft, Clock } from 'lucide-react'
 import { useCurriculumData } from './_useCurriculumData'
 import { ProgressRing, StatusChip, getUnitStatus, LoadingSkeleton, EmptyState, CINEMATIC_TOKENS as V1, useCinematicMotion } from './_premiumPrimitives'
 import { tracker } from '../../../services/activityTracker'
+import { useCurriculumPreview } from '../../../contexts/CurriculumPreviewContext'
 
 export default function LevelUnits() {
   const { level, units, chapters, progressMap, levelProgress, nextUnit, loading, levelColor, levelNum, navigate } = useCurriculumData()
+  const { basePath } = useCurriculumPreview()
   const m = useCinematicMotion()
 
   if (loading) return <LoadingSkeleton />
@@ -48,7 +50,7 @@ export default function LevelUnits() {
           <motion.div {...m.heroEntry}>
             <motion.button
               {...m.fadeUp}
-              onClick={() => navigate('/student/curriculum')}
+              onClick={() => navigate(basePath)}
               className="cinematic-card inline-flex items-center gap-2 mb-8 transition-colors"
               style={{ fontSize: V1.type.bodySm, color: V1.accentGold, opacity: 0.6, background: 'none', border: 'none' }}
               tabIndex={0}
@@ -93,7 +95,7 @@ export default function LevelUnits() {
                 {nextUnit && (
                   <motion.button
                     {...m.fadeUp}
-                    onClick={() => { tracker.track('unit_selected', { unit_id: nextUnit.id }); navigate(`/student/curriculum/unit/${nextUnit.id}`) }}
+                    onClick={() => { tracker.track('unit_selected', { unit_id: nextUnit.id }); navigate(`${basePath}/unit/${nextUnit.id}`) }}
                     className="cinematic-card mt-8 inline-flex items-center gap-2 font-bold transition-all"
                     style={{
                       padding: '12px 28px', borderRadius: '999px', fontSize: V1.type.bodySm,
@@ -176,7 +178,7 @@ function Pill({ label, value, color }) {
 
 /* Featured Card */
 function FeaturedCard({ unit, progress, levelColor, navigate, levelNum, m }) {
-  const handleClick = () => { tracker.track('unit_selected', { unit_id: unit.id, unit_number: unit.unit_number, level: levelNum }); navigate(`/student/curriculum/unit/${unit.id}`) }
+  const handleClick = () => { tracker.track('unit_selected', { unit_id: unit.id, unit_number: unit.unit_number, level: levelNum }); navigate(`${basePath}/unit/${unit.id}`) }
   const handleKey = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClick() } }
 
   return (
@@ -235,7 +237,7 @@ function FeaturedCard({ unit, progress, levelColor, navigate, levelNum, m }) {
 /* Standard Card */
 function StandardCard({ unit, progress, levelColor, navigate, levelNum, m }) {
   const hasCover = !!unit.cover_image_url
-  const handleClick = () => { tracker.track('unit_selected', { unit_id: unit.id, unit_number: unit.unit_number, level: levelNum }); navigate(`/student/curriculum/unit/${unit.id}`) }
+  const handleClick = () => { tracker.track('unit_selected', { unit_id: unit.id, unit_number: unit.unit_number, level: levelNum }); navigate(`${basePath}/unit/${unit.id}`) }
   const handleKey = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClick() } }
 
   return (
