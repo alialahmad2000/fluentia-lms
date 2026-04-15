@@ -15,6 +15,7 @@ import SavedWordsPanel from '../../../components/student/SavedWordsPanel'
 import ClassSummaryView from '../../../components/student/ClassSummaryView'
 import SectionErrorBoundary from '../../../components/SectionErrorBoundary'
 import { useCurriculumPreview } from '../../../contexts/CurriculumPreviewContext'
+import UnitMasteryCard from '../assessment/UnitMasteryCard'
 
 // Lazy-load activity tabs — cuts initial chunk from ~455KB to ~150KB
 const ReadingTab = React.lazy(() => import('./tabs/ReadingTab'))
@@ -402,6 +403,13 @@ export default function UnitContent() {
                   onSelect={handleActivitySelect}
                 />
               </div>
+
+              {/* Unit Mastery Assessment Card */}
+              {isStudent && studentData?.id && (
+                <div style={{ marginTop: '24px' }}>
+                  <UnitMasteryCard unitId={unitId} studentId={studentData.id} />
+                </div>
+              )}
             </motion.div>
           ) : (
             <motion.div

@@ -12,6 +12,7 @@ import ErrorBoundary from '../../components/ErrorBoundary'
 import ClassPrepCard from '../../components/trainer/ClassPrepCard'
 import CurrentUnitSelector from '../../components/trainer/CurrentUnitSelector'
 import EnableNotificationsPrompt from '../../components/notifications/EnableNotificationsPrompt'
+import RecentMasteryAttemptsWidget from './RecentMasteryAttemptsWidget'
 
 // ─── Helpers ─────────────────────────────────────────
 function getGreeting() {
@@ -334,6 +335,13 @@ export default function TrainerDashboard() {
           </motion.div>
         </ErrorBoundary>
       )}
+
+      {/* ③.6 RECENT MASTERY ATTEMPTS */}
+      <ErrorBoundary fallback={null}>
+        <motion.div {...anim(3.5)}>
+          <RecentMasteryAttemptsWidget />
+        </motion.div>
+      </ErrorBoundary>
 
       {/* ④ PENDING REVIEWS */}
       <motion.div {...anim(4)} className="rounded-2xl p-5 sm:p-6" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>

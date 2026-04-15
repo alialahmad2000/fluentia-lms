@@ -138,6 +138,9 @@ const AdminDailyReports = lazyRetry(() => import('./pages/admin/AdminDailyReport
 const AdminAnalytics = lazyRetry(() => import('./pages/admin/AdminAnalytics'))
 const AdminCreatorChallenge = lazyRetry(() => import('./pages/admin/AdminCreatorChallenge'))
 const PlacementQueuePage = lazyRetry(() => import('./pages/admin/PlacementQueuePage'))
+const UnitMasteryPage = lazyRetry(() => import('./pages/student/assessment/UnitMasteryPage'))
+const UnitMasteryResultPage = lazyRetry(() => import('./pages/student/assessment/UnitMasteryResultPage'))
+const UnitMasteryManagerPage = lazyRetry(() => import('./pages/admin/UnitMasteryManagerPage'))
 
 const AdminCurriculumPreview = lazyRetry(() => import('./pages/admin/AdminCurriculumPreview'))
 const TrainerCurriculumPreview = lazyRetry(() => import('./pages/trainer/TrainerCurriculumPreview'))
@@ -543,6 +546,8 @@ export default function App() {
               <Route path="/student/style-preview" element={<Page><StylePreview /></Page>} />
               <Route path="/student/placement-test" element={<Suspense fallback={null}><PlacementTestPage /></Suspense>} />
               <Route path="/student/placement-test/results/:sessionId" element={<Suspense fallback={null}><PlacementResultsPage /></Suspense>} />
+              <Route path="/student/unit-mastery/:assessmentId" element={<Suspense fallback={null}><UnitMasteryPage /></Suspense>} />
+              <Route path="/student/unit-mastery-result/:attemptId" element={<Suspense fallback={null}><UnitMasteryResultPage /></Suspense>} />
             </Route>
           </Route>
 
@@ -627,6 +632,7 @@ export default function App() {
               <Route path="/admin/announcements" element={<Page><ComposeAnnouncement /></Page>} />
               <Route path="/admin/analytics" element={<Page><AdminAnalytics /></Page>} />
               <Route path="/admin/placement-queue" element={<Page><PlacementQueuePage /></Page>} />
+              <Route path="/admin/unit-mastery" element={<Page><UnitMasteryManagerPage /></Page>} />
               <Route path="/admin/creator-challenge" element={<Page><AdminCreatorChallenge /></Page>} />
               <Route path="/admin/affiliates" element={<Page><AffiliatesList /></Page>} />
               <Route path="/admin/affiliates/dashboard" element={<Page><AffiliatesDashboard /></Page>} />
