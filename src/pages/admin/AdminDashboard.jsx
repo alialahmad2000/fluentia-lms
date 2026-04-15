@@ -12,6 +12,7 @@ import UserAvatar from '../../components/common/UserAvatar'
 import CurriculumActivityCard from '../../components/dashboard/CurriculumActivityCard'
 import EnableNotificationsPrompt from '../../components/notifications/EnableNotificationsPrompt'
 import DeviceInstallStatusWidget from '../../components/admin/DeviceInstallStatusWidget'
+import PlacementQueueWidget from './PlacementQueueWidget'
 
 export default function AdminDashboard() {
   const { profile } = useAuthStore()
@@ -223,6 +224,9 @@ export default function AdminDashboard() {
 
       {/* Push notifications opt-in */}
       <EnableNotificationsPrompt />
+
+      {/* Placement test queue */}
+      <PlacementQueueWidget />
 
       {/* PWA install + notification status per student */}
       <DeviceInstallStatusWidget />

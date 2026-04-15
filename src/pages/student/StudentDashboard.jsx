@@ -27,6 +27,7 @@ import SrsReviewCard from '../../components/gamification/SrsReviewCard'
 import LevelExitTestCard from '../../components/gamification/LevelExitTestCard'
 import MysteryBox from '../../components/gamification/MysteryBox'
 import EnableNotificationsPrompt from '../../components/notifications/EnableNotificationsPrompt'
+import PlacementTestCard from './placement/PlacementTestCard'
 
 export default function StudentDashboard() {
   // ── ALL HOOKS AT TOP (React #310 safe) ──────────────────────────
@@ -163,6 +164,9 @@ export default function StudentDashboard() {
 
       {/* 7. SRS Review */}
       <SrsReviewCard studentId={profile?.id} />
+
+      {/* 7.5 Placement Test */}
+      <PlacementTestCard studentId={profile?.id} />
 
       {/* 8. Level Exit Test */}
       <LevelExitTestCard studentId={profile?.id} academicLevel={studentData?.academic_level} />

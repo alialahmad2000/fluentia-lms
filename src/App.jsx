@@ -75,6 +75,8 @@ const CurriculumBrowser = lazyRetry(() => import('./pages/student/curriculum/Cur
 const StylePreview = lazyRetry(() => import('./pages/student/curriculum/StylePreview'))
 const LevelUnits = lazyRetry(() => import('./pages/student/curriculum/LevelUnits'))
 const UnitContent = lazyRetry(() => import('./pages/student/curriculum/UnitContent'))
+const PlacementTestPage = lazyRetry(() => import('./pages/student/placement/PlacementTestPage'))
+const PlacementResultsPage = lazyRetry(() => import('./pages/student/placement/PlacementResultsPage'))
 
 const TrainerOnboarding = lazyRetry(() => import('./pages/trainer/TrainerOnboarding'))
 const TrainerDashboard = lazyRetry(() => import('./pages/trainer/TrainerDashboard'))
@@ -132,6 +134,7 @@ const AdminContentBank = lazyRetry(() => import('./pages/admin/AdminContentBank'
 const AdminDailyReports = lazyRetry(() => import('./pages/admin/AdminDailyReports'))
 const AdminAnalytics = lazyRetry(() => import('./pages/admin/AdminAnalytics'))
 const AdminCreatorChallenge = lazyRetry(() => import('./pages/admin/AdminCreatorChallenge'))
+const PlacementQueuePage = lazyRetry(() => import('./pages/admin/PlacementQueuePage'))
 
 const AdminCurriculumPreview = lazyRetry(() => import('./pages/admin/AdminCurriculumPreview'))
 const TrainerCurriculumPreview = lazyRetry(() => import('./pages/trainer/TrainerCurriculumPreview'))
@@ -530,6 +533,8 @@ export default function App() {
               <Route path="/student/curriculum/unit/:unitId" element={<Page><UnitContent /></Page>} />
               <Route path="/student/curriculum-old" element={<Page><StudentCurriculum /></Page>} />
               <Route path="/student/style-preview" element={<Page><StylePreview /></Page>} />
+              <Route path="/student/placement-test" element={<Suspense fallback={null}><PlacementTestPage /></Suspense>} />
+              <Route path="/student/placement-test/results/:sessionId" element={<Suspense fallback={null}><PlacementResultsPage /></Suspense>} />
             </Route>
           </Route>
 
@@ -612,6 +617,7 @@ export default function App() {
               <Route path="/admin/daily-reports" element={<Page><AdminDailyReports /></Page>} />
               <Route path="/admin/announcements" element={<Page><ComposeAnnouncement /></Page>} />
               <Route path="/admin/analytics" element={<Page><AdminAnalytics /></Page>} />
+              <Route path="/admin/placement-queue" element={<Page><PlacementQueuePage /></Page>} />
               <Route path="/admin/creator-challenge" element={<Page><AdminCreatorChallenge /></Page>} />
               <Route path="/admin/affiliates" element={<Page><AffiliatesList /></Page>} />
               <Route path="/admin/affiliates/dashboard" element={<Page><AffiliatesDashboard /></Page>} />
