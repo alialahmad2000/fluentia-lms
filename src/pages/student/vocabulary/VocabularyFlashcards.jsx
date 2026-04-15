@@ -669,9 +669,11 @@ function LevelDropdown({ levels, selectedLevel, studentLevel, onChange }) {
 
 // ─── List View ──────────────────────────────
 function VocabList({ words, onPlayAudio }) {
+  const [visible, setVisible] = useState(50)
+  const shown = words.slice(0, visible)
   return (
     <div className="space-y-1.5">
-      {words.map((w) => (
+      {shown.map((w) => (
         <motion.div
           key={w.id}
           className="flex items-center gap-3 h-14 px-4 rounded-xl bg-[var(--card-bg,rgba(255,255,255,0.03))] border border-[var(--card-border,rgba(255,255,255,0.06))] hover:border-[rgba(255,255,255,0.12)] transition-colors"
@@ -710,6 +712,15 @@ function VocabList({ words, onPlayAudio }) {
           </span>
         </motion.div>
       ))}
+      {visible < words.length && (
+        <button
+          onClick={() => setVisible(v => v + 50)}
+          className="w-full py-2.5 mt-2 rounded-xl text-xs font-bold font-['Tajawal'] text-white/40 hover:text-white/60 transition-colors"
+          style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)' }}
+        >
+          عرض المزيد ({words.length - visible} متبقي)
+        </button>
+      )}
     </div>
   )
 }
