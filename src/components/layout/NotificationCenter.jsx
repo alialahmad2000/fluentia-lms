@@ -14,7 +14,7 @@ const NOTIFICATION_ROUTES = {
   assignment_new: '/student/assignments',
   assignment_deadline: '/student/assignments',
   assignment_graded: '/student/grades',
-  class_reminder: '/student/schedule',
+  class_reminder: '/student',
   trainer_note: '/student/assignments',
   achievement: '/student/profile',
   peer_recognition: '/student/recognition',
@@ -197,7 +197,7 @@ export default function NotificationCenter() {
       if (notification.type === 'assignment_new' || notification.type === 'assignment_graded') {
         route = route || '/trainer/assignments'
       } else if (notification.type === 'class_reminder') {
-        route = route || '/trainer/schedule'
+        route = route || '/trainer'
       }
     }
 
@@ -218,7 +218,7 @@ export default function NotificationCenter() {
           '/student/assignments': '/trainer/assignments',
           '/student/weekly-tasks': '/trainer/weekly-grading',
           '/student/curriculum': '/trainer/curriculum',
-          '/student/schedule': '/trainer/schedule',
+          '/student/schedule': '/trainer',
           '/student/profile': '/trainer/students',
         },
       }

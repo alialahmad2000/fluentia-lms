@@ -12,6 +12,7 @@ import ErrorBoundary from '../../components/ErrorBoundary'
 import ClassPrepCard from '../../components/trainer/ClassPrepCard'
 import CurrentUnitSelector from '../../components/trainer/CurrentUnitSelector'
 import EnableNotificationsPrompt from '../../components/notifications/EnableNotificationsPrompt'
+import CinematicBackground from '../../design-system/components/CinematicBackground'
 
 // ─── Helpers ─────────────────────────────────────────
 function getGreeting() {
@@ -241,7 +242,9 @@ export default function TrainerDashboard() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="relative isolate">
+      <CinematicBackground variant="trainer" />
+      <div className="relative z-[1] space-y-6">
       {/* ① GREETING */}
       <motion.div {...anim(0)}>
         <h1 className="text-2xl sm:text-3xl font-black font-['Tajawal']" style={{ color: 'var(--text-primary)' }}>
@@ -453,6 +456,7 @@ export default function TrainerDashboard() {
           ))}
         </div>
       </motion.div>
+      </div>
     </div>
   )
 }

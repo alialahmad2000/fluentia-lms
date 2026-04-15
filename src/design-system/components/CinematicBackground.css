@@ -1,0 +1,80 @@
+.cinematic-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  background: var(--ds-bg-base, #060e1c);
+}
+
+.cinematic-bg__gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 20%, var(--ds-accent-primary-soft, rgba(56,189,248,0.08)), transparent 60%),
+    radial-gradient(ellipse 60% 80% at 85% 80%, var(--ds-accent-secondary-soft, rgba(139,92,246,0.06)), transparent 60%),
+    radial-gradient(ellipse 40% 40% at 50% 50%, var(--ds-accent-tertiary-soft, rgba(251,191,36,0.03)), transparent 70%);
+  opacity: var(--ds-bg-gradient-opacity, 1);
+}
+
+.cinematic-bg__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.25;
+  will-change: transform;
+}
+
+.cinematic-bg__orb--1 {
+  width: 420px; height: 420px;
+  top: -80px; left: -80px;
+  background: var(--ds-accent-primary, #e9b949);
+  animation: orb-drift-1 28s ease-in-out infinite;
+}
+
+.cinematic-bg__orb--2 {
+  width: 320px; height: 320px;
+  bottom: -60px; right: -60px;
+  background: var(--ds-accent-secondary, #8c95b8);
+  animation: orb-drift-2 34s ease-in-out infinite;
+}
+
+.cinematic-bg__orb--3 {
+  width: 260px; height: 260px;
+  top: 40%; left: 55%;
+  background: var(--ds-accent-tertiary, var(--ds-accent-primary, #e9b949));
+  opacity: 0.12;
+  animation: orb-drift-3 40s ease-in-out infinite;
+}
+
+.cinematic-bg__grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  opacity: 0.4;
+}
+
+@keyframes orb-drift-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, 60px) scale(1.1); }
+}
+@keyframes orb-drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-50px, -30px) scale(0.95); }
+}
+@keyframes orb-drift-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-30px, 20px) scale(1.05); }
+  66% { transform: translate(20px, -40px) scale(0.95); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-bg__orb {
+    animation: none !important;
+  }
+}
+
+/* Variant tuning */
+.cinematic-bg--trainer .cinematic-bg__orb--1 { opacity: 0.2; }
+.cinematic-bg--admin .cinematic-bg__orb--3 { opacity: 0.08; }

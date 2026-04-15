@@ -28,6 +28,7 @@ import LevelExitTestCard from '../../components/gamification/LevelExitTestCard'
 import MysteryBox from '../../components/gamification/MysteryBox'
 import EnableNotificationsPrompt from '../../components/notifications/EnableNotificationsPrompt'
 import PlacementTestCard from './placement/PlacementTestCard'
+import CinematicBackground from '../../design-system/components/CinematicBackground'
 
 export default function StudentDashboard() {
   // ── ALL HOOKS AT TOP (React #310 safe) ──────────────────────────
@@ -132,7 +133,9 @@ export default function StudentDashboard() {
 
   // ── RENDER ──────────────────────────────────────────────────────
   return (
-    <StaggeredList stagger={0.06} className="space-y-6">
+    <div className="relative isolate">
+      <CinematicBackground />
+      <StaggeredList stagger={0.06} className="relative z-[1] space-y-6">
       {/* 1. Hero */}
       <HeroBlock
         profile={profile}
@@ -197,5 +200,6 @@ export default function StudentDashboard() {
       {/* Bottom padding for mobile bar */}
       <div className="h-4" aria-hidden="true" />
     </StaggeredList>
+    </div>
   )
 }

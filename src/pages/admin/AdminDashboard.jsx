@@ -13,6 +13,7 @@ import CurriculumActivityCard from '../../components/dashboard/CurriculumActivit
 import EnableNotificationsPrompt from '../../components/notifications/EnableNotificationsPrompt'
 import DeviceInstallStatusWidget from '../../components/admin/DeviceInstallStatusWidget'
 import PlacementQueueWidget from './PlacementQueueWidget'
+import CinematicBackground from '../../design-system/components/CinematicBackground'
 
 export default function AdminDashboard() {
   const { profile } = useAuthStore()
@@ -213,7 +214,9 @@ export default function AdminDashboard() {
   ]
 
   return (
-    <div className="space-y-8">
+    <div className="relative isolate">
+      <CinematicBackground variant="admin" />
+      <div className="relative z-[1] space-y-8">
       {/* Greeting */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-page-title">
@@ -550,6 +553,7 @@ export default function AdminDashboard() {
           </div>
         </motion.div>
       )}
+      </div>
     </div>
   )
 }

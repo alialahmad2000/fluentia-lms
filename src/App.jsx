@@ -20,15 +20,12 @@ import { hasPackageAccess } from './components/PackageGate'
 
 // ─── Design System (Phase 0) ────────────────────────────────
 import ThemeProvider from './design-system/ThemeProvider'
-import ThemeSwitcher from './design-system/ThemeSwitcher'
-import ThemeOnboardingHint from './design-system/ThemeOnboardingHint'
 import { AuroraBackground } from './design-system/components'
 
 // ─── Lazy-loaded Pages (with chunk retry on stale deploys) ───
 const StudentDashboard = lazyRetry(() => import('./pages/student/StudentDashboard'))
 const StudentAssignments = lazyRetry(() => import('./pages/student/StudentAssignments'))
 const StudentGrades = lazyRetry(() => import('./pages/student/StudentGrades'))
-const StudentSchedule = lazyRetry(() => import('./pages/student/StudentSchedule'))
 const StudentProfile = lazyRetry(() => import('./pages/student/StudentProfile'))
 const StudentSpeaking = lazyRetry(() => import('./pages/student/StudentSpeaking'))
 const StudentLibrary = lazyRetry(() => import('./pages/student/StudentLibrary'))
@@ -45,7 +42,6 @@ const StudentExercises = lazyRetry(() => import('./pages/student/StudentExercise
 const StudentErrorPatterns = lazyRetry(() => import('./pages/student/StudentErrorPatterns'))
 const StudentVoiceJournal = lazyRetry(() => import('./pages/student/StudentVoiceJournal'))
 const StudentPronunciation = lazyRetry(() => import('./pages/student/StudentPronunciation'))
-const StudentConversation = lazyRetry(() => import('./pages/student/StudentConversation'))
 const StudentStreakBattles = lazyRetry(() => import('./pages/student/StudentStreakBattles'))
 const StudentSuccessStories = lazyRetry(() => import('./pages/student/StudentSuccessStories'))
 const StudentEvents = lazyRetry(() => import('./pages/student/StudentEvents'))
@@ -59,7 +55,6 @@ const StudentWeeklyTasks = lazyRetry(() => import('./pages/student/StudentWeekly
 const StudentWeeklyTaskDetail = lazyRetry(() => import('./pages/student/StudentWeeklyTaskDetail'))
 const StudentSpelling = lazyRetry(() => import('./pages/student/StudentSpelling'))
 const IrregularVerbsPractice = lazyRetry(() => import('./pages/student/verbs/IrregularVerbsPractice'))
-const StudentRecordings = lazyRetry(() => import('./pages/student/StudentRecordings'))
 const StudentWritingLab = lazyRetry(() => import('./pages/student/StudentWritingLab'))
 const StudentGroupActivity = lazyRetry(() => import('./pages/student/StudentGroupActivity'))
 const StudentAdaptiveTest = lazyRetry(() => import('./pages/student/StudentAdaptiveTest'))
@@ -82,7 +77,6 @@ const TrainerOnboarding = lazyRetry(() => import('./pages/trainer/TrainerOnboard
 const TrainerDashboard = lazyRetry(() => import('./pages/trainer/TrainerDashboard'))
 const TrainerAssignments = lazyRetry(() => import('./pages/trainer/TrainerAssignments'))
 const TrainerGrading = lazyRetry(() => import('./pages/trainer/TrainerGrading'))
-const TrainerSchedule = lazyRetry(() => import('./pages/trainer/TrainerSchedule'))
 const TrainerNotes = lazyRetry(() => import('./pages/trainer/TrainerNotes'))
 const TrainerLibrary = lazyRetry(() => import('./pages/trainer/TrainerLibrary'))
 const TrainerQuickPoints = lazyRetry(() => import('./pages/trainer/TrainerQuickPoints'))
@@ -94,6 +88,7 @@ const TrainerTeams = lazyRetry(() => import('./pages/trainer/TrainerTeams'))
 const TrainerGroupChat = lazyRetry(() => import('./pages/trainer/TrainerGroupChat'))
 const TrainerAIAssistant = lazyRetry(() => import('./pages/trainer/TrainerAIAssistant'))
 const TrainerProgressReports = lazyRetry(() => import('./pages/trainer/TrainerProgressReports'))
+const ReportReview = lazyRetry(() => import('./pages/trainer/ReportReview'))
 const TrainerLessonPlanner = lazyRetry(() => import('./pages/trainer/TrainerLessonPlanner'))
 const TrainerQuizGenerator = lazyRetry(() => import('./pages/trainer/TrainerQuizGenerator'))
 const TrainerWeeklyGrading = lazyRetry(() => import('./pages/trainer/TrainerWeeklyGrading'))
@@ -120,7 +115,6 @@ const AdminAuditLog = lazyRetry(() => import('./pages/admin/AdminAuditLog'))
 const AdminTestimonials = lazyRetry(() => import('./pages/admin/AdminTestimonials'))
 const AdminActionCenter = lazyRetry(() => import('./pages/admin/AdminActionCenter'))
 const AdminDataExport = lazyRetry(() => import('./pages/admin/AdminDataExport'))
-const AdminRecordings = lazyRetry(() => import('./pages/admin/AdminRecordings'))
 const AdminCurriculum = lazyRetry(() => import('./pages/admin/curriculum/CurriculumOverview'))
 const LevelDetail = lazyRetry(() => import('./pages/admin/curriculum/LevelDetail'))
 const UnitEditor = lazyRetry(() => import('./pages/admin/curriculum/UnitEditor'))
@@ -419,8 +413,6 @@ export default function App() {
         <ToastProvider>
         <ThemeProvider />
         <AuroraBackground />
-        <ThemeSwitcher />
-        <ThemeOnboardingHint />
         <OfflineBanner />
         <ImpersonationBanner />
         <ForcePasswordChange />
@@ -484,7 +476,6 @@ export default function App() {
             <Route element={<ErrorBoundary><LayoutShell /></ErrorBoundary>}>
               <Route path="/student" element={<Page><StudentDashboard /></Page>} />
               <Route path="/student/assignments" element={<Page><StudentAssignments /></Page>} />
-              <Route path="/student/schedule" element={<Page><StudentSchedule /></Page>} />
               <Route path="/student/study-plan" element={<Page><StudentStudyPlan /></Page>} />
               <Route path="/student/grades" element={<Page><PackageRoute requiredPackage="talaqa" featureName="الدرجات والنتائج"><StudentGrades /></PackageRoute></Page>} />
               <Route path="/student/speaking" element={<Page><ComingSoon featureName="معمل التحدث" /></Page>} />
@@ -508,7 +499,6 @@ export default function App() {
               <Route path="/student/my-patterns" element={<Page><StudentErrorPatterns /></Page>} />
               <Route path="/student/voice-journal" element={<Page><StudentVoiceJournal /></Page>} />
               <Route path="/student/pronunciation" element={<Page><StudentPronunciation /></Page>} />
-              <Route path="/student/conversation" element={<Page><StudentConversation /></Page>} />
               <Route path="/student/battles" element={<Page><StudentStreakBattles /></Page>} />
               <Route path="/student/success" element={<Page><StudentSuccessStories /></Page>} />
               <Route path="/student/events" element={<Page><StudentEvents /></Page>} />
@@ -522,7 +512,6 @@ export default function App() {
               <Route path="/student/weekly-tasks/:id" element={<Page><StudentWeeklyTaskDetail /></Page>} />
               <Route path="/student/spelling" element={<Page><StudentSpelling /></Page>} />
               <Route path="/student/verbs" element={<Page><IrregularVerbsPractice /></Page>} />
-              <Route path="/student/recordings" element={<Page><StudentRecordings /></Page>} />
               <Route path="/student/writing-lab" element={<Page><ComingSoon featureName="معمل الكتابة" /></Page>} />
               <Route path="/student/group-activity" element={<Page><PackageRoute requiredPackage="talaqa" featureName="نشاط المجموعة"><StudentGroupActivity /></PackageRoute></Page>} />
               <Route path="/student/adaptive-test" element={<Page><PackageRoute requiredPackage="talaqa" featureName="اختبار المستوى"><StudentAdaptiveTest /></PackageRoute></Page>} />
@@ -551,7 +540,6 @@ export default function App() {
               <Route path="/trainer/assignments" element={<Page><TrainerAssignments /></Page>} />
               <Route path="/trainer/writing" element={<Page><TrainerGrading /></Page>} />
               <Route path="/trainer/grading" element={<Page><TrainerGrading /></Page>} />
-              <Route path="/trainer/schedule" element={<Page><TrainerSchedule /></Page>} />
               <Route path="/trainer/notes" element={<Page><TrainerNotes /></Page>} />
               <Route path="/trainer/library" element={<Page><TrainerLibrary /></Page>} />
               <Route path="/trainer/points" element={<Page><TrainerQuickPoints /></Page>} />
@@ -564,11 +552,10 @@ export default function App() {
               <Route path="/trainer/messages" element={<Page><StudentMessages /></Page>} />
               <Route path="/trainer/ai-assistant" element={<Page><TrainerAIAssistant /></Page>} />
               <Route path="/trainer/reports" element={<Page><TrainerProgressReports /></Page>} />
+              <Route path="/trainer/progress-reports/:id/review" element={<Page><ReportReview /></Page>} />
               <Route path="/trainer/lesson-planner" element={<Page><TrainerLessonPlanner /></Page>} />
               <Route path="/trainer/quiz" element={<Page><TrainerQuizGenerator /></Page>} />
               <Route path="/trainer/weekly-grading" element={<Page><TrainerWeeklyGrading /></Page>} />
-              <Route path="/trainer/recordings" element={<Page><AdminRecordings /></Page>} />
-              <Route path="/trainer/conversation" element={<Page><TrainerGroupChat /></Page>} />
               <Route path="/trainer/curriculum" element={<Page><TrainerCurriculum /></Page>} />
               <Route path="/trainer/progress-matrix" element={<Page><TrainerProgressMatrix /></Page>} />
               <Route path="/trainer/student-curriculum" element={<Page><TrainerCurriculumPreview><CurriculumBrowser /></TrainerCurriculumPreview></Page>} />
@@ -604,7 +591,6 @@ export default function App() {
               <Route path="/admin/testimonials" element={<Page><AdminTestimonials /></Page>} />
               <Route path="/admin/today" element={<Page><AdminActionCenter /></Page>} />
               <Route path="/admin/export" element={<Page><AdminDataExport /></Page>} />
-              <Route path="/admin/recordings" element={<Page><AdminRecordings /></Page>} />
               <Route path="/admin/curriculum" element={<Page><AdminCurriculum /></Page>} />
               <Route path="/admin/curriculum/level/:levelId" element={<Page><LevelDetail /></Page>} />
               <Route path="/admin/curriculum/unit/:unitId" element={<Page><UnitEditor /></Page>} />

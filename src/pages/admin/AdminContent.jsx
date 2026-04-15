@@ -9,7 +9,6 @@ import { supabase } from '../../lib/supabase'
 
 const AdminHolidays = lazy(() => import('./AdminHolidays'))
 const AdminTestimonials = lazy(() => import('./AdminTestimonials'))
-const AdminRecordingsTab = lazy(() => import('./AdminRecordings'))
 
 // ─── Constants ────────────────────────────────────────────────
 const LEVELS = [1, 2, 3, 4, 5]
@@ -37,7 +36,6 @@ const TABS = [
   { key: 'questions', label: 'بنك الأسئلة', icon: Target },
   { key: 'holidays', label: 'العطل', icon: Moon },
   { key: 'testimonials', label: 'الشهادات', icon: MessageSquareQuote },
-  { key: 'recordings', label: 'التسجيلات', icon: Video },
 ]
 
 // ─── Fade-in animation variants ───────────────────────────────
@@ -113,11 +111,6 @@ export default function AdminContent() {
         {activeTab === 'testimonials' && (
           <Suspense fallback={<div className="skeleton h-96 w-full" />}>
             <AdminTestimonials />
-          </Suspense>
-        )}
-        {activeTab === 'recordings' && (
-          <Suspense fallback={<div className="skeleton h-96 w-full" />}>
-            <AdminRecordingsTab />
           </Suspense>
         )}
       </AnimatePresence>
