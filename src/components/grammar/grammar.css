@@ -55,7 +55,12 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   color: var(--text-primary);
-  transition: background 200ms ease, border-color 200ms ease;
+  transition: background 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+/* Subtle hover lift on exercise cards */
+[data-grammar-exercise-card].grammar-glass:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 /* ─── Rule block accent bar ─── */
@@ -147,18 +152,23 @@
   border: 1.5px solid var(--border-default);
   color: var(--text-primary);
   cursor: pointer;
-  transition: transform 0.15s ease-out, border-color 0.15s, background 0.15s, box-shadow 0.15s;
+  transition: transform 0.12s ease-out, border-color 0.15s, background 0.15s, box-shadow 0.15s;
   min-height: 44px;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   font-size: 0.9375rem;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .grammar-option:not(:disabled):hover {
   transform: translateY(-2px);
   border-color: var(--accent-sky);
   background: var(--accent-sky-glow);
+}
+
+.grammar-option:not(:disabled):active {
+  transform: scale(0.97);
 }
 
 .grammar-option:focus-visible {
@@ -175,11 +185,27 @@
 .grammar-option--correct {
   background: var(--success-bg) !important;
   border-color: var(--success) !important;
+  animation: grammar-pop 0.3s ease-out;
 }
 
 .grammar-option--wrong {
   background: var(--danger-bg) !important;
   border-color: var(--danger) !important;
+  animation: grammar-shake 0.35s ease-out;
+}
+
+@keyframes grammar-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+@keyframes grammar-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(2px); }
 }
 
 .grammar-option--dimmed {
@@ -197,10 +223,12 @@
   border-radius: 0.75rem;
   padding: 0.75rem 1rem;
   color: var(--text-primary);
-  font-size: 0.9375rem;
+  /* 16px prevents iOS Safari auto-zoom on input focus */
+  font-size: max(0.9375rem, 16px);
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, box-shadow 0.15s;
   min-height: 44px;
+  -webkit-appearance: none;
 }
 
 .grammar-input::placeholder {
@@ -209,6 +237,7 @@
 
 .grammar-input:focus {
   border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12);
 }
 
 .grammar-input--correct {
@@ -262,23 +291,25 @@
   height: 10px;
   border-radius: 50%;
   background: var(--border-default);
-  transition: background 0.3s, transform 0.3s;
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
 .grammar-dot--correct {
   background: var(--success);
-  transform: scale(1.1);
+  transform: scale(1.15);
+  box-shadow: 0 0 6px rgba(74, 222, 128, 0.4);
 }
 
 .grammar-dot--wrong {
   background: var(--danger);
-  transform: scale(1.1);
+  transform: scale(1.15);
+  box-shadow: 0 0 6px rgba(248, 113, 113, 0.4);
 }
 
 /* ─── Sticky CTA ─── */
 .grammar-sticky-cta {
   position: fixed;
-  bottom: 1.5rem;
+  bottom: calc(1.5rem + var(--bottom-nav-height, 64px));
   left: 50%;
   transform: translateX(-50%);
   z-index: 40;
@@ -292,13 +323,24 @@
   font-weight: 700;
   color: var(--accent-sky);
   cursor: pointer;
-  transition: background 0.15s, transform 0.15s;
+  transition: background 0.15s, transform 0.1s;
   box-shadow: var(--shadow-lg);
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (min-width: 1024px) {
+  .grammar-sticky-cta {
+    bottom: 1.5rem;
+  }
 }
 
 .grammar-sticky-cta:hover {
   background: var(--accent-sky-glow);
   transform: translateX(-50%) translateY(-2px);
+}
+
+.grammar-sticky-cta:active {
+  transform: translateX(-50%) scale(0.96);
 }
 
 /* ─── Fade-in on scroll ─── */
@@ -401,6 +443,10 @@
   }
   .grammar-option:not(:disabled):hover {
     transform: none;
+  }
+  .grammar-option--correct,
+  .grammar-option--wrong {
+    animation: none;
   }
   .grammar-chip:hover:not(:disabled) {
     transform: none;

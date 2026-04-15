@@ -1,6 +1,11 @@
 import { CheckCircle, XCircle } from 'lucide-react'
 import { validateAnswer } from '../../../utils/answerValidator'
 
+const CORRECT_MSGS = ['أحسنتِ! إجابة صحيحة 🎯', 'ممتازة! ✨', 'صحيح! رائع 💫', 'بالضبط! 🌟', 'إجابة موفقة! 🔥']
+const WRONG_MSGS = ['لا بأس — راجعي القاعدة 📖', 'حاولي تذكّر القاعدة 💡', 'قريب! راجعي الشرح 🔍']
+
+function randomMsg(arr) { return arr[Math.floor(Math.random() * arr.length)] }
+
 export default function MCQQuestion({ item, answer, onAnswer }) {
   const acceptedAnswers = item.accepted_answers || [item.correct_answer]
 
@@ -20,7 +25,7 @@ export default function MCQQuestion({ item, answer, onAnswer }) {
 
           const label = String.fromCharCode(65 + i)
 
-          let cls = 'grammar-option'
+          let cls = 'grammar-option active:scale-[0.97] transition-transform'
           if (showCorrect) cls += ' grammar-option--correct'
           else if (showWrong) cls += ' grammar-option--wrong'
           else if (answer && !isSelected && !isCorrect) cls += ' grammar-option--dimmed'
@@ -45,7 +50,10 @@ export default function MCQQuestion({ item, answer, onAnswer }) {
       </div>
 
       {answer && answer.correct && (
-        <p className="text-sm font-['Tajawal'] font-medium" style={{ color: 'var(--success)' }}>أحسنت! ✨</p>
+        <p className="text-sm font-['Tajawal'] font-bold" dir="rtl" style={{ color: 'var(--success)' }}>{randomMsg(CORRECT_MSGS)}</p>
+      )}
+      {answer && !answer.correct && (
+        <p className="text-sm font-['Tajawal']" dir="rtl" style={{ color: 'var(--text-secondary)' }}>{randomMsg(WRONG_MSGS)}</p>
       )}
     </div>
   )

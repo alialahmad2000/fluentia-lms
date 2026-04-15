@@ -36,7 +36,7 @@ export default function TransformQuestion({ item, answer, onAnswer, exerciseType
         <button
           type="submit"
           disabled={!input.trim()}
-          className="grammar-option px-5 w-auto inline-flex font-['Tajawal'] font-bold text-sm disabled:opacity-30"
+          className="grammar-option px-5 w-auto inline-flex font-['Tajawal'] font-bold text-sm disabled:opacity-30 active:scale-95 transition-transform"
           style={{ color: 'var(--accent-sky)', borderColor: 'var(--info-border)' }}
         >
           تحقق
@@ -44,7 +44,7 @@ export default function TransformQuestion({ item, answer, onAnswer, exerciseType
       )}
 
       {answer && answer.correct && (
-        <p className="text-sm font-['Tajawal'] font-medium" dir="rtl" style={{ color: 'var(--success)' }}>أحسنت! ✨</p>
+        <p className="text-sm font-['Tajawal'] font-bold" dir="rtl" style={{ color: 'var(--success)' }}>تحويل صحيح! ممتازة 🌟</p>
       )}
 
       {answer && !answer.correct && (

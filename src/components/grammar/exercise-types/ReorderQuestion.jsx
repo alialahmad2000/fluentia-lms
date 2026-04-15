@@ -71,7 +71,7 @@ export default function ReorderQuestion({ item, answer, onAnswer }) {
       {!answer && selected.length > 0 && (
         <button
           onClick={handleCheck}
-          className="grammar-option px-5 w-auto inline-flex font-['Tajawal'] font-bold text-sm"
+          className="grammar-option px-5 w-auto inline-flex font-['Tajawal'] font-bold text-sm active:scale-95 transition-transform"
           style={{ color: 'var(--accent-sky)', borderColor: 'var(--info-border)' }}
         >
           تحقق
@@ -79,7 +79,7 @@ export default function ReorderQuestion({ item, answer, onAnswer }) {
       )}
 
       {answer && answer.correct && (
-        <p className="text-sm font-['Tajawal'] font-medium" dir="rtl" style={{ color: 'var(--success)' }}>أحسنت! ✨</p>
+        <p className="text-sm font-['Tajawal'] font-bold" dir="rtl" style={{ color: 'var(--success)' }}>ترتيب صحيح! ممتازة 🎯</p>
       )}
 
       {answer && !answer.correct && (

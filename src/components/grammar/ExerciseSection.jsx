@@ -8,6 +8,20 @@ import ExerciseCard from './ExerciseCard'
 import ExerciseSummary from './ExerciseSummary'
 import AttemptsHistory from './AttemptsHistory'
 
+// Exciting completion messages based on score
+const COMPLETION_MESSAGES = [
+  { min: 90, messages: ['ممتازة! أداء رائع 🌟', 'مبدعة! نتيجة مذهلة 🏆', 'واو! إنجاز استثنائي 🚀'] },
+  { min: 70, messages: ['أحسنتِ! عمل جيد جداً 💪', 'رائع! تقدم ملحوظ ✨', 'ممتاز! استمري 🔥'] },
+  { min: 50, messages: ['جيد! واصلي المحاولة 💫', 'لا بأس! أنتِ تتحسنين 🌱', 'حاولي مرة أخرى للأفضل 🎯'] },
+  { min: 0, messages: ['لا تقلقي! التعلم يحتاج تكرار 📚', 'حاولي مرة أخرى — ستتحسنين! 💪', 'كل محاولة تقربك من الهدف 🌟'] },
+]
+
+function getCompletionMessage(score) {
+  const tier = COMPLETION_MESSAGES.find(t => score >= t.min)
+  const msgs = tier?.messages || COMPLETION_MESSAGES[3].messages
+  return msgs[Math.floor(Math.random() * msgs.length)]
+}
+
 export default function ExerciseSection({ exercises, studentId, unitId, grammarId, onAttemptUpdate, grammarTopic, studentLevel, ruleSnippet }) {
   const sectionRef = useRef(null)
   const [answers, setAnswers] = useState({})
@@ -21,6 +35,7 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
   const [bestScore, setBestScore] = useState(null)
   const [showSummary, setShowSummary] = useState(false)
   const [showStickyCta, setShowStickyCta] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
   const hasSaved = useRef(false)
   const timeRef = useRef(0)
   const timerRef = useRef(null)
@@ -149,121 +164,56 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
     })
   }, [exercises])
 
-  // Save progress
-  const saveProgress = useCallback(async (currentAnswers, isComplete) => {
+  // Save progress — with error handling, retry, and saving indicator
+  const saveProgress = useCallback(async (currentAnswers, isComplete, _retryCount = 0) => {
     if (!studentId || !grammarId) return
     const results = buildResults(currentAnswers)
     const answeredCount = Object.keys(currentAnswers).length
     const correct = Object.values(currentAnswers).filter(a => a.correct).length
     const score = answeredCount > 0 ? Math.round((correct / total) * 100) : 0
 
-    if (currentRowId) {
-      const { error } = await supabase
-        .from('student_curriculum_progress')
-        .update({
-          status: isComplete ? 'completed' : 'in_progress',
-          score,
-          answers: { exercises: results },
-          time_spent_seconds: timeRef.current,
-          completed_at: isComplete ? new Date().toISOString() : null,
-        })
-        .eq('id', currentRowId)
+    if (isComplete) setIsSaving(true)
 
-      if (!error && isComplete) {
-        // Recompute best
-        const { data: rows } = await supabase
+    try {
+      if (currentRowId) {
+        const { error } = await supabase
           .from('student_curriculum_progress')
-          .select('id, score, attempt_number')
-          .eq('student_id', studentId)
-          .eq('grammar_id', grammarId)
-          .eq('status', 'completed')
-          .order('score', { ascending: false })
-          .order('attempt_number', { ascending: false })
+          .update({
+            status: isComplete ? 'completed' : 'in_progress',
+            score,
+            answers: { exercises: results },
+            time_spent_seconds: timeRef.current,
+            completed_at: isComplete ? new Date().toISOString() : null,
+          })
+          .eq('id', currentRowId)
 
-        if (rows?.length > 0) {
-          await supabase.from('student_curriculum_progress').update({ is_best: false }).eq('student_id', studentId).eq('grammar_id', grammarId)
-          await supabase.from('student_curriculum_progress').update({ is_best: true }).eq('id', rows[0].id)
-          setBestScore(rows[0].score)
-        }
+        if (error) throw error
 
-        setRetrying(false)
-        setIsCompleted(true)
-        setShowSummary(true)
-        toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
-        try { safeCelebrate('grammar_complete') } catch {}
-        awardCurriculumXP(studentId, 'grammar', score, unitId)
-
-        // Reload attempts
-        const { data: allRows } = await supabase
-          .from('student_curriculum_progress')
-          .select('*')
-          .eq('student_id', studentId)
-          .eq('grammar_id', grammarId)
-          .order('attempt_number', { ascending: false })
-        if (allRows) setAllAttempts(allRows)
-        onAttemptUpdate?.(score, attemptNumber, rows?.[0]?.score ?? score)
-      }
-    } else {
-      // No currentRowId — either first-ever attempt or fresh start after completed
-      const hasExisting = allAttempts.length > 0
-      const nextAttemptNum = hasExisting ? attemptNumber + 1 : 1
-
-      // If previous rows exist, flip their is_latest
-      if (hasExisting) {
-        await supabase
-          .from('student_curriculum_progress')
-          .update({ is_latest: false })
-          .eq('student_id', studentId)
-          .eq('grammar_id', grammarId)
-      }
-
-      const { data: newRow, error } = await supabase
-        .from('student_curriculum_progress')
-        .insert({
-          student_id: studentId,
-          unit_id: unitId,
-          grammar_id: grammarId,
-          section_type: 'grammar',
-          status: isComplete ? 'completed' : 'in_progress',
-          score,
-          answers: { exercises: results },
-          time_spent_seconds: timeRef.current,
-          completed_at: isComplete ? new Date().toISOString() : null,
-          attempt_number: nextAttemptNum,
-          is_latest: true,
-          is_best: !hasExisting,
-        })
-        .select()
-        .single()
-
-      if (!error && newRow) {
-        setCurrentRowId(newRow.id)
-        setAttemptNumber(nextAttemptNum)
         if (isComplete) {
           // Recompute best
-          const { data: bestRows } = await supabase
+          const { data: rows } = await supabase
             .from('student_curriculum_progress')
-            .select('id, score')
+            .select('id, score, attempt_number')
             .eq('student_id', studentId)
             .eq('grammar_id', grammarId)
             .eq('status', 'completed')
             .order('score', { ascending: false })
+            .order('attempt_number', { ascending: false })
 
-          if (bestRows?.length > 0) {
+          if (rows?.length > 0) {
             await supabase.from('student_curriculum_progress').update({ is_best: false }).eq('student_id', studentId).eq('grammar_id', grammarId)
-            await supabase.from('student_curriculum_progress').update({ is_best: true }).eq('id', bestRows[0].id)
-            setBestScore(bestRows[0].score)
-          } else {
-            setBestScore(score)
+            await supabase.from('student_curriculum_progress').update({ is_best: true }).eq('id', rows[0].id)
+            setBestScore(rows[0].score)
           }
 
+          setRetrying(false)
           setIsCompleted(true)
           setShowSummary(true)
-          toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
+          toast({ type: 'success', title: getCompletionMessage(score) })
           try { safeCelebrate('grammar_complete') } catch {}
           awardCurriculumXP(studentId, 'grammar', score, unitId)
 
-          // Reload all attempts
+          // Reload attempts
           const { data: allRows } = await supabase
             .from('student_curriculum_progress')
             .select('*')
@@ -271,9 +221,94 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
             .eq('grammar_id', grammarId)
             .order('attempt_number', { ascending: false })
           if (allRows) setAllAttempts(allRows)
-          onAttemptUpdate?.(score, nextAttemptNum, bestRows?.[0]?.score ?? score)
+          onAttemptUpdate?.(score, attemptNumber, rows?.[0]?.score ?? score)
+        }
+      } else {
+        // No currentRowId — either first-ever attempt or fresh start after completed
+        const hasExisting = allAttempts.length > 0
+        const nextAttemptNum = hasExisting ? attemptNumber + 1 : 1
+
+        // If previous rows exist, flip their is_latest
+        if (hasExisting) {
+          await supabase
+            .from('student_curriculum_progress')
+            .update({ is_latest: false })
+            .eq('student_id', studentId)
+            .eq('grammar_id', grammarId)
+        }
+
+        const { data: newRow, error } = await supabase
+          .from('student_curriculum_progress')
+          .insert({
+            student_id: studentId,
+            unit_id: unitId,
+            grammar_id: grammarId,
+            section_type: 'grammar',
+            status: isComplete ? 'completed' : 'in_progress',
+            score,
+            answers: { exercises: results },
+            time_spent_seconds: timeRef.current,
+            completed_at: isComplete ? new Date().toISOString() : null,
+            attempt_number: nextAttemptNum,
+            is_latest: true,
+            is_best: !hasExisting,
+          })
+          .select()
+          .single()
+
+        if (error) throw error
+
+        if (newRow) {
+          setCurrentRowId(newRow.id)
+          setAttemptNumber(nextAttemptNum)
+          if (isComplete) {
+            // Recompute best
+            const { data: bestRows } = await supabase
+              .from('student_curriculum_progress')
+              .select('id, score')
+              .eq('student_id', studentId)
+              .eq('grammar_id', grammarId)
+              .eq('status', 'completed')
+              .order('score', { ascending: false })
+
+            if (bestRows?.length > 0) {
+              await supabase.from('student_curriculum_progress').update({ is_best: false }).eq('student_id', studentId).eq('grammar_id', grammarId)
+              await supabase.from('student_curriculum_progress').update({ is_best: true }).eq('id', bestRows[0].id)
+              setBestScore(bestRows[0].score)
+            } else {
+              setBestScore(score)
+            }
+
+            setIsCompleted(true)
+            setShowSummary(true)
+            toast({ type: 'success', title: getCompletionMessage(score) })
+            try { safeCelebrate('grammar_complete') } catch {}
+            awardCurriculumXP(studentId, 'grammar', score, unitId)
+
+            // Reload all attempts
+            const { data: allRows } = await supabase
+              .from('student_curriculum_progress')
+              .select('*')
+              .eq('student_id', studentId)
+              .eq('grammar_id', grammarId)
+              .order('attempt_number', { ascending: false })
+            if (allRows) setAllAttempts(allRows)
+            onAttemptUpdate?.(score, nextAttemptNum, bestRows?.[0]?.score ?? score)
+          }
         }
       }
+    } catch (err) {
+      console.error('[ExerciseSection] Save failed:', err)
+      if (_retryCount < 1) {
+        // Auto-retry once after 1.5s
+        setTimeout(() => saveProgress(currentAnswers, isComplete, _retryCount + 1), 1500)
+        return
+      }
+      // Show error only after retry fails
+      toast({ type: 'error', title: 'تعذّر حفظ تقدمك — حاولي مرة أخرى' })
+      if (isComplete) hasSaved.current = false // allow re-attempt
+    } finally {
+      setIsSaving(false)
     }
   }, [studentId, unitId, grammarId, total, buildResults, currentRowId, onAttemptUpdate, allAttempts, attemptNumber])
 
@@ -371,9 +406,17 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
         ))}
       </div>
 
+      {/* Saving indicator */}
+      {isSaving && (
+        <div className="flex items-center justify-center gap-2 py-3">
+          <div className="w-4 h-4 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: 'var(--accent-sky)', borderTopColor: 'transparent' }} />
+          <span className="text-sm font-['Tajawal'] font-medium" style={{ color: 'var(--accent-sky)' }}>جاري حفظ تقدمك...</span>
+        </div>
+      )}
+
       {/* Sticky CTA */}
-      {showStickyCta && allAnswered && !isCompleted && (
-        <button onClick={handleFinish} className="grammar-sticky-cta font-['Tajawal'] text-sm">
+      {showStickyCta && allAnswered && !isCompleted && !isSaving && (
+        <button onClick={handleFinish} className="grammar-sticky-cta font-['Tajawal'] text-sm active:scale-95 transition-transform">
           إنهاء وحفظ المحاولة ({correctCount}/{total} صحيحة)
         </button>
       )}

@@ -51,7 +51,8 @@ export default function GeometricMesh() {
   const { nodes, lines } = useMemo(generateMesh, [])
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0" aria-hidden="true">
+    // Hidden on mobile (< lg) — saves GPU/paint on phones
+    <div className="fixed inset-0 pointer-events-none z-0 hidden lg:block" aria-hidden="true">
       <svg
         viewBox={`0 0 ${VIEWPORT_W} ${VIEWPORT_H}`}
         className="w-full h-full"

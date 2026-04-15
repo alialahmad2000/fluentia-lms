@@ -1,6 +1,8 @@
 import { useState, useRef } from 'react'
 import { validateAnswer } from '../../../utils/answerValidator'
 
+const CORRECT_MSGS = ['ممتازة! إجابة صحيحة 🎯', 'أحسنتِ! بالضبط ✨', 'صحيح! رائع 💫', 'إجابة موفقة! 🌟']
+
 export default function FillBlankQuestion({ item, answer, onAnswer }) {
   const [input, setInput] = useState('')
   const inputRef = useRef(null)
@@ -37,7 +39,7 @@ export default function FillBlankQuestion({ item, answer, onAnswer }) {
           <button
             type="submit"
             disabled={!input.trim()}
-            className="grammar-option px-5 font-['Tajawal'] font-bold text-sm disabled:opacity-30"
+            className="grammar-option px-5 font-['Tajawal'] font-bold text-sm disabled:opacity-30 active:scale-95 transition-transform"
             style={{ color: 'var(--accent-sky)', borderColor: 'var(--info-border)' }}
           >
             تحقق
@@ -46,12 +48,14 @@ export default function FillBlankQuestion({ item, answer, onAnswer }) {
       </div>
       {!answer && (
         <p id="fill-blank-hint" className="text-[11px] font-['Tajawal']" dir="rtl" style={{ color: 'var(--text-tertiary)' }}>
-          اكتب الكلمة الناقصة فقط — لا تعيد كتابة الجملة كاملة
+          اكتبي الكلمة الناقصة فقط — لا تعيدي كتابة الجملة كاملة
         </p>
       )}
 
       {answer && answer.correct && (
-        <p className="text-sm font-['Tajawal'] font-medium" style={{ color: 'var(--success)' }}>أحسنت! ✨</p>
+        <p className="text-sm font-['Tajawal'] font-bold" dir="rtl" style={{ color: 'var(--success)' }}>
+          {CORRECT_MSGS[Math.floor(Math.random() * CORRECT_MSGS.length)]}
+        </p>
       )}
 
       {answer && !answer.correct && (
