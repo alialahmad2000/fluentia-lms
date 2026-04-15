@@ -77,6 +77,8 @@ const LevelUnits = lazyRetry(() => import('./pages/student/curriculum/LevelUnits
 const UnitContent = lazyRetry(() => import('./pages/student/curriculum/UnitContent'))
 const PlacementTestPage = lazyRetry(() => import('./pages/student/placement/PlacementTestPage'))
 const PlacementResultsPage = lazyRetry(() => import('./pages/student/placement/PlacementResultsPage'))
+const StudentProgressReports = lazyRetry(() => import('./pages/student/ProgressReports'))
+const StudentReportView = lazyRetry(() => import('./pages/student/ReportView'))
 
 const TrainerOnboarding = lazyRetry(() => import('./pages/trainer/TrainerOnboarding'))
 const TrainerDashboard = lazyRetry(() => import('./pages/trainer/TrainerDashboard'))
@@ -94,6 +96,7 @@ const TrainerTeams = lazyRetry(() => import('./pages/trainer/TrainerTeams'))
 const TrainerGroupChat = lazyRetry(() => import('./pages/trainer/TrainerGroupChat'))
 const TrainerAIAssistant = lazyRetry(() => import('./pages/trainer/TrainerAIAssistant'))
 const TrainerProgressReports = lazyRetry(() => import('./pages/trainer/TrainerProgressReports'))
+const ReportReview = lazyRetry(() => import('./pages/trainer/ReportReview'))
 const TrainerLessonPlanner = lazyRetry(() => import('./pages/trainer/TrainerLessonPlanner'))
 const TrainerQuizGenerator = lazyRetry(() => import('./pages/trainer/TrainerQuizGenerator'))
 const TrainerWeeklyGrading = lazyRetry(() => import('./pages/trainer/TrainerWeeklyGrading'))
@@ -141,6 +144,8 @@ const TrainerCurriculumPreview = lazyRetry(() => import('./pages/trainer/Trainer
 const InteractiveCurriculumLevels = lazyRetry(() => import('./pages/shared/InteractiveCurriculumLevels'))
 const InteractiveCurriculumUnits = lazyRetry(() => import('./pages/shared/InteractiveCurriculumUnits'))
 const InteractiveCurriculumPage = lazyRetry(() => import('./pages/shared/InteractiveCurriculumPage'))
+
+const SharedReport = lazyRetry(() => import('./pages/public/SharedReport'))
 
 const PartnersLanding = lazyRetry(() => import('./pages/partners/PartnersLanding'))
 const PartnersSubmitted = lazyRetry(() => import('./pages/partners/PartnersSubmitted'))
@@ -433,6 +438,7 @@ export default function App() {
 
           {/* Public routes */}
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/r/:token" element={<Suspense fallback={<div className="flex items-center justify-center min-h-screen"><div className="animate-spin w-8 h-8 border-2 border-sky-400 border-t-transparent rounded-full" /></div>}><SharedReport /></Suspense>} />
           <Route path="/forgot-password" element={
             <ErrorBoundary fallback={<PageErrorFallback />}>
               <Suspense fallback={<LoadingSkeleton />}><ForgotPassword /></Suspense>
@@ -528,6 +534,8 @@ export default function App() {
               <Route path="/student/adaptive-test" element={<Page><PackageRoute requiredPackage="talaqa" featureName="اختبار المستوى"><StudentAdaptiveTest /></PackageRoute></Page>} />
               <Route path="/student/ai-insights" element={<Page><PackageRoute requiredPackage="talaqa" featureName="رؤى ذكية"><StudentAIInsights /></PackageRoute></Page>} />
               <Route path="/student/progress" element={<Page><ProgressDashboard /></Page>} />
+              <Route path="/student/progress-reports" element={<Page><StudentProgressReports /></Page>} />
+              <Route path="/student/progress-reports/:id" element={<Page><StudentReportView /></Page>} />
               <Route path="/student/curriculum" element={<Page><CurriculumBrowser /></Page>} />
               <Route path="/student/curriculum/level/:levelNumber" element={<Page><LevelUnits /></Page>} />
               <Route path="/student/curriculum/unit/:unitId" element={<Page><UnitContent /></Page>} />
@@ -564,6 +572,7 @@ export default function App() {
               <Route path="/trainer/messages" element={<Page><StudentMessages /></Page>} />
               <Route path="/trainer/ai-assistant" element={<Page><TrainerAIAssistant /></Page>} />
               <Route path="/trainer/reports" element={<Page><TrainerProgressReports /></Page>} />
+              <Route path="/trainer/progress-reports/:id/review" element={<Page><ReportReview /></Page>} />
               <Route path="/trainer/lesson-planner" element={<Page><TrainerLessonPlanner /></Page>} />
               <Route path="/trainer/quiz" element={<Page><TrainerQuizGenerator /></Page>} />
               <Route path="/trainer/weekly-grading" element={<Page><TrainerWeeklyGrading /></Page>} />

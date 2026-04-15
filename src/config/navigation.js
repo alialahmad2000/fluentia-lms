@@ -2,7 +2,7 @@ import {
   Home, BookOpen, PenLine, Mic, PlayCircle, Users, Trophy, Calendar,
   BookMarked, User, Settings, BarChart3, ClipboardList, MessageSquare,
   Megaphone, CreditCard, GraduationCap, UserCog, Bot, FileText,
-  StickyNote, TrendingUp, Zap, Flame,
+  StickyNote, TrendingUp, Zap, Flame, CalendarClock,
 } from 'lucide-react'
 
 export const STUDENT_NAV = {
@@ -16,6 +16,7 @@ export const STUDENT_NAV = {
         { id: 'progress',    label: 'تقدّمي',       icon: BarChart3,  to: '/student/progress' },
         { id: 'flashcards',  label: 'المفردات',     icon: FileText,   to: '/student/flashcards' },
         { id: 'challenges',  label: 'التحديات',     icon: Flame,      to: '/student/challenges' },
+        { id: 'reports',     label: 'التقارير',     icon: CalendarClock, to: '/student/progress-reports' },
       ],
     },
     {
@@ -46,6 +47,7 @@ export const STUDENT_NAV = {
         { id: 'progress',     label: 'تقدّمي',       icon: BarChart3,    to: '/student/progress' },
         { id: 'flashcards',   label: 'المفردات',     icon: FileText,     to: '/student/flashcards' },
         { id: 'challenges',   label: 'التحديات',     icon: Flame,        to: '/student/challenges' },
+        { id: 'reports',      label: 'التقارير',     icon: CalendarClock, to: '/student/progress-reports' },
         { id: 'conversation', label: 'المحادثة',     icon: MessageSquare, to: '/student/conversation' },
         { id: 'recordings',   label: 'التسجيلات',    icon: PlayCircle,   to: '/student/recordings' },
       ],
@@ -99,6 +101,7 @@ export const TRAINER_NAV = {
         { id: 'student-curriculum', label: 'معاينة منهج الطالب', icon: FileText, to: '/trainer/student-curriculum' },
         { id: 'interactive-curriculum', label: 'المنهج التفاعلي', icon: FileText, to: '/trainer/interactive-curriculum' },
         { id: 'progress',    label: 'تقدم الطلاب',  icon: TrendingUp,    to: '/trainer/progress-matrix' },
+        { id: 'reports',     label: 'تقارير الطلاب', icon: CalendarClock, to: '/trainer/reports' },
         { id: 'ai',          label: 'المساعد الذكي', icon: Bot,           to: '/trainer/ai-assistant' },
       ],
     },
