@@ -145,12 +145,12 @@ export default function LevelUnits() {
             </motion.div>
 
             <motion.div {...m.staggerParent} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }}>
-              {chapter.units[0] && <FeaturedCard unit={chapter.units[0]} progress={getUnitStatus(progressMap, chapter.units[0].id)} levelColor={levelColor} navigate={navigate} levelNum={levelNum} m={m} />}
+              {chapter.units[0] && <FeaturedCard unit={chapter.units[0]} progress={getUnitStatus(progressMap, chapter.units[0].id)} levelColor={levelColor} navigate={navigate} levelNum={levelNum} basePath={basePath} m={m} />}
 
               {chapter.units.length > 1 && (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                   {chapter.units.slice(1).map(unit => (
-                    <StandardCard key={unit.id} unit={unit} progress={getUnitStatus(progressMap, unit.id)} levelColor={levelColor} navigate={navigate} levelNum={levelNum} m={m} />
+                    <StandardCard key={unit.id} unit={unit} progress={getUnitStatus(progressMap, unit.id)} levelColor={levelColor} navigate={navigate} levelNum={levelNum} basePath={basePath} m={m} />
                   ))}
                 </div>
               )}
@@ -177,7 +177,7 @@ function Pill({ label, value, color }) {
 }
 
 /* Featured Card */
-function FeaturedCard({ unit, progress, levelColor, navigate, levelNum, m }) {
+function FeaturedCard({ unit, progress, levelColor, navigate, levelNum, basePath, m }) {
   const handleClick = () => { tracker.track('unit_selected', { unit_id: unit.id, unit_number: unit.unit_number, level: levelNum }); navigate(`${basePath}/unit/${unit.id}`) }
   const handleKey = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClick() } }
 
@@ -235,7 +235,7 @@ function FeaturedCard({ unit, progress, levelColor, navigate, levelNum, m }) {
 }
 
 /* Standard Card */
-function StandardCard({ unit, progress, levelColor, navigate, levelNum, m }) {
+function StandardCard({ unit, progress, levelColor, navigate, levelNum, basePath, m }) {
   const hasCover = !!unit.cover_image_url
   const handleClick = () => { tracker.track('unit_selected', { unit_id: unit.id, unit_number: unit.unit_number, level: levelNum }); navigate(`${basePath}/unit/${unit.id}`) }
   const handleKey = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClick() } }
