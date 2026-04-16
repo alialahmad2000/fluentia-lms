@@ -10,7 +10,6 @@ import ErrorBoundary from '../ErrorBoundary'
 import PWAInstallGate from '../pwa/PWAInstallGate'
 import UpdateBanner from '../UpdateBanner'
 import A11yFloatingButton from '../Accessibility/A11yFloatingButton'
-import ResetPageButton from '../ResetPageButton'
 import XPFloater from '../ui/XPFloater'
 import FloatingToolbar from '../trainer/FloatingToolbar'
 import TimerBadge from '../trainer/TimerBadge'
@@ -182,7 +181,6 @@ export default function LayoutShell() {
       </AnimatePresence>
 
       <A11yFloatingButton />
-      <ResetPageButton />
 
       {/* Mobile bottom bar */}
       {!isClassMode && <MobileBar nav={nav} onMoreClick={openDrawer} role={role} />}

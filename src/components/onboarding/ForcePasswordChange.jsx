@@ -6,7 +6,7 @@ import { supabase } from '../../lib/supabase'
 import { tracker } from '../../services/activityTracker'
 
 export default function ForcePasswordChange() {
-  const { profile, user, fetchProfile } = useAuthStore()
+  const { profile, user, fetchProfile, impersonation } = useAuthStore()
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -14,8 +14,10 @@ export default function ForcePasswordChange() {
   const [error, setError] = useState('')
   const [done, setDone] = useState(false)
 
-  // Only show if must_change_password is true
-  if (!profile?.must_change_password || done) return null
+  // Only show if must_change_password is true.
+  // Skip during impersonation — admin must not be forced to change an
+  // impersonated user's password.
+  if (!profile?.must_change_password || done || impersonation) return null
 
   const isValid = password.length >= 8 && password === confirmPassword
 

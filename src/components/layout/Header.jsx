@@ -6,6 +6,8 @@ import { useAuthStore } from '@/stores/authStore'
 import NotificationCenter from './NotificationCenter'
 import HeaderThemeButton from '@/design-system/HeaderThemeButton'
 import UserAvatar from '@/components/common/UserAvatar'
+import HardRefreshButton from '@/components/ui/HardRefreshButton'
+import ResetPageButton from '@/components/ResetPageButton'
 
 const ROLE_LABELS = { student: 'طالبة', trainer: 'مدربة', admin: 'مدير' }
 const PROFILE_PATHS = { student: '/student/profile', trainer: '/trainer/my-students', admin: '/admin/settings' }
@@ -83,6 +85,12 @@ export default function Header({ showMenuButton, onMenuClick }) {
 
       {/* Left side (RTL end) — icon row */}
       <div className="flex items-center gap-2">
+        {/* Reset page (zoom/scroll/selection) */}
+        <ResetPageButton />
+
+        {/* Hard refresh (clear caches + reload) */}
+        <HardRefreshButton compact />
+
         {/* Theme */}
         <HeaderThemeButton />
 

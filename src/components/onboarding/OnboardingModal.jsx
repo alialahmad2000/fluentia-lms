@@ -9,7 +9,7 @@ import { sendWelcomeMessage } from '../../utils/autoMessages'
 const ONBOARDED_KEY = 'fluentia_onboarded'
 
 export default function OnboardingModal() {
-  const { profile, studentData, user, fetchProfile } = useAuthStore()
+  const { profile, studentData, user, fetchProfile, impersonation } = useAuthStore()
   const [step, setStep] = useState(0)
   const [displayName, setDisplayName] = useState(profile?.display_name || '')
   const [saving, setSaving] = useState(false)
@@ -17,11 +17,13 @@ export default function OnboardingModal() {
 
   // Only show for students who haven't been onboarded.
   // Guard profile?.id so we never read/write the key "fluentia_onboarded_undefined".
+  // Skip entirely when admin is impersonating — they should land on the student's
+  // actual dashboard immediately, not be blocked by the student's welcome flow.
   const isStudent = profile?.role === 'student'
   const alreadyOnboarded = profile?.id
     ? localStorage.getItem(`${ONBOARDED_KEY}_${profile.id}`)
     : true // treat as onboarded while profile is loading to avoid flash
-  const needsOnboarding = isStudent && !alreadyOnboarded && !dismissed
+  const needsOnboarding = isStudent && !alreadyOnboarded && !dismissed && !impersonation
 
   if (!needsOnboarding) return null
 

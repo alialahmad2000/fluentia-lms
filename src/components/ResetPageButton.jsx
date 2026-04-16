@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react'
-import { createPortal } from 'react-dom'
 import { RotateCcw } from 'lucide-react'
 import { useLocation } from 'react-router-dom'
 
@@ -108,7 +107,7 @@ export default function ResetPageButton() {
     window.dispatchEvent(new CustomEvent('fluentia:reading-prefs-changed'))
   }
 
-  return createPortal(
+  return (
     <>
       {/* Inline keyframes for spin-once animation */}
       <style>{`
@@ -116,64 +115,91 @@ export default function ResetPageButton() {
         .animate-spin-once { animation: fluentia-spin-once 0.5s linear 1; }
       `}</style>
 
-      {/* Reset button — bottom-right (insetInlineStart = right in RTL) */}
-      <button
-        onClick={handleClick}
-        aria-label="إعادة تعيين الصفحة"
-        className="fixed bottom-4 z-[9998] w-11 h-11 md:w-12 md:h-12
-                   rounded-full bg-slate-900/80 backdrop-blur-md
-                   border border-slate-700 hover:border-amber-400/60
-                   hover:bg-slate-800/90 transition-all
-                   flex items-center justify-center
-                   shadow-lg shadow-black/40
-                   group"
-        style={{ insetInlineStart: '16px' }}
-        title="إعادة تعيين الصفحة"
-      >
-        <RotateCcw
-          className={`w-5 h-5 text-slate-300 group-hover:text-amber-400 transition-colors
-                      ${isSpinning ? 'animate-spin-once' : ''}`}
-        />
-      </button>
-
-      {/* Confirmation popover */}
-      {showConfirm && (
-        <div
-          className="fixed bottom-20 z-[9999] bg-slate-900/95 backdrop-blur-md
-                     border border-slate-700 rounded-xl p-4 shadow-2xl
-                     w-[260px]"
-          style={{ insetInlineStart: '16px' }}
-          dir="rtl"
+      {/* Reset button — inline (lives in header toolbar) */}
+      <div className="relative">
+        <button
+          onClick={handleClick}
+          aria-label="إعادة تعيين الصفحة"
+          className="flex items-center justify-center w-9 h-9 rounded-xl border transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer group"
+          style={{
+            background: 'var(--surface-raised, var(--ds-surface-1, rgba(255,255,255,0.04)))',
+            borderColor: 'var(--border-subtle, var(--ds-border-subtle, rgba(255,255,255,0.08)))',
+          }}
+          title="إعادة تعيين الصفحة"
         >
-          <p className="text-sm text-slate-200 mb-3 leading-relaxed font-['Tajawal']">
-            إعادة تعيين الصفحة لحالتها الافتراضية؟
-          </p>
-          <div className="flex gap-2">
-            <button
-              onClick={performReset}
-              className="flex-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-medium
-                         px-3 py-1.5 rounded-lg text-sm transition-colors font-['Tajawal']"
-            >
-              نعم
-            </button>
-            <button
-              onClick={() => setShowConfirm(false)}
-              className="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300
-                         px-3 py-1.5 rounded-lg text-sm transition-colors font-['Tajawal']"
-            >
-              إلغاء
-            </button>
-          </div>
-          <p className="text-[10px] text-slate-500 mt-2 font-['Tajawal']">
-            نصيحة: اضغط الزر مرتين بسرعة للتصفير الفوري.
-          </p>
-        </div>
-      )}
+          <RotateCcw
+            className={`w-4 h-4 transition-colors ${isSpinning ? 'animate-spin-once' : ''}`}
+            style={{ color: 'var(--accent-sky, var(--ds-accent-primary, #38bdf8))' }}
+          />
+        </button>
 
-      {/* Success toast */}
+        {/* Confirmation popover (anchored to button) */}
+        {showConfirm && (
+          <div
+            className="absolute top-full end-0 mt-2 z-[9999] bg-slate-900/95 backdrop-blur-md
+                       border border-slate-700 rounded-xl p-4 shadow-2xl w-[260px]"
+            dir="rtl"
+          >
+            <p className="text-sm text-slate-200 mb-3 leading-relaxed font-['Tajawal']">
+              إعادة تعيين الصفحة لحالتها الافتراضية؟
+            </p>
+            <div className="flex gap-2">
+              <button
+                onClick={performReset}
+                className="flex-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-medium
+                           px-3 py-1.5 rounded-lg text-sm transition-colors font-['Tajawal']"
+              >
+                نعم
+              </button>
+              <button
+                onClick={() => setShowConfirm(false)}
+                className="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300
+                           px-3 py-1.5 rounded-lg text-sm transition-colors font-['Tajawal']"
+              >
+                إلغاء
+              </button>
+            </div>
+            <p className="text-[10px] text-slate-500 mt-2 font-['Tajawal']">
+              نصيحة: اضغط الزر مرتين بسرعة للتصفير الفوري.
+            </p>
+          </div>
+        )}
+
+        {/* Reading prefs restore prompt (anchored below confirm) */}
+        {showReadingPrefsPrompt && (
+          <div
+            className="absolute top-full end-0 mt-2 z-[9999] bg-slate-900/95 backdrop-blur-md
+                       border border-amber-500/40 rounded-xl p-4 shadow-2xl w-[300px]"
+            dir="rtl"
+          >
+            <p className="text-sm text-slate-200 mb-3 leading-relaxed font-['Tajawal']">
+              لاحظت أنك غيّرت إعدادات مساعدات القراءة.
+              هل تريد إعادتها للوضع الافتراضي؟
+            </p>
+            <div className="flex gap-2">
+              <button
+                onClick={resetReadingPrefs}
+                className="flex-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-medium
+                           px-3 py-1.5 rounded-lg text-sm transition-colors font-['Tajawal']"
+              >
+                نعم، أعدها
+              </button>
+              <button
+                onClick={() => setShowReadingPrefsPrompt(false)}
+                className="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300
+                           px-3 py-1.5 rounded-lg text-sm transition-colors font-['Tajawal']"
+              >
+                لا، احتفظ بإعداداتي
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Success toast — kept as a centered flash since it's a global status message */}
       {showToast && (
         <div
-          className="fixed bottom-20 left-1/2 -translate-x-1/2 z-[9999]
+          className="fixed top-20 left-1/2 -translate-x-1/2 z-[9999]
                      bg-emerald-500/15 border border-emerald-500/40 backdrop-blur-md
                      text-emerald-200 px-4 py-2 rounded-lg text-sm font-['Tajawal']"
           dir="rtl"
@@ -181,39 +207,6 @@ export default function ResetPageButton() {
           ✓ تم تصفير الصفحة
         </div>
       )}
-
-      {/* Reading prefs restore prompt */}
-      {showReadingPrefsPrompt && (
-        <div
-          className="fixed bottom-36 z-[9999] bg-slate-900/95 backdrop-blur-md
-                     border border-amber-500/40 rounded-xl p-4 shadow-2xl
-                     w-[300px]"
-          style={{ insetInlineStart: '16px' }}
-          dir="rtl"
-        >
-          <p className="text-sm text-slate-200 mb-3 leading-relaxed font-['Tajawal']">
-            لاحظت أنك غيّرت إعدادات مساعدات القراءة.
-            هل تريد إعادتها للوضع الافتراضي؟
-          </p>
-          <div className="flex gap-2">
-            <button
-              onClick={resetReadingPrefs}
-              className="flex-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-medium
-                         px-3 py-1.5 rounded-lg text-sm transition-colors font-['Tajawal']"
-            >
-              نعم، أعدها
-            </button>
-            <button
-              onClick={() => setShowReadingPrefsPrompt(false)}
-              className="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300
-                         px-3 py-1.5 rounded-lg text-sm transition-colors font-['Tajawal']"
-            >
-              لا، احتفظ بإعداداتي
-            </button>
-          </div>
-        </div>
-      )}
-    </>,
-    document.body
+    </>
   )
 }
