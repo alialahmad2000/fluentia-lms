@@ -3,7 +3,13 @@ import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 import fs from 'fs'
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
+  // In production, strip all console.* and debugger statements.
+  // The codebase has ~236 console calls (mostly error/warn for dev diagnostics);
+  // leaving them in shipped JS adds bytes, parse cost, and runtime overhead
+  // on hot paths. esbuild's `drop` is safer than sed-deleting them from source
+  // since dev builds still log normally.
+  esbuild: mode === 'production' ? { drop: ['console', 'debugger'] } : {},
   plugins: [
     react(),
     {
@@ -91,6 +97,10 @@ export default defineConfig({
     }),
   ],
   build: {
+    // Charts (recharts) and eruda debug console chunks exceed 500 kB — both
+    // are only loaded on-demand (admin analytics / ?debug=1), so the warning
+    // is noise, not a problem worth chasing.
+    chunkSizeWarningLimit: 600,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -110,4 +120,4 @@ export default defineConfig({
       '@': '/src',
     },
   },
-})
+}))
