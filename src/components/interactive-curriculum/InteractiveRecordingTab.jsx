@@ -6,6 +6,7 @@ import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
 import { toast } from '../ui/FluentiaToast'
 import VideoPlayer from '../VideoPlayer'
+import RecordingNotificationButton from '../curriculum/RecordingNotificationButton'
 
 const PARTS = [
   { id: 'a', label: 'Part A', labelAr: 'الجزء A' },
@@ -33,6 +34,22 @@ export default function InteractiveRecordingTab({ unitId }) {
     staleTime: 30000,
   })
 
+  // Fetch unit + level for notification targeting
+  const { data: unitInfo } = useQuery({
+    queryKey: ['recording-unit-info', unitId],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('curriculum_units')
+        .select('id, unit_number, theme_ar, theme_en, level:curriculum_levels(level_number)')
+        .eq('id', unitId)
+        .single()
+      if (error) throw error
+      return data
+    },
+    enabled: !!unitId,
+    staleTime: 5 * 60 * 1000,
+  })
+
   if (isLoading) {
     return (
       <div className="space-y-4">
@@ -56,17 +73,18 @@ export default function InteractiveRecordingTab({ unitId }) {
           part={part}
           recording={recordingByPart[part.id]}
           unitId={unitId}
+          unitInfo={unitInfo}
         />
       ))}
     </div>
   )
 }
 
-function PartSection({ part, recording, unitId }) {
+function PartSection({ part, recording, unitId, unitInfo }) {
   const [editing, setEditing] = useState(false)
 
   if (recording && !editing) {
-    return <RecordingCard recording={recording} part={part} onEdit={() => setEditing(true)} />
+    return <RecordingCard recording={recording} part={part} unitInfo={unitInfo} onEdit={() => setEditing(true)} />
   }
 
   return (
@@ -79,9 +97,10 @@ function PartSection({ part, recording, unitId }) {
   )
 }
 
-function RecordingCard({ recording, part, onEdit }) {
+function RecordingCard({ recording, part, unitInfo, onEdit }) {
   const queryClient = useQueryClient()
   const [deleting, setDeleting] = useState(false)
+  const levelNumber = unitInfo?.level?.level_number
 
   const handleDelete = async () => {
     if (!confirm('هل أنت متأكد من حذف هذا التسجيل؟')) return
@@ -125,6 +144,15 @@ function RecordingCard({ recording, part, onEdit }) {
         </div>
 
         <div className="flex items-center gap-1.5">
+          <RecordingNotificationButton
+            unitId={recording.unit_id}
+            unitNumber={unitInfo?.unit_number}
+            unitTitle={unitInfo?.theme_ar || unitInfo?.theme_en}
+            levelNumber={levelNumber}
+            part={part.id}
+            recordingUrl={recording.google_drive_url}
+            classDate={recording.recorded_date}
+          />
           <button onClick={onEdit} className="p-2 rounded-lg text-[var(--text-muted)] hover:text-sky-400 hover:bg-sky-500/10 transition-colors" title="تعديل">
             <Pencil size={14} />
           </button>
