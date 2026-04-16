@@ -232,18 +232,24 @@ export default function AmbientParticles({ type = 'ambientDots' }) {
 
   useEffect(() => {
     if (reduced) return
+    // Skip the rAF canvas loop entirely on low-end devices (<= 4 cores).
+    // On older laptops this loop was the #1 CPU user on unit pages (5-8% idle).
+    const cores = typeof navigator !== 'undefined' ? navigator.hardwareConcurrency : null
+    if (cores != null && cores <= 4) return
     const preset = PARTICLE_PRESETS[type] || PARTICLE_PRESETS.ambientDots
     const canvas = canvasRef.current
     if (!canvas) return
 
     const ctx = canvas.getContext('2d')
 
-    /* Determine max particle count — halve on mobile */
+    /* Determine max particle count — halve on mobile, cap at 30 on desktop
+       (was 50; higher counts showed no perceptible difference but doubled
+       paint cost). */
     const isMobile = () => window.innerWidth < 768
     const maxCount = () =>
       Math.min(
         isMobile() ? Math.floor(preset.count * 0.5) : preset.count,
-        50
+        30
       )
 
     /* Resize canvas to viewport */

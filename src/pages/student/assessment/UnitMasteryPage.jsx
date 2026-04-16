@@ -319,8 +319,13 @@ export default function UnitMasteryPage() {
         <div className="w-10" />
       </div>
 
-      {/* Question */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-[calc(100vh-80px)] px-4 pb-8">
+      {/* Question — bottom padding respects mobile nav + iOS home indicator.
+          Nav controls (Prev/Next/Submit) inside this block must clear the bottom nav.
+          Uses 100dvh (dynamic viewport) not 100vh for iOS Safari URL bar. */}
+      <div
+        className="relative z-10 flex flex-col items-center justify-center min-h-[calc(100dvh-80px)] px-4"
+        style={{ paddingBottom: 'var(--mobile-bottom-clearance, 32px)' }}
+      >
         <AnimatePresence mode="wait">
           <motion.div key={question?.id} className="w-full max-w-[680px]"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}

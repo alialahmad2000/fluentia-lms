@@ -9,6 +9,15 @@ const BLOB_PATHS = [
   { x: ['30%', '60%', '20%', '50%', '30%'], y: ['60%', '30%', '70%', '40%', '60%'], dur: 70 },
 ]
 
+// Detect low-end desktop (few cores) so we can skip blob animation —
+// 3× blurred 70vw animated blobs drive ~10-15% constant GPU cost on older laptops.
+// Threshold of <= 4 cores covers Intel U-series laptops which students commonly use.
+function isLowEndDevice() {
+  if (typeof navigator === 'undefined') return false
+  const cores = navigator.hardwareConcurrency
+  return cores != null && cores <= 4
+}
+
 const STARS = [
   { top: '12%', left: '8%', size: 2 },
   { top: '6%', left: '45%', size: 1.5 },
@@ -28,11 +37,14 @@ export default function AuroraBackground() {
 
   useEffect(() => {
     const isMobile = window.matchMedia('(max-width: 768px)').matches
-    const isLowEnd = navigator.hardwareConcurrency != null && navigator.hardwareConcurrency <= 4
+    const lowEnd = isLowEndDevice()
 
-    if (reducedMotion || (isMobile && isLowEnd)) {
+    // Low-end laptops (<= 4 cores) previously got the full 3-blob animated
+    // aurora on desktop, which pegged their GPU idle-cost. Drop them to the
+    // single static-blob variant same as mobile-reduced — still looks rich.
+    if (reducedMotion || (isMobile && lowEnd)) {
       setRenderMode('static')
-    } else if (isMobile) {
+    } else if (isMobile || lowEnd) {
       setRenderMode('reduced')
     }
   }, [reducedMotion])

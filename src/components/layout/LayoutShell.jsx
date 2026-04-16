@@ -156,8 +156,14 @@ export default function LayoutShell() {
           <ErrorBoundary key={location.pathname}>
             <Outlet />
           </ErrorBoundary>
-          {/* Bottom spacer for mobile nav */}
-          <div className="lg:hidden" aria-hidden="true" style={{ height: 150, flexShrink: 0 }} />
+          {/* Bottom spacer for mobile nav + iOS home indicator.
+              Uses --mobile-bottom-clearance so any sticky bottom-of-page content
+              (submit buttons, FABs, last MCQ option) stays fully visible. */}
+          <div
+            className="lg:hidden"
+            aria-hidden="true"
+            style={{ height: 'var(--mobile-bottom-clearance)', flexShrink: 0 }}
+          />
         </main>
       </div>
 

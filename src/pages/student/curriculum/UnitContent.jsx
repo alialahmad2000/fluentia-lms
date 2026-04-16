@@ -246,7 +246,7 @@ export default function UnitContent() {
   const currentRank = starRanking?.currentStudentRank || null
 
   return (
-    <div dir="rtl" style={{ minHeight: '100vh', position: 'relative' }}>
+    <div dir="rtl" style={{ minHeight: '100dvh', position: 'relative' }}>
 
       {/* Ambient particles — behind everything */}
       <AmbientParticles type={particleType} />

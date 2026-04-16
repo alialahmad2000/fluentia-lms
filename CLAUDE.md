@@ -827,4 +827,19 @@ This is how future sessions know what happened.
 - What: Added project context files for Claude Code auto-read
 - Files: CLAUDE.md, FLUENTIA-SPEC.md
 - Status: Complete
+
+### April 16, 2026 — Desktop perf + mobile question overlap
+- What: Fixed student-reported "LMS feels heavy on laptops" and mobile question/option clipping behind bottom nav + iOS home indicator. Lazy routing, vite chunking, esbuild console-drop, and React Query defaults were already in place — this pass targeted the remaining real hotspots.
+- Files:
+  - `src/index.css` — Added `--mobile-action-bar-height`, `--mobile-bottom-clearance`, `--mobile-bottom-clearance-with-action` to `:root` so every scrollable page and sticky bottom element can consistently respect nav height + iOS safe-area.
+  - `src/components/layout/LayoutShell.jsx` — Hard-coded 150 px bottom spacer swapped for `var(--mobile-bottom-clearance)` so last-element clearance is always nav + `env(safe-area-inset-bottom)` + 16 px.
+  - `src/components/grammar/grammar.css` — `.grammar-sticky-cta` bottom offset now includes `var(--sab)`, so the "إنهاء وحفظ المحاولة" button is no longer hidden behind the iOS home indicator on iPhone.
+  - `src/pages/student/assessment/UnitMasteryPage.jsx` — Full-screen quiz container now uses `100dvh` + `paddingBottom: var(--mobile-bottom-clearance)`, so Prev/Next/Submit are never covered by the bottom nav.
+  - `src/pages/student/curriculum/UnitContent.jsx` — `minHeight: 100vh` → `100dvh` for iOS Safari URL-bar behaviour.
+  - `src/design-system/components/AuroraBackground.jsx` — Low-end laptops (`navigator.hardwareConcurrency <= 4`) now drop to the reduced (single-static-blob) variant on desktop too; previously they ran the 3× animated 70 vw blur-2xl blobs continuously, which was the #1 GPU idle cost on older student laptops.
+  - `src/pages/student/curriculum/unit-v2/AmbientParticles.jsx` — rAF canvas loop is now skipped entirely on `<= 4` core devices; desktop particle cap lowered 50→30 (visually indistinguishable, halves paint cost).
+- DB: None
+- Edge Functions: None
+- Status: Complete — `npm run build` green in 30.24 s. Main entry 76 KB gzipped, largest non-opt-in chunk UnitContent 25 KB gzipped. vendor-charts (115 KB gz) and eruda (161 KB gz) remain > 600 KB raw but are admin-analytics-only and `?debug=1`-only respectively, so they don't affect student initial load.
+- Notes: Much of the perf infrastructure mentioned in the task prompt (route-level `lazyRetry` for all pages, `manualChunks` for react/supabase/motion/query/charts, `esbuild.drop: console/debugger`, React Query defaults with `refetchOnWindowFocus: false`) was already in place from prior work — this pass was surgical, not a rewrite.
 - Notes: All 10 LMS phases were already complete. Keys are in .env only (not in these files).

@@ -92,6 +92,13 @@ body { line-height: var(--a11y-line-height, 1.6); }
   --sal: env(safe-area-inset-left, 0px);
   --sar: env(safe-area-inset-right, 0px);
   --bottom-nav-height: 64px;
+  --mobile-action-bar-height: 64px;
+  /* Total bottom clearance any scrollable page content must respect on mobile.
+     Nav is fixed bottom:0 with internal paddingBottom:var(--sab), so its total
+     occupied space = --bottom-nav-height + --sab. We add 16px breathing room. */
+  --mobile-bottom-clearance: calc(var(--bottom-nav-height) + var(--sab) + 16px);
+  /* When a sticky/floating action bar also sits above the nav */
+  --mobile-bottom-clearance-with-action: calc(var(--bottom-nav-height) + var(--mobile-action-bar-height) + var(--sab) + 16px);
 }
 
 html {
