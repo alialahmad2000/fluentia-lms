@@ -177,7 +177,35 @@ function ReadingContent({ reading, studentId, unitId }) {
     retryKeyRef.current += 1
   }
 
-  // Save progress callback
+  // Autosave partial progress — NEVER writes status='completed' or score.
+  // Called on every answer change. Keeps answers so the student doesn't lose
+  // work when they navigate away, while leaving unanswered questions blank
+  // (NOT auto-graded as wrong).
+  const handleComprehensionAutosave = useCallback(async (answers) => {
+    if (!studentId || !reading?.id) return
+    const { error } = await supabase
+      .from('student_curriculum_progress')
+      .upsert({
+        student_id: studentId,
+        unit_id: unitId,
+        reading_id: reading.id,
+        section_type: 'reading',
+        status: 'in_progress',
+        score: null,
+        answers,
+        time_spent_seconds: timeRef.current,
+        completed_at: null,
+      }, {
+        onConflict: 'student_id,reading_id',
+      })
+    if (error) {
+      console.error('[ReadingTab] Autosave failed for reading_id:', reading.id, error)
+    }
+  }, [studentId, reading?.id, unitId])
+
+  // Explicit submit — ONLY path that marks status='completed' and awards XP.
+  // Triggered by the submit button in ComprehensionSection after all questions
+  // are answered.
   const handleComprehensionComplete = useCallback(async (answers, score) => {
     if (!studentId || !reading?.id) return
     const newAttemptNumber = retrying ? attemptNumber + 1 : attemptNumber
@@ -764,7 +792,9 @@ function ReadingContent({ reading, studentId, unitId }) {
           key={retryKeyRef.current}
           questions={questions}
           savedAnswers={retrying ? null : savedProgress?.answers}
+          isAlreadyCompleted={!retrying && savedProgress?.status === 'completed'}
           progressLoading={progressLoading}
+          onAutosave={handleComprehensionAutosave}
           onComplete={handleComprehensionComplete}
         />
       )}
@@ -1310,30 +1340,48 @@ function VocabularyBox({ vocabulary }) {
 }
 
 // ─── Comprehension Questions ─────────────────────────
-function ComprehensionSection({ questions, savedAnswers, progressLoading, onComplete }) {
+// Save vs Submit separation (2026-04-16 bug fix):
+//   - Autosave fires on every answer change. Writes status='in_progress',
+//     score=null. Unanswered questions are NOT graded.
+//   - Submit fires only when the student clicks the explicit submit button,
+//     which is disabled until ALL questions are answered. Writes
+//     status='completed', computes score, awards XP.
+function ComprehensionSection({ questions, savedAnswers, isAlreadyCompleted, progressLoading, onAutosave, onComplete }) {
   const [answers, setAnswers] = useState({})
-  const hasSaved = useRef(false)
+  const [submitted, setSubmitted] = useState(false)
+  const hasAutosavedRef = useRef({}) // per-question-id map — avoid dup upserts
 
-  // Restore saved answers on load
+  // Restore saved answers on load (both partial in_progress and completed rows)
   useEffect(() => {
     if (savedAnswers && typeof savedAnswers === 'object') {
       setAnswers(savedAnswers)
-      hasSaved.current = true
+      if (isAlreadyCompleted) setSubmitted(true)
     }
-  }, [savedAnswers])
+  }, [savedAnswers, isAlreadyCompleted])
 
   const total = questions.length
   const answered = Object.keys(answers).length
   const correctCount = Object.values(answers).filter(a => a.correct).length
+  const allAnswered = answered === total && total > 0
 
-  // Auto-save when all questions answered (only once)
+  // Autosave on every new answer — status='in_progress', no score.
+  // Debounced via a simple ref-delay to avoid hammering on rapid clicks.
   useEffect(() => {
-    if (answered === total && total > 0 && !hasSaved.current) {
-      hasSaved.current = true
-      const score = Math.round((correctCount / total) * 100)
-      onComplete?.(answers, score)
-    }
-  }, [answered, total, correctCount, answers, onComplete])
+    if (progressLoading || submitted) return
+    if (answered === 0) return
+    const signature = JSON.stringify(Object.keys(answers).sort())
+    if (hasAutosavedRef.current.lastSignature === signature) return
+    hasAutosavedRef.current.lastSignature = signature
+    const t = setTimeout(() => { onAutosave?.(answers) }, 400)
+    return () => clearTimeout(t)
+  }, [answered, answers, progressLoading, submitted, onAutosave])
+
+  const handleSubmit = () => {
+    if (!allAnswered || submitted) return
+    setSubmitted(true)
+    const score = Math.round((correctCount / total) * 100)
+    onComplete?.(answers, score)
+  }
 
   if (progressLoading) {
     return (
@@ -1350,9 +1398,14 @@ function ComprehensionSection({ questions, savedAnswers, progressLoading, onComp
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h3 className="text-base font-bold text-white font-['Tajawal']">أسئلة الفهم</h3>
-        {answered > 0 && (
+        {answered > 0 && submitted && (
           <span className="text-xs text-slate-400 font-['Tajawal']">
             {correctCount}/{answered} صحيحة
+          </span>
+        )}
+        {answered > 0 && !submitted && (
+          <span className="text-xs text-slate-400 font-['Tajawal']">
+            {answered}/{total} مُجاب عليها
           </span>
         )}
       </div>
@@ -1363,11 +1416,34 @@ function ComprehensionSection({ questions, savedAnswers, progressLoading, onComp
             question={q}
             index={idx}
             answer={answers[q.id]}
+            revealCorrect={submitted}
             onAnswer={(ans) => setAnswers(prev => ({ ...prev, [q.id]: ans }))}
           />
         ))}
       </div>
-      {answered === total && total > 0 && (
+
+      {/* Explicit submit — only path to completion. Disabled until all answered. */}
+      {!submitted && answered > 0 && (
+        <div className="flex flex-col items-center gap-2 pt-2">
+          <button
+            type="button"
+            onClick={handleSubmit}
+            disabled={!allAnswered}
+            className="px-6 py-3 rounded-xl font-bold font-['Tajawal'] text-sm transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{
+              background: allAnswered ? '#38bdf8' : 'rgba(255,255,255,0.05)',
+              color: allAnswered ? '#0a1225' : '#94a3b8',
+              border: '1px solid ' + (allAnswered ? '#38bdf8' : 'rgba(255,255,255,0.08)'),
+            }}
+          >
+            {allAnswered
+              ? `تسليم الإجابات (${answered}/${total})`
+              : `أجب على جميع الأسئلة قبل التسليم (${answered}/${total})`}
+          </button>
+        </div>
+      )}
+
+      {submitted && allAnswered && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -1391,9 +1467,13 @@ function ComprehensionSection({ questions, savedAnswers, progressLoading, onComp
 }
 
 // ─── Single MCQ Question ─────────────────────────────
-function MCQQuestion({ question, index, answer, onAnswer }) {
+// `revealCorrect` — when false, students can freely change answers and no
+// correct/wrong styling or explanation is shown. When true (after explicit
+// submit), the answer is locked and correctness is revealed. This is what
+// separates autosave (no grading) from submit (graded).
+function MCQQuestion({ question, index, answer, revealCorrect = false, onAnswer }) {
   const handleSelect = (choice) => {
-    if (answer) return
+    if (revealCorrect) return // locked after submit
     const correct = choice.toLowerCase().trim() === question.correct_answer.toLowerCase().trim()
     onAnswer({ selected: choice, correct })
   }
@@ -1427,30 +1507,31 @@ function MCQQuestion({ question, index, answer, onAnswer }) {
         {question.choices?.map((choice, i) => {
           const isSelected = answer?.selected === choice
           const isCorrectAnswer = choice.toLowerCase().trim() === question.correct_answer.toLowerCase().trim()
-          const showCorrect = answer && isCorrectAnswer
-          const showWrong = answer && isSelected && !answer.correct
+          // Correctness styling is ONLY revealed after explicit submit.
+          const showCorrect = revealCorrect && isCorrectAnswer
+          const showWrong = revealCorrect && isSelected && !answer?.correct
 
           return (
             <button
               key={i}
               onClick={() => handleSelect(choice)}
-              disabled={!!answer}
+              disabled={revealCorrect}
               dir="ltr"
               className={`text-start px-4 py-3 rounded-xl text-sm font-['Inter'] transition-all duration-200 border ${
                 showCorrect
                   ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-400'
                   : showWrong
                     ? 'bg-red-500/15 border-red-500/40 text-red-400'
-                    : answer
-                      ? 'bg-slate-800/30 border-slate-700/30 text-slate-500 opacity-60'
+                    : isSelected
+                      ? 'bg-sky-500/10 border-sky-500/40 text-sky-200'
                       : 'bg-slate-800/30 border-slate-700/40 text-slate-200 hover:border-sky-500/40 hover:bg-sky-500/5 cursor-pointer'
               }`}
             >
               <div className="flex items-center gap-3">
                 <span className="w-6 h-6 rounded-md flex items-center justify-center text-[11px] font-bold flex-shrink-0"
                   style={{
-                    background: showCorrect ? 'rgba(16,185,129,0.2)' : showWrong ? 'rgba(239,68,68,0.2)' : 'rgba(51,65,85,0.5)',
-                    color: showCorrect ? '#34d399' : showWrong ? '#f87171' : '#94a3b8',
+                    background: showCorrect ? 'rgba(16,185,129,0.2)' : showWrong ? 'rgba(239,68,68,0.2)' : isSelected ? 'rgba(56,189,248,0.2)' : 'rgba(51,65,85,0.5)',
+                    color: showCorrect ? '#34d399' : showWrong ? '#f87171' : isSelected ? '#38bdf8' : '#94a3b8',
                   }}
                 >
                   {showCorrect ? <CheckCircle size={14} /> : showWrong ? <XCircle size={14} /> : String.fromCharCode(65 + i)}
@@ -1462,9 +1543,9 @@ function MCQQuestion({ question, index, answer, onAnswer }) {
         })}
       </div>
 
-      {/* Explanation */}
+      {/* Explanation — only after submit */}
       <AnimatePresence>
-        {answer && (question.explanation_en || question.explanation_ar) && (
+        {revealCorrect && answer && (question.explanation_en || question.explanation_ar) && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}

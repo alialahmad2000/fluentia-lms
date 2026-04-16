@@ -164,13 +164,24 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
     })
   }, [exercises])
 
-  // Save progress — with error handling, retry, and saving indicator
+  // Save progress — with error handling, retry, and saving indicator.
+  //
+  // Save vs Submit separation (2026-04-16 bug fix):
+  //   - Autosave path (isComplete=false) NEVER writes score, completed_at, or
+  //     status='completed'. It ONLY persists the student's current answers as
+  //     status='in_progress' so they can resume later. Unanswered questions
+  //     stay unanswered — they are not auto-graded as wrong.
+  //   - Submit path (isComplete=true) is only reachable from handleFinish
+  //     (the "إنهاء وحفظ المحاولة" CTA). It computes score, sets status
+  //     ='completed', awards XP, and updates best/is_latest flags.
   const saveProgress = useCallback(async (currentAnswers, isComplete, _retryCount = 0) => {
     if (!studentId || !grammarId) return
     const results = buildResults(currentAnswers)
-    const answeredCount = Object.keys(currentAnswers).length
+    // Score only meaningful on submit; on autosave we write null.
     const correct = Object.values(currentAnswers).filter(a => a.correct).length
-    const score = answeredCount > 0 ? Math.round((correct / total) * 100) : 0
+    const score = isComplete
+      ? (total > 0 ? Math.round((correct / total) * 100) : 0)
+      : null
 
     if (isComplete) setIsSaving(true)
 
@@ -180,7 +191,8 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
           .from('student_curriculum_progress')
           .update({
             status: isComplete ? 'completed' : 'in_progress',
-            score,
+            // Keep score NULL on autosave so unanswered items aren't counted as wrong.
+            ...(isComplete ? { score } : { score: null }),
             answers: { exercises: results },
             time_spent_seconds: timeRef.current,
             completed_at: isComplete ? new Date().toISOString() : null,
@@ -245,13 +257,14 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
             grammar_id: grammarId,
             section_type: 'grammar',
             status: isComplete ? 'completed' : 'in_progress',
-            score,
+            // Null on autosave — only computed on submit (see top of saveProgress).
+            score: isComplete ? score : null,
             answers: { exercises: results },
             time_spent_seconds: timeRef.current,
             completed_at: isComplete ? new Date().toISOString() : null,
             attempt_number: nextAttemptNum,
             is_latest: true,
-            is_best: !hasExisting,
+            is_best: isComplete && !hasExisting,
           })
           .select()
           .single()
@@ -312,16 +325,18 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
     }
   }, [studentId, unitId, grammarId, total, buildResults, currentRowId, onAttemptUpdate, allAttempts, attemptNumber])
 
-  // Auto-save after each answer
+  // Auto-save after each answer — NEVER auto-completes.
+  // Students must click "إنهاء وحفظ المحاولة" (handleFinish) to submit.
+  // This prevents the "last click silently graded all answers" bug where a
+  // student answered the final question, navigated away without reviewing,
+  // and came back to a completed row they never explicitly submitted.
   useEffect(() => {
     if (progressLoading) return
     if (answered === 0 || answered <= prevAnsweredRef.current) return
     prevAnsweredRef.current = answered
-    const isComplete = answered === total
-    if (isComplete && hasSaved.current) return
-    if (isComplete) hasSaved.current = true
-    saveProgress(answers, isComplete)
-  }, [answered, total, answers, progressLoading, saveProgress])
+    // Always save as in_progress. Completion is only via handleFinish.
+    saveProgress(answers, false)
+  }, [answered, answers, progressLoading, saveProgress])
 
   const handleFinish = () => {
     if (allAnswered && !hasSaved.current) {
@@ -414,10 +429,33 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
         </div>
       )}
 
-      {/* Sticky CTA */}
+      {/* Inline submit button — only path to completion since autosave no longer
+          auto-submits. Shown whenever the student has answered at least one item
+          but hasn't submitted yet. Disabled until all answered. */}
+      {!isCompleted && !isSaving && answered > 0 && (
+        <div className="flex flex-col items-center gap-2 pt-2">
+          <button
+            type="button"
+            onClick={handleFinish}
+            disabled={!allAnswered}
+            className="px-6 py-3 rounded-xl font-bold font-['Tajawal'] text-sm transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{
+              background: allAnswered ? 'var(--accent-sky, #38bdf8)' : 'var(--surface-raised, rgba(255,255,255,0.05))',
+              color: allAnswered ? '#0a1225' : 'var(--text-muted)',
+              border: '1px solid ' + (allAnswered ? 'var(--accent-sky, #38bdf8)' : 'var(--border-subtle, rgba(255,255,255,0.1))'),
+            }}
+          >
+            {allAnswered
+              ? `تسليم الإجابات (${answered}/${total})`
+              : `أجب على جميع الأسئلة قبل التسليم (${answered}/${total})`}
+          </button>
+        </div>
+      )}
+
+      {/* Sticky CTA (mirrors the inline button, appears when scrolled above the list) */}
       {showStickyCta && allAnswered && !isCompleted && !isSaving && (
         <button onClick={handleFinish} className="grammar-sticky-cta font-['Tajawal'] text-sm active:scale-95 transition-transform">
-          إنهاء وحفظ المحاولة ({correctCount}/{total} صحيحة)
+          تسليم الإجابات ({answered}/{total})
         </button>
       )}
 

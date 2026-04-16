@@ -341,13 +341,19 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
     })
   }, [exercises])
 
-  // Save progress
+  // Save vs Submit separation (2026-04-16 bug fix):
+  //   - Autosave path (isComplete=false): status='in_progress', score=null,
+  //     completed_at=null. NEVER auto-completes. Unanswered questions stay
+  //     blank — they are not graded as wrong.
+  //   - Submit path (isComplete=true): only reachable from handleSubmit click.
+  //     Computes score, marks completed, awards XP.
   const saveProgress = useCallback(async (currentAnswers, isComplete) => {
     if (!studentId || !listeningId) return
     const results = buildResults(currentAnswers)
-    const answeredCount = Object.keys(currentAnswers).length
     const correct = Object.values(currentAnswers).filter(a => a.correct).length
-    const score = answeredCount > 0 ? Math.round((correct / total) * 100) : 0
+    const score = isComplete
+      ? (total > 0 ? Math.round((correct / total) * 100) : 0)
+      : null
 
     const newAttemptNumber = retrying && isComplete ? attemptNumber + 1 : attemptNumber
     const newHistory = retrying && isComplete && savedData ? [
@@ -383,16 +389,22 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
     }
   }, [studentId, unitId, listeningId, total, buildResults, retrying, attemptNumber, attemptHistory, savedData])
 
-  // Auto-save after each new answer
+  // Auto-save after each new answer — always as in_progress, NEVER auto-completes.
+  // Completion happens only via the explicit submit button (handleSubmit below).
   useEffect(() => {
     if (progressLoading) return
     if (answered === 0 || answered <= prevAnsweredRef.current) return
     prevAnsweredRef.current = answered
-    const isComplete = answered === total
-    if (isComplete && hasSaved.current) return
-    if (isComplete) hasSaved.current = true
-    saveProgress(answers, isComplete)
-  }, [answered, total, answers, progressLoading, saveProgress])
+    saveProgress(answers, false)
+  }, [answered, answers, progressLoading, saveProgress])
+
+  // Explicit submit — only path that marks status='completed'
+  const handleSubmit = useCallback(() => {
+    if (answered !== total || total === 0) return
+    if (hasSaved.current) return
+    hasSaved.current = true
+    saveProgress(answers, true)
+  }, [answered, total, answers, saveProgress])
 
   if (progressLoading) {
     return (
@@ -443,11 +455,35 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
             exercise={ex}
             index={idx}
             answer={answers[idx]}
+            revealCorrect={isCompleted}
             onAnswer={(ans) => setAnswers(prev => ({ ...prev, [idx]: ans }))}
           />
         ))}
       </div>
-      {answered === total && total > 0 && (
+      {/* Explicit submit — ONLY path to completion. Shown whenever student has
+          answered at least one question but hasn't yet submitted. Disabled until
+          all questions are answered. Prevents premature auto-submission. */}
+      {!isCompleted && answered > 0 && (
+        <div className="flex flex-col items-center gap-2 pt-2">
+          <button
+            type="button"
+            onClick={handleSubmit}
+            disabled={answered !== total}
+            className="px-6 py-3 rounded-xl font-bold font-['Tajawal'] text-sm transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{
+              background: answered === total ? '#a855f7' : 'var(--surface-raised)',
+              color: answered === total ? '#fff' : 'var(--text-muted)',
+              border: '1px solid ' + (answered === total ? '#a855f7' : 'var(--border-subtle)'),
+            }}
+          >
+            {answered === total
+              ? `تسليم الإجابات (${answered}/${total})`
+              : `أجب على جميع الأسئلة قبل التسليم (${answered}/${total})`}
+          </button>
+        </div>
+      )}
+
+      {isCompleted && answered === total && total > 0 && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -468,9 +504,12 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
 }
 
 // ─── Single MCQ (listening uses correct_answer_index) ─
-function ListeningMCQ({ exercise, index, answer, onAnswer }) {
+// `revealCorrect` (2026-04-16 bug fix): when false, students can change answers
+// freely and no correct/wrong styling or explanation is shown. Only flips true
+// after explicit submit — matches Reading's MCQQuestion semantics.
+function ListeningMCQ({ exercise, index, answer, revealCorrect = false, onAnswer }) {
   const handleSelect = (optIdx) => {
-    if (answer) return
+    if (revealCorrect) return // locked after submit
     const correct = optIdx === exercise.correct_answer_index
     onAnswer({ selected: optIdx, correct })
   }
@@ -504,30 +543,31 @@ function ListeningMCQ({ exercise, index, answer, onAnswer }) {
         {exercise.options?.map((opt, i) => {
           const isSelected = answer?.selected === i
           const isCorrectAnswer = i === exercise.correct_answer_index
-          const showCorrect = answer && isCorrectAnswer
-          const showWrong = answer && isSelected && !answer.correct
+          // Correctness revealed only after submit.
+          const showCorrect = revealCorrect && isCorrectAnswer
+          const showWrong = revealCorrect && isSelected && !answer?.correct
 
           return (
             <button
               key={i}
               onClick={() => handleSelect(i)}
-              disabled={!!answer}
+              disabled={revealCorrect}
               dir="ltr"
               className={`text-start px-4 py-3 rounded-xl text-sm font-['Inter'] transition-all duration-200 border ${
                 showCorrect
                   ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-400'
                   : showWrong
                     ? 'bg-red-500/15 border-red-500/40 text-red-400'
-                    : answer
-                      ? 'bg-[var(--surface-base)] border-[var(--border-subtle)] text-[var(--text-muted)] opacity-60'
+                    : isSelected
+                      ? 'bg-purple-500/10 border-purple-500/40 text-purple-200'
                       : 'bg-[var(--surface-base)] border-[var(--border-subtle)] text-[var(--text-primary)] hover:border-purple-500/40 hover:bg-purple-500/5 cursor-pointer'
               }`}
             >
               <div className="flex items-center gap-3">
                 <span className="w-6 h-6 rounded-md flex items-center justify-center text-[11px] font-bold flex-shrink-0"
                   style={{
-                    background: showCorrect ? 'rgba(16,185,129,0.2)' : showWrong ? 'rgba(239,68,68,0.2)' : 'var(--surface-raised)',
-                    color: showCorrect ? '#34d399' : showWrong ? '#f87171' : 'var(--text-muted)',
+                    background: showCorrect ? 'rgba(16,185,129,0.2)' : showWrong ? 'rgba(239,68,68,0.2)' : isSelected ? 'rgba(168,85,247,0.2)' : 'var(--surface-raised)',
+                    color: showCorrect ? '#34d399' : showWrong ? '#f87171' : isSelected ? '#c084fc' : 'var(--text-muted)',
                   }}
                 >
                   {showCorrect ? <CheckCircle size={14} /> : showWrong ? <XCircle size={14} /> : String.fromCharCode(65 + i)}
@@ -539,9 +579,9 @@ function ListeningMCQ({ exercise, index, answer, onAnswer }) {
         })}
       </div>
 
-      {/* Explanation */}
+      {/* Explanation — only after submit */}
       <AnimatePresence>
-        {answer && exercise.explanation_ar && (
+        {revealCorrect && answer && exercise.explanation_ar && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
