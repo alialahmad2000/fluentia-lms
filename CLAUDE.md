@@ -286,6 +286,15 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### April 16, 2026 — Stop Auto-Grading Unfinished Activity Attempts (a9dfbdf)
+- What: Students reported that answering 1-2 questions in Reading/Listening/Grammar activities then navigating away caused the system to auto-grade ALL unanswered questions as wrong and mark the row `status=completed` with a low score. Root cause: the per-answer autosave `useEffect` in each activity wrote `status='completed'` + computed a score (counting unanswered as wrong) the instant `answered === total` — no explicit submit step existed.
+- **Fix (save-vs-submit separation):** In all three affected activities, autosave now ALWAYS writes `status='in_progress'` + `score=null` + `completed_at=null`. A new inline "تسليم الإجابات" submit button (disabled until all questions answered) is the ONLY path that writes `status='completed'`, computes the score, and fires `awardCurriculumXP`. Reading `MCQQuestion` and Listening `ListeningMCQ` also gained a `revealCorrect` prop — correct/wrong styling and explanation blocks only appear after submit, letting students change answers freely before submitting. Grammar keeps its per-answer feedback (intentional practice UX) but no longer auto-completes.
+- **Activities verified clean (no changes needed):** WritingTab (already has `isSubmit` gate), SpeakingTab (per-recording explicit flow), VocabularyExercises (explicit `handleSubmit` pattern), PronunciationActivity (explicit `markComplete`), AssessmentTab (placeholder).
+- Files: `src/pages/student/curriculum/tabs/ReadingTab.jsx` (ComprehensionSection + MCQQuestion), `src/pages/student/curriculum/tabs/ListeningTab.jsx` (ListeningExercises + ListeningMCQ), `src/components/grammar/ExerciseSection.jsx`
+- DB: No schema changes. Historical rows affected by the bug can be identified via: `status='completed' AND score < 60 AND time_spent_seconds < 30` — no mutation performed.
+- Edge Functions: None
+- Status: Complete — committed `a9dfbdf`, pushed to `origin/main`, Vercel auto-deploys.
+
 ### April 12, 2026 — Fix Trainer Dashboard "الطالب غير موجود" Bug
 - What: Clicking a pending speaking recording in the trainer dashboard's "واجبات تنتظر التصحيح" section was navigating to `/trainer/student/:id/progress` which showed "الطالب غير موجود" (student not found) instead of taking the trainer to the grading page. Root cause: speaking recordings had no dedicated grading UI, so the code routed to `StudentProgressDetail` — but that page's `.single()` query silently swallowed errors, returning null and triggering the "not found" message.
 - **Fix 1 — TrainerDashboard.jsx:** Changed speaking recording `href` from `/trainer/student/${r.student_id}/progress` to `/trainer/grading` so all pending items (assignments AND speaking) go to the grading page.
