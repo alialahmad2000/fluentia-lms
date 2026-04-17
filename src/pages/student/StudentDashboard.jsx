@@ -29,6 +29,7 @@ import MysteryBox from '../../components/gamification/MysteryBox'
 import EnableNotificationsPrompt from '../../components/notifications/EnableNotificationsPrompt'
 import PlacementTestCard from './placement/PlacementTestCard'
 import CompetitionKickoffModal from '../../components/competition/CompetitionKickoffModal'
+import CompetitionBanner from '../../components/competition/CompetitionBanner'
 
 export default function StudentDashboard() {
   // ── ALL HOOKS AT TOP (React #310 safe) ──────────────────────────
@@ -136,6 +137,9 @@ export default function StudentDashboard() {
     <>
     <CompetitionKickoffModal />
     <StaggeredList stagger={0.06} className="space-y-6">
+      {/* 0. Competition Banner (only when active) */}
+      <CompetitionBanner />
+
       {/* 1. Hero */}
       <HeroBlock
         profile={profile}

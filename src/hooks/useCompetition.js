@@ -88,6 +88,8 @@ export function useCompetitionFeed(competitionId, limit = 20) {
       }, () => {
         queryClient.invalidateQueries({ queryKey: ['competition-feed', competitionId] })
         queryClient.invalidateQueries({ queryKey: ['active-competition'] })
+        queryClient.invalidateQueries({ queryKey: ['competition-leaderboard', competitionId] })
+        queryClient.invalidateQueries({ queryKey: ['competition-context'] })
       })
       .subscribe()
 

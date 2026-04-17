@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { Users, Award } from 'lucide-react'
+import { Users, Award, Swords } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
+import { useActiveCompetition, useCompetitionContext } from '../../hooks/useCompetition'
 
 /* ------------------------------------------------------------------ */
 /*  Skeleton shimmer                                                    */
@@ -118,7 +120,10 @@ function OverflowBadge({ count, size = 36 }) {
 const MAX_VISIBLE_AVATARS = 7
 
 export default function TeamCard({ groupId }) {
+  const navigate = useNavigate()
   const isMounted = useRef(true)
+  const { data: activeComp } = useActiveCompetition()
+  const { data: ctx } = useCompetitionContext()
 
   useEffect(() => {
     isMounted.current = true
@@ -213,15 +218,28 @@ export default function TeamCard({ groupId }) {
   const visibleMembers = (members || []).slice(0, MAX_VISIBLE_AVATARS)
   const overflowCount = Math.max(0, (members || []).length - MAX_VISIBLE_AVATARS)
 
+  const compActive = activeComp?.status === 'active'
+  const inComp = ctx?.in_competition
+  const myTeam = compActive && inComp
+    ? (ctx.team === 'A' ? activeComp.team_a : activeComp.team_b)
+    : null
+  const oppTeam = compActive && inComp
+    ? (ctx.team === 'A' ? activeComp.team_b : activeComp.team_a)
+    : null
+  const teamColor = myTeam?.color ?? '#38bdf8'
+
   return (
     <div
       style={{
         background: 'rgba(255,255,255,0.03)',
-        border: '1px solid rgba(255,255,255,0.06)',
+        border: compActive && inComp
+          ? `1px solid ${teamColor}40`
+          : '1px solid rgba(255,255,255,0.06)',
         borderRadius: 16,
         padding: 24,
         direction: 'rtl',
         fontFamily: 'Tajawal, sans-serif',
+        boxShadow: compActive && inComp ? `0 0 20px ${teamColor}12` : undefined,
       }}
     >
       {/* ---- Header: group name + icon ---- */}
@@ -298,6 +316,62 @@ export default function TeamCard({ groupId }) {
             🏆 الترتيب هذا الأسبوع: #{rankData.rank} من {rankData.total_groups}
           </span>
         </div>
+      )}
+
+      {/* ---- Competition mode badge ---- */}
+      {compActive && inComp && myTeam && (
+        <button
+          onClick={() => navigate('/student/competition')}
+          style={{
+            marginTop: 12,
+            paddingTop: 12,
+            borderTop: '1px solid rgba(255,255,255,0.06)',
+            borderLeft: 'none',
+            borderRight: 'none',
+            borderBottom: 'none',
+            width: '100%',
+            background: 'none',
+            cursor: 'pointer',
+            padding: '12px 0 0',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              borderRadius: 10,
+              padding: '8px 12px',
+              background: `${teamColor}12`,
+              border: `1px solid ${teamColor}30`,
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <Swords size={15} style={{ color: teamColor, flexShrink: 0 }} />
+              <div style={{ textAlign: 'right' }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: teamColor }}>
+                  {myTeam.emoji} {myTeam.name}
+                </div>
+                <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)' }}>
+                  {myTeam.victory_points} VP
+                  {oppTeam && ` — ${oppTeam.emoji} ${oppTeam.victory_points} VP`}
+                </div>
+              </div>
+            </div>
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                color: '#0f172a',
+                background: teamColor,
+                borderRadius: 6,
+                padding: '3px 8px',
+              }}
+            >
+              المسابقة →
+            </div>
+          </div>
+        </button>
       )}
     </div>
   )

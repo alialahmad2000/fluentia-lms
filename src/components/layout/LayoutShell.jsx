@@ -1,7 +1,7 @@
-import { useState, useRef, useEffect, useCallback, lazy, Suspense } from 'react'
+import { useState, useRef, useEffect, useCallback, lazy, Suspense, useMemo } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Loader2 } from 'lucide-react'
+import { Loader2, Swords } from 'lucide-react'
 import Sidebar from './Sidebar'
 import Header from './Header'
 import MobileBar from './MobileBar'
@@ -21,6 +21,7 @@ import { usePageTracking } from '@/hooks/usePageTracking'
 import { tracker } from '@/services/activityTracker'
 import { useQueryClient, useQuery } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
+import { useActiveCompetition } from '@/hooks/useCompetition'
 
 const GeometricMesh = lazy(() => import('../backgrounds/GeometricMesh'))
 
@@ -42,7 +43,19 @@ export default function LayoutShell() {
   const dismissSummary = useClassMode((s) => s.dismissSummary)
 
   const role = profile?.role || 'student'
-  const nav = getNavForRole(role)
+  const { data: activeComp } = useActiveCompetition()
+  const nav = useMemo(() => {
+    const base = getNavForRole(role)
+    if (role !== 'student' || !activeComp || activeComp.status !== 'active') return base
+    return {
+      ...base,
+      mobileBar: [
+        base.mobileBar[0],
+        { id: 'competition', label: 'المسابقة', icon: Swords, to: '/student/competition' },
+        ...base.mobileBar.slice(1),
+      ],
+    }
+  }, [role, activeComp])
   const navigate = useNavigate()
   const location = useLocation()
   const queryClient = useQueryClient()
