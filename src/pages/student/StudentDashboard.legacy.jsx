@@ -12,7 +12,6 @@ import { getGreeting, getArabicDay, formatTime, formatDateAr } from '../../utils
 import { GAMIFICATION_LEVELS, ACADEMIC_LEVELS, PACKAGES } from '../../lib/constants'
 import { getEncouragement } from '../../utils/encouragement'
 import { firstNameFrom } from '../../utils/names'
-import DailyChallenge from '../../components/gamification/DailyChallenge'
 import SrsReviewCard from '../../components/gamification/SrsReviewCard'
 import LevelExitTestCard from '../../components/gamification/LevelExitTestCard'
 import EnableNotificationsPrompt from '../../components/notifications/EnableNotificationsPrompt'
@@ -511,10 +510,9 @@ export default function StudentDashboard() {
 
       {/* ═══ 8. Community: replaced by LiveLevelActivityFeed above ═══ */}
 
-      {/* ═══ 9. Daily Challenge + Mystery Box (deferred) ═══ */}
+      {/* ═══ 9. Mystery Box (deferred) ═══ */}
       {showSecondary && (
         <motion.div variants={fadeUp} className="grid lg:grid-cols-2 gap-5">
-          <DailyChallenge />
           <MysteryBox />
         </motion.div>
       )}

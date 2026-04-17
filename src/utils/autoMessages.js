@@ -162,7 +162,7 @@ export async function checkClassReminders() {
         type: 'class_reminder',
         title: 'تذكير بالحصة 🔔',
         body: `حصتك تبدأ خلال ٣٠ دقيقة${cls.google_meet_link ? ' — جهّز الرابط!' : ''}`,
-        data: { link: '/student/schedule', class_id: cls.id, meet_link: cls.google_meet_link },
+        data: { link: '/student', class_id: cls.id, meet_link: cls.google_meet_link },
       }))
 
       if (notifications.length > 0) {
@@ -184,7 +184,7 @@ export async function checkClassReminders() {
         type: 'class_reminder',
         title: 'الحصة تبدأ الآن! 🚀',
         body: cls.google_meet_link ? 'ادخل رابط الحصة الآن!' : 'الحصة تبدأ خلال دقائق!',
-        data: { link: '/student/schedule', class_id: cls.id, meet_link: cls.google_meet_link },
+        data: { link: '/student', class_id: cls.id, meet_link: cls.google_meet_link },
       }))
 
       if (notifications.length > 0) {

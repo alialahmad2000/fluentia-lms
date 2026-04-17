@@ -1,8 +1,8 @@
 import {
-  Home, BookOpen, PenLine, Mic, PlayCircle, Users, Trophy, Calendar,
-  BookMarked, User, Settings, BarChart3, ClipboardList, MessageSquare,
+  Home, BookOpen, PenLine, Mic, Users, Trophy,
+  BookMarked, User, Settings, BarChart3, ClipboardList,
   Megaphone, CreditCard, GraduationCap, UserCog, Bot, FileText,
-  StickyNote, TrendingUp, Zap, Flame, CalendarClock, Swords, Target,
+  StickyNote, TrendingUp, Zap, CalendarClock, Swords, Target,
 } from 'lucide-react'
 
 
@@ -16,7 +16,6 @@ export const STUDENT_NAV = {
         { id: 'curriculum',  label: 'المنهج',       icon: BookOpen,   to: '/student/curriculum' },
         { id: 'progress',    label: 'تقدّمي',       icon: BarChart3,  to: '/student/progress' },
         { id: 'flashcards',  label: 'المفردات',     icon: FileText,   to: '/student/flashcards' },
-        { id: 'challenges',  label: 'التحديات',     icon: Flame,      to: '/student/challenges' },
         { id: 'reports',     label: 'التقارير',     icon: CalendarClock, to: '/student/progress-reports' },
         { id: 'how-to-earn', label: 'كيف تكسب XP 🎯', icon: Target,   to: '/student/how-to-earn' },
       ],
@@ -50,11 +49,8 @@ export const STUDENT_NAV = {
         { id: 'curriculum',   label: 'المنهج',       icon: BookOpen,     to: '/student/curriculum' },
         { id: 'progress',     label: 'تقدّمي',       icon: BarChart3,    to: '/student/progress' },
         { id: 'flashcards',   label: 'المفردات',     icon: FileText,     to: '/student/flashcards' },
-        { id: 'challenges',   label: 'التحديات',     icon: Flame,        to: '/student/challenges' },
         { id: 'reports',      label: 'التقارير',     icon: CalendarClock, to: '/student/progress-reports' },
         { id: 'how-to-earn',  label: 'كيف تكسب XP 🎯', icon: Target,    to: '/student/how-to-earn' },
-        { id: 'conversation', label: 'المحادثة',     icon: MessageSquare, to: '/student/conversation' },
-        { id: 'recordings',   label: 'التسجيلات',    icon: PlayCircle,   to: '/student/recordings' },
       ],
     },
     {
@@ -63,7 +59,6 @@ export const STUDENT_NAV = {
       items: [
         { id: 'competition',       label: 'المسابقة ⚔️',       icon: Swords,   to: '/student/competition' },
         { id: 'competition-rules', label: 'قواعد المسابقة 📜',  icon: BookOpen, to: '/student/competition/rules' },
-        { id: 'schedule',          label: 'جدولي',              icon: Calendar, to: '/student/schedule' },
         { id: 'leaderboard',       label: 'لوحة الشرف',         icon: Trophy,   to: '/student/leaderboard' },
         { id: 'duels',             label: 'المبارزات',           icon: Zap,      to: '/student/duels' },
       ],
@@ -79,7 +74,7 @@ export const STUDENT_NAV = {
   mobileBar: [
     { id: 'dashboard',   label: 'الرئيسية',  icon: Home,       to: '/student' },
     { id: 'curriculum',  label: 'المنهج',     icon: BookOpen,   to: '/student/curriculum' },
-    { id: 'challenges',  label: 'التحديات',   icon: Flame,      to: '/student/challenges' },
+    { id: 'flashcards',  label: 'المفردات',   icon: FileText,   to: '/student/flashcards' },
     { id: 'progress',    label: 'تقدّمي',     icon: BarChart3,  to: '/student/progress' },
     { id: 'more',        label: 'المزيد',     icon: 'more',     to: null },
   ],
@@ -94,7 +89,6 @@ export const TRAINER_NAV = {
         { id: 'dashboard',   label: 'الرئيسية',     icon: Home,          to: '/trainer' },
         { id: 'students',    label: 'الطلاب',       icon: GraduationCap, to: '/trainer/my-students' },
         { id: 'grading',     label: 'التقييم',      icon: ClipboardList, to: '/trainer/grading' },
-        { id: 'schedule',    label: 'الجدول',       icon: Calendar,      to: '/trainer/schedule' },
       ],
     },
     {
@@ -103,7 +97,6 @@ export const TRAINER_NAV = {
       items: [
         { id: 'points',      label: 'النقاط السريعة', icon: Zap,          to: '/trainer/points' },
         { id: 'notes',       label: 'ملاحظاتي',     icon: StickyNote,    to: '/trainer/my-notes' },
-        { id: 'recordings',  label: 'التسجيلات',    icon: PlayCircle,    to: '/trainer/recordings' },
         { id: 'curriculum',  label: 'المنهج',       icon: BookOpen,      to: '/trainer/curriculum' },
         { id: 'student-curriculum', label: 'معاينة منهج الطالب', icon: FileText, to: '/trainer/student-curriculum' },
         { id: 'interactive-curriculum', label: 'المنهج التفاعلي', icon: FileText, to: '/trainer/interactive-curriculum' },

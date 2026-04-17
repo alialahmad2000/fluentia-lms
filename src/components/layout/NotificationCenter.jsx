@@ -14,7 +14,7 @@ const NOTIFICATION_ROUTES = {
   assignment_new: '/student/assignments',
   assignment_deadline: '/student/assignments',
   assignment_graded: '/student/grades',
-  class_reminder: '/student/schedule',
+  class_reminder: '/student',
   trainer_note: '/student/assignments',
   achievement: '/student/profile',
   peer_recognition: '/student/recognition',
@@ -26,20 +26,12 @@ const NOTIFICATION_ROUTES = {
   weekly_tasks_remind: '/student/weekly-tasks',
   weekly_tasks_urgent: '/student/weekly-tasks',
   spelling_milestone: '/student/spelling',
-  challenge_new: '/student/challenges',
-  challenge_reminder: '/student/challenges',
-  challenge_complete: '/student/challenges',
-  creator_challenge: '/student/creator-challenge',
   test_result: '/student/profile',
   curriculum_progress: '/student/curriculum',
   speaking_feedback: '/student/speaking',
   smart_nudge: '/student',
   task_completed: '/student/weekly-tasks',
   competition_event: '/student/competition',
-  challenge_new: '/student/challenges',
-  challenge_reminder: '/student/challenges',
-  challenge_complete: '/student/challenges',
-  creator_challenge: '/student/creator-challenge',
   system: null,
   announcement: null,
 }
@@ -204,7 +196,7 @@ export default function NotificationCenter() {
       if (notification.type === 'assignment_new' || notification.type === 'assignment_graded') {
         route = route || '/trainer/assignments'
       } else if (notification.type === 'class_reminder') {
-        route = route || '/trainer/schedule'
+        route = route || '/trainer'
       }
     }
 
@@ -212,20 +204,15 @@ export default function NotificationCenter() {
     if (route && route.startsWith('/student/') && (role === 'admin' || role === 'trainer')) {
       const ROLE_ROUTE_MAP = {
         admin: {
-          '/student/challenges': '/admin/creator-challenge',
-          '/student/creator-challenge': '/admin/creator-challenge',
           '/student/assignments': '/admin/reports',
           '/student/weekly-tasks': '/admin/weekly-tasks',
           '/student/curriculum': '/admin/curriculum',
           '/student/profile': '/admin/users',
         },
         trainer: {
-          '/student/challenges': '/trainer/challenges',
-          '/student/creator-challenge': '/trainer/challenges',
           '/student/assignments': '/trainer/assignments',
           '/student/weekly-tasks': '/trainer/weekly-grading',
           '/student/curriculum': '/trainer/curriculum',
-          '/student/schedule': '/trainer/schedule',
           '/student/profile': '/trainer/students',
         },
       }

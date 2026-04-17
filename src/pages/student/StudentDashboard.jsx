@@ -22,7 +22,6 @@ import StreakWidget from '../../components/student/StreakWidget'
 import TeamCard from '../../components/student/TeamCard'
 
 // Gamification widgets (deferred)
-import DailyChallenge from '../../components/gamification/DailyChallenge'
 import SrsReviewCard from '../../components/gamification/SrsReviewCard'
 import LevelExitTestCard from '../../components/gamification/LevelExitTestCard'
 import MysteryBox from '../../components/gamification/MysteryBox'
@@ -187,10 +186,9 @@ export default function StudentDashboard() {
       {/* 11. Encouragement */}
       <EncouragementWidget encouragement={encouragement} />
 
-      {/* 12. Daily Challenge + Mystery Box (deferred) */}
+      {/* 12. Mystery Box (deferred) */}
       {showSecondary && (
         <div className="grid lg:grid-cols-2 gap-5">
-          <DailyChallenge />
           <MysteryBox />
         </div>
       )}
