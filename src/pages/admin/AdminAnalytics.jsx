@@ -239,6 +239,7 @@ export default function AdminAnalytics() {
       return { activeUsers: deduped }
     },
     refetchInterval: autoRefresh ? 15000 : false,
+    refetchIntervalInBackground: false,
     staleTime: 10000,
   })
 
@@ -320,6 +321,7 @@ export default function AdminAnalytics() {
       return { events: data || [], profileMap }
     },
     refetchInterval: autoRefresh ? 15000 : false,
+    refetchIntervalInBackground: false,
     staleTime: 10000,
   })
 

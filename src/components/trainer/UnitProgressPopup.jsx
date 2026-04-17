@@ -63,6 +63,7 @@ export default function UnitProgressPopup({ groupId, unitId, onClose }) {
     },
     enabled: !!groupId && !!unitId,
     refetchInterval: 60000, // reduced from 30s to 60s
+    refetchIntervalInBackground: false,
   })
 
   const SECTION_LABELS = {

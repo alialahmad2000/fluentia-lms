@@ -192,7 +192,8 @@ function Page({ children }) {
 // Checks package access at the route level. If locked, shows LockedFeature page.
 // ComingSoon pages are handled directly in routes and take priority.
 function PackageRoute({ requiredPackage, featureName, children }) {
-  const { profile, studentData } = useAuthStore()
+  const profile = useAuthStore((s) => s.profile)
+  const studentData = useAuthStore((s) => s.studentData)
   // Non-students always pass
   if (profile?.role !== 'student') return children
   const pkg = studentData?.package || 'asas'
@@ -324,7 +325,11 @@ function LoadingSkeleton() {
 
 // ─── Protected Route ─────────────────────────────────────────
 function ProtectedRoute({ allowedRoles }) {
-  const { user, profile, loading, impersonation, _realProfile } = useAuthStore()
+  const user = useAuthStore((s) => s.user)
+  const profile = useAuthStore((s) => s.profile)
+  const loading = useAuthStore((s) => s.loading)
+  const impersonation = useAuthStore((s) => s.impersonation)
+  const _realProfile = useAuthStore((s) => s._realProfile)
 
   if (loading) return <LoadingSkeleton />
   if (!user) return <Navigate to="/login" replace />
@@ -343,7 +348,10 @@ function ProtectedRoute({ allowedRoles }) {
 
 // ─── Trainer Onboarding Guard ─────────────────────────────────
 function TrainerOnboardingGuard({ children }) {
-  const { profile, trainerData, impersonation, _realProfile } = useAuthStore()
+  const profile = useAuthStore((s) => s.profile)
+  const trainerData = useAuthStore((s) => s.trainerData)
+  const impersonation = useAuthStore((s) => s.impersonation)
+  const _realProfile = useAuthStore((s) => s._realProfile)
   // Admin never needs trainer onboarding (even when impersonating as trainer)
   if (_realProfile?.role === 'admin' || profile?.role === 'admin') {
     return children
@@ -357,7 +365,9 @@ function TrainerOnboardingGuard({ children }) {
 
 // ─── Role-Based Redirect ─────────────────────────────────────
 function RoleRedirect() {
-  const { user, profile, loading } = useAuthStore()
+  const user = useAuthStore((s) => s.user)
+  const profile = useAuthStore((s) => s.profile)
+  const loading = useAuthStore((s) => s.loading)
 
   if (loading) return <LoadingSkeleton />
   if (!user) return <Navigate to="/login" replace />

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 
 const NOISE_SVG = `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E")`
@@ -31,9 +31,10 @@ const STARS = [
   { top: '92%', left: '50%', size: 1 },
 ]
 
-export default function AuroraBackground() {
+function AuroraBackground() {
   const reducedMotion = useReducedMotion()
   const [renderMode, setRenderMode] = useState('full') // 'full' | 'reduced' | 'static'
+  const [hidden, setHidden] = useState(() => document.hidden)
 
   useEffect(() => {
     const isMobile = window.matchMedia('(max-width: 768px)').matches
@@ -48,6 +49,12 @@ export default function AuroraBackground() {
       setRenderMode('reduced')
     }
   }, [reducedMotion])
+
+  useEffect(() => {
+    const handler = () => setHidden(document.hidden)
+    document.addEventListener('visibilitychange', handler)
+    return () => document.removeEventListener('visibilitychange', handler)
+  }, [])
 
   // Static: lightweight CSS gradient only (no blobs, no animation)
   if (renderMode === 'static') {
@@ -113,8 +120,9 @@ export default function AuroraBackground() {
             height: '70vw',
             background: `var(--ds-aurora-${i + 1})`,
             opacity: 'var(--ds-aurora-opacity)',
+            animationPlayState: hidden ? 'paused' : 'running',
           }}
-          animate={{
+          animate={hidden ? false : {
             x: blob.x,
             y: blob.y,
           }}
@@ -170,3 +178,5 @@ export default function AuroraBackground() {
     </div>
   )
 }
+
+export default memo(AuroraBackground)

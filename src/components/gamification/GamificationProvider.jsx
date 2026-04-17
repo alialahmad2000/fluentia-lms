@@ -116,7 +116,8 @@ const ACHIEVEMENT_CHECKS = [
 ]
 
 export default function GamificationProvider() {
-  const { profile, studentData } = useAuthStore()
+  const profile = useAuthStore((s) => s.profile)
+  const studentData = useAuthStore((s) => s.studentData)
   const [unlockedAchievement, setUnlockedAchievement] = useState(null)
   const [levelUp, setLevelUp] = useState(null)
   const lastCheckedXpRef = useRef(null)

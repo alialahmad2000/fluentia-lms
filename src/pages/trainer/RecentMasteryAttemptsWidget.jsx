@@ -48,6 +48,7 @@ export default function RecentMasteryAttemptsWidget() {
     },
     enabled: !!profile?.id,
     refetchInterval: 60000,
+    refetchIntervalInBackground: false,
   })
 
   if (isLoading || attempts.length === 0) return null

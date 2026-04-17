@@ -114,6 +114,7 @@ export default function TrainerDashboard() {
     },
     enabled: currentGroupIds.length > 0,
     refetchInterval: 30000,
+    refetchIntervalInBackground: false,
   })
 
   // ── Pending Speaking ──
@@ -135,6 +136,7 @@ export default function TrainerDashboard() {
     },
     enabled: students.length > 0,
     refetchInterval: 30000,
+    refetchIntervalInBackground: false,
   })
 
   // ── Pending Writing (curriculum) ──
@@ -158,6 +160,7 @@ export default function TrainerDashboard() {
     },
     enabled: students.length > 0,
     refetchInterval: 30000,
+    refetchIntervalInBackground: false,
   })
 
   // ── Computed stats ──

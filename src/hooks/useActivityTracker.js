@@ -126,8 +126,9 @@ export default function useActivityTracker() {
 
     startSession()
 
-    // Heartbeat
+    // Heartbeat — skip when tab is hidden to avoid background DB writes
     heartbeatRef.current = setInterval(() => {
+      if (document.hidden) return
       if (sessionIdRef.current) {
         supabase
           .from('user_sessions')

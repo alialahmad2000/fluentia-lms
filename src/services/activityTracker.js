@@ -96,6 +96,7 @@ class ActivityTracker {
 
     this.heartbeatInterval = setInterval(() => {
       if (!this.sessionDbId || !this.userId) return
+      if (document.hidden) return
 
       // Only heartbeat if user was active in last 5 minutes
       const inactiveMs = Date.now() - this.lastActivity

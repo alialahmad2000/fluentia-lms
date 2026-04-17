@@ -1,8 +1,9 @@
+import { memo } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { MoreHorizontal } from 'lucide-react'
 
-export default function MobileBar({ nav, onMoreClick, role }) {
+function MobileBar({ nav, onMoreClick, role }) {
   const location = useLocation()
 
   return (
@@ -76,3 +77,5 @@ export default function MobileBar({ nav, onMoreClick, role }) {
     </nav>
   )
 }
+
+export default memo(MobileBar)

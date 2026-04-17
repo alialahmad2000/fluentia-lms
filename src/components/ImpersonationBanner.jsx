@@ -1,9 +1,11 @@
+import { memo } from 'react'
 import { Eye, X } from 'lucide-react'
 import { useAuthStore } from '../stores/authStore'
 import { queryClient } from '../lib/queryClient'
 
-export default function ImpersonationBanner() {
-  const { impersonation, stopImpersonation } = useAuthStore()
+function ImpersonationBanner() {
+  const impersonation = useAuthStore((s) => s.impersonation)
+  const stopImpersonation = useAuthStore((s) => s.stopImpersonation)
 
   if (!impersonation) return null
 
@@ -48,3 +50,5 @@ export default function ImpersonationBanner() {
     </div>
   )
 }
+
+export default memo(ImpersonationBanner)

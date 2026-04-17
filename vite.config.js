@@ -97,6 +97,8 @@ export default defineConfig(({ mode }) => ({
     }),
   ],
   build: {
+    target: 'es2020',
+    modulePreload: { polyfill: true },
     // Charts (recharts) and eruda debug console chunks exceed 500 kB — both
     // are only loaded on-demand (admin analytics / ?debug=1), so the warning
     // is noise, not a problem worth chasing.

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, Search, User, LogOut, Settings, ChevronLeft } from 'lucide-react'
@@ -12,8 +12,10 @@ import ResetPageButton from '@/components/ResetPageButton'
 const ROLE_LABELS = { student: 'طالبة', trainer: 'مدربة', admin: 'مدير' }
 const PROFILE_PATHS = { student: '/student/profile', trainer: '/trainer/my-students', admin: '/admin/settings' }
 
-export default function Header({ showMenuButton, onMenuClick }) {
-  const { user, profile, signOut } = useAuthStore()
+function Header({ showMenuButton, onMenuClick }) {
+  const user = useAuthStore((s) => s.user)
+  const profile = useAuthStore((s) => s.profile)
+  const signOut = useAuthStore((s) => s.signOut)
   const navigate = useNavigate()
   const role = profile?.role || 'student'
   const displayName = profile?.display_name || profile?.full_name || 'مستخدم'
@@ -23,9 +25,17 @@ export default function Header({ showMenuButton, onMenuClick }) {
   const [profileOpen, setProfileOpen] = useState(false)
   const profileRef = useRef(null)
 
-  // Scroll detection
+  // Scroll detection — rAF-throttled so it runs at most once per frame
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 8)
+    let ticking = false
+    const handler = () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 8)
+        ticking = false
+      })
+    }
     window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
   }, [])
@@ -199,3 +209,5 @@ export default function Header({ showMenuButton, onMenuClick }) {
     </header>
   )
 }
+
+export default memo(Header)

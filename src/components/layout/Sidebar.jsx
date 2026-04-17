@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, memo } from 'react'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ChevronLeft, Settings } from 'lucide-react'
@@ -8,7 +8,7 @@ import { getGreeting } from '@/utils/dateHelpers'
 
 const ROLE_DASHBOARDS = { student: '/student', trainer: '/trainer', admin: '/admin' }
 
-export default function Sidebar({ nav, collapsed, onToggle }) {
+function Sidebar({ nav, collapsed, onToggle }) {
   const profile = useAuthStore((s) => s.profile)
   const studentData = useAuthStore((s) => s.studentData)
   const role = profile?.role || 'student'
@@ -171,3 +171,5 @@ export default function Sidebar({ nav, collapsed, onToggle }) {
     </aside>
   )
 }
+
+export default memo(Sidebar)

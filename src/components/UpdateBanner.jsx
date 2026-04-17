@@ -1,12 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-export default function UpdateBanner() {
+function UpdateBanner() {
   const [hasUpdate, setHasUpdate] = useState(false)
   const [updating, setUpdating] = useState(false)
 
   useEffect(() => {
     const check = async () => {
+      if (document.hidden) return
       try {
         const res = await fetch('/version.json?t=' + Date.now(), { cache: 'no-store' })
         const remote = await res.json()
@@ -84,3 +85,5 @@ export default function UpdateBanner() {
     </AnimatePresence>
   )
 }
+
+export default memo(UpdateBanner)
