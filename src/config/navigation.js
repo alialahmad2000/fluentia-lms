@@ -5,6 +5,7 @@ import {
   StickyNote, TrendingUp, Zap, Flame, CalendarClock, Swords, Target,
 } from 'lucide-react'
 
+
 export const STUDENT_NAV = {
   sections: [
     {
@@ -149,6 +150,7 @@ export const ADMIN_NAV = {
         { id: 'payments',    label: 'المالية',      icon: CreditCard,    to: '/admin/packages' },
         { id: 'marketing',   label: 'التسويق',      icon: Megaphone,     to: '/admin/announcements' },
         { id: 'affiliates',  label: 'الشركاء',      icon: Users,         to: '/admin/affiliates' },
+        { id: 'competition', label: 'المسابقة ⚔️',  icon: Swords,        to: '/admin/competition' },
       ],
     },
     {

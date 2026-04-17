@@ -137,6 +137,7 @@ const AdminContentBank = lazyRetry(() => import('./pages/admin/AdminContentBank'
 const AdminDailyReports = lazyRetry(() => import('./pages/admin/AdminDailyReports'))
 const AdminAnalytics = lazyRetry(() => import('./pages/admin/AdminAnalytics'))
 const AdminCreatorChallenge = lazyRetry(() => import('./pages/admin/AdminCreatorChallenge'))
+const CompetitionAdmin = lazyRetry(() => import('./pages/admin/CompetitionAdmin'))
 const PlacementQueuePage = lazyRetry(() => import('./pages/admin/PlacementQueuePage'))
 const UnitMasteryPage = lazyRetry(() => import('./pages/student/assessment/UnitMasteryPage'))
 const UnitMasteryResultPage = lazyRetry(() => import('./pages/student/assessment/UnitMasteryResultPage'))
@@ -634,6 +635,7 @@ export default function App() {
               <Route path="/admin/placement-queue" element={<Page><PlacementQueuePage /></Page>} />
               <Route path="/admin/unit-mastery" element={<Page><UnitMasteryManagerPage /></Page>} />
               <Route path="/admin/creator-challenge" element={<Page><AdminCreatorChallenge /></Page>} />
+              <Route path="/admin/competition" element={<Page><CompetitionAdmin /></Page>} />
               <Route path="/admin/affiliates" element={<Page><AffiliatesList /></Page>} />
               <Route path="/admin/affiliates/dashboard" element={<Page><AffiliatesDashboard /></Page>} />
               <Route path="/admin/affiliates/payouts" element={<Page><AffiliatePayouts /></Page>} />

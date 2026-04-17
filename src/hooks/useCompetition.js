@@ -18,6 +18,20 @@ export function useActiveCompetition() {
   })
 }
 
+export function useLatestCompetition() {
+  return useQuery({
+    queryKey: ['latest-competition'],
+    queryFn: async () => {
+      const { data, error } = await supabase.rpc('get_latest_competition')
+      if (error) throw error
+      return data
+    },
+    staleTime: 30_000,
+    placeholderData: (prev) => prev,
+    refetchOnWindowFocus: false,
+  })
+}
+
 export function useCompetitionContext() {
   const { profile, impersonation } = useAuthStore()
   const profileId = impersonation?.userId ?? profile?.id

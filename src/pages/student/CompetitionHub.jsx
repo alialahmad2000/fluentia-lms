@@ -3,12 +3,13 @@ import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, ChevronUp, Swords, Flame, Target, Zap, BookOpen, Star, Trophy, Users, ExternalLink } from 'lucide-react'
 import {
-  useActiveCompetition,
+  useLatestCompetition,
   useCompetitionContext,
   useCompetitionLeaderboard,
   useCompetitionFeed,
 } from '../../hooks/useCompetition'
 import EncourageButton from '../../components/competition/EncourageButton'
+import VictoryShareCard from '../../components/competition/VictoryShareCard'
 
 /* ─── helpers ─────────────────────────────────────────────────── */
 function plural(n, one, few, many) {
@@ -541,11 +542,68 @@ function NotInCompetitionBanner({ comp }) {
   )
 }
 
+/* ─── ResultsHero (closed state) ─────────────────────────────── */
+function ResultsHero({ comp, myTeam, ctx }) {
+  const teamA = comp.team_a
+  const teamB = comp.team_b
+  const winnerKey = comp.winner_team
+  const isTie = winnerKey === 'tie'
+  const myTeamKey = ctx?.team
+  const isWinner = !isTie && myTeamKey && winnerKey === myTeamKey
+  const winnerTeam = winnerKey === 'A' ? teamA : teamB
+  const color = myTeam?.color ?? '#38bdf8'
+
+  return (
+    <div
+      className="rounded-2xl overflow-hidden relative"
+      style={{
+        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)',
+        border: `1px solid ${isWinner ? color + '40' : 'rgba(255,255,255,0.08)'}`,
+        boxShadow: isWinner ? `0 0 40px ${color}20` : undefined,
+      }}
+    >
+      {isWinner && (
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: `radial-gradient(ellipse 70% 60% at 50% 30%, ${color}12 0%, transparent 70%)`,
+          }}
+        />
+      )}
+      <div className="relative px-6 py-8 text-center" dir="rtl">
+        <div className="flex items-center justify-center gap-2 mb-3">
+          <Swords size={18} className="text-sky-400" />
+          <span className="text-sky-400 font-bold text-sm font-['Tajawal']">{comp.name ?? comp.title_ar}</span>
+        </div>
+        <div className="text-5xl mb-4">{isWinner ? '🏆' : isTie ? '🤝' : '⚔️'}</div>
+        <h2 className="text-2xl font-black text-white mb-2 font-['Tajawal']">
+          {isWinner ? `فريقك ${myTeam?.emoji} فاز!` : isTie ? 'انتهت بتعادل!' : 'انتهت المسابقة'}
+        </h2>
+        {!isWinner && !isTie && winnerTeam && (
+          <div className="text-sm font-bold mb-3" style={{ color: winnerTeam.color }}>
+            {winnerTeam.emoji} {winnerTeam.name} حقق الفوز هذه الجولة
+          </div>
+        )}
+        <div className="flex items-center justify-center gap-4 mt-3">
+          {[teamA, teamB].map((t) => (
+            <div key={t.name} className="text-center">
+              <div className="text-sm font-bold" style={{ color: t.color }}>{t.emoji} {t.name}</div>
+              <div className="text-2xl font-black tabular-nums" style={{ color: t.color }}>{t.victory_points}</div>
+              <div className="text-xs text-slate-500">VP</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 /* ─── Main Page ───────────────────────────────────────────────── */
 export default function CompetitionHub() {
   const navigate = useNavigate()
-  const { data: comp, isLoading: compLoading } = useActiveCompetition()
+  const { data: comp, isLoading: compLoading } = useLatestCompetition()
   const { data: ctx, isLoading: ctxLoading } = useCompetitionContext()
+  const [showShareCard, setShowShareCard] = useState(false)
 
   const myTeam = useMemo(() => {
     if (!comp || !ctx?.in_competition) return null
@@ -565,12 +623,62 @@ export default function CompetitionHub() {
     )
   }
 
-  if (!comp || comp.status !== 'active') {
+  if (!comp) {
     return (
       <div className="max-w-lg mx-auto py-24 text-center" dir="rtl" style={{ fontFamily: 'Tajawal, sans-serif' }}>
         <div className="text-4xl mb-4">⚔️</div>
         <div className="font-bold text-white text-xl mb-2">لا توجد مسابقة نشطة</div>
         <div className="text-slate-400 text-sm">ترقّب — المعركة القادمة ستكون أضخم!</div>
+      </div>
+    )
+  }
+
+  const isClosed = comp.status === 'closed'
+
+  if (isClosed) {
+    return (
+      <div
+        className="space-y-4 pb-8"
+        style={{ maxWidth: 720, margin: '0 auto', fontFamily: 'Tajawal, sans-serif' }}
+        dir="rtl"
+      >
+        <ResultsHero comp={comp} myTeam={myTeam} ctx={ctx} />
+        <VsArena comp={comp} myTeam={myTeam} oppTeam={oppTeam} />
+
+        {/* Both podiums expanded, no encourage buttons */}
+        <div className="space-y-3">
+          <div className="text-xs font-bold text-slate-500 px-1">النتائج النهائية</div>
+          <MVPPodium competitionId={comp.id} team="A" teamData={comp.team_a} defaultExpanded={true} showEncourage={false} />
+          <MVPPodium competitionId={comp.id} team="B" teamData={comp.team_b} defaultExpanded={true} showEncourage={false} />
+        </div>
+
+        {/* Share CTA for participants */}
+        {ctx?.in_competition && myTeam && (
+          <button
+            onClick={() => setShowShareCard(true)}
+            className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl font-bold text-sm"
+            style={{
+              background: `${myTeam.color}12`,
+              border: `1px solid ${myTeam.color}35`,
+              color: myTeam.color,
+            }}
+          >
+            <Trophy size={16} />
+            شارك إنجاز فريقك 📤
+          </button>
+        )}
+
+        <LiveFeed competitionId={comp.id} />
+        <div className="h-2" aria-hidden="true" />
+
+        {showShareCard && myTeam && (
+          <VictoryShareCard
+            comp={comp}
+            myTeam={myTeam}
+            myRank={ctx?.my_rank}
+            onClose={() => setShowShareCard(false)}
+          />
+        )}
       </div>
     )
   }
