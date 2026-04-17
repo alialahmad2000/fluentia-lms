@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Share2, Loader2 } from 'lucide-react'
 import { generateAchievementImage } from '../utils/generateAchievementImage'
 import { toast } from './ui/FluentiaToast'
+import XPBadgeInline from './xp/XPBadgeInline'
 
 export default function ShareAchievementCard({ type, studentName, levelName, unitName, studentText, feedback, scores, leaderboard, currentStudentId }) {
   const [isGenerating, setIsGenerating] = useState(false)
@@ -73,7 +74,7 @@ export default function ShareAchievementCard({ type, studentName, levelName, uni
       {isGenerating ? (
         <><Loader2 size={16} className="animate-spin" /> جاري تجهيز الصورة...</>
       ) : (
-        <><Share2 size={16} /> شارك إنجازك 🎉</>
+        <><Share2 size={16} /> شارك إنجازك 🎉 <XPBadgeInline amount={5} /></>
       )}
     </motion.button>
   )

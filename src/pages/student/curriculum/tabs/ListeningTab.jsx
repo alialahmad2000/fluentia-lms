@@ -6,6 +6,7 @@ import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
+import XPBadgeInline from '../../../../components/xp/XPBadgeInline'
 
 const QUESTION_TYPE_LABELS = {
   main_idea: 'الفكرة الرئيسية',
@@ -477,7 +478,7 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
             }}
           >
             {answered === total
-              ? `تسليم الإجابات (${answered}/${total})`
+              ? <><span>تسليم الإجابات ({answered}/{total})</span><XPBadgeInline amount={5} /></>
               : `أجب على جميع الأسئلة قبل التسليم (${answered}/${total})`}
           </button>
         </div>

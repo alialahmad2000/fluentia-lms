@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Target, RotateCcw } from 'lucide-react'
+import XPBadgeInline from '../xp/XPBadgeInline'
 import { supabase } from '../../lib/supabase'
 import { toast } from '../ui/FluentiaToast'
 import { safeCelebrate } from '../../lib/celebrations'
@@ -446,7 +447,7 @@ export default function ExerciseSection({ exercises, studentId, unitId, grammarI
             }}
           >
             {allAnswered
-              ? `تسليم الإجابات (${answered}/${total})`
+              ? <><span>تسليم الإجابات ({answered}/{total})</span><XPBadgeInline amount={5} /></>
               : `أجب على جميع الأسئلة قبل التسليم (${answered}/${total})`}
           </button>
         </div>

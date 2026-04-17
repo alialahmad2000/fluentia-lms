@@ -1,12 +1,14 @@
 import { useState, useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, ChevronUp, Swords, Flame, Target, Zap, BookOpen, Star, Trophy, Users } from 'lucide-react'
+import { ChevronDown, ChevronUp, Swords, Flame, Target, Zap, BookOpen, Star, Trophy, Users, ExternalLink } from 'lucide-react'
 import {
   useActiveCompetition,
   useCompetitionContext,
   useCompetitionLeaderboard,
   useCompetitionFeed,
 } from '../../hooks/useCompetition'
+import EncourageButton from '../../components/competition/EncourageButton'
 
 /* ─── helpers ─────────────────────────────────────────────────── */
 function plural(n, one, few, many) {
@@ -309,7 +311,7 @@ function RankBadge({ rank }) {
   return <span className="text-xs font-black text-slate-400 w-6 text-center">#{rank}</span>
 }
 
-function MVPPodium({ competitionId, team, teamData, defaultExpanded = true }) {
+function MVPPodium({ competitionId, team, teamData, defaultExpanded = true, showEncourage = false, myProfileId }) {
   const [expanded, setExpanded] = useState(defaultExpanded)
   const { data: leaders, isLoading } = useCompetitionLeaderboard(competitionId, team, 10)
 
@@ -361,13 +363,20 @@ function MVPPodium({ competitionId, team, teamData, defaultExpanded = true }) {
                 <div className="text-center text-slate-500 text-sm py-4">لا توجد بيانات بعد</div>
               )}
               {(leaders || []).map((p, i) => (
-                <div key={p.profile_id} className="flex items-center gap-3 py-1">
+                <div key={p.profile_id} className="flex items-center gap-2 py-1">
                   <RankBadge rank={i + 1} />
                   <MemberAvatar name={p.display_name} url={p.avatar_url} size={32} />
                   <span className="flex-1 text-sm text-white font-medium truncate">{p.display_name}</span>
                   <span className="text-sm font-bold tabular-nums" style={{ color: teamData.color }}>
                     {p.xp_total} XP
                   </span>
+                  {showEncourage && (
+                    <EncourageButton
+                      studentId={p.profile_id}
+                      studentName={p.display_name}
+                      size="sm"
+                    />
+                  )}
                 </div>
               ))}
             </div>
@@ -450,7 +459,7 @@ const EARN_TIPS = [
   { icon: <Users size={16} />, color: '#a78bfa', label: 'تشجيع زميل', value: '+1 VP' },
 ]
 
-function HowToEarnQuickRef() {
+function HowToEarnQuickRef({ onViewFull }) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -463,17 +472,25 @@ function HowToEarnQuickRef() {
       }}
       dir="rtl"
     >
-      <button
-        className="w-full flex items-center justify-between px-5 py-4"
-        onClick={() => setOpen((v) => !v)}
-        style={{ cursor: 'pointer' }}
-      >
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between px-5 py-4">
+        <button
+          className="flex items-center gap-2"
+          onClick={() => setOpen((v) => !v)}
+          style={{ cursor: 'pointer', background: 'none', border: 'none' }}
+        >
           <Trophy size={18} className="text-yellow-400" />
           <span className="font-bold text-white text-sm">كيف تكسب نقاط VP؟</span>
-        </div>
-        {open ? <ChevronUp size={16} className="text-slate-400" /> : <ChevronDown size={16} className="text-slate-400" />}
-      </button>
+          {open ? <ChevronUp size={16} className="text-slate-400" /> : <ChevronDown size={16} className="text-slate-400" />}
+        </button>
+        <button
+          onClick={onViewFull}
+          className="flex items-center gap-1 text-xs text-sky-400 hover:text-sky-300"
+          style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+        >
+          <ExternalLink size={12} />
+          الدليل الكامل
+        </button>
+      </div>
 
       <AnimatePresence initial={false}>
         {open && (
@@ -526,6 +543,7 @@ function NotInCompetitionBanner({ comp }) {
 
 /* ─── Main Page ───────────────────────────────────────────────── */
 export default function CompetitionHub() {
+  const navigate = useNavigate()
   const { data: comp, isLoading: compLoading } = useActiveCompetition()
   const { data: ctx, isLoading: ctxLoading } = useCompetitionContext()
 
@@ -589,6 +607,7 @@ export default function CompetitionHub() {
               team={ctx.team}
               teamData={myTeam}
               defaultExpanded={true}
+              showEncourage={true}
             />
             <MVPPodium
               competitionId={comp.id}
@@ -609,7 +628,7 @@ export default function CompetitionHub() {
       <LiveFeed competitionId={comp.id} />
 
       {/* 7. How to Earn */}
-      <HowToEarnQuickRef />
+      <HowToEarnQuickRef onViewFull={() => navigate('/student/how-to-earn')} />
 
       <div className="h-2" aria-hidden="true" />
     </div>

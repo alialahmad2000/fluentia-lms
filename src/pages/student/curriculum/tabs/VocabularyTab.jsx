@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Languages, Volume2, LayoutGrid, List, RotateCcw, CheckCircle, Dumbbell, Search, BookOpen, Headphones, PenLine, ChevronLeft, ChevronDown } from 'lucide-react'
+import XPBadgeInline from '../../../../components/xp/XPBadgeInline'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { usePageReset } from '../../../../hooks/usePageReset'
@@ -1012,7 +1013,7 @@ function FlashcardPractice({ words, onBack, onComplete }) {
           </button>
         )}
         {isLast ? (
-          <button onClick={handleFinish} className="h-10 px-5 rounded-xl text-sm font-bold bg-amber-500/10 text-amber-400 border border-amber-500/25 hover:bg-amber-500/20 transition-colors font-['Tajawal']">إنهاء</button>
+          <button onClick={handleFinish} className="h-10 px-5 rounded-xl text-sm font-bold bg-amber-500/10 text-amber-400 border border-amber-500/25 hover:bg-amber-500/20 transition-colors font-['Tajawal'] flex items-center gap-1"><span>إنهاء</span><XPBadgeInline amount={3} /></button>
         ) : (
           <button onClick={next} className="h-10 px-5 rounded-xl text-sm font-bold bg-sky-500/10 text-sky-400 border border-sky-500/25 hover:bg-sky-500/20 transition-colors font-['Tajawal']">التالي</button>
         )}

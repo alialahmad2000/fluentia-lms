@@ -2,7 +2,7 @@ import {
   Home, BookOpen, PenLine, Mic, PlayCircle, Users, Trophy, Calendar,
   BookMarked, User, Settings, BarChart3, ClipboardList, MessageSquare,
   Megaphone, CreditCard, GraduationCap, UserCog, Bot, FileText,
-  StickyNote, TrendingUp, Zap, Flame, CalendarClock, Swords,
+  StickyNote, TrendingUp, Zap, Flame, CalendarClock, Swords, Target,
 } from 'lucide-react'
 
 export const STUDENT_NAV = {
@@ -17,6 +17,7 @@ export const STUDENT_NAV = {
         { id: 'flashcards',  label: 'المفردات',     icon: FileText,   to: '/student/flashcards' },
         { id: 'challenges',  label: 'التحديات',     icon: Flame,      to: '/student/challenges' },
         { id: 'reports',     label: 'التقارير',     icon: CalendarClock, to: '/student/progress-reports' },
+        { id: 'how-to-earn', label: 'كيف تكسب XP 🎯', icon: Target,   to: '/student/how-to-earn' },
       ],
     },
     {
@@ -49,6 +50,7 @@ export const STUDENT_NAV = {
         { id: 'flashcards',   label: 'المفردات',     icon: FileText,     to: '/student/flashcards' },
         { id: 'challenges',   label: 'التحديات',     icon: Flame,        to: '/student/challenges' },
         { id: 'reports',      label: 'التقارير',     icon: CalendarClock, to: '/student/progress-reports' },
+        { id: 'how-to-earn',  label: 'كيف تكسب XP 🎯', icon: Target,    to: '/student/how-to-earn' },
         { id: 'conversation', label: 'المحادثة',     icon: MessageSquare, to: '/student/conversation' },
         { id: 'recordings',   label: 'التسجيلات',    icon: PlayCircle,   to: '/student/recordings' },
       ],

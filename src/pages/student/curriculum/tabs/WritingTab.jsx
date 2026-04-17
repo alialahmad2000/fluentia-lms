@@ -8,6 +8,7 @@ import { toast } from '../../../../components/ui/FluentiaToast'
 import { safeCelebrate } from '../../../../lib/celebrations'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import { invokeWithRetry } from '../../../../lib/invokeWithRetry'
+import XPBadgeInline from '../../../../components/xp/XPBadgeInline'
 import WritingFeedback from '../../../../components/curriculum/WritingFeedback'
 import WritingAssistant from '../../../../components/curriculum/WritingAssistant'
 import ShareAchievementCard from '../../../../components/ShareAchievementCard'
@@ -567,7 +568,7 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
                 }`}
               >
                 {submitting ? <Loader2 size={13} className="animate-spin" /> : <Send size={13} />}
-                {submitting ? 'جاري التصحيح...' : 'تسليم للتصحيح'}
+                {submitting ? 'جاري التصحيح...' : <><span>تسليم للتصحيح</span><XPBadgeInline amount={5} /></>}
               </motion.button>
             </div>
           </div>

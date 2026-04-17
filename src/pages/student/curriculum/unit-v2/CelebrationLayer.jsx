@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { safeCelebrate } from '../../../../lib/celebrations'
 import { CINEMATIC_TOKENS as V1, useCinematicMotion } from '../_premiumPrimitives'
+import { useActiveCompetition, useCompetitionContext } from '../../../../hooks/useCompetition'
 
 /* ═══════════════════════════════════════════════
    Toast ID counter
@@ -16,8 +17,16 @@ const nextId = () => ++_id
    ═══════════════════════════════════════════════ */
 export default function CelebrationLayer() {
   const { reduced } = useCinematicMotion()
-  const [xpToasts, setXpToasts] = useState([])   // [{ id, xp }]
+  const [xpToasts, setXpToasts] = useState([])   // [{ id, xp, compData }]
   const [rankToasts, setRankToasts] = useState([]) // [{ id, message }]
+
+  const { data: activeComp } = useActiveCompetition()
+  const { data: compCtx } = useCompetitionContext()
+
+  const compActive = activeComp?.status === 'active' && compCtx?.in_competition
+  const myTeam = compActive
+    ? (compCtx.team === 'A' ? activeComp.team_a : activeComp.team_b)
+    : null
 
   const removeXp = useCallback((id) => {
     setXpToasts((prev) => prev.filter((t) => t.id !== id))
@@ -36,8 +45,9 @@ export default function CelebrationLayer() {
 
         if (xp > 0) {
           const id = nextId()
-          setXpToasts((prev) => [...prev, { id, xp }])
-          setTimeout(() => removeXp(id), 2200)
+          const compData = myTeam ? { color: myTeam.color, teamName: myTeam.name, emoji: myTeam.emoji } : null
+          setXpToasts((prev) => [...prev, { id, xp, compData }])
+          setTimeout(() => removeXp(id), 3000)
         }
 
         if (newRank) {
@@ -79,7 +89,7 @@ export default function CelebrationLayer() {
       >
         <AnimatePresence>
           {xpToasts.map((toast) => (
-            <XpToast key={toast.id} xp={toast.xp} reduced={reduced} />
+            <XpToast key={toast.id} xp={toast.xp} reduced={reduced} compData={toast.compData} />
           ))}
         </AnimatePresence>
       </div>
@@ -114,7 +124,9 @@ export default function CelebrationLayer() {
 /* ═══════════════════════════════════════════════
    XpToast — floats upward and fades out
    ═══════════════════════════════════════════════ */
-function XpToast({ xp, reduced }) {
+function XpToast({ xp, reduced, compData }) {
+  const teamColor = compData?.color ?? null
+
   return (
     <motion.div
       initial={reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 0, scale: 0.85 }}
@@ -126,40 +138,59 @@ function XpToast({ xp, reduced }) {
       }
       style={{
         display: 'flex',
-        alignItems: 'center',
-        gap: '6px',
+        flexDirection: 'column',
+        alignItems: 'flex-end',
+        gap: '4px',
         padding: '10px 20px',
-        background: 'rgba(10, 8, 0, 0.75)',
-        border: `1px solid ${V1.accentGoldStrong}`,
+        background: teamColor
+          ? `linear-gradient(135deg, rgba(10,8,0,0.85) 0%, ${teamColor}18 100%)`
+          : 'rgba(10, 8, 0, 0.75)',
+        border: teamColor ? `1px solid ${teamColor}55` : `1px solid ${V1.accentGoldStrong}`,
         borderRadius: '14px',
         backdropFilter: 'blur(12px)',
-        boxShadow: `0 0 20px rgba(245,200,66,0.3), 0 4px 16px rgba(0,0,0,0.5)`,
+        boxShadow: teamColor
+          ? `0 0 20px ${teamColor}30, 0 4px 16px rgba(0,0,0,0.5)`
+          : `0 0 20px rgba(245,200,66,0.3), 0 4px 16px rgba(0,0,0,0.5)`,
         direction: 'rtl',
         whiteSpace: 'nowrap',
       }}
       aria-label={`حصلت على ${xp} نقطة خبرة`}
     >
-      <span style={{
-        fontFamily: '"Playfair Display", serif',
-        fontSize: '32px',
-        fontWeight: 700,
-        background: 'linear-gradient(135deg, #f5c842 0%, #fde68a 50%, #f59e0b 100%)',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        backgroundClip: 'text',
-        lineHeight: 1,
-      }}>
-        +{xp}
-      </span>
-      <span style={{
-        fontFamily: 'Tajawal, sans-serif',
-        fontSize: '15px',
-        fontWeight: 700,
-        color: V1.accentGold,
-        letterSpacing: '0.02em',
-      }}>
-        XP
-      </span>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+        <span style={{
+          fontFamily: '"Playfair Display", serif',
+          fontSize: '32px',
+          fontWeight: 700,
+          background: 'linear-gradient(135deg, #f5c842 0%, #fde68a 50%, #f59e0b 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+          lineHeight: 1,
+        }}>
+          +{xp}
+        </span>
+        <span style={{
+          fontFamily: 'Tajawal, sans-serif',
+          fontSize: '15px',
+          fontWeight: 700,
+          color: V1.accentGold,
+          letterSpacing: '0.02em',
+        }}>
+          XP
+        </span>
+      </div>
+
+      {compData && (
+        <div style={{
+          fontFamily: 'Tajawal, sans-serif',
+          fontSize: '11px',
+          fontWeight: 600,
+          color: teamColor,
+          opacity: 0.9,
+        }}>
+          {compData.emoji} {compData.teamName}
+        </div>
+      )}
     </motion.div>
   )
 }

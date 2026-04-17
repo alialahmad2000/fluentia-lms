@@ -8,6 +8,7 @@ import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import TextSelectionTooltip from '../../../../components/student/TextSelectionTooltip'
+import XPBadgeInline from '../../../../components/xp/XPBadgeInline'
 import PageHelp from '../../../../components/PageHelp'
 import { usePointerType } from '../../../../hooks/usePointerType'
 import { useReadingPrefs } from '../../../../hooks/useReadingPrefs'
@@ -1437,7 +1438,7 @@ function ComprehensionSection({ questions, savedAnswers, isAlreadyCompleted, pro
             }}
           >
             {allAnswered
-              ? `تسليم الإجابات (${answered}/${total})`
+              ? <><span>تسليم الإجابات ({answered}/{total})</span><XPBadgeInline amount={5} /></>
               : `أجب على جميع الأسئلة قبل التسليم (${answered}/${total})`}
           </button>
         </div>
