@@ -119,6 +119,24 @@ body {
 .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
 .fixed-top-safe { top: env(safe-area-inset-top, 0px); }
 .fixed-bottom-safe { bottom: env(safe-area-inset-bottom, 0px); }
+.mobile-safe-bottom { padding-bottom: var(--mobile-bottom-clearance); }
+.mobile-safe-bottom-action { padding-bottom: var(--mobile-bottom-clearance-with-action); }
+
+/* Modal open — locks body scroll on iOS Safari and hides the mobile nav.
+   The position:fixed + top trick prevents background scroll on iOS when
+   overflow:hidden alone isn't enough. useBodyLock.js saves/restores scrollY. */
+body.modal-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+/* Hide the mobile bottom nav bar when a fullscreen modal is open.
+   Prevents z-index/backdrop-filter bleed-through on older iOS Safari. */
+body.modal-open .mobile-bottom-nav,
+body.modal-open [data-role='mobile-bottom-nav'] {
+  display: none !important;
+}
 
 @layer base {
   html {

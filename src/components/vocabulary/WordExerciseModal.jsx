@@ -1,5 +1,6 @@
 import { useState, useRef, useMemo, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useBodyLock } from '../../hooks/useBodyLock'
 import { X, CheckCircle, Volume2, BookOpen, PenLine, Headphones, Maximize2, AlertTriangle } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { toast } from '../ui/FluentiaToast'
@@ -33,6 +34,9 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
     const others = (unitWords || []).filter(w => w.id !== word.id)
     return shuffle(others).slice(0, Math.min(3, others.length))
   }, [word?.id, unitWords])
+
+  // Lock body scroll + hide mobile nav while open (iOS Safari safe)
+  useBodyLock(isOpen)
 
   if (!isOpen || !word) return null
 
@@ -146,7 +150,7 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4"
+        className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4"
         style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)' }}
         onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
       >
@@ -154,11 +158,12 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 50, opacity: 0 }}
-          className="w-full sm:max-w-md max-h-[90dvh] overflow-y-auto rounded-t-2xl sm:rounded-2xl"
+          className="w-full sm:max-w-md flex flex-col rounded-t-2xl sm:rounded-2xl h-[100dvh] sm:h-auto sm:max-h-[90dvh]"
           style={{ background: '#0a1628', border: '1px solid rgba(255,255,255,0.1)' }}
+          onClick={(e) => e.stopPropagation()}
         >
-          {/* Header */}
-          <div className="sticky top-0 z-10 flex items-center justify-between p-4 border-b border-white/10" style={{ background: '#0a1628' }}>
+          {/* Header — fixed at top, never scrolls */}
+          <div className="flex-shrink-0 flex items-center justify-between p-4 border-b border-white/10" style={{ background: '#0a1628', paddingTop: 'calc(16px + var(--sat))' }}>
             <div className="min-w-0 flex-1">
               <h3 className="text-lg font-bold text-white font-['Inter']" dir="ltr">{word.word}</h3>
               <p className="text-xs text-white/50 font-['Tajawal']">{word.definition_ar}</p>
@@ -180,8 +185,11 @@ export default function WordExerciseModal({ word, unitWords, mastery, studentId,
             </div>
           </div>
 
-          {/* Content */}
-          <div className="p-4 space-y-3">
+          {/* Content — scrollable, respects iOS home indicator */}
+          <div
+            className="flex-1 min-h-0 overflow-y-auto p-4 space-y-3"
+            style={{ WebkitOverflowScrolling: 'touch', paddingBottom: 'calc(24px + var(--sab))' }}
+          >
             {activeExercise ? (
               <ExerciseView
                 exerciseKey={activeExercise}

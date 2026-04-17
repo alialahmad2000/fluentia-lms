@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from 'react'
+import { useBodyLock } from '../../hooks/useBodyLock'
 import { motion, AnimatePresence } from 'framer-motion'
 import WordDetailHeader from './WordDetailHeader'
 import WordDetailTabBar from './WordDetailTabBar'
@@ -100,15 +101,8 @@ export default function WordDetailModal({
     return () => window.removeEventListener('keydown', handleKey)
   }, [isOpen, onClose])
 
-  // Body scroll lock while open
-  useEffect(() => {
-    if (!isOpen) return
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = prev
-    }
-  }, [isOpen])
+  // Body scroll lock + mobile nav hide while open
+  useBodyLock(isOpen)
 
   if (!isOpen || !word) return null
 
@@ -178,7 +172,11 @@ export default function WordDetailModal({
             />
           )}
 
-          <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8" dir="rtl">
+          <div
+            className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8"
+            dir="rtl"
+            style={{ WebkitOverflowScrolling: 'touch', paddingBottom: 'calc(24px + var(--sab))' }}
+          >
             {renderTabContent()}
           </div>
         </motion.div>

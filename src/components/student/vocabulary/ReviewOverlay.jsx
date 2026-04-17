@@ -6,6 +6,7 @@ import { useAuthStore } from '../../../stores/authStore'
 import { toast } from '../../ui/FluentiaToast'
 import { emitXP } from '../../ui/XPFloater'
 import ReviewSessionStats from './ReviewSessionStats'
+import { useBodyLock } from '../../../hooks/useBodyLock'
 
 const GRADES = [
   { quality: 1, label: 'ما أعرفها', emoji: '❌', color: '#ef4444', bg: 'rgba(239,68,68,0.12)', border: 'rgba(239,68,68,0.3)' },
@@ -105,6 +106,9 @@ export default function ReviewOverlay({ isOpen, onClose, words: initialWords }) 
     return () => window.removeEventListener('keydown', onKey)
   }, [isOpen, onClose])
 
+  // Lock body scroll + hide mobile nav while open
+  useBodyLock(isOpen)
+
   if (!isOpen) return null
 
   if (sessionDone) {
@@ -163,7 +167,7 @@ export default function ReviewOverlay({ isOpen, onClose, words: initialWords }) 
       </div>
 
       {/* Card area */}
-      <div className="flex flex-col items-center justify-center px-6" style={{ height: 'calc(100vh - 180px)' }}>
+      <div className="flex flex-col items-center justify-center px-6" style={{ height: 'calc(100dvh - 180px)' }}>
         <AnimatePresence mode="wait">
           <motion.div
             key={currentWord.id}
@@ -241,7 +245,8 @@ export default function ReviewOverlay({ isOpen, onClose, words: initialWords }) 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-0 left-0 right-0 px-4 pb-6 pt-4 safe-area-bottom"
+            className="fixed bottom-0 left-0 right-0 px-4 pt-4"
+            style={{ paddingBottom: 'calc(24px + var(--sab))' }}
             style={{ background: 'linear-gradient(transparent, rgba(2,6,23,0.95) 20%)' }}
           >
             <div className="grid grid-cols-4 gap-2 max-w-md mx-auto">

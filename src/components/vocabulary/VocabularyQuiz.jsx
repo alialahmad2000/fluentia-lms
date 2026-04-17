@@ -4,6 +4,7 @@ import { X } from 'lucide-react'
 import QuizQuestionCard from './QuizQuestionCard'
 import QuizResultScreen from './QuizResultScreen'
 import { useVocabularyQuiz, saveQuizAttempt } from '../../hooks/useVocabularyQuiz'
+import { useBodyLock } from '../../hooks/useBodyLock'
 
 /**
  * Full-screen vocabulary quiz modal.
@@ -74,6 +75,9 @@ export default function VocabularyQuiz({
     setSessionKey((k) => k + 1)
   }
 
+  // Lock body scroll + hide mobile nav (always active — this component is always a modal)
+  useBodyLock(true)
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -95,7 +99,7 @@ export default function VocabularyQuiz({
         </button>
       </div>
 
-      <div className="p-4 sm:p-6 pb-12">
+      <div className="p-4 sm:p-6" style={{ paddingBottom: 'calc(48px + var(--sab))' }}>
         <AnimatePresence mode="wait">
           {phase === 'playing' && currentQuestion && (
             <motion.div

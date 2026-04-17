@@ -8,8 +8,9 @@ function MobileBar({ nav, onMoreClick, role }) {
 
   return (
     <nav
+      data-role="mobile-bottom-nav"
       aria-label="التنقل الرئيسي"
-      className="fixed bottom-0 left-0 right-0 z-40 lg:hidden"
+      className="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 lg:hidden"
       style={{
         background: 'var(--ds-bg-overlay, var(--surface-base-alpha, rgba(5,7,13,0.88)))',
         backdropFilter: 'blur(20px) saturate(160%)',
