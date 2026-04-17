@@ -28,6 +28,7 @@ import LevelExitTestCard from '../../components/gamification/LevelExitTestCard'
 import MysteryBox from '../../components/gamification/MysteryBox'
 import EnableNotificationsPrompt from '../../components/notifications/EnableNotificationsPrompt'
 import PlacementTestCard from './placement/PlacementTestCard'
+import CompetitionKickoffModal from '../../components/competition/CompetitionKickoffModal'
 
 export default function StudentDashboard() {
   // ── ALL HOOKS AT TOP (React #310 safe) ──────────────────────────
@@ -132,6 +133,8 @@ export default function StudentDashboard() {
 
   // ── RENDER ──────────────────────────────────────────────────────
   return (
+    <>
+    <CompetitionKickoffModal />
     <StaggeredList stagger={0.06} className="space-y-6">
       {/* 1. Hero */}
       <HeroBlock
@@ -197,5 +200,6 @@ export default function StudentDashboard() {
       {/* Bottom padding for mobile bar */}
       <div className="h-4" aria-hidden="true" />
     </StaggeredList>
+    </>
   )
 }
