@@ -141,6 +141,12 @@ export const NOTIFICATION_TYPES = {
   curriculum_progress: { label_ar: 'تقدم في المنهج',     icon: '📚', color: 'emerald' },
   speaking_feedback:   { label_ar: 'تقييم المحادثة',     icon: '🎤', color: 'violet' },
   announcement:        { label_ar: 'إعلان',              icon: '📢', color: 'sky' },
+  competition_event:   { label_ar: 'المسابقة',           icon: '⚔️', color: 'sky' },
+  challenge_new:       { label_ar: 'تحدي جديد',          icon: '🎯', color: 'violet' },
+  challenge_reminder:  { label_ar: 'تذكير بالتحدي',      icon: '⏰', color: 'yellow' },
+  challenge_complete:  { label_ar: 'تحدي مكتمل',         icon: '🏅', color: 'green' },
+  creator_challenge:   { label_ar: 'تحدي إبداعي',        icon: '✨', color: 'violet' },
+  task_completed:      { label_ar: 'مهمة مكتملة',        icon: '✅', color: 'green' },
 }
 
 // ─── Payment Status Labels ─────────────────────────────────

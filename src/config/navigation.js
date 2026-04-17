@@ -25,9 +25,10 @@ export const STUDENT_NAV = {
       id: 'community',
       label: 'المجتمع',
       items: [
-        { id: 'competition', label: 'المسابقة ⚔️',  icon: Swords,     to: '/student/competition' },
-        { id: 'leaderboard', label: 'لوحة الشرف',   icon: Trophy,     to: '/student/leaderboard' },
-        { id: 'duels',       label: 'المبارزات',    icon: Zap,        to: '/student/duels' },
+        { id: 'competition',       label: 'المسابقة ⚔️',       icon: Swords,   to: '/student/competition' },
+        { id: 'competition-rules', label: 'قواعد المسابقة 📜',  icon: BookOpen, to: '/student/competition/rules' },
+        { id: 'leaderboard',       label: 'لوحة الشرف',         icon: Trophy,   to: '/student/leaderboard' },
+        { id: 'duels',             label: 'المبارزات',           icon: Zap,      to: '/student/duels' },
       ],
     },
     {
@@ -60,10 +61,11 @@ export const STUDENT_NAV = {
       id: 'community',
       label: 'المجتمع',
       items: [
-        { id: 'competition', label: 'المسابقة ⚔️',  icon: Swords,     to: '/student/competition' },
-        { id: 'schedule',    label: 'جدولي',        icon: Calendar,   to: '/student/schedule' },
-        { id: 'leaderboard', label: 'لوحة الشرف',   icon: Trophy,     to: '/student/leaderboard' },
-        { id: 'duels',       label: 'المبارزات',    icon: Zap,        to: '/student/duels' },
+        { id: 'competition',       label: 'المسابقة ⚔️',       icon: Swords,   to: '/student/competition' },
+        { id: 'competition-rules', label: 'قواعد المسابقة 📜',  icon: BookOpen, to: '/student/competition/rules' },
+        { id: 'schedule',          label: 'جدولي',              icon: Calendar, to: '/student/schedule' },
+        { id: 'leaderboard',       label: 'لوحة الشرف',         icon: Trophy,   to: '/student/leaderboard' },
+        { id: 'duels',             label: 'المبارزات',           icon: Zap,      to: '/student/duels' },
       ],
     },
     {

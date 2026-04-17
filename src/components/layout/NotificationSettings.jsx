@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Bell, BellOff, ChevronDown, ClipboardList, CalendarCheck, Trophy, MessageCircle, CreditCard, Brain, Settings } from 'lucide-react'
+import { Bell, BellOff, ChevronDown, ClipboardList, CalendarCheck, Trophy, MessageCircle, CreditCard, Brain, Settings, Swords } from 'lucide-react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
@@ -225,6 +225,43 @@ export default function NotificationSettings() {
     setOpenCategories(prev => ({ ...prev, [key]: !prev[key] }))
   }
 
+  // ── Competition preferences (jsonb on profiles) ──
+  const { data: compPrefs } = useQuery({
+    queryKey: ['competition-notif-prefs', profile?.id],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('profiles')
+        .select('notification_preferences')
+        .eq('id', profile.id)
+        .single()
+      return data?.notification_preferences ?? { competition_digest: true, competition_events: true }
+    },
+    enabled: !!profile?.id,
+    staleTime: 30000,
+  })
+
+  const [compLocalPrefs, setCompLocalPrefs] = useState({ competition_digest: true, competition_events: true })
+  useEffect(() => { if (compPrefs) setCompLocalPrefs(compPrefs) }, [compPrefs])
+
+  const updateCompPrefs = useMutation({
+    mutationFn: async (prefs) => {
+      const { error } = await supabase
+        .from('profiles')
+        .update({ notification_preferences: prefs })
+        .eq('id', profile.id)
+      if (error) throw error
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['competition-notif-prefs', profile?.id] })
+    },
+  })
+
+  function toggleCompPref(key) {
+    const updated = { ...compLocalPrefs, [key]: !compLocalPrefs[key] }
+    setCompLocalPrefs(updated)
+    updateCompPrefs.mutate(updated)
+  }
+
   // Cleanup debounce on unmount
   useEffect(() => {
     return () => {
@@ -302,6 +339,71 @@ export default function NotificationSettings() {
           <Toggle enabled={masterKilled} onToggle={toggleMasterKill} size="lg" />
         </div>
       </div>
+
+      {/* Competition Preferences */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.05 }}
+        className="fl-card-static overflow-hidden"
+        style={{ opacity: masterKilled ? 0.5 : 1, pointerEvents: masterKilled ? 'none' : 'auto' }}
+      >
+        <button
+          onClick={() => toggleAccordion('competition')}
+          className="w-full flex items-center justify-between p-5 cursor-pointer hover:bg-[var(--surface-base)] transition-all duration-200"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: 'rgba(56,189,248,0.1)' }}>
+              <Swords size={17} style={{ color: '#38bdf8' }} strokeWidth={1.5} />
+            </div>
+            <span className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>المسابقة</span>
+            <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{
+              background: Object.values(compLocalPrefs).every(Boolean) ? 'rgba(56,189,248,0.1)' : 'var(--surface-raised)',
+              color: Object.values(compLocalPrefs).every(Boolean) ? '#38bdf8' : 'var(--text-tertiary)',
+            }}>
+              {toArabicNum(Object.values(compLocalPrefs).filter(Boolean).length)}/{toArabicNum(Object.values(compLocalPrefs).length)}
+            </span>
+          </div>
+          <motion.div animate={{ rotate: openCategories['competition'] ? 180 : 0 }} transition={{ duration: 0.2 }}>
+            <ChevronDown size={18} className="text-muted" strokeWidth={1.5} />
+          </motion.div>
+        </button>
+
+        <AnimatePresence initial={false}>
+          {openCategories['competition'] && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.25, ease: 'easeInOut' }}
+              style={{ overflow: 'hidden' }}
+            >
+              <div className="px-5 pb-5 space-y-1">
+                <div className="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-[var(--surface-base)] transition-all duration-200">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-xl flex items-center justify-center text-sm" style={{ background: 'var(--surface-base)' }}>🌅</div>
+                    <div>
+                      <span className="text-sm" style={{ color: 'var(--text-primary)' }}>ملخص الصباح والمساء</span>
+                      <p className="text-xs text-muted">تذكير يومي بالستريك والنقاط</p>
+                    </div>
+                  </div>
+                  <Toggle enabled={!!compLocalPrefs.competition_digest} onToggle={() => toggleCompPref('competition_digest')} color="#38bdf8" />
+                </div>
+                <div className="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-[var(--surface-base)] transition-all duration-200">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-xl flex items-center justify-center text-sm" style={{ background: 'var(--surface-base)' }}>⚡</div>
+                    <div>
+                      <span className="text-sm" style={{ color: 'var(--text-primary)' }}>أحداث المسابقة</span>
+                      <p className="text-xs text-muted">تغيير القائد، إنجازات الفريق، تشجيع الزملاء</p>
+                    </div>
+                  </div>
+                  <Toggle enabled={!!compLocalPrefs.competition_events} onToggle={() => toggleCompPref('competition_events')} color="#38bdf8" />
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
 
       {/* Category Accordions */}
       <div className="space-y-3">

@@ -35,9 +35,16 @@ const NOTIFICATION_ROUTES = {
   speaking_feedback: '/student/speaking',
   smart_nudge: '/student',
   task_completed: '/student/weekly-tasks',
+  competition_event: '/student/competition',
+  challenge_new: '/student/challenges',
+  challenge_reminder: '/student/challenges',
+  challenge_complete: '/student/challenges',
+  creator_challenge: '/student/creator-challenge',
   system: null,
   announcement: null,
 }
+
+const COMPETITION_TYPES = new Set(['competition_event'])
 
 function groupNotificationsByDate(notifications) {
   const groups = {}
@@ -292,10 +299,53 @@ export default function NotificationCenter() {
               </div>
             </div>
 
-            {/* Notification list — grouped by date */}
+            {/* Notification list — competition section + date groups */}
             <div className="overflow-y-auto" style={{ maxHeight: 'calc(70vh - 48px)' }}>
-              {notifications?.length > 0 ? (
-                groupNotificationsByDate(notifications).map((group) => (
+              {notifications?.length > 0 ? (() => {
+                const compNotifs = notifications.filter(n => COMPETITION_TYPES.has(n.type))
+                const otherNotifs = notifications.filter(n => !COMPETITION_TYPES.has(n.type))
+                return (
+                  <>
+                    {compNotifs.length > 0 && (
+                      <div>
+                        <div className="px-5 py-2 sticky top-0 flex items-center gap-2" style={{ background: 'var(--surface-base)', borderBottom: '1px solid var(--border-subtle)' }}>
+                          <span className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: 'var(--text-tertiary)' }}>⚔️ المسابقة</span>
+                        </div>
+                        {compNotifs.map((n) => {
+                          const typeConfig = NOTIFICATION_TYPES[n.type] || NOTIFICATION_TYPES.system
+                          const isExpanded = expandedId === n.id
+                          const isLong = n.body && n.body.length > 60
+                          return (
+                            <div
+                              key={n.id}
+                              className={`w-full text-right transition-all duration-200 ${!n.read ? 'bg-sky-500/[0.03]' : ''}`}
+                              style={{ borderBottom: '1px solid var(--border-subtle)' }}
+                              onMouseEnter={e => e.currentTarget.style.background = 'var(--surface-raised)'}
+                              onMouseLeave={e => e.currentTarget.style.background = !n.read ? 'rgba(56,189,248,0.03)' : ''}
+                            >
+                              <button
+                                onClick={() => {
+                                  const hasRoute = n.action_url || n.data?.link || NOTIFICATION_ROUTES[n.type]
+                                  if (isLong && !isExpanded) { setExpandedId(n.id); if (!n.read) markRead.mutate(n.id) }
+                                  else if (hasRoute) { handleNotificationClick(n) }
+                                  else { if (!n.read) markRead.mutate(n.id) }
+                                }}
+                                className="w-full text-right flex items-start gap-3 px-5 py-3.5"
+                              >
+                                <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg shrink-0" style={{ background: 'rgba(56,189,248,0.08)' }}>{typeConfig.icon}</div>
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-xs font-medium" style={{ color: !n.read ? 'var(--text-primary)' : 'var(--text-tertiary)' }}>{n.title}</p>
+                                  <p className={`text-xs text-muted mt-0.5 ${isLong && !isExpanded ? 'truncate' : ''}`}>{n.body}</p>
+                                  <p className="text-xs text-muted mt-1">{timeAgo(n.created_at)}</p>
+                                </div>
+                                {!n.read && <div className="w-2 h-2 rounded-full bg-sky-400 shrink-0 mt-2" />}
+                              </button>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    )}
+                    {otherNotifs.length > 0 && groupNotificationsByDate(otherNotifs).map((group) => (
                   <div key={group.label}>
                     {/* Date header */}
                     <div className="px-5 py-2 sticky top-0" style={{ background: 'var(--surface-base)', borderBottom: '1px solid var(--border-subtle)' }}>
@@ -406,8 +456,10 @@ export default function NotificationCenter() {
                       )
                     })}
                   </div>
-                ))
-              ) : (
+                    ))}
+                  </>
+                )
+              })() : (
                 <div className="px-4 py-8 text-center">
                   <Bell size={24} className="text-muted mx-auto mb-2 opacity-30" />
                   <p className="text-xs text-muted">لا توجد إشعارات</p>

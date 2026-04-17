@@ -66,7 +66,8 @@ const DailyReview = lazyRetry(() => import('./pages/student/DailyReview'))
 const LevelExitTest = lazyRetry(() => import('./pages/student/LevelExitTest'))
 const StudentCreatorChallenge = lazyRetry(() => import('./pages/student/StudentCreatorChallenge'))
 const StudentDuels = lazyRetry(() => import('./pages/student/StudentDuels'))
-const CompetitionHub = lazyRetry(() => import('./pages/student/CompetitionHub'))
+const CompetitionHub   = lazyRetry(() => import('./pages/student/CompetitionHub'))
+const CompetitionRules = lazyRetry(() => import('./pages/student/CompetitionRules'))
 const HowToEarnPage = lazyRetry(() => import('./pages/student/HowToEarnPage'))
 const ProgressDashboard = lazyRetry(() => import('./pages/student/ProgressDashboard'))
 const StudentCurriculum = lazyRetry(() => import('./pages/student/StudentCurriculum'))
@@ -505,6 +506,7 @@ export default function App() {
               <Route path="/student/creator-challenge" element={<Page><StudentCreatorChallenge /></Page>} />
               <Route path="/student/duels" element={<Page><StudentDuels /></Page>} />
               <Route path="/student/competition" element={<Page><CompetitionHub /></Page>} />
+              <Route path="/student/competition/rules" element={<Page><CompetitionRules /></Page>} />
               <Route path="/student/how-to-earn" element={<Page><HowToEarnPage /></Page>} />
               <Route path="/student/chat" element={<Page><StudentGroupChat /></Page>} />
               <Route path="/student/messages" element={<Page><StudentMessages /></Page>} />
