@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { CINEMATIC_TOKENS as V1, useCinematicMotion } from '../_premiumPrimitives'
 import MissionCard from './MissionCard'
+import LearningShadow from './LearningShadow'
 
 const staggerParent = {
   animate: {
@@ -10,19 +11,24 @@ const staggerParent = {
   },
 }
 
-export default function MissionGrid({ activities = [], onSelect }) {
+export default function MissionGrid({ activities = [], onSelect, unit }) {
   const { reduced } = useCinematicMotion()
+
+  // Build set of completed activity keys for suggested-next logic
+  const completedSet = new Set(activities.filter(a => a.status === 'completed').map(a => a.key))
 
   return (
     <div style={{ width: '100%' }}>
-      {/* ── Section title ── */}
+      {/* ── Section title + Learning Shadow ── */}
       <div
         style={{
           display: 'flex',
           alignItems: 'center',
+          justifyContent: 'space-between',
           gap: '10px',
           marginBottom: '24px',
           direction: 'rtl',
+          flexWrap: 'wrap',
         }}
       >
         {/* Decorative gold diamond */}
@@ -49,6 +55,7 @@ export default function MissionGrid({ activities = [], onSelect }) {
         >
           رحلتك في هذه الوحدة
         </h2>
+        <LearningShadow />
       </div>
 
       {/* ── Card grid ── */}
@@ -69,6 +76,8 @@ export default function MissionGrid({ activities = [], onSelect }) {
             activity={activity}
             index={index}
             onSelect={onSelect}
+            unit={unit}
+            completedSet={completedSet}
           />
         ))}
       </motion.div>

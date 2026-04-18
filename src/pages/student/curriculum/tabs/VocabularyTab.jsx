@@ -149,11 +149,12 @@ export default function VocabularyTab({ unitId }) {
         }).catch(() => {})
       }
     },
-    onSuccess: () => {
+    onSuccess: (_, word) => {
       queryClient.invalidateQueries({ queryKey: ['saved-words-set', studentId] })
       queryClient.invalidateQueries({ queryKey: ['saved-words', studentId] })
       queryClient.invalidateQueries({ queryKey: ['srs-counts', studentId] })
       toast({ type: 'success', title: '✨ أضيفت لقاموسك' })
+      window.dispatchEvent(new CustomEvent('fluentia:vocab-added', { detail: { word: word?.word } }))
     },
   })
 

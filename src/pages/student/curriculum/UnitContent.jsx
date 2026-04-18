@@ -5,6 +5,7 @@ import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Check, BookOpen } from 'lucide-react'
+import ContextRibbon from '../../../components/curriculum/ContextRibbon'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import { tracker } from '../../../services/activityTracker'
@@ -204,17 +205,18 @@ export default function UnitContent() {
 
   // Render activity content (same as old tab content — PRESERVED)
   const renderActivityContent = (key) => {
+    const ribbon = <ContextRibbon unit={unit} activityType={key} />
     switch (key) {
-      case 'reading': return <ReadingTab unitId={unitId} />
-      case 'grammar': return <GrammarTab unitId={unitId} />
-      case 'vocabulary': return <VocabularyTab unitId={unitId} />
-      case 'listening': return <ListeningTab unitId={unitId} />
-      case 'writing': return <WritingTab unitId={unitId} />
-      case 'speaking': return <SpeakingTab unitId={unitId} />
-      case 'pronunciation': return <PronunciationTab unitId={unitId} />
-      case 'assessment': return <AssessmentTab unitId={unitId} />
-      case 'recording': return <RecordingTab unitId={unitId} />
-      default: return <ReadingTab unitId={unitId} />
+      case 'reading':      return <>{ribbon}<ReadingTab unitId={unitId} /></>
+      case 'grammar':      return <>{ribbon}<GrammarTab unitId={unitId} /></>
+      case 'vocabulary':   return <>{ribbon}<VocabularyTab unitId={unitId} /></>
+      case 'listening':    return <>{ribbon}<ListeningTab unitId={unitId} /></>
+      case 'writing':      return <>{ribbon}<WritingTab unitId={unitId} /></>
+      case 'speaking':     return <>{ribbon}<SpeakingTab unitId={unitId} /></>
+      case 'pronunciation':return <>{ribbon}<PronunciationTab unitId={unitId} /></>
+      case 'assessment':   return <>{ribbon}<AssessmentTab unitId={unitId} /></>
+      case 'recording':    return <RecordingTab unitId={unitId} />
+      default:             return <>{ribbon}<ReadingTab unitId={unitId} /></>
     }
   }
 
@@ -446,6 +448,7 @@ export default function UnitContent() {
                 <MissionGrid
                   activities={unitData.activities}
                   onSelect={handleActivitySelect}
+                  unit={unit}
                 />
               </div>
 

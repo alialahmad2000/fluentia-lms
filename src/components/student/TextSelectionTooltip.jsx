@@ -208,6 +208,7 @@ export default function TextSelectionTooltip({
         setSaveState('saved')
         onWordSaved?.(tooltip.text)
         toast({ type: 'success', title: '✓ تمت الإضافة لمفرداتك' })
+        window.dispatchEvent(new CustomEvent('fluentia:vocab-added', { detail: { word: tooltip.text } }))
         setTimeout(() => setTooltip(null), 1500)
       }
     } catch { setSaveState('idle') }

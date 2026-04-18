@@ -24,6 +24,7 @@ import { supabase } from '@/lib/supabase'
 import { useActiveCompetition } from '@/hooks/useCompetition'
 
 const GeometricMesh = lazy(() => import('../backgrounds/GeometricMesh'))
+import VocabGainTicker from '../curriculum/VocabGainTicker'
 
 export default function LayoutShell() {
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -182,6 +183,7 @@ export default function LayoutShell() {
 
       {/* Floating elements */}
       <XPFloater />
+      <VocabGainTicker />
       <TimerBadge />
       <FloatingToolbar />
 
