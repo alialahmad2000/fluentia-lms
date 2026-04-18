@@ -16,6 +16,7 @@ export const STUDENT_NAV = {
         { id: 'curriculum',  label: 'المنهج',       icon: BookOpen,   to: '/student/curriculum' },
         { id: 'progress',    label: 'تقدّمي',       icon: BarChart3,  to: '/student/progress' },
         { id: 'flashcards',  label: 'المفردات',     icon: FileText,   to: '/student/flashcards' },
+        { id: 'ielts',       label: 'IELTS',         icon: Target,     to: '/student/ielts', requiresPackage: 'ielts' },
         { id: 'reports',     label: 'التقارير',     icon: CalendarClock, to: '/student/progress-reports' },
         { id: 'how-to-earn', label: 'كيف تكسب XP 🎯', icon: Target,   to: '/student/how-to-earn' },
       ],

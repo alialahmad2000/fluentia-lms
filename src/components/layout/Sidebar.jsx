@@ -57,7 +57,17 @@ function Sidebar({ nav, collapsed, onToggle }) {
 
       {/* Sections */}
       <div className="flex-1 overflow-y-auto overflow-x-hidden px-3 py-2 space-y-5">
-        {nav.sections.map((section) => (
+        {nav.sections.map((section) => {
+          const visibleItems = section.items.filter(item => {
+            if (!item.requiresPackage) return true
+            if (item.requiresPackage === 'ielts') {
+              return studentData?.package === 'ielts' ||
+                (Array.isArray(studentData?.custom_access) && studentData?.custom_access.includes('ielts'))
+            }
+            return true
+          })
+          if (visibleItems.length === 0) return null
+          return (
           <div key={section.id}>
             {!collapsed && (
               <div
@@ -68,7 +78,7 @@ function Sidebar({ nav, collapsed, onToggle }) {
               </div>
             )}
             <div className="space-y-0.5">
-              {section.items.map((item) => {
+              {visibleItems.map((item) => {
                 if (!item || !item.to || !item.icon) return null
                 const active = isActive(item.to)
                 const Icon = item.icon
@@ -116,7 +126,8 @@ function Sidebar({ nav, collapsed, onToggle }) {
               })}
             </div>
           </div>
-        ))}
+          )
+        })}
       </div>
 
       {/* User card */}
