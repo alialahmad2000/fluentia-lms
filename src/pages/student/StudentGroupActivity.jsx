@@ -1,22 +1,19 @@
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { UsersRound, Activity, Target, Trophy, Heart } from 'lucide-react'
+import { UsersRound, Activity, Trophy, Heart } from 'lucide-react'
 import StudentActivityFeed from './StudentActivityFeed'
-import StudentChallenges from './StudentChallenges'
 import StudentLeaderboard from './StudentLeaderboard'
 import StudentPeerRecognition from './StudentPeerRecognition'
 
 const TABS = [
   { key: 'activity', label: 'النشاط', icon: Activity },
-  { key: 'challenges', label: 'التحديات', icon: Target },
   { key: 'leaderboard', label: 'المتصدرين', icon: Trophy },
   { key: 'recognition', label: 'تقدير', icon: Heart },
 ]
 
 const TAB_COMPONENTS = {
   activity: StudentActivityFeed,
-  challenges: StudentChallenges,
   leaderboard: StudentLeaderboard,
   recognition: StudentPeerRecognition,
 }
