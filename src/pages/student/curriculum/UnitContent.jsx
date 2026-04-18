@@ -41,6 +41,8 @@ import {
   useUnitTheme,
 } from './unit-v2'
 import UnitBrief from './unit-v2/UnitBrief'
+import UnitDebrief from './unit-v2/components/debrief/UnitDebrief'
+import { useUnitSkillSnapshot } from './unit-v2/hooks/useUnitSkillSnapshot'
 
 const TABS = [
   { id: 'reading', label: 'القراءة' },
@@ -88,6 +90,10 @@ export default function UnitContent() {
   const [briefMode, setBriefMode] = useState('first-visit')
   const [showNotes, setShowNotes] = useState(false)
   const [showWords, setShowWords] = useState(false)
+  const [showDebrief, setShowDebrief] = useState(false)
+
+  const isImpersonating = useAuthStore(s => s.isImpersonating)
+  useUnitSkillSnapshot(unitId)
 
   // Particle type from unit theme
   const particleType = useUnitTheme(unit?.theme_en, unit?.theme_ar)
@@ -112,6 +118,20 @@ export default function UnitContent() {
       }
     }
   }, [unit?.id])
+
+  // Debrief trigger — show when all non-recording activities completed
+  useEffect(() => {
+    if (!isStudent || isImpersonating || !profile?.id || !unitId || !unitData.activities?.length) return
+    const debriefKey = `fluentia.unitDebrief.shown.${profile.id}.${unitId}`
+    if (localStorage.getItem(debriefKey)) return
+    const nonRecording = unitData.activities.filter(a => a.key !== 'recording')
+    if (nonRecording.length === 0) return
+    const allDone = nonRecording.every(a => a.status === 'completed')
+    if (allDone) {
+      localStorage.setItem(debriefKey, '1')
+      setShowDebrief(true)
+    }
+  }, [unitData.activities, isStudent, isImpersonating, profile?.id, unitId])
 
   // Bookmarks (preserved from V1)
   const { data: bookmarks = [] } = useQuery({
@@ -273,6 +293,13 @@ export default function UnitContent() {
           onSkip={() => { setShowBrief(false); if (briefMode === 'first-visit') setIntroSeen(true) }}
         />
       )}
+
+      {/* Unit Debrief — cinematic completion experience */}
+      <AnimatePresence>
+        {showDebrief && (
+          <UnitDebrief unitId={unitId} onClose={() => setShowDebrief(false)} />
+        )}
+      </AnimatePresence>
 
       {/* Ambient particles — behind everything */}
       <AmbientParticles type={particleType} />

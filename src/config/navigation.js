@@ -2,7 +2,7 @@ import {
   Home, BookOpen, PenLine, Mic, Users, Trophy,
   BookMarked, User, Settings, BarChart3, ClipboardList,
   Megaphone, CreditCard, GraduationCap, UserCog, Bot, FileText,
-  StickyNote, TrendingUp, Zap, CalendarClock, Swords, Target,
+  StickyNote, TrendingUp, Zap, CalendarClock, Swords, Target, Map,
 } from 'lucide-react'
 
 
@@ -19,6 +19,7 @@ export const STUDENT_NAV = {
         { id: 'ielts',       label: 'IELTS',         icon: Target,     to: '/student/ielts', requiresPackage: 'ielts' },
         { id: 'reports',     label: 'التقارير',     icon: CalendarClock, to: '/student/progress-reports' },
         { id: 'how-to-earn', label: 'كيف تكسب XP 🎯', icon: Target,   to: '/student/how-to-earn' },
+        { id: 'level-journey', label: 'خريطة رحلتكِ',  icon: Map,      to: '/student/level-journey' },
       ],
     },
     {
@@ -52,6 +53,7 @@ export const STUDENT_NAV = {
         { id: 'flashcards',   label: 'المفردات',     icon: FileText,     to: '/student/flashcards' },
         { id: 'reports',      label: 'التقارير',     icon: CalendarClock, to: '/student/progress-reports' },
         { id: 'how-to-earn',  label: 'كيف تكسب XP 🎯', icon: Target,    to: '/student/how-to-earn' },
+        { id: 'level-journey', label: 'خريطة رحلتكِ',   icon: Map,       to: '/student/level-journey' },
       ],
     },
     {
