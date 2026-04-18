@@ -77,6 +77,7 @@ const StudentProgressReports = lazyRetry(() => import('./pages/student/ProgressR
 const StudentReportView = lazyRetry(() => import('./pages/student/ReportView'))
 const StudentIELTSHub = lazyRetry(() => import('./pages/student/ielts/StudentIELTSHub'))
 const IELTSComingSoon = lazyRetry(() => import('./pages/student/ielts/IELTSComingSoon'))
+const DiagnosticFlow = lazyRetry(() => import('./pages/student/ielts/diagnostic/DiagnosticFlow'))
 
 const TrainerOnboarding = lazyRetry(() => import('./pages/trainer/TrainerOnboarding'))
 const TrainerDashboard = lazyRetry(() => import('./pages/trainer/TrainerDashboard'))
@@ -550,6 +551,7 @@ export default function App() {
               <Route path="/student/unit-mastery/:assessmentId" element={<Suspense fallback={null}><UnitMasteryPage /></Suspense>} />
               <Route path="/student/unit-mastery-result/:attemptId" element={<Suspense fallback={null}><UnitMasteryResultPage /></Suspense>} />
               <Route path="/student/ielts" element={<Page><StudentIELTSHub /></Page>} />
+              <Route path="/student/ielts/diagnostic" element={<Page><DiagnosticFlow /></Page>} />
               <Route path="/student/ielts/:section" element={<Page><IELTSComingSoon /></Page>} />
             </Route>
           </Route>

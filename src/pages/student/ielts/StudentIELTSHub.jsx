@@ -121,7 +121,7 @@ export default function StudentIELTSHub() {
       <NextActionCard
         plan={plan}
         hasTakenDiagnostic={hasTakenDiagnostic}
-        hasAnyProgress={(recentQ.data || []).length > 0}
+        inProgressAttempt={mocksQ.data?.inProgress}
         onNavigate={navigate}
       />
 
@@ -207,8 +207,27 @@ function HeroBandWidget({ currentBand, targetBand, examDate, onEditGoal, onStart
   )
 }
 
+const SECTION_LABELS = {
+  listening: 'الاستماع',
+  reading: 'القراءة',
+  writing: 'الكتابة',
+  speaking: 'المحادثة',
+  submitting: 'الإرسال',
+}
+
 // ─── NextActionCard ──────────────────────────────────────────
-function getNextAction({ plan, hasTakenDiagnostic }) {
+function getNextAction({ plan, hasTakenDiagnostic, inProgressAttempt }) {
+  // Case 0: has in-progress diagnostic → resume takes highest priority
+  if (inProgressAttempt?.status === 'in_progress') {
+    const sectionLabel = SECTION_LABELS[inProgressAttempt.current_section] || inProgressAttempt.current_section
+    return {
+      icon: '▶️',
+      title: 'تابع اختبارك التشخيصي',
+      description: `توقفت عند قسم ${sectionLabel}`,
+      cta: 'استئناف',
+      route: '/student/ielts/diagnostic',
+    }
+  }
   if (!hasTakenDiagnostic && !plan) {
     return { icon: '🎯', title: 'ابدأ رحلتك بالاختبار التشخيصي', description: 'سيساعدنا تحديد مستواك الحقيقي ورسم خطتك المخصصة.', cta: 'ابدأ الاختبار (45 دقيقة)', route: '/student/ielts/diagnostic' }
   }
@@ -222,8 +241,8 @@ function getNextAction({ plan, hasTakenDiagnostic }) {
   return { icon: '📚', title: 'تابع تدريبك', description: 'اختر مهارة وابدأ.', cta: 'اذهب للخطة', route: '/student/ielts/plan' }
 }
 
-function NextActionCard({ plan, hasTakenDiagnostic, onNavigate }) {
-  const action = getNextAction({ plan, hasTakenDiagnostic })
+function NextActionCard({ plan, hasTakenDiagnostic, inProgressAttempt, onNavigate }) {
+  const action = getNextAction({ plan, hasTakenDiagnostic, inProgressAttempt })
 
   return (
     <GlassPanel
