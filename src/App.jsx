@@ -85,28 +85,18 @@ const ReadingPassagePractice = lazyRetry(() => import('./pages/student/ielts/rea
 
 const TrainerOnboarding = lazyRetry(() => import('./pages/trainer/TrainerOnboarding'))
 const TrainerDashboard = lazyRetry(() => import('./pages/trainer/TrainerDashboard'))
-const TrainerAssignments = lazyRetry(() => import('./pages/trainer/TrainerAssignments'))
 const TrainerGrading = lazyRetry(() => import('./pages/trainer/TrainerGrading'))
-const TrainerNotes = lazyRetry(() => import('./pages/trainer/TrainerNotes'))
-const TrainerLibrary = lazyRetry(() => import('./pages/trainer/TrainerLibrary'))
-const TrainerQuickPoints = lazyRetry(() => import('./pages/trainer/TrainerQuickPoints'))
-const TrainerAttendance = lazyRetry(() => import('./pages/trainer/TrainerAttendance'))
-const TrainerQuickNotes = lazyRetry(() => import('./pages/trainer/TrainerQuickNotes'))
 const TrainerStudentView = lazyRetry(() => import('./pages/trainer/TrainerStudentView'))
-const TrainerTeams = lazyRetry(() => import('./pages/trainer/TrainerTeams'))
-const TrainerGroupChat = lazyRetry(() => import('./pages/trainer/TrainerGroupChat'))
-const TrainerAIAssistant = lazyRetry(() => import('./pages/trainer/TrainerAIAssistant'))
-const TrainerProgressReports = lazyRetry(() => import('./pages/trainer/TrainerProgressReports'))
-const ReportReview = lazyRetry(() => import('./pages/trainer/ReportReview'))
-const TrainerLessonPlanner = lazyRetry(() => import('./pages/trainer/TrainerLessonPlanner'))
-const TrainerQuizGenerator = lazyRetry(() => import('./pages/trainer/TrainerQuizGenerator'))
-const TrainerWeeklyGrading = lazyRetry(() => import('./pages/trainer/TrainerWeeklyGrading'))
 const TrainerCurriculum = lazyRetry(() => import('./pages/trainer/TrainerCurriculum'))
-const TrainerProgressMatrix = lazyRetry(() => import('./pages/trainer/TrainerProgressMatrix'))
-const MyNotes = lazyRetry(() => import('./pages/trainer/MyNotes'))
-const WeeklyReport = lazyRetry(() => import('./pages/trainer/WeeklyReport'))
-const MyStudents = lazyRetry(() => import('./pages/trainer/MyStudents'))
+const ReportReview = lazyRetry(() => import('./pages/trainer/ReportReview'))
 const StudentProgressDetail = lazyRetry(() => import('./pages/trainer/StudentProgressDetail'))
+// Trainer V2 placeholder pages
+const InterventionsPage = lazyRetry(() => import('./pages/trainer/v2/InterventionsPage'))
+const ClassPrepPage = lazyRetry(() => import('./pages/trainer/v2/ClassPrepPage'))
+const LiveClassPage = lazyRetry(() => import('./pages/trainer/v2/LiveClassPage'))
+const CompetitionCommandPage = lazyRetry(() => import('./pages/trainer/v2/CompetitionCommandPage'))
+const MyGrowthPage = lazyRetry(() => import('./pages/trainer/v2/MyGrowthPage'))
+const NabihPage = lazyRetry(() => import('./pages/trainer/v2/NabihPage'))
 
 const AdminDashboard = lazyRetry(() => import('./pages/admin/AdminDashboard'))
 const AdminStudents = lazyRetry(() => import('./pages/admin/AdminStudents'))
@@ -572,38 +562,50 @@ export default function App() {
               </ErrorBoundary>
             } />
             <Route element={<ErrorBoundary><TrainerOnboardingGuard><TrainerLayout /></TrainerOnboardingGuard></ErrorBoundary>}>
+              {/* ── V2: real pages (existing components, swapped in T3/T6/T7) ── */}
               <Route path="/trainer" element={<Page><TrainerDashboard /></Page>} />
-              <Route path="/trainer/assignments" element={<Page><TrainerAssignments /></Page>} />
-              <Route path="/trainer/writing" element={<Page><TrainerGrading /></Page>} />
               <Route path="/trainer/grading" element={<Page><TrainerGrading /></Page>} />
-              <Route path="/trainer/notes" element={<Page><TrainerNotes /></Page>} />
-              <Route path="/trainer/library" element={<Page><TrainerLibrary /></Page>} />
-              <Route path="/trainer/points" element={<Page><TrainerQuickPoints /></Page>} />
-              <Route path="/trainer/attendance" element={<Page><TrainerAttendance /></Page>} />
-              <Route path="/trainer/student-notes" element={<Page><TrainerQuickNotes /></Page>} />
               <Route path="/trainer/students" element={<Page><TrainerStudentView /></Page>} />
-              <Route path="/trainer/teams" element={<Page><TrainerTeams /></Page>} />
-              <Route path="/trainer/chat" element={<Page><TrainerGroupChat /></Page>} />
-              <Route path="/trainer/messages" element={<Page><StudentMessages /></Page>} />
-              <Route path="/trainer/ai-assistant" element={<Page><TrainerAIAssistant /></Page>} />
-              <Route path="/trainer/reports" element={<Page><TrainerProgressReports /></Page>} />
-              <Route path="/trainer/progress-reports/:id/review" element={<Page><ReportReview /></Page>} />
-              <Route path="/trainer/lesson-planner" element={<Page><TrainerLessonPlanner /></Page>} />
-              <Route path="/trainer/quiz" element={<Page><TrainerQuizGenerator /></Page>} />
-              <Route path="/trainer/weekly-grading" element={<Page><TrainerWeeklyGrading /></Page>} />
               <Route path="/trainer/curriculum" element={<Page><TrainerCurriculum /></Page>} />
-              <Route path="/trainer/progress-matrix" element={<Page><TrainerProgressMatrix /></Page>} />
+
+              {/* ── V2: new placeholder pages ── */}
+              <Route path="/trainer/interventions" element={<Page><InterventionsPage /></Page>} />
+              <Route path="/trainer/prep" element={<Page><ClassPrepPage /></Page>} />
+              <Route path="/trainer/live" element={<Page><LiveClassPage /></Page>} />
+              <Route path="/trainer/competition" element={<Page><CompetitionCommandPage /></Page>} />
+              <Route path="/trainer/my-growth" element={<Page><MyGrowthPage /></Page>} />
+              <Route path="/trainer/nabih" element={<Page><NabihPage /></Page>} />
+              <Route path="/trainer/nabih/:conversationId" element={<Page><NabihPage /></Page>} />
+              <Route path="/trainer/students/:studentId" element={<Page><TrainerStudentView /></Page>} />
+
+              {/* ── Keep as-is: still functional ── */}
+              <Route path="/trainer/progress-reports/:id/review" element={<Page><ReportReview /></Page>} />
               <Route path="/trainer/student-curriculum" element={<Page><TrainerCurriculumPreview><CurriculumBrowser /></TrainerCurriculumPreview></Page>} />
               <Route path="/trainer/student-curriculum/level/:levelNumber" element={<Page><TrainerCurriculumPreview><LevelUnits /></TrainerCurriculumPreview></Page>} />
               <Route path="/trainer/student-curriculum/unit/:unitId" element={<Page><TrainerCurriculumPreview><UnitContent /></TrainerCurriculumPreview></Page>} />
               <Route path="/trainer/interactive-curriculum" element={<Page><InteractiveCurriculumLevels /></Page>} />
               <Route path="/trainer/interactive-curriculum/:levelId" element={<Page><InteractiveCurriculumUnits /></Page>} />
               <Route path="/trainer/interactive-curriculum/:levelId/:unitId" element={<Page><InteractiveCurriculumPage /></Page>} />
-              <Route path="/trainer/my-notes" element={<Page><MyNotes /></Page>} />
-              <Route path="/trainer/weekly-report" element={<Page><WeeklyReport /></Page>} />
-              <Route path="/trainer/my-students" element={<Page><MyStudents /></Page>} />
               <Route path="/trainer/student/:studentId/progress" element={<Page><StudentProgressDetail /></Page>} />
               <Route path="/trainer/student/:studentId" element={<Page><StudentProgressDetail /></Page>} />
+
+              {/* ── Redirects: 19 legacy routes → V2 equivalents ── */}
+              {['/trainer/notes', '/trainer/library', '/trainer/points',
+                '/trainer/chat', '/trainer/messages', '/trainer/my-notes',
+                '/trainer/weekly-report'].map(p => (
+                <Route key={p} path={p} element={<Navigate to="/trainer" replace />} />
+              ))}
+              {['/trainer/assignments', '/trainer/writing', '/trainer/weekly-grading'].map(p => (
+                <Route key={p} path={p} element={<Navigate to="/trainer/grading" replace />} />
+              ))}
+              {['/trainer/student-notes', '/trainer/teams', '/trainer/reports',
+                '/trainer/progress-matrix', '/trainer/my-students'].map(p => (
+                <Route key={p} path={p} element={<Navigate to="/trainer/students" replace />} />
+              ))}
+              {['/trainer/attendance', '/trainer/lesson-planner', '/trainer/quiz'].map(p => (
+                <Route key={p} path={p} element={<Navigate to="/trainer/prep" replace />} />
+              ))}
+              <Route path="/trainer/ai-assistant" element={<Navigate to="/trainer/nabih" replace />} />
             </Route>
           </Route>
 

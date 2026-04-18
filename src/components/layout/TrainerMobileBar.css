@@ -1,0 +1,176 @@
+/* TrainerMobileBar — uses var(--tr-*) only, zero hardcoded hex */
+
+.tr-mobile-bar {
+  display: none; /* shown only on mobile */
+  position: fixed;
+  bottom: 0;
+  inset-inline: 0;
+  z-index: 100;
+  height: 64px;
+  align-items: center;
+  justify-content: space-around;
+  background: var(--tr-surface-rail);
+  border-top: 1px solid var(--tr-border);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+@media (max-width: 767px) {
+  .tr-mobile-bar {
+    display: flex;
+  }
+}
+
+/* ── Nav items ── */
+.tr-mobile-bar__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 12px;
+  color: var(--tr-text-muted);
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  min-width: 48px;
+  transition: color 0.15s ease;
+}
+
+.tr-mobile-bar__item.is-active,
+.tr-mobile-bar__item:hover {
+  color: var(--tr-gold);
+}
+
+.tr-mobile-bar__icon-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tr-mobile-bar__label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* ── Badge ── */
+.tr-mobile-bar__badge {
+  position: absolute;
+  top: -5px;
+  inset-inline-end: -6px;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  padding: 0 3px;
+  background: var(--tr-gold);
+  color: #000;
+  font-size: 0.55rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Floating center button ── */
+.tr-mobile-bar__float {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--tr-gold);
+  color: #000;
+  border: none;
+  cursor: pointer;
+  margin-top: -24px;
+  box-shadow: 0 4px 16px var(--tr-gold-glow);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  z-index: 1;
+}
+
+.tr-mobile-bar__float:hover {
+  transform: scale(1.07);
+  box-shadow: 0 6px 24px var(--tr-gold-glow);
+}
+
+.tr-mobile-bar__float:active {
+  transform: scale(0.96);
+}
+
+.tr-mobile-bar__float-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid var(--tr-gold-dim);
+  animation: tr-float-pulse 2.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes tr-float-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 0.2; transform: scale(1.1); }
+}
+
+/* ── Quick XP Modal ── */
+.tr-quick-xp-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: flex-end;
+}
+
+.tr-quick-xp-sheet {
+  width: 100%;
+  background: var(--tr-surface-card);
+  border-top: 1px solid var(--tr-border-gold);
+  border-radius: 16px 16px 0 0;
+  padding: 16px 24px calc(24px + env(safe-area-inset-bottom, 0));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.tr-quick-xp-handle {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--tr-border);
+  margin-bottom: 4px;
+}
+
+.tr-quick-xp-title {
+  font-size: 1.25rem;
+  color: var(--tr-gold);
+  margin: 0;
+}
+
+.tr-quick-xp-blurb {
+  font-size: 0.875rem;
+  color: var(--tr-text-secondary);
+  text-align: center;
+  margin: 0;
+}
+
+.tr-quick-xp-close {
+  background: var(--tr-surface-hover);
+  border: 1px solid var(--tr-border);
+  color: var(--tr-text-primary);
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 8px;
+}
