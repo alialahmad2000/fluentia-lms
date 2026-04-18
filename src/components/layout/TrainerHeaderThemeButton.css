@@ -1,0 +1,85 @@
+.tr-theme-btn {
+  position: relative;
+}
+
+.tr-theme-btn__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--tr-border);
+  background: var(--tr-bg-surface);
+  color: var(--tr-text-muted);
+  cursor: pointer;
+  transition: border-color var(--tr-dur-fast) var(--tr-ease),
+              color var(--tr-dur-fast) var(--tr-ease),
+              background var(--tr-dur-fast) var(--tr-ease);
+}
+
+.tr-theme-btn__trigger:hover {
+  border-color: var(--tr-border-strong);
+  color: var(--tr-primary);
+  background: var(--tr-bg-surface-2);
+}
+
+.tr-theme-btn__trigger:focus-visible {
+  outline: 2px solid var(--tr-primary);
+  outline-offset: 2px;
+}
+
+.tr-theme-btn__menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  inset-inline-end: 0;
+  min-width: 200px;
+  border-radius: 14px;
+  background: var(--tr-glass-elevated, var(--tr-bg-elevated));
+  border: 1px solid var(--tr-border-strong);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  overflow: hidden;
+  z-index: 200;
+  padding: 6px;
+}
+
+.tr-theme-btn__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 9px;
+  border: none;
+  background: transparent;
+  color: var(--tr-text-secondary);
+  font-family: var(--tr-font-ar);
+  font-size: 13px;
+  font-weight: var(--tr-weight-body);
+  cursor: pointer;
+  text-align: start;
+  transition: background var(--tr-dur-fast) var(--tr-ease),
+              color var(--tr-dur-fast) var(--tr-ease);
+}
+
+.tr-theme-btn__item:hover {
+  background: var(--tr-bg-surface-2);
+  color: var(--tr-text-primary);
+}
+
+.tr-theme-btn__item:focus-visible {
+  outline: 2px solid var(--tr-primary);
+  outline-offset: -2px;
+}
+
+.tr-theme-btn__item.is-active {
+  background: var(--tr-bg-surface-2);
+  color: var(--tr-primary);
+  font-weight: var(--tr-weight-strong);
+}
+
+.tr-theme-btn__item .tr-gold-dot {
+  margin-inline-start: auto;
+}

@@ -1,0 +1,9 @@
+.tr-gold-dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--tr-primary);
+  box-shadow: 0 0 12px var(--tr-primary);
+  vertical-align: middle;
+}

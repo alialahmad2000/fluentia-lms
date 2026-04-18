@@ -4,6 +4,7 @@ import { useAuthStore } from './stores/authStore'
 import { supabase } from './lib/supabase'
 import LoginPage from './pages/public/LoginPage'
 import LayoutShell from './components/layout/LayoutShell'
+import TrainerLayout from './layouts/TrainerLayout'
 import OnboardingModal from './components/onboarding/OnboardingModal'
 import ForcePasswordChange from './components/onboarding/ForcePasswordChange'
 import GamificationProvider from './components/gamification/GamificationProvider'
@@ -564,7 +565,7 @@ export default function App() {
                 <Suspense fallback={<LoadingSkeleton />}><TrainerOnboarding /></Suspense>
               </ErrorBoundary>
             } />
-            <Route element={<ErrorBoundary><TrainerOnboardingGuard><LayoutShell /></TrainerOnboardingGuard></ErrorBoundary>}>
+            <Route element={<ErrorBoundary><TrainerOnboardingGuard><TrainerLayout /></TrainerOnboardingGuard></ErrorBoundary>}>
               <Route path="/trainer" element={<Page><TrainerDashboard /></Page>} />
               <Route path="/trainer/assignments" element={<Page><TrainerAssignments /></Page>} />
               <Route path="/trainer/writing" element={<Page><TrainerGrading /></Page>} />

@@ -1,0 +1,22 @@
+.tr-command-card {
+  position: relative;
+  border-radius: 16px;
+  background: var(--tr-card-bg);
+  border: var(--tr-card-border);
+  box-shadow: var(--tr-card-shadow);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform var(--tr-dur) var(--tr-ease),
+              border-color var(--tr-dur) var(--tr-ease),
+              box-shadow var(--tr-dur) var(--tr-ease);
+}
+
+.tr-command-card:hover {
+  border-color: var(--tr-border-strong);
+}
+
+.tr-command-card--elevated {
+  background: var(--tr-glass-elevated);
+  box-shadow: 0 1px 0 rgba(245,158,11,0.14) inset,
+              0 32px 64px -24px rgba(0,0,0,0.72);
+}

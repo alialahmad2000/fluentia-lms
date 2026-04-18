@@ -1,0 +1,18 @@
+.tr-rail-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  background: var(--tr-glass);
+  border: 1px solid var(--tr-border);
+  border-radius: 20px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  min-height: min(calc(100vh - 120px), 720px);
+}
+
+@media (max-width: 1023px) {
+  .tr-rail-panel {
+    min-height: 0;
+  }
+}

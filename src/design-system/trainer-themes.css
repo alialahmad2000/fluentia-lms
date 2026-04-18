@@ -1,0 +1,207 @@
+/* ============================================
+   FLUENTIA TRAINER THEMES — Gold Command Family
+   Separate namespace from student themes.
+   All vars prefixed --tr-* (never --ds-*).
+   Applied via body.trainer-role + theme class.
+   ============================================ */
+
+/* ── Base tokens (Gold Command defaults) ── */
+body.trainer-role {
+  --tr-bg-base:       #0a0a0a;
+  --tr-bg-elevated:   #151515;
+  --tr-bg-surface:    rgba(245, 158, 11, 0.04);
+  --tr-bg-surface-2:  rgba(245, 158, 11, 0.08);
+
+  --tr-primary-50:    #fffbeb;
+  --tr-primary-100:   #fef3c7;
+  --tr-primary-300:   #fcd34d;
+  --tr-primary-400:   #fbbf24;
+  --tr-primary-500:   #f59e0b;
+  --tr-primary-600:   #d97706;
+  --tr-primary-700:   #b45309;
+  --tr-primary:       var(--tr-primary-500);
+
+  --tr-secondary-300: #5eead4;
+  --tr-secondary-400: #2dd4bf;
+  --tr-secondary-500: #14b8a6;
+  --tr-secondary:     var(--tr-secondary-400);
+
+  --tr-success:       #34d399;
+  --tr-warning:       #fbbf24;
+  --tr-danger:        #fb7185;
+  --tr-info:          #60a5fa;
+
+  --tr-text-primary:    #fafafa;
+  --tr-text-secondary:  #d4d4d8;
+  --tr-text-muted:      #a1a1aa;
+  --tr-text-subtle:     #71717a;
+
+  --tr-border:          rgba(245, 158, 11, 0.12);
+  --tr-border-strong:   rgba(245, 158, 11, 0.24);
+  --tr-divider:         rgba(245, 158, 11, 0.08);
+
+  --tr-glass:           rgba(20, 20, 20, 0.72);
+  --tr-glass-elevated:  rgba(28, 28, 28, 0.85);
+  --tr-card-bg:         linear-gradient(135deg, rgba(30,30,30,0.85), rgba(20,20,20,0.85));
+  --tr-card-border:     1px solid rgba(245, 158, 11, 0.14);
+  --tr-card-shadow:     0 1px 0 rgba(245,158,11,0.08) inset, 0 20px 40px -20px rgba(0,0,0,0.6);
+
+  --tr-spotlight:       radial-gradient(600px circle at var(--sx, 50%) var(--sy, 50%),
+                                        rgba(245, 158, 11, 0.10),
+                                        transparent 40%);
+
+  --tr-pattern-color:   rgba(245, 158, 11, 0.03);
+  --tr-pattern-stroke:  rgba(245, 158, 11, 0.06);
+
+  --tr-ease:            cubic-bezier(0.22, 1, 0.36, 1);
+  --tr-dur-fast:        180ms;
+  --tr-dur:             320ms;
+  --tr-dur-slow:        560ms;
+
+  --tr-font-ar:         'Cairo', 'Tajawal', sans-serif;
+  --tr-font-en:         'Inter', 'Cairo', sans-serif;
+  --tr-weight-body:     500;
+  --tr-weight-strong:   700;
+  --tr-weight-display:  800;
+}
+
+/* ============================================
+   THEME 1: Gold Command (Default)
+   ============================================ */
+body.trainer-role.theme-gold-command {
+  /* Uses base defaults above */
+}
+
+/* ============================================
+   THEME 2: Deep Teal (نيلة هادئة)
+   ============================================ */
+body.trainer-role.theme-deep-teal {
+  --tr-bg-base:         #040e12;
+  --tr-bg-elevated:     #0c1b20;
+
+  --tr-primary-500:     #2dd4bf;
+  --tr-primary-400:     #5eead4;
+  --tr-primary:         var(--tr-primary-500);
+
+  --tr-secondary-400:   #fbbf24;
+  --tr-secondary:       var(--tr-secondary-400);
+
+  --tr-border:          rgba(45, 212, 191, 0.12);
+  --tr-border-strong:   rgba(45, 212, 191, 0.24);
+  --tr-divider:         rgba(45, 212, 191, 0.08);
+
+  --tr-glass:           rgba(8, 22, 27, 0.72);
+  --tr-card-bg:         linear-gradient(135deg, rgba(14,30,35,0.85), rgba(6,18,22,0.85));
+  --tr-card-border:     1px solid rgba(45, 212, 191, 0.14);
+
+  --tr-spotlight:       radial-gradient(600px circle at var(--sx, 50%) var(--sy, 50%),
+                                        rgba(45, 212, 191, 0.10),
+                                        transparent 40%);
+  --tr-pattern-color:   rgba(45, 212, 191, 0.03);
+  --tr-pattern-stroke:  rgba(45, 212, 191, 0.06);
+}
+
+/* ============================================
+   THEME 3: Daylight Study (نور نهاري — Light)
+   ============================================ */
+body.trainer-role.theme-daylight-study {
+  --tr-bg-base:         #fafaf5;
+  --tr-bg-elevated:     #ffffff;
+  --tr-bg-surface:      rgba(245, 158, 11, 0.04);
+
+  --tr-primary-500:     #b45309;
+  --tr-primary-400:     #d97706;
+  --tr-primary:         var(--tr-primary-500);
+
+  --tr-secondary-400:   #0f766e;
+  --tr-secondary:       var(--tr-secondary-400);
+
+  --tr-text-primary:    #18181b;
+  --tr-text-secondary:  #3f3f46;
+  --tr-text-muted:      #71717a;
+  --tr-text-subtle:     #a1a1aa;
+
+  --tr-border:          rgba(180, 83, 9, 0.14);
+  --tr-border-strong:   rgba(180, 83, 9, 0.26);
+  --tr-divider:         rgba(180, 83, 9, 0.10);
+
+  --tr-glass:           rgba(255, 255, 255, 0.85);
+  --tr-glass-elevated:  rgba(255, 253, 245, 0.95);
+  --tr-card-bg:         linear-gradient(135deg, #ffffff, #fefaf0);
+  --tr-card-border:     1px solid rgba(180, 83, 9, 0.14);
+  --tr-card-shadow:     0 1px 0 rgba(180,83,9,0.08) inset, 0 8px 24px -12px rgba(120,70,20,0.18);
+
+  --tr-spotlight:       radial-gradient(600px circle at var(--sx, 50%) var(--sy, 50%),
+                                        rgba(180, 83, 9, 0.07),
+                                        transparent 40%);
+  --tr-pattern-color:   rgba(180, 83, 9, 0.03);
+  --tr-pattern-stroke:  rgba(180, 83, 9, 0.08);
+}
+
+/* ============================================
+   THEME 4: Mission Black (ليل المهمة)
+   Auto-applied during Live Class only.
+   ============================================ */
+body.trainer-role.theme-mission-black {
+  --tr-bg-base:         #000000;
+  --tr-bg-elevated:     #0a0a0a;
+
+  --tr-primary-500:     #fbbf24;
+  --tr-primary:         var(--tr-primary-500);
+
+  --tr-text-primary:    #ffffff;
+  --tr-text-secondary:  #e4e4e7;
+  --tr-text-muted:      #a1a1aa;
+
+  --tr-border:          rgba(251, 191, 36, 0.18);
+  --tr-border-strong:   rgba(251, 191, 36, 0.32);
+
+  --tr-glass:           rgba(0, 0, 0, 0.88);
+  --tr-card-bg:         rgba(10, 10, 10, 0.92);
+
+  --tr-spotlight:       none;
+  --tr-pattern-color:   transparent;
+  --tr-pattern-stroke:  transparent;
+}
+
+/* ============================================
+   Global trainer base
+   ============================================ */
+body.trainer-role {
+  background: var(--tr-bg-base);
+  color: var(--tr-text-primary);
+  font-family: var(--tr-font-ar);
+}
+
+body.trainer-role h1,
+body.trainer-role h2,
+body.trainer-role .tr-display {
+  font-weight: var(--tr-weight-display);
+  letter-spacing: -0.02em;
+}
+
+body.trainer-role .tr-strong {
+  font-weight: var(--tr-weight-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.trainer-role {
+    --tr-dur-fast: 0ms;
+    --tr-dur: 0ms;
+    --tr-dur-slow: 0ms;
+  }
+}
+
+/* ============================================
+   Utilities
+   ============================================ */
+.tr-gold-glow {
+  box-shadow: 0 0 0 1px var(--tr-border-strong),
+              0 12px 32px -12px rgba(245, 158, 11, 0.24);
+}
+
+.tr-divider-gold {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--tr-border-strong), transparent);
+  border: 0;
+}

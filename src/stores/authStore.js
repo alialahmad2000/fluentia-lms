@@ -268,6 +268,8 @@ export const useAuthStore = create((set, get) => ({
     }
   },
 
+  setProfile: (profile) => set({ profile }),
+
   // Helpers
   isAdmin: () => {
     const s = get()

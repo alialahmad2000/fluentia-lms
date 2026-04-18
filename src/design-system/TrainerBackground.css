@@ -1,0 +1,55 @@
+.trainer-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.trainer-bg > * {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.trainer-bg__base {
+  background: var(--tr-bg-base);
+}
+
+.trainer-bg__pattern {
+  width: 140%;
+  height: 140%;
+  left: -20%;
+  top: -20%;
+  opacity: 0.55;
+  animation: tr-rotate 240s linear infinite;
+  transform-origin: center;
+  will-change: transform;
+}
+
+@keyframes tr-rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trainer-bg__pattern { animation: none; }
+}
+
+.trainer-bg__spotlight {
+  background: var(--tr-spotlight);
+  transition: background 120ms linear;
+}
+
+.trainer-bg__vignette {
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.35) 100%);
+}
+
+body.trainer-role.theme-daylight-study .trainer-bg__vignette {
+  background: radial-gradient(ellipse at center, transparent 60%, rgba(180,83,9,0.08) 100%);
+}
+
+body.trainer-role.theme-mission-black .trainer-bg__pattern,
+body.trainer-role.theme-mission-black .trainer-bg__spotlight {
+  display: none;
+}
