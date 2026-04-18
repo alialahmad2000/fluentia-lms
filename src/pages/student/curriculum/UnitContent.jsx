@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef, useCallback, Suspense } from 'react
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, Check } from 'lucide-react'
+import { ArrowRight, Check, BookOpen } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import { supabase } from '../../../lib/supabase'
 import { tracker } from '../../../services/activityTracker'
@@ -39,6 +39,7 @@ import {
   useUnitData,
   useUnitTheme,
 } from './unit-v2'
+import UnitBrief from './unit-v2/UnitBrief'
 
 const TABS = [
   { id: 'reading', label: 'القراءة' },
@@ -82,11 +83,24 @@ export default function UnitContent() {
   // V2 state
   const [trophyOpen, setTrophyOpen] = useState(false)
   const [introSeen, setIntroSeen] = useState(false)
+  const [showBrief, setShowBrief] = useState(false)
+  const [briefMode, setBriefMode] = useState('first-visit')
   const [showNotes, setShowNotes] = useState(false)
   const [showWords, setShowWords] = useState(false)
 
   // Particle type from unit theme
   const particleType = useUnitTheme(unit?.theme_en, unit?.theme_ar)
+
+  // Check if Brief already seen for this student+unit — auto-show if not
+  useEffect(() => {
+    if (unit?.id && profile?.id && isStudent && !unitDataLoading) {
+      const briefKey = `fluentia.unitBrief.seen.${profile.id}.${unit.id}`
+      if (!localStorage.getItem(briefKey)) {
+        setBriefMode('first-visit')
+        setShowBrief(true)
+      }
+    }
+  }, [unit?.id, profile?.id, isStudent, unitDataLoading])
 
   // Check if intro already seen
   useEffect(() => {
@@ -248,11 +262,21 @@ export default function UnitContent() {
   return (
     <div dir="rtl" style={{ minHeight: '100dvh', position: 'relative' }}>
 
+      {/* Unit Brief — full-screen cinematic pre-unit experience */}
+      {showBrief && unit && (
+        <UnitBrief
+          unitId={unit.id}
+          mode={briefMode}
+          onStart={() => { setShowBrief(false); if (briefMode === 'first-visit') setIntroSeen(true) }}
+          onSkip={() => { setShowBrief(false); if (briefMode === 'first-visit') setIntroSeen(true) }}
+        />
+      )}
+
       {/* Ambient particles — behind everything */}
       <AmbientParticles type={particleType} />
 
-      {/* Unit intro cinematic — first visit only */}
-      {unit && !introSeen && (
+      {/* Unit intro cinematic — first visit only (skip when Brief is active) */}
+      {unit && !introSeen && !showBrief && (
         <UnitIntroCinematic
           unit={unit}
           onDone={() => setIntroSeen(true)}
@@ -282,10 +306,31 @@ export default function UnitContent() {
               {activeActivity ? 'العودة للوحدة' : 'العودة'}
             </button>
 
-            <TrophyButton
-              rank={currentRank}
-              onClick={() => setTrophyOpen(true)}
-            />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <button
+                type="button"
+                onClick={() => { setBriefMode('replay'); setShowBrief(true) }}
+                aria-label="استعرض الوحدة"
+                title="استعرض إيجاز الوحدة"
+                style={{
+                  background: 'rgba(255,255,255,0.04)',
+                  border: `1px solid ${V1.border}`,
+                  borderRadius: '12px',
+                  padding: '10px',
+                  color: V1.textDim,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <BookOpen size={18} />
+              </button>
+              <TrophyButton
+                rank={currentRank}
+                onClick={() => setTrophyOpen(true)}
+              />
+            </div>
           </div>
 
           {/* Unit title block */}
