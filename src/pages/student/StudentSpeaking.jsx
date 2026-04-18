@@ -1,7 +1,7 @@
 import { useState, lazy, Suspense } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Mic, CheckCircle2, Circle, BookOpen, Headphones, MessageSquare, SpellCheck, BrainCircuit, ChevronDown, ChevronUp, AlertCircle, Sparkles, ArrowRight, Loader2 } from 'lucide-react'
+import { Mic, CheckCircle2, Circle, BookOpen, Headphones, SpellCheck, BrainCircuit, ChevronDown, ChevronUp, AlertCircle, Sparkles, ArrowRight, Loader2 } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
@@ -10,14 +10,12 @@ import SubTabs from '../../components/common/SubTabs'
 // Lazy-load sub-tab content
 const StudentVoiceJournal = lazy(() => import('./StudentVoiceJournal'))
 const StudentPronunciation = lazy(() => import('./StudentPronunciation'))
-const StudentConversation = lazy(() => import('./StudentConversation'))
 const StudentSpelling = lazy(() => import('./StudentSpelling'))
 
 const TABS = [
   { key: 'topics', label: 'المحادثة', icon: Mic },
   { key: 'journal', label: 'يوميات صوتية', icon: BookOpen },
   { key: 'pronunciation', label: 'مدرب النطق', icon: Headphones },
-  { key: 'conversation', label: 'محاكي المحادثات', icon: MessageSquare },
   { key: 'spelling', label: 'مدرب الإملاء', icon: SpellCheck },
 ]
 
@@ -51,7 +49,6 @@ export default function StudentSpeaking() {
         {activeTab === 'topics' && <SpeakingTopics />}
         {activeTab === 'journal' && <StudentVoiceJournal />}
         {activeTab === 'pronunciation' && <StudentPronunciation />}
-        {activeTab === 'conversation' && <StudentConversation />}
         {activeTab === 'spelling' && <StudentSpelling />}
       </Suspense>
     </div>

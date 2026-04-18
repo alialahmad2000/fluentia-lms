@@ -246,8 +246,7 @@ export default function ReviewOverlay({ isOpen, onClose, words: initialWords }) 
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             className="fixed bottom-0 left-0 right-0 px-4 pt-4"
-            style={{ paddingBottom: 'calc(24px + var(--sab))' }}
-            style={{ background: 'linear-gradient(transparent, rgba(2,6,23,0.95) 20%)' }}
+            style={{ paddingBottom: 'calc(24px + var(--sab))', background: 'linear-gradient(transparent, rgba(2,6,23,0.95) 20%)' }}
           >
             <div className="grid grid-cols-4 gap-2 max-w-md mx-auto">
               {GRADES.map(g => (
