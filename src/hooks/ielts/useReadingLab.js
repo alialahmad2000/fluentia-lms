@@ -200,3 +200,27 @@ export function useSubmitReadingSession() {
     },
   })
 }
+
+// Count of published passages per question type (for skill card availability badges)
+export function useQuestionTypeAvailability() {
+  return useQuery({
+    queryKey: ['ielts-reading-type-availability'],
+    staleTime: 5 * 60 * 1000,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('ielts_reading_passages')
+        .select('questions')
+        .eq('is_published', true)
+      if (error) throw error
+      const counts = {}
+      for (const p of data || []) {
+        if (!Array.isArray(p.questions)) continue
+        const typesInPassage = new Set(p.questions.map(q => q.type).filter(Boolean))
+        for (const t of typesInPassage) {
+          counts[t] = (counts[t] || 0) + 1
+        }
+      }
+      return counts
+    },
+  })
+}

@@ -5,7 +5,7 @@ import { BookOpen, ChevronLeft, Lock, AlertTriangle, Clock } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
 import { GlassPanel } from '@/design-system/components'
 import {
-  useReadingSkills, useReadingProgress, useRecentReadingSessions,
+  useReadingSkills, useReadingProgress, useRecentReadingSessions, useQuestionTypeAvailability,
 } from '@/hooks/ielts/useReadingLab'
 
 function formatRelative(dateStr) {
@@ -81,20 +81,22 @@ function WeakAreasSpotlight({ weakTypes, onSelect }) {
 }
 
 // ─── SkillCard ───────────────────────────────────────────────
-function SkillCard({ skill, prog, onClick }) {
+function SkillCard({ skill, prog, passageCount, onClick }) {
   const band = prog?.estimated_band
   const attempts = prog?.attempts_count || 0
   const pct = band ? Math.min(100, Math.round((Number(band) / 9) * 100)) : 0
   const bandColor = band ? (band >= 7 ? '#4ade80' : band >= 5.5 ? '#38bdf8' : '#fb923c') : 'var(--text-tertiary)'
+  const hasContent = passageCount > 0
 
   return (
     <GlassPanel
-      hover
+      hover={hasContent}
       style={{
-        padding: 16, cursor: 'pointer',
+        padding: 16, cursor: hasContent ? 'pointer' : 'default',
         border: band ? `1px solid ${bandColor}22` : '1px solid rgba(255,255,255,0.06)',
+        opacity: hasContent ? 1 : 0.55,
       }}
-      onClick={onClick}
+      onClick={hasContent ? onClick : undefined}
     >
       <div style={{ marginBottom: 8 }}>
         <p style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'Tajawal', marginBottom: 2 }}>
@@ -112,9 +114,12 @@ function SkillCard({ skill, prog, onClick }) {
           {attempts > 0 ? `${attempts} جلسة` : 'لم تبدأ بعد'}
         </span>
       </div>
-      <div style={{ height: 3, background: 'rgba(255,255,255,0.06)', borderRadius: 99, overflow: 'hidden' }}>
+      <div style={{ height: 3, background: 'rgba(255,255,255,0.06)', borderRadius: 99, overflow: 'hidden', marginBottom: 6 }}>
         <div style={{ height: '100%', width: `${pct}%`, background: bandColor, borderRadius: 99, opacity: pct > 0 ? 1 : 0, transition: 'width 0.5s ease' }} />
       </div>
+      <p style={{ fontSize: 10, color: hasContent ? 'rgba(56,189,248,0.6)' : 'var(--text-tertiary)', fontFamily: 'Tajawal' }}>
+        {hasContent ? `${passageCount} نص متاح` : 'لا يوجد محتوى بعد'}
+      </p>
     </GlassPanel>
   )
 }
@@ -182,6 +187,7 @@ export default function ReadingLab() {
   const skillsQ = useReadingSkills()
   const progressQ = useReadingProgress(studentId)
   const sessionsQ = useRecentReadingSessions(studentId, 10)
+  const availabilityQ = useQuestionTypeAvailability()
 
   const hasAccess = useMemo(() => {
     if (!studentData) return false
@@ -192,6 +198,7 @@ export default function ReadingLab() {
 
   const skills = skillsQ.data || []
   const progress = progressQ.data || {}
+  const availability = availabilityQ.data || {}
 
   const overallBand = useMemo(() => {
     const bands = Object.values(progress).map(p => p.estimated_band).filter(b => b != null)
@@ -277,6 +284,7 @@ export default function ReadingLab() {
               key={skill.question_type}
               skill={skill}
               prog={progress[skill.question_type]}
+              passageCount={availability[skill.question_type] || 0}
               onClick={() => navigate(`/student/ielts/reading/skill/${skill.question_type}`)}
             />
           ))}

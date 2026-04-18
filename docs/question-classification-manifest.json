@@ -1,0 +1,2414 @@
+{
+  "generated_at": "2026-04-18T16:31:49.188Z",
+  "mode": "dry_run",
+  "confidence_threshold": 0.8,
+  "reading": {
+    "rows": [
+      {
+        "id": "2f60c074-44d3-4543-8c0a-d982961020cf",
+        "title": "The Silk Road: A Network of Cultural Transformation",
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 10,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 11,
+            "already_typed": "multiple_choice"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "35bd89e8-8c12-4d42-8e77-3e0da2dc0ed9",
+        "title": "The Paradox of Collective Intelligence: How Group Dynamics Shape Decision-Making",
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 10,
+            "already_typed": "multiple_choice"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "0d9ecf39-bf12-4d50-b4b5-594facec1c2f",
+        "title": "Vertical Farming: Revolutionizing Urban Agriculture",
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 10,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 11,
+            "already_typed": "true_false_not_given"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "b2aa790e-2fcf-4388-abab-0505d76ae06e",
+        "title": "Personalized Gene Therapy: Revolutionizing Medical Treatment Through Genomic Precision",
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 10,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 11,
+            "already_typed": "true_false_not_given"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "bdb78d6e-e977-4270-938a-f29c4b554234",
+        "title": "Rewilding: A Natural Solution to Environmental Degradation",
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 10,
+            "already_typed": "yes_no_not_given"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "2b9759df-03aa-4dd8-b12b-7bcae96e4c93",
+        "title": "Desert Formation and Reclamation: Understanding Earth's Arid Landscapes",
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "matching_information"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "78a05f65-878d-48df-9ca6-a378a4622906",
+        "title": "Feedback Loops in the Global Climate System",
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "sentence_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "3b9190d9-5d56-4728-95ce-4f02a3bade63",
+        "title": "The Remarkable World of Animal Communication Systems",
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "short_answer"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "759b822e-1806-4ce6-9989-c021e2735e25",
+        "title": "Volcanoes: Formation, Types, and Global Distribution",
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "matching_information"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "b0c96b68-326b-4b8c-ac31-eec66a8708be",
+        "title": "The Printing Press: Catalyst of the Modern Information Age",
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "matching_information"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "80796875-a169-433b-9d7b-764f9d8df176",
+        "title": "Neural Adaptations in Bilingual Minds: Understanding Brain Plasticity Through Language",
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "matching_information"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "b2f87de7-9393-4a6e-99c0-b9905f5e2f82",
+        "title": "The Evolution of Solar Panel Technology",
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "multiple_choice"
+          },
+          {
+            "qIdx": 10,
+            "already_typed": "multiple_choice"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "49821efc-eeba-4c8a-a712-7856e501ced7",
+        "title": "The Dual-Process Theory: Understanding Two Systems of Human Cognition",
+        "published": false,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "matching_information"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "990c1096-ed97-4c17-a800-7fa779895a0e",
+        "title": "Navigating the Moral Maze: Ethical Imperatives for AI Implementation in Healthcare",
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 10,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 11,
+            "already_typed": "true_false_not_given"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "20f2e4f0-07ef-4b07-8c23-47c418d6d0a5",
+        "title": "The Enigma of Consciousness: Bridging Mind and Matter",
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "short_answer"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "0540ee33-2c5a-4e87-b744-81c69d60205d",
+        "title": "The Remarkable Navigation of Migratory Birds",
+        "published": false,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 10,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 11,
+            "already_typed": "true_false_not_given"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "d520bdbd-42c0-4f2c-bcd9-409f1956d7bd",
+        "title": "The Development of Sustainable Building Design",
+        "published": false,
+        "log": [],
+        "changed": false
+      },
+      {
+        "id": "0e6b621d-9975-41d4-8119-6aec1f51b64b",
+        "title": "Epigenetic Modifications: The Dynamic Layer of Gene Regulation",
+        "published": false,
+        "log": [],
+        "changed": false
+      },
+      {
+        "id": "83ae7e9a-c8cb-4271-a150-550ceaa20736",
+        "title": "Financial Literacy Education: A Critical Need in Modern Schools",
+        "published": false,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "yes_no_not_given"
+          },
+          {
+            "qIdx": 10,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 11,
+            "already_typed": "yes_no_not_given"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "55d959ff-075f-477c-9250-7e14f4eaa0da",
+        "title": "The Universal Language of Ritual: Understanding Ceremonial Practices Across Cultures",
+        "published": false,
+        "log": [],
+        "changed": false
+      },
+      {
+        "id": "118fba15-67d5-41a9-a538-4081b16a2bad",
+        "title": "The Paradox of Choice in Consumer Markets: When More Options Lead to Less Satisfaction",
+        "published": false,
+        "log": [],
+        "changed": false
+      },
+      {
+        "id": "60d4acfc-6c55-4d93-9762-2718c6c1539c",
+        "title": "The Production of Electric Vehicle Batteries: From Raw Materials to Finished Product",
+        "published": false,
+        "log": [],
+        "changed": false
+      },
+      {
+        "id": "2f08e9e3-82d1-461a-ae20-98441cc8f97f",
+        "title": "The Silent Crisis: Understanding Language Death and Revitalization Efforts",
+        "published": false,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "true_false_not_given"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "matching_information"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "matching_information"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "6b1cc170-ab8d-4238-8915-cc0a78ff827d",
+        "title": "Photosynthesis Strategies: How Different Plants Capture Energy from Sunlight",
+        "published": false,
+        "log": [],
+        "changed": false
+      },
+      {
+        "id": "3c2854c8-f999-4311-9eff-17116ec8792f",
+        "title": "Cultural Dimensions of Leadership: How Management Styles Vary Across the Globe",
+        "published": false,
+        "log": [],
+        "changed": false
+      },
+      {
+        "id": "18dd9d0c-c5c3-4a90-8c8a-0b49af71af5c",
+        "title": "The Architecture of Memory: Contemporary Theories of Formation and Retrieval",
+        "published": false,
+        "log": [],
+        "changed": false
+      },
+      {
+        "id": "92b35bc1-31d2-4e84-976c-1e161711ec9f",
+        "title": "Intermittent Fasting: A Modern Approach to Health and Weight Management",
+        "published": false,
+        "log": [],
+        "changed": false
+      },
+      {
+        "id": "92c59c4c-7035-41d8-b181-cf13b43f874d",
+        "title": "The Silent Crisis: Coral Reef Ecosystems Under Threat",
+        "published": false,
+        "log": [],
+        "changed": false
+      },
+      {
+        "id": "303c6b39-5013-48cc-8cf7-6a947017a967",
+        "title": "The Search for Dark Matter: Unveiling the Universe's Hidden Architecture",
+        "published": false,
+        "log": [],
+        "changed": false
+      },
+      {
+        "id": "d9226c2e-6fc6-4e4b-8b59-0903e045f19e",
+        "title": "The Evolution of High-Speed Rail: From Dreams to Reality",
+        "published": false,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "unclassified"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "short_answer"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "short_answer"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "708a2e95-30a8-4970-af9d-c76baafb119f",
+        "title": "Water Purification: From Source to Tap",
+        "published": false,
+        "log": [],
+        "changed": false
+      },
+      {
+        "id": "cd43888f-5249-40e0-9488-bdfd38549bc2",
+        "title": "Revolutionary Dating Techniques in Modern Archaeology",
+        "published": false,
+        "log": [],
+        "changed": false
+      },
+      {
+        "id": "c4f755bc-cdc6-44a3-94cd-b4d3d9501495",
+        "title": "The Green Revolution: Transforming Global Agriculture",
+        "published": false,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "sentence_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "99a927f5-7d71-4355-82e7-e6c1778e6296",
+        "title": "The Transformation of Community Bonds in Urban Environments",
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "sentence_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "63e3ae90-c1b1-455a-8b0b-c1652e71f2fd",
+        "title": "Life in the Abyss: The Remarkable Ecosystems of Deep Sea Hydrothermal Vents",
+        "published": false,
+        "log": [],
+        "changed": false
+      },
+      {
+        "id": "1438b413-7b65-4613-a382-69a71fd9de6b",
+        "title": "The Human Immune Response to Viral Infections: Mechanisms and Adaptations",
+        "published": false,
+        "log": [],
+        "changed": false
+      },
+      {
+        "id": "f4cae1ed-9a29-4493-adef-78c3cf3a24a8",
+        "title": "Wind Turbines: Converting Wind Energy into Electrical Power",
+        "published": false,
+        "log": [],
+        "changed": false
+      },
+      {
+        "id": "56de403a-4868-41b7-ae84-e6a453f824f2",
+        "title": "The Human Eye: A Remarkable Optical System",
+        "published": false,
+        "log": [],
+        "changed": false
+      },
+      {
+        "id": "2cd7836a-c42d-4018-a1b3-204bd1d902a6",
+        "title": "The Stellar Journey: Understanding How Stars Are Born, Live, and Die",
+        "published": false,
+        "log": [],
+        "changed": false
+      },
+      {
+        "id": "d8b5d608-d4f0-454a-bae4-d53d0b62a3b7",
+        "title": "The Science of Superfoods: Understanding Nutritional Powerhouses",
+        "published": false,
+        "log": [],
+        "changed": false
+      },
+      {
+        "id": "81abe6eb-3af7-427d-9cca-ac16f0034c8f",
+        "title": "Blockchain Beyond Cryptocurrency: Transforming Industries Through Distributed Ledger Technology",
+        "published": false,
+        "log": [],
+        "changed": false
+      },
+      {
+        "id": "e486afd7-4c59-4341-9b32-d1b1ed0b08c6",
+        "title": "The Trolley Problem: A Philosophical Framework for Moral Decision-Making",
+        "published": false,
+        "log": [],
+        "changed": false
+      },
+      {
+        "id": "749856a7-20ef-4c70-84f4-373b9bdac0c0",
+        "title": "The Science of Sleep: Why Rest Matters More Than You Think",
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "tfng"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "tfng"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "tfng"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "completion"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "completion"
+          }
+        ],
+        "changed": false
+      }
+    ],
+    "summary": {
+      "already_typed": 216,
+      "classified_now": 0,
+      "low_confidence": 0,
+      "by_type": {},
+      "rows_updated": 0
+    }
+  },
+  "listening": {
+    "rows": [
+      {
+        "id": "8e5ae24d-8180-40b2-81e5-943cf1b39821",
+        "section": 1,
+        "published": false,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "form_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "84412cae-4f9e-44e5-a0f3-ecf5ef87022f",
+        "section": 1,
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "form_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "5f8fb313-b3b2-4a70-8e0c-b359eaeb3813",
+        "section": 2,
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "matching"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "form_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "aade332f-aeb2-455a-815c-53b93ea63646",
+        "section": 2,
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "form_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "8c39c0a6-1d33-439f-a7fb-e326835e34b6",
+        "section": 1,
+        "published": false,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "form_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "9f7da864-b3ac-4d15-a213-6e45dc5627cd",
+        "section": 1,
+        "published": false,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "form_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "5e7281f9-7fe5-4ca5-85f9-59b72b597d83",
+        "section": 2,
+        "published": false,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "form_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "d497aa1e-65c0-4d8f-985c-c490bffe88fa",
+        "section": 2,
+        "published": false,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "form_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "e3f8f68d-5af9-4913-bd86-851f352664cd",
+        "section": 2,
+        "published": false,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "matching"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "form_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "5d38f5c5-1e66-4c71-abaf-629d60c6b333",
+        "section": 3,
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "matching"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "sentence_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "a123890b-c669-4994-9624-d8e014fd28ce",
+        "section": 3,
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "sentence_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "42d07e18-5889-4a69-aa65-06790bdd8373",
+        "section": 3,
+        "published": false,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "sentence_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "f31b0a92-880c-4113-beb9-44e9366be24a",
+        "section": 4,
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "summary_completion"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "summary_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "summary_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "summary_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "summary_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "summary_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "summary_completion"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "summary_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "bd3ab545-9b26-4a98-9dfb-625e82e98ad3",
+        "section": 3,
+        "published": false,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "matching"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "sentence_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "858bc95f-a969-48d1-9987-c757c8aa01cd",
+        "section": 4,
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "note_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "115a2bdc-cda9-4b14-b80c-f63ee0961b8c",
+        "section": 1,
+        "published": false,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "form_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "167cf26a-d581-4b02-a374-71f6c43d901a",
+        "section": 1,
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "completion"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "257f41c0-dc67-41b2-a456-61c42278c64f",
+        "section": 4,
+        "published": false,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "note_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "286d473c-322b-48fe-a220-f734e623c5d2",
+        "section": 4,
+        "published": false,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "note_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "04e65793-3fe2-4116-ad34-f314fdd294af",
+        "section": 2,
+        "published": false,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "form_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "05fa712f-20a9-4a5d-ab1f-ade100b87d3a",
+        "section": 3,
+        "published": false,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "sentence_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "87713bce-5063-4488-8013-983e8d98de87",
+        "section": 3,
+        "published": false,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "matching"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "sentence_completion"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "sentence_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "2f84fe88-37f8-4927-bfb4-a7a2bb35f9cf",
+        "section": 4,
+        "published": false,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "mcq"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "5192098c-597e-401d-8f8a-a5cc3812e595",
+        "section": 4,
+        "published": false,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "note_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "mcq"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "note_completion"
+          }
+        ],
+        "changed": false
+      },
+      {
+        "id": "855a3214-2771-4c09-a746-e420dde8b37c",
+        "section": 1,
+        "published": true,
+        "log": [
+          {
+            "qIdx": 0,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 1,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 2,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 3,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 4,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 5,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 6,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 7,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 8,
+            "already_typed": "form_completion"
+          },
+          {
+            "qIdx": 9,
+            "already_typed": "form_completion"
+          }
+        ],
+        "changed": false
+      }
+    ],
+    "summary": {
+      "already_typed": 250,
+      "classified_now": 0,
+      "low_confidence": 0,
+      "by_type": {},
+      "rows_updated": 0
+    }
+  }
+}
