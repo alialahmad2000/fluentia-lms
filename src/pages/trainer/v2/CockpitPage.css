@@ -1,0 +1,73 @@
+/* Cockpit page layout — RTL 3-rail grid */
+.tr-cockpit {
+  min-height: 100vh;
+  padding: 1.5rem;
+  background: var(--tr-bg-base);
+}
+
+.tr-cockpit__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr 1fr;
+  grid-template-areas: "right center left";
+  gap: 1rem;
+  max-width: 1440px;
+  margin-inline: auto;
+  align-items: start;
+}
+
+.tr-cockpit__rail {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tr-cockpit__rail--right  { grid-area: right; }
+.tr-cockpit__rail--center { grid-area: center; }
+.tr-cockpit__rail--left   { grid-area: left; }
+
+/* Skeleton shimmer */
+.tr-cockpit__skel {
+  height: var(--skel-h, 120px);
+  border-radius: var(--tr-radius, 12px);
+  background: linear-gradient(
+    90deg,
+    var(--tr-card-bg) 25%,
+    color-mix(in srgb, var(--tr-card-bg) 80%, var(--tr-primary) 20%) 50%,
+    var(--tr-card-bg) 75%
+  );
+  background-size: 200% 100%;
+  animation: tr-shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes tr-shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tr-cockpit__skel { animation: none; opacity: 0.5; }
+}
+
+/* Tablet: collapse to 2 columns */
+@media (max-width: 1100px) {
+  .tr-cockpit__grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "right center"
+      "left  center";
+  }
+}
+
+/* Mobile: single column */
+@media (max-width: 680px) {
+  .tr-cockpit {
+    padding: 1rem 0.75rem;
+  }
+  .tr-cockpit__grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "right"
+      "center"
+      "left";
+  }
+}

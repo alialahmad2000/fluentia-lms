@@ -18,8 +18,13 @@ export default function TrainerSidebar() {
         .select('*', { count: 'exact', head: true })
         .eq('trainer_id', profile.id)
         .eq('status', 'pending')
-      // grading badge activated in T6 when GradingStation identifies the correct table
-      const gradingCount = 0
+      const { count: grading } = await supabase
+        .from('student_curriculum_progress')
+        .select('*', { count: 'exact', head: true })
+        .eq('status', 'completed')
+        .eq('section_type', 'writing')
+        .is('trainer_graded_at', null)
+      const gradingCount = grading || 0
       return {
         pending_interventions: interv || 0,
         pending_grading: gradingCount,

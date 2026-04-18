@@ -85,12 +85,12 @@ const ReadingSkillModule = lazyRetry(() => import('./pages/student/ielts/reading
 const ReadingPassagePractice = lazyRetry(() => import('./pages/student/ielts/reading/ReadingPassagePractice'))
 
 const TrainerOnboarding = lazyRetry(() => import('./pages/trainer/TrainerOnboarding'))
-const TrainerDashboard = lazyRetry(() => import('./pages/trainer/TrainerDashboard'))
 const TrainerGrading = lazyRetry(() => import('./pages/trainer/TrainerGrading'))
 const TrainerStudentView = lazyRetry(() => import('./pages/trainer/TrainerStudentView'))
 const TrainerCurriculum = lazyRetry(() => import('./pages/trainer/TrainerCurriculum'))
 const ReportReview = lazyRetry(() => import('./pages/trainer/ReportReview'))
 const StudentProgressDetail = lazyRetry(() => import('./pages/trainer/StudentProgressDetail'))
+const CockpitPage = lazyRetry(() => import('./pages/trainer/v2/CockpitPage'))
 // Trainer V2 placeholder pages
 const InterventionsPage = lazyRetry(() => import('./pages/trainer/v2/InterventionsPage'))
 const ClassPrepPage = lazyRetry(() => import('./pages/trainer/v2/ClassPrepPage'))
@@ -565,7 +565,7 @@ export default function App() {
             } />
             <Route element={<ErrorBoundary><TrainerOnboardingGuard><TrainerLayout /></TrainerOnboardingGuard></ErrorBoundary>}>
               {/* ── V2: real pages (existing components, swapped in T3/T6/T7) ── */}
-              <Route path="/trainer" element={<Page><TrainerDashboard /></Page>} />
+              <Route path="/trainer" element={<Page><CockpitPage /></Page>} />
               <Route path="/trainer/grading" element={<Page><TrainerGrading /></Page>} />
               <Route path="/trainer/students" element={<Page><TrainerStudentView /></Page>} />
               <Route path="/trainer/curriculum" element={<Page><TrainerCurriculum /></Page>} />

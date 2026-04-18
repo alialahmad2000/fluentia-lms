@@ -1,3 +1,4 @@
+// LEGACY: Pre-Cockpit trainer dashboard. Preserved for rollback. Safe to delete after 2026-06-18.
 import { useState, useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
