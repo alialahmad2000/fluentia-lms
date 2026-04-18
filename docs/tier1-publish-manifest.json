@@ -1,0 +1,287 @@
+{
+  "generated_at": "2026-04-18T04:03:30.591Z",
+  "mode": "live",
+  "tier": "tier1",
+  "targets": {
+    "reading": 15,
+    "writing": 10,
+    "listening": 8,
+    "speaking": 15
+  },
+  "reading": {
+    "considered": 42,
+    "rejected": [
+      {
+        "id": "6b1cc170-ab8d-4238-8915-cc0a78ff827d",
+        "title": "Photosynthesis Strategies: How Different Plants Capture Energy from Sunlight",
+        "reasons": [
+          "fewer than 3 questions (object shape)"
+        ]
+      },
+      {
+        "id": "3c2854c8-f999-4311-9eff-17116ec8792f",
+        "title": "Cultural Dimensions of Leadership: How Management Styles Vary Across the Globe",
+        "reasons": [
+          "fewer than 3 questions (object shape)"
+        ]
+      },
+      {
+        "id": "18dd9d0c-c5c3-4a90-8c8a-0b49af71af5c",
+        "title": "The Architecture of Memory: Contemporary Theories of Formation and Retrieval",
+        "reasons": [
+          "fewer than 3 questions (object shape)"
+        ]
+      },
+      {
+        "id": "f4cae1ed-9a29-4493-adef-78c3cf3a24a8",
+        "title": "Wind Turbines: Converting Wind Energy into Electrical Power",
+        "reasons": [
+          "fewer than 3 questions (object shape)"
+        ]
+      },
+      {
+        "id": "56de403a-4868-41b7-ae84-e6a453f824f2",
+        "title": "The Human Eye: A Remarkable Optical System",
+        "reasons": [
+          "fewer than 3 questions (object shape)"
+        ]
+      },
+      {
+        "id": "2cd7836a-c42d-4018-a1b3-204bd1d902a6",
+        "title": "The Stellar Journey: Understanding How Stars Are Born, Live, and Die",
+        "reasons": [
+          "fewer than 3 questions (object shape)"
+        ]
+      }
+    ],
+    "selected": [
+      {
+        "id": "b2f87de7-9393-4a6e-99c0-b9905f5e2f82",
+        "title": "The Evolution of Solar Panel Technology",
+        "band": "band_5_6",
+        "variant": "academic",
+        "score": 26
+      },
+      {
+        "id": "2f60c074-44d3-4543-8c0a-d982961020cf",
+        "title": "The Silk Road: A Network of Cultural Transformation",
+        "band": "band_6_7",
+        "variant": "academic",
+        "score": 22
+      },
+      {
+        "id": "35bd89e8-8c12-4d42-8e77-3e0da2dc0ed9",
+        "title": "The Paradox of Collective Intelligence: How Group Dynamics Shape Decision-Making",
+        "band": "band_7_8",
+        "variant": "academic",
+        "score": 26
+      },
+      {
+        "id": "0d9ecf39-bf12-4d50-b4b5-594facec1c2f",
+        "title": "Vertical Farming: Revolutionizing Urban Agriculture",
+        "band": "band_6_7",
+        "variant": "academic",
+        "score": 27
+      },
+      {
+        "id": "b2aa790e-2fcf-4388-abab-0505d76ae06e",
+        "title": "Personalized Gene Therapy: Revolutionizing Medical Treatment Through Genomic Precision",
+        "band": "band_7_8",
+        "variant": "academic",
+        "score": 27
+      },
+      {
+        "id": "bdb78d6e-e977-4270-938a-f29c4b554234",
+        "title": "Rewilding: A Natural Solution to Environmental Degradation",
+        "band": "band_6_7",
+        "variant": "academic",
+        "score": 26
+      },
+      {
+        "id": "990c1096-ed97-4c17-a800-7fa779895a0e",
+        "title": "Navigating the Moral Maze: Ethical Imperatives for AI Implementation in Healthcare",
+        "band": "band_7_8",
+        "variant": "academic",
+        "score": 27
+      },
+      {
+        "id": "2b9759df-03aa-4dd8-b12b-7bcae96e4c93",
+        "title": "Desert Formation and Reclamation: Understanding Earth's Arid Landscapes",
+        "band": "band_5_6",
+        "variant": "academic",
+        "score": 23
+      },
+      {
+        "id": "99a927f5-7d71-4355-82e7-e6c1778e6296",
+        "title": "The Transformation of Community Bonds in Urban Environments",
+        "band": "band_6_7",
+        "variant": "academic",
+        "score": 24
+      },
+      {
+        "id": "78a05f65-878d-48df-9ca6-a378a4622906",
+        "title": "Feedback Loops in the Global Climate System",
+        "band": "band_7_8",
+        "variant": "academic",
+        "score": 25
+      },
+      {
+        "id": "3b9190d9-5d56-4728-95ce-4f02a3bade63",
+        "title": "The Remarkable World of Animal Communication Systems",
+        "band": "band_6_7",
+        "variant": "academic",
+        "score": 23
+      },
+      {
+        "id": "20f2e4f0-07ef-4b07-8c23-47c418d6d0a5",
+        "title": "The Enigma of Consciousness: Bridging Mind and Matter",
+        "band": "band_7_8",
+        "variant": "academic",
+        "score": 24
+      },
+      {
+        "id": "759b822e-1806-4ce6-9989-c021e2735e25",
+        "title": "Volcanoes: Formation, Types, and Global Distribution",
+        "band": "band_5_6",
+        "variant": "academic",
+        "score": 23
+      },
+      {
+        "id": "b0c96b68-326b-4b8c-ac31-eec66a8708be",
+        "title": "The Printing Press: Catalyst of the Modern Information Age",
+        "band": "band_6_7",
+        "variant": "academic",
+        "score": 23
+      },
+      {
+        "id": "80796875-a169-433b-9d7b-764f9d8df176",
+        "title": "Neural Adaptations in Bilingual Minds: Understanding Brain Plasticity Through Language",
+        "band": "band_7_8",
+        "variant": "academic",
+        "score": 23
+      }
+    ]
+  },
+  "writing": {
+    "considered": 24,
+    "rejected": [],
+    "selected": [
+      {
+        "id": "b1dcb03d-a359-4515-ae09-4eece0dbba41",
+        "title": "University Enrollment by Subject Area",
+        "task_type": "task1",
+        "variant": "academic",
+        "score": 15
+      },
+      {
+        "id": "1441fb8d-b539-41ea-8f53-aadc708c4416",
+        "title": "Water Recycling System",
+        "task_type": "task1",
+        "variant": "academic",
+        "score": 15
+      },
+      {
+        "id": "6c031cb7-d68b-4bc3-9bea-02bcbc4f93f8",
+        "title": "Rainfall and Temperature Over 12 Months",
+        "task_type": "task1",
+        "variant": "academic",
+        "score": 15
+      },
+      {
+        "id": "3cf97377-80ae-405c-ae82-00c58b98d06d",
+        "title": "Water Consumption by Sector in Three Regions",
+        "task_type": "task1",
+        "variant": "academic",
+        "score": 15
+      },
+      {
+        "id": "8dc45130-3610-4256-a608-9cdaf62b1509",
+        "title": "Technology in Education",
+        "task_type": "task2",
+        "variant": null,
+        "score": 15
+      },
+      {
+        "id": "7c987830-8dc5-4930-a0f1-335d010a172d",
+        "title": "Working from Home",
+        "task_type": "task2",
+        "variant": null,
+        "score": 15
+      },
+      {
+        "id": "a11ee843-b02f-4445-b9e2-cfb1999e3893",
+        "title": "Traditional vs Modern Medicine",
+        "task_type": "task2",
+        "variant": null,
+        "score": 15
+      },
+      {
+        "id": "da1ad13a-fa18-4839-80fc-ce58cb786186",
+        "title": "Space Exploration vs Solving Earth Problems",
+        "task_type": "task2",
+        "variant": null,
+        "score": 15
+      }
+    ]
+  },
+  "listening": {
+    "considered": 24,
+    "rejected": [],
+    "selected": [
+      {
+        "id": "84412cae-4f9e-44e5-a0f3-ecf5ef87022f",
+        "title": "Renting an Apartment",
+        "section": 1,
+        "score": 17
+      },
+      {
+        "id": "855a3214-2771-4c09-a746-e420dde8b37c",
+        "title": "Making a Restaurant Reservation",
+        "section": 1,
+        "score": 17
+      },
+      {
+        "id": "5f8fb313-b3b2-4a70-8e0c-b359eaeb3813",
+        "title": "University Orientation Welcome Talk",
+        "section": 2,
+        "score": 17
+      },
+      {
+        "id": "aade332f-aeb2-455a-815c-53b93ea63646",
+        "title": "Historical City Walking Tour",
+        "section": 2,
+        "score": 17
+      },
+      {
+        "id": "5d38f5c5-1e66-4c71-abaf-629d60c6b333",
+        "title": "Group Presentation on Marine Biology",
+        "section": 3,
+        "score": 17
+      },
+      {
+        "id": "a123890b-c669-4994-9624-d8e014fd28ce",
+        "title": "Essay Review on Urbanization",
+        "section": 3,
+        "score": 17
+      },
+      {
+        "id": "f31b0a92-880c-4113-beb9-44e9366be24a",
+        "title": "Economics of Water Scarcity",
+        "section": 4,
+        "score": 17
+      },
+      {
+        "id": "858bc95f-a969-48d1-9987-c757c8aa01cd",
+        "title": "Artificial Intelligence in Healthcare",
+        "section": 4,
+        "score": 17
+      }
+    ]
+  },
+  "speaking": {
+    "considered": 0,
+    "rejected": [],
+    "selected": []
+  },
+  "published_at": "2026-04-18T04:03:41.310Z"
+}
