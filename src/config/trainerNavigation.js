@@ -21,7 +21,7 @@ export const TRAINER_NAV_V2 = [
     items: [
       { id: 'students',   href: '/trainer/students',   label: 'ملفات الطلاب', icon: Users },
       { id: 'curriculum', href: '/trainer/curriculum', label: 'المنهج',       icon: BookOpen },
-      { id: 'competition',href: '/trainer/competition',label: 'المسابقة',     icon: Trophy },
+      { id: 'competition',href: '/trainer/competition',label: 'المسابقة',     icon: Trophy, badgeKey: 'pending_recognitions' },
     ],
   },
   {

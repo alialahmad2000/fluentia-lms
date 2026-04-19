@@ -32,9 +32,15 @@ export default function TrainerSidebar() {
         .not('ai_evaluation', 'is', null)
         .eq('is_latest', true)
       const gradingCount = (writingGrading || 0) + (speakingGrading || 0)
+      // Pending peer recognitions (status='pending' added in migration 147)
+      const { count: pendingRecog } = await supabase
+        .from('peer_recognitions')
+        .select('*', { count: 'exact', head: true })
+        .eq('status', 'pending')
       return {
         pending_interventions: interv || 0,
         pending_grading: gradingCount,
+        pending_recognitions: pendingRecog || 0,
       }
     },
     enabled: !!profile?.id,
