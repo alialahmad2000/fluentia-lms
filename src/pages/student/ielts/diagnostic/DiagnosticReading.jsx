@@ -15,7 +15,7 @@ function useDebouncedCallback(fn, delay) {
   }, [fn, delay])
 }
 
-export default function DiagnosticReading({ attempt, content }) {
+export default function DiagnosticReading({ attempt, content, onExpire, onAdvance }) {
   const passages = content?.passages || []
   const [passageIdx, setPassageIdx] = useState(0)
   const [answers, setAnswers] = useState(attempt?.answers?.reading || {})
@@ -66,6 +66,7 @@ export default function DiagnosticReading({ attempt, content }) {
         nextSection: 'writing',
         patch: { answers: { ...attempt.answers, reading: answers } },
       })
+      onAdvance?.()
     }
   }
 
@@ -88,7 +89,7 @@ export default function DiagnosticReading({ attempt, content }) {
           <AutoSaveIndicator isSaving={isSaving} lastSavedAt={lastSaved} />
           <DiagnosticTimer
             initialSeconds={attempt.section_time_remaining?.reading || 35 * 60}
-            onExpire={() => {}}
+            onExpire={onExpire || (() => {})}
           />
         </div>
       </div>

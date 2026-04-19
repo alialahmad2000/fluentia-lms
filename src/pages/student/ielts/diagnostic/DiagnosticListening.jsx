@@ -16,7 +16,7 @@ function useDebouncedCallback(fn, delay) {
   }, [fn, delay])
 }
 
-export default function DiagnosticListening({ attempt, content }) {
+export default function DiagnosticListening({ attempt, content, onExpire, onAdvance }) {
   const sections = content?.listening || []
   const [currentSectionIdx, setCurrentSectionIdx] = useState(0)
   const [answers, setAnswers] = useState(attempt?.answers?.listening || {})
@@ -67,6 +67,7 @@ export default function DiagnosticListening({ attempt, content }) {
         nextSection: 'reading',
         patch: { answers: { ...attempt.answers, listening: answers } },
       })
+      onAdvance?.()
     }
   }
 
@@ -89,7 +90,7 @@ export default function DiagnosticListening({ attempt, content }) {
           <AutoSaveIndicator isSaving={isSaving} lastSavedAt={lastSaved} />
           <DiagnosticTimer
             initialSeconds={attempt.section_time_remaining?.listening || 25 * 60}
-            onExpire={() => {}}
+            onExpire={onExpire || (() => {})}
           />
         </div>
       </div>

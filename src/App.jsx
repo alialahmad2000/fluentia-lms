@@ -96,6 +96,11 @@ const SpeakingPartPicker = lazyRetry(() => import('./pages/student/ielts/speakin
 const SpeakingSession = lazyRetry(() => import('./pages/student/ielts/speaking/SpeakingSession'))
 const SpeakingFeedback = lazyRetry(() => import('./pages/student/ielts/speaking/SpeakingFeedback'))
 const SpeakingHistory = lazyRetry(() => import('./pages/student/ielts/speaking/SpeakingHistory'))
+const MockCenter = lazyRetry(() => import('./pages/student/ielts/mock/MockCenter'))
+const MockPreFlight = lazyRetry(() => import('./pages/student/ielts/mock/MockPreFlight'))
+const MockFlow = lazyRetry(() => import('./pages/student/ielts/mock/MockFlow'))
+const MockResult = lazyRetry(() => import('./pages/student/ielts/mock/MockResult'))
+const MockHistory = lazyRetry(() => import('./pages/student/ielts/mock/MockHistory'))
 
 const TrainerOnboarding = lazyRetry(() => import('./pages/trainer/TrainerOnboarding'))
 const TrainerStudentView = lazyRetry(() => import('./pages/trainer/TrainerStudentView'))
@@ -578,6 +583,11 @@ export default function App() {
               <Route path="/student/ielts/speaking/feedback/:sessionId" element={<Page><SpeakingFeedback /></Page>} />
               <Route path="/student/ielts/speaking/part/:partNum" element={<Page><SpeakingPartPicker /></Page>} />
               <Route path="/student/ielts/speaking/session/:questionId" element={<Page><SpeakingSession /></Page>} />
+              <Route path="/student/ielts/mock" element={<Page><MockCenter /></Page>} />
+              <Route path="/student/ielts/mock/history" element={<Page><MockHistory /></Page>} />
+              <Route path="/student/ielts/mock/brief/:mockId" element={<Page><MockPreFlight /></Page>} />
+              <Route path="/student/ielts/mock/attempt/:attemptId" element={<Page><MockFlow /></Page>} />
+              <Route path="/student/ielts/mock/result/:resultId" element={<Page><MockResult /></Page>} />
               <Route path="/student/ielts/:section" element={<Page><IELTSComingSoon /></Page>} />
             </Route>
           </Route>
