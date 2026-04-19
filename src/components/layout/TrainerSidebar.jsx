@@ -18,13 +18,20 @@ export default function TrainerSidebar() {
         .select('*', { count: 'exact', head: true })
         .eq('trainer_id', profile.id)
         .eq('status', 'pending')
-      const { count: grading } = await supabase
+      const { count: writingGrading } = await supabase
         .from('student_curriculum_progress')
         .select('*', { count: 'exact', head: true })
         .eq('status', 'completed')
         .eq('section_type', 'writing')
         .is('trainer_graded_at', null)
-      const gradingCount = grading || 0
+        .not('ai_feedback', 'is', null)
+      const { count: speakingGrading } = await supabase
+        .from('speaking_recordings')
+        .select('*', { count: 'exact', head: true })
+        .neq('trainer_reviewed', true)
+        .not('ai_evaluation', 'is', null)
+        .eq('is_latest', true)
+      const gradingCount = (writingGrading || 0) + (speakingGrading || 0)
       return {
         pending_interventions: interv || 0,
         pending_grading: gradingCount,

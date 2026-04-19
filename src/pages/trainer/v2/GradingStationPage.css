@@ -1,0 +1,240 @@
+/* ── Grading Station Page ── */
+.gs-page {
+  max-width: 860px;
+  margin-inline: auto;
+  padding: 1.5rem;
+  min-height: 100vh;
+}
+
+/* Header */
+.gs-header {
+  margin-bottom: 1.25rem;
+}
+
+.gs-header__title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.gs-header__title {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--tr-text-primary);
+  margin: 0;
+}
+
+.gs-header__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.6rem;
+  height: 1.6rem;
+  padding: 0 0.45rem;
+  border-radius: 999px;
+  background: var(--tr-primary, #6366f1);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.gs-header__urgent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Filters */
+.gs-filters {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.gs-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--tr-border, rgba(255,255,255,0.1));
+  background: transparent;
+  color: var(--tr-text-muted);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.gs-filter--active {
+  background: var(--tr-card-bg);
+  color: var(--tr-text-primary);
+  border-color: var(--tr-primary, #6366f1);
+}
+
+.gs-filter:hover:not(.gs-filter--active) {
+  color: var(--tr-text-primary);
+  border-color: var(--tr-border-hover, rgba(255,255,255,0.2));
+}
+
+.gs-filter__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.3rem;
+  border-radius: 999px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+/* List */
+.gs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Row */
+.gs-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  text-align: start;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.gs-row--urgent {
+  border-color: rgba(239, 68, 68, 0.4) !important;
+}
+
+.gs-row__left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.gs-row__type-icon {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.gs-row__type-icon--writing { color: #6366f1; }
+.gs-row__type-icon--speaking { color: #10b981; }
+
+.gs-row__info {
+  min-width: 0;
+}
+
+.gs-row__name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--tr-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gs-row__meta {
+  font-size: 0.75rem;
+  color: var(--tr-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gs-row__right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.gs-row__ai-score {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--tr-text-muted);
+  min-width: 3rem;
+  text-align: center;
+}
+
+.gs-row__age {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--tr-text-muted);
+}
+
+.gs-row__age--urgent {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.gs-row__cta {
+  font-size: 0.8rem;
+  color: var(--tr-primary, #6366f1);
+  font-weight: 600;
+}
+
+/* Empty state */
+.gs-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.gs-empty__icon {
+  color: #10b981;
+  opacity: 0.7;
+}
+
+.gs-empty__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--tr-text-primary);
+  margin: 0;
+}
+
+.gs-empty__sub {
+  font-size: 0.85rem;
+  color: var(--tr-text-muted);
+  margin: 0;
+}
+
+/* Skeleton */
+.gs-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.gs-skeleton__row {
+  height: 4rem;
+  border-radius: 12px;
+  background: var(--tr-card-bg, rgba(255,255,255,0.04));
+  animation: gs-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes gs-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
