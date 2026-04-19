@@ -31,7 +31,12 @@ function normalizeAnswer(v) {
 function answersMatch(given, expected) {
   if (given == null || expected == null) return false
   if (Array.isArray(expected)) {
-    return expected.some(e => normalizeAnswer(given) === normalizeAnswer(e))
+    return expected.some(e => answersMatch(given, e))
+  }
+  const expectedStr = String(expected)
+  // Handle slash-separated alternatives: "third/3rd", "1,312/1312"
+  if (expectedStr.includes('/')) {
+    return expectedStr.split('/').some(alt => answersMatch(given, alt.trim()))
   }
   // T/F/NG flexible matching
   const tfMap = {
@@ -40,7 +45,7 @@ function answersMatch(given, expected) {
     yes: 'yes', no: 'no',
   }
   const normGiven = normalizeAnswer(given)
-  const normExpected = normalizeAnswer(expected)
+  const normExpected = normalizeAnswer(expectedStr)
   const mappedGiven = tfMap[normGiven] ?? normGiven
   const mappedExpected = tfMap[normExpected] ?? normExpected
   return mappedGiven === mappedExpected

@@ -2,7 +2,8 @@ import { useState, useRef, useEffect } from 'react'
 import { Play, Pause, Volume2 } from 'lucide-react'
 
 // One-play mode: once played, seeking is disabled (IELTS listening spec)
-export default function AudioPlayer({ src, onEnded, onePlayOnly = false, label }) {
+// replayEnabled: when true, lifts the one-play restriction (shown post-submit)
+export default function AudioPlayer({ src, onEnded, onePlayOnly = false, replayEnabled = false, label }) {
   const [playing, setPlaying] = useState(false)
   const [elapsed, setElapsed] = useState(0)
   const [duration, setDuration] = useState(0)
@@ -37,7 +38,7 @@ export default function AudioPlayer({ src, onEnded, onePlayOnly = false, label }
   const togglePlay = () => {
     const audio = audioRef.current
     if (!audio) return
-    if (onePlayOnly && hasPlayed && !playing) return // can't replay
+    if (onePlayOnly && hasPlayed && !playing && !replayEnabled) return
     if (playing) {
       audio.pause()
       setPlaying(false)
@@ -50,7 +51,7 @@ export default function AudioPlayer({ src, onEnded, onePlayOnly = false, label }
 
   const pct = duration > 0 ? (elapsed / duration) * 100 : 0
   const fmt = (s) => `${String(Math.floor(s / 60)).padStart(2,'0')}:${String(Math.floor(s % 60)).padStart(2,'0')}`
-  const canToggle = canPlay && !(onePlayOnly && hasPlayed && !playing)
+  const canToggle = canPlay && !(onePlayOnly && hasPlayed && !playing && !replayEnabled)
 
   return (
     <div style={{
@@ -98,7 +99,7 @@ export default function AudioPlayer({ src, onEnded, onePlayOnly = false, label }
         </div>
       </div>
 
-      {onePlayOnly && hasPlayed && !playing && (
+      {onePlayOnly && hasPlayed && !playing && !replayEnabled && (
         <p style={{ fontSize: 11, color: '#fb923c', fontFamily: 'Tajawal', textAlign: 'center' }}>
           يمكن تشغيل المقطع مرة واحدة فقط
         </p>

@@ -83,6 +83,9 @@ const DiagnosticFlow = lazyRetry(() => import('./pages/student/ielts/diagnostic/
 const ReadingLab = lazyRetry(() => import('./pages/student/ielts/reading/ReadingLab'))
 const ReadingSkillModule = lazyRetry(() => import('./pages/student/ielts/reading/ReadingSkillModule'))
 const ReadingPassagePractice = lazyRetry(() => import('./pages/student/ielts/reading/ReadingPassagePractice'))
+const ListeningLab = lazyRetry(() => import('./pages/student/ielts/listening/ListeningLab'))
+const ListeningSectionModule = lazyRetry(() => import('./pages/student/ielts/listening/ListeningSectionModule'))
+const ListeningPractice = lazyRetry(() => import('./pages/student/ielts/listening/ListeningPractice'))
 
 const TrainerOnboarding = lazyRetry(() => import('./pages/trainer/TrainerOnboarding'))
 const TrainerGrading = lazyRetry(() => import('./pages/trainer/TrainerGrading'))
@@ -551,6 +554,9 @@ export default function App() {
               <Route path="/student/ielts/reading" element={<Page><ReadingLab /></Page>} />
               <Route path="/student/ielts/reading/skill/:questionType" element={<Page><ReadingSkillModule /></Page>} />
               <Route path="/student/ielts/reading/passage/:passageId" element={<Page><ReadingPassagePractice /></Page>} />
+              <Route path="/student/ielts/listening" element={<Page><ListeningLab /></Page>} />
+              <Route path="/student/ielts/listening/section/:sectionNumber" element={<Page><ListeningSectionModule /></Page>} />
+              <Route path="/student/ielts/listening/section/:sectionNumber/practice/:sectionId" element={<Page><ListeningPractice /></Page>} />
               <Route path="/student/ielts/:section" element={<Page><IELTSComingSoon /></Page>} />
             </Route>
           </Route>
