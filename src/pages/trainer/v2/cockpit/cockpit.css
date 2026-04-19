@@ -500,6 +500,26 @@
 .tr-nabih-card__cta:hover {
   background: color-mix(in srgb, var(--tr-primary) 25%, transparent);
 }
+.tr-nabih-card__cta--urgent {
+  background: color-mix(in srgb, var(--tr-danger, #ef4444) 15%, transparent);
+  color: var(--tr-danger, #ef4444);
+  border-color: var(--tr-danger, #ef4444);
+}
+.tr-nabih-card__cta--urgent:hover {
+  background: color-mix(in srgb, var(--tr-danger, #ef4444) 25%, transparent);
+}
+/* Row clickable in InterventionPreview */
+.tr-interv__row-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: start;
+  padding: 0;
+}
 
 /* ============================================================
    TrainerXpTicker

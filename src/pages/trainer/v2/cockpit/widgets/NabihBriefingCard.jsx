@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useAuthStore } from '@/stores/authStore'
 import { useTrainerCockpit } from '@/hooks/trainer/useTrainerCockpit'
 import { useStudentPulse } from '@/hooks/trainer/useStudentPulse'
+import { useInterventionPreview } from '@/hooks/trainer/useInterventionPreview'
 import { CommandCard } from '@/design-system/trainer'
 
 function NabihMark() {
@@ -25,6 +26,7 @@ export default function NabihBriefingCard() {
   const profile = useAuthStore((s) => s.profile)
   const { data: cockpit } = useTrainerCockpit()
   const { data: pulse } = useStudentPulse()
+  const { data: interventions = [] } = useInterventionPreview(50)
 
   const students = pulse?.students || []
   const competition = cockpit?.competition
@@ -48,12 +50,16 @@ export default function NabihBriefingCard() {
     return Math.ceil((new Date(competition.end_at) - Date.now()) / 86400000)
   }, [competition])
 
+  const urgentCount = interventions.filter(i => i.severity === 'urgent').length
+
   const lines = useMemo(() => {
     const h = new Date().getHours()
     const greeting = h < 12 ? 'صباح الخير' : h < 17 ? 'مرحباً' : 'مساء الخير'
     return [
       `${greeting}، ${firstName}.`,
-      students.length === 0
+      urgentCount > 0
+        ? `لديك ${urgentCount} ${urgentCount === 1 ? 'متابعة عاجلة' : 'متابعات عاجلة'} تنتظرك.`
+        : students.length === 0
         ? 'لا يوجد طلاب في مجموعاتك حتى الآن.'
         : silent48.length > 0
         ? `${silent48.length} ${silent48.length === 1 ? 'طالب لم يدخل' : 'طلاب لم يدخلوا'} منذ ٤٨ ساعة — يستحقون رسالة منك.`
@@ -65,7 +71,7 @@ export default function NabihBriefingCard() {
         ? `المسابقة: ${daysRemaining} ${daysRemaining === 1 ? 'يوم متبقٍ' : 'أيام متبقية'}.`
         : null,
     ].filter(Boolean)
-  }, [firstName, students, silent48, topPerformer, competition, daysRemaining])
+  }, [firstName, urgentCount, students, silent48, topPerformer, competition, daysRemaining])
 
   return (
     <CommandCard className="tr-nabih-card">
@@ -87,10 +93,17 @@ export default function NabihBriefingCard() {
         ))}
       </div>
 
-      <Link to="/trainer/nabih" className="tr-nabih-card__cta">
-        تحدّث مع نبيه
-        <span aria-hidden="true"> ←</span>
-      </Link>
+      {urgentCount > 0 ? (
+        <Link to="/trainer/interventions" className="tr-nabih-card__cta tr-nabih-card__cta--urgent">
+          افتح قائمة المتابعة ({urgentCount})
+          <span aria-hidden="true"> ←</span>
+        </Link>
+      ) : (
+        <Link to="/trainer/nabih" className="tr-nabih-card__cta">
+          تحدّث مع نبيه
+          <span aria-hidden="true"> ←</span>
+        </Link>
+      )}
     </CommandCard>
   )
 }
