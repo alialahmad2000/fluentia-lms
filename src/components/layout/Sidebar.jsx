@@ -5,6 +5,8 @@ import { ChevronLeft, Settings } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
 import UserAvatar from '@/components/common/UserAvatar'
 import { getGreeting } from '@/utils/dateHelpers'
+import { hasIELTSAccess } from '@/lib/packageAccess'
+import { toast } from '@/components/ui/FluentiaToast'
 
 const ROLE_DASHBOARDS = { student: '/student', trainer: '/trainer', admin: '/admin' }
 
@@ -88,6 +90,12 @@ function Sidebar({ nav, collapsed, onToggle }) {
                     to={item.to}
                     end={item.to === `/${role}` || item.to === '/student' || item.to === '/trainer' || item.to === '/admin'}
                     aria-current={active ? 'page' : undefined}
+                    onClick={(e) => {
+                      if (item.requiresPackage === 'ielts' && !hasIELTSAccess(studentData)) {
+                        e.preventDefault()
+                        toast({ type: 'error', title: 'هذي الميزة لباقة IELTS فقط 🔒' })
+                      }
+                    }}
                     className="relative flex items-center gap-3 rounded-[14px] transition-all duration-[240ms] outline-none focus-visible:ring-2 focus-visible:ring-[var(--ds-accent-primary,var(--accent-sky))] focus-visible:ring-offset-2"
                     style={{
                       height: 44,

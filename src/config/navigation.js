@@ -51,6 +51,7 @@ export const STUDENT_NAV = {
         { id: 'curriculum',   label: 'المنهج',       icon: BookOpen,     to: '/student/curriculum' },
         { id: 'progress',     label: 'تقدّمي',       icon: BarChart3,    to: '/student/progress' },
         { id: 'flashcards',   label: 'المفردات',     icon: FileText,     to: '/student/flashcards' },
+        { id: 'ielts',        label: 'IELTS',         icon: Target,        to: '/student/ielts', requiresPackage: 'ielts' },
         { id: 'reports',      label: 'التقارير',     icon: CalendarClock, to: '/student/progress-reports' },
         { id: 'how-to-earn',  label: 'كيف تكسب XP 🎯', icon: Target,    to: '/student/how-to-earn' },
         { id: 'level-journey', label: 'خريطة رحلتكِ',   icon: Map,       to: '/student/level-journey' },
@@ -74,6 +75,9 @@ export const STUDENT_NAV = {
       ],
     },
   ],
+  // POLICY: Mobile bar is fixed at 5 slots. IELTS is NOT included here by design.
+  // IELTS students access the track via the sidebar (desktop) or "More" drawer (mobile).
+  // DO NOT add IELTS to this array without explicit product approval.
   mobileBar: [
     { id: 'dashboard',   label: 'الرئيسية',  icon: Home,       to: '/student' },
     { id: 'curriculum',  label: 'المنهج',     icon: BookOpen,   to: '/student/curriculum' },

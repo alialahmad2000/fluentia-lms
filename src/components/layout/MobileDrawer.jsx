@@ -4,11 +4,12 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X, LogOut, Settings } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
 import UserAvatar from '@/components/common/UserAvatar'
+import { hasIELTSAccess } from '@/lib/packageAccess'
 
 const PROFILE_PATHS = { student: '/student/profile', trainer: '/trainer/my-students', admin: '/admin/settings' }
 
 export default function MobileDrawer({ open, onClose, nav }) {
-  const { profile, signOut } = useAuthStore()
+  const { profile, studentData, signOut } = useAuthStore()
   const navigate = useNavigate()
   const location = useLocation()
   const role = profile?.role || 'student'
@@ -85,7 +86,14 @@ export default function MobileDrawer({ open, onClose, nav }) {
 
             {/* Sections — use drawerSections (full list) when available */}
             <div className="px-3 py-4 space-y-5">
-              {(nav.drawerSections || nav.sections).map((section) => (
+              {(nav.drawerSections || nav.sections).map((section) => {
+                const visibleItems = section.items.filter(item => {
+                  if (!item.requiresPackage) return true
+                  if (item.requiresPackage === 'ielts') return hasIELTSAccess(studentData)
+                  return true
+                })
+                if (visibleItems.length === 0) return null
+                return (
                 <div key={section.id}>
                   <div
                     className="px-3 mb-2 text-[11px] font-semibold"
@@ -94,7 +102,7 @@ export default function MobileDrawer({ open, onClose, nav }) {
                     {section.label}
                   </div>
                   <div className="space-y-0.5">
-                    {section.items.map((item) => {
+                    {visibleItems.map((item) => {
                       if (!item || !item.to || !item.icon) return null
                       const Icon = item.icon
                       const isDashboard = item.to === `/${role}` || item.to === '/student' || item.to === '/trainer' || item.to === '/admin'
@@ -120,7 +128,8 @@ export default function MobileDrawer({ open, onClose, nav }) {
                     })}
                   </div>
                 </div>
-              ))}
+              )
+              })}
             </div>
 
             <div style={{ height: 1, margin: '0 16px', background: 'var(--ds-border-subtle, var(--border-subtle))' }} />
