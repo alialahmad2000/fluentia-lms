@@ -289,8 +289,16 @@ export default function UnitContent() {
         <UnitBrief
           unitId={unit.id}
           mode={briefMode}
-          onStart={() => { setShowBrief(false); if (briefMode === 'first-visit') setIntroSeen(true) }}
-          onSkip={() => { setShowBrief(false); if (briefMode === 'first-visit') setIntroSeen(true) }}
+          onStart={() => {
+            if (profile?.id) localStorage.setItem(`fluentia.unitBrief.seen.${profile.id}.${unit.id}`, new Date().toISOString())
+            setShowBrief(false)
+            if (briefMode === 'first-visit') setIntroSeen(true)
+          }}
+          onSkip={() => {
+            if (briefMode === 'first-visit' && profile?.id) localStorage.setItem(`fluentia.unitBrief.seen.${profile.id}.${unit.id}`, new Date().toISOString())
+            setShowBrief(false)
+            if (briefMode === 'first-visit') setIntroSeen(true)
+          }}
         />
       )}
 

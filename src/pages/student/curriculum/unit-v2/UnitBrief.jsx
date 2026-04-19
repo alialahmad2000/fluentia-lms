@@ -18,18 +18,6 @@ export default function UnitBrief({ unitId, onStart, onSkip, mode = 'first-visit
   const containerRef = useRef(null)
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-  // Mark as seen (first-visit only)
-  useEffect(() => {
-    if (mode === 'first-visit' && unitId && profile?.id) {
-      localStorage.setItem(`fluentia.unitBrief.seen.${profile.id}.${unitId}`, new Date().toISOString())
-    }
-  }, [mode, unitId, profile?.id])
-
-  // Impersonation: auto-skip
-  useEffect(() => {
-    if (isImpersonating && onSkip) onSkip()
-  }, [isImpersonating, onSkip])
-
   // Scroll to top on open
   useEffect(() => {
     containerRef.current?.scrollTo({ top: 0, behavior: 'instant' })
@@ -43,7 +31,8 @@ export default function UnitBrief({ unitId, onStart, onSkip, mode = 'first-visit
   }, [onSkip])
 
   // Guards (AFTER all hooks)
-  if (isImpersonating) return null
+  // Allow replay during impersonation so admins can QA the Brief
+  if (isImpersonating && mode === 'first-visit') return null
   if (isLoading) return <BriefSkeleton />
   if (error || !data) return null
 
