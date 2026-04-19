@@ -1,0 +1,284 @@
+{
+  "variant_label": "B",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'vegetables' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "فاكهة",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "خضروات",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "لحم",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "أرز",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة vegetables تعني خضروات."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'hungry' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "متعب",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "سعيد",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "جائع",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "بارد",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة hungry تعني جائع."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'cold' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "طازج",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "ناعم",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "لذيذ",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "بارد",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة cold تعني بارد."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence uses the verb correctly?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "They eats fruit every day.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "They eat fruit every day.",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "They eating fruit every day.",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "They eaten fruit every day.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "مع they نستخدم الفعل الأساسي بدون إضافة s."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which verb form is correct here: 'My father ____ fish every Friday.'?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "cook",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "cooking",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "cooks",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "cooked",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "مع he/she/it نضيف s للفعل في المضارع البسيط، فتصبح cooks."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "In Passage B, what is inside ma'amoul?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "Cheese and pastry",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Honey and sesame",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "Dates or nuts",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "Sugar and milk",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "النص يقول أن المعمول يحتوي على تمر أو مكسرات بالداخل."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "In Passage B, kunafa has honey on top.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "خاطئ. النص يقول أن الكنافة تُقدَّم بالقطر (شراب السكر) وليس العسل."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "In Passage B, luqaimat are hard inside.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "خاطئ. النص يقول أن اللقيمات ناعمة وطرية من الداخل."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "grammar",
+      "question_type": "fill_blank",
+      "question_text": "We ____ rice with chicken for dinner. (eat)",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "eat",
+      "accepted_answers": [
+        "eat",
+        "Eat"
+      ],
+      "points": 1,
+      "explanation_ar": "مع we نستخدم الفعل الأساسي بدون تغيير، فتصبح eat."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "vocabulary",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "fish",
+          "milk",
+          "salt",
+          "soft"
+        ],
+        "right_items": [
+          "ناعم، طري",
+          "سمك",
+          "ملح",
+          "حليب"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "fish",
+          "right": "سمك"
+        },
+        {
+          "left": "milk",
+          "right": "حليب"
+        },
+        {
+          "left": "salt",
+          "right": "ملح"
+        },
+        {
+          "left": "soft",
+          "right": "ناعم، طري"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "طابق كل كلمة إنجليزية مع معناها الصحيح بالعربية."
+    }
+  ]
+}

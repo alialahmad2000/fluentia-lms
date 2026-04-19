@@ -1,0 +1,285 @@
+{
+  "variant_label": "A",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'morning' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "الليل",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "الصباح",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "الظهر",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "العصر",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة morning تعني الصباح، وهو الجزء الأول من النهار."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'breakfast' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "العشاء",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "الغداء",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "الإفطار",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "الوجبة الخفيفة",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة breakfast تعني الإفطار، وهي أول وجبة نتناولها في الصباح."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "true_false",
+      "question_text": "'Sleep' means ينام in Arabic.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نعم، كلمة sleep تعني ينام، وهي إغلاق العينين والراحة عادةً في الليل."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "vocabulary",
+      "question_type": "fill_blank",
+      "question_text": "I ____ up at 7:00 AM every day.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "wake",
+      "accepted_answers": [
+        "wake",
+        "Wake",
+        "WAKE"
+      ],
+      "points": 1,
+      "explanation_ar": "الفعل wake up يعني يستيقظ، أي التوقف عن النوم وفتح العينين."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Choose the correct sentence:",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "I is happy.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "I are happy.",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "I am happy.",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "I be happy.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "مع الضمير I نستخدم am فقط، لذا الجملة الصحيحة هي I am happy."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which word completes: 'She ____ at home.'?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "am",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "are",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "be",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "is",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "مع الضمير she نستخدم is، لذا الجملة الصحيحة هي She is at home."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'They are busy' is correct English.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "الجملة صحيحة. مع they نستخدم are، لذا They are busy جملة صحيحة."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "In Passage A, what do young Saudis eat for breakfast?",
+      "question_context": "Most young people wake up early for work or university. They often eat a simple breakfast with their family. Traditional foods like eggs, cheese, and bread are popular choices.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Rice and fish",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Eggs, cheese, and bread",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "Fruit and juice",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "Vegetables and soup",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "وفقاً للنص، الأطعمة التقليدية الشائعة في إفطار السعوديين هي البيض والجبن والخبز."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "In Passage B, when do Japanese people start their day?",
+      "question_context": "In Japan, many people begin their day at 6:00 AM. They drink water first, then do light exercise.",
+      "options": [
+        {
+          "id": "a",
+          "text": "At 7:00 AM",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "At 8:00 AM",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "At 5:00 AM",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "At 6:00 AM",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "وفقاً للنص، كثير من اليابانيين يبدؤون يومهم في الساعة السادسة صباحاً."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "reading",
+      "question_type": "matching",
+      "question_text": "Match each word to its meaning from the passages:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "morning",
+          "coffee",
+          "exercise",
+          "home"
+        ],
+        "right_items": [
+          "المنزل / البيت",
+          "الصباح",
+          "القهوة",
+          "يمارس الرياضة"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "morning",
+          "right": "الصباح"
+        },
+        {
+          "left": "coffee",
+          "right": "القهوة"
+        },
+        {
+          "left": "exercise",
+          "right": "يمارس الرياضة"
+        },
+        {
+          "left": "home",
+          "right": "المنزل / البيت"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "هذه مفردات وردت في النصين وتصف الروتين اليومي."
+    }
+  ]
+}

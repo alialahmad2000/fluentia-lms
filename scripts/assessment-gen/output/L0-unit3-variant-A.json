@@ -1,0 +1,284 @@
+{
+  "variant_label": "A",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'capital' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "شارع",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "العاصمة",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "مستشفى",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "بحيرة",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة capital تعني العاصمة، مثل الرياض عاصمة المملكة العربية السعودية."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'comfortable' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "بعيد",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "جديد",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "كبير",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "مريح",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة comfortable تعني مريح."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'transportation' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "المواصلات",
+          "is_correct": true
+        },
+        {
+          "id": "b",
+          "text": "الحكومة",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "الأضواء",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "المباني",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "a",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة transportation تعني المواصلات أو النقل."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Choose the correct sentence:",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "She don't live in the city.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "She doesn't lives in the city.",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "She doesn't live in the city.",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "She no live in the city.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "مع she نستخدم doesn't ثم الفعل في صيغته الأساسية بدون إضافة s."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Choose the correct question:",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "Does they have a park?",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Do he visit the park?",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "Does she visit the park?",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "Does she visits the park?",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "مع she نستخدم Does ثم الفعل في صيغته الأساسية بدون إضافة s."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "Riyadh is the capital of ____?",
+      "question_context": "Riyadh is the capital of Saudi Arabia.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Japan",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Singapore",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "Saudi Arabia",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "England",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "النص يقول إن الرياض هي عاصمة المملكة العربية السعودية."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "Singapore has dirty streets.",
+      "question_context": "Singapore has strict rules about throwing garbage on the streets.",
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "خاطئة. النص يقول إن سنغافورة لديها قواعد صارمة لإبقاء الشوارع نظيفة."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'I don't has a car' is correct.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "خاطئة. الصحيح هو I don't have a car لأن الفعل بعد don't يبقى في صيغته الأساسية."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "King Abdullah Park has a ____ with fountains.",
+      "question_context": "It has trees, flowers, and walking paths. The park also has a lake with fountains.",
+      "options": null,
+      "correct_answer": "lake",
+      "accepted_answers": [
+        "lake",
+        "Lake"
+      ],
+      "points": 1,
+      "explanation_ar": "النص يذكر أن الحديقة تحتوي على بحيرة بها نوافير."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "vocabulary",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "beautiful",
+          "buildings",
+          "lake",
+          "streets"
+        ],
+        "right_items": [
+          "شوارع",
+          "مباني",
+          "بحيرة",
+          "جميل"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "beautiful",
+          "right": "جميل"
+        },
+        {
+          "left": "buildings",
+          "right": "مباني"
+        },
+        {
+          "left": "lake",
+          "right": "بحيرة"
+        },
+        {
+          "left": "streets",
+          "right": "شوارع"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "تطابق كل كلمة إنجليزية مع معناها الصحيح بالعربية."
+    }
+  ]
+}

@@ -1,0 +1,286 @@
+{
+  "variant_label": "C",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'cool' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "حار",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "بارد، منعش",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "سريع",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "كبير",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة cool تعني بارد أو منعش، عكس الحار."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'feed' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "يختبئ",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يتسلق",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "يُطعم",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "يركض",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة feed تعني يُطعم، أي يقدم الطعام لشخص أو حيوان."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What is a 'camel'?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "طائر يطير في السماء",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "حيوان يعيش في الصحراء",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "سمكة تسبح في الماء",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "حشرة صغيرة جداً",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "الجمل حيوان معروف يعيش في الصحراء."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which word correctly completes: '_____ cats are near me'?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "That",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "This",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "Those",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "These",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم these مع الجمع (أكثر من واحد) عندما تكون الأشياء قريبة منا."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence uses 'this' correctly?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "This camels are slow.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "This camel is slow.",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "This camels is slow.",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "These camel is slow.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم this مع المفرد (واحد) القريب منا، فنقول this camel وليس this camels."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "What is Saudi Arabia's national animal?",
+      "question_context": "The Arabian oryx is Saudi Arabia's national animal.",
+      "options": [
+        {
+          "id": "a",
+          "text": "The sand cat",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "The fennec fox",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "The Arabian oryx",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "The Arabian leopard",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "ذكر النص أن المها العربي هو الحيوان الوطني للمملكة العربية السعودية."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'This horses are fast' is correct.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "خاطئة. horses جمع، فنستخدم these وليس this. الجملة الصحيحة: These horses are fast."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "The Red Sea water is warm all year.",
+      "question_context": "The water is warm all year, so many sea animals live in this area.",
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيح. ذكر النص أن مياه البحر الأحمر دافئة طوال العام."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "The horse _____ very fast.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "runs",
+      "accepted_answers": [
+        "runs",
+        "Runs",
+        "run",
+        "Run"
+      ],
+      "points": 1,
+      "explanation_ar": "الفعل runs يعني يركض، والحصان يركض بسرعة كبيرة."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "vocabulary",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "slow",
+          "feed",
+          "love",
+          "warm"
+        ],
+        "right_items": [
+          "يُطعم",
+          "دافئ",
+          "بطيء",
+          "يحب"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "slow",
+          "right": "بطيء"
+        },
+        {
+          "left": "feed",
+          "right": "يُطعم"
+        },
+        {
+          "left": "love",
+          "right": "يحب"
+        },
+        {
+          "left": "warm",
+          "right": "دافئ"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "طابق كل كلمة إنجليزية مع معناها الصحيح بالعربية."
+    }
+  ]
+}

@@ -1,0 +1,285 @@
+{
+  "variant_label": "B",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'family' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "المدينة",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "العائلة",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "الوقت",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "الغرفة",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة family تعني العائلة، وهي المجموعة التي نعيش معها في المنزل."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'walk' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "يركض",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يقود",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "يمشي",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "يطير",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة walk تعني يمشي، وهو التنقل على الأقدام."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "true_false",
+      "question_text": "The word 'water' means القهوة in Arabic.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "هذه العبارة خاطئة. كلمة water تعني الماء وليس القهوة."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "vocabulary",
+      "question_type": "fill_blank",
+      "question_text": "I go to ____ after work every day.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "home",
+      "accepted_answers": [
+        "home",
+        "Home",
+        "HOME"
+      ],
+      "points": 1,
+      "explanation_ar": "كلمة home تعني المنزل أو البيت، وهو المكان الذي نعود إليه بعد العمل."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence is correct?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "I is a student.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "I are a student.",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "I am a student.",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "I be a student.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "مع الضمير I نستخدم am دائماً، فنقول I am a student."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Choose the correct word: 'The breakfast ____ ready.'",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "am",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "are",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "is",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "be",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة breakfast مفرد، لذلك نستخدم is وليس am أو are."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'We are tired after work' is correct English.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "الجملة صحيحة. مع we نستخدم are، وهذا هو الاستخدام الصحيح."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "In Passage B, what do people in Brazil drink in the morning?",
+      "question_context": "In Brazil, morning routines include fresh fruit juice and strong coffee.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Tea and water",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Milk and juice",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "Fresh fruit juice and coffee",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "Rice and fish",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "ذكر النص أن البرازيليين يشربون عصير الفاكهة الطازج والقهوة القوية في الصباح."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "In Passage A, what time does work usually start in Riyadh?",
+      "question_context": "The work day usually starts at 8:00 AM.",
+      "options": [
+        {
+          "id": "a",
+          "text": "7:00 AM",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "8:00 AM",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "9:00 AM",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "10:00 AM",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "ذكر النص أن يوم العمل في الرياض يبدأ عادةً في الساعة الثامنة صباحاً."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "reading",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "sleep",
+          "people",
+          "early",
+          "work"
+        ],
+        "right_items": [
+          "العمل",
+          "مبكر",
+          "الناس",
+          "ينام"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "sleep",
+          "right": "ينام"
+        },
+        {
+          "left": "people",
+          "right": "الناس"
+        },
+        {
+          "left": "early",
+          "right": "مبكر"
+        },
+        {
+          "left": "work",
+          "right": "العمل"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "هذه مفردات من النصين تصف الحياة اليومية والروتين الصباحي."
+    }
+  ]
+}

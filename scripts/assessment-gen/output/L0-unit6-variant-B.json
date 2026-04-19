@@ -1,0 +1,284 @@
+{
+  "variant_label": "B",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'visit' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "يأكل",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يزور",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "يلعب",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "يشتري",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة 'visit' تعني يزور بالعربية."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "Choose the correct meaning of 'together'.",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "وحده",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "بعيداً",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "معًا",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "أحياناً",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة 'together' تعني معًا بالعربية."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'children' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "المعلمون",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "الأصدقاء",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "الآباء",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "الأطفال",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة 'children' تعني الأطفال بالعربية."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What is the meaning of 'young' in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "كبير في السن",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "مريض",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "شاب / صغير",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "طويل",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة 'young' تعني شاب أو صغير بالعربية."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence uses 'the' correctly?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "I have the friend at school.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "The mother in our family is kind.",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "She drinks the coffee every day.",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "He is the young boy.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم 'the' عندما نتحدث عن شخص أو شيء محدد نعرفه، مثل الأم في العائلة."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Fill in the blank: 'I have ___ young sister.'",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "an",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "the",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "a",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "—",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم 'a' قبل الكلمات التي تبدأ بصوت حرف ساكن مثل 'young'."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'My father is an old man' is correct English.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيحة. نستخدم 'an' قبل 'old' لأنها تبدأ بصوت حرف علة."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "In Brazil, people are very friendly to new people.",
+      "question_context": "Passage B: Friends Around the World",
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيحة. تذكر المقالة أن البرازيليين ودودون جداً مع الناس الجدد."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "Children who eat dinner with their families do better in ___.",
+      "question_context": "Passage A: Family Traditions Around the World",
+      "options": null,
+      "correct_answer": "school",
+      "accepted_answers": [
+        "school",
+        "School"
+      ],
+      "points": 1,
+      "explanation_ar": "تذكر المقالة أن الأطفال الذين يتناولون العشاء مع عائلاتهم يؤدون أداءً أفضل في المدرسة."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "reading",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "family",
+          "friend",
+          "young",
+          "baby"
+        ],
+        "right_items": [
+          "طفل رضيع",
+          "صديق",
+          "شاب / صغير",
+          "عائلة"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "family",
+          "right": "عائلة"
+        },
+        {
+          "left": "friend",
+          "right": "صديق"
+        },
+        {
+          "left": "young",
+          "right": "شاب / صغير"
+        },
+        {
+          "left": "baby",
+          "right": "طفل رضيع"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "طابق كل كلمة إنجليزية بمعناها الصحيح بالعربية."
+    }
+  ]
+}

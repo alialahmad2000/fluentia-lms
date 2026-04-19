@@ -1,0 +1,952 @@
+{
+  "timestamp": "2026-04-19T04:53:47.980Z",
+  "unit_id": "97ccbf07-a070-4e7f-b27e-4d4a29bcf8d2",
+  "assessment_id": "dd6e9f0a-dc4f-4a60-b378-bbd06c55b312",
+  "variants": [
+    {
+      "id": "aa17744f-0e3c-4ef1-9b98-9c661d5bc0ba",
+      "variant_code": "A"
+    },
+    {
+      "id": "9be330b3-c95d-4ec4-8ab3-ed67ad672e06",
+      "variant_code": "B"
+    },
+    {
+      "id": "88f75d90-4bd3-402b-8b8c-dd00836d5f7c",
+      "variant_code": "C"
+    }
+  ],
+  "questions": [
+    {
+      "id": "42bcc590-5aa8-49a2-bc4b-916a8cdec5fc",
+      "variant_id": "88f75d90-4bd3-402b-8b8c-dd00836d5f7c",
+      "order_index": 1,
+      "question_type": "mcq",
+      "skill_tag": "vocabulary",
+      "question_text": "What does 'early' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "متأخر",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "مبكر",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "سريع",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "بطيء",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة early تعني مبكر، أي قبل الوقت المعتاد.",
+      "created_at": "2026-04-19T04:11:34.165Z"
+    },
+    {
+      "id": "14aed0a0-445d-4192-8ab1-a0e4c759a0e2",
+      "variant_id": "88f75d90-4bd3-402b-8b8c-dd00836d5f7c",
+      "order_index": 2,
+      "question_type": "mcq",
+      "skill_tag": "vocabulary",
+      "question_text": "What does 'wash' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "يأكل",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يشرب",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "يغسل",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "يمشي",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة wash تعني يغسل، مثل غسل اليدين أو الوجه.",
+      "created_at": "2026-04-19T04:11:34.165Z"
+    },
+    {
+      "id": "d8dc4d34-4e75-4825-8312-67315cc5623d",
+      "variant_id": "88f75d90-4bd3-402b-8b8c-dd00836d5f7c",
+      "order_index": 3,
+      "question_type": "true_false",
+      "skill_tag": "vocabulary",
+      "question_text": "'Coffee' means القهوة in Arabic.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نعم، coffee تعني القهوة، وهي مشروب ساخن بني مصنوع من حبوب البن.",
+      "created_at": "2026-04-19T04:11:34.165Z"
+    },
+    {
+      "id": "dac671be-1536-42c7-a499-583c8703c01a",
+      "variant_id": "88f75d90-4bd3-402b-8b8c-dd00836d5f7c",
+      "order_index": 4,
+      "question_type": "matching",
+      "skill_tag": "vocabulary",
+      "question_text": "Match each English word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "bed",
+          "window",
+          "night",
+          "walk"
+        ],
+        "right_items": [
+          "ليل / ليلة",
+          "نافذة",
+          "سرير",
+          "يمشي"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "bed",
+          "right": "سرير"
+        },
+        {
+          "left": "window",
+          "right": "نافذة"
+        },
+        {
+          "left": "night",
+          "right": "ليل / ليلة"
+        },
+        {
+          "left": "walk",
+          "right": "يمشي"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "هذه مفردات أساسية تتعلق بالمنزل والروتين اليومي.",
+      "created_at": "2026-04-19T04:11:34.165Z"
+    },
+    {
+      "id": "b530a469-bb6c-4b9b-be00-f6bf9c63747c",
+      "variant_id": "88f75d90-4bd3-402b-8b8c-dd00836d5f7c",
+      "order_index": 5,
+      "question_type": "mcq",
+      "skill_tag": "grammar",
+      "question_text": "Choose the correct sentence:",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "I is at home.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "I are at home.",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "I am at home.",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "I be at home.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "مع الضمير I نستخدم am دائماً، فالجملة الصحيحة هي I am at home.",
+      "created_at": "2026-04-19T04:11:34.165Z"
+    },
+    {
+      "id": "400fb799-f0ba-4245-bee2-1cfe8b50694b",
+      "variant_id": "88f75d90-4bd3-402b-8b8c-dd00836d5f7c",
+      "order_index": 6,
+      "question_type": "mcq",
+      "skill_tag": "grammar",
+      "question_text": "Which word completes: 'They ____ tired.'?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "am",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "is",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "are",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "be",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "مع الضمير they نستخدم are، فالجملة الصحيحة هي They are tired.",
+      "created_at": "2026-04-19T04:11:34.165Z"
+    },
+    {
+      "id": "2ac36439-03df-4f34-ad0d-7c0458fad2df",
+      "variant_id": "88f75d90-4bd3-402b-8b8c-dd00836d5f7c",
+      "order_index": 7,
+      "question_type": "fill_blank",
+      "skill_tag": "grammar",
+      "question_text": "The breakfast ____ ready now.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "is",
+      "accepted_answers": [
+        "is",
+        "Is",
+        "IS"
+      ],
+      "points": 1,
+      "explanation_ar": "breakfast مفرد لذلك نستخدم is، فالجملة الصحيحة هي The breakfast is ready.",
+      "created_at": "2026-04-19T04:11:34.165Z"
+    },
+    {
+      "id": "9da4e624-b762-45b1-b5a2-08944498753e",
+      "variant_id": "88f75d90-4bd3-402b-8b8c-dd00836d5f7c",
+      "order_index": 8,
+      "question_type": "mcq",
+      "skill_tag": "reading",
+      "question_text": "In Passage A, what do people drink for breakfast?",
+      "question_context": "Most young people wake up early for work or university. They often eat a simple breakfast with their family. Many people drink tea or Arabic coffee to start their day.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Juice and milk",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Tea or Arabic coffee",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "Water and soda",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "Milk and cocoa",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "النص يذكر أن كثيراً من الناس يشربون الشاي أو القهوة العربية في وجبة الإفطار.",
+      "created_at": "2026-04-19T04:11:34.165Z"
+    },
+    {
+      "id": "228daaf6-b2a9-4569-81bf-65a61d3cad92",
+      "variant_id": "88f75d90-4bd3-402b-8b8c-dd00836d5f7c",
+      "order_index": 9,
+      "question_type": "true_false",
+      "skill_tag": "reading",
+      "question_text": "In Passage B, Brazilians exercise at home in the morning.",
+      "question_context": "Brazilians often exercise at the beach or in parks before work.",
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "النص يقول إن البرازيليين يمارسون الرياضة على الشاطئ أو في الحدائق، وليس في المنزل.",
+      "created_at": "2026-04-19T04:11:34.165Z"
+    },
+    {
+      "id": "86ceb6e1-120f-472a-a718-8d90069122b4",
+      "variant_id": "88f75d90-4bd3-402b-8b8c-dd00836d5f7c",
+      "order_index": 10,
+      "question_type": "mcq",
+      "skill_tag": "reading",
+      "question_text": "In Passage B, what do people in Japan eat for breakfast?",
+      "question_context": "Japanese workers often eat a traditional breakfast with rice, fish, and vegetables.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Bread and eggs",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Fruit and coffee",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "Rice, fish, and vegetables",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "Dates and bread",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "النص يذكر أن العمال اليابانيين يتناولون وجبة إفطار تقليدية تتكون من الأرز والسمك والخضروات.",
+      "created_at": "2026-04-19T04:11:34.165Z"
+    },
+    {
+      "id": "afa60949-9e78-4b43-9c65-caac97b60b7f",
+      "variant_id": "9be330b3-c95d-4ec4-8ab3-ed67ad672e06",
+      "order_index": 1,
+      "question_type": "mcq",
+      "skill_tag": "vocabulary",
+      "question_text": "What does 'sleep' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "يأكل",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يمشي",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "ينام",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "يشرب",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة sleep تعني ينام، وهو إغلاق العينين والراحة عادةً في الليل.",
+      "created_at": "2026-04-19T04:11:34.039Z"
+    },
+    {
+      "id": "ab3e0344-0ea6-42e8-a0f8-c7ed29b9fe07",
+      "variant_id": "9be330b3-c95d-4ec4-8ab3-ed67ad672e06",
+      "order_index": 2,
+      "question_type": "mcq",
+      "skill_tag": "vocabulary",
+      "question_text": "Which word means 'يستيقظ'?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "walk",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "wake up",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "wash",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "enjoy",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة wake up تعني يستيقظ، أي التوقف عن النوم وفتح العينين.",
+      "created_at": "2026-04-19T04:11:34.039Z"
+    },
+    {
+      "id": "fad44812-dd7e-4341-8df4-3c1bcb949e42",
+      "variant_id": "9be330b3-c95d-4ec4-8ab3-ed67ad672e06",
+      "order_index": 3,
+      "question_type": "true_false",
+      "skill_tag": "vocabulary",
+      "question_text": "'Coffee' means القهوة in Arabic.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نعم، coffee تعني القهوة، وهي مشروب ساخن بني مصنوع من حبوب البن.",
+      "created_at": "2026-04-19T04:11:34.039Z"
+    },
+    {
+      "id": "a6256583-5949-436f-a29b-ab222ba74d7a",
+      "variant_id": "9be330b3-c95d-4ec4-8ab3-ed67ad672e06",
+      "order_index": 4,
+      "question_type": "mcq",
+      "skill_tag": "vocabulary",
+      "question_text": "Choose the correct meaning of 'exercise'.",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "يأكل",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يستريح",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "يذهب",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "يمارس الرياضة",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة exercise تعني يمارس الرياضة، أي تحريك الجسم للبقاء بصحة جيدة.",
+      "created_at": "2026-04-19T04:11:34.039Z"
+    },
+    {
+      "id": "14817545-f3c9-4956-aa7a-1d1205397df5",
+      "variant_id": "9be330b3-c95d-4ec4-8ab3-ed67ad672e06",
+      "order_index": 5,
+      "question_type": "mcq",
+      "skill_tag": "grammar",
+      "question_text": "Choose the correct sentence.",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "I is at home.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "I are at home.",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "I am at home.",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "I be at home.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "مع الضمير I نستخدم am دائماً، فالجملة الصحيحة هي I am at home.",
+      "created_at": "2026-04-19T04:11:34.039Z"
+    },
+    {
+      "id": "f6b9fa0a-f1fe-4740-9676-8280efa1b45e",
+      "variant_id": "9be330b3-c95d-4ec4-8ab3-ed67ad672e06",
+      "order_index": 6,
+      "question_type": "mcq",
+      "skill_tag": "grammar",
+      "question_text": "Which word completes this? 'They ____ busy.'",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "am",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "is",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "be",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "are",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "مع الضمير they نستخدم are، فالجملة الصحيحة هي They are busy.",
+      "created_at": "2026-04-19T04:11:34.039Z"
+    },
+    {
+      "id": "92bfe8fa-9a12-4674-8a41-73d7dad581c0",
+      "variant_id": "9be330b3-c95d-4ec4-8ab3-ed67ad672e06",
+      "order_index": 7,
+      "question_type": "true_false",
+      "skill_tag": "grammar",
+      "question_text": "'My family is big' is correct.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "الجملة صحيحة. كلمة family اسم مفرد، لذا نستخدم معها is.",
+      "created_at": "2026-04-19T04:11:34.039Z"
+    },
+    {
+      "id": "04b98b0f-84d4-43a8-907f-4565f3091bac",
+      "variant_id": "9be330b3-c95d-4ec4-8ab3-ed67ad672e06",
+      "order_index": 8,
+      "question_type": "mcq",
+      "skill_tag": "reading",
+      "question_text": "In Passage B, what do Japanese people drink first?",
+      "question_context": "People around the world have different morning routines. In Japan, many people begin their day at 6:00 AM. They drink water first, then do light exercise.",
+      "options": [
+        {
+          "id": "a",
+          "text": "coffee",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "tea",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "water",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "juice",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "وفقاً للنص، يشرب اليابانيون الماء أولاً في الصباح قبل أي شيء آخر.",
+      "created_at": "2026-04-19T04:11:34.039Z"
+    },
+    {
+      "id": "3ce95e73-cc76-437e-9110-48dae40a7bf6",
+      "variant_id": "9be330b3-c95d-4ec4-8ab3-ed67ad672e06",
+      "order_index": 9,
+      "question_type": "fill_blank",
+      "skill_tag": "reading",
+      "question_text": "In Riyadh, the work day starts at ____ AM.",
+      "question_context": "The work day usually starts at 8:00 AM. Popular jobs include teaching, business, healthcare, and technology.",
+      "options": null,
+      "correct_answer": "8:00",
+      "accepted_answers": [
+        "8:00",
+        "8",
+        "eight"
+      ],
+      "points": 1,
+      "explanation_ar": "وفقاً لنص 'A Day in Riyadh'، يبدأ يوم العمل عادةً في الساعة الثامنة صباحاً.",
+      "created_at": "2026-04-19T04:11:34.039Z"
+    },
+    {
+      "id": "616b0c06-2c9d-409e-abb4-254eb69cf490",
+      "variant_id": "9be330b3-c95d-4ec4-8ab3-ed67ad672e06",
+      "order_index": 10,
+      "question_type": "matching",
+      "skill_tag": "reading",
+      "question_text": "Match each word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "water",
+          "family",
+          "night",
+          "home"
+        ],
+        "right_items": [
+          "المنزل",
+          "الماء",
+          "العائلة",
+          "الليل"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "water",
+          "right": "الماء"
+        },
+        {
+          "left": "family",
+          "right": "العائلة"
+        },
+        {
+          "left": "night",
+          "right": "الليل"
+        },
+        {
+          "left": "home",
+          "right": "المنزل"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "هذه مفردات وردت في النصوص وتصف الحياة اليومية والبيئة المحيطة.",
+      "created_at": "2026-04-19T04:11:34.039Z"
+    },
+    {
+      "id": "1e334a71-60c7-43b2-b098-12eaccadc81f",
+      "variant_id": "aa17744f-0e3c-4ef1-9b98-9c661d5bc0ba",
+      "order_index": 1,
+      "question_type": "mcq",
+      "skill_tag": "vocabulary",
+      "question_text": "What does 'morning' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "الليل",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "الصباح",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "الظهر",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "المساء",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة morning تعني الصباح، وهو الجزء الأول من النهار.",
+      "created_at": "2026-04-19T04:11:33.909Z"
+    },
+    {
+      "id": "ef99d595-3b86-4fbd-8d6d-aedeedade14a",
+      "variant_id": "aa17744f-0e3c-4ef1-9b98-9c661d5bc0ba",
+      "order_index": 2,
+      "question_type": "mcq",
+      "skill_tag": "vocabulary",
+      "question_text": "What does 'breakfast' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "الغداء",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "العشاء",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "الإفطار",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "الوجبة الخفيفة",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة breakfast تعني الإفطار، وهي أول وجبة نتناولها في الصباح.",
+      "created_at": "2026-04-19T04:11:33.909Z"
+    },
+    {
+      "id": "23af3a3e-6255-431e-a392-f863fef84f04",
+      "variant_id": "aa17744f-0e3c-4ef1-9b98-9c661d5bc0ba",
+      "order_index": 3,
+      "question_type": "true_false",
+      "skill_tag": "vocabulary",
+      "question_text": "'Sleep' means ينام in Arabic.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نعم، كلمة sleep تعني ينام، وهي إغلاق العينين والراحة في الليل.",
+      "created_at": "2026-04-19T04:11:33.909Z"
+    },
+    {
+      "id": "bfba3a60-be1f-4606-8769-82c0ed580694",
+      "variant_id": "aa17744f-0e3c-4ef1-9b98-9c661d5bc0ba",
+      "order_index": 4,
+      "question_type": "fill_blank",
+      "skill_tag": "vocabulary",
+      "question_text": "I ____ up at 7:00 AM every day.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "wake",
+      "accepted_answers": [
+        "wake",
+        "Wake",
+        "WAKE"
+      ],
+      "points": 1,
+      "explanation_ar": "الفعل wake up يعني يستيقظ، أي التوقف عن النوم وفتح العينين.",
+      "created_at": "2026-04-19T04:11:33.909Z"
+    },
+    {
+      "id": "7edfde4e-6a8b-46c7-a42d-a6d9f099ec75",
+      "variant_id": "aa17744f-0e3c-4ef1-9b98-9c661d5bc0ba",
+      "order_index": 5,
+      "question_type": "mcq",
+      "skill_tag": "grammar",
+      "question_text": "Choose the correct sentence:",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "I is a student.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "I are a student.",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "I am a student.",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "I be a student.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "مع ضمير I نستخدم am فقط، لذا الجملة الصحيحة هي I am a student.",
+      "created_at": "2026-04-19T04:11:33.909Z"
+    },
+    {
+      "id": "3f152e62-d861-4d01-ab57-04952d55fcca",
+      "variant_id": "aa17744f-0e3c-4ef1-9b98-9c661d5bc0ba",
+      "order_index": 6,
+      "question_type": "mcq",
+      "skill_tag": "grammar",
+      "question_text": "Which word completes: 'They ____ busy.'?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "am",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "is",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "be",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "are",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "مع they نستخدم are، لأن they ضمير جمع.",
+      "created_at": "2026-04-19T04:11:33.909Z"
+    },
+    {
+      "id": "d7f76880-3025-4b2d-a0ea-f38dbc0571e3",
+      "variant_id": "aa17744f-0e3c-4ef1-9b98-9c661d5bc0ba",
+      "order_index": 7,
+      "question_type": "true_false",
+      "skill_tag": "grammar",
+      "question_text": "'She are at home' is correct.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "الجملة خاطئة. مع she يجب استخدام is وليس are، فالصحيح She is at home.",
+      "created_at": "2026-04-19T04:11:33.909Z"
+    },
+    {
+      "id": "cbcbf4b2-cf2f-4674-892d-c2bfacd323c5",
+      "variant_id": "aa17744f-0e3c-4ef1-9b98-9c661d5bc0ba",
+      "order_index": 8,
+      "question_type": "mcq",
+      "skill_tag": "reading",
+      "question_text": "In Passage A, what do people eat for breakfast?",
+      "question_context": "Most young people wake up early for work or university. They often eat a simple breakfast with their family. Traditional foods like eggs, cheese, and bread are popular choices.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Rice and fish",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Eggs, cheese, and bread",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "Fruit and juice",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "Soup and meat",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "النص يذكر أن الأطعمة التقليدية الشائعة في الإفطار هي البيض والجبن والخبز.",
+      "created_at": "2026-04-19T04:11:33.909Z"
+    },
+    {
+      "id": "d375e3a5-8de6-4254-9f24-4ce853732bd8",
+      "variant_id": "aa17744f-0e3c-4ef1-9b98-9c661d5bc0ba",
+      "order_index": 9,
+      "question_type": "mcq",
+      "skill_tag": "reading",
+      "question_text": "In Passage B, what do Japanese people drink first?",
+      "question_context": "In Japan, many people begin their day at 6:00 AM. They drink water first, then do light exercise.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Coffee",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Tea",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "Water",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "Juice",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "النص يذكر أن اليابانيين يشربون الماء أولاً في الصباح قبل ممارسة الرياضة.",
+      "created_at": "2026-04-19T04:11:33.909Z"
+    },
+    {
+      "id": "a33c7f3e-b66b-4469-a33e-3395e2f5cb2f",
+      "variant_id": "aa17744f-0e3c-4ef1-9b98-9c661d5bc0ba",
+      "order_index": 10,
+      "question_type": "matching",
+      "skill_tag": "reading",
+      "question_text": "Match each word to its meaning from the passages:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "home",
+          "work",
+          "family",
+          "enjoy"
+        ],
+        "right_items": [
+          "يستمتع",
+          "العائلة",
+          "المنزل",
+          "العمل"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "home",
+          "right": "المنزل"
+        },
+        {
+          "left": "work",
+          "right": "العمل"
+        },
+        {
+          "left": "family",
+          "right": "العائلة"
+        },
+        {
+          "left": "enjoy",
+          "right": "يستمتع"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "هذه كلمات وردت في النصوص وتعني: home المنزل، work العمل، family العائلة، enjoy يستمتع.",
+      "created_at": "2026-04-19T04:11:33.909Z"
+    }
+  ],
+  "question_count": 30
+}

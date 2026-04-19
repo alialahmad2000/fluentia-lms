@@ -1,0 +1,284 @@
+{
+  "variant_label": "A",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'relax' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "يتعلم",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يسترخي / يستريح",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "يعمل",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "يسافر",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة relax تعني يسترخي أو يستريح."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "Which word means 'التصوير الفوتوغرافي'?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "cooking",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "dancing",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "photography",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "reading",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة photography تعني التصوير الفوتوغرافي."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'popular' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "صعب",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "قديم",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "جميل",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "شائع / محبوب",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة popular تعني شائع أو محبوب."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "Choose the correct meaning of 'crafts'.",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "الرياضة",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "الحرف اليدوية",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "الموسيقى",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "القراءة",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة crafts تعني الحرف اليدوية أو الأعمال الفنية التي تُصنع باليد."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Choose the correct word: '___ like music.'",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "Me",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "My",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "I",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "Mine",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم I قبل الفعل لأنها فاعل الجملة."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Choose the correct word: 'This is ___ favorite sport.'",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "I",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "me",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "mine",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "my",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم my قبل الاسم للدلالة على الملكية."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'Give the book to I' is correct English.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "خاطئة. بعد حرف الجر to نستخدم me وليس I، فنقول: Give the book to me."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "In the passage, swimming is popular in Australia.",
+      "question_context": "Sports are also very popular hobbies. Swimming is the most popular sport in Australia.",
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيحة. النص يقول إن السباحة هي الرياضة الأكثر شعبية في أستراليا."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "People use their free time to ___ and learn new things.",
+      "question_context": "Hobbies help us relax and learn new things.",
+      "options": null,
+      "correct_answer": "relax",
+      "accepted_answers": [
+        "relax",
+        "Relax"
+      ],
+      "points": 1,
+      "explanation_ar": "النص يقول إن الهوايات تساعدنا على الاسترخاء وتعلم أشياء جديدة."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "reading",
+      "question_type": "matching",
+      "question_text": "Match each hobby to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "cooking",
+          "dancing",
+          "reading",
+          "photography"
+        ],
+        "right_items": [
+          "القراءة",
+          "الرقص",
+          "التصوير الفوتوغرافي",
+          "الطبخ"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "cooking",
+          "right": "الطبخ"
+        },
+        {
+          "left": "dancing",
+          "right": "الرقص"
+        },
+        {
+          "left": "reading",
+          "right": "القراءة"
+        },
+        {
+          "left": "photography",
+          "right": "التصوير الفوتوغرافي"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "هذه هوايات مذكورة في النص مع معانيها بالعربية."
+    }
+  ]
+}

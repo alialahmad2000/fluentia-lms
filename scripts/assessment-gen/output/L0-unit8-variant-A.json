@@ -1,0 +1,284 @@
+{
+  "variant_label": "A",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'heart' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "المعدة",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "القلب",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "الجلد",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "العظام",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة heart تعني القلب بالعربية."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "Which word means 'مريض' in English?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "strong",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "healthy",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "sick",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "good",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة sick تعني مريض بالعربية."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'bones' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "الجلد",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "الجسم",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "القلب",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "العظام",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة bones تعني العظام بالعربية."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "Choose the correct word: 'I wash my ____.'",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "hand",
+          "is_correct": true
+        },
+        {
+          "id": "b",
+          "text": "stomach",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "heart",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "bone",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "a",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة hand تعني اليد، ونغسل اليد بالصابون."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Choose the correct sentence:",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "The doctors coat is white.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "The doctor coat's is white.",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "The doctor's coat is white.",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "The doctors's coat is white.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نضيف 's بعد اسم الشخص مباشرة لنشير إلى ملكيته، فنقول doctor's coat."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which is correct? 'Ahmed's ___ hurts.'",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "tooth",
+          "is_correct": true
+        },
+        {
+          "id": "b",
+          "text": "tooths",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "'s tooth",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "tooth's",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "a",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "الجملة الصحيحة هي Ahmed's tooth hurts، حيث 's تدل على أن السن تخص أحمد."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'Sara's head hurts' is correct English.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيحة. نضيف 's بعد sara لنقول إن الرأس يخص سارة."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "The heart beats about 100,000 times every day.",
+      "question_context": "Passage A: 'Your Body Works Hard Every Day'",
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيحة. النص يقول إن القلب ينبض حوالي 100,000 مرة كل يوم."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "Your bones need ____ to stay strong.",
+      "question_context": "Passage B: 'Strong Bones for Life'",
+      "options": null,
+      "correct_answer": "calcium",
+      "accepted_answers": [
+        "calcium",
+        "Calcium"
+      ],
+      "points": 1,
+      "explanation_ar": "النص يذكر أن العظام تحتاج إلى الكالسيوم لتبقى قوية."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "reading",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "sleep",
+          "sun",
+          "stomach",
+          "medicine"
+        ],
+        "right_items": [
+          "الشمس",
+          "دواء",
+          "المعدة",
+          "ينام"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "sleep",
+          "right": "ينام"
+        },
+        {
+          "left": "sun",
+          "right": "الشمس"
+        },
+        {
+          "left": "stomach",
+          "right": "المعدة"
+        },
+        {
+          "left": "medicine",
+          "right": "دواء"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "هذه مفردات من الوحدة تتعلق بصحة الجسم."
+    }
+  ]
+}

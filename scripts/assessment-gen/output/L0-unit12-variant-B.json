@@ -1,0 +1,284 @@
+{
+  "variant_label": "B",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'professional' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "مبدع",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "ناجح",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "محترف",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "مهم",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة professional تعني محترف أو مهني."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'employees' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "سائقون",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "موظفون",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "عملاء",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "مديرون",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة employees تعني موظفون."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "Choose the correct meaning of 'firefighter'.",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "طيار",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "مهندس",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "شرطي",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "رجل إطفاء",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة firefighter تعني رجل إطفاء."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "In Passage B, where does Sarah work from three days a week?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "the office",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "home",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "the restaurant",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "the hospital",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "في النص، سارة تعمل من المنزل ثلاثة أيام في الأسبوع."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "The teacher stands ____ the class.",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "behind",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "under",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "in front of",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "between",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم in front of للدلالة على الوقوف أمام مجموعة مثل الفصل الدراسي."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "My mother works ____ an office.",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "on",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "under",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "in",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "behind",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم in للدلالة على العمل داخل مكان مغلق مثل المكتب."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "In Passage A, food delivery drivers work for HungerStation and Jahez.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيح. النص يذكر أن سائقي توصيل الطعام يعملون لشركات مثل HungerStation و Jahez."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'The pilot is on the plane' is correct.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيح. نستخدم on للدلالة على وجود شخص على متن وسيلة نقل مثل الطائرة."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "In Passage A, data analysts look at numbers and ____.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "information",
+      "accepted_answers": [
+        "information",
+        "Information"
+      ],
+      "points": 1,
+      "explanation_ar": "النص يذكر أن محللي البيانات ينظرون في الأرقام والمعلومات."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "vocabulary",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "pilot",
+          "nurse",
+          "drivers",
+          "job"
+        ],
+        "right_items": [
+          "ممرض / ممرضة",
+          "وظيفة، عمل",
+          "طيار",
+          "سائقون"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "pilot",
+          "right": "طيار"
+        },
+        {
+          "left": "nurse",
+          "right": "ممرض / ممرضة"
+        },
+        {
+          "left": "drivers",
+          "right": "سائقون"
+        },
+        {
+          "left": "job",
+          "right": "وظيفة، عمل"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "طابق كل كلمة إنجليزية بمعناها الصحيح باللغة العربية."
+    }
+  ]
+}

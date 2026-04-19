@@ -1,0 +1,284 @@
+{
+  "variant_label": "B",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'ticket' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "الفندق",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "الأمتعة",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "التذكرة",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "الرحلة",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة ticket تعني التذكرة، وهي الورقة التي تحتاجها للسفر أو دخول الأماكن."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'traffic' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "الطقس",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "المطار",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "الطريق",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "المرور والسيارات في الشوارع",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة traffic تعني المرور، أي السيارات والمركبات في الشوارع."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'trip' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "فندق",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "رحلة",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "قطار",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "مطار",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة trip تعني رحلة، وهي السفر من مكان إلى آخر."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'confident' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "خائف",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "متعب",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "واثق من نفسه",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "مشغول",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة confident تعني واثق، أي الشعور بالثقة في النفس."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Choose the correct imperative: '_____ your suitcase.'",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "To pack",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "You pack",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "Pack",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "Packing",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "الجملة الأمرية الصحيحة تبدأ بالفعل الأساسي مباشرة بدون إضافات، لذا الإجابة الصحيحة هي Pack."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence is a correct positive imperative?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "Don't show your ticket.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "He wait for the taxi.",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "To leave now.",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "Wait for the taxi.",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "الجملة الأمرية الصحيحة تبدأ بالفعل الأساسي مباشرة، كما في Wait for the taxi."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'Don't leave your passport at home' is a correct negative imperative.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيح. الجملة الأمرية السلبية تبدأ بـ Don't ثم الفعل الأساسي، وهذا صحيح هنا."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "The passage says Google Translate works in over 100 languages.",
+      "question_context": "Passage B: Smart Apps for Easy Travel",
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيح. النص يقول إن تطبيق Google Translate يعمل بأكثر من 100 لغة."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "Flight apps help people find cheap _____ to any destination.",
+      "question_context": "Passage B: Smart Apps for Easy Travel",
+      "options": null,
+      "correct_answer": "tickets",
+      "accepted_answers": [
+        "tickets",
+        "Tickets"
+      ],
+      "points": 1,
+      "explanation_ar": "حسب النص، تساعد تطبيقات الرحلات الجوية الناس في إيجاد تذاكر رخيصة إلى أي وجهة."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "reading",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "plane",
+          "country",
+          "tourist",
+          "book"
+        ],
+        "right_items": [
+          "يحجز",
+          "سائح",
+          "طائرة",
+          "بلد / دولة"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "plane",
+          "right": "طائرة"
+        },
+        {
+          "left": "country",
+          "right": "بلد / دولة"
+        },
+        {
+          "left": "tourist",
+          "right": "سائح"
+        },
+        {
+          "left": "book",
+          "right": "يحجز"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "طابق كل كلمة إنجليزية مع معناها الصحيح باللغة العربية."
+    }
+  ]
+}

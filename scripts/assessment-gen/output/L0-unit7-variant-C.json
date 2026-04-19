@@ -1,0 +1,284 @@
+{
+  "variant_label": "C",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'save' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "يُنفق",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يُدخر / يوفر",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "يشتري",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "يبيع",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة save تعني يُدخر أو يوفر المال."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'customers' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "متاجر",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "أسعار",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "زبائن / عملاء",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "خصومات",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة customers تعني الزبائن أو العملاء."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'want' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "يدفع",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يحتاج",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "يريد",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "يُغلق",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة want تعني يريد بالعربية."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'price' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "حجم",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "رقم",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "مقاس",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "سعر",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة price تعني السعر بالعربية."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence is correct?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "There are one shop on this street.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "There have a market near my house.",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "There is a supermarket in this area.",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "There is many prices in the store.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم there is مع الاسم المفرد مثل supermarket."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Fill in: '_____ fresh fruit at the market.'",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "There have",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "There are",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "There is",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "There was",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم there are لأن fruit هنا تشير إلى أكثر من شيء واحد في السياق."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'There is some money in my bag' is correct.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيحة. نستخدم there is مع money لأنه اسم غير معدود."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "In Thailand, people sell fruit from boats.",
+      "question_context": "Passage A: 'In Thailand, floating markets sell fresh fruits and vegetables from boats on the water.'",
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيحة. النص يذكر أن الأسواق العائمة في تايلاند تبيع الفاكهة من القوارب."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "Fatima sold 150 _____ last month.",
+      "question_context": "Passage B: 'Last month, I sold 150 pieces.'",
+      "options": null,
+      "correct_answer": "pieces",
+      "accepted_answers": [
+        "pieces",
+        "Pieces"
+      ],
+      "points": 1,
+      "explanation_ar": "وفقاً للنص، باعت فاطمة 150 قطعة من المجوهرات الشهر الماضي."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "reading",
+      "question_type": "matching",
+      "question_text": "Match each word to what it describes in the passages:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "sell",
+          "pay",
+          "size",
+          "change"
+        ],
+        "right_items": [
+          "يُغيّر / باقي النقود",
+          "يبيع",
+          "مقاس / حجم",
+          "يدفع"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "sell",
+          "right": "يبيع"
+        },
+        {
+          "left": "pay",
+          "right": "يدفع"
+        },
+        {
+          "left": "size",
+          "right": "مقاس / حجم"
+        },
+        {
+          "left": "change",
+          "right": "يُغيّر / باقي النقود"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "طابق كل كلمة إنجليزية مع معناها الصحيح بالعربية."
+    }
+  ]
+}

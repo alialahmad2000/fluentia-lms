@@ -1,0 +1,284 @@
+{
+  "variant_label": "B",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'hunt' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "يحمي",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يسافر",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "يصطاد",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "يختبئ",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة hunt تعني يصطاد، أي البحث عن الحيوانات وإمساكها للطعام."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "A fennec fox has very big ______. What is the missing word?",
+      "question_context": "Passage B: 'The fennec fox has very big ears.'",
+      "options": [
+        {
+          "id": "a",
+          "text": "eyes",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "ears",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "horns",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "feet",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "وفقاً للنص، لثعلب الفنك آذان كبيرة جداً تساعده على سماع الحشرات."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'live' mean in English?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "يطير",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يعيش",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "يركض",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "يسبح",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة live تعني يعيش أو يسكن في مكان معين."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which word correctly completes: '_____ camel is big'? (one camel, far)",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "These",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Those",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "This",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "That",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم that مع المفرد البعيد، وcamel مفرد بعيد، لذا الإجابة الصحيحة هي That."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence uses 'these' correctly?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "These bird is small.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "These horse is fast.",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "These insects are tiny.",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "These sheep is white.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم these مع الجمع، وinsects جمع، لذا الجملة الصحيحة هي These insects are tiny."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "What does the Arabian oryx use to stay cool?",
+      "question_context": "Passage B: 'Their white fur helps them stay cool.'",
+      "options": [
+        {
+          "id": "a",
+          "text": "Its big ears",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Its long horns",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "Its white fur",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "Its thick feet",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "وفقاً للنص، يساعد الفراء الأبيض للمها العربي على البقاء باردًا."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'Those lions are strong' is correct.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيحة. نستخدم those مع الجمع البعيد، وlions جمع، لذا الجملة صحيحة."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "The fennec fox hunts during the day.",
+      "question_context": "Passage B: 'Fennec foxes hunt at night when insects come out.'",
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "خاطئة. وفقاً للنص، يصطاد ثعلب الفنك في الليل وليس النهار."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "Birds _____ in the sky.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "fly",
+      "accepted_answers": [
+        "fly",
+        "Fly"
+      ],
+      "points": 1,
+      "explanation_ar": "الفعل fly يعني يطير، والجملة الصحيحة هي Birds fly in the sky."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "vocabulary",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "hide",
+          "travel",
+          "animals",
+          "small"
+        ],
+        "right_items": [
+          "يسافر",
+          "صغير",
+          "يختبئ",
+          "حيوانات"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "hide",
+          "right": "يختبئ"
+        },
+        {
+          "left": "travel",
+          "right": "يسافر"
+        },
+        {
+          "left": "animals",
+          "right": "حيوانات"
+        },
+        {
+          "left": "small",
+          "right": "صغير"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "طابق كل كلمة إنجليزية مع معناها الصحيح بالعربية."
+    }
+  ]
+}

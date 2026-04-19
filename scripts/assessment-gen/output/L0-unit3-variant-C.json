@@ -1,0 +1,284 @@
+{
+  "variant_label": "C",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'beach' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "جبل",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "شاطئ",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "صحراء",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "نهر",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة beach تعني شاطئ، وهو المكان على حافة البحر."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'lights' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "أبواب",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "نوافذ",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "أضواء",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "جدران",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة lights تعني أضواء، وهي تُستخدم للإنارة في الليل."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'map' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "كتاب",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "خريطة",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "مفتاح",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "قلم",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة map تعني خريطة، وهي تُستخدم لمعرفة الأماكن."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence is correct?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "He don't live near the park.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "He doesn't lives near the park.",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "He doesn't live near the park.",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "He not live near the park.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "مع he نستخدم doesn't ثم الفعل في صيغته الأساسية بدون إضافة s."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which word completes this question correctly? '____ she walk to school?'",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "Do",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Does",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "Is",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "Are",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "مع she نستخدم Does في بداية السؤال في زمن المضارع البسيط."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "What do families do at King Abdullah Park?",
+      "question_context": "Families come here to relax and enjoy nature.",
+      "options": [
+        {
+          "id": "a",
+          "text": "They go shopping.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "They relax and enjoy nature.",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "They go to school.",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "They work in offices.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "وفقاً للنص، تأتي العائلات إلى الحديقة للاسترخاء والاستمتاع بالطبيعة."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "Tokyo has cheap apartments for people.",
+      "question_context": "Many Tokyo residents live in small apartments because space is expensive.",
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "خاطئة. يقول النص إن المساحة في طوكيو غالية، لذلك يسكن الناس في شقق صغيرة."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'She don't work in the city' is correct.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "خاطئة. مع she لا نستخدم don't، بل نستخدم doesn't."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "Jeddah's Corniche has palm trees along the ____.",
+      "question_context": "The Corniche has palm trees along the beach.",
+      "options": null,
+      "correct_answer": "beach",
+      "accepted_answers": [
+        "beach",
+        "Beach"
+      ],
+      "points": 1,
+      "explanation_ar": "وفقاً للنص، يوجد أشجار النخيل على طول الشاطئ في كورنيش جدة."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "vocabulary",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "city",
+          "bus",
+          "far",
+          "building"
+        ],
+        "right_items": [
+          "بعيد",
+          "حافلة",
+          "مدينة",
+          "مبنى"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "city",
+          "right": "مدينة"
+        },
+        {
+          "left": "bus",
+          "right": "حافلة"
+        },
+        {
+          "left": "far",
+          "right": "بعيد"
+        },
+        {
+          "left": "building",
+          "right": "مبنى"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "طابق كل كلمة إنجليزية مع معناها الصحيح باللغة العربية."
+    }
+  ]
+}

@@ -1,0 +1,284 @@
+{
+  "variant_label": "C",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'share' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "يلعب",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يشارك",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "يزور",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "يتذكر",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة share تعني يشارك أو يتشارك."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'talk' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "يأكل",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يلعب",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "يساعد",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "يتحدث",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة talk تعني يتحدث أو يتكلم."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'play' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "يعطي",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يبتسم",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "يلعب",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "يجتمع",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة play تعني يلعب."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "Which English word means 'يبتسم'?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "gather",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "remember",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "smile",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "give",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة يبتسم بالإنجليزية هي smile."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence uses 'a' correctly?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "I have a old brother.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "I have a uncle at school.",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "I have a friend at work.",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "I have a evening meal.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم a قبل الكلمات التي تبدأ بصوت حرف ساكن مثل friend."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Fill in the blank: 'He is ___ happy child.'",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "an",
+          "is_correct": true
+        },
+        {
+          "id": "b",
+          "text": "a",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "the",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "—",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "a",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم an قبل كلمة happy لأنها تبدأ بصوت حرف علة."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'I have a friend' is correct English.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيحة. نستخدم a قبل كلمة friend لأنها تبدأ بصوت حرف ساكن."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "Italian families make pasta together on Sundays.",
+      "question_context": "Passage A",
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيحة. ذُكر في النص أن العائلات الإيطالية تصنع المعكرونة معاً يوم الأحد."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "Families who spend time together are _____.",
+      "question_context": "Passage A",
+      "options": null,
+      "correct_answer": "healthier",
+      "accepted_answers": [
+        "healthier",
+        "Healthier"
+      ],
+      "points": 1,
+      "explanation_ar": "وفقاً للنص، العائلات التي تقضي وقتاً معاً تكون أكثر صحة."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "reading",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "gather",
+          "help",
+          "give",
+          "together"
+        ],
+        "right_items": [
+          "يُعطي",
+          "يجتمع",
+          "معاً",
+          "يساعد"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "gather",
+          "right": "يجتمع"
+        },
+        {
+          "left": "help",
+          "right": "يساعد"
+        },
+        {
+          "left": "give",
+          "right": "يُعطي"
+        },
+        {
+          "left": "together",
+          "right": "معاً"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "طابق كل كلمة إنجليزية بمعناها الصحيح بالعربية."
+    }
+  ]
+}

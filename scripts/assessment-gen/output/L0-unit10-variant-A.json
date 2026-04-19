@@ -1,0 +1,285 @@
+{
+  "variant_label": "A",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'passport' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "التذكرة",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "جواز السفر",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "التأشيرة",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "الفندق",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة passport تعني جواز السفر، وهو الوثيقة الرسمية للسفر."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'luggage' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "المطار",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "الرحلة",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "الأمتعة أو الحقائب",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "التذكرة",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة luggage تعني الأمتعة أو الحقائب التي تحملها في السفر."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "Which word means يقارن?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "arrive",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "recommend",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "communicate",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "compare",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة compare تعني يقارن، أي ينظر إلى شيئين ليرى الفرق بينهما."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'visa' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "التأشيرة",
+          "is_correct": true
+        },
+        {
+          "id": "b",
+          "text": "جواز السفر",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "الوثائق",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "الفندق",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "a",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة visa تعني التأشيرة، وهي إذن رسمي للدخول إلى بلد آخر."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Choose the correct imperative: '_____ your passport.'",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "To show",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "You show",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "Show",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "Showing",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "الأمر الإيجابي يُصاغ بالفعل الأساسي مباشرة بدون أي إضافات، مثل Show."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence is a correct negative imperative?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "Not lose your ticket.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Don't lose your ticket.",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "No lose your ticket.",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "You don't lose your ticket.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "الأمر النهي يُصاغ بـ Don't ثم الفعل الأساسي، مثل Don't lose your ticket."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'Don't forget your luggage' is a correct imperative.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيح. الجملة تستخدم Don't مع الفعل الأساسي forget، وهذا هو الشكل الصحيح للأمر النهي."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "The passage says you need a passport to travel.",
+      "question_context": "Passage A: 'Your passport is the most important paper you need.'",
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيح. النص يقول إن جواز السفر هو أهم وثيقة تحتاجها للسفر."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "Translation apps help people _____ in foreign countries.",
+      "question_context": "Passage B: 'Google Translate... helps people communicate in foreign countries.'",
+      "options": null,
+      "correct_answer": "communicate",
+      "accepted_answers": [
+        "communicate",
+        "Communicate",
+        "communicates"
+      ],
+      "points": 1,
+      "explanation_ar": "النص يقول إن تطبيقات الترجمة تساعد الناس على التواصل communicate في الدول الأجنبية."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "reading",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "airport",
+          "hotel",
+          "arrive",
+          "routes"
+        ],
+        "right_items": [
+          "يصل",
+          "طرق - المسارات",
+          "المطار",
+          "الفندق"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "airport",
+          "right": "المطار"
+        },
+        {
+          "left": "hotel",
+          "right": "الفندق"
+        },
+        {
+          "left": "arrive",
+          "right": "يصل"
+        },
+        {
+          "left": "routes",
+          "right": "طرق - المسارات"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "هذه مفردات من وحدة السفر: airport المطار، hotel الفندق، arrive يصل، routes الطرق."
+    }
+  ]
+}

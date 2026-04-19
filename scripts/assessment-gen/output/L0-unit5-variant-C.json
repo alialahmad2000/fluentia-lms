@@ -1,0 +1,284 @@
+{
+  "variant_label": "C",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'sky' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "الأرض",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "السماء",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "البحر",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "الجبل",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة sky تعني السماء."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'windy' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "ممطر",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "مشمس",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "عاصف وكثير الرياح",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "غائم",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة windy تعني عاصف أو كثير الرياح."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'cooler' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "أكثر حرارة",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "أكثر رطوبة",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "أكثر جفافاً",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "أبرد وأقل حرارة",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة cooler تعني أبرد أو أقل حرارة."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "What is the plural of 'day'?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "dayes",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "daies",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "days",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "day",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "جمع كلمة day هو days بإضافة -s في النهاية."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence has a correct plural noun?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "The sky has many wind today.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "I can see three star in the sky.",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "There are four seasons in a year.",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "We have two season this month.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "الجملة الصحيحة هي التي تستخدم seasons لأن العدد أربعة يستلزم صيغة الجمع."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "In Passage A, which season do flowers begin to grow?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "Winter",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Summer",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "Autumn",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "Spring",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "ذكر النص أن الزهور تبدأ في النمو في فصل الربيع (Spring)."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'Many flower' is the correct plural form.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "خاطئة. الصيغة الصحيحة هي many flowers بإضافة -s."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "In Passage B, desert flowers disappear when summer returns.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيح. ذكر النص أن الزهور تختفي عندما تعود حرارة الصيف."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "In Passage A, winter is the ____ season.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "coldest",
+      "accepted_answers": [
+        "coldest",
+        "Coldest"
+      ],
+      "points": 1,
+      "explanation_ar": "ذكر النص أن الشتاء هو أبرد الفصول (the coldest season)."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "vocabulary",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "summer",
+          "hot",
+          "sunny",
+          "grow"
+        ],
+        "right_items": [
+          "ينمو",
+          "مشمس",
+          "صيف",
+          "حار"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "summer",
+          "right": "صيف"
+        },
+        {
+          "left": "hot",
+          "right": "حار"
+        },
+        {
+          "left": "sunny",
+          "right": "مشمس"
+        },
+        {
+          "left": "grow",
+          "right": "ينمو"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "طابق كل كلمة إنجليزية مع معناها الصحيح بالعربية."
+    }
+  ]
+}

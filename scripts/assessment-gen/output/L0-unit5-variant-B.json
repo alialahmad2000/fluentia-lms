@@ -1,0 +1,284 @@
+{
+  "variant_label": "B",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'sunny' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "غائم",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "مشمس",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "ممطر",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "عاصف",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة sunny تعني مشمس، أي يوم فيه شمس."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'wet' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "جاف",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "بارد",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "مبلل أو رطب",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "حار",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة wet تعني مبلل أو رطب، مثل الملابس بعد المطر."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'hottest' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "الأبرد",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "الأرطب",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "الأعصف",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "الأكثر حرارة",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة hottest تعني الأكثر حرارة أو الأشد سخونة."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "'Leaf' has an irregular plural. What is it?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "leafs",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "leaes",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "leaves",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "leafes",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة leaf جمعها غير منتظم وهو leaves وليس leafs."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence uses the plural correctly?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "I see two flower in the garden.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "I see two flowers in the garden.",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "I see two floweres in the garden.",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "I see two flowerss in the garden.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "الصحيح هو flowers لأننا نضيف -s لجمع كلمة flower."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "In Passage A, which season has snow?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "Spring",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Summer",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "Autumn",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "Winter",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "ذكر النص أن الثلج يتساقط في فصل الشتاء في كثير من الدول."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'Many seasons' is the correct plural form of 'season'.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيح. كلمة season جمعها seasons بإضافة -s في النهاية."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "In Passage B, desert flowers take many months to grow.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "خاطئة. النص يقول إن أزهار الصحراء تنمو من بذرة إلى زهرة في 10-14 يوماً فقط."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "In Passage A, autumn is also called ____.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "fall",
+      "accepted_answers": [
+        "fall",
+        "Fall"
+      ],
+      "points": 1,
+      "explanation_ar": "النص يذكر أن الخريف يُسمى أيضاً fall."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "vocabulary",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "wind",
+          "autumn",
+          "degree",
+          "clouds"
+        ],
+        "right_items": [
+          "غيوم، سحب",
+          "درجة",
+          "خريف",
+          "رياح"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "wind",
+          "right": "رياح"
+        },
+        {
+          "left": "autumn",
+          "right": "خريف"
+        },
+        {
+          "left": "degree",
+          "right": "درجة"
+        },
+        {
+          "left": "clouds",
+          "right": "غيوم، سحب"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "طابق كل كلمة إنجليزية بمعناها العربي الصحيح."
+    }
+  ]
+}

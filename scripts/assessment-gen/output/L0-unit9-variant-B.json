@@ -1,0 +1,286 @@
+{
+  "variant_label": "B",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'enjoy' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "يستريح",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يستمتع بـ",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "يتعلم",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "يشاهد",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة enjoy تعني يستمتع بـ أو يحب."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'free time' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "وقت العمل",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "وقت الدراسة",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "وقت الفراغ",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "وقت النوم",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة free time تعني وقت الفراغ أو الوقت الحر."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'practice' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "يرسم",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يكتب",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "يغني",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "يمارس / يتدرب",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة practice تعني يمارس أو يتدرب على شيء."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'fun' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "صعب",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "ممتع / مرح",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "مشهور",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "جديد",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة fun تعني ممتع أو مرح."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Choose the correct word: '___ hobby is cooking.'",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "I",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Me",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "My",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "Mine",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم my قبل الاسم لنقول إن الشيء يخصني."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Choose the correct word: 'Music helps ___ relax.'",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "my",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "I",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "me",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "mine",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم me بعد الفعل لأنه مفعول به."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'I plays football every day' is correct English.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "خاطئة. مع I نستخدم play بدون s."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "In the passage, people in Norway read 20 books a year.",
+      "question_context": "People everywhere have different ways to spend their free time. In many countries, reading is a very popular hobby. In Norway, people read more books than anywhere else in the world. The average person reads 20 books every year!",
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيح. النص يقول إن الشخص العادي في النرويج يقرأ 20 كتاباً كل عام."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "In Brazil, people learn traditional ___ like samba.",
+      "question_context": "Many people also like dancing. In Brazil, people of all ages learn traditional dances like samba.",
+      "options": null,
+      "correct_answer": "dances",
+      "accepted_answers": [
+        "dances",
+        "Dances",
+        "dance",
+        "Dance"
+      ],
+      "points": 1,
+      "explanation_ar": "النص يذكر أن الناس في البرازيل يتعلمون الرقصات التقليدية مثل السامبا."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "reading",
+      "question_type": "matching",
+      "question_text": "Match each word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "music",
+          "sports",
+          "patterns",
+          "groups"
+        ],
+        "right_items": [
+          "مجموعات",
+          "الرياضة",
+          "أنماط / نقوش",
+          "الموسيقى"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "music",
+          "right": "الموسيقى"
+        },
+        {
+          "left": "sports",
+          "right": "الرياضة"
+        },
+        {
+          "left": "patterns",
+          "right": "أنماط / نقوش"
+        },
+        {
+          "left": "groups",
+          "right": "مجموعات"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "طابق كل كلمة إنجليزية بمعناها الصحيح بالعربية."
+    }
+  ]
+}

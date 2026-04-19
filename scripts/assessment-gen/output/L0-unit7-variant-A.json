@@ -1,0 +1,286 @@
+{
+  "variant_label": "A",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'cheap' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "غالي",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "رخيص",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "كبير",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "جديد",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة cheap تعني رخيص، أي أن سعره منخفض."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "Which word means يبيع in English?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "buy",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "save",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "sell",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "spend",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة sell تعني يبيع، وهي عكس يشتري."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'earn' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "ينفق",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يدفع",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "يوفر",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "يكسب",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة earn تعني يكسب أو يربح المال من العمل."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "Choose the correct meaning of 'discounts'.",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "أسعار مرتفعة",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "خصومات وتخفيضات",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "متاجر كبيرة",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "زبائن كثيرون",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة discounts تعني خصومات أو تخفيضات في الأسعار."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Choose the correct sentence.",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "There are a store near here.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "There have many shops in the mall.",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "There is a store near here.",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "There is many stores near here.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم there is مع الاسم المفرد مثل store."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Fill in: '_____ many customers in the shop.'",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "There is",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "There are",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "There have",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "There be",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم there are مع الجمع مثل customers لأنهم أكثر من واحد."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'There is three stores on my street' is correct.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "خاطئة. مع الجمع stores نستخدم there are وليس there is."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "Fatima sells jewelry online from her home.",
+      "question_context": "Passage B: 'Saudi Women Change Business'",
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيح. فاطمة تبيع المجوهرات عبر الإنترنت من منزلها في الرياض."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "People go to big shopping centers called _____.",
+      "question_context": "Passage A: 'Shopping Around the World'",
+      "options": null,
+      "correct_answer": "malls",
+      "accepted_answers": [
+        "malls",
+        "Malls",
+        "mall",
+        "Mall"
+      ],
+      "points": 1,
+      "explanation_ar": "ذكر النص أن الناس يذهبون إلى مراكز تسوق كبيرة تسمى malls."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "reading",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "customers",
+          "economy",
+          "save",
+          "prices"
+        ],
+        "right_items": [
+          "الاقتصاد",
+          "يوفر أو يدخر",
+          "أسعار",
+          "زبائن أو عملاء"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "customers",
+          "right": "زبائن أو عملاء"
+        },
+        {
+          "left": "economy",
+          "right": "الاقتصاد"
+        },
+        {
+          "left": "save",
+          "right": "يوفر أو يدخر"
+        },
+        {
+          "left": "prices",
+          "right": "أسعار"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "هذه مفردات من النصين تتعلق بالتسوق والاقتصاد."
+    }
+  ]
+}

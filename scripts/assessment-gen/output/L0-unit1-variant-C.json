@@ -1,0 +1,285 @@
+{
+  "variant_label": "C",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'night' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "الصباح",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "الظهر",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "ليل / ليلة",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "يوم",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة night تعني ليل أو ليلة، وهو الوقت بعد غروب الشمس."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'brush' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "يغسل",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يُنظّف بالفرشاة",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "يمشي",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "يذهب",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة brush تعني يُنظّف بالفرشاة، كما في تنظيف الأسنان بالفرشاة."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "true_false",
+      "question_text": "The word 'bed' means نافذة in Arabic.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "هذه الجملة خاطئة. كلمة bed تعني سرير، وليس نافذة. نافذة بالإنجليزية هي window."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "vocabulary",
+      "question_type": "fill_blank",
+      "question_text": "I ____ my teeth every morning.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "brush",
+      "accepted_answers": [
+        "brush",
+        "Brush",
+        "BRUSH"
+      ],
+      "points": 1,
+      "explanation_ar": "الفعل brush يعني يُنظّف بالفرشاة، ونستخدمه مع الأسنان في الجملة I brush my teeth."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which word completes: 'I ____ a student.'?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "is",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "are",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "am",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "be",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "مع الضمير I نستخدم am دائماً، فنقول I am a student."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which word completes: 'My family ____ big.'?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "are",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "am",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "be",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "is",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة family اسم مفرد، لذلك نستخدم معها is فنقول My family is big."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'You are early today' is correct English.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "الجملة صحيحة. مع الضمير you نستخدم are، وكلمة early تعني مبكر."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "In Passage B, what do Scandinavians take in the morning?",
+      "question_context": "Scandinavian countries like Sweden and Norway have interesting morning habits. People there take cold showers even in winter!",
+      "options": [
+        {
+          "id": "a",
+          "text": "Hot baths",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Cold showers",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "Morning walks",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "Strong coffee",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "في النص، يأخذ الإسكندنافيون دشاً بارداً في الصباح حتى في فصل الشتاء."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "In Passage A, where do families go on weekends?",
+      "question_context": "On weekends, many families visit shopping malls, parks, or restaurants.",
+      "options": [
+        {
+          "id": "a",
+          "text": "The metro station",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "The university",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "Shopping malls, parks, or restaurants",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "The gym",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "في النص، تزور الأسر في عطلة نهاية الأسبوع مراكز التسوق والحدائق والمطاعم."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "reading",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "water",
+          "day",
+          "room",
+          "enjoy"
+        ],
+        "right_items": [
+          "يستمتع",
+          "غرفة",
+          "الماء",
+          "يوم"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "water",
+          "right": "الماء"
+        },
+        {
+          "left": "day",
+          "right": "يوم"
+        },
+        {
+          "left": "room",
+          "right": "غرفة"
+        },
+        {
+          "left": "enjoy",
+          "right": "يستمتع"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "هذه مفردات من الوحدة: water تعني الماء، day تعني يوم، room تعني غرفة، enjoy تعني يستمتع."
+    }
+  ]
+}

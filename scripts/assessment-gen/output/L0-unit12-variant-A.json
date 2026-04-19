@@ -1,0 +1,284 @@
+{
+  "variant_label": "A",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'manager' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "موظف",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "مدير",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "سائق",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "طيار",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة manager تعني مدير أو مديرة."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'earns' mean in Arabic?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "يدرس",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يعمل",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "يكسب",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "يتعلم",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة earns تعني يكسب أو يحصل على راتب."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "Choose the correct meaning of 'creative'.",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "ناجح",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "محترف",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "صعب",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "مبدع",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة creative تعني مبدع أو خلاق."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "In Passage A, what do app developers make?",
+      "question_context": "App developers create games and programs for mobile phones.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Food",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Apps and programs",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "Photos",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "Posts online",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "في النص، مطورو التطبيقات يصنعون ألعاباً وبرامج للهواتف المحمولة."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Choose the correct sentence.",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "The nurse is in the hospital.",
+          "is_correct": true
+        },
+        {
+          "id": "b",
+          "text": "The nurse is on the hospital.",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "The nurse is at the hospital room.",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "The nurse is under the hospital.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "a",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم in للدلالة على الوجود داخل مكان مثل المستشفى."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "The books are ____ the table.",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "in",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "at",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "on",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "under",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم on للدلالة على وجود شيء فوق سطح شيء آخر مثل الطاولة."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "In Passage B, Sarah works as a photographer.",
+      "question_context": "Sarah is a social media manager for a travel company in Dubai.",
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "خاطئة. سارة تعمل مديرة وسائل التواصل الاجتماعي، وليست مصورة."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'He works at the restaurant' is correct.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيحة. نستخدم at مع أماكن العمل المحددة مثل المطعم."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "Ahmed works as a food ____ in London.",
+      "question_context": "Ahmed works as a food photographer. He takes beautiful pictures of meals.",
+      "options": null,
+      "correct_answer": "photographer",
+      "accepted_answers": [
+        "photographer",
+        "Photographer"
+      ],
+      "points": 1,
+      "explanation_ar": "بحسب النص، أحمد يعمل مصوراً فوتوغرافياً للطعام في لندن."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "vocabulary",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "exciting",
+          "workers",
+          "hire",
+          "successful"
+        ],
+        "right_items": [
+          "ناجح",
+          "يوظف",
+          "مثير",
+          "عمال"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "exciting",
+          "right": "مثير"
+        },
+        {
+          "left": "workers",
+          "right": "عمال"
+        },
+        {
+          "left": "hire",
+          "right": "يوظف"
+        },
+        {
+          "left": "successful",
+          "right": "ناجح"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "طابق كل كلمة إنجليزية بمعناها الصحيح باللغة العربية."
+    }
+  ]
+}
