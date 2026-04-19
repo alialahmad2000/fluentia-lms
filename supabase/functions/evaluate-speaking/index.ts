@@ -202,47 +202,55 @@ serve(async (req) => {
 
         const systemPrompt = `You are a strict but encouraging ESL speaking examiner at Fluentia Academy (Saudi Arabia). You evaluate Arabic-speaking students' spoken English from Whisper transcripts.
 
-SCORING RUBRIC — use these bands strictly. Do NOT default to middle scores.
+MANDATORY PROCESS — follow in order:
+Step 1 ANALYZE: Before scoring ANYTHING, quote 3 specific phrases from the transcript as evidence of strengths, and 3 specific phrases as evidence of weaknesses. This analysis must appear in the "analysis" field.
+Step 2 SCORE: Use your quoted evidence to justify each dimension score. Scores must be derivable from the quoted evidence.
+Step 3 COMPUTE: overall_score = (grammar_score×0.25 + vocabulary_score×0.20 + fluency_score×0.30 + task_completion_score×0.25), rounded to one decimal.
+
+SCORING — use 0.5 increments (e.g. 5.5, 6.5, 7.5). Do NOT round everything to whole numbers.
 
 GRAMMAR (0-10):
-0-2: No control of basic structures. Every sentence has errors. Cannot form subject-verb-object.
-3-4: Frequent errors in basic tenses and agreement. Uses only present simple, often incorrectly.
-5-6: Basic structures mostly correct. Attempts past/future tense with some errors. Articles often missing.
-7-8: Good control of common structures. Occasional errors in complex grammar. Uses multiple tenses.
-9-10: Near-native accuracy. Complex structures used correctly. Only minor slips.
+0-2: No control of basic structures. Every sentence has errors.
+3-4: Frequent errors in basic tenses and agreement. Only present simple, often wrong.
+5-6: Basic structures mostly correct. Attempts past/future tense with some errors.
+7-8: Good control. Occasional errors in complex grammar. Uses multiple tenses.
+9-10: Near-native accuracy. Complex structures used correctly.
 
 VOCABULARY (0-10):
-0-2: Fewer than 20 unique words. Extreme repetition. Cannot express basic ideas.
-3-4: Very limited range. Heavy repetition of basic words. No descriptive language.
-5-6: Adequate for the topic. Some repetition but gets meaning across. Mostly high-frequency words.
-7-8: Good range. Uses some less common words and collocations. Appropriate word choice.
-9-10: Rich, precise vocabulary. Idiomatic expressions. Natural collocations throughout.
+0-2: Fewer than 20 unique words. Cannot express basic ideas.
+3-4: Very limited range. Heavy repetition. No descriptive language.
+5-6: Adequate. Some repetition but gets meaning across. Mostly high-frequency words.
+7-8: Good range. Some less common words and collocations.
+9-10: Rich, precise, idiomatic throughout.
 
 FLUENCY (0-10):
-0-2: Cannot produce connected speech. Isolated words or fragments only.
-3-4: Very hesitant. Long pauses between words. Under 40 words per minute.
-5-6: Noticeable hesitation but completes thoughts. 40-80 words per minute.
-7-8: Generally smooth with occasional pauses. 80-120 words per minute. Uses some linking words.
-9-10: Natural flow. Self-corrects smoothly. Over 120 wpm with appropriate pausing.
+0-2: Cannot produce connected speech. Isolated words only.
+3-4: Very hesitant. Long pauses. Under 40 words per minute.
+5-6: Noticeable hesitation but completes thoughts. 40-80 wpm.
+7-8: Generally smooth. 80-120 wpm. Uses some linking words.
+9-10: Natural flow. Self-corrects smoothly. Over 120 wpm.
 
 TASK COMPLETION (0-10):
-0-2: Does not address the topic at all.
-3-4: Barely touches the topic. Under 3 sentences. Major aspects missing.
-5-6: Addresses the topic but superficially. Some relevant content.
-7-8: Good coverage of the topic. Provides details and examples.
-9-10: Thorough, well-developed response with clear structure and supporting details.
+0-2: Does not address topic at all.
+3-4: Barely touches topic. Under 3 sentences.
+5-6: Addresses topic superficially. Some relevant content.
+7-8: Good coverage. Provides details and examples.
+9-10: Thorough, well-developed, clear structure.
 
-OVERALL SCORE: Weighted average — Grammar 25%, Vocabulary 20%, Fluency 30%, Task Completion 25%.
-Calculate it; do NOT just pick 7.
+⚠️ SCORE BIAS WARNING: 7.0 is the single most common score AI evaluators produce. It is almost certainly wrong for this student.
+- Below 5.5 = clear struggle — student unable to respond meaningfully at their level
+- 5.5–6.4 = below-average for the level — noticeable errors, limited range
+- 6.5–7.4 = average for the level — meets basic expectations
+- 7.5–8.5 = above average — strong performance for the level
+- Above 8.5 = exceptional for the level
+A whole number score of 7 requires you to write a quoted-phrase justification. When in doubt between 6.5 and 7.5, pick based on evidence, not convenience.
 
-ANTI-CONVERGENCE RULE: If your calculated overall is exactly 7, re-examine each criterion and commit to 6 or 8 based on whether the student is below or above the midpoint for their level. Scores of exactly 7 require explicit justification.
+CALIBRATION:
+- A1 student, 20 words, multiple errors, topic barely addressed → overall ≈ 3.5
+- A1 student, 60 words, basic but mostly correct, addresses topic → overall ≈ 5.5
+- B1 student, 100 words, good variety, minor errors, well-structured → overall ≈ 7.5
 
-CALIBRATION EXAMPLES:
-- A1 student, 20 words, 3 grammar errors per sentence, topic barely addressed → overall: 3
-- A1 student, 60 words, basic but mostly correct, addresses topic simply → overall: 5
-- B1 student, 100 words, good variety, minor errors, well-structured → overall: 8
-
-Student level: ${levelDesc}
+Student level context: ${levelDesc}
 Whisper may introduce minor transcription artifacts — do not penalize obvious Whisper errors.
 All Arabic text: Modern Standard Arabic or simple colloquial. Be warm but honest.`
 
@@ -260,12 +268,17 @@ ${transcript}
 
 Respond ONLY with valid JSON (no markdown, no backticks, no explanation outside the JSON):
 {
-  "grammar_score": <integer 0-10>,
-  "vocabulary_score": <integer 0-10>,
-  "fluency_score": <integer 0-10>,
-  "task_completion_score": <integer 0-10>,
-  "overall_score": <integer 0-10, calculated as weighted average>,
-  "score_justification": "<1 sentence explaining the overall score>",
+  "level_context": "Level ${studentLevel} (${(LEVEL_DESCRIPTORS[studentLevel] || LEVEL_DESCRIPTORS[1]).split(' — ')[0]})",
+  "analysis": {
+    "strengths": ["<quoted phrase from transcript + why it is good>", "<quoted phrase>", "<quoted phrase>"],
+    "weaknesses": ["<quoted phrase from transcript + what is wrong>", "<quoted phrase>", "<quoted phrase>"]
+  },
+  "grammar_score": <number, one decimal, e.g. 6.5 — derived from analysis above>,
+  "vocabulary_score": <number, one decimal, e.g. 5.0 — derived from analysis above>,
+  "fluency_score": <number, one decimal, e.g. 7.5 — derived from analysis above>,
+  "task_completion_score": <number, one decimal, e.g. 6.0 — derived from analysis above>,
+  "overall_score": <number, one decimal — computed as grammar×0.25+vocab×0.20+fluency×0.30+task×0.25>,
+  "score_justification": "<1 sentence tying overall_score to specific evidence quoted above>",
   "corrected_transcript": "<student's content rewritten with correct grammar and better vocabulary>",
   "errors": [{"spoken": "...", "corrected": "...", "rule": "<Arabic explanation>", "category": "grammar|vocabulary"}],
   "better_expressions": [{"basic": "...", "natural": "...", "context": "<Arabic usage note>"}],
@@ -288,7 +301,7 @@ Respond ONLY with valid JSON (no markdown, no backticks, no explanation outside 
           body: JSON.stringify({
             model: 'claude-sonnet-4-6',
             max_tokens: 4096,
-            temperature: 0.2,
+            temperature: 0.35,
             system: systemPrompt,
             messages: [{ role: 'user', content: userPrompt }],
           }),
@@ -347,16 +360,20 @@ Respond ONLY with valid JSON (no markdown, no backticks, no explanation outside 
           }
           if (aiEvaluation) {
             aiEvaluation.transcript = transcript
-            // Validate overall_score is actually calculated, not hardcoded 7
-            const g = aiEvaluation.grammar_score || 0
-            const v = aiEvaluation.vocabulary_score || 0
-            const f = aiEvaluation.fluency_score || 0
-            const t = aiEvaluation.task_completion_score || 0
-            const calculated = Math.round(g * 0.25 + v * 0.20 + f * 0.30 + t * 0.25)
-            if (aiEvaluation.overall_score === 7 && Math.abs(calculated - 7) > 0.5) {
+            // Always recompute overall_score from subscores — prevents any model-side anchoring
+            const g = Number(aiEvaluation.grammar_score) || 0
+            const v = Number(aiEvaluation.vocabulary_score) || 0
+            const f = Number(aiEvaluation.fluency_score) || 0
+            const t = Number(aiEvaluation.task_completion_score) || 0
+            if (g || v || f || t) {
+              const calculated = Math.round((g * 0.25 + v * 0.20 + f * 0.30 + t * 0.25) * 10) / 10
+              if (Math.abs(calculated - (aiEvaluation.overall_score || 0)) > 0.2) {
+                console.log('[evaluate-speaking] Recomputed overall:', aiEvaluation.overall_score, '→', calculated)
+              }
               aiEvaluation.overall_score = calculated
-              console.log('[evaluate-speaking] Overrode lazy-7 with calculated:', calculated)
             }
+            // Preserve legacy score key for any frontend still reading it
+            aiEvaluation.score = aiEvaluation.overall_score
           }
 
           // Log Claude usage
