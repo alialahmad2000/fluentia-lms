@@ -86,6 +86,11 @@ const ReadingPassagePractice = lazyRetry(() => import('./pages/student/ielts/rea
 const ListeningLab = lazyRetry(() => import('./pages/student/ielts/listening/ListeningLab'))
 const ListeningSectionModule = lazyRetry(() => import('./pages/student/ielts/listening/ListeningSectionModule'))
 const ListeningPractice = lazyRetry(() => import('./pages/student/ielts/listening/ListeningPractice'))
+const WritingLab = lazyRetry(() => import('./pages/student/ielts/writing/WritingLab'))
+const WritingTaskPicker = lazyRetry(() => import('./pages/student/ielts/writing/WritingTaskPicker'))
+const WritingWorkspace = lazyRetry(() => import('./pages/student/ielts/writing/WritingWorkspace'))
+const WritingFeedback = lazyRetry(() => import('./pages/student/ielts/writing/WritingFeedback'))
+const WritingHistory = lazyRetry(() => import('./pages/student/ielts/writing/WritingHistory'))
 
 const TrainerOnboarding = lazyRetry(() => import('./pages/trainer/TrainerOnboarding'))
 const TrainerGrading = lazyRetry(() => import('./pages/trainer/TrainerGrading'))
@@ -557,6 +562,11 @@ export default function App() {
               <Route path="/student/ielts/listening" element={<Page><ListeningLab /></Page>} />
               <Route path="/student/ielts/listening/section/:sectionNumber" element={<Page><ListeningSectionModule /></Page>} />
               <Route path="/student/ielts/listening/section/:sectionNumber/practice/:sectionId" element={<Page><ListeningPractice /></Page>} />
+              <Route path="/student/ielts/writing" element={<Page><WritingLab /></Page>} />
+              <Route path="/student/ielts/writing/history" element={<Page><WritingHistory /></Page>} />
+              <Route path="/student/ielts/writing/feedback/:submissionId" element={<Page><WritingFeedback /></Page>} />
+              <Route path="/student/ielts/writing/:category" element={<Page><WritingTaskPicker /></Page>} />
+              <Route path="/student/ielts/writing/:category/task/:taskId" element={<Page><WritingWorkspace /></Page>} />
               <Route path="/student/ielts/:section" element={<Page><IELTSComingSoon /></Page>} />
             </Route>
           </Route>
