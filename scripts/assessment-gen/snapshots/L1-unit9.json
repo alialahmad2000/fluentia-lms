@@ -1,0 +1,518 @@
+{
+  "unit": {
+    "id": "357a1833-dd03-4232-8218-19d5d297edd8",
+    "unit_number": 9,
+    "title_en": "Photography",
+    "title_ar": "التصوير الفوتوغرافي"
+  },
+  "vocabulary": [
+    {
+      "word": "adapt",
+      "pos": "verb",
+      "definition_ar": "يتكيف، يتأقلم",
+      "example_sentence": "Students need to adapt to online learning.",
+      "tier": "core"
+    },
+    {
+      "word": "amazing",
+      "pos": "adjective",
+      "definition_ar": "مذهل، رائع، مدهش",
+      "example_sentence": "The magic show was amazing!",
+      "tier": "core"
+    },
+    {
+      "word": "angle",
+      "pos": "noun",
+      "definition_ar": "زاوية",
+      "example_sentence": "Take the photo from this angle.",
+      "tier": "core"
+    },
+    {
+      "word": "background",
+      "pos": "noun",
+      "definition_ar": "خلفية",
+      "example_sentence": "The background is very nice.",
+      "tier": "core"
+    },
+    {
+      "word": "blurry",
+      "pos": "adjective",
+      "definition_ar": "ضبابي",
+      "example_sentence": "The photo is blurry.",
+      "tier": "core"
+    },
+    {
+      "word": "capture",
+      "pos": "verb",
+      "definition_ar": "يلتقط أو يسجل شيئاً",
+      "example_sentence": "I want to capture this beautiful sunset.",
+      "tier": "core"
+    },
+    {
+      "word": "challenges",
+      "pos": "noun",
+      "definition_ar": "تحديات، مشاكل صعبة",
+      "example_sentence": "Learning English has many challenges, but it's fun.",
+      "tier": "core"
+    },
+    {
+      "word": "convenient",
+      "pos": "adjective",
+      "definition_ar": "مريح أو مناسب",
+      "example_sentence": "Online shopping is very convenient for busy people.",
+      "tier": "core"
+    },
+    {
+      "word": "creative",
+      "pos": "adjective",
+      "definition_ar": "مبدع أو خلاق",
+      "example_sentence": "My sister is very creative - she makes beautiful paintings.",
+      "tier": "core"
+    },
+    {
+      "word": "digital",
+      "pos": "adjective",
+      "definition_ar": "رقمي",
+      "example_sentence": "I have a digital watch that shows the date.",
+      "tier": "core"
+    },
+    {
+      "word": "display",
+      "pos": "verb",
+      "definition_ar": "يعرض أو يظهر",
+      "example_sentence": "The museum displays old artifacts from Saudi history.",
+      "tier": "core"
+    },
+    {
+      "word": "easy",
+      "pos": "adjective",
+      "definition_ar": "سهل أو بسيط",
+      "example_sentence": "This game is very easy to play.",
+      "tier": "core"
+    },
+    {
+      "word": "equipment",
+      "pos": "noun",
+      "definition_ar": "معدات، أدوات",
+      "example_sentence": "We need sports equipment for the game.",
+      "tier": "core"
+    },
+    {
+      "word": "famous",
+      "pos": "adjective",
+      "definition_ar": "مشهور، معروف",
+      "example_sentence": "Paris is famous for the Eiffel Tower.",
+      "tier": "core"
+    },
+    {
+      "word": "filter",
+      "pos": "noun",
+      "definition_ar": "فلتر",
+      "example_sentence": "She added a filter to the photo.",
+      "tier": "core"
+    },
+    {
+      "word": "flash",
+      "pos": "noun",
+      "definition_ar": "فلاش",
+      "example_sentence": "The flash was too bright.",
+      "tier": "core"
+    },
+    {
+      "word": "image",
+      "pos": "noun",
+      "definition_ar": "صورة",
+      "example_sentence": "The image is very sharp.",
+      "tier": "core"
+    },
+    {
+      "word": "landscape",
+      "pos": "noun",
+      "definition_ar": "منظر طبيعي",
+      "example_sentence": "The landscape photo is amazing.",
+      "tier": "core"
+    },
+    {
+      "word": "lens",
+      "pos": "noun",
+      "definition_ar": "عدسة",
+      "example_sentence": "I need to clean my camera lens because it's dirty.",
+      "tier": "core"
+    },
+    {
+      "word": "lower",
+      "pos": "adjective",
+      "definition_ar": "أقل ارتفاعاً، أسفل، منخفض",
+      "example_sentence": "The ball is on the lower shelf.",
+      "tier": "core"
+    },
+    {
+      "word": "natural",
+      "pos": "adjective",
+      "definition_ar": "طبيعي",
+      "example_sentence": "The light looks natural.",
+      "tier": "core"
+    },
+    {
+      "word": "photograph",
+      "pos": "noun",
+      "definition_ar": "صورة فوتوغرافية",
+      "example_sentence": "This photograph is beautiful.",
+      "tier": "core"
+    },
+    {
+      "word": "popular",
+      "pos": "adjective",
+      "definition_ar": "محبوب أو مشهور بين الناس",
+      "example_sentence": "Football is very popular in Saudi Arabia.",
+      "tier": "core"
+    },
+    {
+      "word": "portrait",
+      "pos": "noun",
+      "definition_ar": "صورة شخصية",
+      "example_sentence": "She took a family portrait.",
+      "tier": "core"
+    },
+    {
+      "word": "practice",
+      "pos": "verb",
+      "definition_ar": "يمارس أو يتدرب",
+      "example_sentence": "I practice English every day to speak better.",
+      "tier": "core"
+    },
+    {
+      "word": "prefer",
+      "pos": "verb",
+      "definition_ar": "يفضل، يختار",
+      "example_sentence": "I prefer tea to coffee.",
+      "tier": "core"
+    },
+    {
+      "word": "protect",
+      "pos": "verb",
+      "definition_ar": "يحمي، يقي",
+      "example_sentence": "Parents protect their children from danger.",
+      "tier": "core"
+    },
+    {
+      "word": "settings",
+      "pos": "noun",
+      "definition_ar": "إعدادات",
+      "example_sentence": "You can change the settings on your phone to make the screen brighter.",
+      "tier": "core"
+    },
+    {
+      "word": "sharp",
+      "pos": "adjective",
+      "definition_ar": "حاد",
+      "example_sentence": "The photo is very sharp.",
+      "tier": "core"
+    },
+    {
+      "word": "shoot",
+      "pos": "verb",
+      "definition_ar": "يصور",
+      "example_sentence": "She shoots photos every day.",
+      "tier": "core"
+    },
+    {
+      "word": "spectacular",
+      "pos": "adjective",
+      "definition_ar": "رائع، مذهل، مثير للإعجاب",
+      "example_sentence": "The view from the mountain is spectacular.",
+      "tier": "core"
+    },
+    {
+      "word": "travel",
+      "pos": "verb",
+      "definition_ar": "يسافر، يتنقل",
+      "example_sentence": "My family likes to travel during summer vacation.",
+      "tier": "core"
+    },
+    {
+      "word": "zoom",
+      "pos": "verb",
+      "definition_ar": "يقرب",
+      "example_sentence": "Zoom in to see the details.",
+      "tier": "core"
+    },
+    {
+      "word": "adjust",
+      "pos": "verb",
+      "definition_ar": "يضبط",
+      "example_sentence": "Adjust the brightness of the photo.",
+      "tier": "extended"
+    },
+    {
+      "word": "candid",
+      "pos": "adjective",
+      "definition_ar": "عفوي",
+      "example_sentence": "I like candid photos.",
+      "tier": "extended"
+    },
+    {
+      "word": "composition",
+      "pos": "noun",
+      "definition_ar": "تكوين",
+      "example_sentence": "Good composition makes a good photo.",
+      "tier": "extended"
+    },
+    {
+      "word": "contrast",
+      "pos": "noun",
+      "definition_ar": "تباين",
+      "example_sentence": "The contrast is very strong.",
+      "tier": "extended"
+    },
+    {
+      "word": "crop",
+      "pos": "verb",
+      "definition_ar": "يقص",
+      "example_sentence": "Crop the photo to make it smaller.",
+      "tier": "extended"
+    },
+    {
+      "word": "edit",
+      "pos": "verb",
+      "definition_ar": "يعدل",
+      "example_sentence": "He edits photos on the computer.",
+      "tier": "extended"
+    },
+    {
+      "word": "exposure",
+      "pos": "noun",
+      "definition_ar": "تعريض ضوئي",
+      "example_sentence": "The exposure was too long.",
+      "tier": "extended"
+    },
+    {
+      "word": "frame",
+      "pos": "noun",
+      "definition_ar": "إطار",
+      "example_sentence": "Put the photo in a frame.",
+      "tier": "extended"
+    },
+    {
+      "word": "outdoor",
+      "pos": "adjective",
+      "definition_ar": "خارجي",
+      "example_sentence": "I prefer outdoor photography.",
+      "tier": "extended"
+    },
+    {
+      "word": "resolution",
+      "pos": "noun",
+      "definition_ar": "دقة",
+      "example_sentence": "The resolution is very high.",
+      "tier": "extended"
+    },
+    {
+      "word": "scenic",
+      "pos": "adjective",
+      "definition_ar": "خلاب",
+      "example_sentence": "The view is very scenic.",
+      "tier": "extended"
+    },
+    {
+      "word": "shadow",
+      "pos": "noun",
+      "definition_ar": "ظل",
+      "example_sentence": "The shadow makes the photo nice.",
+      "tier": "extended"
+    },
+    {
+      "word": "tripod",
+      "pos": "noun",
+      "definition_ar": "حامل ثلاثي",
+      "example_sentence": "Put the camera on the tripod.",
+      "tier": "extended"
+    },
+    {
+      "word": "vivid",
+      "pos": "adjective",
+      "definition_ar": "حي",
+      "example_sentence": "The colors are very vivid.",
+      "tier": "extended"
+    },
+    {
+      "word": "aesthetic",
+      "pos": "adjective",
+      "definition_ar": "جمالي",
+      "example_sentence": "The photo has an aesthetic feel.",
+      "tier": "mastery"
+    },
+    {
+      "word": "aperture",
+      "pos": "noun",
+      "definition_ar": "فتحة العدسة",
+      "example_sentence": "Adjust the aperture for more light.",
+      "tier": "mastery"
+    },
+    {
+      "word": "enhance",
+      "pos": "verb",
+      "definition_ar": "يحسن",
+      "example_sentence": "Filters enhance the photo.",
+      "tier": "mastery"
+    },
+    {
+      "word": "illuminate",
+      "pos": "verb",
+      "definition_ar": "ينير",
+      "example_sentence": "The sun illuminates the scene.",
+      "tier": "mastery"
+    },
+    {
+      "word": "macro",
+      "pos": "adjective",
+      "definition_ar": "مقرب",
+      "example_sentence": "She took a macro photo of a flower.",
+      "tier": "mastery"
+    },
+    {
+      "word": "monochrome",
+      "pos": "adjective",
+      "definition_ar": "أحادي اللون",
+      "example_sentence": "The photo is monochrome.",
+      "tier": "mastery"
+    },
+    {
+      "word": "overexpose",
+      "pos": "verb",
+      "definition_ar": "يعرض للضوء بإفراط",
+      "example_sentence": "Do not overexpose the photo.",
+      "tier": "mastery"
+    },
+    {
+      "word": "panorama",
+      "pos": "noun",
+      "definition_ar": "بانوراما",
+      "example_sentence": "He took a panorama photo.",
+      "tier": "mastery"
+    },
+    {
+      "word": "perspective",
+      "pos": "noun",
+      "definition_ar": "منظور",
+      "example_sentence": "Change your perspective.",
+      "tier": "mastery"
+    },
+    {
+      "word": "shutter",
+      "pos": "noun",
+      "definition_ar": "مصراع",
+      "example_sentence": "Press the shutter button.",
+      "tier": "mastery"
+    },
+    {
+      "word": "silhouette",
+      "pos": "noun",
+      "definition_ar": "صورة ظلية",
+      "example_sentence": "The silhouette looks beautiful.",
+      "tier": "mastery"
+    },
+    {
+      "word": "timelapse",
+      "pos": "noun",
+      "definition_ar": "تصوير متتابع",
+      "example_sentence": "He made a timelapse video.",
+      "tier": "mastery"
+    },
+    {
+      "word": "vintage",
+      "pos": "adjective",
+      "definition_ar": "عتيق",
+      "example_sentence": "She likes the vintage style.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "a06e190b-ff65-46b7-969a-52a6bdb21298",
+      "label": "A",
+      "title": "Capturing Life Through Photography",
+      "content": {
+        "paragraphs": [
+          "Photography is one of the most *popular* hobbies in the world today. From family gatherings to beautiful sunsets, people love to *capture* special moments with their cameras. In Saudi Arabia, photography has become an important way for young people to express themselves and share their culture with others.",
+          "Modern cameras make it *easy* to take great photos. Most people use their smartphones to take pictures because they are *convenient* and always available. However, professional photographers often prefer *digital* cameras because they produce higher quality images. These cameras have special *settings* that help photographers control light, color, and focus. The *lens* is the most important part of any camera because it determines how clear and sharp the photo will be.",
+          "Saudi photographers are becoming famous around the world for their *creative* work. They take amazing pictures of the country's landscapes, from the red sands of the Empty Quarter to the modern buildings in Riyadh and Jeddah. Many young Saudi women are learning photography and starting their own businesses. They photograph weddings, family events, and fashion shows. Social media platforms like Instagram have over 2 billion users worldwide, and many Saudi photographers use these apps to *display* their work and attract new clients.",
+          "Photography is more than just pointing and clicking a camera. Good photographers must *practice* regularly to improve their skills. They learn about composition, lighting, and timing. They also study the work of famous photographers from different countries. With patience and dedication, anyone can learn to take beautiful photos that tell meaningful stories."
+        ]
+      },
+      "word_count": 347
+    },
+    {
+      "id": "a03db754-37ba-4d7c-bbaf-3ada190715bd",
+      "label": "B",
+      "title": "Desert Photography Magic",
+      "content": {
+        "paragraphs": [
+          "Professional photographers face many *challenges* when they work in Saudi Arabia's desert regions. The extreme heat, bright sunlight, and moving sand create difficult conditions. However, these same conditions also create some of the world's most *spectacular* desert photographs.",
+          "Many photographers *prefer* to work during the golden hours - early morning and late evening. During these times, the sun is *lower* in the sky and creates beautiful, soft light. The famous photographer Ahmed Al-Rashid says, \"The desert looks completely different at sunrise. The sand dunes change from gold to orange to red.\" He has been photographing Saudi deserts for over fifteen years and has learned to *adapt* to the harsh environment.",
+          "Desert photography requires special *equipment* and techniques. Photographers must *protect* their cameras from sand and extreme temperatures. They often use special covers and filters. The Empty Quarter, or Rub' al Khali, covers about 650,000 square kilometers and is one of the most photographed desert locations in the Kingdom. Its massive sand dunes can reach heights of 250 meters.",
+          "Today, many young Saudi photographers are becoming *famous* for their desert images on social media. They use both traditional cameras and modern smartphones to capture the beauty of their homeland. These photographers often *travel* long distances to find the perfect shot. Their work shows the world that Saudi Arabia's deserts are not empty places, but lands full of natural beauty and constantly changing colors.",
+          "The growing popularity of desert photography has also helped tourism in Saudi Arabia. Visitors from around the world now come to see and photograph the same *amazing* landscapes that local photographers have been capturing for years."
+        ]
+      },
+      "word_count": 267
+    }
+  ],
+  "grammar": {
+    "topic_name_en": "prepositions of time",
+    "topic_name_ar": "prepositions of time",
+    "explanation_content": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "حروف الجر الزمنية: in للشهور والسنوات والفصول وأجزاء اليوم، on للأيام والتواريخ، at للأوقات المحددة",
+          "content_en": "<b>Prepositions of Time: in, on, at</b><br><br>We use prepositions of time to say WHEN something happens.<br><br><b>IN</b> - for months, years, seasons, and parts of the day<br>• I take photos <b>in</b> summer.<br>• She bought a camera <b>in</b> 2023.<br>• We edit photos <b>in</b> the morning.<br><br><b>ON</b> - for days and dates<br>• The photography class is <b>on</b> Monday.<br>• I took this picture <b>on</b> June 15th.<br><br><b>AT</b> - for specific times<br>• The photo exhibition opens <b>at</b> 6 PM.<br>• I wake up <b>at</b> 7:00 to catch sunrise photos."
+        },
+        {
+          "type": "formula",
+          "content": "Subject + verb + preposition (in/on/at) + time expression"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "I take beautiful photos in spring.",
+              "highlight": "in spring",
+              "translation_ar": "ألتقط صوراً جميلة في الربيع"
+            },
+            {
+              "sentence": "The camera shop closes on Sunday.",
+              "highlight": "on Sunday",
+              "translation_ar": "متجر الكاميرات مغلق يوم الأحد"
+            },
+            {
+              "sentence": "We start the photography workshop at 2 PM.",
+              "highlight": "at 2 PM",
+              "translation_ar": "نبدأ ورشة التصوير في الساعة الثانية مساءً"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "at Monday",
+              "correct": "on Monday",
+              "explanation_ar": "نستخدم on مع الأيام وليس at"
+            },
+            {
+              "wrong": "on 3 o'clock",
+              "correct": "at 3 o'clock",
+              "explanation_ar": "نستخدم at مع الساعات المحددة"
+            },
+            {
+              "wrong": "in night",
+              "correct": "at night",
+              "explanation_ar": "at night تعبير ثابت، نقول at night وليس in night"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

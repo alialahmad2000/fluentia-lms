@@ -1,0 +1,524 @@
+{
+  "unit": {
+    "id": "290f3fbe-d9ec-41cb-93d3-aa2401ee6c7c",
+    "unit_number": 10,
+    "title_en": "World Cuisines",
+    "title_ar": "مطابخ العالم"
+  },
+  "vocabulary": [
+    {
+      "word": "bake",
+      "pos": "verb",
+      "definition_ar": "يخبز",
+      "example_sentence": "She bakes bread every morning.",
+      "tier": "core"
+    },
+    {
+      "word": "bitter",
+      "pos": "adjective",
+      "definition_ar": "مر",
+      "example_sentence": "The coffee is very bitter.",
+      "tier": "core"
+    },
+    {
+      "word": "boil",
+      "pos": "verb",
+      "definition_ar": "يغلي",
+      "example_sentence": "Boil the water first.",
+      "tier": "core"
+    },
+    {
+      "word": "celebrate",
+      "pos": "verb",
+      "definition_ar": "يحتفل",
+      "example_sentence": "We celebrate my birthday every year.",
+      "tier": "core"
+    },
+    {
+      "word": "changed",
+      "pos": "verb",
+      "definition_ar": "غيّر، تغيّر (الماضي)",
+      "example_sentence": "The weather changed from sunny to rainy.",
+      "tier": "core"
+    },
+    {
+      "word": "chef",
+      "pos": "noun",
+      "definition_ar": "طاهٍ",
+      "example_sentence": "The chef made a great meal.",
+      "tier": "core"
+    },
+    {
+      "word": "common",
+      "pos": "adjective",
+      "definition_ar": "شائع، عادي",
+      "example_sentence": "Cars are common in my city.",
+      "tier": "core"
+    },
+    {
+      "word": "dangerous",
+      "pos": "adjective",
+      "definition_ar": "خطير، غير آمن",
+      "example_sentence": "It is dangerous to cross the street without looking.",
+      "tier": "core"
+    },
+    {
+      "word": "delicious",
+      "pos": "adjective",
+      "definition_ar": "لذيذ، شهي",
+      "example_sentence": "This chocolate cake is delicious!",
+      "tier": "core"
+    },
+    {
+      "word": "describe",
+      "pos": "verb",
+      "definition_ar": "يصف",
+      "example_sentence": "Can you describe your house to me?",
+      "tier": "core"
+    },
+    {
+      "word": "discover",
+      "pos": "verb",
+      "definition_ar": "يكتشف",
+      "example_sentence": "I discover new music on the internet.",
+      "tier": "core"
+    },
+    {
+      "word": "dish",
+      "pos": "noun",
+      "definition_ar": "طبق",
+      "example_sentence": "This dish is very tasty.",
+      "tier": "core"
+    },
+    {
+      "word": "easily",
+      "pos": "adverb",
+      "definition_ar": "بسهولة، بيسر",
+      "example_sentence": "I can easily carry this light bag.",
+      "tier": "core"
+    },
+    {
+      "word": "flavor",
+      "pos": "noun",
+      "definition_ar": "نكهة",
+      "example_sentence": "The flavor is very good.",
+      "tier": "core"
+    },
+    {
+      "word": "fry",
+      "pos": "verb",
+      "definition_ar": "يقلي",
+      "example_sentence": "She fried the chicken.",
+      "tier": "core"
+    },
+    {
+      "word": "grew",
+      "pos": "verb",
+      "definition_ar": "نما، زرع (الماضي)",
+      "example_sentence": "My grandmother grew tomatoes in her garden.",
+      "tier": "core"
+    },
+    {
+      "word": "grill",
+      "pos": "verb",
+      "definition_ar": "يشوي",
+      "example_sentence": "We grill meat on the fire.",
+      "tier": "core"
+    },
+    {
+      "word": "ingredient",
+      "pos": "noun",
+      "definition_ar": "مكون",
+      "example_sentence": "This recipe has five ingredients.",
+      "tier": "core"
+    },
+    {
+      "word": "mix",
+      "pos": "verb",
+      "definition_ar": "يخلط",
+      "example_sentence": "Mix the ingredients together.",
+      "tier": "core"
+    },
+    {
+      "word": "oven",
+      "pos": "noun",
+      "definition_ar": "فرن",
+      "example_sentence": "Put the cake in the oven.",
+      "tier": "core"
+    },
+    {
+      "word": "powerful",
+      "pos": "adjective",
+      "definition_ar": "قوي، مؤثر",
+      "example_sentence": "The king is very powerful in his country.",
+      "tier": "core"
+    },
+    {
+      "word": "profitable",
+      "pos": "adjective",
+      "definition_ar": "مربح، يحقق أرباحاً",
+      "example_sentence": "His small shop is very profitable.",
+      "tier": "core"
+    },
+    {
+      "word": "rare",
+      "pos": "adjective",
+      "definition_ar": "نادر، قليل الوجود",
+      "example_sentence": "This rare coin is very old and valuable.",
+      "tier": "core"
+    },
+    {
+      "word": "raw",
+      "pos": "adjective",
+      "definition_ar": "نيء",
+      "example_sentence": "Do not eat raw meat.",
+      "tier": "core"
+    },
+    {
+      "word": "sauce",
+      "pos": "noun",
+      "definition_ar": "صلصة",
+      "example_sentence": "Add sauce to the pasta.",
+      "tier": "core"
+    },
+    {
+      "word": "shaped",
+      "pos": "verb",
+      "definition_ar": "شكّل، كوّن",
+      "example_sentence": "My teacher shaped my ideas about learning English.",
+      "tier": "core"
+    },
+    {
+      "word": "share",
+      "pos": "verb",
+      "definition_ar": "يشارك، يتقاسم",
+      "example_sentence": "I share my lunch with my friend.",
+      "tier": "core"
+    },
+    {
+      "word": "smell",
+      "pos": "verb",
+      "definition_ar": "يشم، يتشمم",
+      "example_sentence": "I can smell fresh bread from the kitchen.",
+      "tier": "core"
+    },
+    {
+      "word": "sour",
+      "pos": "adjective",
+      "definition_ar": "حامض",
+      "example_sentence": "The lemon is sour.",
+      "tier": "core"
+    },
+    {
+      "word": "spices",
+      "pos": "noun",
+      "definition_ar": "توابل، بهارات",
+      "example_sentence": "I put spices in my chicken to make it tasty.",
+      "tier": "core"
+    },
+    {
+      "word": "spicy",
+      "pos": "adjective",
+      "definition_ar": "حار",
+      "example_sentence": "This food is very spicy.",
+      "tier": "core"
+    },
+    {
+      "word": "stir",
+      "pos": "verb",
+      "definition_ar": "يحرك",
+      "example_sentence": "Stir the soup slowly.",
+      "tier": "core"
+    },
+    {
+      "word": "sunny",
+      "pos": "adjective",
+      "definition_ar": "مشمس",
+      "example_sentence": "Today is sunny and warm.",
+      "tier": "core"
+    },
+    {
+      "word": "taste",
+      "pos": "verb",
+      "definition_ar": "يتذوق، يطعم",
+      "example_sentence": "Can I taste your soup?",
+      "tier": "core"
+    },
+    {
+      "word": "trade",
+      "pos": "verb",
+      "definition_ar": "يتاجر، يتبادل البضائع",
+      "example_sentence": "I trade my apple for your banana.",
+      "tier": "core"
+    },
+    {
+      "word": "warm",
+      "pos": "adjective",
+      "definition_ar": "دافئ، معتدل الحرارة",
+      "example_sentence": "The warm sun feels nice on my skin.",
+      "tier": "core"
+    },
+    {
+      "word": "appetizer",
+      "pos": "noun",
+      "definition_ar": "مقبلات",
+      "example_sentence": "We ordered an appetizer.",
+      "tier": "extended"
+    },
+    {
+      "word": "aromatic",
+      "pos": "adjective",
+      "definition_ar": "عطري",
+      "example_sentence": "The spices are very aromatic.",
+      "tier": "extended"
+    },
+    {
+      "word": "authentic",
+      "pos": "adjective",
+      "definition_ar": "أصيل",
+      "example_sentence": "This is authentic Arabic food.",
+      "tier": "extended"
+    },
+    {
+      "word": "chop",
+      "pos": "verb",
+      "definition_ar": "يقطع",
+      "example_sentence": "Chop the onions into small pieces.",
+      "tier": "extended"
+    },
+    {
+      "word": "cuisine",
+      "pos": "noun",
+      "definition_ar": "مطبخ",
+      "example_sentence": "I love Italian cuisine.",
+      "tier": "extended"
+    },
+    {
+      "word": "dough",
+      "pos": "noun",
+      "definition_ar": "عجين",
+      "example_sentence": "Roll the dough flat.",
+      "tier": "extended"
+    },
+    {
+      "word": "garnish",
+      "pos": "verb",
+      "definition_ar": "يزين الطبق",
+      "example_sentence": "Garnish the dish with parsley.",
+      "tier": "extended"
+    },
+    {
+      "word": "herb",
+      "pos": "noun",
+      "definition_ar": "عشبة",
+      "example_sentence": "Add fresh herbs to the salad.",
+      "tier": "extended"
+    },
+    {
+      "word": "marinate",
+      "pos": "verb",
+      "definition_ar": "ينقع",
+      "example_sentence": "Marinate the meat for two hours.",
+      "tier": "extended"
+    },
+    {
+      "word": "nutritious",
+      "pos": "adjective",
+      "definition_ar": "مغذي",
+      "example_sentence": "Vegetables are nutritious.",
+      "tier": "extended"
+    },
+    {
+      "word": "portion",
+      "pos": "noun",
+      "definition_ar": "حصة",
+      "example_sentence": "The portion is very big.",
+      "tier": "extended"
+    },
+    {
+      "word": "roast",
+      "pos": "verb",
+      "definition_ar": "يحمص",
+      "example_sentence": "Roast the chicken for one hour.",
+      "tier": "extended"
+    },
+    {
+      "word": "savory",
+      "pos": "adjective",
+      "definition_ar": "مالح ولذيذ",
+      "example_sentence": "I prefer savory food.",
+      "tier": "extended"
+    },
+    {
+      "word": "seasonal",
+      "pos": "adjective",
+      "definition_ar": "موسمي",
+      "example_sentence": "We use seasonal vegetables.",
+      "tier": "extended"
+    },
+    {
+      "word": "aroma",
+      "pos": "noun",
+      "definition_ar": "رائحة زكية",
+      "example_sentence": "The aroma of coffee fills the room.",
+      "tier": "mastery"
+    },
+    {
+      "word": "blanch",
+      "pos": "verb",
+      "definition_ar": "يسلق خفيفاً",
+      "example_sentence": "Blanch the vegetables quickly.",
+      "tier": "mastery"
+    },
+    {
+      "word": "exquisite",
+      "pos": "adjective",
+      "definition_ar": "رفيع",
+      "example_sentence": "The taste is exquisite.",
+      "tier": "mastery"
+    },
+    {
+      "word": "ferment",
+      "pos": "verb",
+      "definition_ar": "يخمر",
+      "example_sentence": "They ferment the milk to make cheese.",
+      "tier": "mastery"
+    },
+    {
+      "word": "gastronomy",
+      "pos": "noun",
+      "definition_ar": "فن الطهي",
+      "example_sentence": "He studies gastronomy.",
+      "tier": "mastery"
+    },
+    {
+      "word": "gourmet",
+      "pos": "adjective",
+      "definition_ar": "فاخر",
+      "example_sentence": "This is a gourmet restaurant.",
+      "tier": "mastery"
+    },
+    {
+      "word": "infuse",
+      "pos": "verb",
+      "definition_ar": "ينقع بالنكهة",
+      "example_sentence": "Infuse the tea with mint.",
+      "tier": "mastery"
+    },
+    {
+      "word": "organic",
+      "pos": "adjective",
+      "definition_ar": "عضوي",
+      "example_sentence": "I buy organic vegetables.",
+      "tier": "mastery"
+    },
+    {
+      "word": "simmer",
+      "pos": "verb",
+      "definition_ar": "يطهي على نار هادئة",
+      "example_sentence": "Simmer the soup for ten minutes.",
+      "tier": "mastery"
+    },
+    {
+      "word": "texture",
+      "pos": "noun",
+      "definition_ar": "قوام",
+      "example_sentence": "The bread has a soft texture.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "bb7081a8-7c02-4ea7-aef2-e48d77a709d2",
+      "label": "A",
+      "title": "Food Brings the World Together",
+      "content": {
+        "paragraphs": [
+          "Food is one of the most *powerful* ways people share their culture with others. Around the world, every country has special dishes that tell stories about their history, climate, and traditions. When we eat food from different places, we learn about new cultures and make connections with people from far away.",
+          "Many popular world cuisines started hundreds of years ago. Italian pasta became famous because wheat grew well in Italy's *sunny* climate. Japanese sushi developed because Japan is surrounded by ocean and has lots of fresh fish. Indian food uses many *spices* because traders brought them from different parts of Asia. These ingredients *shaped* the way people cooked in each country.",
+          "Today, international restaurants are *common* in most big cities. In London, there are over 12,000 restaurants serving food from around the world. People can *taste* Thai curry, Mexican tacos, and Lebanese hummus all in the same neighborhood. Food festivals also *celebrate* different cuisines. The largest food festival in the world happens in Singapore every year, where 50 countries *share* their traditional dishes.",
+          "Social media has made world cuisines even more popular. Young people *discover* new recipes on Instagram and YouTube every day. They see colorful photos of Korean bibimbap or Moroccan tagine and want to try making them at home. Food bloggers travel to different countries and *describe* local dishes to millions of followers online.",
+          "World cuisines teach us that people everywhere love to cook and eat together. Food connects us across languages and borders. When we try a new dish, we open our minds to different ways of living and thinking. This makes our world smaller and more friendly."
+        ]
+      },
+      "word_count": 287
+    },
+    {
+      "id": "763410ec-0986-46fa-a570-7a011f38f449",
+      "label": "B",
+      "title": "The Ancient Spice Routes",
+      "content": {
+        "paragraphs": [
+          "Long ago, spices were more valuable than gold. Merchants traveled thousands of miles to *trade* these precious seasonings. The spice routes connected Asia, the Middle East, and Europe for over 1,500 years. These ancient paths changed how people cook around the world.",
+          "The journey began in tropical places like India, Sri Lanka, and Indonesia. Here, farmers *grew* black pepper, cinnamon, cardamom, and nutmeg in the *warm* climate. These spices were *rare* and expensive because they only grew in certain places. Arab traders were the first to bring these treasures to the Middle East and North Africa.",
+          "Spice trading was not easy work. Traders faced many dangers on land and sea. They traveled through *dangerous* deserts and sailed across stormy oceans. A single trip could take two years! Despite these challenges, the spice trade was very *profitable*. Some spices cost more than their weight in silver. Venice became one of the richest cities in Europe because of spice trading.",
+          "Today, we can *easily* buy spices from any grocery store. We often forget how these simple ingredients *changed* world history. Spices led to the discovery of new lands and created connections between different cultures. They made food more *delicious* and helped preserve meat before refrigerators existed.",
+          "The legacy of the spice routes lives on in modern kitchens. When we add Saudi baharat to our rice or Indian curry powder to our chicken, we continue this ancient tradition. Each spice tells a story of adventure, discovery, and the human desire to make food taste better. The next time you *smell* cinnamon or taste black pepper, remember the brave traders who brought these flavors to your table."
+        ]
+      },
+      "word_count": 312
+    }
+  ],
+  "grammar": {
+    "topic_name_en": "adverbs of frequency",
+    "topic_name_ar": "adverbs of frequency",
+    "explanation_content": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "ظروف التكرار تخبرنا عن مدى تكرار الحدث. تأتي قبل الفعل الأساسي وبعد فعل الكون (am/is/are)",
+          "content_en": "<b>Adverbs of frequency</b> tell us how often something happens.<br><br><b>Examples:</b><br>• I <b>always</b> eat Italian pasta for dinner.<br>• She <b>sometimes</b> cooks Chinese food.<br>• We <b>never</b> try spicy Indian curry.<br><br><b>Common adverbs of frequency (from most to least frequent):</b><br>• <b>always</b> (100%) - دائماً<br>• <b>usually</b> (90%) - عادة<br>• <b>often</b> (70%) - غالباً<br>• <b>sometimes</b> (50%) - أحياناً<br>• <b>rarely/seldom</b> (10%) - نادراً<br>• <b>never</b> (0%) - أبداً<br><br><b>Position:</b> Adverbs of frequency come <b>before the main verb</b> but <b>after the verb 'be'</b>."
+        },
+        {
+          "type": "formula",
+          "content": "Subject + adverb of frequency + main verb OR Subject + be + adverb of frequency"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "I always eat rice with my meals.",
+              "highlight": "always",
+              "translation_ar": "أنا دائماً آكل الأرز مع وجباتي"
+            },
+            {
+              "sentence": "He usually orders pizza on weekends.",
+              "highlight": "usually",
+              "translation_ar": "هو عادة يطلب البيتزا في نهاية الأسبوع"
+            },
+            {
+              "sentence": "They are sometimes hungry for Mexican food.",
+              "highlight": "sometimes",
+              "translation_ar": "هم أحياناً جائعون للطعام المكسيكي"
+            },
+            {
+              "sentence": "We never cook Thai food at home.",
+              "highlight": "never",
+              "translation_ar": "نحن لا نطبخ الطعام التايلاندي في البيت أبداً"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "I eat always pasta.",
+              "correct": "I always eat pasta.",
+              "explanation_ar": "ظرف التكرار يأتي قبل الفعل الأساسي وليس بعده"
+            },
+            {
+              "wrong": "She is never cook Chinese food.",
+              "correct": "She never cooks Chinese food.",
+              "explanation_ar": "لا نستخدم فعل الكون مع الفعل الأساسي"
+            },
+            {
+              "wrong": "They sometimes are hungry.",
+              "correct": "They are sometimes hungry.",
+              "explanation_ar": "مع فعل الكون، ظرف التكرار يأتي بعد الفعل"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

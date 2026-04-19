@@ -1,0 +1,519 @@
+{
+  "unit": {
+    "id": "73c7463e-df09-452a-b369-41334805d8a6",
+    "unit_number": 12,
+    "title_en": "Green Living",
+    "title_ar": "الحياة الخضراء"
+  },
+  "vocabulary": [
+    {
+      "word": "abundant",
+      "pos": "adjective",
+      "definition_ar": "كثير جداً في الكمية؛ أكثر من الكافي",
+      "example_sentence": "This area has abundant fresh water.",
+      "tier": "core"
+    },
+    {
+      "word": "bright",
+      "pos": "adjective",
+      "definition_ar": "مشرق، واعد، مضيء",
+      "example_sentence": "She has a bright future as a doctor.",
+      "tier": "core"
+    },
+    {
+      "word": "carbon-neutral",
+      "pos": "adjective",
+      "definition_ar": "لا يضيف ثاني أكسيد الكربون الإضافي للهواء؛ صديق للبيئة",
+      "example_sentence": "The new building is carbon-neutral and very green.",
+      "tier": "core"
+    },
+    {
+      "word": "cleaner",
+      "pos": "adjective",
+      "definition_ar": "أكثر نظافة، أقل تلوثاً",
+      "example_sentence": "We need cleaner air in our city.",
+      "tier": "core"
+    },
+    {
+      "word": "climate",
+      "pos": "noun",
+      "definition_ar": "مناخ",
+      "example_sentence": "The climate is changing.",
+      "tier": "core"
+    },
+    {
+      "word": "commitment",
+      "pos": "noun",
+      "definition_ar": "التزام قوي أو قرار للقيام بشيء مهم",
+      "example_sentence": "His commitment to learning English is very strong.",
+      "tier": "core"
+    },
+    {
+      "word": "consume",
+      "pos": "verb",
+      "definition_ar": "يستهلك أو يستخدم شيئاً، خاصة الطاقة أو الوقود أو الطعام",
+      "example_sentence": "My car consumes a lot of gasoline.",
+      "tier": "core"
+    },
+    {
+      "word": "dramatic",
+      "pos": "adjective",
+      "definition_ar": "تغيير كبير ومفاجئ وملحوظ",
+      "example_sentence": "There was a dramatic increase in temperature today.",
+      "tier": "core"
+    },
+    {
+      "word": "eco-friendly",
+      "pos": "adjective",
+      "definition_ar": "صديق للبيئة",
+      "example_sentence": "Buy eco-friendly products.",
+      "tier": "core"
+    },
+    {
+      "word": "electric",
+      "pos": "adjective",
+      "definition_ar": "كهربائي",
+      "example_sentence": "My electric toothbrush works very well.",
+      "tier": "core"
+    },
+    {
+      "word": "energy",
+      "pos": "noun",
+      "definition_ar": "طاقة",
+      "example_sentence": "Solar energy is clean.",
+      "tier": "core"
+    },
+    {
+      "word": "environment",
+      "pos": "noun",
+      "definition_ar": "بيئة",
+      "example_sentence": "We must protect the environment.",
+      "tier": "core"
+    },
+    {
+      "word": "estimate",
+      "pos": "verb",
+      "definition_ar": "يقدر أو يخمن حجم أو كمية أو عدد شيء باستخدام المعرفة",
+      "example_sentence": "I estimate the trip will take two hours.",
+      "tier": "core"
+    },
+    {
+      "word": "generate",
+      "pos": "verb",
+      "definition_ar": "ينتج أو يولد شيئاً، خاصة الطاقة أو الكهرباء",
+      "example_sentence": "Wind turbines generate clean electricity.",
+      "tier": "core"
+    },
+    {
+      "word": "green",
+      "pos": "adjective",
+      "definition_ar": "أخضر/صديق للبيئة",
+      "example_sentence": "Use green energy at home.",
+      "tier": "core"
+    },
+    {
+      "word": "harmful",
+      "pos": "adjective",
+      "definition_ar": "ضار",
+      "example_sentence": "Smoke is harmful to health.",
+      "tier": "core"
+    },
+    {
+      "word": "improve",
+      "pos": "verb",
+      "definition_ar": "يحسن، يطور",
+      "example_sentence": "Reading books will improve your English.",
+      "tier": "core"
+    },
+    {
+      "word": "increase",
+      "pos": "verb",
+      "definition_ar": "يزيد، يرفع",
+      "example_sentence": "The store will increase prices next month.",
+      "tier": "core"
+    },
+    {
+      "word": "installing",
+      "pos": "verb",
+      "definition_ar": "تركيب أو تثبيت المعدات لتكون جاهزة للاستخدام",
+      "example_sentence": "The technician is installing a new air conditioner.",
+      "tier": "core"
+    },
+    {
+      "word": "nature",
+      "pos": "noun",
+      "definition_ar": "طبيعة",
+      "example_sentence": "I love being in nature.",
+      "tier": "core"
+    },
+    {
+      "word": "participate",
+      "pos": "verb",
+      "definition_ar": "يشارك، يساهم",
+      "example_sentence": "All students can participate in the school sports day.",
+      "tier": "core"
+    },
+    {
+      "word": "plant",
+      "pos": "verb",
+      "definition_ar": "يزرع",
+      "example_sentence": "We plant trees in the park.",
+      "tier": "core"
+    },
+    {
+      "word": "plastic",
+      "pos": "noun",
+      "definition_ar": "بلاستيك",
+      "example_sentence": "Plastic is bad for the ocean.",
+      "tier": "core"
+    },
+    {
+      "word": "popular",
+      "pos": "adjective",
+      "definition_ar": "شائع، محبوب، مشهور",
+      "example_sentence": "Pizza is very popular with children.",
+      "tier": "core"
+    },
+    {
+      "word": "protect",
+      "pos": "verb",
+      "definition_ar": "يحمي شخصاً أو شيئاً من الأذى أو الضرر",
+      "example_sentence": "We must protect our children from danger.",
+      "tier": "core"
+    },
+    {
+      "word": "protect",
+      "pos": "verb",
+      "definition_ar": "يحمي، يصون",
+      "example_sentence": "Parents protect their children from danger.",
+      "tier": "core"
+    },
+    {
+      "word": "recycle",
+      "pos": "verb",
+      "definition_ar": "يعيد تدوير",
+      "example_sentence": "We recycle paper and plastic.",
+      "tier": "core"
+    },
+    {
+      "word": "reduce",
+      "pos": "verb",
+      "definition_ar": "يقلل، يخفض، يخفف",
+      "example_sentence": "I want to reduce the sugar in my tea.",
+      "tier": "core"
+    },
+    {
+      "word": "renewable",
+      "pos": "adjective",
+      "definition_ar": "متجدد",
+      "example_sentence": "Wind is a renewable energy.",
+      "tier": "core"
+    },
+    {
+      "word": "reuse",
+      "pos": "verb",
+      "definition_ar": "يعيد استخدام",
+      "example_sentence": "Reuse old bags when shopping.",
+      "tier": "core"
+    },
+    {
+      "word": "soil",
+      "pos": "noun",
+      "definition_ar": "تربة",
+      "example_sentence": "The soil here is very rich.",
+      "tier": "core"
+    },
+    {
+      "word": "sustainable",
+      "pos": "adjective",
+      "definition_ar": "مستدام، صديق للبيئة",
+      "example_sentence": "Solar energy is a sustainable way to make electricity.",
+      "tier": "core"
+    },
+    {
+      "word": "sustainable",
+      "pos": "adjective",
+      "definition_ar": "قابل للاستمرار لفترة طويلة دون الإضرار بالبيئة",
+      "example_sentence": "We need sustainable solutions for our energy problems.",
+      "tier": "core"
+    },
+    {
+      "word": "waste",
+      "pos": "noun",
+      "definition_ar": "نفايات",
+      "example_sentence": "Do not throw waste in the sea.",
+      "tier": "core"
+    },
+    {
+      "word": "biodegradable",
+      "pos": "adjective",
+      "definition_ar": "قابل للتحلل",
+      "example_sentence": "Use biodegradable bags.",
+      "tier": "extended"
+    },
+    {
+      "word": "carbon",
+      "pos": "noun",
+      "definition_ar": "كربون",
+      "example_sentence": "We must reduce carbon.",
+      "tier": "extended"
+    },
+    {
+      "word": "compost",
+      "pos": "noun",
+      "definition_ar": "سماد عضوي",
+      "example_sentence": "We make compost from food waste.",
+      "tier": "extended"
+    },
+    {
+      "word": "conserve",
+      "pos": "verb",
+      "definition_ar": "يحافظ على",
+      "example_sentence": "Conserve water every day.",
+      "tier": "extended"
+    },
+    {
+      "word": "decompose",
+      "pos": "verb",
+      "definition_ar": "يتحلل",
+      "example_sentence": "Paper can decompose easily.",
+      "tier": "extended"
+    },
+    {
+      "word": "drought",
+      "pos": "noun",
+      "definition_ar": "جفاف",
+      "example_sentence": "The drought killed many crops.",
+      "tier": "extended"
+    },
+    {
+      "word": "emission",
+      "pos": "noun",
+      "definition_ar": "انبعاث",
+      "example_sentence": "We must cut emissions.",
+      "tier": "extended"
+    },
+    {
+      "word": "footprint",
+      "pos": "noun",
+      "definition_ar": "بصمة",
+      "example_sentence": "Reduce your carbon footprint.",
+      "tier": "extended"
+    },
+    {
+      "word": "fossil fuel",
+      "pos": "noun",
+      "definition_ar": "وقود أحفوري",
+      "example_sentence": "Fossil fuel pollutes the air.",
+      "tier": "extended"
+    },
+    {
+      "word": "global warming",
+      "pos": "noun",
+      "definition_ar": "الاحتباس الحراري",
+      "example_sentence": "Global warming is getting worse.",
+      "tier": "extended"
+    },
+    {
+      "word": "greenhouse",
+      "pos": "noun",
+      "definition_ar": "بيت زجاجي",
+      "example_sentence": "Plants grow in the greenhouse.",
+      "tier": "extended"
+    },
+    {
+      "word": "landfill",
+      "pos": "noun",
+      "definition_ar": "مكب نفايات",
+      "example_sentence": "The landfill is almost full.",
+      "tier": "extended"
+    },
+    {
+      "word": "pollute",
+      "pos": "verb",
+      "definition_ar": "يلوث",
+      "example_sentence": "Factories pollute the air.",
+      "tier": "extended"
+    },
+    {
+      "word": "solar panel",
+      "pos": "noun",
+      "definition_ar": "لوح شمسي",
+      "example_sentence": "We installed solar panels.",
+      "tier": "extended"
+    },
+    {
+      "word": "toxic",
+      "pos": "adjective",
+      "definition_ar": "سام",
+      "example_sentence": "This waste is toxic.",
+      "tier": "extended"
+    },
+    {
+      "word": "wildlife",
+      "pos": "noun",
+      "definition_ar": "حياة برية",
+      "example_sentence": "We must protect wildlife.",
+      "tier": "extended"
+    },
+    {
+      "word": "advocate",
+      "pos": "verb",
+      "definition_ar": "يدعو لـ",
+      "example_sentence": "She advocates for clean energy.",
+      "tier": "mastery"
+    },
+    {
+      "word": "biodiversity",
+      "pos": "noun",
+      "definition_ar": "تنوع بيولوجي",
+      "example_sentence": "We must protect biodiversity.",
+      "tier": "mastery"
+    },
+    {
+      "word": "conservation",
+      "pos": "noun",
+      "definition_ar": "حماية البيئة",
+      "example_sentence": "Conservation is very important.",
+      "tier": "mastery"
+    },
+    {
+      "word": "deforestation",
+      "pos": "noun",
+      "definition_ar": "إزالة الغابات",
+      "example_sentence": "Deforestation harms animals.",
+      "tier": "mastery"
+    },
+    {
+      "word": "ecological",
+      "pos": "adjective",
+      "definition_ar": "بيئي",
+      "example_sentence": "This is an ecological problem.",
+      "tier": "mastery"
+    },
+    {
+      "word": "extinction",
+      "pos": "noun",
+      "definition_ar": "انقراض",
+      "example_sentence": "Pollution causes extinction.",
+      "tier": "mastery"
+    },
+    {
+      "word": "glacier",
+      "pos": "noun",
+      "definition_ar": "نهر جليدي",
+      "example_sentence": "The glacier is melting fast.",
+      "tier": "mastery"
+    },
+    {
+      "word": "offset",
+      "pos": "verb",
+      "definition_ar": "يعوض",
+      "example_sentence": "Plant trees to offset carbon.",
+      "tier": "mastery"
+    },
+    {
+      "word": "ozone",
+      "pos": "noun",
+      "definition_ar": "أوزون",
+      "example_sentence": "The ozone layer protects us.",
+      "tier": "mastery"
+    },
+    {
+      "word": "vulnerable",
+      "pos": "adjective",
+      "definition_ar": "معرض للخطر",
+      "example_sentence": "Many animals are vulnerable.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "34f048e4-23c7-4d39-bb7a-0b3d2e63764b",
+      "label": "A",
+      "title": "Saudi Arabia Goes Green",
+      "content": {
+        "paragraphs": [
+          "Saudi Arabia is making big changes to protect the environment. The Kingdom has started many new projects to create a *cleaner* future for its people. These green living projects show how the country cares about nature and wants to *reduce* pollution.",
+          "The Saudi Green Initiative is one of the most important environmental programs in the world. This project plans to plant 10 billion trees across the Kingdom. The trees will help *improve* air quality and make cities cooler. Workers have already started planting trees in Riyadh, Jeddah, and other major cities. The government wants to *increase* green spaces by 40% in the next ten years.",
+          "Many Saudi families are learning to live in more *sustainable* ways. They are using less water and electricity at home. Some people buy *electric* cars instead of regular cars. These cars don't produce harmful gases. Solar panels are becoming *popular* on house rooftops. The sun in Saudi Arabia is very strong, so solar energy works very well here.",
+          "The Red Sea Project is another example of green living. This new tourist destination will use 100% renewable energy. The project will *protect* coral reefs and sea animals. Visitors can enjoy beautiful beaches while the environment stays safe. The project creates jobs for local people too.",
+          "Young Saudis are very excited about these environmental changes. They *participate* in tree planting events and beach cleaning activities. Universities teach students about green technology and environmental science. These young people will help Saudi Arabia become one of the most environmentally friendly countries in the world. The future looks very *bright* for green living in the Kingdom."
+        ]
+      },
+      "word_count": 267
+    },
+    {
+      "id": "212b4a0d-072e-4acd-85a3-6d7d910f0589",
+      "label": "B",
+      "title": "Saudi Arabia's Solar Revolution",
+      "content": {
+        "paragraphs": [
+          "Saudi Arabia is making a *dramatic* change in how it produces energy. The country wants to *generate* 50% of its electricity from renewable sources by 2030. This is part of Saudi Vision 2030, which aims to create a more *sustainable* future for the Kingdom.",
+          "The NEOM megacity project in the northwest shows Saudi Arabia's *commitment* to green living. NEOM will be completely powered by renewable energy, including solar and wind power. The city will *consume* zero carbon and produce zero waste. Construction workers are already *installing* thousands of solar panels across the desert landscape. These panels can produce enough electricity to power millions of homes.",
+          "Solar energy works perfectly in Saudi Arabia because the country has sunshine almost every day of the year. The desert regions receive more than 2,500 hours of sunlight annually. Scientists *estimate* that Saudi Arabia could produce 20 times more energy than it currently uses, just from solar power alone. This *abundant* sunshine makes the Kingdom one of the best places in the world for solar energy projects.",
+          "The Red Sea Project is another example of Saudi Arabia's green future. This luxury tourism destination will be completely *carbon-neutral*. Visitors will enjoy beautiful beaches and coral reefs while staying in hotels powered entirely by renewable energy. The project will also *protect* the natural environment and create jobs for thousands of Saudis.",
+          "Experts believe that Saudi Arabia's investment in renewable energy will inspire other countries in the region. The Kingdom is proving that oil-rich nations can successfully transition to clean energy while maintaining economic growth."
+        ]
+      },
+      "word_count": 347
+    }
+  ],
+  "grammar": {
+    "topic_name_en": "want/would like",
+    "topic_name_ar": "want/would like",
+    "explanation_content": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "نستخدم want للتعبير عن الرغبة بشكل مباشر مع الأصدقاء والعائلة. نستخدم would like للتعبير عن الرغبة بأدب أكثر مع الغرباء أو في المحلات",
+          "content_en": "<b>Want vs Would like</b><br><br>We use <b>want</b> and <b>would like</b> to express desires and requests, but they have different levels of politeness.<br><br><b>Examples:</b><br>• I want to recycle more plastic bottles.<br>• I would like to start composting at home.<br>• She wants to buy organic vegetables.<br><br><b>Want</b> is more direct and informal. We use it with friends and family.<br><b>Would like</b> is more polite and formal. We use it in shops, restaurants, or with strangers.<br><br>Both can be followed by:<br>• A noun: I want/would like some eco-friendly products<br>• To + infinitive: I want/would like to plant a garden"
+        },
+        {
+          "type": "formula",
+          "content": "Subject + want/would like + noun/to + infinitive"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "I want to use solar energy.",
+              "highlight": "want to use",
+              "translation_ar": "أريد أن أستخدم الطاقة الشمسية"
+            },
+            {
+              "sentence": "We would like some organic food.",
+              "highlight": "would like",
+              "translation_ar": "نود بعض الطعام العضوي"
+            },
+            {
+              "sentence": "They want a hybrid car.",
+              "highlight": "want",
+              "translation_ar": "يريدون سيارة هجينة"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "I would like plant trees",
+              "correct": "I would like to plant trees",
+              "explanation_ar": "لا تنس to قبل الفعل"
+            },
+            {
+              "wrong": "She want to recycle",
+              "correct": "She wants to recycle",
+              "explanation_ar": "أضف s مع الضمائر المفردة"
+            },
+            {
+              "wrong": "I want that I save water",
+              "correct": "I want to save water",
+              "explanation_ar": "استخدم to + infinitive وليس that + clause"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

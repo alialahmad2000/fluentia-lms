@@ -1,0 +1,526 @@
+{
+  "unit": {
+    "id": "1de8e161-81eb-416e-af87-c136d93f3930",
+    "unit_number": 2,
+    "title_en": "Ocean Life",
+    "title_ar": "الحياة في المحيط"
+  },
+  "vocabulary": [
+    {
+      "word": "adapted",
+      "pos": "verb",
+      "definition_ar": "تكيّف، تأقلم مع الظروف",
+      "example_sentence": "The student adapted quickly to the new school.",
+      "tier": "core"
+    },
+    {
+      "word": "amazing",
+      "pos": "adjective",
+      "definition_ar": "مذهل، رائع جداً، يثير الإعجاب",
+      "example_sentence": "The sunset is amazing tonight.",
+      "tier": "core"
+    },
+    {
+      "word": "beautiful",
+      "pos": "adjective",
+      "definition_ar": "جميل، حسن المظهر",
+      "example_sentence": "She has beautiful eyes.",
+      "tier": "core"
+    },
+    {
+      "word": "clear",
+      "pos": "adjective",
+      "definition_ar": "صافي، شفاف، واضح",
+      "example_sentence": "The glass is very clear.",
+      "tier": "core"
+    },
+    {
+      "word": "coral",
+      "pos": "noun",
+      "definition_ar": "مرجان",
+      "example_sentence": "Coral lives in warm water.",
+      "tier": "core"
+    },
+    {
+      "word": "dark",
+      "pos": "adjective",
+      "definition_ar": "مظلم، معتم، بلا ضوء",
+      "example_sentence": "My room is dark at night.",
+      "tier": "core"
+    },
+    {
+      "word": "deep",
+      "pos": "adjective",
+      "definition_ar": "عميق",
+      "example_sentence": "The pool is very deep.",
+      "tier": "core"
+    },
+    {
+      "word": "deepest",
+      "pos": "adjective",
+      "definition_ar": "الأعمق، أشد عمقاً",
+      "example_sentence": "This is the deepest part of the swimming pool.",
+      "tier": "core"
+    },
+    {
+      "word": "dive",
+      "pos": "verb",
+      "definition_ar": "يغوص",
+      "example_sentence": "He likes to dive in the sea.",
+      "tier": "core"
+    },
+    {
+      "word": "dolphin",
+      "pos": "noun",
+      "definition_ar": "دلفين",
+      "example_sentence": "The dolphin jumped out of water.",
+      "tier": "core"
+    },
+    {
+      "word": "eat",
+      "pos": "verb",
+      "definition_ar": "يأكل، يتناول الطعام",
+      "example_sentence": "I eat breakfast at 7 o'clock.",
+      "tier": "core"
+    },
+    {
+      "word": "enormous",
+      "pos": "adjective",
+      "definition_ar": "ضخم جداً، كبير للغاية",
+      "example_sentence": "The elephant is enormous compared to a mouse.",
+      "tier": "core"
+    },
+    {
+      "word": "explore",
+      "pos": "verb",
+      "definition_ar": "يستكشف، يتجول لاكتشاف أشياء جديدة",
+      "example_sentence": "We will explore the old city tomorrow.",
+      "tier": "core"
+    },
+    {
+      "word": "explore",
+      "pos": "verb",
+      "definition_ar": "استكشاف، اكتشاف مكان جديد",
+      "example_sentence": "Children like to explore the park.",
+      "tier": "core"
+    },
+    {
+      "word": "float",
+      "pos": "verb",
+      "definition_ar": "يطفو",
+      "example_sentence": "Wood can float on water.",
+      "tier": "core"
+    },
+    {
+      "word": "glow",
+      "pos": "verb",
+      "definition_ar": "يتوهج، يشع ضوءاً خفيفاً",
+      "example_sentence": "The stars glow in the night sky.",
+      "tier": "core"
+    },
+    {
+      "word": "harsh",
+      "pos": "adjective",
+      "definition_ar": "قاسي، شديد، صعب",
+      "example_sentence": "The desert has harsh weather conditions.",
+      "tier": "core"
+    },
+    {
+      "word": "huge",
+      "pos": "adjective",
+      "definition_ar": "ضخم جداً، هائل الحجم",
+      "example_sentence": "That elephant is huge!",
+      "tier": "core"
+    },
+    {
+      "word": "important",
+      "pos": "adjective",
+      "definition_ar": "مهم، ذو أهمية كبيرة",
+      "example_sentence": "It is important to study English.",
+      "tier": "core"
+    },
+    {
+      "word": "incredible",
+      "pos": "adjective",
+      "definition_ar": "لا يصدق، مدهش، رائع",
+      "example_sentence": "The view from the mountain was incredible.",
+      "tier": "core"
+    },
+    {
+      "word": "island",
+      "pos": "noun",
+      "definition_ar": "جزيرة",
+      "example_sentence": "The island has many trees.",
+      "tier": "core"
+    },
+    {
+      "word": "move",
+      "pos": "verb",
+      "definition_ar": "يتحرك، ينتقل من مكان لآخر",
+      "example_sentence": "Please move your bag from the chair.",
+      "tier": "core"
+    },
+    {
+      "word": "ocean",
+      "pos": "noun",
+      "definition_ar": "محيط",
+      "example_sentence": "The ocean is very deep.",
+      "tier": "core"
+    },
+    {
+      "word": "salty",
+      "pos": "adjective",
+      "definition_ar": "مالح",
+      "example_sentence": "Sea water is very salty.",
+      "tier": "core"
+    },
+    {
+      "word": "sand",
+      "pos": "noun",
+      "definition_ar": "رمل",
+      "example_sentence": "The sand is hot in summer.",
+      "tier": "core"
+    },
+    {
+      "word": "secrets",
+      "pos": "noun",
+      "definition_ar": "أسرار، معلومات مخفية أو غير معروفة",
+      "example_sentence": "The old book contains secrets about the past.",
+      "tier": "core"
+    },
+    {
+      "word": "shallow",
+      "pos": "adjective",
+      "definition_ar": "ضحل",
+      "example_sentence": "Children play in shallow water.",
+      "tier": "core"
+    },
+    {
+      "word": "shark",
+      "pos": "noun",
+      "definition_ar": "قرش",
+      "example_sentence": "The shark swims very fast.",
+      "tier": "core"
+    },
+    {
+      "word": "shell",
+      "pos": "noun",
+      "definition_ar": "صدفة",
+      "example_sentence": "I found a shell on the beach.",
+      "tier": "core"
+    },
+    {
+      "word": "sink",
+      "pos": "verb",
+      "definition_ar": "يغرق",
+      "example_sentence": "Heavy things sink in water.",
+      "tier": "core"
+    },
+    {
+      "word": "surface",
+      "pos": "noun",
+      "definition_ar": "السطح أو الجزء العلوي من شيء ما",
+      "example_sentence": "The ball floated on the surface of the water.",
+      "tier": "core"
+    },
+    {
+      "word": "survive",
+      "pos": "verb",
+      "definition_ar": "البقاء على قيد الحياة، النجاة",
+      "example_sentence": "Plants need water to survive.",
+      "tier": "core"
+    },
+    {
+      "word": "swim",
+      "pos": "verb",
+      "definition_ar": "يسبح، يعوم في الماء",
+      "example_sentence": "I swim in the pool every morning.",
+      "tier": "core"
+    },
+    {
+      "word": "treat",
+      "pos": "verb",
+      "definition_ar": "علاج، معالجة مرض أو مشكلة صحية",
+      "example_sentence": "The doctor will treat your cold with medicine.",
+      "tier": "core"
+    },
+    {
+      "word": "turtle",
+      "pos": "noun",
+      "definition_ar": "سلحفاة",
+      "example_sentence": "The turtle moves very slowly.",
+      "tier": "core"
+    },
+    {
+      "word": "wave",
+      "pos": "noun",
+      "definition_ar": "موجة",
+      "example_sentence": "The wave was very big.",
+      "tier": "core"
+    },
+    {
+      "word": "whale",
+      "pos": "noun",
+      "definition_ar": "حوت",
+      "example_sentence": "The whale is the biggest animal.",
+      "tier": "core"
+    },
+    {
+      "word": "anchor",
+      "pos": "noun",
+      "definition_ar": "مرساة",
+      "example_sentence": "The ship dropped its anchor.",
+      "tier": "extended"
+    },
+    {
+      "word": "breathe",
+      "pos": "verb",
+      "definition_ar": "يتنفس",
+      "example_sentence": "Fish breathe under water.",
+      "tier": "extended"
+    },
+    {
+      "word": "coast",
+      "pos": "noun",
+      "definition_ar": "ساحل",
+      "example_sentence": "We drove along the coast.",
+      "tier": "extended"
+    },
+    {
+      "word": "creature",
+      "pos": "noun",
+      "definition_ar": "مخلوق",
+      "example_sentence": "A strange creature lives here.",
+      "tier": "extended"
+    },
+    {
+      "word": "current",
+      "pos": "noun",
+      "definition_ar": "تيار",
+      "example_sentence": "The current is strong today.",
+      "tier": "extended"
+    },
+    {
+      "word": "endangered",
+      "pos": "adjective",
+      "definition_ar": "مهدد بالانقراض",
+      "example_sentence": "The whale is endangered.",
+      "tier": "extended"
+    },
+    {
+      "word": "flow",
+      "pos": "verb",
+      "definition_ar": "يتدفق",
+      "example_sentence": "Water flows to the sea.",
+      "tier": "extended"
+    },
+    {
+      "word": "freeze",
+      "pos": "verb",
+      "definition_ar": "يتجمد",
+      "example_sentence": "Water can freeze in winter.",
+      "tier": "extended"
+    },
+    {
+      "word": "marine",
+      "pos": "adjective",
+      "definition_ar": "بحري",
+      "example_sentence": "Marine animals need clean water.",
+      "tier": "extended"
+    },
+    {
+      "word": "reef",
+      "pos": "noun",
+      "definition_ar": "شعاب مرجانية",
+      "example_sentence": "The reef has many fish.",
+      "tier": "extended"
+    },
+    {
+      "word": "seahorse",
+      "pos": "noun",
+      "definition_ar": "حصان البحر",
+      "example_sentence": "The seahorse is very small.",
+      "tier": "extended"
+    },
+    {
+      "word": "seaweed",
+      "pos": "noun",
+      "definition_ar": "أعشاب بحرية",
+      "example_sentence": "Seaweed grows on the rocks.",
+      "tier": "extended"
+    },
+    {
+      "word": "tide",
+      "pos": "noun",
+      "definition_ar": "مد وجزر",
+      "example_sentence": "The tide comes in the morning.",
+      "tier": "extended"
+    },
+    {
+      "word": "underwater",
+      "pos": "adjective",
+      "definition_ar": "تحت الماء",
+      "example_sentence": "We saw underwater animals.",
+      "tier": "extended"
+    },
+    {
+      "word": "absorb",
+      "pos": "verb",
+      "definition_ar": "يمتص",
+      "example_sentence": "The ocean absorbs heat from the sun.",
+      "tier": "mastery"
+    },
+    {
+      "word": "ecosystem",
+      "pos": "noun",
+      "definition_ar": "نظام بيئي",
+      "example_sentence": "The reef is an ecosystem.",
+      "tier": "mastery"
+    },
+    {
+      "word": "extinct",
+      "pos": "adjective",
+      "definition_ar": "منقرض",
+      "example_sentence": "Some fish are almost extinct.",
+      "tier": "mastery"
+    },
+    {
+      "word": "habitat",
+      "pos": "noun",
+      "definition_ar": "موطن",
+      "example_sentence": "The sea is their habitat.",
+      "tier": "mastery"
+    },
+    {
+      "word": "migration",
+      "pos": "noun",
+      "definition_ar": "هجرة",
+      "example_sentence": "Bird migration happens in autumn.",
+      "tier": "mastery"
+    },
+    {
+      "word": "oxygen",
+      "pos": "noun",
+      "definition_ar": "أكسجين",
+      "example_sentence": "Fish need oxygen to live.",
+      "tier": "mastery"
+    },
+    {
+      "word": "pollution",
+      "pos": "noun",
+      "definition_ar": "تلوث",
+      "example_sentence": "Pollution kills many fish.",
+      "tier": "mastery"
+    },
+    {
+      "word": "predator",
+      "pos": "noun",
+      "definition_ar": "مفترس",
+      "example_sentence": "The shark is a top predator.",
+      "tier": "mastery"
+    },
+    {
+      "word": "species",
+      "pos": "noun",
+      "definition_ar": "أنواع",
+      "example_sentence": "Many species live in the ocean.",
+      "tier": "mastery"
+    },
+    {
+      "word": "vast",
+      "pos": "adjective",
+      "definition_ar": "شاسع",
+      "example_sentence": "The ocean is vast and blue.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "fd8f24d7-02c5-4c7c-a07d-99656ff83c7f",
+      "label": "A",
+      "title": "Amazing Ocean Creatures",
+      "content": {
+        "paragraphs": [
+          "The ocean is home to millions of *amazing* creatures. From tiny fish to giant whales, sea animals live in every part of the water. Scientists believe the ocean contains more than 230,000 different species, but they discover new ones every year.",
+          "Many ocean animals are *beautiful* and colorful. Tropical fish *swim* near coral reefs in bright blues, yellows, and reds. These small fish *move* quickly through the warm water to escape from bigger fish. In the Red Sea, near Saudi Arabia, divers can see over 1,200 types of fish. The water there is *clear* and perfect for watching sea life.",
+          "Some ocean creatures are *huge* and truly incredible. Blue whales are the largest animals on Earth. They can grow to 30 meters long and weigh 200 tons. These gentle giants *eat* tiny sea animals called krill. A blue whale can consume 4 tons of krill every day during feeding season.",
+          "The deep ocean is *dark* and mysterious. Strange fish live there that never see sunlight. Some of these deep-sea creatures *glow* in the dark to find food or communicate with other fish. Scientists use special submarines to *explore* these deep waters. They still find new species regularly.",
+          "Ocean animals are *important* for our planet. They help keep the water clean and provide food for millions of people. Many countries work together to protect sea creatures and their homes. When we learn about ocean life, we understand why we must take care of our seas."
+        ]
+      },
+      "word_count": 247
+    },
+    {
+      "id": "c812db3e-470a-40bd-b10e-40188e5699dc",
+      "label": "B",
+      "title": "The Deep Sea Mystery",
+      "content": {
+        "paragraphs": [
+          "Deep in the ocean, far below the *surface*, there is a world of complete darkness. This is the deep sea, where the water pressure is *enormous* and no sunlight can reach. For many years, scientists thought nothing could *survive* in this *harsh* environment. However, they were wrong.",
+          "In 2019, researchers used special submarines to *explore* the Mariana Trench in the Pacific Ocean. This trench is the *deepest* part of our planet's oceans, reaching down 11,000 meters below sea level. The scientists made an *incredible* discovery. They found many strange creatures living in this dark world, including fish with huge eyes, jellyfish that glow in the dark, and worms longer than a school bus.",
+          "These deep-sea animals have *adapted* to their difficult home in amazing ways. Some fish produce their own light to find food in the darkness. Others have enormous mouths to catch any food that falls from above. The water temperature in the deep sea is very cold, usually around 2-4 degrees Celsius, but these creatures have special blood that helps them stay alive.",
+          "Today, scientists continue to study the deep ocean because they believe it holds many secrets. They estimate that humans have only explored about 5% of the deep sea. Each research trip brings new discoveries. Some researchers think the deep ocean might help us understand how life began on Earth. Others believe we can find new medicines from deep-sea creatures that could help *treat* human diseases.",
+          "The deep sea remains one of Earth's last unexplored frontiers. With new technology, scientists hope to uncover more mysteries from this fascinating underwater world."
+        ]
+      },
+      "word_count": 312
+    }
+  ],
+  "grammar": {
+    "topic_name_en": "simple past (irregular)",
+    "topic_name_ar": "simple past (irregular)",
+    "explanation_content": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "الأفعال الشاذة في الماضي البسيط لا تأخذ ed- بل تتغير تماماً • يجب حفظ هذه الأشكال • تستخدم مع جميع الضمائر بنفس الشكل",
+          "content_en": "<b>Simple Past - Irregular Verbs</b><br><br><b>Examples:</b><br>• The whale <b>swam</b> in the deep ocean.<br>• We <b>saw</b> colorful fish yesterday.<br>• The dolphin <b>went</b> under the water.<br><br><b>What are irregular verbs?</b><br>Most verbs add '-ed' for past tense (regular verbs), but irregular verbs change completely. We must memorize these forms.<br><br><b>Common irregular verbs in ocean context:</b><br>• see → saw (I saw a shark)<br>• swim → swam (The fish swam away)<br>• go → went (We went diving)<br>• come → came (The turtle came to the surface)<br>• find → found (They found shells on the beach)<br>• eat → ate (The whale ate krill)<br>• get → got (We got wet in the sea)<br>• have → had (The octopus had eight arms)"
+        },
+        {
+          "type": "formula",
+          "content": "Subject + irregular past form + rest of sentence"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "The shark swam near the boat.",
+              "highlight": "swam",
+              "translation_ar": "سبح القرش بالقرب من القارب"
+            },
+            {
+              "sentence": "We saw many dolphins yesterday.",
+              "highlight": "saw",
+              "translation_ar": "رأينا العديد من الدلافين أمس"
+            },
+            {
+              "sentence": "The crab went into its shell.",
+              "highlight": "went",
+              "translation_ar": "دخل السرطان إلى قوقعته"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "I seed a whale",
+              "correct": "I saw a whale",
+              "explanation_ar": "see في الماضي تصبح saw وليس seed"
+            },
+            {
+              "wrong": "The fish swimmed",
+              "correct": "The fish swam",
+              "explanation_ar": "swim شاذ، في الماضي swam وليس swimmed"
+            },
+            {
+              "wrong": "We goed to the beach",
+              "correct": "We went to the beach",
+              "explanation_ar": "go في الماضي went وليس goed"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

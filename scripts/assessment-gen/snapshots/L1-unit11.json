@@ -1,0 +1,519 @@
+{
+  "unit": {
+    "id": "8bf43cee-3a7d-4d85-b33f-362c3dcc5f33",
+    "unit_number": 11,
+    "title_en": "Social Media",
+    "title_ar": "وسائل التواصل الاجتماعي"
+  },
+  "vocabulary": [
+    {
+      "word": "account",
+      "pos": "noun",
+      "definition_ar": "حساب",
+      "example_sentence": "I have a new account.",
+      "tier": "core"
+    },
+    {
+      "word": "active",
+      "pos": "adjective",
+      "definition_ar": "نشط، فعال",
+      "example_sentence": "My grandmother is very active - she walks every day.",
+      "tier": "core"
+    },
+    {
+      "word": "anxious",
+      "pos": "adjective",
+      "definition_ar": "قلق، متوتر",
+      "example_sentence": "I feel anxious before exams.",
+      "tier": "core"
+    },
+    {
+      "word": "available",
+      "pos": "adjective",
+      "definition_ar": "متاح، متوفر",
+      "example_sentence": "Fresh fruits are available at the market.",
+      "tier": "core"
+    },
+    {
+      "word": "block",
+      "pos": "verb",
+      "definition_ar": "يحظر",
+      "example_sentence": "You can block rude people.",
+      "tier": "core"
+    },
+    {
+      "word": "chat",
+      "pos": "verb",
+      "definition_ar": "يتحدث، يدردش",
+      "example_sentence": "I chat with my mother every evening.",
+      "tier": "core"
+    },
+    {
+      "word": "comment",
+      "pos": "noun",
+      "definition_ar": "تعليق",
+      "example_sentence": "She left a nice comment.",
+      "tier": "core"
+    },
+    {
+      "word": "common",
+      "pos": "adjective",
+      "definition_ar": "شائع، عادي، مألوف",
+      "example_sentence": "English is a common language in many countries.",
+      "tier": "core"
+    },
+    {
+      "word": "communicate",
+      "pos": "verb",
+      "definition_ar": "يتواصل، يتحدث مع الآخرين",
+      "example_sentence": "I communicate with my friends by phone every day.",
+      "tier": "core"
+    },
+    {
+      "word": "connected",
+      "pos": "adjective",
+      "definition_ar": "متصل، مرتبط",
+      "example_sentence": "My phone is connected to the internet.",
+      "tier": "core"
+    },
+    {
+      "word": "content",
+      "pos": "noun",
+      "definition_ar": "محتوى",
+      "example_sentence": "The content is very useful.",
+      "tier": "core"
+    },
+    {
+      "word": "creative",
+      "pos": "adjective",
+      "definition_ar": "مبدع، خلاق",
+      "example_sentence": "My sister is very creative - she paints beautiful pictures.",
+      "tier": "core"
+    },
+    {
+      "word": "delete",
+      "pos": "verb",
+      "definition_ar": "يحذف، يمسح",
+      "example_sentence": "I will delete old photos from my phone.",
+      "tier": "core"
+    },
+    {
+      "word": "focus",
+      "pos": "verb",
+      "definition_ar": "يركز، يهتم بشيء واحد",
+      "example_sentence": "Students need to focus on their studies.",
+      "tier": "core"
+    },
+    {
+      "word": "follow",
+      "pos": "verb",
+      "definition_ar": "يتابع",
+      "example_sentence": "Follow me on social media.",
+      "tier": "core"
+    },
+    {
+      "word": "follower",
+      "pos": "noun",
+      "definition_ar": "متابع",
+      "example_sentence": "She has many followers.",
+      "tier": "core"
+    },
+    {
+      "word": "habits",
+      "pos": "noun",
+      "definition_ar": "عادات",
+      "example_sentence": "Drinking coffee in the morning is one of my habits.",
+      "tier": "core"
+    },
+    {
+      "word": "hashtag",
+      "pos": "noun",
+      "definition_ar": "هاشتاغ",
+      "example_sentence": "Use a hashtag for the post.",
+      "tier": "core"
+    },
+    {
+      "word": "healthy",
+      "pos": "adjective",
+      "definition_ar": "صحي، سليم",
+      "example_sentence": "Eating vegetables is healthy for children.",
+      "tier": "core"
+    },
+    {
+      "word": "improve",
+      "pos": "verb",
+      "definition_ar": "يحسن، يطور",
+      "example_sentence": "I want to improve my English speaking.",
+      "tier": "core"
+    },
+    {
+      "word": "notification",
+      "pos": "noun",
+      "definition_ar": "إشعار",
+      "example_sentence": "I got a new notification.",
+      "tier": "core"
+    },
+    {
+      "word": "peaceful",
+      "pos": "adjective",
+      "definition_ar": "هادئ، مسالم",
+      "example_sentence": "The park is very peaceful in the morning.",
+      "tier": "core"
+    },
+    {
+      "word": "popular",
+      "pos": "adjective",
+      "definition_ar": "شائع، محبوب، مشهور",
+      "example_sentence": "Pizza is a popular food around the world.",
+      "tier": "core"
+    },
+    {
+      "word": "popular",
+      "pos": "adjective",
+      "definition_ar": "شعبي، محبوب من قبل كثير من الناس",
+      "example_sentence": "Pizza is very popular with children.",
+      "tier": "core"
+    },
+    {
+      "word": "private",
+      "pos": "adjective",
+      "definition_ar": "خاص",
+      "example_sentence": "My account is private.",
+      "tier": "core"
+    },
+    {
+      "word": "profile",
+      "pos": "noun",
+      "definition_ar": "ملف شخصي",
+      "example_sentence": "Update your profile picture.",
+      "tier": "core"
+    },
+    {
+      "word": "public",
+      "pos": "adjective",
+      "definition_ar": "عام",
+      "example_sentence": "The post is public.",
+      "tier": "core"
+    },
+    {
+      "word": "quality",
+      "pos": "noun",
+      "definition_ar": "جودة، نوعية جيدة",
+      "example_sentence": "This restaurant serves quality food.",
+      "tier": "core"
+    },
+    {
+      "word": "reach",
+      "pos": "verb",
+      "definition_ar": "يصل إلى، يتواصل مع",
+      "example_sentence": "I can reach my friend by phone anytime.",
+      "tier": "core"
+    },
+    {
+      "word": "reply",
+      "pos": "verb",
+      "definition_ar": "يرد",
+      "example_sentence": "Please reply to my message.",
+      "tier": "core"
+    },
+    {
+      "word": "share",
+      "pos": "verb",
+      "definition_ar": "يشارك، يتشارك",
+      "example_sentence": "I share my lunch with my sister.",
+      "tier": "core"
+    },
+    {
+      "word": "trending",
+      "pos": "adjective",
+      "definition_ar": "رائج",
+      "example_sentence": "This topic is trending now.",
+      "tier": "core"
+    },
+    {
+      "word": "upload",
+      "pos": "verb",
+      "definition_ar": "يرفع",
+      "example_sentence": "Upload the photo to the site.",
+      "tier": "core"
+    },
+    {
+      "word": "viral",
+      "pos": "adjective",
+      "definition_ar": "منتشر",
+      "example_sentence": "The video went viral.",
+      "tier": "core"
+    },
+    {
+      "word": "wisely",
+      "pos": "adverb",
+      "definition_ar": "بحكمة، بذكاء",
+      "example_sentence": "She spends her money wisely and saves some every month.",
+      "tier": "core"
+    },
+    {
+      "word": "addictive",
+      "pos": "adjective",
+      "definition_ar": "مسبب للإدمان",
+      "example_sentence": "Social media can be addictive.",
+      "tier": "extended"
+    },
+    {
+      "word": "algorithm",
+      "pos": "noun",
+      "definition_ar": "خوارزمية",
+      "example_sentence": "The algorithm shows popular posts.",
+      "tier": "extended"
+    },
+    {
+      "word": "anonymous",
+      "pos": "adjective",
+      "definition_ar": "مجهول الهوية",
+      "example_sentence": "The comment was anonymous.",
+      "tier": "extended"
+    },
+    {
+      "word": "broadcast",
+      "pos": "verb",
+      "definition_ar": "يذيع",
+      "example_sentence": "They broadcast the news live.",
+      "tier": "extended"
+    },
+    {
+      "word": "cyberbullying",
+      "pos": "noun",
+      "definition_ar": "تنمر إلكتروني",
+      "example_sentence": "Cyberbullying is a big problem.",
+      "tier": "extended"
+    },
+    {
+      "word": "influencer",
+      "pos": "noun",
+      "definition_ar": "مؤثر",
+      "example_sentence": "The influencer has many fans.",
+      "tier": "extended"
+    },
+    {
+      "word": "interactive",
+      "pos": "adjective",
+      "definition_ar": "تفاعلي",
+      "example_sentence": "The website is very interactive.",
+      "tier": "extended"
+    },
+    {
+      "word": "meme",
+      "pos": "noun",
+      "definition_ar": "ميم",
+      "example_sentence": "The meme was very funny.",
+      "tier": "extended"
+    },
+    {
+      "word": "platform",
+      "pos": "noun",
+      "definition_ar": "منصة",
+      "example_sentence": "This is a popular platform.",
+      "tier": "extended"
+    },
+    {
+      "word": "privacy",
+      "pos": "noun",
+      "definition_ar": "خصوصية",
+      "example_sentence": "Privacy is very important.",
+      "tier": "extended"
+    },
+    {
+      "word": "repost",
+      "pos": "verb",
+      "definition_ar": "يعيد النشر",
+      "example_sentence": "She reposted the article.",
+      "tier": "extended"
+    },
+    {
+      "word": "screenshot",
+      "pos": "noun",
+      "definition_ar": "لقطة شاشة",
+      "example_sentence": "Take a screenshot of the page.",
+      "tier": "extended"
+    },
+    {
+      "word": "stream",
+      "pos": "verb",
+      "definition_ar": "يبث مباشرة",
+      "example_sentence": "She streams live every Friday.",
+      "tier": "extended"
+    },
+    {
+      "word": "subscribe",
+      "pos": "verb",
+      "definition_ar": "يشترك",
+      "example_sentence": "Subscribe to the channel.",
+      "tier": "extended"
+    },
+    {
+      "word": "tag",
+      "pos": "verb",
+      "definition_ar": "يُشير إلى",
+      "example_sentence": "Tag me in the photo.",
+      "tier": "extended"
+    },
+    {
+      "word": "unfollow",
+      "pos": "verb",
+      "definition_ar": "يلغي المتابعة",
+      "example_sentence": "I will unfollow that page.",
+      "tier": "extended"
+    },
+    {
+      "word": "controversial",
+      "pos": "adjective",
+      "definition_ar": "مثير للجدل",
+      "example_sentence": "The post was controversial.",
+      "tier": "mastery"
+    },
+    {
+      "word": "curate",
+      "pos": "verb",
+      "definition_ar": "ينتقي",
+      "example_sentence": "She curates her content carefully.",
+      "tier": "mastery"
+    },
+    {
+      "word": "engagement",
+      "pos": "noun",
+      "definition_ar": "تفاعل",
+      "example_sentence": "The post has high engagement.",
+      "tier": "mastery"
+    },
+    {
+      "word": "influential",
+      "pos": "adjective",
+      "definition_ar": "مؤثر",
+      "example_sentence": "She is very influential online.",
+      "tier": "mastery"
+    },
+    {
+      "word": "misinformation",
+      "pos": "noun",
+      "definition_ar": "معلومات مضللة",
+      "example_sentence": "Be careful of misinformation.",
+      "tier": "mastery"
+    },
+    {
+      "word": "moderate",
+      "pos": "verb",
+      "definition_ar": "يراقب المحتوى",
+      "example_sentence": "They moderate the comments.",
+      "tier": "mastery"
+    },
+    {
+      "word": "monetize",
+      "pos": "verb",
+      "definition_ar": "يحقق ربحاً",
+      "example_sentence": "He monetizes his channel.",
+      "tier": "mastery"
+    },
+    {
+      "word": "troll",
+      "pos": "noun",
+      "definition_ar": "متصيد",
+      "example_sentence": "Do not reply to the troll.",
+      "tier": "mastery"
+    },
+    {
+      "word": "verification",
+      "pos": "noun",
+      "definition_ar": "توثيق",
+      "example_sentence": "Account verification is important.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "558b7c93-8dbe-473c-9db2-6421139b112f",
+      "label": "A",
+      "title": "Social Media Around the World",
+      "content": {
+        "paragraphs": [
+          "Social media has changed how people *communicate* around the world. Today, more than 4.8 billion people use social media platforms to stay *connected* with friends and family. From Saudi Arabia to Japan, people *share* photos, videos, and messages every day.",
+          "Different countries have *popular* social media apps. In Saudi Arabia, Instagram and Snapchat are very *common* among young people. They use these apps to share pictures of food, travel, and daily life. In China, people prefer WeChat and Weibo. These platforms help them *chat* with friends and follow news. WhatsApp is the most used messaging app in Brazil, India, and many Middle Eastern countries.",
+          "Social media *habits* are different around the world too. In the United States, people spend about 2.5 hours on social media each day. In the Philippines, people spend even more time - almost 4 hours daily! Saudi users are very *active* on social media, especially during Ramadan and Eid celebrations when families share special moments.",
+          "Businesses also use social media to *reach* customers. Small companies in Riyadh use Instagram to sell traditional clothes and handmade crafts. Coffee shops in Jeddah post pictures of their drinks to attract young customers. This helps local businesses grow and become more successful.",
+          "Social media brings people together, but it's important to use it *wisely*. Experts suggest taking breaks from screens and spending time with family and friends in person. The best social media users know how to balance online and offline life."
+        ]
+      },
+      "word_count": 267
+    },
+    {
+      "id": "5f22076f-4654-4774-86f6-579b4b26700b",
+      "label": "B",
+      "title": "Digital Detox Around the World",
+      "content": {
+        "paragraphs": [
+          "In today's connected world, millions of people are choosing to take breaks from social media and technology. This practice is called a 'digital detox,' and it is becoming *popular* across many countries, including Saudi Arabia.",
+          "Sarah, a 25-year-old graphic designer from Riyadh, decided to *delete* all social media apps from her phone for one month. 'I was spending four hours every day scrolling through Instagram and Twitter,' she explains. 'I wanted to *focus* more on my real relationships and hobbies.' During her digital break, Sarah started reading books again and spent more *quality* time with her family. She felt less stressed and more *creative* at work.",
+          "Research shows that the average person checks their phone 96 times per day. Many people report feeling *anxious* when they cannot access their social media accounts. Dr. Ahmad Hassan, a psychologist at King Saud University, says that taking regular breaks from technology can *improve* mental health. 'When people disconnect from their devices, they often sleep better and feel more *peaceful*,' he notes.",
+          "Digital detox retreats are now *available* in countries like India, Thailand, and the United States. These special vacation places do not allow phones or computers. Guests spend their time doing yoga, hiking, or learning new skills. Some retreats report that 78% of visitors continue to use less social media after they return home.",
+          "The goal is not to stop using technology completely. Instead, people want to create a *healthy* balance between their online and offline lives. As Sarah discovered, sometimes the best way to connect with the world is to first disconnect from our screens."
+        ]
+      },
+      "word_count": 287
+    }
+  ],
+  "grammar": {
+    "topic_name_en": "going to (future)",
+    "topic_name_ar": "going to (future)",
+    "explanation_content": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "نستخدم going to للتحدث عن الخطط والنوايا المستقبلية. نستخدم am/is/are حسب الفاعل، ثم going to، ثم الفعل في المصدر",
+          "content_en": "<b>Going to</b> is used to talk about future plans and intentions.<br><br><b>Examples:</b><br>• I am going to post a photo on Instagram tomorrow.<br>• She is going to watch YouTube videos tonight.<br>• We are going to create a TikTok account next week.<br><br><b>When do we use 'going to'?</b><br>1. For plans we have already decided<br>2. For things we intend to do in the future<br>3. For predictions based on present evidence<br><br><b>Structure:</b> We use the verb 'be' (am/is/are) + going to + base verb"
+        },
+        {
+          "type": "formula",
+          "content": "Subject + am/is/are + going to + base verb"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "I am going to upload a video to YouTube.",
+              "highlight": "am going to upload",
+              "translation_ar": "سأقوم برفع فيديو على يوتيوب"
+            },
+            {
+              "sentence": "They are going to follow me on Instagram.",
+              "highlight": "are going to follow",
+              "translation_ar": "سيقومون بمتابعتي على الإنستغرام"
+            },
+            {
+              "sentence": "He is going to share this post.",
+              "highlight": "is going to share",
+              "translation_ar": "سيقوم بمشاركة هذا المنشور"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "I going to post a photo",
+              "correct": "I am going to post a photo",
+              "explanation_ar": "لا تنس فعل الكون am/is/are قبل going to"
+            },
+            {
+              "wrong": "She is going to posts a story",
+              "correct": "She is going to post a story",
+              "explanation_ar": "استخدم الفعل في المصدر بعد going to وليس المضارع"
+            },
+            {
+              "wrong": "We are go to make a video",
+              "correct": "We are going to make a video",
+              "explanation_ar": "استخدم going to وليس فقط go"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,529 @@
+{
+  "unit": {
+    "id": "95530744-5815-4ca5-bb10-756b25cc66d6",
+    "unit_number": 4,
+    "title_en": "Music & Art",
+    "title_ar": "الموسيقى والفن"
+  },
+  "vocabulary": [
+    {
+      "word": "amazing",
+      "pos": "adjective",
+      "definition_ar": "مدهش، رائع جداً",
+      "example_sentence": "The sunset was amazing tonight.",
+      "tier": "core"
+    },
+    {
+      "word": "artist",
+      "pos": "noun",
+      "definition_ar": "فنان",
+      "example_sentence": "The artist painted a picture.",
+      "tier": "core"
+    },
+    {
+      "word": "attractive",
+      "pos": "adjective",
+      "definition_ar": "جذاب، جميل",
+      "example_sentence": "The new shop has an attractive window display.",
+      "tier": "core"
+    },
+    {
+      "word": "band",
+      "pos": "noun",
+      "definition_ar": "فرقة موسيقية",
+      "example_sentence": "The band plays every Friday.",
+      "tier": "core"
+    },
+    {
+      "word": "carefully",
+      "pos": "adverb",
+      "definition_ar": "بعناية، بحذر",
+      "example_sentence": "She carefully crossed the busy street.",
+      "tier": "core"
+    },
+    {
+      "word": "combine",
+      "pos": "verb",
+      "definition_ar": "يجمع، يدمج، يخلط",
+      "example_sentence": "We can combine red and yellow to make orange.",
+      "tier": "core"
+    },
+    {
+      "word": "compose",
+      "pos": "verb",
+      "definition_ar": "يؤلف",
+      "example_sentence": "He composed a new song.",
+      "tier": "core"
+    },
+    {
+      "word": "concert",
+      "pos": "noun",
+      "definition_ar": "حفل موسيقي",
+      "example_sentence": "We went to a concert.",
+      "tier": "core"
+    },
+    {
+      "word": "convenient",
+      "pos": "adjective",
+      "definition_ar": "مناسب، مريح، سهل",
+      "example_sentence": "Online shopping is very convenient.",
+      "tier": "core"
+    },
+    {
+      "word": "create",
+      "pos": "verb",
+      "definition_ar": "ينشئ، يخلق، يصنع",
+      "example_sentence": "I want to create a birthday card for my friend.",
+      "tier": "core"
+    },
+    {
+      "word": "create",
+      "pos": "verb",
+      "definition_ar": "يخلق، ينشئ، يصنع",
+      "example_sentence": "Children create toys from empty boxes.",
+      "tier": "core"
+    },
+    {
+      "word": "creative",
+      "pos": "adjective",
+      "definition_ar": "مبدع، خلاق",
+      "example_sentence": "She is very creative and makes beautiful drawings.",
+      "tier": "core"
+    },
+    {
+      "word": "drum",
+      "pos": "noun",
+      "definition_ar": "طبل",
+      "example_sentence": "The drum is very loud.",
+      "tier": "core"
+    },
+    {
+      "word": "expensive",
+      "pos": "adjective",
+      "definition_ar": "غالي، مكلف",
+      "example_sentence": "The new phone is very expensive.",
+      "tier": "core"
+    },
+    {
+      "word": "experiment",
+      "pos": "verb",
+      "definition_ar": "يجرب، يختبر",
+      "example_sentence": "Students experiment with different colors in art class.",
+      "tier": "core"
+    },
+    {
+      "word": "guitar",
+      "pos": "noun",
+      "definition_ar": "جيتار",
+      "example_sentence": "He plays the guitar well.",
+      "tier": "core"
+    },
+    {
+      "word": "instant",
+      "pos": "adjective",
+      "definition_ar": "فوري، لحظي",
+      "example_sentence": "Instant coffee is ready in one minute.",
+      "tier": "core"
+    },
+    {
+      "word": "instantly",
+      "pos": "adverb",
+      "definition_ar": "فوراً، في الحال",
+      "example_sentence": "The message was sent instantly.",
+      "tier": "core"
+    },
+    {
+      "word": "instrument",
+      "pos": "noun",
+      "definition_ar": "آلة موسيقية",
+      "example_sentence": "She plays a musical instrument.",
+      "tier": "core"
+    },
+    {
+      "word": "listen",
+      "pos": "verb",
+      "definition_ar": "يستمع، ينصت",
+      "example_sentence": "Please listen to your teacher.",
+      "tier": "core"
+    },
+    {
+      "word": "melody",
+      "pos": "noun",
+      "definition_ar": "لحن",
+      "example_sentence": "The melody is very pretty.",
+      "tier": "core"
+    },
+    {
+      "word": "paint",
+      "pos": "verb",
+      "definition_ar": "يرسم بالألوان، يدهن",
+      "example_sentence": "My sister likes to paint flowers.",
+      "tier": "core"
+    },
+    {
+      "word": "painting",
+      "pos": "noun",
+      "definition_ar": "لوحة",
+      "example_sentence": "The painting is very beautiful.",
+      "tier": "core"
+    },
+    {
+      "word": "perform",
+      "pos": "verb",
+      "definition_ar": "يؤدي",
+      "example_sentence": "They perform on the stage.",
+      "tier": "core"
+    },
+    {
+      "word": "piano",
+      "pos": "noun",
+      "definition_ar": "بيانو",
+      "example_sentence": "She practices piano every day.",
+      "tier": "core"
+    },
+    {
+      "word": "popular",
+      "pos": "adjective",
+      "definition_ar": "شعبي، محبوب، مشهور",
+      "example_sentence": "Pizza is very popular with children.",
+      "tier": "core"
+    },
+    {
+      "word": "practice",
+      "pos": "verb",
+      "definition_ar": "يتدرب، يمارس",
+      "example_sentence": "I practice English every morning.",
+      "tier": "core"
+    },
+    {
+      "word": "quickly",
+      "pos": "adverb",
+      "definition_ar": "بسرعة",
+      "example_sentence": "He quickly finished his homework.",
+      "tier": "core"
+    },
+    {
+      "word": "quiet",
+      "pos": "adjective",
+      "definition_ar": "هادئ",
+      "example_sentence": "The room is very quiet.",
+      "tier": "core"
+    },
+    {
+      "word": "record",
+      "pos": "verb",
+      "definition_ar": "يسجل",
+      "example_sentence": "She recorded a new album.",
+      "tier": "core"
+    },
+    {
+      "word": "rhythm",
+      "pos": "noun",
+      "definition_ar": "إيقاع",
+      "example_sentence": "The rhythm is fast.",
+      "tier": "core"
+    },
+    {
+      "word": "singer",
+      "pos": "noun",
+      "definition_ar": "مغني",
+      "example_sentence": "The singer has a nice voice.",
+      "tier": "core"
+    },
+    {
+      "word": "special",
+      "pos": "adjective",
+      "definition_ar": "خاص، مميز",
+      "example_sentence": "Today is a special day because it's my birthday.",
+      "tier": "core"
+    },
+    {
+      "word": "universal",
+      "pos": "adjective",
+      "definition_ar": "عالمي، شامل لكل الناس",
+      "example_sentence": "Love is a universal feeling that all people have.",
+      "tier": "core"
+    },
+    {
+      "word": "voice",
+      "pos": "noun",
+      "definition_ar": "صوت",
+      "example_sentence": "She has a beautiful voice.",
+      "tier": "core"
+    },
+    {
+      "word": "worry",
+      "pos": "verb",
+      "definition_ar": "يقلق، يخاف",
+      "example_sentence": "I worry about my English test tomorrow.",
+      "tier": "core"
+    },
+    {
+      "word": "applaud",
+      "pos": "verb",
+      "definition_ar": "يُصفق",
+      "example_sentence": "The crowd applauded the singer.",
+      "tier": "extended"
+    },
+    {
+      "word": "audience",
+      "pos": "noun",
+      "definition_ar": "جمهور",
+      "example_sentence": "The audience clapped loudly.",
+      "tier": "extended"
+    },
+    {
+      "word": "choir",
+      "pos": "noun",
+      "definition_ar": "جوقة",
+      "example_sentence": "The choir sings every Friday.",
+      "tier": "extended"
+    },
+    {
+      "word": "classical",
+      "pos": "adjective",
+      "definition_ar": "كلاسيكي",
+      "example_sentence": "She likes classical music.",
+      "tier": "extended"
+    },
+    {
+      "word": "emotional",
+      "pos": "adjective",
+      "definition_ar": "عاطفي",
+      "example_sentence": "The song is very emotional.",
+      "tier": "extended"
+    },
+    {
+      "word": "exhibition",
+      "pos": "noun",
+      "definition_ar": "معرض",
+      "example_sentence": "We visited an art exhibition.",
+      "tier": "extended"
+    },
+    {
+      "word": "express",
+      "pos": "verb",
+      "definition_ar": "يعبر",
+      "example_sentence": "Art helps us express feelings.",
+      "tier": "extended"
+    },
+    {
+      "word": "gallery",
+      "pos": "noun",
+      "definition_ar": "معرض فني",
+      "example_sentence": "We went to an art gallery.",
+      "tier": "extended"
+    },
+    {
+      "word": "rehearse",
+      "pos": "verb",
+      "definition_ar": "يتمرن",
+      "example_sentence": "The band rehearses every week.",
+      "tier": "extended"
+    },
+    {
+      "word": "sculpture",
+      "pos": "noun",
+      "definition_ar": "تمثال",
+      "example_sentence": "The sculpture is made of stone.",
+      "tier": "extended"
+    },
+    {
+      "word": "sketch",
+      "pos": "noun",
+      "definition_ar": "رسم تخطيطي",
+      "example_sentence": "He made a quick sketch.",
+      "tier": "extended"
+    },
+    {
+      "word": "stage",
+      "pos": "noun",
+      "definition_ar": "مسرح",
+      "example_sentence": "The band is on the stage.",
+      "tier": "extended"
+    },
+    {
+      "word": "tune",
+      "pos": "noun",
+      "definition_ar": "نغمة",
+      "example_sentence": "I know this tune very well.",
+      "tier": "extended"
+    },
+    {
+      "word": "visual",
+      "pos": "adjective",
+      "definition_ar": "بصري",
+      "example_sentence": "This is a visual art form.",
+      "tier": "extended"
+    },
+    {
+      "word": "abstract",
+      "pos": "adjective",
+      "definition_ar": "تجريدي",
+      "example_sentence": "This is abstract art.",
+      "tier": "mastery"
+    },
+    {
+      "word": "composer",
+      "pos": "noun",
+      "definition_ar": "ملحن",
+      "example_sentence": "The composer wrote the symphony.",
+      "tier": "mastery"
+    },
+    {
+      "word": "creativity",
+      "pos": "noun",
+      "definition_ar": "إبداع",
+      "example_sentence": "Art needs a lot of creativity.",
+      "tier": "mastery"
+    },
+    {
+      "word": "harmony",
+      "pos": "noun",
+      "definition_ar": "انسجام",
+      "example_sentence": "The voices sang in harmony.",
+      "tier": "mastery"
+    },
+    {
+      "word": "illustrate",
+      "pos": "verb",
+      "definition_ar": "يرسم توضيحياً",
+      "example_sentence": "She illustrates children books.",
+      "tier": "mastery"
+    },
+    {
+      "word": "lyrics",
+      "pos": "noun",
+      "definition_ar": "كلمات أغنية",
+      "example_sentence": "I love the lyrics of this song.",
+      "tier": "mastery"
+    },
+    {
+      "word": "masterpiece",
+      "pos": "noun",
+      "definition_ar": "تحفة فنية",
+      "example_sentence": "This painting is a masterpiece.",
+      "tier": "mastery"
+    },
+    {
+      "word": "original",
+      "pos": "adjective",
+      "definition_ar": "أصلي",
+      "example_sentence": "Is this the original painting?",
+      "tier": "mastery"
+    },
+    {
+      "word": "portray",
+      "pos": "verb",
+      "definition_ar": "يُصور",
+      "example_sentence": "The painting portrays a woman.",
+      "tier": "mastery"
+    },
+    {
+      "word": "talent",
+      "pos": "noun",
+      "definition_ar": "موهبة",
+      "example_sentence": "She has great musical talent.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "5a3594c9-d07f-4ede-848e-23c1388e0572",
+      "label": "A",
+      "title": "Art Speaks Every Language",
+      "content": {
+        "paragraphs": [
+          "Art and music are *universal* languages that people understand everywhere. From the colorful markets of Marrakech to the busy streets of Tokyo, artists *create* beautiful works that speak to our hearts. They use different materials and styles, but their message is always the same: humans need to express themselves.",
+          "In Saudi Arabia, traditional art forms are becoming *popular* again among young people. Calligraphy artists *carefully* write Arabic letters in beautiful designs. These artists spend years learning to hold their brushes correctly and make each letter perfect. At the same time, modern Saudi artists *paint* on large canvases in galleries across Riyadh and Jeddah. They mix traditional Arabian colors with contemporary styles to tell new stories about their country.",
+          "Music also brings people together in *amazing* ways. Scientists have discovered that listening to music makes our brains release chemicals that make us feel happy. When people *listen* to traditional oud music or modern pop songs, their heart rate often matches the rhythm. This happens to people from every culture and age group. Music festivals around the world prove that melodies can make strangers become friends.",
+          "Today, social media helps artists share their work *quickly* with millions of people. A young painter in Abha can post her artwork online and receive comments from art lovers in Paris, New York, and Mumbai within hours. This *instant* connection means that artistic ideas travel faster than ever before. Many artists say this global sharing makes their work more *creative* and inspired.",
+          "Whether someone draws, paints, sings, or plays instruments, art remains one of humanity's greatest gifts. It helps us understand each other better and shows us that people everywhere share similar dreams, hopes, and feelings."
+        ]
+      },
+      "word_count": 298
+    },
+    {
+      "id": "59528adc-bf75-4881-914e-2e158527d163",
+      "label": "B",
+      "title": "Digital Art Changes Everything",
+      "content": {
+        "paragraphs": [
+          "Twenty years ago, artists needed *expensive* materials like paint, brushes, and canvas to create beautiful artwork. Today, digital art is changing how people make and share creative work around the world.",
+          "Digital artists use computers, tablets, and special software to *create* amazing paintings, drawings, and designs. They can *experiment* with thousands of colors without buying paint. They can make mistakes and fix them *instantly* with the click of a button. Sarah Al-Rashid, a digital artist from Riyadh, says, \"I can *practice* drawing every day without spending money on new materials. My tablet became my art studio.\"",
+          "The internet helps digital artists share their work with millions of people. Artists can post their creations on social media and art websites. Some artists sell their digital paintings online and make good money. In 2023, the global digital art market was worth over $13 billion. Many young people now choose digital art because it is more *convenient* than traditional painting.",
+          "Digital art also creates new job opportunities. Video game companies need digital artists to design characters and backgrounds. Movie studios hire artists to create *special* effects and animation. Advertising agencies want creative people who can make *attractive* designs for websites and social media. These jobs did not exist thirty years ago.",
+          "However, some people *worry* that digital art might replace traditional art completely. Art teachers believe both types of art are important. Traditional painting teaches students about color mixing and brush techniques. Digital art teaches them about technology and modern design. The best approach is to *combine* both methods and give students many different ways to express their creativity."
+        ]
+      },
+      "word_count": 287
+    }
+  ],
+  "grammar": {
+    "topic_name_en": "present continuous",
+    "topic_name_ar": "present continuous",
+    "explanation_content": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "نستخدم المضارع المستمر للحديث عن الأعمال التي تحدث الآن أو في هذه اللحظة. الفعل بدأ قبل الآن وسيستمر بعد الآن.",
+          "content_en": "<b>Present Continuous Tense</b><br><br>We use the present continuous to talk about actions happening <b>right now</b> or <b>at this moment</b>.<br><br><b>Examples:</b><br>• She is playing the piano now.<br>• The children are drawing pictures.<br>• I am listening to music at the moment.<br><br>The present continuous shows that an action is <b>in progress</b> - it started before now and will continue after now.<br><br><b>Time words we often use:</b> now, right now, at the moment, currently, today"
+        },
+        {
+          "type": "formula",
+          "content": "Subject + am/is/are + verb-ing"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "She is singing a beautiful song.",
+              "highlight": "is singing",
+              "translation_ar": "إنها تغني أغنية جميلة"
+            },
+            {
+              "sentence": "The artist is painting a portrait now.",
+              "highlight": "is painting",
+              "translation_ar": "الفنان يرسم بورتريه الآن"
+            },
+            {
+              "sentence": "We are watching a concert today.",
+              "highlight": "are watching",
+              "translation_ar": "نحن نشاهد حفلة موسيقية اليوم"
+            },
+            {
+              "sentence": "I am learning to play guitar.",
+              "highlight": "am learning",
+              "translation_ar": "أنا أتعلم العزف على الجيتار"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "He playing piano now",
+              "correct": "He is playing piano now",
+              "explanation_ar": "لا تنس فعل الكون (am/is/are)"
+            },
+            {
+              "wrong": "I am play music",
+              "correct": "I am playing music",
+              "explanation_ar": "أضف -ing للفعل الأساسي"
+            },
+            {
+              "wrong": "She are drawing",
+              "correct": "She is drawing",
+              "explanation_ar": "استخدم 'is' مع she/he/it"
+            },
+            {
+              "wrong": "They is dancing",
+              "correct": "They are dancing",
+              "explanation_ar": "استخدم 'are' مع they/we/you"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

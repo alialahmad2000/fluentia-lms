@@ -1,0 +1,519 @@
+{
+  "unit": {
+    "id": "34f36fbb-3cc6-4f5f-be54-491491297386",
+    "unit_number": 8,
+    "title_en": "Ancient Civilizations",
+    "title_ar": "الحضارات القديمة"
+  },
+  "vocabulary": [
+    {
+      "word": "ancient",
+      "pos": "adjective",
+      "definition_ar": "قديم جداً، من زمن بعيد في التاريخ",
+      "example_sentence": "The ancient pyramids are very old buildings in Egypt.",
+      "tier": "core"
+    },
+    {
+      "word": "attracts",
+      "pos": "verb",
+      "definition_ar": "يجذب، يستقطب الناس للمجيء أو الزيارة",
+      "example_sentence": "The new shopping mall attracts many customers.",
+      "tier": "core"
+    },
+    {
+      "word": "carefully",
+      "pos": "adverb",
+      "definition_ar": "بحذر، بعناية، بانتباه",
+      "example_sentence": "She carefully walks on the wet floor.",
+      "tier": "core"
+    },
+    {
+      "word": "carefully",
+      "pos": "adverb",
+      "definition_ar": "بعناية، بحذر، بدقة",
+      "example_sentence": "Please drive carefully in the rain.",
+      "tier": "core"
+    },
+    {
+      "word": "clay",
+      "pos": "noun",
+      "definition_ar": "طين",
+      "example_sentence": "They made pots from clay.",
+      "tier": "core"
+    },
+    {
+      "word": "complete",
+      "pos": "verb",
+      "definition_ar": "يكمل، ينهي، يتم",
+      "example_sentence": "I need to complete my homework before dinner.",
+      "tier": "core"
+    },
+    {
+      "word": "conquer",
+      "pos": "verb",
+      "definition_ar": "يغزو",
+      "example_sentence": "The army conquered the land.",
+      "tier": "core"
+    },
+    {
+      "word": "constructed",
+      "pos": "verb",
+      "definition_ar": "بُني، شُيّد، أُنشئ",
+      "example_sentence": "They constructed a new school in our neighborhood.",
+      "tier": "core"
+    },
+    {
+      "word": "continue",
+      "pos": "verb",
+      "definition_ar": "يستمر، يواصل فعل شيء بدون توقف",
+      "example_sentence": "I will continue studying English every day.",
+      "tier": "core"
+    },
+    {
+      "word": "demonstrate",
+      "pos": "verb",
+      "definition_ar": "يُظهر، يُبرهن، يوضح",
+      "example_sentence": "The teacher will demonstrate how to solve the math problem.",
+      "tier": "core"
+    },
+    {
+      "word": "detailed",
+      "pos": "adjective",
+      "definition_ar": "مفصّل، يحتوي على تفاصيل كثيرة، دقيق",
+      "example_sentence": "The teacher gave us a detailed explanation of the lesson.",
+      "tier": "core"
+    },
+    {
+      "word": "empire",
+      "pos": "noun",
+      "definition_ar": "إمبراطورية",
+      "example_sentence": "The empire was very large.",
+      "tier": "core"
+    },
+    {
+      "word": "enormous",
+      "pos": "adjective",
+      "definition_ar": "ضخم جداً، كبير جداً في الحجم",
+      "example_sentence": "The elephant is an enormous animal.",
+      "tier": "core"
+    },
+    {
+      "word": "exciting",
+      "pos": "adjective",
+      "definition_ar": "مثير، ممتع، مشوق",
+      "example_sentence": "The football match was very exciting.",
+      "tier": "core"
+    },
+    {
+      "word": "extremely",
+      "pos": "adverb",
+      "definition_ar": "للغاية، جداً، بدرجة عالية جداً",
+      "example_sentence": "The weather is extremely hot today.",
+      "tier": "core"
+    },
+    {
+      "word": "famous",
+      "pos": "adjective",
+      "definition_ar": "مشهور، معروف من قبل كثير من الناس",
+      "example_sentence": "Paris is a famous city in France.",
+      "tier": "core"
+    },
+    {
+      "word": "incredible",
+      "pos": "adjective",
+      "definition_ar": "مذهل، رائع، لا يُصدق",
+      "example_sentence": "The movie was incredible - I loved it!",
+      "tier": "core"
+    },
+    {
+      "word": "king",
+      "pos": "noun",
+      "definition_ar": "ملك",
+      "example_sentence": "The king ruled for many years.",
+      "tier": "core"
+    },
+    {
+      "word": "magnificent",
+      "pos": "adjective",
+      "definition_ar": "رائع، عظيم، جميل جداً ومثير للإعجاب",
+      "example_sentence": "The palace has a magnificent garden with beautiful flowers.",
+      "tier": "core"
+    },
+    {
+      "word": "mighty",
+      "pos": "adjective",
+      "definition_ar": "عظيم",
+      "example_sentence": "The army was mighty.",
+      "tier": "core"
+    },
+    {
+      "word": "popular",
+      "pos": "adjective",
+      "definition_ar": "شائع، مشهور، محبوب",
+      "example_sentence": "Pizza is a popular food around the world.",
+      "tier": "core"
+    },
+    {
+      "word": "protected",
+      "pos": "verb",
+      "definition_ar": "حَمى، حافظ على، وقى من الضرر",
+      "example_sentence": "The umbrella protected me from the rain.",
+      "tier": "core"
+    },
+    {
+      "word": "queen",
+      "pos": "noun",
+      "definition_ar": "ملكة",
+      "example_sentence": "The queen wore a gold crown.",
+      "tier": "core"
+    },
+    {
+      "word": "royal",
+      "pos": "adjective",
+      "definition_ar": "ملكي",
+      "example_sentence": "This is the royal palace.",
+      "tier": "core"
+    },
+    {
+      "word": "rule",
+      "pos": "verb",
+      "definition_ar": "يحكم",
+      "example_sentence": "The king ruled the country.",
+      "tier": "core"
+    },
+    {
+      "word": "scroll",
+      "pos": "noun",
+      "definition_ar": "لفافة",
+      "example_sentence": "The scroll has old writing.",
+      "tier": "core"
+    },
+    {
+      "word": "suddenly",
+      "pos": "adverb",
+      "definition_ar": "فجأة، بشكل مفاجئ، بسرعة وبدون تحذير",
+      "example_sentence": "It suddenly started to rain while we were walking.",
+      "tier": "core"
+    },
+    {
+      "word": "thousands",
+      "pos": "noun",
+      "definition_ar": "آلاف، الآلاف",
+      "example_sentence": "Thousands of people came to the festival.",
+      "tier": "core"
+    },
+    {
+      "word": "tomb",
+      "pos": "noun",
+      "definition_ar": "قبر",
+      "example_sentence": "The tomb is underground.",
+      "tier": "core"
+    },
+    {
+      "word": "transport",
+      "pos": "verb",
+      "definition_ar": "ينقل، يحمل، يوصل",
+      "example_sentence": "Buses transport students to school every day.",
+      "tier": "core"
+    },
+    {
+      "word": "treasure",
+      "pos": "noun",
+      "definition_ar": "كنز",
+      "example_sentence": "They found a treasure in the sand.",
+      "tier": "core"
+    },
+    {
+      "word": "warrior",
+      "pos": "noun",
+      "definition_ar": "محارب",
+      "example_sentence": "The warrior was very brave.",
+      "tier": "core"
+    },
+    {
+      "word": "weapon",
+      "pos": "noun",
+      "definition_ar": "سلاح",
+      "example_sentence": "The sword was an old weapon.",
+      "tier": "core"
+    },
+    {
+      "word": "worship",
+      "pos": "verb",
+      "definition_ar": "يعبد",
+      "example_sentence": "They worship in the temple.",
+      "tier": "core"
+    },
+    {
+      "word": "armor",
+      "pos": "noun",
+      "definition_ar": "درع",
+      "example_sentence": "The warrior wore heavy armor.",
+      "tier": "extended"
+    },
+    {
+      "word": "bury",
+      "pos": "verb",
+      "definition_ar": "يدفن",
+      "example_sentence": "They buried the treasure.",
+      "tier": "extended"
+    },
+    {
+      "word": "carve",
+      "pos": "verb",
+      "definition_ar": "ينحت",
+      "example_sentence": "They carved statues from stone.",
+      "tier": "extended"
+    },
+    {
+      "word": "chariot",
+      "pos": "noun",
+      "definition_ar": "عربة حربية",
+      "example_sentence": "The chariot was pulled by horses.",
+      "tier": "extended"
+    },
+    {
+      "word": "dynasty",
+      "pos": "noun",
+      "definition_ar": "سلالة",
+      "example_sentence": "The dynasty lasted 200 years.",
+      "tier": "extended"
+    },
+    {
+      "word": "golden",
+      "pos": "adjective",
+      "definition_ar": "ذهبي",
+      "example_sentence": "The mask was golden.",
+      "tier": "extended"
+    },
+    {
+      "word": "invade",
+      "pos": "verb",
+      "definition_ar": "يغزو",
+      "example_sentence": "The army invaded the city.",
+      "tier": "extended"
+    },
+    {
+      "word": "irrigation",
+      "pos": "noun",
+      "definition_ar": "ري",
+      "example_sentence": "Irrigation helped the farms.",
+      "tier": "extended"
+    },
+    {
+      "word": "merchant",
+      "pos": "noun",
+      "definition_ar": "تاجر",
+      "example_sentence": "The merchant sold silk.",
+      "tier": "extended"
+    },
+    {
+      "word": "pharaoh",
+      "pos": "noun",
+      "definition_ar": "فرعون",
+      "example_sentence": "The pharaoh built the pyramid.",
+      "tier": "extended"
+    },
+    {
+      "word": "pottery",
+      "pos": "noun",
+      "definition_ar": "فخار",
+      "example_sentence": "They made beautiful pottery.",
+      "tier": "extended"
+    },
+    {
+      "word": "shield",
+      "pos": "noun",
+      "definition_ar": "درع واقي",
+      "example_sentence": "The warrior held a shield.",
+      "tier": "extended"
+    },
+    {
+      "word": "throne",
+      "pos": "noun",
+      "definition_ar": "عرش",
+      "example_sentence": "The king sat on the throne.",
+      "tier": "extended"
+    },
+    {
+      "word": "wealthy",
+      "pos": "adjective",
+      "definition_ar": "ثري",
+      "example_sentence": "The merchant was wealthy.",
+      "tier": "extended"
+    },
+    {
+      "word": "archaeology",
+      "pos": "noun",
+      "definition_ar": "علم الآثار",
+      "example_sentence": "She studies archaeology.",
+      "tier": "mastery"
+    },
+    {
+      "word": "collapse",
+      "pos": "verb",
+      "definition_ar": "ينهار",
+      "example_sentence": "The empire collapsed in the end.",
+      "tier": "mastery"
+    },
+    {
+      "word": "decipher",
+      "pos": "verb",
+      "definition_ar": "يفك رموز",
+      "example_sentence": "They deciphered the old writing.",
+      "tier": "mastery"
+    },
+    {
+      "word": "decree",
+      "pos": "noun",
+      "definition_ar": "مرسوم",
+      "example_sentence": "The king issued a decree.",
+      "tier": "mastery"
+    },
+    {
+      "word": "hieroglyph",
+      "pos": "noun",
+      "definition_ar": "هيروغليفية",
+      "example_sentence": "The wall has hieroglyphs.",
+      "tier": "mastery"
+    },
+    {
+      "word": "legendary",
+      "pos": "adjective",
+      "definition_ar": "أسطوري",
+      "example_sentence": "The warrior became legendary.",
+      "tier": "mastery"
+    },
+    {
+      "word": "mummy",
+      "pos": "noun",
+      "definition_ar": "مومياء",
+      "example_sentence": "The mummy is in the museum.",
+      "tier": "mastery"
+    },
+    {
+      "word": "papyrus",
+      "pos": "noun",
+      "definition_ar": "ورق بردي",
+      "example_sentence": "They wrote on papyrus.",
+      "tier": "mastery"
+    },
+    {
+      "word": "prosperous",
+      "pos": "adjective",
+      "definition_ar": "مزدهر",
+      "example_sentence": "The kingdom was prosperous.",
+      "tier": "mastery"
+    },
+    {
+      "word": "scribe",
+      "pos": "noun",
+      "definition_ar": "كاتب",
+      "example_sentence": "The scribe wrote on papyrus.",
+      "tier": "mastery"
+    },
+    {
+      "word": "siege",
+      "pos": "noun",
+      "definition_ar": "حصار",
+      "example_sentence": "The siege lasted many months.",
+      "tier": "mastery"
+    },
+    {
+      "word": "thrive",
+      "pos": "verb",
+      "definition_ar": "يزدهر",
+      "example_sentence": "The city thrived for centuries.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "635a21e7-a303-436a-8236-87daa74f7d14",
+      "label": "A",
+      "title": "Lost Cities Tell Ancient Stories",
+      "content": {
+        "paragraphs": [
+          "Deep under the desert sand and jungle leaves, *ancient* cities wait for discovery. These lost places tell amazing stories about people who lived thousands of years ago. Archaeologists are scientists who *carefully* dig up these old cities to learn about past civilizations.",
+          "One of the most *famous* ancient cities is Pompeii in Italy. In 79 AD, a volcano *suddenly* covered this Roman city with ash and rock. The ash *protected* the city for almost 2,000 years. Today, visitors can walk through Pompeii's streets and see houses, shops, and even food that people left behind. The city shows us exactly how Romans lived, worked, and ate their meals.",
+          "In Cambodia, the *magnificent* temple city of Angkor Wat *attracts* millions of visitors every year. Built in the 12th century, this *enormous* stone city was once the center of the Khmer Empire. The temples cover 400 square kilometers - that's bigger than many modern cities! Kings and thousands of workers spent 30 years building these beautiful temples with *detailed* stone carvings.",
+          "Archaeologists *continue* to find new ancient cities around the world. In 2018, scientists discovered a huge Maya city in Guatemala using special airplane technology. This city had 60,000 buildings hidden under thick jungle trees. Each new discovery helps us understand how ancient people built their homes, grew their food, and created their art.",
+          "These ancient civilizations teach us that people have always been creative and intelligent. They built incredible cities, created beautiful art, and developed smart ways to solve problems. Their stories remind us that human civilization has a long and fascinating history."
+        ]
+      },
+      "word_count": 267
+    },
+    {
+      "id": "33e04971-5fc5-4324-b54c-4816dc4409e6",
+      "label": "B",
+      "title": "The Amazing Pyramids of Egypt",
+      "content": {
+        "paragraphs": [
+          "The Great Pyramid of Giza in Egypt is one of the most *incredible* structures ever built by humans. This ancient wonder was *constructed* over 4,500 years ago for Pharaoh Khufu, and it remained the world's tallest building for almost 4,000 years. The pyramid stands 146 meters high and contains approximately 2.3 million stone blocks.",
+          "Building the pyramids required *thousands* of workers who labored for many years. These skilled builders had to *transport* massive stone blocks from quarries located far away. Each block weighed between 2 to 15 tons. Workers used wooden rollers, ramps, and ropes to move these heavy stones. They worked *carefully* to place each block in exactly the right position.",
+          "The construction process was *extremely* complex and required advanced planning. Ancient Egyptian engineers designed the pyramids with mathematical precision. The base of the Great Pyramid covers 13 acres of land, and each side is perfectly aligned with the four directions: north, south, east, and west. Scientists believe it took approximately 20 years to *complete* this magnificent structure.",
+          "Today, archaeologists continue to make *exciting* discoveries about pyramid construction. Recent studies using modern technology have revealed hidden chambers inside the Great Pyramid. These findings help us understand how ancient Egyptians achieved such remarkable engineering without modern machines. The pyramids *demonstrate* the incredible skills and knowledge of these ancient civilizations.",
+          "Visiting the pyramids remains a *popular* experience for millions of tourists each year. Standing before these ancient monuments, visitors can appreciate the dedication and expertise of the builders who created these lasting symbols of human achievement thousands of years ago."
+        ]
+      },
+      "word_count": 312
+    }
+  ],
+  "grammar": {
+    "topic_name_en": "how much/how many",
+    "topic_name_ar": "how much/how many",
+    "explanation_content": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "نستخدم How many مع الأسماء القابلة للعد، و How much مع الأسماء غير القابلة للعد",
+          "content_en": "<b>How Much</b> and <b>How Many</b> are used to ask about quantity.<br><br><b>Examples:</b><br>• How many pyramids are in Egypt? - There are many pyramids in Egypt.<br>• How much gold did the pharaohs have? - They had a lot of gold.<br>• How many people lived in ancient Rome? - Millions of people lived there.<br><br><b>The Rule:</b><br>Use <b>HOW MANY</b> with countable nouns (things you can count: 1, 2, 3...)<br>Use <b>HOW MUCH</b> with uncountable nouns (things you cannot count individually)<br><br><b>Countable:</b> pyramids, temples, soldiers, kings<br><b>Uncountable:</b> gold, water, food, time, money"
+        },
+        {
+          "type": "formula",
+          "content": "How many + countable noun + ?<br>How much + uncountable noun + ?"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "How many temples did the Romans build?",
+              "highlight": "How many temples",
+              "translation_ar": "كم معبداً بنى الرومان؟"
+            },
+            {
+              "sentence": "How much silver was used in ancient coins?",
+              "highlight": "How much silver",
+              "translation_ar": "كم من الفضة استُخدمت في النقود القديمة؟"
+            },
+            {
+              "sentence": "How many gods did the Egyptians worship?",
+              "highlight": "How many gods",
+              "translation_ar": "كم إلهاً عبد المصريون؟"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "How much pyramids are there?",
+              "correct": "How many pyramids are there?",
+              "explanation_ar": "الأهرامات قابلة للعد، لذا نستخدم How many"
+            },
+            {
+              "wrong": "How many gold did they find?",
+              "correct": "How much gold did they find?",
+              "explanation_ar": "الذهب غير قابل للعد، لذا نستخدم How much"
+            },
+            {
+              "wrong": "How much soldiers were there?",
+              "correct": "How many soldiers were there?",
+              "explanation_ar": "الجنود قابلون للعد، لذا نستخدم How many"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

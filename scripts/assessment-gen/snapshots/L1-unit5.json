@@ -1,0 +1,512 @@
+{
+  "unit": {
+    "id": "9a560631-9d0b-4b5a-a3d5-567c1779ab6e",
+    "unit_number": 5,
+    "title_en": "Famous Places",
+    "title_ar": "أماكن مشهورة"
+  },
+  "vocabulary": [
+    {
+      "word": "arrive",
+      "pos": "verb",
+      "definition_ar": "يصل، يحضر",
+      "example_sentence": "The train arrives at 3 o'clock.",
+      "tier": "core"
+    },
+    {
+      "word": "attracts",
+      "pos": "verb",
+      "definition_ar": "يجذب، يجلب",
+      "example_sentence": "The park attracts many families.",
+      "tier": "core"
+    },
+    {
+      "word": "brilliant",
+      "pos": "adjective",
+      "definition_ar": "ساطع، رائع، ممتاز",
+      "example_sentence": "The sun is brilliant today.",
+      "tier": "core"
+    },
+    {
+      "word": "build",
+      "pos": "verb",
+      "definition_ar": "يبني",
+      "example_sentence": "They build houses with stone.",
+      "tier": "core"
+    },
+    {
+      "word": "castle",
+      "pos": "noun",
+      "definition_ar": "قلعة",
+      "example_sentence": "The castle is on the hill.",
+      "tier": "core"
+    },
+    {
+      "word": "connect",
+      "pos": "verb",
+      "definition_ar": "يربط، يصل",
+      "example_sentence": "The bridge connects the two cities.",
+      "tier": "core"
+    },
+    {
+      "word": "create",
+      "pos": "verb",
+      "definition_ar": "يخلق، يصنع، يبتكر",
+      "example_sentence": "I create drawings with colored pencils.",
+      "tier": "core"
+    },
+    {
+      "word": "entrance",
+      "pos": "noun",
+      "definition_ar": "مدخل",
+      "example_sentence": "The entrance is on the left.",
+      "tier": "core"
+    },
+    {
+      "word": "exciting",
+      "pos": "adjective",
+      "definition_ar": "مثير، ممتع ومشوق",
+      "example_sentence": "The football match was very exciting.",
+      "tier": "core"
+    },
+    {
+      "word": "famous",
+      "pos": "adjective",
+      "definition_ar": "مشهور، معروف",
+      "example_sentence": "The pyramids are famous around the world.",
+      "tier": "core"
+    },
+    {
+      "word": "glow",
+      "pos": "verb",
+      "definition_ar": "يتوهج، يضيء بنور ناعم",
+      "example_sentence": "The moon glows in the dark sky.",
+      "tier": "core"
+    },
+    {
+      "word": "guide",
+      "pos": "noun",
+      "definition_ar": "مرشد",
+      "example_sentence": "The guide showed us the city.",
+      "tier": "core"
+    },
+    {
+      "word": "historic",
+      "pos": "adjective",
+      "definition_ar": "تاريخي",
+      "example_sentence": "This is a historic place.",
+      "tier": "core"
+    },
+    {
+      "word": "incredible",
+      "pos": "adjective",
+      "definition_ar": "لا يصدق، مدهش جداً",
+      "example_sentence": "The view from the mountain was incredible.",
+      "tier": "core"
+    },
+    {
+      "word": "incredible",
+      "pos": "adjective",
+      "definition_ar": "لا يصدق، مذهل جداً",
+      "example_sentence": "The mountain view is incredible.",
+      "tier": "core"
+    },
+    {
+      "word": "landmark",
+      "pos": "noun",
+      "definition_ar": "معلم بارز",
+      "example_sentence": "The bridge is a famous landmark.",
+      "tier": "core"
+    },
+    {
+      "word": "loud",
+      "pos": "adjective",
+      "definition_ar": "عالي الصوت، صاخب",
+      "example_sentence": "Please turn down the music. It's too loud.",
+      "tier": "core"
+    },
+    {
+      "word": "monument",
+      "pos": "noun",
+      "definition_ar": "نصب تذكاري",
+      "example_sentence": "The monument is very old.",
+      "tier": "core"
+    },
+    {
+      "word": "museum",
+      "pos": "noun",
+      "definition_ar": "متحف",
+      "example_sentence": "We visited the museum today.",
+      "tier": "core"
+    },
+    {
+      "word": "palace",
+      "pos": "noun",
+      "definition_ar": "قصر",
+      "example_sentence": "The king lives in a palace.",
+      "tier": "core"
+    },
+    {
+      "word": "popular",
+      "pos": "adjective",
+      "definition_ar": "محبوب، مفضل عند الكثيرين",
+      "example_sentence": "Pizza is very popular with children.",
+      "tier": "core"
+    },
+    {
+      "word": "pyramid",
+      "pos": "noun",
+      "definition_ar": "هرم",
+      "example_sentence": "The pyramid is in Egypt.",
+      "tier": "core"
+    },
+    {
+      "word": "safely",
+      "pos": "adverb",
+      "definition_ar": "بأمان، بطريقة آمنة",
+      "example_sentence": "The children crossed the street safely with their teacher.",
+      "tier": "core"
+    },
+    {
+      "word": "spectacular",
+      "pos": "adjective",
+      "definition_ar": "مذهل، رائع، مثير للإعجاب",
+      "example_sentence": "The fireworks show was spectacular.",
+      "tier": "core"
+    },
+    {
+      "word": "statue",
+      "pos": "noun",
+      "definition_ar": "تمثال",
+      "example_sentence": "The statue is made of stone.",
+      "tier": "core"
+    },
+    {
+      "word": "stunning",
+      "pos": "adjective",
+      "definition_ar": "مذهل",
+      "example_sentence": "The view is stunning.",
+      "tier": "core"
+    },
+    {
+      "word": "temple",
+      "pos": "noun",
+      "definition_ar": "معبد",
+      "example_sentence": "The temple is very beautiful.",
+      "tier": "core"
+    },
+    {
+      "word": "tower",
+      "pos": "noun",
+      "definition_ar": "برج",
+      "example_sentence": "The tower is very tall.",
+      "tier": "core"
+    },
+    {
+      "word": "transforms",
+      "pos": "verb",
+      "definition_ar": "يحول، يغير بشكل كامل",
+      "example_sentence": "Exercise transforms your body.",
+      "tier": "core"
+    },
+    {
+      "word": "travel",
+      "pos": "verb",
+      "definition_ar": "سافر، انتقل من مكان إلى آخر",
+      "example_sentence": "I want to travel to Egypt next summer.",
+      "tier": "core"
+    },
+    {
+      "word": "unique",
+      "pos": "adjective",
+      "definition_ar": "فريد من نوعه، وحيد",
+      "example_sentence": "Every person has a unique fingerprint.",
+      "tier": "core"
+    },
+    {
+      "word": "walk",
+      "pos": "verb",
+      "definition_ar": "مشى، سار على القدمين",
+      "example_sentence": "I walk to school every morning.",
+      "tier": "core"
+    },
+    {
+      "word": "wonder",
+      "pos": "noun",
+      "definition_ar": "عجيبة",
+      "example_sentence": "It is one of the seven wonders.",
+      "tier": "core"
+    },
+    {
+      "word": "wonderful",
+      "pos": "adjective",
+      "definition_ar": "رائع، جميل جداً",
+      "example_sentence": "We had a wonderful time at the beach.",
+      "tier": "core"
+    },
+    {
+      "word": "arch",
+      "pos": "noun",
+      "definition_ar": "قوس",
+      "example_sentence": "The arch is above the door.",
+      "tier": "extended"
+    },
+    {
+      "word": "architecture",
+      "pos": "noun",
+      "definition_ar": "هندسة معمارية",
+      "example_sentence": "The architecture is amazing.",
+      "tier": "extended"
+    },
+    {
+      "word": "balcony",
+      "pos": "noun",
+      "definition_ar": "شرفة",
+      "example_sentence": "The balcony has a nice view.",
+      "tier": "extended"
+    },
+    {
+      "word": "cathedral",
+      "pos": "noun",
+      "definition_ar": "كاتدرائية",
+      "example_sentence": "The cathedral is very large.",
+      "tier": "extended"
+    },
+    {
+      "word": "column",
+      "pos": "noun",
+      "definition_ar": "عمود",
+      "example_sentence": "The column is made of marble.",
+      "tier": "extended"
+    },
+    {
+      "word": "construct",
+      "pos": "verb",
+      "definition_ar": "يشيد",
+      "example_sentence": "They constructed the wall in a year.",
+      "tier": "extended"
+    },
+    {
+      "word": "courtyard",
+      "pos": "noun",
+      "definition_ar": "فناء",
+      "example_sentence": "The courtyard is very large.",
+      "tier": "extended"
+    },
+    {
+      "word": "dome",
+      "pos": "noun",
+      "definition_ar": "قبة",
+      "example_sentence": "The dome is gold in color.",
+      "tier": "extended"
+    },
+    {
+      "word": "fortress",
+      "pos": "noun",
+      "definition_ar": "حصن",
+      "example_sentence": "The fortress protected the city.",
+      "tier": "extended"
+    },
+    {
+      "word": "fountain",
+      "pos": "noun",
+      "definition_ar": "نافورة",
+      "example_sentence": "The fountain is in the square.",
+      "tier": "extended"
+    },
+    {
+      "word": "iconic",
+      "pos": "adjective",
+      "definition_ar": "أيقوني",
+      "example_sentence": "The tower is an iconic symbol.",
+      "tier": "extended"
+    },
+    {
+      "word": "massive",
+      "pos": "adjective",
+      "definition_ar": "ضخم",
+      "example_sentence": "The wall is massive.",
+      "tier": "extended"
+    },
+    {
+      "word": "restore",
+      "pos": "verb",
+      "definition_ar": "يرمم",
+      "example_sentence": "They restored the old building.",
+      "tier": "extended"
+    },
+    {
+      "word": "ruins",
+      "pos": "noun",
+      "definition_ar": "أطلال",
+      "example_sentence": "We visited the old ruins.",
+      "tier": "extended"
+    },
+    {
+      "word": "staircase",
+      "pos": "noun",
+      "definition_ar": "درج",
+      "example_sentence": "The staircase is very long.",
+      "tier": "extended"
+    },
+    {
+      "word": "surround",
+      "pos": "verb",
+      "definition_ar": "يحيط",
+      "example_sentence": "Trees surround the castle.",
+      "tier": "extended"
+    },
+    {
+      "word": "archaeological",
+      "pos": "adjective",
+      "definition_ar": "أثري",
+      "example_sentence": "This is an archaeological site.",
+      "tier": "mastery"
+    },
+    {
+      "word": "civilization",
+      "pos": "noun",
+      "definition_ar": "حضارة",
+      "example_sentence": "The Egyptian civilization is old.",
+      "tier": "mastery"
+    },
+    {
+      "word": "excavate",
+      "pos": "verb",
+      "definition_ar": "ينقب",
+      "example_sentence": "They excavated old walls.",
+      "tier": "mastery"
+    },
+    {
+      "word": "inscription",
+      "pos": "noun",
+      "definition_ar": "نقش",
+      "example_sentence": "The inscription is in Arabic.",
+      "tier": "mastery"
+    },
+    {
+      "word": "majestic",
+      "pos": "adjective",
+      "definition_ar": "مهيب",
+      "example_sentence": "The mountain looks majestic.",
+      "tier": "mastery"
+    },
+    {
+      "word": "marble",
+      "pos": "noun",
+      "definition_ar": "رخام",
+      "example_sentence": "The floor is made of marble.",
+      "tier": "mastery"
+    },
+    {
+      "word": "mosaic",
+      "pos": "noun",
+      "definition_ar": "فسيفساء",
+      "example_sentence": "The mosaic is very colorful.",
+      "tier": "mastery"
+    },
+    {
+      "word": "pillar",
+      "pos": "noun",
+      "definition_ar": "عمود",
+      "example_sentence": "The pillar is made of stone.",
+      "tier": "mastery"
+    },
+    {
+      "word": "renovation",
+      "pos": "noun",
+      "definition_ar": "تجديد",
+      "example_sentence": "The renovation took two years.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "f23d9dfa-3add-44b6-93c5-8b813e3f2ce8",
+      "label": "A",
+      "title": "Amazing Places Around the World",
+      "content": {
+        "paragraphs": [
+          "Every year, millions of people *travel* to see the world's most *famous* places. These destinations are special because they show us different cultures, history, and natural beauty. From ancient buildings to modern cities, these places tell amazing stories about our world.",
+          "One of the most *popular* tourist destinations is Paris, France. The Eiffel Tower stands 324 meters tall and attracts over 6 million visitors each year. People come from everywhere to see this *incredible* metal structure. Another *wonderful* place is the Great Wall of China. This wall is over 21,000 kilometers long and took hundreds of years to build. Visitors can *walk* along parts of the wall and imagine the workers who built it long ago.",
+          "Natural places can be just as *exciting* as man-made ones. Niagara Falls, between Canada and the United States, moves 168,000 cubic meters of water every minute. The sound is so *loud* that people can hear it from far away. In Africa, millions of tourists visit to see wild animals in their natural homes. Safari parks let people watch elephants, lions, and giraffes *safely* from special vehicles.",
+          "Some places become famous because they are *unique* in the world. The Dead Sea, between Jordan and Palestine, is so salty that people can float on the water without trying. The salt makes the water very thick and heavy. These special places remind us that our planet has many wonders waiting for us to discover them.",
+          "Whether natural or built by humans, famous places connect people from different countries and backgrounds. They help us learn about other cultures and see the beauty that exists everywhere in our world."
+        ]
+      },
+      "word_count": 297
+    },
+    {
+      "id": "5cf42d5b-f08a-45fe-b939-b102d8abd97d",
+      "label": "B",
+      "title": "The Magic of Light Festivals",
+      "content": {
+        "paragraphs": [
+          "Every year, millions of people travel to see *spectacular* light festivals that transform ordinary cities into magical wonderlands. These events combine art, technology, and culture to create unforgettable experiences for visitors from around the world.",
+          "The Festival of Lights in Lyon, France, is one of the most *famous* celebrations of its kind. For four nights in December, the entire city becomes a giant outdoor art gallery. Local artists and international designers *create* amazing light shows on buildings, bridges, and monuments. The festival began over 150 years ago when people placed candles in their windows to thank Mary, the mother of Jesus, for protecting their city from disease. Today, more than four million visitors *arrive* each year to witness this *incredible* display.",
+          "In Singapore, the annual light festival *transforms* the Gardens by the Bay into a colorful paradise. Giant artificial trees, called Supertrees, *glow* with thousands of LED lights that dance to music. The show runs every evening and is completely free for visitors. These 50-meter tall structures also collect rainwater and generate solar energy during the day, making them both beautiful and environmentally friendly.",
+          "Saudi Arabia has joined this global tradition with its own *brilliant* light festivals. The Noor Riyadh festival *attracts* thousands of visitors to the capital city each year. International and local artists use light to tell stories about Saudi culture and history. The festival features over 190 artworks across the city, making Riyadh one of the largest outdoor art galleries in the world.",
+          "These festivals prove that light can *connect* people across different cultures and backgrounds. Whether in France, Singapore, or Saudi Arabia, families gather together under the night sky to share moments of wonder and joy. Light festivals remind us that art and beauty can bring communities together in powerful and meaningful ways."
+        ]
+      },
+      "word_count": 312
+    }
+  ],
+  "grammar": {
+    "topic_name_en": "can/cant",
+    "topic_name_ar": "can/cant",
+    "explanation_content": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "can للقدرة والإمكانية، can't للعدم القدرة. نفس الشكل لجميع الضمائر",
+          "content_en": "<b>Can/Can't</b> are used to talk about ability and possibility.<br><br><b>Examples:</b><br>• I <b>can</b> visit the Eiffel Tower next week.<br>• She <b>can't</b> see the Pyramids from here.<br>• <b>Can</b> you climb Mount Everest?<br><br><b>Use:</b><br>• <b>Can</b> = able to do something, possible<br>• <b>Can't</b> = not able to do something, not possible<br><br><b>Can/Can't</b> is the same for all persons (I, you, he, she, it, we, they)."
+        },
+        {
+          "type": "formula",
+          "content": "Subject + can/can't + base verb (infinitive without 'to')"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "I can see Big Ben from the bridge.",
+              "highlight": "can see",
+              "translation_ar": "يمكنني رؤية بيغ بن من الجسر"
+            },
+            {
+              "sentence": "We can't visit the Great Wall today.",
+              "highlight": "can't visit",
+              "translation_ar": "لا يمكننا زيارة سور الصين العظيم اليوم"
+            },
+            {
+              "sentence": "Can tourists enter the Colosseum?",
+              "highlight": "Can tourists enter",
+              "translation_ar": "هل يمكن للسياح دخول الكولوسيوم؟"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "I can to visit",
+              "correct": "I can visit",
+              "explanation_ar": "لا نستخدم 'to' بعد can"
+            },
+            {
+              "wrong": "He cans speak",
+              "correct": "He can speak",
+              "explanation_ar": "can لا تتغير مع الضمائر، لا نضيف s"
+            },
+            {
+              "wrong": "I not can go",
+              "correct": "I can't go",
+              "explanation_ar": "النفي بـ can't وليس not can"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

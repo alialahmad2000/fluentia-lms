@@ -1,0 +1,239 @@
+{
+  "variant_label": "C",
+  "variant_id": "96434d0c-9ef4-490d-a2ba-97c7e6d26da4",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'annual' mean?",
+      "question_context": null,
+      "options": [
+        {"id": "a", "text": "يومي", "is_correct": false},
+        {"id": "b", "text": "شهري", "is_correct": false},
+        {"id": "c", "text": "سنوي", "is_correct": true},
+        {"id": "d", "text": "أسبوعي", "is_correct": false}
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة annual تعني سنوي، أي يحدث مرة واحدة كل سنة، مثل الأحداث والمهرجانات السنوية."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'gather' mean?",
+      "question_context": null,
+      "options": [
+        {"id": "a", "text": "يتفرق", "is_correct": false},
+        {"id": "b", "text": "يتجمع", "is_correct": true},
+        {"id": "c", "text": "يسافر", "is_correct": false},
+        {"id": "d", "text": "يتنافس", "is_correct": false}
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة gather تعني يتجمع أو يجتمع، أي أن الناس يأتون معاً في مكان واحد."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'national' mean?",
+      "question_context": null,
+      "options": [
+        {"id": "a", "text": "شخصي", "is_correct": false},
+        {"id": "b", "text": "وطني", "is_correct": true},
+        {"id": "c", "text": "محلي", "is_correct": false},
+        {"id": "d", "text": "عالمي", "is_correct": false}
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة national تعني وطني، أي ما يتعلق بالدولة أو البلد بأكمله."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "vocabulary",
+      "question_type": "true_false",
+      "question_text": "'Beautiful' means قبيح in Arabic.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "خطأ. كلمة beautiful تعني جميل، وليس قبيح. قبيح بالإنجليزية هي ugly."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "vocabulary",
+      "question_type": "fill_blank",
+      "question_text": "Festivals help people learn about their _____ and history.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "culture",
+      "accepted_answers": ["culture", "Culture", "CULTURE"],
+      "points": 1,
+      "explanation_ar": "الكلمة الصحيحة هي culture، وتعني ثقافة، أي مجموع العادات والفنون والمعتقدات لمجتمع ما."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "vocabulary",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": ["special", "wonderful", "festive", "blessing"],
+        "right_items": ["رائع", "بركة", "خاص", "احتفالي"]
+      },
+      "correct_answer": [
+        {"left": "special", "right": "خاص"},
+        {"left": "wonderful", "right": "رائع"},
+        {"left": "festive", "right": "احتفالي"},
+        {"left": "blessing", "right": "بركة"}
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "هذه مفردات وصفية: special=خاص، wonderful=رائع، festive=احتفالي، blessing=بركة."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "What is the simple past of 'attend'?",
+      "question_context": null,
+      "options": [
+        {"id": "a", "text": "attending", "is_correct": false},
+        {"id": "b", "text": "attendes", "is_correct": false},
+        {"id": "c", "text": "will attend", "is_correct": false},
+        {"id": "d", "text": "attended", "is_correct": true}
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "الفعل المنتظم attend يصبح attended في الماضي البسيط بإضافة -ed."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence is in the simple past?",
+      "question_context": null,
+      "options": [
+        {"id": "a", "text": "We visit the Janadriyah festival.", "is_correct": false},
+        {"id": "b", "text": "We are visiting the Janadriyah festival.", "is_correct": false},
+        {"id": "c", "text": "We visited the Janadriyah festival last year.", "is_correct": true},
+        {"id": "d", "text": "We will visit the Janadriyah festival.", "is_correct": false}
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "الجملة 'We visited the Janadriyah festival last year' في الماضي البسيط، حيث أضفنا -ed إلى visit."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "What is the simple past of 'represent'?",
+      "question_context": null,
+      "options": [
+        {"id": "a", "text": "represents", "is_correct": false},
+        {"id": "b", "text": "representing", "is_correct": false},
+        {"id": "c", "text": "represented", "is_correct": true},
+        {"id": "d", "text": "will represent", "is_correct": false}
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "الفعل المنتظم represent يصبح represented في الماضي البسيط بإضافة -ed."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Choose the correct simple past sentence:",
+      "question_context": null,
+      "options": [
+        {"id": "a", "text": "The family honor their tradition yesterday.", "is_correct": false},
+        {"id": "b", "text": "The family honoring their tradition yesterday.", "is_correct": false},
+        {"id": "c", "text": "The family honored their tradition yesterday.", "is_correct": true},
+        {"id": "d", "text": "The family honors their tradition yesterday.", "is_correct": false}
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "الجملة الصحيحة هي 'The family honored' لأن honored هو الماضي البسيط للفعل المنتظم honor."
+    },
+    {
+      "order_index": 11,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'They study about festivals yesterday' is correct.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "خطأ. يجب استخدام الماضي البسيط مع yesterday، فالجملة الصحيحة هي 'They studied about festivals yesterday'."
+    },
+    {
+      "order_index": 12,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "In Passage A, what activities happen at Janadriyah?",
+      "question_context": null,
+      "options": [
+        {"id": "a", "text": "Swimming and hiking", "is_correct": false},
+        {"id": "b", "text": "Camel races, falconry, and folk dances", "is_correct": true},
+        {"id": "c", "text": "Fireworks and lantern shows", "is_correct": false},
+        {"id": "d", "text": "Throwing colored powder", "is_correct": false}
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "ذكر النص أن مهرجان الجنادرية يشمل سباقات الإبل والصقارة والرقصات الشعبية."
+    },
+    {
+      "order_index": 13,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "According to Passage B, why do families prepare matching outfits?",
+      "question_context": null,
+      "options": [
+        {"id": "a", "text": "To save money on clothes", "is_correct": false},
+        {"id": "b", "text": "To strengthen family bonds and pass traditions to younger generations", "is_correct": true},
+        {"id": "c", "text": "To win fashion competitions", "is_correct": false},
+        {"id": "d", "text": "To attract more tourists", "is_correct": false}
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "ذكر النص أن إعداد الأزياء المتماثلة يقوي روابط الأسرة وينقل التقاليد إلى الأجيال الجديدة."
+    },
+    {
+      "order_index": 14,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "Passage A says social media helps festivals become known worldwide.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيح. النص يقول إن وسائل التواصل الاجتماعي تساعد المهرجانات على الانتشار حول العالم."
+    },
+    {
+      "order_index": 15,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "People _____ their homes with lights and colors for festivals.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "decorated",
+      "accepted_answers": ["decorated", "Decorated", "decorate", "Decorate"],
+      "points": 1,
+      "explanation_ar": "الكلمة الصحيحة هي decorated، أي زيّنوا، وهو فعل يصف تجميل المنازل استعداداً للمهرجانات."
+    }
+  ]
+}

@@ -1,0 +1,519 @@
+{
+  "unit": {
+    "id": "55a4d6c2-9130-40db-983d-ed412ba446a7",
+    "unit_number": 6,
+    "title_en": "Inventions",
+    "title_ar": "الاختراعات"
+  },
+  "vocabulary": [
+    {
+      "word": "accurate",
+      "pos": "adjective",
+      "definition_ar": "دقيق، صحيح، بلا أخطاء",
+      "example_sentence": "The clock shows the accurate time.",
+      "tier": "core"
+    },
+    {
+      "word": "amazing",
+      "pos": "adjective",
+      "definition_ar": "مدهش، رائع - مثير للدهشة والإعجاب بشكل كبير",
+      "example_sentence": "The view from the mountain was amazing.",
+      "tier": "core"
+    },
+    {
+      "word": "automatic",
+      "pos": "adjective",
+      "definition_ar": "آلي",
+      "example_sentence": "The door is automatic.",
+      "tier": "core"
+    },
+    {
+      "word": "battery",
+      "pos": "noun",
+      "definition_ar": "بطارية",
+      "example_sentence": "The battery is empty.",
+      "tier": "core"
+    },
+    {
+      "word": "created",
+      "pos": "verb",
+      "definition_ar": "أنشأ، ابتكر، خلق (الماضي من create)",
+      "example_sentence": "The artist created a beautiful painting.",
+      "tier": "core"
+    },
+    {
+      "word": "created",
+      "pos": "verb",
+      "definition_ar": "خلق، أنشأ - صنع شيئاً جديداً؛ أوجد شيئاً لم يكن موجوداً",
+      "example_sentence": "The artist created a beautiful painting.",
+      "tier": "core"
+    },
+    {
+      "word": "design",
+      "pos": "verb",
+      "definition_ar": "يصمم",
+      "example_sentence": "She designed a new phone.",
+      "tier": "core"
+    },
+    {
+      "word": "develop",
+      "pos": "verb",
+      "definition_ar": "يطور، ينمي، يستحدث",
+      "example_sentence": "Children develop language skills quickly.",
+      "tier": "core"
+    },
+    {
+      "word": "device",
+      "pos": "noun",
+      "definition_ar": "جهاز",
+      "example_sentence": "This device can take photos.",
+      "tier": "core"
+    },
+    {
+      "word": "discovered",
+      "pos": "verb",
+      "definition_ar": "اكتشف - وجد شيئاً كان موجوداً لكنه غير معروف من قبل",
+      "example_sentence": "Scientists discovered a new medicine last year.",
+      "tier": "core"
+    },
+    {
+      "word": "dissolve",
+      "pos": "verb",
+      "definition_ar": "يذوب، ينحل",
+      "example_sentence": "Sugar dissolves in hot water.",
+      "tier": "core"
+    },
+    {
+      "word": "electricity",
+      "pos": "noun",
+      "definition_ar": "كهرباء",
+      "example_sentence": "We use electricity every day.",
+      "tier": "core"
+    },
+    {
+      "word": "electronic",
+      "pos": "adjective",
+      "definition_ar": "إلكتروني",
+      "example_sentence": "I bought an electronic device.",
+      "tier": "core"
+    },
+    {
+      "word": "engine",
+      "pos": "noun",
+      "definition_ar": "محرك",
+      "example_sentence": "The engine makes the car move.",
+      "tier": "core"
+    },
+    {
+      "word": "flexible",
+      "pos": "adjective",
+      "definition_ar": "مرن، قابل للانثناء",
+      "example_sentence": "Yoga makes your body more flexible.",
+      "tier": "core"
+    },
+    {
+      "word": "helped",
+      "pos": "verb",
+      "definition_ar": "ساعد - جعل شيئاً أسهل أو أفضل لشخص ما؛ قدم المساعدة",
+      "example_sentence": "My teacher helped me understand the lesson.",
+      "tier": "core"
+    },
+    {
+      "word": "identify",
+      "pos": "verb",
+      "definition_ar": "يُحدد، يُعرّف، يُميز",
+      "example_sentence": "Can you identify this bird?",
+      "tier": "core"
+    },
+    {
+      "word": "incredible",
+      "pos": "adjective",
+      "definition_ar": "مذهل، لا يُصدق، رائع جداً",
+      "example_sentence": "The view from the mountain was incredible.",
+      "tier": "core"
+    },
+    {
+      "word": "invent",
+      "pos": "verb",
+      "definition_ar": "يخترع",
+      "example_sentence": "He invented a new machine.",
+      "tier": "core"
+    },
+    {
+      "word": "invention",
+      "pos": "noun",
+      "definition_ar": "اختراع",
+      "example_sentence": "The car was a great invention.",
+      "tier": "core"
+    },
+    {
+      "word": "inventions",
+      "pos": "noun",
+      "definition_ar": "اختراعات - أشياء جديدة يصنعها الناس لحل المشاكل أو تسهيل الحياة",
+      "example_sentence": "The telephone and the computer are important inventions.",
+      "tier": "core"
+    },
+    {
+      "word": "machine",
+      "pos": "noun",
+      "definition_ar": "آلة",
+      "example_sentence": "The machine works very fast.",
+      "tier": "core"
+    },
+    {
+      "word": "modern",
+      "pos": "adjective",
+      "definition_ar": "حديث",
+      "example_sentence": "This is a modern invention.",
+      "tier": "core"
+    },
+    {
+      "word": "obvious",
+      "pos": "adjective",
+      "definition_ar": "واضح، بديهي - سهل الرؤية أو الفهم؛ واضح للجميع",
+      "example_sentence": "It's obvious that he is tired because he keeps yawning.",
+      "tier": "core"
+    },
+    {
+      "word": "perfect",
+      "pos": "adjective",
+      "definition_ar": "مثالي، كامل - لا يحتوي على أخطاء أو عيوب؛ صحيح تماماً",
+      "example_sentence": "This is the perfect weather for a picnic.",
+      "tier": "core"
+    },
+    {
+      "word": "quickly",
+      "pos": "adverb",
+      "definition_ar": "بسرعة - بطريقة سريعة؛ بعجلة",
+      "example_sentence": "Please walk quickly or we will be late.",
+      "tier": "core"
+    },
+    {
+      "word": "remarkable",
+      "pos": "adjective",
+      "definition_ar": "ملحوظ، مميز، استثنائي",
+      "example_sentence": "She has remarkable singing talent.",
+      "tier": "core"
+    },
+    {
+      "word": "simple",
+      "pos": "adjective",
+      "definition_ar": "بسيط - سهل الفهم أو التنفيذ؛ غير معقد",
+      "example_sentence": "This is a simple question with an easy answer.",
+      "tier": "core"
+    },
+    {
+      "word": "solve",
+      "pos": "verb",
+      "definition_ar": "يحل",
+      "example_sentence": "We can solve this problem.",
+      "tier": "core"
+    },
+    {
+      "word": "studied",
+      "pos": "verb",
+      "definition_ar": "درس، تعلم (الماضي من study)",
+      "example_sentence": "She studied English for two years.",
+      "tier": "core"
+    },
+    {
+      "word": "tool",
+      "pos": "noun",
+      "definition_ar": "أداة",
+      "example_sentence": "This tool is very useful.",
+      "tier": "core"
+    },
+    {
+      "word": "treat",
+      "pos": "verb",
+      "definition_ar": "يُعالج، يُداوي",
+      "example_sentence": "The doctor will treat your broken arm.",
+      "tier": "core"
+    },
+    {
+      "word": "useful",
+      "pos": "adjective",
+      "definition_ar": "مفيد - يساعد؛ يمكن استخدامه لغرض جيد",
+      "example_sentence": "This book has useful information for students.",
+      "tier": "core"
+    },
+    {
+      "word": "wheel",
+      "pos": "noun",
+      "definition_ar": "عجلة",
+      "example_sentence": "The wheel was invented long ago.",
+      "tier": "core"
+    },
+    {
+      "word": "attach",
+      "pos": "verb",
+      "definition_ar": "يربط",
+      "example_sentence": "Attach the wire to the battery.",
+      "tier": "extended"
+    },
+    {
+      "word": "circuit",
+      "pos": "noun",
+      "definition_ar": "دائرة كهربائية",
+      "example_sentence": "The circuit is broken.",
+      "tier": "extended"
+    },
+    {
+      "word": "efficient",
+      "pos": "adjective",
+      "definition_ar": "كفؤ",
+      "example_sentence": "This engine is very efficient.",
+      "tier": "extended"
+    },
+    {
+      "word": "laboratory",
+      "pos": "noun",
+      "definition_ar": "مختبر",
+      "example_sentence": "He works in a laboratory.",
+      "tier": "extended"
+    },
+    {
+      "word": "manual",
+      "pos": "adjective",
+      "definition_ar": "يدوي",
+      "example_sentence": "This is a manual tool.",
+      "tier": "extended"
+    },
+    {
+      "word": "operate",
+      "pos": "verb",
+      "definition_ar": "يشغل",
+      "example_sentence": "I can operate this machine.",
+      "tier": "extended"
+    },
+    {
+      "word": "patent",
+      "pos": "noun",
+      "definition_ar": "براءة اختراع",
+      "example_sentence": "He got a patent for his idea.",
+      "tier": "extended"
+    },
+    {
+      "word": "portable",
+      "pos": "adjective",
+      "definition_ar": "محمول",
+      "example_sentence": "The device is small and portable.",
+      "tier": "extended"
+    },
+    {
+      "word": "prototype",
+      "pos": "noun",
+      "definition_ar": "نموذج أولي",
+      "example_sentence": "They made a prototype first.",
+      "tier": "extended"
+    },
+    {
+      "word": "replace",
+      "pos": "verb",
+      "definition_ar": "يستبدل",
+      "example_sentence": "We replaced the old machine.",
+      "tier": "extended"
+    },
+    {
+      "word": "sensor",
+      "pos": "noun",
+      "definition_ar": "مستشعر",
+      "example_sentence": "The sensor detects movement.",
+      "tier": "extended"
+    },
+    {
+      "word": "signal",
+      "pos": "noun",
+      "definition_ar": "إشارة",
+      "example_sentence": "The signal is very strong.",
+      "tier": "extended"
+    },
+    {
+      "word": "switch",
+      "pos": "noun",
+      "definition_ar": "مفتاح",
+      "example_sentence": "Press the switch to start.",
+      "tier": "extended"
+    },
+    {
+      "word": "technical",
+      "pos": "adjective",
+      "definition_ar": "تقني",
+      "example_sentence": "This is a technical problem.",
+      "tier": "extended"
+    },
+    {
+      "word": "wire",
+      "pos": "noun",
+      "definition_ar": "سلك",
+      "example_sentence": "The wire connects the two parts.",
+      "tier": "extended"
+    },
+    {
+      "word": "wireless",
+      "pos": "adjective",
+      "definition_ar": "لاسلكي",
+      "example_sentence": "I have wireless headphones.",
+      "tier": "extended"
+    },
+    {
+      "word": "automate",
+      "pos": "verb",
+      "definition_ar": "يؤتمت",
+      "example_sentence": "Robots automate many tasks.",
+      "tier": "mastery"
+    },
+    {
+      "word": "breakthrough",
+      "pos": "noun",
+      "definition_ar": "اختراق",
+      "example_sentence": "It was a big breakthrough.",
+      "tier": "mastery"
+    },
+    {
+      "word": "genius",
+      "pos": "noun",
+      "definition_ar": "عبقري",
+      "example_sentence": "The inventor was a genius.",
+      "tier": "mastery"
+    },
+    {
+      "word": "innovation",
+      "pos": "noun",
+      "definition_ar": "ابتكار",
+      "example_sentence": "Innovation changes our lives.",
+      "tier": "mastery"
+    },
+    {
+      "word": "inventor",
+      "pos": "noun",
+      "definition_ar": "مخترع",
+      "example_sentence": "The inventor won an award.",
+      "tier": "mastery"
+    },
+    {
+      "word": "manufacture",
+      "pos": "verb",
+      "definition_ar": "يصنع",
+      "example_sentence": "They manufacture cars here.",
+      "tier": "mastery"
+    },
+    {
+      "word": "mechanical",
+      "pos": "adjective",
+      "definition_ar": "ميكانيكي",
+      "example_sentence": "It is a mechanical system.",
+      "tier": "mastery"
+    },
+    {
+      "word": "revolution",
+      "pos": "noun",
+      "definition_ar": "ثورة",
+      "example_sentence": "It was a technology revolution.",
+      "tier": "mastery"
+    },
+    {
+      "word": "transform",
+      "pos": "verb",
+      "definition_ar": "يحول",
+      "example_sentence": "Technology transforms our world.",
+      "tier": "mastery"
+    },
+    {
+      "word": "turbine",
+      "pos": "noun",
+      "definition_ar": "توربين",
+      "example_sentence": "The wind turbine produces energy.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "074b5897-63b9-4446-a7d4-6ab9f80baff9",
+      "label": "A",
+      "title": "Simple Ideas That Changed Everything",
+      "content": {
+        "paragraphs": [
+          "Every day, we use hundreds of *inventions* without thinking about them. From the moment we wake up to an alarm clock to the time we turn off the lights at night, inventions help us live better lives. But many of the most important inventions started as *simple* ideas that solved everyday problems.",
+          "The wheel is one of humanity's greatest inventions. People *created* the first wheels around 3500 BC in Mesopotamia, which is now modern-day Iraq. At first, people used wheels to make pottery. Later, they *discovered* that wheels could help move heavy things. This *amazing* invention changed transportation forever. Today, we see wheels everywhere - on cars, bicycles, shopping carts, and suitcases.",
+          "Another *useful* invention is the refrigerator. Before refrigerators, people had to eat food *quickly* or it would become bad. In hot countries like Saudi Arabia, keeping food fresh was very difficult. The first electric refrigerator appeared in 1911, but it was very expensive. By 1950, most American families owned one. This invention *helped* people store food safely and reduced food waste by 40%.",
+          "Some inventions seem so *obvious* now that we cannot imagine life without them. The zipper, invented in 1893, replaced buttons and made getting dressed much faster. The paper clip, created in 1867, became the *perfect* way to hold papers together. These small inventions prove that you don't need to be a famous scientist to create something important.",
+          "Today, inventors around the world continue to solve problems and make life easier. Many successful inventors say the same thing: the best inventions start with noticing a problem in daily life and thinking of a better way to do things."
+        ]
+      },
+      "word_count": 312
+    },
+    {
+      "id": "a882498d-285d-4418-bc4b-07d9365cf79f",
+      "label": "B",
+      "title": "Ancient Arab Inventions That Changed Medicine",
+      "content": {
+        "paragraphs": [
+          "Many people think modern medicine started in Europe, but this is not *accurate*. The truth is that Arab and Muslim scientists made *incredible* medical inventions between 800 and 1400 CE. These inventions still help doctors *treat* patients today.",
+          "Al-Razi, a Persian doctor who lived in Baghdad, was the first person to *identify* the difference between smallpox and measles. Before his work, doctors could not tell these diseases apart. He also invented the first *flexible* surgical tools. Al-Razi wrote more than 200 medical books that European doctors *studied* for centuries.",
+          "In Cordoba, Spain, Al-Zahrawi became known as the father of modern surgery. He *created* over 200 surgical instruments, including the first surgical scissors and forceps. His most important invention was surgical thread made from cat intestines. This thread could *dissolve* inside the body after surgery, so patients did not need a second operation to remove it. Today, doctors still use this same idea.",
+          "Ibn al-Nafis, working in Damascus, made another *remarkable* discovery. He was the first doctor to correctly describe how blood moves through the heart and lungs. European doctors did not understand this process until 300 years later. His work helped future doctors *develop* better treatments for heart problems.",
+          "These Arab scientists worked during the Islamic Golden Age, when Muslim cities like Baghdad, Cairo, and Cordoba had the world's best hospitals and medical schools. They translated Greek medical texts, added their own discoveries, and created the foundation of modern medicine. Without their inventions, healthcare today would be very different."
+        ]
+      },
+      "word_count": 267
+    }
+  ],
+  "grammar": {
+    "topic_name_en": "countable/uncountable",
+    "topic_name_ar": "countable/uncountable",
+    "explanation_content": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "الأسماء المعدودة يمكن عدها (واحد، اثنان، ثلاثة) والأسماء غير المعدودة لا يمكن عدها. الأسماء المعدودة لها مفرد وجمع، أما غير المعدودة فليس لها صيغة جمع.",
+          "content_en": "<b>Countable and Uncountable Nouns</b><br><br>Some nouns we can count (1, 2, 3...) and some we cannot count.<br><br><b>Countable nouns:</b> We can count them. They have singular and plural forms.<br>Examples: one computer → two computers, one phone → three phones<br><br><b>Uncountable nouns:</b> We cannot count them. They don't have plural forms.<br>Examples: water, electricity, plastic, information<br><br>With countable nouns we use: <i>a/an, many, few, number</i><br>With uncountable nouns we use: <i>much, little, some, a lot of</i>"
+        },
+        {
+          "type": "formula",
+          "content": "Countable: a/an + singular noun, many/few + plural noun<br>Uncountable: much/little/some + noun (no plural)"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "The telephone is a useful invention.",
+              "highlight": "telephone",
+              "translation_ar": "الهاتف اختراع مفيد"
+            },
+            {
+              "sentence": "Electricity changed the world.",
+              "highlight": "Electricity",
+              "translation_ar": "الكهرباء غيرت العالم"
+            },
+            {
+              "sentence": "We have many computers in the office.",
+              "highlight": "many computers",
+              "translation_ar": "لدينا حاسوبات كثيرة في المكتب"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "I need many electricity",
+              "correct": "I need much electricity",
+              "explanation_ar": "electricity غير معدودة، نستخدم much وليس many"
+            },
+            {
+              "wrong": "He has three informations",
+              "correct": "He has some information",
+              "explanation_ar": "information غير معدودة، لا تأخذ s ولا نستخدم معها أرقام"
+            },
+            {
+              "wrong": "I bought much phones",
+              "correct": "I bought many phones",
+              "explanation_ar": "phones معدودة، نستخدم many وليس much"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

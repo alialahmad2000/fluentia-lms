@@ -1,0 +1,519 @@
+{
+  "unit": {
+    "id": "dfefdb76-330a-4ac3-9102-95e1b792a5a6",
+    "unit_number": 3,
+    "title_en": "Space Exploration",
+    "title_ar": "استكشاف الفضاء"
+  },
+  "vocabulary": [
+    {
+      "word": "affordable",
+      "pos": "adjective",
+      "definition_ar": "ميسور التكلفة، رخيص",
+      "example_sentence": "This restaurant has affordable prices.",
+      "tier": "core"
+    },
+    {
+      "word": "astronaut",
+      "pos": "noun",
+      "definition_ar": "رائد فضاء",
+      "example_sentence": "The astronaut went to the moon.",
+      "tier": "core"
+    },
+    {
+      "word": "benefits",
+      "pos": "verb",
+      "definition_ar": "يفيد، ينفع",
+      "example_sentence": "Exercise benefits your health.",
+      "tier": "core"
+    },
+    {
+      "word": "carefully",
+      "pos": "adverb",
+      "definition_ar": "بعناية، بحذر",
+      "example_sentence": "Please drive carefully on the wet road.",
+      "tier": "core"
+    },
+    {
+      "word": "collaborate",
+      "pos": "verb",
+      "definition_ar": "يتعاون، يشارك",
+      "example_sentence": "Students collaborate on group projects.",
+      "tier": "core"
+    },
+    {
+      "word": "discover",
+      "pos": "verb",
+      "definition_ar": "يكتشف، يجد",
+      "example_sentence": "Scientists discover new animals in the ocean.",
+      "tier": "core"
+    },
+    {
+      "word": "distant",
+      "pos": "adjective",
+      "definition_ar": "بعيد",
+      "example_sentence": "Stars are very distant from us.",
+      "tier": "core"
+    },
+    {
+      "word": "dream",
+      "pos": "verb",
+      "definition_ar": "يحلم، يأمل",
+      "example_sentence": "I dream of visiting Paris one day.",
+      "tier": "core"
+    },
+    {
+      "word": "earth",
+      "pos": "noun",
+      "definition_ar": "أرض",
+      "example_sentence": "Earth is the third planet.",
+      "tier": "core"
+    },
+    {
+      "word": "exciting",
+      "pos": "adjective",
+      "definition_ar": "مثير، ممتع",
+      "example_sentence": "The football game was very exciting.",
+      "tier": "core"
+    },
+    {
+      "word": "experiments",
+      "pos": "noun",
+      "definition_ar": "تجارب، اختبارات",
+      "example_sentence": "We did science experiments in class today.",
+      "tier": "core"
+    },
+    {
+      "word": "fascinated",
+      "pos": "adjective",
+      "definition_ar": "مفتون، مهتم بشدة",
+      "example_sentence": "Children are fascinated by dinosaurs.",
+      "tier": "core"
+    },
+    {
+      "word": "gravity",
+      "pos": "noun",
+      "definition_ar": "جاذبية",
+      "example_sentence": "Gravity keeps us on the ground.",
+      "tier": "core"
+    },
+    {
+      "word": "important",
+      "pos": "adjective",
+      "definition_ar": "مهم، ضروري",
+      "example_sentence": "It is important to eat healthy food.",
+      "tier": "core"
+    },
+    {
+      "word": "impressive",
+      "pos": "adjective",
+      "definition_ar": "مُثير للإعجاب، رائع",
+      "example_sentence": "The tall building is very impressive.",
+      "tier": "core"
+    },
+    {
+      "word": "invests",
+      "pos": "verb",
+      "definition_ar": "يستثمر",
+      "example_sentence": "He invests his money in a new business.",
+      "tier": "core"
+    },
+    {
+      "word": "launched",
+      "pos": "verb",
+      "definition_ar": "أطلق، أرسل",
+      "example_sentence": "The rocket was launched at 3 PM yesterday.",
+      "tier": "core"
+    },
+    {
+      "word": "manages",
+      "pos": "verb",
+      "definition_ar": "يدير، ينظم",
+      "example_sentence": "My sister manages a small restaurant.",
+      "tier": "core"
+    },
+    {
+      "word": "moon",
+      "pos": "noun",
+      "definition_ar": "قمر",
+      "example_sentence": "The moon is bright tonight.",
+      "tier": "core"
+    },
+    {
+      "word": "orbit",
+      "pos": "verb",
+      "definition_ar": "يدور",
+      "example_sentence": "The moon orbits the Earth.",
+      "tier": "core"
+    },
+    {
+      "word": "planet",
+      "pos": "noun",
+      "definition_ar": "كوكب",
+      "example_sentence": "Earth is our planet.",
+      "tier": "core"
+    },
+    {
+      "word": "powerful",
+      "pos": "adjective",
+      "definition_ar": "قوي، قدير",
+      "example_sentence": "This car has a powerful engine.",
+      "tier": "core"
+    },
+    {
+      "word": "require",
+      "pos": "verb",
+      "definition_ar": "يتطلب، يحتاج",
+      "example_sentence": "This job requires good English skills.",
+      "tier": "core"
+    },
+    {
+      "word": "rocket",
+      "pos": "noun",
+      "definition_ar": "صاروخ",
+      "example_sentence": "The rocket flew into space.",
+      "tier": "core"
+    },
+    {
+      "word": "satellite",
+      "pos": "noun",
+      "definition_ar": "قمر صناعي",
+      "example_sentence": "The satellite goes around Earth.",
+      "tier": "core"
+    },
+    {
+      "word": "scientist",
+      "pos": "noun",
+      "definition_ar": "عالم",
+      "example_sentence": "The scientist studies space.",
+      "tier": "core"
+    },
+    {
+      "word": "solid",
+      "pos": "adjective",
+      "definition_ar": "قوي، محكم، صلب",
+      "example_sentence": "This table is very solid and strong.",
+      "tier": "core"
+    },
+    {
+      "word": "space",
+      "pos": "noun",
+      "definition_ar": "فضاء",
+      "example_sentence": "Space is very dark and big.",
+      "tier": "core"
+    },
+    {
+      "word": "star",
+      "pos": "noun",
+      "definition_ar": "نجمة",
+      "example_sentence": "I can see a star at night.",
+      "tier": "core"
+    },
+    {
+      "word": "supports",
+      "pos": "verb",
+      "definition_ar": "يدعم، يساند",
+      "example_sentence": "My family supports my decision to study English.",
+      "tier": "core"
+    },
+    {
+      "word": "telescope",
+      "pos": "noun",
+      "definition_ar": "تلسكوب",
+      "example_sentence": "He looks at stars with a telescope.",
+      "tier": "core"
+    },
+    {
+      "word": "tiny",
+      "pos": "adjective",
+      "definition_ar": "صغير جداً",
+      "example_sentence": "Stars look tiny from Earth.",
+      "tier": "core"
+    },
+    {
+      "word": "transport",
+      "pos": "verb",
+      "definition_ar": "ينقل، يوصل",
+      "example_sentence": "Buses transport students to school every day.",
+      "tier": "core"
+    },
+    {
+      "word": "universe",
+      "pos": "noun",
+      "definition_ar": "كون",
+      "example_sentence": "The universe is very big.",
+      "tier": "core"
+    },
+    {
+      "word": "valuable",
+      "pos": "adjective",
+      "definition_ar": "قيم، ثمين",
+      "example_sentence": "My grandmother's ring is very valuable.",
+      "tier": "core"
+    },
+    {
+      "word": "astronomer",
+      "pos": "noun",
+      "definition_ar": "عالم فلك",
+      "example_sentence": "The astronomer studies stars.",
+      "tier": "extended"
+    },
+    {
+      "word": "atmosphere",
+      "pos": "noun",
+      "definition_ar": "غلاف جوي",
+      "example_sentence": "Earth has a thick atmosphere.",
+      "tier": "extended"
+    },
+    {
+      "word": "comet",
+      "pos": "noun",
+      "definition_ar": "مذنب",
+      "example_sentence": "The comet has a long tail.",
+      "tier": "extended"
+    },
+    {
+      "word": "expand",
+      "pos": "verb",
+      "definition_ar": "يتوسع",
+      "example_sentence": "The universe continues to expand.",
+      "tier": "extended"
+    },
+    {
+      "word": "galaxy",
+      "pos": "noun",
+      "definition_ar": "مجرة",
+      "example_sentence": "Our galaxy is the Milky Way.",
+      "tier": "extended"
+    },
+    {
+      "word": "lunar",
+      "pos": "adjective",
+      "definition_ar": "قمري",
+      "example_sentence": "It was a lunar eclipse.",
+      "tier": "extended"
+    },
+    {
+      "word": "mission",
+      "pos": "noun",
+      "definition_ar": "مهمة",
+      "example_sentence": "The space mission took three days.",
+      "tier": "extended"
+    },
+    {
+      "word": "mysterious",
+      "pos": "adjective",
+      "definition_ar": "غامض",
+      "example_sentence": "Space is mysterious and beautiful.",
+      "tier": "extended"
+    },
+    {
+      "word": "observe",
+      "pos": "verb",
+      "definition_ar": "يراقب",
+      "example_sentence": "Scientists observe the sky at night.",
+      "tier": "extended"
+    },
+    {
+      "word": "rotate",
+      "pos": "verb",
+      "definition_ar": "يدور حول نفسه",
+      "example_sentence": "The Earth rotates every 24 hours.",
+      "tier": "extended"
+    },
+    {
+      "word": "scientific",
+      "pos": "adjective",
+      "definition_ar": "علمي",
+      "example_sentence": "This is a scientific fact.",
+      "tier": "extended"
+    },
+    {
+      "word": "solar",
+      "pos": "adjective",
+      "definition_ar": "شمسي",
+      "example_sentence": "We live in the solar system.",
+      "tier": "extended"
+    },
+    {
+      "word": "visible",
+      "pos": "adjective",
+      "definition_ar": "مرئي",
+      "example_sentence": "The moon is visible tonight.",
+      "tier": "extended"
+    },
+    {
+      "word": "weightless",
+      "pos": "adjective",
+      "definition_ar": "عديم الوزن",
+      "example_sentence": "Astronauts feel weightless in space.",
+      "tier": "extended"
+    },
+    {
+      "word": "asteroid",
+      "pos": "noun",
+      "definition_ar": "كويكب",
+      "example_sentence": "The asteroid passed near Earth.",
+      "tier": "mastery"
+    },
+    {
+      "word": "calculate",
+      "pos": "verb",
+      "definition_ar": "يحسب",
+      "example_sentence": "Scientists calculate the distance.",
+      "tier": "mastery"
+    },
+    {
+      "word": "constellation",
+      "pos": "noun",
+      "definition_ar": "كوكبة",
+      "example_sentence": "I can see one constellation.",
+      "tier": "mastery"
+    },
+    {
+      "word": "crater",
+      "pos": "noun",
+      "definition_ar": "فوهة",
+      "example_sentence": "The moon has a big crater.",
+      "tier": "mastery"
+    },
+    {
+      "word": "discovery",
+      "pos": "noun",
+      "definition_ar": "اكتشاف",
+      "example_sentence": "It was a great discovery.",
+      "tier": "mastery"
+    },
+    {
+      "word": "existence",
+      "pos": "noun",
+      "definition_ar": "وجود",
+      "example_sentence": "They proved the existence of water.",
+      "tier": "mastery"
+    },
+    {
+      "word": "infinite",
+      "pos": "adjective",
+      "definition_ar": "لا نهائي",
+      "example_sentence": "Space seems infinite.",
+      "tier": "mastery"
+    },
+    {
+      "word": "meteor",
+      "pos": "noun",
+      "definition_ar": "نيزك",
+      "example_sentence": "A meteor fell from the sky.",
+      "tier": "mastery"
+    },
+    {
+      "word": "probe",
+      "pos": "noun",
+      "definition_ar": "مسبار",
+      "example_sentence": "The probe reached Jupiter.",
+      "tier": "mastery"
+    },
+    {
+      "word": "spacecraft",
+      "pos": "noun",
+      "definition_ar": "مركبة فضائية",
+      "example_sentence": "The spacecraft reached Mars.",
+      "tier": "mastery"
+    },
+    {
+      "word": "transmit",
+      "pos": "verb",
+      "definition_ar": "يُرسل",
+      "example_sentence": "The satellite transmits signals.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "facd74da-54a6-453e-baed-aa995011718e",
+      "label": "A",
+      "title": "Journey to the Stars",
+      "content": {
+        "paragraphs": [
+          "Space exploration has always *fascinated* people around the world. For thousands of years, humans looked up at the night sky and wondered what was beyond Earth. Today, we are living in an exciting time when space travel is becoming real.",
+          "Modern space exploration began in the 1950s when the first satellites were *launched* into space. Since then, astronauts have traveled to the moon, and *powerful* rockets have carried spacecraft to distant planets. The International Space Station orbits Earth every 90 minutes, and astronauts live there for months at a time. They conduct important *experiments* and take amazing photographs of our planet.",
+          "Today, space agencies from many countries work together on space missions. NASA from America, ESA from Europe, and other organizations *collaborate* to explore Mars, Jupiter, and beyond. These missions *require* years of planning and billions of dollars, but they help us understand our universe better. Scientists have discovered that Mars once had water, and they continue to search for signs of life on other planets.",
+          "Private companies are also joining space exploration. Companies like SpaceX have made space travel more *affordable* and accessible. They can now *transport* astronauts to the space station and bring them back safely to Earth. Some companies are even planning tourist trips to space for ordinary people.",
+          "Space exploration *benefits* everyone on Earth. Satellites help us communicate, predict weather, and navigate with GPS. Medical research in space has led to new treatments for diseases. As we continue to explore space, we *discover* new technologies that improve life on our home planet. The future of space exploration looks very bright, and perhaps one day, humans will live on other worlds."
+        ]
+      },
+      "word_count": 312
+    },
+    {
+      "id": "d7fa776f-f0dc-4585-a3ea-1046ef633e73",
+      "label": "B",
+      "title": "Saudi Arabia Reaches for the Stars",
+      "content": {
+        "paragraphs": [
+          "Saudi Arabia is making *impressive* progress in space exploration. The Kingdom has big dreams and *solid* plans for the future. In 2023, two Saudi astronauts traveled to the International Space Station. Rayyanah Barnawi became the first Saudi woman in space, and Ali Alqarni joined her on this historic mission.",
+          "The Saudi Space Commission *manages* all space activities in the country. They work *carefully* to develop new technologies and train skilled people. The commission has many *exciting* projects planned for the next ten years. They want to build satellites, study Earth from space, and help other countries with space research.",
+          "Saudi astronauts do *important* work during their space missions. They conduct scientific experiments and take photos of Earth. Rayyanah Barnawi performed medical research in space that could help people on Earth. She studied how the human body changes in zero gravity. This research is *valuable* for future space travelers.",
+          "The Kingdom also *supports* young people who want to study space science. Universities now offer special programs about astronomy and space technology. Students can learn about rocket design, satellite communication, and space medicine. Many young Saudis *dream* of becoming astronauts or space engineers.",
+          "Saudi Arabia's space program shows the world that the Kingdom is ready for the future. The country *invests* billions of dollars in space technology every year. By 2030, Saudi Arabia wants to be a leader in space exploration in the Middle East. This ambitious goal matches Vision 2030's plan to diversify the economy and build new industries."
+        ]
+      },
+      "word_count": 347
+    }
+  ],
+  "grammar": {
+    "topic_name_en": "past negative/questions",
+    "topic_name_ar": "past negative/questions",
+    "explanation_content": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "النفي: didn't + الفعل في شكله الأساسي<br>السؤال: Did + الفاعل + الفعل في شكله الأساسي<br>مهم: بعد did أو didn't نستخدم الفعل في شكله الأساسي وليس الماضي",
+          "content_en": "<b>Past Simple Negative and Questions</b><br><br>Look at these examples:<br>• The rocket <b>did not land</b> on Mars yesterday.<br>• <b>Did</b> the astronaut <b>walk</b> on the moon?<br>• We <b>didn't see</b> any stars last night.<br><br><b>How to make Past Simple negative:</b><br>Use 'did not' (didn't) + base form of the verb<br>Example: The satellite didn't work properly.<br><br><b>How to make Past Simple questions:</b><br>Use 'Did' + subject + base form of the verb + ?<br>Example: Did NASA launch the rocket?<br><br><b>Important:</b> After 'did' and 'didn't', always use the base form of the verb (not past tense)."
+        },
+        {
+          "type": "formula",
+          "content": "Negative: Subject + didn't + base verb<br>Question: Did + subject + base verb + ?"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "The astronauts didn't return to Earth yesterday.",
+              "highlight": "didn't return",
+              "translation_ar": "لم يعد رواد الفضاء إلى الأرض أمس"
+            },
+            {
+              "sentence": "Did you watch the rocket launch?",
+              "highlight": "Did you watch",
+              "translation_ar": "هل شاهدت إطلاق الصاروخ؟"
+            },
+            {
+              "sentence": "The spaceship didn't reach the moon.",
+              "highlight": "didn't reach",
+              "translation_ar": "لم تصل المركبة الفضائية إلى القمر"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "He didn't went to the space center.",
+              "correct": "He didn't go to the space center.",
+              "explanation_ar": "بعد didn't نستخدم الفعل الأساسي وليس الماضي"
+            },
+            {
+              "wrong": "Did he went to see the rocket?",
+              "correct": "Did he go to see the rocket?",
+              "explanation_ar": "بعد Did نستخدم الفعل الأساسي"
+            },
+            {
+              "wrong": "They no visited the space museum.",
+              "correct": "They didn't visit the space museum.",
+              "explanation_ar": "نستخدم didn't وليس no للنفي في الماضي"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

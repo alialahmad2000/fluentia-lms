@@ -1,0 +1,512 @@
+{
+  "unit": {
+    "id": "f3a651e1-3ae8-4028-a5fa-42e44f5af75b",
+    "unit_number": 7,
+    "title_en": "Sports Stars",
+    "title_ar": "نجوم الرياضة"
+  },
+  "vocabulary": [
+    {
+      "word": "athlete",
+      "pos": "noun",
+      "definition_ar": "رياضي",
+      "example_sentence": "The athlete runs every day.",
+      "tier": "core"
+    },
+    {
+      "word": "brave",
+      "pos": "adjective",
+      "definition_ar": "شجاع، جريء، لا يخاف من الخطر",
+      "example_sentence": "The brave firefighter saved the cat.",
+      "tier": "core"
+    },
+    {
+      "word": "brave",
+      "pos": "adjective",
+      "definition_ar": "شجاع، جريء",
+      "example_sentence": "The brave firefighter saved the cat from the tree.",
+      "tier": "core"
+    },
+    {
+      "word": "catch",
+      "pos": "verb",
+      "definition_ar": "يمسك",
+      "example_sentence": "He can catch the ball.",
+      "tier": "core"
+    },
+    {
+      "word": "champion",
+      "pos": "noun",
+      "definition_ar": "بطل",
+      "example_sentence": "He is the new champion.",
+      "tier": "core"
+    },
+    {
+      "word": "champions",
+      "pos": "noun",
+      "definition_ar": "أبطال، الفائزون",
+      "example_sentence": "The basketball champions won the gold medal.",
+      "tier": "core"
+    },
+    {
+      "word": "coach",
+      "pos": "noun",
+      "definition_ar": "مدرب",
+      "example_sentence": "The coach trains the team.",
+      "tier": "core"
+    },
+    {
+      "word": "compete",
+      "pos": "verb",
+      "definition_ar": "يتنافس، يشارك في مسابقة",
+      "example_sentence": "Ten students will compete in the spelling contest.",
+      "tier": "core"
+    },
+    {
+      "word": "dramatic",
+      "pos": "adjective",
+      "definition_ar": "مثير، كبير ومفاجئ، ملحوظ بشكل كبير",
+      "example_sentence": "There was a dramatic change in the weather today.",
+      "tier": "core"
+    },
+    {
+      "word": "earn",
+      "pos": "verb",
+      "definition_ar": "يكسب، يحصل على المال من العمل",
+      "example_sentence": "My sister earns money by teaching English.",
+      "tier": "core"
+    },
+    {
+      "word": "final",
+      "pos": "adjective",
+      "definition_ar": "نهائي",
+      "example_sentence": "This is the final match.",
+      "tier": "core"
+    },
+    {
+      "word": "fit",
+      "pos": "adjective",
+      "definition_ar": "لائق بدنياً",
+      "example_sentence": "The athlete is very fit.",
+      "tier": "core"
+    },
+    {
+      "word": "goal",
+      "pos": "noun",
+      "definition_ar": "هدف",
+      "example_sentence": "He scored a goal.",
+      "tier": "core"
+    },
+    {
+      "word": "hero",
+      "pos": "noun",
+      "definition_ar": "بطل، شخص يُعجب به",
+      "example_sentence": "The doctor is a hero because he helps sick people.",
+      "tier": "core"
+    },
+    {
+      "word": "incredible",
+      "pos": "adjective",
+      "definition_ar": "مذهل، رائع، صعب التصديق",
+      "example_sentence": "The view from the mountain was incredible.",
+      "tier": "core"
+    },
+    {
+      "word": "inspire",
+      "pos": "verb",
+      "definition_ar": "يلهم، يشجع، يحفز شخصاً لفعل شيء",
+      "example_sentence": "My teacher inspires me to study harder.",
+      "tier": "core"
+    },
+    {
+      "word": "inspire",
+      "pos": "verb",
+      "definition_ar": "يلهم، يحفز",
+      "example_sentence": "My teacher inspires me to study English every day.",
+      "tier": "core"
+    },
+    {
+      "word": "kick",
+      "pos": "verb",
+      "definition_ar": "يركل",
+      "example_sentence": "He kicked the ball hard.",
+      "tier": "core"
+    },
+    {
+      "word": "lose",
+      "pos": "verb",
+      "definition_ar": "يخسر",
+      "example_sentence": "They lost the game.",
+      "tier": "core"
+    },
+    {
+      "word": "match",
+      "pos": "noun",
+      "definition_ar": "مباراة",
+      "example_sentence": "The match starts at five.",
+      "tier": "core"
+    },
+    {
+      "word": "medal",
+      "pos": "noun",
+      "definition_ar": "ميدالية",
+      "example_sentence": "She won a gold medal.",
+      "tier": "core"
+    },
+    {
+      "word": "popular",
+      "pos": "adjective",
+      "definition_ar": "شعبي، محبوب من الكثيرين",
+      "example_sentence": "Pizza is a popular food among teenagers.",
+      "tier": "core"
+    },
+    {
+      "word": "powerful",
+      "pos": "adjective",
+      "definition_ar": "قوي، مؤثر، له القدرة على التأثير",
+      "example_sentence": "The powerful wind broke the tree.",
+      "tier": "core"
+    },
+    {
+      "word": "race",
+      "pos": "noun",
+      "definition_ar": "سباق",
+      "example_sentence": "He won the race.",
+      "tier": "core"
+    },
+    {
+      "word": "responsibility",
+      "pos": "noun",
+      "definition_ar": "مسؤولية، واجب، مهمة يجب القيام بها",
+      "example_sentence": "It's your responsibility to feed the cat every day.",
+      "tier": "core"
+    },
+    {
+      "word": "score",
+      "pos": "verb",
+      "definition_ar": "يسجل",
+      "example_sentence": "She scored two goals.",
+      "tier": "core"
+    },
+    {
+      "word": "scored",
+      "pos": "verb",
+      "definition_ar": "سجل نقاط أو أهداف",
+      "example_sentence": "The player scored three goals in the match.",
+      "tier": "core"
+    },
+    {
+      "word": "significant",
+      "pos": "adjective",
+      "definition_ar": "مهم، ذو معنى، له قيمة كبيرة",
+      "example_sentence": "Graduating from school is a significant day for students.",
+      "tier": "core"
+    },
+    {
+      "word": "stadium",
+      "pos": "noun",
+      "definition_ar": "ملعب",
+      "example_sentence": "The stadium is very big.",
+      "tier": "core"
+    },
+    {
+      "word": "successfully",
+      "pos": "adverb",
+      "definition_ar": "بنجاح، بشكل ناجح",
+      "example_sentence": "She successfully finished her homework before dinner.",
+      "tier": "core"
+    },
+    {
+      "word": "talented",
+      "pos": "adjective",
+      "definition_ar": "موهوب، يملك قدرة طبيعية",
+      "example_sentence": "She is a talented singer who can sing beautifully.",
+      "tier": "core"
+    },
+    {
+      "word": "throw",
+      "pos": "verb",
+      "definition_ar": "يرمي",
+      "example_sentence": "She threw the ball far.",
+      "tier": "core"
+    },
+    {
+      "word": "train",
+      "pos": "verb",
+      "definition_ar": "يتدرب، يتمرن لتحسين المهارات",
+      "example_sentence": "I train at the gym three times a week.",
+      "tier": "core"
+    },
+    {
+      "word": "train",
+      "pos": "verb",
+      "definition_ar": "يتدرب، يدرِّب",
+      "example_sentence": "I train at the gym every morning.",
+      "tier": "core"
+    },
+    {
+      "word": "win",
+      "pos": "verb",
+      "definition_ar": "يفوز",
+      "example_sentence": "Our team will win today.",
+      "tier": "core"
+    },
+    {
+      "word": "athletic",
+      "pos": "adjective",
+      "definition_ar": "رياضي",
+      "example_sentence": "He has an athletic body.",
+      "tier": "extended"
+    },
+    {
+      "word": "captain",
+      "pos": "noun",
+      "definition_ar": "قائد",
+      "example_sentence": "The captain leads the team.",
+      "tier": "extended"
+    },
+    {
+      "word": "cheer",
+      "pos": "verb",
+      "definition_ar": "يشجع",
+      "example_sentence": "The fans cheer for the team.",
+      "tier": "extended"
+    },
+    {
+      "word": "competitive",
+      "pos": "adjective",
+      "definition_ar": "تنافسي",
+      "example_sentence": "The game was very competitive.",
+      "tier": "extended"
+    },
+    {
+      "word": "defeat",
+      "pos": "verb",
+      "definition_ar": "يهزم",
+      "example_sentence": "They defeated the other team.",
+      "tier": "extended"
+    },
+    {
+      "word": "defend",
+      "pos": "verb",
+      "definition_ar": "يدافع",
+      "example_sentence": "The player defends the goal.",
+      "tier": "extended"
+    },
+    {
+      "word": "fan",
+      "pos": "noun",
+      "definition_ar": "مشجع",
+      "example_sentence": "The fan cheered loudly.",
+      "tier": "extended"
+    },
+    {
+      "word": "marathon",
+      "pos": "noun",
+      "definition_ar": "ماراثون",
+      "example_sentence": "She ran the full marathon.",
+      "tier": "extended"
+    },
+    {
+      "word": "opponent",
+      "pos": "noun",
+      "definition_ar": "خصم",
+      "example_sentence": "The opponent was very strong.",
+      "tier": "extended"
+    },
+    {
+      "word": "penalty",
+      "pos": "noun",
+      "definition_ar": "ركلة جزاء",
+      "example_sentence": "He scored from a penalty.",
+      "tier": "extended"
+    },
+    {
+      "word": "referee",
+      "pos": "noun",
+      "definition_ar": "حكم",
+      "example_sentence": "The referee stopped the game.",
+      "tier": "extended"
+    },
+    {
+      "word": "semifinal",
+      "pos": "noun",
+      "definition_ar": "نصف النهائي",
+      "example_sentence": "They won the semifinal.",
+      "tier": "extended"
+    },
+    {
+      "word": "sprint",
+      "pos": "verb",
+      "definition_ar": "يعدو بسرعة",
+      "example_sentence": "He sprints to the finish line.",
+      "tier": "extended"
+    },
+    {
+      "word": "tournament",
+      "pos": "noun",
+      "definition_ar": "بطولة",
+      "example_sentence": "The tournament is in May.",
+      "tier": "extended"
+    },
+    {
+      "word": "trophy",
+      "pos": "noun",
+      "definition_ar": "كأس",
+      "example_sentence": "The team won the trophy.",
+      "tier": "extended"
+    },
+    {
+      "word": "achieve",
+      "pos": "verb",
+      "definition_ar": "يحقق",
+      "example_sentence": "He achieved his dream.",
+      "tier": "mastery"
+    },
+    {
+      "word": "dedication",
+      "pos": "noun",
+      "definition_ar": "تفاني",
+      "example_sentence": "Success needs dedication.",
+      "tier": "mastery"
+    },
+    {
+      "word": "determination",
+      "pos": "noun",
+      "definition_ar": "عزيمة",
+      "example_sentence": "She has great determination.",
+      "tier": "mastery"
+    },
+    {
+      "word": "endurance",
+      "pos": "noun",
+      "definition_ar": "تحمل",
+      "example_sentence": "Running needs endurance.",
+      "tier": "mastery"
+    },
+    {
+      "word": "legend",
+      "pos": "noun",
+      "definition_ar": "أسطورة",
+      "example_sentence": "He is a football legend.",
+      "tier": "mastery"
+    },
+    {
+      "word": "overcome",
+      "pos": "verb",
+      "definition_ar": "يتغلب على",
+      "example_sentence": "She overcame many challenges.",
+      "tier": "mastery"
+    },
+    {
+      "word": "retire",
+      "pos": "verb",
+      "definition_ar": "يتقاعد",
+      "example_sentence": "The player will retire soon.",
+      "tier": "mastery"
+    },
+    {
+      "word": "sportsmanship",
+      "pos": "noun",
+      "definition_ar": "روح رياضية",
+      "example_sentence": "He showed great sportsmanship.",
+      "tier": "mastery"
+    },
+    {
+      "word": "strategy",
+      "pos": "noun",
+      "definition_ar": "استراتيجية",
+      "example_sentence": "The coach has a good strategy.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "2e2c9994-ce65-4c6a-aa6e-2c83cb190c72",
+      "label": "A",
+      "title": "Saudi Arabia's Rising Sports Stars",
+      "content": {
+        "paragraphs": [
+          "Saudi Arabia is quickly becoming home to many *talented* sports stars. The Kingdom now supports athletes in soccer, tennis, boxing, and many other sports. These *champions* represent their country with pride in international competitions around the world.",
+          "Sarah Al-Attar made history as one of the first Saudi women to *compete* in the Olympics. She ran in the 800-meter race at the 2012 London Olympics. Her *brave* decision opened doors for many other Saudi women athletes. Today, more than 2,000 Saudi women actively participate in organized sports programs across the Kingdom.",
+          "Football remains the most *popular* sport in Saudi Arabia. The national team *successfully* qualified for the 2018 and 2022 World Cups. Captain Salman Al-Faraj became a *hero* to millions of Saudi fans. He *scored* important goals and led his team with great skill. The Saudi Professional League now attracts world-famous players like Cristiano Ronaldo and Karim Benzema.",
+          "The government invests heavily in sports development through Vision 2030. New sports academies *train* young athletes from age six to eighteen. These programs focus on both physical fitness and mental strength. Sports scientists work with coaches to help athletes reach their full potential. The Kingdom spent over $2 billion on sports infrastructure in the past five years.",
+          "Today's Saudi athletes *inspire* the next generation of sports stars. They show that with hard work and dedication, anyone can achieve their dreams. Whether in individual sports like tennis or team sports like basketball, Saudi Arabia continues to produce world-class athletes who make their nation proud."
+        ]
+      },
+      "word_count": 267
+    },
+    {
+      "id": "d060f681-7e1b-405f-9cde-7b59ab1a6354",
+      "label": "B",
+      "title": "Breaking Barriers in Sports",
+      "content": {
+        "paragraphs": [
+          "Sports have always been about pushing limits, but today's female athletes are doing something even more *powerful*. They are breaking down old barriers and showing the world what women can achieve. From tennis courts to soccer fields, these *brave* women are making history every day.",
+          "Sarah Al-Attar made headlines when she became the first Saudi woman to *compete* in track and field at the Olympics in 2012. She ran the 800-meter race in London, and her participation was a *significant* moment for Saudi sports. Today, more Saudi women are following her path. They *train* hard every day, working with coaches and using modern equipment to improve their skills.",
+          "The numbers tell an amazing story. In 2021, women made up 49% of all Olympic athletes, compared to just 23% in 1988. This *dramatic* increase shows how much has changed. Female athletes now *earn* millions of dollars from sponsorships and prize money. Tennis player Naomi Osaka earned $55 million in 2021, making her the highest-paid female athlete in the world.",
+          "These athletes don't just win medals – they *inspire* millions of young girls. When Serena Williams played tennis, she showed *incredible* strength and determination. Her success opened doors for other players from different backgrounds. Similarly, when footballer Megan Rapinoe scored goals for her team, she proved that women's sports could be just as exciting as men's sports.",
+          "Today's sports stars understand their *responsibility* to be role models. They visit schools, support charities, and encourage young people to follow their dreams. Through their hard work and dedication, they are creating a better future for the next generation of athletes."
+        ]
+      },
+      "word_count": 287
+    }
+  ],
+  "grammar": {
+    "topic_name_en": "some/any",
+    "topic_name_ar": "some/any",
+    "explanation_content": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "نستخدم some في الجمل الإيجابية، و any في الجمل السلبية والأسئلة. Some تعني 'بعض' أو 'قليل'، بينما any تُستخدم عندما لا نعرف الكمية أو عندما لا يوجد شيء.",
+          "content_en": "<b>Some/Any</b><br><br><b>Examples:</b><br>• Cristiano Ronaldo has <b>some</b> trophies in his room.<br>• Does Messi have <b>any</b> free time?<br>• The team doesn't have <b>any</b> new players.<br><br><b>Rules:</b><br>We use <b>some</b> in positive sentences (+)<br>We use <b>any</b> in negative sentences (-) and questions (?)<br><br><b>Some</b> = a little bit, a few (but not zero)<br><b>Any</b> = used when we don't know the amount or there is zero"
+        },
+        {
+          "type": "formula",
+          "content": "Positive: Subject + verb + some + noun<br>Negative: Subject + don't/doesn't + verb + any + noun<br>Question: Do/Does + subject + verb + any + noun?"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "Serena Williams has some tennis rackets.",
+              "highlight": "some",
+              "translation_ar": "سيرينا ويليامز لديها بعض مضارب التنس"
+            },
+            {
+              "sentence": "The football player doesn't have any injuries.",
+              "highlight": "any",
+              "translation_ar": "لاعب كرة القدم ليس لديه أي إصابات"
+            },
+            {
+              "sentence": "Do you have any favorite basketball players?",
+              "highlight": "any",
+              "translation_ar": "هل لديك أي لاعبي كرة سلة مفضلين؟"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "Do you have some money?",
+              "correct": "Do you have any money?",
+              "explanation_ar": "في الأسئلة نستخدم any وليس some"
+            },
+            {
+              "wrong": "I don't have some time.",
+              "correct": "I don't have any time.",
+              "explanation_ar": "في الجمل السلبية نستخدم any وليس some"
+            },
+            {
+              "wrong": "He has any trophies.",
+              "correct": "He has some trophies.",
+              "explanation_ar": "في الجمل الإيجابية نستخدم some وليس any"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
