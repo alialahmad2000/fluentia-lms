@@ -1,0 +1,223 @@
+[
+  {
+    "id": "tmpl_reading_weak_close",
+    "match_criteria": { "weakest_skill": "reading", "exam_proximity": "<30d", "band_gap_bucket": "any" },
+    "weekly_schedule": {
+      "sunday":    [{ "task_type": "reading",  "duration_min": 45, "description_ar": "قطعة قراءة كاملة — True/False + MCQ",     "target_lab_route": "/student/ielts/reading" }, { "task_type": "errors", "duration_min": 15, "description_ar": "مراجعة بنك الأخطاء",     "target_lab_route": "/student/ielts/errors/review" }],
+      "monday":    [{ "task_type": "listening", "duration_min": 30, "description_ar": "تدريب استماع — Section 1 و 2",            "target_lab_route": "/student/ielts/listening" }],
+      "tuesday":   [{ "task_type": "reading",  "duration_min": 45, "description_ar": "قطعة قراءة — Matching Headings + TFNG",    "target_lab_route": "/student/ielts/reading" }, { "task_type": "errors", "duration_min": 15, "description_ar": "مراجعة بنك الأخطاء",     "target_lab_route": "/student/ielts/errors/review" }],
+      "wednesday": [{ "task_type": "mock",     "duration_min": 165,"description_ar": "اختبار تجريبي كامل",                       "target_lab_route": "/student/ielts/mock" }],
+      "thursday":  [{ "task_type": "reading",  "duration_min": 30, "description_ar": "تدريب قراءة مكثّف — نوع ضعيفك",           "target_lab_route": "/student/ielts/reading" }, { "task_type": "writing", "duration_min": 40, "description_ar": "كتابة Task 2 — صياغة مقدمة + خاتمة", "target_lab_route": "/student/ielts/writing" }],
+      "friday":    [],
+      "saturday":  [{ "task_type": "mock",     "duration_min": 165,"description_ar": "اختبار تجريبي ثانٍ هذا الأسبوع",           "target_lab_route": "/student/ielts/mock" }]
+    }
+  },
+  {
+    "id": "tmpl_reading_weak_medium",
+    "match_criteria": { "weakest_skill": "reading", "exam_proximity": "30-90d", "band_gap_bucket": "any" },
+    "weekly_schedule": {
+      "sunday":    [{ "task_type": "reading",  "duration_min": 40, "description_ar": "قطعة قراءة + 5 أسئلة متنوعة",             "target_lab_route": "/student/ielts/reading" }],
+      "monday":    [{ "task_type": "errors",   "duration_min": 20, "description_ar": "مراجعة بنك الأخطاء",                       "target_lab_route": "/student/ielts/errors/review" }, { "task_type": "listening", "duration_min": 25, "description_ar": "استماع — Section 3 و 4",        "target_lab_route": "/student/ielts/listening" }],
+      "tuesday":   [{ "task_type": "reading",  "duration_min": 40, "description_ar": "تدريب على Matching + Summary Completion",   "target_lab_route": "/student/ielts/reading" }],
+      "wednesday": [{ "task_type": "writing",  "duration_min": 45, "description_ar": "كتابة Task 1 + مراجعة",                   "target_lab_route": "/student/ielts/writing" }],
+      "thursday":  [{ "task_type": "reading",  "duration_min": 35, "description_ar": "قراءة تحت الضغط الزمني",                  "target_lab_route": "/student/ielts/reading" }, { "task_type": "errors", "duration_min": 15, "description_ar": "مراجعة أخطاء القراءة",   "target_lab_route": "/student/ielts/errors/review" }],
+      "friday":    [],
+      "saturday":  [{ "task_type": "mock",     "duration_min": 165,"description_ar": "اختبار تجريبي أسبوعي",                     "target_lab_route": "/student/ielts/mock" }]
+    }
+  },
+  {
+    "id": "tmpl_reading_weak_long",
+    "match_criteria": { "weakest_skill": "reading", "exam_proximity": ">90d", "band_gap_bucket": "any" },
+    "weekly_schedule": {
+      "sunday":    [{ "task_type": "reading",  "duration_min": 30, "description_ar": "قراءة — True/False/Not Given",             "target_lab_route": "/student/ielts/reading" }],
+      "monday":    [{ "task_type": "listening","duration_min": 25, "description_ar": "استماع تأسيسي",                            "target_lab_route": "/student/ielts/listening" }],
+      "tuesday":   [{ "task_type": "reading",  "duration_min": 30, "description_ar": "قراءة — Matching Headings",               "target_lab_route": "/student/ielts/reading" }, { "task_type": "errors", "duration_min": 15, "description_ar": "مراجعة الأخطاء",         "target_lab_route": "/student/ielts/errors/review" }],
+      "wednesday": [{ "task_type": "writing",  "duration_min": 40, "description_ar": "كتابة Task 2 — بناء الحجة",              "target_lab_route": "/student/ielts/writing" }],
+      "thursday":  [{ "task_type": "reading",  "duration_min": 30, "description_ar": "قراءة — MCQ + Short Answers",             "target_lab_route": "/student/ielts/reading" }],
+      "friday":    [],
+      "saturday":  [{ "task_type": "errors",   "duration_min": 20, "description_ar": "مراجعة شاملة لبنك الأخطاء",               "target_lab_route": "/student/ielts/errors/review" }]
+    }
+  },
+  {
+    "id": "tmpl_reading_weak_none",
+    "match_criteria": { "weakest_skill": "reading", "exam_proximity": "none", "band_gap_bucket": "any" },
+    "weekly_schedule": {
+      "sunday":    [{ "task_type": "reading",  "duration_min": 35, "description_ar": "قراءة متنوعة الأنواع",                    "target_lab_route": "/student/ielts/reading" }],
+      "monday":    [{ "task_type": "listening","duration_min": 25, "description_ar": "استماع تأسيسي",                            "target_lab_route": "/student/ielts/listening" }],
+      "tuesday":   [{ "task_type": "reading",  "duration_min": 35, "description_ar": "تدريب على التقنيات المتقدمة",              "target_lab_route": "/student/ielts/reading" }],
+      "wednesday": [{ "task_type": "errors",   "duration_min": 20, "description_ar": "مراجعة الأخطاء",                           "target_lab_route": "/student/ielts/errors/review" }],
+      "thursday":  [{ "task_type": "reading",  "duration_min": 30, "description_ar": "قراءة — ربط الأفكار",                    "target_lab_route": "/student/ielts/reading" }],
+      "friday":    [],
+      "saturday":  [{ "task_type": "speaking", "duration_min": 30, "description_ar": "تدريب محادثة لتعزيز المفردات",             "target_lab_route": "/student/ielts/speaking" }]
+    }
+  },
+  {
+    "id": "tmpl_listening_weak_close",
+    "match_criteria": { "weakest_skill": "listening", "exam_proximity": "<30d", "band_gap_bucket": "any" },
+    "weekly_schedule": {
+      "sunday":    [{ "task_type": "listening","duration_min": 45, "description_ar": "استماع مكثّف — جميع الأقسام",              "target_lab_route": "/student/ielts/listening" }, { "task_type": "errors", "duration_min": 15, "description_ar": "مراجعة أخطاء الاستماع", "target_lab_route": "/student/ielts/errors/review" }],
+      "monday":    [{ "task_type": "reading",  "duration_min": 30, "description_ar": "قطعة قراءة — صيانة المستوى",              "target_lab_route": "/student/ielts/reading" }],
+      "tuesday":   [{ "task_type": "listening","duration_min": 45, "description_ar": "استماع — Section 3 و 4 (الأصعب)",         "target_lab_route": "/student/ielts/listening" }, { "task_type": "errors", "duration_min": 15, "description_ar": "مراجعة الأخطاء",       "target_lab_route": "/student/ielts/errors/review" }],
+      "wednesday": [{ "task_type": "mock",     "duration_min": 165,"description_ar": "اختبار تجريبي كامل",                       "target_lab_route": "/student/ielts/mock" }],
+      "thursday":  [{ "task_type": "listening","duration_min": 35, "description_ar": "استماع — تركيز على note completion",       "target_lab_route": "/student/ielts/listening" }, { "task_type": "writing","duration_min": 35, "description_ar": "كتابة Task 1",         "target_lab_route": "/student/ielts/writing" }],
+      "friday":    [],
+      "saturday":  [{ "task_type": "mock",     "duration_min": 165,"description_ar": "اختبار تجريبي ثانٍ",                       "target_lab_route": "/student/ielts/mock" }]
+    }
+  },
+  {
+    "id": "tmpl_listening_weak_medium",
+    "match_criteria": { "weakest_skill": "listening", "exam_proximity": "30-90d", "band_gap_bucket": "any" },
+    "weekly_schedule": {
+      "sunday":    [{ "task_type": "listening","duration_min": 35, "description_ar": "استماع — Section 1 و 2",                  "target_lab_route": "/student/ielts/listening" }],
+      "monday":    [{ "task_type": "errors",   "duration_min": 20, "description_ar": "مراجعة بنك الأخطاء",                       "target_lab_route": "/student/ielts/errors/review" }, { "task_type": "reading", "duration_min": 25, "description_ar": "قراءة — صيانة",       "target_lab_route": "/student/ielts/reading" }],
+      "tuesday":   [{ "task_type": "listening","duration_min": 35, "description_ar": "استماع — Section 3 و 4",                  "target_lab_route": "/student/ielts/listening" }],
+      "wednesday": [{ "task_type": "speaking", "duration_min": 30, "description_ar": "محادثة Part 1 — تطوير المفردات",           "target_lab_route": "/student/ielts/speaking" }],
+      "thursday":  [{ "task_type": "listening","duration_min": 30, "description_ar": "استماع تحت الضغط",                         "target_lab_route": "/student/ielts/listening" }, { "task_type": "errors", "duration_min": 15, "description_ar": "مراجعة الأخطاء",      "target_lab_route": "/student/ielts/errors/review" }],
+      "friday":    [],
+      "saturday":  [{ "task_type": "mock",     "duration_min": 165,"description_ar": "اختبار تجريبي أسبوعي",                     "target_lab_route": "/student/ielts/mock" }]
+    }
+  },
+  {
+    "id": "tmpl_listening_weak_long",
+    "match_criteria": { "weakest_skill": "listening", "exam_proximity": ">90d", "band_gap_bucket": "any" },
+    "weekly_schedule": {
+      "sunday":    [{ "task_type": "listening","duration_min": 30, "description_ar": "استماع تأسيسي — Section 1",               "target_lab_route": "/student/ielts/listening" }],
+      "monday":    [{ "task_type": "reading",  "duration_min": 25, "description_ar": "قراءة سريعة",                              "target_lab_route": "/student/ielts/reading" }],
+      "tuesday":   [{ "task_type": "listening","duration_min": 30, "description_ar": "استماع — Section 2 و 3",                  "target_lab_route": "/student/ielts/listening" }, { "task_type": "errors", "duration_min": 15, "description_ar": "مراجعة الأخطاء",      "target_lab_route": "/student/ielts/errors/review" }],
+      "wednesday": [{ "task_type": "writing",  "duration_min": 40, "description_ar": "كتابة Task 2",                            "target_lab_route": "/student/ielts/writing" }],
+      "thursday":  [{ "task_type": "listening","duration_min": 30, "description_ar": "استماع — Section 4",                      "target_lab_route": "/student/ielts/listening" }],
+      "friday":    [],
+      "saturday":  [{ "task_type": "errors",   "duration_min": 20, "description_ar": "مراجعة شاملة",                             "target_lab_route": "/student/ielts/errors/review" }]
+    }
+  },
+  {
+    "id": "tmpl_listening_weak_none",
+    "match_criteria": { "weakest_skill": "listening", "exam_proximity": "none", "band_gap_bucket": "any" },
+    "weekly_schedule": {
+      "sunday":    [{ "task_type": "listening","duration_min": 30, "description_ar": "استماع متنوع الأنواع",                    "target_lab_route": "/student/ielts/listening" }],
+      "monday":    [{ "task_type": "reading",  "duration_min": 25, "description_ar": "قراءة سريعة",                              "target_lab_route": "/student/ielts/reading" }],
+      "tuesday":   [{ "task_type": "listening","duration_min": 30, "description_ar": "استماع — تقوية Section 4",                "target_lab_route": "/student/ielts/listening" }],
+      "wednesday": [{ "task_type": "errors",   "duration_min": 20, "description_ar": "مراجعة الأخطاء",                           "target_lab_route": "/student/ielts/errors/review" }],
+      "thursday":  [{ "task_type": "listening","duration_min": 25, "description_ar": "استماع + تدريب على التدوين",               "target_lab_route": "/student/ielts/listening" }],
+      "friday":    [],
+      "saturday":  [{ "task_type": "writing",  "duration_min": 40, "description_ar": "كتابة Task 1 أو 2",                       "target_lab_route": "/student/ielts/writing" }]
+    }
+  },
+  {
+    "id": "tmpl_writing_weak_close",
+    "match_criteria": { "weakest_skill": "writing", "exam_proximity": "<30d", "band_gap_bucket": "any" },
+    "weekly_schedule": {
+      "sunday":    [{ "task_type": "writing",  "duration_min": 60, "description_ar": "كتابة Task 1 + Task 2 تحت الضغط",         "target_lab_route": "/student/ielts/writing" }, { "task_type": "errors", "duration_min": 15, "description_ar": "مراجعة بنك الأخطاء",    "target_lab_route": "/student/ielts/errors/review" }],
+      "monday":    [{ "task_type": "reading",  "duration_min": 30, "description_ar": "قراءة — نماذج كتابة متقدمة",              "target_lab_route": "/student/ielts/reading" }],
+      "tuesday":   [{ "task_type": "writing",  "duration_min": 50, "description_ar": "كتابة Task 2 — argumentation + coherence", "target_lab_route": "/student/ielts/writing" }],
+      "wednesday": [{ "task_type": "mock",     "duration_min": 165,"description_ar": "اختبار تجريبي كامل",                       "target_lab_route": "/student/ielts/mock" }],
+      "thursday":  [{ "task_type": "writing",  "duration_min": 45, "description_ar": "كتابة Task 1 — academic + graphs",         "target_lab_route": "/student/ielts/writing" }, { "task_type": "errors","duration_min": 15, "description_ar": "مراجعة الأخطاء",        "target_lab_route": "/student/ielts/errors/review" }],
+      "friday":    [],
+      "saturday":  [{ "task_type": "mock",     "duration_min": 165,"description_ar": "اختبار تجريبي ثانٍ",                       "target_lab_route": "/student/ielts/mock" }]
+    }
+  },
+  {
+    "id": "tmpl_writing_weak_medium",
+    "match_criteria": { "weakest_skill": "writing", "exam_proximity": "30-90d", "band_gap_bucket": "any" },
+    "weekly_schedule": {
+      "sunday":    [{ "task_type": "writing",  "duration_min": 50, "description_ar": "كتابة Task 2 مع مراجعة",                   "target_lab_route": "/student/ielts/writing" }],
+      "monday":    [{ "task_type": "listening","duration_min": 25, "description_ar": "استماع — صيانة",                           "target_lab_route": "/student/ielts/listening" }, { "task_type": "errors","duration_min": 15, "description_ar": "مراجعة الأخطاء",       "target_lab_route": "/student/ielts/errors/review" }],
+      "tuesday":   [{ "task_type": "writing",  "duration_min": 45, "description_ar": "كتابة Task 1 — رسوم بيانية",              "target_lab_route": "/student/ielts/writing" }],
+      "wednesday": [{ "task_type": "reading",  "duration_min": 30, "description_ar": "قراءة — صيانة",                           "target_lab_route": "/student/ielts/reading" }],
+      "thursday":  [{ "task_type": "writing",  "duration_min": 40, "description_ar": "كتابة — تركيز على Coherence + Cohesion",   "target_lab_route": "/student/ielts/writing" }, { "task_type": "errors","duration_min": 15, "description_ar": "مراجعة الأخطاء",       "target_lab_route": "/student/ielts/errors/review" }],
+      "friday":    [],
+      "saturday":  [{ "task_type": "mock",     "duration_min": 165,"description_ar": "اختبار تجريبي أسبوعي",                     "target_lab_route": "/student/ielts/mock" }]
+    }
+  },
+  {
+    "id": "tmpl_writing_weak_long",
+    "match_criteria": { "weakest_skill": "writing", "exam_proximity": ">90d", "band_gap_bucket": "any" },
+    "weekly_schedule": {
+      "sunday":    [{ "task_type": "writing",  "duration_min": 45, "description_ar": "كتابة Task 2 — تأسيس البنية",              "target_lab_route": "/student/ielts/writing" }],
+      "monday":    [{ "task_type": "reading",  "duration_min": 25, "description_ar": "قراءة — نماذج أكاديمية",                  "target_lab_route": "/student/ielts/reading" }],
+      "tuesday":   [{ "task_type": "writing",  "duration_min": 40, "description_ar": "كتابة Task 1 — أنواع مختلفة",             "target_lab_route": "/student/ielts/writing" }],
+      "wednesday": [{ "task_type": "listening","duration_min": 25, "description_ar": "استماع — صيانة",                           "target_lab_route": "/student/ielts/listening" }, { "task_type": "errors","duration_min": 15, "description_ar": "مراجعة الأخطاء",       "target_lab_route": "/student/ielts/errors/review" }],
+      "thursday":  [{ "task_type": "writing",  "duration_min": 40, "description_ar": "كتابة — Lexical Resource + Grammar",       "target_lab_route": "/student/ielts/writing" }],
+      "friday":    [],
+      "saturday":  [{ "task_type": "errors",   "duration_min": 20, "description_ar": "مراجعة شاملة",                             "target_lab_route": "/student/ielts/errors/review" }]
+    }
+  },
+  {
+    "id": "tmpl_writing_weak_none",
+    "match_criteria": { "weakest_skill": "writing", "exam_proximity": "none", "band_gap_bucket": "any" },
+    "weekly_schedule": {
+      "sunday":    [{ "task_type": "writing",  "duration_min": 45, "description_ar": "كتابة Task 2",                            "target_lab_route": "/student/ielts/writing" }],
+      "monday":    [{ "task_type": "listening","duration_min": 25, "description_ar": "استماع",                                   "target_lab_route": "/student/ielts/listening" }],
+      "tuesday":   [{ "task_type": "writing",  "duration_min": 40, "description_ar": "كتابة Task 1",                            "target_lab_route": "/student/ielts/writing" }],
+      "wednesday": [{ "task_type": "errors",   "duration_min": 20, "description_ar": "مراجعة الأخطاء",                           "target_lab_route": "/student/ielts/errors/review" }],
+      "thursday":  [{ "task_type": "reading",  "duration_min": 25, "description_ar": "قراءة — صيانة",                           "target_lab_route": "/student/ielts/reading" }],
+      "friday":    [],
+      "saturday":  [{ "task_type": "speaking", "duration_min": 30, "description_ar": "محادثة — تطوير الأفكار",                  "target_lab_route": "/student/ielts/speaking" }]
+    }
+  },
+  {
+    "id": "tmpl_speaking_weak_close",
+    "match_criteria": { "weakest_skill": "speaking", "exam_proximity": "<30d", "band_gap_bucket": "any" },
+    "weekly_schedule": {
+      "sunday":    [{ "task_type": "speaking", "duration_min": 45, "description_ar": "محادثة — Parts 1+2+3 كاملة",              "target_lab_route": "/student/ielts/speaking" }, { "task_type": "errors", "duration_min": 15, "description_ar": "مراجعة الأخطاء",       "target_lab_route": "/student/ielts/errors/review" }],
+      "monday":    [{ "task_type": "reading",  "duration_min": 30, "description_ar": "قراءة — توسيع المفردات",                  "target_lab_route": "/student/ielts/reading" }],
+      "tuesday":   [{ "task_type": "speaking", "duration_min": 45, "description_ar": "محادثة — تركيز على الطلاقة",              "target_lab_route": "/student/ielts/speaking" }],
+      "wednesday": [{ "task_type": "mock",     "duration_min": 165,"description_ar": "اختبار تجريبي كامل",                       "target_lab_route": "/student/ielts/mock" }],
+      "thursday":  [{ "task_type": "speaking", "duration_min": 35, "description_ar": "محادثة — Part 2 Cue Card تحت الضغط",      "target_lab_route": "/student/ielts/speaking" }, { "task_type": "errors","duration_min": 15, "description_ar": "مراجعة الأخطاء",        "target_lab_route": "/student/ielts/errors/review" }],
+      "friday":    [],
+      "saturday":  [{ "task_type": "mock",     "duration_min": 165,"description_ar": "اختبار تجريبي ثانٍ",                       "target_lab_route": "/student/ielts/mock" }]
+    }
+  },
+  {
+    "id": "tmpl_speaking_weak_medium",
+    "match_criteria": { "weakest_skill": "speaking", "exam_proximity": "30-90d", "band_gap_bucket": "any" },
+    "weekly_schedule": {
+      "sunday":    [{ "task_type": "speaking", "duration_min": 35, "description_ar": "محادثة Part 1 + Part 3",                  "target_lab_route": "/student/ielts/speaking" }],
+      "monday":    [{ "task_type": "listening","duration_min": 25, "description_ar": "استماع — تطوير النطق",                     "target_lab_route": "/student/ielts/listening" }, { "task_type": "errors","duration_min": 15, "description_ar": "مراجعة الأخطاء",        "target_lab_route": "/student/ielts/errors/review" }],
+      "tuesday":   [{ "task_type": "speaking", "duration_min": 35, "description_ar": "محادثة Part 2 — Cue Card تدريب",          "target_lab_route": "/student/ielts/speaking" }],
+      "wednesday": [{ "task_type": "reading",  "duration_min": 30, "description_ar": "قراءة — أفكار لـPart 3",                 "target_lab_route": "/student/ielts/reading" }],
+      "thursday":  [{ "task_type": "speaking", "duration_min": 30, "description_ar": "محادثة — تركيز على النطق",               "target_lab_route": "/student/ielts/speaking" }, { "task_type": "errors","duration_min": 15, "description_ar": "مراجعة الأخطاء",        "target_lab_route": "/student/ielts/errors/review" }],
+      "friday":    [],
+      "saturday":  [{ "task_type": "mock",     "duration_min": 165,"description_ar": "اختبار تجريبي أسبوعي",                     "target_lab_route": "/student/ielts/mock" }]
+    }
+  },
+  {
+    "id": "tmpl_speaking_weak_long",
+    "match_criteria": { "weakest_skill": "speaking", "exam_proximity": ">90d", "band_gap_bucket": "any" },
+    "weekly_schedule": {
+      "sunday":    [{ "task_type": "speaking", "duration_min": 30, "description_ar": "محادثة Part 1 — تأسيس",                   "target_lab_route": "/student/ielts/speaking" }],
+      "monday":    [{ "task_type": "listening","duration_min": 25, "description_ar": "استماع",                                   "target_lab_route": "/student/ielts/listening" }],
+      "tuesday":   [{ "task_type": "speaking", "duration_min": 30, "description_ar": "محادثة Part 2 و 3",                       "target_lab_route": "/student/ielts/speaking" }, { "task_type": "errors","duration_min": 15, "description_ar": "مراجعة الأخطاء",        "target_lab_route": "/student/ielts/errors/review" }],
+      "wednesday": [{ "task_type": "writing",  "duration_min": 40, "description_ar": "كتابة — تعزيز المفردات للمحادثة",         "target_lab_route": "/student/ielts/writing" }],
+      "thursday":  [{ "task_type": "speaking", "duration_min": 25, "description_ar": "محادثة — ثقة بالنفس + إدارة الوقت",      "target_lab_route": "/student/ielts/speaking" }],
+      "friday":    [],
+      "saturday":  [{ "task_type": "errors",   "duration_min": 20, "description_ar": "مراجعة شاملة",                             "target_lab_route": "/student/ielts/errors/review" }]
+    }
+  },
+  {
+    "id": "tmpl_speaking_weak_none",
+    "match_criteria": { "weakest_skill": "speaking", "exam_proximity": "none", "band_gap_bucket": "any" },
+    "weekly_schedule": {
+      "sunday":    [{ "task_type": "speaking", "duration_min": 30, "description_ar": "محادثة — تطوير الطلاقة",                  "target_lab_route": "/student/ielts/speaking" }],
+      "monday":    [{ "task_type": "reading",  "duration_min": 25, "description_ar": "قراءة",                                   "target_lab_route": "/student/ielts/reading" }],
+      "tuesday":   [{ "task_type": "speaking", "duration_min": 30, "description_ar": "محادثة Part 3 — أفكار معقدة",             "target_lab_route": "/student/ielts/speaking" }],
+      "wednesday": [{ "task_type": "errors",   "duration_min": 20, "description_ar": "مراجعة الأخطاء",                           "target_lab_route": "/student/ielts/errors/review" }],
+      "thursday":  [{ "task_type": "listening","duration_min": 25, "description_ar": "استماع",                                   "target_lab_route": "/student/ielts/listening" }],
+      "friday":    [],
+      "saturday":  [{ "task_type": "writing",  "duration_min": 40, "description_ar": "كتابة Task 2",                            "target_lab_route": "/student/ielts/writing" }]
+    }
+  },
+  {
+    "id": "tmpl_no_diagnostic",
+    "match_criteria": { "weakest_skill": null, "exam_proximity": "any", "band_gap_bucket": "any" },
+    "weekly_schedule": {
+      "sunday":    [{ "task_type": "diagnostic","duration_min": 45, "description_ar": "الاختبار التشخيصي — الخطوة الأولى",       "target_lab_route": "/student/ielts/diagnostic" }],
+      "monday":    [],
+      "tuesday":   [{ "task_type": "reading",  "duration_min": 20, "description_ar": "تعرّف على القراءة",                       "target_lab_route": "/student/ielts/reading" }],
+      "wednesday": [{ "task_type": "listening","duration_min": 20, "description_ar": "تعرّف على الاستماع",                       "target_lab_route": "/student/ielts/listening" }],
+      "thursday":  [],
+      "friday":    [],
+      "saturday":  [{ "task_type": "writing",  "duration_min": 20, "description_ar": "تعرّف على الكتابة",                       "target_lab_route": "/student/ielts/writing" }]
+    }
+  }
+]

@@ -1,0 +1,132 @@
+[
+  {
+    "id": "rule_no_diagnostic",
+    "priority": 100,
+    "condition": "no_diagnostic",
+    "action": {
+      "skill_type": "diagnostic",
+      "title_ar": "ابدأ الاختبار التشخيصي",
+      "subtitle_ar": "يحدد نقطة انطلاقك ويرسم خطتك المخصصة — 45 دقيقة",
+      "cta_ar": "ابدأ الاختبار",
+      "route_path": "/student/ielts/diagnostic",
+      "reason_ar": "لم تُكمل الاختبار التشخيصي بعد"
+    }
+  },
+  {
+    "id": "rule_due_errors_high",
+    "priority": 90,
+    "condition": "due_errors >= 10",
+    "action": {
+      "skill_type": "errors",
+      "title_ar": "راجع بنك الأخطاء",
+      "subtitle_ar": "عندك $DUE أخطاء تستحق المراجعة الآن",
+      "cta_ar": "راجع الآن",
+      "route_path": "/student/ielts/errors/review",
+      "reason_ar": "تراكم الأخطاء غير المراجعة يُبطئ التقدم"
+    }
+  },
+  {
+    "id": "rule_exam_very_close",
+    "priority": 85,
+    "condition": "exam_days_left <= 14",
+    "action": {
+      "skill_type": "mock",
+      "title_ar": "اختبار تجريبي كامل — الامتحان بعد $DAYS_LEFT يوم",
+      "subtitle_ar": "الوقت حرج — محاكاة الامتحان الآن تُثبّت مستواك",
+      "cta_ar": "ابدأ الاختبار",
+      "route_path": "/student/ielts/mock",
+      "reason_ar": "الامتحان قريب جداً"
+    }
+  },
+  {
+    "id": "rule_weak_skill_wide_gap",
+    "priority": 80,
+    "condition": "weakest_skill_gap >= 1.5",
+    "action": {
+      "skill_type": "$WEAKEST_SKILL",
+      "title_ar": "ركّز على $WEAKEST_SKILL_AR — فجوة $WEAKEST_SKILL_GAP نقطة",
+      "subtitle_ar": "هذه المهارة تحتاج تركيزاً فورياً لتحقيق هدفك",
+      "cta_ar": "ابدأ التدريب",
+      "route_path": "/student/ielts/$WEAKEST_SKILL",
+      "reason_ar": "أكبر فجوة بين مهاراتك"
+    }
+  },
+  {
+    "id": "rule_exam_close",
+    "priority": 75,
+    "condition": "exam_days_left <= 30",
+    "action": {
+      "skill_type": "mock",
+      "title_ar": "اختبار تجريبي — $DAYS_LEFT يوم للامتحان",
+      "subtitle_ar": "استخدم الوقت المتبقي لتثبيت مستواك",
+      "cta_ar": "ابدأ المحاكاة",
+      "route_path": "/student/ielts/mock",
+      "reason_ar": "الامتحان قريب والاختبار التجريبي يعزّز الأداء"
+    }
+  },
+  {
+    "id": "rule_weak_skill_moderate_gap",
+    "priority": 70,
+    "condition": "weakest_skill_gap >= 1.0",
+    "action": {
+      "skill_type": "$WEAKEST_SKILL",
+      "title_ar": "تدريب $WEAKEST_SKILL_AR — أولويتك هذا الأسبوع",
+      "subtitle_ar": "تحسين نصف درجة في هذه المهارة يرفع نتيجتك الكلية",
+      "cta_ar": "ابدأ الآن",
+      "route_path": "/student/ielts/$WEAKEST_SKILL",
+      "reason_ar": "نقطة ضعفك الحالية"
+    }
+  },
+  {
+    "id": "rule_due_errors_moderate",
+    "priority": 60,
+    "condition": "due_errors >= 5",
+    "action": {
+      "skill_type": "errors",
+      "title_ar": "مراجعة بنك الأخطاء — $DUE أخطاء جاهزة",
+      "subtitle_ar": "جلسة مراجعة قصيرة تُثبّت ما تعلّمته",
+      "cta_ar": "راجع الآن",
+      "route_path": "/student/ielts/errors/review",
+      "reason_ar": "أخطاء مستحقة للمراجعة"
+    }
+  },
+  {
+    "id": "rule_no_mock_in_14d",
+    "priority": 50,
+    "condition": "days_since_last_mock >= 14",
+    "action": {
+      "skill_type": "mock",
+      "title_ar": "اختبار تجريبي — مرّ $DAYS_SINCE_MOCK يوم",
+      "subtitle_ar": "قيّم تقدمك مع اختبار كامل",
+      "cta_ar": "ابدأ الاختبار",
+      "route_path": "/student/ielts/mock",
+      "reason_ar": "لم تُجرِ اختباراً تجريبياً مؤخراً"
+    }
+  },
+  {
+    "id": "rule_weak_skill_any",
+    "priority": 40,
+    "condition": "has_weak_skill",
+    "action": {
+      "skill_type": "$WEAKEST_SKILL",
+      "title_ar": "تابع تدريب $WEAKEST_SKILL_AR",
+      "subtitle_ar": "جلسة مركّزة اليوم تُفرق في نتيجتك",
+      "cta_ar": "ابدأ",
+      "route_path": "/student/ielts/$WEAKEST_SKILL",
+      "reason_ar": "استمرارية التدريب"
+    }
+  },
+  {
+    "id": "rule_default",
+    "priority": 0,
+    "condition": "always",
+    "action": {
+      "skill_type": "reading",
+      "title_ar": "تابع تدريبك اليومي",
+      "subtitle_ar": "اختر مهارة وابدأ جلسة",
+      "cta_ar": "اذهب للخطة",
+      "route_path": "/student/ielts/plan",
+      "reason_ar": "جلسة تدريب منتظمة"
+    }
+  }
+]

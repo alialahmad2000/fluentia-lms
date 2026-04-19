@@ -101,6 +101,10 @@ const MockPreFlight = lazyRetry(() => import('./pages/student/ielts/mock/MockPre
 const MockFlow = lazyRetry(() => import('./pages/student/ielts/mock/MockFlow'))
 const MockResult = lazyRetry(() => import('./pages/student/ielts/mock/MockResult'))
 const MockHistory = lazyRetry(() => import('./pages/student/ielts/mock/MockHistory'))
+const IELTSPlanView = lazyRetry(() => import('./pages/student/ielts/plan/IELTSPlanView'))
+const IELTSPlanEdit = lazyRetry(() => import('./pages/student/ielts/plan/IELTSPlanEdit'))
+const ErrorBankHome = lazyRetry(() => import('./pages/student/ielts/errors/ErrorBankHome'))
+const ErrorBankReview = lazyRetry(() => import('./pages/student/ielts/errors/ErrorBankReview'))
 
 const TrainerOnboarding = lazyRetry(() => import('./pages/trainer/TrainerOnboarding'))
 const TrainerStudentView = lazyRetry(() => import('./pages/trainer/TrainerStudentView'))
@@ -588,6 +592,10 @@ export default function App() {
               <Route path="/student/ielts/mock/brief/:mockId" element={<Page><MockPreFlight /></Page>} />
               <Route path="/student/ielts/mock/attempt/:attemptId" element={<Page><MockFlow /></Page>} />
               <Route path="/student/ielts/mock/result/:resultId" element={<Page><MockResult /></Page>} />
+              <Route path="/student/ielts/plan" element={<Page><IELTSPlanView /></Page>} />
+              <Route path="/student/ielts/plan/edit" element={<Page><IELTSPlanEdit /></Page>} />
+              <Route path="/student/ielts/errors" element={<Page><ErrorBankHome /></Page>} />
+              <Route path="/student/ielts/errors/review" element={<Page><ErrorBankReview /></Page>} />
               <Route path="/student/ielts/:section" element={<Page><IELTSComingSoon /></Page>} />
             </Route>
           </Route>

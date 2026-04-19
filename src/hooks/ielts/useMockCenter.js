@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
 import { invokeWithRetry } from '@/lib/invokeWithRetry'
+import { useRegeneratePlan } from './useAdaptivePlan'
 
 const STALE = 30 * 1000
 // test_variant is stored in answers.meta.test_variant (column missing from ielts_mock_attempts)
@@ -325,6 +326,7 @@ export function useAdvanceMockSection() {
 // ─── Submit mock (triggers edge function) ───────────────────
 export function useSubmitMock() {
   const qc = useQueryClient()
+  const regen = useRegeneratePlan()
   return useMutation({
     mutationFn: async ({ attemptId }) => {
       const { data, error } = await invokeWithRetry(
@@ -342,6 +344,14 @@ export function useSubmitMock() {
       qc.invalidateQueries({ queryKey: ['mock-history'] })
       qc.invalidateQueries({ queryKey: ['ielts-latest-result'] })
       qc.invalidateQueries({ queryKey: ['ielts-mock-attempts'] })
+      // Refresh adaptive plan in background after mock completes — non-blocking
+      const attempt = qc.getQueryData(['mock-attempt', vars.attemptId])
+      const studentId = attempt?.student_id
+      if (studentId) {
+        regen.mutate({ studentId }, {
+          onError: (err) => console.warn('Plan refresh after mock failed (non-fatal):', err.message),
+        })
+      }
     },
   })
 }

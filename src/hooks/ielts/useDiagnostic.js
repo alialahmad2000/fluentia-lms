@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
+import { useRegeneratePlan } from './useAdaptivePlan'
 
 // Fetch diagnostic mock test + all referenced content.
 // IMPORTANT: speaking_questions is INLINE JSONB in the mock row — no separate table query.
@@ -153,6 +154,7 @@ export function useAdvanceSection() {
 // Complete diagnostic → calls scoring edge function
 export function useCompleteDiagnostic() {
   const qc = useQueryClient()
+  const regen = useRegeneratePlan()
   return useMutation({
     mutationFn: async ({ attemptId }) => {
       const { data, error } = await supabase.functions.invoke('complete-ielts-diagnostic', {
@@ -161,11 +163,19 @@ export function useCompleteDiagnostic() {
       if (error) throw error
       return data
     },
-    onSuccess: () => {
+    onSuccess: (data, vars, ctx) => {
       qc.invalidateQueries({ queryKey: ['ielts-latest-result'] })
       qc.invalidateQueries({ queryKey: ['ielts-plan'] })
       qc.invalidateQueries({ queryKey: ['ielts-progress'] })
       qc.invalidateQueries({ queryKey: ['diagnostic-attempt'] })
+      // Overwrite diagnostic's initial plan with the canonical rule-based plan — non-blocking
+      const attempt = qc.getQueryData(['diagnostic-attempt'])
+      const studentId = attempt?.student_id
+      if (studentId) {
+        regen.mutate({ studentId }, {
+          onError: (err) => console.warn('Plan refresh after diagnostic failed (non-fatal):', err.message),
+        })
+      }
     },
   })
 }
