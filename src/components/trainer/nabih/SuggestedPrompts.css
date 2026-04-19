@@ -1,0 +1,48 @@
+.nab-prompts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  width: 100%;
+}
+
+.nab-prompt-card {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 0.9rem;
+  background: var(--tr-surface, #fff);
+  border: 1px solid var(--tr-border, #e5e7eb);
+  border-radius: 0.75rem;
+  cursor: pointer;
+  text-align: start;
+  font-family: 'Tajawal', 'Segoe UI', sans-serif;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  width: 100%;
+}
+
+.nab-prompt-card:hover {
+  border-color: var(--tr-gold, #d97706);
+  box-shadow: 0 2px 8px rgba(217, 119, 6, .12);
+}
+
+.nab-prompt-card__icon {
+  color: var(--tr-primary, #6366f1);
+  flex-shrink: 0;
+  display: flex;
+}
+
+.nab-prompt-card__text {
+  flex: 1;
+  font-size: 0.85rem;
+  color: var(--tr-fg, #374151);
+  font-weight: 500;
+}
+
+.nab-prompt-card__tag {
+  font-size: 0.65rem;
+  background: #f3f4f6;
+  color: var(--tr-muted, #6b7280);
+  padding: 2px 8px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}

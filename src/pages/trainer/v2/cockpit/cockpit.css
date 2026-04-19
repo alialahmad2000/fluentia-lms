@@ -547,6 +547,15 @@
 .tr-nabih-card__cta--urgent:hover {
   background: color-mix(in srgb, var(--tr-danger, #ef4444) 25%, transparent);
 }
+.tr-nabih-card__cta--chat {
+  background: color-mix(in srgb, var(--tr-gold, #d97706) 12%, transparent);
+  color: var(--tr-gold, #d97706);
+  border-color: var(--tr-gold, #d97706);
+  margin-top: 0.25rem;
+}
+.tr-nabih-card__cta--chat:hover {
+  background: color-mix(in srgb, var(--tr-gold, #d97706) 22%, transparent);
+}
 /* Row clickable in InterventionPreview */
 .tr-interv__row-inner {
   display: flex;

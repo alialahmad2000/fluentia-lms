@@ -93,17 +93,16 @@ export default function NabihBriefingCard() {
         ))}
       </div>
 
-      {urgentCount > 0 ? (
+      {urgentCount > 0 && (
         <Link to="/trainer/interventions" className="tr-nabih-card__cta tr-nabih-card__cta--urgent">
           افتح قائمة المتابعة ({urgentCount})
           <span aria-hidden="true"> ←</span>
         </Link>
-      ) : (
-        <Link to="/trainer/nabih" className="tr-nabih-card__cta">
-          تحدّث مع نبيه
-          <span aria-hidden="true"> ←</span>
-        </Link>
       )}
+      <Link to="/trainer/nabih" className="tr-nabih-card__cta tr-nabih-card__cta--chat">
+        💬 تكلم مع نبيه
+        <span aria-hidden="true"> ←</span>
+      </Link>
     </CommandCard>
   )
 }
