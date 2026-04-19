@@ -29,6 +29,8 @@ import EnableNotificationsPrompt from '../../components/notifications/EnableNoti
 import PlacementTestCard from './placement/PlacementTestCard'
 import CompetitionKickoffModal from '../../components/competition/CompetitionKickoffModal'
 import CompetitionBanner from '../../components/competition/CompetitionBanner'
+import JourneyMapHeroCTA from '../../components/student/JourneyMapHeroCTA'
+import PWAInstallBanner from '../../components/pwa/PWAInstallBanner'
 
 export default function StudentDashboard() {
   // ── ALL HOOKS AT TOP (React #310 safe) ──────────────────────────
@@ -135,8 +137,12 @@ export default function StudentDashboard() {
   return (
     <>
     <CompetitionKickoffModal />
+    <PWAInstallBanner />
     <StaggeredList stagger={0.06} className="space-y-6">
-      {/* 0. Competition Banner (only when active) */}
+      {/* 0. Journey Map CTA — hidden once student opens first unit */}
+      <JourneyMapHeroCTA />
+
+      {/* 1. Competition Banner (only when active) */}
       <CompetitionBanner />
 
       {/* 1. Hero */}

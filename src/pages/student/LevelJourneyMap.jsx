@@ -56,7 +56,7 @@ function getStatus(unitId, completedSet, startedSet, prevDone) {
   return 'locked'
 }
 
-function UnitNode({ unit, status, index, isLeft, onClick }) {
+function UnitNode({ unit, status, index, isLeft, onClick, pulse }) {
   const isCompleted = status === 'completed'
   const isLocked = status === 'locked'
 
@@ -81,9 +81,11 @@ function UnitNode({ unit, status, index, isLeft, onClick }) {
       }}
     >
       {/* Node circle */}
-      <button
+      <motion.button
         onClick={() => !isLocked && onClick(unit.id)}
         disabled={isLocked}
+        animate={pulse ? { scale: [1, 1.12, 1], boxShadow: ['0 0 0px rgba(251,191,36,0)', '0 0 22px rgba(251,191,36,0.5)', '0 0 0px rgba(251,191,36,0)'] } : {}}
+        transition={pulse ? { duration: 2, repeat: Infinity, ease: 'easeInOut' } : {}}
         style={{
           width: '56px', height: '56px', borderRadius: '50%',
           border: `2.5px solid ${nodeColor}`,
@@ -109,7 +111,7 @@ function UnitNode({ unit, status, index, isLeft, onClick }) {
             ? <Lock size={18} color="rgba(255,255,255,0.2)" />
             : <Circle size={20} color="#fbbf24" fill="rgba(251,191,36,0.15)" />
         }
-      </button>
+      </motion.button>
 
       {/* Card */}
       <motion.div
@@ -206,6 +208,32 @@ export default function LevelJourneyMap() {
           </div>
         </motion.div>
 
+        {/* Empty-state callout for brand-new students */}
+        {startedSet.size === 0 && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.4, duration: 0.4 }}
+            style={{
+              marginBottom: '32px',
+              padding: '16px 20px',
+              borderRadius: '16px',
+              background: 'rgba(251,191,36,0.06)',
+              border: '1px solid rgba(251,191,36,0.18)',
+              textAlign: 'center',
+              fontFamily: "'Tajawal', sans-serif",
+            }}
+          >
+            <div style={{ fontSize: '24px', marginBottom: '6px' }}>🌟</div>
+            <p style={{ margin: 0, fontSize: '15px', fontWeight: 700, color: 'rgba(248,250,252,0.9)' }}>
+              ابدأي رحلتك من هنا
+            </p>
+            <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'rgba(251,191,36,0.7)' }}>
+              اضغطي على الوحدة الأولى لتبدأي
+            </p>
+          </motion.div>
+        )}
+
         {/* Zigzag path */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', position: 'relative' }}>
           {/* Vertical connector line */}
@@ -220,6 +248,7 @@ export default function LevelJourneyMap() {
           {units.map((unit, i) => {
             const prevDone = i === 0 || completedSet.has(units[i - 1]?.id)
             const status = getStatus(unit.id, completedSet, startedSet, prevDone)
+            const isFirstAvailable = i === 0 && startedSet.size === 0
             return (
               <UnitNode
                 key={unit.id}
@@ -228,6 +257,7 @@ export default function LevelJourneyMap() {
                 index={i}
                 isLeft={i % 2 === 0}
                 onClick={id => navigate(`/student/unit/${id}`)}
+                pulse={isFirstAvailable}
               />
             )
           })}
