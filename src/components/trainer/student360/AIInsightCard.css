@@ -1,0 +1,120 @@
+.aic-card {
+  background: var(--tr-surface, #fff);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: 0 1px 6px rgba(0,0,0,.07);
+  border-right: 4px solid #d1d5db;
+}
+
+.aic-card--loading { min-height: 120px; }
+
+.aic-card--empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem;
+  text-align: center;
+  color: var(--tr-muted, #6b7280);
+}
+
+.aic-empty-icon { font-size: 2rem; }
+
+.ai-tone--urgent    { border-right-color: #ef4444; background: #fff5f5; }
+.ai-tone--celebrate { border-right-color: #f59e0b; background: #fffbeb; }
+.ai-tone--nurture   { border-right-color: #10b981; background: #f0fdf4; }
+.ai-tone--observe   { border-right-color: #6366f1; background: #f5f3ff; }
+
+.aic-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.aic-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.aic-tone-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.06);
+}
+
+.aic-age {
+  font-size: 0.72rem;
+  color: var(--tr-muted, #6b7280);
+}
+
+.aic-refresh-btn {
+  padding: 0.35rem 0.9rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--tr-border, #e5e7eb);
+  background: var(--tr-surface, #fff);
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: var(--tr-primary, #3b82f6);
+}
+
+.aic-refresh-btn--icon {
+  border: none;
+  background: transparent;
+  padding: 0.25rem;
+  font-size: 1rem;
+}
+
+.aic-refresh-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.aic-diagnosis {
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+  color: var(--tr-fg, #111);
+  line-height: 1.5;
+}
+
+.aic-action {
+  font-size: 0.9rem;
+  color: var(--tr-fg, #374151);
+  margin: 0 0 0.75rem;
+  line-height: 1.6;
+}
+
+.aic-evidence-toggle {
+  font-size: 0.78rem;
+  color: var(--tr-primary, #3b82f6);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.aic-evidence-list {
+  margin: 0.5rem 0 0;
+  padding-right: 1.25rem;
+  font-size: 0.8rem;
+  color: var(--tr-muted, #6b7280);
+  line-height: 1.7;
+}
+
+/* Skeletons */
+.aic-skeleton {
+  background: #e5e7eb;
+  border-radius: 0.4rem;
+  animation: aic-pulse 1.4s ease-in-out infinite;
+  margin-bottom: 0.6rem;
+}
+
+.aic-skeleton--title  { height: 1rem;  width: 30%; }
+.aic-skeleton--body   { height: 1.2rem; width: 85%; }
+.aic-skeleton--action { height: 1rem;  width: 70%; }
+
+@keyframes aic-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}

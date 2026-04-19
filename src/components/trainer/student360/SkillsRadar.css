@@ -1,0 +1,81 @@
+.sr-card {
+  background: var(--tr-surface, #fff);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: 0 1px 6px rgba(0,0,0,.07);
+}
+
+.sr-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0 0 1rem;
+  color: var(--tr-fg, #111);
+}
+
+.sr-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.sr-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.sr-bar-label {
+  width: 3.5rem;
+  font-size: 0.8rem;
+  color: var(--tr-muted, #6b7280);
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.sr-bar-track {
+  flex: 1;
+  height: 8px;
+  background: #f3f4f6;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.sr-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.6s ease;
+}
+
+.sr-bar-val {
+  width: 2rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--tr-fg, #374151);
+  text-align: left;
+  flex-shrink: 0;
+}
+
+.sr-note {
+  margin: 0.75rem 0 0;
+  font-size: 0.72rem;
+  color: var(--tr-muted, #9ca3af);
+  text-align: center;
+}
+
+.sr-skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.sr-skeleton {
+  height: 1.5rem;
+  border-radius: 0.4rem;
+  background: #e5e7eb;
+  animation: sr-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes sr-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}

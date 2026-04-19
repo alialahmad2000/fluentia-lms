@@ -105,9 +105,10 @@ const IELTSPlanView = lazyRetry(() => import('./pages/student/ielts/plan/IELTSPl
 const IELTSPlanEdit = lazyRetry(() => import('./pages/student/ielts/plan/IELTSPlanEdit'))
 const ErrorBankHome = lazyRetry(() => import('./pages/student/ielts/errors/ErrorBankHome'))
 const ErrorBankReview = lazyRetry(() => import('./pages/student/ielts/errors/ErrorBankReview'))
+const IELTSGuard = lazyRetry(() => import('./components/ielts/IELTSGuard'))
 
 const TrainerOnboarding = lazyRetry(() => import('./pages/trainer/TrainerOnboarding'))
-const TrainerStudentView = lazyRetry(() => import('./pages/trainer/TrainerStudentView'))
+const TrainerStudentView = lazyRetry(() => import('./pages/trainer/TrainerStudentView.legacy'))
 const TrainerCurriculum = lazyRetry(() => import('./pages/trainer/TrainerCurriculum'))
 const ReportReview = lazyRetry(() => import('./pages/trainer/ReportReview'))
 const StudentProgressDetail = lazyRetry(() => import('./pages/trainer/StudentProgressDetail'))
@@ -121,6 +122,7 @@ const LiveClassPage = lazyRetry(() => import('./pages/trainer/v2/LiveClassPage')
 const CompetitionCommandPage = lazyRetry(() => import('./pages/trainer/v2/CompetitionCommandPage'))
 const MyGrowthPage = lazyRetry(() => import('./pages/trainer/v2/MyGrowthPage'))
 const NabihPage = lazyRetry(() => import('./pages/trainer/v2/NabihPage'))
+const Student360Page = lazyRetry(() => import('./pages/trainer/v2/Student360Page'))
 
 const AdminDashboard = lazyRetry(() => import('./pages/admin/AdminDashboard'))
 const AdminStudents = lazyRetry(() => import('./pages/admin/AdminStudents'))
@@ -569,34 +571,37 @@ export default function App() {
               <Route path="/student/placement-test/results/:sessionId" element={<Suspense fallback={null}><PlacementResultsPage /></Suspense>} />
               <Route path="/student/unit-mastery/:assessmentId" element={<Suspense fallback={null}><UnitMasteryPage /></Suspense>} />
               <Route path="/student/unit-mastery-result/:attemptId" element={<Suspense fallback={null}><UnitMasteryResultPage /></Suspense>} />
-              <Route path="/student/ielts" element={<Page><StudentIELTSHub /></Page>} />
-              <Route path="/student/ielts/diagnostic" element={<Page><DiagnosticFlow /></Page>} />
-              <Route path="/student/ielts/reading" element={<Page><ReadingLab /></Page>} />
-              <Route path="/student/ielts/reading/skill/:questionType" element={<Page><ReadingSkillModule /></Page>} />
-              <Route path="/student/ielts/reading/passage/:passageId" element={<Page><ReadingPassagePractice /></Page>} />
-              <Route path="/student/ielts/listening" element={<Page><ListeningLab /></Page>} />
-              <Route path="/student/ielts/listening/section/:sectionNumber" element={<Page><ListeningSectionModule /></Page>} />
-              <Route path="/student/ielts/listening/section/:sectionNumber/practice/:sectionId" element={<Page><ListeningPractice /></Page>} />
-              <Route path="/student/ielts/writing" element={<Page><WritingLab /></Page>} />
-              <Route path="/student/ielts/writing/history" element={<Page><WritingHistory /></Page>} />
-              <Route path="/student/ielts/writing/feedback/:submissionId" element={<Page><WritingFeedback /></Page>} />
-              <Route path="/student/ielts/writing/:category" element={<Page><WritingTaskPicker /></Page>} />
-              <Route path="/student/ielts/writing/:category/task/:taskId" element={<Page><WritingWorkspace /></Page>} />
-              <Route path="/student/ielts/speaking" element={<Page><SpeakingLab /></Page>} />
-              <Route path="/student/ielts/speaking/history" element={<Page><SpeakingHistory /></Page>} />
-              <Route path="/student/ielts/speaking/feedback/:sessionId" element={<Page><SpeakingFeedback /></Page>} />
-              <Route path="/student/ielts/speaking/part/:partNum" element={<Page><SpeakingPartPicker /></Page>} />
-              <Route path="/student/ielts/speaking/session/:questionId" element={<Page><SpeakingSession /></Page>} />
-              <Route path="/student/ielts/mock" element={<Page><MockCenter /></Page>} />
-              <Route path="/student/ielts/mock/history" element={<Page><MockHistory /></Page>} />
-              <Route path="/student/ielts/mock/brief/:mockId" element={<Page><MockPreFlight /></Page>} />
-              <Route path="/student/ielts/mock/attempt/:attemptId" element={<Page><MockFlow /></Page>} />
-              <Route path="/student/ielts/mock/result/:resultId" element={<Page><MockResult /></Page>} />
-              <Route path="/student/ielts/plan" element={<Page><IELTSPlanView /></Page>} />
-              <Route path="/student/ielts/plan/edit" element={<Page><IELTSPlanEdit /></Page>} />
-              <Route path="/student/ielts/errors" element={<Page><ErrorBankHome /></Page>} />
-              <Route path="/student/ielts/errors/review" element={<Page><ErrorBankReview /></Page>} />
-              <Route path="/student/ielts/:section" element={<Page><IELTSComingSoon /></Page>} />
+              {/* IELTS routes — all gated by IELTSGuard (single package-access check) */}
+              <Route path="/student/ielts" element={<Suspense fallback={<PageSkeleton />}><IELTSGuard /></Suspense>}>
+                <Route index element={<Page><StudentIELTSHub /></Page>} />
+                <Route path="diagnostic" element={<Page><DiagnosticFlow /></Page>} />
+                <Route path="reading" element={<Page><ReadingLab /></Page>} />
+                <Route path="reading/skill/:questionType" element={<Page><ReadingSkillModule /></Page>} />
+                <Route path="reading/passage/:passageId" element={<Page><ReadingPassagePractice /></Page>} />
+                <Route path="listening" element={<Page><ListeningLab /></Page>} />
+                <Route path="listening/section/:sectionNumber" element={<Page><ListeningSectionModule /></Page>} />
+                <Route path="listening/section/:sectionNumber/practice/:sectionId" element={<Page><ListeningPractice /></Page>} />
+                <Route path="writing" element={<Page><WritingLab /></Page>} />
+                <Route path="writing/history" element={<Page><WritingHistory /></Page>} />
+                <Route path="writing/feedback/:submissionId" element={<Page><WritingFeedback /></Page>} />
+                <Route path="writing/:category" element={<Page><WritingTaskPicker /></Page>} />
+                <Route path="writing/:category/task/:taskId" element={<Page><WritingWorkspace /></Page>} />
+                <Route path="speaking" element={<Page><SpeakingLab /></Page>} />
+                <Route path="speaking/history" element={<Page><SpeakingHistory /></Page>} />
+                <Route path="speaking/feedback/:sessionId" element={<Page><SpeakingFeedback /></Page>} />
+                <Route path="speaking/part/:partNum" element={<Page><SpeakingPartPicker /></Page>} />
+                <Route path="speaking/session/:questionId" element={<Page><SpeakingSession /></Page>} />
+                <Route path="mock" element={<Page><MockCenter /></Page>} />
+                <Route path="mock/history" element={<Page><MockHistory /></Page>} />
+                <Route path="mock/brief/:mockId" element={<Page><MockPreFlight /></Page>} />
+                <Route path="mock/attempt/:attemptId" element={<Page><MockFlow /></Page>} />
+                <Route path="mock/result/:resultId" element={<Page><MockResult /></Page>} />
+                <Route path="plan" element={<Page><IELTSPlanView /></Page>} />
+                <Route path="plan/edit" element={<Page><IELTSPlanEdit /></Page>} />
+                <Route path="errors" element={<Page><ErrorBankHome /></Page>} />
+                <Route path="errors/review" element={<Page><ErrorBankReview /></Page>} />
+                <Route path=":section" element={<Page><IELTSComingSoon /></Page>} />
+              </Route>
             </Route>
           </Route>
 
@@ -635,7 +640,7 @@ export default function App() {
               <Route path="/trainer/interactive-curriculum/:levelId" element={<Page><InteractiveCurriculumUnits /></Page>} />
               <Route path="/trainer/interactive-curriculum/:levelId/:unitId" element={<Page><InteractiveCurriculumPage /></Page>} />
               <Route path="/trainer/student/:studentId/progress" element={<Page><StudentProgressDetail /></Page>} />
-              <Route path="/trainer/student/:studentId" element={<Page><StudentProgressDetail /></Page>} />
+              <Route path="/trainer/student/:studentId" element={<Page><Student360Page /></Page>} />
 
               {/* ── Redirects: 19 legacy routes → V2 equivalents ── */}
               {['/trainer/notes', '/trainer/library', '/trainer/points',

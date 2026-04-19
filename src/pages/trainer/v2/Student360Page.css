@@ -1,0 +1,69 @@
+.s360-page {
+  min-height: 100vh;
+  background: var(--tr-bg, #f3f4f6);
+  padding: 1rem;
+  box-sizing: border-box;
+  font-family: 'Tajawal', 'Segoe UI', sans-serif;
+}
+
+.s360-topbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--tr-border, #e5e7eb);
+}
+
+.s360-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--tr-border, #e5e7eb);
+  background: var(--tr-surface, #fff);
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: var(--tr-fg, #374151);
+}
+
+.s360-back-btn:hover { background: var(--tr-bg, #f9fafb); }
+
+.s360-topbar-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--tr-fg, #111);
+}
+
+/* Two-column layout */
+.s360-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.s360-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.s360-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* On small screens stack vertically */
+@media (max-width: 860px) {
+  .s360-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .s360-sidebar {
+    order: 2;
+  }
+}

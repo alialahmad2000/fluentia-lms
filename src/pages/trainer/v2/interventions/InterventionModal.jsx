@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { X, Copy, MessageCircle, Check, Clock, Loader, ExternalLink } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
@@ -48,6 +49,7 @@ function useDraftMessage(interventionId, enabled) {
 
 function DetailsTab({ detail }) {
   if (!detail) return <div className="tr-modal__loading"><Loader size={20} /></div>
+  const navigate = useNavigate()
   const { student, group, intervention, recent_activity: activity = [] } = detail
   const idleHours = student?.last_active_at
     ? Math.round((Date.now() - new Date(student.last_active_at).getTime()) / 3600000)
@@ -59,7 +61,7 @@ function DetailsTab({ detail }) {
         {student?.avatar_url && (
           <img className="tr-modal__avatar" src={student.avatar_url} alt={student.full_name} />
         )}
-        <div>
+        <div style={{ flex: 1 }}>
           <div className="tr-modal__student-name">{student?.full_name}</div>
           <div className="tr-modal__student-meta">
             {group?.name && <span>{group.name}</span>}
@@ -67,6 +69,14 @@ function DetailsTab({ detail }) {
             {student?.current_streak > 0 && <span>🔥 {student.current_streak} يوم</span>}
           </div>
         </div>
+        {student?.id && (
+          <button
+            style={{ fontSize: '0.75rem', padding: '0.25rem 0.6rem', borderRadius: '0.4rem', border: '1px solid #e5e7eb', background: '#fff', cursor: 'pointer', whiteSpace: 'nowrap' }}
+            onClick={() => navigate(`/trainer/student/${student.id}`)}
+          >
+            ملف ٣٦٠ →
+          </button>
+        )}
       </div>
 
       <div className="tr-modal__signal-box">

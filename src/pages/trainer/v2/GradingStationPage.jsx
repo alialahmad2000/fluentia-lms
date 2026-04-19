@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { PenLine, Mic, AlertCircle, CheckCircle, Clock } from 'lucide-react'
 import { useGradingQueue } from '@/hooks/trainer/useGradingQueue'
@@ -34,6 +35,7 @@ function QueueSkeleton() {
 }
 
 export default function GradingStationPage() {
+  const navigate = useNavigate()
   const { data: queue = [], isLoading } = useGradingQueue(100)
   const [filter, setFilter] = useState('all')
   const [selectedItem, setSelectedItem] = useState(null)
@@ -113,7 +115,18 @@ export default function GradingStationPage() {
                   <div className="gs-row__left">
                     <TypeIcon type={item.submission_type} />
                     <div className="gs-row__info">
-                      <div className="gs-row__name">{item.student_name}</div>
+                      <div className="gs-row__name" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                        {item.student_name}
+                        {item.student_id && (
+                          <button
+                            style={{ fontSize: '0.68rem', padding: '1px 5px', borderRadius: '0.3rem', border: '1px solid #d1d5db', background: '#f9fafb', cursor: 'pointer' }}
+                            onClick={e => { e.stopPropagation(); navigate(`/trainer/student/${item.student_id}`) }}
+                            title="ملف الطالب ٣٦٠"
+                          >
+                            ٣٦٠
+                          </button>
+                        )}
+                      </div>
                       <div className="gs-row__meta">
                         {item.group_name} · {item.unit_title || 'وحدة غير محددة'}
                       </div>

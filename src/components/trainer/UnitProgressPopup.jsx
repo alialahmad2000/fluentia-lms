@@ -105,7 +105,7 @@ export default function UnitProgressPopup({ groupId, unitId, onClose }) {
             {progressData?.students?.map(s => (
               <button
                 key={s.id}
-                onClick={() => { navigate(`/trainer/students/${s.id}`); onClose() }}
+                onClick={() => { navigate(`/trainer/student/${s.id}`); onClose() }}
                 className="w-full flex items-center gap-3 group"
               >
                 <span className="text-[12px] font-bold w-20 truncate text-right" style={{ color: 'var(--text-primary)' }}>

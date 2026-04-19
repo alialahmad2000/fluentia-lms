@@ -1,0 +1,60 @@
+.qa-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--tr-border, #e5e7eb);
+  border-bottom: 1px solid var(--tr-border, #e5e7eb);
+  margin-bottom: 1.25rem;
+}
+
+.qa-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 1rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--tr-border, #e5e7eb);
+  background: var(--tr-surface, #fff);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--tr-fg, #374151);
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.qa-btn:hover:not(:disabled) {
+  background: var(--tr-bg, #f9fafb);
+}
+
+.qa-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.qa-btn--whatsapp {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #15803d;
+}
+
+.qa-btn--whatsapp:hover:not(:disabled) {
+  background: #bbf7d0;
+}
+
+.qa-btn--insight {
+  background: #ede9fe;
+  border-color: #c4b5fd;
+  color: #6d28d9;
+}
+
+.qa-btn--insight:hover:not(:disabled) {
+  background: #ddd6fe;
+}
+
+.qa-btn--grading {
+  background: #dbeafe;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+}

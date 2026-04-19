@@ -114,7 +114,7 @@ export default function StudentPulseMap() {
         {/* Student rows */}
         {filteredStudents.map(s => (
           <Link
-            to={`/trainer/student/${s.id}/progress`}
+            to={`/trainer/student/${s.id}`}
             key={s.id}
             className="tr-pulse__row tr-pulse__row--link"
             role="row"
