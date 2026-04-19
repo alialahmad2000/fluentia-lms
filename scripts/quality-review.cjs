@@ -120,28 +120,20 @@ function scoreC2(unit) {
   return { score: 1, issue: null };
 }
 
-// C3: all outcomes start with feminine present verb
+// C3: outcomes start with a clear action word (masdar or action phrase).
+// After the language fix, outcomes use gender-neutral masdars instead of
+// feminine verbs. This criterion now rejects only truly abstract starters.
 function scoreC3(outcomes) {
   if (!outcomes || outcomes.length === 0) return { score: 0, issue: 'لا توجد أهداف', failing: [] };
   const failing = [];
+  const WEAK_STARTERS = ['أن ', 'الوعي', 'الإلمام', 'تنمية المهارة', 'تعزيز القدرة'];
   for (const o of outcomes) {
-    const first = o.trim().split(/\s+/)[0];
-    // Fail if starts with "أن" clause, abstract noun patterns, or masculine verb
-    if (o.startsWith('أن ') || o.startsWith('اكتساب') || o.startsWith('القدرة') ||
-        o.startsWith('تنمية') || o.startsWith('بناء') || o.startsWith('تعزيز') ||
-        o.startsWith('فهم') || o.startsWith('معرفة') || o.startsWith('استخدام') ||
-        o.startsWith('التمكن') || o.startsWith('الإلمام') || o.startsWith('إتقان')) {
-      failing.push(o.slice(0, 40));
-      continue;
-    }
-    // Check doesn't start with feminine verb pattern
-    // Outcomes must start with ت...ين pattern
-    if (!first.includes('ين') && !first.startsWith('ت')) {
+    if (WEAK_STARTERS.some(w => o.startsWith(w))) {
       failing.push(o.slice(0, 40));
     }
   }
   if (failing.length > 0) {
-    return { score: 0, issue: `هدف لا يبدأ بفعل مؤنث مضارع`, failing };
+    return { score: 0, issue: 'هدف يبدأ بصياغة مبهمة', failing };
   }
   return { score: 1, issue: null, failing: [] };
 }
@@ -221,6 +213,38 @@ function scoreC8(ribbons) {
   return { score: 1, issue: null, failing: [] };
 }
 
+// C9: no ت...ين verb forms in why_matters or outcomes (gender neutrality)
+const FEM_VERB_CHECK_RE = /(?<![\u0621-\u064A\u0671-\u06D3])ت[\u0621-\u064A]+ين(?![\u0621-\u064A\u0671-\u06D3])/;
+const MASDAR_FALSE_POS = new Set([
+  'تحسين','تدوين','تكوين','تخمين','تمكين','تزيين','تلحين','تعيين','تلوين',
+]);
+function hasFemVerbC9(text) {
+  const m = text.match(new RegExp(FEM_VERB_CHECK_RE.source, 'g'));
+  if (!m) return false;
+  return m.some(w => !MASDAR_FALSE_POS.has(w));
+}
+function scoreC9(unit) {
+  const fields = [unit.why_matters || '', ...(unit.outcomes || [])];
+  for (const f of fields) {
+    if (hasFemVerbC9(f)) return { score: 0, issue: 'نص يحتوي على أفعال ت...ين (خطاب مؤنث)' };
+  }
+  return { score: 1, issue: null };
+}
+
+// C10: no تسجيل word (reserved for class recordings section — causes UI confusion)
+const TASJIL_CHECK_RE = /تسج[\u064A\u0651][\u0644\u064A]/;
+function scoreC10(unit) {
+  const allText = [
+    unit.why_matters || '',
+    ...(unit.outcomes || []),
+    ...Object.values(unit.activity_ribbons || {})
+  ].join(' ');
+  if (TASJIL_CHECK_RE.test(allText)) {
+    return { score: 0, issue: 'كلمة "تسجيل" تتعارض مع قسم التسجيلات الصفية' };
+  }
+  return { score: 1, issue: null };
+}
+
 // ── Evaluate a single unit ──────────────────────────────────────────────────
 
 function evaluateUnit(unit) {
@@ -235,24 +259,28 @@ function evaluateUnit(unit) {
   const r6 = scoreC6(unit);
   const r7 = scoreC7(unit.activity_ribbons);
   const r8 = scoreC8(unit.activity_ribbons);
+  const r9 = scoreC9(unit);
+  const r10 = scoreC10(unit);
 
   const scores = {
     c1_specificity: r1.score,
-    c2_feminine_address: r2.score,
-    c3_outcomes_verbs: r3.score,
+    c2_no_masculine: r2.score,
+    c3_outcomes_action: r3.score,
     c4_concrete_outcomes: r4.score,
     c5_outcome_count: r5.score,
     c6_no_forbidden: r6.score,
     c7_ribbon_length: r7.score,
-    c8_ribbon_opener: r8.score
+    c8_ribbon_opener: r8.score,
+    c9_gender_neutral: r9.score,
+    c10_no_tasjil: r10.score
   };
   const total = Object.values(scores).reduce((a, b) => a + b, 0);
 
   const issues = [];
   if (r1.score === 0) issues.push(`C1 (تحديد المشهد): ${r1.issue}`);
-  if (r2.score === 0) issues.push(`C2 (مؤنث مفرد): ${r2.issue}`);
+  if (r2.score === 0) issues.push(`C2 (لا مذكر): ${r2.issue}`);
   if (r3.score === 0) {
-    issues.push(`C3 (فعل مؤنث): ${r3.issue}`);
+    issues.push(`C3 (صياغة الهدف): ${r3.issue}`);
     if (r3.failing?.length) issues.push(`  ← ${r3.failing.join(' | ')}`);
   }
   if (r4.score === 0) {
@@ -269,6 +297,8 @@ function evaluateUnit(unit) {
     issues.push(`C8 (فاتحة الشريط): ${r8.issue}`);
     if (r8.failing?.length) issues.push(`  ← ${r8.failing.join(' | ')}`);
   }
+  if (r9.score === 0) issues.push(`C9 (حياد جنسي): ${r9.issue}`);
+  if (r10.score === 0) issues.push(`C10 (لا تسجيل): ${r10.issue}`);
 
   return {
     id: unit.id,
@@ -289,19 +319,21 @@ function evaluateUnit(unit) {
 // ── Pattern detection ───────────────────────────────────────────────────────
 
 const CRITS = [
-  'c1_specificity', 'c2_feminine_address', 'c3_outcomes_verbs',
+  'c1_specificity', 'c2_no_masculine', 'c3_outcomes_action',
   'c4_concrete_outcomes', 'c5_outcome_count', 'c6_no_forbidden',
-  'c7_ribbon_length', 'c8_ribbon_opener'
+  'c7_ribbon_length', 'c8_ribbon_opener', 'c9_gender_neutral', 'c10_no_tasjil'
 ];
 const CRIT_LABELS = {
   c1_specificity: 'تحديد المشهد في why_matters',
-  c2_feminine_address: 'مخاطبة مؤنث مفرد',
-  c3_outcomes_verbs: 'الأهداف تبدأ بفعل مؤنث مضارع',
+  c2_no_masculine: 'غياب الخطاب المذكر',
+  c3_outcomes_action: 'الأهداف تبدأ بصياغة فعلية واضحة',
   c4_concrete_outcomes: 'أهداف ملموسة قابلة للملاحظة',
   c5_outcome_count: 'عدد الأهداف 3-6',
   c6_no_forbidden: 'غياب الكلمات المحظورة',
   c7_ribbon_length: 'طول الشريط 5-12 كلمة',
-  c8_ribbon_opener: 'الشريط لا يبدأ بفاتحة ضعيفة'
+  c8_ribbon_opener: 'الشريط لا يبدأ بفاتحة ضعيفة',
+  c9_gender_neutral: 'غياب أفعال ت...ين في المحتوى',
+  c10_no_tasjil: 'غياب كلمة "تسجيل"'
 };
 
 function detectPatterns(evaluations) {
@@ -329,16 +361,16 @@ function buildReport(evaluations, patterns, timestamp) {
   const summaryRows = levels.map(lvl => {
     const lu = evaluations.filter(e => e.level === lvl);
     const avg = (lu.reduce((a, e) => a + e.total, 0) / lu.length).toFixed(1);
-    const perfect = lu.filter(e => e.total === 8).length;
-    const acceptable = lu.filter(e => e.total >= 6 && e.total < 8).length;
-    const flagged = lu.filter(e => e.total <= 5).length;
+    const perfect = lu.filter(e => e.total === 10).length;
+    const acceptable = lu.filter(e => e.total >= 7 && e.total < 10).length;
+    const flagged = lu.filter(e => e.total <= 6).length;
     const cefr = lu[0]?.cefr || '';
     const name = lu[0]?.level_name || `L${lvl}`;
     return `| L${lvl} (${cefr}) — ${name} | ${avg} | ${perfect} | ${acceptable} | ${flagged} |`;
   });
 
-  const totalFlagged = evaluations.filter(e => e.total <= 5).length;
-  const totalAcceptable = evaluations.filter(e => e.total >= 6).length;
+  const totalFlagged = evaluations.filter(e => e.total <= 6).length;
+  const totalAcceptable = evaluations.filter(e => e.total >= 7).length;
   const globalAvg = (evaluations.reduce((a, e) => a + e.total, 0) / evaluations.length).toFixed(1);
 
   // Systemic patterns section
@@ -362,7 +394,7 @@ function buildReport(evaluations, patterns, timestamp) {
   const flagged = evaluations.filter(e => e.total <= 5).sort((a, b) => a.total - b.total);
   let flaggedSection = flagged.length === 0 ? '_لا توجد وحدات تحتاج إعادة توليد._\n' : '';
   for (const e of flagged) {
-    flaggedSection += `### L${e.level} وحدة ${e.unit_number}: "${e.theme}" — ${e.total}/8\n`;
+    flaggedSection += `### L${e.level} وحدة ${e.unit_number}: "${e.theme}" — ${e.total}/10\n`;
     flaggedSection += `**المعرّف:** \`${e.id}\`\n\n`;
     flaggedSection += `**المعايير الفاشلة:**\n`;
     for (const iss of e.issues) flaggedSection += `- ${iss}\n`;
@@ -373,14 +405,14 @@ function buildReport(evaluations, patterns, timestamp) {
   }
 
   // Acceptable with notes (6-7)
-  const acceptable67 = evaluations.filter(e => e.total >= 6 && e.total < 8);
+  const acceptable67 = evaluations.filter(e => e.total >= 7 && e.total < 10);
   let acceptable67Section = '';
   const by_level67 = {};
   for (const e of acceptable67) {
     const k = `L${e.level}`;
     if (!by_level67[k]) by_level67[k] = [];
     const failingCrits = CRITS.filter(c => e.scores[c] === 0);
-    by_level67[k].push(`وحدة ${e.unit_number} (${e.total}/8): ${failingCrits.join(', ')}`);
+    by_level67[k].push(`وحدة ${e.unit_number} (${e.total}/10): ${failingCrits.join(', ')}`);
   }
   for (const [lk, items] of Object.entries(by_level67).sort()) {
     acceptable67Section += `### ${lk}\n`;
@@ -389,20 +421,23 @@ function buildReport(evaluations, patterns, timestamp) {
   }
   if (!acceptable67Section) acceptable67Section = '_لا توجد — جميع الوحدات إما ممتازة أو تحتاج إعادة توليد._\n';
 
-  // Perfect units (8/8) count
+  // Perfect units (10/10) count
   const perfectLines = levels.map(lvl => {
-    const n = evaluations.filter(e => e.level === lvl && e.total === 8).length;
+    const n = evaluations.filter(e => e.level === lvl && e.total === 10).length;
     return `- L${lvl}: ${n} وحدة`;
   }).join('\n');
 
   // Best-of-class samples: one from L1, one from L3 (or first available)
-  const l1Best = evaluations.filter(e => e.level === 1 && e.total === 8)[0];
-  const l3Best = evaluations.filter(e => e.level === 3 && e.total === 8)[0];
-  const l0Best = evaluations.filter(e => e.level === 0 && e.total === 8)[0];
+  const l1Best = evaluations.filter(e => e.level === 1 && e.total === 10)[0]
+    || evaluations.filter(e => e.level === 1).sort((a,b) => b.total-a.total)[0];
+  const l3Best = evaluations.filter(e => e.level === 3 && e.total === 10)[0]
+    || evaluations.filter(e => e.level === 3).sort((a,b) => b.total-a.total)[0];
+  const l0Best = evaluations.filter(e => e.level === 0 && e.total === 10)[0]
+    || evaluations.filter(e => e.level === 0).sort((a,b) => b.total-a.total)[0];
 
   function formatBest(e) {
-    if (!e) return '_لا توجد وحدة 8/8 في هذا المستوى._\n';
-    let s = `### L${e.level} وحدة ${e.unit_number} — "${e.theme}" (8/8)\n\n`;
+    if (!e) return '_لا توجد وحدة في هذا المستوى._\n';
+    let s = `### L${e.level} وحدة ${e.unit_number} — "${e.theme}" (${e.total}/10)\n\n`;
     s += `**why_matters:**\n${e.why_matters}\n\n`;
     s += `**الأهداف:**\n`;
     for (const o of e.outcomes) s += `- ${o}\n`;
@@ -424,13 +459,13 @@ Scope: ${evaluations.length} وحدة عبر L0-L5
 
 ## الملخص
 
-| المستوى | متوسط النقاط | 8/8 | 6-7/8 | ≤5/8 (تحتاج إعادة توليد) |
+| المستوى | متوسط النقاط | 10/10 | 7-9/10 | ≤6/10 (تحتاج إعادة توليد) |
 |---|---|---|---|---|
 ${summaryRows.join('\n')}
 
 **إجمالي يحتاج إعادة توليد:** ${totalFlagged} وحدة
 **إجمالي مقبول أو ممتاز:** ${totalAcceptable} وحدة
-**المتوسط العام:** ${globalAvg}/8
+**المتوسط العام:** ${globalAvg}/10
 
 ---
 
@@ -439,7 +474,7 @@ ${summaryRows.join('\n')}
 ${patternSection}
 ---
 
-## الوحدات المُعلَّمة (نقاط ≤ 5/8) — تحتاج إعادة توليد
+## الوحدات المُعلَّمة (نقاط ≤ 6/10) — تحتاج إعادة توليد
 
 ${flaggedSection}
 ---
@@ -449,7 +484,7 @@ ${flaggedSection}
 ${acceptable67Section}
 ---
 
-## وحدات 8/8 الكاملة
+## وحدات 10/10 الكاملة
 
 ${perfectLines}
 
@@ -523,9 +558,9 @@ async function main() {
   // Terminal summary
   const levels = [...new Set(evaluations.map(e => e.level))].sort();
   const globalAvg = (evaluations.reduce((a, e) => a + e.total, 0) / evaluations.length).toFixed(1);
-  const perfect8 = evaluations.filter(e => e.total === 8).length;
-  const acceptable67 = evaluations.filter(e => e.total >= 6 && e.total < 8).length;
-  const needsRegen = evaluations.filter(e => e.total <= 5).length;
+  const perfect8 = evaluations.filter(e => e.total === 10).length;
+  const acceptable67 = evaluations.filter(e => e.total >= 7 && e.total < 10).length;
+  const needsRegen = evaluations.filter(e => e.total <= 6).length;
   const flaggedIds = evaluations.filter(e => e.total <= 5).map(e => e.id).join(', ') || 'NONE';
 
   const hasPatterns = Object.values(patterns).some(p => Object.keys(p).length > 0);
@@ -541,8 +576,8 @@ async function main() {
 
   let recommendation;
   const flagPct = needsRegen / evaluations.length;
-  if (parseFloat(globalAvg) >= 7.5 && flagPct < 0.10) {
-    recommendation = 'Ship as is — quality is excellent (avg ≥ 7.5, < 10% flagged)';
+  if (parseFloat(globalAvg) >= 9.0 && flagPct < 0.10) {
+    recommendation = 'Ship as is — quality is excellent (avg ≥ 9.0/10, < 10% flagged)';
   } else if (hasPatterns) {
     recommendation = 'Update SYSTEM_PROMPT and regenerate affected levels — systemic issue detected';
   } else {
@@ -552,8 +587,8 @@ async function main() {
   const byLevel = levels.map(lvl => {
     const lu = evaluations.filter(e => e.level === lvl);
     const avg = (lu.reduce((a, e) => a + e.total, 0) / lu.length).toFixed(1);
-    const fl = lu.filter(e => e.total <= 5).length;
-    return `  L${lvl}: avg ${avg}/8, ${fl} flagged`;
+    const fl = lu.filter(e => e.total <= 6).length;
+    return `  L${lvl}: avg ${avg}/10, ${fl} flagged`;
   }).join('\n');
 
   console.log(`
@@ -563,10 +598,10 @@ Full report: docs/journey-v3-quality-review.md
 
 OVERALL:
   Units evaluated: ${evaluations.length}/72
-  Average score: ${globalAvg}/8
-  Ship as is (8/8): ${perfect8}
-  Acceptable (6-7/8): ${acceptable67}
-  Needs regeneration (≤5/8): ${needsRegen}
+  Average score: ${globalAvg}/10
+  Perfect (10/10): ${perfect8}
+  Acceptable (7-9/10): ${acceptable67}
+  Needs regeneration (≤6/10): ${needsRegen}
 
 BY LEVEL:
 ${byLevel}
