@@ -123,6 +123,7 @@ const CompetitionCommandPage = lazyRetry(() => import('./pages/trainer/v2/Compet
 const MyGrowthPage = lazyRetry(() => import('./pages/trainer/v2/MyGrowthPage'))
 const NabihPage = lazyRetry(() => import('./pages/trainer/v2/NabihPage'))
 const Student360Page = lazyRetry(() => import('./pages/trainer/v2/Student360Page'))
+const IELTSOverview = lazyRetry(() => import('./pages/trainer/IELTSOverview'))
 
 const AdminDashboard = lazyRetry(() => import('./pages/admin/AdminDashboard'))
 const AdminStudents = lazyRetry(() => import('./pages/admin/AdminStudents'))
@@ -641,6 +642,7 @@ export default function App() {
               <Route path="/trainer/interactive-curriculum/:levelId/:unitId" element={<Page><InteractiveCurriculumPage /></Page>} />
               <Route path="/trainer/student/:studentId/progress" element={<Page><StudentProgressDetail /></Page>} />
               <Route path="/trainer/student/:studentId" element={<Page><Student360Page /></Page>} />
+              <Route path="/trainer/ielts" element={<Page><IELTSOverview /></Page>} />
 
               {/* ── Redirects: 19 legacy routes → V2 equivalents ── */}
               {['/trainer/notes', '/trainer/library', '/trainer/points',

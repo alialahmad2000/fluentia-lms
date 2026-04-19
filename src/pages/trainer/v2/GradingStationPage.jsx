@@ -1,16 +1,20 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { PenLine, Mic, AlertCircle, CheckCircle, Clock } from 'lucide-react'
 import { useGradingQueue } from '@/hooks/trainer/useGradingQueue'
+import { useIELTSGradingQueueExtension } from '@/hooks/trainer/useTrainerIELTSStudents'
 import { CommandCard } from '@/design-system/trainer'
 import SubmissionReviewModal from '@/components/trainer/grading/SubmissionReviewModal'
+import IELTSSubmissionCard from '@/components/trainer/ielts/IELTSSubmissionCard'
+import IELTSReviewModal from '@/components/trainer/ielts/IELTSReviewModal'
 import './GradingStationPage.css'
 
 const FILTERS = [
   { id: 'all', label: 'الكل' },
   { id: 'writing', label: 'كتابة' },
   { id: 'speaking', label: 'محادثة' },
+  { id: 'ielts', label: 'IELTS' },
   { id: 'urgent', label: '⚠️ متأخر' },
 ]
 
@@ -37,17 +41,26 @@ function QueueSkeleton() {
 export default function GradingStationPage() {
   const navigate = useNavigate()
   const { data: queue = [], isLoading } = useGradingQueue(100)
+  const { data: ieltsQueue = [], isLoading: ieltsLoading } = useIELTSGradingQueueExtension()
   const [filter, setFilter] = useState('all')
   const [selectedItem, setSelectedItem] = useState(null)
+  const [selectedIELTS, setSelectedIELTS] = useState(null)
 
-  const filtered = queue.filter(item => {
-    if (filter === 'writing') return item.submission_type === 'writing'
-    if (filter === 'speaking') return item.submission_type === 'speaking'
-    if (filter === 'urgent') return item.is_urgent
+  const combinedQueue = useMemo(() => [
+    ...queue,
+    ...ieltsQueue,
+  ].sort((a, b) => new Date(a.submitted_at) - new Date(b.submitted_at)), [queue, ieltsQueue])
+
+  const filtered = combinedQueue.filter(item => {
+    if (filter === 'ielts') return item.is_ielts === true
+    if (filter === 'writing') return item.submission_type === 'writing' && !item.is_ielts
+    if (filter === 'speaking') return item.submission_type === 'speaking' && !item.is_ielts
+    if (filter === 'urgent') return item.is_urgent || (!item.is_ielts ? false : (Date.now() - new Date(item.submitted_at).getTime()) > 48 * 3_600_000)
     return true
   })
 
-  const urgentCount = queue.filter(i => i.is_urgent).length
+  const urgentCount = combinedQueue.filter(i => i.is_urgent).length
+  const totalCount = combinedQueue.length
 
   return (
     <div className="gs-page" dir="rtl">
@@ -55,8 +68,8 @@ export default function GradingStationPage() {
       <div className="gs-header">
         <div className="gs-header__title-row">
           <h1 className="gs-header__title">محطة التصحيح</h1>
-          {queue.length > 0 && (
-            <span className="gs-header__badge">{queue.length}</span>
+          {totalCount > 0 && (
+            <span className="gs-header__badge">{totalCount}</span>
           )}
         </div>
         {urgentCount > 0 && (
@@ -84,7 +97,7 @@ export default function GradingStationPage() {
       </div>
 
       {/* Queue */}
-      {isLoading ? (
+      {isLoading || ieltsLoading ? (
         <QueueSkeleton />
       ) : filtered.length === 0 ? (
         <CommandCard className="gs-empty">
@@ -99,67 +112,85 @@ export default function GradingStationPage() {
       ) : (
         <div className="gs-list">
           <AnimatePresence mode="popLayout">
-            {filtered.map(item => (
-              <motion.div
-                key={item.submission_id}
-                layout
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-              >
-                <CommandCard
-                  className={`gs-row ${item.is_urgent ? 'gs-row--urgent' : ''}`}
-                  as="button"
-                  onClick={() => setSelectedItem(item)}
+            {filtered.map(item => {
+              const key = item.is_ielts ? `ielts-${item.id}` : item.submission_id
+              if (item.is_ielts) {
+                return (
+                  <motion.div key={key} layout initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, x: -20 }}>
+                    <IELTSSubmissionCard item={item} onClick={() => setSelectedIELTS(item)} />
+                  </motion.div>
+                )
+              }
+              return (
+                <motion.div
+                  key={key}
+                  layout
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
                 >
-                  <div className="gs-row__left">
-                    <TypeIcon type={item.submission_type} />
-                    <div className="gs-row__info">
-                      <div className="gs-row__name" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                        {item.student_name}
-                        {item.student_id && (
-                          <button
-                            style={{ fontSize: '0.68rem', padding: '1px 5px', borderRadius: '0.3rem', border: '1px solid #d1d5db', background: '#f9fafb', cursor: 'pointer' }}
-                            onClick={e => { e.stopPropagation(); navigate(`/trainer/student/${item.student_id}`) }}
-                            title="ملف الطالب ٣٦٠"
-                          >
-                            ٣٦٠
-                          </button>
-                        )}
+                  <CommandCard
+                    className={`gs-row ${item.is_urgent ? 'gs-row--urgent' : ''}`}
+                    as="button"
+                    onClick={() => setSelectedItem(item)}
+                  >
+                    <div className="gs-row__left">
+                      <TypeIcon type={item.submission_type} />
+                      <div className="gs-row__info">
+                        <div className="gs-row__name" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                          {item.student_name}
+                          {item.student_id && (
+                            <button
+                              style={{ fontSize: '0.68rem', padding: '1px 5px', borderRadius: '0.3rem', border: '1px solid #d1d5db', background: '#f9fafb', cursor: 'pointer' }}
+                              onClick={e => { e.stopPropagation(); navigate(`/trainer/student/${item.student_id}`) }}
+                              title="ملف الطالب ٣٦٠"
+                            >
+                              ٣٦٠
+                            </button>
+                          )}
+                        </div>
+                        <div className="gs-row__meta">
+                          {item.group_name} · {item.unit_title || 'وحدة غير محددة'}
+                        </div>
                       </div>
-                      <div className="gs-row__meta">
-                        {item.group_name} · {item.unit_title || 'وحدة غير محددة'}
+                    </div>
+                    <div className="gs-row__right">
+                      <div className="gs-row__ai-score">
+                        {item.ai_score > 0 ? `${item.ai_score}/10` : '—'}
                       </div>
+                      <div className={`gs-row__age ${item.is_urgent ? 'gs-row__age--urgent' : ''}`}>
+                        <Clock size={11} />
+                        {formatHours(item.hours_pending)}
+                      </div>
+                      <span className="gs-row__cta">مراجعة ←</span>
                     </div>
-                  </div>
-                  <div className="gs-row__right">
-                    <div className="gs-row__ai-score">
-                      {item.ai_score > 0 ? `${item.ai_score}/10` : '—'}
-                    </div>
-                    <div className={`gs-row__age ${item.is_urgent ? 'gs-row__age--urgent' : ''}`}>
-                      <Clock size={11} />
-                      {formatHours(item.hours_pending)}
-                    </div>
-                    <span className="gs-row__cta">مراجعة ←</span>
-                  </div>
-                </CommandCard>
-              </motion.div>
-            ))}
+                  </CommandCard>
+                </motion.div>
+              )
+            })}
           </AnimatePresence>
         </div>
       )}
 
-      {/* Review modal */}
+      {/* Regular review modal */}
       <AnimatePresence>
         {selectedItem && (
           <SubmissionReviewModal
             item={selectedItem}
-            queue={filtered}
+            queue={filtered.filter(i => !i.is_ielts)}
             onClose={() => setSelectedItem(null)}
             onAdvance={(next) => setSelectedItem(next || null)}
           />
         )}
       </AnimatePresence>
+
+      {/* IELTS review modal */}
+      {selectedIELTS && (
+        <IELTSReviewModal
+          item={selectedIELTS}
+          onClose={() => setSelectedIELTS(null)}
+        />
+      )}
     </div>
   )
 }

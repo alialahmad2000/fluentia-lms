@@ -2,7 +2,7 @@ import {
   Home, BookOpen, PenLine, Mic, Users, Trophy,
   BookMarked, User, Settings, BarChart3, ClipboardList,
   Megaphone, CreditCard, GraduationCap, UserCog, Bot, FileText,
-  StickyNote, TrendingUp, Zap, CalendarClock, Swords, Target, Map,
+  StickyNote, TrendingUp, Zap, CalendarClock, Swords, Target, Map, Award,
 } from 'lucide-react'
 
 
@@ -96,6 +96,7 @@ export const TRAINER_NAV = {
         { id: 'dashboard',   label: 'الرئيسية',     icon: Home,          to: '/trainer' },
         { id: 'students',    label: 'الطلاب',       icon: GraduationCap, to: '/trainer/my-students' },
         { id: 'grading',     label: 'التقييم',      icon: ClipboardList, to: '/trainer/grading' },
+        { id: 'trainer-ielts', label: 'IELTS',      icon: Award,         to: '/trainer/ielts', requiresIELTSStudents: true },
       ],
     },
     {

@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useState, useMemo, lazy, Suspense } from 'react'
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -16,6 +16,9 @@ import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
 import UserAvatar from '../../components/common/UserAvatar'
 import { calculateUnitCompletion, groupProgressByUnit } from '../../utils/curriculumProgress'
+import { hasIELTSAccess } from '@/lib/packageAccess'
+
+const StudentIELTSTab = lazy(() => import('./StudentIELTSTab'))
 
 // ─── Constants & Helpers ────────────────────────────────────
 const SECTION_META = {
@@ -78,8 +81,9 @@ function formatTime(date) {
 export default function StudentProgressDetail() {
   const { studentId } = useParams()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const { profile: currentUser } = useAuthStore()
-  const [activeTab, setActiveTab] = useState('overview')
+  const [activeTab, setActiveTab] = useState(() => searchParams.get('tab') || 'overview')
 
   // ── Fetch student profile ────────────────────────
   const { data: student, isLoading: loadingStudent } = useQuery({
@@ -399,6 +403,7 @@ export default function StudentProgressDetail() {
   const studentInfo = student.students?.[0] || student.students || {}
   const group = studentInfo.groups
   const team = studentInfo.teams
+  const studentHasIELTS = hasIELTSAccess(studentInfo)
 
   const TABS = [
     { key: 'overview', label: 'نظرة عامة' },
@@ -407,6 +412,7 @@ export default function StudentProgressDetail() {
     { key: 'spelling', label: 'الإملاء والأفعال' },
     { key: 'writing', label: 'الكتابة' },
     { key: 'timeline', label: 'الجدول الزمني' },
+    ...(studentHasIELTS ? [{ key: 'ielts', label: 'IELTS' }] : []),
   ]
 
   return (
@@ -553,6 +559,12 @@ export default function StudentProgressDetail() {
 
       {activeTab === 'timeline' && (
         <TimelineTab items={timeline} />
+      )}
+
+      {activeTab === 'ielts' && studentHasIELTS && (
+        <Suspense fallback={<div style={{ height: 200 }} />}>
+          <StudentIELTSTab studentId={studentId} />
+        </Suspense>
       )}
     </div>
   )
