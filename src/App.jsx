@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, Suspense } from 'react'
-import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
+import { BrowserRouter, Routes, Route, Navigate, Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { useAuthStore } from './stores/authStore'
 import { supabase } from './lib/supabase'
 import LoginPage from './pages/public/LoginPage'
@@ -62,6 +63,7 @@ const StudentAIInsights = lazyRetry(() => import('./pages/student/StudentAIInsig
 const DailyReview = lazyRetry(() => import('./pages/student/DailyReview'))
 const LevelExitTest = lazyRetry(() => import('./pages/student/LevelExitTest'))
 const LevelJourneyMap = lazyRetry(() => import('./pages/student/LevelJourneyMap'))
+const AccountPausedPage = lazyRetry(() => import('./pages/student/AccountPausedPage'))
 const StudentDuels = lazyRetry(() => import('./pages/student/StudentDuels'))
 const CompetitionHub   = lazyRetry(() => import('./pages/student/CompetitionHub'))
 const CompetitionRules = lazyRetry(() => import('./pages/student/CompetitionRules'))
@@ -361,6 +363,37 @@ function ProtectedRoute({ allowedRoles }) {
   return <Outlet />
 }
 
+// ─── Student Status Guard — redirects paused students ─────────
+function StudentStatusGuard() {
+  const profile = useAuthStore((s) => s.profile)
+  const isImpersonating = useAuthStore((s) => s.isImpersonating)
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const { data: student } = useQuery({
+    queryKey: ['student-status-guard', profile?.id],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('students')
+        .select('status')
+        .eq('id', profile.id)
+        .single()
+      return data
+    },
+    enabled: !!profile?.id && profile?.role === 'student',
+    staleTime: 60_000,
+  })
+
+  useEffect(() => {
+    if (isImpersonating) return
+    if (student?.status === 'paused' && location.pathname !== '/account/paused') {
+      navigate('/account/paused', { replace: true })
+    }
+  }, [student, location.pathname, navigate, isImpersonating])
+
+  return <Outlet />
+}
+
 // ─── Trainer Onboarding Guard ─────────────────────────────────
 function TrainerOnboardingGuard({ children }) {
   const profile = useAuthStore((s) => s.profile)
@@ -513,8 +546,14 @@ export default function App() {
             </ErrorBoundary>
           } />
 
+          {/* Account paused — outside student layout, no sidebar */}
+          <Route path="/account/paused" element={
+            <Suspense fallback={<LoadingSkeleton />}><AccountPausedPage /></Suspense>
+          } />
+
           {/* Student routes */}
           <Route element={<ProtectedRoute allowedRoles={['student']} />}>
+            <Route element={<StudentStatusGuard />}>
             <Route element={<ErrorBoundary><LayoutShell /></ErrorBoundary>}>
               <Route path="/student" element={<Page><StudentDashboard /></Page>} />
               <Route path="/student/assignments" element={<Page><StudentAssignments /></Page>} />
@@ -603,6 +642,7 @@ export default function App() {
                 <Route path="errors/review" element={<Page><ErrorBankReview /></Page>} />
                 <Route path=":section" element={<Page><IELTSComingSoon /></Page>} />
               </Route>
+            </Route>
             </Route>
           </Route>
 
