@@ -1,193 +1,171 @@
-// Fluentia LMS — Class Prep AI Analysis
-// Analyzes recent student errors to generate focus points for upcoming class
-// Deploy: supabase functions deploy class-prep-analysis --no-verify-jwt
+// Fluentia LMS — Class Prep AI Analysis (T5)
+// Uses get_class_prep_context RPC + Claude for talking points, focus areas, students to call on
+// Caches result 6h in trainer_daily_rituals.prep_cache
+// Deploy: supabase functions deploy class-prep-analysis --linked
 
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+import Anthropic from 'https://esm.sh/@anthropic-ai/sdk@0.27.0'
 
-const corsHeaders = {
+const CORS = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
+const CACHE_HOURS = 6
+
 Deno.serve(async (req) => {
-  if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders })
-  }
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS })
 
   try {
+    const { trainer_id, group_id, unit_id, force_refresh = false } = await req.json()
+
+    if (!trainer_id || !group_id) {
+      return new Response(JSON.stringify({ error: 'trainer_id and group_id required' }), {
+        status: 400,
+        headers: { ...CORS, 'Content-Type': 'application/json' },
+      })
+    }
+
     const supabase = createClient(
       Deno.env.get('SUPABASE_URL')!,
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
     )
 
-    // Auth
-    const authHeader = req.headers.get('Authorization')
-    if (!authHeader) {
-      return new Response(JSON.stringify({ error: 'Missing authorization' }), {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 401,
-      })
-    }
-    const token = authHeader.replace('Bearer ', '')
-    const { data: { user }, error: authErr } = await supabase.auth.getUser(token)
-    if (authErr || !user) {
-      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 401,
-      })
+    // 1. Check cache
+    if (!force_refresh) {
+      const today = new Date().toISOString().split('T')[0]
+      const { data: ritual } = await supabase
+        .from('trainer_daily_rituals')
+        .select('prep_cache, prep_cache_generated_at')
+        .eq('trainer_id', trainer_id)
+        .eq('day', today)
+        .maybeSingle()
+
+      if (ritual?.prep_cache?.group_id === group_id && ritual?.prep_cache_generated_at) {
+        const age_h = (Date.now() - new Date(ritual.prep_cache_generated_at).getTime()) / 3_600_000
+        if (age_h < CACHE_HOURS) {
+          return new Response(
+            JSON.stringify({ ...ritual.prep_cache, cached: true, age_hours: age_h }),
+            { headers: { ...CORS, 'Content-Type': 'application/json' } }
+          )
+        }
+      }
     }
 
-    const { group_id, unit_id } = await req.json()
-    if (!group_id) {
-      return new Response(JSON.stringify({ focus_points: [] }), {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
-    }
+    // 2. Fetch context via RPC
+    const { data: ctx, error: ctxErr } = await supabase.rpc('get_class_prep_context', {
+      p_trainer_id: trainer_id,
+      p_group_id: group_id,
+    })
+    if (ctxErr) throw ctxErr
 
-    // 1. Get students in group (students.group_id, not group_members)
+    // 3. Pull recent student progress
     const { data: students } = await supabase
       .from('students')
-      .select('id, profiles(full_name, display_name)')
+      .select('id, profiles(full_name)')
       .eq('group_id', group_id)
       .eq('status', 'active')
       .is('deleted_at', null)
 
-    const studentIds = students?.map((s: any) => s.id) || []
-    if (!studentIds.length) {
-      return new Response(JSON.stringify({ focus_points: [] }), {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
+    const studentIds = (students || []).map((s: any) => s.id)
+
+    let recentProgress: any[] = []
+    if (studentIds.length) {
+      const { data } = await supabase
+        .from('student_curriculum_progress')
+        .select('student_id, section_type, status, score, completed_at')
+        .in('student_id', studentIds)
+        .gte('updated_at', new Date(Date.now() - 14 * 24 * 3_600_000).toISOString())
+        .limit(80)
+      recentProgress = data || []
     }
 
-    const studentNames: Record<string, string> = {}
-    students?.forEach((s: any) => {
-      studentNames[s.id] = s.profiles?.display_name || s.profiles?.full_name || 'طالب'
-    })
+    // 4. Build prompt
+    const prompt = `أنت مساعد المدرب في أكاديمية طلاقة. أنت تعدّ المدرب لحصة قادمة بتوليد نقاط حوار ذكية ومحددة.
 
-    const twoWeeksAgo = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString()
+بيانات الحصة:
+- المجموعة: ${ctx?.group?.name || 'غير محددة'} (Level ${ctx?.group?.level || '?'})
+- عدد الطلاب: ${students?.length || 0}
+- الوحدة: ${ctx?.unit?.title || 'غير محددة'} (الوحدة رقم ${ctx?.unit?.order_index || '—'})
+- الحصة بعد: ${Math.floor(ctx?.next_class?.minutes_until || 0)} دقيقة
 
-    // 2. Get recent speaking feedback
-    const { data: speakingFeedback } = await supabase
-      .from('speaking_recordings')
-      .select('student_id, ai_evaluation, created_at')
-      .in('student_id', studentIds)
-      .gte('created_at', twoWeeksAgo)
-      .not('ai_evaluation', 'is', null)
-      .limit(15)
+نقاط ضعف المجموعة (آخر ١٤ يوم):
+${JSON.stringify(ctx?.weaknesses || [], null, 2)}
 
-    // 3. Get vocabulary mastery — weakest words
-    const { data: vocabMastery } = await supabase
-      .from('vocabulary_word_mastery')
-      .select('student_id, mastery_level, curriculum_vocabulary(word)')
-      .in('student_id', studentIds)
-      .eq('mastery_level', 'new')
-      .limit(30)
+طلاب يستحقون الإشادة:
+${JSON.stringify(ctx?.celebrate_students || [], null, 2)}
 
-    // 4. Get curriculum progress — which sections students struggle with
-    const { data: progress } = await supabase
-      .from('student_curriculum_progress')
-      .select('student_id, section_type, score, status')
-      .in('student_id', studentIds)
-      .lt('score', 50)
-      .limit(20)
+طلاب يحتاجون انتباه عاجل:
+${JSON.stringify(ctx?.urgent_students || [], null, 2)}
 
-    // 5. Get help requests (from prompt 07) — what students flagged
-    const { data: helpRequests } = await supabase
-      .from('help_requests')
-      .select('student_id, section_type, created_at')
-      .in('student_id', studentIds)
-      .eq('status', 'pending')
-      .limit(10)
+عينة من أداء الطلاب الأخير:
+${JSON.stringify(recentProgress.slice(0, 20), null, 2)}
 
-    // Build context for AI
-    const speakingContext = speakingFeedback?.slice(0, 8).map((s: any) => ({
-      student: studentNames[s.student_id],
-      feedback: typeof s.ai_evaluation === 'string' ? s.ai_evaluation : JSON.stringify(s.ai_evaluation),
-    })) || []
-
-    const weakWords = vocabMastery?.map((v: any) => v.curriculum_vocabulary?.word).filter(Boolean) || []
-    const uniqueWeakWords = [...new Set(weakWords)]
-
-    const lowScores = progress?.map((p: any) => ({
-      student: studentNames[p.student_id],
-      section: p.section_type,
-      score: p.score,
-    })) || []
-
-    const helpContext = helpRequests?.map((h: any) => ({
-      student: studentNames[h.student_id],
-      section: h.section_type,
-    })) || []
-
-    // 6. Call Claude for analysis
-    const CLAUDE_API_KEY = Deno.env.get('CLAUDE_API_KEY')
-    if (!CLAUDE_API_KEY) {
-      return new Response(JSON.stringify({ focus_points: [] }), {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
-    }
-
-    const prompt = `أنت مساعد تعليمي لمدرب لغة إنجليزية في أكاديمية سعودية. حلل البيانات التالية واعطني ٣-٥ نقاط تركيز للحصة القادمة.
-
-بيانات تقييم التحدث الأخيرة:
-${JSON.stringify(speakingContext)}
-
-كلمات لم يتقنها الطلاب:
-${JSON.stringify(uniqueWeakWords.slice(0, 15))}
-
-أقسام بدرجات منخفضة:
-${JSON.stringify(lowScores)}
-
-طلبات مساعدة من الطلاب:
-${JSON.stringify(helpContext)}
-
-أعطني الإجابة كـ JSON فقط بدون أي نص إضافي:
+أرجع JSON فقط بهذا الشكل (لا تكتب أي شيء قبل أو بعد):
 {
-  "focus_points": [
-    {
-      "type": "grammar" | "pronunciation" | "vocabulary" | "student_attention",
-      "title": "عنوان قصير بالعربي",
-      "detail": "تفصيل بسيط بالعربي",
-      "affected_students": ["اسم الطالب"]
-    }
-  ]
-}`
+  "talking_points": [
+    "نقطة حوار محددة وعملية، بالعربية، مبنية على البيانات"
+  ],
+  "focus_areas": [
+    { "title": "العنوان", "reason": "لماذا هذا التركيز مهم" }
+  ],
+  "students_to_call_on": [
+    { "name": "اسم الطالبة", "reason": "لأنها صامتة/لأنها أبدعت/...", "approach": "اقتراح كيف تخاطبها" }
+  ],
+  "success_story": { "name": "اسم", "moment": "اذكر لحظة نجاحها في بداية الحصة لرفع المعنويات" }
+}
 
-    const aiResponse = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': CLAUDE_API_KEY,
-        'anthropic-version': '2023-06-01',
+القواعد:
+- 3-5 talking_points
+- 2-3 focus_areas
+- 2-3 students_to_call_on
+- كل النصوص بالعربية الفصحى البسيطة
+- لا تخترع بيانات — استخدم ما هو موجود فقط
+- إذا البيانات شحيحة، أرجع قوائم أقصر`
+
+    const anthropic = new Anthropic({ apiKey: Deno.env.get('ANTHROPIC_API_KEY')! })
+    const resp = await anthropic.messages.create({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 2000,
+      messages: [{ role: 'user', content: prompt }],
+    })
+
+    const text = (resp.content[0] as any).text as string
+    const start = text.indexOf('{')
+    const end = text.lastIndexOf('}')
+    if (start === -1 || end === -1) throw new Error('No JSON in response')
+
+    const parsed = JSON.parse(text.slice(start, end + 1))
+
+    const payload = {
+      ...parsed,
+      group_id,
+      unit_id: unit_id || ctx?.unit?.id || null,
+      generated_at: new Date().toISOString(),
+      cached: false,
+    }
+
+    // 5. Save to cache
+    const today = new Date().toISOString().split('T')[0]
+    await supabase.from('trainer_daily_rituals').upsert(
+      {
+        trainer_id,
+        day: today,
+        prep_cache: payload,
+        prep_cache_generated_at: new Date().toISOString(),
       },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 1024,
-        messages: [{ role: 'user', content: prompt }],
-      }),
+      { onConflict: 'trainer_id,day' }
+    )
+
+    return new Response(JSON.stringify(payload), {
+      headers: { ...CORS, 'Content-Type': 'application/json' },
     })
-
-    const aiData = await aiResponse.json()
-    const responseText = aiData.content?.[0]?.text || '{}'
-
-    // Extract JSON safely
-    const jsonStart = responseText.indexOf('{')
-    const jsonEnd = responseText.lastIndexOf('}')
-    if (jsonStart === -1 || jsonEnd === -1) {
-      return new Response(JSON.stringify({ focus_points: [] }), {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
-    }
-    const focusPoints = JSON.parse(responseText.slice(jsonStart, jsonEnd + 1))
-
-    return new Response(JSON.stringify(focusPoints), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    })
-
-  } catch (error) {
-    console.error('Class prep analysis error:', error)
-    return new Response(JSON.stringify({ focus_points: [] }), {
-      status: 200,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+  } catch (err: any) {
+    console.error('class-prep-analysis error:', err)
+    return new Response(JSON.stringify({ error: err.message, fallback: true }), {
+      status: 500,
+      headers: { ...CORS, 'Content-Type': 'application/json' },
     })
   }
 })

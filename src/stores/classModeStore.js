@@ -4,6 +4,7 @@ const useClassMode = create((set) => ({
   isClassMode: false,
   classStartedAt: null,
   currentUnitId: null,
+  currentGroupId: null,
   pointsGiven: [],
   attendanceMarked: false,
   showPostSummary: false,
@@ -13,10 +14,11 @@ const useClassMode = create((set) => ({
   timerRunning: false,
   timerVisible: false, // visible to students
 
-  startClass: (unitId) => set({
+  startClass: (unitId, groupId = null) => set({
     isClassMode: true,
     classStartedAt: new Date().toISOString(),
     currentUnitId: unitId,
+    currentGroupId: groupId,
     pointsGiven: [],
     attendanceMarked: false,
     showPostSummary: false,
@@ -32,6 +34,7 @@ const useClassMode = create((set) => ({
     showPostSummary: false,
     classStartedAt: null,
     currentUnitId: null,
+    currentGroupId: null,
     pointsGiven: [],
     attendanceMarked: false,
   }),

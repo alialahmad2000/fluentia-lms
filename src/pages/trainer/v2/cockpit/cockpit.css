@@ -147,6 +147,45 @@
   background: color-mix(in srgb, var(--tr-danger, #ef4444) 15%, transparent);
   color: var(--tr-danger, #ef4444);
 }
+.tr-agenda__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+.tr-agenda__text { color: var(--tr-text-primary); }
+.tr-agenda__text--muted { color: var(--tr-text-muted); font-style: italic; }
+.tr-agenda__text--live { color: var(--tr-primary); font-weight: 700; }
+.tr-agenda__text--alert { color: var(--tr-danger, #ef4444); font-weight: 600; text-decoration: none; }
+.tr-agenda__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--tr-text-muted);
+  flex-shrink: 0;
+}
+.tr-agenda__prep-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--tr-primary);
+  color: #000;
+  font-size: 11px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: auto;
+  transition: opacity 0.15s;
+}
+.tr-agenda__prep-btn:hover { opacity: 0.85; }
+.tr-agenda__prep-btn--live {
+  background: rgba(239,68,68,0.15);
+  color: #f87171;
+  border: 1px solid rgba(239,68,68,0.3);
+}
 
 /* ============================================================
    GroupHealthOrbs

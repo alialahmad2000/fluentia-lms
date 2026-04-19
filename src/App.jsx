@@ -91,6 +91,11 @@ const WritingTaskPicker = lazyRetry(() => import('./pages/student/ielts/writing/
 const WritingWorkspace = lazyRetry(() => import('./pages/student/ielts/writing/WritingWorkspace'))
 const WritingFeedback = lazyRetry(() => import('./pages/student/ielts/writing/WritingFeedback'))
 const WritingHistory = lazyRetry(() => import('./pages/student/ielts/writing/WritingHistory'))
+const SpeakingLab = lazyRetry(() => import('./pages/student/ielts/speaking/SpeakingLab'))
+const SpeakingPartPicker = lazyRetry(() => import('./pages/student/ielts/speaking/SpeakingPartPicker'))
+const SpeakingSession = lazyRetry(() => import('./pages/student/ielts/speaking/SpeakingSession'))
+const SpeakingFeedback = lazyRetry(() => import('./pages/student/ielts/speaking/SpeakingFeedback'))
+const SpeakingHistory = lazyRetry(() => import('./pages/student/ielts/speaking/SpeakingHistory'))
 
 const TrainerOnboarding = lazyRetry(() => import('./pages/trainer/TrainerOnboarding'))
 const TrainerGrading = lazyRetry(() => import('./pages/trainer/TrainerGrading'))
@@ -567,6 +572,11 @@ export default function App() {
               <Route path="/student/ielts/writing/feedback/:submissionId" element={<Page><WritingFeedback /></Page>} />
               <Route path="/student/ielts/writing/:category" element={<Page><WritingTaskPicker /></Page>} />
               <Route path="/student/ielts/writing/:category/task/:taskId" element={<Page><WritingWorkspace /></Page>} />
+              <Route path="/student/ielts/speaking" element={<Page><SpeakingLab /></Page>} />
+              <Route path="/student/ielts/speaking/history" element={<Page><SpeakingHistory /></Page>} />
+              <Route path="/student/ielts/speaking/feedback/:sessionId" element={<Page><SpeakingFeedback /></Page>} />
+              <Route path="/student/ielts/speaking/part/:partNum" element={<Page><SpeakingPartPicker /></Page>} />
+              <Route path="/student/ielts/speaking/session/:questionId" element={<Page><SpeakingSession /></Page>} />
               <Route path="/student/ielts/:section" element={<Page><IELTSComingSoon /></Page>} />
             </Route>
           </Route>

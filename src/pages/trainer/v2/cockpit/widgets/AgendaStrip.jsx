@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { Link } from 'react-router-dom'
-import { Clock, FileCheck, Bell, Clapperboard } from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom'
+import { Clock, FileCheck, Bell, Clapperboard, Zap } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
 import { supabase } from '@/lib/supabase'
 import { useInterventionPreview } from '@/hooks/trainer/useInterventionPreview'
+import useClassMode from '@/stores/classModeStore'
 
 function useNextClass(trainerId) {
   return useQuery({
@@ -61,7 +62,9 @@ function formatCountdown(ms) {
 }
 
 export default function AgendaStrip({ groupCount }) {
+  const navigate = useNavigate()
   const profile = useAuthStore((s) => s.profile)
+  const isClassMode = useClassMode((s) => s.isClassMode)
   const trainerId = profile?.id
   const { data: nextClass } = useNextClass(trainerId)
   const { data: gradingCount = 0 } = useGradingCount(trainerId)
@@ -77,7 +80,16 @@ export default function AgendaStrip({ groupCount }) {
   const msTillClass = classDate ? classDate.getTime() - now : null
   const isWithin24h = msTillClass !== null && msTillClass > 0 && msTillClass < 86400000
   const isWithin6h = msTillClass !== null && msTillClass > 0 && msTillClass < 21600000
+  const isWithin30m = msTillClass !== null && msTillClass > 0 && msTillClass < 1_800_000
   const isPast = msTillClass !== null && msTillClass <= 0
+
+  const handleClassCta = () => {
+    if (isClassMode) {
+      navigate('/trainer/live')
+    } else {
+      navigate('/trainer/prep')
+    }
+  }
 
   return (
     <div className="tr-agenda">
@@ -95,12 +107,17 @@ export default function AgendaStrip({ groupCount }) {
             الكلاس القادم: {nextClass.date} · {nextClass.start_time?.slice(0, 5)} · {nextClass.groups?.name}
           </span>
         )}
-        {isWithin6h && (
-          <Link to="/trainer/prep" className="tr-agenda__prep-btn" aria-label="تحضير الكلاس">
+        {isClassMode ? (
+          <button onClick={handleClassCta} className="tr-agenda__prep-btn tr-agenda__prep-btn--live">
+            <Zap size={12} />
+            الحصة الآن
+          </button>
+        ) : isWithin6h ? (
+          <button onClick={handleClassCta} className="tr-agenda__prep-btn">
             <Clapperboard size={12} />
-            تحضير
-          </Link>
-        )}
+            {isWithin30m ? 'ابدأ الحصة' : 'تحضير'}
+          </button>
+        ) : null}
       </div>
 
       {/* Grading */}
