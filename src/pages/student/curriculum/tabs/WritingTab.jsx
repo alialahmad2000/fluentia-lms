@@ -221,9 +221,14 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
     }
   }, [])
 
-  // Realtime subscription — live updates when sweeper completes evaluation
+  // Ref guard: prevents double-applying feedback if channel fires more than once
+  const feedbackApplied = useRef(false)
+
+  // Realtime subscription — stable channel; aiFeedback excluded from deps intentionally
+  // (feedbackApplied ref replaces the !aiFeedback closure check to avoid channel recreation)
   useEffect(() => {
     if (!studentId || !task.id) return
+    feedbackApplied.current = false
     const channel = supabase
       .channel(`writing-eval-${task.id}-${studentId}`)
       .on('postgres_changes', {
@@ -233,10 +238,10 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
         filter: `writing_id=eq.${task.id}`,
       }, (payload) => {
         if (payload.new.student_id !== studentId) return
-        if (payload.new.ai_feedback && payload.new.evaluation_status === 'completed' && !aiFeedback) {
+        if (payload.new.ai_feedback && payload.new.evaluation_status === 'completed' && !feedbackApplied.current) {
+          feedbackApplied.current = true
           setAiFeedback(payload.new.ai_feedback)
           setEvalStatus('completed')
-          if (payload.new.score) {} // score already set by the edge function
           toast({ type: 'success', title: 'وصل تصحيحك! ✨' })
         } else if (payload.new.evaluation_status === 'escalated') {
           setEvalStatus('escalated')
@@ -246,7 +251,7 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
       })
       .subscribe()
     return () => supabase.removeChannel(channel)
-  }, [studentId, task.id, aiFeedback])
+  }, [studentId, task.id])
 
   const handleSave = useCallback(async () => {
     saveDraft(task.id, text)
