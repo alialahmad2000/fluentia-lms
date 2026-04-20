@@ -54,6 +54,12 @@
   --ds-shadow-lg: 0 28px 70px rgba(0,0,0,0.7);
   --ds-shadow-glow: 0 0 36px var(--ds-accent-primary-glow);
   --ds-is-dark: 1;
+
+  /* Masterclass tokens */
+  --ds-sky: #7dd3fc;
+  --ds-amber: #f59e0b;
+  --ds-reveal-bg: rgba(3, 5, 10, 0.98);
+  --ds-reveal-text: #faf5e6;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -113,6 +119,12 @@
 
   /* Theme flag for JS/CSS consumers */
   --ds-is-dark: 1;
+
+  /* Masterclass tokens */
+  --ds-sky: #38bdf8;
+  --ds-amber: #f59e0b;
+  --ds-reveal-bg: rgba(6, 14, 28, 0.98);
+  --ds-reveal-text: #f0f6ff;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -155,6 +167,12 @@
   --ds-shadow-glow: 0 0 36px var(--ds-accent-primary-glow);
 
   --ds-is-dark: 1;
+
+  /* Masterclass tokens */
+  --ds-sky: #7dd3fc;
+  --ds-amber: #f59e0b;
+  --ds-reveal-bg: rgba(3, 5, 10, 0.98);
+  --ds-reveal-text: #faf5e6;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -198,4 +216,10 @@
   --ds-shadow-glow: 0 0 24px var(--ds-accent-primary-glow);
 
   --ds-is-dark: 0;
+
+  /* Masterclass tokens */
+  --ds-sky: #0284c7;
+  --ds-amber: #d97706;
+  --ds-reveal-bg: rgba(248, 249, 251, 0.98);
+  --ds-reveal-text: #0f172a;
 }

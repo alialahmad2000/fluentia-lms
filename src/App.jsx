@@ -178,6 +178,7 @@ const AffiliateDetail = lazyRetry(() => import('./pages/admin/AffiliateDetail'))
 const AffiliatesDashboard = lazyRetry(() => import('./pages/admin/AffiliatesDashboard'))
 const AffiliatePayouts = lazyRetry(() => import('./pages/admin/AffiliatePayouts'))
 const AffiliateMaterialsAdmin = lazyRetry(() => import('./pages/admin/AffiliateMaterialsAdmin'))
+const MasterclassDesignShowcase = lazyRetry(() => import('./pages/admin/MasterclassDesignShowcase'))
 
 const PartnerLayout = lazyRetry(() => import('./layouts/PartnerLayout'))
 const PartnerRoute = lazyRetry(() => import('./components/PartnerRoute'))
@@ -752,6 +753,7 @@ export default function App() {
               <Route path="/admin/interactive-curriculum/:levelId" element={<Page><InteractiveCurriculumUnits /></Page>} />
               <Route path="/admin/interactive-curriculum/:levelId/:unitId" element={<Page><InteractiveCurriculumPage /></Page>} />
               <Route path="/admin/student/:studentId/progress" element={<Page><StudentProgressDetail /></Page>} />
+              <Route path="/admin/design-showcase-masterclass" element={<Page><MasterclassDesignShowcase /></Page>} />
             </Route>
           </Route>
 
