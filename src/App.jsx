@@ -109,6 +109,21 @@ const ErrorBankHome = lazyRetry(() => import('./pages/student/ielts/errors/Error
 const ErrorBankReview = lazyRetry(() => import('./pages/student/ielts/errors/ErrorBankReview'))
 const IELTSGuard = lazyRetry(() => import('./components/ielts/IELTSGuard'))
 
+// IELTS Masterclass V2 (feature-flagged, Phase 0B scaffold)
+const IELTSV2Gate           = lazyRetry(() => import('./pages/student/ielts-v2/_layout/IELTSV2Gate'))
+const IELTSMasterclassLayout = lazyRetry(() => import('./pages/student/ielts-v2/_layout/IELTSMasterclassLayout'))
+const IELTSV2Home           = lazyRetry(() => import('./pages/student/ielts-v2/Home'))
+const IELTSV2Diagnostic     = lazyRetry(() => import('./pages/student/ielts-v2/Diagnostic'))
+const IELTSV2Reading        = lazyRetry(() => import('./pages/student/ielts-v2/Reading'))
+const IELTSV2Listening      = lazyRetry(() => import('./pages/student/ielts-v2/Listening'))
+const IELTSV2Writing        = lazyRetry(() => import('./pages/student/ielts-v2/Writing'))
+const IELTSV2Speaking       = lazyRetry(() => import('./pages/student/ielts-v2/Speaking'))
+const IELTSV2Journey        = lazyRetry(() => import('./pages/student/ielts-v2/Journey'))
+const IELTSV2Errors         = lazyRetry(() => import('./pages/student/ielts-v2/Errors'))
+const IELTSV2Mock           = lazyRetry(() => import('./pages/student/ielts-v2/Mock'))
+const IELTSV2Trainer        = lazyRetry(() => import('./pages/student/ielts-v2/Trainer'))
+const IELTSV2Readiness      = lazyRetry(() => import('./pages/student/ielts-v2/Readiness'))
+
 const TrainerOnboarding = lazyRetry(() => import('./pages/trainer/TrainerOnboarding'))
 const TrainerStudentView = lazyRetry(() => import('./pages/trainer/TrainerStudentView.legacy'))
 const TrainerCurriculum = lazyRetry(() => import('./pages/trainer/TrainerCurriculum'))
@@ -643,6 +658,25 @@ export default function App() {
                 <Route path="errors" element={<Page><ErrorBankHome /></Page>} />
                 <Route path="errors/review" element={<Page><ErrorBankReview /></Page>} />
                 <Route path=":section" element={<Page><IELTSComingSoon /></Page>} />
+              </Route>
+
+              {/* IELTS Masterclass V2 — feature-flagged scaffold (Phase 0B) */}
+              <Route path="/student/ielts-v2" element={<Suspense fallback={<PageSkeleton />}><IELTSV2Gate /></Suspense>}>
+                <Route element={<Suspense fallback={<PageSkeleton />}><IELTSGuard /></Suspense>}>
+                  <Route element={<IELTSMasterclassLayout />}>
+                    <Route index element={<IELTSV2Home />} />
+                    <Route path="diagnostic" element={<IELTSV2Diagnostic />} />
+                    <Route path="reading"    element={<IELTSV2Reading />} />
+                    <Route path="listening"  element={<IELTSV2Listening />} />
+                    <Route path="writing"    element={<IELTSV2Writing />} />
+                    <Route path="speaking"   element={<IELTSV2Speaking />} />
+                    <Route path="journey"    element={<IELTSV2Journey />} />
+                    <Route path="errors"     element={<IELTSV2Errors />} />
+                    <Route path="mock"       element={<IELTSV2Mock />} />
+                    <Route path="trainer"    element={<IELTSV2Trainer />} />
+                    <Route path="readiness"  element={<IELTSV2Readiness />} />
+                  </Route>
+                </Route>
               </Route>
             </Route>
             </Route>
