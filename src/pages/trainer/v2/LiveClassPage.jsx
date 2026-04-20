@@ -45,6 +45,7 @@ export default function LiveClassPage() {
       return data || []
     },
     enabled: !!currentGroupId,
+    staleTime: 30_000,
   })
 
   // Elapsed timer

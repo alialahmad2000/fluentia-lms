@@ -1,5 +1,5 @@
-import { useMemo } from 'react'
-import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Navigate, useSearchParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { useAuthStore } from '@/stores/authStore'
 import { supabase } from '@/lib/supabase'
@@ -10,13 +10,14 @@ import { useGradingQueue } from '@/hooks/trainer/useGradingQueue'
 import { useTrainerOnboarding, shouldShowTour } from '@/hooks/trainer/useTrainerOnboarding'
 import { resolveHeroState } from '@/components/trainer/cockpit-v3/CockpitHero'
 import CockpitHero from '@/components/trainer/cockpit-v3/CockpitHero'
+import CockpitSkeleton from '@/components/trainer/cockpit-v3/CockpitSkeleton'
 import InterventionsSection from '@/components/trainer/cockpit-v3/InterventionsSection'
 import PulseSection from '@/components/trainer/cockpit-v3/PulseSection'
 import GradingSection from '@/components/trainer/cockpit-v3/GradingSection'
 import NabihInlineCard from '@/components/trainer/cockpit-v3/NabihInlineCard'
 import TrainerTour from '@/components/trainer/onboarding/TrainerTour'
+import TrainerErrorBoundary from '@/components/shared/TrainerErrorBoundary'
 import '@/components/trainer/cockpit-v3/DailyBrief.css'
-import { useState, useEffect } from 'react'
 import { MapPin } from 'lucide-react'
 
 function useNextClass(trainerId) {
@@ -50,13 +51,13 @@ function useNextClass(trainerId) {
 }
 
 export default function CockpitPage() {
-  // All hooks at top — before any conditional rendering
   const profile = useAuthStore((s) => s.profile)
   const [tourActive, setTourActive] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const { data: cockpit } = useTrainerCockpit()
-  const { data: pulse } = useStudentPulse()
+  // All hooks unconditionally at top
+  const { data: cockpit, isLoading: cockpitLoading } = useTrainerCockpit()
+  const { data: pulse, isLoading: pulseLoading } = useStudentPulse()
   const { data: interventions = [] } = useInterventionPreview(3)
   const { data: gradingItems = [] } = useGradingQueue(10)
   const { data: nextClass } = useNextClass(profile?.id)
@@ -79,9 +80,14 @@ export default function CockpitPage() {
     return <Navigate to="/" replace />
   }
 
+  // Show skeleton while profile or primary data loads
+  if (!profile || (cockpitLoading && pulseLoading)) {
+    return <CockpitSkeleton />
+  }
+
   const hourNow = new Date().getHours()
   const heroState = resolveHeroState({
-    nextClass,
+    nextClass: nextClass ?? null,
     hasDoneMorningRitual: !!cockpit?.todayRitual?.morning_completed_at,
     hourNow,
   })
@@ -90,11 +96,20 @@ export default function CockpitPage() {
 
   return (
     <main dir="rtl">
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', maxWidth: 720, margin: '0 auto', padding: '12px 20px 0', direction: 'rtl' }}>
-        <span style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--tr-text-muted)' }}>غرفة القيادة</span>
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        maxWidth: 720, margin: '0 auto', padding: '12px 20px 0', direction: 'rtl',
+      }}>
+        <span style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--tr-text-muted)' }}>
+          غرفة القيادة
+        </span>
         <button
           onClick={() => setTourActive(true)}
-          style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'none', border: '1px solid var(--tr-border)', borderRadius: 6, padding: '4px 10px', color: 'var(--tr-text-muted)', cursor: 'pointer', fontSize: '0.78rem' }}
+          style={{
+            display: 'flex', alignItems: 'center', gap: 4, background: 'none',
+            border: '1px solid var(--tr-border)', borderRadius: 6, padding: '4px 10px',
+            color: 'var(--tr-text-muted)', cursor: 'pointer', fontSize: '0.78rem',
+          }}
           data-tour-id="cockpit-header"
         >
           <MapPin size={12} /> جولة تعريفية
@@ -102,29 +117,39 @@ export default function CockpitPage() {
       </div>
 
       <div className="daily-brief">
-        <CockpitHero
-          state={heroState}
-          totals={cockpit?.totals}
-          students={students}
-          trainerName={profile?.full_name}
-          todayRitual={cockpit?.todayRitual}
-        />
+        <TrainerErrorBoundary>
+          <CockpitHero
+            state={heroState}
+            totals={cockpit?.totals ?? null}
+            students={students}
+            trainerName={profile?.full_name ?? ''}
+            todayRitual={cockpit?.todayRitual ?? null}
+          />
+        </TrainerErrorBoundary>
 
-        <div data-tour-id="intervention-preview">
-          <InterventionsSection items={interventions} />
-        </div>
+        <TrainerErrorBoundary>
+          <div data-tour-id="intervention-preview">
+            <InterventionsSection items={interventions} />
+          </div>
+        </TrainerErrorBoundary>
 
-        <PulseSection data={pulse} />
+        <TrainerErrorBoundary>
+          <PulseSection data={pulse ?? { students: [], matrix: {}, days: [] }} />
+        </TrainerErrorBoundary>
 
-        <div data-tour-id="grading-badge">
-          <GradingSection items={gradingItems} />
-        </div>
+        <TrainerErrorBoundary>
+          <div data-tour-id="grading-badge">
+            <GradingSection items={gradingItems} />
+          </div>
+        </TrainerErrorBoundary>
 
-        <NabihInlineCard
-          students={students}
-          interventions={interventions}
-          trainerName={profile?.full_name}
-        />
+        <TrainerErrorBoundary>
+          <NabihInlineCard
+            students={students}
+            interventions={interventions}
+            trainerName={profile?.full_name ?? ''}
+          />
+        </TrainerErrorBoundary>
       </div>
 
       <TrainerTour
