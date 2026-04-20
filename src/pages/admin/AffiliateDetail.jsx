@@ -26,23 +26,105 @@ import { useAuthStore } from '../../stores/authStore'
 import { toast } from '../../components/ui/FluentiaToast'
 
 const STATUS_CONFIG = {
-  pending: { label: 'قيد المراجعة', color: 'amber', bg: 'bg-amber-500/10', text: 'text-amber-400', border: 'border-amber-500/20' },
-  approved: { label: 'معتمد', color: 'emerald', bg: 'bg-emerald-500/10', text: 'text-emerald-400', border: 'border-emerald-500/20' },
-  rejected: { label: 'مرفوض', color: 'red', bg: 'bg-red-500/10', text: 'text-red-400', border: 'border-red-500/20' },
-  suspended: { label: 'موقوف', color: 'gray', bg: 'bg-gray-500/10', text: 'text-gray-400', border: 'border-gray-500/20' },
+  pending:   { label: 'قيد المراجعة', color: 'amber',   bg: 'bg-amber-500/10',   text: 'text-amber-400',   border: 'border-amber-500/20'   },
+  approved:  { label: 'معتمد',         color: 'emerald', bg: 'bg-emerald-500/10', text: 'text-emerald-400', border: 'border-emerald-500/20'  },
+  rejected:  { label: 'مرفوض',         color: 'red',     bg: 'bg-red-500/10',     text: 'text-red-400',     border: 'border-red-500/20'      },
+  suspended: { label: 'موقوف',          color: 'gray',    bg: 'bg-gray-500/10',    text: 'text-gray-400',    border: 'border-gray-500/20'     },
 }
 
+// ============================================================
+// Welcome email builder — used by both approve and resend paths
+// ============================================================
 function buildWelcomeEmail(affiliate) {
-  return {
-    subject: 'مبروك! تم اعتماد طلبك كشريك في أكاديمية طلاقة',
-    html: `<div dir="rtl" style="font-family:'Tajawal',sans-serif;max-width:600px;margin:0 auto;padding:24px;">
-              <h1 style="color:#38bdf8;">مبروك ${affiliate.full_name}!</h1>
-              <p>تم اعتماد طلبك كشريك في أكاديمية طلاقة.</p>
-              <p><strong>رابطك الفريد:</strong><br/><code>https://fluentia.academy/?ref=${affiliate.ref_code}</code></p>
-              <p><strong>QR Code:</strong><br/><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent('https://fluentia.academy/?ref=' + affiliate.ref_code)}" width="200" height="200"/></p>
-              <p><strong>العمولة:</strong> 100 ريال عن كل طالب ينضم ويدفع أول دفعة.</p>
-              <p>شارك رابطك في حساباتك وابدأ الربح!</p>
-            </div>`,
+  const refLink = `https://fluentia.academy/?ref=${encodeURIComponent(affiliate.ref_code)}`;
+  const portalUrl = 'https://app.fluentia.academy/partner';
+
+  const subject = `مرحباً بك في شركاء طلاقة — كودك ${affiliate.ref_code} جاهز 🎉`;
+
+  const html = `<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#0b1628;font-family:'Segoe UI',Tahoma,Arial,sans-serif;color:#e5e7eb;">
+  <div style="max-width:560px;margin:32px auto;background:#111d35;border-radius:16px;padding:32px;text-align:right;">
+    <h1 style="color:#fbbf24;font-size:28px;margin:0 0 16px;">مرحباً ${affiliate.full_name} 🎉</h1>
+    <p style="font-size:16px;line-height:1.7;color:#e5e7eb;margin:0 0 16px;">
+      تم اعتماد طلبك في <strong>برنامج شركاء أكاديمية طلاقة</strong>. أنت الآن جاهز لبدء التسويق والكسب.
+    </p>
+
+    <div style="background:#0b1628;border:1px solid #1f2d4a;border-radius:12px;padding:20px;margin:24px 0;">
+      <p style="margin:0 0 8px;color:#94a3b8;font-size:14px;">كودك التسويقي:</p>
+      <p style="margin:0 0 16px;font-size:22px;font-weight:bold;color:#fbbf24;letter-spacing:2px;">
+        ${affiliate.ref_code}
+      </p>
+      <p style="margin:0 0 8px;color:#94a3b8;font-size:14px;">رابطك للتسويق:</p>
+      <p style="margin:0;font-size:14px;word-break:break-all;">
+        <a href="${refLink}" style="color:#7dd3fc;text-decoration:none;">${refLink}</a>
+      </p>
+    </div>
+
+    <p style="font-size:16px;line-height:1.7;margin:0 0 16px;">
+      كل طالب يسجّل ويدفع عبر رابطك = <strong style="color:#fbbf24;">100 ريال عمولة لك</strong>.
+    </p>
+
+    <div style="text-align:center;margin:32px 0;">
+      <a href="${portalUrl}" style="display:inline-block;background:linear-gradient(90deg,#fbbf24,#f59e0b);color:#0b1628;padding:14px 32px;border-radius:10px;text-decoration:none;font-weight:bold;font-size:16px;">
+        ادخل لبوابة الشركاء
+      </a>
+    </div>
+
+    <p style="font-size:14px;color:#94a3b8;line-height:1.7;margin:24px 0 0;border-top:1px solid #1f2d4a;padding-top:16px;">
+      إذا واجهت أي صعوبة بالدخول، تواصل معنا على واتساب: +966558669974
+    </p>
+  </div>
+
+  <p style="text-align:center;color:#64748b;font-size:12px;margin:16px 0 32px;">
+    أكاديمية طلاقة | Fluentia Academy
+  </p>
+</body>
+</html>`;
+
+  return { subject, html };
+}
+
+// ============================================================
+// sendAffiliateEmail — hard-checked wrapper around send-email function
+// ============================================================
+async function sendAffiliateEmail({ to, subject, html, session }) {
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+  const anonKey    = import.meta.env.VITE_SUPABASE_ANON_KEY;
+  const token      = session?.access_token || anonKey;
+
+  if (!supabaseUrl || !token) {
+    const err = 'Supabase URL or auth token missing';
+    console.error('[sendAffiliateEmail]', err);
+    return { sent: false, error: err };
+  }
+
+  try {
+    const response = await fetch(`${supabaseUrl}/functions/v1/send-email`, {
+      method: 'POST',
+      headers: {
+        'Content-Type':  'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({ to, subject, html }),
+    });
+
+    let body;
+    try { body = await response.json(); }
+    catch { body = { raw: await response.text().catch(() => '') }; }
+
+    if (!response.ok || body?.error || body?.success === false) {
+      const errMsg = body?.error || body?.message || `HTTP ${response.status}`;
+      console.error('[sendAffiliateEmail] FAILED:', { status: response.status, body });
+      return { sent: false, error: errMsg, raw: body };
+    }
+
+    console.log('[sendAffiliateEmail] OK:', body);
+    return { sent: true, id: body?.id, raw: body };
+  } catch (err) {
+    console.error('[sendAffiliateEmail] EXCEPTION:', err);
+    return { sent: false, error: err?.message || 'network error' };
   }
 }
 
@@ -85,6 +167,7 @@ export default function AffiliateDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
+  const session = useAuthStore((s) => s.session)
   const { profile } = useAuthStore()
   const [adminNotes, setAdminNotes] = useState('')
   const [notesLoaded, setNotesLoaded] = useState(false)
@@ -111,75 +194,63 @@ export default function AffiliateDetail() {
   // ── Approve ────────────────────────────────────────────────────────────────
   const approveMutation = useMutation({
     mutationFn: async () => {
-      // Update affiliate status
-      const { error } = await supabase
+      if (!affiliate) throw new Error('affiliate not loaded');
+
+      // Step 1 — flip status + stamp approved_at/by
+      const { data: updated, error: updateError } = await supabase
         .from('affiliates')
         .update({
           status: 'approved',
           approved_at: new Date().toISOString(),
-          approved_by: profile?.id,
+          approved_by: profile?.id ?? null,
         })
-        .eq('id', id)
-      if (error) throw error
+        .eq('id', affiliate.id)
+        .select()
+        .single();
 
-      // Create/update profile with 'affiliate' role so they can log in to /partner
-      if (affiliate.user_id) {
-        await supabase.from('profiles').update({ role: 'affiliate' }).eq('id', affiliate.user_id)
-      } else {
-        // Create auth user + profile for the affiliate
-        const tempPass = 'Fluentia!' + Math.random().toString(36).slice(2, 8)
-        const { data: authData } = await supabase.auth.signUp({
-          email: affiliate.email,
-          password: tempPass,
-          options: { data: { full_name: affiliate.full_name } },
-        })
-        if (authData?.user?.id) {
-          await supabase.from('profiles').upsert({
-            id: authData.user.id,
-            full_name: affiliate.full_name,
+      if (updateError) throw new Error(`فشل تحديث الحالة: ${updateError.message}`);
+
+      // Step 2 — ensure auth user + profile row exist (best-effort; non-fatal)
+      if (!affiliate.user_id) {
+        try {
+          const tempPassword = crypto.randomUUID();
+          const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
             email: affiliate.email,
-            phone: affiliate.phone,
-            role: 'affiliate',
-          }, { onConflict: 'id' })
-          await supabase.from('affiliates').update({ user_id: authData.user.id }).eq('id', id)
+            password: tempPassword,
+            options: { data: { full_name: affiliate.full_name, role: 'affiliate' } },
+          });
+          if (!signUpError && signUpData?.user?.id) {
+            await supabase.from('profiles').upsert({
+              id: signUpData.user.id,
+              full_name: affiliate.full_name,
+              email: affiliate.email,
+              role: 'affiliate',
+            }, { onConflict: 'id' });
+            await supabase
+              .from('affiliates')
+              .update({ user_id: signUpData.user.id })
+              .eq('id', affiliate.id);
+          } else if (signUpError && !/already registered|already exists/i.test(signUpError.message)) {
+            console.warn('[approve-affiliate] signUp non-fatal:', signUpError);
+          }
+        } catch (err) {
+          console.warn('[approve-affiliate] auth user creation non-fatal:', err);
         }
       }
 
-      // Send approval email via edge function (response-checked, errors surfaced)
-      let emailStatus = { sent: false, error: null }
-      try {
-        const { data: { session } } = await supabase.auth.getSession()
-        const { subject, html } = buildWelcomeEmail(affiliate)
-        const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-email`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${session.access_token}`,
-          },
-          body: JSON.stringify({ to: affiliate.email, subject, html }),
-        })
-        const result = await response.json().catch(() => ({}))
-        if (!response.ok || result?.error) {
-          const errMsg = result?.error || result?.message || `HTTP ${response.status}`
-          console.error('[approve-affiliate] send-email FAILED:', { status: response.status, body: result })
-          emailStatus = { sent: false, error: errMsg }
-        } else {
-          console.log('[approve-affiliate] send-email OK:', result)
-          emailStatus = { sent: true, error: null }
-        }
-      } catch (emailErr) {
-        console.error('[approve-affiliate] send-email EXCEPTION:', emailErr)
-        emailStatus = { sent: false, error: emailErr?.message || 'network error' }
-      }
-      return { emailStatus }
+      // Step 3 — send welcome email (hard-checked via shared helper)
+      const { subject, html } = buildWelcomeEmail(updated);
+      const emailResult = await sendAffiliateEmail({ to: updated.email, subject, html, session });
+
+      return { affiliate: updated, emailResult };
     },
     onSuccess: (result) => {
       queryClient.invalidateQueries({ queryKey: ['admin-affiliate', id] })
       queryClient.invalidateQueries({ queryKey: ['admin-affiliates'] })
-      if (result?.emailStatus?.sent) {
+      if (result?.emailResult?.sent) {
         toast({ type: 'success', title: 'تم اعتماد الشريك بنجاح', description: 'تم إرسال إيميل الترحيب ✓' })
       } else {
-        toast({ type: 'warning', title: 'تم الاعتماد ✓ لكن فشل إرسال الإيميل', description: result?.emailStatus?.error || 'سبب غير معروف', duration: 10000 })
+        toast({ type: 'warning', title: 'تم الاعتماد ✓ لكن فشل إرسال الإيميل', description: result?.emailResult?.error || 'سبب غير معروف', duration: 10000 })
       }
     },
     onError: (err) => {
@@ -192,20 +263,9 @@ export default function AffiliateDetail() {
     mutationFn: async () => {
       if (!affiliate) throw new Error('affiliate not loaded')
       if (affiliate.status !== 'approved') throw new Error('المسوق غير معتمد بعد')
-      const { data: { session } } = await supabase.auth.getSession()
       const { subject, html } = buildWelcomeEmail(affiliate)
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-email`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session.access_token}`,
-        },
-        body: JSON.stringify({ to: affiliate.email, subject, html }),
-      })
-      const result = await response.json().catch(() => ({}))
-      if (!response.ok || result?.error) {
-        throw new Error(result?.error || result?.message || `HTTP ${response.status}`)
-      }
+      const result = await sendAffiliateEmail({ to: affiliate.email, subject, html, session })
+      if (!result.sent) throw new Error(result.error || 'فشل الإرسال')
       return result
     },
     onSuccess: () => toast({ type: 'success', title: 'تم إعادة إرسال إيميل الترحيب ✓' }),
@@ -401,7 +461,7 @@ export default function AffiliateDetail() {
                 <button
                   onClick={() => resendWelcomeMutation.mutate()}
                   disabled={anyLoading}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-white/5 text-white/80 border border-white/10 hover:bg-white/10 transition-all disabled:opacity-50"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-white/5 text-white/80 border border-white/10 hover:bg-white/10 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {resendWelcomeMutation.isPending ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
                   إعادة إرسال إيميل الترحيب
@@ -434,20 +494,19 @@ export default function AffiliateDetail() {
       <div className="fl-card-static p-7 space-y-6">
         <h2 className="text-lg font-semibold text-[var(--text-primary)]">بيانات الطلب</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <InfoCard icon={User} label="الاسم الكامل" value={affiliate.full_name} />
-          <InfoCard icon={Mail} label="البريد الإلكتروني" value={affiliate.email} dir="ltr" />
-          <InfoCard icon={Phone} label="رقم الهاتف" value={affiliate.phone} dir="ltr" />
-          <InfoCard icon={MapPin} label="المدينة" value={affiliate.city} />
-          <InfoCard icon={LinkIcon} label="تويتر / X" value={affiliate.twitter} dir="ltr" isLink />
-          <InfoCard icon={LinkIcon} label="إنستغرام" value={affiliate.instagram} dir="ltr" isLink />
-          <InfoCard icon={LinkIcon} label="تيك توك" value={affiliate.tiktok} dir="ltr" isLink />
-          <InfoCard icon={LinkIcon} label="سناب شات" value={affiliate.snapchat} dir="ltr" isLink />
-          <InfoCard icon={Globe} label="موقع / مدونة" value={affiliate.website} dir="ltr" isLink />
-          <InfoCard icon={Users} label="حجم الجمهور" value={affiliate.audience_size} />
-          <InfoCard icon={MessageSquare} label="كيف سمعت عنّا" value={affiliate.heard_from} />
+          <InfoCard icon={User}       label="الاسم الكامل"          value={affiliate.full_name} />
+          <InfoCard icon={Mail}       label="البريد الإلكتروني"      value={affiliate.email}     dir="ltr" />
+          <InfoCard icon={Phone}      label="رقم الهاتف"             value={affiliate.phone}     dir="ltr" />
+          <InfoCard icon={MapPin}     label="المدينة"                value={affiliate.city} />
+          <InfoCard icon={LinkIcon}   label="تويتر / X"              value={affiliate.twitter}   dir="ltr" isLink />
+          <InfoCard icon={LinkIcon}   label="إنستغرام"               value={affiliate.instagram} dir="ltr" isLink />
+          <InfoCard icon={LinkIcon}   label="تيك توك"               value={affiliate.tiktok}    dir="ltr" isLink />
+          <InfoCard icon={LinkIcon}   label="سناب شات"               value={affiliate.snapchat}  dir="ltr" isLink />
+          <InfoCard icon={Globe}      label="موقع / مدونة"           value={affiliate.website}   dir="ltr" isLink />
+          <InfoCard icon={Users}      label="حجم الجمهور"            value={affiliate.audience_size} />
+          <InfoCard icon={MessageSquare} label="كيف سمعت عنّا"       value={affiliate.heard_from} />
         </div>
 
-        {/* Why Join - full width */}
         {affiliate.why_join && (
           <div className="mt-4">
             <p className="text-muted text-xs mb-1">لماذا تريد الانضمام؟</p>
