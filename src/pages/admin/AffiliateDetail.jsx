@@ -19,6 +19,7 @@ import {
   PlayCircle,
   Save,
   Link as LinkIcon,
+  Send,
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
@@ -29,6 +30,20 @@ const STATUS_CONFIG = {
   approved: { label: 'معتمد', color: 'emerald', bg: 'bg-emerald-500/10', text: 'text-emerald-400', border: 'border-emerald-500/20' },
   rejected: { label: 'مرفوض', color: 'red', bg: 'bg-red-500/10', text: 'text-red-400', border: 'border-red-500/20' },
   suspended: { label: 'موقوف', color: 'gray', bg: 'bg-gray-500/10', text: 'text-gray-400', border: 'border-gray-500/20' },
+}
+
+function buildWelcomeEmail(affiliate) {
+  return {
+    subject: 'مبروك! تم اعتماد طلبك كشريك في أكاديمية طلاقة',
+    html: `<div dir="rtl" style="font-family:'Tajawal',sans-serif;max-width:600px;margin:0 auto;padding:24px;">
+              <h1 style="color:#38bdf8;">مبروك ${affiliate.full_name}!</h1>
+              <p>تم اعتماد طلبك كشريك في أكاديمية طلاقة.</p>
+              <p><strong>رابطك الفريد:</strong><br/><code>https://fluentia.academy/?ref=${affiliate.ref_code}</code></p>
+              <p><strong>QR Code:</strong><br/><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent('https://fluentia.academy/?ref=' + affiliate.ref_code)}" width="200" height="200"/></p>
+              <p><strong>العمولة:</strong> 100 ريال عن كل طالب ينضم ويدفع أول دفعة.</p>
+              <p>شارك رابطك في حساباتك وابدأ الربح!</p>
+            </div>`,
+  }
 }
 
 function StatusBadge({ status }) {
@@ -130,40 +145,71 @@ export default function AffiliateDetail() {
         }
       }
 
-      // Send approval email via edge function
+      // Send approval email via edge function (response-checked, errors surfaced)
+      let emailStatus = { sent: false, error: null }
       try {
         const { data: { session } } = await supabase.auth.getSession()
-        await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-email`, {
+        const { subject, html } = buildWelcomeEmail(affiliate)
+        const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-email`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${session.access_token}`,
           },
-          body: JSON.stringify({
-            to: affiliate.email,
-            subject: 'مبروك! تم اعتماد طلبك كشريك في أكاديمية طلاقة',
-            html: `<div dir="rtl" style="font-family:'Tajawal',sans-serif;max-width:600px;margin:0 auto;padding:24px;">
-              <h1 style="color:#38bdf8;">مبروك ${affiliate.full_name}!</h1>
-              <p>تم اعتماد طلبك كشريك في أكاديمية طلاقة.</p>
-              <p><strong>رابطك الفريد:</strong><br/><code>https://fluentia.academy/?ref=${affiliate.ref_code}</code></p>
-              <p><strong>QR Code:</strong><br/><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent('https://fluentia.academy/?ref=' + affiliate.ref_code)}" width="200" height="200"/></p>
-              <p><strong>العمولة:</strong> 100 ريال عن كل طالب ينضم ويدفع أول دفعة.</p>
-              <p>شارك رابطك في حساباتك وابدأ الربح!</p>
-            </div>`,
-          }),
+          body: JSON.stringify({ to: affiliate.email, subject, html }),
         })
+        const result = await response.json().catch(() => ({}))
+        if (!response.ok || result?.error) {
+          const errMsg = result?.error || result?.message || `HTTP ${response.status}`
+          console.error('[approve-affiliate] send-email FAILED:', { status: response.status, body: result })
+          emailStatus = { sent: false, error: errMsg }
+        } else {
+          console.log('[approve-affiliate] send-email OK:', result)
+          emailStatus = { sent: true, error: null }
+        }
       } catch (emailErr) {
-        console.warn('Email send failed (non-blocking):', emailErr)
+        console.error('[approve-affiliate] send-email EXCEPTION:', emailErr)
+        emailStatus = { sent: false, error: emailErr?.message || 'network error' }
       }
+      return { emailStatus }
     },
-    onSuccess: () => {
-      toast({ type: 'success', title: 'تم اعتماد الشريك بنجاح', description: 'تم إرسال إيميل الاعتماد' })
+    onSuccess: (result) => {
       queryClient.invalidateQueries({ queryKey: ['admin-affiliate', id] })
       queryClient.invalidateQueries({ queryKey: ['admin-affiliates'] })
+      if (result?.emailStatus?.sent) {
+        toast({ type: 'success', title: 'تم اعتماد الشريك بنجاح', description: 'تم إرسال إيميل الترحيب ✓' })
+      } else {
+        toast({ type: 'warning', title: 'تم الاعتماد ✓ لكن فشل إرسال الإيميل', description: result?.emailStatus?.error || 'سبب غير معروف', duration: 10000 })
+      }
     },
     onError: (err) => {
       toast({ type: 'error', title: 'خطأ في الاعتماد', description: err.message })
     },
+  })
+
+  // ── Resend Welcome Email ───────────────────────────────────────────────────
+  const resendWelcomeMutation = useMutation({
+    mutationFn: async () => {
+      if (!affiliate) throw new Error('affiliate not loaded')
+      if (affiliate.status !== 'approved') throw new Error('المسوق غير معتمد بعد')
+      const { data: { session } } = await supabase.auth.getSession()
+      const { subject, html } = buildWelcomeEmail(affiliate)
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({ to: affiliate.email, subject, html }),
+      })
+      const result = await response.json().catch(() => ({}))
+      if (!response.ok || result?.error) {
+        throw new Error(result?.error || result?.message || `HTTP ${response.status}`)
+      }
+      return result
+    },
+    onSuccess: () => toast({ type: 'success', title: 'تم إعادة إرسال إيميل الترحيب ✓' }),
+    onError: (err) => toast({ type: 'error', title: 'فشل الإرسال', description: err.message }),
   })
 
   // ── Reject ─────────────────────────────────────────────────────────────────
@@ -275,7 +321,7 @@ export default function AffiliateDetail() {
     reactivateMutation.mutate()
   }
 
-  const anyLoading = approveMutation.isPending || rejectMutation.isPending || suspendMutation.isPending || reactivateMutation.isPending
+  const anyLoading = approveMutation.isPending || rejectMutation.isPending || suspendMutation.isPending || reactivateMutation.isPending || resendWelcomeMutation.isPending
 
   // ── Loading / Not Found ────────────────────────────────────────────────────
   if (isLoading) {
@@ -351,14 +397,24 @@ export default function AffiliateDetail() {
               </>
             )}
             {affiliate.status === 'approved' && (
-              <button
-                onClick={handleSuspend}
-                disabled={anyLoading}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-500/20 transition-all disabled:opacity-50"
-              >
-                {suspendMutation.isPending ? <Loader2 size={16} className="animate-spin" /> : <PauseCircle size={16} />}
-                إيقاف
-              </button>
+              <>
+                <button
+                  onClick={() => resendWelcomeMutation.mutate()}
+                  disabled={anyLoading}
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-white/5 text-white/80 border border-white/10 hover:bg-white/10 transition-all disabled:opacity-50"
+                >
+                  {resendWelcomeMutation.isPending ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
+                  إعادة إرسال إيميل الترحيب
+                </button>
+                <button
+                  onClick={handleSuspend}
+                  disabled={anyLoading}
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-500/20 transition-all disabled:opacity-50"
+                >
+                  {suspendMutation.isPending ? <Loader2 size={16} className="animate-spin" /> : <PauseCircle size={16} />}
+                  إيقاف
+                </button>
+              </>
             )}
             {affiliate.status === 'suspended' && (
               <button
