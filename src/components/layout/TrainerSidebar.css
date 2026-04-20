@@ -201,6 +201,30 @@
   }
 }
 
+/* Sidebar footer — help link */
+.tr-sidebar__footer {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--tr-border);
+  flex-shrink: 0;
+}
+
+.tr-sidebar__help-link {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  color: var(--tr-text-muted);
+  text-decoration: none;
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.4rem;
+  transition: color 0.15s, background 0.15s;
+}
+
+.tr-sidebar__help-link:hover {
+  color: var(--tr-gold, #d97706);
+  background: rgba(217, 119, 6, 0.06);
+}
+
 /* Hidden on mobile — TrainerMobileBar takes over */
 @media (max-width: 767px) {
   .tr-sidebar {

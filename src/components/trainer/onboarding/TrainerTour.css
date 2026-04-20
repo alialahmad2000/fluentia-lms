@@ -1,0 +1,81 @@
+/* Gold theme overrides for driver.js popover */
+.driver-popover {
+  background: #18181b !important;
+  color: #fafafa !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(245, 158, 11, 0.1) !important;
+  direction: rtl !important;
+  text-align: right !important;
+  font-family: 'Cairo', 'Tajawal', 'Segoe UI', sans-serif !important;
+  min-width: 280px !important;
+  max-width: 360px !important;
+}
+
+.driver-popover-title {
+  color: #f59e0b !important;
+  font-weight: 800 !important;
+  font-size: 17px !important;
+  margin-bottom: 8px !important;
+}
+
+.driver-popover-description {
+  color: #d4d4d8 !important;
+  font-size: 14px !important;
+  line-height: 1.75 !important;
+}
+
+.driver-popover-progress-text {
+  color: #f59e0b !important;
+  font-size: 11px !important;
+  opacity: 0.8;
+}
+
+.driver-popover-footer {
+  direction: rtl !important;
+  gap: 8px !important;
+}
+
+.driver-popover-next-btn {
+  background: #f59e0b !important;
+  color: #18181b !important;
+  font-weight: 700 !important;
+  border-radius: 8px !important;
+  border: none !important;
+  padding: 8px 20px !important;
+  font-size: 13px !important;
+  text-shadow: none !important;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4) !important;
+}
+
+.driver-popover-next-btn:hover {
+  background: #d97706 !important;
+}
+
+.driver-popover-prev-btn {
+  background: transparent !important;
+  color: #a1a1aa !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 8px !important;
+  padding: 8px 14px !important;
+  font-size: 13px !important;
+  text-shadow: none !important;
+}
+
+.driver-popover-close-btn {
+  background: transparent !important;
+  color: #71717a !important;
+  border: none !important;
+  font-size: 18px !important;
+}
+
+.driver-popover-close-btn:hover {
+  color: #a1a1aa !important;
+}
+
+.driver-popover-arrow-side-left .driver-popover-arrow,
+.driver-popover-arrow-side-right .driver-popover-arrow,
+.driver-popover-arrow-side-bottom .driver-popover-arrow,
+.driver-popover-arrow-side-top .driver-popover-arrow {
+  border-color: transparent !important;
+}

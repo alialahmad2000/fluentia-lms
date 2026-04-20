@@ -1,10 +1,16 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import clsx from 'clsx'
+import { HelpCircle } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { TRAINER_NAV_V2 } from '../../config/trainerNavigation'
 import './TrainerSidebar.css'
+
+const TOUR_IDS = {
+  grading: 'grading-badge',
+  'my-growth': 'my-growth-link',
+}
 
 export default function TrainerSidebar() {
   const profile = useAuthStore((s) => s.profile)
@@ -65,7 +71,7 @@ export default function TrainerSidebar() {
                 const Icon = item.icon
                 const badge = item.badgeKey ? badges[item.badgeKey] : 0
                 return (
-                  <li key={item.id}>
+                  <li key={item.id} data-tour-id={TOUR_IDS[item.id] || undefined}>
                     <NavLink
                       to={item.href}
                       end={item.primary}
@@ -93,6 +99,13 @@ export default function TrainerSidebar() {
             </ul>
           </div>
         ))}
+      </div>
+
+      <div className="tr-sidebar__footer">
+        <Link to="/trainer/help" className="tr-sidebar__help-link">
+          <HelpCircle size={14} />
+          <span>مساعدة</span>
+        </Link>
       </div>
     </nav>
   )

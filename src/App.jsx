@@ -124,6 +124,7 @@ const LiveClassPage = lazyRetry(() => import('./pages/trainer/v2/LiveClassPage')
 const CompetitionCommandPage = lazyRetry(() => import('./pages/trainer/v2/CompetitionCommandPage'))
 const MyGrowthPage = lazyRetry(() => import('./pages/trainer/v2/MyGrowthPage'))
 const NabihPage = lazyRetry(() => import('./pages/trainer/v2/NabihPage'))
+const HelpPage = lazyRetry(() => import('./pages/trainer/v2/HelpPage'))
 const Student360Page = lazyRetry(() => import('./pages/trainer/v2/Student360Page'))
 const IELTSOverview = lazyRetry(() => import('./pages/trainer/IELTSOverview'))
 
@@ -670,6 +671,7 @@ export default function App() {
               <Route path="/trainer/my-growth" element={<Page><MyGrowthPage /></Page>} />
               <Route path="/trainer/nabih" element={<Page><NabihPage /></Page>} />
               <Route path="/trainer/nabih/:conversationId" element={<Page><NabihPage /></Page>} />
+              <Route path="/trainer/help" element={<Page><HelpPage /></Page>} />
               <Route path="/trainer/students/:studentId" element={<Page><TrainerStudentView /></Page>} />
 
               {/* ── Keep as-is: still functional ── */}

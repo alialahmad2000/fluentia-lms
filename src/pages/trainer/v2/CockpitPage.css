@@ -1,3 +1,40 @@
+/* Cockpit topbar */
+.tr-cockpit__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1440px;
+  margin-inline: auto;
+  margin-bottom: 1rem;
+  padding-inline: 0.25rem;
+}
+
+.tr-cockpit__topbar-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--tr-fg, #111);
+}
+
+.tr-cockpit__tour-cta {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--tr-gold, #d97706);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+
+.tr-cockpit__tour-cta:hover {
+  background: rgba(217, 119, 6, 0.08);
+}
+
 /* Cockpit page layout — RTL 3-rail grid */
 .tr-cockpit {
   min-height: 100vh;
