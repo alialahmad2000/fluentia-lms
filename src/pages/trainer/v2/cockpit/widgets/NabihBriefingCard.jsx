@@ -26,7 +26,7 @@ export default function NabihBriefingCard() {
   const profile = useAuthStore((s) => s.profile)
   const { data: cockpit } = useTrainerCockpit()
   const { data: pulse } = useStudentPulse()
-  const { data: interventions = [] } = useInterventionPreview(50)
+  const { data: interventions = [] } = useInterventionPreview(5)
 
   const students = pulse?.students || []
   const competition = cockpit?.competition

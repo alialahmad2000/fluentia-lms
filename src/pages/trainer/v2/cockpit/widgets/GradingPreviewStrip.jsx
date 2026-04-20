@@ -10,9 +10,26 @@ function useGradingCount() {
   return useQuery({
     queryKey: ['trainer-grading-preview', profile?.id],
     queryFn: async () => {
+      if (!profile?.id) return 0
+      const { data: groups } = await supabase
+        .from('groups')
+        .select('id')
+        .eq('trainer_id', profile.id)
+        .eq('is_active', true)
+      const groupIds = (groups || []).map(g => g.id)
+      if (!groupIds.length) return 0
+      const { data: students } = await supabase
+        .from('students')
+        .select('id')
+        .in('group_id', groupIds)
+        .eq('status', 'active')
+        .is('deleted_at', null)
+      const studentIds = (students || []).map(s => s.id)
+      if (!studentIds.length) return 0
       const { count } = await supabase
         .from('student_curriculum_progress')
         .select('*', { count: 'exact', head: true })
+        .in('student_id', studentIds)
         .eq('status', 'completed')
         .eq('section_type', 'writing')
         .is('trainer_graded_at', null)

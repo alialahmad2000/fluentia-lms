@@ -79,8 +79,8 @@ export function useStudentPulse() {
       const { data: events } = profileIds.length
         ? await supabase
             .from('activity_feed')
-            .select('user_id, created_at, xp_earned')
-            .in('user_id', profileIds)
+            .select('student_id, created_at, xp_amount')
+            .in('student_id', profileIds)
             .gte('created_at', since.toISOString())
         : { data: [] }
 
@@ -88,8 +88,8 @@ export function useStudentPulse() {
       const matrix = {}
       ;(events || []).forEach(e => {
         const day = e.created_at.split('T')[0]
-        if (!matrix[e.user_id]) matrix[e.user_id] = {}
-        matrix[e.user_id][day] = (matrix[e.user_id][day] || 0) + (e.xp_earned || 0)
+        if (!matrix[e.student_id]) matrix[e.student_id] = {}
+        matrix[e.student_id][day] = (matrix[e.student_id][day] || 0) + (e.xp_amount || 0)
       })
 
       return { students, matrix, days }
