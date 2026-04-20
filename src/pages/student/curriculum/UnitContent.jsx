@@ -91,6 +91,7 @@ export default function UnitContent() {
   const [showNotes, setShowNotes] = useState(false)
   const [showWords, setShowWords] = useState(false)
   const [showDebrief, setShowDebrief] = useState(false)
+  const [visitedTabs, setVisitedTabs] = useState(new Set())
 
   const isImpersonating = useAuthStore(s => s.isImpersonating)
   useUnitSkillSnapshot(unitId)
@@ -118,6 +119,18 @@ export default function UnitContent() {
       }
     }
   }, [unit?.id])
+
+  // Lazy-mount-once: track visited tabs so they stay mounted after first open
+  useEffect(() => {
+    if (activeActivity) {
+      setVisitedTabs(prev => {
+        if (prev.has(activeActivity)) return prev
+        const next = new Set(prev)
+        next.add(activeActivity)
+        return next
+      })
+    }
+  }, [activeActivity])
 
   // Debrief trigger — show when all non-recording activities completed
   useEffect(() => {
@@ -276,8 +289,6 @@ export default function UnitContent() {
   const levelNum = unit.level?.level_number ?? ''
   const levelName = LEVEL_NAMES[levelNum] || ''
   const coverUrl = unit.cover_image_url || unit.level?.cover_image_url
-  const activeLabel = TABS.find(t => t.id === activeActivity)?.label
-
   // Current student rank for trophy button badge
   const currentRank = starRanking?.currentStudentRank || null
 
@@ -462,48 +473,26 @@ export default function UnitContent() {
         {/* Class summary (preserved) */}
         {isStudent && !activeActivity && <ClassSummaryView unitId={unitId} />}
 
-        {/* ════ MISSION GRID or ACTIVITY CONTENT ════ */}
-        <AnimatePresence mode="wait">
-          {!activeActivity ? (
-            <motion.div
-              key="mission-grid"
-              initial={m.reduced ? {} : { opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={m.reduced ? {} : { opacity: 0, y: -20 }}
-              transition={{ duration: m.reduced ? 0 : 0.3 }}
-            >
-              {/* Smart CTA — primary action */}
-              <SmartNextStepCTA
-                nextStep={nextStep}
-                onNavigate={handleActivitySelect}
-              />
+        {/* ════ MISSION GRID + ACTIVITY CONTENT (lazy-mount-once) ════ */}
+        {/* Mission grid — always mounted; hidden via CSS when inside an activity */}
+        <div style={{ display: activeActivity ? 'none' : 'block' }}>
+          <SmartNextStepCTA nextStep={nextStep} onNavigate={handleActivitySelect} />
+          <div style={{ marginTop: '24px' }}>
+            <MissionGrid activities={unitData.activities} onSelect={handleActivitySelect} unit={unit} />
+          </div>
+          {isStudent && studentData?.id && (
+            <div style={{ marginTop: '24px' }}>
+              <UnitMasteryCard unitId={unitId} studentId={studentData.id} />
+            </div>
+          )}
+        </div>
 
-              {/* Mission Grid */}
-              <div style={{ marginTop: '24px' }}>
-                <MissionGrid
-                  activities={unitData.activities}
-                  onSelect={handleActivitySelect}
-                  unit={unit}
-                />
-              </div>
-
-              {/* Unit Mastery Assessment Card */}
-              {isStudent && studentData?.id && (
-                <div style={{ marginTop: '24px' }}>
-                  <UnitMasteryCard unitId={unitId} studentId={studentData.id} />
-                </div>
-              )}
-            </motion.div>
-          ) : (
-            <motion.div
-              key={`activity-${activeActivity}`}
-              initial={m.reduced ? {} : { opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={m.reduced ? {} : { opacity: 0, x: 20 }}
-              transition={{ duration: m.reduced ? 0 : 0.25 }}
-            >
-              {/* Activity label */}
-              {activeLabel && (
+        {/* Activity panes — lazy-mount-once: rendered after first visit, toggled by CSS */}
+        {TABS.map(({ id, label }) => {
+          if (!visitedTabs.has(id)) return null
+          return (
+            <div key={id} style={{ display: activeActivity === id ? 'block' : 'none' }}>
+              {label && (
                 <div className="flex items-center gap-2 mb-4 font-['Tajawal']" style={{ color: V1.textDim, fontSize: V1.type.bodySm }}>
                   <button
                     onClick={handleBackToGrid}
@@ -513,16 +502,10 @@ export default function UnitContent() {
                     الوحدة
                   </button>
                   <span style={{ color: V1.textFaint }}>›</span>
-                  <span>{activeLabel}</span>
+                  <span>{label}</span>
                 </div>
               )}
-
-              {/* Activity content — SACRED, unchanged */}
-              <SectionErrorBoundary
-                section={activeActivity}
-                sectionLabel={activeLabel}
-                unitId={unitId}
-              >
+              <SectionErrorBoundary section={id} sectionLabel={label} unitId={unitId}>
                 <Suspense fallback={
                   <div className="space-y-4 mt-4">
                     <div className="h-8 w-48 rounded-lg bg-[var(--surface-raised)] animate-pulse" />
@@ -530,12 +513,12 @@ export default function UnitContent() {
                     <div className="h-32 rounded-xl bg-[var(--surface-raised)] animate-pulse" />
                   </div>
                 }>
-                  {renderActivityContent(activeActivity)}
+                  {renderActivityContent(id)}
                 </Suspense>
               </SectionErrorBoundary>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            </div>
+          )
+        })}
 
         {/* Student FAB (preserved) */}
         {isStudent && (
