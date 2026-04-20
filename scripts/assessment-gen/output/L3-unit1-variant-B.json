@@ -1,0 +1,326 @@
+{
+  "level": 3,
+  "unit_number": 1,
+  "variant_label": "B",
+  "variant_id": "38dc85f0-a46d-4e34-89cd-292863f85958",
+  "unit_id": "a5b583a4-5d9e-41b7-b95f-c07e0c44f64b",
+  "generated_at": "2026-04-20T08:00:00.000Z",
+  "generated_by": "Claude Code native",
+  "distribution": {
+    "skills": { "vocabulary": 8, "grammar": 6, "reading": 6 },
+    "types": { "mcq": 12, "true_false": 4, "fill_blank": 2, "matching": 2 }
+  },
+  "anti_dup_source": "L3-unit1-variant-A.json",
+  "questions": [
+    {
+      "order_number": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "AI systems in NEOM are designed to 'anticipate' residents' needs. What does 'anticipate' mean?",
+      "options": [
+        { "id": "a", "text": "يُسجّل ويوثّق المعلومات", "is_correct": false },
+        { "id": "b", "text": "يتجاهل ويُهمل الاحتياجات", "is_correct": false },
+        { "id": "c", "text": "يتوقع ويستبق الأحداث قبل وقوعها", "is_correct": true },
+        { "id": "d", "text": "يحلّل ويُقيّم الأداء فقط", "is_correct": false }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "anticipate تعني يتوقع ويستبق، أي التنبؤ بشيء قبل وقوعه والاستعداد له مسبقاً."
+    },
+    {
+      "order_number": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "According to the passage, AI is 'revolutionizing' how people conduct daily activities. What does 'revolutionizing' best suggest?",
+      "options": [
+        { "id": "a", "text": "Maintaining existing systems without any change", "is_correct": false },
+        { "id": "b", "text": "Slowing down progress and creating obstacles", "is_correct": false },
+        { "id": "c", "text": "Causing fundamental and far-reaching change in something", "is_correct": true },
+        { "id": "d", "text": "Organising daily routines in a minor way", "is_correct": false }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "revolutionizing تعني يُحدث ثورة، أي إجراء تغيير شامل وجذري في طريقة أداء شيء ما."
+    },
+    {
+      "order_number": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "Experts predict that AI will become more 'sophisticated' in addressing regional health challenges. What does 'sophisticated' mean?",
+      "options": [
+        { "id": "a", "text": "Ineffective and overly simplistic", "is_correct": false },
+        { "id": "b", "text": "Highly developed, complex, and technically advanced", "is_correct": true },
+        { "id": "c", "text": "Fast but unreliable in producing results", "is_correct": false },
+        { "id": "d", "text": "Outdated and limited in capability", "is_correct": false }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "sophisticated تعني متطور ومعقد تقنياً، ويُشير إلى مستوى عالٍ من الدقة والقدرة."
+    },
+    {
+      "order_number": 4,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "The passage states that younger generations appear more willing to 'embrace' AI advances. What does 'embrace' mean in this context?",
+      "options": [
+        { "id": "a", "text": "يرفض ويُعارض بشدة", "is_correct": false },
+        { "id": "b", "text": "يشكّك ويتردد دون موقف واضح", "is_correct": false },
+        { "id": "c", "text": "يُهمل ويتجاهل تماماً", "is_correct": false },
+        { "id": "d", "text": "يتقبّل ويرحّب بشيء جديد بانفتاح وحماس", "is_correct": true }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "embrace تعني يتقبّل ويرحّب بـ، أي قبول فكرة أو تطور جديد بانفتاح واستعداد تام."
+    },
+    {
+      "order_number": 5,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "AI systems in NEOM can 'predict' traffic patterns and manage energy consumption. What is the closest meaning of 'predict'?",
+      "options": [
+        { "id": "a", "text": "يُسيطر على الأنشطة الجارية حالياً", "is_correct": false },
+        { "id": "b", "text": "يُشخّص ويُحدّد المشكلات الراهنة", "is_correct": false },
+        { "id": "c", "text": "يتنبأ بما سيحدث في المستقبل بناءً على بيانات", "is_correct": true },
+        { "id": "d", "text": "يُنظّم ويُوزّع الموارد بالتساوي", "is_correct": false }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "predict تعني يتنبأ بما سيحدث مستقبلاً استناداً إلى البيانات والأنماط المتاحة."
+    },
+    {
+      "order_number": 6,
+      "skill_tag": "vocabulary",
+      "question_type": "true_false",
+      "question_text": "In the context of the passage, 'enhances' means to weaken or reduce the quality and capability of something.",
+      "options": null,
+      "correct_answer": "false",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "خطأ. enhances تعني يحسّن ويُعزّز ويقوّي، وهو عكس الإضعاف أو التقليل من الجودة."
+    },
+    {
+      "order_number": 7,
+      "skill_tag": "vocabulary",
+      "question_type": "true_false",
+      "question_text": "When researchers 'address' a challenge in AI, they actively work to deal with and find solutions for it.",
+      "options": null,
+      "correct_answer": "true",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "صحيح. address تعني يتعامل مع مشكلة أو تحدٍ بشكل مباشر ويسعى لإيجاد حل فعلي له."
+    },
+    {
+      "order_number": 8,
+      "skill_tag": "vocabulary",
+      "question_type": "fill_blank",
+      "question_text": "The new AI _____ on her phone helps Sarah track her daily health data and receive personalised recommendations.",
+      "options": null,
+      "correct_answer": "application",
+      "accepted_answers": ["application", "Application", "app", "App"],
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "application تعني تطبيق برمجي، وهو برنامج مُصمَّم لتنفيذ مهمة معينة على جهاز ذكي أو حاسوب."
+    },
+    {
+      "order_number": 9,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence uses 'just' correctly with the present perfect?",
+      "options": [
+        { "id": "a", "text": "The hospital just installed the AI software yesterday.", "is_correct": false },
+        { "id": "b", "text": "Researchers just discovered a promising AI tool last month.", "is_correct": false },
+        { "id": "c", "text": "The system has just completed its analysis of the patient's scan.", "is_correct": true },
+        { "id": "d", "text": "Engineers just built the first neural network in 2010.", "is_correct": false }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "نستخدم 'just' مع الماضي التام (has/have + just + تصريف ثالث) للتعبير عن حدث انتهى للتو. الخيارات الأخرى تستخدم 'just' مع أوقات ماضية محددة تستلزم الماضي البسيط."
+    },
+    {
+      "order_number": 10,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence correctly uses 'already' with the present perfect?",
+      "options": [
+        { "id": "a", "text": "The research team has already published their report last week.", "is_correct": false },
+        { "id": "b", "text": "Scientists already developed the first AI system in 1956.", "is_correct": false },
+        { "id": "c", "text": "The doctor has already reviewed the AI report and is ready to proceed.", "is_correct": true },
+        { "id": "d", "text": "She has already attended the AI conference in March 2023.", "is_correct": false }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "نستخدم 'already' مع الماضي التام للإشارة إلى أن شيئاً حدث أبكر من المتوقع. الخيارات a وd تقرن الماضي التام بأوقات محددة (last week / in March 2023)، والخيار b يحذف have/has."
+    },
+    {
+      "order_number": 11,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Complete the sentence: 'The hospital has been using AI diagnostic tools _____ three years.'",
+      "options": [
+        { "id": "a", "text": "since", "is_correct": false },
+        { "id": "b", "text": "ago", "is_correct": false },
+        { "id": "c", "text": "for", "is_correct": true },
+        { "id": "d", "text": "when", "is_correct": false }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "نستخدم 'for' مع الماضي التام للتعبير عن مدة زمنية (ثلاث سنوات = فترة). أما 'since' فتُستخدم مع نقطة بداية زمنية محددة مثل 'since 2022'."
+    },
+    {
+      "order_number": 12,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence correctly uses 'never' with the present perfect?",
+      "options": [
+        { "id": "a", "text": "This AI model has never made an error in its very first test.", "is_correct": false },
+        { "id": "b", "text": "I have never seen such an advanced robot before.", "is_correct": true },
+        { "id": "c", "text": "She has never attended the robotics conference in March.", "is_correct": false },
+        { "id": "d", "text": "The engineers have never built that system last year.", "is_correct": false }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "نستخدم 'never' مع الماضي التام للتعبير عن تجربة لم تحدث قط حتى الآن. الجملة b صحيحة لأنها تعبّر عن ذلك بوضوح، بخلاف الخيارات الأخرى التي تقرن 'never' بأوقات محددة أو تُحدث تناقضاً في المعنى."
+    },
+    {
+      "order_number": 13,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "The sentence 'The AI software update hasn't arrived yet' uses the present perfect correctly.",
+      "options": null,
+      "correct_answer": "true",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "صحيح. نستخدم 'yet' في الجمل المنفية (hasn't/haven't + yet) مع الماضي التام للتعبير عن شيء كان مُتوقَّعاً لكنه لم يحدث حتى الآن."
+    },
+    {
+      "order_number": 14,
+      "skill_tag": "grammar",
+      "question_type": "matching",
+      "question_text": "Match each sentence to the correct time expression that completes it grammatically.",
+      "options": null,
+      "correct_answer": null,
+      "accepted_answers": null,
+      "matching_pairs": [
+        { "left": "The AI model has _____ completed its scan — the results are ready now.", "right": "just" },
+        { "left": "Researchers published their breakthrough findings _____.", "right": "yesterday" },
+        { "left": "She has used this AI writing tool _____ six months.", "right": "for" },
+        { "left": "The lab hasn't released its final results _____.", "right": "yet" }
+      ],
+      "points": 1,
+      "explanation": "الأدوات just وfor وyet تُستخدم مع الماضي التام، بينما يستلزم الوقت المحدد مثل yesterday الماضي البسيط."
+    },
+    {
+      "order_number": 15,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "According to Passage B, how much does Dubai's Health Authority plan to invest in AI healthcare initiatives over the next five years?",
+      "options": [
+        { "id": "a", "text": "$1.5 billion", "is_correct": false },
+        { "id": "b", "text": "$3.2 billion", "is_correct": false },
+        { "id": "c", "text": "$2.3 billion", "is_correct": true },
+        { "id": "d", "text": "$4.0 billion", "is_correct": false }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "ذكر النص أن هيئة الصحة في دبي أعلنت عن خطط لاستثمار 2.3 مليار دولار في مبادرات الرعاية الصحية بالذكاء الاصطناعي خلال السنوات الخمس القادمة."
+    },
+    {
+      "order_number": 16,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "In Passage A, what is the main point of Dr. Sarah Al-Rashid's statement about AI implementation?",
+      "options": [
+        { "id": "a", "text": "AI should fully replace human doctors in hospitals as soon as possible.", "is_correct": false },
+        { "id": "b", "text": "Human creativity and ethical judgment are qualities that AI systems already possess.", "is_correct": false },
+        { "id": "c", "text": "The most effective AI systems are those that strengthen human abilities rather than replace them.", "is_correct": true },
+        { "id": "d", "text": "Universities should pause computer science programmes until AI safety is proven.", "is_correct": false }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "أكدت الدكتورة سارة الراشد أن أنجح تطبيقات الذكاء الاصطناعي هي تلك التي تعزز قدرات الإنسان مع الحفاظ على إبداعه وحكمه الأخلاقي."
+    },
+    {
+      "order_number": 17,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "In Passage B, the survey shows that only 45% of people over 50 trust AI diagnostic tools, compared to 73% of those under 30. What does the author most likely imply about this gap?",
+      "options": [
+        { "id": "a", "text": "People over 50 have never used any electronic device in their daily lives.", "is_correct": false },
+        { "id": "b", "text": "Doctors have officially advised older patients to avoid using AI diagnostic tools.", "is_correct": false },
+        { "id": "c", "text": "Older patients are more likely to prefer personal human interaction over digital health systems.", "is_correct": true },
+        { "id": "d", "text": "AI diagnostic tools are legally restricted to patients under 30 in the Gulf region.", "is_correct": false }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "يُضمن النص أن الاعتبارات الثقافية تجعل بعض المرضى يفضّلون التحدث مع أطباء بشريين، مما يُفسّر تدني ثقة كبار السن بالذكاء الاصطناعي مقارنةً بالشباب."
+    },
+    {
+      "order_number": 18,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "Passage A states that financial institutions have implemented AI-powered systems that process millions of transactions daily to protect consumers from fraud.",
+      "options": null,
+      "correct_answer": "true",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "صحيح. ذكر النص أن المؤسسات المالية نفّذت أنظمة كشف الاحتيال المعتمدة على الذكاء الاصطناعي التي تعالج ملايين المعاملات يومياً لحماية المستهلكين."
+    },
+    {
+      "order_number": 19,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "According to Passage B, _____ percent of survey respondents under the age of 30 said they would trust AI-powered diagnostic tools.",
+      "options": null,
+      "correct_answer": "73",
+      "accepted_answers": ["73", "73%", "seventy-three", "Seventy-three"],
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "وجد الاستطلاع الذي أُجري عبر دول مجلس التعاون الخليجي أن 73% من المشاركين دون سن الثلاثين يثقون بأدوات التشخيص المعتمدة على الذكاء الاصطناعي."
+    },
+    {
+      "order_number": 20,
+      "skill_tag": "reading",
+      "question_type": "matching",
+      "question_text": "Match each AI application mentioned in the passages to the sector it primarily serves.",
+      "options": null,
+      "correct_answer": null,
+      "accepted_answers": null,
+      "matching_pairs": [
+        { "left": "personalised learning experiences that adapt to each student's pace", "right": "education" },
+        { "left": "fraud detection systems processing millions of transactions daily", "right": "finance" },
+        { "left": "smart city planning that optimises resources and predicts traffic", "right": "urban development" },
+        { "left": "identifying early signs of diseases with high accuracy", "right": "healthcare" }
+      ],
+      "points": 1,
+      "explanation": "ذكر النص تطبيقات الذكاء الاصطناعي في القطاعات الأربعة: التعليم (التعلم المخصص)، المالية (كشف الاحتيال)، التخطيط العمراني (المدن الذكية)، والرعاية الصحية (تشخيص الأمراض)."
+    }
+  ]
+}

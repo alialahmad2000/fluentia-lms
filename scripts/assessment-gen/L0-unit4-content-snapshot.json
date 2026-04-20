@@ -1,0 +1,477 @@
+{
+  "unit": {
+    "id": "a1c18caa-29d6-4ae7-9ed4-9ca2702f6af4",
+    "title_en": "Animals Around Us",
+    "title_ar": "الحيوانات من حولنا",
+    "unit_number": 4
+  },
+  "level": {
+    "id": "cd96175e-76d4-48dc-b34f-83f3228a28b8",
+    "level_number": 0,
+    "name_en": "Foundation"
+  },
+  "assessment": {
+    "id": "dbcd591c-bcc0-4520-9ded-16d61257fc7e"
+  },
+  "variants": [
+    {
+      "id": "8e7b3191-fdc8-4ef5-8bcc-9a238a12515b",
+      "variant_code": "A"
+    },
+    {
+      "id": "4ab06bab-2ee2-47bd-88c3-357a43a80bab",
+      "variant_code": "B"
+    },
+    {
+      "id": "a747ece8-06a6-47f5-bdf2-dac149a8fcf6",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "id": "1e3833d2-b385-4a56-a4d9-1c1e3faf53a7",
+      "word": "desert",
+      "pos": "noun",
+      "meaning_ar": "صحراء - مكان حار وجاف مع الرمال وقليل من الماء والنباتات",
+      "example_sentence": "The Sahara is a big desert in Africa.",
+      "tier": "core"
+    },
+    {
+      "id": "c0cfc682-5886-406e-bc64-15ed26882a40",
+      "word": "animals",
+      "pos": "noun",
+      "meaning_ar": "حيوانات - الكائنات الحية مثل القطط والكلاب والطيور والأسماك",
+      "example_sentence": "I like animals like cats and dogs.",
+      "tier": "core"
+    },
+    {
+      "id": "08d809a7-aeb5-4c2e-8957-d1bf187dbbc6",
+      "word": "cool",
+      "pos": "adjective",
+      "meaning_ar": "بارد، منعش - ليس حارًا، درجة حرارة منخفضة مريحة",
+      "example_sentence": "The morning air is cool and nice.",
+      "tier": "core"
+    },
+    {
+      "id": "f027346b-8bb1-4acf-8998-27303172244d",
+      "word": "hot",
+      "pos": "adjective",
+      "meaning_ar": "حار - درجة حرارة عالية",
+      "example_sentence": "Today is very hot.",
+      "tier": "core"
+    },
+    {
+      "id": "909e4a37-2ec2-4ddb-a1d1-0230b636df5e",
+      "word": "small",
+      "pos": "adjective",
+      "meaning_ar": "صغير - ليس كبيراً في الحجم",
+      "example_sentence": "My house is small but nice.",
+      "tier": "core"
+    },
+    {
+      "id": "f2e849c6-6c3c-4dd7-bade-bbee85c78d17",
+      "word": "plants",
+      "pos": "noun",
+      "meaning_ar": "نباتات - كائنات حية مثل الأشجار والزهور والعشب تنمو في الأرض",
+      "example_sentence": "Green plants need water and sun to grow.",
+      "tier": "core"
+    },
+    {
+      "id": "0e2385bf-b906-4e53-8542-3c27854c18b0",
+      "word": "travel",
+      "pos": "verb",
+      "meaning_ar": "يسافر، ينتقل - الذهاب من مكان إلى مكان آخر",
+      "example_sentence": "I travel to school by bus every day.",
+      "tier": "core"
+    },
+    {
+      "id": "6945a242-9f30-40f9-8606-a175c8a4ebdd",
+      "word": "warm",
+      "pos": "adjective",
+      "meaning_ar": "دافئ - ليس بارداً وليس حاراً جداً",
+      "example_sentence": "I like warm milk before bed.",
+      "tier": "core"
+    },
+    {
+      "id": "3fe78724-223c-45dd-ba1a-c069537b2817",
+      "word": "small",
+      "pos": "adjective",
+      "meaning_ar": "صغير - ليس كبيرًا، قليل الحجم",
+      "example_sentence": "A mouse is a small animal.",
+      "tier": "core"
+    },
+    {
+      "id": "78aa25d4-e9f4-48b6-9e5a-75bef38a620d",
+      "word": "live",
+      "pos": "verb",
+      "meaning_ar": "يعيش - يسكن في مكان معين أو يكون على قيد الحياة",
+      "example_sentence": "I live in Riyadh with my family.",
+      "tier": "core"
+    },
+    {
+      "id": "0cf52899-2727-4297-9d05-0732240e4e88",
+      "word": "climb",
+      "pos": "verb",
+      "meaning_ar": "يتسلق - يصعد شيئاً باستخدام اليدين والقدمين",
+      "example_sentence": "Children climb the stairs to their room.",
+      "tier": "core"
+    },
+    {
+      "id": "3ab15714-9cc8-4c3d-8ed1-33d3d000c74f",
+      "word": "insects",
+      "pos": "noun",
+      "meaning_ar": "حشرات - حيوانات صغيرة جداً لها ستة أرجل مثل الذباب والنمل والنحل",
+      "example_sentence": "Ants are insects that work together.",
+      "tier": "core"
+    },
+    {
+      "id": "1441788d-ec3f-4a91-bd65-babc68de15aa",
+      "word": "hunt",
+      "pos": "verb",
+      "meaning_ar": "يصطاد - يبحث عن الحيوانات ويمسك بها للطعام",
+      "example_sentence": "Lions hunt other animals in the wild.",
+      "tier": "core"
+    },
+    {
+      "id": "5fcf08fb-f224-42bd-bb3a-1acfbd9b6817",
+      "word": "love",
+      "pos": "verb",
+      "meaning_ar": "يحب - يشعر بمحبة شديدة لشيء أو شخص",
+      "example_sentence": "I love my mother very much.",
+      "tier": "core"
+    },
+    {
+      "id": "0c8404af-0ca6-4a4b-b715-d6c0f5934b32",
+      "word": "protect",
+      "pos": "verb",
+      "meaning_ar": "يحمي - يحافظ على سلامة شخص أو شيء من الخطر",
+      "example_sentence": "Parents protect their children from danger.",
+      "tier": "core"
+    },
+    {
+      "id": "185e0f47-deed-44df-9f20-53b4ca5504c1",
+      "word": "hide",
+      "pos": "verb",
+      "meaning_ar": "يختبئ - يذهب إلى مكان حيث لا يستطيع الآخرون رؤيته",
+      "example_sentence": "Children like to hide behind trees when they play.",
+      "tier": "core"
+    },
+    {
+      "id": "335bb6f8-0412-4ac4-9236-8e09c0dc4e98",
+      "word": "cat",
+      "pos": "noun",
+      "meaning_ar": "قطة",
+      "example_sentence": "I have a small cat.",
+      "tier": "core"
+    },
+    {
+      "id": "d95f4e34-437b-4701-aa70-d6fc70abb230",
+      "word": "dog",
+      "pos": "noun",
+      "meaning_ar": "كلب",
+      "example_sentence": "The dog is very big.",
+      "tier": "core"
+    },
+    {
+      "id": "d8d57d13-ef83-4702-88f6-defe3bfabaa1",
+      "word": "bird",
+      "pos": "noun",
+      "meaning_ar": "طائر / عصفور",
+      "example_sentence": "The bird is in the tree.",
+      "tier": "core"
+    },
+    {
+      "id": "ea1a2865-58da-43a6-b62e-0291da04695f",
+      "word": "horse",
+      "pos": "noun",
+      "meaning_ar": "حصان",
+      "example_sentence": "The horse runs very fast.",
+      "tier": "core"
+    },
+    {
+      "id": "d002cd19-a24e-4895-b9d9-a872807b3c2e",
+      "word": "cow",
+      "pos": "noun",
+      "meaning_ar": "بقرة",
+      "example_sentence": "The cow gives us milk.",
+      "tier": "core"
+    },
+    {
+      "id": "8796bda0-347f-4c1d-b3a9-4898a35775de",
+      "word": "sheep",
+      "pos": "noun",
+      "meaning_ar": "خروف / غنم",
+      "example_sentence": "We have five sheep at home.",
+      "tier": "core"
+    },
+    {
+      "id": "cf99ed30-0758-42ca-b35d-e25b3c0c5ab1",
+      "word": "camel",
+      "pos": "noun",
+      "meaning_ar": "جمل",
+      "example_sentence": "The camel lives in the desert.",
+      "tier": "core"
+    },
+    {
+      "id": "d2508862-1408-4a8e-88a8-4f59f8ec9b46",
+      "word": "animal",
+      "pos": "noun",
+      "meaning_ar": "حيوان",
+      "example_sentence": "My favorite animal is the cat.",
+      "tier": "core"
+    },
+    {
+      "id": "3469413a-e678-40ea-9f6b-dfb9ff2459c4",
+      "word": "fly",
+      "pos": "verb",
+      "meaning_ar": "يطير",
+      "example_sentence": "Birds fly in the sky.",
+      "tier": "core"
+    },
+    {
+      "id": "8a86fb9f-e5ce-43d3-b7e4-d19a5d9d87fa",
+      "word": "run",
+      "pos": "verb",
+      "meaning_ar": "يركض",
+      "example_sentence": "The dog runs in the park.",
+      "tier": "core"
+    },
+    {
+      "id": "9cf78ff0-8794-4948-9b31-417d7974cd50",
+      "word": "swim",
+      "pos": "verb",
+      "meaning_ar": "يسبح",
+      "example_sentence": "Fish swim in the water.",
+      "tier": "core"
+    },
+    {
+      "id": "b10cc833-2a52-4802-a9a3-9e212fe3775a",
+      "word": "feed",
+      "pos": "verb",
+      "meaning_ar": "يُطعم",
+      "example_sentence": "I feed the cat every day.",
+      "tier": "core"
+    },
+    {
+      "id": "b242265b-5c78-4c2c-96a3-39c08e2931cc",
+      "word": "fast",
+      "pos": "adjective",
+      "meaning_ar": "سريع",
+      "example_sentence": "The horse is very fast.",
+      "tier": "core"
+    },
+    {
+      "id": "814e54c8-07b6-4053-9607-22bc8250ec45",
+      "word": "slow",
+      "pos": "adjective",
+      "meaning_ar": "بطيء",
+      "example_sentence": "The turtle is very slow.",
+      "tier": "core"
+    },
+    {
+      "id": "28c3536e-9c5e-467f-b121-2c15fc011eef",
+      "word": "pet",
+      "pos": "noun",
+      "meaning_ar": "حيوان أليف",
+      "example_sentence": "I have a pet cat at home.",
+      "tier": "core"
+    },
+    {
+      "id": "974fbae1-6f35-46a4-b1fc-64c6ca7d39ae",
+      "word": "farm",
+      "pos": "noun",
+      "meaning_ar": "مزرعة",
+      "example_sentence": "The animals live on a farm.",
+      "tier": "extended"
+    },
+    {
+      "id": "16d30133-a5b3-41b3-8a2f-94bf3fc30563",
+      "word": "zoo",
+      "pos": "noun",
+      "meaning_ar": "حديقة حيوان",
+      "example_sentence": "We go to the zoo today.",
+      "tier": "extended"
+    },
+    {
+      "id": "6191432e-2c48-416f-ad8b-49db910884c8",
+      "word": "lion",
+      "pos": "noun",
+      "meaning_ar": "أسد",
+      "example_sentence": "The lion is a big animal.",
+      "tier": "extended"
+    },
+    {
+      "id": "0a09582b-e9a4-412e-944e-4aa5d876b784",
+      "word": "rabbit",
+      "pos": "noun",
+      "meaning_ar": "أرنب",
+      "example_sentence": "The rabbit eats vegetables.",
+      "tier": "extended"
+    },
+    {
+      "id": "0fa4ad40-e318-4e56-8359-3ede481628ae",
+      "word": "wing",
+      "pos": "noun",
+      "meaning_ar": "جناح",
+      "example_sentence": "The bird has two wings.",
+      "tier": "extended"
+    },
+    {
+      "id": "73467a79-b971-40a2-9101-a5376048b2b7",
+      "word": "tail",
+      "pos": "noun",
+      "meaning_ar": "ذيل",
+      "example_sentence": "The dog has a long tail.",
+      "tier": "extended"
+    },
+    {
+      "id": "0cc1ca6e-bda2-42c6-8bbe-741410f3a5e9",
+      "word": "care",
+      "pos": "verb",
+      "meaning_ar": "يعتني / رعاية",
+      "example_sentence": "I care for my pet cat.",
+      "tier": "extended"
+    },
+    {
+      "id": "7b37bf5f-b495-41ea-8fc5-0e6a4235b240",
+      "word": "wild",
+      "pos": "adjective",
+      "meaning_ar": "بري",
+      "example_sentence": "Lions are wild animals.",
+      "tier": "extended"
+    },
+    {
+      "id": "63ec0871-94ff-4cd7-8390-4faed0598ce8",
+      "word": "leg",
+      "pos": "noun",
+      "meaning_ar": "ساق / رجل",
+      "example_sentence": "A cat has four legs.",
+      "tier": "extended"
+    },
+    {
+      "id": "15ae84c2-0468-46dd-a4f9-d9e0102f0a3e",
+      "word": "monkey",
+      "pos": "noun",
+      "meaning_ar": "قرد",
+      "example_sentence": "The monkey eats bananas.",
+      "tier": "mastery"
+    },
+    {
+      "id": "f0c265ec-b2ad-40a5-be8a-36f05ae360e0",
+      "word": "snake",
+      "pos": "noun",
+      "meaning_ar": "ثعبان / حية",
+      "example_sentence": "I am afraid of snakes.",
+      "tier": "mastery"
+    },
+    {
+      "id": "53ec8d5f-920a-41d7-b650-c9a1734e8061",
+      "word": "sound",
+      "pos": "noun",
+      "meaning_ar": "صوت",
+      "example_sentence": "The bird makes a nice sound.",
+      "tier": "mastery"
+    },
+    {
+      "id": "c248ca84-41cd-40ff-b266-8ddd8b942dff",
+      "word": "kind",
+      "pos": "noun",
+      "meaning_ar": "نوع / لطيف",
+      "example_sentence": "What kind of animal is that?",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "2e187013-1c71-4646-ac26-dd5732798db7",
+      "label": "A",
+      "title": "Amazing Animals in Saudi Arabia",
+      "content": {
+        "paragraphs": [
+          "Saudi Arabia is home to many amazing *animals*. The country has different environments, from hot deserts to cool mountains. Each place has special animals that live there.",
+          "The Arabian Desert covers most of Saudi Arabia. This *hot* and dry place is difficult for animals, but many survive here. The Arabian oryx is a beautiful white antelope. It has long, straight horns and can live without water for many days. Sand cats are *small* desert animals that hunt at night. They have thick fur on their feet to walk on hot sand.",
+          "The Red Sea coast has different animals. Here, you can find colorful fish, dolphins, and sea turtles. The water is *warm* all year, so many sea animals *live* in this area. Coral reefs provide homes for hundreds of fish species.",
+          "In the Asir Mountains in the south, the weather is cooler. Baboons *climb* trees and eat fruits. These smart animals live in groups called troops. Arabian leopards also live in the mountains, but they are very rare. Only about 200 leopards remain in Saudi Arabia today.",
+          "Many Saudi people *love* animals and work to protect them. The Saudi government creates special parks called reserves. These safe places help animals survive and have babies. Learning about local animals helps us understand why we need to *protect* them for future generations."
+        ]
+      },
+      "word_count": 223
+    },
+    {
+      "id": "74bd1592-ddb3-4a21-9a1d-a040fbcc38e9",
+      "label": "B",
+      "title": "Desert Animals at Night",
+      "content": {
+        "paragraphs": [
+          "The Arabian Desert is one of the hottest places on Earth. During the day, temperatures reach 50°C. Most *desert* animals sleep during these hot hours. They are nocturnal - they are active at night when it is *cool*.",
+          "The Arabian oryx is Saudi Arabia's national animal. This beautiful white antelope has long, straight horns. Oryx can live without water for many days. They get water from the *plants* they eat. At night, oryx *travel* many kilometers to find food. Their white fur helps them stay cool.",
+          "Many *small* animals also live in the desert. The fennec fox has very big ears. These large ears help it hear *insects* moving in the sand. The ears also help the fox stay cool. Fennec foxes *hunt* at night when insects come out.",
+          "Desert animals are very smart. They *hide* under rocks or in holes during the day. This keeps them safe from the hot sun. At night, the desert becomes busy with animals looking for food and water. The Arabian Desert may look empty, but it is full of amazing animals that know how to survive."
+        ]
+      },
+      "word_count": 187
+    }
+  ],
+  "grammar": {
+    "title": "this/that/these/those",
+    "title_ar": "this/that/these/those",
+    "explanation": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "هذه الكلمات تستخدم للإشارة إلى الأشياء القريبة والبعيدة. this/that للمفرد، these/those للجمع. this/these للقريب، that/those للبعيد",
+          "content_en": "<b>This/That/These/Those</b> are words we use to point to things or people.<br><br><b>Examples:</b><br>• This cat is small. (pointing to a cat near me)<br>• That dog is big. (pointing to a dog far from me)<br>• These birds are beautiful. (pointing to birds near me)<br><br><b>The Rules:</b><br>• Use <b>this</b> for ONE thing NEAR you<br>• Use <b>that</b> for ONE thing FAR from you<br>• Use <b>these</b> for MORE THAN ONE thing NEAR you<br>• Use <b>those</b> for MORE THAN ONE thing FAR from you"
+        },
+        {
+          "type": "formula",
+          "content": "this/that + singular noun<br>these/those + plural noun"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "This rabbit is white.",
+              "highlight": "This rabbit",
+              "translation_ar": "هذا الأرنب أبيض"
+            },
+            {
+              "sentence": "That elephant is huge.",
+              "highlight": "That elephant",
+              "translation_ar": "ذلك الفيل ضخم"
+            },
+            {
+              "sentence": "These fish are colorful.",
+              "highlight": "These fish",
+              "translation_ar": "هذه الأسماك ملونة"
+            },
+            {
+              "sentence": "Those lions are strong.",
+              "highlight": "Those lions",
+              "translation_ar": "تلك الأسود قوية"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "This cats are small",
+              "correct": "These cats are small",
+              "explanation_ar": "this للمفرد فقط، استخدم these للجمع"
+            },
+            {
+              "wrong": "That birds are flying",
+              "correct": "Those birds are flying",
+              "explanation_ar": "that للمفرد فقط، استخدم those للجمع"
+            },
+            {
+              "wrong": "These dog is cute",
+              "correct": "This dog is cute",
+              "explanation_ar": "these للجمع فقط، استخدم this للمفرد"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

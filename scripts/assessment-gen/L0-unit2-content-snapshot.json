@@ -1,0 +1,423 @@
+{
+  "unit": {
+    "id": "a067dbbb-ea5b-4902-938f-ee23952c1c25",
+    "title_en": "Food & Cooking",
+    "title_ar": "الطعام والطبخ",
+    "unit_number": 2
+  },
+  "level": {
+    "id": "cd96175e-76d4-48dc-b34f-83f3228a28b8",
+    "level_number": 0,
+    "name_en": "Foundation"
+  },
+  "assessment": {
+    "id": "1c30e454-4dc6-4320-bca9-f22e54f891fe"
+  },
+  "variants": [
+    {
+      "id": "0f34ed5c-387b-424e-8307-9916adf49895",
+      "variant_code": "A"
+    },
+    {
+      "id": "981cfa54-4409-4b95-9705-3d50637a832b",
+      "variant_code": "B"
+    },
+    {
+      "id": "607e80c7-5eb9-43c8-8db8-82fbd4246f46",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "id": "159aea67-6fcd-4381-b254-b0cf6edb442f",
+      "word": "delicious",
+      "pos": "adjective",
+      "meaning_ar": "لذيذ، طعمه جميل",
+      "example_sentence": "This cake is delicious.",
+      "tier": "core"
+    },
+    {
+      "id": "c3ea03f4-9a3a-493c-8e51-5b15b8a639d8",
+      "word": "food",
+      "pos": "noun",
+      "meaning_ar": "طعام، غذاء",
+      "example_sentence": "I like Italian food very much.",
+      "tier": "core"
+    },
+    {
+      "id": "1e9ba8c7-6a9f-4157-b70e-19d7a5775a49",
+      "word": "fish",
+      "pos": "noun",
+      "meaning_ar": "سمك",
+      "example_sentence": "My father caught a big fish yesterday.",
+      "tier": "core"
+    },
+    {
+      "id": "7919c400-d1f3-46e6-840f-0364a75f015d",
+      "word": "dessert",
+      "pos": "noun",
+      "meaning_ar": "حلوى، تحلية",
+      "example_sentence": "I want chocolate dessert after lunch.",
+      "tier": "core"
+    },
+    {
+      "id": "a6a06267-4433-4220-864b-474793f30f66",
+      "word": "recipe",
+      "pos": "noun",
+      "meaning_ar": "وصفة طبخ، طريقة التحضير",
+      "example_sentence": "My mother gave me her recipe for cookies.",
+      "tier": "core"
+    },
+    {
+      "id": "b7c91907-1864-4edb-8eae-99b9f615b8df",
+      "word": "rice",
+      "pos": "noun",
+      "meaning_ar": "أرز",
+      "example_sentence": "We eat rice with chicken for dinner.",
+      "tier": "core"
+    },
+    {
+      "id": "2fcc5fe6-afdb-4104-85d9-423a5ffd6e23",
+      "word": "vegetables",
+      "pos": "noun",
+      "meaning_ar": "خضروات",
+      "example_sentence": "Children should eat vegetables every day.",
+      "tier": "core"
+    },
+    {
+      "id": "a94bd88c-2fca-4232-bd75-66003a15dd35",
+      "word": "sugar",
+      "pos": "noun",
+      "meaning_ar": "سكر",
+      "example_sentence": "Please add sugar to my tea.",
+      "tier": "core"
+    },
+    {
+      "id": "62859e66-adfe-4e35-9fa7-26696c20b86d",
+      "word": "dates",
+      "pos": "noun",
+      "meaning_ar": "تمر",
+      "example_sentence": "We eat dates during Ramadan.",
+      "tier": "core"
+    },
+    {
+      "id": "ecc48c45-39a3-42da-b1e7-b22290adcc73",
+      "word": "restaurants",
+      "pos": "noun",
+      "meaning_ar": "مطاعم",
+      "example_sentence": "There are good restaurants near my house.",
+      "tier": "core"
+    },
+    {
+      "id": "02d1d387-9d88-415e-9b70-a264e59b19c0",
+      "word": "balls",
+      "pos": "noun",
+      "meaning_ar": "كرات، كريات",
+      "example_sentence": "The child plays with colorful balls.",
+      "tier": "core"
+    },
+    {
+      "id": "b27c0451-9a1f-48d6-a31e-0892b4b74681",
+      "word": "bread",
+      "pos": "noun",
+      "meaning_ar": "خبز",
+      "example_sentence": "I buy bread from the bakery every morning.",
+      "tier": "core"
+    },
+    {
+      "id": "35e2157c-5223-43f2-b450-4d95b8e9d505",
+      "word": "cook",
+      "pos": "verb",
+      "meaning_ar": "يطبخ، يطهو",
+      "example_sentence": "My mother cooks dinner at 6 o'clock.",
+      "tier": "core"
+    },
+    {
+      "id": "9eb8e036-6a6f-424f-988a-eb223e09d855",
+      "word": "soft",
+      "pos": "adjective",
+      "meaning_ar": "ناعم، طري",
+      "example_sentence": "This pillow is very soft.",
+      "tier": "core"
+    },
+    {
+      "id": "0ac7da76-7c31-4345-b820-3fb342b547de",
+      "word": "delicious",
+      "pos": "adjective",
+      "meaning_ar": "لذيذ، شهي",
+      "example_sentence": "This cake is very delicious!",
+      "tier": "core"
+    },
+    {
+      "id": "a08a33d3-7e86-4018-814d-d1c569bf746c",
+      "word": "ingredients",
+      "pos": "noun",
+      "meaning_ar": "مكونات، مقادير",
+      "example_sentence": "We need three ingredients to make this soup.",
+      "tier": "core"
+    },
+    {
+      "id": "55df30ab-22ba-4b92-bbc2-c606daa2479e",
+      "word": "fresh",
+      "pos": "adjective",
+      "meaning_ar": "طازج، جديد",
+      "example_sentence": "I buy fresh vegetables every day.",
+      "tier": "core"
+    },
+    {
+      "id": "9f74a1b8-48c1-4c4e-a2be-6d81f20e94a9",
+      "word": "drink",
+      "pos": "verb",
+      "meaning_ar": "يشرب",
+      "example_sentence": "I drink water every morning.",
+      "tier": "core"
+    },
+    {
+      "id": "a52d9c70-1309-40c2-95e6-2432e7d4f0a9",
+      "word": "milk",
+      "pos": "noun",
+      "meaning_ar": "حليب",
+      "example_sentence": "I drink milk every morning.",
+      "tier": "core"
+    },
+    {
+      "id": "c1fcdef1-417e-4867-9f35-f7d82e3ea02b",
+      "word": "egg",
+      "pos": "noun",
+      "meaning_ar": "بيضة",
+      "example_sentence": "I eat one egg for breakfast.",
+      "tier": "core"
+    },
+    {
+      "id": "49569fdb-12e2-447a-b66c-f325ef24342f",
+      "word": "meat",
+      "pos": "noun",
+      "meaning_ar": "لحم",
+      "example_sentence": "We eat meat with rice.",
+      "tier": "core"
+    },
+    {
+      "id": "5fbe6927-631d-4c29-8062-dc456b0ac52f",
+      "word": "chicken",
+      "pos": "noun",
+      "meaning_ar": "دجاج",
+      "example_sentence": "I like chicken with rice.",
+      "tier": "core"
+    },
+    {
+      "id": "60990c4a-6141-4369-9a77-869fa87871eb",
+      "word": "fruit",
+      "pos": "noun",
+      "meaning_ar": "فاكهة",
+      "example_sentence": "I eat fruit every day.",
+      "tier": "core"
+    },
+    {
+      "id": "15075a55-7a1a-4666-87fd-b3741a09ec3a",
+      "word": "tea",
+      "pos": "noun",
+      "meaning_ar": "شاي",
+      "example_sentence": "I drink tea after dinner.",
+      "tier": "core"
+    },
+    {
+      "id": "30a29c6b-e899-4c3b-ac06-67b99572bf20",
+      "word": "salt",
+      "pos": "noun",
+      "meaning_ar": "ملح",
+      "example_sentence": "Please add some salt to this.",
+      "tier": "core"
+    },
+    {
+      "id": "922f40a6-89ca-4378-9232-ddb015bd7347",
+      "word": "vegetable",
+      "pos": "noun",
+      "meaning_ar": "خضروات",
+      "example_sentence": "I eat vegetables every day.",
+      "tier": "extended"
+    },
+    {
+      "id": "abfcf4b6-a9c0-46f5-96e3-73a7de6f7a96",
+      "word": "apple",
+      "pos": "noun",
+      "meaning_ar": "تفاحة",
+      "example_sentence": "I eat an apple after lunch.",
+      "tier": "extended"
+    },
+    {
+      "id": "5f03f9bd-7e7f-40f4-8bd1-606ec7e455b5",
+      "word": "cold",
+      "pos": "adjective",
+      "meaning_ar": "بارد",
+      "example_sentence": "The water is very cold.",
+      "tier": "extended"
+    },
+    {
+      "id": "585a8707-6d68-42fc-bed6-b7a9ca2bfd65",
+      "word": "hungry",
+      "pos": "adjective",
+      "meaning_ar": "جائع",
+      "example_sentence": "I am hungry. I want food.",
+      "tier": "extended"
+    },
+    {
+      "id": "3816f6c5-7a1d-4852-8873-9327828ede07",
+      "word": "taste",
+      "pos": "verb",
+      "meaning_ar": "يتذوق / طعم",
+      "example_sentence": "This food tastes very good.",
+      "tier": "extended"
+    },
+    {
+      "id": "b4bf2dfe-9e5c-4b99-a527-42e1a6529168",
+      "word": "kitchen",
+      "pos": "noun",
+      "meaning_ar": "مطبخ",
+      "example_sentence": "My mother is in the kitchen.",
+      "tier": "extended"
+    },
+    {
+      "id": "d6a3797a-794a-4dbc-b437-17a9a6b0380d",
+      "word": "plate",
+      "pos": "noun",
+      "meaning_ar": "صحن / طبق",
+      "example_sentence": "Put the food on the plate.",
+      "tier": "extended"
+    },
+    {
+      "id": "bf06ff9c-790d-484f-8ba9-558e8bc94387",
+      "word": "cup",
+      "pos": "noun",
+      "meaning_ar": "كوب",
+      "example_sentence": "I drink tea from a cup.",
+      "tier": "extended"
+    },
+    {
+      "id": "bd5afb12-3d88-4510-af3d-958aee9e7f75",
+      "word": "sweet",
+      "pos": "adjective",
+      "meaning_ar": "حلو",
+      "example_sentence": "This cake is very sweet.",
+      "tier": "mastery"
+    },
+    {
+      "id": "fd9bff4f-4af7-4acb-8b92-3c8cd739eeb7",
+      "word": "oil",
+      "pos": "noun",
+      "meaning_ar": "زيت",
+      "example_sentence": "We cook with oil.",
+      "tier": "mastery"
+    },
+    {
+      "id": "ca71f16f-7705-4ecd-9733-f86bdb840b48",
+      "word": "orange",
+      "pos": "noun",
+      "meaning_ar": "برتقالة",
+      "example_sentence": "I eat an orange every day.",
+      "tier": "mastery"
+    },
+    {
+      "id": "17e3af2d-30af-46a3-bc58-de5c366f5b62",
+      "word": "spoon",
+      "pos": "noun",
+      "meaning_ar": "ملعقة",
+      "example_sentence": "I eat soup with a spoon.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "800500c4-218b-42f1-888c-9cac8b08e766",
+      "label": "A",
+      "title": "Healthy Food Around the World",
+      "content": {
+        "paragraphs": [
+          "People around the world eat different *food*, but healthy meals are important everywhere. In Japan, people eat fresh *fish* and *rice* every day. In the Mediterranean, families cook with olive oil and fresh *vegetables* like tomatoes and cucumbers. These simple ingredients help people live long, healthy lives.",
+          "In Saudi Arabia, traditional meals include dates, yogurt, and grilled meat. *Dates* are very nutritious and give people energy. Many Saudi families also eat *bread* with their meals. This *bread* is often fresh and warm from the oven.",
+          "Scientists study food from different countries. They learn that the healthiest people eat lots of vegetables, fruits, and whole grains. For example, people in Greece eat an average of 400 grams of vegetables every day. This is more than people in many other countries.",
+          "Cooking at home is becoming popular again. When families *cook* together, they eat healthier food. They also spend less money than buying food from restaurants. Home cooking brings families closer together.",
+          "Today, people can learn about food from other countries easily. They watch cooking videos online and try new recipes. This helps people discover *delicious* foods from around the world while staying healthy."
+        ]
+      },
+      "word_count": 201
+    },
+    {
+      "id": "ddb73f42-3d32-4727-a47c-dd5d31fc759b",
+      "label": "B",
+      "title": "Sweet Treasures from Saudi Arabia",
+      "content": {
+        "paragraphs": [
+          "Saudi Arabia has many *delicious* traditional desserts. These sweet treats are important parts of Saudi culture and history. Families make them for special celebrations and holidays.",
+          "Ma'amoul is a popular *dessert* in Saudi homes. This small cake has dates or nuts inside. People eat ma'amoul during Eid and other happy times. The *recipe* comes from grandmothers to mothers to daughters. Each family has its own special way to make it.",
+          "Kunafa is another favorite Saudi sweet. This dessert has cheese and thin pastry. Cooks put *sugar* syrup on top to make it very sweet. In Riyadh and Jeddah, many *restaurants* sell fresh kunafa every day. People often buy it after dinner.",
+          "Luqaimat are small round *balls* of fried dough. They are *soft* inside and golden outside. Cooks put honey and sesame seeds on top. These little sweets are perfect with Arabic coffee. Many Saudi families make luqaimat together on weekends.",
+          "Saudi desserts use natural ingredients like dates, honey, and nuts. These *ingredients* are healthy and *fresh*. Today, young Saudi women learn these old recipes from their families. They also create new desserts that mix traditional flavors with modern ideas. This keeps Saudi dessert culture alive for future generations."
+        ]
+      },
+      "word_count": 201
+    }
+  ],
+  "grammar": {
+    "title": "simple present positive",
+    "title_ar": "simple present positive",
+    "explanation": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "المضارع البسيط يستخدم للعادات والحقائق. مع I, you, we, they نستخدم الفعل الأساسي، ومع he, she, it نضيف -s",
+          "content_en": "The <b>simple present</b> is used to talk about things that happen regularly, habits, and facts.<br><br><b>Examples:</b><br>• I eat rice every day.<br>• She cooks dinner at 6 PM.<br>• We drink tea in the morning.<br><br>We use different forms of the verb depending on who does the action:<br>• With <b>I, you, we, they</b> → use the base form of the verb (eat, cook, drink)<br>• With <b>he, she, it</b> → add <b>-s</b> to the verb (eats, cooks, drinks)<br><br><b>Remember:</b> The simple present shows what happens regularly or is always true."
+        },
+        {
+          "type": "formula",
+          "content": "I/You/We/They + verb + ...<br>He/She/It + verb + s + ..."
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "I cook pasta every Sunday.",
+              "highlight": "cook",
+              "translation_ar": "أطبخ المعكرونة كل يوم أحد"
+            },
+            {
+              "sentence": "She drinks coffee in the morning.",
+              "highlight": "drinks",
+              "translation_ar": "تشرب القهوة في الصباح"
+            },
+            {
+              "sentence": "They eat breakfast at 8 AM.",
+              "highlight": "eat",
+              "translation_ar": "يتناولون الإفطار في الساعة 8 صباحاً"
+            },
+            {
+              "sentence": "He makes pizza on weekends.",
+              "highlight": "makes",
+              "translation_ar": "يصنع البيتزا في عطلة نهاية الأسبوع"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "He eat rice.",
+              "correct": "He eats rice.",
+              "explanation_ar": "مع he/she/it نضيف -s للفعل"
+            },
+            {
+              "wrong": "I eats bread.",
+              "correct": "I eat bread.",
+              "explanation_ar": "مع I لا نضيف -s للفعل"
+            },
+            {
+              "wrong": "She cook soup.",
+              "correct": "She cooks soup.",
+              "explanation_ar": "مع she يجب إضافة -s"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "existing_comprehension_count": 10
+}

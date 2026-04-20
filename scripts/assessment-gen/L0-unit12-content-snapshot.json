@@ -1,0 +1,450 @@
+{
+  "unit": {
+    "id": "2f3df52f-08c0-4fd0-9488-487ddd956140",
+    "title_en": "Jobs & Careers",
+    "title_ar": "الوظائف والمهن",
+    "unit_number": 12
+  },
+  "level": {
+    "id": "cd96175e-76d4-48dc-b34f-83f3228a28b8",
+    "level_number": 0,
+    "name_en": "Foundation"
+  },
+  "assessment": {
+    "id": "7ceed87d-daec-43cd-ac40-833aaaf42e2d"
+  },
+  "variants": [
+    {
+      "id": "66b33062-3a81-497c-af67-bf54c3b1d8a3",
+      "variant_code": "A"
+    },
+    {
+      "id": "e087f84e-6d2d-4088-8db5-249a6924c87c",
+      "variant_code": "B"
+    },
+    {
+      "id": "c7d5fd2a-c3db-451f-a497-fc19152f43b9",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "id": "1f0e0b55-f113-440f-b04c-a9f75c9ac2c4",
+      "word": "exciting",
+      "pos": "adjective",
+      "meaning_ar": "مثير، ممتع، مليء بالحماس",
+      "example_sentence": "The new movie is very exciting.",
+      "tier": "core"
+    },
+    {
+      "id": "c31253dc-448f-455a-803a-e1645f4b5807",
+      "word": "jobs",
+      "pos": "noun",
+      "meaning_ar": "وظائف، أعمال",
+      "example_sentence": "There are many jobs in the hospital.",
+      "tier": "core"
+    },
+    {
+      "id": "3fe8e5a5-258c-4086-9b67-845b69818cb0",
+      "word": "manager",
+      "pos": "noun",
+      "meaning_ar": "مدير، مديرة",
+      "example_sentence": "My manager is very kind to all workers.",
+      "tier": "core"
+    },
+    {
+      "id": "cd1338e0-1031-4ae7-b2f5-10a12697a30f",
+      "word": "workers",
+      "pos": "noun",
+      "meaning_ar": "عمال، موظفون",
+      "example_sentence": "The workers start at 8 AM every day.",
+      "tier": "core"
+    },
+    {
+      "id": "76675a79-fc79-405f-b8bc-afe246cd72f2",
+      "word": "earns",
+      "pos": "verb",
+      "meaning_ar": "يكسب، يحصل على راتب",
+      "example_sentence": "He earns money by teaching English.",
+      "tier": "core"
+    },
+    {
+      "id": "db652455-20b4-45a8-b83c-e20441a2ae26",
+      "word": "employees",
+      "pos": "noun",
+      "meaning_ar": "موظفون",
+      "example_sentence": "The company has 50 employees.",
+      "tier": "core"
+    },
+    {
+      "id": "1db7cfe0-688a-40c5-9043-e11dbf03f9b9",
+      "word": "earn",
+      "pos": "verb",
+      "meaning_ar": "يكسب، يحصل على",
+      "example_sentence": "I earn 5000 riyals every month.",
+      "tier": "core"
+    },
+    {
+      "id": "50ba57ed-1a3e-4325-a69d-23af6c95f329",
+      "word": "photographer",
+      "pos": "noun",
+      "meaning_ar": "مصور فوتوغرافي",
+      "example_sentence": "The photographer took beautiful pictures at the wedding.",
+      "tier": "core"
+    },
+    {
+      "id": "3b5b158a-8bff-4cf1-ad86-cc172d4ae54e",
+      "word": "job",
+      "pos": "noun",
+      "meaning_ar": "وظيفة، عمل",
+      "example_sentence": "My job is very interesting.",
+      "tier": "core"
+    },
+    {
+      "id": "6b4a035b-49b9-47de-9770-10f49f87453f",
+      "word": "hire",
+      "pos": "verb",
+      "meaning_ar": "يوظف، يستأجر",
+      "example_sentence": "The company will hire ten new workers.",
+      "tier": "core"
+    },
+    {
+      "id": "15e50e2e-b3ae-41c4-999e-1e4c575bcd0c",
+      "word": "creative",
+      "pos": "adjective",
+      "meaning_ar": "مبدع، خلاق",
+      "example_sentence": "She is very creative and makes beautiful art.",
+      "tier": "core"
+    },
+    {
+      "id": "1f629c61-6ea3-4bf0-8fae-193076607ef4",
+      "word": "drivers",
+      "pos": "noun",
+      "meaning_ar": "سائقون",
+      "example_sentence": "Bus drivers work every day.",
+      "tier": "core"
+    },
+    {
+      "id": "dabca37c-9351-446e-ad2e-30ed0f171339",
+      "word": "work",
+      "pos": "noun",
+      "meaning_ar": "عمل",
+      "example_sentence": "My work starts at 9 AM.",
+      "tier": "core"
+    },
+    {
+      "id": "df534d66-bd03-4cc9-b1b6-2e6010f643a6",
+      "word": "professional",
+      "pos": "adjective",
+      "meaning_ar": "محترف، مهني",
+      "example_sentence": "He is a professional doctor at the hospital.",
+      "tier": "core"
+    },
+    {
+      "id": "6c08b0fb-24bf-410b-ae0f-6474a6417f57",
+      "word": "successful",
+      "pos": "adjective",
+      "meaning_ar": "ناجح",
+      "example_sentence": "She is a successful business owner.",
+      "tier": "core"
+    },
+    {
+      "id": "23c66fe1-9744-4f5e-8a8e-f16f1906f484",
+      "word": "teacher",
+      "pos": "noun",
+      "meaning_ar": "معلم / معلمة",
+      "example_sentence": "My teacher is very kind.",
+      "tier": "core"
+    },
+    {
+      "id": "08b7f04d-08f5-4ea7-b87e-54cb2686bd71",
+      "word": "student",
+      "pos": "noun",
+      "meaning_ar": "طالب",
+      "example_sentence": "I am a student at this school.",
+      "tier": "core"
+    },
+    {
+      "id": "a6551afe-00ea-465c-8104-2370aed03bb7",
+      "word": "nurse",
+      "pos": "noun",
+      "meaning_ar": "ممرض / ممرضة",
+      "example_sentence": "The nurse works at the hospital.",
+      "tier": "core"
+    },
+    {
+      "id": "ef918cbf-cc19-448c-9ae4-366407be6853",
+      "word": "driver",
+      "pos": "noun",
+      "meaning_ar": "سائق",
+      "example_sentence": "The bus driver is very nice.",
+      "tier": "core"
+    },
+    {
+      "id": "109fb571-e70c-4982-8024-604d8bab5f57",
+      "word": "police",
+      "pos": "noun",
+      "meaning_ar": "شرطة",
+      "example_sentence": "The police help people.",
+      "tier": "core"
+    },
+    {
+      "id": "168f6be1-09a6-4bfb-bb34-483dfcdb36db",
+      "word": "engineer",
+      "pos": "noun",
+      "meaning_ar": "مهندس",
+      "example_sentence": "My father is an engineer.",
+      "tier": "core"
+    },
+    {
+      "id": "dc28d516-56fa-4684-8cb9-f76ee1d9586e",
+      "word": "office",
+      "pos": "noun",
+      "meaning_ar": "مكتب",
+      "example_sentence": "My mother works in an office.",
+      "tier": "core"
+    },
+    {
+      "id": "428b3dfd-9c6b-4505-bae5-7fbd9b001ac0",
+      "word": "learn",
+      "pos": "verb",
+      "meaning_ar": "يتعلم",
+      "example_sentence": "I learn English at school.",
+      "tier": "core"
+    },
+    {
+      "id": "923ae27f-8ed4-4317-ab38-c191a77c32e1",
+      "word": "teach",
+      "pos": "verb",
+      "meaning_ar": "يُعلّم",
+      "example_sentence": "She teaches English to children.",
+      "tier": "core"
+    },
+    {
+      "id": "1a9cab0a-3a61-42a1-bdec-3af2917040b6",
+      "word": "study",
+      "pos": "verb",
+      "meaning_ar": "يدرس",
+      "example_sentence": "I study English every day.",
+      "tier": "core"
+    },
+    {
+      "id": "97fca41d-5a34-4fc8-bd74-fa2894d192ba",
+      "word": "important",
+      "pos": "adjective",
+      "meaning_ar": "مهم",
+      "example_sentence": "English is very important.",
+      "tier": "core"
+    },
+    {
+      "id": "9d71d35e-c058-4794-86db-c92538132cac",
+      "word": "hard",
+      "pos": "adjective",
+      "meaning_ar": "صعب / شاق",
+      "example_sentence": "This job is very hard.",
+      "tier": "core"
+    },
+    {
+      "id": "41f4d734-da78-47cb-ae9c-442d6daa87c3",
+      "word": "easy",
+      "pos": "adjective",
+      "meaning_ar": "سهل",
+      "example_sentence": "This question is very easy.",
+      "tier": "core"
+    },
+    {
+      "id": "c245a6b9-a90c-4841-8b61-b85dc421591d",
+      "word": "firefighter",
+      "pos": "noun",
+      "meaning_ar": "رجل إطفاء",
+      "example_sentence": "The firefighter helps people.",
+      "tier": "extended"
+    },
+    {
+      "id": "2c5f8b82-57f2-4042-8b99-1e9a7d4b62e9",
+      "word": "pilot",
+      "pos": "noun",
+      "meaning_ar": "طيار",
+      "example_sentence": "The pilot flies the plane.",
+      "tier": "extended"
+    },
+    {
+      "id": "7891e201-b2a2-42a1-88f8-465ba3fc0d9e",
+      "word": "farmer",
+      "pos": "noun",
+      "meaning_ar": "مزارع",
+      "example_sentence": "The farmer has many animals.",
+      "tier": "extended"
+    },
+    {
+      "id": "eb0b2532-a14a-429c-8abe-50e7c0b7413c",
+      "word": "dentist",
+      "pos": "noun",
+      "meaning_ar": "طبيب أسنان",
+      "example_sentence": "I go to the dentist.",
+      "tier": "extended"
+    },
+    {
+      "id": "262f8aeb-8da2-403e-881f-db25b713a2e8",
+      "word": "uniform",
+      "pos": "noun",
+      "meaning_ar": "زي موحد",
+      "example_sentence": "I wear a uniform to school.",
+      "tier": "extended"
+    },
+    {
+      "id": "1d106b04-e46d-4ffc-ae5d-def812059191",
+      "word": "meeting",
+      "pos": "noun",
+      "meaning_ar": "اجتماع",
+      "example_sentence": "My father has a meeting today.",
+      "tier": "extended"
+    },
+    {
+      "id": "01371ec7-c0f3-4859-966d-904f18e50798",
+      "word": "busy",
+      "pos": "adjective",
+      "meaning_ar": "مشغول",
+      "example_sentence": "My mother is very busy today.",
+      "tier": "extended"
+    },
+    {
+      "id": "9b9bddcd-db34-43d6-9a25-0879962b0a24",
+      "word": "finish",
+      "pos": "verb",
+      "meaning_ar": "ينهي / ينتهي",
+      "example_sentence": "I finish my work at five.",
+      "tier": "extended"
+    },
+    {
+      "id": "c24b7eb0-b6ae-41df-af6d-ebdacc0857c7",
+      "word": "start",
+      "pos": "verb",
+      "meaning_ar": "يبدأ",
+      "example_sentence": "I start work at eight.",
+      "tier": "extended"
+    },
+    {
+      "id": "dab42fcf-4515-4f52-bebd-28bdf44baab6",
+      "word": "make",
+      "pos": "verb",
+      "meaning_ar": "يصنع",
+      "example_sentence": "She makes bread every morning.",
+      "tier": "extended"
+    },
+    {
+      "id": "e1f6c1a7-f932-46e1-842f-87b8b42b9770",
+      "word": "salary",
+      "pos": "noun",
+      "meaning_ar": "راتب",
+      "example_sentence": "He gets his salary every month.",
+      "tier": "mastery"
+    },
+    {
+      "id": "cd00702f-c64f-4897-8a94-f607d30122c2",
+      "word": "dream",
+      "pos": "noun",
+      "meaning_ar": "حلم",
+      "example_sentence": "My dream is to be a doctor.",
+      "tier": "mastery"
+    },
+    {
+      "id": "4a0cb06a-f173-480b-9c67-41f6d3ccc836",
+      "word": "future",
+      "pos": "noun",
+      "meaning_ar": "مستقبل",
+      "example_sentence": "I think about my future.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "a2f9c20c-c94d-4e2b-811f-f6f2851a4720",
+      "label": "A",
+      "title": "New Jobs for Tomorrow",
+      "content": {
+        "paragraphs": [
+          "The world of work is changing fast. New *jobs* appear every year because of technology and modern life. These careers did not exist twenty years ago, but now they are very popular.",
+          "Many young people today work as social media managers. These *workers* help companies talk to customers online. They write posts on Instagram and Twitter. They also answer questions from people who buy products. This job is perfect for people who love using phones and computers every day.",
+          "Another new career is app developer. These *employees* create games and programs for mobile phones. In Saudi Arabia, there are more than 34 million smartphone users. App developers make the programs that people use for shopping, learning, and entertainment. They *earn* good money because everyone needs apps.",
+          "Food delivery drivers have a busy *job* too. They work for companies like HungerStation and Jahez. These *drivers* take food from restaurants to people's homes. During COVID-19, this work became very important. Many families ordered food online instead of going to restaurants.",
+          "Data analysts look at numbers and information all day. Their *work* helps companies make better decisions. For example, they study which products sell well and which do not. Companies *hire* data analysts because information is very valuable in business today.",
+          "These new careers show that the future has many exciting possibilities for young people."
+        ]
+      },
+      "word_count": 234
+    },
+    {
+      "id": "0d8a928f-b206-4000-991d-430777f4c12c",
+      "label": "B",
+      "title": "Dream Jobs Around the World",
+      "content": {
+        "paragraphs": [
+          "Many young people today have *exciting* jobs that did not exist twenty years ago. These modern careers show how the world of work is changing.",
+          "Sarah is a social media *manager* for a travel company in Dubai. She creates posts about beautiful places and talks to customers online. Sarah studied marketing at university, but she learned her social media skills by practicing every day. \"I love my job because I help people plan their dream vacations,\" she says. Sarah *earns* a good salary and works from home three days a week.",
+          "In London, Ahmed works as a food *photographer*. He takes beautiful pictures of meals for restaurants and cooking websites. Ahmed started as a hobby photographer, but now famous chefs *hire* him for their cookbooks. \"Each day is different,\" Ahmed explains. \"Sometimes I photograph traditional Arabic dishes, sometimes Italian pasta.\" His *creative* work appears in magazines around the world.",
+          "Maria from Spain is a *professional* video game player. She competes in tournaments and has thousands of fans who watch her play online. Gaming companies pay her to use their products. Maria practices eight hours every day and travels to competitions in different countries. \"People think gaming is not a real job, but I work very hard,\" she says.",
+          "These *successful* young professionals show that today's job market offers many new opportunities for creative and determined people."
+        ]
+      },
+      "word_count": 247
+    }
+  ],
+  "grammar": {
+    "title": "prepositions of place",
+    "title_ar": "prepositions of place",
+    "explanation": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "حروف الجر للمكان تخبرنا أين يقع الشيء أو الشخص. نستخدمها لوصف موقع الأشياء والأشخاص بالنسبة لأشياء أخرى",
+          "content_en": "<b>Prepositions of place</b> tell us <i>where</i> something or someone is.<br><br>We use prepositions of place to describe the location of people and things in relation to other objects.<br><br>The most common prepositions of place are:<br>• <b>in</b> - inside something<br>• <b>on</b> - on top of something<br>• <b>at</b> - at a specific place/location<br>• <b>under</b> - below something<br>• <b>behind</b> - at the back of something<br>• <b>in front of</b> - before something<br>• <b>next to</b> - beside something<br>• <b>between</b> - in the middle of two things"
+        },
+        {
+          "type": "formula",
+          "content": "Subject + be verb + preposition of place + object/location"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "The doctor is in the hospital.",
+              "highlight": "in",
+              "translation_ar": "الطبيب في المستشفى"
+            },
+            {
+              "sentence": "The teacher stands in front of the class.",
+              "highlight": "in front of",
+              "translation_ar": "المعلم يقف أمام الصف"
+            },
+            {
+              "sentence": "The chef works at the restaurant.",
+              "highlight": "at",
+              "translation_ar": "الطاهي يعمل في المطعم"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "The nurse is at the hospital room.",
+              "correct": "The nurse is in the hospital room.",
+              "explanation_ar": "نستخدم in للأماكن المغلقة وليس at"
+            },
+            {
+              "wrong": "The books are in the table.",
+              "correct": "The books are on the table.",
+              "explanation_ar": "نستخدم on للأسطح وليس in"
+            },
+            {
+              "wrong": "He works in McDonald's.",
+              "correct": "He works at McDonald's.",
+              "explanation_ar": "نستخدم at مع أسماء المحلات والشركات المحددة"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,33 +1,66 @@
-import { lazy, Suspense, useState, useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
-import { MapPin } from 'lucide-react'
+import { useMemo } from 'react'
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
+import { useAuthStore } from '@/stores/authStore'
+import { supabase } from '@/lib/supabase'
 import { useTrainerCockpit } from '@/hooks/trainer/useTrainerCockpit'
 import { useStudentPulse } from '@/hooks/trainer/useStudentPulse'
+import { useInterventionPreview } from '@/hooks/trainer/useInterventionPreview'
+import { useGradingQueue } from '@/hooks/trainer/useGradingQueue'
 import { useTrainerOnboarding, shouldShowTour } from '@/hooks/trainer/useTrainerOnboarding'
+import { resolveHeroState } from '@/components/trainer/cockpit-v3/CockpitHero'
+import CockpitHero from '@/components/trainer/cockpit-v3/CockpitHero'
+import InterventionsSection from '@/components/trainer/cockpit-v3/InterventionsSection'
+import PulseSection from '@/components/trainer/cockpit-v3/PulseSection'
+import GradingSection from '@/components/trainer/cockpit-v3/GradingSection'
+import NabihInlineCard from '@/components/trainer/cockpit-v3/NabihInlineCard'
 import TrainerTour from '@/components/trainer/onboarding/TrainerTour'
-import './CockpitPage.css'
-import './cockpit/cockpit.css'
+import '@/components/trainer/cockpit-v3/DailyBrief.css'
+import { useState, useEffect } from 'react'
+import { MapPin } from 'lucide-react'
 
-const MorningRitualCard = lazy(() => import('./cockpit/widgets/MorningRitualCard'))
-const AgendaStrip = lazy(() => import('./cockpit/widgets/AgendaStrip'))
-const GroupHealthOrbs = lazy(() => import('./cockpit/widgets/GroupHealthOrbs'))
-const StudentPulseMap = lazy(() => import('./cockpit/widgets/StudentPulseMap'))
-const InterventionPreview = lazy(() => import('./cockpit/widgets/InterventionPreview'))
-const GradingPreviewStrip = lazy(() => import('./cockpit/widgets/GradingPreviewStrip'))
-const NabihBriefingCard = lazy(() => import('./cockpit/widgets/NabihBriefingCard'))
-const TrainerXpTicker = lazy(() => import('./cockpit/widgets/TrainerXpTicker'))
-const CompetitionMini = lazy(() => import('./cockpit/widgets/CompetitionMini'))
-
-function WidgetSkeleton({ height = 120 }) {
-  return <div className="tr-cockpit__skel" style={{ '--skel-h': `${height}px` }} aria-hidden="true" />
+function useNextClass(trainerId) {
+  return useQuery({
+    queryKey: ['trainer-next-class', trainerId],
+    queryFn: async () => {
+      if (!trainerId) return null
+      const today = new Date().toISOString().split('T')[0]
+      const { data } = await supabase
+        .from('classes')
+        .select('id, date, start_time, end_time, group_id, groups(name, level)')
+        .eq('trainer_id', trainerId)
+        .eq('status', 'scheduled')
+        .gte('date', today)
+        .order('date', { ascending: true })
+        .order('start_time', { ascending: true })
+        .limit(1)
+        .maybeSingle()
+      if (!data) return null
+      const now = new Date()
+      const classStart = new Date(`${data.date}T${data.start_time}`)
+      return {
+        ...data,
+        groupName: data.groups?.name || '',
+        minutesUntil: Math.round((classStart - now) / 60000),
+      }
+    },
+    enabled: !!trainerId,
+    staleTime: 60000,
+  })
 }
 
 export default function CockpitPage() {
-  const { data: cockpit } = useTrainerCockpit()
-  const { data: pulse } = useStudentPulse()
-  const { data: onboarding, refetch: refetchOnboarding } = useTrainerOnboarding()
+  // All hooks at top — before any conditional rendering
+  const profile = useAuthStore((s) => s.profile)
   const [tourActive, setTourActive] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams()
+
+  const { data: cockpit } = useTrainerCockpit()
+  const { data: pulse } = useStudentPulse()
+  const { data: interventions = [] } = useInterventionPreview(3)
+  const { data: gradingItems = [] } = useGradingQueue(10)
+  const { data: nextClass } = useNextClass(profile?.id)
+  const { data: onboarding, refetch: refetchOnboarding } = useTrainerOnboarding()
 
   useEffect(() => {
     if (searchParams.get('tour') === '1') {
@@ -41,67 +74,57 @@ export default function CockpitPage() {
     }
   }, [onboarding, searchParams])
 
+  // Role gate after all hooks
+  if (profile && profile.role !== 'trainer' && profile.role !== 'admin') {
+    return <Navigate to="/" replace />
+  }
+
+  const hourNow = new Date().getHours()
+  const heroState = resolveHeroState({
+    nextClass,
+    hasDoneMorningRitual: !!cockpit?.todayRitual?.morning_completed_at,
+    hourNow,
+  })
+
+  const students = pulse?.students || []
+
   return (
-    <main className="tr-cockpit" dir="rtl">
-      <header className="tr-cockpit__topbar" data-tour-id="cockpit-header">
-        <div className="tr-cockpit__topbar-title">غرفة القيادة</div>
+    <main dir="rtl">
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', maxWidth: 720, margin: '0 auto', padding: '12px 20px 0', direction: 'rtl' }}>
+        <span style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--tr-text-muted)' }}>غرفة القيادة</span>
         <button
-          className="tr-cockpit__tour-cta"
           onClick={() => setTourActive(true)}
-          title="جولة تعريفية"
+          style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'none', border: '1px solid var(--tr-border)', borderRadius: 6, padding: '4px 10px', color: 'var(--tr-text-muted)', cursor: 'pointer', fontSize: '0.78rem' }}
+          data-tour-id="cockpit-header"
         >
-          <MapPin size={13} />
-          جولة تعريفية
+          <MapPin size={12} /> جولة تعريفية
         </button>
-      </header>
+      </div>
 
-      <div className="tr-cockpit__grid">
+      <div className="daily-brief">
+        <CockpitHero
+          state={heroState}
+          totals={cockpit?.totals}
+          students={students}
+          trainerName={profile?.full_name}
+          todayRitual={cockpit?.todayRitual}
+        />
 
-        {/* Rail Right — command + ritual */}
-        <aside className="tr-cockpit__rail tr-cockpit__rail--right">
-          <Suspense fallback={<WidgetSkeleton height={90} />}>
-            <MorningRitualCard ritual={cockpit?.todayRitual} />
-          </Suspense>
-          <div data-tour-id="agenda-strip">
-            <Suspense fallback={<WidgetSkeleton height={110} />}>
-              <AgendaStrip />
-            </Suspense>
-          </div>
-          <div data-tour-id="nabih-briefing">
-            <Suspense fallback={<WidgetSkeleton height={140} />}>
-              <NabihBriefingCard />
-            </Suspense>
-          </div>
-        </aside>
+        <div data-tour-id="intervention-preview">
+          <InterventionsSection items={interventions} />
+        </div>
 
-        {/* Rail Center — main pulse */}
-        <section className="tr-cockpit__rail tr-cockpit__rail--center">
-          <Suspense fallback={<WidgetSkeleton height={200} />}>
-            <StudentPulseMap pulse={pulse} competition={cockpit?.competition} />
-          </Suspense>
-          <Suspense fallback={<WidgetSkeleton height={140} />}>
-            <GroupHealthOrbs />
-          </Suspense>
-          <Suspense fallback={<WidgetSkeleton height={80} />}>
-            <GradingPreviewStrip />
-          </Suspense>
-        </section>
+        <PulseSection data={pulse} />
 
-        {/* Rail Left — growth + competition */}
-        <aside className="tr-cockpit__rail tr-cockpit__rail--left">
-          <Suspense fallback={<WidgetSkeleton height={120} />}>
-            <TrainerXpTicker totals={cockpit?.totals} />
-          </Suspense>
-          <Suspense fallback={<WidgetSkeleton height={160} />}>
-            <CompetitionMini competition={cockpit?.competition} />
-          </Suspense>
-          <div data-tour-id="intervention-preview">
-            <Suspense fallback={<WidgetSkeleton height={180} />}>
-              <InterventionPreview />
-            </Suspense>
-          </div>
-        </aside>
+        <div data-tour-id="grading-badge">
+          <GradingSection items={gradingItems} />
+        </div>
 
+        <NabihInlineCard
+          students={students}
+          interventions={interventions}
+          trainerName={profile?.full_name}
+        />
       </div>
 
       <TrainerTour

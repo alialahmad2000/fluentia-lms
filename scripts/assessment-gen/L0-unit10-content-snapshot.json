@@ -1,0 +1,425 @@
+{
+  "unit": {
+    "id": "a543f5ca-e28d-4c52-90d1-f2027af29da2",
+    "title_en": "Travel Basics",
+    "title_ar": "أساسيات السفر",
+    "unit_number": 10
+  },
+  "level": {
+    "id": "cd96175e-76d4-48dc-b34f-83f3228a28b8",
+    "level_number": 0,
+    "name_en": "Foundation"
+  },
+  "assessment": {
+    "id": "767b037f-2dc0-4d45-add7-832fb4b2235f"
+  },
+  "variants": [
+    {
+      "id": "8f158378-e45f-4bdb-86f2-9d096c1bdd70",
+      "variant_code": "A"
+    },
+    {
+      "id": "47acb788-4bc1-434a-a5bd-a80c0dd638af",
+      "variant_code": "B"
+    },
+    {
+      "id": "8aeb874e-37cd-4760-a20e-b02987b0c2a9",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "id": "bf91f6d9-93cf-4ef8-a60e-e35f17295c8b",
+      "word": "documents",
+      "pos": "noun",
+      "meaning_ar": "الوثائق أو المستندات الرسمية",
+      "example_sentence": "I keep my documents in a safe place.",
+      "tier": "core"
+    },
+    {
+      "id": "c7637600-0840-4e19-b53f-a19897678799",
+      "word": "apps",
+      "pos": "noun",
+      "meaning_ar": "تطبيقات - برامج للهاتف أو الجهاز اللوحي",
+      "example_sentence": "I have five apps on my phone for games and music.",
+      "tier": "core"
+    },
+    {
+      "id": "81a008a0-b01e-4a35-9f89-be55653a95f6",
+      "word": "passport",
+      "pos": "noun",
+      "meaning_ar": "جواز السفر",
+      "example_sentence": "My passport has my photo and name.",
+      "tier": "core"
+    },
+    {
+      "id": "e2de354e-7c89-4e79-be1d-b7f4e84157a5",
+      "word": "communicate",
+      "pos": "verb",
+      "meaning_ar": "يتواصل - يتكلم أو يكتب مع الآخرين",
+      "example_sentence": "I communicate with my family every day by phone.",
+      "tier": "core"
+    },
+    {
+      "id": "9abac5f8-87e9-4c01-b4ca-c58827264249",
+      "word": "confident",
+      "pos": "adjective",
+      "meaning_ar": "واثق - يشعر بالثقة في النفس",
+      "example_sentence": "She feels confident when she speaks English.",
+      "tier": "core"
+    },
+    {
+      "id": "c0fa641e-c314-4c43-9c95-70ba46999615",
+      "word": "visa",
+      "pos": "noun",
+      "meaning_ar": "التأشيرة",
+      "example_sentence": "I need a visa to visit Japan.",
+      "tier": "core"
+    },
+    {
+      "id": "c324d9ff-915e-4a48-970a-4f70c9904714",
+      "word": "compare",
+      "pos": "verb",
+      "meaning_ar": "يقارن - ينظر إلى شيئين أو أكثر ليرى الفرق",
+      "example_sentence": "I compare prices before I buy something.",
+      "tier": "core"
+    },
+    {
+      "id": "e623eda9-51f8-4df1-9270-2b10ae60ea7f",
+      "word": "luggage",
+      "pos": "noun",
+      "meaning_ar": "الأمتعة أو الحقائب",
+      "example_sentence": "My luggage is very heavy.",
+      "tier": "core"
+    },
+    {
+      "id": "3cdc92b3-ecf0-4d16-86d5-6468f6a9000e",
+      "word": "arrive",
+      "pos": "verb",
+      "meaning_ar": "يصل أو يوصل",
+      "example_sentence": "The plane will arrive at 3 PM.",
+      "tier": "core"
+    },
+    {
+      "id": "b5e5c1cc-a090-467f-aec1-45599b0555fb",
+      "word": "tickets",
+      "pos": "noun",
+      "meaning_ar": "تذاكر - أوراق تسمح لك بالسفر أو دخول الأماكن",
+      "example_sentence": "We need to buy tickets for the movie tonight.",
+      "tier": "core"
+    },
+    {
+      "id": "094bbfea-b476-41ea-ac2c-836289fdf488",
+      "word": "airport",
+      "pos": "noun",
+      "meaning_ar": "المطار",
+      "example_sentence": "The airport is very busy today.",
+      "tier": "core"
+    },
+    {
+      "id": "2dae685a-4f37-447b-b1a4-634f0ca4f2b6",
+      "word": "routes",
+      "pos": "noun",
+      "meaning_ar": "طرق - المسارات للذهاب من مكان إلى آخر",
+      "example_sentence": "There are three routes to go to school from my house.",
+      "tier": "core"
+    },
+    {
+      "id": "06daca89-f310-4a5a-b27d-8a9443f6aea5",
+      "word": "traffic",
+      "pos": "noun",
+      "meaning_ar": "مرور - السيارات والمركبات في الشوارع",
+      "example_sentence": "There is heavy traffic on the main road today.",
+      "tier": "core"
+    },
+    {
+      "id": "4b407ada-4970-4cdb-a082-fa0e56f05a33",
+      "word": "hotel",
+      "pos": "noun",
+      "meaning_ar": "الفندق",
+      "example_sentence": "Our hotel has a swimming pool.",
+      "tier": "core"
+    },
+    {
+      "id": "2272b8b0-1de3-4c22-8788-18eff0222292",
+      "word": "recommend",
+      "pos": "verb",
+      "meaning_ar": "ينصح - يقترح شيئاً جيداً على شخص آخر",
+      "example_sentence": "I recommend this book because it is very interesting.",
+      "tier": "core"
+    },
+    {
+      "id": "86a77268-9e5a-46c3-82d7-4b109c63d216",
+      "word": "book",
+      "pos": "verb",
+      "meaning_ar": "يحجز",
+      "example_sentence": "I want to book a table at the restaurant.",
+      "tier": "core"
+    },
+    {
+      "id": "bea5a947-124d-4a17-8397-ce6d93c45215",
+      "word": "ticket",
+      "pos": "noun",
+      "meaning_ar": "التذكرة",
+      "example_sentence": "I bought my plane ticket online.",
+      "tier": "core"
+    },
+    {
+      "id": "a861fd62-bc61-47b1-adb7-888e811c0331",
+      "word": "plane",
+      "pos": "noun",
+      "meaning_ar": "طائرة",
+      "example_sentence": "The plane is very big.",
+      "tier": "core"
+    },
+    {
+      "id": "9916ef01-f5c3-4922-9bf5-6a1c1a7bfdce",
+      "word": "train",
+      "pos": "noun",
+      "meaning_ar": "قطار",
+      "example_sentence": "I take the train to the city.",
+      "tier": "core"
+    },
+    {
+      "id": "e5c8bf94-c9c5-473b-b97c-80a62eee9af5",
+      "word": "country",
+      "pos": "noun",
+      "meaning_ar": "بلد / دولة",
+      "example_sentence": "I want to visit many countries.",
+      "tier": "core"
+    },
+    {
+      "id": "c45a1b97-bbd7-48ef-a567-2ac06781e27e",
+      "word": "leave",
+      "pos": "verb",
+      "meaning_ar": "يغادر",
+      "example_sentence": "We leave home at six.",
+      "tier": "core"
+    },
+    {
+      "id": "97567aca-d0d4-4251-a360-610c1a058357",
+      "word": "stay",
+      "pos": "verb",
+      "meaning_ar": "يبقى / يقيم",
+      "example_sentence": "We stay at the hotel for two days.",
+      "tier": "core"
+    },
+    {
+      "id": "cf0f64df-ef11-4213-91c4-7a6fd7a9e53b",
+      "word": "trip",
+      "pos": "noun",
+      "meaning_ar": "رحلة",
+      "example_sentence": "We go on a trip tomorrow.",
+      "tier": "core"
+    },
+    {
+      "id": "d49c1f2a-c841-42d9-ba28-cd98ce30b706",
+      "word": "taxi",
+      "pos": "noun",
+      "meaning_ar": "سيارة أجرة",
+      "example_sentence": "We take a taxi to the hotel.",
+      "tier": "core"
+    },
+    {
+      "id": "37b195fb-368f-4ad8-9256-40cd294c95d7",
+      "word": "wait",
+      "pos": "verb",
+      "meaning_ar": "ينتظر",
+      "example_sentence": "We wait for the bus.",
+      "tier": "core"
+    },
+    {
+      "id": "7154de16-2102-4052-919e-f89bc9299ded",
+      "word": "language",
+      "pos": "noun",
+      "meaning_ar": "لغة",
+      "example_sentence": "I learn a new language.",
+      "tier": "core"
+    },
+    {
+      "id": "3f91f873-b068-45b5-a110-f8bab77d6eda",
+      "word": "return",
+      "pos": "verb",
+      "meaning_ar": "يعود",
+      "example_sentence": "I return home after the trip.",
+      "tier": "extended"
+    },
+    {
+      "id": "95fcfada-dc1e-4b1e-830d-4df848c6c21b",
+      "word": "boat",
+      "pos": "noun",
+      "meaning_ar": "قارب / سفينة",
+      "example_sentence": "We go on a small boat.",
+      "tier": "extended"
+    },
+    {
+      "id": "8dd90e4e-6419-4e41-896d-657c333d842e",
+      "word": "suitcase",
+      "pos": "noun",
+      "meaning_ar": "حقيبة سفر",
+      "example_sentence": "My suitcase is very heavy.",
+      "tier": "extended"
+    },
+    {
+      "id": "a86867e0-d09b-4ccd-a173-ed539f7611ed",
+      "word": "tourist",
+      "pos": "noun",
+      "meaning_ar": "سائح",
+      "example_sentence": "Many tourists visit this city.",
+      "tier": "extended"
+    },
+    {
+      "id": "a086c259-419b-4e8b-8710-2559de12c25d",
+      "word": "take",
+      "pos": "verb",
+      "meaning_ar": "يأخذ",
+      "example_sentence": "I take the bus to school.",
+      "tier": "extended"
+    },
+    {
+      "id": "1c55e67a-3981-48a5-9069-d8b35108c4d7",
+      "word": "carry",
+      "pos": "verb",
+      "meaning_ar": "يحمل",
+      "example_sentence": "I carry my bag to the bus.",
+      "tier": "extended"
+    },
+    {
+      "id": "7609b670-e40d-45a5-b7b6-d21c942520f2",
+      "word": "nearby",
+      "pos": "adverb",
+      "meaning_ar": "قريب",
+      "example_sentence": "The hotel is nearby.",
+      "tier": "extended"
+    },
+    {
+      "id": "643ed363-2d6f-4320-b5d6-35ad217fdb07",
+      "word": "pack",
+      "pos": "verb",
+      "meaning_ar": "يحزم أمتعة",
+      "example_sentence": "I pack my clothes for the trip.",
+      "tier": "extended"
+    },
+    {
+      "id": "cd7162dd-b6a5-4141-8d47-e8dc85b41d0b",
+      "word": "safe",
+      "pos": "adjective",
+      "meaning_ar": "آمن",
+      "example_sentence": "Have a safe trip.",
+      "tier": "mastery"
+    },
+    {
+      "id": "46df1da8-f8fe-4ca7-b68c-e806f8d9514f",
+      "word": "foreign",
+      "pos": "adjective",
+      "meaning_ar": "أجنبي",
+      "example_sentence": "I learn a foreign language.",
+      "tier": "mastery"
+    },
+    {
+      "id": "c97e682c-d331-4a46-ad65-c7704bb11c10",
+      "word": "journey",
+      "pos": "noun",
+      "meaning_ar": "رحلة",
+      "example_sentence": "The journey takes two hours.",
+      "tier": "mastery"
+    },
+    {
+      "id": "5f1a22ab-8772-4728-b69e-de78c22280ba",
+      "word": "explore",
+      "pos": "verb",
+      "meaning_ar": "يستكشف",
+      "example_sentence": "I like to explore new places.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "39044e40-5945-4493-aacf-3c1c7991a235",
+      "label": "A",
+      "title": "Your First International Trip",
+      "content": {
+        "paragraphs": [
+          "Many young people dream of traveling to new countries. Planning your first international trip can feel exciting but also scary. With good preparation, you can have a safe and wonderful experience.",
+          "Before you travel, you need important *documents*. Your *passport* is the most important paper you need. It shows your identity and nationality. You also need a *visa* for many countries. Check the requirements for your destination country at least two months before your trip. Keep copies of all documents in your *luggage* and on your phone.",
+          "When you *arrive* at the airport, follow the signs to immigration. Show your passport and visa to the officer. They may ask simple questions about your visit. After immigration, collect your bags and go through customs. The *airport* staff can help you if you have questions.",
+          "Choosing the right *hotel* is very important for your safety and comfort. Read reviews online before you *book* your room. Look for hotels in safe areas near public transportation. Many hotels offer free internet and breakfast. This can help you save money during your trip.",
+          "Saudi Arabia issued over 400,000 passports in 2023, showing that more Saudis want to explore the world. Popular destinations include Dubai, London, and Paris. Remember to check your *ticket* details carefully before you travel. Have a great trip!"
+        ]
+      },
+      "word_count": 235
+    },
+    {
+      "id": "2135eace-6db1-4d9e-a7c1-d84206cf751d",
+      "label": "B",
+      "title": "Smart Apps for Easy Travel",
+      "content": {
+        "paragraphs": [
+          "Modern travelers use *apps* on their phones to make trips easier. These smart programs help people plan, book, and enjoy their journeys around the world.",
+          "Translation apps are very popular with travelers. Google Translate works in over 100 languages and helps people *communicate* in foreign countries. The app can translate text, speech, and even signs through your phone's camera. Many travelers say these apps make them feel more *confident* when they visit new places.",
+          "Booking apps save time and money. Apps like Booking.com and Expedia let travelers *compare* hotel prices quickly. They can read reviews from other guests and see photos of rooms before they book. Flight apps like Skyscanner help people find cheap airplane *tickets* to any destination. These apps send alerts when prices go down.",
+          "Navigation apps help travelers explore safely. Google Maps works in most countries and shows the best *routes* to any location. It works without internet connection too. The app tells travelers about *traffic* problems and suggests faster ways to travel. In big cities like London or Tokyo, metro apps show the quickest paths on public transportation.",
+          "Food apps help hungry travelers find good restaurants. TripAdvisor shows reviews and photos of local food. Many apps can *recommend* restaurants based on your location and preferences. Some apps even show menus in English, making ordering easier for international visitors."
+        ]
+      },
+      "word_count": 234
+    }
+  ],
+  "grammar": {
+    "title": "imperatives",
+    "title_ar": "imperatives",
+    "explanation": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "الأمر يستخدم لإعطاء الأوامر والتعليمات. في السفر، ستسمع الكثير من الأوامر في المطار والفندق",
+          "content_en": "<b>Imperatives</b> are used to give commands, instructions, or requests.<br><br><b>Examples:</b><br>• <i>Take</i> your passport.<br>• <i>Show</i> your ticket.<br>• <i>Don't forget</i> your luggage.<br><br>We use imperatives when we tell someone what to do. In travel situations, you will hear many imperatives from airport staff, hotel workers, and tour guides.<br><br><b>Positive imperatives:</b> We use the base form of the verb (infinitive without 'to').<br><b>Negative imperatives:</b> We add 'Don't' before the verb."
+        },
+        {
+          "type": "formula",
+          "content": "Positive: Verb + object | Negative: Don't + verb + object"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "Check your boarding pass.",
+              "highlight": "Check",
+              "translation_ar": "تحقق من بطاقة الصعود"
+            },
+            {
+              "sentence": "Don't lose your passport.",
+              "highlight": "Don't lose",
+              "translation_ar": "لا تفقد جواز سفرك"
+            },
+            {
+              "sentence": "Follow the signs to Gate 5.",
+              "highlight": "Follow",
+              "translation_ar": "اتبع اللافتات إلى البوابة 5"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "You check your ticket.",
+              "correct": "Check your ticket.",
+              "explanation_ar": "لا نستخدم الضمير في الأمر"
+            },
+            {
+              "wrong": "No lose your passport.",
+              "correct": "Don't lose your passport.",
+              "explanation_ar": "نستخدم Don't وليس No في النفي"
+            },
+            {
+              "wrong": "To show your ID.",
+              "correct": "Show your ID.",
+              "explanation_ar": "لا نستخدم to مع الأمر"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,523 @@
+{
+  "unit": {
+    "id": "97ccbf07-a070-4e7f-b27e-4d4a29bcf8d2",
+    "title_ar": "الحياة اليومية",
+    "title_en": "Daily Life",
+    "unit_number": 1
+  },
+  "level": {
+    "id": "cd96175e-76d4-48dc-b34f-83f3228a28b8",
+    "level_number": 0,
+    "name_en": "Foundation"
+  },
+  "assessment": {
+    "id": "dd6e9f0a-dc4f-4a60-b378-bbd06c55b312"
+  },
+  "variants": [
+    {
+      "id": "aa17744f-0e3c-4ef1-9b98-9c661d5bc0ba",
+      "variant_code": "A"
+    },
+    {
+      "id": "9be330b3-c95d-4ec4-8ab3-ed67ad672e06",
+      "variant_code": "B"
+    },
+    {
+      "id": "88f75d90-4bd3-402b-8b8c-dd00836d5f7c",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "id": "e73f681f-bad5-4c9b-9029-8e53ea14e56f",
+      "word": "morning",
+      "pos": "noun",
+      "meaning_ar": "الصباح",
+      "example_sentence": "I drink coffee every morning.",
+      "tier": "core"
+    },
+    {
+      "id": "f47ce65f-5aa4-4a17-84fa-b1b51d4f1003",
+      "word": "morning",
+      "pos": "noun",
+      "meaning_ar": "الصباح - الجزء الأول من النهار من الاستيقاظ حتى الظهر",
+      "example_sentence": "I drink tea every morning.",
+      "tier": "core"
+    },
+    {
+      "id": "00ba36e9-ad4b-4b18-b25c-48b846c9f20f",
+      "word": "wake up",
+      "pos": "verb",
+      "meaning_ar": "يستيقظ",
+      "example_sentence": "I wake up at 7:00 AM every day.",
+      "tier": "core"
+    },
+    {
+      "id": "1f49cc83-7a62-47a5-8e47-31c2322970e7",
+      "word": "water",
+      "pos": "noun",
+      "meaning_ar": "الماء - السائل الشفاف الذي نشربه ونستخدمه للغسيل",
+      "example_sentence": "I need water because I am thirsty.",
+      "tier": "core"
+    },
+    {
+      "id": "3f24fc91-2f40-4026-aea9-69216fc351e6",
+      "word": "eat",
+      "pos": "verb",
+      "meaning_ar": "يأكل",
+      "example_sentence": "We eat lunch at 1:00 PM.",
+      "tier": "core"
+    },
+    {
+      "id": "a19b2824-298f-4bfe-9fc8-880b42ee7cbb",
+      "word": "breakfast",
+      "pos": "noun",
+      "meaning_ar": "الإفطار - أول وجبة نتناولها في الصباح",
+      "example_sentence": "My breakfast is bread and eggs.",
+      "tier": "core"
+    },
+    {
+      "id": "0848de20-e418-470e-af7a-c919e532342b",
+      "word": "wake",
+      "pos": "verb",
+      "meaning_ar": "يستيقظ - التوقف عن النوم وفتح العينين",
+      "example_sentence": "I wake up at 7:00 AM every day.",
+      "tier": "core"
+    },
+    {
+      "id": "a7578fb1-6e47-4b8f-b6ee-4832548a5e96",
+      "word": "family",
+      "pos": "noun",
+      "meaning_ar": "العائلة",
+      "example_sentence": "My family has five people.",
+      "tier": "core"
+    },
+    {
+      "id": "29517efe-10c7-448d-b5ca-284b84168063",
+      "word": "sleep",
+      "pos": "verb",
+      "meaning_ar": "ينام - إغلاق العينين والراحة، عادة في الليل",
+      "example_sentence": "Children sleep eight hours every night.",
+      "tier": "core"
+    },
+    {
+      "id": "67a5bcc3-9625-4bdd-aea5-df9040956a99",
+      "word": "home",
+      "pos": "noun",
+      "meaning_ar": "المنزل / البيت",
+      "example_sentence": "I go home after work.",
+      "tier": "core"
+    },
+    {
+      "id": "091015bc-a9c5-4985-8f7a-70b1742bbb6c",
+      "word": "coffee",
+      "pos": "noun",
+      "meaning_ar": "القهوة - مشروب ساخن بني مصنوع من حبوب البن",
+      "example_sentence": "I drink coffee with milk and sugar.",
+      "tier": "core"
+    },
+    {
+      "id": "64001bad-7333-4e04-8ffe-e7fcd3c3a747",
+      "word": "work",
+      "pos": "noun",
+      "meaning_ar": "العمل",
+      "example_sentence": "My work starts at 9:00 AM.",
+      "tier": "core"
+    },
+    {
+      "id": "e176ad98-c5ac-4051-907b-5a329dbb3ccb",
+      "word": "enjoy",
+      "pos": "verb",
+      "meaning_ar": "يستمتع",
+      "example_sentence": "I enjoy playing football.",
+      "tier": "core"
+    },
+    {
+      "id": "e4cc6b7d-a1d2-4987-afe3-2c2f67bdee68",
+      "word": "showers",
+      "pos": "noun",
+      "meaning_ar": "الاستحمام - غسل الجسم بالماء الذي ينزل من الأعلى",
+      "example_sentence": "I take a shower every morning before work.",
+      "tier": "core"
+    },
+    {
+      "id": "4a9bc11b-b3b7-4d86-99f0-13695922f41f",
+      "word": "people",
+      "pos": "noun",
+      "meaning_ar": "الناس",
+      "example_sentence": "Many people live in this city.",
+      "tier": "core"
+    },
+    {
+      "id": "971c7408-01f7-4365-a04e-62e8676b1c0a",
+      "word": "exercise",
+      "pos": "verb",
+      "meaning_ar": "يمارس الرياضة - تحريك الجسم للبقاء بصحة جيدة وقوي",
+      "example_sentence": "My father exercises at the gym three times a week.",
+      "tier": "core"
+    },
+    {
+      "id": "8e0b0519-b9f4-4f4e-877c-9a6cf75f5710",
+      "word": "go",
+      "pos": "verb",
+      "meaning_ar": "يذهب",
+      "example_sentence": "I go to school every day.",
+      "tier": "core"
+    },
+    {
+      "id": "d1eafe05-5d4d-4eb6-9939-3bd7688a1cfd",
+      "word": "day",
+      "pos": "noun",
+      "meaning_ar": "يوم",
+      "example_sentence": "Today is a good day.",
+      "tier": "core"
+    },
+    {
+      "id": "2e9a8a38-e427-431e-b507-57b2b9dac5dd",
+      "word": "night",
+      "pos": "noun",
+      "meaning_ar": "ليل / ليلة",
+      "example_sentence": "Good night! See you tomorrow.",
+      "tier": "core"
+    },
+    {
+      "id": "4b0fcbb7-541f-4075-aeb8-1471c9f5e6ca",
+      "word": "time",
+      "pos": "noun",
+      "meaning_ar": "وقت",
+      "example_sentence": "What time is it now?",
+      "tier": "core"
+    },
+    {
+      "id": "4b2d0179-913f-40c5-8523-b3d2cf4f2fa5",
+      "word": "wash",
+      "pos": "verb",
+      "meaning_ar": "يغسل",
+      "example_sentence": "I wash my hands before eating.",
+      "tier": "core"
+    },
+    {
+      "id": "d7d9230a-d140-4d3a-b587-1b7785dad343",
+      "word": "get",
+      "pos": "verb",
+      "meaning_ar": "يحصل على",
+      "example_sentence": "I get ready for school.",
+      "tier": "core"
+    },
+    {
+      "id": "57fd3ec7-ca00-483d-99e2-c058e687510b",
+      "word": "walk",
+      "pos": "verb",
+      "meaning_ar": "يمشي",
+      "example_sentence": "I walk to school every morning.",
+      "tier": "core"
+    },
+    {
+      "id": "502a04e8-29e9-4bfe-abf3-ed9ba52f25c7",
+      "word": "clock",
+      "pos": "noun",
+      "meaning_ar": "ساعة حائط",
+      "example_sentence": "The clock says it is three.",
+      "tier": "core"
+    },
+    {
+      "id": "4cdd1b35-f101-4079-99dc-d44ecb50e6ce",
+      "word": "brush",
+      "pos": "verb",
+      "meaning_ar": "يُنظّف بالفرشاة",
+      "example_sentence": "I brush my teeth every morning.",
+      "tier": "core"
+    },
+    {
+      "id": "aa121fa7-e6bc-4ea2-a78b-dab8135d6d93",
+      "word": "room",
+      "pos": "noun",
+      "meaning_ar": "غرفة",
+      "example_sentence": "My room is clean and big.",
+      "tier": "core"
+    },
+    {
+      "id": "1d05b36f-b3e3-4537-9a93-c4d97406580d",
+      "word": "bed",
+      "pos": "noun",
+      "meaning_ar": "سرير",
+      "example_sentence": "I go to bed at nine.",
+      "tier": "core"
+    },
+    {
+      "id": "2b35259d-28e1-40fc-8260-2176eefb9b6d",
+      "word": "door",
+      "pos": "noun",
+      "meaning_ar": "باب",
+      "example_sentence": "Please close the door.",
+      "tier": "extended"
+    },
+    {
+      "id": "b9214dc8-2a96-47eb-8390-93851039e157",
+      "word": "window",
+      "pos": "noun",
+      "meaning_ar": "نافذة",
+      "example_sentence": "Open the window, please.",
+      "tier": "extended"
+    },
+    {
+      "id": "17902871-dfab-4df3-9807-62e4bf8b0f6f",
+      "word": "early",
+      "pos": "adjective",
+      "meaning_ar": "مبكر",
+      "example_sentence": "I wake up early every day.",
+      "tier": "extended"
+    },
+    {
+      "id": "d296c4e8-7ed5-42de-8fe8-cacfa368f620",
+      "word": "late",
+      "pos": "adjective",
+      "meaning_ar": "متأخر",
+      "example_sentence": "Do not be late for class.",
+      "tier": "extended"
+    },
+    {
+      "id": "52fc3ea8-367f-4674-9ab1-216ec72edd83",
+      "word": "ready",
+      "pos": "adjective",
+      "meaning_ar": "جاهز / مستعد",
+      "example_sentence": "I am ready for school now.",
+      "tier": "extended"
+    },
+    {
+      "id": "1cc0b0d3-c097-4797-9552-0ef1a3e774cb",
+      "word": "always",
+      "pos": "adverb",
+      "meaning_ar": "دائمًا",
+      "example_sentence": "I always eat breakfast at home.",
+      "tier": "extended"
+    },
+    {
+      "id": "67a778b6-c0c4-439d-be76-94bb3582f609",
+      "word": "never",
+      "pos": "adverb",
+      "meaning_ar": "أبدًا",
+      "example_sentence": "I never sleep in class.",
+      "tier": "extended"
+    },
+    {
+      "id": "f0365aa8-6fdb-4051-8fd1-475b6ab24f1e",
+      "word": "usually",
+      "pos": "adverb",
+      "meaning_ar": "عادةً",
+      "example_sentence": "I usually walk to school.",
+      "tier": "extended"
+    },
+    {
+      "id": "7350e3d8-96d5-4036-a10c-839b90375756",
+      "word": "sometimes",
+      "pos": "adverb",
+      "meaning_ar": "أحيانًا",
+      "example_sentence": "Sometimes I read before bed.",
+      "tier": "extended"
+    },
+    {
+      "id": "2ea3ef6e-3a89-4add-8e98-43c040905db1",
+      "word": "after",
+      "pos": "preposition",
+      "meaning_ar": "بعد",
+      "example_sentence": "I play after school every day.",
+      "tier": "extended"
+    },
+    {
+      "id": "22b20052-b7db-4ec9-82af-12ae208bf8fc",
+      "word": "before",
+      "pos": "preposition",
+      "meaning_ar": "قبل",
+      "example_sentence": "Wash your hands before eating.",
+      "tier": "mastery"
+    },
+    {
+      "id": "7188d4bd-ae58-4524-bdff-c293ec0de1b1",
+      "word": "clothes",
+      "pos": "noun",
+      "meaning_ar": "ملابس",
+      "example_sentence": "I put on my clothes quickly.",
+      "tier": "mastery"
+    },
+    {
+      "id": "8c73843a-3a00-44a6-9f4f-2bddb5870d52",
+      "word": "lunch",
+      "pos": "noun",
+      "meaning_ar": "غداء",
+      "example_sentence": "We eat lunch at twelve.",
+      "tier": "mastery"
+    },
+    {
+      "id": "197a1d11-6507-4ff8-9d02-e4c6ed79da23",
+      "word": "dinner",
+      "pos": "noun",
+      "meaning_ar": "عشاء",
+      "example_sentence": "My family eats dinner together.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "3bb6f744-6dc9-46b5-a7f1-6651475d5484",
+      "label": "A",
+      "title": "A Day in Riyadh",
+      "content": {
+        "paragraphs": [
+          "Riyadh is a busy city with over 7 million people. Every *morning*, thousands of young Saudis start their day in this modern capital. The city changes quickly, but daily life has its own special rhythm.",
+          "Most young people *wake up* early for work or university. They often *eat* a simple breakfast with their *family*. Traditional foods like eggs, cheese, and bread are popular choices. Many people drink tea or Arabic coffee to start their day. After breakfast, they get ready and leave their *home*.",
+          "Transportation in Riyadh is changing fast. The new metro system helps people move around the city easily. Many young Saudis also drive cars or use ride-sharing apps. The *work* day usually starts at 8:00 AM. Popular jobs include teaching, business, healthcare, and technology.",
+          "Evening time is special for families. People return *home* and spend time together. They often have a big dinner around 8:00 PM. On weekends, many families visit shopping malls, parks, or restaurants. The Boulevard City is a popular place for young people to meet friends and *enjoy* entertainment.",
+          "Saudi Arabia is changing, but family and tradition remain important. Young Saudis balance modern life with cultural values. They use technology, study new subjects, and travel the world, but they always remember their roots."
+        ]
+      },
+      "word_count": 247
+    },
+    {
+      "id": "fea17f39-b8f2-4209-a26b-cf28bbf4e19e",
+      "label": "B",
+      "title": "Morning Routines Around the World",
+      "content": {
+        "paragraphs": [
+          "People around the world have different *morning* routines. These daily habits help them start their day with energy and focus.",
+          "In Japan, many people begin their day at 6:00 AM. They drink *water* first, then do light exercise. Japanese workers often eat a traditional *breakfast* with rice, fish, and vegetables. This healthy meal gives them energy for the busy day ahead.",
+          "In Saudi Arabia, families often *wake* up early for Fajr prayer. After prayer, some people go back to *sleep* for a few hours. Later, they enjoy Arabic *coffee* with dates or fresh bread. Many Saudi families eat breakfast together before starting work or school.",
+          "Scandinavian countries like Sweden and Norway have interesting morning habits. People there take cold *showers* even in winter! They believe cold water helps them feel more awake and healthy. Scientists say this practice can boost the immune system by 29%.",
+          "In Brazil, morning routines include fresh fruit juice and strong coffee. Brazilians often *exercise* at the beach or in parks before work. About 60% of people in Rio de Janeiro do some physical activity in the morning. This helps them stay fit and happy.",
+          "Every culture has special morning traditions. These routines help people feel ready for their daily activities and connect with their families and communities."
+        ]
+      },
+      "word_count": 218
+    }
+  ],
+  "grammar": {
+    "title": "am/is/are",
+    "title_ar": "am/is/are",
+    "explanation": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "فعل الكون (am/is/are) يستخدم للحديث عن الهوية والمكان والحالة في الوقت الحاضر. am مع I فقط، is مع المفرد، are مع الجمع",
+          "content_en": "<b>The verb 'to be' (am/is/are)</b><br><br>Examples:<br>• I <b>am</b> a student.<br>• She <b>is</b> at home.<br>• They <b>are</b> busy.<br><br>We use <b>am/is/are</b> to talk about who we are, where we are, and how we are. This is the present form of the verb 'to be'.<br><br><b>When to use each form:</b><br>• Use <b>am</b> with 'I' only<br>• Use <b>is</b> with he/she/it and singular nouns<br>• Use <b>are</b> with you/we/they and plural nouns"
+        },
+        {
+          "type": "formula",
+          "content": "Subject + am/is/are + complement"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "I am at work.",
+              "highlight": "am",
+              "translation_ar": "أنا في العمل"
+            },
+            {
+              "sentence": "My mother is in the kitchen.",
+              "highlight": "is",
+              "translation_ar": "أمي في المطبخ"
+            },
+            {
+              "sentence": "We are tired after work.",
+              "highlight": "are",
+              "translation_ar": "نحن متعبون بعد العمل"
+            },
+            {
+              "sentence": "The breakfast is ready.",
+              "highlight": "is",
+              "translation_ar": "الإفطار جاهز"
+            },
+            {
+              "sentence": "You are early today.",
+              "highlight": "are",
+              "translation_ar": "أنت مبكر اليوم"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "I is happy",
+              "correct": "I am happy",
+              "explanation_ar": "استخدم am مع I دائماً، ليس is"
+            },
+            {
+              "wrong": "She are at home",
+              "correct": "She is at home",
+              "explanation_ar": "استخدم is مع المفرد (she/he/it)"
+            },
+            {
+              "wrong": "They is working",
+              "correct": "They are working",
+              "explanation_ar": "استخدم are مع الجمع (they/we/you)"
+            },
+            {
+              "wrong": "My family are big",
+              "correct": "My family is big",
+              "explanation_ar": "العائلة مفرد في الإنجليزية، استخدم is"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "existing_comprehension_count": 10,
+  "comprehension_sample": [
+    {
+      "question": "What is the main topic of this passage?",
+      "type": "main_idea",
+      "choices": [
+        "Different breakfast foods around the world",
+        "Morning routines in different countries",
+        "Exercise habits of people"
+      ],
+      "correct_answer": "Morning routines in different countries",
+      "explanation_ar": "النص يصف كيف يبدأ الناس في بلدان مختلفة يومهم بروتين صباحي متنوع"
+    },
+    {
+      "question": "What is the main topic of this passage?",
+      "type": "main_idea",
+      "choices": [
+        "Daily life of young people in Riyadh",
+        "Transportation in Saudi Arabia",
+        "Traditional Saudi food"
+      ],
+      "correct_answer": "Daily life of young people in Riyadh",
+      "explanation_ar": "النص يصف كيف يعيش الشباب السعودي حياتهم اليومية في مدينة الرياض"
+    },
+    {
+      "question": "What time does the work day usually start in Riyadh?",
+      "type": "detail",
+      "choices": [
+        "7:00 AM",
+        "8:00 AM",
+        "9:00 AM"
+      ],
+      "correct_answer": "8:00 AM",
+      "explanation_ar": "النص ينص بوضوح أن يوم العمل يبدأ عادة في الساعة الثامنة صباحاً"
+    },
+    {
+      "question": "What time do many Japanese people start their day?",
+      "type": "detail",
+      "choices": [
+        "5:00 AM",
+        "6:00 AM",
+        "7:00 AM"
+      ],
+      "correct_answer": "6:00 AM",
+      "explanation_ar": "النص ينص بوضوح أن كثير من الناس في اليابان يبدأون يومهم في الساعة 6:00 صباحاً"
+    },
+    {
+      "question": "What does the word 'wake' mean in the passage?",
+      "type": "vocabulary",
+      "choices": [
+        "go to sleep",
+        "stop sleeping",
+        "eat food"
+      ],
+      "correct_answer": "stop sleeping",
+      "explanation_ar": "في السياق، 'wake up' تعني التوقف عن النوم وبدء اليوم"
+    }
+  ]
+}

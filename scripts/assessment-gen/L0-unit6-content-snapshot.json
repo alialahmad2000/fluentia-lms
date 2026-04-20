@@ -1,0 +1,443 @@
+{
+  "unit": {
+    "id": "0afc0986-f79d-426c-bb15-ee66dd77e5d9",
+    "title_en": "Family & Friends",
+    "title_ar": "العائلة والأصدقاء",
+    "unit_number": 6
+  },
+  "level": {
+    "id": "cd96175e-76d4-48dc-b34f-83f3228a28b8",
+    "level_number": 0,
+    "name_en": "Foundation"
+  },
+  "assessment": {
+    "id": "7d940c8a-0bd2-4ecb-9b5a-c548565712a8"
+  },
+  "variants": [
+    {
+      "id": "fdd0b063-1a1a-4de1-82df-023890cef7f3",
+      "variant_code": "A"
+    },
+    {
+      "id": "9e7a8c1b-96fd-461c-b42d-519214c1990d",
+      "variant_code": "B"
+    },
+    {
+      "id": "5e95b245-cc22-45fb-83a3-66ed6307dc71",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "id": "25a68962-00e6-4b92-80ae-ba25db4b1831",
+      "word": "family",
+      "pos": "noun",
+      "meaning_ar": "العائلة، الأسرة",
+      "example_sentence": "My family has four people: mom, dad, my sister and me.",
+      "tier": "core"
+    },
+    {
+      "id": "3d99af2b-fc5e-480f-9e1c-8f5271719a85",
+      "word": "friends",
+      "pos": "noun",
+      "meaning_ar": "أصدقاء",
+      "example_sentence": "I have three friends at school.",
+      "tier": "core"
+    },
+    {
+      "id": "c416c299-949f-4f7b-a607-9aacc66854a1",
+      "word": "talk",
+      "pos": "verb",
+      "meaning_ar": "يتحدث، يتكلم",
+      "example_sentence": "I talk to my mother every day.",
+      "tier": "core"
+    },
+    {
+      "id": "f760b526-d510-4fd1-a815-20328980e45f",
+      "word": "special",
+      "pos": "adjective",
+      "meaning_ar": "خاص، مميز",
+      "example_sentence": "Today is my birthday. It is a special day for me.",
+      "tier": "core"
+    },
+    {
+      "id": "970b74e6-f6fb-4c8e-aa1b-25126b93a979",
+      "word": "smile",
+      "pos": "verb",
+      "meaning_ar": "يبتسم",
+      "example_sentence": "The baby smiles at her mother.",
+      "tier": "core"
+    },
+    {
+      "id": "c6acf1e0-bb33-49cb-8edf-f41cddff0e4d",
+      "word": "gather",
+      "pos": "verb",
+      "meaning_ar": "يجتمع، يتجمع",
+      "example_sentence": "We gather in the living room to watch TV.",
+      "tier": "core"
+    },
+    {
+      "id": "4c474fa5-511f-4c78-a86a-4eb41b444be0",
+      "word": "share",
+      "pos": "verb",
+      "meaning_ar": "يشارك، يتشارك",
+      "example_sentence": "I share my toys with my brother.",
+      "tier": "core"
+    },
+    {
+      "id": "a50feca9-e913-41ab-bd5d-2a7c70071098",
+      "word": "friendly",
+      "pos": "adjective",
+      "meaning_ar": "ودود، لطيف",
+      "example_sentence": "My teacher is very friendly.",
+      "tier": "core"
+    },
+    {
+      "id": "89532cda-72ea-44ff-91f4-ebcf901c60e1",
+      "word": "family",
+      "pos": "noun",
+      "meaning_ar": "عائلة، أسرة",
+      "example_sentence": "My family has five people.",
+      "tier": "core"
+    },
+    {
+      "id": "bbb0ec3f-3204-44fb-b03a-6528e37409ea",
+      "word": "children",
+      "pos": "noun",
+      "meaning_ar": "الأطفال",
+      "example_sentence": "The children are playing in the park.",
+      "tier": "core"
+    },
+    {
+      "id": "65ac5066-f829-4b82-9611-9e5185329c84",
+      "word": "grandparents",
+      "pos": "noun",
+      "meaning_ar": "الأجداد",
+      "example_sentence": "My grandparents live in a small house near the sea.",
+      "tier": "core"
+    },
+    {
+      "id": "e710eb14-2c0d-45cc-9a0b-b2b88dcf81b9",
+      "word": "coffee",
+      "pos": "noun",
+      "meaning_ar": "قهوة",
+      "example_sentence": "I drink coffee in the morning.",
+      "tier": "core"
+    },
+    {
+      "id": "98071a39-cdcc-4b2d-90e8-6739b5b6e6c2",
+      "word": "visit",
+      "pos": "verb",
+      "meaning_ar": "يزور",
+      "example_sentence": "We visit my grandmother on Friday.",
+      "tier": "core"
+    },
+    {
+      "id": "d8d61c12-ced8-49db-aaa0-f942f1eaa0ce",
+      "word": "remember",
+      "pos": "verb",
+      "meaning_ar": "يتذكر",
+      "example_sentence": "I remember my first day at school.",
+      "tier": "core"
+    },
+    {
+      "id": "c35b11fb-12d5-49e1-b0c0-13ab25a81da6",
+      "word": "share",
+      "pos": "verb",
+      "meaning_ar": "يشارك، يقاسم",
+      "example_sentence": "I share my food with my sister.",
+      "tier": "core"
+    },
+    {
+      "id": "def9bd98-8191-4591-9bc8-5991a9acaf6b",
+      "word": "happy",
+      "pos": "adjective",
+      "meaning_ar": "سعيد، مسرور",
+      "example_sentence": "I am happy when I play with my friends.",
+      "tier": "core"
+    },
+    {
+      "id": "4e902590-f528-4aa2-9d38-e28c71adedcf",
+      "word": "mother",
+      "pos": "noun",
+      "meaning_ar": "أم",
+      "example_sentence": "My mother cooks for us.",
+      "tier": "core"
+    },
+    {
+      "id": "181f9295-30e4-4107-857f-5d91a0d628a6",
+      "word": "father",
+      "pos": "noun",
+      "meaning_ar": "أب",
+      "example_sentence": "My father goes to work early.",
+      "tier": "core"
+    },
+    {
+      "id": "437d9432-46bf-4694-a35f-4edd585232dc",
+      "word": "brother",
+      "pos": "noun",
+      "meaning_ar": "أخ",
+      "example_sentence": "My brother is ten years old.",
+      "tier": "core"
+    },
+    {
+      "id": "d126a380-7f0d-4e81-a7ec-ca168a138191",
+      "word": "sister",
+      "pos": "noun",
+      "meaning_ar": "أخت",
+      "example_sentence": "My sister is a student.",
+      "tier": "core"
+    },
+    {
+      "id": "b6b84935-3d08-4b68-879a-91df63e5c67d",
+      "word": "friend",
+      "pos": "noun",
+      "meaning_ar": "صديق",
+      "example_sentence": "Ali is my best friend.",
+      "tier": "core"
+    },
+    {
+      "id": "421b9bb0-691c-4ee6-a404-fcb95fc655c0",
+      "word": "baby",
+      "pos": "noun",
+      "meaning_ar": "طفل رضيع",
+      "example_sentence": "The baby is very small.",
+      "tier": "core"
+    },
+    {
+      "id": "4fc93b93-d437-4b25-906a-38b57c8504d9",
+      "word": "child",
+      "pos": "noun",
+      "meaning_ar": "طفل",
+      "example_sentence": "The child plays in the park.",
+      "tier": "core"
+    },
+    {
+      "id": "81e444b4-5601-407d-ad8e-8e8b4ce7eeba",
+      "word": "help",
+      "pos": "verb",
+      "meaning_ar": "يساعد",
+      "example_sentence": "I help my mother at home.",
+      "tier": "core"
+    },
+    {
+      "id": "91eb72ef-3abb-490c-bd9e-4bd7e6bd74a4",
+      "word": "name",
+      "pos": "noun",
+      "meaning_ar": "اسم",
+      "example_sentence": "My name is Ali.",
+      "tier": "core"
+    },
+    {
+      "id": "2e310ead-505f-4d9e-8cef-30a00ca1be29",
+      "word": "old",
+      "pos": "adjective",
+      "meaning_ar": "كبير في السن / قديم",
+      "example_sentence": "My grandfather is very old.",
+      "tier": "core"
+    },
+    {
+      "id": "af7d475a-0e31-461d-8f5d-350dc3c7abe7",
+      "word": "young",
+      "pos": "adjective",
+      "meaning_ar": "صغير / شاب",
+      "example_sentence": "My sister is very young.",
+      "tier": "core"
+    },
+    {
+      "id": "4b86a3f5-a207-40f1-a5fa-6e5472d803ea",
+      "word": "together",
+      "pos": "adverb",
+      "meaning_ar": "معًا",
+      "example_sentence": "We eat dinner together.",
+      "tier": "core"
+    },
+    {
+      "id": "f179ae62-d369-4344-9108-35d5e290a24e",
+      "word": "play",
+      "pos": "verb",
+      "meaning_ar": "يلعب",
+      "example_sentence": "I play with my friends.",
+      "tier": "extended"
+    },
+    {
+      "id": "32148f8b-2456-4216-98fd-3fc5cbee004d",
+      "word": "give",
+      "pos": "verb",
+      "meaning_ar": "يُعطي",
+      "example_sentence": "I give a gift to my friend.",
+      "tier": "extended"
+    },
+    {
+      "id": "8040784c-e794-4878-b2c2-c7f916a1ed91",
+      "word": "call",
+      "pos": "verb",
+      "meaning_ar": "يتصل / ينادي",
+      "example_sentence": "I call my friend every day.",
+      "tier": "extended"
+    },
+    {
+      "id": "7acfcbea-576e-4be7-9445-0c50117445b4",
+      "word": "nice",
+      "pos": "adjective",
+      "meaning_ar": "لطيف",
+      "example_sentence": "My teacher is very nice.",
+      "tier": "extended"
+    },
+    {
+      "id": "9e238763-3d0a-45e0-b857-e83ec7e1bc29",
+      "word": "parent",
+      "pos": "noun",
+      "meaning_ar": "والد / والدة",
+      "example_sentence": "My parents love me very much.",
+      "tier": "extended"
+    },
+    {
+      "id": "bc59c6e6-30d4-4fb9-a321-49ee84a523b5",
+      "word": "son",
+      "pos": "noun",
+      "meaning_ar": "ابن",
+      "example_sentence": "He is my uncle's son.",
+      "tier": "extended"
+    },
+    {
+      "id": "4adb2cd1-7f44-47a5-8340-a9f53fa88ff2",
+      "word": "daughter",
+      "pos": "noun",
+      "meaning_ar": "ابنة",
+      "example_sentence": "She is my teacher's daughter.",
+      "tier": "extended"
+    },
+    {
+      "id": "0411ddf1-ecb1-4266-904d-dc05be1a3494",
+      "word": "grandfather",
+      "pos": "noun",
+      "meaning_ar": "جد",
+      "example_sentence": "My grandfather tells us stories.",
+      "tier": "extended"
+    },
+    {
+      "id": "72be37be-8e33-469c-b436-cf38c85b1df3",
+      "word": "grandmother",
+      "pos": "noun",
+      "meaning_ar": "جدة",
+      "example_sentence": "My grandmother makes good food.",
+      "tier": "extended"
+    },
+    {
+      "id": "01d84837-4913-461a-95a4-2376c2613380",
+      "word": "invite",
+      "pos": "verb",
+      "meaning_ar": "يدعو",
+      "example_sentence": "I invite my friends to my house.",
+      "tier": "mastery"
+    },
+    {
+      "id": "c3d73331-c1db-4d8a-83aa-b15c57d5fc1c",
+      "word": "neighbor",
+      "pos": "noun",
+      "meaning_ar": "جار",
+      "example_sentence": "My neighbor is very kind.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "13869905-caef-4cce-8c7b-e8881aa91955",
+      "label": "A",
+      "title": "Family Traditions Around the World",
+      "content": {
+        "paragraphs": [
+          "Every *family* around the world has special traditions. These traditions bring people together and create happy memories. From Saudi Arabia to Japan, families have their own *special* ways to celebrate.",
+          "In Saudi Arabia, families often *gather* on Friday afternoons. They *share* a big meal together and talk about their week. *Children* play games while the adults drink tea or coffee. Many families also visit their *grandparents* during the weekend. This time together makes family relationships stronger.",
+          "In other countries, families have different traditions. In Mexico, families celebrate the Day of the Dead together. They *remember* family members who are not alive anymore. In China, families gather for Chinese New Year. They eat special food and give red envelopes with money to children.",
+          "Food is important in family traditions everywhere. Italian families make pasta together on Sundays. Indian families cook special meals during festivals. In Japan, families eat together every evening. They believe eating together makes the family *happy*.",
+          "Research shows that families who spend time together are healthier. Children who eat dinner with their families do better in school. Family traditions help people feel connected to their culture and history. These special moments create memories that last a lifetime."
+        ]
+      },
+      "word_count": 198
+    },
+    {
+      "id": "97e8ad3c-e117-4146-9408-18a8d3f3e9d3",
+      "label": "B",
+      "title": "Friends Around the World",
+      "content": {
+        "paragraphs": [
+          "Making friends is important for all people. But how do people make *friends* in different countries? Scientists study this interesting question.",
+          "In many countries, people meet friends at work or school. In Japan, work friends often eat dinner together after work. They *talk* about their day and become close. In Brazil, people make friends quickly. They *smile* a lot and are very *friendly* to new people. Brazilian friends often meet at the beach or in parks.",
+          "In Saudi Arabia, family and friends are very important. People often meet friends through their *family* or at university. Saudi friends enjoy drinking *coffee* together and sharing meals. They *visit* each other's homes regularly. This makes their friendships very strong.",
+          "Social media also changes how people make friends today. A study shows that 68% of young people use apps to meet new friends. They *share* photos and messages online first. Then they meet in person later.",
+          "Experts say good friends make people happier and healthier. People with close friends live longer lives. They have less stress and feel more confident. This is true in every country around the world. Friendship is a universal language that everyone understands."
+        ]
+      },
+      "word_count": 198
+    }
+  ],
+  "grammar": {
+    "title": "a/an/the basics",
+    "title_ar": "a/an/the basics",
+    "explanation": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "أدوات التعريف والتنكير في الإنجليزية مختلفة عن العربية. استخدم a/an للأشياء غير المحددة، و the للأشياء المحددة أو المعروفة",
+          "content_en": "<b>Articles</b> are small words we use before nouns.<br><br><b>A/An</b> = one thing (not specific)<br>• Use <b>'a'</b> before consonant sounds: <i>a friend, a sister</i><br>• Use <b>'an'</b> before vowel sounds: <i>an uncle, an old friend</i><br><br><b>The</b> = specific thing (we know which one)<br>• Use when we know exactly which person/thing: <i>the father, the family</i><br>• Use when there is only one: <i>the mother (in a family)</i>"
+        },
+        {
+          "type": "formula",
+          "content": "a/an + singular noun (indefinite) | the + noun (definite)"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "I have a brother.",
+              "highlight": "a brother",
+              "translation_ar": "لدي أخ"
+            },
+            {
+              "sentence": "She is an aunt.",
+              "highlight": "an aunt",
+              "translation_ar": "هي عمة"
+            },
+            {
+              "sentence": "The mother is cooking.",
+              "highlight": "The mother",
+              "translation_ar": "الأم تطبخ"
+            },
+            {
+              "sentence": "I want to meet a friend.",
+              "highlight": "a friend",
+              "translation_ar": "أريد أن ألتقي بصديق"
+            },
+            {
+              "sentence": "The family is happy.",
+              "highlight": "The family",
+              "translation_ar": "الأسرة سعيدة"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "I have brother",
+              "correct": "I have a brother",
+              "explanation_ar": "لا تنس أداة التنكير قبل الاسم المفرد"
+            },
+            {
+              "wrong": "a uncle",
+              "correct": "an uncle",
+              "explanation_ar": "استخدم 'an' قبل الأصوات المتحركة"
+            },
+            {
+              "wrong": "I like a mother",
+              "correct": "I like the mother",
+              "explanation_ar": "استخدم 'the' عندما تتحدث عن شخص محدد ومعروف"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,410 @@
+{
+  "unit": {
+    "id": "ffa3641f-b0c8-412b-a5ab-dc60603018ea",
+    "title_en": "Weather & Seasons",
+    "title_ar": "الطقس والفصول",
+    "unit_number": 5
+  },
+  "level": {
+    "id": "cd96175e-76d4-48dc-b34f-83f3228a28b8",
+    "level_number": 0,
+    "name_en": "Foundation"
+  },
+  "assessment": {
+    "id": "7db9f39b-4aa9-4dbd-8135-87046a55a01f"
+  },
+  "variants": [
+    {
+      "id": "d4398c4a-2e21-486c-a2f8-803422d044e9",
+      "variant_code": "A"
+    },
+    {
+      "id": "e844b940-ee9a-47dc-b7cd-be0cd0763286",
+      "variant_code": "B"
+    },
+    {
+      "id": "6012f0e2-9682-4531-9cc6-7c4a13b588db",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "id": "54df675c-5421-421c-a133-d711258cf7c3",
+      "word": "seasons",
+      "pos": "noun",
+      "meaning_ar": "الفصول الأربعة: الربيع والصيف والخريف والشتاء",
+      "example_sentence": "I like all seasons, but summer is my favorite.",
+      "tier": "core"
+    },
+    {
+      "id": "57d5623c-c72a-4115-ab5a-083661121f28",
+      "word": "dry",
+      "pos": "adjective",
+      "meaning_ar": "جاف، خالي من الماء",
+      "example_sentence": "My hair is dry after washing.",
+      "tier": "core"
+    },
+    {
+      "id": "c21648d2-2c53-4786-8d94-0d4cb776e460",
+      "word": "weather",
+      "pos": "noun",
+      "meaning_ar": "الطقس أو حالة الجو (حار، بارد، مشمس، ممطر)",
+      "example_sentence": "The weather is nice today - it's sunny and warm.",
+      "tier": "core"
+    },
+    {
+      "id": "eba53650-11a1-417d-9aca-98ef0ad889e4",
+      "word": "rain",
+      "pos": "noun",
+      "meaning_ar": "مطر، أمطار",
+      "example_sentence": "I like the sound of rain on my window.",
+      "tier": "core"
+    },
+    {
+      "id": "30eb81a2-0083-4c47-8be0-837055548963",
+      "word": "flowers",
+      "pos": "noun",
+      "meaning_ar": "أزهار، ورود",
+      "example_sentence": "She bought red flowers for her mother.",
+      "tier": "core"
+    },
+    {
+      "id": "a9c0cb88-5c45-45f8-a6e8-92dc1d59f7ec",
+      "word": "temperature",
+      "pos": "noun",
+      "meaning_ar": "درجة الحرارة",
+      "example_sentence": "The temperature today is 25 degrees.",
+      "tier": "core"
+    },
+    {
+      "id": "2c6a1f1c-f37e-4543-82bf-047a942a06f3",
+      "word": "hottest",
+      "pos": "adjective",
+      "meaning_ar": "الأكثر حرارة أو سخونة",
+      "example_sentence": "July is the hottest month in my country.",
+      "tier": "core"
+    },
+    {
+      "id": "8f780656-0aba-4d24-a5fb-2e8789f75eba",
+      "word": "hot",
+      "pos": "adjective",
+      "meaning_ar": "حار، ساخن",
+      "example_sentence": "Today is very hot, so I drink cold water.",
+      "tier": "core"
+    },
+    {
+      "id": "603b8c08-79d2-4ece-b288-360b55ed6751",
+      "word": "clouds",
+      "pos": "noun",
+      "meaning_ar": "غيوم، سحب",
+      "example_sentence": "I can see white clouds in the blue sky.",
+      "tier": "core"
+    },
+    {
+      "id": "6f6042d2-fbbf-4341-b5a2-f89db49e0d70",
+      "word": "sun",
+      "pos": "noun",
+      "meaning_ar": "الشمس",
+      "example_sentence": "The sun is very bright today.",
+      "tier": "core"
+    },
+    {
+      "id": "6e656fb5-b228-40aa-82a3-4a171751dbd6",
+      "word": "spring",
+      "pos": "noun",
+      "meaning_ar": "الربيع، فصل الربيع",
+      "example_sentence": "Many flowers bloom in spring.",
+      "tier": "core"
+    },
+    {
+      "id": "eea95564-d9fb-4245-b4b2-1ef54d4d8b9c",
+      "word": "cooler",
+      "pos": "adjective",
+      "meaning_ar": "أبرد، أقل حرارة",
+      "example_sentence": "Today is cooler than yesterday.",
+      "tier": "core"
+    },
+    {
+      "id": "20600445-b88b-4aad-a167-489756e005df",
+      "word": "weather",
+      "pos": "noun",
+      "meaning_ar": "طقس، أحوال جوية",
+      "example_sentence": "The weather today is sunny and warm.",
+      "tier": "core"
+    },
+    {
+      "id": "d8915a9a-f2d7-4d61-bbde-f7534ce80502",
+      "word": "coldest",
+      "pos": "adjective",
+      "meaning_ar": "الأكثر برودة، الأبرد",
+      "example_sentence": "January is the coldest month of the year.",
+      "tier": "core"
+    },
+    {
+      "id": "3998fdbc-a79a-44f1-b8e9-09666559c04b",
+      "word": "snow",
+      "pos": "noun",
+      "meaning_ar": "الثلج",
+      "example_sentence": "Children love to play in the snow.",
+      "tier": "core"
+    },
+    {
+      "id": "3b865120-a1b9-40b8-aa02-a1e7e8401542",
+      "word": "grow",
+      "pos": "verb",
+      "meaning_ar": "ينمو، يكبر، يزرع",
+      "example_sentence": "Children grow quickly when they are young.",
+      "tier": "core"
+    },
+    {
+      "id": "c7922beb-fb0e-46b7-ab65-d87333ef7a59",
+      "word": "wind",
+      "pos": "noun",
+      "meaning_ar": "رياح",
+      "example_sentence": "The wind is strong today.",
+      "tier": "core"
+    },
+    {
+      "id": "56437f2d-0172-44aa-a545-3b724d70630c",
+      "word": "cloud",
+      "pos": "noun",
+      "meaning_ar": "سحابة / غيمة",
+      "example_sentence": "I see clouds in the sky.",
+      "tier": "core"
+    },
+    {
+      "id": "7ceb7826-7d78-4c9f-8e47-b1cfd16138cc",
+      "word": "sky",
+      "pos": "noun",
+      "meaning_ar": "سماء",
+      "example_sentence": "The sky is blue today.",
+      "tier": "core"
+    },
+    {
+      "id": "985706a3-1869-40be-8cd9-dd3e871cf533",
+      "word": "summer",
+      "pos": "noun",
+      "meaning_ar": "صيف",
+      "example_sentence": "Summer is very hot here.",
+      "tier": "core"
+    },
+    {
+      "id": "854227dc-4df9-4d9c-b81c-025d84a075ed",
+      "word": "winter",
+      "pos": "noun",
+      "meaning_ar": "شتاء",
+      "example_sentence": "Winter is cold in my city.",
+      "tier": "core"
+    },
+    {
+      "id": "44436336-65eb-4af3-943c-2235fc382d7f",
+      "word": "wet",
+      "pos": "adjective",
+      "meaning_ar": "مبلل / رطب",
+      "example_sentence": "My shoes are wet from rain.",
+      "tier": "core"
+    },
+    {
+      "id": "ca89cc4a-0fca-4fb4-a680-303ca94e26a7",
+      "word": "season",
+      "pos": "noun",
+      "meaning_ar": "فصل (من فصول السنة)",
+      "example_sentence": "What is your favorite season?",
+      "tier": "core"
+    },
+    {
+      "id": "b774b81d-0b0f-4200-a4bb-bc5c0c31e5aa",
+      "word": "autumn",
+      "pos": "noun",
+      "meaning_ar": "خريف",
+      "example_sentence": "Leaves fall in autumn.",
+      "tier": "extended"
+    },
+    {
+      "id": "4bba2ce3-99e4-4d22-91ae-75b3d728b97f",
+      "word": "sunny",
+      "pos": "adjective",
+      "meaning_ar": "مشمس",
+      "example_sentence": "Today is sunny and warm.",
+      "tier": "extended"
+    },
+    {
+      "id": "5e80e987-5a38-4169-87e8-eda3a3f1fd46",
+      "word": "cloudy",
+      "pos": "adjective",
+      "meaning_ar": "غائم",
+      "example_sentence": "It is cloudy today.",
+      "tier": "extended"
+    },
+    {
+      "id": "eea6360e-bf07-4dee-80c1-02167bb8e49f",
+      "word": "rainy",
+      "pos": "adjective",
+      "meaning_ar": "ماطر / ممطر",
+      "example_sentence": "It is a rainy day today.",
+      "tier": "extended"
+    },
+    {
+      "id": "0314c67b-889a-4591-b2ca-d80fb90df4e3",
+      "word": "windy",
+      "pos": "adjective",
+      "meaning_ar": "عاصف / كثير الرياح",
+      "example_sentence": "It is very windy outside today.",
+      "tier": "extended"
+    },
+    {
+      "id": "6b96922c-bd89-40da-8c43-994345cdd32e",
+      "word": "umbrella",
+      "pos": "noun",
+      "meaning_ar": "مظلة",
+      "example_sentence": "Take your umbrella. It will rain.",
+      "tier": "extended"
+    },
+    {
+      "id": "7ec2d777-6734-4d42-8245-9703570a8382",
+      "word": "degree",
+      "pos": "noun",
+      "meaning_ar": "درجة",
+      "example_sentence": "It is thirty degrees today.",
+      "tier": "extended"
+    },
+    {
+      "id": "aae70323-fc41-4b56-8f30-632d01bc11ed",
+      "word": "ice",
+      "pos": "noun",
+      "meaning_ar": "جليد / ثلج",
+      "example_sentence": "The water turns to ice.",
+      "tier": "extended"
+    },
+    {
+      "id": "934bf82c-b2e4-4708-8b78-ff4cdd698b95",
+      "word": "shine",
+      "pos": "verb",
+      "meaning_ar": "يُشرق / يلمع",
+      "example_sentence": "The sun shines every day here.",
+      "tier": "extended"
+    },
+    {
+      "id": "f834172f-aba0-4e75-8740-24e4cd3196b1",
+      "word": "fall",
+      "pos": "verb",
+      "meaning_ar": "يسقط",
+      "example_sentence": "Leaves fall from the trees.",
+      "tier": "extended"
+    },
+    {
+      "id": "50f59c83-be2a-40ed-adaf-51296db68026",
+      "word": "flower",
+      "pos": "noun",
+      "meaning_ar": "زهرة",
+      "example_sentence": "Flowers grow in spring.",
+      "tier": "mastery"
+    },
+    {
+      "id": "e9ce5383-5e6c-47c4-b417-ab579f009baf",
+      "word": "storm",
+      "pos": "noun",
+      "meaning_ar": "عاصفة",
+      "example_sentence": "There is a storm tonight.",
+      "tier": "mastery"
+    },
+    {
+      "id": "8e6b6e0f-a55d-4730-8b7a-00c42c3776dd",
+      "word": "outside",
+      "pos": "adverb",
+      "meaning_ar": "في الخارج",
+      "example_sentence": "It is cold outside today.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "1f0e71fe-2945-4173-9c98-69bf19b9839f",
+      "label": "A",
+      "title": "Four Seasons Around the World",
+      "content": {
+        "paragraphs": [
+          "The Earth has four different *seasons* every year. These seasons bring different types of *weather* to people around the world. Each season has its own special characteristics.",
+          "Spring is the season when flowers begin to grow. The *temperature* becomes warmer after the cold winter months. Many trees get new green leaves. In countries like Japan, people celebrate spring when cherry trees bloom with beautiful pink flowers.",
+          "Summer is the *hottest* season of the year. The *sun* shines for many hours each day. Temperatures can reach 45°C in some desert areas. People often go to beaches or swimming pools to stay cool. In Saudi Arabia, summer temperatures in Riyadh average 38°C during the day.",
+          "Autumn, also called fall, brings *cooler* weather. Leaves on trees change colors from green to red, yellow, and orange. This happens because trees prepare for winter. The temperature drops, and people start wearing warmer clothes.",
+          "Winter is the *coldest* season. In many countries, *snow* falls from the sky and covers the ground. However, not all places have snow in winter. Some tropical countries stay warm all year. The shortest day of winter has only about 8 hours of sunlight in many places.",
+          "Weather patterns help farmers know when to plant crops. They also help animals prepare for different seasons throughout the year."
+        ]
+      },
+      "word_count": 247
+    },
+    {
+      "id": "909216a9-72c2-4b78-b711-e42a21956b02",
+      "label": "B",
+      "title": "Desert Blooms After Rain",
+      "content": {
+        "paragraphs": [
+          "The Saudi Arabian desert looks *dry* and empty most of the year. But when the *rain* comes, something magical happens. The desert becomes a garden of beautiful *flowers*.",
+          "This amazing change happens very quickly. Desert plants wait under the sand for months. Their seeds sleep in the *hot* ground. When water finally falls from the *clouds*, the seeds wake up. In just a few days, colorful flowers cover the desert floor. Red, yellow, and purple blooms make the brown sand look like a rainbow.",
+          "The best time to see desert flowers is in *spring*, usually March and April. This is when Saudi Arabia gets its winter rains. The *weather* is perfect - not too hot and not too cold. Many Saudi families drive to the desert during this season. They take photos of the flower carpets and enjoy picnics under the blue sky.",
+          "Scientists say desert flowers in Saudi Arabia can *grow* from seed to bloom in just 10-14 days. This is much faster than flowers in other places. The flowers must grow quickly because the rain does not last long. Soon, the hot summer sun returns, and the flowers disappear until next year.",
+          "The desert flower season shows us that even the driest places on Earth have hidden beauty. Nature always finds a way to surprise us."
+        ]
+      },
+      "word_count": 234
+    }
+  ],
+  "grammar": {
+    "title": "plurals",
+    "title_ar": "plurals",
+    "explanation": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "في الإنجليزية نضيف -s أو -es للأسماء للجمع • معظم الأسماء نضيف لها -s • الأسماء المنتهية بـ s, x, ch, sh نضيف لها -es • بعض الأسماء شاذة",
+          "content_en": "In English, we add <b>-s</b> or <b>-es</b> to nouns to make them plural (more than one).<br><br><b>Examples:</b><br>• One <b>season</b> → Four <b>seasons</b><br>• One <b>cloud</b> → Many <b>clouds</b><br>• One <b>rainy day</b> → Two <b>rainy days</b><br><br><b>Rules:</b><br>1. Most nouns: add <b>-s</b> (cloud → clouds, tree → trees)<br>2. Nouns ending in -s, -x, -ch, -sh: add <b>-es</b> (box → boxes)<br>3. Some nouns are irregular (child → children, leaf → leaves)"
+        },
+        {
+          "type": "formula",
+          "content": "Singular noun + -s/-es = Plural noun"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "Winter has cold days.",
+              "highlight": "days",
+              "translation_ar": "الشتاء له أيام باردة"
+            },
+            {
+              "sentence": "I see many clouds in the sky.",
+              "highlight": "clouds",
+              "translation_ar": "أرى غيوماً كثيرة في السماء"
+            },
+            {
+              "sentence": "Spring brings flowers and leaves.",
+              "highlight": "flowers, leaves",
+              "translation_ar": "الربيع يجلب الزهور والأوراق"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "two day",
+              "correct": "two days",
+              "explanation_ar": "لا تنسَ إضافة -s للجمع"
+            },
+            {
+              "wrong": "many cloud",
+              "correct": "many clouds",
+              "explanation_ar": "مع many نستخدم الجمع دائماً"
+            },
+            {
+              "wrong": "leafs",
+              "correct": "leaves",
+              "explanation_ar": "leaf كلمة شاذة في الجمع"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

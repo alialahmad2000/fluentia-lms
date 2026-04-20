@@ -1,0 +1,478 @@
+{
+  "unit": {
+    "id": "8fa91a36-703f-46ae-a893-e5162de9bf2d",
+    "title_en": "Technology Today",
+    "title_ar": "التقنية اليوم",
+    "unit_number": 11
+  },
+  "level": {
+    "id": "cd96175e-76d4-48dc-b34f-83f3228a28b8",
+    "level_number": 0,
+    "name_en": "Foundation"
+  },
+  "assessment": {
+    "id": "b5847dee-d727-48fb-bed0-a5340b7fa292"
+  },
+  "variants": [
+    {
+      "id": "70e7635d-d9d7-4099-90bf-85a5f08b9730",
+      "variant_code": "A"
+    },
+    {
+      "id": "89a0dd1c-e2d4-4810-940c-ef9b09aacd5c",
+      "variant_code": "B"
+    },
+    {
+      "id": "5a99ad07-2259-4014-9658-e997f84c544c",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "id": "573bc2e1-ccb4-477c-843e-ff7a8b59d691",
+      "word": "mobile",
+      "pos": "adjective",
+      "meaning_ar": "متنقل، محمول، خاص بالهاتف المحمول",
+      "example_sentence": "I have a mobile phone in my bag.",
+      "tier": "core"
+    },
+    {
+      "id": "c87b9644-558e-433e-87be-281c3b0ebe7f",
+      "word": "smart",
+      "pos": "adjective",
+      "meaning_ar": "ذكي، يستخدم التكنولوجيا الحديثة",
+      "example_sentence": "I have a smart phone that helps me every day.",
+      "tier": "core"
+    },
+    {
+      "id": "85fe3022-19ff-4a79-b859-925ed6dbe434",
+      "word": "devices",
+      "pos": "noun",
+      "meaning_ar": "أجهزة، أدوات",
+      "example_sentence": "My tablet and phone are electronic devices.",
+      "tier": "core"
+    },
+    {
+      "id": "97b688ea-2092-4bf8-bef5-801fcabd00cd",
+      "word": "robots",
+      "pos": "noun",
+      "meaning_ar": "روبوتات، آلات تعمل مثل الإنسان",
+      "example_sentence": "The robots help people in the store.",
+      "tier": "core"
+    },
+    {
+      "id": "6036aed5-5133-4b6c-a6f7-91cdcfcf0622",
+      "word": "connect",
+      "pos": "verb",
+      "meaning_ar": "يربط، يوصل، يتصل",
+      "example_sentence": "I connect my phone to WiFi at home.",
+      "tier": "core"
+    },
+    {
+      "id": "9f2010e4-44e2-40ee-a724-c43828995ab3",
+      "word": "move",
+      "pos": "verb",
+      "meaning_ar": "يتحرك، ينتقل من مكان إلى آخر",
+      "example_sentence": "I move my chair to the table.",
+      "tier": "core"
+    },
+    {
+      "id": "6b6e3c0d-45fd-4511-8f55-76ede091a60a",
+      "word": "advanced",
+      "pos": "adjective",
+      "meaning_ar": "متقدم، حديث جداً",
+      "example_sentence": "This advanced computer is very fast.",
+      "tier": "core"
+    },
+    {
+      "id": "e6f3ac4d-56da-43f5-a3ea-1fd8be3b41e6",
+      "word": "apps",
+      "pos": "noun",
+      "meaning_ar": "تطبيقات (اختصار لكلمة applications)",
+      "example_sentence": "I download new apps from the app store.",
+      "tier": "core"
+    },
+    {
+      "id": "5da6bcfd-df5f-474d-9071-d3d7829c7476",
+      "word": "technology",
+      "pos": "noun",
+      "meaning_ar": "التكنولوجيا، التقنية",
+      "example_sentence": "New technology makes our life easier.",
+      "tier": "core"
+    },
+    {
+      "id": "77eaf80e-1808-4332-8308-4ca2a66f16c0",
+      "word": "cameras",
+      "pos": "noun",
+      "meaning_ar": "كاميرات، آلات تصوير",
+      "example_sentence": "There are security cameras in the building.",
+      "tier": "core"
+    },
+    {
+      "id": "70238593-d323-4b73-81b2-d703b8fa76f3",
+      "word": "advanced",
+      "pos": "adjective",
+      "meaning_ar": "متقدم، متطور",
+      "example_sentence": "This is an advanced English class.",
+      "tier": "core"
+    },
+    {
+      "id": "f060ff76-ed59-402e-ab60-01deb5afc1c4",
+      "word": "system",
+      "pos": "noun",
+      "meaning_ar": "نظام، مجموعة أشياء تعمل معاً",
+      "example_sentence": "The school has a new computer system.",
+      "tier": "core"
+    },
+    {
+      "id": "c5b9962e-acad-4f29-9037-552495ae111b",
+      "word": "program",
+      "pos": "verb",
+      "meaning_ar": "يبرمج، يكتب تعليمات للكمبيوتر",
+      "example_sentence": "My brother can program mobile apps.",
+      "tier": "core"
+    },
+    {
+      "id": "f3d0543c-6d6e-4329-baec-d3f18e370804",
+      "word": "digital",
+      "pos": "adjective",
+      "meaning_ar": "رقمي، إلكتروني",
+      "example_sentence": "I prefer digital books to paper books.",
+      "tier": "core"
+    },
+    {
+      "id": "1f872d3c-b979-47e5-8558-8e2c86aaeeef",
+      "word": "careful",
+      "pos": "adjective",
+      "meaning_ar": "حذر، حريص، منتبه",
+      "example_sentence": "Be careful when you cross the street.",
+      "tier": "core"
+    },
+    {
+      "id": "7fdaf251-9b0a-4e1b-b7d6-eee1cf4c7c1e",
+      "word": "apps",
+      "pos": "noun",
+      "meaning_ar": "تطبيقات، برامج صغيرة للهاتف",
+      "example_sentence": "I have many apps on my phone.",
+      "tier": "core"
+    },
+    {
+      "id": "b2500b2b-f750-40d0-a6b7-14b1f240d1f0",
+      "word": "phone",
+      "pos": "noun",
+      "meaning_ar": "هاتف",
+      "example_sentence": "I use my phone every day.",
+      "tier": "core"
+    },
+    {
+      "id": "50288e3f-8e8f-40ea-b763-39108de020a9",
+      "word": "computer",
+      "pos": "noun",
+      "meaning_ar": "حاسوب / كمبيوتر",
+      "example_sentence": "I use the computer at school.",
+      "tier": "core"
+    },
+    {
+      "id": "4ec244ac-f47a-4b02-b8eb-9aecebac912c",
+      "word": "internet",
+      "pos": "noun",
+      "meaning_ar": "إنترنت",
+      "example_sentence": "I use the internet for learning.",
+      "tier": "core"
+    },
+    {
+      "id": "214da978-fa68-4f58-8136-b7abd3e0b9e3",
+      "word": "screen",
+      "pos": "noun",
+      "meaning_ar": "شاشة",
+      "example_sentence": "The screen is very big.",
+      "tier": "core"
+    },
+    {
+      "id": "d203cc46-c2cc-41cc-85b1-30f5249b7174",
+      "word": "video",
+      "pos": "noun",
+      "meaning_ar": "فيديو",
+      "example_sentence": "I watch a video on my phone.",
+      "tier": "core"
+    },
+    {
+      "id": "133db8de-9e07-4217-9c54-06e509ee51f3",
+      "word": "message",
+      "pos": "noun",
+      "meaning_ar": "رسالة",
+      "example_sentence": "I send a message to my friend.",
+      "tier": "core"
+    },
+    {
+      "id": "48d8d73b-3f18-4eae-a059-b127fa2c62a2",
+      "word": "email",
+      "pos": "noun",
+      "meaning_ar": "بريد إلكتروني",
+      "example_sentence": "I check my email every day.",
+      "tier": "core"
+    },
+    {
+      "id": "c55e0997-1967-44a6-9d14-2436f9743e7b",
+      "word": "search",
+      "pos": "verb",
+      "meaning_ar": "يبحث",
+      "example_sentence": "I search for information online.",
+      "tier": "core"
+    },
+    {
+      "id": "5d18f9fb-b7a5-43cf-a141-dd908258b877",
+      "word": "use",
+      "pos": "verb",
+      "meaning_ar": "يستخدم",
+      "example_sentence": "I use my phone for pictures.",
+      "tier": "core"
+    },
+    {
+      "id": "02cc106d-221c-42c7-a855-25e0d4391b9d",
+      "word": "send",
+      "pos": "verb",
+      "meaning_ar": "يرسل",
+      "example_sentence": "I send a message to my mother.",
+      "tier": "core"
+    },
+    {
+      "id": "7f1819d8-79d9-4848-a6df-d33520b95ad2",
+      "word": "type",
+      "pos": "verb",
+      "meaning_ar": "يكتب (على لوحة مفاتيح)",
+      "example_sentence": "I type fast on the computer.",
+      "tier": "core"
+    },
+    {
+      "id": "5e5f1875-0eaa-4c6c-a1f9-69f184345d98",
+      "word": "click",
+      "pos": "verb",
+      "meaning_ar": "ينقر / يضغط",
+      "example_sentence": "Click on the blue button.",
+      "tier": "core"
+    },
+    {
+      "id": "4c8be740-c37a-4ee9-8ba0-a275b6422a77",
+      "word": "online",
+      "pos": "adjective",
+      "meaning_ar": "عبر الإنترنت",
+      "example_sentence": "I study English online.",
+      "tier": "core"
+    },
+    {
+      "id": "647cbc10-cb33-4b9a-b1c7-2fbf573523ff",
+      "word": "app",
+      "pos": "noun",
+      "meaning_ar": "تطبيق",
+      "example_sentence": "I use this app to learn English.",
+      "tier": "core"
+    },
+    {
+      "id": "9057da3f-6005-46a6-80c7-33119b2227eb",
+      "word": "website",
+      "pos": "noun",
+      "meaning_ar": "موقع إلكتروني",
+      "example_sentence": "I visit a good website for English.",
+      "tier": "core"
+    },
+    {
+      "id": "ab80b9a9-a073-4d47-b77c-a381b8feb9bb",
+      "word": "password",
+      "pos": "noun",
+      "meaning_ar": "كلمة مرور",
+      "example_sentence": "Do not share your password.",
+      "tier": "core"
+    },
+    {
+      "id": "6960e803-01bd-4b1e-bf55-ad53b5f616bc",
+      "word": "download",
+      "pos": "verb",
+      "meaning_ar": "يُحمّل",
+      "example_sentence": "I download the app on my phone.",
+      "tier": "extended"
+    },
+    {
+      "id": "ff52306c-9d81-47cc-931e-3d4f49268c6d",
+      "word": "charge",
+      "pos": "verb",
+      "meaning_ar": "يشحن",
+      "example_sentence": "I charge my phone at night.",
+      "tier": "extended"
+    },
+    {
+      "id": "34dd9535-b3ac-4cc2-a4be-1102e91266a9",
+      "word": "button",
+      "pos": "noun",
+      "meaning_ar": "زر",
+      "example_sentence": "Press the red button.",
+      "tier": "extended"
+    },
+    {
+      "id": "0fb6639c-d28c-4c2f-bcd4-ff7444fa1e32",
+      "word": "mouse",
+      "pos": "noun",
+      "meaning_ar": "فأرة (حاسوب)",
+      "example_sentence": "I click with the mouse.",
+      "tier": "extended"
+    },
+    {
+      "id": "4ce1162c-c5f8-4157-9f73-8e7c3301a6db",
+      "word": "keyboard",
+      "pos": "noun",
+      "meaning_ar": "لوحة مفاتيح",
+      "example_sentence": "I type on the keyboard.",
+      "tier": "extended"
+    },
+    {
+      "id": "a199e281-1a44-4462-87e3-1a08154a296c",
+      "word": "post",
+      "pos": "verb",
+      "meaning_ar": "ينشر",
+      "example_sentence": "I post a photo online.",
+      "tier": "extended"
+    },
+    {
+      "id": "3df54acb-81bc-41cd-a2f8-c058b92772a5",
+      "word": "turn on",
+      "pos": "verb",
+      "meaning_ar": "يُشغّل",
+      "example_sentence": "Turn on the computer, please.",
+      "tier": "extended"
+    },
+    {
+      "id": "619c4757-e589-4644-92a1-571af65bf742",
+      "word": "turn off",
+      "pos": "verb",
+      "meaning_ar": "يُطفئ",
+      "example_sentence": "Turn off your phone in class.",
+      "tier": "extended"
+    },
+    {
+      "id": "5c064344-42a8-4497-a7b6-fd79a41ee6d3",
+      "word": "printer",
+      "pos": "noun",
+      "meaning_ar": "طابعة",
+      "example_sentence": "I use the printer at school.",
+      "tier": "extended"
+    },
+    {
+      "id": "fd97c9c5-4edd-4382-bdcf-bcf865867089",
+      "word": "tablet",
+      "pos": "noun",
+      "meaning_ar": "جهاز لوحي",
+      "example_sentence": "I read on my tablet.",
+      "tier": "mastery"
+    },
+    {
+      "id": "188a04ec-47a3-4ca1-b30f-af673c4f9c6e",
+      "word": "wifi",
+      "pos": "noun",
+      "meaning_ar": "واي فاي",
+      "example_sentence": "The wifi is fast here.",
+      "tier": "mastery"
+    },
+    {
+      "id": "14562fa9-b6b3-47d3-97ce-4d32e5030d41",
+      "word": "delete",
+      "pos": "verb",
+      "meaning_ar": "يحذف",
+      "example_sentence": "Delete the old file.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "879318fa-21c6-4ca8-a0c9-61d70c932085",
+      "label": "A",
+      "title": "Smart Phones Change Our Lives",
+      "content": {
+        "paragraphs": [
+          "Today, smart phones are everywhere. In Saudi Arabia, more than 95% of people own a *mobile* phone. These small *devices* help us do many things every day.",
+          "Smart phones *connect* us to family and friends. We can send messages, make video calls, and share photos instantly. Young people in Riyadh and Jeddah use their phones to talk with friends who live far away. They also use *apps* for shopping, learning, and entertainment.",
+          "The *technology* in phones is very *advanced* now. Modern phones have powerful cameras, fast internet, and long battery life. They can translate languages, give directions, and even help us pray at the right times. Many Saudi students use their phones to study and take online classes.",
+          "Smart phones also help businesses grow. Small shop owners use mobile apps to sell products online. They can reach customers across the Kingdom and even in other countries. This *digital* revolution creates new jobs and opportunities.",
+          "However, experts say we must be *careful* with phone use. Too much screen time can hurt our eyes and sleep. It is important to balance technology with real-world activities like spending time with family, exercising, and enjoying nature. Smart phones are powerful tools, but we must use them wisely to improve our lives."
+        ]
+      },
+      "word_count": 218
+    },
+    {
+      "id": "210b23f6-6dbc-43f8-98e3-bb79d7c901f8",
+      "label": "B",
+      "title": "Robots Help Saudi Cities",
+      "content": {
+        "paragraphs": [
+          "Saudi Arabia is using *smart* technology to build better cities. The Kingdom wants to become a leader in artificial intelligence and robotics by 2030.",
+          "In Riyadh, new *robots* work in hospitals and shopping centers. These helpful machines can answer questions, give directions, and carry heavy items. At King Fahd Medical City, robot assistants help doctors and nurses with their daily work. The robots can *move* quickly through the hospital halls and deliver medicine to different rooms.",
+          "The NEOM smart city project uses *advanced* technology everywhere. *Cameras* with AI can watch traffic and help reduce accidents. Smart traffic lights change colors based on real traffic conditions. This *system* helps cars move faster and saves time for everyone. NEOM will have over 500,000 AI cameras when it opens.",
+          "Saudi students are learning to *program* these new technologies. Universities in Jeddah and Riyadh now offer special courses in robotics and AI. Students learn to create *apps* that can solve real problems in their communities. Many young Saudis want to work in technology companies after graduation.",
+          "The government believes that smart technology will improve life for all citizens. By 2030, Saudi Arabia plans to have AI systems in every major city across the Kingdom."
+        ]
+      },
+      "word_count": 218
+    }
+  ],
+  "grammar": {
+    "title": "adjective order basics",
+    "title_ar": "adjective order basics",
+    "explanation": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "ترتيب الصفات في الإنجليزية مهم. الحجم يأتي قبل اللون. مثال: هاتف أسود صغير = small black phone",
+          "content_en": "<b>Adjective Order Basics</b><br><br>Look at these sentences:<br>• I have a <b>new small</b> phone.<br>• She bought a <b>big black</b> laptop.<br>• This is an <b>old expensive</b> tablet.<br><br>In English, when we use two adjectives together, we put them in a special order:<br><br><b>Size + Age + Color + Noun</b><br>or<br><b>Opinion + Size + Age + Color + Noun</b><br><br>For beginners, remember: <b>Size comes before Color</b><br>Examples: small black phone, big white computer, tiny red camera<br><br>We usually don't use more than 2-3 adjectives together at this level."
+        },
+        {
+          "type": "formula",
+          "content": "Size + Color + Noun OR Opinion + Size + Color + Noun"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "I want a small black smartphone.",
+              "highlight": "small black",
+              "translation_ar": "أريد هاتفاً ذكياً أسود صغير"
+            },
+            {
+              "sentence": "He has a big white computer.",
+              "highlight": "big white",
+              "translation_ar": "لديه حاسوب أبيض كبير"
+            },
+            {
+              "sentence": "This is a nice small tablet.",
+              "highlight": "nice small",
+              "translation_ar": "هذا جهاز لوحي صغير جميل"
+            },
+            {
+              "sentence": "She bought an expensive new laptop.",
+              "highlight": "expensive new",
+              "translation_ar": "اشترت حاسوباً محمولاً جديداً غالياً"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "black small phone",
+              "correct": "small black phone",
+              "explanation_ar": "الحجم يأتي قبل اللون دائماً"
+            },
+            {
+              "wrong": "red big camera",
+              "correct": "big red camera",
+              "explanation_ar": "كبير يأتي قبل أحمر"
+            },
+            {
+              "wrong": "old nice tablet",
+              "correct": "nice old tablet",
+              "explanation_ar": "الرأي (جميل) يأتي قبل العمر (قديم)"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,454 @@
+{
+  "unit": {
+    "id": "ab2d705a-addc-4aed-9ca2-dc88bce8f448",
+    "title_en": "My City",
+    "title_ar": "مدينتي",
+    "unit_number": 3
+  },
+  "level": {
+    "id": "cd96175e-76d4-48dc-b34f-83f3228a28b8",
+    "level_number": 0,
+    "name_en": "Foundation"
+  },
+  "assessment": {
+    "id": "a0019337-7fb8-4d2c-98d2-d33af0f8f83c"
+  },
+  "variants": [
+    {
+      "id": "979b2ecd-02ce-47cb-a80e-0dcb36cdb54c",
+      "variant_code": "A"
+    },
+    {
+      "id": "2f594762-cb21-43ce-bf02-7ae8587ed90a",
+      "variant_code": "B"
+    },
+    {
+      "id": "551239de-80aa-4c48-b3bd-2058a533570f",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "id": "6128c623-9fa6-4a40-8a70-fa7c8d1630f7",
+      "word": "parks",
+      "pos": "noun",
+      "meaning_ar": "حدائق عامة",
+      "example_sentence": "I like to walk in the park every morning.",
+      "tier": "core"
+    },
+    {
+      "id": "eb87112d-c2cd-4aca-86a9-ac7f304a455b",
+      "word": "new",
+      "pos": "adjective",
+      "meaning_ar": "جديد، حديث",
+      "example_sentence": "I have a new car.",
+      "tier": "core"
+    },
+    {
+      "id": "36ecea60-91ad-4c96-9f0d-98adbab842e3",
+      "word": "beautiful",
+      "pos": "adjective",
+      "meaning_ar": "جميل",
+      "example_sentence": "She has a beautiful dress.",
+      "tier": "core"
+    },
+    {
+      "id": "c8df49c7-da31-4a5e-a842-7173c9b8b814",
+      "word": "big",
+      "pos": "adjective",
+      "meaning_ar": "كبير، واسع",
+      "example_sentence": "The big house has six rooms.",
+      "tier": "core"
+    },
+    {
+      "id": "2698da28-8d20-484a-a663-40f1ef041226",
+      "word": "capital",
+      "pos": "noun",
+      "meaning_ar": "العاصمة",
+      "example_sentence": "London is the capital of England.",
+      "tier": "core"
+    },
+    {
+      "id": "b10d3f27-3a09-4641-a2ea-15773810f50e",
+      "word": "trees",
+      "pos": "noun",
+      "meaning_ar": "أشجار",
+      "example_sentence": "The trees give us shade in summer.",
+      "tier": "core"
+    },
+    {
+      "id": "779d7070-997c-48af-8748-876897decf87",
+      "word": "lake",
+      "pos": "noun",
+      "meaning_ar": "بحيرة",
+      "example_sentence": "We can swim in the lake.",
+      "tier": "core"
+    },
+    {
+      "id": "e37df58b-19fa-4101-8338-f8bef69e5bd8",
+      "word": "buildings",
+      "pos": "noun",
+      "meaning_ar": "مباني، أبنية",
+      "example_sentence": "There are three buildings in my school.",
+      "tier": "core"
+    },
+    {
+      "id": "541dd278-66c2-4d19-86d5-165525048031",
+      "word": "neighborhoods",
+      "pos": "noun",
+      "meaning_ar": "أحياء، مناطق سكنية",
+      "example_sentence": "My neighborhood has a park and shops.",
+      "tier": "core"
+    },
+    {
+      "id": "c091e2aa-fe43-4b1c-b809-a2792905860e",
+      "word": "beach",
+      "pos": "noun",
+      "meaning_ar": "شاطئ",
+      "example_sentence": "Children play in the sand at the beach.",
+      "tier": "core"
+    },
+    {
+      "id": "40a541b6-5ba5-4a90-b729-24760d3705f1",
+      "word": "transportation",
+      "pos": "noun",
+      "meaning_ar": "المواصلات، النقل",
+      "example_sentence": "Buses are good transportation in the city.",
+      "tier": "core"
+    },
+    {
+      "id": "914a690e-00d0-4a18-8921-1007504440b8",
+      "word": "lights",
+      "pos": "noun",
+      "meaning_ar": "أضواء",
+      "example_sentence": "Turn on the lights please. It's dark.",
+      "tier": "core"
+    },
+    {
+      "id": "41d75733-05a7-4d77-bc2a-876085781dd0",
+      "word": "government",
+      "pos": "noun",
+      "meaning_ar": "الحكومة",
+      "example_sentence": "The government builds new schools.",
+      "tier": "core"
+    },
+    {
+      "id": "b9fc18ce-0de0-45ed-a305-9a98bd05e212",
+      "word": "comfortable",
+      "pos": "adjective",
+      "meaning_ar": "مريح",
+      "example_sentence": "This chair is very comfortable.",
+      "tier": "core"
+    },
+    {
+      "id": "27299e38-740d-4b70-9a0c-b57471cff34f",
+      "word": "streets",
+      "pos": "noun",
+      "meaning_ar": "شوارع، طرق",
+      "example_sentence": "The streets in my city are very clean.",
+      "tier": "core"
+    },
+    {
+      "id": "e4d76d50-7bac-4f6f-a585-3ab0e12905d1",
+      "word": "places",
+      "pos": "noun",
+      "meaning_ar": "أماكن",
+      "example_sentence": "I know good places to eat in the city.",
+      "tier": "core"
+    },
+    {
+      "id": "2749d80b-7cb0-48af-9af9-197128609adf",
+      "word": "city",
+      "pos": "noun",
+      "meaning_ar": "مدينة",
+      "example_sentence": "I live in a big city.",
+      "tier": "core"
+    },
+    {
+      "id": "44d1e76f-e66b-420b-ac02-3b36fa5ff07d",
+      "word": "street",
+      "pos": "noun",
+      "meaning_ar": "شارع",
+      "example_sentence": "My school is on this street.",
+      "tier": "core"
+    },
+    {
+      "id": "23fc5b5d-edaf-413e-bc14-63861ffeca3f",
+      "word": "school",
+      "pos": "noun",
+      "meaning_ar": "مدرسة",
+      "example_sentence": "I go to school every day.",
+      "tier": "core"
+    },
+    {
+      "id": "8f5ed9a6-0006-4705-a79b-10ab3ddea72b",
+      "word": "park",
+      "pos": "noun",
+      "meaning_ar": "حديقة عامة",
+      "example_sentence": "We play in the park.",
+      "tier": "core"
+    },
+    {
+      "id": "683d62b9-da1b-453b-99da-a3fd3037e68d",
+      "word": "car",
+      "pos": "noun",
+      "meaning_ar": "سيارة",
+      "example_sentence": "My father has a red car.",
+      "tier": "core"
+    },
+    {
+      "id": "a119f655-20a4-486a-b8f9-b434c0b689c4",
+      "word": "bus",
+      "pos": "noun",
+      "meaning_ar": "حافلة",
+      "example_sentence": "I take the bus to school.",
+      "tier": "core"
+    },
+    {
+      "id": "69500852-b36e-4fbf-ad98-894b6ee5558b",
+      "word": "road",
+      "pos": "noun",
+      "meaning_ar": "طريق",
+      "example_sentence": "Be careful on the road.",
+      "tier": "core"
+    },
+    {
+      "id": "f765c4db-09f2-4f97-9dba-ddb531769752",
+      "word": "hospital",
+      "pos": "noun",
+      "meaning_ar": "مستشفى",
+      "example_sentence": "The hospital is near my house.",
+      "tier": "core"
+    },
+    {
+      "id": "fb22c524-d07f-4eae-8f32-b3017da61c90",
+      "word": "house",
+      "pos": "noun",
+      "meaning_ar": "بيت / منزل",
+      "example_sentence": "My house is small but nice.",
+      "tier": "core"
+    },
+    {
+      "id": "f4066f8f-02b9-4b6d-9e0c-2f2e01ef3853",
+      "word": "building",
+      "pos": "noun",
+      "meaning_ar": "مبنى",
+      "example_sentence": "That is a tall building.",
+      "tier": "core"
+    },
+    {
+      "id": "20b46cdd-668c-46bd-9fad-e8ab89620eff",
+      "word": "near",
+      "pos": "preposition",
+      "meaning_ar": "قريب",
+      "example_sentence": "The park is near my house.",
+      "tier": "core"
+    },
+    {
+      "id": "3f81f60c-d050-4172-a51d-479012f39726",
+      "word": "far",
+      "pos": "adjective",
+      "meaning_ar": "بعيد",
+      "example_sentence": "The airport is far from here.",
+      "tier": "core"
+    },
+    {
+      "id": "7b4f0e3a-e74d-4303-87b1-bf60269760d1",
+      "word": "map",
+      "pos": "noun",
+      "meaning_ar": "خريطة",
+      "example_sentence": "I look at the map.",
+      "tier": "extended"
+    },
+    {
+      "id": "11edc9b5-04aa-4115-abe8-87081a630207",
+      "word": "library",
+      "pos": "noun",
+      "meaning_ar": "مكتبة",
+      "example_sentence": "I read books at the library.",
+      "tier": "extended"
+    },
+    {
+      "id": "5fee2b31-3973-4b05-8399-77c331e62c3b",
+      "word": "bridge",
+      "pos": "noun",
+      "meaning_ar": "جسر",
+      "example_sentence": "We walk on the bridge.",
+      "tier": "extended"
+    },
+    {
+      "id": "36f66447-e254-4ae5-af59-31ace709b867",
+      "word": "turn",
+      "pos": "verb",
+      "meaning_ar": "ينعطف / يدور",
+      "example_sentence": "Turn left at the school.",
+      "tier": "extended"
+    },
+    {
+      "id": "70693819-f5f8-421c-8f41-a8cd945c838e",
+      "word": "cross",
+      "pos": "verb",
+      "meaning_ar": "يعبر",
+      "example_sentence": "Cross the street carefully.",
+      "tier": "extended"
+    },
+    {
+      "id": "11de856d-3ec0-467a-99e5-859b04f485a6",
+      "word": "between",
+      "pos": "preposition",
+      "meaning_ar": "بين",
+      "example_sentence": "The shop is between the bank and school.",
+      "tier": "extended"
+    },
+    {
+      "id": "a17bdcd5-b4a1-4fca-a362-816fd582515d",
+      "word": "next",
+      "pos": "adjective",
+      "meaning_ar": "التالي / بجانب",
+      "example_sentence": "The park is next to my house.",
+      "tier": "extended"
+    },
+    {
+      "id": "8fbc2ddd-81f1-441b-a345-d19d8fd319c6",
+      "word": "place",
+      "pos": "noun",
+      "meaning_ar": "مكان",
+      "example_sentence": "This is a nice place.",
+      "tier": "extended"
+    },
+    {
+      "id": "8eafbfa4-39d5-4a32-a1be-07d87a0a9125",
+      "word": "left",
+      "pos": "noun",
+      "meaning_ar": "يسار",
+      "example_sentence": "Turn left at the corner.",
+      "tier": "extended"
+    },
+    {
+      "id": "9ffa8d03-aa17-4361-89c8-e853952ff92a",
+      "word": "right",
+      "pos": "noun",
+      "meaning_ar": "يمين",
+      "example_sentence": "The school is on the right.",
+      "tier": "extended"
+    },
+    {
+      "id": "d16ccdff-4c93-4ee9-850d-96c032c01613",
+      "word": "corner",
+      "pos": "noun",
+      "meaning_ar": "زاوية / ناصية",
+      "example_sentence": "The shop is on the corner.",
+      "tier": "mastery"
+    },
+    {
+      "id": "f55af2e9-c417-4393-8370-0f1a33cc176d",
+      "word": "market",
+      "pos": "noun",
+      "meaning_ar": "سوق",
+      "example_sentence": "We buy food from the market.",
+      "tier": "mastery"
+    },
+    {
+      "id": "6b38eca4-56c5-4dd5-aaf7-0d906fdde538",
+      "word": "mosque",
+      "pos": "noun",
+      "meaning_ar": "مسجد",
+      "example_sentence": "The mosque is near our house.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "0587adb9-754e-450c-bba5-3ca757ca6cf9",
+      "label": "A",
+      "title": "Cities Around the World",
+      "content": {
+        "paragraphs": [
+          "Every city has its own special character. Some cities are old, and some cities are *new*. Some are *big* with millions of people, and others are small and quiet.",
+          "Riyadh is the *capital* of Saudi Arabia. It is home to over 7 million people. The city has many tall *buildings* and wide streets. People live in different *neighborhoods* around the city. Each area has its own shops, restaurants, and parks. The King Abdullah Financial District is very modern with glass towers that shine in the desert sun.",
+          "Tokyo, Japan is one of the world's largest cities. Over 37 million people live in the Tokyo area. The city has excellent *transportation*. Trains carry millions of passengers every day. People can travel from one side of the city to the other very quickly. Many Tokyo residents live in small apartments because space is expensive.",
+          "Singapore is a city and a country at the same time. It sits on a small island in Southeast Asia. The *government* works hard to keep the city clean and green. There are trees and gardens everywhere. Singapore has strict rules about throwing garbage on the *streets*. The city is famous for its beautiful gardens and clean environment.",
+          "Each city faces different challenges. Desert cities need water. Island cities worry about storms. But people everywhere work together to make their cities better places to live."
+        ]
+      },
+      "word_count": 243
+    },
+    {
+      "id": "65cfb7be-882c-4955-9cec-25be770f197f",
+      "label": "B",
+      "title": "Green Cities in the Desert",
+      "content": {
+        "paragraphs": [
+          "Many people think deserts cannot have green *parks* and *beautiful* gardens. But Saudi Arabia shows this is not true. The Kingdom builds amazing green spaces in its cities.",
+          "Riyadh has more than 4,000 parks today. King Abdullah Park is one of the largest parks in the Middle East. It has *trees*, flowers, and walking paths. The park also has a *lake* with fountains. Families come here to relax and enjoy nature. Children play in special areas while parents sit in the shade.",
+          "Jeddah's waterfront area is another example of green city planning. The Corniche has palm trees along the *beach*. People can walk, exercise, or just watch the Red Sea. The city plants special trees that can live in hot weather. These trees need less water but still look green and healthy.",
+          "Creating green spaces in desert cities is not easy. City planners must choose the right plants. They use smart water systems that save water. Some parks use recycled water for the gardens. Solar power helps run the water pumps and *lights* at night.",
+          "These green spaces make cities more *comfortable* for people. They clean the air and make temperatures cooler. Parks also give families *places* to spend time together. Saudi cities prove that even in the desert, people can create beautiful, green urban spaces."
+        ]
+      },
+      "word_count": 223
+    }
+  ],
+  "grammar": {
+    "title": "simple present negative/questions",
+    "title_ar": "simple present negative/questions",
+    "explanation": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "النفي: نضع don't أو doesn't قبل الفعل الأساسي • الأسئلة: نبدأ بـ Do أو Does • الفعل الأساسي يبقى بدون إضافات بعد doesn't و does",
+          "content_en": "We use the <b>simple present</b> to talk about habits, routines, and facts about our city and daily life.<br><br><b>Negative sentences:</b> We add <i>don't</i> (do not) or <i>doesn't</i> (does not) before the main verb.<br>• I/You/We/They + <b>don't</b> + verb<br>• He/She/It + <b>doesn't</b> + verb<br><br><b>Questions:</b> We put <i>Do</i> or <i>Does</i> at the beginning.<br>• <b>Do</b> + I/you/we/they + verb?<br>• <b>Does</b> + he/she/it + verb?<br><br>Remember: After 'doesn't' and 'does', the main verb stays in base form (no -s)."
+        },
+        {
+          "type": "formula",
+          "content": "Negative: Subject + don't/doesn't + verb | Questions: Do/Does + subject + verb + ?"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "I don't live in the city center.",
+              "highlight": "don't live",
+              "translation_ar": "أنا لا أعيش في وسط المدينة"
+            },
+            {
+              "sentence": "She doesn't work in the hospital.",
+              "highlight": "doesn't work",
+              "translation_ar": "هي لا تعمل في المستشفى"
+            },
+            {
+              "sentence": "Do you like our city?",
+              "highlight": "Do you like",
+              "translation_ar": "هل تحب مدينتنا؟"
+            },
+            {
+              "sentence": "Does he visit the museum?",
+              "highlight": "Does he visit",
+              "translation_ar": "هل يزور المتحف؟"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "He doesn't works",
+              "correct": "He doesn't work",
+              "explanation_ar": "لا نضع -s مع الفعل بعد doesn't"
+            },
+            {
+              "wrong": "Does she works?",
+              "correct": "Does she work?",
+              "explanation_ar": "الفعل يبقى أساسي بعد Does"
+            },
+            {
+              "wrong": "I no live here",
+              "correct": "I don't live here",
+              "explanation_ar": "نستخدم don't وليس no للنفي"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

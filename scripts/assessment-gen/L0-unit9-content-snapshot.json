@@ -1,0 +1,449 @@
+{
+  "unit": {
+    "id": "89f2e975-060e-4f83-a4bf-b2c86ec56631",
+    "title_en": "Hobbies & Free Time",
+    "title_ar": "الهوايات ووقت الفراغ",
+    "unit_number": 9
+  },
+  "level": {
+    "id": "cd96175e-76d4-48dc-b34f-83f3228a28b8",
+    "level_number": 0,
+    "name_en": "Foundation"
+  },
+  "assessment": {
+    "id": "991dc5fd-7d57-43a1-a9c4-b312ac820e09"
+  },
+  "variants": [
+    {
+      "id": "6b075822-2e68-4c98-8fb0-b542af007915",
+      "variant_code": "A"
+    },
+    {
+      "id": "91937774-abdb-43b6-bbcc-461b58b568bb",
+      "variant_code": "B"
+    },
+    {
+      "id": "c268b43b-aca6-4032-aa29-4829a7c44891",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "id": "75b73921-e3c7-4469-bd0f-4b1ac75c5fcc",
+      "word": "free time",
+      "pos": "noun",
+      "meaning_ar": "الوقت الحر / وقت الفراغ",
+      "example_sentence": "I play games in my free time.",
+      "tier": "core"
+    },
+    {
+      "id": "c02d07d9-5dad-4812-9712-e72a63587e08",
+      "word": "crafts",
+      "pos": "noun",
+      "meaning_ar": "الحرف اليدوية، الأعمال الفنية التي تُصنع باليد",
+      "example_sentence": "My sister likes arts and crafts at school.",
+      "tier": "core"
+    },
+    {
+      "id": "3f312d56-9b7e-4f47-8858-eb2cf8de0d17",
+      "word": "free",
+      "pos": "adjective",
+      "meaning_ar": "حر، فارغ، وقت فراغ",
+      "example_sentence": "I watch TV in my free time.",
+      "tier": "core"
+    },
+    {
+      "id": "f1e0a096-471d-4276-97fb-315b3a499996",
+      "word": "reading",
+      "pos": "noun",
+      "meaning_ar": "القراءة",
+      "example_sentence": "I like reading books before bed.",
+      "tier": "core"
+    },
+    {
+      "id": "4d2b7d11-4350-48ea-bacf-6550c20c8c32",
+      "word": "practice",
+      "pos": "verb",
+      "meaning_ar": "يمارس، يتدرب على شيء",
+      "example_sentence": "I practice English every day.",
+      "tier": "core"
+    },
+    {
+      "id": "f96ca0e4-e6f7-4cfe-a2c3-a88ac4e7a28d",
+      "word": "cooking",
+      "pos": "noun",
+      "meaning_ar": "الطبخ / الطهي",
+      "example_sentence": "My mother is cooking rice now.",
+      "tier": "core"
+    },
+    {
+      "id": "208d4436-ca7e-404c-99a3-343f1a4c39f3",
+      "word": "music",
+      "pos": "noun",
+      "meaning_ar": "الموسيقى",
+      "example_sentence": "I listen to music every day.",
+      "tier": "core"
+    },
+    {
+      "id": "51cc3e41-f933-458d-8324-5f47624aa1dc",
+      "word": "enjoy",
+      "pos": "verb",
+      "meaning_ar": "يستمتع بـ، يحب",
+      "example_sentence": "I enjoy reading books.",
+      "tier": "core"
+    },
+    {
+      "id": "6fa64967-706f-472f-a2cb-e00276f2183f",
+      "word": "groups",
+      "pos": "noun",
+      "meaning_ar": "مجموعات، جماعات",
+      "example_sentence": "The students work in small groups.",
+      "tier": "core"
+    },
+    {
+      "id": "e30502c4-d950-440e-85d5-57481af24415",
+      "word": "dancing",
+      "pos": "noun",
+      "meaning_ar": "الرقص",
+      "example_sentence": "She is dancing to her favorite song.",
+      "tier": "core"
+    },
+    {
+      "id": "0f01178c-46ee-4095-9030-e8af31986da0",
+      "word": "popular",
+      "pos": "adjective",
+      "meaning_ar": "شائع، محبوب، مشهور",
+      "example_sentence": "Pizza is popular food around the world.",
+      "tier": "core"
+    },
+    {
+      "id": "eda7f215-935a-4b9f-a5c8-24b4f2dea967",
+      "word": "photography",
+      "pos": "noun",
+      "meaning_ar": "التصوير الفوتوغرافي",
+      "example_sentence": "He studies photography at school.",
+      "tier": "core"
+    },
+    {
+      "id": "97ba8c9b-febd-4e04-9397-1e296724b318",
+      "word": "pictures",
+      "pos": "noun",
+      "meaning_ar": "الصور",
+      "example_sentence": "Look at these pictures of my family.",
+      "tier": "core"
+    },
+    {
+      "id": "aa56720b-1bb1-4876-877f-a5cd7e406952",
+      "word": "relax",
+      "pos": "verb",
+      "meaning_ar": "يسترخي، يستريح، يهدأ",
+      "example_sentence": "I like to relax at home after work.",
+      "tier": "core"
+    },
+    {
+      "id": "442d7ffb-c9f9-4b76-bb3d-d4d42e6ed5cc",
+      "word": "patterns",
+      "pos": "noun",
+      "meaning_ar": "أنماط، نقوش، تصاميم",
+      "example_sentence": "My dress has flower patterns on it.",
+      "tier": "core"
+    },
+    {
+      "id": "918b32db-3172-42fa-9fc3-826e05794c93",
+      "word": "sports",
+      "pos": "noun",
+      "meaning_ar": "الرياضة",
+      "example_sentence": "I play sports with my friends.",
+      "tier": "core"
+    },
+    {
+      "id": "c4e90c6a-ca5d-42dc-ae96-a58e14d08b7f",
+      "word": "read",
+      "pos": "verb",
+      "meaning_ar": "يقرأ",
+      "example_sentence": "I read a book every day.",
+      "tier": "core"
+    },
+    {
+      "id": "4308b98b-24e4-460d-82bd-b2fde8fb8ad6",
+      "word": "write",
+      "pos": "verb",
+      "meaning_ar": "يكتب",
+      "example_sentence": "I write in my notebook.",
+      "tier": "core"
+    },
+    {
+      "id": "b42120c2-8a25-4570-966b-9a266c2ec3cf",
+      "word": "draw",
+      "pos": "verb",
+      "meaning_ar": "يرسم",
+      "example_sentence": "I like to draw pictures.",
+      "tier": "core"
+    },
+    {
+      "id": "a017b972-d4d1-42a5-b76e-aa04152f54d4",
+      "word": "sing",
+      "pos": "verb",
+      "meaning_ar": "يغني",
+      "example_sentence": "She sings a nice song.",
+      "tier": "core"
+    },
+    {
+      "id": "affcfa7b-9342-4c75-ba41-58371b156fed",
+      "word": "watch",
+      "pos": "verb",
+      "meaning_ar": "يشاهد",
+      "example_sentence": "I watch TV after dinner.",
+      "tier": "core"
+    },
+    {
+      "id": "0a24ce2c-ae0d-4dcc-9ef5-4d86bbbb6d79",
+      "word": "listen",
+      "pos": "verb",
+      "meaning_ar": "يستمع",
+      "example_sentence": "I listen to music every day.",
+      "tier": "core"
+    },
+    {
+      "id": "446a3c23-2db7-488d-bacf-6096b3b4c3b0",
+      "word": "game",
+      "pos": "noun",
+      "meaning_ar": "لعبة",
+      "example_sentence": "I play a game with my friends.",
+      "tier": "core"
+    },
+    {
+      "id": "50b0207f-35e4-4195-a968-155e05815aae",
+      "word": "sport",
+      "pos": "noun",
+      "meaning_ar": "رياضة",
+      "example_sentence": "I like sport very much.",
+      "tier": "core"
+    },
+    {
+      "id": "23849207-62a5-4664-9787-c0313fc10ab5",
+      "word": "ball",
+      "pos": "noun",
+      "meaning_ar": "كرة",
+      "example_sentence": "I play with a ball.",
+      "tier": "core"
+    },
+    {
+      "id": "b7841b6f-fd78-4685-9207-fcd4a2f8db07",
+      "word": "picture",
+      "pos": "noun",
+      "meaning_ar": "صورة",
+      "example_sentence": "I draw a nice picture.",
+      "tier": "core"
+    },
+    {
+      "id": "a8bbbf74-f4a7-4753-a8b0-9158b5cd89e8",
+      "word": "fun",
+      "pos": "adjective",
+      "meaning_ar": "مرح / ممتع",
+      "example_sentence": "This game is very fun.",
+      "tier": "core"
+    },
+    {
+      "id": "f807869a-1525-4ad3-8a4c-77428941a5bd",
+      "word": "favorite",
+      "pos": "adjective",
+      "meaning_ar": "مفضّل",
+      "example_sentence": "Football is my favorite sport.",
+      "tier": "core"
+    },
+    {
+      "id": "6a293425-cc40-4f38-acdc-7162e20d0c5d",
+      "word": "like",
+      "pos": "verb",
+      "meaning_ar": "يحب / يعجبه",
+      "example_sentence": "I like reading books.",
+      "tier": "core"
+    },
+    {
+      "id": "4eea33bc-801a-4909-a3e4-1ae000e2e067",
+      "word": "football",
+      "pos": "noun",
+      "meaning_ar": "كرة قدم",
+      "example_sentence": "I play football after school.",
+      "tier": "extended"
+    },
+    {
+      "id": "591b4f63-09af-4049-b5c6-022fa55ea85e",
+      "word": "ride",
+      "pos": "verb",
+      "meaning_ar": "يركب",
+      "example_sentence": "I ride my bike to school.",
+      "tier": "extended"
+    },
+    {
+      "id": "6fa3e218-e6de-4c9c-8c5f-fefe473defe4",
+      "word": "dance",
+      "pos": "verb",
+      "meaning_ar": "يرقص / رقص",
+      "example_sentence": "She likes to dance.",
+      "tier": "extended"
+    },
+    {
+      "id": "09a741df-f6d0-437b-8e53-86d6938c9d81",
+      "word": "hobby",
+      "pos": "noun",
+      "meaning_ar": "هواية",
+      "example_sentence": "My hobby is reading books.",
+      "tier": "extended"
+    },
+    {
+      "id": "fc3337bf-6b28-45d8-ab9f-432026232ea8",
+      "word": "camera",
+      "pos": "noun",
+      "meaning_ar": "كاميرا",
+      "example_sentence": "I take photos with my camera.",
+      "tier": "extended"
+    },
+    {
+      "id": "2504450d-b3b9-4e21-8417-aa72c89fa778",
+      "word": "photo",
+      "pos": "noun",
+      "meaning_ar": "صورة فوتوغرافية",
+      "example_sentence": "I take a photo of my cat.",
+      "tier": "extended"
+    },
+    {
+      "id": "bb618d8e-702c-447a-bbae-f93b18612847",
+      "word": "team",
+      "pos": "noun",
+      "meaning_ar": "فريق",
+      "example_sentence": "I am on the football team.",
+      "tier": "extended"
+    },
+    {
+      "id": "f72ea3a2-c412-4afe-bab9-17f7f6d1cb81",
+      "word": "song",
+      "pos": "noun",
+      "meaning_ar": "أغنية",
+      "example_sentence": "This is my favorite song.",
+      "tier": "extended"
+    },
+    {
+      "id": "15fb9fb9-a1aa-4baf-9cba-5287989357a1",
+      "word": "garden",
+      "pos": "noun",
+      "meaning_ar": "حديقة",
+      "example_sentence": "I play in the garden.",
+      "tier": "extended"
+    },
+    {
+      "id": "9e629d1e-9355-47f2-9ea5-7066e4d287cf",
+      "word": "paint",
+      "pos": "verb",
+      "meaning_ar": "يرسم بالألوان",
+      "example_sentence": "I paint a picture of my house.",
+      "tier": "mastery"
+    },
+    {
+      "id": "a82ded22-835d-4170-a9cb-6fc785018798",
+      "word": "collect",
+      "pos": "verb",
+      "meaning_ar": "يجمع",
+      "example_sentence": "I collect old stamps.",
+      "tier": "mastery"
+    },
+    {
+      "id": "ce7785c0-080b-4a09-9ab4-417d0057168b",
+      "word": "boring",
+      "pos": "adjective",
+      "meaning_ar": "ممل",
+      "example_sentence": "This game is boring.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "7bfd2f5b-be00-40a1-9672-936928c371a4",
+      "label": "A",
+      "title": "Popular Hobbies Around the World",
+      "content": {
+        "paragraphs": [
+          "People everywhere have different ways to spend their *free time*. Hobbies help us relax and learn new things. They also help us meet new people and have fun.",
+          "In many countries, *reading* is a very popular hobby. In Norway, people read more books than anywhere else in the world. The average person reads 20 books every year! Many people also enjoy *cooking* as a hobby. In Italy, families spend hours making pasta and sharing recipes. Young people often learn to cook from their grandparents.",
+          "*Music* is another favorite hobby around the world. In South Korea, 73% of teenagers learn to play a musical instrument. The piano and guitar are the most popular choices. Many people also like *dancing*. In Brazil, people of all ages learn traditional dances like samba.",
+          "Today, many people enjoy *photography* as a hobby. With smartphones, taking *pictures* is easier than ever. People share millions of photos online every day. They take pictures of food, nature, and family moments.",
+          "*Sports* are also very popular hobbies. Swimming is the most popular sport in Australia. In Canada, ice hockey brings families together during winter. These hobbies help people stay healthy and make friends. What hobby do you want to try?"
+        ]
+      },
+      "word_count": 218
+    },
+    {
+      "id": "44bba98f-b64d-4c33-8509-c1fbe3453583",
+      "label": "B",
+      "title": "Crafting in Saudi Arabia",
+      "content": {
+        "paragraphs": [
+          "Many young Saudi women are learning traditional *crafts* today. These old arts are becoming popular modern hobbies. Women across the Kingdom are using their *free* time to create beautiful handmade items.",
+          "Sadu weaving is one popular traditional craft. This art uses sheep and camel wool to make colorful patterns. Women *practice* this skill for many hours each week. They create bags, cushions, and decorative items. The Al-Sadu Society in Kuwait City teaches this ancient art to new students. Many Saudi women travel there to learn.",
+          "Another growing hobby is traditional embroidery called *Talli*. This craft uses gold and silver threads to make beautiful designs on fabric. Women *enjoy* making decorative pieces for their homes. They often work together in *groups* to share techniques and ideas. The patterns tell stories about Saudi culture and history.",
+          "Pottery is also becoming *popular* again. Young women learn to make traditional coffee pots and decorative bowls. They use clay from different regions of Saudi Arabia. Each area has its own special type of clay. Some pottery workshops in Riyadh and Jeddah teach both traditional and modern techniques.",
+          "These traditional crafts help women *relax* and connect with their heritage. They also create income opportunities. Many women sell their handmade items online or at cultural festivals. These ancient arts are finding new life in the modern world."
+        ]
+      },
+      "word_count": 245
+    }
+  ],
+  "grammar": {
+    "title": "pronouns (I/me/my)",
+    "title_ar": "pronouns (I/me/my)",
+    "explanation": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "الضمائر في الإنجليزية لها أشكال مختلفة: I للفاعل، me للمفعول به، my للملكية",
+          "content_en": "<b>Pronouns I, me, my</b><br><br>We use different pronouns for different positions in sentences:<br><br><b>I</b> = subject (does the action)<br><b>me</b> = object (receives the action)<br><b>my</b> = possessive (shows ownership)<br><br>Think of it like this:<br>• <b>I</b> comes before the verb<br>• <b>me</b> comes after verbs or prepositions (to, for, with)<br>• <b>my</b> comes before nouns to show 'this belongs to me'"
+        },
+        {
+          "type": "formula",
+          "content": "I + verb | verb + me | my + noun"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "I love reading books.",
+              "highlight": "I",
+              "translation_ar": "أحب قراءة الكتب"
+            },
+            {
+              "sentence": "Music helps me relax.",
+              "highlight": "me",
+              "translation_ar": "الموسيقى تساعدني على الاسترخاء"
+            },
+            {
+              "sentence": "My hobby is painting.",
+              "highlight": "My",
+              "translation_ar": "هوايتي هي الرسم"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "Me like swimming",
+              "correct": "I like swimming",
+              "explanation_ar": "استخدم I مع الفعل كفاعل وليس me"
+            },
+            {
+              "wrong": "Give the ball to I",
+              "correct": "Give the ball to me",
+              "explanation_ar": "بعد حروف الجر نستخدم me وليس I"
+            },
+            {
+              "wrong": "This is I guitar",
+              "correct": "This is my guitar",
+              "explanation_ar": "للملكية نستخدم my وليس I"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

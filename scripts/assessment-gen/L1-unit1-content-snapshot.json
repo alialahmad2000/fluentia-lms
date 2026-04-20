@@ -1,0 +1,529 @@
+{
+  "unit": {
+    "id": "49ed7c2c-fa1b-47b2-bb5c-34074beeafdc",
+    "title_en": "Cultural Festivals",
+    "title_ar": "المهرجانات الثقافية",
+    "unit_number": 1
+  },
+  "assessment": {
+    "id": "ec569b89-63aa-4b64-b80a-10483ac50d7a"
+  },
+  "variants": [
+    {
+      "id": "240d1dba-db0f-4031-a543-d337decd45d0",
+      "variant_code": "A"
+    },
+    {
+      "id": "d3b26d24-8a8e-490b-b18f-27abe990821b",
+      "variant_code": "B"
+    },
+    {
+      "id": "96434d0c-9ef4-490d-a2ba-97c7e6d26da4",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "word": "annual",
+      "part_of_speech": "adjective",
+      "definition_ar": "سنوي",
+      "example_sentence": "This is an annual event.",
+      "tier": "core"
+    },
+    {
+      "word": "anthem",
+      "part_of_speech": "noun",
+      "definition_ar": "نشيد",
+      "example_sentence": "They sang the national anthem.",
+      "tier": "mastery"
+    },
+    {
+      "word": "beautiful",
+      "part_of_speech": "adjective",
+      "definition_ar": "جميل، حسن المنظر",
+      "example_sentence": "She has a beautiful dress for the party.",
+      "tier": "core"
+    },
+    {
+      "word": "blessing",
+      "part_of_speech": "noun",
+      "definition_ar": "بركة",
+      "example_sentence": "Health is a great blessing.",
+      "tier": "mastery"
+    },
+    {
+      "word": "celebrate",
+      "part_of_speech": "verb",
+      "definition_ar": "يحتفل، يحتفي",
+      "example_sentence": "We celebrate my birthday every year with cake and friends.",
+      "tier": "core"
+    },
+    {
+      "word": "celebration",
+      "part_of_speech": "noun",
+      "definition_ar": "احتفال",
+      "example_sentence": "The celebration was very big.",
+      "tier": "core"
+    },
+    {
+      "word": "ceremony",
+      "part_of_speech": "noun",
+      "definition_ar": "حفل",
+      "example_sentence": "The ceremony started at noon.",
+      "tier": "core"
+    },
+    {
+      "word": "costume",
+      "part_of_speech": "noun",
+      "definition_ar": "زي",
+      "example_sentence": "She wore a beautiful costume.",
+      "tier": "core"
+    },
+    {
+      "word": "culture",
+      "part_of_speech": "noun",
+      "definition_ar": "ثقافة",
+      "example_sentence": "I love learning about culture.",
+      "tier": "core"
+    },
+    {
+      "word": "custom",
+      "part_of_speech": "noun",
+      "definition_ar": "عادة",
+      "example_sentence": "This custom is very old.",
+      "tier": "extended"
+    },
+    {
+      "word": "decorate",
+      "part_of_speech": "verb",
+      "definition_ar": "يُزين",
+      "example_sentence": "We decorate the house for Eid.",
+      "tier": "core"
+    },
+    {
+      "word": "decoration",
+      "part_of_speech": "noun",
+      "definition_ar": "زينة",
+      "example_sentence": "The decoration looks nice.",
+      "tier": "core"
+    },
+    {
+      "word": "dress up",
+      "part_of_speech": "verb",
+      "definition_ar": "يتأنق",
+      "example_sentence": "Children dress up for the party.",
+      "tier": "core"
+    },
+    {
+      "word": "event",
+      "part_of_speech": "noun",
+      "definition_ar": "حدث",
+      "example_sentence": "The event is next week.",
+      "tier": "core"
+    },
+    {
+      "word": "exchange",
+      "part_of_speech": "verb",
+      "definition_ar": "يتبادل",
+      "example_sentence": "They exchange gifts on Eid.",
+      "tier": "extended"
+    },
+    {
+      "word": "feast",
+      "part_of_speech": "noun",
+      "definition_ar": "وليمة",
+      "example_sentence": "The family had a big feast.",
+      "tier": "extended"
+    },
+    {
+      "word": "festival",
+      "part_of_speech": "noun",
+      "definition_ar": "مهرجان",
+      "example_sentence": "The festival starts in June.",
+      "tier": "core"
+    },
+    {
+      "word": "festive",
+      "part_of_speech": "adjective",
+      "definition_ar": "احتفالي",
+      "example_sentence": "The room looked festive.",
+      "tier": "extended"
+    },
+    {
+      "word": "fireworks",
+      "part_of_speech": "noun",
+      "definition_ar": "ألعاب نارية",
+      "example_sentence": "We watched the fireworks at night.",
+      "tier": "extended"
+    },
+    {
+      "word": "flag",
+      "part_of_speech": "noun",
+      "definition_ar": "علم",
+      "example_sentence": "The flag is green and white.",
+      "tier": "extended"
+    },
+    {
+      "word": "generous",
+      "part_of_speech": "adjective",
+      "definition_ar": "كريم",
+      "example_sentence": "My uncle is very generous.",
+      "tier": "mastery"
+    },
+    {
+      "word": "gratitude",
+      "part_of_speech": "noun",
+      "definition_ar": "امتنان",
+      "example_sentence": "She showed gratitude to her teacher.",
+      "tier": "mastery"
+    },
+    {
+      "word": "guest",
+      "part_of_speech": "noun",
+      "definition_ar": "ضيف",
+      "example_sentence": "We have a guest today.",
+      "tier": "core"
+    },
+    {
+      "word": "harvest",
+      "part_of_speech": "noun",
+      "definition_ar": "حصاد",
+      "example_sentence": "The harvest was good this year.",
+      "tier": "mastery"
+    },
+    {
+      "word": "heritage",
+      "part_of_speech": "noun",
+      "definition_ar": "تراث",
+      "example_sentence": "We must protect our heritage.",
+      "tier": "mastery"
+    },
+    {
+      "word": "holiday",
+      "part_of_speech": "noun",
+      "definition_ar": "عطلة",
+      "example_sentence": "Tomorrow is a holiday.",
+      "tier": "core"
+    },
+    {
+      "word": "honor",
+      "part_of_speech": "verb",
+      "definition_ar": "يُكرم",
+      "example_sentence": "We honor our parents every day.",
+      "tier": "extended"
+    },
+    {
+      "word": "joyful",
+      "part_of_speech": "adjective",
+      "definition_ar": "بهيج",
+      "example_sentence": "It was a joyful moment.",
+      "tier": "extended"
+    },
+    {
+      "word": "lantern",
+      "part_of_speech": "noun",
+      "definition_ar": "فانوس",
+      "example_sentence": "The lantern gives warm light.",
+      "tier": "extended"
+    },
+    {
+      "word": "lively",
+      "part_of_speech": "adjective",
+      "definition_ar": "حيوي",
+      "example_sentence": "The music was very lively.",
+      "tier": "extended"
+    },
+    {
+      "word": "march",
+      "part_of_speech": "verb",
+      "definition_ar": "يسير",
+      "example_sentence": "The people march in the street.",
+      "tier": "extended"
+    },
+    {
+      "word": "mask",
+      "part_of_speech": "noun",
+      "definition_ar": "قناع",
+      "example_sentence": "He wore a funny mask.",
+      "tier": "extended"
+    },
+    {
+      "word": "memorable",
+      "part_of_speech": "adjective",
+      "definition_ar": "لا يُنسى",
+      "example_sentence": "It was a memorable day.",
+      "tier": "mastery"
+    },
+    {
+      "word": "national",
+      "part_of_speech": "adjective",
+      "definition_ar": "وطني",
+      "example_sentence": "Today is a national holiday.",
+      "tier": "core"
+    },
+    {
+      "word": "parade",
+      "part_of_speech": "noun",
+      "definition_ar": "موكب",
+      "example_sentence": "The parade went down the street.",
+      "tier": "core"
+    },
+    {
+      "word": "pray",
+      "part_of_speech": "verb",
+      "definition_ar": "يصلي",
+      "example_sentence": "They pray together every day.",
+      "tier": "extended"
+    },
+    {
+      "word": "preserve",
+      "part_of_speech": "verb",
+      "definition_ar": "يحافظ على",
+      "example_sentence": "We preserve old traditions.",
+      "tier": "mastery"
+    },
+    {
+      "word": "religious",
+      "part_of_speech": "adjective",
+      "definition_ar": "ديني",
+      "example_sentence": "It is a religious holiday.",
+      "tier": "core"
+    },
+    {
+      "word": "ritual",
+      "part_of_speech": "noun",
+      "definition_ar": "طقس",
+      "example_sentence": "The morning ritual takes one hour.",
+      "tier": "mastery"
+    },
+    {
+      "word": "sacred",
+      "part_of_speech": "adjective",
+      "definition_ar": "مقدس",
+      "example_sentence": "This is a sacred place.",
+      "tier": "extended"
+    },
+    {
+      "word": "tradition",
+      "part_of_speech": "noun",
+      "definition_ar": "تقليد",
+      "example_sentence": "This is an old tradition.",
+      "tier": "core"
+    },
+    {
+      "word": "unity",
+      "part_of_speech": "noun",
+      "definition_ar": "وحدة",
+      "example_sentence": "The festival shows unity.",
+      "tier": "mastery"
+    },
+    {
+      "word": "colorful",
+      "part_of_speech": "adjective",
+      "definition_ar": "ملون، زاهي الألوان",
+      "example_sentence": "The garden is very colorful with red, yellow, and purple flowers.",
+      "tier": "core"
+    },
+    {
+      "word": "popular",
+      "part_of_speech": "adjective",
+      "definition_ar": "شائع، محبوب، مشهور",
+      "example_sentence": "Pizza is a popular food around the world.",
+      "tier": "core"
+    },
+    {
+      "word": "special",
+      "part_of_speech": "adjective",
+      "definition_ar": "خاص، مميز",
+      "example_sentence": "Today is a special day because it's my wedding.",
+      "tier": "core"
+    },
+    {
+      "word": "wear",
+      "part_of_speech": "verb",
+      "definition_ar": "يرتدي، يلبس",
+      "example_sentence": "I wear a blue shirt to work every Monday.",
+      "tier": "core"
+    },
+    {
+      "word": "wonderful",
+      "part_of_speech": "adjective",
+      "definition_ar": "رائع، ممتاز، عجيب",
+      "example_sentence": "We had a wonderful time at the beach yesterday.",
+      "tier": "core"
+    },
+    {
+      "word": "bright",
+      "part_of_speech": "adjective",
+      "definition_ar": "مشرق، ساطع، زاهي",
+      "example_sentence": "The sun is very bright today.",
+      "tier": "core"
+    },
+    {
+      "word": "gather",
+      "part_of_speech": "verb",
+      "definition_ar": "يتجمع، يجتمع، يحتشد",
+      "example_sentence": "Every Friday, our family gathers for dinner at my grandmother's house.",
+      "tier": "core"
+    },
+    {
+      "word": "attracts",
+      "part_of_speech": "verb",
+      "definition_ar": "يجذب، يجلب، يستقطب",
+      "example_sentence": "The new shopping mall attracts many customers every day.",
+      "tier": "core"
+    },
+    {
+      "word": "represent",
+      "part_of_speech": "verb",
+      "definition_ar": "يمثل، يرمز إلى",
+      "example_sentence": "The red heart represents love.",
+      "tier": "core"
+    },
+    {
+      "word": "prepare",
+      "part_of_speech": "verb",
+      "definition_ar": "يحضر، يعد، يستعد",
+      "example_sentence": "I prepare my lunch every morning before work.",
+      "tier": "core"
+    },
+    {
+      "word": "special",
+      "part_of_speech": "adjective",
+      "definition_ar": "خاص، مميز، استثنائي",
+      "example_sentence": "I have a special dress for my sister's wedding.",
+      "tier": "core"
+    },
+    {
+      "word": "spend",
+      "part_of_speech": "verb",
+      "definition_ar": "يقضي (الوقت)، ينفق (المال)",
+      "example_sentence": "I spend two hours studying English every day.",
+      "tier": "core"
+    },
+    {
+      "word": "traditional",
+      "part_of_speech": "adjective",
+      "definition_ar": "تقليدي، تراثي",
+      "example_sentence": "My grandmother cooks traditional Arabic food every Eid.",
+      "tier": "core"
+    },
+    {
+      "word": "proud",
+      "part_of_speech": "adjective",
+      "definition_ar": "فخور، معتز",
+      "example_sentence": "I am proud of my brother because he got good grades.",
+      "tier": "core"
+    },
+    {
+      "word": "strengthens",
+      "part_of_speech": "verb",
+      "definition_ar": "يقوي، يعزز",
+      "example_sentence": "Exercise strengthens your muscles.",
+      "tier": "core"
+    },
+    {
+      "word": "combine",
+      "part_of_speech": "verb",
+      "definition_ar": "يجمع، يدمج، يخلط",
+      "example_sentence": "I combine milk and sugar to make my tea sweet.",
+      "tier": "core"
+    },
+    {
+      "word": "connects",
+      "part_of_speech": "verb",
+      "definition_ar": "يربط، يوصل، يصل",
+      "example_sentence": "The bridge connects the two sides of the city.",
+      "tier": "core"
+    }
+  ],
+  "passages": [
+    {
+      "id": "76d1051f-3e7c-4263-af48-98700a879bad",
+      "label": "A",
+      "title": "Colors and Joy Around the World",
+      "content": {
+        "paragraphs": [
+          "Every year, millions of people around the world *celebrate* special festivals that bring color, music, and happiness to their communities. These cultural events help people remember their history and share their traditions with family and friends.",
+          "One of the most *colorful* festivals in the world is Holi, the Festival of Colors in India. During this spring celebration, people throw bright colored powders at each other and dance in the streets. The festival is very *popular* with young people, and over 200 million people participate each year. The colors represent the arrival of spring and the victory of good over evil.",
+          "In Saudi Arabia, the Janadriyah National Festival is a *wonderful* celebration of Saudi culture and heritage. This annual event features traditional music, poetry, handicrafts, and delicious local food. Families *gather* together to enjoy camel races, falconry displays, and folk dances. The festival *attracts* more than two million visitors from around the kingdom and other countries.",
+          "Many festivals around the world share similar elements. People wear *special* clothes, prepare *traditional* foods, and perform cultural dances. These celebrations help younger generations learn about their culture and feel *proud* of their heritage. Festivals also bring tourists to different regions, which helps local businesses and communities grow.",
+          "Today, social media helps festivals become known worldwide. People share photos and videos of their celebrations, and this *connects* people from different cultures. Whether it's the lantern festivals in China, harvest celebrations in Europe, or cultural festivals in the Middle East, these events remind us that joy and community are universal human experiences."
+        ]
+      },
+      "word_count": 267
+    },
+    {
+      "id": "0d3b261d-f139-4dec-9958-581a35986661",
+      "label": "B",
+      "title": "Colors That Tell Stories",
+      "content": {
+        "paragraphs": [
+          "Festival clothing around the world is more than just *beautiful* fabric. Every color, pattern, and design tells a story about culture and history. When people wear traditional clothes at festivals, they *celebrate* their identity and share their heritage with others.",
+          "In many cultures, specific colors have *special* meanings during festivals. Red often represents good luck and happiness in Chinese New Year celebrations. Women *wear* bright red dresses and decorations to welcome prosperity. In India, people throw colorful powder during Holi festival. The *bright* yellow, pink, and blue colors *represent* joy, love, and new beginnings. Each color has a purpose and meaning.",
+          "Festival clothing also shows social connections within communities. Families often *prepare* matching outfits months before big celebrations. Mothers and daughters *spend* hours choosing fabrics and designs together. This preparation time *strengthens* family bonds and passes traditions to younger generations. In Scotland, different clans wear specific tartan patterns during Highland Games. These patterns help people identify their family history and connect with relatives.",
+          "Today, festival fashion continues to evolve while keeping traditional elements. Modern designers *combine* ancient patterns with contemporary styles. Young people can honor their culture while expressing personal creativity. Fashion shows now feature traditional festival wear from different countries. This helps people around the world appreciate diverse cultural expressions through clothing.",
+          "Festival clothing serves as a bridge between past and present. It helps communities maintain their cultural identity in our globalized world. When someone wears traditional festival dress, they carry forward centuries of stories, beliefs, and artistic traditions. These colorful celebrations remind us that diversity makes our world more interesting and beautiful."
+        ]
+      },
+      "word_count": 287
+    }
+  ],
+  "grammar": {
+    "topic_name_en": "simple past (regular)",
+    "topic_name_ar": "simple past (regular)",
+    "explanation_content": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "الماضي البسيط للأفعال المنتظمة: نضيف -ed للفعل الأساسي للتعبير عن أحداث انتهت في الماضي",
+          "content_en": "<b>Simple Past Tense - Regular Verbs</b><br><br>We use the simple past tense to talk about actions that happened and finished in the past.<br><br><b>How to form regular past tense:</b><br>Add <b>-ed</b> to the base form of regular verbs.<br><br><b>Spelling rules:</b><br>• Most verbs: add -ed (walk → walked)<br>• Verbs ending in -e: add -d (dance → danced)<br>• Verbs ending in consonant + y: change y to i + ed (study → studied)<br>• Short verbs ending in consonant-vowel-consonant: double the last consonant + ed (stop → stopped)"
+        },
+        {
+          "type": "formula",
+          "content": "Subject + Verb + ed"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "We celebrated Eid with our family last month.",
+              "highlight": "celebrated",
+              "translation_ar": "احتفلنا بالعيد مع عائلتنا الشهر الماضي"
+            },
+            {
+              "sentence": "She danced at the wedding festival yesterday.",
+              "highlight": "danced",
+              "translation_ar": "رقصت في حفل الزفاف أمس"
+            },
+            {
+              "sentence": "They watched the parade during the national holiday.",
+              "highlight": "watched",
+              "translation_ar": "شاهدوا المسيرة خلال العطلة الوطنية"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "I celebrate Eid yesterday",
+              "correct": "I celebrated Eid yesterday",
+              "explanation_ar": "لا تنس إضافة -ed للماضي"
+            },
+            {
+              "wrong": "She danceed at the party",
+              "correct": "She danced at the party",
+              "explanation_ar": "الأفعال المنتهية بـ e نضيف فقط d"
+            },
+            {
+              "wrong": "We studyed about festivals",
+              "correct": "We studied about festivals",
+              "explanation_ar": "الأفعال المنتهية بـ y نحولها إلى ied"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

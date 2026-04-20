@@ -1,0 +1,430 @@
+{
+  "unit": {
+    "id": "5515ee31-f957-4daa-bdde-4cffda7704c7",
+    "title_en": "Shopping & Money",
+    "title_ar": "التسوق والمال",
+    "unit_number": 7
+  },
+  "level": {
+    "id": "cd96175e-76d4-48dc-b34f-83f3228a28b8",
+    "level_number": 0,
+    "name_en": "Foundation"
+  },
+  "assessment": {
+    "id": "3b87a83b-fe18-427a-9a5b-1672e7042a65"
+  },
+  "variants": [
+    {
+      "id": "efa06c4c-b141-441c-8767-7a9329c085bc",
+      "variant_code": "A"
+    },
+    {
+      "id": "9ce67741-e20b-4934-ae51-e79f51055701",
+      "variant_code": "B"
+    },
+    {
+      "id": "3c000f89-017b-4fc1-b50c-14ca936036db",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "id": "038ff9cb-7e19-4d9e-8e45-b2f60425adad",
+      "word": "shop",
+      "pos": "verb",
+      "meaning_ar": "يتسوق، يشتري الأشياء",
+      "example_sentence": "I shop for food every week.",
+      "tier": "core"
+    },
+    {
+      "id": "6d1b6046-3e12-4a7b-9607-a253e28dd0dc",
+      "word": "businesses",
+      "pos": "noun",
+      "meaning_ar": "شركات أو أعمال تجارية",
+      "example_sentence": "There are many small businesses in my neighborhood.",
+      "tier": "core"
+    },
+    {
+      "id": "94cd25fe-1287-4620-a89f-a62ca777da76",
+      "word": "buy",
+      "pos": "verb",
+      "meaning_ar": "يشتري، يقتني بالمال",
+      "example_sentence": "I want to buy a new book.",
+      "tier": "core"
+    },
+    {
+      "id": "b5f5c2fa-154f-4982-b9d6-1d018ce4a906",
+      "word": "sell",
+      "pos": "verb",
+      "meaning_ar": "يبيع",
+      "example_sentence": "My father sells fruit at the market.",
+      "tier": "core"
+    },
+    {
+      "id": "5c0cf0f3-9d5d-44ff-81c0-7d62a6681545",
+      "word": "customers",
+      "pos": "noun",
+      "meaning_ar": "زبائن أو عملاء",
+      "example_sentence": "The shop has many happy customers.",
+      "tier": "core"
+    },
+    {
+      "id": "85871e76-c3a6-41ab-8fce-e90e2a49d2ef",
+      "word": "stores",
+      "pos": "noun",
+      "meaning_ar": "متاجر، محلات تجارية",
+      "example_sentence": "There are three stores on my street.",
+      "tier": "core"
+    },
+    {
+      "id": "00006064-1dee-4ed3-a8ce-f3f91aa09c47",
+      "word": "sell",
+      "pos": "verb",
+      "meaning_ar": "يبيع، يعرض للبيع",
+      "example_sentence": "They sell fresh fruit at the market.",
+      "tier": "core"
+    },
+    {
+      "id": "f97bde39-c50d-44d5-bb91-5c5424a09f55",
+      "word": "earn",
+      "pos": "verb",
+      "meaning_ar": "يكسب أو يربح",
+      "example_sentence": "My brother earns money as a teacher.",
+      "tier": "core"
+    },
+    {
+      "id": "ea0a02a0-f59f-4d5a-a892-ca1c38b2ea53",
+      "word": "discounts",
+      "pos": "noun",
+      "meaning_ar": "خصومات، تخفيضات في الأسعار",
+      "example_sentence": "The store has big discounts today.",
+      "tier": "core"
+    },
+    {
+      "id": "fc3a46a9-1b90-4de6-a671-382d7d5bb2da",
+      "word": "spend",
+      "pos": "verb",
+      "meaning_ar": "ينفق أو يصرف",
+      "example_sentence": "I spend 20 riyals on lunch every day.",
+      "tier": "core"
+    },
+    {
+      "id": "242352fd-c5e3-4bde-bf78-9b2ebdc3b920",
+      "word": "prices",
+      "pos": "noun",
+      "meaning_ar": "أسعار، تكلفة الأشياء",
+      "example_sentence": "The prices in this shop are very high.",
+      "tier": "core"
+    },
+    {
+      "id": "f9886cea-280c-418d-a6de-3df673926685",
+      "word": "save",
+      "pos": "verb",
+      "meaning_ar": "يوفر أو يدخر",
+      "example_sentence": "I save 100 riyals every month.",
+      "tier": "core"
+    },
+    {
+      "id": "4a30b929-07ff-4331-bc0d-4f81b3b31408",
+      "word": "buy",
+      "pos": "verb",
+      "meaning_ar": "يشتري",
+      "example_sentence": "I buy bread from the bakery.",
+      "tier": "core"
+    },
+    {
+      "id": "60e14c37-4e8b-4419-b308-d2a2f7aa014b",
+      "word": "spend",
+      "pos": "verb",
+      "meaning_ar": "ينفق، يصرف المال",
+      "example_sentence": "I spend ten dollars on lunch every day.",
+      "tier": "core"
+    },
+    {
+      "id": "16fb6243-5d39-453c-916b-ae05d48d6da3",
+      "word": "economy",
+      "pos": "noun",
+      "meaning_ar": "الاقتصاد",
+      "example_sentence": "The country's economy is doing well this year.",
+      "tier": "core"
+    },
+    {
+      "id": "e0ca8417-68e4-4a07-b4d8-db793acf24f8",
+      "word": "money",
+      "pos": "noun",
+      "meaning_ar": "مال، نقود",
+      "example_sentence": "I need money to buy food.",
+      "tier": "core"
+    },
+    {
+      "id": "341df544-9e0b-4969-ab44-c3208e61a4ad",
+      "word": "price",
+      "pos": "noun",
+      "meaning_ar": "سعر",
+      "example_sentence": "What is the price of this?",
+      "tier": "core"
+    },
+    {
+      "id": "869415a4-a1a2-4a9c-b80c-49dfa059ba12",
+      "word": "pay",
+      "pos": "verb",
+      "meaning_ar": "يدفع",
+      "example_sentence": "I pay for the food.",
+      "tier": "core"
+    },
+    {
+      "id": "66642b15-b3ad-4b64-9126-b373a02c1cad",
+      "word": "cheap",
+      "pos": "adjective",
+      "meaning_ar": "رخيص",
+      "example_sentence": "This shirt is very cheap.",
+      "tier": "core"
+    },
+    {
+      "id": "9485d45f-882b-4291-ad89-c55bd5687a6d",
+      "word": "expensive",
+      "pos": "adjective",
+      "meaning_ar": "غالي",
+      "example_sentence": "This phone is very expensive.",
+      "tier": "core"
+    },
+    {
+      "id": "e5c74759-8291-43bd-87c5-fab1fee32a3e",
+      "word": "store",
+      "pos": "noun",
+      "meaning_ar": "متجر",
+      "example_sentence": "I go to the store for milk.",
+      "tier": "core"
+    },
+    {
+      "id": "fe0c6fd9-3a02-4cc0-a691-04653b876cf6",
+      "word": "bag",
+      "pos": "noun",
+      "meaning_ar": "حقيبة / كيس",
+      "example_sentence": "I put the food in a bag.",
+      "tier": "core"
+    },
+    {
+      "id": "56417c48-0df8-41b5-b6cb-a70a540866eb",
+      "word": "want",
+      "pos": "verb",
+      "meaning_ar": "يريد",
+      "example_sentence": "I want to buy new shoes.",
+      "tier": "core"
+    },
+    {
+      "id": "61d376b6-ae52-4346-b194-f0cf8d21a5e7",
+      "word": "need",
+      "pos": "verb",
+      "meaning_ar": "يحتاج",
+      "example_sentence": "I need a new bag for school.",
+      "tier": "core"
+    },
+    {
+      "id": "e21fdabf-cbee-4599-9c2d-02f8ed4cdad8",
+      "word": "how much",
+      "pos": "adverb",
+      "meaning_ar": "كم (للسعر)",
+      "example_sentence": "How much is this book?",
+      "tier": "core"
+    },
+    {
+      "id": "f4b21da8-a7f8-4e09-a2ce-18fe16748d9f",
+      "word": "number",
+      "pos": "noun",
+      "meaning_ar": "رقم / عدد",
+      "example_sentence": "What is your phone number?",
+      "tier": "core"
+    },
+    {
+      "id": "cd1b40de-2619-4d2d-aeb0-928f511b97e3",
+      "word": "open",
+      "pos": "adjective",
+      "meaning_ar": "يفتح / مفتوح",
+      "example_sentence": "The shop is open now.",
+      "tier": "core"
+    },
+    {
+      "id": "d212fc84-31a7-4d35-aa19-2010acfbe5f4",
+      "word": "close",
+      "pos": "verb",
+      "meaning_ar": "يُغلق / مُغلق",
+      "example_sentence": "The store closes at ten.",
+      "tier": "extended"
+    },
+    {
+      "id": "7ca51232-bbb2-4ead-a059-335e1d25716c",
+      "word": "change",
+      "pos": "noun",
+      "meaning_ar": "يُغيّر / باقي النقود",
+      "example_sentence": "Here is your change.",
+      "tier": "extended"
+    },
+    {
+      "id": "940b7bfe-579c-42f8-bdc1-1252db037534",
+      "word": "size",
+      "pos": "noun",
+      "meaning_ar": "مقاس / حجم",
+      "example_sentence": "What size do you want?",
+      "tier": "extended"
+    },
+    {
+      "id": "73485e23-5695-4285-917f-f0d8fd3bedef",
+      "word": "color",
+      "pos": "noun",
+      "meaning_ar": "لون",
+      "example_sentence": "What color do you like?",
+      "tier": "extended"
+    },
+    {
+      "id": "71ef43fc-f801-4970-9afd-8f660a0324bc",
+      "word": "try",
+      "pos": "verb",
+      "meaning_ar": "يحاول / يجرّب",
+      "example_sentence": "Can I try this shirt?",
+      "tier": "extended"
+    },
+    {
+      "id": "acfb9104-3e05-417a-83b3-77a83692f13a",
+      "word": "list",
+      "pos": "noun",
+      "meaning_ar": "قائمة",
+      "example_sentence": "I write a shopping list.",
+      "tier": "extended"
+    },
+    {
+      "id": "5a46d6c1-e559-4cab-9f93-d5bb2c9e18bd",
+      "word": "receipt",
+      "pos": "noun",
+      "meaning_ar": "إيصال / فاتورة",
+      "example_sentence": "Can I have the receipt, please?",
+      "tier": "extended"
+    },
+    {
+      "id": "ad232987-00b0-4a25-83de-31f94adda321",
+      "word": "card",
+      "pos": "noun",
+      "meaning_ar": "بطاقة",
+      "example_sentence": "I pay with my card.",
+      "tier": "extended"
+    },
+    {
+      "id": "54aae1ed-6d25-4638-a52b-adbc611d0071",
+      "word": "shoe",
+      "pos": "noun",
+      "meaning_ar": "حذاء",
+      "example_sentence": "I buy new shoes today.",
+      "tier": "mastery"
+    },
+    {
+      "id": "bae27ee5-cf12-430c-a93e-56894f2b2ab4",
+      "word": "wear",
+      "pos": "verb",
+      "meaning_ar": "يلبس / يرتدي",
+      "example_sentence": "I wear new clothes today.",
+      "tier": "mastery"
+    },
+    {
+      "id": "2cbb1fee-2898-4113-b8e4-4108ecab5d3a",
+      "word": "gift",
+      "pos": "noun",
+      "meaning_ar": "هدية",
+      "example_sentence": "I buy a gift for my friend.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "a9445639-4e4d-409b-88af-32c4047e486f",
+      "label": "A",
+      "title": "Shopping Around the World",
+      "content": {
+        "paragraphs": [
+          "People around the world love to *shop* for things they need and want. Shopping looks different in every country, but everyone needs to *buy* food, clothes, and other items for their families.",
+          "In many countries, people go to big shopping centers called malls. These malls have many *stores* inside them. You can find clothing stores, electronics shops, and restaurants all in one place. The Mall of America in the United States has more than 500 stores! In Saudi Arabia, people enjoy shopping at modern malls like Mall of Arabia in Jeddah, which has over 300 shops.",
+          "Traditional markets are still very popular around the world. In Morocco, people visit colorful souks to *sell* and buy spices, carpets, and jewelry. Sellers often give *discounts* to customers who ask for better *prices*. In Thailand, floating markets sell fresh fruits and vegetables from boats on the water.",
+          "Today, many people prefer online shopping. They can *spend* their *money* from home using their computers or phones. Online shopping grew by 15% in 2023. This new way of shopping is convenient, but many people still enjoy walking through stores and touching products before they buy them.",
+          "Whether people shop in malls, traditional markets, or online, shopping is an important part of daily life everywhere."
+        ]
+      },
+      "word_count": 224
+    },
+    {
+      "id": "02b53dec-1c53-4fbe-862d-384efd3103c3",
+      "label": "B",
+      "title": "Saudi Women Change Business",
+      "content": {
+        "paragraphs": [
+          "Online shopping is very popular in Saudi Arabia today. Many Saudi women now start their own *businesses* from home. They *sell* clothes, food, and handmade items through social media and websites.",
+          "Fatima Al-Rashid lives in Riyadh. She makes beautiful jewelry at home. Every day, she takes photos of her jewelry and posts them online. *Customers* from different cities see her work and want to buy it. \"I *earn* good money from my jewelry business,\" says Fatima. \"Last month, I sold 150 pieces.\"",
+          "Many women choose online business because it is convenient. They can work from home and choose their own hours. They do not need to *spend* a lot of money to start. A phone, internet connection, and good products are enough. Some women make traditional Saudi sweets and desserts. Others design modern clothes or make natural beauty products.",
+          "Online shopping helps these women become independent. They can *save* money for their families and follow their dreams. The Saudi government supports women in business. There are now special programs to help women learn about online marketing and customer service.",
+          "Today, thousands of Saudi women have successful online businesses. They *buy* materials, create products, and build strong relationships with their customers. This new way of shopping and selling is changing Saudi society. It gives women more opportunities and helps the *economy* grow stronger every year."
+        ]
+      },
+      "word_count": 247
+    }
+  ],
+  "grammar": {
+    "title": "there is/there are",
+    "title_ar": "there is/there are",
+    "explanation": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "نستخدم there is/there are للتعبير عن وجود شيء في مكان معين • there is للمفرد • there are للجمع • مفيدة لوصف ما موجود في المحلات والأسواق",
+          "content_en": "<b>There is/There are</b> tells us that something exists in a place.<br><br><b>Examples:</b><br>• There is a bank on this street.<br>• There are many shops in the mall.<br>• There is money in my wallet.<br><br><b>When to use:</b><br>• Use <b>there is</b> with <i>one thing</i> (singular)<br>• Use <b>there are</b> with <i>more than one thing</i> (plural)<br><br><b>We often use it to describe:</b><br>• What we can see in shops, markets, or stores<br>• What exists in different places<br>• What is available to buy"
+        },
+        {
+          "type": "formula",
+          "content": "There is + singular noun + place<br>There are + plural noun + place"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "There is a supermarket near my house.",
+              "highlight": "There is",
+              "translation_ar": "يوجد سوبر ماركت قريب من بيتي"
+            },
+            {
+              "sentence": "There are three banks in this area.",
+              "highlight": "There are",
+              "translation_ar": "يوجد ثلاثة بنوك في هذه المنطقة"
+            },
+            {
+              "sentence": "There is some change in my pocket.",
+              "highlight": "There is",
+              "translation_ar": "يوجد بعض الفكة في جيبي"
+            },
+            {
+              "sentence": "There are expensive clothes in that shop.",
+              "highlight": "There are",
+              "translation_ar": "يوجد ملابس غالية في ذلك المحل"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "There are a shop",
+              "correct": "There is a shop",
+              "explanation_ar": "a shop مفرد، لذلك نستخدم there is"
+            },
+            {
+              "wrong": "There is many stores",
+              "correct": "There are many stores",
+              "explanation_ar": "many stores جمع، لذلك نستخدم there are"
+            },
+            {
+              "wrong": "There have a bank",
+              "correct": "There is a bank",
+              "explanation_ar": "لا نستخدم have مع there، نستخدم is أو are"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

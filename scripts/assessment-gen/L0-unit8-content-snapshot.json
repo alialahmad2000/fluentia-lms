@@ -1,0 +1,433 @@
+{
+  "unit": {
+    "id": "bae5cc8f-ae31-4688-93fb-e2cd73406804",
+    "title_en": "Health & Body",
+    "title_ar": "الصحة والجسم",
+    "unit_number": 8
+  },
+  "level": {
+    "id": "cd96175e-76d4-48dc-b34f-83f3228a28b8",
+    "level_number": 0,
+    "name_en": "Foundation"
+  },
+  "assessment": {
+    "id": "712a1be0-d8aa-48e7-bc74-56641c3d22b3"
+  },
+  "variants": [
+    {
+      "id": "bf7677dd-132c-4ef8-81d4-02592769390a",
+      "variant_code": "A"
+    },
+    {
+      "id": "350cfe7e-81ac-416f-a4de-e977f40d0ebb",
+      "variant_code": "B"
+    },
+    {
+      "id": "5c6b2758-9d48-4a6e-9046-43a5d938cb09",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "id": "16e22d56-8703-4190-96b0-bbe447fa8975",
+      "word": "body",
+      "pos": "noun",
+      "meaning_ar": "الجسم",
+      "example_sentence": "My body is tired after playing football.",
+      "tier": "core"
+    },
+    {
+      "id": "e4e0defe-9dca-4553-a77a-f99e0d896335",
+      "word": "bones",
+      "pos": "noun",
+      "meaning_ar": "العظام",
+      "example_sentence": "I have 206 bones in my body.",
+      "tier": "core"
+    },
+    {
+      "id": "a5f92623-4abf-4f2f-913e-030525ef673f",
+      "word": "strong",
+      "pos": "adjective",
+      "meaning_ar": "قوي",
+      "example_sentence": "My father is very strong.",
+      "tier": "core"
+    },
+    {
+      "id": "b3303673-ec90-4ad9-9977-a4dd35d733ed",
+      "word": "healthy",
+      "pos": "adjective",
+      "meaning_ar": "صحي، سليم",
+      "example_sentence": "Eating vegetables helps me stay healthy.",
+      "tier": "core"
+    },
+    {
+      "id": "a2822881-7350-417a-b0d5-8e055e107b69",
+      "word": "exercise",
+      "pos": "noun",
+      "meaning_ar": "تمرين / رياضة",
+      "example_sentence": "I do exercise every morning.",
+      "tier": "core"
+    },
+    {
+      "id": "af5c8223-ec3d-4557-a513-dde9c940b9c7",
+      "word": "heart",
+      "pos": "noun",
+      "meaning_ar": "القلب",
+      "example_sentence": "I can feel my heart beating fast.",
+      "tier": "core"
+    },
+    {
+      "id": "58cabf0b-f2a3-4ece-800a-662fef11ed98",
+      "word": "exercise",
+      "pos": "verb",
+      "meaning_ar": "يتمرن، يمارس الرياضة",
+      "example_sentence": "I exercise every morning in the park.",
+      "tier": "core"
+    },
+    {
+      "id": "8b784743-ac5d-4ffe-b223-902d94c09d52",
+      "word": "good",
+      "pos": "adjective",
+      "meaning_ar": "جيد / مفيد",
+      "example_sentence": "This is good food.",
+      "tier": "core"
+    },
+    {
+      "id": "ae2256ff-95f4-4a2b-9192-29720368f256",
+      "word": "food",
+      "pos": "noun",
+      "meaning_ar": "الطعام، الغذاء",
+      "example_sentence": "My mother cooks delicious food every day.",
+      "tier": "core"
+    },
+    {
+      "id": "eb81f4b0-ae7e-4567-bbd3-110d13a566c2",
+      "word": "sun",
+      "pos": "noun",
+      "meaning_ar": "الشمس",
+      "example_sentence": "The sun is very hot today.",
+      "tier": "core"
+    },
+    {
+      "id": "c7236f6c-5050-4ad6-a546-e16988c09e9c",
+      "word": "skin",
+      "pos": "noun",
+      "meaning_ar": "الجلد / البشرة",
+      "example_sentence": "I wash my skin with soap.",
+      "tier": "core"
+    },
+    {
+      "id": "eab8b888-285c-4e84-a03c-c6f4c0d1298b",
+      "word": "stomach",
+      "pos": "noun",
+      "meaning_ar": "المعدة",
+      "example_sentence": "My stomach hurts when I eat too much.",
+      "tier": "core"
+    },
+    {
+      "id": "2bfaabe8-cca8-4df3-8bda-5bee340fd544",
+      "word": "food",
+      "pos": "noun",
+      "meaning_ar": "طعام",
+      "example_sentence": "I like healthy food.",
+      "tier": "core"
+    },
+    {
+      "id": "9a067802-646f-439c-a10a-604bd60c598c",
+      "word": "sleep",
+      "pos": "verb",
+      "meaning_ar": "ينام",
+      "example_sentence": "I sleep eight hours every night.",
+      "tier": "core"
+    },
+    {
+      "id": "9436b8b5-1c8a-4e1a-bee7-053092b4ef06",
+      "word": "sick",
+      "pos": "adjective",
+      "meaning_ar": "مريض",
+      "example_sentence": "I am sick today, so I cannot go to school.",
+      "tier": "core"
+    },
+    {
+      "id": "c5cc70ac-7472-406a-8048-56dc5e3fdedb",
+      "word": "life",
+      "pos": "noun",
+      "meaning_ar": "الحياة",
+      "example_sentence": "I have a happy life.",
+      "tier": "core"
+    },
+    {
+      "id": "9caefa2b-11a7-4114-82a9-a10c82a14f44",
+      "word": "head",
+      "pos": "noun",
+      "meaning_ar": "رأس",
+      "example_sentence": "I wear a hat on my head.",
+      "tier": "core"
+    },
+    {
+      "id": "d20c5a63-f027-4a10-931b-a7400dd1f074",
+      "word": "hand",
+      "pos": "noun",
+      "meaning_ar": "يد",
+      "example_sentence": "I wash my hands with soap.",
+      "tier": "core"
+    },
+    {
+      "id": "ce587536-3564-48f9-b371-d459436d3180",
+      "word": "eye",
+      "pos": "noun",
+      "meaning_ar": "عين",
+      "example_sentence": "I have brown eyes.",
+      "tier": "core"
+    },
+    {
+      "id": "43900371-03e8-4c2d-9cf9-4e957f9aa2db",
+      "word": "mouth",
+      "pos": "noun",
+      "meaning_ar": "فم",
+      "example_sentence": "Open your mouth, please.",
+      "tier": "core"
+    },
+    {
+      "id": "885135de-d914-4446-8c14-06c2c6a78454",
+      "word": "tooth",
+      "pos": "noun",
+      "meaning_ar": "سن / أسنان",
+      "example_sentence": "I brush my teeth every night.",
+      "tier": "core"
+    },
+    {
+      "id": "1fb8e70f-aaaa-4dff-bf30-22714c3274a0",
+      "word": "ear",
+      "pos": "noun",
+      "meaning_ar": "أذن",
+      "example_sentence": "I hear with my ears.",
+      "tier": "core"
+    },
+    {
+      "id": "715201dd-9b76-4a85-9594-58cfa9e292d3",
+      "word": "nose",
+      "pos": "noun",
+      "meaning_ar": "أنف",
+      "example_sentence": "I smell with my nose.",
+      "tier": "core"
+    },
+    {
+      "id": "efcabe62-5b5e-4432-84cd-a920003cc54a",
+      "word": "arm",
+      "pos": "noun",
+      "meaning_ar": "ذراع",
+      "example_sentence": "My arm hurts today.",
+      "tier": "core"
+    },
+    {
+      "id": "d8d22f76-6d04-4c29-9a2d-efe5cfcbc922",
+      "word": "foot",
+      "pos": "noun",
+      "meaning_ar": "قدم",
+      "example_sentence": "My foot hurts from walking.",
+      "tier": "core"
+    },
+    {
+      "id": "75f8f3af-c64a-4b5d-a80d-78eca936f753",
+      "word": "doctor",
+      "pos": "noun",
+      "meaning_ar": "طبيب",
+      "example_sentence": "I go to the doctor.",
+      "tier": "core"
+    },
+    {
+      "id": "cf44ee39-3f3e-460c-a58c-f8e94c5de2f8",
+      "word": "hurt",
+      "pos": "verb",
+      "meaning_ar": "يؤلم",
+      "example_sentence": "My head hurts a lot.",
+      "tier": "core"
+    },
+    {
+      "id": "37437c59-e815-4043-ac2b-3edb473e4806",
+      "word": "feel",
+      "pos": "verb",
+      "meaning_ar": "يشعر",
+      "example_sentence": "I feel tired today.",
+      "tier": "core"
+    },
+    {
+      "id": "18767099-a74e-4607-a311-90d1db330393",
+      "word": "pain",
+      "pos": "noun",
+      "meaning_ar": "ألم",
+      "example_sentence": "I have pain in my back.",
+      "tier": "core"
+    },
+    {
+      "id": "7aaf47c2-428f-4da1-a9bc-5b62961cfbf7",
+      "word": "medicine",
+      "pos": "noun",
+      "meaning_ar": "دواء",
+      "example_sentence": "I take medicine when I am sick.",
+      "tier": "core"
+    },
+    {
+      "id": "46c5f6e0-3737-409d-8a38-b843f2022894",
+      "word": "tired",
+      "pos": "adjective",
+      "meaning_ar": "متعب",
+      "example_sentence": "I am very tired today.",
+      "tier": "extended"
+    },
+    {
+      "id": "7a14be76-2ad3-4429-a303-1768f33e4b54",
+      "word": "rest",
+      "pos": "verb",
+      "meaning_ar": "يستريح / راحة",
+      "example_sentence": "You need to rest now.",
+      "tier": "extended"
+    },
+    {
+      "id": "405e6362-7317-42fa-8897-e7ae316cc952",
+      "word": "back",
+      "pos": "noun",
+      "meaning_ar": "ظهر",
+      "example_sentence": "My back hurts from sitting.",
+      "tier": "extended"
+    },
+    {
+      "id": "37a5c8c0-26ca-4c38-ac5d-1988ecd74423",
+      "word": "hair",
+      "pos": "noun",
+      "meaning_ar": "شعر",
+      "example_sentence": "She has long black hair.",
+      "tier": "extended"
+    },
+    {
+      "id": "1e1e2bab-b456-4115-b278-0b930424dcfe",
+      "word": "face",
+      "pos": "noun",
+      "meaning_ar": "وجه",
+      "example_sentence": "I wash my face every morning.",
+      "tier": "extended"
+    },
+    {
+      "id": "f0f4f91a-cfdb-4388-82b9-1ec065ca18db",
+      "word": "finger",
+      "pos": "noun",
+      "meaning_ar": "إصبع",
+      "example_sentence": "I have ten fingers.",
+      "tier": "extended"
+    },
+    {
+      "id": "d54c74d5-e214-4cd6-8720-7bd84f6e6b3b",
+      "word": "clean",
+      "pos": "adjective",
+      "meaning_ar": "نظيف",
+      "example_sentence": "My hands are clean now.",
+      "tier": "mastery"
+    },
+    {
+      "id": "f511e163-124e-4c08-b518-bf9f76f07f52",
+      "word": "fever",
+      "pos": "noun",
+      "meaning_ar": "حمّى",
+      "example_sentence": "I have a fever today.",
+      "tier": "mastery"
+    },
+    {
+      "id": "038bb51c-7b1b-4222-8fc6-8b8cbb15f337",
+      "word": "cough",
+      "pos": "verb",
+      "meaning_ar": "سعال / يسعل",
+      "example_sentence": "I cough a lot today.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "3fd7003c-21e9-4e56-a485-d4d8c0bf5bb3",
+      "label": "A",
+      "title": "Your Body Works Hard Every Day",
+      "content": {
+        "paragraphs": [
+          "Your *body* is like a amazing machine that never stops working. Every day, it does thousands of jobs to keep you *healthy* and strong. Scientists study how our bodies work, and they discover new things all the time.",
+          "Your *heart* is one of the most important parts of your body. It beats about 100,000 times every day! This strong muscle pumps blood to every part of your body. When you *exercise*, your heart beats faster. This makes your heart stronger, just like lifting weights makes your arm muscles stronger.",
+          "Your body needs good *food* to work well. In Saudi Arabia, traditional foods like dates, yogurt, and grilled fish give your body important nutrients. Your *stomach* breaks down the food you eat. Then your blood carries the nutrients to every cell in your body. Drinking water is also very important. Adults need about 8 glasses of water every day.",
+          "When you *sleep*, your body repairs itself. Your brain organizes memories from the day. Your muscles grow stronger. Most adults need 7-9 hours of sleep each night. Without enough sleep, people get *sick* more easily. They also find it harder to think clearly and remember things.",
+          "Taking care of your body is simple but important. Eat good food, drink water, exercise regularly, and get enough sleep. Your body will thank you by staying strong and healthy for many years."
+        ]
+      },
+      "word_count": 247
+    },
+    {
+      "id": "121fd543-50bb-4ab8-a2d1-935964266e50",
+      "label": "B",
+      "title": "Strong Bones for Life",
+      "content": {
+        "paragraphs": [
+          "Your *bones* are amazing. They support your body and protect important organs like your heart and brain. But many people do not think about bone health until they have problems. In Saudi Arabia, doctors say bone health is very important, especially for women.",
+          "Your bones need calcium to stay *strong*. Dairy products like milk, cheese, and yogurt are excellent sources of calcium. Green vegetables like spinach and broccoli also help your bones. Many Saudi families eat these foods regularly, which is very good for bone health.",
+          "*Exercise* is another key to healthy bones. When you walk, run, or play sports, your bones become stronger. Swimming is also *good* exercise, but walking and running are better for bones because your body works against gravity. Try to exercise for 30 minutes every day.",
+          "Vitamin D helps your body use calcium properly. The *sun* gives us vitamin D naturally. In Saudi Arabia, we have lots of sunshine, but many people spend too much time indoors. Try to spend 15 minutes in the morning sun each day. This helps your *skin* make vitamin D.",
+          "Your bones are strongest when you are young. After age 30, bones slowly become weaker. But good *food*, regular exercise, and some sunshine help keep bones healthy for your whole *life*. Start taking care of your bones today!"
+        ]
+      },
+      "word_count": 234
+    }
+  ],
+  "grammar": {
+    "title": "possessive s",
+    "title_ar": "possessive s",
+    "explanation": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "نستخدم 's للملكية مع الأشخاص فقط. نضيف 's بعد اسم الشخص مباشرة، ثم الشيء المملوك. مثل: كتاب أحمد = Ahmed's book",
+          "content_en": "<b>Possessive 's</b> shows that something belongs to someone.<br><br><b>Examples:</b><br>• The doctor's coat is white.<br>• Sara's arm is broken.<br>• My mother's head hurts.<br><br><b>How to use it:</b><br>We add <b>'s</b> to a person's name or noun to show they own something. The possessive 's comes <b>before</b> the thing they own.<br><br><b>Important:</b> We use possessive 's with people, not things. We say 'the doctor's bag' but 'the door of the hospital' (not 'the hospital's door')."
+        },
+        {
+          "type": "formula",
+          "content": "Person's name + 's + thing owned"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "The nurse's hands are clean.",
+              "highlight": "nurse's",
+              "translation_ar": "يدا الممرضة نظيفتان"
+            },
+            {
+              "sentence": "Ahmed's tooth hurts.",
+              "highlight": "Ahmed's",
+              "translation_ar": "سن أحمد يؤلمه"
+            },
+            {
+              "sentence": "The baby's eyes are blue.",
+              "highlight": "baby's",
+              "translation_ar": "عينا الطفل زرقاوان"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "The doctors coat",
+              "correct": "The doctor's coat",
+              "explanation_ar": "لا تنس إضافة الفاصلة العليا والـ s"
+            },
+            {
+              "wrong": "The hospital's door",
+              "correct": "The door of the hospital",
+              "explanation_ar": "لا نستخدم 's مع الأشياء، فقط مع الأشخاص"
+            },
+            {
+              "wrong": "Sara' head",
+              "correct": "Sara's head",
+              "explanation_ar": "يجب إضافة s بعد الفاصلة العليا"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

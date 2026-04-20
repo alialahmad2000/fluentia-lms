@@ -1,0 +1,1295 @@
+{
+  "unit": {
+    "id": "a5b583a4-5d9e-41b7-b95f-c07e0c44f64b",
+    "unit_number": 1,
+    "title_en": "Artificial Intelligence",
+    "title_ar": "الذكاء الاصطناعي"
+  },
+  "assessment": {
+    "id": "fe363489-a508-4668-871e-355ea719b37a"
+  },
+  "variants": [
+    {
+      "id": "2f86e62b-8673-4161-9781-1d2142752467",
+      "variant_code": "A"
+    },
+    {
+      "id": "38dc85f0-a46d-4e34-89cd-292863f85958",
+      "variant_code": "B"
+    },
+    {
+      "id": "36e9c98a-9536-439d-b950-69f46daffa10",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "word": "accuracy",
+      "pos": "noun",
+      "definition_ar": "مدى صحة نتائج نظام الذكاء الاصطناعي مقارنةً بإجمالي المحاولات.",
+      "example_sentence": "The team improved the model's accuracy by adding more data.",
+      "tier": "core"
+    },
+    {
+      "word": "address",
+      "pos": "verb",
+      "definition_ar": "يتعامل مع، يعالج، يتصدى لـ",
+      "example_sentence": "The government needs to address the traffic problem in the city.",
+      "tier": "core"
+    },
+    {
+      "word": "adoption",
+      "pos": "noun",
+      "definition_ar": "التبني، الاعتماد، الأخذ بـ",
+      "example_sentence": "The adoption of new technology takes time in traditional companies.",
+      "tier": "core"
+    },
+    {
+      "word": "analyze",
+      "pos": "verb",
+      "definition_ar": "يحلل",
+      "example_sentence": "Computers can analyze large amounts of information very quickly.",
+      "tier": "core"
+    },
+    {
+      "word": "answer back",
+      "pos": "verb",
+      "definition_ar": "تقديم رد على سؤال أو أمر موجَّه لنظام ذكاء اصطناعي.",
+      "example_sentence": "The system can answer back in multiple languages without any extra setup.",
+      "tier": "core"
+    },
+    {
+      "word": "anticipate",
+      "pos": "verb",
+      "definition_ar": "يتوقع، يستبق، يتنبأ بـ",
+      "example_sentence": "We anticipate that the meeting will last about two hours.",
+      "tier": "core"
+    },
+    {
+      "word": "application",
+      "pos": "noun",
+      "definition_ar": "تطبيق",
+      "example_sentence": "The new application helps students learn languages more effectively.",
+      "tier": "core"
+    },
+    {
+      "word": "artificial intelligence",
+      "pos": "noun",
+      "definition_ar": "الذكاء الاصطناعي",
+      "example_sentence": "Artificial intelligence helps doctors diagnose diseases more quickly and accurately.",
+      "tier": "core"
+    },
+    {
+      "word": "assistant",
+      "pos": "noun",
+      "definition_ar": "شخص أو جهاز يساعد شخصاً ما في عمله أو مهامه",
+      "example_sentence": "My virtual assistant reminds me of important meetings every day.",
+      "tier": "core"
+    },
+    {
+      "word": "automate tasks",
+      "pos": "verb",
+      "definition_ar": "استخدام التكنولوجيا لتنفيذ الأعمال المتكررة دون جهد بشري في كل مرة.",
+      "example_sentence": "Companies automate tasks like sending emails to save time.",
+      "tier": "core"
+    },
+    {
+      "word": "breakthroughs",
+      "pos": "noun",
+      "definition_ar": "اختراقات، إنجازات مهمة، اكتشافات",
+      "example_sentence": "Scientists made important breakthroughs in cancer research last year.",
+      "tier": "core"
+    },
+    {
+      "word": "command",
+      "pos": "noun",
+      "definition_ar": "أمر",
+      "example_sentence": "You can give voice commands to smart speakers.",
+      "tier": "core"
+    },
+    {
+      "word": "compelling",
+      "pos": "adjective",
+      "definition_ar": "مقنع، جذاب، مثير للاهتمام",
+      "example_sentence": "The speaker gave a compelling presentation about climate change.",
+      "tier": "core"
+    },
+    {
+      "word": "complements",
+      "pos": "verb",
+      "definition_ar": "يكمل، يتمم، يضيف إلى",
+      "example_sentence": "Her artistic skills complement her technical knowledge perfectly.",
+      "tier": "core"
+    },
+    {
+      "word": "control",
+      "pos": "verb",
+      "definition_ar": "يتحكم",
+      "example_sentence": "Smart home systems let you control lights from your phone.",
+      "tier": "core"
+    },
+    {
+      "word": "data",
+      "pos": "noun",
+      "definition_ar": "بيانات",
+      "example_sentence": "Companies collect data about customers to improve their services.",
+      "tier": "core"
+    },
+    {
+      "word": "detect",
+      "pos": "verb",
+      "definition_ar": "يكتشف، يرصد، يستشعر",
+      "example_sentence": "The smoke alarm can detect fire immediately.",
+      "tier": "core"
+    },
+    {
+      "word": "diagnose",
+      "pos": "verb",
+      "definition_ar": "يُشخص، يحدد المرض أو المشكلة",
+      "example_sentence": "The doctor was able to diagnose the patient's illness quickly.",
+      "tier": "core"
+    },
+    {
+      "word": "embrace",
+      "pos": "verb",
+      "definition_ar": "يتقبل، يرحب بـ، يحتضن (فكرة)",
+      "example_sentence": "Many companies are embracing flexible working hours.",
+      "tier": "core"
+    },
+    {
+      "word": "emerged",
+      "pos": "verb",
+      "definition_ar": "ظهر، برز، نشأ",
+      "example_sentence": "A new leader emerged from the group after the discussion.",
+      "tier": "core"
+    },
+    {
+      "word": "encounter",
+      "pos": "verb",
+      "definition_ar": "يواجه، يصادف، يلتقي بـ",
+      "example_sentence": "Students often encounter difficulties when learning a new language.",
+      "tier": "core"
+    },
+    {
+      "word": "enhances",
+      "pos": "verb",
+      "definition_ar": "يحسن، يعزز، يقوي",
+      "example_sentence": "Good lighting enhances the beauty of the room.",
+      "tier": "core"
+    },
+    {
+      "word": "expand",
+      "pos": "verb",
+      "definition_ar": "يتوسع، يمتد، ينمو",
+      "example_sentence": "The company plans to expand its business to other cities next year.",
+      "tier": "core"
+    },
+    {
+      "word": "feature",
+      "pos": "noun",
+      "definition_ar": "خاصية قابلة للقياس يستخدمها الذكاء الاصطناعي كمدخل للتعلم.",
+      "example_sentence": "Age and income are features the model uses to predict spending habits.",
+      "tier": "core"
+    },
+    {
+      "word": "flagged",
+      "pos": "verb",
+      "definition_ar": "يشير إلى، يحدد كأولوية، يرفع علامة تحذير",
+      "example_sentence": "The teacher flagged several mistakes in my essay.",
+      "tier": "core"
+    },
+    {
+      "word": "function",
+      "pos": "noun",
+      "definition_ar": "وظيفة",
+      "example_sentence": "The main function of this app is to translate speech.",
+      "tier": "core"
+    },
+    {
+      "word": "glances",
+      "pos": "verb",
+      "definition_ar": "ينظر بسرعة، يلقي نظرة سريعة",
+      "example_sentence": "She glances at her watch to check the time.",
+      "tier": "core"
+    },
+    {
+      "word": "handle data",
+      "pos": "verb",
+      "definition_ar": "جمع المعلومات وتنظيمها والتعامل معها داخل نظام الحاسوب.",
+      "example_sentence": "This software can handle data from millions of users at once.",
+      "tier": "core"
+    },
+    {
+      "word": "human",
+      "pos": "adjective",
+      "definition_ar": "متعلق بالبشر وليس بالحيوانات أو الآلات أو أشياء أخرى",
+      "example_sentence": "AI tries to copy human intelligence and decision-making abilities.",
+      "tier": "core"
+    },
+    {
+      "word": "implemented",
+      "pos": "verb",
+      "definition_ar": "ينفذ، يطبق، يضع موضع التنفيذ",
+      "example_sentence": "The school implemented a new dress code policy last year.",
+      "tier": "core"
+    },
+    {
+      "word": "implemented",
+      "pos": "verb",
+      "definition_ar": "نفذ، طبق، أدخل حيز التنفيذ",
+      "example_sentence": "The school implemented a new policy about mobile phone usage.",
+      "tier": "core"
+    },
+    {
+      "word": "information",
+      "pos": "noun",
+      "definition_ar": "حقائق أو معرفة حول موضوع أو حالة معينة",
+      "example_sentence": "AI processes large amounts of information to find useful patterns.",
+      "tier": "core"
+    },
+    {
+      "word": "input",
+      "pos": "noun",
+      "definition_ar": "البيانات أو المعلومات التي تُغذَّى في نظام الحاسوب أو الذكاء الاصطناعي للمعالجة.",
+      "example_sentence": "The system gives different outputs depending on the input it receives.",
+      "tier": "core"
+    },
+    {
+      "word": "integral",
+      "pos": "adjective",
+      "definition_ar": "جزء لا يتجزأ، أساسي، مهم جداً",
+      "example_sentence": "Good communication is integral to building strong relationships.",
+      "tier": "core"
+    },
+    {
+      "word": "intelligent",
+      "pos": "adjective",
+      "definition_ar": "يمتلك القدرة على التفكير والفهم وتعلم الأشياء بسرعة",
+      "example_sentence": "Intelligent machines can adapt to new situations without human help.",
+      "tier": "core"
+    },
+    {
+      "word": "interact with",
+      "pos": "verb",
+      "definition_ar": "يتفاعل مع",
+      "example_sentence": "Children enjoy interacting with educational robots in the classroom.",
+      "tier": "core"
+    },
+    {
+      "word": "label",
+      "pos": "noun",
+      "definition_ar": "علامة أو فئة تُضاف إلى البيانات لتعليم الذكاء الاصطناعي.",
+      "example_sentence": "Each photo needs a label so the AI knows what it shows.",
+      "tier": "core"
+    },
+    {
+      "word": "leverage",
+      "pos": "verb",
+      "definition_ar": "يستغل، يستفيد من، يوظف",
+      "example_sentence": "The company decided to leverage social media to reach more customers.",
+      "tier": "core"
+    },
+    {
+      "word": "make decisions",
+      "pos": "verb",
+      "definition_ar": "يتخذ قرارات",
+      "example_sentence": "AI systems can make decisions faster than human experts.",
+      "tier": "core"
+    },
+    {
+      "word": "memory",
+      "pos": "noun",
+      "definition_ar": "ذاكرة",
+      "example_sentence": "More memory allows computers to run multiple programs at once.",
+      "tier": "core"
+    },
+    {
+      "word": "model",
+      "pos": "noun",
+      "definition_ar": "نموذج رياضي تستخدمه أنظمة الذكاء الاصطناعي لاتخاذ القرارات.",
+      "example_sentence": "The AI model learned to identify images after training.",
+      "tier": "core"
+    },
+    {
+      "word": "network",
+      "pos": "noun",
+      "definition_ar": "شبكة",
+      "example_sentence": "The hospital network connects all computers in different departments.",
+      "tier": "core"
+    },
+    {
+      "word": "neural",
+      "pos": "adjective",
+      "definition_ar": "يصف الشبكات المترابطة التي تعالج المعلومات بأسلوب مشابه لعمل الدماغ البشري.",
+      "example_sentence": "Neural networks help computers recognize faces and understand speech.",
+      "tier": "core"
+    },
+    {
+      "word": "pattern",
+      "pos": "noun",
+      "definition_ar": "نمط",
+      "example_sentence": "The software identifies patterns in customer buying behavior.",
+      "tier": "core"
+    },
+    {
+      "word": "performance",
+      "pos": "noun",
+      "definition_ar": "أداء",
+      "example_sentence": "The new processor improves the computer's overall performance significantly.",
+      "tier": "core"
+    },
+    {
+      "word": "predict",
+      "pos": "verb",
+      "definition_ar": "يتنبأ",
+      "example_sentence": "AI systems can predict weather patterns better than humans.",
+      "tier": "core"
+    },
+    {
+      "word": "process",
+      "pos": "verb",
+      "definition_ar": "يعالج، يُجهز، يتعامل مع",
+      "example_sentence": "The computer can process thousands of applications in just one hour.",
+      "tier": "core"
+    },
+    {
+      "word": "produce output",
+      "pos": "verb",
+      "definition_ar": "إنشاء نتيجة أو قطعة محتوى بوصفها الاستجابة النهائية لنظام ذكاء اصطناعي.",
+      "example_sentence": "The AI took a second to produce output that answered my question.",
+      "tier": "core"
+    },
+    {
+      "word": "recognize",
+      "pos": "verb",
+      "definition_ar": "يتعرف على",
+      "example_sentence": "The camera can recognize different types of objects.",
+      "tier": "core"
+    },
+    {
+      "word": "recommendation",
+      "pos": "noun",
+      "definition_ar": "اقتراح يقدمه نظام الذكاء الاصطناعي بناءً على سلوك المستخدم السابق.",
+      "example_sentence": "The app gave me a book recommendation I really enjoyed.",
+      "tier": "core"
+    },
+    {
+      "word": "replace",
+      "pos": "verb",
+      "definition_ar": "يستبدل، يحل محل، يقوم مقام",
+      "example_sentence": "I need to replace my old phone with a new one.",
+      "tier": "core"
+    },
+    {
+      "word": "respond",
+      "pos": "verb",
+      "definition_ar": "يستجيب",
+      "example_sentence": "Smart thermostats respond to changes in room temperature automatically.",
+      "tier": "core"
+    },
+    {
+      "word": "revolutionizing",
+      "pos": "verb",
+      "definition_ar": "يُحدث ثورة في، يُغير جذرياً",
+      "example_sentence": "Online shopping is revolutionizing the way people buy clothes.",
+      "tier": "core"
+    },
+    {
+      "word": "robot",
+      "pos": "noun",
+      "definition_ar": "روبوت",
+      "example_sentence": "The robot cleans the house while the family is away.",
+      "tier": "core"
+    },
+    {
+      "word": "scope",
+      "pos": "noun",
+      "definition_ar": "نطاق، مجال، حدود",
+      "example_sentence": "The scope of this research project includes three different countries.",
+      "tier": "core"
+    },
+    {
+      "word": "search engine",
+      "pos": "noun",
+      "definition_ar": "نظام يستخدم الخوارزميات للعثور على صفحات الويب ذات الصلة بطلب المستخدم وترتيبها.",
+      "example_sentence": "A search engine can find millions of results in under a second.",
+      "tier": "core"
+    },
+    {
+      "word": "smart device",
+      "pos": "noun",
+      "definition_ar": "جهاز إلكتروني متصل بالإنترنت يمكنه تنفيذ المهام تلقائيًا أو بأوامر صوتية.",
+      "example_sentence": "My smart device turns off the lights when I leave the room.",
+      "tier": "core"
+    },
+    {
+      "word": "software",
+      "pos": "noun",
+      "definition_ar": "برمجيات",
+      "example_sentence": "The new software can translate languages instantly.",
+      "tier": "core"
+    },
+    {
+      "word": "solve problems",
+      "pos": "verb",
+      "definition_ar": "العثور على إجابات أو حلول للأسئلة أو المواقف الصعبة",
+      "example_sentence": "Advanced AI can solve problems that were impossible before.",
+      "tier": "core"
+    },
+    {
+      "word": "sophisticated",
+      "pos": "adjective",
+      "definition_ar": "متطور، معقد، متقدم تقنياً",
+      "example_sentence": "Modern smartphones have very sophisticated cameras.",
+      "tier": "core"
+    },
+    {
+      "word": "speech recognition",
+      "pos": "noun",
+      "definition_ar": "قدرة الحاسوب على التعرف على صوت الإنسان وتحويله إلى نص.",
+      "example_sentence": "Speech recognition lets you type by just talking to your phone.",
+      "tier": "core"
+    },
+    {
+      "word": "speed up",
+      "pos": "verb",
+      "definition_ar": "جعل مهمة أو عملية تحدث بشكل أسرع، خاصةً باستخدام التكنولوجيا.",
+      "example_sentence": "AI tools speed up the review of large documents significantly.",
+      "tier": "core"
+    },
+    {
+      "word": "striving",
+      "pos": "verb",
+      "definition_ar": "يسعى جاهداً، يجتهد، يكافح من أجل",
+      "example_sentence": "She is striving to improve her English speaking skills.",
+      "tier": "core"
+    },
+    {
+      "word": "surpasses",
+      "pos": "verb",
+      "definition_ar": "يتفوق على، يفوق، يتجاوز",
+      "example_sentence": "Her test score surpasses all previous records in the school.",
+      "tier": "core"
+    },
+    {
+      "word": "surpassing",
+      "pos": "verb",
+      "definition_ar": "يتفوق على، يتجاوز، يفوق",
+      "example_sentence": "Her performance is surpassing all our expectations.",
+      "tier": "core"
+    },
+    {
+      "word": "task",
+      "pos": "noun",
+      "definition_ar": "مهمة أو عمل يحتاج إلى إنجاز",
+      "example_sentence": "AI can perform many tasks that previously required human workers.",
+      "tier": "core"
+    },
+    {
+      "word": "training data",
+      "pos": "noun",
+      "definition_ar": "مجموعة الأمثلة المستخدمة لتعليم نظام التعلم الآلي.",
+      "example_sentence": "Good training data helps an AI make more accurate predictions.",
+      "tier": "core"
+    },
+    {
+      "word": "translation",
+      "pos": "noun",
+      "definition_ar": "عملية تحويل النص أو الكلام من لغة إلى أخرى، وغالبًا باستخدام الذكاء الاصطناعي.",
+      "example_sentence": "AI translation tools help people communicate across different languages.",
+      "tier": "core"
+    },
+    {
+      "word": "undergoing",
+      "pos": "verb",
+      "definition_ar": "يخضع لـ، يمر بـ، يتعرض لـ",
+      "example_sentence": "The building is undergoing major repairs this month.",
+      "tier": "core"
+    },
+    {
+      "word": "user",
+      "pos": "noun",
+      "definition_ar": "شخص يستخدم حاسوب أو نظام أو خدمة",
+      "example_sentence": "The user can ask questions and receive instant answers from AI.",
+      "tier": "core"
+    },
+    {
+      "word": "annotate",
+      "pos": "verb",
+      "definition_ar": "إضافة تسميات أو ملاحظات إلى البيانات لتمكين نموذج الذكاء الاصطناعي من التعلم.",
+      "example_sentence": "We need to annotate thousands of images before training the model.",
+      "tier": "extended"
+    },
+    {
+      "word": "automation",
+      "pos": "noun",
+      "definition_ar": "الأتمتة، استخدام الآلات أو أجهزة الكمبيوتر لأداء عمل كان يقوم به البشر سابقاً",
+      "example_sentence": "Factory automation has made car production faster and more efficient.",
+      "tier": "extended"
+    },
+    {
+      "word": "back up",
+      "pos": "verb",
+      "definition_ar": "ينسخ احتياطياً، يعمل نسخة من بيانات الكمبيوتر في حالة فقدان الأصل",
+      "example_sentence": "I back up my photos to the cloud every week.",
+      "tier": "extended"
+    },
+    {
+      "word": "backup",
+      "pos": "noun",
+      "definition_ar": "نسخة احتياطية، نسخة من بيانات الكمبيوتر محفوظة في حالة فقدان أو تلف الأصل",
+      "example_sentence": "I always make a backup of my important files.",
+      "tier": "extended"
+    },
+    {
+      "word": "bandwidth",
+      "pos": "noun",
+      "definition_ar": "عرض النطاق، كمية البيانات التي يمكن نقلها عبر اتصال الإنترنت في وقت معين",
+      "example_sentence": "High bandwidth connections allow for faster video streaming.",
+      "tier": "extended"
+    },
+    {
+      "word": "bias in ai",
+      "pos": "noun",
+      "definition_ar": "ميل نظام الذكاء الاصطناعي لإنتاج نتائج غير عادلة بسبب بيانات تدريب معيبة.",
+      "example_sentence": "Bias in AI can cause unfair decisions in job hiring.",
+      "tier": "extended"
+    },
+    {
+      "word": "calculation",
+      "pos": "noun",
+      "definition_ar": "عملية استخدام الرياضيات للعثور على إجابة أو نتيجة",
+      "example_sentence": "AI systems can perform complex calculations much faster than humans.",
+      "tier": "extended"
+    },
+    {
+      "word": "capacity",
+      "pos": "noun",
+      "definition_ar": "الحد الأقصى للكمية التي يمكن أن يحتويها أو ينتجها شيء ما",
+      "example_sentence": "This computer has the capacity to store thousands of photos.",
+      "tier": "extended"
+    },
+    {
+      "word": "cloud computing",
+      "pos": "noun",
+      "definition_ar": "الحوسبة السحابية، ممارسة استخدام خوادم الإنترنت لتخزين والوصول للبيانات بدلاً من أجهزة الكمبيوتر المحلية",
+      "example_sentence": "Cloud computing allows people to access their files from anywhere.",
+      "tier": "extended"
+    },
+    {
+      "word": "code",
+      "pos": "noun",
+      "definition_ar": "تعليمات مكتوبة بلغة برمجة ليتبعها الحاسوب",
+      "example_sentence": "Programmers write code to create new software applications.",
+      "tier": "extended"
+    },
+    {
+      "word": "come up with",
+      "pos": "verb",
+      "definition_ar": "التفكير في فكرة أو إنتاج حل معين",
+      "example_sentence": "Engineers need to come up with new ways to improve AI systems.",
+      "tier": "extended"
+    },
+    {
+      "word": "compatible",
+      "pos": "adjective",
+      "definition_ar": "متوافق، قادر على العمل معاً أو الاستخدام معاً دون مشاكل",
+      "example_sentence": "This software is compatible with both Windows and Mac computers.",
+      "tier": "extended"
+    },
+    {
+      "word": "compress",
+      "pos": "verb",
+      "definition_ar": "يضغط، يقلل حجم ملفات الكمبيوتر لتوفير مساحة التخزين أو وقت النقل",
+      "example_sentence": "You can compress large photos to make them easier to email.",
+      "tier": "extended"
+    },
+    {
+      "word": "compute",
+      "pos": "verb",
+      "definition_ar": "يحسب، يقوم بعمليات حسابية أو منطقية",
+      "example_sentence": "The computer can compute thousands of calculations per second.",
+      "tier": "extended"
+    },
+    {
+      "word": "database",
+      "pos": "noun",
+      "definition_ar": "قاعدة البيانات، مجموعة منظمة من المعلومات المخزنة في نظام كمبيوتر",
+      "example_sentence": "The hospital keeps patient records in a secure database.",
+      "tier": "extended"
+    },
+    {
+      "word": "dataset",
+      "pos": "noun",
+      "definition_ar": "مجموعة منظمة من البيانات تُستخدم لتدريب نموذج تعلم الآلة أو اختباره.",
+      "example_sentence": "The researchers published a large dataset of medical images.",
+      "tier": "extended"
+    },
+    {
+      "word": "debug",
+      "pos": "verb",
+      "definition_ar": "يصحح الأخطاء، يجد ويصلح الأخطاء أو المشاكل في برامج الكمبيوتر",
+      "example_sentence": "The programmer spent hours trying to debug the faulty code.",
+      "tier": "extended"
+    },
+    {
+      "word": "efficiency",
+      "pos": "noun",
+      "definition_ar": "القدرة على فعل شيء بشكل جيد دون إهدار الوقت أو الطاقة",
+      "example_sentence": "AI systems can improve the efficiency of many business processes.",
+      "tier": "extended"
+    },
+    {
+      "word": "encryption",
+      "pos": "noun",
+      "definition_ar": "التشفير، عملية تحويل المعلومات إلى كود سري لحمايتها من الوصول غير المصرح به",
+      "example_sentence": "Banks use encryption to keep customer data safe online.",
+      "tier": "extended"
+    },
+    {
+      "word": "fine-tuning",
+      "pos": "noun",
+      "definition_ar": "عملية ضبط نموذج ذكاء اصطناعي مُدرَّب مسبقًا على مجموعة بيانات أصغر وأكثر تخصصًا.",
+      "example_sentence": "Fine-tuning the model on medical data improved its diagnosis accuracy.",
+      "tier": "extended"
+    },
+    {
+      "word": "firewall",
+      "pos": "noun",
+      "definition_ar": "جدار الحماية، نظام أمان يراقب ويتحكم في حركة مرور الشبكة للحماية من التهديدات",
+      "example_sentence": "The company installed a firewall to prevent hackers from accessing their system.",
+      "tier": "extended"
+    },
+    {
+      "word": "format",
+      "pos": "verb",
+      "definition_ar": "يهيئ، يحضر جهاز تخزين عن طريق تنظيمه حتى يمكن حفظ البيانات عليه",
+      "example_sentence": "I need to format this USB drive before using it.",
+      "tier": "extended"
+    },
+    {
+      "word": "generative ai",
+      "pos": "noun",
+      "definition_ar": "نوع من الذكاء الاصطناعي يُنشئ محتوى جديدًا مثل النصوص والصور والموسيقى.",
+      "example_sentence": "Generative AI tools are changing how artists create digital art.",
+      "tier": "extended"
+    },
+    {
+      "word": "hallucination",
+      "pos": "noun",
+      "definition_ar": "عندما يُنتج نظام الذكاء الاصطناعي معلومات خاطئة أو مختلقة بثقة.",
+      "example_sentence": "The chatbot's hallucination caused it to invent fake news sources.",
+      "tier": "extended"
+    },
+    {
+      "word": "input device",
+      "pos": "noun",
+      "definition_ar": "جهاز الإدخال، قطعة من المعدات تستخدم لإدخال المعلومات في نظام كمبيوتر",
+      "example_sentence": "A keyboard is the most common input device for typing text.",
+      "tier": "extended"
+    },
+    {
+      "word": "install",
+      "pos": "verb",
+      "definition_ar": "يثبت، يعد ويحضر البرمجيات أو العتاد للعمل على نظام كمبيوتر",
+      "example_sentence": "It took twenty minutes to install the new photo editing software.",
+      "tier": "extended"
+    },
+    {
+      "word": "interface",
+      "pos": "noun",
+      "definition_ar": "الواجهة، الوسيلة التي يتفاعل من خلالها المستخدم مع الكمبيوتر أو برنامج البرمجيات",
+      "example_sentence": "The new interface makes it easier to use the banking app.",
+      "tier": "extended"
+    },
+    {
+      "word": "keep up with",
+      "pos": "verb",
+      "definition_ar": "مواكبة أو التقدم بنفس سرعة شيء آخر",
+      "example_sentence": "It's difficult to keep up with the rapid changes in technology.",
+      "tier": "extended"
+    },
+    {
+      "word": "language model",
+      "pos": "noun",
+      "definition_ar": "نظام ذكاء اصطناعي مُدرَّب على كميات كبيرة من النصوص لفهم اللغة وتوليدها.",
+      "example_sentence": "A large language model can answer questions and write essays.",
+      "tier": "extended"
+    },
+    {
+      "word": "log in",
+      "pos": "verb",
+      "definition_ar": "يسجل الدخول، يدخل اسم المستخدم وكلمة المرور للحصول على الوصول لنظام كمبيوتر",
+      "example_sentence": "Please log in with your email address and password.",
+      "tier": "extended"
+    },
+    {
+      "word": "log out",
+      "pos": "verb",
+      "definition_ar": "يسجل الخروج، ينهي جلستك ويخرج من نظام كمبيوتر أو موقع ويب",
+      "example_sentence": "Don't forget to log out when using a public computer.",
+      "tier": "extended"
+    },
+    {
+      "word": "machine learning",
+      "pos": "noun",
+      "definition_ar": "التعلم الآلي، نوع من الذكاء الاصطناعي حيث تتعلم أجهزة الكمبيوتر تحسين أدائها دون برمجة صريحة",
+      "example_sentence": "Machine learning helps computers recognize faces in photos automatically.",
+      "tier": "extended"
+    },
+    {
+      "word": "malware",
+      "pos": "noun",
+      "definition_ar": "البرمجيات الخبيثة، برمجيات ضارة مصممة لإلحاق الضرر أو الحصول على وصول غير مصرح به لأنظمة الكمبيوتر",
+      "example_sentence": "Antivirus software helps protect computers from malware attacks.",
+      "tier": "extended"
+    },
+    {
+      "word": "motherboard",
+      "pos": "noun",
+      "definition_ar": "اللوحة الأم، لوحة الدوائر الرئيسية التي تربط جميع المكونات داخل الكمبيوتر",
+      "example_sentence": "When the motherboard failed, the entire computer stopped working.",
+      "tier": "extended"
+    },
+    {
+      "word": "neural network",
+      "pos": "noun",
+      "definition_ar": "الشبكة العصبية، نظام كمبيوتر مصمم ليعمل مثل الدماغ البشري مع عقد مترابطة",
+      "example_sentence": "The neural network learned to identify different types of music after training.",
+      "tier": "extended"
+    },
+    {
+      "word": "object detection",
+      "pos": "noun",
+      "definition_ar": "تقنية ذكاء اصطناعي تُحدِّد الأشياء وتحدد مواقعها داخل صورة أو مقطع فيديو.",
+      "example_sentence": "Object detection is used in self-driving cars to spot obstacles.",
+      "tier": "extended"
+    },
+    {
+      "word": "operating system",
+      "pos": "noun",
+      "definition_ar": "نظام التشغيل، البرنامج الرئيسي الذي يدير الكمبيوتر ويسمح للبرامج الأخرى بالعمل",
+      "example_sentence": "Windows and Mac OS are popular operating systems for personal computers.",
+      "tier": "extended"
+    },
+    {
+      "word": "output",
+      "pos": "noun",
+      "definition_ar": "النتيجة أو المنتج الذي يأتي من نظام أو عملية معينة",
+      "example_sentence": "The AI program's output showed accurate predictions about weather patterns.",
+      "tier": "extended"
+    },
+    {
+      "word": "output device",
+      "pos": "noun",
+      "definition_ar": "جهاز الإخراج، قطعة من المعدات تعرض أو تنتج نتائج من نظام كمبيوتر",
+      "example_sentence": "A monitor is an output device that shows text and images.",
+      "tier": "extended"
+    },
+    {
+      "word": "overfit",
+      "pos": "verb",
+      "definition_ar": "عندما يحفظ نموذج الذكاء الاصطناعي بيانات التدريب بدقة شديدة ويفشل في الأمثلة الجديدة.",
+      "example_sentence": "The model started to overfit after training on too little data.",
+      "tier": "extended"
+    },
+    {
+      "word": "processing power",
+      "pos": "noun",
+      "definition_ar": "قدرة الحاسوب على أداء العمليات الحسابية والمهام بسرعة",
+      "example_sentence": "Modern smartphones have incredible processing power compared to old computers.",
+      "tier": "extended"
+    },
+    {
+      "word": "processor",
+      "pos": "noun",
+      "definition_ar": "المعالج، الشريحة الرئيسية في الكمبيوتر التي تقوم بالحسابات وتتحكم في الأجزاء الأخرى",
+      "example_sentence": "A faster processor makes the computer run programs more quickly.",
+      "tier": "extended"
+    },
+    {
+      "word": "programming",
+      "pos": "noun",
+      "definition_ar": "البرمجة، عملية إنشاء تعليمات لأجهزة الكمبيوتر باستخدام لغات وأكواد خاصة",
+      "example_sentence": "She learned programming to create her own mobile apps.",
+      "tier": "extended"
+    },
+    {
+      "word": "prompt",
+      "pos": "noun",
+      "definition_ar": "نص أو تعليمات تُعطى لنظام ذكاء اصطناعي لتوجيه استجابته.",
+      "example_sentence": "Writing a clear prompt helps the AI give a better answer.",
+      "tier": "extended"
+    },
+    {
+      "word": "reasoning",
+      "pos": "noun",
+      "definition_ar": "قدرة الذكاء الاصطناعي على التفكير في مشكلة خطوةً بخطوة للوصول إلى نتيجة.",
+      "example_sentence": "Strong reasoning skills allow AI to solve complex math problems.",
+      "tier": "extended"
+    },
+    {
+      "word": "refresh",
+      "pos": "verb",
+      "definition_ar": "ينعش، يحدث أو يعيد تحميل محتوى صفحة ويب أو برنامج كمبيوتر",
+      "example_sentence": "Please refresh the page to see the latest news updates.",
+      "tier": "extended"
+    },
+    {
+      "word": "roll out",
+      "pos": "verb",
+      "definition_ar": "إطلاق تقنية أو منتج جديد تدريجيًا لمجموعة أوسع من المستخدمين.",
+      "example_sentence": "The company decided to roll out the AI assistant in three phases.",
+      "tier": "extended"
+    },
+    {
+      "word": "run out of",
+      "pos": "verb",
+      "definition_ar": "ينفد من، يستهلك كل شيء بحيث لا يبقى شيء متاح",
+      "example_sentence": "My laptop ran out of battery during the important presentation.",
+      "tier": "extended"
+    },
+    {
+      "word": "server",
+      "pos": "noun",
+      "definition_ar": "خادم، كمبيوتر يقدم البيانات أو الخدمات لأجهزة كمبيوتر أخرى عبر الشبكة",
+      "example_sentence": "The website crashed when too many people tried to access the server.",
+      "tier": "extended"
+    },
+    {
+      "word": "simulate",
+      "pos": "verb",
+      "definition_ar": "يحاكي، ينشئ نموذجاً أو محاكاة لشيء ما لدراسته أو اختباره",
+      "example_sentence": "Scientists use computers to simulate weather patterns and predict storms.",
+      "tier": "extended"
+    },
+    {
+      "word": "supervised learning",
+      "pos": "noun",
+      "definition_ar": "نوع من التعلم الآلي يُدرَّب فيه النموذج على أمثلة مُعنوَنة.",
+      "example_sentence": "Supervised learning needs human-labeled data to work well.",
+      "tier": "extended"
+    },
+    {
+      "word": "token",
+      "pos": "noun",
+      "definition_ar": "وحدة نصية صغيرة مثل كلمة أو جزء منها، تعالجها نماذج اللغة.",
+      "example_sentence": "Language models break sentences into tokens before processing them.",
+      "tier": "extended"
+    },
+    {
+      "word": "transparency",
+      "pos": "noun",
+      "definition_ar": "خاصية جعل قرارات نظام الذكاء الاصطناعي سهلة الفهم والتفسير.",
+      "example_sentence": "Transparency in AI is important for building public trust.",
+      "tier": "extended"
+    },
+    {
+      "word": "unsupervised learning",
+      "pos": "noun",
+      "definition_ar": "نهج في التعلم الآلي يكتشف فيه النموذج الأنماط في البيانات دون تسميات.",
+      "example_sentence": "Unsupervised learning can group customers by their shopping behaviour.",
+      "tier": "extended"
+    },
+    {
+      "word": "upgrade",
+      "pos": "verb",
+      "definition_ar": "يرقي، يحسن أو يستبدل عتاد أو برمجيات الكمبيوتر بنسخة أفضل",
+      "example_sentence": "The company decided to upgrade their old computers to newer models.",
+      "tier": "extended"
+    },
+    {
+      "word": "virtual",
+      "pos": "adjective",
+      "definition_ar": "افتراضي، موجود في أجهزة الكمبيوتر أو على الإنترنت وليس في العالم الفيزيائي",
+      "example_sentence": "Students attended a virtual conference from their homes.",
+      "tier": "extended"
+    },
+    {
+      "word": "adaptive",
+      "pos": "adjective",
+      "definition_ar": "تكيفي، قادر على التغيير أو التعديل استجابة لظروف أو أحوال مختلفة",
+      "example_sentence": "Adaptive AI systems can learn and improve their performance over time.",
+      "tier": "mastery"
+    },
+    {
+      "word": "autonomous",
+      "pos": "adjective",
+      "definition_ar": "مستقل، قادر على العمل بشكل مستقل دون تحكم أو تدخل بشري",
+      "example_sentence": "Autonomous vehicles can drive themselves using sensors and AI technology.",
+      "tier": "mastery"
+    },
+    {
+      "word": "benchmark",
+      "pos": "noun",
+      "definition_ar": "معيار مرجعي، نقطة مرجعية أو معيار يُستخدم لقياس ومقارنة جودة أو أداء شيء ما",
+      "example_sentence": "Researchers use specific tests as benchmarks to evaluate how well AI systems perform.",
+      "tier": "mastery"
+    },
+    {
+      "word": "bias",
+      "pos": "noun",
+      "definition_ar": "تحيز، تفضيل غير عادل لصالح أو ضد شيء ما، غالباً بناءً على معلومات محدودة",
+      "example_sentence": "AI systems can show bias if they are trained on incomplete data.",
+      "tier": "mastery"
+    },
+    {
+      "word": "chatbot",
+      "pos": "noun",
+      "definition_ar": "روبوت محادثة، برنامج حاسوبي مصمم للحديث مع البشر عبر النص أو الصوت",
+      "example_sentence": "The company's chatbot answers customer questions 24 hours a day.",
+      "tier": "mastery"
+    },
+    {
+      "word": "classification",
+      "pos": "noun",
+      "definition_ar": "التصنيف، عملية وضع الأشياء في فئات أو مجموعات بناءً على خصائصها",
+      "example_sentence": "Image classification allows AI to identify different objects in photographs automatically.",
+      "tier": "mastery"
+    },
+    {
+      "word": "cognitive",
+      "pos": "adjective",
+      "definition_ar": "معرفي، متعلق بالعمليات الذهنية للتفكير والفهم والتعلم والتذكر",
+      "example_sentence": "AI systems try to copy human cognitive abilities like reasoning and learning.",
+      "tier": "mastery"
+    },
+    {
+      "word": "come across",
+      "pos": "verb",
+      "definition_ar": "يصادف، يجد أو يواجه شيئاً بالصدفة أو بشكل غير متوقع",
+      "example_sentence": "While researching AI, scientists often come across unexpected discoveries about intelligence.",
+      "tier": "mastery"
+    },
+    {
+      "word": "computational",
+      "pos": "adjective",
+      "definition_ar": "حاسوبي، متعلق بالحسابات الرياضية أو يتضمنها، خاصة بواسطة الحاسوب",
+      "example_sentence": "Computational models help scientists understand how the human brain processes information.",
+      "tier": "mastery"
+    },
+    {
+      "word": "convergence",
+      "pos": "noun",
+      "definition_ar": "النقطة التي يتوقف فيها نموذج التعلم الآلي عن التحسن بشكل ملحوظ أثناء التدريب.",
+      "example_sentence": "Engineers watch for convergence to know when training is complete.",
+      "tier": "mastery"
+    },
+    {
+      "word": "cybernetics",
+      "pos": "noun",
+      "definition_ar": "علم التحكم الآلي، علم التواصل والتحكم في الآلات والكائنات الحية",
+      "example_sentence": "Cybernetics combines computer science with biology to create smarter machines.",
+      "tier": "mastery"
+    },
+    {
+      "word": "data augmentation",
+      "pos": "noun",
+      "definition_ar": "تقنية تُنشئ تنوعات في بيانات التدريب الحالية لتحسين نموذج الذكاء الاصطناعي.",
+      "example_sentence": "Data augmentation can flip or rotate images to create more training examples.",
+      "tier": "mastery"
+    },
+    {
+      "word": "deep learning",
+      "pos": "noun",
+      "definition_ar": "التعلم العميق، نوع من التعلم الآلي يستخدم الشبكات العصبية الاصطناعية للتعلم من البيانات",
+      "example_sentence": "Deep learning helps computers understand speech and images better than before.",
+      "tier": "mastery"
+    },
+    {
+      "word": "embedding",
+      "pos": "noun",
+      "definition_ar": "تمثيل رقمي للكلمات أو المفاهيم يلتقط معناها للذكاء الاصطناعي.",
+      "example_sentence": "Word embeddings allow AI to understand that 'king' and 'queen' are related.",
+      "tier": "mastery"
+    },
+    {
+      "word": "epoch",
+      "pos": "noun",
+      "definition_ar": "تمريرة كاملة واحدة عبر مجموعة بيانات التدريب بأكملها أثناء التعلم الآلي.",
+      "example_sentence": "The model needed fifty epochs before achieving good accuracy.",
+      "tier": "mastery"
+    },
+    {
+      "word": "ethical",
+      "pos": "adjective",
+      "definition_ar": "أخلاقي، متعلق بالمبادئ الأخلاقية حول ما هو صحيح وخطأ",
+      "example_sentence": "Scientists discuss ethical concerns about using AI in medical decisions.",
+      "tier": "mastery"
+    },
+    {
+      "word": "explainability",
+      "pos": "noun",
+      "definition_ar": "الدرجة التي يمكن بها فهم الآلية الداخلية لنموذج الذكاء الاصطناعي من قِبَل البشر.",
+      "example_sentence": "Explainability is crucial in medical AI so doctors can trust the output.",
+      "tier": "mastery"
+    },
+    {
+      "word": "facial recognition",
+      "pos": "noun",
+      "definition_ar": "التعرف على الوجوه، تقنية يمكنها تحديد هوية الأشخاص بتحليل ملامح وجوههم",
+      "example_sentence": "Many phones now use facial recognition to unlock the screen securely.",
+      "tier": "mastery"
+    },
+    {
+      "word": "gradient descent",
+      "pos": "noun",
+      "definition_ar": "أسلوب تحسين يُستخدم لتقليل الأخطاء في نموذج التعلم الآلي أثناء التدريب.",
+      "example_sentence": "Gradient descent adjusts the model's weights to reduce its mistakes.",
+      "tier": "mastery"
+    },
+    {
+      "word": "hyperparameter",
+      "pos": "noun",
+      "definition_ar": "إعداد يُختار قبل التدريب يتحكم في طريقة تعلم نموذج التعلم الآلي.",
+      "example_sentence": "Choosing the right hyperparameter can significantly improve model results.",
+      "tier": "mastery"
+    },
+    {
+      "word": "inference",
+      "pos": "noun",
+      "definition_ar": "الاستنتاج، خلاصة أو رأي متكون بناءً على الأدلة والمنطق وليس المشاهدة المباشرة",
+      "example_sentence": "AI systems use inference to make logical conclusions from the data they analyze.",
+      "tier": "mastery"
+    },
+    {
+      "word": "inference engine",
+      "pos": "noun",
+      "definition_ar": "الجزء من نظام الذكاء الاصطناعي الذي يطبق القواعد المكتسبة على بيانات جديدة لاتخاذ القرارات.",
+      "example_sentence": "The inference engine processes each customer request in milliseconds.",
+      "tier": "mastery"
+    },
+    {
+      "word": "integrate",
+      "pos": "verb",
+      "definition_ar": "يدمج أجزاء أو أنظمة مختلفة معاً لتعمل كوحدة موحدة",
+      "example_sentence": "Many companies are trying to integrate AI technology into their daily operations.",
+      "tier": "mastery"
+    },
+    {
+      "word": "interpretation",
+      "pos": "noun",
+      "definition_ar": "التفسير، عمل شرح أو فهم معنى شيء ما",
+      "example_sentence": "AI's interpretation of medical images can help doctors detect diseases earlier.",
+      "tier": "mastery"
+    },
+    {
+      "word": "intuitive",
+      "pos": "adjective",
+      "definition_ar": "بديهي، سهل الفهم أو الاستخدام دون الحاجة إلى شرح أو تدريب",
+      "example_sentence": "The AI assistant has an intuitive interface that anyone can learn quickly.",
+      "tier": "mastery"
+    },
+    {
+      "word": "knowledge graph",
+      "pos": "noun",
+      "definition_ar": "شبكة من الحقائق المترابطة يستخدمها الذكاء الاصطناعي لفهم العلاقات بين المفاهيم.",
+      "example_sentence": "A knowledge graph links 'Paris' to 'France' and 'Eiffel Tower'.",
+      "tier": "mastery"
+    },
+    {
+      "word": "multimodal ai",
+      "pos": "noun",
+      "definition_ar": "نظام ذكاء اصطناعي يستطيع معالجة أنواع مختلفة من البيانات ودمجها مثل النصوص والصور.",
+      "example_sentence": "Multimodal AI can describe a photo and answer questions about it.",
+      "tier": "mastery"
+    },
+    {
+      "word": "natural language processing",
+      "pos": "noun",
+      "definition_ar": "فرع من فروع الذكاء الاصطناعي يُمكِّن الحواسيب من فهم اللغة البشرية والاستجابة لها.",
+      "example_sentence": "Natural language processing powers voice assistants and translation apps.",
+      "tier": "mastery"
+    },
+    {
+      "word": "neural pathway",
+      "pos": "noun",
+      "definition_ar": "المسار العصبي، سلسلة من الخلايا العصبية المترابطة التي تنقل المعلومات في الدماغ أو الجهاز العصبي",
+      "example_sentence": "AI researchers study neural pathways to understand how human thinking works.",
+      "tier": "mastery"
+    },
+    {
+      "word": "optimize",
+      "pos": "verb",
+      "definition_ar": "يحسن، يجعل شيئاً جيداً أو فعالاً أو وظيفياً قدر الإمكان",
+      "example_sentence": "The AI system can optimize energy usage in smart buildings automatically.",
+      "tier": "mastery"
+    },
+    {
+      "word": "personalization",
+      "pos": "noun",
+      "definition_ar": "التخصيص، عملية جعل شيء مناسباً لحاجات أو تفضيلات شخص معين",
+      "example_sentence": "AI enables better personalization of online shopping recommendations for each customer.",
+      "tier": "mastery"
+    },
+    {
+      "word": "predictive",
+      "pos": "adjective",
+      "definition_ar": "تنبؤي، متعلق بالقدرة على التنبؤ بما سيحدث في المستقبل أو يملك هذه القدرة",
+      "example_sentence": "Predictive AI models help companies plan their business strategies more effectively.",
+      "tier": "mastery"
+    },
+    {
+      "word": "real-time",
+      "pos": "adjective",
+      "definition_ar": "في الوقت الفعلي، يحدث فوراً دون أي تأخير بين الإدخال والإخراج",
+      "example_sentence": "AI translation apps can provide real-time language conversion during conversations.",
+      "tier": "mastery"
+    },
+    {
+      "word": "reinforcement learning",
+      "pos": "noun",
+      "definition_ar": "طريقة تعلم آلي يتعلم فيها وكيل الذكاء الاصطناعي من خلال تلقي المكافآت أو العقوبات.",
+      "example_sentence": "Reinforcement learning taught the robot to walk without falling.",
+      "tier": "mastery"
+    },
+    {
+      "word": "responsible ai",
+      "pos": "noun",
+      "definition_ar": "ممارسة تصميم أنظمة الذكاء الاصطناعي واستخدامها بطرق عادلة وآمنة وأخلاقية.",
+      "example_sentence": "Responsible AI means checking systems for bias before releasing them.",
+      "tier": "mastery"
+    },
+    {
+      "word": "scalable",
+      "pos": "adjective",
+      "definition_ar": "قابل للتوسيع، يمكن زيادته في الحجم أو العدد أو النطاق مع الحفاظ على الفعالية",
+      "example_sentence": "Cloud-based AI solutions are scalable and can handle growing amounts of data.",
+      "tier": "mastery"
+    },
+    {
+      "word": "sentiment analysis",
+      "pos": "noun",
+      "definition_ar": "تحليل المشاعر، استخدام الذكاء الاصطناعي لفهم المشاعر أو الآراء المعبر عنها في النص",
+      "example_sentence": "Companies use sentiment analysis to understand what customers think about their products.",
+      "tier": "mastery"
+    },
+    {
+      "word": "streamline",
+      "pos": "verb",
+      "definition_ar": "يبسط، يجعل عملية أبسط أو أكثر كفاءة أو أسهل للقيام بها",
+      "example_sentence": "AI helps streamline business operations by automating repetitive tasks.",
+      "tier": "mastery"
+    },
+    {
+      "word": "surveillance",
+      "pos": "noun",
+      "definition_ar": "المراقبة، المتابعة الدقيقة لشخص أو مكان أو نشاط، خاصة من قبل الشرطة أو الحكومة",
+      "example_sentence": "AI-powered surveillance cameras can detect suspicious behavior in public areas.",
+      "tier": "mastery"
+    },
+    {
+      "word": "take into account",
+      "pos": "verb",
+      "definition_ar": "يأخذ في الحسبان، يعتبر أو يدرج شيئاً عند اتخاذ قرار أو حكم",
+      "example_sentence": "AI systems must take into account privacy concerns when processing personal data.",
+      "tier": "mastery"
+    },
+    {
+      "word": "transformer architecture",
+      "pos": "noun",
+      "definition_ar": "نوع من تصميمات الشبكات العصبية تعالج فيه جميع أجزاء التسلسل في وقت واحد.",
+      "example_sentence": "Most modern language models rely on transformer architecture.",
+      "tier": "mastery"
+    },
+    {
+      "word": "versatile",
+      "pos": "adjective",
+      "definition_ar": "متعدد الاستخدامات، قادر على التكيف أو الاستخدام لأغراض أو حالات مختلفة كثيرة",
+      "example_sentence": "Modern AI systems are versatile enough to help with writing, coding, and analysis.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "60976e2a-e6e8-4f8c-97c2-2d1eb16e4008",
+      "label": "A",
+      "title": "AI Transforms Daily Life",
+      "content": {
+        "paragraphs": [
+          "Artificial intelligence has *emerged* as one of the most transformative technologies of our time, quietly *revolutionizing* how millions of people around the world conduct their daily activities. From the moment we wake up to our smartphone alarms to the time we fall asleep after watching AI-recommended videos, this powerful technology has become an *integral* part of modern life that most people take for granted.",
+          "The *scope* of AI applications continues to *expand* at an unprecedented rate across various sectors. In healthcare, AI systems can now *diagnose* certain medical conditions with accuracy rates exceeding 95%, which *surpasses* the performance of many human specialists in specific areas. Educational platforms *leverage* machine learning algorithms to create personalized learning experiences, adapting to each student's pace and learning style. Meanwhile, financial institutions have *implemented* AI-powered fraud detection systems that process millions of transactions daily, protecting consumers from cyber threats that would be impossible for humans to monitor manually.",
+          "What makes AI particularly *compelling* is its ability to *process* vast amounts of data and identify patterns that humans might overlook. For instance, in Saudi Arabia's NEOM project, AI technologies are being integrated into urban planning to create smart cities that can *anticipate* residents' needs and optimize resource allocation. These systems can predict traffic patterns, manage energy consumption, and even forecast maintenance requirements for infrastructure. Such applications demonstrate how AI doesn't just automate existing processes but creates entirely new possibilities for urban development.",
+          "Despite these remarkable *breakthroughs*, experts emphasize that AI works best when it *complements* human intelligence rather than replacing it entirely. Dr. Sarah Al-Rashid, a computer science professor at King Abdulaziz University, recently stated that \"the most successful AI implementations are those that enhance human capabilities while preserving the creativity and ethical judgment that only humans can provide.\" This perspective highlights the importance of viewing AI as a collaborative tool that can help solve complex global challenges, from climate change to healthcare accessibility, when properly guided by human wisdom and values."
+        ]
+      },
+      "word_count": 547
+    },
+    {
+      "id": "4a7834b2-205b-4353-87f3-f4238cd4ddc9",
+      "label": "B",
+      "title": "AI Doctors in Your Pocket",
+      "content": {
+        "paragraphs": [
+          "Dr. Sarah Al-Mansouri *glances* at her smartphone as she walks through King Faisal Specialist Hospital in Riyadh. The notification on her screen indicates that an AI system has just *flagged* a patient's X-ray for urgent review. This scene, which would have seemed like science fiction a decade ago, is now becoming routine in hospitals across Saudi Arabia and the broader Middle East region.",
+          "The Kingdom's healthcare sector is currently *undergoing* a remarkable transformation through artificial intelligence integration. According to recent statistics from the Saudi Ministry of Health, over 40% of major hospitals have *implemented* some form of AI technology by 2024. These systems can *detect* early signs of diseases like diabetes and heart conditions with 94% accuracy – often *surpassing* human doctors in speed and precision. Dr. Al-Mansouri explains that the AI assistant doesn't *replace* medical professionals but rather *enhances* their capabilities. \"When I *encounter* a complex case, the AI provides additional insights that help me make more informed decisions,\" she reports.",
+          "The *adoption* of AI in Middle Eastern healthcare faces unique challenges that researchers are working to *address*. Cultural considerations play a significant role, as patients often prefer discussing sensitive health matters with human doctors rather than digital systems. However, younger generations appear more willing to *embrace* these technological advances. A recent survey conducted across the Gulf Cooperation Council countries revealed that 73% of respondents under 30 would trust AI-powered diagnostic tools, compared to only 45% of those over 50. Healthcare providers are *striving* to balance technological innovation with traditional patient care values.",
+          "Looking toward the future, experts predict that AI will become even more *sophisticated* in addressing region-specific health challenges. The technology is being trained to recognize diseases that are more prevalent in the Middle East, such as certain genetic conditions and diabetes complications common in the region. Dubai's Health Authority has announced plans to invest $2.3 billion in AI healthcare initiatives over the next five years, while Saudi Arabia's Vision 2030 includes ambitious goals for digital health transformation. As Dr. Al-Mansouri concludes her hospital rounds, she reflects on how these intelligent systems are not just changing medicine – they're potentially saving thousands of lives across the region."
+        ]
+      },
+      "word_count": 387
+    }
+  ],
+  "grammar": {
+    "topic_name_en": "present perfect vs past simple",
+    "topic_name_ar": "present perfect vs past simple",
+    "explanation_content": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "الماضي البسيط: للأحداث المنتهية في وقت محدد في الماضي • الماضي التام: للأحداث التي حدثت في الماضي لكن لها تأثير على الحاضر • استخدم الماضي التام مع: since, for, already, yet • استخدم الماضي البسيط مع: yesterday, ago, last week",
+          "content_en": "<b>Present Perfect vs Past Simple</b><br><br><b>Examples:</b><br>• AI technology <b>has changed</b> our lives dramatically. (focus on the result now)<br>• Scientists <b>developed</b> the first AI program in 1956. (specific time in the past)<br>• ChatGPT <b>has become</b> very popular since its launch. (from past until now)<br><br><b>When to use Present Perfect:</b><br>- Actions that happened at an unspecified time in the past but are relevant now<br>- Actions that started in the past and continue to the present<br>- Recent actions with present results<br>- With words like: since, for, already, yet, just, ever, never<br><br><b>When to use Past Simple:</b><br>- Actions completed at a specific time in the past<br>- Sequential actions in the past<br>- With time expressions like: yesterday, last week, in 2020, ago, when"
+        },
+        {
+          "type": "formula",
+          "content": "Present Perfect: Subject + have/has + past participle | Past Simple: Subject + verb (past form)"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "Machine learning has revolutionized data analysis.",
+              "highlight": "has revolutionized",
+              "translation_ar": "لقد أحدث التعلم الآلي ثورة في تحليل البيانات"
+            },
+            {
+              "sentence": "Google launched its AI assistant in 2016.",
+              "highlight": "launched",
+              "translation_ar": "أطلقت جوجل مساعدها الذكي في عام 2016"
+            },
+            {
+              "sentence": "Self-driving cars have been tested for several years.",
+              "highlight": "have been tested",
+              "translation_ar": "تم اختبار السيارات ذاتية القيادة لعدة سنوات"
+            },
+            {
+              "sentence": "IBM created Deep Blue twenty years ago.",
+              "highlight": "created",
+              "translation_ar": "أنشأت آي بي إم ديب بلو قبل عشرين عاماً"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "I have visited the AI conference last week.",
+              "correct": "I visited the AI conference last week.",
+              "explanation_ar": "مع الوقت المحدد (last week) نستخدم الماضي البسيط"
+            },
+            {
+              "wrong": "AI technology changed our lives.",
+              "correct": "AI technology has changed our lives.",
+              "explanation_ar": "عندما نتحدث عن تأثير مستمر حتى الآن نستخدم الماضي التام"
+            },
+            {
+              "wrong": "Did you ever use AI tools?",
+              "correct": "Have you ever used AI tools?",
+              "explanation_ar": "مع ever نستخدم الماضي التام وليس الماضي البسيط"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

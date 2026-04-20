@@ -1,0 +1,247 @@
+{
+  "variant_label": "A",
+  "variant_id": "2f86e62b-8673-4161-9781-1d2142752467",
+  "questions": [
+    {
+      "order_index": 1, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "What does 'analyze' mean in the context of AI processing data?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"يُخزّن البيانات","is_correct":false},
+        {"id":"b","text":"يحلل ويدرس المعلومات بعمق","is_correct":true},
+        {"id":"c","text":"يحذف البيانات","is_correct":false},
+        {"id":"d","text":"ينقل البيانات","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "analyze تعني يحلل، أي فحص المعلومات بعمق لفهم مضمونها أو استخلاص نتائج منها."
+    },
+    {
+      "order_index": 2, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Which word best describes something that is 'compelling'?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Boring and repetitive","is_correct":false},
+        {"id":"b","text":"Confusing and unclear","is_correct":false},
+        {"id":"c","text":"Persuasive, interesting, and hard to ignore","is_correct":true},
+        {"id":"d","text":"Simple and straightforward","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "compelling تعني مقنعاً وجذاباً ومثيراً للاهتمام، أي شيء يصعب تجاهله."
+    },
+    {
+      "order_index": 3, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "What does 'detect' mean in 'AI can detect medical conditions'?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"يُعالج الأمراض","is_correct":false},
+        {"id":"b","text":"يمنع الأمراض","is_correct":false},
+        {"id":"c","text":"يكتشف ويرصد","is_correct":true},
+        {"id":"d","text":"يُسبب الأمراض","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "detect تعني يكتشف ويرصد، أي ملاحظة وجود شيء ما أو التعرف عليه."
+    },
+    {
+      "order_index": 4, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Students often 'encounter' difficulties when learning AI. What does 'encounter' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"يتجنب","is_correct":false},
+        {"id":"b","text":"يواجه ويصادف","is_correct":true},
+        {"id":"c","text":"يحل","is_correct":false},
+        {"id":"d","text":"يتجاهل","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "encounter تعني يواجه أو يصادف، أي أن تأتي بالمصادفة في مواجهة شيء أو موقف."
+    },
+    {
+      "order_index": 5, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "AI technology has 'emerged' as a major force. What does 'emerged' suggest?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Has always been dominant","is_correct":false},
+        {"id":"b","text":"Has recently disappeared","is_correct":false},
+        {"id":"c","text":"Has gradually come into prominence","is_correct":true},
+        {"id":"d","text":"Has been rejected by society","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "emerged يعني ظهر وبرز تدريجياً، مما يوحي بأن الذكاء الاصطناعي اكتسب أهميته بمرور الوقت."
+    },
+    {
+      "order_index": 6, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "In computing, 'data' refers to raw information and facts processed by a computer.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. data تعني البيانات، وهي المعلومات الخام والحقائق التي تُعالجها الحواسيب."
+    },
+    {
+      "order_index": 7, "skill_tag": "vocabulary", "question_type": "fill_blank",
+      "question_text": "AI systems can _____ certain medical conditions with accuracy rates exceeding 95%.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "diagnose", "accepted_answers": ["diagnose","Diagnose","diagnoses"],
+      "points": 1,
+      "explanation_ar": "diagnose تعني يُشخّص، أي تحديد المرض أو المشكلة بناءً على تحليل الأعراض أو البيانات."
+    },
+    {
+      "order_index": 8, "skill_tag": "vocabulary", "question_type": "matching",
+      "question_text": "Match each English word to its correct Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": ["accuracy","expand","artificial intelligence","human"],
+        "right_items": ["الذكاء الاصطناعي","يتوسع","بشري","دقة النتائج"]
+      },
+      "correct_answer": [
+        {"left":"accuracy","right":"دقة النتائج"},
+        {"left":"expand","right":"يتوسع"},
+        {"left":"artificial intelligence","right":"الذكاء الاصطناعي"},
+        {"left":"human","right":"بشري"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "accuracy=دقة النتائج، expand=يتوسع، artificial intelligence=الذكاء الاصطناعي، human=بشري."
+    },
+    {
+      "order_index": 9, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Choose the correct sentence: Scientists are discussing AI developments.",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Scientists developed AI in 2024 and it is useful now.","is_correct":false},
+        {"id":"b","text":"Scientists have developed AI tools that are widely used today.","is_correct":true},
+        {"id":"c","text":"Scientists have developed AI tools in 1956.","is_correct":false},
+        {"id":"d","text":"Scientists develop AI since the last century.","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "نستخدم المضارع التام (have developed) للتعبير عن نتيجة مستمرة حتى الآن. لا نستخدمه مع زمن محدد مثل 1956."
+    },
+    {
+      "order_index": 10, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence correctly uses the simple past?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Scientists have developed the first AI program in 1956.","is_correct":false},
+        {"id":"b","text":"IBM created Deep Blue twenty years ago.","is_correct":true},
+        {"id":"c","text":"AI technology has changed our life last year.","is_correct":false},
+        {"id":"d","text":"She has attended the AI conference in March 2023.","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "نستخدم الماضي البسيط (created) مع وقت محدد (twenty years ago). الجمل الأخرى تستخدم المضارع التام بشكل خاطئ مع أوقات محددة."
+    },
+    {
+      "order_index": 11, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Complete: 'AI technology _____ our lives dramatically.' (focus on the current result)",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"changed","is_correct":false},
+        {"id":"b","text":"was changing","is_correct":false},
+        {"id":"c","text":"has changed","is_correct":true},
+        {"id":"d","text":"is changing","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "نستخدم المضارع التام (has changed) للتركيز على نتيجة حدث ماضٍ مستمرة في الوقت الحالي."
+    },
+    {
+      "order_index": 12, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which question correctly asks about someone's experience with AI?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Did you ever use AI tools?","is_correct":false},
+        {"id":"b","text":"Have you ever used AI tools?","is_correct":true},
+        {"id":"c","text":"Do you ever used AI tools?","is_correct":false},
+        {"id":"d","text":"Were you ever using AI tools?","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "نستخدم المضارع التام (Have you ever) للسؤال عن التجربة في أي وقت من الحياة، وليس الماضي البسيط."
+    },
+    {
+      "order_index": 13, "skill_tag": "grammar", "question_type": "true_false",
+      "question_text": "'I have visited the AI conference last week' is grammatically correct.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false, "accepted_answers": null, "points": 1,
+      "explanation_ar": "خطأ. 'last week' وقت محدد مضى، لذا يجب استخدام الماضي البسيط: 'I visited the AI conference last week'."
+    },
+    {
+      "order_index": 14, "skill_tag": "grammar", "question_type": "true_false",
+      "question_text": "'ChatGPT has become very popular since its launch' uses the present perfect correctly.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. نستخدم المضارع التام (has become) مع since للتعبير عن حالة بدأت في الماضي ومستمرة حتى الآن."
+    },
+    {
+      "order_index": 15, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage A, at what accuracy rate can AI diagnose certain medical conditions?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Around 80%","is_correct":false},
+        {"id":"b","text":"Exceeding 95%","is_correct":true},
+        {"id":"c","text":"Exactly 90%","is_correct":false},
+        {"id":"d","text":"Up to 75%","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "ذكر النص أن أنظمة الذكاء الاصطناعي يمكنها تشخيص بعض الحالات الطبية بدقة تتجاوز 95%."
+    },
+    {
+      "order_index": 16, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "In Passage A, what is the stated purpose of integrating AI into Saudi Arabia's NEOM project?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To replace all human workers in construction","is_correct":false},
+        {"id":"b","text":"To create smart cities that anticipate residents' needs","is_correct":true},
+        {"id":"c","text":"To monitor citizens for security purposes","is_correct":false},
+        {"id":"d","text":"To reduce the cost of building materials","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "ذكر النص أن تقنيات الذكاء الاصطناعي تُدمج في التخطيط العمراني لمشروع نيوم لإنشاء مدن ذكية تستبق احتياجات السكان."
+    },
+    {
+      "order_index": 17, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "What does the author of Passage A imply by saying AI identifies patterns 'that humans might overlook'? (inference)",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"AI is completely superior to humans in all tasks","is_correct":false},
+        {"id":"b","text":"Humans are incompetent and should be replaced by AI","is_correct":false},
+        {"id":"c","text":"AI complements human intelligence by catching details humans miss","is_correct":true},
+        {"id":"d","text":"AI was designed to find human mistakes only","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "يُضمن النص أن الذكاء الاصطناعي يُكمل القدرات البشرية، إذ يستطيع رصد تفاصيل دقيقة قد يفوت الإنسان الانتباه إليها، لا أنه يحل محله كلياً."
+    },
+    {
+      "order_index": 18, "skill_tag": "reading", "question_type": "true_false",
+      "question_text": "Passage B states that over 40% of major Saudi hospitals had implemented AI technology by 2024.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. ذكر النص نقلاً عن إحصاءات وزارة الصحة السعودية أن أكثر من 40% من المستشفيات الكبرى نفّذت شكلاً من أشكال تقنية الذكاء الاصطناعي بحلول 2024."
+    },
+    {
+      "order_index": 19, "skill_tag": "reading", "question_type": "fill_blank",
+      "question_text": "In Passage B, Dr. Sarah Al-Mansouri works at _____ Specialist Hospital in Riyadh.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "King Faisal",
+      "accepted_answers": ["King Faisal","king faisal","King Faisal Specialist"],
+      "points": 1,
+      "explanation_ar": "ذكر النص أن الدكتورة سارة المنصوري تمشي عبر مستشفى الملك فيصل التخصصي في الرياض."
+    },
+    {
+      "order_index": 20, "skill_tag": "reading", "question_type": "matching",
+      "question_text": "Match each AI healthcare concept from the passages to its correct description:",
+      "question_context": null,
+      "options": {
+        "left_items": ["flagged","diagnose","implement","undergoing"],
+        "right_items": ["يخضع لـ / يمر بـ","ينفذ ويطبق","يُشخص","يُشير إلى كأولوية"]
+      },
+      "correct_answer": [
+        {"left":"flagged","right":"يُشير إلى كأولوية"},
+        {"left":"diagnose","right":"يُشخص"},
+        {"left":"implement","right":"ينفذ ويطبق"},
+        {"left":"undergoing","right":"يخضع لـ / يمر بـ"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "flagged=يُشير إلى كأولوية، diagnose=يُشخص، implement=ينفذ، undergoing=يخضع لـ أو يمر بتحول."
+    }
+  ]
+}
