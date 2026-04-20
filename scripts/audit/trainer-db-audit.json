@@ -1,0 +1,117 @@
+{
+  "trainers": [
+    {
+      "id": "e8e64b7c-66df-43a7-83f7-9b96b660dcdd",
+      "email": "goldmohmmed@gmail.com",
+      "full_name": "د. محمد شربط",
+      "role": "trainer"
+    },
+    {
+      "id": "c21d8204-3723-4cb6-9b0c-560d8440c693",
+      "email": "trainer@fluentia.academy",
+      "full_name": "مدرب تجريبي",
+      "role": "trainer"
+    }
+  ],
+  "trainer_rows": [
+    {
+      "id": "c21d8204-3723-4cb6-9b0c-560d8440c693",
+      "specialization": [
+        "General English"
+      ],
+      "per_session_rate": 100,
+      "is_active": true,
+      "onboarding_completed": false
+    },
+    {
+      "id": "e5528ced-b3e2-45bb-8c89-9368dc9b5b96",
+      "specialization": [
+        "General English",
+        "IELTS",
+        "Business English"
+      ],
+      "per_session_rate": 150,
+      "is_active": true,
+      "onboarding_completed": true
+    },
+    {
+      "id": "e8e64b7c-66df-43a7-83f7-9b96b660dcdd",
+      "specialization": [
+        "English"
+      ],
+      "per_session_rate": 75,
+      "is_active": true,
+      "onboarding_completed": true
+    }
+  ],
+  "groups": [
+    {
+      "id": "bbbbbbbb-2222-2222-2222-bbbbbbbbbbbb",
+      "name": "المجموعة 2",
+      "level": 1,
+      "trainer_id": "e8e64b7c-66df-43a7-83f7-9b96b660dcdd",
+      "max_students": 10,
+      "is_active": true
+    },
+    {
+      "id": "e7753305-2a42-4b51-89ab-60cf4df37cbb",
+      "name": "Level 1 - Group A",
+      "level": 1,
+      "trainer_id": "e5528ced-b3e2-45bb-8c89-9368dc9b5b96",
+      "max_students": 10,
+      "is_active": false
+    },
+    {
+      "id": "b1b1b1b1-1b1b-1b1b-1b1b-1b1b1b1b1b1b",
+      "name": "Level 1 - Group B",
+      "level": 1,
+      "trainer_id": null,
+      "max_students": 10,
+      "is_active": false
+    },
+    {
+      "id": "7ad2b12a-7330-41c4-93a3-ad3e98503cb7",
+      "name": "Level 2 - Group A",
+      "level": 2,
+      "trainer_id": "c21d8204-3723-4cb6-9b0c-560d8440c693",
+      "max_students": 10,
+      "is_active": false
+    },
+    {
+      "id": "b4b93eea-de72-4f83-ac34-bc3d8d330600",
+      "name": "Level 2 - Group B",
+      "level": 2,
+      "trainer_id": "e5528ced-b3e2-45bb-8c89-9368dc9b5b96",
+      "max_students": 10,
+      "is_active": false
+    },
+    {
+      "id": "d3c4efd1-7508-434b-8e89-71dfea52ecba",
+      "name": "Level 3 - Group B",
+      "level": 3,
+      "trainer_id": null,
+      "max_students": 10,
+      "is_active": false
+    },
+    {
+      "id": "aaaaaaaa-4444-4444-4444-aaaaaaaaaaaa",
+      "name": "المجموعة 4",
+      "level": 3,
+      "trainer_id": "e8e64b7c-66df-43a7-83f7-9b96b660dcdd",
+      "max_students": 10,
+      "is_active": true
+    },
+    {
+      "id": "3a3a3a3a-3a3a-3a3a-3a3a-3a3a3a3a3a3a",
+      "name": "Level 3 - Group A",
+      "level": 3,
+      "trainer_id": null,
+      "max_students": 10,
+      "is_active": false
+    }
+  ],
+  "students_per_group": {},
+  "active_students": [],
+  "mohammedId": "e8e64b7c-66df-43a7-83f7-9b96b660dcdd",
+  "aliId": "e5528ced-b3e2-45bb-8c89-9368dc9b5b96"
+}
