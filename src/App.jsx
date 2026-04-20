@@ -178,6 +178,7 @@ const UnitMasteryResultPage = lazyRetry(() => import('./pages/student/assessment
 const UnitMasteryManagerPage = lazyRetry(() => import('./pages/admin/UnitMasteryManagerPage'))
 
 const AdminCurriculumPreview = lazyRetry(() => import('./pages/admin/AdminCurriculumPreview'))
+const IELTSPreview = lazyRetry(() => import('./pages/admin/IELTSPreview'))
 const TrainerCurriculumPreview = lazyRetry(() => import('./pages/trainer/TrainerCurriculumPreview'))
 const InteractiveCurriculumLevels = lazyRetry(() => import('./pages/shared/InteractiveCurriculumLevels'))
 const InteractiveCurriculumUnits = lazyRetry(() => import('./pages/shared/InteractiveCurriculumUnits'))
@@ -780,6 +781,7 @@ export default function App() {
               <Route path="/admin/affiliates/payouts" element={<Page><AffiliatePayouts /></Page>} />
               <Route path="/admin/affiliates/materials" element={<Page><AffiliateMaterialsAdmin /></Page>} />
               <Route path="/admin/affiliates/:id" element={<Page><AffiliateDetail /></Page>} />
+              <Route path="/admin/ielts-v2-preview" element={<Page><IELTSPreview /></Page>} />
               <Route path="/admin/student-curriculum" element={<Page><AdminCurriculumPreview><CurriculumBrowser /></AdminCurriculumPreview></Page>} />
               <Route path="/admin/student-curriculum/level/:levelNumber" element={<Page><AdminCurriculumPreview><LevelUnits /></AdminCurriculumPreview></Page>} />
               <Route path="/admin/student-curriculum/unit/:unitId" element={<Page><AdminCurriculumPreview><UnitContent /></AdminCurriculumPreview></Page>} />

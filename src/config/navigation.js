@@ -149,6 +149,7 @@ export const ADMIN_NAV = {
         { id: 'content',     label: 'المحتوى',      icon: BookOpen,      to: '/admin/content' },
         { id: 'curriculum',  label: 'المنهج',       icon: FileText,      to: '/admin/curriculum' },
         { id: 'student-curriculum', label: 'معاينة منهج الطالب', icon: BookOpen, to: '/admin/student-curriculum' },
+        { id: 'ielts-v2-preview',   label: 'معاينة منهج IELTS',  icon: Target,   to: '/admin/ielts-v2-preview' },
         { id: 'interactive-curriculum', label: 'المنهج التفاعلي', icon: BookOpen, to: '/admin/interactive-curriculum' },
         { id: 'payments',    label: 'المالية',      icon: CreditCard,    to: '/admin/packages' },
         { id: 'marketing',   label: 'التسويق',      icon: Megaphone,     to: '/admin/announcements' },
