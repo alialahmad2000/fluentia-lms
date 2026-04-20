@@ -169,8 +169,7 @@ function StudentContributionTable({ students, comp }) {
     let rows = [...students]
 
     if (teamFilter !== 'all') {
-      const groupId = teamFilter === 'A' ? comp?.team_a_group_id : comp?.team_b_group_id
-      rows = rows.filter((s) => s.group_id === groupId)
+      rows = rows.filter((s) => s.team === teamFilter)
     }
 
     if (search.trim()) {
@@ -249,14 +248,14 @@ function StudentContributionTable({ students, comp }) {
           </thead>
           <tbody>
             {sorted.map((s, i) => {
-              const isA = s.group_id === comp?.team_a_group_id
+              const isA = s.team === 'A'
               const team = isA ? comp?.team_a : comp?.team_b
               return (
                 <tr
                   key={s.student_id ?? i}
                   className="hover:bg-white/[0.02] cursor-pointer transition-colors"
                   style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}
-                  onClick={() => navigate(`/admin/student/${s.profile_id}/progress`)}
+                  onClick={() => navigate(`/admin/student/${s.student_id}/progress`)}
                 >
                   <td className="px-3 py-2.5 text-sm text-slate-500 tabular-nums">#{i + 1}</td>
                   <td className="px-3 py-2.5 text-sm text-white font-medium">{s.student_name}</td>

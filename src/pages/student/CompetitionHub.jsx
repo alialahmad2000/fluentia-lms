@@ -364,16 +364,16 @@ function MVPPodium({ competitionId, team, teamData, defaultExpanded = true, show
                 <div className="text-center text-slate-500 text-sm py-4">لا توجد بيانات بعد</div>
               )}
               {(leaders || []).map((p, i) => (
-                <div key={p.profile_id} className="flex items-center gap-2 py-1">
+                <div key={p.student_id} className="flex items-center gap-2 py-1">
                   <RankBadge rank={i + 1} />
                   <MemberAvatar name={p.display_name} url={p.avatar_url} size={32} />
                   <span className="flex-1 text-sm text-white font-medium truncate">{p.display_name}</span>
                   <span className="text-sm font-bold tabular-nums" style={{ color: teamData.color }}>
-                    {p.xp_total} XP
+                    {p.total_xp} XP
                   </span>
                   {showEncourage && (
                     <EncourageButton
-                      studentId={p.profile_id}
+                      studentId={p.student_id}
                       studentName={p.display_name}
                       size="sm"
                     />
