@@ -34,8 +34,8 @@ export default function InterventionsSection({ items = [] }) {
       </ul>
 
       <div className="db-section__footer">
-        <Link to="/trainer/interventions" className="db-section__link">
-          📋 القائمة الكاملة ←
+        <Link to="/trainer/students" className="db-section__link">
+          📋 ملفات الطلاب ←
         </Link>
       </div>
     </section>

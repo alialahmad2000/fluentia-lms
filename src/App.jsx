@@ -133,12 +133,7 @@ const CockpitPage = lazyRetry(() => import('./pages/trainer/v2/CockpitPage'))
 // Trainer V2 pages
 const GradingStationPage = lazyRetry(() => import('./pages/trainer/v2/GradingStationPage'))
 const ClassDebriefPage = lazyRetry(() => import('./pages/trainer/v2/ClassDebriefPage'))
-const InterventionsPage = lazyRetry(() => import('./pages/trainer/v2/InterventionsPage'))
-const ClassPrepPage = lazyRetry(() => import('./pages/trainer/v2/ClassPrepPage'))
-const LiveClassPage = lazyRetry(() => import('./pages/trainer/v2/LiveClassPage'))
-const CompetitionCommandPage = lazyRetry(() => import('./pages/trainer/v2/CompetitionCommandPage'))
-const MyGrowthPage = lazyRetry(() => import('./pages/trainer/v2/MyGrowthPage'))
-const NabihPage = lazyRetry(() => import('./pages/trainer/v2/NabihPage'))
+
 const HelpPage = lazyRetry(() => import('./pages/trainer/v2/HelpPage'))
 const Student360Page = lazyRetry(() => import('./pages/trainer/v2/Student360Page'))
 const IELTSOverview = lazyRetry(() => import('./pages/trainer/IELTSOverview'))
@@ -701,14 +696,14 @@ export default function App() {
               <Route path="/trainer/students" element={<Page><TrainerStudentView /></Page>} />
               <Route path="/trainer/curriculum" element={<Page><TrainerCurriculum /></Page>} />
 
-              {/* ── V2: new placeholder pages ── */}
-              <Route path="/trainer/interventions" element={<Page><InterventionsPage /></Page>} />
-              <Route path="/trainer/prep" element={<Page><ClassPrepPage /></Page>} />
-              <Route path="/trainer/live" element={<Page><LiveClassPage /></Page>} />
-              <Route path="/trainer/competition" element={<Page><CompetitionCommandPage /></Page>} />
-              <Route path="/trainer/my-growth" element={<Page><MyGrowthPage /></Page>} />
-              <Route path="/trainer/nabih" element={<Page><NabihPage /></Page>} />
-              <Route path="/trainer/nabih/:conversationId" element={<Page><NabihPage /></Page>} />
+              {/* ── Deprecated routes → redirect to active pages ── */}
+              <Route path="/trainer/interventions" element={<Navigate to="/trainer/students" replace />} />
+              <Route path="/trainer/prep" element={<Navigate to="/trainer" replace />} />
+              <Route path="/trainer/live" element={<Navigate to="/trainer" replace />} />
+              <Route path="/trainer/competition" element={<Navigate to="/trainer" replace />} />
+              <Route path="/trainer/my-growth" element={<Navigate to="/trainer" replace />} />
+              <Route path="/trainer/nabih" element={<Navigate to="/trainer" replace />} />
+              <Route path="/trainer/nabih/:conversationId" element={<Navigate to="/trainer" replace />} />
               <Route path="/trainer/help" element={<Page><HelpPage /></Page>} />
               <Route path="/trainer/students/:studentId" element={<Page><TrainerStudentView /></Page>} />
 
@@ -738,9 +733,9 @@ export default function App() {
                 <Route key={p} path={p} element={<Navigate to="/trainer/students" replace />} />
               ))}
               {['/trainer/attendance', '/trainer/lesson-planner', '/trainer/quiz'].map(p => (
-                <Route key={p} path={p} element={<Navigate to="/trainer/prep" replace />} />
+                <Route key={p} path={p} element={<Navigate to="/trainer" replace />} />
               ))}
-              <Route path="/trainer/ai-assistant" element={<Navigate to="/trainer/nabih" replace />} />
+              <Route path="/trainer/ai-assistant" element={<Navigate to="/trainer" replace />} />
             </Route>
           </Route>
 

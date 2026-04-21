@@ -4,12 +4,11 @@ import clsx from 'clsx'
 import { HelpCircle } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
-import { TRAINER_NAV_V2 } from '../../config/trainerNavigation'
+import { TRAINER_NAV_V3 } from '../../config/trainerNavigation'
 import './TrainerSidebar.css'
 
 const TOUR_IDS = {
   grading: 'grading-badge',
-  'my-growth': 'my-growth-link',
 }
 
 export default function TrainerSidebar() {
@@ -63,9 +62,9 @@ export default function TrainerSidebar() {
       <hr className="tr-sidebar__divider" aria-hidden="true" />
 
       <div className="tr-sidebar__scroll">
-        {TRAINER_NAV_V2.map((section) => (
+        {TRAINER_NAV_V3.map((section) => (
           <div key={section.section} className="tr-sidebar__section">
-            <div className="tr-sidebar__section-label">{section.label}</div>
+            {section.label && <div className="tr-sidebar__section-label">{section.label}</div>}
             <ul className="tr-sidebar__list" role="list">
               {section.items.map((item) => {
                 const Icon = item.icon

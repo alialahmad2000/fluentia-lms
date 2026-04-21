@@ -47,8 +47,8 @@ export default function NabihInlineCard({ students = [], interventions = [], tra
       <p className="db-nabih__meta">مُشتق من بيانات طلابك الحقيقية الآن</p>
 
       <div className="db-section__footer">
-        <Link to="/trainer/nabih" className="db-section__link">
-          💬 أكمل مع نبيه ←
+        <Link to="/trainer" className="db-section__link">
+          💬 افتح غرفة القيادة ←
         </Link>
       </div>
     </section>

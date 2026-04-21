@@ -24,14 +24,14 @@ export function resolveHeroState({ nextClass, hasDoneMorningRitual, hourNow }) {
   if (nextClass) {
     const minutesUntil = nextClass.minutesUntil ?? null
     if (minutesUntil !== null && minutesUntil <= 0 && minutesUntil > -90) {
-      return { kind: 'live', subtitle: `حصة جارية — ${nextClass.groupName}`, cta: 'افتح وضع الحصة', to: '/trainer/live', external: false }
+      return { kind: 'live', subtitle: `حصة جارية — ${nextClass.groupName}`, cta: 'افتح وضع الحصة', to: '/trainer', external: false }
     }
     if (minutesUntil !== null && minutesUntil > 0 && minutesUntil <= 30) {
       return {
         kind: 'pre-class',
         subtitle: `الحصة بعد ${arabicNum(minutesUntil)} دقيقة — ${nextClass.groupName}`,
         cta: 'تحضير الحصة',
-        to: '/trainer/prep',
+        to: '/trainer',
         external: false,
       }
     }
@@ -40,7 +40,7 @@ export function resolveHeroState({ nextClass, hasDoneMorningRitual, hourNow }) {
     return { kind: 'morning', subtitle: 'ابدأ يومك بطقس الصباح — ٣ دقائق تفرق', cta: 'ابدأ طقس الصباح (+٣ XP)', to: null, external: false }
   }
   if (hourNow >= 18) {
-    return { kind: 'evening', subtitle: 'نهاية اليوم — شوف كيف كان أداؤك', cta: 'شوف ملخص اليوم', to: '/trainer/my-growth', external: false }
+    return { kind: 'evening', subtitle: 'نهاية اليوم — شوف كيف كان أداؤك', cta: 'شوف ملخص اليوم', to: '/trainer/students', external: false }
   }
   return { kind: 'default', subtitle: 'كل شيء جاهز — ابدأ بالطلاب', cta: 'افتح قائمة الطلاب', to: '/trainer/students', external: false }
 }
