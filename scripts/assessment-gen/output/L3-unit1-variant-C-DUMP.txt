@@ -1,0 +1,171 @@
+======================================================================
+LEVEL 3 · UNIT 1 · VARIANT C — FULL DUMP
+======================================================================
+Source file:     scripts/assessment-gen/output/L3-unit1-variant-C.json
+unit_id:         a5b583a4-5d9e-41b7-b95f-c07e0c44f64b
+variant_id:      88f75d90-4bd3-402b-8b8c-dd00836d5f7c
+generated_at:    2026-04-21T00:00:00Z
+generated_by:    Claude Code native (English-options standard)
+distribution:    8V / 6G / 6R  ·  12 MCQ / 4 T/F / 2 FB / 2 Matching
+question_count:  20
+======================================================================
+
+Q1  [vocabulary · mcq]
+    Q: Passage A says AI has become an 'integral' part of modern life. What does 'integral' mean?
+    a) Optional and only occasionally useful in daily situations
+  ✓ b) Essential and forming a necessary part of something larger
+    c) Rare and difficult to find in most everyday contexts
+    d) Simple and very easy to remove or replace
+    A: b
+    شرح: integral تعني جوهري ولا يتجزأ، أي أنه جزء أساسي لا يمكن الاستغناء عنه من شيء أكبر.
+
+Q2  [vocabulary · mcq]
+    Q: Educational platforms 'leverage' machine learning to personalise student experiences. What does 'leverage' mean here?
+    a) To ignore and fail to make use of available tools or resources
+    b) To design and build something entirely from the very beginning
+  ✓ c) To make effective and strategic use of something to gain an advantage
+    d) To reduce and limit the power of a tool or available resource
+    A: c
+    شرح: leverage تعني يستغل ويوظّف، أي استخدام شيء متاح بذكاء لتحقيق ميزة أو نتيجة أفضل.
+
+Q3  [vocabulary · mcq]
+    Q: The 'scope' of AI applications continues to expand rapidly across sectors. What does 'scope' mean in this context?
+    a) The speed at which a new technology is developed or officially released
+    b) The negative side effects that a technology causes in society
+    c) The total number of experts involved in designing a system
+  ✓ d) The range and extent of something's coverage or influence
+    A: d
+    شرح: scope تعني نطاق أو مدى، أي الحدود أو الامتداد الذي يشمله شيء ما أو يؤثر فيه.
+
+Q4  [vocabulary · mcq]
+    Q: Passage A states that AI accuracy in healthcare 'surpasses' the performance of many human specialists. What does 'surpasses' mean?
+  ✓ a) Performs better than or goes beyond an established level or standard
+    b) Falls below or fails to meet the required level or standard
+    c) Stays at exactly the same level as something else over time
+    d) Relies on and depends completely on another external source
+    A: a
+    شرح: surpasses تعني يتفوق على ويتجاوز، أي تحقيق أداء أعلى من مستوى أو معيار معين.
+
+Q5  [vocabulary · mcq]
+    Q: Passage A argues that AI works best when it 'complements' human intelligence rather than replacing it. What does 'complements' mean?
+    a) Competes directly against something in order to take its place
+  ✓ b) Adds to and strengthens something by supplying what it lacks
+    c) Copies and exactly reproduces the abilities of something else
+    d) Reduces and weakens something by gradually taking over its role
+    A: b
+    شرح: complements تعني يكمل ويعزز، أي أن يضيف شيء ما إلى شيء آخر بحيث يملأ ما ينقصه ويجعله أكثر اكتمالاً.
+
+Q6  [vocabulary · true_false]
+    Q: In the context of scientific research, 'breakthroughs' refers to major discoveries or important advances that change what was previously possible.
+    A: true
+    شرح: صحيح. breakthroughs تعني اختراقات أو اكتشافات مهمة تُغيّر ما كان ممكناً من قبل في مجال ما.
+
+Q7  [vocabulary · true_false]
+    Q: The 'adoption' of AI in Middle Eastern healthcare means that hospitals have completely refused to use AI technology.
+    A: false
+    شرح: خطأ. adoption تعني التبني والاعتماد على شيء ما، أي قبوله واستخدامه، وهو عكس الرفض تماماً.
+
+Q8  [vocabulary · fill_blank]
+    Q: Healthcare providers are _____ to balance technological innovation with the values of traditional patient care.
+    A: striving (also accepted: striving, Striving)
+    شرح: striving تعني تسعى جاهدةً أو تجتهد، أي بذل جهد مستمر ومثابر من أجل تحقيق هدف معين.
+
+Q9  [grammar · mcq]
+    Q: Which sentence uses 'recently' correctly with the present perfect tense?
+    a) Researchers recently published their AI study in 2023.
+    b) The hospital recently installed the AI scanner last Tuesday.
+  ✓ c) Scientists have recently developed a more accurate AI model for detecting cancer.
+    d) She recently was working on the AI project for the past six months.
+    A: c
+    شرح: نستخدم 'recently' مع الماضي التام (have/has + recently + تصريف ثالث) للتعبير عن حدث وقع قريباً دون تحديد وقت دقيق. الخيارات الأخرى تقرن 'recently' بأوقات محددة تستلزم الماضي البسيط أو تحتوي على تراكيب خاطئة.
+
+Q10  [grammar · mcq]
+    Q: Choose the sentence that correctly expresses an ongoing action that started in the past and is still continuing now.
+    a) The team worked on the AI project since January and is nearly done.
+  ✓ b) The university has been offering AI courses for the past three years.
+    c) Students studied machine learning since 2020 and know it very well.
+    d) She has been learn about artificial intelligence since last month.
+    A: b
+    شرح: نستخدم الماضي التام المستمر (have/has been + فعل مضاف إليه ing) للتعبير عن فعل مستمر بدأ في الماضي ولا يزال يحدث الآن. الخيارات a وc تستخدم الماضي البسيط مع since بشكل خاطئ، والخيار d يحتوي على خطأ في بنية الجملة.
+
+Q11  [grammar · mcq]
+    Q: Which sentence best describes an action in progress over a period that is not yet finished?
+    a) Dr. Ahmed has studied AI for fifteen years and published many important papers.
+    b) The new AI system completed all its tests and is now ready to launch.
+  ✓ c) Researchers have been testing the new AI model for three months and are not finished yet.
+    d) Scientists discovered the key benefits of machine learning in the early 2000s.
+    A: c
+    شرح: يُعبّر الماضي التام المستمر (have been testing) عن نشاط لا يزال جارياً لم يكتمل بعد. الخيار a يُبرز النتيجة المنجزة (PP بسيط)، والخياران b وd يستخدمان الماضي البسيط.
+
+Q12  [grammar · mcq]
+    Q: Which question correctly asks about the duration of an activity that started in the past and is still continuing?
+    a) How long did she use the AI assistant for her research?
+  ✓ b) How long has she been using the AI assistant for her research?
+    c) How long was she using the AI assistant for her research?
+    d) How long she has been using the AI assistant for her research?
+    A: b
+    شرح: نستخدم 'How long has/have + subject + been + verb-ing?' للسؤال عن مدة نشاط مستمر حتى الآن. الخيار a يوحي بانتهاء النشاط، والخيار c يستخدم الماضي المستمر المنتهي، والخيار d يحتوي على خطأ في ترتيب الكلمات.
+
+Q13  [grammar · true_false]
+    Q: The sentence 'Doctors have been using this AI software since they installed it two years ago' is grammatically correct.
+    A: true
+    شرح: صحيح. نستخدم الماضي التام المستمر (have been using) مع since للتعبير عن فعل بدأ في نقطة زمنية محددة في الماضي ولا يزال مستمراً حتى الآن.
+
+Q14  [grammar · matching]
+    Q: Match each verb to its correct past participle form, as used in the present perfect tense.
+    Pairs:
+      rise  →  risen
+      break  →  broken
+      write  →  written
+      grow  →  grown
+    شرح: هذه أفعال شاذة تتغير صيغتها في الماضي التام: rise→risen، break→broken، write→written، grow→grown. معرفة تصريفاتها الثالثة ضرورية لبناء جمل الماضي التام بشكل صحيح.
+
+Q15  [reading · mcq]
+    Q: According to Passage A, which sector uses machine learning algorithms to create experiences that adapt to individual learning styles?
+    a) The healthcare sector through AI-powered diagnostic tools
+    b) The finance sector through automated fraud detection systems
+  ✓ c) The education sector through adaptive learning platforms
+    d) The urban planning sector through smart city infrastructure
+    A: c
+    شرح: ذكر النص أن المنصات التعليمية تستخدم خوارزميات التعلم الآلي لإنشاء تجارب تعلم شخصية تتكيف مع وتيرة كل طالب وأسلوب تعلمه.
+
+Q16  [reading · mcq]
+    Q: According to Passage B, with what accuracy rate can AI systems detect early signs of diseases such as diabetes and heart conditions?
+    a) 90%
+    b) 92%
+  ✓ c) 94%
+    d) 97%
+    A: c
+    شرح: ذكر النص أن هذه الأنظمة تستطيع كشف العلامات المبكرة لأمراض مثل السكري وأمراض القلب بدقة تبلغ 94%، وهي نسبة كثيراً ما تتجاوز أداء الأطباء البشريين من حيث السرعة والدقة.
+
+Q17  [reading · mcq]
+    Q: Passage A says AI fraud detection handles transactions that would be 'impossible for humans to monitor manually.' What does this best suggest?
+    a) AI has completely eliminated financial fraud from the banking sector
+    b) Banks no longer employ any human staff to manage financial operations
+  ✓ c) AI handles data volumes and processing speeds that exceed human capacity alone
+    d) AI was specifically designed to permanently replace human workers in finance
+    A: c
+    شرح: يُضمن النص أن الذكاء الاصطناعي في القطاع المالي يتعامل مع أحجام بيانات وسرعات معالجة تتجاوز الطاقة البشرية، مما يجعله أداةً تعزيزية لا بديلاً كاملاً عن الإنسان.
+
+Q18  [reading · true_false]
+    Q: According to Passage A, Dr. Sarah Al-Rashid is a computer science professor at King Abdulaziz University.
+    A: true
+    شرح: صحيح. ذكر النص أن الدكتورة سارة الراشد أستاذة في علوم الحاسب بجامعة الملك عبدالعزيز، ونقل اقتباساً مباشراً لها حول تكامل الذكاء الاصطناعي مع القدرات البشرية.
+
+Q19  [reading · fill_blank]
+    Q: According to Passage B, AI systems in Saudi hospitals can detect early signs of diseases like diabetes with _____ percent accuracy.
+    A: 94 (also accepted: 94, 94%, ninety-four, Ninety-four)
+    شرح: ذكر النص أن أنظمة الذكاء الاصطناعي في المستشفيات السعودية تستطيع كشف العلامات المبكرة للأمراض بدقة 94%.
+
+Q20  [reading · matching]
+    Q: Match each name or organization mentioned in the passages to its correct description.
+    Pairs:
+      King Abdulaziz University  →  institution where Dr. Al-Rashid works as a professor
+      Vision 2030  →  Saudi plan that includes ambitious digital health transformation goals
+      NEOM  →  Saudi urban project integrating AI for smart city planning
+      Gulf Cooperation Council  →  region where the AI trust survey was conducted
+    شرح: ذكر النص هذه الجهات بوضوح: جامعة الملك عبدالعزيز (مؤسسة الدكتورة الراشد)، ورؤية 2030 (خطة التحول الصحي الرقمي)، ونيوم (مشروع المدينة الذكية)، ومجلس التعاون الخليجي (نطاق الاستطلاع).
+
+----------------------------------------------------------------------
+END OF DUMP — 20 questions printed
+======================================================================

@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Users, Plus, Search, Edit3, Trash2, Loader2, X, UserPlus, Download, ArrowUpCircle, Briefcase, Copy, Eye, EyeOff, Mail, CheckCircle2, AlertCircle } from 'lucide-react'
@@ -648,13 +648,47 @@ function AddStudentModal({ groups, onClose, onSuccess }) {
   const [showPassword, setShowPassword] = useState(false)
   const tempPassword = useState(() => generateTempPassword())[0]
 
+  // Ref code attribution
+  const [refCode, setRefCode] = useState('')
+  const [refCodeValid, setRefCodeValid] = useState(null) // null | true | false
+  const [refAffiliateName, setRefAffiliateName] = useState('')
+  const [refAffiliateId, setRefAffiliateId] = useState(null)
+
+  useEffect(() => {
+    if (!refCode.trim()) {
+      setRefCodeValid(null)
+      setRefAffiliateName('')
+      setRefAffiliateId(null)
+      return
+    }
+    const timeout = setTimeout(async () => {
+      const { data } = await supabase
+        .from('affiliates')
+        .select('id, full_name, status')
+        .eq('ref_code', refCode.trim().toUpperCase())
+        .maybeSingle()
+      if (data?.status === 'approved') {
+        setRefCodeValid(true)
+        setRefAffiliateName(data.full_name)
+        setRefAffiliateId(data.id)
+      } else if (data) {
+        setRefCodeValid(false)
+        setRefAffiliateName(`(${data.status})`)
+        setRefAffiliateId(null)
+      } else {
+        setRefCodeValid(false)
+        setRefAffiliateName('')
+        setRefAffiliateId(null)
+      }
+    }, 400)
+    return () => clearTimeout(timeout)
+  }, [refCode])
+
   async function handleSubmit(e) {
     e.preventDefault()
     setSaving(true)
     setError('')
     try {
-      // Create auth user via Supabase admin API (using service role through edge function would be ideal,
-      // but for now we use signUp - the admin will need to verify)
       const { data: authData, error: authErr } = await supabase.auth.signUp({
         email: email.trim(),
         password: tempPassword,
@@ -685,12 +719,36 @@ function AddStudentModal({ groups, onClose, onSuccess }) {
         enrollment_date: new Date().toISOString(),
       }, { onConflict: 'id' })
 
-      // Attribute student to affiliate (via lead record, non-blocking)
-      import('../../utils/affiliateAttribution').then(({ attributeStudent }) => {
-        attributeStudent({ studentId: userId, email: email.trim(), phone: phone.trim() || null })
-          .then(r => { if (r.attributed) console.log('[Affiliate] Student attributed to', r.ref_code) })
-          .catch(() => {})
-      })
+      // Manual ref code attribution (takes priority over auto lead-matching)
+      const cleanRef = refCode.trim().toUpperCase()
+      if (cleanRef && refCodeValid === true && refAffiliateId) {
+        try {
+          await supabase.from('students').update({
+            affiliate_id: refAffiliateId,
+            ref_code: cleanRef,
+          }).eq('id', userId)
+
+          const { error: convErr } = await supabase.from('affiliate_conversions').insert({
+            affiliate_id: refAffiliateId,
+            student_id: userId,
+            ref_code: cleanRef,
+            commission_amount: 100,
+            status: 'pending',
+          })
+          if (convErr && !convErr.message?.includes('duplicate') && !convErr.code?.includes('23505')) {
+            console.error('[AddStudent] conversion insert failed (non-fatal):', convErr)
+          }
+        } catch (linkErr) {
+          console.error('[AddStudent] affiliate linking failed (non-fatal):', linkErr)
+        }
+      } else {
+        // Fallback: auto-attribute via lead record
+        import('../../utils/affiliateAttribution').then(({ attributeStudent }) => {
+          attributeStudent({ studentId: userId, email: email.trim(), phone: phone.trim() || null })
+            .then(r => { if (r.attributed) console.log('[Affiliate] Auto-attributed to', r.ref_code) })
+            .catch(() => {})
+        })
+      }
 
       setCreatedStudent({ email: email.trim(), password: tempPassword, name: fullName.trim() })
     } catch (err) {
@@ -796,6 +854,25 @@ function AddStudentModal({ groups, onClose, onSuccess }) {
             <div className="fl-card-static p-3">
               <p className="text-xs text-muted">كلمة المرور المؤقتة: <span className="font-mono text-sky-400" dir="ltr">{tempPassword}</span></p>
               <p className="text-xs text-muted mt-1">سيُطلب من الطالب تغييرها عند أول تسجيل دخول</p>
+            </div>
+            <div>
+              <label className="input-label">
+                كود الإحالة <span className="text-muted text-xs">(اختياري)</span>
+              </label>
+              <input
+                type="text"
+                value={refCode}
+                onChange={(e) => setRefCode(e.target.value.toUpperCase())}
+                placeholder="مثال: PAR5106"
+                className="input-field font-mono"
+                dir="ltr"
+              />
+              {refCode && refCodeValid === true && (
+                <p className="text-emerald-400 text-xs mt-1.5">✓ مسوّق: {refAffiliateName}</p>
+              )}
+              {refCode && refCodeValid === false && (
+                <p className="text-red-400 text-xs mt-1.5">✗ كود غير صحيح أو غير معتمد</p>
+              )}
             </div>
             {error && <p className="text-red-400 text-sm">{error}</p>}
             <div className="flex items-center gap-3 pt-2">

@@ -91,7 +91,7 @@ export default function StudentProgressDetail() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('profiles')
-        .select('*, students(*, groups(name, code, level), teams(name, color))')
+        .select('*, students(*, groups(name, code, level), teams(name, color), affiliates:affiliate_id(full_name, ref_code))')
         .eq('id', studentId)
         .single()
       if (error) {
@@ -477,6 +477,22 @@ export default function StudentProgressDetail() {
           </div>
         </div>
       </div>
+
+      {/* ── Affiliate Referral (admin only) ──────── */}
+      {currentUser?.role === 'admin' && studentInfo.affiliate_id && (
+        <div className="rounded-xl p-3 border"
+          style={{ borderColor: 'rgba(245,158,11,0.3)', background: 'rgba(245,158,11,0.05)' }}>
+          <p className="text-sm font-['Tajawal']" style={{ color: '#fbbf24' }}>
+            🏷️ تمت الإحالة عبر المسوّق:{' '}
+            <strong>{studentInfo.affiliates?.full_name || '—'}</strong>
+            {studentInfo.ref_code && (
+              <span className="mr-2 text-xs font-mono" style={{ color: 'var(--text-tertiary)' }}>
+                ({studentInfo.ref_code})
+              </span>
+            )}
+          </p>
+        </div>
+      )}
 
       {/* ── Quick Actions ─────────────────────────── */}
       {currentUser?.role === 'trainer' || currentUser?.role === 'admin' ? (
