@@ -6,6 +6,7 @@ const TRAINER_THEMES = [
   'theme-deep-teal',
   'theme-daylight-study',
   'theme-mission-black',
+  'theme-linear',
 ]
 
 const TRAINER_PREF_MAP = {
@@ -13,28 +14,37 @@ const TRAINER_PREF_MAP = {
   'deep-teal':      'theme-deep-teal',
   'daylight-study': 'theme-daylight-study',
   'mission-black':  'theme-mission-black',
+  'linear':         'theme-linear',
 }
+
+// Legacy theme-name migration — maps old stored values → theme-linear
+const LEGACY_PREFS = new Set(['gold-command', 'deep-teal', 'daylight-study', 'mission-black'])
 
 export function applyTrainerTheme(pref) {
   const body = document.body
   TRAINER_THEMES.forEach((t) => body.classList.remove(t))
-  const cls = TRAINER_PREF_MAP[pref] || 'theme-gold-command'
+  // Migrate any legacy stored preference to linear
+  const effectivePref = LEGACY_PREFS.has(pref) ? 'linear' : (pref || 'linear')
+  const cls = TRAINER_PREF_MAP[effectivePref] || 'theme-linear'
   body.classList.add(cls)
-  try { localStorage.setItem('fluentia_trainer_theme', pref || 'gold-command') } catch {}
+  try { localStorage.setItem('fluentia_trainer_theme', effectivePref) } catch {}
 }
 
 export function getTrainerThemeFromStorage() {
-  try { return localStorage.getItem('fluentia_trainer_theme') || 'gold-command' } catch { return 'gold-command' }
+  try {
+    const stored = localStorage.getItem('fluentia_trainer_theme') || 'linear'
+    return LEGACY_PREFS.has(stored) ? 'linear' : stored
+  } catch { return 'linear' }
 }
 
 export function enterMissionBlack() {
-  document.body.classList.add('theme-mission-black--active')
-  applyTrainerTheme('mission-black')
+  /* DEPRECATED 2026-04-21 — mission-black auto-swap removed; trainer portal uses theme-linear only */
+  return
 }
 
-export function exitMissionBlack(previousPref) {
-  document.body.classList.remove('theme-mission-black--active')
-  applyTrainerTheme(previousPref || getTrainerThemeFromStorage())
+export function exitMissionBlack(_previousPref) {
+  /* DEPRECATED 2026-04-21 — mission-black auto-swap removed; trainer portal uses theme-linear only */
+  return
 }
 
 export const VALID_THEMES = THEMES.map(t => t.id)

@@ -7,7 +7,6 @@ import XPFloater from '@/components/ui/XPFloater'
 import TimerBadge from '@/components/trainer/TimerBadge'
 import FloatingToolbar from '@/components/trainer/FloatingToolbar'
 import A11yFloatingButton from '@/components/Accessibility/A11yFloatingButton'
-import TrainerBackground from '@/design-system/TrainerBackground'
 import TrainerSidebar from '@/components/layout/TrainerSidebar'
 import TrainerHeader from '@/components/layout/TrainerHeader'
 import TrainerMobileBar from '@/components/layout/TrainerMobileBar'
@@ -28,6 +27,7 @@ export default function TrainerLayout() {
     return () => {
       document.body.classList.remove(
         'trainer-role',
+        'theme-linear',
         'theme-gold-command',
         'theme-deep-teal',
         'theme-daylight-study',
@@ -48,7 +48,6 @@ export default function TrainerLayout() {
       onKeyDown={() => tracker.touch()}
     >
       <UpdateBanner />
-      <TrainerBackground />
 
       <div className="trainer-layout__frame">
         <TrainerSidebar />

@@ -67,6 +67,8 @@ body.trainer-role {
 
 /* ============================================
    THEME 1: Gold Command (Default)
+   [DEPRECATED 2026-04-21 — superseded by theme-linear]
+   Kept for rollback safety. Do not reference in new code.
    ============================================ */
 body.trainer-role.theme-gold-command {
   /* Uses base defaults above */
@@ -74,6 +76,8 @@ body.trainer-role.theme-gold-command {
 
 /* ============================================
    THEME 2: Deep Teal (نيلة هادئة)
+   [DEPRECATED 2026-04-21 — superseded by theme-linear]
+   Kept for rollback safety. Do not reference in new code.
    ============================================ */
 body.trainer-role.theme-deep-teal {
   --tr-bg-base:         #040e12;
@@ -103,6 +107,8 @@ body.trainer-role.theme-deep-teal {
 
 /* ============================================
    THEME 3: Daylight Study (نور نهاري — Light)
+   [DEPRECATED 2026-04-21 — superseded by theme-linear]
+   Kept for rollback safety. Do not reference in new code.
    ============================================ */
 body.trainer-role.theme-daylight-study {
   --tr-bg-base:         #fafaf5;
@@ -140,7 +146,8 @@ body.trainer-role.theme-daylight-study {
 
 /* ============================================
    THEME 4: Mission Black (ليل المهمة)
-   Auto-applied during Live Class only.
+   [DEPRECATED 2026-04-21 — live-class auto-swap removed in D0]
+   Kept for rollback safety. Do not reference in new code.
    ============================================ */
 body.trainer-role.theme-mission-black {
   --tr-bg-base:         #000000;
@@ -204,4 +211,86 @@ body.trainer-role .tr-strong {
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--tr-border-strong), transparent);
   border: 0;
+}
+
+/* ============================================================
+   THEME: Linear (Trainer)
+   Created: 2026-04-21 — D0 foundations
+   Scope: body.trainer-role.theme-linear
+   ============================================================ */
+body.trainer-role.theme-linear {
+  /* Surfaces */
+  --tr-bg-base:         #08090A;
+  --tr-bg-elevated:     #0C0D0F;
+  --tr-bg-surface:      rgba(94, 106, 210, 0.06);
+  --tr-bg-surface-2:    rgba(94, 106, 210, 0.10);
+  --tr-surface:         #111113;
+  --tr-surface-hover:   #16171A;
+  --tr-border:          #1F2023;
+  --tr-border-strong:   #26272B;
+  --tr-divider:         rgba(255, 255, 255, 0.06);
+
+  /* Text */
+  --tr-text-primary:    #F4F4F5;
+  --tr-text-secondary:  #A1A1A6;
+  --tr-text-muted:      #6B6B70;
+  --tr-text-subtle:     #4B4B4F;
+  --tr-text-1:          #F4F4F5;
+  --tr-text-2:          #A1A1A6;
+  --tr-text-3:          #6B6B70;
+  --tr-text-4:          #4B4B4F;
+
+  /* Accent */
+  --tr-accent:          #5E6AD2;
+  --tr-primary:         #5E6AD2;
+  --tr-primary-500:     #5E6AD2;
+  --tr-accent-soft:     rgba(94, 106, 210, 0.12);
+  --tr-accent-border:   rgba(94, 106, 210, 0.24);
+
+  /* Semantic */
+  --tr-success:         #26B364;
+  --tr-warning:         #D97706;
+  --tr-warn:            #D97706;
+  --tr-danger:          #E5484D;
+
+  /* Card */
+  --tr-card-bg:         #111113;
+  --tr-card-border:     1px solid #1F2023;
+  --tr-card-shadow:     0 1px 2px rgba(0,0,0,0.3);
+
+  /* Typography */
+  --tr-font-ar:         'IBM Plex Sans Arabic', system-ui, sans-serif;
+  --tr-font-en:         'Inter', system-ui, sans-serif;
+  --tr-font-latin:      'Inter', system-ui, sans-serif;
+
+  /* Radius */
+  --tr-radius-sm:       6px;
+  --tr-radius-md:       8px;
+  --tr-radius-lg:       12px;
+
+  /* Shadows */
+  --tr-shadow-sm:       0 1px 2px rgba(0,0,0,0.3);
+  --tr-shadow-md:       0 4px 12px rgba(0,0,0,0.4);
+
+  /* Kill spotlight — Linear uses flat background */
+  --tr-spotlight:       none;
+  --tr-pattern-color:   transparent;
+  --tr-pattern-stroke:  transparent;
+
+  /* Glass */
+  --tr-glass:           rgba(17, 17, 19, 0.88);
+  --tr-glass-elevated:  rgba(22, 23, 26, 0.92);
+}
+
+body.trainer-role.theme-linear {
+  background: var(--tr-bg-base);
+  color: var(--tr-text-primary);
+  font-family: var(--tr-font-ar);
+  -webkit-font-smoothing: antialiased;
+}
+
+body.trainer-role.theme-linear .latin,
+body.trainer-role.theme-linear [data-font="latin"],
+body.trainer-role.theme-linear .font-latin {
+  font-family: var(--tr-font-latin);
 }
