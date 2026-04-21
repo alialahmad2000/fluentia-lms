@@ -1,6 +1,10 @@
 /* Daily Brief — single-column layout. All colours via var(--tr-*). */
 
+/* Stacking context fix: trainer layout has a fixed bg at z-index:0.
+   Without position+z-index here, .daily-brief children can paint behind it. */
 .daily-brief {
+  position: relative;
+  z-index: 1;
   max-width: 720px;
   margin: 0 auto;
   padding: 24px 20px 80px;
@@ -9,6 +13,13 @@
   gap: 20px;
   direction: rtl;
   font-family: var(--tr-font-ar, 'Cairo', 'Tajawal', sans-serif);
+}
+
+.daily-brief > section,
+.daily-brief > .db-hero,
+.daily-brief > .db-section {
+  position: relative;
+  z-index: 1;
 }
 
 /* ── Sections ── */
