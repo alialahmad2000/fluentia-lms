@@ -204,6 +204,8 @@ const PartnerPayouts = lazyRetry(() => import('./pages/partner/PartnerPayouts'))
 const PartnerMaterials = lazyRetry(() => import('./pages/partner/PartnerMaterials'))
 const PartnerSettings = lazyRetry(() => import('./pages/partner/PartnerSettings'))
 const PartnerSuspended = lazyRetry(() => import('./pages/partner/PartnerSuspended'))
+const PartnerLogin = lazyRetry(() => import('./pages/partner/PartnerLogin'))
+const PartnerSetPassword = lazyRetry(() => import('./pages/partner/PartnerSetPassword'))
 
 const ForgotPassword = lazyRetry(() => import('./pages/public/ForgotPassword'))
 const ResetPassword = lazyRetry(() => import('./pages/public/ResetPassword'))
@@ -792,6 +794,18 @@ export default function App() {
               <Route path="/admin/design-showcase-masterclass" element={<Page><MasterclassDesignShowcase /></Page>} />
             </Route>
           </Route>
+
+          {/* Partner public routes — no auth required */}
+          <Route path="/partner/login" element={
+            <ErrorBoundary fallback={<PageErrorFallback />}>
+              <Suspense fallback={<LoadingSkeleton />}><PartnerLogin /></Suspense>
+            </ErrorBoundary>
+          } />
+          <Route path="/partner/set-password" element={
+            <ErrorBoundary fallback={<PageErrorFallback />}>
+              <Suspense fallback={<LoadingSkeleton />}><PartnerSetPassword /></Suspense>
+            </ErrorBoundary>
+          } />
 
           {/* Partner suspended (accessible without full partner auth) */}
           <Route path="/partner/suspended" element={

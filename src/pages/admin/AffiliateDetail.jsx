@@ -35,9 +35,10 @@ const STATUS_CONFIG = {
 // ============================================================
 // Welcome email builder — used by both approve and resend paths
 // ============================================================
-function buildWelcomeEmail(affiliate) {
+function buildWelcomeEmail(affiliate, magic_link) {
   const refLink = `https://fluentia.academy/?ref=${encodeURIComponent(affiliate.ref_code)}`;
-  const portalUrl = 'https://app.fluentia.academy/partner';
+  const ctaUrl  = magic_link || 'https://app.fluentia.academy/partner/login';
+  const ctaText = magic_link ? 'ادخل لبوابة الشركاء مباشرةً' : 'تسجيل الدخول لبوابة الشركاء';
 
   const subject = `مرحباً بك في شركاء طلاقة — كودك ${affiliate.ref_code} جاهز 🎉`;
 
@@ -67,10 +68,12 @@ function buildWelcomeEmail(affiliate) {
     </p>
 
     <div style="text-align:center;margin:32px 0;">
-      <a href="${portalUrl}" style="display:inline-block;background:linear-gradient(90deg,#fbbf24,#f59e0b);color:#0b1628;padding:14px 32px;border-radius:10px;text-decoration:none;font-weight:bold;font-size:16px;">
-        ادخل لبوابة الشركاء
+      <a href="${ctaUrl}" style="display:inline-block;background:linear-gradient(90deg,#fbbf24,#f59e0b);color:#0b1628;padding:14px 32px;border-radius:10px;text-decoration:none;font-weight:bold;font-size:16px;">
+        ${ctaText}
       </a>
     </div>
+
+    ${magic_link ? `<p style="font-size:13px;color:#94a3b8;text-align:center;margin:0 0 16px;">الرابط صالح لمرة واحدة فقط — استخدمه لتعيين كلمة مرورك.</p>` : ''}
 
     <p style="font-size:14px;color:#94a3b8;line-height:1.7;margin:24px 0 0;border-top:1px solid #1f2d4a;padding-top:16px;">
       إذا واجهت أي صعوبة بالدخول، تواصل معنا على واتساب: +966558669974
@@ -196,59 +199,32 @@ export default function AffiliateDetail() {
     mutationFn: async () => {
       if (!affiliate) throw new Error('affiliate not loaded');
 
-      // Step 1 — flip status + stamp approved_at/by
-      const { data: updated, error: updateError } = await supabase
-        .from('affiliates')
-        .update({
-          status: 'approved',
-          approved_at: new Date().toISOString(),
-          approved_by: profile?.id ?? null,
-        })
-        .eq('id', affiliate.id)
-        .select()
-        .single();
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const token = session?.access_token;
+      if (!token) throw new Error('لا توجد جلسة — سجّل دخولك مجدداً');
 
-      if (updateError) throw new Error(`فشل تحديث الحالة: ${updateError.message}`);
+      // Step 1 — call approve-affiliate edge function (creates user, profile, flips status, returns magic_link)
+      const res = await fetch(`${supabaseUrl}/functions/v1/approve-affiliate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ affiliate_id: affiliate.id }),
+      });
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok || body.error) throw new Error(body.error || body.detail || `HTTP ${res.status}`);
 
-      // Step 2 — ensure auth user + profile row exist (best-effort; non-fatal)
-      if (!affiliate.user_id) {
-        try {
-          const tempPassword = crypto.randomUUID();
-          const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-            email: affiliate.email,
-            password: tempPassword,
-            options: { data: { full_name: affiliate.full_name, role: 'affiliate' } },
-          });
-          if (!signUpError && signUpData?.user?.id) {
-            await supabase.from('profiles').upsert({
-              id: signUpData.user.id,
-              full_name: affiliate.full_name,
-              email: affiliate.email,
-              role: 'affiliate',
-            }, { onConflict: 'id' });
-            await supabase
-              .from('affiliates')
-              .update({ user_id: signUpData.user.id })
-              .eq('id', affiliate.id);
-          } else if (signUpError && !/already registered|already exists/i.test(signUpError.message)) {
-            console.warn('[approve-affiliate] signUp non-fatal:', signUpError);
-          }
-        } catch (err) {
-          console.warn('[approve-affiliate] auth user creation non-fatal:', err);
-        }
-      }
+      const { magic_link, affiliate: updated } = body;
 
-      // Step 3 — send welcome email (hard-checked via shared helper)
-      const { subject, html } = buildWelcomeEmail(updated);
-      const emailResult = await sendAffiliateEmail({ to: updated.email, subject, html, session });
+      // Step 2 — send welcome email with magic link embedded
+      const { subject, html } = buildWelcomeEmail(updated ?? affiliate, magic_link);
+      const emailResult = await sendAffiliateEmail({ to: (updated ?? affiliate).email, subject, html, session });
 
-      return { affiliate: updated, emailResult };
+      return { affiliate: updated ?? affiliate, magic_link, emailResult };
     },
     onSuccess: (result) => {
       queryClient.invalidateQueries({ queryKey: ['admin-affiliate', id] })
       queryClient.invalidateQueries({ queryKey: ['admin-affiliates'] })
       if (result?.emailResult?.sent) {
-        toast({ type: 'success', title: 'تم اعتماد الشريك بنجاح', description: 'تم إرسال إيميل الترحيب ✓' })
+        toast({ type: 'success', title: 'تم اعتماد الشريك بنجاح', description: 'تم إرسال إيميل الترحيب مع رابط الدخول ✓' })
       } else {
         toast({ type: 'warning', title: 'تم الاعتماد ✓ لكن فشل إرسال الإيميل', description: result?.emailResult?.error || 'سبب غير معروف', duration: 10000 })
       }
@@ -263,12 +239,27 @@ export default function AffiliateDetail() {
     mutationFn: async () => {
       if (!affiliate) throw new Error('affiliate not loaded')
       if (affiliate.status !== 'approved') throw new Error('المسوق غير معتمد بعد')
-      const { subject, html } = buildWelcomeEmail(affiliate)
+
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const token = session?.access_token;
+      if (!token) throw new Error('لا توجد جلسة');
+
+      // Get a fresh magic link from resend-affiliate-invite
+      const res = await fetch(`${supabaseUrl}/functions/v1/resend-affiliate-invite`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ affiliate_id: affiliate.id }),
+      });
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok || body.error) throw new Error(body.error || body.detail || `HTTP ${res.status}`);
+
+      const { magic_link } = body;
+      const { subject, html } = buildWelcomeEmail(affiliate, magic_link)
       const result = await sendAffiliateEmail({ to: affiliate.email, subject, html, session })
       if (!result.sent) throw new Error(result.error || 'فشل الإرسال')
       return result
     },
-    onSuccess: () => toast({ type: 'success', title: 'تم إعادة إرسال إيميل الترحيب ✓' }),
+    onSuccess: () => toast({ type: 'success', title: 'تم إعادة إرسال رابط الدخول ✓' }),
     onError: (err) => toast({ type: 'error', title: 'فشل الإرسال', description: err.message }),
   })
 
