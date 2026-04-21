@@ -22,6 +22,7 @@ const LEGACY_PREFS = new Set(['gold-command', 'deep-teal', 'daylight-study', 'mi
 
 export function applyTrainerTheme(pref) {
   const body = document.body
+  body.classList.add('trainer-role')
   TRAINER_THEMES.forEach((t) => body.classList.remove(t))
   // Migrate any legacy stored preference to linear
   const effectivePref = LEGACY_PREFS.has(pref) ? 'linear' : (pref || 'linear')
