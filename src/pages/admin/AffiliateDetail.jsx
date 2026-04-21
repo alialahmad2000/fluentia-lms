@@ -36,9 +36,11 @@ const STATUS_CONFIG = {
 // Welcome email builder — used by both approve and resend paths
 // ============================================================
 function buildWelcomeEmail(affiliate, magic_link) {
+  // also support { ...affiliate, magic_link } merged-object pattern
+  const link = magic_link ?? affiliate.magic_link;
   const refLink = `https://fluentia.academy/?ref=${encodeURIComponent(affiliate.ref_code)}`;
-  const ctaUrl  = magic_link || 'https://app.fluentia.academy/partner/login';
-  const ctaText = magic_link ? 'ادخل لبوابة الشركاء مباشرةً' : 'تسجيل الدخول لبوابة الشركاء';
+  const ctaUrl  = link || 'https://app.fluentia.academy/partner/login';
+  const ctaText = link ? 'ادخل لبوابة الشركاء مباشرةً' : 'تسجيل الدخول لبوابة الشركاء';
 
   const subject = `مرحباً بك في شركاء طلاقة — كودك ${affiliate.ref_code} جاهز 🎉`;
 
@@ -73,7 +75,7 @@ function buildWelcomeEmail(affiliate, magic_link) {
       </a>
     </div>
 
-    ${magic_link ? `<p style="font-size:13px;color:#94a3b8;text-align:center;margin:0 0 16px;">الرابط صالح لمرة واحدة فقط — استخدمه لتعيين كلمة مرورك.</p>` : ''}
+    ${link ? `<p style="font-size:13px;color:#94a3b8;text-align:center;margin:0 0 16px;">الرابط صالح لمرة واحدة فقط — استخدمه لتعيين كلمة مرورك.</p>` : ''}
 
     <p style="font-size:14px;color:#94a3b8;line-height:1.7;margin:24px 0 0;border-top:1px solid #1f2d4a;padding-top:16px;">
       إذا واجهت أي صعوبة بالدخول، تواصل معنا على واتساب: +966558669974
@@ -89,47 +91,6 @@ function buildWelcomeEmail(affiliate, magic_link) {
   return { subject, html };
 }
 
-// ============================================================
-// sendAffiliateEmail — hard-checked wrapper around send-email function
-// ============================================================
-async function sendAffiliateEmail({ to, subject, html, session }) {
-  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-  const anonKey    = import.meta.env.VITE_SUPABASE_ANON_KEY;
-  const token      = session?.access_token || anonKey;
-
-  if (!supabaseUrl || !token) {
-    const err = 'Supabase URL or auth token missing';
-    console.error('[sendAffiliateEmail]', err);
-    return { sent: false, error: err };
-  }
-
-  try {
-    const response = await fetch(`${supabaseUrl}/functions/v1/send-email`, {
-      method: 'POST',
-      headers: {
-        'Content-Type':  'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify({ to, subject, html }),
-    });
-
-    let body;
-    try { body = await response.json(); }
-    catch { body = { raw: await response.text().catch(() => '') }; }
-
-    if (!response.ok || body?.error || body?.success === false) {
-      const errMsg = body?.error || body?.message || `HTTP ${response.status}`;
-      console.error('[sendAffiliateEmail] FAILED:', { status: response.status, body });
-      return { sent: false, error: errMsg, raw: body };
-    }
-
-    console.log('[sendAffiliateEmail] OK:', body);
-    return { sent: true, id: body?.id, raw: body };
-  } catch (err) {
-    console.error('[sendAffiliateEmail] EXCEPTION:', err);
-    return { sent: false, error: err?.message || 'network error' };
-  }
-}
 
 function StatusBadge({ status }) {
   const config = STATUS_CONFIG[status] || STATUS_CONFIG.pending
@@ -170,12 +131,12 @@ export default function AffiliateDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const session = useAuthStore((s) => s.session)
   const { profile } = useAuthStore()
   const [adminNotes, setAdminNotes] = useState('')
   const [notesLoaded, setNotesLoaded] = useState(false)
+  const [isProcessing, setIsProcessing] = useState(false)
 
-  const { data: affiliate, isLoading } = useQuery({
+  const { data: affiliate, isLoading, refetch } = useQuery({
     queryKey: ['admin-affiliate', id],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -194,74 +155,91 @@ export default function AffiliateDetail() {
     },
   })
 
+  // ── Edge-function caller ───────────────────────────────────────────────────
+  const callEdgeFunction = async (name, body) => {
+    const { data: { session: s } } = await supabase.auth.getSession();
+    if (!s) throw new Error('انتهت الجلسة، سجّل دخول من جديد.');
+
+    const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/${name}`;
+    console.log(`[${name}] calling with`, body);
+
+    let res, text, data;
+    try {
+      res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${s.access_token}` },
+        body: JSON.stringify(body),
+      });
+    } catch (networkErr) {
+      console.error(`[${name}] network error`, networkErr);
+      throw new Error(`فشل الاتصال بالخادم: ${networkErr.message}`);
+    }
+
+    text = await res.text();
+    try { data = JSON.parse(text); }
+    catch {
+      console.error(`[${name}] non-JSON response (status ${res.status}):`, text);
+      throw new Error(`الخادم رجّع ردًا غير متوقّع (status ${res.status}). راجع console.`);
+    }
+
+    console.log(`[${name}] response`, res.status, data);
+
+    if (!res.ok || !data.success) {
+      const msg = data.error || `فشل (HTTP ${res.status})`;
+      const detail = data.detail ? ` — ${data.detail}` : '';
+      throw new Error(msg + detail);
+    }
+
+    return data;
+  };
+
   // ── Approve ────────────────────────────────────────────────────────────────
-  const approveMutation = useMutation({
-    mutationFn: async () => {
-      if (!affiliate) throw new Error('affiliate not loaded');
+  const handleApprove = async () => {
+    if (!window.confirm('هل أنت متأكد من اعتماد هذا الطلب وإرسال إيميل الدخول؟')) return;
+    setIsProcessing(true);
+    try {
+      const approveData = await callEdgeFunction('approve-affiliate', { affiliate_id: affiliate.id });
 
-      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-      const token = session?.access_token;
-      if (!token) throw new Error('لا توجد جلسة — سجّل دخولك مجدداً');
+      const { subject, html } = buildWelcomeEmail({ ...affiliate, magic_link: approveData.magic_link });
 
-      // Step 1 — call approve-affiliate edge function (creates user, profile, flips status, returns magic_link)
-      const res = await fetch(`${supabaseUrl}/functions/v1/approve-affiliate`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-        body: JSON.stringify({ affiliate_id: affiliate.id }),
-      });
-      const body = await res.json().catch(() => ({}));
-      if (!res.ok || body.error) throw new Error(body.error || body.detail || `HTTP ${res.status}`);
-
-      const { magic_link, affiliate: updated } = body;
-
-      // Step 2 — send welcome email with magic link embedded
-      const { subject, html } = buildWelcomeEmail(updated ?? affiliate, magic_link);
-      const emailResult = await sendAffiliateEmail({ to: (updated ?? affiliate).email, subject, html, session });
-
-      return { affiliate: updated ?? affiliate, magic_link, emailResult };
-    },
-    onSuccess: (result) => {
-      queryClient.invalidateQueries({ queryKey: ['admin-affiliate', id] })
-      queryClient.invalidateQueries({ queryKey: ['admin-affiliates'] })
-      if (result?.emailResult?.sent) {
-        toast({ type: 'success', title: 'تم اعتماد الشريك بنجاح', description: 'تم إرسال إيميل الترحيب مع رابط الدخول ✓' })
-      } else {
-        toast({ type: 'warning', title: 'تم الاعتماد ✓ لكن فشل إرسال الإيميل', description: result?.emailResult?.error || 'سبب غير معروف', duration: 10000 })
+      try {
+        await callEdgeFunction('send-email', { to: affiliate.email, subject, html });
+        alert('تم اعتماد المسوق وإرسال إيميل الدخول بنجاح ✅');
+      } catch (emailErr) {
+        console.error('email send failed (approval still succeeded):', emailErr);
+        alert(`تم الاعتماد ✅ لكن الإيميل ما انرسل: ${emailErr.message}\nاستخدم زر "إعادة إرسال" لاحقاً.`);
       }
-    },
-    onError: (err) => {
-      toast({ type: 'error', title: 'خطأ في الاعتماد', description: err.message })
-    },
-  })
 
-  // ── Resend Welcome Email ───────────────────────────────────────────────────
-  const resendWelcomeMutation = useMutation({
-    mutationFn: async () => {
-      if (!affiliate) throw new Error('affiliate not loaded')
-      if (affiliate.status !== 'approved') throw new Error('المسوق غير معتمد بعد')
+      queryClient.invalidateQueries({ queryKey: ['admin-affiliate', id] });
+      queryClient.invalidateQueries({ queryKey: ['admin-affiliates'] });
+      await refetch();
+    } catch (err) {
+      console.error('[handleApprove] FAILED:', err);
+      alert(`خطأ في الاعتماد:\n\n${err.message}`);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
 
-      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-      const token = session?.access_token;
-      if (!token) throw new Error('لا توجد جلسة');
+  // ── Resend invite link ─────────────────────────────────────────────────────
+  const handleResendEmail = async () => {
+    if (!window.confirm('هل تريد إعادة إرسال إيميل الدخول؟ سيتم إنشاء رابط دخول جديد.')) return;
+    setIsProcessing(true);
+    try {
+      const linkData = await callEdgeFunction('resend-affiliate-invite', { affiliate_id: affiliate.id });
 
-      // Get a fresh magic link from resend-affiliate-invite
-      const res = await fetch(`${supabaseUrl}/functions/v1/resend-affiliate-invite`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-        body: JSON.stringify({ affiliate_id: affiliate.id }),
-      });
-      const body = await res.json().catch(() => ({}));
-      if (!res.ok || body.error) throw new Error(body.error || body.detail || `HTTP ${res.status}`);
+      const { subject, html } = buildWelcomeEmail({ ...affiliate, magic_link: linkData.magic_link });
 
-      const { magic_link } = body;
-      const { subject, html } = buildWelcomeEmail(affiliate, magic_link)
-      const result = await sendAffiliateEmail({ to: affiliate.email, subject, html, session })
-      if (!result.sent) throw new Error(result.error || 'فشل الإرسال')
-      return result
-    },
-    onSuccess: () => toast({ type: 'success', title: 'تم إعادة إرسال رابط الدخول ✓' }),
-    onError: (err) => toast({ type: 'error', title: 'فشل الإرسال', description: err.message }),
-  })
+      await callEdgeFunction('send-email', { to: affiliate.email, subject, html });
+
+      alert('تم إرسال إيميل الدخول بنجاح ✅');
+    } catch (err) {
+      console.error('[handleResendEmail] FAILED:', err);
+      alert(`خطأ في إعادة الإرسال:\n\n${err.message}`);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
 
   // ── Reject ─────────────────────────────────────────────────────────────────
   const rejectMutation = useMutation({
@@ -349,12 +327,7 @@ export default function AffiliateDetail() {
     },
   })
 
-  // ── Handlers ───────────────────────────────────────────────────────────────
-  function handleApprove() {
-    if (!window.confirm('هل تريد اعتماد هذا الشريك؟')) return
-    approveMutation.mutate()
-  }
-
+  // ── Remaining handlers ─────────────────────────────────────────────────────
   function handleReject() {
     const reason = window.prompt('سبب الرفض:')
     if (!reason) return
@@ -372,7 +345,7 @@ export default function AffiliateDetail() {
     reactivateMutation.mutate()
   }
 
-  const anyLoading = approveMutation.isPending || rejectMutation.isPending || suspendMutation.isPending || reactivateMutation.isPending || resendWelcomeMutation.isPending
+  const anyLoading = isProcessing || rejectMutation.isPending || suspendMutation.isPending || reactivateMutation.isPending
 
   // ── Loading / Not Found ────────────────────────────────────────────────────
   if (isLoading) {
@@ -434,7 +407,7 @@ export default function AffiliateDetail() {
                   disabled={anyLoading}
                   className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 transition-all disabled:opacity-50"
                 >
-                  {approveMutation.isPending ? <Loader2 size={16} className="animate-spin" /> : <CheckCircle2 size={16} />}
+                  {isProcessing ? <Loader2 size={16} className="animate-spin" /> : <CheckCircle2 size={16} />}
                   اعتماد
                 </button>
                 <button
@@ -450,12 +423,12 @@ export default function AffiliateDetail() {
             {affiliate.status === 'approved' && (
               <>
                 <button
-                  onClick={() => resendWelcomeMutation.mutate()}
+                  onClick={handleResendEmail}
                   disabled={anyLoading}
                   className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-white/5 text-white/80 border border-white/10 hover:bg-white/10 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {resendWelcomeMutation.isPending ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
-                  إعادة إرسال إيميل الترحيب
+                  {isProcessing ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
+                  إعادة إرسال رابط الدخول
                 </button>
                 <button
                   onClick={handleSuspend}

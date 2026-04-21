@@ -30,6 +30,26 @@ Deno.serve(async (req) => {
     if (!aff) return json({ error: "not found" }, 404);
     if (aff.status !== "approved") return json({ error: "affiliate not approved" }, 400);
 
+    // SAFETY: block if linked user is an admin/trainer
+    if (aff.user_id) {
+      const { data: collidingProfile } = await admin
+        .from("profiles")
+        .select("id,role")
+        .eq("id", aff.user_id)
+        .maybeSingle();
+
+      if (collidingProfile && ["admin", "trainer"].includes(collidingProfile.role)) {
+        return json(
+          {
+            error: `هذا المسوّق مربوط بحساب ${
+              collidingProfile.role === "admin" ? "مدير" : "مدرب"
+            } — لا يمكن إعادة إرسال رابط دخول المسوّق. تحقّق من سلامة البيانات.`,
+          },
+          409
+        );
+      }
+    }
+
     const { data: linkData, error: linkErr } = await admin.auth.admin.generateLink({
       type: "recovery",
       email: aff.email,
