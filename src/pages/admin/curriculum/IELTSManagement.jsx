@@ -14,8 +14,6 @@ import IELTSListeningManager from './components/IELTSListeningManager'
 import IELTSSpeakingManager from './components/IELTSSpeakingManager'
 import IELTSMockTestManager from './components/IELTSMockTestManager'
 import IELTSDashboard from './components/IELTSDashboard'
-import IELTSMasterclassV2Preview from './components/IELTSMasterclassV2Preview'
-
 const TABS = [
   { key: 'dashboard',     label: 'لوحة المحتوى' },
   { key: 'reading-skills', label: 'مهارات القراءة' },
@@ -24,7 +22,6 @@ const TABS = [
   { key: 'listening',     label: 'الاستماع' },
   { key: 'speaking',      label: 'المحادثة' },
   { key: 'mocks',         label: 'اختبارات تجريبية' },
-  { key: 'masterclass-v2', label: 'معاينة V2' },
 ]
 
 const EMPTY_FILTERS = { search: '', variant: 'all', difficulty: 'all', published: 'all' }
@@ -356,7 +353,6 @@ export default function IELTSManagement() {
         {activeTab === 'listening'      && <IELTSListeningManager />}
         {activeTab === 'speaking'       && <IELTSSpeakingManager />}
         {activeTab === 'mocks'          && <IELTSMockTestManager />}
-        {activeTab === 'masterclass-v2' && <IELTSMasterclassV2Preview />}
       </motion.div>
     </div>
   )

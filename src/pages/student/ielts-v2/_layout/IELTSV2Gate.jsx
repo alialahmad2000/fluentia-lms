@@ -7,7 +7,13 @@ export default function IELTSV2Gate() {
   const loading = useAuthStore((s) => s.loading)
   const location = useLocation()
 
-  if (loading) return null
+  if (loading || profile === undefined) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
+        <div style={{ color: 'var(--ds-text-muted)', fontSize: 14 }}>جاري التحميل…</div>
+      </div>
+    )
+  }
 
   if (!isIELTSV2Enabled(profile)) {
     return <Navigate to="/student/ielts" replace state={{ from: location.pathname }} />

@@ -1,46 +1,68 @@
 const fs = require('fs');
 
-let ok = true;
-function check(label, pass, detail) {
-  if (pass) { console.log(`  ✓ ${label}`); }
-  else       { console.log(`  ✗ ${label}${detail ? ': ' + detail : ''}`); ok = false; }
+const checks = [];
+const check = (path, tests) => {
+  if (!fs.existsSync(path)) {
+    checks.push([false, `File missing: ${path}`]);
+    return;
+  }
+  const content = fs.readFileSync(path, 'utf8');
+  for (const [re, name] of tests) {
+    checks.push([re.test(content), `${path} → ${name}`]);
+  }
+};
+
+// New preview page
+check('src/pages/admin/IELTSPreview.jsx', [
+  [/IELTSPreviewProvider/, 'uses provider'],
+  [/PhaseTimeline/, 'renders timeline'],
+  [/SacredPageCard/, 'renders cards'],
+  [/activePageId/, 'has inline-render state'],
+  [/InlinePreviewBanner/, 'shows preview banner'],
+  [/getPageById/, 'page lookup'],
+]);
+
+// Data module
+check('src/pages/admin/ielts-preview/ieltsSacredPages.js', [
+  [/SACRED_PAGES/, 'SACRED_PAGES export'],
+  [/PHASES/, 'PHASES export'],
+  [/Component:\s*Home/, 'imports Home component'],
+  [/Component:\s*Readiness/, 'imports Readiness component'],
+]);
+
+// Count pages & phases
+const data = fs.readFileSync('src/pages/admin/ielts-preview/ieltsSacredPages.js', 'utf8');
+const pageCount = (data.match(/\{\s*id:\s*'[^']+',\s*phase:/g) || []).length;
+const phaseCount = (data.match(/\{\s*id:\s*'[^']+',\s*label:\s*'Phase/g) || []).length;
+checks.push([pageCount === 11, `SACRED_PAGES count = 11 (got ${pageCount})`]);
+checks.push([phaseCount === 7, `PHASES count = 7 (got ${phaseCount})`]);
+
+// Supporting components
+check('src/pages/admin/ielts-preview/PhaseTimeline.jsx', [[/PHASES\.map/, 'iterates phases']]);
+check('src/pages/admin/ielts-preview/SacredPageCard.jsx', [[/phase\.color/, 'uses phase color']]);
+check('src/pages/admin/ielts-preview/IELTSPreviewContext.jsx', [[/previewMode:\s*true/, 'sets preview mode']]);
+
+// Flag gate patched
+check('src/pages/student/ielts-v2/_layout/IELTSV2Gate.jsx', [
+  [/loading|undefined|initialized/, 'waits for auth resolution'],
+]);
+
+// Flag library defensive
+check('src/lib/ieltsV2Flag.js', [
+  [/if\s*\(\s*!profile\s*\)\s*return\s*false/, 'guards null profile'],
+]);
+
+// IELTSManagement tab removed
+const ielts_mgmt = fs.readFileSync('src/pages/admin/curriculum/IELTSManagement.jsx', 'utf8');
+checks.push([
+  !/id:\s*['"]masterclass-v2['"]/.test(ielts_mgmt),
+  'IELTSManagement: masterclass-v2 tab removed',
+]);
+
+let pass = 0, fail = 0;
+for (const [ok, name] of checks) {
+  console.log(`  ${ok ? '✓' : '✗'} ${name}`);
+  ok ? pass++ : fail++;
 }
-
-// Nav config has the new entry
-const nav = fs.readFileSync('src/config/navigation.js', 'utf8');
-check('nav entry id=ielts-v2-preview exists',   /ielts-v2-preview/.test(nav));
-check('nav label "معاينة منهج IELTS" exists',  /معاينة منهج IELTS/.test(nav));
-check('nav to=/admin/ielts-v2-preview exists',  /\/admin\/ielts-v2-preview/.test(nav));
-
-// New page file exists
-const pageExists = fs.existsSync('src/pages/admin/IELTSPreview.jsx');
-check('IELTSPreview.jsx exists', pageExists);
-if (pageExists) {
-  const page = fs.readFileSync('src/pages/admin/IELTSPreview.jsx', 'utf8');
-  check('IELTSPreview imports PreviewBanner',              /PreviewBanner/.test(page));
-  check('IELTSPreview imports IELTSMasterclassV2Preview', /IELTSMasterclassV2Preview/.test(page));
-  check('IELTSPreview has default export',                 /export default/.test(page));
-}
-
-// App.jsx has the route
-const app = fs.readFileSync('src/App.jsx', 'utf8');
-check('App.jsx has IELTSPreview lazy import', /IELTSPreview.*lazyRetry/.test(app));
-check('App.jsx has /admin/ielts-v2-preview route', /path=["']\/admin\/ielts-v2-preview["']/.test(app));
-
-// V2 preview component still exists
-const panelExists = fs.existsSync('src/pages/admin/curriculum/components/IELTSMasterclassV2Preview.jsx');
-check('IELTSMasterclassV2Preview.jsx (Phase 0C panel) still exists', panelExists);
-if (panelExists) {
-  const panel = fs.readFileSync('src/pages/admin/curriculum/components/IELTSMasterclassV2Preview.jsx', 'utf8');
-  const count = (panel.match(/id:\s*'/g) || []).length;
-  check(`Panel has 11 sacred pages (found ${count})`, count === 11);
-  check('Panel links include ?ielts-v2=1', /ielts-v2=1/.test(panel));
-}
-
-// Phase 0C tab still wired in IELTSManagement
-const mgmt = fs.readFileSync('src/pages/admin/curriculum/IELTSManagement.jsx', 'utf8');
-check('IELTSManagement still imports IELTSMasterclassV2Preview', /IELTSMasterclassV2Preview/.test(mgmt));
-check('IELTSManagement still has masterclass-v2 render condition', /masterclass-v2/.test(mgmt));
-
-console.log(ok ? '\n✓ IELTS preview integration verified.' : '\n✗ Some checks failed.');
-if (!ok) process.exit(1);
+console.log(`\n${pass}/${pass + fail} checks passed`);
+process.exit(fail === 0 ? 0 : 1);

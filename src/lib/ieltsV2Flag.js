@@ -59,7 +59,8 @@ export function isIELTSV2Enabled(profile) {
   if (urlResult === true) return true
   if (urlResult === false) return false
   if (readLocalStorage()) return true
-  if (readAllowlist(profile?.email)) return true
+  if (!profile) return false
+  if (readAllowlist(profile.email)) return true
   return false
 }
 
