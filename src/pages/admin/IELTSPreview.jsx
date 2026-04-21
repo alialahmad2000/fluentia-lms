@@ -6,6 +6,7 @@ import { PHASES, SACRED_PAGES, getPageById, getPhaseById } from './ielts-preview
 import { IELTSPreviewProvider } from './ielts-preview/IELTSPreviewContext';
 import PhaseTimeline from './ielts-preview/PhaseTimeline';
 import SacredPageCard from './ielts-preview/SacredPageCard';
+import IELTSSunsetBackground from '@/design-system/masterclass/IELTSSunsetBackground';
 
 function InlinePreviewBanner({ pageTitle, onBack }) {
   return (
@@ -17,11 +18,11 @@ function InlinePreviewBanner({ pageTitle, onBack }) {
         padding: '12px 20px',
         marginBottom: 20,
         borderRadius: 14,
-        background: 'linear-gradient(90deg, color-mix(in srgb, #38bdf8 18%, transparent), color-mix(in srgb, #fbbf24 12%, transparent))',
-        border: '1px solid color-mix(in srgb, #38bdf8 35%, transparent)',
+        background: 'linear-gradient(90deg, color-mix(in srgb, var(--sunset-amber, #f97316) 18%, transparent), color-mix(in srgb, var(--sunset-orange, #fbbf24) 12%, transparent))',
+        border: '1px solid color-mix(in srgb, var(--sunset-amber, #f97316) 35%, transparent)',
       }}
     >
-      <Eye size={18} style={{ color: '#38bdf8' }} />
+      <Eye size={18} style={{ color: 'var(--sunset-orange, #fbbf24)' }} />
       <div style={{ flex: 1 }}>
         <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--ds-text)' }}>
           وضع المعاينة: {pageTitle}
@@ -38,8 +39,8 @@ function InlinePreviewBanner({ pageTitle, onBack }) {
           gap: 6,
           padding: '8px 14px',
           borderRadius: 10,
-          background: 'var(--ds-surface)',
-          border: '1px solid var(--ds-border)',
+          background: 'color-mix(in srgb, var(--sunset-base-mid, #2b1810) 70%, transparent)',
+          border: '1px solid color-mix(in srgb, var(--sunset-amber, #f97316) 25%, transparent)',
           color: 'var(--ds-text)',
           fontSize: 12,
           fontWeight: 700,
@@ -66,9 +67,11 @@ function HeroLanding() {
         borderRadius: 24,
         marginBottom: 32,
         background:
-          'radial-gradient(ellipse 80% 100% at 50% 0%, color-mix(in srgb, #38bdf8 18%, transparent) 0%, transparent 55%), linear-gradient(135deg, var(--ds-surface) 0%, color-mix(in srgb, var(--ds-surface) 92%, #000) 100%)',
-        border: '1px solid var(--ds-border)',
+          'radial-gradient(ellipse 80% 100% at 50% 0%, color-mix(in srgb, var(--sunset-amber, #f97316) 18%, transparent) 0%, transparent 55%), color-mix(in srgb, var(--sunset-base-mid, #2b1810) 60%, transparent)',
+        border: '1px solid color-mix(in srgb, var(--sunset-amber, #f97316) 20%, transparent)',
         overflow: 'hidden',
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)',
       }}
     >
       <div
@@ -80,7 +83,7 @@ function HeroLanding() {
           width: 260,
           height: 260,
           borderRadius: '50%',
-          background: 'radial-gradient(circle, color-mix(in srgb, #fbbf24 14%, transparent), transparent 70%)',
+          background: 'radial-gradient(circle, color-mix(in srgb, var(--sunset-orange, #fbbf24) 14%, transparent), transparent 70%)',
         }}
       />
       <div
@@ -92,7 +95,7 @@ function HeroLanding() {
           width: 220,
           height: 220,
           borderRadius: '50%',
-          background: 'radial-gradient(circle, color-mix(in srgb, #38bdf8 12%, transparent), transparent 70%)',
+          background: 'radial-gradient(circle, color-mix(in srgb, var(--sunset-amber, #f97316) 12%, transparent), transparent 70%)',
         }}
       />
 
@@ -104,13 +107,13 @@ function HeroLanding() {
             gap: 8,
             padding: '6px 14px',
             borderRadius: 999,
-            background: 'color-mix(in srgb, #fbbf24 12%, transparent)',
-            border: '1px solid color-mix(in srgb, #fbbf24 30%, transparent)',
+            background: 'color-mix(in srgb, var(--sunset-orange, #fbbf24) 12%, transparent)',
+            border: '1px solid color-mix(in srgb, var(--sunset-orange, #fbbf24) 30%, transparent)',
             marginBottom: 18,
           }}
         >
-          <Target size={12} style={{ color: '#fbbf24' }} />
-          <span style={{ fontSize: 10, fontWeight: 700, color: '#fbbf24', letterSpacing: 2 }}>
+          <Target size={12} style={{ color: 'var(--sunset-orange, #fbbf24)' }} />
+          <span style={{ fontSize: 10, fontWeight: 700, color: 'var(--sunset-orange, #fbbf24)', letterSpacing: 2 }}>
             IELTS MASTERCLASS V2 · ADMIN PREVIEW
           </span>
         </div>
@@ -126,7 +129,7 @@ function HeroLanding() {
             letterSpacing: '-0.02em',
           }}
         >
-          معاينة منهج <span style={{ color: '#fbbf24' }}>IELTS</span>
+          معاينة منهج <span style={{ color: 'var(--sunset-orange, #fbbf24)' }}>IELTS</span>
         </h1>
 
         <p
@@ -148,12 +151,12 @@ function HeroLanding() {
             <div style={{ fontSize: 28, fontWeight: 900, color: 'var(--ds-text)' }}>١١</div>
             <div style={{ fontSize: 11, color: 'var(--ds-text-muted)', letterSpacing: 1 }}>صفحة مقدّسة</div>
           </div>
-          <div style={{ width: 1, background: 'var(--ds-border)' }} />
+          <div style={{ width: 1, background: 'color-mix(in srgb, var(--sunset-amber, #f97316) 20%, transparent)' }} />
           <div>
             <div style={{ fontSize: 28, fontWeight: 900, color: 'var(--ds-text)' }}>٧</div>
             <div style={{ fontSize: 11, color: 'var(--ds-text-muted)', letterSpacing: 1 }}>مراحل تطوّر</div>
           </div>
-          <div style={{ width: 1, background: 'var(--ds-border)' }} />
+          <div style={{ width: 1, background: 'color-mix(in srgb, var(--sunset-amber, #f97316) 20%, transparent)' }} />
           <div>
             <div style={{ fontSize: 28, fontWeight: 900, color: 'var(--ds-text)' }}>١٢</div>
             <div style={{ fontSize: 11, color: 'var(--ds-text-muted)', letterSpacing: 1 }}>أسبوع رحلة</div>
@@ -194,19 +197,32 @@ export default function IELTSPreview() {
     const PageComponent = activePage.Component;
     return (
       <IELTSPreviewProvider>
-        <div dir="rtl" style={{ fontFamily: 'Tajawal, sans-serif' }}>
-          <InlinePreviewBanner pageTitle={activePage.title} onBack={handleBack} />
-          <div
-            style={{
-              borderRadius: 20,
-              overflow: 'hidden',
-              border: '1px solid var(--ds-border)',
-              background: 'var(--ds-bg)',
-            }}
-          >
-            <Suspense fallback={<div style={{ padding: 80, textAlign: 'center', color: 'var(--ds-text-muted)' }}>جاري التحميل…</div>}>
-              <PageComponent />
-            </Suspense>
+        <div
+          style={{
+            position: 'relative',
+            minHeight: '100vh',
+            borderRadius: 24,
+            overflow: 'hidden',
+            padding: '32px 24px',
+          }}
+        >
+          <IELTSSunsetBackground intensity="subtle" />
+          <div dir="rtl" style={{ position: 'relative', zIndex: 1, fontFamily: 'Tajawal, sans-serif' }}>
+            <InlinePreviewBanner pageTitle={activePage.title} onBack={handleBack} />
+            <div
+              style={{
+                borderRadius: 20,
+                overflow: 'hidden',
+                border: '1px solid color-mix(in srgb, var(--sunset-amber, #f97316) 20%, transparent)',
+                background: 'color-mix(in srgb, var(--sunset-base-deep, #1a0f08) 40%, transparent)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+              }}
+            >
+              <Suspense fallback={<div style={{ padding: 80, textAlign: 'center', color: 'var(--ds-text-muted)' }}>جاري التحميل…</div>}>
+                <PageComponent />
+              </Suspense>
+            </div>
           </div>
         </div>
       </IELTSPreviewProvider>
@@ -216,95 +232,109 @@ export default function IELTSPreview() {
   // ============ LANDING MODE ============
   return (
     <IELTSPreviewProvider>
-      <div dir="rtl" style={{ fontFamily: 'Tajawal, sans-serif', paddingBottom: 60 }}>
-        <HeroLanding />
+      <div
+        style={{
+          position: 'relative',
+          minHeight: '100vh',
+          borderRadius: 24,
+          overflow: 'hidden',
+          padding: '32px 24px',
+          marginInline: -8,
+        }}
+      >
+        <IELTSSunsetBackground intensity="subtle" />
+        <div dir="rtl" style={{ position: 'relative', zIndex: 1, fontFamily: 'Tajawal, sans-serif', paddingBottom: 60 }}>
+          <HeroLanding />
 
-        <div style={{ marginBottom: 20 }}>
+          <div style={{ marginBottom: 20 }}>
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                color: 'var(--ds-text-muted)',
+                letterSpacing: 2,
+                marginBottom: 6,
+              }}
+            >
+              THE SEVEN PHASES
+            </div>
+            <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--ds-text)', margin: 0, marginBottom: 4 }}>
+              الخط الزمني للمراحل
+            </h2>
+            <p style={{ fontSize: 13, color: 'var(--ds-text-muted)', margin: 0, marginBottom: 4 }}>
+              {activePhaseFilter ? (
+                <>
+                  فلتر نشط:{' '}
+                  <span style={{ color: 'var(--ds-text)', fontWeight: 700 }}>
+                    {getPhaseById(activePhaseFilter)?.title}
+                  </span>{' '}
+                  — اضغط مرة أخرى لإلغاء الفلتر
+                </>
+              ) : (
+                'اضغط أي مرحلة لعرض صفحاتها فقط'
+              )}
+            </p>
+          </div>
+
           <div
             style={{
-              fontSize: 11,
-              fontWeight: 700,
-              color: 'var(--ds-text-muted)',
-              letterSpacing: 2,
-              marginBottom: 6,
+              padding: '8px 12px',
+              borderRadius: 20,
+              background: 'color-mix(in srgb, var(--sunset-base-mid, #2b1810) 55%, transparent)',
+              border: '1px solid color-mix(in srgb, var(--sunset-amber, #f97316) 18%, transparent)',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)',
+              marginBottom: 32,
             }}
           >
-            THE SEVEN PHASES
+            <PhaseTimeline activePhaseId={activePhaseFilter} onPhaseClick={handlePhaseClick} />
           </div>
-          <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--ds-text)', margin: 0, marginBottom: 4 }}>
-            الخط الزمني للمراحل
-          </h2>
-          <p style={{ fontSize: 13, color: 'var(--ds-text-muted)', margin: 0, marginBottom: 4 }}>
-            {activePhaseFilter ? (
-              <>
-                فلتر نشط:{' '}
-                <span style={{ color: 'var(--ds-text)', fontWeight: 700 }}>
-                  {getPhaseById(activePhaseFilter)?.title}
-                </span>{' '}
-                — اضغط مرة أخرى لإلغاء الفلتر
-              </>
-            ) : (
-              'اضغط أي مرحلة لعرض صفحاتها فقط'
-            )}
-          </p>
-        </div>
 
-        <div
-          style={{
-            padding: '8px 12px',
-            borderRadius: 20,
-            background: 'var(--ds-surface)',
-            border: '1px solid var(--ds-border)',
-            marginBottom: 32,
-          }}
-        >
-          <PhaseTimeline activePhaseId={activePhaseFilter} onPhaseClick={handlePhaseClick} />
-        </div>
+          <div style={{ marginBottom: 18 }}>
+            <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--ds-text)', margin: 0, marginBottom: 4 }}>
+              {activePhaseFilter ? getPhaseById(activePhaseFilter)?.title : 'كل الصفحات المقدّسة'}
+            </h2>
+            <p style={{ fontSize: 13, color: 'var(--ds-text-muted)', margin: 0 }}>
+              {visiblePages.length} من {SACRED_PAGES.length} صفحة
+            </p>
+          </div>
 
-        <div style={{ marginBottom: 18 }}>
-          <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--ds-text)', margin: 0, marginBottom: 4 }}>
-            {activePhaseFilter ? getPhaseById(activePhaseFilter)?.title : 'كل الصفحات المقدّسة'}
-          </h2>
-          <p style={{ fontSize: 13, color: 'var(--ds-text-muted)', margin: 0 }}>
-            {visiblePages.length} من {SACRED_PAGES.length} صفحة
-          </p>
-        </div>
+          <AnimatePresence mode="popLayout">
+            <motion.div
+              key={activePhaseFilter || 'all'}
+              layout
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                gap: 16,
+              }}
+            >
+              {visiblePages.map((page, idx) => (
+                <SacredPageCard
+                  key={page.id}
+                  page={page}
+                  index={idx}
+                  onClick={() => handlePageOpen(page.id)}
+                />
+              ))}
+            </motion.div>
+          </AnimatePresence>
 
-        <AnimatePresence mode="popLayout">
-          <motion.div
-            key={activePhaseFilter || 'all'}
-            layout
+          <div
             style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-              gap: 16,
+              marginTop: 36,
+              padding: '16px 20px',
+              borderRadius: 14,
+              background: 'color-mix(in srgb, var(--sunset-orange, #fbbf24) 6%, transparent)',
+              border: '1px solid color-mix(in srgb, var(--sunset-orange, #fbbf24) 18%, transparent)',
+              fontSize: 12,
+              color: 'var(--ds-text-muted)',
+              lineHeight: 1.7,
             }}
           >
-            {visiblePages.map((page, idx) => (
-              <SacredPageCard
-                key={page.id}
-                page={page}
-                index={idx}
-                onClick={() => handlePageOpen(page.id)}
-              />
-            ))}
-          </motion.div>
-        </AnimatePresence>
-
-        <div
-          style={{
-            marginTop: 36,
-            padding: '16px 20px',
-            borderRadius: 14,
-            background: 'color-mix(in srgb, #fbbf24 6%, transparent)',
-            border: '1px solid color-mix(in srgb, #fbbf24 18%, transparent)',
-            fontSize: 12,
-            color: 'var(--ds-text-muted)',
-            lineHeight: 1.7,
-          }}
-        >
-          <strong style={{ color: '#fbbf24' }}>ملاحظة إدارية:</strong>{' '}
-          الطلاب لا يرون هذه الصفحات حتى Phase 6 — مُقفلة خلف feature flag. المحتوى الحالي = scaffold placeholders؛ المحتوى الحقيقي يُضاف في Phase 1 إلى 6.
+            <strong style={{ color: 'var(--sunset-orange, #fbbf24)' }}>ملاحظة إدارية:</strong>{' '}
+            الطلاب لا يرون هذه الصفحات حتى Phase 6 — مُقفلة خلف feature flag. المحتوى الحالي = scaffold placeholders؛ المحتوى الحقيقي يُضاف في Phase 1 إلى 6.
+          </div>
         </div>
       </div>
     </IELTSPreviewProvider>

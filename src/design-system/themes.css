@@ -60,6 +60,16 @@
   --ds-amber: #f59e0b;
   --ds-reveal-bg: rgba(3, 5, 10, 0.98);
   --ds-reveal-text: #faf5e6;
+
+  /* Sunset Atlas — IELTS section atmosphere */
+  --sunset-base-deep: #1a0f08;
+  --sunset-base-mid:  #2b1810;
+  --sunset-base-warm: #3d2515;
+  --sunset-amber:     #f97316;
+  --sunset-orange:    #fbbf24;
+  --sunset-bronze:    #b45309;
+  --sunset-cream:     #fef3c7;
+  --sunset-gold:      #fde68a;
 }
 
 @media (prefers-reduced-motion: reduce) {

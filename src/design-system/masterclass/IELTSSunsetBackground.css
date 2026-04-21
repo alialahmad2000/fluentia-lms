@@ -1,0 +1,251 @@
+/* ================================================
+   IELTS Sunset Atlas — Background Atmosphere
+   Palette: #1a0f08 (base-deep) #2b1810 (base-mid) #3d2515 (base-warm)
+            #f97316 (orange) #fbbf24 (amber) #b45309 (bronze)
+   ================================================ */
+
+.ielts-sunset-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  background: #1a0f08;
+}
+
+/* -------- Layer 1: Base gradient -------- */
+.sunset-base {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 90% 80% at 75% 15%,
+      #3d2515 0%,
+      #2b1810 45%,
+      #1a0f08 85%
+    ),
+    linear-gradient(180deg, #2b1810 0%, #1a0f08 100%);
+  background-blend-mode: normal;
+}
+
+/* -------- Layers 2-4: Aurora blobs -------- */
+.sunset-aurora {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  will-change: transform;
+}
+
+.sunset-aurora-1 {
+  top: -20%;
+  right: -15%;
+  width: 70vw;
+  height: 70vw;
+  max-width: 900px;
+  max-height: 900px;
+  background: radial-gradient(
+    circle,
+    rgba(249, 115, 22, 0.55) 0%,
+    rgba(249, 115, 22, 0.25) 40%,
+    transparent 70%
+  );
+  animation: sunset-drift-1 42s ease-in-out infinite alternate;
+}
+
+.sunset-aurora-2 {
+  bottom: -10%;
+  left: -15%;
+  width: 65vw;
+  height: 65vw;
+  max-width: 800px;
+  max-height: 800px;
+  background: radial-gradient(
+    circle,
+    rgba(251, 191, 36, 0.4) 0%,
+    rgba(251, 191, 36, 0.18) 40%,
+    transparent 70%
+  );
+  animation: sunset-drift-2 51s ease-in-out infinite alternate;
+}
+
+.sunset-aurora-3 {
+  top: 40%;
+  left: 30%;
+  width: 55vw;
+  height: 55vw;
+  max-width: 700px;
+  max-height: 700px;
+  background: radial-gradient(
+    circle,
+    rgba(180, 83, 9, 0.3) 0%,
+    rgba(180, 83, 9, 0.15) 40%,
+    transparent 70%
+  );
+  animation: sunset-drift-3 63s ease-in-out infinite alternate;
+}
+
+@keyframes sunset-drift-1 {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(-6%, 4%, 0) scale(1.08); }
+  100% { transform: translate3d(3%, -3%, 0) scale(0.95); }
+}
+
+@keyframes sunset-drift-2 {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(7%, -5%, 0) scale(1.12); }
+  100% { transform: translate3d(-4%, 3%, 0) scale(0.92); }
+}
+
+@keyframes sunset-drift-3 {
+  0%   { transform: translate3d(0, 0, 0) scale(0.95); }
+  50%  { transform: translate3d(-3%, 6%, 0) scale(1.1); }
+  100% { transform: translate3d(5%, -4%, 0) scale(1); }
+}
+
+/* -------- Layer 5: Islamic geometric pattern -------- */
+.sunset-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.025;
+  mix-blend-mode: screen;
+}
+
+.sunset-pattern svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* -------- Layer 6: Dust particles -------- */
+.sunset-dust {
+  position: absolute;
+  inset: 0;
+}
+
+.sunset-dust span {
+  position: absolute;
+  background: radial-gradient(circle, rgba(254, 243, 199, 0.6) 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0;
+  animation: sunset-dust-float linear infinite;
+}
+
+@keyframes sunset-dust-float {
+  0%, 100% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+  20%, 80% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate3d(20px, -40px, 0);
+  }
+}
+
+/* -------- Layer 7: Lens flares -------- */
+.sunset-flare {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.sunset-flare-tr {
+  top: -10%;
+  right: -5%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(
+    circle,
+    rgba(253, 230, 138, 0.15) 0%,
+    rgba(253, 230, 138, 0.05) 30%,
+    transparent 60%
+  );
+  filter: blur(20px);
+  animation: sunset-flare-pulse 8s ease-in-out infinite;
+}
+
+.sunset-flare-bl {
+  bottom: -5%;
+  left: -5%;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(
+    circle,
+    rgba(249, 115, 22, 0.12) 0%,
+    rgba(249, 115, 22, 0.04) 30%,
+    transparent 60%
+  );
+  filter: blur(30px);
+  animation: sunset-flare-pulse 11s ease-in-out infinite 2s;
+}
+
+.sunset-flare-c {
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(
+    circle,
+    rgba(251, 191, 36, 0.05) 0%,
+    transparent 50%
+  );
+  filter: blur(60px);
+  animation: sunset-flare-pulse 15s ease-in-out infinite 4s;
+}
+
+@keyframes sunset-flare-pulse {
+  0%, 100% { opacity: 0.8; }
+  50%      { opacity: 1; }
+}
+
+/* -------- Layer 8: Vignette -------- */
+.sunset-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 120% 100% at center,
+    transparent 40%,
+    rgba(0, 0, 0, 0.25) 75%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+  pointer-events: none;
+}
+
+/* -------- Layer 9: Grain -------- */
+.sunset-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.8'/%3E%3C/svg%3E");
+}
+
+/* -------- Subtle variant (admin preview — less overwhelming) -------- */
+.ielts-sunset-bg.sunset-subtle .sunset-aurora-1 { opacity: 0.7; }
+.ielts-sunset-bg.sunset-subtle .sunset-aurora-2 { opacity: 0.6; }
+.ielts-sunset-bg.sunset-subtle .sunset-aurora-3 { opacity: 0.55; }
+.ielts-sunset-bg.sunset-subtle .sunset-vignette {
+  background: radial-gradient(
+    ellipse 120% 100% at center,
+    transparent 50%,
+    rgba(0, 0, 0, 0.15) 85%,
+    rgba(0, 0, 0, 0.35) 100%
+  );
+}
+
+/* -------- Reduced motion: disable all animations -------- */
+@media (prefers-reduced-motion: reduce) {
+  .sunset-aurora,
+  .sunset-flare,
+  .sunset-dust span {
+    animation: none !important;
+  }
+}
+
+/* -------- Mobile: disable grain + dim dust -------- */
+@media (max-width: 640px) {
+  .sunset-grain { display: none; }
+  .sunset-dust { opacity: 0.5; }
+}

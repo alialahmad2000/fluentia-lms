@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 import { Outlet, useLocation, useNavigate, Link } from 'react-router-dom'
 import { ArrowRight, Compass } from 'lucide-react'
 import TrainerPresence from '@/design-system/components/masterclass/TrainerPresence'
+import IELTSSunsetBackground from '@/design-system/masterclass/IELTSSunsetBackground'
 
 const PAGE_TITLES = {
   '/student/ielts-v2': 'الرحلة',
@@ -35,24 +36,14 @@ export default function IELTSMasterclassLayout() {
       dir="rtl"
       style={{
         minHeight: '100vh',
-        background: 'var(--ds-bg-base)',
+        background: 'var(--sunset-base-deep, #1a0f08)',
         color: 'var(--ds-text-primary)',
         fontFamily: "'Tajawal', sans-serif",
         position: 'relative',
+        overflow: 'hidden',
       }}
     >
-      {/* Ambient gradient */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'fixed',
-          inset: 0,
-          pointerEvents: 'none',
-          background:
-            'radial-gradient(60% 40% at 50% 0%, color-mix(in srgb, var(--ds-sky) 8%, transparent), transparent 70%), radial-gradient(40% 30% at 100% 100%, color-mix(in srgb, var(--ds-amber) 6%, transparent), transparent 70%)',
-          zIndex: 0,
-        }}
-      />
+      <IELTSSunsetBackground />
 
       {/* Sticky header */}
       <header
@@ -62,8 +53,8 @@ export default function IELTSMasterclassLayout() {
           zIndex: 10,
           backdropFilter: 'blur(14px)',
           WebkitBackdropFilter: 'blur(14px)',
-          background: 'var(--ds-bg-overlay)',
-          borderBottom: '1px solid var(--ds-border-subtle)',
+          background: 'color-mix(in srgb, var(--sunset-base-mid, #2b1810) 78%, transparent)',
+          borderBottom: '1px solid color-mix(in srgb, var(--sunset-amber, #f97316) 15%, transparent)',
         }}
       >
         <div
@@ -102,7 +93,7 @@ export default function IELTSMasterclassLayout() {
           </button>
 
           <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
-            <Compass size={18} style={{ color: 'var(--ds-sky)', flexShrink: 0 }} aria-hidden="true" />
+            <Compass size={18} style={{ color: 'var(--sunset-orange, #fbbf24)', flexShrink: 0 }} aria-hidden="true" />
             {!isHome && (
               <Link
                 to="/student/ielts-v2"
