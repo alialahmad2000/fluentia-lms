@@ -5,6 +5,8 @@
   "variant_id": "38dc85f0-a46d-4e34-89cd-292863f85958",
   "unit_id": "a5b583a4-5d9e-41b7-b95f-c07e0c44f64b",
   "generated_at": "2026-04-20T08:00:00.000Z",
+  "patched_at": "2026-04-20T10:15:00.000Z",
+  "patch_notes": "Converted vocab MCQ Arabic options to English for B1 compliance",
   "generated_by": "Claude Code native",
   "distribution": {
     "skills": { "vocabulary": 8, "grammar": 6, "reading": 6 },
@@ -18,10 +20,10 @@
       "question_type": "mcq",
       "question_text": "AI systems in NEOM are designed to 'anticipate' residents' needs. What does 'anticipate' mean?",
       "options": [
-        { "id": "a", "text": "يُسجّل ويوثّق المعلومات", "is_correct": false },
-        { "id": "b", "text": "يتجاهل ويُهمل الاحتياجات", "is_correct": false },
-        { "id": "c", "text": "يتوقع ويستبق الأحداث قبل وقوعها", "is_correct": true },
-        { "id": "d", "text": "يحلّل ويُقيّم الأداء فقط", "is_correct": false }
+        { "id": "a", "text": "To record and document information carefully", "is_correct": false },
+        { "id": "b", "text": "To ignore and overlook something important", "is_correct": false },
+        { "id": "c", "text": "To expect and prepare for something before it happens", "is_correct": true },
+        { "id": "d", "text": "To analyse and evaluate past performance only", "is_correct": false }
       ],
       "correct_answer": "c",
       "accepted_answers": null,
@@ -69,10 +71,10 @@
       "question_type": "mcq",
       "question_text": "The passage states that younger generations appear more willing to 'embrace' AI advances. What does 'embrace' mean in this context?",
       "options": [
-        { "id": "a", "text": "يرفض ويُعارض بشدة", "is_correct": false },
-        { "id": "b", "text": "يشكّك ويتردد دون موقف واضح", "is_correct": false },
-        { "id": "c", "text": "يُهمل ويتجاهل تماماً", "is_correct": false },
-        { "id": "d", "text": "يتقبّل ويرحّب بشيء جديد بانفتاح وحماس", "is_correct": true }
+        { "id": "a", "text": "To strongly reject and oppose something", "is_correct": false },
+        { "id": "b", "text": "To doubt and hesitate without taking a clear position", "is_correct": false },
+        { "id": "c", "text": "To completely ignore and pay no attention to something", "is_correct": false },
+        { "id": "d", "text": "To willingly accept and welcome something new with enthusiasm", "is_correct": true }
       ],
       "correct_answer": "d",
       "accepted_answers": null,
@@ -86,10 +88,10 @@
       "question_type": "mcq",
       "question_text": "AI systems in NEOM can 'predict' traffic patterns and manage energy consumption. What is the closest meaning of 'predict'?",
       "options": [
-        { "id": "a", "text": "يُسيطر على الأنشطة الجارية حالياً", "is_correct": false },
-        { "id": "b", "text": "يُشخّص ويُحدّد المشكلات الراهنة", "is_correct": false },
-        { "id": "c", "text": "يتنبأ بما سيحدث في المستقبل بناءً على بيانات", "is_correct": true },
-        { "id": "d", "text": "يُنظّم ويُوزّع الموارد بالتساوي", "is_correct": false }
+        { "id": "a", "text": "To control and manage activities that are currently happening", "is_correct": false },
+        { "id": "b", "text": "To identify and determine current problems or conditions", "is_correct": false },
+        { "id": "c", "text": "To say what will happen in the future based on available data", "is_correct": true },
+        { "id": "d", "text": "To organise and distribute resources evenly and fairly", "is_correct": false }
       ],
       "correct_answer": "c",
       "accepted_answers": null,

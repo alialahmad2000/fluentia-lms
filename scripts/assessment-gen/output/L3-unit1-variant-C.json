@@ -1,0 +1,332 @@
+{
+  "level": 3,
+  "unit_number": 1,
+  "variant_label": "C",
+  "variant_id": "36e9c98a-9536-439d-b950-69f46daffa10",
+  "unit_id": "a5b583a4-5d9e-41b7-b95f-c07e0c44f64b",
+  "generated_at": "2026-04-21T00:00:00Z",
+  "generated_by": "Claude Code native (English-options standard)",
+  "patched_at": "2026-04-21T01:00:00Z",
+  "patch_notes": "Replaced Q19 (was duplicate of Q16's 94% stat) with a different fact from the passages",
+  "distribution": {
+    "skills": { "vocabulary": 8, "grammar": 6, "reading": 6 },
+    "types": { "mcq": 12, "true_false": 4, "fill_blank": 2, "matching": 2 }
+  },
+  "anti_dup_sources": [
+    "L3-unit1-variant-A.json",
+    "L3-unit1-variant-B.json"
+  ],
+  "language_standard": "All vocab MCQ options English-only; explanations Arabic (B1 CEFR)",
+  "questions": [
+    {
+      "order_number": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "Passage A says AI has become an 'integral' part of modern life. What does 'integral' mean?",
+      "options": [
+        { "id": "a", "text": "Optional and only occasionally useful in daily situations", "is_correct": false },
+        { "id": "b", "text": "Essential and forming a necessary part of something larger", "is_correct": true },
+        { "id": "c", "text": "Rare and difficult to find in most everyday contexts", "is_correct": false },
+        { "id": "d", "text": "Simple and very easy to remove or replace", "is_correct": false }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "integral تعني جوهري ولا يتجزأ، أي أنه جزء أساسي لا يمكن الاستغناء عنه من شيء أكبر."
+    },
+    {
+      "order_number": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "Educational platforms 'leverage' machine learning to personalise student experiences. What does 'leverage' mean here?",
+      "options": [
+        { "id": "a", "text": "To ignore and fail to make use of available tools or resources", "is_correct": false },
+        { "id": "b", "text": "To design and build something entirely from the very beginning", "is_correct": false },
+        { "id": "c", "text": "To make effective and strategic use of something to gain an advantage", "is_correct": true },
+        { "id": "d", "text": "To reduce and limit the power of a tool or available resource", "is_correct": false }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "leverage تعني يستغل ويوظّف، أي استخدام شيء متاح بذكاء لتحقيق ميزة أو نتيجة أفضل."
+    },
+    {
+      "order_number": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "The 'scope' of AI applications continues to expand rapidly across sectors. What does 'scope' mean in this context?",
+      "options": [
+        { "id": "a", "text": "The speed at which a new technology is developed or officially released", "is_correct": false },
+        { "id": "b", "text": "The negative side effects that a technology causes in society", "is_correct": false },
+        { "id": "c", "text": "The total number of experts involved in designing a system", "is_correct": false },
+        { "id": "d", "text": "The range and extent of something's coverage or influence", "is_correct": true }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "scope تعني نطاق أو مدى، أي الحدود أو الامتداد الذي يشمله شيء ما أو يؤثر فيه."
+    },
+    {
+      "order_number": 4,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "Passage A states that AI accuracy in healthcare 'surpasses' the performance of many human specialists. What does 'surpasses' mean?",
+      "options": [
+        { "id": "a", "text": "Performs better than or goes beyond an established level or standard", "is_correct": true },
+        { "id": "b", "text": "Falls below or fails to meet the required level or standard", "is_correct": false },
+        { "id": "c", "text": "Stays at exactly the same level as something else over time", "is_correct": false },
+        { "id": "d", "text": "Relies on and depends completely on another external source", "is_correct": false }
+      ],
+      "correct_answer": "a",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "surpasses تعني يتفوق على ويتجاوز، أي تحقيق أداء أعلى من مستوى أو معيار معين."
+    },
+    {
+      "order_number": 5,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "Passage A argues that AI works best when it 'complements' human intelligence rather than replacing it. What does 'complements' mean?",
+      "options": [
+        { "id": "a", "text": "Competes directly against something in order to take its place", "is_correct": false },
+        { "id": "b", "text": "Adds to and strengthens something by supplying what it lacks", "is_correct": true },
+        { "id": "c", "text": "Copies and exactly reproduces the abilities of something else", "is_correct": false },
+        { "id": "d", "text": "Reduces and weakens something by gradually taking over its role", "is_correct": false }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "complements تعني يكمل ويعزز، أي أن يضيف شيء ما إلى شيء آخر بحيث يملأ ما ينقصه ويجعله أكثر اكتمالاً."
+    },
+    {
+      "order_number": 6,
+      "skill_tag": "vocabulary",
+      "question_type": "true_false",
+      "question_text": "In the context of scientific research, 'breakthroughs' refers to major discoveries or important advances that change what was previously possible.",
+      "options": null,
+      "correct_answer": "true",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "صحيح. breakthroughs تعني اختراقات أو اكتشافات مهمة تُغيّر ما كان ممكناً من قبل في مجال ما."
+    },
+    {
+      "order_number": 7,
+      "skill_tag": "vocabulary",
+      "question_type": "true_false",
+      "question_text": "The 'adoption' of AI in Middle Eastern healthcare means that hospitals have completely refused to use AI technology.",
+      "options": null,
+      "correct_answer": "false",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "خطأ. adoption تعني التبني والاعتماد على شيء ما، أي قبوله واستخدامه، وهو عكس الرفض تماماً."
+    },
+    {
+      "order_number": 8,
+      "skill_tag": "vocabulary",
+      "question_type": "fill_blank",
+      "question_text": "Healthcare providers are _____ to balance technological innovation with the values of traditional patient care.",
+      "options": null,
+      "correct_answer": "striving",
+      "accepted_answers": ["striving", "Striving"],
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "striving تعني تسعى جاهدةً أو تجتهد، أي بذل جهد مستمر ومثابر من أجل تحقيق هدف معين."
+    },
+    {
+      "order_number": 9,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence uses 'recently' correctly with the present perfect tense?",
+      "options": [
+        { "id": "a", "text": "Researchers recently published their AI study in 2023.", "is_correct": false },
+        { "id": "b", "text": "The hospital recently installed the AI scanner last Tuesday.", "is_correct": false },
+        { "id": "c", "text": "Scientists have recently developed a more accurate AI model for detecting cancer.", "is_correct": true },
+        { "id": "d", "text": "She recently was working on the AI project for the past six months.", "is_correct": false }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "نستخدم 'recently' مع الماضي التام (have/has + recently + تصريف ثالث) للتعبير عن حدث وقع قريباً دون تحديد وقت دقيق. الخيارات الأخرى تقرن 'recently' بأوقات محددة تستلزم الماضي البسيط أو تحتوي على تراكيب خاطئة."
+    },
+    {
+      "order_number": 10,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Choose the sentence that correctly expresses an ongoing action that started in the past and is still continuing now.",
+      "options": [
+        { "id": "a", "text": "The team worked on the AI project since January and is nearly done.", "is_correct": false },
+        { "id": "b", "text": "The university has been offering AI courses for the past three years.", "is_correct": true },
+        { "id": "c", "text": "Students studied machine learning since 2020 and know it very well.", "is_correct": false },
+        { "id": "d", "text": "She has been learn about artificial intelligence since last month.", "is_correct": false }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "نستخدم الماضي التام المستمر (have/has been + فعل مضاف إليه ing) للتعبير عن فعل مستمر بدأ في الماضي ولا يزال يحدث الآن. الخيارات a وc تستخدم الماضي البسيط مع since بشكل خاطئ، والخيار d يحتوي على خطأ في بنية الجملة."
+    },
+    {
+      "order_number": 11,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence best describes an action in progress over a period that is not yet finished?",
+      "options": [
+        { "id": "a", "text": "Dr. Ahmed has studied AI for fifteen years and published many important papers.", "is_correct": false },
+        { "id": "b", "text": "The new AI system completed all its tests and is now ready to launch.", "is_correct": false },
+        { "id": "c", "text": "Researchers have been testing the new AI model for three months and are not finished yet.", "is_correct": true },
+        { "id": "d", "text": "Scientists discovered the key benefits of machine learning in the early 2000s.", "is_correct": false }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "يُعبّر الماضي التام المستمر (have been testing) عن نشاط لا يزال جارياً لم يكتمل بعد. الخيار a يُبرز النتيجة المنجزة (PP بسيط)، والخياران b وd يستخدمان الماضي البسيط."
+    },
+    {
+      "order_number": 12,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which question correctly asks about the duration of an activity that started in the past and is still continuing?",
+      "options": [
+        { "id": "a", "text": "How long did she use the AI assistant for her research?", "is_correct": false },
+        { "id": "b", "text": "How long has she been using the AI assistant for her research?", "is_correct": true },
+        { "id": "c", "text": "How long was she using the AI assistant for her research?", "is_correct": false },
+        { "id": "d", "text": "How long she has been using the AI assistant for her research?", "is_correct": false }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "نستخدم 'How long has/have + subject + been + verb-ing?' للسؤال عن مدة نشاط مستمر حتى الآن. الخيار a يوحي بانتهاء النشاط، والخيار c يستخدم الماضي المستمر المنتهي، والخيار d يحتوي على خطأ في ترتيب الكلمات."
+    },
+    {
+      "order_number": 13,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "The sentence 'Doctors have been using this AI software since they installed it two years ago' is grammatically correct.",
+      "options": null,
+      "correct_answer": "true",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "صحيح. نستخدم الماضي التام المستمر (have been using) مع since للتعبير عن فعل بدأ في نقطة زمنية محددة في الماضي ولا يزال مستمراً حتى الآن."
+    },
+    {
+      "order_number": 14,
+      "skill_tag": "grammar",
+      "question_type": "matching",
+      "question_text": "Match each verb to its correct past participle form, as used in the present perfect tense.",
+      "options": null,
+      "correct_answer": null,
+      "accepted_answers": null,
+      "matching_pairs": [
+        { "left": "rise", "right": "risen" },
+        { "left": "break", "right": "broken" },
+        { "left": "write", "right": "written" },
+        { "left": "grow", "right": "grown" }
+      ],
+      "points": 1,
+      "explanation": "هذه أفعال شاذة تتغير صيغتها في الماضي التام: rise→risen، break→broken، write→written، grow→grown. معرفة تصريفاتها الثالثة ضرورية لبناء جمل الماضي التام بشكل صحيح."
+    },
+    {
+      "order_number": 15,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "According to Passage A, which sector uses machine learning algorithms to create experiences that adapt to individual learning styles?",
+      "options": [
+        { "id": "a", "text": "The healthcare sector through AI-powered diagnostic tools", "is_correct": false },
+        { "id": "b", "text": "The finance sector through automated fraud detection systems", "is_correct": false },
+        { "id": "c", "text": "The education sector through adaptive learning platforms", "is_correct": true },
+        { "id": "d", "text": "The urban planning sector through smart city infrastructure", "is_correct": false }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "ذكر النص أن المنصات التعليمية تستخدم خوارزميات التعلم الآلي لإنشاء تجارب تعلم شخصية تتكيف مع وتيرة كل طالب وأسلوب تعلمه."
+    },
+    {
+      "order_number": 16,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "According to Passage B, with what accuracy rate can AI systems detect early signs of diseases such as diabetes and heart conditions?",
+      "options": [
+        { "id": "a", "text": "90%", "is_correct": false },
+        { "id": "b", "text": "92%", "is_correct": false },
+        { "id": "c", "text": "94%", "is_correct": true },
+        { "id": "d", "text": "97%", "is_correct": false }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "ذكر النص أن هذه الأنظمة تستطيع كشف العلامات المبكرة لأمراض مثل السكري وأمراض القلب بدقة تبلغ 94%، وهي نسبة كثيراً ما تتجاوز أداء الأطباء البشريين من حيث السرعة والدقة."
+    },
+    {
+      "order_number": 17,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "Passage A says AI fraud detection handles transactions that would be 'impossible for humans to monitor manually.' What does this best suggest?",
+      "options": [
+        { "id": "a", "text": "AI has completely eliminated financial fraud from the banking sector", "is_correct": false },
+        { "id": "b", "text": "Banks no longer employ any human staff to manage financial operations", "is_correct": false },
+        { "id": "c", "text": "AI handles data volumes and processing speeds that exceed human capacity alone", "is_correct": true },
+        { "id": "d", "text": "AI was specifically designed to permanently replace human workers in finance", "is_correct": false }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "يُضمن النص أن الذكاء الاصطناعي في القطاع المالي يتعامل مع أحجام بيانات وسرعات معالجة تتجاوز الطاقة البشرية، مما يجعله أداةً تعزيزية لا بديلاً كاملاً عن الإنسان."
+    },
+    {
+      "order_number": 18,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "According to Passage A, Dr. Sarah Al-Rashid is a computer science professor at King Abdulaziz University.",
+      "options": null,
+      "correct_answer": "true",
+      "accepted_answers": null,
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "صحيح. ذكر النص أن الدكتورة سارة الراشد أستاذة في علوم الحاسب بجامعة الملك عبدالعزيز، ونقل اقتباساً مباشراً لها حول تكامل الذكاء الاصطناعي مع القدرات البشرية."
+    },
+    {
+      "order_number": 19,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "According to Passage B, only _____ percent of survey respondents over the age of 50 said they would trust AI diagnostic tools.",
+      "options": null,
+      "correct_answer": "45",
+      "accepted_answers": ["45", "45%", "forty-five", "Forty-five"],
+      "matching_pairs": null,
+      "points": 1,
+      "explanation": "ذكر النص في الفقرة الثالثة من النص B أن 45% فقط من المشاركين فوق سن الخمسين قالوا إنهم يثقون بأدوات التشخيص المعتمدة على الذكاء الاصطناعي."
+    },
+    {
+      "order_number": 20,
+      "skill_tag": "reading",
+      "question_type": "matching",
+      "question_text": "Match each name or organization mentioned in the passages to its correct description.",
+      "options": null,
+      "correct_answer": null,
+      "accepted_answers": null,
+      "matching_pairs": [
+        { "left": "King Abdulaziz University", "right": "institution where Dr. Al-Rashid works as a professor" },
+        { "left": "Vision 2030", "right": "Saudi plan that includes ambitious digital health transformation goals" },
+        { "left": "NEOM", "right": "Saudi urban project integrating AI for smart city planning" },
+        { "left": "Gulf Cooperation Council", "right": "region where the AI trust survey was conducted" }
+      ],
+      "points": 1,
+      "explanation": "ذكر النص هذه الجهات بوضوح: جامعة الملك عبدالعزيز (مؤسسة الدكتورة الراشد)، ورؤية 2030 (خطة التحول الصحي الرقمي)، ونيوم (مشروع المدينة الذكية)، ومجلس التعاون الخليجي (نطاق الاستطلاع)."
+    }
+  ]
+}

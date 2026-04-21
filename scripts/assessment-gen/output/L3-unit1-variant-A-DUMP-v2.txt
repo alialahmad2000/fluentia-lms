@@ -1,0 +1,140 @@
+======================================================================
+LEVEL undefined · UNIT undefined · VARIANT A — FULL DUMP
+======================================================================
+Source file:     scripts/assessment-gen/output/L3-unit1-variant-A.json
+unit_id:         —
+variant_id:      2f86e62b-8673-4161-9781-1d2142752467
+generated_at:    —
+generated_by:    —
+question_count:  20
+======================================================================
+
+Qundefined  [vocabulary · mcq]
+    Q: What does 'analyze' mean in the context of AI processing data?
+    a) To store and save data for later use
+  ✓ b) To examine and study information carefully and in depth
+    c) To delete and remove data permanently
+    d) To transfer and move data from one place to another
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: Which word best describes something that is 'compelling'?
+    a) Boring and repetitive
+    b) Confusing and unclear
+  ✓ c) Persuasive, interesting, and hard to ignore
+    d) Simple and straightforward
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: What does 'detect' mean in 'AI can detect medical conditions'?
+    a) To treat and cure a medical condition
+    b) To prevent and stop something from happening
+  ✓ c) To discover and identify the presence of something
+    d) To cause and spread a medical condition
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: Students often 'encounter' difficulties when learning AI. What does 'encounter' mean?
+    a) To avoid and stay away from something
+  ✓ b) To come across and face something unexpectedly
+    c) To solve and fix a problem successfully
+    d) To ignore and pay no attention to something
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: AI technology has 'emerged' as a major force. What does 'emerged' suggest?
+    a) Has always been dominant
+    b) Has recently disappeared
+  ✓ c) Has gradually come into prominence
+    d) Has been rejected by society
+    A: c
+
+Qundefined  [vocabulary · true_false]
+    Q: In computing, 'data' refers to raw information and facts processed by a computer.
+    A: true
+
+Qundefined  [vocabulary · fill_blank]
+    Q: AI systems can _____ certain medical conditions with accuracy rates exceeding 95%.
+    A: diagnose (also accepted: diagnose, Diagnose, diagnoses)
+
+Qundefined  [vocabulary · matching]
+    Q: Match each English word to its correct Arabic meaning:
+
+Qundefined  [grammar · mcq]
+    Q: Choose the correct sentence: Scientists are discussing AI developments.
+    a) Scientists developed AI in 2024 and it is useful now.
+  ✓ b) Scientists have developed AI tools that are widely used today.
+    c) Scientists have developed AI tools in 1956.
+    d) Scientists develop AI since the last century.
+    A: b
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence correctly uses the simple past?
+    a) Scientists have developed the first AI program in 1956.
+  ✓ b) IBM created Deep Blue twenty years ago.
+    c) AI technology has changed our life last year.
+    d) She has attended the AI conference in March 2023.
+    A: b
+
+Qundefined  [grammar · mcq]
+    Q: Complete: 'AI technology _____ our lives dramatically.' (focus on the current result)
+    a) changed
+    b) was changing
+  ✓ c) has changed
+    d) is changing
+    A: c
+
+Qundefined  [grammar · mcq]
+    Q: Which question correctly asks about someone's experience with AI?
+    a) Did you ever use AI tools?
+  ✓ b) Have you ever used AI tools?
+    c) Do you ever used AI tools?
+    d) Were you ever using AI tools?
+    A: b
+
+Qundefined  [grammar · true_false]
+    Q: 'I have visited the AI conference last week' is grammatically correct.
+    A: false
+
+Qundefined  [grammar · true_false]
+    Q: 'ChatGPT has become very popular since its launch' uses the present perfect correctly.
+    A: true
+
+Qundefined  [reading · mcq]
+    Q: According to Passage A, at what accuracy rate can AI diagnose certain medical conditions?
+    a) Around 80%
+  ✓ b) Exceeding 95%
+    c) Exactly 90%
+    d) Up to 75%
+    A: b
+
+Qundefined  [reading · mcq]
+    Q: In Passage A, what is the stated purpose of integrating AI into Saudi Arabia's NEOM project?
+    a) To replace all human workers in construction
+  ✓ b) To create smart cities that anticipate residents' needs
+    c) To monitor citizens for security purposes
+    d) To reduce the cost of building materials
+    A: b
+
+Qundefined  [reading · mcq]
+    Q: What does the author of Passage A imply by saying AI identifies patterns 'that humans might overlook'? (inference)
+    a) AI is completely superior to humans in all tasks
+    b) Humans are incompetent and should be replaced by AI
+  ✓ c) AI complements human intelligence by catching details humans miss
+    d) AI was designed to find human mistakes only
+    A: c
+
+Qundefined  [reading · true_false]
+    Q: Passage B states that over 40% of major Saudi hospitals had implemented AI technology by 2024.
+    A: true
+
+Qundefined  [reading · fill_blank]
+    Q: In Passage B, Dr. Sarah Al-Mansouri works at _____ Specialist Hospital in Riyadh.
+    A: King Faisal (also accepted: King Faisal, king faisal, King Faisal Specialist)
+
+Qundefined  [reading · matching]
+    Q: Match each AI healthcare concept from the passages to its correct description:
+
+----------------------------------------------------------------------
+END OF DUMP — 20 questions printed
+======================================================================

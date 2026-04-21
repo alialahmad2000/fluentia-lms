@@ -1,16 +1,21 @@
 {
+  "level": 3,
+  "unit_number": 1,
   "variant_label": "A",
   "variant_id": "2f86e62b-8673-4161-9781-1d2142752467",
+  "unit_id": "a5b583a4-5d9e-41b7-b95f-c07e0c44f64b",
+  "patched_at": "2026-04-21T00:00:00Z",
+  "patch_notes": "Converted vocab MCQ Arabic options to English for B1 compliance (Variant A)",
   "questions": [
     {
       "order_index": 1, "skill_tag": "vocabulary", "question_type": "mcq",
       "question_text": "What does 'analyze' mean in the context of AI processing data?",
       "question_context": null,
       "options": [
-        {"id":"a","text":"يُخزّن البيانات","is_correct":false},
-        {"id":"b","text":"يحلل ويدرس المعلومات بعمق","is_correct":true},
-        {"id":"c","text":"يحذف البيانات","is_correct":false},
-        {"id":"d","text":"ينقل البيانات","is_correct":false}
+        {"id":"a","text":"To store and save data for later use","is_correct":false},
+        {"id":"b","text":"To examine and study information carefully and in depth","is_correct":true},
+        {"id":"c","text":"To delete and remove data permanently","is_correct":false},
+        {"id":"d","text":"To transfer and move data from one place to another","is_correct":false}
       ],
       "correct_answer": "b", "accepted_answers": null, "points": 1,
       "explanation_ar": "analyze تعني يحلل، أي فحص المعلومات بعمق لفهم مضمونها أو استخلاص نتائج منها."
@@ -33,10 +38,10 @@
       "question_text": "What does 'detect' mean in 'AI can detect medical conditions'?",
       "question_context": null,
       "options": [
-        {"id":"a","text":"يُعالج الأمراض","is_correct":false},
-        {"id":"b","text":"يمنع الأمراض","is_correct":false},
-        {"id":"c","text":"يكتشف ويرصد","is_correct":true},
-        {"id":"d","text":"يُسبب الأمراض","is_correct":false}
+        {"id":"a","text":"To treat and cure a medical condition","is_correct":false},
+        {"id":"b","text":"To prevent and stop something from happening","is_correct":false},
+        {"id":"c","text":"To discover and identify the presence of something","is_correct":true},
+        {"id":"d","text":"To cause and spread a medical condition","is_correct":false}
       ],
       "correct_answer": "c", "accepted_answers": null, "points": 1,
       "explanation_ar": "detect تعني يكتشف ويرصد، أي ملاحظة وجود شيء ما أو التعرف عليه."
@@ -46,10 +51,10 @@
       "question_text": "Students often 'encounter' difficulties when learning AI. What does 'encounter' mean?",
       "question_context": null,
       "options": [
-        {"id":"a","text":"يتجنب","is_correct":false},
-        {"id":"b","text":"يواجه ويصادف","is_correct":true},
-        {"id":"c","text":"يحل","is_correct":false},
-        {"id":"d","text":"يتجاهل","is_correct":false}
+        {"id":"a","text":"To avoid and stay away from something","is_correct":false},
+        {"id":"b","text":"To come across and face something unexpectedly","is_correct":true},
+        {"id":"c","text":"To solve and fix a problem successfully","is_correct":false},
+        {"id":"d","text":"To ignore and pay no attention to something","is_correct":false}
       ],
       "correct_answer": "b", "accepted_answers": null, "points": 1,
       "explanation_ar": "encounter تعني يواجه أو يصادف، أي أن تأتي بالمصادفة في مواجهة شيء أو موقف."

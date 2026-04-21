@@ -1,0 +1,172 @@
+======================================================================
+LEVEL 3 · UNIT 1 · VARIANT B — FULL DUMP
+======================================================================
+Source file:     scripts/assessment-gen/output/L3-unit1-variant-B.json
+unit_id:         a5b583a4-5d9e-41b7-b95f-c07e0c44f64b
+variant_id:      38dc85f0-a46d-4e34-89cd-292863f85958
+generated_at:    2026-04-20T08:00:00.000Z
+generated_by:    Claude Code native
+anti_dup_source: L3-unit1-variant-A.json
+distribution:    8V / 6G / 6R  ·  12 MCQ / 4 T/F / 2 FB / 2 Matching
+question_count:  20
+======================================================================
+
+Q1  [vocabulary · mcq]
+    Q: AI systems in NEOM are designed to 'anticipate' residents' needs. What does 'anticipate' mean?
+    a) To record and document information carefully
+    b) To ignore and overlook something important
+  ✓ c) To expect and prepare for something before it happens
+    d) To analyse and evaluate past performance only
+    A: c
+    شرح: anticipate تعني يتوقع ويستبق، أي التنبؤ بشيء قبل وقوعه والاستعداد له مسبقاً.
+
+Q2  [vocabulary · mcq]
+    Q: According to the passage, AI is 'revolutionizing' how people conduct daily activities. What does 'revolutionizing' best suggest?
+    a) Maintaining existing systems without any change
+    b) Slowing down progress and creating obstacles
+  ✓ c) Causing fundamental and far-reaching change in something
+    d) Organising daily routines in a minor way
+    A: c
+    شرح: revolutionizing تعني يُحدث ثورة، أي إجراء تغيير شامل وجذري في طريقة أداء شيء ما.
+
+Q3  [vocabulary · mcq]
+    Q: Experts predict that AI will become more 'sophisticated' in addressing regional health challenges. What does 'sophisticated' mean?
+    a) Ineffective and overly simplistic
+  ✓ b) Highly developed, complex, and technically advanced
+    c) Fast but unreliable in producing results
+    d) Outdated and limited in capability
+    A: b
+    شرح: sophisticated تعني متطور ومعقد تقنياً، ويُشير إلى مستوى عالٍ من الدقة والقدرة.
+
+Q4  [vocabulary · mcq]
+    Q: The passage states that younger generations appear more willing to 'embrace' AI advances. What does 'embrace' mean in this context?
+    a) To strongly reject and oppose something
+    b) To doubt and hesitate without taking a clear position
+    c) To completely ignore and pay no attention to something
+  ✓ d) To willingly accept and welcome something new with enthusiasm
+    A: d
+    شرح: embrace تعني يتقبّل ويرحّب بـ، أي قبول فكرة أو تطور جديد بانفتاح واستعداد تام.
+
+Q5  [vocabulary · mcq]
+    Q: AI systems in NEOM can 'predict' traffic patterns and manage energy consumption. What is the closest meaning of 'predict'?
+    a) To control and manage activities that are currently happening
+    b) To identify and determine current problems or conditions
+  ✓ c) To say what will happen in the future based on available data
+    d) To organise and distribute resources evenly and fairly
+    A: c
+    شرح: predict تعني يتنبأ بما سيحدث مستقبلاً استناداً إلى البيانات والأنماط المتاحة.
+
+Q6  [vocabulary · true_false]
+    Q: In the context of the passage, 'enhances' means to weaken or reduce the quality and capability of something.
+    A: false
+    شرح: خطأ. enhances تعني يحسّن ويُعزّز ويقوّي، وهو عكس الإضعاف أو التقليل من الجودة.
+
+Q7  [vocabulary · true_false]
+    Q: When researchers 'address' a challenge in AI, they actively work to deal with and find solutions for it.
+    A: true
+    شرح: صحيح. address تعني يتعامل مع مشكلة أو تحدٍ بشكل مباشر ويسعى لإيجاد حل فعلي له.
+
+Q8  [vocabulary · fill_blank]
+    Q: The new AI _____ on her phone helps Sarah track her daily health data and receive personalised recommendations.
+    A: application (also accepted: application, Application, app, App)
+    شرح: application تعني تطبيق برمجي، وهو برنامج مُصمَّم لتنفيذ مهمة معينة على جهاز ذكي أو حاسوب.
+
+Q9  [grammar · mcq]
+    Q: Which sentence uses 'just' correctly with the present perfect?
+    a) The hospital just installed the AI software yesterday.
+    b) Researchers just discovered a promising AI tool last month.
+  ✓ c) The system has just completed its analysis of the patient's scan.
+    d) Engineers just built the first neural network in 2010.
+    A: c
+    شرح: نستخدم 'just' مع الماضي التام (has/have + just + تصريف ثالث) للتعبير عن حدث انتهى للتو. الخيارات الأخرى تستخدم 'just' مع أوقات ماضية محددة تستلزم الماضي البسيط.
+
+Q10  [grammar · mcq]
+    Q: Which sentence correctly uses 'already' with the present perfect?
+    a) The research team has already published their report last week.
+    b) Scientists already developed the first AI system in 1956.
+  ✓ c) The doctor has already reviewed the AI report and is ready to proceed.
+    d) She has already attended the AI conference in March 2023.
+    A: c
+    شرح: نستخدم 'already' مع الماضي التام للإشارة إلى أن شيئاً حدث أبكر من المتوقع. الخيارات a وd تقرن الماضي التام بأوقات محددة (last week / in March 2023)، والخيار b يحذف have/has.
+
+Q11  [grammar · mcq]
+    Q: Complete the sentence: 'The hospital has been using AI diagnostic tools _____ three years.'
+    a) since
+    b) ago
+  ✓ c) for
+    d) when
+    A: c
+    شرح: نستخدم 'for' مع الماضي التام للتعبير عن مدة زمنية (ثلاث سنوات = فترة). أما 'since' فتُستخدم مع نقطة بداية زمنية محددة مثل 'since 2022'.
+
+Q12  [grammar · mcq]
+    Q: Which sentence correctly uses 'never' with the present perfect?
+    a) This AI model has never made an error in its very first test.
+  ✓ b) I have never seen such an advanced robot before.
+    c) She has never attended the robotics conference in March.
+    d) The engineers have never built that system last year.
+    A: b
+    شرح: نستخدم 'never' مع الماضي التام للتعبير عن تجربة لم تحدث قط حتى الآن. الجملة b صحيحة لأنها تعبّر عن ذلك بوضوح، بخلاف الخيارات الأخرى التي تقرن 'never' بأوقات محددة أو تُحدث تناقضاً في المعنى.
+
+Q13  [grammar · true_false]
+    Q: The sentence 'The AI software update hasn't arrived yet' uses the present perfect correctly.
+    A: true
+    شرح: صحيح. نستخدم 'yet' في الجمل المنفية (hasn't/haven't + yet) مع الماضي التام للتعبير عن شيء كان مُتوقَّعاً لكنه لم يحدث حتى الآن.
+
+Q14  [grammar · matching]
+    Q: Match each sentence to the correct time expression that completes it grammatically.
+    Pairs:
+      The AI model has _____ completed its scan — the results are ready now.  →  just
+      Researchers published their breakthrough findings _____.  →  yesterday
+      She has used this AI writing tool _____ six months.  →  for
+      The lab hasn't released its final results _____.  →  yet
+    شرح: الأدوات just وfor وyet تُستخدم مع الماضي التام، بينما يستلزم الوقت المحدد مثل yesterday الماضي البسيط.
+
+Q15  [reading · mcq]
+    Q: According to Passage B, how much does Dubai's Health Authority plan to invest in AI healthcare initiatives over the next five years?
+    a) $1.5 billion
+    b) $3.2 billion
+  ✓ c) $2.3 billion
+    d) $4.0 billion
+    A: c
+    شرح: ذكر النص أن هيئة الصحة في دبي أعلنت عن خطط لاستثمار 2.3 مليار دولار في مبادرات الرعاية الصحية بالذكاء الاصطناعي خلال السنوات الخمس القادمة.
+
+Q16  [reading · mcq]
+    Q: In Passage A, what is the main point of Dr. Sarah Al-Rashid's statement about AI implementation?
+    a) AI should fully replace human doctors in hospitals as soon as possible.
+    b) Human creativity and ethical judgment are qualities that AI systems already possess.
+  ✓ c) The most effective AI systems are those that strengthen human abilities rather than replace them.
+    d) Universities should pause computer science programmes until AI safety is proven.
+    A: c
+    شرح: أكدت الدكتورة سارة الراشد أن أنجح تطبيقات الذكاء الاصطناعي هي تلك التي تعزز قدرات الإنسان مع الحفاظ على إبداعه وحكمه الأخلاقي.
+
+Q17  [reading · mcq]
+    Q: In Passage B, the survey shows that only 45% of people over 50 trust AI diagnostic tools, compared to 73% of those under 30. What does the author most likely imply about this gap?
+    a) People over 50 have never used any electronic device in their daily lives.
+    b) Doctors have officially advised older patients to avoid using AI diagnostic tools.
+  ✓ c) Older patients are more likely to prefer personal human interaction over digital health systems.
+    d) AI diagnostic tools are legally restricted to patients under 30 in the Gulf region.
+    A: c
+    شرح: يُضمن النص أن الاعتبارات الثقافية تجعل بعض المرضى يفضّلون التحدث مع أطباء بشريين، مما يُفسّر تدني ثقة كبار السن بالذكاء الاصطناعي مقارنةً بالشباب.
+
+Q18  [reading · true_false]
+    Q: Passage A states that financial institutions have implemented AI-powered systems that process millions of transactions daily to protect consumers from fraud.
+    A: true
+    شرح: صحيح. ذكر النص أن المؤسسات المالية نفّذت أنظمة كشف الاحتيال المعتمدة على الذكاء الاصطناعي التي تعالج ملايين المعاملات يومياً لحماية المستهلكين.
+
+Q19  [reading · fill_blank]
+    Q: According to Passage B, _____ percent of survey respondents under the age of 30 said they would trust AI-powered diagnostic tools.
+    A: 73 (also accepted: 73, 73%, seventy-three, Seventy-three)
+    شرح: وجد الاستطلاع الذي أُجري عبر دول مجلس التعاون الخليجي أن 73% من المشاركين دون سن الثلاثين يثقون بأدوات التشخيص المعتمدة على الذكاء الاصطناعي.
+
+Q20  [reading · matching]
+    Q: Match each AI application mentioned in the passages to the sector it primarily serves.
+    Pairs:
+      personalised learning experiences that adapt to each student's pace  →  education
+      fraud detection systems processing millions of transactions daily  →  finance
+      smart city planning that optimises resources and predicts traffic  →  urban development
+      identifying early signs of diseases with high accuracy  →  healthcare
+    شرح: ذكر النص تطبيقات الذكاء الاصطناعي في القطاعات الأربعة: التعليم (التعلم المخصص)، المالية (كشف الاحتيال)، التخطيط العمراني (المدن الذكية)، والرعاية الصحية (تشخيص الأمراض).
+
+----------------------------------------------------------------------
+END OF DUMP — 20 questions printed
+======================================================================
