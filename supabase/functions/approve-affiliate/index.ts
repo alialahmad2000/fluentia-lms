@@ -26,9 +26,8 @@ Deno.serve(async (req) => {
       { auth: { autoRefreshToken: false, persistSession: false } }
     );
 
-    // ─── 1. Verify caller is admin ────────────────────────────────────────────
-    const authHeader = req.headers.get("Authorization") ?? "";
-    const token = authHeader.replace(/^Bearer\s+/i, "");
+    // ─── 1. Verify caller is admin ──────────────────────────────────────────
+    const token = (req.headers.get("Authorization") ?? "").replace(/^Bearer\s+/i, "");
     if (!token) return json({ error: "unauthorized" }, 401);
 
     const { data: { user: caller }, error: authErr } = await admin.auth.getUser(token);
@@ -39,19 +38,16 @@ Deno.serve(async (req) => {
 
     const { data: callerProfile } = await admin
       .from("profiles")
-      .select("role,email")
+      .select("id,role,email")
       .eq("id", caller.id)
       .single();
     if (callerProfile?.role !== "admin") {
       return json({ error: "admin only" }, 403);
     }
 
-    // ─── 2. Load the affiliate row ───────────────────────────────────────────
+    // ─── 2. Load the affiliate row ─────────────────────────────────────────
     const { data: aff, error: affErr } = await admin
-      .from("affiliates")
-      .select("*")
-      .eq("id", affiliate_id)
-      .single();
+      .from("affiliates").select("*").eq("id", affiliate_id).single();
     if (affErr || !aff) {
       console.error("affiliate lookup failed:", affErr);
       return json({ error: "affiliate not found" }, 404);
@@ -60,68 +56,88 @@ Deno.serve(async (req) => {
     const applicantEmail = (aff.email || "").toLowerCase().trim();
     if (!applicantEmail) return json({ error: "affiliate has no email" }, 400);
 
-    // ─── 3. SAFETY: reject self-referral ─────────────────────────────────────
-    if (applicantEmail === (callerProfile?.email || "").toLowerCase().trim()) {
+    // ─── 3. SAFETY: reject self-referral (use auth.users.email — always populated) ─
+    if (applicantEmail === (caller.email || "").toLowerCase().trim()) {
       return json(
-        {
-          error:
-            "هذا الإيميل هو إيميل الأدمن نفسه. لا يمكن اعتماد حساب مسوّق بإيميل الأدمن. اطلب من المتقدم استخدام إيميل مختلف.",
-        },
+        { error: "هذا الإيميل هو إيميل الأدمن نفسه. لا يمكن اعتماد حساب مسوّق بإيميل الأدمن." },
         400
       );
     }
 
-    // ─── 4. SAFETY: block admin/trainer email collisions ─────────────────────
-    const { data: existingProfile } = await admin
-      .from("profiles")
-      .select("id,role,email")
-      .ilike("email", applicantEmail)
-      .maybeSingle();
-
-    if (existingProfile && ["admin", "trainer"].includes(existingProfile.role)) {
-      return json(
-        {
-          error: `هذا الإيميل مربوط بحساب ${
-            existingProfile.role === "admin" ? "مدير" : "مدرب"
-          } في النظام. لا يمكن اعتماده كمسوّق. اطلب من المتقدم استخدام إيميل مختلف.`,
-        },
-        409
-      );
-    }
-
-    // ─── 5. Find or create the auth user ─────────────────────────────────────
-    let userId: string | null = aff.user_id ?? existingProfile?.id ?? null;
-    let didCreateUser = false;
-
-    if (!userId) {
-      const { data: usersList, error: listErr } = await admin.auth.admin.listUsers({
-        page: 1,
-        perPage: 1000,
+    // ─── 4. SAFETY: find auth user by email (SOURCE OF TRUTH for collisions) ─
+    // Paginate through auth.users — profiles.email may be stale/null, auth.users never is.
+    let existingAuthUser: any = null;
+    let page = 1;
+    while (true) {
+      const { data: pageData, error: listErr } = await admin.auth.admin.listUsers({
+        page, perPage: 1000,
       });
       if (listErr) {
         console.error("listUsers failed:", listErr);
         return json({ error: "failed to check existing users", detail: listErr.message }, 500);
       }
-      const byEmail = usersList?.users?.find(
-        (u) => u.email?.toLowerCase() === applicantEmail
-      );
-      if (byEmail) {
-        userId = byEmail.id;
-      } else {
-        const randomPassword = crypto.randomUUID() + crypto.randomUUID();
-        const { data: created, error: createErr } = await admin.auth.admin.createUser({
-          email: aff.email,
-          password: randomPassword,
-          email_confirm: true,
-          user_metadata: { full_name: aff.full_name, source: "affiliate" },
-        });
-        if (createErr || !created?.user) {
-          console.error("createUser failed:", createErr);
-          return json({ error: "failed to create auth user", detail: createErr?.message }, 500);
-        }
-        userId = created.user.id;
-        didCreateUser = true;
+      const match = pageData?.users?.find(u => (u.email || "").toLowerCase() === applicantEmail);
+      if (match) { existingAuthUser = match; break; }
+      if (!pageData?.users || pageData.users.length < 1000) break;
+      page++;
+      if (page > 20) break; // hard cap: 20k users
+    }
+
+    // ─── 5. SAFETY: if auth user exists, check their profile role BY ID ────
+    let userId: string;
+    let didCreateUser = false;
+
+    if (existingAuthUser) {
+      const { data: existingProfile } = await admin
+        .from("profiles")
+        .select("id,role,email")
+        .eq("id", existingAuthUser.id)
+        .maybeSingle();
+
+      if (existingProfile && ["admin", "trainer"].includes(existingProfile.role)) {
+        return json(
+          {
+            error: `هذا الإيميل مربوط بحساب ${
+              existingProfile.role === "admin" ? "مدير" : "مدرب"
+            } في النظام. لا يمكن اعتماده كمسوّق. اطلب من المتقدم استخدام إيميل مختلف.`,
+          },
+          409
+        );
       }
+
+      // Refuse if email belongs to a student with active submissions
+      if (existingProfile?.role === "student") {
+        const { count: submissionCount } = await admin
+          .from("submissions")
+          .select("*", { count: "exact", head: true })
+          .eq("student_id", existingAuthUser.id);
+        if ((submissionCount ?? 0) > 0) {
+          return json(
+            {
+              error:
+                "هذا الإيميل مربوط بحساب طالب نشط في الأكاديمية. اطلب من المتقدم استخدام إيميل مختلف.",
+            },
+            409
+          );
+        }
+      }
+
+      userId = existingAuthUser.id;
+    } else {
+      // Create a new auth user
+      const randomPassword = crypto.randomUUID() + crypto.randomUUID();
+      const { data: created, error: createErr } = await admin.auth.admin.createUser({
+        email: aff.email,
+        password: randomPassword,
+        email_confirm: true,
+        user_metadata: { full_name: aff.full_name, source: "affiliate" },
+      });
+      if (createErr || !created?.user) {
+        console.error("createUser failed:", createErr);
+        return json({ error: "failed to create auth user", detail: createErr?.message }, 500);
+      }
+      userId = created.user.id;
+      didCreateUser = true;
     }
 
     // ─── 6. Upsert the profile as affiliate ─────────────────────────────────
@@ -138,14 +154,12 @@ Deno.serve(async (req) => {
     if (profileErr) {
       console.error("profile upsert failed:", profileErr);
       if (didCreateUser) {
-        await admin.auth.admin.deleteUser(userId!).catch((e) =>
-          console.error("rollback deleteUser failed:", e)
-        );
+        await admin.auth.admin.deleteUser(userId).catch(e => console.error("rollback failed:", e));
       }
       return json({ error: "failed to upsert profile", detail: profileErr.message }, 500);
     }
 
-    // ─── 7. Update the affiliate row ────────────────────────────────────────
+    // ─── 7. Update the affiliate row ───────────────────────────────────────
     const { error: updateErr } = await admin
       .from("affiliates")
       .update({
@@ -158,14 +172,12 @@ Deno.serve(async (req) => {
     if (updateErr) {
       console.error("affiliate update failed:", updateErr);
       if (didCreateUser) {
-        await admin.auth.admin.deleteUser(userId!).catch((e) =>
-          console.error("rollback deleteUser failed:", e)
-        );
+        await admin.auth.admin.deleteUser(userId).catch(e => console.error("rollback failed:", e));
       }
       return json({ error: "failed to update affiliate", detail: updateErr.message }, 500);
     }
 
-    // ─── 8. Generate the magic link ─────────────────────────────────────────
+    // ─── 8. Generate the magic link ────────────────────────────────────────
     const { data: linkData, error: linkErr } = await admin.auth.admin.generateLink({
       type: "recovery",
       email: aff.email,
@@ -174,10 +186,7 @@ Deno.serve(async (req) => {
     if (linkErr || !linkData?.properties?.action_link) {
       console.error("generateLink failed:", linkErr);
       return json(
-        {
-          error: "approval succeeded but link generation failed — use resend button",
-          detail: linkErr?.message,
-        },
+        { error: "approval succeeded but link generation failed — use resend button", detail: linkErr?.message },
         500
       );
     }
