@@ -198,18 +198,12 @@ export default function AffiliateDetail() {
     if (!window.confirm('هل أنت متأكد من اعتماد هذا الطلب وإرسال إيميل الدخول؟')) return;
     setIsProcessing(true);
     try {
-      const approveData = await callEdgeFunction('approve-affiliate', { affiliate_id: affiliate.id });
-
-      const { subject, html } = buildWelcomeEmail({ ...affiliate, magic_link: approveData.magic_link });
-
-      try {
-        await callEdgeFunction('send-email', { to: affiliate.email, subject, html });
+      const data = await callEdgeFunction('approve-affiliate', { affiliate_id: affiliate.id });
+      if (data.email_sent) {
         alert('تم اعتماد المسوق وإرسال إيميل الدخول بنجاح ✅');
-      } catch (emailErr) {
-        console.error('email send failed (approval still succeeded):', emailErr);
-        alert(`تم الاعتماد ✅ لكن الإيميل ما انرسل: ${emailErr.message}\nاستخدم زر "إعادة إرسال" لاحقاً.`);
+      } else {
+        alert(`تم الاعتماد ✅ لكن الإيميل ما انرسل: ${data.email_error || 'سبب غير معروف'}\nاستخدم زر "إعادة إرسال" لاحقاً.`);
       }
-
       queryClient.invalidateQueries({ queryKey: ['admin-affiliate', id] });
       queryClient.invalidateQueries({ queryKey: ['admin-affiliates'] });
       await refetch();
@@ -226,13 +220,9 @@ export default function AffiliateDetail() {
     if (!window.confirm('هل تريد إعادة إرسال إيميل الدخول؟ سيتم إنشاء رابط دخول جديد.')) return;
     setIsProcessing(true);
     try {
-      const linkData = await callEdgeFunction('resend-affiliate-invite', { affiliate_id: affiliate.id });
-
-      const { subject, html } = buildWelcomeEmail({ ...affiliate, magic_link: linkData.magic_link });
-
-      await callEdgeFunction('send-email', { to: affiliate.email, subject, html });
-
-      alert('تم إرسال إيميل الدخول بنجاح ✅');
+      const data = await callEdgeFunction('resend-affiliate-invite', { affiliate_id: affiliate.id });
+      if (data.email_sent) alert('تم إرسال إيميل الدخول بنجاح ✅');
+      else alert(`تم توليد الرابط لكن الإرسال فشل: ${data.email_error || 'سبب غير معروف'}`);
     } catch (err) {
       console.error('[handleResendEmail] FAILED:', err);
       alert(`خطأ في إعادة الإرسال:\n\n${err.message}`);

@@ -1,5 +1,6 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
+import { sendResend, welcomeEmail } from "../_shared/affiliate-emails.ts";
 
 const CORS = {
   "Access-Control-Allow-Origin": "*",
@@ -65,7 +66,6 @@ Deno.serve(async (req) => {
     }
 
     // ─── 4. SAFETY: find auth user by email (SOURCE OF TRUTH for collisions) ─
-    // Paginate through auth.users — profiles.email may be stale/null, auth.users never is.
     let existingAuthUser: any = null;
     let page = 1;
     while (true) {
@@ -80,7 +80,7 @@ Deno.serve(async (req) => {
       if (match) { existingAuthUser = match; break; }
       if (!pageData?.users || pageData.users.length < 1000) break;
       page++;
-      if (page > 20) break; // hard cap: 20k users
+      if (page > 20) break;
     }
 
     // ─── 5. SAFETY: if auth user exists, check their profile role BY ID ────
@@ -105,7 +105,6 @@ Deno.serve(async (req) => {
         );
       }
 
-      // Refuse if email belongs to a student with active submissions
       if (existingProfile?.role === "student") {
         const { count: submissionCount } = await admin
           .from("submissions")
@@ -113,10 +112,7 @@ Deno.serve(async (req) => {
           .eq("student_id", existingAuthUser.id);
         if ((submissionCount ?? 0) > 0) {
           return json(
-            {
-              error:
-                "هذا الإيميل مربوط بحساب طالب نشط في الأكاديمية. اطلب من المتقدم استخدام إيميل مختلف.",
-            },
+            { error: "هذا الإيميل مربوط بحساب طالب نشط في الأكاديمية. اطلب من المتقدم استخدام إيميل مختلف." },
             409
           );
         }
@@ -124,7 +120,6 @@ Deno.serve(async (req) => {
 
       userId = existingAuthUser.id;
     } else {
-      // Create a new auth user
       const randomPassword = crypto.randomUUID() + crypto.randomUUID();
       const { data: created, error: createErr } = await admin.auth.admin.createUser({
         email: aff.email,
@@ -142,13 +137,7 @@ Deno.serve(async (req) => {
 
     // ─── 6. Upsert the profile as affiliate ─────────────────────────────────
     const { error: profileErr } = await admin.from("profiles").upsert(
-      {
-        id: userId,
-        full_name: aff.full_name,
-        email: aff.email,
-        role: "affiliate",
-        phone: aff.phone ?? null,
-      },
+      { id: userId, full_name: aff.full_name, email: aff.email, role: "affiliate", phone: aff.phone ?? null },
       { onConflict: "id" }
     );
     if (profileErr) {
@@ -162,12 +151,7 @@ Deno.serve(async (req) => {
     // ─── 7. Update the affiliate row ───────────────────────────────────────
     const { error: updateErr } = await admin
       .from("affiliates")
-      .update({
-        user_id: userId,
-        status: "approved",
-        approved_at: new Date().toISOString(),
-        approved_by: caller.id,
-      })
+      .update({ user_id: userId, status: "approved", approved_at: new Date().toISOString(), approved_by: caller.id })
       .eq("id", affiliate_id);
     if (updateErr) {
       console.error("affiliate update failed:", updateErr);
@@ -191,16 +175,28 @@ Deno.serve(async (req) => {
       );
     }
 
+    // ─── 9. Send welcome email inline ──────────────────────────────────────
+    let emailSent = false;
+    let emailError: string | undefined;
+    try {
+      const { subject, html } = welcomeEmail({
+        full_name: aff.full_name,
+        ref_code: aff.ref_code,
+        magic_link: linkData.properties.action_link,
+      });
+      await sendResend({ to: aff.email, subject, html });
+      emailSent = true;
+    } catch (emailErr) {
+      console.error("welcome email failed:", emailErr);
+      emailError = String(emailErr);
+    }
+
     return json({
       success: true,
+      email_sent: emailSent,
+      email_error: emailError,
       user_id: userId,
-      magic_link: linkData.properties.action_link,
-      affiliate: {
-        id: aff.id,
-        full_name: aff.full_name,
-        email: aff.email,
-        ref_code: aff.ref_code,
-      },
+      affiliate: { id: aff.id, full_name: aff.full_name, email: aff.email, ref_code: aff.ref_code },
     });
   } catch (e) {
     console.error("unhandled error:", e);

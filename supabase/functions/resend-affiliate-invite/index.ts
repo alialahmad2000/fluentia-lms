@@ -1,5 +1,6 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
+import { sendResend, welcomeEmail } from "../_shared/affiliate-emails.ts";
 
 const CORS = {
   "Access-Control-Allow-Origin": "*",
@@ -33,11 +34,7 @@ Deno.serve(async (req) => {
     // SAFETY: block if linked user is an admin/trainer
     if (aff.user_id) {
       const { data: collidingProfile } = await admin
-        .from("profiles")
-        .select("id,role")
-        .eq("id", aff.user_id)
-        .maybeSingle();
-
+        .from("profiles").select("id,role").eq("id", aff.user_id).maybeSingle();
       if (collidingProfile && ["admin", "trainer"].includes(collidingProfile.role)) {
         return json(
           {
@@ -55,11 +52,30 @@ Deno.serve(async (req) => {
       email: aff.email,
       options: { redirectTo: "https://app.fluentia.academy/partner/set-password" },
     });
-    if (linkErr) return json({ error: "link failed", detail: linkErr.message }, 500);
+    if (linkErr || !linkData?.properties?.action_link) {
+      return json({ error: "link generation failed", detail: linkErr?.message }, 500);
+    }
+
+    // Send welcome email inline
+    let emailSent = false;
+    let emailError: string | undefined;
+    try {
+      const { subject, html } = welcomeEmail({
+        full_name: aff.full_name,
+        ref_code: aff.ref_code,
+        magic_link: linkData.properties.action_link,
+      });
+      await sendResend({ to: aff.email, subject, html });
+      emailSent = true;
+    } catch (emailErr) {
+      console.error("resend welcome email failed:", emailErr);
+      emailError = String(emailErr);
+    }
 
     return json({
       success: true,
-      magic_link: linkData?.properties?.action_link,
+      email_sent: emailSent,
+      email_error: emailError,
       affiliate: { id: aff.id, full_name: aff.full_name, email: aff.email, ref_code: aff.ref_code },
     });
   } catch (e) {
