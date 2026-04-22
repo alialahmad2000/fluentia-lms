@@ -1,0 +1,141 @@
+======================================================================
+LEVEL 3 · UNIT 2 · VARIANT A — FULL DUMP
+======================================================================
+Source file:     scripts/assessment-gen/output/L3-unit2-variant-A.json
+unit_id:         55d40057-1d91-4eb0-8d78-b3f47a8d0a24
+variant_id:      84b47339-f424-4fc7-8e92-44e9d0290cf7
+generated_at:    2026-04-21T02:00:00Z
+generated_by:    Claude Code native (L3 bulk, English-only)
+distribution:    8V / 6G / 6R  ·  12 MCQ / 4 T/F / 2 FB / 2 Matching
+question_count:  20
+======================================================================
+
+Qundefined  [vocabulary · mcq]
+    Q: Coral reefs are described as 'spectacular' natural wonders in the ocean. What does 'spectacular' mean?
+    a) Ordinary and commonly found in most parts of the ocean
+  ✓ b) Strikingly impressive and remarkable in appearance
+    c) Extremely small and very difficult to see clearly
+    d) Dangerous and unsafe for humans to approach
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: Coral reefs 'constitute' less than one percent of the ocean floor. What does 'constitute' mean?
+    a) To destroy and permanently remove something from an area
+    b) To surround and protect the outer edges of something
+  ✓ c) To make up or form a particular portion of a larger whole
+    d) To measure and calculate the total size of something
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: Coral reefs are extremely 'vulnerable' to rising water temperatures. What does 'vulnerable' mean?
+  ✓ a) Easily harmed or damaged when exposed to threatening conditions
+    b) Strong and capable of resisting all types of environmental damage
+    c) Well prepared and fully adapted to survive any kind of change
+    d) Too large and complex to be seriously affected by minor changes
+    A: a
+
+Qundefined  [vocabulary · mcq]
+    Q: Coral reefs 'thrive' in warm, shallow waters with plenty of sunlight. What does 'thrive' mean?
+    a) To struggle and slowly disappear from an area over time
+    b) To remain in one place without growing or developing
+    c) To produce food through the process of photosynthesis only
+  ✓ d) To grow and develop very successfully in favourable conditions
+    A: d
+
+Qundefined  [vocabulary · mcq]
+    Q: Coral and algae share a 'mutual' partnership that benefits both organisms. What does 'mutual' mean?
+    a) Competitive, where one side always benefits more than the other
+  ✓ b) Shared and beneficial to both sides of a relationship equally
+    c) Temporary and expected to end naturally after a short period
+    d) One-sided, with only one partner receiving any real benefits
+    A: b
+
+Qundefined  [vocabulary · true_false]
+    Q: In scientific and geographical contexts, 'spans' refers to the distance or period over which something extends.
+    A: true
+
+Qundefined  [vocabulary · true_false]
+    Q: When algae growth 'overwhelms' a coral reef, it means the reef has successfully recovered and become healthier.
+    A: false
+
+Qundefined  [vocabulary · fill_blank]
+    Q: New scientific methods have _____ to help researchers study coral reef ecosystems more effectively.
+    A: emerged (also accepted: emerged, Emerged)
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence uses the present perfect continuous correctly?
+    a) Scientists have study coral reefs for many years.
+    b) The water temperature has rising for the past decade.
+  ✓ c) Marine biologists have been monitoring coral health since 2010.
+    d) Divers been studying the reef conditions for three weeks.
+    A: c
+
+Qundefined  [grammar · mcq]
+    Q: Complete: 'The scientists _____ coral bleaching for the past six months.' (focus on ongoing research)
+    a) have studied
+  ✓ b) have been studying
+    c) have been studied
+    d) studied
+    A: b
+
+Qundefined  [grammar · mcq]
+    Q: Choose the correct option: 'The reef has been changing _____ the water temperature rose sharply.'
+  ✓ a) since
+    b) for
+    c) when
+    d) during
+    A: a
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence best expresses an action that started in the past and is still happening now?
+    a) Scientists discovered coral bleaching as a problem in the 1980s.
+    b) The algae left the coral when water temperatures suddenly increased.
+  ✓ c) The reef has been losing coral cover gradually for several decades.
+    d) Researchers will be studying reef recovery throughout next year.
+    A: c
+
+Qundefined  [grammar · true_false]
+    Q: 'Dr. Al-Rashid has been researching Red Sea corals since she joined the marine institute' is grammatically correct.
+    A: true
+
+Qundefined  [grammar · matching]
+    Q: Match each sentence beginning to the time expression that correctly completes it.
+
+Qundefined  [reading · mcq]
+    Q: According to Passage A, what percentage of all marine species do coral reefs support?
+    a) Less than 1%
+  ✓ b) Approximately 25%
+    c) About 50%
+    d) More than 75%
+    A: b
+
+Qundefined  [reading · mcq]
+    Q: According to Passage A, what happens to coral during a bleaching event caused by rising temperatures?
+    a) The coral grows more rapidly and changes to a bright orange colour
+    b) The coral produces extra algae to compensate for the increased heat
+    c) The coral sinks deeper to find cooler and less stressful water
+  ✓ d) The coral expels its algae and turns white, possibly dying if conditions persist
+    A: d
+
+Qundefined  [reading · mcq]
+    Q: Passage B says Red Sea corals survive at 32°C while most corals die at 29°C. What does this best suggest?
+  ✓ a) Red Sea corals have developed unique heat-resistance not found in other reefs
+    b) Red Sea corals are smaller and less biologically complex than other corals
+    c) The Red Sea is the coldest ocean region where coral reefs can survive
+    d) Scientists have artificially raised Red Sea temperatures to study coral reactions
+    A: a
+
+Qundefined  [reading · true_false]
+    Q: According to Passage B, Dr. Al-Rashid's team uses underwater drones to monitor reef health across large areas.
+    A: true
+
+Qundefined  [reading · fill_blank]
+    Q: According to Passage A, the Great Barrier Reef in Australia stretches over _____ kilometers in length.
+    A: 2,300 (also accepted: 2,300, 2300, 2,300 kilometers, 2300 kilometers)
+
+Qundefined  [reading · matching]
+    Q: Match each threat to coral reefs from Passage A to its direct effect on the ecosystem.
+
+----------------------------------------------------------------------
+END OF DUMP — 20 questions printed
+======================================================================

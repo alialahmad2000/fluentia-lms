@@ -1,0 +1,264 @@
+{
+  "level": 3, "unit_number": 4, "variant_label": "A",
+  "variant_id": "e3d957cc-e1a6-4edb-8af3-a2321cf32f29",
+  "unit_id": "738ff234-070d-4ace-9901-434e43521bdb",
+  "generated_at": "2026-04-21T04:00:00Z",
+  "generated_by": "Claude Code native (L3 bulk, English-only)",
+  "language_standard": "English options, Arabic explanations (B1 CEFR)",
+  "distribution": {"skills":{"vocabulary":8,"grammar":6,"reading":6},"types":{"mcq":12,"true_false":4,"fill_blank":2,"matching":2}},
+  "questions": [
+    {
+      "order_index": 1, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "When you 'savor' your morning coffee, you are fully enjoying its taste. What does 'savor' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To prepare and brew a drink carefully before consuming it","is_correct":false},
+        {"id":"b","text":"To drink something very quickly without paying attention to it","is_correct":false},
+        {"id":"c","text":"To taste and enjoy something slowly, appreciating its qualities","is_correct":true},
+        {"id":"d","text":"To share food or drink generously with friends and family","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "savor تعني يتذوق بتمعّن ويستمتع، أي الاستمتاع الكامل بطعم أو رائحة شيء ما بشكل بطيء ومدروس."
+    },
+    {
+      "order_index": 2, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Coffee has become one of the world's most 'influential' beverages. What does 'influential' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Having the power to affect and shape people's beliefs and behaviour","is_correct":true},
+        {"id":"b","text":"Being consumed in very large quantities by people worldwide","is_correct":false},
+        {"id":"c","text":"Having a strong and pleasant flavour that many people prefer","is_correct":false},
+        {"id":"d","text":"Being produced in the greatest number of countries globally","is_correct":false}
+      ],
+      "correct_answer": "a", "accepted_answers": null, "points": 1,
+      "explanation_ar": "influential تعني مؤثّر وذو تأثير واسع، أي أن الشيء يمتلك القدرة على التأثير في آراء الناس وسلوكياتهم."
+    },
+    {
+      "order_index": 3, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Coffee rituals 'transcend' geographical boundaries and cultural differences. What does 'transcend' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To strengthen and reinforce existing cultural boundaries","is_correct":false},
+        {"id":"b","text":"To go beyond and rise above ordinary limits or divisions","is_correct":true},
+        {"id":"c","text":"To create and establish new boundaries in different cultures","is_correct":false},
+        {"id":"d","text":"To replace and eliminate one culture with another entirely","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "transcend تعني يتخطى ويتجاوز، أي القدرة على تجاوز الحدود والقيود المعتادة والارتفاع فوقها."
+    },
+    {
+      "order_index": 4, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "European traders were initially 'skeptical' about coffee. What does 'skeptical' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Extremely excited and eager to try something new immediately","is_correct":false},
+        {"id":"b","text":"Completely certain and confident about the value of something","is_correct":false},
+        {"id":"c","text":"Doubtful and unwilling to believe in something without good evidence","is_correct":true},
+        {"id":"d","text":"Afraid and nervous about the potential dangers of something new","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "skeptical تعني متشكّك وغير مقتنع، أي الشعور بالشك وعدم الاستعداد للتصديق دون وجود أدلة كافية."
+    },
+    {
+      "order_index": 5, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Early European coffee houses were 'vibrant' social centres. What does 'vibrant' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Quiet and calm, providing a peaceful place for relaxation","is_correct":false},
+        {"id":"b","text":"Full of energy, activity, and a lively atmosphere","is_correct":true},
+        {"id":"c","text":"Exclusive and accessible only to wealthy members of society","is_correct":false},
+        {"id":"d","text":"Temporary and existing for only a short period of time","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "vibrant تعني نابض بالحياة ومليء بالحيوية، أي أن المكان أو الأجواء تمتاز بالنشاط والحيوية الملحوظة."
+    },
+    {
+      "order_index": 6, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When intellectuals would 'gather' at coffee houses, it means they came together in the same place for a shared purpose.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. gather تعني يتجمع ويلتقي، أي اجتماع أشخاص في مكان واحد لغرض مشترك."
+    },
+    {
+      "order_index": 7, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "A 'distinctive' coffee tradition is one that is very common and nearly identical to traditions in all other countries.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false, "accepted_answers": null, "points": 1,
+      "explanation_ar": "خطأ. distinctive تعني مميّز وفريد، أي أن التقليد يتميز بخصائص واضحة تجعله مختلفاً ومعروفاً، وليس مجرد نسخة من تقاليد أخرى."
+    },
+    {
+      "order_index": 8, "skill_tag": "vocabulary", "question_type": "fill_blank",
+      "question_text": "The coffee ceremony has _____ over centuries from a simple drink preparation into an elaborate cultural ritual.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "evolved", "accepted_answers": ["evolved","Evolved"], "points": 1,
+      "explanation_ar": "evolved تعني تطوّر بشكل تدريجي، وتُستخدم للتعبير عن التحوّل البطيء الذي يطرأ على شيء ما عبر الزمن."
+    },
+    {
+      "order_index": 9, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence is written in the passive voice (present)?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Ethiopian farmers grow the finest coffee beans in the world.","is_correct":false},
+        {"id":"b","text":"Baristas prepare espresso shots with great care and skill.","is_correct":false},
+        {"id":"c","text":"The finest coffee beans are grown by Ethiopian farmers.","is_correct":true},
+        {"id":"d","text":"Many people drink coffee every morning before they start work.","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "الجملة المبنية للمجهول تُركّز على الفعل وليس الفاعل، وتُكوَّن بـ is/are + تصريف ثالث. الخيار c هو الوحيد بهذه الصيغة."
+    },
+    {
+      "order_index": 10, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Complete: 'Espresso _____ in small cups at Italian neighborhood bars every day.'",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"serves","is_correct":false},
+        {"id":"b","text":"is served","is_correct":true},
+        {"id":"c","text":"was served","is_correct":false},
+        {"id":"d","text":"serving","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "تُكوَّن صيغة المبني للمجهول في المضارع البسيط بـ is/are + تصريف ثالث. المفرد 'espresso' يستلزم is served."
+    },
+    {
+      "order_index": 11, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Why is passive voice used in 'Coffee is enjoyed by millions of people around the world'?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Because the action is in the past and has already finished","is_correct":false},
+        {"id":"b","text":"Because we want to emphasize the coffee as the main focus","is_correct":true},
+        {"id":"c","text":"Because 'millions of people' cannot be used as a subject","is_correct":false},
+        {"id":"d","text":"Because it is grammatically incorrect in the active voice","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "نستخدم المبني للمجهول لتركيز الاهتمام على ما تم (القهوة) بدلاً من مَن يفعله (الملايين). الفاعل يظل مذكوراً بعد by لكن ليس في موضع التركيز."
+    },
+    {
+      "order_index": 12, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence correctly uses the present passive when the doer is unknown?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Coffee is sold at markets, but we don't know who sells it.","is_correct":false},
+        {"id":"b","text":"Coffee beans are harvested by someone every year somewhere.","is_correct":false},
+        {"id":"c","text":"Coffee is grown in many countries around the equator.","is_correct":true},
+        {"id":"d","text":"Coffee beans are going to picked and processed in the farms.","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "يُستخدم المبني للمجهول حين لا نعرف الفاعل أو حين يكون غير مهم. الخيار c صحيح لأنه لا يذكر فاعلاً محدداً ويُركّز على فعل الزراعة ذاته."
+    },
+    {
+      "order_index": 13, "skill_tag": "grammar", "question_type": "true_false",
+      "question_text": "'Coffee ceremonies are held in Ethiopia to celebrate special family occasions' is a correct present passive sentence.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. are held هي صيغة المبني للمجهول الصحيحة (are + تصريف ثالث)، والجملة تُركّز على الحفلات وليس على مَن ينظّمها."
+    },
+    {
+      "order_index": 14, "skill_tag": "grammar", "question_type": "matching",
+      "question_text": "Match each active sentence to its correct present passive equivalent.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "Baristas prepare coffee with great skill.",
+          "Farmers grow coffee in the coffee belt.",
+          "People drink millions of cups daily.",
+          "Roasters select the finest beans carefully."
+        ],
+        "right_items": [
+          "Millions of cups are drunk daily.",
+          "Coffee is prepared with great skill.",
+          "Coffee is grown in the coffee belt.",
+          "The finest beans are selected carefully."
+        ]
+      },
+      "correct_answer": [
+        {"left":"Baristas prepare coffee with great skill.","right":"Coffee is prepared with great skill."},
+        {"left":"Farmers grow coffee in the coffee belt.","right":"Coffee is grown in the coffee belt."},
+        {"left":"People drink millions of cups daily.","right":"Millions of cups are drunk daily."},
+        {"left":"Roasters select the finest beans carefully.","right":"The finest beans are selected carefully."}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "في تحويل الجملة من المبني للمعلوم للمجهول: المفعول به يصبح الفاعل، ويُستخدم is/are + تصريف ثالث، والفاعل الأصلي يُحذف أو يُذكر بعد by."
+    },
+    {
+      "order_index": 15, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage A, what is the legendary origin of coffee's discovery in Ethiopia?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"A trader discovered it while crossing the Sahara desert","is_correct":false},
+        {"id":"b","text":"A goat herder noticed his animals becoming energetic after eating certain berries","is_correct":true},
+        {"id":"c","text":"A scientist studying plants found that coffee beans had medical benefits","is_correct":false},
+        {"id":"d","text":"Monks in an Ethiopian monastery used it to stay awake during prayers","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "تذكر الأسطورة الواردة في النص أن راعي ماعز لاحظ نشاطاً غير عادياً في قطيعه بعد أكل التوت في إثيوبيا، مما أدى إلى اكتشاف القهوة."
+    },
+    {
+      "order_index": 16, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage A, through what region did coffee spread before reaching Europe?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"The Roman Empire and Mediterranean trade routes","is_correct":false},
+        {"id":"b","text":"The Silk Road across Central Asia","is_correct":false},
+        {"id":"c","text":"The Ottoman Empire","is_correct":true},
+        {"id":"d","text":"The Persian Gulf and Indian Ocean trade network","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "ذكر النص أن القهوة انتشرت عبر الإمبراطورية العثمانية ثم وصلت في النهاية إلى أوروبا في القرن السابع عشر."
+    },
+    {
+      "order_index": 17, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "Passage A describes the Italian espresso culture as emphasizing 'quick, standing consumption at neighborhood bars.' What does this suggest about Italian coffee culture?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Italians prefer to avoid socialising while drinking coffee","is_correct":false},
+        {"id":"b","text":"Coffee in Italy is primarily consumed as a medicinal health drink","is_correct":false},
+        {"id":"c","text":"Italian coffee culture values brief social interactions as part of daily routines","is_correct":true},
+        {"id":"d","text":"Italian cafés are too crowded to provide seating for their customers","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "تُضمّن هذه العبارة أن ثقافة الإسبريسو الإيطالية تُقدّر التفاعل الاجتماعي الموجز والسريع كجزء طبيعي من الروتين اليومي."
+    },
+    {
+      "order_index": 18, "skill_tag": "reading", "question_type": "true_false",
+      "question_text": "According to Passage A, Scandinavian countries have embraced the concept of 'fika' as a coffee break focused on relaxation and community.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. وصف النص أن دول الشمال الأوروبي تبنّت مفهوم 'فيكا' وهو استراحة قهوة تُعطي الأولوية للاسترخاء والتواصل الاجتماعي على حساب الإنتاجية."
+    },
+    {
+      "order_index": 19, "skill_tag": "reading", "question_type": "fill_blank",
+      "question_text": "According to Passage A, coffee reached Europe in the _____ century after spreading through the Ottoman Empire.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "17th", "accepted_answers": ["17th","17","seventeenth","Seventeenth"], "points": 1,
+      "explanation_ar": "ذكر النص أن القهوة وصلت إلى أوروبا في القرن السابع عشر بعد انتشارها عبر الإمبراطورية العثمانية."
+    },
+    {
+      "order_index": 20, "skill_tag": "reading", "question_type": "matching",
+      "question_text": "Match each culture or region from Passage A to its distinctive coffee tradition.",
+      "question_context": null,
+      "options": {
+        "left_items": ["Italy", "Scandinavian countries", "Ethiopia", "third-wave coffee culture"],
+        "right_items": [
+          "elaborate preparation rituals lasting several hours for family gatherings",
+          "treats coffee preparation as an art form with baristas as craftspeople",
+          "quick espresso consumed while standing at neighborhood bars",
+          "fika — a coffee break prioritising relaxation and community bonding"
+        ]
+      },
+      "correct_answer": [
+        {"left":"Italy","right":"quick espresso consumed while standing at neighborhood bars"},
+        {"left":"Scandinavian countries","right":"fika — a coffee break prioritising relaxation and community bonding"},
+        {"left":"Ethiopia","right":"elaborate preparation rituals lasting several hours for family gatherings"},
+        {"left":"third-wave coffee culture","right":"treats coffee preparation as an art form with baristas as craftspeople"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "وصف النص أربع ثقافات قهوة مميزة: إيطاليا (سرعة وبساطة)، الشمال الأوروبي (فيكا للاسترخاء)، إثيوبيا (طقوس معقدة)، وثقافة الموجة الثالثة (القهوة كفن)."
+    }
+  ]
+}

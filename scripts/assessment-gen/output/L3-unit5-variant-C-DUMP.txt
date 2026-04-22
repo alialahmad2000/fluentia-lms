@@ -1,0 +1,141 @@
+======================================================================
+LEVEL 3 · UNIT 5 · VARIANT C — FULL DUMP
+======================================================================
+Source file:     C:/Users/Dr. Ali/Desktop/fluentia-lms/scripts/assessment-gen/output/L3-unit5-variant-C.json
+unit_id:         79f8500f-f110-4b61-9099-15348ce19d79
+variant_id:      4685f79d-98d0-4c30-b197-10dc82535386
+generated_at:    2026-04-21T05:00:00Z
+generated_by:    Claude Code native (L3 bulk, English-only)
+distribution:    8V / 6G / 6R  ·  12 MCQ / 4 T/F / 2 FB / 2 Matching
+question_count:  20
+======================================================================
+
+Qundefined  [vocabulary · mcq]
+    Q: Saudi Arabia's 50% renewable target, which 'seemed impossible a decade ago', now appears increasingly 'feasible'. What does 'feasible' mean?
+    a) Extremely expensive and very difficult to fund at any scale
+  ✓ b) Possible and able to be achieved with the available resources
+    c) Already completed and no longer requiring any further effort
+    d) Risky and likely to cause serious problems if attempted
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: Solar farms 'utilize' advanced photovoltaic technology that works in extreme heat. What does 'utilize' mean?
+    a) To test and evaluate technology before making a decision
+  ✓ b) To make practical and effective use of something available
+    c) To design and develop entirely new technology from scratch
+    d) To study the potential of technology without using it yet
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: Saudi Arabia is expected to 'rank among' the world's top ten solar energy producers. What does 'rank among' mean?
+    a) To lead and be number one in a global category
+  ✓ b) To be placed in a specific group or position in a classification
+    c) To be excluded and not counted in any international rankings
+    d) To evaluate and compare different groups based on performance
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: Saudi engineers managed to 'turn the tables' on traditional energy paradigms. What does 'turn the tables' mean?
+    a) To create a completely new set of rules for a situation
+  ✓ b) To reverse a situation so that a disadvantage becomes an advantage
+    c) To repeat the same approach but with greater effort and funding
+    d) To abandon all previous strategies and start fresh
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: KAUST fosters innovation where researchers 'collaborate' on developing more efficient solar cells. What does 'collaborate' mean?
+    a) To work independently and compete against other researchers
+    b) To study the failures and limitations of previous research projects
+  ✓ c) To work together with others to achieve a shared goal
+    d) To publish and share findings without working with others
+    A: c
+
+Qundefined  [vocabulary · true_false]
+    Q: When Saudi Arabia plans to 'phase out' oil for domestic electricity, it plans to gradually eliminate its use over time.
+    A: true
+
+Qundefined  [vocabulary · true_false]
+    Q: When renewable energy investments are described as 'unprecedented', it means similar investments have happened many times before.
+    A: false
+
+Qundefined  [vocabulary · fill_blank]
+    Q: Saudi Arabia plans to _____ its oil dependency for domestic electricity generation entirely by 2040.
+    A: phase out (also accepted: phase out, Phase out, phase-out)
+
+Qundefined  [grammar · mcq]
+    Q: In a news report, which past passive sentence would be most appropriate for formal writing?
+    a) Someone opened the new solar park last Monday.
+    b) They opened the new solar park last Monday.
+  ✓ c) The new solar park was opened last Monday.
+    d) A person opened the new solar park last Monday.
+    A: c
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence uses the past passive without a 'by' agent, when the doer is unimportant?
+    a) The solar panels were installed last year by a team of engineers.
+  ✓ b) The solar panels were installed last year.
+    c) A team of engineers installed the solar panels last year.
+    d) The solar panels were installing last year.
+    A: b
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence chooses the ACTIVE voice over passive for the best reason?
+  ✓ a) Use active: 'Saudi engineers designed the cooling system' — the doer is important and interesting.
+    b) Use active: 'The cooling system was designed' — the result matters more than who did it.
+    c) Use active: 'The prize was won' — we don't know who won it.
+    d) Use active: 'Billions were spent' — the focus is on the amount spent.
+    A: a
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence uses the past passive to describe a process correctly?
+  ✓ a) First, the site was chosen, and then the panels were ordered and delivered.
+    b) First, the site chose, and then the panels ordered and delivered.
+    c) First, was chosen the site, and then ordered and delivered the panels.
+    d) First, the site was choosing, and then the panels were ordering.
+    A: a
+
+Qundefined  [grammar · true_false]
+    Q: 'The Saudi renewable energy program was launched in 2016 and was praised by international energy experts' uses the past passive correctly.
+    A: true
+
+Qundefined  [grammar · matching]
+    Q: Match each sentence to the most appropriate reason for choosing the past passive or active voice.
+
+Qundefined  [reading · mcq]
+    Q: According to Passage A, what field do students and researchers at KAUST focus on?
+    a) Oil extraction technologies and petroleum engineering methods
+  ✓ b) Developing more efficient solar cells and energy storage solutions
+    c) Building design and earthquake-resistant construction methods
+    d) Water management and desalination technology research
+    A: b
+
+Qundefined  [reading · mcq]
+    Q: According to Passage B, how many jobs is Saudi Arabia's renewable sector projected to create by 2030?
+    a) 250,000 jobs
+    b) 500,000 jobs
+  ✓ c) 750,000 jobs
+    d) 1 million jobs
+    A: c
+
+Qundefined  [reading · mcq]
+    Q: Passage B says 'international delegations regularly visit Saudi installations to study the innovative approaches.' What does this suggest?
+    a) Saudi Arabia is struggling and needs help from other countries
+  ✓ b) Saudi Arabia has become a global reference point for desert solar technology
+    c) Other countries are trying to compete with Saudi Arabia in the sector
+    d) International experts believe Saudi Arabia's methods are too risky
+    A: b
+
+Qundefined  [reading · true_false]
+    Q: According to Passage A, women comprise approximately 35% of renewable energy engineering graduates in Saudi Arabia.
+    A: true
+
+Qundefined  [reading · fill_blank]
+    Q: According to Passage A, NEOM will produce enough clean energy to power _____ million homes in Saudi Arabia.
+    A: 1.5 (also accepted: 1.5, one point five, 1.5 million)
+
+Qundefined  [reading · matching]
+    Q: Match each number or figure from the passages to what it represents.
+
+----------------------------------------------------------------------
+END OF DUMP — 20 questions printed
+======================================================================

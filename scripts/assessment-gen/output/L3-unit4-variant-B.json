@@ -1,0 +1,265 @@
+{
+  "level": 3, "unit_number": 4, "variant_label": "B",
+  "variant_id": "c9071fc2-17c5-40fe-9dee-19303669806e",
+  "unit_id": "738ff234-070d-4ace-9901-434e43521bdb",
+  "generated_at": "2026-04-21T04:00:00Z",
+  "generated_by": "Claude Code native (L3 bulk, English-only)",
+  "language_standard": "English options, Arabic explanations (B1 CEFR)",
+  "anti_dup_source": "L3-unit4-variant-A.json",
+  "distribution": {"skills":{"vocabulary":8,"grammar":6,"reading":6},"types":{"mcq":12,"true_false":4,"fill_blank":2,"matching":2}},
+  "questions": [
+    {
+      "order_index": 1, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Coffee plants are 'sensitive' to their environment. What does 'sensitive' mean in this context?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Able to grow strongly in any climate or soil condition","is_correct":false},
+        {"id":"b","text":"Easily affected or harmed by slight changes in conditions","is_correct":true},
+        {"id":"c","text":"Resistant to disease and able to survive in harsh conditions","is_correct":false},
+        {"id":"d","text":"Producing unusually large amounts of fruit in good seasons","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "sensitive تعني حساس للتغيرات، أي أن الشيء يتأثر بسهولة بأي تغيير طفيف في الظروف المحيطة به."
+    },
+    {
+      "order_index": 2, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Coffee requires careful 'cultivation' from seed to harvest. What does 'cultivation' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"The global trading of agricultural products across different countries","is_correct":false},
+        {"id":"b","text":"The scientific study of plant diseases and how to treat them","is_correct":false},
+        {"id":"c","text":"The process of preparing land and growing plants to produce food","is_correct":true},
+        {"id":"d","text":"The transportation and packaging of products to international markets","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "cultivation تعني زراعة وتربية النباتات، أي عملية إعداد الأرض وتهيئة الظروف المناسبة لزراعة المحاصيل وحصادها."
+    },
+    {
+      "order_index": 3, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Altitude plays a 'crucial' role in determining coffee quality. What does 'crucial' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"A minor role that has very little effect on the final result","is_correct":false},
+        {"id":"b","text":"An extremely important and decisive role that cannot be ignored","is_correct":true},
+        {"id":"c","text":"An indirect role that only affects a very small part of the outcome","is_correct":false},
+        {"id":"d","text":"A negative role that reduces the overall quality of the product","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "crucial تعني بالغ الأهمية وحاسم، أي أن العامل لا غنى عنه ويؤثر تأثيراً كبيراً في النتيجة النهائية."
+    },
+    {
+      "order_index": 4, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "High-altitude coffee beans 'acquire' complex flavors that experts prize highly. What does 'acquire' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To lose qualities that were present at an earlier stage","is_correct":false},
+        {"id":"b","text":"To gain or develop something gradually over time","is_correct":true},
+        {"id":"c","text":"To maintain exactly the same qualities from beginning to end","is_correct":false},
+        {"id":"d","text":"To reject qualities that do not match a desired standard","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "acquire تعني يكتسب ويطوّر، أي الحصول على خاصية أو صفة جديدة بشكل تدريجي مع مرور الوقت."
+    },
+    {
+      "order_index": 5, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Ethiopian farmers 'maintain' traditional growing methods passed down through generations. What does 'maintain' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To abandon old practices and replace them with modern techniques","is_correct":false},
+        {"id":"b","text":"To keep something in good condition and continue using it consistently","is_correct":true},
+        {"id":"c","text":"To experiment with new methods and change practices regularly","is_correct":false},
+        {"id":"d","text":"To document and record information about traditional practices","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "maintain تعني يحافظ على ويستمر في استخدام، أي إبقاء شيء ما في حالته الأصلية دون تغيير أو إهمال."
+    },
+    {
+      "order_index": 6, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When coffee 'spread throughout' the Ottoman Empire, it means coffee reached and became common across the entire empire.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. spread throughout تعني ينتشر في جميع أنحاء، أي أن شيئاً ما أصبح منتشراً وشائعاً في كل أرجاء منطقة ما."
+    },
+    {
+      "order_index": 7, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When a processing method is 'prevalent' in Central America, it means that method is extremely rare and barely used there.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false, "accepted_answers": null, "points": 1,
+      "explanation_ar": "خطأ. prevalent تعني سائد وشائع، أي أن الشيء منتشر على نطاق واسع في منطقة ما وليس نادراً أو غير مستخدَم."
+    },
+    {
+      "order_index": 8, "skill_tag": "vocabulary", "question_type": "fill_blank",
+      "question_text": "Farmers must _____ to proper drying techniques to ensure the final coffee has the best possible flavor.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "adhere", "accepted_answers": ["adhere","Adhere"], "points": 1,
+      "explanation_ar": "adhere تعني يلتزم بـ ويتّبع، أي الالتزام الصارم بالتعليمات أو الأساليب المحددة لضمان الحصول على النتيجة المطلوبة."
+    },
+    {
+      "order_index": 9, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence correctly uses the present passive with a 'by' phrase?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Coffee is exported by Ethiopia to countries around the world.","is_correct":true},
+        {"id":"b","text":"Coffee exports by Ethiopia to countries around the world.","is_correct":false},
+        {"id":"c","text":"Ethiopia exports is coffee to countries around the world.","is_correct":false},
+        {"id":"d","text":"Coffee are exported by Ethiopia to countries around the world.","is_correct":false}
+      ],
+      "correct_answer": "a", "accepted_answers": null, "points": 1,
+      "explanation_ar": "المبني للمجهول مع by يُكوَّن بـ is/are + تصريف ثالث + by + الفاعل الأصلي. الخيار a صحيح، بينما الخيار d يخطئ في استخدام are مع مفرد."
+    },
+    {
+      "order_index": 10, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "How do you form a present passive question: 'Is coffee _____ in Brazil?'",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"grow","is_correct":false},
+        {"id":"b","text":"grows","is_correct":false},
+        {"id":"c","text":"grown","is_correct":true},
+        {"id":"d","text":"growing","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "في سؤال المبني للمجهول للمضارع: Is/Are + subject + past participle (تصريف ثالث)? المضارع التام grow → grown."
+    },
+    {
+      "order_index": 11, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence converts 'People know coffee for its stimulating effects' correctly into the passive?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Coffee knows people for its stimulating effects.","is_correct":false},
+        {"id":"b","text":"Coffee is known for its stimulating effects.","is_correct":true},
+        {"id":"c","text":"Coffee known for its stimulating effects.","is_correct":false},
+        {"id":"d","text":"Coffee is know for its stimulating effects.","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "التعبير الشائع 'is known for' هو صيغة مبني للمجهول تُستخدم حين لا يكون الفاعل محدداً أو مهماً للمعنى."
+    },
+    {
+      "order_index": 12, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence uses the passive correctly to describe a process where the doer is unimportant?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Workers pick coffee cherries when they reach full ripeness.","is_correct":false},
+        {"id":"b","text":"Somebody processes coffee beans at a facility.","is_correct":false},
+        {"id":"c","text":"Coffee cherries are picked when they reach full ripeness.","is_correct":true},
+        {"id":"d","text":"The cherries pick themselves at full ripeness.","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "نستخدم المبني للمجهول حين لا يكون الفاعل مهماً أو معروفاً. الخيار c لا يذكر الفاعل ويُركّز على عملية القطف ذاتها."
+    },
+    {
+      "order_index": 13, "skill_tag": "grammar", "question_type": "true_false",
+      "question_text": "'The coffee beans are washed and dried before they are shipped to roasteries worldwide' uses the present passive correctly.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. are washed، are dried، وare shipped جميعها صيغ مبني للمجهول صحيحة (are + تصريف ثالث) تُركّز على عملية التجهيز وليس على القائمين بها."
+    },
+    {
+      "order_index": 14, "skill_tag": "grammar", "question_type": "matching",
+      "question_text": "Match each passive sentence to the main reason it uses the passive voice.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "Coffee is grown in over 70 countries worldwide.",
+          "The best beans are selected by expert tasters.",
+          "Espresso machines are used in most cafés.",
+          "The coffee is then roasted to bring out its flavour."
+        ],
+        "right_items": [
+          "to emphasise the action and its result, not who does it",
+          "to mention the doer with 'by' as important information",
+          "to state a general fact without specifying who is responsible",
+          "to describe a widespread tool or method in common use"
+        ]
+      },
+      "correct_answer": [
+        {"left":"Coffee is grown in over 70 countries worldwide.","right":"to state a general fact without specifying who is responsible"},
+        {"left":"The best beans are selected by expert tasters.","right":"to mention the doer with 'by' as important information"},
+        {"left":"Espresso machines are used in most cafés.","right":"to describe a widespread tool or method in common use"},
+        {"left":"The coffee is then roasted to bring out its flavour.","right":"to emphasise the action and its result, not who does it"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "يُستخدم المبني للمجهول لأسباب متعددة: إخفاء الفاعل، الإشارة إليه بـ by، وصف أدوات شائعة، أو التركيز على النتيجة."
+    },
+    {
+      "order_index": 15, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage B, where is the 'coffee belt' located geographically?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Between 40 degrees north and 50 degrees south latitude","is_correct":false},
+        {"id":"b","text":"Between 25 degrees north and 30 degrees south latitude","is_correct":true},
+        {"id":"c","text":"Only in countries at exactly zero degrees on the equator","is_correct":false},
+        {"id":"d","text":"Between 10 degrees north and 15 degrees south latitude","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "حدّد النص حزام القهوة بأنه شريط ضيق حول خط الاستواء يمتد بين 25 درجة شمالاً و30 درجة جنوباً."
+    },
+    {
+      "order_index": 16, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage B, what is special about Ethiopian coffee farmers' knowledge of their beans?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"They use modern technology to analyse the chemical composition of beans","is_correct":false},
+        {"id":"b","text":"They can identify beans from different hillsides simply by tasting them","is_correct":true},
+        {"id":"c","text":"They have developed a new variety that grows at sea level","is_correct":false},
+        {"id":"d","text":"They are the only farmers who sell directly to international buyers","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "أفاد النص أن مزارعي إثيوبيا يحافظون على الأساليب التقليدية الموروثة، ويستطيعون التمييز بين حبوب القهوة من تلال مختلفة بمجرد التذوق."
+    },
+    {
+      "order_index": 17, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage B, what are the key characteristics of coffee produced using the wet processing method?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Fuller body and fruity characteristics due to sun drying","is_correct":false},
+        {"id":"b","text":"Bright acidity and clean flavors from fermentation in water","is_correct":true},
+        {"id":"c","text":"Mild flavor with low acidity from slow mountain drying","is_correct":false},
+        {"id":"d","text":"Intense bitterness from the use of high-temperature processing","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "وصف النص أن طريقة المعالجة الرطبة تُنتج قهوة ذات حموضة مشرقة ونكهات نظيفة نتيجة لتخمير الحبوب في الماء لمدة 12-48 ساعة."
+    },
+    {
+      "order_index": 18, "skill_tag": "reading", "question_type": "true_false",
+      "question_text": "According to Passage B, beans grown at higher altitudes between 1,200 and 2,000 meters develop more slowly and acquire complex flavors.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. أكد النص أن الارتفاع يؤدي إلى نمو بطيء للحبوب، مما يسمح لها باكتساب نكهات أكثر تعقيداً يُقدّرها خبراء القهوة."
+    },
+    {
+      "order_index": 19, "skill_tag": "reading", "question_type": "fill_blank",
+      "question_text": "According to Passage B, the coffee belt extends between 25 degrees north and _____ degrees south latitude.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "30", "accepted_answers": ["30","thirty","Thirty"], "points": 1,
+      "explanation_ar": "حدّد النص حزام القهوة بأنه يمتد بين 25 درجة شمالاً و30 درجة جنوباً خط الاستواء."
+    },
+    {
+      "order_index": 20, "skill_tag": "reading", "question_type": "matching",
+      "question_text": "Match each coffee processing method or factor from Passage B to its characteristic outcome.",
+      "question_context": null,
+      "options": {
+        "left_items": ["wet processing method", "dry processing method", "high-altitude growing", "direct trade relationships"],
+        "right_items": [
+          "can increase farmer income by 200-300% compared to conventional chains",
+          "produces beans with fuller body and fruity characteristics",
+          "results in bright acidity and clean flavors",
+          "leads to more complex flavors due to slow development"
+        ]
+      },
+      "correct_answer": [
+        {"left":"wet processing method","right":"results in bright acidity and clean flavors"},
+        {"left":"dry processing method","right":"produces beans with fuller body and fruity characteristics"},
+        {"left":"high-altitude growing","right":"leads to more complex flavors due to slow development"},
+        {"left":"direct trade relationships","right":"can increase farmer income by 200-300% compared to conventional chains"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "وصف النص خصائص كل عامل: المعالجة الرطبة (حموضة وصفاء)، الجفاف (قوام كامل وفاكهي)، الارتفاع (تعقيد النكهات)، والتجارة المباشرة (زيادة دخل المزارعين)."
+    }
+  ]
+}

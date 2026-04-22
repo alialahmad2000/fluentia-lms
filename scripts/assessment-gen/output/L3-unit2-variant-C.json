@@ -1,0 +1,265 @@
+{
+  "level": 3,
+  "unit_number": 2,
+  "variant_label": "C",
+  "variant_id": "4ae347ec-4655-44b5-9be1-7647950888c1",
+  "unit_id": "55d40057-1d91-4eb0-8d78-b3f47a8d0a24",
+  "generated_at": "2026-04-21T02:00:00Z",
+  "generated_by": "Claude Code native (L3 bulk, English-only)",
+  "language_standard": "English options, Arabic explanations (B1 CEFR)",
+  "anti_dup_sources": ["L3-unit2-variant-A.json","L3-unit2-variant-B.json"],
+  "distribution": {
+    "skills": {"vocabulary": 8, "grammar": 6, "reading": 6},
+    "types": {"mcq": 12, "true_false": 4, "fill_blank": 2, "matching": 2}
+  },
+  "questions": [
+    {
+      "order_index": 1, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "The passage describes the ecological 'significance' of coral reefs for marine life and human livelihoods. What does 'significance' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"The physical size or geographical location of a natural feature","is_correct":false},
+        {"id":"b","text":"The importance and meaningful value that something holds","is_correct":true},
+        {"id":"c","text":"The number of species found within a particular ecosystem","is_correct":false},
+        {"id":"d","text":"The financial cost required to study or protect something","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "significance تعني الأهمية والمغزى، أي القيمة المعنوية أو العلمية الكبيرة التي يمتلكها شيء ما."
+    },
+    {
+      "order_index": 2, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Coral reefs protect coastlines by 'absorbing' wave energy during storms. What does 'absorbing' mean in this context?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Reflecting and directing wave energy away from coastal areas","is_correct":false},
+        {"id":"b","text":"Increasing the speed and force of waves near the shore","is_correct":false},
+        {"id":"c","text":"Taking in and reducing wave energy to lessen its impact","is_correct":true},
+        {"id":"d","text":"Storing wave energy underground for use in future emergencies","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "absorbing تعني يمتص، أي أخذ الطاقة أو المادة وتقليل تأثيرها عن طريق استيعابها داخل هيكل أو جسم ما."
+    },
+    {
+      "order_index": 3, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Dr. Al-Rashid carefully 'descends' toward the coral reef with her camera ready. What does 'descends' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Moves downward to a lower level or depth","is_correct":true},
+        {"id":"b","text":"Swims rapidly across the surface of open water","is_correct":false},
+        {"id":"c","text":"Rises steadily toward the water surface from below","is_correct":false},
+        {"id":"d","text":"Turns sharply to avoid obstacles in the water","is_correct":false}
+      ],
+      "correct_answer": "a", "accepted_answers": null, "points": 1,
+      "explanation_ar": "descends تعني ينزل أو يهبط، أي الحركة نحو الأسفل إلى مستوى أو عمق أقل."
+    },
+    {
+      "order_index": 4, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Dr. Al-Rashid uses her underwater camera to 'capture' footage of the coral reef ecosystem. What does 'capture' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To physically collect and bring marine animals to the surface","is_correct":false},
+        {"id":"b","text":"To record or photograph something to preserve it as a visual record","is_correct":true},
+        {"id":"c","text":"To destroy and remove harmful organisms from the reef area","is_correct":false},
+        {"id":"d","text":"To purchase expensive scientific equipment for research purposes","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "capture تعني يلتقط أو يُسجّل، أي تثبيت صورة أو لحظة بالتصوير أو التسجيل للاحتفاظ بها كسجل مرئي."
+    },
+    {
+      "order_index": 5, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Young scientists are 'tackling' the challenge of coral reef conservation with new technology. What does 'tackling' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Studying a problem from a distance without taking direct action","is_correct":false},
+        {"id":"b","text":"Reporting a problem to authorities and waiting for their response","is_correct":false},
+        {"id":"c","text":"Actively working to deal with and find solutions to a problem","is_correct":true},
+        {"id":"d","text":"Avoiding a problem completely until better resources are available","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "tackling تعني يتصدى لـ ويواجه، أي العمل بنشاط لمعالجة تحدٍّ أو مشكلة ما بدلاً من تجنّبها."
+    },
+    {
+      "order_index": 6, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "'Implementing' a new conservation plan means the plan is still being discussed and has not yet been put into action.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false, "accepted_answers": null, "points": 1,
+      "explanation_ar": "خطأ. implementing تعني ينفّذ ويضع موضع التطبيق، أي أن الخطة أصبحت فعلاً قيد التنفيذ وليست مجرد نقاشات."
+    },
+    {
+      "order_index": 7, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When a country has 'invested' in young scientists, it has provided them with financial support and resources to develop their skills.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. invested تعني استثمر، أي توفير الدعم المالي والموارد اللازمة بهدف تحقيق نتائج مستقبلية مفيدة."
+    },
+    {
+      "order_index": 8, "skill_tag": "vocabulary", "question_type": "fill_blank",
+      "question_text": "The university has _____ millions of dollars in coral reef research over the past ten years.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "invested", "accepted_answers": ["invested","Invested"], "points": 1,
+      "explanation_ar": "invested تعني استثمر، وتُستخدم للتعبير عن تخصيص موارد مالية أو جهود كبيرة لتحقيق هدف طويل الأمد."
+    },
+    {
+      "order_index": 9, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence uses the present perfect continuous correctly to describe an ongoing irritating situation?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Boats have been damaging the reef constantly, and scientists are very concerned.","is_correct":true},
+        {"id":"b","text":"Boats have damaged the reef constantly since always now.","is_correct":false},
+        {"id":"c","text":"Boats been damaging the reef and this is a problem.","is_correct":false},
+        {"id":"d","text":"Boats have been damage the reef for a long time now.","is_correct":false}
+      ],
+      "correct_answer": "a", "accepted_answers": null, "points": 1,
+      "explanation_ar": "يُستخدم المضارع التام المستمر لوصف حالة مزعجة أو مستمرة تُثير القلق، كما في الخيار a. الخيارات الأخرى تحتوي على أخطاء في التركيب."
+    },
+    {
+      "order_index": 10, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence uses the present perfect continuous to describe a recently completed action with visible evidence?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"You look sunburned — have you been diving without sun protection today?","is_correct":true},
+        {"id":"b","text":"The scientist has studied coral genetics and published a paper.","is_correct":false},
+        {"id":"c","text":"The divers will have been working when the storm arrives.","is_correct":false},
+        {"id":"d","text":"They studied the reef in 2022 and found new species.","is_correct":false}
+      ],
+      "correct_answer": "a", "accepted_answers": null, "points": 1,
+      "explanation_ar": "يُستخدم المضارع التام المستمر للتساؤل عن سبب نتيجة مرئية حاضرة (أثر الشمس) من نشاط جرى مؤخراً، كما في الخيار a."
+    },
+    {
+      "order_index": 11, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Choose the sentence that correctly uses the present perfect continuous in a passive meaning.",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"The reef has been damaged by pollution for many years.","is_correct":true},
+        {"id":"b","text":"The reef has been damaging by pollution for many years.","is_correct":false},
+        {"id":"c","text":"The reef is being damaged by pollution since last year.","is_correct":false},
+        {"id":"d","text":"The reef was being damaged by pollution for many years.","is_correct":false}
+      ],
+      "correct_answer": "a", "accepted_answers": null, "points": 1,
+      "explanation_ar": "الشكل المبني للمجهول للمضارع التام المستمر هو: have/has been + تصريف ثالث. الخيار a صحيح، بينما تخطئ البقية في الصيغة أو حرف الجر."
+    },
+    {
+      "order_index": 12, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which option correctly completes: 'The algae _____ disappearing from the reef since water temperatures started rising'?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"has been","is_correct":true},
+        {"id":"b","text":"have","is_correct":false},
+        {"id":"c","text":"was","is_correct":false},
+        {"id":"d","text":"is being","is_correct":false}
+      ],
+      "correct_answer": "a", "accepted_answers": null, "points": 1,
+      "explanation_ar": "نستخدم has been مع 'algae' (المفرد في المعنى هنا) في المضارع التام المستمر، يليه الفعل بصيغة -ing مع since للإشارة إلى نقطة البداية."
+    },
+    {
+      "order_index": 13, "skill_tag": "grammar", "question_type": "true_false",
+      "question_text": "'Pollution levels have been increasing in coastal waters — that explains why so many fish have left the reef' uses present perfect continuous correctly.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. have been increasing يُفسّر النتيجة الحاضرة (هروب الأسماك) من خلال نشاط مستمر بدأ في الماضي، وهو استخدام صحيح للمضارع التام المستمر."
+    },
+    {
+      "order_index": 14, "skill_tag": "grammar", "question_type": "matching",
+      "question_text": "Match each verb to its correct present perfect continuous form.",
+      "question_context": null,
+      "options": {
+        "left_items": ["dive", "grow", "bleach", "monitor"],
+        "right_items": ["has been bleaching", "have been diving", "has been growing", "have been monitoring"]
+      },
+      "correct_answer": [
+        {"left":"dive","right":"have been diving"},
+        {"left":"grow","right":"has been growing"},
+        {"left":"bleach","right":"has been bleaching"},
+        {"left":"monitor","right":"have been monitoring"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "تُكوَّن صيغة المضارع التام المستمر بإضافة been بين has/have والفعل الرئيسي مضافاً إليه ing. dive→diving، grow→growing، bleach→bleaching، monitor→monitoring."
+    },
+    {
+      "order_index": 15, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage A, what percentage of coral cover have some areas of the Great Barrier Reef lost?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Up to 25%","is_correct":false},
+        {"id":"b","text":"Up to 50%","is_correct":true},
+        {"id":"c","text":"Up to 70%","is_correct":false},
+        {"id":"d","text":"Up to 90%","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "ذكر النص أن بعض مناطق الحاجز المرجاني العظيم فقدت ما يصل إلى 50% من غطائها المرجاني خلال أحداث التبييض الجماعية الأخيرة."
+    },
+    {
+      "order_index": 16, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage A, what proportion of the world's coral reefs could disappear within three decades if current trends continue?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Up to 30%","is_correct":false},
+        {"id":"b","text":"Up to 50%","is_correct":false},
+        {"id":"c","text":"Up to 70%","is_correct":true},
+        {"id":"d","text":"Up to 90%","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "قدّر العلماء وفق ما ذكر النص أن ما يصل إلى 70% من شعاب مرجان العالم قد تختفي خلال ثلاثة عقود إذا استمرت الاتجاهات الحالية."
+    },
+    {
+      "order_index": 17, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "What does Passage A suggest about the economic role of coral reefs by mentioning tourism and reef fisheries?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Reef tourism causes more harm than economic benefit to local communities","is_correct":false},
+        {"id":"b","text":"Coral reefs play a critical role in supporting both tourism income and human livelihoods","is_correct":true},
+        {"id":"c","text":"Reef fisheries have been completely replaced by modern aquaculture farms","is_correct":false},
+        {"id":"d","text":"The economic value of coral reefs is too small to influence conservation decisions","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "يُضمّن النص أن الشعاب المرجانية تمتلك قيمة اقتصادية ضخمة عبر السياحة التي تُدرّ مليارات سنوياً وصناعات الصيد التي تدعم معيشة الملايين."
+    },
+    {
+      "order_index": 18, "skill_tag": "reading", "question_type": "true_false",
+      "question_text": "According to Passage A, coral reefs protect coastlines by absorbing wave energy during storms, reducing damage to shorelines.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. ذكر النص صراحةً أن الشعاب المرجانية توفر حماية ساحلية عن طريق امتصاص طاقة الأمواج خلال العواصف، مما يقلل الأضرار التي تلحق بالشواطئ والمستوطنات البشرية."
+    },
+    {
+      "order_index": 19, "skill_tag": "reading", "question_type": "fill_blank",
+      "question_text": "According to Passage A, some areas of the Great Barrier Reef have lost up to _____ percent of their coral cover.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "50", "accepted_answers": ["50","50%","fifty","Fifty"], "points": 1,
+      "explanation_ar": "ذكر النص أن بعض مناطق الحاجز المرجاني العظيم فقدت ما يصل إلى 50% من غطائها المرجاني جراء أحداث التبييض الجماعية."
+    },
+    {
+      "order_index": 20, "skill_tag": "reading", "question_type": "matching",
+      "question_text": "Match each conservation tool or strategy from Passage B to what it is used for.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "underwater camera",
+          "underwater drones",
+          "mobile laboratory",
+          "international conferences"
+        ],
+        "right_items": [
+          "monitoring reef health across large areas quickly",
+          "recording footage and documenting reef conditions",
+          "processing water samples on-site for immediate results",
+          "sharing research findings with a global scientific audience"
+        ]
+      },
+      "correct_answer": [
+        {"left":"underwater camera","right":"recording footage and documenting reef conditions"},
+        {"left":"underwater drones","right":"monitoring reef health across large areas quickly"},
+        {"left":"mobile laboratory","right":"processing water samples on-site for immediate results"},
+        {"left":"international conferences","right":"sharing research findings with a global scientific audience"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "وردت هذه الأدوات والاستراتيجيات في النص مع وظائفها: الكاميرا للتوثيق، الطائرات المسيّرة لرصد المناطق الواسعة، المختبر المتنقل للتحليل الفوري، والمؤتمرات لمشاركة النتائج عالمياً."
+    }
+  ]
+}

@@ -1,0 +1,1290 @@
+{
+  "unit": {
+    "id": "67005d93-4749-4e75-944a-54f88fdf6d5e",
+    "unit_number": 9,
+    "title_en": "Genetic Science",
+    "title_ar": "علم الجينات"
+  },
+  "assessment": {
+    "id": "abd70046-f31f-4a2b-ac56-7fac087021fe"
+  },
+  "variants": [
+    {
+      "id": "1b74e5e7-00ac-4127-8278-e8ddc5d61935",
+      "variant_code": "A"
+    },
+    {
+      "id": "b9b28443-7ea9-4f36-913f-e9098333e3f2",
+      "variant_code": "B"
+    },
+    {
+      "id": "c217e85c-b5d3-4cea-91b5-263e1d04b852",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "word": "groundbreaking",
+      "pos": "adjective",
+      "definition_ar": "رائد، مبتكر، يحدث تغييراً جذرياً",
+      "example_sentence": "The new smartphone technology is groundbreaking and will change how we communicate.",
+      "tier": "core"
+    },
+    {
+      "word": "stumbled upon",
+      "pos": "verb",
+      "definition_ar": "اكتشف أو وجد شيئاً بالصدفة",
+      "example_sentence": "While cleaning the attic, I stumbled upon my grandmother's old letters.",
+      "tier": "core"
+    },
+    {
+      "word": "decode",
+      "pos": "verb",
+      "definition_ar": "فك الشفرة، حل الرموز، فهم المعنى الخفي",
+      "example_sentence": "Scientists are trying to decode the ancient language found on the stone tablet.",
+      "tier": "core"
+    },
+    {
+      "word": "mapping out",
+      "pos": "verb",
+      "definition_ar": "رسم خريطة أو تخطيط شيء بالتفصيل",
+      "example_sentence": "The teacher is mapping out the lessons for next semester.",
+      "tier": "core"
+    },
+    {
+      "word": "pave the way",
+      "pos": "verb",
+      "definition_ar": "يمهد الطريق أو يهيئ الأسباب",
+      "example_sentence": "Her research will pave the way for better cancer treatments.",
+      "tier": "core"
+    },
+    {
+      "word": "yield",
+      "pos": "verb",
+      "definition_ar": "ينتج، يعطي، يحقق نتائج",
+      "example_sentence": "The new farming method will yield more crops than the old one.",
+      "tier": "core"
+    },
+    {
+      "word": "distinctive",
+      "pos": "adjective",
+      "definition_ar": "مميز أو فريد",
+      "example_sentence": "The building has a distinctive red roof that you can see from far away.",
+      "tier": "core"
+    },
+    {
+      "word": "tailor",
+      "pos": "verb",
+      "definition_ar": "يصمم خصيصاً، يكيّف، يفصّل حسب الحاجة",
+      "example_sentence": "The teacher tailors her lessons to match each student's learning style.",
+      "tier": "core"
+    },
+    {
+      "word": "variants",
+      "pos": "noun",
+      "definition_ar": "متغيرات، أشكال مختلفة، تنويعات",
+      "example_sentence": "There are several variants of the flu virus that spread each winter.",
+      "tier": "core"
+    },
+    {
+      "word": "sparked",
+      "pos": "verb",
+      "definition_ar": "أشعل أو حفز أو أثار",
+      "example_sentence": "The news about the new discovery sparked excitement among students.",
+      "tier": "core"
+    },
+    {
+      "word": "partner up",
+      "pos": "verb",
+      "definition_ar": "يتشارك أو يتعاون مع",
+      "example_sentence": "Our company decided to partner up with a local business to expand our services.",
+      "tier": "core"
+    },
+    {
+      "word": "undergo",
+      "pos": "verb",
+      "definition_ar": "يخضع لـ، يتعرض لـ، يمر بتجربة",
+      "example_sentence": "All new employees must undergo training before they start working.",
+      "tier": "core"
+    },
+    {
+      "word": "implications",
+      "pos": "noun",
+      "definition_ar": "التبعات أو النتائج المحتملة",
+      "example_sentence": "The new law has serious implications for small businesses.",
+      "tier": "core"
+    },
+    {
+      "word": "prescribe",
+      "pos": "verb",
+      "definition_ar": "يصف (دواء)، يحدد العلاج المطلوب",
+      "example_sentence": "The doctor prescribed antibiotics to treat the patient's infection.",
+      "tier": "core"
+    },
+    {
+      "word": "developed",
+      "pos": "verb",
+      "definition_ar": "طوّر، أنشأ، ابتكر، حسّن",
+      "example_sentence": "The company developed a new app to help students learn English.",
+      "tier": "core"
+    },
+    {
+      "word": "crack the code",
+      "pos": "verb",
+      "definition_ar": "يحل اللغز أو يكسر الشفرة",
+      "example_sentence": "Scientists are trying to crack the code of how the brain stores memories.",
+      "tier": "core"
+    },
+    {
+      "word": "baffled",
+      "pos": "verb",
+      "definition_ar": "حير أو أربك",
+      "example_sentence": "The math problem baffled all the students in the class.",
+      "tier": "core"
+    },
+    {
+      "word": "enhancing",
+      "pos": "verb",
+      "definition_ar": "يحسّن، يعزز، يقوي",
+      "example_sentence": "Regular exercise is good for enhancing your memory and concentration.",
+      "tier": "core"
+    },
+    {
+      "word": "compelling",
+      "pos": "adjective",
+      "definition_ar": "مقنع أو جذاب أو مثير للاهتمام",
+      "example_sentence": "She gave a compelling speech that convinced everyone to support her idea.",
+      "tier": "core"
+    },
+    {
+      "word": "withstand",
+      "pos": "verb",
+      "definition_ar": "يتحمّل، يقاوم، يصمد أمام",
+      "example_sentence": "The new building materials can withstand strong earthquakes.",
+      "tier": "core"
+    },
+    {
+      "word": "shed light on",
+      "pos": "verb",
+      "definition_ar": "يسلط الضوء على أو يوضح",
+      "example_sentence": "The investigation shed light on the real cause of the accident.",
+      "tier": "core"
+    },
+    {
+      "word": "implementing",
+      "pos": "verb",
+      "definition_ar": "ينفذ، يطبق، يضع موضع التنفيذ",
+      "example_sentence": "The school is implementing a new policy about mobile phone use.",
+      "tier": "core"
+    },
+    {
+      "word": "address",
+      "pos": "verb",
+      "definition_ar": "يعالج، يتصدى لـ، يتعامل مع (مشكلة)",
+      "example_sentence": "The government needs to address the problem of unemployment among young people.",
+      "tier": "core"
+    },
+    {
+      "word": "tailored",
+      "pos": "adjective",
+      "definition_ar": "مفصل أو مخصص حسب الطلب",
+      "example_sentence": "The training program was tailored to meet the needs of new employees.",
+      "tier": "core"
+    },
+    {
+      "word": "evolve",
+      "pos": "verb",
+      "definition_ar": "يتطور، يتغير تدريجياً، ينمو",
+      "example_sentence": "Technology evolves so quickly that phones become outdated within two years.",
+      "tier": "core"
+    },
+    {
+      "word": "cutting-edge",
+      "pos": "adjective",
+      "definition_ar": "متطور جداً أو حديث",
+      "example_sentence": "The hospital bought cutting-edge equipment for better patient care.",
+      "tier": "core"
+    },
+    {
+      "word": "mapped out",
+      "pos": "verb",
+      "definition_ar": "خطط بالتفصيل أو رسم خريطة",
+      "example_sentence": "We have mapped out our vacation itinerary for next month.",
+      "tier": "core"
+    },
+    {
+      "word": "revolutionize",
+      "pos": "verb",
+      "definition_ar": "يحدث ثورة في، يغير جذرياً، يقلب رأساً على عقب",
+      "example_sentence": "The internet revolutionized the way people communicate and do business.",
+      "tier": "core"
+    },
+    {
+      "word": "bacterial medicine",
+      "pos": "noun",
+      "definition_ar": "دواء مضاد للبكتيريا",
+      "example_sentence": "Doctors only prescribe bacterial medicine when absolutely necessary.",
+      "tier": "core"
+    },
+    {
+      "word": "antibiotic",
+      "pos": "noun",
+      "definition_ar": "مضاد حيوي",
+      "example_sentence": "Doctors prescribe antibiotics to treat bacterial infections.",
+      "tier": "core"
+    },
+    {
+      "word": "blood sugar hormone",
+      "pos": "noun",
+      "definition_ar": "هرمون سكر الدم",
+      "example_sentence": "People with type 1 diabetes cannot produce the blood sugar hormone naturally.",
+      "tier": "core"
+    },
+    {
+      "word": "bioreactor",
+      "pos": "noun",
+      "definition_ar": "مفاعل بيولوجي",
+      "example_sentence": "The bioreactor was used to grow large quantities of useful bacteria.",
+      "tier": "core"
+    },
+    {
+      "word": "body defence network",
+      "pos": "noun",
+      "definition_ar": "شبكة الدفاع عن الجسم",
+      "example_sentence": "A weakened body defence network makes infections harder to fight.",
+      "tier": "core"
+    },
+    {
+      "word": "blood test",
+      "pos": "noun",
+      "definition_ar": "تحليل الدم",
+      "example_sentence": "The doctor ordered a blood test to check for signs of anaemia.",
+      "tier": "core"
+    },
+    {
+      "word": "body tissue",
+      "pos": "noun",
+      "definition_ar": "نسيج الجسم",
+      "example_sentence": "Damaged body tissue needs time and nutrients to heal properly.",
+      "tier": "core"
+    },
+    {
+      "word": "breeding stock",
+      "pos": "noun",
+      "definition_ar": "مخزون التكاثر الجيني",
+      "example_sentence": "A diverse breeding stock helps protect a species from extinction.",
+      "tier": "core"
+    },
+    {
+      "word": "catalytic protein",
+      "pos": "noun",
+      "definition_ar": "بروتين حفّاز",
+      "example_sentence": "Catalytic proteins control every chemical reaction in the human body.",
+      "tier": "core"
+    },
+    {
+      "word": "cell division",
+      "pos": "noun",
+      "definition_ar": "انقسام خلوي",
+      "example_sentence": "Cell division allows organisms to grow and repair damage.",
+      "tier": "core"
+    },
+    {
+      "word": "clone",
+      "pos": "noun",
+      "definition_ar": "نسخة طبق الأصل",
+      "example_sentence": "Scientists successfully cloned a sheep named Dolly in 1996.",
+      "tier": "core"
+    },
+    {
+      "word": "chromosome",
+      "pos": "noun",
+      "definition_ar": "كروموسوم",
+      "example_sentence": "Humans have twenty-three pairs of chromosomes in each cell.",
+      "tier": "core"
+    },
+    {
+      "word": "defensive protein",
+      "pos": "noun",
+      "definition_ar": "بروتين دفاعي",
+      "example_sentence": "The body produces a defensive protein specific to each type of pathogen.",
+      "tier": "core"
+    },
+    {
+      "word": "conduct research",
+      "pos": "verb",
+      "definition_ar": "إجراء بحث علمي",
+      "example_sentence": "Universities must conduct research to stay at the front of science.",
+      "tier": "core"
+    },
+    {
+      "word": "disease indicator",
+      "pos": "noun",
+      "definition_ar": "مؤشر المرض",
+      "example_sentence": "Doctors look for a specific disease indicator when screening for cancer.",
+      "tier": "core"
+    },
+    {
+      "word": "disease agent",
+      "pos": "noun",
+      "definition_ar": "عامل المرض",
+      "example_sentence": "Scientists identified the disease agent within hours of the outbreak.",
+      "tier": "core"
+    },
+    {
+      "word": "double helix",
+      "pos": "noun",
+      "definition_ar": "الحلزون المزدوج",
+      "example_sentence": "Watson and Crick discovered the double helix structure of DNA.",
+      "tier": "core"
+    },
+    {
+      "word": "drug-tolerant",
+      "pos": "adjective",
+      "definition_ar": "متحمّل للدواء",
+      "example_sentence": "Drug-tolerant bacteria are a growing threat to global public health.",
+      "tier": "core"
+    },
+    {
+      "word": "enzyme",
+      "pos": "noun",
+      "definition_ar": "إنزيم",
+      "example_sentence": "Enzymes in your stomach help break down food quickly.",
+      "tier": "core"
+    },
+    {
+      "word": "full genetic map",
+      "pos": "noun",
+      "definition_ar": "خريطة جينية كاملة",
+      "example_sentence": "Scientists completed the first full genetic map of the human body.",
+      "tier": "core"
+    },
+    {
+      "word": "gene modification",
+      "pos": "noun",
+      "definition_ar": "تعديل الجينات",
+      "example_sentence": "Gene modification of crops can increase their resistance to drought.",
+      "tier": "core"
+    },
+    {
+      "word": "gene carrier",
+      "pos": "noun",
+      "definition_ar": "حامل الجينات",
+      "example_sentence": "Humans have 46 gene carriers arranged in pairs inside each cell.",
+      "tier": "core"
+    },
+    {
+      "word": "gene therapy",
+      "pos": "noun",
+      "definition_ar": "العلاج الجيني",
+      "example_sentence": "Gene therapy may cure diseases that were once considered untreatable.",
+      "tier": "core"
+    },
+    {
+      "word": "gene sequencing",
+      "pos": "noun",
+      "definition_ar": "تسلسل الجينات",
+      "example_sentence": "Gene sequencing has become faster and cheaper in recent years.",
+      "tier": "core"
+    },
+    {
+      "word": "genetic copy",
+      "pos": "noun",
+      "definition_ar": "نسخة جينية",
+      "example_sentence": "Researchers produced a genetic copy of the mouse to study the disease.",
+      "tier": "core"
+    },
+    {
+      "word": "genetic change",
+      "pos": "noun",
+      "definition_ar": "تغيّر وراثي",
+      "example_sentence": "Some genetic changes increase the risk of developing certain diseases.",
+      "tier": "core"
+    },
+    {
+      "word": "genetic instruction",
+      "pos": "noun",
+      "definition_ar": "تعليمة وراثية",
+      "example_sentence": "Each genetic instruction is read by the cell to make a specific protein.",
+      "tier": "core"
+    },
+    {
+      "word": "genetic illness",
+      "pos": "noun",
+      "definition_ar": "مرض جيني",
+      "example_sentence": "Haemophilia is a genetic illness that affects the blood's ability to clot.",
+      "tier": "core"
+    },
+    {
+      "word": "germ",
+      "pos": "noun",
+      "definition_ar": "جرثومة",
+      "example_sentence": "Washing your hands removes germs that cause common illnesses.",
+      "tier": "core"
+    },
+    {
+      "word": "genetic material",
+      "pos": "noun",
+      "definition_ar": "المادة الوراثية",
+      "example_sentence": "Viruses inject their genetic material into host cells to reproduce.",
+      "tier": "core"
+    },
+    {
+      "word": "inborn",
+      "pos": "adjective",
+      "definition_ar": "فطري ووراثي",
+      "example_sentence": "The child had an inborn sensitivity to certain foods.",
+      "tier": "core"
+    },
+    {
+      "word": "hereditary",
+      "pos": "adjective",
+      "definition_ar": "وراثي",
+      "example_sentence": "Eye color is a hereditary trait that comes from your parents.",
+      "tier": "core"
+    },
+    {
+      "word": "living cell",
+      "pos": "noun",
+      "definition_ar": "خلية حية",
+      "example_sentence": "Every living cell needs energy to grow and divide.",
+      "tier": "core"
+    },
+    {
+      "word": "inherited trait",
+      "pos": "noun",
+      "definition_ar": "صفة موروثة",
+      "example_sentence": "Hair texture is an inherited trait that varies across families.",
+      "tier": "core"
+    },
+    {
+      "word": "mutation",
+      "pos": "noun",
+      "definition_ar": "طفرة",
+      "example_sentence": "Some mutations can cause diseases while others are harmless.",
+      "tier": "core"
+    },
+    {
+      "word": "medical diagnosis",
+      "pos": "noun",
+      "definition_ar": "تشخيص طبي",
+      "example_sentence": "An accurate medical diagnosis is the first step toward the right treatment.",
+      "tier": "core"
+    },
+    {
+      "word": "pass on",
+      "pos": "verb",
+      "definition_ar": "ينقل ويورّث",
+      "example_sentence": "Parents pass on both healthy and faulty genes to their children.",
+      "tier": "core"
+    },
+    {
+      "word": "nuclear division",
+      "pos": "noun",
+      "definition_ar": "انقسام النواة",
+      "example_sentence": "Nuclear division is the first step before the whole cell splits.",
+      "tier": "core"
+    },
+    {
+      "word": "protein",
+      "pos": "noun",
+      "definition_ar": "بروتين",
+      "example_sentence": "Genes contain instructions for making proteins in your body.",
+      "tier": "core"
+    },
+    {
+      "word": "protective injection",
+      "pos": "noun",
+      "definition_ar": "حقنة وقائية",
+      "example_sentence": "Children receive a protective injection against measles at an early age.",
+      "tier": "core"
+    },
+    {
+      "word": "research lab",
+      "pos": "noun",
+      "definition_ar": "مختبر بحثي",
+      "example_sentence": "The scientists worked late every evening in the research lab.",
+      "tier": "core"
+    },
+    {
+      "word": "scientific test",
+      "pos": "noun",
+      "definition_ar": "اختبار علمي",
+      "example_sentence": "Each scientific test must be repeated several times for accuracy.",
+      "tier": "core"
+    },
+    {
+      "word": "sex cell",
+      "pos": "noun",
+      "definition_ar": "خلية جنسية",
+      "example_sentence": "A sex cell carries only half the normal number of chromosomes.",
+      "tier": "core"
+    },
+    {
+      "word": "stem cell",
+      "pos": "noun",
+      "definition_ar": "خلية جذعية",
+      "example_sentence": "Stem cells could help repair damaged organs in the future.",
+      "tier": "core"
+    },
+    {
+      "word": "test sample",
+      "pos": "noun",
+      "definition_ar": "عيّنة فحص",
+      "example_sentence": "The technician labelled each test sample before sending it to the lab.",
+      "tier": "core"
+    },
+    {
+      "word": "structural protein",
+      "pos": "noun",
+      "definition_ar": "بروتين بنيوي",
+      "example_sentence": "Collagen is the most abundant structural protein in the human body.",
+      "tier": "core"
+    },
+    {
+      "word": "trait",
+      "pos": "noun",
+      "definition_ar": "صفة",
+      "example_sentence": "Hair color is a genetic trait inherited from parents.",
+      "tier": "core"
+    },
+    {
+      "word": "undifferentiated cell",
+      "pos": "noun",
+      "definition_ar": "خلية غير متمايزة",
+      "example_sentence": "An undifferentiated cell can turn into a muscle, nerve, or skin cell.",
+      "tier": "core"
+    },
+    {
+      "word": "vaccine",
+      "pos": "noun",
+      "definition_ar": "لقاح",
+      "example_sentence": "The new vaccine protects against several types of the virus.",
+      "tier": "core"
+    },
+    {
+      "word": "account for variation",
+      "pos": "verb",
+      "definition_ar": "أخذ التنوع بعين الاعتبار",
+      "example_sentence": "Researchers must account for variation in age when comparing test groups.",
+      "tier": "extended"
+    },
+    {
+      "word": "allergy",
+      "pos": "noun",
+      "definition_ar": "حساسية",
+      "example_sentence": "Food allergies have become more common in recent decades.",
+      "tier": "extended"
+    },
+    {
+      "word": "allele",
+      "pos": "noun",
+      "definition_ar": "أليل",
+      "example_sentence": "You inherit one allele for blood type from each parent.",
+      "tier": "extended"
+    },
+    {
+      "word": "antibody",
+      "pos": "noun",
+      "definition_ar": "جسم مضاد",
+      "example_sentence": "Your body produces antibodies after receiving a vaccine.",
+      "tier": "extended"
+    },
+    {
+      "word": "amino acid",
+      "pos": "noun",
+      "definition_ar": "حمض أميني",
+      "example_sentence": "There are twenty standard amino acids used to make all human proteins.",
+      "tier": "extended"
+    },
+    {
+      "word": "biological process",
+      "pos": "noun",
+      "definition_ar": "عملية بيولوجية",
+      "example_sentence": "Photosynthesis is a vital biological process in green plants.",
+      "tier": "extended"
+    },
+    {
+      "word": "base pair",
+      "pos": "noun",
+      "definition_ar": "زوج القواعد النيتروجينية",
+      "example_sentence": "Each rung of the DNA ladder is formed by a base pair.",
+      "tier": "extended"
+    },
+    {
+      "word": "biotechnology",
+      "pos": "noun",
+      "definition_ar": "التكنولوجيا الحيوية",
+      "example_sentence": "Biotechnology has led to better medicines and more productive crops.",
+      "tier": "extended"
+    },
+    {
+      "word": "blood type",
+      "pos": "noun",
+      "definition_ar": "فصيلة الدم",
+      "example_sentence": "Knowing your blood type is important before a transfusion.",
+      "tier": "extended"
+    },
+    {
+      "word": "cell membrane",
+      "pos": "noun",
+      "definition_ar": "غشاء الخلية",
+      "example_sentence": "The cell membrane protects the cell and regulates its environment.",
+      "tier": "extended"
+    },
+    {
+      "word": "cell culture",
+      "pos": "noun",
+      "definition_ar": "زراعة خلايا",
+      "example_sentence": "Researchers used cell culture to test the effects of the new drug.",
+      "tier": "extended"
+    },
+    {
+      "word": "clinical trial",
+      "pos": "noun",
+      "definition_ar": "تجربة سريرية",
+      "example_sentence": "The new drug passed a clinical trial before being sold in pharmacies.",
+      "tier": "extended"
+    },
+    {
+      "word": "cell nucleus",
+      "pos": "noun",
+      "definition_ar": "نواة الخلية",
+      "example_sentence": "The cell nucleus acts like the control centre of the entire cell.",
+      "tier": "extended"
+    },
+    {
+      "word": "corrective gene treatment",
+      "pos": "noun",
+      "definition_ar": "علاج جيني تصحيحي",
+      "example_sentence": "Corrective gene treatment has helped children with rare immune conditions.",
+      "tier": "extended"
+    },
+    {
+      "word": "computational biology",
+      "pos": "noun",
+      "definition_ar": "الأحياء الحسابية",
+      "example_sentence": "Computational biology helps predict how proteins fold into shapes.",
+      "tier": "extended"
+    },
+    {
+      "word": "dominant trait",
+      "pos": "noun",
+      "definition_ar": "صفة سائدة",
+      "example_sentence": "Brown eye color is usually a dominant trait over blue.",
+      "tier": "extended"
+    },
+    {
+      "word": "dna strand",
+      "pos": "noun",
+      "definition_ar": "خيط الحمض النووي",
+      "example_sentence": "The two DNA strands twist together to form a double helix.",
+      "tier": "extended"
+    },
+    {
+      "word": "drug resistance",
+      "pos": "noun",
+      "definition_ar": "مقاومة الأدوية",
+      "example_sentence": "Drug resistance is a growing problem in modern medicine.",
+      "tier": "extended"
+    },
+    {
+      "word": "drug development",
+      "pos": "noun",
+      "definition_ar": "تطوير الأدوية",
+      "example_sentence": "Drug development can take more than a decade from idea to pharmacy.",
+      "tier": "extended"
+    },
+    {
+      "word": "gene editing",
+      "pos": "noun",
+      "definition_ar": "تعديل الجينات",
+      "example_sentence": "Gene editing technology could eliminate genetic diseases forever.",
+      "tier": "extended"
+    },
+    {
+      "word": "embryo",
+      "pos": "noun",
+      "definition_ar": "الكائن الحي في مراحله الأولى من التطور، قبل الولادة أو الفقس.",
+      "example_sentence": "Scientists can now edit genes in an embryo to prevent certain inherited diseases.",
+      "tier": "extended"
+    },
+    {
+      "word": "genetic counselling",
+      "pos": "noun",
+      "definition_ar": "الإرشاد الجيني",
+      "example_sentence": "The couple sought genetic counselling before starting a family.",
+      "tier": "extended"
+    },
+    {
+      "word": "gene expression",
+      "pos": "noun",
+      "definition_ar": "التعبير الجيني",
+      "example_sentence": "Gene expression can be switched on or off by environmental signals.",
+      "tier": "extended"
+    },
+    {
+      "word": "genetic fingerprint",
+      "pos": "noun",
+      "definition_ar": "بصمة وراثية",
+      "example_sentence": "Police used a genetic fingerprint to identify the suspect.",
+      "tier": "extended"
+    },
+    {
+      "word": "genetic disorder",
+      "pos": "noun",
+      "definition_ar": "اضطراب وراثي",
+      "example_sentence": "Down syndrome is a genetic disorder caused by an extra chromosome.",
+      "tier": "extended"
+    },
+    {
+      "word": "genetic makeup",
+      "pos": "noun",
+      "definition_ar": "التكوين الجيني",
+      "example_sentence": "Two siblings may share parents but have a very different genetic makeup.",
+      "tier": "extended"
+    },
+    {
+      "word": "genetic variation",
+      "pos": "noun",
+      "definition_ar": "تنوع جيني",
+      "example_sentence": "Genetic variation is what makes every person biologically unique.",
+      "tier": "extended"
+    },
+    {
+      "word": "genetically modified",
+      "pos": "adjective",
+      "definition_ar": "معدَّل وراثياً",
+      "example_sentence": "Genetically modified rice was developed to contain more vitamins.",
+      "tier": "extended"
+    },
+    {
+      "word": "genome",
+      "pos": "noun",
+      "definition_ar": "جينوم",
+      "example_sentence": "Scientists mapped the entire human genome in 2003.",
+      "tier": "extended"
+    },
+    {
+      "word": "growth hormone",
+      "pos": "noun",
+      "definition_ar": "هرمون النمو",
+      "example_sentence": "A shortage of growth hormone can cause a child to grow slowly.",
+      "tier": "extended"
+    },
+    {
+      "word": "heredity",
+      "pos": "noun",
+      "definition_ar": "الوراثة",
+      "example_sentence": "Mendel's experiments laid the foundation for our understanding of heredity.",
+      "tier": "extended"
+    },
+    {
+      "word": "immune system",
+      "pos": "noun",
+      "definition_ar": "جهاز المناعة",
+      "example_sentence": "A healthy immune system protects you from many diseases.",
+      "tier": "extended"
+    },
+    {
+      "word": "insulin",
+      "pos": "noun",
+      "definition_ar": "أنسولين",
+      "example_sentence": "People with diabetes need insulin to control their blood sugar.",
+      "tier": "extended"
+    },
+    {
+      "word": "microbe",
+      "pos": "noun",
+      "definition_ar": "ميكروب",
+      "example_sentence": "Not all microbes are harmful; some help us digest food.",
+      "tier": "extended"
+    },
+    {
+      "word": "messenger molecule",
+      "pos": "noun",
+      "definition_ar": "جزيء رسول",
+      "example_sentence": "The messenger molecule translates the DNA code into a protein sequence.",
+      "tier": "extended"
+    },
+    {
+      "word": "molecular biology",
+      "pos": "noun",
+      "definition_ar": "علم الأحياء الجزيئي",
+      "example_sentence": "Molecular biology has transformed how doctors treat genetic diseases.",
+      "tier": "extended"
+    },
+    {
+      "word": "nucleotide",
+      "pos": "noun",
+      "definition_ar": "نيوكليوتيد",
+      "example_sentence": "DNA is made of millions of nucleotides joined in a specific order.",
+      "tier": "extended"
+    },
+    {
+      "word": "pathogen",
+      "pos": "noun",
+      "definition_ar": "مسبب مرض",
+      "example_sentence": "Vaccines train the immune system to fight specific pathogens.",
+      "tier": "extended"
+    },
+    {
+      "word": "observable traits",
+      "pos": "noun",
+      "definition_ar": "صفات مرئية",
+      "example_sentence": "Observable traits such as height are shaped by both genes and diet.",
+      "tier": "extended"
+    },
+    {
+      "word": "recessive trait",
+      "pos": "noun",
+      "definition_ar": "صفة متنحية",
+      "example_sentence": "A recessive trait may skip a generation and appear in a grandchild.",
+      "tier": "extended"
+    },
+    {
+      "word": "recombinant dna",
+      "pos": "noun",
+      "definition_ar": "الحمض النووي المؤتلف",
+      "example_sentence": "Recombinant DNA technology is used to produce human insulin in labs.",
+      "tier": "extended"
+    },
+    {
+      "word": "research ethics",
+      "pos": "noun",
+      "definition_ar": "أخلاقيات البحث",
+      "example_sentence": "Research ethics require that all participants give their informed consent.",
+      "tier": "extended"
+    },
+    {
+      "word": "reproductive cloning",
+      "pos": "noun",
+      "definition_ar": "الاستنساخ التكاثري",
+      "example_sentence": "Reproductive cloning raises serious ethical questions worldwide.",
+      "tier": "extended"
+    },
+    {
+      "word": "resistant",
+      "pos": "adjective",
+      "definition_ar": "مقاوم",
+      "example_sentence": "Some bacteria have become resistant to common antibiotics.",
+      "tier": "extended"
+    },
+    {
+      "word": "screening test",
+      "pos": "noun",
+      "definition_ar": "اختبار فرز",
+      "example_sentence": "A screening test during pregnancy can detect chromosomal abnormalities.",
+      "tier": "extended"
+    },
+    {
+      "word": "selective breeding",
+      "pos": "noun",
+      "definition_ar": "التربية الانتقائية",
+      "example_sentence": "Farmers have used selective breeding for thousands of years.",
+      "tier": "extended"
+    },
+    {
+      "word": "specimen",
+      "pos": "noun",
+      "definition_ar": "عيّنة",
+      "example_sentence": "The scientist examined the blood specimen under a microscope.",
+      "tier": "extended"
+    },
+    {
+      "word": "viral vector",
+      "pos": "noun",
+      "definition_ar": "ناقل فيروسي",
+      "example_sentence": "A viral vector carried the corrected gene into the patient's cells.",
+      "tier": "extended"
+    },
+    {
+      "word": "test tube",
+      "pos": "noun",
+      "definition_ar": "أنبوب اختبار",
+      "example_sentence": "The scientist mixed two chemicals in a test tube and observed the reaction.",
+      "tier": "extended"
+    },
+    {
+      "word": "autoimmune",
+      "pos": "adjective",
+      "definition_ar": "مناعة ذاتية",
+      "example_sentence": "Rheumatoid arthritis is an autoimmune disease affecting the joints.",
+      "tier": "mastery"
+    },
+    {
+      "word": "bioethics",
+      "pos": "noun",
+      "definition_ar": "أخلاقيات حيوية",
+      "example_sentence": "Bioethics committees review experiments involving human subjects.",
+      "tier": "mastery"
+    },
+    {
+      "word": "bioinformatics",
+      "pos": "noun",
+      "definition_ar": "معلوماتية حيوية",
+      "example_sentence": "Bioinformatics helps scientists analyze millions of genetic sequences.",
+      "tier": "mastery"
+    },
+    {
+      "word": "biopharmaceutical",
+      "pos": "noun",
+      "definition_ar": "مستحضر بيولوجي صيدلاني",
+      "example_sentence": "The biopharmaceutical was grown in large tanks of genetically modified cells.",
+      "tier": "mastery"
+    },
+    {
+      "word": "chromatin remodelling",
+      "pos": "noun",
+      "definition_ar": "إعادة تشكيل الكروماتين",
+      "example_sentence": "Chromatin remodelling controls which genes are accessible in each cell.",
+      "tier": "mastery"
+    },
+    {
+      "word": "carry out analysis",
+      "pos": "verb",
+      "definition_ar": "إجراء تحليل",
+      "example_sentence": "The team will carry out analysis of all tissue samples next week.",
+      "tier": "mastery"
+    },
+    {
+      "word": "crispr",
+      "pos": "noun",
+      "definition_ar": "كريسبر",
+      "example_sentence": "CRISPR could be used to correct the gene mutations that cause cancer.",
+      "tier": "mastery"
+    },
+    {
+      "word": "codon",
+      "pos": "noun",
+      "definition_ar": "كودون",
+      "example_sentence": "Each codon in the genetic code corresponds to one amino acid.",
+      "tier": "mastery"
+    },
+    {
+      "word": "cross-breeding",
+      "pos": "noun",
+      "definition_ar": "تهجين",
+      "example_sentence": "Cross-breeding produced dogs suited for different tasks.",
+      "tier": "mastery"
+    },
+    {
+      "word": "dominant",
+      "pos": "adjective",
+      "definition_ar": "سائد",
+      "example_sentence": "Brown eyes are caused by a dominant gene.",
+      "tier": "mastery"
+    },
+    {
+      "word": "epigenetics",
+      "pos": "noun",
+      "definition_ar": "علم التخلّق",
+      "example_sentence": "Epigenetics shows how lifestyle choices can affect gene activity.",
+      "tier": "mastery"
+    },
+    {
+      "word": "frameshift mutation",
+      "pos": "noun",
+      "definition_ar": "طفرة إطارية",
+      "example_sentence": "A frameshift mutation disrupts the reading frame and alters the protein.",
+      "tier": "mastery"
+    },
+    {
+      "word": "gene silencing",
+      "pos": "noun",
+      "definition_ar": "إسكات الجين",
+      "example_sentence": "Gene silencing may offer a way to treat some viral infections.",
+      "tier": "mastery"
+    },
+    {
+      "word": "gel electrophoresis",
+      "pos": "noun",
+      "definition_ar": "الرحلان الكهربائي الهلامي",
+      "example_sentence": "Gel electrophoresis showed the size of each DNA fragment clearly.",
+      "tier": "mastery"
+    },
+    {
+      "word": "genomics",
+      "pos": "noun",
+      "definition_ar": "علم الجينوميات",
+      "example_sentence": "Advances in genomics have made personalised medicine possible.",
+      "tier": "mastery"
+    },
+    {
+      "word": "genotype",
+      "pos": "noun",
+      "definition_ar": "نمط جيني",
+      "example_sentence": "Two plants may look different but share the same genotype.",
+      "tier": "mastery"
+    },
+    {
+      "word": "germ line",
+      "pos": "noun",
+      "definition_ar": "الخط الجرثومي",
+      "example_sentence": "Editing the germ line affects all future generations of an organism.",
+      "tier": "mastery"
+    },
+    {
+      "word": "homologous",
+      "pos": "adjective",
+      "definition_ar": "متماثل",
+      "example_sentence": "Homologous chromosomes pair up during cell division to exchange genes.",
+      "tier": "mastery"
+    },
+    {
+      "word": "in vitro fertilisation",
+      "pos": "noun",
+      "definition_ar": "التلقيح الاصطناعي خارج الجسم",
+      "example_sentence": "In vitro fertilisation helps couples who are unable to conceive naturally.",
+      "tier": "mastery"
+    },
+    {
+      "word": "horizontal gene transfer",
+      "pos": "noun",
+      "definition_ar": "النقل الجيني الأفقي",
+      "example_sentence": "Horizontal gene transfer helps bacteria rapidly acquire drug resistance.",
+      "tier": "mastery"
+    },
+    {
+      "word": "lentiviral vector",
+      "pos": "noun",
+      "definition_ar": "ناقل فيروسي لنتيفيري",
+      "example_sentence": "A lentiviral vector was used to deliver the corrected gene to bone marrow cells.",
+      "tier": "mastery"
+    },
+    {
+      "word": "meiosis",
+      "pos": "noun",
+      "definition_ar": "الانقسام الاختزالي",
+      "example_sentence": "Meiosis ensures each reproductive cell receives exactly half the chromosomes.",
+      "tier": "mastery"
+    },
+    {
+      "word": "mitochondrial dna",
+      "pos": "noun",
+      "definition_ar": "الحمض النووي للميتوكوندريا",
+      "example_sentence": "Mitochondrial DNA is used to trace maternal ancestry across centuries.",
+      "tier": "mastery"
+    },
+    {
+      "word": "mitosis",
+      "pos": "noun",
+      "definition_ar": "الانقسام المتساوي",
+      "example_sentence": "Mitosis is responsible for the growth and repair of body tissues.",
+      "tier": "mastery"
+    },
+    {
+      "word": "non-coding rna",
+      "pos": "noun",
+      "definition_ar": "الحمض النووي الريبوزي غير المُرمِّز",
+      "example_sentence": "Non-coding RNA molecules help control when and how genes are expressed.",
+      "tier": "mastery"
+    },
+    {
+      "word": "mrna vaccine",
+      "pos": "noun",
+      "definition_ar": "لقاح الحمض النووي الريبوزي المرسال",
+      "example_sentence": "The mRNA vaccine trains immune cells to recognise and attack the virus.",
+      "tier": "mastery"
+    },
+    {
+      "word": "off-target effect",
+      "pos": "noun",
+      "definition_ar": "تأثير خارج الهدف",
+      "example_sentence": "Scientists must minimise off-target effects when editing the genome.",
+      "tier": "mastery"
+    },
+    {
+      "word": "oncogene",
+      "pos": "noun",
+      "definition_ar": "جين ورمي",
+      "example_sentence": "Scientists identified an oncogene responsible for a rare form of leukaemia.",
+      "tier": "mastery"
+    },
+    {
+      "word": "phenotypic plasticity",
+      "pos": "noun",
+      "definition_ar": "المرونة الظاهرية",
+      "example_sentence": "Phenotypic plasticity helps plants survive in varied light conditions.",
+      "tier": "mastery"
+    },
+    {
+      "word": "phenotype",
+      "pos": "noun",
+      "definition_ar": "نمط ظاهري",
+      "example_sentence": "Height and eye color are examples of phenotype.",
+      "tier": "mastery"
+    },
+    {
+      "word": "plasmid",
+      "pos": "noun",
+      "definition_ar": "بلازميد",
+      "example_sentence": "Scientists inserted the new gene into a plasmid to introduce it to bacteria.",
+      "tier": "mastery"
+    },
+    {
+      "word": "pluripotent",
+      "pos": "adjective",
+      "definition_ar": "متعدد القدرات",
+      "example_sentence": "Pluripotent stem cells can theoretically repair any damaged organ.",
+      "tier": "mastery"
+    },
+    {
+      "word": "polymerase chain reaction",
+      "pos": "noun",
+      "definition_ar": "تفاعل البوليميراز المتسلسل",
+      "example_sentence": "Polymerase chain reaction was used to detect the virus in the sample.",
+      "tier": "mastery"
+    },
+    {
+      "word": "proteomics",
+      "pos": "noun",
+      "definition_ar": "علم البروتيومات",
+      "example_sentence": "Proteomics helps scientists understand how diseases develop at a molecular level.",
+      "tier": "mastery"
+    },
+    {
+      "word": "restriction enzyme",
+      "pos": "noun",
+      "definition_ar": "إنزيم تقييدي",
+      "example_sentence": "A restriction enzyme was used to cut the DNA at a precise location.",
+      "tier": "mastery"
+    },
+    {
+      "word": "recessive",
+      "pos": "adjective",
+      "definition_ar": "متنحٍّ",
+      "example_sentence": "Blue eyes are caused by a recessive gene.",
+      "tier": "mastery"
+    },
+    {
+      "word": "somatic cell",
+      "pos": "noun",
+      "definition_ar": "خلية جسدية",
+      "example_sentence": "Changes to a somatic cell do not pass to the next generation.",
+      "tier": "mastery"
+    },
+    {
+      "word": "sequencing",
+      "pos": "noun",
+      "definition_ar": "تسلسل",
+      "example_sentence": "DNA sequencing has become faster and cheaper over the years.",
+      "tier": "mastery"
+    },
+    {
+      "word": "synthetic biology",
+      "pos": "noun",
+      "definition_ar": "الأحياء الاصطناعية",
+      "example_sentence": "Synthetic biology has produced microbes that can break down oil spills.",
+      "tier": "mastery"
+    },
+    {
+      "word": "telomere",
+      "pos": "noun",
+      "definition_ar": "تيلومير",
+      "example_sentence": "Shorter telomeres are linked to faster ageing at the cellular level.",
+      "tier": "mastery"
+    },
+    {
+      "word": "transgene",
+      "pos": "noun",
+      "definition_ar": "جين محوَّل",
+      "example_sentence": "The transgene gave the plant the ability to resist a common fungal disease.",
+      "tier": "mastery"
+    },
+    {
+      "word": "transgenic",
+      "pos": "adjective",
+      "definition_ar": "معدل وراثياً",
+      "example_sentence": "Transgenic crops can resist pests without chemical pesticides.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "350c5e76-4e16-40f5-b3d5-5997986cde0a",
+      "label": "A",
+      "title": "Unlocking Nature's Blueprint",
+      "content": {
+        "paragraphs": [
+          "Scientists around the world are making *groundbreaking* discoveries in genetic science that promise to transform how we understand life itself. From laboratories in Boston to research centers in Riyadh, geneticists are working tirelessly to *decode* the mysteries hidden within DNA, the molecular instruction manual that determines everything from eye color to disease susceptibility. This rapidly advancing field has already begun to *yield* remarkable results that could benefit millions of people globally.",
+          "One of the most promising applications of genetic science lies in personalized medicine, where doctors can *tailor* treatments based on a patient's unique genetic makeup. Researchers have discovered that people respond differently to medications depending on their genetic *variants*, which are small differences in DNA sequences between individuals. For instance, studies conducted at King Faisal Specialist Hospital in Saudi Arabia have shown that certain genetic markers can predict how patients will respond to cancer treatments. Dr. Sarah Al-Mahmoud, a leading geneticist at the hospital, reported that \"patients who *undergo* genetic testing before treatment have 40% better outcomes than those receiving standard care.\" This approach allows medical professionals to *prescribe* the most effective drugs while avoiding potentially harmful side effects.",
+          "Genetic science is also revolutionizing agriculture, particularly in regions like the Middle East where harsh climates pose significant challenges. Agricultural scientists have *developed* drought-resistant crops by identifying and *enhancing* specific genes that help plants survive in arid conditions. These genetically improved varieties can *withstand* temperatures exceeding 45°C and require 60% less water than traditional crops. In Saudi Arabia's NEOM project, researchers are *implementing* advanced genetic techniques to create sustainable farming systems that could *address* food security concerns across the region. The project aims to produce crops that are not only climate-resilient but also more nutritious than conventional varieties.",
+          "Looking toward the future, genetic science continues to *evolve* at an unprecedented pace, with new applications emerging regularly. Scientists predict that within the next decade, genetic therapies will become routine treatments for previously incurable diseases. However, as this technology advances, researchers emphasize the importance of ethical guidelines and public education. The potential to *revolutionize* healthcare and agriculture comes with the responsibility to ensure these powerful tools are used wisely and equitably, benefiting all of humanity while respecting cultural values and ethical principles that guide scientific progress."
+        ]
+      },
+      "word_count": 567
+    },
+    {
+      "id": "bad7ae73-e493-409b-b824-d581f4dbb8d1",
+      "label": "B",
+      "title": "Desert Genes Hold Medical Secrets",
+      "content": {
+        "paragraphs": [
+          "In the heart of the Arabian Peninsula, researchers have *stumbled upon* a genetic goldmine that could transform modern medicine. The Saudi Human Genome Program, launched in 2013, has been systematically *mapping out* the unique genetic variations found within the Kingdom's population, revealing extraordinary insights that scientists believe will *pave the way* for revolutionary medical treatments.",
+          "Dr. Fowzan Alkuraya, a leading geneticist at King Faisal Specialist Hospital, explains that Saudi Arabia's genetic landscape is remarkably *distinctive* due to centuries of tribal traditions and geographic isolation. \"What we've discovered is that our population carries certain genetic variants that are extremely rare globally but relatively common here,\" he reported during a recent conference in Riyadh. These findings have *sparked* international collaboration, with research institutions from Harvard to Oxford eager to *partner up* with Saudi scientists. The *implications* are profound: if researchers can understand how these genes function, they might *crack the code* to treating diseases that have long *baffled* the medical community.",
+          "One of the most *compelling* discoveries involves a gene variant found in approximately 12% of Saudi citizens that appears to provide natural protection against certain cardiovascular diseases. This finding has *shed light on* why heart disease rates vary significantly across different regions of the Kingdom. Additionally, researchers have identified genetic markers that could explain why some individuals respond better to specific medications than others. \"We're moving toward an era where treatment will be *tailored* to each person's genetic makeup,\" explains Dr. Sarah Al-Zahrani, a molecular biologist at King Abdulaziz University. \"Instead of the one-size-fits-all approach, we'll have precision medicine that considers your unique genetic profile.\"",
+          "The program has already yielded practical results that are improving lives across Saudi Arabia. Genetic counseling centers have been established in major cities, helping families understand hereditary conditions before they become serious health issues. Moreover, the research has attracted significant international investment, with pharmaceutical companies recognizing that genetic insights from the Saudi population could lead to breakthrough treatments for global markets. As Dr. Alkuraya noted, \"Our genetic heritage, which has been shaped by thousands of years of desert life, may hold keys to solving some of humanity's greatest medical challenges.\" The Saudi Human Genome Program demonstrates how *cutting-edge* science can honor cultural traditions while advancing medical knowledge for the benefit of people worldwide."
+        ]
+      },
+      "word_count": 387
+    }
+  ],
+  "grammar": {
+    "topic_name_en": "get used to/be used to",
+    "topic_name_ar": "get used to/be used to",
+    "explanation_content": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "be used to = متعود على شيء الآن (حالة حاضرة)\nget used to = عملية التعود على شيء (تغيير وتكيف)\nكلاهما يتبع بـ اسم أو فعل + ing وليس المصدر",
+          "content_en": "<b>Get used to</b> and <b>be used to</b> both talk about becoming familiar or comfortable with something.<br><br><b>Be used to</b> = I am familiar/comfortable with this now (present state)<br><b>Get used to</b> = The process of becoming familiar/comfortable (action/change)<br><br><b>Be used to</b> describes your current state - you are comfortable with something.<br><b>Get used to</b> describes the process of adapting - you are becoming comfortable with something.<br><br>Both are followed by a <b>noun</b> or <b>verb + ing</b>, never the infinitive."
+        },
+        {
+          "type": "formula",
+          "content": "Be used to + noun/verb-ing | Get used to + noun/verb-ing"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "Scientists are used to working long hours in genetic laboratories.",
+              "highlight": "are used to working",
+              "translation_ar": "العلماء متعودون على العمل لساعات طويلة في مختبرات الوراثة"
+            },
+            {
+              "sentence": "It took months for researchers to get used to the new DNA sequencing equipment.",
+              "highlight": "get used to",
+              "translation_ar": "استغرق الأمر شهوراً ليتعود الباحثون على معدات تسلسل الحمض النووي الجديدة"
+            },
+            {
+              "sentence": "Genetic counselors are used to explaining complex hereditary conditions to families.",
+              "highlight": "are used to explaining",
+              "translation_ar": "مستشارو الوراثة متعودون على شرح الحالات الوراثية المعقدة للعائلات"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "I'm used to work in the lab",
+              "correct": "I'm used to working in the lab",
+              "explanation_ar": "بعد used to نستخدم الفعل + ing وليس المصدر"
+            },
+            {
+              "wrong": "She gets used to study genetics",
+              "correct": "She's getting used to studying genetics",
+              "explanation_ar": "get used to يحتاج زمن مستمر للعملية الجارية"
+            },
+            {
+              "wrong": "We are use to DNA testing",
+              "correct": "We are used to DNA testing",
+              "explanation_ar": "نقول are used to وليس are use to"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

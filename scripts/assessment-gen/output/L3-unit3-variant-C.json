@@ -1,0 +1,265 @@
+{
+  "level": 3, "unit_number": 3, "variant_label": "C",
+  "variant_id": "2b909596-c36f-4532-8506-b66e18af21e8",
+  "unit_id": "85aabed1-aa8e-4ea6-9b58-bff1bbe4f9a8",
+  "generated_at": "2026-04-21T03:00:00Z",
+  "generated_by": "Claude Code native (L3 bulk, English-only)",
+  "language_standard": "English options, Arabic explanations (B1 CEFR)",
+  "anti_dup_sources": ["L3-unit3-variant-A.json","L3-unit3-variant-B.json"],
+  "distribution": {"skills":{"vocabulary":8,"grammar":6,"reading":6},"types":{"mcq":12,"true_false":4,"fill_blank":2,"matching":2}},
+  "questions": [
+    {
+      "order_index": 1, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Scientists continue to 'unravel' the mysteries of seismic activity through careful research. What does 'unravel' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To create and add new layers of complexity to a problem","is_correct":false},
+        {"id":"b","text":"To ignore existing theories and start research from the very beginning","is_correct":false},
+        {"id":"c","text":"To gradually discover and understand something that was previously unclear","is_correct":true},
+        {"id":"d","text":"To publish final conclusions and close a scientific investigation","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "unravel تعني يكشف ويفكّ غموض، أي الوصول تدريجياً إلى فهم شيء كان معقداً أو غامضاً من قبل."
+    },
+    {
+      "order_index": 2, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Networks of seismometers 'monitor' seismic waves in real-time. What does 'monitor' mean in this context?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To destroy and remove all evidence of seismic activity","is_correct":false},
+        {"id":"b","text":"To continuously watch and track something over a period of time","is_correct":true},
+        {"id":"c","text":"To predict future events based only on historical data","is_correct":false},
+        {"id":"d","text":"To repair damage caused by seismic waves after an event","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "monitor تعني يراقب ويتابع باستمرار، أي رصد شيء ما بصفة منتظمة للكشف عن أي تغييرات أو تطورات مهمة."
+    },
+    {
+      "order_index": 3, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Modern earthquake detection has become 'sophisticated', allowing real-time monitoring of seismic waves. What does 'sophisticated' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Simple, basic, and easy for anyone to understand and operate","is_correct":false},
+        {"id":"b","text":"Old-fashioned and based on methods developed many centuries ago","is_correct":false},
+        {"id":"c","text":"Highly developed, complex, and technically advanced in its function","is_correct":true},
+        {"id":"d","text":"Unreliable and producing results that scientists cannot fully trust","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "sophisticated تعني متطور ومعقد تقنياً، أي أن النظام وصل إلى مستوى عالٍ من الدقة والكفاءة في أدائه الوظيفي."
+    },
+    {
+      "order_index": 4, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "When an earthquake 'strikes', it sends different types of waves through Earth's layers. What does 'strikes' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Gives a clear advance warning before the main shaking begins","is_correct":false},
+        {"id":"b","text":"Occurs suddenly and hits with force without much prior warning","is_correct":true},
+        {"id":"c","text":"Weakens slowly and loses energy before reaching the surface","is_correct":false},
+        {"id":"d","text":"Retreats underground and avoids heavily populated areas","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "strikes تعني يضرب بقوة ومفاجأة، أي وقوع الحدث بشكل مفاجئ وعنيف دون تحذير يُذكر."
+    },
+    {
+      "order_index": 5, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Ancient earthquake science continues to 'baffle' researchers who try to fully understand it. What does 'baffle' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To inspire and motivate scientists to continue their research","is_correct":false},
+        {"id":"b","text":"To confuse and puzzle someone beyond their ability to understand","is_correct":true},
+        {"id":"c","text":"To clearly explain and simplify a complicated topic for learners","is_correct":false},
+        {"id":"d","text":"To support and provide useful data for ongoing scientific research","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "baffle تعني يُحيّر ويُربك، أي أن المشكلة أو الظاهرة معقدة لدرجة تجعل العلماء عاجزين عن إيجاد تفسير مقنع لها."
+    },
+    {
+      "order_index": 6, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When engineers design a 'colossal' structure, they are building something unusually large and impressive in scale.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. colossal تعني ضخم وهائل الحجم، وتُستخدم لوصف الهياكل أو الأشياء التي تتجاوز الحجم المعتاد بشكل لافت."
+    },
+    {
+      "order_index": 7, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "'Meticulous' earthquake engineers make rough estimates and skip checking small details in their work.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false, "accepted_answers": null, "points": 1,
+      "explanation_ar": "خطأ. meticulous تعني دقيق ومنتبه لأدق التفاصيل، وهو عكس تماماً إجراء تقديرات تقريبية وتجاهل التفاصيل الصغيرة."
+    },
+    {
+      "order_index": 8, "skill_tag": "vocabulary", "question_type": "fill_blank",
+      "question_text": "Researchers use GPS technology to _____ the exact position of tectonic plates and track their slow movement.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "detect", "accepted_answers": ["detect","Detect"], "points": 1,
+      "explanation_ar": "detect تعني يكتشف ويرصد، وفي هذا السياق تعني استخدام التكنولوجيا لتحديد موقع شيء ما ورصد حركته."
+    },
+    {
+      "order_index": 9, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence uses 'could' or 'might' correctly in a second conditional to express a less certain result?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"If we had better prediction tools, we might save thousands of lives.","is_correct":true},
+        {"id":"b","text":"If we had better prediction tools, we could save thousands of lives certainly.","is_correct":false},
+        {"id":"c","text":"If we have better prediction tools, we might save thousands of lives.","is_correct":false},
+        {"id":"d","text":"If we had better prediction tools, we can save thousands of lives.","is_correct":false}
+      ],
+      "correct_answer": "a", "accepted_answers": null, "points": 1,
+      "explanation_ar": "يمكن في الشرط الثاني استبدال would بـ could أو might للتعبير عن نتيجة محتملة وليست مؤكدة. الخيار a صحيح، والأخرى تحتوي على أخطاء في الصيغة."
+    },
+    {
+      "order_index": 10, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence correctly uses the second conditional in the NEGATIVE form?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"If buildings didn't flex, they wouldn't survive many major earthquakes.","is_correct":true},
+        {"id":"b","text":"If buildings don't flex, they wouldn't survive many major earthquakes.","is_correct":false},
+        {"id":"c","text":"If buildings didn't flex, they won't survive many major earthquakes.","is_correct":false},
+        {"id":"d","text":"If buildings didn't flex, they don't survive many major earthquakes.","is_correct":false}
+      ],
+      "correct_answer": "a", "accepted_answers": null, "points": 1,
+      "explanation_ar": "النفي في الشرط الثاني يكون بـ didn't + مصدر في جملة الشرط، و wouldn't + مصدر في الجواب. الخيار a يطبّق ذلك بشكل صحيح."
+    },
+    {
+      "order_index": 11, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Choose the sentence where the second conditional uses formal inversion correctly.",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"If I were a seismologist, I would work to improve earthquake prediction.","is_correct":false},
+        {"id":"b","text":"Were I a seismologist, I would work to improve earthquake prediction.","is_correct":true},
+        {"id":"c","text":"Were I be a seismologist, I would work to improve earthquake prediction.","is_correct":false},
+        {"id":"d","text":"I were a seismologist, I would work to improve earthquake prediction.","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "في الإنجليزية الرسمية يمكن حذف if وتقديم were في بداية الجملة (Were I + subject complement) كأسلوب رسمي مكافئ للشرط الثاني."
+    },
+    {
+      "order_index": 12, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence uses the THIRD conditional (not second)?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"If buildings were more flexible, they would survive earthquakes more easily.","is_correct":false},
+        {"id":"b","text":"If the warning system were better, fewer people would be in danger.","is_correct":false},
+        {"id":"c","text":"If the engineers had built it differently, the bridge would not have collapsed.","is_correct":true},
+        {"id":"d","text":"If seismologists had more funding, they could make faster progress.","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "الشرط الثالث يستخدم had + تصريف ثالث في جملة الشرط و would have + تصريف ثالث في الجواب للتعبير عن ندم على أحداث ماضية. الخيار c هو الشرط الثالث."
+    },
+    {
+      "order_index": 13, "skill_tag": "grammar", "question_type": "true_false",
+      "question_text": "The sentence 'If the Richter scale were not invented, scientists could not easily compare the strength of different earthquakes' uses the second conditional correctly.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. were not invented في جملة الشرط و could not easily compare في الجواب يُشكّلان الشرط الثاني الصحيح للتعبير عن موقف افتراضي مستحيل."
+    },
+    {
+      "order_index": 14, "skill_tag": "grammar", "question_type": "matching",
+      "question_text": "Match each second conditional sentence to the type of situation it describes.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "If I were a structural engineer, I would design flexible buildings.",
+          "If all countries adopted strict building codes, earthquake deaths would fall.",
+          "Were the ground more stable here, I would invest in this location.",
+          "If scientists could predict earthquakes, they might save millions of lives."
+        ],
+        "right_items": [
+          "a hypothetical current situation using formal inversion",
+          "a personal imaginary role or occupation",
+          "a global policy change and its potential impact",
+          "a scientific capability that does not currently exist"
+        ]
+      },
+      "correct_answer": [
+        {"left":"If I were a structural engineer, I would design flexible buildings.","right":"a personal imaginary role or occupation"},
+        {"left":"If all countries adopted strict building codes, earthquake deaths would fall.","right":"a global policy change and its potential impact"},
+        {"left":"Were the ground more stable here, I would invest in this location.","right":"a hypothetical current situation using formal inversion"},
+        {"left":"If scientists could predict earthquakes, they might save millions of lives.","right":"a scientific capability that does not currently exist"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "يُعبّر الشرط الثاني عن حالات مختلفة: دور مهني خيالي، تأثير سياسة عالمية، انعكاس الواقع، أو قدرة علمية غير موجودة حالياً."
+    },
+    {
+      "order_index": 15, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage B, what happened to buildings with advanced damping systems during the 2011 Tōhoku earthquake?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"They were completely destroyed along with all conventional buildings","is_correct":false},
+        {"id":"b","text":"They suffered the same damage as buildings without damping systems","is_correct":false},
+        {"id":"c","text":"They remained operational while conventional structures suffered damage","is_correct":true},
+        {"id":"d","text":"They were evacuated as a precaution but remained structurally intact","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "أثبت زلزال تōهوكو 2011 فعالية أنظمة التخميد المتقدمة، إذ ظلّت المباني المجهّزة بها تعمل بشكل طبيعي بينما تعرّضت المباني التقليدية لأضرار جسيمة."
+    },
+    {
+      "order_index": 16, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage B, what is special about shape-memory alloys used in building construction?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"They are lighter than conventional steel and reduce the total building weight","is_correct":false},
+        {"id":"b","text":"They become permanently stronger each time they experience an earthquake","is_correct":false},
+        {"id":"c","text":"They return to their original form after deformation and repair minor damage","is_correct":true},
+        {"id":"d","text":"They absorb heat from earthquakes and convert it into electrical energy","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "أوضح النص أن سبائك ذاكرة الشكل تتمتع بخاصية العودة إلى شكلها الأصلي بعد التشوّه، مما يُمكّنها من إصلاح الأضرار الطفيفة تلقائياً."
+    },
+    {
+      "order_index": 17, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "Passage B states that 'buildings which flex and move fare better than their inflexible counterparts.' What does this suggest?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Rigid buildings are always safer and more durable than flexible ones","is_correct":false},
+        {"id":"b","text":"The best earthquake protection requires making buildings completely immovable","is_correct":false},
+        {"id":"c","text":"Allowing some movement during earthquakes is more effective than resisting all movement","is_correct":true},
+        {"id":"d","text":"Engineers should design buildings that collapse quickly to absorb earthquake energy","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "تُضمّن هذه الجملة مفارقة مثيرة: المباني القادرة على الحركة والانثناء أثناء الزلزال تُحقق أداءً أفضل من تلك المصمّمة لمقاومة أي حركة."
+    },
+    {
+      "order_index": 18, "skill_tag": "reading", "question_type": "true_false",
+      "question_text": "According to Passage A, on the Richter scale each number represents a tenfold increase in wave amplitude.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. وضّح النص أن كل رقم على مقياس ريختر يمثّل زيادة بمقدار عشرة أضعاف في سعة الموجات، أي أن الزلزال 6.0 أقوى بعشر مرات من الزلزال 5.0."
+    },
+    {
+      "order_index": 19, "skill_tag": "reading", "question_type": "fill_blank",
+      "question_text": "According to Passage A, the most devastating earthquake in recorded history occurred in China in the year _____.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "1556", "accepted_answers": ["1556","fifteen fifty-six","Fifteen fifty-six"], "points": 1,
+      "explanation_ar": "ذكر النص أن أشد الزلازل تدميراً في التاريخ المسجَّل وقع في الصين عام 1556 وأودى بحياة ما يقارب 830,000 شخص."
+    },
+    {
+      "order_index": 20, "skill_tag": "reading", "question_type": "matching",
+      "question_text": "Match each Richter scale magnitude range from Passage A to its likely effect on buildings and people.",
+      "question_context": null,
+      "options": {
+        "left_items": ["below 3.0", "around 5.0", "above 7.0", "6.0 compared to 5.0"],
+        "right_items": [
+          "barely felt by humans; detected only by instruments",
+          "produces waves ten times larger than the one below",
+          "can rupture the ground surface and topple buildings",
+          "noticeable shaking; possible minor building damage"
+        ]
+      },
+      "correct_answer": [
+        {"left":"below 3.0","right":"barely felt by humans; detected only by instruments"},
+        {"left":"around 5.0","right":"noticeable shaking; possible minor building damage"},
+        {"left":"above 7.0","right":"can rupture the ground surface and topple buildings"},
+        {"left":"6.0 compared to 5.0","right":"produces waves ten times larger than the one below"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "أوضح النص المقياس التدريجي لريختر: الزلازل الصغيرة لا تُحسّ، المتوسطة تُسبب اهتزازاً ملحوظاً، والكبيرة تشقّ الأرض وتُسقط المباني، وكل درجة أقوى بعشر مرات من السابقة."
+    }
+  ]
+}

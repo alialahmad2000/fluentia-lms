@@ -1,0 +1,141 @@
+======================================================================
+LEVEL 3 · UNIT 3 · VARIANT C — FULL DUMP
+======================================================================
+Source file:     C:/Users/Dr. Ali/Desktop/fluentia-lms/scripts/assessment-gen/output/L3-unit3-variant-C.json
+unit_id:         85aabed1-aa8e-4ea6-9b58-bff1bbe4f9a8
+variant_id:      2b909596-c36f-4532-8506-b66e18af21e8
+generated_at:    2026-04-21T03:00:00Z
+generated_by:    Claude Code native (L3 bulk, English-only)
+distribution:    8V / 6G / 6R  ·  12 MCQ / 4 T/F / 2 FB / 2 Matching
+question_count:  20
+======================================================================
+
+Qundefined  [vocabulary · mcq]
+    Q: Scientists continue to 'unravel' the mysteries of seismic activity through careful research. What does 'unravel' mean?
+    a) To create and add new layers of complexity to a problem
+    b) To ignore existing theories and start research from the very beginning
+  ✓ c) To gradually discover and understand something that was previously unclear
+    d) To publish final conclusions and close a scientific investigation
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: Networks of seismometers 'monitor' seismic waves in real-time. What does 'monitor' mean in this context?
+    a) To destroy and remove all evidence of seismic activity
+  ✓ b) To continuously watch and track something over a period of time
+    c) To predict future events based only on historical data
+    d) To repair damage caused by seismic waves after an event
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: Modern earthquake detection has become 'sophisticated', allowing real-time monitoring of seismic waves. What does 'sophisticated' mean?
+    a) Simple, basic, and easy for anyone to understand and operate
+    b) Old-fashioned and based on methods developed many centuries ago
+  ✓ c) Highly developed, complex, and technically advanced in its function
+    d) Unreliable and producing results that scientists cannot fully trust
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: When an earthquake 'strikes', it sends different types of waves through Earth's layers. What does 'strikes' mean?
+    a) Gives a clear advance warning before the main shaking begins
+  ✓ b) Occurs suddenly and hits with force without much prior warning
+    c) Weakens slowly and loses energy before reaching the surface
+    d) Retreats underground and avoids heavily populated areas
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: Ancient earthquake science continues to 'baffle' researchers who try to fully understand it. What does 'baffle' mean?
+    a) To inspire and motivate scientists to continue their research
+  ✓ b) To confuse and puzzle someone beyond their ability to understand
+    c) To clearly explain and simplify a complicated topic for learners
+    d) To support and provide useful data for ongoing scientific research
+    A: b
+
+Qundefined  [vocabulary · true_false]
+    Q: When engineers design a 'colossal' structure, they are building something unusually large and impressive in scale.
+    A: true
+
+Qundefined  [vocabulary · true_false]
+    Q: 'Meticulous' earthquake engineers make rough estimates and skip checking small details in their work.
+    A: false
+
+Qundefined  [vocabulary · fill_blank]
+    Q: Researchers use GPS technology to _____ the exact position of tectonic plates and track their slow movement.
+    A: detect (also accepted: detect, Detect)
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence uses 'could' or 'might' correctly in a second conditional to express a less certain result?
+  ✓ a) If we had better prediction tools, we might save thousands of lives.
+    b) If we had better prediction tools, we could save thousands of lives certainly.
+    c) If we have better prediction tools, we might save thousands of lives.
+    d) If we had better prediction tools, we can save thousands of lives.
+    A: a
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence correctly uses the second conditional in the NEGATIVE form?
+  ✓ a) If buildings didn't flex, they wouldn't survive many major earthquakes.
+    b) If buildings don't flex, they wouldn't survive many major earthquakes.
+    c) If buildings didn't flex, they won't survive many major earthquakes.
+    d) If buildings didn't flex, they don't survive many major earthquakes.
+    A: a
+
+Qundefined  [grammar · mcq]
+    Q: Choose the sentence where the second conditional uses formal inversion correctly.
+    a) If I were a seismologist, I would work to improve earthquake prediction.
+  ✓ b) Were I a seismologist, I would work to improve earthquake prediction.
+    c) Were I be a seismologist, I would work to improve earthquake prediction.
+    d) I were a seismologist, I would work to improve earthquake prediction.
+    A: b
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence uses the THIRD conditional (not second)?
+    a) If buildings were more flexible, they would survive earthquakes more easily.
+    b) If the warning system were better, fewer people would be in danger.
+  ✓ c) If the engineers had built it differently, the bridge would not have collapsed.
+    d) If seismologists had more funding, they could make faster progress.
+    A: c
+
+Qundefined  [grammar · true_false]
+    Q: The sentence 'If the Richter scale were not invented, scientists could not easily compare the strength of different earthquakes' uses the second conditional correctly.
+    A: true
+
+Qundefined  [grammar · matching]
+    Q: Match each second conditional sentence to the type of situation it describes.
+
+Qundefined  [reading · mcq]
+    Q: According to Passage B, what happened to buildings with advanced damping systems during the 2011 Tōhoku earthquake?
+    a) They were completely destroyed along with all conventional buildings
+    b) They suffered the same damage as buildings without damping systems
+  ✓ c) They remained operational while conventional structures suffered damage
+    d) They were evacuated as a precaution but remained structurally intact
+    A: c
+
+Qundefined  [reading · mcq]
+    Q: According to Passage B, what is special about shape-memory alloys used in building construction?
+    a) They are lighter than conventional steel and reduce the total building weight
+    b) They become permanently stronger each time they experience an earthquake
+  ✓ c) They return to their original form after deformation and repair minor damage
+    d) They absorb heat from earthquakes and convert it into electrical energy
+    A: c
+
+Qundefined  [reading · mcq]
+    Q: Passage B states that 'buildings which flex and move fare better than their inflexible counterparts.' What does this suggest?
+    a) Rigid buildings are always safer and more durable than flexible ones
+    b) The best earthquake protection requires making buildings completely immovable
+  ✓ c) Allowing some movement during earthquakes is more effective than resisting all movement
+    d) Engineers should design buildings that collapse quickly to absorb earthquake energy
+    A: c
+
+Qundefined  [reading · true_false]
+    Q: According to Passage A, on the Richter scale each number represents a tenfold increase in wave amplitude.
+    A: true
+
+Qundefined  [reading · fill_blank]
+    Q: According to Passage A, the most devastating earthquake in recorded history occurred in China in the year _____.
+    A: 1556 (also accepted: 1556, fifteen fifty-six, Fifteen fifty-six)
+
+Qundefined  [reading · matching]
+    Q: Match each Richter scale magnitude range from Passage A to its likely effect on buildings and people.
+
+----------------------------------------------------------------------
+END OF DUMP — 20 questions printed
+======================================================================

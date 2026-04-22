@@ -1,0 +1,270 @@
+{
+  "level": 3, "unit_number": 7, "variant_label": "C",
+  "variant_id": "c8ca4ce5-31c6-45ee-aa92-2959a487b5dd",
+  "unit_id": "97b187e9-39e6-4263-8ed8-72a63e69273c",
+  "generated_at": "2026-04-21T07:00:00Z",
+  "generated_by": "Claude Code native (L3 bulk, English-only)",
+  "language_standard": "English options, Arabic explanations (B1 CEFR)",
+  "anti_dup_sources": ["L3-unit7-variant-A.json","L3-unit7-variant-B.json"],
+  "distribution": {"skills":{"vocabulary":8,"grammar":6,"reading":6},"types":{"mcq":12,"true_false":4,"fill_blank":2,"matching":2}},
+  "questions": [
+    {
+      "order_index": 1, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Many patients 'break down' when confronted with their deepest fears. What does 'break down' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To become calm and handle a difficult situation with ease","is_correct":false},
+        {"id":"b","text":"To lose emotional control and become overwhelmed by distress","is_correct":true},
+        {"id":"c","text":"To solve and overcome a difficult problem with confidence","is_correct":false},
+        {"id":"d","text":"To retreat and quietly reflect on a situation alone","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "break down تعني ينهار عاطفياً ويفقد السيطرة، أي الانهيار تحت وطأة الضغط النفسي الشديد."
+    },
+    {
+      "order_index": 2, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Fear can significantly 'impact' someone's quality of life. What does 'impact' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To have no effect on something at all","is_correct":false},
+        {"id":"b","text":"To have a noticeable and significant effect on something","is_correct":true},
+        {"id":"c","text":"To gradually remove something from a situation over time","is_correct":false},
+        {"id":"d","text":"To slowly improve something through careful management","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "impact تعني يُؤثّر ويُحدث أثراً ملحوظاً، أي أن الشيء يُفضي إلى تغيير واضح في حالة ما أو نتيجة ما."
+    },
+    {
+      "order_index": 3, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "VRET can 'manipulate' the virtual environment to adjust the intensity of fear exposure. What does 'manipulate' mean here?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To destroy and permanently delete parts of a virtual scene","is_correct":false},
+        {"id":"b","text":"To control and adjust elements in a skilful and precise way","is_correct":true},
+        {"id":"c","text":"To copy and duplicate an existing environment without changes","is_correct":false},
+        {"id":"d","text":"To ignore and bypass the settings in a virtual programme","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "manipulate تعني يُعدّل ويتحكم بمهارة، أي ضبط عناصر البيئة الافتراضية بطريقة دقيقة ومتحكّم بها وفق احتياجات المريض."
+    },
+    {
+      "order_index": 4, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Dr. Al-Mansouri emphasises that her approach 'aligns' with cultural values of dignity. What does 'aligns' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Conflicts with and contradicts existing values and beliefs","is_correct":false},
+        {"id":"b","text":"Fits perfectly and is consistent with something else","is_correct":true},
+        {"id":"c","text":"Ignores and disregards the values of a particular culture","is_correct":false},
+        {"id":"d","text":"Replaces and eliminates outdated cultural practices","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "aligns تعني يتوافق ويتوافق مع، أي أن الأسلوب العلاجي يتّسق ويتناغم مع القيم الثقافية بدلاً من أن يتعارض معها."
+    },
+    {
+      "order_index": 5, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Researchers who 'persist' through fear-inducing challenges experience lasting brain changes. What does 'persist' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To give up when a task becomes too challenging to continue","is_correct":false},
+        {"id":"b","text":"To take a long break before deciding to continue a task","is_correct":false},
+        {"id":"c","text":"To continue trying despite difficulties, without giving up","is_correct":true},
+        {"id":"d","text":"To change direction and try a completely different approach","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "persist تعني يُثابر ويواصل رغم الصعاب، أي الاستمرار في المحاولة دون الاستسلام حتى تحقيق الهدف."
+    },
+    {
+      "order_index": 6, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "An 'obstacle' to personal growth is something that helps and makes progress easier to achieve.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false, "accepted_answers": null, "points": 1,
+      "explanation_ar": "خطأ. obstacle تعني عقبة وحاجز، أي شيء يُصعّب التقدم ويمنع تحقيق الهدف — وهو عكس المساعدة والتيسير."
+    },
+    {
+      "order_index": 7, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When someone has learned to 'cope with' their anxiety, they have developed strategies to manage and live with it.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. cope with تعني يتعامل مع ويتكيّف مع، أي تطوير أساليب عملية للتعايش مع الضغوط أو المشكلات دون أن تؤثر سلباً على الحياة."
+    },
+    {
+      "order_index": 8, "skill_tag": "vocabulary", "question_type": "fill_blank",
+      "question_text": "People who avoid facing fears tend to _____ on them, which actually strengthens the fear over time.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "dwell", "accepted_answers": ["dwell","Dwell","dwell on"], "points": 1,
+      "explanation_ar": "dwell (on) تعني يتمحور حول ويفكر مراراً في، وهذا التفكير المتكرر يُعزّز المسارات العصبية للخوف ويجعله أشد."
+    },
+    {
+      "order_index": 9, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence uses a reporting verb (not 'say' or 'tell') correctly?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"She explained that VR had reduced her patients' anxiety significantly.","is_correct":true},
+        {"id":"b","text":"She explained her patients that VR had reduced anxiety significantly.","is_correct":false},
+        {"id":"c","text":"She noted to her patients that VR would reduces anxiety.","is_correct":false},
+        {"id":"d","text":"She emphasised her patients that healing requires human connection.","is_correct":false}
+      ],
+      "correct_answer": "a", "accepted_answers": null, "points": 1,
+      "explanation_ar": "explain (like say) لا يحتاج مفعولاً به مباشراً قبل that. الخيار a صحيح، بينما الخيار b يخطئ بإضافة 'her patients' مباشرة بعد explained."
+    },
+    {
+      "order_index": 10, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Convert: Dr. Al-Mansouri told the patient, 'Do not avoid situations that frighten you.'",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Dr. Al-Mansouri told the patient do not avoid situations.","is_correct":false},
+        {"id":"b","text":"Dr. Al-Mansouri told the patient not to avoid situations that frightened her.","is_correct":true},
+        {"id":"c","text":"Dr. Al-Mansouri said the patient not avoid situations.","is_correct":false},
+        {"id":"d","text":"Dr. Al-Mansouri told the patient that she should not avoiding situations.","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "الأوامر المنقولة: told + person + (not) + to + infinitive. الخيار b صحيح: told the patient not to avoid..."
+    },
+    {
+      "order_index": 11, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Convert: 'I have not finished the therapy programme,' the patient said.",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"The patient said that he has not finished the therapy programme.","is_correct":false},
+        {"id":"b","text":"The patient said that he had not finished the therapy programme.","is_correct":true},
+        {"id":"c","text":"The patient told that he had not finished the therapy programme.","is_correct":false},
+        {"id":"d","text":"The patient said that he not had finished the therapy programme.","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "في الكلام المنقول: المضارع التام (have not finished) → ماضٍ تام (had not finished). الخيار b صحيح. الخيار c خاطئ (told بدون مفعول به)."
+    },
+    {
+      "order_index": 12, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence uses a reporting verb correctly to describe how something was said?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"She noted that the technology was still being tested.","is_correct":true},
+        {"id":"b","text":"She noted her students that the technology was still being tested.","is_correct":false},
+        {"id":"c","text":"She emphasised to that progress had been remarkable.","is_correct":false},
+        {"id":"d","text":"She clarified us that the results were very promising.","is_correct":false}
+      ],
+      "correct_answer": "a", "accepted_answers": null, "points": 1,
+      "explanation_ar": "note (كـ say) لا يأخذ مفعولاً به مباشراً قبل that. الخيار a صحيح. الخيار b يضيف 'her students' خطأً، والخيار d يستخدم 'us' بدلاً من 'us that' بطريقة غير صحيحة."
+    },
+    {
+      "order_index": 13, "skill_tag": "grammar", "question_type": "true_false",
+      "question_text": "'The doctor told his patient not to dwell on past failures' is a correct reported command.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. told + person + not to + infinitive هي الصيغة الصحيحة للأمر السلبي المنقول. الجملة صحيحة تماماً."
+    },
+    {
+      "order_index": 14, "skill_tag": "grammar", "question_type": "matching",
+      "question_text": "Match each reporting verb to the type of statement it introduces.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "explained",
+          "warned",
+          "denied",
+          "admitted"
+        ],
+        "right_items": [
+          "confessed to something negative or difficult",
+          "made something clear with reasons or details",
+          "said strongly that something was not true",
+          "told someone about a possible danger"
+        ]
+      },
+      "correct_answer": [
+        {"left":"explained","right":"made something clear with reasons or details"},
+        {"left":"warned","right":"told someone about a possible danger"},
+        {"left":"denied","right":"said strongly that something was not true"},
+        {"left":"admitted","right":"confessed to something negative or difficult"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "أفعال الكلام المتنوعة: explained (يُوضّح)، warned (يُحذّر)، denied (يُنكر)، admitted (يعترف). كل فعل يُحدد طبيعة الكلام المُنقَل وأسلوبه."
+    },
+    {
+      "order_index": 15, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage B, what percentage of patients showed improvement with traditional therapy (without VR)?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"57%","is_correct":false},
+        {"id":"b","text":"67%","is_correct":true},
+        {"id":"c","text":"75%","is_correct":false},
+        {"id":"d","text":"83%","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "ذكر النص أن 67% من المرضى الذين خضعوا للعلاج التقليدي دون واقع افتراضي تحسّنوا، مقارنةً بـ 83% من مرضى VRET."
+    },
+    {
+      "order_index": 16, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage B, after how many VRET sessions did brain imaging show decreased amygdala activity?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"After 4 sessions","is_correct":false},
+        {"id":"b","text":"After 6 sessions","is_correct":false},
+        {"id":"c","text":"After 8 sessions","is_correct":true},
+        {"id":"d","text":"After 12 sessions","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "كشفت دراسات التصوير الدماغي وفق ما ذكره النص أن المرضى يُظهرون انخفاضاً في نشاط اللوزة الدماغية بعد ثماني جلسات من العلاج بالتعرض الافتراضي."
+    },
+    {
+      "order_index": 17, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "Passage A says fear 'can both protect and hinder us.' What does this tell us about the nature of fear?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Fear is purely negative and should be completely eliminated","is_correct":false},
+        {"id":"b","text":"Fear is an emotion that has both useful and harmful sides","is_correct":true},
+        {"id":"c","text":"Fear only affects people in physical danger, not in daily life","is_correct":false},
+        {"id":"d","text":"Fear becomes useful only when managed by professional therapists","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "يُضمّن النص أن الخوف له وجهان: وجه إيجابي كآلية وقاية، ووجه سلبي حين يُقيّد الإنسان ويُعيق أهدافه — مما يجعله عاطفة ذات طابع مزدوج."
+    },
+    {
+      "order_index": 18, "skill_tag": "reading", "question_type": "true_false",
+      "question_text": "According to Passage B, VRET produces brain changes similar to real-world exposure but with significantly reduced risk of psychological trauma.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. اكتشف الباحثون وفق النص أن VRET يُغيّر الأنماط الدماغية بطريقة مشابهة للتعرض الحقيقي لكن مع تقليل كبير لخطر الصدمة النفسية."
+    },
+    {
+      "order_index": 19, "skill_tag": "reading", "question_type": "fill_blank",
+      "question_text": "According to Passage B, brain imaging showed decreased amygdala activity after just _____ VRET sessions.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "8", "accepted_answers": ["8","eight","Eight"], "points": 1,
+      "explanation_ar": "ذكر النص أن دراسات التصوير الدماغي كشفت عن انخفاض في نشاط اللوزة الدماغية بعد ثماني جلسات فقط من العلاج بالتعرض الافتراضي."
+    },
+    {
+      "order_index": 20, "skill_tag": "reading", "question_type": "matching",
+      "question_text": "Match each concept from both passages to its correct explanation.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "the amygdala",
+          "the fear circuit",
+          "gradual exposure",
+          "VRET vs traditional therapy"
+        ],
+        "right_items": [
+          "83% improvement rate versus 67% — showing VR's superiority",
+          "brain region responsible for processing fear responses",
+          "system causing racing heart, tense muscles, and shallow breathing",
+          "technique of slowly introducing feared situations in a controlled way"
+        ]
+      },
+      "correct_answer": [
+        {"left":"the amygdala","right":"brain region responsible for processing fear responses"},
+        {"left":"the fear circuit","right":"system causing racing heart, tense muscles, and shallow breathing"},
+        {"left":"gradual exposure","right":"technique of slowly introducing feared situations in a controlled way"},
+        {"left":"VRET vs traditional therapy","right":"83% improvement rate versus 67% — showing VR's superiority"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "ورد كل مفهوم في النصين مع وصف وظيفته: اللوزة (استجابة الخوف)، دائرة الخوف (أعراض جسدية)، التعرض التدريجي (أسلوب علاجي)، ومقارنة VRET بالعلاج التقليدي."
+    }
+  ]
+}

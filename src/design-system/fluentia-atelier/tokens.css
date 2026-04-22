@@ -1,0 +1,117 @@
+/* ═══════════════════════════════════════════════════════════════
+   FLUENTIA ATELIER — Design Language Tokens
+   The single source of truth for all colors, type, space, motion.
+   Dark-only. Warm charcoal canvas, cream ink, one emerald jewel,
+   rare old gold. Arabic as hero.
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── CANVAS & SURFACES ── */
+  --atelier-canvas:       #0F0D0B;
+  --atelier-surface:      #1A1612;
+  --atelier-elevated:     #252019;
+  --atelier-elevated-hi:  #2E2821;
+  --atelier-inset:        #0A0806;
+
+  /* ── INK (text) ── */
+  --atelier-ink:          #F5EFE4;
+  --atelier-ink-muted:    #B5AA97;
+  --atelier-ink-whisper:  #6E6558;
+  --atelier-ink-ghost:    #3D3830;
+
+  /* ── DIVIDERS ── */
+  --atelier-rule:         rgba(245, 239, 228, 0.06);
+  --atelier-rule-strong:  rgba(245, 239, 228, 0.12);
+
+  /* ── THE JEWEL (deep emerald) ── */
+  --atelier-jewel:        #14926A;
+  --atelier-jewel-hover:  #1DB07E;
+  --atelier-jewel-press:  #0E7A58;
+  --atelier-jewel-glow:   rgba(20, 146, 106, 0.22);
+  --atelier-jewel-ink:    #F5EFE4;
+
+  /* ── THE GOLD (rare, < 5% of pixels) ── */
+  --atelier-gold:         #C9A464;
+  --atelier-gold-dim:     #8F7545;
+  --atelier-gold-ink:     #0F0D0B;
+
+  /* ── ALERTS (muted, editorial) ── */
+  --atelier-warn:         #C49155;
+  --atelier-warn-bg:      rgba(196, 145, 85, 0.10);
+  --atelier-danger:       #C66857;
+  --atelier-danger-bg:    rgba(198, 104, 87, 0.10);
+  --atelier-info:         #7A9BAE;
+  --atelier-info-bg:      rgba(122, 155, 174, 0.10);
+  --atelier-success:      var(--atelier-jewel);
+
+  /* ── TYPOGRAPHY ── */
+  --atelier-font-ar:      'Readex Pro', 'IBM Plex Sans Arabic', system-ui, sans-serif;
+  --atelier-font-ar-hero: 'IBM Plex Sans Arabic', 'Readex Pro', sans-serif;
+  --atelier-font-en:      'Inter Tight', 'Inter', system-ui, sans-serif;
+  --atelier-font-num:     'Space Grotesk', 'Inter Tight', sans-serif;
+  --atelier-font-mono:    'JetBrains Mono', 'SF Mono', Menlo, monospace;
+
+  --atelier-text-xs:       11px;
+  --atelier-text-sm:       13px;
+  --atelier-text-md:       15px;
+  --atelier-text-lg:       17px;
+  --atelier-text-xl:       22px;
+  --atelier-text-display:  36px;
+  --atelier-text-hero:     64px;
+  --atelier-text-mega:     96px;
+
+  --atelier-lh-xs:         16px;
+  --atelier-lh-sm:         20px;
+  --atelier-lh-md-ar:      26px;
+  --atelier-lh-md-en:      24px;
+  --atelier-lh-lg:         28px;
+  --atelier-lh-xl:         32px;
+  --atelier-lh-display:    44px;
+  --atelier-lh-hero:       72px;
+  --atelier-lh-mega:       100px;
+
+  --atelier-track-tight:   -0.02em;
+  --atelier-track-wide:    0.12em;
+
+  /* ── SPACING (strict 4px grid) ── */
+  --atelier-sp-1:    4px;
+  --atelier-sp-2:    8px;
+  --atelier-sp-3:    12px;
+  --atelier-sp-4:    16px;
+  --atelier-sp-6:    24px;
+  --atelier-sp-8:    32px;
+  --atelier-sp-12:   48px;
+  --atelier-sp-18:   72px;
+  --atelier-sp-28:   112px;
+  --atelier-sp-40:   160px;
+
+  /* ── RADII ── */
+  --atelier-radius-sharp:  3px;
+  --atelier-radius-input:  6px;
+  --atelier-radius-card:   10px;
+  --atelier-radius-hero:   16px;
+
+  /* ── ELEVATION ── */
+  --atelier-shadow-rest:
+    inset 0 1px 0 rgba(245, 239, 228, 0.04),
+    0 1px 2px rgba(0, 0, 0, 0.40),
+    0 8px 24px rgba(0, 0, 0, 0.20);
+
+  --atelier-shadow-hover:
+    inset 0 1px 0 rgba(245, 239, 228, 0.06),
+    0 2px 4px rgba(0, 0, 0, 0.45),
+    0 16px 40px rgba(0, 0, 0, 0.28);
+
+  --atelier-shadow-jewel-focus:
+    0 0 0 3px var(--atelier-jewel-glow);
+
+  --atelier-shadow-inset:
+    inset 0 1px 2px rgba(0, 0, 0, 0.60);
+
+  /* ── MOTION ── */
+  --atelier-ease:            cubic-bezier(0.22, 1, 0.36, 1);
+  --atelier-dur-fast:        180ms;
+  --atelier-dur-med:         280ms;
+  --atelier-dur-slow:        480ms;
+  --atelier-dur-theater:     1200ms;
+}

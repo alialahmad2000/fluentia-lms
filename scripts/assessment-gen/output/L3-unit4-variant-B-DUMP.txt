@@ -1,0 +1,142 @@
+======================================================================
+LEVEL 3 · UNIT 4 · VARIANT B — FULL DUMP
+======================================================================
+Source file:     C:/Users/Dr. Ali/Desktop/fluentia-lms/scripts/assessment-gen/output/L3-unit4-variant-B.json
+unit_id:         738ff234-070d-4ace-9901-434e43521bdb
+variant_id:      c9071fc2-17c5-40fe-9dee-19303669806e
+generated_at:    2026-04-21T04:00:00Z
+generated_by:    Claude Code native (L3 bulk, English-only)
+anti_dup_source: L3-unit4-variant-A.json
+distribution:    8V / 6G / 6R  ·  12 MCQ / 4 T/F / 2 FB / 2 Matching
+question_count:  20
+======================================================================
+
+Qundefined  [vocabulary · mcq]
+    Q: Coffee plants are 'sensitive' to their environment. What does 'sensitive' mean in this context?
+    a) Able to grow strongly in any climate or soil condition
+  ✓ b) Easily affected or harmed by slight changes in conditions
+    c) Resistant to disease and able to survive in harsh conditions
+    d) Producing unusually large amounts of fruit in good seasons
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: Coffee requires careful 'cultivation' from seed to harvest. What does 'cultivation' mean?
+    a) The global trading of agricultural products across different countries
+    b) The scientific study of plant diseases and how to treat them
+  ✓ c) The process of preparing land and growing plants to produce food
+    d) The transportation and packaging of products to international markets
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: Altitude plays a 'crucial' role in determining coffee quality. What does 'crucial' mean?
+    a) A minor role that has very little effect on the final result
+  ✓ b) An extremely important and decisive role that cannot be ignored
+    c) An indirect role that only affects a very small part of the outcome
+    d) A negative role that reduces the overall quality of the product
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: High-altitude coffee beans 'acquire' complex flavors that experts prize highly. What does 'acquire' mean?
+    a) To lose qualities that were present at an earlier stage
+  ✓ b) To gain or develop something gradually over time
+    c) To maintain exactly the same qualities from beginning to end
+    d) To reject qualities that do not match a desired standard
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: Ethiopian farmers 'maintain' traditional growing methods passed down through generations. What does 'maintain' mean?
+    a) To abandon old practices and replace them with modern techniques
+  ✓ b) To keep something in good condition and continue using it consistently
+    c) To experiment with new methods and change practices regularly
+    d) To document and record information about traditional practices
+    A: b
+
+Qundefined  [vocabulary · true_false]
+    Q: When coffee 'spread throughout' the Ottoman Empire, it means coffee reached and became common across the entire empire.
+    A: true
+
+Qundefined  [vocabulary · true_false]
+    Q: When a processing method is 'prevalent' in Central America, it means that method is extremely rare and barely used there.
+    A: false
+
+Qundefined  [vocabulary · fill_blank]
+    Q: Farmers must _____ to proper drying techniques to ensure the final coffee has the best possible flavor.
+    A: adhere (also accepted: adhere, Adhere)
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence correctly uses the present passive with a 'by' phrase?
+  ✓ a) Coffee is exported by Ethiopia to countries around the world.
+    b) Coffee exports by Ethiopia to countries around the world.
+    c) Ethiopia exports is coffee to countries around the world.
+    d) Coffee are exported by Ethiopia to countries around the world.
+    A: a
+
+Qundefined  [grammar · mcq]
+    Q: How do you form a present passive question: 'Is coffee _____ in Brazil?'
+    a) grow
+    b) grows
+  ✓ c) grown
+    d) growing
+    A: c
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence converts 'People know coffee for its stimulating effects' correctly into the passive?
+    a) Coffee knows people for its stimulating effects.
+  ✓ b) Coffee is known for its stimulating effects.
+    c) Coffee known for its stimulating effects.
+    d) Coffee is know for its stimulating effects.
+    A: b
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence uses the passive correctly to describe a process where the doer is unimportant?
+    a) Workers pick coffee cherries when they reach full ripeness.
+    b) Somebody processes coffee beans at a facility.
+  ✓ c) Coffee cherries are picked when they reach full ripeness.
+    d) The cherries pick themselves at full ripeness.
+    A: c
+
+Qundefined  [grammar · true_false]
+    Q: 'The coffee beans are washed and dried before they are shipped to roasteries worldwide' uses the present passive correctly.
+    A: true
+
+Qundefined  [grammar · matching]
+    Q: Match each passive sentence to the main reason it uses the passive voice.
+
+Qundefined  [reading · mcq]
+    Q: According to Passage B, where is the 'coffee belt' located geographically?
+    a) Between 40 degrees north and 50 degrees south latitude
+  ✓ b) Between 25 degrees north and 30 degrees south latitude
+    c) Only in countries at exactly zero degrees on the equator
+    d) Between 10 degrees north and 15 degrees south latitude
+    A: b
+
+Qundefined  [reading · mcq]
+    Q: According to Passage B, what is special about Ethiopian coffee farmers' knowledge of their beans?
+    a) They use modern technology to analyse the chemical composition of beans
+  ✓ b) They can identify beans from different hillsides simply by tasting them
+    c) They have developed a new variety that grows at sea level
+    d) They are the only farmers who sell directly to international buyers
+    A: b
+
+Qundefined  [reading · mcq]
+    Q: According to Passage B, what are the key characteristics of coffee produced using the wet processing method?
+    a) Fuller body and fruity characteristics due to sun drying
+  ✓ b) Bright acidity and clean flavors from fermentation in water
+    c) Mild flavor with low acidity from slow mountain drying
+    d) Intense bitterness from the use of high-temperature processing
+    A: b
+
+Qundefined  [reading · true_false]
+    Q: According to Passage B, beans grown at higher altitudes between 1,200 and 2,000 meters develop more slowly and acquire complex flavors.
+    A: true
+
+Qundefined  [reading · fill_blank]
+    Q: According to Passage B, the coffee belt extends between 25 degrees north and _____ degrees south latitude.
+    A: 30 (also accepted: 30, thirty, Thirty)
+
+Qundefined  [reading · matching]
+    Q: Match each coffee processing method or factor from Passage B to its characteristic outcome.
+
+----------------------------------------------------------------------
+END OF DUMP — 20 questions printed
+======================================================================

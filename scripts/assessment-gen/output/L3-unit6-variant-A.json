@@ -1,0 +1,264 @@
+{
+  "level": 3, "unit_number": 6, "variant_label": "A",
+  "variant_id": "c25076ea-f340-4026-9209-9cf191ab0027",
+  "unit_id": "aa6e8325-b825-4c0a-8218-b8a5341fc604",
+  "generated_at": "2026-04-21T06:00:00Z",
+  "generated_by": "Claude Code native (L3 bulk, English-only)",
+  "language_standard": "English options, Arabic explanations (B1 CEFR)",
+  "distribution": {"skills":{"vocabulary":8,"grammar":6,"reading":6},"types":{"mcq":12,"true_false":4,"fill_blank":2,"matching":2}},
+  "questions": [
+    {
+      "order_index": 1, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "VR technology has 'evolved' from a science fiction dream into a practical tool. What does 'evolved' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Remained unchanged and identical to its original form","is_correct":false},
+        {"id":"b","text":"Developed and changed gradually into a more advanced form","is_correct":true},
+        {"id":"c","text":"Been suddenly replaced by a completely different technology","is_correct":false},
+        {"id":"d","text":"Disappeared and been abandoned by the technology industry","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "evolved تعني تطوّر وتحوّل تدريجياً، أي مرّ بمراحل متتالية من التغيير حتى وصل إلى شكله الحالي الأكثر تقدماً."
+    },
+    {
+      "order_index": 2, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "VR is 'reshaping' industries across the globe. What does 'reshaping' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Keeping industries exactly the same as they have always been","is_correct":false},
+        {"id":"b","text":"Studying and analysing industries without changing them","is_correct":false},
+        {"id":"c","text":"Fundamentally changing the structure and form of something","is_correct":true},
+        {"id":"d","text":"Reducing and shrinking industries to make them more manageable","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "reshaping تعني يُعيد تشكيل ويُغيّر جذرياً، أي إحداث تحولات عميقة في طريقة عمل شيء ما أو هيكله الأساسي."
+    },
+    {
+      "order_index": 3, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "VR was once considered an 'exclusive' technology only for gaming enthusiasts. What does 'exclusive' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Available to everyone equally and without any restrictions","is_correct":false},
+        {"id":"b","text":"Limited to a particular group and not available to others","is_correct":true},
+        {"id":"c","text":"Extremely expensive but still widely used by the public","is_correct":false},
+        {"id":"d","text":"Simple and basic enough for beginners to use easily","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "exclusive تعني حصري ومقتصر على فئة معينة، أي أن الشيء لا يتاح إلا لأشخاص أو مجموعات محددة."
+    },
+    {
+      "order_index": 4, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "VR has become an 'integral' part of modern education and healthcare. What does 'integral' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"An optional extra that can be removed without much effect","is_correct":false},
+        {"id":"b","text":"A completely separate component that works independently","is_correct":false},
+        {"id":"c","text":"An essential and necessary part that cannot easily be removed","is_correct":true},
+        {"id":"d","text":"A minor addition that improves the appearance but not the function","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "integral تعني جوهري ولا يتجزأ، أي أن الشيء أصبح ضرورياً بحيث يصعب تصوّر الكل بدونه."
+    },
+    {
+      "order_index": 5, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "VR technology has 'caught on' with both businesses and consumers worldwide. What does 'caught on' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Been rejected and received negatively by most businesses","is_correct":false},
+        {"id":"b","text":"Become popular and widely accepted by people over time","is_correct":true},
+        {"id":"c","text":"Been regulated and controlled by international organisations","is_correct":false},
+        {"id":"d","text":"Struggled and failed to attract attention from mainstream users","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "caught on تعني راج وانتشر، أي أن شيئاً ما أصبح شائعاً ومقبولاً على نطاق واسع مع مرور الوقت."
+    },
+    {
+      "order_index": 6, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When VR applications are 'revolutionizing' learning methods, they are making small cosmetic changes that have little real effect.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false, "accepted_answers": null, "points": 1,
+      "explanation_ar": "خطأ. revolutionizing تعني يُحدث ثورة وتغييراً جذرياً، وهو عكس التعديلات الطفيفة — إذ يعني تحويلاً عميقاً في طريقة عمل الأشياء."
+    },
+    {
+      "order_index": 7, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "An 'innovative' approach to education is one that introduces new and creative methods not used before.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. innovative تعني مبتكر وجديد، أي تقديم أساليب أو حلول إبداعية لم تُستخدم من قبل في مجال معين."
+    },
+    {
+      "order_index": 8, "skill_tag": "vocabulary", "question_type": "fill_blank",
+      "question_text": "VR technology creates _____ experiences that place students directly inside the subject they are studying.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "immersive", "accepted_answers": ["immersive","Immersive"], "points": 1,
+      "explanation_ar": "immersive تعني غامر ومستوعب كلياً للحواس، أي أن التجربة تشعر المستخدم بأنه داخل بيئة حقيقية بشكل كامل."
+    },
+    {
+      "order_index": 9, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Choose the correct relative pronoun: 'VR is a technology _____ has changed how students learn.'",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"who","is_correct":false},
+        {"id":"b","text":"whom","is_correct":false},
+        {"id":"c","text":"which","is_correct":true},
+        {"id":"d","text":"whose","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "نستخدم which مع الأشياء والأفكار، وwho مع الأشخاص. VR technology شيء وليس شخصاً، لذا الصحيح which."
+    },
+    {
+      "order_index": 10, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Choose the correct relative pronoun: 'Dr. Al-Mahmoud is the surgeon _____ pioneered VR training in Riyadh.'",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"which","is_correct":false},
+        {"id":"b","text":"who","is_correct":true},
+        {"id":"c","text":"what","is_correct":false},
+        {"id":"d","text":"that is","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "نستخدم who مع الأشخاص في الجمل الوصفية. Dr. Al-Mahmoud شخص، لذا الصحيح who."
+    },
+    {
+      "order_index": 11, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence uses 'that' correctly as a relative pronoun?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"The VR headset, that costs $500, is available in most stores.","is_correct":false},
+        {"id":"b","text":"This is the hospital that first used VR for surgical training.","is_correct":true},
+        {"id":"c","text":"Dr. Ahmed, that specialises in pain, gave a lecture last week.","is_correct":false},
+        {"id":"d","text":"The research, that was published yesterday, changed everything.","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "that يُستخدم في الجمل الوصفية التعريفية (بدون فاصلة)، ولا يُستخدم في الجمل التوضيحية غير التعريفية (بفاصلة). الخيار b صحيح لأنه جملة تعريفية."
+    },
+    {
+      "order_index": 12, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Identify the relative clause in: 'Students who use VR learn faster than those who rely on books.'",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Students who use VR","is_correct":false},
+        {"id":"b","text":"who use VR","is_correct":true},
+        {"id":"c","text":"learn faster","is_correct":false},
+        {"id":"d","text":"than those who rely on books","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "الجملة الوصفية (relative clause) هي who use VR — فهي تصف وتُحدد الطلاب المقصودين وتأتي مباشرة بعد الاسم الموصوف (students)."
+    },
+    {
+      "order_index": 13, "skill_tag": "grammar", "question_type": "true_false",
+      "question_text": "The sentence 'This is the VR software which allows surgeons to practise operations' uses the relative pronoun correctly.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. which يُستخدم مع الأشياء (VR software) في الجمل الوصفية التعريفية، وهو استخدام صحيح هنا."
+    },
+    {
+      "order_index": 14, "skill_tag": "grammar", "question_type": "matching",
+      "question_text": "Match each sentence to the correct relative pronoun that fills the blank.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "The doctor _____ invented this therapy won an international award.",
+          "This is the technology _____ is changing medical training.",
+          "The hospital _____ I visited has a VR simulation lab.",
+          "The student _____ headset broke had to stop the session early."
+        ],
+        "right_items": ["whose", "who", "which", "where"]
+      },
+      "correct_answer": [
+        {"left":"The doctor _____ invented this therapy won an international award.","right":"who"},
+        {"left":"This is the technology _____ is changing medical training.","right":"which"},
+        {"left":"The hospital _____ I visited has a VR simulation lab.","right":"where"},
+        {"left":"The student _____ headset broke had to stop the session early.","right":"whose"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "who للأشخاص كفاعلين، which للأشياء، where للأماكن، whose للملكية. كل ضمير وصفي يُختار حسب نوع الاسم الموصوف وعلاقته بالجملة الوصفية."
+    },
+    {
+      "order_index": 15, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage A, what is the projected value of the global VR market by 2030?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"$47 billion","is_correct":false},
+        {"id":"b","text":"$67 billion","is_correct":false},
+        {"id":"c","text":"$87 billion","is_correct":true},
+        {"id":"d","text":"$107 billion","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "ذكر النص أن سوق الواقع الافتراضي العالمي من المتوقع أن يصل إلى 87 مليار دولار بحلول عام 2030."
+    },
+    {
+      "order_index": 16, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage A, what percentage of information do students retain when learning through VR compared to reading?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"VR: 50% vs reading: 5%","is_correct":false},
+        {"id":"b","text":"VR: 75% vs reading: 10%","is_correct":true},
+        {"id":"c","text":"VR: 90% vs reading: 20%","is_correct":false},
+        {"id":"d","text":"VR: 60% vs reading: 15%","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "أفادت الدراسات وفق ما ذكره النص أن الطلاب يحتفظون بـ 75% من المعلومات المكتسبة عبر تجارب الواقع الافتراضي مقارنةً بـ 10% فقط من القراءة التقليدية."
+    },
+    {
+      "order_index": 17, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "Passage A says VR in healthcare helps 'patients manage pain and anxiety during medical procedures.' What does this suggest about VR?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"VR replaces all medical treatments and pain management drugs","is_correct":false},
+        {"id":"b","text":"VR has psychological effects that can reduce discomfort during treatment","is_correct":true},
+        {"id":"c","text":"VR is only effective for mental health conditions, not physical ones","is_correct":false},
+        {"id":"d","text":"VR causes more anxiety in patients during medical procedures","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "تُضمّن هذه العبارة أن للواقع الافتراضي تأثيراً نفسياً حقيقياً يُخفّف الألم والقلق، مما يجعله أداة علاجية ذات قيمة في البيئات الطبية."
+    },
+    {
+      "order_index": 18, "skill_tag": "reading", "question_type": "true_false",
+      "question_text": "According to Passage A, students at King Abdulaziz University in Jeddah use VR to explore ancient civilizations and the human body.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. ذكر النص أن طلاب جامعة الملك عبدالعزيز في جدة يستطيعون الآن استكشاف الحضارات القديمة أو السفر عبر الجهاز الدوري للإنسان دون مغادرة الفصل الدراسي."
+    },
+    {
+      "order_index": 19, "skill_tag": "reading", "question_type": "fill_blank",
+      "question_text": "According to Passage A, the global VR market is expected to reach $_____ billion by 2030.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "87", "accepted_answers": ["87","87 billion"], "points": 1,
+      "explanation_ar": "ذكر النص أن سوق الواقع الافتراضي العالمي يُتوقع أن يصل إلى 87 مليار دولار بحلول عام 2030."
+    },
+    {
+      "order_index": 20, "skill_tag": "reading", "question_type": "matching",
+      "question_text": "Match each VR application from Passage A to the sector it primarily serves.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "exploring ancient civilizations and body systems in class",
+          "rehearsing complex surgical procedures before operating",
+          "helping patients manage pain and anxiety during treatment",
+          "practising three-dimensional machinery models"
+        ],
+        "right_items": [
+          "healthcare — therapeutic use for patients",
+          "engineering education — technical training",
+          "general education — immersive classroom learning",
+          "medical training — surgical skill development"
+        ]
+      },
+      "correct_answer": [
+        {"left":"exploring ancient civilizations and body systems in class","right":"general education — immersive classroom learning"},
+        {"left":"rehearsing complex surgical procedures before operating","right":"medical training — surgical skill development"},
+        {"left":"helping patients manage pain and anxiety during treatment","right":"healthcare — therapeutic use for patients"},
+        {"left":"practising three-dimensional machinery models","right":"engineering education — technical training"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "وصف النص تطبيقات الواقع الافتراضي في قطاعات متعددة: التعليم العام، والتدريب الطبي، والرعاية الصحية العلاجية، والتعليم الهندسي."
+    }
+  ]
+}

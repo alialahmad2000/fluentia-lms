@@ -1,0 +1,141 @@
+======================================================================
+LEVEL 3 · UNIT 7 · VARIANT C — FULL DUMP
+======================================================================
+Source file:     C:/Users/Dr. Ali/Desktop/fluentia-lms/scripts/assessment-gen/output/L3-unit7-variant-C.json
+unit_id:         97b187e9-39e6-4263-8ed8-72a63e69273c
+variant_id:      c8ca4ce5-31c6-45ee-aa92-2959a487b5dd
+generated_at:    2026-04-21T07:00:00Z
+generated_by:    Claude Code native (L3 bulk, English-only)
+distribution:    8V / 6G / 6R  ·  12 MCQ / 4 T/F / 2 FB / 2 Matching
+question_count:  20
+======================================================================
+
+Qundefined  [vocabulary · mcq]
+    Q: Many patients 'break down' when confronted with their deepest fears. What does 'break down' mean?
+    a) To become calm and handle a difficult situation with ease
+  ✓ b) To lose emotional control and become overwhelmed by distress
+    c) To solve and overcome a difficult problem with confidence
+    d) To retreat and quietly reflect on a situation alone
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: Fear can significantly 'impact' someone's quality of life. What does 'impact' mean?
+    a) To have no effect on something at all
+  ✓ b) To have a noticeable and significant effect on something
+    c) To gradually remove something from a situation over time
+    d) To slowly improve something through careful management
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: VRET can 'manipulate' the virtual environment to adjust the intensity of fear exposure. What does 'manipulate' mean here?
+    a) To destroy and permanently delete parts of a virtual scene
+  ✓ b) To control and adjust elements in a skilful and precise way
+    c) To copy and duplicate an existing environment without changes
+    d) To ignore and bypass the settings in a virtual programme
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: Dr. Al-Mansouri emphasises that her approach 'aligns' with cultural values of dignity. What does 'aligns' mean?
+    a) Conflicts with and contradicts existing values and beliefs
+  ✓ b) Fits perfectly and is consistent with something else
+    c) Ignores and disregards the values of a particular culture
+    d) Replaces and eliminates outdated cultural practices
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: Researchers who 'persist' through fear-inducing challenges experience lasting brain changes. What does 'persist' mean?
+    a) To give up when a task becomes too challenging to continue
+    b) To take a long break before deciding to continue a task
+  ✓ c) To continue trying despite difficulties, without giving up
+    d) To change direction and try a completely different approach
+    A: c
+
+Qundefined  [vocabulary · true_false]
+    Q: An 'obstacle' to personal growth is something that helps and makes progress easier to achieve.
+    A: false
+
+Qundefined  [vocabulary · true_false]
+    Q: When someone has learned to 'cope with' their anxiety, they have developed strategies to manage and live with it.
+    A: true
+
+Qundefined  [vocabulary · fill_blank]
+    Q: People who avoid facing fears tend to _____ on them, which actually strengthens the fear over time.
+    A: dwell (also accepted: dwell, Dwell, dwell on)
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence uses a reporting verb (not 'say' or 'tell') correctly?
+  ✓ a) She explained that VR had reduced her patients' anxiety significantly.
+    b) She explained her patients that VR had reduced anxiety significantly.
+    c) She noted to her patients that VR would reduces anxiety.
+    d) She emphasised her patients that healing requires human connection.
+    A: a
+
+Qundefined  [grammar · mcq]
+    Q: Convert: Dr. Al-Mansouri told the patient, 'Do not avoid situations that frighten you.'
+    a) Dr. Al-Mansouri told the patient do not avoid situations.
+  ✓ b) Dr. Al-Mansouri told the patient not to avoid situations that frightened her.
+    c) Dr. Al-Mansouri said the patient not avoid situations.
+    d) Dr. Al-Mansouri told the patient that she should not avoiding situations.
+    A: b
+
+Qundefined  [grammar · mcq]
+    Q: Convert: 'I have not finished the therapy programme,' the patient said.
+    a) The patient said that he has not finished the therapy programme.
+  ✓ b) The patient said that he had not finished the therapy programme.
+    c) The patient told that he had not finished the therapy programme.
+    d) The patient said that he not had finished the therapy programme.
+    A: b
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence uses a reporting verb correctly to describe how something was said?
+  ✓ a) She noted that the technology was still being tested.
+    b) She noted her students that the technology was still being tested.
+    c) She emphasised to that progress had been remarkable.
+    d) She clarified us that the results were very promising.
+    A: a
+
+Qundefined  [grammar · true_false]
+    Q: 'The doctor told his patient not to dwell on past failures' is a correct reported command.
+    A: true
+
+Qundefined  [grammar · matching]
+    Q: Match each reporting verb to the type of statement it introduces.
+
+Qundefined  [reading · mcq]
+    Q: According to Passage B, what percentage of patients showed improvement with traditional therapy (without VR)?
+    a) 57%
+  ✓ b) 67%
+    c) 75%
+    d) 83%
+    A: b
+
+Qundefined  [reading · mcq]
+    Q: According to Passage B, after how many VRET sessions did brain imaging show decreased amygdala activity?
+    a) After 4 sessions
+    b) After 6 sessions
+  ✓ c) After 8 sessions
+    d) After 12 sessions
+    A: c
+
+Qundefined  [reading · mcq]
+    Q: Passage A says fear 'can both protect and hinder us.' What does this tell us about the nature of fear?
+    a) Fear is purely negative and should be completely eliminated
+  ✓ b) Fear is an emotion that has both useful and harmful sides
+    c) Fear only affects people in physical danger, not in daily life
+    d) Fear becomes useful only when managed by professional therapists
+    A: b
+
+Qundefined  [reading · true_false]
+    Q: According to Passage B, VRET produces brain changes similar to real-world exposure but with significantly reduced risk of psychological trauma.
+    A: true
+
+Qundefined  [reading · fill_blank]
+    Q: According to Passage B, brain imaging showed decreased amygdala activity after just _____ VRET sessions.
+    A: 8 (also accepted: 8, eight, Eight)
+
+Qundefined  [reading · matching]
+    Q: Match each concept from both passages to its correct explanation.
+
+----------------------------------------------------------------------
+END OF DUMP — 20 questions printed
+======================================================================

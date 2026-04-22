@@ -1,0 +1,275 @@
+{
+  "level": 3,
+  "unit_number": 2,
+  "variant_label": "B",
+  "variant_id": "2c238cd5-af89-42b2-95cd-d9caa5d6ccd9",
+  "unit_id": "55d40057-1d91-4eb0-8d78-b3f47a8d0a24",
+  "generated_at": "2026-04-21T02:00:00Z",
+  "generated_by": "Claude Code native (L3 bulk, English-only)",
+  "language_standard": "English options, Arabic explanations (B1 CEFR)",
+  "anti_dup_source": "L3-unit2-variant-A.json",
+  "distribution": {
+    "skills": {"vocabulary": 8, "grammar": 6, "reading": 6},
+    "types": {"mcq": 12, "true_false": 4, "fill_blank": 2, "matching": 2}
+  },
+  "questions": [
+    {
+      "order_index": 1, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Dr. Al-Rashid made a 'breakthrough' discovery about Red Sea coral heat resistance. What does 'breakthrough' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"A minor improvement that has little effect on existing knowledge","is_correct":false},
+        {"id":"b","text":"A sudden failure that sets back years of scientific progress","is_correct":false},
+        {"id":"c","text":"A significant discovery that opens new possibilities in a field","is_correct":true},
+        {"id":"d","text":"A routine finding that confirms what was already well known","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "breakthrough تعني اختراق علمي أو اكتشاف مهم يفتح آفاقاً جديدة ويغير مسار البحث في مجال ما."
+    },
+    {
+      "order_index": 2, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Red Sea corals have 'adaptations' that help them survive high temperatures. What does 'adaptations' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Weaknesses that make an organism sensitive to environmental changes","is_correct":false},
+        {"id":"b","text":"Features or changes that help an organism survive in its environment","is_correct":true},
+        {"id":"c","text":"Diseases that affect the colour and structure of coral over time","is_correct":false},
+        {"id":"d","text":"Laboratory experiments designed to test coral heat tolerance","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "adaptations تعني تكيّفات، أي خصائص أو تغييرات تساعد الكائن الحي على البقاء والنجاح في بيئته الخاصة."
+    },
+    {
+      "order_index": 3, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Red Sea corals can 'withstand' temperatures that would kill most other corals worldwide. What does 'withstand' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To quickly absorb and store heat in protective tissue","is_correct":false},
+        {"id":"b","text":"To actively produce cooling chemicals in response to heat","is_correct":false},
+        {"id":"c","text":"To completely avoid environments where temperature changes occur","is_correct":false},
+        {"id":"d","text":"To resist and remain undamaged despite difficult or harsh conditions","is_correct":true}
+      ],
+      "correct_answer": "d", "accepted_answers": null, "points": 1,
+      "explanation_ar": "withstand تعني يتحمل ويقاوم، أي القدرة على البقاء سليماً رغم مواجهة ظروف قاسية أو تهديدات شديدة."
+    },
+    {
+      "order_index": 4, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Scientists believe Red Sea corals have 'evolved' to become extremely heat resistant over time. What does 'evolved' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Developed gradually through natural processes over a long period","is_correct":true},
+        {"id":"b","text":"Been artificially designed by scientists to resist specific threats","is_correct":false},
+        {"id":"c","text":"Remained completely unchanged since they first formed in the sea","is_correct":false},
+        {"id":"d","text":"Suddenly appeared with new characteristics in a very short time","is_correct":false}
+      ],
+      "correct_answer": "a", "accepted_answers": null, "points": 1,
+      "explanation_ar": "evolved تعني تطوّر تدريجياً عبر عمليات طبيعية على مدى فترات زمنية طويلة جداً."
+    },
+    {
+      "order_index": 5, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "The research has wide 'implications' for reef conservation worldwide. What does 'implications' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Direct financial costs that a research project requires","is_correct":false},
+        {"id":"b","text":"Possible consequences or effects that follow from a finding","is_correct":true},
+        {"id":"c","text":"The specific tools and methods used during scientific research","is_correct":false},
+        {"id":"d","text":"Written reports that summarise the results of a study","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "implications تعني تداعيات أو نتائج محتملة، أي ما يترتب على اكتشاف ما أو يترتب عليه من عواقب ومعانٍ."
+    },
+    {
+      "order_index": 6, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When scientists 'contribute' to marine research, they actively add knowledge, effort, or resources to the field.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. contribute تعني يُساهم ويُشارك، أي تقديم إسهام حقيقي يضيف قيمة لمجال علمي أو مشروع ما."
+    },
+    {
+      "order_index": 7, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "Scientists who 'monitor' reef health are conducting a one-time check and never returning to collect more data.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false, "accepted_answers": null, "points": 1,
+      "explanation_ar": "خطأ. monitor تعني يراقب ويتابع بصفة منتظمة، أي رصد مستمر وليس فحصاً لمرة واحدة فقط."
+    },
+    {
+      "order_index": 8, "skill_tag": "vocabulary", "question_type": "fill_blank",
+      "question_text": "The young researchers were completely _____ by the diversity of life they found on the Red Sea reef.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "fascinated", "accepted_answers": ["fascinated","Fascinated"], "points": 1,
+      "explanation_ar": "fascinated تعني مفتون ومولع بشيء ما، أي شعور بانجذاب شديد ومثير للاهتمام نحو شيء ما."
+    },
+    {
+      "order_index": 9, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence uses the present perfect continuous in the negative form correctly?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"The water temperature hasn't been rising lately, which is a good sign.","is_correct":true},
+        {"id":"b","text":"The coral hasn't been grew back since the bleaching event.","is_correct":false},
+        {"id":"c","text":"Scientists haven't studying reef damage over the past month.","is_correct":false},
+        {"id":"d","text":"The team not have been monitoring the reef since January.","is_correct":false}
+      ],
+      "correct_answer": "a", "accepted_answers": null, "points": 1,
+      "explanation_ar": "تكوين النفي في المضارع التام المستمر هو: haven't/hasn't + been + فعل-ing. الخيار a صحيح، بينما تخطئ البقية في صيغة الفعل أو ترتيب المساعد."
+    },
+    {
+      "order_index": 10, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence focuses on the RESULT of an action, not its ongoing duration?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Dr. Al-Rashid has been researching coral genetics for three years.","is_correct":false},
+        {"id":"b","text":"Scientists have been testing the coral samples all morning.","is_correct":false},
+        {"id":"c","text":"The research team has discovered a new heat-resistant coral species.","is_correct":true},
+        {"id":"d","text":"The water has been warming gradually since the decade began.","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "المضارع التام البسيط (has discovered) يُبرز النتيجة المكتملة، بينما المضارع التام المستمر (has been + -ing) يُبرز الاستمرارية والمدة."
+    },
+    {
+      "order_index": 11, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Complete: 'How long _____ the team _____ data about the reef?' (ongoing collection)",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"did / collect","is_correct":false},
+        {"id":"b","text":"has / collected","is_correct":false},
+        {"id":"c","text":"has / been collecting","is_correct":true},
+        {"id":"d","text":"is / been collecting","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "صيغة السؤال عن المدة في المضارع التام المستمر هي: How long + has/have + subject + been + فعل-ing? للتعبير عن نشاط مستمر حتى الآن."
+    },
+    {
+      "order_index": 12, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence correctly uses the present perfect continuous to explain a current visible result?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"The reef looks damaged — scientists have been warning about this for years.","is_correct":true},
+        {"id":"b","text":"The reef looks damaged — scientists warned about this in a report last year.","is_correct":false},
+        {"id":"c","text":"The reef looks damaged — scientists are warning about this problem.","is_correct":false},
+        {"id":"d","text":"The reef looks damaged — scientists will have been warning about this.","is_correct":false}
+      ],
+      "correct_answer": "a", "accepted_answers": null, "points": 1,
+      "explanation_ar": "يُستخدم المضارع التام المستمر لتفسير نتيجة حاضرة من خلال نشاط استمر من الماضي حتى الآن، كما في الخيار a."
+    },
+    {
+      "order_index": 13, "skill_tag": "grammar", "question_type": "true_false",
+      "question_text": "'They have been working on this reef restoration project for three years and they are nearly done' is grammatically correct.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. have been working مع for three years يُعبّر عن نشاط مستمر بدأ قبل ثلاث سنوات ولا يزال جارياً حتى الآن."
+    },
+    {
+      "order_index": 14, "skill_tag": "grammar", "question_type": "matching",
+      "question_text": "Match each sentence to the correct description of how the present perfect continuous is being used.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "The divers are exhausted because they have been swimming for five hours.",
+          "Scientists have been collecting reef data since the project began.",
+          "It has been raining heavily — that is why the water is cloudy.",
+          "She has been diving in the Red Sea every weekend for two months."
+        ],
+        "right_items": [
+          "explains a present result",
+          "describes a repeated action over time",
+          "shows duration from a starting point",
+          "gives a reason for a current state"
+        ]
+      },
+      "correct_answer": [
+        {"left":"The divers are exhausted because they have been swimming for five hours.","right":"gives a reason for a current state"},
+        {"left":"Scientists have been collecting reef data since the project began.","right":"shows duration from a starting point"},
+        {"left":"It has been raining heavily — that is why the water is cloudy.","right":"explains a present result"},
+        {"left":"She has been diving in the Red Sea every weekend for two months.","right":"describes a repeated action over time"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "المضارع التام المستمر يُستخدم لأربعة أغراض: تفسير سبب الحالة الراهنة، الاستمرار من نقطة بداية محددة، نتيجة حاضرة، أو نشاط متكرر عبر الزمن."
+    },
+    {
+      "order_index": 15, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage B, what is the maximum water temperature at which Red Sea corals can survive?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"27°C","is_correct":false},
+        {"id":"b","text":"29°C","is_correct":false},
+        {"id":"c","text":"32°C","is_correct":true},
+        {"id":"d","text":"35°C","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "ذكر النص أن شعاب البحر الأحمر يمكنها البقاء في درجات حرارة تصل إلى 32°C، في حين تبدأ معظم الشعاب في النفوق عند 29°C."
+    },
+    {
+      "order_index": 16, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage B, what did Dr. Al-Rashid's team develop to test water quality directly at the reef site?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"A satellite tracking system to identify reef zones from space","is_correct":false},
+        {"id":"b","text":"A mobile laboratory that can process water samples on-site","is_correct":true},
+        {"id":"c","text":"A temperature control device that cools reef water during heatwaves","is_correct":false},
+        {"id":"d","text":"An artificial reef structure that replaces damaged coral sections","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "ذكر النص أن الفريق طوّر مختبراً متنقلاً يُمكنه معالجة عينات المياه في الموقع مباشرةً لتوفير نتائج فورية."
+    },
+    {
+      "order_index": 17, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "What does Passage B imply when it says the Red Sea corals could 'help restore damaged reefs in other parts of the world'?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Red Sea corals are being physically transplanted to reefs in other countries right now","is_correct":false},
+        {"id":"b","text":"Understanding Red Sea coral genetics could guide global reef restoration efforts","is_correct":true},
+        {"id":"c","text":"All damaged reefs in the world can be repaired using coral from the Red Sea","is_correct":false},
+        {"id":"d","text":"Scientists plan to replace ocean water in other regions with Red Sea water","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "يُضمّن النص أن دراسة كيفية تكيّف شعاب البحر الأحمر مع الحرارة يمكن أن تُرشد العلماء إلى أساليب جديدة لحماية الشعاب الضعيفة حول العالم."
+    },
+    {
+      "order_index": 18, "skill_tag": "reading", "question_type": "true_false",
+      "question_text": "According to Passage B, Dr. Ahmed Hassan is the director of the Marine Research Institute in Jeddah.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. ذكر النص أن الدكتور أحمد حسن هو مدير معهد الأبحاث البحرية في جدة، ونقل اقتباساً مباشراً له."
+    },
+    {
+      "order_index": 19, "skill_tag": "reading", "question_type": "fill_blank",
+      "question_text": "According to Passage B, over _____ percent of the world's coral reefs are currently under threat.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "75", "accepted_answers": ["75","75%","seventy-five","Seventy-five"], "points": 1,
+      "explanation_ar": "ذكر النص أن أكثر من 75% من شعاب مرجان العالم مهددة حالياً، مما يجعل أعمال الحفاظ عليها أمراً بالغ الأهمية."
+    },
+    {
+      "order_index": 20, "skill_tag": "reading", "question_type": "matching",
+      "question_text": "Match each person or organization from Passage B to their correct role or action.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "Dr. Layla Al-Rashid",
+          "Dr. Ahmed Hassan",
+          "United Nations Ocean Conference",
+          "Red Sea coral reefs"
+        ],
+        "right_items": [
+          "event where reef research findings were presented internationally",
+          "marine biologist leading coral reef research in the Red Sea",
+          "director of the Marine Research Institute in Jeddah",
+          "reef system with unique heat-resistant coral adaptations"
+        ]
+      },
+      "correct_answer": [
+        {"left":"Dr. Layla Al-Rashid","right":"marine biologist leading coral reef research in the Red Sea"},
+        {"left":"Dr. Ahmed Hassan","right":"director of the Marine Research Institute in Jeddah"},
+        {"left":"United Nations Ocean Conference","right":"event where reef research findings were presented internationally"},
+        {"left":"Red Sea coral reefs","right":"reef system with unique heat-resistant coral adaptations"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "وردت هذه الجهات والأشخاص بوضوح في النص: الراشد (الباحثة الرئيسية)، حسن (مدير المعهد)، مؤتمر الأمم المتحدة (مكان العرض)، والبحر الأحمر (بيئة الشعاب المتميزة)."
+    }
+  ]
+}

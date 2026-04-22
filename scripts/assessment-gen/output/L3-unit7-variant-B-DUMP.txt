@@ -1,0 +1,142 @@
+======================================================================
+LEVEL 3 · UNIT 7 · VARIANT B — FULL DUMP
+======================================================================
+Source file:     C:/Users/Dr. Ali/Desktop/fluentia-lms/scripts/assessment-gen/output/L3-unit7-variant-B.json
+unit_id:         97b187e9-39e6-4263-8ed8-72a63e69273c
+variant_id:      efe8a6bc-ca9e-44d7-a108-9fdc4d8bb181
+generated_at:    2026-04-21T07:00:00Z
+generated_by:    Claude Code native (L3 bulk, English-only)
+anti_dup_source: L3-unit7-variant-A.json
+distribution:    8V / 6G / 6R  ·  12 MCQ / 4 T/F / 2 FB / 2 Matching
+question_count:  20
+======================================================================
+
+Qundefined  [vocabulary · mcq]
+    Q: Dr. Al-Mansouri has been 'pioneering' an innovative approach to treating phobias. What does 'pioneering' mean?
+    a) Following and copying methods that other doctors already use
+  ✓ b) Developing and leading new methods that others will later adopt
+    c) Studying and documenting methods without testing their effectiveness
+    d) Criticising and finding faults in existing therapeutic approaches
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: VRET represents a 'significant' breakthrough in how therapists help patients. What does 'significant' mean?
+    a) Very minor and barely noticeable in its impact
+  ✓ b) Important, meaningful, and worth paying attention to
+    c) Controversial and rejected by most professional experts
+    d) Theoretical and not yet tested in real clinical settings
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: VRET helps patients gradually 'confront' their fears in a safe virtual space. What does 'confront' mean?
+    a) To avoid and run away from a frightening situation
+  ✓ b) To face and deal with something difficult directly
+    c) To study and analyse a problem from a safe distance
+    d) To imagine and visualise a situation without actually facing it
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: The virtual environment is 'appealing' to Saudi patients because of its privacy. What does 'appealing' mean?
+    a) Confusing and difficult to understand or navigate
+    b) Unattractive and generally avoided by most patients
+  ✓ c) Attractive and interesting in a way that draws people toward it
+    d) Expensive and affordable only by wealthy patients
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: Many avoid seeking help due to the 'stigma' associated with mental health issues. What does 'stigma' mean?
+    a) A medical certificate that allows access to mental health services
+  ✓ b) A negative social label that causes shame and discourages people
+    c) A positive social recognition of someone's personal achievement
+    d) A professional qualification held by mental health doctors
+    A: b
+
+Qundefined  [vocabulary · true_false]
+    Q: A 'secure' therapy setting is one where patients feel safe, protected, and free from judgment.
+    A: true
+
+Qundefined  [vocabulary · true_false]
+    Q: When patients 'work through' their anxieties, they avoid the issue entirely until it disappears on its own.
+    A: false
+
+Qundefined  [vocabulary · fill_blank]
+    Q: The wide _____ of VRET extend beyond treating phobias to include post-traumatic stress disorder and anxiety.
+    A: implications (also accepted: implications, Implications)
+
+Qundefined  [grammar · mcq]
+    Q: Convert: Dr. Al-Mansouri asked, 'Do patients feel safer in the virtual environment?'
+  ✓ a) Dr. Al-Mansouri asked if patients felt safer in the virtual environment.
+    b) Dr. Al-Mansouri asked if patients feel safer in the virtual environment.
+    c) Dr. Al-Mansouri asked do patients felt safer in the environment.
+    d) Dr. Al-Mansouri asked that patients felt safer in the virtual environment.
+    A: a
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence correctly uses reported speech where 'that' is optional?
+    a) She said that the therapy was effective, and she said was confident.
+  ✓ b) She said the therapy was effective.
+    c) She said therapy the was effective.
+    d) She said that the therapy is effective.
+    A: b
+
+Qundefined  [grammar · mcq]
+    Q: Convert: The therapist said, 'The patient can practise at home.'
+    a) The therapist said that the patient can practise at home.
+  ✓ b) The therapist said that the patient could practise at home.
+    c) The therapist told the patient can practise at home.
+    d) The therapist said that the patient would practise at home.
+    A: b
+
+Qundefined  [grammar · mcq]
+    Q: Convert: The researcher said, 'Today we are seeing remarkable results with VRET.'
+    a) The researcher said that today they were seeing remarkable results.
+  ✓ b) The researcher said that that day they were seeing remarkable results.
+    c) The researcher said that today they are seeing remarkable results.
+    d) The researcher told that that day they saw remarkable results.
+    A: b
+
+Qundefined  [grammar · true_false]
+    Q: The reported speech version of 'He asked: Are the results improving?' is: 'He asked whether the results were improving.'
+    A: true
+
+Qundefined  [grammar · matching]
+    Q: Match each reported question to its original direct speech form.
+
+Qundefined  [reading · mcq]
+    Q: According to Passage B, what percentage of VRET patients experienced substantial improvement in their phobia symptoms?
+    a) 67%
+    b) 75%
+  ✓ c) 83%
+    d) 90%
+    A: c
+
+Qundefined  [reading · mcq]
+    Q: According to Passage B, what makes VRET particularly appealing to Saudi patients?
+    a) It is the cheapest form of psychological therapy available
+  ✓ b) It provides privacy and cultural sensitivity in a secure setting
+    c) It requires fewer sessions than traditional therapy methods
+    d) It guarantees a complete cure with no need for follow-up
+    A: b
+
+Qundefined  [reading · mcq]
+    Q: Passage B describes brain imaging studies showing that VRET decreases activity in the amygdala. What does this suggest about the treatment?
+    a) VRET damages the amygdala permanently, eliminating all fear responses
+    b) VRET physically removes the amygdala from the brain
+  ✓ c) VRET produces measurable neurological changes, reducing fear responses
+    d) VRET only affects conscious thinking and has no impact on brain structure
+    A: c
+
+Qundefined  [reading · true_false]
+    Q: According to Passage B, Dr. Al-Mansouri's VRET work at the National Centre for Mental Health in Riyadh has attracted global attention from medical professionals.
+    A: true
+
+Qundefined  [reading · fill_blank]
+    Q: According to Passage B, _____ percent of patients who completed VRET sessions showed substantial improvement in phobia symptoms.
+    A: 83 (also accepted: 83, 83%, eighty-three, Eighty-three)
+
+Qundefined  [reading · matching]
+    Q: Match each key finding or feature of VRET from Passage B to its description.
+
+----------------------------------------------------------------------
+END OF DUMP — 20 questions printed
+======================================================================

@@ -1,0 +1,269 @@
+{
+  "level": 3, "unit_number": 8, "variant_label": "A",
+  "variant_id": "144d362e-8677-442d-841b-22ecfe2722ef",
+  "unit_id": "a12ff640-eb7e-4c48-8cf7-69f0f2cef190",
+  "generated_at": "2026-04-21T08:00:00Z",
+  "generated_by": "Claude Code native (L3 bulk, English-only)",
+  "language_standard": "English options, Arabic explanations (B1 CEFR)",
+  "distribution": {"skills":{"vocabulary":8,"grammar":6,"reading":6},"types":{"mcq":12,"true_false":4,"fill_blank":2,"matching":2}},
+  "questions": [
+    {
+      "order_index": 1, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "We often 'marvel' at ancient structures that were built without modern tools. What does 'marvel' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To feel bored and unimpressed by something ordinary","is_correct":false},
+        {"id":"b","text":"To feel wonder and amazement at something extraordinary","is_correct":true},
+        {"id":"c","text":"To study and analyse something from a scientific perspective","is_correct":false},
+        {"id":"d","text":"To fear and feel anxious about something unusual","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "marvel تعني يُبهر ويُدهش، أي الشعور بالإعجاب والدهشة أمام شيء مثير للانتباه بشكل استثنائي."
+    },
+    {
+      "order_index": 2, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Ancient construction methods continue to 'baffle' modern engineers. What does 'baffle' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To clearly explain and make something easy to understand","is_correct":false},
+        {"id":"b","text":"To inspire and motivate someone to work harder","is_correct":false},
+        {"id":"c","text":"To completely confuse and puzzle someone beyond their understanding","is_correct":true},
+        {"id":"d","text":"To bore and fail to interest someone in a subject","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "baffle تعني يُحيّر ويُربك تماماً، أي أن شيئاً ما لا يمكن تفسيره أو فهمه مما يُصيب العقل بالحيرة."
+    },
+    {
+      "order_index": 3, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "The Great Pyramid was one of history's most 'ambitious' construction projects. What does 'ambitious' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Small in scale and completed very quickly with minimal effort","is_correct":false},
+        {"id":"b","text":"Requiring a high level of effort and aiming for a difficult goal","is_correct":true},
+        {"id":"c","text":"Simple in design and easy to complete using basic techniques","is_correct":false},
+        {"id":"d","text":"Unnecessary and lacking any clear practical purpose","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "ambitious تعني طموح وكبير الحجم، أي مشروع يستهدف هدفاً صعب التحقيق ويتطلب جهداً استثنائياً."
+    },
+    {
+      "order_index": 4, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "The Great Pyramid is a 'colossal' monument containing 2.3 million stone blocks. What does 'colossal' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Small and compact, designed to fit into a limited space","is_correct":false},
+        {"id":"b","text":"Extremely large and impressive in scale and size","is_correct":true},
+        {"id":"c","text":"Beautifully decorated with intricate patterns and colours","is_correct":false},
+        {"id":"d","text":"Fragile and easily damaged by weather or natural forces","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "colossal تعني ضخم وشاسع الحجم بشكل مبهر، وتصف الهياكل التي تتجاوز المقاييس المعتادة بكثير."
+    },
+    {
+      "order_index": 5, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "What truly 'astounds' archaeologists is the pyramid's precise alignment with cardinal directions. What does 'astounds' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Slightly interests without causing any strong reaction","is_correct":false},
+        {"id":"b","text":"Deeply shocks and amazes someone with surprise or wonder","is_correct":true},
+        {"id":"c","text":"Gradually convinces someone of an important fact over time","is_correct":false},
+        {"id":"d","text":"Mildly disappoints because expectations were not fully met","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "astounds تعني يُذهل ويُبهر بشكل عميق، أي أن الأمر يُحدث صدمة دهشة شديدة لا يمكن تجاهلها."
+    },
+    {
+      "order_index": 6, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When ancient engineers had to 'align' structures with cardinal directions, they needed to position them to face north, south, east, and west precisely.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. align تعني يُوازي ويُوجّه بدقة، وتحديد الاتجاهات الأصلية (الشمال والجنوب والشرق والغرب) بدقة هي جوهر عملية التوجيه الهندسي."
+    },
+    {
+      "order_index": 7, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When construction methods 'perplex' scientists, the scientists have found clear and simple answers to all their questions.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false, "accepted_answers": null, "points": 1,
+      "explanation_ar": "خطأ. perplex تعني يُحيّر ويُعقّد، أي أن العلماء لا يزالون عاجزين عن الإجابة — وهو عكس إيجاد إجابات واضحة وبسيطة."
+    },
+    {
+      "order_index": 8, "skill_tag": "vocabulary", "question_type": "fill_blank",
+      "question_text": "Roman engineers had to _____ creative solutions to build the Pantheon's dome without internal support columns.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "devise", "accepted_answers": ["devise","Devise","devised"], "points": 1,
+      "explanation_ar": "devise تعني يبتكر ويُصمّم حلاً جديداً، أي الوصول إلى أسلوب مبتكر لمواجهة تحدٍّ هندسي غير مسبوق."
+    },
+    {
+      "order_index": 9, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence uses 'used to' correctly to describe a past habit or state?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Ancient workers are used to carry stone blocks without machines.","is_correct":false},
+        {"id":"b","text":"Ancient workers used to carry stone blocks without machines.","is_correct":true},
+        {"id":"c","text":"Ancient workers used carry stone blocks without machines.","is_correct":false},
+        {"id":"d","text":"Ancient workers use to carry stone blocks without machines.","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "used to + مصدر يُعبّر عن عادة أو حالة ماضية لم تعد قائمة الآن. الخيار b صحيح بالتركيب الكامل: used to + carry."
+    },
+    {
+      "order_index": 10, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Complete: 'Builders _____ work without any modern machinery, but today technology does most of the heavy work.'",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"are used to","is_correct":false},
+        {"id":"b","text":"would","is_correct":false},
+        {"id":"c","text":"used to","is_correct":true},
+        {"id":"d","text":"use to","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "used to يُستخدم للتعبير عن وضع أو عادة ماضية لم تعد موجودة الآن. التركيب الصحيح هو used to + مصدر، وليس are used to أو use to."
+    },
+    {
+      "order_index": 11, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence uses 'used to' to describe a past STATE (not a repeated action)?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Workers used to carry heavy blocks every day.","is_correct":false},
+        {"id":"b","text":"Builders used to mix cement by hand each morning.","is_correct":false},
+        {"id":"c","text":"The Roman Empire used to be the most powerful empire in the world.","is_correct":true},
+        {"id":"d","text":"Engineers used to visit the construction site regularly.","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "used to يُستخدم لوصف حالات ماضية ثابتة (states) كالقوة والملكية، وليس فقط للأفعال المتكررة. الخيار c يصف حالة (being powerful) لا فعلاً متكرراً."
+    },
+    {
+      "order_index": 12, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence CANNOT use 'used to' (only simple past is correct)?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"The engineer _____ work on the pyramid for twenty years.","is_correct":false},
+        {"id":"b","text":"People _____ believe the pyramid was built by slaves.","is_correct":false},
+        {"id":"c","text":"The workers _____ finish the pyramid in 2560 BCE.","is_correct":true},
+        {"id":"d","text":"Romans _____ build roads across their entire empire.","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "لا نستخدم used to مع أحداث وقعت مرة واحدة في وقت محدد. إتمام الهرم كان حدثاً لمرة واحدة عام 2560 ق.م، فالصحيح: finished."
+    },
+    {
+      "order_index": 13, "skill_tag": "grammar", "question_type": "true_false",
+      "question_text": "'Ancient civilizations used to construct remarkable monuments without power tools or computers' uses 'used to' correctly.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. used to construct يُعبّر عن ممارسة ماضية متكررة (بناء المنشآت) لا تحدث بنفس الطريقة اليوم."
+    },
+    {
+      "order_index": 14, "skill_tag": "grammar", "question_type": "matching",
+      "question_text": "Match each 'used to' sentence to its correct meaning or use.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "Workers used to transport stone using wooden sledges.",
+          "The pyramid used to be covered in polished white limestone.",
+          "Engineers never used to have computers to assist their calculations.",
+          "People used to think the pyramids were built by slaves."
+        ],
+        "right_items": [
+          "a past belief that is now known to be incorrect",
+          "a past state or condition that no longer exists",
+          "a past repeated action or regular method",
+          "a past absence of something now considered normal"
+        ]
+      },
+      "correct_answer": [
+        {"left":"Workers used to transport stone using wooden sledges.","right":"a past repeated action or regular method"},
+        {"left":"The pyramid used to be covered in polished white limestone.","right":"a past state or condition that no longer exists"},
+        {"left":"Engineers never used to have computers to assist their calculations.","right":"a past absence of something now considered normal"},
+        {"left":"People used to think the pyramids were built by slaves.","right":"a past belief that is now known to be incorrect"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "يُستخدم used to في أربعة سياقات: فعل متكرر في الماضي، حالة ماضية تغيّرت، غياب شيء أصبح شائعاً، ومعتقد ماضٍ أُثبت خطؤه."
+    },
+    {
+      "order_index": 15, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage A, approximately when was the Great Pyramid of Giza constructed?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Around 1200 BCE","is_correct":false},
+        {"id":"b","text":"Around 2580 BCE","is_correct":true},
+        {"id":"c","text":"Around 500 CE","is_correct":false},
+        {"id":"d","text":"Around 3500 BCE","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "ذكر النص أن هرم الجيزة الأكبر بُني حوالي عام 2580 قبل الميلاد، وهو يُعدّ أحد أكثر المشاريع طموحاً في التاريخ."
+    },
+    {
+      "order_index": 16, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage A, how precise was the alignment of the Great Pyramid's sides with the cardinal directions?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Within 1 full degree","is_correct":false},
+        {"id":"b","text":"Within half a degree","is_correct":false},
+        {"id":"c","text":"Within 3/60th of a degree","is_correct":true},
+        {"id":"d","text":"Within 5 full degrees","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "ذكر النص أن الهرم مُوجَّه نحو الاتجاهات الأصلية بدقة تصل إلى 3/60 من الدرجة — وهي دقة مذهلة تُحدّي قدرات المهندسين المعاصرين."
+    },
+    {
+      "order_index": 17, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "Passage A says the Roman Pantheon's dome spans 43 meters 'without any internal support.' What does this engineering achievement suggest?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Roman engineers copied this technique from the ancient Egyptians","is_correct":false},
+        {"id":"b","text":"The building collapsed soon after construction was completed","is_correct":false},
+        {"id":"c","text":"Roman engineers mastered concrete construction at an extraordinary level","is_correct":true},
+        {"id":"d","text":"The dome is made entirely from wood rather than concrete","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "يُشير بناء قبة واسعة بدون أعمدة داخلية إلى إتقان رومي رائع لتقنيات الخرسانة وتوزيع الأحمال الهندسية."
+    },
+    {
+      "order_index": 18, "skill_tag": "reading", "question_type": "true_false",
+      "question_text": "According to Passage A, the Great Pyramid's construction required an estimated 20,000 workers over two decades.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. ذكر النص أن بناء الهرم استلزم ما يُقدَّر بـ 20,000 عامل على مدى عقدين من الزمن، مما يدل على المهارة التنظيمية الهائلة للمصريين القدماء."
+    },
+    {
+      "order_index": 19, "skill_tag": "reading", "question_type": "fill_blank",
+      "question_text": "According to Passage A, the Great Pyramid of Giza was constructed around the year _____ BCE.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "2580", "accepted_answers": ["2580","2,580","twenty-five eighty"], "points": 1,
+      "explanation_ar": "ذكر النص أن الهرم الأكبر بُني حوالي عام 2580 قبل الميلاد، ويُعدّ من أكثر المشاريع الهندسية التاريخية طموحاً وإثارة للإعجاب."
+    },
+    {
+      "order_index": 20, "skill_tag": "reading", "question_type": "matching",
+      "question_text": "Match each ancient structure or innovation from Passage A to its key engineering fact.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "Great Pyramid of Giza",
+          "Roman concrete",
+          "Pantheon dome",
+          "pyramid alignment"
+        ],
+        "right_items": [
+          "positioned to within 3/60th of a degree of cardinal directions",
+          "spans 43 meters with no internal support columns",
+          "a material that could set underwater and last for centuries",
+          "contains 2.3 million stone blocks weighing 2.5-15 tons each"
+        ]
+      },
+      "correct_answer": [
+        {"left":"Great Pyramid of Giza","right":"contains 2.3 million stone blocks weighing 2.5-15 tons each"},
+        {"left":"Roman concrete","right":"a material that could set underwater and last for centuries"},
+        {"left":"Pantheon dome","right":"spans 43 meters with no internal support columns"},
+        {"left":"pyramid alignment","right":"positioned to within 3/60th of a degree of cardinal directions"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "وردت هذه الحقائق الهندسية في النص مع مصادرها: الهرم (الكتل)، الخرسانة الرومانية (المتانة)، قبة البانثيون (الاتساع)، والتوجيه الهندسي (الدقة)."
+    }
+  ]
+}

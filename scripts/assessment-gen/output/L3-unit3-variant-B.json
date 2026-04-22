@@ -1,0 +1,265 @@
+{
+  "level": 3, "unit_number": 3, "variant_label": "B",
+  "variant_id": "c2fe652c-960e-4a31-bcd0-d5c313d6606e",
+  "unit_id": "85aabed1-aa8e-4ea6-9b58-bff1bbe4f9a8",
+  "generated_at": "2026-04-21T03:00:00Z",
+  "generated_by": "Claude Code native (L3 bulk, English-only)",
+  "language_standard": "English options, Arabic explanations (B1 CEFR)",
+  "anti_dup_source": "L3-unit3-variant-A.json",
+  "distribution": {"skills":{"vocabulary":8,"grammar":6,"reading":6},"types":{"mcq":12,"true_false":4,"fill_blank":2,"matching":2}},
+  "questions": [
+    {
+      "order_index": 1, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "The Tokyo Skytree 'sways' gracefully during earthquakes while staying completely safe. What does 'sways' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Collapses suddenly and falls to the ground below","is_correct":false},
+        {"id":"b","text":"Rotates quickly around a central vertical axis","is_correct":false},
+        {"id":"c","text":"Moves gently from side to side in a smooth, controlled motion","is_correct":true},
+        {"id":"d","text":"Breaks apart into separate pieces under extreme pressure","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "sways تعني يتأرجح بهدوء، أي الحركة الجانبية اللطيفة من جانب لآخر بطريقة متحكّم بها وآمنة."
+    },
+    {
+      "order_index": 2, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Modern buildings are designed to 'accommodate' seismic forces rather than resist them. What does 'accommodate' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To completely block and prevent movement from occurring","is_correct":false},
+        {"id":"b","text":"To absorb, adjust to, and work with something rather than fight it","is_correct":true},
+        {"id":"c","text":"To measure and record the exact strength of an external force","is_correct":false},
+        {"id":"d","text":"To ignore a force and continue functioning without any changes","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "accommodate تعني يستوعب ويتكيّف مع، أي التعامل مع قوة ما بمرونة بدلاً من محاولة منعها أو مقاومتها."
+    },
+    {
+      "order_index": 3, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Buildings designed to 'flex' during earthquakes often survive better than rigid ones. What does 'flex' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To bend or move with some degree of elasticity and return to position","is_correct":true},
+        {"id":"b","text":"To remain completely solid and unmoved under all conditions","is_correct":false},
+        {"id":"c","text":"To collapse in a controlled manner to protect occupants inside","is_correct":false},
+        {"id":"d","text":"To increase in height and size when subjected to pressure","is_correct":false}
+      ],
+      "correct_answer": "a", "accepted_answers": null, "points": 1,
+      "explanation_ar": "flex تعني ينحني بمرونة، أي القدرة على الانثناء والعودة إلى الشكل الأصلي دون أن ينكسر أو يتلف."
+    },
+    {
+      "order_index": 4, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Viscous dampers are filled with 'viscous' fluid that absorbs earthquake energy. What does 'viscous' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Extremely thin and easily separated into small droplets","is_correct":false},
+        {"id":"b","text":"Transparent and allowing light to pass through completely","is_correct":false},
+        {"id":"c","text":"Thick, slow-flowing, and having high resistance to movement","is_correct":true},
+        {"id":"d","text":"Frozen solid and unable to move or change shape at all","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "viscous تعني لزج وكثيف، أي أن السائل ذو قوام سميك ويتدفق ببطء مما يجعله قادراً على امتصاص الطاقة الحركية."
+    },
+    {
+      "order_index": 5, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Smart buildings can 'adapt' their damping systems to different types of ground motion. What does 'adapt' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To remain fixed and unchanged in all types of conditions","is_correct":false},
+        {"id":"b","text":"To break down permanently when conditions change unexpectedly","is_correct":false},
+        {"id":"c","text":"To adjust and change in response to new or different conditions","is_correct":true},
+        {"id":"d","text":"To increase in power and strength over a long period of time","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "adapt تعني يتكيّف ويتأقلم، أي إجراء التعديلات اللازمة للتعامل مع ظروف جديدة أو مختلفة بشكل فعّال."
+    },
+    {
+      "order_index": 6, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When engineers 'incorporate' dampers into a building, they add them as a permanent structural component.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. incorporate تعني يدمج ويُدخل ضمن التصميم، أي إضافة مكوّن ما ليصبح جزءاً دائماً من هيكل أو نظام أكبر."
+    },
+    {
+      "order_index": 7, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When earthquake technology 'transforms' construction practices, it makes minor decorative changes that do not affect safety.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false, "accepted_answers": null, "points": 1,
+      "explanation_ar": "خطأ. transform تعني يُحوّل ويُحدث تغييراً جوهرياً، أي تغيير عميق في الطريقة أو الشكل وليس مجرد تعديلات ثانوية."
+    },
+    {
+      "order_index": 8, "skill_tag": "vocabulary", "question_type": "fill_blank",
+      "question_text": "The earthquake _____ traditional buildings in the old city while modern flexible structures remained undamaged.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "withstand", "accepted_answers": ["withstand","Withstand","could not withstand"], "points": 1,
+      "explanation_ar": "withstand تعني يصمد ويقاوم، وفي هذا السياق تدل على عجز المباني التقليدية عن مقاومة قوة الزلزال."
+    },
+    {
+      "order_index": 9, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence uses 'were' correctly in a second conditional sentence?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"If the earthquake was more powerful, the bridge would collapse.","is_correct":false},
+        {"id":"b","text":"If the engineer was more careful, the building would be safer.","is_correct":false},
+        {"id":"c","text":"If the seismograph were more sensitive, scientists could detect tiny tremors.","is_correct":true},
+        {"id":"d","text":"If the alarm was louder, everyone would hear the earthquake warning.","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "في الشرط الثاني يُفضَّل استخدام were بدلاً من was لجميع الضمائر في الإنجليزية الرسمية والأكاديمية، كما في الخيار c."
+    },
+    {
+      "order_index": 10, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "A friend is worried about living in an earthquake zone. Which second conditional gives the best advice?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"If I will be you, I would install a base isolation system immediately.","is_correct":false},
+        {"id":"b","text":"If I am you, I will prepare an emergency kit as soon as possible.","is_correct":false},
+        {"id":"c","text":"If I were you, I would learn the earthquake safety procedures for your area.","is_correct":true},
+        {"id":"d","text":"If I were you, I will move to a different region without delay.","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "صيغة تقديم النصيحة بالشرط الثاني هي: If I were you, I would + مصدر. الخيار c صحيح، بينما تخطئ الأخرى في استخدام will بدلاً من would أو في صيغة جملة الشرط."
+    },
+    {
+      "order_index": 11, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence has a correct second conditional result clause?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"If buildings were designed better, fewer people will die in earthquakes.","is_correct":false},
+        {"id":"b","text":"If buildings were designed better, fewer people would die in earthquakes.","is_correct":true},
+        {"id":"c","text":"If buildings were designed better, fewer people die in earthquakes.","is_correct":false},
+        {"id":"d","text":"If buildings were designed better, fewer people are dying in earthquakes.","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "جواب الشرط الثاني يجب أن يحتوي على would + مصدر، وليس will أو المضارع البسيط أو المضارع المستمر."
+    },
+    {
+      "order_index": 12, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "What is the meaning implied by: 'If we had stronger building codes, fewer houses would collapse'?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Building codes are already strong enough and houses rarely collapse","is_correct":false},
+        {"id":"b","text":"Building codes will definitely be strengthened in the near future","is_correct":false},
+        {"id":"c","text":"In reality, building codes are not strong enough and houses do collapse","is_correct":true},
+        {"id":"d","text":"It is completely possible to strengthen building codes very easily","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "الشرط الثاني يُعبّر عن الواقع المعاكس، فقول 'If we had stronger codes' يعني ضمنياً أن المعايير الحالية ليست قوية كافياً."
+    },
+    {
+      "order_index": 13, "skill_tag": "grammar", "question_type": "true_false",
+      "question_text": "The sentence 'If there were no Ring of Fire, the Pacific region would experience far fewer earthquakes' is a correct second conditional.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. were في جملة الشرط و would experience في الجواب يُشكّلان الشرط الثاني الصحيح للتعبير عن حالة افتراضية مستحيلة."
+    },
+    {
+      "order_index": 14, "skill_tag": "grammar", "question_type": "matching",
+      "question_text": "Match each sentence to the correct explanation of how the second conditional is used.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "If I were a building designer, I would focus on earthquake resistance.",
+          "If tectonic plates moved slower, earthquakes would be less violent.",
+          "If you lived near a fault line, I would recommend an emergency kit.",
+          "If the technology were more affordable, every city would use it."
+        ],
+        "right_items": [
+          "giving advice to someone in a specific situation",
+          "expressing a personal wish or dream role",
+          "describing an impossible or very unlikely scenario",
+          "suggesting a practical solution to an existing problem"
+        ]
+      },
+      "correct_answer": [
+        {"left":"If I were a building designer, I would focus on earthquake resistance.","right":"expressing a personal wish or dream role"},
+        {"left":"If tectonic plates moved slower, earthquakes would be less violent.","right":"describing an impossible or very unlikely scenario"},
+        {"left":"If you lived near a fault line, I would recommend an emergency kit.","right":"giving advice to someone in a specific situation"},
+        {"left":"If the technology were more affordable, every city would use it.","right":"suggesting a practical solution to an existing problem"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "يُستخدم الشرط الثاني لأغراض متعددة: التعبير عن تمنٍّ، وصف سيناريو مستحيل، تقديم نصيحة، أو اقتراح حل لمشكلة قائمة."
+    },
+    {
+      "order_index": 15, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage A, where did the 2009 earthquake swarm occur in Saudi Arabia?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Near Jeddah on the Red Sea coast","is_correct":false},
+        {"id":"b","text":"In Riyadh in the centre of the Arabian Peninsula","is_correct":false},
+        {"id":"c","text":"In Harrat Lunayyir, northwest of Medina","is_correct":true},
+        {"id":"d","text":"Along the eastern coast bordering the Arabian Gulf","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "ذكر النص أن سكان حرة لنيّر شمال غرب المدينة المنورة عانوا من آلاف الزلازل الصغيرة على مدى عدة أشهر عام 2009."
+    },
+    {
+      "order_index": 16, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage B, how does a base isolation system protect a building during an earthquake?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"By making the building heavier so that it cannot be moved","is_correct":false},
+        {"id":"b","text":"By surrounding the building with thick concrete walls that block waves","is_correct":false},
+        {"id":"c","text":"By separating the building from its foundations using rubber and steel layers","is_correct":true},
+        {"id":"d","text":"By filling the building's walls with a fluid that absorbs seismic energy","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "وصف النص أن العزل الأساسي يعمل بفصل المبنى عن أساساته بطبقات من المطاط والصلب تسمح للأرض بالتحرك دون نقل الاهتزازات للمبنى."
+    },
+    {
+      "order_index": 17, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage B, how do viscous dampers reduce earthquake damage in buildings?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"They prevent the building from moving at all during an earthquake","is_correct":false},
+        {"id":"b","text":"They convert the kinetic energy of building movement into heat","is_correct":true},
+        {"id":"c","text":"They anchor the building more deeply into the ground beneath it","is_correct":false},
+        {"id":"d","text":"They release cooling water to lower the temperature of the structure","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "أوضح النص أن المخمّدات اللزجة تُحوّل الطاقة الحركية لحركة المبنى إلى حرارة، مما يُقلّل تأثير الزلزال على الهيكل."
+    },
+    {
+      "order_index": 18, "skill_tag": "reading", "question_type": "true_false",
+      "question_text": "According to Passage B, buildings equipped with base isolation systems experience 80% less shaking during major seismic events.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. أفاد الباحثون اليابانيون وفق ما ذكره النص أن المباني المجهّزة بأنظمة العزل الأساسي تُعاني من اهتزازات أقل بنسبة 80%."
+    },
+    {
+      "order_index": 19, "skill_tag": "reading", "question_type": "fill_blank",
+      "question_text": "According to Passage B, buildings with base isolation systems experience _____ percent less shaking during major earthquakes.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "80", "accepted_answers": ["80","80%","eighty","Eighty"], "points": 1,
+      "explanation_ar": "ذكر النص أن أنظمة العزل الأساسي تُقلّل الاهتزازات في المباني بنسبة 80% مقارنةً بالمباني غير المجهّزة بهذه الأنظمة."
+    },
+    {
+      "order_index": 20, "skill_tag": "reading", "question_type": "matching",
+      "question_text": "Match each earthquake engineering technology from Passage B to how it works.",
+      "question_context": null,
+      "options": {
+        "left_items": ["base isolation system", "viscous dampers", "shape-memory alloys", "AI damping systems"],
+        "right_items": [
+          "metals that return to original shape and repair minor damage automatically",
+          "predict building behaviour and automatically adjust damping in real-time",
+          "thick-fluid devices that convert movement energy into heat",
+          "layers of rubber and steel that separate a building from its foundation"
+        ]
+      },
+      "correct_answer": [
+        {"left":"base isolation system","right":"layers of rubber and steel that separate a building from its foundation"},
+        {"left":"viscous dampers","right":"thick-fluid devices that convert movement energy into heat"},
+        {"left":"shape-memory alloys","right":"metals that return to original shape and repair minor damage automatically"},
+        {"left":"AI damping systems","right":"predict building behaviour and automatically adjust damping in real-time"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "وردت هذه التقنيات الأربع في النص مع آلية عملها: العزل الأساسي (فصل الأساس)، المخمّدات اللزجة (تحويل الطاقة)، السبائك ذاكرة الشكل (الإصلاح الذاتي)، والذكاء الاصطناعي (التحكم الآلي)."
+    }
+  ]
+}

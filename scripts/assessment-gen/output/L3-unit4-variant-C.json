@@ -1,0 +1,270 @@
+{
+  "level": 3, "unit_number": 4, "variant_label": "C",
+  "variant_id": "762be9c2-ede2-4eaf-bb3f-a07cc46c9b92",
+  "unit_id": "738ff234-070d-4ace-9901-434e43521bdb",
+  "generated_at": "2026-04-21T04:00:00Z",
+  "generated_by": "Claude Code native (L3 bulk, English-only)",
+  "language_standard": "English options, Arabic explanations (B1 CEFR)",
+  "anti_dup_sources": ["L3-unit4-variant-A.json","L3-unit4-variant-B.json"],
+  "distribution": {"skills":{"vocabulary":8,"grammar":6,"reading":6},"types":{"mcq":12,"true_false":4,"fill_blank":2,"matching":2}},
+  "questions": [
+    {
+      "order_index": 1, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Climate change may 'disrupt' traditional coffee-growing regions around the world. What does 'disrupt' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To gradually improve and strengthen existing agricultural systems","is_correct":false},
+        {"id":"b","text":"To interrupt, disturb, and cause problems for a system or process","is_correct":true},
+        {"id":"c","text":"To carefully monitor and study changes in agricultural conditions","is_correct":false},
+        {"id":"d","text":"To create new opportunities for farmers to increase production","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "disrupt تعني يُخلّ ويُعطّل، أي التسبب في اضطراب أو إعاقة لسير الأمور بشكل طبيعي في منظومة أو عملية ما."
+    },
+    {
+      "order_index": 2, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Italian espresso culture 'emphasizes' quick consumption at neighborhood bars. What does 'emphasizes' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To reduce the importance of something in a cultural context","is_correct":false},
+        {"id":"b","text":"To give special importance or attention to something","is_correct":true},
+        {"id":"c","text":"To completely reject and abandon a cultural practice","is_correct":false},
+        {"id":"d","text":"To gradually change something into a completely different form","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "emphasizes تعني يُولي أهمية خاصة لـ ويُركّز على، أي إعطاء شيء ما مكانة بارزة ومميزة في ثقافة أو سياق معين."
+    },
+    {
+      "order_index": 3, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "The Ethiopian coffee ceremony serves as a 'foundation' for family gatherings and hospitality. What does 'foundation' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"A physical building where important ceremonies are held","is_correct":false},
+        {"id":"b","text":"The final result or conclusion of a long cultural process","is_correct":false},
+        {"id":"c","text":"The basis or central element that supports something larger","is_correct":true},
+        {"id":"d","text":"A rule or law that governs how ceremonies must be performed","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "foundation تعني أساس ودعامة، أي العنصر الأساسي الذي يقوم عليه شيء أكبر أو يُشكّل مرتكزه الرئيسي."
+    },
+    {
+      "order_index": 4, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "The coffee industry has 'undergone' significant transformation in recent decades. What does 'undergone' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Prevented and blocked all major changes from occurring","is_correct":false},
+        {"id":"b","text":"Proposed and suggested changes without implementing them","is_correct":false},
+        {"id":"c","text":"Experienced and gone through a process or change completely","is_correct":true},
+        {"id":"d","text":"Studied and analysed the causes of changes in detail","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "undergone تعني خضع لـ ومرّ بـ، أي اختبر تحولاً أو عملية معينة بشكل كامل حتى انتهائها."
+    },
+    {
+      "order_index": 5, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Modern consumers are increasingly 'conscious' of ethical sourcing practices. What does 'conscious' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Completely unaware and uninformed about important issues","is_correct":false},
+        {"id":"b","text":"Actively aware and paying attention to something important","is_correct":true},
+        {"id":"c","text":"Unconcerned and indifferent to any environmental practices","is_correct":false},
+        {"id":"d","text":"Opposed to and against all forms of modern consumption","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "conscious تعني واعٍ ومدرك، أي أن الشخص على دراية كاملة بموضوع ما ويُولي اهتماماً واعياً لتأثيراته."
+    },
+    {
+      "order_index": 6, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When baristas 'demonstrate' technical expertise, they show their skills clearly through their actions.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. demonstrate تعني يُبرهن ويُظهر، أي إثبات مهارة أو معرفة من خلال الأفعال والتطبيق العملي الملموس."
+    },
+    {
+      "order_index": 7, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When coffee-producing countries 'participate' more profitably in global markets, it means they are completely excluded from trading.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false, "accepted_answers": null, "points": 1,
+      "explanation_ar": "خطأ. participate تعني يُشارك ويأخذ دوراً فاعلاً، وهو نقيض الاستبعاد. المشاركة تعني الانخراط الفعلي وليس التهميش."
+    },
+    {
+      "order_index": 8, "skill_tag": "vocabulary", "question_type": "fill_blank",
+      "question_text": "Coffee processing has _____ significant changes over the decades to improve both quality and sustainability.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "undergone", "accepted_answers": ["undergone","Undergone"], "points": 1,
+      "explanation_ar": "undergone هو تصريف have/has undergone بمعنى خضع لـ أو مرّ بـ، ويُستخدم مع have/has في المضارع التام."
+    },
+    {
+      "order_index": 9, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence uses the present passive in the NEGATIVE form correctly?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Coffee is not grow in cold northern climates.","is_correct":false},
+        {"id":"b","text":"Coffee not is grown in cold northern climates.","is_correct":false},
+        {"id":"c","text":"Coffee is not grown in cold northern climates.","is_correct":true},
+        {"id":"d","text":"Coffee are not grown in cold northern climates.","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "النفي في المبني للمجهول للمضارع يُكوَّن بـ is/are + not + تصريف ثالث. الخيار c صحيح، بينما الأخرى تخطئ في ترتيب الكلمات أو صيغة الفعل."
+    },
+    {
+      "order_index": 10, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "In formal writing, which passive construction is most appropriate for reports?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"People say that coffee consumption is rising.","is_correct":false},
+        {"id":"b","text":"It is reported that coffee consumption is rising.","is_correct":true},
+        {"id":"c","text":"Everyone thinks coffee consumption is rising.","is_correct":false},
+        {"id":"d","text":"They are saying coffee consumption is rising.","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "في الكتابة الرسمية، يُستخدم 'It is reported/said/believed that...' للإشارة إلى ادعاءات عامة دون تحديد مصدرها، وهو أسلوب أكاديمي مقبول."
+    },
+    {
+      "order_index": 11, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence uses 'be known as' or 'be called' correctly in the present passive?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"This region is known as the coffee belt by experts worldwide.","is_correct":true},
+        {"id":"b","text":"This region known as the coffee belt by experts worldwide.","is_correct":false},
+        {"id":"c","text":"This region is know as the coffee belt by experts worldwide.","is_correct":false},
+        {"id":"d","text":"This region are known as the coffee belt by experts worldwide.","is_correct":false}
+      ],
+      "correct_answer": "a", "accepted_answers": null, "points": 1,
+      "explanation_ar": "التعبير 'is known as' هو صيغة مبني للمجهول تعني 'يُعرَف بـ' أو 'يُسمى'. الخيار a صحيح بينما تخطئ الأخرى في حذف is أو استخدام الصيغة الخاطئة."
+    },
+    {
+      "order_index": 12, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Choose the sentence that correctly uses the passive to describe a process step.",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"First, the fruit pulp is removed and then the beans are fermented in water.","is_correct":true},
+        {"id":"b","text":"First, the fruit pulp removes and then the beans ferments in water.","is_correct":false},
+        {"id":"c","text":"First, removed the fruit pulp and then fermented the beans in water.","is_correct":false},
+        {"id":"d","text":"First, the fruit pulp is removing and then the beans are fermenting.","is_correct":false}
+      ],
+      "correct_answer": "a", "accepted_answers": null, "points": 1,
+      "explanation_ar": "عند وصف خطوات العملية بالمبني للمجهول، نستخدم is/are + تصريف ثالث لكل خطوة. الخيار a يطبّق ذلك بشكل صحيح."
+    },
+    {
+      "order_index": 13, "skill_tag": "grammar", "question_type": "true_false",
+      "question_text": "'Traditional coffee methods are passed down from generation to generation and are still practised today' uses the passive correctly.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. are passed down وare practised كلاهما صيغتا مبني للمجهول صحيحتان تُركّزان على الأفعال ذاتها دون الحاجة لذكر الفاعل."
+    },
+    {
+      "order_index": 14, "skill_tag": "grammar", "question_type": "matching",
+      "question_text": "Match each passive sentence to its active voice equivalent.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "Coffee is traded by millions of merchants worldwide.",
+          "Espresso is prepared with specially ground dark-roast beans.",
+          "The coffee plants are watered carefully every morning.",
+          "Quality standards are checked by international inspectors."
+        ],
+        "right_items": [
+          "International inspectors check quality standards.",
+          "Millions of merchants trade coffee worldwide.",
+          "Someone prepares espresso with specially ground dark-roast beans.",
+          "Workers water the coffee plants carefully every morning."
+        ]
+      },
+      "correct_answer": [
+        {"left":"Coffee is traded by millions of merchants worldwide.","right":"Millions of merchants trade coffee worldwide."},
+        {"left":"Espresso is prepared with specially ground dark-roast beans.","right":"Someone prepares espresso with specially ground dark-roast beans."},
+        {"left":"The coffee plants are watered carefully every morning.","right":"Workers water the coffee plants carefully every morning."},
+        {"left":"Quality standards are checked by international inspectors.","right":"International inspectors check quality standards."}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "في التحويل من المبني للمجهول للمعلوم: الفاعل الأصلي (بعد by) يعود فاعلاً، والفعل يعود لصيغته الفعلية، والمفعول يصبح الفاعل في المبني للمعلوم."
+    },
+    {
+      "order_index": 15, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage A, what did early European coffee houses become after coffee arrived in Europe?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Quiet places for reading and personal study","is_correct":false},
+        {"id":"b","text":"Vibrant social centres for intellectuals, merchants, and artists","is_correct":true},
+        {"id":"c","text":"Private clubs accessible only to wealthy aristocrats","is_correct":false},
+        {"id":"d","text":"Government offices for conducting official business","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "ذكر النص أن المقاهي الأوروبية أصبحت بسرعة مراكز اجتماعية نابضة بالحياة يلتقي فيها المثقفون والتجار والفنانون لتبادل الأفكار وإجراء الأعمال."
+    },
+    {
+      "order_index": 16, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage B, what impact could climate change have on coffee cultivation by 2050?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Coffee production will double as warmer temperatures increase yields","is_correct":false},
+        {"id":"b","text":"Coffee will shift to entirely new regions in northern Europe","is_correct":false},
+        {"id":"c","text":"The suitable area for coffee cultivation could decrease by up to 50%","is_correct":true},
+        {"id":"d","text":"All coffee farms will relocate to higher altitudes above 3,000 meters","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "توقّع العلماء وفق ما ذكره النص أن المنطقة الصالحة لزراعة القهوة قد تنخفض بنسبة تصل إلى 50% بحلول عام 2050 بسبب تغيّر المناخ."
+    },
+    {
+      "order_index": 17, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "Passage A states that coffee 'connects millions of people daily through shared rituals.' What does this best suggest?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Coffee is primarily a business product with no cultural significance","is_correct":false},
+        {"id":"b","text":"Coffee's cultural rituals act as a universal social bond across communities","is_correct":true},
+        {"id":"c","text":"Coffee only connects people who speak the same language","is_correct":false},
+        {"id":"d","text":"The rituals around coffee are identical in every country","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "تُضمّن هذه العبارة أن طقوس القهوة تتجاوز الحواجز الثقافية واللغوية وتُشكّل رابطاً اجتماعياً عالمياً يجمع الناس رغم اختلافاتهم."
+    },
+    {
+      "order_index": 18, "skill_tag": "reading", "question_type": "true_false",
+      "question_text": "According to Passage A, European traders were initially skeptical about coffee when it first arrived in Europe.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. ذكر النص أن التجار الأوروبيين كانوا في بادئ الأمر متشككين في هذا المشروب الغامق المر، لكنهم سرعان ما أدركوا إمكاناته التجارية."
+    },
+    {
+      "order_index": 19, "skill_tag": "reading", "question_type": "fill_blank",
+      "question_text": "According to Passage B, beans grown between 1,200 and _____ meters above sea level develop more complex flavors.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "2,000", "accepted_answers": ["2,000","2000","two thousand","Two thousand"], "points": 1,
+      "explanation_ar": "حدّد النص أن الحبوب المزروعة على ارتفاعات تتراوح بين 1,200 و2,000 متر فوق مستوى البحر تنمو ببطء وتكتسب نكهات أكثر تعقيداً."
+    },
+    {
+      "order_index": 20, "skill_tag": "reading", "question_type": "matching",
+      "question_text": "Match each coffee-related fact from the passages to the passage where it appears.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "Coffee houses became vibrant social centres in Europe.",
+          "The coffee belt lies between 25°N and 30°S latitude.",
+          "Third-wave culture treats coffee preparation as an art form.",
+          "Wet processing involves fermenting beans in water for 12-48 hours."
+        ],
+        "right_items": [
+          "Passage B — describes the coffee growing region and climate",
+          "Passage A — describes the history and cultural spread of coffee",
+          "Passage B — describes how coffee beans are processed after harvest",
+          "Passage A — describes how coffee culture has evolved globally"
+        ]
+      },
+      "correct_answer": [
+        {"left":"Coffee houses became vibrant social centres in Europe.","right":"Passage A — describes the history and cultural spread of coffee"},
+        {"left":"The coffee belt lies between 25°N and 30°S latitude.","right":"Passage B — describes the coffee growing region and climate"},
+        {"left":"Third-wave culture treats coffee preparation as an art form.","right":"Passage A — describes how coffee culture has evolved globally"},
+        {"left":"Wet processing involves fermenting beans in water for 12-48 hours.","right":"Passage B — describes how coffee beans are processed after harvest"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "النص A يُغطي التاريخ والتطور الثقافي للقهوة، بينما النص B يُركّز على الجانب الزراعي والمعالجة، مما يجعل كل حقيقة مرتبطة بمصدرها المحدد."
+    }
+  ]
+}

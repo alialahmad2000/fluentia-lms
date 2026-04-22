@@ -1,0 +1,142 @@
+======================================================================
+LEVEL 3 · UNIT 3 · VARIANT B — FULL DUMP
+======================================================================
+Source file:     C:/Users/Dr. Ali/Desktop/fluentia-lms/scripts/assessment-gen/output/L3-unit3-variant-B.json
+unit_id:         85aabed1-aa8e-4ea6-9b58-bff1bbe4f9a8
+variant_id:      c2fe652c-960e-4a31-bcd0-d5c313d6606e
+generated_at:    2026-04-21T03:00:00Z
+generated_by:    Claude Code native (L3 bulk, English-only)
+anti_dup_source: L3-unit3-variant-A.json
+distribution:    8V / 6G / 6R  ·  12 MCQ / 4 T/F / 2 FB / 2 Matching
+question_count:  20
+======================================================================
+
+Qundefined  [vocabulary · mcq]
+    Q: The Tokyo Skytree 'sways' gracefully during earthquakes while staying completely safe. What does 'sways' mean?
+    a) Collapses suddenly and falls to the ground below
+    b) Rotates quickly around a central vertical axis
+  ✓ c) Moves gently from side to side in a smooth, controlled motion
+    d) Breaks apart into separate pieces under extreme pressure
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: Modern buildings are designed to 'accommodate' seismic forces rather than resist them. What does 'accommodate' mean?
+    a) To completely block and prevent movement from occurring
+  ✓ b) To absorb, adjust to, and work with something rather than fight it
+    c) To measure and record the exact strength of an external force
+    d) To ignore a force and continue functioning without any changes
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: Buildings designed to 'flex' during earthquakes often survive better than rigid ones. What does 'flex' mean?
+  ✓ a) To bend or move with some degree of elasticity and return to position
+    b) To remain completely solid and unmoved under all conditions
+    c) To collapse in a controlled manner to protect occupants inside
+    d) To increase in height and size when subjected to pressure
+    A: a
+
+Qundefined  [vocabulary · mcq]
+    Q: Viscous dampers are filled with 'viscous' fluid that absorbs earthquake energy. What does 'viscous' mean?
+    a) Extremely thin and easily separated into small droplets
+    b) Transparent and allowing light to pass through completely
+  ✓ c) Thick, slow-flowing, and having high resistance to movement
+    d) Frozen solid and unable to move or change shape at all
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: Smart buildings can 'adapt' their damping systems to different types of ground motion. What does 'adapt' mean?
+    a) To remain fixed and unchanged in all types of conditions
+    b) To break down permanently when conditions change unexpectedly
+  ✓ c) To adjust and change in response to new or different conditions
+    d) To increase in power and strength over a long period of time
+    A: c
+
+Qundefined  [vocabulary · true_false]
+    Q: When engineers 'incorporate' dampers into a building, they add them as a permanent structural component.
+    A: true
+
+Qundefined  [vocabulary · true_false]
+    Q: When earthquake technology 'transforms' construction practices, it makes minor decorative changes that do not affect safety.
+    A: false
+
+Qundefined  [vocabulary · fill_blank]
+    Q: The earthquake _____ traditional buildings in the old city while modern flexible structures remained undamaged.
+    A: withstand (also accepted: withstand, Withstand, could not withstand)
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence uses 'were' correctly in a second conditional sentence?
+    a) If the earthquake was more powerful, the bridge would collapse.
+    b) If the engineer was more careful, the building would be safer.
+  ✓ c) If the seismograph were more sensitive, scientists could detect tiny tremors.
+    d) If the alarm was louder, everyone would hear the earthquake warning.
+    A: c
+
+Qundefined  [grammar · mcq]
+    Q: A friend is worried about living in an earthquake zone. Which second conditional gives the best advice?
+    a) If I will be you, I would install a base isolation system immediately.
+    b) If I am you, I will prepare an emergency kit as soon as possible.
+  ✓ c) If I were you, I would learn the earthquake safety procedures for your area.
+    d) If I were you, I will move to a different region without delay.
+    A: c
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence has a correct second conditional result clause?
+    a) If buildings were designed better, fewer people will die in earthquakes.
+  ✓ b) If buildings were designed better, fewer people would die in earthquakes.
+    c) If buildings were designed better, fewer people die in earthquakes.
+    d) If buildings were designed better, fewer people are dying in earthquakes.
+    A: b
+
+Qundefined  [grammar · mcq]
+    Q: What is the meaning implied by: 'If we had stronger building codes, fewer houses would collapse'?
+    a) Building codes are already strong enough and houses rarely collapse
+    b) Building codes will definitely be strengthened in the near future
+  ✓ c) In reality, building codes are not strong enough and houses do collapse
+    d) It is completely possible to strengthen building codes very easily
+    A: c
+
+Qundefined  [grammar · true_false]
+    Q: The sentence 'If there were no Ring of Fire, the Pacific region would experience far fewer earthquakes' is a correct second conditional.
+    A: true
+
+Qundefined  [grammar · matching]
+    Q: Match each sentence to the correct explanation of how the second conditional is used.
+
+Qundefined  [reading · mcq]
+    Q: According to Passage A, where did the 2009 earthquake swarm occur in Saudi Arabia?
+    a) Near Jeddah on the Red Sea coast
+    b) In Riyadh in the centre of the Arabian Peninsula
+  ✓ c) In Harrat Lunayyir, northwest of Medina
+    d) Along the eastern coast bordering the Arabian Gulf
+    A: c
+
+Qundefined  [reading · mcq]
+    Q: According to Passage B, how does a base isolation system protect a building during an earthquake?
+    a) By making the building heavier so that it cannot be moved
+    b) By surrounding the building with thick concrete walls that block waves
+  ✓ c) By separating the building from its foundations using rubber and steel layers
+    d) By filling the building's walls with a fluid that absorbs seismic energy
+    A: c
+
+Qundefined  [reading · mcq]
+    Q: According to Passage B, how do viscous dampers reduce earthquake damage in buildings?
+    a) They prevent the building from moving at all during an earthquake
+  ✓ b) They convert the kinetic energy of building movement into heat
+    c) They anchor the building more deeply into the ground beneath it
+    d) They release cooling water to lower the temperature of the structure
+    A: b
+
+Qundefined  [reading · true_false]
+    Q: According to Passage B, buildings equipped with base isolation systems experience 80% less shaking during major seismic events.
+    A: true
+
+Qundefined  [reading · fill_blank]
+    Q: According to Passage B, buildings with base isolation systems experience _____ percent less shaking during major earthquakes.
+    A: 80 (also accepted: 80, 80%, eighty, Eighty)
+
+Qundefined  [reading · matching]
+    Q: Match each earthquake engineering technology from Passage B to how it works.
+
+----------------------------------------------------------------------
+END OF DUMP — 20 questions printed
+======================================================================

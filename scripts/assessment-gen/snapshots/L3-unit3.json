@@ -1,0 +1,1278 @@
+{
+  "unit": {
+    "id": "85aabed1-aa8e-4ea6-9b58-bff1bbe4f9a8",
+    "unit_number": 3,
+    "title_en": "Earthquake Science",
+    "title_ar": "علم الزلازل"
+  },
+  "assessment": {
+    "id": "96665556-be70-4b6a-860f-439931089ccd"
+  },
+  "variants": [
+    {
+      "id": "434a0d93-9842-44a2-b7a0-cac6cbd6900f",
+      "variant_code": "A"
+    },
+    {
+      "id": "c2fe652c-960e-4a31-bcd0-d5c313d6606e",
+      "variant_code": "B"
+    },
+    {
+      "id": "2b909596-c36f-4532-8506-b66e18af21e8",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "word": "sways",
+      "pos": "verb",
+      "definition_ar": "يتمايل، يتحرك من جانب إلى آخر بلطف",
+      "example_sentence": "The tall trees sway in the wind during the storm.",
+      "tier": "core"
+    },
+    {
+      "word": "trigger",
+      "pos": "verb",
+      "definition_ar": "يُحفز، يُثير، يُسبب",
+      "example_sentence": "The news about the accident triggered panic among the families.",
+      "tier": "core"
+    },
+    {
+      "word": "devastate",
+      "pos": "verb",
+      "definition_ar": "يُدمر، يُخرب بشدة",
+      "example_sentence": "The hurricane devastated the coastal towns and left thousands homeless.",
+      "tier": "core"
+    },
+    {
+      "word": "accommodate",
+      "pos": "verb",
+      "definition_ar": "يستوعب، يتكيف مع، يوفر مكاناً لـ",
+      "example_sentence": "The hotel can accommodate 200 guests during the busy season.",
+      "tier": "core"
+    },
+    {
+      "word": "transform",
+      "pos": "verb",
+      "definition_ar": "يحوّل، يغيّر بشكل جذري",
+      "example_sentence": "The new technology will transform how we communicate with each other.",
+      "tier": "core"
+    },
+    {
+      "word": "unravel",
+      "pos": "verb",
+      "definition_ar": "يكشف، يحل، يفك (لغز أو مشكلة)",
+      "example_sentence": "The detective worked hard to unravel the mystery of the missing painting.",
+      "tier": "core"
+    },
+    {
+      "word": "withstand",
+      "pos": "verb",
+      "definition_ar": "يقاوم، يتحمل، يصمد أمام",
+      "example_sentence": "The bridge was built to withstand strong winds and heavy traffic.",
+      "tier": "core"
+    },
+    {
+      "word": "converge",
+      "pos": "verb",
+      "definition_ar": "يتقارب، يلتقي، ينضم",
+      "example_sentence": "All the roads converge at the city center where the main square is located.",
+      "tier": "core"
+    },
+    {
+      "word": "flex",
+      "pos": "verb",
+      "definition_ar": "ينثني، يتمدد، يتحرك بمرونة",
+      "example_sentence": "Yoga helps your muscles flex and become more flexible.",
+      "tier": "core"
+    },
+    {
+      "word": "fluctuate",
+      "pos": "verb",
+      "definition_ar": "يتذبذب، يتقلب، يتغير بانتظام",
+      "example_sentence": "Oil prices fluctuate depending on global economic conditions.",
+      "tier": "core"
+    },
+    {
+      "word": "fare",
+      "pos": "verb",
+      "definition_ar": "يحقق أداءً، ينجح، يكون حاله",
+      "example_sentence": "Students who study regularly fare better on their final exams.",
+      "tier": "core"
+    },
+    {
+      "word": "monitor",
+      "pos": "verb",
+      "definition_ar": "يراقب، يتابع باستمرار",
+      "example_sentence": "Doctors need to monitor the patient's heart rate during the operation.",
+      "tier": "core"
+    },
+    {
+      "word": "strike",
+      "pos": "verb",
+      "definition_ar": "يضرب، يحدث فجأة (خاصة الكوارث)",
+      "example_sentence": "The storm will strike the coast early tomorrow morning.",
+      "tier": "core"
+    },
+    {
+      "word": "detect",
+      "pos": "verb",
+      "definition_ar": "يكتشف، يكشف، يرصد",
+      "example_sentence": "The security system can detect movement even in complete darkness.",
+      "tier": "core"
+    },
+    {
+      "word": "viscous",
+      "pos": "adjective",
+      "definition_ar": "لزج، كثيف، بطيء الجريان",
+      "example_sentence": "Honey is more viscous than water and pours more slowly.",
+      "tier": "core"
+    },
+    {
+      "word": "assess",
+      "pos": "verb",
+      "definition_ar": "يقيم، يقدر، يحكم على",
+      "example_sentence": "The teacher needs to assess each student's progress before the final exam.",
+      "tier": "core"
+    },
+    {
+      "word": "incorporate",
+      "pos": "verb",
+      "definition_ar": "يدمج، يضمّن، يدرج",
+      "example_sentence": "The new design incorporates many suggestions from customers.",
+      "tier": "core"
+    },
+    {
+      "word": "phenomenon",
+      "pos": "noun",
+      "definition_ar": "ظاهرة، حدث قابل للملاحظة",
+      "example_sentence": "The northern lights are a beautiful natural phenomenon that occurs in polar regions.",
+      "tier": "core"
+    },
+    {
+      "word": "magnitude",
+      "pos": "noun",
+      "definition_ar": "حجم، قوة، شدة، أهمية",
+      "example_sentence": "The magnitude of the problem became clear when we saw the damage report.",
+      "tier": "core"
+    },
+    {
+      "word": "adapt",
+      "pos": "verb",
+      "definition_ar": "يتكيف، يتأقلم، يعدّل",
+      "example_sentence": "Children adapt quickly to new schools and make friends easily.",
+      "tier": "core"
+    },
+    {
+      "word": "evolve",
+      "pos": "verb",
+      "definition_ar": "يتطور، يتقدم تدريجياً",
+      "example_sentence": "Technology continues to evolve and become more advanced each year.",
+      "tier": "core"
+    },
+    {
+      "word": "rupture",
+      "pos": "verb",
+      "definition_ar": "ينفجر، ينشق، يتمزق بعنف",
+      "example_sentence": "The old water pipe ruptured during the winter freeze, flooding the basement.",
+      "tier": "core"
+    },
+    {
+      "word": "investigate",
+      "pos": "verb",
+      "definition_ar": "يحقق في، يبحث، يستقصي",
+      "example_sentence": "The police are investigating the cause of the accident on the highway.",
+      "tier": "core"
+    },
+    {
+      "word": "artificial",
+      "pos": "adjective",
+      "definition_ar": "اصطناعي، مصطنع",
+      "example_sentence": "The flowers in the office are artificial, but they look very real.",
+      "tier": "core"
+    },
+    {
+      "word": "signify",
+      "pos": "verb",
+      "definition_ar": "يدل على، يعني، يشير إلى",
+      "example_sentence": "Dark clouds usually signify that rain is coming soon.",
+      "tier": "core"
+    },
+    {
+      "word": "boundary",
+      "pos": "noun",
+      "definition_ar": "خط يحدد الحدود أو الأطراف بين منطقتين",
+      "example_sentence": "Earthquakes often occur at the boundary between tectonic plates.",
+      "tier": "core"
+    },
+    {
+      "word": "break out",
+      "pos": "verb",
+      "definition_ar": "يبدأ فجأة، خاصة شيء غير مرغوب فيه مثل الحريق أو العنف",
+      "example_sentence": "Fires often break out after earthquakes damage gas lines.",
+      "tier": "core"
+    },
+    {
+      "word": "render",
+      "pos": "verb",
+      "definition_ar": "يجعل، يحول إلى، يصير",
+      "example_sentence": "The new medicine will render the disease harmless to most patients.",
+      "tier": "core"
+    },
+    {
+      "word": "break apart",
+      "pos": "verb",
+      "definition_ar": "ينفصل إلى قطع أو ينقسم إلى أجزاء",
+      "example_sentence": "The continent began to break apart millions of years ago.",
+      "tier": "core"
+    },
+    {
+      "word": "core",
+      "pos": "noun",
+      "definition_ar": "الجزء المركزي لشيء ما، خاصة مركز الأرض",
+      "example_sentence": "The Earth's core is extremely hot and made of metal.",
+      "tier": "core"
+    },
+    {
+      "word": "crust",
+      "pos": "noun",
+      "definition_ar": "الطبقة الخارجية الصلبة للأرض",
+      "example_sentence": "The earth's crust is thicker under continents than under oceans.",
+      "tier": "core"
+    },
+    {
+      "word": "building code",
+      "pos": "noun",
+      "definition_ar": "مجموعة من القواعد التي تحدد كيفية بناء المباني لتكون آمنة.",
+      "example_sentence": "A strict building code saves lives in earthquake-prone regions.",
+      "tier": "core"
+    },
+    {
+      "word": "crack",
+      "pos": "noun",
+      "definition_ar": "خط رفيع حيث انكسر شيء ما لكن لم ينفصل تماماً",
+      "example_sentence": "The earthquake caused cracks to appear in the road.",
+      "tier": "core"
+    },
+    {
+      "word": "earth shaking",
+      "pos": "noun",
+      "definition_ar": "الحركة الملحوظة للأرض التي يشعر بها الناس خلال الزلزال.",
+      "example_sentence": "The earth shaking lasted only thirty seconds but caused serious damage.",
+      "tier": "core"
+    },
+    {
+      "word": "destroy",
+      "pos": "verb",
+      "definition_ar": "يدمر أو يضر بشيء بشدة بحيث لا يمكن إصلاحه",
+      "example_sentence": "The powerful earthquake destroyed several old buildings.",
+      "tier": "core"
+    },
+    {
+      "word": "epicenter",
+      "pos": "noun",
+      "definition_ar": "النقطة على سطح الأرض مباشرة فوق مكان بداية الزلزال",
+      "example_sentence": "The epicenter of yesterday's earthquake was 50 kilometers from the city.",
+      "tier": "core"
+    },
+    {
+      "word": "earthquake",
+      "pos": "noun",
+      "definition_ar": "زلزال أو هزة أرضية مفاجئة وقوية ناجمة عن حركات في قشرة الأرض",
+      "example_sentence": "The earthquake damaged many buildings in the city center.",
+      "tier": "core"
+    },
+    {
+      "word": "fault zone",
+      "pos": "noun",
+      "definition_ar": "منطقة من قشرة الأرض تشققت فيها الصخور ويحدث فيها حركة.",
+      "example_sentence": "Buildings in a fault zone must be constructed to withstand earthquakes.",
+      "tier": "core"
+    },
+    {
+      "word": "fault",
+      "pos": "noun",
+      "definition_ar": "صدع أو شق في سطح الأرض حيث تحركت الصخور",
+      "example_sentence": "Scientists found a major fault line running through the valley.",
+      "tier": "core"
+    },
+    {
+      "word": "geology",
+      "pos": "noun",
+      "definition_ar": "الدراسة العلمية للأرض وصخورها",
+      "example_sentence": "She studied geology at university to become an earth scientist.",
+      "tier": "core"
+    },
+    {
+      "word": "fracture",
+      "pos": "noun",
+      "definition_ar": "شق أو كسر في الصخر ناجم عن إجهاد تكتوني أو قوى الزلزال.",
+      "example_sentence": "A deep fracture in the crust released enormous pressure suddenly.",
+      "tier": "core"
+    },
+    {
+      "word": "ground shaking",
+      "pos": "noun",
+      "definition_ar": "اهتزاز سطح الأرض الناجم عن الموجات الزلزالية خلال الزلزال.",
+      "example_sentence": "Ground shaking during the earthquake lasted about thirty seconds.",
+      "tier": "core"
+    },
+    {
+      "word": "give way",
+      "pos": "verb",
+      "definition_ar": "ينهار أو ينكسر تحت الضغط أو الوزن",
+      "example_sentence": "The bridge began to give way during the earthquake.",
+      "tier": "core"
+    },
+    {
+      "word": "layer",
+      "pos": "noun",
+      "definition_ar": "طبقة أو سماكة من مادة تغطي سطحاً ما",
+      "example_sentence": "The earth has several layers, including the crust and mantle.",
+      "tier": "core"
+    },
+    {
+      "word": "intense",
+      "pos": "adjective",
+      "definition_ar": "قوي جداً أو شديد في الدرجة",
+      "example_sentence": "The intense shaking lasted for nearly two minutes.",
+      "tier": "core"
+    },
+    {
+      "word": "measure",
+      "pos": "verb",
+      "definition_ar": "يقيس أو يحدد حجم أو كمية أو درجة شيء ما",
+      "example_sentence": "Scientists measure earthquakes using sensitive instruments.",
+      "tier": "core"
+    },
+    {
+      "word": "mineral",
+      "pos": "noun",
+      "definition_ar": "مادة طبيعية توجد في الصخور وفي الأرض",
+      "example_sentence": "Different minerals in rocks help scientists understand geological processes.",
+      "tier": "core"
+    },
+    {
+      "word": "mantle",
+      "pos": "noun",
+      "definition_ar": "طبقة الصخر بين قشرة الأرض ونواتها",
+      "example_sentence": "The mantle is the thickest layer inside the Earth.",
+      "tier": "core"
+    },
+    {
+      "word": "mercalli scale",
+      "pos": "noun",
+      "definition_ar": "مقياس يُصنِّف شدة الزلزال بناءً على التأثيرات المُلاحَظة على الناس والمنشآت.",
+      "example_sentence": "The mercalli scale uses Roman numerals from I to XII to rate shaking.",
+      "tier": "core"
+    },
+    {
+      "word": "movement",
+      "pos": "noun",
+      "definition_ar": "فعل تغيير الموضع أو الانتقال من مكان إلى آخر",
+      "example_sentence": "Plate movement is the main cause of earthquakes.",
+      "tier": "core"
+    },
+    {
+      "word": "molten",
+      "pos": "adjective",
+      "definition_ar": "أصبح سائلاً بفعل الحرارة؛ منصهر",
+      "example_sentence": "The outer core contains molten iron and nickel.",
+      "tier": "core"
+    },
+    {
+      "word": "pressure",
+      "pos": "noun",
+      "definition_ar": "القوة الناتجة عن الضغط على شيء ما",
+      "example_sentence": "High pressure deep in the earth can cause rocks to break.",
+      "tier": "core"
+    },
+    {
+      "word": "rock",
+      "pos": "noun",
+      "definition_ar": "مادة طبيعية صلبة مكونة من المعادن",
+      "example_sentence": "Geologists study different types of rock to understand earth's history.",
+      "tier": "core"
+    },
+    {
+      "word": "prepare for",
+      "pos": "verb",
+      "definition_ar": "يستعد لشيء سيحدث",
+      "example_sentence": "Schools teach children how to prepare for earthquakes.",
+      "tier": "core"
+    },
+    {
+      "word": "rescue team",
+      "pos": "noun",
+      "definition_ar": "مجموعة من الأشخاص المدرَّبين الذين يبحثون عن الناجين ويساعدونهم بعد الكارثة.",
+      "example_sentence": "The rescue team worked all night to find survivors under the rubble.",
+      "tier": "core"
+    },
+    {
+      "word": "seismic",
+      "pos": "adjective",
+      "definition_ar": "متعلق بالزلازل أو الاهتزازات في الأرض",
+      "example_sentence": "Seismic activity increased before the major earthquake struck.",
+      "tier": "core"
+    },
+    {
+      "word": "safety",
+      "pos": "noun",
+      "definition_ar": "حالة الحماية من الخطر أو الضرر",
+      "example_sentence": "Building safety is very important in earthquake zones.",
+      "tier": "core"
+    },
+    {
+      "word": "seismic intensity",
+      "pos": "noun",
+      "definition_ar": "مقياس لشدة الشعور بالزلزال في موقع محدد على السطح.",
+      "example_sentence": "Seismic intensity was highest in the town closest to the fault.",
+      "tier": "core"
+    },
+    {
+      "word": "seismic focus",
+      "pos": "noun",
+      "definition_ar": "النقطة الدقيقة تحت الأرض حيث ينشأ الزلزال وتُطلَق الطاقة لأول مرة.",
+      "example_sentence": "The seismic focus was deep enough to reduce surface damage significantly.",
+      "tier": "core"
+    },
+    {
+      "word": "set off",
+      "pos": "verb",
+      "definition_ar": "يتسبب في بدء أو حدوث شيء فجأة",
+      "example_sentence": "The underwater earthquake set off a dangerous tsunami.",
+      "tier": "core"
+    },
+    {
+      "word": "seismic wave",
+      "pos": "noun",
+      "definition_ar": "اهتزاز ينتقل عبر الأرض بعد الزلزال حاملًا الطاقة.",
+      "example_sentence": "Seismic waves spread outward from the epicenter like ripples in water.",
+      "tier": "core"
+    },
+    {
+      "word": "shift",
+      "pos": "verb",
+      "definition_ar": "يتحرك أو يغير موضعه تدريجياً",
+      "example_sentence": "The ground began to shift during the earthquake.",
+      "tier": "core"
+    },
+    {
+      "word": "shake",
+      "pos": "verb",
+      "definition_ar": "يهتز أو يتحرك بسرعة صعوداً وهبوطاً أو من جانب لآخر",
+      "example_sentence": "The ground began to shake during the earthquake.",
+      "tier": "core"
+    },
+    {
+      "word": "structural damage",
+      "pos": "noun",
+      "definition_ar": "الضرر الذي يلحق بالمباني أو البنية التحتية بفعل قوى الزلزال.",
+      "example_sentence": "Structural damage forced thousands of residents to leave their homes.",
+      "tier": "core"
+    },
+    {
+      "word": "strength",
+      "pos": "noun",
+      "definition_ar": "صفة القوة الجسدية أو الشدة",
+      "example_sentence": "Engineers test the strength of materials used in construction.",
+      "tier": "core"
+    },
+    {
+      "word": "trembling",
+      "pos": "noun",
+      "definition_ar": "ارتجاج الأرض أو اهتزازها أثناء حدث زلزالي أو بعده.",
+      "example_sentence": "Residents reported strong trembling for nearly a minute during the quake.",
+      "tier": "core"
+    },
+    {
+      "word": "underground",
+      "pos": "adverb",
+      "definition_ar": "تحت سطح الأرض",
+      "example_sentence": "Many earthquakes start deep underground before reaching the surface.",
+      "tier": "core"
+    },
+    {
+      "word": "tectonic",
+      "pos": "adjective",
+      "definition_ar": "يتعلق بالبنية واسعة النطاق وحركة صفائح قشرة الأرض.",
+      "example_sentence": "Tectonic activity beneath the ocean can trigger devastating tsunamis.",
+      "tier": "core"
+    },
+    {
+      "word": "warning",
+      "pos": "noun",
+      "definition_ar": "معلومات تُعطى لإخبار الناس عن خطر محتمل",
+      "example_sentence": "The government issued an earthquake warning for the coastal region.",
+      "tier": "core"
+    },
+    {
+      "word": "tremor",
+      "pos": "noun",
+      "definition_ar": "اهتزاز أو رعشة خفيفة، خاصة في الأرض أثناء زلزال صغير",
+      "example_sentence": "People felt a tremor before the main earthquake hit the city.",
+      "tier": "core"
+    },
+    {
+      "word": "volcano",
+      "pos": "noun",
+      "definition_ar": "جبل له فتحة تخرج منها الحمم البركانية والغازات",
+      "example_sentence": "The volcano erupted after being quiet for many years.",
+      "tier": "core"
+    },
+    {
+      "word": "aftershock",
+      "pos": "noun",
+      "definition_ar": "زلزال أصغر يحدث بعد زلزال أكبر في نفس المنطقة",
+      "example_sentence": "Several aftershocks followed the main earthquake throughout the night.",
+      "tier": "extended"
+    },
+    {
+      "word": "zone",
+      "pos": "noun",
+      "definition_ar": "منطقة لها خصائص معينة أو تُستخدم لغرض محدد",
+      "example_sentence": "California is located in an active earthquake zone.",
+      "tier": "core"
+    },
+    {
+      "word": "carry out research",
+      "pos": "verb",
+      "definition_ar": "يجري أو ينفذ دراسات وتحقيقات علمية",
+      "example_sentence": "Scientists carry out research on earthquake prediction methods.",
+      "tier": "extended"
+    },
+    {
+      "word": "convergent boundary",
+      "pos": "noun",
+      "definition_ar": "مكان تتحرك فيه صفيحتان تكتونيتان نحو بعضهما البعض",
+      "example_sentence": "Mountain ranges often form at convergent boundaries.",
+      "tier": "extended"
+    },
+    {
+      "word": "build up",
+      "pos": "verb",
+      "definition_ar": "يتراكم أو يزداد تدريجياً مع الوقت",
+      "example_sentence": "Stress builds up along fault lines until an earthquake occurs.",
+      "tier": "extended"
+    },
+    {
+      "word": "continental drift",
+      "pos": "noun",
+      "definition_ar": "الحركة البطيئة للقارات عبر سطح الأرض على مدى ملايين السنين",
+      "example_sentence": "Continental drift explains why similar fossils exist on different continents.",
+      "tier": "extended"
+    },
+    {
+      "word": "deformation",
+      "pos": "noun",
+      "definition_ar": "عملية تغيير الشكل بسبب الإجهاد أو الضغط",
+      "example_sentence": "Rock deformation creates folds and faults in the Earth's crust.",
+      "tier": "extended"
+    },
+    {
+      "word": "drill",
+      "pos": "noun",
+      "definition_ar": "تمرين تدريبي للاستعداد لحالة طوارئ",
+      "example_sentence": "Schools regularly hold earthquake drills to keep students safe.",
+      "tier": "extended"
+    },
+    {
+      "word": "crustal deformation",
+      "pos": "noun",
+      "definition_ar": "انحناء قشرة الأرض أو كسرها أو تمددها بفعل قوى تكتونية.",
+      "example_sentence": "GPS satellites can measure crustal deformation before an earthquake occurs.",
+      "tier": "extended"
+    },
+    {
+      "word": "divergent boundary",
+      "pos": "noun",
+      "definition_ar": "مكان تتحرك فيه صفيحتان تكتونيتان بعيداً عن بعضهما البعض",
+      "example_sentence": "New ocean floor forms at divergent boundaries.",
+      "tier": "extended"
+    },
+    {
+      "word": "erosion",
+      "pos": "noun",
+      "definition_ar": "التآكل التدريجي للصخور أو التربة بفعل الرياح أو الماء أو الجليد",
+      "example_sentence": "Coastal erosion is causing the cliffs to collapse into the sea.",
+      "tier": "extended"
+    },
+    {
+      "word": "early warning system",
+      "pos": "noun",
+      "definition_ar": "تكنولوجيا تكتشف الزلازل وتنبه الناس قبل وصول الاهتزاز القوي",
+      "example_sentence": "The early warning system gave people 30 seconds to take cover.",
+      "tier": "extended"
+    },
+    {
+      "word": "fault slip",
+      "pos": "noun",
+      "definition_ar": "حركة الصخر على جانب من الصدع بالنسبة للجانب الآخر.",
+      "example_sentence": "Fault slip of just one metre can release enormous amounts of energy.",
+      "tier": "extended"
+    },
+    {
+      "word": "fault line",
+      "pos": "noun",
+      "definition_ar": "كسر أو شق في سطح الأرض حيث تحدث الزلازل غالباً",
+      "example_sentence": "California sits on several major fault lines.",
+      "tier": "extended"
+    },
+    {
+      "word": "geological",
+      "pos": "adjective",
+      "definition_ar": "متعلق بدراسة الصخور والتربة والتركيب الفيزيائي للأرض",
+      "example_sentence": "Geological studies help us understand why earthquakes happen here.",
+      "tier": "extended"
+    },
+    {
+      "word": "friction",
+      "pos": "noun",
+      "definition_ar": "القوة التي تجعل من الصعب على الأشياء أن تتحرك ضد بعضها البعض",
+      "example_sentence": "Friction between tectonic plates can cause powerful earthquakes.",
+      "tier": "extended"
+    },
+    {
+      "word": "geological hazard",
+      "pos": "noun",
+      "definition_ar": "عملية أرضية طبيعية أو حدث يُشكِّل خطرًا على الأرواح البشرية والممتلكات.",
+      "example_sentence": "Landslides are a common geological hazard in mountainous areas after rain.",
+      "tier": "extended"
+    },
+    {
+      "word": "geological formation",
+      "pos": "noun",
+      "definition_ar": "تكوين أو ترتيب طبيعي للصخور في الأرض",
+      "example_sentence": "The Grand Canyon is a famous geological formation.",
+      "tier": "extended"
+    },
+    {
+      "word": "geological time",
+      "pos": "noun",
+      "definition_ar": "الفترات الطويلة جداً المستخدمة لقياس تاريخ الأرض بملايين السنين",
+      "example_sentence": "Mountains form very slowly over geological time.",
+      "tier": "extended"
+    },
+    {
+      "word": "horizontal",
+      "pos": "adjective",
+      "definition_ar": "يذهب من جانب إلى جانب، موازياً للأرض",
+      "example_sentence": "The earthquake caused horizontal movement of the ground.",
+      "tier": "extended"
+    },
+    {
+      "word": "geological survey",
+      "pos": "noun",
+      "definition_ar": "دراسة علمية للصخور والتربة وبنية منطقة ما",
+      "example_sentence": "The geological survey revealed oil deposits beneath the desert.",
+      "tier": "extended"
+    },
+    {
+      "word": "ground rupture",
+      "pos": "noun",
+      "definition_ar": "شق مرئي أو تحول على سطح الأرض تسبب فيه الصدع.",
+      "example_sentence": "Ground rupture destroyed roads and cut power lines across the city.",
+      "tier": "extended"
+    },
+    {
+      "word": "intraplate earthquake",
+      "pos": "noun",
+      "definition_ar": "زلزال يحدث داخل صفيحة تكتونية بعيدًا عن حوافها.",
+      "example_sentence": "Intraplate earthquakes are less common but can still be very destructive.",
+      "tier": "extended"
+    },
+    {
+      "word": "igneous",
+      "pos": "adjective",
+      "definition_ar": "متعلق بالصخور المتكونة عندما تبرد الصخور المنصهرة الساخنة وتصبح صلبة",
+      "example_sentence": "Granite is a common type of igneous rock.",
+      "tier": "extended"
+    },
+    {
+      "word": "loose soil",
+      "pos": "noun",
+      "definition_ar": "تراب أو أرض غير مضغوطة بإحكام",
+      "example_sentence": "Buildings on loose soil are more likely to be damaged.",
+      "tier": "extended"
+    },
+    {
+      "word": "p-wave",
+      "pos": "noun",
+      "definition_ar": "أسرع نوع من موجات الزلزال يسافر عبر الصخر الصلب",
+      "example_sentence": "P-waves arrive first at earthquake monitoring stations.",
+      "tier": "extended"
+    },
+    {
+      "word": "liquefaction",
+      "pos": "noun",
+      "definition_ar": "عندما تصبح الأرض الصلبة مثل السائل أثناء الزلزال بسبب الماء في التربة",
+      "example_sentence": "Liquefaction caused many buildings to sink into the ground.",
+      "tier": "extended"
+    },
+    {
+      "word": "metamorphic",
+      "pos": "adjective",
+      "definition_ar": "متعلق بالصخور التي غيرت شكلها بسبب الحرارة والضغط",
+      "example_sentence": "Marble is a metamorphic rock formed from limestone.",
+      "tier": "extended"
+    },
+    {
+      "word": "reinforce",
+      "pos": "verb",
+      "definition_ar": "جعل شيء أقوى بإضافة دعم إضافي",
+      "example_sentence": "Engineers reinforce old buildings to protect them from earthquakes.",
+      "tier": "extended"
+    },
+    {
+      "word": "plate tectonics",
+      "pos": "noun",
+      "definition_ar": "النظرية التي تفسر كيف تتحرك وتتفاعل أقسام كبيرة من سطح الأرض",
+      "example_sentence": "Plate tectonics explains why earthquakes happen in certain areas.",
+      "tier": "extended"
+    },
+    {
+      "word": "richter scale",
+      "pos": "noun",
+      "definition_ar": "نظام لقياس قوة الزلازل من 1 إلى 10",
+      "example_sentence": "The Richter scale helps scientists compare different earthquakes.",
+      "tier": "extended"
+    },
+    {
+      "word": "release",
+      "pos": "verb",
+      "definition_ar": "يطلق أو يحرر فجأة، غالباً بقوة",
+      "example_sentence": "Earthquakes release energy that has built up in rocks.",
+      "tier": "extended"
+    },
+    {
+      "word": "sedimentary",
+      "pos": "adjective",
+      "definition_ar": "متعلق بالصخور المتكونة من طبقات الرمل والطين ومواد أخرى عبر الزمن",
+      "example_sentence": "Sedimentary rocks often contain fossils of ancient plants and animals.",
+      "tier": "extended"
+    },
+    {
+      "word": "seismograph",
+      "pos": "noun",
+      "definition_ar": "جهاز يكتشف ويقيس الزلازل وحركات الأرض",
+      "example_sentence": "The seismograph showed small tremors throughout the day.",
+      "tier": "extended"
+    },
+    {
+      "word": "s-wave",
+      "pos": "noun",
+      "definition_ar": "نوع من موجات الزلزال يتحرك أبطأ من الموجات الأولية ويسبب ضرراً أكثر",
+      "example_sentence": "S-waves create the strong shaking that damages buildings.",
+      "tier": "extended"
+    },
+    {
+      "word": "seismic hazard",
+      "pos": "noun",
+      "definition_ar": "احتمال أن يتسبب الزلزال في أضرار كبيرة في منطقة معينة.",
+      "example_sentence": "Urban planners must consider seismic hazard when approving new buildings.",
+      "tier": "extended"
+    },
+    {
+      "word": "seismology",
+      "pos": "noun",
+      "definition_ar": "الدراسة العلمية للزلازل والموجات التي تولّدها.",
+      "example_sentence": "Advances in seismology have improved our ability to predict earthquakes.",
+      "tier": "extended"
+    },
+    {
+      "word": "seismologist",
+      "pos": "noun",
+      "definition_ar": "عالم يدرس الزلازل وحركة الأرض",
+      "example_sentence": "The seismologist explained how earthquakes happen to the students.",
+      "tier": "extended"
+    },
+    {
+      "word": "shallow focus",
+      "pos": "noun",
+      "definition_ar": "زلزال تقع نقطة نشوئه على عمق أقل من 70 كيلومترًا تحت السطح.",
+      "example_sentence": "A shallow focus earthquake tends to cause greater surface destruction.",
+      "tier": "extended"
+    },
+    {
+      "word": "seismometer",
+      "pos": "noun",
+      "definition_ar": "جهاز يكتشف ويسجل حركة الأرض الناجمة عن الزلازل.",
+      "example_sentence": "The seismometer recorded dozens of small tremors overnight.",
+      "tier": "extended"
+    },
+    {
+      "word": "soil saturation",
+      "pos": "noun",
+      "definition_ar": "الحالة التي تمتلئ فيها جميع فراغات التربة بالماء كليًا.",
+      "example_sentence": "High soil saturation increases the risk of landslides after an earthquake.",
+      "tier": "extended"
+    },
+    {
+      "word": "subduction",
+      "pos": "noun",
+      "definition_ar": "العملية التي تنزلق فيها صفيحة تكتونية تحت أخرى إلى الوشاح.",
+      "example_sentence": "Subduction of oceanic plates under continents creates deep ocean trenches.",
+      "tier": "extended"
+    },
+    {
+      "word": "slip",
+      "pos": "noun",
+      "definition_ar": "حركة الصخر على طول الصدع أثناء الزلزال",
+      "example_sentence": "The fault showed 2 meters of slip after the earthquake.",
+      "tier": "extended"
+    },
+    {
+      "word": "stress accumulation",
+      "pos": "noun",
+      "definition_ar": "تراكم الضغط على طول خط الصدع قبل إطلاقه فجأة.",
+      "example_sentence": "Years of stress accumulation along the fault caused the major earthquake.",
+      "tier": "extended"
+    },
+    {
+      "word": "surface wave",
+      "pos": "noun",
+      "definition_ar": "نوع من موجات الزلزال يسافر على طول سطح الأرض ويسبب أكبر ضرر",
+      "example_sentence": "Surface waves arrive last but create the most destruction.",
+      "tier": "extended"
+    },
+    {
+      "word": "tectonic plates",
+      "pos": "noun",
+      "definition_ar": "أقسام كبيرة من سطح الأرض تتحرك ببطء وتسبب الزلازل عند التقائها",
+      "example_sentence": "Tectonic plates move only a few centimeters each year.",
+      "tier": "extended"
+    },
+    {
+      "word": "subduction zone",
+      "pos": "noun",
+      "definition_ar": "منطقة تتحرك فيها صفيحة تكتونية واحدة تحت أخرى، مما يسبب الزلازل غالباً",
+      "example_sentence": "Many powerful earthquakes occur in subduction zones.",
+      "tier": "extended"
+    },
+    {
+      "word": "take shelter",
+      "pos": "verb",
+      "definition_ar": "إيجاد مكان آمن لحماية النفس من الخطر",
+      "example_sentence": "People were told to take shelter under strong tables immediately.",
+      "tier": "extended"
+    },
+    {
+      "word": "tsunami",
+      "pos": "noun",
+      "definition_ar": "موجة محيطية كبيرة جداً تسببها زلزال تحت الماء أو ثوران بركاني",
+      "example_sentence": "The tsunami reached the coast two hours after the earthquake.",
+      "tier": "extended"
+    },
+    {
+      "word": "transform boundary",
+      "pos": "noun",
+      "definition_ar": "مكان تنزلق فيه صفيحتان تكتونيتان متجاوزتين بعضهما أفقياً",
+      "example_sentence": "The San Andreas Fault is a famous transform boundary.",
+      "tier": "extended"
+    },
+    {
+      "word": "unstable",
+      "pos": "adjective",
+      "definition_ar": "غير ثابت أو آمن ومن المحتمل أن يتغير أو يسقط",
+      "example_sentence": "The building became unstable after the earthquake damaged its foundation.",
+      "tier": "extended"
+    },
+    {
+      "word": "vibration",
+      "pos": "noun",
+      "definition_ar": "حركة اهتزازية تذهب وتأتي بسرعة كبيرة",
+      "example_sentence": "We felt strong vibrations from the earthquake in our building.",
+      "tier": "extended"
+    },
+    {
+      "word": "tsunami warning",
+      "pos": "noun",
+      "definition_ar": "تحذير رسمي يُصدَر عند احتمال توليد نشاط زلزالي أو محيطي لأمواج خطرة.",
+      "example_sentence": "Residents evacuated the coast immediately after the tsunami warning.",
+      "tier": "extended"
+    },
+    {
+      "word": "amplitude",
+      "pos": "noun",
+      "definition_ar": "الحد الأقصى للاهتزاز أو الإزاحة في الموجات الزلزالية",
+      "example_sentence": "The seismograph recorded high amplitude waves during the earthquake.",
+      "tier": "mastery"
+    },
+    {
+      "word": "vertical",
+      "pos": "adjective",
+      "definition_ar": "يذهب مستقيماً إلى أعلى وأسفل",
+      "example_sentence": "Some earthquakes cause vertical shaking that lifts buildings up.",
+      "tier": "extended"
+    },
+    {
+      "word": "weathering",
+      "pos": "noun",
+      "definition_ar": "تفكك الصخور بفعل الرياح والماء والجليد والعمليات الكيميائية",
+      "example_sentence": "Weathering slowly breaks large rocks into smaller pieces.",
+      "tier": "extended"
+    },
+    {
+      "word": "attenuation",
+      "pos": "noun",
+      "definition_ar": "التضعف التدريجي أو التقليل من قوة الموجات الزلزالية أثناء انتقالها",
+      "example_sentence": "Wave attenuation occurs as seismic energy spreads over larger areas.",
+      "tier": "mastery"
+    },
+    {
+      "word": "assessment",
+      "pos": "noun",
+      "definition_ar": "عملية تقييم أو الحكم على حالة أو جودة شيء ما",
+      "example_sentence": "Scientists conducted a risk assessment of the earthquake zone.",
+      "tier": "mastery"
+    },
+    {
+      "word": "co-seismic slip",
+      "pos": "noun",
+      "definition_ar": "إزاحة الصخر التي تحدث في اللحظة الدقيقة للزلزال.",
+      "example_sentence": "Scientists measured co-seismic slip of three metres along the fault.",
+      "tier": "mastery"
+    },
+    {
+      "word": "bedrock",
+      "pos": "noun",
+      "definition_ar": "الصخر الصلب الذي يقع تحت الرواسب المفككة من التربة والمواد الأخرى",
+      "example_sentence": "Buildings constructed on bedrock are more stable during earthquakes.",
+      "tier": "mastery"
+    },
+    {
+      "word": "debris",
+      "pos": "noun",
+      "definition_ar": "قطع مكسورة من الصخور أو مواد البناء أو أشياء أخرى متناثرة",
+      "example_sentence": "The landslide left debris covering the entire road.",
+      "tier": "mastery"
+    },
+    {
+      "word": "compressional",
+      "pos": "adjective",
+      "definition_ar": "متعلق بالقوى التي تضغط أو تكبس المواد معاً",
+      "example_sentence": "P-waves are compressional waves that travel fastest through the Earth.",
+      "tier": "mastery"
+    },
+    {
+      "word": "epicentral",
+      "pos": "adjective",
+      "definition_ar": "متعلق بمركز الزلزال أو واقع في مركز الزلزال",
+      "example_sentence": "The epicentral region suffered the most severe damage from the earthquake.",
+      "tier": "mastery"
+    },
+    {
+      "word": "elastic rebound",
+      "pos": "noun",
+      "definition_ar": "النظرية التي تفسر كيف تنطلق الطاقة المختزنة في الصخور المشوهة فجأة أثناء الزلازل",
+      "example_sentence": "Elastic rebound theory explains the mechanism behind most earthquake occurrences.",
+      "tier": "mastery"
+    },
+    {
+      "word": "fault scarp",
+      "pos": "noun",
+      "definition_ar": "منحدر أو منحدر حاد تشكل بسبب الحركة على طول خط الصدع",
+      "example_sentence": "The recent earthquake created a visible fault scarp across the valley.",
+      "tier": "mastery"
+    },
+    {
+      "word": "foreshock",
+      "pos": "noun",
+      "definition_ar": "زلزال أصغر يحدث قبل الزلزال الرئيسي الأكبر في نفس المنطقة",
+      "example_sentence": "Scientists detected several foreshocks before the major earthquake hit the city.",
+      "tier": "mastery"
+    },
+    {
+      "word": "fault creep",
+      "pos": "noun",
+      "definition_ar": "الحركة البطيئة والتدريجية على طول الصدع التي تحدث دون إحداث زلازل.",
+      "example_sentence": "Fault creep can damage pipelines and roads over many decades.",
+      "tier": "mastery"
+    },
+    {
+      "word": "give rise to",
+      "pos": "verb",
+      "definition_ar": "يسبب أو ينتج عنه حدوث شيء",
+      "example_sentence": "Tectonic plate movements give rise to most major earthquakes worldwide.",
+      "tier": "mastery"
+    },
+    {
+      "word": "focal depth",
+      "pos": "noun",
+      "definition_ar": "العمق تحت سطح الأرض حيث ينشأ الزلزال",
+      "example_sentence": "Shallow earthquakes with focal depth less than 70 km cause more damage.",
+      "tier": "mastery"
+    },
+    {
+      "word": "geodetic",
+      "pos": "adjective",
+      "definition_ar": "متعلق بقياس ورسم خرائط سطح الأرض ومجال الجاذبية",
+      "example_sentence": "Geodetic surveys help scientists track slow ground movements before earthquakes.",
+      "tier": "mastery"
+    },
+    {
+      "word": "hypocenter",
+      "pos": "noun",
+      "definition_ar": "النقطة الدقيقة تحت الأرض حيث يبدأ الزلزال وتنطلق الطاقة أولاً",
+      "example_sentence": "The hypocenter was located 15 kilometers below the city center.",
+      "tier": "mastery"
+    },
+    {
+      "word": "ground motion",
+      "pos": "noun",
+      "definition_ar": "حركة سطح الأرض أثناء الزلزال",
+      "example_sentence": "Engineers study ground motion to design earthquake-resistant buildings.",
+      "tier": "mastery"
+    },
+    {
+      "word": "isoseismal",
+      "pos": "adjective",
+      "definition_ar": "متعلق بالخطوط على الخريطة التي تربط نقاط شدة الزلزال المتساوية",
+      "example_sentence": "Isoseismal maps show how earthquake shaking varies across different areas.",
+      "tier": "mastery"
+    },
+    {
+      "word": "microseism",
+      "pos": "noun",
+      "definition_ar": "زلزال صغير جداً أو اهتزاز أرضي لا يمكن اكتشافه إلا بأجهزة حساسة",
+      "example_sentence": "Scientists monitor microseisms to study ongoing geological processes.",
+      "tier": "mastery"
+    },
+    {
+      "word": "intensity scale",
+      "pos": "noun",
+      "definition_ar": "نظام لقياس التأثيرات والأضرار التي يسببها الزلزال",
+      "example_sentence": "The intensity scale helps scientists compare earthquake damage across different regions.",
+      "tier": "mastery"
+    },
+    {
+      "word": "isoseismal line",
+      "pos": "noun",
+      "definition_ar": "خط كنتور مرسوم على خريطة يصل بين الأماكن التي شهدت نفس شدة الزلزال.",
+      "example_sentence": "Isoseismal lines help engineers identify which areas need stronger buildings.",
+      "tier": "mastery"
+    },
+    {
+      "word": "moment magnitude",
+      "pos": "noun",
+      "definition_ar": "مقياس قياس للزلازل مبني على إجمالي الطاقة المُطلَقة من انكسار الصدع.",
+      "example_sentence": "Moment magnitude replaced older scales for describing very large earthquakes.",
+      "tier": "mastery"
+    },
+    {
+      "word": "palaeoseismology",
+      "pos": "noun",
+      "definition_ar": "دراسة الزلازل ما قبل التاريخ باستخدام الأدلة الجيولوجية المحفوظة في الصخور والتربة.",
+      "example_sentence": "Palaeoseismology helps scientists estimate how often major earthquakes recur.",
+      "tier": "mastery"
+    },
+    {
+      "word": "microseismicity",
+      "pos": "noun",
+      "definition_ar": "حدوث زلازل صغيرة جدًا أضعف من أن يشعر بها الناس.",
+      "example_sentence": "Monitoring microseismicity can reveal hidden faults beneath a city.",
+      "tier": "mastery"
+    },
+    {
+      "word": "propagate",
+      "pos": "verb",
+      "definition_ar": "ينتشر أو ينتقل عبر وسط، خاصة بالإشارة إلى الموجات الزلزالية",
+      "example_sentence": "Seismic waves propagate through the Earth's crust at different speeds.",
+      "tier": "mastery"
+    },
+    {
+      "word": "normal fault",
+      "pos": "noun",
+      "definition_ar": "نوع من الصدع حيث يتحرك الجدار المعلق لأسفل نسبة إلى الجدار السفلي",
+      "example_sentence": "Normal faults typically form in areas where the crust is being stretched.",
+      "tier": "mastery"
+    },
+    {
+      "word": "rupture velocity",
+      "pos": "noun",
+      "definition_ar": "السرعة التي يتحرك بها الكسر على طول الصدع خلال الزلزال.",
+      "example_sentence": "A higher rupture velocity often produces stronger shaking over a wider area.",
+      "tier": "mastery"
+    },
+    {
+      "word": "precursor",
+      "pos": "noun",
+      "definition_ar": "حدث أو ظاهرة تحدث قبل وقد تشير إلى زلزال قادم",
+      "example_sentence": "Animal behavior changes are sometimes considered earthquake precursors.",
+      "tier": "mastery"
+    },
+    {
+      "word": "reverse fault",
+      "pos": "noun",
+      "definition_ar": "نوع من الصدع حيث يتحرك الجدار المعلق لأعلى نسبة إلى الجدار السفلي",
+      "example_sentence": "Reverse faults occur when rocks are compressed and pushed together.",
+      "tier": "mastery"
+    },
+    {
+      "word": "seismic gap",
+      "pos": "noun",
+      "definition_ar": "قسم من خط صدع نشط لم يشهد زلازل حديثة",
+      "example_sentence": "Scientists monitor seismic gaps as they may indicate future earthquake locations.",
+      "tier": "mastery"
+    },
+    {
+      "word": "stable",
+      "pos": "adjective",
+      "definition_ar": "مثبت بإحكام وغير مرجح أن يتغير أو يتحرك فجأة",
+      "example_sentence": "Geologically stable areas have very few earthquakes throughout history.",
+      "tier": "mastery"
+    },
+    {
+      "word": "seismic anisotropy",
+      "pos": "noun",
+      "definition_ar": "التباين في سرعة الموجات الزلزالية بحسب الاتجاه الذي تسير فيه.",
+      "example_sentence": "Seismic anisotropy reveals the alignment of crystals deep inside the earth.",
+      "tier": "mastery"
+    },
+    {
+      "word": "stratum",
+      "pos": "noun",
+      "definition_ar": "طبقة من الصخر أو الرواسب ذات خصائص متسقة داخلياً",
+      "example_sentence": "Geologists studied each stratum to understand the area's geological history.",
+      "tier": "mastery"
+    },
+    {
+      "word": "seismicity",
+      "pos": "noun",
+      "definition_ar": "حدوث وتوزيع الزلازل في منطقة معينة عبر الزمن",
+      "example_sentence": "High seismicity in the region requires strict building codes and preparation.",
+      "tier": "mastery"
+    },
+    {
+      "word": "strain accumulation",
+      "pos": "noun",
+      "definition_ar": "التراكم التدريجي للضغط في الصخور قبل أن تنكسر وتسبب الزلازل",
+      "example_sentence": "Strain accumulation along fault lines increases earthquake risk over time.",
+      "tier": "mastery"
+    },
+    {
+      "word": "susceptible to",
+      "pos": "adjective",
+      "definition_ar": "معرض للتأثر بشيء أو تجربة شيء ضار",
+      "example_sentence": "Buildings on soft soil are more susceptible to earthquake damage.",
+      "tier": "mastery"
+    },
+    {
+      "word": "trigger a quake",
+      "pos": "verb",
+      "definition_ar": "التسبب في بدء الزلزال، غالبًا بسبب قوى تكتونية أو بركانية.",
+      "example_sentence": "A volcanic eruption can trigger a quake in nearby fault systems.",
+      "tier": "mastery"
+    },
+    {
+      "word": "strike-slip",
+      "pos": "adjective",
+      "definition_ar": "نوع من الصدع حيث تتحرك الصخور أفقياً متجاوزة بعضها البعض",
+      "example_sentence": "The San Andreas Fault is a famous strike-slip fault in California.",
+      "tier": "mastery"
+    },
+    {
+      "word": "triangulation",
+      "pos": "noun",
+      "definition_ar": "طريقة لتحديد موقع الزلزال باستخدام بيانات من ثلاث محطات رصد زلزالي أو أكثر",
+      "example_sentence": "Seismologists use triangulation to pinpoint the exact epicenter of earthquakes.",
+      "tier": "mastery"
+    },
+    {
+      "word": "wave dispersion",
+      "pos": "noun",
+      "definition_ar": "انتشار طاقة الموجة الزلزالية كلما ابتعدت أكثر عن مركز الزلزال.",
+      "example_sentence": "Wave dispersion reduces the intensity of shaking at distant locations.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "af9c68b6-5357-4577-bf27-85a27a38b3e4",
+      "label": "A",
+      "title": "When the Earth Shakes",
+      "content": {
+        "paragraphs": [
+          "Deep beneath the bustling streets of Riyadh and the ancient corridors of Makkah, powerful forces are constantly at work. The Earth's crust, which appears solid and unchanging to us, is actually in continuous motion, moving on massive rock slabs called tectonic plates. When these plates suddenly shift or collide, they *trigger* earthquakes that can *devastate* entire communities within seconds.",
+          "Scientists have been working to *unravel* the mysteries of seismic activity for centuries, and their research has revealed fascinating patterns. The majority of earthquakes occur along what geologists call the 'Ring of Fire' around the Pacific Ocean, where tectonic plates *converge* and create intense pressure. However, the Arabian Peninsula sits on its own tectonic plate, which explains why the region experiences occasional seismic events. In 2009, residents of Harrat Lunayyir, northwest of Medina, experienced thousands of small earthquakes over several months, reminding everyone that even seemingly stable ground can *fluctuate* unexpectedly.",
+          "Modern earthquake detection has become incredibly sophisticated, allowing scientists to *monitor* seismic waves in real-time using networks of sensitive instruments called seismometers. These devices can *detect* ground movements so small that they're measured in millimeters, yet they provide crucial data that helps researchers *assess* earthquake risks. When an earthquake strikes, it sends out different types of waves through the Earth's layers. Primary waves, or P-waves, travel fastest and arrive first, while secondary waves, or S-waves, follow behind and typically cause more damage. This *phenomenon* allows seismologists to quickly determine an earthquake's location and magnitude.",
+          "The *magnitude* of an earthquake, measured on the Richter scale, indicates the amount of energy released during the event. Each number on the scale represents a tenfold increase in amplitude, meaning a magnitude 6.0 earthquake produces waves ten times larger than a 5.0 earthquake. While small earthquakes barely register to human senses, major quakes above magnitude 7.0 can *rupture* the ground surface and topple buildings. The most devastating earthquake in recorded history occurred in 1556 in China, killing approximately 830,000 people, though modern building codes and emergency preparedness have significantly reduced such casualties.",
+          "Despite remarkable advances in seismology, predicting exactly when and where earthquakes will occur remains one of science's greatest challenges. Researchers continue to *investigate* various warning signs, from unusual animal behavior to subtle changes in groundwater levels, hoping to develop reliable forecasting methods. Until then, the best defense against earthquake damage lies in proper building construction, community preparedness, and education about how to respond when the ground beneath our feet begins to shake."
+        ]
+      },
+      "word_count": 456
+    },
+    {
+      "id": "1a265b48-cbd9-420a-90da-379c121d51f0",
+      "label": "B",
+      "title": "When Buildings Dance with Earth",
+      "content": {
+        "paragraphs": [
+          "In the heart of Tokyo, a 634-meter tower *sways* gracefully during earthquakes, moving up to two meters at its peak while remaining completely safe. The Tokyo Skytree, like many modern structures, has been designed to *accommodate* seismic forces rather than resist them—a revolutionary approach that experts believe could *transform* construction practices worldwide.",
+          "Traditional earthquake engineering focused on creating rigid structures that would *withstand* ground shaking through sheer strength. However, engineers have discovered that buildings which can *flex* and move with seismic waves often *fare* better than their inflexible counterparts. This paradigm shift has led to innovative technologies such as base isolation systems, where buildings are literally separated from their foundations by layers of rubber and steel. When earthquakes *strike*, the ground moves beneath the structure while the building itself remains relatively stable. Japanese researchers report that buildings equipped with these systems experience 80% less shaking during major seismic events.",
+          "One of the most fascinating developments involves *viscous* dampers—devices filled with thick fluid that absorb earthquake energy. These dampers work similarly to car shock absorbers, converting the kinetic energy of building movement into heat. Engineers *incorporate* hundreds of these devices into skyscrapers, creating what seismologists call 'smart buildings' that can *adapt* to different types of ground motion. The effectiveness of this technology became evident during the 2011 Tōhoku earthquake in Japan, when buildings equipped with advanced damping systems remained operational while conventional structures suffered significant damage.",
+          "The field of earthquake engineering continues to *evolve* as scientists develop new materials and construction techniques. Shape-memory alloys—metals that return to their original form after deformation—are being integrated into building frames. These materials allow structures to 'remember' their original shape and automatically repair minor earthquake damage. Additionally, researchers are experimenting with *artificial* intelligence systems that can predict building behavior during earthquakes and automatically adjust damping systems in real-time. Such innovations *signify* a future where buildings don't just survive earthquakes but actively respond to them.",
+          "As urban populations grow and cities expand into seismically active regions, the importance of earthquake-resistant design becomes increasingly critical. The lessons learned from countries like Japan and Chile, where stringent building codes have dramatically reduced earthquake casualties, demonstrate that proper engineering can save thousands of lives. While we cannot prevent earthquakes, we can certainly build structures that *render* them far less destructive to human communities."
+        ]
+      },
+      "word_count": 598
+    }
+  ],
+  "grammar": {
+    "topic_name_en": "second conditional",
+    "topic_name_ar": "second conditional",
+    "explanation_content": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "الشرط الثاني يُستخدم للحديث عن المواقف الخيالية أو غير الحقيقية في الحاضر أو المستقبل. هذه مواقف من غير المرجح أن تحدث أو مستحيلة الحدوث",
+          "content_en": "The Second Conditional is used to talk about <b>imaginary or unreal situations</b> in the present or future. These are situations that are unlikely to happen or impossible.<br><br>We use it to:<br>• Talk about hypothetical situations<br>• Give advice<br>• Express wishes about present situations<br><br>The Second Conditional has two parts:<br>1. <b>If clause</b> (condition) - uses past simple<br>2. <b>Main clause</b> (result) - uses would + base verb<br><br>Note: We use <i>were</i> for all persons with the verb 'be' in formal English."
+        },
+        {
+          "type": "formula",
+          "content": "If + subject + past simple, subject + would + base verb"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "If scientists could predict earthquakes perfectly, they would save thousands of lives.",
+              "highlight": "could predict, would save",
+              "translation_ar": "لو استطاع العلماء التنبؤ بالزلازل بشكل مثالي، لأنقذوا آلاف الأرواح"
+            },
+            {
+              "sentence": "If I were a seismologist, I would study earthquake patterns all day.",
+              "highlight": "were, would study",
+              "translation_ar": "لو كنت عالم زلازل، لدرست أنماط الزلازل طوال اليوم"
+            },
+            {
+              "sentence": "People would feel safer if buildings were more earthquake-resistant.",
+              "highlight": "would feel, were",
+              "translation_ar": "سيشعر الناس بأمان أكبر لو كانت المباني أكثر مقاومة للزلازل"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "If I was a seismologist...",
+              "correct": "If I were a seismologist...",
+              "explanation_ar": "نستخدم 'were' مع جميع الضمائر في الشرط الثاني"
+            },
+            {
+              "wrong": "If earthquakes will be predictable...",
+              "correct": "If earthquakes were predictable...",
+              "explanation_ar": "لا نستخدم 'will' في جملة الشرط، بل الماضي البسيط"
+            },
+            {
+              "wrong": "If we could predict earthquakes, we will save lives.",
+              "correct": "If we could predict earthquakes, we would save lives.",
+              "explanation_ar": "نستخدم 'would' وليس 'will' في جملة النتيجة"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

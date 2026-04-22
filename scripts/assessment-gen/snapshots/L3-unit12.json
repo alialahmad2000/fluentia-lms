@@ -1,0 +1,1299 @@
+{
+  "unit": {
+    "id": "c14c9ffc-13b9-4c4f-9e67-b178f4d85bf6",
+    "unit_number": 12,
+    "title_en": "Mars Exploration",
+    "title_ar": "استكشاف المريخ"
+  },
+  "assessment": {
+    "id": "f242b081-b406-43d2-b7e0-5a2ff4084012"
+  },
+  "variants": [
+    {
+      "id": "59003929-f7c7-4d56-b094-14be7f237156",
+      "variant_code": "A"
+    },
+    {
+      "id": "93a23a55-c620-40dc-9d10-006489523a2d",
+      "variant_code": "B"
+    },
+    {
+      "id": "b9e197a9-ba36-4faa-805f-b056805808d7",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "word": "captivated",
+      "pos": "verb",
+      "definition_ar": "سحر، أبهر، جذب انتباه شخص بقوة",
+      "example_sentence": "The beautiful sunset captivated all the tourists on the beach.",
+      "tier": "core"
+    },
+    {
+      "word": "gear up",
+      "pos": "verb",
+      "definition_ar": "يستعد، يتأهب، يحضر نفسه",
+      "example_sentence": "The students are gearing up for their final exams next month.",
+      "tier": "core"
+    },
+    {
+      "word": "ambitious",
+      "pos": "adjective",
+      "definition_ar": "طموح، يسعى لتحقيق أهداف صعبة",
+      "example_sentence": "She has ambitious plans to open three new restaurants this year.",
+      "tier": "core"
+    },
+    {
+      "word": "daunting",
+      "pos": "adjective",
+      "definition_ar": "مخيف، مثبط للعزيمة، صعب ومحبط",
+      "example_sentence": "Learning a new language can seem daunting at first, but it gets easier with practice.",
+      "tier": "core"
+    },
+    {
+      "word": "embarked",
+      "pos": "verb",
+      "definition_ar": "شرع في، بدأ رحلة أو مشروع مهم",
+      "example_sentence": "After graduation, he embarked on a career in medicine.",
+      "tier": "core"
+    },
+    {
+      "word": "sustain",
+      "pos": "verb",
+      "definition_ar": "يحافظ على، يستمر في، يدعم",
+      "example_sentence": "It's hard to sustain a conversation when you're very tired.",
+      "tier": "core"
+    },
+    {
+      "word": "crucial",
+      "pos": "adjective",
+      "definition_ar": "بالغ الأهمية، حاسم، جوهري",
+      "example_sentence": "Getting enough sleep is crucial for good health and concentration.",
+      "tier": "core"
+    },
+    {
+      "word": "conceived",
+      "pos": "verb",
+      "definition_ar": "تصور، ابتكر فكرة أو خطة",
+      "example_sentence": "The architect conceived a brilliant design for the new library.",
+      "tier": "core"
+    },
+    {
+      "word": "harsh",
+      "pos": "adjective",
+      "definition_ar": "قاس، صعب، شديد القسوة",
+      "example_sentence": "The harsh winter weather made it difficult to go outside.",
+      "tier": "core"
+    },
+    {
+      "word": "give up",
+      "pos": "verb",
+      "definition_ar": "استسلم، توقف عن المحاولة، تخلى عن",
+      "example_sentence": "Don't give up learning English - practice every day and you'll improve.",
+      "tier": "core"
+    },
+    {
+      "word": "carved",
+      "pos": "verb",
+      "definition_ar": "نحت، حفر، شكّل بالقطع أو الحفر",
+      "example_sentence": "The river carved a deep valley through the mountains over thousands of years.",
+      "tier": "core"
+    },
+    {
+      "word": "overcome",
+      "pos": "verb",
+      "definition_ar": "يتغلب على، يتخطى، يحل",
+      "example_sentence": "She managed to overcome her fear of public speaking through practice.",
+      "tier": "core"
+    },
+    {
+      "word": "sophisticated",
+      "pos": "adjective",
+      "definition_ar": "متطور، معقد، متقدم تقنياً",
+      "example_sentence": "Modern smartphones are very sophisticated devices with many advanced features.",
+      "tier": "core"
+    },
+    {
+      "word": "plummet",
+      "pos": "verb",
+      "definition_ar": "ينخفض بسرعة، يهوي، يهبط فجأة",
+      "example_sentence": "The company's profits plummeted after the scandal was revealed.",
+      "tier": "core"
+    },
+    {
+      "word": "analyzing",
+      "pos": "verb",
+      "definition_ar": "يحلل، يفحص بتفصيل لفهم شيء ما",
+      "example_sentence": "The doctor is analyzing the test results to determine the best treatment.",
+      "tier": "core"
+    },
+    {
+      "word": "devised",
+      "pos": "verb",
+      "definition_ar": "ابتكر، وضع، صمم",
+      "example_sentence": "The teacher devised a new way to help students remember vocabulary.",
+      "tier": "core"
+    },
+    {
+      "word": "extract",
+      "pos": "verb",
+      "definition_ar": "يستخرج، يستخلص، ينتزع",
+      "example_sentence": "The dentist had to extract the damaged tooth.",
+      "tier": "core"
+    },
+    {
+      "word": "compelling",
+      "pos": "adjective",
+      "definition_ar": "مقنع، جذاب، مثير للاهتمام بقوة",
+      "example_sentence": "The documentary presented compelling evidence about climate change.",
+      "tier": "core"
+    },
+    {
+      "word": "convert",
+      "pos": "verb",
+      "definition_ar": "يحول، يغير، يبدل",
+      "example_sentence": "We need to convert these measurements from meters to feet.",
+      "tier": "core"
+    },
+    {
+      "word": "feasible",
+      "pos": "adjective",
+      "definition_ar": "ممكن التحقيق، قابل للتنفيذ",
+      "example_sentence": "Building a new school is feasible if we have enough money and community support.",
+      "tier": "core"
+    },
+    {
+      "word": "formidable",
+      "pos": "adjective",
+      "definition_ar": "هائل، مخيف، صعب جداً في التعامل معه",
+      "example_sentence": "Learning Chinese is a formidable task, but not impossible with dedication.",
+      "tier": "core"
+    },
+    {
+      "word": "formidable",
+      "pos": "adjective",
+      "definition_ar": "هائل، مخيف، صعب جداً",
+      "example_sentence": "She has a formidable knowledge of history and can answer any question.",
+      "tier": "core"
+    },
+    {
+      "word": "devise",
+      "pos": "verb",
+      "definition_ar": "ابتكر، وضع خطة أو نظام بعد تفكير دقيق",
+      "example_sentence": "The team needs to devise a strategy to increase sales next quarter.",
+      "tier": "core"
+    },
+    {
+      "word": "synthetic",
+      "pos": "adjective",
+      "definition_ar": "صناعي، مصطنع، تركيبي",
+      "example_sentence": "Many clothes today are made from synthetic materials like polyester.",
+      "tier": "core"
+    },
+    {
+      "word": "resulted in",
+      "pos": "verb",
+      "definition_ar": "أدى إلى، تسبب في، نتج عنه",
+      "example_sentence": "The heavy rain resulted in flooding in several areas of the city.",
+      "tier": "core"
+    },
+    {
+      "word": "overlooked",
+      "pos": "verb",
+      "definition_ar": "يتجاهل، يغفل عن، يهمل",
+      "example_sentence": "The manager overlooked several important details in the report.",
+      "tier": "core"
+    },
+    {
+      "word": "diverse",
+      "pos": "adjective",
+      "definition_ar": "متنوع، مختلف، متعدد",
+      "example_sentence": "Our school has a diverse student population from many different countries.",
+      "tier": "core"
+    },
+    {
+      "word": "endeavors",
+      "pos": "noun",
+      "definition_ar": "جهود جدية، مساعي، مشاريع تتطلب عمل شاق",
+      "example_sentence": "Her artistic endeavors include painting, sculpture, and photography.",
+      "tier": "core"
+    },
+    {
+      "word": "threshold",
+      "pos": "noun",
+      "definition_ar": "عتبة، بداية، حد البداية",
+      "example_sentence": "After years of training, she was finally on the threshold of her medical career.",
+      "tier": "core"
+    },
+    {
+      "word": "colonize",
+      "pos": "verb",
+      "definition_ar": "يستعمر",
+      "example_sentence": "Some scientists believe humans will colonize Mars this century.",
+      "tier": "core"
+    },
+    {
+      "word": "crewed mission",
+      "pos": "noun",
+      "definition_ar": "مهمة بطاقم بشري",
+      "example_sentence": "The first crewed mission to Mars is still in the planning stage.",
+      "tier": "core"
+    },
+    {
+      "word": "cosmic ray",
+      "pos": "noun",
+      "definition_ar": "أشعة كونية",
+      "example_sentence": "Cosmic rays pose a serious risk to astronauts on long missions.",
+      "tier": "core"
+    },
+    {
+      "word": "elliptical orbit",
+      "pos": "noun",
+      "definition_ar": "مدار إهليجي",
+      "example_sentence": "Mars travels in an elliptical orbit around the Sun.",
+      "tier": "core"
+    },
+    {
+      "word": "deep space",
+      "pos": "noun",
+      "definition_ar": "الفضاء العميق",
+      "example_sentence": "Traveling through deep space presents many health challenges.",
+      "tier": "core"
+    },
+    {
+      "word": "geologist",
+      "pos": "noun",
+      "definition_ar": "عالم جيولوجيا",
+      "example_sentence": "The geologist studied Martian rock samples in the laboratory.",
+      "tier": "core"
+    },
+    {
+      "word": "fuel efficiency",
+      "pos": "noun",
+      "definition_ar": "كفاءة استهلاك الوقود",
+      "example_sentence": "Fuel efficiency is critical for long-distance space travel.",
+      "tier": "core"
+    },
+    {
+      "word": "habitable zone",
+      "pos": "noun",
+      "definition_ar": "المنطقة الصالحة للسكن",
+      "example_sentence": "Earth is in the Sun's habitable zone.",
+      "tier": "core"
+    },
+    {
+      "word": "habitation module",
+      "pos": "noun",
+      "definition_ar": "وحدة السكن",
+      "example_sentence": "The habitation module will house a crew of four astronauts.",
+      "tier": "core"
+    },
+    {
+      "word": "interplanetary",
+      "pos": "adjective",
+      "definition_ar": "بين الكواكب",
+      "example_sentence": "Interplanetary travel requires years of planning and preparation.",
+      "tier": "core"
+    },
+    {
+      "word": "heat shield",
+      "pos": "noun",
+      "definition_ar": "درع حراري",
+      "example_sentence": "The heat shield protects the spacecraft during re-entry.",
+      "tier": "core"
+    },
+    {
+      "word": "landing site",
+      "pos": "noun",
+      "definition_ar": "موقع الهبوط",
+      "example_sentence": "Engineers carefully selected the landing site for its flat surface.",
+      "tier": "core"
+    },
+    {
+      "word": "interstellar",
+      "pos": "adjective",
+      "definition_ar": "بين النجوم",
+      "example_sentence": "An interstellar mission would take thousands of years to complete.",
+      "tier": "core"
+    },
+    {
+      "word": "launch pad",
+      "pos": "noun",
+      "definition_ar": "منصة الإطلاق",
+      "example_sentence": "The rocket stood on the launch pad ready for lift-off.",
+      "tier": "core"
+    },
+    {
+      "word": "launch",
+      "pos": "verb",
+      "definition_ar": "إطلاق",
+      "example_sentence": "The rocket launch was delayed due to bad weather conditions.",
+      "tier": "core"
+    },
+    {
+      "word": "lift-off",
+      "pos": "noun",
+      "definition_ar": "الإقلاع",
+      "example_sentence": "Lift-off happened exactly on schedule at dawn.",
+      "tier": "core"
+    },
+    {
+      "word": "life support system",
+      "pos": "noun",
+      "definition_ar": "نظام دعم الحياة",
+      "example_sentence": "The life support system failed during the training exercise.",
+      "tier": "core"
+    },
+    {
+      "word": "mars",
+      "pos": "noun",
+      "definition_ar": "المريخ",
+      "example_sentence": "Scientists hope to send humans to Mars within twenty years.",
+      "tier": "core"
+    },
+    {
+      "word": "mars mission",
+      "pos": "noun",
+      "definition_ar": "مهمة المريخ",
+      "example_sentence": "The Mars mission is expected to last about two and a half years.",
+      "tier": "core"
+    },
+    {
+      "word": "mars rover",
+      "pos": "noun",
+      "definition_ar": "مركبة استكشاف المريخ",
+      "example_sentence": "The Mars rover collected rock samples near an ancient riverbed.",
+      "tier": "core"
+    },
+    {
+      "word": "martian atmosphere",
+      "pos": "noun",
+      "definition_ar": "غلاف المريخ الجوي",
+      "example_sentence": "The Martian atmosphere is mostly made of carbon dioxide.",
+      "tier": "core"
+    },
+    {
+      "word": "milky way",
+      "pos": "noun",
+      "definition_ar": "درب التبانة",
+      "example_sentence": "On a clear night, you can see the Milky Way with the naked eye.",
+      "tier": "core"
+    },
+    {
+      "word": "martian soil",
+      "pos": "noun",
+      "definition_ar": "تربة المريخ",
+      "example_sentence": "Martian soil contains chemicals that may be harmful to plants.",
+      "tier": "core"
+    },
+    {
+      "word": "orbital path",
+      "pos": "noun",
+      "definition_ar": "المسار المداري",
+      "example_sentence": "Scientists calculated the orbital path of the new spacecraft.",
+      "tier": "core"
+    },
+    {
+      "word": "orbital laboratory",
+      "pos": "noun",
+      "definition_ar": "مختبر مداري",
+      "example_sentence": "The orbital laboratory has hosted crews from many nations.",
+      "tier": "core"
+    },
+    {
+      "word": "oxygen supply",
+      "pos": "noun",
+      "definition_ar": "إمداد الأكسجين",
+      "example_sentence": "A failure in the oxygen supply would be immediately life-threatening.",
+      "tier": "core"
+    },
+    {
+      "word": "planetary orbit",
+      "pos": "noun",
+      "definition_ar": "مدار كوكبي",
+      "example_sentence": "Mars has an elliptical planetary orbit around the Sun.",
+      "tier": "core"
+    },
+    {
+      "word": "planetary science",
+      "pos": "noun",
+      "definition_ar": "علم الكواكب",
+      "example_sentence": "Planetary science helps us understand how Earth formed.",
+      "tier": "core"
+    },
+    {
+      "word": "propulsion",
+      "pos": "noun",
+      "definition_ar": "دفع",
+      "example_sentence": "New propulsion systems could shorten the journey to Mars.",
+      "tier": "core"
+    },
+    {
+      "word": "radiation",
+      "pos": "noun",
+      "definition_ar": "إشعاع",
+      "example_sentence": "Astronauts need protection from harmful space radiation.",
+      "tier": "core"
+    },
+    {
+      "word": "red planet",
+      "pos": "noun",
+      "definition_ar": "الكوكب الأحمر",
+      "example_sentence": "The Red Planet has always fascinated astronomers and dreamers.",
+      "tier": "core"
+    },
+    {
+      "word": "rover",
+      "pos": "noun",
+      "definition_ar": "مركبة استكشاف",
+      "example_sentence": "The Mars rover collected soil samples from the red planet.",
+      "tier": "core"
+    },
+    {
+      "word": "rocket fuel",
+      "pos": "noun",
+      "definition_ar": "وقود الصاروخ",
+      "example_sentence": "Liquid hydrogen is used as rocket fuel in many modern spacecraft.",
+      "tier": "core"
+    },
+    {
+      "word": "solar system",
+      "pos": "noun",
+      "definition_ar": "النظام الشمسي",
+      "example_sentence": "Mars is the fourth planet in our solar system.",
+      "tier": "core"
+    },
+    {
+      "word": "solar wind",
+      "pos": "noun",
+      "definition_ar": "الرياح الشمسية",
+      "example_sentence": "Solar wind can interfere with communication satellites.",
+      "tier": "core"
+    },
+    {
+      "word": "space capsule",
+      "pos": "noun",
+      "definition_ar": "كبسولة فضائية",
+      "example_sentence": "The space capsule splashed down safely in the ocean.",
+      "tier": "core"
+    },
+    {
+      "word": "space agency",
+      "pos": "noun",
+      "definition_ar": "وكالة فضاء",
+      "example_sentence": "The space agency announced plans for a new lunar mission.",
+      "tier": "core"
+    },
+    {
+      "word": "space mission",
+      "pos": "noun",
+      "definition_ar": "مهمة فضائية",
+      "example_sentence": "The space mission will collect rock samples from Mars.",
+      "tier": "core"
+    },
+    {
+      "word": "space exploration",
+      "pos": "noun",
+      "definition_ar": "استكشاف الفضاء",
+      "example_sentence": "Space exploration has led to many important scientific discoveries.",
+      "tier": "core"
+    },
+    {
+      "word": "space research",
+      "pos": "noun",
+      "definition_ar": "أبحاث الفضاء",
+      "example_sentence": "Space research has produced technology used in everyday life.",
+      "tier": "core"
+    },
+    {
+      "word": "space program",
+      "pos": "noun",
+      "definition_ar": "برنامج فضائي",
+      "example_sentence": "The space program has inspired generations of young scientists.",
+      "tier": "core"
+    },
+    {
+      "word": "space suit",
+      "pos": "noun",
+      "definition_ar": "بدلة الفضاء",
+      "example_sentence": "The space suit provides oxygen and protects against radiation.",
+      "tier": "core"
+    },
+    {
+      "word": "space scientist",
+      "pos": "noun",
+      "definition_ar": "عالم فضاء",
+      "example_sentence": "The space scientist analyzed data from the Mars probe.",
+      "tier": "core"
+    },
+    {
+      "word": "spacewalk",
+      "pos": "noun",
+      "definition_ar": "السير في الفضاء",
+      "example_sentence": "The astronaut completed a spacewalk to repair the satellite.",
+      "tier": "core"
+    },
+    {
+      "word": "space telescope",
+      "pos": "noun",
+      "definition_ar": "تلسكوب فضائي",
+      "example_sentence": "The space telescope captured images of distant galaxies.",
+      "tier": "core"
+    },
+    {
+      "word": "stellar",
+      "pos": "adjective",
+      "definition_ar": "نجمي / ممتاز",
+      "example_sentence": "The stellar performance of the mission team impressed everyone.",
+      "tier": "core"
+    },
+    {
+      "word": "thrust",
+      "pos": "noun",
+      "definition_ar": "الدفع",
+      "example_sentence": "The rocket needs enough thrust to escape Earth's gravitational pull.",
+      "tier": "core"
+    },
+    {
+      "word": "aerocapture",
+      "pos": "noun",
+      "definition_ar": "التقاط الهواء",
+      "example_sentence": "Aerocapture reduces the fuel needed to enter orbit around Mars.",
+      "tier": "extended"
+    },
+    {
+      "word": "uncrewed probe",
+      "pos": "noun",
+      "definition_ar": "مسبار غير مأهول",
+      "example_sentence": "The uncrewed probe sent back detailed images of Jupiter.",
+      "tier": "core"
+    },
+    {
+      "word": "astronaut training",
+      "pos": "noun",
+      "definition_ar": "تدريب رواد الفضاء",
+      "example_sentence": "Astronaut training involves extreme physical and mental challenges.",
+      "tier": "extended"
+    },
+    {
+      "word": "astrophysics",
+      "pos": "noun",
+      "definition_ar": "الفيزياء الفلكية",
+      "example_sentence": "Astrophysics uses mathematics to explain how stars produce energy.",
+      "tier": "extended"
+    },
+    {
+      "word": "celestial body",
+      "pos": "noun",
+      "definition_ar": "جرم سماوي",
+      "example_sentence": "Scientists study every celestial body in our solar system.",
+      "tier": "extended"
+    },
+    {
+      "word": "black hole",
+      "pos": "noun",
+      "definition_ar": "ثقب أسود",
+      "example_sentence": "A black hole at the center of our galaxy was recently photographed.",
+      "tier": "extended"
+    },
+    {
+      "word": "cosmic distance",
+      "pos": "noun",
+      "definition_ar": "المسافة الكونية",
+      "example_sentence": "Even at light speed, cosmic distances take years to cross.",
+      "tier": "extended"
+    },
+    {
+      "word": "crater analysis",
+      "pos": "noun",
+      "definition_ar": "تحليل الحفر",
+      "example_sentence": "Crater analysis reveals how often asteroids have hit the surface.",
+      "tier": "extended"
+    },
+    {
+      "word": "docking",
+      "pos": "noun",
+      "definition_ar": "التحام",
+      "example_sentence": "The docking procedure connected the supply ship to the station.",
+      "tier": "extended"
+    },
+    {
+      "word": "dust storm",
+      "pos": "noun",
+      "definition_ar": "عاصفة ترابية",
+      "example_sentence": "The Martian dust storm lasted for several months.",
+      "tier": "extended"
+    },
+    {
+      "word": "electromagnetic spectrum",
+      "pos": "noun",
+      "definition_ar": "الطيف الكهرومغناطيسي",
+      "example_sentence": "Scientists study the electromagnetic spectrum to learn about stars.",
+      "tier": "extended"
+    },
+    {
+      "word": "geological age",
+      "pos": "noun",
+      "definition_ar": "العمر الجيولوجي",
+      "example_sentence": "The geological age of Mars's valleys suggests ancient water flow.",
+      "tier": "extended"
+    },
+    {
+      "word": "gravity assist",
+      "pos": "noun",
+      "definition_ar": "المساعدة الجاذبية",
+      "example_sentence": "The probe used a gravity assist from Jupiter to speed up.",
+      "tier": "extended"
+    },
+    {
+      "word": "hypersonic speed",
+      "pos": "noun",
+      "definition_ar": "السرعة الفائقة",
+      "example_sentence": "Re-entry vehicles travel at hypersonic speed through the atmosphere.",
+      "tier": "extended"
+    },
+    {
+      "word": "interplanetary dust",
+      "pos": "noun",
+      "definition_ar": "الغبار بين الكواكب",
+      "example_sentence": "Interplanetary dust carries information about the early solar system.",
+      "tier": "extended"
+    },
+    {
+      "word": "impact crater",
+      "pos": "noun",
+      "definition_ar": "حفرة الاصطدام",
+      "example_sentence": "Mars has thousands of impact craters from ancient collisions.",
+      "tier": "extended"
+    },
+    {
+      "word": "life detection",
+      "pos": "noun",
+      "definition_ar": "اكتشاف الحياة",
+      "example_sentence": "Life detection instruments are included in every Mars mission.",
+      "tier": "extended"
+    },
+    {
+      "word": "lander",
+      "pos": "noun",
+      "definition_ar": "مركبة هبوط",
+      "example_sentence": "The lander touched down safely on the Martian surface.",
+      "tier": "extended"
+    },
+    {
+      "word": "magnetosphere",
+      "pos": "noun",
+      "definition_ar": "الغلاف المغناطيسي",
+      "example_sentence": "Mars lacks a strong magnetosphere, leaving it exposed to radiation.",
+      "tier": "extended"
+    },
+    {
+      "word": "mars base",
+      "pos": "noun",
+      "definition_ar": "قاعدة المريخ",
+      "example_sentence": "Building a Mars base will require solving many engineering problems.",
+      "tier": "extended"
+    },
+    {
+      "word": "martian geology",
+      "pos": "noun",
+      "definition_ar": "جيولوجيا المريخ",
+      "example_sentence": "Martian geology shows evidence of volcanic eruptions long ago.",
+      "tier": "extended"
+    },
+    {
+      "word": "mars orbit",
+      "pos": "noun",
+      "definition_ar": "مدار المريخ",
+      "example_sentence": "The spacecraft entered Mars orbit after a seven-month journey.",
+      "tier": "extended"
+    },
+    {
+      "word": "microgravity",
+      "pos": "noun",
+      "definition_ar": "جاذبية صغرى",
+      "example_sentence": "Plants grow differently in microgravity aboard the space station.",
+      "tier": "extended"
+    },
+    {
+      "word": "mission control",
+      "pos": "noun",
+      "definition_ar": "مركز التحكم بالمهمة",
+      "example_sentence": "Mission control tracked every second of the Mars landing.",
+      "tier": "extended"
+    },
+    {
+      "word": "orbital mechanics",
+      "pos": "noun",
+      "definition_ar": "ميكانيكا المدارات",
+      "example_sentence": "Orbital mechanics determines the path of every spacecraft.",
+      "tier": "extended"
+    },
+    {
+      "word": "nuclear propulsion",
+      "pos": "noun",
+      "definition_ar": "الدفع النووي",
+      "example_sentence": "Nuclear propulsion could cut travel time to Mars in half.",
+      "tier": "extended"
+    },
+    {
+      "word": "payload",
+      "pos": "noun",
+      "definition_ar": "حمولة",
+      "example_sentence": "The rocket carried a payload of scientific instruments to orbit.",
+      "tier": "extended"
+    },
+    {
+      "word": "parachute system",
+      "pos": "noun",
+      "definition_ar": "نظام المظلة",
+      "example_sentence": "The parachute system deployed successfully when entering Mars's atmosphere.",
+      "tier": "extended"
+    },
+    {
+      "word": "planetary formation",
+      "pos": "noun",
+      "definition_ar": "تكوّن الكواكب",
+      "example_sentence": "Planetary formation takes millions of years to complete.",
+      "tier": "extended"
+    },
+    {
+      "word": "photovoltaic power",
+      "pos": "noun",
+      "definition_ar": "الطاقة الكهروضوئية",
+      "example_sentence": "Photovoltaic power supplies energy to remote Mars equipment.",
+      "tier": "extended"
+    },
+    {
+      "word": "planetary protection",
+      "pos": "noun",
+      "definition_ar": "حماية الكواكب",
+      "example_sentence": "Planetary protection rules require careful sterilization of spacecraft.",
+      "tier": "extended"
+    },
+    {
+      "word": "probe landing",
+      "pos": "noun",
+      "definition_ar": "هبوط المسبار",
+      "example_sentence": "The probe landing was broadcast live around the world.",
+      "tier": "extended"
+    },
+    {
+      "word": "re-entry",
+      "pos": "noun",
+      "definition_ar": "إعادة الدخول",
+      "example_sentence": "Re-entry into Earth's atmosphere creates extreme heat.",
+      "tier": "extended"
+    },
+    {
+      "word": "regolith",
+      "pos": "noun",
+      "definition_ar": "تربة كوكبية",
+      "example_sentence": "Mars regolith could be used to make building materials.",
+      "tier": "extended"
+    },
+    {
+      "word": "solar flare",
+      "pos": "noun",
+      "definition_ar": "توهج شمسي",
+      "example_sentence": "A solar flare can disrupt communication systems on Earth.",
+      "tier": "extended"
+    },
+    {
+      "word": "reusable rocket",
+      "pos": "noun",
+      "definition_ar": "صاروخ قابل لإعادة الاستخدام",
+      "example_sentence": "Reusable rockets have made space travel much cheaper.",
+      "tier": "extended"
+    },
+    {
+      "word": "space biology",
+      "pos": "noun",
+      "definition_ar": "الأحياء الفضائية",
+      "example_sentence": "Space biology research helps design better life support systems.",
+      "tier": "extended"
+    },
+    {
+      "word": "solar panel array",
+      "pos": "noun",
+      "definition_ar": "مصفوفة الألواح الشمسية",
+      "example_sentence": "The solar panel array powers all systems on the Mars rover.",
+      "tier": "extended"
+    },
+    {
+      "word": "space colonization",
+      "pos": "noun",
+      "definition_ar": "الاستعمار الفضائي",
+      "example_sentence": "Space colonization is a long-term goal for several space agencies.",
+      "tier": "extended"
+    },
+    {
+      "word": "space debris",
+      "pos": "noun",
+      "definition_ar": "حطام فضائي",
+      "example_sentence": "Space debris is a growing danger to working satellites.",
+      "tier": "extended"
+    },
+    {
+      "word": "space habitat",
+      "pos": "noun",
+      "definition_ar": "موئل فضائي",
+      "example_sentence": "A space habitat must control temperature, air, and radiation.",
+      "tier": "extended"
+    },
+    {
+      "word": "space debris removal",
+      "pos": "noun",
+      "definition_ar": "إزالة الحطام الفضائي",
+      "example_sentence": "Space debris removal is becoming an urgent international issue.",
+      "tier": "extended"
+    },
+    {
+      "word": "space medicine",
+      "pos": "noun",
+      "definition_ar": "الطب الفضائي",
+      "example_sentence": "Space medicine research has improved treatments on Earth too.",
+      "tier": "extended"
+    },
+    {
+      "word": "space suit pressure",
+      "pos": "noun",
+      "definition_ar": "ضغط بدلة الفضاء",
+      "example_sentence": "Space suit pressure must equal conditions breathable by humans.",
+      "tier": "extended"
+    },
+    {
+      "word": "space tourism",
+      "pos": "noun",
+      "definition_ar": "السياحة الفضائية",
+      "example_sentence": "Space tourism became a reality when private companies entered the field.",
+      "tier": "extended"
+    },
+    {
+      "word": "spectroscopy",
+      "pos": "noun",
+      "definition_ar": "التحليل الطيفي",
+      "example_sentence": "Spectroscopy revealed the presence of methane in Mars's atmosphere.",
+      "tier": "extended"
+    },
+    {
+      "word": "surface mapping",
+      "pos": "noun",
+      "definition_ar": "رسم خرائط السطح",
+      "example_sentence": "Surface mapping of Mars revealed ancient riverbeds.",
+      "tier": "extended"
+    },
+    {
+      "word": "stellar evolution",
+      "pos": "noun",
+      "definition_ar": "التطور النجمي",
+      "example_sentence": "Understanding stellar evolution tells us how the Sun will age.",
+      "tier": "extended"
+    },
+    {
+      "word": "tidal force",
+      "pos": "noun",
+      "definition_ar": "القوة المدية",
+      "example_sentence": "Tidal forces from Jupiter tear apart some of its moons.",
+      "tier": "extended"
+    },
+    {
+      "word": "terraform",
+      "pos": "verb",
+      "definition_ar": "يحول بيئة كوكب",
+      "example_sentence": "Some scientists dream of terraforming Mars for human life.",
+      "tier": "extended"
+    },
+    {
+      "word": "aerobraking",
+      "pos": "noun",
+      "definition_ar": "الكبح الجوي",
+      "example_sentence": "Aerobraking reduces the fuel needed for Mars orbital insertion.",
+      "tier": "mastery"
+    },
+    {
+      "word": "water ice",
+      "pos": "noun",
+      "definition_ar": "الجليد المائي",
+      "example_sentence": "Scientists found evidence of water ice beneath Mars's surface.",
+      "tier": "extended"
+    },
+    {
+      "word": "atmospheric escape",
+      "pos": "noun",
+      "definition_ar": "الهروب الجوي",
+      "example_sentence": "Mars lost much of its atmosphere through atmospheric escape.",
+      "tier": "mastery"
+    },
+    {
+      "word": "astrobiology",
+      "pos": "noun",
+      "definition_ar": "الأحياء الفلكية",
+      "example_sentence": "Astrobiology combines biology, chemistry, and astronomy.",
+      "tier": "mastery"
+    },
+    {
+      "word": "cis-lunar space",
+      "pos": "noun",
+      "definition_ar": "الفضاء ما بين القمر والأرض",
+      "example_sentence": "Cis-lunar space will be used to stage future deep space missions.",
+      "tier": "mastery"
+    },
+    {
+      "word": "closed-loop life support",
+      "pos": "noun",
+      "definition_ar": "نظام دعم حياة دوري مغلق",
+      "example_sentence": "Closed-loop life support is essential for long Mars missions.",
+      "tier": "mastery"
+    },
+    {
+      "word": "cosmic background radiation",
+      "pos": "noun",
+      "definition_ar": "إشعاع الخلفية الكونية",
+      "example_sentence": "Cosmic background radiation gives clues about the universe's origin.",
+      "tier": "mastery"
+    },
+    {
+      "word": "cryogenic fuel",
+      "pos": "noun",
+      "definition_ar": "الوقود التبريدي",
+      "example_sentence": "Cryogenic fuel is stored in special insulated tanks on rockets.",
+      "tier": "mastery"
+    },
+    {
+      "word": "cryogenics",
+      "pos": "noun",
+      "definition_ar": "تقنية التبريد الفائق",
+      "example_sentence": "Cryogenics is used to store rocket fuel at extreme cold.",
+      "tier": "mastery"
+    },
+    {
+      "word": "exoplanet",
+      "pos": "noun",
+      "definition_ar": "كوكب خارجي",
+      "example_sentence": "Scientists have discovered thousands of exoplanets using telescopes.",
+      "tier": "mastery"
+    },
+    {
+      "word": "gravitational lensing",
+      "pos": "noun",
+      "definition_ar": "العدسة الجاذبية",
+      "example_sentence": "Gravitational lensing allows us to study galaxies behind others.",
+      "tier": "mastery"
+    },
+    {
+      "word": "exosphere",
+      "pos": "noun",
+      "definition_ar": "الغلاف الخارجي",
+      "example_sentence": "The exosphere is so thin it barely counts as an atmosphere.",
+      "tier": "mastery"
+    },
+    {
+      "word": "hypogravity",
+      "pos": "noun",
+      "definition_ar": "الجاذبية المنخفضة",
+      "example_sentence": "Hypogravity on Mars affects how humans move and feel.",
+      "tier": "mastery"
+    },
+    {
+      "word": "hohmann transfer",
+      "pos": "noun",
+      "definition_ar": "انتقال هوهمان",
+      "example_sentence": "A Hohmann transfer to Mars takes about nine months.",
+      "tier": "mastery"
+    },
+    {
+      "word": "ion thruster",
+      "pos": "noun",
+      "definition_ar": "محرك أيوني",
+      "example_sentence": "Ion thrusters are slow but efficient for long space journeys.",
+      "tier": "mastery"
+    },
+    {
+      "word": "in-situ resource utilization",
+      "pos": "noun",
+      "definition_ar": "الاستخدام الموضعي للموارد",
+      "example_sentence": "In-situ resource utilization on Mars could produce oxygen from air.",
+      "tier": "mastery"
+    },
+    {
+      "word": "light year",
+      "pos": "noun",
+      "definition_ar": "سنة ضوئية",
+      "example_sentence": "The nearest star to our sun is about four light years away.",
+      "tier": "mastery"
+    },
+    {
+      "word": "lagrange point",
+      "pos": "noun",
+      "definition_ar": "نقطة لاغرانج",
+      "example_sentence": "The telescope was placed at a Lagrange point for stability.",
+      "tier": "mastery"
+    },
+    {
+      "word": "long-duration spaceflight",
+      "pos": "noun",
+      "definition_ar": "رحلة فضائية طويلة الأمد",
+      "example_sentence": "Long-duration spaceflight poses serious risks to bone and muscle health.",
+      "tier": "mastery"
+    },
+    {
+      "word": "lunar gateway",
+      "pos": "noun",
+      "definition_ar": "البوابة القمرية",
+      "example_sentence": "The lunar gateway will support missions to the Moon and beyond.",
+      "tier": "mastery"
+    },
+    {
+      "word": "mars analogue",
+      "pos": "noun",
+      "definition_ar": "نظير المريخ",
+      "example_sentence": "Scientists use Mars analogues in Antarctica to test equipment.",
+      "tier": "mastery"
+    },
+    {
+      "word": "mars atmosphere simulation",
+      "pos": "noun",
+      "definition_ar": "محاكاة غلاف المريخ الجوي",
+      "example_sentence": "Researchers used Mars atmosphere simulation to test plant growth.",
+      "tier": "mastery"
+    },
+    {
+      "word": "mars entry system",
+      "pos": "noun",
+      "definition_ar": "نظام الدخول إلى المريخ",
+      "example_sentence": "The Mars entry system must work perfectly or the mission fails.",
+      "tier": "mastery"
+    },
+    {
+      "word": "methane detection",
+      "pos": "noun",
+      "definition_ar": "اكتشاف الميثان",
+      "example_sentence": "Methane detection on Mars sparked debate about possible life.",
+      "tier": "mastery"
+    },
+    {
+      "word": "neutrino detector",
+      "pos": "noun",
+      "definition_ar": "كاشف النيوترينو",
+      "example_sentence": "A neutrino detector deep underground helps study exploding stars.",
+      "tier": "mastery"
+    },
+    {
+      "word": "nuclear thermal propulsion",
+      "pos": "noun",
+      "definition_ar": "الدفع الحراري النووي",
+      "example_sentence": "Nuclear thermal propulsion could reach Mars twice as fast.",
+      "tier": "mastery"
+    },
+    {
+      "word": "optical navigation",
+      "pos": "noun",
+      "definition_ar": "الملاحة البصرية",
+      "example_sentence": "Optical navigation allowed the probe to land with pinpoint accuracy.",
+      "tier": "mastery"
+    },
+    {
+      "word": "orbital decay",
+      "pos": "noun",
+      "definition_ar": "تدهور المدار",
+      "example_sentence": "Orbital decay eventually caused the satellite to fall back to Earth.",
+      "tier": "mastery"
+    },
+    {
+      "word": "orbital insertion",
+      "pos": "noun",
+      "definition_ar": "الإدراج في المدار",
+      "example_sentence": "Orbital insertion requires precise engine firing at exactly the right time.",
+      "tier": "mastery"
+    },
+    {
+      "word": "planetary magnetic field",
+      "pos": "noun",
+      "definition_ar": "المجال المغناطيسي الكوكبي",
+      "example_sentence": "A strong planetary magnetic field is vital for supporting life.",
+      "tier": "mastery"
+    },
+    {
+      "word": "regolith sample",
+      "pos": "noun",
+      "definition_ar": "عينة من التربة الكوكبية",
+      "example_sentence": "The regolith sample was sealed and sent back to Earth for analysis.",
+      "tier": "mastery"
+    },
+    {
+      "word": "propellant mass",
+      "pos": "noun",
+      "definition_ar": "كتلة الوقود الدافع",
+      "example_sentence": "Most of a rocket's propellant mass is used during launch.",
+      "tier": "mastery"
+    },
+    {
+      "word": "sidereal period",
+      "pos": "noun",
+      "definition_ar": "الدورة الفلكية",
+      "example_sentence": "Mars has a sidereal period of about 687 Earth days.",
+      "tier": "mastery"
+    },
+    {
+      "word": "retrograde burn",
+      "pos": "noun",
+      "definition_ar": "الاحتراق الرجعي",
+      "example_sentence": "A retrograde burn allowed the probe to slow down and land.",
+      "tier": "mastery"
+    },
+    {
+      "word": "space elevator",
+      "pos": "noun",
+      "definition_ar": "مصعد فضائي",
+      "example_sentence": "A space elevator could transport cargo to orbit cheaply.",
+      "tier": "mastery"
+    },
+    {
+      "word": "space archaeology",
+      "pos": "noun",
+      "definition_ar": "علم الآثار الفضائي",
+      "example_sentence": "Space archaeology preserves the history of early moon landings.",
+      "tier": "mastery"
+    },
+    {
+      "word": "space station",
+      "pos": "noun",
+      "definition_ar": "محطة فضائية",
+      "example_sentence": "The space station has been continuously occupied since the year 2000.",
+      "tier": "mastery"
+    },
+    {
+      "word": "space weather",
+      "pos": "noun",
+      "definition_ar": "الطقس الفضائي",
+      "example_sentence": "Space weather events can disrupt GPS and satellite signals.",
+      "tier": "mastery"
+    },
+    {
+      "word": "surface pressure",
+      "pos": "noun",
+      "definition_ar": "الضغط السطحي",
+      "example_sentence": "Mars's surface pressure is less than one percent of Earth's.",
+      "tier": "mastery"
+    },
+    {
+      "word": "suborbital flight",
+      "pos": "noun",
+      "definition_ar": "رحلة تحت المدارية",
+      "example_sentence": "A suborbital flight provides a few minutes of weightlessness.",
+      "tier": "mastery"
+    },
+    {
+      "word": "transit window",
+      "pos": "noun",
+      "definition_ar": "نافذة العبور",
+      "example_sentence": "A Mars transit window occurs only once every 26 months.",
+      "tier": "mastery"
+    },
+    {
+      "word": "terraforming",
+      "pos": "noun",
+      "definition_ar": "تشكيل الكواكب",
+      "example_sentence": "Terraforming Mars would take centuries and enormous resources.",
+      "tier": "mastery"
+    },
+    {
+      "word": "xenobiology",
+      "pos": "noun",
+      "definition_ar": "الأحياء الأجنبية",
+      "example_sentence": "Xenobiology explores whether alien life might use different chemistry.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "b74cabeb-68f5-4f41-8d90-49346873ef70",
+      "label": "A",
+      "title": "The Red Planet Beckons",
+      "content": {
+        "paragraphs": [
+          "For centuries, Mars has *captivated* human imagination, appearing as a mysterious red dot in our night sky. Today, this fascination has evolved into one of the most *ambitious* scientific endeavors of our time. Space agencies worldwide have *embarked* upon a remarkable journey to unlock the secrets of our planetary neighbor, transforming what was once science fiction into extraordinary reality.",
+          "The modern era of Mars exploration began in earnest during the 1960s, when scientists first *conceived* of sending robotic missions to the Red Planet. Early attempts often ended in failure, but researchers refused to *give up* on their dreams. The breakthrough came in 1976 when NASA's Viking missions successfully landed on Mars, providing humanity's first close-up glimpses of the Martian surface. These missions revealed a world that was both alien and surprisingly familiar, with vast canyons, towering volcanoes, and evidence of ancient water flows that had *carved* dramatic landscapes over millions of years.",
+          "Today's Mars exploration program has become increasingly *sophisticated*, employing cutting-edge technology that would have seemed impossible just decades ago. The Mars rovers, including the recent Perseverance mission, serve as robotic geologists, carefully *analyzing* rock samples and atmospheric conditions. Scientists have reported that these mechanical explorers have traveled over 50 kilometers across the Martian surface, collecting invaluable data about the planet's composition and history. The rovers' discoveries have been particularly *compelling*, revealing that Mars once possessed the conditions necessary to support microbial life.",
+          "What makes Mars exploration so *feasible* compared to missions to other planets is its relative proximity to Earth and similar day-night cycles. However, the challenges remain *formidable*. The journey to Mars takes approximately nine months, and communication delays between Earth and Mars can extend up to 24 minutes, making real-time control impossible. Engineers must *devise* autonomous systems that can make critical decisions without human intervention, a technological challenge that has pushed innovation to new heights.",
+          "The implications of Mars research extend far beyond satisfying human curiosity. Scientists believe that studying Mars could help us understand climate change on Earth, as both planets have experienced dramatic atmospheric transformations. Furthermore, the technologies developed for Mars exploration have *resulted in* numerous innovations that benefit life on Earth, from advanced materials to water purification systems. As we continue to explore the Red Planet, we are not just learning about Mars – we are discovering new possibilities for humanity's future among the stars."
+        ]
+      },
+      "word_count": 412
+    },
+    {
+      "id": "959d951d-3a01-446f-865b-addd1416340e",
+      "label": "B",
+      "title": "Living on the Red Planet",
+      "content": {
+        "paragraphs": [
+          "As space agencies around the world *gear up* for human missions to Mars, scientists are working tirelessly to solve one of the most *daunting* challenges: how humans will survive on the Red Planet. Unlike the temporary visits planned for the Moon, Mars missions will require astronauts to *sustain* themselves for years, making self-sufficiency absolutely *crucial* for mission success.",
+          "The *harsh* Martian environment presents numerous obstacles that researchers must *overcome*. The planet's atmosphere, which is 95% carbon dioxide, cannot support human breathing, while surface temperatures can *plummet* to minus 80 degrees Celsius during winter. Additionally, Mars receives only 43% of the sunlight that Earth does, making solar energy generation more challenging. Scientists have *devised* ingenious solutions to these problems, including advanced life support systems that can *extract* oxygen from the Martian atmosphere and *convert* carbon dioxide into breathable air. These technologies, which were once considered science fiction, are now being tested in Earth-based laboratories.",
+          "Food production on Mars represents another *formidable* challenge that requires innovative thinking. Traditional farming methods would be impossible due to the planet's toxic soil and lack of protective atmosphere. Researchers have been experimenting with hydroponic systems and *synthetic* growing mediums that could allow astronauts to cultivate vegetables in pressurized greenhouses. NASA's studies suggest that a crew of four could *sustain* themselves with a greenhouse covering approximately 200 square meters. Potatoes, soybeans, and wheat have shown the most promise in simulated Martian conditions, providing essential nutrients and calories for long-term survival.",
+          "The psychological and social aspects of Mars colonization cannot be *overlooked* either. Astronauts will face unprecedented isolation, being millions of kilometers away from Earth with communication delays of up to 24 minutes each way. Mission planners are developing comprehensive training programs that prepare crews for the mental challenges of extended isolation. Some experts believe that having a *diverse* group of specialists—including doctors, engineers, and even artists—could help maintain morale and create a sense of community on the distant planet.",
+          "As we stand on the *threshold* of becoming an interplanetary species, the lessons learned from Mars exploration will undoubtedly benefit life on Earth as well. The technologies being developed for Mars sustainability could revolutionize agriculture, energy production, and environmental conservation on our home planet. While the first human steps on Mars may still be years away, the groundwork being laid today will determine whether humanity can successfully establish a permanent presence beyond Earth."
+        ]
+      },
+      "word_count": 456
+    }
+  ],
+  "grammar": {
+    "topic_name_en": "unless/as long as",
+    "topic_name_ar": "unless/as long as",
+    "explanation_content": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "unless تعني 'إذا لم' أو 'إلا إذا' - شرط سلبي<br>as long as تعني 'طالما أن' أو 'بشرط أن' - شرط إيجابي<br>كلاهما يستخدم للحديث عن الشروط والاحتمالات المستقبلية",
+          "content_en": "<b>Unless</b> and <b>as long as</b> are conditional conjunctions that express different types of conditions.<br><br><b>Unless</b> means 'if not' or 'except if'. It introduces a negative condition - something that will happen if the condition is NOT met.<br><br><b>As long as</b> means 'provided that' or 'on the condition that'. It introduces a positive condition - something will happen if the condition IS met.<br><br>Both are used to talk about future possibilities, requirements, and conditions."
+        },
+        {
+          "type": "formula",
+          "content": "Unless + subject + present tense, subject + will/won't + base verb<br>As long as + subject + present tense, subject + will + base verb"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "Unless we solve the radiation problem, astronauts won't survive the journey to Mars.",
+              "highlight": "Unless we solve",
+              "translation_ar": "إذا لم نحل مشكلة الإشعاع، فلن يتمكن رواد الفضاء من النجاة في الرحلة إلى المريخ"
+            },
+            {
+              "sentence": "As long as the weather conditions are good, the Mars rover will continue exploring.",
+              "highlight": "As long as the weather conditions are good",
+              "translation_ar": "طالما أن الظروف الجوية جيدة، ستواصل المركبة الفضائية استكشاف المريخ"
+            },
+            {
+              "sentence": "The mission will fail unless NASA receives additional funding.",
+              "highlight": "unless NASA receives",
+              "translation_ar": "ستفشل المهمة إلا إذا حصلت ناسا على تمويل إضافي"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "Unless we will not prepare properly, the mission will fail.",
+              "correct": "Unless we prepare properly, the mission will fail.",
+              "explanation_ar": "لا نستخدم will في جملة unless - نستخدم المضارع البسيط"
+            },
+            {
+              "wrong": "As long as if the fuel lasts, we can reach Mars.",
+              "correct": "As long as the fuel lasts, we can reach Mars.",
+              "explanation_ar": "لا نضع if مع as long as - هذا تكرار"
+            },
+            {
+              "wrong": "Unless you don't wear a spacesuit, you will die.",
+              "correct": "Unless you wear a spacesuit, you will die.",
+              "explanation_ar": "unless تحتوي على معنى النفي مسبقاً، لا نحتاج don't إضافية"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

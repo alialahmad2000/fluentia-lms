@@ -1,0 +1,141 @@
+======================================================================
+LEVEL 3 · UNIT 6 · VARIANT A — FULL DUMP
+======================================================================
+Source file:     C:/Users/Dr. Ali/Desktop/fluentia-lms/scripts/assessment-gen/output/L3-unit6-variant-A.json
+unit_id:         aa6e8325-b825-4c0a-8218-b8a5341fc604
+variant_id:      c25076ea-f340-4026-9209-9cf191ab0027
+generated_at:    2026-04-21T06:00:00Z
+generated_by:    Claude Code native (L3 bulk, English-only)
+distribution:    8V / 6G / 6R  ·  12 MCQ / 4 T/F / 2 FB / 2 Matching
+question_count:  20
+======================================================================
+
+Qundefined  [vocabulary · mcq]
+    Q: VR technology has 'evolved' from a science fiction dream into a practical tool. What does 'evolved' mean?
+    a) Remained unchanged and identical to its original form
+  ✓ b) Developed and changed gradually into a more advanced form
+    c) Been suddenly replaced by a completely different technology
+    d) Disappeared and been abandoned by the technology industry
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: VR is 'reshaping' industries across the globe. What does 'reshaping' mean?
+    a) Keeping industries exactly the same as they have always been
+    b) Studying and analysing industries without changing them
+  ✓ c) Fundamentally changing the structure and form of something
+    d) Reducing and shrinking industries to make them more manageable
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: VR was once considered an 'exclusive' technology only for gaming enthusiasts. What does 'exclusive' mean?
+    a) Available to everyone equally and without any restrictions
+  ✓ b) Limited to a particular group and not available to others
+    c) Extremely expensive but still widely used by the public
+    d) Simple and basic enough for beginners to use easily
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: VR has become an 'integral' part of modern education and healthcare. What does 'integral' mean?
+    a) An optional extra that can be removed without much effect
+    b) A completely separate component that works independently
+  ✓ c) An essential and necessary part that cannot easily be removed
+    d) A minor addition that improves the appearance but not the function
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: VR technology has 'caught on' with both businesses and consumers worldwide. What does 'caught on' mean?
+    a) Been rejected and received negatively by most businesses
+  ✓ b) Become popular and widely accepted by people over time
+    c) Been regulated and controlled by international organisations
+    d) Struggled and failed to attract attention from mainstream users
+    A: b
+
+Qundefined  [vocabulary · true_false]
+    Q: When VR applications are 'revolutionizing' learning methods, they are making small cosmetic changes that have little real effect.
+    A: false
+
+Qundefined  [vocabulary · true_false]
+    Q: An 'innovative' approach to education is one that introduces new and creative methods not used before.
+    A: true
+
+Qundefined  [vocabulary · fill_blank]
+    Q: VR technology creates _____ experiences that place students directly inside the subject they are studying.
+    A: immersive (also accepted: immersive, Immersive)
+
+Qundefined  [grammar · mcq]
+    Q: Choose the correct relative pronoun: 'VR is a technology _____ has changed how students learn.'
+    a) who
+    b) whom
+  ✓ c) which
+    d) whose
+    A: c
+
+Qundefined  [grammar · mcq]
+    Q: Choose the correct relative pronoun: 'Dr. Al-Mahmoud is the surgeon _____ pioneered VR training in Riyadh.'
+    a) which
+  ✓ b) who
+    c) what
+    d) that is
+    A: b
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence uses 'that' correctly as a relative pronoun?
+    a) The VR headset, that costs $500, is available in most stores.
+  ✓ b) This is the hospital that first used VR for surgical training.
+    c) Dr. Ahmed, that specialises in pain, gave a lecture last week.
+    d) The research, that was published yesterday, changed everything.
+    A: b
+
+Qundefined  [grammar · mcq]
+    Q: Identify the relative clause in: 'Students who use VR learn faster than those who rely on books.'
+    a) Students who use VR
+  ✓ b) who use VR
+    c) learn faster
+    d) than those who rely on books
+    A: b
+
+Qundefined  [grammar · true_false]
+    Q: The sentence 'This is the VR software which allows surgeons to practise operations' uses the relative pronoun correctly.
+    A: true
+
+Qundefined  [grammar · matching]
+    Q: Match each sentence to the correct relative pronoun that fills the blank.
+
+Qundefined  [reading · mcq]
+    Q: According to Passage A, what is the projected value of the global VR market by 2030?
+    a) $47 billion
+    b) $67 billion
+  ✓ c) $87 billion
+    d) $107 billion
+    A: c
+
+Qundefined  [reading · mcq]
+    Q: According to Passage A, what percentage of information do students retain when learning through VR compared to reading?
+    a) VR: 50% vs reading: 5%
+  ✓ b) VR: 75% vs reading: 10%
+    c) VR: 90% vs reading: 20%
+    d) VR: 60% vs reading: 15%
+    A: b
+
+Qundefined  [reading · mcq]
+    Q: Passage A says VR in healthcare helps 'patients manage pain and anxiety during medical procedures.' What does this suggest about VR?
+    a) VR replaces all medical treatments and pain management drugs
+  ✓ b) VR has psychological effects that can reduce discomfort during treatment
+    c) VR is only effective for mental health conditions, not physical ones
+    d) VR causes more anxiety in patients during medical procedures
+    A: b
+
+Qundefined  [reading · true_false]
+    Q: According to Passage A, students at King Abdulaziz University in Jeddah use VR to explore ancient civilizations and the human body.
+    A: true
+
+Qundefined  [reading · fill_blank]
+    Q: According to Passage A, the global VR market is expected to reach $_____ billion by 2030.
+    A: 87 (also accepted: 87, 87 billion)
+
+Qundefined  [reading · matching]
+    Q: Match each VR application from Passage A to the sector it primarily serves.
+
+----------------------------------------------------------------------
+END OF DUMP — 20 questions printed
+======================================================================

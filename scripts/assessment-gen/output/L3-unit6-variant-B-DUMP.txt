@@ -1,0 +1,142 @@
+======================================================================
+LEVEL 3 · UNIT 6 · VARIANT B — FULL DUMP
+======================================================================
+Source file:     C:/Users/Dr. Ali/Desktop/fluentia-lms/scripts/assessment-gen/output/L3-unit6-variant-B.json
+unit_id:         aa6e8325-b825-4c0a-8218-b8a5341fc604
+variant_id:      52164853-7ad5-47b1-8145-f6f521e687cf
+generated_at:    2026-04-21T06:00:00Z
+generated_by:    Claude Code native (L3 bulk, English-only)
+anti_dup_source: L3-unit6-variant-A.json
+distribution:    8V / 6G / 6R  ·  12 MCQ / 4 T/F / 2 FB / 2 Matching
+question_count:  20
+======================================================================
+
+Qundefined  [vocabulary · mcq]
+    Q: Dr. Al-Mahmoud is learning to 'conduct' complex heart surgery virtually. What does 'conduct' mean?
+    a) To watch and observe someone else performing a procedure
+  ✓ b) To carry out and perform an activity in an organised way
+    c) To evaluate and give feedback after a procedure is complete
+    d) To cancel and postpone a scheduled medical procedure
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: VR allows medical professionals to 'rehearse' procedures before the real operation. What does 'rehearse' mean?
+    a) To perform a procedure for the very first time without any preparation
+    b) To cancel and replace a planned procedure with a simpler one
+  ✓ c) To practise and prepare for a performance or procedure in advance
+    d) To evaluate the results of a completed procedure after the fact
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: VR is 'transforming' healthcare delivery across the Middle East. What does 'transforming' mean?
+    a) Introducing minor decorative changes to existing systems
+  ✓ b) Causing fundamental and significant changes in how something works
+    c) Maintaining existing methods while adding small improvements
+    d) Replacing all existing staff with automated digital systems
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: VR technology has been proven 'invaluable' for patient treatment and therapy. What does 'invaluable' mean?
+    a) Extremely expensive and beyond the budget of most hospitals
+    b) Having no value and not useful in clinical settings
+  ✓ c) Extremely useful and worth more than can easily be measured
+    d) Temporary and likely to lose its usefulness within a few years
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: VR budgets are 'allocated' by healthcare administrators to expand the technology. What does 'allocated' mean?
+    a) Reduced and removed from the organisation's total budget
+    b) Borrowed from other projects and paid back at a later date
+  ✓ c) Assigned and set aside for a specific purpose or project
+    d) Rejected because the cost was considered too high
+    A: c
+
+Qundefined  [vocabulary · true_false]
+    Q: When medical institutions 'embrace' VR technology, they willingly accept and start using it in their work.
+    A: true
+
+Qundefined  [vocabulary · true_false]
+    Q: When VR experiences 'immerse' students, the students feel distracted and unable to focus on their learning.
+    A: false
+
+Qundefined  [vocabulary · fill_blank]
+    Q: VR environments _____ patients to peaceful virtual spaces, helping them cope with pain during treatment.
+    A: transport (also accepted: transport, Transport, transported)
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence uses a NON-DEFINING relative clause correctly?
+    a) The VR software which costs $500 is now available in stores.
+  ✓ b) King Abdulaziz University, which is in Jeddah, uses VR technology.
+    c) This is the device that revolutionised surgical training worldwide.
+    d) The surgeon who developed this won a prize last year.
+    A: b
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence has a DEFINING relative clause (no commas, identifies exactly which one)?
+    a) Dr. Ahmed, who specialises in pain, works in Abu Dhabi.
+    b) Stanford Medical School, which conducted the research, is famous.
+  ✓ c) The headset that caused problems was replaced immediately.
+    d) This technology, which was invented in 1990, is now affordable.
+    A: c
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence correctly removes a non-essential relative clause using commas?
+    a) The new VR lab, which opened last month has thirty headsets.
+    b) The new VR lab which opened last month, has thirty headsets.
+  ✓ c) The new VR lab, which opened last month, has thirty headsets.
+    d) The new VR lab which, opened last month, has thirty headsets.
+    A: c
+
+Qundefined  [grammar · mcq]
+    Q: In which sentence can the relative pronoun be omitted?
+    a) The surgeon who performed the operation was highly skilled.
+    b) This is the VR simulation which helps nurses practise.
+  ✓ c) The headset that I borrowed yesterday worked perfectly.
+    d) KAU Hospital, which is in Jeddah, adopted VR last year.
+    A: c
+
+Qundefined  [grammar · true_false]
+    Q: 'Stanford Medical School, which conducted the research, found that VR improved surgical performance' uses the relative clause correctly.
+    A: true
+
+Qundefined  [grammar · matching]
+    Q: Match each sentence to the type of relative clause it contains.
+
+Qundefined  [reading · mcq]
+    Q: According to Passage B, by how much did VR-trained surgical residents outperform those using conventional training?
+    a) 130% better performance
+    b) 180% better performance
+  ✓ c) 230% better performance
+    d) 300% better performance
+    A: c
+
+Qundefined  [reading · mcq]
+    Q: According to Passage B, what is the specialty of Dr. Ahmed Hassan who is mentioned in the passage?
+    a) Cardiac surgery and heart transplant procedures
+    b) Virtual reality software development for hospitals
+  ✓ c) Pain management at a leading Abu Dhabi hospital
+    d) Mental health therapy and phobia treatment in Riyadh
+    A: c
+
+Qundefined  [reading · mcq]
+    Q: Passage B says VR 'transports patients to peaceful environments.' What does this tell us about how VR reduces pain?
+    a) VR physically moves patients to different hospital rooms
+    b) VR provides pain-relief medication through a built-in system
+  ✓ c) VR uses distraction by engaging the mind in an alternative experience
+    d) VR increases sedation through audio and visual stimulation
+    A: c
+
+Qundefined  [reading · true_false]
+    Q: According to Passage B, burn victims at specialized centres in Dubai and Riyadh reported reduced pain when using VR distraction therapy.
+    A: true
+
+Qundefined  [reading · fill_blank]
+    Q: According to Passage B, surgical residents trained with VR showed _____ percent better performance than those using conventional methods.
+    A: 230 (also accepted: 230, 230%, two hundred and thirty)
+
+Qundefined  [reading · matching]
+    Q: Match each person or institution from Passage B to their role or contribution.
+
+----------------------------------------------------------------------
+END OF DUMP — 20 questions printed
+======================================================================

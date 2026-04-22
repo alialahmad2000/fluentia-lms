@@ -22,7 +22,6 @@ import { hasPackageAccess } from './components/PackageGate'
 
 // ─── Design System (Phase 0) ────────────────────────────────
 import ThemeProvider from './design-system/ThemeProvider'
-import { AuroraBackground } from './design-system/components'
 
 // ─── Lazy-loaded Pages (with chunk retry on stale deploys) ───
 const StudentDashboard = lazyRetry(() => import('./pages/student/StudentDashboard'))
@@ -502,7 +501,6 @@ export default function App() {
       <BrowserRouter>
         <ToastProvider>
         <ThemeProvider />
-        <AuroraBackground />
         <OfflineBanner />
         <ImpersonationBanner />
         <ForcePasswordChange />

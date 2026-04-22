@@ -1,0 +1,123 @@
+/* ═══════════════════════════════════════════════════════════════
+   ATELIER BASE — Global resets, body, typography baselines
+   ═══════════════════════════════════════════════════════════════ */
+
+html {
+  background: var(--atelier-canvas) !important;
+  color: var(--atelier-ink) !important;
+  font-family: var(--atelier-font-ar) !important;
+  font-size: var(--atelier-text-md);
+  line-height: var(--atelier-lh-md-ar);
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--atelier-canvas) !important;
+  color: var(--atelier-ink) !important;
+  font-family: var(--atelier-font-ar) !important;
+  min-height: 100vh;
+  /* Kill any leftover background images from previous themes */
+  background-image: none !important;
+}
+
+/* Remove any Islamic pattern / aurora / spotlight overlays */
+body::before,
+body::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Headings — tightened Latin, natural Arabic */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--atelier-ink);
+  font-family: var(--atelier-font-ar);
+  letter-spacing: 0;
+  line-height: 1.25;
+  font-weight: 600;
+}
+
+/* Latin-only heading override */
+:lang(en) h1, :lang(en) h2, :lang(en) h3 {
+  font-family: var(--atelier-font-en);
+  letter-spacing: var(--atelier-track-tight);
+}
+
+/* Mega numerals */
+.atelier-num,
+[data-atelier="num"] {
+  font-family: var(--atelier-font-num);
+  font-weight: 300;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* Uppercase editorial labels */
+.atelier-label,
+[data-atelier="label"] {
+  font-family: var(--atelier-font-en);
+  font-size: var(--atelier-text-xs);
+  line-height: var(--atelier-lh-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--atelier-track-wide);
+  font-weight: 500;
+  color: var(--atelier-ink-whisper);
+}
+
+/* Kill gold-spotlight cursor and any spotlight overlay */
+.gold-spotlight,
+.spotlight-cursor,
+[data-spotlight],
+#gold-spotlight,
+#spotlight-cursor {
+  display: none !important;
+}
+
+/* Scrollbar — atelier */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--atelier-rule-strong);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--atelier-ink-whisper);
+}
+
+/* Selection */
+::selection {
+  background: var(--atelier-jewel);
+  color: var(--atelier-jewel-ink);
+}
+
+/* Focus */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--atelier-shadow-jewel-focus);
+}
+
+/* Anchor default */
+a {
+  color: var(--atelier-jewel);
+  text-decoration: none;
+  transition: color var(--atelier-dur-fast) var(--atelier-ease);
+}
+a:hover {
+  color: var(--atelier-jewel-hover);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

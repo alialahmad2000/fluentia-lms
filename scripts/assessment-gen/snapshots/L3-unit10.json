@@ -1,0 +1,1303 @@
+{
+  "unit": {
+    "id": "99996ac0-6cd8-457d-89ac-e2995c7351e4",
+    "unit_number": 10,
+    "title_en": "Urban Farming",
+    "title_ar": "الزراعة الحضرية"
+  },
+  "assessment": {
+    "id": "244a31be-857b-44d7-9316-2da96b57089a"
+  },
+  "variants": [
+    {
+      "id": "623ffe0f-62f1-4fd1-9c21-6920d31c0b56",
+      "variant_code": "A"
+    },
+    {
+      "id": "b433a452-0c28-4542-8320-e345f13300cf",
+      "variant_code": "B"
+    },
+    {
+      "id": "b9b093b8-f117-4dc0-a452-c9b6a791dd08",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "word": "yields",
+      "pos": "verb",
+      "definition_ar": "ينتج، يعطي، يحصل على",
+      "example_sentence": "This apple tree yields about 50 kilograms of fruit every year.",
+      "tier": "core"
+    },
+    {
+      "word": "yield",
+      "pos": "verb",
+      "definition_ar": "ينتج، يحصل على، يعطي محصول",
+      "example_sentence": "This apple tree yields about 50 kilograms of fruit each year.",
+      "tier": "core"
+    },
+    {
+      "word": "innovative",
+      "pos": "adjective",
+      "definition_ar": "مبتكر، إبداعي، جديد",
+      "example_sentence": "The company developed an innovative app that helps students learn languages faster.",
+      "tier": "core"
+    },
+    {
+      "word": "transform",
+      "pos": "verb",
+      "definition_ar": "يحول، يغير بشكل جذري",
+      "example_sentence": "The new subway system will transform how people travel in the city.",
+      "tier": "core"
+    },
+    {
+      "word": "cultivating",
+      "pos": "verb",
+      "definition_ar": "يزرع، يستنبت، ينمي",
+      "example_sentence": "Many farmers are cultivating organic vegetables without using chemicals.",
+      "tier": "core"
+    },
+    {
+      "word": "revolutionizing",
+      "pos": "verb",
+      "definition_ar": "يحدث ثورة في، يغير جذرياً",
+      "example_sentence": "Online shopping is revolutionizing the way people buy clothes.",
+      "tier": "core"
+    },
+    {
+      "word": "taken off",
+      "pos": "verb",
+      "definition_ar": "انتشر بسرعة، أقلع، نجح بشكل كبير",
+      "example_sentence": "Online shopping has really taken off since the pandemic started.",
+      "tier": "core"
+    },
+    {
+      "word": "utilize",
+      "pos": "verb",
+      "definition_ar": "يستخدم، يستغل، يوظف",
+      "example_sentence": "The school utilizes modern computers to teach programming to students.",
+      "tier": "core"
+    },
+    {
+      "word": "generate",
+      "pos": "verb",
+      "definition_ar": "ينتج، يولد، يخلق",
+      "example_sentence": "Wind turbines generate clean electricity for the entire village.",
+      "tier": "core"
+    },
+    {
+      "word": "harness",
+      "pos": "verb",
+      "definition_ar": "يسخر، يستغل، يستخدم (قوة أو طاقة)",
+      "example_sentence": "Wind turbines harness the power of wind to generate electricity.",
+      "tier": "core"
+    },
+    {
+      "word": "compelling",
+      "pos": "adjective",
+      "definition_ar": "مقنع، جذاب، مثير للاهتمام",
+      "example_sentence": "The speaker gave a compelling presentation about climate change.",
+      "tier": "core"
+    },
+    {
+      "word": "evolved",
+      "pos": "verb",
+      "definition_ar": "تطور، تقدم، نما تدريجياً",
+      "example_sentence": "Mobile phones have evolved from simple calling devices to powerful computers.",
+      "tier": "core"
+    },
+    {
+      "word": "implications",
+      "pos": "noun",
+      "definition_ar": "التداعيات، الآثار، النتائج المحتملة",
+      "example_sentence": "The new law will have serious implications for small businesses.",
+      "tier": "core"
+    },
+    {
+      "word": "established",
+      "pos": "verb",
+      "definition_ar": "أسس، أنشأ، أقام",
+      "example_sentence": "The university established a new department of computer science last year.",
+      "tier": "core"
+    },
+    {
+      "word": "conveyed",
+      "pos": "verb",
+      "definition_ar": "نقل، أوصل، عبر عن",
+      "example_sentence": "The teacher conveyed the importance of studying hard for the exam.",
+      "tier": "core"
+    },
+    {
+      "word": "benefits",
+      "pos": "noun",
+      "definition_ar": "فوائد، مزايا، منافع",
+      "example_sentence": "The benefits of regular exercise include better health and more energy.",
+      "tier": "core"
+    },
+    {
+      "word": "preserving",
+      "pos": "verb",
+      "definition_ar": "يحافظ على، يحفظ، يصون",
+      "example_sentence": "The museum focuses on preserving ancient artifacts for future generations.",
+      "tier": "core"
+    },
+    {
+      "word": "diversify",
+      "pos": "verb",
+      "definition_ar": "ينوع، يضيف التنوع",
+      "example_sentence": "The company decided to diversify its products by selling both clothes and shoes.",
+      "tier": "core"
+    },
+    {
+      "word": "account for",
+      "pos": "verb",
+      "definition_ar": "يمثل، يشكل، يفسر",
+      "example_sentence": "Tourism accounts for 15% of the country's total income.",
+      "tier": "core"
+    },
+    {
+      "word": "point out",
+      "pos": "verb",
+      "definition_ar": "يشير إلى، يلفت الانتباه إلى، يوضح",
+      "example_sentence": "The teacher pointed out the mistakes in my essay so I could correct them.",
+      "tier": "core"
+    },
+    {
+      "word": "integrated",
+      "pos": "verb",
+      "definition_ar": "دمج، أدمج، تكامل",
+      "example_sentence": "The new software was integrated into the company's existing computer system.",
+      "tier": "core"
+    },
+    {
+      "word": "mainstream",
+      "pos": "adjective",
+      "definition_ar": "سائد، رئيسي، تقليدي",
+      "example_sentence": "Electric cars are slowly becoming mainstream as more people buy them.",
+      "tier": "core"
+    },
+    {
+      "word": "expand",
+      "pos": "verb",
+      "definition_ar": "يتوسع، يمدد، ينمو",
+      "example_sentence": "The coffee shop plans to expand and open three new locations next year.",
+      "tier": "core"
+    },
+    {
+      "word": "setup",
+      "pos": "noun",
+      "definition_ar": "الإعداد، التركيب، التنظيم",
+      "example_sentence": "The setup of the new computer system took three days to complete.",
+      "tier": "core"
+    },
+    {
+      "word": "incorporates",
+      "pos": "verb",
+      "definition_ar": "يدمج، يتضمن، يشمل",
+      "example_sentence": "The new building design incorporates solar panels and energy-saving features.",
+      "tier": "core"
+    },
+    {
+      "word": "concern",
+      "pos": "noun",
+      "definition_ar": "قلق، اهتمام، مصدر قلق",
+      "example_sentence": "Safety is always a major concern when building new roads.",
+      "tier": "core"
+    },
+    {
+      "word": "viable",
+      "pos": "adjective",
+      "definition_ar": "قابل للتطبيق، عملي، ممكن النجاح",
+      "example_sentence": "With lower costs, solar energy is now a viable alternative to coal.",
+      "tier": "core"
+    },
+    {
+      "word": "minimizing",
+      "pos": "verb",
+      "definition_ar": "يقلل إلى أدنى حد، يخفف، يقلص",
+      "example_sentence": "The company is minimizing waste by recycling all paper and plastic materials.",
+      "tier": "core"
+    },
+    {
+      "word": "supplement",
+      "pos": "verb",
+      "definition_ar": "يكمل، يضيف إلى، يدعم",
+      "example_sentence": "Many students work part-time jobs to supplement their income.",
+      "tier": "core"
+    },
+    {
+      "word": "allotment",
+      "pos": "noun",
+      "definition_ar": "قطعة أرض صغيرة مستأجرة للزراعة",
+      "example_sentence": "She grows tomatoes on her allotment every summer.",
+      "tier": "core"
+    },
+    {
+      "word": "arable",
+      "pos": "adjective",
+      "definition_ar": "صالح للزراعة",
+      "example_sentence": "Only a small percentage of desert land is arable.",
+      "tier": "core"
+    },
+    {
+      "word": "biodegradable waste",
+      "pos": "noun",
+      "definition_ar": "النفايات القابلة للتحلل الحيوي",
+      "example_sentence": "Biodegradable waste can be turned into useful compost.",
+      "tier": "core"
+    },
+    {
+      "word": "compost bin",
+      "pos": "noun",
+      "definition_ar": "حاوية السماد العضوي",
+      "example_sentence": "We put vegetable peels in the compost bin.",
+      "tier": "core"
+    },
+    {
+      "word": "community garden",
+      "pos": "noun",
+      "definition_ar": "حديقة مجتمعية",
+      "example_sentence": "The community garden brings neighbors closer together.",
+      "tier": "core"
+    },
+    {
+      "word": "crop failure",
+      "pos": "noun",
+      "definition_ar": "فشل المحصول",
+      "example_sentence": "Drought and pests can lead to total crop failure.",
+      "tier": "core"
+    },
+    {
+      "word": "crop diversity",
+      "pos": "noun",
+      "definition_ar": "تنوع المحاصيل",
+      "example_sentence": "Crop diversity protects farmers if one plant fails.",
+      "tier": "core"
+    },
+    {
+      "word": "crop rotation",
+      "pos": "noun",
+      "definition_ar": "تناوب المحاصيل",
+      "example_sentence": "Crop rotation helps keep the soil healthy and fertile.",
+      "tier": "core"
+    },
+    {
+      "word": "drip irrigation",
+      "pos": "noun",
+      "definition_ar": "الري بالتنقيط",
+      "example_sentence": "Drip irrigation uses far less water than sprinklers.",
+      "tier": "core"
+    },
+    {
+      "word": "farmland",
+      "pos": "noun",
+      "definition_ar": "أراضي زراعية",
+      "example_sentence": "The city built houses on what used to be farmland.",
+      "tier": "core"
+    },
+    {
+      "word": "edible plant",
+      "pos": "noun",
+      "definition_ar": "نبات صالح للأكل",
+      "example_sentence": "They planted edible plants along the city walkway.",
+      "tier": "core"
+    },
+    {
+      "word": "fertilizer",
+      "pos": "noun",
+      "definition_ar": "سماد",
+      "example_sentence": "The farmer spread fertilizer across the field before planting.",
+      "tier": "core"
+    },
+    {
+      "word": "fertile",
+      "pos": "adjective",
+      "definition_ar": "يصف الأرض أو التربة الغنية بالمغذيات والمناسبة لزراعة المحاصيل.",
+      "example_sentence": "Urban farmers mix compost into the soil to keep it fertile and productive.",
+      "tier": "core"
+    },
+    {
+      "word": "food production",
+      "pos": "noun",
+      "definition_ar": "إنتاج الغذاء",
+      "example_sentence": "Urban food production reduces dependence on imported goods.",
+      "tier": "core"
+    },
+    {
+      "word": "food security",
+      "pos": "noun",
+      "definition_ar": "الأمن الغذائي",
+      "example_sentence": "Urban farming improves food security in crowded cities.",
+      "tier": "core"
+    },
+    {
+      "word": "food waste",
+      "pos": "noun",
+      "definition_ar": "هدر الطعام",
+      "example_sentence": "Reducing food waste is important for a sustainable future.",
+      "tier": "core"
+    },
+    {
+      "word": "greenhouse effect",
+      "pos": "noun",
+      "definition_ar": "تأثير الاحتباس الحراري",
+      "example_sentence": "The greenhouse effect is made worse by burning fossil fuels.",
+      "tier": "core"
+    },
+    {
+      "word": "grow lights",
+      "pos": "noun",
+      "definition_ar": "مصابيح النمو",
+      "example_sentence": "Grow lights allow farmers to produce crops in winter.",
+      "tier": "core"
+    },
+    {
+      "word": "greenhouse farming",
+      "pos": "noun",
+      "definition_ar": "الزراعة في البيوت المحمية",
+      "example_sentence": "Greenhouse farming allows year-round vegetable production.",
+      "tier": "core"
+    },
+    {
+      "word": "growing season",
+      "pos": "noun",
+      "definition_ar": "موسم الزراعة",
+      "example_sentence": "The growing season in this region lasts about six months.",
+      "tier": "core"
+    },
+    {
+      "word": "harvest season",
+      "pos": "noun",
+      "definition_ar": "موسم الحصاد",
+      "example_sentence": "Farmers work long hours during the harvest season.",
+      "tier": "core"
+    },
+    {
+      "word": "indoor farming",
+      "pos": "noun",
+      "definition_ar": "الزراعة الداخلية",
+      "example_sentence": "Indoor farming uses LED lights to grow plants faster.",
+      "tier": "core"
+    },
+    {
+      "word": "hydroponics",
+      "pos": "noun",
+      "definition_ar": "زراعة مائية",
+      "example_sentence": "Hydroponics allows farmers to grow vegetables indoors all year.",
+      "tier": "core"
+    },
+    {
+      "word": "local produce",
+      "pos": "noun",
+      "definition_ar": "المنتجات المحلية",
+      "example_sentence": "Buying local produce supports small farmers in your city.",
+      "tier": "core"
+    },
+    {
+      "word": "irrigation system",
+      "pos": "noun",
+      "definition_ar": "نظام الري",
+      "example_sentence": "The irrigation system saved water during the dry season.",
+      "tier": "core"
+    },
+    {
+      "word": "market garden",
+      "pos": "noun",
+      "definition_ar": "مزرعة السوق",
+      "example_sentence": "The market garden supplied fresh produce to nearby restaurants.",
+      "tier": "core"
+    },
+    {
+      "word": "nitrogen",
+      "pos": "noun",
+      "definition_ar": "النيتروجين",
+      "example_sentence": "Adding nitrogen to the soil improves plant growth.",
+      "tier": "core"
+    },
+    {
+      "word": "nutrient",
+      "pos": "noun",
+      "definition_ar": "مغذٍّ",
+      "example_sentence": "Plants absorb nutrients from the soil through their roots.",
+      "tier": "core"
+    },
+    {
+      "word": "nitrogen cycle",
+      "pos": "noun",
+      "definition_ar": "دورة النيتروجين",
+      "example_sentence": "The nitrogen cycle is essential for maintaining healthy farmland.",
+      "tier": "core"
+    },
+    {
+      "word": "pest control",
+      "pos": "noun",
+      "definition_ar": "مكافحة الآفات",
+      "example_sentence": "Organic pest control avoids harmful chemicals on food.",
+      "tier": "core"
+    },
+    {
+      "word": "organic farming",
+      "pos": "noun",
+      "definition_ar": "الزراعة العضوية",
+      "example_sentence": "Organic farming protects the soil and local wildlife.",
+      "tier": "core"
+    },
+    {
+      "word": "plot",
+      "pos": "noun",
+      "definition_ar": "قطعة أرض",
+      "example_sentence": "Each family was given a plot to grow their own food.",
+      "tier": "core"
+    },
+    {
+      "word": "pesticide",
+      "pos": "noun",
+      "definition_ar": "مبيد حشري",
+      "example_sentence": "Organic farmers avoid using chemical pesticides on crops.",
+      "tier": "core"
+    },
+    {
+      "word": "pollination",
+      "pos": "noun",
+      "definition_ar": "تلقيح",
+      "example_sentence": "Bees are essential for the pollination of many food crops.",
+      "tier": "core"
+    },
+    {
+      "word": "pollinator",
+      "pos": "noun",
+      "definition_ar": "الملقح",
+      "example_sentence": "Bees are the most important pollinator for many crops.",
+      "tier": "core"
+    },
+    {
+      "word": "rooftop farming",
+      "pos": "noun",
+      "definition_ar": "الزراعة على الأسطح",
+      "example_sentence": "Rooftop farming is becoming popular in crowded cities.",
+      "tier": "core"
+    },
+    {
+      "word": "raised bed",
+      "pos": "noun",
+      "definition_ar": "حوض زراعي مرتفع",
+      "example_sentence": "Raised beds help control soil quality easily.",
+      "tier": "core"
+    },
+    {
+      "word": "rooftop garden",
+      "pos": "noun",
+      "definition_ar": "حديقة سطحية",
+      "example_sentence": "The rooftop garden provides fresh vegetables to the restaurant.",
+      "tier": "core"
+    },
+    {
+      "word": "seed saving",
+      "pos": "noun",
+      "definition_ar": "حفظ البذور",
+      "example_sentence": "Seed saving is a traditional skill passed down by farmers.",
+      "tier": "core"
+    },
+    {
+      "word": "seedling",
+      "pos": "noun",
+      "definition_ar": "شتلة",
+      "example_sentence": "The farmer carefully planted the seedlings in rows.",
+      "tier": "core"
+    },
+    {
+      "word": "sunlight",
+      "pos": "noun",
+      "definition_ar": "ضوء الشمس",
+      "example_sentence": "Plants need several hours of sunlight each day to grow.",
+      "tier": "core"
+    },
+    {
+      "word": "urban agriculture",
+      "pos": "noun",
+      "definition_ar": "الزراعة الحضرية",
+      "example_sentence": "Urban agriculture helps reduce food transport costs.",
+      "tier": "core"
+    },
+    {
+      "word": "trellis",
+      "pos": "noun",
+      "definition_ar": "هيكل خشبي أو معدني يُستخدم لدعم النباتات المتسلقة في الحديقة.",
+      "example_sentence": "She fixed a trellis to the wall so the tomato plants could grow upward.",
+      "tier": "core"
+    },
+    {
+      "word": "vertical farming",
+      "pos": "noun",
+      "definition_ar": "زراعة عمودية",
+      "example_sentence": "Vertical farming uses less water than traditional agriculture.",
+      "tier": "core"
+    },
+    {
+      "word": "urban garden",
+      "pos": "noun",
+      "definition_ar": "حديقة حضرية",
+      "example_sentence": "The urban garden provides fresh herbs for the local community.",
+      "tier": "core"
+    },
+    {
+      "word": "water recycling",
+      "pos": "noun",
+      "definition_ar": "إعادة تدوير المياه",
+      "example_sentence": "Water recycling helps farms during long dry periods.",
+      "tier": "core"
+    },
+    {
+      "word": "water conservation",
+      "pos": "noun",
+      "definition_ar": "ترشيد استهلاك المياه",
+      "example_sentence": "Drip irrigation is a good method of water conservation.",
+      "tier": "core"
+    },
+    {
+      "word": "water table",
+      "pos": "noun",
+      "definition_ar": "منسوب المياه الجوفية",
+      "example_sentence": "Over-farming can lower the water table significantly.",
+      "tier": "core"
+    },
+    {
+      "word": "agro-ecology",
+      "pos": "noun",
+      "definition_ar": "الزراعة الإيكولوجية",
+      "example_sentence": "Agro-ecology promotes farming that works with nature.",
+      "tier": "extended"
+    },
+    {
+      "word": "arable land",
+      "pos": "noun",
+      "definition_ar": "أراضٍ صالحة للزراعة",
+      "example_sentence": "Only a small percentage of the Earth's land is arable land.",
+      "tier": "extended"
+    },
+    {
+      "word": "aquaponics",
+      "pos": "noun",
+      "definition_ar": "أكوابونيكس",
+      "example_sentence": "Aquaponics uses fish waste to feed the plants naturally.",
+      "tier": "extended"
+    },
+    {
+      "word": "bee colony",
+      "pos": "noun",
+      "definition_ar": "مستعمرة النحل",
+      "example_sentence": "A healthy bee colony is vital for pollinating local crops.",
+      "tier": "extended"
+    },
+    {
+      "word": "beneficial insect",
+      "pos": "noun",
+      "definition_ar": "حشرة نافعة",
+      "example_sentence": "Ladybirds are a well-known beneficial insect in gardens.",
+      "tier": "extended"
+    },
+    {
+      "word": "biochar",
+      "pos": "noun",
+      "definition_ar": "الفحم الحيوي",
+      "example_sentence": "Biochar helps the soil retain water and nutrients.",
+      "tier": "extended"
+    },
+    {
+      "word": "container gardening",
+      "pos": "noun",
+      "definition_ar": "الزراعة في الحاويات",
+      "example_sentence": "Container gardening is ideal for small balconies.",
+      "tier": "extended"
+    },
+    {
+      "word": "crop cycle",
+      "pos": "noun",
+      "definition_ar": "دورة المحصول",
+      "example_sentence": "Understanding the crop cycle helps plan farming activities.",
+      "tier": "extended"
+    },
+    {
+      "word": "cover crop",
+      "pos": "noun",
+      "definition_ar": "محصول التغطية",
+      "example_sentence": "Farmers plant cover crops to prevent erosion in winter.",
+      "tier": "extended"
+    },
+    {
+      "word": "crop protection",
+      "pos": "noun",
+      "definition_ar": "حماية المحاصيل",
+      "example_sentence": "Crop protection methods include nets, sprays, and barriers.",
+      "tier": "extended"
+    },
+    {
+      "word": "crop management",
+      "pos": "noun",
+      "definition_ar": "إدارة المحاصيل",
+      "example_sentence": "Good crop management leads to higher and more reliable yields.",
+      "tier": "extended"
+    },
+    {
+      "word": "fodder",
+      "pos": "noun",
+      "definition_ar": "علف",
+      "example_sentence": "The farmer stores fodder for the cattle during winter.",
+      "tier": "extended"
+    },
+    {
+      "word": "food hub",
+      "pos": "noun",
+      "definition_ar": "مركز توزيع الغذاء",
+      "example_sentence": "The food hub connects small farmers with local restaurants.",
+      "tier": "extended"
+    },
+    {
+      "word": "food system",
+      "pos": "noun",
+      "definition_ar": "النظام الغذائي",
+      "example_sentence": "A local food system reduces carbon emissions from transport.",
+      "tier": "extended"
+    },
+    {
+      "word": "food miles",
+      "pos": "noun",
+      "definition_ar": "أميال الغذاء",
+      "example_sentence": "Buying local food reduces food miles and supports farmers.",
+      "tier": "extended"
+    },
+    {
+      "word": "graft",
+      "pos": "verb",
+      "definition_ar": "يطعّم",
+      "example_sentence": "Farmers graft fruit trees to create stronger varieties.",
+      "tier": "extended"
+    },
+    {
+      "word": "furrow",
+      "pos": "noun",
+      "definition_ar": "خندق طويل وضيق يُحفر في التربة لزرع البذور أو توجيه المياه.",
+      "example_sentence": "The farmer dug a straight furrow across the raised bed to plant carrot seeds.",
+      "tier": "extended"
+    },
+    {
+      "word": "grow bag",
+      "pos": "noun",
+      "definition_ar": "كيس الزراعة",
+      "example_sentence": "Tomatoes grow well in a grow bag on a sunny balcony.",
+      "tier": "extended"
+    },
+    {
+      "word": "grain",
+      "pos": "noun",
+      "definition_ar": "حبوب",
+      "example_sentence": "Saudi Arabia imports most of its grain from other countries.",
+      "tier": "extended"
+    },
+    {
+      "word": "harvest waste",
+      "pos": "noun",
+      "definition_ar": "نفايات الحصاد",
+      "example_sentence": "Harvest waste is a major problem in the food supply chain.",
+      "tier": "extended"
+    },
+    {
+      "word": "heirloom variety",
+      "pos": "noun",
+      "definition_ar": "نوع توارثي",
+      "example_sentence": "Heirloom variety tomatoes taste better than modern ones.",
+      "tier": "extended"
+    },
+    {
+      "word": "horticulture",
+      "pos": "noun",
+      "definition_ar": "بستنة",
+      "example_sentence": "She studied horticulture at university and now runs a nursery.",
+      "tier": "extended"
+    },
+    {
+      "word": "intercropping",
+      "pos": "noun",
+      "definition_ar": "الزراعة المتداخلة",
+      "example_sentence": "Intercropping can improve soil health and reduce pests.",
+      "tier": "extended"
+    },
+    {
+      "word": "living soil",
+      "pos": "noun",
+      "definition_ar": "التربة الحية",
+      "example_sentence": "Living soil produces healthier crops with fewer chemicals.",
+      "tier": "extended"
+    },
+    {
+      "word": "land use",
+      "pos": "noun",
+      "definition_ar": "استخدام الأراضي",
+      "example_sentence": "Efficient land use is key to feeding growing cities.",
+      "tier": "extended"
+    },
+    {
+      "word": "microorganism",
+      "pos": "noun",
+      "definition_ar": "كائن حي دقيق",
+      "example_sentence": "Microorganisms in soil help break down organic matter.",
+      "tier": "extended"
+    },
+    {
+      "word": "microgreens",
+      "pos": "noun",
+      "definition_ar": "النباتات الصغيرة",
+      "example_sentence": "Microgreens are rich in vitamins and easy to grow indoors.",
+      "tier": "extended"
+    },
+    {
+      "word": "nourish",
+      "pos": "verb",
+      "definition_ar": "يُغذّي",
+      "example_sentence": "Good soil nourishes plants and helps them produce more food.",
+      "tier": "extended"
+    },
+    {
+      "word": "mulch",
+      "pos": "noun",
+      "definition_ar": "نشارة",
+      "example_sentence": "Spreading mulch around plants helps keep moisture in the soil.",
+      "tier": "extended"
+    },
+    {
+      "word": "plant disease",
+      "pos": "noun",
+      "definition_ar": "مرض النبات",
+      "example_sentence": "Plant disease can spread quickly if not treated early.",
+      "tier": "extended"
+    },
+    {
+      "word": "permaculture",
+      "pos": "noun",
+      "definition_ar": "زراعة مستدامة",
+      "example_sentence": "Permaculture designs gardens that work like natural ecosystems.",
+      "tier": "extended"
+    },
+    {
+      "word": "prune",
+      "pos": "verb",
+      "definition_ar": "يقلّم",
+      "example_sentence": "You should prune fruit trees in winter for better growth.",
+      "tier": "extended"
+    },
+    {
+      "word": "plant nutrition",
+      "pos": "noun",
+      "definition_ar": "تغذية النباتات",
+      "example_sentence": "Understanding plant nutrition helps farmers use fewer fertilizers.",
+      "tier": "extended"
+    },
+    {
+      "word": "ripening",
+      "pos": "noun",
+      "definition_ar": "النضج",
+      "example_sentence": "Cool temperatures slow the ripening of fruits.",
+      "tier": "extended"
+    },
+    {
+      "word": "rainfall",
+      "pos": "noun",
+      "definition_ar": "هطول الأمطار",
+      "example_sentence": "Farmers depend on regular rainfall to water their crops.",
+      "tier": "extended"
+    },
+    {
+      "word": "root vegetable",
+      "pos": "noun",
+      "definition_ar": "خضروات جذرية",
+      "example_sentence": "Root vegetables like carrots grow well in deep, loose soil.",
+      "tier": "extended"
+    },
+    {
+      "word": "silviculture",
+      "pos": "noun",
+      "definition_ar": "زراعة الغابات",
+      "example_sentence": "Silviculture helps restore forests damaged by logging.",
+      "tier": "extended"
+    },
+    {
+      "word": "soil erosion",
+      "pos": "noun",
+      "definition_ar": "تآكل التربة",
+      "example_sentence": "Planting trees helps prevent serious soil erosion.",
+      "tier": "extended"
+    },
+    {
+      "word": "soil amendment",
+      "pos": "noun",
+      "definition_ar": "تحسين التربة",
+      "example_sentence": "Adding lime is a common soil amendment for acidic land.",
+      "tier": "extended"
+    },
+    {
+      "word": "soil fertility",
+      "pos": "noun",
+      "definition_ar": "خصوبة التربة",
+      "example_sentence": "Adding compost improves soil fertility over time.",
+      "tier": "extended"
+    },
+    {
+      "word": "sow",
+      "pos": "verb",
+      "definition_ar": "يبذر",
+      "example_sentence": "The farmer sowed the seeds early in the spring season.",
+      "tier": "extended"
+    },
+    {
+      "word": "sustainable yield",
+      "pos": "noun",
+      "definition_ar": "الغلة المستدامة",
+      "example_sentence": "Fishermen must respect sustainable yield limits to protect stocks.",
+      "tier": "extended"
+    },
+    {
+      "word": "tillage",
+      "pos": "noun",
+      "definition_ar": "حراثة",
+      "example_sentence": "Reduced tillage helps prevent soil erosion on farms.",
+      "tier": "extended"
+    },
+    {
+      "word": "trowel",
+      "pos": "noun",
+      "definition_ar": "أداة يدوية صغيرة ذات نصل مسطح تُستخدم للحفر والزرع في التربة.",
+      "example_sentence": "Use a trowel to dig small holes before placing your seedlings in the ground.",
+      "tier": "extended"
+    },
+    {
+      "word": "urban heat island",
+      "pos": "noun",
+      "definition_ar": "جزيرة الحرارة الحضرية",
+      "example_sentence": "Rooftop gardens can reduce the urban heat island effect.",
+      "tier": "extended"
+    },
+    {
+      "word": "vertical garden",
+      "pos": "noun",
+      "definition_ar": "الحديقة العمودية",
+      "example_sentence": "The vertical garden on their wall saved space and looked beautiful.",
+      "tier": "extended"
+    },
+    {
+      "word": "water harvesting",
+      "pos": "noun",
+      "definition_ar": "حصاد المياه",
+      "example_sentence": "Water harvesting reduces the need for expensive pumps.",
+      "tier": "extended"
+    },
+    {
+      "word": "weed",
+      "pos": "noun",
+      "definition_ar": "عشب ضار",
+      "example_sentence": "The farmer spent the morning pulling weeds from the field.",
+      "tier": "extended"
+    },
+    {
+      "word": "water stress",
+      "pos": "noun",
+      "definition_ar": "إجهاد مائي",
+      "example_sentence": "Water stress during flowering can reduce the harvest.",
+      "tier": "extended"
+    },
+    {
+      "word": "worm farming",
+      "pos": "noun",
+      "definition_ar": "تربية الديدان",
+      "example_sentence": "Worm farming produces high-quality compost from kitchen scraps.",
+      "tier": "extended"
+    },
+    {
+      "word": "aeroponics",
+      "pos": "noun",
+      "definition_ar": "زراعة هوائية",
+      "example_sentence": "Aeroponics uses ninety percent less water than soil farming.",
+      "tier": "mastery"
+    },
+    {
+      "word": "agritech",
+      "pos": "noun",
+      "definition_ar": "تقنية زراعية",
+      "example_sentence": "Agritech startups are developing robots that pick fruit automatically.",
+      "tier": "mastery"
+    },
+    {
+      "word": "agri-tech startup",
+      "pos": "noun",
+      "definition_ar": "شركة زراعية تقنية ناشئة",
+      "example_sentence": "The agri-tech startup developed a low-cost soil sensor.",
+      "tier": "mastery"
+    },
+    {
+      "word": "agrivoltaics",
+      "pos": "noun",
+      "definition_ar": "الزراعة الشمسية",
+      "example_sentence": "Agrivoltaics allows farmers to produce food and energy together.",
+      "tier": "mastery"
+    },
+    {
+      "word": "biodynamic farming",
+      "pos": "noun",
+      "definition_ar": "الزراعة الحيوية الديناميكية",
+      "example_sentence": "Biodynamic farming follows the lunar calendar for planting.",
+      "tier": "mastery"
+    },
+    {
+      "word": "blight",
+      "pos": "noun",
+      "definition_ar": "مرض نباتي تسببه الفطريات أو البكتيريا ويُلحق الضرر بالمحاصيل أو يدمرها.",
+      "example_sentence": "The tomato blight spread quickly through the rooftop garden after heavy rain.",
+      "tier": "mastery"
+    },
+    {
+      "word": "biomimicry",
+      "pos": "noun",
+      "definition_ar": "محاكاة الطبيعة",
+      "example_sentence": "Biomimicry in farming leads to more efficient water use.",
+      "tier": "mastery"
+    },
+    {
+      "word": "cold chain",
+      "pos": "noun",
+      "definition_ar": "سلسلة التبريد",
+      "example_sentence": "A reliable cold chain prevents food from spoiling before delivery.",
+      "tier": "mastery"
+    },
+    {
+      "word": "companion planting",
+      "pos": "noun",
+      "definition_ar": "الزراعة المصاحبة",
+      "example_sentence": "Companion planting with basil helps protect tomatoes from insects.",
+      "tier": "mastery"
+    },
+    {
+      "word": "crop yield",
+      "pos": "noun",
+      "definition_ar": "غلة المحصول",
+      "example_sentence": "New seed varieties have increased crop yield by thirty percent.",
+      "tier": "mastery"
+    },
+    {
+      "word": "controlled environment agriculture",
+      "pos": "noun",
+      "definition_ar": "الزراعة في بيئة مضبوطة",
+      "example_sentence": "Controlled environment agriculture eliminates weather-related risks.",
+      "tier": "mastery"
+    },
+    {
+      "word": "fallow",
+      "pos": "adjective",
+      "definition_ar": "أرض بور",
+      "example_sentence": "Leaving fields fallow for a season helps the soil recover.",
+      "tier": "mastery"
+    },
+    {
+      "word": "evapotranspiration",
+      "pos": "noun",
+      "definition_ar": "التبخر النتح",
+      "example_sentence": "Farmers calculate evapotranspiration to plan irrigation schedules.",
+      "tier": "mastery"
+    },
+    {
+      "word": "food labeling",
+      "pos": "noun",
+      "definition_ar": "الملصق الغذائي",
+      "example_sentence": "Accurate food labeling helps people make healthier choices.",
+      "tier": "mastery"
+    },
+    {
+      "word": "food desert",
+      "pos": "noun",
+      "definition_ar": "صحراء الغذاء",
+      "example_sentence": "Urban farms can help address food deserts in poor neighborhoods.",
+      "tier": "mastery"
+    },
+    {
+      "word": "food traceability",
+      "pos": "noun",
+      "definition_ar": "تتبع الغذاء",
+      "example_sentence": "Food traceability systems help detect the source of contamination.",
+      "tier": "mastery"
+    },
+    {
+      "word": "food sovereignty",
+      "pos": "noun",
+      "definition_ar": "سيادة غذائية",
+      "example_sentence": "Food sovereignty means communities control their own food production.",
+      "tier": "mastery"
+    },
+    {
+      "word": "gene bank",
+      "pos": "noun",
+      "definition_ar": "بنك الجينات",
+      "example_sentence": "The gene bank protects rare plant varieties from extinction.",
+      "tier": "mastery"
+    },
+    {
+      "word": "germination",
+      "pos": "noun",
+      "definition_ar": "الإنبات",
+      "example_sentence": "Seeds need warmth and moisture for successful germination.",
+      "tier": "mastery"
+    },
+    {
+      "word": "landrace",
+      "pos": "noun",
+      "definition_ar": "السلالة المحلية",
+      "example_sentence": "Landraces are more resistant to local pests than modern varieties.",
+      "tier": "mastery"
+    },
+    {
+      "word": "livestock",
+      "pos": "noun",
+      "definition_ar": "حيوانات كالماشية والدجاج والماعز تُربى في المزارع لإنتاج الغذاء أو المنتجات.",
+      "example_sentence": "Some urban farms keep small livestock like chickens to provide fresh eggs daily.",
+      "tier": "mastery"
+    },
+    {
+      "word": "mycelium",
+      "pos": "noun",
+      "definition_ar": "الميسيليوم",
+      "example_sentence": "Mycelium connects tree roots and helps them share nutrients.",
+      "tier": "mastery"
+    },
+    {
+      "word": "monoculture",
+      "pos": "noun",
+      "definition_ar": "زراعة أحادية",
+      "example_sentence": "Monoculture farming can make soil less fertile over time.",
+      "tier": "mastery"
+    },
+    {
+      "word": "nitrogen fixation",
+      "pos": "noun",
+      "definition_ar": "تثبيت النيتروجين",
+      "example_sentence": "Legumes support nitrogen fixation through bacteria in their roots.",
+      "tier": "mastery"
+    },
+    {
+      "word": "permaculture design",
+      "pos": "noun",
+      "definition_ar": "تصميم الزراعة الدائمة",
+      "example_sentence": "Permaculture design creates self-sustaining food gardens.",
+      "tier": "mastery"
+    },
+    {
+      "word": "phloem",
+      "pos": "noun",
+      "definition_ar": "الفلوئيم",
+      "example_sentence": "Insects that damage the phloem can weaken entire plants.",
+      "tier": "mastery"
+    },
+    {
+      "word": "phytoremediation",
+      "pos": "noun",
+      "definition_ar": "المعالجة النباتية للتلوث",
+      "example_sentence": "Phytoremediation can clean up land contaminated by heavy metals.",
+      "tier": "mastery"
+    },
+    {
+      "word": "precision agriculture",
+      "pos": "noun",
+      "definition_ar": "زراعة دقيقة",
+      "example_sentence": "Precision agriculture uses drones to monitor crop health.",
+      "tier": "mastery"
+    },
+    {
+      "word": "plant propagation",
+      "pos": "noun",
+      "definition_ar": "تكاثر النباتات",
+      "example_sentence": "Plant propagation is a key skill for urban gardeners.",
+      "tier": "mastery"
+    },
+    {
+      "word": "rhizosphere",
+      "pos": "noun",
+      "definition_ar": "منطقة الجذور",
+      "example_sentence": "The rhizosphere is home to billions of helpful microbes.",
+      "tier": "mastery"
+    },
+    {
+      "word": "precision irrigation",
+      "pos": "noun",
+      "definition_ar": "الري الدقيق",
+      "example_sentence": "Precision irrigation sensors monitor soil moisture in real time.",
+      "tier": "mastery"
+    },
+    {
+      "word": "silvopasture",
+      "pos": "noun",
+      "definition_ar": "الرعي الغابي",
+      "example_sentence": "Silvopasture provides shade for animals and improves soil health.",
+      "tier": "mastery"
+    },
+    {
+      "word": "salinization",
+      "pos": "noun",
+      "definition_ar": "تملّح التربة",
+      "example_sentence": "Salinization threatens farmland in coastal and dry regions.",
+      "tier": "mastery"
+    },
+    {
+      "word": "succession planting",
+      "pos": "noun",
+      "definition_ar": "الزراعة التعاقبية",
+      "example_sentence": "Succession planting means you always have fresh vegetables ready.",
+      "tier": "mastery"
+    },
+    {
+      "word": "soil ph",
+      "pos": "noun",
+      "definition_ar": "درجة حموضة التربة",
+      "example_sentence": "Adjusting soil pH helps plants absorb nutrients more effectively.",
+      "tier": "mastery"
+    },
+    {
+      "word": "swidden agriculture",
+      "pos": "noun",
+      "definition_ar": "الزراعة الاستبدالية بالحرق",
+      "example_sentence": "Swidden agriculture can degrade soil if practiced too often.",
+      "tier": "mastery"
+    },
+    {
+      "word": "sustainable agriculture",
+      "pos": "noun",
+      "definition_ar": "الزراعة المستدامة",
+      "example_sentence": "Sustainable agriculture protects soil, water, and biodiversity.",
+      "tier": "mastery"
+    },
+    {
+      "word": "terracing",
+      "pos": "noun",
+      "definition_ar": "الزراعة المدرجة",
+      "example_sentence": "Terracing has been used for thousands of years in Asia.",
+      "tier": "mastery"
+    },
+    {
+      "word": "water footprint",
+      "pos": "noun",
+      "definition_ar": "البصمة المائية",
+      "example_sentence": "Beef has a much higher water footprint than vegetables.",
+      "tier": "mastery"
+    },
+    {
+      "word": "weed management",
+      "pos": "noun",
+      "definition_ar": "إدارة الأعشاب الضارة",
+      "example_sentence": "Effective weed management improves crop yields significantly.",
+      "tier": "mastery"
+    },
+    {
+      "word": "water retention",
+      "pos": "noun",
+      "definition_ar": "احتجاز الماء",
+      "example_sentence": "Compost improves water retention in sandy or dry soils.",
+      "tier": "mastery"
+    },
+    {
+      "word": "yield gap",
+      "pos": "noun",
+      "definition_ar": "فجوة الإنتاجية",
+      "example_sentence": "Closing the yield gap requires better technology and training.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "d004204c-3e27-4f8f-bb22-217ae04edf0d",
+      "label": "A",
+      "title": "Gardens in the Sky",
+      "content": {
+        "paragraphs": [
+          "In the heart of Singapore's bustling business district, a 12-story building *yields* more vegetables per square meter than traditional farms covering hundreds of acres. This isn't science fiction—it's the reality of vertical farming, an *innovative* agricultural method that's *revolutionizing* how we think about food production in urban environments.",
+          "Vertical farms *utilize* controlled environments where crops grow in stacked layers under LED lights, creating optimal conditions year-round. Unlike conventional farming, which depends heavily on weather patterns and seasonal changes, these facilities can *generate* consistent harvests regardless of external conditions. The technology has *evolved* rapidly over the past decade, with experts reporting that vertical farms can produce up to 365 times more food per square foot than traditional agriculture. Companies like AeroFarms in Newark, New Jersey, have *established* facilities that consume 95% less water than conventional farming while producing leafy greens and herbs without pesticides.",
+          "The *benefits* of urban farming extend far beyond space efficiency. Dr. Sarah Chen, an agricultural scientist at the University of California, stated that vertical farming could significantly reduce the carbon footprint of food transportation, as produce can be grown within miles of where it's consumed. This proximity means vegetables reach consumers within hours of harvest, *preserving* maximum nutritional value and freshness. However, critics *point out* that the high energy costs associated with LED lighting systems remain a significant challenge. Currently, electricity can account for up to 30% of operational expenses, though renewable energy sources are increasingly being *integrated* into these systems.",
+          "Despite these challenges, the vertical farming industry continues to *expand* at an impressive rate. Market research indicates the global vertical farming market is expected to reach $24 billion by 2030, driven by increasing urbanization and food security concerns. Cities across the Middle East, including Dubai and Doha, have begun investing heavily in vertical farming projects to reduce their dependence on food imports. The UAE's National Food Security Strategy 2051 specifically *incorporates* vertical farming as a key component for achieving greater agricultural self-sufficiency. As urban populations continue to grow and arable land becomes scarcer, these sky-high gardens may well represent the future of sustainable food production, offering hope for feeding the world's cities while *minimizing* environmental impact."
+        ]
+      },
+      "word_count": 562
+    },
+    {
+      "id": "723e1f9e-42ae-4145-aaf1-e98fa2efca16",
+      "label": "B",
+      "title": "Growing Up: Vertical Farming Revolution",
+      "content": {
+        "paragraphs": [
+          "In the heart of Singapore's urban landscape, towering structures reach toward the sky, but these aren't typical office buildings. They are vertical farms that *yield* thousands of pounds of fresh produce monthly, representing a revolutionary approach to agriculture that could *transform* how cities feed their growing populations.",
+          "Vertical farming, which involves *cultivating* crops in vertically stacked layers within controlled environments, has *taken off* dramatically in recent years. According to industry reports, the global vertical farming market is expected to reach $24 billion by 2030, with the Middle East showing particularly strong growth. These innovative facilities *harness* LED lighting systems and hydroponic technology to create optimal growing conditions year-round. What makes this approach so *compelling* is that it uses 95% less water than traditional farming while producing crops 365 days a year, regardless of weather conditions.",
+          "The *implications* of this technology extend far beyond simple food production. Dr. Yasmin Al-Rashid, an agricultural researcher at King Abdullah University, recently *conveyed* her excitement about vertical farming's potential in Saudi Arabia during a conference in Riyadh. She explained that these systems could help the Kingdom *diversify* its food sources and reduce dependence on imports, which currently *account for* approximately 80% of the country's food supply. The controlled environment eliminates the need for pesticides, making the produce both organic and safe for consumption.",
+          "Despite these advantages, vertical farming faces significant challenges that prevent it from becoming *mainstream*. The initial *setup* costs can be enormous, often requiring millions of dollars in investment for advanced lighting and climate control systems. Energy consumption remains a *concern*, as LED lights and cooling systems require substantial electricity. However, as technology advances and costs decrease, experts predict that vertical farms will become increasingly *viable* for commercial food production.",
+          "The success of vertical farming facilities in countries like Japan, where over 400 such farms now operate, demonstrates the technology's potential. These installations have shown that urban agriculture can *supplement* traditional farming methods effectively, particularly in regions with harsh climates or limited arable land. As cities worldwide grapple with feeding growing populations while protecting the environment, vertical farming emerges as a promising solution that brings fresh, nutritious food directly to urban consumers."
+        ]
+      },
+      "word_count": 547
+    }
+  ],
+  "grammar": {
+    "topic_name_en": "both/either/neither",
+    "topic_name_ar": "both/either/neither",
+    "explanation_content": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "both = كلاهما (إيجابي)، either = أي منهما (اختيار)، neither = لا هذا ولا ذاك (نفي). استخدم فعل مفرد مع either/neither، وفعل جمع مع both",
+          "content_en": "<b>Both</b>, <b>either</b>, and <b>neither</b> are used to talk about two things or people.<br><br><b>BOTH</b> = means 'the two' or 'this one AND that one' (positive)<br>• Both rooftop gardens and vertical farms are popular in cities.<br>• Both types of urban farming save space.<br><br><b>EITHER</b> = means 'one OR the other' (choice between two)<br>• You can grow either tomatoes or lettuce in this container.<br>• Either method works well for beginners.<br><br><b>NEITHER</b> = means 'not this one AND not that one' (negative)<br>• Neither traditional farming nor urban farming is easy.<br>• Neither of these plants needs much water."
+        },
+        {
+          "type": "formula",
+          "content": "Both + noun/pronoun + plural verb<br>Either + noun/pronoun + singular verb<br>Neither + noun/pronoun + singular verb"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "Both hydroponic systems produce fresh vegetables.",
+              "highlight": "Both hydroponic systems produce",
+              "translation_ar": "كلا النظامين المائيين ينتجان خضروات طازجة"
+            },
+            {
+              "sentence": "Either vertical farming or rooftop gardening works in small spaces.",
+              "highlight": "Either vertical farming or rooftop gardening works",
+              "translation_ar": "إما الزراعة العمودية أو زراعة الأسطح تعمل في المساحات الصغيرة"
+            },
+            {
+              "sentence": "Neither method requires soil.",
+              "highlight": "Neither method requires",
+              "translation_ar": "لا تتطلب أي من الطريقتين تربة"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "Both method is good",
+              "correct": "Both methods are good",
+              "explanation_ar": "both يأخذ اسم جمع وفعل جمع"
+            },
+            {
+              "wrong": "Either gardens are fine",
+              "correct": "Either garden is fine",
+              "explanation_ar": "either يأخذ اسم مفرد وفعل مفرد"
+            },
+            {
+              "wrong": "Neither of them are working",
+              "correct": "Neither of them is working",
+              "explanation_ar": "neither دائماً يأخذ فعل مفرد حتى مع 'of them'"
+            },
+            {
+              "wrong": "Both of urban farm",
+              "correct": "Both urban farms",
+              "explanation_ar": "لا نحتاج 'of' مع both + اسم مباشر"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

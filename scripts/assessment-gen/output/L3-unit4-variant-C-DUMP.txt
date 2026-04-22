@@ -1,0 +1,141 @@
+======================================================================
+LEVEL 3 · UNIT 4 · VARIANT C — FULL DUMP
+======================================================================
+Source file:     C:/Users/Dr. Ali/Desktop/fluentia-lms/scripts/assessment-gen/output/L3-unit4-variant-C.json
+unit_id:         738ff234-070d-4ace-9901-434e43521bdb
+variant_id:      762be9c2-ede2-4eaf-bb3f-a07cc46c9b92
+generated_at:    2026-04-21T04:00:00Z
+generated_by:    Claude Code native (L3 bulk, English-only)
+distribution:    8V / 6G / 6R  ·  12 MCQ / 4 T/F / 2 FB / 2 Matching
+question_count:  20
+======================================================================
+
+Qundefined  [vocabulary · mcq]
+    Q: Climate change may 'disrupt' traditional coffee-growing regions around the world. What does 'disrupt' mean?
+    a) To gradually improve and strengthen existing agricultural systems
+  ✓ b) To interrupt, disturb, and cause problems for a system or process
+    c) To carefully monitor and study changes in agricultural conditions
+    d) To create new opportunities for farmers to increase production
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: Italian espresso culture 'emphasizes' quick consumption at neighborhood bars. What does 'emphasizes' mean?
+    a) To reduce the importance of something in a cultural context
+  ✓ b) To give special importance or attention to something
+    c) To completely reject and abandon a cultural practice
+    d) To gradually change something into a completely different form
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: The Ethiopian coffee ceremony serves as a 'foundation' for family gatherings and hospitality. What does 'foundation' mean?
+    a) A physical building where important ceremonies are held
+    b) The final result or conclusion of a long cultural process
+  ✓ c) The basis or central element that supports something larger
+    d) A rule or law that governs how ceremonies must be performed
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: The coffee industry has 'undergone' significant transformation in recent decades. What does 'undergone' mean?
+    a) Prevented and blocked all major changes from occurring
+    b) Proposed and suggested changes without implementing them
+  ✓ c) Experienced and gone through a process or change completely
+    d) Studied and analysed the causes of changes in detail
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: Modern consumers are increasingly 'conscious' of ethical sourcing practices. What does 'conscious' mean?
+    a) Completely unaware and uninformed about important issues
+  ✓ b) Actively aware and paying attention to something important
+    c) Unconcerned and indifferent to any environmental practices
+    d) Opposed to and against all forms of modern consumption
+    A: b
+
+Qundefined  [vocabulary · true_false]
+    Q: When baristas 'demonstrate' technical expertise, they show their skills clearly through their actions.
+    A: true
+
+Qundefined  [vocabulary · true_false]
+    Q: When coffee-producing countries 'participate' more profitably in global markets, it means they are completely excluded from trading.
+    A: false
+
+Qundefined  [vocabulary · fill_blank]
+    Q: Coffee processing has _____ significant changes over the decades to improve both quality and sustainability.
+    A: undergone (also accepted: undergone, Undergone)
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence uses the present passive in the NEGATIVE form correctly?
+    a) Coffee is not grow in cold northern climates.
+    b) Coffee not is grown in cold northern climates.
+  ✓ c) Coffee is not grown in cold northern climates.
+    d) Coffee are not grown in cold northern climates.
+    A: c
+
+Qundefined  [grammar · mcq]
+    Q: In formal writing, which passive construction is most appropriate for reports?
+    a) People say that coffee consumption is rising.
+  ✓ b) It is reported that coffee consumption is rising.
+    c) Everyone thinks coffee consumption is rising.
+    d) They are saying coffee consumption is rising.
+    A: b
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence uses 'be known as' or 'be called' correctly in the present passive?
+  ✓ a) This region is known as the coffee belt by experts worldwide.
+    b) This region known as the coffee belt by experts worldwide.
+    c) This region is know as the coffee belt by experts worldwide.
+    d) This region are known as the coffee belt by experts worldwide.
+    A: a
+
+Qundefined  [grammar · mcq]
+    Q: Choose the sentence that correctly uses the passive to describe a process step.
+  ✓ a) First, the fruit pulp is removed and then the beans are fermented in water.
+    b) First, the fruit pulp removes and then the beans ferments in water.
+    c) First, removed the fruit pulp and then fermented the beans in water.
+    d) First, the fruit pulp is removing and then the beans are fermenting.
+    A: a
+
+Qundefined  [grammar · true_false]
+    Q: 'Traditional coffee methods are passed down from generation to generation and are still practised today' uses the passive correctly.
+    A: true
+
+Qundefined  [grammar · matching]
+    Q: Match each passive sentence to its active voice equivalent.
+
+Qundefined  [reading · mcq]
+    Q: According to Passage A, what did early European coffee houses become after coffee arrived in Europe?
+    a) Quiet places for reading and personal study
+  ✓ b) Vibrant social centres for intellectuals, merchants, and artists
+    c) Private clubs accessible only to wealthy aristocrats
+    d) Government offices for conducting official business
+    A: b
+
+Qundefined  [reading · mcq]
+    Q: According to Passage B, what impact could climate change have on coffee cultivation by 2050?
+    a) Coffee production will double as warmer temperatures increase yields
+    b) Coffee will shift to entirely new regions in northern Europe
+  ✓ c) The suitable area for coffee cultivation could decrease by up to 50%
+    d) All coffee farms will relocate to higher altitudes above 3,000 meters
+    A: c
+
+Qundefined  [reading · mcq]
+    Q: Passage A states that coffee 'connects millions of people daily through shared rituals.' What does this best suggest?
+    a) Coffee is primarily a business product with no cultural significance
+  ✓ b) Coffee's cultural rituals act as a universal social bond across communities
+    c) Coffee only connects people who speak the same language
+    d) The rituals around coffee are identical in every country
+    A: b
+
+Qundefined  [reading · true_false]
+    Q: According to Passage A, European traders were initially skeptical about coffee when it first arrived in Europe.
+    A: true
+
+Qundefined  [reading · fill_blank]
+    Q: According to Passage B, beans grown between 1,200 and _____ meters above sea level develop more complex flavors.
+    A: 2,000 (also accepted: 2,000, 2000, two thousand, Two thousand)
+
+Qundefined  [reading · matching]
+    Q: Match each coffee-related fact from the passages to the passage where it appears.
+
+----------------------------------------------------------------------
+END OF DUMP — 20 questions printed
+======================================================================

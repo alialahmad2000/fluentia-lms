@@ -12,6 +12,17 @@ import { captureRefFromUrl } from './utils/affiliateTracking'
 // Capture affiliate ref code from URL on app load
 captureRefFromUrl()
 
+// ATELIER: single identity — purge legacy theme classes on boot
+if (typeof document !== 'undefined') {
+  const html = document.documentElement
+  ;['theme-diwan', 'theme-diwan-gold', 'theme-teal', 'theme-deep-teal',
+    'theme-daylight', 'theme-daylight-study', 'theme-mission-black']
+    .forEach(cls => html.classList.remove(cls))
+  html.classList.add('theme-atelier')
+  try { localStorage.removeItem('theme') } catch {}
+  try { localStorage.removeItem('fluentia-theme') } catch {}
+}
+
 // Mobile debug console — activate via ?debug=1 or localStorage
 if (new URLSearchParams(window.location.search).get('debug') === '1' ||
     localStorage.getItem('fluentia_debug') === '1') {

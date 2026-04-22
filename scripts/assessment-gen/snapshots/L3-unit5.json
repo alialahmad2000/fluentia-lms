@@ -1,0 +1,1299 @@
+{
+  "unit": {
+    "id": "79f8500f-f110-4b61-9099-15348ce19d79",
+    "unit_number": 5,
+    "title_en": "Renewable Energy",
+    "title_ar": "الطاقة المتجددة"
+  },
+  "assessment": {
+    "id": "c90fe99a-af89-4896-8498-8c7c3cd69c6b"
+  },
+  "variants": [
+    {
+      "id": "8fe007f5-cba0-48ba-9093-a0140cf3e911",
+      "variant_code": "A"
+    },
+    {
+      "id": "a9993441-3a6b-4ade-a1b0-3f5e239ab8f5",
+      "variant_code": "B"
+    },
+    {
+      "id": "4685f79d-98d0-4c30-b197-10dc82535386",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "word": "soar",
+      "pos": "verb",
+      "definition_ar": "يرتفع بسرعة، يحلق عالياً",
+      "example_sentence": "Food prices soared during the economic crisis.",
+      "tier": "core"
+    },
+    {
+      "word": "synonymous",
+      "pos": "adjective",
+      "definition_ar": "مرادف، مقترن بـ، يعني نفس الشيء",
+      "example_sentence": "His name became synonymous with success in the business world.",
+      "tier": "core"
+    },
+    {
+      "word": "undertaking",
+      "pos": "noun",
+      "definition_ar": "مشروع، مهمة، عمل جاد",
+      "example_sentence": "Building the new hospital is a major undertaking for our city.",
+      "tier": "core"
+    },
+    {
+      "word": "committed",
+      "pos": "adjective",
+      "definition_ar": "ملتزم، مكرّس، عاقد العزم على",
+      "example_sentence": "She is committed to learning English and studies every day.",
+      "tier": "core"
+    },
+    {
+      "word": "feasible",
+      "pos": "adjective",
+      "definition_ar": "ممكن التنفيذ، قابل للتطبيق، عملي",
+      "example_sentence": "The plan sounds good, but is it really feasible with our limited budget?",
+      "tier": "core"
+    },
+    {
+      "word": "shifting",
+      "pos": "verb",
+      "definition_ar": "يتحول، يغير، ينتقل",
+      "example_sentence": "The company is shifting its focus from traditional marketing to digital advertising.",
+      "tier": "core"
+    },
+    {
+      "word": "encompasses",
+      "pos": "verb",
+      "definition_ar": "يشمل، يحتوي على، يضم",
+      "example_sentence": "The course encompasses both theory and practical work.",
+      "tier": "core"
+    },
+    {
+      "word": "harnessing",
+      "pos": "verb",
+      "definition_ar": "يسخّر، يستغل، يوظف (قوة طبيعية)",
+      "example_sentence": "Solar panels are harnessing sunlight to produce electricity for the village.",
+      "tier": "core"
+    },
+    {
+      "word": "devise",
+      "pos": "verb",
+      "definition_ar": "يبتكر، يخطط، يصمم",
+      "example_sentence": "We need to devise a new strategy to increase sales.",
+      "tier": "core"
+    },
+    {
+      "word": "estimate",
+      "pos": "verb",
+      "definition_ar": "يقدّر، يخمّن، يحسب تقريبياً",
+      "example_sentence": "Experts estimate that the project will take three years to complete.",
+      "tier": "core"
+    },
+    {
+      "word": "blueprint",
+      "pos": "noun",
+      "definition_ar": "مخطط، نموذج، خطة مفصلة",
+      "example_sentence": "The successful school program became a blueprint for education reform nationwide.",
+      "tier": "core"
+    },
+    {
+      "word": "think outside the box",
+      "pos": "verb",
+      "definition_ar": "يفكر بطريقة إبداعية، يفكر خارج الصندوق",
+      "example_sentence": "To solve this problem, we need to think outside the box.",
+      "tier": "core"
+    },
+    {
+      "word": "unprecedented",
+      "pos": "adjective",
+      "definition_ar": "غير مسبوق، لم يحدث من قبل",
+      "example_sentence": "The company achieved unprecedented success this year.",
+      "tier": "core"
+    },
+    {
+      "word": "transition",
+      "pos": "noun",
+      "definition_ar": "انتقال، تحول، مرحلة انتقالية",
+      "example_sentence": "The transition from high school to university can be challenging for many students.",
+      "tier": "core"
+    },
+    {
+      "word": "allocated",
+      "pos": "verb",
+      "definition_ar": "خصص، وزع، رصد (أموال أو موارد)",
+      "example_sentence": "The government allocated more funds to improve public healthcare services.",
+      "tier": "core"
+    },
+    {
+      "word": "turn the tables",
+      "pos": "verb",
+      "definition_ar": "يقلب الطاولة، يغير الوضع لصالحه",
+      "example_sentence": "The small team turned the tables and won against the stronger opponent.",
+      "tier": "core"
+    },
+    {
+      "word": "utilize",
+      "pos": "verb",
+      "definition_ar": "يستخدم، يستغل، يوظف بفعالية",
+      "example_sentence": "Modern factories utilize robots to increase production efficiency.",
+      "tier": "core"
+    },
+    {
+      "word": "capitalize on",
+      "pos": "verb",
+      "definition_ar": "يستغل، يستفيد من، ينتهز الفرصة",
+      "example_sentence": "The company capitalized on the new technology to increase profits.",
+      "tier": "core"
+    },
+    {
+      "word": "fluctuate",
+      "pos": "verb",
+      "definition_ar": "يتذبذب، يتقلب، يرتفع وينخفض",
+      "example_sentence": "Stock prices fluctuate daily based on market conditions.",
+      "tier": "core"
+    },
+    {
+      "word": "rank among",
+      "pos": "verb",
+      "definition_ar": "يحتل مرتبة ضمن، يصنف من بين",
+      "example_sentence": "This university ranks among the best engineering schools in the region.",
+      "tier": "core"
+    },
+    {
+      "word": "yield",
+      "pos": "verb",
+      "definition_ar": "ينتج، يحصل على، يعطي",
+      "example_sentence": "This investment should yield good returns next year.",
+      "tier": "core"
+    },
+    {
+      "word": "fostering",
+      "pos": "verb",
+      "definition_ar": "يرعى، يشجع، يدعم النمو أو التطوير",
+      "example_sentence": "The new program is fostering creativity among young artists.",
+      "tier": "core"
+    },
+    {
+      "word": "collaborate",
+      "pos": "verb",
+      "definition_ar": "يتعاون، يتشارك في العمل",
+      "example_sentence": "The two companies decided to collaborate on the new software project.",
+      "tier": "core"
+    },
+    {
+      "word": "understated",
+      "pos": "adjective",
+      "definition_ar": "أقل من الحقيقة، لا يُقدر حق قدره",
+      "example_sentence": "The importance of education cannot be understated.",
+      "tier": "core"
+    },
+    {
+      "word": "comprise",
+      "pos": "verb",
+      "definition_ar": "يتكون من، يشكل، يضم",
+      "example_sentence": "International students comprise about 20% of the university's population.",
+      "tier": "core"
+    },
+    {
+      "word": "phase out",
+      "pos": "verb",
+      "definition_ar": "يلغي تدريجياً، يتخلص من تدريجياً",
+      "example_sentence": "The company will phase out the old software by next year.",
+      "tier": "core"
+    },
+    {
+      "word": "off-grid",
+      "pos": "adjective",
+      "definition_ar": "غير متصل بالشبكة العامة، معزول عن الخدمات",
+      "example_sentence": "Many rural areas rely on off-grid solar power for electricity.",
+      "tier": "core"
+    },
+    {
+      "word": "pursue",
+      "pos": "verb",
+      "definition_ar": "يسعى وراء، يتابع، يمارس (مهنة أو دراسة)",
+      "example_sentence": "After finishing school, she decided to pursue a degree in medicine.",
+      "tier": "core"
+    },
+    {
+      "word": "scale up",
+      "pos": "verb",
+      "definition_ar": "يوسع، يزيد الحجم، ينمي",
+      "example_sentence": "The startup plans to scale up production after receiving new funding.",
+      "tier": "core"
+    },
+    {
+      "word": "alternative",
+      "pos": "noun",
+      "definition_ar": "شيء يمكن استخدامه بدلاً من شيء آخر كخيار أو بديل آخر",
+      "example_sentence": "Electric cars are a good alternative to gasoline-powered vehicles.",
+      "tier": "core"
+    },
+    {
+      "word": "aquifer",
+      "pos": "noun",
+      "definition_ar": "طبقة من الصخور أو التربة تحت الأرض تحتجز المياه",
+      "example_sentence": "Farmers in the region depend on an aquifer that is slowly being emptied.",
+      "tier": "core"
+    },
+    {
+      "word": "battery storage",
+      "pos": "noun",
+      "definition_ar": "تخزين البطارية",
+      "example_sentence": "Battery storage allows solar energy to be used even at night.",
+      "tier": "core"
+    },
+    {
+      "word": "campaign for",
+      "pos": "verb",
+      "definition_ar": "العمل بنشاط لتحقيق هدف، خاصةً هدف اجتماعي أو سياسي",
+      "example_sentence": "Many students campaign for stronger action against climate change.",
+      "tier": "core"
+    },
+    {
+      "word": "biomass",
+      "pos": "noun",
+      "definition_ar": "الكتلة الحيوية",
+      "example_sentence": "Wood chips and agricultural waste can be used as biomass for energy.",
+      "tier": "core"
+    },
+    {
+      "word": "carbon footprint",
+      "pos": "noun",
+      "definition_ar": "البصمة الكربونية",
+      "example_sentence": "Using public transport helps reduce your carbon footprint significantly.",
+      "tier": "core"
+    },
+    {
+      "word": "carbon neutral",
+      "pos": "adjective",
+      "definition_ar": "محايد الكربون",
+      "example_sentence": "The company plans to become carbon neutral by 2030.",
+      "tier": "core"
+    },
+    {
+      "word": "carbon sequestration",
+      "pos": "noun",
+      "definition_ar": "الإزالة طويلة الأمد لثاني أكسيد الكربون من الغلاف الجوي وتخزينه",
+      "example_sentence": "Healthy oceans and forests provide natural carbon sequestration for the planet.",
+      "tier": "core"
+    },
+    {
+      "word": "carbon tax",
+      "pos": "noun",
+      "definition_ar": "رسوم تُفرَض على الشركات والأفراد بسبب إنتاج انبعاثات الكربون",
+      "example_sentence": "A carbon tax encourages companies to reduce their emissions to lower their costs.",
+      "tier": "core"
+    },
+    {
+      "word": "clean energy",
+      "pos": "noun",
+      "definition_ar": "طاقة نظيفة",
+      "example_sentence": "Many countries are investing heavily in clean energy projects.",
+      "tier": "core"
+    },
+    {
+      "word": "composting",
+      "pos": "noun",
+      "definition_ar": "عملية تحويل بقايا الطعام والنباتات إلى سماد طبيعي",
+      "example_sentence": "Composting kitchen scraps reduces household waste and improves garden soil.",
+      "tier": "core"
+    },
+    {
+      "word": "cut down on",
+      "pos": "verb",
+      "definition_ar": "تقليل كمية شيء تستخدمه أو تفعله",
+      "example_sentence": "Many families are trying to cut down on their electricity usage.",
+      "tier": "core"
+    },
+    {
+      "word": "degradation",
+      "pos": "noun",
+      "definition_ar": "العملية التي تصبح فيها الأرض أو البيئة أقل إنتاجيةً أو صحة",
+      "example_sentence": "Land degradation threatens the food supply of millions of people.",
+      "tier": "core"
+    },
+    {
+      "word": "electric vehicle",
+      "pos": "noun",
+      "definition_ar": "مركبة كهربائية",
+      "example_sentence": "Electric vehicles produce zero emissions while driving through the city.",
+      "tier": "core"
+    },
+    {
+      "word": "electrification",
+      "pos": "noun",
+      "definition_ar": "عملية تحويل نظام ما ليعمل بالكهرباء",
+      "example_sentence": "The electrification of buses and trains can greatly reduce urban air pollution.",
+      "tier": "core"
+    },
+    {
+      "word": "energy efficient",
+      "pos": "adjective",
+      "definition_ar": "موفر للطاقة",
+      "example_sentence": "LED light bulbs are more energy efficient than traditional bulbs.",
+      "tier": "core"
+    },
+    {
+      "word": "energy poverty",
+      "pos": "noun",
+      "definition_ar": "وضع لا يستطيع فيه الناس تحمّل تكاليف خدمات طاقة كافية وموثوقة",
+      "example_sentence": "Renewable energy projects are helping to reduce energy poverty in rural areas.",
+      "tier": "core"
+    },
+    {
+      "word": "environmental impact",
+      "pos": "noun",
+      "definition_ar": "الأثر البيئي",
+      "example_sentence": "Companies must consider the environmental impact of their manufacturing processes.",
+      "tier": "core"
+    },
+    {
+      "word": "fossil",
+      "pos": "noun",
+      "definition_ar": "البقايا المحفوظة أو آثار كائن قبل التاريخ توجد في الصخور",
+      "example_sentence": "Scientists use fossil records to understand how the climate changed in the past.",
+      "tier": "core"
+    },
+    {
+      "word": "fuel",
+      "pos": "noun",
+      "definition_ar": "مادة تُحرق لتوفير الطاقة أو القوة للآلات والمركبات",
+      "example_sentence": "Many countries are trying to reduce their use of fossil fuels.",
+      "tier": "core"
+    },
+    {
+      "word": "frozen tundra",
+      "pos": "noun",
+      "definition_ar": "منطقة مسطحة عديمة الأشجار في المناطق الباردة تبقى فيها التربة مجمدة",
+      "example_sentence": "The frozen tundra in Siberia holds vast amounts of stored carbon.",
+      "tier": "core"
+    },
+    {
+      "word": "green technology",
+      "pos": "noun",
+      "definition_ar": "التكنولوجيا الخضراء",
+      "example_sentence": "Green technology includes solar panels, wind turbines, and electric cars.",
+      "tier": "core"
+    },
+    {
+      "word": "geothermal",
+      "pos": "adjective",
+      "definition_ar": "حراري أرضي",
+      "example_sentence": "Iceland uses geothermal energy to heat homes and generate electricity.",
+      "tier": "core"
+    },
+    {
+      "word": "hydroelectric",
+      "pos": "adjective",
+      "definition_ar": "كهرمائي",
+      "example_sentence": "The hydroelectric dam provides clean energy for thousands of homes.",
+      "tier": "core"
+    },
+    {
+      "word": "greenhouse gas",
+      "pos": "noun",
+      "definition_ar": "غاز الاحتباس الحراري",
+      "example_sentence": "Carbon dioxide is the most common greenhouse gas produced by human activities.",
+      "tier": "core"
+    },
+    {
+      "word": "hydrogen fuel",
+      "pos": "noun",
+      "definition_ar": "وقود نظيف مُنتَج من الهيدروجين لا يُطلق سوى الماء عند احتراقه",
+      "example_sentence": "Hydrogen fuel is being tested in buses and large trucks to replace diesel.",
+      "tier": "core"
+    },
+    {
+      "word": "methane",
+      "pos": "noun",
+      "definition_ar": "غاز احتباس حراري عديم اللون والرائحة أكثر قوةً من ثاني أكسيد الكربون",
+      "example_sentence": "Cattle farming produces large amounts of methane which heats the planet.",
+      "tier": "core"
+    },
+    {
+      "word": "natural resources",
+      "pos": "noun",
+      "definition_ar": "الموارد الطبيعية",
+      "example_sentence": "Oil and gas are natural resources that many countries depend on economically.",
+      "tier": "core"
+    },
+    {
+      "word": "mitigation",
+      "pos": "noun",
+      "definition_ar": "إجراء يُتَّخذ للحد من التأثيرات الضارة لشيء ما",
+      "example_sentence": "Flood mitigation projects protect communities from rising water levels.",
+      "tier": "core"
+    },
+    {
+      "word": "offshore wind",
+      "pos": "noun",
+      "definition_ar": "توربينات رياح مُنصَّبة في البحر لتوليد الكهرباء",
+      "example_sentence": "Offshore wind farms produce more energy because sea winds are stronger.",
+      "tier": "core"
+    },
+    {
+      "word": "net zero",
+      "pos": "noun",
+      "definition_ar": "حالة عدم إنتاج غازات احتباس حراري أكثر مما يُزاَل من الهواء",
+      "example_sentence": "The government pledged to reach net zero emissions before 2050.",
+      "tier": "core"
+    },
+    {
+      "word": "power grid",
+      "pos": "noun",
+      "definition_ar": "شبكة الكهرباء",
+      "example_sentence": "Smart power grids can automatically balance energy supply and demand.",
+      "tier": "core"
+    },
+    {
+      "word": "pollutant",
+      "pos": "noun",
+      "definition_ar": "مادة ضارة تُطلَق في البيئة بفعل النشاط البشري",
+      "example_sentence": "Factories must limit the amount of pollutants they release into the air.",
+      "tier": "core"
+    },
+    {
+      "word": "practical",
+      "pos": "adjective",
+      "definition_ar": "مرجَّح النجاح والفعالية في موقف حقيقي",
+      "example_sentence": "Solar panels are a practical solution for homes in sunny countries.",
+      "tier": "core"
+    },
+    {
+      "word": "reduce emissions",
+      "pos": "verb",
+      "definition_ar": "يقلل الانبعاثات",
+      "example_sentence": "Electric cars help reduce emissions from transportation significantly.",
+      "tier": "core"
+    },
+    {
+      "word": "save energy",
+      "pos": "verb",
+      "definition_ar": "يوفر الطاقة",
+      "example_sentence": "Turning off lights when leaving a room helps save energy.",
+      "tier": "core"
+    },
+    {
+      "word": "renewable source",
+      "pos": "noun",
+      "definition_ar": "مصدر متجدد",
+      "example_sentence": "Geothermal energy is a renewable source that uses heat from underground.",
+      "tier": "core"
+    },
+    {
+      "word": "smart meter",
+      "pos": "noun",
+      "definition_ar": "جهاز رقمي يقيس ويُبلِّغ عن استهلاك الطاقة في مبنى في الوقت الفعلي",
+      "example_sentence": "Installing a smart meter helped the family identify which appliances use most energy.",
+      "tier": "core"
+    },
+    {
+      "word": "set an example",
+      "pos": "verb",
+      "definition_ar": "التصرف بطريقة يجب على الآخرين تقليدها أو الاستلهام منها",
+      "example_sentence": "The school set an example by switching all its lights to LED bulbs.",
+      "tier": "core"
+    },
+    {
+      "word": "species richness",
+      "pos": "noun",
+      "definition_ar": "عدد الأنواع المختلفة الموجودة في منطقة أو موئل معين",
+      "example_sentence": "Areas with high species richness are more resistant to environmental stress.",
+      "tier": "core"
+    },
+    {
+      "word": "solar energy",
+      "pos": "noun",
+      "definition_ar": "الطاقة المنتجة من خلال تحويل ضوء الشمس وحرارتها إلى كهرباء أو حرارة قابلة للاستخدام.",
+      "example_sentence": "Solar energy is now one of the cheapest sources of electricity in the world.",
+      "tier": "core"
+    },
+    {
+      "word": "stewardship",
+      "pos": "noun",
+      "definition_ar": "الرعاية المسؤولة وإدارة شيء مهم",
+      "example_sentence": "Good environmental stewardship means leaving a healthy planet for future generations.",
+      "tier": "core"
+    },
+    {
+      "word": "sustainable development",
+      "pos": "noun",
+      "definition_ar": "التنمية المستدامة",
+      "example_sentence": "Sustainable development balances economic growth with environmental protection.",
+      "tier": "core"
+    },
+    {
+      "word": "tipping point",
+      "pos": "noun",
+      "definition_ar": "لحظة حرجة يتسبب فيها تغيير صغير في تحول كبير وغير قابل للعكس",
+      "example_sentence": "Scientists warn that the Arctic could reach a tipping point within decades.",
+      "tier": "core"
+    },
+    {
+      "word": "switch to",
+      "pos": "verb",
+      "definition_ar": "يتحول إلى",
+      "example_sentence": "Many households are switching to LED light bulbs to save electricity.",
+      "tier": "core"
+    },
+    {
+      "word": "upcycling",
+      "pos": "noun",
+      "definition_ar": "عملية تحويل المواد القديمة أو النفايات إلى شيء ذي قيمة أعلى",
+      "example_sentence": "The designer built furniture through upcycling old wooden pallets.",
+      "tier": "core"
+    },
+    {
+      "word": "tree planting",
+      "pos": "noun",
+      "definition_ar": "نشاط زراعة الأشجار الصغيرة في الأرض لتنمية غابة",
+      "example_sentence": "A large tree planting campaign added two million trees to the national park.",
+      "tier": "core"
+    },
+    {
+      "word": "wind turbine",
+      "pos": "noun",
+      "definition_ar": "توربين الرياح",
+      "example_sentence": "The wind turbines on the hill produce clean energy for the town.",
+      "tier": "core"
+    },
+    {
+      "word": "zero waste",
+      "pos": "noun",
+      "definition_ar": "هدف للقضاء على جميع النفايات المرسلة إلى مدافن النفايات عبر إعادة الاستخدام",
+      "example_sentence": "The city adopted a zero waste policy that reduced landfill use by 80 percent.",
+      "tier": "core"
+    },
+    {
+      "word": "afforestation",
+      "pos": "noun",
+      "definition_ar": "عملية زراعة الأشجار في مناطق لم تكن فيها أشجار من قبل",
+      "example_sentence": "Afforestation projects in dry regions help prevent soil erosion.",
+      "tier": "extended"
+    },
+    {
+      "word": "agroforestry",
+      "pos": "noun",
+      "definition_ar": "طريقة استخدام الأراضي تجمع الأشجار مع المحاصيل أو الماشية على نفس الأرض",
+      "example_sentence": "Agroforestry improves soil health and helps farmers adapt to climate change.",
+      "tier": "extended"
+    },
+    {
+      "word": "carbon credit",
+      "pos": "noun",
+      "definition_ar": "تصريح يسمح لشركة ما بإنتاج طن واحد من ثاني أكسيد الكربون",
+      "example_sentence": "Companies can buy and sell carbon credits to manage their total emissions.",
+      "tier": "extended"
+    },
+    {
+      "word": "carbon dioxide",
+      "pos": "noun",
+      "definition_ar": "غاز عديم اللون ينتج عند احتراق الكربون أو عندما يتنفس الناس والحيوانات",
+      "example_sentence": "Trees absorb carbon dioxide from the atmosphere and produce oxygen.",
+      "tier": "extended"
+    },
+    {
+      "word": "closed-loop system",
+      "pos": "noun",
+      "definition_ar": "نموذج إنتاجي تصبح فيه نفايات عملية ما مدخلًا لعملية أخرى",
+      "example_sentence": "A closed-loop system reduces landfill waste by reusing materials continuously.",
+      "tier": "extended"
+    },
+    {
+      "word": "climate finance",
+      "pos": "noun",
+      "definition_ar": "المال الموجَّه نحو مشاريع تُقلِّل الانبعاثات أو تساعد على التكيف مع تغير المناخ",
+      "example_sentence": "Rich countries promised to increase climate finance for developing nations.",
+      "tier": "extended"
+    },
+    {
+      "word": "decarbonization",
+      "pos": "noun",
+      "definition_ar": "تخفيض واسع النطاق لانبعاثات ثاني أكسيد الكarbون من الاقتصاد",
+      "example_sentence": "Decarbonization of the energy sector is essential to meet climate targets.",
+      "tier": "extended"
+    },
+    {
+      "word": "deplete",
+      "pos": "verb",
+      "definition_ar": "يستنزف",
+      "example_sentence": "We are depleting natural resources faster than they regenerate.",
+      "tier": "extended"
+    },
+    {
+      "word": "district heating",
+      "pos": "noun",
+      "definition_ar": "نظام مركزي يوزع الحرارة على مبانٍ كثيرة من مصدر واحد",
+      "example_sentence": "District heating powered by geothermal energy reduces household fuel bills.",
+      "tier": "extended"
+    },
+    {
+      "word": "deploy",
+      "pos": "verb",
+      "definition_ar": "يضع أو يرتب شيئاً بشكل استراتيجي للاستخدام الفعال",
+      "example_sentence": "The country plans to deploy thousands of solar panels across desert regions.",
+      "tier": "extended"
+    },
+    {
+      "word": "e-waste",
+      "pos": "noun",
+      "definition_ar": "الأجهزة الإلكترونية المرمية التي تحتوي في الغالب على مواد ضارة",
+      "example_sentence": "Improper disposal of e-waste releases toxic chemicals into the soil.",
+      "tier": "extended"
+    },
+    {
+      "word": "electrolysis",
+      "pos": "noun",
+      "definition_ar": "عملية تستخدم الكهرباء لتحليل الماء إلى هيدروجين وأكسجين",
+      "example_sentence": "Electrolysis powered by solar energy can produce clean green hydrogen.",
+      "tier": "extended"
+    },
+    {
+      "word": "feedback loop",
+      "pos": "noun",
+      "definition_ar": "عملية يُعزِّز فيها التأثير سببه الخاص مما يجعل الأمور أسوأ أو أفضل",
+      "example_sentence": "Melting Arctic ice creates a feedback loop that speeds up further warming.",
+      "tier": "extended"
+    },
+    {
+      "word": "emit",
+      "pos": "verb",
+      "definition_ar": "إطلاق أو إصدار شيء مثل الضوء أو الحرارة أو الصوت أو الغاز أو الإشعاع",
+      "example_sentence": "Coal power plants emit large amounts of carbon dioxide into the atmosphere.",
+      "tier": "extended"
+    },
+    {
+      "word": "green hydrogen",
+      "pos": "noun",
+      "definition_ar": "هيدروجين يُنتَج باستخدام الكهرباء المتجددة بدلًا من الوقود الأحفوري",
+      "example_sentence": "Green hydrogen could replace natural gas in heavy industries like steel.",
+      "tier": "extended"
+    },
+    {
+      "word": "generator",
+      "pos": "noun",
+      "definition_ar": "آلة تنتج الكهرباء من شكل آخر من أشكال الطاقة",
+      "example_sentence": "The wind generator on the hill provides clean electricity for the village.",
+      "tier": "extended"
+    },
+    {
+      "word": "grid",
+      "pos": "noun",
+      "definition_ar": "شبكة من خطوط الكهرباء تنقل الكهرباء من محطات الطاقة إلى المنازل والشركات",
+      "example_sentence": "Smart grids can automatically balance electricity supply and demand more efficiently.",
+      "tier": "extended"
+    },
+    {
+      "word": "green roof",
+      "pos": "noun",
+      "definition_ar": "سطح مغطى بالنباتات يوفر العزل ويمتص مياه الأمطار",
+      "example_sentence": "The office building installed a green roof to cut cooling costs in summer.",
+      "tier": "extended"
+    },
+    {
+      "word": "implement",
+      "pos": "verb",
+      "definition_ar": "ينفذ خطة أو قراراً أو نظاماً ويجعله يعمل",
+      "example_sentence": "The city will implement new recycling programs in all neighborhoods next year.",
+      "tier": "extended"
+    },
+    {
+      "word": "heat wave",
+      "pos": "noun",
+      "definition_ar": "فترة طويلة من الطقس الحار بشكل غير عادي وقد تكون خطيرة",
+      "example_sentence": "The summer heat wave caused widespread power outages across the region.",
+      "tier": "extended"
+    },
+    {
+      "word": "infrastructure",
+      "pos": "noun",
+      "definition_ar": "الأنظمة والمرافق المادية الأساسية اللازمة لعمل المجتمع بشكل صحيح",
+      "example_sentence": "Building new infrastructure for electric car charging stations requires significant investment.",
+      "tier": "extended"
+    },
+    {
+      "word": "incentive",
+      "pos": "noun",
+      "definition_ar": "شيء يشجع أو يحفز شخصاً على فعل شيء ما",
+      "example_sentence": "Tax incentives make it more affordable for families to install solar panels.",
+      "tier": "extended"
+    },
+    {
+      "word": "initiative",
+      "pos": "noun",
+      "definition_ar": "خطة أو برنامج جديد مصمم لحل مشكلة أو تحسين وضع",
+      "example_sentence": "The government launched an initiative to promote solar energy in rural areas.",
+      "tier": "extended"
+    },
+    {
+      "word": "insulate",
+      "pos": "verb",
+      "definition_ar": "يعزل",
+      "example_sentence": "We insulated the walls to keep the house warm in winter.",
+      "tier": "extended"
+    },
+    {
+      "word": "intermittent",
+      "pos": "adjective",
+      "definition_ar": "يبدأ ويتوقف بشكل متكرر؛ غير مستمر أو ثابت",
+      "example_sentence": "Wind and solar power are intermittent because they depend on weather conditions.",
+      "tier": "extended"
+    },
+    {
+      "word": "investment",
+      "pos": "noun",
+      "definition_ar": "أموال تُنفق على شيء ما توقعاً أن يجلب ربحاً أو فائدة في المستقبل",
+      "example_sentence": "Investment in renewable energy technology has increased dramatically in recent years.",
+      "tier": "extended"
+    },
+    {
+      "word": "just transition",
+      "pos": "noun",
+      "definition_ar": "التحول إلى اقتصاد أكثر خضرةً بما هو عادل للعمال والمجتمعات",
+      "example_sentence": "A just transition ensures that coal miners are not left behind by new energy plans.",
+      "tier": "extended"
+    },
+    {
+      "word": "load balancing",
+      "pos": "noun",
+      "definition_ar": "عملية توزيع الطلب على الكهرباء بالتساوي عبر الشبكة الكهربائية",
+      "example_sentence": "Load balancing prevents blackouts during times of high electricity demand.",
+      "tier": "extended"
+    },
+    {
+      "word": "optimization",
+      "pos": "noun",
+      "definition_ar": "عملية جعل شيء أفضل أو أكثر فعالية أو فائدة قدر الإمكان",
+      "example_sentence": "Energy optimization in buildings can reduce costs by up to thirty percent.",
+      "tier": "extended"
+    },
+    {
+      "word": "manufacturing",
+      "pos": "noun",
+      "definition_ar": "عملية صنع المنتجات في المصانع باستخدام الآلات والعمال",
+      "example_sentence": "Green manufacturing processes help reduce pollution and waste in factories.",
+      "tier": "extended"
+    },
+    {
+      "word": "ozone layer",
+      "pos": "noun",
+      "definition_ar": "طبقة الأوزون",
+      "example_sentence": "The ozone layer protects us from harmful sunlight.",
+      "tier": "extended"
+    },
+    {
+      "word": "passive house",
+      "pos": "noun",
+      "definition_ar": "مبنى مُصمَّم لاستخدام كميات قليلة جدًا من الطاقة في التدفئة والتبريد",
+      "example_sentence": "A passive house stays warm in winter without a traditional heating system.",
+      "tier": "extended"
+    },
+    {
+      "word": "peak demand",
+      "pos": "noun",
+      "definition_ar": "أعلى مستوى لاستهلاك الكهرباء في وقت معين",
+      "example_sentence": "Energy companies must have extra capacity ready for times of peak demand.",
+      "tier": "extended"
+    },
+    {
+      "word": "rainwater harvesting",
+      "pos": "noun",
+      "definition_ar": "جمع مياه الأمطار وتخزينها للاستخدام بدلًا من السماح لها بالجريان",
+      "example_sentence": "Rainwater harvesting systems can supply gardens and reduce water bills.",
+      "tier": "extended"
+    },
+    {
+      "word": "recyclable",
+      "pos": "adjective",
+      "definition_ar": "قابل للتدوير ويمكن معالجته واستخدامه مرة أخرى لصنع منتجات جديدة",
+      "example_sentence": "Plastic bottles are recyclable and should not be thrown in regular trash.",
+      "tier": "extended"
+    },
+    {
+      "word": "reliability",
+      "pos": "noun",
+      "definition_ar": "جودة القدرة على الوثوق في العمل بشكل جيد أو إنتاج نتائج ثابتة",
+      "example_sentence": "The reliability of wind power depends on consistent weather conditions.",
+      "tier": "extended"
+    },
+    {
+      "word": "rewilding",
+      "pos": "noun",
+      "definition_ar": "عملية إعادة الأرض إلى حالتها الطبيعية البرية",
+      "example_sentence": "Rewilding projects have successfully reintroduced wolves to several forests.",
+      "tier": "extended"
+    },
+    {
+      "word": "renewable energy",
+      "pos": "noun",
+      "definition_ar": "الطاقة المستمدة من مصادر طبيعية تتجدد باستمرار كالشمس والرياح والمياه، وهي لا تنضب.",
+      "example_sentence": "Countries are investing in renewable energy to reduce pollution and fight climate change.",
+      "tier": "extended"
+    },
+    {
+      "word": "sea level rise",
+      "pos": "noun",
+      "definition_ar": "ارتفاع مستوى سطح المحيط بسبب تغير المناخ",
+      "example_sentence": "Sea level rise threatens to flood low-lying coastal cities within decades.",
+      "tier": "extended"
+    },
+    {
+      "word": "storage",
+      "pos": "noun",
+      "definition_ar": "عملية حفظ شيء في مكان معين حتى الحاجة إليه",
+      "example_sentence": "Energy storage systems help save electricity from solar panels for use at night.",
+      "tier": "extended"
+    },
+    {
+      "word": "strive to",
+      "pos": "verb",
+      "definition_ar": "بذل جهد كبير لتحقيق شيء مهم",
+      "example_sentence": "Engineers strive to make renewable energy systems more affordable and reliable.",
+      "tier": "extended"
+    },
+    {
+      "word": "take action",
+      "pos": "verb",
+      "definition_ar": "يتخذ إجراءاً حاسماً للتعامل مع مشكلة أو موقف",
+      "example_sentence": "We must take action now to prevent climate change from getting worse.",
+      "tier": "extended"
+    },
+    {
+      "word": "topsoil",
+      "pos": "noun",
+      "definition_ar": "الطبقة العليا من التربة حيث تنمو النباتات وهي الأكثر تأثرًا بالتآكل",
+      "example_sentence": "Unsustainable farming practices can strip away valuable topsoil in years.",
+      "tier": "extended"
+    },
+    {
+      "word": "take into consideration",
+      "pos": "verb",
+      "definition_ar": "التفكير في شيء بعناية عند اتخاذ قرار أو حكم",
+      "example_sentence": "We must take environmental impact into consideration when choosing energy sources.",
+      "tier": "extended"
+    },
+    {
+      "word": "wetland",
+      "pos": "noun",
+      "definition_ar": "منطقة أرضية مشبعة بالمياه مثل المستنقع أو الأهوار",
+      "example_sentence": "Wetlands act as natural filters that clean polluted water before it reaches the sea.",
+      "tier": "extended"
+    },
+    {
+      "word": "water purification",
+      "pos": "noun",
+      "definition_ar": "عملية إزالة الأوساخ والمواد الضارة لجعل الماء آمنًا للشرب",
+      "example_sentence": "Water purification plants make sure that tap water meets safety standards.",
+      "tier": "extended"
+    },
+    {
+      "word": "acid rain",
+      "pos": "noun",
+      "definition_ar": "مطر يحتوي على أحماض ضارة من تلوث الهواء تتلف النباتات والمباني",
+      "example_sentence": "Acid rain caused by industrial emissions has damaged forests across Europe.",
+      "tier": "mastery"
+    },
+    {
+      "word": "adopt",
+      "pos": "verb",
+      "definition_ar": "البدء في استخدام طريقة أو تقنية أو فكرة جديدة",
+      "example_sentence": "More businesses are adopting green energy solutions to reduce costs.",
+      "tier": "mastery"
+    },
+    {
+      "word": "albedo",
+      "pos": "noun",
+      "definition_ar": "قدرة سطح ما على عكس ضوء الشمس إلى الفضاء",
+      "example_sentence": "Snow has a high albedo, reflecting most sunlight and keeping temperatures cool.",
+      "tier": "mastery"
+    },
+    {
+      "word": "biofuel",
+      "pos": "noun",
+      "definition_ar": "وقود حيوي",
+      "example_sentence": "Some airlines are testing biofuel made from cooking oil.",
+      "tier": "mastery"
+    },
+    {
+      "word": "carbon capture",
+      "pos": "noun",
+      "definition_ar": "احتجاز الكربون",
+      "example_sentence": "Carbon capture technology removes CO2 from factory emissions.",
+      "tier": "mastery"
+    },
+    {
+      "word": "carbon budget",
+      "pos": "noun",
+      "definition_ar": "إجمالي ثاني أكسيد الكربون الذي يمكن للبشرية إطلاقه للحد من الاحترار العالمي",
+      "example_sentence": "At current emission rates, the global carbon budget will be used up within years.",
+      "tier": "mastery"
+    },
+    {
+      "word": "cogeneration",
+      "pos": "noun",
+      "definition_ar": "إنتاج الكهرباء والحرارة المفيدة في آنٍ واحد من مصدر وقود واحد",
+      "example_sentence": "Cogeneration systems are very efficient because they use nearly all the fuel energy.",
+      "tier": "mastery"
+    },
+    {
+      "word": "circular economy",
+      "pos": "noun",
+      "definition_ar": "نظام اقتصادي مصمم للقضاء على النفايات من خلال إعادة الاستخدام والتدوير المستمر للمواد",
+      "example_sentence": "The circular economy model helps companies reduce costs and environmental impact.",
+      "tier": "mastery"
+    },
+    {
+      "word": "decarbonize",
+      "pos": "verb",
+      "definition_ar": "إزالة الكربون",
+      "example_sentence": "Many countries plan to decarbonize their economies by 2050.",
+      "tier": "mastery"
+    },
+    {
+      "word": "contamination",
+      "pos": "noun",
+      "definition_ar": "عملية تلويث شيء ما أو جعله ضاراً بإضافة مواد خطيرة",
+      "example_sentence": "Water contamination from industrial waste is a serious environmental problem.",
+      "tier": "mastery"
+    },
+    {
+      "word": "decentralized",
+      "pos": "adjective",
+      "definition_ar": "موزع عبر مواقع متعددة بدلاً من السيطرة من مكان مركزي واحد",
+      "example_sentence": "A decentralized energy system uses many small power sources instead of large plants.",
+      "tier": "mastery"
+    },
+    {
+      "word": "desalination",
+      "pos": "noun",
+      "definition_ar": "تحلية المياه",
+      "example_sentence": "Saudi Arabia relies heavily on desalination for drinking water.",
+      "tier": "mastery"
+    },
+    {
+      "word": "energy mix",
+      "pos": "noun",
+      "definition_ar": "مزيج من مصادر الطاقة المختلفة المستخدمة لتلبية إجمالي احتياجات الطاقة",
+      "example_sentence": "The country plans to change its energy mix to include more renewable sources.",
+      "tier": "mastery"
+    },
+    {
+      "word": "energy audit",
+      "pos": "noun",
+      "definition_ar": "فحص مبنى أو عملية لإيجاد طرق لتقليل استهلاك الطاقة",
+      "example_sentence": "The factory carried out an energy audit and cut its electricity costs by a third.",
+      "tier": "mastery"
+    },
+    {
+      "word": "feed-in tariff",
+      "pos": "noun",
+      "definition_ar": "سياسة تدفع لمنتجي الطاقة مقابل الكهرباء التي يُضيفونها إلى الشبكة",
+      "example_sentence": "A feed-in tariff encouraged homeowners to install solar panels on their roofs.",
+      "tier": "mastery"
+    },
+    {
+      "word": "fly in the face of",
+      "pos": "verb",
+      "definition_ar": "أن يكون نقيضًا لشيء ما أو يتناقض معه تمامًا",
+      "example_sentence": "Investing more in coal plants flies in the face of global climate commitments.",
+      "tier": "mastery"
+    },
+    {
+      "word": "green bond",
+      "pos": "noun",
+      "definition_ar": "سند أخضر",
+      "example_sentence": "The city issued green bonds to fund its solar energy project.",
+      "tier": "mastery"
+    },
+    {
+      "word": "grid parity",
+      "pos": "noun",
+      "definition_ar": "النقطة التي تكون فيها تكلفة الطاقة المتجددة مساوية للطاقة التقليدية",
+      "example_sentence": "Solar energy has reached grid parity in many countries, making it competitive.",
+      "tier": "mastery"
+    },
+    {
+      "word": "habitat fragmentation",
+      "pos": "noun",
+      "definition_ar": "تفتيت الموئل الطبيعي إلى قطع أصغر غير متصلة",
+      "example_sentence": "Habitat fragmentation makes it harder for animals to find food and mates.",
+      "tier": "mastery"
+    },
+    {
+      "word": "insulation",
+      "pos": "noun",
+      "definition_ar": "مادة تستخدم لمنع مرور الحرارة أو الصوت أو الكهرباء",
+      "example_sentence": "Good insulation in walls helps keep houses warm in winter.",
+      "tier": "mastery"
+    },
+    {
+      "word": "lifecycle assessment",
+      "pos": "noun",
+      "definition_ar": "دراسة الأثر البيئي الكلي لمنتج من الإنتاج إلى التخلص منه",
+      "example_sentence": "A lifecycle assessment showed that electric cars have a lower impact over time.",
+      "tier": "mastery"
+    },
+    {
+      "word": "lifecycle",
+      "pos": "noun",
+      "definition_ar": "السلسلة الكاملة للمراحل في وجود منتج من الإنتاج إلى التخلص منه",
+      "example_sentence": "Companies must consider the environmental impact throughout a product's entire lifecycle.",
+      "tier": "mastery"
+    },
+    {
+      "word": "natural ventilation",
+      "pos": "noun",
+      "definition_ar": "استخدام تدفق الهواء وتصميم المبنى لتبريد المساحات دون أنظمة ميكانيكية",
+      "example_sentence": "Natural ventilation reduces the need for air conditioning in warm climates.",
+      "tier": "mastery"
+    },
+    {
+      "word": "microplastic",
+      "pos": "noun",
+      "definition_ar": "بلاستيك دقيق",
+      "example_sentence": "Microplastics have been found in drinking water worldwide.",
+      "tier": "mastery"
+    },
+    {
+      "word": "peatland",
+      "pos": "noun",
+      "definition_ar": "نوع من الأراضي الرطبة تراكمت فيها طبقات من النباتات الميتة على مدى آلاف السنين",
+      "example_sentence": "Peatlands store more carbon than all the world's forests combined.",
+      "tier": "mastery"
+    },
+    {
+      "word": "ozone depletion",
+      "pos": "noun",
+      "definition_ar": "ترقُّق طبقة الأوزون التي تحمي الأرض من الأشعة فوق البنفسجية",
+      "example_sentence": "Ozone depletion caused by certain chemicals increased skin cancer rates.",
+      "tier": "mastery"
+    },
+    {
+      "word": "permafrost",
+      "pos": "noun",
+      "definition_ar": "تربة صقيعية",
+      "example_sentence": "Melting permafrost releases methane gas into the atmosphere.",
+      "tier": "mastery"
+    },
+    {
+      "word": "photovoltaic",
+      "pos": "adjective",
+      "definition_ar": "كهروضوئي",
+      "example_sentence": "Photovoltaic cells convert sunlight directly into electricity.",
+      "tier": "mastery"
+    },
+    {
+      "word": "pioneer",
+      "pos": "verb",
+      "definition_ar": "أن تكون من الرواد في تطوير أو استخدام أساليب أو مجالات معرفة جديدة",
+      "example_sentence": "Denmark pioneered the use of wind energy in the 1970s.",
+      "tier": "mastery"
+    },
+    {
+      "word": "prosumer",
+      "pos": "noun",
+      "definition_ar": "شخص ينتج الطاقة ويستهلكها في نفس الوقت، مثلًا بالألواح الشمسية",
+      "example_sentence": "As a prosumer, she sells excess solar electricity back to the national grid.",
+      "tier": "mastery"
+    },
+    {
+      "word": "radiative forcing",
+      "pos": "noun",
+      "definition_ar": "مقياس لمقدار تغيير عامل ما لتوازن طاقة الأرض",
+      "example_sentence": "Scientists use radiative forcing to compare the warming effect of different gases.",
+      "tier": "mastery"
+    },
+    {
+      "word": "reforestation",
+      "pos": "noun",
+      "definition_ar": "إعادة التشجير",
+      "example_sentence": "The government has started a reforestation program in the desert.",
+      "tier": "mastery"
+    },
+    {
+      "word": "retrofit",
+      "pos": "verb",
+      "definition_ar": "إضافة ميزات جديدة أو محسنة لمبنى أو نظام موجود",
+      "example_sentence": "They decided to retrofit the old building with modern energy-saving technology.",
+      "tier": "mastery"
+    },
+    {
+      "word": "smart grid",
+      "pos": "noun",
+      "definition_ar": "شبكة كهرباء تستخدم التكنولوجيا الرقمية لمراقبة وإدارة تدفق الطاقة بكفاءة",
+      "example_sentence": "The smart grid automatically adjusts power distribution based on real-time demand.",
+      "tier": "mastery"
+    },
+    {
+      "word": "stranded asset",
+      "pos": "noun",
+      "definition_ar": "أصل فقد قيمته الاقتصادية في وقت أبكر مما كان متوقعًا بسبب تحولات الطاقة",
+      "example_sentence": "Coal power plants risk becoming stranded assets as clean energy expands.",
+      "tier": "mastery"
+    },
+    {
+      "word": "subsidy",
+      "pos": "noun",
+      "definition_ar": "أموال تقدمها الحكومة للمساعدة في تقليل تكلفة شيء ما",
+      "example_sentence": "The government offers subsidies for people who install solar panels.",
+      "tier": "mastery"
+    },
+    {
+      "word": "sustainability",
+      "pos": "noun",
+      "definition_ar": "القدرة على الحفاظ على عملية ما أو دعمها بشكل مستمر دون استنزاف الموارد",
+      "example_sentence": "The company focuses on sustainability by using renewable materials in all products.",
+      "tier": "mastery"
+    },
+    {
+      "word": "tap into",
+      "pos": "verb",
+      "definition_ar": "الوصول إلى مورد أو مصدر طاقة والاستفادة منه",
+      "example_sentence": "Iceland taps into geothermal energy from underground hot springs.",
+      "tier": "mastery"
+    },
+    {
+      "word": "thermal mass",
+      "pos": "noun",
+      "definition_ar": "قدرة مادة على امتصاص طاقة الحرارة وتخزينها",
+      "example_sentence": "Thick stone walls provide thermal mass that keeps buildings cool during the day.",
+      "tier": "mastery"
+    },
+    {
+      "word": "tidal power",
+      "pos": "noun",
+      "definition_ar": "الكهرباء المولدة باستخدام حركة المد والجزر في المحيط",
+      "example_sentence": "Coastal areas with strong tides are ideal locations for tidal power plants.",
+      "tier": "mastery"
+    },
+    {
+      "word": "transition to",
+      "pos": "verb",
+      "definition_ar": "التغيير التدريجي من نظام أو طريقة أو مصدر طاقة إلى آخر",
+      "example_sentence": "Many companies are transitioning to renewable energy sources for their operations.",
+      "tier": "mastery"
+    },
+    {
+      "word": "waste hierarchy",
+      "pos": "noun",
+      "definition_ar": "ترتيب خيارات إدارة النفايات من الأكثر إلى الأقل تفضيلًا بيئيًا",
+      "example_sentence": "The waste hierarchy puts reduction above recycling as the best option.",
+      "tier": "mastery"
+    },
+    {
+      "word": "wind energy",
+      "pos": "noun",
+      "definition_ar": "الطاقة المولدة باستخدام الرياح لتدوير التوربينات التي تنتج الكهرباء",
+      "example_sentence": "Wind energy is becoming cheaper and more popular in many countries.",
+      "tier": "mastery"
+    },
+    {
+      "word": "wean off",
+      "pos": "verb",
+      "definition_ar": "تقليل الاعتماد على شيء ما تدريجيًا حتى لا تعود هناك حاجة إليه",
+      "example_sentence": "Countries must wean themselves off fossil fuels to slow global warming.",
+      "tier": "mastery"
+    },
+    {
+      "word": "wind power",
+      "pos": "noun",
+      "definition_ar": "الكهرباء المولَّدة باستخدام توربينات الرياح لتحويل الطاقة الحركية للرياح إلى طاقة كهربائية.",
+      "example_sentence": "Offshore wind power capacity has grown rapidly as turbine technology has improved.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "e573c7e6-9e7e-46fd-8070-9753fa7905a1",
+      "label": "A",
+      "title": "Saudi Arabia's Solar Revolution",
+      "content": {
+        "paragraphs": [
+          "Saudi Arabia, a nation historically *synonymous* with oil production, is now leading one of the world's most ambitious renewable energy transformations. Under the Vision 2030 initiative, the Kingdom has *committed* to generating 50% of its electricity from renewable sources by 2030, fundamentally *shifting* its energy paradigm from fossil fuels to clean alternatives.",
+          "The NEOM project, located in the northwest region of Tabuk, exemplifies this transformation. Scientists have reported that this futuristic city will be entirely powered by renewable energy, with solar panels covering vast desert areas and wind turbines *harnessing* the Red Sea's coastal winds. The project's planners *estimate* that NEOM will produce enough clean energy to power 1.5 million homes while creating thousands of jobs for young Saudi professionals. If successful, NEOM could serve as a *blueprint* for other nations seeking to *transition* from oil-dependent economies to sustainable energy systems.",
+          "Solar energy presents particularly promising opportunities in Saudi Arabia, where researchers have documented that certain regions receive over 2,500 hours of sunshine annually. The King Salman Renewable Energy Initiative has already *allocated* billions of dollars to construct solar farms across the Kingdom's desert landscapes. These installations *utilize* advanced photovoltaic technology that can operate efficiently even in extreme heat conditions. Energy experts predict that by 2025, Saudi Arabia will *rank among* the world's top ten solar energy producers.",
+          "The renewable energy sector is also *fostering* innovation in education and research. King Abdullah University of Science and Technology (KAUST) has established cutting-edge laboratories where students and researchers *collaborate* on developing more efficient solar cells and energy storage solutions. Women now *comprise* approximately 35% of renewable energy engineering graduates, reflecting the Kingdom's commitment to gender diversity in STEM fields. These graduates often *pursue* careers with international companies that are establishing regional headquarters in Riyadh and Jeddah.",
+          "As Saudi Arabia continues this energy revolution, the implications extend far beyond national borders. The Kingdom's success in renewable energy could inspire other Gulf nations to adopt similar strategies, potentially transforming the entire Middle East into a global hub for clean energy production and technological innovation."
+        ]
+      },
+      "word_count": 572
+    },
+    {
+      "id": "54391c1e-e821-45ee-a991-83c2b6b0946d",
+      "label": "B",
+      "title": "Saudi Arabia's Solar Revolution",
+      "content": {
+        "paragraphs": [
+          "In the heart of the Arabian Peninsula, where temperatures can *soar* above 50 degrees Celsius, Saudi Arabia is *undertaking* one of the world's most ambitious renewable energy transformations. The Kingdom's Vision 2030 program has set a target to generate 50% of its electricity from renewable sources by 2030, a goal that seemed impossible just a decade ago but now appears increasingly *feasible*.",
+          "The centerpiece of this transformation is the Saudi Green Initiative, which *encompasses* massive solar and wind projects across the country's vast desert landscape. The most impressive project is the Mohammed bin Rashid Al Maktoum Solar Park extension into Saudi territory, where engineers have had to *devise* innovative solutions to combat the extreme heat that can actually reduce solar panel efficiency. \"We had to *think outside the box* when designing these installations,\" reported Dr. Sarah Al-Mahmoud, lead engineer at the Saudi Renewable Energy Program Development Office. \"The desert presents unique challenges, but it also offers *unprecedented* opportunities for solar energy generation.\"",
+          "What makes Saudi Arabia's approach particularly innovative is how the Kingdom has managed to *turn the tables* on traditional energy paradigms. Rather than viewing the harsh desert climate as an obstacle, Saudi engineers have learned to *capitalize on* these conditions. Advanced cooling systems and specialized panel materials have been developed to maintain efficiency even when ambient temperatures *fluctuate* dramatically. The results have been remarkable: Saudi solar installations now *yield* up to 30% more energy per square meter than similar projects in temperate climates, according to recent data from the King Abdullah City for Atomic and Renewable Energy.",
+          "The economic implications of this renewable energy boom cannot be *understated*. Industry experts estimate that Saudi Arabia's renewable sector will create over 750,000 jobs by 2030, providing new career opportunities for the Kingdom's growing population of young professionals. Moreover, the government has announced plans to *phase out* oil dependency for domestic electricity generation entirely by 2040, allowing more petroleum exports and diversifying the national economy. Local communities in remote areas have already begun to benefit from *off-grid* solar installations that provide reliable electricity for the first time in many regions.",
+          "As Saudi Arabia continues to *scale up* its renewable energy infrastructure, the Kingdom is positioning itself as a global leader in desert solar technology. International delegations regularly visit Saudi installations to study the innovative approaches that have made large-scale renewable energy viable in one of the world's most challenging climates, proving that environmental obstacles can become competitive advantages with the right vision and technology."
+        ]
+      },
+      "word_count": 456
+    }
+  ],
+  "grammar": {
+    "topic_name_en": "passive voice (past)",
+    "topic_name_ar": "passive voice (past)",
+    "explanation_content": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "الصوت المبني للمجهول في الماضي يستخدم للتركيز على الفعل أو الشيء المتأثر بالفعل وليس الفاعل. نستخدم was/were + التصريف الثالث للفعل",
+          "content_en": "The <b>passive voice (past)</b> is used when we want to focus on the action or the person/thing that received the action, rather than who did it.<br><br>In passive voice, the object of an active sentence becomes the subject. We use <b>was/were + past participle</b> to form the past passive.<br><br><b>When to use:</b><br>• When the doer is unknown or not important<br>• When we want to emphasize what happened to something<br>• In formal writing and reports<br><br><b>Structure:</b> Subject + was/were + past participle (+ by + agent)"
+        },
+        {
+          "type": "formula",
+          "content": "Subject + was/were + past participle (+ by + agent)"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "The solar panels were installed last month.",
+              "highlight": "were installed",
+              "translation_ar": "تم تركيب الألواح الشمسية الشهر الماضي"
+            },
+            {
+              "sentence": "Wind energy was discovered centuries ago.",
+              "highlight": "was discovered",
+              "translation_ar": "تم اكتشاف طاقة الرياح منذ قرون"
+            },
+            {
+              "sentence": "The hydroelectric dam was built by the government in 2015.",
+              "highlight": "was built by the government",
+              "translation_ar": "تم بناء السد الكهرومائي من قبل الحكومة في 2015"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "The solar panels installed yesterday.",
+              "correct": "The solar panels were installed yesterday.",
+              "explanation_ar": "نحتاج was/were مع التصريف الثالث في الماضي المبني للمجهول"
+            },
+            {
+              "wrong": "Wind turbines was constructed last year.",
+              "correct": "Wind turbines were constructed last year.",
+              "explanation_ar": "نستخدم were مع الجمع وليس was"
+            },
+            {
+              "wrong": "The project was building in 2020.",
+              "correct": "The project was built in 2020.",
+              "explanation_ar": "نستخدم التصريف الثالث built وليس building في المبني للمجهول"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

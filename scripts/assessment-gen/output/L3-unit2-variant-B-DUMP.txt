@@ -1,0 +1,142 @@
+======================================================================
+LEVEL 3 · UNIT 2 · VARIANT B — FULL DUMP
+======================================================================
+Source file:     scripts/assessment-gen/output/L3-unit2-variant-B.json
+unit_id:         55d40057-1d91-4eb0-8d78-b3f47a8d0a24
+variant_id:      2c238cd5-af89-42b2-95cd-d9caa5d6ccd9
+generated_at:    2026-04-21T02:00:00Z
+generated_by:    Claude Code native (L3 bulk, English-only)
+anti_dup_source: L3-unit2-variant-A.json
+distribution:    8V / 6G / 6R  ·  12 MCQ / 4 T/F / 2 FB / 2 Matching
+question_count:  20
+======================================================================
+
+Qundefined  [vocabulary · mcq]
+    Q: Dr. Al-Rashid made a 'breakthrough' discovery about Red Sea coral heat resistance. What does 'breakthrough' mean?
+    a) A minor improvement that has little effect on existing knowledge
+    b) A sudden failure that sets back years of scientific progress
+  ✓ c) A significant discovery that opens new possibilities in a field
+    d) A routine finding that confirms what was already well known
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: Red Sea corals have 'adaptations' that help them survive high temperatures. What does 'adaptations' mean?
+    a) Weaknesses that make an organism sensitive to environmental changes
+  ✓ b) Features or changes that help an organism survive in its environment
+    c) Diseases that affect the colour and structure of coral over time
+    d) Laboratory experiments designed to test coral heat tolerance
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: Red Sea corals can 'withstand' temperatures that would kill most other corals worldwide. What does 'withstand' mean?
+    a) To quickly absorb and store heat in protective tissue
+    b) To actively produce cooling chemicals in response to heat
+    c) To completely avoid environments where temperature changes occur
+  ✓ d) To resist and remain undamaged despite difficult or harsh conditions
+    A: d
+
+Qundefined  [vocabulary · mcq]
+    Q: Scientists believe Red Sea corals have 'evolved' to become extremely heat resistant over time. What does 'evolved' mean?
+  ✓ a) Developed gradually through natural processes over a long period
+    b) Been artificially designed by scientists to resist specific threats
+    c) Remained completely unchanged since they first formed in the sea
+    d) Suddenly appeared with new characteristics in a very short time
+    A: a
+
+Qundefined  [vocabulary · mcq]
+    Q: The research has wide 'implications' for reef conservation worldwide. What does 'implications' mean?
+    a) Direct financial costs that a research project requires
+  ✓ b) Possible consequences or effects that follow from a finding
+    c) The specific tools and methods used during scientific research
+    d) Written reports that summarise the results of a study
+    A: b
+
+Qundefined  [vocabulary · true_false]
+    Q: When scientists 'contribute' to marine research, they actively add knowledge, effort, or resources to the field.
+    A: true
+
+Qundefined  [vocabulary · true_false]
+    Q: Scientists who 'monitor' reef health are conducting a one-time check and never returning to collect more data.
+    A: false
+
+Qundefined  [vocabulary · fill_blank]
+    Q: The young researchers were completely _____ by the diversity of life they found on the Red Sea reef.
+    A: fascinated (also accepted: fascinated, Fascinated)
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence uses the present perfect continuous in the negative form correctly?
+  ✓ a) The water temperature hasn't been rising lately, which is a good sign.
+    b) The coral hasn't been grew back since the bleaching event.
+    c) Scientists haven't studying reef damage over the past month.
+    d) The team not have been monitoring the reef since January.
+    A: a
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence focuses on the RESULT of an action, not its ongoing duration?
+    a) Dr. Al-Rashid has been researching coral genetics for three years.
+    b) Scientists have been testing the coral samples all morning.
+  ✓ c) The research team has discovered a new heat-resistant coral species.
+    d) The water has been warming gradually since the decade began.
+    A: c
+
+Qundefined  [grammar · mcq]
+    Q: Complete: 'How long _____ the team _____ data about the reef?' (ongoing collection)
+    a) did / collect
+    b) has / collected
+  ✓ c) has / been collecting
+    d) is / been collecting
+    A: c
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence correctly uses the present perfect continuous to explain a current visible result?
+  ✓ a) The reef looks damaged — scientists have been warning about this for years.
+    b) The reef looks damaged — scientists warned about this in a report last year.
+    c) The reef looks damaged — scientists are warning about this problem.
+    d) The reef looks damaged — scientists will have been warning about this.
+    A: a
+
+Qundefined  [grammar · true_false]
+    Q: 'They have been working on this reef restoration project for three years and they are nearly done' is grammatically correct.
+    A: true
+
+Qundefined  [grammar · matching]
+    Q: Match each sentence to the correct description of how the present perfect continuous is being used.
+
+Qundefined  [reading · mcq]
+    Q: According to Passage B, what is the maximum water temperature at which Red Sea corals can survive?
+    a) 27°C
+    b) 29°C
+  ✓ c) 32°C
+    d) 35°C
+    A: c
+
+Qundefined  [reading · mcq]
+    Q: According to Passage B, what did Dr. Al-Rashid's team develop to test water quality directly at the reef site?
+    a) A satellite tracking system to identify reef zones from space
+  ✓ b) A mobile laboratory that can process water samples on-site
+    c) A temperature control device that cools reef water during heatwaves
+    d) An artificial reef structure that replaces damaged coral sections
+    A: b
+
+Qundefined  [reading · mcq]
+    Q: What does Passage B imply when it says the Red Sea corals could 'help restore damaged reefs in other parts of the world'?
+    a) Red Sea corals are being physically transplanted to reefs in other countries right now
+  ✓ b) Understanding Red Sea coral genetics could guide global reef restoration efforts
+    c) All damaged reefs in the world can be repaired using coral from the Red Sea
+    d) Scientists plan to replace ocean water in other regions with Red Sea water
+    A: b
+
+Qundefined  [reading · true_false]
+    Q: According to Passage B, Dr. Ahmed Hassan is the director of the Marine Research Institute in Jeddah.
+    A: true
+
+Qundefined  [reading · fill_blank]
+    Q: According to Passage B, over _____ percent of the world's coral reefs are currently under threat.
+    A: 75 (also accepted: 75, 75%, seventy-five, Seventy-five)
+
+Qundefined  [reading · matching]
+    Q: Match each person or organization from Passage B to their correct role or action.
+
+----------------------------------------------------------------------
+END OF DUMP — 20 questions printed
+======================================================================

@@ -1,0 +1,1305 @@
+{
+  "unit": {
+    "id": "55d40057-1d91-4eb0-8d78-b3f47a8d0a24",
+    "unit_number": 2,
+    "title_en": "Coral Reefs",
+    "title_ar": "الشعاب المرجانية"
+  },
+  "assessment": {
+    "id": "85aaee61-7948-47d5-9903-8f16d8b38b96"
+  },
+  "variants": [
+    {
+      "id": "84b47339-f424-4fc7-8e92-44e9d0290cf7",
+      "variant_code": "A"
+    },
+    {
+      "id": "2c238cd5-af89-42b2-95cd-d9caa5d6ccd9",
+      "variant_code": "B"
+    },
+    {
+      "id": "4ae347ec-4655-44b5-9be1-7647950888c1",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "word": "descends",
+      "pos": "verb",
+      "definition_ar": "ينزل، يهبط، ينحدر",
+      "example_sentence": "The airplane descends slowly as it prepares to land at the airport.",
+      "tier": "core"
+    },
+    {
+      "word": "spectacular",
+      "pos": "adjective",
+      "definition_ar": "مذهل، رائع، مثير للإعجاب",
+      "example_sentence": "The fireworks show was spectacular and everyone enjoyed it.",
+      "tier": "core"
+    },
+    {
+      "word": "constitute",
+      "pos": "verb",
+      "definition_ar": "يشكل، يكون، يؤلف",
+      "example_sentence": "Women constitute 60% of university students in this country.",
+      "tier": "core"
+    },
+    {
+      "word": "capture",
+      "pos": "verb",
+      "definition_ar": "يلتقط، يصور، يأسر، يستولي على",
+      "example_sentence": "The photographer tried to capture the beautiful sunset with her camera.",
+      "tier": "core"
+    },
+    {
+      "word": "fascinated",
+      "pos": "adjective",
+      "definition_ar": "مفتون، مولع، شديد الاهتمام",
+      "example_sentence": "Children are fascinated by magic tricks and always want to learn more.",
+      "tier": "core"
+    },
+    {
+      "word": "tackling",
+      "pos": "verb",
+      "definition_ar": "يتصدى لـ، يواجه، يعالج",
+      "example_sentence": "The government is tackling the problem of traffic congestion in the city.",
+      "tier": "core"
+    },
+    {
+      "word": "emerge",
+      "pos": "verb",
+      "definition_ar": "يظهر، ينبثق، يخرج",
+      "example_sentence": "New leaders often emerge during difficult times.",
+      "tier": "core"
+    },
+    {
+      "word": "make a significant impact",
+      "pos": "verb",
+      "definition_ar": "يحدث تأثيراً مهماً، يترك أثراً كبيراً",
+      "example_sentence": "The new recycling program will make a significant impact on reducing waste in our school.",
+      "tier": "core"
+    },
+    {
+      "word": "thrive",
+      "pos": "verb",
+      "definition_ar": "يزدهر، ينمو بقوة، يتطور بنجاح",
+      "example_sentence": "Plants thrive when they get enough water and sunlight.",
+      "tier": "core"
+    },
+    {
+      "word": "borders",
+      "pos": "verb",
+      "definition_ar": "يحد، يجاور، يحاذي",
+      "example_sentence": "France borders several countries including Spain and Germany.",
+      "tier": "core"
+    },
+    {
+      "word": "adaptations",
+      "pos": "noun",
+      "definition_ar": "تكيفات، تأقلمات، تعديلات",
+      "example_sentence": "Polar bears have special adaptations like thick fur to survive in cold weather.",
+      "tier": "core"
+    },
+    {
+      "word": "mutual",
+      "pos": "adjective",
+      "definition_ar": "متبادل، مشترك، يؤثر على الطرفين",
+      "example_sentence": "They have mutual respect for each other's opinions.",
+      "tier": "core"
+    },
+    {
+      "word": "vulnerable",
+      "pos": "adjective",
+      "definition_ar": "عرضة للخطر، قابل للتضرر، ضعيف",
+      "example_sentence": "Elderly people are more vulnerable to serious illness.",
+      "tier": "core"
+    },
+    {
+      "word": "withstand",
+      "pos": "verb",
+      "definition_ar": "يتحمل، يقاوم، يصمد أمام",
+      "example_sentence": "The old bridge was built to withstand strong earthquakes.",
+      "tier": "core"
+    },
+    {
+      "word": "breakthrough",
+      "pos": "noun",
+      "definition_ar": "اختراق، اكتشاف مهم، تطور حاسم",
+      "example_sentence": "Scientists made a breakthrough in cancer research that could save many lives.",
+      "tier": "core"
+    },
+    {
+      "word": "spans",
+      "pos": "verb",
+      "definition_ar": "يمتد عبر، يغطي مسافة أو فترة زمنية",
+      "example_sentence": "The bridge spans the entire river from one side to the other.",
+      "tier": "core"
+    },
+    {
+      "word": "evolved",
+      "pos": "verb",
+      "definition_ar": "تطور، نشأ، تدرج في النمو",
+      "example_sentence": "Humans evolved from earlier species over millions of years.",
+      "tier": "core"
+    },
+    {
+      "word": "significance",
+      "pos": "noun",
+      "definition_ar": "الأهمية، المغزى، الدلالة",
+      "example_sentence": "The historical significance of this building makes it worth preserving.",
+      "tier": "core"
+    },
+    {
+      "word": "absorbing",
+      "pos": "verb",
+      "definition_ar": "يمتص، يستوعب، يأخذ",
+      "example_sentence": "A sponge is good at absorbing water quickly.",
+      "tier": "core"
+    },
+    {
+      "word": "implementing",
+      "pos": "verb",
+      "definition_ar": "ينفذ، يطبق، يضع موضع التنفيذ",
+      "example_sentence": "The school is implementing a new policy about mobile phone use in classrooms.",
+      "tier": "core"
+    },
+    {
+      "word": "contribute",
+      "pos": "verb",
+      "definition_ar": "يساهم، يشارك، يقدم",
+      "example_sentence": "Everyone should contribute ideas to make the project successful.",
+      "tier": "core"
+    },
+    {
+      "word": "monitor",
+      "pos": "verb",
+      "definition_ar": "يراقب، يتابع، يرصد",
+      "example_sentence": "Doctors need to monitor the patient's blood pressure regularly.",
+      "tier": "core"
+    },
+    {
+      "word": "depended on",
+      "pos": "verb",
+      "definition_ar": "يعتمد على، يتكل على",
+      "example_sentence": "Many students depend on their parents for financial support.",
+      "tier": "core"
+    },
+    {
+      "word": "process",
+      "pos": "verb",
+      "definition_ar": "يعالج، يعمل على، يجهز",
+      "example_sentence": "The factory processes raw materials to make finished products.",
+      "tier": "core"
+    },
+    {
+      "word": "implications",
+      "pos": "noun",
+      "definition_ar": "تداعيات، آثار، مضامين، نتائج محتملة",
+      "example_sentence": "The implications of climate change affect every country in the world.",
+      "tier": "core"
+    },
+    {
+      "word": "unprecedented",
+      "pos": "adjective",
+      "definition_ar": "غير مسبوق، لم يحدث من قبل",
+      "example_sentence": "The company achieved unprecedented success in its first year.",
+      "tier": "core"
+    },
+    {
+      "word": "contribution",
+      "pos": "noun",
+      "definition_ar": "مساهمة، إسهام، مشاركة",
+      "example_sentence": "Each student's contribution to the group project was very important.",
+      "tier": "core"
+    },
+    {
+      "word": "overwhelm",
+      "pos": "verb",
+      "definition_ar": "يطغى على، يغلب، يثقل كاهل",
+      "example_sentence": "The amount of homework can overwhelm students if they don't organize their time.",
+      "tier": "core"
+    },
+    {
+      "word": "invested",
+      "pos": "verb",
+      "definition_ar": "استثمر، وظف، بذل",
+      "example_sentence": "The company invested millions of dollars in new technology.",
+      "tier": "core"
+    },
+    {
+      "word": "bleaching",
+      "pos": "noun",
+      "definition_ar": "التبييض، عندما يتحول المرجان إلى اللون الأبيض ويموت بسبب الضغط",
+      "example_sentence": "Coral bleaching has destroyed many reef systems worldwide.",
+      "tier": "core"
+    },
+    {
+      "word": "coral bleaching",
+      "pos": "noun",
+      "definition_ar": "العملية التي تفقد فيها الشعاب المرجانية لونها وتضعف عندما يصبح ماء المحيط دافئًا جدًا.",
+      "example_sentence": "Coral bleaching is one of the biggest threats to reef ecosystems.",
+      "tier": "core"
+    },
+    {
+      "word": "algae",
+      "pos": "noun",
+      "definition_ar": "طحالب، نباتات بسيطة تعيش في الماء وتوفر الطعام للمرجان",
+      "example_sentence": "Coral gets most of its food from algae.",
+      "tier": "core"
+    },
+    {
+      "word": "climate change",
+      "pos": "noun",
+      "definition_ar": "تغير المناخ، تغيرات طويلة الأمد في أنماط الطقس ودرجات الحرارة",
+      "example_sentence": "Climate change is a major threat to coral reefs.",
+      "tier": "core"
+    },
+    {
+      "word": "damage",
+      "pos": "verb",
+      "definition_ar": "يضر، يسبب أذى أو إصابة لشيء ما",
+      "example_sentence": "Boats can damage coral reefs if they hit them.",
+      "tier": "core"
+    },
+    {
+      "word": "coral reef",
+      "pos": "noun",
+      "definition_ar": "شعاب مرجانية تتكون من المرجان في المياه الدافئة الضحلة",
+      "example_sentence": "The Great Barrier Reef is the world's largest coral reef system.",
+      "tier": "core"
+    },
+    {
+      "word": "drift",
+      "pos": "noun",
+      "definition_ar": "الحركة البطيئة للمياه أو الكائنات البحرية أو الحطام المحمول بقوى المحيط.",
+      "example_sentence": "Tiny larvae drift on ocean currents until they settle on a reef.",
+      "tier": "core"
+    },
+    {
+      "word": "depth",
+      "pos": "noun",
+      "definition_ar": "العمق، مدى عمق شيء ما خاصة المسافة إلى الأسفل من السطح",
+      "example_sentence": "Different fish live at various depths depending on water pressure.",
+      "tier": "core"
+    },
+    {
+      "word": "find out",
+      "pos": "verb",
+      "definition_ar": "يكتشف، يتعلم معلومات عن شيء ما",
+      "example_sentence": "Scientists want to find out why coral reefs are dying.",
+      "tier": "core"
+    },
+    {
+      "word": "jellyfish",
+      "pos": "noun",
+      "definition_ar": "مخلوق بحري ناعم وشفاف ذو جسم يشبه الجرس وأذرع متدلية.",
+      "example_sentence": "The jellyfish drifted slowly through the warm ocean water.",
+      "tier": "core"
+    },
+    {
+      "word": "feed on",
+      "pos": "verb",
+      "definition_ar": "يتغذى على، يأكل نوعاً معيناً من الطعام بانتظام كغذاء أساسي",
+      "example_sentence": "Sea turtles feed on jellyfish and seagrass in shallow waters.",
+      "tier": "core"
+    },
+    {
+      "word": "marine animal",
+      "pos": "noun",
+      "definition_ar": "أي حيوان يعيش في البحر أو يعتمد عليه من أجل بقائه.",
+      "example_sentence": "The marine animal was tagged so scientists could track its movements.",
+      "tier": "core"
+    },
+    {
+      "word": "fish population",
+      "pos": "noun",
+      "definition_ar": "إجمالي عدد الأسماك من نوع واحد أو أكثر في منطقة معينة.",
+      "example_sentence": "Overfishing has caused a sharp drop in the local fish population.",
+      "tier": "core"
+    },
+    {
+      "word": "mangrove",
+      "pos": "noun",
+      "definition_ar": "نوع من الأشجار ينمو في المياه المالحة الساحلية الضحلة ويؤوي الحياة البحرية.",
+      "example_sentence": "Mangrove forests protect coastlines from storm damage and erosion.",
+      "tier": "core"
+    },
+    {
+      "word": "marine reserve",
+      "pos": "noun",
+      "definition_ar": "منطقة من المحيط تُقيَّد فيها الأنشطة البشرية لحماية الحياة البحرية.",
+      "example_sentence": "Fish grow larger and more numerous inside a marine reserve.",
+      "tier": "core"
+    },
+    {
+      "word": "marine ecosystem",
+      "pos": "noun",
+      "definition_ar": "مجتمع من النباتات والحيوانات البحرية وبيئتها الطبيعية التي تعيش معًا.",
+      "example_sentence": "Coral reefs support a huge variety of life in the marine ecosystem.",
+      "tier": "core"
+    },
+    {
+      "word": "ocean current",
+      "pos": "noun",
+      "definition_ar": "حركة مستمرة وموجَّهة لمياه البحر تدفعها الرياح أو درجة الحرارة أو الملوحة.",
+      "example_sentence": "Ocean currents carry warm water from the tropics to cooler regions.",
+      "tier": "core"
+    },
+    {
+      "word": "octopus",
+      "pos": "noun",
+      "definition_ar": "مخلوق بحري ذو ثمانية أذرع يُعرف بذكائه وقدرته على تغيير لونه.",
+      "example_sentence": "The octopus hid between the rocks to escape from a predator.",
+      "tier": "core"
+    },
+    {
+      "word": "microscopic",
+      "pos": "adjective",
+      "definition_ar": "مجهري، صغير جداً بحيث تحتاج مجهراً لرؤيته بوضوح",
+      "example_sentence": "Microscopic plants in the ocean produce much of our planet's oxygen.",
+      "tier": "core"
+    },
+    {
+      "word": "oxygen production",
+      "pos": "noun",
+      "definition_ar": "العملية التي تُطلق فيها النباتات والطحالب الأكسجين في الماء أو الهواء.",
+      "example_sentence": "Seagrass meadows contribute significantly to oxygen production in the ocean.",
+      "tier": "core"
+    },
+    {
+      "word": "ocean floor",
+      "pos": "noun",
+      "definition_ar": "قاع المحيط حيث توجد كثير من المخلوقات البحرية والشعاب المرجانية.",
+      "example_sentence": "Scientists explored the ocean floor using a small submarine.",
+      "tier": "core"
+    },
+    {
+      "word": "overfish",
+      "pos": "verb",
+      "definition_ar": "سحب الأسماك من المحيط أسرع مما تستطيع التكاثر، مما يضر بأعدادها.",
+      "example_sentence": "If we overfish the ocean, future generations will have less seafood.",
+      "tier": "core"
+    },
+    {
+      "word": "reproduce",
+      "pos": "verb",
+      "definition_ar": "يتكاثر، ينجب صغاراً أو نباتات من نفس النوع",
+      "example_sentence": "Many fish species reproduce by laying eggs in safe coral areas.",
+      "tier": "core"
+    },
+    {
+      "word": "protected area",
+      "pos": "noun",
+      "definition_ar": "منطقة من الأرض أو البحر محمية قانونيًا للحفاظ على بيئتها الطبيعية.",
+      "example_sentence": "The reef was declared a protected area to stop further damage.",
+      "tier": "core"
+    },
+    {
+      "word": "runoff",
+      "pos": "noun",
+      "definition_ar": "المياه التي تجري فوق الأرض وتحمل مواد كيميائية أو نفايات إلى المحيط.",
+      "example_sentence": "Agricultural runoff carries fertilisers that harm nearby coral reefs.",
+      "tier": "core"
+    },
+    {
+      "word": "scuba diving",
+      "pos": "noun",
+      "definition_ar": "نشاط يسبح فيه الشخص تحت الماء باستخدام معدات تنفس خاصة.",
+      "example_sentence": "Scuba diving near the reef lets you see amazing sea creatures.",
+      "tier": "core"
+    },
+    {
+      "word": "research",
+      "pos": "verb",
+      "definition_ar": "يبحث، يدرس شيئاً بعناية لتعلم حقائق جديدة عنه",
+      "example_sentence": "Universities research ways to save coral reefs.",
+      "tier": "core"
+    },
+    {
+      "word": "sea level",
+      "pos": "noun",
+      "definition_ar": "متوسط ارتفاع سطح المحيط، يُستخدم معيارًا لقياس الارتفاع.",
+      "example_sentence": "Rising sea levels threaten low-lying islands around the world.",
+      "tier": "core"
+    },
+    {
+      "word": "saltwater",
+      "pos": "noun",
+      "definition_ar": "ماء يحتوي على تركيز عالٍ من الملح المذاب، كالماء الموجود في البحار والمحيطات.",
+      "example_sentence": "Most fish cannot survive if you move them from saltwater to freshwater.",
+      "tier": "core"
+    },
+    {
+      "word": "sea grass",
+      "pos": "noun",
+      "definition_ar": "نباتات مزهرة تحت الماء تنمو في المياه الساحلية الضحلة وتدعم الحياة البحرية.",
+      "example_sentence": "Sea grass provides shelter for small fish and feeding grounds for turtles.",
+      "tier": "core"
+    },
+    {
+      "word": "species diversity",
+      "pos": "noun",
+      "definition_ar": "تنوع الأنواع المختلفة التي تعيش معًا في البيئة ذاتها.",
+      "example_sentence": "Coral reefs are famous for their extraordinary species diversity.",
+      "tier": "core"
+    },
+    {
+      "word": "sea turtle",
+      "pos": "noun",
+      "definition_ar": "زاحف كبير يعيش في المياه الدافئة ويتغذى في أغلب الأحيان بالقرب من الشعاب المرجانية.",
+      "example_sentence": "A sea turtle glided over the reef looking for jellyfish to eat.",
+      "tier": "core"
+    },
+    {
+      "word": "submersible",
+      "pos": "noun",
+      "definition_ar": "مركبة صغيرة مُصمَّمة للعمل تحت الماء للاستكشاف العلمي.",
+      "example_sentence": "The scientists used a submersible to film life at great depths.",
+      "tier": "core"
+    },
+    {
+      "word": "tourism",
+      "pos": "noun",
+      "definition_ar": "السياحة، عمل توفير الخدمات للناس في إجازة",
+      "example_sentence": "Coral reef tourism brings money to local communities.",
+      "tier": "core"
+    },
+    {
+      "word": "submerged",
+      "pos": "adjective",
+      "definition_ar": "مغطى أو مخبأ تحت سطح الماء.",
+      "example_sentence": "The submerged reef was clearly visible from the boat above.",
+      "tier": "core"
+    },
+    {
+      "word": "tropical water",
+      "pos": "noun",
+      "definition_ar": "المياه الدافئة الصافية الموجودة بالقرب من خط الاستواء حيث تنمو الشعاب المرجانية غالبًا.",
+      "example_sentence": "Tropical water is ideal for divers who want to see colourful fish.",
+      "tier": "core"
+    },
+    {
+      "word": "surge",
+      "pos": "noun",
+      "definition_ar": "تدفق مفاجئ وقوي للمياه تُسبِّبه العواصف أو قوى المد.",
+      "example_sentence": "The storm surge flooded low-lying coastal areas near the reef.",
+      "tier": "core"
+    },
+    {
+      "word": "tropical",
+      "pos": "adjective",
+      "definition_ar": "استوائي، من أو نموذجي للمناطق الحارة الرطبة",
+      "example_sentence": "Coral reefs grow best in tropical waters.",
+      "tier": "core"
+    },
+    {
+      "word": "adapt to",
+      "pos": "verb",
+      "definition_ar": "يتكيف مع، يتأقلم مع",
+      "example_sentence": "Fish must adapt to changes in water temperature and pressure.",
+      "tier": "extended"
+    },
+    {
+      "word": "acidification",
+      "pos": "noun",
+      "definition_ar": "العملية التي يصبح فيها المحيط أكثر حمضية نتيجة امتصاصه لثاني أكسيد الكربون الزائد.",
+      "example_sentence": "Ocean acidification softens coral skeletons and slows reef growth.",
+      "tier": "extended"
+    },
+    {
+      "word": "bioluminescence",
+      "pos": "noun",
+      "definition_ar": "إنتاج الكائنات البحرية الحية للضوء وانبعاثه منها.",
+      "example_sentence": "Bioluminescence makes the ocean glow blue at night.",
+      "tier": "extended"
+    },
+    {
+      "word": "adaptation",
+      "pos": "noun",
+      "definition_ar": "تكيف أو تغيير يساعد الحيوان أو النبات على البقاء بشكل أفضل في بيئته",
+      "example_sentence": "The octopus has amazing adaptations that help it hide from predators.",
+      "tier": "extended"
+    },
+    {
+      "word": "camouflage",
+      "pos": "noun",
+      "definition_ar": "التمويه",
+      "example_sentence": "Many fish use camouflage to hide from predators among corals.",
+      "tier": "extended"
+    },
+    {
+      "word": "coral garden",
+      "pos": "noun",
+      "definition_ar": "منطقة ضحلة من قاع المحيط مغطاة بأنواع مختلفة من المرجان النامي.",
+      "example_sentence": "The coral garden attracted snorkellers from around the world.",
+      "tier": "extended"
+    },
+    {
+      "word": "biotic",
+      "pos": "adjective",
+      "definition_ar": "يتعلق بالمكونات الحية في النظام البيئي مثل النباتات والحيوانات.",
+      "example_sentence": "Both biotic and abiotic factors shape the health of a reef.",
+      "tier": "extended"
+    },
+    {
+      "word": "dead zone",
+      "pos": "noun",
+      "definition_ar": "منطقة من المحيط تحتوي على أكسجين شحيح جدًا لدرجة أن معظم الحياة البحرية لا تستطيع البقاء.",
+      "example_sentence": "Fertiliser runoff from farms can create a dead zone in the sea.",
+      "tier": "extended"
+    },
+    {
+      "word": "cold-blooded",
+      "pos": "adjective",
+      "definition_ar": "ذو دم بارد",
+      "example_sentence": "Most fish are cold-blooded and move slowly in cold water.",
+      "tier": "extended"
+    },
+    {
+      "word": "dissolved oxygen",
+      "pos": "noun",
+      "definition_ar": "الأكسجين المذاب",
+      "example_sentence": "Fish need dissolved oxygen in water to breathe and survive.",
+      "tier": "extended"
+    },
+    {
+      "word": "coral spawning",
+      "pos": "noun",
+      "definition_ar": "حدث تكاثري جماعي تُطلق فيه حيوانات المرجان البوليبية البيوض والحيوانات المنوية في الماء.",
+      "example_sentence": "Coral spawning happens once a year on the Great Barrier Reef.",
+      "tier": "extended"
+    },
+    {
+      "word": "deep sea",
+      "pos": "noun",
+      "definition_ar": "الجزء من المحيط الذي يقل عن 200 متر حيث لا يصل ضوء الشمس أو يكاد.",
+      "example_sentence": "Deep sea creatures have adapted to complete darkness and high pressure.",
+      "tier": "extended"
+    },
+    {
+      "word": "filter out",
+      "pos": "verb",
+      "definition_ar": "يرشح أو يزيل المواد غير المرغوب فيها عبر نظام الترشيح",
+      "example_sentence": "Coral polyps filter out tiny food particles from the water.",
+      "tier": "extended"
+    },
+    {
+      "word": "fluorescent",
+      "pos": "adjective",
+      "definition_ar": "مشع أو يصدر ضوءاً ساطعاً عند التعرض للأشعة فوق البنفسجية",
+      "example_sentence": "Some coral polyps are fluorescent and glow beautifully under special lights.",
+      "tier": "extended"
+    },
+    {
+      "word": "filter feeder",
+      "pos": "noun",
+      "definition_ar": "مغذي بالترشيح",
+      "example_sentence": "Clams are filter feeders that clean water by eating tiny organisms.",
+      "tier": "extended"
+    },
+    {
+      "word": "fin",
+      "pos": "noun",
+      "definition_ar": "جزء من الجسم مسطح يشبه الجناح في الأسماك أو الثدييات البحرية يُستخدم للتوجيه والحركة.",
+      "example_sentence": "The shark's tall fin appeared above the surface of the water.",
+      "tier": "extended"
+    },
+    {
+      "word": "give off",
+      "pos": "verb",
+      "definition_ar": "يصدر، ينبعث منه",
+      "example_sentence": "Some sea creatures give off light in the dark ocean depths.",
+      "tier": "extended"
+    },
+    {
+      "word": "food chain",
+      "pos": "noun",
+      "definition_ar": "السلسلة الغذائية",
+      "example_sentence": "Plankton forms the base of most ocean food chains.",
+      "tier": "extended"
+    },
+    {
+      "word": "larvae",
+      "pos": "noun",
+      "definition_ar": "اليرقات",
+      "example_sentence": "Coral larvae drift in ocean currents before settling on rocks.",
+      "tier": "extended"
+    },
+    {
+      "word": "invertebrate",
+      "pos": "noun",
+      "definition_ar": "لافقاري",
+      "example_sentence": "Most marine invertebrates live on or near the ocean floor.",
+      "tier": "extended"
+    },
+    {
+      "word": "mutualism",
+      "pos": "noun",
+      "definition_ar": "علاقة بين نوعين يستفيد منها كلا الشريكين من العيش معًا.",
+      "example_sentence": "The mutualism between clownfish and anemones is well known.",
+      "tier": "extended"
+    },
+    {
+      "word": "nutrients",
+      "pos": "noun",
+      "definition_ar": "المواد الغذائية، العناصر الغذائية",
+      "example_sentence": "Ocean currents bring nutrients to coral reefs from deeper waters.",
+      "tier": "extended"
+    },
+    {
+      "word": "marine biologist",
+      "pos": "noun",
+      "definition_ar": "عالم الأحياء البحرية الذي يدرس الحياة في المحيطات والبيئات تحت الماء",
+      "example_sentence": "The marine biologist spent months studying fish behavior in the coral reef.",
+      "tier": "extended"
+    },
+    {
+      "word": "photosynthesis",
+      "pos": "noun",
+      "definition_ar": "عملية البناء الضوئي التي تستخدم فيها النباتات ضوء الشمس لصنع الطعام",
+      "example_sentence": "Algae in coral use photosynthesis to create energy from sunlight.",
+      "tier": "extended"
+    },
+    {
+      "word": "nutrient cycle",
+      "pos": "noun",
+      "definition_ar": "حركة المغذيات عبر الكائنات الحية وعودتها إلى البيئة.",
+      "example_sentence": "A healthy nutrient cycle keeps coral reefs productive and full of life.",
+      "tier": "extended"
+    },
+    {
+      "word": "plankton",
+      "pos": "noun",
+      "definition_ar": "العوالق",
+      "example_sentence": "Many fish depend on plankton as their main food source.",
+      "tier": "extended"
+    },
+    {
+      "word": "organism",
+      "pos": "noun",
+      "definition_ar": "كائن حي مثل النبات أو الحيوان أو البكتيريا",
+      "example_sentence": "Coral is a living organism that builds reefs over time.",
+      "tier": "extended"
+    },
+    {
+      "word": "prey",
+      "pos": "noun",
+      "definition_ar": "فريسة",
+      "example_sentence": "Small fish are common prey for larger marine animals.",
+      "tier": "extended"
+    },
+    {
+      "word": "phytoplankton",
+      "pos": "noun",
+      "definition_ar": "كائنات دقيقة تشبه النباتات تطفو في مياه البحر وتُنتج الأكسجين عبر التركيب الضوئي.",
+      "example_sentence": "Phytoplankton forms the base of nearly all marine food chains.",
+      "tier": "extended"
+    },
+    {
+      "word": "salinity",
+      "pos": "noun",
+      "definition_ar": "الملوحة",
+      "example_sentence": "Different fish species prefer different levels of water salinity.",
+      "tier": "extended"
+    },
+    {
+      "word": "predator-prey",
+      "pos": "noun",
+      "definition_ar": "العلاقة البيئية بين الحيوان الصائد والحيوان الذي يصطاده.",
+      "example_sentence": "The predator-prey balance keeps the reef ecosystem healthy.",
+      "tier": "extended"
+    },
+    {
+      "word": "reef restoration",
+      "pos": "noun",
+      "definition_ar": "الجهد العلمي لإصلاح وإعادة نمو النظم البيئية للشعاب المرجانية المتضررة.",
+      "example_sentence": "Reef restoration projects transplant healthy coral fragments onto damaged reefs.",
+      "tier": "extended"
+    },
+    {
+      "word": "sea anemone",
+      "pos": "noun",
+      "definition_ar": "حيوان بحري ملون ذو أذرع يلتصق بالصخور أو المرجان.",
+      "example_sentence": "The clownfish lives inside the sea anemone for protection.",
+      "tier": "extended"
+    },
+    {
+      "word": "school of fish",
+      "pos": "noun",
+      "definition_ar": "سرب من الأسماك",
+      "example_sentence": "A school of fish swam past the coral reef yesterday.",
+      "tier": "extended"
+    },
+    {
+      "word": "seabed",
+      "pos": "noun",
+      "definition_ar": "السطح الصلب في قاع البحر الذي ينمو عليه المرجان وأشكال الحياة الأخرى.",
+      "example_sentence": "The seabed near the reef was covered in white sand.",
+      "tier": "extended"
+    },
+    {
+      "word": "spawning ground",
+      "pos": "noun",
+      "definition_ar": "منطقة مائية تذهب إليها الأسماك أو الحيوانات البحرية للتكاثر.",
+      "example_sentence": "Protecting spawning grounds helps fish populations recover.",
+      "tier": "extended"
+    },
+    {
+      "word": "sea snake",
+      "pos": "noun",
+      "definition_ar": "زاحف سام تكيَّف للعيش والصيد كليًا في المحيط.",
+      "example_sentence": "The sea snake is rarely aggressive towards humans unless provoked.",
+      "tier": "extended"
+    },
+    {
+      "word": "starfish",
+      "pos": "noun",
+      "definition_ar": "حيوان بحري على شكل نجمة يمتلك خمسة أذرع أو أكثر ويمكنه إعادة نمو الأعضاء المفقودة.",
+      "example_sentence": "The starfish slowly moved across the coral looking for food.",
+      "tier": "extended"
+    },
+    {
+      "word": "spawning",
+      "pos": "noun",
+      "definition_ar": "وضع البيض، التكاثر",
+      "example_sentence": "Fish return to coral reefs for spawning during certain seasons.",
+      "tier": "extended"
+    },
+    {
+      "word": "sunlight penetration",
+      "pos": "noun",
+      "definition_ar": "العمق الذي يخترق فيه ضوء الشمس مياه البحر مما يُتيح نمو النباتات.",
+      "example_sentence": "Sunlight penetration decreases as water gets deeper and murkier.",
+      "tier": "extended"
+    },
+    {
+      "word": "sponge",
+      "pos": "noun",
+      "definition_ar": "حيوان بحري بسيط ومسامي يُرشِّح الماء لجمع جزيئات الطعام.",
+      "example_sentence": "A sponge can filter hundreds of litres of seawater every day.",
+      "tier": "extended"
+    },
+    {
+      "word": "stingray",
+      "pos": "noun",
+      "definition_ar": "سمكة بحرية ذات جسم مسطح من فصيلة أسماك القرش لها شوكة ذيل حادة وسامة.",
+      "example_sentence": "A stingray rested quietly on the sandy ocean floor.",
+      "tier": "extended"
+    },
+    {
+      "word": "tentacles",
+      "pos": "noun",
+      "definition_ar": "مجسات، أذرع",
+      "example_sentence": "Sea anemones use their tentacles to catch small fish and shrimp.",
+      "tier": "extended"
+    },
+    {
+      "word": "symbiosis",
+      "pos": "noun",
+      "definition_ar": "التعايش، العلاقة التكافلية",
+      "example_sentence": "Coral and algae have a symbiosis that benefits both organisms.",
+      "tier": "extended"
+    },
+    {
+      "word": "tide pool",
+      "pos": "noun",
+      "definition_ar": "بركة صخرية بجانب البحر تمتلئ بمياه البحر عند المد",
+      "example_sentence": "Children love exploring tide pools to find crabs and sea stars.",
+      "tier": "extended"
+    },
+    {
+      "word": "vertebrate",
+      "pos": "noun",
+      "definition_ar": "فقاري",
+      "example_sentence": "Fish are the most common vertebrates found in coral reefs.",
+      "tier": "extended"
+    },
+    {
+      "word": "thermal vent",
+      "pos": "noun",
+      "definition_ar": "شق في قاع المحيط يُطلق مياهًا ساخنة غنية بالمعادن تدعم حياة فريدة.",
+      "example_sentence": "Unique creatures gather around each thermal vent on the ocean floor.",
+      "tier": "extended"
+    },
+    {
+      "word": "trophic level",
+      "pos": "noun",
+      "definition_ar": "موقع في السلسلة الغذائية يصف كيفية حصول الكائن الحي على طاقته.",
+      "example_sentence": "Sharks sit at the top trophic level of many ocean food chains.",
+      "tier": "extended"
+    },
+    {
+      "word": "wash up",
+      "pos": "verb",
+      "definition_ar": "ينجرف إلى الشاطئ",
+      "example_sentence": "Dead fish sometimes wash up on beaches after storms.",
+      "tier": "extended"
+    },
+    {
+      "word": "whale shark",
+      "pos": "noun",
+      "definition_ar": "أكبر سمكة في المحيط، وهي مُغذٍّ مُرشِّح ودود يمكن أن يصل طوله إلى 12 مترًا.",
+      "example_sentence": "Swimming next to a whale shark is a breathtaking experience.",
+      "tier": "extended"
+    },
+    {
+      "word": "warm-blooded",
+      "pos": "adjective",
+      "definition_ar": "ذو دم دافئ",
+      "example_sentence": "Dolphins are warm-blooded mammals that live in cold ocean water.",
+      "tier": "extended"
+    },
+    {
+      "word": "water temperature",
+      "pos": "noun",
+      "definition_ar": "مقياس لدرجة دفء أو برودة مياه المحيط في منطقة معينة.",
+      "example_sentence": "Even a small rise in water temperature can trigger coral bleaching.",
+      "tier": "extended"
+    },
+    {
+      "word": "abyssal plain",
+      "pos": "noun",
+      "definition_ar": "قاع المحيط المسطح العميق الموجود على أعماق تتراوح بين 3000 و6000 متر.",
+      "example_sentence": "The abyssal plain covers more than half of the Earth's surface.",
+      "tier": "mastery"
+    },
+    {
+      "word": "absorption",
+      "pos": "noun",
+      "definition_ar": "امتصاص",
+      "example_sentence": "Water absorption of red light explains why deep reefs appear blue or green.",
+      "tier": "mastery"
+    },
+    {
+      "word": "benthic",
+      "pos": "adjective",
+      "definition_ar": "قاعي",
+      "example_sentence": "Benthic organisms like sea urchins play important roles in reef communities.",
+      "tier": "mastery"
+    },
+    {
+      "word": "bioturbation",
+      "pos": "noun",
+      "definition_ar": "اضطراب الرواسب على قاع المحيط بسبب نشاط الكائنات الحية.",
+      "example_sentence": "Bioturbation by worms helps mix nutrients through the seafloor sediment.",
+      "tier": "mastery"
+    },
+    {
+      "word": "algal bloom",
+      "pos": "noun",
+      "definition_ar": "ازدهار طحلبي",
+      "example_sentence": "Algal blooms can block sunlight and reduce oxygen levels around coral reefs.",
+      "tier": "mastery"
+    },
+    {
+      "word": "calcium carbonate",
+      "pos": "noun",
+      "definition_ar": "كربونات الكالسيوم",
+      "example_sentence": "Coral polyps extract calcium carbonate from seawater to create their protective shells.",
+      "tier": "mastery"
+    },
+    {
+      "word": "biomagnification",
+      "pos": "noun",
+      "definition_ar": "زيادة تركيز السم كلما تحرك إلى أعلى في السلسلة الغذائية.",
+      "example_sentence": "Biomagnification means top predators receive the highest doses of pollutants.",
+      "tier": "mastery"
+    },
+    {
+      "word": "calcification",
+      "pos": "noun",
+      "definition_ar": "العملية البيولوجية التي تبني بها الشعاب المرجانية وصدف البحر هياكل صلبة من كربونات الكالسيوم.",
+      "example_sentence": "Ocean acidification slows calcification and weakens coral structures.",
+      "tier": "mastery"
+    },
+    {
+      "word": "carry out surveys",
+      "pos": "verb",
+      "definition_ar": "جمع البيانات بشكل منهجي حول الحياة البحرية في منطقة معينة.",
+      "example_sentence": "Divers carry out surveys to count fish and measure coral health.",
+      "tier": "mastery"
+    },
+    {
+      "word": "carbonic acid",
+      "pos": "noun",
+      "definition_ar": "حمض الكربونيك",
+      "example_sentence": "Ocean acidification occurs when carbonic acid lowers the pH of seawater.",
+      "tier": "mastery"
+    },
+    {
+      "word": "colony",
+      "pos": "noun",
+      "definition_ar": "مستعمرة",
+      "example_sentence": "A single coral colony can contain millions of individual polyps working together.",
+      "tier": "mastery"
+    },
+    {
+      "word": "coralline algae",
+      "pos": "noun",
+      "definition_ar": "طحالب تترسب كربونات الكالسيوم في جدران خلاياها مما يساعد على بناء هياكل الشعاب المرجانية.",
+      "example_sentence": "Coralline algae cement loose rubble together and strengthen reefs.",
+      "tier": "mastery"
+    },
+    {
+      "word": "chemosynthesis",
+      "pos": "noun",
+      "definition_ar": "العملية التي تُنتج بها الكائنات الحية طاقة من التفاعلات الكيميائية بدلًا من ضوء الشمس.",
+      "example_sentence": "Bacteria near thermal vents use chemosynthesis to survive without light.",
+      "tier": "mastery"
+    },
+    {
+      "word": "coral taxonomy",
+      "pos": "noun",
+      "definition_ar": "التصنيف العلمي لأنواع الشعاب المرجانية وتسميتها بناءً على خصائصها.",
+      "example_sentence": "Coral taxonomy is complex because many species look very similar.",
+      "tier": "mastery"
+    },
+    {
+      "word": "cryptic species",
+      "pos": "noun",
+      "definition_ar": "أنواع تبدو مطابقة لغيرها ولكنها متميزة وراثيًا.",
+      "example_sentence": "DNA testing revealed two cryptic species living on the same reef.",
+      "tier": "mastery"
+    },
+    {
+      "word": "crustacean",
+      "pos": "noun",
+      "definition_ar": "قشريات",
+      "example_sentence": "Many crustaceans hide in coral crevices during the day and hunt at night.",
+      "tier": "mastery"
+    },
+    {
+      "word": "demersal",
+      "pos": "adjective",
+      "definition_ar": "يتعلق بالأسماك والكائنات البحرية التي تعيش وتتغذى بالقرب من قاع المحيط.",
+      "example_sentence": "Demersal fish such as flatfish are caught using bottom trawls.",
+      "tier": "mastery"
+    },
+    {
+      "word": "decomposer",
+      "pos": "noun",
+      "definition_ar": "محلل",
+      "example_sentence": "Decomposers like bacteria play essential roles in coral reef nutrient cycles.",
+      "tier": "mastery"
+    },
+    {
+      "word": "eutrophication",
+      "pos": "noun",
+      "definition_ar": "إثراء الماء بمغذيات زائدة مما يتسبب في نمو الطحالب بشكل مفرط ونضوب الأكسجين.",
+      "example_sentence": "Eutrophication caused by farm runoff is smothering nearby reefs.",
+      "tier": "mastery"
+    },
+    {
+      "word": "endosymbiont",
+      "pos": "noun",
+      "definition_ar": "كائن حي يعيش داخل كائن آخر في علاقة تبادلية مفيدة.",
+      "example_sentence": "The zooxanthellae are an endosymbiont that gives coral its colour.",
+      "tier": "mastery"
+    },
+    {
+      "word": "grazing",
+      "pos": "noun",
+      "definition_ar": "رعي",
+      "example_sentence": "Parrotfish grazing helps prevent algae from covering and killing coral colonies.",
+      "tier": "mastery"
+    },
+    {
+      "word": "ichthyology",
+      "pos": "noun",
+      "definition_ar": "فرع من فروع علم الحيوان يدرس الأسماك بما في ذلك بيولوجيتها وإيكولوجيتها وسلوكها.",
+      "example_sentence": "Students of ichthyology spend many hours observing fish in the wild.",
+      "tier": "mastery"
+    },
+    {
+      "word": "filter through",
+      "pos": "verb",
+      "definition_ar": "يرشح عبر",
+      "example_sentence": "Sunlight filters through the water, becoming dimmer at greater depths.",
+      "tier": "mastery"
+    },
+    {
+      "word": "keystone species",
+      "pos": "noun",
+      "definition_ar": "نوع يُحدث تأثيرًا كبيرًا غير متناسب على نظامه البيئي.",
+      "example_sentence": "Sea otters are a keystone species that control sea urchin populations.",
+      "tier": "mastery"
+    },
+    {
+      "word": "halocline",
+      "pos": "noun",
+      "definition_ar": "طبقة في المحيط تتغير فيها الملوحة بشكل حاد مع العمق.",
+      "example_sentence": "The halocline creates a barrier that limits mixing between water layers.",
+      "tier": "mastery"
+    },
+    {
+      "word": "invasive species",
+      "pos": "noun",
+      "definition_ar": "نوع غير أصلي يُدخَل إلى نظام بيئي ويُلحق الضرر بالحياة الأصلية.",
+      "example_sentence": "The invasive lionfish has severely damaged reef ecosystems in the Caribbean.",
+      "tier": "mastery"
+    },
+    {
+      "word": "marine life",
+      "pos": "noun",
+      "definition_ar": "الحياة البحرية وهي جميع النباتات والحيوانات التي تعيش في المحيطات والبحار أو تعتمد عليها",
+      "example_sentence": "Pollution threatens marine life around the world's coastlines.",
+      "tier": "mastery"
+    },
+    {
+      "word": "larval stage",
+      "pos": "noun",
+      "definition_ar": "مرحلة اليرقة",
+      "example_sentence": "Fish spend their larval stage floating in open water before settling on reefs.",
+      "tier": "mastery"
+    },
+    {
+      "word": "microbiome",
+      "pos": "noun",
+      "definition_ar": "مجتمع الكائنات المجهرية التي تعيش على كائن الشعاب المرجانية أو داخله.",
+      "example_sentence": "The coral's microbiome plays a key role in its ability to fight disease.",
+      "tier": "mastery"
+    },
+    {
+      "word": "mollusc",
+      "pos": "noun",
+      "definition_ar": "رخويات",
+      "example_sentence": "Giant clams are the largest molluscs found on coral reefs.",
+      "tier": "mastery"
+    },
+    {
+      "word": "mesophotic reef",
+      "pos": "noun",
+      "definition_ar": "شعاب مرجانية توجد في مياه متوسطة الإضاءة على عمق يتراوح بين 30 و150 مترًا.",
+      "example_sentence": "Mesophotic reefs may act as refuges when shallow reefs are damaged.",
+      "tier": "mastery"
+    },
+    {
+      "word": "niche",
+      "pos": "noun",
+      "definition_ar": "مكانة بيئية",
+      "example_sentence": "Cleaner fish occupy a special niche by removing parasites from other species.",
+      "tier": "mastery"
+    },
+    {
+      "word": "migrate",
+      "pos": "verb",
+      "definition_ar": "يهاجر",
+      "example_sentence": "Many sea turtles migrate thousands of miles to return to coral reef areas.",
+      "tier": "mastery"
+    },
+    {
+      "word": "net primary production",
+      "pos": "noun",
+      "definition_ar": "الكمية الإجمالية من المواد العضوية التي تُنشئها نباتات المحيط بعد استهلاكها لطاقتها الخاصة.",
+      "example_sentence": "Reef ecosystems have high net primary production due to dense algae growth.",
+      "tier": "mastery"
+    },
+    {
+      "word": "obligate mutualist",
+      "pos": "noun",
+      "definition_ar": "كائن حي لا يستطيع البقاء دون نوع شريكه المحدد.",
+      "example_sentence": "The coral polyp is an obligate mutualist that needs its algae to feed.",
+      "tier": "mastery"
+    },
+    {
+      "word": "polyp",
+      "pos": "noun",
+      "definition_ar": "سليلة مرجانية",
+      "example_sentence": "Each coral polyp is a tiny animal that builds calcium carbonate structures.",
+      "tier": "mastery"
+    },
+    {
+      "word": "nocturnal",
+      "pos": "adjective",
+      "definition_ar": "ليلي",
+      "example_sentence": "Many reef creatures are nocturnal and only come out to feed after sunset.",
+      "tier": "mastery"
+    },
+    {
+      "word": "pelagic zone",
+      "pos": "noun",
+      "definition_ar": "المنطقة المائية المفتوحة من المحيط بعيدًا عن القاع والشواطئ.",
+      "example_sentence": "Tuna and dolphins thrive in the pelagic zone far from the coast.",
+      "tier": "mastery"
+    },
+    {
+      "word": "refuge",
+      "pos": "noun",
+      "definition_ar": "ملجأ",
+      "example_sentence": "Coral caves provide refuge for small fish escaping from larger predators.",
+      "tier": "mastery"
+    },
+    {
+      "word": "secrete",
+      "pos": "verb",
+      "definition_ar": "يفرز",
+      "example_sentence": "Coral polyps secrete calcium carbonate to build their protective skeletons.",
+      "tier": "mastery"
+    },
+    {
+      "word": "reef crest",
+      "pos": "noun",
+      "definition_ar": "قمة الشعاب المرجانية",
+      "example_sentence": "The reef crest experiences the strongest waves and has the most diverse coral growth.",
+      "tier": "mastery"
+    },
+    {
+      "word": "succession",
+      "pos": "noun",
+      "definition_ar": "تعاقب بيئي",
+      "example_sentence": "After coral bleaching, ecological succession slowly restores the reef community.",
+      "tier": "mastery"
+    },
+    {
+      "word": "resilience",
+      "pos": "noun",
+      "definition_ar": "مرونة",
+      "example_sentence": "Healthy coral reefs show remarkable resilience after environmental stress events.",
+      "tier": "mastery"
+    },
+    {
+      "word": "thermocline",
+      "pos": "noun",
+      "definition_ar": "طبقة في المحيط تنخفض فيها درجة حرارة الماء بسرعة مع زيادة العمق.",
+      "example_sentence": "Fish often gather just above the thermocline where food is plentiful.",
+      "tier": "mastery"
+    },
+    {
+      "word": "spawn",
+      "pos": "verb",
+      "definition_ar": "يضع البيض",
+      "example_sentence": "Many coral species spawn at the same time during full moon nights.",
+      "tier": "mastery"
+    },
+    {
+      "word": "upwelling",
+      "pos": "noun",
+      "definition_ar": "تيار صاعد",
+      "example_sentence": "Upwelling brings cold, nutrient-rich water that supports marine life near coastlines.",
+      "tier": "mastery"
+    },
+    {
+      "word": "symbiotic",
+      "pos": "adjective",
+      "definition_ar": "تكافلي",
+      "example_sentence": "Corals have a symbiotic relationship with algae that live inside their tissues.",
+      "tier": "mastery"
+    },
+    {
+      "word": "water clarity",
+      "pos": "noun",
+      "definition_ar": "شفافية مياه البحر التي تؤثر على كمية ضوء الشمس التي تصل إلى الشعاب المرجانية.",
+      "example_sentence": "High water clarity is essential for healthy coral growth.",
+      "tier": "mastery"
+    },
+    {
+      "word": "turbidity",
+      "pos": "noun",
+      "definition_ar": "تعكر الماء",
+      "example_sentence": "High turbidity in water blocks sunlight and can harm coral growth.",
+      "tier": "mastery"
+    },
+    {
+      "word": "vulnerability",
+      "pos": "noun",
+      "definition_ar": "قابلية التأثر",
+      "example_sentence": "Climate change increases coral reef vulnerability to bleaching and disease outbreaks.",
+      "tier": "mastery"
+    },
+    {
+      "word": "zooplankton",
+      "pos": "noun",
+      "definition_ar": "العوالق الحيوانية",
+      "example_sentence": "Many coral reef fish depend on zooplankton as their main source of food.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "debfa857-f5e7-46c1-b9aa-f05abbefb13a",
+      "label": "A",
+      "title": "Ocean Gardens Under Threat",
+      "content": {
+        "paragraphs": [
+          "Beneath the surface of tropical oceans lies one of Earth's most *spectacular* natural wonders: coral reefs. These underwater cities, often called the rainforests of the sea, *constitute* less than one percent of the ocean floor yet support approximately 25% of all marine species. Scientists have long been *fascinated* by these complex ecosystems, which *emerge* from the collaborative relationship between tiny coral animals and microscopic algae living within their tissues.",
+          "Coral reefs *thrive* in warm, shallow waters where sunlight can penetrate easily, allowing the algae to perform photosynthesis. This *mutual* partnership benefits both organisms: the algae provide food through photosynthesis, while the corals offer protection and nutrients. However, this delicate balance is extremely *vulnerable* to environmental changes. When water temperatures rise even slightly, corals become stressed and expel their colorful algae partners, a phenomenon known as coral bleaching. Without these algae, corals appear white and may eventually die if conditions don't improve. The Great Barrier Reef in Australia, which *spans* over 2,300 kilometers, has experienced several mass bleaching events in recent years, with some areas losing up to 50% of their coral cover.",
+          "The economic and ecological *significance* of coral reefs cannot be overstated. These ecosystems provide coastal protection by *absorbing* wave energy during storms, reducing damage to shorelines and human settlements. Tourism centered around coral reefs generates billions of dollars annually worldwide, while reef fisheries support the livelihoods of millions of people. In the Red Sea, which borders Saudi Arabia's western coast, coral reefs *contribute* substantially to the region's marine biodiversity and fishing industry. Local communities have traditionally *depended on* these resources for both sustenance and economic opportunities.",
+          "Despite their importance, coral reefs face *unprecedented* challenges in the 21st century. Climate change, pollution, and overfishing have created a perfect storm of threats that many reefs cannot withstand. Rising ocean temperatures and increasing acidity levels, caused by higher carbon dioxide concentrations in seawater, make it difficult for corals to build and maintain their calcium carbonate skeletons. Additionally, agricultural runoff introduces excess nutrients into coastal waters, promoting algae growth that can *overwhelm* coral communities. Scientists estimate that if current trends continue, up to 70% of the world's coral reefs could disappear within the next three decades, representing an irreversible loss of marine biodiversity and the collapse of ecosystems that have taken thousands of years to develop."
+        ]
+      },
+      "word_count": 421
+    },
+    {
+      "id": "d8eccfe7-4359-451b-8450-5575919b540c",
+      "label": "B",
+      "title": "The Coral Reef Scientists of Tomorrow",
+      "content": {
+        "paragraphs": [
+          "In the crystal-clear waters of the Red Sea, marine biologist Dr. Layla Al-Rashid carefully *descends* toward a vibrant coral reef, her underwater camera ready to *capture* groundbreaking footage. As one of the region's leading coral researchers, she represents a new generation of scientists who are *tackling* one of the ocean's most pressing challenges. Her work demonstrates that young professionals can *make a significant impact* on marine conservation, even when traditional methods have fallen short.",
+          "The Red Sea, which *borders* Saudi Arabia's western coast, contains some of the world's most resilient coral reefs. Recent studies have revealed that these corals possess remarkable *adaptations* that allow them to *withstand* rising water temperatures that would kill coral elsewhere. Dr. Al-Rashid's research team has discovered that Red Sea corals can survive in water temperatures up to 32°C, whereas most coral species begin to die at 29°C. This *breakthrough* finding suggests that these corals could potentially help restore damaged reefs in other parts of the world. \"We're not just studying these corals,\" explains Dr. Al-Rashid, \"we're learning how they've *evolved* to become nature's ultimate survivors.\"",
+          "However, even the Red Sea's hardy corals face mounting pressures from coastal development and pollution. Young scientists like Dr. Al-Rashid are *implementing* innovative conservation strategies that combine traditional research with cutting-edge technology. Her team uses underwater drones to *monitor* reef health across vast areas, collecting data that would take human divers months to gather. They've also developed a mobile laboratory that can *process* water samples on-site, providing immediate results about pollution levels and coral health indicators.",
+          "The *implications* of this research extend far beyond the Red Sea region. International marine biology programs now regularly invite Middle Eastern researchers to share their findings at global conferences. Dr. Al-Rashid recently presented her work to the United Nations Ocean Conference, where delegates praised the region's *contribution* to coral science. \"When we *invested* in young scientists ten years ago, we never imagined they would become world leaders in coral research,\" noted Dr. Ahmed Hassan, director of the Marine Research Institute in Jeddah.",
+          "As climate change continues to threaten coral reefs worldwide, the work of scientists like Dr. Al-Rashid offers hope for the future. Her research suggests that understanding how Red Sea corals have adapted could help scientists develop new methods to protect vulnerable reefs globally. With over 75% of the world's coral reefs currently under threat, these young researchers carry the responsibility of preserving one of Earth's most biodiverse ecosystems for future generations."
+        ]
+      },
+      "word_count": 456
+    }
+  ],
+  "grammar": {
+    "topic_name_en": "present perfect continuous",
+    "topic_name_ar": "present perfect continuous",
+    "explanation_content": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "نستخدم هذا الزمن للتحدث عن الأفعال التي بدأت في الماضي ومازالت مستمرة، أو الأنشطة الحديثة التي لها نتائج حاضرة. التركيز على استمرارية الفعل وليس فقط النتيجة.",
+          "content_en": "<b>Present Perfect Continuous</b><br><br>Look at these examples:<br>• Marine biologists <b>have been studying</b> coral reefs for decades.<br>• The coral <b>has been growing</b> slowly in this area.<br>• Scientists <b>have been monitoring</b> the reef's health recently.<br><br>We use the Present Perfect Continuous to talk about:<br>1. Actions that started in the past and continue now<br>2. Recent activities with present results<br>3. Actions that happened repeatedly from past to present<br><br>This tense emphasizes the <i>duration</i> or <i>continuation</i> of the action, not just the result."
+        },
+        {
+          "type": "formula",
+          "content": "Subject + have/has + been + verb-ing"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "Marine scientists have been researching coral bleaching for years.",
+              "highlight": "have been researching",
+              "translation_ar": "علماء البحار يبحثون في ابيضاض المرجان منذ سنوات"
+            },
+            {
+              "sentence": "The water temperature has been rising gradually.",
+              "highlight": "has been rising",
+              "translation_ar": "درجة حرارة الماء ترتفع تدريجياً"
+            },
+            {
+              "sentence": "Divers have been documenting the reef's condition since 2020.",
+              "highlight": "have been documenting",
+              "translation_ar": "الغواصون يوثقون حالة الشعاب منذ عام 2020"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "Scientists have been study coral reefs.",
+              "correct": "Scientists have been studying coral reefs.",
+              "explanation_ar": "يجب إضافة ing للفعل الرئيسي"
+            },
+            {
+              "wrong": "The reef has been grew for centuries.",
+              "correct": "The reef has been growing for centuries.",
+              "explanation_ar": "استخدم الفعل مع ing وليس التصريف الثالث"
+            },
+            {
+              "wrong": "They have been work on this project since last month.",
+              "correct": "They have been working on this project since last month.",
+              "explanation_ar": "لا تنس إضافة ing للفعل"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

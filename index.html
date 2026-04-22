@@ -43,18 +43,10 @@
     <link rel="apple-touch-icon" href="/logo-icon-dark.png" />
     <link rel="preconnect" href="https://nmjexpuycmqcxuxljier.supabase.co" />
     <link rel="dns-prefetch" href="https://nmjexpuycmqcxuxljier.supabase.co" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Critical font (Arabic UI) — loaded immediately -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
-    <!-- IBM Plex Sans Arabic — trainer portal (D0 Linear theme) -->
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <!-- Cairo — trainer portal typography -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;800&display=swap" rel="stylesheet" /></noscript>
-    <!-- Secondary fonts — loaded async to not block rendering -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=Playfair+Display:wght@700;800;900&family=Inter+Tight:wght@400;600;800&family=Amiri:wght@700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=Playfair+Display:wght@700;800;900&family=Inter+Tight:wght@400;600;800&family=Amiri:wght@700&display=swap" rel="stylesheet" /></noscript>
+    <!-- Fluentia Atelier — Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@200;400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@100;500;700&family=Inter+Tight:wght@400;500;600&family=Space+Grotesk:wght@300;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <title>Fluentia Academy — أكاديمية طلاقة</title>
     <script>
       // Apply design-system theme before first paint to prevent flash
@@ -74,7 +66,7 @@
       })();
     </script>
   </head>
-  <body class="font-tajawal bg-[var(--surface-base)] text-[var(--text-primary)] antialiased">
+  <body class="font-tajawal bg-[var(--atelier-canvas)] text-[var(--atelier-ink)] antialiased">
     <div id="root"></div>
     <script>
       // One-time service worker + cache purge to fix stale deployments

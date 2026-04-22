@@ -1,0 +1,269 @@
+{
+  "level": 3, "unit_number": 7, "variant_label": "A",
+  "variant_id": "2bb812ec-2029-4dd1-a17f-cd8544890b3d",
+  "unit_id": "97b187e9-39e6-4263-8ed8-72a63e69273c",
+  "generated_at": "2026-04-21T07:00:00Z",
+  "generated_by": "Claude Code native (L3 bulk, English-only)",
+  "language_standard": "English options, Arabic explanations (B1 CEFR)",
+  "distribution": {"skills":{"vocabulary":8,"grammar":6,"reading":6},"types":{"mcq":12,"true_false":4,"fill_blank":2,"matching":2}},
+  "questions": [
+    {
+      "order_index": 1, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Researchers continue to 'uncover' new insights about how fear shapes our daily lives. What does 'uncover' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To hide and conceal important findings from the public","is_correct":false},
+        {"id":"b","text":"To create and invent entirely new ideas without evidence","is_correct":false},
+        {"id":"c","text":"To discover and reveal something that was previously unknown","is_correct":true},
+        {"id":"d","text":"To confirm and prove findings that were already well established","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "uncover تعني يكشف ويكتشف، أي إظهار شيء كان مخفياً أو غير معروف من قبل."
+    },
+    {
+      "order_index": 2, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Fear can both protect and 'hinder' us in unexpected ways. What does 'hinder' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To support and assist someone in achieving their goals","is_correct":false},
+        {"id":"b","text":"To slow down and make progress more difficult","is_correct":true},
+        {"id":"c","text":"To encourage and motivate someone to try harder","is_correct":false},
+        {"id":"d","text":"To analyse and measure the effects of a situation","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "hinder تعني يُعيق ويُبطئ، أي جعل التقدم أو تحقيق الأهداف أكثر صعوبة."
+    },
+    {
+      "order_index": 3, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "We sometimes 'encounter' threats that trigger a fear response before we understand them. What does 'encounter' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To avoid and deliberately stay away from something","is_correct":false},
+        {"id":"b","text":"To study and carefully research something over time","is_correct":false},
+        {"id":"c","text":"To come across and meet something, often unexpectedly","is_correct":true},
+        {"id":"d","text":"To create and bring something new into existence","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "encounter تعني يواجه ويصادف، أي الالتقاء بشيء أو موقف غالباً بشكل غير متوقع أو مفاجئ."
+    },
+    {
+      "order_index": 4, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "The brain processes fear faster than our conscious mind can 'comprehend' it. What does 'comprehend' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To forget and dismiss information without processing it","is_correct":false},
+        {"id":"b","text":"To physically sense and detect something in the environment","is_correct":false},
+        {"id":"c","text":"To fully understand and make sense of something","is_correct":true},
+        {"id":"d","text":"To predict and anticipate something before it happens","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "comprehend تعني يستوعب ويفهم تماماً، أي إدراك معنى شيء ما بشكل كامل ومعمّق."
+    },
+    {
+      "order_index": 5, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "People who 'overcome' their fears often develop stronger pathways for courage. What does 'overcome' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To surrender and accept defeat when facing a challenge","is_correct":false},
+        {"id":"b","text":"To avoid and escape from a difficult situation entirely","is_correct":false},
+        {"id":"c","text":"To successfully deal with and defeat a difficulty or fear","is_correct":true},
+        {"id":"d","text":"To ignore and pretend a problem does not exist","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "overcome تعني يتغلب ويتجاوز، أي النجاح في مواجهة صعوبة أو عقبة والخروج منتصراً عليها."
+    },
+    {
+      "order_index": 6, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When fears 'interfere' with professional goals, they prevent people from achieving what they want to accomplish.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. interfere تعني يتدخل ويُعيق، أي أن المخاوف تُشكّل عائقاً يحول دون تحقيق الأهداف المهنية أو الشخصية."
+    },
+    {
+      "order_index": 7, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When people 'dwell on' their fears, they think about them repeatedly, which actually makes those fears stronger.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. dwell on تعني يتمحور حول ويفكر باستمرار في، وهذا يُقوّي المسارات العصبية للخوف ويجعله أشد حسب ما ذكره النص."
+    },
+    {
+      "order_index": 8, "skill_tag": "vocabulary", "question_type": "fill_blank",
+      "question_text": "People who choose to _____ their fears rather than avoid them often experience significant personal growth.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "confront", "accepted_answers": ["confront","Confront","face","tackle"], "points": 1,
+      "explanation_ar": "confront تعني يواجه بشجاعة، أي التعامل المباشر مع الخوف بدلاً من الهروب منه — وهو ما يُؤدي إلى النمو الشخصي."
+    },
+    {
+      "order_index": 9, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Convert to reported speech: Dr. Al-Mansouri said, 'Fear feeds on avoidance.'",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Dr. Al-Mansouri said fear feeds on avoidance.","is_correct":false},
+        {"id":"b","text":"Dr. Al-Mansouri said that fear fed on avoidance.","is_correct":true},
+        {"id":"c","text":"Dr. Al-Mansouri said that fear will feed on avoidance.","is_correct":false},
+        {"id":"d","text":"Dr. Al-Mansouri told fear feeds on avoidance.","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "في الكلام المنقول الماضي نُحوّل: said + that + تحوّل الزمن للخلف. المضارع البسيط (feeds) → ماضٍ بسيط (fed). الخيار b صحيح."
+    },
+    {
+      "order_index": 10, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Convert: The researcher said, 'I am studying the amygdala's role in fear.'",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"The researcher said that he is studying the amygdala's role.","is_correct":false},
+        {"id":"b","text":"The researcher said that he was studying the amygdala's role.","is_correct":true},
+        {"id":"c","text":"The researcher told that he was studying the amygdala's role.","is_correct":false},
+        {"id":"d","text":"The researcher said that he studied the amygdala's role.","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "المضارع المستمر (am studying) يتحوّل في الكلام المنقول الماضي إلى ماضٍ مستمر (was studying). الخيار b صحيح. الخيار c خاطئ لأن told يحتاج مفعولاً به."
+    },
+    {
+      "order_index": 11, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence correctly uses 'tell' (not 'say') in reported speech?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"She told that her research was complete.","is_correct":false},
+        {"id":"b","text":"She said her students that fear could be managed.","is_correct":false},
+        {"id":"c","text":"She told her students that fear could be managed.","is_correct":true},
+        {"id":"d","text":"She told that fear could be managed.","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "tell يحتاج دائماً مفعولاً به مباشراً (شخص) قبل that: tell + person + that. الخيار c صحيح: told her students that..."
+    },
+    {
+      "order_index": 12, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "What happens to 'will' when converting to reported speech with a past reporting verb?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"It stays as 'will'","is_correct":false},
+        {"id":"b","text":"It changes to 'would'","is_correct":true},
+        {"id":"c","text":"It changes to 'should'","is_correct":false},
+        {"id":"d","text":"It changes to 'shall'","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "في الكلام المنقول الماضي تتحوّل الأزمنة للخلف: will → would، can → could، am/is → was، المضارع البسيط → الماضي البسيط."
+    },
+    {
+      "order_index": 13, "skill_tag": "grammar", "question_type": "true_false",
+      "question_text": "The reported speech version of 'She said: I can overcome my phobia' is: 'She said she could overcome her phobia.'",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. في الكلام المنقول: can → could، والضمير I → she. الجملة المنقولة صحيحة تماماً."
+    },
+    {
+      "order_index": 14, "skill_tag": "grammar", "question_type": "matching",
+      "question_text": "Match each direct speech sentence to its correct reported speech version.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "She said: 'Fear is a normal human emotion.'",
+          "He said: 'I will help my patients overcome phobias.'",
+          "The researcher said: 'We are making progress with VRET.'",
+          "Dr. Ahmed said: 'The treatment can change brain patterns.'"
+        ],
+        "right_items": [
+          "The researcher said that they were making progress with VRET.",
+          "She said that fear was a normal human emotion.",
+          "Dr. Ahmed said that the treatment could change brain patterns.",
+          "He said that he would help his patients overcome phobias."
+        ]
+      },
+      "correct_answer": [
+        {"left":"She said: 'Fear is a normal human emotion.'","right":"She said that fear was a normal human emotion."},
+        {"left":"He said: 'I will help my patients overcome phobias.'","right":"He said that he would help his patients overcome phobias."},
+        {"left":"The researcher said: 'We are making progress with VRET.'","right":"The researcher said that they were making progress with VRET."},
+        {"left":"Dr. Ahmed said: 'The treatment can change brain patterns.'","right":"Dr. Ahmed said that the treatment could change brain patterns."}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "تحوّلات الكلام المنقول: is→was، will→would، are making→were making، can→could. الضمائر تتغير أيضاً حسب السياق."
+    },
+    {
+      "order_index": 15, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage A, where is the amygdala located in the brain?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"In the front of the brain, behind the forehead","is_correct":false},
+        {"id":"b","text":"A small, almond-shaped region deep in the brain","is_correct":true},
+        {"id":"c","text":"In the outer layer of the brain called the cerebral cortex","is_correct":false},
+        {"id":"d","text":"At the base of the skull, near the spinal cord","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "وصف النص اللوزة الدماغية (amygdala) بأنها منطقة صغيرة تشبه اللوزة في الدماغ تتولى معالجة استجابات الخوف."
+    },
+    {
+      "order_index": 16, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage A, what percentage of adults in major Middle Eastern cities struggle with fears that affect their lives?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"5%","is_correct":false},
+        {"id":"b","text":"10%","is_correct":false},
+        {"id":"c","text":"15%","is_correct":true},
+        {"id":"d","text":"25%","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "ذكر النص أن البحث المُجرى في المدن الكبرى في الشرق الأوسط كشف أن حوالي 15% من البالغين يعانون من مخاوف تؤثر في أهدافهم المهنية أو الشخصية."
+    },
+    {
+      "order_index": 17, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "Passage A says 'understanding fear is the first step toward mastering it.' What does this suggest?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Fear disappears automatically once a person understands its causes","is_correct":false},
+        {"id":"b","text":"Knowledge about fear is necessary but not sufficient for managing it","is_correct":false},
+        {"id":"c","text":"Awareness of how fear works empowers people to respond to it better","is_correct":true},
+        {"id":"d","text":"Only scientists who study the brain can successfully overcome fear","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "تُضمّن هذه العبارة أن الفهم العلمي لآليات الخوف يُمكّن الناس من اتخاذ قرارات أكثر وعياً وفاعلية حين يواجهون مواقف مخيفة."
+    },
+    {
+      "order_index": 18, "skill_tag": "reading", "question_type": "true_false",
+      "question_text": "According to Passage A, Dr. Al-Mansouri is a neuroscientist at King Abdullah University of Science and Technology.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. ذكر النص أن الدكتورة سارة المنصوري عالمة أعصاب في جامعة الملك عبدالله للعلوم والتقنية (كاوست)."
+    },
+    {
+      "order_index": 19, "skill_tag": "reading", "question_type": "fill_blank",
+      "question_text": "According to Passage A, the amygdala can trigger a fear response within _____ milliseconds.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "12", "accepted_answers": ["12","twelve","Twelve"], "points": 1,
+      "explanation_ar": "اقتبس النص من الدكتورة المنصوري قولها إن اللوزة الدماغية يمكنها إطلاق استجابة الخوف في غضون 12 ميلي ثانية — أسرع من تفكيرنا الواعي."
+    },
+    {
+      "order_index": 20, "skill_tag": "reading", "question_type": "matching",
+      "question_text": "Match each fear management technique from Passage A to its description.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "cognitive behavioural therapy",
+          "meditation practices",
+          "gradual exposure techniques",
+          "neuroscience education"
+        ],
+        "right_items": [
+          "helping people understand how their brains process fear",
+          "a mindfulness-based approach to reducing anxiety",
+          "a therapy that changes thinking patterns to manage fear",
+          "slowly introducing feared situations in a controlled way"
+        ]
+      },
+      "correct_answer": [
+        {"left":"cognitive behavioural therapy","right":"a therapy that changes thinking patterns to manage fear"},
+        {"left":"meditation practices","right":"a mindfulness-based approach to reducing anxiety"},
+        {"left":"gradual exposure techniques","right":"slowly introducing feared situations in a controlled way"},
+        {"left":"neuroscience education","right":"helping people understand how their brains process fear"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "ذكر النص ثلاث طرق رئيسية لإدارة الخوف: العلاج المعرفي السلوكي، التأمل، والتعرض التدريجي — إلى جانب تثقيف الناس بكيفية عمل أدمغتهم."
+    }
+  ]
+}

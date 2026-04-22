@@ -1,0 +1,270 @@
+{
+  "level": 3, "unit_number": 6, "variant_label": "B",
+  "variant_id": "52164853-7ad5-47b1-8145-f6f521e687cf",
+  "unit_id": "aa6e8325-b825-4c0a-8218-b8a5341fc604",
+  "generated_at": "2026-04-21T06:00:00Z",
+  "generated_by": "Claude Code native (L3 bulk, English-only)",
+  "language_standard": "English options, Arabic explanations (B1 CEFR)",
+  "anti_dup_source": "L3-unit6-variant-A.json",
+  "distribution": {"skills":{"vocabulary":8,"grammar":6,"reading":6},"types":{"mcq":12,"true_false":4,"fill_blank":2,"matching":2}},
+  "questions": [
+    {
+      "order_index": 1, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Dr. Al-Mahmoud is learning to 'conduct' complex heart surgery virtually. What does 'conduct' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To watch and observe someone else performing a procedure","is_correct":false},
+        {"id":"b","text":"To carry out and perform an activity in an organised way","is_correct":true},
+        {"id":"c","text":"To evaluate and give feedback after a procedure is complete","is_correct":false},
+        {"id":"d","text":"To cancel and postpone a scheduled medical procedure","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "conduct تعني يُجري ويُنفّذ، أي القيام بنشاط أو إجراء بطريقة منظّمة ومدروسة."
+    },
+    {
+      "order_index": 2, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "VR allows medical professionals to 'rehearse' procedures before the real operation. What does 'rehearse' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To perform a procedure for the very first time without any preparation","is_correct":false},
+        {"id":"b","text":"To cancel and replace a planned procedure with a simpler one","is_correct":false},
+        {"id":"c","text":"To practise and prepare for a performance or procedure in advance","is_correct":true},
+        {"id":"d","text":"To evaluate the results of a completed procedure after the fact","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "rehearse تعني يتدرّب ويُمارس مسبقاً، أي الإعداد والتكرار قبل الأداء الفعلي لضمان الجودة والسلامة."
+    },
+    {
+      "order_index": 3, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "VR is 'transforming' healthcare delivery across the Middle East. What does 'transforming' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Introducing minor decorative changes to existing systems","is_correct":false},
+        {"id":"b","text":"Causing fundamental and significant changes in how something works","is_correct":true},
+        {"id":"c","text":"Maintaining existing methods while adding small improvements","is_correct":false},
+        {"id":"d","text":"Replacing all existing staff with automated digital systems","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "transforming تعني يُحوّل ويُحدث تغييراً جوهرياً وشاملاً في طبيعة شيء ما أو طريقة عمله."
+    },
+    {
+      "order_index": 4, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "VR technology has been proven 'invaluable' for patient treatment and therapy. What does 'invaluable' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Extremely expensive and beyond the budget of most hospitals","is_correct":false},
+        {"id":"b","text":"Having no value and not useful in clinical settings","is_correct":false},
+        {"id":"c","text":"Extremely useful and worth more than can easily be measured","is_correct":true},
+        {"id":"d","text":"Temporary and likely to lose its usefulness within a few years","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "invaluable تعني لا يُقدَّر بثمن وبالغ الأهمية، أي أن قيمته تفوق ما يمكن قياسه أو التعبير عنه بأرقام."
+    },
+    {
+      "order_index": 5, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "VR budgets are 'allocated' by healthcare administrators to expand the technology. What does 'allocated' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Reduced and removed from the organisation's total budget","is_correct":false},
+        {"id":"b","text":"Borrowed from other projects and paid back at a later date","is_correct":false},
+        {"id":"c","text":"Assigned and set aside for a specific purpose or project","is_correct":true},
+        {"id":"d","text":"Rejected because the cost was considered too high","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "allocated تعني خُصِّص ورُصِد، أي تحديد وتخصيص مبلغ مالي أو موارد معينة لغرض أو مشروع محدد."
+    },
+    {
+      "order_index": 6, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When medical institutions 'embrace' VR technology, they willingly accept and start using it in their work.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. embrace تعني يتبنّى بانفتاح ويرحّب بـ، أي القبول الإيجابي والتطبيق الطوعي لشيء جديد."
+    },
+    {
+      "order_index": 7, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When VR experiences 'immerse' students, the students feel distracted and unable to focus on their learning.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false, "accepted_answers": null, "points": 1,
+      "explanation_ar": "خطأ. immerse تعني يُغمر ويستوعب كلياً، أي أن التجربة تُحيط المستخدم بشكل كامل وتُركّز انتباهه — عكس التشتت."
+    },
+    {
+      "order_index": 8, "skill_tag": "vocabulary", "question_type": "fill_blank",
+      "question_text": "VR environments _____ patients to peaceful virtual spaces, helping them cope with pain during treatment.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "transport", "accepted_answers": ["transport","Transport","transported"], "points": 1,
+      "explanation_ar": "transport تعني ينقل ويُوصل، وفي سياق الواقع الافتراضي تعني نقل الشخص ذهنياً وحسياً إلى بيئة مختلفة تماماً."
+    },
+    {
+      "order_index": 9, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence uses a NON-DEFINING relative clause correctly?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"The VR software which costs $500 is now available in stores.","is_correct":false},
+        {"id":"b","text":"King Abdulaziz University, which is in Jeddah, uses VR technology.","is_correct":true},
+        {"id":"c","text":"This is the device that revolutionised surgical training worldwide.","is_correct":false},
+        {"id":"d","text":"The surgeon who developed this won a prize last year.","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "الجملة الوصفية غير التعريفية (non-defining) تُضيف معلومة إضافية عن اسم معروف أصلاً، وتُحاط بفاصلتين. الخيار b صحيح — الجامعة معروفة بالاسم والمعلومة إضافية."
+    },
+    {
+      "order_index": 10, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence has a DEFINING relative clause (no commas, identifies exactly which one)?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Dr. Ahmed, who specialises in pain, works in Abu Dhabi.","is_correct":false},
+        {"id":"b","text":"Stanford Medical School, which conducted the research, is famous.","is_correct":false},
+        {"id":"c","text":"The headset that caused problems was replaced immediately.","is_correct":true},
+        {"id":"d","text":"This technology, which was invented in 1990, is now affordable.","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "الجملة الوصفية التعريفية (defining) لا تُحاط بفاصلتين وهي ضرورية لتحديد الاسم. الخيار c يُحدد أي headset بالضبط (the one that caused problems)."
+    },
+    {
+      "order_index": 11, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence correctly removes a non-essential relative clause using commas?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"The new VR lab, which opened last month has thirty headsets.","is_correct":false},
+        {"id":"b","text":"The new VR lab which opened last month, has thirty headsets.","is_correct":false},
+        {"id":"c","text":"The new VR lab, which opened last month, has thirty headsets.","is_correct":true},
+        {"id":"d","text":"The new VR lab which, opened last month, has thirty headsets.","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "الجملة الوصفية غير التعريفية تُحاط بفاصلتين — واحدة قبلها وأخرى بعدها. الخيار c يضع الفاصلتين في الموضعين الصحيحين."
+    },
+    {
+      "order_index": 12, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "In which sentence can the relative pronoun be omitted?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"The surgeon who performed the operation was highly skilled.","is_correct":false},
+        {"id":"b","text":"This is the VR simulation which helps nurses practise.","is_correct":false},
+        {"id":"c","text":"The headset that I borrowed yesterday worked perfectly.","is_correct":true},
+        {"id":"d","text":"KAU Hospital, which is in Jeddah, adopted VR last year.","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "يمكن حذف الضمير الوصفي حين يكون مفعولاً به (object) في الجملة الوصفية التعريفية. في الخيار c، 'that' مفعول به (I borrowed it) لذا يمكن حذفه: 'The headset I borrowed'."
+    },
+    {
+      "order_index": 13, "skill_tag": "grammar", "question_type": "true_false",
+      "question_text": "'Stanford Medical School, which conducted the research, found that VR improved surgical performance' uses the relative clause correctly.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. Stanford هي مؤسسة معروفة بالاسم، والمعلومة عن إجراء البحث إضافية، لذا تُستخدم الجملة الوصفية غير التعريفية بفاصلتين مع which — وهو صحيح."
+    },
+    {
+      "order_index": 14, "skill_tag": "grammar", "question_type": "matching",
+      "question_text": "Match each sentence to the type of relative clause it contains.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "The VR headset that I bought last week already needs repairs.",
+          "Dr. Al-Mahmoud, who works in Riyadh, is a cardiac surgeon.",
+          "The research which showed 230% improvement was published recently.",
+          "VR technology, which costs less every year, is now widely used."
+        ],
+        "right_items": [
+          "non-defining: adds extra info about a known subject (commas used)",
+          "defining: identifies exactly which thing (no commas, removable = sentence changes meaning)",
+          "non-defining: the subject is already specifically named (commas used)",
+          "defining: tells us which research is meant (no commas)"
+        ]
+      },
+      "correct_answer": [
+        {"left":"The VR headset that I bought last week already needs repairs.","right":"defining: identifies exactly which thing (no commas, removable = sentence changes meaning)"},
+        {"left":"Dr. Al-Mahmoud, who works in Riyadh, is a cardiac surgeon.","right":"non-defining: the subject is already specifically named (commas used)"},
+        {"left":"The research which showed 230% improvement was published recently.","right":"defining: tells us which research is meant (no commas)"},
+        {"left":"VR technology, which costs less every year, is now widely used.","right":"non-defining: adds extra info about a known subject (commas used)"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "الجملة الوصفية التعريفية تُحدد المقصود بدون فاصلة، أما غير التعريفية فتُضيف معلومة عن اسم معروف وتُحاط بفاصلتين."
+    },
+    {
+      "order_index": 15, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage B, by how much did VR-trained surgical residents outperform those using conventional training?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"130% better performance","is_correct":false},
+        {"id":"b","text":"180% better performance","is_correct":false},
+        {"id":"c","text":"230% better performance","is_correct":true},
+        {"id":"d","text":"300% better performance","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "ذكر النص أن بحثاً أجرته جامعة ستانفورد للطب أثبت أن المقيمين الجراحيين الذين تدرّبوا بالواقع الافتراضي أظهروا أداءً أفضل بنسبة 230% مقارنةً بزملائهم."
+    },
+    {
+      "order_index": 16, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage B, what is the specialty of Dr. Ahmed Hassan who is mentioned in the passage?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Cardiac surgery and heart transplant procedures","is_correct":false},
+        {"id":"b","text":"Virtual reality software development for hospitals","is_correct":false},
+        {"id":"c","text":"Pain management at a leading Abu Dhabi hospital","is_correct":true},
+        {"id":"d","text":"Mental health therapy and phobia treatment in Riyadh","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "ذكر النص أن الدكتور أحمد حسن متخصص في إدارة الألم في أحد المستشفيات الرائدة في أبوظبي."
+    },
+    {
+      "order_index": 17, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "Passage B says VR 'transports patients to peaceful environments.' What does this tell us about how VR reduces pain?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"VR physically moves patients to different hospital rooms","is_correct":false},
+        {"id":"b","text":"VR provides pain-relief medication through a built-in system","is_correct":false},
+        {"id":"c","text":"VR uses distraction by engaging the mind in an alternative experience","is_correct":true},
+        {"id":"d","text":"VR increases sedation through audio and visual stimulation","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "يُضمّن النص أن الواقع الافتراضي يعمل عن طريق إشغال العقل بتجربة افتراضية جذابة، مما يُشتّت انتباه المريض عن الألم الفعلي."
+    },
+    {
+      "order_index": 18, "skill_tag": "reading", "question_type": "true_false",
+      "question_text": "According to Passage B, burn victims at specialized centres in Dubai and Riyadh reported reduced pain when using VR distraction therapy.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. ذكر النص أن ضحايا الحروق في مراكز متخصصة في دبي والرياض أبلغوا عن انخفاض ملحوظ في مستويات الألم عند استخدام علاج الإلهاء بالواقع الافتراضي."
+    },
+    {
+      "order_index": 19, "skill_tag": "reading", "question_type": "fill_blank",
+      "question_text": "According to Passage B, surgical residents trained with VR showed _____ percent better performance than those using conventional methods.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "230", "accepted_answers": ["230","230%","two hundred and thirty"], "points": 1,
+      "explanation_ar": "أثبت بحث ستانفورد أن المقيمين الجراحيين الذين تدرّبوا بالواقع الافتراضي تفوّقوا على أقرانهم بنسبة 230%."
+    },
+    {
+      "order_index": 20, "skill_tag": "reading", "question_type": "matching",
+      "question_text": "Match each person or institution from Passage B to their role or contribution.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "Dr. Sarah Al-Mahmoud",
+          "King Abdulaziz University Hospital Jeddah",
+          "Stanford Medical School",
+          "Dr. Ahmed Hassan"
+        ],
+        "right_items": [
+          "pain management specialist at a leading Abu Dhabi hospital",
+          "research institution that found VR improved surgical performance by 230%",
+          "hospital where students immerse in 3D anatomical models",
+          "cardiac surgeon who rehearses surgery using VR in Riyadh"
+        ]
+      },
+      "correct_answer": [
+        {"left":"Dr. Sarah Al-Mahmoud","right":"cardiac surgeon who rehearses surgery using VR in Riyadh"},
+        {"left":"King Abdulaziz University Hospital Jeddah","right":"hospital where students immerse in 3D anatomical models"},
+        {"left":"Stanford Medical School","right":"research institution that found VR improved surgical performance by 230%"},
+        {"left":"Dr. Ahmed Hassan","right":"pain management specialist at a leading Abu Dhabi hospital"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "ورد كل شخص ومؤسسة في النص مع دوره بوضوح: المحمود (جراحة Riyadh بالVR)، مستشفى KAU جدة (نماذج تشريحية)، ستانفورد (البحث)، وحسن (إدارة الألم أبوظبي)."
+    }
+  ]
+}

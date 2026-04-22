@@ -1,0 +1,1269 @@
+{
+  "unit": {
+    "id": "aa6e8325-b825-4c0a-8218-b8a5341fc604",
+    "unit_number": 6,
+    "title_en": "Virtual Reality",
+    "title_ar": "الواقع الافتراضي"
+  },
+  "assessment": {
+    "id": "2fc43ee2-d160-4823-bb26-cb5c047f7009"
+  },
+  "variants": [
+    {
+      "id": "c25076ea-f340-4026-9209-9cf191ab0027",
+      "variant_code": "A"
+    },
+    {
+      "id": "52164853-7ad5-47b1-8145-f6f521e687cf",
+      "variant_code": "B"
+    },
+    {
+      "id": "42a6bfd1-a90b-4fe1-98f6-90efc5b3d18c",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "word": "evolved",
+      "pos": "verb",
+      "definition_ar": "تطور، نما وتحسن تدريجياً عبر الزمن",
+      "example_sentence": "Mobile phones have evolved from simple calling devices to smart computers.",
+      "tier": "core"
+    },
+    {
+      "word": "conduct",
+      "pos": "verb",
+      "definition_ar": "يقوم بـ، ينفذ، يدير",
+      "example_sentence": "The teacher will conduct an experiment in the science class tomorrow.",
+      "tier": "core"
+    },
+    {
+      "word": "rehearse",
+      "pos": "verb",
+      "definition_ar": "يتدرب، يتمرن، يبروفة",
+      "example_sentence": "The actors rehearse their lines every day before the play opens.",
+      "tier": "core"
+    },
+    {
+      "word": "reshaping",
+      "pos": "verb",
+      "definition_ar": "إعادة تشكيل، تغيير الشكل أو الهيكل بشكل كامل",
+      "example_sentence": "Social media is reshaping how people communicate with each other.",
+      "tier": "core"
+    },
+    {
+      "word": "transforming",
+      "pos": "verb",
+      "definition_ar": "يحول، يغير جذرياً",
+      "example_sentence": "Technology is transforming the way we communicate with each other.",
+      "tier": "core"
+    },
+    {
+      "word": "exclusive",
+      "pos": "adjective",
+      "definition_ar": "حصري، مقتصر على، خاص بفئة معينة فقط",
+      "example_sentence": "This exclusive club only accepts members who are university professors.",
+      "tier": "core"
+    },
+    {
+      "word": "integral",
+      "pos": "adjective",
+      "definition_ar": "جزء أساسي، ضروري ولا يتجزأ من الكل",
+      "example_sentence": "Regular exercise is an integral part of a healthy lifestyle.",
+      "tier": "core"
+    },
+    {
+      "word": "embrace",
+      "pos": "verb",
+      "definition_ar": "يتبنى، يحتضن، يقبل بحماس",
+      "example_sentence": "Many companies embrace new technology to improve their business.",
+      "tier": "core"
+    },
+    {
+      "word": "innovative",
+      "pos": "adjective",
+      "definition_ar": "مبتكر، إبداعي، يقدم أفكار أو طرق جديدة",
+      "example_sentence": "The company's innovative approach to solving traffic problems impressed everyone.",
+      "tier": "core"
+    },
+    {
+      "word": "immerse",
+      "pos": "verb",
+      "definition_ar": "ينغمس، يستغرق تماماً في",
+      "example_sentence": "When I read a good book, I immerse myself completely in the story.",
+      "tier": "core"
+    },
+    {
+      "word": "facilitate",
+      "pos": "verb",
+      "definition_ar": "يسهل، ييسر، يساعد على",
+      "example_sentence": "Good lighting facilitates reading and studying.",
+      "tier": "core"
+    },
+    {
+      "word": "caught on",
+      "pos": "verb",
+      "definition_ar": "انتشر، أصبح شائعاً أو مقبولاً على نطاق واسع",
+      "example_sentence": "Online shopping really caught on during the pandemic.",
+      "tier": "core"
+    },
+    {
+      "word": "revolutionizing",
+      "pos": "verb",
+      "definition_ar": "إحداث ثورة في، تغيير جذري وشامل",
+      "example_sentence": "Artificial intelligence is revolutionizing the way doctors diagnose diseases.",
+      "tier": "core"
+    },
+    {
+      "word": "compelling",
+      "pos": "adjective",
+      "definition_ar": "مقنع، مؤثر، لا يقاوم",
+      "example_sentence": "The lawyer presented compelling evidence to support his client's case.",
+      "tier": "core"
+    },
+    {
+      "word": "immersive",
+      "pos": "adjective",
+      "definition_ar": "غامر، يوفر تجربة شاملة تبدو حقيقية",
+      "example_sentence": "The museum offers an immersive exhibition about ancient Egypt.",
+      "tier": "core"
+    },
+    {
+      "word": "allocate",
+      "pos": "verb",
+      "definition_ar": "يخصص، يوزع، يقسم",
+      "example_sentence": "The school will allocate more money to buy new computers.",
+      "tier": "core"
+    },
+    {
+      "word": "invaluable",
+      "pos": "adjective",
+      "definition_ar": "لا يقدر بثمن، قيم جداً",
+      "example_sentence": "Her experience as a teacher made her invaluable to the school.",
+      "tier": "core"
+    },
+    {
+      "word": "engage with",
+      "pos": "verb",
+      "definition_ar": "يتفاعل مع، ينخرط مع، يشارك في",
+      "example_sentence": "Teachers encourage students to engage with the reading material by asking questions.",
+      "tier": "core"
+    },
+    {
+      "word": "transport",
+      "pos": "verb",
+      "definition_ar": "ينقل، يوصل، ينقل ذهنياً",
+      "example_sentence": "Good music can transport you to another world.",
+      "tier": "core"
+    },
+    {
+      "word": "manipulate",
+      "pos": "verb",
+      "definition_ar": "يتلاعب بـ، يتحكم في، يحرك بمهارة",
+      "example_sentence": "The scientist carefully manipulated the laboratory equipment to conduct the experiment.",
+      "tier": "core"
+    },
+    {
+      "word": "dramatic",
+      "pos": "adjective",
+      "definition_ar": "مذهل، مؤثر بشكل ملحوظ، تغيير جذري ومفاجئ",
+      "example_sentence": "There was a dramatic increase in online learning during 2020.",
+      "tier": "core"
+    },
+    {
+      "word": "cope",
+      "pos": "verb",
+      "definition_ar": "يتأقلم، يواجه، يتعامل مع",
+      "example_sentence": "Students need to learn how to cope with exam stress.",
+      "tier": "core"
+    },
+    {
+      "word": "embrace",
+      "pos": "verb",
+      "definition_ar": "يتبنى، يقبل بحماس، يحتضن فكرة أو تقنية",
+      "example_sentence": "Many companies have embraced remote working after the pandemic.",
+      "tier": "core"
+    },
+    {
+      "word": "specializes",
+      "pos": "verb",
+      "definition_ar": "يتخصص في",
+      "example_sentence": "This restaurant specializes in Italian food.",
+      "tier": "core"
+    },
+    {
+      "word": "lose track",
+      "pos": "verb",
+      "definition_ar": "يفقد الأثر، يفقد الحساب، لا يعود يتابع",
+      "example_sentence": "I was so busy that I lost track of time and missed lunch.",
+      "tier": "core"
+    },
+    {
+      "word": "supplement",
+      "pos": "noun",
+      "definition_ar": "مكمل، إضافة تعزز أو تكمل شيئاً آخر",
+      "example_sentence": "Vitamin tablets are a supplement to a healthy diet, not a replacement.",
+      "tier": "core"
+    },
+    {
+      "word": "implementation",
+      "pos": "noun",
+      "definition_ar": "التنفيذ، التطبيق",
+      "example_sentence": "The implementation of the new school rules will begin next month.",
+      "tier": "core"
+    },
+    {
+      "word": "employ",
+      "pos": "verb",
+      "definition_ar": "يستخدم، يوظف (شخص أو شيء) لغرض معين",
+      "example_sentence": "The teacher employed different methods to help students understand the lesson.",
+      "tier": "core"
+    },
+    {
+      "word": "augmented",
+      "pos": "adjective",
+      "definition_ar": "معزز - محسن أو مطور بإضافة عناصر رقمية للعالم الحقيقي",
+      "example_sentence": "Augmented reality apps show digital information over real camera views.",
+      "tier": "core"
+    },
+    {
+      "word": "barrier",
+      "pos": "noun",
+      "definition_ar": "حاجز، عقبة تمنع أو تصعب تحقيق شيء ما",
+      "example_sentence": "Language can be a barrier when traveling to foreign countries.",
+      "tier": "core"
+    },
+    {
+      "word": "augmented reality",
+      "pos": "noun",
+      "definition_ar": "تقنية تُضيف عناصر رقمية إلى المنظر الحقيقي",
+      "example_sentence": "Augmented reality apps can show furniture inside your room.",
+      "tier": "core"
+    },
+    {
+      "word": "avatar",
+      "pos": "noun",
+      "definition_ar": "أفاتار - شخصية رقمية تمثل شخصاً في عالم افتراضي",
+      "example_sentence": "Players can customize their avatar's appearance and clothing.",
+      "tier": "core"
+    },
+    {
+      "word": "calibrate",
+      "pos": "verb",
+      "definition_ar": "يعاير - يضبط الإعدادات لضمان الأداء أو القياس الدقيق",
+      "example_sentence": "Users must calibrate their VR headset before their first game.",
+      "tier": "core"
+    },
+    {
+      "word": "connect to",
+      "pos": "verb",
+      "definition_ar": "يتصل بـ - يقيم رابطاً أو تواصلاً مع جهاز أو شبكة أخرى",
+      "example_sentence": "The VR headset can connect to your computer via USB cable.",
+      "tier": "core"
+    },
+    {
+      "word": "controller",
+      "pos": "noun",
+      "definition_ar": "وحدة تحكم - جهاز يُحمل باليد للتحكم في الإجراءات في الألعاب أو البيئات الافتراضية",
+      "example_sentence": "Use the controller to move your character around the virtual city.",
+      "tier": "core"
+    },
+    {
+      "word": "depth perception",
+      "pos": "noun",
+      "definition_ar": "القدرة على الحكم على مدى بُعد الأشياء في ثلاثة أبعاد",
+      "example_sentence": "Good depth perception is essential for VR to feel realistic.",
+      "tier": "core"
+    },
+    {
+      "word": "digital",
+      "pos": "adjective",
+      "definition_ar": "يتعلق بالمعلومات المخزَّنة رقمياً، خاصةً في الحواسيب",
+      "example_sentence": "Digital photos can be shared with anyone in seconds.",
+      "tier": "core"
+    },
+    {
+      "word": "device",
+      "pos": "noun",
+      "definition_ar": "قطعة من المعدات الإلكترونية مصنوعة لغرض محدد",
+      "example_sentence": "A smartwatch is a wearable device for the wrist.",
+      "tier": "core"
+    },
+    {
+      "word": "digital world",
+      "pos": "noun",
+      "definition_ar": "فضاء رقمي يتفاعل فيه الناس عبر الإنترنت أو الحاسوب",
+      "example_sentence": "Many teenagers spend hours every day in the digital world.",
+      "tier": "core"
+    },
+    {
+      "word": "digital content",
+      "pos": "noun",
+      "definition_ar": "أي معلومات أو وسائط موجودة في صيغة رقمية",
+      "example_sentence": "Schools are creating more digital content for online learners.",
+      "tier": "core"
+    },
+    {
+      "word": "entertainment",
+      "pos": "noun",
+      "definition_ar": "أنشطة أو عروض مصممة لإمتاع الناس أو إثارة اهتمامهم",
+      "example_sentence": "The theme park offers various forms of entertainment for families with children.",
+      "tier": "core"
+    },
+    {
+      "word": "display",
+      "pos": "noun",
+      "definition_ar": "شاشة أو سطح يعرض معلومات مرئية للمستخدم",
+      "example_sentence": "The display showed a sharp three-dimensional image.",
+      "tier": "core"
+    },
+    {
+      "word": "experience",
+      "pos": "noun",
+      "definition_ar": "شيء يحدث لك أو شيء تفعله، خاصة شيء مهم أو لا يُنسى",
+      "example_sentence": "Visiting the science museum was an amazing learning experience for the children.",
+      "tier": "core"
+    },
+    {
+      "word": "field of view",
+      "pos": "noun",
+      "definition_ar": "مجال الرؤية - المنطقة التي يمكن رؤيتها في وقت واحد عبر الشاشة أو السماعة",
+      "example_sentence": "A wide field of view makes VR feel more natural and realistic.",
+      "tier": "core"
+    },
+    {
+      "word": "field of vision",
+      "pos": "noun",
+      "definition_ar": "المساحة الكاملة التي يمكن للشخص رؤيتها دون تحريك عينيه",
+      "example_sentence": "The headset covers most of the user's field of vision.",
+      "tier": "core"
+    },
+    {
+      "word": "gaming",
+      "pos": "noun",
+      "definition_ar": "نشاط لعب الألعاب الإلكترونية أو ألعاب الحاسوب",
+      "example_sentence": "Gaming has become one of the most popular forms of entertainment worldwide.",
+      "tier": "core"
+    },
+    {
+      "word": "graphics",
+      "pos": "noun",
+      "definition_ar": "رسوميات - صور وتصاميم بصرية أنشأتها أجهزة الكمبيوتر",
+      "example_sentence": "The game has amazing graphics that look almost like real life.",
+      "tier": "core"
+    },
+    {
+      "word": "graphic",
+      "pos": "noun",
+      "definition_ar": "صورة مرئية أو تصميم ينتجه الحاسوب",
+      "example_sentence": "The game's graphics are so detailed they look real.",
+      "tier": "core"
+    },
+    {
+      "word": "headset",
+      "pos": "noun",
+      "definition_ar": "سماعة رأس - جهاز يُلبس على الرأس لعرض صور وأصوات الواقع الافتراضي",
+      "example_sentence": "She put on the VR headset and found herself in a digital forest.",
+      "tier": "core"
+    },
+    {
+      "word": "hardware",
+      "pos": "noun",
+      "definition_ar": "الأجزاء والمكونات المادية للحاسوب أو الجهاز الإلكتروني",
+      "example_sentence": "The computer's hardware includes the processor, memory, and hard drive.",
+      "tier": "core"
+    },
+    {
+      "word": "hologram",
+      "pos": "noun",
+      "definition_ar": "صورة مجسمة",
+      "example_sentence": "The museum displayed a hologram of an ancient Egyptian pharaoh.",
+      "tier": "core"
+    },
+    {
+      "word": "icon",
+      "pos": "noun",
+      "definition_ar": "صورة صغيرة على الشاشة تمثل برنامجاً أو ملفاً",
+      "example_sentence": "Tap the icon to open the virtual reality app.",
+      "tier": "core"
+    },
+    {
+      "word": "immersion",
+      "pos": "noun",
+      "definition_ar": "الانغماس التام في بيئة افتراضية",
+      "example_sentence": "Full immersion in the game made her forget the real world.",
+      "tier": "core"
+    },
+    {
+      "word": "immerse oneself in",
+      "pos": "verb",
+      "definition_ar": "الانغماس الكامل في نشاط أو بيئة ما",
+      "example_sentence": "You can immerse yourself in history using this VR app.",
+      "tier": "core"
+    },
+    {
+      "word": "interact with technology",
+      "pos": "verb",
+      "definition_ar": "التفاعل والتواصل مع الأجهزة الرقمية أو البرمجيات",
+      "example_sentence": "Children learn to interact with technology from an early age.",
+      "tier": "core"
+    },
+    {
+      "word": "interact",
+      "pos": "verb",
+      "definition_ar": "التواصل مع شخص أو نظام أو الاستجابة له.",
+      "example_sentence": "Players interact with characters inside the virtual world.",
+      "tier": "core"
+    },
+    {
+      "word": "latency",
+      "pos": "noun",
+      "definition_ar": "زمن الاستجابة - التأخير بين الإجراء واستجابة النظام له",
+      "example_sentence": "Low latency is important for smooth VR experiences without delays.",
+      "tier": "core"
+    },
+    {
+      "word": "interaction",
+      "pos": "noun",
+      "definition_ar": "التفاعل أو النشاط بين الأشخاص، أو بين شخص وآلة",
+      "example_sentence": "The new app allows better interaction between teachers and students.",
+      "tier": "core"
+    },
+    {
+      "word": "look into",
+      "pos": "verb",
+      "definition_ar": "يبحث في - يحقق أو يدرس شيئاً بعناية",
+      "example_sentence": "Many companies are looking into VR for employee training programs.",
+      "tier": "core"
+    },
+    {
+      "word": "motion capture",
+      "pos": "noun",
+      "definition_ar": "تقنية تسجيل حركات الإنسان لاستخدامها في الرسوم المتحركة",
+      "example_sentence": "Motion capture helped create realistic characters in the film.",
+      "tier": "core"
+    },
+    {
+      "word": "program",
+      "pos": "noun",
+      "definition_ar": "مجموعة من التعليمات تُخبر الحاسوب بما يجب أن يفعله",
+      "example_sentence": "He wrote a program to sort the student test scores.",
+      "tier": "core"
+    },
+    {
+      "word": "motion tracking",
+      "pos": "noun",
+      "definition_ar": "تتبع الحركة - تكنولوجيا تتابع وتسجل حركة الأشياء أو الأشخاص",
+      "example_sentence": "Motion tracking allows VR systems to know where your body is.",
+      "tier": "core"
+    },
+    {
+      "word": "put on",
+      "pos": "verb",
+      "definition_ar": "ارتداء أو وضع شيء على جسمك، خاصة الملابس أو المعدات",
+      "example_sentence": "Don't forget to put on your safety glasses before starting the experiment.",
+      "tier": "core"
+    },
+    {
+      "word": "real-time rendering",
+      "pos": "noun",
+      "definition_ar": "إنتاج الصور فورياً أثناء تحرك المستخدم في الفضاء الافتراضي",
+      "example_sentence": "Real-time rendering makes VR experiences smooth and natural.",
+      "tier": "core"
+    },
+    {
+      "word": "realistic",
+      "pos": "adjective",
+      "definition_ar": "يبدو أو يبدو أو يشعر كثيراً مثل الحياة الحقيقية",
+      "example_sentence": "The video game has very realistic characters that look like real people.",
+      "tier": "core"
+    },
+    {
+      "word": "refresh rate",
+      "pos": "noun",
+      "definition_ar": "معدل التحديث - عدد مرات تحديث الشاشة لصورتها في الثانية الواحدة",
+      "example_sentence": "A high refresh rate prevents motion sickness in VR games.",
+      "tier": "core"
+    },
+    {
+      "word": "resolution",
+      "pos": "noun",
+      "definition_ar": "درجة الوضوح والتفاصيل في الصورة الرقمية",
+      "example_sentence": "Higher resolution makes virtual images look much clearer.",
+      "tier": "core"
+    },
+    {
+      "word": "sensor",
+      "pos": "noun",
+      "definition_ar": "جهاز يكتشف التغيرات في البيئة ويرسل البيانات",
+      "example_sentence": "The sensor tracks hand movements with great accuracy.",
+      "tier": "core"
+    },
+    {
+      "word": "set up a system",
+      "pos": "verb",
+      "definition_ar": "تجهيز وترتيب التكنولوجيا لتكون جاهزة للاستخدام",
+      "example_sentence": "It took him an hour to set up the VR system correctly.",
+      "tier": "core"
+    },
+    {
+      "word": "three-dimensional",
+      "pos": "adjective",
+      "definition_ar": "ذو طول وعرض وعمق أو يبدو كذلك",
+      "example_sentence": "The three-dimensional model looked almost real on screen.",
+      "tier": "core"
+    },
+    {
+      "word": "tracking",
+      "pos": "noun",
+      "definition_ar": "عملية متابعة الحركات أو البيانات وتسجيلها بمرور الوقت",
+      "example_sentence": "Eye tracking helps the headset know where you are looking.",
+      "tier": "core"
+    },
+    {
+      "word": "training",
+      "pos": "noun",
+      "definition_ar": "عملية تعلم المهارات أو المعرفة لوظيفة أو نشاط معين",
+      "example_sentence": "The company provides training for all new employees to help them succeed.",
+      "tier": "core"
+    },
+    {
+      "word": "try out",
+      "pos": "verb",
+      "definition_ar": "اختبار أو تجربة شيء ما لمعرفة مدى جودة عمله",
+      "example_sentence": "Would you like to try out the new game before you buy it?",
+      "tier": "core"
+    },
+    {
+      "word": "upload",
+      "pos": "verb",
+      "definition_ar": "رفع ملف من جهازك إلى الإنترنت أو حاسوب آخر",
+      "example_sentence": "She uploaded her project file to the shared folder.",
+      "tier": "core"
+    },
+    {
+      "word": "virtual environment",
+      "pos": "noun",
+      "definition_ar": "بيئة يولّدها الحاسوب ويتفاعل معها المستخدم",
+      "example_sentence": "Students explored ancient Rome in a virtual environment.",
+      "tier": "core"
+    },
+    {
+      "word": "user experience",
+      "pos": "noun",
+      "definition_ar": "الانطباع العام للشخص أثناء استخدام منتج أو خدمة",
+      "example_sentence": "Designers work hard to improve the user experience.",
+      "tier": "core"
+    },
+    {
+      "word": "virtual tour",
+      "pos": "noun",
+      "definition_ar": "تجربة رقمية تتيح للمستخدمين استكشاف مكان عن بُعد",
+      "example_sentence": "The museum offers a free virtual tour on its website.",
+      "tier": "core"
+    },
+    {
+      "word": "virtual reality",
+      "pos": "noun",
+      "definition_ar": "الواقع الافتراضي - بيئة تم إنشاؤها بالحاسوب تحاكي عوالم حقيقية أو متخيلة",
+      "example_sentence": "Students use virtual reality to explore ancient Rome in their history class.",
+      "tier": "core"
+    },
+    {
+      "word": "wearable technology",
+      "pos": "noun",
+      "definition_ar": "أجهزة إلكترونية تُرتدى على الجسم لجمع البيانات أو عرضها",
+      "example_sentence": "Wearable technology can track your heart rate all day.",
+      "tier": "core"
+    },
+    {
+      "word": "wearable",
+      "pos": "noun",
+      "definition_ar": "جهاز قابل للارتداء",
+      "example_sentence": "Wearable technology can track your heart rate and sleep.",
+      "tier": "core"
+    },
+    {
+      "word": "battery",
+      "pos": "noun",
+      "definition_ar": "جهاز يخزن الطاقة الكهربائية لتشغيل الآلات",
+      "example_sentence": "The VR headset battery lasts about two hours.",
+      "tier": "extended"
+    },
+    {
+      "word": "360-degree video",
+      "pos": "noun",
+      "definition_ar": "مقطع مصوَّر من جميع الاتجاهات في آنٍ واحد",
+      "example_sentence": "The journalist filmed a 360-degree video inside the old city.",
+      "tier": "extended"
+    },
+    {
+      "word": "boot up",
+      "pos": "verb",
+      "definition_ar": "بدء تشغيل الكمبيوتر وتحميل نظام التشغيل",
+      "example_sentence": "It takes about two minutes for my old computer to boot up.",
+      "tier": "extended"
+    },
+    {
+      "word": "beta version",
+      "pos": "noun",
+      "definition_ar": "نسخة مبكرة من البرنامج يتم إصدارها للاختبار قبل النسخة النهائية",
+      "example_sentence": "The beta version of the app has some bugs that need fixing.",
+      "tier": "extended"
+    },
+    {
+      "word": "configure",
+      "pos": "verb",
+      "definition_ar": "إعداد أو ترتيب أجزاء النظام بطريقة معينة",
+      "example_sentence": "You need to configure your email settings before you can receive messages.",
+      "tier": "extended"
+    },
+    {
+      "word": "compatibility",
+      "pos": "noun",
+      "definition_ar": "توافق",
+      "example_sentence": "Check the compatibility of the software with your device.",
+      "tier": "extended"
+    },
+    {
+      "word": "crash",
+      "pos": "verb",
+      "definition_ar": "التوقف عن العمل فجأة وبشكل غير متوقع (يشير إلى برامج أو أنظمة الكمبيوتر)",
+      "example_sentence": "The application crashed just as I was about to save my work.",
+      "tier": "extended"
+    },
+    {
+      "word": "connectivity",
+      "pos": "noun",
+      "definition_ar": "حالة الارتباط بالإنترنت أو الأجهزة الأخرى",
+      "example_sentence": "Strong connectivity is required for smooth VR streaming.",
+      "tier": "extended"
+    },
+    {
+      "word": "cursor",
+      "pos": "noun",
+      "definition_ar": "المؤشر المتحرك على الشاشة الذي يُظهر مكان النقر",
+      "example_sentence": "Move the cursor over the button and click to select it.",
+      "tier": "extended"
+    },
+    {
+      "word": "digital divide",
+      "pos": "noun",
+      "definition_ar": "الفجوة بين من يمتلكون إمكانية الوصول إلى التكنولوجيا ومن لا يمتلكونها",
+      "example_sentence": "The digital divide makes it hard for rural students to learn online.",
+      "tier": "extended"
+    },
+    {
+      "word": "digital identity",
+      "pos": "noun",
+      "definition_ar": "التمثيل الإلكتروني للشخص من خلال ملفاته وحساباته",
+      "example_sentence": "Protecting your digital identity online is very important.",
+      "tier": "extended"
+    },
+    {
+      "word": "digital innovation",
+      "pos": "noun",
+      "definition_ar": "تقديم أفكار أو أساليب جديدة باستخدام التكنولوجيا الرقمية",
+      "example_sentence": "Digital innovation is changing how doctors treat patients.",
+      "tier": "extended"
+    },
+    {
+      "word": "digital platform",
+      "pos": "noun",
+      "definition_ar": "نظام إلكتروني يُمكّن المستخدمين من إنشاء المحتوى ومشاركته",
+      "example_sentence": "The digital platform hosts thousands of VR experiences.",
+      "tier": "extended"
+    },
+    {
+      "word": "digital literacy",
+      "pos": "noun",
+      "definition_ar": "القدرة على استخدام التكنولوجيا الرقمية وفهمها بفاعلية",
+      "example_sentence": "Digital literacy is now as important as reading and writing.",
+      "tier": "extended"
+    },
+    {
+      "word": "encrypt",
+      "pos": "verb",
+      "definition_ar": "تحويل المعلومات إلى رمز سري لحمايتها من الوصول غير المصرح به",
+      "example_sentence": "Banks encrypt your personal data to keep it safe from hackers.",
+      "tier": "extended"
+    },
+    {
+      "word": "download",
+      "pos": "verb",
+      "definition_ar": "نسخ البيانات من الإنترنت إلى جهازك الخاص",
+      "example_sentence": "You can download the VR app for free from the store.",
+      "tier": "extended"
+    },
+    {
+      "word": "ergonomic",
+      "pos": "adjective",
+      "definition_ar": "مريح هندسياً",
+      "example_sentence": "The ergonomic design makes the headset comfortable for hours.",
+      "tier": "extended"
+    },
+    {
+      "word": "firmware",
+      "pos": "noun",
+      "definition_ar": "برنامج أساسي يتحكم في وظائف الأجهزة لجهاز معين",
+      "example_sentence": "The device stopped working properly after the firmware update failed.",
+      "tier": "extended"
+    },
+    {
+      "word": "gear up for",
+      "pos": "verb",
+      "definition_ar": "الاستعداد الجيد لشيء صعب",
+      "example_sentence": "Developers must gear up for a new wave of VR challenges.",
+      "tier": "extended"
+    },
+    {
+      "word": "frame rate",
+      "pos": "noun",
+      "definition_ar": "عدد الصور المعروضة في الثانية في فيديو أو رسوم متحركة",
+      "example_sentence": "A higher frame rate makes the VR experience much smoother and more comfortable.",
+      "tier": "extended"
+    },
+    {
+      "word": "glove controller",
+      "pos": "noun",
+      "definition_ar": "جهاز يُلبس يتتبع حركات اليد للتفاعل مع الواقع الافتراضي",
+      "example_sentence": "The glove controller lets you pick up objects in the virtual world naturally.",
+      "tier": "extended"
+    },
+    {
+      "word": "glitch",
+      "pos": "noun",
+      "definition_ar": "مشكلة مؤقتة أو خطأ في نظام كمبيوتر أو برنامج",
+      "example_sentence": "There was a small glitch that caused the video to freeze occasionally.",
+      "tier": "extended"
+    },
+    {
+      "word": "haptic feedback",
+      "pos": "noun",
+      "definition_ar": "تقنية تخلق الإحساس باللمس من خلال الاهتزازات أو القوة",
+      "example_sentence": "Haptic feedback makes you feel like you're really touching objects in VR.",
+      "tier": "extended"
+    },
+    {
+      "word": "haptic",
+      "pos": "adjective",
+      "definition_ar": "لمسي",
+      "example_sentence": "Haptic feedback in the gloves lets you feel virtual objects.",
+      "tier": "extended"
+    },
+    {
+      "word": "keyboard",
+      "pos": "noun",
+      "definition_ar": "لوحة مفاتيح تُستخدم لكتابة النصوص أو الأوامر في الحاسوب",
+      "example_sentence": "He typed the password using a wireless keyboard.",
+      "tier": "extended"
+    },
+    {
+      "word": "head-mounted display",
+      "pos": "noun",
+      "definition_ar": "شاشة تُرتدى على الرأس أمام العينين مباشرة للواقع الافتراضي",
+      "example_sentence": "The head-mounted display blocks outside light for full immersion.",
+      "tier": "extended"
+    },
+    {
+      "word": "lag time",
+      "pos": "noun",
+      "definition_ar": "التأخر بين حدوث الفعل واستجابة النظام له",
+      "example_sentence": "Lag time in VR can cause dizziness and discomfort.",
+      "tier": "extended"
+    },
+    {
+      "word": "lag",
+      "pos": "noun",
+      "definition_ar": "تأخير بين الفعل ونتيجته في نظام الكمبيوتر",
+      "example_sentence": "The online game was difficult to play because of the lag.",
+      "tier": "extended"
+    },
+    {
+      "word": "load up",
+      "pos": "verb",
+      "definition_ar": "بدء أو فتح برنامج كمبيوتر أو محتوى رقمي",
+      "example_sentence": "Please wait while the system loads up the virtual reality environment.",
+      "tier": "extended"
+    },
+    {
+      "word": "motion sickness",
+      "pos": "noun",
+      "definition_ar": "دوار الحركة",
+      "example_sentence": "Some users experience motion sickness when using VR headsets.",
+      "tier": "extended"
+    },
+    {
+      "word": "navigate",
+      "pos": "verb",
+      "definition_ar": "التحرك عبر أو إيجاد الطريق في موقع إلكتروني أو برنامج أو نظام",
+      "example_sentence": "The menu helps users navigate through different sections of the app.",
+      "tier": "extended"
+    },
+    {
+      "word": "peripheral",
+      "pos": "noun",
+      "definition_ar": "جهاز طرفي",
+      "example_sentence": "VR peripherals include gloves, controllers, and motion trackers.",
+      "tier": "extended"
+    },
+    {
+      "word": "pixel density",
+      "pos": "noun",
+      "definition_ar": "عدد البكسلات لكل وحدة مساحة على الشاشة",
+      "example_sentence": "Higher pixel density makes VR images sharper and clearer.",
+      "tier": "extended"
+    },
+    {
+      "word": "pixel",
+      "pos": "noun",
+      "definition_ar": "أصغر وحدة في الصورة الرقمية أو شاشة العرض",
+      "example_sentence": "Higher pixel density creates sharper and clearer images on screens.",
+      "tier": "extended"
+    },
+    {
+      "word": "prototype",
+      "pos": "noun",
+      "definition_ar": "نموذج أولي لمنتج يُستخدم لاختبار الأفكار قبل الإنتاج",
+      "example_sentence": "Engineers built a prototype of the VR glove in one week.",
+      "tier": "extended"
+    },
+    {
+      "word": "plug in",
+      "pos": "verb",
+      "definition_ar": "توصيل جهاز بمصدر طاقة أو نظام كمبيوتر",
+      "example_sentence": "Don't forget to plug in your laptop before the battery runs out.",
+      "tier": "extended"
+    },
+    {
+      "word": "rendering engine",
+      "pos": "noun",
+      "definition_ar": "البرنامج الذي يُولّد الصور من البيانات الرقمية",
+      "example_sentence": "A powerful rendering engine makes virtual worlds look stunning.",
+      "tier": "extended"
+    },
+    {
+      "word": "put on a headset",
+      "pos": "verb",
+      "definition_ar": "ارتداء جهاز الواقع الافتراضي فوق العينين والأذنين لبدء التجربة",
+      "example_sentence": "She put on a headset and was instantly standing on Mars.",
+      "tier": "extended"
+    },
+    {
+      "word": "simulation",
+      "pos": "noun",
+      "definition_ar": "محاكاة لموقف أو عملية تُستخدم لأغراض التدريب أو الاختبار",
+      "example_sentence": "The flight simulation helped pilots practice emergency procedures safely.",
+      "tier": "extended"
+    },
+    {
+      "word": "signal",
+      "pos": "noun",
+      "definition_ar": "بيانات إلكترونية تُرسَل لاسلكياً بين الأجهزة",
+      "example_sentence": "A weak signal caused the video call to freeze.",
+      "tier": "extended"
+    },
+    {
+      "word": "software update",
+      "pos": "noun",
+      "definition_ar": "إصدار جديد من برنامج يُصلح الأخطاء أو يُضيف ميزات",
+      "example_sentence": "The latest software update improved the VR headset performance.",
+      "tier": "extended"
+    },
+    {
+      "word": "sync",
+      "pos": "verb",
+      "definition_ar": "جعل المعلومات متطابقة عبر الأجهزة أو الأنظمة المختلفة",
+      "example_sentence": "Your photos will automatically sync across all your connected devices.",
+      "tier": "extended"
+    },
+    {
+      "word": "teleportation",
+      "pos": "noun",
+      "definition_ar": "التنقل الفوري إلى موقع مختلف داخل الفضاء الافتراضي",
+      "example_sentence": "In the VR game, teleportation lets you skip long distances.",
+      "tier": "extended"
+    },
+    {
+      "word": "toggle",
+      "pos": "verb",
+      "definition_ar": "التبديل بين حالتين أو خيارين مختلفين بالضغط على زر",
+      "example_sentence": "You can toggle between light and dark mode in the settings.",
+      "tier": "extended"
+    },
+    {
+      "word": "virtual classroom",
+      "pos": "noun",
+      "definition_ar": "فضاء إلكتروني يلتقي فيه المعلمون والطلاب لإجراء الدروس",
+      "example_sentence": "The virtual classroom allowed students from five countries to learn together.",
+      "tier": "extended"
+    },
+    {
+      "word": "troubleshoot",
+      "pos": "verb",
+      "definition_ar": "العثور على مشاكل نظام الكمبيوتر أو الجهاز وحلها",
+      "example_sentence": "The technician will troubleshoot your internet connection problems.",
+      "tier": "extended"
+    },
+    {
+      "word": "virtual assistant",
+      "pos": "noun",
+      "definition_ar": "برنامج يستجيب لأوامر صوتية أو نصية",
+      "example_sentence": "The virtual assistant answered all her questions instantly.",
+      "tier": "extended"
+    },
+    {
+      "word": "wireless",
+      "pos": "adjective",
+      "definition_ar": "نقل البيانات دون كابلات أو أسلاك مادية",
+      "example_sentence": "Wireless controllers give players more freedom to move.",
+      "tier": "extended"
+    },
+    {
+      "word": "virtual space",
+      "pos": "noun",
+      "definition_ar": "منطقة يولّدها الحاسوب توجد فيها الأشياء والأشخاص الرقميون",
+      "example_sentence": "Users can meet friends in a shared virtual space.",
+      "tier": "extended"
+    },
+    {
+      "word": "wirelessly",
+      "pos": "adverb",
+      "definition_ar": "بطريقة تستخدم موجات الراديو بدلاً من الكابلات لنقل المعلومات",
+      "example_sentence": "You can connect your phone wirelessly to the speakers using Bluetooth.",
+      "tier": "extended"
+    },
+    {
+      "word": "beta testing",
+      "pos": "noun",
+      "definition_ar": "اختبار تجريبي",
+      "example_sentence": "The company invited users for beta testing of the new app.",
+      "tier": "mastery"
+    },
+    {
+      "word": "wireless connectivity",
+      "pos": "noun",
+      "definition_ar": "القدرة على نقل البيانات بين الأجهزة دون كابلات مادية",
+      "example_sentence": "Wireless connectivity allows the headset to move freely.",
+      "tier": "extended"
+    },
+    {
+      "word": "zoom in",
+      "pos": "verb",
+      "definition_ar": "جعل شيء يبدو أكبر على الشاشة من خلال التركيز عليه عن قرب أكثر",
+      "example_sentence": "Zoom in on the image to see the small details more clearly.",
+      "tier": "extended"
+    },
+    {
+      "word": "cut-edge",
+      "pos": "adjective",
+      "definition_ar": "المرحلة الأكثر تقدماً أو ابتكاراً في التطوير في مجال معين",
+      "example_sentence": "This company develops cutting-edge technology for medical research.",
+      "tier": "mastery"
+    },
+    {
+      "word": "end up",
+      "pos": "verb",
+      "definition_ar": "الوصول في النهاية إلى مكان أو حالة أو موقف معين، غالبًا بشكل غير متوقع",
+      "example_sentence": "Many people end up spending hours in virtual worlds without realizing it.",
+      "tier": "mastery"
+    },
+    {
+      "word": "cloud storage",
+      "pos": "noun",
+      "definition_ar": "حفظ الملفات الرقمية على خوادم الإنترنت بدلاً من الأجهزة المحلية",
+      "example_sentence": "Cloud storage allows you to access your files from anywhere.",
+      "tier": "mastery"
+    },
+    {
+      "word": "eye tracking",
+      "pos": "noun",
+      "definition_ar": "تتبع العين",
+      "example_sentence": "Eye tracking helps the headset know where you are looking.",
+      "tier": "mastery"
+    },
+    {
+      "word": "digital twin",
+      "pos": "noun",
+      "definition_ar": "توأم رقمي",
+      "example_sentence": "Engineers use a digital twin to test designs before building.",
+      "tier": "mastery"
+    },
+    {
+      "word": "foveated rendering",
+      "pos": "noun",
+      "definition_ar": "تقنية تُصيّر التفاصيل فقط حيث تُركّز العين لتوفير قدرة المعالجة",
+      "example_sentence": "Foveated rendering greatly reduces the computing power VR headsets need.",
+      "tier": "mastery"
+    },
+    {
+      "word": "execute",
+      "pos": "verb",
+      "definition_ar": "تشغيل أو تنفيذ برنامج أو أمر حاسوبي",
+      "example_sentence": "The system will execute the program automatically at startup.",
+      "tier": "mastery"
+    },
+    {
+      "word": "figure out",
+      "pos": "verb",
+      "definition_ar": "فهم أو حل شيء ما بعد التفكير فيه",
+      "example_sentence": "I couldn't figure out how to use the new software.",
+      "tier": "mastery"
+    },
+    {
+      "word": "haptic glove",
+      "pos": "noun",
+      "definition_ar": "جهاز قابل للارتداء يُحاكي الإحساس بلمس الأشياء الافتراضية",
+      "example_sentence": "The haptic glove allowed the surgeon to practice delicate operations.",
+      "tier": "mastery"
+    },
+    {
+      "word": "gesture control",
+      "pos": "noun",
+      "definition_ar": "التحكم بالإيماءات",
+      "example_sentence": "Gesture control lets you interact with VR without controllers.",
+      "tier": "mastery"
+    },
+    {
+      "word": "immersive training",
+      "pos": "noun",
+      "definition_ar": "أسلوب تعليمي يستخدم الواقع الافتراضي لممارسة المهارات في سيناريوهات واقعية",
+      "example_sentence": "Firefighters use immersive training to prepare for dangerous situations.",
+      "tier": "mastery"
+    },
+    {
+      "word": "haptic suit",
+      "pos": "noun",
+      "definition_ar": "ملابس يمكن ارتداؤها تُرسل إحساسات لمسية لمن يرتديها",
+      "example_sentence": "The haptic suit lets players feel every virtual impact.",
+      "tier": "mastery"
+    },
+    {
+      "word": "metaverse",
+      "pos": "noun",
+      "definition_ar": "فضاء افتراضي مشترك يُنشئه الإنترنت وتكنولوجيا الواقع الافتراضي",
+      "example_sentence": "Some companies hold business meetings inside the metaverse.",
+      "tier": "mastery"
+    },
+    {
+      "word": "immersive storytelling",
+      "pos": "noun",
+      "definition_ar": "أسلوب سرد يضع الجمهور داخل القصة باستخدام التكنولوجيا",
+      "example_sentence": "Immersive storytelling allows viewers to experience history firsthand.",
+      "tier": "mastery"
+    },
+    {
+      "word": "parallax effect",
+      "pos": "noun",
+      "definition_ar": "التحول البصري بين المقدمة والخلفية مما يُولّد إحساساً بالعمق",
+      "example_sentence": "The parallax effect in this VR scene made objects feel very close.",
+      "tier": "mastery"
+    },
+    {
+      "word": "menu",
+      "pos": "noun",
+      "definition_ar": "قائمة من الخيارات أو الأوامر تظهر على الشاشة ليختار منها المستخدم",
+      "example_sentence": "Go to the settings menu to adjust the display brightness.",
+      "tier": "mastery"
+    },
+    {
+      "word": "point cloud",
+      "pos": "noun",
+      "definition_ar": "مجموعة نقاط بيانات في الفضاء تمثل جسماً أو مشهداً ثلاثي الأبعاد",
+      "example_sentence": "The scanner created a point cloud of the ancient ruins in minutes.",
+      "tier": "mastery"
+    },
+    {
+      "word": "rendering pipeline",
+      "pos": "noun",
+      "definition_ar": "سلسلة الخطوات التي يتبعها الحاسوب لإنتاج صورة نهائية",
+      "example_sentence": "Optimising the rendering pipeline cut loading times by half.",
+      "tier": "mastery"
+    },
+    {
+      "word": "mixed reality",
+      "pos": "noun",
+      "definition_ar": "واقع مختلط",
+      "example_sentence": "Mixed reality allows virtual objects to interact with real ones.",
+      "tier": "mastery"
+    },
+    {
+      "word": "simulation sickness",
+      "pos": "noun",
+      "definition_ar": "حالة مشابهة لدوار الحركة تسببها تجارب الواقع الافتراضي",
+      "example_sentence": "Reducing simulation sickness is a top priority for VR designers.",
+      "tier": "mastery"
+    },
+    {
+      "word": "photorealistic",
+      "pos": "adjective",
+      "definition_ar": "واقعي ضوئياً",
+      "example_sentence": "The game graphics are so photorealistic that they seem real.",
+      "tier": "mastery"
+    },
+    {
+      "word": "protocol",
+      "pos": "noun",
+      "definition_ar": "مجموعة من القواعد التي تحكم كيفية نقل البيانات بين الأجهزة",
+      "example_sentence": "Internet protocols ensure that data reaches its destination correctly.",
+      "tier": "mastery"
+    },
+    {
+      "word": "spatial computing",
+      "pos": "noun",
+      "definition_ar": "حوسبة مكانية",
+      "example_sentence": "Spatial computing lets users interact with digital objects in space.",
+      "tier": "mastery"
+    },
+    {
+      "word": "revolutionary",
+      "pos": "adjective",
+      "definition_ar": "يسبب أو يشمل تغييراً كاملاً أو جذرياً",
+      "example_sentence": "Virtual reality technology has revolutionary potential for education and training.",
+      "tier": "mastery"
+    },
+    {
+      "word": "streaming",
+      "pos": "noun",
+      "definition_ar": "إرسال أو استقبال البيانات بشكل مستمر عبر الإنترنت في الوقت الفعلي",
+      "example_sentence": "Video streaming quality depends on your internet connection speed.",
+      "tier": "mastery"
+    },
+    {
+      "word": "virtual economy",
+      "pos": "noun",
+      "definition_ar": "نظام تجاري لتبادل القيمة داخل بيئة رقمية",
+      "example_sentence": "Players earn and spend real money within the game's virtual economy.",
+      "tier": "mastery"
+    },
+    {
+      "word": "spatial audio",
+      "pos": "noun",
+      "definition_ar": "تقنية صوتية تُوهم بسماع ثلاثي الأبعاد",
+      "example_sentence": "Spatial audio made the virtual concert feel completely real.",
+      "tier": "mastery"
+    },
+    {
+      "word": "volumetric",
+      "pos": "adjective",
+      "definition_ar": "حجمي",
+      "example_sentence": "Volumetric video captures objects from every angle.",
+      "tier": "mastery"
+    },
+    {
+      "word": "spatial mapping",
+      "pos": "noun",
+      "definition_ar": "عملية إنشاء خريطة رقمية ثلاثية الأبعاد لفضاء مادي",
+      "example_sentence": "Spatial mapping lets your headset understand the furniture in your room.",
+      "tier": "mastery"
+    },
+    {
+      "word": "telepresence",
+      "pos": "noun",
+      "definition_ar": "حضور عن بُعد",
+      "example_sentence": "Telepresence robots allow doctors to examine patients remotely.",
+      "tier": "mastery"
+    },
+    {
+      "word": "virtual presence",
+      "pos": "noun",
+      "definition_ar": "الشعور بالوجود الفعلي في بيئة مُنشأة رقمياً",
+      "example_sentence": "Strong virtual presence makes users forget they are wearing a headset.",
+      "tier": "mastery"
+    },
+    {
+      "word": "volumetric display",
+      "pos": "noun",
+      "definition_ar": "نظام ينشئ صوراً تبدو طافية في فضاء ثلاثي الأبعاد حقيقي",
+      "example_sentence": "The scientist used a volumetric display to show the molecule structure.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "75d51af6-9fb1-492d-9288-83ee884a6416",
+      "label": "A",
+      "title": "Virtual Worlds Transforming Our Reality",
+      "content": {
+        "paragraphs": [
+          "Virtual Reality technology has *evolved* from a science fiction dream into a powerful tool that is *reshaping* industries across the globe. What was once considered an *exclusive* technology for gaming enthusiasts has now become an *integral* part of modern education, healthcare, and professional training. According to recent studies, the global VR market is expected to reach $87 billion by 2030, demonstrating how this *innovative* technology has *caught on* with both businesses and consumers worldwide.",
+          "In educational institutions, VR applications are *revolutionizing* traditional learning methods by creating *immersive* experiences that were previously impossible to achieve. Students at King Abdulaziz University in Jeddah, for example, can now explore ancient civilizations or travel through the human circulatory system without leaving their classroom. Medical students *engage with* virtual patients to practice complex surgical procedures, while engineering students can *manipulate* three-dimensional models of machinery. Research indicates that students retain 75% of information learned through VR experiences, compared to only 10% from traditional reading methods. This *dramatic* improvement in learning outcomes has led educators to *embrace* VR technology as a *supplement* to conventional teaching approaches.",
+          "The healthcare sector has also witnessed remarkable transformations through VR implementation. Hospitals in Riyadh and other major cities are using virtual reality to help patients manage pain and anxiety during medical procedures. Therapists *employ* VR environments to treat patients with phobias, post-traumatic stress, and other psychological conditions by gradually exposing them to controlled virtual scenarios. Furthermore, surgeons can now rehearse complex operations multiple times in virtual environments before performing actual procedures, significantly reducing medical errors and improving patient safety.",
+          "Despite these promising developments, experts acknowledge that VR technology still faces certain limitations that need to be addressed. The high cost of equipment remains a *barrier* for many institutions, particularly in developing regions. Additionally, some users experience motion sickness or eye strain during extended VR sessions. However, technology companies are continuously working to overcome these challenges by developing more affordable devices and improving user comfort. As VR technology becomes more accessible and sophisticated, it is expected to *transform* countless aspects of our daily lives, from how we learn and work to how we connect with others across vast distances."
+        ]
+      },
+      "word_count": 547
+    },
+    {
+      "id": "7ef891c3-bdbd-4bb8-8073-0c706afdcfa8",
+      "label": "B",
+      "title": "Virtual Hospitals Transform Patient Care",
+      "content": {
+        "paragraphs": [
+          "Dr. Sarah Al-Mahmoud carefully adjusts her VR headset as she prepares to *conduct* a complex heart surgery—virtually. The Riyadh-based cardiac surgeon is participating in an innovative training program that allows medical professionals to *rehearse* intricate procedures before entering the operating room. This groundbreaking approach represents how virtual reality is *transforming* healthcare delivery across the Middle East and beyond.",
+          "Medical institutions worldwide have begun to *embrace* VR technology as a powerful educational tool. At King Abdulaziz University Hospital in Jeddah, students can now *immerse* themselves in three-dimensional anatomical models, exploring the human body in ways that traditional textbooks could never *facilitate*. According to recent research conducted by Stanford Medical School, surgical residents who trained using VR simulations showed 230% better performance compared to those who relied solely on conventional methods. These *compelling* statistics have prompted healthcare administrators to *allocate* substantial budgets toward virtual reality integration.",
+          "Beyond training applications, VR technology is proving *invaluable* for patient treatment and therapy. Burn victims at specialized centers in Dubai and Riyadh have reported significantly reduced pain levels when using VR distraction therapy during wound care procedures. The immersive experiences *transport* patients to peaceful environments—perhaps walking through virtual gardens or exploring coral reefs—effectively helping them *cope* with intense discomfort. Dr. Ahmed Hassan, who *specializes* in pain management at a leading Abu Dhabi hospital, explains that patients often *lose track* of time during VR sessions, allowing medical staff to complete necessary treatments with minimal patient distress.",
+          "The *implementation* of virtual reality in healthcare extends to mental health services as well. Therapists across the Gulf region are utilizing VR environments to help patients confront phobias, manage anxiety disorders, and process traumatic experiences in controlled, safe settings. As this technology continues to evolve, medical experts predict that virtual consultations, remote surgical guidance, and AI-powered diagnostic tools will become standard practice. The integration of VR in healthcare represents not merely a technological advancement, but a fundamental shift toward more compassionate, effective patient care that respects both medical precision and human dignity."
+        ]
+      },
+      "word_count": 547
+    }
+  ],
+  "grammar": {
+    "topic_name_en": "relative clauses (who/which/that)",
+    "topic_name_ar": "relative clauses (who/which/that)",
+    "explanation_content": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "الجمل الوصلية تعطي معلومات إضافية عن شخص أو شيء. نستخدم who للأشخاص، which للأشياء، و that للاثنين معاً",
+          "content_en": "<b>Relative clauses</b> give us more information about a person or thing. We use relative pronouns to connect the extra information to the main sentence.<br><br>• Use <b>who</b> for people<br>• Use <b>which</b> for things/objects<br>• Use <b>that</b> for both people and things (more informal)<br><br>The relative clause comes directly after the noun it describes. It helps us identify which person or thing we're talking about without starting a new sentence."
+        },
+        {
+          "type": "formula",
+          "content": "Main clause + relative pronoun (who/which/that) + additional information"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "The developer who created this VR game is very talented.",
+              "highlight": "who created this VR game",
+              "translation_ar": "المطور الذي أنشأ هذه اللعبة الافتراضية موهوب جداً"
+            },
+            {
+              "sentence": "The VR headset which I bought yesterday is amazing.",
+              "highlight": "which I bought yesterday",
+              "translation_ar": "نظارة الواقع الافتراضي التي اشتريتها أمس رائعة"
+            },
+            {
+              "sentence": "This is the virtual world that millions of users explore daily.",
+              "highlight": "that millions of users explore daily",
+              "translation_ar": "هذا هو العالم الافتراضي الذي يستكشفه ملايين المستخدمين يومياً"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "The person which designed the VR system",
+              "correct": "The person who designed the VR system",
+              "explanation_ar": "استخدم who للأشخاص، ليس which"
+            },
+            {
+              "wrong": "The VR game who I played",
+              "correct": "The VR game which/that I played",
+              "explanation_ar": "استخدم which أو that للأشياء، ليس who"
+            },
+            {
+              "wrong": "The user that he loves VR technology",
+              "correct": "The user who loves VR technology",
+              "explanation_ar": "لا تكرر الضمير بعد الضمير الوصلي"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,270 @@
+{
+  "level": 3, "unit_number": 6, "variant_label": "C",
+  "variant_id": "42a6bfd1-a90b-4fe1-98f6-90efc5b3d18c",
+  "unit_id": "aa6e8325-b825-4c0a-8218-b8a5341fc604",
+  "generated_at": "2026-04-21T06:00:00Z",
+  "generated_by": "Claude Code native (L3 bulk, English-only)",
+  "language_standard": "English options, Arabic explanations (B1 CEFR)",
+  "anti_dup_sources": ["L3-unit6-variant-A.json","L3-unit6-variant-B.json"],
+  "distribution": {"skills":{"vocabulary":8,"grammar":6,"reading":6},"types":{"mcq":12,"true_false":4,"fill_blank":2,"matching":2}},
+  "questions": [
+    {
+      "order_index": 1, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Students 'engage with' virtual patients to practise surgical procedures. What does 'engage with' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To observe from a distance without any direct interaction","is_correct":false},
+        {"id":"b","text":"To actively participate in and interact directly with something","is_correct":true},
+        {"id":"c","text":"To study and read about something without trying it","is_correct":false},
+        {"id":"d","text":"To evaluate and judge the quality of a process or outcome","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "engage with تعني يتفاعل مع ويُشارك بنشاط، أي الانخراط المباشر والفاعل مع شيء ما بدلاً من مجرد مراقبته."
+    },
+    {
+      "order_index": 2, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Engineering students 'manipulate' three-dimensional models of machinery using VR. What does 'manipulate' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To observe and study something without touching or changing it","is_correct":false},
+        {"id":"b","text":"To handle and control something in a skilful and precise way","is_correct":true},
+        {"id":"c","text":"To build and create something entirely from scratch","is_correct":false},
+        {"id":"d","text":"To delete and remove elements from a digital model","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "manipulate تعني يُمسك ويتحكم بمهارة، أي التعامل مع شيء ما بطريقة دقيقة ومتحكّم بها لتحقيق هدف معين."
+    },
+    {
+      "order_index": 3, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "VR creates a 'dramatic' improvement in student learning outcomes compared to traditional methods. What does 'dramatic' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Gradual and barely noticeable over a very long period","is_correct":false},
+        {"id":"b","text":"Very sudden, striking, and impossible to ignore","is_correct":true},
+        {"id":"c","text":"Consistent and steady without any significant variation","is_correct":false},
+        {"id":"d","text":"Temporary and likely to reverse itself after a short time","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "dramatic تعني مثيرة للانتباه وكبيرة بشكل لافت، أي تغيير واضح وبارز لا يمكن تجاهله."
+    },
+    {
+      "order_index": 4, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "The high cost of VR equipment remains a 'barrier' for many institutions. What does 'barrier' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"An advantage that helps institutions adopt new technology faster","is_correct":false},
+        {"id":"b","text":"Something that blocks progress or prevents achieving a goal","is_correct":true},
+        {"id":"c","text":"A physical wall that separates different areas of a hospital","is_correct":false},
+        {"id":"d","text":"A training programme for staff learning to use new equipment","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "barrier تعني حاجز وعقبة، أي شيء يُعيق التقدم ويمنع تحقيق هدف أو الوصول إليه بشكل فعّال."
+    },
+    {
+      "order_index": 5, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "VR is seen as a 'supplement' to conventional teaching approaches, not a replacement. What does 'supplement' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Something that completely replaces and eliminates what existed before","is_correct":false},
+        {"id":"b","text":"Something added to enhance or complete something that already exists","is_correct":true},
+        {"id":"c","text":"Something that competes directly against existing methods","is_correct":false},
+        {"id":"d","text":"Something that reduces the effectiveness of an existing approach","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "supplement تعني مُكمِّل ومضاف، أي شيء يُعزّز ما هو موجود دون أن يُحلّه، بل يُضيف إليه قيمة إضافية."
+    },
+    {
+      "order_index": 6, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When VR 'facilitates' learning, it makes the learning process more difficult and creates additional obstacles for students.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false, "accepted_answers": null, "points": 1,
+      "explanation_ar": "خطأ. facilitate تعني يُيسِّر ويُسهّل، أي جعل عملية ما أكثر سهولة وفعالية — وهو النقيض التام لإضافة العقبات."
+    },
+    {
+      "order_index": 7, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "Statistics described as 'compelling' in a research paper provide strong evidence that is hard to ignore or dismiss.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. compelling تعني مقنع وجذاب ويصعب تجاهله، أي أن الأدلة قوية بما يكفي لإجبار الناس على الانتباه إليها."
+    },
+    {
+      "order_index": 8, "skill_tag": "vocabulary", "question_type": "fill_blank",
+      "question_text": "Therapists _____ VR environments to treat patients with phobias by exposing them to controlled virtual scenarios.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "employ", "accepted_answers": ["employ","Employ","employed","use","utilize"], "points": 1,
+      "explanation_ar": "employ تعني يستخدم بشكل منهجي ومقصود، أي توظيف أداة أو أسلوب معين لتحقيق هدف محدد بطريقة احترافية."
+    },
+    {
+      "order_index": 9, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence uses 'whose' correctly as a relative pronoun?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"The surgeon whose performed the operation trained with VR.","is_correct":false},
+        {"id":"b","text":"The patient whose pain level dropped significantly was impressed.","is_correct":true},
+        {"id":"c","text":"The headset whose I borrowed was very comfortable.","is_correct":false},
+        {"id":"d","text":"The hospital whose is in Riyadh has a VR unit.","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "whose يُستخدم للملكية ويحل محل his/her/their/its في الجملة الوصفية. الخيار b صحيح: pain level = the patient's pain level."
+    },
+    {
+      "order_index": 10, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence uses 'where' correctly as a relative pronoun?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"The hospital where the surgeon works is in Riyadh.","is_correct":true},
+        {"id":"b","text":"The surgeon where invented this method won an award.","is_correct":false},
+        {"id":"c","text":"The research where was published showed great results.","is_correct":false},
+        {"id":"d","text":"The headset where costs $500 is very popular now.","is_correct":false}
+      ],
+      "correct_answer": "a", "accepted_answers": null, "points": 1,
+      "explanation_ar": "where يُستخدم في الجمل الوصفية للإشارة إلى مكان (كالمستشفى). الخيار a صحيح لأن 'hospital' مكان يُناسبه where."
+    },
+    {
+      "order_index": 11, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "In which sentence is 'when' used correctly as a relative pronoun?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"The year when VR first appeared in hospitals was 2010.","is_correct":true},
+        {"id":"b","text":"The doctor when trained with VR performed better.","is_correct":false},
+        {"id":"c","text":"The device when costs less will be more widely used.","is_correct":false},
+        {"id":"d","text":"The patient when the headset helped was very happy.","is_correct":false}
+      ],
+      "correct_answer": "a", "accepted_answers": null, "points": 1,
+      "explanation_ar": "when يُستخدم في الجمل الوصفية للإشارة إلى وقت أو زمن (كالسنة). الخيار a صحيح لأن 'year' زمن يُناسبه when."
+    },
+    {
+      "order_index": 12, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Combine: 'The report was published last year. The report changed VR policy in hospitals.' Use a relative clause.",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"The report which published last year changed VR policy.","is_correct":false},
+        {"id":"b","text":"The report that was published last year changed VR policy.","is_correct":true},
+        {"id":"c","text":"The report, published last year, that changed VR policy.","is_correct":false},
+        {"id":"d","text":"The report who published last year changed VR policy.","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "الجملة الوصفية توحّد الجملتين: 'that was published last year' تصف التقرير وتُحدده. الخيار b صحيح — report شيء لذا نستخدم that/which."
+    },
+    {
+      "order_index": 13, "skill_tag": "grammar", "question_type": "true_false",
+      "question_text": "The sentence 'The centre where Dr. Al-Mahmoud works uses virtual reality for therapy' uses 'where' correctly.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. where يُستخدم للإشارة إلى مكان (centre/مركز)، وهو الاستخدام الصحيح هنا لوصف المكان الذي تعمل فيه الدكتورة."
+    },
+    {
+      "order_index": 14, "skill_tag": "grammar", "question_type": "matching",
+      "question_text": "Match each relative pronoun to the type of noun it introduces in these sentences.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "The surgeon who trained with VR performed better.",
+          "The hospital where VR therapy is offered is world-class.",
+          "The headset whose screen broke was sent for repair.",
+          "The moment when VR entered healthcare changed medicine."
+        ],
+        "right_items": [
+          "introduces a time expression (year / moment / period)",
+          "introduces a place (hospital / city / centre)",
+          "introduces a person (doctor / patient / student)",
+          "introduces possession (whose = the headset's screen)"
+        ]
+      },
+      "correct_answer": [
+        {"left":"The surgeon who trained with VR performed better.","right":"introduces a person (doctor / patient / student)"},
+        {"left":"The hospital where VR therapy is offered is world-class.","right":"introduces a place (hospital / city / centre)"},
+        {"left":"The headset whose screen broke was sent for repair.","right":"introduces possession (whose = the headset's screen)"},
+        {"left":"The moment when VR entered healthcare changed medicine.","right":"introduces a time expression (year / moment / period)"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "الضمائر الوصفية: who للأشخاص، where للأماكن، whose للملكية، when للزمن. كل ضمير يُستخدم حسب نوع الاسم الذي يصفه."
+    },
+    {
+      "order_index": 15, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage A, what limitation does VR technology still face that needs to be addressed?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"It cannot yet be used for any educational purpose in schools","is_correct":false},
+        {"id":"b","text":"High equipment costs remain a barrier for many institutions","is_correct":true},
+        {"id":"c","text":"Only doctors can use VR; students are not permitted access","is_correct":false},
+        {"id":"d","text":"VR only works in hospitals and cannot be used in universities","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "ذكر النص أن التكلفة المرتفعة للأجهزة لا تزال عقبة أمام كثير من المؤسسات خاصةً في المناطق النامية."
+    },
+    {
+      "order_index": 16, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage B, what do VR therapy sessions in mental health primarily help patients do?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Forget their problems by distracting them with entertainment","is_correct":false},
+        {"id":"b","text":"Confront phobias and anxiety disorders in controlled safe settings","is_correct":true},
+        {"id":"c","text":"Replace medication for all types of psychological conditions","is_correct":false},
+        {"id":"d","text":"Record their thoughts and feelings in a virtual diary format","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "ذكر النص أن المعالجين في منطقة الخليج يستخدمون بيئات الواقع الافتراضي لمساعدة المرضى على مواجهة الرهاب وإدارة القلق في بيئات آمنة ومتحكَّم بها."
+    },
+    {
+      "order_index": 17, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "Passage B says patients 'often lose track of time' during VR sessions. What does this suggest about the technology?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"VR sessions are too short to be effective for pain management","is_correct":false},
+        {"id":"b","text":"The VR experience is so engaging that it fully absorbs patient attention","is_correct":true},
+        {"id":"c","text":"Patients fall asleep during VR sessions due to relaxing sounds","is_correct":false},
+        {"id":"d","text":"The technology has a negative effect on patients' memory","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "يُضمّن فقدان المرضى للإحساس بالوقت أن تجربة الواقع الافتراضي بالغة الاستيعاب لدرجة تستوعب انتباههم الكامل، مما يتيح للطاقم الطبي إكمال الإجراءات بأقل معاناة."
+    },
+    {
+      "order_index": 18, "skill_tag": "reading", "question_type": "true_false",
+      "question_text": "According to Passage B, VR is expected to include virtual consultations and remote surgical guidance as standard practice in the future.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. توقّع خبراء الطب وفق ما ذكره النص أن الاستشارات الافتراضية والتوجيه الجراحي عن بُعد وأدوات التشخيص بالذكاء الاصطناعي ستصبح ممارسةً معيارية مستقبلاً."
+    },
+    {
+      "order_index": 19, "skill_tag": "reading", "question_type": "fill_blank",
+      "question_text": "According to Passage A, research indicates students retain _____ percent of information learned through VR experiences.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "75", "accepted_answers": ["75","75%","seventy-five","Seventy-five"], "points": 1,
+      "explanation_ar": "ذكر النص أن الدراسات أثبتت أن الطلاب يحتفظون بـ 75% من المعلومات المكتسبة عبر تجارب الواقع الافتراضي."
+    },
+    {
+      "order_index": 20, "skill_tag": "reading", "question_type": "matching",
+      "question_text": "Match each VR application area from both passages to its specific example.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "pain management in hospitals",
+          "surgical skills training",
+          "phobia treatment",
+          "university classroom learning"
+        ],
+        "right_items": [
+          "students explore ancient civilizations without leaving their classroom",
+          "therapists expose patients to controlled virtual fear scenarios safely",
+          "burn victims at Dubai and Riyadh centres report significantly reduced pain",
+          "surgical residents train with simulations and perform 230% better"
+        ]
+      },
+      "correct_answer": [
+        {"left":"pain management in hospitals","right":"burn victims at Dubai and Riyadh centres report significantly reduced pain"},
+        {"left":"surgical skills training","right":"surgical residents train with simulations and perform 230% better"},
+        {"left":"phobia treatment","right":"therapists expose patients to controlled virtual fear scenarios safely"},
+        {"left":"university classroom learning","right":"students explore ancient civilizations without leaving their classroom"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "تناول النصان تطبيقات متعددة للواقع الافتراضي: إدارة الألم، التدريب الجراحي، علاج الرهاب، والتعليم الجامعي — كل تطبيق له مثال محدد من النصين."
+    }
+  ]
+}

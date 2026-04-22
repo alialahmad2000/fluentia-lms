@@ -1,0 +1,142 @@
+======================================================================
+LEVEL 3 · UNIT 5 · VARIANT B — FULL DUMP
+======================================================================
+Source file:     C:/Users/Dr. Ali/Desktop/fluentia-lms/scripts/assessment-gen/output/L3-unit5-variant-B.json
+unit_id:         79f8500f-f110-4b61-9099-15348ce19d79
+variant_id:      a9993441-3a6b-4ade-a1b0-3f5e239ab8f5
+generated_at:    2026-04-21T05:00:00Z
+generated_by:    Claude Code native (L3 bulk, English-only)
+anti_dup_source: L3-unit5-variant-A.json
+distribution:    8V / 6G / 6R  ·  12 MCQ / 4 T/F / 2 FB / 2 Matching
+question_count:  20
+======================================================================
+
+Qundefined  [vocabulary · mcq]
+    Q: Desert temperatures can 'soar' above 50 degrees Celsius in Saudi Arabia. What does 'soar' mean?
+    a) To drop sharply and reach dangerously low levels
+    b) To remain stable without changing much over time
+  ✓ c) To rise rapidly to a very high level
+    d) To fluctuate unpredictably between high and low values
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: Saudi Arabia is 'undertaking' one of the world's most ambitious renewable energy transformations. What does 'undertaking' mean?
+    a) Studying the potential risks of a project without starting it
+    b) Cancelling and withdrawing from a previously announced project
+  ✓ c) Beginning and taking on a large or challenging task or project
+    d) Completing a task successfully after years of preparation
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: The Saudi Green Initiative 'encompasses' massive solar and wind projects. What does 'encompasses' mean?
+    a) Excludes and limits participation in certain programmes
+    b) Focuses on a single specific project or goal only
+  ✓ c) Includes and covers a wide range of elements within it
+    d) Replaces older initiatives with completely new ones
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: Engineers had to 'devise' innovative solutions to combat extreme heat reducing solar panel efficiency. What does 'devise' mean?
+    a) To copy and borrow solutions that already exist elsewhere
+    b) To reject all existing solutions and start completely fresh
+  ✓ c) To create and invent a new method or plan carefully
+    d) To test and evaluate different solutions without choosing one
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: Saudi solar installations 'yield' up to 30% more energy per square meter than similar projects in temperate climates. What does 'yield' mean?
+    a) To consume large amounts of energy during the production process
+  ✓ b) To produce and deliver a measurable output or result
+    c) To absorb and store energy for use at a later time
+    d) To reduce energy waste by improving system efficiency
+    A: b
+
+Qundefined  [vocabulary · true_false]
+    Q: When engineers 'capitalize on' harsh desert conditions, they use those conditions to their advantage rather than being defeated by them.
+    A: true
+
+Qundefined  [vocabulary · true_false]
+    Q: When temperatures 'fluctuate' dramatically, they stay at a constant high level without any variation.
+    A: false
+
+Qundefined  [vocabulary · fill_blank]
+    Q: Saudi engineers had to _____ creative approaches to solar panel cooling because standard designs failed in extreme heat.
+    A: devise (also accepted: devise, Devise, devised)
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence uses the past passive with a 'by' phrase correctly?
+    a) The renewable energy law was passed the Saudi parliament.
+  ✓ b) The renewable energy law was passed by the Saudi parliament.
+    c) The renewable energy law passed by the Saudi parliament.
+    d) The renewable energy law were passed by the Saudi parliament.
+    A: b
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence uses the past passive in the NEGATIVE form correctly?
+    a) The solar panels not were installed before the deadline.
+    b) The solar panels was not installed before the deadline.
+  ✓ c) The solar panels were not installed before the deadline.
+    d) The solar panels not installed before the deadline.
+    A: c
+
+Qundefined  [grammar · mcq]
+    Q: Convert to past passive: 'The government announced the new energy targets in 2022.'
+    a) The new energy targets announced by the government in 2022.
+  ✓ b) The new energy targets were announced by the government in 2022.
+    c) The new energy targets was announced by the government in 2022.
+    d) The new energy targets are announced by the government in 2022.
+    A: b
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence correctly uses the past passive to write about a scientific discovery?
+  ✓ a) A new solar coating was developed by researchers at KAUST last year.
+    b) A new solar coating developed by researchers at KAUST last year.
+    c) Researchers at KAUST was developed a new solar coating last year.
+    d) A new solar coating is developed by researchers at KAUST last year.
+    A: a
+
+Qundefined  [grammar · true_false]
+    Q: 'The first large-scale solar farm was constructed in the Tabuk region' uses the past passive correctly.
+    A: true
+
+Qundefined  [grammar · matching]
+    Q: Match each sentence to the correct reason for using the past passive.
+
+Qundefined  [reading · mcq]
+    Q: According to Passage B, what is Dr. Sarah Al-Mahmoud's professional role?
+    a) A climate scientist studying desert temperature patterns
+  ✓ b) Lead engineer at the Saudi Renewable Energy Program Development Office
+    c) Head of the Saudi Green Initiative policy team
+    d) Director of King Abdullah City for Atomic and Renewable Energy
+    A: b
+
+Qundefined  [reading · mcq]
+    Q: According to Passage B, how much more energy do Saudi solar installations produce per square meter compared to temperate climates?
+    a) Up to 10% more
+    b) Up to 20% more
+  ✓ c) Up to 30% more
+    d) Up to 50% more
+    A: c
+
+Qundefined  [reading · mcq]
+    Q: Passage B says engineers 'turned the tables' on traditional energy paradigms. What does this suggest?
+    a) Saudi engineers copied methods from other countries without innovation
+    b) The harsh desert was seen as a complete failure for energy production
+  ✓ c) Saudi Arabia transformed a perceived disadvantage into a competitive advantage
+    d) Engineers rejected renewable energy and returned to oil production
+    A: c
+
+Qundefined  [reading · true_false]
+    Q: According to Passage B, Saudi Arabia plans to phase out oil for domestic electricity generation entirely by 2040.
+    A: true
+
+Qundefined  [reading · fill_blank]
+    Q: According to Passage B, Saudi solar installations yield up to _____ percent more energy per square meter than projects in temperate climates.
+    A: 30 (also accepted: 30, 30%, thirty, Thirty)
+
+Qundefined  [reading · matching]
+    Q: Match each challenge or solution from Passage B to its description.
+
+----------------------------------------------------------------------
+END OF DUMP — 20 questions printed
+======================================================================

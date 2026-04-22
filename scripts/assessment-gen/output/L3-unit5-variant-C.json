@@ -1,0 +1,265 @@
+{
+  "level": 3, "unit_number": 5, "variant_label": "C",
+  "variant_id": "4685f79d-98d0-4c30-b197-10dc82535386",
+  "unit_id": "79f8500f-f110-4b61-9099-15348ce19d79",
+  "generated_at": "2026-04-21T05:00:00Z",
+  "generated_by": "Claude Code native (L3 bulk, English-only)",
+  "language_standard": "English options, Arabic explanations (B1 CEFR)",
+  "anti_dup_sources": ["L3-unit5-variant-A.json","L3-unit5-variant-B.json"],
+  "distribution": {"skills":{"vocabulary":8,"grammar":6,"reading":6},"types":{"mcq":12,"true_false":4,"fill_blank":2,"matching":2}},
+  "questions": [
+    {
+      "order_index": 1, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Saudi Arabia's 50% renewable target, which 'seemed impossible a decade ago', now appears increasingly 'feasible'. What does 'feasible' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Extremely expensive and very difficult to fund at any scale","is_correct":false},
+        {"id":"b","text":"Possible and able to be achieved with the available resources","is_correct":true},
+        {"id":"c","text":"Already completed and no longer requiring any further effort","is_correct":false},
+        {"id":"d","text":"Risky and likely to cause serious problems if attempted","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "feasible تعني ممكن التحقيق وقابل للتطبيق، أي أن الهدف أصبح في متناول اليد بالموارد والتكنولوجيا المتاحة."
+    },
+    {
+      "order_index": 2, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Solar farms 'utilize' advanced photovoltaic technology that works in extreme heat. What does 'utilize' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To test and evaluate technology before making a decision","is_correct":false},
+        {"id":"b","text":"To make practical and effective use of something available","is_correct":true},
+        {"id":"c","text":"To design and develop entirely new technology from scratch","is_correct":false},
+        {"id":"d","text":"To study the potential of technology without using it yet","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "utilize تعني يستخدم ويوظّف بشكل عملي وفعّال، أي الاستفادة القصوى من أداة أو تقنية متاحة لتحقيق غرض محدد."
+    },
+    {
+      "order_index": 3, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Saudi Arabia is expected to 'rank among' the world's top ten solar energy producers. What does 'rank among' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To lead and be number one in a global category","is_correct":false},
+        {"id":"b","text":"To be placed in a specific group or position in a classification","is_correct":true},
+        {"id":"c","text":"To be excluded and not counted in any international rankings","is_correct":false},
+        {"id":"d","text":"To evaluate and compare different groups based on performance","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "rank among تعني يُصنَّف ضمن، أي احتلال موقع محدد داخل مجموعة أو فئة معينة في نظام التصنيف."
+    },
+    {
+      "order_index": 4, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Saudi engineers managed to 'turn the tables' on traditional energy paradigms. What does 'turn the tables' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To create a completely new set of rules for a situation","is_correct":false},
+        {"id":"b","text":"To reverse a situation so that a disadvantage becomes an advantage","is_correct":true},
+        {"id":"c","text":"To repeat the same approach but with greater effort and funding","is_correct":false},
+        {"id":"d","text":"To abandon all previous strategies and start fresh","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "turn the tables تعني قلب الموازين لصالحك، أي تحويل وضع كان في غير صالحك إلى فرصة وميزة تنافسية."
+    },
+    {
+      "order_index": 5, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "KAUST fosters innovation where researchers 'collaborate' on developing more efficient solar cells. What does 'collaborate' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To work independently and compete against other researchers","is_correct":false},
+        {"id":"b","text":"To study the failures and limitations of previous research projects","is_correct":false},
+        {"id":"c","text":"To work together with others to achieve a shared goal","is_correct":true},
+        {"id":"d","text":"To publish and share findings without working with others","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "collaborate تعني يتعاون ويشترك في العمل، أي الجهد المشترك بين عدة أطراف لتحقيق هدف مشترك."
+    },
+    {
+      "order_index": 6, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When Saudi Arabia plans to 'phase out' oil for domestic electricity, it plans to gradually eliminate its use over time.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. phase out تعني يُلغي تدريجياً، أي التخلص من شيء ما بشكل منظّم ومتدرج على مراحل زمنية محددة."
+    },
+    {
+      "order_index": 7, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When renewable energy investments are described as 'unprecedented', it means similar investments have happened many times before.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false, "accepted_answers": null, "points": 1,
+      "explanation_ar": "خطأ. unprecedented تعني غير مسبوق، أي أنه لم يحدث مثله من قبل، وهو نقيض القول إنه تكرّر كثيراً."
+    },
+    {
+      "order_index": 8, "skill_tag": "vocabulary", "question_type": "fill_blank",
+      "question_text": "Saudi Arabia plans to _____ its oil dependency for domestic electricity generation entirely by 2040.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "phase out", "accepted_answers": ["phase out","Phase out","phase-out"], "points": 1,
+      "explanation_ar": "phase out تعني يُلغي تدريجياً ويتوقف عن استخدام، وتُستخدم للتعبير عن خطة التخلص التدريجي من شيء ما."
+    },
+    {
+      "order_index": 9, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "In a news report, which past passive sentence would be most appropriate for formal writing?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Someone opened the new solar park last Monday.","is_correct":false},
+        {"id":"b","text":"They opened the new solar park last Monday.","is_correct":false},
+        {"id":"c","text":"The new solar park was opened last Monday.","is_correct":true},
+        {"id":"d","text":"A person opened the new solar park last Monday.","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "في الكتابة الرسمية والأخبار، يُفضَّل استخدام المبني للمجهول (was opened) حين لا يكون الفاعل محدداً أو مهماً، وهو أكثر احترافية من 'someone' أو 'they'."
+    },
+    {
+      "order_index": 10, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence uses the past passive without a 'by' agent, when the doer is unimportant?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"The solar panels were installed last year by a team of engineers.","is_correct":false},
+        {"id":"b","text":"The solar panels were installed last year.","is_correct":true},
+        {"id":"c","text":"A team of engineers installed the solar panels last year.","is_correct":false},
+        {"id":"d","text":"The solar panels were installing last year.","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "حين لا يكون الفاعل مهماً أو معروفاً، يُكتفى بصيغة المبني للمجهول دون ذكر by + الفاعل، كما في الخيار b."
+    },
+    {
+      "order_index": 11, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence chooses the ACTIVE voice over passive for the best reason?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Use active: 'Saudi engineers designed the cooling system' — the doer is important and interesting.","is_correct":true},
+        {"id":"b","text":"Use active: 'The cooling system was designed' — the result matters more than who did it.","is_correct":false},
+        {"id":"c","text":"Use active: 'The prize was won' — we don't know who won it.","is_correct":false},
+        {"id":"d","text":"Use active: 'Billions were spent' — the focus is on the amount spent.","is_correct":false}
+      ],
+      "correct_answer": "a", "accepted_answers": null, "points": 1,
+      "explanation_ar": "نختار المبني للمعلوم حين يكون الفاعل مهماً وجديراً بالذكر، كمهندسين سعوديين صمّموا نظاماً فريداً، لأن هوية المنفّذ تُضيف قيمة للمعنى."
+    },
+    {
+      "order_index": 12, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence uses the past passive to describe a process correctly?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"First, the site was chosen, and then the panels were ordered and delivered.","is_correct":true},
+        {"id":"b","text":"First, the site chose, and then the panels ordered and delivered.","is_correct":false},
+        {"id":"c","text":"First, was chosen the site, and then ordered and delivered the panels.","is_correct":false},
+        {"id":"d","text":"First, the site was choosing, and then the panels were ordering.","is_correct":false}
+      ],
+      "correct_answer": "a", "accepted_answers": null, "points": 1,
+      "explanation_ar": "عند وصف سلسلة خطوات بالمبني للمجهول، يُستخدم was/were + تصريف ثالث لكل خطوة. الخيار a يُطبّق ذلك بشكل متسق وصحيح."
+    },
+    {
+      "order_index": 13, "skill_tag": "grammar", "question_type": "true_false",
+      "question_text": "'The Saudi renewable energy program was launched in 2016 and was praised by international energy experts' uses the past passive correctly.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. was launched وwas praised كلاهما صيغتا مبني للمجهول صحيحتان في الماضي (was + تصريف ثالث)."
+    },
+    {
+      "order_index": 14, "skill_tag": "grammar", "question_type": "matching",
+      "question_text": "Match each sentence to the most appropriate reason for choosing the past passive or active voice.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "The solar park was opened in 2023.",
+          "Dr. Al-Mahmoud designed the innovative cooling system.",
+          "Several factories were built near the energy facilities.",
+          "The government was awarded a prize for its clean energy record."
+        ],
+        "right_items": [
+          "active: the specific person's expertise makes the doer important",
+          "passive: the achievement matters more than who received it",
+          "passive: a general event where the doer is unspecified",
+          "passive: recording a fact without specifying who built them"
+        ]
+      },
+      "correct_answer": [
+        {"left":"The solar park was opened in 2023.","right":"passive: a general event where the doer is unspecified"},
+        {"left":"Dr. Al-Mahmoud designed the innovative cooling system.","right":"active: the specific person's expertise makes the doer important"},
+        {"left":"Several factories were built near the energy facilities.","right":"passive: recording a fact without specifying who built them"},
+        {"left":"The government was awarded a prize for its clean energy record.","right":"passive: the achievement matters more than who received it"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "الاختيار بين المبني للمعلوم والمجهول يعتمد على أهمية الفاعل للمعنى: إن كانت هوية المنفّذ تُضيف قيمة نستخدم المعلوم، وإلا نُفضّل المجهول."
+    },
+    {
+      "order_index": 15, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage A, what field do students and researchers at KAUST focus on?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Oil extraction technologies and petroleum engineering methods","is_correct":false},
+        {"id":"b","text":"Developing more efficient solar cells and energy storage solutions","is_correct":true},
+        {"id":"c","text":"Building design and earthquake-resistant construction methods","is_correct":false},
+        {"id":"d","text":"Water management and desalination technology research","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "ذكر النص أن جامعة الملك عبدالله للعلوم والتقنية (كاوست) أسّست مختبرات متطورة يتعاون فيها الطلاب والباحثون على تطوير خلايا شمسية أكثر كفاءة وحلول لتخزين الطاقة."
+    },
+    {
+      "order_index": 16, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage B, how many jobs is Saudi Arabia's renewable sector projected to create by 2030?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"250,000 jobs","is_correct":false},
+        {"id":"b","text":"500,000 jobs","is_correct":false},
+        {"id":"c","text":"750,000 jobs","is_correct":true},
+        {"id":"d","text":"1 million jobs","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "قدّر الخبراء الصناعيون وفق ما ذكره النص أن قطاع الطاقة المتجددة في المملكة سيخلق أكثر من 750,000 فرصة عمل بحلول عام 2030."
+    },
+    {
+      "order_index": 17, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "Passage B says 'international delegations regularly visit Saudi installations to study the innovative approaches.' What does this suggest?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Saudi Arabia is struggling and needs help from other countries","is_correct":false},
+        {"id":"b","text":"Saudi Arabia has become a global reference point for desert solar technology","is_correct":true},
+        {"id":"c","text":"Other countries are trying to compete with Saudi Arabia in the sector","is_correct":false},
+        {"id":"d","text":"International experts believe Saudi Arabia's methods are too risky","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "تُضمّن هذه الزيارات الدولية المنتظمة أن المملكة أصبحت نموذجاً مرجعياً عالمياً في تقنيات الطاقة الشمسية الصحراوية يحرص الآخرون على التعلم منه."
+    },
+    {
+      "order_index": 18, "skill_tag": "reading", "question_type": "true_false",
+      "question_text": "According to Passage A, women comprise approximately 35% of renewable energy engineering graduates in Saudi Arabia.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. ذكر النص أن النساء يُشكّلن حوالي 35% من خريجي هندسة الطاقة المتجددة، مما يعكس التزام المملكة بالتنوع الجنساني في مجالات العلوم والتكنولوجيا."
+    },
+    {
+      "order_index": 19, "skill_tag": "reading", "question_type": "fill_blank",
+      "question_text": "According to Passage A, NEOM will produce enough clean energy to power _____ million homes in Saudi Arabia.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "1.5", "accepted_answers": ["1.5","one point five","1.5 million"], "points": 1,
+      "explanation_ar": "ذكر النص أن مشروع نيوم سينتج طاقة نظيفة كافية لتشغيل 1.5 مليون منزل مع خلق آلاف فرص العمل."
+    },
+    {
+      "order_index": 20, "skill_tag": "reading", "question_type": "matching",
+      "question_text": "Match each number or figure from the passages to what it represents.",
+      "question_context": null,
+      "options": {
+        "left_items": ["50%", "2,500 hours", "35%", "2040"],
+        "right_items": [
+          "year by which Saudi Arabia plans to eliminate oil use for domestic electricity",
+          "percentage of electricity from renewables targeted under Vision 2030",
+          "annual sunshine hours documented in certain Saudi regions",
+          "percentage of renewable engineering graduates who are women"
+        ]
+      },
+      "correct_answer": [
+        {"left":"50%","right":"percentage of electricity from renewables targeted under Vision 2030"},
+        {"left":"2,500 hours","right":"annual sunshine hours documented in certain Saudi regions"},
+        {"left":"35%","right":"percentage of renewable engineering graduates who are women"},
+        {"left":"2040","right":"year by which Saudi Arabia plans to eliminate oil use for domestic electricity"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "وردت هذه الأرقام في النصين: 50% (هدف رؤية 2030)، 2500 ساعة (ساعات الشمس)، 35% (نسبة الخريجات)، و2040 (عام التخلص من النفط في الكهرباء)."
+    }
+  ]
+}

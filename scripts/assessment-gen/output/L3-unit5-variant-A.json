@@ -1,0 +1,264 @@
+{
+  "level": 3, "unit_number": 5, "variant_label": "A",
+  "variant_id": "8fe007f5-cba0-48ba-9093-a0140cf3e911",
+  "unit_id": "79f8500f-f110-4b61-9099-15348ce19d79",
+  "generated_at": "2026-04-21T05:00:00Z",
+  "generated_by": "Claude Code native (L3 bulk, English-only)",
+  "language_standard": "English options, Arabic explanations (B1 CEFR)",
+  "distribution": {"skills":{"vocabulary":8,"grammar":6,"reading":6},"types":{"mcq":12,"true_false":4,"fill_blank":2,"matching":2}},
+  "questions": [
+    {
+      "order_index": 1, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Saudi Arabia was historically 'synonymous' with oil production. What does 'synonymous' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Completely different from and unrelated to something else","is_correct":false},
+        {"id":"b","text":"Strongly associated with and almost identical in meaning to something","is_correct":true},
+        {"id":"c","text":"Only occasionally linked to something in certain contexts","is_correct":false},
+        {"id":"d","text":"Independent from and having no connection to another thing","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "synonymous تعني مرادف أو مرتبط ارتباطاً وثيقاً بشيء آخر، أي أن الأمرين يُفكَّر فيهما معاً بشكل تلقائي."
+    },
+    {
+      "order_index": 2, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Saudi Arabia has 'committed' to generating 50% of electricity from renewables by 2030. What does 'committed' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Suggested an informal idea without making any firm promises","is_correct":false},
+        {"id":"b","text":"Made a firm and binding promise to achieve a specific goal","is_correct":true},
+        {"id":"c","text":"Explored different possibilities without choosing a specific path","is_correct":false},
+        {"id":"d","text":"Completed a task successfully without any remaining obligations","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "committed تعني التزم ووعد بجدية، أي تقديم تعهد ملزم بتحقيق هدف محدد بغض النظر عن الصعوبات."
+    },
+    {
+      "order_index": 3, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "NEOM could serve as a 'blueprint' for nations seeking to transition to clean energy. What does 'blueprint' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"A warning about the potential dangers of a new technology","is_correct":false},
+        {"id":"b","text":"A detailed model or plan that others can follow and copy","is_correct":true},
+        {"id":"c","text":"A financial investment made to support a promising project","is_correct":false},
+        {"id":"d","text":"A report that summarises the results of a completed project","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "blueprint تعني مخطط نموذجي أو خطة تفصيلية يمكن اتباعها كمرجع لتنفيذ مشاريع مماثلة."
+    },
+    {
+      "order_index": 4, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Wind turbines are 'harnessing' the Red Sea's coastal winds to produce clean energy. What does 'harnessing' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Studying and measuring natural forces to understand them better","is_correct":false},
+        {"id":"b","text":"Capturing and using a natural resource to produce energy or power","is_correct":true},
+        {"id":"c","text":"Blocking and preventing natural forces from causing any damage","is_correct":false},
+        {"id":"d","text":"Storing natural resources in special facilities for future use","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "harnessing تعني يُوظّف ويستخدم موارد طبيعية، أي القدرة على استغلال قوة طبيعية كالريح أو الشمس لتحقيق غرض عملي."
+    },
+    {
+      "order_index": 5, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Saudi Arabia plans to 'transition' from oil-dependent to clean energy systems. What does 'transition' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To abandon all previous systems suddenly and without any planning","is_correct":false},
+        {"id":"b","text":"To maintain two separate systems running side by side permanently","is_correct":false},
+        {"id":"c","text":"To move gradually from one state or system to a different one","is_correct":true},
+        {"id":"d","text":"To return to an older system after testing a newer approach","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "transition تعني التحوّل والانتقال التدريجي، أي الانتقال من نظام أو حالة إلى أخرى بطريقة منظّمة ومدروسة."
+    },
+    {
+      "order_index": 6, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When governments 'allocate' billions of dollars to solar projects, they assign specific funds for that purpose.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. allocate تعني يُخصّص ويُرصد، أي تخصيص موارد أو أموال لهدف أو مشروع محدد."
+    },
+    {
+      "order_index": 7, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When Saudi Arabia is said to be 'shifting' its energy paradigm, it means the country is keeping its energy policies exactly the same.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false, "accepted_answers": null, "points": 1,
+      "explanation_ar": "خطأ. shifting تعني يُحوّل ويُغيّر، أي إجراء تحوّل ملموس في الاتجاه والسياسة، وهو عكس الإبقاء على نفس النهج."
+    },
+    {
+      "order_index": 8, "skill_tag": "vocabulary", "question_type": "fill_blank",
+      "question_text": "Energy experts _____ that Saudi Arabia will rank among the world's top solar producers by 2025.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "estimate", "accepted_answers": ["estimate","Estimate","estimated"], "points": 1,
+      "explanation_ar": "estimate تعني يُقدّر ويتوقع رقماً تقريبياً، أي الوصول إلى حكم كمي استناداً إلى البيانات المتاحة."
+    },
+    {
+      "order_index": 9, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence uses the past passive correctly?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"The solar farm built in the desert last year.","is_correct":false},
+        {"id":"b","text":"The solar farm was built in the desert last year.","is_correct":true},
+        {"id":"c","text":"The solar farm builded in the desert last year.","is_correct":false},
+        {"id":"d","text":"The solar farm were built in the desert last year.","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "المبني للمجهول في الماضي يُكوَّن بـ was/were + تصريف ثالث. الخيار b صحيح، والخيار d يخطئ بـ were مع مفرد."
+    },
+    {
+      "order_index": 10, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Complete: 'The first renewable energy law _____ by the Saudi government in 2013.'",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"passed","is_correct":false},
+        {"id":"b","text":"was passed","is_correct":true},
+        {"id":"c","text":"were passed","is_correct":false},
+        {"id":"d","text":"is passed","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "نستخدم was/were + تصريف ثالث في الماضي المبني للمجهول. 'law' مفرد يستلزم was، ونضيف passed وهو التصريف الثالث."
+    },
+    {
+      "order_index": 11, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence correctly uses 'were' in the past passive?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Thousands of solar panels was installed across the desert.","is_correct":false},
+        {"id":"b","text":"The new energy policy was approved by both engineers and officials.","is_correct":false},
+        {"id":"c","text":"Thousands of solar panels were installed across the desert.","is_correct":true},
+        {"id":"d","text":"The renewable targets were reached in just one year surprisingly.","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "'Thousands of solar panels' جمع يستلزم were في المبني للمجهول الماضي. الخيار b صحيح أيضاً نحوياً لكن c يُطابق جمع الفاعل مع were."
+    },
+    {
+      "order_index": 12, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Why is past passive used in 'The NEOM project was announced in 2017'?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Because the action happened in the present, not the past","is_correct":false},
+        {"id":"b","text":"Because we want to focus on the project rather than who announced it","is_correct":true},
+        {"id":"c","text":"Because 'announced' cannot be used in the active voice","is_correct":false},
+        {"id":"d","text":"Because the subject 'project' is doing the action of announcing","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "نستخدم المبني للمجهول الماضي حين يكون التركيز على الشيء الذي حدث له الأمر (المشروع) وليس على مَن قام بالإعلان."
+    },
+    {
+      "order_index": 13, "skill_tag": "grammar", "question_type": "true_false",
+      "question_text": "'Billions of dollars were invested in renewable energy projects across the Kingdom' uses the past passive correctly.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. were invested هي صيغة المبني للمجهول الصحيحة في الماضي (were + تصريف ثالث)، والجملة تُركّز على الاستثمار كحدث وليس على الجهة التي استثمرت."
+    },
+    {
+      "order_index": 14, "skill_tag": "grammar", "question_type": "matching",
+      "question_text": "Match each active sentence to its correct past passive equivalent.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "Engineers built the solar farm in 2020.",
+          "The government launched the Green Initiative.",
+          "Workers installed 10,000 new solar panels.",
+          "Scientists developed a new heat-resistant coating."
+        ],
+        "right_items": [
+          "A new heat-resistant coating was developed by scientists.",
+          "10,000 new solar panels were installed.",
+          "The solar farm was built in 2020.",
+          "The Green Initiative was launched by the government."
+        ]
+      },
+      "correct_answer": [
+        {"left":"Engineers built the solar farm in 2020.","right":"The solar farm was built in 2020."},
+        {"left":"The government launched the Green Initiative.","right":"The Green Initiative was launched by the government."},
+        {"left":"Workers installed 10,000 new solar panels.","right":"10,000 new solar panels were installed."},
+        {"left":"Scientists developed a new heat-resistant coating.","right":"A new heat-resistant coating was developed by scientists."}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "في تحويل الماضي للمبني للمجهول: المفعول يصبح فاعلاً، والفعل يُصبح was/were + تصريف ثالث، والفاعل الأصلي يُذكر بعد by أو يُحذف."
+    },
+    {
+      "order_index": 15, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage A, where is the NEOM project located in Saudi Arabia?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"In the eastern region near the Arabian Gulf","is_correct":false},
+        {"id":"b","text":"In the northwest region of Tabuk","is_correct":true},
+        {"id":"c","text":"In the central region near Riyadh","is_correct":false},
+        {"id":"d","text":"Along the southern coast near Jizan","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "حدّد النص أن مشروع نيوم يقع في منطقة تبوك شمال غرب المملكة العربية السعودية."
+    },
+    {
+      "order_index": 16, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage A, how many homes will NEOM's clean energy production be enough to power?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"500,000 homes","is_correct":false},
+        {"id":"b","text":"1 million homes","is_correct":false},
+        {"id":"c","text":"1.5 million homes","is_correct":true},
+        {"id":"d","text":"2 million homes","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "ذكر النص أن مشروع نيوم سينتج طاقة نظيفة كافية لتشغيل 1.5 مليون منزل مع توفير آلاف فرص العمل لمهنيين سعوديين شباب."
+    },
+    {
+      "order_index": 17, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "Passage A calls Saudi Arabia 'historically synonymous with oil production' but now describes it leading a renewable revolution. What does this contrast suggest?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Saudi Arabia has completely abandoned oil production and revenues","is_correct":false},
+        {"id":"b","text":"Saudi Arabia is transitioning its identity from a fossil fuel state to a clean energy leader","is_correct":true},
+        {"id":"c","text":"Renewable energy in Saudi Arabia has already fully replaced oil production","is_correct":false},
+        {"id":"d","text":"Oil was always less important to Saudi Arabia than other energy sources","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "يُبرز هذا التعارض تحوّلاً استراتيجياً جوهرياً في هوية المملكة، من دولة ارتبط اسمها بالنفط إلى رائدة في قطاع الطاقة النظيفة."
+    },
+    {
+      "order_index": 18, "skill_tag": "reading", "question_type": "true_false",
+      "question_text": "According to Passage A, Vision 2030 commits Saudi Arabia to generating 50% of its electricity from renewable sources by 2030.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. ذكر النص أن مبادرة رؤية 2030 تلتزم بتوليد 50% من الكهرباء من مصادر متجددة بحلول عام 2030."
+    },
+    {
+      "order_index": 19, "skill_tag": "reading", "question_type": "fill_blank",
+      "question_text": "According to Passage A, Vision 2030 targets generating _____ percent of Saudi electricity from renewable sources by 2030.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "50", "accepted_answers": ["50","50%","fifty","Fifty"], "points": 1,
+      "explanation_ar": "حدّد النص هدف رؤية 2030 بتوليد 50% من الكهرباء من مصادر الطاقة المتجددة بحلول عام 2030."
+    },
+    {
+      "order_index": 20, "skill_tag": "reading", "question_type": "matching",
+      "question_text": "Match each Saudi renewable energy institution or initiative from Passage A to its description.",
+      "question_context": null,
+      "options": {
+        "left_items": ["Vision 2030", "NEOM project", "King Salman Renewable Energy Initiative", "KAUST"],
+        "right_items": [
+          "allocated billions to construct solar farms across desert landscapes",
+          "futuristic city to be entirely powered by renewable energy",
+          "university with cutting-edge labs for solar cell research",
+          "national plan targeting 50% electricity from renewables by 2030"
+        ]
+      },
+      "correct_answer": [
+        {"left":"Vision 2030","right":"national plan targeting 50% electricity from renewables by 2030"},
+        {"left":"NEOM project","right":"futuristic city to be entirely powered by renewable energy"},
+        {"left":"King Salman Renewable Energy Initiative","right":"allocated billions to construct solar farms across desert landscapes"},
+        {"left":"KAUST","right":"university with cutting-edge labs for solar cell research"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "وردت هذه الجهات الأربع في النص مع أدوارها: رؤية 2030 (الهدف الوطني)، نيوم (مدينة متجددة)، مبادرة سلمان (الاستثمارات)، وكاوست (الأبحاث)."
+    }
+  ]
+}

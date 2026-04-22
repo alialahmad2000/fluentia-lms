@@ -1,0 +1,1292 @@
+{
+  "unit": {
+    "id": "97b187e9-39e6-4263-8ed8-72a63e69273c",
+    "unit_number": 7,
+    "title_en": "Psychology of Fear",
+    "title_ar": "علم نفس الخوف"
+  },
+  "assessment": {
+    "id": "007d5ff1-ae57-4faf-bc3c-7a733ef0093f"
+  },
+  "variants": [
+    {
+      "id": "2bb812ec-2029-4dd1-a17f-cd8544890b3d",
+      "variant_code": "A"
+    },
+    {
+      "id": "efe8a6bc-ca9e-44d7-a108-9fdc4d8bb181",
+      "variant_code": "B"
+    },
+    {
+      "id": "c8ca4ce5-31c6-45ee-aa92-2959a487b5dd",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "word": "break down",
+      "pos": "verb",
+      "definition_ar": "ينهار عاطفياً، يفقد السيطرة على نفسه",
+      "example_sentence": "She broke down and cried when she heard the sad news about her friend.",
+      "tier": "core"
+    },
+    {
+      "word": "uncover",
+      "pos": "verb",
+      "definition_ar": "يكشف، يكتشف، يظهر شيئاً مخفياً",
+      "example_sentence": "Scientists uncover new information about climate change every year.",
+      "tier": "core"
+    },
+    {
+      "word": "pioneering",
+      "pos": "adjective",
+      "definition_ar": "رائد، مبتكر، أول من يطور أو يستخدم طرق جديدة",
+      "example_sentence": "The company is pioneering new ways to use solar energy in homes.",
+      "tier": "core"
+    },
+    {
+      "word": "hinder",
+      "pos": "verb",
+      "definition_ar": "يعيق، يعرقل، يمنع التقدم",
+      "example_sentence": "Bad weather can hinder our travel plans.",
+      "tier": "core"
+    },
+    {
+      "word": "significant",
+      "pos": "adjective",
+      "definition_ar": "مهم، كبير، ذو أهمية",
+      "example_sentence": "There was a significant improvement in his English after taking the course.",
+      "tier": "core"
+    },
+    {
+      "word": "encounter",
+      "pos": "verb",
+      "definition_ar": "يواجه، يصادف، يلتقي بـ",
+      "example_sentence": "I often encounter traffic jams on my way to work.",
+      "tier": "core"
+    },
+    {
+      "word": "comprehend",
+      "pos": "verb",
+      "definition_ar": "يفهم، يستوعب، يدرك",
+      "example_sentence": "The students struggled to comprehend the difficult math problem.",
+      "tier": "core"
+    },
+    {
+      "word": "overcome",
+      "pos": "verb",
+      "definition_ar": "يتغلب على، يتجاوز، يقهر",
+      "example_sentence": "She worked hard to overcome her fear of speaking in public.",
+      "tier": "core"
+    },
+    {
+      "word": "trigger",
+      "pos": "verb",
+      "definition_ar": "يثير، يحفز، يبدأ شيئاً فجأة",
+      "example_sentence": "The loud noise triggered the car alarm.",
+      "tier": "core"
+    },
+    {
+      "word": "confront",
+      "pos": "verb",
+      "definition_ar": "يواجه، يتصدى لـ",
+      "example_sentence": "He decided to confront his boss about the unfair treatment.",
+      "tier": "core"
+    },
+    {
+      "word": "react",
+      "pos": "verb",
+      "definition_ar": "يتفاعل، يرد فعل، يستجيب",
+      "example_sentence": "How did your parents react when you told them the news?",
+      "tier": "core"
+    },
+    {
+      "word": "manipulate",
+      "pos": "verb",
+      "definition_ar": "يتحكم في، يتلاعب بـ، يعدّل",
+      "example_sentence": "The scientist can manipulate the temperature in the laboratory experiment.",
+      "tier": "core"
+    },
+    {
+      "word": "overcome",
+      "pos": "verb",
+      "definition_ar": "يتغلب على، يقهر، يتجاوز",
+      "example_sentence": "She worked hard to overcome her shyness.",
+      "tier": "core"
+    },
+    {
+      "word": "appealing",
+      "pos": "adjective",
+      "definition_ar": "جذاب، مثير للاهتمام، محبب",
+      "example_sentence": "The job offer was very appealing because of the high salary and good benefits.",
+      "tier": "core"
+    },
+    {
+      "word": "stigma",
+      "pos": "noun",
+      "definition_ar": "وصمة عار، نظرة سلبية من المجتمع",
+      "example_sentence": "There is still a stigma attached to mental illness in many societies.",
+      "tier": "core"
+    },
+    {
+      "word": "impact",
+      "pos": "verb",
+      "definition_ar": "يؤثر على، يصدم، له تأثير",
+      "example_sentence": "The new law will impact all small businesses.",
+      "tier": "core"
+    },
+    {
+      "word": "secure",
+      "pos": "adjective",
+      "definition_ar": "آمن، محمي، مضمون",
+      "example_sentence": "Make sure your password is secure by using numbers and letters.",
+      "tier": "core"
+    },
+    {
+      "word": "interfere",
+      "pos": "verb",
+      "definition_ar": "يتداخل، يعيق، يتدخل",
+      "example_sentence": "Please don't let personal problems interfere with your work.",
+      "tier": "core"
+    },
+    {
+      "word": "dwell on",
+      "pos": "verb",
+      "definition_ar": "يركز على، يفكر كثيراً في، يستغرق في التفكير",
+      "example_sentence": "Don't dwell on your mistakes - learn from them and move forward.",
+      "tier": "core"
+    },
+    {
+      "word": "work through",
+      "pos": "verb",
+      "definition_ar": "يتعامل مع المشكلة تدريجياً، يحل",
+      "example_sentence": "It took months for them to work through their relationship problems.",
+      "tier": "core"
+    },
+    {
+      "word": "cope with",
+      "pos": "verb",
+      "definition_ar": "يتعامل مع، يواجه، يتأقلم مع",
+      "example_sentence": "It's hard to cope with stress during exam period.",
+      "tier": "core"
+    },
+    {
+      "word": "aligns",
+      "pos": "verb",
+      "definition_ar": "يتماشى مع، يتوافق مع، ينسجم مع",
+      "example_sentence": "Our company's goals align with what our customers want.",
+      "tier": "core"
+    },
+    {
+      "word": "implications",
+      "pos": "noun",
+      "definition_ar": "التأثيرات، النتائج المحتملة، المعاني الضمنية",
+      "example_sentence": "The implications of climate change are serious for future generations.",
+      "tier": "core"
+    },
+    {
+      "word": "persist",
+      "pos": "verb",
+      "definition_ar": "يثابر، يستمر، يصر على",
+      "example_sentence": "If you persist with your studies, you will eventually succeed.",
+      "tier": "core"
+    },
+    {
+      "word": "obstacle",
+      "pos": "noun",
+      "definition_ar": "عقبة، حاجز، عائق",
+      "example_sentence": "Lack of money was the main obstacle to buying a new car.",
+      "tier": "core"
+    },
+    {
+      "word": "emphasizes",
+      "pos": "verb",
+      "definition_ar": "يؤكد على، يشدد على، يبرز",
+      "example_sentence": "The teacher emphasizes the importance of doing homework every day.",
+      "tier": "core"
+    },
+    {
+      "word": "acceptance",
+      "pos": "noun",
+      "definition_ar": "قبول، تقبل، رضا",
+      "example_sentence": "His acceptance of the job offer surprised everyone.",
+      "tier": "core"
+    },
+    {
+      "word": "crucial",
+      "pos": "adjective",
+      "definition_ar": "بالغ الأهمية، حاسم، ضروري جداً",
+      "example_sentence": "It is crucial that you arrive on time for the job interview.",
+      "tier": "core"
+    },
+    {
+      "word": "afraid",
+      "pos": "adjective",
+      "definition_ar": "خائف أو قلق من شيء قد يحدث أو قد يكون صحيحاً",
+      "example_sentence": "She was afraid of speaking in public until she practiced regularly.",
+      "tier": "core"
+    },
+    {
+      "word": "accessible",
+      "pos": "adjective",
+      "definition_ar": "في المتناول، متاح، يمكن الوصول إليه",
+      "example_sentence": "The new library is accessible to people in wheelchairs.",
+      "tier": "core"
+    },
+    {
+      "word": "anxiety",
+      "pos": "noun",
+      "definition_ar": "القلق، شعور بالقلق أو التوتر أو عدم الراحة بشأن شيء غير مؤكد",
+      "example_sentence": "Many students experience anxiety before important exams.",
+      "tier": "core"
+    },
+    {
+      "word": "ashamed",
+      "pos": "adjective",
+      "definition_ar": "يشعر بالخجل أو الذنب بسبب شيء فعله",
+      "example_sentence": "He felt ashamed after lying to his parents about his grades.",
+      "tier": "core"
+    },
+    {
+      "word": "behavior",
+      "pos": "noun",
+      "definition_ar": "السلوك، الطريقة التي يتصرف بها شخص ما أو يسلك في مواقف معينة",
+      "example_sentence": "Fear can cause changes in a person's normal behavior.",
+      "tier": "core"
+    },
+    {
+      "word": "breathing",
+      "pos": "noun",
+      "definition_ar": "التنفس، عملية إدخال الهواء إلى الرئتين وإخراجه منها",
+      "example_sentence": "Deep breathing exercises can help reduce stress and anxiety.",
+      "tier": "core"
+    },
+    {
+      "word": "comfort",
+      "pos": "noun",
+      "definition_ar": "الراحة، حالة من السهولة الجسدية والتحرر من الألم أو القيود",
+      "example_sentence": "A warm hug can provide comfort during difficult times.",
+      "tier": "core"
+    },
+    {
+      "word": "calm down",
+      "pos": "verb",
+      "definition_ar": "يهدأ، يصبح أقل غضباً أو إثارة أو انزعاجاً؛ يسترخي",
+      "example_sentence": "Take deep breaths to calm down after the argument.",
+      "tier": "core"
+    },
+    {
+      "word": "deal with",
+      "pos": "verb",
+      "definition_ar": "يتعامل مع، يتخذ إجراءً للتعامل مع مشكلة أو موقف أو إدارته",
+      "example_sentence": "Learning how to deal with negative emotions takes practice.",
+      "tier": "core"
+    },
+    {
+      "word": "confidence",
+      "pos": "noun",
+      "definition_ar": "الثقة، شعور بالثقة بالنفس ناشئ عن تقدير قدرات الشخص",
+      "example_sentence": "Building confidence is key to overcoming social anxiety.",
+      "tier": "core"
+    },
+    {
+      "word": "emotion",
+      "pos": "noun",
+      "definition_ar": "العاطفة، شعور قوي مثل الحب أو الغضب أو السعادة",
+      "example_sentence": "Music can trigger different emotions in people.",
+      "tier": "core"
+    },
+    {
+      "word": "courage",
+      "pos": "noun",
+      "definition_ar": "القدرة على فعل شيء يخيفك أو صعب",
+      "example_sentence": "It takes courage to admit your mistakes and learn from them.",
+      "tier": "core"
+    },
+    {
+      "word": "dread",
+      "pos": "noun",
+      "definition_ar": "شعور قوي بالخوف أو القلق من شيء قد يحدث.",
+      "example_sentence": "She felt dread every time she heard thunder at night.",
+      "tier": "core"
+    },
+    {
+      "word": "excitement",
+      "pos": "noun",
+      "definition_ar": "شعور بالحماس الكبير والشغف تجاه شيء ما",
+      "example_sentence": "The children could hardly contain their excitement about the school trip.",
+      "tier": "core"
+    },
+    {
+      "word": "envy",
+      "pos": "noun",
+      "definition_ar": "شعور بالرغبة في امتلاك ما يملكه شخص آخر.",
+      "example_sentence": "He felt envy when his friend got a new phone.",
+      "tier": "core"
+    },
+    {
+      "word": "fear",
+      "pos": "noun",
+      "definition_ar": "الخوف، شعور غير سار ناتج عن الاعتقاد بأن شخصاً أو شيئاً ما خطير",
+      "example_sentence": "She has a fear of heights and avoids tall buildings.",
+      "tier": "core"
+    },
+    {
+      "word": "frustrated",
+      "pos": "adjective",
+      "definition_ar": "يشعر بالغضب أو الانزعاج لأنه لا يستطيع فعل أو تحقيق شيء",
+      "example_sentence": "He became frustrated when his computer kept crashing during the presentation.",
+      "tier": "core"
+    },
+    {
+      "word": "face your fears",
+      "pos": "verb",
+      "definition_ar": "يواجه مخاوفه، يواجه ويتعامل مع الأشياء التي تخيفه أو تقلقه",
+      "example_sentence": "Sometimes you need to face your fears to move forward.",
+      "tier": "core"
+    },
+    {
+      "word": "grief",
+      "pos": "noun",
+      "definition_ar": "شعور بحزن عميق، خاصةً بعد فقدان شخص عزيز.",
+      "example_sentence": "She felt deep grief after the death of her grandmother.",
+      "tier": "core"
+    },
+    {
+      "word": "frightened",
+      "pos": "adjective",
+      "definition_ar": "خائف أو مصدوم من شيء خطير أو مهدد",
+      "example_sentence": "The loud thunder frightened the children during the storm.",
+      "tier": "core"
+    },
+    {
+      "word": "get over",
+      "pos": "verb",
+      "definition_ar": "يتجاوز أو يتعافى، يتعافى من تجربة صعبة أو عاطفة أو يتغلب عليها",
+      "example_sentence": "It took months for him to get over his fear of flying.",
+      "tier": "core"
+    },
+    {
+      "word": "guilty",
+      "pos": "adjective",
+      "definition_ar": "يشعر بالسوء لأنه يعتقد أنه فعل شيئاً خاطئاً",
+      "example_sentence": "She felt guilty about not helping her friend with the homework.",
+      "tier": "core"
+    },
+    {
+      "word": "longing",
+      "pos": "noun",
+      "definition_ar": "رغبة قوية أو شوق لشيء أو شخص تفتقده.",
+      "example_sentence": "He had a longing to return to his hometown after many years.",
+      "tier": "core"
+    },
+    {
+      "word": "guilt",
+      "pos": "noun",
+      "definition_ar": "شعور بالمسؤولية أو الندم جراء فعل شيء سيء.",
+      "example_sentence": "He could not sleep because of his guilt.",
+      "tier": "core"
+    },
+    {
+      "word": "jealous",
+      "pos": "adjective",
+      "definition_ar": "يشعر بالغضب أو عدم السعادة لأن شخصاً آخر لديه شيء تريده",
+      "example_sentence": "She was jealous of her sister's new car and wanted one too.",
+      "tier": "core"
+    },
+    {
+      "word": "mental",
+      "pos": "adjective",
+      "definition_ar": "عقلي أو نفسي، متعلق بالعقل أو الحالة النفسية للشخص",
+      "example_sentence": "Regular exercise is good for both physical and mental health.",
+      "tier": "core"
+    },
+    {
+      "word": "manage",
+      "pos": "verb",
+      "definition_ar": "النجاح في التعامل مع شيء صعب أو السيطرة عليه",
+      "example_sentence": "She learned how to manage her time better during exam week.",
+      "tier": "core"
+    },
+    {
+      "word": "mood",
+      "pos": "noun",
+      "definition_ar": "الطريقة التي تشعر بها في وقت معين، خاصة عندما تؤثر على سلوكك",
+      "example_sentence": "Listening to music always improves my mood when I feel sad.",
+      "tier": "core"
+    },
+    {
+      "word": "panic",
+      "pos": "noun",
+      "definition_ar": "الهلع، خوف أو قلق مفاجئ لا يمكن السيطرة عليه يغمر الشخص",
+      "example_sentence": "The fire alarm caused panic among the shoppers.",
+      "tier": "core"
+    },
+    {
+      "word": "mental health",
+      "pos": "noun",
+      "definition_ar": "حالة السلامة النفسية والعاطفية للشخص",
+      "example_sentence": "Good mental health is just as important as physical health.",
+      "tier": "core"
+    },
+    {
+      "word": "nervous",
+      "pos": "adjective",
+      "definition_ar": "متوتر، يشعر بالقلق أو التوتر بشأن شيء قد يحدث",
+      "example_sentence": "I always feel nervous before job interviews.",
+      "tier": "core"
+    },
+    {
+      "word": "psychology",
+      "pos": "noun",
+      "definition_ar": "علم النفس، الدراسة العلمية للعقل والسلوك",
+      "example_sentence": "Psychology helps us understand why people act differently under stress.",
+      "tier": "core"
+    },
+    {
+      "word": "overwhelming",
+      "pos": "adjective",
+      "definition_ar": "غامر أو طاغٍ، شديد أو قوي جداً، صعب التعامل معه أو مقاومته",
+      "example_sentence": "The feeling of panic can be overwhelming for first-time sufferers.",
+      "tier": "core"
+    },
+    {
+      "word": "reaction",
+      "pos": "noun",
+      "definition_ar": "رد فعل، استجابة لشيء حدث أو قيل",
+      "example_sentence": "His reaction to the surprise party was pure joy.",
+      "tier": "core"
+    },
+    {
+      "word": "relaxation",
+      "pos": "noun",
+      "definition_ar": "الاسترخاء، حالة التحرر من التوتر والقلق؛ الراحة",
+      "example_sentence": "Music and meditation are good methods for relaxation.",
+      "tier": "core"
+    },
+    {
+      "word": "phobia",
+      "pos": "noun",
+      "definition_ar": "الرُهاب، خوف شديد أو غير منطقي من شيء معين",
+      "example_sentence": "His phobia of spiders makes him avoid dark places.",
+      "tier": "core"
+    },
+    {
+      "word": "rational",
+      "pos": "adjective",
+      "definition_ar": "عقلاني، مبني على تفكير واضح ومنطق وليس على العواطف",
+      "example_sentence": "Fear is not always rational but it serves an important purpose.",
+      "tier": "core"
+    },
+    {
+      "word": "response",
+      "pos": "noun",
+      "definition_ar": "الاستجابة، فعل يتم كنتيجة أو رد فعل لشيء ما",
+      "example_sentence": "The body's response to danger is fight or flight.",
+      "tier": "core"
+    },
+    {
+      "word": "shame",
+      "pos": "noun",
+      "definition_ar": "شعور مزعج يسببه ارتكاب خطأ أو موقف محرج.",
+      "example_sentence": "She felt shame after lying to her parents.",
+      "tier": "core"
+    },
+    {
+      "word": "reassure",
+      "pos": "verb",
+      "definition_ar": "يطمئن شخصاً ما أو يخفف من قلقه وخوفه بالكلام أو الفعل.",
+      "example_sentence": "The doctor reassured the patient that the test results were normal.",
+      "tier": "core"
+    },
+    {
+      "word": "stress",
+      "pos": "noun",
+      "definition_ar": "الضغط النفسي، حالة من الإجهاد العقلي أو العاطفي الناتج عن ظروف صعبة",
+      "example_sentence": "Work stress can affect your health and relationships.",
+      "tier": "core"
+    },
+    {
+      "word": "relief",
+      "pos": "noun",
+      "definition_ar": "شعور بالسعادة عندما يتوقف شيء مزعج أو لا يحدث",
+      "example_sentence": "She felt great relief when the doctor said the test results were normal.",
+      "tier": "core"
+    },
+    {
+      "word": "scared",
+      "pos": "adjective",
+      "definition_ar": "خائف، يشعر بالرعب أو الخوف من شيء ما",
+      "example_sentence": "The children were scared of the loud thunder.",
+      "tier": "core"
+    },
+    {
+      "word": "take control",
+      "pos": "verb",
+      "definition_ar": "يتولى السيطرة، يتولى السلطة أو إدارة موقف ما",
+      "example_sentence": "You can take control of your anxiety through breathing exercises.",
+      "tier": "core"
+    },
+    {
+      "word": "step by step",
+      "pos": "adverb",
+      "definition_ar": "خطوة بخطوة، الانتقال عبر عملية تدريجياً، مرحلة واحدة في كل مرة",
+      "example_sentence": "Overcoming phobias requires a step by step approach with professional help.",
+      "tier": "core"
+    },
+    {
+      "word": "therapy",
+      "pos": "noun",
+      "definition_ar": "العلاج النفسي، علاج يهدف إلى تخفيف أو شفاء اضطراب نفسي",
+      "example_sentence": "Cognitive therapy helps people change negative thought patterns.",
+      "tier": "core"
+    },
+    {
+      "word": "treatment",
+      "pos": "noun",
+      "definition_ar": "العلاج، الرعاية الطبية المقدمة للمساعدة في شفاء أو تقليل أعراض المرض",
+      "example_sentence": "Early treatment of anxiety disorders leads to better outcomes.",
+      "tier": "core"
+    },
+    {
+      "word": "support",
+      "pos": "noun",
+      "definition_ar": "الدعم، المساعدة والتشجيع المقدم لشخص في صعوبة",
+      "example_sentence": "Family support is crucial for people dealing with mental health issues.",
+      "tier": "core"
+    },
+    {
+      "word": "turn out",
+      "pos": "verb",
+      "definition_ar": "أن يحدث أو يتطور بطريقة معينة، خاصة بشكل غير متوقع",
+      "example_sentence": "The presentation turned out much better than we expected it would.",
+      "tier": "core"
+    },
+    {
+      "word": "terrified",
+      "pos": "adjective",
+      "definition_ar": "مرعوب أو مليء بالرعب من شيء ما",
+      "example_sentence": "He was terrified of flying until he took a relaxation course.",
+      "tier": "core"
+    },
+    {
+      "word": "threat",
+      "pos": "noun",
+      "definition_ar": "شيء أو شخص قد يسبب ضرراً أو خطراً",
+      "example_sentence": "The doctor explained that stress can be a threat to your health.",
+      "tier": "core"
+    },
+    {
+      "word": "adrenaline",
+      "pos": "noun",
+      "definition_ar": "هرمون ينتجه الجسم عندما تكون متحمساً أو خائفاً أو غاضباً",
+      "example_sentence": "The adrenaline rush made her heart beat faster during the presentation.",
+      "tier": "extended"
+    },
+    {
+      "word": "anticipation",
+      "pos": "noun",
+      "definition_ar": "شعور الإثارة حول شيء سيحدث",
+      "example_sentence": "The anticipation of the exam results made her very nervous.",
+      "tier": "extended"
+    },
+    {
+      "word": "worried",
+      "pos": "adjective",
+      "definition_ar": "قلق، يشعر بالقلق أو الاهتمام بشأن مشاكل حقيقية أو محتملة",
+      "example_sentence": "She's worried about her son's safety while traveling.",
+      "tier": "core"
+    },
+    {
+      "word": "adrenaline rush",
+      "pos": "noun",
+      "definition_ar": "اندفاع مفاجئ من الطاقة ناجم عن إفراز الأدرينالين في الجسم",
+      "example_sentence": "Skydiving gives people an incredible adrenaline rush.",
+      "tier": "extended"
+    },
+    {
+      "word": "awareness",
+      "pos": "noun",
+      "definition_ar": "المعرفة أو الفهم لموقف أو موضوع ما",
+      "example_sentence": "Self-awareness is the first step in managing your emotions effectively.",
+      "tier": "extended"
+    },
+    {
+      "word": "comfort zone",
+      "pos": "noun",
+      "definition_ar": "موقف يشعر فيه الشخص بالأمان والراحة دون توتر",
+      "example_sentence": "Learning a new language pushed her outside her comfort zone.",
+      "tier": "extended"
+    },
+    {
+      "word": "apprehensive",
+      "pos": "adjective",
+      "definition_ar": "قلق أو خائف مما قد يحدث في المستقبل القريب.",
+      "example_sentence": "He was apprehensive about starting at a new school after the holidays.",
+      "tier": "extended"
+    },
+    {
+      "word": "bottled-up emotions",
+      "pos": "noun",
+      "definition_ar": "مشاعر مخفية لا يُعبَّر عنها، وغالباً ما تُسبب ضرراً",
+      "example_sentence": "Bottled-up emotions can eventually lead to anger or depression.",
+      "tier": "extended"
+    },
+    {
+      "word": "coping strategy",
+      "pos": "noun",
+      "definition_ar": "أسلوب يُستخدم لإدارة الضغط أو المشاعر الصعبة",
+      "example_sentence": "Writing in a journal is a useful coping strategy for anxiety.",
+      "tier": "extended"
+    },
+    {
+      "word": "compassion",
+      "pos": "noun",
+      "definition_ar": "شعور بالتعاطف والرغبة في مساعدة شخص يعاني.",
+      "example_sentence": "The nurse showed great compassion for her patients.",
+      "tier": "extended"
+    },
+    {
+      "word": "distraction",
+      "pos": "noun",
+      "definition_ar": "شيء يصرف انتباهك عما تفعله أو تفكر فيه",
+      "example_sentence": "Music can be a helpful distraction when feeling anxious.",
+      "tier": "extended"
+    },
+    {
+      "word": "disorder",
+      "pos": "noun",
+      "definition_ar": "حالة لا يعمل فيها شيء في الجسم أو العقل بشكل طبيعي",
+      "example_sentence": "Anxiety disorders affect millions of people around the world.",
+      "tier": "extended"
+    },
+    {
+      "word": "episode",
+      "pos": "noun",
+      "definition_ar": "حدوث واحد لحالة أو حدث معين",
+      "example_sentence": "She had another panic episode during the important meeting.",
+      "tier": "extended"
+    },
+    {
+      "word": "emotional resilience",
+      "pos": "noun",
+      "definition_ar": "القدرة على التعافي السريع من التجارب العاطفية الصعبة",
+      "example_sentence": "Children with emotional resilience handle setbacks better.",
+      "tier": "extended"
+    },
+    {
+      "word": "frustration",
+      "pos": "noun",
+      "definition_ar": "الشعور بالانزعاج أو الضيق لأنك لا تستطيع تحقيق شيء ما",
+      "example_sentence": "Frustration grew as she tried to fix the problem without success.",
+      "tier": "extended"
+    },
+    {
+      "word": "fright",
+      "pos": "noun",
+      "definition_ar": "شعور مفاجئ وقوي بالخوف.",
+      "example_sentence": "The loud noise gave the child a terrible fright.",
+      "tier": "extended"
+    },
+    {
+      "word": "hostile",
+      "pos": "adjective",
+      "definition_ar": "يظهر كراهية أو معارضة قوية؛ غير ودود أو عدواني",
+      "example_sentence": "He felt hostile toward anyone who criticized his work.",
+      "tier": "extended"
+    },
+    {
+      "word": "inhibition",
+      "pos": "noun",
+      "definition_ar": "شعور يمنعك من التعبير عن أفكارك أو التصرف بطبيعية",
+      "example_sentence": "Social inhibitions often prevent people from speaking in public.",
+      "tier": "extended"
+    },
+    {
+      "word": "go through",
+      "pos": "verb",
+      "definition_ar": "تجربة شيء صعب أو غير سار",
+      "example_sentence": "Everyone goes through periods of stress at some point in life.",
+      "tier": "extended"
+    },
+    {
+      "word": "impulse",
+      "pos": "noun",
+      "definition_ar": "دافع أو رغبة مفاجئة وقوية لفعل شيء دون التفكير فيه أولاً",
+      "example_sentence": "She felt an impulse to run away when she saw the spider.",
+      "tier": "extended"
+    },
+    {
+      "word": "intensity",
+      "pos": "noun",
+      "definition_ar": "درجة أو قوة الشعور أو العاطفة أو التجربة",
+      "example_sentence": "The intensity of her fear made it difficult to think clearly.",
+      "tier": "extended"
+    },
+    {
+      "word": "mechanism",
+      "pos": "noun",
+      "definition_ar": "آلية أو طريقة في التصرف أو التفكير تساعد الشخص على التعامل مع موقف ما",
+      "example_sentence": "Humor is often used as a coping mechanism during stressful times.",
+      "tier": "extended"
+    },
+    {
+      "word": "instinct",
+      "pos": "noun",
+      "definition_ar": "ميل طبيعي للتصرف بطريقة معينة دون تعلم أو تفكير",
+      "example_sentence": "Her first instinct was to protect her children from danger.",
+      "tier": "extended"
+    },
+    {
+      "word": "mindset",
+      "pos": "noun",
+      "definition_ar": "طريقة تفكير الشخص وآراؤه حول شيء ما",
+      "example_sentence": "Having a positive mindset helps you overcome challenges more easily.",
+      "tier": "extended"
+    },
+    {
+      "word": "irrational fear",
+      "pos": "noun",
+      "definition_ar": "خوف قائم حتى في غياب أي خطر حقيقي",
+      "example_sentence": "Many people feel embarrassed to admit having irrational fears.",
+      "tier": "extended"
+    },
+    {
+      "word": "mindfulness",
+      "pos": "noun",
+      "definition_ar": "ممارسة الوعي بأفكارك ومشاعرك في اللحظة الحالية",
+      "example_sentence": "Mindfulness exercises can help reduce stress and improve emotional control.",
+      "tier": "extended"
+    },
+    {
+      "word": "perception",
+      "pos": "noun",
+      "definition_ar": "الطريقة التي تفهم بها أو تفكر في شيء ما",
+      "example_sentence": "Your perception of danger can be influenced by past experiences.",
+      "tier": "extended"
+    },
+    {
+      "word": "remorse",
+      "pos": "noun",
+      "definition_ar": "شعور قوي بالذنب أو الحزن على شيء فعلته بشكل خاطئ.",
+      "example_sentence": "He felt deep remorse for hurting his friend's feelings.",
+      "tier": "extended"
+    },
+    {
+      "word": "mood swings",
+      "pos": "noun",
+      "definition_ar": "تغيرات مفاجئة وحادة في الحالة العاطفية للشخص",
+      "example_sentence": "Mood swings made it difficult for her to concentrate at school.",
+      "tier": "extended"
+    },
+    {
+      "word": "self-awareness",
+      "pos": "noun",
+      "definition_ar": "القدرة على رؤية مشاعرك وأفكارك وأفعالك بوضوح",
+      "example_sentence": "Self-awareness is the first step toward managing your emotions.",
+      "tier": "extended"
+    },
+    {
+      "word": "rational thinking",
+      "pos": "noun",
+      "definition_ar": "استخدام المنطق الواضح والأدلة لتحليل موقف ما بهدوء",
+      "example_sentence": "Rational thinking can reduce the power that fears have over us.",
+      "tier": "extended"
+    },
+    {
+      "word": "respond to",
+      "pos": "verb",
+      "definition_ar": "الاستجابة لشيء ما بطريقة معينة",
+      "example_sentence": "Different people respond to stress in different ways.",
+      "tier": "extended"
+    },
+    {
+      "word": "sorrow",
+      "pos": "noun",
+      "definition_ar": "شعور بحزن عميق أو تعاسة.",
+      "example_sentence": "The news of the accident filled everyone with sorrow.",
+      "tier": "extended"
+    },
+    {
+      "word": "stimuli",
+      "pos": "noun",
+      "definition_ar": "أشياء تسبب رد فعل أو استجابة في شخص أو حيوان",
+      "example_sentence": "Bright lights and loud sounds are common stimuli that cause headaches.",
+      "tier": "extended"
+    },
+    {
+      "word": "sensation",
+      "pos": "noun",
+      "definition_ar": "شعور أو إدراك جسدي تختبره من خلال حواسك",
+      "example_sentence": "She felt a strange sensation in her stomach before the interview.",
+      "tier": "extended"
+    },
+    {
+      "word": "suppress",
+      "pos": "verb",
+      "definition_ar": "كبت أو منع إظهار أو التعبير عن شعور أو عاطفة",
+      "example_sentence": "He tried to suppress his anger during the meeting.",
+      "tier": "extended"
+    },
+    {
+      "word": "steady",
+      "pos": "adjective",
+      "definition_ar": "ثابت بقوة، مستقر، أو منتظم في التطور أو التكرار",
+      "example_sentence": "Take steady breaths to help reduce your stress levels.",
+      "tier": "extended"
+    },
+    {
+      "word": "tension",
+      "pos": "noun",
+      "definition_ar": "شعور بالتوتر أو الضغط النفسي في موقف صعب.",
+      "example_sentence": "There was a lot of tension before the exam results were announced.",
+      "tier": "extended"
+    },
+    {
+      "word": "subconscious",
+      "pos": "adjective",
+      "definition_ar": "جزء من عقلك يؤثر على سلوكك دون أن تكون مدركاً لذلك",
+      "example_sentence": "Fear can sometimes come from subconscious memories of past experiences.",
+      "tier": "extended"
+    },
+    {
+      "word": "symptom",
+      "pos": "noun",
+      "definition_ar": "علامة تظهر أن شخصاً ما يعاني من مرض معين أو حالة نفسية",
+      "example_sentence": "Rapid heartbeat is a common symptom of panic attacks.",
+      "tier": "extended"
+    },
+    {
+      "word": "unease",
+      "pos": "noun",
+      "definition_ar": "شعور بالقلق أو الخوف الخفيف من موقف ما.",
+      "example_sentence": "She felt a sense of unease walking alone in the dark street.",
+      "tier": "extended"
+    },
+    {
+      "word": "trauma",
+      "pos": "noun",
+      "definition_ar": "صدمة نفسية أو تجربة مؤلمة ومضطربة تؤثر على الشخص نفسياً",
+      "example_sentence": "The accident caused psychological trauma that lasted for years.",
+      "tier": "extended"
+    },
+    {
+      "word": "anguish",
+      "pos": "noun",
+      "definition_ar": "ألم نفسي أو جسدي حاد ومعاناة شديدة.",
+      "example_sentence": "The parents felt anguish when they heard about the accident.",
+      "tier": "mastery"
+    },
+    {
+      "word": "attachment",
+      "pos": "noun",
+      "definition_ar": "تعلق، ارتباط عاطفي",
+      "example_sentence": "Strong attachment between parents and children helps emotional development.",
+      "tier": "mastery"
+    },
+    {
+      "word": "amygdala",
+      "pos": "noun",
+      "definition_ar": "منطقة في الدماغ مسؤولة عن معالجة الخوف والاستجابات العاطفية",
+      "example_sentence": "The amygdala sends alarm signals to the body when danger is near.",
+      "tier": "mastery"
+    },
+    {
+      "word": "apprehension",
+      "pos": "noun",
+      "definition_ar": "شعور بالقلق أو الخوف من احتمال حدوث شيء سيء.",
+      "example_sentence": "She felt apprehension before her first job interview.",
+      "tier": "mastery"
+    },
+    {
+      "word": "avoidance behavior",
+      "pos": "noun",
+      "definition_ar": "عادة الابتعاد عن المواقف المخيفة بدلاً من مواجهتها",
+      "example_sentence": "Avoidance behavior usually makes phobias worse over time.",
+      "tier": "mastery"
+    },
+    {
+      "word": "bottled up",
+      "pos": "adjective",
+      "definition_ar": "مكبوت، محبوس في الداخل",
+      "example_sentence": "His bottled up anger finally exploded during the meeting.",
+      "tier": "mastery"
+    },
+    {
+      "word": "avoidance",
+      "pos": "noun",
+      "definition_ar": "تجنب، هروب من المواقف",
+      "example_sentence": "Avoidance of social situations can make social anxiety worse.",
+      "tier": "mastery"
+    },
+    {
+      "word": "cathartic",
+      "pos": "adjective",
+      "definition_ar": "مُطهر عاطفياً، مُفرج للمشاعر",
+      "example_sentence": "Writing about her experiences was cathartic and helped her heal.",
+      "tier": "mastery"
+    },
+    {
+      "word": "balance",
+      "pos": "noun",
+      "definition_ar": "حالة من الاستقرار والهدوء العقلي والعاطفي",
+      "example_sentence": "Finding balance between work and personal life improves mental health.",
+      "tier": "mastery"
+    },
+    {
+      "word": "cognitive distortion",
+      "pos": "noun",
+      "definition_ar": "نمط تفكير غير دقيق أو مبالَغ فيه يؤثر سلباً على المشاعر",
+      "example_sentence": "Cognitive distortion can make small problems seem catastrophic.",
+      "tier": "mastery"
+    },
+    {
+      "word": "breakdown",
+      "pos": "noun",
+      "definition_ar": "انهيار، أزمة نفسية",
+      "example_sentence": "Working too many hours can lead to a mental breakdown.",
+      "tier": "mastery"
+    },
+    {
+      "word": "conditioning",
+      "pos": "noun",
+      "definition_ar": "تكييف، تدريب سلوكي",
+      "example_sentence": "Classical conditioning explains why certain smells trigger strong memories.",
+      "tier": "mastery"
+    },
+    {
+      "word": "cognitive bias",
+      "pos": "noun",
+      "definition_ar": "تحيز معرفي يؤثر على القرارات والأحكام بشكل منهجي",
+      "example_sentence": "Her cognitive bias made her interpret neutral comments as personal attacks.",
+      "tier": "mastery"
+    },
+    {
+      "word": "compulsive",
+      "pos": "adjective",
+      "definition_ar": "قهري، إجباري",
+      "example_sentence": "His compulsive checking of doors made him late for work.",
+      "tier": "mastery"
+    },
+    {
+      "word": "desensitization",
+      "pos": "noun",
+      "definition_ar": "إزالة الحساسية، تقليل الاستجابة",
+      "example_sentence": "Systematic desensitization can help people overcome animal phobias.",
+      "tier": "mastery"
+    },
+    {
+      "word": "defensive",
+      "pos": "adjective",
+      "definition_ar": "دفاعي، متحفظ",
+      "example_sentence": "He became defensive when his friends questioned his decision.",
+      "tier": "mastery"
+    },
+    {
+      "word": "distress",
+      "pos": "noun",
+      "definition_ar": "حالة من الألم الشديد أو المعاناة أو القلق المفرط.",
+      "example_sentence": "The lost child was in great distress until she found her mother.",
+      "tier": "mastery"
+    },
+    {
+      "word": "emotional regulation",
+      "pos": "noun",
+      "definition_ar": "القدرة على إدارة التجارب العاطفية والتعامل معها بفاعلية",
+      "example_sentence": "Learning emotional regulation is key to good mental health.",
+      "tier": "mastery"
+    },
+    {
+      "word": "despair",
+      "pos": "noun",
+      "definition_ar": "فقدان تام للأمل في موقف صعب.",
+      "example_sentence": "After failing many times, he almost gave in to despair.",
+      "tier": "mastery"
+    },
+    {
+      "word": "escalate",
+      "pos": "verb",
+      "definition_ar": "يتصاعد، يتفاقم",
+      "example_sentence": "Small arguments can escalate into major relationship problems.",
+      "tier": "mastery"
+    },
+    {
+      "word": "emotional numbness",
+      "pos": "noun",
+      "definition_ar": "حالة يشعر فيها الشخص بمشاعر ضئيلة أو معدومة، غالباً بعد صدمة",
+      "example_sentence": "Emotional numbness can be the mind's way of protecting itself.",
+      "tier": "mastery"
+    },
+    {
+      "word": "empathy",
+      "pos": "noun",
+      "definition_ar": "القدرة على فهم ومشاركة مشاعر شخص آخر",
+      "example_sentence": "Good therapists show empathy while maintaining professional boundaries.",
+      "tier": "mastery"
+    },
+    {
+      "word": "fight-or-flight response",
+      "pos": "noun",
+      "definition_ar": "الاستجابة التلقائية للجسم للاستعداد للخطر بالقتال أو الفرار",
+      "example_sentence": "The fight-or-flight response makes your heart beat faster.",
+      "tier": "mastery"
+    },
+    {
+      "word": "hypervigilance",
+      "pos": "noun",
+      "definition_ar": "حالة من اليقظة الشديدة تجاه التهديدات أو المخاطر المحتملة",
+      "example_sentence": "Hypervigilance after the accident made it hard for her to sleep.",
+      "tier": "mastery"
+    },
+    {
+      "word": "exposure therapy",
+      "pos": "noun",
+      "definition_ar": "علاج نفسي يواجه فيه المرضى مخاوفهم في بيئة آمنة",
+      "example_sentence": "Exposure therapy is one of the most effective treatments for phobias.",
+      "tier": "mastery"
+    },
+    {
+      "word": "internalize",
+      "pos": "verb",
+      "definition_ar": "يستوعب، يدخل في نفسيته",
+      "example_sentence": "Children often internalize their parents' attitudes about success and failure.",
+      "tier": "mastery"
+    },
+    {
+      "word": "heightened",
+      "pos": "adjective",
+      "definition_ar": "مرتفع، مكثف، محتد",
+      "example_sentence": "During emergencies, people experience heightened awareness of their surroundings.",
+      "tier": "mastery"
+    },
+    {
+      "word": "hypervigilant",
+      "pos": "adjective",
+      "definition_ar": "شديد اليقظة، متأهب بشكل مفرط",
+      "example_sentence": "After the robbery, she became hypervigilant about home security.",
+      "tier": "mastery"
+    },
+    {
+      "word": "intrusive thought",
+      "pos": "noun",
+      "definition_ar": "فكرة غير مرغوب فيها ومزعجة تتسلل إلى الذهن فجأة",
+      "example_sentence": "Intrusive thoughts are common but do not reflect a person's true wishes.",
+      "tier": "mastery"
+    },
+    {
+      "word": "lash out",
+      "pos": "verb",
+      "definition_ar": "ينفجر، يهاجم بعنف",
+      "example_sentence": "When stressed, some people lash out at those closest to them.",
+      "tier": "mastery"
+    },
+    {
+      "word": "intrusive",
+      "pos": "adjective",
+      "definition_ar": "تطفلي، مقتحم للخصوصية",
+      "example_sentence": "Intrusive thoughts about accidents made it hard for her to drive.",
+      "tier": "mastery"
+    },
+    {
+      "word": "irrational",
+      "pos": "adjective",
+      "definition_ar": "غير منطقي، غير عقلاني",
+      "example_sentence": "She knows her fear of elevators is irrational but can't control it.",
+      "tier": "mastery"
+    },
+    {
+      "word": "numbing",
+      "pos": "adjective",
+      "definition_ar": "مخدر للمشاعر، مُبلد",
+      "example_sentence": "The numbing effect of grief made it hard to enjoy anything.",
+      "tier": "mastery"
+    },
+    {
+      "word": "projection",
+      "pos": "noun",
+      "definition_ar": "إسقاط، نسب المشاعر للآخرين",
+      "example_sentence": "His anger might be projection of his own fears onto others.",
+      "tier": "mastery"
+    },
+    {
+      "word": "melancholy",
+      "pos": "noun",
+      "definition_ar": "شعور بحزن عميق يستمر لفترة طويلة.",
+      "example_sentence": "The rainy weather gave him a sense of melancholy.",
+      "tier": "mastery"
+    },
+    {
+      "word": "regulate",
+      "pos": "verb",
+      "definition_ar": "ينظم، يتحكم في",
+      "example_sentence": "Deep breathing exercises help regulate emotions during stressful moments.",
+      "tier": "mastery"
+    },
+    {
+      "word": "post-traumatic stress",
+      "pos": "noun",
+      "definition_ar": "القلق المستمر والصعوبة العاطفية بعد تجربة حدث صادم",
+      "example_sentence": "Post-traumatic stress affects soldiers returning from combat zones.",
+      "tier": "mastery"
+    },
+    {
+      "word": "psychological conditioning",
+      "pos": "noun",
+      "definition_ar": "العملية التي تُشكّل فيها التجارب المتكررة الاستجابات العاطفية المستقبلية",
+      "example_sentence": "Psychological conditioning explains why some fears develop in childhood.",
+      "tier": "mastery"
+    },
+    {
+      "word": "serenity",
+      "pos": "noun",
+      "definition_ar": "شعور بالهدوء والسكينة والتحرر من الضغوط.",
+      "example_sentence": "She found serenity by sitting quietly near the lake.",
+      "tier": "mastery"
+    },
+    {
+      "word": "snap",
+      "pos": "verb",
+      "definition_ar": "ينفجر فجأة، يفقد أعصابه",
+      "example_sentence": "After weeks of pressure, he finally snapped at his colleague.",
+      "tier": "mastery"
+    },
+    {
+      "word": "self-esteem",
+      "pos": "noun",
+      "definition_ar": "الثقة في قيمة الذات أو القدرات؛ احترام الذات",
+      "example_sentence": "Building self-esteem is crucial for overcoming social anxiety and fear.",
+      "tier": "mastery"
+    },
+    {
+      "word": "suppression",
+      "pos": "noun",
+      "definition_ar": "كبت، قمع المشاعر",
+      "example_sentence": "Emotional suppression often leads to greater problems later.",
+      "tier": "mastery"
+    },
+    {
+      "word": "shut down",
+      "pos": "verb",
+      "definition_ar": "ينطوي، ينغلق عاطفياً",
+      "example_sentence": "After criticism, she tends to shut down and avoid conversations.",
+      "tier": "mastery"
+    },
+    {
+      "word": "subconscious fear",
+      "pos": "noun",
+      "definition_ar": "خوف يؤثر في السلوك دون أن يدرك الشخص ذلك تماماً",
+      "example_sentence": "Subconscious fear of rejection made him avoid meeting new people.",
+      "tier": "mastery"
+    },
+    {
+      "word": "validate",
+      "pos": "verb",
+      "definition_ar": "يصادق على، يؤكد صحة المشاعر",
+      "example_sentence": "Parents should validate their children's emotions even during disagreements.",
+      "tier": "mastery"
+    },
+    {
+      "word": "therapeutic",
+      "pos": "adjective",
+      "definition_ar": "علاجي، شافي",
+      "example_sentence": "Many people find gardening therapeutic after a difficult day.",
+      "tier": "mastery"
+    },
+    {
+      "word": "wary",
+      "pos": "adjective",
+      "definition_ar": "حذر ومتيقظ بسبب عدم الثقة الكاملة بشخص أو شيء ما.",
+      "example_sentence": "After being deceived once, she became wary of trusting strangers quickly.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "756314dc-6914-430d-ad6f-789ecdcf33e4",
+      "label": "A",
+      "title": "When Fear Takes Control",
+      "content": {
+        "paragraphs": [
+          "Fear is one of humanity's most ancient emotions, yet researchers continue to *uncover* new insights about how it shapes our daily lives. While fear once helped our ancestors survive in dangerous environments, modern science reveals that this powerful emotion can both protect and *hinder* us in unexpected ways.",
+          "Dr. Sarah Al-Mansouri, a neuroscientist at King Abdullah University of Science and Technology, explains that fear begins in a small, almond-shaped region of the brain called the amygdala. When we *encounter* a potential threat, this area processes the information faster than our conscious mind can *comprehend* it. \"The amygdala can *trigger* a fear response within 12 milliseconds,\" she notes, \"which is why people often *react* before they fully understand what frightened them.\" This rapid response system, which scientists call the \"fear circuit,\" causes our hearts to race, our muscles to tense, and our breathing to become shallow. Interestingly, studies show that people who *overcome* their fears often develop stronger neural pathways for courage and resilience.",
+          "In today's world, however, our fear responses don't always serve us well. Many people experience what psychologists term \"irrational fears\" or phobias that can significantly *impact* their quality of life. Research conducted across major cities in the Middle East, including Riyadh and Dubai, indicates that approximately 15% of adults struggle with fears that *interfere* with their professional or personal goals. Common modern fears include public speaking, flying, and social situations. Dr. Al-Mansouri's team has discovered that when people *dwell on* their fears instead of addressing them directly, the neural pathways associated with anxiety actually become stronger. \"Fear feeds on avoidance,\" she explains. \"The more we avoid what frightens us, the more powerful that fear becomes.\"",
+          "Fortunately, neuroscience offers hope for those seeking to manage their fears more effectively. Cognitive behavioral therapy, meditation practices, and gradual exposure techniques have all proven successful in helping people *cope with* anxiety-inducing situations. Recent studies from Harvard Medical School suggest that individuals who *persist* through fear-inducing challenges often experience lasting changes in their brain structure. The key, researchers emphasize, is not to eliminate fear entirely—as it remains an important protective mechanism—but rather to prevent it from becoming an *obstacle* to personal growth. As Dr. Al-Mansouri concludes, \"Understanding fear is the first step toward mastering it. When we know how our brains work, we can make more informed choices about how we respond to life's challenges.\"",
+          "Through continued research and public education, scientists hope to help more people transform their relationship with fear from one of avoidance to one of understanding and *acceptance*."
+        ]
+      },
+      "word_count": 456
+    },
+    {
+      "id": "70c1f0be-eccc-41bd-adc3-13c9ddda51ad",
+      "label": "B",
+      "title": "When Fear Becomes Healing",
+      "content": {
+        "paragraphs": [
+          "Dr. Sarah Al-Mansouri had witnessed countless patients *break down* when confronted with their deepest fears, but she never expected virtual reality to become her most powerful therapeutic tool. At the National Center for Mental Health in Riyadh, she has been *pioneering* an innovative approach to treating phobias that combines cutting-edge technology with traditional psychological principles, achieving remarkable success rates that have caught the attention of medical professionals worldwide.",
+          "Virtual Reality Exposure Therapy (VRET) represents a *significant* breakthrough in how therapists help patients *overcome* their irrational fears. Unlike conventional exposure therapy, which often requires patients to face real-life situations that trigger their phobias, VRET creates controlled digital environments where individuals can gradually *confront* their fears in a safe space. Research conducted at Stanford University has shown that 83% of patients who completed VRET sessions experienced substantial improvement in their phobia symptoms, compared to 67% who received traditional therapy alone. The technology allows therapists to *manipulate* various aspects of the virtual environment, adjusting the intensity of exposure based on each patient's progress and comfort level.",
+          "What makes this treatment particularly *appealing* to Saudi patients is its privacy and cultural sensitivity. Many individuals who suffer from specific phobias, such as fear of flying or social anxiety, have previously avoided seeking help due to the *stigma* associated with mental health issues or concerns about privacy. \"The virtual environment provides a *secure* setting where patients can work through their fears without worrying about judgment from others,\" explains Dr. Al-Mansouri. The therapy sessions take place in private consultation rooms, and patients can *work through* their anxieties at their own pace, which *aligns* perfectly with cultural values that emphasize personal dignity and confidentiality.",
+          "The *implications* of this technology extend far beyond individual treatment success stories. Medical researchers have discovered that VRET actually changes brain patterns in ways similar to real-world exposure, but with significantly reduced risk of psychological trauma. Brain imaging studies reveal that patients who undergo virtual exposure therapy show decreased activity in the amygdala—the brain region responsible for fear responses—after just eight sessions. Dr. Al-Mansouri *emphasizes* that while technology enhances treatment effectiveness, the therapeutic relationship between doctor and patient remains *crucial* for long-term success. \"We must remember that healing happens through human connection,\" she notes, \"technology simply provides us with better tools to facilitate that process.\"",
+          "As virtual reality technology becomes more *accessible* and affordable, mental health professionals across the Middle East are beginning to adopt similar programs. The success of VRET in treating phobias has opened new possibilities for addressing other psychological conditions, including post-traumatic stress disorder and anxiety disorders, offering hope to millions of people who previously had limited treatment options available to them."
+        ]
+      },
+      "word_count": 456
+    }
+  ],
+  "grammar": {
+    "topic_name_en": "reported speech basics",
+    "topic_name_ar": "reported speech basics",
+    "explanation_content": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "الكلام المنقول هو نقل ما قاله شخص آخر بدون استخدام كلماته الحرفية. نحتاج لتغيير الضمائر والأزمنة وإزالة علامات التنصيص. نضيف 'that' ونغير الفعل خطوة واحدة للماضي عادة.",
+          "content_en": "<b>Reported Speech (Indirect Speech)</b> is when we tell someone what another person said, without using their exact words.<br><br><b>Examples:</b><br>• Direct: The psychologist said, \"Fear is a natural emotion.\"<br>• Reported: The psychologist said that fear is a natural emotion.<br><br>• Direct: \"I am afraid of spiders,\" she told me.<br>• Reported: She told me that she was afraid of spiders.<br><br><b>Key Changes in Reported Speech:</b><br>1. Remove quotation marks<br>2. Add 'that' (optional but recommended)<br>3. Change pronouns (I → he/she, you → I/they)<br>4. Change verb tenses (usually one step back in time)<br>5. Change time expressions if necessary<br><br><b>Common Tense Changes:</b><br>• Present Simple → Past Simple<br>• Present Continuous → Past Continuous<br>• Past Simple → Past Perfect<br>• Will → Would<br>• Can → Could"
+        },
+        {
+          "type": "formula",
+          "content": "Subject + said/told + (that) + reported clause with changed tense/pronouns"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "The therapist said that phobias were treatable conditions.",
+              "highlight": "said that phobias were",
+              "translation_ar": "قال المعالج أن الرهاب حالات قابلة للعلاج"
+            },
+            {
+              "sentence": "She told me that she couldn't sleep after watching horror movies.",
+              "highlight": "told me that she couldn't",
+              "translation_ar": "أخبرتني أنها لا تستطيع النوم بعد مشاهدة أفلام الرعب"
+            },
+            {
+              "sentence": "The researcher reported that stress hormones would increase during scary situations.",
+              "highlight": "reported that stress hormones would increase",
+              "translation_ar": "أفاد الباحث أن هرمونات التوتر تزداد في المواقف المخيفة"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "He said that 'I am scared'",
+              "correct": "He said that he was scared",
+              "explanation_ar": "لا نستخدم علامات التنصيص في الكلام المنقول ونغير الضمير"
+            },
+            {
+              "wrong": "She told that she has nightmares",
+              "correct": "She said that she had nightmares",
+              "explanation_ar": "نستخدم 'said' مع 'that' أو 'told + object'"
+            },
+            {
+              "wrong": "The doctor said I will feel better",
+              "correct": "The doctor said I would feel better",
+              "explanation_ar": "نغير 'will' إلى 'would' في الكلام المنقول"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

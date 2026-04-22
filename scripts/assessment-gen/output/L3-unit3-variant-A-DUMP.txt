@@ -1,0 +1,141 @@
+======================================================================
+LEVEL 3 · UNIT 3 · VARIANT A — FULL DUMP
+======================================================================
+Source file:     C:/Users/Dr. Ali/Desktop/fluentia-lms/scripts/assessment-gen/output/L3-unit3-variant-A.json
+unit_id:         85aabed1-aa8e-4ea6-9b58-bff1bbe4f9a8
+variant_id:      434a0d93-9842-44a2-b7a0-cac6cbd6900f
+generated_at:    2026-04-21T03:00:00Z
+generated_by:    Claude Code native (L3 bulk, English-only)
+distribution:    8V / 6G / 6R  ·  12 MCQ / 4 T/F / 2 FB / 2 Matching
+question_count:  20
+======================================================================
+
+Qundefined  [vocabulary · mcq]
+    Q: Shifting tectonic plates 'trigger' earthquakes that can destroy entire communities. What does 'trigger' mean?
+    a) To prevent and stop an event from happening naturally
+  ✓ b) To cause something to start or happen suddenly
+    c) To slow down and reduce the impact of an event
+    d) To predict and prepare for something in advance
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: Major earthquakes can 'devastate' entire communities within seconds. What does 'devastate' mean?
+    a) To evacuate people safely before an event occurs
+    b) To warn people about the risk of a natural disaster
+  ✓ c) To cause severe destruction and widespread damage to a place
+    d) To rebuild and repair damage caused by a natural event
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: The 'magnitude' of an earthquake is measured on the Richter scale. What does 'magnitude' mean?
+    a) The duration of time that shaking lasts during an earthquake
+    b) The distance from the epicentre to the nearest populated area
+    c) The depth at which the earthquake originates underground
+  ✓ d) The size or strength of an earthquake and the energy it releases
+    A: d
+
+Qundefined  [vocabulary · mcq]
+    Q: Seismologists study the 'phenomenon' of earthquake waves travelling through the Earth. What does 'phenomenon' mean?
+  ✓ a) A fact or event that can be observed and studied scientifically
+    b) A tool used by scientists to measure ground movement
+    c) A scientific theory that has not yet been proven
+    d) A physical location where earthquakes occur most frequently
+    A: a
+
+Qundefined  [vocabulary · mcq]
+    Q: Ground movement levels can 'fluctuate' during seismic events. What does 'fluctuate' mean?
+    a) To remain completely stable and unchanged over time
+  ✓ b) To rise and fall irregularly without following a fixed pattern
+    c) To increase steadily and continuously without stopping
+    d) To decrease slowly until it reaches zero permanently
+    A: b
+
+Qundefined  [vocabulary · true_false]
+    Q: When tectonic plates 'converge', they are moving toward each other and colliding in the same location.
+    A: true
+
+Qundefined  [vocabulary · true_false]
+    Q: When scientists 'assess' earthquake risks, they are actively damaging buildings to test their strength.
+    A: false
+
+Qundefined  [vocabulary · fill_blank]
+    Q: Countries with poor building standards tend to _____ much worse during earthquakes than those with strict codes.
+    A: fare (also accepted: fare, Fare)
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence correctly uses the second conditional?
+    a) If the earthquake happens, we will evacuate the building immediately.
+  ✓ b) If scientists discovered a reliable prediction method, they would save thousands of lives.
+    c) If the building collapses, people will be in serious danger.
+    d) If we prepare emergency kits, we can be safer during earthquakes.
+    A: b
+
+Qundefined  [grammar · mcq]
+    Q: Complete: 'If the building _____ more flexible, it _____ the earthquake better.'
+    a) is / will withstand
+    b) was / withstood
+  ✓ c) were / would withstand
+    d) will be / would withstand
+    A: c
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence expresses advice using the second conditional correctly?
+    a) If I will be an engineer, I would design earthquake-proof buildings.
+    b) If I am an engineer, I would design earthquake-proof buildings.
+  ✓ c) If I were an engineer, I would design earthquake-proof buildings.
+    d) If I were an engineer, I will design earthquake-proof buildings.
+    A: c
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence uses the FIRST conditional, not the second?
+    a) If seismologists had better tools, they would predict earthquakes precisely.
+    b) If the ground moved less, buildings would suffer far less damage.
+    c) If there were no tectonic plates, earthquakes would not exist at all.
+  ✓ d) If the warning alarm sounds, residents will move to safe zones immediately.
+    A: d
+
+Qundefined  [grammar · true_false]
+    Q: 'If scientists were able to predict earthquakes accurately, thousands of lives would be saved every year' uses the second conditional correctly.
+    A: true
+
+Qundefined  [grammar · matching]
+    Q: Match each second conditional if-clause to the result clause that correctly completes it.
+
+Qundefined  [reading · mcq]
+    Q: According to Passage A, where is the majority of earthquake activity concentrated globally?
+    a) Along the coast of the Arabian Peninsula
+    b) Across the continent of Africa
+  ✓ c) Around the Pacific Ocean, in the Ring of Fire
+    d) Along the borders between Europe and Asia
+    A: c
+
+Qundefined  [reading · mcq]
+    Q: According to Passage A, why does the Arabian Peninsula experience occasional earthquakes?
+    a) It is located in the centre of the Pacific Ring of Fire
+  ✓ b) It sits on its own tectonic plate, which shifts independently
+    c) It has a weak rock structure that is easily disturbed by heat
+    d) It borders the Ring of Fire directly on its eastern side
+    A: b
+
+Qundefined  [reading · mcq]
+    Q: Passage A says that predicting when earthquakes will occur 'remains one of science's greatest challenges.' What does this suggest?
+    a) Scientists have recently developed a reliable earthquake prediction system
+    b) Earthquake prediction is now considered an unnecessary scientific goal
+  ✓ c) Despite advances, science cannot yet reliably forecast earthquake timing
+    d) Earthquakes can now be prevented using modern technology
+    A: c
+
+Qundefined  [reading · true_false]
+    Q: According to Passage A, the most devastating earthquake in recorded history occurred in China in 1556, killing approximately 830,000 people.
+    A: true
+
+Qundefined  [reading · fill_blank]
+    Q: According to Passage B, the Tokyo Skytree is a _____ -meter tower that sways safely during earthquakes.
+    A: 634 (also accepted: 634, 634-meter, 634 meter)
+
+Qundefined  [reading · matching]
+    Q: Match each earthquake wave type or term from Passage A to its correct description.
+
+----------------------------------------------------------------------
+END OF DUMP — 20 questions printed
+======================================================================

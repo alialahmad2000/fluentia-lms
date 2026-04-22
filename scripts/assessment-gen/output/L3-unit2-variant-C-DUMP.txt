@@ -1,0 +1,141 @@
+======================================================================
+LEVEL 3 · UNIT 2 · VARIANT C — FULL DUMP
+======================================================================
+Source file:     scripts/assessment-gen/output/L3-unit2-variant-C.json
+unit_id:         55d40057-1d91-4eb0-8d78-b3f47a8d0a24
+variant_id:      4ae347ec-4655-44b5-9be1-7647950888c1
+generated_at:    2026-04-21T02:00:00Z
+generated_by:    Claude Code native (L3 bulk, English-only)
+distribution:    8V / 6G / 6R  ·  12 MCQ / 4 T/F / 2 FB / 2 Matching
+question_count:  20
+======================================================================
+
+Qundefined  [vocabulary · mcq]
+    Q: The passage describes the ecological 'significance' of coral reefs for marine life and human livelihoods. What does 'significance' mean?
+    a) The physical size or geographical location of a natural feature
+  ✓ b) The importance and meaningful value that something holds
+    c) The number of species found within a particular ecosystem
+    d) The financial cost required to study or protect something
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: Coral reefs protect coastlines by 'absorbing' wave energy during storms. What does 'absorbing' mean in this context?
+    a) Reflecting and directing wave energy away from coastal areas
+    b) Increasing the speed and force of waves near the shore
+  ✓ c) Taking in and reducing wave energy to lessen its impact
+    d) Storing wave energy underground for use in future emergencies
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: Dr. Al-Rashid carefully 'descends' toward the coral reef with her camera ready. What does 'descends' mean?
+  ✓ a) Moves downward to a lower level or depth
+    b) Swims rapidly across the surface of open water
+    c) Rises steadily toward the water surface from below
+    d) Turns sharply to avoid obstacles in the water
+    A: a
+
+Qundefined  [vocabulary · mcq]
+    Q: Dr. Al-Rashid uses her underwater camera to 'capture' footage of the coral reef ecosystem. What does 'capture' mean?
+    a) To physically collect and bring marine animals to the surface
+  ✓ b) To record or photograph something to preserve it as a visual record
+    c) To destroy and remove harmful organisms from the reef area
+    d) To purchase expensive scientific equipment for research purposes
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: Young scientists are 'tackling' the challenge of coral reef conservation with new technology. What does 'tackling' mean?
+    a) Studying a problem from a distance without taking direct action
+    b) Reporting a problem to authorities and waiting for their response
+  ✓ c) Actively working to deal with and find solutions to a problem
+    d) Avoiding a problem completely until better resources are available
+    A: c
+
+Qundefined  [vocabulary · true_false]
+    Q: 'Implementing' a new conservation plan means the plan is still being discussed and has not yet been put into action.
+    A: false
+
+Qundefined  [vocabulary · true_false]
+    Q: When a country has 'invested' in young scientists, it has provided them with financial support and resources to develop their skills.
+    A: true
+
+Qundefined  [vocabulary · fill_blank]
+    Q: The university has _____ millions of dollars in coral reef research over the past ten years.
+    A: invested (also accepted: invested, Invested)
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence uses the present perfect continuous correctly to describe an ongoing irritating situation?
+  ✓ a) Boats have been damaging the reef constantly, and scientists are very concerned.
+    b) Boats have damaged the reef constantly since always now.
+    c) Boats been damaging the reef and this is a problem.
+    d) Boats have been damage the reef for a long time now.
+    A: a
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence uses the present perfect continuous to describe a recently completed action with visible evidence?
+  ✓ a) You look sunburned — have you been diving without sun protection today?
+    b) The scientist has studied coral genetics and published a paper.
+    c) The divers will have been working when the storm arrives.
+    d) They studied the reef in 2022 and found new species.
+    A: a
+
+Qundefined  [grammar · mcq]
+    Q: Choose the sentence that correctly uses the present perfect continuous in a passive meaning.
+  ✓ a) The reef has been damaged by pollution for many years.
+    b) The reef has been damaging by pollution for many years.
+    c) The reef is being damaged by pollution since last year.
+    d) The reef was being damaged by pollution for many years.
+    A: a
+
+Qundefined  [grammar · mcq]
+    Q: Which option correctly completes: 'The algae _____ disappearing from the reef since water temperatures started rising'?
+  ✓ a) has been
+    b) have
+    c) was
+    d) is being
+    A: a
+
+Qundefined  [grammar · true_false]
+    Q: 'Pollution levels have been increasing in coastal waters — that explains why so many fish have left the reef' uses present perfect continuous correctly.
+    A: true
+
+Qundefined  [grammar · matching]
+    Q: Match each verb to its correct present perfect continuous form.
+
+Qundefined  [reading · mcq]
+    Q: According to Passage A, what percentage of coral cover have some areas of the Great Barrier Reef lost?
+    a) Up to 25%
+  ✓ b) Up to 50%
+    c) Up to 70%
+    d) Up to 90%
+    A: b
+
+Qundefined  [reading · mcq]
+    Q: According to Passage A, what proportion of the world's coral reefs could disappear within three decades if current trends continue?
+    a) Up to 30%
+    b) Up to 50%
+  ✓ c) Up to 70%
+    d) Up to 90%
+    A: c
+
+Qundefined  [reading · mcq]
+    Q: What does Passage A suggest about the economic role of coral reefs by mentioning tourism and reef fisheries?
+    a) Reef tourism causes more harm than economic benefit to local communities
+  ✓ b) Coral reefs play a critical role in supporting both tourism income and human livelihoods
+    c) Reef fisheries have been completely replaced by modern aquaculture farms
+    d) The economic value of coral reefs is too small to influence conservation decisions
+    A: b
+
+Qundefined  [reading · true_false]
+    Q: According to Passage A, coral reefs protect coastlines by absorbing wave energy during storms, reducing damage to shorelines.
+    A: true
+
+Qundefined  [reading · fill_blank]
+    Q: According to Passage A, some areas of the Great Barrier Reef have lost up to _____ percent of their coral cover.
+    A: 50 (also accepted: 50, 50%, fifty, Fifty)
+
+Qundefined  [reading · matching]
+    Q: Match each conservation tool or strategy from Passage B to what it is used for.
+
+----------------------------------------------------------------------
+END OF DUMP — 20 questions printed
+======================================================================

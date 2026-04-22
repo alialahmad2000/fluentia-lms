@@ -1,0 +1,141 @@
+======================================================================
+LEVEL 3 · UNIT 6 · VARIANT C — FULL DUMP
+======================================================================
+Source file:     C:/Users/Dr. Ali/Desktop/fluentia-lms/scripts/assessment-gen/output/L3-unit6-variant-C.json
+unit_id:         aa6e8325-b825-4c0a-8218-b8a5341fc604
+variant_id:      42a6bfd1-a90b-4fe1-98f6-90efc5b3d18c
+generated_at:    2026-04-21T06:00:00Z
+generated_by:    Claude Code native (L3 bulk, English-only)
+distribution:    8V / 6G / 6R  ·  12 MCQ / 4 T/F / 2 FB / 2 Matching
+question_count:  20
+======================================================================
+
+Qundefined  [vocabulary · mcq]
+    Q: Students 'engage with' virtual patients to practise surgical procedures. What does 'engage with' mean?
+    a) To observe from a distance without any direct interaction
+  ✓ b) To actively participate in and interact directly with something
+    c) To study and read about something without trying it
+    d) To evaluate and judge the quality of a process or outcome
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: Engineering students 'manipulate' three-dimensional models of machinery using VR. What does 'manipulate' mean?
+    a) To observe and study something without touching or changing it
+  ✓ b) To handle and control something in a skilful and precise way
+    c) To build and create something entirely from scratch
+    d) To delete and remove elements from a digital model
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: VR creates a 'dramatic' improvement in student learning outcomes compared to traditional methods. What does 'dramatic' mean?
+    a) Gradual and barely noticeable over a very long period
+  ✓ b) Very sudden, striking, and impossible to ignore
+    c) Consistent and steady without any significant variation
+    d) Temporary and likely to reverse itself after a short time
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: The high cost of VR equipment remains a 'barrier' for many institutions. What does 'barrier' mean?
+    a) An advantage that helps institutions adopt new technology faster
+  ✓ b) Something that blocks progress or prevents achieving a goal
+    c) A physical wall that separates different areas of a hospital
+    d) A training programme for staff learning to use new equipment
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: VR is seen as a 'supplement' to conventional teaching approaches, not a replacement. What does 'supplement' mean?
+    a) Something that completely replaces and eliminates what existed before
+  ✓ b) Something added to enhance or complete something that already exists
+    c) Something that competes directly against existing methods
+    d) Something that reduces the effectiveness of an existing approach
+    A: b
+
+Qundefined  [vocabulary · true_false]
+    Q: When VR 'facilitates' learning, it makes the learning process more difficult and creates additional obstacles for students.
+    A: false
+
+Qundefined  [vocabulary · true_false]
+    Q: Statistics described as 'compelling' in a research paper provide strong evidence that is hard to ignore or dismiss.
+    A: true
+
+Qundefined  [vocabulary · fill_blank]
+    Q: Therapists _____ VR environments to treat patients with phobias by exposing them to controlled virtual scenarios.
+    A: employ (also accepted: employ, Employ, employed, use, utilize)
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence uses 'whose' correctly as a relative pronoun?
+    a) The surgeon whose performed the operation trained with VR.
+  ✓ b) The patient whose pain level dropped significantly was impressed.
+    c) The headset whose I borrowed was very comfortable.
+    d) The hospital whose is in Riyadh has a VR unit.
+    A: b
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence uses 'where' correctly as a relative pronoun?
+  ✓ a) The hospital where the surgeon works is in Riyadh.
+    b) The surgeon where invented this method won an award.
+    c) The research where was published showed great results.
+    d) The headset where costs $500 is very popular now.
+    A: a
+
+Qundefined  [grammar · mcq]
+    Q: In which sentence is 'when' used correctly as a relative pronoun?
+  ✓ a) The year when VR first appeared in hospitals was 2010.
+    b) The doctor when trained with VR performed better.
+    c) The device when costs less will be more widely used.
+    d) The patient when the headset helped was very happy.
+    A: a
+
+Qundefined  [grammar · mcq]
+    Q: Combine: 'The report was published last year. The report changed VR policy in hospitals.' Use a relative clause.
+    a) The report which published last year changed VR policy.
+  ✓ b) The report that was published last year changed VR policy.
+    c) The report, published last year, that changed VR policy.
+    d) The report who published last year changed VR policy.
+    A: b
+
+Qundefined  [grammar · true_false]
+    Q: The sentence 'The centre where Dr. Al-Mahmoud works uses virtual reality for therapy' uses 'where' correctly.
+    A: true
+
+Qundefined  [grammar · matching]
+    Q: Match each relative pronoun to the type of noun it introduces in these sentences.
+
+Qundefined  [reading · mcq]
+    Q: According to Passage A, what limitation does VR technology still face that needs to be addressed?
+    a) It cannot yet be used for any educational purpose in schools
+  ✓ b) High equipment costs remain a barrier for many institutions
+    c) Only doctors can use VR; students are not permitted access
+    d) VR only works in hospitals and cannot be used in universities
+    A: b
+
+Qundefined  [reading · mcq]
+    Q: According to Passage B, what do VR therapy sessions in mental health primarily help patients do?
+    a) Forget their problems by distracting them with entertainment
+  ✓ b) Confront phobias and anxiety disorders in controlled safe settings
+    c) Replace medication for all types of psychological conditions
+    d) Record their thoughts and feelings in a virtual diary format
+    A: b
+
+Qundefined  [reading · mcq]
+    Q: Passage B says patients 'often lose track of time' during VR sessions. What does this suggest about the technology?
+    a) VR sessions are too short to be effective for pain management
+  ✓ b) The VR experience is so engaging that it fully absorbs patient attention
+    c) Patients fall asleep during VR sessions due to relaxing sounds
+    d) The technology has a negative effect on patients' memory
+    A: b
+
+Qundefined  [reading · true_false]
+    Q: According to Passage B, VR is expected to include virtual consultations and remote surgical guidance as standard practice in the future.
+    A: true
+
+Qundefined  [reading · fill_blank]
+    Q: According to Passage A, research indicates students retain _____ percent of information learned through VR experiences.
+    A: 75 (also accepted: 75, 75%, seventy-five, Seventy-five)
+
+Qundefined  [reading · matching]
+    Q: Match each VR application area from both passages to its specific example.
+
+----------------------------------------------------------------------
+END OF DUMP — 20 questions printed
+======================================================================

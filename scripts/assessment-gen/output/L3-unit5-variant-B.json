@@ -1,0 +1,270 @@
+{
+  "level": 3, "unit_number": 5, "variant_label": "B",
+  "variant_id": "a9993441-3a6b-4ade-a1b0-3f5e239ab8f5",
+  "unit_id": "79f8500f-f110-4b61-9099-15348ce19d79",
+  "generated_at": "2026-04-21T05:00:00Z",
+  "generated_by": "Claude Code native (L3 bulk, English-only)",
+  "language_standard": "English options, Arabic explanations (B1 CEFR)",
+  "anti_dup_source": "L3-unit5-variant-A.json",
+  "distribution": {"skills":{"vocabulary":8,"grammar":6,"reading":6},"types":{"mcq":12,"true_false":4,"fill_blank":2,"matching":2}},
+  "questions": [
+    {
+      "order_index": 1, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Desert temperatures can 'soar' above 50 degrees Celsius in Saudi Arabia. What does 'soar' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To drop sharply and reach dangerously low levels","is_correct":false},
+        {"id":"b","text":"To remain stable without changing much over time","is_correct":false},
+        {"id":"c","text":"To rise rapidly to a very high level","is_correct":true},
+        {"id":"d","text":"To fluctuate unpredictably between high and low values","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "soar تعني يرتفع بسرعة إلى مستويات عالية جداً، وتُستخدم للتعبير عن ارتفاع مفاجئ وشديد في درجات الحرارة أو الأسعار أو الأرقام."
+    },
+    {
+      "order_index": 2, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Saudi Arabia is 'undertaking' one of the world's most ambitious renewable energy transformations. What does 'undertaking' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Studying the potential risks of a project without starting it","is_correct":false},
+        {"id":"b","text":"Cancelling and withdrawing from a previously announced project","is_correct":false},
+        {"id":"c","text":"Beginning and taking on a large or challenging task or project","is_correct":true},
+        {"id":"d","text":"Completing a task successfully after years of preparation","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "undertaking تعني يُقدم على ويأخذ على عاتقه، أي البدء في تنفيذ مهمة كبيرة أو تحدٍّ ضخم بتعهد والتزام."
+    },
+    {
+      "order_index": 3, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "The Saudi Green Initiative 'encompasses' massive solar and wind projects. What does 'encompasses' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Excludes and limits participation in certain programmes","is_correct":false},
+        {"id":"b","text":"Focuses on a single specific project or goal only","is_correct":false},
+        {"id":"c","text":"Includes and covers a wide range of elements within it","is_correct":true},
+        {"id":"d","text":"Replaces older initiatives with completely new ones","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "encompasses تعني يشمل ويحتوي على، أي أن المبادرة تضمّ وتُغطي مجموعة واسعة من العناصر أو المشاريع."
+    },
+    {
+      "order_index": 4, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Engineers had to 'devise' innovative solutions to combat extreme heat reducing solar panel efficiency. What does 'devise' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To copy and borrow solutions that already exist elsewhere","is_correct":false},
+        {"id":"b","text":"To reject all existing solutions and start completely fresh","is_correct":false},
+        {"id":"c","text":"To create and invent a new method or plan carefully","is_correct":true},
+        {"id":"d","text":"To test and evaluate different solutions without choosing one","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "devise تعني يبتكر ويُصمّم، أي التوصل إلى حل أو خطة جديدة من خلال التفكير الإبداعي والمنهجي."
+    },
+    {
+      "order_index": 5, "skill_tag": "vocabulary", "question_type": "mcq",
+      "question_text": "Saudi solar installations 'yield' up to 30% more energy per square meter than similar projects in temperate climates. What does 'yield' mean?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"To consume large amounts of energy during the production process","is_correct":false},
+        {"id":"b","text":"To produce and deliver a measurable output or result","is_correct":true},
+        {"id":"c","text":"To absorb and store energy for use at a later time","is_correct":false},
+        {"id":"d","text":"To reduce energy waste by improving system efficiency","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "yield تعني ينتج ويُعطي، أي تقديم ناتج قابل للقياس من عملية أو نشاط معين."
+    },
+    {
+      "order_index": 6, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When engineers 'capitalize on' harsh desert conditions, they use those conditions to their advantage rather than being defeated by them.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. capitalize on تعني يستغل ويستفيد من، أي تحويل الظروف الصعبة إلى فرص وميزة تنافسية."
+    },
+    {
+      "order_index": 7, "skill_tag": "vocabulary", "question_type": "true_false",
+      "question_text": "When temperatures 'fluctuate' dramatically, they stay at a constant high level without any variation.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false, "accepted_answers": null, "points": 1,
+      "explanation_ar": "خطأ. fluctuate تعني يتذبذب ويتقلب بشكل غير منتظم، وهو عكس الاستقرار عند مستوى ثابت."
+    },
+    {
+      "order_index": 8, "skill_tag": "vocabulary", "question_type": "fill_blank",
+      "question_text": "Saudi engineers had to _____ creative approaches to solar panel cooling because standard designs failed in extreme heat.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "devise", "accepted_answers": ["devise","Devise","devised"], "points": 1,
+      "explanation_ar": "devise تعني يبتكر ويُصمّم، وتُستخدم عند الحاجة إلى إيجاد حلول جديدة لمشكلات لا تُناسبها الأساليب التقليدية."
+    },
+    {
+      "order_index": 9, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence uses the past passive with a 'by' phrase correctly?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"The renewable energy law was passed the Saudi parliament.","is_correct":false},
+        {"id":"b","text":"The renewable energy law was passed by the Saudi parliament.","is_correct":true},
+        {"id":"c","text":"The renewable energy law passed by the Saudi parliament.","is_correct":false},
+        {"id":"d","text":"The renewable energy law were passed by the Saudi parliament.","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "المبني للمجهول في الماضي مع by: was/were + تصريف ثالث + by + الفاعل الأصلي. الخيار b صحيح تماماً."
+    },
+    {
+      "order_index": 10, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence uses the past passive in the NEGATIVE form correctly?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"The solar panels not were installed before the deadline.","is_correct":false},
+        {"id":"b","text":"The solar panels was not installed before the deadline.","is_correct":false},
+        {"id":"c","text":"The solar panels were not installed before the deadline.","is_correct":true},
+        {"id":"d","text":"The solar panels not installed before the deadline.","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "النفي في المبني للمجهول الماضي: was/were + not + تصريف ثالث. 'panels' جمع يستلزم were not installed."
+    },
+    {
+      "order_index": 11, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Convert to past passive: 'The government announced the new energy targets in 2022.'",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"The new energy targets announced by the government in 2022.","is_correct":false},
+        {"id":"b","text":"The new energy targets were announced by the government in 2022.","is_correct":true},
+        {"id":"c","text":"The new energy targets was announced by the government in 2022.","is_correct":false},
+        {"id":"d","text":"The new energy targets are announced by the government in 2022.","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "تحويل جملة ماضية إلى مبني للمجهول: المفعول (targets) يصبح فاعلاً، ونستخدم were (لأنه جمع) + announced."
+    },
+    {
+      "order_index": 12, "skill_tag": "grammar", "question_type": "mcq",
+      "question_text": "Which sentence correctly uses the past passive to write about a scientific discovery?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"A new solar coating was developed by researchers at KAUST last year.","is_correct":true},
+        {"id":"b","text":"A new solar coating developed by researchers at KAUST last year.","is_correct":false},
+        {"id":"c","text":"Researchers at KAUST was developed a new solar coating last year.","is_correct":false},
+        {"id":"d","text":"A new solar coating is developed by researchers at KAUST last year.","is_correct":false}
+      ],
+      "correct_answer": "a", "accepted_answers": null, "points": 1,
+      "explanation_ar": "الخيار a يستخدم was developed بشكل صحيح للتعبير عن اكتشاف علمي في الماضي، مع ذكر الباحثين بعد by."
+    },
+    {
+      "order_index": 13, "skill_tag": "grammar", "question_type": "true_false",
+      "question_text": "'The first large-scale solar farm was constructed in the Tabuk region' uses the past passive correctly.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. was constructed هو المبني للمجهول الصحيح في الماضي (was + تصريف ثالث)، والجملة تُركّز على إنشاء المزرعة الشمسية كحدث."
+    },
+    {
+      "order_index": 14, "skill_tag": "grammar", "question_type": "matching",
+      "question_text": "Match each sentence to the correct reason for using the past passive.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "The new solar panels were tested successfully by engineers.",
+          "The desert facilities were constructed without damaging the environment.",
+          "Saudi Arabia was awarded a global clean energy prize.",
+          "Billions of dollars were invested in renewable projects."
+        ],
+        "right_items": [
+          "to mention who performed the action with 'by'",
+          "to focus on the money spent, not who spent it",
+          "to focus on the achievement, not who gave it",
+          "to focus on the result without naming who did it"
+        ]
+      },
+      "correct_answer": [
+        {"left":"The new solar panels were tested successfully by engineers.","right":"to mention who performed the action with 'by'"},
+        {"left":"The desert facilities were constructed without damaging the environment.","right":"to focus on the result without naming who did it"},
+        {"left":"Saudi Arabia was awarded a global clean energy prize.","right":"to focus on the achievement, not who gave it"},
+        {"left":"Billions of dollars were invested in renewable projects.","right":"to focus on the money spent, not who spent it"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "يُستخدم المبني للمجهول الماضي لأسباب متعددة: ذكر الفاعل بـ by، إخفاء الفاعل، التركيز على الإنجاز، أو على الكمية المنفقة."
+    },
+    {
+      "order_index": 15, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage B, what is Dr. Sarah Al-Mahmoud's professional role?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"A climate scientist studying desert temperature patterns","is_correct":false},
+        {"id":"b","text":"Lead engineer at the Saudi Renewable Energy Program Development Office","is_correct":true},
+        {"id":"c","text":"Head of the Saudi Green Initiative policy team","is_correct":false},
+        {"id":"d","text":"Director of King Abdullah City for Atomic and Renewable Energy","is_correct":false}
+      ],
+      "correct_answer": "b", "accepted_answers": null, "points": 1,
+      "explanation_ar": "وصف النص الدكتورة سارة المحمود بأنها المهندسة الرئيسية في مكتب تطوير برنامج الطاقة المتجددة السعودي."
+    },
+    {
+      "order_index": 16, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "According to Passage B, how much more energy do Saudi solar installations produce per square meter compared to temperate climates?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Up to 10% more","is_correct":false},
+        {"id":"b","text":"Up to 20% more","is_correct":false},
+        {"id":"c","text":"Up to 30% more","is_correct":true},
+        {"id":"d","text":"Up to 50% more","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "ذكر النص استناداً إلى بيانات مدينة الملك عبدالله للطاقة الذرية والمتجددة أن المنشآت الشمسية السعودية تنتج ما يصل إلى 30% طاقة أكثر لكل متر مربع."
+    },
+    {
+      "order_index": 17, "skill_tag": "reading", "question_type": "mcq",
+      "question_text": "Passage B says engineers 'turned the tables' on traditional energy paradigms. What does this suggest?",
+      "question_context": null,
+      "options": [
+        {"id":"a","text":"Saudi engineers copied methods from other countries without innovation","is_correct":false},
+        {"id":"b","text":"The harsh desert was seen as a complete failure for energy production","is_correct":false},
+        {"id":"c","text":"Saudi Arabia transformed a perceived disadvantage into a competitive advantage","is_correct":true},
+        {"id":"d","text":"Engineers rejected renewable energy and returned to oil production","is_correct":false}
+      ],
+      "correct_answer": "c", "accepted_answers": null, "points": 1,
+      "explanation_ar": "تُعبّر عبارة 'turned the tables' عن قلب موازين الأمور، أي تحويل الصحراء القاسية من عقبة يُنظر إليها كعائق إلى ميزة تنافسية مُستثمَرة."
+    },
+    {
+      "order_index": 18, "skill_tag": "reading", "question_type": "true_false",
+      "question_text": "According to Passage B, Saudi Arabia plans to phase out oil for domestic electricity generation entirely by 2040.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true, "accepted_answers": null, "points": 1,
+      "explanation_ar": "صحيح. أعلنت الحكومة وفق ما ذكره النص عن خطط للتخلص الكامل من الاعتماد على النفط في توليد الكهرباء المحلية بحلول عام 2040."
+    },
+    {
+      "order_index": 19, "skill_tag": "reading", "question_type": "fill_blank",
+      "question_text": "According to Passage B, Saudi solar installations yield up to _____ percent more energy per square meter than projects in temperate climates.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "30", "accepted_answers": ["30","30%","thirty","Thirty"], "points": 1,
+      "explanation_ar": "ذكر النص أن المنشآت الشمسية السعودية تنتج ما يصل إلى 30% طاقة إضافية لكل متر مربع مقارنةً بمشاريع مماثلة في المناخات المعتدلة."
+    },
+    {
+      "order_index": 20, "skill_tag": "reading", "question_type": "matching",
+      "question_text": "Match each challenge or solution from Passage B to its description.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "extreme desert heat",
+          "Saudi Green Initiative",
+          "advanced cooling systems and specialized materials",
+          "750,000 jobs by 2030"
+        ],
+        "right_items": [
+          "projected number of jobs to be created in the renewable sector",
+          "major programme encompassing Saudi solar and wind projects",
+          "challenge that reduces solar panel efficiency in Saudi Arabia",
+          "solutions devised to maintain panel efficiency in harsh conditions"
+        ]
+      },
+      "correct_answer": [
+        {"left":"extreme desert heat","right":"challenge that reduces solar panel efficiency in Saudi Arabia"},
+        {"left":"Saudi Green Initiative","right":"major programme encompassing Saudi solar and wind projects"},
+        {"left":"advanced cooling systems and specialized materials","right":"solutions devised to maintain panel efficiency in harsh conditions"},
+        {"left":"750,000 jobs by 2030","right":"projected number of jobs to be created in the renewable sector"}
+      ],
+      "accepted_answers": null, "points": 1,
+      "explanation_ar": "عالج النص التحدي الحراري وكيف ابتكر المهندسون حلولاً، كما أشار إلى المبادرة الخضراء وعدد الوظائف المتوقعة في قطاع الطاقة المتجددة."
+    }
+  ]
+}

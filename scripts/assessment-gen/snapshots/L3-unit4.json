@@ -1,0 +1,1302 @@
+{
+  "unit": {
+    "id": "738ff234-070d-4ace-9901-434e43521bdb",
+    "unit_number": 4,
+    "title_en": "Global Coffee Culture",
+    "title_ar": "ثقافة القهوة حول العالم"
+  },
+  "assessment": {
+    "id": "da3f4161-69c7-4543-9e71-c035aa08a9aa"
+  },
+  "variants": [
+    {
+      "id": "e3d957cc-e1a6-4edb-8af3-a2321cf32f29",
+      "variant_code": "A"
+    },
+    {
+      "id": "c9071fc2-17c5-40fe-9dee-19303669806e",
+      "variant_code": "B"
+    },
+    {
+      "id": "762be9c2-ede2-4eaf-bb3f-a07cc46c9b92",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "word": "savor",
+      "pos": "verb",
+      "definition_ar": "يتذوق، يستمتع بطعم أو رائحة شيء ببطء",
+      "example_sentence": "She likes to savor her chocolate cake instead of eating it quickly.",
+      "tier": "core"
+    },
+    {
+      "word": "evolved",
+      "pos": "verb",
+      "definition_ar": "تطور، تدرج في التطوير، تغير للأفضل",
+      "example_sentence": "Technology has evolved rapidly in the past 20 years.",
+      "tier": "core"
+    },
+    {
+      "word": "influential",
+      "pos": "adjective",
+      "definition_ar": "مؤثر، ذو نفوذ، له تأثير كبير",
+      "example_sentence": "She is an influential leader in the education sector.",
+      "tier": "core"
+    },
+    {
+      "word": "cultivation",
+      "pos": "noun",
+      "definition_ar": "الزراعة، العناية بالنباتات والمحاصيل",
+      "example_sentence": "The cultivation of tomatoes requires good soil and regular watering.",
+      "tier": "core"
+    },
+    {
+      "word": "transcend",
+      "pos": "verb",
+      "definition_ar": "يتجاوز، يتخطى الحدود، يعلو فوق",
+      "example_sentence": "Music can transcend language barriers and bring people together.",
+      "tier": "core"
+    },
+    {
+      "word": "sensitive",
+      "pos": "adjective",
+      "definition_ar": "حساس، متأثر بسهولة بالتغيرات الخارجية",
+      "example_sentence": "My skin is very sensitive to the sun, so I always use sunscreen.",
+      "tier": "core"
+    },
+    {
+      "word": "spread throughout",
+      "pos": "verb",
+      "definition_ar": "انتشر في جميع أنحاء، امتد عبر",
+      "example_sentence": "The news spread throughout the city very quickly.",
+      "tier": "core"
+    },
+    {
+      "word": "crucial",
+      "pos": "adjective",
+      "definition_ar": "حاسم، مهم جداً وضروري",
+      "example_sentence": "It's crucial to study hard if you want to pass the exam.",
+      "tier": "core"
+    },
+    {
+      "word": "acquire",
+      "pos": "verb",
+      "definition_ar": "يكتسب، يحصل على، يطور شيئاً مع الوقت",
+      "example_sentence": "Children acquire language skills by listening and practicing.",
+      "tier": "core"
+    },
+    {
+      "word": "skeptical",
+      "pos": "adjective",
+      "definition_ar": "متشكك، مرتاب، غير مقتنع بسهولة",
+      "example_sentence": "Many people are skeptical about new medical treatments until they see proof.",
+      "tier": "core"
+    },
+    {
+      "word": "vibrant",
+      "pos": "adjective",
+      "definition_ar": "نابض بالحياة، حيوي، مفعم بالنشاط",
+      "example_sentence": "The city center has a vibrant nightlife with many restaurants and clubs.",
+      "tier": "core"
+    },
+    {
+      "word": "maintain",
+      "pos": "verb",
+      "definition_ar": "يحافظ على، يبقي شيئاً في حالة جيدة أو يواصله",
+      "example_sentence": "You should maintain your car regularly to keep it running well.",
+      "tier": "core"
+    },
+    {
+      "word": "influence",
+      "pos": "verb",
+      "definition_ar": "يؤثر على، يؤثر في شخص أو شيء ويسبب تغيرات",
+      "example_sentence": "The weather can influence your mood and energy levels.",
+      "tier": "core"
+    },
+    {
+      "word": "gather",
+      "pos": "verb",
+      "definition_ar": "يتجمع، يجتمع، يلتقي",
+      "example_sentence": "The family gathers every Sunday for dinner.",
+      "tier": "core"
+    },
+    {
+      "word": "prevalent",
+      "pos": "adjective",
+      "definition_ar": "شائع، منتشر، يحدث بكثرة في منطقة أو وقت معين",
+      "example_sentence": "Smartphones are prevalent among young people today.",
+      "tier": "core"
+    },
+    {
+      "word": "distinctive",
+      "pos": "adjective",
+      "definition_ar": "مميز، فريد، له طابع خاص",
+      "example_sentence": "Each culture has its own distinctive art style.",
+      "tier": "core"
+    },
+    {
+      "word": "emphasizes",
+      "pos": "verb",
+      "definition_ar": "يؤكد على، يركز على، يبرز أهمية",
+      "example_sentence": "The teacher emphasizes the importance of regular practice.",
+      "tier": "core"
+    },
+    {
+      "word": "adhere",
+      "pos": "verb",
+      "definition_ar": "يلتزم بـ، يتبع القواعد أو المعتقدات أو الطرق بدقة",
+      "example_sentence": "All students must adhere to the school's dress code.",
+      "tier": "core"
+    },
+    {
+      "word": "disrupt",
+      "pos": "verb",
+      "definition_ar": "يعطل، يقطع أو يزعج التقدم الطبيعي أو نشاط شيء ما",
+      "example_sentence": "The construction work will disrupt traffic in the city center.",
+      "tier": "core"
+    },
+    {
+      "word": "embraced",
+      "pos": "verb",
+      "definition_ar": "تبنى، احتضن، رحب بحماس",
+      "example_sentence": "Many companies have embraced flexible working hours.",
+      "tier": "core"
+    },
+    {
+      "word": "foundation",
+      "pos": "noun",
+      "definition_ar": "أساس، قاعدة، أسس",
+      "example_sentence": "Good communication is the foundation of a successful relationship.",
+      "tier": "core"
+    },
+    {
+      "word": "cope",
+      "pos": "verb",
+      "definition_ar": "يتعامل بنجاح مع المواقف أو المشاكل الصعبة",
+      "example_sentence": "It's hard to cope with stress when you have too much work.",
+      "tier": "core"
+    },
+    {
+      "word": "undergone",
+      "pos": "verb",
+      "definition_ar": "خضع لـ، تعرض لـ، مر بـ",
+      "example_sentence": "The city has undergone major changes in the last ten years.",
+      "tier": "core"
+    },
+    {
+      "word": "participate",
+      "pos": "verb",
+      "definition_ar": "يشارك في، يأخذ جزءاً في نشاط أو حدث",
+      "example_sentence": "All students are encouraged to participate in school activities.",
+      "tier": "core"
+    },
+    {
+      "word": "conscious",
+      "pos": "adjective",
+      "definition_ar": "واعي، مدرك، مهتم بـ",
+      "example_sentence": "She is very conscious of her health and exercises daily.",
+      "tier": "core"
+    },
+    {
+      "word": "beneficial",
+      "pos": "adjective",
+      "definition_ar": "مفيد، له تأثير جيد أو مساعد؛ ينتج فوائد أو مزايا",
+      "example_sentence": "Regular exercise is beneficial for your health and mood.",
+      "tier": "core"
+    },
+    {
+      "word": "barista",
+      "pos": "noun",
+      "definition_ar": "شخص يحضر ويقدم مشروبات القهوة بشكل مهني",
+      "example_sentence": "The barista made beautiful art in my latte.",
+      "tier": "core"
+    },
+    {
+      "word": "demonstrate",
+      "pos": "verb",
+      "definition_ar": "يظهر، يبرهن، يوضح بالمثال",
+      "example_sentence": "The teacher will demonstrate how to solve the math problem.",
+      "tier": "core"
+    },
+    {
+      "word": "participate",
+      "pos": "verb",
+      "definition_ar": "يشارك، يتشارك في، يأخذ دوراً في",
+      "example_sentence": "All students are encouraged to participate in class discussions.",
+      "tier": "core"
+    },
+    {
+      "word": "bitterness",
+      "pos": "noun",
+      "definition_ar": "طعم حاد وغير مقبول قليلًا يوجد طبيعيًا في القهوة",
+      "example_sentence": "A small amount of bitterness is normal and expected in dark roast coffee.",
+      "tier": "core"
+    },
+    {
+      "word": "ambiance",
+      "pos": "noun",
+      "definition_ar": "طابع المكان وأجواؤه",
+      "example_sentence": "The soft lighting and music create a relaxing ambiance in the café.",
+      "tier": "core"
+    },
+    {
+      "word": "brew",
+      "pos": "verb",
+      "definition_ar": "صنع القهوة بخلط الماء الساخن مع البن المطحون",
+      "example_sentence": "I brew coffee using a French press.",
+      "tier": "core"
+    },
+    {
+      "word": "bean",
+      "pos": "noun",
+      "definition_ar": "بذرة نبات البن المستخدمة في صنع القهوة",
+      "example_sentence": "Coffee beans are roasted before being ground.",
+      "tier": "core"
+    },
+    {
+      "word": "café",
+      "pos": "noun",
+      "definition_ar": "مطعم أو متجر يُقدم فيه القهوة والوجبات الخفيفة",
+      "example_sentence": "We met at the local café for breakfast.",
+      "tier": "core"
+    },
+    {
+      "word": "certification",
+      "pos": "noun",
+      "definition_ar": "وثيقة رسمية تُثبت أن منتجًا ما يستوفي معايير معينة",
+      "example_sentence": "Organic certification assures buyers that no chemicals were used on the farm.",
+      "tier": "core"
+    },
+    {
+      "word": "blend",
+      "pos": "noun",
+      "definition_ar": "خليط من أنواع مختلفة من حبوب القهوة",
+      "example_sentence": "This coffee blend combines beans from three different countries.",
+      "tier": "core"
+    },
+    {
+      "word": "bring together",
+      "pos": "verb",
+      "definition_ar": "التسبب في لقاء الناس أو توحيدهم لغرض مشترك",
+      "example_sentence": "Coffee shops bring together people from different backgrounds and professions.",
+      "tier": "core"
+    },
+    {
+      "word": "cherry",
+      "pos": "noun",
+      "definition_ar": "الثمرة الحمراء الصغيرة لنبتة البن التي تحتوي على حبة البن",
+      "example_sentence": "Coffee cherries are handpicked when they turn deep red and ripe.",
+      "tier": "core"
+    },
+    {
+      "word": "cappuccino",
+      "pos": "noun",
+      "definition_ar": "مشروب قهوة مع الإسبريسو والحليب المبخر ورغوة الحليب في الأعلى",
+      "example_sentence": "He sprinkled cinnamon on his cappuccino.",
+      "tier": "core"
+    },
+    {
+      "word": "coffeehouse",
+      "pos": "noun",
+      "definition_ar": "مقهى عام تُقدَّم فيه القهوة ويجتمع الناس للحديث",
+      "example_sentence": "The old coffeehouse in Vienna has been open for over three hundred years.",
+      "tier": "core"
+    },
+    {
+      "word": "chain",
+      "pos": "noun",
+      "definition_ar": "مجموعة من المتاجر أو المطاعم بنفس الاسم",
+      "example_sentence": "Starbucks is a famous coffee chain.",
+      "tier": "core"
+    },
+    {
+      "word": "direct trade",
+      "pos": "noun",
+      "definition_ar": "ممارسة يشتري فيها المحمِّص القهوة مباشرةً من المزارع",
+      "example_sentence": "Direct trade cuts out middlemen and gives farmers a higher income.",
+      "tier": "core"
+    },
+    {
+      "word": "export",
+      "pos": "verb",
+      "definition_ar": "إرسال البضائع إلى دولة أخرى للبيع",
+      "example_sentence": "Brazil exports coffee to many countries worldwide.",
+      "tier": "core"
+    },
+    {
+      "word": "coffee shop",
+      "pos": "noun",
+      "definition_ar": "مقهى صغير يقدم القهوة والوجبات الخفيفة",
+      "example_sentence": "We decided to meet at the local coffee shop to discuss our project.",
+      "tier": "core"
+    },
+    {
+      "word": "fermentation",
+      "pos": "noun",
+      "definition_ar": "العملية التي تتحلل فيها السكريات بواسطة البكتيريا لتطوير النكهة",
+      "example_sentence": "Fermentation during coffee processing adds fruity flavors to the beans.",
+      "tier": "core"
+    },
+    {
+      "word": "cooperative",
+      "pos": "noun",
+      "definition_ar": "منظمة يمتلكها أعضاؤها ويديرونها معًا ويتقاسمون فوائدها",
+      "example_sentence": "Joining a cooperative helps small coffee farmers negotiate better prices.",
+      "tier": "core"
+    },
+    {
+      "word": "espresso",
+      "pos": "noun",
+      "definition_ar": "قهوة قوية تُصنع بدفع الماء الساخن عبر البن المطحون ناعماً",
+      "example_sentence": "She ordered a double espresso at the café.",
+      "tier": "core"
+    },
+    {
+      "word": "grading",
+      "pos": "noun",
+      "definition_ar": "عملية فرز القهوة حسب الحجم والوزن والجودة",
+      "example_sentence": "Strict grading ensures only the best beans reach specialty roasters.",
+      "tier": "core"
+    },
+    {
+      "word": "fair trade",
+      "pos": "noun",
+      "definition_ar": "تجارة تضمن أسعار عادلة وظروف عمل للمنتجين",
+      "example_sentence": "Fair trade coffee helps support small farmers.",
+      "tier": "core"
+    },
+    {
+      "word": "grind",
+      "pos": "verb",
+      "definition_ar": "طحن حبوب البن إلى قطع صغيرة أو مسحوق",
+      "example_sentence": "Please grind these beans for my espresso.",
+      "tier": "core"
+    },
+    {
+      "word": "import",
+      "pos": "verb",
+      "definition_ar": "جلب البضائع من دولة أخرى للبيع",
+      "example_sentence": "Many countries import coffee from South America.",
+      "tier": "core"
+    },
+    {
+      "word": "global",
+      "pos": "adjective",
+      "definition_ar": "متعلق بالعالم كله؛ عالمي",
+      "example_sentence": "Coffee is a global industry worth billions.",
+      "tier": "core"
+    },
+    {
+      "word": "green bean",
+      "pos": "noun",
+      "definition_ar": "حبة بن لم تُحمَّص بعد",
+      "example_sentence": "The green beans are shipped overseas and roasted closer to the consumer.",
+      "tier": "core"
+    },
+    {
+      "word": "meet up",
+      "pos": "verb",
+      "definition_ar": "الالتقاء مع شخص ما في مكان متفق عليه",
+      "example_sentence": "We often meet up at the coffee shop.",
+      "tier": "core"
+    },
+    {
+      "word": "hospitality",
+      "pos": "noun",
+      "definition_ar": "المعاملة الودية والكريمة للضيوف أو الزبائن",
+      "example_sentence": "The café is famous for its warm hospitality and welcoming atmosphere.",
+      "tier": "core"
+    },
+    {
+      "word": "morning routine",
+      "pos": "noun",
+      "definition_ar": "مجموعة من الأفعال تُؤدَّى بنفس الترتيب كل صباح",
+      "example_sentence": "His morning routine always begins with a fresh cup of coffee.",
+      "tier": "core"
+    },
+    {
+      "word": "patron",
+      "pos": "noun",
+      "definition_ar": "زبون منتظم في محل أو مقهى",
+      "example_sentence": "The barista recognized every patron who came in each morning.",
+      "tier": "core"
+    },
+    {
+      "word": "latte",
+      "pos": "noun",
+      "definition_ar": "مشروب قهوة مصنوع من الإسبريسو والحليب المبخر",
+      "example_sentence": "I prefer a vanilla latte in the afternoon.",
+      "tier": "core"
+    },
+    {
+      "word": "processing",
+      "pos": "noun",
+      "definition_ar": "عملية تحضير حبوب القهوة من خلال طرق معالجة مختلفة",
+      "example_sentence": "Different processing methods can significantly affect the coffee's final taste.",
+      "tier": "core"
+    },
+    {
+      "word": "mild",
+      "pos": "adjective",
+      "definition_ar": "له طعم أو تأثير لطيف؛ ليس قوياً",
+      "example_sentence": "She prefers mild coffee in the evening.",
+      "tier": "core"
+    },
+    {
+      "word": "origin",
+      "pos": "noun",
+      "definition_ar": "المكان الذي يأتي منه شيء ما أو يبدأ فيه",
+      "example_sentence": "Ethiopia is considered the origin of coffee cultivation and consumption.",
+      "tier": "core"
+    },
+    {
+      "word": "smallholder",
+      "pos": "noun",
+      "definition_ar": "مزارع يمتلك أو يستأجر قطعة صغيرة من الأرض",
+      "example_sentence": "Most of the world's coffee is grown by smallholder farmers.",
+      "tier": "core"
+    },
+    {
+      "word": "plantation",
+      "pos": "noun",
+      "definition_ar": "مزرعة كبيرة حيث تُزرع محاصيل مثل البن",
+      "example_sentence": "The coffee plantation covers hundreds of acres.",
+      "tier": "core"
+    },
+    {
+      "word": "social hub",
+      "pos": "noun",
+      "definition_ar": "مكان يجتمع فيه الناس بانتظام للتقاء والحديث",
+      "example_sentence": "The local café became the social hub of the whole neighborhood.",
+      "tier": "core"
+    },
+    {
+      "word": "serve",
+      "pos": "verb",
+      "definition_ar": "تقديم الطعام أو الشراب لشخص ما",
+      "example_sentence": "They serve coffee with small cookies.",
+      "tier": "core"
+    },
+    {
+      "word": "variety",
+      "pos": "noun",
+      "definition_ar": "عدد من الأنواع أو الأشكال المختلفة للشيء نفسه",
+      "example_sentence": "The coffee shop offers a wide variety of drinks and snacks.",
+      "tier": "core"
+    },
+    {
+      "word": "altitude",
+      "pos": "noun",
+      "definition_ar": "الارتفاع عن مستوى سطح البحر",
+      "example_sentence": "Coffee grown at high altitude often has better flavor and quality.",
+      "tier": "extended"
+    },
+    {
+      "word": "social",
+      "pos": "adjective",
+      "definition_ar": "متعلق بالأنشطة التي تُمارس مع أشخاص آخرين",
+      "example_sentence": "Coffee shops are important social spaces.",
+      "tier": "core"
+    },
+    {
+      "word": "sweetness",
+      "pos": "noun",
+      "definition_ar": "جودة السكاكر المحببة في طعم القهوة",
+      "example_sentence": "Natural sweetness in a coffee is a sign of high-quality ripe cherries.",
+      "tier": "core"
+    },
+    {
+      "word": "artisan",
+      "pos": "noun",
+      "definition_ar": "حرفي ماهر يصنع الأشياء باليد باستخدام الطرق التقليدية",
+      "example_sentence": "The artisan coffee maker creates unique blends using traditional techniques.",
+      "tier": "extended"
+    },
+    {
+      "word": "brewing equipment",
+      "pos": "noun",
+      "definition_ar": "الأدوات والآلات المستخدمة لصنع القهوة",
+      "example_sentence": "Professional brewing equipment can make a big difference in coffee quality.",
+      "tier": "extended"
+    },
+    {
+      "word": "affogato",
+      "pos": "noun",
+      "definition_ar": "حلوى إيطالية تُصنع بسكب الإسبريسو الساخن فوق كرة آيس كريم",
+      "example_sentence": "An affogato combines the bitterness of espresso with sweet vanilla ice cream.",
+      "tier": "extended"
+    },
+    {
+      "word": "appreciation",
+      "pos": "noun",
+      "definition_ar": "إدراك قيمة أو أهمية شيء ما",
+      "example_sentence": "The workshop helped develop a deeper appreciation for coffee culture.",
+      "tier": "extended"
+    },
+    {
+      "word": "caffeine",
+      "pos": "noun",
+      "definition_ar": "مادة طبيعية في القهوة تجعل الناس يشعرون بمزيد من اليقظة والانتباه",
+      "example_sentence": "Some people avoid caffeine because it keeps them awake at night.",
+      "tier": "extended"
+    },
+    {
+      "word": "commodity",
+      "pos": "noun",
+      "definition_ar": "سلعة أساسية تُستخدم في التجارة ويمكن تداولها",
+      "example_sentence": "Coffee is one of the most valuable commodities in international trade.",
+      "tier": "extended"
+    },
+    {
+      "word": "artisan roaster",
+      "pos": "noun",
+      "definition_ar": "متخصص ماهر يُحمِّص القهوة في دفعات صغيرة بعناية فائقة",
+      "example_sentence": "The artisan roaster adjusts time and temperature for each batch of beans.",
+      "tier": "extended"
+    },
+    {
+      "word": "brewing method",
+      "pos": "noun",
+      "definition_ar": "طريقة محددة لصنع القهوة باستخدام تقنيات أو معدات معينة",
+      "example_sentence": "Different brewing methods create different flavors and strengths of coffee.",
+      "tier": "extended"
+    },
+    {
+      "word": "consumer",
+      "pos": "noun",
+      "definition_ar": "شخص يشتري ويستخدم السلع أو الخدمات",
+      "example_sentence": "Coffee consumers are becoming more interested in where their beans come from.",
+      "tier": "extended"
+    },
+    {
+      "word": "cherish",
+      "pos": "verb",
+      "definition_ar": "يحب ويعتني بشيء أو شخص كثيراً",
+      "example_sentence": "Coffee lovers cherish the quiet moments they spend with their morning cup.",
+      "tier": "extended"
+    },
+    {
+      "word": "craftsmanship",
+      "pos": "noun",
+      "definition_ar": "المهارة في صنع الأشياء باليد مع اهتمام كبير بالتفاصيل",
+      "example_sentence": "The barista's craftsmanship was evident in every perfectly prepared cup.",
+      "tier": "extended"
+    },
+    {
+      "word": "consistency",
+      "pos": "noun",
+      "definition_ar": "جودة كونك متسامح في الجودة أو الطعم أو الأداء في كل مرة",
+      "example_sentence": "Good coffee shops maintain consistency in taste across all their locations.",
+      "tier": "extended"
+    },
+    {
+      "word": "distributor",
+      "pos": "noun",
+      "definition_ar": "شخص أو شركة تزود المتاجر والشركات بالبضائع",
+      "example_sentence": "The coffee distributor delivers fresh beans to cafés every week.",
+      "tier": "extended"
+    },
+    {
+      "word": "contribute to",
+      "pos": "verb",
+      "definition_ar": "يساعد في التسبب أو يضيف إلى شيء",
+      "example_sentence": "Fair trade practices contribute to better living conditions for coffee farmers.",
+      "tier": "extended"
+    },
+    {
+      "word": "extraction",
+      "pos": "noun",
+      "definition_ar": "عملية إزالة أو الحصول على شيء من شيء آخر",
+      "example_sentence": "Perfect coffee extraction requires the right water temperature and timing.",
+      "tier": "extended"
+    },
+    {
+      "word": "flat white",
+      "pos": "noun",
+      "definition_ar": "مشروب قهوة مصنوع من جرعة مزدوجة من الإسبريسو وكمية صغيرة من الحليب المخملي",
+      "example_sentence": "She ordered a flat white because she wanted a stronger coffee than a latte.",
+      "tier": "extended"
+    },
+    {
+      "word": "cultivate",
+      "pos": "verb",
+      "definition_ar": "زراعة والعناية بالنباتات أو المحاصيل",
+      "example_sentence": "Farmers cultivate coffee plants on the mountain slopes of Colombia.",
+      "tier": "extended"
+    },
+    {
+      "word": "franchise",
+      "pos": "noun",
+      "definition_ar": "نموذج أعمال يدفع فيه شخص لاستخدام اسم وطرق شركة أخرى",
+      "example_sentence": "Many coffee shops operate as franchises of larger international brands.",
+      "tier": "extended"
+    },
+    {
+      "word": "drying bed",
+      "pos": "noun",
+      "definition_ar": "منصة مرفوعة تُفرَد عليها ثمار البن لتجف في الشمس",
+      "example_sentence": "Workers turn the cherries on the drying bed several times each day.",
+      "tier": "extended"
+    },
+    {
+      "word": "jebena",
+      "pos": "noun",
+      "definition_ar": "إبريق طيني تقليدي يُستخدم في إثيوبيا لتحضير القهوة وتقديمها",
+      "example_sentence": "The hostess poured coffee from a jebena during the traditional ceremony.",
+      "tier": "extended"
+    },
+    {
+      "word": "extraction time",
+      "pos": "noun",
+      "definition_ar": "عدد الثواني التي يمر فيها الماء الساخن عبر القهوة المطحونة",
+      "example_sentence": "The ideal extraction time for espresso is between 25 and 30 seconds.",
+      "tier": "extended"
+    },
+    {
+      "word": "lead to",
+      "pos": "verb",
+      "definition_ar": "التسبب في نتيجة أو مآل معين",
+      "example_sentence": "Better farming practices lead to higher-quality coffee and better prices.",
+      "tier": "extended"
+    },
+    {
+      "word": "flavor profile",
+      "pos": "noun",
+      "definition_ar": "مزيج الأطعم والروائح التي تميز طعاماً أو شراباً معيناً",
+      "example_sentence": "This coffee has a complex flavor profile with notes of chocolate and fruit.",
+      "tier": "extended"
+    },
+    {
+      "word": "market demand",
+      "pos": "noun",
+      "definition_ar": "مدى رغبة الناس في شراء منتج أو خدمة معينة",
+      "example_sentence": "Market demand for specialty coffee continues to grow in developing countries.",
+      "tier": "extended"
+    },
+    {
+      "word": "grinding",
+      "pos": "noun",
+      "definition_ar": "عملية طحن حبوب القهوة إلى قطع أصغر",
+      "example_sentence": "Fresh grinding just before brewing produces the best coffee flavor.",
+      "tier": "extended"
+    },
+    {
+      "word": "latte art",
+      "pos": "noun",
+      "definition_ar": "أنماط زخرفية تُرسَم في رغوة الحليب فوق مشروب القهوة",
+      "example_sentence": "The barista spent months practicing latte art before getting it right.",
+      "tier": "extended"
+    },
+    {
+      "word": "packaging",
+      "pos": "noun",
+      "definition_ar": "مواد تُستخدم لتغليف أو حماية البضائع للبيع أو النقل",
+      "example_sentence": "Sustainable packaging for coffee helps reduce environmental waste.",
+      "tier": "extended"
+    },
+    {
+      "word": "lungo",
+      "pos": "noun",
+      "definition_ar": "إسبريسو يُعدَّ بمزيد من الماء مما ينتج عنه مشروب أطول وأخف",
+      "example_sentence": "He prefers a lungo in the afternoon because it is less intense.",
+      "tier": "extended"
+    },
+    {
+      "word": "portafilter",
+      "pos": "noun",
+      "definition_ar": "المقبض والسلة المعدنية التي تحمل مسحوق القهوة في ماكينة الإسبريسو",
+      "example_sentence": "She locked the portafilter into the machine before pressing the button.",
+      "tier": "extended"
+    },
+    {
+      "word": "middleman",
+      "pos": "noun",
+      "definition_ar": "شخص أو شركة يشتري من المنتجين ويبيع للتجار",
+      "example_sentence": "Cutting out the middleman allows farmers to earn more for their coffee.",
+      "tier": "extended"
+    },
+    {
+      "word": "price volatility",
+      "pos": "noun",
+      "definition_ar": "تغيرات متكررة وغير متوقعة في سعر السوق لسلعة ما",
+      "example_sentence": "Price volatility in coffee markets makes planning difficult for farmers.",
+      "tier": "extended"
+    },
+    {
+      "word": "popularity",
+      "pos": "noun",
+      "definition_ar": "حالة كونك محبوب أو مدعوم من قِبل كثير من الناس",
+      "example_sentence": "The popularity of coffee culture has spread to every corner of the world.",
+      "tier": "extended"
+    },
+    {
+      "word": "profitability",
+      "pos": "noun",
+      "definition_ar": "قدرة الأعمال على كسب المال",
+      "example_sentence": "Small coffee farms often struggle with profitability due to low prices.",
+      "tier": "extended"
+    },
+    {
+      "word": "quality control",
+      "pos": "noun",
+      "definition_ar": "عملية فحص المنتجات للتأكد من مطابقتها للمعايير المطلوبة",
+      "example_sentence": "Strict quality control ensures that only the best coffee reaches customers.",
+      "tier": "extended"
+    },
+    {
+      "word": "premium",
+      "pos": "adjective",
+      "definition_ar": "عالي الجودة وبالتالي غالي الثمن",
+      "example_sentence": "The café serves premium coffee from single-origin farms around the world.",
+      "tier": "extended"
+    },
+    {
+      "word": "roastery",
+      "pos": "noun",
+      "definition_ar": "مكان تحميص حبوب القهوة لإعدادها للتخمير",
+      "example_sentence": "The local roastery fills the street with the wonderful smell of fresh coffee.",
+      "tier": "extended"
+    },
+    {
+      "word": "processing plant",
+      "pos": "noun",
+      "definition_ar": "مصنع تُعد فيه المواد الخام وتُحول إلى منتجات نهائية",
+      "example_sentence": "The coffee processing plant removes the fruit from beans before shipping.",
+      "tier": "extended"
+    },
+    {
+      "word": "qahwa",
+      "pos": "noun",
+      "definition_ar": "قهوة عربية تقليدية تُصنع من حبوب مُحمَّصة خفيفًا والهيل",
+      "example_sentence": "Qahwa is served in small cups as a sign of welcome in Arab culture.",
+      "tier": "extended"
+    },
+    {
+      "word": "specialty",
+      "pos": "noun",
+      "definition_ar": "منتج أو خدمة جيدة أو مميزة بشكل خاص",
+      "example_sentence": "The coffee shop's specialty is Ethiopian single-origin beans.",
+      "tier": "extended"
+    },
+    {
+      "word": "ristretto",
+      "pos": "noun",
+      "definition_ar": "جرعة إسبريسو قصيرة جدًا ومركزة تُعدَّ بماء أقل",
+      "example_sentence": "A ristretto is smaller than an espresso but has an intense, sweet flavor.",
+      "tier": "extended"
+    },
+    {
+      "word": "supply chain",
+      "pos": "noun",
+      "definition_ar": "تسلسل العمليات المشاركة في إنتاج وتوزيع منتج",
+      "example_sentence": "The coffee supply chain includes farmers, processors, distributors, and retailers.",
+      "tier": "extended"
+    },
+    {
+      "word": "traceability",
+      "pos": "noun",
+      "definition_ar": "القدرة على تتبع منتج وصولًا إلى مصدره أو أصله",
+      "example_sentence": "Full traceability means you can find out exactly which farm grew your coffee.",
+      "tier": "extended"
+    },
+    {
+      "word": "roasting level",
+      "pos": "noun",
+      "definition_ar": "درجة تسخين وطبخ حبوب القهوة",
+      "example_sentence": "Light roasting level preserves more of the coffee's original flavors.",
+      "tier": "extended"
+    },
+    {
+      "word": "acidity",
+      "pos": "noun",
+      "definition_ar": "الخاصية اللامعة والحادة في القهوة التي تضيف حيوية للنكهة",
+      "example_sentence": "High altitude coffees often have pleasant acidity and complex flavors.",
+      "tier": "mastery"
+    },
+    {
+      "word": "stimulate",
+      "pos": "verb",
+      "definition_ar": "جعل شيء أكثر نشاطاً أو تشجيع التطوير أو النمو",
+      "example_sentence": "Caffeine helps stimulate the brain and improve mental alertness.",
+      "tier": "extended"
+    },
+    {
+      "word": "take pride in",
+      "pos": "verb",
+      "definition_ar": "الشعور بالرضا والسرور حيال شيء حققته",
+      "example_sentence": "Ethiopian farmers take pride in growing some of the world's finest coffee.",
+      "tier": "extended"
+    },
+    {
+      "word": "aftertaste",
+      "pos": "noun",
+      "definition_ar": "الطعم الذي يبقى في الفم بعد ابتلاع مشروب",
+      "example_sentence": "A long, sweet aftertaste is a sign of a high-quality coffee.",
+      "tier": "mastery"
+    },
+    {
+      "word": "trade off",
+      "pos": "verb",
+      "definition_ar": "تبادل شيء بآخر كحل وسط",
+      "example_sentence": "Coffee farmers often trade off quality for quantity to make more money.",
+      "tier": "extended"
+    },
+    {
+      "word": "arabica",
+      "pos": "noun",
+      "definition_ar": "نوع عالي الجودة من نبات القهوة معروف بطعمه الناعم والخفيف",
+      "example_sentence": "Arabica beans are generally more expensive than robusta varieties.",
+      "tier": "mastery"
+    },
+    {
+      "word": "aeropress",
+      "pos": "noun",
+      "definition_ar": "جهاز تحضير القهوة الذي يستخدم ضغط الهواء لاستخلاص القهوة بسرعة",
+      "example_sentence": "The Aeropress makes smooth coffee in just two minutes.",
+      "tier": "mastery"
+    },
+    {
+      "word": "bloom",
+      "pos": "noun",
+      "definition_ar": "الرغوة التي تحدث عندما يلامس الماء الساخن القهوة المطحونة الطازجة لأول مرة",
+      "example_sentence": "Coffee bloom indicates fresh beans and proper carbon dioxide release.",
+      "tier": "mastery"
+    },
+    {
+      "word": "chaff",
+      "pos": "noun",
+      "definition_ar": "النفايات الورقية الخفيفة التي تنفصل عن حبوب القهوة أثناء التحميص",
+      "example_sentence": "Roasters collect chaff in special chambers during the roasting process.",
+      "tier": "mastery"
+    },
+    {
+      "word": "americano",
+      "pos": "noun",
+      "definition_ar": "مشروب قهوة يُصنع بإضافة الماء الساخن إلى جرعات الإسبريسو",
+      "example_sentence": "An americano has the strength of drip coffee but espresso flavor.",
+      "tier": "mastery"
+    },
+    {
+      "word": "coffee ceremony",
+      "pos": "noun",
+      "definition_ar": "طقوس تقليدية لتحضير القهوة والمشاركة بها، خاصةً في إثيوبيا",
+      "example_sentence": "The Ethiopian coffee ceremony can last two hours and brings families together.",
+      "tier": "mastery"
+    },
+    {
+      "word": "artisanal",
+      "pos": "adjective",
+      "definition_ar": "مصنوع بطريقة تقليدية من قبل حرفيين مهرة وليس بالآلة",
+      "example_sentence": "Many customers prefer artisanal coffee over mass-produced varieties.",
+      "tier": "mastery"
+    },
+    {
+      "word": "cardamom coffee",
+      "pos": "noun",
+      "definition_ar": "قهوة مُعطَّرة بتوابل الهيل، شائعة في المطبخ الخليجي والعربي",
+      "example_sentence": "Cardamom coffee is a symbol of generosity and welcome in Gulf culture.",
+      "tier": "mastery"
+    },
+    {
+      "word": "come into play",
+      "pos": "verb",
+      "definition_ar": "أن يصبح ذا صلة أو مهماً في موقف معين",
+      "example_sentence": "Cultural preferences come into play when choosing coffee serving styles.",
+      "tier": "mastery"
+    },
+    {
+      "word": "connoisseur",
+      "pos": "noun",
+      "definition_ar": "خبير أو ذواقة له معرفة متخصصة وذوق راقٍ في موضوع معين",
+      "example_sentence": "The coffee connoisseur could identify the bean's origin just by tasting it.",
+      "tier": "mastery"
+    },
+    {
+      "word": "coffee belt",
+      "pos": "noun",
+      "definition_ar": "المنطقة الجغرافية بين المداريين حيث تنمو القهوة بشكل أفضل عالمياً",
+      "example_sentence": "Countries in the coffee belt produce most of the world's coffee.",
+      "tier": "mastery"
+    },
+    {
+      "word": "cold brew",
+      "pos": "noun",
+      "definition_ar": "قهوة تُصنع بنقع القهوة المطحونة الخشنة في الماء البارد لساعات عديدة",
+      "example_sentence": "Cold brew coffee is less acidic than hot brewed coffee.",
+      "tier": "mastery"
+    },
+    {
+      "word": "crema",
+      "pos": "noun",
+      "definition_ar": "طبقة الرغوة الذهبية التي تتكون على سطح الإسبريسو المستخلص بشكل صحيح",
+      "example_sentence": "Good espresso should have a thick, lasting crema on top.",
+      "tier": "mastery"
+    },
+    {
+      "word": "cupping",
+      "pos": "noun",
+      "definition_ar": "طريقة مهنية لتذوق القهوة لتقييم جودتها ونكهتها",
+      "example_sentence": "Coffee cupping helps buyers determine which beans to purchase.",
+      "tier": "mastery"
+    },
+    {
+      "word": "complexity",
+      "pos": "noun",
+      "definition_ar": "جودة امتلاك نكهات وخصائص متعددة ومختلفة",
+      "example_sentence": "The complexity of this Ethiopian coffee makes every sip a new experience.",
+      "tier": "mastery"
+    },
+    {
+      "word": "degassing",
+      "pos": "noun",
+      "definition_ar": "الإطلاق الطبيعي لثاني أكسيد الكربون من حبوب القهوة المحمصة حديثاً",
+      "example_sentence": "Coffee needs degassing time after roasting for optimal brewing results.",
+      "tier": "mastery"
+    },
+    {
+      "word": "cortado",
+      "pos": "noun",
+      "definition_ar": "مشروب قهوة إسباني مصنوع من أجزاء متساوية من الإسبريسو والحليب الدافئ",
+      "example_sentence": "The cortado is served in a small glass cup.",
+      "tier": "mastery"
+    },
+    {
+      "word": "dry process",
+      "pos": "noun",
+      "definition_ar": "طريقة لتجفيف ثمار القهوة تحت الشمس قبل إزالة الحبوب",
+      "example_sentence": "Dry process coffees typically have fuller body and fruity flavors.",
+      "tier": "mastery"
+    },
+    {
+      "word": "cup score",
+      "pos": "noun",
+      "definition_ar": "نظام تقييم رقمي يُستخدم لتقييم جودة القهوة مهنياً",
+      "example_sentence": "Specialty coffees typically have cup scores above eighty points.",
+      "tier": "mastery"
+    },
+    {
+      "word": "first crack",
+      "pos": "noun",
+      "definition_ar": "صوت الفرقعة المسموع الذي تصدره حبوب القهوة أثناء التحميص الخفيف إلى المتوسط",
+      "example_sentence": "First crack indicates that the coffee beans are ready for light roasting.",
+      "tier": "mastery"
+    },
+    {
+      "word": "dallah",
+      "pos": "noun",
+      "definition_ar": "إبريق قهوة عربي تقليدي له فوهة طويلة يُستخدم لتقديم القهوة",
+      "example_sentence": "The host filled the dallah with qahwa before welcoming his guests.",
+      "tier": "mastery"
+    },
+    {
+      "word": "discerning",
+      "pos": "adjective",
+      "definition_ar": "يمتلك أو يظهر حكماً جيداً والقدرة على ملاحظة الفروق الدقيقة",
+      "example_sentence": "Discerning coffee drinkers can taste the difference between various brewing methods.",
+      "tier": "mastery"
+    },
+    {
+      "word": "fragrance",
+      "pos": "noun",
+      "definition_ar": "رائحة محببة ورقيقة، خاصةً من القهوة أو الطعام",
+      "example_sentence": "The fragrance of the freshly ground beans filled the small café.",
+      "tier": "mastery"
+    },
+    {
+      "word": "earthy",
+      "pos": "adjective",
+      "definition_ar": "ذو طعم أو رائحة يذكّرك بالتراب أو الأرض",
+      "example_sentence": "Indonesian coffees often have a bold, earthy flavor that some people love.",
+      "tier": "mastery"
+    },
+    {
+      "word": "honey process",
+      "pos": "noun",
+      "definition_ar": "طريقة معالجة القهوة بترك بعض لب الثمرة على الحبوب أثناء التجفيف",
+      "example_sentence": "Honey processed coffee combines characteristics of wet and dry methods.",
+      "tier": "mastery"
+    },
+    {
+      "word": "macchiato",
+      "pos": "noun",
+      "definition_ar": "مشروب إسبريسو مغطى بكمية صغيرة من رغوة الحليب المبخرة",
+      "example_sentence": "A traditional macchiato is much smaller than modern coffee shop versions.",
+      "tier": "mastery"
+    },
+    {
+      "word": "floral",
+      "pos": "adjective",
+      "definition_ar": "ذو طعم أو رائحة تشبه الزهور",
+      "example_sentence": "Light roasted Ethiopian coffees are known for their delicate floral notes.",
+      "tier": "mastery"
+    },
+    {
+      "word": "french press",
+      "pos": "noun",
+      "definition_ar": "جهاز تحضير القهوة الذي يستخدم مكبساً شبكياً معدنياً لفصل القهوة المطحونة",
+      "example_sentence": "French press coffee has a full body and rich flavor.",
+      "tier": "mastery"
+    },
+    {
+      "word": "moka pot",
+      "pos": "noun",
+      "definition_ar": "آلة تحضير قهوة على الموقد تدفع البخار عبر القهوة المطحونة",
+      "example_sentence": "The moka pot produces a strong, concentrated coffee without an espresso machine.",
+      "tier": "mastery"
+    },
+    {
+      "word": "nitro coffee",
+      "pos": "noun",
+      "definition_ar": "قهوة باردة مُحقنة بغاز النيتروجين للحصول على قوام كريمي",
+      "example_sentence": "Nitro coffee is served on tap like beer in many cafes.",
+      "tier": "mastery"
+    },
+    {
+      "word": "hulling",
+      "pos": "noun",
+      "definition_ar": "عملية إزالة الطبقة الورقية من حبوب القهوة المجففة",
+      "example_sentence": "Hulling is one of the final steps before coffee beans are sorted.",
+      "tier": "mastery"
+    },
+    {
+      "word": "micro lot",
+      "pos": "noun",
+      "definition_ar": "دفعة صغيرة من القهوة من قسم محدد في المزرعة",
+      "example_sentence": "Micro lot coffees often have unique and distinctive flavor profiles.",
+      "tier": "mastery"
+    },
+    {
+      "word": "parchment",
+      "pos": "noun",
+      "definition_ar": "الطبقة الورقية التي تغطي حبوب القهوة بعد المعالجة الأولية",
+      "example_sentence": "Coffee beans are stored in parchment before final hulling and sorting.",
+      "tier": "mastery"
+    },
+    {
+      "word": "pulp",
+      "pos": "noun",
+      "definition_ar": "الطبقة الخارجية اللحمية الطرية لثمرة البن التي تحيط بالحبة",
+      "example_sentence": "The pulp is removed during wet processing to reveal the parchment layer.",
+      "tier": "mastery"
+    },
+    {
+      "word": "mouthfeel",
+      "pos": "noun",
+      "definition_ar": "الإحساس الجسدي والملمس للقهوة في الفم أثناء الشرب",
+      "example_sentence": "This coffee has a smooth mouthfeel with medium body weight.",
+      "tier": "mastery"
+    },
+    {
+      "word": "robusta",
+      "pos": "noun",
+      "definition_ar": "نوع من القهوة ذو طعم أقوى ومحتوى كافيين أعلى من الأرابيكا",
+      "example_sentence": "Robusta coffee is often used in instant coffee blends.",
+      "tier": "mastery"
+    },
+    {
+      "word": "nutty",
+      "pos": "adjective",
+      "definition_ar": "ذو طعم أو رائحة تشبه المكسرات",
+      "example_sentence": "Brazilian coffees are popular for their smooth, nutty, and chocolatey character.",
+      "tier": "mastery"
+    },
+    {
+      "word": "pour over",
+      "pos": "noun",
+      "definition_ar": "طريقة تحضير يدوية حيث يُسكب الماء الساخن ببطء على القهوة المطحونة",
+      "example_sentence": "Pour over brewing gives you more control over extraction time.",
+      "tier": "mastery"
+    },
+    {
+      "word": "set apart",
+      "pos": "verb",
+      "definition_ar": "جعل شيء مختلفاً أو مميزاً مقارنة بالآخرين",
+      "example_sentence": "The unique brewing method sets this coffee shop apart from its competitors.",
+      "tier": "mastery"
+    },
+    {
+      "word": "ritualistic",
+      "pos": "adjective",
+      "definition_ar": "يُؤدى كجزء من طقوس أو وفقاً لعادة راسخة",
+      "example_sentence": "Morning coffee preparation became a ritualistic practice for many people.",
+      "tier": "mastery"
+    },
+    {
+      "word": "single origin",
+      "pos": "adjective",
+      "definition_ar": "قهوة من مصدر واحد محدد أو مزرعة واحدة بدلاً من الخلط",
+      "example_sentence": "Single origin coffee allows you to taste the unique regional characteristics.",
+      "tier": "mastery"
+    },
+    {
+      "word": "sophistication",
+      "pos": "noun",
+      "definition_ar": "صفة التهذيب والثقافة أو امتلاك معرفة وخبرة واسعة",
+      "example_sentence": "The coffee shop's sophistication attracted customers who appreciated quality drinks.",
+      "tier": "mastery"
+    },
+    {
+      "word": "second crack",
+      "pos": "noun",
+      "definition_ar": "صوت طقطقة أهدأ أثناء مراحل التحميص الداكن لحبوب القهوة",
+      "example_sentence": "Second crack begins when coffee reaches the dark roast level.",
+      "tier": "mastery"
+    },
+    {
+      "word": "tasting notes",
+      "pos": "noun",
+      "definition_ar": "كلمات وصفية تُستخدم لتوصيف النكهات والروائح في القهوة",
+      "example_sentence": "This coffee's tasting notes include chocolate, caramel, and citrus hints.",
+      "tier": "mastery"
+    },
+    {
+      "word": "silverskin",
+      "pos": "noun",
+      "definition_ar": "الغشاء الرقيق الذي يبقى على حبوب القهوة بعد التقشير",
+      "example_sentence": "Most silverskin comes off during roasting, creating chaff.",
+      "tier": "mastery"
+    },
+    {
+      "word": "siphon coffee",
+      "pos": "noun",
+      "definition_ar": "طريقة تحضير تستخدم غرفتين وضغطًا تفريغيًا لإنتاج قهوة صافية",
+      "example_sentence": "Siphon coffee produces a clean, tea-like cup with a delicate flavor.",
+      "tier": "mastery"
+    },
+    {
+      "word": "third wave",
+      "pos": "noun",
+      "definition_ar": "حركة تتعامل مع القهوة كحرفة فنية وليس كسلعة",
+      "example_sentence": "Third wave coffee shops focus on quality and brewing methods.",
+      "tier": "mastery"
+    },
+    {
+      "word": "wet process",
+      "pos": "noun",
+      "definition_ar": "طريقة لإزالة الثمرة من حبوب القهوة باستخدام الماء والتخمير",
+      "example_sentence": "Wet processed coffee often has brighter, cleaner flavors than dry processed.",
+      "tier": "mastery"
+    },
+    {
+      "word": "stem from",
+      "pos": "verb",
+      "definition_ar": "النشأة أو التطور من مصدر معين",
+      "example_sentence": "The global love of coffee is thought to stem from ancient Ethiopian traditions.",
+      "tier": "mastery"
+    },
+    {
+      "word": "terroir",
+      "pos": "noun",
+      "definition_ar": "العوامل البيئية التي تؤثر على طعم القهوة، بما في ذلك المناخ والتربة",
+      "example_sentence": "The terroir of Colombian mountains produces distinctive coffee flavors.",
+      "tier": "mastery"
+    },
+    {
+      "word": "ubiquitous",
+      "pos": "adjective",
+      "definition_ar": "موجود أو ظاهر أو متواجد في كل مكان في نفس الوقت",
+      "example_sentence": "Coffee shops have become ubiquitous in modern cities around the world.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "81888ab5-47b8-49c9-93ee-fdfb456654ba",
+      "label": "A",
+      "title": "The Global Coffee Journey",
+      "content": {
+        "paragraphs": [
+          "Coffee has *evolved* from a regional Ethiopian discovery into one of the world's most *influential* beverages, shaping social customs and economic systems across diverse cultures. Today, this humble bean connects millions of people daily through shared rituals that *transcend* geographical boundaries and cultural differences.",
+          "The story begins in ancient Ethiopia, where legend claims a goat herder first observed his animals becoming energetic after eating certain berries. From these modest origins, coffee *spread throughout* the Ottoman Empire and eventually reached Europe in the 17th century. European traders were initially *skeptical* about this dark, bitter drink, but they soon recognized its commercial potential. Coffee houses quickly became *vibrant* social centers where intellectuals, merchants, and artists would *gather* to exchange ideas and conduct business.",
+          "Different regions have developed their own *distinctive* coffee traditions that reflect local values and lifestyles. In Italy, the espresso culture *emphasizes* quick, standing consumption at neighborhood bars, fostering brief but meaningful social interactions. Scandinavian countries have *embraced* the concept of 'fika' – a coffee break that prioritizes relaxation and community bonding over productivity. Meanwhile, Ethiopian coffee ceremonies involve elaborate preparation rituals that can last several hours, demonstrating how coffee serves as a *foundation* for family gatherings and hospitality.",
+          "The global coffee industry has *undergone* significant transformation in recent decades, with specialty coffee movements gaining momentum worldwide. Modern consumers are increasingly *conscious* of ethical sourcing practices and environmental sustainability. Third-wave coffee culture treats coffee preparation as an art form, where baristas *demonstrate* technical expertise similar to skilled craftspeople. This evolution has created new opportunities for coffee-producing countries to *participate* more profitably in the global market, moving beyond simple commodity trading to value-added processing and branding.",
+          "Today's coffee culture continues to adapt to changing social needs and technological advances. Whether it's a traditional Arabic qahwa shared among friends, a carefully crafted pour-over in a trendy café, or a quick espresso grabbed during a busy workday, coffee remains a universal language that brings people together across cultures, generations, and social boundaries."
+        ]
+      },
+      "word_count": 567
+    },
+    {
+      "id": "17a10da6-db8b-4a47-9fdc-7aef337085cb",
+      "label": "B",
+      "title": "Coffee's Journey from Bean to Cup",
+      "content": {
+        "paragraphs": [
+          "When you *savor* your morning coffee, you're experiencing the result of a complex journey that began thousands of miles away in the mountains of Ethiopia, Colombia, or Brazil. The path from coffee bean to your cup involves careful *cultivation*, precise processing, and an intricate global supply chain that connects farmers in remote villages to consumers in bustling cities worldwide.",
+          "Coffee plants are remarkably *sensitive* to their environment, thriving only in specific regions known as the 'coffee belt' – a narrow band around the equator between 25 degrees north and 30 degrees south latitude. Within this belt, altitude plays a *crucial* role in determining coffee quality. Beans grown at higher elevations, typically between 1,200 and 2,000 meters above sea level, develop more slowly and *acquire* complex flavors that coffee experts highly prize. It has been reported that Ethiopian coffee farmers, who *maintain* traditional growing methods passed down through generations, can distinguish between beans from different hillsides simply by taste.",
+          "The processing methods employed after harvest significantly *influence* the final flavor profile of coffee beans. The wet processing method, which is *prevalent* in Central America, involves removing the fruit pulp immediately after picking and fermenting the beans in water for 12-48 hours. This technique typically produces coffee with bright acidity and clean flavors. In contrast, the dry processing method, commonly used in Ethiopia and Brazil, allows the entire coffee cherry to dry in the sun before the bean is extracted. If farmers *adhere* to proper drying techniques, this method can create coffee with fuller body and fruity characteristics.",
+          "Climate change has begun to *disrupt* traditional coffee-growing regions, forcing farmers to adapt their practices or relocate to higher altitudes. Scientists predict that by 2050, the area suitable for coffee cultivation could decrease by up to 50%. However, innovative farmers are learning to *cope* with these challenges by developing drought-resistant varieties and implementing sustainable farming practices. Many coffee cooperatives now *participate* in certification programs that promote environmental protection while ensuring fair prices for farmers.",
+          "The global coffee trade represents a fascinating example of how local agricultural practices connect to international markets. When specialty coffee roasters *acquire* beans directly from specific farms through 'direct trade' relationships, they often pay premium prices that help farming communities invest in better equipment and education. This approach has proven more *beneficial* than traditional commodity trading, as it allows farmers to capture more value from their crops while giving consumers access to exceptional coffee with traceable origins. Research indicates that direct trade relationships can increase farmer income by 200-300% compared to conventional supply chains."
+        ]
+      },
+      "word_count": 456
+    }
+  ],
+  "grammar": {
+    "topic_name_en": "passive voice (present)",
+    "topic_name_ar": "passive voice (present)",
+    "explanation_content": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "الصوت المبني للمجهول يركز على الفعل أو متلقي الفعل، وليس على فاعل الفعل. نستخدمه عندما يكون الفاعل غير معروف أو غير مهم، أو عندما نريد التركيز على النتيجة أو العملية.",
+          "content_en": "<b>Passive Voice (Present)</b><br><br>Look at these examples:<br>• Coffee <b>is grown</b> in Ethiopia.<br>• Espresso machines <b>are used</b> in Italian cafés.<br>• Turkish coffee <b>is prepared</b> with special techniques.<br><br>In passive voice, we focus on the <i>action</i> or the <i>receiver</i> of the action, not who does it. We use passive voice when:<br>• The doer is unknown or not important<br>• We want to focus on the result/process<br>• In formal writing or scientific descriptions<br><br><b>Formation:</b> Subject + am/is/are + past participle<br><br>The past participle is usually the same as the past simple for regular verbs (work→worked), but irregular verbs have special forms (make→made, grow→grown)."
+        },
+        {
+          "type": "formula",
+          "content": "Subject + am/is/are + past participle"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "Coffee is grown in many countries.",
+              "highlight": "is grown",
+              "translation_ar": "تُزرع القهوة في دول كثيرة"
+            },
+            {
+              "sentence": "Cappuccinos are made with steamed milk.",
+              "highlight": "are made",
+              "translation_ar": "تُصنع الكابتشينو بالحليب المبخر"
+            },
+            {
+              "sentence": "The beans are roasted at high temperatures.",
+              "highlight": "are roasted",
+              "translation_ar": "تُحمص الحبوب في درجات حرارة عالية"
+            },
+            {
+              "sentence": "Fair trade coffee is sold in supermarkets.",
+              "highlight": "is sold",
+              "translation_ar": "تُباع قهوة التجارة العادلة في السوبر ماركت"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "Coffee is grow in Brazil.",
+              "correct": "Coffee is grown in Brazil.",
+              "explanation_ar": "استخدم past participle وليس المصدر"
+            },
+            {
+              "wrong": "Lattes are make with milk.",
+              "correct": "Lattes are made with milk.",
+              "explanation_ar": "الفعل غير النظامي make يصبح made"
+            },
+            {
+              "wrong": "Coffee beans is processed carefully.",
+              "correct": "Coffee beans are processed carefully.",
+              "explanation_ar": "beans جمع، لذا نستخدم are"
+            },
+            {
+              "wrong": "Turkish coffee prepared with sugar.",
+              "correct": "Turkish coffee is prepared with sugar.",
+              "explanation_ar": "لا تنس فعل المساعدة am/is/are"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

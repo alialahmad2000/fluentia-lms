@@ -4,6 +4,9 @@
 @import './styles/components.css';
 @import './design-system/themes.css';
 
+/* Fluentia Atelier — overrides all legacy theme variables */
+@import './design-system/fluentia-atelier/index.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

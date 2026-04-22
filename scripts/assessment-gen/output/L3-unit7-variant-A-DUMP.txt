@@ -1,0 +1,141 @@
+======================================================================
+LEVEL 3 · UNIT 7 · VARIANT A — FULL DUMP
+======================================================================
+Source file:     C:/Users/Dr. Ali/Desktop/fluentia-lms/scripts/assessment-gen/output/L3-unit7-variant-A.json
+unit_id:         97b187e9-39e6-4263-8ed8-72a63e69273c
+variant_id:      2bb812ec-2029-4dd1-a17f-cd8544890b3d
+generated_at:    2026-04-21T07:00:00Z
+generated_by:    Claude Code native (L3 bulk, English-only)
+distribution:    8V / 6G / 6R  ·  12 MCQ / 4 T/F / 2 FB / 2 Matching
+question_count:  20
+======================================================================
+
+Qundefined  [vocabulary · mcq]
+    Q: Researchers continue to 'uncover' new insights about how fear shapes our daily lives. What does 'uncover' mean?
+    a) To hide and conceal important findings from the public
+    b) To create and invent entirely new ideas without evidence
+  ✓ c) To discover and reveal something that was previously unknown
+    d) To confirm and prove findings that were already well established
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: Fear can both protect and 'hinder' us in unexpected ways. What does 'hinder' mean?
+    a) To support and assist someone in achieving their goals
+  ✓ b) To slow down and make progress more difficult
+    c) To encourage and motivate someone to try harder
+    d) To analyse and measure the effects of a situation
+    A: b
+
+Qundefined  [vocabulary · mcq]
+    Q: We sometimes 'encounter' threats that trigger a fear response before we understand them. What does 'encounter' mean?
+    a) To avoid and deliberately stay away from something
+    b) To study and carefully research something over time
+  ✓ c) To come across and meet something, often unexpectedly
+    d) To create and bring something new into existence
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: The brain processes fear faster than our conscious mind can 'comprehend' it. What does 'comprehend' mean?
+    a) To forget and dismiss information without processing it
+    b) To physically sense and detect something in the environment
+  ✓ c) To fully understand and make sense of something
+    d) To predict and anticipate something before it happens
+    A: c
+
+Qundefined  [vocabulary · mcq]
+    Q: People who 'overcome' their fears often develop stronger pathways for courage. What does 'overcome' mean?
+    a) To surrender and accept defeat when facing a challenge
+    b) To avoid and escape from a difficult situation entirely
+  ✓ c) To successfully deal with and defeat a difficulty or fear
+    d) To ignore and pretend a problem does not exist
+    A: c
+
+Qundefined  [vocabulary · true_false]
+    Q: When fears 'interfere' with professional goals, they prevent people from achieving what they want to accomplish.
+    A: true
+
+Qundefined  [vocabulary · true_false]
+    Q: When people 'dwell on' their fears, they think about them repeatedly, which actually makes those fears stronger.
+    A: true
+
+Qundefined  [vocabulary · fill_blank]
+    Q: People who choose to _____ their fears rather than avoid them often experience significant personal growth.
+    A: confront (also accepted: confront, Confront, face, tackle)
+
+Qundefined  [grammar · mcq]
+    Q: Convert to reported speech: Dr. Al-Mansouri said, 'Fear feeds on avoidance.'
+    a) Dr. Al-Mansouri said fear feeds on avoidance.
+  ✓ b) Dr. Al-Mansouri said that fear fed on avoidance.
+    c) Dr. Al-Mansouri said that fear will feed on avoidance.
+    d) Dr. Al-Mansouri told fear feeds on avoidance.
+    A: b
+
+Qundefined  [grammar · mcq]
+    Q: Convert: The researcher said, 'I am studying the amygdala's role in fear.'
+    a) The researcher said that he is studying the amygdala's role.
+  ✓ b) The researcher said that he was studying the amygdala's role.
+    c) The researcher told that he was studying the amygdala's role.
+    d) The researcher said that he studied the amygdala's role.
+    A: b
+
+Qundefined  [grammar · mcq]
+    Q: Which sentence correctly uses 'tell' (not 'say') in reported speech?
+    a) She told that her research was complete.
+    b) She said her students that fear could be managed.
+  ✓ c) She told her students that fear could be managed.
+    d) She told that fear could be managed.
+    A: c
+
+Qundefined  [grammar · mcq]
+    Q: What happens to 'will' when converting to reported speech with a past reporting verb?
+    a) It stays as 'will'
+  ✓ b) It changes to 'would'
+    c) It changes to 'should'
+    d) It changes to 'shall'
+    A: b
+
+Qundefined  [grammar · true_false]
+    Q: The reported speech version of 'She said: I can overcome my phobia' is: 'She said she could overcome her phobia.'
+    A: true
+
+Qundefined  [grammar · matching]
+    Q: Match each direct speech sentence to its correct reported speech version.
+
+Qundefined  [reading · mcq]
+    Q: According to Passage A, where is the amygdala located in the brain?
+    a) In the front of the brain, behind the forehead
+  ✓ b) A small, almond-shaped region deep in the brain
+    c) In the outer layer of the brain called the cerebral cortex
+    d) At the base of the skull, near the spinal cord
+    A: b
+
+Qundefined  [reading · mcq]
+    Q: According to Passage A, what percentage of adults in major Middle Eastern cities struggle with fears that affect their lives?
+    a) 5%
+    b) 10%
+  ✓ c) 15%
+    d) 25%
+    A: c
+
+Qundefined  [reading · mcq]
+    Q: Passage A says 'understanding fear is the first step toward mastering it.' What does this suggest?
+    a) Fear disappears automatically once a person understands its causes
+    b) Knowledge about fear is necessary but not sufficient for managing it
+  ✓ c) Awareness of how fear works empowers people to respond to it better
+    d) Only scientists who study the brain can successfully overcome fear
+    A: c
+
+Qundefined  [reading · true_false]
+    Q: According to Passage A, Dr. Al-Mansouri is a neuroscientist at King Abdullah University of Science and Technology.
+    A: true
+
+Qundefined  [reading · fill_blank]
+    Q: According to Passage A, the amygdala can trigger a fear response within _____ milliseconds.
+    A: 12 (also accepted: 12, twelve, Twelve)
+
+Qundefined  [reading · matching]
+    Q: Match each fear management technique from Passage A to its description.
+
+----------------------------------------------------------------------
+END OF DUMP — 20 questions printed
+======================================================================
