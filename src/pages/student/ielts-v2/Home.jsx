@@ -299,7 +299,11 @@ export default function Home() {
           </h2>
           <p style={{ fontSize: 13, color: 'var(--ds-text-muted)', margin: 0 }}>
             {hasAnyResults
-              ? `آخر تحديث: نتيجة ${latestResult?.result_type === 'diagnostic' ? 'تشخيصي' : 'اختبار'}`
+              ? <>
+                  {`آخر تحديث: نتيجة ${latestResult?.result_type === 'diagnostic' ? 'تشخيصي' : 'اختبار'}`}
+                  {' · '}
+                  <Link to="/student/ielts-v2/diagnostic/results" style={{ color: 'var(--sunset-orange, #fbbf24)', textDecoration: 'none', fontWeight: 700 }}>شاهد نتيجتك الأخيرة</Link>
+                </>
               : 'ستظهر درجاتك هنا بعد أول تشخيص.'}
           </p>
         </div>

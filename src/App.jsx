@@ -113,8 +113,9 @@ const IELTSGuard = lazyRetry(() => import('./components/ielts/IELTSGuard'))
 const IELTSV2Gate           = lazyRetry(() => import('./pages/student/ielts-v2/_layout/IELTSV2Gate'))
 const IELTSMasterclassLayout = lazyRetry(() => import('./pages/student/ielts-v2/_layout/IELTSMasterclassLayout'))
 const IELTSV2Home           = lazyRetry(() => import('./pages/student/ielts-v2/Home'))
-const IELTSV2Diagnostic     = lazyRetry(() => import('./pages/student/ielts-v2/Diagnostic'))
-const IELTSV2Reading        = lazyRetry(() => import('./pages/student/ielts-v2/Reading'))
+const IELTSV2Diagnostic        = lazyRetry(() => import('./pages/student/ielts-v2/Diagnostic'))
+const IELTSV2DiagnosticResults = lazyRetry(() => import('./pages/student/ielts-v2/DiagnosticResults'))
+const IELTSV2Reading           = lazyRetry(() => import('./pages/student/ielts-v2/Reading'))
 const IELTSV2Listening      = lazyRetry(() => import('./pages/student/ielts-v2/Listening'))
 const IELTSV2Writing        = lazyRetry(() => import('./pages/student/ielts-v2/Writing'))
 const IELTSV2Speaking       = lazyRetry(() => import('./pages/student/ielts-v2/Speaking'))
@@ -664,6 +665,7 @@ export default function App() {
                   <Route element={<IELTSMasterclassLayout />}>
                     <Route index element={<IELTSV2Home />} />
                     <Route path="diagnostic" element={<IELTSV2Diagnostic />} />
+                    <Route path="diagnostic/results" element={<IELTSV2DiagnosticResults />} />
                     <Route path="reading"    element={<IELTSV2Reading />} />
                     <Route path="listening"  element={<IELTSV2Listening />} />
                     <Route path="writing"    element={<IELTSV2Writing />} />
