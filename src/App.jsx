@@ -22,6 +22,7 @@ import { hasPackageAccess } from './components/PackageGate'
 
 // ─── Design System (Phase 0) ────────────────────────────────
 import ThemeProvider from './design-system/ThemeProvider'
+import { AuroraBackground } from './design-system/components'
 
 // ─── Lazy-loaded Pages (with chunk retry on stale deploys) ───
 const StudentDashboard = lazyRetry(() => import('./pages/student/StudentDashboard'))
@@ -190,6 +191,9 @@ const AffiliatesDashboard = lazyRetry(() => import('./pages/admin/AffiliatesDash
 const AffiliatePayouts = lazyRetry(() => import('./pages/admin/AffiliatePayouts'))
 const AffiliateMaterialsAdmin = lazyRetry(() => import('./pages/admin/AffiliateMaterialsAdmin'))
 const MasterclassDesignShowcase = lazyRetry(() => import('./pages/admin/MasterclassDesignShowcase'))
+const AtelierStudentPreview = lazyRetry(() => import('./pages/admin/atelier-preview/AtelierStudentPreview'))
+const AtelierTrainerPreview = lazyRetry(() => import('./pages/admin/atelier-preview/AtelierTrainerPreview'))
+const AtelierAdminPreview   = lazyRetry(() => import('./pages/admin/atelier-preview/AtelierAdminPreview'))
 
 const PartnerLayout = lazyRetry(() => import('./layouts/PartnerLayout'))
 const PartnerRoute = lazyRetry(() => import('./components/PartnerRoute'))
@@ -501,6 +505,7 @@ export default function App() {
       <BrowserRouter>
         <ToastProvider>
         <ThemeProvider />
+        <AuroraBackground />
         <OfflineBanner />
         <ImpersonationBanner />
         <ForcePasswordChange />
@@ -787,6 +792,9 @@ export default function App() {
               <Route path="/admin/interactive-curriculum/:levelId/:unitId" element={<Page><InteractiveCurriculumPage /></Page>} />
               <Route path="/admin/student/:studentId/progress" element={<Page><StudentProgressDetail /></Page>} />
               <Route path="/admin/design-showcase-masterclass" element={<Page><MasterclassDesignShowcase /></Page>} />
+              <Route path="/admin/atelier-preview/student" element={<AtelierStudentPreview />} />
+              <Route path="/admin/atelier-preview/trainer" element={<AtelierTrainerPreview />} />
+              <Route path="/admin/atelier-preview/admin"   element={<AtelierAdminPreview />} />
             </Route>
           </Route>
 

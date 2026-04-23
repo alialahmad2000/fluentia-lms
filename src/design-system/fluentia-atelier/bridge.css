@@ -1,199 +1,130 @@
 /* ═══════════════════════════════════════════════════════════════
-   ATELIER BRIDGE — Maps --ds-* names to Atelier primitives
-   Every existing component using var(--ds-*) inherits Atelier
-   automatically. Do NOT edit individual components.
-
-   Loaded AFTER themes.css — same specificity selectors but later
-   position in cascade means Atelier wins unconditionally.
+   ATELIER BRIDGE — SCOPED VERSION
+   --ds-* mappings only activate inside .atelier-scope descendants.
+   Global UI stays on pre-Atelier tokens.
    ═══════════════════════════════════════════════════════════════ */
 
-:root {
-  /* ── Backgrounds ── */
-  --ds-bg-base:            var(--atelier-canvas);
-  --ds-bg-elevated:        var(--atelier-surface);
-  --ds-bg-overlay:         rgba(15, 13, 11, 0.88);
-  --ds-bg:                 var(--atelier-canvas);
-  --ds-bg-page:            var(--atelier-canvas);
+.atelier-scope {
+  /* Backgrounds */
+  --ds-bg:              var(--atelier-canvas);
+  --ds-bg-elevated:     var(--atelier-surface);
+  --ds-bg-page:         var(--atelier-canvas);
+  --ds-surface:         var(--atelier-surface);
+  --ds-card:            var(--atelier-elevated);
+  --ds-card-hover:      var(--atelier-elevated-hi);
+  --ds-inset:           var(--atelier-inset);
 
-  /* ── Surfaces ── */
-  --ds-surface:            var(--atelier-surface);
-  --ds-surface-1:          rgba(245, 239, 228, 0.03);
-  --ds-surface-2:          rgba(245, 239, 228, 0.05);
-  --ds-surface-3:          rgba(245, 239, 228, 0.08);
-  --ds-card:               var(--atelier-elevated);
-  --ds-card-hover:         var(--atelier-elevated-hi);
-  --ds-inset:              var(--atelier-inset);
+  /* Text */
+  --ds-text:            var(--atelier-ink);
+  --ds-text-primary:    var(--atelier-ink);
+  --ds-text-secondary:  var(--atelier-ink-muted);
+  --ds-text-muted:      var(--atelier-ink-muted);
+  --ds-text-whisper:    var(--atelier-ink-whisper);
+  --ds-text-disabled:   var(--atelier-ink-ghost);
 
-  /* ── Text ── */
-  --ds-text-primary:       var(--atelier-ink);
-  --ds-text-secondary:     var(--atelier-ink-muted);
-  --ds-text-tertiary:      var(--atelier-ink-whisper);
-  --ds-text-inverse:       var(--atelier-canvas);
-  --ds-text:               var(--atelier-ink);
-  --ds-text-muted:         var(--atelier-ink-muted);
-  --ds-text-whisper:       var(--atelier-ink-whisper);
-  --ds-text-disabled:      var(--atelier-ink-ghost);
+  /* Borders */
+  --ds-border:          var(--atelier-rule);
+  --ds-border-strong:   var(--atelier-rule-strong);
+  --ds-divider:         var(--atelier-rule);
 
-  /* ── Borders ── */
-  --ds-border-subtle:      var(--atelier-rule);
-  --ds-border-strong:      var(--atelier-rule-strong);
-  --ds-border:             var(--atelier-rule);
-  --ds-divider:            var(--atelier-rule);
+  /* Primary / Accent — THE JEWEL */
+  --ds-primary:         var(--atelier-jewel);
+  --ds-primary-hover:   var(--atelier-jewel-hover);
+  --ds-primary-press:   var(--atelier-jewel-press);
+  --ds-primary-glow:    var(--atelier-jewel-glow);
+  --ds-primary-ink:     var(--atelier-jewel-ink);
+  --ds-accent:          var(--atelier-jewel);
+  --ds-brand:           var(--atelier-jewel);
 
-  /* ── Primary / Accent — THE JEWEL ── */
-  --ds-accent-primary:     var(--atelier-jewel);
-  --ds-accent-primary-glow: var(--atelier-jewel-glow);
-  --ds-accent-secondary:   var(--atelier-ink-muted);
-  --ds-accent-gold:        var(--atelier-gold);
-  --ds-accent-success:     var(--atelier-jewel);
-  --ds-accent-warning:     var(--atelier-warn);
-  --ds-accent-danger:      var(--atelier-danger);
-  --ds-primary:            var(--atelier-jewel);
-  --ds-primary-hover:      var(--atelier-jewel-hover);
-  --ds-primary-press:      var(--atelier-jewel-press);
-  --ds-primary-glow:       var(--atelier-jewel-glow);
-  --ds-primary-ink:        var(--atelier-jewel-ink);
-  --ds-accent:             var(--atelier-jewel);
-  --ds-brand:              var(--atelier-jewel);
+  /* Gold */
+  --ds-gold:            var(--atelier-gold);
+  --ds-gold-dim:        var(--atelier-gold-dim);
+  --ds-premium:         var(--atelier-gold);
 
-  /* ── Gold (achievements only) ── */
-  --ds-gold:               var(--atelier-gold);
-  --ds-gold-dim:           var(--atelier-gold-dim);
-  --ds-premium:            var(--atelier-gold);
+  /* Semantic */
+  --ds-success:         var(--atelier-jewel);
+  --ds-success-bg:      rgba(20, 146, 106, 0.10);
+  --ds-warning:         var(--atelier-warn);
+  --ds-warning-bg:      var(--atelier-warn-bg);
+  --ds-danger:          var(--atelier-danger);
+  --ds-danger-bg:       var(--atelier-danger-bg);
+  --ds-error:           var(--atelier-danger);
+  --ds-error-bg:        var(--atelier-danger-bg);
+  --ds-info:            var(--atelier-info);
+  --ds-info-bg:         var(--atelier-info-bg);
 
-  /* ── Aurora → Atelier remapping ── */
-  --ds-aurora-1:           var(--atelier-jewel);
-  --ds-aurora-2:           var(--atelier-gold-dim);
-  --ds-aurora-3:           var(--atelier-ink-whisper);
-  --ds-aurora-opacity:     0.06;
+  /* Radii */
+  --ds-radius-sm:       var(--atelier-radius-sharp);
+  --ds-radius:          var(--atelier-radius-input);
+  --ds-radius-md:       var(--atelier-radius-card);
+  --ds-radius-lg:       var(--atelier-radius-hero);
+  --ds-radius-xl:       var(--atelier-radius-hero);
+  --ds-radius-full:     var(--atelier-radius-hero);
 
-  /* ── Semantic states ── */
-  --ds-success:            var(--atelier-jewel);
-  --ds-success-bg:         rgba(20, 146, 106, 0.10);
-  --ds-warning:            var(--atelier-warn);
-  --ds-warning-bg:         var(--atelier-warn-bg);
-  --ds-danger:             var(--atelier-danger);
-  --ds-danger-bg:          var(--atelier-danger-bg);
-  --ds-error:              var(--atelier-danger);
-  --ds-error-bg:           var(--atelier-danger-bg);
-  --ds-info:               var(--atelier-info);
-  --ds-info-bg:            var(--atelier-info-bg);
+  /* Shadows */
+  --ds-shadow:          var(--atelier-shadow-rest);
+  --ds-shadow-sm:       var(--atelier-shadow-rest);
+  --ds-shadow-md:       var(--atelier-shadow-rest);
+  --ds-shadow-lg:       var(--atelier-shadow-hover);
+  --ds-shadow-focus:    var(--atelier-shadow-jewel-focus);
+  --ds-shadow-inset:    var(--atelier-shadow-inset);
 
-  /* ── Masterclass tokens ── */
-  --ds-sky:                var(--atelier-jewel);
-  --ds-amber:              var(--atelier-gold);
-  --ds-reveal-bg:          var(--atelier-canvas);
-  --ds-reveal-text:        var(--atelier-ink);
+  /* Motion */
+  --ds-ease:            var(--atelier-ease);
+  --ds-duration-fast:   var(--atelier-dur-fast);
+  --ds-duration:        var(--atelier-dur-med);
+  --ds-duration-slow:   var(--atelier-dur-slow);
 
-  /* ── Sunset Atlas → Atelier remapping ── */
-  --sunset-base-deep:      var(--atelier-inset);
-  --sunset-base-mid:       var(--atelier-canvas);
-  --sunset-base-warm:      var(--atelier-surface);
-  --sunset-amber:          var(--atelier-warn);
-  --sunset-orange:         var(--atelier-gold);
-  --sunset-bronze:         var(--atelier-gold-dim);
-  --sunset-cream:          var(--atelier-ink);
-  --sunset-gold:           var(--atelier-gold);
+  /* Spacing */
+  --ds-sp-1:            var(--atelier-sp-1);
+  --ds-sp-2:            var(--atelier-sp-2);
+  --ds-sp-3:            var(--atelier-sp-3);
+  --ds-sp-4:            var(--atelier-sp-4);
+  --ds-sp-6:            var(--atelier-sp-6);
+  --ds-sp-8:            var(--atelier-sp-8);
 
-  /* ── Radii ── */
-  --ds-radius-sm:          var(--atelier-radius-sharp);
-  --ds-radius:             var(--atelier-radius-input);
-  --ds-radius-md:          var(--atelier-radius-card);
-  --ds-radius-lg:          var(--atelier-radius-hero);
-  --ds-radius-xl:          var(--atelier-radius-hero);
-  --ds-radius-full:        var(--atelier-radius-hero);
+  /* Font families */
+  --ds-font:            var(--atelier-font-ar);
+  --ds-font-ar:         var(--atelier-font-ar);
+  --ds-font-en:         var(--atelier-font-en);
+  --ds-font-num:        var(--atelier-font-num);
+  --ds-font-mono:       var(--atelier-font-mono);
 
-  /* ── Shadows ── */
-  --ds-shadow-sm:          var(--atelier-shadow-rest);
-  --ds-shadow-md:          var(--atelier-shadow-rest);
-  --ds-shadow-lg:          var(--atelier-shadow-hover);
-  --ds-shadow-glow:        var(--atelier-shadow-jewel-focus);
-  --ds-shadow:             var(--atelier-shadow-rest);
-  --ds-shadow-focus:       var(--atelier-shadow-jewel-focus);
-  --ds-shadow-inset:       var(--atelier-shadow-inset);
-
-  /* ── Motion ── */
-  --ds-ease:               var(--atelier-ease);
-  --ds-duration-fast:      var(--atelier-dur-fast);
-  --ds-duration:           var(--atelier-dur-med);
-  --ds-duration-slow:      var(--atelier-dur-slow);
-
-  /* ── Spacing ── */
-  --ds-sp-1:               var(--atelier-sp-1);
-  --ds-sp-2:               var(--atelier-sp-2);
-  --ds-sp-3:               var(--atelier-sp-3);
-  --ds-sp-4:               var(--atelier-sp-4);
-  --ds-sp-6:               var(--atelier-sp-6);
-  --ds-sp-8:               var(--atelier-sp-8);
-
-  /* ── Font families ── */
-  --ds-font:               var(--atelier-font-ar);
-  --ds-font-ar:            var(--atelier-font-ar);
-  --ds-font-en:            var(--atelier-font-en);
-  --ds-font-num:           var(--atelier-font-num);
-  --ds-font-mono:          var(--atelier-font-mono);
-
-  /* ── Theme flag ── */
-  --ds-is-dark:            1;
+  /* Direct atelier surface styling on the scope itself */
+  background: var(--atelier-canvas);
+  color: var(--atelier-ink);
+  font-family: var(--atelier-font-ar);
 }
 
-/* Force Atelier on all data-theme variants — bridge.css loads AFTER
-   themes.css so same-specificity rules here win via cascade order */
-[data-theme="aurora-cinematic"],
-[data-theme="night"],
-[data-theme="minimal"],
-[data-theme] {
-  --ds-bg-base:            var(--atelier-canvas);
-  --ds-bg-elevated:        var(--atelier-surface);
-  --ds-bg-overlay:         rgba(15, 13, 11, 0.88);
-  --ds-surface-1:          rgba(245, 239, 228, 0.03);
-  --ds-surface-2:          rgba(245, 239, 228, 0.05);
-  --ds-surface-3:          rgba(245, 239, 228, 0.08);
-  --ds-border-subtle:      var(--atelier-rule);
-  --ds-border-strong:      var(--atelier-rule-strong);
-  --ds-text-primary:       var(--atelier-ink);
-  --ds-text-secondary:     var(--atelier-ink-muted);
-  --ds-text-tertiary:      var(--atelier-ink-whisper);
-  --ds-text-inverse:       var(--atelier-canvas);
-  --ds-accent-primary:     var(--atelier-jewel);
-  --ds-accent-primary-glow: var(--atelier-jewel-glow);
-  --ds-accent-secondary:   var(--atelier-ink-muted);
-  --ds-accent-gold:        var(--atelier-gold);
-  --ds-accent-success:     var(--atelier-jewel);
-  --ds-accent-warning:     var(--atelier-warn);
-  --ds-accent-danger:      var(--atelier-danger);
-  --ds-aurora-1:           var(--atelier-jewel);
-  --ds-aurora-2:           var(--atelier-gold-dim);
-  --ds-aurora-3:           var(--atelier-ink-whisper);
-  --ds-aurora-opacity:     0.06;
-  --ds-shadow-sm:          var(--atelier-shadow-rest);
-  --ds-shadow-md:          var(--atelier-shadow-rest);
-  --ds-shadow-lg:          var(--atelier-shadow-hover);
-  --ds-shadow-glow:        var(--atelier-shadow-jewel-focus);
-  --ds-is-dark:            1;
-  --ds-sky:                var(--atelier-jewel);
-  --ds-amber:              var(--atelier-gold);
-  --ds-reveal-bg:          var(--atelier-canvas);
-  --ds-reveal-text:        var(--atelier-ink);
+.atelier-scope :lang(en),
+.atelier-scope [lang="en"] {
+  font-family: var(--atelier-font-en);
 }
 
-/* Legacy theme classes → force Atelier */
-.theme-diwan,
-.theme-diwan-gold,
-.theme-teal,
-.theme-deep-teal,
-.theme-daylight,
-.theme-daylight-study,
-.theme-mission-black,
-html.theme-diwan,
-html.theme-teal,
-html.theme-daylight {
-  --ds-bg:           var(--atelier-canvas);
-  --ds-bg-base:      var(--atelier-canvas);
-  --ds-bg-elevated:  var(--atelier-surface);
-  --ds-text:         var(--atelier-ink);
-  --ds-text-primary: var(--atelier-ink);
-  --ds-primary:      var(--atelier-jewel);
-  --ds-accent:       var(--atelier-jewel);
-  --ds-brand:        var(--atelier-jewel);
+/* Scoped selection */
+.atelier-scope ::selection {
+  background: var(--atelier-jewel);
+  color: var(--atelier-jewel-ink);
+}
+
+/* Scoped focus */
+.atelier-scope :focus-visible {
+  outline: none;
+  box-shadow: var(--atelier-shadow-jewel-focus);
+}
+
+/* Scoped scrollbar */
+.atelier-scope ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.atelier-scope ::-webkit-scrollbar-track {
+  background: transparent;
+}
+.atelier-scope ::-webkit-scrollbar-thumb {
+  background: var(--atelier-rule-strong);
+  border-radius: 10px;
+}
+.atelier-scope ::-webkit-scrollbar-thumb:hover {
+  background: var(--atelier-ink-whisper);
 }

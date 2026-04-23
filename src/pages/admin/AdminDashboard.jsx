@@ -13,6 +13,7 @@ import CurriculumActivityCard from '../../components/dashboard/CurriculumActivit
 import EnableNotificationsPrompt from '../../components/notifications/EnableNotificationsPrompt'
 import DeviceInstallStatusWidget from '../../components/admin/DeviceInstallStatusWidget'
 import PlacementQueueWidget from './PlacementQueueWidget'
+import AtelierLauncher from './atelier-preview/AtelierLauncher'
 
 export default function AdminDashboard() {
   const { profile } = useAuthStore()
@@ -221,6 +222,9 @@ export default function AdminDashboard() {
         </h1>
         <p className="text-[15px] mt-2.5" style={{ color: 'var(--text-tertiary)' }}>لوحة تحكم الإدارة</p>
       </motion.div>
+
+      {/* Atelier identity preview */}
+      <AtelierLauncher />
 
       {/* Push notifications opt-in */}
       <EnableNotificationsPrompt />
