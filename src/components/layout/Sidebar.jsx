@@ -41,8 +41,6 @@ function Sidebar({ nav, collapsed, onToggle }) {
         height: 'calc(100vh - var(--impersonation-banner-height, 0px))',
         width: collapsed ? 76 : 264,
         background: 'var(--ds-bg-elevated, var(--surface-base, #0b0f18))',
-        backdropFilter: 'blur(24px) saturate(160%)',
-        WebkitBackdropFilter: 'blur(24px) saturate(160%)',
         borderLeft: '1px solid var(--ds-border-subtle, var(--border-subtle, rgba(255,255,255,0.06)))',
       }}
     >
