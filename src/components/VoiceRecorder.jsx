@@ -329,41 +329,48 @@ export default function VoiceRecorder({
     }
   }, [audioBlob, studentId, unitId, questionIndex, elapsed, onUploadComplete])
 
-  // ─── Trigger AI Evaluation ───
+  // ─── Trigger AI Evaluation (3 attempts with exponential backoff) ───
   const triggerEvaluation = useCallback(async (recordingId) => {
     if (!recordingId) return
     setEvaluating(true)
     setEvaluation(null)
-    try {
-      const { data, error } = await invokeWithRetry('evaluate-speaking', {
-        body: { recording_id: recordingId },
-      }, { timeoutMs: 90000, retries: 0 })
 
-      if (error) {
-        console.error('[VoiceRecorder] Evaluation error:', error)
-        return
-      }
+    const delays = [0, 1000, 3000]
+    let lastErr = null
 
-      // Handle different response formats (data could be Blob, string, or object)
-      let parsed = data
-      if (data instanceof Blob) {
-        try { parsed = JSON.parse(await data.text()) } catch { parsed = null }
-      } else if (typeof data === 'string') {
-        try { parsed = JSON.parse(data) } catch { parsed = null }
-      }
+    for (let attempt = 0; attempt < delays.length; attempt++) {
+      if (delays[attempt] > 0) await new Promise(r => setTimeout(r, delays[attempt]))
+      try {
+        const { data, error } = await invokeWithRetry('evaluate-speaking', {
+          body: { recording_id: recordingId },
+        }, { timeoutMs: 90000, retries: 0 })
 
-      if (parsed?.evaluation) {
-        setEvaluation(parsed.evaluation)
-        // Notify parent so detailed feedback shows immediately
-        onEvaluationComplete?.(parsed.evaluation)
-        // Invalidate recordings query so evaluation persists on refresh
-        onUploadComplete?.()
+        if (error) { lastErr = error; continue }
+
+        let parsed = data
+        if (data instanceof Blob) {
+          try { parsed = JSON.parse(await data.text()) } catch { parsed = null }
+        } else if (typeof data === 'string') {
+          try { parsed = JSON.parse(data) } catch { parsed = null }
+        }
+
+        if (parsed?.evaluation) {
+          setEvaluation(parsed.evaluation)
+          onEvaluationComplete?.(parsed.evaluation)
+          onUploadComplete?.()
+          setEvaluating(false)
+          return
+        }
+        // ok:false means server-side failure already recorded — stop inline retries
+        if (parsed?.ok === false) break
+      } catch (err) {
+        lastErr = err
       }
-    } catch (err) {
-      console.error('[VoiceRecorder] Evaluation invoke failed:', err)
-    } finally {
-      setEvaluating(false)
     }
+
+    // All inline retries exhausted — sweeper will pick it up. Stay silent.
+    console.warn('[VoiceRecorder] Inline evaluation retries exhausted; sweeper will retry:', lastErr)
+    setEvaluating(false)
   }, [onUploadComplete, onEvaluationComplete])
 
   // ─── Re-record ───
@@ -530,7 +537,15 @@ export default function VoiceRecorder({
               </motion.div>
             )}
             {!hideFeedbackInline && !evaluating && !evaluation && state === STATE.UPLOADED && !existingRecording?.ai_evaluation && (
-              <p className="text-[10px] text-center text-[var(--text-muted)] font-['Tajawal']">التقييم سيكون متاحاً قريباً</p>
+              <>
+                {existingRecording?.evaluation_status === 'failed_manual' ? (
+                  <p className="text-xs text-center text-[var(--text-muted)] font-['Tajawal'] px-2">تسجيلك مُرسل للمعلم لمراجعته شخصياً</p>
+                ) : (
+                  <p className="text-xs text-center text-[var(--text-muted)] font-['Tajawal'] px-2">
+                    تسجيلك محفوظ. سيتم تقييمه خلال دقائق — لا داعي لإعادة الإرسال.
+                  </p>
+                )}
+              </>
             )}
 
             <div className="flex justify-center">

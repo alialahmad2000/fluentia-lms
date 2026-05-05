@@ -1,7 +1,7 @@
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useMemo, useCallback, useEffect } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Mic, ChevronDown, Clock, MessageCircle, Sparkles, Volume2, ClipboardCheck, GraduationCap, RefreshCw, Loader2, History } from 'lucide-react'
+import { Mic, ChevronDown, Clock, MessageCircle, Sparkles, Volume2, ClipboardCheck, GraduationCap, Loader2, History } from 'lucide-react'
 import ShareAchievementCard from '../../../../components/ShareAchievementCard'
 import ActivityLeaderboard from '../../../../components/ActivityLeaderboard'
 import { useActivityLeaderboard } from '../../../../hooks/useActivityLeaderboard'
@@ -10,7 +10,6 @@ import { useAuthStore } from '../../../../stores/authStore'
 import VoiceRecorder from '../../../../components/VoiceRecorder'
 import { safeCelebrate } from '../../../../lib/celebrations'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
-import { invokeWithRetry } from '../../../../lib/invokeWithRetry'
 import { toast } from '../../../../components/ui/FluentiaToast'
 
 // ─── Main Component ──────────────────────────────────
@@ -157,39 +156,38 @@ function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId,
   const [tipsOpen, setTipsOpen] = useState(false)
   const [phrasesOpen, setPhrasesOpen] = useState(false)
   const [liveEvaluation, setLiveEvaluation] = useState(null)
-  const [retrying, setRetrying] = useState(false)
+  const [realtimeStatus, setRealtimeStatus] = useState(existingRecording?.evaluation_status || null)
   const [attemptsOpen, setAttemptsOpen] = useState(false)
   const { data: leaderboard } = useActivityLeaderboard('speaking', unitId, studentId, groupId)
 
-  const handleRetryEvaluation = useCallback(async () => {
-    if (!existingRecording?.id || retrying) return
-    setRetrying(true)
-    toast({ type: 'info', title: 'جاري إعادة التقييم...' })
-    try {
-      const { data, error } = await invokeWithRetry('evaluate-speaking', {
-        body: { recording_id: existingRecording.id },
-      }, { timeoutMs: 90000, retries: 0 })
+  // Realtime subscription — updates live when sweeper completes evaluation
+  useEffect(() => {
+    if (!existingRecording?.id) return
+    if (existingRecording?.evaluation_status === 'completed') return
 
-      let parsed = data
-      if (data instanceof Blob) {
-        try { parsed = JSON.parse(await data.text()) } catch { parsed = null }
-      } else if (typeof data === 'string') {
-        try { parsed = JSON.parse(data) } catch { parsed = null }
-      }
+    const channel = supabase
+      .channel(`speaking_recording:${existingRecording.id}`)
+      .on('postgres_changes', {
+        event: 'UPDATE',
+        schema: 'public',
+        table: 'speaking_recordings',
+        filter: `id=eq.${existingRecording.id}`,
+      }, (payload) => {
+        const updated = payload.new
+        setRealtimeStatus(updated.evaluation_status)
+        if (updated.evaluation_status === 'completed' && updated.ai_evaluation) {
+          setLiveEvaluation(updated.ai_evaluation)
+          onUploadComplete?.()
+          toast({ type: 'success', title: '✨ وصل تقييم تسجيلك!' })
+        }
+        if (updated.evaluation_status === 'failed_manual') {
+          setRealtimeStatus('failed_manual')
+        }
+      })
+      .subscribe()
 
-      if (parsed?.evaluation) {
-        setLiveEvaluation(parsed.evaluation)
-        onUploadComplete?.() // Refresh recordings query
-      } else {
-        toast({ type: 'warning', title: 'فشل التقييم — حاول مرة أخرى لاحقاً' })
-      }
-    } catch (err) {
-      console.error('[SpeakingTab] Retry evaluation failed:', err)
-      toast({ type: 'warning', title: 'فشل التقييم — حاول مرة أخرى لاحقاً' })
-    } finally {
-      setRetrying(false)
-    }
-  }, [existingRecording?.id, retrying, onUploadComplete])
+    return () => { supabase.removeChannel(channel) }
+  }, [existingRecording?.id, existingRecording?.evaluation_status, onUploadComplete])
 
   const formatDuration = (seconds) => {
     if (seconds < 60) return `${seconds} ثانية`
@@ -383,31 +381,32 @@ function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId,
       {/* Detailed Evaluation — shown right AFTER recorder so students always see it */}
       {aiEval && <AIEvaluationCard evaluation={aiEval} />}
 
-      {/* Retry button when recording exists but no evaluation */}
-      {existingRecording && !aiEval && !retrying && (
-        <div
-          className="rounded-xl p-4 flex flex-col items-center gap-3"
-          style={{ background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.15)' }}
-        >
-          <p className="text-sm text-amber-400 font-['Tajawal']">لم يتم التقييم بعد</p>
-          <button
-            onClick={handleRetryEvaluation}
-            className="flex items-center gap-1.5 px-4 h-9 rounded-xl text-xs font-bold bg-sky-500/15 text-sky-400 border border-sky-500/30 hover:bg-sky-500/25 transition-colors font-['Tajawal']"
-          >
-            <RefreshCw size={13} />
-            إعادة التقييم
-          </button>
-        </div>
-      )}
-      {retrying && (
-        <div
-          className="rounded-xl p-4 flex items-center justify-center gap-3"
-          style={{ background: 'rgba(56,189,248,0.05)', border: '1px solid rgba(56,189,248,0.12)' }}
-        >
-          <Loader2 size={18} className="text-sky-400 animate-spin flex-shrink-0" />
-          <span className="text-sm font-bold text-sky-400 font-['Tajawal']">جاري التقييم...</span>
-        </div>
-      )}
+      {/* Status-aware pending/processing indicator — NO retry button shown to student */}
+      {existingRecording && !aiEval && (() => {
+        const status = realtimeStatus || existingRecording?.evaluation_status
+        if (status === 'failed_manual') {
+          return (
+            <div
+              className="rounded-xl p-4 flex items-center justify-center"
+              style={{ background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.15)' }}
+            >
+              <p className="text-sm text-amber-400 font-['Tajawal']">تسجيلك مُرسل للمعلم لمراجعته شخصياً</p>
+            </div>
+          )
+        }
+        if (status === 'pending' || status === 'evaluating' || status === 'failed_retrying') {
+          return (
+            <div
+              className="rounded-xl p-4 flex items-center justify-center gap-3"
+              style={{ background: 'rgba(56,189,248,0.05)', border: '1px solid rgba(56,189,248,0.12)' }}
+            >
+              <Loader2 size={18} className="text-sky-400 animate-spin flex-shrink-0" />
+              <span className="text-sm font-bold text-sky-400 font-['Tajawal']">جاري تقييم تسجيلك...</span>
+            </div>
+          )
+        }
+        return null
+      })()}
 
       {/* Trainer Feedback (if available) */}
       {existingRecording?.trainer_reviewed && (
