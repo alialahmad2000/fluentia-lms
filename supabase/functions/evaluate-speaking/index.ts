@@ -155,7 +155,7 @@ serve(async (req) => {
             student_id: recording.student_id,
             unit_id: recording.unit_id,
           },
-        }).catch(() => {})
+        })
       }
     }
 
@@ -261,7 +261,7 @@ serve(async (req) => {
       model: 'whisper-1',
       audio_seconds: durationSec,
       estimated_cost_sar: (minutes * 0.006 * 3.75).toFixed(4),
-    }).catch(() => {})
+    })
   } catch (e: any) {
     return markFailure(`Whisper error: ${e.message}`)
   }
@@ -446,7 +446,7 @@ Respond ONLY with valid JSON (no markdown, no backticks, no explanation outside 
       output_tokens: outputTokens,
       audio_seconds: durationSec,
       estimated_cost_sar: costSAR.toFixed(4),
-    }).catch(() => {})
+    })
   } catch (e: any) {
     return markFailure(`Claude error: ${e.message}`)
   }
@@ -479,7 +479,7 @@ Respond ONLY with valid JSON (no markdown, no backticks, no explanation outside 
       unit_id: recording.unit_id,
       overall_score: aiEvaluation.overall_score,
     },
-  }).catch(() => {})
+  })
 
   // ── Update curriculum progress ──
   if (aiEvaluation.overall_score) {
@@ -503,11 +503,9 @@ Respond ONLY with valid JSON (no markdown, no backticks, no explanation outside 
       await supabase.from('student_curriculum_progress')
         .update({ score: aiEvaluation.overall_score * 10 })
         .eq('id', existing.id)
-        .catch(() => {})
     } else {
       await supabase.from('student_curriculum_progress')
         .insert(progressRow)
-        .catch(() => {})
     }
   }
 
