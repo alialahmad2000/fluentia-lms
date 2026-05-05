@@ -458,7 +458,6 @@ Respond ONLY with valid JSON (no markdown, no backticks, no explanation outside 
       ai_evaluation: aiEvaluation,
       ai_evaluated_at: new Date().toISOString(),
       ai_model: 'claude-sonnet-4-6 + whisper-1',
-      transcript: transcript,
       evaluation_status: 'completed',
       last_error: null,
     })
@@ -466,6 +465,11 @@ Respond ONLY with valid JSON (no markdown, no backticks, no explanation outside 
 
   if (updateError) {
     console.error('[evaluate-speaking] Save error:', updateError.message)
+    // If the final save fails, mark as failed_retrying so sweeper picks it up
+    await supabase.from('speaking_recordings')
+      .update({ evaluation_status: 'failed_retrying', last_error: updateError.message.slice(0, 500) })
+      .eq('id', recording_id)
+    return jsonResponse({ ok: false, error: updateError.message })
   }
 
   // ── Notify student ──
