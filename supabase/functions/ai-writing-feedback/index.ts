@@ -229,6 +229,15 @@ async function handleQueueMode(supabase: any, progressId: string) {
       })
       .eq('id', progressId)
 
+    // Notify student
+    await supabase.from('notifications').insert({
+      user_id: row.student_id,
+      type: 'writing_evaluated',
+      title: 'تم تصحيح كتابتك ✨',
+      body: 'وصل تصحيح تمرين الكتابة — اضغط للاطلاع على التغذية الراجعة',
+      data: { unit_id: row.unit_id, progress_id: progressId },
+    })
+
     // Log usage
     await logUsage(supabase, feedback._tokens, row.student_id, false)
 

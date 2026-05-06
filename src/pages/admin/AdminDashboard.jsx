@@ -12,6 +12,7 @@ import UserAvatar from '../../components/common/UserAvatar'
 import CurriculumActivityCard from '../../components/dashboard/CurriculumActivityCard'
 import EnableNotificationsPrompt from '../../components/notifications/EnableNotificationsPrompt'
 import DeviceInstallStatusWidget from '../../components/admin/DeviceInstallStatusWidget'
+import EvaluationHealthWidget from '../../components/admin/EvaluationHealthWidget'
 import PlacementQueueWidget from './PlacementQueueWidget'
 import AtelierLauncher from './atelier-preview/AtelierLauncher'
 
@@ -228,6 +229,9 @@ export default function AdminDashboard() {
 
       {/* Push notifications opt-in */}
       <EnableNotificationsPrompt />
+
+      {/* Evaluation system health — Layer 6 */}
+      <EvaluationHealthWidget />
 
       {/* Placement test queue */}
       <PlacementQueueWidget />

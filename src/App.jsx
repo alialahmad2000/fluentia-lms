@@ -140,6 +140,7 @@ const Student360Page = lazyRetry(() => import('./pages/trainer/v2/Student360Page
 const IELTSOverview = lazyRetry(() => import('./pages/trainer/IELTSOverview'))
 
 const AdminDashboard = lazyRetry(() => import('./pages/admin/AdminDashboard'))
+const EvaluationHealthPage = lazyRetry(() => import('./pages/admin/EvaluationHealthPage'))
 const AdminStudents = lazyRetry(() => import('./pages/admin/AdminStudents'))
 const AdminGroups = lazyRetry(() => import('./pages/admin/AdminGroups'))
 const AdminTrainers = lazyRetry(() => import('./pages/admin/AdminTrainers'))
@@ -773,6 +774,7 @@ export default function App() {
               <Route path="/admin/ai-dashboard" element={<Page><AdminAIDashboard /></Page>} />
               <Route path="/admin/content-bank" element={<Page><AdminContentBank /></Page>} />
               <Route path="/admin/daily-reports" element={<Page><AdminDailyReports /></Page>} />
+              <Route path="/admin/evaluation-health" element={<Page><EvaluationHealthPage /></Page>} />
               <Route path="/admin/announcements" element={<Page><ComposeAnnouncement /></Page>} />
               <Route path="/admin/analytics" element={<Page><AdminAnalytics /></Page>} />
               <Route path="/admin/placement-queue" element={<Page><PlacementQueuePage /></Page>} />
