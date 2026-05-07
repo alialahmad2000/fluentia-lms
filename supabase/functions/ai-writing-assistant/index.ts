@@ -1,3 +1,5 @@
+// DEPRECATED 2026-05-07: superseded by coach-chat (AI Coach B4).
+// Kept for 2-week rollback safety window. Will be deleted after 2026-05-21.
 // Fluentia LMS — AI Writing Assistant Edge Function (Claude API)
 // In-composition writing help: ideas, outline, starters, continuations, vocab, grammar, expansion
 // Deploy: supabase functions deploy ai-writing-assistant --no-verify-jwt

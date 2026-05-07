@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback, useEffect } from 'react'
-import TaskBriefing from '../../../../components/coach/TaskBriefing'
+import AICoachPanel from '../../../../components/coach/AICoachPanel'
 import PracticeMode from '../../../../components/coach/PracticeMode'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -211,11 +211,9 @@ function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId,
   const aiEval = liveEvaluation || existingRecording?.ai_evaluation
 
   return (
-    <div className="space-y-4">
-      {/* Pre-task AI briefing — only before the student has recorded */}
-      {!existingRecording && studentId && topic.id && (
-        <TaskBriefing studentId={studentId} taskId={topic.id} taskType="speaking" />
-      )}
+    <div className="lg:grid lg:grid-cols-[1fr_380px] lg:gap-6 lg:items-start space-y-4 lg:space-y-0">
+      {/* Main content column */}
+      <div className="space-y-4 min-w-0">
 
       {total > 1 && (
         <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">
@@ -588,6 +586,20 @@ function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId,
           leaderboard={leaderboard}
           currentStudentId={studentId}
         />
+      )}
+
+      </div>{/* end main content column */}
+
+      {/* AI Coach Panel — sticky right sidebar (only before final recording) */}
+      {!existingRecording && studentId && topic.id && (
+        <div className="lg:sticky lg:top-20">
+          <AICoachPanel
+            studentId={studentId}
+            taskId={topic.id}
+            taskType="speaking"
+            draftText=""
+          />
+        </div>
       )}
     </div>
   )

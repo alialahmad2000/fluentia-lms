@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
-import TaskBriefing from '../../../../components/coach/TaskBriefing'
+import AICoachPanel from '../../../../components/coach/AICoachPanel'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FileEdit, Lightbulb, Save, Send, ChevronDown, CheckCircle2, BookOpen, Target, GraduationCap, Loader2, Sparkles, AlertCircle, Clock } from 'lucide-react'
+import { FileEdit, Lightbulb, Save, Send, ChevronDown, CheckCircle2, BookOpen, Target, GraduationCap, Loader2, AlertCircle, Clock } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
@@ -11,7 +11,6 @@ import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import { invokeWithRetry } from '../../../../lib/invokeWithRetry'
 import XPBadgeInline from '../../../../components/xp/XPBadgeInline'
 import WritingFeedback from '../../../../components/curriculum/WritingFeedback'
-import WritingAssistant from '../../../../components/curriculum/WritingAssistant'
 import ShareAchievementCard from '../../../../components/ShareAchievementCard'
 import ActivityLeaderboard from '../../../../components/ActivityLeaderboard'
 import { useActivityLeaderboard } from '../../../../hooks/useActivityLeaderboard'
@@ -86,7 +85,6 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
   const [trainerGrade, setTrainerGrade] = useState(null)
   const [aiFeedback, setAiFeedback] = useState(null)
   const [submitting, setSubmitting] = useState(false)
-  const [assistantOpen, setAssistantOpen] = useState(false)
   const [submitShake, setSubmitShake] = useState(false)
   const [evalStatus, setEvalStatus] = useState(null) // pending|evaluating|completed|failed|escalated
   const [progressRowId, setProgressRowId] = useState(null)
@@ -322,9 +320,8 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
       toast({
         type: 'warning',
         title: 'ما كتبت شي بعد',
-        description: `ابدأ الكتابة — تحتاج ${task.word_count_min} كلمة على الأقل. المساعد الذكي جاهز يساعدك تبدأ.`,
+        description: `ابدأ الكتابة — تحتاج ${task.word_count_min} كلمة على الأقل. المدرّب في الجانب جاهز يساعدك.`,
       })
-      setAssistantOpen(true)
       setSubmitShake(true)
       setTimeout(() => setSubmitShake(false), 600)
       return
@@ -334,9 +331,8 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
       toast({
         type: 'warning',
         title: `تحتاج ${needed} كلمة إضافية قبل التسليم`,
-        description: `كتبت ${currentCount} كلمة — المطلوب ${task.word_count_min} كلمة على الأقل. افتحت المساعد الذكي يساعدك توسّع كتابتك.`,
+        description: `كتبت ${currentCount} كلمة — المطلوب ${task.word_count_min} كلمة على الأقل. المدرّب في الجانب يقدر يساعدك توسّع كتابتك.`,
       })
-      setAssistantOpen(true)
       setSubmitShake(true)
       setTimeout(() => setSubmitShake(false), 600)
       return
@@ -348,7 +344,6 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
     // 1. Save writing to DB first (never block on AI)
     await saveToDb(text, true)
     setSubmitted(true)
-    setAssistantOpen(false)
     toast({ type: 'success', title: 'تم إرسال كتابتك — جاري التصحيح...' })
     try { safeCelebrate('writing_submitted') } catch {}
     awardCurriculumXP(studentId, 'writing', null, unitId)
@@ -372,11 +367,9 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
   }
 
   return (
-    <div className="space-y-4">
-      {/* Pre-task AI briefing — only when not yet submitted */}
-      {!submitted && !progressLoading && studentId && task.id && (
-        <TaskBriefing studentId={studentId} taskId={task.id} taskType="writing" />
-      )}
+    <div className="lg:grid lg:grid-cols-[1fr_380px] lg:gap-6 lg:items-start space-y-4 lg:space-y-0">
+      {/* Main content column */}
+      <div className="space-y-4 min-w-0">
 
       {/* Header */}
       {total > 1 && (
@@ -494,21 +487,6 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
         </p>
       )}
 
-      {/* Writing Assistant (collapsible) */}
-      <AnimatePresence>
-        {!submitted && (
-          <WritingAssistant
-            task={task}
-            text={text}
-            open={assistantOpen}
-            onClose={() => setAssistantOpen(false)}
-            onInsertText={handleInsertText}
-            studentLevel={studentLevel}
-            studentId={studentId}
-          />
-        )}
-      </AnimatePresence>
-
       {/* Text area */}
       {progressLoading ? (
         <div className="h-48 rounded-xl bg-[var(--surface-raised)] animate-pulse" />
@@ -523,7 +501,6 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
             inRange={inRange}
             underMin={underMin}
             progressPct={progressPct}
-            onOpenAssistant={() => setAssistantOpen(true)}
           />
 
           <textarea
@@ -542,19 +519,7 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
           />
 
           {/* Actions row */}
-          <div className="flex items-center justify-between flex-wrap gap-2">
-            <button
-              onClick={() => setAssistantOpen(v => !v)}
-              className={`flex items-center gap-1.5 px-4 h-9 rounded-xl text-xs font-bold transition-all font-['Tajawal'] border ${
-                assistantOpen
-                  ? 'bg-sky-500/20 text-sky-300 border-sky-400/40'
-                  : 'bg-sky-500/10 text-sky-400 border-sky-500/25 hover:bg-sky-500/20'
-              }`}
-            >
-              <Sparkles size={13} />
-              {assistantOpen ? 'إغلاق المساعد' : 'مساعد الكتابة الذكي'}
-            </button>
-
+          <div className="flex items-center justify-end flex-wrap gap-2">
             <div className="flex items-center gap-2">
               <button
                 onClick={handleSave}
@@ -711,6 +676,20 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
           leaderboard={leaderboard}
           currentStudentId={studentId}
         />
+      )}
+
+      </div>{/* end main content column */}
+
+      {/* AI Coach Panel — sticky right sidebar */}
+      {!submitted && studentId && task.id && (
+        <div className="lg:sticky lg:top-20">
+          <AICoachPanel
+            studentId={studentId}
+            taskId={task.id}
+            taskType="writing"
+            draftText={text}
+          />
+        </div>
       )}
     </div>
   )
