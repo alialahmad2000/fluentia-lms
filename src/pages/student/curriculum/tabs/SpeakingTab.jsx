@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback, useEffect } from 'react'
+import TaskBriefing from '../../../../components/coach/TaskBriefing'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Mic, ChevronDown, Clock, MessageCircle, Sparkles, Volume2, ClipboardCheck, GraduationCap, Loader2, History } from 'lucide-react'
@@ -208,6 +209,11 @@ function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId,
 
   return (
     <div className="space-y-4">
+      {/* Pre-task AI briefing — only before the student has recorded */}
+      {!existingRecording && studentId && topic.id && (
+        <TaskBriefing studentId={studentId} taskId={topic.id} taskType="speaking" />
+      )}
+
       {total > 1 && (
         <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">
           الموضوع {number} من {total}

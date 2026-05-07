@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
+import TaskBriefing from '../../../../components/coach/TaskBriefing'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FileEdit, Lightbulb, Save, Send, ChevronDown, CheckCircle2, BookOpen, Target, GraduationCap, Loader2, Sparkles, AlertCircle, Clock } from 'lucide-react'
@@ -372,6 +373,11 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
 
   return (
     <div className="space-y-4">
+      {/* Pre-task AI briefing — only when not yet submitted */}
+      {!submitted && !progressLoading && studentId && task.id && (
+        <TaskBriefing studentId={studentId} taskId={task.id} taskType="writing" />
+      )}
+
       {/* Header */}
       {total > 1 && (
         <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">
