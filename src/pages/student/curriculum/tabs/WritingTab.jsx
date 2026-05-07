@@ -504,6 +504,7 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
             onClose={() => setAssistantOpen(false)}
             onInsertText={handleInsertText}
             studentLevel={studentLevel}
+            studentId={studentId}
           />
         )}
       </AnimatePresence>

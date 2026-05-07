@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Sparkles, Loader2, Lightbulb, ListTree, Play, ArrowRightCircle,
@@ -6,6 +6,8 @@ import {
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { toast } from '../ui/FluentiaToast'
+
+const HINT_CAP = 3
 
 const ACTIONS = [
   { key: 'ideas',       label: 'اقترح أفكار',     icon: Lightbulb,        needsText: false },
@@ -25,15 +27,49 @@ const ACTIONS = [
  *   text          — current draft text
  *   open          — boolean
  *   onClose       — () => void
- *   onInsertText  — (newText, replaceOriginal?) => void  (adds or replaces text in draft)
+ *   onInsertText  — (newText, replaceOriginal?) => void
  *   studentLevel  — optional numeric level
+ *   studentId     — student's profile UUID (for hint cap tracking)
  */
-export default function WritingAssistant({ task, text, open, onClose, onInsertText, studentLevel }) {
+export default function WritingAssistant({ task, text, open, onClose, onInsertText, studentLevel, studentId }) {
   const [loading, setLoading] = useState(false)
   const [activeAction, setActiveAction] = useState(null)
   const [result, setResult] = useState(null)
+  const [hintsRemaining, setHintsRemaining] = useState(HINT_CAP)
+  const isMounted = useRef(true)
+
+  useEffect(() => {
+    isMounted.current = true
+    return () => { isMounted.current = false }
+  }, [])
+
+  // Fetch current hint count from DB on open (to persist across refreshes)
+  useEffect(() => {
+    if (!open || !studentId || !task?.id) return
+    let cancelled = false
+    ;(async () => {
+      const { data } = await supabase
+        .from('student_curriculum_progress')
+        .select('hint_usage')
+        .eq('student_id', studentId)
+        .eq('writing_id', task.id)
+        .eq('section_type', 'writing')
+        .maybeSingle()
+      if (cancelled || !isMounted.current) return
+      if (data) {
+        const used = Array.isArray(data.hint_usage) ? data.hint_usage.length : 0
+        setHintsRemaining(Math.max(0, HINT_CAP - used))
+      }
+    })()
+    return () => { cancelled = true }
+  }, [open, studentId, task?.id])
 
   const runAction = useCallback(async (action) => {
+    if (hintsRemaining <= 0) {
+      toast({ type: 'warning', title: 'استنفدت اقتراحاتك لهذا التاسك (3 من 3)', body: 'أكمل بنفسك — أنت قادر!' })
+      return
+    }
+
     setLoading(true)
     setActiveAction(action)
     setResult(null)
@@ -54,6 +90,7 @@ export default function WritingAssistant({ task, text, open, onClose, onInsertTe
           },
           body: JSON.stringify({
             action,
+            task_id: task?.id || '',
             prompt: task?.prompt_en || '',
             current_text: text || '',
             task_type: task?.task_type || 'paragraph',
@@ -69,20 +106,47 @@ export default function WritingAssistant({ task, text, open, onClose, onInsertTe
       )
 
       const json = await res.json()
+
+      // Server-side cap reached (429)
+      if (res.status === 429 && json.error === 'hint_cap_reached') {
+        if (isMounted.current) setHintsRemaining(0)
+        toast({ type: 'warning', title: 'استنفدت اقتراحاتك لهذا التاسك (3 من 3)', body: 'أكمل بنفسك — أنت قادر!' })
+        return
+      }
+
       if (json.error) {
         toast({ type: 'info', title: json.error })
         return
       }
-      setResult(json.result)
+
+      // Update counter from server response
+      if (isMounted.current && typeof json.hints_remaining === 'number') {
+        setHintsRemaining(json.hints_remaining)
+      }
+
+      if (isMounted.current) setResult(json.result)
     } catch (err) {
       console.error('[WritingAssistant] runAction failed:', err)
       toast({ type: 'error', title: 'فشل الاتصال بالمساعد' })
     } finally {
-      setLoading(false)
+      if (isMounted.current) setLoading(false)
     }
-  }, [task, text, studentLevel])
+  }, [task, text, studentLevel, hintsRemaining])
 
   if (!open) return null
+
+  const capExhausted = hintsRemaining <= 0
+
+  // Counter pill color
+  const counterColor =
+    hintsRemaining >= 3 ? 'rgba(255,255,255,0.1)' :
+    hintsRemaining === 2 ? 'rgba(245,158,11,0.18)' :
+    hintsRemaining === 1 ? 'rgba(245,158,11,0.28)' :
+    'rgba(239,68,68,0.22)'
+  const counterTextColor =
+    hintsRemaining >= 3 ? 'var(--text-muted)' :
+    hintsRemaining >= 1 ? '#f59e0b' :
+    '#ef4444'
 
   return (
     <motion.div
@@ -112,32 +176,61 @@ export default function WritingAssistant({ task, text, open, onClose, onInsertTe
             </p>
           </div>
         </div>
-        <button
-          onClick={onClose}
-          className="w-8 h-8 rounded-lg hover:bg-white/5 flex items-center justify-center transition-colors"
-          aria-label="إغلاق المساعد"
-        >
-          <X size={15} className="text-[var(--text-muted)]" />
-        </button>
+        <div className="flex items-center gap-2">
+          {/* Hint counter pill */}
+          <div
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-full"
+            style={{ background: counterColor }}
+            title="عدد الاقتراحات المتبقية لهذا التاسك"
+          >
+            <span className="text-[10px] font-['Tajawal']" style={{ color: counterTextColor }}>
+              💡 {hintsRemaining}/{HINT_CAP}
+            </span>
+          </div>
+          <button
+            onClick={onClose}
+            className="w-8 h-8 rounded-lg hover:bg-white/5 flex items-center justify-center transition-colors"
+            aria-label="إغلاق المساعد"
+          >
+            <X size={15} className="text-[var(--text-muted)]" />
+          </button>
+        </div>
       </div>
+
+      {/* Cap exhausted message */}
+      {capExhausted && (
+        <div
+          className="rounded-xl px-4 py-3 text-center"
+          style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)' }}
+        >
+          <p className="text-sm font-bold text-red-400 font-['Tajawal']">استنفدت اقتراحاتك لهذا التاسك</p>
+          <p className="text-[11px] text-[var(--text-muted)] font-['Tajawal'] mt-0.5">أكمل بنفسك — أنت قادر! 💪</p>
+        </div>
+      )}
 
       {/* Action chips */}
       <div className="flex flex-wrap gap-2">
         {ACTIONS.map((a) => {
-          const disabled = a.needsText && !text?.trim()
+          const disabledByText = a.needsText && !text?.trim()
+          const disabledByCap = capExhausted
+          const isDisabled = disabledByText || disabledByCap || loading
           const isActive = activeAction === a.key
           const Icon = a.icon
           return (
             <button
               key={a.key}
               onClick={() => runAction(a.key)}
-              disabled={disabled || loading}
+              disabled={isDisabled}
               className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold font-['Tajawal'] transition-all border ${
                 isActive
                   ? 'bg-sky-500/20 border-sky-400/40 text-sky-300'
                   : 'bg-[rgba(255,255,255,0.04)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:bg-sky-500/10 hover:border-sky-500/25'
-              } disabled:opacity-30 disabled:cursor-not-allowed`}
-              title={disabled ? 'اكتب جملة على الأقل لاستخدام هذه المساعدة' : undefined}
+              } disabled:opacity-40 disabled:cursor-not-allowed`}
+              title={
+                disabledByCap ? 'استنفدت اقتراحاتك لهذا التاسك' :
+                disabledByText ? 'اكتب جملة على الأقل لاستخدام هذه المساعدة' :
+                undefined
+              }
             >
               <Icon size={13} />
               {a.label}
@@ -173,7 +266,7 @@ export default function WritingAssistant({ task, text, open, onClose, onInsertTe
             {renderResult(activeAction, result, onInsertText)}
           </motion.div>
         )}
-        {!loading && !result && (
+        {!loading && !result && !capExhausted && (
           <motion.p
             key="empty"
             initial={{ opacity: 0 }}
@@ -236,11 +329,7 @@ function renderResult(action, result, onInsertText) {
             {Array.isArray(s.points) && s.points.length > 0 && (
               <ul className="space-y-0.5 mr-6">
                 {s.points.map((p, j) => (
-                  <li
-                    key={j}
-                    className="text-xs text-[var(--text-secondary)] list-disc"
-                    dir="ltr"
-                  >
+                  <li key={j} className="text-xs text-[var(--text-secondary)] list-disc" dir="ltr">
                     {p}
                   </li>
                 ))}
@@ -315,12 +404,8 @@ function renderResult(action, result, onInsertText) {
         {result.vocabulary.map((v, i) => (
           <div key={i} className="rounded-lg p-3" style={cardStyle}>
             <div className="flex items-baseline gap-2 flex-wrap">
-              <span className="text-sm font-bold text-indigo-300" dir="ltr">
-                {v.word}
-              </span>
-              <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">
-                — {v.meaning_ar}
-              </span>
+              <span className="text-sm font-bold text-indigo-300" dir="ltr">{v.word}</span>
+              <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">— {v.meaning_ar}</span>
             </div>
             {v.example && (
               <p className="text-[11px] text-[var(--text-secondary)] italic mt-1 leading-relaxed" dir="ltr">
@@ -373,16 +458,10 @@ function renderResult(action, result, onInsertText) {
         <SectionLabel>اقتراحات للتوسيع</SectionLabel>
         {result.expansions.map((e, i) => (
           <div key={i} className="rounded-lg p-3" style={cardStyle}>
-            <p className="text-[11px] text-[var(--text-muted)] mb-1" dir="ltr">
-              الأصلي: {e.original}
-            </p>
-            <p className="text-sm text-emerald-300 leading-relaxed" dir="ltr">
-              {e.expanded}
-            </p>
+            <p className="text-[11px] text-[var(--text-muted)] mb-1" dir="ltr">الأصلي: {e.original}</p>
+            <p className="text-sm text-emerald-300 leading-relaxed" dir="ltr">{e.expanded}</p>
             {e.explanation_ar && (
-              <p className="text-[11px] text-[var(--text-muted)] mt-1.5 font-['Tajawal']">
-                {e.explanation_ar}
-              </p>
+              <p className="text-[11px] text-[var(--text-muted)] mt-1.5 font-['Tajawal']">{e.explanation_ar}</p>
             )}
             {onInsertText && e.original && e.expanded && (
               <button
@@ -398,7 +477,6 @@ function renderResult(action, result, onInsertText) {
     )
   }
 
-  // Fallback — unknown shape
   return (
     <p className="text-sm text-[var(--text-secondary)] font-['Tajawal']">
       {result?.text || 'لم أتمكن من فهم الرد — حاول مرة أخرى'}

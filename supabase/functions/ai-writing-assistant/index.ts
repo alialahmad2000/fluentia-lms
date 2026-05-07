@@ -86,6 +86,7 @@ Deno.serve(async (req) => {
       : []
     const grammarTopic = (body.grammar_topic || '').toString().slice(0, 100)
     const studentLevel = Number(body.level) || null
+    const taskId = (body.task_id || '').toString().slice(0, 50) // curriculum_writing.id
 
     // Actions that require current text
     if (['continue', 'fix_grammar', 'expand'].includes(action)) {
@@ -144,6 +145,36 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({
         error: 'تم الوصول للحد الشهري لخدمات الذكاء الاصطناعي', budget_reached: true,
       }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 429 })
+    }
+
+    // ── Per-task hint cap (3 per submission, students only) ──────────
+    const HINT_CAP = 3
+    let scpRow: any = null
+
+    if (!isStaff && taskId) {
+      const { data: found, error: scpErr } = await supabase
+        .from('student_curriculum_progress')
+        .select('id, hint_usage')
+        .eq('student_id', user.id)
+        .eq('writing_id', taskId)
+        .eq('section_type', 'writing')
+        .maybeSingle()
+
+      if (scpErr) {
+        console.error('[ai-writing-assistant] SCP lookup error:', scpErr.message)
+      } else if (found) {
+        scpRow = found
+        const hintsUsed: number = (Array.isArray(found.hint_usage) ? found.hint_usage : []).length
+        if (hintsUsed >= HINT_CAP) {
+          return new Response(JSON.stringify({
+            error: 'hint_cap_reached',
+            message_ar: 'استنفدت اقتراحاتك لهذا التاسك (3 من 3). أكمل بنفسك — أنت قادر!',
+            hints_used: hintsUsed,
+            hints_remaining: 0,
+            cap: HINT_CAP,
+          }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 429 })
+        }
+      }
     }
 
     const CLAUDE_API_KEY = Deno.env.get('CLAUDE_API_KEY') || ''
@@ -223,7 +254,36 @@ Deno.serve(async (req) => {
     const { error: usageErr } = await supabase.from('ai_usage').insert(usageRecord)
     if (usageErr) console.error('[ai-writing-assistant] Usage insert error:', usageErr.message)
 
-    return new Response(JSON.stringify({ action, result }), {
+    // ── Track hint usage in SCP row (after successful AI call) ──────
+    let hintsUsedAfter = 0
+    if (!isStaff && scpRow) {
+      const existing: any[] = Array.isArray(scpRow.hint_usage) ? scpRow.hint_usage : []
+      const newEntry = {
+        action,
+        used_at: new Date().toISOString(),
+        tokens: outputTokens,
+      }
+      const { data: updated, error: updErr } = await supabase
+        .from('student_curriculum_progress')
+        .update({ hint_usage: [...existing, newEntry] })
+        .eq('id', scpRow.id)
+        .select('hint_usage')
+      if (updErr || !updated || updated.length === 0) {
+        console.error('[ai-writing-assistant] Hint tracking failed:', updErr?.message)
+        // Still return result — don't block student because tracking failed
+      }
+      hintsUsedAfter = existing.length + 1
+    }
+
+    const hintsRemaining = Math.max(0, HINT_CAP - hintsUsedAfter)
+
+    return new Response(JSON.stringify({
+      action,
+      result,
+      hints_used: hintsUsedAfter,
+      hints_remaining: hintsRemaining,
+      cap: HINT_CAP,
+    }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     })
   } catch (error: any) {
