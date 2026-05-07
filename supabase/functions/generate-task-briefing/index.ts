@@ -16,6 +16,45 @@ const CORS = {
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
 }
 
+// ── Task-type context extractor ──────────────────────
+// Filters profile strengths/weaknesses to only those relevant to the current skill type.
+// Prevents cross-skill contamination (e.g., speaking scores appearing in a writing briefing).
+function extractTaskTypeContext(profile: any, taskType: 'writing' | 'speaking') {
+  if (!profile) return null
+
+  // Skill-specific score from the structured skills object
+  const skillScore: number | null = profile.skills?.[taskType] ?? null
+
+  // Keyword sets for each task type (Arabic terms the backfill prompt uses)
+  const writingKeywords = ['كتاب', 'كتب', 'جملة', 'فقرة', 'نص', 'قواعد', 'نحو', 'ضمير', 'تهجئة', 'كلمة', 'درجة الكتاب', 'writing', 'grammar', 'spelling', 'انخفاض', 'تراجع']
+  const speakingKeywords = ['تحدث', 'تسجيل', 'ثانية', 'دقيقة', 'صوت', 'نطق', 'محادثة', 'speaking', 'fluency', 'pronunciation', 'مدة']
+  const genericKeywords  = ['مستوى', 'استمرار', 'تطور', 'تحسن', 'أداء', 'إكمال', 'انتظام', 'مهمة']
+
+  const typeKeywords = taskType === 'writing' ? writingKeywords : speakingKeywords
+
+  const filter = (items: string[]) =>
+    (items || []).filter(s => {
+      const lower = s.toLowerCase()
+      // Keep if it matches the current type, or is clearly generic (no type-specific terms)
+      const otherKeywords = taskType === 'writing' ? speakingKeywords : writingKeywords
+      const hasOtherType = otherKeywords.some(k => lower.includes(k.toLowerCase()))
+      if (hasOtherType) return false  // explicitly about the OTHER skill — exclude
+      const hasThisType = typeKeywords.some(k => lower.includes(k.toLowerCase()))
+      const isGeneric   = genericKeywords.some(k => lower.includes(k))
+      return hasThisType || isGeneric
+    })
+
+  const filteredStrengths  = filter(profile.strengths  || []).slice(0, 3)
+  const filteredWeaknesses = filter(profile.weaknesses || []).slice(0, 2)
+
+  return {
+    skill_score: skillScore,
+    strengths:   filteredStrengths,
+    weaknesses:  filteredWeaknesses,
+    has_data:    filteredStrengths.length > 0 || filteredWeaknesses.length > 0,
+  }
+}
+
 const CEFR: Record<number, string> = {
   0: 'ما قبل A1 — مبتدئ جداً',
   1: 'A1 — مبتدئ',
@@ -165,7 +204,9 @@ Deno.serve(async (req) => {
     return ok({ briefing: genericFallback, cached: false, generated_at: new Date().toISOString() })
   }
 
-  const hasProfile = !!(profile?.strengths?.length || profile?.weaknesses?.length)
+  // Filter profile context strictly to the current task_type — prevents cross-skill contamination
+  const filteredCtx = extractTaskTypeContext(profile, task_type as 'writing' | 'speaking')
+  const hasProfile = !!(filteredCtx?.has_data)
   const scoresText = recentScores.length
     ? recentScores.map(s => `${s}/10`).join(', ')
     : 'لا توجد تسجيلات سابقة بعد'
@@ -178,13 +219,24 @@ Deno.serve(async (req) => {
 الموضوع: ${taskRow.prompt_ar || taskRow.prompt_en || ''}
 المدة المطلوبة: ${taskRow.min_duration_seconds ? Math.round(taskRow.min_duration_seconds / 60) + ' دقائق' : ''}`
 
-  const systemPrompt = `أنت مدرب لغة إنجليزية لطالبة سعودية. مهمتك توجيه قصير وودي بالعربية قبل بدء ${task_type === 'writing' ? 'مهمة الكتابة' : 'موضوع التحدث'}.`
+  const taskTypeAr = task_type === 'writing' ? 'الكتابة (writing)' : 'التحدث (speaking)'
+  const otherTypeAr = task_type === 'writing' ? 'التحدث، النطق، مدة التسجيل، درجات التحدث' : 'الكتابة، بنية الجملة، درجات الكتابة، عدد الكلمات'
 
-  const userPrompt = `STUDENT CONTEXT:
+  const systemPrompt = `أنت مدرب لغة إنجليزية لطالبة سعودية. مهمتك توجيه قصير وودي بالعربية قبل بدء ${task_type === 'writing' ? 'مهمة الكتابة' : 'موضوع التحدث'}.
+
+⚠️ CRITICAL CONSTRAINT — READ BEFORE GENERATING:
+This briefing is for a ${task_type.toUpperCase()} task.
+- You MUST ONLY reference the student's ${taskTypeAr} performance and history.
+- You MUST NEVER mention: ${otherTypeAr}.
+- If the context provided contains data from other skills, IGNORE it completely.
+- If you have no ${taskTypeAr} data for this student, set personalized_section.show = false.
+Violating this constraint produces incorrect briefings that confuse students.`
+
+  const userPrompt = `STUDENT CONTEXT (${task_type} skill only — do NOT use other skill data):
 - المستوى: ${CEFR[level] || CEFR[1]}
-- آخر ${recentScores.length} نتائج: ${scoresText}
-- نقاط القوة: ${hasProfile ? (profile.strengths || []).slice(0, 3).join('، ') : 'غير متوفر بعد'}
-- نقاط التطوير: ${hasProfile ? (profile.weaknesses || []).slice(0, 3).join('، ') : 'غير متوفر بعد'}
+- آخر ${recentScores.length} نتائج في ${taskTypeAr}: ${scoresText}
+- نقاط القوة في ${taskTypeAr}: ${hasProfile && filteredCtx?.strengths.length ? filteredCtx.strengths.join('، ') : 'غير متوفر بعد'}
+- نقاط التطوير في ${taskTypeAr}: ${hasProfile && filteredCtx?.weaknesses.length ? filteredCtx.weaknesses.join('، ') : 'غير متوفر بعد'}
 
 THIS TASK:
 - العنوان: ${taskTitle}
@@ -210,7 +262,8 @@ RULES:
 - كل الجمل بالعربية. أسلوب ودي غير رسمي.
 - كل جملة أقل من 20 كلمة.
 - لا تذكر "AI" أو "نموذج" — تكلم كمدرب بشري.
-- إذا ${hasProfile ? 'عندك بيانات عن الطالبة' : 'ما عندك بيانات شخصية'} — personalized_section.show = ${hasProfile}.`
+- personalized_section.show = ${hasProfile} (false = ما عندك بيانات ${task_type === 'writing' ? 'كتابة' : 'تحدث'} كافية).
+- NEVER use data from the OTHER skill type even if it looks relevant.`
 
   try {
     const ctrl = new AbortController()
