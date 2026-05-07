@@ -1,5 +1,6 @@
 import { useState, useMemo, useCallback, useEffect } from 'react'
 import TaskBriefing from '../../../../components/coach/TaskBriefing'
+import PracticeMode from '../../../../components/coach/PracticeMode'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Mic, ChevronDown, Clock, MessageCircle, Sparkles, Volume2, ClipboardCheck, GraduationCap, Loader2, History } from 'lucide-react'
@@ -154,6 +155,8 @@ export default function SpeakingTab({ unitId }) {
 
 // ─── Speaking Topic ──────────────────────────────────
 function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId, studentName, groupId, existingRecording, allAttempts = [], onUploadComplete }) {
+  // All hooks at top — before any conditional return
+  const [mode, setMode] = useState('practice') // 'practice' | 'final'
   const [tipsOpen, setTipsOpen] = useState(false)
   const [phrasesOpen, setPhrasesOpen] = useState(false)
   const [liveEvaluation, setLiveEvaluation] = useState(null)
@@ -360,22 +363,75 @@ function SpeakingTopic({ topic, number, total, questionIndex, unitId, studentId,
         </div>
       )}
 
-      {/* Voice Recorder */}
-      <div
-        className="rounded-xl p-4"
-        style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}
-      >
-        <VoiceRecorder
-          studentId={studentId}
-          unitId={unitId}
-          questionIndex={questionIndex}
-          maxDuration={180}
-          existingRecording={existingRecording}
-          onUploadComplete={(url, id) => onUploadComplete?.()}
-          onEvaluationComplete={(evalData) => setLiveEvaluation(evalData)}
-          hideFeedbackInline
-        />
-      </div>
+      {/* Mode toggle — only when no final recording yet */}
+      {!existingRecording && studentId && (
+        <div className="flex gap-2 p-1 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)' }}>
+          <button
+            onClick={() => setMode('practice')}
+            className="flex-1 py-2 rounded-lg text-xs font-bold font-['Tajawal'] transition-colors"
+            style={{
+              background: mode === 'practice' ? 'rgba(168,85,247,0.18)' : 'transparent',
+              color: mode === 'practice' ? '#a855f7' : 'var(--text-muted)',
+              border: mode === 'practice' ? '1px solid rgba(168,85,247,0.3)' : '1px solid transparent',
+            }}
+          >
+            🎯 وضع التدريب
+          </button>
+          <button
+            onClick={() => setMode('final')}
+            className="flex-1 py-2 rounded-lg text-xs font-bold font-['Tajawal'] transition-colors"
+            style={{
+              background: mode === 'final' ? 'rgba(56,189,248,0.15)' : 'transparent',
+              color: mode === 'final' ? '#38bdf8' : 'var(--text-muted)',
+              border: mode === 'final' ? '1px solid rgba(56,189,248,0.25)' : '1px solid transparent',
+            }}
+          >
+            📤 التسليم النهائي
+          </button>
+        </div>
+      )}
+
+      {/* Practice Mode */}
+      {!existingRecording && mode === 'practice' && studentId && (
+        <div
+          className="rounded-xl p-4"
+          style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}
+        >
+          <PracticeMode
+            taskId={topic.id}
+            studentId={studentId}
+            taskTitle={topic.title_ar || topic.title_en}
+          />
+          <div className="flex justify-center mt-4">
+            <button
+              onClick={() => setMode('final')}
+              className="px-5 h-9 rounded-xl text-xs font-bold font-['Tajawal'] transition-colors"
+              style={{ background: 'rgba(56,189,248,0.12)', color: '#38bdf8', border: '1px solid rgba(56,189,248,0.25)' }}
+            >
+              ✅ أنا جاهز للتسجيل النهائي
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Voice Recorder — final submission (always shown when recording exists, or when mode=final) */}
+      {(existingRecording || mode === 'final') && (
+        <div
+          className="rounded-xl p-4"
+          style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}
+        >
+          <VoiceRecorder
+            studentId={studentId}
+            unitId={unitId}
+            questionIndex={questionIndex}
+            maxDuration={180}
+            existingRecording={existingRecording}
+            onUploadComplete={(url, id) => onUploadComplete?.()}
+            onEvaluationComplete={(evalData) => setLiveEvaluation(evalData)}
+            hideFeedbackInline
+          />
+        </div>
+      )}
 
       {/* Recording timestamp */}
       {existingRecording?.created_at && (
