@@ -1,4 +1,5 @@
 import { useState, useMemo, lazy, Suspense } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -79,6 +80,7 @@ function formatTime(date) {
 
 // ─── Main Component ─────────────────────────────────────────
 export default function StudentProgressDetail() {
+  const { t } = useTranslation()
   const { studentId } = useParams()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
@@ -392,9 +394,9 @@ export default function StudentProgressDetail() {
   if (!student) {
     return (
       <div className="text-center py-20" dir="rtl">
-        <p style={{ color: 'var(--text-secondary)' }}>الطالب غير موجود</p>
+        <p style={{ color: 'var(--text-secondary)' }}>{t('trainer.students.student_not_found')}</p>
         <button onClick={() => navigate(-1)} className="mt-4 text-sm" style={{ color: 'var(--accent-sky)' }}>
-          رجوع
+          {t('common.back_button')}
         </button>
       </div>
     )
@@ -406,13 +408,13 @@ export default function StudentProgressDetail() {
   const studentHasIELTS = hasIELTSAccess(studentInfo)
 
   const TABS = [
-    { key: 'overview', label: 'نظرة عامة' },
-    { key: 'answers', label: 'إجابات المنهج' },
-    { key: 'games', label: 'الألعاب' },
-    { key: 'spelling', label: 'الإملاء والأفعال' },
-    { key: 'writing', label: 'الكتابة' },
-    { key: 'timeline', label: 'الجدول الزمني' },
-    ...(studentHasIELTS ? [{ key: 'ielts', label: 'IELTS' }] : []),
+    { key: 'overview', label: t('trainer.students.tab_overview') },
+    { key: 'answers', label: t('trainer.students.tab_answers') },
+    { key: 'games', label: t('trainer.students.tab_games') },
+    { key: 'spelling', label: t('trainer.students.tab_spelling_verbs') },
+    { key: 'writing', label: t('trainer.students.tab_writing') },
+    { key: 'timeline', label: t('trainer.students.tab_timeline') },
+    ...(studentHasIELTS ? [{ key: 'ielts', label: t('trainer.students.tab_ielts') }] : []),
   ]
 
   return (
@@ -424,7 +426,7 @@ export default function StudentProgressDetail() {
         style={{ color: 'var(--text-secondary)' }}
       >
         <ArrowRight size={16} />
-        رجوع
+        {t('common.back_button')}
       </button>
 
       {/* ── Header Card ─────────────────────────────── */}
@@ -444,7 +446,7 @@ export default function StudentProgressDetail() {
               )}
               {studentInfo.academic_level && (
                 <span className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
-                  المستوى {studentInfo.academic_level}
+                  {t('trainer.students.level_label')} {studentInfo.academic_level}
                 </span>
               )}
               {group && (
@@ -467,7 +469,7 @@ export default function StudentProgressDetail() {
               )}
               {studentInfo.current_streak > 0 && (
                 <span className="text-xs font-bold" style={{ color: 'var(--accent-rose)' }}>
-                  🔥 {studentInfo.current_streak} يوم متتالي
+                  🔥 {studentInfo.current_streak} {t('trainer.students.streak_days')}
                 </span>
               )}
               <span className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
@@ -590,6 +592,7 @@ export default function StudentProgressDetail() {
 // TAB 1: Overview
 // ═══════════════════════════════════════════════════════════════
 function OverviewTab({ progressByUnit, units, stats, activityChart, loading, attendance, trainerNotes, skillSnapshot }) {
+  const { t } = useTranslation()
   if (loading) return <SkeletonSection />
 
   // Attendance stats
@@ -608,7 +611,7 @@ function OverviewTab({ progressByUnit, units, stats, activityChart, loading, att
     <div className="space-y-5">
       {/* Mini Progress Matrix */}
       {units.length > 0 && (
-        <Card title="تقدم الوحدات">
+        <Card title={t('trainer.students.unit_progress_title')}>
           <div className="flex gap-2 flex-wrap">
             {units.map(unit => {
               const unitProgress = progressByUnit[unit.id] || []
@@ -656,7 +659,7 @@ function OverviewTab({ progressByUnit, units, stats, activityChart, loading, att
 
       {/* Skill Radar */}
       {skillSnapshot ? (
-        <Card title="مهارات الطالب">
+        <Card title={t('trainer.students.skills_title')}>
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
             {[
               { key: 'grammar', label: 'القواعد' },
@@ -678,15 +681,15 @@ function OverviewTab({ progressByUnit, units, stats, activityChart, loading, att
           </div>
         </Card>
       ) : (
-        <Card title="مهارات الطالب">
-          <EmptyState text="لا توجد بيانات مهارات بعد — ستظهر بعد أول تقييم شامل" />
+        <Card title={t('trainer.students.skills_title')}>
+          <EmptyState text={t('trainer.students.skills_empty')} />
         </Card>
       )}
 
       {/* Attendance Summary */}
-      <Card title="ملخص الحضور">
+      <Card title={t('trainer.students.attendance_summary_title')}>
         {attendance.length === 0 ? (
-          <EmptyState text="لا يوجد سجل حضور بعد" />
+          <EmptyState text={t('trainer.students.attendance_empty')} />
         ) : (
           <div>
             <div className="flex items-center gap-4 mb-4">
@@ -720,9 +723,9 @@ function OverviewTab({ progressByUnit, units, stats, activityChart, loading, att
       </Card>
 
       {/* Trainer Notes */}
-      <Card title="ملاحظات المدرب">
+      <Card title={t('trainer.students.trainer_notes_title')}>
         {trainerNotes.length === 0 ? (
-          <EmptyState text="لا توجد ملاحظات بعد" />
+          <EmptyState text={t('trainer.students.notes_empty')} />
         ) : (
           <div className="space-y-2">
             {trainerNotes.slice(0, 5).map(note => {
@@ -746,9 +749,9 @@ function OverviewTab({ progressByUnit, units, stats, activityChart, loading, att
       </Card>
 
       {/* Activity Chart */}
-      <Card title="النشاط — آخر 30 يوم">
+      <Card title={t('trainer.students.activity_chart_title')}>
         {activityChart.every(d => d.activity === 0) ? (
-          <EmptyState text="لا يوجد نشاط مسجّل بعد" />
+          <EmptyState text={t('trainer.students.activity_empty')} />
         ) : (
           <div style={{ width: '100%', height: 200 }}>
             <ResponsiveContainer>
@@ -774,12 +777,13 @@ function OverviewTab({ progressByUnit, units, stats, activityChart, loading, att
 // TAB 2: Curriculum Answers
 // ═══════════════════════════════════════════════════════════════
 function AnswersTab({ progressByUnit, units, loading }) {
+  const { t } = useTranslation()
   if (loading) return <SkeletonSection />
 
   const unitsWithProgress = units.filter(u => progressByUnit[u.id]?.length > 0)
 
   if (unitsWithProgress.length === 0) {
-    return <EmptyState text="لا يوجد إجابات منهج بعد" />
+    return <EmptyState text={t('trainer.students.answers_empty')} />
   }
 
   return (
@@ -848,8 +852,9 @@ function SectionAccordion({ unitNumber, unitTheme, section }) {
 }
 
 function AnswerContent({ section }) {
+  const { t } = useTranslation()
   const answers = section.answers
-  if (!answers) return <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>لا توجد إجابات محفوظة</p>
+  if (!answers) return <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>{t('trainer.students.no_saved_answers')}</p>
 
   try {
     const type = section.section_type
@@ -953,7 +958,7 @@ function AnswerContent({ section }) {
 
     return <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>نوع غير معروف</p>
   } catch {
-    return <p className="text-xs" style={{ color: 'var(--accent-rose)' }}>تعذر عرض الإجابات</p>
+    return <p className="text-xs" style={{ color: 'var(--accent-rose)' }}>{t('trainer.students.display_error')}</p>
   }
 }
 
@@ -961,24 +966,25 @@ function AnswerContent({ section }) {
 // TAB 3: Games
 // ═══════════════════════════════════════════════════════════════
 function GamesTab({ games, stats, loading }) {
+  const { t } = useTranslation()
   if (loading) return <SkeletonSection />
-  if (!games.length) return <EmptyState text="لا يوجد بيانات ألعاب بعد" />
+  if (!games.length) return <EmptyState text={t('trainer.students.games_empty')} />
 
   return (
     <div className="space-y-5">
       {/* Stats */}
       {stats && (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-          <MiniStat icon={Gamepad2} label="إجمالي الألعاب" value={stats.total} color="violet" />
-          <MiniStat icon={Target} label="متوسط الدقة" value={`${stats.avgAccuracy}%`} color="emerald" />
-          <MiniStat icon={Trophy} label="أعلى نتيجة" value={stats.bestScore} color="amber" />
-          <MiniStat icon={Star} label="اللعبة المفضلة" value={GAME_LABELS[stats.favoriteType] || stats.favoriteType || '—'} color="sky" />
+          <MiniStat icon={Gamepad2} label={t('trainer.students.game_stat_total')} value={stats.total} color="violet" />
+          <MiniStat icon={Target} label={t('trainer.students.game_stat_accuracy')} value={`${stats.avgAccuracy}%`} color="emerald" />
+          <MiniStat icon={Trophy} label={t('trainer.students.game_stat_best_score')} value={stats.bestScore} color="amber" />
+          <MiniStat icon={Star} label={t('trainer.students.game_stat_favorite')} value={GAME_LABELS[stats.favoriteType] || stats.favoriteType || '—'} color="sky" />
         </div>
       )}
 
       {/* Accuracy trend */}
       {stats?.trend?.length > 1 && (
-        <Card title="اتجاه الدقة — آخر 10 ألعاب">
+        <Card title={t('trainer.students.accuracy_trend_title')}>
           <div style={{ width: '100%', height: 160 }}>
             <ResponsiveContainer>
               <LineChart data={stats.trend}>
@@ -997,7 +1003,7 @@ function GamesTab({ games, stats, loading }) {
       )}
 
       {/* Games table */}
-      <Card title="جميع الألعاب">
+      <Card title={t('trainer.students.all_games_title')}>
         <div className="overflow-x-auto -mx-1">
           <table className="w-full text-sm" style={{ minWidth: 500 }}>
             <thead>
@@ -1044,12 +1050,13 @@ function GamesTab({ games, stats, loading }) {
 // TAB 4: Spelling & Verbs
 // ═══════════════════════════════════════════════════════════════
 function SpellingVerbsTab({ spellingData, verbData, loadingSpelling, loadingVerbs }) {
+  const { t } = useTranslation()
   return (
     <div className="space-y-5">
       {/* Spelling */}
-      <Card title="إتقان الإملاء">
+      <Card title={t('trainer.students.spelling_mastery_title')}>
         {loadingSpelling ? <SkeletonRows /> : spellingData.length === 0 ? (
-          <EmptyState text="لا يوجد بيانات إملاء بعد" />
+          <EmptyState text={t('trainer.students.spelling_empty')} />
         ) : (
           <>
             <div className="flex gap-3 mb-4 flex-wrap text-xs">
@@ -1080,9 +1087,9 @@ function SpellingVerbsTab({ spellingData, verbData, loadingSpelling, loadingVerb
       </Card>
 
       {/* Verbs */}
-      <Card title="إتقان الأفعال الشاذة">
+      <Card title={t('trainer.students.verbs_mastery_title')}>
         {loadingVerbs ? <SkeletonRows /> : verbData.length === 0 ? (
-          <EmptyState text="لا يوجد بيانات أفعال بعد" />
+          <EmptyState text={t('trainer.students.verbs_empty')} />
         ) : (
           <>
             <div className="flex gap-3 mb-4 flex-wrap text-xs">
@@ -1132,10 +1139,11 @@ function SpellingVerbsTab({ spellingData, verbData, loadingSpelling, loadingVerb
 // TAB 5: Writing
 // ═══════════════════════════════════════════════════════════════
 function WritingTab({ data, loading }) {
+  const { t } = useTranslation()
   const [expandedId, setExpandedId] = useState(null)
 
   if (loading) return <SkeletonSection />
-  if (!data.length) return <EmptyState text="لا يوجد بيانات كتابة بعد" />
+  if (!data.length) return <EmptyState text={t('trainer.students.writing_empty')} />
 
   const taskLabels = { sentence_building: 'بناء جمل', ielts_task1: 'IELTS Task 1', ielts_task2: 'IELTS Task 2' }
 
@@ -1224,9 +1232,10 @@ function WritingTab({ data, loading }) {
 // TAB 6: Timeline
 // ═══════════════════════════════════════════════════════════════
 function TimelineTab({ items }) {
+  const { t } = useTranslation()
   const [limit, setLimit] = useState(20)
 
-  if (!items.length) return <EmptyState text="لا يوجد نشاط مسجّل بعد" />
+  if (!items.length) return <EmptyState text={t('trainer.students.timeline_empty')} />
 
   const visible = items.slice(0, limit)
 
@@ -1263,7 +1272,7 @@ function TimelineTab({ items }) {
           className="w-full py-3 text-sm font-medium text-center rounded-xl min-h-[44px]"
           style={{ color: 'var(--accent-sky)', background: 'rgba(56,189,248,0.06)' }}
         >
-          تحميل المزيد ({items.length - limit} متبقي)
+          {t('trainer.students.load_more_button')} ({items.length - limit} {t('trainer.students.remaining_label')})
         </button>
       )}
     </div>

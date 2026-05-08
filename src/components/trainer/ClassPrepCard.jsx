@@ -6,8 +6,10 @@ import { supabase } from '../../lib/supabase'
 import { invokeWithRetry } from '../../lib/invokeWithRetry'
 import { useNavigate } from 'react-router-dom'
 import useClassMode from '../../stores/classModeStore'
+import { useTranslation } from 'react-i18next'
 
 export default function ClassPrepCard({ groupId, groupName }) {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const { startClass } = useClassMode()
   const [expanded, setExpanded] = useState(true)
@@ -141,10 +143,10 @@ export default function ClassPrepCard({ groupId, groupName }) {
       <div className="rounded-2xl p-5" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="flex items-center gap-2 mb-2">
           <span>🎓</span>
-          <h3 className="text-sm font-bold font-['Tajawal']" style={{ color: 'var(--text-primary)' }}>تحضير الحصة</h3>
+          <h3 className="text-sm font-bold font-['Tajawal']" style={{ color: 'var(--text-primary)' }}>{t('trainer.classprep.title', 'تحضير الحصة')}</h3>
         </div>
         <p className="text-xs font-['Tajawal']" style={{ color: 'var(--text-muted)' }}>
-          حدد الوحدة الحالية للمجموعة لعرض تحضير الحصة
+          {t('trainer.classprep.no_unit', 'حدد الوحدة الحالية للمجموعة لعرض تحضير الحصة')}
         </p>
       </div>
     )
@@ -164,7 +166,7 @@ export default function ClassPrepCard({ groupId, groupName }) {
         <div className="flex items-center gap-2">
           <span>🎓</span>
           <h3 className="text-sm font-bold font-['Tajawal']" style={{ color: 'var(--text-primary)' }}>
-            تحضير الحصة القادمة
+            {t('trainer.classprep.next_class_title', 'تحضير الحصة القادمة')}
           </h3>
           {unit && (
             <span className="text-[11px] px-2 py-0.5 rounded-full font-['Tajawal']" style={{ background: 'var(--accent-sky-glow)', color: 'var(--accent-sky)' }}>
@@ -181,21 +183,21 @@ export default function ClassPrepCard({ groupId, groupName }) {
           {unitContent && (
             <div className="space-y-1.5">
               <p className="text-[11px] font-bold font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>
-                <BookOpen size={12} className="inline ml-1" /> محتوى الحصة:
+                <BookOpen size={12} className="inline ml-1" /> {t('trainer.classprep.class_content', 'محتوى الحصة')}:
               </p>
               {unitContent.readings.map(r => (
                 <p key={r.id} className="text-[12px] font-['Tajawal'] pr-4" style={{ color: 'var(--text-tertiary)' }}>
-                  • قراءة: "{r.title_en || r.title_ar || r.reading_label}"
+                  • {t('trainer.curriculum.tabs.reading')}: "{r.title_en || r.title_ar || r.reading_label}"
                 </p>
               ))}
               {unitContent.vocabCount > 0 && (
                 <p className="text-[12px] font-['Tajawal'] pr-4" style={{ color: 'var(--text-tertiary)' }}>
-                  • مفردات: {unitContent.vocabCount} كلمة
+                  • {t('trainer.curriculum.tabs.vocabulary')}: {unitContent.vocabCount} {t('trainer.debrief.word_count_label')}
                 </p>
               )}
               {unitContent.grammar && (
                 <p className="text-[12px] font-['Tajawal'] pr-4" style={{ color: 'var(--text-tertiary)' }}>
-                  • قواعد: {unitContent.grammar.topic_name_en || unitContent.grammar.topic_name_ar}
+                  • {t('trainer.curriculum.tabs.grammar')}: {unitContent.grammar.topic_name_en || unitContent.grammar.topic_name_ar}
                 </p>
               )}
             </div>
@@ -205,17 +207,17 @@ export default function ClassPrepCard({ groupId, groupName }) {
           {readiness && (
             <div className="space-y-1.5">
               <p className="text-[11px] font-bold font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>
-                <Users size={12} className="inline ml-1" /> جاهزية الطلاب:
+                <Users size={12} className="inline ml-1" /> {t('trainer.classprep.student_readiness', 'جاهزية الطلاب')}:
               </p>
               <p className="text-[12px] font-['Tajawal'] pr-4" style={{ color: 'var(--text-tertiary)' }}>
-                ✅ {readiness.reviewed}/{readiness.total} راجعوا المفردات
+                ✅ {readiness.reviewed}/{readiness.total} {t('trainer.classprep.reviewed_vocab', 'راجعوا المفردات')}
               </p>
               <p className="text-[12px] font-['Tajawal'] pr-4" style={{ color: 'var(--text-tertiary)' }}>
-                ✅ {readiness.opened}/{readiness.total} فتحوا القراءة
+                ✅ {readiness.opened}/{readiness.total} {t('trainer.classprep.opened_reading', 'فتحوا القراءة')}
               </p>
               {readiness.notOpened?.length > 0 && readiness.notOpened.map((name, i) => (
                 <p key={i} className="text-[12px] font-['Tajawal'] pr-4 text-amber-400/80">
-                  ⚠️ {name} لم تفتح الوحدة بعد
+                  ⚠️ {name} {t('trainer.classprep.not_opened', 'لم تفتح الوحدة بعد')}
                 </p>
               ))}
             </div>
@@ -224,7 +226,7 @@ export default function ClassPrepCard({ groupId, groupName }) {
           {/* AI Focus Points */}
           <div className="space-y-1.5">
             <p className="text-[11px] font-bold font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>
-              <Zap size={12} className="inline ml-1" /> نقاط تركيز مقترحة:
+              <Zap size={12} className="inline ml-1" /> {t('trainer.classprep.focus_points', 'نقاط تركيز مقترحة')}:
             </p>
             {aiLoading ? (
               <div className="space-y-2 pr-4">
@@ -245,7 +247,7 @@ export default function ClassPrepCard({ groupId, groupName }) {
               ))
             ) : (
               <p className="text-[11px] font-['Tajawal'] pr-4" style={{ color: 'var(--text-muted)' }}>
-                لا توجد بيانات كافية للتحليل بعد
+                {t('trainer.classprep.no_data', 'لا توجد بيانات كافية للتحليل بعد')}
               </p>
             )}
           </div>
@@ -257,14 +259,14 @@ export default function ClassPrepCard({ groupId, groupName }) {
               className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-bold font-['Tajawal'] transition-colors"
               style={{ background: 'rgba(255,255,255,0.05)', color: 'var(--text-secondary)', border: '1px solid rgba(255,255,255,0.08)' }}
             >
-              📋 عرض المنهج
+              📋 {t('trainer.curriculum.label')}
             </button>
             <button
               onClick={() => { startClass(unitId); navigate(`/trainer/curriculum/unit/${unitId}`) }}
               className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-bold font-['Tajawal'] transition-colors"
               style={{ background: 'rgba(56,189,248,0.15)', color: 'var(--accent-sky)' }}
             >
-              🎓 ابدأ الكلاس
+              🎓 {t('trainer.classprep.start_class', 'ابدأ الكلاس')}
             </button>
           </div>
         </div>

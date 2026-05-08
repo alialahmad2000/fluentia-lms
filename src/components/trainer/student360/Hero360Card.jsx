@@ -1,4 +1,5 @@
 import './Hero360Card.css'
+import { useTranslation } from 'react-i18next'
 
 const STATUS_LABEL = {
   active: 'نشط',
@@ -13,6 +14,7 @@ function daysSince(iso) {
 }
 
 export default function Hero360Card({ overview, loading }) {
+  const { t } = useTranslation()
   if (loading) {
     return (
       <div className="h360-card h360-card--skeleton">
@@ -46,15 +48,15 @@ export default function Hero360Card({ overview, loading }) {
         <div className="h360-info">
           <h1 className="h360-name">{student.name || '—'}</h1>
           <div className="h360-meta-row">
-            <span className="h360-group">{group.name} · المستوى {group.level}</span>
+            <span className="h360-group">{group.name} · {t('trainer.students.level_label')} {group.level}</span>
             {lastActiveDays !== null && (
               <span className={`h360-last-active ${lastActiveDays > 7 ? 'h360-last-active--warn' : ''}`}>
-                آخر نشاط: {lastActiveDays === 0 ? 'اليوم' : `منذ ${lastActiveDays} يوم`}
+                {t('trainer.student360.last_active', 'آخر نشاط')}: {lastActiveDays === 0 ? t('trainer.students.date_today') : `${t('trainer.student360.since', 'منذ')} ${lastActiveDays} ${t('trainer.students.time_unit_day')}`}
               </span>
             )}
           </div>
           <div className="h360-contact-row">
-            {student.phone && <a className="h360-contact-link" href={`https://wa.me/${student.phone.replace(/\D/g,'')}`} target="_blank" rel="noreferrer">واتساب</a>}
+            {student.phone && <a className="h360-contact-link" href={`https://wa.me/${student.phone.replace(/\D/g,'')}`} target="_blank" rel="noreferrer">{t('trainer.student360.whatsapp', 'واتساب')}</a>}
             {student.email && <a className="h360-contact-link" href={`mailto:${student.email}`}>{student.email}</a>}
           </div>
         </div>
@@ -63,19 +65,19 @@ export default function Hero360Card({ overview, loading }) {
       <div className="h360-stats">
         <div className="h360-stat">
           <span className="h360-stat__val">{metrics.xp_total?.toLocaleString('ar') ?? '—'}</span>
-          <span className="h360-stat__lbl">XP إجمالي</span>
+          <span className="h360-stat__lbl">{t('trainer.student360.xp_total', 'XP إجمالي')}</span>
         </div>
         <div className="h360-stat">
           <span className="h360-stat__val">{metrics.xp_30d?.toLocaleString('ar') ?? '—'}</span>
-          <span className="h360-stat__lbl">XP (٣٠ يوم)</span>
+          <span className="h360-stat__lbl">{t('trainer.student360.xp_30d', 'XP (٣٠ يوم)')}</span>
         </div>
         <div className="h360-stat">
           <span className="h360-stat__val">{student.current_streak ?? '—'}</span>
-          <span className="h360-stat__lbl">سلسلة الأيام 🔥</span>
+          <span className="h360-stat__lbl">{t('trainer.reports.stat_streak_days')} 🔥</span>
         </div>
         <div className="h360-stat">
           <span className="h360-stat__val">{student.enrollment_date ? new Date(student.enrollment_date).toLocaleDateString('ar-SA', { month: 'short', year: 'numeric' }) : '—'}</span>
-          <span className="h360-stat__lbl">تاريخ الانضمام</span>
+          <span className="h360-stat__lbl">{t('trainer.student360.enrollment_date', 'تاريخ الانضمام')}</span>
         </div>
       </div>
     </div>

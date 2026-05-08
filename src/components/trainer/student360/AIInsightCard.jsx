@@ -1,15 +1,17 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import './AIInsightCard.css'
 
-const TONE_CONFIG = {
-  urgent:    { label: 'عاجل', cls: 'ai-tone--urgent',    icon: '🚨' },
-  celebrate: { label: 'إنجاز', cls: 'ai-tone--celebrate', icon: '🎉' },
-  nurture:   { label: 'متابعة', cls: 'ai-tone--nurture',  icon: '🌱' },
-  observe:   { label: 'مراقبة', cls: 'ai-tone--observe',  icon: '👁️' },
-}
-
 export default function AIInsightCard({ insight, loading, onRefresh, refreshing }) {
+  const { t } = useTranslation()
   const [expanded, setExpanded] = useState(false)
+
+  const TONE_CONFIG = {
+    urgent:    { label: t('trainer.student360.tone_urgent', 'عاجل'),      cls: 'ai-tone--urgent',    icon: '🚨' },
+    celebrate: { label: t('trainer.student360.tone_celebrate', 'إنجاز'),  cls: 'ai-tone--celebrate', icon: '🎉' },
+    nurture:   { label: t('trainer.student360.tone_nurture', 'متابعة'),   cls: 'ai-tone--nurture',   icon: '🌱' },
+    observe:   { label: t('trainer.student360.tone_observe', 'مراقبة'),   cls: 'ai-tone--observe',   icon: '👁️' },
+  }
 
   if (loading) {
     return (
@@ -25,9 +27,9 @@ export default function AIInsightCard({ insight, loading, onRefresh, refreshing 
     return (
       <div className="aic-card aic-card--empty">
         <span className="aic-empty-icon">🤖</span>
-        <p>لا يوجد تحليل ذكاء اصطناعي بعد</p>
+        <p>{t('trainer.student360.ai_no_insight', 'لا يوجد تحليل ذكاء اصطناعي بعد')}</p>
         <button className="aic-refresh-btn" onClick={onRefresh} disabled={refreshing}>
-          {refreshing ? 'جارٍ التحليل…' : 'توليد تحليل'}
+          {refreshing ? t('trainer.student360.analyzing', 'يحلل…') : t('trainer.student360.generate_insight', 'توليد تحليل')}
         </button>
       </div>
     )
@@ -49,7 +51,7 @@ export default function AIInsightCard({ insight, loading, onRefresh, refreshing 
           className="aic-refresh-btn aic-refresh-btn--icon"
           onClick={onRefresh}
           disabled={refreshing}
-          title="تحديث التحليل"
+          title={t('trainer.student360.refresh_analysis', 'تحديث التحليل')}
         >
           {refreshing ? '⏳' : '🔄'}
         </button>
@@ -60,7 +62,7 @@ export default function AIInsightCard({ insight, loading, onRefresh, refreshing 
 
       {insight.evidence?.length > 0 && (
         <button className="aic-evidence-toggle" onClick={() => setExpanded(v => !v)}>
-          {expanded ? 'إخفاء الأدلة ▲' : 'عرض الأدلة ▼'}
+          {expanded ? t('trainer.student360.hide_evidence', 'إخفاء الأدلة ▲') : t('trainer.student360.show_evidence', 'عرض الأدلة ▼')}
         </button>
       )}
 

@@ -1,16 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
+import { useTranslation } from 'react-i18next'
 import './CurriculumProgressCard.css'
-
-const SECTION_LABELS = {
-  writing: 'كتابة',
-  speaking: 'محادثة',
-  grammar: 'قواعد',
-  vocabulary: 'مفردات',
-  vocabulary_exercise: 'تمرين مفردات',
-  listening: 'استماع',
-  reading: 'قراءة',
-}
 
 function useStudentCurriculumProgress(studentId) {
   return useQuery({
@@ -31,7 +22,18 @@ function useStudentCurriculumProgress(studentId) {
 }
 
 export default function CurriculumProgressCard({ studentId }) {
+  const { t } = useTranslation()
   const { data: rows, isLoading } = useStudentCurriculumProgress(studentId)
+
+  const SECTION_LABELS = {
+    writing: t('trainer.curriculum.tabs.writing'),
+    speaking: t('trainer.curriculum.tabs.speaking'),
+    grammar: t('trainer.curriculum.tabs.grammar'),
+    vocabulary: t('trainer.curriculum.tabs.vocabulary'),
+    vocabulary_exercise: t('trainer.student360.vocab_exercise', 'تمرين مفردات'),
+    listening: t('trainer.curriculum.tabs.listening'),
+    reading: t('trainer.curriculum.tabs.reading'),
+  }
 
   const byType = {}
   ;(rows || []).forEach(r => {
@@ -46,14 +48,14 @@ export default function CurriculumProgressCard({ studentId }) {
 
   return (
     <div className="cp-card">
-      <h3 className="cp-title">تقدم المنهج</h3>
+      <h3 className="cp-title">{t('trainer.students.unit_progress_title')}</h3>
 
       {isLoading ? (
         <div className="cp-skeleton-list">
           {Array.from({ length: 4 }).map((_, i) => <div key={i} className="cp-skeleton" />)}
         </div>
       ) : Object.keys(byType).length === 0 ? (
-        <p className="cp-empty">لا يوجد تقدم مسجّل بعد</p>
+        <p className="cp-empty">{t('trainer.students.answers_empty')}</p>
       ) : (
         <ul className="cp-list">
           {Object.entries(byType).map(([type, stats]) => {

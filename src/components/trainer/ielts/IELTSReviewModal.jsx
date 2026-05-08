@@ -3,13 +3,15 @@ import { X, Mic, PenLine } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useGradeIELTSSubmission } from '@/hooks/trainer/useTrainerIELTSStudents'
 import { toast } from '@/components/ui/FluentiaToast'
+import { useTranslation } from 'react-i18next'
 
 function BandSlider({ value, onChange }) {
+  const { t } = useTranslation()
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span style={{ fontSize: 13, color: 'var(--ds-text-secondary, var(--text-secondary))', fontFamily: "'Tajawal', sans-serif" }}>
-          تعديل البند
+          {t('trainer.ielts.adjust_band', 'تعديل البند')}
         </span>
         <span style={{ fontSize: 20, fontWeight: 700, color: 'var(--ds-accent-primary, var(--accent-gold, #e9b949))' }}>
           {value}
@@ -28,6 +30,7 @@ function BandSlider({ value, onChange }) {
 }
 
 export default function IELTSReviewModal({ item, onClose }) {
+  const { t } = useTranslation()
   const grade = useGradeIELTSSubmission()
   const [band, setBand] = useState(item.band_score ?? 6)
   const [feedback, setFeedback] = useState('')
@@ -40,7 +43,7 @@ export default function IELTSReviewModal({ item, onClose }) {
   async function handleApprove() {
     await grade.mutateAsync({ submissionId: item.id, band, feedback })
     setDone(true)
-    toast({ type: 'success', title: 'تم اعتماد التقييم' })
+    toast({ type: 'success', title: t('trainer.ielts.approved_toast', 'تم اعتماد التقييم') })
     setTimeout(onClose, 800)
   }
 
@@ -71,7 +74,7 @@ export default function IELTSReviewModal({ item, onClose }) {
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
                 {isSpeaking ? <Mic size={16} style={{ color: 'var(--ds-accent-violet, #8b5cf6)' }} /> : <PenLine size={16} style={{ color: 'var(--ds-accent-sky, #38bdf8)' }} />}
                 <span style={{ fontSize: 13, color: 'var(--ds-text-tertiary, var(--text-tertiary))', fontFamily: "'Tajawal', sans-serif" }}>
-                  {isSpeaking ? 'تسليم محادثة IELTS' : 'تسليم كتابة IELTS'}
+                  {isSpeaking ? `${t('common.speaking')} IELTS` : `${t('common.writing')} IELTS`}
                 </span>
               </div>
               <h3 style={{ fontSize: 18, fontWeight: 700, color: 'var(--ds-text-primary, var(--text-primary))', margin: 0, fontFamily: "'Tajawal', sans-serif" }}>
@@ -87,7 +90,7 @@ export default function IELTSReviewModal({ item, onClose }) {
           {item.text_content && (
             <div style={{ marginBottom: 16 }}>
               <div style={{ fontSize: 11, color: 'var(--ds-text-tertiary, var(--text-tertiary))', marginBottom: 6, fontFamily: "'Tajawal', sans-serif" }}>
-                نص التسليم — {item.word_count ?? '?'} كلمة
+                {t('trainer.ielts.submission_text', 'نص التسليم')} — {item.word_count ?? '?'} {t('trainer.debrief.word_count_label')}
               </div>
               <div style={{
                 padding: 14, borderRadius: 10, maxHeight: 200, overflowY: 'auto', fontSize: 13, lineHeight: 1.7,
@@ -103,7 +106,7 @@ export default function IELTSReviewModal({ item, onClose }) {
 
           {item.audio_url && (
             <div style={{ marginBottom: 16 }}>
-              <div style={{ fontSize: 11, color: 'var(--ds-text-tertiary, var(--text-tertiary))', marginBottom: 6, fontFamily: "'Tajawal', sans-serif" }}>التسجيل الصوتي</div>
+              <div style={{ fontSize: 11, color: 'var(--ds-text-tertiary, var(--text-tertiary))', marginBottom: 6, fontFamily: "'Tajawal', sans-serif" }}>{t('trainer.ielts.audio_recording', 'التسجيل الصوتي')}</div>
               <audio controls src={item.audio_url} style={{ width: '100%' }} />
               {item.transcript && (
                 <div style={{ marginTop: 8, padding: 10, borderRadius: 8, fontSize: 12, color: 'var(--ds-text-tertiary, var(--text-tertiary))', background: 'rgba(255,255,255,0.02)', fontFamily: 'inherit' }}>
@@ -115,7 +118,7 @@ export default function IELTSReviewModal({ item, onClose }) {
 
           {/* AI evaluation */}
           <div style={{ marginBottom: 16, padding: 14, borderRadius: 10, background: 'rgba(56,189,248,0.05)', border: '1px solid rgba(56,189,248,0.12)' }}>
-            <div style={{ fontSize: 11, color: 'var(--ds-accent-sky, #38bdf8)', marginBottom: 8, fontFamily: "'Tajawal', sans-serif" }}>تقييم الذكاء الاصطناعي</div>
+            <div style={{ fontSize: 11, color: 'var(--ds-accent-sky, #38bdf8)', marginBottom: 8, fontFamily: "'Tajawal', sans-serif" }}>{t('trainer.grading.ai_evaluate')}</div>
             <div style={{ fontSize: 22, fontWeight: 700, color: 'var(--ds-accent-primary, var(--accent-gold, #e9b949))', marginBottom: 8 }}>
               {item.band_score ?? '—'}
             </div>
@@ -141,12 +144,12 @@ export default function IELTSReviewModal({ item, onClose }) {
           </div>
 
           <div style={{ marginBottom: 20 }}>
-            <div style={{ fontSize: 11, color: 'var(--ds-text-tertiary, var(--text-tertiary))', marginBottom: 6, fontFamily: "'Tajawal', sans-serif" }}>ملاحظاتك للطالب (اختياري)</div>
+            <div style={{ fontSize: 11, color: 'var(--ds-text-tertiary, var(--text-tertiary))', marginBottom: 6, fontFamily: "'Tajawal', sans-serif" }}>{t('trainer.grading.trainer_note', 'ملاحظاتك للطالب (اختياري)')}</div>
             <textarea
               rows={3}
               value={feedback}
               onChange={e => setFeedback(e.target.value)}
-              placeholder="أضف ملاحظاتك هنا..."
+              placeholder={t('trainer.grading.feedback_placeholder', 'أضف ملاحظاتك هنا...')}
               dir="rtl"
               style={{
                 width: '100%', resize: 'vertical', padding: '10px 12px', borderRadius: 10,
@@ -165,7 +168,7 @@ export default function IELTSReviewModal({ item, onClose }) {
               background: 'transparent', color: 'var(--ds-text-secondary, var(--text-secondary))',
               cursor: 'pointer', fontSize: 14, fontFamily: "'Tajawal', sans-serif",
             }}>
-              إلغاء
+              {t('common.cancel')}
             </button>
             <button
               onClick={handleApprove}
@@ -178,7 +181,7 @@ export default function IELTSReviewModal({ item, onClose }) {
                 opacity: grade.isPending ? 0.7 : 1,
               }}
             >
-              {done ? '✓ اعتُمد' : grade.isPending ? '...' : 'اعتمد التقييم'}
+              {done ? `✓ ${t('common.saved')}` : grade.isPending ? '...' : t('trainer.ielts.approve_grade', 'اعتمد التقييم')}
             </button>
           </div>
         </motion.div>

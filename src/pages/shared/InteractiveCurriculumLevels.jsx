@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import { BookOpen, ChevronLeft, RefreshCw } from 'lucide-react'
@@ -23,6 +24,7 @@ const item = {
 }
 
 export default function InteractiveCurriculumLevels() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const { profile, trainerData } = useAuthStore()
   const role = profile?.role
@@ -77,9 +79,9 @@ export default function InteractiveCurriculumLevels() {
     return (
       <div className="p-6" dir="rtl">
         <div className="rounded-2xl border border-[var(--border-subtle)] p-14 flex flex-col items-center justify-center text-center" style={{ background: 'var(--surface-base)' }}>
-          <p className="text-lg font-semibold text-[var(--text-muted)] mb-4 font-['Tajawal']">حدث خطأ في تحميل المنهج — حاول مرة ثانية</p>
+          <p className="text-lg font-semibold text-[var(--text-muted)] mb-4 font-['Tajawal']">{t('trainer.curriculum.error_message')}</p>
           <button onClick={() => refetch()} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-colors" style={{ background: 'var(--accent-sky)', color: '#fff' }}>
-            <RefreshCw size={16} /> إعادة المحاولة
+            <RefreshCw size={16} /> {t('trainer.curriculum.retry_button')}
           </button>
         </div>
       </div>
@@ -110,10 +112,10 @@ export default function InteractiveCurriculumLevels() {
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500/20 to-cyan-500/10 flex items-center justify-center ring-1 ring-sky-500/20">
             <BookOpen size={20} className="text-sky-400" />
           </div>
-          <h1 className="text-xl font-bold text-[var(--text-primary)] font-['Tajawal']">المنهج التفاعلي</h1>
+          <h1 className="text-xl font-bold text-[var(--text-primary)] font-['Tajawal']">{t('trainer.curriculum.interactive_title')}</h1>
         </div>
         <p className="text-[var(--text-muted)] text-sm mt-1 mr-[52px] font-['Tajawal']">
-          اختر المستوى لعرض الوحدات وإجابات الطلاب
+          {t('trainer.curriculum.interactive_subtitle')}
         </p>
       </motion.div>
 
@@ -141,7 +143,7 @@ export default function InteractiveCurriculumLevels() {
       {levels?.length === 0 && (
         <div className="flex flex-col items-center justify-center gap-4 py-20">
           <BookOpen size={40} className="text-[var(--text-muted)]" />
-          <p className="text-[var(--text-muted)] font-['Tajawal']">لا توجد مستويات متاحة</p>
+          <p className="text-[var(--text-muted)] font-['Tajawal']">{t('trainer.curriculum.no_levels')}</p>
         </div>
       )}
     </div>
@@ -226,7 +228,7 @@ function InteractiveLevelCard({ level, color, totalUnits, disabled, onClick }) {
 
         {/* Unit count + arrow */}
         <div className="mt-auto flex items-center justify-between text-xs text-[var(--text-muted)]">
-          <span className="font-['Tajawal']">{totalUnits} وحدة</span>
+          <span className="font-['Tajawal']">{totalUnits} {t('trainer.curriculum.unit_label')}</span>
           <ChevronLeft size={14} className="text-[var(--text-muted)]" />
         </div>
       </div>

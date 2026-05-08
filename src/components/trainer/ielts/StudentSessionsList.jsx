@@ -1,4 +1,4 @@
-const SKILL_AR = { reading: 'قراءة', listening: 'استماع', writing: 'كتابة', speaking: 'محادثة' }
+import { useTranslation } from 'react-i18next'
 
 function fmt(date) {
   if (!date) return '—'
@@ -12,10 +12,19 @@ function fmt(date) {
 }
 
 export default function StudentSessionsList({ sessions }) {
+  const { t } = useTranslation()
+
+  const SKILL_AR = {
+    reading: t('trainer.curriculum.tabs.reading'),
+    listening: t('trainer.curriculum.tabs.listening'),
+    writing: t('trainer.curriculum.tabs.writing'),
+    speaking: t('trainer.curriculum.tabs.speaking'),
+  }
+
   if (!sessions || sessions.length === 0) {
     return (
       <div style={{ padding: '24px', textAlign: 'center', color: 'var(--ds-text-tertiary, var(--text-tertiary))', fontSize: 13, fontFamily: "'Tajawal', sans-serif" }}>
-        لا توجد جلسات مسجّلة بعد
+        {t('trainer.ielts.no_sessions', 'لا توجد جلسات مسجّلة بعد')}
       </div>
     )
   }

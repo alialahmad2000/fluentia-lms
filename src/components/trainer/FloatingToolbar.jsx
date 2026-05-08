@@ -11,18 +11,20 @@ import QuickNotePopup from './QuickNotePopup'
 import TimerPopup from './TimerPopup'
 import UnitProgressPopup from './UnitProgressPopup'
 import HelpRequestsPopup from './HelpRequestsPopup'
-
-const TOOLBAR_BUTTONS = [
-  { key: 'classMode', icon: '🎓', label: 'الكلاس', activeLabel: 'إنهاء' },
-  { key: 'points', icon: '🎯', label: 'نقاط' },
-  { key: 'attendance', icon: '✋', label: 'حضور' },
-  { key: 'note', icon: '📝', label: 'ملاحظة' },
-  { key: 'timer', icon: '⏱', label: 'تايمر' },
-  { key: 'progress', icon: '📊', label: 'تقدم' },
-  { key: 'helpRequests', icon: '❓', label: 'مساعدة' },
-]
+import { useTranslation } from 'react-i18next'
 
 export default function FloatingToolbar() {
+  const { t } = useTranslation()
+
+  const TOOLBAR_BUTTONS = [
+    { key: 'classMode', icon: '🎓', label: t('trainer.toolbar.class', 'الكلاس'), activeLabel: t('trainer.toolbar.end_class', 'إنهاء') },
+    { key: 'points', icon: '🎯', label: t('trainer.toolbar.points', 'نقاط') },
+    { key: 'attendance', icon: '✋', label: t('trainer.toolbar.attendance', 'حضور') },
+    { key: 'note', icon: '📝', label: t('trainer.toolbar.note', 'ملاحظة') },
+    { key: 'timer', icon: '⏱', label: t('trainer.toolbar.timer', 'تايمر') },
+    { key: 'progress', icon: '📊', label: t('trainer.toolbar.progress', 'تقدم') },
+    { key: 'helpRequests', icon: '❓', label: t('nav.trainer.help') },
+  ]
   const { profile, trainerData } = useAuthStore()
   const location = useLocation()
   const { isClassMode, startClass, endClass } = useClassMode()

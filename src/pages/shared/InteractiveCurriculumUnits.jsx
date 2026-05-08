@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { BookOpen, ArrowRight } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
@@ -15,6 +16,7 @@ const item = {
 }
 
 export default function InteractiveCurriculumUnits() {
+  const { t } = useTranslation()
   const { levelId } = useParams()
   const navigate = useNavigate()
   const { profile } = useAuthStore()
@@ -80,7 +82,7 @@ export default function InteractiveCurriculumUnits() {
           className="inline-flex items-center gap-2 text-sm text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors mb-4 font-['Tajawal']"
         >
           <ArrowRight size={16} />
-          العودة للمستويات
+          {t('trainer.curriculum.back_to_levels')}
         </button>
 
         <div className="flex items-center gap-3 mb-2">
@@ -136,8 +138,8 @@ export default function InteractiveCurriculumUnits() {
           <div className="w-16 h-16 rounded-2xl bg-[var(--surface-raised)] flex items-center justify-center mb-5">
             <BookOpen size={28} className="text-[var(--text-muted)]" />
           </div>
-          <p className="text-lg font-semibold text-[var(--text-muted)] mb-1.5 font-['Tajawal']">لا توجد وحدات في هذا المستوى</p>
-          <p className="text-[var(--text-muted)] text-sm font-['Tajawal']">سيكون المحتوى جاهزاً قريباً إن شاء الله</p>
+          <p className="text-lg font-semibold text-[var(--text-muted)] mb-1.5 font-['Tajawal']">{t('trainer.curriculum.no_units_title')}</p>
+          <p className="text-[var(--text-muted)] text-sm font-['Tajawal']">{t('trainer.curriculum.no_units_subtitle')}</p>
         </motion.div>
       )}
     </div>
@@ -146,6 +148,7 @@ export default function InteractiveCurriculumUnits() {
 
 // ─── Unit Card (cloned from student UnitCard, adapted for admin/trainer) ───
 function InteractiveUnitCard({ unit, levelColor, onClick }) {
+  const { t } = useTranslation()
   return (
     <motion.div
       onClick={onClick}
@@ -183,7 +186,7 @@ function InteractiveUnitCard({ unit, levelColor, onClick }) {
           )}
           <div className="flex items-center gap-2 mt-2">
             <span className="text-xs text-[var(--text-muted)] font-['Tajawal']">
-              الوحدة {unit.unit_number}
+              {t('trainer.curriculum.breadcrumb_unit')} {unit.unit_number}
             </span>
           </div>
         </div>

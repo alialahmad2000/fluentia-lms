@@ -1,16 +1,14 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const SEV_CLASS = { urgent: 'urgent', attention: 'attention', celebrate: 'celebrate' }
 const SEV_ICON  = { urgent: '🚨', attention: '⚠️', celebrate: '🌟' }
 
-function arabicCount(n, singular, plural) {
-  return `${n.toLocaleString('ar-SA')} ${n === 1 ? singular : plural}`
-}
-
 export default function InterventionsSection({ items = [] }) {
+  const { t } = useTranslation()
   if (!items.length) return null
 
-  const title = arabicCount(items.length, 'طالب يحتاج تدخلك', 'طلاب يحتاجون تدخلك')
+  const title = `${items.length.toLocaleString('ar-SA')} ${t('trainer.cockpit.interventions')}`
 
   return (
     <section className="db-section">
@@ -35,7 +33,7 @@ export default function InterventionsSection({ items = [] }) {
 
       <div className="db-section__footer">
         <Link to="/trainer/students" className="db-section__link">
-          📋 ملفات الطلاب ←
+          📋 {t('trainer.students.label')} ←
         </Link>
       </div>
     </section>

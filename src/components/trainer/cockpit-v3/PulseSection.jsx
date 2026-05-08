@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const DAY_AR = ['أحد', 'إثنين', 'ثلاثاء', 'أربع', 'خميس', 'جمعة', 'سبت']
 
@@ -11,6 +12,7 @@ function intensityClass(xp) {
 }
 
 export default function PulseSection({ data }) {
+  const { t } = useTranslation()
   const students = data?.students || []
   const matrix   = data?.matrix || {}
   const days     = data?.days || []
@@ -21,7 +23,7 @@ export default function PulseSection({ data }) {
 
   return (
     <section className="db-section">
-      <h2 className="db-section__title">📊 نبض الطلاب — آخر ٧ أيام</h2>
+      <h2 className="db-section__title">📊 {t('trainer.cockpit.pulse_title', 'نبض الطلاب — آخر ٧ أيام')}</h2>
 
       <div className="db-pulse__grid">
         <div className="db-pulse__day-labels">

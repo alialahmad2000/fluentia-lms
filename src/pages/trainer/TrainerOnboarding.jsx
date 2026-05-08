@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   GraduationCap, LayoutDashboard, BookOpen, PenLine,
@@ -8,57 +9,37 @@ import {
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
 
-const PAGES = [
-  {
-    icon: GraduationCap,
-    color: '#38bdf8',
-    title: 'مرحباً بك في أكاديمية طلاقة!',
-    subtitle: 'نظام إدارة التعلم الخاص بالأكاديمية يساعدك في متابعة طلابك وتقييم أدائهم',
-    detail: 'كل شيء تحتاجه لإدارة مجموعاتك موجود في مكان واحد',
-  },
-  {
-    icon: LayoutDashboard,
-    color: '#4ade80',
-    title: 'لوحة التحكم',
-    subtitle: 'هنا تشوف نظرة شاملة على مجموعاتك وطلابك',
-    detail: 'إحصائيات الحضور، نقاط XP، آخر النشاطات — كلها في صفحة واحدة',
-  },
-  {
-    icon: BookOpen,
-    color: '#a78bfa',
-    title: 'المنهج',
-    subtitle: 'تقدر تتصفح منهج طلابك وتشوف إجاباتهم وتقدمهم',
-    detail: 'كل وحدة فيها أقسام: القراءة، القواعد، المفردات، الاستماع، والكتابة',
-  },
-  {
-    icon: PenLine,
-    color: '#fbbf24',
-    title: 'التدريس',
-    subtitle: 'أنشئ واجبات وصحح أعمال طلابك بسهولة',
-    detail: 'الواجبات الأسبوعية، تصحيح الكتابة، والاختبارات — كلها من هنا',
-  },
-  {
-    icon: Trophy,
-    color: '#f472b6',
-    title: 'النقاط والحضور',
-    subtitle: 'وزّع نقاط أثناء الكلاس وسجّل الحضور بضغطة',
-    detail: 'النقاط السريعة تحفّز الطلاب وتشجعهم على المشاركة',
-  },
-  {
-    icon: Rocket,
-    color: '#38bdf8',
-    title: 'جاهز!',
-    subtitle: 'كل شيء جاهز — يلا نبدأ الرحلة!',
-    detail: '',
-    isFinal: true,
-  },
+const PAGE_META = [
+  { icon: GraduationCap, color: '#38bdf8', isFinal: false },
+  { icon: LayoutDashboard, color: '#4ade80', isFinal: false },
+  { icon: BookOpen, color: '#a78bfa', isFinal: false },
+  { icon: PenLine, color: '#fbbf24', isFinal: false },
+  { icon: Trophy, color: '#f472b6', isFinal: false },
+  { icon: Rocket, color: '#38bdf8', isFinal: true },
 ]
 
 export default function TrainerOnboarding() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const { user, trainerData } = useAuthStore()
   const [currentPage, setCurrentPage] = useState(0)
   const [direction, setDirection] = useState(1)
+
+  const PAGE_DETAILS = [
+    'كل شيء تحتاجه لإدارة مجموعاتك موجود في مكان واحد',
+    'إحصائيات الحضور، نقاط XP، آخر النشاطات — كلها في صفحة واحدة',
+    'كل وحدة فيها أقسام: القراءة، القواعد، المفردات، الاستماع، والكتابة',
+    'الواجبات الأسبوعية، تصحيح الكتابة، والاختبارات — كلها من هنا',
+    'النقاط السريعة تحفّز الطلاب وتشجعهم على المشاركة',
+    '',
+  ]
+
+  const PAGES = PAGE_META.map((meta, i) => ({
+    ...meta,
+    title: t(`trainer.onboarding.page_${i}_title`),
+    subtitle: t(`trainer.onboarding.page_${i}_subtitle`),
+    detail: PAGE_DETAILS[i],
+  }))
 
   const page = PAGES[currentPage]
   const Icon = page.icon
@@ -113,7 +94,7 @@ export default function TrainerOnboarding() {
           onClick={handleSkip}
           className="absolute top-6 left-6 text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors font-['Tajawal']"
         >
-          تخطي
+          {t('trainer.onboarding.skip_button')}
         </button>
       )}
 
@@ -165,7 +146,7 @@ export default function TrainerOnboarding() {
                 className="mt-8 px-8 py-3 rounded-2xl text-base font-bold text-white font-['Tajawal'] transition-all hover:scale-105"
                 style={{ background: `linear-gradient(135deg, ${page.color}, #a78bfa)`, boxShadow: `0 4px 20px ${page.color}40` }}
               >
-                يلا نبدأ!
+                {t('trainer.onboarding.start_button')}
               </motion.button>
             )}
           </motion.div>
@@ -200,7 +181,7 @@ export default function TrainerOnboarding() {
               }`}
             >
               <ChevronRight size={16} />
-              السابق
+              {t('trainer.onboarding.prev_button')}
             </button>
 
             <button
@@ -208,7 +189,7 @@ export default function TrainerOnboarding() {
               className="flex items-center gap-1 px-6 py-2.5 rounded-xl text-sm font-bold font-['Tajawal'] text-white transition-all hover:scale-105"
               style={{ background: page.color }}
             >
-              التالي
+              {t('trainer.onboarding.next_button')}
               <ChevronLeft size={16} />
             </button>
           </div>

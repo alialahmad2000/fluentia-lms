@@ -1,6 +1,8 @@
 import { PenLine, Mic, Award } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 function TypeChip({ type }) {
+  const { t } = useTranslation()
   const isSpeaking = type === 'speaking'
   return (
     <span style={{
@@ -9,7 +11,7 @@ function TypeChip({ type }) {
       color: isSpeaking ? 'var(--ds-accent-violet, #8b5cf6)' : 'var(--ds-accent-sky, #38bdf8)',
     }}>
       {isSpeaking ? <Mic size={10} /> : <PenLine size={10} />}
-      {isSpeaking ? 'محادثة' : 'كتابة'}
+      {isSpeaking ? t('common.speaking') : t('common.writing')}
     </span>
   )
 }
@@ -25,16 +27,18 @@ function IELTSChip() {
   )
 }
 
-function formatAge(submittedAt) {
-  if (!submittedAt) return '—'
-  const h = (Date.now() - new Date(submittedAt).getTime()) / 3_600_000
-  if (h < 1) return 'أقل من ساعة'
-  if (h < 24) return `${Math.floor(h)}س`
-  return `${Math.floor(h / 24)} يوم`
-}
-
 export default function IELTSSubmissionCard({ item, onClick }) {
+  const { t } = useTranslation()
+
+  function formatAge(submittedAt) {
+    if (!submittedAt) return '—'
+    const h = (Date.now() - new Date(submittedAt).getTime()) / 3_600_000
+    if (h < 1) return t('trainer.grading.less_than_hour')
+    if (h < 24) return `${Math.floor(h)}${t('trainer.ielts.hour_short', 'س')}`
+    return `${Math.floor(h / 24)} ${t('trainer.students.time_unit_day')}`
+  }
   const { student_name, submission_type, band_score, submitted_at } = item
+
   const isUrgent = (Date.now() - new Date(submitted_at).getTime()) > 48 * 3_600_000
 
   return (
@@ -53,7 +57,7 @@ export default function IELTSSubmissionCard({ item, onClick }) {
           <IELTSChip />
           <TypeChip type={submission_type} />
           {isUrgent && (
-            <span style={{ fontSize: 10, color: 'var(--ds-accent-rose, #f43f5e)', fontWeight: 600 }}>⚠️ متأخر</span>
+            <span style={{ fontSize: 10, color: 'var(--ds-accent-rose, #f43f5e)', fontWeight: 600 }}>⚠️ {t('trainer.grading.urgent_badge', 'متأخر')}</span>
           )}
         </div>
         <span style={{ fontSize: 14, color: 'var(--ds-text-primary, var(--text-primary))', fontWeight: 600 }}>

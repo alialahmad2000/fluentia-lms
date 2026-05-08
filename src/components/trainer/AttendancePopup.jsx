@@ -5,8 +5,10 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import useClassMode from '../../stores/classModeStore'
+import { useTranslation } from 'react-i18next'
 
 export default function AttendancePopup({ groupId, onClose }) {
+  const { t } = useTranslation()
   const { profile } = useAuthStore()
   const queryClient = useQueryClient()
   const markAttendance = useClassMode(s => s.markAttendance)
@@ -120,11 +122,11 @@ export default function AttendancePopup({ groupId, onClose }) {
         style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)', backdropFilter: 'blur(20px)' }}
       >
         <div className="px-4 py-3 flex items-center justify-between" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
-          <h3 className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>✋ تسجيل الحضور</h3>
+          <h3 className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>✋ {t('trainer.students.action_record_attendance')}</h3>
           <button onClick={onClose} className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-white/5"><X size={14} style={{ color: 'var(--text-muted)' }} /></button>
         </div>
         <div className="p-6 text-center">
-          <p className="text-sm text-[var(--text-muted)]">حدد الوحدة الحالية للمجموعة أولاً من لوحة التحكم</p>
+          <p className="text-sm text-[var(--text-muted)]">{t('trainer.attendance.no_unit', 'حدد الوحدة الحالية للمجموعة أولاً من لوحة التحكم')}</p>
         </div>
       </motion.div>
     )
@@ -142,7 +144,7 @@ export default function AttendancePopup({ groupId, onClose }) {
       <div className="px-4 py-3" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
         <div className="flex items-center justify-between">
           <h3 className="text-sm font-bold flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-            <span>✋</span> تسجيل الحضور
+            <span>✋</span> {t('trainer.students.action_record_attendance')}
           </h3>
           <button onClick={onClose} className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-white/5 transition-colors">
             <X size={14} style={{ color: 'var(--text-muted)' }} />
@@ -160,7 +162,7 @@ export default function AttendancePopup({ groupId, onClose }) {
                   : 'text-[var(--text-muted)] border-[var(--border-subtle)] hover:text-[var(--text-primary)]'
               }`}
             >
-              {cn === 1 ? 'الحصة ١' : 'الحصة ٢'}
+              {cn === 1 ? t('trainer.attendance.class_1', 'الحصة ١') : t('trainer.attendance.class_2', 'الحصة ٢')}
             </button>
           ))}
         </div>
@@ -192,11 +194,11 @@ export default function AttendancePopup({ groupId, onClose }) {
       {/* Footer */}
       <div className="px-4 py-3 flex items-center justify-between" style={{ borderTop: '1px solid var(--border-subtle)' }}>
         <span className="text-[12px] font-medium" style={{ color: 'var(--text-secondary)' }}>
-          {presentCount}/{totalCount} حاضرين
+          {presentCount}/{totalCount} {t('trainer.debrief.attendance_present')}
         </span>
         {saved || alreadySaved ? (
           <span className="flex items-center gap-1.5 text-[12px] font-bold text-emerald-400">
-            <CheckCircle2 size={14} /> تم الحفظ
+            <CheckCircle2 size={14} /> {t('common.saved')}
           </span>
         ) : (
           <button
@@ -206,7 +208,7 @@ export default function AttendancePopup({ groupId, onClose }) {
             style={{ background: 'var(--accent-sky-glow)', color: 'var(--accent-sky)', border: '1px solid rgba(56,189,248,0.2)' }}
           >
             {saveMutation.isPending ? <Loader2 size={13} className="animate-spin" /> : <Save size={13} />}
-            حفظ الحضور
+            {t('trainer.attendance.save_attendance', 'حفظ الحضور')}
           </button>
         )}
       </div>

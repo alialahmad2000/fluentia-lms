@@ -5,13 +5,7 @@ import { useQuery, useMutation } from '@tanstack/react-query'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { notifyUser } from '../../utils/notify'
-
-const NOTE_TYPES = [
-  { type: 'trainer_encouragement', label: 'تشجيع', icon: '👏' },
-  { type: 'trainer_observation', label: 'ملاحظة', icon: '👀' },
-  { type: 'trainer_warning', label: 'تنبيه', icon: '⚠️' },
-  { type: 'trainer_reminder', label: 'تذكير', icon: '💡' },
-]
+import { useTranslation } from 'react-i18next'
 
 const TEMPLATES = {
   trainer_encouragement: ['أداءك ممتاز اليوم! استمر', 'مشاركتك كانت رائعة!', 'تحسن واضح في النطق', 'أحسنت بالقراءة!'],
@@ -21,11 +15,19 @@ const TEMPLATES = {
 }
 
 export default function QuickNotePopup({ groupId, onClose }) {
+  const { t } = useTranslation()
   const { profile } = useAuthStore()
   const [selectedStudent, setSelectedStudent] = useState('')
   const [noteType, setNoteType] = useState('trainer_encouragement')
   const [content, setContent] = useState('')
   const [saved, setSaved] = useState(false)
+
+  const NOTE_TYPES = [
+    { type: 'trainer_encouragement', label: t('trainer.students.note_type_encouragement'), icon: '👏' },
+    { type: 'trainer_observation', label: t('trainer.students.note_type_observation'), icon: '👀' },
+    { type: 'trainer_warning', label: t('trainer.students.note_type_warning'), icon: '⚠️' },
+    { type: 'trainer_reminder', label: t('trainer.students.note_type_reminder'), icon: '💡' },
+  ]
 
   const { data: students } = useQuery({
     queryKey: ['group-students', groupId],
@@ -93,7 +95,7 @@ export default function QuickNotePopup({ groupId, onClose }) {
           className="w-full px-3 py-2.5 rounded-xl text-[13px] font-medium"
           style={{ background: 'var(--surface-overlay)', border: '1px solid var(--border-subtle)', color: 'var(--text-primary)' }}
         >
-          <option value="">اختر طالب...</option>
+          <option value="">{t('trainer.quicknote.select_student', 'اختر طالب...')}</option>
           {students?.map(s => (
             <option key={s.id} value={s.id}>{getName(s)}</option>
           ))}
@@ -121,7 +123,7 @@ export default function QuickNotePopup({ groupId, onClose }) {
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          placeholder="اكتب ملاحظتك..."
+          placeholder={t('trainer.quicknote.write_note', 'اكتب ملاحظتك...')}
           rows={3}
           className="w-full px-3 py-2.5 rounded-xl text-[13px] resize-none"
           style={{ background: 'var(--surface-overlay)', border: '1px solid var(--border-subtle)', color: 'var(--text-primary)' }}
@@ -146,7 +148,7 @@ export default function QuickNotePopup({ groupId, onClose }) {
         {/* Save button */}
         {saved ? (
           <div className="flex items-center justify-center gap-1.5 py-2 text-emerald-400 text-[12px] font-bold">
-            <CheckCircle2 size={14} /> تم الحفظ
+            <CheckCircle2 size={14} /> {t('common.saved')}
           </div>
         ) : (
           <button
@@ -156,7 +158,7 @@ export default function QuickNotePopup({ groupId, onClose }) {
             style={{ background: 'var(--accent-sky-glow)', color: 'var(--accent-sky)', border: '1px solid rgba(56,189,248,0.2)' }}
           >
             {saveMutation.isPending ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
-            حفظ
+            {t('common.save')}
           </button>
         )}
       </div>

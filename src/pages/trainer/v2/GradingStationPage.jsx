@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { motion, AnimatePresence } from 'framer-motion'
 import { PenLine, Mic, AlertCircle, CheckCircle, Clock } from 'lucide-react'
 import { useGradingQueue } from '@/hooks/trainer/useGradingQueue'
@@ -10,22 +11,24 @@ import IELTSSubmissionCard from '@/components/trainer/ielts/IELTSSubmissionCard'
 import IELTSReviewModal from '@/components/trainer/ielts/IELTSReviewModal'
 import './GradingStationPage.css'
 
-const FILTERS = [
-  { id: 'all', label: 'الكل' },
-  { id: 'writing', label: 'كتابة' },
-  { id: 'speaking', label: 'محادثة' },
-  { id: 'ielts', label: 'IELTS' },
-  { id: 'urgent', label: '⚠️ متأخر' },
-]
+function useFilters(t) {
+  return [
+    { id: 'all', label: t('common.filter_all') },
+    { id: 'writing', label: t('common.writing') },
+    { id: 'speaking', label: t('common.speaking') },
+    { id: 'ielts', label: 'IELTS' },
+    { id: 'urgent', label: t('trainer.grading.urgent_badge') },
+  ]
+}
 
 function TypeIcon({ type }) {
   if (type === 'speaking') return <Mic size={14} className="gs-row__type-icon gs-row__type-icon--speaking" />
   return <PenLine size={14} className="gs-row__type-icon gs-row__type-icon--writing" />
 }
 
-function formatHours(h) {
+function formatHours(h, t) {
   if (!h) return '—'
-  if (h < 1) return 'أقل من ساعة'
+  if (h < 1) return t('trainer.grading.less_than_hour')
   if (h < 24) return `${Math.floor(h)}س`
   return `${Math.floor(h / 24)} يوم`
 }
@@ -39,10 +42,12 @@ function QueueSkeleton() {
 }
 
 export default function GradingStationPage() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const { data: queue = [], isLoading } = useGradingQueue(100)
   const { data: ieltsQueue = [], isLoading: ieltsLoading } = useIELTSGradingQueueExtension()
   const [filter, setFilter] = useState('all')
+  const FILTERS = useFilters(t)
   const [selectedItem, setSelectedItem] = useState(null)
   const [selectedIELTS, setSelectedIELTS] = useState(null)
 
@@ -67,7 +72,7 @@ export default function GradingStationPage() {
       {/* Header */}
       <div className="gs-header">
         <div className="gs-header__title-row">
-          <h1 className="gs-header__title">محطة التصحيح</h1>
+          <h1 className="gs-header__title">{t('trainer.grading.title')}</h1>
           {totalCount > 0 && (
             <span className="gs-header__badge">{totalCount}</span>
           )}
@@ -75,7 +80,7 @@ export default function GradingStationPage() {
         {urgentCount > 0 && (
           <div className="gs-header__urgent">
             <AlertCircle size={14} />
-            {urgentCount} {urgentCount === 1 ? 'تسليم متأخر أكثر من 48 ساعة' : 'تسليمات متأخرة أكثر من 48 ساعة'}
+            {urgentCount} {urgentCount === 1 ? t('trainer.grading.overdue_singular') : t('trainer.grading.overdue_plural')}
           </div>
         )}
       </div>
@@ -103,10 +108,10 @@ export default function GradingStationPage() {
         <CommandCard className="gs-empty">
           <CheckCircle size={40} className="gs-empty__icon" />
           <h3 className="gs-empty__title">
-            {filter === 'all' ? 'لا توجد تسليمات معلقة' : `لا توجد تسليمات ${FILTERS.find(f=>f.id===filter)?.label}`}
+            {filter === 'all' ? t('trainer.grading.no_submissions') : `${t('trainer.grading.no_filtered_submissions')} ${FILTERS.find(f=>f.id===filter)?.label}`}
           </h3>
           <p className="gs-empty__sub">
-            {filter === 'all' ? 'ممتاز! كل التسليمات مصححة.' : 'جرّب تصفية مختلفة.'}
+            {filter === 'all' ? t('trainer.grading.all_graded') : t('trainer.grading.try_different_filter')}
           </p>
         </CommandCard>
       ) : (
@@ -143,14 +148,14 @@ export default function GradingStationPage() {
                             <button
                               style={{ fontSize: '0.68rem', padding: '1px 5px', borderRadius: '0.3rem', border: '1px solid #d1d5db', background: '#f9fafb', cursor: 'pointer' }}
                               onClick={e => { e.stopPropagation(); navigate(`/trainer/student/${item.student_id}`) }}
-                              title="ملف الطالب ٣٦٠"
+                              title={t('trainer.grading.student_360_tooltip')}
                             >
                               ٣٦٠
                             </button>
                           )}
                         </div>
                         <div className="gs-row__meta">
-                          {item.group_name} · {item.unit_title || 'وحدة غير محددة'}
+                          {item.group_name} · {item.unit_title || t('common.unit_not_specified')}
                         </div>
                       </div>
                     </div>
@@ -160,9 +165,9 @@ export default function GradingStationPage() {
                       </div>
                       <div className={`gs-row__age ${item.is_urgent ? 'gs-row__age--urgent' : ''}`}>
                         <Clock size={11} />
-                        {formatHours(item.hours_pending)}
+                        {formatHours(item.hours_pending, t)}
                       </div>
-                      <span className="gs-row__cta">مراجعة ←</span>
+                      <span className="gs-row__cta">{t('trainer.grading.review_cta')}</span>
                     </div>
                   </CommandCard>
                 </motion.div>

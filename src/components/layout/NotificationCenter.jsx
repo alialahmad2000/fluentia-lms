@@ -430,7 +430,7 @@ export default function NotificationCenter() {
                                 className="text-[11px] font-medium px-3 py-1.5 rounded-lg transition-all"
                                 style={{ background: 'rgba(56,189,248,0.1)', color: 'var(--accent-sky)' }}
                               >
-                                {n.action_label || 'فتح'}
+                                {n.action_label || t('common.open')}
                               </button>
                               <button
                                 onClick={() => setExpandedId(null)}

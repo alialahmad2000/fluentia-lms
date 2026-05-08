@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { useQueryClient } from '@tanstack/react-query'
 import {
   useStudent360Overview,
@@ -17,6 +18,7 @@ import QuickActionsBar from '@/components/trainer/student360/QuickActionsBar'
 import './Student360Page.css'
 
 export default function Student360Page() {
+  const { t } = useTranslation()
   const { studentId } = useParams()
   const navigate = useNavigate()
   const qc = useQueryClient()
@@ -47,9 +49,9 @@ export default function Student360Page() {
     <div className="s360-page" dir="rtl">
       <div className="s360-topbar">
         <button className="s360-back-btn" onClick={() => navigate(-1)}>
-          ← رجوع
+          {t('common.back_button')}
         </button>
-        <h2 className="s360-topbar-title">ملف الطالب الشامل</h2>
+        <h2 className="s360-topbar-title">{t('trainer.students.student360_title')}</h2>
       </div>
 
       <div className="s360-layout">

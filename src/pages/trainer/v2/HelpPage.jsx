@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { ChevronDown, Search, MapPin } from 'lucide-react'
 import './HelpPage.css'
 
@@ -133,6 +134,7 @@ function AccordionItem({ q, a, searchQuery }) {
 }
 
 export default function HelpPage() {
+  const { t, i18n } = useTranslation()
   const [search, setSearch] = useState('')
   const navigate = useNavigate()
 
@@ -147,17 +149,25 @@ export default function HelpPage() {
     })).filter(s => s.items.length > 0)
   }, [search])
 
+  const sectionTitleMap = {
+    morning: t('trainer.help.sections.morning'),
+    prep: t('trainer.help.sections.prep'),
+    live: t('trainer.help.sections.live'),
+    after: t('trainer.help.sections.after'),
+    weekly: t('trainer.help.sections.weekly'),
+  }
+
   return (
     <div className="hp-page" dir="rtl">
       <div className="hp-hero">
-        <h1 className="hp-hero__title">دليل Fluentia V2</h1>
-        <p className="hp-hero__sub">كل ما تحتاج، منظّم حسب يومك</p>
+        <h1 className="hp-hero__title">{t('trainer.help.title')}</h1>
+        <p className="hp-hero__sub">{t('trainer.help.subtitle')}</p>
         <div className="hp-search-wrap">
           <Search size={15} className="hp-search-icon" />
           <input
             className="hp-search"
             type="text"
-            placeholder="ابحث في الأسئلة..."
+            placeholder={t('trainer.help.search_placeholder')}
             value={search}
             onChange={e => setSearch(e.target.value)}
             dir="rtl"
@@ -165,17 +175,23 @@ export default function HelpPage() {
         </div>
       </div>
 
+      {i18n.language === 'en' && (
+        <div className="hp-arabic-notice" style={{ margin: '0 16px 16px', padding: '10px 14px', background: 'rgba(56,189,248,0.08)', border: '1px solid rgba(56,189,248,0.25)', borderRadius: 10, fontSize: 13, color: 'var(--tr-text-muted, #8b9ab2)', fontFamily: 'Tajawal, sans-serif' }}>
+          {t('trainer.help.arabic_content_notice')}
+        </div>
+      )}
+
       <div className="hp-content">
         {visibleSections.length === 0 ? (
           <div className="hp-empty">
-            <p>لا توجد نتائج لـ "<strong>{search}</strong>"</p>
+            <p>{t('trainer.help.no_results')} "<strong>{search}</strong>"</p>
           </div>
         ) : (
           visibleSections.map(section => (
             <div key={section.id} className="hp-section">
               <h2 className="hp-section__title">
                 <span>{section.emoji}</span>
-                <span>{section.title}</span>
+                <span>{sectionTitleMap[section.id] || section.title}</span>
               </h2>
               <div className="hp-faq-list">
                 {section.items.map((item, i) => (
@@ -193,13 +209,13 @@ export default function HelpPage() {
       </div>
 
       <div className="hp-tour-cta">
-        <p>رجعت تحتاج الجولة التعريفية؟</p>
+        <p>{t('trainer.help.tour_cta_title')}</p>
         <button
           className="hp-tour-btn"
           onClick={() => navigate('/trainer?tour=1')}
         >
           <MapPin size={14} />
-          ابدأ الجولة من البداية
+          {t('trainer.help.tour_cta_button')}
         </button>
       </div>
     </div>

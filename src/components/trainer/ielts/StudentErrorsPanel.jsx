@@ -1,6 +1,14 @@
-const SKILL_AR = { reading: 'قراءة', listening: 'استماع', writing: 'كتابة', speaking: 'محادثة' }
+import { useTranslation } from 'react-i18next'
 
 export default function StudentErrorsPanel({ errors }) {
+  const { t } = useTranslation()
+
+  const SKILL_AR = {
+    reading: t('trainer.curriculum.tabs.reading'),
+    listening: t('trainer.curriculum.tabs.listening'),
+    writing: t('trainer.curriculum.tabs.writing'),
+    speaking: t('trainer.curriculum.tabs.speaking'),
+  }
   const total = errors.length
   const mastered = errors.filter(e => e.mastered).length
   const now = Date.now()
@@ -20,7 +28,7 @@ export default function StudentErrorsPanel({ errors }) {
   if (total === 0) {
     return (
       <div style={{ padding: '24px', textAlign: 'center', color: 'var(--ds-text-tertiary, var(--text-tertiary))', fontSize: 13, fontFamily: "'Tajawal', sans-serif" }}>
-        لا توجد أخطاء في البنك بعد
+        {t('trainer.ielts.no_errors', 'لا توجد أخطاء في البنك بعد')}
       </div>
     )
   }
@@ -29,9 +37,9 @@ export default function StudentErrorsPanel({ errors }) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
       <div style={{ display: 'flex', gap: 12 }}>
         {[
-          { label: 'المجموع', value: total, color: 'var(--ds-text-primary, var(--text-primary))' },
-          { label: 'مستحق الآن', value: due, color: 'var(--ds-accent-amber, #f59e0b)' },
-          { label: 'متقن', value: mastered, color: 'var(--ds-accent-emerald, #10b981)' },
+          { label: t('trainer.ielts.errors_total', 'المجموع'), value: total, color: 'var(--ds-text-primary, var(--text-primary))' },
+          { label: t('trainer.ielts.errors_due', 'مستحق الآن'), value: due, color: 'var(--ds-accent-amber, #f59e0b)' },
+          { label: t('trainer.ielts.errors_mastered', 'متقن'), value: mastered, color: 'var(--ds-accent-emerald, #10b981)' },
         ].map(({ label, value, color }) => (
           <div key={label} style={{
             flex: 1, padding: '10px 14px', borderRadius: 10, textAlign: 'center',
@@ -46,7 +54,7 @@ export default function StudentErrorsPanel({ errors }) {
 
       {hotspots.length > 0 && (
         <div>
-          <div style={{ fontSize: 12, color: 'var(--ds-text-tertiary, var(--text-tertiary))', marginBottom: 8, fontFamily: "'Tajawal', sans-serif" }}>أبرز نقاط الضعف</div>
+          <div style={{ fontSize: 12, color: 'var(--ds-text-tertiary, var(--text-tertiary))', marginBottom: 8, fontFamily: "'Tajawal', sans-serif" }}>{t('trainer.ielts.top_weaknesses', 'أبرز نقاط الضعف')}</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             {hotspots.map(([key, count]) => {
               const [skill, qtype] = key.split('::')

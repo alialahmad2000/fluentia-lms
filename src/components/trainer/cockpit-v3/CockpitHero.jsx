@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useQueryClient } from '@tanstack/react-query'
 import { useAuthStore } from '@/stores/authStore'
 import { supabase } from '@/lib/supabase'
+import { useTranslation } from 'react-i18next'
 
 function greeting(h) {
   if (h < 12) return 'صباح الخير'
@@ -46,6 +47,7 @@ export function resolveHeroState({ nextClass, hasDoneMorningRitual, hourNow }) {
 }
 
 export default function CockpitHero({ state, totals, students, trainerName, todayRitual }) {
+  const { t } = useTranslation()
   const profile = useAuthStore((s) => s.profile)
   const qc = useQueryClient()
   const [ritualLoading, setRitualLoading] = useState(false)
@@ -88,18 +90,18 @@ export default function CockpitHero({ state, totals, students, trainerName, toda
         <span className="db-hero__stat">
           <span>⚡</span>
           <span className="db-hero__stat-val">{arabicNum(todayXp)}</span>
-          <span>XP اليوم</span>
+          <span>{t('trainer.cockpit.xp_today', 'XP اليوم')}</span>
         </span>
         <span className="db-hero__stat-sep">•</span>
         <span className="db-hero__stat">
           <span>🔥</span>
           <span className="db-hero__stat-val">{arabicNum(streak)}</span>
-          <span>يوم streak</span>
+          <span>{t('trainer.students.streak_days')}</span>
         </span>
         <span className="db-hero__stat-sep">•</span>
         <span className="db-hero__stat">
           <span className="db-hero__stat-val">{arabicNum(activeCount)}</span>
-          <span>طالب نشط</span>
+          <span>{t('trainer.cockpit.active_students', 'طالب نشط')}</span>
         </span>
       </div>
     </div>

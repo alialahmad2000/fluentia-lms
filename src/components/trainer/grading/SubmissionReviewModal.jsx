@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { X, ChevronRight, ChevronLeft, Star, RotateCcw, Mic, PenLine, Zap } from 'lucide-react'
 import { useApproveSubmission } from '@/hooks/trainer/useApproveSubmission'
 import { useRequestRedo } from '@/hooks/trainer/useRequestRedo'
+import { useTranslation } from 'react-i18next'
 import './SubmissionReviewModal.css'
 
 function XPBurst({ show }) {
@@ -20,22 +21,23 @@ function XPBurst({ show }) {
 }
 
 function RedoSheet({ onSubmit, onCancel }) {
+  const { t } = useTranslation()
   const [note, setNote] = useState('')
   return (
     <div className="srm-redo-sheet">
-      <p className="srm-redo-sheet__label">سبب الإعادة (اختياري)</p>
+      <p className="srm-redo-sheet__label">{t('trainer.grading.redo_reason', 'سبب الإعادة (اختياري)')}</p>
       <textarea
         className="srm-redo-sheet__textarea"
         rows={3}
-        placeholder="مثال: الإجابة قصيرة جداً، يرجى التوسع..."
+        placeholder={t('trainer.grading.redo_placeholder', 'مثال: الإجابة قصيرة جداً، يرجى التوسع...')}
         value={note}
         onChange={e => setNote(e.target.value)}
         dir="rtl"
       />
       <div className="srm-redo-sheet__actions">
-        <button className="srm-btn srm-btn--ghost" onClick={onCancel}>إلغاء</button>
+        <button className="srm-btn srm-btn--ghost" onClick={onCancel}>{t('common.cancel')}</button>
         <button className="srm-btn srm-btn--danger" onClick={() => onSubmit(note)}>
-          <RotateCcw size={14} /> طلب الإعادة
+          <RotateCcw size={14} /> {t('trainer.grading.redo_request', 'طلب الإعادة')}
         </button>
       </div>
     </div>
@@ -43,10 +45,11 @@ function RedoSheet({ onSubmit, onCancel }) {
 }
 
 function ScoreSlider({ value, onChange }) {
+  const { t } = useTranslation()
   return (
     <div className="srm-score">
       <div className="srm-score__label">
-        <span>التقييم النهائي</span>
+        <span>{t('trainer.grading.grade')}</span>
         <span className="srm-score__val">{value}<span className="srm-score__denom">/10</span></span>
       </div>
       <input
@@ -68,6 +71,7 @@ function ScoreSlider({ value, onChange }) {
 }
 
 export default function SubmissionReviewModal({ item, queue, onClose, onAdvance }) {
+  const { t } = useTranslation()
   const approve = useApproveSubmission()
   const redo = useRequestRedo()
 
@@ -154,11 +158,11 @@ export default function SubmissionReviewModal({ item, queue, onClose, onAdvance 
           <div className="srm-header__info">
             <div className="srm-header__type">
               {isWriting
-                ? <><PenLine size={14} /> كتابة</>
-                : <><Mic size={14} /> محادثة</>}
+                ? <><PenLine size={14} /> {t('common.writing')}</>
+                : <><Mic size={14} /> {t('common.speaking')}</>}
             </div>
             <div className="srm-header__name">{item.student_name}</div>
-            <div className="srm-header__meta">{item.group_name} · {item.unit_title || 'وحدة غير محددة'}</div>
+            <div className="srm-header__meta">{item.group_name} · {item.unit_title || t('common.unit_not_specified')}</div>
           </div>
           <div className="srm-header__actions">
             {/* Navigation */}
@@ -167,7 +171,7 @@ export default function SubmissionReviewModal({ item, queue, onClose, onAdvance 
                 className="srm-nav__btn"
                 disabled={!hasPrev}
                 onClick={() => onAdvance(queue[currentIdx - 1])}
-                title="السابق"
+                title={t('common.previous')}
               >
                 <ChevronRight size={16} />
               </button>
@@ -176,12 +180,12 @@ export default function SubmissionReviewModal({ item, queue, onClose, onAdvance 
                 className="srm-nav__btn"
                 disabled={!hasNext}
                 onClick={() => onAdvance(queue[currentIdx + 1])}
-                title="التالي"
+                title={t('common.next')}
               >
                 <ChevronLeft size={16} />
               </button>
             </div>
-            <button className="srm-close" onClick={onClose} title="إغلاق">
+            <button className="srm-close" onClick={onClose} title={t('common.close')}>
               <X size={18} />
             </button>
           </div>
@@ -191,24 +195,24 @@ export default function SubmissionReviewModal({ item, queue, onClose, onAdvance 
           {/* AI Score pill */}
           {item.ai_score > 0 && (
             <div className="srm-ai-badge">
-              <Star size={12} /> تقييم الذكاء الاصطناعي: {item.ai_score}/10
+              <Star size={12} /> {t('trainer.grading.ai_evaluate')}: {item.ai_score}/10
             </div>
           )}
 
           {/* Student content / transcript */}
           <section className="srm-section">
             <h4 className="srm-section__title">
-              {isWriting ? 'إجابة الطالب' : 'النص المنطوق'}
+              {isWriting ? t('trainer.students.student_answer_label') : t('trainer.grading.spoken_text', 'النص المنطوق')}
             </h4>
             <div className="srm-content-box">
-              {getTranscript() || <span className="srm-muted">لا يوجد محتوى</span>}
+              {getTranscript() || <span className="srm-muted">{t('common.empty_state')}</span>}
             </div>
           </section>
 
           {/* AI feedback */}
           {getAIComment() && (
             <section className="srm-section">
-              <h4 className="srm-section__title">ملاحظات الذكاء الاصطناعي</h4>
+              <h4 className="srm-section__title">{t('trainer.students.writing_ai_feedback_title')}</h4>
               <div className="srm-ai-comment">{getAIComment()}</div>
             </section>
           )}
@@ -220,11 +224,11 @@ export default function SubmissionReviewModal({ item, queue, onClose, onAdvance 
 
           {/* Trainer feedback */}
           <section className="srm-section">
-            <h4 className="srm-section__title">ملاحظة للطالب (اختياري)</h4>
+            <h4 className="srm-section__title">{t('trainer.grading.trainer_note', 'ملاحظة للطالب (اختياري)')}</h4>
             <textarea
               className="srm-feedback-textarea"
               rows={3}
-              placeholder="اكتب ملاحظة تشجيعية أو تصحيحية..."
+              placeholder={t('trainer.grading.feedback_placeholder', 'اكتب ملاحظة تشجيعية أو تصحيحية...')}
               value={feedback}
               onChange={e => setFeedback(e.target.value)}
               dir="rtl"
@@ -248,14 +252,14 @@ export default function SubmissionReviewModal({ item, queue, onClose, onAdvance 
               onClick={() => setShowRedo(true)}
               disabled={redo.isPending}
             >
-              <RotateCcw size={14} /> إعادة
+              <RotateCcw size={14} /> {t('trainer.grading.redo_request', 'إعادة')}
             </button>
             <button
               className="srm-btn srm-btn--primary"
               onClick={handleApprove}
               disabled={approve.isPending}
             >
-              {approve.isPending ? 'جاري الحفظ...' : 'تأكيد التقييم'}
+              {approve.isPending ? t('common.saving') : t('trainer.grading.save_grade')}
             </button>
           </div>
         )}

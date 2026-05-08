@@ -1,11 +1,5 @@
 import './SkillsRadar.css'
-
-const SKILLS = [
-  { key: 'writing_avg',  label: 'الكتابة',  color: '#6366f1' },
-  { key: 'speaking_avg', label: 'المحادثة', color: '#10b981' },
-  { key: 'vocab_avg',    label: 'المفردات', color: '#f59e0b' },
-  { key: 'grammar_avg',  label: 'القواعد',  color: '#ef4444' },
-]
+import { useTranslation } from 'react-i18next'
 
 function Bar({ label, value, color }) {
   const pct = Math.min(100, Math.round((value || 0) / 10 * 100))
@@ -21,9 +15,18 @@ function Bar({ label, value, color }) {
 }
 
 export default function SkillsRadar({ metrics, loading }) {
+  const { t } = useTranslation()
+
+  const SKILLS = [
+    { key: 'writing_avg',  label: t('trainer.reports.skill_writing'),    color: '#6366f1' },
+    { key: 'speaking_avg', label: t('trainer.reports.skill_speaking'),   color: '#10b981' },
+    { key: 'vocab_avg',    label: t('trainer.reports.skill_vocabulary'), color: '#f59e0b' },
+    { key: 'grammar_avg',  label: t('trainer.reports.skill_grammar'),    color: '#ef4444' },
+  ]
+
   return (
     <div className="sr-card">
-      <h3 className="sr-title">لقطة المهارات</h3>
+      <h3 className="sr-title">{t('trainer.student360.skills')}</h3>
       {loading ? (
         <div className="sr-skeleton-list">
           {SKILLS.map(s => <div key={s.key} className="sr-skeleton" />)}
@@ -35,7 +38,7 @@ export default function SkillsRadar({ metrics, loading }) {
           ))}
         </div>
       )}
-      <p className="sr-note">المتوسط من آخر ٥ تقييمات</p>
+      <p className="sr-note">{t('trainer.student360.skills_note', 'المتوسط من آخر ٥ تقييمات')}</p>
     </div>
   )
 }

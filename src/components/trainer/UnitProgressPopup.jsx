@@ -3,8 +3,10 @@ import { X, AlertTriangle } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
 import { supabase } from '../../lib/supabase'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 export default function UnitProgressPopup({ groupId, unitId, onClose }) {
+  const { t } = useTranslation()
   const navigate = useNavigate()
 
   // Get students in group with their unit progress
@@ -67,13 +69,13 @@ export default function UnitProgressPopup({ groupId, unitId, onClose }) {
   })
 
   const SECTION_LABELS = {
-    reading_a: { icon: '📖', label: 'قراءة A' },
-    reading_b: { icon: '📖', label: 'قراءة B' },
-    grammar: { icon: '📝', label: 'قواعد' },
-    listening: { icon: '🎧', label: 'استماع' },
-    vocabulary: { icon: '📚', label: 'مفردات' },
-    writing: { icon: '✍️', label: 'كتابة' },
-    speaking: { icon: '🎤', label: 'تحدث' },
+    reading_a: { icon: '📖', label: `${t('trainer.curriculum.tabs.reading')} A` },
+    reading_b: { icon: '📖', label: `${t('trainer.curriculum.tabs.reading')} B` },
+    grammar: { icon: '📝', label: t('trainer.curriculum.tabs.grammar') },
+    listening: { icon: '🎧', label: t('trainer.curriculum.tabs.listening') },
+    vocabulary: { icon: '📚', label: t('trainer.curriculum.tabs.vocabulary') },
+    writing: { icon: '✍️', label: t('trainer.curriculum.tabs.writing') },
+    speaking: { icon: '🎤', label: t('trainer.curriculum.tabs.speaking') },
   }
 
   return (
@@ -87,7 +89,7 @@ export default function UnitProgressPopup({ groupId, unitId, onClose }) {
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
         <h3 className="text-sm font-bold flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-          <span>📊</span> تقدم الوحدة
+          <span>📊</span> {t('trainer.students.unit_progress_title')}
         </h3>
         <button onClick={onClose} className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-white/5 transition-colors">
           <X size={14} style={{ color: 'var(--text-muted)' }} />
@@ -139,7 +141,7 @@ export default function UnitProgressPopup({ groupId, unitId, onClose }) {
                     <span className="font-bold font-data" style={{ color: 'var(--text-primary)' }}>
                       {val.completed}/{val.total}
                     </span>
-                    <span style={{ color: 'var(--text-tertiary)' }}>خلصوا</span>
+                    <span style={{ color: 'var(--text-tertiary)' }}>{t('trainer.unitprogress.completed', 'خلصوا')}</span>
                   </div>
                 )
               })}

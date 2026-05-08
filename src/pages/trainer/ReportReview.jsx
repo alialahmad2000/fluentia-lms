@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -69,6 +70,7 @@ function shouldShowConfidenceNote(band) {
 }
 
 export default function ReportReview() {
+  const { t } = useTranslation()
   const { id } = useParams()
   const navigate = useNavigate()
   const { profile } = useAuthStore()
@@ -297,14 +299,14 @@ export default function ReportReview() {
     return (
       <div className="fl-card-static p-12 text-center">
         <AlertCircle size={32} className="text-red-400 mx-auto mb-3" />
-        <p className="text-[var(--text-primary)] font-medium mb-2">تعذر تحميل التقرير</p>
-        <p className="text-sm text-muted mb-4">{fetchError?.message || 'التقرير غير موجود'}</p>
+        <p className="text-[var(--text-primary)] font-medium mb-2">{t('trainer.reports.load_error_title')}</p>
+        <p className="text-sm text-muted mb-4">{fetchError?.message || t('trainer.reports.load_error_subtitle')}</p>
         <button
           onClick={() => navigate('/trainer/reports')}
           className="btn-primary min-h-[44px] py-2.5 px-6 inline-flex items-center gap-2"
         >
           <ArrowRight size={16} />
-          رجوع للتقارير
+          {t('trainer.reports.back_button')}
         </button>
       </div>
     )
@@ -322,7 +324,7 @@ export default function ReportReview() {
             <ArrowRight size={20} className="text-[var(--text-secondary)]" />
           </button>
           <div>
-            <h1 className="text-page-title">مراجعة التقرير</h1>
+            <h1 className="text-page-title">{t('trainer.reports.review_title')}</h1>
             <p className="text-sm text-muted mt-0.5">{studentName} — {periodLabel}</p>
           </div>
         </div>
@@ -348,7 +350,7 @@ export default function ReportReview() {
           >
             <div className="flex items-center gap-3 mb-3">
               <CheckCircle2 size={22} className="text-emerald-400" />
-              <p className="text-sm font-semibold text-[var(--text-primary)]">تم نشر التقرير بنجاح</p>
+              <p className="text-sm font-semibold text-[var(--text-primary)]">{t('trainer.reports.publish_success_title')}</p>
             </div>
             <div className="flex items-center gap-2">
               <input
@@ -363,7 +365,7 @@ export default function ReportReview() {
                 className="min-h-[44px] px-4 py-2.5 rounded-xl bg-[var(--accent-sky)] text-white text-sm flex items-center gap-2 hover:opacity-90 transition-opacity"
               >
                 {copiedLink ? <Check size={16} /> : <Copy size={16} />}
-                {copiedLink ? 'تم' : 'نسخ'}
+                {copiedLink ? t('trainer.reports.copied_label') : t('trainer.reports.copy_button')}
               </button>
             </div>
           </motion.div>
@@ -423,7 +425,7 @@ export default function ReportReview() {
             <div className="fl-card-static p-6">
               <h3 className="text-sm font-medium text-[var(--text-primary)] flex items-center gap-2 mb-4">
                 <BarChart3 size={16} className="text-[var(--accent-sky)]" />
-                تحليل المهارات
+                {t('trainer.reports.skills_analysis_title')}
               </h3>
               <div className="space-y-4">
                 {skills.map((skill) => {
@@ -463,7 +465,7 @@ export default function ReportReview() {
             <div className="fl-card-static p-6">
               <h3 className="text-sm font-medium text-[var(--text-primary)] flex items-center gap-2 mb-3">
                 <Sparkles size={16} className="text-[var(--accent-purple)]" />
-                ملخص الذكاء الاصطناعي
+                {t('trainer.reports.ai_summary_title')}
               </h3>
               <p className="text-sm text-[var(--text-secondary)] leading-relaxed whitespace-pre-wrap">
                 {narrativeText}
@@ -476,7 +478,7 @@ export default function ReportReview() {
             <div className="fl-card-static p-6">
               <h3 className="text-sm font-medium text-[var(--text-primary)] flex items-center gap-2 mb-3">
                 <Award size={16} className="text-[var(--accent-amber)]" />
-                أبرز النقاط
+                {t('trainer.reports.highlights_title')}
               </h3>
               <ul className="space-y-2">
                 {highlights.map((h, i) => (
@@ -541,7 +543,7 @@ export default function ReportReview() {
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-sm font-medium text-[var(--text-primary)] flex items-center gap-2">
                 <Sparkles size={16} className="text-[var(--accent-purple)]" />
-                نص الذكاء الاصطناعي
+                {t('trainer.reports.ai_text_section')}
               </h3>
               <button
                 onClick={() => regenerateNarrative.mutate()}
@@ -553,7 +555,7 @@ export default function ReportReview() {
                 ) : (
                   <RefreshCw size={14} />
                 )}
-                إعادة توليد
+                {t('trainer.reports.regenerate_button')}
               </button>
             </div>
             <textarea
@@ -577,8 +579,8 @@ export default function ReportReview() {
           <div className="fl-card-static p-6">
             <h3 className="text-sm font-medium text-[var(--text-primary)] flex items-center gap-2 mb-3">
               <PenLine size={16} className="text-[var(--accent-emerald)]" />
-              ملاحظة المدرب
-              <span className="text-xs text-muted font-normal">(مطلوبة)</span>
+              {t('trainer.reports.trainer_note_title')}
+              <span className="text-xs text-muted font-normal">({t('common.required_field_label')})</span>
             </h3>
             <textarea
               value={trainerNote}
@@ -588,7 +590,7 @@ export default function ReportReview() {
               maxLength={500}
               className="input-field resize-y text-sm leading-relaxed w-full"
               dir="rtl"
-              placeholder="أضف ملاحظتك الشخصية للطالب وولي الأمر (50-500 حرف)..."
+              placeholder={t('trainer.reports.trainer_note_placeholder')}
             />
             <div className="flex items-center justify-between mt-2">
               <p className={`text-xs ${trainerNoteLength < 50 ? 'text-[var(--accent-amber)]' : trainerNoteLength > 500 ? 'text-red-400' : 'text-muted'}`}>
@@ -603,7 +605,7 @@ export default function ReportReview() {
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-sm font-medium text-[var(--text-primary)] flex items-center gap-2">
                 <Target size={16} className="text-[var(--accent-purple)]" />
-                أهداف الفترة القادمة
+                {t('trainer.reports.goals_title')}
               </h3>
               <button
                 onClick={() => regenerateGoals.mutate()}
@@ -615,7 +617,7 @@ export default function ReportReview() {
                 ) : (
                   <Sparkles size={14} />
                 )}
-                اقترح أهدافاً
+                {t('trainer.reports.suggest_goals_button')}
               </button>
             </div>
             <div className="space-y-3">
@@ -651,7 +653,7 @@ export default function ReportReview() {
                 className="min-h-[44px] flex-1 py-2.5 px-5 rounded-xl border border-[var(--border-subtle)] hover:bg-[var(--surface-raised)] transition-colors text-sm text-[var(--text-secondary)] flex items-center justify-center gap-2"
               >
                 {saveDraft.isPending ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
-                احفظ مسودة
+                {t('trainer.reports.save_draft_button')}
               </button>
               <button
                 onClick={() => setShowPublishModal(true)}
@@ -659,7 +661,7 @@ export default function ReportReview() {
                 className="btn-primary min-h-[44px] flex-1 py-2.5 px-5 flex items-center justify-center gap-2 disabled:opacity-50"
               >
                 <CheckCircle2 size={16} />
-                أوافق وأنشر
+                {t('trainer.reports.publish_button')}
               </button>
             </div>
           )}
@@ -708,7 +710,7 @@ export default function ReportReview() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between mb-5">
-                <h3 className="text-base font-bold text-[var(--text-primary)]">تأكيد النشر</h3>
+                <h3 className="text-base font-bold text-[var(--text-primary)]">{t('trainer.reports.publish_confirm_title')}</h3>
                 <button
                   onClick={() => setShowPublishModal(false)}
                   className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl hover:bg-[var(--surface-raised)] transition-colors"
@@ -717,14 +719,14 @@ export default function ReportReview() {
                 </button>
               </div>
               <p className="text-sm text-[var(--text-secondary)] mb-6 leading-relaxed">
-                هل أنت متأكد من نشر هذا التقرير؟ سيتمكن الطالب وولي الأمر من رؤيته عبر رابط المشاركة.
+                {t('trainer.reports.publish_confirm_message')}
               </p>
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setShowPublishModal(false)}
                   className="min-h-[44px] flex-1 py-2.5 rounded-xl border border-[var(--border-subtle)] hover:bg-[var(--surface-raised)] transition-colors text-sm text-[var(--text-secondary)]"
                 >
-                  إلغاء
+                  {t('common.cancel_button')}
                 </button>
                 <button
                   onClick={() => publishReport.mutate()}
@@ -732,7 +734,7 @@ export default function ReportReview() {
                   className="btn-primary min-h-[44px] flex-1 py-2.5 flex items-center justify-center gap-2"
                 >
                   {publishReport.isPending ? <Loader2 size={16} className="animate-spin" /> : <CheckCircle2 size={16} />}
-                  نشر التقرير
+                  {t('trainer.reports.publish_confirm_button')}
                 </button>
               </div>
               {publishReport.isError && (

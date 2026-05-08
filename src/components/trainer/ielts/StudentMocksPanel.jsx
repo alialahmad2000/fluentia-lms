@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+
 function bandColor(b) {
   if (!b) return 'var(--ds-text-tertiary, var(--text-tertiary))'
   if (b >= 7) return 'var(--ds-accent-emerald, #10b981)'
@@ -11,12 +13,13 @@ function fmt(date) {
 }
 
 export default function StudentMocksPanel({ results }) {
+  const { t } = useTranslation()
   const mocks = (results || []).filter(r => r.result_type === 'mock').slice(0, 5)
 
   if (mocks.length === 0) {
     return (
       <div style={{ padding: '24px', textAlign: 'center', color: 'var(--ds-text-tertiary, var(--text-tertiary))', fontSize: 13, fontFamily: "'Tajawal', sans-serif" }}>
-        لم يؤدِّ الطالب أي موك حتى الآن
+        {t('trainer.ielts.no_mock_yet', 'لم يؤدِّ الطالب أي موك حتى الآن')}
       </div>
     )
   }

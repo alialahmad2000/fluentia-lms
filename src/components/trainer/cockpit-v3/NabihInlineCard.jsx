@@ -1,7 +1,9 @@
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 export default function NabihInlineCard({ students = [], interventions = [], trainerName }) {
+  const { t } = useTranslation()
   const firstName = trainerName?.split(' ').pop() || 'أستاذ'
 
   const suggestion = useMemo(() => {
@@ -40,15 +42,15 @@ export default function NabihInlineCard({ students = [], interventions = [], tra
     <section className="db-section">
       <h2 className="db-section__title">
         <span style={{ color: 'var(--tr-primary)', fontWeight: 800 }}>ن</span>
-        نبيه يقترح
+        {t('trainer.cockpit.nabih')}
       </h2>
 
       <p className="db-nabih__suggestion">"{suggestion}"</p>
-      <p className="db-nabih__meta">مُشتق من بيانات طلابك الحقيقية الآن</p>
+      <p className="db-nabih__meta">{t('trainer.cockpit.nabih_meta', 'مُشتق من بيانات طلابك الحقيقية الآن')}</p>
 
       <div className="db-section__footer">
         <Link to="/trainer" className="db-section__link">
-          💬 افتح غرفة القيادة ←
+          💬 {t('trainer.cockpit.title')} ←
         </Link>
       </div>
     </section>

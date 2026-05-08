@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+
 function fmt(date) {
   if (!date) return '—'
   return new Date(date).toLocaleDateString('ar-SA', { day: 'numeric', month: 'short', year: 'numeric' })
@@ -27,10 +29,12 @@ function TagList({ items, color }) {
 }
 
 export default function StudentPlanPanel({ plan }) {
+  const { t } = useTranslation()
+
   if (!plan) {
     return (
       <div style={{ padding: '24px', textAlign: 'center', color: 'var(--ds-text-tertiary, var(--text-tertiary))', fontSize: 13, fontFamily: "'Tajawal', sans-serif" }}>
-        لم تُولَد خطة تكيّفية بعد
+        {t('trainer.ielts.no_plan_yet', 'لم تُولَد خطة تكيّفية بعد')}
       </div>
     )
   }
@@ -42,10 +46,10 @@ export default function StudentPlanPanel({ plan }) {
     <div style={{ display: 'grid', gap: 12 }}>
       <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
         {[
-          { label: 'الهدف', value: plan.target_band ?? '—' },
-          { label: 'التقدير الحالي', value: plan.current_band_estimate ?? '—' },
-          { label: 'تاريخ الامتحان', value: plan.target_exam_date ? fmt(plan.target_exam_date) : '—' },
-          { label: 'الأسبوع الحالي', value: plan.current_week ?? '—' },
+          { label: t('trainer.ielts.col_target', 'الهدف'), value: plan.target_band ?? '—' },
+          { label: t('trainer.ielts.current_estimate', 'التقدير الحالي'), value: plan.current_band_estimate ?? '—' },
+          { label: t('trainer.ielts.exam_date', 'تاريخ الامتحان'), value: plan.target_exam_date ? fmt(plan.target_exam_date) : '—' },
+          { label: t('trainer.ielts.current_week', 'الأسبوع الحالي'), value: plan.current_week ?? '—' },
         ].map(({ label, value }) => (
           <div key={label} style={{
             flex: '1 1 100px', padding: '10px 14px', borderRadius: 10,
@@ -61,23 +65,23 @@ export default function StudentPlanPanel({ plan }) {
 
       {isStale && (
         <div style={{ padding: '8px 12px', borderRadius: 8, background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.2)', fontSize: 12, color: 'var(--ds-accent-amber, #f59e0b)', fontFamily: "'Tajawal', sans-serif" }}>
-          ⚠️ خطة قديمة — آخر تحديث منذ {age} يوم. بإمكان الطالب إعادة التوليد بعد أداء موك جديد.
+          ⚠️ {t('trainer.ielts.plan_stale', 'خطة قديمة')} — {t('trainer.ielts.plan_stale_detail', 'آخر تحديث منذ {{days}} يوم. بإمكان الطالب إعادة التوليد بعد أداء موك جديد.', { days: age })}
         </div>
       )}
 
       <div style={{ display: 'grid', gap: 8, gridTemplateColumns: '1fr 1fr' }}>
         <div>
-          <div style={{ fontSize: 11, color: 'var(--ds-text-tertiary, var(--text-tertiary))', marginBottom: 6, fontFamily: "'Tajawal', sans-serif" }}>المجالات الضعيفة</div>
+          <div style={{ fontSize: 11, color: 'var(--ds-text-tertiary, var(--text-tertiary))', marginBottom: 6, fontFamily: "'Tajawal', sans-serif" }}>{t('trainer.ielts.weak_areas', 'المجالات الضعيفة')}</div>
           <TagList items={plan.weak_areas} color="var(--ds-accent-rose, #f43f5e)" />
         </div>
         <div>
-          <div style={{ fontSize: 11, color: 'var(--ds-text-tertiary, var(--text-tertiary))', marginBottom: 6, fontFamily: "'Tajawal', sans-serif" }}>المجالات القوية</div>
+          <div style={{ fontSize: 11, color: 'var(--ds-text-tertiary, var(--text-tertiary))', marginBottom: 6, fontFamily: "'Tajawal', sans-serif" }}>{t('trainer.ielts.strong_areas', 'المجالات القوية')}</div>
           <TagList items={plan.strong_areas} color="var(--ds-accent-emerald, #10b981)" />
         </div>
       </div>
 
       <div style={{ fontSize: 11, color: 'var(--ds-text-tertiary, var(--text-tertiary))', fontFamily: "'Tajawal', sans-serif" }}>
-        آخر تحديث للخطة: {fmt(plan.last_regenerated_at)}
+        {t('trainer.ielts.plan_last_updated', 'آخر تحديث للخطة')}: {fmt(plan.last_regenerated_at)}
       </div>
     </div>
   )

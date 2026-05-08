@@ -1,17 +1,19 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
-function formatHours(h) {
+function formatHours(h, t) {
   if (!h && h !== 0) return '—'
-  if (h < 1) return 'أقل من ساعة'
-  if (h < 24) return `${Math.floor(h)} ساعة`
-  return `${Math.floor(h / 24)} يوم`
+  if (h < 1) return t('trainer.grading.less_than_hour')
+  if (h < 24) return `${Math.floor(h)} ${t('trainer.students.time_unit_hour')}`
+  return `${Math.floor(h / 24)} ${t('trainer.students.time_unit_day')}`
 }
 
-function typeLabel(t) {
-  return t === 'speaking' ? 'محادثة' : 'كتابة'
+function typeLabel(type, t) {
+  return type === 'speaking' ? t('common.speaking') : t('common.writing')
 }
 
 export default function GradingSection({ items = [] }) {
+  const { t } = useTranslation()
   if (!items.length) return null
 
   const count = items.length
@@ -20,7 +22,7 @@ export default function GradingSection({ items = [] }) {
   return (
     <section className="db-section">
       <h2 className="db-section__title">
-        ✍️ {count.toLocaleString('ar-SA')} {count === 1 ? 'تصحيح معلق' : 'تصحيحات معلقة'}
+        ✍️ {count.toLocaleString('ar-SA')} {count === 1 ? t('trainer.grading.pending') : t('trainer.grading.no_submissions')}
       </h2>
 
       <ul className="db-grading__list">
@@ -30,9 +32,9 @@ export default function GradingSection({ items = [] }) {
               to="/trainer/grading"
               className={`db-grading__row${item.is_urgent ? ' db-grading__row--urgent' : ''}`}
             >
-              <span className="db-grading__type-badge">{typeLabel(item.submission_type)}</span>
+              <span className="db-grading__type-badge">{typeLabel(item.submission_type, t)}</span>
               <span className="db-grading__student">{item.student_name}</span>
-              <span className="db-grading__age">{formatHours(item.hours_pending)}</span>
+              <span className="db-grading__age">{formatHours(item.hours_pending, t)}</span>
               <span className="db-interv__arrow">←</span>
             </Link>
           </li>
@@ -41,7 +43,7 @@ export default function GradingSection({ items = [] }) {
 
       <div className="db-section__footer">
         <Link to="/trainer/grading" className="db-section__link">
-          افتح قائمة التصحيح ←
+          {t('trainer.grading.label')} ←
         </Link>
       </div>
     </section>

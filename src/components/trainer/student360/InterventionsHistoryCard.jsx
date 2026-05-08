@@ -1,18 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
+import { useTranslation } from 'react-i18next'
 import './InterventionsHistoryCard.css'
-
-const SEV_CONFIG = {
-  high:   { cls: 'ih-sev--high',   label: 'عالية' },
-  medium: { cls: 'ih-sev--medium', label: 'متوسطة' },
-  low:    { cls: 'ih-sev--low',    label: 'منخفضة' },
-}
-
-const STATUS_LABEL = {
-  pending:  'مفتوح',
-  resolved: 'محلول',
-  ignored:  'متجاهل',
-}
 
 function useInterventions(studentId) {
   return useQuery({
@@ -37,18 +26,31 @@ function daysSince(iso) {
 }
 
 export default function InterventionsHistoryCard({ studentId }) {
+  const { t } = useTranslation()
   const { data: items, isLoading } = useInterventions(studentId)
+
+  const SEV_CONFIG = {
+    high:   { cls: 'ih-sev--high',   label: t('trainer.student360.sev_high', 'عالية') },
+    medium: { cls: 'ih-sev--medium', label: t('trainer.student360.sev_medium', 'متوسطة') },
+    low:    { cls: 'ih-sev--low',    label: t('trainer.student360.sev_low', 'منخفضة') },
+  }
+
+  const STATUS_LABEL = {
+    pending:  t('trainer.student360.status_pending', 'مفتوح'),
+    resolved: t('trainer.student360.status_resolved', 'محلول'),
+    ignored:  t('trainer.student360.status_ignored', 'متجاهل'),
+  }
 
   return (
     <div className="ih-card">
-      <h3 className="ih-title">سجل التدخلات</h3>
+      <h3 className="ih-title">{t('trainer.student360.interventions')}</h3>
 
       {isLoading ? (
         <div className="ih-skeleton-list">
           {Array.from({ length: 3 }).map((_, i) => <div key={i} className="ih-skeleton" />)}
         </div>
       ) : !items?.length ? (
-        <p className="ih-empty">لا توجد تدخلات مسجّلة</p>
+        <p className="ih-empty">{t('trainer.student360.no_interventions', 'لا توجد تدخلات مسجّلة')}</p>
       ) : (
         <ul className="ih-list">
           {items.map(iv => {
@@ -59,7 +61,7 @@ export default function InterventionsHistoryCard({ studentId }) {
                   <span className={`ih-sev ${sev.cls}`}>{sev.label}</span>
                   <span className="ih-reason">{iv.reason_ar}</span>
                   <span className="ih-status">{STATUS_LABEL[iv.status] || iv.status}</span>
-                  <span className="ih-age">{daysSince(iv.created_at)} يوم</span>
+                  <span className="ih-age">{daysSince(iv.created_at)} {t('trainer.students.time_unit_day')}</span>
                 </div>
                 {iv.suggested_action_ar && (
                   <p className="ih-action">{iv.suggested_action_ar}</p>

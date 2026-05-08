@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Navigate, useSearchParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 import { useAuthStore } from '@/stores/authStore'
 import { supabase } from '@/lib/supabase'
 import { useTrainerCockpit } from '@/hooks/trainer/useTrainerCockpit'
@@ -51,6 +52,7 @@ function useNextClass(trainerId) {
 }
 
 export default function CockpitPage() {
+  const { t } = useTranslation()
   const profile = useAuthStore((s) => s.profile)
   const [tourActive, setTourActive] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams()
@@ -101,7 +103,7 @@ export default function CockpitPage() {
         maxWidth: 720, margin: '0 auto', padding: '12px 20px 0', direction: 'rtl',
       }}>
         <span style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--tr-text-muted)' }}>
-          غرفة القيادة
+          {t('trainer.cockpit.title')}
         </span>
         <button
           onClick={() => setTourActive(true)}
@@ -112,7 +114,7 @@ export default function CockpitPage() {
           }}
           data-tour-id="cockpit-header"
         >
-          <MapPin size={12} /> جولة تعريفية
+          <MapPin size={12} /> {t('trainer.cockpit.tour_button')}
         </button>
       </div>
 

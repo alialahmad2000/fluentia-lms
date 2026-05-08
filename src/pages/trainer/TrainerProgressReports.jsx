@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -20,10 +21,10 @@ const PERIOD_OPTIONS = [
 
 const PERIOD_LABELS = { weekly: 'أسبوعي', biweekly: 'نصف شهري', monthly: 'شهري' }
 
-const TABS = [
-  { key: 'pending', label: 'يحتاج مراجعتك', icon: ClipboardCheck },
-  { key: 'published', label: 'منشور', icon: Check },
-  { key: 'generate', label: 'جميع الطلاب', icon: Users },
+const TAB_KEYS = [
+  { key: 'pending', tKey: 'trainer.reports.tab_pending', icon: ClipboardCheck },
+  { key: 'published', tKey: 'trainer.reports.tab_published', icon: Check },
+  { key: 'generate', tKey: 'trainer.reports.tab_generate', icon: Users },
 ]
 
 function formatDate(dateStr) {
@@ -46,9 +47,11 @@ function formatDateTime(dateStr) {
 }
 
 export default function TrainerProgressReports() {
+  const { t } = useTranslation()
   const { profile } = useAuthStore()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
+  const TABS = TAB_KEYS.map(tab => ({ ...tab, label: t(tab.tKey) }))
 
   const [activeTab, setActiveTab] = useState('pending')
   const [selectedGroup, setSelectedGroup] = useState('')
@@ -287,8 +290,8 @@ export default function TrainerProgressReports() {
           <FileBarChart size={20} className="text-sky-400" />
         </div>
         <div>
-          <h1 className="text-page-title">تقارير التقدم</h1>
-          <p className="text-muted text-sm mt-1">مراجعة وإنشاء تقارير أداء الطلاب</p>
+          <h1 className="text-page-title">{t('trainer.reports.title')}</h1>
+          <p className="text-muted text-sm mt-1">{t('trainer.reports.subtitle')}</p>
         </div>
       </div>
 
@@ -342,8 +345,8 @@ export default function TrainerProgressReports() {
                 <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
                   <Check size={28} className="text-emerald-400" />
                 </div>
-                <p className="text-[var(--text-primary)] font-medium mb-1">لا توجد تقارير بحاجة للمراجعة</p>
-                <p className="text-sm text-muted">جميع التقارير تمت مراجعتها</p>
+                <p className="text-[var(--text-primary)] font-medium mb-1">{t('trainer.reports.pending_empty_title')}</p>
+                <p className="text-sm text-muted">{t('trainer.reports.pending_empty_subtitle')}</p>
               </div>
             ) : (
               <div className="space-y-3">
@@ -386,7 +389,7 @@ export default function TrainerProgressReports() {
                         className="btn-primary min-h-[44px] px-5 py-2.5 flex items-center gap-2 text-sm shrink-0"
                       >
                         <Eye size={16} />
-                        افتح للمراجعة
+                        {t('trainer.reports.open_review_button')}
                       </button>
                     </div>
                   </motion.div>
@@ -415,8 +418,8 @@ export default function TrainerProgressReports() {
                 <div className="w-14 h-14 rounded-2xl bg-sky-500/10 flex items-center justify-center mx-auto mb-4">
                   <FileBarChart size={28} className="text-sky-400" />
                 </div>
-                <p className="text-[var(--text-primary)] font-medium mb-1">لا توجد تقارير منشورة</p>
-                <p className="text-sm text-muted">ستظهر التقارير المنشورة هنا</p>
+                <p className="text-[var(--text-primary)] font-medium mb-1">{t('trainer.reports.published_empty_title')}</p>
+                <p className="text-sm text-muted">{t('trainer.reports.published_empty_subtitle')}</p>
               </div>
             ) : (
               <div className="space-y-3">
@@ -471,12 +474,12 @@ export default function TrainerProgressReports() {
                             {copiedId === report.share_token ? (
                               <>
                                 <Check size={16} className="text-emerald-400" />
-                                <span className="text-emerald-400">تم النسخ</span>
+                                <span className="text-emerald-400">{t('trainer.reports.link_copied')}</span>
                               </>
                             ) : (
                               <>
                                 <Link2 size={16} />
-                                نسخ الرابط
+                                {t('trainer.reports.copy_link_button')}
                               </>
                             )}
                           </button>
@@ -552,7 +555,7 @@ export default function TrainerProgressReports() {
                   className="btn-primary min-h-[44px] py-2.5 px-6 flex items-center gap-2"
                 >
                   {generateMutation.isPending ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}
-                  {generateMutation.isPending ? 'جاري إنشاء التقرير...' : 'إنشاء التقرير'}
+                  {generateMutation.isPending ? t('trainer.reports.generating') : t('trainer.reports.generate_button')}
                 </button>
 
                 {isAdmin && selectedGroup && students?.length > 0 && (
@@ -610,8 +613,8 @@ export default function TrainerProgressReports() {
                       <Check size={20} className="text-emerald-400" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-[var(--text-primary)]">تم إنشاء التقرير بنجاح</p>
-                      <p className="text-xs text-muted">للطالب: {selectedStudentName}</p>
+                      <p className="text-sm font-semibold text-[var(--text-primary)]">{t('trainer.reports.success_title')}</p>
+                      <p className="text-xs text-muted">{t('trainer.reports.success_student_label')} {selectedStudentName}</p>
                     </div>
                   </div>
                   <button
@@ -619,7 +622,7 @@ export default function TrainerProgressReports() {
                     className="btn-primary min-h-[44px] py-2.5 px-6 flex items-center gap-2"
                   >
                     <Eye size={16} />
-                    الانتقال للمراجعة
+                    {t('trainer.reports.go_to_review_button')}
                   </button>
                 </motion.div>
               )}
@@ -644,7 +647,7 @@ export default function TrainerProgressReports() {
                         <Loader2 size={20} className="animate-spin text-[var(--accent-sky)]" />
                       </div>
                     ) : reportHistory?.length === 0 ? (
-                      <p className="text-sm text-muted text-center py-6">لا توجد تقارير سابقة لهذا الطالب</p>
+                      <p className="text-sm text-muted text-center py-6">{t('trainer.reports.no_history')}</p>
                     ) : (
                       <div className="space-y-2">
                         {reportHistory.map(h => {

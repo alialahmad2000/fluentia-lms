@@ -1,13 +1,7 @@
 import { useState } from 'react'
 import { useStudentNotes, useAddTrainerNote } from '@/hooks/trainer/useStudent360'
+import { useTranslation } from 'react-i18next'
 import './TrainerNotesPanel.css'
-
-const NOTE_TYPES = [
-  { value: 'observation',  label: 'ملاحظة' },
-  { value: 'encouragement', label: 'تشجيع' },
-  { value: 'warning',      label: 'تحذير' },
-  { value: 'reminder',     label: 'تذكير' },
-]
 
 const TYPE_CLS = {
   observation:   'tnp-note--observation',
@@ -23,16 +17,24 @@ const TYPE_ICON = {
   reminder:      '🔔',
 }
 
-function timeAgo(iso) {
-  const d = Math.floor((Date.now() - new Date(iso).getTime()) / 86_400_000)
-  if (d === 0) return 'اليوم'
-  if (d === 1) return 'أمس'
-  return `منذ ${d} يوم`
-}
-
 export default function TrainerNotesPanel({ studentId }) {
+  const { t } = useTranslation()
   const { data: notes, isLoading } = useStudentNotes(studentId)
   const { mutate: addNote, isPending: saving } = useAddTrainerNote(studentId)
+
+  const NOTE_TYPES = [
+    { value: 'observation',   label: t('trainer.students.note_type_observation') },
+    { value: 'encouragement', label: t('trainer.students.note_type_encouragement') },
+    { value: 'warning',       label: t('trainer.students.note_type_warning') },
+    { value: 'reminder',      label: t('trainer.students.note_type_reminder') },
+  ]
+
+  function timeAgo(iso) {
+    const d = Math.floor((Date.now() - new Date(iso).getTime()) / 86_400_000)
+    if (d === 0) return t('trainer.students.date_today')
+    if (d === 1) return t('trainer.students.date_yesterday')
+    return `${t('trainer.student360.since', 'منذ')} ${d} ${t('trainer.students.time_unit_day')}`
+  }
 
   const [text, setText] = useState('')
   const [type, setType] = useState('observation')
@@ -47,7 +49,7 @@ export default function TrainerNotesPanel({ studentId }) {
 
   return (
     <div className="tnp-card">
-      <h3 className="tnp-title">ملاحظات المدرب</h3>
+      <h3 className="tnp-title">{t('trainer.students.trainer_notes_title')}</h3>
 
       <form className="tnp-form" onSubmit={handleSubmit}>
         <div className="tnp-type-row">
@@ -66,7 +68,7 @@ export default function TrainerNotesPanel({ studentId }) {
           className="tnp-textarea"
           value={text}
           onChange={e => setText(e.target.value)}
-          placeholder="اكتب ملاحظتك هنا…"
+          placeholder={t('trainer.student360.note_placeholder', 'اكتب ملاحظتك هنا…')}
           rows={3}
           maxLength={500}
           dir="rtl"
@@ -74,7 +76,7 @@ export default function TrainerNotesPanel({ studentId }) {
         <div className="tnp-form-footer">
           <span className="tnp-char-count">{text.length}/500</span>
           <button className="tnp-submit" type="submit" disabled={saving || !text.trim()}>
-            {saving ? 'جارٍ الحفظ…' : 'حفظ الملاحظة'}
+            {saving ? t('common.saving') : t('trainer.student360.save_note')}
           </button>
         </div>
       </form>
@@ -84,7 +86,7 @@ export default function TrainerNotesPanel({ studentId }) {
           {Array.from({ length: 3 }).map((_, i) => <div key={i} className="tnp-skeleton" />)}
         </div>
       ) : !notes?.length ? (
-        <p className="tnp-empty">لا توجد ملاحظات بعد</p>
+        <p className="tnp-empty">{t('trainer.student360.no_notes')}</p>
       ) : (
         <ul className="tnp-list">
           {notes.map(n => (

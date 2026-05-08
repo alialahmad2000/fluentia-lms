@@ -5,8 +5,10 @@ import { useQuery, useMutation } from '@tanstack/react-query'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { toast } from '../ui/FluentiaToast'
+import { useTranslation } from 'react-i18next'
 
 export default function PostClassSummary({ groupId, unitId, classStartedAt, pointsGiven, onClose }) {
+  const { t } = useTranslation()
   const { profile } = useAuthStore()
   const [trainerNote, setTrainerNote] = useState('')
   const [saving, setSaving] = useState(false)
@@ -102,10 +104,10 @@ export default function PostClassSummary({ groupId, unitId, classStartedAt, poin
         shared_with_students: shareWithStudents,
       })
       if (error) throw error
-      toast({ type: 'success', title: shareWithStudents ? 'تم الحفظ والمشاركة مع الطلاب' : 'تم حفظ الملخص' })
+      toast({ type: 'success', title: shareWithStudents ? t('trainer.postclass.saved_shared', 'تم الحفظ والمشاركة مع الطلاب') : t('common.saved') })
       onClose()
     } catch (err) {
-      toast({ type: 'error', title: 'خطأ في الحفظ' })
+      toast({ type: 'error', title: t('common.error_generic') })
     } finally {
       setSaving(false)
     }
@@ -135,7 +137,7 @@ export default function PostClassSummary({ groupId, unitId, classStartedAt, poin
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 flex-shrink-0" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
           <h2 className="text-base font-bold font-['Tajawal'] flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-            <span>📋</span> ملخص الحصة
+            <span>📋</span> {t('trainer.debrief.page_title')}
           </h2>
           <button onClick={onClose} className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-white/5">
             <X size={16} style={{ color: 'var(--text-muted)' }} />
@@ -145,27 +147,27 @@ export default function PostClassSummary({ groupId, unitId, classStartedAt, poin
         <div className="overflow-y-auto px-5 py-4 space-y-4 flex-1">
           {/* Duration & Attendance */}
           <div className="flex items-center gap-4 text-[13px] font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>
-            <span>⏱ {durationMinutes} دقيقة</span>
-            <span>✋ {attendancePresent}/{students.length} حضور</span>
+            <span>⏱ {durationMinutes} {t('trainer.postclass.minutes', 'دقيقة')}</span>
+            <span>✋ {attendancePresent}/{students.length} {t('trainer.debrief.attendance_count_label')}</span>
           </div>
           {absentNames.length > 0 && (
             <p className="text-[11px] font-['Tajawal'] text-amber-400/80">
-              غياب: {absentNames.join('، ')}
+              {t('trainer.debrief.attendance_absent')}: {absentNames.join('، ')}
             </p>
           )}
 
           {/* Points */}
           {pointsSummary.length > 0 && (
             <div className="space-y-1.5">
-              <p className="text-[11px] font-bold font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>🎯 النقاط المعطاة:</p>
+              <p className="text-[11px] font-bold font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>🎯 {t('trainer.postclass.points_given', 'النقاط المعطاة')}:</p>
               {pointsSummary.map(p => (
                 <p key={p.student_id} className="text-[12px] font-['Tajawal'] pr-3" style={{ color: 'var(--text-tertiary)' }}>
-                  • {p.name}: +{p.points} ({p.count} مشاركة)
+                  • {p.name}: +{p.points} ({p.count} {t('trainer.postclass.participation', 'مشاركة')})
                 </p>
               ))}
               {students.filter(s => !pointsSummary.find(p => p.student_id === s.id)).map(s => (
                 <p key={s.id} className="text-[12px] font-['Tajawal'] pr-3" style={{ color: 'var(--text-muted)' }}>
-                  • {studentMap[s.id]}: ٠ (لم تشارك)
+                  • {studentMap[s.id]}: ٠ ({t('trainer.postclass.no_participation', 'لم تشارك')})
                 </p>
               ))}
             </div>
@@ -174,7 +176,7 @@ export default function PostClassSummary({ groupId, unitId, classStartedAt, poin
           {/* Session notes */}
           {sessionNotes.length > 0 && (
             <div className="space-y-1.5">
-              <p className="text-[11px] font-bold font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>📝 ملاحظاتك خلال الحصة:</p>
+              <p className="text-[11px] font-bold font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>📝 {t('trainer.postclass.session_notes', 'ملاحظاتك خلال الحصة')}:</p>
               {sessionNotes.map(n => (
                 <p key={n.id} className="text-[12px] font-['Tajawal'] pr-3" style={{ color: 'var(--text-tertiary)' }}>
                   • {n.students?.profiles?.full_name || n.students?.profiles?.display_name || ''}: "{n.message || n.title}"
@@ -185,11 +187,11 @@ export default function PostClassSummary({ groupId, unitId, classStartedAt, poin
 
           {/* Trainer note */}
           <div className="space-y-2">
-            <p className="text-[11px] font-bold font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>✏️ أضف ملاحظة على الحصة:</p>
+            <p className="text-[11px] font-bold font-['Tajawal']" style={{ color: 'var(--text-secondary)' }}>✏️ {t('trainer.postclass.add_note', 'أضف ملاحظة على الحصة')}:</p>
             <textarea
               value={trainerNote}
               onChange={(e) => setTrainerNote(e.target.value)}
-              placeholder="شرحنا القاعدة وتدربنا على..."
+              placeholder={t('trainer.postclass.note_placeholder', 'شرحنا القاعدة وتدربنا على...')}
               rows={3}
               className="w-full resize-none rounded-xl px-3 py-2.5 text-sm font-['Tajawal'] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-1 focus:ring-sky-500/30"
               style={{ background: 'var(--surface-overlay)', color: 'var(--text-primary)', border: '1px solid var(--border-subtle)' }}
@@ -205,7 +207,7 @@ export default function PostClassSummary({ groupId, unitId, classStartedAt, poin
             className="flex-1 px-4 py-2.5 rounded-xl text-[13px] font-bold font-['Tajawal'] transition-colors disabled:opacity-50"
             style={{ background: 'rgba(56,189,248,0.15)', color: 'var(--accent-sky)' }}
           >
-            📤 أرسل للطلاب
+            📤 {t('trainer.postclass.send_to_students', 'أرسل للطلاب')}
           </button>
           <button
             onClick={() => saveSummary(false)}
@@ -213,14 +215,14 @@ export default function PostClassSummary({ groupId, unitId, classStartedAt, poin
             className="px-4 py-2.5 rounded-xl text-[13px] font-bold font-['Tajawal'] transition-colors disabled:opacity-50"
             style={{ background: 'rgba(255,255,255,0.05)', color: 'var(--text-secondary)' }}
           >
-            💾 حفظ فقط
+            💾 {t('trainer.postclass.save_only', 'حفظ فقط')}
           </button>
           <button
             onClick={onClose}
             className="px-3 py-2.5 rounded-xl text-[13px] font-['Tajawal'] transition-colors"
             style={{ color: 'var(--text-muted)' }}
           >
-            تخطي
+            {t('trainer.onboarding.skip_button')}
           </button>
         </div>
       </motion.div>

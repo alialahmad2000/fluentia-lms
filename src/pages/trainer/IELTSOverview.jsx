@@ -1,13 +1,16 @@
 import { useState, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useIELTSRoster } from '@/hooks/trainer/useTrainerIELTSStudents'
 import RosterTable from '@/components/trainer/ielts/RosterTable'
 
-const FILTERS = [
-  { id: 'all', label: 'الكل' },
-  { id: 'active', label: 'نشط (7 أيام)' },
-  { id: 'attention', label: 'يحتاج انتباهاً' },
-  { id: 'no_mock', label: 'بدون موك (30ي+)' },
-]
+function useFilters(t) {
+  return [
+    { id: 'all', label: t('trainer.ielts.filter_all') },
+    { id: 'active', label: t('trainer.ielts.filter_active') },
+    { id: 'attention', label: t('trainer.ielts.filter_attention') },
+    { id: 'no_mock', label: t('trainer.ielts.filter_no_mock') },
+  ]
+}
 
 function FilterChip({ label, active, onClick }) {
   return (
@@ -27,8 +30,10 @@ function FilterChip({ label, active, onClick }) {
 }
 
 export default function IELTSOverview() {
+  const { t } = useTranslation()
   const { data: roster = [], isLoading, error } = useIELTSRoster()
   const [filter, setFilter] = useState('all')
+  const FILTERS = useFilters(t)
 
   const filtered = useMemo(() => {
     if (filter === 'active') {
@@ -44,7 +49,7 @@ export default function IELTSOverview() {
       {/* Header */}
       <div style={{ marginBottom: 24, display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
         <h1 style={{ margin: 0, fontSize: 22, fontWeight: 700, color: 'var(--ds-text-primary, var(--text-primary))', fontFamily: "'Tajawal', sans-serif" }}>
-          IELTS — طلابي
+          {t('trainer.ielts.title')}
         </h1>
         {!isLoading && roster.length > 0 && (
           <span style={{
@@ -74,7 +79,7 @@ export default function IELTSOverview() {
         </div>
       ) : error ? (
         <div style={{ textAlign: 'center', padding: 40, color: 'var(--ds-accent-rose, #f43f5e)', fontFamily: "'Tajawal', sans-serif" }}>
-          حدث خطأ في تحميل البيانات
+          {t('trainer.ielts.error_loading')}
         </div>
       ) : (
         <RosterTable students={filtered} />

@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Eye, X } from 'lucide-react'
 
 export default function PreviewBanner() {
+  const { t } = useTranslation()
   const [dismissed, setDismissed] = useState(() => {
     try { return sessionStorage.getItem('preview-banner-dismissed') === '1' } catch { return false }
   })
@@ -22,7 +24,7 @@ export default function PreviewBanner() {
     }}>
       <Eye size={16} style={{ color: '#f59e0b', flexShrink: 0 }} />
       <div style={{ flex: 1, color: '#fcd34d' }}>
-        <strong>وضع المعاينة</strong> — تستعرض المنهج كما يراه الطالب. التقدم لا يُحفظ، وجميع المستويات متاحة.
+        <strong>{t('trainer.curriculum.preview_mode_title')}</strong> — {t('trainer.curriculum.preview_mode_description')}
       </div>
       <button
         onClick={() => {
@@ -30,7 +32,7 @@ export default function PreviewBanner() {
           setDismissed(true)
         }}
         style={{ background: 'transparent', border: 0, cursor: 'pointer', color: '#f59e0b' }}
-        aria-label="إخفاء"
+        aria-label={t('trainer.curriculum.preview_dismiss_label')}
       >
         <X size={16} />
       </button>

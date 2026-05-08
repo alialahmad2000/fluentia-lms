@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { Sparkles, Send, RefreshCw, Users, Star, ChevronDown, ChevronUp } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
@@ -10,16 +11,16 @@ import { usePublishClassSummary } from '@/hooks/trainer/usePublishClassSummary'
 import { CommandCard } from '@/design-system/trainer'
 import './ClassDebriefPage.css'
 
-const QUALITY_FIELDS = [
-  { key: 'energy',            label: 'طاقة الحصة',        emoji: '⚡' },
-  { key: 'content_coverage',  label: 'تغطية المحتوى',     emoji: '📚' },
-  { key: 'time_management',   label: 'إدارة الوقت',       emoji: '⏱️' },
+const QUALITY_FIELD_KEYS = [
+  { key: 'energy',           tKey: 'trainer.debrief.quality_energy',            emoji: '⚡' },
+  { key: 'content_coverage', tKey: 'trainer.debrief.quality_content_coverage',  emoji: '📚' },
+  { key: 'time_management',  tKey: 'trainer.debrief.quality_time_management',   emoji: '⏱️' },
 ]
 
-const ATTENDANCE_OPTIONS = [
-  { value: 'present',  label: 'حضر',    cls: 'present' },
-  { value: 'absent',   label: 'غاب',    cls: 'absent' },
-  { value: 'excused',  label: 'معذور',  cls: 'excused' },
+const ATTENDANCE_OPTION_KEYS = [
+  { value: 'present',  tKey: 'trainer.debrief.attendance_present',  cls: 'present' },
+  { value: 'absent',   tKey: 'trainer.debrief.attendance_absent',   cls: 'absent' },
+  { value: 'excused',  tKey: 'trainer.debrief.attendance_excused',  cls: 'excused' },
 ]
 
 function StarRater({ value, onChange }) {
@@ -43,7 +44,9 @@ function StarRater({ value, onChange }) {
 }
 
 function StudentRow({ student, attendance, moment, onAttendance, onMoment }) {
+  const { t } = useTranslation()
   const name = student.profiles?.display_name || student.profiles?.full_name || student.id
+  const ATTENDANCE_OPTIONS = ATTENDANCE_OPTION_KEYS.map(o => ({ ...o, label: t(o.tKey) }))
   return (
     <div className="cd-student-row">
       <span className="cd-student-row__name">{name}</span>
@@ -73,6 +76,7 @@ function StudentRow({ student, attendance, moment, onAttendance, onMoment }) {
 }
 
 export default function ClassDebriefPage() {
+  const { t } = useTranslation()
   const { summaryId } = useParams()
   const navigate = useNavigate()
   const profile = useAuthStore((s) => s.profile)
@@ -170,7 +174,7 @@ export default function ClassDebriefPage() {
   if (!summary) {
     return (
       <div className="cd-page" dir="rtl">
-        <p className="cd-muted">ملخص الحصة غير موجود.</p>
+        <p className="cd-muted">{t('trainer.debrief.not_found')}</p>
       </div>
     )
   }
@@ -182,25 +186,25 @@ export default function ClassDebriefPage() {
       {/* Header */}
       <div className="cd-header">
         <div>
-          <h1 className="cd-header__title">تقرير الحصة</h1>
+          <h1 className="cd-header__title">{t('trainer.debrief.page_title')}</h1>
           <p className="cd-header__meta">
-            {summary.groups?.name} · {summary.curriculum_units?.title || 'وحدة غير محددة'} · {summary.class_date}
+            {summary.groups?.name} · {summary.curriculum_units?.title || t('common.unit_not_specified')} · {summary.class_date}
           </p>
         </div>
         {alreadyPublished && (
-          <span className="cd-published-badge">✓ تم النشر</span>
+          <span className="cd-published-badge">{t('trainer.debrief.already_published_badge')}</span>
         )}
       </div>
 
       {/* Quality ratings */}
       <CommandCard className="cd-card">
-        <h2 className="cd-card__title">تقييم الحصة</h2>
+        <h2 className="cd-card__title">{t('trainer.debrief.quality_section_title')}</h2>
         <div className="cd-quality-grid">
-          {QUALITY_FIELDS.map(field => (
+          {QUALITY_FIELD_KEYS.map(field => (
             <div key={field.key} className="cd-quality-row">
               <span className="cd-quality-label">
                 <span className="cd-quality-emoji">{field.emoji}</span>
-                {field.label}
+                {t(field.tKey)}
               </span>
               <StarRater
                 value={qualityRatings[field.key] || 0}
@@ -220,8 +224,8 @@ export default function ClassDebriefPage() {
         >
           <div className="cd-card__toggle-left">
             <Users size={16} />
-            <h2 className="cd-card__title cd-card__title--inline">الطلاب</h2>
-            <span className="cd-att-count">{attendedCount}/{students.length} حضر</span>
+            <h2 className="cd-card__title cd-card__title--inline">{t('trainer.debrief.students_section_title')}</h2>
+            <span className="cd-att-count">{attendedCount}/{students.length} {t('trainer.debrief.attendance_present')}</span>
           </div>
           {studentsExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
         </button>
@@ -245,7 +249,7 @@ export default function ClassDebriefPage() {
       {/* AI Summary */}
       <CommandCard className="cd-card">
         <div className="cd-summary-header">
-          <h2 className="cd-card__title">ملخص الحصة للطلاب</h2>
+          <h2 className="cd-card__title">{t('trainer.debrief.ai_summary_title')}</h2>
           <button
             type="button"
             className="cd-generate-btn"
@@ -253,8 +257,8 @@ export default function ClassDebriefPage() {
             disabled={generateSummary.isPending}
           >
             {generateSummary.isPending
-              ? <><RefreshCw size={14} className="cd-spin" /> جاري التوليد...</>
-              : <><Sparkles size={14} /> توليد بالذكاء الاصطناعي</>
+              ? <><RefreshCw size={14} className="cd-spin" /> {t('trainer.debrief.generating')}</>
+              : <><Sparkles size={14} /> {t('trainer.debrief.generate_button')}</>
             }
           </button>
         </div>
@@ -262,7 +266,7 @@ export default function ClassDebriefPage() {
         <textarea
           className="cd-summary-textarea"
           rows={7}
-          placeholder="سيظهر الملخص هنا بعد التوليد... أو اكتب ملخصاً يدوياً."
+          placeholder={t('trainer.debrief.summary_placeholder')}
           value={summaryText}
           onChange={e => setSummaryText(e.target.value)}
           dir="rtl"
@@ -284,7 +288,7 @@ export default function ClassDebriefPage() {
         >
           {!canPublish && (
             <p className="cd-publish-hint">
-              أكمل تقييم الحصة وأضف الملخص لتفعيل النشر
+              {t('trainer.debrief.publish_hint')}
             </p>
           )}
           <button
@@ -294,8 +298,8 @@ export default function ClassDebriefPage() {
             onClick={handlePublish}
           >
             {publishSummary.isPending
-              ? 'جاري النشر...'
-              : <><Send size={16} /> نشر للطلاب (+10 XP)</>
+              ? t('trainer.debrief.publishing')
+              : <><Send size={16} /> {t('trainer.debrief.publish_button')}</>
             }
           </button>
         </motion.div>

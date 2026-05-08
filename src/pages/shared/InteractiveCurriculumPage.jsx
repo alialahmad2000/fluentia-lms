@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useQuery } from '@tanstack/react-query'
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -18,23 +19,25 @@ import InteractiveAssessmentTab from '../../components/interactive-curriculum/In
 import InteractiveGamesTab from '../../components/interactive-curriculum/InteractiveGamesTab'
 import InteractiveRecordingTab from '../../components/interactive-curriculum/InteractiveRecordingTab'
 
-const TABS = [
-  { id: 'reading', label: 'القراءة', icon: BookOpen },
-  { id: 'grammar', label: 'القواعد', icon: PenLine },
-  { id: 'vocabulary', label: 'المفردات', icon: Languages },
-  { id: 'listening', label: 'الاستماع', icon: Headphones },
-  { id: 'writing', label: 'الكتابة', icon: FileEdit },
-  { id: 'speaking', label: 'المحادثة', icon: Mic },
-  { id: 'assessment', label: 'التقييم', icon: ClipboardCheck },
-  { id: 'games', label: 'الألعاب', icon: Gamepad2 },
-  { id: 'recording', label: 'التسجيل', icon: Video },
+const TAB_DEFS = [
+  { id: 'reading', tKey: 'trainer.curriculum.tabs.reading', icon: BookOpen },
+  { id: 'grammar', tKey: 'trainer.curriculum.tabs.grammar', icon: PenLine },
+  { id: 'vocabulary', tKey: 'trainer.curriculum.tabs.vocabulary', icon: Languages },
+  { id: 'listening', tKey: 'trainer.curriculum.tabs.listening', icon: Headphones },
+  { id: 'writing', tKey: 'trainer.curriculum.tabs.writing', icon: FileEdit },
+  { id: 'speaking', tKey: 'trainer.curriculum.tabs.speaking', icon: Mic },
+  { id: 'assessment', tKey: 'trainer.curriculum.tabs.assessment', icon: ClipboardCheck },
+  { id: 'games', tKey: 'trainer.curriculum.tabs.games', icon: Gamepad2 },
+  { id: 'recording', tKey: 'trainer.curriculum.tabs.recording', icon: Video },
 ]
 
 export default function InteractiveCurriculumPage() {
+  const { t } = useTranslation()
   const { levelId, unitId } = useParams()
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
   const { profile, trainerData } = useAuthStore()
+  const TABS = TAB_DEFS.map(tab => ({ ...tab, label: t(tab.tKey) }))
   const role = profile?.role
   const basePath = role === 'admin' ? '/admin' : '/trainer'
 
@@ -150,21 +153,21 @@ export default function InteractiveCurriculumPage() {
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm text-[var(--text-muted)] font-['Tajawal'] flex-wrap">
         <button onClick={() => navigate(`${basePath}/interactive-curriculum`)} className="hover:text-[var(--text-primary)] transition-colors">
-          المنهج التفاعلي
+          {t('trainer.curriculum.breadcrumb_curriculum')}
         </button>
         <ChevronLeft size={14} />
         <button onClick={() => navigate(`${basePath}/interactive-curriculum/${levelId}`)} className="hover:text-[var(--text-primary)] transition-colors">
-          {unit?.level?.name_ar || 'المستوى'}
+          {unit?.level?.name_ar || t('trainer.curriculum.breadcrumb_level')}
         </button>
         <ChevronLeft size={14} />
-        <span className="text-[var(--text-primary)]">الوحدة {unit?.unit_number}</span>
+        <span className="text-[var(--text-primary)]">{t('trainer.curriculum.breadcrumb_unit')} {unit?.unit_number}</span>
       </div>
 
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div className="space-y-1">
           <h1 className="text-xl font-bold text-[var(--text-primary)] font-['Tajawal']">
-            الوحدة {unit?.unit_number}: {unit?.theme_ar}
+            {t('trainer.curriculum.breadcrumb_unit')} {unit?.unit_number}: {unit?.theme_ar}
           </h1>
           <p className="text-sm text-[var(--text-muted)] font-['Inter']">{unit?.theme_en}</p>
         </div>
@@ -176,7 +179,7 @@ export default function InteractiveCurriculumPage() {
           >
             <Users size={16} className="text-sky-400" />
             <span className="text-sky-400 font-bold">{students.length}</span>
-            <span className="text-[var(--text-muted)]">طالب في هذا المستوى</span>
+            <span className="text-[var(--text-muted)]">{t('trainer.curriculum.student_count_label')}</span>
           </div>
         )}
       </div>
@@ -230,7 +233,7 @@ export default function InteractiveCurriculumPage() {
         >
           <Users size={16} className="text-[var(--text-muted)]" />
           <span className="text-sm text-[var(--text-muted)] font-['Tajawal']">
-            {tabStats[activeTab].completed}/{tabStats[activeTab].total} طلاب أكملوا هذا التاب
+            {tabStats[activeTab].completed}/{tabStats[activeTab].total} {t('trainer.curriculum.tab_completion_label')}
           </span>
         </div>
       )}

@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import './QuickActionsBar.css'
 
 export default function QuickActionsBar({ student, onInsightRefresh, insightRefreshing }) {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const [copied, setCopied] = useState(false)
 
@@ -27,14 +29,14 @@ export default function QuickActionsBar({ student, onInsightRefresh, insightRefr
         className="qa-btn qa-btn--whatsapp"
         onClick={handleWhatsApp}
         disabled={!phone}
-        title={phone ? `واتساب: ${phone}` : 'رقم الهاتف غير متوفر'}
+        title={phone ? `WhatsApp: ${phone}` : t('trainer.student360.no_phone', 'رقم الهاتف غير متوفر')}
       >
-        <span>📱</span> واتساب
+        <span>📱</span> {t('trainer.student360.whatsapp', 'واتساب')}
       </button>
 
       {phone && (
         <button className="qa-btn qa-btn--copy" onClick={handleCopyPhone}>
-          {copied ? '✅ تم النسخ' : '📋 نسخ الرقم'}
+          {copied ? `✅ ${t('common.saved')}` : `📋 ${t('trainer.student360.copy_number', 'نسخ الرقم')}`}
         </button>
       )}
 
@@ -43,14 +45,14 @@ export default function QuickActionsBar({ student, onInsightRefresh, insightRefr
         onClick={onInsightRefresh}
         disabled={insightRefreshing}
       >
-        {insightRefreshing ? '⏳ يحلل…' : '🤖 تحديث التحليل'}
+        {insightRefreshing ? `⏳ ${t('trainer.student360.analyzing', 'يحلل…')}` : `🤖 ${t('trainer.student360.refresh_analysis', 'تحديث التحليل')}`}
       </button>
 
       <button
         className="qa-btn qa-btn--grading"
         onClick={() => navigate('/trainer/grading')}
       >
-        ✍️ التصحيح
+        ✍️ {t('trainer.grading.label')}
       </button>
     </div>
   )

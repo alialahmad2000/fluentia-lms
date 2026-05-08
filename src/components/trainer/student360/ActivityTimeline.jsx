@@ -1,4 +1,5 @@
 import './ActivityTimeline.css'
+import { useTranslation } from 'react-i18next'
 
 const EVENT_CONFIG = {
   xp:           { icon: '⚡', cls: 'at-event--xp' },
@@ -8,19 +9,20 @@ const EVENT_CONFIG = {
   intervention: { icon: '🚨', cls: 'at-event--intervention' },
 }
 
-function timeAgo(iso) {
-  const d = Math.floor((Date.now() - new Date(iso).getTime()) / 86_400_000)
-  if (d === 0) return 'اليوم'
-  if (d === 1) return 'أمس'
-  return `منذ ${d} يوم`
-}
-
 export default function ActivityTimeline({ events, loading }) {
+  const { t } = useTranslation()
   const cfg = EVENT_CONFIG
+
+  function timeAgo(iso) {
+    const d = Math.floor((Date.now() - new Date(iso).getTime()) / 86_400_000)
+    if (d === 0) return t('trainer.students.date_today')
+    if (d === 1) return t('trainer.students.date_yesterday')
+    return `${t('trainer.student360.since', 'منذ')} ${d} ${t('trainer.students.time_unit_day')}`
+  }
 
   return (
     <div className="at-card">
-      <h3 className="at-title">سجل النشاط (١٤ يوم)</h3>
+      <h3 className="at-title">{t('trainer.students.activity_chart_title')}</h3>
 
       {loading ? (
         <ul className="at-list">
@@ -35,7 +37,7 @@ export default function ActivityTimeline({ events, loading }) {
           ))}
         </ul>
       ) : !events?.length ? (
-        <p className="at-empty">لا يوجد نشاط في آخر ١٤ يوماً</p>
+        <p className="at-empty">{t('trainer.students.activity_empty')}</p>
       ) : (
         <ul className="at-list">
           {events.map((e, i) => {

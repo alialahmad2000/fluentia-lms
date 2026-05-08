@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { useStudentIELTSDetail } from '@/hooks/trainer/useTrainerIELTSStudents'
 import StudentMocksPanel from '@/components/trainer/ielts/StudentMocksPanel'
 import StudentPlanPanel from '@/components/trainer/ielts/StudentPlanPanel'
@@ -35,6 +36,7 @@ function Skeleton() {
 }
 
 export default function StudentIELTSTab({ studentId }) {
+  const { t } = useTranslation()
   const { data, isLoading, error } = useStudentIELTSDetail(studentId)
 
   if (isLoading) return <Skeleton />
@@ -42,7 +44,7 @@ export default function StudentIELTSTab({ studentId }) {
   if (error) {
     return (
       <div style={{ padding: 24, textAlign: 'center', color: 'var(--ds-accent-rose, #f43f5e)', fontFamily: "'Tajawal', sans-serif" }}>
-        حدث خطأ في تحميل بيانات IELTS
+        {t('trainer.ielts.error_loading_detail')}
       </div>
     )
   }
@@ -50,8 +52,8 @@ export default function StudentIELTSTab({ studentId }) {
   if (!data || (data.results.length === 0 && !data.plan && data.errors.length === 0 && data.sessions.length === 0)) {
     return (
       <div style={{ padding: 48, textAlign: 'center', color: 'var(--ds-text-tertiary, var(--text-tertiary))', fontFamily: "'Tajawal', sans-serif" }}>
-        <p style={{ fontSize: 16, marginBottom: 8 }}>الطالب لم يبدأ مسار IELTS بعد</p>
-        <p style={{ fontSize: 13 }}>سيظهر هنا التقدم بعد أداء أول جلسة</p>
+        <p style={{ fontSize: 16, marginBottom: 8 }}>{t('trainer.ielts.not_started_title')}</p>
+        <p style={{ fontSize: 13 }}>{t('trainer.ielts.not_started_subtitle')}</p>
       </div>
     )
   }
@@ -60,19 +62,19 @@ export default function StudentIELTSTab({ studentId }) {
 
   return (
     <div style={{ padding: '8px 0' }} dir="rtl">
-      <Section title="نتائج الاختبارات التجريبية">
+      <Section title={t('trainer.ielts.section_mocks')}>
         <StudentMocksPanel results={results} />
       </Section>
 
-      <Section title="الخطة التكيّفية">
+      <Section title={t('trainer.ielts.section_plan')}>
         <StudentPlanPanel plan={plan} />
       </Section>
 
-      <Section title="بنك الأخطاء">
+      <Section title={t('trainer.ielts.section_errors')}>
         <StudentErrorsPanel errors={errors} />
       </Section>
 
-      <Section title="آخر الجلسات">
+      <Section title={t('trainer.ielts.section_sessions')}>
         <StudentSessionsList sessions={sessions} />
       </Section>
     </div>

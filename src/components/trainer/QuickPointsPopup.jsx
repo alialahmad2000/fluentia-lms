@@ -6,6 +6,7 @@ import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import useClassMode from '../../stores/classModeStore'
 import { sounds } from '../../lib/celebrations'
+import { useTranslation } from 'react-i18next'
 
 const QUICK_REASONS = [
   { reason: 'correct_answer', label: 'إجابة صحيحة', amount: 5 },
@@ -19,6 +20,7 @@ const PENALTY_REASONS = [
 ]
 
 export default function QuickPointsPopup({ groupId, onClose }) {
+  const { t } = useTranslation()
   const { profile } = useAuthStore()
   const queryClient = useQueryClient()
   const addPointRecord = useClassMode(s => s.addPointRecord)
@@ -72,7 +74,7 @@ export default function QuickPointsPopup({ groupId, onClose }) {
     },
     onSuccess: () => {
       setLastAction(null)
-      setFeedback('تم التراجع')
+      setFeedback(t('trainer.quickpoints.undone', 'تم التراجع'))
       queryClient.invalidateQueries({ queryKey: ['group-students'] })
       setTimeout(() => setFeedback(null), 2000)
     },
@@ -136,7 +138,7 @@ export default function QuickPointsPopup({ groupId, onClose }) {
           </div>
         ))}
         {!students?.length && (
-          <p className="text-center text-xs py-4" style={{ color: 'var(--text-tertiary)' }}>لا يوجد طلاب</p>
+          <p className="text-center text-xs py-4" style={{ color: 'var(--text-tertiary)' }}>{t('trainer.students.empty')}</p>
         )}
       </div>
 
@@ -152,7 +154,7 @@ export default function QuickPointsPopup({ groupId, onClose }) {
               disabled={undoMutation.isPending}
               className="flex items-center gap-1 text-[11px] font-bold text-amber-400 hover:text-amber-300 transition-colors"
             >
-              <Undo2 size={12} /> تراجع
+              <Undo2 size={12} /> {t('trainer.quickpoints.undo', 'تراجع')}
             </button>
           )}
         </div>

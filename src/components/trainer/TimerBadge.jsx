@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import useClassMode from '../../stores/classModeStore'
+import { useTranslation } from 'react-i18next'
 
 export default function TimerBadge() {
+  const { t } = useTranslation()
   const { timerSeconds, timerRunning, timerVisible } = useClassMode()
   const displayRef = useRef(null)
   const [localRemaining, setLocalRemaining] = useState(timerSeconds)
@@ -40,7 +42,7 @@ export default function TimerBadge() {
         }}
       >
         <span className="text-sm font-bold font-data tabular-nums" style={{ color: isUrgent ? '#f87171' : 'var(--accent-sky)' }}>
-          ⏱ {mins}:{String(secs).padStart(2, '0')} متبقي
+          ⏱ {mins}:{String(secs).padStart(2, '0')} {t('trainer.students.remaining_label')}
         </span>
       </motion.div>
     </AnimatePresence>
