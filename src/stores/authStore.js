@@ -155,6 +155,10 @@ export const useAuthStore = create((set, get) => ({
   signOut: async () => {
     await tracker.destroy()
     await supabase.auth.signOut()
+    // Clear query cache so one student's data never leaks to the next user on a shared device
+    const { queryClient: qc } = await import('../lib/queryClient')
+    qc.clear()
+    try { window.localStorage.removeItem('fluentia-query-cache-v1') } catch (_) {}
   },
 
   // ── Impersonation ──

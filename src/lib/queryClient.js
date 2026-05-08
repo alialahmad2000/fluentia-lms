@@ -19,8 +19,17 @@ async function refreshSessionOnce() {
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5,  // 5 minutes
-      gcTime: 1000 * 60 * 30,    // 30 minutes — keep data in cache longer
+      // Stale-While-Revalidate: show cached data instantly, refetch silently after 1 min
+      staleTime: 1000 * 60 * 1,           // 1 minute — when to background-revalidate
+      gcTime: 1000 * 60 * 60 * 24,        // 24 hours — how long to keep in memory/storage
+      refetchOnMount: true,                // revalidate silently when component mounts
+      refetchOnReconnect: 'always',        // refresh after coming back online
+      // CRITICAL: Disable automatic refetch on window focus — causes blank page bug.
+      // Token may be expired when user returns to tab. Let authStore handle post-refresh refetch.
+      refetchOnWindowFocus: false,
+      networkMode: 'offlineFirst',
+      // Keep previous data during refetch — prevents blank flash on stale data.
+      placeholderData: (previousData) => previousData,
       retry: (failureCount, error) => {
         const msg = error?.message || ''
         const isAuthError = msg.includes('JWT') || error?.status === 401 || error?.code === 'PGRST301'
@@ -34,16 +43,6 @@ export const queryClient = new QueryClient({
         return failureCount < 2
       },
       retryDelay: (attemptIndex) => Math.min(2000 * 2 ** attemptIndex, 15000),
-      // CRITICAL: Disable automatic refetch on window focus — this causes the blank page bug.
-      // When user returns to tab, queries fire with expired JWT BEFORE refreshSession completes,
-      // causing 401 errors and data loss. Instead, we rely on TOKEN_REFRESHED event in authStore
-      // to refetch queries AFTER the token is successfully refreshed.
-      refetchOnWindowFocus: false,
-      refetchOnReconnect: 'always',
-      refetchOnMount: true,
-      networkMode: 'offlineFirst',
-      // Keep previous data during refetch — prevents blank flash on stale data.
-      placeholderData: (previousData) => previousData,
     },
     mutations: {
       onError: (error) => {

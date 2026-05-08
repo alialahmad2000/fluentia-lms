@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { QueryClientProvider } from '@tanstack/react-query'
+import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
+import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister'
 import App from './App'
 import './index.css'
 import './design-system/trainer-themes.css'
@@ -8,6 +9,23 @@ import './design-system/trainer/trainer-primitives.css'
 import { queryClient } from './lib/queryClient'
 import { AccessibilityProvider } from './contexts/AccessibilityContext'
 import { captureRefFromUrl } from './utils/affiliateTracking'
+
+const persister = createSyncStoragePersister({
+  storage: typeof window !== 'undefined' ? window.localStorage : undefined,
+  key: 'fluentia-query-cache-v1',
+  throttleTime: 1000,
+})
+
+const persistOptions = {
+  persister,
+  maxAge: 1000 * 60 * 60 * 24,  // 24h max age in localStorage
+  buster: 'v1',                  // bump to invalidate all cached data on breaking deploys
+  dehydrateOptions: {
+    shouldDehydrateQuery: (query) =>
+      query.state.status === 'success' &&
+      !query.queryKey.includes('no-persist'),
+  },
+}
 
 // Capture affiliate ref code from URL on app load
 captureRefFromUrl()
@@ -50,10 +68,10 @@ if (!rootElement) {
 
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
+    <PersistQueryClientProvider client={queryClient} persistOptions={persistOptions}>
       <AccessibilityProvider>
         <App />
       </AccessibilityProvider>
-    </QueryClientProvider>
+    </PersistQueryClientProvider>
   </React.StrictMode>,
 )
