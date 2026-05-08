@@ -46,7 +46,7 @@ export default function ErrorListItem({ error, studentId }) {
         <button
           onClick={() => archiveMut.mutate({ studentId, errorId: error.id })}
           disabled={archiveMut.isPending || error.mastered}
-          style={{ fontSize: 11, color: 'var(--text-tertiary)', fontFamily: 'Tajawal', background: 'none', border: 'none', cursor: 'pointer', flexShrink: 0, padding: '4px 8px', borderRadius: 6, border: '1px solid rgba(255,255,255,0.06)' }}
+          style={{ fontSize: 11, color: 'var(--text-tertiary)', fontFamily: 'Tajawal', background: 'none', cursor: 'pointer', flexShrink: 0, padding: '4px 8px', borderRadius: 6, border: '1px solid rgba(255,255,255,0.06)' }}
           title="أتقنت هذا السؤال"
         >
           أتقنت

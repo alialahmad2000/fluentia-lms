@@ -218,7 +218,7 @@ export default function PracticeMode({ taskId, studentId, taskTitle }) {
         setElapsed(secs)
         if (secs >= MAX_DURATION_SEC) stopRecording()
       }, 1000)
-    } catch (e: any) {
+    } catch (e) {
       toast({ type: 'error', title: 'تعذر الوصول للمايكروفون' })
     }
   }, [capReached])
@@ -285,7 +285,7 @@ export default function PracticeMode({ taskId, studentId, taskTitle }) {
         setAttempts(prev => [...prev, newAttempt])
         setExpandedIdx(data.attempt_number - 1)  // auto-expand latest
       }
-    } catch (e: any) {
+    } catch (e) {
       console.error('[PracticeMode]', e.message)
       toast({ type: 'error', title: 'حدث خطأ أثناء المعالجة — حاول مرة ثانية' })
     } finally {
