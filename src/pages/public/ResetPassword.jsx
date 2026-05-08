@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { Lock, Loader2, Eye, EyeOff, CheckCircle2 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 
 export default function ResetPassword() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -46,7 +48,7 @@ export default function ResetPassword() {
       setDone(true)
     } catch (err) {
       console.error('Password reset error:', err)
-      setError(err.message || 'حدث خطأ أثناء تحديث كلمة المرور')
+      setError(err.message || t('auth.reset.error_generic'))
     } finally {
       setLoading(false)
     }
@@ -59,13 +61,13 @@ export default function ResetPassword() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-sm">
           <div className="fl-card-static p-7 text-center space-y-4">
             <CheckCircle2 size={48} className="text-emerald-400 mx-auto" />
-            <h2 className="text-page-title text-[var(--text-primary)]">تم تحديث كلمة المرور</h2>
-            <p className="text-sm text-muted">يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة</p>
+            <h2 className="text-page-title text-[var(--text-primary)]">{t('auth.reset.success.title')}</h2>
+            <p className="text-sm text-muted">{t('auth.reset.success.description')}</p>
             <Link
               to="/login"
               className="btn-primary inline-flex items-center gap-2 text-sm py-2 px-6 mt-4"
             >
-              تسجيل الدخول
+              {t('auth.login.title')}
             </Link>
           </div>
         </motion.div>
@@ -80,9 +82,9 @@ export default function ResetPassword() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-sm">
           <div className="fl-card-static p-7 text-center space-y-4">
             <Loader2 size={32} className="animate-spin text-sky-400 mx-auto" />
-            <p className="text-sm text-muted">جارٍ التحقق من رابط الاستعادة...</p>
+            <p className="text-sm text-muted">{t('auth.reset.verifying')}</p>
             <Link to="/forgot-password" className="block text-sm text-sky-400 hover:text-sky-300 mt-4">
-              طلب رابط جديد
+              {t('auth.reset.new_request')}
             </Link>
           </div>
         </motion.div>
@@ -96,20 +98,20 @@ export default function ResetPassword() {
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-sm">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-playfair font-bold text-gradient">Fluentia</h1>
-          <p className="text-muted text-sm mt-2">إعادة تعيين كلمة المرور</p>
+          <p className="text-muted text-sm mt-2">{t('auth.reset.title')}</p>
         </div>
 
         <div className="fl-card-static p-7">
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="input-label block mb-1.5">كلمة المرور الجديدة</label>
+              <label className="input-label block mb-1.5">{t('auth.reset.password_new')}</label>
               <div className="relative">
                 <Lock size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="8 أحرف على الأقل"
+                  placeholder={t('auth.reset.placeholder_min')}
                   className="input-field pr-10 pl-10"
                   dir="ltr"
                   required
@@ -126,21 +128,21 @@ export default function ResetPassword() {
             </div>
 
             <div>
-              <label className="input-label block mb-1.5">تأكيد كلمة المرور</label>
+              <label className="input-label block mb-1.5">{t('auth.reset.password_confirm')}</label>
               <div className="relative">
                 <Lock size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted" />
                 <input
                   type="password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  placeholder="أعد كتابة كلمة المرور"
+                  placeholder={t('auth.reset.placeholder_confirm')}
                   className="input-field pr-10"
                   dir="ltr"
                   required
                 />
               </div>
               {confirmPassword && password !== confirmPassword && (
-                <p className="text-red-400 text-xs mt-1">كلمتا المرور غير متطابقتين</p>
+                <p className="text-red-400 text-xs mt-1">{t('auth.reset.mismatch')}</p>
               )}
             </div>
 
@@ -155,11 +157,11 @@ export default function ResetPassword() {
               disabled={!isValid || loading}
               className="btn-primary w-full py-3 flex items-center justify-center gap-2"
             >
-              {loading ? <Loader2 size={18} className="animate-spin" /> : 'تحديث كلمة المرور'}
+              {loading ? <Loader2 size={18} className="animate-spin" /> : t('auth.reset.submit')}
             </button>
 
             <Link to="/login" className="block text-center text-sm text-sky-400 hover:text-sky-300 mt-3">
-              العودة لتسجيل الدخول
+              {t('auth.reset.back_to_login')}
             </Link>
           </form>
         </div>

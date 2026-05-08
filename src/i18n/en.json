@@ -6,7 +6,12 @@
       "students": "Students",
       "curriculum": "Curriculum",
       "help": "Help",
-      "settings": "Settings"
+      "settings": "Settings",
+      "arialabel": "Main navigation",
+      "quick_nav": "Quick navigation"
+    },
+    "mobile": {
+      "arialabel": "Main navigation"
     },
     "logout": "Sign out"
   },
@@ -32,6 +37,8 @@
       "title": "Reset password",
       "password_new": "New password",
       "password_confirm": "Confirm password",
+      "placeholder_min": "At least 8 characters",
+      "placeholder_confirm": "Re-enter your password",
       "submit": "Update password",
       "back_to_login": "Back to sign in",
       "new_request": "Request new link",

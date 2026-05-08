@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Bell, BellOff, ChevronDown, ClipboardList, CalendarCheck, Trophy, MessageCircle, CreditCard, Brain, Settings, Swords } from 'lucide-react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -21,43 +22,43 @@ const CATEGORY_COLORS = {
 const CATEGORIES = [
   {
     key: 'tasks',
-    label: 'المهام',
+    labelKey: 'common.notifications.category.tasks',
     icon: ClipboardList,
     types: ['assignment_new', 'assignment_deadline', 'assignment_graded', 'weekly_tasks_ready', 'weekly_tasks_remind', 'weekly_tasks_urgent'],
   },
   {
     key: 'attendance',
-    label: 'الحضور والجدول',
+    labelKey: 'common.notifications.category.attendance',
     icon: CalendarCheck,
     types: ['class_reminder'],
   },
   {
     key: 'achievements',
-    label: 'الإنجازات',
+    labelKey: 'common.notifications.category.achievements',
     icon: Trophy,
     types: ['achievement', 'level_up', 'streak_warning', 'spelling_milestone'],
   },
   {
     key: 'communication',
-    label: 'التواصل',
+    labelKey: 'common.notifications.category.communication',
     icon: MessageCircle,
     types: ['trainer_note', 'peer_recognition', 'team_update'],
   },
   {
     key: 'financial',
-    label: 'المالية',
+    labelKey: 'common.notifications.category.financial',
     icon: CreditCard,
     types: ['payment_reminder'],
   },
   {
     key: 'ai',
-    label: 'الذكاء الاصطناعي',
+    labelKey: 'common.notifications.category.ai',
     icon: Brain,
     types: ['smart_nudge', 'test_result', 'curriculum_progress', 'speaking_feedback'],
   },
   {
     key: 'system',
-    label: 'النظام',
+    labelKey: 'common.notifications.category.system',
     icon: Settings,
     types: ['system'],
   },
@@ -93,6 +94,7 @@ function toArabicNum(n) {
 
 // ─── Main Component ────────────────────────────────────────
 export default function NotificationSettings() {
+  const { t } = useTranslation()
   const { profile } = useAuthStore()
   const queryClient = useQueryClient()
   const [openCategories, setOpenCategories] = useState({})
@@ -290,7 +292,7 @@ export default function NotificationSettings() {
     return (
       <div className="fl-card-static p-6 flex items-center justify-center gap-3">
         <div className="w-5 h-5 border-2 border-sky-400 border-t-transparent rounded-full animate-spin" />
-        <span className="text-sm text-muted">جاري تحميل إعدادات الإشعارات...</span>
+        <span className="text-sm text-muted">{t('common.loading', 'جارٍ التحميل…')}</span>
       </div>
     )
   }
@@ -309,14 +311,14 @@ export default function NotificationSettings() {
               <Bell size={18} className="text-sky-400" strokeWidth={1.5} />
             </div>
             <div>
-              <h3 className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>إعدادات الإشعارات</h3>
-              <p className="text-sm text-muted">تحكم في أنواع الإشعارات التي تريد استقبالها</p>
+              <h3 className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>{t('common.notifications.settings.title')}</h3>
+              <p className="text-sm text-muted">{t('common.notifications.settings.description')}</p>
             </div>
           </div>
           {upsertMutation.isPending && (
             <span className="text-xs text-muted flex items-center gap-1.5">
               <div className="w-3 h-3 border-2 border-sky-400 border-t-transparent rounded-full animate-spin" />
-              جاري الحفظ
+              {t('common.saving')}
             </span>
           )}
         </div>
@@ -332,8 +334,8 @@ export default function NotificationSettings() {
           <div className="flex items-center gap-3">
             <BellOff size={18} className={masterKilled ? 'text-red-400' : 'text-muted'} strokeWidth={1.5} />
             <div>
-              <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>إيقاف جميع الإشعارات</p>
-              <p className="text-xs text-muted">تعطيل جميع الإشعارات مرة واحدة</p>
+              <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{t('common.notifications.disable_all')}</p>
+              <p className="text-xs text-muted">{t('common.notifications.disable_all_description')}</p>
             </div>
           </div>
           <Toggle enabled={masterKilled} onToggle={toggleMasterKill} size="lg" />
@@ -356,7 +358,7 @@ export default function NotificationSettings() {
             <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: 'rgba(56,189,248,0.1)' }}>
               <Swords size={17} style={{ color: '#38bdf8' }} strokeWidth={1.5} />
             </div>
-            <span className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>المسابقة</span>
+            <span className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{t('common.notifications.competition.title')}</span>
             <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{
               background: Object.values(compLocalPrefs).every(Boolean) ? 'rgba(56,189,248,0.1)' : 'var(--surface-raised)',
               color: Object.values(compLocalPrefs).every(Boolean) ? '#38bdf8' : 'var(--text-tertiary)',
@@ -383,8 +385,8 @@ export default function NotificationSettings() {
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-xl flex items-center justify-center text-sm" style={{ background: 'var(--surface-base)' }}>🌅</div>
                     <div>
-                      <span className="text-sm" style={{ color: 'var(--text-primary)' }}>ملخص الصباح والمساء</span>
-                      <p className="text-xs text-muted">تذكير يومي بالستريك والنقاط</p>
+                      <span className="text-sm" style={{ color: 'var(--text-primary)' }}>{t('common.notifications.competition.digest')}</span>
+                      <p className="text-xs text-muted">{t('common.notifications.competition.digest_description')}</p>
                     </div>
                   </div>
                   <Toggle enabled={!!compLocalPrefs.competition_digest} onToggle={() => toggleCompPref('competition_digest')} color="#38bdf8" />
@@ -393,8 +395,8 @@ export default function NotificationSettings() {
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-xl flex items-center justify-center text-sm" style={{ background: 'var(--surface-base)' }}>⚡</div>
                     <div>
-                      <span className="text-sm" style={{ color: 'var(--text-primary)' }}>أحداث المسابقة</span>
-                      <p className="text-xs text-muted">تغيير القائد، إنجازات الفريق، تشجيع الزملاء</p>
+                      <span className="text-sm" style={{ color: 'var(--text-primary)' }}>{t('common.notifications.competition.events')}</span>
+                      <p className="text-xs text-muted">{t('common.notifications.competition.events_description')}</p>
                     </div>
                   </div>
                   <Toggle enabled={!!compLocalPrefs.competition_events} onToggle={() => toggleCompPref('competition_events')} color="#38bdf8" />
@@ -435,7 +437,7 @@ export default function NotificationSettings() {
                     <CatIcon size={17} style={{ color: catColor.text }} strokeWidth={1.5} />
                   </div>
                   <span className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
-                    {category.label}
+                    {t(category.labelKey)}
                   </span>
                   <span
                     className="text-xs px-2 py-0.5 rounded-full font-medium"
@@ -472,7 +474,7 @@ export default function NotificationSettings() {
                         style={{ background: 'var(--surface-base)' }}
                       >
                         <span className="text-xs font-medium" style={{ color: catColor.accent }}>
-                          {allEnabled ? 'إيقاف الكل' : 'تفعيل الكل'}
+                          {allEnabled ? t('common.notifications.category.disable_all') : t('common.notifications.category.enable_all')}
                         </span>
                         <Toggle enabled={allEnabled} onToggle={() => toggleCategory(category)} color={catColor.accent} />
                       </div>

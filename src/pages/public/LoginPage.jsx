@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Navigate, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Eye, EyeOff, LogIn, Loader2 } from 'lucide-react'
@@ -10,6 +11,7 @@ import { supabase } from '../../lib/supabase'
 import FloatingParticles from '../../components/illustrations/FloatingParticles'
 
 export default function LoginPage() {
+  const { t } = useTranslation()
   const { user, profile, loading: authLoading } = useAuthStore()
   const signIn = useAuthStore((s) => s.signIn)
   const effectiveTheme = useThemeStore((s) => s.effectiveTheme)
@@ -36,15 +38,15 @@ export default function LoginPage() {
     setError('')
 
     if (loginMode === 'email' && !email.trim()) {
-      setError('أدخل البريد الإلكتروني')
+      setError(t('auth.login.error.email_required'))
       return
     }
     if (loginMode === 'username' && !username.trim()) {
-      setError('أدخل اسم المستخدم')
+      setError(t('auth.login.error.username_required'))
       return
     }
     if (!password) {
-      setError('أدخل كلمة المرور')
+      setError(t('auth.login.error.password_required'))
       return
     }
 
@@ -60,7 +62,7 @@ export default function LoginPage() {
           .single()
 
         if (profileError || !profileData?.email) {
-          setError('اسم المستخدم غير موجود')
+          setError(t('auth.login.error.username_not_found'))
           setLoading(false)
           return
         }
@@ -119,7 +121,7 @@ export default function LoginPage() {
           style={{ boxShadow: 'var(--shadow-xl), inset 0 1px 0 var(--color-card-inset)' }}
         >
           <h2 className="text-page-title mb-8 text-center text-shimmer">
-            تسجيل الدخول
+            {t('auth.login.title')}
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -130,14 +132,14 @@ export default function LoginPage() {
                 onClick={() => { setLoginMode(loginMode === 'email' ? 'username' : 'email'); setError('') }}
                 className="text-xs text-sky-400 hover:text-sky-300 transition-colors"
               >
-                {loginMode === 'email' ? 'الدخول باسم المستخدم' : 'الدخول بالبريد'}
+                {loginMode === 'email' ? t('auth.login.toggle_username') : t('auth.login.toggle_email')}
               </button>
             </div>
 
             {/* Email or Username */}
             <div>
               <label htmlFor={loginMode === 'email' ? 'email' : 'username'} className="input-label">
-                {loginMode === 'email' ? 'البريد الإلكتروني' : 'اسم المستخدم'}
+                {loginMode === 'email' ? t('auth.login.email') : t('auth.login.username')}
               </label>
               {loginMode === 'email' ? (
                 <input
@@ -156,7 +158,7 @@ export default function LoginPage() {
                   id="username"
                   type="text"
                   className="fl-input"
-                  placeholder="اسم المستخدم"
+                  placeholder={t('auth.login.username')}
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   dir="ltr"
@@ -169,7 +171,7 @@ export default function LoginPage() {
             {/* Password */}
             <div>
               <label htmlFor="password" className="input-label">
-                كلمة المرور
+                {t('auth.login.password')}
               </label>
               <div className="relative">
                 <input
@@ -217,13 +219,13 @@ export default function LoginPage() {
               ) : (
                 <LogIn size={20} />
               )}
-              <span>{loading ? 'جاري الدخول...' : 'دخول'}</span>
+              <span>{loading ? t('auth.login.submitting') : t('auth.login.submit')}</span>
             </button>
           </form>
 
           <div className="mt-6 text-center">
             <Link to="/forgot-password" className="text-sm text-muted hover:text-sky-400 transition-colors">
-              نسيت كلمة المرور؟
+              {t('auth.login.forgot_password')}
             </Link>
           </div>
         </motion.div>

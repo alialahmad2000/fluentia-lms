@@ -1,11 +1,13 @@
 import { memo, useCallback } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { prefetchRoute } from '../../lib/prefetchRegistry'
 import { useAuthStore } from '../../stores/authStore'
 import { motion } from 'framer-motion'
 import { MoreHorizontal } from 'lucide-react'
 
 function MobileBar({ nav, onMoreClick, role }) {
+  const { t } = useTranslation()
   const location = useLocation()
   const profileId = useAuthStore((s) => s.profile?.id)
   const handlePrefetch = useCallback((path) => prefetchRoute(path, profileId), [profileId])
@@ -13,7 +15,7 @@ function MobileBar({ nav, onMoreClick, role }) {
   return (
     <nav
       data-role="mobile-bottom-nav"
-      aria-label="التنقل الرئيسي"
+      aria-label={t('nav.mobile.arialabel', 'التنقل الرئيسي')}
       className="mobile-bottom-nav fixed bottom-0 left-0 right-0 z-40 lg:hidden"
       style={{
         background: 'var(--ds-bg-overlay, var(--surface-base-alpha, rgba(5,7,13,0.88)))',
@@ -35,7 +37,7 @@ function MobileBar({ nav, onMoreClick, role }) {
                 style={{ color: 'var(--ds-text-tertiary, var(--text-tertiary))' }}
               >
                 <MoreHorizontal size={22} />
-                <span className="text-[10px] font-medium font-['Tajawal']">{item.label}</span>
+                <span className="text-[10px] font-medium font-['Tajawal']">{item.labelKey ? t(item.labelKey) : item.label}</span>
               </button>
             )
           }
@@ -77,7 +79,7 @@ function MobileBar({ nav, onMoreClick, role }) {
                 strokeWidth={1.75}
                 style={active ? { filter: 'drop-shadow(0 0 6px var(--ds-accent-primary-glow, rgba(233,185,73,0.3)))' } : undefined}
               />
-              <span className="text-[10px] font-medium font-['Tajawal']">{item.label}</span>
+              <span className="text-[10px] font-medium font-['Tajawal']">{item.labelKey ? t(item.labelKey) : item.label}</span>
             </NavLink>
           )
         })}

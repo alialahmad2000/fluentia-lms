@@ -1,5 +1,6 @@
 import { useEffect, useCallback } from 'react'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { prefetchRoute } from '@/lib/prefetchRegistry'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, LogOut, Settings } from 'lucide-react'
@@ -10,13 +11,14 @@ import { hasIELTSAccess } from '@/lib/packageAccess'
 const PROFILE_PATHS = { student: '/student/profile', trainer: '/trainer/my-students', admin: '/admin/settings' }
 
 export default function MobileDrawer({ open, onClose, nav }) {
+  const { t } = useTranslation()
   const { profile, studentData, signOut } = useAuthStore()
   const profileId = profile?.id
   const handlePrefetch = useCallback((path) => prefetchRoute(path, profileId), [profileId])
   const navigate = useNavigate()
   const location = useLocation()
   const role = profile?.role || 'student'
-  const displayName = profile?.display_name || profile?.full_name || 'مستخدم'
+  const displayName = profile?.display_name || profile?.full_name || t('common.user')
 
   // Close on route change
   useEffect(() => { onClose() }, [location.pathname])
@@ -79,7 +81,7 @@ export default function MobileDrawer({ open, onClose, nav }) {
                 onClick={onClose}
                 className="w-8 h-8 rounded-full flex items-center justify-center"
                 style={{ color: 'var(--ds-text-tertiary, var(--text-tertiary))', background: 'var(--ds-surface-1, var(--surface-raised))' }}
-                aria-label="إغلاق القائمة"
+                aria-label={t('common.close_menu')}
               >
                 <X size={16} />
               </button>
@@ -148,7 +150,7 @@ export default function MobileDrawer({ open, onClose, nav }) {
                 style={{ height: 44, color: 'var(--ds-text-secondary, var(--text-secondary))' }}
               >
                 <Settings size={20} strokeWidth={1.75} />
-                <span className="text-[14px] font-medium">الإعدادات</span>
+                <span className="text-[14px] font-medium">{t('common.settings')}</span>
               </button>
 
               <button
@@ -157,7 +159,7 @@ export default function MobileDrawer({ open, onClose, nav }) {
                 style={{ height: 44, color: 'var(--ds-text-tertiary, var(--text-tertiary))' }}
               >
                 <LogOut size={20} strokeWidth={1.75} />
-                <span className="text-[14px] font-medium">تسجيل الخروج</span>
+                <span className="text-[14px] font-medium">{t('nav.logout')}</span>
               </button>
             </div>
           </motion.div>

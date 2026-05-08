@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, Suspense } from 'react'
+import LanguageBootstrap from './components/i18n/LanguageBootstrap'
 import { useQuery } from '@tanstack/react-query'
 import { BrowserRouter, Routes, Route, Navigate, Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { useAuthStore } from './stores/authStore'
@@ -136,6 +137,7 @@ const GradingStationPage = lazyRetry(() => import('./pages/trainer/v2/GradingSta
 const ClassDebriefPage = lazyRetry(() => import('./pages/trainer/v2/ClassDebriefPage'))
 
 const HelpPage = lazyRetry(() => import('./pages/trainer/v2/HelpPage'))
+const TrainerSettings = lazyRetry(() => import('./pages/trainer/TrainerSettings'))
 const Student360Page = lazyRetry(() => import('./pages/trainer/v2/Student360Page'))
 const IELTSOverview = lazyRetry(() => import('./pages/trainer/IELTSOverview'))
 
@@ -503,6 +505,7 @@ export default function App() {
 
   return (
     <ErrorBoundary>
+      <LanguageBootstrap>
       <BrowserRouter>
         <ToastProvider>
         <ThemeProvider />
@@ -711,6 +714,7 @@ export default function App() {
               <Route path="/trainer/nabih" element={<Navigate to="/trainer" replace />} />
               <Route path="/trainer/nabih/:conversationId" element={<Navigate to="/trainer" replace />} />
               <Route path="/trainer/help" element={<Page><HelpPage /></Page>} />
+              <Route path="/trainer/settings" element={<Page><TrainerSettings /></Page>} />
               <Route path="/trainer/students/:studentId" element={<Page><TrainerStudentView /></Page>} />
 
               {/* ── Keep as-is: still functional ── */}
@@ -844,6 +848,7 @@ export default function App() {
         </Routes>
         </ToastProvider>
       </BrowserRouter>
+      </LanguageBootstrap>
     </ErrorBoundary>
   )
 

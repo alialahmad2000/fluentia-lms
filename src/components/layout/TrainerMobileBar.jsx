@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 import clsx from 'clsx'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
@@ -8,6 +9,7 @@ import { TRAINER_MOBILE_BAR } from '../../config/trainerNavigation'
 import './TrainerMobileBar.css'
 
 export default function TrainerMobileBar() {
+  const { t } = useTranslation()
   const profile = useAuthStore((s) => s.profile)
   const navigate = useNavigate()
   const [quickXpOpen, setQuickXpOpen] = useState(false)
@@ -37,7 +39,7 @@ export default function TrainerMobileBar() {
     <>
       <nav
         className="tr-mobile-bar"
-        aria-label="الملاحة السريعة"
+        aria-label={t('nav.trainer.quick_nav', 'الملاحة السريعة')}
         data-role="mobile-bottom-nav"
       >
         {TRAINER_MOBILE_BAR.map((item) => {
@@ -50,7 +52,7 @@ export default function TrainerMobileBar() {
                 key={item.id}
                 className="tr-mobile-bar__float"
                 onClick={() => handleAction(item.action)}
-                aria-label={item.label}
+                aria-label={item.labelKey ? t(item.labelKey) : item.label}
                 type="button"
               >
                 <span className="tr-mobile-bar__float-ring" aria-hidden="true" />
@@ -68,7 +70,7 @@ export default function TrainerMobileBar() {
                 type="button"
               >
                 <Icon size={20} aria-hidden="true" />
-                <span className="tr-mobile-bar__label">{item.label}</span>
+                <span className="tr-mobile-bar__label">{item.labelKey ? t(item.labelKey) : item.label}</span>
               </button>
             )
           }
@@ -90,7 +92,7 @@ export default function TrainerMobileBar() {
                   </span>
                 )}
               </span>
-              <span className="tr-mobile-bar__label">{item.label}</span>
+              <span className="tr-mobile-bar__label">{item.labelKey ? t(item.labelKey) : item.label}</span>
             </NavLink>
           )
         })}
@@ -102,21 +104,21 @@ export default function TrainerMobileBar() {
           className="tr-quick-xp-overlay"
           role="dialog"
           aria-modal="true"
-          aria-label="نقاط سريعة"
+          aria-label={t('trainer.cockpit.quick_points', 'نقاط سريعة')}
           onClick={(e) => { if (e.target === e.currentTarget) setQuickXpOpen(false) }}
         >
           <div className="tr-quick-xp-sheet">
             <div className="tr-quick-xp-handle" aria-hidden="true" />
-            <h2 className="tr-display tr-quick-xp-title">نقاط سريعة</h2>
+            <h2 className="tr-display tr-quick-xp-title">{t('trainer.cockpit.quick_points', 'نقاط سريعة')}</h2>
             <p className="tr-quick-xp-blurb">
-              سيتيح لك هذا في T3 منح نقاط لطالب أثناء الكلاس مباشرةً.
+              {t('trainer.cockpit.quick_points_description', 'سيتيح لك هذا في T3 منح نقاط لطالب أثناء الكلاس مباشرةً.')}
             </p>
             <button
               className="tr-quick-xp-close"
               onClick={() => setQuickXpOpen(false)}
               type="button"
             >
-              إغلاق
+              {t('common.close')}
             </button>
           </div>
         </div>

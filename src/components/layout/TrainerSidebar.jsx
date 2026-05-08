@@ -1,5 +1,6 @@
 import { NavLink, Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 import clsx from 'clsx'
 import { HelpCircle } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
@@ -12,6 +13,7 @@ const TOUR_IDS = {
 }
 
 export default function TrainerSidebar() {
+  const { t } = useTranslation()
   const profile = useAuthStore((s) => s.profile)
 
   const { data: badges = {} } = useQuery({
@@ -54,7 +56,7 @@ export default function TrainerSidebar() {
   })
 
   return (
-    <nav className="tr-sidebar" aria-label="الملاحة الرئيسية">
+    <nav className="tr-sidebar" aria-label={t('nav.trainer.arialabel', 'الملاحة الرئيسية')}>
       <div className="tr-sidebar__brand">
         <span className="tr-gold-dot" aria-hidden="true" />
         <span className="tr-display tr-sidebar__wordmark">طلاقة</span>
@@ -85,7 +87,7 @@ export default function TrainerSidebar() {
                       <span className="tr-sidebar__link-icon">
                         <Icon size={18} aria-hidden="true" />
                       </span>
-                      <span className="tr-sidebar__link-text">{item.label}</span>
+                      <span className="tr-sidebar__link-text">{t(item.labelKey)}</span>
                       {badge > 0 && (
                         <span className="tr-sidebar__badge" aria-label={`${badge} عنصر`}>
                           {badge > 99 ? '99+' : badge}
@@ -103,7 +105,7 @@ export default function TrainerSidebar() {
       <div className="tr-sidebar__footer">
         <Link to="/trainer/help" className="tr-sidebar__help-link">
           <HelpCircle size={14} />
-          <span>مساعدة</span>
+          <span>{t('nav.trainer.help')}</span>
         </Link>
       </div>
     </nav>

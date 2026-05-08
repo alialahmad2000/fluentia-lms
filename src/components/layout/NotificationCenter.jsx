@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Bell, Check, CheckCheck, X } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
@@ -38,7 +39,7 @@ const NOTIFICATION_ROUTES = {
 
 const COMPETITION_TYPES = new Set(['competition_event'])
 
-function groupNotificationsByDate(notifications) {
+function groupNotificationsByDate(notifications, t) {
   const groups = {}
   const today = new Date()
   today.setHours(0, 0, 0, 0)
@@ -50,9 +51,9 @@ function groupNotificationsByDate(notifications) {
     d.setHours(0, 0, 0, 0)
     let label
     if (d.getTime() === today.getTime()) {
-      label = 'اليوم'
+      label = t('common.notifications.today')
     } else if (d.getTime() === yesterday.getTime()) {
-      label = 'أمس'
+      label = t('common.notifications.yesterday')
     } else {
       label = d.toLocaleDateString('ar-SA', { weekday: 'long', month: 'short', day: 'numeric' })
     }
@@ -63,6 +64,7 @@ function groupNotificationsByDate(notifications) {
 }
 
 export default function NotificationCenter() {
+  const { t } = useTranslation()
   const { profile } = useAuthStore()
   const queryClient = useQueryClient()
   const navigate = useNavigate()
@@ -230,7 +232,7 @@ export default function NotificationCenter() {
       {/* Bell button */}
       <button
         onClick={() => setOpen(!open)}
-        aria-label="الإشعارات"
+        aria-label={t('common.notifications.title')}
         className="relative btn-icon text-muted transition-all duration-200 p-1.5 hover:scale-110 active:scale-95"
       >
         <Bell size={20} strokeWidth={1.5} />
@@ -260,20 +262,20 @@ export default function NotificationCenter() {
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.15 }}
             role="dialog"
-            aria-label="مركز الإشعارات"
+            aria-label={t('common.notifications.title')}
             className="absolute top-full end-0 mt-2 w-80 sm:w-96 max-w-[calc(100vw-2rem)] rounded-2xl overflow-hidden z-50"
             style={{ maxHeight: '70vh', background: 'var(--color-dropdown-bg)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', border: '1px solid var(--border-default)', boxShadow: '0 8px 32px var(--shadow-sm), 0 0 0 1px var(--border-subtle)' }}
           >
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
-              <h3 className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>الإشعارات</h3>
+              <h3 className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>{t('common.notifications.title')}</h3>
               <div className="flex items-center gap-2">
                 {unreadCount > 0 && (
                   <button
                     onClick={() => markAllRead.mutate(profile?.id)}
                     className="btn-ghost text-xs text-sky-400 hover:text-sky-300 transition-all duration-200 flex items-center gap-1 px-3 py-2.5 min-h-[44px] rounded-lg"
                   >
-                    <CheckCheck size={12} /> قراءة الكل
+                    <CheckCheck size={12} /> {t('common.notifications.mark_all_read')}
                   </button>
 
                 )}
@@ -296,7 +298,7 @@ export default function NotificationCenter() {
                     {compNotifs.length > 0 && (
                       <div>
                         <div className="px-5 py-2 sticky top-0 flex items-center gap-2" style={{ background: 'var(--surface-base)', borderBottom: '1px solid var(--border-subtle)' }}>
-                          <span className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: 'var(--text-tertiary)' }}>⚔️ المسابقة</span>
+                          <span className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: 'var(--text-tertiary)' }}>{t('common.notifications.competition.section')}</span>
                         </div>
                         {compNotifs.map((n) => {
                           const typeConfig = NOTIFICATION_TYPES[n.type] || NOTIFICATION_TYPES.system
@@ -332,7 +334,7 @@ export default function NotificationCenter() {
                         })}
                       </div>
                     )}
-                    {otherNotifs.length > 0 && groupNotificationsByDate(otherNotifs).map((group) => (
+                    {otherNotifs.length > 0 && groupNotificationsByDate(otherNotifs, t).map((group) => (
                   <div key={group.label}>
                     {/* Date header */}
                     <div className="px-5 py-2 sticky top-0" style={{ background: 'var(--surface-base)', borderBottom: '1px solid var(--border-subtle)' }}>
@@ -403,7 +405,7 @@ export default function NotificationCenter() {
                                 <p className="text-xs text-muted">{timeAgo(n.created_at)}</p>
                                 {isLong && (
                                   <span className="text-[10px] text-sky-400">
-                                    {isExpanded ? 'إغلاق' : 'عرض المزيد'}
+                                    {isExpanded ? t('common.close') : t('common.show_more')}
                                   </span>
                                 )}
                               </div>
@@ -435,7 +437,7 @@ export default function NotificationCenter() {
                                 className="text-[11px] px-3 py-1.5 rounded-lg transition-all"
                                 style={{ color: 'var(--text-tertiary)' }}
                               >
-                                إغلاق
+                                {t('common.close')}
                               </button>
                             </motion.div>
                           )}
@@ -449,7 +451,7 @@ export default function NotificationCenter() {
               })() : (
                 <div className="px-4 py-8 text-center">
                   <Bell size={24} className="text-muted mx-auto mb-2 opacity-30" />
-                  <p className="text-xs text-muted">لا توجد إشعارات</p>
+                  <p className="text-xs text-muted">{t('common.notifications.empty')}</p>
                 </div>
               )}
             </div>

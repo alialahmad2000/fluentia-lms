@@ -6,7 +6,12 @@
       "students": "ملفات الطلاب",
       "curriculum": "المنهج",
       "help": "مساعدة",
-      "settings": "الإعدادات"
+      "settings": "الإعدادات",
+      "arialabel": "الملاحة الرئيسية",
+      "quick_nav": "الملاحة السريعة"
+    },
+    "mobile": {
+      "arialabel": "التنقل الرئيسي"
     },
     "logout": "تسجيل الخروج"
   },
@@ -32,6 +37,8 @@
       "title": "إعادة تعيين كلمة المرور",
       "password_new": "كلمة المرور الجديدة",
       "password_confirm": "تأكيد كلمة المرور",
+      "placeholder_min": "8 أحرف على الأقل",
+      "placeholder_confirm": "أعد كتابة كلمة المرور",
       "submit": "تحديث كلمة المرور",
       "back_to_login": "العودة لتسجيل الدخول",
       "new_request": "طلب رابط جديد",
