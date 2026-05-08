@@ -1,5 +1,6 @@
 import { useCallback, memo, useMemo } from 'react'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
+import { prefetchRoute } from '@/lib/prefetchRegistry'
 import { motion } from 'framer-motion'
 import { ChevronLeft, Settings } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
@@ -13,6 +14,7 @@ const ROLE_DASHBOARDS = { student: '/student', trainer: '/trainer', admin: '/adm
 
 function Sidebar({ nav, collapsed, onToggle }) {
   const profile = useAuthStore((s) => s.profile)
+  const profileId = profile?.id
   const studentData = useAuthStore((s) => s.studentData)
   const role = profile?.role || 'student'
 
@@ -93,6 +95,9 @@ function Sidebar({ nav, collapsed, onToggle }) {
                     to={item.to}
                     end={item.to === `/${role}` || item.to === '/student' || item.to === '/trainer' || item.to === '/admin'}
                     aria-current={active ? 'page' : undefined}
+                    onMouseEnter={() => prefetchRoute(item.to, profileId)}
+                    onFocus={() => prefetchRoute(item.to, profileId)}
+                    onTouchStart={() => prefetchRoute(item.to, profileId)}
                     onClick={(e) => {
                       if (item.requiresPackage === 'ielts' && !hasIELTSAccess(studentData)) {
                         e.preventDefault()

@@ -1,10 +1,14 @@
-import { memo } from 'react'
+import { memo, useCallback } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
+import { prefetchRoute } from '../../lib/prefetchRegistry'
+import { useAuthStore } from '../../stores/authStore'
 import { motion } from 'framer-motion'
 import { MoreHorizontal } from 'lucide-react'
 
 function MobileBar({ nav, onMoreClick, role }) {
   const location = useLocation()
+  const profileId = useAuthStore((s) => s.profile?.id)
+  const handlePrefetch = useCallback((path) => prefetchRoute(path, profileId), [profileId])
 
   return (
     <nav
@@ -45,6 +49,9 @@ function MobileBar({ nav, onMoreClick, role }) {
               key={item.id}
               to={item.to}
               end={isDashboard}
+              onMouseEnter={() => handlePrefetch(item.to)}
+              onFocus={() => handlePrefetch(item.to)}
+              onTouchStart={() => handlePrefetch(item.to)}
               className="relative flex flex-col items-center gap-0.5 px-2 py-1.5 min-w-[56px] min-h-[44px] justify-center transition-colors duration-150"
               style={{
                 color: active ? 'var(--ds-accent-primary, var(--accent-gold, #e9b949))' : 'var(--ds-text-tertiary, var(--text-tertiary))',

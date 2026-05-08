@@ -1,5 +1,6 @@
-import { useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
+import { prefetchRoute } from '@/lib/prefetchRegistry'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, LogOut, Settings } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
@@ -10,6 +11,8 @@ const PROFILE_PATHS = { student: '/student/profile', trainer: '/trainer/my-stude
 
 export default function MobileDrawer({ open, onClose, nav }) {
   const { profile, studentData, signOut } = useAuthStore()
+  const profileId = profile?.id
+  const handlePrefetch = useCallback((path) => prefetchRoute(path, profileId), [profileId])
   const navigate = useNavigate()
   const location = useLocation()
   const role = profile?.role || 'student'
@@ -113,6 +116,9 @@ export default function MobileDrawer({ open, onClose, nav }) {
                           key={item.id}
                           to={item.to}
                           end={isDashboard}
+                          onMouseEnter={() => handlePrefetch(item.to)}
+                          onFocus={() => handlePrefetch(item.to)}
+                          onTouchStart={() => handlePrefetch(item.to)}
                           className="flex items-center gap-3 rounded-[14px] transition-all duration-200"
                           style={{
                             height: 44,
