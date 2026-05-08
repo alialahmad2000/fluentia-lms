@@ -6,12 +6,21 @@ import {
   CheckCircle, Clock, XCircle, FileEdit, PenLine,
   Languages, Headphones, Mic, ClipboardCheck,
   ArrowRight, GraduationCap, Gamepad2, Trophy,
-  Save, MessageSquare,
+  Save, MessageSquare, Video,
 } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
 import WritingFeedback from '../../components/curriculum/WritingFeedback'
+import InteractiveReadingTab from '../../components/interactive-curriculum/InteractiveReadingTab'
+import InteractiveGrammarTab from '../../components/interactive-curriculum/InteractiveGrammarTab'
+import InteractiveVocabularyTab from '../../components/interactive-curriculum/InteractiveVocabularyTab'
+import InteractiveListeningTab from '../../components/interactive-curriculum/InteractiveListeningTab'
+import InteractiveWritingTab from '../../components/interactive-curriculum/InteractiveWritingTab'
+import InteractiveSpeakingTab from '../../components/interactive-curriculum/InteractiveSpeakingTab'
+import InteractiveAssessmentTab from '../../components/interactive-curriculum/InteractiveAssessmentTab'
+import InteractiveGamesTab from '../../components/interactive-curriculum/InteractiveGamesTab'
+import InteractiveRecordingTab from '../../components/interactive-curriculum/InteractiveRecordingTab'
 
 // ─── Status helpers ──────────────────────────────────
 const STATUS_STYLES = {
@@ -29,6 +38,7 @@ const SECTION_TYPES = [
   { id: 'speaking', label: 'المحادثة', icon: Mic },
   { id: 'assessment', label: 'التقييم', icon: ClipboardCheck },
   { id: 'games', label: 'الألعاب', icon: Gamepad2 },
+  { id: 'recording', label: 'التسجيلات', icon: Video },
 ]
 
 const GAME_TYPE_LABELS = {
@@ -603,14 +613,44 @@ function UnitDetail({ group, unit, selectedStudent, onStudentChange, activeTab, 
       ) : !selectedStudent ? (
         <AllStudentsMatrix students={students} progress={progress} activeTab={activeTab} />
       ) : (
-        <StudentAnswers student={selectedStudent} progress={progress} activeTab={activeTab} unitId={unit.id} />
+        <InteractiveTabContent
+          activeTab={activeTab}
+          unitId={unit.id}
+          groupId={group.id}
+          student={selectedStudent}
+        />
       )}
     </div>
   )
 }
 
-// Section types shown in the matrix (games use game_sessions table, not progress)
-const MATRIX_SECTIONS = SECTION_TYPES.filter(s => s.id !== 'games')
+// ─── Interactive Tab Content (per-student) ──────────
+// Maps the selected student to the shape Interactive*Tabs expect, then renders
+// the appropriate tab. Replaces the old custom StudentAnswers renderers.
+function InteractiveTabContent({ activeTab, unitId, groupId, student }) {
+  const students = [{
+    user_id: student.id,
+    group_id: groupId,
+    full_name: student.profiles?.full_name || 'طالب',
+    avatar_url: student.profiles?.avatar_url || null,
+  }]
+
+  switch (activeTab) {
+    case 'reading':    return <InteractiveReadingTab    unitId={unitId} students={students} />
+    case 'grammar':    return <InteractiveGrammarTab    unitId={unitId} students={students} />
+    case 'vocabulary': return <InteractiveVocabularyTab unitId={unitId} students={students} />
+    case 'listening':  return <InteractiveListeningTab  unitId={unitId} students={students} />
+    case 'writing':    return <InteractiveWritingTab    unitId={unitId} students={students} highlightStudent={student.id} />
+    case 'speaking':   return <InteractiveSpeakingTab   unitId={unitId} students={students} highlightStudent={student.id} />
+    case 'assessment': return <InteractiveAssessmentTab unitId={unitId} students={students} />
+    case 'games':      return <InteractiveGamesTab      unitId={unitId} students={students} />
+    case 'recording':  return <InteractiveRecordingTab  unitId={unitId} />
+    default:           return null
+  }
+}
+
+// Section types shown in the matrix (games + recording use separate tables, not progress)
+const MATRIX_SECTIONS = SECTION_TYPES.filter(s => s.id !== 'games' && s.id !== 'recording')
 
 // ─── All Students Matrix ─────────────────────────────
 function AllStudentsMatrix({ students, progress, activeTab }) {
@@ -693,7 +733,10 @@ function AllStudentsMatrix({ students, progress, activeTab }) {
   )
 }
 
-// ─── Student Answers View ────────────────────────────
+/* ─── LEGACY: replaced by InteractiveTabContent + Interactive*Tab family (2026-05-08).
+   Safe to delete after 2 weeks of stable production use.
+   Rollback: uncomment this block and revert the UnitDetail content render above. ────
+
 function StudentAnswers({ student, progress, activeTab, unitId }) {
   // Games tab has its own data fetching
   if (activeTab === 'games') {
@@ -1353,6 +1396,8 @@ function VocabularyAnswers({ answers }) {
     </div>
   )
 }
+
+─── END LEGACY BLOCK ─────────────────────────────────────────────────────── */
 
 // ─── Student Selector ────────────────────────────────
 function StudentSelector({ students, selected, onChange }) {
