@@ -8,6 +8,7 @@ import { supabase } from '../../../lib/supabase'
 import { tracker } from '../../../services/activityTracker'
 import { calculateUnitCompletion, groupProgressByUnit } from '../../../utils/curriculumProgress'
 import { ProgressRing, CINEMATIC_TOKENS as V1, useCinematicMotion } from './_premiumPrimitives'
+import CurriculumPageSkeleton from '../../../components/skeletons/CurriculumPageSkeleton'
 import { useCurriculumPreview } from '../../../contexts/CurriculumPreviewContext'
 
 export default function CurriculumBrowser() {
@@ -137,25 +138,9 @@ export default function CurriculumBrowser() {
     )
   }
 
-  // Loading skeleton
-  if (isLoading) {
-    return (
-      <div dir="rtl" style={{ fontFamily: "'Tajawal', sans-serif", color: V1.textPrimary, minHeight: '100vh', position: 'relative' }}>
-        <CinematicBackground />
-        <div style={{ position: 'relative', zIndex: 10, maxWidth: '900px', margin: '0 auto', padding: '80px 24px' }}>
-          <div className="space-y-8">
-            <div className="h-12 w-64 rounded-xl animate-pulse" style={{ background: V1.bgLayer }} />
-            <div className="h-6 w-96 rounded-lg animate-pulse" style={{ background: V1.bgLayer }} />
-            <div className="space-y-5">
-              {[1, 2, 3, 4, 5, 6].map(i => (
-                <div key={i} className="h-[260px] rounded-2xl animate-pulse" style={{ background: V1.bgLayer }} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
+  // Loading skeleton — content-shaped (matches real level card layout)
+  // Legacy inline: replaced with CurriculumPageSkeleton
+  if (isLoading) return <CurriculumPageSkeleton />
 
   return (
     <div dir="rtl" style={{ fontFamily: "'Tajawal', sans-serif", color: V1.textPrimary, minHeight: '100vh', position: 'relative' }}>

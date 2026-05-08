@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import StudentProgressSkeleton from '../../components/skeletons/StudentProgressSkeleton'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import { Star, Flame, BookOpen, Trophy, TrendingUp, Users } from 'lucide-react'
@@ -297,21 +298,8 @@ export default function ProgressDashboard() {
 
   const isLoading = !studentData
 
-  if (isLoading) {
-    return (
-      <div className="space-y-6">
-        <div className="skeleton h-8 w-48" />
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="skeleton h-32 rounded-2xl" />
-          <div className="skeleton h-32 rounded-2xl" />
-          <div className="skeleton h-32 rounded-2xl" />
-        </div>
-        <div className="skeleton h-72 rounded-2xl" />
-        <div className="skeleton h-48 rounded-2xl" />
-        <div className="skeleton h-64 rounded-2xl" />
-      </div>
-    )
-  }
+  // Legacy inline: replaced with StudentProgressSkeleton
+  if (isLoading) return <StudentProgressSkeleton />
 
   return (
     <div className="space-y-8">

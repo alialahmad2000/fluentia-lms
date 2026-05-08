@@ -3,7 +3,8 @@ import { useQuery } from '@tanstack/react-query'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { getEncouragement } from '../../utils/encouragement'
-import { DashboardSkeleton } from '../../components/ui/PageSkeleton'
+// Legacy: import { DashboardSkeleton } from '../../components/ui/PageSkeleton'
+import StudentDashboardSkeleton from '../../components/skeletons/StudentDashboardSkeleton'
 import StaggeredList from '../../design-system/components/StaggeredList'
 
 // Widgets
@@ -131,7 +132,7 @@ export default function StudentDashboard() {
 
   // ── GUARDS (after all hooks) ────────────────────────────────────
   const isInitialLoading = !profile || (loadingWeekly && loadingAssignments)
-  if (isInitialLoading) return <DashboardSkeleton />
+  if (isInitialLoading) return <StudentDashboardSkeleton />
 
   // ── RENDER ──────────────────────────────────────────────────────
   return (
