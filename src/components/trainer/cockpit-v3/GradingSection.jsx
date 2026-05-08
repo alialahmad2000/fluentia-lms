@@ -14,15 +14,15 @@ function typeLabel(type, t) {
 
 export default function GradingSection({ items = [] }) {
   const { t } = useTranslation()
-  if (!items.length) return null
-
   const count = items.length
+
+  if (!count) return null
   const shown = items.slice(0, 3)
 
   return (
     <section className="db-section">
       <h2 className="db-section__title">
-        ✍️ {count.toLocaleString('ar-SA')} {count === 1 ? t('trainer.grading.pending') : t('trainer.grading.no_submissions')}
+        ✍️ {count.toLocaleString('ar-SA')} {count === 1 ? t('trainer.grading.pending_singular', 'تصحيح معلق') : t('trainer.grading.pending_plural', 'تصحيحات معلقة')}
       </h2>
 
       <ul className="db-grading__list">

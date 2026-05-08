@@ -37,12 +37,12 @@ export default function CurriculumProgressCard({ studentId }) {
 
   const byType = {}
   ;(rows || []).forEach(r => {
-    const t = r.section_type || 'other'
-    if (!byType[t]) byType[t] = { completed: 0, total: 0, avgScore: [] }
-    byType[t].total++
+    const stype = r.section_type || 'other'
+    if (!byType[stype]) byType[stype] = { completed: 0, total: 0, avgScore: [] }
+    byType[stype].total++
     if (r.status === 'completed') {
-      byType[t].completed++
-      if (r.score != null) byType[t].avgScore.push(r.score)
+      byType[stype].completed++
+      if (r.score != null) byType[stype].avgScore.push(r.score)
     }
   })
 

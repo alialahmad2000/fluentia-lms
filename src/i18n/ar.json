@@ -69,8 +69,12 @@
       "role_trainer": "مدرب",
       "contact_admin_to_change": "للتعديل، تواصل مع الإدارة"
     },
-    "notifications": { "title": "الإشعارات" },
-    "security": { "title": "الأمان" }
+    "notifications": {
+      "title": "الإشعارات"
+    },
+    "security": {
+      "title": "الأمان"
+    }
   },
   "common": {
     "save": "حفظ",
@@ -150,7 +154,11 @@
       "quick_points": "نقاط سريعة",
       "quick_points_description": "سيتيح لك هذا في T3 منح نقاط لطالب أثناء الكلاس مباشرةً.",
       "nabih": "نبيه",
-      "competition": "المسابقة"
+      "competition": "المسابقة",
+      "xp_today": "XP اليوم",
+      "active_students": "طالب نشط",
+      "pulse_title": "نبض الطلاب — آخر ٧ أيام",
+      "nabih_meta": "مُشتق من بيانات طلابك الحقيقية الآن"
     },
     "grading": {
       "title": "محطة التصحيح",
@@ -174,7 +182,15 @@
       "ai_evaluate": "تقييم ذكاء اصطناعي",
       "ai_evaluating": "جاري التقييم...",
       "pending": "معلّق",
-      "graded": "مُقيَّم"
+      "graded": "مُقيَّم",
+      "feedback_placeholder": "اكتب ملاحظة تشجيعية أو تصحيحية...",
+      "pending_singular": "تصحيح معلق",
+      "pending_plural": "تصحيحات معلقة",
+      "redo_request": "طلب الإعادة",
+      "redo_reason": "سبب الإعادة (اختياري)",
+      "redo_placeholder": "مثال: الإجابة قصيرة جداً، يرجى التوسع...",
+      "spoken_text": "النص المنطوق",
+      "trainer_note": "ملاحظاتك للطالب (اختياري)"
     },
     "students": {
       "title": "ملفات الطلاب",
@@ -340,7 +356,34 @@
       "section_mocks": "نتائج الاختبارات التجريبية",
       "section_plan": "الخطة التكيّفية",
       "section_errors": "بنك الأخطاء",
-      "section_sessions": "آخر الجلسات"
+      "section_sessions": "آخر الجلسات",
+      "no_students": "ما عندك طلاب في مسار IELTS حالياً",
+      "col_target": "الهدف",
+      "col_gap": "الفجوة",
+      "col_last_mock": "آخر موك",
+      "col_last_mock_ago": "آخر موك (منذ)",
+      "current_estimate": "التقدير الحالي",
+      "current_week": "الأسبوع الحالي",
+      "exam_date": "تاريخ الامتحان",
+      "due": "مستحق",
+      "errors_due": "مستحق الآن",
+      "errors_mastered": "متقن",
+      "errors_total": "المجموع",
+      "no_errors": "لا توجد أخطاء في البنك بعد",
+      "no_mock_yet": "لم يؤدِّ الطالب أي موك حتى الآن",
+      "no_plan_yet": "لم تُولَد خطة تكيّفية بعد",
+      "plan_last_updated": "آخر تحديث للخطة",
+      "plan_stale": "خطة قديمة",
+      "strong_areas": "المجالات القوية",
+      "weak_areas": "المجالات الضعيفة",
+      "top_weaknesses": "أبرز نقاط الضعف",
+      "submission_text": "نص التسليم",
+      "audio_recording": "التسجيل الصوتي",
+      "approve_grade": "اعتمد التقييم",
+      "approved_toast": "تم اعتماد التقييم",
+      "adjust_band": "تعديل البند",
+      "hour_short": "س",
+      "day_short": "ي"
     },
     "help": {
       "title": "دليل Fluentia V2",
@@ -481,6 +524,56 @@
       "publish_error": "فشل النشر",
       "status_pending": "بانتظار المراجعة",
       "status_published": "منشور"
+    },
+    "attendance": {
+      "save_attendance": "حفظ الحضور",
+      "no_unit": "حدد الوحدة الحالية للمجموعة أولاً من لوحة التحكم"
+    },
+    "classprep": {
+      "title": "تحضير الحصة",
+      "next_class_title": "تحضير الحصة القادمة",
+      "student_readiness": "جاهزية الطلاب",
+      "focus_points": "نقاط تركيز مقترحة",
+      "class_content": "محتوى الحصة",
+      "start_class": "ابدأ الكلاس",
+      "no_unit": "حدد الوحدة الحالية للمجموعة لعرض تحضير الحصة",
+      "no_data": "لا توجد بيانات كافية للتحليل بعد",
+      "not_opened": "لم تفتح الوحدة بعد",
+      "opened_reading": "فتحوا القراءة",
+      "reviewed_vocab": "راجعوا المفردات"
+    },
+    "postclass": {
+      "session_notes": "ملاحظاتك خلال الحصة",
+      "add_note": "أضف ملاحظة على الحصة",
+      "note_placeholder": "شرحنا القاعدة وتدربنا على...",
+      "points_given": "النقاط المعطاة",
+      "participation": "مشاركة",
+      "no_participation": "لم تشارك",
+      "minutes": "دقيقة",
+      "save_only": "حفظ فقط",
+      "send_to_students": "أرسل للطلاب",
+      "saved_shared": "تم الحفظ والمشاركة مع الطلاب"
+    },
+    "quicknote": {
+      "title": "ملاحظة سريعة",
+      "select_student": "اختر طالب...",
+      "write_note": "اكتب ملاحظتك..."
+    },
+    "quickpoints": {
+      "undo": "تراجع",
+      "undone": "تم التراجع"
+    },
+    "toolbar": {
+      "class": "الكلاس",
+      "attendance": "حضور",
+      "note": "ملاحظة",
+      "points": "نقاط",
+      "progress": "تقدم",
+      "timer": "تايمر",
+      "end_class": "إنهاء"
+    },
+    "tour": {
+      "class_prep_desc": "قبل كل حصة بـ ٣٠ دقيقة، يطلع لك اقتراح تحضير مع نقاط حوار + طلاب يستحقون الإشادة"
     }
   },
   "help": {

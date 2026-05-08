@@ -53,14 +53,14 @@ export default function TrainerNotesPanel({ studentId }) {
 
       <form className="tnp-form" onSubmit={handleSubmit}>
         <div className="tnp-type-row">
-          {NOTE_TYPES.map(t => (
+          {NOTE_TYPES.map(nt => (
             <button
-              key={t.value}
+              key={nt.value}
               type="button"
-              className={`tnp-type-btn ${type === t.value ? 'tnp-type-btn--active' : ''}`}
-              onClick={() => setType(t.value)}
+              className={`tnp-type-btn ${type === nt.value ? 'tnp-type-btn--active' : ''}`}
+              onClick={() => setType(nt.value)}
             >
-              {TYPE_ICON[t.value]} {t.label}
+              {TYPE_ICON[nt.value]} {nt.label}
             </button>
           ))}
         </div>

@@ -51,7 +51,7 @@ export default function QuickNotePopup({ groupId, onClose }) {
       if (!selectedStudent || !content.trim()) throw new Error('اختر طالب واكتب ملاحظة')
       const { error } = await notifyUser({
         userId: selectedStudent,
-        title: NOTE_TYPES.find(t => t.type === noteType)?.label || 'ملاحظة',
+        title: NOTE_TYPES.find(nt => nt.type === noteType)?.label || 'ملاحظة',
         body: content.trim(),
         type: noteType,
       })
@@ -80,7 +80,7 @@ export default function QuickNotePopup({ groupId, onClose }) {
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
         <h3 className="text-sm font-bold flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-          <span>📝</span> ملاحظة سريعة
+          <span>📝</span> {t('trainer.quicknote.title', 'ملاحظة سريعة')}
         </h3>
         <button onClick={onClose} className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-white/5 transition-colors">
           <X size={14} style={{ color: 'var(--text-muted)' }} />

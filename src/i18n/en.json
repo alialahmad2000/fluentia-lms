@@ -69,8 +69,12 @@
       "role_trainer": "Trainer",
       "contact_admin_to_change": "To change these, contact admin"
     },
-    "notifications": { "title": "Notifications" },
-    "security": { "title": "Security" }
+    "notifications": {
+      "title": "Notifications"
+    },
+    "security": {
+      "title": "Security"
+    }
   },
   "common": {
     "save": "Save",
@@ -150,7 +154,11 @@
       "quick_points": "Quick points",
       "quick_points_description": "Coming in T3 — award points to a student directly during class.",
       "nabih": "Nabih",
-      "competition": "Competition"
+      "competition": "Competition",
+      "xp_today": "XP today",
+      "active_students": "active student",
+      "pulse_title": "Student pulse — last 7 days",
+      "nabih_meta": "Derived from your real student data right now"
     },
     "grading": {
       "title": "Grading station",
@@ -174,7 +182,15 @@
       "ai_evaluate": "AI evaluate",
       "ai_evaluating": "Evaluating…",
       "pending": "Pending",
-      "graded": "Graded"
+      "graded": "Graded",
+      "feedback_placeholder": "Write an encouraging or corrective note…",
+      "pending_singular": "pending grade",
+      "pending_plural": "pending grades",
+      "redo_request": "Request redo",
+      "redo_reason": "Reason for redo (optional)",
+      "redo_placeholder": "e.g. Answer too short, please expand…",
+      "spoken_text": "Spoken text",
+      "trainer_note": "Your note to the student (optional)"
     },
     "students": {
       "title": "Student files",
@@ -340,7 +356,34 @@
       "section_mocks": "Mock test results",
       "section_plan": "Adaptive plan",
       "section_errors": "Error bank",
-      "section_sessions": "Recent sessions"
+      "section_sessions": "Recent sessions",
+      "no_students": "No students in the IELTS track yet",
+      "col_target": "Target",
+      "col_gap": "Gap",
+      "col_last_mock": "Last mock",
+      "col_last_mock_ago": "Last mock (ago)",
+      "current_estimate": "Current estimate",
+      "current_week": "This week",
+      "exam_date": "Exam date",
+      "due": "Due",
+      "errors_due": "Due now",
+      "errors_mastered": "Mastered",
+      "errors_total": "Total",
+      "no_errors": "No errors in the bank yet",
+      "no_mock_yet": "Student has not taken any mock yet",
+      "no_plan_yet": "No adaptive plan generated yet",
+      "plan_last_updated": "Plan last updated",
+      "plan_stale": "Stale plan",
+      "strong_areas": "Strong areas",
+      "weak_areas": "Weak areas",
+      "top_weaknesses": "Top weaknesses",
+      "submission_text": "Submission text",
+      "audio_recording": "Audio recording",
+      "approve_grade": "Approve grade",
+      "approved_toast": "Grade approved",
+      "adjust_band": "Adjust band",
+      "hour_short": "h",
+      "day_short": "d"
     },
     "help": {
       "title": "Fluentia V2 Guide",
@@ -481,6 +524,56 @@
       "publish_error": "Publish failed",
       "status_pending": "Awaiting review",
       "status_published": "Published"
+    },
+    "attendance": {
+      "save_attendance": "Save attendance",
+      "no_unit": "Set the group current unit from the cockpit first"
+    },
+    "classprep": {
+      "title": "Class prep",
+      "next_class_title": "Next class preparation",
+      "student_readiness": "Student readiness",
+      "focus_points": "Suggested focus points",
+      "class_content": "Class content",
+      "start_class": "Start class",
+      "no_unit": "Set the group current unit to view class prep",
+      "no_data": "Not enough data to analyse yet",
+      "not_opened": "Unit not opened yet",
+      "opened_reading": "Opened reading",
+      "reviewed_vocab": "Reviewed vocabulary"
+    },
+    "postclass": {
+      "session_notes": "Your notes during class",
+      "add_note": "Add a class note",
+      "note_placeholder": "We covered the rule and practised…",
+      "points_given": "Points awarded",
+      "participation": "participation",
+      "no_participation": "Did not participate",
+      "minutes": "min",
+      "save_only": "Save only",
+      "send_to_students": "Share with students",
+      "saved_shared": "Saved and shared with students"
+    },
+    "quicknote": {
+      "title": "Quick note",
+      "select_student": "Select a student…",
+      "write_note": "Write your note…"
+    },
+    "quickpoints": {
+      "undo": "Undo",
+      "undone": "Undone"
+    },
+    "toolbar": {
+      "class": "Class",
+      "attendance": "Attendance",
+      "note": "Note",
+      "points": "Points",
+      "progress": "Progress",
+      "timer": "Timer",
+      "end_class": "End"
+    },
+    "tour": {
+      "class_prep_desc": "30 min before each class, a prep card appears with talking points + students worth praising"
     }
   },
   "help": {
