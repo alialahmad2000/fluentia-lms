@@ -128,7 +128,7 @@ const IELTSV2Readiness      = lazyRetry(() => import('./pages/student/ielts-v2/R
 
 const TrainerOnboarding = lazyRetry(() => import('./pages/trainer/TrainerOnboarding'))
 const TrainerStudentView = lazyRetry(() => import('./pages/trainer/TrainerStudentView.legacy'))
-const TrainerCurriculum = lazyRetry(() => import('./pages/trainer/TrainerCurriculum'))
+// TrainerCurriculum removed — /trainer/curriculum now redirects to /trainer/interactive-curriculum
 const ReportReview = lazyRetry(() => import('./pages/trainer/ReportReview'))
 const StudentProgressDetail = lazyRetry(() => import('./pages/trainer/StudentProgressDetail'))
 const CockpitPage = lazyRetry(() => import('./pages/trainer/v2/CockpitPage'))
@@ -703,7 +703,7 @@ export default function App() {
               <Route path="/trainer/grading" element={<Page><GradingStationPage /></Page>} />
               <Route path="/trainer/debrief/:summaryId" element={<Page><ClassDebriefPage /></Page>} />
               <Route path="/trainer/students" element={<Page><TrainerStudentView /></Page>} />
-              <Route path="/trainer/curriculum" element={<Page><TrainerCurriculum /></Page>} />
+              <Route path="/trainer/curriculum" element={<Navigate to="/trainer/interactive-curriculum" replace />} />
 
               {/* ── Deprecated routes → redirect to active pages ── */}
               <Route path="/trainer/interventions" element={<Navigate to="/trainer/students" replace />} />

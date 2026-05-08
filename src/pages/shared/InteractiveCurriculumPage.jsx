@@ -94,7 +94,7 @@ export default function InteractiveCurriculumPage() {
       return (data || []).map(s => ({
         user_id: s.id,
         group_id: s.group_id,
-        full_name: s.profiles?.full_name || 'طالب',
+        full_name: s.profiles?.full_name || t('common.student'),
         avatar_url: s.profiles?.avatar_url,
       }))
     },

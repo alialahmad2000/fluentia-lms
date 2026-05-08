@@ -142,7 +142,8 @@
         "events": "Competition events",
         "events_description": "Leaderboard changes, team achievements, kudos"
       }
-    }
+    },
+    "student": "Student"
   },
   "trainer": {
     "cockpit": {

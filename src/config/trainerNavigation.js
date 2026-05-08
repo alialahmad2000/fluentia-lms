@@ -11,7 +11,7 @@ export const TRAINER_NAV_V3 = [
       { id: 'cockpit',    href: '/trainer',             labelKey: 'nav.trainer.cockpit',    icon: LayoutDashboard, primary: true },
       { id: 'grading',    href: '/trainer/grading',     labelKey: 'nav.trainer.grading',    icon: FileCheck,       badgeKey: 'pending_grading' },
       { id: 'students',   href: '/trainer/students',    labelKey: 'nav.trainer.students',   icon: Users },
-      { id: 'curriculum', href: '/trainer/curriculum',  labelKey: 'nav.trainer.curriculum', icon: BookOpen },
+      { id: 'curriculum', href: '/trainer/interactive-curriculum',  labelKey: 'nav.trainer.curriculum', icon: BookOpen },
       { id: 'help',       href: '/trainer/help',        labelKey: 'nav.trainer.help',       icon: Sparkles },
       { id: 'settings',   href: '/trainer/settings',    labelKey: 'nav.trainer.settings',   icon: Settings },
     ],
