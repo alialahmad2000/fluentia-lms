@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Globe, User, Bell, Shield } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
-import toast from 'react-hot-toast'
+import { toast } from '../../components/ui/FluentiaToast'
 
 export default function TrainerSettings() {
   const { t, i18n } = useTranslation()
