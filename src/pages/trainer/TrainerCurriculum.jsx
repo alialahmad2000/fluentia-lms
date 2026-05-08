@@ -11,6 +11,7 @@ import {
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { supabase } from '../../lib/supabase'
 import { useAuthStore } from '../../stores/authStore'
+import { useTranslation } from 'react-i18next'
 import WritingFeedback from '../../components/curriculum/WritingFeedback'
 import InteractiveReadingTab from '../../components/interactive-curriculum/InteractiveReadingTab'
 import InteractiveGrammarTab from '../../components/interactive-curriculum/InteractiveGrammarTab'
@@ -29,16 +30,16 @@ const STATUS_STYLES = {
   not_started: { bg: 'bg-[rgba(255,255,255,0.04)]', text: 'text-[var(--text-muted)]', border: 'border-[var(--border-subtle)]', icon: XCircle, label: 'لم يبدأ' },
 }
 
-const SECTION_TYPES = [
-  { id: 'reading', label: 'القراءة', icon: BookOpen },
-  { id: 'grammar', label: 'القواعد', icon: PenLine },
-  { id: 'vocabulary', label: 'المفردات', icon: Languages },
-  { id: 'listening', label: 'الاستماع', icon: Headphones },
-  { id: 'writing', label: 'الكتابة', icon: FileEdit },
-  { id: 'speaking', label: 'المحادثة', icon: Mic },
-  { id: 'assessment', label: 'التقييم', icon: ClipboardCheck },
-  { id: 'games', label: 'الألعاب', icon: Gamepad2 },
-  { id: 'recording', label: 'التسجيلات', icon: Video },
+const SECTION_TYPE_DEFS = [
+  { id: 'reading',    labelKey: 'trainer.curriculum.tabs.reading',    icon: BookOpen },
+  { id: 'grammar',    labelKey: 'trainer.curriculum.tabs.grammar',    icon: PenLine },
+  { id: 'vocabulary', labelKey: 'trainer.curriculum.tabs.vocabulary', icon: Languages },
+  { id: 'listening',  labelKey: 'trainer.curriculum.tabs.listening',  icon: Headphones },
+  { id: 'writing',    labelKey: 'trainer.curriculum.tabs.writing',    icon: FileEdit },
+  { id: 'speaking',   labelKey: 'trainer.curriculum.tabs.speaking',   icon: Mic },
+  { id: 'assessment', labelKey: 'trainer.curriculum.tabs.assessment', icon: ClipboardCheck },
+  { id: 'games',      labelKey: 'trainer.curriculum.tabs.games',      icon: Gamepad2 },
+  { id: 'recording',  labelKey: 'trainer.curriculum.tabs.recording',  icon: Video },
 ]
 
 const GAME_TYPE_LABELS = {
@@ -55,6 +56,7 @@ const MASTERY_STYLES = {
 
 // ─── Main Component ──────────────────────────────────
 export default function TrainerCurriculum() {
+  const { t } = useTranslation()
   const { user, profile, _realProfile } = useAuthStore()
   // Admin (or admin impersonating) should see ALL groups
   const isAdmin = _realProfile?.role === 'admin' || profile?.role === 'admin'
@@ -96,8 +98,8 @@ export default function TrainerCurriculum() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-page-title font-['Tajawal']">المنهج الدراسي</h1>
-          <p className="text-sm text-[var(--text-tertiary)] font-['Tajawal'] mt-1">تصفّح المنهج وتابع تقدّم الطلاب</p>
+          <h1 className="text-page-title font-['Tajawal']">{t('trainer.curriculum.title')}</h1>
+          <p className="text-sm text-[var(--text-tertiary)] font-['Tajawal'] mt-1">{t('trainer.curriculum.subtitle')}</p>
         </div>
       </div>
 
@@ -155,6 +157,7 @@ export default function TrainerCurriculum() {
 
 // ─── Level 1: Groups Overview ────────────────────────
 function GroupsOverview({ trainerId, isAdmin, onGroupClick }) {
+  const { t } = useTranslation()
   const { data: groups, isLoading } = useQuery({
     queryKey: ['curriculum-groups', isAdmin ? 'all' : trainerId],
     queryFn: async () => {
@@ -186,7 +189,7 @@ function GroupsOverview({ trainerId, isAdmin, onGroupClick }) {
 
   if (!groups?.length) {
     return (
-      <EmptyState icon={Users} message={isAdmin ? "لا توجد مجموعات نشطة حالياً" : "لا توجد مجموعات مسندة إليك حالياً"} />
+      <EmptyState icon={Users} message={isAdmin ? "لا توجد مجموعات نشطة حالياً" : t('trainer.curriculum.no_groups')} />
     )
   }
 
@@ -229,6 +232,8 @@ function GroupsOverview({ trainerId, isAdmin, onGroupClick }) {
 
 // ─── Level 2: Group Units ────────────────────────────
 function GroupUnits({ group, selectedStudent, onStudentChange, onUnitClick }) {
+  const { t } = useTranslation()
+  const SECTION_TYPES = SECTION_TYPE_DEFS.map(s => ({ ...s, label: t(s.labelKey) }))
   const [groupTab, setGroupTab] = useState('curriculum') // curriculum | games
 
   // Get students in group
@@ -540,6 +545,8 @@ function GroupGameActivity({ studentIds, students }) {
 
 // ─── Level 3: Unit Detail ────────────────────────────
 function UnitDetail({ group, unit, selectedStudent, onStudentChange, activeTab, onTabChange }) {
+  const { t } = useTranslation()
+  const SECTION_TYPES = SECTION_TYPE_DEFS.map(s => ({ ...s, label: t(s.labelKey) }))
   // Get students in group
   const { data: students = [], isPending: studentsLoading } = useQuery({
     queryKey: ['group-students', group.id],
@@ -649,11 +656,13 @@ function InteractiveTabContent({ activeTab, unitId, groupId, student }) {
   }
 }
 
-// Section types shown in the matrix (games + recording use separate tables, not progress)
-const MATRIX_SECTIONS = SECTION_TYPES.filter(s => s.id !== 'games' && s.id !== 'recording')
+// IDs excluded from the all-students matrix (those tables are separate)
+const MATRIX_EXCLUDED_IDS = new Set(['games', 'recording'])
 
 // ─── All Students Matrix ─────────────────────────────
 function AllStudentsMatrix({ students, progress, activeTab }) {
+  const { t } = useTranslation()
+  const MATRIX_SECTIONS = SECTION_TYPE_DEFS.filter(s => !MATRIX_EXCLUDED_IDS.has(s.id)).map(s => ({ ...s, label: t(s.labelKey) }))
   // If games tab is active with no specific student, show group game activity
   if (activeTab === 'games') {
     const studentIds = students?.map(s => s.id) || []
@@ -1401,6 +1410,7 @@ function VocabularyAnswers({ answers }) {
 
 // ─── Student Selector ────────────────────────────────
 function StudentSelector({ students, selected, onChange }) {
+  const { t } = useTranslation()
   const [open, setOpen] = useState(false)
 
   return (
@@ -1412,7 +1422,7 @@ function StudentSelector({ students, selected, onChange }) {
       >
         <Users size={14} className="text-[var(--text-muted)]" />
         <span className="text-[var(--text-primary)]">
-          {selected ? selected.profiles?.full_name : 'كل الطلاب'}
+          {selected ? selected.profiles?.full_name : t('trainer.curriculum.all_students')}
         </span>
         <ChevronDown size={14} className={`text-[var(--text-muted)] transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
@@ -1430,7 +1440,7 @@ function StudentSelector({ students, selected, onChange }) {
               onClick={() => { onChange(null); setOpen(false) }}
               className={`w-full text-start px-4 py-2.5 text-sm font-['Tajawal'] transition-colors hover:bg-[rgba(255,255,255,0.04)] ${!selected ? 'text-sky-400 font-bold' : 'text-[var(--text-primary)]'}`}
             >
-              كل الطلاب
+              {t('trainer.curriculum.all_students')}
             </button>
             {students?.map(s => (
               <button
