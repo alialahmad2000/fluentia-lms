@@ -152,6 +152,7 @@ export default function InteractiveCurriculumLevels() {
 
 // ─── Level Card (cloned from student LevelCard, adapted for admin/trainer) ───
 function InteractiveLevelCard({ level, color, totalUnits, disabled, onClick }) {
+  const { t } = useTranslation()
   const [iconLoaded, setIconLoaded] = useState(false)
   const [iconError, setIconError] = useState(false)
 
