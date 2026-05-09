@@ -130,13 +130,17 @@ export default function ReadingTab({ unitId }) {
 }
 
 // ─── Reading Content (passage + vocab + questions + critical thinking) ───
+// Uses INSERT-per-attempt model (same as Grammar) to prevent autosave from
+// overwriting a previous completed row's score/status during a retry.
 function ReadingContent({ reading, studentId, unitId }) {
   const [savedProgress, setSavedProgress] = useState(null)
   const [progressLoading, setProgressLoading] = useState(true)
   const [isCompleted, setIsCompleted] = useState(false)
   const [attemptNumber, setAttemptNumber] = useState(1)
-  const [attemptHistory, setAttemptHistory] = useState([])
+  const [allAttempts, setAllAttempts] = useState([])
+  const [bestScore, setBestScore] = useState(null)
   const [retrying, setRetrying] = useState(false)
+  const currentRowId = useRef(null)
   const retryKeyRef = useRef(0)
   const timeRef = useRef(0)
   const timerRef = useRef(null)
@@ -147,24 +151,37 @@ function ReadingContent({ reading, studentId, unitId }) {
     return () => clearInterval(timerRef.current)
   }, [])
 
-  // Load existing progress
+  // Load existing progress — multi-row query (no longer maybeSingle after dropping scp_unique_reading)
   useEffect(() => {
     if (!studentId || !reading?.id) { setProgressLoading(false); return }
     let isMounted = true
     const load = async () => {
-      const { data } = await supabase
+      const { data: rows } = await supabase
         .from('student_curriculum_progress')
         .select('*')
         .eq('student_id', studentId)
         .eq('reading_id', reading.id)
-        .maybeSingle()
+        .order('attempt_number', { ascending: false })
       if (!isMounted) return
-      if (data) {
-        setSavedProgress(data)
-        setIsCompleted(data.status === 'completed')
-        if (data.time_spent_seconds) timeRef.current = data.time_spent_seconds
-        if (data.attempt_number) setAttemptNumber(data.attempt_number)
-        if (Array.isArray(data.attempt_history)) setAttemptHistory(data.attempt_history)
+
+      if (rows && rows.length > 0) {
+        setAllAttempts(rows)
+        const latest = rows.find(r => r.is_latest) || rows[0]
+        const best = rows.reduce((b, r) => (r.score || 0) > (b?.score || 0) ? r : b, rows[0])
+        setBestScore(best?.score ?? null)
+        setAttemptNumber(latest.attempt_number || 1)
+
+        if (latest.status === 'completed') {
+          setSavedProgress(latest)
+          setIsCompleted(true)
+          if (latest.time_spent_seconds) timeRef.current = latest.time_spent_seconds
+          // Don't set currentRowId — next retry will INSERT a new row
+        } else {
+          // in_progress — restore this row for continued autosave
+          setSavedProgress(latest)
+          currentRowId.current = latest.id
+          if (latest.time_spent_seconds) timeRef.current = latest.time_spent_seconds
+        }
       }
       setProgressLoading(false)
     }
@@ -172,84 +189,129 @@ function ReadingContent({ reading, studentId, unitId }) {
     return () => { isMounted = false }
   }, [studentId, reading?.id])
 
-  // Retry handler
+  // Retry handler — clears local state; a new DB row is created on first answer
   const handleRetry = () => {
+    currentRowId.current = null
     setRetrying(true)
     retryKeyRef.current += 1
   }
 
   // Autosave partial progress — NEVER writes status='completed' or score.
-  // Called on every answer change. Keeps answers so the student doesn't lose
-  // work when they navigate away, while leaving unanswered questions blank
-  // (NOT auto-graded as wrong).
+  // Uses INSERT + UPDATE by ID so it never overwrites a previous completed row.
   const handleComprehensionAutosave = useCallback(async (answers) => {
     if (!studentId || !reading?.id) return
-    const { error } = await supabase
-      .from('student_curriculum_progress')
-      .upsert({
-        student_id: studentId,
-        unit_id: unitId,
-        reading_id: reading.id,
-        section_type: 'reading',
-        status: 'in_progress',
-        score: null,
-        answers,
-        time_spent_seconds: timeRef.current,
-        completed_at: null,
-      }, {
-        onConflict: 'student_id,reading_id',
-      })
-    if (error) {
-      console.error('[ReadingTab] Autosave failed for reading_id:', reading.id, error)
+
+    if (currentRowId.current) {
+      // UPDATE the in-progress row we already own
+      const { error } = await supabase
+        .from('student_curriculum_progress')
+        .update({
+          status: 'in_progress',
+          score: null,
+          answers,
+          time_spent_seconds: timeRef.current,
+          completed_at: null,
+        })
+        .eq('id', currentRowId.current)
+      if (error) console.error('[ReadingTab] Autosave update failed:', error)
+    } else {
+      // INSERT a new in-progress row (first answer of a new/retry attempt)
+      const hasExisting = allAttempts.length > 0
+      const nextAttemptNum = hasExisting ? attemptNumber + 1 : 1
+
+      if (hasExisting) {
+        await supabase
+          .from('student_curriculum_progress')
+          .update({ is_latest: false })
+          .eq('student_id', studentId)
+          .eq('reading_id', reading.id)
+      }
+
+      const { data: newRow, error } = await supabase
+        .from('student_curriculum_progress')
+        .insert({
+          student_id: studentId,
+          unit_id: unitId,
+          reading_id: reading.id,
+          section_type: 'reading',
+          status: 'in_progress',
+          score: null,
+          answers,
+          time_spent_seconds: timeRef.current,
+          completed_at: null,
+          attempt_number: nextAttemptNum,
+          is_latest: true,
+          is_best: false,
+        })
+        .select()
+        .single()
+
+      if (!error && newRow) {
+        currentRowId.current = newRow.id
+        setAttemptNumber(nextAttemptNum)
+      } else if (error) {
+        console.error('[ReadingTab] Autosave insert failed:', error)
+      }
     }
-  }, [studentId, reading?.id, unitId])
+  }, [studentId, reading?.id, unitId, allAttempts, attemptNumber])
 
   // Explicit submit — ONLY path that marks status='completed' and awards XP.
-  // Triggered by the submit button in ComprehensionSection after all questions
-  // are answered.
   const handleComprehensionComplete = useCallback(async (answers, score) => {
-    if (!studentId || !reading?.id) return
-    const newAttemptNumber = retrying ? attemptNumber + 1 : attemptNumber
-    const newHistory = retrying && savedProgress ? [
-      ...attemptHistory,
-      {
-        attempt: attemptNumber,
-        answers: savedProgress.answers,
-        score: savedProgress.score,
-        completed_at: savedProgress.completed_at,
-      }
-    ] : attemptHistory
+    if (!studentId || !reading?.id || !currentRowId.current) return
 
     const { error } = await supabase
       .from('student_curriculum_progress')
-      .upsert({
-        student_id: studentId,
-        unit_id: unitId,
-        reading_id: reading.id,
-        section_type: 'reading',
+      .update({
         status: 'completed',
         score,
         answers,
         time_spent_seconds: timeRef.current,
         completed_at: new Date().toISOString(),
-        attempt_number: newAttemptNumber,
-        attempt_history: newHistory,
-      }, {
-        onConflict: 'student_id,reading_id',
       })
+      .eq('id', currentRowId.current)
+
     if (error) {
-      console.error('[ReadingTab] Save failed for reading_id:', reading.id, error)
+      console.error('[ReadingTab] Submit failed for reading_id:', reading.id, error)
       toast({ type: 'error', title: 'حدث خطأ أثناء الحفظ — حاول مرة ثانية' })
-    } else {
-      setAttemptNumber(newAttemptNumber)
-      setAttemptHistory(newHistory)
-      setSavedProgress({ ...savedProgress, answers, score, completed_at: new Date().toISOString(), attempt_number: newAttemptNumber, attempt_history: newHistory })
-      setRetrying(false)
-      setIsCompleted(true)
-      toast({ type: 'success', title: 'تم حفظ تقدمك' })
-      awardCurriculumXP(studentId, 'reading', score, unitId)
+      return
     }
-  }, [studentId, reading?.id, unitId, retrying, attemptNumber, attemptHistory, savedProgress])
+
+    // Recompute is_best
+    const { data: allRows } = await supabase
+      .from('student_curriculum_progress')
+      .select('id, score, attempt_number')
+      .eq('student_id', studentId)
+      .eq('reading_id', reading.id)
+      .eq('status', 'completed')
+      .order('score', { ascending: false })
+      .order('attempt_number', { ascending: false })
+
+    if (allRows?.length > 0) {
+      await supabase.from('student_curriculum_progress')
+        .update({ is_best: false })
+        .eq('student_id', studentId)
+        .eq('reading_id', reading.id)
+      await supabase.from('student_curriculum_progress')
+        .update({ is_best: true })
+        .eq('id', allRows[0].id)
+      setBestScore(allRows[0].score)
+    }
+
+    const { data: refreshed } = await supabase
+      .from('student_curriculum_progress')
+      .select('*')
+      .eq('student_id', studentId)
+      .eq('reading_id', reading.id)
+      .order('attempt_number', { ascending: false })
+
+    if (refreshed) setAllAttempts(refreshed)
+    const updatedLatest = refreshed?.find(r => r.id === currentRowId.current) || null
+    setSavedProgress(updatedLatest)
+    setRetrying(false)
+    setIsCompleted(true)
+    toast({ type: 'success', title: 'تم حفظ تقدمك' })
+    awardCurriculumXP(studentId, 'reading', score, unitId)
+  }, [studentId, reading?.id, unitId])
 
   const { data: vocabulary } = useQuery({
     queryKey: ['reading-vocab', reading.id],
@@ -457,14 +519,22 @@ function ReadingContent({ reading, studentId, unitId }) {
       </div>
 
       {/* Completed badge + retry */}
-      {isCompleted && (
+      {isCompleted && !retrying && (
         <CompletedBanner
           attemptNumber={attemptNumber}
-          attemptHistory={attemptHistory}
+          allAttempts={allAttempts.filter(a => a.status === 'completed')}
+          bestScore={bestScore}
           score={savedProgress?.score}
-          retrying={retrying}
           onRetry={handleRetry}
         />
+      )}
+      {retrying && (
+        <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-500/10 border border-sky-500/25">
+          <RotateCcw size={16} className="text-sky-400" />
+          <span className="text-sm font-medium text-sky-400 font-['Tajawal']">
+            محاولة جديدة — أجب على الأسئلة من جديد
+          </span>
+        </div>
       )}
 
       {/* ─── Premium Passage Card ─── */}
@@ -1350,9 +1420,10 @@ function VocabularyBox({ vocabulary }) {
 function ComprehensionSection({ questions, savedAnswers, isAlreadyCompleted, progressLoading, onAutosave, onComplete }) {
   const [answers, setAnswers] = useState({})
   const [submitted, setSubmitted] = useState(false)
-  const hasAutosavedRef = useRef({}) // per-question-id map — avoid dup upserts
+  const [confirmOpen, setConfirmOpen] = useState(false)
+  const hasAutosavedRef = useRef({})
 
-  // Restore saved answers on load (both partial in_progress and completed rows)
+  // Restore saved answers on load
   useEffect(() => {
     if (savedAnswers && typeof savedAnswers === 'object') {
       setAnswers(savedAnswers)
@@ -1366,7 +1437,6 @@ function ComprehensionSection({ questions, savedAnswers, isAlreadyCompleted, pro
   const allAnswered = answered === total && total > 0
 
   // Autosave on every new answer — status='in_progress', no score.
-  // Debounced via a simple ref-delay to avoid hammering on rapid clicks.
   useEffect(() => {
     if (progressLoading || submitted) return
     if (answered === 0) return
@@ -1428,7 +1498,7 @@ function ComprehensionSection({ questions, savedAnswers, isAlreadyCompleted, pro
         <div className="flex flex-col items-center gap-2 pt-2">
           <button
             type="button"
-            onClick={handleSubmit}
+            onClick={() => allAnswered && setConfirmOpen(true)}
             disabled={!allAnswered}
             className="px-6 py-3 rounded-xl font-bold font-['Tajawal'] text-sm transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
@@ -1441,6 +1511,40 @@ function ComprehensionSection({ questions, savedAnswers, isAlreadyCompleted, pro
               ? <><span>تسليم الإجابات ({answered}/{total})</span><XPBadgeInline amount={5} /></>
               : `أجب على جميع الأسئلة قبل التسليم (${answered}/${total})`}
           </button>
+        </div>
+      )}
+
+      {/* Confirmation dialog — rendered outside the !submitted guard so it can
+          always appear when confirmOpen=true */}
+      {confirmOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)' }}>
+          <motion.div
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="w-full max-w-sm rounded-2xl p-6 space-y-4 bg-slate-900 border border-slate-700"
+            dir="rtl"
+          >
+            <h3 className="text-base font-bold text-white font-['Tajawal']">تأكيد التسليم</h3>
+            <p className="text-sm text-slate-300 font-['Tajawal']">
+              لن تتمكن من تعديل هذه المحاولة بعد التسليم.
+              <br />
+              <span className="text-slate-500 text-xs">يمكنك إعادة المحاولة لاحقاً — درجتك الأعلى هي المحتسبة.</span>
+            </p>
+            <div className="flex items-center gap-3 justify-end">
+              <button
+                onClick={() => setConfirmOpen(false)}
+                className="px-4 py-2 rounded-xl text-sm font-bold font-['Tajawal'] text-slate-400 border border-slate-700 hover:text-white transition-colors"
+              >
+                إلغاء
+              </button>
+              <button
+                onClick={() => { setConfirmOpen(false); handleSubmit() }}
+                className="px-5 py-2 rounded-xl text-sm font-bold font-['Tajawal'] text-slate-900 bg-sky-400"
+              >
+                تسليم
+              </button>
+            </div>
+          </motion.div>
         </div>
       )}
 
@@ -1626,29 +1730,18 @@ function CriticalThinkingBox({ reading }) {
 }
 
 // ─── Completed Banner with Retry ─────────────────────
-function CompletedBanner({ attemptNumber, attemptHistory, score, retrying, onRetry }) {
+// allAttempts: array of completed DB rows (not the old JSON attempt_history).
+function CompletedBanner({ attemptNumber, allAttempts, bestScore, score, onRetry }) {
   const [showHistory, setShowHistory] = useState(false)
-  const hasHistory = attemptHistory?.length > 0
-
-  if (retrying) {
-    return (
-      <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-500/10 border border-sky-500/25">
-        <RotateCcw size={16} className="text-sky-400" />
-        <span className="text-sm font-medium text-sky-400 font-['Tajawal']">
-          إعادة المحاولة {attemptNumber + 1} — أجب على الأسئلة من جديد
-        </span>
-      </div>
-    )
-  }
+  const priorAttempts = (allAttempts || []).filter(a => !a.is_latest)
+  const hasHistory = priorAttempts.length > 0
 
   return (
     <div className="rounded-xl bg-emerald-500/10 border border-emerald-500/25 overflow-hidden">
       <div className="flex items-center justify-between px-4 py-2.5">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <CheckCircle size={18} className="text-emerald-400" />
-          <span className="text-sm font-medium text-emerald-400 font-['Tajawal']">
-            تم إكمال هذا القسم
-          </span>
+          <span className="text-sm font-medium text-emerald-400 font-['Tajawal']">تم إكمال هذا القسم</span>
           {attemptNumber > 1 && (
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-['Tajawal']">
               المحاولة {attemptNumber}
@@ -1656,6 +1749,9 @@ function CompletedBanner({ attemptNumber, attemptHistory, score, retrying, onRet
           )}
           {score != null && (
             <span className="text-xs text-emerald-400/70 font-['Tajawal']">— {score}%</span>
+          )}
+          {bestScore != null && bestScore !== score && (
+            <span className="text-[10px] text-amber-400/70 font-['Tajawal']">· أفضل: {bestScore}%</span>
           )}
         </div>
         <div className="flex items-center gap-2">
@@ -1665,7 +1761,7 @@ function CompletedBanner({ attemptNumber, attemptHistory, score, retrying, onRet
               className="flex items-center gap-1 text-[11px] text-slate-400 hover:text-white transition-colors font-['Tajawal']"
             >
               <History size={12} />
-              المحاولات السابقة
+              السابقة
             </button>
           )}
           <button
@@ -1673,7 +1769,7 @@ function CompletedBanner({ attemptNumber, attemptHistory, score, retrying, onRet
             className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-sky-400 hover:bg-sky-500/10 transition-colors font-['Tajawal'] border border-slate-700/50"
           >
             <RotateCcw size={12} />
-            إعادة المحاولة
+            محاولة جديدة
           </button>
         </div>
       </div>
@@ -1686,22 +1782,20 @@ function CompletedBanner({ attemptNumber, attemptHistory, score, retrying, onRet
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="px-4 pb-3 space-y-1.5 border-t border-emerald-500/15">
+            <div className="px-4 pb-3 border-t border-emerald-500/15">
               <div className="pt-2.5 space-y-1.5">
-                {attemptHistory.map((h, i) => (
-                  <div key={i} className="flex items-center gap-3 text-xs text-slate-400 font-['Tajawal']">
-                    <span className="font-medium">المحاولة {h.attempt}</span>
+                {priorAttempts.map(h => (
+                  <div key={h.id} className="flex items-center gap-3 text-xs text-slate-400 font-['Tajawal']">
+                    <span className="font-medium">محاولة {h.attempt_number}</span>
                     <span>{h.score != null ? `${h.score}%` : '—'}</span>
+                    {h.is_best && (
+                      <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amber-500/15 text-amber-400">الأفضل</span>
+                    )}
                     {h.completed_at && (
                       <span dir="ltr">{new Date(h.completed_at).toLocaleDateString('ar-SA', { day: 'numeric', month: 'short' })}</span>
                     )}
                   </div>
                 ))}
-                <div className="flex items-center gap-3 text-xs text-emerald-400 font-['Tajawal'] font-medium">
-                  <span>المحاولة {attemptNumber}</span>
-                  <span>{score != null ? `${score}%` : '—'}</span>
-                  <span className="text-[10px] text-emerald-400/60">(الحالية)</span>
-                </div>
               </div>
             </div>
           </motion.div>
