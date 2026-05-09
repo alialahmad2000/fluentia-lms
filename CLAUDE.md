@@ -1,6 +1,6 @@
 # CLAUDE.md — Fluentia LMS Project Context
 # This file is auto-read by Claude Code on every session start.
-# Last updated: March 15, 2026
+# Last updated: 2026-05-09
 #
 # 📖 FULL SPEC: For detailed database schemas, assignment types, Telegram analysis,
 #    level curriculum, gamification rules, and complete build specification, read:
@@ -852,3 +852,31 @@ This is how future sessions know what happened.
 - Status: Complete — `npm run build` green in 30.24 s. Main entry 76 KB gzipped, largest non-opt-in chunk UnitContent 25 KB gzipped. vendor-charts (115 KB gz) and eruda (161 KB gz) remain > 600 KB raw but are admin-analytics-only and `?debug=1`-only respectively, so they don't affect student initial load.
 - Notes: Much of the perf infrastructure mentioned in the task prompt (route-level `lazyRetry` for all pages, `manualChunks` for react/supabase/motion/query/charts, `esbuild.drop: console/debugger`, React Query defaults with `refetchOnWindowFocus: false`) was already in place from prior work — this pass was surgical, not a rewrite.
 - Notes: All 10 LMS phases were already complete. Keys are in .env only (not in these files).
+
+### 2026-05-09 — Universal Activity Retry + Phantom Submission Kill
+
+#### Part 1 — Fix phantom auto-submit-on-reload bug (student-reported by Lian + others)
+- What: Fixed phantom "completed at 0%" submissions caused by page reload during a listening activity
+- Root cause: `ListeningTab.buildResults()` saved ALL exercises (including unanswered, null-selected) to DB during autosave. On reload, all slots were restored to state → `answered = total` → submit button active → phantom submit.
+- Fixes:
+  - `ListeningTab.jsx`: null-safe restore (skip null studentAnswer), INSERT-per-attempt model (dropped upsert), confirmation dialog before submit
+  - `ReadingTab.jsx`: INSERT-per-attempt model replacing upsert (no more mid-retry autosave overwriting previous completion), confirmation dialog before submit
+  - DB guard trigger `trg_block_phantom` on `student_curriculum_progress`: rejects status=completed with empty/null answers at the DB layer
+  - Dropped `scp_unique_reading` + `scp_unique_listening` constraints that forced single-row upsert model
+- Files: `src/pages/student/curriculum/tabs/ListeningTab.jsx`, `ReadingTab.jsx`, `src/components/curriculum/AttemptsHistoryPanel.jsx`
+- DB: `supabase/migrations/20260509120000_universal_attempts_schema.sql`, `20260509130000_heal_phantom_submissions.sql`
+- Soak test: `scripts/phase-e-retry-soak.cjs` — 17/17 PASS
+- Status: Complete — 3 commits pushed to main
+
+#### Part 2 — Generic activity_attempts system + AssessmentTab live
+- What: Built generalized attempt system for curriculum_assessments; replaced the "قريباً إن شاء الله" AssessmentTab placeholder with a full quiz flow
+- New table: `activity_attempts` — stores one row per student+activity attempt; students can INSERT (in_progress) and UPDATE only `answers`; status/score written by edge function via service role
+- New view: `student_activity_best_score` — aggregates best score and is_mastered (>=80%) per student per activity
+- New edge functions: `submit-activity-attempt` (grades answers from curriculum_assessments.questions JSONB, awards XP if passed), `abandon-attempt` (sets status=abandoned)
+- Frontend hook: `src/hooks/useActivityAttempts.js` — loads attempt history, exposes inProgress/submittedHistory/bestScore
+- Frontend lib: `src/lib/attempts.js` — startNewAttempt, abandonAndStartNew, autosaveAnswers, submitAttempt
+- AssessmentTab: 3 render branches (A=unfinished resume/restart, B=history+retry, C=first-time CTA), QuizPlayer with debounced autosave + confirmation dialog, ResultView with per-question breakdown + history
+- DB: `supabase/migrations/20260509150000_activity_attempts.sql`
+- Files: `src/pages/student/curriculum/tabs/AssessmentTab.jsx`, `src/hooks/useActivityAttempts.js`, `src/lib/attempts.js`, `supabase/functions/submit-activity-attempt/index.ts`, `supabase/functions/abandon-attempt/index.ts`
+- Status: Complete — migration applied, edge functions deployed, frontend committed
+- Notes: `activity_attempts.activity_id` references `curriculum_assessments`. Questions stored in `curriculum_assessments.questions` JSONB array — each has `id`, `question_type`, `question_en`, `choices`/`options`, `correct_answer`, `accepted_answers`. Reload mid-quiz leaves attempt as in_progress (no auto-submit). Page reload → resume branch shown.
