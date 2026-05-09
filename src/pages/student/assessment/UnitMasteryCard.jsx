@@ -1,182 +1,233 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
-import { supabase } from '../../../lib/supabase'
 import { GlassPanel } from '../../../design-system/components'
 import { motion } from 'framer-motion'
-import { Lock, Hourglass, Award, Sparkles } from 'lucide-react'
+import { Lock, Hourglass, Award, Sparkles, Ban, CheckCircle2, RefreshCw } from 'lucide-react'
+import { useUnitMasteryState } from './useUnitMasteryState'
+
+// Live countdown to a future ISO timestamp
+function Countdown({ endsAt, label }) {
+  const [display, setDisplay] = useState('')
+
+  useEffect(() => {
+    const endMs = new Date(endsAt).getTime()
+    const tick = () => {
+      const diff = endMs - Date.now()
+      if (diff <= 0) { setDisplay('00:00'); return }
+      const h = Math.floor(diff / 3600000)
+      const m = Math.floor((diff % 3600000) / 60000)
+      const s = Math.floor((diff % 60000) / 1000)
+      setDisplay(
+        h > 0
+          ? `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
+          : `${m}:${String(s).padStart(2, '0')}`
+      )
+    }
+    tick()
+    const id = setInterval(tick, 1000)
+    return () => clearInterval(id)
+  }, [endsAt])
+
+  return (
+    <span>
+      {label}{' '}
+      <span className="font-mono font-bold" style={{ color: 'var(--ds-accent-primary, #38bdf8)' }}>
+        {display}
+      </span>
+    </span>
+  )
+}
 
 export default function UnitMasteryCard({ unitId, studentId }) {
   const navigate = useNavigate()
-  const [countdown, setCountdown] = useState(null)
+  const { assessment, state, loading } = useUnitMasteryState(unitId, studentId)
 
-  // Fetch assessment for this unit
-  const { data: assessment } = useQuery({
-    queryKey: ['unit-mastery-assessment', unitId],
-    queryFn: async () => {
-      const { data } = await supabase
-        .from('unit_mastery_assessments')
-        .select('id, pass_score_percent, unlock_threshold_percent, is_published')
-        .eq('unit_id', unitId)
-        .eq('is_published', true)
-        .maybeSingle()
-      return data
-    },
-    enabled: !!unitId,
-  })
+  if (loading || !assessment || !state || state.type === 'loading') return null
 
-  // Check can_start via RPC
-  const { data: canStartResult } = useQuery({
-    queryKey: ['unit-mastery-can-start', assessment?.id, studentId],
-    queryFn: async () => {
-      const { data } = await supabase.rpc('fn_can_start_unit_assessment', {
-        p_student_id: studentId,
-        p_assessment_id: assessment.id,
-      })
-      return data
-    },
-    enabled: !!assessment?.id && !!studentId,
-    refetchInterval: countdown ? 10000 : false,
-  })
+  const { type } = state
 
-  // Best attempt
-  const { data: bestAttempt } = useQuery({
-    queryKey: ['unit-mastery-best', assessment?.id, studentId],
-    queryFn: async () => {
-      const { data } = await supabase
-        .from('unit_mastery_attempts')
-        .select('percentage, passed')
-        .eq('assessment_id', assessment.id)
-        .eq('student_id', studentId)
-        .eq('passed', true)
-        .order('percentage', { ascending: false })
-        .limit(1)
-        .maybeSingle()
-      return data
-    },
-    enabled: !!assessment?.id && !!studentId,
-  })
-
-  // Countdown timer for cooldown
-  useEffect(() => {
-    if (!canStartResult?.cooldown_ends_at) { setCountdown(null); return }
-    const endTime = new Date(canStartResult.cooldown_ends_at).getTime()
-    const tick = () => {
-      const diff = endTime - Date.now()
-      if (diff <= 0) { setCountdown(null); return }
-      const m = Math.floor(diff / 60000)
-      const s = Math.floor((diff % 60000) / 1000)
-      setCountdown(`${m}:${String(s).padStart(2, '0')}`)
-    }
-    tick()
-    const interval = setInterval(tick, 1000)
-    return () => clearInterval(interval)
-  }, [canStartResult?.cooldown_ends_at])
-
-  if (!assessment) return null
-
-  const reason = canStartResult?.reason
-  const canStart = canStartResult?.can_start === true
-
-  // STATE: ALREADY_PASSED
-  if (reason === 'already_passed' || bestAttempt?.passed) {
-    return (
-      <GlassPanel padding="md" glow>
-        <div className="flex items-center gap-3">
-          <Award size={24} style={{ color: '#fbbf24' }} />
-          <div>
-            <p className="font-semibold" style={{ color: 'var(--ds-text-primary, #f8fafc)' }}>
-              أتقنتِ هذه الوحدة بنسبة {bestAttempt?.percentage || '—'}%
-            </p>
-            <p className="text-xs" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>
-              اختبار الإتقان — ممتازة!
-            </p>
-          </div>
-        </div>
-      </GlassPanel>
-    )
-  }
-
-  // STATE: LOCKED_COOLDOWN
-  if (reason === 'cooldown' && countdown) {
-    return (
-      <GlassPanel padding="md">
-        <div className="flex items-center gap-3">
-          <Hourglass size={22} style={{ color: 'var(--ds-text-tertiary, #64748b)' }} />
-          <div>
-            <p className="font-medium" style={{ color: 'var(--ds-text-primary, #f8fafc)' }}>
-              حاولتِ قبل قليل
-            </p>
-            <p className="text-sm" style={{ color: 'var(--ds-text-secondary, #cbd5e1)' }}>
-              عودي بعد <span className="font-mono font-bold" style={{ color: 'var(--ds-accent-primary, #38bdf8)' }}>{countdown}</span>
-            </p>
-          </div>
-        </div>
-      </GlassPanel>
-    )
-  }
-
-  // STATE: LOCKED_ACTIVITIES
-  if (reason === 'activities_incomplete') {
-    const currentPct = canStartResult.current_pct || 0
-    const requiredPct = canStartResult.required_pct || 70
+  // ── LOCKED (incomplete activities) ──
+  if (type === 'locked') {
+    const { currentPct = 0, requiredPct = 70 } = state
     return (
       <GlassPanel padding="md">
         <div className="flex items-center gap-3 mb-3">
           <Lock size={20} style={{ color: 'var(--ds-text-tertiary, #64748b)' }} />
-          <p className="text-sm" style={{ color: 'var(--ds-text-secondary, #cbd5e1)' }}>
-            أكملي {requiredPct}% من أنشطة الوحدة لفتح الاختبار
+          <p className="text-sm font-['Tajawal']" style={{ color: 'var(--ds-text-secondary, #cbd5e1)' }}>
+            أكملي {requiredPct}% من أنشطة الوحدة لفتح اختبار الإتقان
           </p>
         </div>
         <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'var(--ds-surface-1, rgba(255,255,255,0.04))' }}>
           <div
-            className="h-full rounded-full transition-all"
+            className="h-full rounded-full transition-all duration-500"
             style={{
               width: `${Math.min(100, currentPct)}%`,
               background: 'var(--ds-accent-primary, #38bdf8)',
             }}
           />
         </div>
-        <p className="text-xs mt-1.5 text-right" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>
+        <p className="text-xs mt-1.5 text-right font-['Tajawal']" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>
           {Math.round(currentPct)}% مكتمل
         </p>
       </GlassPanel>
     )
   }
 
-  // STATE: READY
-  if (canStart) {
+  // ── READY (first attempt or cycle reset) ──
+  if (type === 'ready') {
+    const { attemptNumber, maxAttempts, timeLimitSeconds, totalQuestions } = state
+    const timeMins = timeLimitSeconds ? Math.round(timeLimitSeconds / 60) : null
     return (
       <motion.div
-        animate={{ boxShadow: ['0 0 0px rgba(56,189,248,0)', '0 0 20px rgba(56,189,248,0.15)', '0 0 0px rgba(56,189,248,0)'] }}
-        transition={{ duration: 3, repeat: Infinity }}
+        animate={{ boxShadow: ['0 0 0px rgba(251,191,36,0)', '0 0 22px rgba(251,191,36,0.12)', '0 0 0px rgba(251,191,36,0)'] }}
+        transition={{ duration: 3.5, repeat: Infinity }}
       >
         <GlassPanel padding="md" hover glow>
-          <div className="flex items-center justify-between">
+          <div className="flex items-start justify-between gap-3">
             <div className="flex items-center gap-3">
-              <Sparkles size={22} style={{ color: 'var(--ds-accent-primary, #38bdf8)' }} />
+              <Sparkles size={22} style={{ color: 'var(--ds-color-gold, #fbbf24)', flexShrink: 0 }} />
               <div>
-                <p className="font-semibold" style={{ color: 'var(--ds-text-primary, #f8fafc)' }}>
+                <p className="font-semibold font-['Tajawal']" style={{ color: 'var(--ds-text-primary, #f8fafc)' }}>
                   اختبار إتقان الوحدة
                 </p>
-                <p className="text-xs" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>
-                  هل أنتِ جاهزة؟
+                <p className="text-xs font-['Tajawal'] mt-0.5" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>
+                  {totalQuestions && `${totalQuestions} سؤال`}
+                  {timeMins && ` · ${timeMins} دقيقة`}
+                  {maxAttempts && ` · ${maxAttempts} محاولات متاحة`}
                 </p>
               </div>
             </div>
             <button
               onClick={() => navigate(`/student/unit-mastery/${assessment.id}`)}
-              className="px-5 py-2.5 rounded-xl font-semibold text-sm"
-              style={{
-                background: 'var(--ds-accent-primary, #38bdf8)',
-                color: '#060e1c',
-              }}
+              className="px-4 py-2 rounded-xl font-semibold text-sm font-['Tajawal'] flex-shrink-0"
+              style={{ background: 'var(--ds-accent-primary, #38bdf8)', color: '#060e1c' }}
             >
-              ابدئي الاختبار
+              {attemptNumber > 1 ? `المحاولة ${attemptNumber}` : 'ابدئي الاختبار'}
             </button>
           </div>
         </GlassPanel>
       </motion.div>
+    )
+  }
+
+  // ── COOLDOWN (between fails in a cycle) ──
+  if (type === 'cooldown') {
+    const { cooldownEndsAt, minutesLeft } = state
+    return (
+      <GlassPanel padding="md">
+        <div className="flex items-center gap-3">
+          <Hourglass size={22} style={{ color: 'var(--ds-color-amber, #f59e0b)', flexShrink: 0 }} />
+          <div>
+            <p className="font-medium font-['Tajawal']" style={{ color: 'var(--ds-text-primary, #f8fafc)' }}>
+              حاولي مرة أخرى بعد قليل
+            </p>
+            <p className="text-sm font-['Tajawal']" style={{ color: 'var(--ds-text-secondary, #cbd5e1)' }}>
+              <Countdown endsAt={cooldownEndsAt} label="المتبقي:" />
+            </p>
+          </div>
+        </div>
+      </GlassPanel>
+    )
+  }
+
+  // ── LOCKED OUT (3 fails, < 24h since last) ──
+  if (type === 'locked_out') {
+    const { lockoutEndsAt, maxAttempts } = state
+    return (
+      <GlassPanel padding="md">
+        <div className="flex items-start gap-3 mb-2">
+          <Ban size={20} style={{ color: 'var(--ds-color-red, #f87171)', flexShrink: 0, marginTop: 2 }} />
+          <div>
+            <p className="font-semibold font-['Tajawal']" style={{ color: 'var(--ds-text-primary, #f8fafc)' }}>
+              استنفدتِ محاولاتكِ الـ{maxAttempts}
+            </p>
+            <p className="text-sm font-['Tajawal'] mt-0.5" style={{ color: 'var(--ds-text-secondary, #cbd5e1)' }}>
+              <Countdown endsAt={lockoutEndsAt} label="يُفتح الاختبار بعد:" />
+            </p>
+            <p className="text-xs font-['Tajawal'] mt-1.5" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>
+              راجعي أنشطة الوحدة في هذه الأثناء
+            </p>
+          </div>
+        </div>
+      </GlassPanel>
+    )
+  }
+
+  // ── PASSED — within retake cooling window ──
+  if (type === 'passed_cooling') {
+    const { score, retakeAvailableAt, daysLeft } = state
+    return (
+      <GlassPanel padding="md" glow>
+        <div className="flex items-center gap-3 mb-2">
+          <CheckCircle2 size={22} style={{ color: 'var(--ds-color-green, #4ade80)', flexShrink: 0 }} />
+          <div>
+            <p className="font-semibold font-['Tajawal']" style={{ color: 'var(--ds-text-primary, #f8fafc)' }}>
+              نجحتِ — درجتكِ {score}%
+            </p>
+            <p className="text-sm font-['Tajawal'] mt-0.5" style={{ color: 'var(--ds-text-secondary, #cbd5e1)' }}>
+              يمكنكِ تحسينها بمحاولة واحدة بعد {daysLeft} {daysLeft === 1 ? 'يوم' : 'أيام'}
+            </p>
+          </div>
+        </div>
+      </GlassPanel>
+    )
+  }
+
+  // ── RETAKE AVAILABLE ──
+  if (type === 'retake_available') {
+    const { bestScore } = state
+    return (
+      <motion.div
+        animate={{ boxShadow: ['0 0 0px rgba(74,222,128,0)', '0 0 18px rgba(74,222,128,0.1)', '0 0 0px rgba(74,222,128,0)'] }}
+        transition={{ duration: 3.5, repeat: Infinity }}
+      >
+        <GlassPanel padding="md" hover glow>
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <RefreshCw size={20} style={{ color: 'var(--ds-color-green, #4ade80)', flexShrink: 0 }} />
+              <div>
+                <p className="font-semibold font-['Tajawal']" style={{ color: 'var(--ds-text-primary, #f8fafc)' }}>
+                  متاحة محاولة لتحسين درجتكِ ({bestScore}%)
+                </p>
+                <p className="text-xs font-['Tajawal'] mt-0.5" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>
+                  أعلى درجة تُحفظ تلقائيًا
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => navigate(`/student/unit-mastery/${assessment.id}`)}
+              className="px-4 py-2 rounded-xl font-semibold text-sm font-['Tajawal'] flex-shrink-0"
+              style={{
+                background: 'rgba(74,222,128,0.12)',
+                color: 'var(--ds-color-green, #4ade80)',
+                border: '1px solid rgba(74,222,128,0.3)',
+              }}
+            >
+              أعيدي الاختبار
+            </button>
+          </div>
+        </GlassPanel>
+      </motion.div>
+    )
+  }
+
+  // ── COMPLETE (passed + retake used) ──
+  if (type === 'complete') {
+    const { bestScore } = state
+    return (
+      <GlassPanel padding="md" glow>
+        <div className="flex items-center gap-3">
+          <Award size={24} style={{ color: 'var(--ds-color-gold, #fbbf24)', flexShrink: 0 }} />
+          <div>
+            <p className="font-semibold font-['Tajawal']" style={{ color: 'var(--ds-text-primary, #f8fafc)' }}>
+              اكتملت — أعلى درجة {bestScore}%
+            </p>
+            <p className="text-xs font-['Tajawal'] mt-0.5" style={{ color: 'var(--ds-text-tertiary, #64748b)' }}>
+              اختبار الإتقان · مكتمل
+            </p>
+          </div>
+        </div>
+      </GlassPanel>
     )
   }
 

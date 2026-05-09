@@ -15,7 +15,6 @@ const ACTIVITY_MAP = [
   { key: 'writing',      label: 'الكتابة',  labelEn: 'Writing',      icon: 'FileEdit',       color: '#f472b6', weight: 13 },
   { key: 'speaking',     label: 'المحادثة', labelEn: 'Speaking',     icon: 'Mic',            color: '#fb923c', weight: 13 },
   { key: 'pronunciation',label: 'النطق',    labelEn: 'Pronunciation',icon: 'Volume2',        color: '#818cf8', weight: 10 },
-  { key: 'assessment',   label: 'التقييم',  labelEn: 'Assessment',   icon: 'ClipboardCheck', color: '#ef4444', weight:  5 },
   { key: 'recording',    label: 'التسجيل',  labelEn: 'Recording',    icon: 'Video',          color: '#38bdf8', weight:  0 },
 ]
 

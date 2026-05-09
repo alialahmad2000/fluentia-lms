@@ -9,7 +9,6 @@ export const ACTIVITY_LABELS_AR = {
   speaking:     'التحدث',
   listening:    'الاستماع',
   pronunciation:'النطق',
-  assessment:   'التقييم',
   recording:    'التسجيل',
 };
 
@@ -21,7 +20,6 @@ export const ACTIVITY_XP = {
   speaking:     35,
   listening:    20,
   pronunciation:15,
-  assessment:   40,
   recording:    10,
 };
 
@@ -33,7 +31,6 @@ export const ACTIVITY_MINUTES = {
   speaking:     25,
   listening:    15,
   pronunciation:15,
-  assessment:   20,
   recording:    10,
 };
 
@@ -46,7 +43,6 @@ export const ACTIVITY_WHY_GENERIC = {
   speaking:     'ثقتكِ تُبنى بالممارسة الحقيقية',
   listening:    'أذنكِ تتعوّد على الإيقاع الطبيعي',
   pronunciation:'النطق الصحيح = فهمٌ صحيح',
-  assessment:   'لحظة التحقق من رسوخ ما تعلّمتِ',
   recording:    'سجّلي صوتكِ وتابعي تقدّمكِ',
 };
 
@@ -54,5 +50,5 @@ export const ACTIVITY_WHY_GENERIC = {
 export const SUGGESTED_ORDER = [
   'reading', 'vocabulary', 'grammar',
   'listening', 'pronunciation',
-  'writing', 'speaking', 'assessment',
+  'writing', 'speaking',
 ];

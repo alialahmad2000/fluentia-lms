@@ -15,7 +15,6 @@ import InteractiveVocabularyTab from '../../components/interactive-curriculum/In
 import InteractiveListeningTab from '../../components/interactive-curriculum/InteractiveListeningTab'
 import InteractiveWritingTab from '../../components/interactive-curriculum/InteractiveWritingTab'
 import InteractiveSpeakingTab from '../../components/interactive-curriculum/InteractiveSpeakingTab'
-import InteractiveAssessmentTab from '../../components/interactive-curriculum/InteractiveAssessmentTab'
 import InteractiveGamesTab from '../../components/interactive-curriculum/InteractiveGamesTab'
 import InteractiveRecordingTab from '../../components/interactive-curriculum/InteractiveRecordingTab'
 
@@ -26,7 +25,6 @@ const TAB_DEFS = [
   { id: 'listening', tKey: 'trainer.curriculum.tabs.listening', icon: Headphones },
   { id: 'writing', tKey: 'trainer.curriculum.tabs.writing', icon: FileEdit },
   { id: 'speaking', tKey: 'trainer.curriculum.tabs.speaking', icon: Mic },
-  { id: 'assessment', tKey: 'trainer.curriculum.tabs.assessment', icon: ClipboardCheck },
   { id: 'games', tKey: 'trainer.curriculum.tabs.games', icon: Gamepad2 },
   { id: 'recording', tKey: 'trainer.curriculum.tabs.recording', icon: Video },
 ]
@@ -137,8 +135,6 @@ export default function InteractiveCurriculumPage() {
         return <InteractiveWritingTab unitId={unitId} students={students} highlightStudent={activeTab === 'writing' ? highlightStudent : null} />
       case 'speaking':
         return <InteractiveSpeakingTab unitId={unitId} students={students} highlightStudent={activeTab === 'speaking' ? highlightStudent : null} />
-      case 'assessment':
-        return <InteractiveAssessmentTab unitId={unitId} students={students} />
       case 'games':
         return <InteractiveGamesTab unitId={unitId} students={students} />
       case 'recording':

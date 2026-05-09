@@ -25,7 +25,6 @@ const VocabularyTab = React.lazy(() => import('./tabs/VocabularyTab'))
 const ListeningTab = React.lazy(() => import('./tabs/ListeningTab'))
 const WritingTab = React.lazy(() => import('./tabs/WritingTab'))
 const SpeakingTab = React.lazy(() => import('./tabs/SpeakingTab'))
-const AssessmentTab = React.lazy(() => import('./tabs/AssessmentTab'))
 const PronunciationTab = React.lazy(() => import('./tabs/PronunciationTab'))
 const RecordingTab = React.lazy(() => import('../../../components/curriculum/RecordingTab'))
 import { CinematicBg, CINEMATIC_TOKENS as V1, useCinematicMotion } from './_premiumPrimitives'
@@ -52,7 +51,6 @@ const TABS = [
   { id: 'writing', label: 'الكتابة' },
   { id: 'speaking', label: 'المحادثة' },
   { id: 'pronunciation', label: 'النطق' },
-  { id: 'assessment', label: 'التقييم' },
   { id: 'recording', label: 'التسجيل' },
 ]
 
@@ -247,7 +245,6 @@ export default function UnitContent() {
       case 'writing':      return <>{ribbon}<WritingTab unitId={unitId} /></>
       case 'speaking':     return <>{ribbon}<SpeakingTab unitId={unitId} /></>
       case 'pronunciation':return <>{ribbon}<PronunciationTab unitId={unitId} /></>
-      case 'assessment':   return <>{ribbon}<AssessmentTab unitId={unitId} /></>
       case 'recording':    return <RecordingTab unitId={unitId} />
       default:             return <>{ribbon}<ReadingTab unitId={unitId} /></>
     }
@@ -476,15 +473,21 @@ export default function UnitContent() {
         {/* ════ MISSION GRID + ACTIVITY CONTENT (lazy-mount-once) ════ */}
         {/* Mission grid — always mounted; hidden via CSS when inside an activity */}
         <div style={{ display: activeActivity ? 'none' : 'block' }}>
+          {/* Unit Mastery Card — goalpost shown ABOVE activities so student sees it first */}
+          {isStudent && studentData?.id && (
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease: 'easeOut' }}
+              style={{ marginBottom: '24px' }}
+            >
+              <UnitMasteryCard unitId={unitId} studentId={studentData.id} />
+            </motion.div>
+          )}
           <SmartNextStepCTA nextStep={nextStep} onNavigate={handleActivitySelect} />
           <div style={{ marginTop: '24px' }}>
             <MissionGrid activities={unitData.activities} onSelect={handleActivitySelect} unit={unit} />
           </div>
-          {isStudent && studentData?.id && (
-            <div style={{ marginTop: '24px' }}>
-              <UnitMasteryCard unitId={unitId} studentId={studentData.id} />
-            </div>
-          )}
         </div>
 
         {/* Activity panes — lazy-mount-once: rendered after first visit, toggled by CSS */}

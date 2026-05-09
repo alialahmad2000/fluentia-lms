@@ -21,7 +21,6 @@ import VocabularyTab from './tabs/VocabularyTab'
 import ListeningTab from './tabs/ListeningTab'
 import WritingTab from './tabs/WritingTab'
 import SpeakingTab from './tabs/SpeakingTab'
-import AssessmentTab from './tabs/AssessmentTab'
 import PronunciationTab from './tabs/PronunciationTab'
 import RecordingTab from '../../../components/curriculum/RecordingTab'
 import { CinematicBg, CINEMATIC_TOKENS as V1, useCinematicMotion } from './_premiumPrimitives'
@@ -34,7 +33,6 @@ const TABS = [
   { id: 'writing', label: 'الكتابة', shortLabel: 'كتابة', icon: FileEdit },
   { id: 'speaking', label: 'المحادثة', shortLabel: 'محادثة', icon: Mic },
   { id: 'pronunciation', label: 'النطق', shortLabel: 'نطق', icon: Volume2 },
-  { id: 'assessment', label: 'التقييم', shortLabel: 'تقييم', icon: ClipboardCheck },
   { id: 'recording', label: 'التسجيل', shortLabel: 'تسجيل', icon: Video },
 ]
 
@@ -200,7 +198,6 @@ export default function UnitContent() {
       case 'writing': return <WritingTab unitId={unitId} />
       case 'speaking': return <SpeakingTab unitId={unitId} />
       case 'pronunciation': return <PronunciationTab unitId={unitId} />
-      case 'assessment': return <AssessmentTab unitId={unitId} />
       case 'recording': return <RecordingTab unitId={unitId} />
       default: return <ReadingTab unitId={unitId} />
     }
