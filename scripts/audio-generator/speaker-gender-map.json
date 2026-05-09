@@ -1,0 +1,26 @@
+{
+  "version": "phase-0.5-2026-05",
+  "voices": {
+    "alice":   { "id": "Xb7hH8MSUJpSbSDYk0k2", "gender": "female", "accent": "British",  "role": "primary_female"   },
+    "matilda": { "id": "XrExE9yKIg1WjnnlVkGX", "gender": "female", "accent": "American", "role": "secondary_female" },
+    "george":  { "id": "JBFqnCBsd6RMkjVDRZzb", "gender": "male",   "accent": "British",  "role": "primary_male"     },
+    "daniel":  { "id": "onwK4e9ZLuTAKqWW03F9", "gender": "male",   "accent": "British",  "role": "secondary_male"   }
+  },
+  "speakers": {
+    "Noor":            { "gender": "female", "source": "ali_confirmed_2026-05" },
+    "Narrator":        { "gender": "female", "source": "ali_confirmed_2026-05" },
+    "Nadia":           { "gender": "female", "source": "ali_confirmed_2026-05" },
+    "Maha":            { "gender": "female", "source": "ali_confirmed_2026-05" },
+    "Mona":            { "gender": "female", "source": "ali_confirmed_2026-05" },
+    "Maya":            { "gender": "female", "source": "ali_confirmed_2026-05" },
+    "Interviewer":     { "gender": "female", "source": "ali_confirmed_2026-05" },
+    "Host":            { "gender": "male",   "source": "ali_confirmed_2026-05" },
+    "Professor Ahmed": { "gender": "male",   "source": "ali_confirmed_2026-05" },
+    "Fatima":          { "gender": "female", "source": "audit_dictionary" },
+    "Layla":           { "gender": "female", "source": "audit_dictionary" },
+    "Nora":            { "gender": "female", "source": "audit_dictionary" },
+    "Sarah":           { "gender": "female", "source": "audit_dictionary" },
+    "Emma":            { "gender": "female", "source": "audit_dictionary" },
+    "Ahmed":           { "gender": "male",   "source": "audit_dictionary" }
+  }
+}
