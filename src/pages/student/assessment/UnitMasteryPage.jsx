@@ -6,23 +6,28 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { AuroraBackground } from '../../../design-system/components'
 import { GlassPanel } from '../../../design-system/components'
 import { X, Loader2, ChevronRight, ChevronLeft } from 'lucide-react'
+import { toast } from '../../../components/ui/FluentiaToast'
+import AssessmentTimer from '../../../components/assessment/AssessmentTimer'
 
 // ── Question Renderers ──
-function MCQRenderer({ question, answer, onAnswer }) {
+function MCQRenderer({ question, answer, onAnswer, disabled }) {
   return (
     <div className="space-y-3">
       {(question.options || []).map((opt) => (
         <motion.button
           key={opt.id}
-          onClick={() => onAnswer(opt.id)}
+          onClick={() => !disabled && onAnswer(opt.id)}
           className="w-full text-left rounded-xl px-5 transition-all"
           style={{
             minHeight: '68px', display: 'flex', alignItems: 'center', gap: '12px',
             background: answer === opt.id ? 'var(--ds-accent-primary, rgba(56,189,248,0.15))' : 'var(--ds-surface-1, rgba(255,255,255,0.04))',
             border: `1.5px solid ${answer === opt.id ? 'var(--ds-accent-primary, #38bdf8)' : 'var(--ds-border-subtle, rgba(255,255,255,0.08))'}`,
             color: 'var(--ds-text-primary, #f8fafc)',
+            opacity: disabled ? 0.5 : 1,
+            cursor: disabled ? 'not-allowed' : 'pointer',
           }}
-          whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}
+          whileHover={disabled ? {} : { scale: 1.01 }}
+          whileTap={disabled ? {} : { scale: 0.99 }}
         >
           <span className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold"
             style={{
@@ -38,20 +43,23 @@ function MCQRenderer({ question, answer, onAnswer }) {
   )
 }
 
-function TrueFalseRenderer({ answer, onAnswer }) {
+function TrueFalseRenderer({ answer, onAnswer, disabled }) {
   return (
     <div className="grid grid-cols-2 gap-4">
       {[{ val: true, label: 'صح' }, { val: false, label: 'خطأ' }].map(({ val, label }) => (
         <motion.button
           key={String(val)}
-          onClick={() => onAnswer(val)}
+          onClick={() => !disabled && onAnswer(val)}
           className="rounded-xl py-6 text-center text-lg font-bold transition-all"
           style={{
             background: answer === val ? 'var(--ds-accent-primary, rgba(56,189,248,0.15))' : 'var(--ds-surface-1, rgba(255,255,255,0.04))',
             border: `1.5px solid ${answer === val ? 'var(--ds-accent-primary, #38bdf8)' : 'var(--ds-border-subtle, rgba(255,255,255,0.08))'}`,
             color: 'var(--ds-text-primary, #f8fafc)',
+            opacity: disabled ? 0.5 : 1,
+            cursor: disabled ? 'not-allowed' : 'pointer',
           }}
-          whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+          whileHover={disabled ? {} : { scale: 1.02 }}
+          whileTap={disabled ? {} : { scale: 0.98 }}
         >
           {label}
         </motion.button>
@@ -60,7 +68,7 @@ function TrueFalseRenderer({ answer, onAnswer }) {
   )
 }
 
-function FillBlankRenderer({ answer, onAnswer }) {
+function FillBlankRenderer({ answer, onAnswer, disabled }) {
   return (
     <input
       type="text"
@@ -68,29 +76,31 @@ function FillBlankRenderer({ answer, onAnswer }) {
       value={answer || ''}
       onChange={(e) => onAnswer(e.target.value)}
       placeholder="Type your answer..."
+      disabled={disabled}
       className="w-full px-5 py-4 rounded-xl text-lg"
       style={{
         background: 'var(--ds-surface-1, rgba(255,255,255,0.04))',
         border: '1.5px solid var(--ds-border-subtle, rgba(255,255,255,0.12))',
         color: 'var(--ds-text-primary, #f8fafc)',
         outline: 'none',
+        opacity: disabled ? 0.5 : 1,
+        cursor: disabled ? 'not-allowed' : 'text',
       }}
-      onFocus={(e) => e.target.style.borderColor = 'var(--ds-accent-primary, #38bdf8)'}
+      onFocus={(e) => { if (!disabled) e.target.style.borderColor = 'var(--ds-accent-primary, #38bdf8)' }}
       onBlur={(e) => e.target.style.borderColor = 'var(--ds-border-subtle, rgba(255,255,255,0.12))'}
     />
   )
 }
 
-function MatchingRenderer({ question, answer, onAnswer }) {
-  const pairs = question.options || [] // [{left, right}] available items
+function MatchingRenderer({ question, answer, onAnswer, disabled }) {
+  const pairs = question.options || []
   const current = answer || []
-
   const [selectedLeft, setSelectedLeft] = useState(null)
   const leftItems = pairs.map(p => p.left)
   const rightItems = pairs.map(p => p.right).sort(() => 0.5 - Math.random())
 
   const handleRightClick = (right) => {
-    if (selectedLeft === null) return
+    if (selectedLeft === null || disabled) return
     const updated = [...current.filter(p => p.left !== selectedLeft && p.right !== right), { left: selectedLeft, right }]
     setSelectedLeft(null)
     onAnswer(updated)
@@ -100,12 +110,13 @@ function MatchingRenderer({ question, answer, onAnswer }) {
   const pairedLefts = new Set(current.map(p => p.left))
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 gap-4" style={{ opacity: disabled ? 0.5 : 1 }}>
       <div className="space-y-2">
         {leftItems.map((l) => (
           <button
             key={l}
-            onClick={() => setSelectedLeft(l)}
+            onClick={() => !disabled && setSelectedLeft(l)}
+            disabled={disabled}
             className="w-full px-4 py-3 rounded-lg text-sm text-left"
             style={{
               background: selectedLeft === l ? 'var(--ds-accent-primary, rgba(56,189,248,0.2))' : pairedLefts.has(l) ? 'rgba(34,197,94,0.1)' : 'var(--ds-surface-1, rgba(255,255,255,0.04))',
@@ -122,6 +133,7 @@ function MatchingRenderer({ question, answer, onAnswer }) {
           <button
             key={r}
             onClick={() => handleRightClick(r)}
+            disabled={disabled}
             className="w-full px-4 py-3 rounded-lg text-sm text-left"
             style={{
               background: pairedRights.has(r) ? 'rgba(34,197,94,0.1)' : 'var(--ds-surface-1, rgba(255,255,255,0.04))',
@@ -165,8 +177,9 @@ export default function UnitMasteryPage() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState(null)
   const [showExitConfirm, setShowExitConfirm] = useState(false)
+  const [startedAt, setStartedAt] = useState(null)
+  const [timeLimitSeconds, setTimeLimitSeconds] = useState(null)
   const startTime = useRef(Date.now())
-  const questionStartTimes = useRef({})
 
   // Start assessment
   useEffect(() => {
@@ -195,8 +208,11 @@ export default function UnitMasteryPage() {
           return
         }
 
+        const now = new Date().toISOString()
         setAttemptId(data.attempt_id)
         setQuestions(data.questions || [])
+        setStartedAt(now)
+        setTimeLimitSeconds(data.time_limit_seconds || null)
         startTime.current = Date.now()
         setLoading(false)
       } catch (err) {
@@ -207,10 +223,11 @@ export default function UnitMasteryPage() {
   }, [profile, assessmentId])
 
   const handleAnswer = useCallback((value) => {
+    if (submitting) return
     setAnswers(prev => ({ ...prev, [questions[currentIdx]?.id]: value }))
-  }, [currentIdx, questions])
+  }, [currentIdx, questions, submitting])
 
-  const handleSubmit = useCallback(async () => {
+  const handleSubmit = useCallback(async ({ auto = false } = {}) => {
     if (submitting) return
     setSubmitting(true)
 
@@ -246,6 +263,11 @@ export default function UnitMasteryPage() {
       setSubmitting(false)
     }
   }, [submitting, questions, answers, attemptId, navigate])
+
+  const handleTimeExpired = useCallback(async () => {
+    toast({ type: 'warning', title: 'انتهى الوقت — تم رفع إجاباتك تلقائياً' })
+    await handleSubmit({ auto: true })
+  }, [handleSubmit])
 
   if (!profile) return null
 
@@ -319,9 +341,20 @@ export default function UnitMasteryPage() {
         <div className="w-10" />
       </div>
 
-      {/* Question — bottom padding respects mobile nav + iOS home indicator.
-          Nav controls (Prev/Next/Submit) inside this block must clear the bottom nav.
-          Uses 100dvh (dynamic viewport) not 100vh for iOS Safari URL bar. */}
+      {/* Countdown timer — sticky below top bar, full-width strip with centered content */}
+      {startedAt && timeLimitSeconds && (
+        <div className="relative z-20 px-4">
+          <div style={{ maxWidth: '680px', margin: '0 auto' }}>
+            <AssessmentTimer
+              startedAt={startedAt}
+              timeLimitSeconds={timeLimitSeconds}
+              onExpire={handleTimeExpired}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Question */}
       <div
         className="relative z-10 flex flex-col items-center justify-center min-h-[calc(100dvh-80px)] px-4"
         style={{ paddingBottom: 'var(--mobile-bottom-clearance, 32px)' }}
@@ -347,16 +380,16 @@ export default function UnitMasteryPage() {
               </h2>
             </GlassPanel>
 
-            {question?.question_type === 'mcq' && <MCQRenderer question={question} answer={answers[question.id]} onAnswer={handleAnswer} />}
-            {question?.question_type === 'true_false' && <TrueFalseRenderer answer={answers[question.id]} onAnswer={handleAnswer} />}
-            {question?.question_type === 'fill_blank' && <FillBlankRenderer answer={answers[question.id]} onAnswer={handleAnswer} />}
-            {question?.question_type === 'matching' && <MatchingRenderer question={question} answer={answers[question.id]} onAnswer={handleAnswer} />}
+            {question?.question_type === 'mcq' && <MCQRenderer question={question} answer={answers[question.id]} onAnswer={handleAnswer} disabled={submitting} />}
+            {question?.question_type === 'true_false' && <TrueFalseRenderer answer={answers[question.id]} onAnswer={handleAnswer} disabled={submitting} />}
+            {question?.question_type === 'fill_blank' && <FillBlankRenderer answer={answers[question.id]} onAnswer={handleAnswer} disabled={submitting} />}
+            {question?.question_type === 'matching' && <MatchingRenderer question={question} answer={answers[question.id]} onAnswer={handleAnswer} disabled={submitting} />}
 
             {/* Nav buttons */}
             <div className="flex items-center justify-between mt-6">
               <button
                 onClick={() => setCurrentIdx(Math.max(0, currentIdx - 1))}
-                disabled={currentIdx === 0}
+                disabled={currentIdx === 0 || submitting}
                 className="flex items-center gap-1 px-4 py-2.5 rounded-xl text-sm font-medium transition-all"
                 style={{
                   background: 'var(--ds-surface-1, rgba(255,255,255,0.04))',
@@ -370,7 +403,7 @@ export default function UnitMasteryPage() {
 
               {isLast ? (
                 <button
-                  onClick={handleSubmit}
+                  onClick={() => handleSubmit()}
                   disabled={submitting}
                   className="flex items-center gap-1 px-6 py-2.5 rounded-xl text-sm font-bold"
                   style={{ background: 'var(--ds-accent-primary, #38bdf8)', color: '#060e1c' }}
@@ -380,6 +413,7 @@ export default function UnitMasteryPage() {
               ) : (
                 <button
                   onClick={() => setCurrentIdx(Math.min(questions.length - 1, currentIdx + 1))}
+                  disabled={submitting}
                   className="flex items-center gap-1 px-4 py-2.5 rounded-xl text-sm font-medium"
                   style={{
                     background: 'var(--ds-accent-primary, rgba(56,189,248,0.1))',
