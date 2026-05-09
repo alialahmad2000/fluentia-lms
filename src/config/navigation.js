@@ -3,6 +3,7 @@ import {
   BookMarked, User, Settings, BarChart3, ClipboardList,
   Megaphone, CreditCard, GraduationCap, UserCog, Bot, FileText,
   StickyNote, TrendingUp, Zap, CalendarClock, Swords, Target, Map, Award,
+  MessageCircle,
 } from 'lucide-react'
 
 
@@ -20,6 +21,7 @@ export const STUDENT_NAV = {
         { id: 'reports',     label: 'التقارير',     icon: CalendarClock, to: '/student/progress-reports' },
         { id: 'how-to-earn', label: 'كيف تكسب XP 🎯', icon: Target,   to: '/student/how-to-earn' },
         { id: 'level-journey', label: 'خريطة رحلتكِ',  icon: Map,      to: '/student/level-journey' },
+        { id: 'speaking-hub', label: 'نادي المحادثة', icon: MessageCircle, to: '/student/speaking-hub' },
       ],
     },
     {
@@ -156,6 +158,7 @@ export const ADMIN_NAV = {
         { id: 'affiliates',  label: 'الشركاء',      icon: Users,         to: '/admin/affiliates' },
         { id: 'competition', label: 'المسابقة ⚔️',  icon: Swords,        to: '/admin/competition' },
         { id: 'ielts',       label: 'IELTS',         icon: Target,        to: '/admin/curriculum/ielts' },
+        { id: 'speaking-hubs', label: 'نادي المحادثة', icon: MessageCircle, to: '/admin/speaking-hubs' },
       ],
     },
     {

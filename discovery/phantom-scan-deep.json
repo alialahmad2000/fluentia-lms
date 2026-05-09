@@ -1,0 +1,492 @@
+{
+  "lian_candidates": [
+    {
+      "id": "0c8112f5-2617-4bc7-8b99-771f395db58f",
+      "full_name": "ليان عبدالله العنزي",
+      "role": "student",
+      "email": "layan88700@gmail.com"
+    }
+  ],
+  "listening_phantoms_extended": [],
+  "reading_zero_score": [],
+  "section_distribution": [
+    {
+      "section_type": "reading",
+      "total": "108",
+      "zero_score": "0",
+      "avg_score": "95.2870370370370370",
+      "min_score": "38"
+    },
+    {
+      "section_type": "grammar",
+      "total": "76",
+      "zero_score": "3",
+      "avg_score": "72.1184210526315789",
+      "min_score": "0"
+    },
+    {
+      "section_type": "writing",
+      "total": "49",
+      "zero_score": "4",
+      "avg_score": "63.3333333333333333",
+      "min_score": "40"
+    },
+    {
+      "section_type": "pronunciation",
+      "total": "36",
+      "zero_score": "0",
+      "avg_score": "95.0000000000000000",
+      "min_score": "40"
+    },
+    {
+      "section_type": "speaking",
+      "total": "33",
+      "zero_score": "0",
+      "avg_score": "69.2727272727272727",
+      "min_score": "50"
+    },
+    {
+      "section_type": "listening",
+      "total": "27",
+      "zero_score": "0",
+      "avg_score": "88.9259259259259259",
+      "min_score": "25"
+    },
+    {
+      "section_type": "vocabulary",
+      "total": "25",
+      "zero_score": "0",
+      "avg_score": "100.1600000000000000",
+      "min_score": "100"
+    },
+    {
+      "section_type": "vocabulary_exercise",
+      "total": "20",
+      "zero_score": "0",
+      "avg_score": "94.2000000000000000",
+      "min_score": "71"
+    }
+  ],
+  "lian_completed": [
+    {
+      "id": "db0ec23b-c180-4119-8739-81a9c1e1297c",
+      "section_type": "grammar",
+      "status": "completed",
+      "score": "50",
+      "created_at": "2026-05-08T17:39:12.225Z",
+      "completed_at": "2026-05-09T07:46:12.380Z",
+      "attempt_number": 1,
+      "is_latest": true,
+      "is_best": true,
+      "answers": {
+        "exercises": [
+          {
+            "id": "1d719202-af17-4688-86b7-ce50eaf81ce5",
+            "type": "fill_blank",
+            "isCorrect": false,
+            "correctAnswer": "visited",
+            "studentAnswer": "visited"
+          },
+          {
+            "id": "946178f7-9c59-4b49-9a12-300813575ca0",
+            "type": "choose",
+            "isCorrect": false,
+            "correctAnswer": "cooked",
+            "studentAnswer": "cooked"
+          },
+          {
+            "id": "6457a211-45df-458f-a148-c86ff235c9e4",
+            "type": "fill_blank",
+            "isCorrect": false,
+            "correctAnswer": "enjoyed",
+            "studentAnswer": "enjoyed"
+          },
+          {
+            "id": "e340fcea-4581-4939-b77a-c47106dd399e",
+            "type": "transform",
+            "isCorrect": false,
+            "correctAnswer": "I watched the fireworks show.",
+            "studentAnswer": "I Watched fireworks show"
+          },
+          {
+            "id": "b3810288-1ffb-4dba-89e1-14c9095205fa",
+            "type": "choose",
+            "isCorrect": true,
+            "correctAnswer": "prepared",
+            "studentAnswer": "prepared"
+          },
+          {
+            "id": "68cf052b-93d5-4fc7-8d0a-18baf7b6ab1d",
+            "type": "fill_blank",
+            "isCorrect": true,
+            "correctAnswer": "played",
+            "studentAnswer": "played"
+          },
+          {
+            "id": "86a3425c-88f2-46db-857d-92e73a2046d1",
+            "type": "error_correction",
+            "isCorrect": true,
+            "correctAnswer": "They danced all night at the wedding.",
+            "studentAnswer": "They danced all night at the wedding"
+          },
+          {
+            "id": "79467db9-84ff-4d7c-af5c-746739335123",
+            "type": "reorder",
+            "isCorrect": true,
+            "correctAnswer": "We attended the festival last month.",
+            "studentAnswer": "We attended the festival last month"
+          }
+        ]
+      }
+    },
+    {
+      "id": "322878fb-7c5d-4458-9abc-bafcd7f8147e",
+      "section_type": "vocabulary",
+      "status": "completed",
+      "score": "100",
+      "created_at": "2026-05-07T06:31:34.969Z",
+      "completed_at": "2026-05-07T15:51:39.895Z",
+      "attempt_number": 1,
+      "is_latest": true,
+      "is_best": true,
+      "answers": {
+        "totalWords": 60,
+        "reviewedWords": [
+          "edee9605-7771-400c-89bd-810d2ad940cd",
+          "5b83168b-a85f-4c1b-a6df-bbe5b6168e88",
+          "6796b410-18b1-4d8e-ad25-9a60f170604e",
+          "2f0a8264-1346-40b7-9d0a-8e94faea32c4",
+          "4af062a1-1c8a-4f75-b45c-ede6411c64bb",
+          "01511dab-3390-4e4c-a13f-a8dcbdc97357",
+          "6dfdc55f-cb2e-4818-b6af-1ed1f2fcb767",
+          "31789090-4764-4bd9-b832-867e6c2d27b1",
+          "34431301-14e7-43d6-9ed0-7795f727762f",
+          "6342b1a3-fc27-4a98-aa78-d91b8814cd91",
+          "b2e01618-f31c-4760-bbb4-bbb67185e1f8",
+          "3fde5b64-b078-47ae-85ee-abd222be6c46",
+          "45cd1efd-2e23-41c0-b238-63eb0f837c46",
+          "826669c9-b234-42f4-9d87-89dea4a8719f",
+          "984057cd-7ea2-4d12-be56-5bbe80c28326",
+          "c58e59cd-15e0-44ae-90dc-353604a31b6c",
+          "7c9ab985-d59b-483b-9eb0-7c99df23de24",
+          "6a6f2308-94b2-4505-aa48-32523af8fd59",
+          "543732a2-db1e-4e7c-b088-6e5ae3bf368e",
+          "b65c2fd3-7123-4407-a971-4d3889024e0b",
+          "c3eacfb9-7c7e-4bd3-b268-9d26845b0d73",
+          "a0c0dead-3d28-437a-b92a-16b108e91ee5",
+          "cbd47b6d-7c8a-429c-bfab-4f21fc128ea0",
+          "d452a9fa-b055-4e4e-ad70-349caa089cc3",
+          "d698cb11-81ac-4ab9-8bed-9435298ebc2a",
+          "19f108ef-191e-4d18-897f-d070e97b819b",
+          "e9fc9bf6-718c-4a20-a53a-8576bc211a0a",
+          "390a45e1-d257-40a9-9476-b78ed42b101f",
+          "58a108bb-330b-4a53-9746-f9f101f28931",
+          "5bbe92c4-7d58-4c09-89d7-4f5e35e5155a",
+          "1ebd83a8-b340-4732-9a16-08f04cb97bbe",
+          "64c36fff-41b5-4a7d-87ce-21b4aae1aa9c",
+          "76fff640-8b4a-4ab5-b9a0-a1fde7fcb163",
+          "971fdbd5-2295-4077-81e6-bd7893933c84",
+          "bcd08712-2520-4b1d-9c02-df5183b542f5",
+          "d55d9648-7b83-4823-ac3f-dd2cc0ee2523",
+          "9ff4bc96-f5d5-4daf-8f2f-02b1db07d652",
+          "1c85d411-70d5-4ac9-8b16-ca4f0d355c2a",
+          "7eebc80d-fa87-45d7-893a-9ff38d61ec84",
+          "58af420b-ea4d-4e07-b81c-e5de4a3e718b",
+          "b3a24e6d-f262-4623-9539-7fc615446c71",
+          "c9dd0379-1fff-4654-b44a-d3d997675302",
+          "2112369e-169d-4a5f-8bc8-9d8600a08895",
+          "bfd201cf-c76c-4e72-98d1-f32a8041098b",
+          "681f497d-f28a-4fa5-8e44-aa53bc4ddc2d",
+          "099187f1-09ea-4fbb-bbbc-653981476998",
+          "fc362bb5-88a3-444f-9bb1-586baa206783",
+          "2d1b518c-aa0d-41a2-a3e5-72a9c7180996",
+          "62d656ee-c77c-49d8-ba83-fd226f937e3e",
+          "dc6cd77b-4403-4560-a7d3-66052ad8e7e9",
+          "9aad5a7b-7a9c-4725-814d-f764b039ee49",
+          "dd17edc2-6645-4b3c-9fd9-1ab029400d43",
+          "fb8c1ddb-5016-4a3a-abf4-5cb98cec01f0",
+          "87ad3116-ad3c-4821-93a3-76b92b998f4d",
+          "f027733f-9997-4ec5-9ecd-9936b1fb9ce0",
+          "51782b42-24e1-49ba-9629-56aeb9d5734d",
+          "6e088b2c-1ed2-4b0a-ba7c-fe2f66a3e3d6",
+          "58527144-6205-44d1-ab41-2efbf997bcf5",
+          "e3f8b401-baf7-42f2-b260-03d74676d9d1",
+          "1d8234f2-0f5e-4759-892c-d11e13c721b0"
+        ]
+      }
+    },
+    {
+      "id": "bf89a176-bf3c-4d93-9452-ba3c69123366",
+      "section_type": "vocabulary_exercise",
+      "status": "completed",
+      "score": "100",
+      "created_at": "2026-05-07T14:46:28.223Z",
+      "completed_at": "2026-05-07T15:04:50.647Z",
+      "attempt_number": 1,
+      "is_latest": true,
+      "is_best": true,
+      "answers": {
+        "exercises": {
+          "match": {
+            "score": 5,
+            "answers": {
+              "34431301-14e7-43d6-9ed0-7795f727762f": "34431301-14e7-43d6-9ed0-7795f727762f",
+              "45cd1efd-2e23-41c0-b238-63eb0f837c46": "45cd1efd-2e23-41c0-b238-63eb0f837c46",
+              "51782b42-24e1-49ba-9629-56aeb9d5734d": "51782b42-24e1-49ba-9629-56aeb9d5734d",
+              "58527144-6205-44d1-ab41-2efbf997bcf5": "58527144-6205-44d1-ab41-2efbf997bcf5",
+              "bcd08712-2520-4b1d-9c02-df5183b542f5": "bcd08712-2520-4b1d-9c02-df5183b542f5"
+            },
+            "maxScore": 5,
+            "completed": true
+          },
+          "choose": {
+            "score": 6,
+            "maxScore": 6,
+            "completed": true
+          },
+          "scramble": {
+            "score": 5,
+            "maxScore": 5,
+            "completed": true
+          },
+          "fill_blank": {
+            "score": 5,
+            "answers": {
+              "1d8234f2-0f5e-4759-892c-d11e13c721b0": "turbine",
+              "58af420b-ea4d-4e07-b81c-e5de4a3e718b": "laboratory",
+              "6dfdc55f-cb2e-4818-b6af-1ed1f2fcb767": "engine",
+              "cbd47b6d-7c8a-429c-bfab-4f21fc128ea0": "obvious",
+              "fb8c1ddb-5016-4a3a-abf4-5cb98cec01f0": "genius"
+            },
+            "maxScore": 5,
+            "completed": true
+          }
+        }
+      }
+    },
+    {
+      "id": "8535b608-ea42-478c-a6c9-195ecf1398ac",
+      "section_type": "grammar",
+      "status": "completed",
+      "score": "88",
+      "created_at": "2026-05-07T06:16:58.267Z",
+      "completed_at": "2026-05-07T06:30:06.004Z",
+      "attempt_number": 1,
+      "is_latest": true,
+      "is_best": true,
+      "answers": {
+        "exercises": [
+          {
+            "id": "07991425-557d-4d4f-8380-c3a369a245db",
+            "type": "choose",
+            "isCorrect": true,
+            "correctAnswer": "much",
+            "studentAnswer": "much"
+          },
+          {
+            "id": "2bb7e15b-d6f6-4eff-bf3b-710aaf88094f",
+            "type": "choose",
+            "isCorrect": true,
+            "correctAnswer": "many",
+            "studentAnswer": "many"
+          },
+          {
+            "id": "13593578-492f-442c-9c0b-05b3e54dff69",
+            "type": "fill_blank",
+            "isCorrect": true,
+            "correctAnswer": "little",
+            "studentAnswer": "little"
+          },
+          {
+            "id": "8ee5344b-8302-4576-981b-5f5a9e58a41e",
+            "type": "error_correction",
+            "isCorrect": true,
+            "correctAnswer": "We need much plastic to make this invention.",
+            "studentAnswer": "we need much plastic to make this invention"
+          },
+          {
+            "id": "8d33a986-4683-465e-a7ef-0e5d2c2da25f",
+            "type": "choose",
+            "isCorrect": false,
+            "correctAnswer": "The",
+            "studentAnswer": "Much"
+          },
+          {
+            "id": "5c6314f1-d5a2-4dc2-83bf-ba083dc4009b",
+            "type": "fill_blank",
+            "isCorrect": true,
+            "correctAnswer": "many",
+            "studentAnswer": "many"
+          },
+          {
+            "id": "f69d0d7a-6604-4f53-a25f-5f5814a334d2",
+            "type": "choose",
+            "isCorrect": true,
+            "correctAnswer": "little",
+            "studentAnswer": "little"
+          },
+          {
+            "id": "8bdde686-867b-4883-bd33-edf1f90db17d",
+            "type": "transform",
+            "isCorrect": true,
+            "correctAnswer": "These inventions need electricity.",
+            "studentAnswer": "these inventions need electricity"
+          }
+        ]
+      }
+    },
+    {
+      "id": "6b7f7971-8dea-4b14-802d-79b071076a28",
+      "section_type": "reading",
+      "status": "completed",
+      "score": "100",
+      "created_at": "2026-05-05T17:05:02.640Z",
+      "completed_at": "2026-05-06T03:58:24.362Z",
+      "attempt_number": 1,
+      "is_latest": true,
+      "is_best": true,
+      "answers": {
+        "1748dc08-f03f-4e2a-936c-d0c11687a211": {
+          "correct": true,
+          "selected": "Camel races, falconry displays, and folk dances"
+        },
+        "35502d5d-358c-4ec1-9ef3-12a40e2881f8": {
+          "correct": true,
+          "selected": "Festivals around the world help people celebrate their culture and bring communities together"
+        },
+        "559c9663-63d9-4e2d-af3f-ffc6a933e1bd": {
+          "correct": true,
+          "selected": "They learn about their culture and feel proud of their heritage"
+        },
+        "66f3a2c2-d424-4a75-be2c-9fe36a67ef2c": {
+          "correct": true,
+          "selected": "Come together"
+        },
+        "b5e28295-d240-46f9-b746-62c72a55037e": {
+          "correct": true,
+          "selected": "Over 200 million people"
+        },
+        "d829e3bb-670c-43c1-8b0d-cbb2ec0306cd": {
+          "correct": true,
+          "selected": "Brings or draws people to come"
+        }
+      }
+    }
+  ],
+  "lian_in_progress": [
+    {
+      "id": "123f4895-44a8-4029-8afe-72b489c763b6",
+      "section_type": "vocabulary",
+      "status": "in_progress",
+      "score": "85",
+      "created_at": "2026-05-09T08:47:28.737Z",
+      "answers": {
+        "totalWords": 59,
+        "reviewedWords": [
+          "51795454-6c00-4d9f-9d4f-1aa8068fee38",
+          "e97b9433-b81d-4352-81ab-ef5315700c20",
+          "673e0b83-c675-4b4a-8339-c7963f64ebfe",
+          "288ea4bf-9df2-4ee8-b82b-00c621c40cef",
+          "33b96ee8-59a0-4c0f-91b1-f5eafc235b38",
+          "94a6beab-f07e-4c34-ac13-24e25749a56d",
+          "35168c94-5491-46ec-976b-908ce40f4c73",
+          "0a5e16a7-527b-4d6c-8a28-989e18e2b68b",
+          "9975e2b1-ddf6-4e0a-8908-55d037116631",
+          "08876042-a1cb-49cc-a57e-ddcd568420e5",
+          "bce1c378-4e89-4bd1-b3fc-860603d03185",
+          "1e9e941a-d32e-4dbd-845d-f0c1ea06fbe0",
+          "d4ab626b-b615-4588-b38b-c01335aef31b",
+          "5a9c2338-9b93-46e7-8616-dee25b971346",
+          "aee42b52-ad37-47ac-9231-f5c1dd3b5f39",
+          "18565725-cd54-47f8-9508-d24e524bc5b8",
+          "a1437bc7-787d-4a35-81bc-45a955742ec4",
+          "7c53808e-e13b-470a-bb6a-13202945aa3e",
+          "479f45bb-853e-4e34-93f5-81880c54e16f",
+          "4e2d4470-8cb5-4269-9d4f-bcf5ceb437e8",
+          "b9404557-e7c0-48ee-9fe6-a9d4f51a42f2",
+          "ab9aeb07-2f55-47fc-9e73-7681bf620a37",
+          "323ae254-2797-4520-88c1-be00cadecadb",
+          "5397493b-69e9-4da4-81fb-e7dfec528a8f",
+          "2b796e97-3bf3-44f4-9ee6-975552cdfcaf",
+          "480c4ba7-851e-4b23-900f-658a97dd095b",
+          "aeaaef96-7ed8-49f5-9234-babe3c03bc28",
+          "ba763bc2-0974-4ca6-9330-f0913f47fd51",
+          "c4934faa-3d65-4e88-b77c-87fec54a10e6",
+          "37390a59-8cbb-493d-9c9d-96105aa85fea",
+          "c2db753a-d027-413c-ad55-adb46d6bc00c",
+          "af350803-cee3-436a-ae92-15f50197ca85",
+          "040d304d-8780-45b2-9101-358725f9cfa2",
+          "c6655d2c-016b-4bd0-a174-e69742cb43b3",
+          "e36f2e73-74e5-4309-bb2d-aed02901a16e",
+          "d9e8c03e-b780-49b0-86b3-d0dfcd7e971e",
+          "a664a5d4-e9b0-4127-a135-283cee8b8614",
+          "934d4eaa-702a-4028-b673-10c676c740db",
+          "9f57c978-8512-478e-8aef-f9382d5d9190",
+          "465ffb69-2145-4651-9365-01f4219bcb40",
+          "4a64ae43-4131-4407-99a2-7e55de4fba45",
+          "66e30f39-c145-4e21-9fe0-fb903a8dc693",
+          "916f0434-f0d8-4482-bf5e-2a10298eac41",
+          "92296f77-70e7-4640-bfd6-7e723547435c",
+          "ee55e519-a839-4669-8ae1-5c0e97be7e06",
+          "5c91adaa-b9e8-4065-95ac-f8398079892b",
+          "978dece7-0213-466b-9c99-323e23998633",
+          "ec0986b5-a61c-41a6-8923-cd938e111bd2",
+          "1713386a-12fa-4273-9ece-dd8b29082835",
+          "c8422e50-f9b3-460b-9542-75b45f16f8f6"
+        ]
+      },
+      "attempt_number": 1
+    },
+    {
+      "id": "cbf3b249-b20c-44af-b08c-5b04d53f37c7",
+      "section_type": "reading",
+      "status": "in_progress",
+      "score": null,
+      "created_at": "2026-05-06T17:21:21.938Z",
+      "answers": {
+        "9063a8e2-dd30-449d-a23a-632356fef584": {
+          "correct": true,
+          "selected": "Many important inventions started as simple ideas to solve problems"
+        }
+      },
+      "attempt_number": 1
+    }
+  ],
+  "recent_listening_with_null_answers": [
+    {
+      "id": "989b5c32-7c1c-44a2-8e6b-068b1e76eccc",
+      "student_id": "de70db0c-1d87-4328-86d8-aa37344980a7",
+      "listening_id": "8dbff5e6-0138-499c-9b79-dca991978b24",
+      "score": "67",
+      "status": "completed",
+      "created_at": "2026-04-17T18:30:59.959Z",
+      "completed_at": "2026-04-17T18:34:10.777Z",
+      "answers": {
+        "questions": [
+          {
+            "question": "According to Dr. Chen, what is the main cause of earthquakes?",
+            "isCorrect": true,
+            "correctAnswer": 1,
+            "questionIndex": 0,
+            "studentAnswer": 1
+          },
+          {
+            "question": "Why can't scientists predict exactly when earthquakes will happen?",
+            "isCorrect": true,
+            "correctAnswer": 1,
+            "questionIndex": 1,
+            "studentAnswer": 1
+          },
+          {
+            "question": "What is the main message Dr. Chen wants to convey about earthquake safety?",
+            "isCorrect": false,
+            "correctAnswer": 1,
+            "questionIndex": 2,
+            "studentAnswer": null
+          }
+        ]
+      },
+      "attempt_number": 1
+    }
+  ]
+}

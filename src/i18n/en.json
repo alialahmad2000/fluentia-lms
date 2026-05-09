@@ -579,5 +579,126 @@
   },
   "help": {
     "arabic_content_notice": "Help guide content is in Arabic. Translation coming soon."
+  },
+  "admin": {
+    "sidebar": {
+      "speakingHubs": "Speaking Hub"
+    },
+    "speakingHub": {
+      "list": {
+        "title": "Speaking Hub",
+        "createNew": "New session",
+        "empty": "No sessions yet"
+      },
+      "listStats": {
+        "assigned": "assigned",
+        "watched": "watched",
+        "withNotes": "with notes"
+      },
+      "listStatus": {
+        "draft": "Draft",
+        "published": "Published",
+        "live": "Live",
+        "completed": "Completed",
+        "archived": "Archived"
+      },
+      "form": {
+        "createTitle": "Create new session",
+        "title": "Title",
+        "titleEn": "Title (English)",
+        "description": "Description",
+        "videoUrl": "Video URL",
+        "videoTitle": "Video title",
+        "videoChannel": "Channel",
+        "videoDuration": "Duration (min)",
+        "notePrompts": "Note prompts",
+        "vocabFocus": "Vocabulary focus",
+        "discussionQuestions": "Discussion questions",
+        "hubSessionAt": "Session date and time",
+        "hubSessionLink": "Google Meet link",
+        "hubSessionDuration": "Session duration (min)",
+        "status": "Status",
+        "save": "Save",
+        "cancel": "Cancel",
+        "addPrompt": "+ Add prompt",
+        "addVocab": "+ Add word",
+        "addDiscussion": "+ Add question",
+        "saved": "Saved",
+        "saveFailed": "Save failed",
+        "word": "Word",
+        "wordMeaning": "Meaning (Arabic)"
+      },
+      "tabs": {
+        "edit": "Edit",
+        "assign": "Assign",
+        "progress": "Progress"
+      },
+      "assign": {
+        "groups": "Groups",
+        "students": "Individual students",
+        "current": "Currently assigned",
+        "search": "Search...",
+        "alreadyAssigned": "Assigned",
+        "save": "Assign",
+        "remove": "Remove",
+        "confirmRemove": "Remove assignment?",
+        "type_group": "Group",
+        "type_student": "Student",
+        "noAssignments": "No assignments yet"
+      },
+      "progress": {
+        "name": "Name",
+        "started": "Started watching",
+        "wordCount": "Words",
+        "lastUpdated": "Last updated",
+        "attended": "Attended",
+        "notStarted": "Not started",
+        "watched": "Watched",
+        "yes": "Yes",
+        "no": "No",
+        "summaryWatched": "{{done}} of {{total}} finished watching",
+        "summaryNotes": "{{done}} of {{total}} wrote notes"
+      }
+    }
+  },
+  "student": {
+    "sidebar": {
+      "speakingHub": "Speaking Hub"
+    },
+    "speakingHub": {
+      "list": {
+        "title": "Speaking Hub",
+        "upcoming": "Upcoming",
+        "past": "Past",
+        "empty": "No sessions assigned yet"
+      },
+      "card": {
+        "notWatched": "Not watched yet",
+        "watched": "Watched",
+        "hasNotes": "You have notes",
+        "wordsCount": "{{count}} words",
+        "sessionIn": "in {{distance}}",
+        "sessionEnded": "Session ended",
+        "sessionLive": "🔴 Live now"
+      },
+      "detail": {
+        "back": "Back",
+        "watch": "Watch the video",
+        "notePrompts": "💡 Focus questions",
+        "vocabFocus": "📚 Key vocabulary",
+        "yourNotes": "Your notes",
+        "notesOptional": "(optional)",
+        "notesPlaceholder": "Write your thoughts while listening...",
+        "saving": "Saving...",
+        "saved": "Saved",
+        "savedAgo": "{{distance}} ago",
+        "wordCount": "{{count}} words",
+        "discussionQuestions": "💬 Discussion questions",
+        "discussionHint": "Prepare your answers before the session",
+        "session": "Discussion session",
+        "joinMeet": "Join via Google Meet",
+        "sessionTBD": "Session date TBA"
+      }
+    }
   }
 }

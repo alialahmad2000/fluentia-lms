@@ -1,0 +1,515 @@
+{
+  "schema": [
+    {
+      "column_name": "id",
+      "data_type": "uuid",
+      "column_default": "gen_random_uuid()",
+      "is_nullable": "NO"
+    },
+    {
+      "column_name": "student_id",
+      "data_type": "uuid",
+      "column_default": null,
+      "is_nullable": "NO"
+    },
+    {
+      "column_name": "unit_id",
+      "data_type": "uuid",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "reading_id",
+      "data_type": "uuid",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "grammar_id",
+      "data_type": "uuid",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "assessment_id",
+      "data_type": "uuid",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "writing_id",
+      "data_type": "uuid",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "listening_id",
+      "data_type": "uuid",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "speaking_id",
+      "data_type": "uuid",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "section_type",
+      "data_type": "text",
+      "column_default": null,
+      "is_nullable": "NO"
+    },
+    {
+      "column_name": "status",
+      "data_type": "text",
+      "column_default": "'not_started'::text",
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "score",
+      "data_type": "numeric",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "answers",
+      "data_type": "jsonb",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "recording_url",
+      "data_type": "text",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "ai_feedback",
+      "data_type": "jsonb",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "time_spent_seconds",
+      "data_type": "integer",
+      "column_default": "0",
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "completed_at",
+      "data_type": "timestamp with time zone",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "column_default": "now()",
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "column_default": "now()",
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "attempt_number",
+      "data_type": "integer",
+      "column_default": "1",
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "attempt_history",
+      "data_type": "jsonb",
+      "column_default": "'[]'::jsonb",
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "trainer_feedback",
+      "data_type": "text",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "trainer_grade",
+      "data_type": "text",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "trainer_graded_at",
+      "data_type": "timestamp with time zone",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "trainer_graded_by",
+      "data_type": "uuid",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "pronunciation_id",
+      "data_type": "uuid",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "answers_legacy",
+      "data_type": "jsonb",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "auto_migrated",
+      "data_type": "boolean",
+      "column_default": "false",
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "migration_note",
+      "data_type": "text",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "is_latest",
+      "data_type": "boolean",
+      "column_default": "true",
+      "is_nullable": "NO"
+    },
+    {
+      "column_name": "is_best",
+      "data_type": "boolean",
+      "column_default": "true",
+      "is_nullable": "NO"
+    },
+    {
+      "column_name": "evaluation_status",
+      "data_type": "text",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "evaluation_attempts",
+      "data_type": "integer",
+      "column_default": "0",
+      "is_nullable": "NO"
+    },
+    {
+      "column_name": "evaluation_last_attempt_at",
+      "data_type": "timestamp with time zone",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "evaluation_last_error",
+      "data_type": "text",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "evaluation_completed_at",
+      "data_type": "timestamp with time zone",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "escalated_to_trainer_at",
+      "data_type": "timestamp with time zone",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "redo_requested",
+      "data_type": "boolean",
+      "column_default": "false",
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "redo_note",
+      "data_type": "text",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "redo_requested_at",
+      "data_type": "timestamp with time zone",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "redo_requested_by",
+      "data_type": "uuid",
+      "column_default": null,
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "hint_usage",
+      "data_type": "jsonb",
+      "column_default": "'[]'::jsonb",
+      "is_nullable": "NO"
+    }
+  ],
+  "submission_related_tables": [
+    "active_submissions",
+    "creator_submissions",
+    "curriculum_grammar_exercises",
+    "curriculum_irregular_verb_exercises",
+    "curriculum_listening_exercises",
+    "curriculum_vocabulary_exercises",
+    "ielts_mock_attempts",
+    "ielts_student_progress",
+    "ielts_submissions",
+    "iot_student_attempts",
+    "progress_reports",
+    "quiz_answers",
+    "quiz_attempts",
+    "quiz_questions",
+    "quizzes",
+    "recording_progress",
+    "speaking_hub_student_progress",
+    "speaking_practice_attempts",
+    "student_curriculum_progress",
+    "student_level_assessment_attempts",
+    "student_speaking_progress",
+    "student_spelling_progress",
+    "student_verb_progress",
+    "submissions",
+    "targeted_exercises",
+    "unit_mastery_attempts",
+    "vocabulary_quiz_attempts"
+  ],
+  "constraints": [
+    {
+      "constraint_name": "scp_unique_listening",
+      "constraint_type": "UNIQUE",
+      "column_name": "student_id"
+    },
+    {
+      "constraint_name": "scp_unique_listening",
+      "constraint_type": "UNIQUE",
+      "column_name": "listening_id"
+    },
+    {
+      "constraint_name": "scp_unique_reading",
+      "constraint_type": "UNIQUE",
+      "column_name": "student_id"
+    },
+    {
+      "constraint_name": "scp_unique_reading",
+      "constraint_type": "UNIQUE",
+      "column_name": "reading_id"
+    },
+    {
+      "constraint_name": "scp_unique_speaking",
+      "constraint_type": "UNIQUE",
+      "column_name": "student_id"
+    },
+    {
+      "constraint_name": "scp_unique_speaking",
+      "constraint_type": "UNIQUE",
+      "column_name": "speaking_id"
+    },
+    {
+      "constraint_name": "scp_unique_writing",
+      "constraint_type": "UNIQUE",
+      "column_name": "student_id"
+    },
+    {
+      "constraint_name": "scp_unique_writing",
+      "constraint_type": "UNIQUE",
+      "column_name": "writing_id"
+    },
+    {
+      "constraint_name": "student_curriculum_progress_pkey",
+      "constraint_type": "PRIMARY KEY",
+      "column_name": "id"
+    }
+  ],
+  "has_attempt_number": true,
+  "has_is_latest": true,
+  "has_is_best": true,
+  "has_status": true,
+  "phantomA": [],
+  "phantomB": [
+    {
+      "id": "e5104c43-cfaf-4fe2-8c64-413e65153189",
+      "student_id": "f9ecb220-107e-436e-a4b7-80fd9df0cba4",
+      "section_type": "writing",
+      "score": null,
+      "status": "completed",
+      "created_at": "2026-04-07T13:56:42.762Z",
+      "completed_at": "2026-04-07T13:56:42.111Z"
+    }
+  ],
+  "top_affected_students": [],
+  "phantomA_by_section": [],
+  "phantomB_by_section": [
+    {
+      "section_type": "writing",
+      "count": "1"
+    }
+  ],
+  "all_constraints": [
+    {
+      "table_name": "student_curriculum_progress",
+      "constraint_name": "student_curriculum_progress_assessment_id_fkey",
+      "constraint_type": "FOREIGN KEY",
+      "columns": "assessment_id"
+    },
+    {
+      "table_name": "student_curriculum_progress",
+      "constraint_name": "student_curriculum_progress_grammar_id_fkey",
+      "constraint_type": "FOREIGN KEY",
+      "columns": "grammar_id"
+    },
+    {
+      "table_name": "student_curriculum_progress",
+      "constraint_name": "student_curriculum_progress_listening_id_fkey",
+      "constraint_type": "FOREIGN KEY",
+      "columns": "listening_id"
+    },
+    {
+      "table_name": "student_curriculum_progress",
+      "constraint_name": "student_curriculum_progress_pronunciation_id_fkey",
+      "constraint_type": "FOREIGN KEY",
+      "columns": "pronunciation_id"
+    },
+    {
+      "table_name": "student_curriculum_progress",
+      "constraint_name": "student_curriculum_progress_reading_id_fkey",
+      "constraint_type": "FOREIGN KEY",
+      "columns": "reading_id"
+    },
+    {
+      "table_name": "student_curriculum_progress",
+      "constraint_name": "student_curriculum_progress_redo_requested_by_fkey",
+      "constraint_type": "FOREIGN KEY",
+      "columns": "redo_requested_by"
+    },
+    {
+      "table_name": "student_curriculum_progress",
+      "constraint_name": "student_curriculum_progress_speaking_id_fkey",
+      "constraint_type": "FOREIGN KEY",
+      "columns": "speaking_id"
+    },
+    {
+      "table_name": "student_curriculum_progress",
+      "constraint_name": "student_curriculum_progress_student_id_fkey",
+      "constraint_type": "FOREIGN KEY",
+      "columns": "student_id"
+    },
+    {
+      "table_name": "student_curriculum_progress",
+      "constraint_name": "student_curriculum_progress_trainer_graded_by_fkey",
+      "constraint_type": "FOREIGN KEY",
+      "columns": "trainer_graded_by"
+    },
+    {
+      "table_name": "student_curriculum_progress",
+      "constraint_name": "student_curriculum_progress_unit_id_fkey",
+      "constraint_type": "FOREIGN KEY",
+      "columns": "unit_id"
+    },
+    {
+      "table_name": "student_curriculum_progress",
+      "constraint_name": "student_curriculum_progress_writing_id_fkey",
+      "constraint_type": "FOREIGN KEY",
+      "columns": "writing_id"
+    },
+    {
+      "table_name": "student_curriculum_progress",
+      "constraint_name": "student_curriculum_progress_pkey",
+      "constraint_type": "PRIMARY KEY",
+      "columns": "id"
+    },
+    {
+      "table_name": "student_curriculum_progress",
+      "constraint_name": "scp_unique_listening",
+      "constraint_type": "UNIQUE",
+      "columns": "student_id, listening_id"
+    },
+    {
+      "table_name": "student_curriculum_progress",
+      "constraint_name": "scp_unique_reading",
+      "constraint_type": "UNIQUE",
+      "columns": "student_id, reading_id"
+    },
+    {
+      "table_name": "student_curriculum_progress",
+      "constraint_name": "scp_unique_speaking",
+      "constraint_type": "UNIQUE",
+      "columns": "student_id, speaking_id"
+    },
+    {
+      "table_name": "student_curriculum_progress",
+      "constraint_name": "scp_unique_writing",
+      "constraint_type": "UNIQUE",
+      "columns": "student_id, writing_id"
+    }
+  ],
+  "assessment_discriminator_cols": [
+    {
+      "table_name": "curriculum_assessments",
+      "column_name": "assessment_type",
+      "data_type": "text"
+    }
+  ],
+  "curriculum_assessments_schema": [
+    {
+      "column_name": "id",
+      "data_type": "uuid"
+    },
+    {
+      "column_name": "unit_id",
+      "data_type": "uuid"
+    },
+    {
+      "column_name": "level_id",
+      "data_type": "uuid"
+    },
+    {
+      "column_name": "assessment_type",
+      "data_type": "text"
+    },
+    {
+      "column_name": "title_ar",
+      "data_type": "text"
+    },
+    {
+      "column_name": "title_en",
+      "data_type": "text"
+    },
+    {
+      "column_name": "questions",
+      "data_type": "jsonb"
+    },
+    {
+      "column_name": "passing_score",
+      "data_type": "integer"
+    },
+    {
+      "column_name": "time_limit_minutes",
+      "data_type": "integer"
+    },
+    {
+      "column_name": "is_published",
+      "data_type": "boolean"
+    },
+    {
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "column_name": "is_promotion_gate",
+      "data_type": "boolean"
+    }
+  ]
+}

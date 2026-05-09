@@ -138,6 +138,11 @@ const ClassDebriefPage = lazyRetry(() => import('./pages/trainer/v2/ClassDebrief
 
 const HelpPage = lazyRetry(() => import('./pages/trainer/v2/HelpPage'))
 const TrainerSettings = lazyRetry(() => import('./pages/trainer/TrainerSettings'))
+const AdminSpeakingHubs = lazyRetry(() => import('./pages/admin/AdminSpeakingHubs'))
+const AdminSpeakingHubNew = lazyRetry(() => import('./pages/admin/AdminSpeakingHubNew'))
+const AdminSpeakingHubDetail = lazyRetry(() => import('./pages/admin/AdminSpeakingHubDetail'))
+const StudentSpeakingHubs = lazyRetry(() => import('./pages/student/StudentSpeakingHubs'))
+const StudentSpeakingHubDetail = lazyRetry(() => import('./pages/student/StudentSpeakingHubDetail'))
 const Student360Page = lazyRetry(() => import('./pages/trainer/v2/Student360Page'))
 const IELTSOverview = lazyRetry(() => import('./pages/trainer/IELTSOverview'))
 
@@ -612,6 +617,8 @@ export default function App() {
               <Route path="/student/assessments" element={<Page><ComingSoon featureName="الاختبارات" /></Page>} />
               <Route path="/student/quiz" element={<Page><StudentQuiz /></Page>} />
               <Route path="/student/profile" element={<Page><StudentProfile /></Page>} />
+              <Route path="/student/speaking-hub" element={<Page><StudentSpeakingHubs /></Page>} />
+              <Route path="/student/speaking-hub/:id" element={<Page><StudentSpeakingHubDetail /></Page>} />
               <Route path="/student/certificates" element={<Page><StudentCertificate /></Page>} />
               <Route path="/student/referral" element={<Page><StudentReferral /></Page>} />
               <Route path="/student/weekly-tasks" element={<Page><StudentWeeklyTasks /></Page>} />
@@ -790,6 +797,9 @@ export default function App() {
               <Route path="/admin/affiliates/materials" element={<Page><AffiliateMaterialsAdmin /></Page>} />
               <Route path="/admin/affiliates/:id" element={<Page><AffiliateDetail /></Page>} />
               <Route path="/admin/ielts-v2-preview" element={<Page><IELTSPreview /></Page>} />
+              <Route path="/admin/speaking-hubs" element={<Page><AdminSpeakingHubs /></Page>} />
+              <Route path="/admin/speaking-hubs/new" element={<Page><AdminSpeakingHubNew /></Page>} />
+              <Route path="/admin/speaking-hubs/:id" element={<Page><AdminSpeakingHubDetail /></Page>} />
               <Route path="/admin/student-curriculum" element={<Page><AdminCurriculumPreview><CurriculumBrowser /></AdminCurriculumPreview></Page>} />
               <Route path="/admin/student-curriculum/level/:levelNumber" element={<Page><AdminCurriculumPreview><LevelUnits /></AdminCurriculumPreview></Page>} />
               <Route path="/admin/student-curriculum/unit/:unitId" element={<Page><AdminCurriculumPreview><UnitContent /></AdminCurriculumPreview></Page>} />

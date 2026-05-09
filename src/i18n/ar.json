@@ -579,5 +579,126 @@
   },
   "help": {
     "arabic_content_notice": "محتوى دليل المساعدة باللغة العربية. الترجمة قريباً."
+  },
+  "admin": {
+    "sidebar": {
+      "speakingHubs": "نادي المحادثة"
+    },
+    "speakingHub": {
+      "list": {
+        "title": "نادي المحادثة",
+        "createNew": "إنشاء جلسة جديدة",
+        "empty": "لم تُنشئ أي جلسة بعد"
+      },
+      "listStats": {
+        "assigned": "معيّن",
+        "watched": "شاهد",
+        "withNotes": "كتب ملاحظات"
+      },
+      "listStatus": {
+        "draft": "مسودة",
+        "published": "منشور",
+        "live": "مباشر",
+        "completed": "انتهى",
+        "archived": "مؤرشف"
+      },
+      "form": {
+        "createTitle": "إنشاء جلسة جديدة",
+        "title": "العنوان",
+        "titleEn": "العنوان (إنجليزي)",
+        "description": "الوصف",
+        "videoUrl": "رابط الفيديو",
+        "videoTitle": "عنوان الفيديو",
+        "videoChannel": "القناة",
+        "videoDuration": "المدة (دقائق)",
+        "notePrompts": "أسئلة توجيهية",
+        "vocabFocus": "مفردات مهمة",
+        "discussionQuestions": "أسئلة النقاش",
+        "hubSessionAt": "موعد الجلسة",
+        "hubSessionLink": "رابط Google Meet",
+        "hubSessionDuration": "مدة الجلسة (دقائق)",
+        "status": "الحالة",
+        "save": "حفظ",
+        "cancel": "إلغاء",
+        "addPrompt": "+ إضافة سؤال",
+        "addVocab": "+ إضافة كلمة",
+        "addDiscussion": "+ إضافة سؤال نقاش",
+        "saved": "تم الحفظ",
+        "saveFailed": "فشل الحفظ",
+        "word": "الكلمة",
+        "wordMeaning": "المعنى (عربي)"
+      },
+      "tabs": {
+        "edit": "تعديل",
+        "assign": "تعيين",
+        "progress": "التقدّم"
+      },
+      "assign": {
+        "groups": "المجموعات",
+        "students": "طلاب أفراد",
+        "current": "المعيّنون حالياً",
+        "search": "بحث...",
+        "alreadyAssigned": "مُعيّن",
+        "save": "تعيين",
+        "remove": "إزالة",
+        "confirmRemove": "إزالة التعيين؟",
+        "type_group": "مجموعة",
+        "type_student": "طالب",
+        "noAssignments": "لا يوجد معيّنون بعد"
+      },
+      "progress": {
+        "name": "الاسم",
+        "started": "بدأ المشاهدة",
+        "wordCount": "عدد الكلمات",
+        "lastUpdated": "آخر تحديث",
+        "attended": "حضر الجلسة",
+        "notStarted": "لم يبدأ",
+        "watched": "شاهد",
+        "yes": "نعم",
+        "no": "لا",
+        "summaryWatched": "{{done}} من {{total}} أنهى المشاهدة",
+        "summaryNotes": "{{done}} من {{total}} كتب ملاحظات"
+      }
+    }
+  },
+  "student": {
+    "sidebar": {
+      "speakingHub": "نادي المحادثة"
+    },
+    "speakingHub": {
+      "list": {
+        "title": "نادي المحادثة",
+        "upcoming": "القادم",
+        "past": "السابق",
+        "empty": "لا توجد جلسات مُعيّنة لك حالياً"
+      },
+      "card": {
+        "notWatched": "لم تشاهد بعد",
+        "watched": "شاهدته",
+        "hasNotes": "لديك ملاحظات",
+        "wordsCount": "{{count}} كلمة",
+        "sessionIn": "بعد {{distance}}",
+        "sessionEnded": "انتهت الجلسة",
+        "sessionLive": "🔴 الجلسة الآن"
+      },
+      "detail": {
+        "back": "رجوع",
+        "watch": "شاهد الفيديو",
+        "notePrompts": "💡 ركّز على هذه الأسئلة",
+        "vocabFocus": "📚 مفردات مهمة",
+        "yourNotes": "ملاحظاتك",
+        "notesOptional": "(اختياري)",
+        "notesPlaceholder": "اكتب أفكارك هنا...",
+        "saving": "جاري الحفظ...",
+        "saved": "تم الحفظ",
+        "savedAgo": "منذ {{distance}}",
+        "wordCount": "{{count}} كلمة",
+        "discussionQuestions": "💬 أسئلة النقاش",
+        "discussionHint": "حضّر إجاباتك قبل الجلسة",
+        "session": "جلسة النقاش",
+        "joinMeet": "انضم عبر Google Meet",
+        "sessionTBD": "موعد الجلسة سيُحدَّد قريباً"
+      }
+    }
   }
 }
