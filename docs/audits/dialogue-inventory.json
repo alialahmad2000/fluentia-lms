@@ -1,0 +1,1219 @@
+{
+  "generated_at": "2026-05-09T21:54:35.391Z",
+  "total_items_with_dialogue": 59,
+  "total_unique_speakers": 15,
+  "items": [
+    {
+      "id": "9c961ae7-16d0-424e-abfa-93f0c82f3d7c",
+      "source_table": "curriculum_listening",
+      "level": 0,
+      "unit": 1,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Noor",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Noor: Hi! My name is Noor. I want to tell you about my day. I wake up at seven o'clock every morning. First, I wash my face and brush my teeth. Then I pray Fajr. After that, I go to the kitchen. I make tea and eat breakfast. I like bread and cheese for breakfast. Sometimes I eat eggs too. At eight t..."
+    },
+    {
+      "id": "686b95e9-f474-45d5-887f-fdf700e325b1",
+      "source_table": "curriculum_listening",
+      "level": 0,
+      "unit": 2,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Fatima",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Fatima: Hello! My name is Fatima. I love cooking. Today I want to tell you about my favorite foods and cooking. In the morning, I eat breakfast. I like eggs and bread. I drink tea with milk. Tea is very important in my family. My mother makes the best tea. For lunch, I eat rice. Rice is my favorite ..."
+    },
+    {
+      "id": "209f6e28-6ec7-43e6-b16c-87c7eb6e878d",
+      "source_table": "curriculum_listening",
+      "level": 0,
+      "unit": 3,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Nora",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Nora: Hi! My name is Nora. I live in Riyadh. I love my city. It's very big and beautiful. My house is near the city center. I live with my family. We have a small garden with flowers. Every morning, I walk to the coffee shop on my street. The coffee is delicious. I buy bread from the bakery next to ..."
+    },
+    {
+      "id": "9f0afbc9-7636-410b-9107-3c6a43d2925c",
+      "source_table": "curriculum_listening",
+      "level": 0,
+      "unit": 4,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Narrator",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Narrator: Hello! Let me tell you about animals around us. There are many animals in our world. Some animals live with people. We call these pets. Cats are very popular pets. They are small and soft. Cats like to sleep a lot. They eat fish and meat. Dogs are also good pets. Dogs are friendly animals...."
+    },
+    {
+      "id": "81208d88-54bb-48af-8579-37884bb84d61",
+      "source_table": "curriculum_listening",
+      "level": 0,
+      "unit": 5,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Layla",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Layla: Hi everyone! My name is Layla. I want to tell you about the weather in my city, Riyadh. In Riyadh, we have very hot summers and cool winters. Summer is from June to September. It's very, very hot! The temperature is sometimes fifty degrees! I don't like to go outside in summer. I stay inside ..."
+    },
+    {
+      "id": "3d0d8da5-d4a7-458f-8e7a-0f42bd998e14",
+      "source_table": "curriculum_listening",
+      "level": 0,
+      "unit": 6,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Fatima",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Fatima: Hello! My name is Fatima. I want to tell you about my family and friends. I have a big family. My mother's name is Aisha. She is very kind. My father's name is Ahmed. He works in a bank. I have two sisters. My older sister is Maryam. She is twenty-five years old. She is married and has one b..."
+    },
+    {
+      "id": "5f6d033e-abb0-429f-bc76-9dd344218b53",
+      "source_table": "curriculum_listening",
+      "level": 0,
+      "unit": 7,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Fatima",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Fatima: Hi! My name is Fatima. I love shopping! Today I go to the mall with my sister. We have two hundred riyals. First, we go to the clothing store. I see a beautiful blue dress. It costs one hundred and fifty riyals. My sister likes it too. But it's expensive! We look at other dresses. There's a ..."
+    },
+    {
+      "id": "f7989a07-3a74-4bf6-8d4f-91cc5729d927",
+      "source_table": "curriculum_listening",
+      "level": 0,
+      "unit": 8,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Layla",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Layla: Hello, my name is Layla. I want to talk about my body and health today. I have two eyes. My eyes are brown. I have one nose and one mouth. I use my mouth to eat and speak. I have two ears. I listen to music with my ears. I have two hands and ten fingers. I write with my right hand. I have two..."
+    },
+    {
+      "id": "9e723be0-9f55-42e5-8f40-20f753d5a2a3",
+      "source_table": "curriculum_listening",
+      "level": 0,
+      "unit": 9,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Layla",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Layla: Hi! My name is Layla. I want to tell you about my hobbies and free time. I have many hobbies. I love reading books. I read every evening after dinner. My favorite books are about cooking and travel. I also like painting. I paint flowers and nature. It's very relaxing. On weekends, I spend tim..."
+    },
+    {
+      "id": "d6efcb31-a953-416a-bc5f-525bedee2b89",
+      "source_table": "curriculum_listening",
+      "level": 0,
+      "unit": 10,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Nora",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Nora: Hi everyone! My name is Nora. I want to tell you about my trip to London. I am very excited! First, I need my passport. My passport is green. It is from Saudi Arabia. I also need my ticket. My ticket is on my phone. This is easy! I pack my bag now. I put my clothes in the bag. I pack three dre..."
+    },
+    {
+      "id": "8571667a-93dc-4035-bf9f-3cda3b63d82a",
+      "source_table": "curriculum_listening",
+      "level": 0,
+      "unit": 11,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Nora",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Nora: Hi! My name is Nora. I want to tell you about my phone and computer. I have a smartphone. It's black and very pretty. I use my phone every day. I call my family. I send messages to my friends. I take photos of my food and my cat. My cat is very cute! I also listen to music on my phone. I like ..."
+    },
+    {
+      "id": "312e8743-4c60-4aee-a80a-70f5f5bb684c",
+      "source_table": "curriculum_listening",
+      "level": 0,
+      "unit": 12,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Sarah",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Sarah: Hello! My name is Sarah. I want to tell you about different jobs. There are many jobs for women today. My sister is a teacher. She works at a school. She teaches children every day. She likes her job very much. My friend Noor is a doctor. She works at a hospital. She helps people who are sick..."
+    },
+    {
+      "id": "2992edc4-d68d-4f16-99d1-ab7b7a2683c3",
+      "source_table": "curriculum_listening",
+      "level": 1,
+      "unit": 1,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Nadia",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Nadia: Hi everyone! My name is Nadia and I want to tell you about my favorite festival. Last month, I went to the Cherry Blossom Festival in Japan. It was amazing! I traveled there with my sister Fatima. We stayed for one week. The festival happens every spring when the cherry trees have beautiful p..."
+    },
+    {
+      "id": "44b25ac5-ed1e-4b8d-84d9-ec23614417b6",
+      "source_table": "curriculum_listening",
+      "level": 1,
+      "unit": 2,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Layla",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Layla: Hi everyone! My name is Layla, and I want to tell you about my amazing trip to the Red Sea last month. I went with my family to Jeddah, and we visited the beautiful coral reefs there.  The ocean was so blue and clear! I could see many different sea animals. There were colorful fish swimming e..."
+    },
+    {
+      "id": "06e6cf1a-b85d-45e8-907f-d36d40f85696",
+      "source_table": "curriculum_listening",
+      "level": 1,
+      "unit": 3,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Sarah",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Sarah: Hi everyone! My name is Sarah, and I want to tell you about space exploration. Space exploration is very exciting! People have always looked at the stars and wondered about space. Many years ago, people could only dream about going to space. But now, it's different. In 1969, the first man wal..."
+    },
+    {
+      "id": "d074e527-fb88-48bc-b232-13a5f1cf4750",
+      "source_table": "curriculum_listening",
+      "level": 1,
+      "unit": 4,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Layla",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Layla: Hi everyone! My name is Layla, and I love music and art. Today I want to tell you about my hobbies and my family's talents. I play the piano every day after work. I started learning piano when I was twelve years old. My teacher was very kind and patient with me. Now I can play many songs - cl..."
+    },
+    {
+      "id": "89982954-2326-40a8-9227-62a9dd8af906",
+      "source_table": "curriculum_listening",
+      "level": 1,
+      "unit": 5,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Sarah",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Sarah: Hi everyone! I'm Sarah, and I love to travel. Today I want to tell you about some amazing places I visited last year. First, I went to Paris in France. Paris is a beautiful city, and it's famous for the Eiffel Tower. The Eiffel Tower is very tall and made of metal. I took many photos there. T..."
+    },
+    {
+      "id": "c5d12ff8-7c29-46b3-8c79-2086d530224a",
+      "source_table": "curriculum_listening",
+      "level": 1,
+      "unit": 6,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Layla",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Layla: Hi everyone! My name is Layla, and I want to talk about inventions that changed our lives. You know, inventions are everywhere around us. Some inventions are very old, and some are new. Let me tell you about three important inventions.  First, let's talk about the telephone. Alexander Graham ..."
+    },
+    {
+      "id": "8d93c32b-4b25-4270-917f-e6c78c52cbfd",
+      "source_table": "curriculum_listening",
+      "level": 1,
+      "unit": 7,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Narrator",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Narrator: Hello everyone! Today I want to tell you about my favorite sports star. Her name is Sarah Al-Rashid. She's a tennis player from our country. Sarah is twenty-five years old and she lives in Riyadh with her family.  Sarah started playing tennis when she was eight years old. Her father taught..."
+    },
+    {
+      "id": "8715d6fd-abf9-4256-a39f-dbb965016844",
+      "source_table": "curriculum_listening",
+      "level": 1,
+      "unit": 8,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Sarah",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Sarah: Hello everyone! Today I want to tell you about ancient Egypt. It's one of my favorite civilizations to study. Ancient Egypt was a very old civilization. It started about five thousand years ago. The people lived near the Nile River in Africa. The Nile River was very important for them. It gav..."
+    },
+    {
+      "id": "576d5bd6-a651-4341-8922-c5a875299ff4",
+      "source_table": "curriculum_listening",
+      "level": 1,
+      "unit": 9,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Layla",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Layla: Hi everyone! My name is Layla and I love photography. I want to tell you about my hobby today. I started taking photos three years ago when my sister gave me a camera for my birthday. At first, I didn't know anything about photography. I just pressed the button and hoped for good pictures! No..."
+    },
+    {
+      "id": "f5bb9e50-eb78-4224-8ce7-908e235d9135",
+      "source_table": "curriculum_listening",
+      "level": 1,
+      "unit": 10,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Layla",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Layla: Hi everyone! My name is Layla and I love cooking food from different countries. Today I want to tell you about my favorite dishes from around the world.  Last month, I tried making Italian pasta for the first time. It was so easy! I boiled the pasta in hot water for ten minutes. Then I made a..."
+    },
+    {
+      "id": "ba1043c7-32c8-43d8-a7ab-11845f537bdd",
+      "source_table": "curriculum_listening",
+      "level": 1,
+      "unit": 11,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Noor",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Noor: Hi everyone! My name is Noor and I want to tell you about my social media day. I wake up every morning and the first thing I do is check my phone. I look at Instagram and see photos from my friends. My best friend Layla posted a beautiful picture from her coffee shop visit yesterday. She loves..."
+    },
+    {
+      "id": "faf4d5ac-3f42-4d02-b038-22bdd4c45893",
+      "source_table": "curriculum_listening",
+      "level": 1,
+      "unit": 12,
+      "section": "monologue",
+      "speakers": [
+        {
+          "name": "Layla",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 1,
+      "audio_type_declared": "monologue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Layla: Hi everyone! My name is Layla and I want to tell you about my green living journey. Two years ago, I didn't think about the environment much. I used plastic bags when I went shopping. I threw away food and I left lights on all the time. But then my sister talked to me about climate change and..."
+    },
+    {
+      "id": "f7bc89f9-a52b-4c2e-88da-427f94de04a4",
+      "source_table": "curriculum_listening",
+      "level": 2,
+      "unit": 1,
+      "section": "dialogue",
+      "speakers": [
+        {
+          "name": "Layla",
+          "gender": "female",
+          "confidence": "dictionary"
+        },
+        {
+          "name": "Noor",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 14,
+      "audio_type_declared": "dialogue",
+      "audio_type_inferred": "dialogue",
+      "excerpt": "Layla: Hi Noor! How was your psychology exam yesterday?  Noor: Oh, it was challenging but interesting! We were studying about memory and the brain, and I was remembering all the techniques we learned in class.  Layla: That sounds fascinating! I'm planning to take that course next semester. What did ..."
+    },
+    {
+      "id": "896ab711-ea14-47bc-9e36-f4d09931ffab",
+      "source_table": "curriculum_listening",
+      "level": 2,
+      "unit": 2,
+      "section": "dialogue",
+      "speakers": [
+        {
+          "name": "Fatima",
+          "gender": "female",
+          "confidence": "dictionary"
+        },
+        {
+          "name": "Noor",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 13,
+      "audio_type_declared": "dialogue",
+      "audio_type_inferred": "dialogue",
+      "excerpt": "Fatima: Hi Noor! I was watching a documentary about endangered animals last night, and it was so sad. The pandas were losing their homes because people were cutting down bamboo forests.  Noor: Oh really? I love pandas! They're much cuter than other bears, aren't they? But I didn't know they were in ..."
+    },
+    {
+      "id": "d7f29e08-77fa-4adc-9c64-a6f40131eb96",
+      "source_table": "curriculum_listening",
+      "level": 2,
+      "unit": 3,
+      "section": "dialogue",
+      "speakers": [
+        {
+          "name": "Layla",
+          "gender": "female",
+          "confidence": "dictionary"
+        },
+        {
+          "name": "Noor",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 14,
+      "audio_type_declared": "dialogue",
+      "audio_type_inferred": "dialogue",
+      "excerpt": "Layla: Hi Noor! You look worried. What's wrong?  Noor: Oh, Layla! I was watching the weather news, and they're predicting a huge sandstorm for this weekend. It's going to be much worse than the one we had last month.  Layla: Really? That's concerning. What were you planning to do this weekend?  Noor..."
+    },
+    {
+      "id": "e1d19a4b-f1e7-43f3-bb5c-15249b60e99c",
+      "source_table": "curriculum_listening",
+      "level": 2,
+      "unit": 4,
+      "section": "dialogue",
+      "speakers": [
+        {
+          "name": "Maha",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        },
+        {
+          "name": "Layla",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 14,
+      "audio_type_declared": "dialogue",
+      "audio_type_inferred": "dialogue",
+      "excerpt": "Maha: Layla, I love your new outfit! Where did you get that beautiful scarf?  Layla: Thank you so much! I bought it from that new boutique downtown, and I was actually looking for something traditional but modern at the same time.  Maha: It's perfect! You know, I was thinking about my style yesterda..."
+    },
+    {
+      "id": "420b053f-d61e-4be9-8992-76685066ce58",
+      "source_table": "curriculum_listening",
+      "level": 2,
+      "unit": 5,
+      "section": "dialogue",
+      "speakers": [
+        {
+          "name": "Layla",
+          "gender": "female",
+          "confidence": "dictionary"
+        },
+        {
+          "name": "Emma",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 12,
+      "audio_type_declared": "dialogue",
+      "audio_type_inferred": "dialogue",
+      "excerpt": "Layla: Emma, I was reading about something really interesting yesterday, and I couldn't believe what I discovered about women in ancient times.  Emma: Oh really? What were you reading about? I love learning about hidden history.  Layla: Well, I was researching ancient civilizations, and I found out ..."
+    },
+    {
+      "id": "bccfc6e1-767a-44ec-83e8-ee060bdd825d",
+      "source_table": "curriculum_listening",
+      "level": 2,
+      "unit": 6,
+      "section": "dialogue",
+      "speakers": [
+        {
+          "name": "Layla",
+          "gender": "female",
+          "confidence": "dictionary"
+        },
+        {
+          "name": "Fatima",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 13,
+      "audio_type_declared": "dialogue",
+      "audio_type_inferred": "dialogue",
+      "excerpt": "Layla: Hi Fatima! I was just reading about future cities, and it's so exciting! Did you see that article about smart buildings?  Fatima: Yes, I did! I was thinking about it all morning. These new buildings will be much more efficient than the ones we have now, and they'll use less energy too.  Layla..."
+    },
+    {
+      "id": "68773ed9-055c-4909-8447-5979ebd0e103",
+      "source_table": "curriculum_listening",
+      "level": 2,
+      "unit": 7,
+      "section": "dialogue",
+      "speakers": [
+        {
+          "name": "Layla",
+          "gender": "female",
+          "confidence": "dictionary"
+        },
+        {
+          "name": "Noor",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 15,
+      "audio_type_declared": "dialogue",
+      "audio_type_inferred": "dialogue",
+      "excerpt": "Layla: Hey Noor! I haven't seen you on social media lately. Are you okay?  Noor: Oh hi Layla! Yes, I'm fine, actually I'm doing better than before. I decided to try a digital detox last month, and it's been amazing.  Layla: A digital detox? What's that exactly?  Noor: Well, I was spending too much t..."
+    },
+    {
+      "id": "1f6723b1-fa54-4ac2-837f-6b6b9f199a26",
+      "source_table": "curriculum_listening",
+      "level": 2,
+      "unit": 8,
+      "section": "dialogue",
+      "speakers": [
+        {
+          "name": "Layla",
+          "gender": "female",
+          "confidence": "dictionary"
+        },
+        {
+          "name": "Nora",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 14,
+      "audio_type_declared": "dialogue",
+      "audio_type_inferred": "dialogue",
+      "excerpt": "Layla: Hi Nora! How was your mountain trip last weekend? I saw your photos on Instagram and they looked amazing!  Nora: Oh, it was incredible! We went to the Sarawat Mountains near Abha. The weather was perfect, and we were hiking for about six hours on Saturday.  Layla: Six hours? That sounds exhau..."
+    },
+    {
+      "id": "2b772e7e-3d14-4223-8053-fabecd8cf0b5",
+      "source_table": "curriculum_listening",
+      "level": 2,
+      "unit": 9,
+      "section": "dialogue",
+      "speakers": [
+        {
+          "name": "Layla",
+          "gender": "female",
+          "confidence": "dictionary"
+        },
+        {
+          "name": "Mona",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 13,
+      "audio_type_declared": "dialogue",
+      "audio_type_inferred": "dialogue",
+      "excerpt": "Layla: Hi Mona! I was wondering if you want to go to the cinema this weekend. There are some really good movies playing right now.  Mona: Oh, that sounds great! I was actually planning to stay home and watch Netflix, but going out would be more fun. What movies are showing?  Layla: Well, there's a n..."
+    },
+    {
+      "id": "981b0d0a-8a92-4612-8fa9-6323d7ebfcfd",
+      "source_table": "curriculum_listening",
+      "level": 2,
+      "unit": 10,
+      "section": "dialogue",
+      "speakers": [
+        {
+          "name": "Layla",
+          "gender": "female",
+          "confidence": "dictionary"
+        },
+        {
+          "name": "Nora",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 12,
+      "audio_type_declared": "dialogue",
+      "audio_type_inferred": "dialogue",
+      "excerpt": "Layla: Hey Nora, did you see that documentary about water crisis last night? I was watching it while I was having dinner, and it was really shocking.  Nora: Yes, I saw it too! I was sitting with my family, and we were all surprised. The situation is much worse than we thought before.  Layla: Exactly..."
+    },
+    {
+      "id": "5846f7c9-f5c9-482e-bb09-142aeceeefb8",
+      "source_table": "curriculum_listening",
+      "level": 2,
+      "unit": 11,
+      "section": "dialogue",
+      "speakers": [
+        {
+          "name": "Layla",
+          "gender": "female",
+          "confidence": "dictionary"
+        },
+        {
+          "name": "Fatima",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 11,
+      "audio_type_declared": "dialogue",
+      "audio_type_inferred": "dialogue",
+      "excerpt": "Layla: Hey Fatima, did you see that new street art on King Fahd Road yesterday? I was walking to the cafe and I noticed these amazing colorful paintings on the wall.  Fatima: Oh yes! I saw them too. The artists were actually working on them when I passed by in the morning. They were painting flowers..."
+    },
+    {
+      "id": "5f66bedc-ed77-40dc-bb87-b60facd0c51f",
+      "source_table": "curriculum_listening",
+      "level": 2,
+      "unit": 12,
+      "section": "dialogue",
+      "speakers": [
+        {
+          "name": "Layla",
+          "gender": "female",
+          "confidence": "dictionary"
+        },
+        {
+          "name": "Noor",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 14,
+      "audio_type_declared": "dialogue",
+      "audio_type_inferred": "dialogue",
+      "excerpt": "Layla: Hi Noor! I heard you went on that amazing trip to Japan last month. Tell me all about it!  Noor: Oh yes, it was incredible! I was planning this journey for two years, and it was even better than I expected. The flight was long though - I was sitting on the plane for fourteen hours!  Layla: Wo..."
+    },
+    {
+      "id": "6a6ed5af-d0b2-471f-88d6-be99fc213724",
+      "source_table": "curriculum_listening",
+      "level": 3,
+      "unit": 1,
+      "section": "interview",
+      "speakers": [
+        {
+          "name": "Interviewer",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 6,
+      "audio_type_declared": "interview",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Interviewer: Welcome to Tech Today. I'm here with Dr. Sarah Chen, who's been researching artificial intelligence for over a decade. Dr. Chen, could you tell us how AI is actually changing our daily lives?  Dr. Sarah Chen: Well, thank you for having me. You know, what's fascinating is that most peopl..."
+    },
+    {
+      "id": "af1a25b9-a7d7-4490-b671-a9d01f6bc4e8",
+      "source_table": "curriculum_listening",
+      "level": 3,
+      "unit": 2,
+      "section": "interview",
+      "speakers": [
+        {
+          "name": "Interviewer",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 7,
+      "audio_type_declared": "interview",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Interviewer: Today we're speaking with Dr. Sarah Al-Rashid, who's a marine biologist specializing in coral reef conservation. Dr. Al-Rashid, could you tell us what makes coral reefs so important for our oceans?  Dr. Sarah Al-Rashid: Well, that's a fantastic question. Coral reefs are often called the..."
+    },
+    {
+      "id": "8dbff5e6-0138-499c-9b79-dca991978b24",
+      "source_table": "curriculum_listening",
+      "level": 3,
+      "unit": 3,
+      "section": "interview",
+      "speakers": [
+        {
+          "name": "Host",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 7,
+      "audio_type_declared": "interview",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Host: Welcome to Science Today. I'm here with Dr. Sarah Chen, who's been studying earthquakes for over fifteen years. Dr. Chen, could you tell us what exactly causes earthquakes to happen?  Dr. Chen: Well, that's a great question to start with. Earthquakes occur when there's a sudden release of ener..."
+    },
+    {
+      "id": "91e88604-dda7-47da-888a-f6787ba48215",
+      "source_table": "curriculum_listening",
+      "level": 3,
+      "unit": 4,
+      "section": "dialogue",
+      "speakers": [
+        {
+          "name": "Maya",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 8,
+      "audio_type_declared": "dialogue",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Maya: Good morning, Dr. Hassan. Thank you for joining us today to discuss global coffee culture. As a food anthropologist who's traveled extensively, could you tell us how coffee became such a universal language?  Dr. Hassan: Good morning, Maya. Well, it's fascinating because coffee, which originall..."
+    },
+    {
+      "id": "b4ef25db-caa8-49ca-bf7e-d88d73f21919",
+      "source_table": "curriculum_listening",
+      "level": 3,
+      "unit": 5,
+      "section": "interview",
+      "speakers": [
+        {
+          "name": "Host",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 7,
+      "audio_type_declared": "interview",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Host: Welcome to Green Future, the podcast that explores sustainable solutions for our changing world. I'm your host, Sarah Chen, and today I'm speaking with Dr. Amina Al-Rashid, who's been researching renewable energy technologies for over fifteen years. Dr. Al-Rashid, thank you for joining us.  Dr..."
+    },
+    {
+      "id": "fb34b3a0-ce85-4db2-b37a-9da44bf64193",
+      "source_table": "curriculum_listening",
+      "level": 3,
+      "unit": 6,
+      "section": "interview",
+      "speakers": [
+        {
+          "name": "Interviewer",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 7,
+      "audio_type_declared": "interview",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Interviewer: Good morning, and welcome to Tech Talk. I'm here with Dr. Amira Hassan, who's been researching virtual reality applications in education for the past five years. Dr. Hassan, could you tell us what got you interested in this field?  Dr. Amira Hassan: Well, I've always believed that techn..."
+    },
+    {
+      "id": "34c87c04-3f94-43bb-a460-c44cc0261a07",
+      "source_table": "curriculum_listening",
+      "level": 3,
+      "unit": 7,
+      "section": "interview",
+      "speakers": [
+        {
+          "name": "Interviewer",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 7,
+      "audio_type_declared": "interview",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Interviewer: Welcome to Psychology Today. I'm here with Dr. Sarah Chen, who's been researching the psychology of fear for over fifteen years. Dr. Chen, could you explain what fear actually is from a psychological perspective?  Dr. Sarah Chen: Well, fear is essentially our brain's alarm system, which..."
+    },
+    {
+      "id": "7dc9e208-c878-423f-af40-e4effbe3dba6",
+      "source_table": "curriculum_listening",
+      "level": 3,
+      "unit": 8,
+      "section": "interview",
+      "speakers": [
+        {
+          "name": "Ahmed",
+          "gender": "male",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 8,
+      "audio_type_declared": "interview",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Ahmed: Good morning, Dr. Mitchell. Thank you for joining us today to discuss ancient engineering marvels. I understand you've been researching this field for over fifteen years?  Dr. Sarah Mitchell: That's right, Ahmed. I've always been fascinated by how ancient civilizations managed to create struc..."
+    },
+    {
+      "id": "e76b49c2-1e8e-475c-a1f2-38280bcd78fe",
+      "source_table": "curriculum_listening",
+      "level": 3,
+      "unit": 9,
+      "section": "interview",
+      "speakers": [
+        {
+          "name": "Interviewer",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 5,
+      "audio_type_declared": "interview",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Interviewer: Today we're speaking with Dr. Fatima Al-Rashid, who's been researching genetic science for over fifteen years. Dr. Al-Rashid, could you tell us how genetic research has changed since you started your career?  Dr. Fatima Al-Rashid: Well, when I first began studying genetics, the technolo..."
+    },
+    {
+      "id": "546730cd-2a01-4d69-96ac-673610a25524",
+      "source_table": "curriculum_listening",
+      "level": 3,
+      "unit": 10,
+      "section": "interview",
+      "speakers": [
+        {
+          "name": "Host",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 7,
+      "audio_type_declared": "interview",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Host: Welcome to Green Cities Today. I'm speaking with Dr. Amina Hassan, who's been researching urban farming solutions that could transform cities across the Middle East. Dr. Hassan, could you tell us what urban farming actually means?  Dr. Amina: Well, urban farming refers to growing food within c..."
+    },
+    {
+      "id": "ab69e89c-32b6-4d98-8360-4748bc2c9f37",
+      "source_table": "curriculum_listening",
+      "level": 3,
+      "unit": 11,
+      "section": "dialogue",
+      "speakers": [
+        {
+          "name": "Layla",
+          "gender": "female",
+          "confidence": "dictionary"
+        },
+        {
+          "name": "Fatima",
+          "gender": "female",
+          "confidence": "dictionary"
+        }
+      ],
+      "total_turns": 9,
+      "audio_type_declared": "dialogue",
+      "audio_type_inferred": "dialogue",
+      "excerpt": "Layla: Welcome to Campus Tech Talk. I'm Layla, and today we're discussing digital privacy with Dr. Martinez, who teaches cybersecurity, and Fatima, a computer science student. Dr. Martinez, people say that privacy is dead in the digital age. What's your opinion on this?  Dr. Martinez: Well, I wouldn..."
+    },
+    {
+      "id": "e5ed4f14-be00-4226-85e4-dcf99658a777",
+      "source_table": "curriculum_listening",
+      "level": 3,
+      "unit": 12,
+      "section": "interview",
+      "speakers": [
+        {
+          "name": "Host",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 6,
+      "audio_type_declared": "interview",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Host: Welcome back to Space Today. I'm here with Dr. Amara Hassan, who's been working on Mars exploration projects for the past decade. Dr. Hassan, could you tell us about the current missions that are being conducted on Mars right now?  Dr. Amara: Thank you for having me. Well, there are several ro..."
+    },
+    {
+      "id": "9774fa25-d7bc-4865-9448-a097e21150df",
+      "source_table": "curriculum_listening",
+      "level": 4,
+      "unit": 2,
+      "section": "interview",
+      "speakers": [
+        {
+          "name": "Host",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 9,
+      "audio_type_declared": "interview",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Host: Welcome to Ocean Frontiers. I'm here with Dr. Sarah Chen, a marine biologist who's just returned from the Mariana Trench expedition. Dr. Chen, what is it about the deep ocean that continues to fascinate researchers like yourself?  Dr. Chen: Well, it's the mystery, really. What strikes me most ..."
+    },
+    {
+      "id": "126e9fea-c180-4b69-8d3e-22601ed2fa1c",
+      "source_table": "curriculum_listening",
+      "level": 4,
+      "unit": 3,
+      "section": "interview",
+      "speakers": [
+        {
+          "name": "Interviewer",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 9,
+      "audio_type_declared": "interview",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Interviewer: Welcome to Global Issues Today. I'm speaking with Dr. Elena Martinez, a food security specialist at the International Development Institute. Dr. Martinez, what exactly is food security, and why should we be concerned about it?  Dr. Martinez: Well, food security exists when all people, a..."
+    },
+    {
+      "id": "a9e49ba8-49fe-424a-ac8f-ff51763e596a",
+      "source_table": "curriculum_listening",
+      "level": 4,
+      "unit": 8,
+      "section": "interview",
+      "speakers": [
+        {
+          "name": "Host",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 9,
+      "audio_type_declared": "interview",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Host: Welcome to Science Today. I'm here with Dr. Sarah Mitchell, a leading forensic scientist from the International Crime Laboratory. Dr. Mitchell, what exactly is it that makes forensic science so crucial in modern criminal investigations?  Dr. Mitchell: Well, what we're essentially doing is lett..."
+    },
+    {
+      "id": "e7d1a54b-037b-42bb-9be4-9bcf5b7f6c4b",
+      "source_table": "curriculum_listening",
+      "level": 4,
+      "unit": 10,
+      "section": "interview",
+      "speakers": [
+        {
+          "name": "Host",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 10,
+      "audio_type_declared": "interview",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Host: Welcome to Science Today. I'm here with Dr. Amira Rahman, a leading researcher in longevity science. Dr. Rahman, what exactly is it that drives your passion for studying human lifespan?  Dr. Rahman: Well, it's the potential for transformation that excites me most. What we're witnessing in long..."
+    },
+    {
+      "id": "ccc4f118-3c1f-4497-bfed-de02a6dc81cd",
+      "source_table": "curriculum_listening",
+      "level": 5,
+      "unit": 2,
+      "section": "interview",
+      "speakers": [
+        {
+          "name": "Host",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 10,
+      "audio_type_declared": "interview",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Host: Welcome to Academic Perspectives. I'm delighted to be joined today by Dr. Sarah Chen, a renowned psychologist specializing in human performance and achievement. Dr. Chen, you've spent decades studying what separates exceptional achievers from the rest of us. What would you say defines extreme ..."
+    },
+    {
+      "id": "fb91912b-7b95-43c6-b948-9a8037faa736",
+      "source_table": "curriculum_listening",
+      "level": 5,
+      "unit": 4,
+      "section": "interview",
+      "speakers": [
+        {
+          "name": "Host",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 10,
+      "audio_type_declared": "interview",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Host: Welcome to Climate Futures. I'm here with Dr. Sarah Mitchell, who's been researching climate adaptation strategies in arid regions. Dr. Mitchell, there's been considerable debate about whether we should prioritize mitigation or adaptation. Where do you stand on this?  Dr. Mitchell: Well, that'..."
+    },
+    {
+      "id": "6b6e7a26-c6c8-4b06-a176-b967d74ab76f",
+      "source_table": "curriculum_listening",
+      "level": 5,
+      "unit": 5,
+      "section": "interview",
+      "speakers": [
+        {
+          "name": "Interviewer",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        },
+        {
+          "name": "Professor Ahmed",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 12,
+      "audio_type_declared": "interview",
+      "audio_type_inferred": "dialogue",
+      "excerpt": "Interviewer: Welcome to Energy Futures, the program examining tomorrow's power sources. I'm here with Dr. Sarah Chen, nuclear policy analyst, and Professor Ahmed from the International Energy Institute. The nuclear debate has intensified recently, particularly as nations seek carbon-neutral solution..."
+    },
+    {
+      "id": "c2c17796-03aa-4240-b983-dc4dd6d3c516",
+      "source_table": "curriculum_listening",
+      "level": 5,
+      "unit": 6,
+      "section": "interview",
+      "speakers": [
+        {
+          "name": "Host",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 10,
+      "audio_type_declared": "interview",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Host: Welcome back to Global Perspectives. I'm here with Dr. Sarah Chen, a leading conservation biologist from Cambridge University. Dr. Chen, we're facing what many scientists are calling the sixth mass extinction. Could you put this crisis into perspective for us?  Dr. Chen: Well, that's a soberin..."
+    },
+    {
+      "id": "792bede3-74c2-4756-87c4-816e46f986b8",
+      "source_table": "curriculum_listening",
+      "level": 5,
+      "unit": 7,
+      "section": "interview",
+      "speakers": [
+        {
+          "name": "Host",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 9,
+      "audio_type_declared": "interview",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Host: Welcome to Science Frontiers. I'm joined today by Dr. Sarah Chen, a leading neuroscientist from the International Brain Research Institute. Dr. Chen, your recent work on neural plasticity has been making waves in the scientific community. Could you walk us through what you've discovered?  Dr. ..."
+    },
+    {
+      "id": "0767ef9b-5f6a-48e0-9f47-94bd590ac608",
+      "source_table": "curriculum_listening",
+      "level": 5,
+      "unit": 8,
+      "section": "interview",
+      "speakers": [
+        {
+          "name": "Host",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 10,
+      "audio_type_declared": "interview",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Host: Welcome back to Science Today. I'm here with Dr. Sarah Chen, a leading researcher in swarm intelligence at MIT. Dr. Chen, could you start by explaining what swarm intelligence actually means?  Dr. Sarah Chen: Absolutely. Well, swarm intelligence refers to the collective behavior of decentraliz..."
+    },
+    {
+      "id": "59bd4957-9360-41d6-bf59-ce1fbace462d",
+      "source_table": "curriculum_listening",
+      "level": 5,
+      "unit": 10,
+      "section": "interview",
+      "speakers": [
+        {
+          "name": "Host",
+          "gender": "unknown",
+          "confidence": "needs_review"
+        }
+      ],
+      "total_turns": 9,
+      "audio_type_declared": "interview",
+      "audio_type_inferred": "monologue",
+      "excerpt": "Host: Welcome back to Science Today. I'm joined by Dr. Sarah Chen, quantum physicist at Cambridge University. Dr. Chen, your recent paper on quantum entanglement has generated considerable controversy. Could you walk us through what you've discovered?  Dr. Sarah Chen: Thank you for having me. Well, ..."
+    }
+  ],
+  "speakers_needing_manual_confirmation": [
+    {
+      "name": "Noor",
+      "occurrences": 36,
+      "sample_lines": [
+        "Noor: Hi! My name is Noor. I want to tell you about my day. I wake up at seven o'clock every morning",
+        "Noor: Hi everyone! My name is Noor and I want to tell you about my social media day. I wake up every",
+        "  Noor: Oh, it was challenging but interesting! We were studying about memory and the brain, and I w"
+      ]
+    },
+    {
+      "name": "Narrator",
+      "occurrences": 2,
+      "sample_lines": [
+        "Narrator: Hello! Let me tell you about animals around us. There are many animals in our world. Some ",
+        "Narrator: Hello everyone! Today I want to tell you about my favorite sports star. Her name is Sarah "
+      ]
+    },
+    {
+      "name": "Nadia",
+      "occurrences": 1,
+      "sample_lines": [
+        "Nadia: Hi everyone! My name is Nadia and I want to tell you about my favorite festival. Last month, "
+      ]
+    },
+    {
+      "name": "Maha",
+      "occurrences": 7,
+      "sample_lines": [
+        "Maha: Layla, I love your new outfit! Where did you get that beautiful scarf?  Layla: Thank you so mu",
+        "  Maha: It's perfect! You know, I was thinking about my style yesterday, and I realized I'm always w",
+        "  Maha: I was organizing my closet, and I noticed that all my abayas were similar. I'm planning to g"
+      ]
+    },
+    {
+      "name": "Mona",
+      "occurrences": 6,
+      "sample_lines": [
+        "  Mona: Oh, that sounds great! I was actually planning to stay home and watch Netflix, but going out",
+        "  Mona: Hmm, I was watching a horror movie last night, and it was so scary that I couldn't sleep! So",
+        "  Mona: That sounds perfect! I love movies that are filmed in beautiful locations. Is it showing at "
+      ]
+    },
+    {
+      "name": "Interviewer",
+      "occurrences": 48,
+      "sample_lines": [
+        "Interviewer: Welcome to Tech Today. I'm here with Dr. Sarah Chen, who's been researching artificial ",
+        "  Interviewer: That's interesting. But there's been a lot of discussion about AI taking over jobs. S",
+        "  Interviewer: Speaking of learning, how important is it for young people, particularly women in cou"
+      ]
+    },
+    {
+      "name": "Host",
+      "occurrences": 113,
+      "sample_lines": [
+        "Host: Welcome to Science Today. I'm here with Dr. Sarah Chen, who's been studying earthquakes for ov",
+        "  Host: So these plates are always moving? How fast are we talking about?  Dr. Chen: They move incre",
+        "  Host: And then what happens when that pressure becomes too much?  Dr. Chen: Eventually, the pressu"
+      ]
+    },
+    {
+      "name": "Maya",
+      "occurrences": 8,
+      "sample_lines": [
+        "Maya: Good morning, Dr. Hassan. Thank you for joining us today to discuss global coffee culture. As ",
+        "  Maya: That's interesting. I've heard that the way people consume coffee reflects their social valu",
+        "  Maya: And what about the Middle East? I know our region has a rich coffee tradition.  Dr. Hassan: "
+      ]
+    },
+    {
+      "name": "Professor Ahmed",
+      "occurrences": 5,
+      "sample_lines": [
+        "  Professor Ahmed: Certainly. While I acknowledge Dr. Chen's points about capacity, we must consider",
+        "  Professor Ahmed: I'm afraid I must respectfully disagree with that assessment. While direct fatali",
+        "  Professor Ahmed: This development concerns me considerably. Nuclear technology requires sophistica"
+      ]
+    }
+  ]
+}

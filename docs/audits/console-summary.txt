@@ -1,0 +1,26 @@
+
+=== CURRICULUM AUDIT PHASE 0 — COMPLETE ===
+
+Verdict:                    NO-GO
+Critical issues:            6850
+Warnings:                   352
+Info notes:                 1
+
+Items with dialogue:        59  (in reading: 0, in listening: 59)
+Unique speakers:            ?
+Speakers needing review:    9  ⬅ Ali to reply with M/F
+
+Estimated chars for gen:    1,721,582
+Estimated wasted chars:     224,829
+
+Top critical issues:
+1. C.1: 3389 CRITICAL (Arabic in example (L4, word: "3D artifact scanning")...)
+2. G.1: 3461 CRITICAL (Example "i want to visit many countries...." doesn't contain word "cou...)
+
+Top dialogue notes:
+1. 9 speaker names need gender confirmation: Noor, Narrator, Nadia, Maha, Mona, Interviewer, Host, Maya, Professor Ahmed
+
+Reports:
+  docs/audits/CURRICULUM-AUDIT-REPORT.md
+  docs/audits/dialogue-inventory.json
+  docs/audits/raw-flags.json
