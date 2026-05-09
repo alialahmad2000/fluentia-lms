@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Loader2, Plus, Trash2, CheckCircle2 } from 'lucide-react'
+import { Loader2, Plus, Trash2, CheckCircle2, Sparkles } from 'lucide-react'
 import { toast } from '@/components/ui/FluentiaToast'
+import { useGenerateHubContent } from '@/hooks/useGenerateHubContent'
 
 function getInitialState(hub) {
   return {
@@ -169,6 +170,45 @@ export default function AdminSpeakingHubForm({ hub = null, mode = 'create', onSa
   const [form, setForm] = useState(() => getInitialState(hub))
   const [saving, setSaving] = useState(false)
   const [errors, setErrors] = useState({})
+  const generate = useGenerateHubContent()
+  const titleRef = useRef(null)
+
+  async function handleGenerate() {
+    const url = form.video_url?.trim()
+    if (!url) {
+      toast({ type: 'error', title: t('admin.speakingHub.generate.missingUrl', 'ألصق رابط الفيديو أولاً') })
+      return
+    }
+    if (!/(youtube\.com|youtu\.be)/.test(url)) {
+      toast({ type: 'error', title: t('admin.speakingHub.generate.invalidUrl', 'الرابط يجب أن يكون من YouTube') })
+      return
+    }
+    try {
+      const result = await generate.mutateAsync(url)
+      setForm(prev => ({
+        ...prev,
+        title:                  result.title                  || prev.title,
+        title_en:               result.title_en               || prev.title_en,
+        description:            result.description            || prev.description,
+        description_en:         result.description_en         || prev.description_en,
+        video_title:            result.video_title            || prev.video_title,
+        video_channel:          result.video_channel          || prev.video_channel,
+        video_duration_minutes: result.video_duration_minutes ?? prev.video_duration_minutes,
+        video_thumbnail_url:    result.video_thumbnail_url    || prev.video_thumbnail_url,
+        note_prompts:           result.note_prompts?.length   ? result.note_prompts : prev.note_prompts,
+        vocab_focus:            result.vocab_focus?.length    ? result.vocab_focus  : prev.vocab_focus,
+        discussion_questions:   result.discussion_questions?.length ? result.discussion_questions : prev.discussion_questions,
+      }))
+      const msg = result._meta?.had_transcript
+        ? t('admin.speakingHub.generate.successWithTranscript', 'تم التوليد من النص الكامل للفيديو ✨')
+        : t('admin.speakingHub.generate.successNoTranscript', 'تم التوليد (بدون نص الفيديو) — راجع المحتوى بعناية')
+      toast({ type: 'success', title: msg })
+      setTimeout(() => titleRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100)
+    } catch (e) {
+      console.error('[generate-hub]', e)
+      toast({ type: 'error', title: t('admin.speakingHub.generate.failed', 'فشل التوليد') + ': ' + (e.message || '') })
+    }
+  }
 
   function set(key, value) {
     setForm(prev => ({ ...prev, [key]: value }))
@@ -233,6 +273,7 @@ export default function AdminSpeakingHubForm({ hub = null, mode = 'create', onSa
               {t('admin.speakingHub.form.title', 'العنوان (عربي)')} *
             </label>
             <input
+              ref={titleRef}
               className={`input-field text-sm w-full font-['Tajawal'] ${errors.title ? 'border-red-500/50' : ''}`}
               value={form.title}
               onChange={e => set('title', e.target.value)}
@@ -311,14 +352,42 @@ export default function AdminSpeakingHubForm({ hub = null, mode = 'create', onSa
           <label className="text-xs text-[var(--text-muted)] mb-1 block font-['Tajawal']">
             {t('admin.speakingHub.form.videoUrl', 'رابط الفيديو')} *
           </label>
-          <input
-            className={`input-field text-sm w-full font-['Inter'] ${errors.video_url ? 'border-red-500/50' : ''}`}
-            value={form.video_url}
-            onChange={e => set('video_url', e.target.value)}
-            placeholder="https://www.youtube.com/watch?v=..."
-            dir="ltr"
-          />
+          <div className="flex gap-2 items-stretch">
+            <input
+              className={`input-field text-sm flex-1 font-['Inter'] ${errors.video_url ? 'border-red-500/50' : ''}`}
+              value={form.video_url}
+              onChange={e => set('video_url', e.target.value)}
+              placeholder="https://www.youtube.com/watch?v=..."
+              dir="ltr"
+            />
+            <button
+              type="button"
+              onClick={handleGenerate}
+              disabled={generate.isPending || !form.video_url.trim()}
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold font-['Tajawal'] whitespace-nowrap transition-all shrink-0 disabled:opacity-40 disabled:cursor-not-allowed"
+              style={{
+                background: generate.isPending
+                  ? 'rgba(168,85,247,0.15)'
+                  : 'linear-gradient(135deg, rgba(168,85,247,0.25) 0%, rgba(14,165,233,0.25) 100%)',
+                border: '1px solid rgba(168,85,247,0.4)',
+                color: '#c084fc',
+              }}
+            >
+              {generate.isPending
+                ? <><Loader2 size={14} className="animate-spin" />{t('admin.speakingHub.generate.loading', 'جاري التوليد...')}</>
+                : <><Sparkles size={14} />{t('admin.speakingHub.generate.button', '✨ توليد')}</>
+              }
+            </button>
+          </div>
+          {generate.isPending && (
+            <p className="text-xs text-purple-400 font-['Tajawal'] mt-1 animate-pulse">
+              {t('admin.speakingHub.generate.loadingDetail', 'جاري قراءة الفيديو وتوليد المحتوى... قد يستغرق ١٥ ثانية')}
+            </p>
+          )}
           {errors.video_url && <p className="text-red-400 text-xs mt-1 font-['Tajawal']">{errors.video_url}</p>}
+          <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">
+            {t('admin.speakingHub.generate.buttonHint', 'الصق رابط YouTube ثم اضغط "توليد" — الذكاء الاصطناعي يكتب لك العنوان والوصف والأسئلة تلقائياً')}
+          </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -438,7 +507,7 @@ export default function AdminSpeakingHubForm({ hub = null, mode = 'create', onSa
         </button>
         <button
           type="submit"
-          disabled={saving}
+          disabled={saving || generate.isPending}
           className="btn-primary text-sm px-6 flex items-center gap-2 font-['Tajawal']"
         >
           {saving

@@ -658,6 +658,17 @@
         "no": "No",
         "summaryWatched": "{{done}} of {{total}} finished watching",
         "summaryNotes": "{{done}} of {{total}} wrote notes"
+      },
+      "generate": {
+        "button": "Generate with AI",
+        "buttonHint": "Paste a YouTube URL then click — AI writes the title, description, prompts and vocabulary automatically",
+        "loading": "Generating…",
+        "loadingDetail": "Reading video and generating content… may take ~15 seconds",
+        "missingUrl": "Paste the video URL first",
+        "invalidUrl": "URL must be a YouTube link",
+        "successWithTranscript": "Generated from full video transcript ✨",
+        "successNoTranscript": "Generated (no transcript available) — review content carefully",
+        "failed": "Generation failed"
       }
     }
   },
