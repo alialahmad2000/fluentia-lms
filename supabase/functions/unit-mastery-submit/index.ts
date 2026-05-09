@@ -211,6 +211,22 @@ Deno.serve(async (req) => {
         .eq("id", userId);
     });
 
+    // Post-pass improvement logging (read side computes best score — no mutation needed)
+    const { data: priorPassed } = await db
+      .from("unit_mastery_attempts")
+      .select("percentage")
+      .eq("student_id", userId)
+      .eq("assessment_id", attempt.assessment_id)
+      .eq("passed", true)
+      .neq("id", attempt_id)
+      .order("percentage", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (priorPassed && passed && percentage > (priorPassed as any).percentage) {
+      console.log(`[unit-mastery-submit] Post-pass improvement: ${(priorPassed as any).percentage}% → ${percentage}%`);
+    }
+
     // Compute cooldown if failed
     let cooldownEndsAt = null;
     if (!passed) {
