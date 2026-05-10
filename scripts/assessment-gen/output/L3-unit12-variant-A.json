@@ -1,0 +1,284 @@
+{
+  "variant_label": "A",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'daunting' mean?",
+      "question_context": "Learning a new language can seem daunting at first.",
+      "options": [
+        {
+          "id": "a",
+          "text": "سهل ومريح",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "مثير للفرح",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "مخيف وصعب",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "ممتع ومشوق",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة daunting تعني شيئاً مخيفاً أو صعباً ومثبطاً للعزيمة."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'sustain' mean?",
+      "question_context": "Astronauts must sustain themselves for years on Mars.",
+      "options": [
+        {
+          "id": "a",
+          "text": "يتجاهل",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يحافظ على ويستمر في",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "يدمر",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "يبدأ من جديد",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة sustain تعني المحافظة على شيء والاستمرار فيه."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'plummet' mean?",
+      "question_context": "Temperatures can plummet to minus 80 degrees on Mars.",
+      "options": [
+        {
+          "id": "a",
+          "text": "يرتفع ببطء",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يبقى ثابتاً",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "يتغير أحياناً",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "ينخفض بسرعة شديدة",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة plummet تعني الهبوط أو الانخفاض الشديد والسريع."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Choose the correct sentence:",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "Unless astronauts will train hard, they won't survive.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Unless astronauts train hard, they won't survive.",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "Unless astronauts don't train hard, they won't survive.",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "Unless astronauts trained hard, they won't survive.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "بعد unless نستخدم المضارع البسيط (train) وليس will أو don't أو الماضي."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Choose the correct sentence:",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "As long as if the oxygen lasts, they will survive.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "As long as the oxygen lasts, they will survive.",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "As long as the oxygen will last, they will survive.",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "As long as the oxygen lasted, they will survive.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "بعد as long as نستخدم المضارع البسيط (lasts) وليس will أو if أو الماضي."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "What percentage is Mars's atmosphere carbon dioxide?",
+      "question_context": "Passage B: 'The planet's atmosphere, which is 95% carbon dioxide, cannot support human breathing.'",
+      "options": [
+        {
+          "id": "a",
+          "text": "43%",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "75%",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "95%",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "80%",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "ذكر النص أن غلاف المريخ الجوي يتكون من 95% من ثاني أكسيد الكربون."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'Unless you wear a spacesuit, you will die on Mars' is correct.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "الجملة صحيحة. unless تعني 'إذا لم' وتُتبع بالمضارع البسيط، وهذا صحيح هنا."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "Mars rovers have traveled over 50 km on Mars.",
+      "question_context": "Passage A: 'Scientists have reported that these mechanical explorers have traveled over 50 kilometers across the Martian surface.'",
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيح. ذكر النص أن مركبات المريخ قطعت أكثر من 50 كيلومتراً على سطح الكوكب."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "A crew of four needs a greenhouse of ____ square meters on Mars.",
+      "question_context": "Passage B: 'NASA's studies suggest that a crew of four could sustain themselves with a greenhouse covering approximately 200 square meters.'",
+      "options": null,
+      "correct_answer": "200",
+      "accepted_answers": [
+        "200",
+        "two hundred"
+      ],
+      "points": 1,
+      "explanation_ar": "وفقاً للنص، يحتاج طاقم من أربعة أشخاص إلى دفيئة مساحتها 200 متر مربع تقريباً."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "vocabulary",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "captivated",
+          "harsh",
+          "diverse",
+          "threshold"
+        ],
+        "right_items": [
+          "متنوع ومختلف",
+          "عتبة وبداية",
+          "سحر وأبهر",
+          "قاسٍ وشديد"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "captivated",
+          "right": "سحر وأبهر"
+        },
+        {
+          "left": "harsh",
+          "right": "قاسٍ وشديد"
+        },
+        {
+          "left": "diverse",
+          "right": "متنوع ومختلف"
+        },
+        {
+          "left": "threshold",
+          "right": "عتبة وبداية"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "طابق كل كلمة إنجليزية مع معناها الصحيح باللغة العربية."
+    }
+  ]
+}

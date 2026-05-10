@@ -1,0 +1,285 @@
+{
+  "variant_label": "C",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'carved' mean?",
+      "question_context": "The river carved a deep valley through the mountains.",
+      "options": [
+        {
+          "id": "a",
+          "text": "ملأ",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "نحت وشكّل",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "غطّى",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "رفع",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة carved تعني نحت أو حفر وشكّل شيئاً بالقطع."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'devised' mean?",
+      "question_context": "The teacher devised a new way to teach vocabulary.",
+      "options": [
+        {
+          "id": "a",
+          "text": "نسي",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "رفض",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "ابتكر ووضع خطة",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "حذف",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة devised تعني ابتكر أو صمم خطة أو طريقة جديدة."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'resulted in' mean?",
+      "question_context": "The heavy rain resulted in flooding in the city.",
+      "options": [
+        {
+          "id": "a",
+          "text": "منع",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "أدى إلى وتسبب في",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "توقف عن",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "بدأ من",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "عبارة resulted in تعني أدى إلى أو تسبب في نتيجة معينة."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Choose the correct sentence about Mars missions:",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "As long as we have enough fuel, we will reach Mars.",
+          "is_correct": true
+        },
+        {
+          "id": "b",
+          "text": "As long as if we have enough fuel, we will reach Mars.",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "As long as we will have enough fuel, we will reach Mars.",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "As long as we have enough fuel, we reached Mars.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "a",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "as long as تتبعها جملة بالمضارع البسيط ثم جملة بـ will، بدون إضافة if."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence is grammatically correct?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "Unless the rover don't stop, it will collect more data.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Unless the rover stops, it will collect more data.",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "Unless the rover stops, it won't collect more data.",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "Unless the rover will stop, it won't collect more data.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "unless تعني إذا لم، فلا نستخدم معها don't أو will، والفعل بعدها يكون مضارعاً بسيطاً."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "When did Viking missions land on Mars?",
+      "question_context": "Passage A: The breakthrough came in 1976 when NASA's Viking missions successfully landed on Mars.",
+      "options": [
+        {
+          "id": "a",
+          "text": "1960",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "1969",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "1976",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "1985",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "وفقاً للنص، هبطت مهمات فايكنج التابعة لناسا على المريخ عام 1976."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'Unless the greenhouse is large enough, the crew will survive' is correct.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "الجملة خاطئة. unless تعني إذا لم، فالمعنى يصبح متناقضاً. الصحيح: Unless the greenhouse is large enough, the crew won't survive."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "Mars and Earth have similar day-night cycles.",
+      "question_context": "Passage A: What makes Mars exploration so feasible compared to missions to other planets is its relative proximity to Earth and similar day-night cycles.",
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيح. النص يذكر أن المريخ والأرض لهما دورات ليل ونهار متشابهة."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "Communication delays between Earth and Mars extend up to ____ minutes.",
+      "question_context": "Passage A: communication delays between Earth and Mars can extend up to 24 minutes.",
+      "options": null,
+      "correct_answer": "24",
+      "accepted_answers": [
+        "24",
+        "twenty-four",
+        "twenty four"
+      ],
+      "points": 1,
+      "explanation_ar": "وفقاً للنص، يمكن أن تصل تأخيرات الاتصال بين الأرض والمريخ إلى 24 دقيقة."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "vocabulary",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "give up",
+          "analyzing",
+          "convert",
+          "endeavors"
+        ],
+        "right_items": [
+          "يحلل ويفحص",
+          "جهود ومساعي جدية",
+          "يستسلم ويتوقف",
+          "يحول ويغير"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "give up",
+          "right": "يستسلم ويتوقف"
+        },
+        {
+          "left": "analyzing",
+          "right": "يحلل ويفحص"
+        },
+        {
+          "left": "convert",
+          "right": "يحول ويغير"
+        },
+        {
+          "left": "endeavors",
+          "right": "جهود ومساعي جدية"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "طابق كل كلمة إنجليزية مع معناها الصحيح باللغة العربية."
+    }
+  ]
+}

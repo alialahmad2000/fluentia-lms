@@ -1,0 +1,284 @@
+{
+  "variant_label": "C",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'emphasize' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "يتجاهل",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يؤكد على",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "يخفي",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "يحذف",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة emphasize تعني يؤكد على شيء أو يشدد عليه."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'mask' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "يكشف",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يجمع",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "يخفي",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "يراقب",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة mask تعني يخفي أو يستر شيئاً ما."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'screen' mean here: 'Companies screen job applicants'?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "يدفع",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يفحص وينتقي",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "يدرب",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "يوظف مباشرة",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة screen هنا تعني يفحص المتقدمين وينتقي المناسب منهم."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'take for granted' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "يقدر قيمة الشيء جداً",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يرفض الشيء تماماً",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "يطلب الشيء بإلحاح",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "لا يقدر قيمة الشيء",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "عبارة take for granted تعني أن الشخص يعتبر شيئاً أمراً مسلماً به ولا يقدر قيمته."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence about 'such' is correct?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "It was such comprehensive report that users were shocked.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "It was so a comprehensive report that users were shocked.",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "It was such a comprehensive report that users were shocked.",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "It was so comprehensive report that users were shocked.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم such a قبل الصفة والاسم المفرد، فنقول such a comprehensive report."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence has a grammar mistake?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "The data breach was so serious that the company apologized.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "She scrolled through her feed so quickly that she missed the post.",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "It was such strong passwords that hackers failed.",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "They have such strong passwords that hackers cannot break them.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "الجملة c خاطئة لأنها تحتاج إلى they have such strong passwords لتكون صحيحة نحوياً."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "The GDPR gives users the right to delete their data.",
+      "question_context": "The European Union's General Data Protection Regulation (GDPR) has set new standards for data protection, giving users the right to know what information is collected and to request its deletion.",
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيح. تمنح لائحة GDPR المستخدمين حق معرفة البيانات المجمعة وطلب حذفها."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "Smart home devices only collect data once a day.",
+      "question_context": "According to a 2023 study by the International Digital Rights Foundation, the average smart home device transmits data to company servers every 3.2 minutes.",
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "خاطئ. تُرسل البيانات كل 3.2 دقيقة وليس مرة واحدة في اليوم."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "grammar",
+      "question_type": "fill_blank",
+      "question_text": "Hackers can _____ your online activity if you use a weak password.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "monitor",
+      "accepted_answers": [
+        "monitor",
+        "Monitor"
+      ],
+      "points": 1,
+      "explanation_ar": "كلمة monitor تعني يراقب أو يتابع، وهي الكلمة المناسبة لإكمال الجملة."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "reading",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "authenticate",
+          "account password",
+          "antivirus software",
+          "cookie"
+        ],
+        "right_items": [
+          "ملف تعريف",
+          "برنامج مكافحة الفيروسات",
+          "كلمة مرور الحساب",
+          "يتحقق من الهوية"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "authenticate",
+          "right": "يتحقق من الهوية"
+        },
+        {
+          "left": "account password",
+          "right": "كلمة مرور الحساب"
+        },
+        {
+          "left": "antivirus software",
+          "right": "برنامج مكافحة الفيروسات"
+        },
+        {
+          "left": "cookie",
+          "right": "ملف تعريف"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "هذه مصطلحات تقنية مهمة تتعلق بأمان الحسابات والخصوصية الرقمية."
+    }
+  ]
+}

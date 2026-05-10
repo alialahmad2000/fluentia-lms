@@ -1,0 +1,1441 @@
+{
+  "unit": {
+    "id": "a12ff640-eb7e-4c48-8cf7-69f0f2cef190",
+    "title_en": "Ancient Engineering",
+    "title_ar": "الهندسة القديمة",
+    "unit_number": 8
+  },
+  "level": {
+    "id": "f7e8dbfb-ec8e-4491-a62d-f54fd4c41aab",
+    "level_number": 3,
+    "name_en": "Fluency"
+  },
+  "assessment": {
+    "id": "bb1f88a2-61d3-4fa6-93a6-99b8d46a3ccb"
+  },
+  "variants": [
+    {
+      "id": "144d362e-8677-442d-841b-22ecfe2722ef",
+      "variant_code": "A"
+    },
+    {
+      "id": "afa7b0a6-08de-4cd3-ab00-dc682f99d18c",
+      "variant_code": "B"
+    },
+    {
+      "id": "cfc866bc-56cb-4553-9c05-274e25aa5020",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "id": "768649b2-a925-40f0-ab22-bd8f354f97a8",
+      "word": "ingenious",
+      "pos": "adjective",
+      "meaning_ar": "مبتكر، ذكي، بارع في حل المشاكل",
+      "example_sentence": "The student found an ingenious way to remember all the vocabulary words.",
+      "tier": "core"
+    },
+    {
+      "id": "8233e5c7-a7fc-422d-bed6-c830a0835e53",
+      "word": "marvel",
+      "pos": "verb",
+      "meaning_ar": "يتعجب، يندهش، يُعجب بشيء ما",
+      "example_sentence": "Tourists marvel at the beautiful sunset over the ocean every evening.",
+      "tier": "core"
+    },
+    {
+      "id": "93e7dfdc-e7ce-43ee-98bf-3e7bf51a579e",
+      "word": "baffle",
+      "pos": "verb",
+      "meaning_ar": "يُحيّر، يُربك، يُذهل",
+      "example_sentence": "The magician's tricks completely baffled the children in the audience.",
+      "tier": "core"
+    },
+    {
+      "id": "76389db2-fb49-4d79-8c8b-b24eab4453ab",
+      "word": "ambitious",
+      "pos": "adjective",
+      "meaning_ar": "طموح، يتطلب جهداً كبيراً",
+      "example_sentence": "Sarah has ambitious plans to open her own restaurant next year.",
+      "tier": "core"
+    },
+    {
+      "id": "0a5b150b-86e4-43e4-af9e-bac54a4f9e10",
+      "word": "meticulous",
+      "pos": "adjective",
+      "meaning_ar": "دقيق جداً، مُتأنٍ، يهتم بكل التفاصيل",
+      "example_sentence": "The doctor was meticulous in examining each patient carefully.",
+      "tier": "core"
+    },
+    {
+      "id": "8b4c1563-86e2-47d7-8c8b-a96a40473c9c",
+      "word": "colossal",
+      "pos": "adjective",
+      "meaning_ar": "ضخم جداً، هائل",
+      "example_sentence": "The company made a colossal mistake by not checking their calculations.",
+      "tier": "core"
+    },
+    {
+      "id": "433d1a4b-0fe2-4d95-a921-b598049d0ace",
+      "word": "intricate",
+      "pos": "adjective",
+      "meaning_ar": "معقد، متشابك، مُفصّل بدقة",
+      "example_sentence": "The carpet had an intricate pattern with many colors and designs.",
+      "tier": "core"
+    },
+    {
+      "id": "8c42c7a1-4e9d-4135-86ab-de60a1046184",
+      "word": "astounds",
+      "pos": "verb",
+      "meaning_ar": "يُذهل، يُصدم، يُفاجئ بشدة",
+      "example_sentence": "The young pianist's performance astounds everyone at the concert.",
+      "tier": "core"
+    },
+    {
+      "id": "427f6ee1-2243-4c7e-ab39-83865c16bb22",
+      "word": "align",
+      "pos": "verb",
+      "meaning_ar": "يُحاذي، يُصف، يُرتب في خط مستقيم",
+      "example_sentence": "Please align the chairs in straight rows before the meeting starts.",
+      "tier": "core"
+    },
+    {
+      "id": "ba635621-7e5b-450d-b9ee-091d49fa637d",
+      "word": "locate",
+      "pos": "verb",
+      "meaning_ar": "يحدد موقع، يعثر على، يجد",
+      "example_sentence": "I used my phone's GPS to locate the nearest restaurant.",
+      "tier": "core"
+    },
+    {
+      "id": "8adf575a-b9fc-48f7-b07a-447e63b2bf0a",
+      "word": "excavate",
+      "pos": "verb",
+      "meaning_ar": "يحفر، ينقب، يستخرج بالحفر",
+      "example_sentence": "The construction workers will excavate the ground before building the foundation.",
+      "tier": "core"
+    },
+    {
+      "id": "a5009180-ea5d-41c3-900f-445a93045a55",
+      "word": "perplex",
+      "pos": "verb",
+      "meaning_ar": "يُحيّر، يُربك، يُشوّش",
+      "example_sentence": "The strange noise coming from the car engine perplexes the mechanic.",
+      "tier": "core"
+    },
+    {
+      "id": "2ed55d00-6ce3-4402-8865-b461e871f1a2",
+      "word": "trickle",
+      "pos": "verb",
+      "meaning_ar": "يتساقط قطرة قطرة، يتدفق ببطء وقلة",
+      "example_sentence": "Water began to trickle from the broken pipe onto the floor.",
+      "tier": "core"
+    },
+    {
+      "id": "e954cecf-cf5a-4555-83b6-4a566cca3fe5",
+      "word": "revolutionized",
+      "pos": "verb",
+      "meaning_ar": "أحدث ثورة في، غيّر بشكل جذري",
+      "example_sentence": "The internet revolutionized the way people communicate around the world.",
+      "tier": "core"
+    },
+    {
+      "id": "d13300be-5a8e-4f11-bb04-dab6037aa5ca",
+      "word": "passed down",
+      "pos": "verb",
+      "meaning_ar": "يُورّث، يَنقل من جيل إلى جيل، يُمرِّر",
+      "example_sentence": "The family recipes were passed down from grandmother to granddaughter.",
+      "tier": "core"
+    },
+    {
+      "id": "267599b9-5c1b-4c8e-bd81-c4b119b9b49d",
+      "word": "incorporate",
+      "pos": "verb",
+      "meaning_ar": "يدمج، يُضمّن، يشمل",
+      "example_sentence": "The new building design incorporates solar panels to save energy.",
+      "tier": "core"
+    },
+    {
+      "id": "9126f840-136b-44b3-b740-3ebb35c873d0",
+      "word": "undertake",
+      "pos": "verb",
+      "meaning_ar": "يتعهد بـ، يشرع في، يقوم بمهمة",
+      "example_sentence": "The company will undertake a major renovation of the old building.",
+      "tier": "core"
+    },
+    {
+      "id": "1b85d525-fefd-45f9-a221-2eb5e3aad414",
+      "word": "pooling",
+      "pos": "verb",
+      "meaning_ar": "يجمع الموارد، يضع الأموال معاً، يتشارك في",
+      "example_sentence": "The students are pooling their money to buy a gift for their teacher.",
+      "tier": "core"
+    },
+    {
+      "id": "36fdace5-bc50-4d78-9895-c5a6c51113c9",
+      "word": "captivate",
+      "pos": "verb",
+      "meaning_ar": "يأسر، يفتن، يجذب انتباه",
+      "example_sentence": "The storyteller's voice captivated all the children at the library.",
+      "tier": "core"
+    },
+    {
+      "id": "e8462e91-80c6-4652-8143-73255f0b0ae7",
+      "word": "transformed",
+      "pos": "verb",
+      "meaning_ar": "حوّل، غيّر بشكل كامل",
+      "example_sentence": "The new paint and furniture transformed the old room into a beautiful space.",
+      "tier": "core"
+    },
+    {
+      "id": "f2c5d9c5-a776-45f2-a8e3-e93a149f184c",
+      "word": "abandoned",
+      "pos": "adjective",
+      "meaning_ar": "مهجور، متروك، مُتخلى عنه",
+      "example_sentence": "The old factory was abandoned when the company moved to a new location.",
+      "tier": "core"
+    },
+    {
+      "id": "28ba51c1-583f-4a07-b679-288383fcdf63",
+      "word": "drives",
+      "pos": "verb",
+      "meaning_ar": "يدفع، يحرّك، يحفّز",
+      "example_sentence": "Hunger drives many animals to search for food at night.",
+      "tier": "core"
+    },
+    {
+      "id": "4d1bed37-480d-4a3a-872c-6e4a680a4eeb",
+      "word": "reassess",
+      "pos": "verb",
+      "meaning_ar": "يُعيد تقييم، يعيد النظر في، يُراجع رأيه",
+      "example_sentence": "After the poor test results, the teacher decided to reassess her teaching methods.",
+      "tier": "core"
+    },
+    {
+      "id": "69e21367-6894-4b81-8971-9c05ec156cd2",
+      "word": "viable",
+      "pos": "adjective",
+      "meaning_ar": "قابل للتطبيق، عملي، مُجدي",
+      "example_sentence": "Working from home became a viable option for many employees during the pandemic.",
+      "tier": "core"
+    },
+    {
+      "id": "bdc247f2-8e12-42d2-8adf-6b328d82bac9",
+      "word": "look back",
+      "pos": "verb",
+      "meaning_ar": "ينظر إلى الماضي، يتذكر، يسترجع",
+      "example_sentence": "When I look back on my school days, I remember having so much fun with my friends.",
+      "tier": "core"
+    },
+    {
+      "id": "4af77c9b-6273-46c1-a049-9de38b064aab",
+      "word": "alignment",
+      "pos": "noun",
+      "meaning_ar": "محاذاة",
+      "example_sentence": "The precise alignment of the stones amazed modern engineers.",
+      "tier": "core"
+    },
+    {
+      "id": "dfc26e3b-87be-487b-b542-0d7e4b4e3c92",
+      "word": "achievement",
+      "pos": "noun",
+      "meaning_ar": "شيء صعب تم إنجازه بنجاح",
+      "example_sentence": "Building the pyramids was an incredible engineering achievement.",
+      "tier": "core"
+    },
+    {
+      "id": "a8b70ffa-57ed-420b-87fb-24b2007f7af9",
+      "word": "arch bridge",
+      "pos": "noun",
+      "meaning_ar": "جسر قوسي",
+      "example_sentence": "The arch bridge allowed traders to cross the river safely.",
+      "tier": "core"
+    },
+    {
+      "id": "cbd0b12e-650d-424a-b799-f462aba3d0f6",
+      "word": "aqueduct",
+      "pos": "noun",
+      "meaning_ar": "قناة مائية",
+      "example_sentence": "The Romans built aqueducts to carry water to their cities.",
+      "tier": "core"
+    },
+    {
+      "id": "428ada6e-46c1-453e-83ec-4ad16f8a8ea3",
+      "word": "arched ceiling",
+      "pos": "noun",
+      "meaning_ar": "سقف مقوّس",
+      "example_sentence": "The arched ceiling of the hall was decorated with painted scenes.",
+      "tier": "core"
+    },
+    {
+      "id": "a090def6-e3f3-40ca-a8bd-2066f374efc9",
+      "word": "archway",
+      "pos": "noun",
+      "meaning_ar": "قوس عبور",
+      "example_sentence": "The grand archway marked the entrance to the royal palace.",
+      "tier": "core"
+    },
+    {
+      "id": "0ad64436-987e-44d4-9522-939e19fee7b0",
+      "word": "block and tackle",
+      "pos": "noun",
+      "meaning_ar": "نظام بكرات ورافعة",
+      "example_sentence": "Workers used a block and tackle to raise the stone slab.",
+      "tier": "core"
+    },
+    {
+      "id": "9ca127b7-a8f0-46be-8374-e2b2fe63bdf6",
+      "word": "base layer",
+      "pos": "noun",
+      "meaning_ar": "طبقة الأساس",
+      "example_sentence": "They laid a thick base layer of gravel before placing the stones.",
+      "tier": "core"
+    },
+    {
+      "id": "1872d727-9f72-4996-801b-e8f377d81dae",
+      "word": "bronze",
+      "pos": "noun",
+      "meaning_ar": "برونز، معدن صلب مصنوع من خلط النحاس والقصدير، استُخدم في العصور القديمة",
+      "example_sentence": "Ancient craftsmen made tools and weapons from bronze.",
+      "tier": "core"
+    },
+    {
+      "id": "5c3b2304-f15c-4f91-8a92-abde85133798",
+      "word": "canal",
+      "pos": "noun",
+      "meaning_ar": "قناة مائية",
+      "example_sentence": "Farmers dug a canal to bring water to their dry fields.",
+      "tier": "core"
+    },
+    {
+      "id": "4cfdd692-a88b-4239-9760-e7cedf636493",
+      "word": "chamber",
+      "pos": "noun",
+      "meaning_ar": "غرفة",
+      "example_sentence": "The burial chamber was hidden beneath the stone floor.",
+      "tier": "core"
+    },
+    {
+      "id": "a7782f2e-10ca-44e3-8340-d3d0a226c1b6",
+      "word": "century",
+      "pos": "noun",
+      "meaning_ar": "فترة مائة سنة",
+      "example_sentence": "The cathedral took three centuries to complete.",
+      "tier": "core"
+    },
+    {
+      "id": "b3489d89-ed48-4543-baad-014b94295925",
+      "word": "corridor",
+      "pos": "noun",
+      "meaning_ar": "ممر",
+      "example_sentence": "A long corridor led visitors deeper into the pyramid.",
+      "tier": "core"
+    },
+    {
+      "id": "bd812196-ea2b-49e4-a1eb-09d0e40d448f",
+      "word": "construction plan",
+      "pos": "noun",
+      "meaning_ar": "مخطط إنشائي",
+      "example_sentence": "The architect studied the construction plan before starting work.",
+      "tier": "core"
+    },
+    {
+      "id": "0a8f2366-b5d6-4440-b51c-33988c3fa94f",
+      "word": "dig out",
+      "pos": "verb",
+      "meaning_ar": "حفر واستخراج",
+      "example_sentence": "Workers had to dig out tons of soil before placing the foundations.",
+      "tier": "core"
+    },
+    {
+      "id": "b4676e42-00f6-47e4-b4c4-d4fdf3757cad",
+      "word": "dating back to",
+      "pos": "verb",
+      "meaning_ar": "يعود تاريخه إلى، موجود من أو له أصول في وقت معين في الماضي",
+      "example_sentence": "The castle has walls dating back to the 12th century.",
+      "tier": "core"
+    },
+    {
+      "id": "963974bf-d1db-4d44-8f2b-37fd14cf07ad",
+      "word": "drainage system",
+      "pos": "noun",
+      "meaning_ar": "نظام صرف",
+      "example_sentence": "The ancient drainage system kept the streets free of floods.",
+      "tier": "core"
+    },
+    {
+      "id": "9e615170-0e19-4095-a902-19f87a75a23e",
+      "word": "embankment",
+      "pos": "noun",
+      "meaning_ar": "سدّ ترابي",
+      "example_sentence": "The embankment protected the village from annual floods.",
+      "tier": "core"
+    },
+    {
+      "id": "1870eb8e-86fd-4ea7-9200-23827b6358ba",
+      "word": "flat roof",
+      "pos": "noun",
+      "meaning_ar": "سطح مسطح",
+      "example_sentence": "The flat roof provided extra space for sleeping in summer.",
+      "tier": "core"
+    },
+    {
+      "id": "20548532-d01d-4f83-99f5-998ef60331e5",
+      "word": "excavation",
+      "pos": "noun",
+      "meaning_ar": "تنقيب",
+      "example_sentence": "The excavation revealed a temple buried under the sand.",
+      "tier": "core"
+    },
+    {
+      "id": "48dd7d62-c425-4a8c-848c-8d0303e4d822",
+      "word": "irrigation channel",
+      "pos": "noun",
+      "meaning_ar": "قناة ري",
+      "example_sentence": "The irrigation channel allowed crops to grow in dry land.",
+      "tier": "core"
+    },
+    {
+      "id": "9e07add8-f7a3-42ba-8c33-34360cea65a3",
+      "word": "fortification",
+      "pos": "noun",
+      "meaning_ar": "تحصين",
+      "example_sentence": "The city's fortification kept enemy armies out for decades.",
+      "tier": "core"
+    },
+    {
+      "id": "d34ccd12-e0a5-4089-b3a4-e0390151c968",
+      "word": "laborer",
+      "pos": "noun",
+      "meaning_ar": "عامل يدوي",
+      "example_sentence": "Thousands of laborers worked to build the great walls.",
+      "tier": "core"
+    },
+    {
+      "id": "fd067c54-50d2-4ccb-8706-342067363b71",
+      "word": "last",
+      "pos": "verb",
+      "meaning_ar": "يستمر في الوجود أو العمل لفترة من الزمن",
+      "example_sentence": "These stone buildings were designed to last forever.",
+      "tier": "core"
+    },
+    {
+      "id": "17fe120d-06a5-41dd-a2ee-6b1cdc5d9cbe",
+      "word": "lever",
+      "pos": "noun",
+      "meaning_ar": "رافعة",
+      "example_sentence": "Ancient builders used levers to move heavy stone blocks.",
+      "tier": "core"
+    },
+    {
+      "id": "a66996fe-6c18-445f-baf1-4f1e53d5e0c7",
+      "word": "limestone",
+      "pos": "noun",
+      "meaning_ar": "حجر جيري",
+      "example_sentence": "The pyramids were built mainly from blocks of limestone.",
+      "tier": "core"
+    },
+    {
+      "id": "3ece912d-46ad-4b24-889f-482ebacfa2f6",
+      "word": "mason",
+      "pos": "noun",
+      "meaning_ar": "بنّاء",
+      "example_sentence": "Skilled masons carved beautiful patterns into the stone walls.",
+      "tier": "core"
+    },
+    {
+      "id": "46eee54d-bb48-474b-b3c8-3c3cf038dfd0",
+      "word": "load-bearing",
+      "pos": "adjective",
+      "meaning_ar": "حامل للأثقال",
+      "example_sentence": "The load-bearing walls kept the entire ceiling in place.",
+      "tier": "core"
+    },
+    {
+      "id": "1698dbe7-0b03-4bcf-a909-4e3957815c93",
+      "word": "method",
+      "pos": "noun",
+      "meaning_ar": "طريقة معينة لفعل شيء ما",
+      "example_sentence": "Ancient builders developed new methods for moving large stones.",
+      "tier": "core"
+    },
+    {
+      "id": "a433e07e-ba3e-415b-a1f1-a8406d571f68",
+      "word": "mortar joint",
+      "pos": "noun",
+      "meaning_ar": "وصلة ملاط",
+      "example_sentence": "A tight mortar joint prevented water from entering the wall.",
+      "tier": "core"
+    },
+    {
+      "id": "33870dfd-4440-45e2-984e-424430260e22",
+      "word": "mystery",
+      "pos": "noun",
+      "meaning_ar": "شيء صعب الفهم أو التفسير",
+      "example_sentence": "How ancient people moved huge stones remains a mystery.",
+      "tier": "core"
+    },
+    {
+      "id": "de8448fa-2d21-4241-8833-3bf56b056d4c",
+      "word": "quarry",
+      "pos": "noun",
+      "meaning_ar": "محجر",
+      "example_sentence": "Workers cut massive stone blocks from the nearby quarry.",
+      "tier": "core"
+    },
+    {
+      "id": "13f2ba81-12ee-4126-82b2-ae7f70360bf8",
+      "word": "relief carving",
+      "pos": "noun",
+      "meaning_ar": "نقش بارز",
+      "example_sentence": "The relief carving on the wall showed a battle scene.",
+      "tier": "core"
+    },
+    {
+      "id": "3ff7e513-a5f6-47ae-940b-1ca4e490a696",
+      "word": "ramp",
+      "pos": "noun",
+      "meaning_ar": "منحدر",
+      "example_sentence": "Workers may have used ramps to build the pyramids.",
+      "tier": "core"
+    },
+    {
+      "id": "277b64eb-bc91-47f5-84f3-7ef24e5411db",
+      "word": "reservoir",
+      "pos": "noun",
+      "meaning_ar": "خزان مياه",
+      "example_sentence": "The ancient reservoir supplied the city for many centuries.",
+      "tier": "core"
+    },
+    {
+      "id": "9cd7d310-ff37-4400-aeb6-230eab309f0e",
+      "word": "remains",
+      "pos": "noun",
+      "meaning_ar": "أجزاء من شيء تبقت بعد تدمير الباقي",
+      "example_sentence": "Archaeologists study the remains of ancient Roman buildings.",
+      "tier": "core"
+    },
+    {
+      "id": "8543a102-2eb9-4e50-b26d-ab2014f88bb0",
+      "word": "scaffold",
+      "pos": "noun",
+      "meaning_ar": "سقالة",
+      "example_sentence": "Builders used wooden scaffolds to reach the top of walls.",
+      "tier": "core"
+    },
+    {
+      "id": "bc1968c5-0c75-4b46-bdb7-d634c2e69808",
+      "word": "skilled",
+      "pos": "adjective",
+      "meaning_ar": "يمتلك القدرة والمعرفة لفعل شيء بشكل جيد",
+      "example_sentence": "Skilled craftsmen carved beautiful details into the stone.",
+      "tier": "core"
+    },
+    {
+      "id": "9093c71b-eaa3-4682-91a5-5e9aa766650c",
+      "word": "stairway",
+      "pos": "noun",
+      "meaning_ar": "درج",
+      "example_sentence": "A steep stairway climbed to the top of the temple.",
+      "tier": "core"
+    },
+    {
+      "id": "cde66299-f45e-4b30-b434-8bd1dce40c47",
+      "word": "stone",
+      "pos": "noun",
+      "meaning_ar": "مادة معدنية صلبة تُستخدم في البناء",
+      "example_sentence": "Ancient builders used large stones to construct their monuments.",
+      "tier": "core"
+    },
+    {
+      "id": "8b4e2756-6410-4b52-927f-3e3032811a5a",
+      "word": "stone block",
+      "pos": "noun",
+      "meaning_ar": "كتلة حجرية",
+      "example_sentence": "Workers dragged each stone block across the desert floor.",
+      "tier": "core"
+    },
+    {
+      "id": "b91dad87-a2e5-405e-8b76-96572db37021",
+      "word": "stone carving",
+      "pos": "noun",
+      "meaning_ar": "نحت حجري",
+      "example_sentence": "The stone carving on the temple wall told the king's story.",
+      "tier": "core"
+    },
+    {
+      "id": "06725e43-4633-42f6-82e6-3acdd7148573",
+      "word": "stonemason",
+      "pos": "noun",
+      "meaning_ar": "بنّاء حجارة",
+      "example_sentence": "The stonemason spent years perfecting his technique.",
+      "tier": "core"
+    },
+    {
+      "id": "88211c80-91fa-4950-a638-67027a72a723",
+      "word": "stone memorial",
+      "pos": "noun",
+      "meaning_ar": "نُصب حجري تذكاري",
+      "example_sentence": "The stone memorial at the city gate listed the names of fallen soldiers.",
+      "tier": "core"
+    },
+    {
+      "id": "069827ed-4849-4de7-bbf1-91b5dc9324af",
+      "word": "structure",
+      "pos": "noun",
+      "meaning_ar": "شيء تم بناؤه من عدة أجزاء",
+      "example_sentence": "The Roman Colosseum is a massive stone structure.",
+      "tier": "core"
+    },
+    {
+      "id": "f40cf619-25fd-4853-a4f8-2e9b0331807c",
+      "word": "surveyor",
+      "pos": "noun",
+      "meaning_ar": "مساحٌ",
+      "example_sentence": "The surveyor marked the exact position of each wall.",
+      "tier": "core"
+    },
+    {
+      "id": "7770e5ac-700c-414b-981d-ceec5321138a",
+      "word": "technique",
+      "pos": "noun",
+      "meaning_ar": "طريقة معينة لفعل شيء بمهارة",
+      "example_sentence": "Ancient civilizations developed advanced building techniques.",
+      "tier": "core"
+    },
+    {
+      "id": "cea9cc99-4e6d-4e40-9f67-ee1f449147db",
+      "word": "terrace wall",
+      "pos": "noun",
+      "meaning_ar": "جدار مدرّج",
+      "example_sentence": "The terrace wall held the soil in place on the hillside.",
+      "tier": "core"
+    },
+    {
+      "id": "151415ef-9298-4eaf-842b-cb28de8eabcb",
+      "word": "tower wall",
+      "pos": "noun",
+      "meaning_ar": "جدار البرج",
+      "example_sentence": "The tower wall gave guards a clear view of the surroundings.",
+      "tier": "core"
+    },
+    {
+      "id": "6a6625b2-5dad-412c-b4b2-8cea1f2552db",
+      "word": "underground passage",
+      "pos": "noun",
+      "meaning_ar": "ممر تحت الأرض",
+      "example_sentence": "Soldiers used the underground passage to escape the siege.",
+      "tier": "core"
+    },
+    {
+      "id": "3e8ca887-99eb-4cb8-bbea-07f50cfc1d32",
+      "word": "upright column",
+      "pos": "noun",
+      "meaning_ar": "عمود قائم",
+      "example_sentence": "Each upright column was made from a single piece of carved stone.",
+      "tier": "core"
+    },
+    {
+      "id": "d9b5323c-b704-4195-8fcb-4547f3889549",
+      "word": "wall",
+      "pos": "noun",
+      "meaning_ar": "هيكل عمودي يحيط بمنطقة أو يقسمها",
+      "example_sentence": "The Great Wall of China stretches for thousands of miles.",
+      "tier": "core"
+    },
+    {
+      "id": "73848d26-0f79-4ef5-9563-e52b3310b6c0",
+      "word": "weight distribution",
+      "pos": "noun",
+      "meaning_ar": "توزيع الأثقال",
+      "example_sentence": "Careful weight distribution prevented the bridge from collapsing.",
+      "tier": "core"
+    },
+    {
+      "id": "e6f7983a-4765-4709-a757-a4ebdabc7de5",
+      "word": "water wheel",
+      "pos": "noun",
+      "meaning_ar": "عجلة مائية",
+      "example_sentence": "The water wheel helped farmers lift water from the river.",
+      "tier": "core"
+    },
+    {
+      "id": "a01cd207-4c6f-4732-a029-fc7c924a1441",
+      "word": "arched doorway",
+      "pos": "noun",
+      "meaning_ar": "باب مقوّس",
+      "example_sentence": "The arched doorway opened into a cool stone chamber.",
+      "tier": "extended"
+    },
+    {
+      "id": "b420fe2b-712b-4486-9766-a1ac6cca878c",
+      "word": "amphitheater",
+      "pos": "noun",
+      "meaning_ar": "مدرج",
+      "example_sentence": "The Roman amphitheater could seat fifty thousand spectators.",
+      "tier": "extended"
+    },
+    {
+      "id": "5b650ca9-7af6-4693-82be-2eda9d91f140",
+      "word": "barrel vault",
+      "pos": "noun",
+      "meaning_ar": "قبو أسطواني",
+      "example_sentence": "The barrel vault created a long covered walkway through the market.",
+      "tier": "extended"
+    },
+    {
+      "id": "f3b6f46d-777c-4bce-b509-123d337e80d2",
+      "word": "building material",
+      "pos": "noun",
+      "meaning_ar": "مواد بناء",
+      "example_sentence": "The builders chose building materials that lasted for centuries.",
+      "tier": "extended"
+    },
+    {
+      "id": "ea055c1d-6497-4bae-892a-2ece77f72c4f",
+      "word": "buttress",
+      "pos": "noun",
+      "meaning_ar": "دعامة",
+      "example_sentence": "Flying buttresses support the walls of Gothic cathedrals.",
+      "tier": "extended"
+    },
+    {
+      "id": "f50e6ee6-1939-4331-b8ee-17d04297aeee",
+      "word": "capstone",
+      "pos": "noun",
+      "meaning_ar": "حجر القمة",
+      "example_sentence": "The golden capstone once gleamed at the top of the pyramid.",
+      "tier": "extended"
+    },
+    {
+      "id": "03560055-5288-4468-8682-95a3f137d307",
+      "word": "cistern",
+      "pos": "noun",
+      "meaning_ar": "صهريج",
+      "example_sentence": "Ancient cities built cisterns to collect and store rainwater.",
+      "tier": "extended"
+    },
+    {
+      "id": "fde5fdd2-35aa-4693-b395-b99553f3a643",
+      "word": "carry out construction",
+      "pos": "verb",
+      "meaning_ar": "تنفيذ أعمال البناء",
+      "example_sentence": "It took twenty years to carry out construction of the great temple.",
+      "tier": "extended"
+    },
+    {
+      "id": "25374cde-def9-48e1-84a7-6fecb3816150",
+      "word": "counterweight",
+      "pos": "noun",
+      "meaning_ar": "موازن ثقيل",
+      "example_sentence": "A counterweight made it easier to lift the heavy gate.",
+      "tier": "extended"
+    },
+    {
+      "id": "96ff9f49-8b8c-4994-a699-065e651d1699",
+      "word": "colonnade",
+      "pos": "noun",
+      "meaning_ar": "رواق أعمدة",
+      "example_sentence": "The colonnade led visitors toward the temple entrance.",
+      "tier": "extended"
+    },
+    {
+      "id": "8e6b14a7-65fd-4f1b-a24f-b4329b593459",
+      "word": "cross-section",
+      "pos": "noun",
+      "meaning_ar": "مقطع عرضي",
+      "example_sentence": "The cross-section showed the inner rooms of the pyramid.",
+      "tier": "extended"
+    },
+    {
+      "id": "a82a76f9-eb37-4fb2-be68-60ca505a9ec7",
+      "word": "courtyard layout",
+      "pos": "noun",
+      "meaning_ar": "تخطيط الفناء",
+      "example_sentence": "The courtyard layout allowed air to circulate in hot weather.",
+      "tier": "extended"
+    },
+    {
+      "id": "04804298-9f14-4f63-b245-5d468a6952d1",
+      "word": "drainage",
+      "pos": "noun",
+      "meaning_ar": "تصريف مياه",
+      "example_sentence": "The ancient city had an advanced drainage system under its streets.",
+      "tier": "extended"
+    },
+    {
+      "id": "538f8d36-bc23-4d9c-93f9-e63c7af3b28f",
+      "word": "decorative frieze",
+      "pos": "noun",
+      "meaning_ar": "إفريز زخرفي",
+      "example_sentence": "The decorative frieze showed scenes from the king's victories.",
+      "tier": "extended"
+    },
+    {
+      "id": "5e3de1b9-e0b6-4616-a0cd-853a1c4d1ff5",
+      "word": "facade",
+      "pos": "noun",
+      "meaning_ar": "واجهة",
+      "example_sentence": "The facade of the palace is decorated with carved flowers.",
+      "tier": "extended"
+    },
+    {
+      "id": "da7da1c5-13f4-46e7-af27-6a4cd7d894a3",
+      "word": "fire-hardened",
+      "pos": "adjective",
+      "meaning_ar": "مقوّى بالنار",
+      "example_sentence": "Fire-hardened bricks were far more durable than sun-dried ones.",
+      "tier": "extended"
+    },
+    {
+      "id": "8eb6ced5-ceee-4594-95ab-4bde91fd9b9b",
+      "word": "granite",
+      "pos": "noun",
+      "meaning_ar": "جرانيت",
+      "example_sentence": "The builders chose granite because of its strength and beauty.",
+      "tier": "extended"
+    },
+    {
+      "id": "c71f0da4-76a0-4c05-a697-78e81c9b682a",
+      "word": "inclined plane",
+      "pos": "noun",
+      "meaning_ar": "سطح مائل",
+      "example_sentence": "Workers pushed stones up an inclined plane to build the wall.",
+      "tier": "extended"
+    },
+    {
+      "id": "52c4f8b0-64c4-47ae-9f9a-a533d95a482e",
+      "word": "mortar",
+      "pos": "noun",
+      "meaning_ar": "ملاط",
+      "example_sentence": "The builders mixed mortar from sand, lime, and water.",
+      "tier": "extended"
+    },
+    {
+      "id": "bcc78e4a-446b-4afc-a5bb-2b1112227817",
+      "word": "long-lasting",
+      "pos": "adjective",
+      "meaning_ar": "طويل الأمد",
+      "example_sentence": "The long-lasting concrete roads built by Romans still exist today.",
+      "tier": "extended"
+    },
+    {
+      "id": "93515162-9e36-40ac-8c09-fb512a2b5f21",
+      "word": "mortar mixture",
+      "pos": "noun",
+      "meaning_ar": "خليط الملاط",
+      "example_sentence": "The mortar mixture hardened over centuries into solid rock.",
+      "tier": "extended"
+    },
+    {
+      "id": "c587b8b9-f58a-4b53-83c0-6b6d1edbcb96",
+      "word": "mud brick",
+      "pos": "noun",
+      "meaning_ar": "طوبة طينية",
+      "example_sentence": "Mud bricks were cheap and easy to make in river valleys.",
+      "tier": "extended"
+    },
+    {
+      "id": "ed28c331-1e64-40fe-aa7c-e626f5d51906",
+      "word": "obelisk",
+      "pos": "noun",
+      "meaning_ar": "مسلة",
+      "example_sentence": "The ancient Egyptian obelisk stands in the city center.",
+      "tier": "extended"
+    },
+    {
+      "id": "ef3369fe-2082-4d23-b8d2-b8c3129af0d9",
+      "word": "overhanging rock",
+      "pos": "noun",
+      "meaning_ar": "صخرة متدلية",
+      "example_sentence": "The overhanging rock provided shade for the workers below.",
+      "tier": "extended"
+    },
+    {
+      "id": "8afd1975-15e6-4ea6-b97b-4c0029961b66",
+      "word": "pedestal",
+      "pos": "noun",
+      "meaning_ar": "قاعدة",
+      "example_sentence": "The statue stands on a marble pedestal in the square.",
+      "tier": "extended"
+    },
+    {
+      "id": "fe401264-6c02-4cb1-9aac-2c0c5a04f541",
+      "word": "paving stone",
+      "pos": "noun",
+      "meaning_ar": "حجر رصف",
+      "example_sentence": "Paving stones lined the main road into the ancient capital.",
+      "tier": "extended"
+    },
+    {
+      "id": "70442ed2-04db-42d6-82f5-a8371da5b0aa",
+      "word": "plumb bob",
+      "pos": "noun",
+      "meaning_ar": "شاقول",
+      "example_sentence": "The surveyor used a plumb bob to check that the wall was straight.",
+      "tier": "extended"
+    },
+    {
+      "id": "c1f4520b-e084-4bca-9cee-77497204a648",
+      "word": "pitched roof",
+      "pos": "noun",
+      "meaning_ar": "سقف مائل",
+      "example_sentence": "A pitched roof helped rain flow off quickly in wet climates.",
+      "tier": "extended"
+    },
+    {
+      "id": "1c10e0ed-1692-4ea9-80b6-6d3b1e965d8b",
+      "word": "plumb line",
+      "pos": "noun",
+      "meaning_ar": "خيط شاقول",
+      "example_sentence": "Builders used a plumb line to make sure walls were straight.",
+      "tier": "extended"
+    },
+    {
+      "id": "bfa52059-1edc-448d-b69b-c4469f323b7b",
+      "word": "precise measurement",
+      "pos": "noun",
+      "meaning_ar": "قياس دقيق",
+      "example_sentence": "Precise measurement was essential to align the stones correctly.",
+      "tier": "extended"
+    },
+    {
+      "id": "be093893-35eb-48a6-866d-87700e3e6331",
+      "word": "pulley",
+      "pos": "noun",
+      "meaning_ar": "بكرة",
+      "example_sentence": "Ancient builders used pulleys to lift stones to great heights.",
+      "tier": "extended"
+    },
+    {
+      "id": "ec7b9ace-5678-47ea-8eb6-52972a6afd8c",
+      "word": "put into use",
+      "pos": "verb",
+      "meaning_ar": "وضع في الاستخدام",
+      "example_sentence": "The aqueduct was put into use after five years of construction.",
+      "tier": "extended"
+    },
+    {
+      "id": "4b07e655-d560-4dc6-82f8-ffc12ca4f1cb",
+      "word": "siege tower",
+      "pos": "noun",
+      "meaning_ar": "برج حصار",
+      "example_sentence": "The army used a siege tower to scale the city walls.",
+      "tier": "extended"
+    },
+    {
+      "id": "bd4e896d-c3a2-4993-a035-7f87e7b2d7a1",
+      "word": "retaining wall",
+      "pos": "noun",
+      "meaning_ar": "جدار دعم",
+      "example_sentence": "They built a retaining wall to stop the hillside from sliding.",
+      "tier": "extended"
+    },
+    {
+      "id": "1f068e53-b521-49d2-b4d0-379e5f8caf7c",
+      "word": "slab",
+      "pos": "noun",
+      "meaning_ar": "بلاطة حجرية",
+      "example_sentence": "A heavy slab sealed the entrance to the tomb.",
+      "tier": "extended"
+    },
+    {
+      "id": "710d0f9a-554e-4eb3-9a98-4a4f482c2cdf",
+      "word": "step pyramid",
+      "pos": "noun",
+      "meaning_ar": "هرم مدرّج",
+      "example_sentence": "The step pyramid at Saqqara is one of Egypt's oldest structures.",
+      "tier": "extended"
+    },
+    {
+      "id": "b62da8aa-ee55-4a3d-9139-7143cba5810c",
+      "word": "surveying",
+      "pos": "noun",
+      "meaning_ar": "مساحة",
+      "example_sentence": "Egyptian engineers used surveying to plan the pyramid locations.",
+      "tier": "extended"
+    },
+    {
+      "id": "fcf0726a-188c-4958-915f-fcceedccaaf0",
+      "word": "symmetry",
+      "pos": "noun",
+      "meaning_ar": "تناظر",
+      "example_sentence": "Ancient Greek buildings show perfect symmetry in their design.",
+      "tier": "extended"
+    },
+    {
+      "id": "a78b5a42-504b-4ee8-9309-4c921ee13e24",
+      "word": "terrace",
+      "pos": "noun",
+      "meaning_ar": "مصطبة",
+      "example_sentence": "Ancient farmers built terraces on hillsides for growing crops.",
+      "tier": "extended"
+    },
+    {
+      "id": "dfaafceb-281a-4618-92c1-d8042c5627a5",
+      "word": "town planning",
+      "pos": "noun",
+      "meaning_ar": "تخطيط المدن",
+      "example_sentence": "Ancient town planning included wide streets and public spaces.",
+      "tier": "extended"
+    },
+    {
+      "id": "80254c3c-1c7a-424d-b726-82ce2d6612d6",
+      "word": "vault",
+      "pos": "noun",
+      "meaning_ar": "قبو",
+      "example_sentence": "The cathedral features a magnificent stone vault ceiling.",
+      "tier": "extended"
+    },
+    {
+      "id": "d7a7264c-3c8d-46a2-80e2-b126a295f365",
+      "word": "trench",
+      "pos": "noun",
+      "meaning_ar": "خندق",
+      "example_sentence": "Soldiers dug a trench around the city to stop invaders.",
+      "tier": "extended"
+    },
+    {
+      "id": "49df6208-d01c-4e9b-8162-9293d7c53a56",
+      "word": "water clock",
+      "pos": "noun",
+      "meaning_ar": "ساعة مائية",
+      "example_sentence": "The water clock told priests when to begin the ceremony.",
+      "tier": "extended"
+    },
+    {
+      "id": "ebe9cead-bcbc-471e-b112-bbf6788185cf",
+      "word": "walled city",
+      "pos": "noun",
+      "meaning_ar": "مدينة محصّنة",
+      "example_sentence": "The walled city withstood many attacks over the centuries.",
+      "tier": "extended"
+    },
+    {
+      "id": "07754e3f-38d8-4e82-b8df-5a57f71a162a",
+      "word": "waterproof lining",
+      "pos": "noun",
+      "meaning_ar": "طبقة عازلة للماء",
+      "example_sentence": "A waterproof lining kept the cistern from leaking into the soil.",
+      "tier": "extended"
+    },
+    {
+      "id": "65881b61-bd7b-4ca0-b7d8-c9180deae2a2",
+      "word": "wooden beam",
+      "pos": "noun",
+      "meaning_ar": "عارضة خشبية",
+      "example_sentence": "The wooden beam held the heavy stone roof above them.",
+      "tier": "extended"
+    },
+    {
+      "id": "2a834cc3-d735-42e0-80ef-4c0faebf6615",
+      "word": "wooden scaffold",
+      "pos": "noun",
+      "meaning_ar": "سقالة خشبية",
+      "example_sentence": "The wooden scaffold allowed workers to paint the upper walls.",
+      "tier": "extended"
+    },
+    {
+      "id": "b0599d13-c8af-42d6-b87a-0ad66cc3f6a3",
+      "word": "acoustics",
+      "pos": "noun",
+      "meaning_ar": "صوتيات",
+      "example_sentence": "Ancient Greek theaters had excellent acoustics for performances.",
+      "tier": "mastery"
+    },
+    {
+      "id": "8daa13fe-a929-46bf-9fb1-518a259651ba",
+      "word": "ashlar",
+      "pos": "noun",
+      "meaning_ar": "حجارة مُشذَّبة",
+      "example_sentence": "The temple walls were built entirely from ashlar blocks.",
+      "tier": "mastery"
+    },
+    {
+      "id": "b51fc2d2-93b7-4919-a990-8a3abe165b7c",
+      "word": "adobe",
+      "pos": "noun",
+      "meaning_ar": "طوب لبن",
+      "example_sentence": "Many traditional houses in the region are built from adobe.",
+      "tier": "mastery"
+    },
+    {
+      "id": "56ac286f-192a-4f10-a58c-9bdc39882c3b",
+      "word": "bedding plane",
+      "pos": "noun",
+      "meaning_ar": "مستوى الترسب",
+      "example_sentence": "Masons split stones along the bedding plane to get flat surfaces.",
+      "tier": "mastery"
+    },
+    {
+      "id": "712616a2-c364-44ee-bb5d-1c666d3e29a8",
+      "word": "astrolabe",
+      "pos": "noun",
+      "meaning_ar": "أسطرلاب",
+      "example_sentence": "Muslim scholars improved the astrolabe for astronomical calculations.",
+      "tier": "mastery"
+    },
+    {
+      "id": "51bf2e5c-bb02-43bd-9d82-4dc7cc8b335b",
+      "word": "cantilever",
+      "pos": "noun",
+      "meaning_ar": "ذراع ناتئ",
+      "example_sentence": "The cantilever design allows the balcony to extend without support.",
+      "tier": "mastery"
+    },
+    {
+      "id": "c0cc2604-ba62-4a2f-9ca9-c827c177ad22",
+      "word": "bond pattern",
+      "pos": "noun",
+      "meaning_ar": "نمط الربط",
+      "example_sentence": "A well-chosen bond pattern prevents vertical cracks from forming.",
+      "tier": "mastery"
+    },
+    {
+      "id": "a685182c-008b-4f30-926b-11abb21f9aa7",
+      "word": "catapult",
+      "pos": "noun",
+      "meaning_ar": "منجنيق",
+      "example_sentence": "The army used catapults to throw stones over the castle walls.",
+      "tier": "mastery"
+    },
+    {
+      "id": "e21e10f6-53a9-4edc-bc69-032ad1609a42",
+      "word": "coping stone",
+      "pos": "noun",
+      "meaning_ar": "حجر تاجي",
+      "example_sentence": "The coping stone prevented rainwater from soaking into the wall.",
+      "tier": "mastery"
+    },
+    {
+      "id": "46cf9431-559a-4eeb-b492-d58c1fe196dc",
+      "word": "corbelling",
+      "pos": "noun",
+      "meaning_ar": "تقنية الدروع الحجرية",
+      "example_sentence": "Corbelling was used to form the roof of the ancient treasury.",
+      "tier": "mastery"
+    },
+    {
+      "id": "9f508597-33d8-40a3-9476-6adc330945ec",
+      "word": "corbel",
+      "pos": "noun",
+      "meaning_ar": "كابولي",
+      "example_sentence": "The corbels support the upper balcony of the ancient building.",
+      "tier": "mastery"
+    },
+    {
+      "id": "57e85366-ed64-469c-a8cc-829c74a32707",
+      "word": "drystone wall",
+      "pos": "noun",
+      "meaning_ar": "جدار حجري جاف",
+      "example_sentence": "The drystone wall has stood for over three thousand years.",
+      "tier": "mastery"
+    },
+    {
+      "id": "abf3f92b-b218-48a5-8649-c8cae891d7cf",
+      "word": "dressed stone",
+      "pos": "noun",
+      "meaning_ar": "حجر مُشطَّب",
+      "example_sentence": "Dressed stone gave the palace walls their smooth and uniform look.",
+      "tier": "mastery"
+    },
+    {
+      "id": "af6bdff2-fd05-4892-901c-34eeb560a2a2",
+      "word": "entablature",
+      "pos": "noun",
+      "meaning_ar": "العتب المعماري",
+      "example_sentence": "The entablature was carved with scenes from mythological stories.",
+      "tier": "mastery"
+    },
+    {
+      "id": "ca274103-b4a0-48bc-b57e-f0499de80e93",
+      "word": "enclosure wall",
+      "pos": "noun",
+      "meaning_ar": "جدار السياج",
+      "example_sentence": "The enclosure wall surrounded the temple complex on all sides.",
+      "tier": "mastery"
+    },
+    {
+      "id": "43d904ff-3044-4ed2-9e3a-ec6cb5a2387a",
+      "word": "flying buttress",
+      "pos": "noun",
+      "meaning_ar": "دعامة طائرة",
+      "example_sentence": "Flying buttresses allowed builders to make taller and lighter walls.",
+      "tier": "mastery"
+    },
+    {
+      "id": "6b083b5b-402b-4329-af0d-3c78f347a3db",
+      "word": "geopolymer",
+      "pos": "noun",
+      "meaning_ar": "جيوبوليمر",
+      "example_sentence": "Some researchers believe the Egyptians used a form of geopolymer.",
+      "tier": "mastery"
+    },
+    {
+      "id": "2a1bba8a-d650-4673-9996-dc76a14dced0",
+      "word": "grouting",
+      "pos": "noun",
+      "meaning_ar": "تعبئة الفراغات بالملاط",
+      "example_sentence": "Careful grouting sealed every crack between the floor stones.",
+      "tier": "mastery"
+    },
+    {
+      "id": "e7ed7794-b2a5-4f26-bdb7-07fe7b27ec72",
+      "word": "hydraulic cement",
+      "pos": "noun",
+      "meaning_ar": "أسمنت هيدروليكي",
+      "example_sentence": "Roman engineers used hydraulic cement to build durable harbours.",
+      "tier": "mastery"
+    },
+    {
+      "id": "a7a007ef-78f4-4514-a50b-664ab2ca67a3",
+      "word": "keystone",
+      "pos": "noun",
+      "meaning_ar": "حجر القفل",
+      "example_sentence": "The keystone holds all the other stones of the arch in place.",
+      "tier": "mastery"
+    },
+    {
+      "id": "c8931c23-4d71-43a0-835b-f93761148ee2",
+      "word": "hypogeum",
+      "pos": "noun",
+      "meaning_ar": "سرداب",
+      "example_sentence": "Excavators discovered a large hypogeum beneath the old town.",
+      "tier": "mastery"
+    },
+    {
+      "id": "70275d81-f63a-4203-ab74-71c8d602bdd7",
+      "word": "kiln",
+      "pos": "noun",
+      "meaning_ar": "فرن حرق",
+      "example_sentence": "The pottery was fired in a kiln at very high temperatures.",
+      "tier": "mastery"
+    },
+    {
+      "id": "c186b0e3-5169-4b3b-a9c4-3ad120cc39d5",
+      "word": "lintel",
+      "pos": "noun",
+      "meaning_ar": "عتبة علوية",
+      "example_sentence": "The stone lintel above the temple door weighs several tons.",
+      "tier": "mastery"
+    },
+    {
+      "id": "9f960eb5-5a21-4df1-9533-02f013e27b06",
+      "word": "monolithic",
+      "pos": "adjective",
+      "meaning_ar": "أحادي الكتلة",
+      "example_sentence": "The monolithic columns were quarried from one enormous rock.",
+      "tier": "mastery"
+    },
+    {
+      "id": "d206b4bc-e514-4bd1-af17-2069c9cfce95",
+      "word": "mass concrete",
+      "pos": "noun",
+      "meaning_ar": "خرسانة كتلية",
+      "example_sentence": "Mass concrete formed the base of the harbour's protective wall.",
+      "tier": "mastery"
+    },
+    {
+      "id": "6f0842d6-9f11-4963-95ad-758a0535ab2d",
+      "word": "relieving arch",
+      "pos": "noun",
+      "meaning_ar": "قوس التفريغ",
+      "example_sentence": "A relieving arch above the gate prevented the lintel from cracking.",
+      "tier": "mastery"
+    },
+    {
+      "id": "f77dcfc1-0b62-4a8f-a0f8-b8addc47fbfe",
+      "word": "pozzolana",
+      "pos": "noun",
+      "meaning_ar": "البوزولانا",
+      "example_sentence": "Pozzolana gave Roman concrete its remarkable strength under water.",
+      "tier": "mastery"
+    },
+    {
+      "id": "c7d17af8-d8f0-4211-bed4-a64d4ca13dfc",
+      "word": "setback",
+      "pos": "noun",
+      "meaning_ar": "تراجع طابقي",
+      "example_sentence": "Each setback in the tower reduced wind pressure on the structure.",
+      "tier": "mastery"
+    },
+    {
+      "id": "e746dcbe-dc93-463f-bc6b-824219940115",
+      "word": "rubble core",
+      "pos": "noun",
+      "meaning_ar": "نواة حجرية خشنة",
+      "example_sentence": "The rubble core was cheaper to build but needed a stone facing.",
+      "tier": "mastery"
+    },
+    {
+      "id": "30c4e2f0-2f4f-4e8a-9379-cf9687c45b91",
+      "word": "smelting",
+      "pos": "noun",
+      "meaning_ar": "صهر",
+      "example_sentence": "Ancient metalworkers used smelting to produce bronze tools.",
+      "tier": "mastery"
+    },
+    {
+      "id": "df9aac1d-d2fd-48e8-98e5-076e6642a83e",
+      "word": "spandrel",
+      "pos": "noun",
+      "meaning_ar": "مثلث القوس",
+      "example_sentence": "Artists painted scenes on every spandrel of the arcade.",
+      "tier": "mastery"
+    },
+    {
+      "id": "131f9bd5-ba19-44f8-8a50-fd8b1a814aaf",
+      "word": "step and ramp system",
+      "pos": "noun",
+      "meaning_ar": "نظام السلالم والمنحدرات",
+      "example_sentence": "A step and ramp system helped workers place the highest stones.",
+      "tier": "mastery"
+    },
+    {
+      "id": "3750b7c3-fe87-47c5-afd7-6f8400fb5a2f",
+      "word": "sundial",
+      "pos": "noun",
+      "meaning_ar": "ساعة شمسية",
+      "example_sentence": "The ancient sundial in the garden still shows accurate time.",
+      "tier": "mastery"
+    },
+    {
+      "id": "3f033499-6541-40d1-ab04-b1d8f0f89702",
+      "word": "take stock of",
+      "pos": "verb",
+      "meaning_ar": "تقييم الوضع",
+      "example_sentence": "Engineers must take stock of the remaining materials before building.",
+      "tier": "mastery"
+    },
+    {
+      "id": "65e995f3-a61d-491c-a8ca-a25a923eb137",
+      "word": "surveying rod",
+      "pos": "noun",
+      "meaning_ar": "قضيب المساحة",
+      "example_sentence": "The surveying rod helped workers keep every course of stones level.",
+      "tier": "mastery"
+    },
+    {
+      "id": "24da43e8-f3b8-409f-8d9b-2e4e99eca9ed",
+      "word": "torsion",
+      "pos": "noun",
+      "meaning_ar": "الالتواء",
+      "example_sentence": "Engineers calculated the torsion each column could safely bear.",
+      "tier": "mastery"
+    },
+    {
+      "id": "57f8eb54-ced5-434d-aa7f-677fdac91961",
+      "word": "talus slope",
+      "pos": "noun",
+      "meaning_ar": "منحدر قاعدي",
+      "example_sentence": "The talus slope at the pyramid's base prevented it from toppling.",
+      "tier": "mastery"
+    },
+    {
+      "id": "2908763f-7c4a-47a1-a1a2-5f0fdd133377",
+      "word": "trabeated",
+      "pos": "adjective",
+      "meaning_ar": "نظام العوارض الأفقية",
+      "example_sentence": "Greek temples used a trabeated system rather than arches.",
+      "tier": "mastery"
+    },
+    {
+      "id": "d4d14d2a-1576-4506-8b42-56e9ab84496a",
+      "word": "vaulted chamber",
+      "pos": "noun",
+      "meaning_ar": "غرفة مقببة",
+      "example_sentence": "Treasure was kept inside a cool vaulted chamber deep underground.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "c447a063-cf52-4d9d-b7e3-e065b5ab53a4",
+      "label": "A",
+      "title": "Engineering Marvels of the Ancient World",
+      "content": {
+        "paragraphs": [
+          "When we *marvel* at modern skyscrapers or bridges, we often forget that ancient civilizations achieved extraordinary engineering feats without the benefit of computers, cranes, or power tools. These remarkable structures, built thousands of years ago, continue to *baffle* experts and inspire engineers worldwide.",
+          "The Great Pyramid of Giza, constructed around 2580 BCE, remains one of history's most *ambitious* projects. Researchers have determined that this *colossal* monument contains approximately 2.3 million stone blocks, each weighing between 2.5 and 15 tons. What truly *astounds* archaeologists is how ancient Egyptians managed to *align* the pyramid's sides with the cardinal directions to within 3/60th of a degree – a precision that would be challenging even today. Recent studies suggest that workers used a sophisticated system of ramps and pulleys, though the exact methods continue to *perplex* scientists. The pyramid's construction required an estimated 20,000 workers over two decades, demonstrating the incredible organizational skills of ancient project managers.",
+          "In Rome, engineers *revolutionized* construction by developing concrete that could set underwater and remain durable for centuries. The Pantheon, completed in 128 CE, showcases this innovation with its massive concrete dome that spans 43 meters without any internal support. Roman engineers had to *devise* a ingenious solution: they gradually reduced the concrete's density from bottom to top by mixing in lighter materials like pumice stone. This technique allowed them to create what was then the world's largest unreinforced concrete dome. Even more impressive, the Romans managed to *incorporate* a perfect circular opening at the dome's peak, creating dramatic lighting effects that still *captivate* visitors today.",
+          "Perhaps nowhere is ancient ingenuity more evident than in water management systems. The Nabataeans, who inhabited present-day Jordan and Saudi Arabia, *transformed* the harsh desert environment through brilliant hydraulic engineering. At Petra, they carved elaborate channels and cisterns directly into rock faces, collecting every precious drop of rainfall. These systems were so effective that they supported a thriving city of 20,000 people in one of the world's most arid regions. Their techniques prove that when necessity *drives* innovation, human creativity knows no bounds.",
+          "Today's engineers increasingly study these ancient methods, recognizing that our ancestors' solutions were often more sustainable and environmentally friendly than modern alternatives. As we face contemporary challenges like climate change and resource scarcity, perhaps we should *look back* to these master builders for inspiration."
+        ]
+      },
+      "word_count": 421
+    },
+    {
+      "id": "8e1083bc-073e-4162-9211-c259e9458eda",
+      "label": "B",
+      "title": "Water Wonders of Ancient Persia",
+      "content": {
+        "paragraphs": [
+          "Deep beneath the arid landscapes of Iran, Afghanistan, and parts of the Arabian Peninsula lies one of humanity's most *ingenious* water management systems. Qanats, underground channels that transport water from mountain aquifers to desert communities, represent a *sophisticated* engineering achievement that has sustained civilizations for over 2,500 years. These remarkable structures demonstrate how ancient engineers could *overcome* seemingly impossible geographical challenges through careful planning and *meticulous* construction.",
+          "The *intricate* qanat system begins high in the mountains, where engineers would *locate* underground water sources near the base of hills or mountains. From there, they would *excavate* a gently sloping tunnel that could extend for dozens of kilometers underground. What makes this engineering feat so extraordinary is the precision required: if the slope was too steep, the water would flow too quickly and erode the tunnel walls; if too shallow, the water would barely *trickle* through. Master qanat builders, known as muqannis, possessed knowledge that was *passed down* through generations, and their expertise was so valued that they often traveled hundreds of miles to *undertake* new projects.",
+          "The construction process itself was both dangerous and labor-intensive. Workers would dig vertical shafts every 20-35 meters along the planned route, creating access points that allowed them to *excavate* the horizontal tunnel connecting each shaft. These vertical wells, which can still be seen dotting the landscape today, served multiple purposes: they provided ventilation for workers, allowed debris to be removed, and enabled maintenance crews to access different sections of the tunnel. Archaeological evidence suggests that some qanats required decades to complete, with entire communities *pooling* their resources to fund these massive undertakings.",
+          "Today, Iran alone contains approximately 37,000 active qanats that still supply water to rural communities, though many have been *abandoned* due to modern drilling techniques and urban migration. The UNESCO World Heritage Committee has recognized the Persian Qanat as a masterpiece of creative genius, noting that these ancient systems continue to provide sustainable water management solutions in one of the world's most water-scarce regions. What's particularly remarkable is that qanats operate entirely through gravity, requiring no external power source and producing minimal environmental impact.",
+          "Modern engineers and environmental scientists have begun to *reassess* the value of qanat technology as climate change intensifies water scarcity issues globally. Some countries are now adapting qanat principles for contemporary water management projects, proving that ancient wisdom can offer *viable* solutions to modern challenges. These time-tested systems remind us that sustainable engineering often involves working with natural forces rather than against them."
+        ]
+      },
+      "word_count": 456
+    }
+  ],
+  "grammar": {
+    "title": "used to",
+    "title_ar": "used to",
+    "explanation": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "نستخدم 'used to' للتحدث عن عادات أو حقائق في الماضي لم تعد موجودة الآن. إنها تُظهر الفرق بين الماضي والحاضر.",
+          "content_en": "<b>Used to</b> is used to talk about past habits or situations that were true in the past but are not true now.<br><br><b>Examples:</b><br>• Ancient Romans <b>used to build</b> aqueducts to transport water across long distances.<br>• The Great Wall of China <b>used to protect</b> the country from invasions.<br>• People <b>didn't use to have</b> modern machinery for construction.<br><br><b>Important:</b> We use 'used to' for things that happened regularly in the past or were true for a long period, but are finished now. It shows a contrast between past and present."
+        },
+        {
+          "type": "formula",
+          "content": "Subject + used to + base verb (positive)<br>Subject + didn't use to + base verb (negative)<br>Did + subject + use to + base verb? (question)"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "Ancient Egyptians used to move massive stone blocks using wooden rollers.",
+              "highlight": "used to move",
+              "translation_ar": "كان المصريون القدماء ينقلون الكتل الحجرية الضخمة باستخدام البكرات الخشبية"
+            },
+            {
+              "sentence": "Roman engineers didn't use to have concrete as strong as modern concrete.",
+              "highlight": "didn't use to have",
+              "translation_ar": "لم يكن لدى المهندسين الرومان خرسانة قوية مثل الخرسانة الحديثة"
+            },
+            {
+              "sentence": "Did ancient builders use to work without safety equipment?",
+              "highlight": "Did... use to work",
+              "translation_ar": "هل كان البناؤون القدماء يعملون بدون معدات أمان؟"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "They were used to build pyramids.",
+              "correct": "They used to build pyramids.",
+              "explanation_ar": "لا نستخدم 'were' مع 'used to' - فقط 'used to' مباشرة"
+            },
+            {
+              "wrong": "They didn't used to have machines.",
+              "correct": "They didn't use to have machines.",
+              "explanation_ar": "في النفي نستخدم 'use' وليس 'used' بعد didn't"
+            },
+            {
+              "wrong": "They used to built temples.",
+              "correct": "They used to build temples.",
+              "explanation_ar": "نستخدم الفعل في المصدر بعد 'used to' وليس الماضي"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,285 @@
+{
+  "variant_label": "B",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'conceived' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "نسي",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "تصور وابتكر فكرة",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "رفض",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "باع",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة conceived تعني تصور أو ابتكر فكرة أو خطة."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'overlooked' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "احتفل بـ",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "اكتشف",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "تجاهل وأهمل",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "طور",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة overlooked تعني تجاهل أو أهمل شيئاً مهماً."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'formidable' mean?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "بسيط وسهل",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "ممتع ومثير",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "قديم وتاريخي",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "هائل وصعب جداً",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة formidable تعني هائل أو صعب جداً في التعامل معه."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence uses 'as long as' correctly?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "As long as if we have enough fuel, the rocket will reach Mars.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "As long as we will have enough fuel, the rocket will reach Mars.",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "As long as we have enough fuel, the rocket will reach Mars.",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "As long as we have enough fuel, the rocket reached Mars.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم as long as مع المضارع البسيط في الجملة الشرطية وwill في الجملة الرئيسية."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence uses 'unless' correctly?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "Unless the astronauts don't train hard, they will fail.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Unless the astronauts will train hard, they will fail.",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "Unless the astronauts trained hard, they will fail.",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "Unless the astronauts train hard, they will fail.",
+          "is_correct": true
+        }
+      ],
+      "correct_answer": "d",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "unless تعني إذا لم، لذلك لا نضيف don't معها ونستخدم المضارع البسيط."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "What is the temperature on Mars in winter?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "Minus 20 degrees Celsius",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Minus 50 degrees Celsius",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "Minus 80 degrees Celsius",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "Minus 100 degrees Celsius",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "ذكر النص أن درجة الحرارة على المريخ في الشتاء يمكن أن تنخفض إلى ناقص 80 درجة مئوية."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'As long as if the rover works, we will get data' is correct.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "خاطئة. لا نستخدم if بعد as long as. الصحيح: As long as the rover works, we will get data."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "Mars gets more sunlight than Earth.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "خاطئة. النص يذكر أن المريخ يحصل على 43% فقط من ضوء الشمس الذي تحصل عليه الأرض."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "The journey from Earth to Mars takes about ____ months.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": "nine",
+      "accepted_answers": [
+        "nine",
+        "Nine",
+        "9"
+      ],
+      "points": 1,
+      "explanation_ar": "ذكر النص أن الرحلة إلى المريخ تستغرق تقريباً تسعة أشهر."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "vocabulary",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning:",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "gear up",
+          "embarked",
+          "extract",
+          "synthetic"
+        ],
+        "right_items": [
+          "صناعي ومصطنع",
+          "يستعد ويتأهب",
+          "يستخرج وينتزع",
+          "شرع في وبدأ"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "gear up",
+          "right": "يستعد ويتأهب"
+        },
+        {
+          "left": "embarked",
+          "right": "شرع في وبدأ"
+        },
+        {
+          "left": "extract",
+          "right": "يستخرج وينتزع"
+        },
+        {
+          "left": "synthetic",
+          "right": "صناعي ومصطنع"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "هذه مفردات مهمة من الوحدة تتعلق بالاستعداد والبدء والاستخراج والمواد الصناعية."
+    }
+  ]
+}

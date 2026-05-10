@@ -1,0 +1,1424 @@
+{
+  "unit": {
+    "id": "8272e688-818a-4f86-93d5-9a39e84ee3b3",
+    "title_en": "Digital Privacy",
+    "title_ar": "الخصوصية الرقمية",
+    "unit_number": 11
+  },
+  "level": {
+    "id": "f7e8dbfb-ec8e-4491-a62d-f54fd4c41aab",
+    "level_number": 3,
+    "name_en": "Fluency"
+  },
+  "assessment": {
+    "id": "6a0f173f-fee7-47b8-940f-3c3e37c313f9"
+  },
+  "variants": [
+    {
+      "id": "9e510670-364b-4903-bd00-a88b0fd81594",
+      "variant_code": "A"
+    },
+    {
+      "id": "a058b12c-e8e5-4e0f-a21a-7af2c806f305",
+      "variant_code": "B"
+    },
+    {
+      "id": "329fd040-a754-42d1-ba86-3c2fa5536970",
+      "variant_code": "C"
+    }
+  ],
+  "vocabulary": [
+    {
+      "id": "19e6714e-2bbe-41ce-a165-6dad0cbb3673",
+      "word": "eagerly",
+      "pos": "adverb",
+      "meaning_ar": "بشغف، بحماس، بلهفة",
+      "example_sentence": "The students eagerly waited for their exam results to be announced.",
+      "tier": "core"
+    },
+    {
+      "id": "a44a280f-dcb4-4ddb-b92c-f2eb8e64cfa9",
+      "word": "configured",
+      "pos": "verb",
+      "meaning_ar": "ضبط، هيأ، أعدّ",
+      "example_sentence": "The new computer needs to be configured before you can use it.",
+      "tier": "core"
+    },
+    {
+      "id": "c5e637ee-7857-417b-bcd9-57532492e49d",
+      "word": "take for granted",
+      "pos": "verb",
+      "meaning_ar": "يعتبر شيئاً أمراً مسلماً به، لا يقدر قيمة الشيء",
+      "example_sentence": "Many people take for granted having clean water until they don't have it anymore.",
+      "tier": "core"
+    },
+    {
+      "id": "584f5ce8-e16e-4cde-900e-b092a69353cb",
+      "word": "monitor",
+      "pos": "verb",
+      "meaning_ar": "راقب، تابع، رصد",
+      "example_sentence": "Doctors monitor patients' health during surgery.",
+      "tier": "core"
+    },
+    {
+      "id": "cd334f52-66c3-42a3-bbf2-20ee14de75d2",
+      "word": "extent",
+      "pos": "noun",
+      "meaning_ar": "مدى، نطاق، حجم، درجة",
+      "example_sentence": "The extent of the damage from the storm was much worse than we expected.",
+      "tier": "core"
+    },
+    {
+      "id": "b8f88de1-745b-4922-908f-603a5a9668da",
+      "word": "comprehensive",
+      "pos": "adjective",
+      "meaning_ar": "شامل، مفصل، كامل",
+      "example_sentence": "The school offers a comprehensive English program that covers all skills.",
+      "tier": "core"
+    },
+    {
+      "id": "8eab9eed-159c-45b4-a627-d910a702ab05",
+      "word": "justify",
+      "pos": "verb",
+      "meaning_ar": "برر، سوّغ، أثبت صحة",
+      "example_sentence": "He tried to justify being late by saying there was heavy traffic.",
+      "tier": "core"
+    },
+    {
+      "id": "33db3be3-9920-4b19-a3cd-9104ba8d6292",
+      "word": "scroll through",
+      "pos": "verb",
+      "meaning_ar": "تصفح بسرعة، مرر عبر الشاشة",
+      "example_sentence": "She scrolled through her social media feed during lunch break.",
+      "tier": "core"
+    },
+    {
+      "id": "3f32d8e0-ff45-4433-a67e-468e3be09490",
+      "word": "compile",
+      "pos": "verb",
+      "meaning_ar": "يجمع، يؤلف، يصنف",
+      "example_sentence": "The teacher asked students to compile a list of all the books they read this year.",
+      "tier": "core"
+    },
+    {
+      "id": "023d8747-5e85-478d-adb6-00fb388720e7",
+      "word": "rely on",
+      "pos": "verb",
+      "meaning_ar": "يعتمد على، يثق في، يتكل على",
+      "example_sentence": "Students rely on their dictionaries to understand difficult words when reading.",
+      "tier": "core"
+    },
+    {
+      "id": "3ad64d50-0b64-4c6b-9035-b07d01671a6d",
+      "word": "accused",
+      "pos": "verb",
+      "meaning_ar": "اتهم، وجه تهمة",
+      "example_sentence": "The student was accused of cheating on the exam.",
+      "tier": "core"
+    },
+    {
+      "id": "5e1374da-fba1-403d-8f67-c491cef33d6a",
+      "word": "discourage",
+      "pos": "verb",
+      "meaning_ar": "ثبط، منع، أحبط",
+      "example_sentence": "The high prices discourage many students from buying new textbooks.",
+      "tier": "core"
+    },
+    {
+      "id": "eec1ada9-7c37-4b53-a1db-e9cc72fb495f",
+      "word": "appeal to",
+      "pos": "verb",
+      "meaning_ar": "يجذب، يروق لـ، يعجب",
+      "example_sentence": "This new restaurant appeals to young people because of its modern design and music.",
+      "tier": "core"
+    },
+    {
+      "id": "834771e8-7f0f-4323-a18a-151ea78fa8f0",
+      "word": "shared",
+      "pos": "verb",
+      "meaning_ar": "شارك، قاسم، تقاسم",
+      "example_sentence": "The two friends shared a pizza for lunch.",
+      "tier": "core"
+    },
+    {
+      "id": "0e06829c-e918-45a9-9252-d13fc316fd2e",
+      "word": "obtain",
+      "pos": "verb",
+      "meaning_ar": "حصل على، نال، استحصل على",
+      "example_sentence": "You need to obtain a visa before traveling to that country.",
+      "tier": "core"
+    },
+    {
+      "id": "5f48e06f-3c86-460d-a049-06d37ca694c6",
+      "word": "screen",
+      "pos": "verb",
+      "meaning_ar": "يفحص، يدقق في، ينتقي",
+      "example_sentence": "The company screens all job applicants by checking their qualifications and experience.",
+      "tier": "core"
+    },
+    {
+      "id": "37c048df-49f8-4284-a043-2b20d8495dc4",
+      "word": "unaware of",
+      "pos": "adjective",
+      "meaning_ar": "غير مدرك لـ، غير واعٍ بـ، لا يعلم بـ",
+      "example_sentence": "Many tourists are unaware of the local customs and accidentally offend people.",
+      "tier": "core"
+    },
+    {
+      "id": "fed79544-e0f8-422f-921a-e97a468440ce",
+      "word": "access",
+      "pos": "verb",
+      "meaning_ar": "وصل إلى، دخل على، حصل على",
+      "example_sentence": "Students can access the library database from home.",
+      "tier": "core"
+    },
+    {
+      "id": "c5711005-bab2-4885-a65e-0cc1e78146e3",
+      "word": "emphasize",
+      "pos": "verb",
+      "meaning_ar": "يؤكد على، يشدد على، يبرز",
+      "example_sentence": "The teacher emphasized that students must complete their homework before the deadline.",
+      "tier": "core"
+    },
+    {
+      "id": "d25ec610-bb78-4872-9ae7-5d049b25377e",
+      "word": "weigh up",
+      "pos": "verb",
+      "meaning_ar": "وزن، قيّم، قارن بين الإيجابيات والسلبيات",
+      "example_sentence": "Before choosing a university, you should weigh up all your options carefully.",
+      "tier": "core"
+    },
+    {
+      "id": "0491703e-1903-4375-967e-d9d85646de96",
+      "word": "update",
+      "pos": "verb",
+      "meaning_ar": "حدّث، طوّر، أضاف معلومات جديدة",
+      "example_sentence": "Don't forget to update your software regularly for better security.",
+      "tier": "core"
+    },
+    {
+      "id": "594185b0-f099-41c1-8567-e30b69568a3b",
+      "word": "mask",
+      "pos": "verb",
+      "meaning_ar": "يخفي، يقنع، يستر",
+      "example_sentence": "The strong perfume masked the smell of smoke in the room.",
+      "tier": "core"
+    },
+    {
+      "id": "b7c4adc3-f379-4fc6-9588-8f452b24523d",
+      "word": "strike a balance",
+      "pos": "verb",
+      "meaning_ar": "يحقق التوازن، يوازن بين شيئين",
+      "example_sentence": "Working parents need to strike a balance between their career and spending time with their children.",
+      "tier": "core"
+    },
+    {
+      "id": "615694a3-4850-42a9-bfed-bf30798231d5",
+      "word": "account security",
+      "pos": "noun",
+      "meaning_ar": "أمان الحساب",
+      "example_sentence": "Enable two-step verification to improve account security.",
+      "tier": "core"
+    },
+    {
+      "id": "aa1bf8be-3a46-4b5d-88e9-f0d8d08e4819",
+      "word": "account password",
+      "pos": "noun",
+      "meaning_ar": "كلمة مرور الحساب",
+      "example_sentence": "Change your account password if you think it has been stolen.",
+      "tier": "core"
+    },
+    {
+      "id": "2659f9d8-d2f3-4341-bee6-4980a98d8028",
+      "word": "authenticate",
+      "pos": "verb",
+      "meaning_ar": "يتحقق من الهوية",
+      "example_sentence": "The system authenticates users before granting access.",
+      "tier": "core"
+    },
+    {
+      "id": "7fd58f54-ed64-46be-9c82-52b069cc810a",
+      "word": "antivirus software",
+      "pos": "noun",
+      "meaning_ar": "برنامج مكافحة الفيروسات",
+      "example_sentence": "Install antivirus software on every device you own.",
+      "tier": "core"
+    },
+    {
+      "id": "100c43da-066b-488d-94b0-bee47fff2e5a",
+      "word": "consent",
+      "pos": "noun",
+      "meaning_ar": "موافقة",
+      "example_sentence": "Apps must get your consent before collecting personal data.",
+      "tier": "core"
+    },
+    {
+      "id": "d1eab956-0431-4238-941d-b965b0a219a3",
+      "word": "breach",
+      "pos": "noun",
+      "meaning_ar": "اختراق",
+      "example_sentence": "The breach exposed millions of users' email addresses.",
+      "tier": "core"
+    },
+    {
+      "id": "6fb34282-5bf8-4be4-9e01-81231c3e0763",
+      "word": "cookie",
+      "pos": "noun",
+      "meaning_ar": "ملف تعريف",
+      "example_sentence": "Websites use cookies to remember your preferences and login.",
+      "tier": "core"
+    },
+    {
+      "id": "de713473-9d9a-4747-8067-72c693b36e5c",
+      "word": "cyber attack",
+      "pos": "noun",
+      "meaning_ar": "هجوم إلكتروني",
+      "example_sentence": "The cyber attack shut down the hospital's computer systems.",
+      "tier": "core"
+    },
+    {
+      "id": "dbaf7a80-f839-4268-a55d-18c6dc4c3e04",
+      "word": "cyber crime",
+      "pos": "noun",
+      "meaning_ar": "الجرائم الإلكترونية",
+      "example_sentence": "Cyber crime costs the global economy billions each year.",
+      "tier": "core"
+    },
+    {
+      "id": "dd3febfd-3547-44a3-8cff-0746ed505e36",
+      "word": "cyber awareness",
+      "pos": "noun",
+      "meaning_ar": "الوعي الإلكتروني",
+      "example_sentence": "Cyber awareness training reduces the risk of phishing attacks.",
+      "tier": "core"
+    },
+    {
+      "id": "2f70d284-df82-4220-81da-6f841a8e1880",
+      "word": "cyber threat",
+      "pos": "noun",
+      "meaning_ar": "تهديد إلكتروني",
+      "example_sentence": "Businesses must prepare for cyber threats at all times.",
+      "tier": "core"
+    },
+    {
+      "id": "cda2a324-1442-4eec-98ff-5c2da0df8448",
+      "word": "cyber defense",
+      "pos": "noun",
+      "meaning_ar": "الدفاع الإلكتروني",
+      "example_sentence": "Strong cyber defense requires constant monitoring of systems.",
+      "tier": "core"
+    },
+    {
+      "id": "5234986a-c7be-4a02-9fe6-52c20c1c9e56",
+      "word": "data breach",
+      "pos": "noun",
+      "meaning_ar": "اختراق بيانات",
+      "example_sentence": "The data breach exposed millions of customers' personal details.",
+      "tier": "core"
+    },
+    {
+      "id": "d1bd1425-ff99-419e-a093-0d581fa44c8c",
+      "word": "cybersecurity",
+      "pos": "noun",
+      "meaning_ar": "ممارسة حماية الحواسيب والشبكات والبيانات من الهجمات الرقمية والوصول غير المصرح به.",
+      "example_sentence": "Good cybersecurity practices can protect your personal data from hackers.",
+      "tier": "core"
+    },
+    {
+      "id": "765c977d-2624-486b-9985-142b0fab9e9a",
+      "word": "data leak",
+      "pos": "noun",
+      "meaning_ar": "تسريب البيانات",
+      "example_sentence": "A data leak revealed the personal details of millions of users.",
+      "tier": "core"
+    },
+    {
+      "id": "7fbbfe0e-5180-4b57-bc73-20e80a917d3b",
+      "word": "data privacy",
+      "pos": "noun",
+      "meaning_ar": "خصوصية البيانات",
+      "example_sentence": "Data privacy laws protect citizens from misuse of their information.",
+      "tier": "core"
+    },
+    {
+      "id": "9d9d5942-9a75-448e-8316-8b0c818db4de",
+      "word": "data protection",
+      "pos": "noun",
+      "meaning_ar": "حماية البيانات",
+      "example_sentence": "The company follows strict data protection rules.",
+      "tier": "core"
+    },
+    {
+      "id": "aa122983-4199-4c7d-a145-0d63d56f06e8",
+      "word": "digital rights",
+      "pos": "noun",
+      "meaning_ar": "الحقوق الرقمية",
+      "example_sentence": "Digital rights activists campaign for stronger internet privacy laws.",
+      "tier": "core"
+    },
+    {
+      "id": "5f7f4ff1-d8c3-42b0-9d64-dd259e12f00a",
+      "word": "encryption key",
+      "pos": "noun",
+      "meaning_ar": "مفتاح التشفير",
+      "example_sentence": "Losing the encryption key means you cannot access your files.",
+      "tier": "core"
+    },
+    {
+      "id": "8ae42fe6-6a63-476e-b078-730037010943",
+      "word": "digital security",
+      "pos": "noun",
+      "meaning_ar": "الأمن الرقمي",
+      "example_sentence": "Digital security is a growing field with many career opportunities.",
+      "tier": "core"
+    },
+    {
+      "id": "35b7a182-13a4-4862-b628-a119ff8ea732",
+      "word": "hacking",
+      "pos": "noun",
+      "meaning_ar": "القرصنة",
+      "example_sentence": "Hacking into a government system is a serious crime.",
+      "tier": "core"
+    },
+    {
+      "id": "45d2837a-bd35-4ddd-b1d2-c9b95c4ffcb6",
+      "word": "hacker",
+      "pos": "noun",
+      "meaning_ar": "مخترق",
+      "example_sentence": "The hacker stole credit card information from the website.",
+      "tier": "core"
+    },
+    {
+      "id": "0a1248dd-4e14-48fe-8654-4c4533782f7e",
+      "word": "identity",
+      "pos": "noun",
+      "meaning_ar": "الهوية",
+      "example_sentence": "Protecting your identity online is increasingly important.",
+      "tier": "core"
+    },
+    {
+      "id": "24ec0ecd-3726-413b-8539-28884dc6b90f",
+      "word": "identity theft",
+      "pos": "noun",
+      "meaning_ar": "سرقة الهوية",
+      "example_sentence": "Identity theft can ruin a person's credit and reputation.",
+      "tier": "core"
+    },
+    {
+      "id": "75976814-0390-4f51-8b91-cd78c2b2727b",
+      "word": "internet safety",
+      "pos": "noun",
+      "meaning_ar": "سلامة الإنترنت",
+      "example_sentence": "Schools teach children internet safety from an early age.",
+      "tier": "core"
+    },
+    {
+      "id": "c4025e66-5e4f-4bed-956f-5ff0fbe6d96e",
+      "word": "log in securely",
+      "pos": "verb",
+      "meaning_ar": "تسجيل الدخول بأمان",
+      "example_sentence": "Always log in securely when using public Wi-Fi.",
+      "tier": "core"
+    },
+    {
+      "id": "125f898c-f574-4085-9889-2c4910e9b77a",
+      "word": "malicious software",
+      "pos": "noun",
+      "meaning_ar": "برمجيات خبيثة",
+      "example_sentence": "Malicious software can enter your device through email attachments.",
+      "tier": "core"
+    },
+    {
+      "id": "895304b0-094c-48fe-9e95-6b0382ad3296",
+      "word": "network security",
+      "pos": "noun",
+      "meaning_ar": "أمن الشبكة",
+      "example_sentence": "Network security is essential for any business with online systems.",
+      "tier": "core"
+    },
+    {
+      "id": "bcda1bca-05b6-4b17-a82c-f60eb167ecc1",
+      "word": "online fraud",
+      "pos": "noun",
+      "meaning_ar": "الاحتيال الإلكتروني",
+      "example_sentence": "Online fraud is rising as more people shop on the internet.",
+      "tier": "core"
+    },
+    {
+      "id": "fa94dcb3-3146-43d4-a728-1cb24dacff4a",
+      "word": "online security",
+      "pos": "noun",
+      "meaning_ar": "الأمن الإلكتروني",
+      "example_sentence": "Online security tools help protect your accounts from hackers.",
+      "tier": "core"
+    },
+    {
+      "id": "103a1795-8766-4609-827f-4af8b75d37e7",
+      "word": "personal data",
+      "pos": "noun",
+      "meaning_ar": "البيانات الشخصية",
+      "example_sentence": "You should be careful about sharing personal data online.",
+      "tier": "core"
+    },
+    {
+      "id": "b1501093-a91f-4649-8e74-37887cfc9679",
+      "word": "phishing",
+      "pos": "noun",
+      "meaning_ar": "تصيد احتيالي",
+      "example_sentence": "Never click on links in phishing emails from unknown senders.",
+      "tier": "core"
+    },
+    {
+      "id": "0c2b6fd8-4d71-466c-ab30-bf8526861816",
+      "word": "privacy law",
+      "pos": "noun",
+      "meaning_ar": "قانون الخصوصية",
+      "example_sentence": "New privacy laws require websites to get users' consent.",
+      "tier": "core"
+    },
+    {
+      "id": "2bc75d1c-ad88-44a4-85c6-ed3627d13e30",
+      "word": "privacy breach",
+      "pos": "noun",
+      "meaning_ar": "انتهاك الخصوصية",
+      "example_sentence": "The privacy breach affected thousands of customers.",
+      "tier": "core"
+    },
+    {
+      "id": "b2f58e22-e515-4180-b414-71018280b977",
+      "word": "privacy settings",
+      "pos": "noun",
+      "meaning_ar": "إعدادات الخصوصية",
+      "example_sentence": "Check your privacy settings on social media regularly.",
+      "tier": "core"
+    },
+    {
+      "id": "e1a5c0c5-4427-4a1d-aabf-0479c41440c2",
+      "word": "privacy policy",
+      "pos": "noun",
+      "meaning_ar": "سياسة الخصوصية",
+      "example_sentence": "You should read the privacy policy before signing up.",
+      "tier": "core"
+    },
+    {
+      "id": "40abfc70-8b06-45d8-8b48-a891d7a03736",
+      "word": "scam",
+      "pos": "noun",
+      "meaning_ar": "عملية احتيال",
+      "example_sentence": "The online scam tricked hundreds of people into giving their details.",
+      "tier": "core"
+    },
+    {
+      "id": "a12bd0d3-0c5a-449a-817f-149f0db5b3c9",
+      "word": "secure connection",
+      "pos": "noun",
+      "meaning_ar": "اتصال آمن",
+      "example_sentence": "Always use a secure connection when accessing your bank online.",
+      "tier": "core"
+    },
+    {
+      "id": "72eebf5b-ad7a-4c93-babd-b88d3eaec0b7",
+      "word": "strong password",
+      "pos": "noun",
+      "meaning_ar": "كلمة مرور قوية",
+      "example_sentence": "A strong password includes numbers, symbols, and capital letters.",
+      "tier": "core"
+    },
+    {
+      "id": "cc6c144a-de94-4363-ad98-cae311e5b11c",
+      "word": "spyware",
+      "pos": "noun",
+      "meaning_ar": "برامج التجسس",
+      "example_sentence": "Spyware can record your passwords without you knowing.",
+      "tier": "core"
+    },
+    {
+      "id": "9e165ee3-40fa-4a7e-96bb-ad01e5e3d622",
+      "word": "suspicious link",
+      "pos": "noun",
+      "meaning_ar": "رابط مشبوه",
+      "example_sentence": "Never click on a suspicious link in an unknown email.",
+      "tier": "core"
+    },
+    {
+      "id": "ce6bf78e-00aa-4852-ad1a-df6dd7cf2dd5",
+      "word": "suspicious email",
+      "pos": "noun",
+      "meaning_ar": "بريد إلكتروني مشبوه",
+      "example_sentence": "Report any suspicious email to your IT department immediately.",
+      "tier": "core"
+    },
+    {
+      "id": "602f5310-deec-4a7b-9dc3-77678f941cc1",
+      "word": "two-factor",
+      "pos": "adjective",
+      "meaning_ar": "ثنائي العامل",
+      "example_sentence": "Two-factor authentication adds an extra layer of security.",
+      "tier": "core"
+    },
+    {
+      "id": "aaa1be2b-ddec-4535-8582-55fe9a830006",
+      "word": "trojan",
+      "pos": "noun",
+      "meaning_ar": "حصان طروادة",
+      "example_sentence": "The trojan was hidden inside a free game download.",
+      "tier": "core"
+    },
+    {
+      "id": "2f176dba-c128-431f-9a5a-817146428162",
+      "word": "two-factor authentication",
+      "pos": "noun",
+      "meaning_ar": "المصادقة الثنائية",
+      "example_sentence": "Two-factor authentication makes it harder for hackers to access your account.",
+      "tier": "core"
+    },
+    {
+      "id": "f62d35e7-0d1f-4331-95c6-dd2f9a6df33b",
+      "word": "unauthorized access",
+      "pos": "noun",
+      "meaning_ar": "وصول غير مصرح به",
+      "example_sentence": "Unauthorized access to company files can lead to legal action.",
+      "tier": "core"
+    },
+    {
+      "id": "5fb996cf-9a4c-42a4-a0fc-e1700b032d6b",
+      "word": "username",
+      "pos": "noun",
+      "meaning_ar": "اسم المستخدم",
+      "example_sentence": "Choose a username that does not reveal your real name.",
+      "tier": "core"
+    },
+    {
+      "id": "aa40ac43-c210-4298-b97d-35c9698dfadf",
+      "word": "user data",
+      "pos": "noun",
+      "meaning_ar": "بيانات المستخدم",
+      "example_sentence": "Apps often collect user data to improve their services.",
+      "tier": "core"
+    },
+    {
+      "id": "2ec7958a-0e1f-4681-911e-ed3f5c447633",
+      "word": "access control",
+      "pos": "noun",
+      "meaning_ar": "التحكم في الوصول",
+      "example_sentence": "Access control prevents employees from viewing private files.",
+      "tier": "extended"
+    },
+    {
+      "id": "eac2946f-ead7-47ad-a561-212ebde33a9b",
+      "word": "virus",
+      "pos": "noun",
+      "meaning_ar": "فيروس",
+      "example_sentence": "A virus can spread from one device to many others quickly.",
+      "tier": "core"
+    },
+    {
+      "id": "3552c8fa-f64d-4fb7-8609-422ab0825ac1",
+      "word": "biometric",
+      "pos": "adjective",
+      "meaning_ar": "بيومتري",
+      "example_sentence": "Biometric security uses fingerprints or face recognition to unlock.",
+      "tier": "extended"
+    },
+    {
+      "id": "c75746e5-ff9d-4078-9193-6fe107559b52",
+      "word": "blockchain",
+      "pos": "noun",
+      "meaning_ar": "سلسلة الكتل",
+      "example_sentence": "Blockchain technology makes financial transactions more transparent.",
+      "tier": "extended"
+    },
+    {
+      "id": "1df54072-56d2-49c3-96f7-85b4d379d54f",
+      "word": "botnet",
+      "pos": "noun",
+      "meaning_ar": "شبكة الروبوتات الضارة",
+      "example_sentence": "The botnet was used to carry out a massive online attack.",
+      "tier": "extended"
+    },
+    {
+      "id": "aa923d10-efb6-48ba-aac9-8c4321bebcd0",
+      "word": "cloud security",
+      "pos": "noun",
+      "meaning_ar": "أمن السحابة الإلكترونية",
+      "example_sentence": "Cloud security is a major concern for businesses using remote servers.",
+      "tier": "extended"
+    },
+    {
+      "id": "ae0257a1-9663-4515-a59f-c843913fe3a9",
+      "word": "credential theft",
+      "pos": "noun",
+      "meaning_ar": "سرقة بيانات الاعتماد",
+      "example_sentence": "Credential theft is often carried out through phishing emails.",
+      "tier": "extended"
+    },
+    {
+      "id": "fe3a4a6b-c26e-4382-881b-030f6f9bbd1c",
+      "word": "cyber hygiene",
+      "pos": "noun",
+      "meaning_ar": "النظافة الإلكترونية",
+      "example_sentence": "Good cyber hygiene includes updating software regularly.",
+      "tier": "extended"
+    },
+    {
+      "id": "9ca06087-b383-4404-acdb-d15dae62c20f",
+      "word": "cyber resilience",
+      "pos": "noun",
+      "meaning_ar": "المرونة الإلكترونية",
+      "example_sentence": "Organizations must build cyber resilience to stay operational.",
+      "tier": "extended"
+    },
+    {
+      "id": "ac35ad13-1c7a-44a9-9ab3-6048ea927f75",
+      "word": "cybersecurity expert",
+      "pos": "noun",
+      "meaning_ar": "خبير الأمن الإلكتروني",
+      "example_sentence": "The company hired a cybersecurity expert after the attack.",
+      "tier": "extended"
+    },
+    {
+      "id": "86d77719-fa36-4497-afc2-35b9ac87a150",
+      "word": "cybersecurity training",
+      "pos": "noun",
+      "meaning_ar": "تدريب الأمن الإلكتروني",
+      "example_sentence": "Cybersecurity training should be mandatory for all employees.",
+      "tier": "extended"
+    },
+    {
+      "id": "ca1a9ce1-34a7-4284-9bcd-ab012214a35a",
+      "word": "cybersecurity policy",
+      "pos": "noun",
+      "meaning_ar": "سياسة الأمن الإلكتروني",
+      "example_sentence": "Every company should have a clear cybersecurity policy.",
+      "tier": "extended"
+    },
+    {
+      "id": "694731fc-8e45-4aa4-ba25-66a99b1d66bb",
+      "word": "dark web",
+      "pos": "noun",
+      "meaning_ar": "الويب المظلم",
+      "example_sentence": "Stolen personal data is often sold on the dark web.",
+      "tier": "extended"
+    },
+    {
+      "id": "cb6086d0-a056-4999-b5c4-5a1c8c71a92c",
+      "word": "data breach notification",
+      "pos": "noun",
+      "meaning_ar": "إشعار اختراق البيانات",
+      "example_sentence": "Customers received a data breach notification by email.",
+      "tier": "extended"
+    },
+    {
+      "id": "0a0d38d5-b129-4628-95b7-d92b10e5fb50",
+      "word": "data minimization",
+      "pos": "noun",
+      "meaning_ar": "تقليل البيانات",
+      "example_sentence": "Data minimization is a key principle of modern privacy laws.",
+      "tier": "extended"
+    },
+    {
+      "id": "51940915-c84a-42c6-8670-c5d2368c08d0",
+      "word": "data encryption",
+      "pos": "noun",
+      "meaning_ar": "تشفير البيانات",
+      "example_sentence": "Data encryption protects files stored on your laptop.",
+      "tier": "extended"
+    },
+    {
+      "id": "a7fe06e5-0154-4fd0-b16c-2047be8fbe73",
+      "word": "data tracking",
+      "pos": "noun",
+      "meaning_ar": "تتبع البيانات",
+      "example_sentence": "Data tracking by websites allows advertisers to target users.",
+      "tier": "extended"
+    },
+    {
+      "id": "b003fd25-af58-4134-ad29-1ec0e0c46f00",
+      "word": "data storage",
+      "pos": "noun",
+      "meaning_ar": "تخزين البيانات",
+      "example_sentence": "Secure data storage prevents unauthorized access to files.",
+      "tier": "extended"
+    },
+    {
+      "id": "4bedfd5a-408f-435b-8213-9bed87c5521a",
+      "word": "digital consent",
+      "pos": "noun",
+      "meaning_ar": "الموافقة الرقمية",
+      "example_sentence": "Apps must ask for digital consent before collecting user data.",
+      "tier": "extended"
+    },
+    {
+      "id": "fb59dc5a-dc63-441b-8df3-13579bf9abe3",
+      "word": "digital footprint",
+      "pos": "noun",
+      "meaning_ar": "أثر رقمي",
+      "example_sentence": "Everything you do online contributes to your digital footprint.",
+      "tier": "extended"
+    },
+    {
+      "id": "6e64e640-27f6-434e-8eb0-4da7a9c03979",
+      "word": "digital safety",
+      "pos": "noun",
+      "meaning_ar": "السلامة الرقمية",
+      "example_sentence": "Digital safety education is important for all age groups.",
+      "tier": "extended"
+    },
+    {
+      "id": "b52443ba-ff69-4655-aa03-f5cd2d9dd4b1",
+      "word": "digital surveillance",
+      "pos": "noun",
+      "meaning_ar": "المراقبة الرقمية",
+      "example_sentence": "Digital surveillance cameras are installed across the city center.",
+      "tier": "extended"
+    },
+    {
+      "id": "b296eae5-bb2a-43b9-859e-45f85d5753fe",
+      "word": "end-to-end",
+      "pos": "adjective",
+      "meaning_ar": "من طرف لطرف",
+      "example_sentence": "End-to-end encryption means only you and the receiver can read.",
+      "tier": "extended"
+    },
+    {
+      "id": "e89675bd-336d-473e-aa21-e7324461b75b",
+      "word": "digital trace",
+      "pos": "noun",
+      "meaning_ar": "الأثر الرقمي",
+      "example_sentence": "Every click you make leaves a digital trace on the internet.",
+      "tier": "extended"
+    },
+    {
+      "id": "27abc740-2926-4957-904a-4ab54ad4268d",
+      "word": "fake website",
+      "pos": "noun",
+      "meaning_ar": "موقع إلكتروني مزيف",
+      "example_sentence": "The fake website looked exactly like the bank's real page.",
+      "tier": "extended"
+    },
+    {
+      "id": "3997418a-1d02-4617-84fe-4e9cd72e548d",
+      "word": "incident response",
+      "pos": "noun",
+      "meaning_ar": "الاستجابة للحوادث",
+      "example_sentence": "A fast incident response can reduce the damage from an attack.",
+      "tier": "extended"
+    },
+    {
+      "id": "4f61c591-5f4b-4056-8d51-c4987497fe89",
+      "word": "insider threat",
+      "pos": "noun",
+      "meaning_ar": "التهديد الداخلي",
+      "example_sentence": "Insider threat is often overlooked but can be very damaging.",
+      "tier": "extended"
+    },
+    {
+      "id": "eed7ae02-4165-4683-8a85-0bd0f2b76638",
+      "word": "information security",
+      "pos": "noun",
+      "meaning_ar": "أمن المعلومات",
+      "example_sentence": "Information security involves both technical and human factors.",
+      "tier": "extended"
+    },
+    {
+      "id": "0383166d-4c86-46f4-93a5-8bdf6e36506f",
+      "word": "metadata",
+      "pos": "noun",
+      "meaning_ar": "بيانات وصفية",
+      "example_sentence": "Photo metadata can reveal when and where a picture was taken.",
+      "tier": "extended"
+    },
+    {
+      "id": "7344b519-d024-4bce-8529-655d57049f0e",
+      "word": "intrusion detection",
+      "pos": "noun",
+      "meaning_ar": "اكتشاف الاختراق",
+      "example_sentence": "Intrusion detection software alerted the team to the attack.",
+      "tier": "extended"
+    },
+    {
+      "id": "2ab62bb1-aa30-4926-bb14-8dee2be46135",
+      "word": "network monitoring",
+      "pos": "noun",
+      "meaning_ar": "مراقبة الشبكة",
+      "example_sentence": "Network monitoring tools alert admins when an attack begins.",
+      "tier": "extended"
+    },
+    {
+      "id": "5762dd89-fe98-4019-a6f8-a3a31d1a6124",
+      "word": "online privacy",
+      "pos": "noun",
+      "meaning_ar": "الخصوصية الإلكترونية",
+      "example_sentence": "Online privacy is a fundamental right in many countries.",
+      "tier": "extended"
+    },
+    {
+      "id": "a9883923-2201-4bc7-838e-46b8ab057ca6",
+      "word": "password manager",
+      "pos": "noun",
+      "meaning_ar": "مدير كلمات المرور",
+      "example_sentence": "A password manager helps you use a different password for every site.",
+      "tier": "extended"
+    },
+    {
+      "id": "f9fb6010-0e4a-44bb-adde-888e7f6b3153",
+      "word": "opt out",
+      "pos": "verb",
+      "meaning_ar": "ينسحب",
+      "example_sentence": "You can opt out of personalized advertising in the settings.",
+      "tier": "extended"
+    },
+    {
+      "id": "94439a4d-2b02-4c81-9548-541e6a34f66e",
+      "word": "phishing attack",
+      "pos": "noun",
+      "meaning_ar": "هجوم التصيد الاحتيالي",
+      "example_sentence": "A phishing attack led to thousands of stolen passwords.",
+      "tier": "extended"
+    },
+    {
+      "id": "bce42ae2-5d01-41a0-9798-142e47371988",
+      "word": "patch update",
+      "pos": "noun",
+      "meaning_ar": "تحديث الترقيع",
+      "example_sentence": "Install the patch update immediately to stay protected.",
+      "tier": "extended"
+    },
+    {
+      "id": "c78f2211-2626-403c-8b17-2d861a7293ce",
+      "word": "privacy violation",
+      "pos": "noun",
+      "meaning_ar": "انتهاك الخصوصية",
+      "example_sentence": "Sharing someone's location without consent is a privacy violation.",
+      "tier": "extended"
+    },
+    {
+      "id": "fe3eeddc-9c0f-47c7-a5d5-c7e57fff2568",
+      "word": "phishing awareness",
+      "pos": "noun",
+      "meaning_ar": "الوعي بالتصيد الاحتيالي",
+      "example_sentence": "Phishing awareness can prevent most email-based attacks.",
+      "tier": "extended"
+    },
+    {
+      "id": "17b91eb9-450a-47c0-8ab2-151a09c4cd74",
+      "word": "risk assessment",
+      "pos": "noun",
+      "meaning_ar": "تقييم المخاطر",
+      "example_sentence": "A thorough risk assessment helps prevent future cyber incidents.",
+      "tier": "extended"
+    },
+    {
+      "id": "32cbbf4f-8fa2-4107-b5a2-70087965c9f1",
+      "word": "ransomware",
+      "pos": "noun",
+      "meaning_ar": "برنامج فدية",
+      "example_sentence": "Ransomware attacks have cost businesses billions of dollars.",
+      "tier": "extended"
+    },
+    {
+      "id": "404b0c37-094a-4673-bbb6-8e11ef86ca39",
+      "word": "secure messaging",
+      "pos": "noun",
+      "meaning_ar": "المراسلة الآمنة",
+      "example_sentence": "Use secure messaging apps when sharing sensitive information.",
+      "tier": "extended"
+    },
+    {
+      "id": "fae25f5e-f4bc-4ddf-970c-0b1f0fc36bde",
+      "word": "secure browsing",
+      "pos": "noun",
+      "meaning_ar": "التصفح الآمن",
+      "example_sentence": "Secure browsing habits can prevent most common cyber threats.",
+      "tier": "extended"
+    },
+    {
+      "id": "bd57db60-694a-4708-91f3-9c625ddc7395",
+      "word": "security flaw",
+      "pos": "noun",
+      "meaning_ar": "خلل أمني",
+      "example_sentence": "The developer fixed the security flaw before it was exploited.",
+      "tier": "extended"
+    },
+    {
+      "id": "fdb67f62-9f6f-41bc-8348-5dcbbd31711e",
+      "word": "security audit",
+      "pos": "noun",
+      "meaning_ar": "تدقيق أمني",
+      "example_sentence": "The company conducted a full security audit after the breach.",
+      "tier": "extended"
+    },
+    {
+      "id": "78da2beb-4250-4248-9989-6995a67a4247",
+      "word": "spam",
+      "pos": "noun",
+      "meaning_ar": "رسائل مزعجة",
+      "example_sentence": "My email filter catches most spam messages automatically.",
+      "tier": "extended"
+    },
+    {
+      "id": "f9559a35-8120-42b6-bc48-6d3911641b9d",
+      "word": "session hijacking",
+      "pos": "noun",
+      "meaning_ar": "اختطاف الجلسة",
+      "example_sentence": "Session hijacking can occur on unsecured public networks.",
+      "tier": "extended"
+    },
+    {
+      "id": "4800b18b-cada-47f6-bb68-d8172c0e98bd",
+      "word": "terms of service",
+      "pos": "noun",
+      "meaning_ar": "شروط الخدمة",
+      "example_sentence": "Few people read the terms of service before clicking agree.",
+      "tier": "extended"
+    },
+    {
+      "id": "6ced8d77-bfd0-4b94-9bd6-4d1594bf33de",
+      "word": "ssl certificate",
+      "pos": "noun",
+      "meaning_ar": "شهادة SSL",
+      "example_sentence": "Look for an SSL certificate before entering your credit card details.",
+      "tier": "extended"
+    },
+    {
+      "id": "27d8659e-7d45-4a6c-a330-89a2c5b06f2c",
+      "word": "threat actor",
+      "pos": "noun",
+      "meaning_ar": "جهة التهديد",
+      "example_sentence": "Security teams identified the threat actor behind the breach.",
+      "tier": "extended"
+    },
+    {
+      "id": "8c20476e-e1bf-431e-8513-da8e6d735cd7",
+      "word": "threat intelligence",
+      "pos": "noun",
+      "meaning_ar": "استخبارات التهديدات",
+      "example_sentence": "Threat intelligence helps companies respond faster to attacks.",
+      "tier": "extended"
+    },
+    {
+      "id": "baf164fc-e1fc-4c63-86e9-f24b0a3ffcb1",
+      "word": "vpn",
+      "pos": "noun",
+      "meaning_ar": "شبكة خاصة افتراضية",
+      "example_sentence": "Using a VPN helps protect your privacy on public wifi.",
+      "tier": "extended"
+    },
+    {
+      "id": "f23b46b2-9b47-4adf-bc34-375c198f6091",
+      "word": "adversarial ai",
+      "pos": "noun",
+      "meaning_ar": "الذكاء الاصطناعي العدائي",
+      "example_sentence": "Adversarial AI can trick facial recognition systems into errors.",
+      "tier": "mastery"
+    },
+    {
+      "id": "1311b580-b77c-42bd-82ef-8b4e8cd6ac5c",
+      "word": "attack surface",
+      "pos": "noun",
+      "meaning_ar": "سطح الهجوم",
+      "example_sentence": "Reducing the attack surface limits opportunities for hackers.",
+      "tier": "mastery"
+    },
+    {
+      "id": "6fd6ab6e-facf-4d43-acd5-f1568b696c1e",
+      "word": "air gap",
+      "pos": "noun",
+      "meaning_ar": "عازل هوائي",
+      "example_sentence": "Sensitive government systems are protected by an air gap.",
+      "tier": "mastery"
+    },
+    {
+      "id": "d419f8d7-11ac-404e-a383-7d83242ea480",
+      "word": "brute force attack",
+      "pos": "noun",
+      "meaning_ar": "هجوم القوة الغاشمة",
+      "example_sentence": "A brute force attack can crack a weak password in seconds.",
+      "tier": "mastery"
+    },
+    {
+      "id": "f03a2243-a2ea-408c-9879-2b9b6a98959e",
+      "word": "compliance",
+      "pos": "noun",
+      "meaning_ar": "امتثال",
+      "example_sentence": "Companies must ensure compliance with data protection laws.",
+      "tier": "mastery"
+    },
+    {
+      "id": "d732ae9e-0217-43a4-8d7d-355d064514bb",
+      "word": "cyber espionage",
+      "pos": "noun",
+      "meaning_ar": "التجسس الإلكتروني",
+      "example_sentence": "Cyber espionage is used by some countries to steal national secrets.",
+      "tier": "mastery"
+    },
+    {
+      "id": "e4d95cbb-6280-498f-8814-2ba192e86289",
+      "word": "cryptography",
+      "pos": "noun",
+      "meaning_ar": "التشفير",
+      "example_sentence": "Cryptography is the foundation of all secure digital communication.",
+      "tier": "mastery"
+    },
+    {
+      "id": "925ba7f9-ef95-4061-ad6a-10026a23728e",
+      "word": "cyber law",
+      "pos": "noun",
+      "meaning_ar": "قانون الفضاء الإلكتروني",
+      "example_sentence": "Cyber law is evolving to address new forms of digital crime.",
+      "tier": "mastery"
+    },
+    {
+      "id": "c867d3bf-b96f-4030-a4b1-daa916a85752",
+      "word": "cyber insurance",
+      "pos": "noun",
+      "meaning_ar": "التأمين الإلكتروني",
+      "example_sentence": "Many companies now invest in cyber insurance after costly breaches.",
+      "tier": "mastery"
+    },
+    {
+      "id": "0b7cdd0c-1d72-4896-bcd4-dc543ce61e0e",
+      "word": "data anonymization",
+      "pos": "noun",
+      "meaning_ar": "إخفاء هوية البيانات",
+      "example_sentence": "Data anonymization allows research without violating privacy.",
+      "tier": "mastery"
+    },
+    {
+      "id": "fb193d9f-4fe5-4fd4-bd61-235e8e87f31a",
+      "word": "data integrity",
+      "pos": "noun",
+      "meaning_ar": "سلامة البيانات",
+      "example_sentence": "Data integrity checks confirm that files have not been tampered with.",
+      "tier": "mastery"
+    },
+    {
+      "id": "0f91971e-46ac-423e-a812-11299499c599",
+      "word": "ddos attack",
+      "pos": "noun",
+      "meaning_ar": "هجوم حجب الخدمة الموزع",
+      "example_sentence": "The DDoS attack took the bank's website offline for hours.",
+      "tier": "mastery"
+    },
+    {
+      "id": "b10aef63-cd36-4f7c-9593-7e23432fe744",
+      "word": "data sovereignty",
+      "pos": "noun",
+      "meaning_ar": "سيادة البيانات",
+      "example_sentence": "Data sovereignty laws affect where companies can store user data.",
+      "tier": "mastery"
+    },
+    {
+      "id": "15aaa4bf-d616-4ed9-87e2-667efc94bc8d",
+      "word": "deepfake",
+      "pos": "noun",
+      "meaning_ar": "تزييف عميق",
+      "example_sentence": "Deepfake videos can make people appear to say things they never said.",
+      "tier": "mastery"
+    },
+    {
+      "id": "5e1d209c-c0d2-4290-a3e9-79ad5a9dd2c6",
+      "word": "digital forensics",
+      "pos": "noun",
+      "meaning_ar": "الجنائيات الرقمية",
+      "example_sentence": "Digital forensics experts recovered deleted files from the suspect's phone.",
+      "tier": "mastery"
+    },
+    {
+      "id": "60c45cfe-e8df-4c4f-bf36-2caed498b0ae",
+      "word": "forensic analysis",
+      "pos": "noun",
+      "meaning_ar": "التحليل الجنائي الرقمي",
+      "example_sentence": "Forensic analysis helped identify who launched the attack.",
+      "tier": "mastery"
+    },
+    {
+      "id": "e2960750-c422-4f4a-abbb-5f150cd6466f",
+      "word": "endpoint protection",
+      "pos": "noun",
+      "meaning_ar": "حماية نقطة النهاية",
+      "example_sentence": "Endpoint protection software is installed on all company laptops.",
+      "tier": "mastery"
+    },
+    {
+      "id": "395268ea-9052-4ca6-9640-544793c16a0e",
+      "word": "honeypot",
+      "pos": "noun",
+      "meaning_ar": "مصيدة إلكترونية",
+      "example_sentence": "Security teams use honeypots to attract and study hackers.",
+      "tier": "mastery"
+    },
+    {
+      "id": "c2f732cc-1a9b-4322-b6df-29ff5735067a",
+      "word": "hash function",
+      "pos": "noun",
+      "meaning_ar": "دالة التجزئة",
+      "example_sentence": "Passwords are stored as hash functions rather than plain text.",
+      "tier": "mastery"
+    },
+    {
+      "id": "02cb8de7-b2a7-402c-bb9d-9cbf9ca8a2df",
+      "word": "keystroke logging",
+      "pos": "noun",
+      "meaning_ar": "تسجيل ضغطات المفاتيح",
+      "example_sentence": "Keystroke logging software can capture passwords secretly.",
+      "tier": "mastery"
+    },
+    {
+      "id": "e3b5f3e5-bd39-448a-b8e1-9f5d794a9ea3",
+      "word": "information warfare",
+      "pos": "noun",
+      "meaning_ar": "حرب المعلومات",
+      "example_sentence": "Information warfare includes spreading false data to cause confusion.",
+      "tier": "mastery"
+    },
+    {
+      "id": "d7458cef-f083-4ff8-ab90-2613d3f401f8",
+      "word": "man-in-the-middle",
+      "pos": "noun",
+      "meaning_ar": "هجوم الوسيط",
+      "example_sentence": "A man-in-the-middle attack can steal data on public networks.",
+      "tier": "mastery"
+    },
+    {
+      "id": "dfcc08c5-0593-4612-b97e-dc2b5b29f6dc",
+      "word": "lateral movement",
+      "pos": "noun",
+      "meaning_ar": "الحركة الجانبية",
+      "example_sentence": "After the initial breach, lateral movement exposed more systems.",
+      "tier": "mastery"
+    },
+    {
+      "id": "41084ad3-c111-45eb-853f-9e557975e2c5",
+      "word": "network packet",
+      "pos": "noun",
+      "meaning_ar": "حزمة الشبكة",
+      "example_sentence": "Security software inspects each network packet for threats.",
+      "tier": "mastery"
+    },
+    {
+      "id": "9aaedd67-8a0f-4598-8a4b-03139af8d584",
+      "word": "multi-factor authentication",
+      "pos": "noun",
+      "meaning_ar": "المصادقة متعددة العوامل",
+      "example_sentence": "Multi-factor authentication greatly reduces unauthorized access.",
+      "tier": "mastery"
+    },
+    {
+      "id": "0e0b683f-c1ca-4bd4-b4fa-2db101a9694f",
+      "word": "penetration testing",
+      "pos": "noun",
+      "meaning_ar": "اختبار اختراق",
+      "example_sentence": "Companies hire experts for penetration testing of their systems.",
+      "tier": "mastery"
+    },
+    {
+      "id": "32333a2b-895e-4810-8644-c7a530038163",
+      "word": "obfuscation",
+      "pos": "noun",
+      "meaning_ar": "التعتيم",
+      "example_sentence": "Hackers use obfuscation to hide the purpose of malicious code.",
+      "tier": "mastery"
+    },
+    {
+      "id": "55fd9a4b-9f96-43a5-976e-2376274710be",
+      "word": "port scanning",
+      "pos": "noun",
+      "meaning_ar": "فحص المنافذ",
+      "example_sentence": "Hackers use port scanning to find weaknesses in a network.",
+      "tier": "mastery"
+    },
+    {
+      "id": "ca2de45c-662d-4c1d-b9f9-805874ee0efa",
+      "word": "privilege escalation",
+      "pos": "noun",
+      "meaning_ar": "تصعيد الصلاحيات",
+      "example_sentence": "The attacker used privilege escalation to reach admin-level data.",
+      "tier": "mastery"
+    },
+    {
+      "id": "4780bbaa-2828-4334-88d8-1550ff32769b",
+      "word": "public key infrastructure",
+      "pos": "noun",
+      "meaning_ar": "البنية التحتية للمفاتيح العامة",
+      "example_sentence": "Public key infrastructure supports secure email and transactions.",
+      "tier": "mastery"
+    },
+    {
+      "id": "ad30cd1f-843e-42c2-a653-d58cd15a84ca",
+      "word": "rootkit",
+      "pos": "noun",
+      "meaning_ar": "مجموعة الجذور الخفية",
+      "example_sentence": "A rootkit can be very difficult to detect and remove.",
+      "tier": "mastery"
+    },
+    {
+      "id": "80fef80f-7e05-4bea-a73b-65fa6cb2bcb0",
+      "word": "sandbox environment",
+      "pos": "noun",
+      "meaning_ar": "بيئة الصندوق الرملي",
+      "example_sentence": "Suspicious files are run in a sandbox environment first.",
+      "tier": "mastery"
+    },
+    {
+      "id": "b8deaaf8-be3f-47c6-9922-17ec723940e2",
+      "word": "security clearance",
+      "pos": "noun",
+      "meaning_ar": "تصريح أمني",
+      "example_sentence": "Only employees with security clearance can enter that room.",
+      "tier": "mastery"
+    },
+    {
+      "id": "0cf5097a-3f8c-402a-8c12-921f38502c2d",
+      "word": "social engineering",
+      "pos": "noun",
+      "meaning_ar": "هندسة اجتماعية",
+      "example_sentence": "Social engineering tricks people into sharing their passwords.",
+      "tier": "mastery"
+    },
+    {
+      "id": "a04ace0c-9e2b-4d13-8e61-aa9cd794d97b",
+      "word": "social engineering attack",
+      "pos": "noun",
+      "meaning_ar": "هجوم الهندسة الاجتماعية",
+      "example_sentence": "A social engineering attack convinced an employee to share their password.",
+      "tier": "mastery"
+    },
+    {
+      "id": "5ce5a027-bc63-409c-8551-fa417e5d9591",
+      "word": "ssl/tls protocol",
+      "pos": "noun",
+      "meaning_ar": "بروتوكول SSL/TLS",
+      "example_sentence": "Websites using SSL/TLS protocol display a padlock icon.",
+      "tier": "mastery"
+    },
+    {
+      "id": "d7dac3cd-2d67-4005-aa4a-0b715a8675be",
+      "word": "supply chain attack",
+      "pos": "noun",
+      "meaning_ar": "هجوم على سلسلة التوريد",
+      "example_sentence": "A supply chain attack compromised software used by thousands of firms.",
+      "tier": "mastery"
+    },
+    {
+      "id": "0eb618fe-9bef-461c-9248-0e3b9bf7a0b8",
+      "word": "whistleblower",
+      "pos": "noun",
+      "meaning_ar": "مبلّغ عن مخالفات",
+      "example_sentence": "The whistleblower revealed the company's illegal data collection.",
+      "tier": "mastery"
+    },
+    {
+      "id": "47cd739a-1777-48d9-9f03-5dffffc62669",
+      "word": "threat modeling",
+      "pos": "noun",
+      "meaning_ar": "نمذجة التهديدات",
+      "example_sentence": "Threat modeling helps developers build more secure applications.",
+      "tier": "mastery"
+    },
+    {
+      "id": "47ba5aa0-56f7-4d4b-a777-6cf350770505",
+      "word": "zero-trust architecture",
+      "pos": "noun",
+      "meaning_ar": "بنية عدم الثقة",
+      "example_sentence": "Zero-trust architecture assumes no user is automatically safe.",
+      "tier": "mastery"
+    },
+    {
+      "id": "dd74bcbd-bbf5-4feb-852f-0f55e4207105",
+      "word": "zero-day",
+      "pos": "adjective",
+      "meaning_ar": "يوم الصفر",
+      "example_sentence": "Zero-day attacks exploit vulnerabilities before they are fixed.",
+      "tier": "mastery"
+    }
+  ],
+  "passages": [
+    {
+      "id": "aace10d2-9795-4a1c-902d-c5fe545c7851",
+      "label": "A",
+      "title": "Your Digital Shadow",
+      "content": {
+        "paragraphs": [
+          "Every time you open your smartphone or laptop, you leave behind a trail of digital breadcrumbs that companies *eagerly* collect. This invisible information, known as your digital footprint, has become one of the most valuable commodities in the modern economy. While many people *take for granted* the convenience of personalized advertisements and instant search results, few realize the *extent* to which their personal data is being harvested, analyzed, and sold.",
+          "Tech giants like Google, Facebook, and Amazon have built *sophisticated* systems that *monitor* user behavior across multiple platforms. When you search for a new phone, visit an online store, or simply scroll through social media, these companies *compile* detailed profiles about your preferences, habits, and purchasing power. Privacy experts have reported that a single user can generate over 2.5 quintillion bytes of data daily through their online activities. This information is then used to create what researchers call 'behavioral profiles' – digital representations of who you are based on your clicks, views, and interactions. Companies *rely on* this data to predict what you might buy next, which advertisements will *appeal to* you, and even how likely you are to respond to certain types of content.",
+          "The *implications* of this data collection extend far beyond targeted advertising. Financial institutions use digital profiles to assess loan applications, while employers increasingly *screen* potential candidates based on their online presence. Insurance companies have begun analyzing social media posts to determine risk factors, and some governments use similar techniques for security purposes. What makes this particularly concerning is that most users remain *unaware of* how their information is being used. A recent study conducted by the Pew Research Center found that 79% of adults are concerned about how companies use their data, yet only 9% feel they have control over the information collected about them.",
+          "Fortunately, individuals can take steps to protect their digital privacy without completely disconnecting from the online world. Privacy advocates *emphasize* the importance of reading terms of service agreements, adjusting privacy settings on social media platforms, and using tools like VPN services to *mask* your online activity. Many experts also recommend regularly reviewing the permissions granted to mobile applications, as these often request access to contacts, location data, and other sensitive information. The European Union's General Data Protection Regulation (GDPR) has set new standards for data protection, giving users the right to know what information is collected and to request its deletion. As digital privacy becomes an increasingly important issue, consumers must *strike a balance* between enjoying the benefits of modern technology and maintaining control over their personal information. The key is becoming an informed digital citizen who understands both the risks and the tools available for protection."
+        ]
+      },
+      "word_count": 456
+    },
+    {
+      "id": "39e95ea3-6331-4130-91ca-c9f4a4429389",
+      "label": "B",
+      "title": "The Hidden Data Collectors",
+      "content": {
+        "paragraphs": [
+          "In homes across Saudi Arabia and around the world, millions of people have *embraced* smart technology without fully understanding what happens to their personal information. While these devices promise convenience and efficiency, researchers have discovered that many popular gadgets are *configured* to collect far more data than users realize.",
+          "Smart speakers, fitness trackers, and home security cameras don't just perform their primary functions—they also *monitor* user behavior patterns around the clock. According to a 2023 study by the International Digital Rights Foundation, the average smart home device transmits data to company servers every 3.2 minutes. Dr. Sarah Chen, a cybersecurity expert at MIT, reported that \"most consumers would be surprised to learn how *comprehensive* the data collection really is.\" These devices often record conversations, track movement patterns, and note when residents are home or away. Companies *justify* this extensive data gathering by claiming it improves user experience and helps develop better products.",
+          "The challenge for consumers is that privacy policies are often written in complex legal language that makes it difficult to understand what data is being collected. Many users simply *scroll through* these lengthy documents and click \"accept\" without reading the terms carefully. Technology companies have been *accused* of deliberately making these agreements confusing to *discourage* people from reading them thoroughly. Furthermore, the data collected by one device may be *shared* with multiple companies, creating a complex web of information exchange that consumers cannot easily track or control.",
+          "Some countries have begun implementing stricter regulations to protect consumer privacy. The European Union's privacy laws require companies to *obtain* explicit consent before collecting personal data, and users have the right to *access* all information stored about them. However, enforcing these regulations remains challenging because many smart devices are manufactured by companies based in different countries with varying privacy standards. Legal experts suggest that consumers should *weigh up* the convenience benefits against potential privacy risks before purchasing smart devices.",
+          "Fortunately, there are practical steps people can take to protect their digital privacy. Security specialists recommend that users regularly *update* their device settings to limit data collection and carefully review which permissions they grant to apps and devices. Additionally, consumers should research a company's privacy practices before making purchases and consider whether they truly need devices that require constant internet connectivity. As smart technology becomes increasingly *prevalent* in our daily lives, making informed decisions about digital privacy has never been more important."
+        ]
+      },
+      "word_count": 412
+    }
+  ],
+  "grammar": {
+    "title": "so/such",
+    "title_ar": "so/such",
+    "explanation": {
+      "sections": [
+        {
+          "type": "explanation",
+          "content_ar": "نستخدم SO مع الصفات والظروف، بينما نستخدم SUCH مع الأسماء. كلاهما يُستخدم للتأكيد وإظهار الدرجة أو الشدة",
+          "content_en": "<b>SO/SUCH</b> are used to emphasize adjectives, adverbs, or nouns to show degree or intensity.<br><br><b>SO</b> is used with adjectives and adverbs:<br>• The data breach was <b>so serious</b> that many users deleted their accounts.<br>• She shared her personal information <b>so carelessly</b>.<br><br><b>SUCH</b> is used with nouns (often with adjectives before the noun):<br>• It was <b>such a serious privacy violation</b> that the company was fined.<br>• They have <b>such strong passwords</b> that hackers can't break them.<br><br>Both SO and SUCH can be followed by 'that' to show result or consequence."
+        },
+        {
+          "type": "formula",
+          "content": "SO + adjective/adverb (+ that + result)<br>SUCH + (a/an) + (adjective) + noun (+ that + result)"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "sentence": "The app collects so much data that users are worried.",
+              "highlight": "so much data",
+              "translation_ar": "التطبيق يجمع بيانات كثيرة جداً حتى أن المستخدمين قلقون"
+            },
+            {
+              "sentence": "It was such a major security flaw that the website was shut down.",
+              "highlight": "such a major security flaw",
+              "translation_ar": "كان عيباً أمنياً كبيراً جداً حتى أنه تم إغلاق الموقع"
+            },
+            {
+              "sentence": "Social media platforms track users so extensively.",
+              "highlight": "so extensively",
+              "translation_ar": "منصات التواصل الاجتماعي تتبع المستخدمين بشكل واسع جداً"
+            }
+          ]
+        },
+        {
+          "type": "common_mistakes",
+          "items": [
+            {
+              "wrong": "It was so a big privacy issue",
+              "correct": "It was such a big privacy issue",
+              "explanation_ar": "لا نستخدم SO مع الأسماء - نستخدم SUCH"
+            },
+            {
+              "wrong": "The password is such strong",
+              "correct": "The password is so strong",
+              "explanation_ar": "لا نستخدم SUCH مع الصفات فقط - نستخدم SO"
+            },
+            {
+              "wrong": "Such many people worry about privacy",
+              "correct": "So many people worry about privacy",
+              "explanation_ar": "مع many و much نستخدم SO وليس SUCH"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

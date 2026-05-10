@@ -1,0 +1,286 @@
+{
+  "variant_label": "C",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'astounds' mean?",
+      "question_context": "The young pianist's performance astounds everyone.",
+      "options": [
+        {
+          "id": "a",
+          "text": "يُذهل ويُفاجئ",
+          "is_correct": true
+        },
+        {
+          "id": "b",
+          "text": "يُسعد ويُفرح",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "يُحزن ويُؤلم",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "يُهدئ ويُريح",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "a",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة astounds تعني يُذهل أو يُفاجئ بشدة."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'intricate' mean?",
+      "question_context": "The carpet had an intricate pattern.",
+      "options": [
+        {
+          "id": "a",
+          "text": "بسيط وسهل",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "معقد ومُفصّل بدقة",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "قديم ومهجور",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "كبير وضخم",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة intricate تعني معقد أو مُفصّل بدقة."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'viable' mean?",
+      "question_context": "Working from home became a viable option.",
+      "options": [
+        {
+          "id": "a",
+          "text": "مستحيل وصعب",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "خطير وضار",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "قابل للتطبيق وعملي",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "قديم وغير مفيد",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة viable تعني قابل للتطبيق أو مُجدي."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Roman builders _____ carry heavy stones every day.",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "used to",
+          "is_correct": true
+        },
+        {
+          "id": "b",
+          "text": "use to",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "uses to",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "using to",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "a",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "نستخدم used to مع الفاعل في الماضي للتعبير عن عادة قديمة منتهية."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Find the mistake: 'Muqannis didn't used to travel far.'",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "'didn't' should be 'don't'",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "'used to' should be 'use to'",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "'travel' should be 'travelled'",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "'far' should be 'farther'",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "في النفي مع didn't نكتب use to وليس used to لأن didn't تحمل علامة الماضي."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "What did qanat builders pass down to others?",
+      "question_context": "Passage B: Qanats",
+      "options": [
+        {
+          "id": "a",
+          "text": "Money and land",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Their knowledge and expertise",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "Their tools and machines",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "Their food and water",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "وفقاً للنص، كان بنّاؤو القنوات يورّثون معرفتهم وخبرتهم من جيل إلى جيل."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'Did ancient Egyptians use to align the pyramid?' is correct.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيح. في السؤال مع used to نستخدم Did + subject + use to + فعل مصدر."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "The Great Pyramid was built around 2580 BCE.",
+      "question_context": "Passage A: The Great Pyramid",
+      "options": null,
+      "correct_answer": true,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "صحيح. ذكر النص أن الهرم الأكبر بُني حوالي عام 2580 قبل الميلاد."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "reading",
+      "question_type": "fill_blank",
+      "question_text": "Ancient Romans used to build _____ to carry water to cities.",
+      "question_context": "Passage A",
+      "options": null,
+      "correct_answer": "aqueducts",
+      "accepted_answers": [
+        "aqueducts",
+        "Aqueducts",
+        "aqueduct",
+        "Aqueduct"
+      ],
+      "points": 1,
+      "explanation_ar": "ذكر النص أن الرومان بنوا قنوات مائية (aqueducts) لنقل الماء إلى مدنهم."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "vocabulary",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "locate",
+          "pooling",
+          "transformed",
+          "drives"
+        ],
+        "right_items": [
+          "يدفع ويحفّز",
+          "يجمع الموارد",
+          "يحدد موقع ويجد",
+          "حوّل وغيّر بشكل كامل"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "locate",
+          "right": "يحدد موقع ويجد"
+        },
+        {
+          "left": "pooling",
+          "right": "يجمع الموارد"
+        },
+        {
+          "left": "transformed",
+          "right": "حوّل وغيّر بشكل كامل"
+        },
+        {
+          "left": "drives",
+          "right": "يدفع ويحفّز"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "طابق كل كلمة إنجليزية مع معناها الصحيح بالعربية."
+    }
+  ]
+}

@@ -1,0 +1,284 @@
+{
+  "variant_label": "C",
+  "questions": [
+    {
+      "order_index": 1,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'benefits' mean?",
+      "question_context": "The benefits of urban farming are many.",
+      "options": [
+        {
+          "id": "a",
+          "text": "مشاكل",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "فوائد ومزايا",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "تكاليف",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "مخاطر",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "كلمة benefits تعني الفوائد أو المزايا التي نحصل عليها من شيء ما."
+    },
+    {
+      "order_index": 2,
+      "skill_tag": "vocabulary",
+      "question_type": "mcq",
+      "question_text": "What does 'account for' mean?",
+      "question_context": "Imports account for 80% of the food supply.",
+      "options": [
+        {
+          "id": "a",
+          "text": "يدفع مقابل",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "يحسب",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "يمثل أو يشكل",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "يطلب",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "عبارة account for تعني يمثل أو يشكل نسبة معينة من شيء ما."
+    },
+    {
+      "order_index": 3,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Which sentence uses 'both' correctly?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "Both vertical farming and rooftop gardening use less water.",
+          "is_correct": true
+        },
+        {
+          "id": "b",
+          "text": "Both vertical farming and rooftop gardening uses less water.",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "Both of vertical farming use less water.",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "Both vertical farming is popular.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "a",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "عند استخدام both مع اسمين، نستخدم فعلاً جمعاً مثل use وليس uses."
+    },
+    {
+      "order_index": 4,
+      "skill_tag": "grammar",
+      "question_type": "mcq",
+      "question_text": "Choose the correct sentence with 'either'.",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "Either drip irrigation or sprinklers are suitable here.",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Either drip irrigation or sprinklers is suitable here.",
+          "is_correct": true
+        },
+        {
+          "id": "c",
+          "text": "Either drip irrigations is suitable here.",
+          "is_correct": false
+        },
+        {
+          "id": "d",
+          "text": "Either of method is suitable here.",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "b",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "مع either نستخدم فعلاً مفرداً is لأننا نتحدث عن خيار واحد من اثنين."
+    },
+    {
+      "order_index": 5,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "Passage B says vertical farms use how much less water?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "50% less",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "75% less",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "95% less",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "80% less",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "ذكر النص أن المزارع العمودية تستخدم 95% ماءً أقل من الزراعة التقليدية."
+    },
+    {
+      "order_index": 6,
+      "skill_tag": "reading",
+      "question_type": "mcq",
+      "question_text": "Passage A says the vertical farm is in which city?",
+      "question_context": null,
+      "options": [
+        {
+          "id": "a",
+          "text": "Dubai",
+          "is_correct": false
+        },
+        {
+          "id": "b",
+          "text": "Tokyo",
+          "is_correct": false
+        },
+        {
+          "id": "c",
+          "text": "Singapore",
+          "is_correct": true
+        },
+        {
+          "id": "d",
+          "text": "Riyadh",
+          "is_correct": false
+        }
+      ],
+      "correct_answer": "c",
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "ذكر النص في الفقرة الأولى أن المزرعة العمودية موجودة في قلب مدينة سنغافورة."
+    },
+    {
+      "order_index": 7,
+      "skill_tag": "grammar",
+      "question_type": "true_false",
+      "question_text": "'Neither farms need soil' is correct English.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "خاطئة. مع neither نستخدم فعلاً مفرداً، فالجملة الصحيحة هي: Neither farm needs soil."
+    },
+    {
+      "order_index": 8,
+      "skill_tag": "reading",
+      "question_type": "true_false",
+      "question_text": "Passage A says vertical farms depend on weather.",
+      "question_context": null,
+      "options": null,
+      "correct_answer": false,
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "خاطئة. النص يقول إن المزارع العمودية لا تعتمد على الطقس وتنتج محاصيل طوال العام."
+    },
+    {
+      "order_index": 9,
+      "skill_tag": "vocabulary",
+      "question_type": "fill_blank",
+      "question_text": "The new building design ____ solar panels and green features.",
+      "question_context": "Choose the correct vocabulary word from the unit.",
+      "options": null,
+      "correct_answer": "incorporates",
+      "accepted_answers": [
+        "incorporates",
+        "Incorporates"
+      ],
+      "points": 1,
+      "explanation_ar": "كلمة incorporates تعني يدمج أو يتضمن عناصر معينة ضمن تصميم أو نظام ما."
+    },
+    {
+      "order_index": 10,
+      "skill_tag": "vocabulary",
+      "question_type": "matching",
+      "question_text": "Match each English word to its Arabic meaning.",
+      "question_context": null,
+      "options": {
+        "left_items": [
+          "setup",
+          "point out",
+          "arable",
+          "integrated"
+        ],
+        "right_items": [
+          "صالح للزراعة",
+          "الإعداد والتركيب",
+          "يشير إلى ويوضح",
+          "دُمج وأُدرج"
+        ]
+      },
+      "correct_answer": [
+        {
+          "left": "setup",
+          "right": "الإعداد والتركيب"
+        },
+        {
+          "left": "point out",
+          "right": "يشير إلى ويوضح"
+        },
+        {
+          "left": "arable",
+          "right": "صالح للزراعة"
+        },
+        {
+          "left": "integrated",
+          "right": "دُمج وأُدرج"
+        }
+      ],
+      "accepted_answers": null,
+      "points": 1,
+      "explanation_ar": "طابق كل كلمة إنجليزية بمعناها الصحيح باللغة العربية."
+    }
+  ]
+}
