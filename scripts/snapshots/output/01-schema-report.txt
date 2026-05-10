@@ -1,0 +1,952 @@
+=== Phase A — Schema Discovery ===
+Generated: 2026-05-10T21:10:28.605Z
+
+Tables found (52):
+  - curriculum_assessments
+  - curriculum_comprehension_questions
+  - curriculum_grammar
+  - curriculum_grammar_exercises
+  - curriculum_grammar_lessons
+  - curriculum_irregular_verb_exercises
+  - curriculum_irregular_verbs
+  - curriculum_levels
+  - curriculum_listening
+  - curriculum_listening_exercises
+  - curriculum_pronunciation
+  - curriculum_reading_passages
+  - curriculum_readings
+  - curriculum_speaking
+  - curriculum_speaking_topics
+  - curriculum_units
+  - curriculum_video_sections
+  - curriculum_vocabulary
+  - curriculum_vocabulary_exercises
+  - curriculum_vocabulary_srs
+  - curriculum_vocabulary_tier1_snapshot
+  - curriculum_vocabulary_tier2_snapshot
+  - curriculum_vocabulary_tier3_snapshot
+  - curriculum_writing
+  - curriculum_writing_prompts
+  - speaking_hub_assignments
+  - speaking_hub_student_progress
+  - speaking_hubs
+  - speaking_practice_attempts
+  - speaking_recordings
+  - speaking_topic_banks
+  - student_achievements
+  - student_activity_best_score
+  - student_bookmarks
+  - student_curriculum_progress
+  - student_daily_completions
+  - student_error_bank
+  - student_interventions
+  - student_level_assessment_attempts
+  - student_level_exit_status
+  - student_notes
+  - student_planned_tasks
+  - student_player_preference
+  - student_saved_words
+  - student_skill_state
+  - student_speaking_progress
+  - student_spelling_progress
+  - student_streaks
+  - student_unit_skill_snapshots
+  - student_verb_progress
+  - student_xp_audit
+  - students
+
+--- curriculum_assessments (78 rows) ---
+  id                                  uuid                           NOT NULL
+  unit_id                             uuid                           nullable
+  level_id                            uuid                           nullable
+  assessment_type                     text                           nullable
+  title_ar                            text                           nullable
+  title_en                            text                           nullable
+  questions                           jsonb                          NOT NULL
+  passing_score                       integer                        nullable
+  time_limit_minutes                  integer                        nullable
+  is_published                        boolean                        nullable
+  created_at                          timestamp with time zone       nullable
+  updated_at                          timestamp with time zone       nullable
+  is_promotion_gate                   boolean                        nullable
+
+--- curriculum_comprehension_questions (1152 rows) ---
+  id                                  uuid                           NOT NULL
+  reading_id                          uuid                           NOT NULL
+  section                             text                           NOT NULL
+  question_type                       text                           nullable
+  question_en                         text                           NOT NULL
+  question_ar                         text                           nullable
+  choices                             jsonb                          nullable
+  correct_answer                      text                           nullable
+  explanation_en                      text                           nullable
+  explanation_ar                      text                           nullable
+  sort_order                          integer                        nullable
+  created_at                          timestamp with time zone       nullable
+
+--- curriculum_grammar (72 rows) ---
+  id                                  uuid                           NOT NULL
+  level_id                            uuid                           NOT NULL
+  unit_id                             uuid                           nullable
+  topic_name_en                       text                           NOT NULL
+  topic_name_ar                       text                           NOT NULL
+  category                            text                           NOT NULL
+  grammar_in_use_unit                 integer                        nullable
+  explanation_content                 jsonb                          NOT NULL
+  sort_order                          integer                        nullable
+  is_published                        boolean                        nullable
+  created_at                          timestamp with time zone       nullable
+  updated_at                          timestamp with time zone       nullable
+  exceptions                          jsonb                          nullable
+
+--- curriculum_grammar_exercises (696 rows) ---
+  id                                  uuid                           NOT NULL
+  grammar_id                          uuid                           NOT NULL
+  exercise_type                       text                           NOT NULL
+  instructions_en                     text                           nullable
+  instructions_ar                     text                           nullable
+  items                               jsonb                          NOT NULL
+  is_auto_gradeable                   boolean                        nullable
+  sort_order                          integer                        nullable
+  created_at                          timestamp with time zone       nullable
+
+--- curriculum_grammar_lessons (0 rows) ---
+  id                                  uuid                           NOT NULL
+  level                               integer                        NOT NULL
+  unit_number                         integer                        NOT NULL
+  title_en                            text                           NOT NULL
+  title_ar                            text                           NOT NULL
+  explanation_ar                      text                           NOT NULL
+  explanation_en                      text                           NOT NULL
+  examples                            jsonb                          NOT NULL
+  practice_questions                  jsonb                          NOT NULL
+  common_mistakes                     jsonb                          nullable
+  created_at                          timestamp with time zone       nullable
+
+--- curriculum_irregular_verb_exercises (85 rows) ---
+  id                                  uuid                           NOT NULL
+  level_id                            uuid                           NOT NULL
+  exercise_type                       text                           NOT NULL
+  instructions_ar                     text                           nullable
+  instructions_en                     text                           nullable
+  items                               jsonb                          NOT NULL
+  is_auto_gradeable                   boolean                        nullable
+  sort_order                          integer                        nullable
+  created_at                          timestamp with time zone       nullable
+
+--- curriculum_irregular_verbs (85 rows) ---
+  id                                  uuid                           NOT NULL
+  level_id                            uuid                           NOT NULL
+  verb_base                           text                           NOT NULL
+  verb_past                           text                           NOT NULL
+  verb_past_participle                text                           NOT NULL
+  meaning_ar                          text                           NOT NULL
+  example_sentence                    text                           nullable
+  audio_base_url                      text                           nullable
+  audio_past_url                      text                           nullable
+  audio_pp_url                        text                           nullable
+  group_tag                           text                           nullable
+  difficulty                          integer                        nullable
+  sort_order                          integer                        nullable
+  created_at                          timestamp with time zone       nullable
+  audio_generated_at                  timestamp with time zone       nullable
+
+--- curriculum_levels (6 rows) ---
+  id                                  uuid                           NOT NULL
+  level_number                        integer                        NOT NULL
+  name_ar                             text                           NOT NULL
+  name_en                             text                           NOT NULL
+  cefr                                text                           NOT NULL
+  description_ar                      text                           nullable
+  description_en                      text                           nullable
+  color                               text                           NOT NULL
+  icon                                text                           nullable
+  passage_word_range                  text                           nullable
+  vocab_per_unit                      integer                        nullable
+  mcq_choices                         integer                        nullable
+  sentence_complexity                 text                           nullable
+  is_active                           boolean                        nullable
+  sort_order                          integer                        nullable
+  created_at                          timestamp with time zone       nullable
+  updated_at                          timestamp with time zone       nullable
+
+--- curriculum_listening (72 rows) ---
+  id                                  uuid                           NOT NULL
+  unit_id                             uuid                           NOT NULL
+  listening_number                    integer                        nullable
+  title_en                            text                           NOT NULL
+  title_ar                            text                           nullable
+  audio_url                           text                           nullable
+  audio_duration_seconds              integer                        nullable
+  transcript                          text                           nullable
+  audio_type                          text                           nullable
+  before_listen                       jsonb                          nullable
+  exercises                           jsonb                          NOT NULL
+  discussion_prompts                  jsonb                          nullable
+  difficulty                          text                           nullable
+  is_published                        boolean                        nullable
+  sort_order                          integer                        nullable
+  created_at                          timestamp with time zone       nullable
+  updated_at                          timestamp with time zone       nullable
+  audio_generated_at                  timestamp with time zone       nullable
+  speaker_segments                    jsonb                          nullable
+  segments_processed_at               timestamp with time zone       nullable
+
+--- curriculum_listening_exercises (12 rows) ---
+  id                                  uuid                           NOT NULL
+  level                               integer                        NOT NULL
+  title_en                            text                           NOT NULL
+  title_ar                            text                           NOT NULL
+  youtube_url                         text                           NOT NULL
+  youtube_title                       text                           NOT NULL
+  channel                             text                           NOT NULL
+  duration_minutes                    integer                        nullable
+  description_ar                      text                           nullable
+  mode                                text                           NOT NULL
+  questions                           jsonb                          NOT NULL
+  times_used                          integer                        nullable
+  created_at                          timestamp with time zone       nullable
+
+--- curriculum_pronunciation (72 rows) ---
+  id                                  uuid                           NOT NULL
+  level_id                            uuid                           NOT NULL
+  unit_id                             uuid                           nullable
+  word                                text                           nullable
+  phonetic_ipa                        text                           nullable
+  audio_url                           text                           nullable
+  audio_slow_url                      text                           nullable
+  common_mistakes_ar                  text                           nullable
+  tips_ar                             text                           nullable
+  sort_order                          integer                        nullable
+  created_at                          timestamp with time zone       nullable
+  focus_type                          text                           nullable
+  title_en                            text                           nullable
+  title_ar                            text                           nullable
+  description_ar                      text                           nullable
+  content                             jsonb                          nullable
+  updated_at                          timestamp with time zone       nullable
+
+--- curriculum_reading_passages (0 rows) ---
+  id                                  uuid                           NOT NULL
+  level                               integer                        NOT NULL
+  title_en                            text                           NOT NULL
+  title_ar                            text                           NOT NULL
+  passage                             text                           NOT NULL
+  word_count                          integer                        NOT NULL
+  topic                               text                           NOT NULL
+  difficulty                          text                           NOT NULL
+  questions                           jsonb                          NOT NULL
+  vocabulary_words                    jsonb                          nullable
+  times_used                          integer                        nullable
+  created_at                          timestamp with time zone       nullable
+
+--- curriculum_readings (144 rows) ---
+  id                                  uuid                           NOT NULL
+  unit_id                             uuid                           NOT NULL
+  reading_label                       text                           NOT NULL
+  title_en                            text                           NOT NULL
+  title_ar                            text                           nullable
+  before_read_exercise_a              jsonb                          nullable
+  before_read_exercise_b              jsonb                          nullable
+  before_read_image_url               text                           nullable
+  before_read_caption                 text                           nullable
+  passage_content                     jsonb                          NOT NULL
+  passage_word_count                  integer                        nullable
+  passage_footnotes                   jsonb                          nullable
+  passage_image_urls                  jsonb                          nullable
+  infographic_type                    text                           nullable
+  infographic_data                    jsonb                          nullable
+  infographic_image_url               text                           nullable
+  reading_skill_name_en               text                           nullable
+  reading_skill_name_ar               text                           nullable
+  reading_skill_explanation           text                           nullable
+  reading_skill_exercises             jsonb                          nullable
+  critical_thinking_type              text                           nullable
+  critical_thinking_prompt_en         text                           nullable
+  critical_thinking_prompt_ar         text                           nullable
+  passage_audio_url                   text                           nullable
+  sort_order                          integer                        nullable
+  is_published                        boolean                        nullable
+  created_at                          timestamp with time zone       nullable
+  updated_at                          timestamp with time zone       nullable
+  audio_duration_seconds              integer                        nullable
+  audio_generated_at                  timestamp with time zone       nullable
+
+--- curriculum_speaking (72 rows) ---
+  id                                  uuid                           NOT NULL
+  unit_id                             uuid                           NOT NULL
+  topic_number                        integer                        nullable
+  topic_type                          text                           NOT NULL
+  title_en                            text                           NOT NULL
+  title_ar                            text                           nullable
+  prompt_en                           text                           NOT NULL
+  prompt_ar                           text                           nullable
+  preparation_notes                   jsonb                          nullable
+  useful_phrases                      jsonb                          nullable
+  model_audio_url                     text                           nullable
+  min_duration_seconds                integer                        nullable
+  max_duration_seconds                integer                        nullable
+  evaluation_criteria                 jsonb                          nullable
+  difficulty                          text                           nullable
+  is_published                        boolean                        nullable
+  sort_order                          integer                        nullable
+  created_at                          timestamp with time zone       nullable
+  updated_at                          timestamp with time zone       nullable
+
+--- curriculum_speaking_topics (0 rows) ---
+  id                                  uuid                           NOT NULL
+  level                               integer                        NOT NULL
+  topic_number                        integer                        NOT NULL
+  title_en                            text                           NOT NULL
+  title_ar                            text                           NOT NULL
+  category                            text                           NOT NULL
+  guiding_questions                   jsonb                          NOT NULL
+  vocabulary_hints                    jsonb                          nullable
+  tips                                jsonb                          nullable
+  duration_min                        integer                        nullable
+  duration_max                        integer                        nullable
+  times_used                          integer                        nullable
+  created_at                          timestamp with time zone       nullable
+
+--- curriculum_units (72 rows) ---
+  id                                  uuid                           NOT NULL
+  level_id                            uuid                           NOT NULL
+  unit_number                         integer                        NOT NULL
+  theme_ar                            text                           NOT NULL
+  theme_en                            text                           NOT NULL
+  description_ar                      text                           nullable
+  description_en                      text                           nullable
+  cover_image_url                     text                           nullable
+  warmup_questions                    jsonb                          nullable
+  grammar_topic_ids                   jsonb                          nullable
+  estimated_minutes                   integer                        nullable
+  is_published                        boolean                        nullable
+  sort_order                          integer                        nullable
+  created_at                          timestamp with time zone       nullable
+  updated_at                          timestamp with time zone       nullable
+  why_matters                         text                           nullable
+  outcomes                            ARRAY                          nullable
+  brief_questions                     jsonb                          nullable
+  brief_generated_at                  timestamp with time zone       nullable
+  brief_locale                        text                           nullable
+  activity_ribbons                    jsonb                          nullable
+  ribbons_generated_at                timestamp with time zone       nullable
+
+--- curriculum_video_sections (0 rows) ---
+  id                                  uuid                           NOT NULL
+  unit_id                             uuid                           NOT NULL
+  video_title_en                      text                           NOT NULL
+  video_title_ar                      text                           nullable
+  video_url                           text                           nullable
+  video_thumbnail_url                 text                           nullable
+  before_watch                        jsonb                          nullable
+  while_watch                         jsonb                          nullable
+  after_watch                         jsonb                          nullable
+  vocabulary_review                   jsonb                          nullable
+  created_at                          timestamp with time zone       nullable
+  updated_at                          timestamp with time zone       nullable
+
+--- curriculum_vocabulary (13930 rows) ---
+  id                                  uuid                           NOT NULL
+  reading_id                          uuid                           NOT NULL
+  word                                text                           NOT NULL
+  definition_en                       text                           NOT NULL
+  definition_ar                       text                           nullable
+  example_sentence                    text                           nullable
+  part_of_speech                      text                           nullable
+  pronunciation_ipa                   text                           nullable
+  audio_url                           text                           nullable
+  image_url                           text                           nullable
+  difficulty_tier                     text                           nullable
+  sort_order                          integer                        nullable
+  created_at                          timestamp with time zone       nullable
+  audio_generated_at                  timestamp with time zone       nullable
+  synonyms                            jsonb                          nullable
+  antonyms                            jsonb                          nullable
+  relationships_generated_at          timestamp with time zone       nullable
+  word_family                         jsonb                          nullable
+  word_family_generated_at            timestamp with time zone       nullable
+  pronunciation_alert                 jsonb                          nullable
+  pronunciation_generated_at          timestamp with time zone       nullable
+  tier                                text                           nullable
+  cefr_level                          text                           nullable
+  source_list                         text                           nullable
+  appears_in_passage                  boolean                        NOT NULL
+  tier_order                          integer                        nullable
+  added_in_prompt                     text                           nullable
+  regenerated_at                      timestamp with time zone       nullable
+  cleanup_run_id                      text                           nullable
+  original_example_sentence           text                           nullable
+  audio_duration_ms                   integer                        nullable
+  audio_voice_name                    text                           nullable
+
+--- curriculum_vocabulary_exercises (1536 rows) ---
+  id                                  uuid                           NOT NULL
+  reading_id                          uuid                           NOT NULL
+  exercise_label                      text                           NOT NULL
+  exercise_type                       text                           NOT NULL
+  instructions_en                     text                           nullable
+  instructions_ar                     text                           nullable
+  mini_passage                        text                           nullable
+  items                               jsonb                          NOT NULL
+  sort_order                          integer                        nullable
+  created_at                          timestamp with time zone       nullable
+
+--- curriculum_vocabulary_srs (97 rows) ---
+  id                                  uuid                           NOT NULL
+  student_id                          uuid                           NOT NULL
+  vocabulary_id                       uuid                           NOT NULL
+  ease_factor                         numeric                        nullable
+  interval_days                       integer                        nullable
+  repetitions                         integer                        nullable
+  next_review_at                      timestamp with time zone       nullable
+  last_quality                        integer                        nullable
+  created_at                          timestamp with time zone       nullable
+  updated_at                          timestamp with time zone       nullable
+
+--- curriculum_vocabulary_tier1_snapshot (453 rows) ---
+  id                                  uuid                           nullable
+  reading_id                          uuid                           nullable
+  word                                text                           nullable
+  definition_en                       text                           nullable
+  definition_ar                       text                           nullable
+  example_sentence                    text                           nullable
+  part_of_speech                      text                           nullable
+  pronunciation_ipa                   text                           nullable
+  audio_url                           text                           nullable
+  image_url                           text                           nullable
+  difficulty_tier                     text                           nullable
+  sort_order                          integer                        nullable
+  created_at                          timestamp with time zone       nullable
+  audio_generated_at                  timestamp with time zone       nullable
+  synonyms                            jsonb                          nullable
+  antonyms                            jsonb                          nullable
+  relationships_generated_at          timestamp with time zone       nullable
+  word_family                         jsonb                          nullable
+  word_family_generated_at            timestamp with time zone       nullable
+  pronunciation_alert                 jsonb                          nullable
+  pronunciation_generated_at          timestamp with time zone       nullable
+  tier                                text                           nullable
+  cefr_level                          text                           nullable
+  source_list                         text                           nullable
+  appears_in_passage                  boolean                        nullable
+  tier_order                          integer                        nullable
+  added_in_prompt                     text                           nullable
+  snapshotted_at                      timestamp with time zone       nullable
+  cleanup_run_id                      text                           nullable
+
+--- curriculum_vocabulary_tier2_snapshot (3389 rows) ---
+  id                                  uuid                           nullable
+  reading_id                          uuid                           nullable
+  word                                text                           nullable
+  definition_en                       text                           nullable
+  definition_ar                       text                           nullable
+  example_sentence                    text                           nullable
+  part_of_speech                      text                           nullable
+  pronunciation_ipa                   text                           nullable
+  audio_url                           text                           nullable
+  image_url                           text                           nullable
+  difficulty_tier                     text                           nullable
+  sort_order                          integer                        nullable
+  created_at                          timestamp with time zone       nullable
+  audio_generated_at                  timestamp with time zone       nullable
+  synonyms                            jsonb                          nullable
+  antonyms                            jsonb                          nullable
+  relationships_generated_at          timestamp with time zone       nullable
+  word_family                         jsonb                          nullable
+  word_family_generated_at            timestamp with time zone       nullable
+  pronunciation_alert                 jsonb                          nullable
+  pronunciation_generated_at          timestamp with time zone       nullable
+  tier                                text                           nullable
+  cefr_level                          text                           nullable
+  source_list                         text                           nullable
+  appears_in_passage                  boolean                        nullable
+  tier_order                          integer                        nullable
+  added_in_prompt                     text                           nullable
+  snapshotted_at                      timestamp with time zone       nullable
+  cleanup_run_id                      text                           nullable
+
+--- curriculum_vocabulary_tier3_snapshot (43 rows) ---
+  id                                  uuid                           nullable
+  reading_id                          uuid                           nullable
+  word                                text                           nullable
+  definition_en                       text                           nullable
+  definition_ar                       text                           nullable
+  example_sentence                    text                           nullable
+  part_of_speech                      text                           nullable
+  pronunciation_ipa                   text                           nullable
+  audio_url                           text                           nullable
+  image_url                           text                           nullable
+  difficulty_tier                     text                           nullable
+  sort_order                          integer                        nullable
+  created_at                          timestamp with time zone       nullable
+  audio_generated_at                  timestamp with time zone       nullable
+  synonyms                            jsonb                          nullable
+  antonyms                            jsonb                          nullable
+  relationships_generated_at          timestamp with time zone       nullable
+  word_family                         jsonb                          nullable
+  word_family_generated_at            timestamp with time zone       nullable
+  pronunciation_alert                 jsonb                          nullable
+  pronunciation_generated_at          timestamp with time zone       nullable
+  tier                                text                           nullable
+  cefr_level                          text                           nullable
+  source_list                         text                           nullable
+  appears_in_passage                  boolean                        nullable
+  tier_order                          integer                        nullable
+  added_in_prompt                     text                           nullable
+  snapshotted_at                      timestamp with time zone       nullable
+  cleanup_run_id                      text                           nullable
+
+--- curriculum_writing (72 rows) ---
+  id                                  uuid                           NOT NULL
+  unit_id                             uuid                           NOT NULL
+  task_number                         integer                        nullable
+  task_type                           text                           NOT NULL
+  title_en                            text                           NOT NULL
+  title_ar                            text                           nullable
+  prompt_en                           text                           NOT NULL
+  prompt_ar                           text                           nullable
+  hints                               jsonb                          nullable
+  word_count_min                      integer                        nullable
+  word_count_max                      integer                        nullable
+  vocabulary_to_use                   jsonb                          nullable
+  grammar_to_use                      jsonb                          nullable
+  model_answer                        text                           nullable
+  rubric                              jsonb                          nullable
+  difficulty                          text                           nullable
+  is_published                        boolean                        nullable
+  sort_order                          integer                        nullable
+  created_at                          timestamp with time zone       nullable
+  updated_at                          timestamp with time zone       nullable
+
+--- curriculum_writing_prompts (0 rows) ---
+  id                                  uuid                           NOT NULL
+  level                               integer                        NOT NULL
+  title_en                            text                           NOT NULL
+  title_ar                            text                           NOT NULL
+  prompt_type                         text                           NOT NULL
+  prompt                              text                           NOT NULL
+  prompt_ar                           text                           NOT NULL
+  instructions                        jsonb                          NOT NULL
+  word_count_min                      integer                        NOT NULL
+  word_count_max                      integer                        NOT NULL
+  hints                               jsonb                          nullable
+  example_starter                     text                           nullable
+  evaluation_criteria                 jsonb                          nullable
+  times_used                          integer                        nullable
+  created_at                          timestamp with time zone       nullable
+
+--- speaking_hub_assignments (0 rows) ---
+  id                                  uuid                           NOT NULL
+  hub_id                              uuid                           NOT NULL
+  student_id                          uuid                           nullable
+  group_id                            uuid                           nullable
+  created_by                          uuid                           nullable
+  created_at                          timestamp with time zone       NOT NULL
+
+--- speaking_hub_student_progress (0 rows) ---
+  id                                  uuid                           NOT NULL
+  hub_id                              uuid                           NOT NULL
+  student_id                          uuid                           NOT NULL
+  video_started_at                    timestamp with time zone       nullable
+  video_completed_at                  timestamp with time zone       nullable
+  watch_progress_seconds              integer                        NOT NULL
+  notes                               text                           NOT NULL
+  notes_word_count                    integer                        NOT NULL
+  notes_updated_at                    timestamp with time zone       nullable
+  attended                            boolean                        nullable
+  trainer_feedback                    text                           nullable
+  trainer_feedback_at                 timestamp with time zone       nullable
+  created_at                          timestamp with time zone       NOT NULL
+  updated_at                          timestamp with time zone       NOT NULL
+
+--- speaking_hubs (0 rows) ---
+  id                                  uuid                           NOT NULL
+  title                               text                           NOT NULL
+  title_en                            text                           nullable
+  description                         text                           nullable
+  description_en                      text                           nullable
+  video_url                           text                           NOT NULL
+  video_title                         text                           nullable
+  video_channel                       text                           nullable
+  video_thumbnail_url                 text                           nullable
+  video_duration_minutes              integer                        nullable
+  note_prompts                        jsonb                          NOT NULL
+  vocab_focus                         jsonb                          NOT NULL
+  discussion_questions                jsonb                          NOT NULL
+  hub_session_at                      timestamp with time zone       nullable
+  hub_session_link                    text                           nullable
+  hub_session_duration_minutes        integer                        nullable
+  status                              text                           NOT NULL
+  created_by                          uuid                           nullable
+  created_at                          timestamp with time zone       NOT NULL
+  updated_at                          timestamp with time zone       NOT NULL
+  last_notification_sent_at           timestamp with time zone       nullable
+  last_notification_recipient_count   integer                        nullable
+
+--- speaking_practice_attempts (0 rows) ---
+  id                                  uuid                           NOT NULL
+  student_id                          uuid                           NOT NULL
+  task_id                             uuid                           NOT NULL
+  attempt_number                      integer                        NOT NULL
+  audio_path                          text                           NOT NULL
+  audio_duration_sec                  integer                        nullable
+  transcript                          text                           nullable
+  feedback                            jsonb                          nullable
+  cost_sar                            numeric                        nullable
+  created_at                          timestamp with time zone       NOT NULL
+  expires_at                          timestamp with time zone       NOT NULL
+
+--- speaking_recordings (41 rows) ---
+  id                                  uuid                           NOT NULL
+  student_id                          uuid                           NOT NULL
+  unit_id                             uuid                           NOT NULL
+  question_index                      integer                        NOT NULL
+  audio_url                           text                           NOT NULL
+  audio_duration_seconds              integer                        nullable
+  audio_format                        text                           nullable
+  audio_size_bytes                    integer                        nullable
+  ai_evaluation                       jsonb                          nullable
+  ai_evaluated_at                     timestamp with time zone       nullable
+  ai_model                            text                           nullable
+  trainer_reviewed                    boolean                        nullable
+  trainer_feedback                    text                           nullable
+  trainer_grade                       text                           nullable
+  trainer_reviewed_at                 timestamp with time zone       nullable
+  trainer_id                          uuid                           nullable
+  xp_awarded                          integer                        nullable
+  created_at                          timestamp with time zone       nullable
+  updated_at                          timestamp with time zone       nullable
+  audio_path                          text                           nullable
+  attempt_number                      integer                        NOT NULL
+  is_latest                           boolean                        NOT NULL
+  is_best                             boolean                        NOT NULL
+  redo_requested                      boolean                        nullable
+  redo_note                           text                           nullable
+  redo_requested_at                   timestamp with time zone       nullable
+  redo_requested_by                   uuid                           nullable
+  evaluation_status                   text                           NOT NULL
+  evaluation_attempts                 integer                        NOT NULL
+  last_attempt_at                     timestamp with time zone       nullable
+  last_error                          text                           nullable
+
+--- speaking_topic_banks (60 rows) ---
+  id                                  uuid                           NOT NULL
+  level                               integer                        NOT NULL
+  topic_number                        integer                        NOT NULL
+  title_en                            text                           NOT NULL
+  title_ar                            text                           nullable
+  category                            text                           nullable
+  difficulty                          USER-DEFINED                   nullable
+  prompt_questions                    ARRAY                          nullable
+  created_at                          timestamp with time zone       nullable
+
+--- student_achievements (10 rows) ---
+  id                                  uuid                           NOT NULL
+  student_id                          uuid                           nullable
+  achievement_id                      uuid                           nullable
+  earned_at                           timestamp with time zone       nullable
+  shared                              boolean                        nullable
+
+--- student_activity_best_score (0 rows) ---
+  student_id                          uuid                           nullable
+  activity_id                         uuid                           nullable
+  best_score                          numeric                        nullable
+  attempt_count                       bigint                         nullable
+  is_mastered                         boolean                        nullable
+
+--- student_bookmarks (1 rows) ---
+  id                                  uuid                           NOT NULL
+  student_id                          uuid                           NOT NULL
+  unit_id                             uuid                           NOT NULL
+  section_type                        text                           NOT NULL
+  note                                text                           nullable
+  created_at                          timestamp with time zone       nullable
+
+--- student_curriculum_progress (496 rows) ---
+  id                                  uuid                           NOT NULL
+  student_id                          uuid                           NOT NULL
+  unit_id                             uuid                           nullable
+  reading_id                          uuid                           nullable
+  grammar_id                          uuid                           nullable
+  assessment_id                       uuid                           nullable
+  writing_id                          uuid                           nullable
+  listening_id                        uuid                           nullable
+  speaking_id                         uuid                           nullable
+  section_type                        text                           NOT NULL
+  status                              text                           nullable
+  score                               numeric                        nullable
+  answers                             jsonb                          nullable
+  recording_url                       text                           nullable
+  ai_feedback                         jsonb                          nullable
+  time_spent_seconds                  integer                        nullable
+  completed_at                        timestamp with time zone       nullable
+  created_at                          timestamp with time zone       nullable
+  updated_at                          timestamp with time zone       nullable
+  attempt_number                      integer                        nullable
+  attempt_history                     jsonb                          nullable
+  trainer_feedback                    text                           nullable
+  trainer_grade                       text                           nullable
+  trainer_graded_at                   timestamp with time zone       nullable
+  trainer_graded_by                   uuid                           nullable
+  pronunciation_id                    uuid                           nullable
+  answers_legacy                      jsonb                          nullable
+  auto_migrated                       boolean                        nullable
+  migration_note                      text                           nullable
+  is_latest                           boolean                        NOT NULL
+  is_best                             boolean                        NOT NULL
+  evaluation_status                   text                           nullable
+  evaluation_attempts                 integer                        NOT NULL
+  evaluation_last_attempt_at          timestamp with time zone       nullable
+  evaluation_last_error               text                           nullable
+  evaluation_completed_at             timestamp with time zone       nullable
+  escalated_to_trainer_at             timestamp with time zone       nullable
+  redo_requested                      boolean                        nullable
+  redo_note                           text                           nullable
+  redo_requested_at                   timestamp with time zone       nullable
+  redo_requested_by                   uuid                           nullable
+  hint_usage                          jsonb                          NOT NULL
+  is_phantom                          boolean                        NOT NULL
+  phantom_healed_at                   timestamp with time zone       nullable
+
+--- student_daily_completions (0 rows) ---
+  id                                  uuid                           NOT NULL
+  student_id                          uuid                           NOT NULL
+  challenge_id                        uuid                           NOT NULL
+  score                               numeric                        nullable
+  xp_earned                           integer                        nullable
+  completed_at                        timestamp with time zone       nullable
+
+--- student_error_bank (0 rows) ---
+  id                                  uuid                           NOT NULL
+  student_id                          uuid                           NOT NULL
+  error_type                          text                           NOT NULL
+  error_category                      text                           NOT NULL
+  original_text                       text                           nullable
+  correct_text                        text                           nullable
+  explanation_ar                      text                           nullable
+  explanation_en                      text                           nullable
+  source_section                      text                           nullable
+  occurrence_count                    integer                        nullable
+  is_resolved                         boolean                        nullable
+  last_occurred_at                    timestamp with time zone       nullable
+  created_at                          timestamp with time zone       nullable
+
+--- student_interventions (573 rows) ---
+  id                                  uuid                           NOT NULL
+  student_id                          uuid                           NOT NULL
+  trainer_id                          uuid                           NOT NULL
+  group_id                            uuid                           nullable
+  severity                            text                           NOT NULL
+  reason_code                         text                           NOT NULL
+  reason_ar                           text                           NOT NULL
+  signal_data                         jsonb                          NOT NULL
+  suggested_action_ar                 text                           nullable
+  suggested_message_ar                text                           nullable
+  generated_by                        text                           NOT NULL
+  status                              text                           NOT NULL
+  snoozed_until                       timestamp with time zone       nullable
+  acted_at                            timestamp with time zone       nullable
+  acted_notes                         text                           nullable
+  dismissed_at                        timestamp with time zone       nullable
+  created_at                          timestamp with time zone       NOT NULL
+  day_of                              date                           NOT NULL
+  short_message                       text                           nullable
+
+--- student_level_assessment_attempts (0 rows) ---
+  id                                  uuid                           NOT NULL
+  student_id                          uuid                           NOT NULL
+  assessment_id                       uuid                           NOT NULL
+  level_id                            uuid                           NOT NULL
+  started_at                          timestamp with time zone       NOT NULL
+  submitted_at                        timestamp with time zone       nullable
+  score_percent                       numeric                        nullable
+  total_questions                     integer                        nullable
+  correct_answers                     integer                        nullable
+  answers                             jsonb                          nullable
+  passed                              boolean                        nullable
+  attempt_number                      integer                        NOT NULL
+  duration_seconds                    integer                        nullable
+
+--- student_level_exit_status (126 rows) ---
+  student_id                          uuid                           nullable
+  level_id                            uuid                           nullable
+  level_number                        integer                        nullable
+  has_passed                          boolean                        nullable
+  best_score                          numeric                        nullable
+  total_attempts                      bigint                         nullable
+  last_attempt_at                     timestamp with time zone       nullable
+
+--- student_notes (0 rows) ---
+  id                                  uuid                           NOT NULL
+  student_id                          uuid                           NOT NULL
+  unit_id                             uuid                           NOT NULL
+  content                             text                           NOT NULL
+  section_type                        text                           nullable
+  created_at                          timestamp with time zone       nullable
+  updated_at                          timestamp with time zone       nullable
+
+--- student_planned_tasks (2 rows) ---
+  id                                  uuid                           NOT NULL
+  student_id                          uuid                           NOT NULL
+  task_type                           text                           NOT NULL
+  task_reference_id                   uuid                           nullable
+  title                               text                           NOT NULL
+  planned_day                         integer                        NOT NULL
+  planned_slot                        text                           NOT NULL
+  week_start                          date                           NOT NULL
+  is_completed                        boolean                        nullable
+  completed_at                        timestamp with time zone       nullable
+  sort_order                          integer                        nullable
+  created_at                          timestamp with time zone       nullable
+  updated_at                          timestamp with time zone       nullable
+  deleted_at                          timestamp with time zone       nullable
+
+--- student_player_preference (9 rows) ---
+  student_id                          uuid                           NOT NULL
+  preferred_tier                      integer                        nullable
+  device_type                         text                           nullable
+  consecutive_tier1_failures          integer                        nullable
+  last_successful_tier                integer                        nullable
+  updated_at                          timestamp with time zone       nullable
+
+--- student_saved_words (754 rows) ---
+  id                                  uuid                           NOT NULL
+  student_id                          uuid                           NOT NULL
+  word                                text                           NOT NULL
+  meaning                             text                           nullable
+  source_unit_id                      uuid                           nullable
+  context_sentence                    text                           nullable
+  created_at                          timestamp with time zone       nullable
+  source                              text                           nullable
+  source_reference                    text                           nullable
+  ease_factor                         numeric                        NOT NULL
+  interval_days                       integer                        NOT NULL
+  repetition                          integer                        NOT NULL
+  next_review_at                      timestamp with time zone       NOT NULL
+  last_reviewed_at                    timestamp with time zone       nullable
+  review_count                        integer                        NOT NULL
+  success_count                       integer                        NOT NULL
+  failure_count                       integer                        NOT NULL
+  mastered_at                         timestamp with time zone       nullable
+  curriculum_vocabulary_id            uuid                           nullable
+
+--- student_skill_state (15 rows) ---
+  student_id                          uuid                           NOT NULL
+  vocabulary                          integer                        NOT NULL
+  reading                             integer                        NOT NULL
+  writing                             integer                        NOT NULL
+  speaking                            integer                        NOT NULL
+  listening                           integer                        NOT NULL
+  grammar                             integer                        NOT NULL
+  updated_at                          timestamp with time zone       NOT NULL
+
+--- student_speaking_progress (0 rows) ---
+  id                                  uuid                           NOT NULL
+  student_id                          uuid                           nullable
+  topic_id                            uuid                           nullable
+  completed                           boolean                        nullable
+  submission_id                       uuid                           nullable
+  completed_at                        timestamp with time zone       nullable
+
+--- student_spelling_progress (0 rows) ---
+  id                                  uuid                           NOT NULL
+  student_id                          uuid                           NOT NULL
+  word_id                             uuid                           NOT NULL
+  times_tested                        integer                        nullable
+  times_correct                       integer                        nullable
+  accuracy_rate                       numeric                        nullable
+  mastery                             text                           nullable
+  last_wrong_spelling                 text                           nullable
+  last_tested_at                      timestamp with time zone       nullable
+
+--- student_streaks (0 rows) ---
+  id                                  uuid                           NOT NULL
+  student_id                          uuid                           NOT NULL
+  current_streak                      integer                        nullable
+  longest_streak                      integer                        nullable
+  last_activity_date                  date                           nullable
+  total_xp                            integer                        nullable
+  current_level                       integer                        nullable
+  badges                              jsonb                          nullable
+  created_at                          timestamp with time zone       nullable
+  updated_at                          timestamp with time zone       nullable
+
+--- student_unit_skill_snapshots (0 rows) ---
+  id                                  uuid                           NOT NULL
+  student_id                          uuid                           NOT NULL
+  unit_id                             uuid                           NOT NULL
+  snapshot_at                         timestamp with time zone       NOT NULL
+  reading_score                       smallint                       nullable
+  vocabulary_score                    smallint                       nullable
+  grammar_score                       smallint                       nullable
+  listening_score                     smallint                       nullable
+  writing_score                       smallint                       nullable
+  speaking_score                      smallint                       nullable
+  pronunciation_score                 smallint                       nullable
+
+--- student_verb_progress (0 rows) ---
+  id                                  uuid                           NOT NULL
+  student_id                          uuid                           NOT NULL
+  verb_id                             uuid                           NOT NULL
+  times_tested                        integer                        nullable
+  times_correct                       integer                        nullable
+  mastery                             text                           nullable
+  last_tested_at                      timestamp with time zone       nullable
+
+--- student_xp_audit (15 rows) ---
+  student_id                          uuid                           nullable
+  total_xp                            bigint                         nullable
+  verified_xp                         bigint                         nullable
+  suspect_xp                          bigint                         nullable
+  uncertain_xp                        bigint                         nullable
+  suspect_event_count                 bigint                         nullable
+  uncertain_event_count               bigint                         nullable
+  total_events                        bigint                         nullable
+  suspect_pct                         numeric                        nullable
+  max_inflation_pct                   numeric                        nullable
+  confidence_band                     text                           nullable
+
+--- students (21 rows) ---
+  id                                  uuid                           NOT NULL
+  academic_level                      integer                        nullable
+  ielts_phase                         integer                        nullable
+  package                             USER-DEFINED                   nullable
+  track                               USER-DEFINED                   nullable
+  group_id                            uuid                           nullable
+  team_id                             uuid                           nullable
+  xp_total                            integer                        nullable
+  current_streak                      integer                        nullable
+  longest_streak                      integer                        nullable
+  gamification_level                  integer                        nullable
+  streak_freeze_available             boolean                        nullable
+  enrollment_date                     date                           nullable
+  status                              USER-DEFINED                   nullable
+  custom_price                        integer                        nullable
+  payment_day                         integer                        nullable
+  payment_link                        text                           nullable
+  referral_code                       text                           nullable
+  referred_by                         uuid                           nullable
+  writing_limit_override              integer                        nullable
+  goals                               text                           nullable
+  interests                           ARRAY                          nullable
+  public_goal                         text                           nullable
+  last_active_at                      timestamp with time zone       nullable
+  onboarding_completed                boolean                        nullable
+  deleted_at                          timestamp with time zone       nullable
+  temp_password                       text                           nullable
+  custom_access                       jsonb                          nullable
+  anki_daily_new_cards                integer                        nullable
+  anki_daily_max_reviews              integer                        nullable
+  anki_review_order                   text                           nullable
+  anki_autoplay_audio                 boolean                        nullable
+  anki_last_session_at                timestamp with time zone       nullable
+  anki_streak_current                 integer                        nullable
+  anki_streak_best                    integer                        nullable
+  ref_code                            text                           nullable
+  affiliate_id                        uuid                           nullable
+  show_in_leaderboard                 boolean                        NOT NULL
+  ai_insight_cache                    jsonb                          nullable
+  ai_insight_generated_at             timestamp with time zone       nullable
+  paused_at                           timestamp with time zone       nullable
+  paused_reason                       text                           nullable
