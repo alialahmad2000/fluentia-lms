@@ -1,6 +1,7 @@
 import { useState, useMemo, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, ArrowRight, Check, RotateCcw, Trophy, Mic, Sparkles, Home } from 'lucide-react'
+import EnglishText from './EnglishText'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { toast } from '../../components/ui/FluentiaToast'
@@ -294,7 +295,7 @@ function IntroPhase({ titleAr, titleEn, descriptionAr, ruleSummary, focusType, i
         </div>
         <div>
           <h2 className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>{titleAr}</h2>
-          <p className="text-xs font-['Inter']" style={{ color: 'var(--text-tertiary)' }}>{titleEn}</p>
+          <EnglishText as="p" className="text-xs font-['Inter']" style={{ color: 'var(--text-tertiary)' }}>{titleEn}</EnglishText>
         </div>
       </div>
 
@@ -404,19 +405,19 @@ function FlashcardsPhase({ focusType, items, currentIndex, totalCards, onNext, o
 function MinimalPairCard({ item }) {
   return (
     <div className="fl-card-static p-6 space-y-4">
-      <div className="flex items-center justify-center gap-8">
+      <EnglishText as="div" className="flex items-center justify-center gap-8">
         <div className="text-center">
-          <p className="text-2xl font-bold font-['Inter']" style={{ color: 'var(--accent-sky)' }}>{item.word1}</p>
-          <p className="text-xs font-['Inter'] mt-1" style={{ color: 'var(--text-tertiary)' }}>{item.ipa1}</p>
+          <EnglishText as="p" className="text-2xl font-bold font-['Inter']" style={{ color: 'var(--accent-sky)' }}>{item.word1}</EnglishText>
+          <EnglishText as="p" className="text-xs font-['Inter'] mt-1" style={{ color: 'var(--text-tertiary)' }}>{item.ipa1}</EnglishText>
           {item.meaning1_ar && <p className="text-xs mt-1" style={{ color: 'var(--text-secondary)' }}>{item.meaning1_ar}</p>}
         </div>
         <span className="text-lg font-bold" style={{ color: 'var(--text-tertiary)' }}>vs</span>
         <div className="text-center">
-          <p className="text-2xl font-bold font-['Inter']" style={{ color: 'var(--accent-violet)' }}>{item.word2}</p>
-          <p className="text-xs font-['Inter'] mt-1" style={{ color: 'var(--text-tertiary)' }}>{item.ipa2}</p>
+          <EnglishText as="p" className="text-2xl font-bold font-['Inter']" style={{ color: 'var(--accent-violet)' }}>{item.word2}</EnglishText>
+          <EnglishText as="p" className="text-xs font-['Inter'] mt-1" style={{ color: 'var(--text-tertiary)' }}>{item.ipa2}</EnglishText>
           {item.meaning2_ar && <p className="text-xs mt-1" style={{ color: 'var(--text-secondary)' }}>{item.meaning2_ar}</p>}
         </div>
-      </div>
+      </EnglishText>
       {item.hint_ar && (
         <div className="px-4 py-2 rounded-xl text-center" style={{ background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.1)' }}>
           <p className="text-xs" style={{ color: 'var(--accent-gold)' }}>{item.hint_ar}</p>
@@ -429,7 +430,7 @@ function MinimalPairCard({ item }) {
 function WordStressCard({ item }) {
   return (
     <div className="fl-card-static p-6 space-y-4">
-      <div className="flex items-center justify-center gap-1 text-2xl font-bold font-['Inter']">
+      <EnglishText as="div" className="flex items-center justify-center gap-1 text-2xl font-bold font-['Inter']">
         {(item.syllables || []).map((syl, j) => (
           <span key={j}>
             <span
@@ -445,8 +446,8 @@ function WordStressCard({ item }) {
             )}
           </span>
         ))}
-      </div>
-      <p className="text-center text-sm font-['Inter']" style={{ color: 'var(--text-tertiary)' }}>{item.ipa}</p>
+      </EnglishText>
+      <EnglishText as="p" className="text-center text-sm font-['Inter']" style={{ color: 'var(--text-tertiary)' }}>{item.ipa}</EnglishText>
       {item.hint_ar && (
         <div className="px-4 py-2 rounded-xl text-center" style={{ background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.1)' }}>
           <p className="text-xs" style={{ color: 'var(--accent-gold)' }}>{item.hint_ar}</p>
@@ -459,23 +460,23 @@ function WordStressCard({ item }) {
 function ConnectedSpeechCard({ item }) {
   return (
     <div className="fl-card-static p-6 space-y-4">
-      <div className="flex items-center justify-center gap-4">
+      <EnglishText as="div" className="flex items-center justify-center gap-4">
         <div className="text-center">
-          <p className="text-xs mb-1" style={{ color: 'var(--text-tertiary)' }}>الشكل المكتوب</p>
-          <p className="text-sm font-['Inter'] line-through decoration-white/15" style={{ color: 'var(--text-secondary)' }}>
+          <p className="text-xs mb-1" style={{ color: 'var(--text-tertiary)', direction: 'rtl' }}>الشكل المكتوب</p>
+          <EnglishText as="p" className="text-sm font-['Inter'] line-through decoration-white/15" style={{ color: 'var(--text-secondary)' }}>
             {item.written}
-          </p>
+          </EnglishText>
         </div>
         <span className="text-lg" style={{ color: 'var(--text-tertiary)' }}>→</span>
         <div className="text-center">
-          <p className="text-xs mb-1" style={{ color: 'var(--text-tertiary)' }}>الشكل المنطوق</p>
-          <p className="text-lg font-bold font-['Inter']" style={{ color: 'var(--accent-sky)' }}>
+          <p className="text-xs mb-1" style={{ color: 'var(--text-tertiary)', direction: 'rtl' }}>الشكل المنطوق</p>
+          <EnglishText as="p" className="text-lg font-bold font-['Inter']" style={{ color: 'var(--accent-sky)' }}>
             {item.spoken}
-          </p>
+          </EnglishText>
         </div>
-      </div>
+      </EnglishText>
       {item.ipa_spoken && (
-        <p className="text-center text-xs font-['Inter']" style={{ color: 'var(--text-tertiary)' }}>{item.ipa_spoken}</p>
+        <EnglishText as="p" className="text-center text-xs font-['Inter']" style={{ color: 'var(--text-tertiary)' }}>{item.ipa_spoken}</EnglishText>
       )}
       {item.explanation_ar && (
         <div className="px-4 py-2 rounded-xl text-center" style={{ background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.1)' }}>
@@ -490,15 +491,15 @@ function IntonationCard({ item }) {
   return (
     <div className="fl-card-static p-6 space-y-4">
       <div className="text-center">
-        <p className="text-lg font-bold font-['Inter'] mb-2" style={{ color: 'var(--text-primary)' }}>
+        <EnglishText as="p" className="text-lg font-bold font-['Inter'] mb-2" style={{ color: 'var(--text-primary)' }}>
           {item.sentence}
-        </p>
+        </EnglishText>
         <span className="text-3xl">{item.tone_curve}</span>
       </div>
       <div className="text-center">
-        <span className="text-xs px-3 py-1 rounded-full capitalize" style={{ background: 'rgba(167,139,250,0.1)', color: 'var(--accent-violet)' }}>
+        <EnglishText as="span" className="text-xs px-3 py-1 rounded-full capitalize" style={{ background: 'rgba(167,139,250,0.1)', color: 'var(--accent-violet)' }}>
           {item.pattern}
-        </span>
+        </EnglishText>
       </div>
       {item.explanation_ar && (
         <div className="px-4 py-2 rounded-xl text-center" style={{ background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.1)' }}>
@@ -552,14 +553,15 @@ function QuizPhase({ questions, answers, onAnswer, onSubmit, saving, attemptNumb
                 <button
                   key={j}
                   onClick={() => onAnswer(i, opt)}
-                  className="px-4 py-2.5 rounded-xl text-sm text-start transition-all"
+                  className="px-4 py-2.5 rounded-xl text-sm transition-all"
                   style={{
                     background: isSelected ? 'rgba(56,189,248,0.15)' : 'var(--surface-raised)',
                     border: isSelected ? '1px solid rgba(56,189,248,0.4)' : '1px solid transparent',
                     color: isSelected ? 'var(--accent-sky)' : 'var(--text-secondary)',
+                    textAlign: 'left',
                   }}
                 >
-                  {opt}
+                  <EnglishText>{opt}</EnglishText>
                 </button>
               )
             })}

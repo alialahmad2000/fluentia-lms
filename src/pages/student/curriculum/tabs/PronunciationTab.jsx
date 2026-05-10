@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Volume2, ChevronDown, ChevronUp, Mic, Check } from 'lucide-react'
+import EnglishText from '../../../../components/curriculum/EnglishText'
 import { supabase } from '../../../../lib/supabase'
 import { useAuthStore } from '../../../../stores/authStore'
 import PronunciationActivity from '../../../../components/curriculum/PronunciationActivity'
@@ -203,17 +204,17 @@ function MinimalPairsView({ items, expandedItem, onToggle }) {
           style={expandedItem === i ? { borderColor: 'rgba(245,158,11,0.3)' } : {}}
         >
           <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center gap-4">
+            <EnglishText as="div" className="flex items-center gap-4">
               <div className="text-center">
-                <p className="text-base font-bold font-['Inter']" style={{ color: 'var(--accent-sky)' }}>{pair.word1}</p>
-                <p className="text-[10px] font-['Inter'] mt-0.5" style={{ color: 'var(--text-tertiary)' }}>{pair.ipa1}</p>
+                <EnglishText as="p" className="text-base font-bold font-['Inter']" style={{ color: 'var(--accent-sky)' }}>{pair.word1}</EnglishText>
+                <EnglishText as="p" className="text-[10px] font-['Inter'] mt-0.5" style={{ color: 'var(--text-tertiary)' }}>{pair.ipa1}</EnglishText>
               </div>
               <span className="text-xs font-bold" style={{ color: 'var(--text-tertiary)' }}>vs</span>
               <div className="text-center">
-                <p className="text-base font-bold font-['Inter']" style={{ color: 'var(--accent-violet)' }}>{pair.word2}</p>
-                <p className="text-[10px] font-['Inter'] mt-0.5" style={{ color: 'var(--text-tertiary)' }}>{pair.ipa2}</p>
+                <EnglishText as="p" className="text-base font-bold font-['Inter']" style={{ color: 'var(--accent-violet)' }}>{pair.word2}</EnglishText>
+                <EnglishText as="p" className="text-[10px] font-['Inter'] mt-0.5" style={{ color: 'var(--text-tertiary)' }}>{pair.ipa2}</EnglishText>
               </div>
-            </div>
+            </EnglishText>
             <AudioPlaceholder />
           </div>
           {expandedItem === i && pair.hint_ar && (
@@ -246,7 +247,7 @@ function WordStressView({ items, expandedItem, onToggle }) {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <div>
-                <div className="flex items-center gap-0.5 text-base font-bold font-['Inter']">
+                <EnglishText as="div" className="flex items-center gap-0.5 text-base font-bold font-['Inter']">
                   {(item.syllables || []).map((syl, j) => (
                     <span
                       key={j}
@@ -257,8 +258,8 @@ function WordStressView({ items, expandedItem, onToggle }) {
                       {j < item.syllables.length - 1 && <span style={{ color: 'var(--text-tertiary)' }}>·</span>}
                     </span>
                   ))}
-                </div>
-                <p className="text-[10px] font-['Inter'] mt-1" style={{ color: 'var(--text-tertiary)' }}>{item.ipa}</p>
+                </EnglishText>
+                <EnglishText as="p" className="text-[10px] font-['Inter'] mt-1" style={{ color: 'var(--text-tertiary)' }}>{item.ipa}</EnglishText>
               </div>
               <AudioPlaceholder />
             </div>
@@ -292,17 +293,17 @@ function ConnectedSpeechView({ items, expandedItem, onToggle }) {
         >
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1">
-              <div className="flex items-center gap-3 mb-1">
-                <p className="text-sm font-['Inter']" style={{ color: 'var(--text-tertiary)', textDecoration: 'line-through', textDecorationColor: 'rgba(255,255,255,0.15)' }}>
+              <EnglishText as="div" className="flex items-center gap-3 mb-1">
+                <EnglishText as="p" className="text-sm font-['Inter']" style={{ color: 'var(--text-tertiary)', textDecoration: 'line-through', textDecorationColor: 'rgba(255,255,255,0.15)' }}>
                   {item.written}
-                </p>
+                </EnglishText>
                 <span style={{ color: 'var(--text-tertiary)' }}>→</span>
-                <p className="text-sm font-bold font-['Inter']" style={{ color: 'var(--accent-sky)' }}>
+                <EnglishText as="p" className="text-sm font-bold font-['Inter']" style={{ color: 'var(--accent-sky)' }}>
                   {item.spoken}
-                </p>
-              </div>
+                </EnglishText>
+              </EnglishText>
               {item.ipa_spoken && (
-                <p className="text-[10px] font-['Inter']" style={{ color: 'var(--text-tertiary)' }}>{item.ipa_spoken}</p>
+                <EnglishText as="p" className="text-[10px] font-['Inter']" style={{ color: 'var(--text-tertiary)' }}>{item.ipa_spoken}</EnglishText>
               )}
             </div>
             <AudioPlaceholder />
@@ -337,14 +338,14 @@ function IntonationView({ items, expandedItem, onToggle }) {
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-1">
-                <p className="text-sm font-bold font-['Inter']" style={{ color: 'var(--text-primary)' }}>
+                <EnglishText as="p" className="text-sm font-bold font-['Inter']" style={{ color: 'var(--text-primary)' }}>
                   {item.sentence}
-                </p>
+                </EnglishText>
                 <span className="text-xl">{item.tone_curve}</span>
               </div>
-              <span className="text-[10px] px-2 py-0.5 rounded-full capitalize" style={{ background: 'rgba(167,139,250,0.1)', color: 'var(--accent-violet)' }}>
+              <EnglishText as="span" className="text-[10px] px-2 py-0.5 rounded-full capitalize" style={{ background: 'rgba(167,139,250,0.1)', color: 'var(--accent-violet)' }}>
                 {item.pattern}
-              </span>
+              </EnglishText>
             </div>
             <AudioPlaceholder />
           </div>

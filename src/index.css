@@ -9,6 +9,17 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════════════════════════
+   BIDI — English content inside RTL pages
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Belt-and-suspenders for older webviews where dir="ltr" alone
+   may not override an inherited RTL bidi context. */
+.fl-en {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* ═══════════════════════════════════════════════════════════════
    ACCESSIBILITY (a11y) — driven by AccessibilityContext
    ═══════════════════════════════════════════════════════════════ */
 
