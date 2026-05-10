@@ -84,7 +84,24 @@ Deno.serve(async (req) => {
     const RETAKE_DAYS = assessment.post_pass_retake_days ?? 7;
     const NOW = new Date();
 
-    // 2) Fetch all finished attempts for state machine
+    // 2a) Compute next attempt_number monotonically across ALL statuses (including in_progress)
+    //     This prevents duplicate-key errors from orphaned in_progress rows.
+    const { data: lastAttemptRow, error: lastErr } = await db
+      .from("unit_mastery_attempts")
+      .select("attempt_number")
+      .eq("student_id", userId)
+      .eq("assessment_id", assessment_id)
+      .order("attempt_number", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    if (lastErr) {
+      return new Response(JSON.stringify({ error: "ATTEMPT_LOOKUP_FAILED", detail: lastErr.message }), {
+        status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    const nextAttemptNumber = ((lastAttemptRow as any)?.attempt_number ?? 0) + 1;
+
+    // 2b) Fetch all finished attempts for state machine (cycle + cooldown logic)
     const { data: allAttempts } = await db
       .from("unit_mastery_attempts")
       .select("id, passed, percentage, started_at, completed_at, variant_id, status, attempt_number")
@@ -155,7 +172,6 @@ Deno.serve(async (req) => {
       }
 
       const totalPossible = questions.reduce((sum: number, q: any) => sum + q.points, 0);
-      const attemptNumber = attempts.length + 1;
 
       const { data: attempt, error: insertErr } = await db
         .from("unit_mastery_attempts")
@@ -163,7 +179,7 @@ Deno.serve(async (req) => {
           student_id: userId,
           assessment_id,
           variant_id: (variant as any).id,
-          attempt_number: attemptNumber,
+          attempt_number: nextAttemptNumber,
           total_possible: totalPossible,
           status: "in_progress",
         })
@@ -180,7 +196,7 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({
         attempt_id: (attempt as any).id,
         variant_code: variantCode,
-        attempt_number: attemptNumber,
+        attempt_number: nextAttemptNumber,
         questions: safeQuestions,
         total_possible: totalPossible,
         time_limit_seconds: assessment.time_limit_seconds,
@@ -297,7 +313,8 @@ Deno.serve(async (req) => {
       JSON.stringify({
         attempt_id: (attempt as any).id,
         variant_code: variantCode,
-        attempt_number: attemptNumber,
+        attempt_number: nextAttemptNumber,
+        cycle_position: cyclePos,
         questions: safeQuestions,
         total_possible: totalPossible,
         time_limit_seconds: assessment.time_limit_seconds,
