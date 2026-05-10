@@ -424,6 +424,7 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
         setIsCompleted(true)
         toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
         awardCurriculumXP(studentId, 'listening', score, unitId)
+        window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'listening', score } }))
 
         const { data: refreshed } = await supabase
           .from('student_curriculum_progress')
@@ -497,6 +498,7 @@ function ListeningExercises({ exercises, studentId, unitId, listeningId }) {
           setIsCompleted(true)
           toast({ type: 'success', title: 'تم حفظ تقدمك ✅' })
           awardCurriculumXP(studentId, 'listening', score, unitId)
+          window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'listening', score } }))
 
           const { data: refreshed } = await supabase
             .from('student_curriculum_progress')

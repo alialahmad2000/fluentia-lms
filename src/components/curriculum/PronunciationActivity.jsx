@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, ArrowRight, Check, RotateCcw, Trophy, Mic, Sparkles } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check, RotateCcw, Trophy, Mic, Sparkles, Home } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 import { supabase } from '../../lib/supabase'
 import { toast } from '../../components/ui/FluentiaToast'
@@ -11,7 +11,7 @@ const MAX_ATTEMPTS = 3
 const QUIZ_SIZE = 5
 
 // ─── Main Component ───
-export default function PronunciationActivity({ pronunciationData, unitId, onComplete }) {
+export default function PronunciationActivity({ pronunciationData, unitId, onComplete, onBack }) {
   const { profile } = useAuthStore()
   const queryClient = useQueryClient()
   const [phase, setPhase] = useState('intro') // intro | flashcards | quiz | complete
@@ -181,6 +181,11 @@ export default function PronunciationActivity({ pronunciationData, unitId, onCom
 
       setShowConfetti(true)
       setPhase('complete')
+
+      // Signal the unit page to return to MissionGrid after the completion screen
+      window.dispatchEvent(new CustomEvent('fluentia:activity:complete', {
+        detail: { activityKey: 'pronunciation', score: scorePercent },
+      }))
     } catch (err) {
       console.error('Error marking pronunciation complete:', err)
       toast({ type: 'error', title: 'حدث خطأ' })
@@ -237,6 +242,11 @@ export default function PronunciationActivity({ pronunciationData, unitId, onCom
           />
         )}
 
+        {/* Saving state — prevents blank while async DB write is in progress */}
+        {phase === 'quiz' && score && saving && (
+          <SavingPhase key="saving" />
+        )}
+
         {phase === 'quiz' && score && !saving && score.percent < PASS_THRESHOLD * 100 && attempts < MAX_ATTEMPTS && (
           <FailedPhase
             key="failed"
@@ -252,6 +262,7 @@ export default function PronunciationActivity({ pronunciationData, unitId, onCom
             key="complete"
             score={score}
             showConfetti={showConfetti}
+            onBack={onBack}
           />
         )}
       </AnimatePresence>
@@ -604,8 +615,26 @@ function FailedPhase({ score, attempts, maxAttempts, onRetry }) {
   )
 }
 
+// ─── Saving Phase ───
+function SavingPhase() {
+  return (
+    <motion.div
+      key="saving"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fl-card-static p-8 text-center space-y-4"
+      style={{ minHeight: '200px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
+    >
+      <div className="w-12 h-12 rounded-full border-2 border-t-transparent animate-spin mx-auto"
+        style={{ borderColor: 'var(--accent-sky)', borderTopColor: 'transparent' }} />
+      <p className="text-sm font-['Tajawal']" style={{ color: 'var(--text-tertiary)' }}>جاري حفظ تقدمك...</p>
+    </motion.div>
+  )
+}
+
 // ─── Complete Phase ───
-function CompletePhase({ score, showConfetti }) {
+function CompletePhase({ score, showConfetti, onBack }) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
@@ -649,6 +678,17 @@ function CompletePhase({ score, showConfetti }) {
         <Check size={14} className="text-emerald-400" />
         <span className="text-xs" style={{ color: 'var(--text-tertiary)' }}>تم تحديث تقدمك تلقائياً</span>
       </div>
+
+      {onBack && (
+        <button
+          onClick={onBack}
+          className="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-sm font-bold font-['Tajawal'] transition-all hover:scale-[1.02] active:scale-[0.98]"
+          style={{ background: 'var(--surface-raised)', color: 'var(--text-primary)', border: '1px solid var(--border-subtle)' }}
+        >
+          <Home size={16} />
+          العودة للوحدة
+        </button>
+      )}
     </motion.div>
   )
 }

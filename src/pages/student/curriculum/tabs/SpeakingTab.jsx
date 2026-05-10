@@ -116,6 +116,7 @@ export default function SpeakingTab({ unitId }) {
       await supabase.from('student_curriculum_progress').insert(progressRow)
     }
     awardCurriculumXP(studentId, 'speaking', null, unitId)
+    window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'speaking' } }))
   }, [unitId, studentId, queryClient])
 
   if (isLoading) return <SpeakingSkeleton />

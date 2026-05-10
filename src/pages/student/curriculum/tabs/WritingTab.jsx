@@ -347,6 +347,7 @@ function WritingTask({ task, number, total, studentId, unitId, studentName, grou
     toast({ type: 'success', title: 'تم إرسال كتابتك — جاري التصحيح...' })
     try { safeCelebrate('writing_submitted') } catch {}
     awardCurriculumXP(studentId, 'writing', null, unitId)
+    window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'writing' } }))
 
     // 2. Call AI feedback (with built-in retries)
     const success = await fetchFeedback(text)

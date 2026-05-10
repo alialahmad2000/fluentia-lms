@@ -311,6 +311,7 @@ function ReadingContent({ reading, studentId, unitId }) {
     setIsCompleted(true)
     toast({ type: 'success', title: 'تم حفظ تقدمك' })
     awardCurriculumXP(studentId, 'reading', score, unitId)
+    window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'reading', score } }))
   }, [studentId, reading?.id, unitId])
 
   const { data: vocabulary } = useQuery({

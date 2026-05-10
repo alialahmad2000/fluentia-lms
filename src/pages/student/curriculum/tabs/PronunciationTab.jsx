@@ -7,7 +7,7 @@ import { useAuthStore } from '../../../../stores/authStore'
 import PronunciationActivity from '../../../../components/curriculum/PronunciationActivity'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 
-export default function PronunciationTab({ unitId }) {
+export default function PronunciationTab({ unitId, onBack }) {
   const { profile, studentData } = useAuthStore()
   const queryClient = useQueryClient()
   const [showReference, setShowReference] = useState(false)
@@ -99,6 +99,7 @@ export default function PronunciationTab({ unitId }) {
             queryClient.invalidateQueries({ queryKey: ['unit-progress-comprehensive'] })
             awardCurriculumXP(studentData?.id, 'pronunciation', null, unitId)
           }}
+          onBack={onBack}
         />
       )}
 

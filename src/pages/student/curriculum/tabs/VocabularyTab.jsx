@@ -271,6 +271,7 @@ export default function VocabularyTab({ unitId }) {
         hasSavedComplete.current = true; setIsCompleted(true)
         toast({ type: 'success', title: 'تم حفظ تقدمك' })
         awardCurriculumXP(profile.id, 'vocabulary', row.score, unitId)
+        window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'vocabulary' } }))
       }
     } else {
       const { data: inserted, error } = await supabase.from('student_curriculum_progress').insert(row).select('id').single()
@@ -280,6 +281,7 @@ export default function VocabularyTab({ unitId }) {
           hasSavedComplete.current = true; setIsCompleted(true)
           toast({ type: 'success', title: 'تم حفظ تقدمك' })
           awardCurriculumXP(profile.id, 'vocabulary', row.score, unitId)
+          window.dispatchEvent(new CustomEvent('fluentia:activity:complete', { detail: { activityKey: 'vocabulary' } }))
         }
       }
     }

@@ -1,6 +1,6 @@
 // Unit Page Premium V2 — cinematic learning journey
 // Safety net: UnitContentOriginal.jsx preserved until 2026-04-21
-import React, { useState, useEffect, useRef, useCallback, Suspense } from 'react'
+import React, { useState, useEffect, useRef, useCallback, Suspense, useMemo } from 'react'
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -15,6 +15,7 @@ import NotesPanel from '../../../components/student/NotesPanel'
 import SavedWordsPanel from '../../../components/student/SavedWordsPanel'
 import ClassSummaryView from '../../../components/student/ClassSummaryView'
 import SectionErrorBoundary from '../../../components/SectionErrorBoundary'
+import ActivityFallbackEmpty from '../../../components/curriculum/ActivityFallbackEmpty'
 import { useCurriculumPreview } from '../../../contexts/CurriculumPreviewContext'
 import UnitMasteryCard from '../assessment/UnitMasteryCard'
 
@@ -234,6 +235,36 @@ export default function UnitContent() {
     setSearchParams({}, { replace: true })
   }, [setSearchParams])
 
+  // Layer 1 — universal activity completion listener
+  // Any activity dispatches 'fluentia:activity:complete' on success; we auto-return
+  // to MissionGrid after a short delay so the student sees the completion screen.
+  useEffect(() => {
+    let returnTimer = null
+    const handleActivityComplete = () => {
+      // 2.5 s grace period so the completion screen is visible before grid returns
+      returnTimer = setTimeout(() => handleBackToGrid(), 2500)
+    }
+    window.addEventListener('fluentia:activity:complete', handleActivityComplete)
+    return () => {
+      window.removeEventListener('fluentia:activity:complete', handleActivityComplete)
+      if (returnTimer) clearTimeout(returnTimer)
+    }
+  }, [handleBackToGrid])
+
+  // Layer 4 — height sentinel: if activity div renders <10px after 1500ms, bail out
+  const activityContainerRef = useRef(null)
+  useEffect(() => {
+    if (!activeActivity) return
+    const t = setTimeout(() => {
+      const el = activityContainerRef.current
+      if (el && el.offsetHeight < 10) {
+        console.warn('[fluentia] Activity rendered empty content, auto-returning to grid:', activeActivity)
+        handleBackToGrid()
+      }
+    }, 1500)
+    return () => clearTimeout(t)
+  }, [activeActivity, handleBackToGrid])
+
   // Render activity content (same as old tab content — PRESERVED)
   const renderActivityContent = (key) => {
     const ribbon = <ContextRibbon unit={unit} activityType={key} />
@@ -244,9 +275,9 @@ export default function UnitContent() {
       case 'listening':    return <>{ribbon}<ListeningTab unitId={unitId} /></>
       case 'writing':      return <>{ribbon}<WritingTab unitId={unitId} /></>
       case 'speaking':     return <>{ribbon}<SpeakingTab unitId={unitId} /></>
-      case 'pronunciation':return <>{ribbon}<PronunciationTab unitId={unitId} /></>
+      case 'pronunciation':return <>{ribbon}<PronunciationTab unitId={unitId} onBack={handleBackToGrid} /></>
       case 'recording':    return <RecordingTab unitId={unitId} />
-      default:             return <>{ribbon}<ReadingTab unitId={unitId} /></>
+      default:             return <ActivityFallbackEmpty reason="unknown_activity" onBack={handleBackToGrid} />
     }
   }
 
@@ -494,7 +525,11 @@ export default function UnitContent() {
         {TABS.map(({ id, label }) => {
           if (!visitedTabs.has(id)) return null
           return (
-            <div key={id} style={{ display: activeActivity === id ? 'block' : 'none' }}>
+            <div
+              key={id}
+              ref={activeActivity === id ? activityContainerRef : null}
+              style={{ display: activeActivity === id ? 'block' : 'none' }}
+            >
               {label && (
                 <div className="flex items-center gap-2 mb-4 font-['Tajawal']" style={{ color: V1.textDim, fontSize: V1.type.bodySm }}>
                   <button
