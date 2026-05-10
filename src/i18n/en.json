@@ -669,6 +669,24 @@
         "successWithTranscript": "Generated from full video transcript ✨",
         "successNoTranscript": "Generated (no transcript available) — review content carefully",
         "failed": "Generation failed"
+      },
+      "notify": {
+        "send": "Send notification",
+        "sending": "Sending...",
+        "resend": "Resend",
+        "alreadySent": "Notification sent",
+        "lastSent": "Last sent {{time}}",
+        "recipientCount": "Reached {{count}} students",
+        "publishFirst": "Publish the session first before sending a notification",
+        "assignFirst": "Assign a group or students first",
+        "willReach": "The notification will reach all assigned students now and in their notification list",
+        "confirmTitle": "Confirm send",
+        "confirmBody": "A push notification + in-app notification will be sent to all assigned students.",
+        "confirmResendWarning": "⚠️ A notification was already sent for this session. Send again?",
+        "cancel": "Cancel",
+        "confirm": "Yes, send",
+        "successToast": "Notification sent to {{count}} students",
+        "failedToast": "Send failed"
       }
     }
   },

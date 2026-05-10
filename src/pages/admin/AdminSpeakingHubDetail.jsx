@@ -2,7 +2,9 @@ import { useState, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Loader2, Search, X, CheckCircle2, Minus, Users, UserCheck } from 'lucide-react'
+import { Loader2, Search, X, CheckCircle2, Minus, Users, UserCheck, Bell, BellRing, Check } from 'lucide-react'
+import { formatDistanceToNow } from 'date-fns'
+import { ar as arLocale } from 'date-fns/locale'
 import SubTabs from '@/components/common/SubTabs'
 import AdminSpeakingHubForm from './AdminSpeakingHubForm'
 import { toast } from '@/components/ui/FluentiaToast'
@@ -13,6 +15,7 @@ import {
   useUnassign,
   useAllGroups,
   useAllActiveStudents,
+  useSendHubNotification,
 } from '@/hooks/useSpeakingHub'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -480,12 +483,131 @@ function ProgressTab({ hub }) {
 
 // ── Main detail page ──────────────────────────────────────────────────────────
 
+// ── Notification Card ─────────────────────────────────────────────────────────
+
+function NotificationCard({ hub, hubId, sendNotification, confirmOpen, setConfirmOpen, t }) {
+  const assignmentCount = (hub?.assignments?.length ?? 0)
+  const isPublished = ['published', 'live', 'completed'].includes(hub?.status)
+  const canSend = isPublished && assignmentCount > 0 && !sendNotification.isPending
+
+  const lastSent = hub?.last_notification_sent_at
+    ? formatDistanceToNow(new Date(hub.last_notification_sent_at), { addSuffix: true, locale: arLocale })
+    : null
+
+  async function handleConfirmSend() {
+    setConfirmOpen(false)
+    try {
+      const result = await sendNotification.mutateAsync(hub)
+      toast({ type: 'success', title: t('admin.speakingHub.notify.successToast', 'تم إرسال الإشعار إلى {{count}} طالب', { count: result.recipientCount }) })
+    } catch (e) {
+      toast({ type: 'error', title: e.message || t('admin.speakingHub.notify.failedToast', 'فشل الإرسال') })
+    }
+  }
+
+  return (
+    <>
+      <div className="rounded-2xl border border-cyan-500/20 p-5" style={{ background: 'linear-gradient(135deg, rgba(8,145,178,0.08) 0%, rgba(37,99,235,0.08) 100%)' }}>
+        <div className="flex items-start justify-between gap-4 flex-wrap">
+          <div className="flex items-start gap-3 min-w-0 flex-1">
+            <div className="rounded-xl p-3 shrink-0" style={{ background: 'rgba(8,145,178,0.15)', color: '#67e8f9' }}>
+              {lastSent ? <Check className="w-5 h-5" /> : <Bell className="w-5 h-5" />}
+            </div>
+            <div className="min-w-0">
+              <div className="font-bold text-base text-[var(--text-primary)] font-['Tajawal'] mb-0.5">
+                {lastSent
+                  ? t('admin.speakingHub.notify.alreadySent', 'الإشعار أُرسل')
+                  : t('admin.speakingHub.notify.send', 'إرسال إشعار للطلاب')}
+              </div>
+              <div className="text-sm text-[var(--text-muted)] font-['Tajawal']">
+                {lastSent ? (
+                  <>
+                    {t('admin.speakingHub.notify.lastSent', 'آخر إرسال {{time}}', { time: lastSent })}
+                    {hub.last_notification_recipient_count != null && (
+                      <> · {t('admin.speakingHub.notify.recipientCount', 'وصل {{count}} طالب', { count: hub.last_notification_recipient_count })}</>
+                    )}
+                  </>
+                ) : !isPublished ? (
+                  t('admin.speakingHub.notify.publishFirst', 'انشر الجلسة أولاً قبل إرسال الإشعار')
+                ) : assignmentCount === 0 ? (
+                  t('admin.speakingHub.notify.assignFirst', 'عيّن مجموعة أو طلاب أولاً من تاب التعيين')
+                ) : (
+                  t('admin.speakingHub.notify.willReach', 'سيصل الإشعار لكل الطلاب المعيّنين الآن وفي قائمة الإشعارات')
+                )}
+              </div>
+            </div>
+          </div>
+          <button
+            onClick={() => setConfirmOpen(true)}
+            disabled={!canSend}
+            className="shrink-0 rounded-xl px-5 py-2.5 font-bold font-['Tajawal'] text-sm transition-all flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
+            style={canSend ? {
+              background: lastSent
+                ? 'rgba(8,145,178,0.15)'
+                : 'linear-gradient(135deg, #0891b2, #1d4ed8)',
+              color: lastSent ? '#67e8f9' : '#fff',
+              border: lastSent ? '1px solid rgba(8,145,178,0.3)' : 'none',
+              boxShadow: lastSent ? 'none' : '0 4px 14px rgba(8,145,178,0.3)',
+            } : { background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.3)' }}
+          >
+            {sendNotification.isPending ? (
+              <><Loader2 className="w-4 h-4 animate-spin" /> {t('admin.speakingHub.notify.sending', 'جاري الإرسال...')}</>
+            ) : lastSent ? (
+              <><BellRing className="w-4 h-4" /> {t('admin.speakingHub.notify.resend', 'إعادة الإرسال')}</>
+            ) : (
+              <><Bell className="w-4 h-4" /> 🔔 {t('admin.speakingHub.notify.send', 'إرسال الإشعار')}</>
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* Confirmation modal */}
+      {confirmOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(4px)' }}>
+          <div className="w-full max-w-md rounded-2xl p-6" style={{ background: 'var(--surface-overlay, #0d1a30)', border: '1px solid rgba(255,255,255,0.1)' }}>
+            <h2 className="text-lg font-bold text-[var(--text-primary)] font-['Tajawal'] mb-2">
+              {t('admin.speakingHub.notify.confirmTitle', 'تأكيد الإرسال')}
+            </h2>
+            <p className="text-sm text-[var(--text-muted)] font-['Tajawal'] mb-3">
+              {t('admin.speakingHub.notify.confirmBody', 'سيتم إرسال إشعار push + إشعار داخل التطبيق لجميع الطلاب المعيّنين.')}
+            </p>
+            {lastSent && (
+              <p className="text-sm text-amber-300 font-['Tajawal'] mb-3">
+                {t('admin.speakingHub.notify.confirmResendWarning', '⚠️ تم إرسال إشعار لهذه الجلسة سابقاً. إعادة الإرسال؟')}
+              </p>
+            )}
+            <div className="flex gap-2 justify-end">
+              <button
+                onClick={() => setConfirmOpen(false)}
+                className="px-4 py-2 rounded-xl text-sm font-['Tajawal'] transition-colors hover:bg-white/5"
+                style={{ background: 'rgba(255,255,255,0.06)', color: 'var(--text-muted)' }}
+              >
+                {t('admin.speakingHub.notify.cancel', 'إلغاء')}
+              </button>
+              <button
+                onClick={handleConfirmSend}
+                className="px-4 py-2 rounded-xl text-sm font-bold font-['Tajawal'] text-white transition-colors"
+                style={{ background: 'linear-gradient(135deg, #0891b2, #1d4ed8)' }}
+              >
+                {t('admin.speakingHub.notify.confirm', 'نعم، أرسل')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  )
+}
+
+// ── Main Page ─────────────────────────────────────────────────────────────────
+
 export default function AdminSpeakingHubDetail() {
   const { t } = useTranslation()
   const { id } = useParams()
   const { data: hub, isLoading } = useAdminSpeakingHub(id)
 
   const [activeTab, setActiveTab] = useState('edit')
+  const [confirmOpen, setConfirmOpen] = useState(false)
+  const sendNotification = useSendHubNotification(id)
 
   const TABS = [
     { key: 'edit',     label: t('admin.speakingHub.tabs.edit',     'تعديل') },
@@ -522,6 +644,16 @@ export default function AdminSpeakingHubDetail() {
         </h1>
         <p className="text-xs text-[var(--text-muted)] font-['Inter'] mt-0.5">{id}</p>
       </motion.div>
+
+      {/* Notification card */}
+      <NotificationCard
+        hub={hub}
+        hubId={id}
+        sendNotification={sendNotification}
+        confirmOpen={confirmOpen}
+        setConfirmOpen={setConfirmOpen}
+        t={t}
+      />
 
       {/* Tabs */}
       <SubTabs tabs={TABS} activeTab={activeTab} onChange={setActiveTab} accent="sky" />

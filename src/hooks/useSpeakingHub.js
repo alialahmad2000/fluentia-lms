@@ -299,3 +299,95 @@ export function useMarkVideoCompleted(hubId) {
     },
   })
 }
+
+// ─── NOTIFICATIONS ────────────────────────────────────────────
+
+async function resolveAssignedStudents(hubId) {
+  const { data: assignments, error: aErr } = await supabase
+    .from('speaking_hub_assignments')
+    .select('student_id, group_id')
+    .eq('hub_id', hubId)
+  if (aErr) throw aErr
+  if (!assignments?.length) return []
+
+  const directIds = assignments.filter((a) => a.student_id).map((a) => a.student_id)
+  const groupIds = assignments.filter((a) => a.group_id).map((a) => a.group_id)
+
+  let groupStudentIds = []
+  if (groupIds.length) {
+    const { data: groupStudents, error: gErr } = await supabase
+      .from('students')
+      .select('id')
+      .in('group_id', groupIds)
+      .eq('status', 'active')
+      .is('deleted_at', null)
+    if (gErr) throw gErr
+    groupStudentIds = (groupStudents || []).map((s) => s.id)
+  }
+
+  return Array.from(new Set([...directIds, ...groupStudentIds]))
+}
+
+function formatNotificationBody(hub) {
+  const lines = []
+  if (hub.video_title) lines.push(`📺 ${hub.video_title}`)
+  if (hub.hub_session_at) {
+    const diffMs = new Date(hub.hub_session_at).getTime() - Date.now()
+    if (diffMs > 0) {
+      const days = Math.floor(diffMs / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      if (days >= 1) {
+        lines.push(`⏰ الجلسة بعد ${days} يوم${hours > 0 ? ` و${hours} ساعة` : ''}`)
+      } else if (hours >= 1) {
+        lines.push(`⏰ الجلسة بعد ${hours} ساعة`)
+      } else {
+        lines.push('⏰ الجلسة قريباً')
+      }
+    }
+  }
+  lines.push('شاهد الفيديو واستعدّ للنقاش')
+  return lines.join(' • ')
+}
+
+export function useSendHubNotification(hubId) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: async (hub) => {
+      const studentIds = await resolveAssignedStudents(hubId)
+      if (!studentIds.length) {
+        throw new Error('لا يوجد طلاب معيّنون لهذه الجلسة. عيّن مجموعة أو طلاب أولاً.')
+      }
+
+      const { data, error } = await supabase.functions.invoke('send-push-notification', {
+        body: {
+          user_ids: studentIds,
+          title: `🎙️ ${hub.title || 'جلسة Speaking Hub جديدة'}`,
+          body: formatNotificationBody(hub),
+          url: `/student/speaking-hub/${hubId}`,
+          action_label: 'افتح الجلسة',
+          icon: hub.video_thumbnail_url || undefined,
+          type: 'speaking_hub',
+          priority: 'normal',
+          tag: `speaking-hub-${hubId}`,
+          data: { hub_id: hubId, type: 'speaking_hub_assigned' },
+        },
+      })
+      if (error) throw error
+
+      // Track send timestamp on the hub row (best-effort)
+      await supabase
+        .from('speaking_hubs')
+        .update({
+          last_notification_sent_at: new Date().toISOString(),
+          last_notification_recipient_count: studentIds.length,
+        })
+        .eq('id', hubId)
+
+      return { recipientCount: studentIds.length, response: data }
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['admin', 'speaking-hub', hubId] })
+      qc.invalidateQueries({ queryKey: ['admin', 'speaking-hubs'] })
+    },
+  })
+}
