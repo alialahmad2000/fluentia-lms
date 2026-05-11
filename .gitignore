@@ -27,7 +27,8 @@ Thumbs.db
 npm-debug.log*
 
 # Claude Code
-.claude/
+.claude/*
+!.claude/skills/
 
 # Large files / extracted content
 analysis-output/

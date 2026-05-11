@@ -178,6 +178,25 @@ English body: 'Inter'
 
 ---
 
+## MCP SERVERS (auto-loaded from .mcp.json)
+
+### supabase (read-only, scoped to project nmjexpuycmqcxuxljier)
+- Transport: HTTP (hosted at https://mcp.supabase.com/mcp)
+- Auth: OAuth (browser login once per machine)
+- Mode: **READ-ONLY** — cannot execute INSERT/UPDATE/DELETE/DDL
+- Scope: Single project (nmjexpuycmqcxuxljier) — cannot list or touch other projects
+
+**MANDATORY USAGE RULE for all future Phase A discovery:**
+Instead of writing Node scripts that query `information_schema` or run `select count(*)`, call the Supabase MCP tools directly:
+- `list_tables` — list all tables in a schema
+- `list_columns` — describe columns of a specific table
+- `execute_sql` — run a read-only SELECT (e.g., `SELECT count(*) FROM students WHERE ...`)
+- `get_logs` — fetch Postgres / Edge Function / Auth logs for debugging
+
+Writing one-off `discover-*.cjs` scripts is now deprecated for Phase A. Use MCP unless the discovery requires a multi-step procedural script (e.g., simulating a user signup flow). For any pure read query against schema or data: **MCP first.**
+
+---
+
 ## CURRENT STATE (March 2026)
 
 ### All 10 LMS Phases COMPLETE:
