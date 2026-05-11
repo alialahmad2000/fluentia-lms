@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { BrowserRouter, Routes, Route, Navigate, Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { useAuthStore } from './stores/authStore'
 import { supabase } from './lib/supabase'
+import { queryClient } from './lib/queryClient'
 import LoginPage from './pages/public/LoginPage'
 import LayoutShell from './components/layout/LayoutShell'
 import TrainerLayout from './layouts/TrainerLayout'
@@ -478,34 +479,53 @@ export default function App() {
     }).catch(() => {})
   }, [profile?.id])
 
-  // Session refresh when user returns to tab (e.g. after phone lock / background).
-  // ONLY refreshes the token — does NOT refetch queries directly.
-  // The TOKEN_REFRESHED event in authStore handles refetching AFTER the token is valid.
-  // This prevents the race condition where queries fire with an expired JWT.
+  // Idle-return handler: check session validity on tab focus, redirect if dead,
+  // invalidate only stale queries (not all active ones) if session is alive.
+  // TOKEN_REFRESHED no longer triggers invalidation, so this is the sole recovery path.
   const lastVisibleCheck = useRef(0)
 
   useEffect(() => {
-    const handleVisibilityChange = () => {
+    const publicPaths = ['/login', '/forgot-password', '/reset-password', '/test', '/testimonials', '/parent']
+    const handleVisibilityChange = async () => {
       if (document.visibilityState !== 'visible') return
-
-      const publicPaths = ['/login', '/forgot-password', '/reset-password', '/test', '/testimonials', '/parent']
       if (publicPaths.some(p => window.location.pathname.startsWith(p))) return
 
-      // Throttle: max once per 2 minutes (was 30s — too aggressive).
-      // JWT tokens last 1 hour, so refreshing every 30s on tab focus was wasteful.
-      // Each refresh triggers TOKEN_REFRESHED → invalidateQueries, causing unnecessary lag.
       const now = Date.now()
-      if (now - lastVisibleCheck.current < 120000) return
+      if (now - lastVisibleCheck.current < 10_000) return // throttle 10s
       lastVisibleCheck.current = now
 
-      // Fire-and-forget: refresh the session token.
-      // If successful, Supabase fires TOKEN_REFRESHED → authStore refetches queries.
-      // If it fails (truly expired), queries will fail → retry logic handles it.
-      supabase.auth.refreshSession().catch(() => {})
+      try {
+        const { data, error } = await supabase.auth.getSession()
+        if (error || !data?.session) {
+          if (window.location.pathname !== '/login') window.location.href = '/login'
+          return
+        }
+        // Session alive — only refetch queries already marked stale (per staleTime=60s).
+        // refetchType: 'inactive' targets stale queries in cache without firing
+        // all currently-mounted queries at once.
+        queryClient.invalidateQueries({ refetchType: 'inactive' })
+      } catch (e) {
+        console.warn('[visibility]', e)
+      }
     }
 
     document.addEventListener('visibilitychange', handleVisibilityChange)
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange)
+  }, [])
+
+  // Keepalive: ping session every 4 min to prevent silent expiry during long idle.
+  // Guard via window.__fluentiaKeepalive to survive HMR without duplicate timers.
+  useEffect(() => {
+    if (window.__fluentiaKeepalive) clearInterval(window.__fluentiaKeepalive)
+    window.__fluentiaKeepalive = setInterval(() => {
+      supabase.auth.getSession().catch(() => {})
+    }, 4 * 60 * 1000)
+    return () => {
+      if (window.__fluentiaKeepalive) {
+        clearInterval(window.__fluentiaKeepalive)
+        window.__fluentiaKeepalive = null
+      }
+    }
   }, [])
 
   return (

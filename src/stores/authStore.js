@@ -20,6 +20,7 @@ export const useAuthStore = create((set, get) => ({
   studentData: null,
   trainerData: null,
   loading: true,
+  lastTokenRefreshAt: null,
   _authSubscription: null,
   _realtimeChannel: null,
 
@@ -77,12 +78,11 @@ export const useAuthStore = create((set, get) => ({
         // Initialize activity tracker
         tracker.init(session.user.id)
       } else if (event === 'TOKEN_REFRESHED' && session?.user) {
-        // Token refreshed — update user object, invalidate (not refetch) active queries.
-        // invalidateQueries marks them stale so they refetch on next access,
-        // NOT all at once. refetchQueries({ type: 'active' }) was firing every active
-        // query simultaneously, causing a burst of requests and perceived lag.
-        set({ user: session.user })
-        queryClient.invalidateQueries({ type: 'active' })
+        // Token refresh only changes the auth header — data is still valid.
+        // Supabase JS auto-injects the new JWT on every subsequent request, so
+        // invalidating queries here is unnecessary and was the root cause of the
+        // re-render storm (up to 179 components + 20 network requests on every refresh).
+        set({ user: session.user, lastTokenRefreshAt: Date.now() })
       } else if (event === 'SIGNED_OUT') {
         const ch = get()._realtimeChannel
         if (ch) supabase.removeChannel(ch)

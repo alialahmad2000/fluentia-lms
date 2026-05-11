@@ -27,7 +27,7 @@ export const queryClient = new QueryClient({
       // CRITICAL: Disable automatic refetch on window focus — causes blank page bug.
       // Token may be expired when user returns to tab. Let authStore handle post-refresh refetch.
       refetchOnWindowFocus: false,
-      networkMode: 'offlineFirst',
+      networkMode: 'online',
       // Keep previous data during refetch — prevents blank flash on stale data.
       placeholderData: (previousData) => previousData,
       retry: (failureCount, error) => {
