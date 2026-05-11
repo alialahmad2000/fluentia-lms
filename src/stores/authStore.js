@@ -73,7 +73,16 @@ export const useAuthStore = create((set, get) => ({
 
     // Listen for auth changes — store subscription so it can be unsubscribed
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      // Recovery session — let /reset-password handle it. Do NOT fetch profile or redirect.
+      if (event === 'PASSWORD_RECOVERY') {
+        return
+      }
+
       if (event === 'SIGNED_IN' && session?.user) {
+        // After a recovery → updateUser fires SIGNED_IN. Let /reset-password manage its own redirect.
+        if (typeof window !== 'undefined' && window.location.pathname === '/reset-password') {
+          return
+        }
         await get().fetchProfile(session.user)
         // Initialize activity tracker
         tracker.init(session.user.id)
