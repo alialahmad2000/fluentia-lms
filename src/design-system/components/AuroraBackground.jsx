@@ -38,16 +38,18 @@ function AuroraBackground() {
 
   useEffect(() => {
     const isMobile = window.matchMedia('(max-width: 768px)').matches
+    const isDesktop = !isMobile
     const lowEnd = isLowEndDevice()
 
-    // Low-end laptops (<= 4 cores) previously got the full 3-blob animated
-    // aurora on desktop, which pegged their GPU idle-cost. Drop them to the
-    // single static-blob variant same as mobile-reduced — still looks rich.
-    if (reducedMotion || (isMobile && lowEnd)) {
+    // Desktop (≥769px): always use static gradient — animated 70vw blobs at
+    // blur-2xl drive constant GPU paint that stalls input events on wake.
+    // Mobile keeps the animated variant (smaller viewport = much lower paint cost).
+    if (reducedMotion || isDesktop) {
       setRenderMode('static')
-    } else if (isMobile || lowEnd) {
+    } else if (lowEnd) {
       setRenderMode('reduced')
     }
+    // else: mobile non-lowend → stays 'full' (default)
   }, [reducedMotion])
 
   useEffect(() => {
