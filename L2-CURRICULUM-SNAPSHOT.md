@@ -1,6 +1,6 @@
 # Level 2 (تطوير) — Curriculum Snapshot
 
-**Generated:** 2026-05-10T21:13:36.263Z
+**Generated:** 2026-05-11T22:24:56.183Z
 **Source:** production Supabase (nmjexpuycmqcxuxljier)
 **Purpose:** Sara Fahad personalized Month 1 plan basis
 **Read-only extraction — no data modified.**
@@ -34,8 +34,8 @@
 #### قطع القراءة (Reading Passages)
 | Label | Title EN | Title AR | Word Count | Audio |
 |-------|----------|----------|------------|-------|
-| A | Your Amazing Memory Palace | How the human brain creates and stores our most precious memories | 387 | ❌ |
-| B | The Amazing Sleeping Brain | How your mind stays busy while you rest | 426 | ❌ |
+| A | Your Amazing Memory Palace | How the human brain creates and stores our most precious memories | 387 | ✅ |
+| B | The Amazing Sleeping Brain | How your mind stays busy while you rest | 426 | ✅ |
 
 **A — Your Amazing Memory Palace** (7 questions)
 > Every morning when Fatima wakes up in her apartment in Riyadh, her brain is already working hard to *process* thousands of pieces of information. While she was sleeping, her mind was *organizing* the  [truncated]
@@ -93,8 +93,8 @@
 #### قطع القراءة (Reading Passages)
 | Label | Title EN | Title AR | Word Count | Audio |
 |-------|----------|----------|------------|-------|
-| A | Racing Against Time: Saving Earth's Wildlife | Scientists and communities work together to protect endangered animals around the world | 342 | ❌ |
-| B | Hope in the Desert Sands | How Saudi Arabia is bringing endangered species back from the brink | 342 | ❌ |
+| A | Racing Against Time: Saving Earth's Wildlife | Scientists and communities work together to protect endangered animals around the world | 342 | ✅ |
+| B | Hope in the Desert Sands | How Saudi Arabia is bringing endangered species back from the brink | 342 | ✅ |
 
 **A — Racing Against Time: Saving Earth's Wildlife** (7 questions)
 > Every day, our planet's wildlife faces new challenges while humans continue to *expand* their cities and farms. Scientists estimate that species are *disappearing* at a rate 1,000 times faster than na [truncated]
@@ -152,8 +152,8 @@
 #### قطع القراءة (Reading Passages)
 | Label | Title EN | Title AR | Word Count | Audio |
 |-------|----------|----------|------------|-------|
-| A | When Nature Shows Its Power | How extreme weather events are changing our world | 456 | ❌ |
-| B | When Sand Meets Sky | The science behind the Middle East's most powerful sandstorms | 346 | ❌ |
+| A | When Nature Shows Its Power | How extreme weather events are changing our world | 456 | ✅ |
+| B | When Sand Meets Sky | The science behind the Middle East's most powerful sandstorms | 346 | ✅ |
 
 **A — When Nature Shows Its Power** (7 questions)
 > Every year, millions of people around the world experience the incredible power of extreme weather. From massive sandstorms that *sweep across* desert regions to powerful hurricanes that *devastate* c [truncated]
@@ -211,8 +211,8 @@
 #### قطع القراءة (Reading Passages)
 | Label | Title EN | Title AR | Word Count | Audio |
 |-------|----------|----------|------------|-------|
-| A | Fashion Tells Our Stories | How clothing choices reflect cultural identity around the world | 345 | ❌ |
-| B | Digital Fashion Revolution | How technology is transforming the way we shop and express ourselves | 342 | ❌ |
+| A | Fashion Tells Our Stories | How clothing choices reflect cultural identity around the world | 345 | ✅ |
+| B | Digital Fashion Revolution | How technology is transforming the way we shop and express ourselves | 342 | ✅ |
 
 **A — Fashion Tells Our Stories** (7 questions)
 > Fashion is more than just clothing – it is a powerful language that *expresses* who we are and where we come from. Across the globe, people were *putting on* traditional garments long before modern fa [truncated]
@@ -270,8 +270,8 @@
 #### قطع القراءة (Reading Passages)
 | Label | Title EN | Title AR | Word Count | Audio |
 |-------|----------|----------|------------|-------|
-| A | Lost Cities Beneath the Sand | Archaeological discoveries are revealing Arabia's forgotten civilizations | 342 | ❌ |
-| B | Voices from the Sand | Ancient Inscriptions Reveal Forgotten Stories of Arabian Traders | 487 | ❌ |
+| A | Lost Cities Beneath the Sand | Archaeological discoveries are revealing Arabia's forgotten civilizations | 342 | ✅ |
+| B | Voices from the Sand | Ancient Inscriptions Reveal Forgotten Stories of Arabian Traders | 487 | ✅ |
 
 **A — Lost Cities Beneath the Sand** (7 questions)
 > While tourists were visiting famous sites like Petra and Palmyra, archaeologists were *uncovering* something extraordinary beneath the Arabian Peninsula's vast deserts. For decades, scientists have be [truncated]

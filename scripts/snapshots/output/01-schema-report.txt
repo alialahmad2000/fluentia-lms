@@ -1,5 +1,5 @@
 === Phase A — Schema Discovery ===
-Generated: 2026-05-10T21:10:28.605Z
+Generated: 2026-05-11T22:24:14.569Z
 
 Tables found (52):
   - curriculum_assessments
@@ -191,6 +191,7 @@ Tables found (52):
   audio_generated_at                  timestamp with time zone       nullable
   speaker_segments                    jsonb                          nullable
   segments_processed_at               timestamp with time zone       nullable
+  word_timestamps                     jsonb                          nullable
 
 --- curriculum_listening_exercises (12 rows) ---
   id                                  uuid                           NOT NULL
@@ -663,7 +664,7 @@ Tables found (52):
   note                                text                           nullable
   created_at                          timestamp with time zone       nullable
 
---- student_curriculum_progress (496 rows) ---
+--- student_curriculum_progress (497 rows) ---
   id                                  uuid                           NOT NULL
   student_id                          uuid                           NOT NULL
   unit_id                             uuid                           nullable
@@ -732,7 +733,7 @@ Tables found (52):
   last_occurred_at                    timestamp with time zone       nullable
   created_at                          timestamp with time zone       nullable
 
---- student_interventions (573 rows) ---
+--- student_interventions (604 rows) ---
   id                                  uuid                           NOT NULL
   student_id                          uuid                           NOT NULL
   trainer_id                          uuid                           NOT NULL
@@ -768,7 +769,7 @@ Tables found (52):
   attempt_number                      integer                        NOT NULL
   duration_seconds                    integer                        nullable
 
---- student_level_exit_status (126 rows) ---
+--- student_level_exit_status (138 rows) ---
   student_id                          uuid                           nullable
   level_id                            uuid                           nullable
   level_number                        integer                        nullable
@@ -810,7 +811,7 @@ Tables found (52):
   last_successful_tier                integer                        nullable
   updated_at                          timestamp with time zone       nullable
 
---- student_saved_words (754 rows) ---
+--- student_saved_words (758 rows) ---
   id                                  uuid                           NOT NULL
   student_id                          uuid                           NOT NULL
   word                                text                           NOT NULL
@@ -907,7 +908,7 @@ Tables found (52):
   max_inflation_pct                   numeric                        nullable
   confidence_band                     text                           nullable
 
---- students (21 rows) ---
+--- students (23 rows) ---
   id                                  uuid                           NOT NULL
   academic_level                      integer                        nullable
   ielts_phase                         integer                        nullable
