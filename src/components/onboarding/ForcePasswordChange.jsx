@@ -6,7 +6,10 @@ import { supabase } from '../../lib/supabase'
 import { tracker } from '../../services/activityTracker'
 
 export default function ForcePasswordChange() {
-  const { profile, user, fetchProfile, impersonation } = useAuthStore()
+  const profile = useAuthStore((s) => s.profile)
+  const user = useAuthStore((s) => s.user)
+  const fetchProfile = useAuthStore((s) => s.fetchProfile)
+  const impersonation = useAuthStore((s) => s.impersonation)
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)

@@ -48,7 +48,7 @@ function formatDateTime(dateStr) {
 
 export default function TrainerProgressReports() {
   const { t } = useTranslation()
-  const { profile } = useAuthStore()
+  const profile = useAuthStore((s) => s.profile)
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const TABS = TAB_KEYS.map(tab => ({ ...tab, label: t(tab.tKey) }))

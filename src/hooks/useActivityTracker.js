@@ -49,7 +49,8 @@ const FLUSH_MS = 30_000      // 30 seconds
  * - Uses sendBeacon on tab close
  */
 export default function useActivityTracker() {
-  const { profile, impersonation } = useAuthStore()
+  const profile = useAuthStore((s) => s.profile)
+  const impersonation = useAuthStore((s) => s.impersonation)
   const location = useLocation()
   const sessionIdRef = useRef(null)
   const pageVisitBuffer = useRef([])

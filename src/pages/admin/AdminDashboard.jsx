@@ -17,7 +17,7 @@ import PlacementQueueWidget from './PlacementQueueWidget'
 import AtelierLauncher from './atelier-preview/AtelierLauncher'
 
 export default function AdminDashboard() {
-  const { profile } = useAuthStore()
+  const profile = useAuthStore((s) => s.profile)
   const firstName = profile?.full_name || profile?.display_name || ''
 
   // Total active students

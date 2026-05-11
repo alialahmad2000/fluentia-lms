@@ -18,7 +18,7 @@ const TOPIC_TYPE_LABELS = {
 const GRADE_OPTIONS = ['A+', 'A', 'B+', 'B', 'C', 'D', 'F']
 
 export default function InteractiveSpeakingTab({ unitId, students = [], highlightStudent }) {
-  const { user } = useAuthStore()
+  const user = useAuthStore((s) => s.user)
   const queryClient = useQueryClient()
   const [activeTopic, setActiveTopic] = useState(0)
 

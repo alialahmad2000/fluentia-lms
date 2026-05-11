@@ -37,7 +37,8 @@ const SKILL_KEYS = ['reading', 'grammar', 'vocabulary', 'listening', 'writing', 
 
 // ─── Page ─────────────────────────────────────
 export default function ProgressDashboard() {
-  const { user, studentData } = useAuthStore()
+  const user = useAuthStore((s) => s.user)
+  const studentData = useAuthStore((s) => s.studentData)
   const studentId = user?.id
 
   // ── Hero stats ──

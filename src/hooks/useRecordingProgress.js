@@ -4,7 +4,7 @@ import { supabase } from '../lib/supabase'
 import { useAuthStore } from '../stores/authStore'
 
 export function useRecordingProgress(recordingId) {
-  const { studentData } = useAuthStore()
+  const studentData = useAuthStore((s) => s.studentData)
   const studentId = studentData?.id
   const queryClient = useQueryClient()
   const lastSaveRef = useRef(0)

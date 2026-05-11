@@ -78,7 +78,8 @@ function ProgressRing({ progress, size = 100, strokeWidth = 7 }) {
 
 // ── Main Component ─────────────────────────────────────────────────
 export default function StudentCurriculum() {
-  const { profile, studentData } = useAuthStore()
+  const profile = useAuthStore((s) => s.profile)
+  const studentData = useAuthStore((s) => s.studentData)
   const currentLevel = studentData?.academic_level || 1
   const [selectedLevel, setSelectedLevel] = useState(currentLevel)
   const [expandedId, setExpandedId] = useState(null)

@@ -12,14 +12,16 @@ export function hasPackageAccess(studentPackage, requiredPackage) {
 }
 
 export function usePackageAccess(requiredPackage) {
-  const { studentData, profile } = useAuthStore()
+  const studentData = useAuthStore((s) => s.studentData)
+  const profile = useAuthStore((s) => s.profile)
   // Non-students (admin/trainer) always have access
   if (profile?.role !== 'student') return true
   return hasPackageAccess(studentData?.package, requiredPackage)
 }
 
 export default function PackageGate({ requiredPackage, featureName, children }) {
-  const { studentData, profile } = useAuthStore()
+  const studentData = useAuthStore((s) => s.studentData)
+  const profile = useAuthStore((s) => s.profile)
 
   // Non-students always see content
   if (profile?.role !== 'student') return children

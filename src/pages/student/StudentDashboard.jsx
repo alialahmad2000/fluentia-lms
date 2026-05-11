@@ -35,7 +35,8 @@ import PWAInstallBanner from '../../components/pwa/PWAInstallBanner'
 
 export default function StudentDashboard() {
   // ── ALL HOOKS AT TOP (React #310 safe) ──────────────────────────
-  const { profile, studentData } = useAuthStore()
+  const profile = useAuthStore((s) => s.profile)
+  const studentData = useAuthStore((s) => s.studentData)
 
   // Defer non-critical widgets
   const [showSecondary, setShowSecondary] = useState(false)

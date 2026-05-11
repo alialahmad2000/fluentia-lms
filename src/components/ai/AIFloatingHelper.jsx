@@ -29,7 +29,7 @@ function getPageContext(pathname) {
 }
 
 export default function AIFloatingHelper() {
-  const { profile } = useAuthStore()
+  const profile = useAuthStore((s) => s.profile)
   const location = useLocation()
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState([])

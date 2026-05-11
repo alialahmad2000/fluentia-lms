@@ -4,7 +4,9 @@ import { useAuthStore } from '../stores/authStore'
 import { supabase } from '../lib/supabase'
 
 export default function PartnerRoute({ children }) {
-  const { user, profile, loading } = useAuthStore()
+  const user = useAuthStore((s) => s.user)
+  const profile = useAuthStore((s) => s.profile)
+  const loading = useAuthStore((s) => s.loading)
 
   const { data, isPending } = useQuery({
     queryKey: ['partner-gate', user?.id],

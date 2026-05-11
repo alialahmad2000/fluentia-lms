@@ -287,3 +287,14 @@ export const useAuthStore = create((set, get) => ({
   isStudent: () => get().profile?.role === 'student',
   isImpersonating: () => !!get().impersonation,
 }))
+
+// ── Granular selectors ────────────────────────────────────────────────────────
+// Each subscribes only to its own slice — components re-render only when
+// their specific value changes, not on every store update (e.g. token refresh).
+export const useAuthUser = () => useAuthStore((s) => s.user)
+export const useAuthProfile = () => useAuthStore((s) => s.profile)
+export const useAuthStudentData = () => useAuthStore((s) => s.studentData)
+export const useAuthTrainerData = () => useAuthStore((s) => s.trainerData)
+export const useAuthLoading = () => useAuthStore((s) => s.loading)
+export const useAuthImpersonation = () => useAuthStore((s) => s.impersonation)
+export const useAuthRole = () => useAuthStore((s) => s.profile?.role)

@@ -18,7 +18,7 @@ function isGoogleDriveUrl(url) {
 }
 
 export default function RecordingTab({ unitId }) {
-  const { profile } = useAuthStore()
+  const profile = useAuthStore((s) => s.profile)
   const role = profile?.role || 'student'
   const isStaff = role === 'admin' || role === 'trainer'
 
@@ -194,7 +194,7 @@ function RecordingCard({ recording, part, isStaff, onEdit }) {
 
 // ─── Upload / Edit Form ─────────────────────────────
 function RecordingForm({ part, unitId, existing, onCancel }) {
-  const { user } = useAuthStore()
+  const user = useAuthStore((s) => s.user)
   const queryClient = useQueryClient()
   const [url, setUrl] = useState(existing?.google_drive_url || '')
   const [date, setDate] = useState(existing?.recorded_date || new Date().toISOString().split('T')[0])
@@ -335,7 +335,8 @@ function RecordingForm({ part, unitId, existing, onCancel }) {
 
 // ─── Empty State (Student) with Request ─────────────
 function EmptyRecording({ part, unitId }) {
-  const { user, studentData } = useAuthStore()
+  const user = useAuthStore((s) => s.user)
+  const studentData = useAuthStore((s) => s.studentData)
   const groupId = studentData?.group_id
   const [requested, setRequested] = useState(false)
   const [loading, setLoading] = useState(false)

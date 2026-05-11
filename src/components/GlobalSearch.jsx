@@ -31,7 +31,8 @@ function saveRecent(item) {
 
 // ─── Component ──────────────────────────────────────────────
 export default function GlobalSearch() {
-  const { user, profile } = useAuthStore()
+  const user = useAuthStore((s) => s.user)
+  const profile = useAuthStore((s) => s.profile)
   const navigate = useNavigate()
 
   const [open, setOpen] = useState(false)

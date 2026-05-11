@@ -12,7 +12,9 @@ const PROFILE_PATHS = { student: '/student/profile', trainer: '/trainer/my-stude
 
 export default function MobileDrawer({ open, onClose, nav }) {
   const { t } = useTranslation()
-  const { profile, studentData, signOut } = useAuthStore()
+  const profile = useAuthStore((s) => s.profile)
+  const studentData = useAuthStore((s) => s.studentData)
+  const signOut = useAuthStore((s) => s.signOut)
   const profileId = profile?.id
   const handlePrefetch = useCallback((path) => prefetchRoute(path, profileId), [profileId])
   const navigate = useNavigate()

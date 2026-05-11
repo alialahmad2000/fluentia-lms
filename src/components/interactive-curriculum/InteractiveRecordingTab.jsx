@@ -175,7 +175,7 @@ function RecordingCard({ recording, part, unitInfo, onEdit }) {
 }
 
 function RecordingForm({ part, unitId, existing, onCancel }) {
-  const { user } = useAuthStore()
+  const user = useAuthStore((s) => s.user)
   const queryClient = useQueryClient()
   const [url, setUrl] = useState(existing?.google_drive_url || '')
   const [date, setDate] = useState(existing?.recorded_date || '')

@@ -65,7 +65,7 @@ function groupNotificationsByDate(notifications, t) {
 
 export default function NotificationCenter() {
   const { t } = useTranslation()
-  const { profile } = useAuthStore()
+  const profile = useAuthStore((s) => s.profile)
   const queryClient = useQueryClient()
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)

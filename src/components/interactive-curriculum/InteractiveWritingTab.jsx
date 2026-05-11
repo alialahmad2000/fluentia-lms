@@ -93,7 +93,7 @@ export default function InteractiveWritingTab({ unitId, students = [], highlight
 }
 
 function WritingTaskContent({ task, unitId, students, highlightStudent }) {
-  const { user } = useAuthStore()
+  const user = useAuthStore((s) => s.user)
   const queryClient = useQueryClient()
   const [expandedStudent, setExpandedStudent] = useState(highlightStudent || null)
   const highlightRef = useRef(null)

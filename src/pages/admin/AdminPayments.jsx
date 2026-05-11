@@ -26,7 +26,7 @@ const PAYMENT_METHOD = {
 }
 
 export default function AdminPayments() {
-  const { profile } = useAuthStore()
+  const profile = useAuthStore((s) => s.profile)
   const queryClient = useQueryClient()
   const [filterStatus, setFilterStatus] = useState('')
   const [showForm, setShowForm] = useState(false)

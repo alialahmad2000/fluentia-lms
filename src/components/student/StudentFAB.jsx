@@ -16,7 +16,7 @@ const STORAGE_PREFIX = 'fab-position-'
 
 export default function StudentFAB({ onNotes, onBookmark, onHelp, onWords, onAddWord, onFlags, onPractice, onSearch }) {
   const [open, setOpen] = useState(false)
-  const { profile } = useAuthStore()
+  const profile = useAuthStore((s) => s.profile)
   const fabRef = useRef(null)
   const isDragging = useRef(false)
   const dragStart = useRef({ x: 0, y: 0 })

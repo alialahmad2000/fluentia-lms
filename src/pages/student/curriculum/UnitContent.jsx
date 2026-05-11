@@ -68,7 +68,8 @@ export default function UnitContent() {
   const { unitId } = useParams()
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
-  const { profile, studentData } = useAuthStore()
+  const profile = useAuthStore((s) => s.profile)
+  const studentData = useAuthStore((s) => s.studentData)
   const { canSeeAllLevels, basePath } = useCurriculumPreview()
   const currentLevel = canSeeAllLevels ? 999 : (studentData?.academic_level ?? 0)
   const isStudent = profile?.role === 'student' && !canSeeAllLevels

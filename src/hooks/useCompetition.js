@@ -33,7 +33,8 @@ export function useLatestCompetition() {
 }
 
 export function useCompetitionContext() {
-  const { profile, impersonation } = useAuthStore()
+  const profile = useAuthStore((s) => s.profile)
+  const impersonation = useAuthStore((s) => s.impersonation)
   const profileId = impersonation?.userId ?? profile?.id
 
   return useQuery({

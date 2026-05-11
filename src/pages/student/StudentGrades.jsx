@@ -55,7 +55,7 @@ export default function StudentGrades() {
 }
 
 function GradesContent() {
-  const { profile } = useAuthStore()
+  const profile = useAuthStore((s) => s.profile)
 
   const { data: grades, isLoading } = useQuery({
     queryKey: ['student-grades', profile?.id],

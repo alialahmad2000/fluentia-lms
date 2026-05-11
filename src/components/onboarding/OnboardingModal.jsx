@@ -9,7 +9,11 @@ import { sendWelcomeMessage } from '../../utils/autoMessages'
 const ONBOARDED_KEY = 'fluentia_onboarded'
 
 export default function OnboardingModal() {
-  const { profile, studentData, user, fetchProfile, impersonation } = useAuthStore()
+  const profile = useAuthStore((s) => s.profile)
+  const studentData = useAuthStore((s) => s.studentData)
+  const user = useAuthStore((s) => s.user)
+  const fetchProfile = useAuthStore((s) => s.fetchProfile)
+  const impersonation = useAuthStore((s) => s.impersonation)
   const [step, setStep] = useState(0)
   const [displayName, setDisplayName] = useState(profile?.display_name || '')
   const [saving, setSaving] = useState(false)

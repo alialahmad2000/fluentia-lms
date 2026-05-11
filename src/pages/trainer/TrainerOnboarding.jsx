@@ -21,7 +21,8 @@ const PAGE_META = [
 export default function TrainerOnboarding() {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const { user, trainerData } = useAuthStore()
+  const user = useAuthStore((s) => s.user)
+  const trainerData = useAuthStore((s) => s.trainerData)
   const [currentPage, setCurrentPage] = useState(0)
   const [direction, setDirection] = useState(1)
 
