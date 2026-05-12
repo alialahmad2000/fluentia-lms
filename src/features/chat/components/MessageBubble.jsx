@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { MoreVertical, Reply, Pin, Edit2, Trash2 } from 'lucide-react'
+import { Reply, Pin, Edit2, Trash2 } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import MessageBubbleText from './MessageBubbleText'
 import MessageBubbleVoice from './MessageBubbleVoice'
@@ -7,12 +7,11 @@ import MessageBubbleImage from './MessageBubbleImage'
 import MessageBubbleFile from './MessageBubbleFile'
 import MessageBubbleLink from './MessageBubbleLink'
 import MessageBubbleAnnouncement from './MessageBubbleAnnouncement'
-import MessageReactionsRow from './MessageReactionsRow'
+import ReactionInlineBar from './premium/ReactionInlineBar'
+import ReactionSummary from './premium/ReactionSummary'
 import { useReact } from '../mutations/useReact'
 import { useDeleteMessage } from '../mutations/useDeleteMessage'
 import { useTogglePin } from '../mutations/useTogglePin'
-
-const EMOJIS = ['👍', '🔥', '❤️', '😂', '👏']
 
 export default function MessageBubble({
   message,
@@ -24,7 +23,7 @@ export default function MessageBubble({
 }) {
   const { profile } = useAuthStore()
   const [showMenu, setShowMenu] = useState(false)
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false)
+  const [showReactionBar, setShowReactionBar] = useState(false)
 
   const react = useReact(channelId)
   const deleteMsg = useDeleteMessage(channelId)
@@ -103,51 +102,40 @@ export default function MessageBubble({
           <p className="text-xs text-[var(--text-muted)] italic text-center py-1">{bodyText}</p>
         )}
 
-        {/* Reactions row */}
-        {message.reactions?.length > 0 && (
-          <MessageReactionsRow
-            reactions={message.reactions}
-            myId={profile?.id}
-            messageId={message.id}
-            onReact={(emoji) => react.mutate({ messageId: message.id, emoji })}
-          />
-        )}
+        {/* Premium reaction summary */}
+        <ReactionSummary
+          reactions={message.reactions}
+          myId={profile?.id}
+          messageId={message.id}
+          onReact={(emoji) => react.mutate({ messageId: message.id, emoji })}
+        />
       </div>
 
       {/* Hover action buttons */}
       <div
-        className={`
-          absolute top-1 left-3 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity
-          bg-[var(--bg-card)] border border-[var(--border)] rounded-lg shadow-md px-1.5 py-1
-        `}
+        className="absolute top-1 left-3 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg shadow-md px-1.5 py-1"
+        style={{
+          background: 'color-mix(in srgb, var(--ds-bg-elevated) 90%, transparent)',
+          border: '1px solid var(--ds-border-subtle)',
+          backdropFilter: 'blur(12px)',
+        }}
       >
-        {/* Emoji picker toggle */}
+        {/* Premium reaction inline bar */}
         <div className="relative">
           <button
-            onClick={() => setShowEmojiPicker((p) => !p)}
-            className="p-1.5 rounded hover:bg-[var(--surface)] text-[var(--text-muted)] hover:text-[var(--text-primary)] text-base"
-            style={{ minWidth: 32, minHeight: 32 }}
+            onClick={() => setShowReactionBar((p) => !p)}
+            onMouseEnter={() => setShowReactionBar(true)}
+            className="p-1.5 rounded hover:bg-[var(--ds-surface-1)] text-base transition-colors"
+            style={{ minWidth: 32, minHeight: 32, color: 'var(--ds-text-secondary)' }}
             title="تفاعل"
           >
             😊
           </button>
-          {showEmojiPicker && (
-            <div
-              className="absolute bottom-8 left-0 flex gap-1 bg-[var(--bg-card)] border border-[var(--border)] rounded-xl shadow-xl p-1.5 z-50"
-              onMouseLeave={() => setShowEmojiPicker(false)}
-            >
-              {EMOJIS.map((e) => (
-                <button
-                  key={e}
-                  onClick={() => { react.mutate({ messageId: message.id, emoji: e }); setShowEmojiPicker(false) }}
-                  className="text-lg p-1 hover:scale-125 transition-transform rounded"
-                  style={{ minWidth: 36, minHeight: 36 }}
-                >
-                  {e}
-                </button>
-              ))}
-            </div>
-          )}
+          <ReactionInlineBar
+            visible={showReactionBar}
+            onReact={(emoji) => react.mutate({ messageId: message.id, emoji })}
+            onDismiss={() => setShowReactionBar(false)}
+          />
         </div>
 
         <button
