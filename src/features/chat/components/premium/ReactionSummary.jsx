@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import ReactionDetailsSheet from '../ReactionDetailsSheet'
 
 export default function ReactionSummary({ reactions, myId, messageId, onReact }) {
@@ -6,7 +7,6 @@ export default function ReactionSummary({ reactions, myId, messageId, onReact })
 
   if (!reactions?.length) return null
 
-  // Group by emoji
   const grouped = reactions.reduce((acc, r) => {
     acc[r.emoji] = acc[r.emoji] ?? { emoji: r.emoji, count: 0, users: [] }
     acc[r.emoji].count++
@@ -19,34 +19,42 @@ export default function ReactionSummary({ reactions, myId, messageId, onReact })
 
   return (
     <>
-      <div className="flex flex-wrap gap-1 mt-1">
+      <div className="flex flex-wrap gap-1 mt-1.5">
         {chips.map(({ emoji, count, users }) => {
           const isOwn = users.includes(myId)
           return (
-            <button
+            <motion.button
               key={emoji}
               onClick={() => onReact(emoji)}
               onContextMenu={(e) => { e.preventDefault(); setSheetOpen(true) }}
-              className="flex items-center gap-1 px-2 py-0.5 rounded-full text-xs transition-all hover:scale-105"
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-1 px-2 py-0.5 rounded-full text-xs transition-colors"
               style={{
                 background: isOwn
-                  ? 'color-mix(in srgb, var(--ds-accent-gold) 15%, transparent)'
-                  : 'var(--ds-surface-1)',
+                  ? 'color-mix(in srgb, var(--ds-accent-gold) 12%, transparent)'
+                  : 'color-mix(in srgb, var(--ds-bg-elevated) 85%, transparent)',
                 border: isOwn
                   ? '1px solid color-mix(in srgb, var(--ds-accent-gold) 40%, transparent)'
-                  : '1px solid var(--ds-border-subtle)',
+                  : '1px solid color-mix(in srgb, var(--ds-border-subtle) 70%, transparent)',
                 color: isOwn ? 'var(--ds-accent-gold)' : 'var(--ds-text-secondary)',
+                backdropFilter: 'blur(8px)',
                 minHeight: 26,
+                boxShadow: isOwn
+                  ? '0 0 8px -2px color-mix(in srgb, var(--ds-accent-gold) 20%, transparent)'
+                  : 'none',
               }}
             >
-              <span>{emoji}</span>
+              <span style={{ display: 'inline-block', transform: 'scale(1.1)', transformOrigin: 'center' }}>
+                {emoji}
+              </span>
               <span
                 className="tabular-nums"
                 onClick={(e) => { e.stopPropagation(); setSheetOpen(true) }}
+                style={{ fontFeatureSettings: '"tnum"' }}
               >
                 {count}
               </span>
-            </button>
+            </motion.button>
           )
         })}
         {extra > 0 && (

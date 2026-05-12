@@ -152,7 +152,7 @@ export default function PremiumComposer({
       </div>
 
       {/* Composer row */}
-      <div className="flex items-end gap-2 px-3 py-3">
+      <div className="flex items-end gap-2 px-3 py-2.5">
         <input ref={imageRef} type="file" accept="image/png,image/jpeg,image/webp,image/gif" className="hidden" onChange={handleImagePick} />
         <input ref={fileRef} type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.zip" className="hidden" onChange={handleFilePick} />
 
@@ -160,30 +160,57 @@ export default function PremiumComposer({
           <VoiceRecorder channelId={generalChannelId} groupId={groupId} onDone={() => setVoiceMode(false)} />
         ) : (
           <>
-            {/* Attachment buttons */}
-            <div className="flex gap-0.5">
-              <button onClick={() => imageRef.current?.click()} disabled={uploading}
-                className="p-2 rounded-xl transition-colors hover:bg-[var(--ds-surface-1)]"
-                style={{ color: 'var(--ds-text-secondary)', minWidth: 36, minHeight: 36 }}>
-                <Image size={17} />
-              </button>
-              <button onClick={() => fileRef.current?.click()} disabled={uploading}
-                className="p-2 rounded-xl transition-colors hover:bg-[var(--ds-surface-1)]"
-                style={{ color: 'var(--ds-text-secondary)', minWidth: 36, minHeight: 36 }}>
-                <Paperclip size={17} />
-              </button>
+            {/* Action icon buttons — 40px circular hit areas */}
+            <div className="flex gap-0.5 pb-0.5">
+              {[
+                { ref: imageRef, icon: <Image size={20} />, label: 'صورة' },
+                { ref: fileRef,  icon: <Paperclip size={20} />, label: 'ملف' },
+              ].map(({ ref, icon, label }) => (
+                <button
+                  key={label}
+                  onClick={() => ref.current?.click()}
+                  disabled={uploading}
+                  title={label}
+                  className="rounded-full transition-all"
+                  style={{
+                    width: 40, height: 40,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: 'var(--ds-text-secondary)',
+                    border: '1px solid transparent',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'var(--ds-surface-1)'
+                    e.currentTarget.style.borderColor = 'var(--ds-border-subtle)'
+                    e.currentTarget.style.color = 'var(--ds-text-primary)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'transparent'
+                    e.currentTarget.style.borderColor = 'transparent'
+                    e.currentTarget.style.color = 'var(--ds-text-secondary)'
+                  }}
+                >
+                  {icon}
+                </button>
+              ))}
             </div>
 
-            {/* Textarea — glass panel */}
+            {/* Textarea — rounded glass panel, 20px radius, focus ring */}
             <div
-              className="flex-1 flex items-end gap-2 rounded-2xl px-4 py-2"
+              className="flex-1 flex items-end gap-2 px-4 py-2"
               style={{
                 background: 'var(--ds-surface-1)',
-                border: '1px solid var(--ds-border-subtle)',
-                transition: 'border-color 0.15s',
+                border: '1.5px solid var(--ds-border-subtle)',
+                borderRadius: 20,
+                transition: 'border-color 0.15s, box-shadow 0.15s',
               }}
-              onFocus={(e) => e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--ds-accent-primary) 40%, transparent)'}
-              onBlur={(e) => e.currentTarget.style.borderColor = 'var(--ds-border-subtle)'}
+              onFocusCapture={(e) => {
+                e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--ds-accent-primary) 40%, transparent)'
+                e.currentTarget.style.boxShadow = '0 0 0 2px color-mix(in srgb, var(--ds-accent-primary) 12%, transparent)'
+              }}
+              onBlurCapture={(e) => {
+                e.currentTarget.style.borderColor = 'var(--ds-border-subtle)'
+                e.currentTarget.style.boxShadow = 'none'
+              }}
             >
               <textarea
                 ref={textareaRef}
@@ -206,23 +233,38 @@ export default function PremiumComposer({
               />
             </div>
 
-            {/* Send / Mic */}
+            {/* Send (gold circle) / Mic button */}
             {input.trim() ? (
-              <motion.button {...popIn} onClick={handleSend} disabled={!canSend}
-                className="p-2 rounded-xl shrink-0 transition-all"
+              <motion.button
+                {...popIn}
+                onClick={handleSend}
+                disabled={!canSend}
+                whileTap={{ scale: 0.90 }}
+                className="shrink-0 rounded-full flex items-center justify-center pb-0.5"
                 style={{
-                  background: canSend ? 'var(--ds-accent-primary)' : 'var(--ds-surface-1)',
-                  color: canSend ? 'var(--ds-bg-base)' : 'var(--ds-text-muted)',
-                  minWidth: 44, minHeight: 44,
-                }}>
-                <Send size={18} />
+                  width: 40, height: 40,
+                  background: canSend
+                    ? 'linear-gradient(135deg, var(--ds-accent-primary) 0%, color-mix(in srgb, var(--ds-accent-primary) 70%, black) 100%)'
+                    : 'var(--ds-surface-1)',
+                  color: canSend ? 'white' : 'var(--ds-text-muted)',
+                  opacity: canSend ? 1 : 0.4,
+                  boxShadow: canSend ? '0 4px 12px -4px color-mix(in srgb, var(--ds-accent-primary) 45%, transparent)' : 'none',
+                }}
+              >
+                <Send size={17} />
               </motion.button>
             ) : (
-              <button onClick={() => setVoiceMode(true)}
-                className="p-2 rounded-xl shrink-0 transition-colors hover:bg-[rgba(239,68,68,0.1)]"
-                style={{ color: 'var(--ds-text-secondary)', minWidth: 44, minHeight: 44 }}>
-                <Mic size={18} />
-              </button>
+              <motion.button
+                onClick={() => setVoiceMode(true)}
+                whileHover={{ scale: 1.05 }}
+                className="shrink-0 rounded-full flex items-center justify-center"
+                style={{
+                  width: 40, height: 40,
+                  color: 'var(--ds-text-secondary)',
+                }}
+              >
+                <Mic size={20} />
+              </motion.button>
             )}
           </>
         )}

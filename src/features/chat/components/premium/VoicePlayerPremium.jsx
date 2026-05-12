@@ -114,7 +114,9 @@ export default function VoicePlayerPremium({ message }) {
         {bars.map((amp, i) => {
           const pct = i / bars.length
           const played = pct < progress
-          const barH = Math.max(3, amp * 32)
+          // Playhead bar: the bar being played right now
+          const isPlayhead = playing && Math.abs(pct - progress) < (1 / bars.length)
+          const barH = Math.max(3, amp * 32) * (isPlayhead ? 1.5 : 1)
           return (
             <div
               key={i}
@@ -124,9 +126,12 @@ export default function VoicePlayerPremium({ message }) {
                 borderRadius: 2,
                 background: played
                   ? `linear-gradient(to top, var(--ds-accent-primary), color-mix(in srgb, var(--ds-accent-primary) 60%, transparent))`
-                  : 'var(--ds-border-subtle)',
-                opacity: played ? 1 : 0.35,
-                transition: 'height 0.05s, opacity 0.1s',
+                  : 'var(--ds-text-muted)',
+                opacity: played ? 1 : 0.30,
+                boxShadow: isPlayhead
+                  ? `0 0 6px 2px color-mix(in srgb, var(--ds-accent-gold) 60%, transparent)`
+                  : 'none',
+                transition: 'height 0.08s ease, opacity 0.12s',
               }}
             />
           )
