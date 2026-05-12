@@ -3,7 +3,7 @@ import {
   BookMarked, User, Settings, BarChart3, ClipboardList,
   Megaphone, CreditCard, GraduationCap, UserCog, Bot, FileText,
   StickyNote, TrendingUp, Zap, CalendarClock, Swords, Target, Map, Award,
-  MessageCircle,
+  MessageCircle, MessageSquare,
 } from 'lucide-react'
 
 
@@ -28,6 +28,7 @@ export const STUDENT_NAV = {
       id: 'community',
       label: 'المجتمع',
       items: [
+        { id: 'chat',              label: 'المحادثة',            icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
         { id: 'competition',       label: 'المسابقة ⚔️',       icon: Swords,   to: '/student/competition' },
         { id: 'competition-rules', label: 'قواعد المسابقة 📜',  icon: BookOpen, to: '/student/competition/rules' },
         { id: 'leaderboard',       label: 'لوحة الشرف',         icon: Trophy,   to: '/student/leaderboard' },
@@ -105,6 +106,7 @@ export const TRAINER_NAV = {
       id: 'tools',
       label: 'الأدوات',
       items: [
+        { id: 'chat',        label: 'المحادثة',      icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
         { id: 'points',      label: 'النقاط السريعة', icon: Zap,          to: '/trainer/points' },
         { id: 'notes',       label: 'ملاحظاتي',     icon: StickyNote,    to: '/trainer/my-notes' },
         { id: 'curriculum',  label: 'المنهج',       icon: BookOpen,      to: '/trainer/curriculum' },
@@ -159,6 +161,7 @@ export const ADMIN_NAV = {
         { id: 'competition', label: 'المسابقة ⚔️',  icon: Swords,        to: '/admin/competition' },
         { id: 'ielts',       label: 'IELTS',         icon: Target,        to: '/admin/curriculum/ielts' },
         { id: 'speaking-hubs', label: 'نادي المحادثة', icon: MessageCircle, to: '/admin/speaking-hubs' },
+        { id: 'chat',          label: 'المحادثة',      icon: MessageSquare, to: '/chat', showBadge: true, badgeSource: 'chat-unread' },
       ],
     },
     {

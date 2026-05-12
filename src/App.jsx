@@ -38,6 +38,8 @@ const StudentPeerRecognition = lazyRetry(() => import('./pages/student/StudentPe
 const StudentActivityFeed = lazyRetry(() => import('./pages/student/StudentActivityFeed'))
 const StudentGroupChat = lazyRetry(() => import('./pages/student/StudentGroupChat'))
 const StudentMessages = lazyRetry(() => import('./pages/student/StudentMessages'))
+const GroupChatLanding = lazyRetry(() => import('./features/chat/pages/GroupChatLanding'))
+const GroupChatPage = lazyRetry(() => import('./features/chat/pages/GroupChatPage'))
 const StudentChatbot = lazyRetry(() => import('./pages/student/StudentChatbot'))
 const StudentVocabulary = lazyRetry(() => import('./pages/student/StudentVocabulary'))
 const StudentBilling = lazyRetry(() => import('./pages/student/StudentBilling'))
@@ -599,6 +601,16 @@ export default function App() {
           <Route path="/account/paused" element={
             <Suspense fallback={<LoadingSkeleton />}><AccountPausedPage /></Suspense>
           } />
+
+          {/* Chat routes — accessible to all authenticated roles */}
+          <Route element={<ProtectedRoute allowedRoles={['student','trainer','admin']} />}>
+            <Route element={<ErrorBoundary><LayoutShell /></ErrorBoundary>}>
+              <Route path="/chat" element={<Page><GroupChatLanding /></Page>} />
+              <Route path="/chat/:groupId" element={<Page><GroupChatPage /></Page>} />
+              <Route path="/chat/:groupId/:channelSlug" element={<Page><GroupChatPage /></Page>} />
+              <Route path="/chat/:groupId/:channelSlug/m/:messageId" element={<Page><GroupChatPage /></Page>} />
+            </Route>
+          </Route>
 
           {/* Student routes */}
           <Route element={<ProtectedRoute allowedRoles={['student']} />}>
