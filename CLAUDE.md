@@ -305,6 +305,20 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### 2026-05-12 — GOD COMM Phase 1.5 Gap Closure (Commits 569db84→e91d859)
+- What: Closed all 5 critical gaps surfaced by the verification pass. Migrations applied to prod.
+- G1 — RLS fixes: message_reactions 3 policies (select/insert/delete). storage.objects 9 policies (read/insert/delete × 3 chat buckets). Migration 20260512230000.
+- G2 — Auth guard: /chat routes wrapped in StudentStatusGuard (paused students redirect to /account/paused, trainers/admins pass through).
+- G3 — @mention autocomplete: MentionAutocomplete.jsx fetches group members, keyboard nav, inserts @Name and profile id into mentions[]. MessageComposer now sends real mentions[] on submit. MessageBubbleText renders @token as sky chips.
+- G4 — Read state: IntersectionObserver in MessageList triggers useMarkRead on visible non-own messages, advances channel_read_cursors, invalidates badge query.
+- G5 — Search panel: ChatSearchPanel.jsx (bottom sheet mobile, right drawer desktop) with query, channel slug, date range filters. Tapping result deep-links to /chat/:groupId/:channelSlug/m/:messageId.
+- G6 — "Who reacted" sheet: ReactionDetailsSheet.jsx, triggered by tapping reaction count. Groups by emoji, shows avatar + name + role.
+- G7 — Pin system message: pin_message_with_system_note RPC (SECURITY DEFINER plpgsql). Atomically flips is_pinned + inserts system message "X ثبّت رسالة". Migration 20260512240000.
+- G8 — Announcement fanout: announcement-fanout edge function deployed. Checks is_announcement, notifies all group students + fires push. ⚠️ Webhook must be registered manually in Supabase Dashboard (group_messages INSERT → https://nmjexpuycmqcxuxljier.supabase.co/functions/v1/announcement-fanout).
+- G9 — Presence: usePresence wired in GroupChatPage, green dot in ChannelSidebarItem, online count in ChatHeader.
+- Files: src/features/chat/components/{MentionAutocomplete,ChatSearchPanel,ReactionDetailsSheet,ReactionDetailsSheet}.jsx, MessageComposer, MessageList, MessageBubbleText, MessageReactionsRow, MessageBubble, ChannelSidebar, ChannelSidebarItem, ChatHeader, GroupChatPage, useTogglePin, supabase/functions/announcement-fanout, supabase/migrations/20260512230000+20260512240000, App.jsx
+- Status: Complete — all pushed to main, Vercel auto-deploying. One manual step: register announcement-fanout DB webhook.
+
 ### 2026-05-12 — GOD COMM System Phase 1 Foundation (Commits a23f5d9→8c6527a)
 - What: Full in-LMS communication system built to replace Telegram for group chat. Phases A-N executed (A=Discovery, B=DB schema, C=Storage, D=Routes, E=Data layer, F=Shell UI, G=Voice, H=Composer, J=Mentions/Pins, K=Search, L=Push, M=Bell wiring).
 - Architecture: `src/features/chat/` — queries/, mutations/, realtime/, components/, pages/, providers/, lib/
