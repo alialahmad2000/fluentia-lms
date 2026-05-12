@@ -33,6 +33,12 @@ const TYPE_CONFIG = {
   curriculum_progress: { emoji: '\u{1F4DA}', vibrate: 'achievement', group: 'progress' },
   announcement:        { emoji: '\u{1F4E2}', vibrate: 'default',     group: 'system' },
   system:              { emoji: '\u{2699}\u{FE0F}',  vibrate: 'gentle', group: 'system' },
+  // Chat notification types
+  message_mention:       { emoji: '\u{1F4AC}', vibrate: 'default',     group: 'chat' },
+  message_reply:         { emoji: '\u{21A9}\u{FE0F}',  vibrate: 'default', group: 'chat' },
+  channel_announcement:  { emoji: '\u{1F4E2}', vibrate: 'urgent',      group: 'chat' },
+  voice_note_received:   { emoji: '\u{1F3A4}', vibrate: 'gentle',      group: 'chat' },
+  reaction_received:     { emoji: '\u{1F525}', vibrate: 'gentle',      group: 'chat' },
 }
 
 self.addEventListener('push', function(event) {

@@ -1,20 +1,20 @@
 import { useState, useRef, useCallback } from 'react'
-import { Send, Paperclip, Image, Mic, X } from 'lucide-react'
+import { Send, Paperclip, Image, Mic } from 'lucide-react'
 import { useSendMessage } from '../mutations/useSendMessage'
-import { useUploadVoice } from '../mutations/useUploadVoice'
 import { uploadChatFile, uploadChatImage } from '../../../lib/chatStorage'
 import ReplyPreviewBar from './ReplyPreviewBar'
+import VoiceRecorder from './VoiceRecorder'
 import { useTypingIndicator } from '../realtime/useTypingIndicator'
 
 export default function MessageComposer({ channelId, groupId, replyTo, onClearReply, isAnnouncement }) {
   const [input, setInput] = useState('')
   const [uploading, setUploading] = useState(false)
+  const [voiceMode, setVoiceMode] = useState(false)
   const textareaRef = useRef(null)
   const fileRef = useRef(null)
   const imageRef = useRef(null)
 
   const sendMessage = useSendMessage(channelId, groupId)
-  const uploadVoice = useUploadVoice(channelId, groupId)
   const { broadcastTyping, typingText } = useTypingIndicator(channelId)
 
   function handleInput(e) {
@@ -123,53 +123,75 @@ export default function MessageComposer({ channelId, groupId, replyTo, onClearRe
         <input ref={imageRef} type="file" accept="image/png,image/jpeg,image/webp,image/gif" className="hidden" onChange={handleImagePick} />
         <input ref={fileRef} type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.zip" className="hidden" onChange={handleFilePick} />
 
-        {/* Attach + image buttons */}
-        <div className="flex gap-1 pb-1">
-          <button
-            onClick={() => imageRef.current?.click()}
-            className="p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--surface)] rounded-lg transition-colors"
-            style={{ minWidth: 36, minHeight: 36 }}
-            disabled={uploading}
-            title="إرسال صورة"
-          >
-            <Image size={18} />
-          </button>
-          <button
-            onClick={() => fileRef.current?.click()}
-            className="p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--surface)] rounded-lg transition-colors"
-            style={{ minWidth: 36, minHeight: 36 }}
-            disabled={uploading}
-            title="إرسال ملف"
-          >
-            <Paperclip size={18} />
-          </button>
-        </div>
+        {/* Voice mode */}
+        {voiceMode && (
+          <VoiceRecorder
+            channelId={channelId}
+            groupId={groupId}
+            onDone={() => setVoiceMode(false)}
+          />
+        )}
 
-        {/* Text area */}
-        <textarea
-          ref={textareaRef}
-          value={input}
-          onChange={handleInput}
-          onKeyDown={handleKeyDown}
-          placeholder="اكتب رسالة..."
-          className="flex-1 resize-none bg-[var(--surface)] border border-[var(--border)] rounded-xl px-4 py-2.5 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-sky-500/50 transition-colors"
-          style={{ fontFamily: 'Tajawal, sans-serif', direction: 'auto', minHeight: 44, maxHeight: 144 }}
-          rows={1}
-        />
+        {/* Text mode */}
+        {!voiceMode && (
+          <>
+            <div className="flex gap-1 pb-1">
+              <button
+                onClick={() => imageRef.current?.click()}
+                className="p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--surface)] rounded-lg transition-colors"
+                style={{ minWidth: 36, minHeight: 36 }}
+                disabled={uploading}
+                title="إرسال صورة"
+              >
+                <Image size={18} />
+              </button>
+              <button
+                onClick={() => fileRef.current?.click()}
+                className="p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--surface)] rounded-lg transition-colors"
+                style={{ minWidth: 36, minHeight: 36 }}
+                disabled={uploading}
+                title="إرسال ملف"
+              >
+                <Paperclip size={18} />
+              </button>
+            </div>
 
-        {/* Send button */}
-        <button
-          onClick={handleSend}
-          disabled={!canSend}
-          className={`p-2 rounded-xl transition-all shrink-0 pb-1 ${
-            canSend
-              ? 'bg-sky-500 text-white hover:bg-sky-400 shadow-lg shadow-sky-500/20'
-              : 'bg-[var(--surface)] text-[var(--text-muted)] cursor-not-allowed'
-          }`}
-          style={{ minWidth: 44, minHeight: 44 }}
-        >
-          <Send size={18} />
-        </button>
+            <textarea
+              ref={textareaRef}
+              value={input}
+              onChange={handleInput}
+              onKeyDown={handleKeyDown}
+              placeholder="اكتب رسالة..."
+              className="flex-1 resize-none bg-[var(--surface)] border border-[var(--border)] rounded-xl px-4 py-2.5 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-sky-500/50 transition-colors"
+              style={{ fontFamily: 'Tajawal, sans-serif', direction: 'auto', minHeight: 44, maxHeight: 144 }}
+              rows={1}
+            />
+
+            {input.trim() ? (
+              <button
+                onClick={handleSend}
+                disabled={!canSend}
+                className={`p-2 rounded-xl transition-all shrink-0 pb-1 ${
+                  canSend
+                    ? 'bg-sky-500 text-white hover:bg-sky-400 shadow-lg shadow-sky-500/20'
+                    : 'bg-[var(--surface)] text-[var(--text-muted)] cursor-not-allowed'
+                }`}
+                style={{ minWidth: 44, minHeight: 44 }}
+              >
+                <Send size={18} />
+              </button>
+            ) : (
+              <button
+                onClick={() => setVoiceMode(true)}
+                className="p-2 text-[var(--text-muted)] hover:text-red-400 hover:bg-red-400/10 rounded-xl transition-colors shrink-0 pb-1"
+                style={{ minWidth: 44, minHeight: 44 }}
+                title="رسالة صوتية"
+              >
+                <Mic size={18} />
+              </button>
+            )}
+          </>
+        )}
       </div>
     </div>
   )
