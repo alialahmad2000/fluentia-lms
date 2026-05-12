@@ -4,6 +4,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BookOpen, Volume2, CheckCircle, XCircle, Lightbulb, MessageSquare, ChevronDown, RotateCcw, History, Clock, ImageOff, Eye, EyeOff, StickyNote, Headphones, FileText, Loader2, Zap, Settings } from 'lucide-react'
 import { supabase } from '../../../../lib/supabase'
+import PersonalizedReadingCard from '../../../../components/personalization/PersonalizedReadingCard'
 import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
@@ -820,6 +821,9 @@ function ReadingContent({ reading, studentId, unitId }) {
           )}
         </div>
       </div>
+
+      {/* Personalized variant — shown below canonical for students with interests */}
+      <PersonalizedReadingCard canonicalReadingId={reading.id} />
 
       {/* AI Arabic Summary */}
       <AnimatePresence>
