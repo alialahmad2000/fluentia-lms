@@ -109,11 +109,22 @@ AS $$
 $$;
 
 -- ── 8. message_reactions constraints (0 rows, safe to add) ───────────────────
-ALTER TABLE message_reactions
-  ADD CONSTRAINT IF NOT EXISTS reactions_unique
-    UNIQUE (message_id, user_id, emoji),
-  ADD CONSTRAINT IF NOT EXISTS reactions_emoji_check
-    CHECK (emoji IN ('👍','🔥','❤️','😂','👏'));
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_constraint
+    WHERE conname = 'reactions_unique' AND conrelid = 'message_reactions'::regclass
+  ) THEN
+    ALTER TABLE message_reactions ADD CONSTRAINT reactions_unique UNIQUE (message_id, user_id, emoji);
+  END IF;
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_constraint
+    WHERE conname = 'reactions_emoji_check' AND conrelid = 'message_reactions'::regclass
+  ) THEN
+    ALTER TABLE message_reactions ADD CONSTRAINT reactions_emoji_check
+      CHECK (emoji IN ('👍','🔥','❤️','😂','👏'));
+  END IF;
+END $$;
 
 -- ── 9. Extend notification_type enum with chat-specific kinds ─────────────────
 DO $$
