@@ -9,6 +9,7 @@ import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts'
 import { useMobileGestures } from './hooks/useMobileGestures'
 import { useDictation } from './hooks/useDictation'
 import { useAutoResume } from './hooks/useAutoResume'
+import { useAudioNavigationPause } from './hooks/useAudioNavigationPause'
 
 import { ProgressBar } from './parts/ProgressBar'
 import { PlayerControls } from './parts/PlayerControls'
@@ -51,8 +52,9 @@ export default function SmartAudioPlayer({
   studentId,
   features: featuresProp = {},
   onWordClick,        // legacy: single-click vocab popup (used in default/compact)
-  onWordTap,          // tap = seek (bottom-bar mode primary)
-  onWordLongPress,    // long-press = action menu (bottom-bar mode primary)
+  onWordTap,          // tap = seek (regular words)
+  onWordLongPress,    // long-press = action menu
+  onVocabWordTap,     // tap on vocab-highlighted word = instant tooltip
   onWordHover,        // desktop hover tooltip
   onWordHoverEnd,     // desktop hover tooltip end
   highlightLookup,    // Map<`${segIdx}:${wordIdx}`, highlight> for student highlights
@@ -172,6 +174,9 @@ export default function SmartAudioPlayer({
     return () => document.documentElement.style.removeProperty('--fab-bottom')
   }, [variant])
 
+  // Auto-pause on navigation (route change or unmount)
+  useAudioNavigationPause({ isPlaying: engine.isPlaying, pause: engine.pause })
+
   // ── Minimal variant ───────────────────────────────────────────────────────
   if (variant === 'minimal') {
     return (
@@ -281,6 +286,7 @@ export default function SmartAudioPlayer({
                     }
                   : null}
                 onWordLongPress={localFeatures.wordClickToLookup ? onWordLongPress : null}
+                onVocabWordTap={localFeatures.wordClickToLookup ? onVocabWordTap : null}
                 onWordHover={onWordHover
                   ? (w, sIdx, wIdx, el) => {
                       onWordHover(w, sIdx, wIdx, el, (vocab) => setHoveredVocab(vocab ? { ...vocab, anchorEl: el } : null))
@@ -326,7 +332,7 @@ export default function SmartAudioPlayer({
           />
         )}
 
-        {/* Fixed bottom bar */}
+        {/* Slim sticky bar */}
         <BottomBarControls
           isPlaying={engine.isPlaying}
           isLoading={engine.isLoading}
@@ -334,18 +340,20 @@ export default function SmartAudioPlayer({
           duration={engine.duration}
           playbackRate={engine.playbackRate}
           RATES={engine.RATES}
+          speakerLabel={speakerLabel}
+          isMultiSpeaker={isMulti}
           markerA={abLoop.markerA}
           markerB={abLoop.markerB}
           isLooping={abLoop.isLooping}
           bookmarks={localFeatures.bookmarks ? bookmarks : []}
           localFeatures={localFeatures}
           playerLocked={playerLocked}
-          onToggle={playerLocked ? undefined : engine.toggle}
+          onToggle={engine.toggle}
           onSkip={localFeatures.onePlayMode ? undefined : engine.skip}
           onSetRate={localFeatures.onePlayMode ? undefined : engine.setRate}
           onSeek={localFeatures.onePlayMode ? undefined : engine.seek}
-          onSetMarkerA={abLoop.setMarkerA}
-          onSetMarkerB={abLoop.setMarkerB}
+          onSetMarkerA={() => abLoop.setMarkerA(engine.currentTime)}
+          onSetMarkerB={() => abLoop.setMarkerB(engine.currentTime)}
           onClearMarkers={abLoop.clearMarkers}
           onToggleLoop={abLoop.toggleLoop}
           onAddBookmark={addBookmark}
@@ -353,9 +361,8 @@ export default function SmartAudioPlayer({
           onJumpToBookmark={jumpToBookmark}
           onKaraokeToggle={karaokeToggle}
           karaokeEnabled={karaokeEnabled}
-          showSettings={showSettings}
-          onSettingsOpen={setShowSettings}
           onToggleFeature={toggleFeature}
+          dictation={dictation}
         />
       </div>
     )
@@ -670,6 +677,7 @@ export default function SmartAudioPlayer({
                     }
                   : null}
                 onWordLongPress={localFeatures.wordClickToLookup ? (onWordLongPress ?? onWordClick) : null}
+                onVocabWordTap={localFeatures.wordClickToLookup ? onVocabWordTap : null}
                 onWordHover={onWordHover
                   ? (w, sIdx, wIdx, el) => {
                       onWordHover(w, sIdx, wIdx, el, (vocab) => setHoveredVocab(vocab ? { ...vocab, anchorEl: el } : null))

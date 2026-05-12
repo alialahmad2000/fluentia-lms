@@ -13,7 +13,9 @@ import { OnePlayBanner } from '../../../../components/audio/parts/OnePlayBanner'
 import { useListeningTranscriptAudio } from '../../../../hooks/useListeningTranscriptAudio'
 import { trackEvent } from '../../../../lib/trackEvent'
 import { useWordHighlights } from '../../../../hooks/useWordHighlights'
+import { useUnitVocabSet } from '../../../../hooks/useUnitVocabSet'
 import { WordActionMenu } from '../../../../components/audio/parts/WordActionMenu'
+import { WordTooltip } from '../../../../components/audio/parts/WordTooltip'
 
 const QUESTION_TYPE_LABELS = {
   main_idea: 'الفكرة الرئيسية',
@@ -76,11 +78,15 @@ function ListeningSection({ listening, studentId, unitId }) {
   // All hooks before any conditional returns
   const { segments, loading: audioLoading } = useListeningTranscriptAudio(listening.id)
   const [vocabPopup, setVocabPopup] = useState(null)
+  const [wordTooltip, setWordTooltip] = useState(null)
   const [actionMenu, setActionMenu] = useState(null)
   const [onePlayMode, setOnePlayMode] = useState(false)
   const [hasPlayed, setHasPlayed] = useState(false)
   const audioPlayStartedRef = useRef(false)
   const hoverCache = useRef(new Map())
+
+  // Vocab set for the listening item's unit
+  const { vocabSet } = useUnitVocabSet(listening.unit_id)
 
   const { highlights, lookup: highlightLookup, addHighlight, removeHighlight, updateColor, addNote } = useWordHighlights({
     studentId,
@@ -111,6 +117,22 @@ function ListeningSection({ listening, studentId, unitId }) {
   const handleWordTap = useCallback((word, segIdx, wordIdx, startMs) => {
     if (onePlayMode) return
     trackEvent('listening_word_seek', { transcript_id: listening.id, word, segment_index: segIdx })
+  }, [onePlayMode, listening.id])
+
+  // Vocab word quick tap → instant WordTooltip
+  const handleVocabWordTap = useCallback(async (word, segIdx, wordIdx, anchorEl, position) => {
+    if (onePlayMode) return
+    const cached = hoverCache.current.get('full:' + word)
+    if (cached) { setWordTooltip({ vocab: cached, anchorEl, position }); return }
+    const { data } = await supabase
+      .from('curriculum_vocabulary')
+      .select('id, word, definition_ar, pronunciation_ipa, audio_url, example_sentence, image_url')
+      .ilike('word', word).limit(1).maybeSingle()
+    hoverCache.current.set('full:' + word, data || null)
+    if (data) {
+      setWordTooltip({ vocab: data, anchorEl, position })
+      trackEvent('listening_vocab_tap', { word, transcript_id: listening.id })
+    }
   }, [onePlayMode, listening.id])
 
   const handleSegmentComplete = useCallback((segIdx) => {
@@ -158,7 +180,7 @@ function ListeningSection({ listening, studentId, unitId }) {
   }, [actionMenu, addHighlight, removeHighlight, updateColor, addNote])
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 pb-[100px]">
       {/* Title + one-play toggle */}
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div className="space-y-1 min-w-0">
@@ -200,7 +222,7 @@ function ListeningSection({ listening, studentId, unitId }) {
           contentId={listening.id}
           contentType="listening"
           studentId={studentId}
-          variant="default"
+          variant="bottom-bar"
           showTranscriptByDefault={true}
           features={{
             karaoke: !onePlayMode,
@@ -224,7 +246,9 @@ function ListeningSection({ listening, studentId, unitId }) {
           onWordTap={handleWordTap}
           onWordLongPress={(word, segIdx, wordIdx, pos) => handleWordLongPress(word, segIdx, wordIdx, pos)}
           onWordHover={handleWordHover}
+          onVocabWordTap={handleVocabWordTap}
           highlightLookup={highlightLookup}
+          vocabSet={vocabSet}
           onSegmentComplete={handleSegmentComplete}
           onPlaybackComplete={handlePlaybackComplete}
         />
@@ -262,6 +286,24 @@ function ListeningSection({ listening, studentId, unitId }) {
           isOpen={true}
           onClose={() => setVocabPopup(null)}
           anchorPosition={vocabPopup.position}
+        />
+      )}
+
+      {/* Vocab tap tooltip */}
+      {wordTooltip && (
+        <WordTooltip
+          word={wordTooltip.vocab.word}
+          definition_ar={wordTooltip.vocab.definition_ar}
+          ipa={wordTooltip.vocab.pronunciation_ipa}
+          audio_url={wordTooltip.vocab.audio_url}
+          example_sentence={wordTooltip.vocab.example_sentence}
+          image_url={wordTooltip.vocab.image_url}
+          anchorEl={wordTooltip.anchorEl}
+          onClose={() => setWordTooltip(null)}
+          onMoreInfo={() => {
+            setVocabPopup({ word: wordTooltip.vocab.word, position: wordTooltip.position })
+            setWordTooltip(null)
+          }}
         />
       )}
 

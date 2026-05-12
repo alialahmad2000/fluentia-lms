@@ -27,6 +27,7 @@ export function KaraokeText({
   segment, segmentIndex,
   currentWordIndex, karaokeEnabled,
   onWordTap, onWordLongPress,
+  onVocabWordTap,   // tap on vocab-highlighted word → instant tooltip
   onWordHover, onWordHoverEnd,
   setWordRef,
   large = false,
@@ -56,13 +57,23 @@ export function KaraokeText({
     pressTimers.current[wordIdx] = { timer, startTime: Date.now() }
   }
 
-  function handlePointerUp(e, wordIdx, word, startMs) {
+  function handlePointerUp(e, wordIdx, word, startMs, isVocabWord) {
     const ref = pressTimers.current[wordIdx]
     if (!ref) return
     clearTimeout(ref.timer)
     delete pressTimers.current[wordIdx]
     if (Date.now() - ref.startTime < LONG_PRESS_MS) {
-      onWordTap?.(word, segmentIndex, wordIdx, startMs ?? 0)
+      if (isVocabWord && onVocabWordTap) {
+        // Vocab word quick tap → instant translation tooltip
+        const rect = e.target.getBoundingClientRect()
+        onVocabWordTap(word, segmentIndex, wordIdx, e.target, {
+          x: rect.left + rect.width / 2,
+          y: rect.top,
+        })
+      } else {
+        // Regular word quick tap → seek audio
+        onWordTap?.(word, segmentIndex, wordIdx, startMs ?? 0)
+      }
     }
   }
 
@@ -139,6 +150,9 @@ export function KaraokeText({
                 highlightCls = 'bg-sky-500/25 text-sky-50 font-semibold rounded px-0.5 transition-colors duration-150'
               } else if (highlight) {
                 highlightCls = `${HIGHLIGHT_CLASSES[highlight.color] || ''} rounded px-0.5 transition-colors duration-150`
+              } else if (isVocab && !isPast) {
+                // Subtle dotted underline signals vocab word is tappable for translation
+                highlightCls = 'underline decoration-dotted decoration-sky-300/40 underline-offset-4 transition-colors duration-150'
               } else if (isPast) {
                 highlightCls = 'text-slate-400 transition-colors duration-150'
               } else {
@@ -156,7 +170,7 @@ export function KaraokeText({
                   className={`${highlightCls} cursor-pointer rounded touch-manipulation`}
                   style={{ userSelect: 'none', WebkitUserSelect: 'none', WebkitTouchCallout: 'none' }}
                   onPointerDown={(e) => handlePointerDown(e, idx, wordClean)}
-                  onPointerUp={(e) => handlePointerUp(e, idx, wordClean, startMs)}
+                  onPointerUp={(e) => handlePointerUp(e, idx, wordClean, startMs, isVocab)}
                   onPointerCancel={() => handlePointerCancel(idx)}
                   onContextMenu={(e) => handleContextMenu(e, idx, wordClean)}
                   onMouseEnter={(e) => handleMouseEnter(e, wordClean, idx)}

@@ -16,9 +16,11 @@ import { useReadingPrefs } from '../../../../hooks/useReadingPrefs'
 import { usePageReset } from '../../../../hooks/usePageReset'
 import { useReadingPassageAudio } from '../../../../hooks/useReadingPassageAudio'
 import { useWordHighlights } from '../../../../hooks/useWordHighlights'
+import { useUnitVocabSet } from '../../../../hooks/useUnitVocabSet'
 import SmartAudioPlayer from '../../../../components/audio/SmartAudioPlayer'
 import { VocabPopup } from '../../../../components/audio/VocabPopup'
 import { WordActionMenu } from '../../../../components/audio/parts/WordActionMenu'
+import { WordTooltip } from '../../../../components/audio/parts/WordTooltip'
 import { trackEvent } from '../../../../lib/trackEvent'
 
 const QUESTION_TYPE_LABELS = {
@@ -370,6 +372,7 @@ function ReadingContent({ reading, studentId, unitId }) {
   const [quizAnswers, setQuizAnswers] = useState({})
   const [vocabPopup, setVocabPopup] = useState(null)
   const [actionMenu, setActionMenu] = useState(null)
+  const [wordTooltip, setWordTooltip] = useState(null) // { vocab, anchorEl, position }
   const audioPlayStartedRef = useRef(false)
   const hoverCache = useRef(new Map())
 
@@ -383,8 +386,14 @@ function ReadingContent({ reading, studentId, unitId }) {
     contentType: 'reading',
   })
 
-  // Vocab set for marking (lowercase word names)
-  const vocabSet = useMemo(() => new Set((vocabulary || []).map(v => v.word.toLowerCase())), [vocabulary])
+  // Vocab set (from unit via readings join)
+  const { vocabSet: unitVocabSet } = useUnitVocabSet(reading?.unit_id)
+  // Fallback: also include words from the already-loaded vocabulary query
+  const vocabSet = useMemo(() => {
+    const set = new Set(unitVocabSet)
+    ;(vocabulary || []).forEach(v => set.add(v.word.toLowerCase()))
+    return set
+  }, [unitVocabSet, vocabulary])
 
   // Hover handler (desktop) — looks up vocab, shows WordTooltip via callback
   const handleWordHover = useCallback(async (word, segIdx, wordIdx, el, setTooltip) => {
@@ -400,6 +409,27 @@ function ReadingContent({ reading, studentId, unitId }) {
     hoverCache.current.set(word, result)
     setTooltip(result)
   }, [])
+
+  // Vocab word quick tap → instant WordTooltip with definition + audio
+  const handleVocabWordTap = useCallback(async (word, segIdx, wordIdx, anchorEl, position) => {
+    const cached = hoverCache.current.get('full:' + word)
+    if (cached) { setWordTooltip({ vocab: cached, anchorEl, position }); return }
+    const { data } = await supabase
+      .from('curriculum_vocabulary')
+      .select('id, word, definition_ar, pronunciation_ipa, audio_url, example_sentence, image_url')
+      .ilike('word', word)
+      .eq('reading_id', reading?.id)
+      .maybeSingle()
+    const result = data || (await supabase
+      .from('curriculum_vocabulary')
+      .select('id, word, definition_ar, pronunciation_ipa, audio_url, example_sentence, image_url')
+      .ilike('word', word).limit(1).maybeSingle()).data
+    hoverCache.current.set('full:' + word, result || null)
+    if (result) {
+      setWordTooltip({ vocab: result, anchorEl, position })
+      trackEvent('reading_vocab_tap', { word, passage_id: reading?.id })
+    }
+  }, [reading?.id])
 
   // Long-press → action menu (replaces direct VocabPopup)
   const handleWordClick = useCallback((word, segIdx, position, wordIdx) => {
@@ -590,7 +620,7 @@ function ReadingContent({ reading, studentId, unitId }) {
   }, [readingNotes])
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-[100px]">
       {/* Reading Progress Bar */}
       <div className="sticky top-16 z-20 -mx-4 px-4">
         <div className="h-1 rounded-full overflow-hidden bg-slate-800/50">
@@ -804,7 +834,7 @@ function ReadingContent({ reading, studentId, unitId }) {
               contentId={reading.id}
               contentType="reading"
               studentId={studentId}
-              variant="default"
+              variant="bottom-bar"
               showTranscriptByDefault={true}
               features={{
                 karaoke: true,
@@ -826,6 +856,7 @@ function ReadingContent({ reading, studentId, unitId }) {
               }}
               onWordLongPress={(word, segIdx, wordIdx, pos) => handleWordClick(word, segIdx, pos, wordIdx)}
               onWordHover={handleWordHover}
+              onVocabWordTap={handleVocabWordTap}
               highlightLookup={highlightLookup}
               vocabSet={vocabSet}
               onSegmentComplete={(i) => {
@@ -1020,7 +1051,25 @@ function ReadingContent({ reading, studentId, unitId }) {
         />
       )}
 
-      {/* Vocab popup (from "lookup" action) */}
+      {/* Vocab tap tooltip (instant on tap) */}
+      {wordTooltip && (
+        <WordTooltip
+          word={wordTooltip.vocab.word}
+          definition_ar={wordTooltip.vocab.definition_ar}
+          ipa={wordTooltip.vocab.pronunciation_ipa}
+          audio_url={wordTooltip.vocab.audio_url}
+          example_sentence={wordTooltip.vocab.example_sentence}
+          image_url={wordTooltip.vocab.image_url}
+          anchorEl={wordTooltip.anchorEl}
+          onClose={() => setWordTooltip(null)}
+          onMoreInfo={() => {
+            setVocabPopup({ word: wordTooltip.vocab.word, x: wordTooltip.position?.x || 200, y: wordTooltip.position?.y || 200 })
+            setWordTooltip(null)
+          }}
+        />
+      )}
+
+      {/* Vocab popup (from action menu "lookup" or tooltip "تفاصيل أكثر") */}
       {vocabPopup && (
         <VocabPopup
           word={vocabPopup.word}

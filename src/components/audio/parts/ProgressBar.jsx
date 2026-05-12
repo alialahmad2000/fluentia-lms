@@ -6,18 +6,33 @@ function fmt(ms) {
   return `${m}:${(s % 60).toString().padStart(2, '0')}`
 }
 
-export function ProgressBar({ currentTime, duration, markerA, markerB, isLooping, bookmarks, onSeek, onSetMarkerA, onSetMarkerB }) {
+export function ProgressBar({ currentTime, duration, markerA, markerB, isLooping, bookmarks, onSeek, onSetMarkerA, onSetMarkerB, hairline }) {
   const pct = duration > 0 ? Math.min(100, (currentTime / duration) * 100) : 0
   const aPct = (markerA !== null && duration > 0) ? (markerA / duration) * 100 : null
   const bPct = (markerB !== null && duration > 0) ? (markerB / duration) * 100 : null
 
   const handleClick = useCallback((e) => {
-    if (!duration) return
+    if (!duration || !onSeek) return
     const rect = e.currentTarget.getBoundingClientRect()
     const x = e.clientX - rect.left
     const clickPct = Math.max(0, Math.min(1, x / rect.width))
     onSeek(clickPct * duration)
   }, [duration, onSeek])
+
+  // Hairline variant — ultra-thin strip for the sticky bar
+  if (hairline) {
+    return (
+      <div dir="ltr" className="absolute inset-0 cursor-pointer" onClick={handleClick}>
+        <div
+          className="absolute top-0 left-0 h-full bg-sky-500 transition-[width] duration-75"
+          style={{ width: `${pct}%` }}
+        />
+        {aPct !== null && bPct !== null && (
+          <div className="absolute top-0 h-full bg-amber-400/40" style={{ left: `${aPct}%`, width: `${bPct - aPct}%` }}/>
+        )}
+      </div>
+    )
+  }
 
   return (
     <div className="px-4 pb-2">
