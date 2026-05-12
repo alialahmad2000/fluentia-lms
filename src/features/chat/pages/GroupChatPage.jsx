@@ -8,6 +8,7 @@ import ChatHeader from '../components/ChatHeader'
 import MessageList from '../components/MessageList'
 import MessageComposer from '../components/MessageComposer'
 import PinnedMessagesStrip from '../components/PinnedMessagesStrip'
+import ChatSearchPanel from '../components/ChatSearchPanel'
 
 export default function GroupChatPage() {
   const { groupId, channelSlug = 'general', messageId } = useParams()
@@ -17,6 +18,7 @@ export default function GroupChatPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [replyTo, setReplyTo] = useState(null)
   const [editingMsg, setEditingMsg] = useState(null)
+  const [searchOpen, setSearchOpen] = useState(false)
 
   const { data: channels = [] } = useGroupChannels(groupId)
   const activeChannel = channels.find((c) => c.slug === channelSlug) ?? null
@@ -39,6 +41,9 @@ export default function GroupChatPage() {
       className="flex h-[calc(100dvh-60px)] bg-[var(--bg-page)] overflow-hidden"
       style={{ direction: 'rtl' }}
     >
+      {searchOpen && (
+        <ChatSearchPanel groupId={groupId} onClose={() => setSearchOpen(false)} />
+      )}
       {/* Desktop channel sidebar */}
       <ChannelSidebar
         groupId={groupId}
@@ -77,7 +82,7 @@ export default function GroupChatPage() {
             <ChatHeader
               channel={activeChannel}
               groupName={groupName}
-              onSearchOpen={() => {/* Phase K */}}
+              onSearchOpen={() => setSearchOpen(true)}
             />
           </div>
         </div>
