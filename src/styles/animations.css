@@ -2,6 +2,15 @@
    ANIMATION LIBRARY — Cosmic Luxury Design System
    ═══════════════════════════════════════════════════════════ */
 
+/* Listening focus mode — audio waveform bars */
+@keyframes waveformBar {
+  0%, 100% { height: 8px; opacity: 0.5; }
+  50%       { height: 40px; opacity: 1; }
+}
+.animate-waveform {
+  animation: waveformBar infinite ease-in-out;
+}
+
 /* Chat deep-link highlight */
 @keyframes chatHighlight {
   0%   { background: color-mix(in srgb, #38bdf8 18%, transparent); }

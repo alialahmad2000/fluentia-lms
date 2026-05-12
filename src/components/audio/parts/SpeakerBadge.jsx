@@ -13,12 +13,15 @@ function hashLabel(label) {
   return Math.abs(h) % PALETTES.length
 }
 
-export function SpeakerBadge({ label }) {
+export function SpeakerBadge({ label, size = 'sm' }) {
   if (!label) return null
   const palette = PALETTES[hashLabel(label)]
+  const sizeClass = size === 'lg'
+    ? 'px-5 py-1.5 rounded-2xl text-sm font-semibold'
+    : 'px-3 py-0.5 rounded-full text-xs font-medium'
   return (
     <span
-      className={`inline-flex items-center px-3 py-0.5 rounded-full text-xs font-medium transition-colors duration-300 ${palette}`}
+      className={`inline-flex items-center ${sizeClass} transition-colors duration-300 ${palette}`}
       dir="ltr"
       style={{ unicodeBidi: 'isolate' }}
     >

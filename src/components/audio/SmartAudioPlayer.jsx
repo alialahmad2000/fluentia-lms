@@ -21,6 +21,7 @@ import { DictationPanel } from './parts/DictationPanel'
 import { SettingsMenu, SettingsButton } from './parts/SettingsMenu'
 import { BottomBarControls } from './parts/BottomBarControls'
 import { WordTooltip } from './parts/WordTooltip'
+import { ListeningFocusMode } from './parts/ListeningFocusMode'
 
 const DEFAULT_FEATURES = {
   karaoke: true,
@@ -73,17 +74,26 @@ export default function SmartAudioPlayer({
   const containerRef = useRef(null)
   const [showBookmarks, setShowBookmarks] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
-  const [showTranscript, setShowTranscript] = useState(showTranscriptByDefault)
+  const [showTranscript, setShowTranscript] = useState(() => {
+    if (contentId && typeof window !== 'undefined') {
+      const stored = localStorage.getItem(`fluentia:listening:transcript-visible:${contentId}`)
+      if (stored !== null) return stored === 'true'
+    }
+    return showTranscriptByDefault
+  })
   const [mutedBeforeToggle, setMutedBeforeToggle] = useState(null)
   const [localFeatures, setLocalFeatures] = useState(features)
   const [playerLocked, setPlayerLocked] = useState(false)
   const [hoveredVocab, setHoveredVocab] = useState(null) // { word, ipa, definition_ar, anchorEl }
+  const [hasPlayedComplete, setHasPlayedComplete] = useState(false)
+  const [autoRevealedOnce, setAutoRevealedOnce] = useState(false)
 
   const engine = useAudioEngine({
     audioUrl,
     segments,
     onSegmentComplete,
     onPlaybackComplete: () => {
+      setHasPlayedComplete(true)
       if (localFeatures.onePlayMode) setPlayerLocked(true)
       onPlaybackComplete?.()
     },
@@ -177,6 +187,27 @@ export default function SmartAudioPlayer({
   // Auto-pause on navigation (route change or unmount)
   useAudioNavigationPause({ isPlaying: engine.isPlaying, pause: engine.pause })
 
+  // Transcript can only be revealed in one-play mode after playback completes
+  const canRevealText = !localFeatures.onePlayMode || hasPlayedComplete
+
+  // Persist transcript visibility per content item
+  function toggleTranscript() {
+    const next = !showTranscript
+    setShowTranscript(next)
+    if (contentId) localStorage.setItem(`fluentia:listening:transcript-visible:${contentId}`, String(next))
+  }
+
+  // Auto-reveal transcript 1.5s after completion (ear-training reward pattern)
+  useEffect(() => {
+    if (!hasPlayedComplete || showTranscript || autoRevealedOnce) return
+    const t = setTimeout(() => {
+      setShowTranscript(true)
+      if (contentId) localStorage.setItem(`fluentia:listening:transcript-visible:${contentId}`, 'true')
+      setAutoRevealedOnce(true)
+    }, 1500)
+    return () => clearTimeout(t)
+  }, [hasPlayedComplete, showTranscript, autoRevealedOnce, contentId])
+
   // ── Minimal variant ───────────────────────────────────────────────────────
   if (variant === 'minimal') {
     return (
@@ -268,41 +299,67 @@ export default function SmartAudioPlayer({
           </div>
         )}
 
-        {/* Karaoke text — premium typography for reading */}
+        {/* Karaoke text — premium typography for reading; or Listening Focus Mode */}
         <div className="max-w-2xl mx-auto px-1" style={{ paddingBottom: 120 }}>
-          {isMulti ? (
-            segments.map((seg, i) => (
-              <KaraokeText
-                key={i}
-                segment={seg}
-                segmentIndex={i}
-                currentWordIndex={i === engine.currentSegmentIndex ? currentWordIndex : -1}
-                karaokeEnabled={localFeatures.karaoke && karaokeEnabled}
-                onWordTap={localFeatures.wordClickToLookup
-                  ? (word, segIdx, wordIdx, startMs) => {
-                      engine.seek(startMs)
-                      if (!engine.isPlaying) engine.play()
-                      onWordTap?.(word, segIdx, wordIdx, startMs)
-                    }
-                  : null}
-                onWordLongPress={localFeatures.wordClickToLookup ? onWordLongPress : null}
-                onVocabWordTap={localFeatures.wordClickToLookup ? onVocabWordTap : null}
-                onWordHover={onWordHover
-                  ? (w, sIdx, wIdx, el) => {
-                      onWordHover(w, sIdx, wIdx, el, (vocab) => setHoveredVocab(vocab ? { ...vocab, anchorEl: el } : null))
-                    }
-                  : null}
-                onWordHoverEnd={() => setHoveredVocab(null)}
-                setWordRef={setWordRef}
-                large
-                highlightLookup={highlightLookup}
-                vocabSet={vocabSet}
-              />
-            ))
+          {/* Hide/show transcript toggle (visible when text is shown) */}
+          {showTranscript && (
+            <div className="flex justify-end mb-3">
+              <button
+                onClick={toggleTranscript}
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors border bg-white/5 border-white/8 text-slate-300 hover:bg-white/8 font-['Tajawal']"
+              >
+                <EyeOff size={13}/>
+                إخفاء النص
+              </button>
+            </div>
+          )}
+
+          {showTranscript ? (
+            isMulti ? (
+              segments.map((seg, i) => (
+                <KaraokeText
+                  key={i}
+                  segment={seg}
+                  segmentIndex={i}
+                  currentWordIndex={i === engine.currentSegmentIndex ? currentWordIndex : -1}
+                  karaokeEnabled={localFeatures.karaoke && karaokeEnabled}
+                  onWordTap={localFeatures.wordClickToLookup
+                    ? (word, segIdx, wordIdx, startMs) => {
+                        engine.seek(startMs)
+                        if (!engine.isPlaying) engine.play()
+                        onWordTap?.(word, segIdx, wordIdx, startMs)
+                      }
+                    : null}
+                  onWordLongPress={localFeatures.wordClickToLookup ? onWordLongPress : null}
+                  onVocabWordTap={localFeatures.wordClickToLookup ? onVocabWordTap : null}
+                  onWordHover={onWordHover
+                    ? (w, sIdx, wIdx, el) => {
+                        onWordHover(w, sIdx, wIdx, el, (vocab) => setHoveredVocab(vocab ? { ...vocab, anchorEl: el } : null))
+                      }
+                    : null}
+                  onWordHoverEnd={() => setHoveredVocab(null)}
+                  setWordRef={setWordRef}
+                  large
+                  highlightLookup={highlightLookup}
+                  vocabSet={vocabSet}
+                />
+              ))
+            ) : (
+              <p className="leading-[2] text-[19px] md:text-[20px] text-slate-100 mb-8" dir="ltr" style={{ unicodeBidi: 'isolate' }}>
+                {segments?.[0]?.text_content || ''}
+              </p>
+            )
           ) : (
-            <p className="leading-[2] text-[19px] md:text-[20px] text-slate-100 mb-8" dir="ltr" style={{ unicodeBidi: 'isolate' }}>
-              {segments?.[0]?.text_content || ''}
-            </p>
+            <ListeningFocusMode
+              currentSpeakerLabel={isMulti ? currentSegment?.speaker_label || null : null}
+              currentSegmentIndex={engine.currentSegmentIndex}
+              totalSegments={isMulti ? segments.length : 1}
+              isPlaying={engine.isPlaying}
+              isPaused={!engine.isPlaying && engine.currentTime > 0}
+              hasCompleted={hasPlayedComplete}
+              canReveal={canRevealText}
+              onRevealText={toggleTranscript}
+            />
           )}
 
           {/* Hover tooltip */}

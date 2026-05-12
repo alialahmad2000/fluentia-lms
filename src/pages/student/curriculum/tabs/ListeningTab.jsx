@@ -234,7 +234,7 @@ function ListeningSection({ listening, studentId, unitId }) {
           contentType="listening"
           studentId={studentId}
           variant="bottom-bar"
-          showTranscriptByDefault={true}
+          showTranscriptByDefault={false}
           features={{
             karaoke: !onePlayMode,
             speedControl: !onePlayMode,

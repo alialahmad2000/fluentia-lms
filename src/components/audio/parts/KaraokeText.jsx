@@ -1,4 +1,4 @@
-import { useRef, useMemo, useState, useCallback } from 'react'
+import { useRef, useMemo } from 'react'
 import { parseFormattedText, tokenizeWords, isWordToken } from '../lib/parseFormattedText'
 
 const LONG_PRESS_MS = 500
@@ -15,26 +15,27 @@ const HIGHLIGHT_CLASSES = {
 /**
  * KaraokeText — renders a passage segment with:
  *   - Paragraph structure + *italic* / **bold** formatting
- *   - Karaoke highlighting (current/past/future)
+ *   - Karaoke highlighting (current/past/future) — VISUAL ONLY when enabled
  *   - Tap to seek (onWordTap), long-press to open action menu (onWordLongPress)
  *   - Hover tooltip (desktop) via onWordHover/onWordHoverEnd
  *   - Student highlight colors (highlightLookup map)
  *   - Vocab word marking (vocabSet)
  *
- * large: premium reading typography (bottom-bar mode)
+ * PARITY: ALL handlers, data attributes, highlights, vocab underline, and hover
+ * are ALWAYS present regardless of karaokeEnabled. The ONLY thing karaokeEnabled
+ * controls is the current-word blue bg and past-word fade visual classes.
  */
 export function KaraokeText({
   segment, segmentIndex,
   currentWordIndex, karaokeEnabled,
   onWordTap, onWordLongPress,
-  onVocabWordTap,   // tap on vocab-highlighted word → instant tooltip
+  onVocabWordTap,   // tap on vocab-highlighted word → instant translation tooltip
   onWordHover, onWordHoverEnd,
   setWordRef,
   large = false,
   highlightLookup,  // Map<`${segIdx}:${wordIdx}`, highlight> — optional
   vocabSet,         // Set<string> lowercase words that are in vocab list — optional
 }) {
-  // All hooks before any conditional returns
   const text = segment?.text_content || segment?.text || ''
   const timestamps = segment?.word_timestamps || []
   const paragraphs = useMemo(() => parseFormattedText(text), [text])
@@ -64,14 +65,12 @@ export function KaraokeText({
     delete pressTimers.current[wordIdx]
     if (Date.now() - ref.startTime < LONG_PRESS_MS) {
       if (isVocabWord && onVocabWordTap) {
-        // Vocab word quick tap → instant translation tooltip
         const rect = e.target.getBoundingClientRect()
         onVocabWordTap(word, segmentIndex, wordIdx, e.target, {
           x: rect.left + rect.width / 2,
           y: rect.top,
         })
       } else {
-        // Regular word quick tap → seek audio
         onWordTap?.(word, segmentIndex, wordIdx, startMs ?? 0)
       }
     }
@@ -109,18 +108,6 @@ export function KaraokeText({
     ? 'mb-8 leading-[2] text-[19px] md:text-[20px]'
     : 'mb-6 leading-loose text-[17px]'
 
-  if (!karaokeEnabled || timestamps.length === 0) {
-    return (
-      <div dir="ltr" style={{ unicodeBidi: 'isolate' }}>
-        {paragraphs.map((para, pIdx) => (
-          <p key={pIdx} className={`${paraBase} text-slate-100`}>
-            {para.children.map((inline, iIdx) => renderInlineNoKaraoke(inline, iIdx))}
-          </p>
-        ))}
-      </div>
-    )
-  }
-
   let globalIdx = 0
 
   return (
@@ -140,23 +127,32 @@ export function KaraokeText({
               const startMs = ts?.start_ms ?? 0
               const wordClean = token.replace(/[.,!?;:'"()[\]]/g, '').toLowerCase()
 
-              const isCurrent = idx === currentWordIndex
-              const isPast = idx < currentWordIndex
-              const highlight = highlightLookup?.get(`${segmentIndex}:${idx}`)
-              const isVocab = vocabSet?.has(wordClean)
+              // Karaoke visual state — only when karaoke is enabled
+              const isCurrent = karaokeEnabled && idx === currentWordIndex
+              const isPast    = karaokeEnabled && idx < currentWordIndex
 
-              let highlightCls
+              const highlight = highlightLookup?.get(`${segmentIndex}:${idx}`)
+              const isVocab   = vocabSet?.has(wordClean)
+
+              // Visual class priority:
+              // 1. Current word (karaoke ON) — blue highlight
+              // 2. Past word (karaoke ON) — faded, but still shows student highlight
+              // 3. Student highlight — always rendered regardless of karaoke
+              // 4. Vocab dotted underline — always rendered regardless of karaoke
+              // 5. Default prose color
+              let visualCls
               if (isCurrent) {
-                highlightCls = 'bg-sky-500/25 text-sky-50 font-semibold rounded px-0.5 transition-colors duration-150'
-              } else if (highlight) {
-                highlightCls = `${HIGHLIGHT_CLASSES[highlight.color] || ''} rounded px-0.5 transition-colors duration-150`
-              } else if (isVocab && !isPast) {
-                // Subtle dotted underline signals vocab word is tappable for translation
-                highlightCls = 'underline decoration-dotted decoration-sky-300/40 underline-offset-4 transition-colors duration-150'
+                visualCls = 'bg-sky-500/25 text-sky-50 font-semibold rounded px-0.5'
               } else if (isPast) {
-                highlightCls = 'text-slate-400 transition-colors duration-150'
+                visualCls = highlight
+                  ? `${HIGHLIGHT_CLASSES[highlight.color] || ''} rounded px-0.5 opacity-70`
+                  : 'text-slate-400'
+              } else if (highlight) {
+                visualCls = `${HIGHLIGHT_CLASSES[highlight.color] || ''} rounded px-0.5`
+              } else if (isVocab) {
+                visualCls = 'underline decoration-dotted decoration-sky-300/40 underline-offset-4'
               } else {
-                highlightCls = 'text-inherit transition-colors duration-150'
+                visualCls = 'text-slate-100'
               }
 
               globalIdx++
@@ -167,7 +163,7 @@ export function KaraokeText({
                   data-word-idx={idx}
                   data-is-vocab={isVocab ? 'true' : undefined}
                   ref={el => setWordRef?.(segmentIndex, idx, el)}
-                  className={`${highlightCls} cursor-pointer rounded touch-manipulation`}
+                  className={`${visualCls} cursor-pointer transition-all duration-150 rounded touch-manipulation`}
                   style={{ userSelect: 'none', WebkitUserSelect: 'none', WebkitTouchCallout: 'none' }}
                   onPointerDown={(e) => handlePointerDown(e, idx, wordClean)}
                   onPointerUp={(e) => handlePointerUp(e, idx, wordClean, startMs, isVocab)}
@@ -187,10 +183,4 @@ export function KaraokeText({
       ))}
     </div>
   )
-}
-
-function renderInlineNoKaraoke(inline, key) {
-  if (inline.type === 'em') return <em key={key} className="italic text-sky-200">{inline.text}</em>
-  if (inline.type === 'strong') return <strong key={key} className="font-semibold text-white">{inline.text}</strong>
-  return <span key={key}>{inline.text}</span>
 }
