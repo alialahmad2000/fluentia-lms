@@ -124,7 +124,9 @@ const IELTSV2Listening      = lazyRetry(() => import('./pages/student/ielts-v2/L
 const IELTSV2Writing        = lazyRetry(() => import('./pages/student/ielts-v2/Writing'))
 const IELTSV2Speaking       = lazyRetry(() => import('./pages/student/ielts-v2/Speaking'))
 const IELTSV2Journey        = lazyRetry(() => import('./pages/student/ielts-v2/Journey'))
-const IELTSV2Errors         = lazyRetry(() => import('./pages/student/ielts-v2/Errors'))
+const IELTSV2ErrorsHub      = lazyRetry(() => import('./pages/student/ielts-v2/Errors/index'))
+const IELTSV2ErrorsReview   = lazyRetry(() => import('./pages/student/ielts-v2/Errors/ReviewSession'))
+const IELTSV2ErrorsInsights = lazyRetry(() => import('./pages/student/ielts-v2/Errors/Insights'))
 const IELTSV2MockHub        = lazyRetry(() => import('./pages/student/ielts-v2/Mock/index'))
 const IELTSV2MockSession    = lazyRetry(() => import('./pages/student/ielts-v2/Mock/MockSession'))
 const IELTSV2MockResults    = lazyRetry(() => import('./pages/student/ielts-v2/Mock/MockResults'))
@@ -723,7 +725,9 @@ export default function App() {
                     <Route path="writing"    element={<IELTSV2Writing />} />
                     <Route path="speaking"   element={<IELTSV2Speaking />} />
                     <Route path="journey"    element={<IELTSV2Journey />} />
-                    <Route path="errors"     element={<IELTSV2Errors />} />
+                    <Route path="errors"          element={<IELTSV2ErrorsHub />} />
+                    <Route path="errors/review"  element={<IELTSV2ErrorsReview />} />
+                    <Route path="errors/insights" element={<IELTSV2ErrorsInsights />} />
                     <Route path="mock"                    element={<IELTSV2MockHub />} />
                     <Route path="mock/:attemptId"         element={<IELTSV2MockSession />} />
                     <Route path="mock/:attemptId/results" element={<IELTSV2MockResults />} />
