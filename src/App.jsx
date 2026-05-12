@@ -203,6 +203,7 @@ const MasterclassDesignShowcase = lazyRetry(() => import('./pages/admin/Mastercl
 const AtelierStudentPreview = lazyRetry(() => import('./pages/admin/atelier-preview/AtelierStudentPreview'))
 const AtelierTrainerPreview = lazyRetry(() => import('./pages/admin/atelier-preview/AtelierTrainerPreview'))
 const AtelierAdminPreview   = lazyRetry(() => import('./pages/admin/atelier-preview/AtelierAdminPreview'))
+const AudioPlayerTest = lazyRetry(() => import('./pages/dev/AudioPlayerTest'))
 
 const PartnerLayout = lazyRetry(() => import('./layouts/PartnerLayout'))
 const PartnerRoute = lazyRetry(() => import('./components/PartnerRoute'))
@@ -831,6 +832,7 @@ export default function App() {
               <Route path="/admin/atelier-preview/student" element={<AtelierStudentPreview />} />
               <Route path="/admin/atelier-preview/trainer" element={<AtelierTrainerPreview />} />
               <Route path="/admin/atelier-preview/admin"   element={<AtelierAdminPreview />} />
+              <Route path="/dev/audio-player-test" element={<Page><AudioPlayerTest /></Page>} />
             </Route>
           </Route>
 
