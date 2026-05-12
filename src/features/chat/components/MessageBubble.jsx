@@ -7,23 +7,43 @@ import MessageBubbleImage from './MessageBubbleImage'
 import MessageBubbleFile from './MessageBubbleFile'
 import MessageBubbleLink from './MessageBubbleLink'
 import MessageBubbleAnnouncement from './MessageBubbleAnnouncement'
+import MessageBubbleSystem from './MessageBubbleSystem'
 import ReactionInlineBar from './premium/ReactionInlineBar'
 import ReactionSummary from './premium/ReactionSummary'
 import { useReact } from '../mutations/useReact'
 import { useDeleteMessage } from '../mutations/useDeleteMessage'
 import { useTogglePin } from '../mutations/useTogglePin'
-import MessageBubbleSystem from './MessageBubbleSystem'
+
+// Tail-radius presets: CSS order is TL TR BR BL
+// Other-user: avatar on RIGHT side → tail points right (BR corner)
+// Own-user: aligned LEFT → tail points left (BL corner)
+function getBubbleRadius(position, isOwn) {
+  if (isOwn) {
+    // Own: tail at BL (bottom-left)
+    const r = { single: '16px 16px 16px 4px', first: '16px 16px 4px 16px', middle: '4px 16px 16px 4px', last: '4px 16px 16px 4px' }
+    return r[position] ?? r.single
+  }
+  // Other: tail at BR (bottom-right)
+  const r = { single: '16px 16px 4px 16px', first: '16px 16px 4px 16px', middle: '16px 4px 4px 16px', last: '16px 4px 4px 16px' }
+  return r[position] ?? r.single
+}
+
+const BUBBLE_SHADOW = `
+  0 1px 2px 0 rgba(0,0,0,0.18),
+  0 4px 12px -4px rgba(0,0,0,0.22),
+  inset 0 1px 0 0 color-mix(in srgb, white 4%, transparent)
+`
 
 export default function MessageBubble({
   message,
   isGrouped,
+  position = 'single',
   channelId,
   groupId,
   onReply,
   onEdit,
 }) {
   const { profile } = useAuthStore()
-  const [showMenu, setShowMenu] = useState(false)
   const [showReactionBar, setShowReactionBar] = useState(false)
 
   const react = useReact(channelId)
@@ -34,7 +54,7 @@ export default function MessageBubble({
   const isTrainerOrAdmin = ['trainer', 'admin'].includes(profile?.role)
   const isDeleted = !!message.deleted_at
 
-  // System messages: always centered, no bubble
+  // System messages: always centered ghost text
   if (message.type === 'system') {
     return <MessageBubbleSystem body={message.body || message.content} />
   }
@@ -61,99 +81,134 @@ export default function MessageBubble({
   const displayName = sender
     ? (sender.display_name || sender.full_name || sender.first_name_ar || '').trim()
     : 'مستخدم'
-
   const bodyText = message.body || message.content
+  const borderRadius = getBubbleRadius(position, isOwn)
 
-  // Bubble background: own = accent tint, other = glass surface
-  const bubbleBg = isOwn
-    ? 'color-mix(in srgb, var(--ds-accent-primary) 10%, transparent)'
-    : 'var(--ds-surface-1)'
-  const bubbleBorder = isOwn
-    ? '1px solid color-mix(in srgb, var(--ds-accent-primary) 20%, transparent)'
-    : '1px solid var(--ds-border-subtle)'
+  // Bubble background
+  const bubbleStyle = isOwn
+    ? {
+        background: `linear-gradient(135deg,
+          color-mix(in srgb, var(--ds-accent-primary) 22%, var(--ds-bg-elevated)) 0%,
+          color-mix(in srgb, var(--ds-accent-primary) 14%, var(--ds-bg-elevated)) 100%)`,
+        border: '1px solid color-mix(in srgb, var(--ds-accent-primary) 28%, transparent)',
+      }
+    : {
+        background: 'color-mix(in srgb, var(--ds-bg-elevated) 92%, transparent)',
+        backdropFilter: 'blur(20px) saturate(140%)',
+        WebkitBackdropFilter: 'blur(20px) saturate(140%)',
+        border: '1px solid color-mix(in srgb, var(--ds-border-subtle) 60%, transparent)',
+      }
 
   return (
     <div
-      className={`relative group px-4 ${isGrouped ? 'pt-1 pb-1' : 'pt-3 pb-1'}`}
+      className={`relative group ${isGrouped ? 'mt-1' : 'mt-3'}`}
       style={{ direction: 'rtl' }}
     >
-      {/* Bubble aligned: own=left (near), other=right (far) in RTL */}
+      {/* Bubble — float for RTL alignment */}
       <div
-        className="inline-block max-w-[78%] relative"
-        style={{ float: isOwn ? 'left' : 'right' }}
+        className="inline-block max-w-[560px] relative"
+        style={{
+          float: isOwn ? 'left' : 'right',
+          maxWidth: '76%',
+        }}
       >
         <div
-          className="px-3 py-2.5 rounded-2xl"
+          className="px-4 py-3 transition-colors"
           style={{
-            background: bubbleBg,
-            border: bubbleBorder,
-            backdropFilter: 'blur(8px)',
+            ...bubbleStyle,
+            borderRadius,
+            boxShadow: BUBBLE_SHADOW,
             lineHeight: 1.7,
           }}
         >
-      <div className="min-w-0">
-        {/* Name + time */}
-        {!isGrouped && (
-          <div className="flex items-baseline gap-2 mb-0.5">
-            <span
-              className="text-sm font-semibold text-[var(--text-primary)]"
-              style={{ fontFamily: 'Tajawal, sans-serif' }}
+          {/* Sender name + timestamp — first bubble in group only */}
+          {!isGrouped && !isOwn && (
+            <div className="flex items-baseline gap-2 mb-1">
+              <span
+                className="text-xs font-semibold"
+                style={{ fontFamily: 'Tajawal, sans-serif', color: 'var(--ds-accent-primary)' }}
+              >
+                {displayName}
+              </span>
+              <span
+                className="text-[10px] tabular-nums"
+                style={{ color: 'var(--ds-text-muted)', fontFamily: 'monospace' }}
+              >
+                {new Date(message.created_at).toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' })}
+              </span>
+              {message.is_edited && (
+                <span className="text-[10px]" style={{ color: 'var(--ds-text-muted)', fontFamily: 'Tajawal' }}>(معدل)</span>
+              )}
+            </div>
+          )}
+          {/* Own message timestamp on first bubble */}
+          {!isGrouped && isOwn && (
+            <div className="flex justify-end mb-1">
+              <span
+                className="text-[10px] tabular-nums"
+                style={{ color: 'color-mix(in srgb, var(--ds-accent-primary) 60%, transparent)', fontFamily: 'monospace' }}
+              >
+                {new Date(message.created_at).toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' })}
+                {message.is_edited && ' · معدل'}
+              </span>
+            </div>
+          )}
+
+          {/* Reply preview */}
+          {message.reply_message && (
+            <div
+              className="mb-2 px-2 py-1.5 rounded-lg text-xs"
+              style={{
+                borderInlineStart: '2px solid var(--ds-accent-primary)',
+                paddingInlineStart: 8,
+                background: 'color-mix(in srgb, var(--ds-accent-primary) 6%, transparent)',
+                fontFamily: 'Tajawal, sans-serif',
+                color: 'var(--ds-text-secondary)',
+              }}
             >
-              {displayName}
-            </span>
-            <span className="text-[11px] text-[var(--text-muted)]">
-              {new Date(message.created_at).toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' })}
-            </span>
-            {message.is_edited && (
-              <span className="text-[11px] text-[var(--text-muted)]">(معدل)</span>
-            )}
-          </div>
-        )}
+              <span className="font-semibold" style={{ color: 'var(--ds-accent-primary)' }}>
+                {message.reply_message.sender?.display_name || message.reply_message.sender?.full_name}:{' '}
+              </span>
+              {message.reply_message.body || message.reply_message.content || '🎙️'}
+            </div>
+          )}
 
-        {/* Reply preview */}
-        {message.reply_message && (
-          <div className="mb-1 px-2 py-1 border-r-2 border-sky-400 bg-sky-400/5 rounded text-xs text-[var(--text-muted)]" style={{ borderInlineStart: '2px solid', borderInlineEnd: 'none' }}>
-            {message.reply_message.sender?.first_name_ar}: {message.reply_message.body || message.reply_message.content || '🎙️'}
-          </div>
-        )}
+          {/* Message content */}
+          {message.type === 'text' && <MessageBubbleText body={bodyText} mentions={message.mentions} />}
+          {message.type === 'voice' && <MessageBubbleVoice message={message} />}
+          {message.type === 'image' && <MessageBubbleImage message={message} />}
+          {message.type === 'file' && <MessageBubbleFile message={message} />}
+          {message.type === 'link' && <MessageBubbleLink message={message} />}
+          {message.type === 'announcement' && <MessageBubbleAnnouncement message={message} body={bodyText} />}
+        </div>
 
-        {/* Message content */}
-        {message.type === 'text' && <MessageBubbleText body={bodyText} mentions={message.mentions} />}
-        {message.type === 'voice' && <MessageBubbleVoice message={message} />}
-        {message.type === 'image' && <MessageBubbleImage message={message} />}
-        {message.type === 'file' && <MessageBubbleFile message={message} />}
-        {message.type === 'link' && <MessageBubbleLink message={message} />}
-        {message.type === 'announcement' && <MessageBubbleAnnouncement message={message} body={bodyText} />}
-
-        {/* Premium reaction summary */}
+        {/* Reaction summary below bubble */}
         <ReactionSummary
           reactions={message.reactions}
           myId={profile?.id}
           messageId={message.id}
           onReact={(emoji) => react.mutate({ messageId: message.id, emoji })}
         />
-        </div>{/* close min-w-0 */}
-        </div>{/* close bubble rounded-2xl */}
-      </div>{/* close inline-block */}
+      </div>
       <div style={{ clear: 'both' }} />
 
-      {/* Hover action buttons */}
+      {/* Hover action bar */}
       <div
-        className="absolute top-1 left-3 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg shadow-md px-1.5 py-1"
+        className="absolute top-2 left-2 flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl px-1 py-0.5"
         style={{
-          background: 'color-mix(in srgb, var(--ds-bg-elevated) 90%, transparent)',
+          background: 'color-mix(in srgb, var(--ds-bg-elevated) 94%, transparent)',
           border: '1px solid var(--ds-border-subtle)',
-          backdropFilter: 'blur(12px)',
+          backdropFilter: 'blur(16px)',
+          boxShadow: '0 4px 16px -4px rgba(0,0,0,0.3)',
+          zIndex: 10,
         }}
       >
-        {/* Premium reaction inline bar */}
         <div className="relative">
           <button
-            onClick={() => setShowReactionBar((p) => !p)}
             onMouseEnter={() => setShowReactionBar(true)}
-            className="p-1.5 rounded hover:bg-[var(--ds-surface-1)] text-base transition-colors"
+            onClick={() => setShowReactionBar((p) => !p)}
+            className="p-1.5 rounded-lg transition-colors text-base hover:bg-[var(--ds-surface-1)]"
             style={{ minWidth: 32, minHeight: 32, color: 'var(--ds-text-secondary)' }}
-            title="تفاعل"
           >
             😊
           </button>
@@ -166,42 +221,45 @@ export default function MessageBubble({
 
         <button
           onClick={() => onReply?.(message)}
-          className="p-1.5 rounded hover:bg-[var(--surface)] text-[var(--text-muted)] hover:text-sky-400 transition-colors"
-          style={{ minWidth: 32, minHeight: 32 }}
+          className="p-1.5 rounded-lg hover:bg-[var(--ds-surface-1)] transition-colors"
+          style={{ minWidth: 32, minHeight: 32, color: 'var(--ds-text-secondary)' }}
           title="رد"
         >
-          <Reply size={15} />
+          <Reply size={14} />
         </button>
 
         {(isOwn || isTrainerOrAdmin) && (
           <>
             {isTrainerOrAdmin && (
               <button
-                onClick={() => { togglePin.mutate({ messageId: message.id, isPinned: message.is_pinned }); setShowMenu(false) }}
-                className={`p-1.5 rounded hover:bg-[var(--surface)] transition-colors ${message.is_pinned ? 'text-amber-400' : 'text-[var(--text-muted)] hover:text-amber-400'}`}
-                style={{ minWidth: 32, minHeight: 32 }}
+                onClick={() => togglePin.mutate({ messageId: message.id })}
+                className="p-1.5 rounded-lg hover:bg-[var(--ds-surface-1)] transition-colors"
+                style={{
+                  minWidth: 32, minHeight: 32,
+                  color: message.is_pinned ? 'var(--ds-accent-gold)' : 'var(--ds-text-secondary)',
+                }}
                 title={message.is_pinned ? 'إلغاء التثبيت' : 'تثبيت'}
               >
-                <Pin size={15} />
+                <Pin size={14} />
               </button>
             )}
             {isOwn && (
               <button
-                onClick={() => { onEdit?.(message); setShowMenu(false) }}
-                className="p-1.5 rounded hover:bg-[var(--surface)] text-[var(--text-muted)] hover:text-sky-400 transition-colors"
-                style={{ minWidth: 32, minHeight: 32 }}
+                onClick={() => onEdit?.(message)}
+                className="p-1.5 rounded-lg hover:bg-[var(--ds-surface-1)] transition-colors"
+                style={{ minWidth: 32, minHeight: 32, color: 'var(--ds-text-secondary)' }}
                 title="تعديل"
               >
-                <Edit2 size={15} />
+                <Edit2 size={14} />
               </button>
             )}
             <button
               onClick={() => { if (window.confirm('هل تريد حذف هذه الرسالة؟')) deleteMsg.mutate({ messageId: message.id }) }}
-              className="p-1.5 rounded hover:bg-[var(--surface)] text-[var(--text-muted)] hover:text-red-400 transition-colors"
-              style={{ minWidth: 32, minHeight: 32 }}
+              className="p-1.5 rounded-lg hover:bg-[var(--ds-surface-1)] transition-colors"
+              style={{ minWidth: 32, minHeight: 32, color: 'var(--ds-text-secondary)' }}
               title="حذف"
             >
-              <Trash2 size={15} />
+              <Trash2 size={14} />
             </button>
           </>
         )}
