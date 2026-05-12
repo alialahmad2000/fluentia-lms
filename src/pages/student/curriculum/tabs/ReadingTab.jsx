@@ -13,6 +13,10 @@ import PageHelp from '../../../../components/PageHelp'
 import { usePointerType } from '../../../../hooks/usePointerType'
 import { useReadingPrefs } from '../../../../hooks/useReadingPrefs'
 import { usePageReset } from '../../../../hooks/usePageReset'
+import { useReadingPassageAudio } from '../../../../hooks/useReadingPassageAudio'
+import SmartAudioPlayer from '../../../../components/audio/SmartAudioPlayer'
+import { VocabPopup } from '../../../../components/audio/VocabPopup'
+import { trackEvent } from '../../../../lib/trackEvent'
 
 const QUESTION_TYPE_LABELS = {
   main_idea: 'الفكرة الرئيسية',
@@ -361,6 +365,20 @@ function ReadingContent({ reading, studentId, unitId }) {
   const [vocabQuiz, setVocabQuiz] = useState(null)
   const [quizLoading, setQuizLoading] = useState(false)
   const [quizAnswers, setQuizAnswers] = useState({})
+  const [vocabPopup, setVocabPopup] = useState(null) // { word, x, y } or null
+  const audioPlayStartedRef = useRef(false)
+
+  // Audio data for SmartAudioPlayer
+  const { audioData, loading: audioLoading } = useReadingPassageAudio(reading?.id, reading?.passage_content)
+
+  // Word click handler — fires from SmartAudioPlayer karaoke (non-vocabMap words only)
+  const handleWordClick = useCallback((word, _segIdx, positionX) => {
+    const clean = word.replace(/[.,!?;:'"()\[\]]/g, '').toLowerCase().trim()
+    if (!clean || clean.length < 2) return
+    if (vocabMap[clean]) return // highlighted vocab words keep their own handler
+    setVocabPopup({ word: clean, x: positionX, y: window.innerHeight * 0.4 })
+    trackEvent('reading_word_lookup', { passage_id: reading?.id, word: clean, found_in_vocab: false })
+  }, [vocabMap, reading?.id])
 
   // Register page-specific reset actions
   usePageReset(() => {
@@ -391,6 +409,16 @@ function ReadingContent({ reading, studentId, unitId }) {
       setSavedWordSet(new Set(savedWords.map(w => w.word.toLowerCase())))
     }
   }, [savedWords])
+
+  // Track passage open
+  useEffect(() => {
+    if (!reading?.id) return
+    trackEvent('reading_passage_open', {
+      passage_id: reading.id,
+      unit_id: unitId,
+      has_audio: !!audioData,
+    })
+  }, [reading?.id]) // eslint-disable-line
 
   const handleWordSaved = useCallback((word) => {
     if (word.startsWith('__remove__')) {
@@ -585,13 +613,11 @@ function ReadingContent({ reading, studentId, unitId }) {
                   {reading.passage_word_count} words
                 </span>
               )}
-              {reading.passage_audio_url && (
-                <AudioButton url={reading.passage_audio_url} label="استمع للقراءة" />
-              )}
-              {!reading.passage_audio_url && (
-                <span className="inline-flex items-center gap-1.5 text-xs text-slate-600 font-['Tajawal'] cursor-default" title="قريبا">
+              {/* Audio indicator — SmartAudioPlayer is rendered below */}
+              {audioData && (
+                <span className="inline-flex items-center gap-1.5 text-xs text-sky-400 font-['Tajawal']">
                   <Headphones size={12} />
-                  استماع
+                  صوت متوفر
                 </span>
               )}
               {/* Focus Mode Toggle */}
@@ -691,6 +717,51 @@ function ReadingContent({ reading, studentId, unitId }) {
             </div>
             <div className="border-b border-slate-800/50 pb-0" />
           </div>
+
+          {/* ── Smart Audio Player ──────────────────────────────────────── */}
+          {audioData && (
+            <SmartAudioPlayer
+              segments={audioData.segments}
+              contentId={reading.id}
+              contentType="reading"
+              studentId={studentId}
+              showTranscriptByDefault={false}
+              features={{
+                karaoke: true,
+                speedControl: true,
+                skipButtons: true,
+                sentenceNav: true,
+                paragraphNav: false,
+                sentenceMode: false,
+                abLoop: true,
+                bookmarks: true,
+                speakerLabels: false,
+                hideTranscript: true,
+                keyboardShortcuts: true,
+                mobileGestures: true,
+                dictation: false,
+                autoResume: true,
+                playbackHistory: true,
+                wordClickToLookup: true,
+              }}
+              onWordClick={handleWordClick}
+              onSegmentComplete={(i) => {
+                if (i === 0 && !audioPlayStartedRef.current) {
+                  audioPlayStartedRef.current = true
+                  trackEvent('reading_audio_play_start', { passage_id: reading.id })
+                }
+                trackEvent('reading_audio_segment_complete', {
+                  passage_id: reading.id,
+                  segment_index: i,
+                  total_segments: audioData.segments.length,
+                })
+              }}
+              onPlaybackComplete={() => {
+                trackEvent('reading_audio_complete', { passage_id: reading.id })
+              }}
+              className="mb-2"
+            />
+          )}
 
           {/* Before You Read */}
           {reading.before_read_exercise_a && (
@@ -874,6 +945,17 @@ function ReadingContent({ reading, studentId, unitId }) {
       {/* Critical Thinking */}
       {reading.critical_thinking_prompt_en && (
         <CriticalThinkingBox reading={reading} />
+      )}
+
+      {/* ── Vocab Popup (word-click from player or passage) ── */}
+      {vocabPopup && (
+        <VocabPopup
+          word={vocabPopup.word}
+          readingId={reading.id}
+          isOpen={true}
+          onClose={() => setVocabPopup(null)}
+          anchorPosition={{ x: vocabPopup.x, y: vocabPopup.y }}
+        />
       )}
     </div>
   )
