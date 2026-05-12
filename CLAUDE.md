@@ -899,3 +899,16 @@ This is how future sessions know what happened.
 - Files: `src/pages/student/curriculum/tabs/AssessmentTab.jsx`, `src/hooks/useActivityAttempts.js`, `src/lib/attempts.js`, `supabase/functions/submit-activity-attempt/index.ts`, `supabase/functions/abandon-attempt/index.ts`
 - Status: Complete — migration applied, edge functions deployed, frontend committed
 - Notes: `activity_attempts.activity_id` references `curriculum_assessments`. Questions stored in `curriculum_assessments.questions` JSONB array — each has `id`, `question_type`, `question_en`, `choices`/`options`, `correct_answer`, `accepted_answers`. Reload mid-quiz leaves attempt as in_progress (no auto-submit). Page reload → resume branch shown.
+
+### 2026-05-12 — Saudi Dialect Engine v1 (Grammar Layer)
+- What: Pre-generated Najdi dialect explanations for every grammar lesson in the curriculum
+- New table: `dialect_explanations` — 1:1 with `curriculum_grammar`, Najdi text + reserved Hijazi + audio URL columns
+- Content: 72 explanations generated (Pre-A1 through C1), avg 182 words each, Saudi cultural anchors (قهوة، الدوام، الجامعة، العيد)
+- UI: `DialectExplanationCard` (gradient CTA card) + `DialectExplanationDrawer` (RTL slide-in) mounted between GrammarHeader and LessonCard in GrammarTab
+- Hook: `useDialectExplanation` (TanStack Query, 1h stale — content is static)
+- Audio: columns reserved, all NULL — voice-clone prompt (#3) fills them later
+- Hijazi variant: deferred to Phase 2
+- DB: `supabase/migrations/20260512120000_create_dialect_explanations.sql`
+- Files: `src/hooks/useDialectExplanation.js`, `src/components/dialect/DialectExplanationCard.jsx`, `src/components/dialect/DialectExplanationDrawer.jsx`, `src/pages/student/curriculum/tabs/GrammarTab.jsx`
+- Seed: `scripts/seeds/dialect-explanations-grammar.json` (72 rows, idempotent re-runnable)
+- Status: Complete — 4 commits pushed to main (0879613, 2b86e2f, 4789ef6 + docs commit)
