@@ -1,0 +1,170 @@
+/* ─────────────────────────────────────────────────────────────
+   VELVET ATMOSPHERE — Premium ambient background
+   Performance contract: zero backdrop-filter, zero filter animations,
+   only transform-based motion, paused on hidden tab.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Theme tokens ── */
+
+/* Night Sky / Gold (default + data-theme="night") */
+:root,
+[data-theme="night"] {
+  --atmo-base-start: #0b0f1e;
+  --atmo-base-end:   #060914;
+  --atmo-orb-1: rgba(233, 185, 73,  0.09);   /* warm gold */
+  --atmo-orb-2: rgba(90,  74,  140, 0.07);   /* muted violet */
+  --atmo-orb-3: rgba(31,  58,  95,  0.08);   /* deep navy whisper */
+  --atmo-dot:   rgba(255, 255, 255, 0.045);
+  --atmo-vignette:       rgba(0, 0, 0, 0.55);
+  --atmo-grain-opacity:  0.025;
+  --atmo-grain-blend:    overlay;
+}
+
+/* Aurora Cinematic — cool teal / violet / gold */
+[data-theme="aurora-cinematic"] {
+  --atmo-base-start: #060e1c;
+  --atmo-base-end:   #04080f;
+  --atmo-orb-1: rgba(56,  189, 248, 0.10);   /* teal */
+  --atmo-orb-2: rgba(167, 139, 250, 0.08);   /* violet */
+  --atmo-orb-3: rgba(251, 191, 36,  0.05);   /* gold whisper */
+  --atmo-dot:   rgba(255, 255, 255, 0.05);
+  --atmo-vignette:       rgba(0, 0, 0, 0.60);
+  --atmo-grain-opacity:  0.030;
+  --atmo-grain-blend:    overlay;
+}
+
+/* Modern Minimal — clean light */
+[data-theme="minimal"] {
+  --atmo-base-start: #fbfcfe;
+  --atmo-base-end:   #eef2f7;
+  --atmo-orb-1: rgba(2,   132, 199, 0.06);   /* blue */
+  --atmo-orb-2: rgba(124, 58,  237, 0.05);   /* violet */
+  --atmo-orb-3: rgba(217, 119, 6,   0.04);   /* amber whisper */
+  --atmo-dot:   rgba(15,  23,  42,  0.05);
+  --atmo-vignette:       rgba(15, 23, 42, 0.05);
+  --atmo-grain-opacity:  0.015;
+  --atmo-grain-blend:    multiply;
+}
+
+/* ── Container ── */
+.velvet-atmo {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  isolation: isolate;
+  contain: layout paint size;
+}
+
+/* ── Layer 1: Base gradient ── */
+.velvet-atmo__base {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    var(--atmo-base-start) 0%,
+    var(--atmo-base-end)   100%
+  );
+}
+
+/* ── Layer 2: Drifting aurora orbs ── */
+.velvet-atmo__orb {
+  position: absolute;
+  width: 80vmax;
+  height: 80vmax;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.velvet-atmo__orb--1 {
+  top: -25vmax;
+  left: -20vmax;
+  background: radial-gradient(circle, var(--atmo-orb-1) 0%, transparent 60%);
+  animation: velvet-atmo-drift-1 90s ease-in-out infinite;
+}
+
+.velvet-atmo__orb--2 {
+  top: 20vmax;
+  right: -28vmax;
+  background: radial-gradient(circle, var(--atmo-orb-2) 0%, transparent 60%);
+  animation: velvet-atmo-drift-2 110s ease-in-out infinite;
+  animation-delay: -22s;
+}
+
+.velvet-atmo__orb--3 {
+  bottom: -25vmax;
+  left: 25%;
+  background: radial-gradient(circle, var(--atmo-orb-3) 0%, transparent 60%);
+  animation: velvet-atmo-drift-3 130s ease-in-out infinite;
+  animation-delay: -44s;
+}
+
+@keyframes velvet-atmo-drift-1 {
+  0%,   100% { transform: translate3d(0,    0,   0); }
+  33%        { transform: translate3d(8vw,  6vh, 0); }
+  66%        { transform: translate3d(-5vw, 10vh,0); }
+}
+
+@keyframes velvet-atmo-drift-2 {
+  0%,   100% { transform: translate3d(0,     0,    0); }
+  50%        { transform: translate3d(-10vw, -8vh, 0); }
+}
+
+@keyframes velvet-atmo-drift-3 {
+  0%,   100% { transform: translate3d(0,    0,   0); }
+  33%        { transform: translate3d(-6vw, -4vh, 0); }
+  66%        { transform: translate3d(8vw,  5vh,  0); }
+}
+
+/* ── Layer 3: Subtle dot grid (static) ── */
+.velvet-atmo__dotgrid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at center, var(--atmo-dot) 1px, transparent 1px);
+  background-size: 36px 36px;
+  opacity: 0.65;
+}
+
+/* ── Layer 4: Edge vignette (static) ── */
+.velvet-atmo__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 45%, var(--atmo-vignette) 100%);
+}
+
+/* ── Layer 5: Film grain (static SVG noise) ── */
+.velvet-atmo__grain {
+  position: absolute;
+  inset: 0;
+  opacity: var(--atmo-grain-opacity);
+  mix-blend-mode: var(--atmo-grain-blend);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 256px 256px;
+}
+
+/* ── Performance: pause animations when tab hidden ── */
+.velvet-atmo.is-paused .velvet-atmo__orb {
+  animation-play-state: paused;
+}
+
+/* ── Accessibility: reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .velvet-atmo__orb {
+    animation: none !important;
+  }
+}
+
+/* ── Mobile: drop one orb + grain, slow remaining ── */
+@media (max-width: 768px) {
+  .velvet-atmo__orb--3 { display: none; }
+  .velvet-atmo__grain  { display: none; }
+  .velvet-atmo__orb--1 { animation-duration: 160s; }
+  .velvet-atmo__orb--2 { animation-duration: 200s; }
+}
+
+/* ── Optional variant tuning (reserved) ── */
+.velvet-atmo--subtle .velvet-atmo__orb  { opacity: 0.6; }
+.velvet-atmo--intense .velvet-atmo__orb { opacity: 1.2; }
