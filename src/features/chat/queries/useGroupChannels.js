@@ -32,10 +32,7 @@ export function useChannelUnreadCounts(groupId) {
     queryFn: async () => {
       const { data, error } = await supabase
         .rpc('get_chat_unread_total')
-      if (error) {
-        console.warn('get_chat_unread_total RPC not yet available:', error.message)
-        return 0
-      }
+      if (error) return 0
       return data ?? 0
     },
   })
