@@ -169,14 +169,21 @@
 .velvet-atmo--subtle .velvet-atmo__orb  { opacity: 0.6; }
 .velvet-atmo--intense .velvet-atmo__orb { opacity: 1.2; }
 
-/* ── Chat page: slightly more visible depth without competing with bubbles ── */
-/* body.chat-page added/removed by GroupChatPage useEffect */
-.velvet-atmo--chat .velvet-atmo__orb,
-body.chat-page .velvet-atmo__orb   { opacity: 1.5; }
+/* ── Chat page: visibly alive background ── */
+/* body.chat-page added/removed by GroupChatPage useEffect.
+   Fix: override the --atmo-orb-* CSS vars (opacity: 1.5 was wrong — CSS
+   opacity is clamped 0-1, so it was a no-op. Vars are the correct lever.) */
+body.chat-page {
+  /* Night/aurora-cinematic: was gold 0.09, violet 0.07, navy 0.08 */
+  --atmo-orb-1: rgba(233, 185, 73,  0.22); /* gold   — 2.4× boost */
+  --atmo-orb-2: rgba(90,  74,  140, 0.18); /* violet — 2.6× boost */
+  --atmo-orb-3: rgba(31,  58,  95,  0.16); /* navy   — 2.0× boost */
+  --atmo-dot:   rgba(255, 255, 255, 0.08); /* dot grid slightly brighter */
+}
+
+/* Slower drift — glacial is premium */
+body.chat-page .velvet-atmo__orb--1 { animation-duration: 90s; }
+body.chat-page .velvet-atmo__orb--2 { animation-duration: 120s; }
+body.chat-page .velvet-atmo__orb--3 { animation-duration: 150s; }
 
 body.chat-page .velvet-atmo__dotgrid { opacity: 0.85; }
-
-/* Slower drift on chat page — breathes, doesn't dance */
-body.chat-page .velvet-atmo__orb--1 { animation-duration: 120s; }
-body.chat-page .velvet-atmo__orb--2 { animation-duration: 150s; }
-body.chat-page .velvet-atmo__orb--3 { animation-duration: 180s; }
