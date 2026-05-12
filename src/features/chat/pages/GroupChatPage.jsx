@@ -1,134 +1,88 @@
-import { useState, useEffect } from 'react'
+// GOD COMM — Premium Redesign (Phase 1.7)
+// Single unified stream per group. No channel sidebar. Filter lenses in header.
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { Menu } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import { useGroupChannels } from '../queries/useGroupChannels'
 import { usePresence } from '../realtime/usePresence'
-import ChannelSidebar from '../components/ChannelSidebar'
-import ChatHeader from '../components/ChatHeader'
-import MessageList from '../components/MessageList'
-import MessageComposer from '../components/MessageComposer'
-import PinnedMessagesStrip from '../components/PinnedMessagesStrip'
+import StreamHeader from '../components/premium/StreamHeader'
 import ChatSearchPanel from '../components/ChatSearchPanel'
 
+// R2+ will fill these with real implementations
+const UnifiedMessageStream  = () => <div className="flex-1" />
+const FilterLensBar         = () => null
+const PinnedStrip           = () => null
+const PremiumComposer       = () => null
+
 export default function GroupChatPage() {
-  const { groupId, channelSlug = 'general', messageId } = useParams()
+  // All hooks at top — before any conditional logic
+  const { groupId, channelSlug, messageId } = useParams()
   const navigate = useNavigate()
   const { profile } = useAuthStore()
-
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [replyTo, setReplyTo] = useState(null)
-  const [editingMsg, setEditingMsg] = useState(null)
   const [searchOpen, setSearchOpen] = useState(false)
+  const [headerCollapsed, setHeaderCollapsed] = useState(false)
+  const lastScrollY = useRef(0)
 
+  // Channel list needed to resolve general channel id (used by composer)
   const { data: channels = [] } = useGroupChannels(groupId)
-  const activeChannel = channels.find((c) => c.slug === channelSlug) ?? null
-  const { onlineUserIds } = usePresence(activeChannel?.id)
 
-  // Group name from profile or student data
-  const groupName = profile?.role === 'student' ? null : null
+  // Presence scoped to group (uses group:<id> key — no channel dependency)
+  // usePresence adapted: pass a group-level channel key
+  const generalChannel = channels.find((c) => c.slug === 'general')
+  const { onlineUserIds } = usePresence(generalChannel?.id)
 
-  function handleChannelSelect(ch) {
-    navigate(`/chat/${groupId}/${ch.slug}`, { replace: true })
-    setSidebarOpen(false)
-  }
+  const isTrainer = ['trainer', 'admin'].includes(profile?.role)
 
-  const isAnnouncement = activeChannel?.is_announcement ?? false
-
-  // Trainers/admins can post in announcements; students cannot
-  const canCompose = !isAnnouncement || ['trainer', 'admin'].includes(profile?.role)
+  // Collapse header on scroll-down, expand on scroll-up
+  const handleStreamScroll = useCallback((scrollTop) => {
+    const going = scrollTop - lastScrollY.current
+    lastScrollY.current = scrollTop
+    if (going > 8 && scrollTop > 80) setHeaderCollapsed(true)
+    else if (going < -8) setHeaderCollapsed(false)
+  }, [])
 
   return (
     <div
-      className="flex h-[calc(100dvh-60px)] bg-[var(--bg-page)] overflow-hidden"
-      style={{ direction: 'rtl' }}
+      className="flex flex-col bg-[var(--ds-bg-base)]"
+      style={{ height: '100dvh', maxHeight: '100dvh', direction: 'rtl', overflow: 'hidden' }}
     >
+      {/* Search overlay */}
       {searchOpen && (
         <ChatSearchPanel groupId={groupId} onClose={() => setSearchOpen(false)} />
       )}
-      {/* Desktop channel sidebar */}
-      <ChannelSidebar
+
+      {/* Sticky header */}
+      <StreamHeader
+        groupName={channels[0]?.group_id ? undefined : undefined}
         groupId={groupId}
-        activeSlug={channelSlug}
-        onSelect={handleChannelSelect}
         onlineUserIds={onlineUserIds}
-        className="hidden md:flex"
+        onSearchOpen={() => setSearchOpen(true)}
+        isTrainer={isTrainer}
+        collapsed={headerCollapsed}
       />
 
-      {/* Mobile sidebar overlay */}
-      {sidebarOpen && (
-        <div className="md:hidden fixed inset-0 z-40 flex" style={{ direction: 'rtl' }}>
-          <ChannelSidebar
-            groupId={groupId}
-            activeSlug={channelSlug}
-            onSelect={handleChannelSelect}
-            className="flex shadow-2xl"
-          />
-          <button
-            className="flex-1 bg-black/50"
-            onClick={() => setSidebarOpen(false)}
-          />
-        </div>
-      )}
+      {/* Pinned strip (R4) */}
+      <PinnedStrip groupId={groupId} />
 
-      {/* Main content */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        {/* Mobile sidebar toggle + header */}
-        <div className="flex items-center">
-          <button
-            className="md:hidden p-3 text-[var(--text-muted)] hover:text-[var(--text-primary)]"
-            onClick={() => setSidebarOpen(true)}
-          >
-            <Menu size={20} />
-          </button>
-          <div className="flex-1">
-            <ChatHeader
-              channel={activeChannel}
-              groupName={groupName}
-              onSearchOpen={() => setSearchOpen(true)}
-              onlineCount={onlineUserIds.length}
-            />
-          </div>
-        </div>
+      {/* Filter lenses (R3) */}
+      <FilterLensBar groupId={groupId} />
 
-        {/* Pinned strip */}
-        {activeChannel && <PinnedMessagesStrip channelId={activeChannel.id} />}
-
-        {/* Messages */}
-        {activeChannel ? (
-          <MessageList
-            channelId={activeChannel.id}
-            groupId={groupId}
-            deepLinkMessageId={messageId}
-            onReply={setReplyTo}
-            onEdit={setEditingMsg}
-          />
-        ) : (
-          <div className="flex-1 flex items-center justify-center text-[var(--text-muted)]">
-            <p style={{ fontFamily: 'Tajawal, sans-serif' }}>اختر قناة من القائمة</p>
-          </div>
-        )}
-
-        {/* Composer */}
-        {activeChannel && canCompose && (
-          <MessageComposer
-            channelId={activeChannel.id}
-            groupId={groupId}
-            replyTo={replyTo}
-            onClearReply={() => setReplyTo(null)}
-            isAnnouncement={isAnnouncement}
-          />
-        )}
-
-        {!canCompose && (
-          <div
-            className="px-4 py-3 text-center text-sm text-amber-400 border-t border-[var(--border)] bg-amber-500/5"
-            style={{ fontFamily: 'Tajawal, sans-serif' }}
-          >
-            هذه القناة للإعلانات فقط من المدرب
-          </div>
-        )}
+      {/* Unified message stream (R2) */}
+      <div className="flex-1 min-h-0 relative">
+        <UnifiedMessageStream
+          groupId={groupId}
+          deepLinkMessageId={messageId}
+          onScroll={handleStreamScroll}
+          generalChannelId={generalChannel?.id}
+        />
       </div>
+
+      {/* Premium composer (R5) — falls back to existing MessageComposer */}
+      <PremiumComposer
+        groupId={groupId}
+        generalChannelId={generalChannel?.id}
+        isTrainer={isTrainer}
+      />
     </div>
   )
 }

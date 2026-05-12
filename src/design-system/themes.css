@@ -55,6 +55,14 @@
   --ds-shadow-glow: 0 0 36px var(--ds-accent-primary-glow);
   --ds-is-dark: 1;
 
+  /* Premium chat aliases — spec names mapped to existing tokens */
+  --ds-surface-glass: var(--ds-bg-overlay);
+  --ds-border-emphasis: var(--ds-border-strong);
+  --ds-text-muted: var(--ds-text-tertiary);
+  --ds-state-success: var(--ds-accent-success);
+  --ds-state-warning: var(--ds-accent-warning);
+  --ds-state-danger: var(--ds-accent-danger);
+
   /* Masterclass tokens */
   --ds-sky: #7dd3fc;
   --ds-amber: #f59e0b;
