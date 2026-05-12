@@ -305,6 +305,22 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### 2026-05-12 — GOD COMM System Phase 1 Foundation (Commits a23f5d9→8c6527a)
+- What: Full in-LMS communication system built to replace Telegram for group chat. Phases A-N executed (A=Discovery, B=DB schema, C=Storage, D=Routes, E=Data layer, F=Shell UI, G=Voice, H=Composer, J=Mentions/Pins, K=Search, L=Push, M=Bell wiring).
+- Architecture: `src/features/chat/` — queries/, mutations/, realtime/, components/, pages/, providers/, lib/
+- DB migration: `supabase/migrations/20260512200000_god_comm_phase_b_schema.sql` — **MUST BE RUN MANUALLY IN SUPABASE SQL EDITOR** (direct psql blocked by network on dev machine). Creates: group_channels, message_reads, channel_read_cursors, is_in_group(), get_chat_unread_total(). Adds columns to group_messages (channel_id, body, voice_waveform, deleted_at, mentions, etc.). Adds chat types to notification_type enum. Seeds 9 channels × 8 groups. Backfills channel_id from existing 153 messages. Adds realtime publication for group_messages/message_reactions/notifications/channel_read_cursors.
+- chat_search RPC: `supabase/migrations/20260512210000_god_comm_phase_k_search.sql` — also needs manual SQL Editor run.
+- Storage: chat-voice (25MB), chat-files (50MB), chat-images (10MB) buckets created via REST API ✅
+- Edge functions deployed: process-mentions (DB webhook for @mentions → notifications + push), link-preview (OG scraper)
+- Routes: /chat, /chat/:groupId, /chat/:groupId/:channelSlug, /chat/:groupId/:channelSlug/m/:messageId
+- Nav: "المحادثة" added to STUDENT_NAV (community section), TRAINER_NAV (tools), ADMIN_NAV (operations)
+- Key components: ChannelSidebar (RTL, mobile swipe-out), MessageList (infinite scroll, deep-link, realtime), MessageBubble (all types: text/voice/image/file/link/announcement), VoiceRecorder (MediaRecorder, waveform, lock/cancel), MessageComposer (text+voice+image+file, typing indicator), PinnedMessagesStrip
+- Decision: DRIFT REPAIR (not fresh build) — existing group_messages (153 rows), notifications (596 rows), push_subscriptions (268 rows) preserved. Legacy `content` and `channel` enum kept alongside new `body` and `channel_id` FK.
+- Group membership: students.group_id (NOT profiles.group_id) — is_in_group() helper updated
+- Phase L pre-built: push-sw.js already existed + send-push-notification edge fn already deployed. Added chat notification types to TYPE_CONFIG.
+- Status: Frontend code complete + pushed to main + Vercel auto-deploying. DB migration needs manual run.
+- Files: src/features/chat/** (40+ files), src/lib/chatStorage.js, src/config/navigation.js, src/App.jsx, supabase/functions/process-mentions/, supabase/functions/link-preview/, public/push-sw.js, supabase/migrations/20260512200000+20260512210000
+
 ### April 16, 2026 — Stop Auto-Grading Unfinished Activity Attempts (a9dfbdf)
 - What: Students reported that answering 1-2 questions in Reading/Listening/Grammar activities then navigating away caused the system to auto-grade ALL unanswered questions as wrong and mark the row `status=completed` with a low score. Root cause: the per-answer autosave `useEffect` in each activity wrote `status='completed'` + computed a score (counting unanswered as wrong) the instant `answered === total` — no explicit submit step existed.
 - **Fix (save-vs-submit separation):** In all three affected activities, autosave now ALWAYS writes `status='in_progress'` + `score=null` + `completed_at=null`. A new inline "تسليم الإجابات" submit button (disabled until all questions answered) is the ONLY path that writes `status='completed'`, computes the score, and fires `awardCurriculumXP`. Reading `MCQQuestion` and Listening `ListeningMCQ` also gained a `revealCorrect` prop — correct/wrong styling and explanation blocks only appear after submit, letting students change answers freely before submitting. Grammar keeps its per-answer feedback (intentional practice UX) but no longer auto-completes.
