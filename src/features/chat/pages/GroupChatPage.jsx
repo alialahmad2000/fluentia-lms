@@ -11,8 +11,7 @@ import ChatSearchPanel from '../components/ChatSearchPanel'
 import UnifiedMessageStream from '../components/premium/UnifiedMessageStream'
 import FilterLensBar from '../components/premium/FilterLensBar'
 import PinnedStrip from '../components/premium/PinnedStrip'
-// R5+ will fill these with real implementations
-const PremiumComposer = () => null
+import PremiumComposer from '../components/premium/PremiumComposer'
 
 export default function GroupChatPage() {
   // All hooks at top — before any conditional logic
@@ -87,7 +86,7 @@ export default function GroupChatPage() {
         />
       </div>
 
-      {/* Premium composer (R5) — falls back to existing MessageComposer */}
+      {/* Premium composer */}
       <PremiumComposer
         groupId={groupId}
         generalChannelId={generalChannel?.id}
