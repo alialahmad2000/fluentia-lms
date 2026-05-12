@@ -4,23 +4,48 @@ import { useSendMessage } from '../mutations/useSendMessage'
 import { uploadChatFile, uploadChatImage } from '../../../lib/chatStorage'
 import ReplyPreviewBar from './ReplyPreviewBar'
 import VoiceRecorder from './VoiceRecorder'
+import MentionAutocomplete from './MentionAutocomplete'
 import { useTypingIndicator } from '../realtime/useTypingIndicator'
+
+// Returns { query: string, start: number } if cursor is inside @<partial>,
+// otherwise null.
+function getMentionQuery(text, cursorPos) {
+  const before = text.slice(0, cursorPos)
+  const match = before.match(/@(\w*)$/)
+  if (!match) return null
+  return { query: match[1], start: match.index }
+}
 
 export default function MessageComposer({ channelId, groupId, replyTo, onClearReply, isAnnouncement }) {
   const [input, setInput] = useState('')
   const [uploading, setUploading] = useState(false)
   const [voiceMode, setVoiceMode] = useState(false)
+  const [mentions, setMentions] = useState([])          // { id, first_name_ar }[]
+  const [mentionQuery, setMentionQuery] = useState(null) // { query, start } | null
   const textareaRef = useRef(null)
   const fileRef = useRef(null)
   const imageRef = useRef(null)
 
+  // All hooks declared before any conditional logic
   const sendMessage = useSendMessage(channelId, groupId)
   const { broadcastTyping, typingText } = useTypingIndicator(channelId)
+
+  function detectMentionContext() {
+    const ta = textareaRef.current
+    if (!ta) return
+    const ctx = getMentionQuery(ta.value, ta.selectionStart)
+    setMentionQuery(ctx)
+  }
 
   function handleInput(e) {
     setInput(e.target.value)
     autoResize()
     broadcastTyping()
+    detectMentionContext()
+  }
+
+  function handleSelect(e) {
+    detectMentionContext()
   }
 
   function autoResize() {
@@ -30,10 +55,36 @@ export default function MessageComposer({ channelId, groupId, replyTo, onClearRe
     ta.style.height = `${Math.min(ta.scrollHeight, 144)}px`
   }
 
+  function handleMentionSelect(member) {
+    const ta = textareaRef.current
+    if (!ta || !mentionQuery) return
+
+    const before = input.slice(0, mentionQuery.start)
+    const after = input.slice(ta.selectionStart)
+    const name = member.first_name_ar ?? ''
+    const newText = `${before}@${name} ${after}`
+    setInput(newText)
+    setMentionQuery(null)
+    setMentions((prev) => {
+      if (prev.find((m) => m.id === member.id)) return prev
+      return [...prev, { id: member.id, name }]
+    })
+    // Re-focus textarea
+    setTimeout(() => {
+      if (ta) {
+        const pos = before.length + name.length + 2
+        ta.focus()
+        ta.setSelectionRange(pos, pos)
+      }
+    }, 0)
+  }
+
   async function handleSend() {
     const text = input.trim()
     if (!text) return
     setInput('')
+    setMentions([])
+    setMentionQuery(null)
     if (textareaRef.current) textareaRef.current.style.height = 'auto'
 
     await sendMessage.mutateAsync({
@@ -41,12 +92,14 @@ export default function MessageComposer({ channelId, groupId, replyTo, onClearRe
       body: text,
       content: text,
       reply_to: replyTo?.id ?? null,
-      mentions: [],
+      mentions: mentions.map((m) => m.id),
     })
     onClearReply?.()
   }
 
   function handleKeyDown(e) {
+    // While mention autocomplete is open: arrow keys / enter / escape handled by component
+    if (mentionQuery !== null) return
     if (e.key === 'Enter' && !e.shiftKey && window.innerWidth > 768) {
       e.preventDefault()
       handleSend()
@@ -101,7 +154,7 @@ export default function MessageComposer({ channelId, groupId, replyTo, onClearRe
 
   return (
     <div
-      className="border-t border-[var(--border)] bg-[var(--bg-card)]"
+      className="border-t border-[var(--border)] bg-[var(--bg-card)] relative"
       style={{ direction: 'rtl' }}
     >
       <ReplyPreviewBar replyTo={replyTo} onCancel={onClearReply} />
@@ -118,21 +171,24 @@ export default function MessageComposer({ channelId, groupId, replyTo, onClearRe
         </div>
       )}
 
+      {/* Mention autocomplete — rendered inside the composer container for correct positioning */}
+      {mentionQuery !== null && (
+        <MentionAutocomplete
+          groupId={groupId}
+          filter={mentionQuery.query}
+          onSelect={handleMentionSelect}
+          onDismiss={() => setMentionQuery(null)}
+        />
+      )}
+
       <div className="flex items-end gap-2 p-3">
-        {/* File pickers (hidden) */}
         <input ref={imageRef} type="file" accept="image/png,image/jpeg,image/webp,image/gif" className="hidden" onChange={handleImagePick} />
         <input ref={fileRef} type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.zip" className="hidden" onChange={handleFilePick} />
 
-        {/* Voice mode */}
         {voiceMode && (
-          <VoiceRecorder
-            channelId={channelId}
-            groupId={groupId}
-            onDone={() => setVoiceMode(false)}
-          />
+          <VoiceRecorder channelId={channelId} groupId={groupId} onDone={() => setVoiceMode(false)} />
         )}
 
-        {/* Text mode */}
         {!voiceMode && (
           <>
             <div className="flex gap-1 pb-1">
@@ -161,7 +217,9 @@ export default function MessageComposer({ channelId, groupId, replyTo, onClearRe
               value={input}
               onChange={handleInput}
               onKeyDown={handleKeyDown}
-              placeholder="اكتب رسالة..."
+              onSelect={handleSelect}
+              onClick={handleSelect}
+              placeholder="اكتب رسالة... اكتب @ لذكر شخص"
               className="flex-1 resize-none bg-[var(--surface)] border border-[var(--border)] rounded-xl px-4 py-2.5 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-sky-500/50 transition-colors"
               style={{ fontFamily: 'Tajawal, sans-serif', direction: 'auto', minHeight: 44, maxHeight: 144 }}
               rows={1}

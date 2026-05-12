@@ -1,41 +1,69 @@
-// Auto-links URLs in plain text messages
+// Renders plain text with auto-linked URLs and styled @mention chips
 const URL_RE = /https?:\/\/[^\s]+/g
+const MENTION_RE = /@(\S+)/g
 
-export default function MessageBubbleText({ body }) {
+export default function MessageBubbleText({ body, mentions = [] }) {
   if (!body) return null
 
-  const parts = []
+  // Build a list of tokens: text | url | mention
+  const tokens = []
   let last = 0
-  let match
+  const combined = []
 
+  // Collect all matches with their positions
   URL_RE.lastIndex = 0
-  while ((match = URL_RE.exec(body)) !== null) {
-    if (match.index > last) parts.push({ type: 'text', value: body.slice(last, match.index) })
-    parts.push({ type: 'link', value: match[0] })
-    last = match.index + match[0].length
+  MENTION_RE.lastIndex = 0
+
+  let m
+  while ((m = URL_RE.exec(body)) !== null) {
+    combined.push({ type: 'url', value: m[0], index: m.index, end: m.index + m[0].length })
   }
-  if (last < body.length) parts.push({ type: 'text', value: body.slice(last) })
+  while ((m = MENTION_RE.exec(body)) !== null) {
+    combined.push({ type: 'mention', value: m[0], name: m[1], index: m.index, end: m.index + m[0].length })
+  }
+  combined.sort((a, b) => a.index - b.index)
+
+  // Build interleaved token list
+  for (const part of combined) {
+    if (part.index > last) {
+      tokens.push({ type: 'text', value: body.slice(last, part.index) })
+    }
+    tokens.push(part)
+    last = part.end
+  }
+  if (last < body.length) tokens.push({ type: 'text', value: body.slice(last) })
 
   return (
     <p
       className="text-sm text-[var(--text-primary)] leading-relaxed whitespace-pre-wrap break-words"
       style={{ fontFamily: 'Tajawal, sans-serif', direction: 'auto' }}
     >
-      {parts.map((part, i) =>
-        part.type === 'link' ? (
-          <a
-            key={i}
-            href={part.value}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sky-400 underline underline-offset-2 hover:text-sky-300 break-all"
-          >
-            {part.value}
-          </a>
-        ) : (
-          <span key={i}>{part.value}</span>
-        )
-      )}
+      {tokens.map((token, i) => {
+        if (token.type === 'url') {
+          return (
+            <a
+              key={i}
+              href={token.value}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sky-400 underline underline-offset-2 hover:text-sky-300 break-all"
+            >
+              {token.value}
+            </a>
+          )
+        }
+        if (token.type === 'mention') {
+          return (
+            <span
+              key={i}
+              className="inline-flex items-center px-1.5 py-0.5 rounded-md bg-sky-500/15 text-sky-400 font-medium text-[13px]"
+            >
+              {token.value}
+            </span>
+          )
+        }
+        return <span key={i}>{token.value}</span>
+      })}
     </p>
   )
 }
