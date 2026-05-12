@@ -305,6 +305,22 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### 2026-05-12 — GOD COMM Premium Redesign Phase 1.7 (Commits 63ee489→ca6b9a6)
+- What: Complete visual pivot from channel-sidebar UI to single unified stream per group. No data migration. Philosophy: AI tags messages, users see ONE stream filtered by lenses.
+- Architecture change: ChannelSidebar deprecated. GroupChatPage rebuilt. New `src/features/chat/components/premium/` directory with 16 components. `src/features/chat/lib/motion.js` for shared Framer Motion transitions.
+- R1: design token aliases, motion.js, StreamHeader skeleton, GroupChatPage shell, ChannelSidebar → .deprecated.jsx, react-virtuoso installed.
+- R2: UnifiedMessageStream (react-virtuoso), MessageGroupPremium (4-min sender grouping), DaySeparator, PremiumEmptyState, ScrollToBottomPill. useUnifiedMessages hook.
+- R3: FilterLensBar + FilterLensPill (6 lenses: all/important/voice/files/mentions/questions). get_group_messages + get_group_lens_counts RPCs (migration 20260512250000). Server-side lens filtering.
+- R4: PinnedStrip + PinnedCard (group-scoped pins, collapse, trainer unpin hover button, tap-to-scroll-original).
+- R5: PremiumComposer (glass panel, no channel selector, sends to general channel). Announcement FAB (megaphone gold button, trainer/admin only, AnnouncementSheet spring modal, posts to announcements channel). useGroupGeneralChannel + useGroupAnnouncementChannel hooks.
+- R6: VoicePlayerPremium (48-bar gradient waveform, seek, 1×/1.5×/2× speed, singleton). ReactionInlineBar (glass popIn hover bar). ReactionSummary (gold-highlighted own reactions, +N chip, taps sheet).
+- R7: ActiveUsersDots (avatar cluster), MessageBubbleSystem.jsx (centered muted pin messages), bubble restyle (own=accent-tint left, other=glass right, float+clearfix RTL alignment). Group name fetched for StreamHeader.
+- R8: All 4 /chat routes verified. ChannelSlug ignored by new GroupChatPage (back-compat for old links). Old /student/chat still registered.
+- DB: migration 20260512250000 (get_group_messages RPC + get_group_lens_counts RPC applied).
+- Files: src/features/chat/components/premium/* (16 files), GroupChatPage.jsx, GroupChatLanding.jsx, MessageBubble.jsx, MessageBubbleVoice.jsx, MessageBubbleSystem.jsx, useUnifiedMessages.js, useGroupGeneralChannel.js, motion.js, design-tokens.css (aliases), supabase/migrations/20260512250000.
+- Status: Complete — pushed to main, Vercel auto-deploying.
+- Note for trainers: Announcements now sent via gold Megaphone FAB (bottom-right above composer). No channel selector in the main composer.
+
 ### 2026-05-12 — GOD COMM Phase 1.5 Gap Closure (Commits 569db84→e91d859)
 - What: Closed all 5 critical gaps surfaced by the verification pass. Migrations applied to prod.
 - G1 — RLS fixes: message_reactions 3 policies (select/insert/delete). storage.objects 9 policies (read/insert/delete × 3 chat buckets). Migration 20260512230000.
