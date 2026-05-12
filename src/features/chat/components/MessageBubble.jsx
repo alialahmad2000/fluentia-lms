@@ -108,6 +108,7 @@ export default function MessageBubble({
           <MessageReactionsRow
             reactions={message.reactions}
             myId={profile?.id}
+            messageId={message.id}
             onReact={(emoji) => react.mutate({ messageId: message.id, emoji })}
           />
         )}
