@@ -912,3 +912,15 @@ This is how future sessions know what happened.
 - Files: `src/hooks/useDialectExplanation.js`, `src/components/dialect/DialectExplanationCard.jsx`, `src/components/dialect/DialectExplanationDrawer.jsx`, `src/pages/student/curriculum/tabs/GrammarTab.jsx`
 - Seed: `scripts/seeds/dialect-explanations-grammar.json` (72 rows, idempotent re-runnable)
 - Status: Complete — 4 commits pushed to main (0879613, 2b86e2f, 4789ef6 + docs commit)
+
+### 2026-05-12 — Personalization Bank v1 (Reading Variants, 8 Buckets)
+- What: Pre-generated personalized reading variants per canonical reading × interest bucket
+- New tables: `user_interests` (up to 3 of 8 buckets per user, RLS self-access) and `personalized_readings` (1 row per canonical × bucket, QA columns)
+- UI: InterestSurveyCard on dashboard (dismissible 7 days), InterestsSettingsSection in StudentProfile, PersonalizedReadingCard + PersonalizedReadingDrawer mounted BELOW canonical in ReadingTab
+- Hooks: useUserInterests, usePersonalizedReading
+- Phase D (content): Pre-A1 complete — 192 variants (24 readings × 8 buckets), avg word-count ratio 0.94, avg vocab coverage 0.97, 0 QA failures
+- Remaining levels (A1–C1 = 960 variants) to be generated in future sessions — idempotent UPSERT design makes resumption trivial
+- DB: `supabase/migrations/20260512130000_create_user_interests.sql`, `20260512130001_create_personalized_readings.sql`
+- Files: `src/hooks/useUserInterests.js`, `src/hooks/usePersonalizedReading.js`, `src/lib/personalization/interest-buckets.js`, `src/components/personalization/` (4 components), `src/pages/student/StudentDashboard.jsx`, `src/pages/student/StudentProfile.jsx`, `src/pages/student/curriculum/tabs/ReadingTab.jsx`
+- Seed: `scripts/seeds/personalization/L0-variants.json` (192 Pre-A1 variants)
+- Status: Pipeline complete — schema, survey UI, reading UI, and Pre-A1 content all shipped; A1–C1 content deferred
