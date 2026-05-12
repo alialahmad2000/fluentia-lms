@@ -19,6 +19,7 @@ import { BookmarkDrawer } from './parts/BookmarkDrawer'
 import { DictationPanel } from './parts/DictationPanel'
 import { SettingsMenu, SettingsButton } from './parts/SettingsMenu'
 import { BottomBarControls } from './parts/BottomBarControls'
+import { WordTooltip } from './parts/WordTooltip'
 
 const DEFAULT_FEATURES = {
   karaoke: true,
@@ -51,7 +52,11 @@ export default function SmartAudioPlayer({
   features: featuresProp = {},
   onWordClick,        // legacy: single-click vocab popup (used in default/compact)
   onWordTap,          // tap = seek (bottom-bar mode primary)
-  onWordLongPress,    // long-press = vocab popup (bottom-bar mode primary)
+  onWordLongPress,    // long-press = action menu (bottom-bar mode primary)
+  onWordHover,        // desktop hover tooltip
+  onWordHoverEnd,     // desktop hover tooltip end
+  highlightLookup,    // Map<`${segIdx}:${wordIdx}`, highlight> for student highlights
+  vocabSet,           // Set<string> lowercase vocab words for marking
   onSegmentComplete,
   onPlaybackComplete,
   onDictationSubmit,
@@ -70,6 +75,7 @@ export default function SmartAudioPlayer({
   const [mutedBeforeToggle, setMutedBeforeToggle] = useState(null)
   const [localFeatures, setLocalFeatures] = useState(features)
   const [playerLocked, setPlayerLocked] = useState(false)
+  const [hoveredVocab, setHoveredVocab] = useState(null) // { word, ipa, definition_ar, anchorEl }
 
   const engine = useAudioEngine({
     audioUrl,
@@ -275,14 +281,32 @@ export default function SmartAudioPlayer({
                     }
                   : null}
                 onWordLongPress={localFeatures.wordClickToLookup ? onWordLongPress : null}
+                onWordHover={onWordHover
+                  ? (w, sIdx, wIdx, el) => {
+                      onWordHover(w, sIdx, wIdx, el, (vocab) => setHoveredVocab(vocab ? { ...vocab, anchorEl: el } : null))
+                    }
+                  : null}
+                onWordHoverEnd={() => setHoveredVocab(null)}
                 setWordRef={setWordRef}
                 large
+                highlightLookup={highlightLookup}
+                vocabSet={vocabSet}
               />
             ))
           ) : (
             <p className="leading-[2] text-[19px] md:text-[20px] text-slate-100 mb-8" dir="ltr" style={{ unicodeBidi: 'isolate' }}>
               {segments?.[0]?.text_content || ''}
             </p>
+          )}
+
+          {/* Hover tooltip */}
+          {hoveredVocab && (
+            <WordTooltip
+              word={hoveredVocab.word}
+              definition_ar={hoveredVocab.definition_ar}
+              ipa={hoveredVocab.pronunciation_ipa || hoveredVocab.ipa}
+              anchorEl={hoveredVocab.anchorEl}
+            />
           )}
         </div>
 

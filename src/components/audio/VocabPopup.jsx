@@ -8,7 +8,7 @@ async function lookupVocab(word, readingId) {
   // 1. Exact match in this reading
   const { data: local } = await supabase
     .from('curriculum_vocabulary')
-    .select('id, word, definition_ar, example_sentence, pronunciation_ipa, audio_url, part_of_speech, cefr_level')
+    .select('id, word, definition_ar, example_sentence, pronunciation_ipa, audio_url, image_url, part_of_speech, cefr_level')
     .ilike('word', word)
     .eq('reading_id', readingId)
     .maybeSingle()
@@ -17,7 +17,7 @@ async function lookupVocab(word, readingId) {
   // 2. Global match (any reading), prefer lower CEFR
   const { data: global } = await supabase
     .from('curriculum_vocabulary')
-    .select('id, word, definition_ar, example_sentence, pronunciation_ipa, audio_url, part_of_speech, cefr_level')
+    .select('id, word, definition_ar, example_sentence, pronunciation_ipa, audio_url, image_url, part_of_speech, cefr_level')
     .ilike('word', word)
     .limit(1)
     .maybeSingle()
@@ -157,6 +157,19 @@ function VocabContent({ vocab, word, loading, onClose }) {
         </p>
       ) : (
         <>
+          {/* Vocab image */}
+          {vocab.image_url && (
+            <div className="my-2 rounded-lg overflow-hidden bg-white/5 aspect-video">
+              <img
+                src={vocab.image_url}
+                alt={vocab.word}
+                className="w-full h-full object-cover"
+                loading="lazy"
+                onError={(e) => { e.target.parentElement.style.display = 'none' }}
+              />
+            </div>
+          )}
+
           {/* Audio player */}
           {vocab.audio_url && (
             <div className="mt-1">

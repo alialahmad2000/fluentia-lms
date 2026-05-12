@@ -82,11 +82,13 @@ export function BottomBarControls({
         />
       )}
 
-      {/* Thin progress bar at very top */}
+      {/* Thin progress bar at very top — dir=ltr for RTL-safe seek math */}
       <div
+        dir="ltr"
         className="w-full cursor-pointer"
         style={{ height: 3, background: 'rgba(255,255,255,0.08)' }}
         onClick={(e) => {
+          if (!onSeek || !duration) return
           const rect = e.currentTarget.getBoundingClientRect()
           const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width))
           onSeek(pct * duration)
@@ -108,64 +110,62 @@ export function BottomBarControls({
         )}
       </div>
 
-      {/* Collapsed bar — 3-column grid so Play is always centered */}
+      {/* Collapsed bar — absolute Play center for true symmetry */}
       <div
-        className="grid grid-cols-3 items-center px-4 py-3 md:py-4"
+        className="relative flex items-center px-4 md:px-6"
+        style={{ height: 64 }}
         dir="ltr"
-        onClick={(e) => {
-          if (e.target === e.currentTarget) setExpanded(v => !v)
-        }}
+        onClick={(e) => { if (e.target === e.currentTarget) setExpanded(v => !v) }}
       >
-        {/* LEFT: skip back */}
-        <div className="flex items-center gap-2 justify-start">
-          <button data-bar-action onClick={() => onSkip(-10000)} className="w-10 h-10 flex items-center justify-center text-slate-300 hover:text-white rounded-full hover:bg-white/10 transition-colors">
+        {/* LEFT cluster */}
+        <div className="flex items-center gap-2 flex-1 justify-start min-w-0">
+          <button data-bar-action onClick={() => onSkip(-10000)} className="w-10 h-10 flex items-center justify-center text-slate-300 hover:text-white rounded-full hover:bg-white/10 transition-colors flex-shrink-0">
             <SkipBack size={20}/>
           </button>
-          {/* Time display */}
-          <span className="hidden sm:block text-[12px] tabular-nums text-slate-400 select-none" dir="ltr">
+          <span className="hidden sm:block text-[12px] tabular-nums text-slate-400 select-none whitespace-nowrap" dir="ltr">
             <span className="text-slate-200">{fmt(currentTime)}</span>
             <span className="mx-0.5 text-slate-600">/</span>
             <span>{fmt(duration)}</span>
           </span>
         </div>
 
-        {/* CENTER: Play/Pause — always centered */}
-        <div className="flex justify-center">
-          <button
-            data-bar-action
-            onClick={playerLocked ? undefined : onToggle}
-            disabled={playerLocked}
-            className={`w-14 h-14 flex items-center justify-center rounded-full transition-colors shadow-lg ${
-              playerLocked
-                ? 'bg-slate-700 text-slate-500 cursor-not-allowed'
-                : 'bg-sky-500 hover:bg-sky-400 active:bg-sky-600 text-white shadow-sky-500/30'
-            }`}
-            title={playerLocked ? 'انتهى التشغيل (وضع الامتحان)' : undefined}
-          >
-            {isLoading ? <Loader2 size={22} className="animate-spin"/> : isPlaying ? <Pause size={22}/> : <Play size={22}/>}
-          </button>
+        {/* CENTER: absolutely placed Play button — guaranteed true center */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+          <div className="pointer-events-auto">
+            <button
+              data-bar-action
+              onClick={playerLocked ? undefined : onToggle}
+              disabled={playerLocked}
+              className={`w-14 h-14 flex items-center justify-center rounded-full transition-colors shadow-lg ${
+                playerLocked
+                  ? 'bg-slate-700 text-slate-500 cursor-not-allowed'
+                  : 'bg-sky-500 hover:bg-sky-400 active:bg-sky-600 text-white shadow-sky-500/30'
+              }`}
+              title={playerLocked ? 'انتهى التشغيل (وضع الامتحان)' : undefined}
+            >
+              {isLoading ? <Loader2 size={22} className="animate-spin"/> : isPlaying ? <Pause size={22}/> : <Play size={22}/>}
+            </button>
+          </div>
         </div>
 
-        {/* RIGHT: skip forward + speed + settings + expand */}
-        <div className="flex items-center gap-1 justify-end">
-          <button data-bar-action onClick={() => onSkip(10000)} className="w-10 h-10 flex items-center justify-center text-slate-300 hover:text-white rounded-full hover:bg-white/10 transition-colors">
+        {/* RIGHT cluster */}
+        <div className="flex items-center gap-1 flex-1 justify-end min-w-0">
+          <button data-bar-action onClick={() => onSkip(10000)} className="w-10 h-10 flex items-center justify-center text-slate-300 hover:text-white rounded-full hover:bg-white/10 transition-colors flex-shrink-0">
             <SkipForward size={20}/>
           </button>
-          <button
-            data-bar-action
-            onClick={() => { const idx = RATES.indexOf(playbackRate); onSetRate(RATES[(idx + 1) % RATES.length]) }}
-            className="text-[11px] font-mono px-2 py-1 rounded text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
-          >
-            {playbackRate}x
-          </button>
-          <button
-            data-bar-action
-            onClick={() => onSettingsOpen(!showSettings)}
-            className="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 rounded-full transition-colors"
-          >
+          {onSetRate && (
+            <button
+              data-bar-action
+              onClick={() => { const idx = RATES.indexOf(playbackRate); onSetRate(RATES[(idx + 1) % RATES.length]) }}
+              className="text-[11px] font-mono px-2 py-1 rounded text-slate-400 hover:text-white hover:bg-white/10 transition-colors flex-shrink-0"
+            >
+              {playbackRate}x
+            </button>
+          )}
+          <button data-bar-action onClick={() => onSettingsOpen(!showSettings)} className="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 rounded-full transition-colors flex-shrink-0">
             <Settings size={15}/>
           </button>
-          <button data-bar-action onClick={() => setExpanded(v => !v)} className="w-6 h-6 flex items-center justify-center text-slate-600 hover:text-slate-400 transition-colors">
+          <button data-bar-action onClick={() => setExpanded(v => !v)} className="w-6 h-6 flex items-center justify-center text-slate-600 hover:text-slate-400 transition-colors flex-shrink-0">
             {expanded ? <ChevronDown size={14}/> : <ChevronUp size={14}/>}
           </button>
         </div>

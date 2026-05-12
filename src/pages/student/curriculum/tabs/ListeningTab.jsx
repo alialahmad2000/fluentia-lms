@@ -12,6 +12,8 @@ import { VocabPopup } from '../../../../components/audio/VocabPopup'
 import { OnePlayBanner } from '../../../../components/audio/parts/OnePlayBanner'
 import { useListeningTranscriptAudio } from '../../../../hooks/useListeningTranscriptAudio'
 import { trackEvent } from '../../../../lib/trackEvent'
+import { useWordHighlights } from '../../../../hooks/useWordHighlights'
+import { WordActionMenu } from '../../../../components/audio/parts/WordActionMenu'
 
 const QUESTION_TYPE_LABELS = {
   main_idea: 'الفكرة الرئيسية',
@@ -74,16 +76,37 @@ function ListeningSection({ listening, studentId, unitId }) {
   // All hooks before any conditional returns
   const { segments, loading: audioLoading } = useListeningTranscriptAudio(listening.id)
   const [vocabPopup, setVocabPopup] = useState(null)
+  const [actionMenu, setActionMenu] = useState(null)
   const [onePlayMode, setOnePlayMode] = useState(false)
   const [hasPlayed, setHasPlayed] = useState(false)
   const audioPlayStartedRef = useRef(false)
+  const hoverCache = useRef(new Map())
+
+  const { highlights, lookup: highlightLookup, addHighlight, removeHighlight, updateColor, addNote } = useWordHighlights({
+    studentId,
+    contentId: listening.id,
+    contentType: 'listening',
+  })
 
   const exercises = (listening.exercises || []).sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0))
 
-  const handleWordLongPress = useCallback((word, segIdx, position) => {
-    setVocabPopup({ word: word.toLowerCase().replace(/[.,!?;:'"()[\]]/g, ''), position })
-    trackEvent('listening_word_lookup', { transcript_id: listening.id, word, segment_index: segIdx })
-  }, [listening.id])
+  const handleWordHover = useCallback(async (word, segIdx, wordIdx, el, setTooltip) => {
+    const cached = hoverCache.current.get(word)
+    if (cached !== undefined) { setTooltip(cached); return }
+    const { data } = await supabase
+      .from('curriculum_vocabulary')
+      .select('word, definition_ar, pronunciation_ipa')
+      .ilike('word', word).limit(1).maybeSingle()
+    hoverCache.current.set(word, data || null)
+    setTooltip(data || null)
+  }, [])
+
+  const handleWordLongPress = useCallback((word, segIdx, wordIdx, position) => {
+    const clean = word.toLowerCase().replace(/[.,!?;:'"()[\]]/g, '')
+    const existingHighlight = wordIdx != null ? highlightLookup?.get(`${segIdx}:${wordIdx}`) : null
+    setActionMenu({ word: clean, segIdx, wordIdx, position, existingHighlight })
+    trackEvent('listening_word_lookup', { transcript_id: listening.id, word: clean, segment_index: segIdx })
+  }, [listening.id, highlightLookup])
 
   const handleWordTap = useCallback((word, segIdx, wordIdx, startMs) => {
     if (onePlayMode) return
@@ -110,6 +133,29 @@ function ListeningSection({ listening, studentId, unitId }) {
       one_play_mode: onePlayMode,
     })
   }, [listening.id, segments.length, onePlayMode])
+
+  const handleAction = useCallback(async (action, payload) => {
+    if (!actionMenu) return
+    const { word, segIdx, wordIdx, existingHighlight } = actionMenu
+    if (action === 'lookup') {
+      setActionMenu(null)
+      setVocabPopup({ word, position: actionMenu.position })
+    } else if (action === 'highlight') {
+      if (existingHighlight) await updateColor(existingHighlight.id, payload)
+      else await addHighlight({ segmentIndex: segIdx, wordIndexStart: wordIdx, wordIndexEnd: wordIdx, wordText: word, color: payload })
+      setActionMenu(null)
+    } else if (action === 'remove-highlight') {
+      if (existingHighlight) await removeHighlight(existingHighlight.id)
+      setActionMenu(null)
+    } else if (action === 'note') {
+      const note = window.prompt('ملاحظتك على هذه الكلمة:', existingHighlight?.note || '')
+      if (note !== null) {
+        if (existingHighlight) await addNote(existingHighlight.id, note)
+        else if (note) await addHighlight({ segmentIndex: segIdx, wordIndexStart: wordIdx, wordIndexEnd: wordIdx, wordText: word, color: 'yellow', note })
+      }
+      setActionMenu(null)
+    }
+  }, [actionMenu, addHighlight, removeHighlight, updateColor, addNote])
 
   return (
     <div className="space-y-5 min-h-screen pb-36">
@@ -176,7 +222,9 @@ function ListeningSection({ listening, studentId, unitId }) {
             onePlayMode,
           }}
           onWordTap={handleWordTap}
-          onWordLongPress={handleWordLongPress}
+          onWordLongPress={(word, segIdx, wordIdx, pos) => handleWordLongPress(word, segIdx, wordIdx, pos)}
+          onWordHover={handleWordHover}
+          highlightLookup={highlightLookup}
           onSegmentComplete={handleSegmentComplete}
           onPlaybackComplete={handlePlaybackComplete}
         />
@@ -195,7 +243,18 @@ function ListeningSection({ listening, studentId, unitId }) {
         )
       )}
 
-      {/* VocabPopup */}
+      {/* Word action menu */}
+      {actionMenu && (
+        <WordActionMenu
+          word={actionMenu.word}
+          position={actionMenu.position}
+          existingHighlight={actionMenu.existingHighlight}
+          onAction={handleAction}
+          onClose={() => setActionMenu(null)}
+        />
+      )}
+
+      {/* VocabPopup (from "lookup" action) */}
       {vocabPopup && (
         <VocabPopup
           word={vocabPopup.word}

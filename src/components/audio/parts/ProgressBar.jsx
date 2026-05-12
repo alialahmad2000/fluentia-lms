@@ -21,8 +21,9 @@ export function ProgressBar({ currentTime, duration, markerA, markerB, isLooping
 
   return (
     <div className="px-4 pb-2">
-      {/* Bar */}
+      {/* Bar — dir=ltr forces LTR fill even in RTL page; click math is always left-edge-based */}
       <div
+        dir="ltr"
         className="relative w-full h-2 rounded-full cursor-pointer group"
         style={{ background: 'rgba(255,255,255,0.08)' }}
         onClick={handleClick}

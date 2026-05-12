@@ -15,8 +15,10 @@ import { usePointerType } from '../../../../hooks/usePointerType'
 import { useReadingPrefs } from '../../../../hooks/useReadingPrefs'
 import { usePageReset } from '../../../../hooks/usePageReset'
 import { useReadingPassageAudio } from '../../../../hooks/useReadingPassageAudio'
+import { useWordHighlights } from '../../../../hooks/useWordHighlights'
 import SmartAudioPlayer from '../../../../components/audio/SmartAudioPlayer'
 import { VocabPopup } from '../../../../components/audio/VocabPopup'
+import { WordActionMenu } from '../../../../components/audio/parts/WordActionMenu'
 import { trackEvent } from '../../../../lib/trackEvent'
 
 const QUESTION_TYPE_LABELS = {
@@ -366,23 +368,73 @@ function ReadingContent({ reading, studentId, unitId }) {
   const [vocabQuiz, setVocabQuiz] = useState(null)
   const [quizLoading, setQuizLoading] = useState(false)
   const [quizAnswers, setQuizAnswers] = useState({})
-  const [vocabPopup, setVocabPopup] = useState(null) // { word, x, y } or null
+  const [vocabPopup, setVocabPopup] = useState(null)
+  const [actionMenu, setActionMenu] = useState(null)
   const audioPlayStartedRef = useRef(false)
+  const hoverCache = useRef(new Map())
 
   // Audio data for SmartAudioPlayer
   const { audioData, loading: audioLoading } = useReadingPassageAudio(reading?.id, reading?.passage_content)
 
-  // Word click handler — fires from SmartAudioPlayer karaoke (non-vocabMap words only)
-  // Called on long-press (mobile) or right-click (desktop) — opens vocab popup
-  const handleWordClick = useCallback((word, _segIdx, position) => {
+  // Student word highlights
+  const { highlights, lookup: highlightLookup, addHighlight, removeHighlight, updateColor, addNote } = useWordHighlights({
+    studentId,
+    contentId: reading?.id,
+    contentType: 'reading',
+  })
+
+  // Vocab set for marking (lowercase word names)
+  const vocabSet = useMemo(() => new Set((vocabulary || []).map(v => v.word.toLowerCase())), [vocabulary])
+
+  // Hover handler (desktop) — looks up vocab, shows WordTooltip via callback
+  const handleWordHover = useCallback(async (word, segIdx, wordIdx, el, setTooltip) => {
+    const cached = hoverCache.current.get(word)
+    if (cached !== undefined) { setTooltip(cached); return }
+    const { data } = await supabase
+      .from('curriculum_vocabulary')
+      .select('word, definition_ar, pronunciation_ipa')
+      .ilike('word', word)
+      .limit(1)
+      .maybeSingle()
+    const result = data || null
+    hoverCache.current.set(word, result)
+    setTooltip(result)
+  }, [])
+
+  // Long-press → action menu (replaces direct VocabPopup)
+  const handleWordClick = useCallback((word, segIdx, position, wordIdx) => {
     const clean = (typeof word === 'string' ? word : '').replace(/[.,!?;:'"()\[\]]/g, '').toLowerCase().trim()
     if (!clean || clean.length < 2) return
-    if (vocabMap[clean]) return // highlighted vocab words keep their own handler
-    const x = typeof position === 'object' ? position.x : position
-    const y = typeof position === 'object' ? position.y : window.innerHeight * 0.4
-    setVocabPopup({ word: clean, x, y })
-    trackEvent('reading_word_lookup', { passage_id: reading?.id, word: clean, found_in_vocab: false })
-  }, [vocabMap, reading?.id])
+    const pos = typeof position === 'object' ? position : { x: position, y: window.innerHeight * 0.4 }
+    const existingHighlight = wordIdx != null ? highlightLookup?.get(`${segIdx}:${wordIdx}`) : null
+    setActionMenu({ word: clean, segIdx, wordIdx, position: pos, existingHighlight })
+    trackEvent('reading_word_lookup', { passage_id: reading?.id, word: clean, found_in_vocab: !!vocabMap[clean] })
+  }, [vocabMap, reading?.id, highlightLookup])
+
+  const handleAction = useCallback(async (action, payload) => {
+    if (!actionMenu) return
+    const { word, segIdx, wordIdx, existingHighlight } = actionMenu
+    if (action === 'lookup') {
+      setActionMenu(null)
+      setVocabPopup({ word, x: actionMenu.position.x, y: actionMenu.position.y })
+    } else if (action === 'highlight') {
+      const color = payload
+      if (existingHighlight) await updateColor(existingHighlight.id, color)
+      else await addHighlight({ segmentIndex: segIdx, wordIndexStart: wordIdx, wordIndexEnd: wordIdx, wordText: word, color })
+      setActionMenu(null)
+      trackEvent('reading_word_highlight', { word, color, passage_id: reading?.id })
+    } else if (action === 'remove-highlight') {
+      if (existingHighlight) await removeHighlight(existingHighlight.id)
+      setActionMenu(null)
+    } else if (action === 'note') {
+      const note = window.prompt('ملاحظتك على هذه الكلمة:', existingHighlight?.note || '')
+      if (note !== null) {
+        if (existingHighlight) await addNote(existingHighlight.id, note)
+        else if (note) await addHighlight({ segmentIndex: segIdx, wordIndexStart: wordIdx, wordIndexEnd: wordIdx, wordText: word, color: 'yellow', note })
+      }
+      setActionMenu(null)
+    }
+  }, [actionMenu, addHighlight, removeHighlight, updateColor, addNote, reading?.id])
 
   // Register page-specific reset actions
   usePageReset(() => {
@@ -772,7 +824,10 @@ function ReadingContent({ reading, studentId, unitId }) {
                 playbackHistory: true,
                 wordClickToLookup: true,
               }}
-              onWordLongPress={handleWordClick}
+              onWordLongPress={(word, segIdx, wordIdx, pos) => handleWordClick(word, segIdx, pos, wordIdx)}
+              onWordHover={handleWordHover}
+              highlightLookup={highlightLookup}
+              vocabSet={vocabSet}
               onSegmentComplete={(i) => {
                 if (!audioPlayStartedRef.current) {
                   audioPlayStartedRef.current = true
@@ -954,7 +1009,18 @@ function ReadingContent({ reading, studentId, unitId }) {
         <CriticalThinkingBox reading={reading} />
       )}
 
-      {/* ── Vocab Popup (word-click from player or passage) ── */}
+      {/* Word action menu (long-press / right-click) */}
+      {actionMenu && (
+        <WordActionMenu
+          word={actionMenu.word}
+          position={actionMenu.position}
+          existingHighlight={actionMenu.existingHighlight}
+          onAction={handleAction}
+          onClose={() => setActionMenu(null)}
+        />
+      )}
+
+      {/* Vocab popup (from "lookup" action) */}
       {vocabPopup && (
         <VocabPopup
           word={vocabPopup.word}
