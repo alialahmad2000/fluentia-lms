@@ -33,7 +33,7 @@ export default function GroupChatPage() {
     enabled: !!groupId,
     staleTime: 5 * 60_000,
     queryFn: async () => {
-      const { data } = await supabase.from('groups').select('id, name').eq('id', groupId).maybeSingle()
+      const { data } = await supabase.from('groups').select('id, name, level').eq('id', groupId).maybeSingle()
       return data
     },
   })
@@ -66,6 +66,7 @@ export default function GroupChatPage() {
       {/* Sticky header */}
       <StreamHeader
         groupName={group?.name}
+        groupLevel={group?.level}
         groupId={groupId}
         onlineUserIds={onlineUserIds}
         onSearchOpen={() => setSearchOpen(true)}
