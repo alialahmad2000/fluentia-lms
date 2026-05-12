@@ -10,8 +10,8 @@ import ChatSearchPanel from '../components/ChatSearchPanel'
 
 import UnifiedMessageStream from '../components/premium/UnifiedMessageStream'
 import FilterLensBar from '../components/premium/FilterLensBar'
-// R4+ will fill these with real implementations
-const PinnedStrip    = () => null
+import PinnedStrip from '../components/premium/PinnedStrip'
+// R5+ will fill these with real implementations
 const PremiumComposer = () => null
 
 export default function GroupChatPage() {
@@ -62,8 +62,12 @@ export default function GroupChatPage() {
         collapsed={headerCollapsed}
       />
 
-      {/* Pinned strip (R4) */}
-      <PinnedStrip groupId={groupId} />
+      {/* Pinned strip */}
+      <PinnedStrip groupId={groupId} onScrollToMessage={(id) => {
+        const el = document.getElementById(`msg-${id}`)
+        el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        if (el) { el.classList.add('chat-highlight'); setTimeout(() => el.classList.remove('chat-highlight'), 2400) }
+      }} />
 
       {/* Filter lenses */}
       <FilterLensBar
