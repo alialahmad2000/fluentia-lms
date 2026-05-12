@@ -143,7 +143,7 @@ export default function MockReading({ attemptId, answers, content, startedAt, on
         <div style={{ display: 'grid', gridTemplateColumns: window.innerWidth > 768 ? '1fr 1fr' : '1fr', gap: 20, alignItems: 'start' }}>
           {/* Passage text */}
           <div style={{ padding: '18px 20px', borderRadius: 16, background: 'color-mix(in srgb, var(--sunset-base-mid) 35%, transparent)', border: '1px solid color-mix(in srgb, var(--sunset-amber) 14%, transparent)', maxHeight: '70vh', overflowY: 'auto' }}>
-            <p style={{ margin: '0 0 12px', fontSize: 13, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif' }}>Passage {tabIdx + 1}: {p.title}</p>
+            <p style={{ margin: '0 0 12px', fontSize: 13, fontWeight: 700, color: 'var(--sunset-orange)', fontFamily: "'IBM Plex Sans', sans-serif" }}>Passage {tabIdx + 1}: {p.title}</p>
             <p style={{ margin: 0, fontSize: 14, color: 'var(--ds-text)', fontFamily: "'Georgia', serif", lineHeight: 1.9, whiteSpace: 'pre-wrap', direction: 'ltr', textAlign: 'left' }}>{p.passage_text}</p>
           </div>
           {/* Questions */}
