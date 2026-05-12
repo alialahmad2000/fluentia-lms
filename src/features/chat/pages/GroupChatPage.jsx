@@ -9,8 +9,8 @@ import StreamHeader from '../components/premium/StreamHeader'
 import ChatSearchPanel from '../components/ChatSearchPanel'
 
 import UnifiedMessageStream from '../components/premium/UnifiedMessageStream'
-// R3+ will fill these with real implementations
-const FilterLensBar  = () => null
+import FilterLensBar from '../components/premium/FilterLensBar'
+// R4+ will fill these with real implementations
 const PinnedStrip    = () => null
 const PremiumComposer = () => null
 
@@ -21,6 +21,7 @@ export default function GroupChatPage() {
   const { profile } = useAuthStore()
   const [searchOpen, setSearchOpen] = useState(false)
   const [headerCollapsed, setHeaderCollapsed] = useState(false)
+  const [activeLens, setActiveLens] = useState('all')
   const lastScrollY = useRef(0)
 
   // Channel list needed to resolve general channel id (used by composer)
@@ -64,13 +65,18 @@ export default function GroupChatPage() {
       {/* Pinned strip (R4) */}
       <PinnedStrip groupId={groupId} />
 
-      {/* Filter lenses (R3) */}
-      <FilterLensBar groupId={groupId} />
+      {/* Filter lenses */}
+      <FilterLensBar
+        groupId={groupId}
+        activeLens={activeLens}
+        onLensChange={setActiveLens}
+      />
 
       {/* Unified message stream (R2) */}
       <div className="flex-1 min-h-0 relative">
         <UnifiedMessageStream
           groupId={groupId}
+          lens={activeLens}
           deepLinkMessageId={messageId}
           onScroll={handleStreamScroll}
           generalChannelId={generalChannel?.id}

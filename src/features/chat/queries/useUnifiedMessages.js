@@ -1,7 +1,7 @@
 // Fetches messages for the unified stream.
 // Phase R3 will add lens filtering via server-side RPC.
 // Phase R2: fetches the group's general channel (all messages, no lens).
-import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query'
+import { useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { supabase } from '../../../lib/supabase'
 import { signedVoiceUrl, signedImageUrl, signedFileUrl } from '../../../lib/chatStorage'
@@ -17,33 +17,47 @@ export function useUnifiedMessages(groupId, lens = 'all') {
     staleTime: 30_000,
     initialPageParam: null,
     queryFn: async ({ pageParam }) => {
-      // Fetch from ALL channels in this group (unified stream)
-      let q = supabase
-        .from('group_messages')
-        .select(`
-          *,
-          sender:profiles!sender_id(id, full_name, display_name, avatar_url, role),
-          reactions:message_reactions(emoji, user_id),
-          reply_message:group_messages!reply_to(
-            id, body, content, type,
-            sender:profiles!sender_id(full_name, display_name)
-          )
-        `)
-        .eq('group_id', groupId)
-        .is('deleted_at', null)
-        .order('created_at', { ascending: false })
-        .limit(PAGE_SIZE)
-
-      // Apply lens filters client-side for now (R3 replaces with RPC)
-      if (pageParam) q = q.lt('created_at', pageParam)
-
-      const { data, error } = await q
+      // Server-side RPC with lens filter (replaces per-channel query)
+      const { data, error } = await supabase.rpc('get_group_messages', {
+        p_group_id: groupId,
+        p_lens:     lens,
+        p_before:   pageParam ?? null,
+        p_limit:    PAGE_SIZE,
+      })
       if (error) throw error
 
       const rows = data ?? []
 
-      // Lens client-side filtering
-      const filtered = applyLensFilter(rows, lens)
+      // Enrich with related data (sender, reactions, reply preview)
+      // RPC returns raw group_messages rows — join client-side for now
+      const ids = rows.map((r) => r.id)
+      let reactions = []
+      if (ids.length) {
+        const { data: rxn } = await supabase
+          .from('message_reactions').select('message_id, emoji, user_id').in('message_id', ids)
+        reactions = rxn ?? []
+      }
+      const senderIds = [...new Set(rows.map((r) => r.sender_id).filter(Boolean))]
+      let senders = []
+      if (senderIds.length) {
+        const { data: sp } = await supabase
+          .from('profiles').select('id, full_name, display_name, avatar_url, role').in('id', senderIds)
+        senders = sp ?? []
+      }
+      const senderMap = Object.fromEntries(senders.map((s) => [s.id, s]))
+      const rxnMap = {}
+      for (const r of reactions) {
+        rxnMap[r.message_id] = rxnMap[r.message_id] ?? []
+        rxnMap[r.message_id].push(r)
+      }
+
+      const enriched = rows.map((m) => ({
+        ...m,
+        sender:    senderMap[m.sender_id] ?? null,
+        reactions: rxnMap[m.id] ?? [],
+      }))
+
+      const filtered = enriched
 
       // Resolve signed URLs
       return Promise.all(filtered.map(async (msg) => {
@@ -86,6 +100,19 @@ export function useUnifiedMessages(groupId, lens = 'all') {
   }, [groupId, qc])
 
   return query
+}
+
+export function useGroupLensCounts(groupId) {
+  return useQuery({
+    queryKey: ['group-lens-counts', groupId],
+    enabled: !!groupId,
+    staleTime: 60_000,
+    queryFn: async () => {
+      const { data, error } = await supabase.rpc('get_group_lens_counts', { p_group_id: groupId })
+      if (error) throw error
+      return data?.[0] ?? {}
+    },
+  })
 }
 
 function applyLensFilter(messages, lens) {
