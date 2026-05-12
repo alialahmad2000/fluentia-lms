@@ -26,7 +26,7 @@ export default defineConfig(({ mode }) => ({
       registerType: 'autoUpdate',
       includeAssets: ['logo-icon-dark.png', 'logo-icon-light.png', 'logo-full-dark.png', 'logo-full-light.png'],
       manifest: {
-        name: 'Fluentia Academy — أكاديمية طلاقة',
+        name: 'Fluentia | طلاقة',
         short_name: 'Fluentia',
         description: 'منصة تعلم الإنجليزية — أكاديمية طلاقة',
         theme_color: '#060e1c',

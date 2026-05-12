@@ -84,7 +84,7 @@ export default function DialectExplanationDrawer({ explanation, isOpen, onClose 
 
             <footer className="px-5 sm:px-6 py-4 text-xs text-center font-['Tajawal']"
               style={{ borderTop: '1px solid rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.5)' }}>
-              شرح مكتوب خصيصاً لطلاب فلوينتيا · أكاديمية طلاقة
+              شرح مكتوب خصيصاً لطلاب Fluentia · أكاديمية طلاقة
             </footer>
           </motion.aside>
         </>

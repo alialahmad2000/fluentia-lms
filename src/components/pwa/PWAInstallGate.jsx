@@ -70,7 +70,7 @@ function IOSShareBottomContent() {
   return (
     <div className="space-y-4">
       <p className="text-sm font-medium text-center" style={{ color: 'var(--text-secondary)' }}>
-        ثبّت فلوينتيا على آيفونك في 3 خطوات:
+        ثبّت Fluentia على آيفونك في 3 خطوات:
       </p>
       <div className="space-y-3">
         <div className="flex items-start gap-3">
@@ -104,7 +104,7 @@ function IPadShareTopContent() {
   return (
     <div className="space-y-4">
       <p className="text-sm font-medium text-center" style={{ color: 'var(--text-secondary)' }}>
-        ثبّت فلوينتيا على آيبادك في 3 خطوات:
+        ثبّت Fluentia على آيبادك في 3 خطوات:
       </p>
       <div className="space-y-3">
         <div className="flex items-start gap-3">
@@ -197,7 +197,7 @@ function MacOSDockContent() {
   return (
     <div className="space-y-3">
       <p className="text-sm font-medium text-center" style={{ color: 'var(--text-secondary)' }}>
-        ثبّت فلوينتيا على Mac:
+        ثبّت Fluentia على Mac:
       </p>
       <div className="flex items-start gap-3">
         <StepNumber n={1} />
@@ -296,7 +296,7 @@ export default function PWAInstallGate() {
               <Smartphone size={24} className="text-sky-400" />
             </div>
             <h2 className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>
-              ثبّت تطبيق فلوينتيا
+              ثبّت تطبيق Fluentia
             </h2>
             <p className="text-xs mt-1" style={{ color: 'var(--text-tertiary)' }}>
               عشان توصلك الإشعارات وتفتح التطبيق بسرعة
