@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useAuthStore } from '../../stores/authStore'
+import InterestSurveyCard from '../../components/personalization/InterestSurveyCard'
 import { supabase } from '../../lib/supabase'
 import { getEncouragement } from '../../utils/encouragement'
 // Legacy: import { DashboardSkeleton } from '../../components/ui/PageSkeleton'
@@ -146,6 +147,9 @@ export default function StudentDashboard() {
 
       {/* 1. Competition Banner (only when active) */}
       <CompetitionBanner />
+
+      {/* 1.5 Interest survey — dismissible, shown until completed */}
+      <InterestSurveyCard />
 
       {/* 1. Hero */}
       <HeroBlock

@@ -1,4 +1,5 @@
 import { useState, lazy, Suspense } from 'react'
+import InterestsSettingsSection from '../../components/personalization/InterestsSettingsSection'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import { User, Zap, Flame, Trophy, Award, Save, Loader2, Clock, Gift, CreditCard, Palette, GraduationCap, Moon, Sun, Sparkles, Check, SwatchBook, Mail, CalendarDays, Medal, KeyRound, Copy, AtSign, RefreshCw, Camera, ImageIcon, Trash2 } from 'lucide-react'
@@ -619,6 +620,8 @@ function ProfileContent() {
 
       <ImmersionToggle />
       <NotificationSettings />
+
+      <InterestsSettingsSection />
 
       {/* Change Password */}
       <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="fl-card-static p-6">
