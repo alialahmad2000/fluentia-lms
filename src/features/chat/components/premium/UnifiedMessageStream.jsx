@@ -11,13 +11,10 @@ import ScrollToBottomPill from './ScrollToBottomPill'
 import SystemMessageCluster from './SystemMessageCluster'
 
 const GROUP_WINDOW_MS = 4 * 60 * 1000
-const SYSTEM_COLLAPSE_THRESHOLD = 3   // collapse if 3+ system msgs in a row
 
-function isSameDay(a, b) {
-  const da = new Date(a), db = new Date(b)
-  return da.getFullYear() === db.getFullYear() &&
-         da.getMonth() === db.getMonth() &&
-         da.getDate() === db.getDate()
+function dayKey(iso) {
+  const d = new Date(iso)
+  return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`
 }
 
 function isSameGroup(a, b) {
@@ -27,36 +24,52 @@ function isSameGroup(a, b) {
 }
 
 // Build flat item list: {type: 'separator'|'group'|'system-cluster', ...}
+//
+// Rules (P10/P11):
+//   - System messages accumulate regardless of day boundaries.
+//   - A run of 1 system msg → single ghost line.
+//   - A run of 2+ system msgs → collapsed "N رسائل نظام · عرض".
+//   - Day separators appear only before real (non-system) messages, and
+//     only when the real-message day changes — never for system-only days.
+//   - System clusters between real messages get tight padding (8px).
+//   - System clusters preceding the very first real message also get tight.
 function buildItems(messages) {
   const items = []
-  let currentGroup = null
-  let systemCluster = []
+  let systemBuf = []      // accumulating consecutive system messages
+  let currentGroup = null // accumulating a real-message group
+  let lastRealDay = null  // dayKey of the last flushed real message
 
-  function flushGroup() {
-    if (currentGroup?.length) { items.push({ type: 'group', messages: currentGroup }); currentGroup = null }
-  }
   function flushSystem() {
-    if (systemCluster.length) {
-      items.push({ type: 'system-cluster', messages: systemCluster })
-      systemCluster = []
-    }
+    if (!systemBuf.length) return
+    items.push({ type: 'system-cluster', messages: systemBuf.splice(0), tight: true })
+  }
+  function flushGroup() {
+    if (!currentGroup?.length) return
+    items.push({ type: 'group', messages: currentGroup.splice(0) })
+    currentGroup = null
   }
 
-  for (let i = 0; i < messages.length; i++) {
-    const msg = messages[i]
-    const prev = messages[i - 1]
-
-    // Day separator
-    if (!prev || !isSameDay(prev.created_at, msg.created_at)) {
-      flushGroup(); flushSystem()
-      items.push({ type: 'separator', date: msg.created_at })
-    }
-
+  for (const msg of messages) {
     if (msg.type === 'system') {
+      // System messages accumulate without breaking for day boundaries
       flushGroup()
-      systemCluster.push(msg)
+      systemBuf.push(msg)
     } else {
+      // Real message
+      const day = dayKey(msg.created_at)
+      const dayChanged = lastRealDay !== null && lastRealDay !== day
+
+      // Flush any pending system cluster (always tight — they live between real content)
+      flushGroup()
       flushSystem()
+
+      // Day separator: only when a real-content day changes
+      if (lastRealDay === null || dayChanged) {
+        items.push({ type: 'separator', date: msg.created_at })
+        lastRealDay = day
+      }
+
+      // Group with previous real message if same sender within 4 min
       if (currentGroup && isSameGroup(currentGroup[currentGroup.length - 1], msg)) {
         currentGroup.push(msg)
       } else {
@@ -65,8 +78,9 @@ function buildItems(messages) {
       }
     }
   }
+
   flushGroup()
-  flushSystem()
+  flushSystem() // trailing system messages after the last real message
 
   return items
 }
