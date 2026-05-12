@@ -7,10 +7,10 @@ import PinnedCard from './PinnedCard'
 import { slideIn } from '../../lib/motion'
 
 const glass = {
-  background: 'color-mix(in srgb, var(--ds-bg-elevated) 80%, transparent)',
+  background: 'color-mix(in srgb, var(--ds-bg-elevated) 82%, transparent)',
   backdropFilter: 'blur(20px) saturate(140%)',
   WebkitBackdropFilter: 'blur(20px) saturate(140%)',
-  borderBottom: '1px solid color-mix(in srgb, var(--ds-accent-gold) 15%, transparent)',
+  borderBottom: '1px solid color-mix(in srgb, var(--ds-accent-gold) 18%, transparent)',
   boxShadow: 'inset 0 1px 0 0 color-mix(in srgb, white 4%, transparent)',
 }
 
@@ -35,24 +35,25 @@ export default function PinnedStrip({ groupId, onScrollToMessage }) {
     },
   })
 
+  // Empty case: no reserved space
   if (!pinned.length) return null
 
   return (
-    <div style={{ ...glass, position: 'sticky', top: 88, zIndex: 24, direction: 'rtl' }}>
-      {/* Collapsed bar */}
+    <div style={{ ...glass, position: 'sticky', top: 56, zIndex: 24, direction: 'rtl' }}>
+      {/* Collapse toggle bar */}
       <button
         onClick={() => setExpanded((p) => !p)}
-        className="flex items-center gap-2 w-full px-4 py-2 hover:bg-[var(--ds-surface-1)] transition-colors"
+        className="flex items-center justify-center gap-2 w-full px-4 py-1.5 transition-colors hover:bg-[var(--ds-surface-1)]"
       >
-        <Pin size={12} style={{ color: 'var(--ds-accent-gold)' }} />
+        <Pin size={11} style={{ color: 'var(--ds-accent-gold)' }} />
         <span
-          className="flex-1 text-xs text-right"
-          style={{ fontFamily: 'Tajawal, sans-serif', color: 'var(--ds-text-secondary)' }}
+          className="text-[12px] font-medium"
+          style={{ fontFamily: 'Tajawal, sans-serif', color: 'var(--ds-accent-gold)', opacity: 0.85 }}
         >
           {pinned.length === 1 ? '١ مثبتة' : `${pinned.length} مثبتات`}
         </span>
         <motion.div animate={{ rotate: expanded ? 180 : 0 }} transition={{ duration: 0.2 }}>
-          <ChevronDown size={14} style={{ color: 'var(--ds-text-muted)' }} />
+          <ChevronDown size={13} style={{ color: 'var(--ds-text-muted)' }} />
         </motion.div>
       </button>
 
@@ -62,15 +63,31 @@ export default function PinnedStrip({ groupId, onScrollToMessage }) {
           <motion.div
             {...slideIn}
             className="flex gap-2 px-4 pb-3 overflow-x-auto"
-            style={{ scrollbarWidth: 'none' }}
+            style={{ scrollbarWidth: 'none', scrollSnapType: 'x mandatory' }}
           >
             {pinned.slice(0, 5).map((p) => (
-              <PinnedCard
-                key={p.id}
-                message={p}
-                onScrollTo={onScrollToMessage}
-              />
+              <div key={p.id} style={{ scrollSnapAlign: 'start' }}>
+                <PinnedCard
+                  message={p}
+                  onScrollTo={onScrollToMessage}
+                />
+              </div>
             ))}
+            {pinned.length > 3 && (
+              <button
+                className="shrink-0 flex items-center px-3 rounded-xl text-[12px]"
+                style={{
+                  fontFamily: 'Tajawal, sans-serif',
+                  color: 'var(--ds-accent-gold)',
+                  background: 'color-mix(in srgb, var(--ds-accent-gold) 8%, transparent)',
+                  border: '1px solid color-mix(in srgb, var(--ds-accent-gold) 20%, transparent)',
+                  minWidth: 48,
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                المزيد
+              </button>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
