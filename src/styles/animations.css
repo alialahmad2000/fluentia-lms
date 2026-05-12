@@ -2,6 +2,17 @@
    ANIMATION LIBRARY — Cosmic Luxury Design System
    ═══════════════════════════════════════════════════════════ */
 
+/* Chat deep-link highlight */
+@keyframes chatHighlight {
+  0%   { background: color-mix(in srgb, #38bdf8 18%, transparent); }
+  80%  { background: color-mix(in srgb, #38bdf8 18%, transparent); }
+  100% { background: transparent; }
+}
+.chat-highlight {
+  animation: chatHighlight 2s ease-out forwards;
+  border-radius: 8px;
+}
+
 /* === Page Entry — stagger children === */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(12px); }
