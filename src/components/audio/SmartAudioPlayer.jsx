@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 import { Bookmark, AlertCircle, RefreshCw } from 'lucide-react'
 
 import { useAudioEngine } from './hooks/useAudioEngine'
@@ -48,7 +48,9 @@ export default function SmartAudioPlayer({
   contentType = 'reading',
   studentId,
   features: featuresProp = {},
-  onWordClick,
+  onWordClick,        // legacy: single-click vocab popup (used in default/compact)
+  onWordTap,          // tap = seek (bottom-bar mode primary)
+  onWordLongPress,    // long-press = vocab popup (bottom-bar mode primary)
   onSegmentComplete,
   onPlaybackComplete,
   onDictationSubmit,
@@ -151,6 +153,14 @@ export default function SmartAudioPlayer({
     setLocalFeatures(prev => ({ ...prev, [key]: !prev[key] }))
   }, [])
 
+  // Push floating FABs (PageHelp, etc.) up when bottom-bar is mounted
+  useEffect(() => {
+    if (variant !== 'bottom-bar') return
+    const BAR_H = window.innerWidth < 768 ? 72 : 96
+    document.documentElement.style.setProperty('--fab-bottom', `${BAR_H + 16}px`)
+    return () => document.documentElement.style.removeProperty('--fab-bottom')
+  }, [variant])
+
   // ── Minimal variant ───────────────────────────────────────────────────────
   if (variant === 'minimal') {
     return (
@@ -252,7 +262,14 @@ export default function SmartAudioPlayer({
                 segmentIndex={i}
                 currentWordIndex={i === engine.currentSegmentIndex ? currentWordIndex : -1}
                 karaokeEnabled={localFeatures.karaoke && karaokeEnabled}
-                onWordClick={localFeatures.wordClickToLookup ? onWordClick : null}
+                onWordTap={localFeatures.wordClickToLookup
+                  ? (word, segIdx, wordIdx, startMs) => {
+                      engine.seek(startMs)
+                      if (!engine.isPlaying) engine.play()
+                      onWordTap?.(word, segIdx, wordIdx, startMs)
+                    }
+                  : null}
+                onWordLongPress={localFeatures.wordClickToLookup ? onWordLongPress : null}
                 setWordRef={setWordRef}
                 large
               />
@@ -392,7 +409,14 @@ export default function SmartAudioPlayer({
                 segmentIndex={i}
                 currentWordIndex={i === engine.currentSegmentIndex ? currentWordIndex : -1}
                 karaokeEnabled={localFeatures.karaoke && karaokeEnabled}
-                onWordClick={localFeatures.wordClickToLookup ? onWordClick : null}
+                onWordTap={localFeatures.wordClickToLookup && onWordTap
+                  ? (word, segIdx, wordIdx, startMs) => {
+                      engine.seek(startMs)
+                      if (!engine.isPlaying) engine.play()
+                      onWordTap(word, segIdx, wordIdx, startMs)
+                    }
+                  : null}
+                onWordLongPress={localFeatures.wordClickToLookup ? (onWordLongPress ?? onWordClick) : null}
                 setWordRef={setWordRef}
               />
             ))

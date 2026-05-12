@@ -174,7 +174,9 @@ function ReadingSection({ userId }) {
               variant={playerVariant}
               showTranscriptByDefault={playerVariant === 'bottom-bar'}
               features={features}
-              onWordClick={(w, s, ms) => setStatus(p => ({ ...p, last_word: w, at_ms: ms }))}
+              onWordTap={(w, s, wi, ms) => setStatus(p => ({ ...p, 'tap→seek (ms)': ms, tapped_word: w }))}
+              onWordLongPress={(w, s, pos) => setStatus(p => ({ ...p, longpress_word: w, 'longpress_x': pos?.x?.toFixed(0) }))}
+              onWordClick={(w, s, ms) => setStatus(p => ({ ...p, last_word_click: w }))}
               onSegmentComplete={(i) => setStatus(p => ({ ...p, segment_done: i }))}
             />
           ) : (
@@ -190,6 +192,36 @@ function ReadingSection({ userId }) {
           <FeatureToggle features={features} onChange={toggleFeature}/>
           <StatusPanel label="الحالة" data={status}/>
         </div>
+      </div>
+    </Section>
+  )
+}
+
+// ── Formatting test card ───────────────────────────────────────────────────────
+function FormattingTestSection() {
+  const testSegment = {
+    audio_url: null,
+    duration_ms: 0,
+    text_content: 'This is a *normal* paragraph with *italic* words.\n\nThis is a second paragraph. It has **bold** text and *emphasis* together.\n\nA third paragraph to verify spacing and line height.',
+    word_timestamps: [],
+    segment_index: 0,
+    speaker_label: null,
+    voice_id: null,
+  }
+  return (
+    <Section title="اختبار التنسيق — *italic* و **bold** والفقرات">
+      <div className="rounded-xl p-4" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
+        <p className="text-xs text-slate-500 mb-3 font-['Tajawal']">
+          يجب أن تظهر الكلمات المحاطة بـ <span dir="ltr" className="font-mono">*نجمة*</span> بخط مائل، وليس بنجوم حرفية.
+        </p>
+        <SmartAudioPlayer
+          segments={[testSegment]}
+          contentId="formatting-test"
+          contentType="reading"
+          variant="default"
+          showTranscriptByDefault={true}
+          features={{ karaoke: false, speedControl: false, skipButtons: false, paragraphNav: false, sentenceNav: false, abLoop: false, bookmarks: false, hideTranscript: false, keyboardShortcuts: false, mobileGestures: false, dictation: false, autoResume: false }}
+        />
       </div>
     </Section>
   )
@@ -297,6 +329,7 @@ export default function AudioPlayerTest() {
 
       <VocabSection userId={userId}/>
       <ReadingSection userId={userId}/>
+      <FormattingTestSection />
       <ListeningSection userId={userId}/>
     </div>
   )

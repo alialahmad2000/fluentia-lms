@@ -43,14 +43,14 @@ function MobileSheet({ vocab, word, loading, onClose }) {
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+        className="fixed inset-0 z-[55] bg-black/50 backdrop-blur-sm"
         style={{ '@media (prefers-reduced-motion: reduce)': { backdropFilter: 'none' } }}
         onClick={onClose}
       />
       {/* Sheet */}
       <div
         ref={sheetRef}
-        className="fixed inset-x-0 bottom-0 z-50 rounded-t-2xl"
+        className="fixed inset-x-0 bottom-0 z-[60] rounded-t-2xl"
         style={{
           background: 'var(--bg-card, #1c1c1e)',
           border: '1px solid rgba(255,255,255,0.08)',
@@ -81,13 +81,31 @@ function DesktopPopover({ vocab, word, loading, onClose, anchorPosition }) {
     return () => document.removeEventListener('mousedown', handler)
   }, [onClose])
 
-  // Position near click — keep within viewport
+  // Sidebar-aware positioning
+  const POPUP_W = 360, POPUP_H = 480, MARGIN = 16
+  const BAR_H = typeof window !== 'undefined' && window.innerWidth < 768 ? 72 : 96
+  const sidebar = typeof document !== 'undefined'
+    ? document.querySelector('aside[role="navigation"]')
+    : null
+  const sidebarLeft = sidebar ? sidebar.getBoundingClientRect().left : null
+  const rightBoundary = sidebarLeft != null ? sidebarLeft - MARGIN : window.innerWidth - MARGIN
+  const bottomBoundary = window.innerHeight - BAR_H - MARGIN
+
+  const anchorX = anchorPosition?.x ?? 200
+  const anchorY = anchorPosition?.y ?? 200
+  let px = anchorX - POPUP_W / 2
+  let py = anchorY + 16
+  if (px + POPUP_W > rightBoundary) px = rightBoundary - POPUP_W
+  if (px < MARGIN) px = MARGIN
+  if (py + POPUP_H > bottomBoundary) py = anchorY - POPUP_H - 16
+  if (py < MARGIN) py = MARGIN
+
   const style = {
     position: 'fixed',
-    top: Math.min(anchorPosition?.y ?? 200, window.innerHeight - 380),
-    left: Math.min(anchorPosition?.x ?? 200, window.innerWidth - 340),
-    width: 320,
-    zIndex: 50,
+    top: py,
+    left: px,
+    width: POPUP_W,
+    zIndex: 60,
     background: 'var(--bg-card, #1c1c1e)',
     border: '1px solid rgba(255,255,255,0.1)',
     borderRadius: 16,

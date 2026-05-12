@@ -61,7 +61,7 @@ export default function PageHelp({ pageKey }) {
         onClick={() => setOpen(!open)}
         className="fixed z-50 flex items-center gap-1.5 rounded-full px-3 py-2 transition-all hover:scale-105"
         style={{
-          bottom: 20, left: 20,
+          bottom: 'var(--fab-bottom, 20px)', left: 20, transition: 'bottom 200ms ease-out',
           background: 'rgba(30,41,59,0.9)',
           border: '1px solid rgba(255,255,255,0.1)',
           backdropFilter: 'blur(12px)',

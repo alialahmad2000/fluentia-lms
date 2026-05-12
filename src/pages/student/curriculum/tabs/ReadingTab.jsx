@@ -372,11 +372,14 @@ function ReadingContent({ reading, studentId, unitId }) {
   const { audioData, loading: audioLoading } = useReadingPassageAudio(reading?.id, reading?.passage_content)
 
   // Word click handler — fires from SmartAudioPlayer karaoke (non-vocabMap words only)
-  const handleWordClick = useCallback((word, _segIdx, positionX) => {
-    const clean = word.replace(/[.,!?;:'"()\[\]]/g, '').toLowerCase().trim()
+  // Called on long-press (mobile) or right-click (desktop) — opens vocab popup
+  const handleWordClick = useCallback((word, _segIdx, position) => {
+    const clean = (typeof word === 'string' ? word : '').replace(/[.,!?;:'"()\[\]]/g, '').toLowerCase().trim()
     if (!clean || clean.length < 2) return
     if (vocabMap[clean]) return // highlighted vocab words keep their own handler
-    setVocabPopup({ word: clean, x: positionX, y: window.innerHeight * 0.4 })
+    const x = typeof position === 'object' ? position.x : position
+    const y = typeof position === 'object' ? position.y : window.innerHeight * 0.4
+    setVocabPopup({ word: clean, x, y })
     trackEvent('reading_word_lookup', { passage_id: reading?.id, word: clean, found_in_vocab: false })
   }, [vocabMap, reading?.id])
 
@@ -768,7 +771,7 @@ function ReadingContent({ reading, studentId, unitId }) {
                 playbackHistory: true,
                 wordClickToLookup: true,
               }}
-              onWordClick={handleWordClick}
+              onWordLongPress={handleWordClick}
               onSegmentComplete={(i) => {
                 if (!audioPlayStartedRef.current) {
                   audioPlayStartedRef.current = true
