@@ -305,6 +305,18 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### 2026-05-12 — GOD COMM Premium Polish Pass (Commits d5a0519→726048b)
+- What: Pure visual refinement of the Phase 1.7 chat UI. No architecture or backend changes. Reference: Linear typography, Apple Messages bubble craft, Raycast glass depth.
+- P1: iMessage-style tail radius (16/4px asymmetric). Shadow stack (0 1px 2px + 0 4px 12px-4 + inset 1px highlight). Own bubble gradient, other glass 92%. Sender in accent color, timestamp 10px tabular monospace. 24ms stagger on group entry.
+- P2: System messages = ghost text (12px, 60% opacity, ◌ icon, 4px padding). 3+ consecutive collapses to "N رسائل نظام · عرض" expand toggle.
+- P3: Day separator with gradient rails (transparent→border→transparent) + glass pill (blur(12px), inset highlight, letter-spacing 0.02em, font-weight 600).
+- P4: Group avatar with level-based gradient (L1=blue, L2=gold, L3=purple, IELTS=emerald) + colored drop-shadow. Group name Tajawal 700 18px. Online chip with CSS pulse dot. Header actions 40px circle glass hover.
+- P5: PinnedCard with 3px gold inline-start border, hover glow, sender+time same row, 12px 500 preview. PinnedStrip collapse bar centered. Empty=null.
+- P6: body.chat-page CSS selector boosts aurora orb opacity 1.5× + slower drift (120/150/180s). GroupChatPage adds/removes the body class.
+- P7: Announcement FAB 56px gold gradient + 1px light border + fabPulse @keyframe (8s glow breathe) + whileTap scale 0.92.
+- P8: Composer 20px radius, 1.5px focus ring. Action icons 40px circular glass hover. Send = 40px gold gradient circle. VoicePlayer playhead glow (gold box-shadow 1.5× height). ReactionInlineBar 36px emoji, jewel pop 1.2×. ReactionSummary glass chip, gold border own, emoji scale(1.1).
+- Status: Complete — pushed to main, Vercel auto-deploying.
+
 ### 2026-05-12 — GOD COMM Premium Redesign Phase 1.7 (Commits 63ee489→ca6b9a6)
 - What: Complete visual pivot from channel-sidebar UI to single unified stream per group. No data migration. Philosophy: AI tags messages, users see ONE stream filtered by lenses.
 - Architecture change: ChannelSidebar deprecated. GroupChatPage rebuilt. New `src/features/chat/components/premium/` directory with 16 components. `src/features/chat/lib/motion.js` for shared Framer Motion transitions.
