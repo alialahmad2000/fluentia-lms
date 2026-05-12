@@ -1,21 +1,24 @@
-// System messages: centered, muted, no bubble, small icon
-import { Pin } from 'lucide-react'
-
-export default function MessageBubbleSystem({ body }) {
+// Ghost-text system messages — tiny, centered, 60% opacity.
+// Intentionally takes no more visual weight than a hairline.
+export default function MessageBubbleSystem({ body, compact = false }) {
   return (
     <div
-      className="flex items-center justify-center gap-1.5 py-2 px-4"
-      style={{ direction: 'rtl' }}
+      className="flex items-center justify-center"
+      style={{ paddingTop: compact ? 2 : 4, paddingBottom: compact ? 2 : 4 }}
     >
-      <Pin size={11} style={{ color: 'var(--ds-text-muted)' }} />
       <span
-        className="text-xs italic"
         style={{
           fontFamily: 'Tajawal, sans-serif',
+          fontSize: compact ? 11 : 12,
           color: 'var(--ds-text-muted)',
-          lineHeight: 1.7,
+          opacity: 0.6,
+          letterSpacing: '0.01em',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 4,
         }}
       >
+        <span style={{ fontSize: 10, opacity: 0.7 }}>◌</span>
         {body}
       </span>
     </div>

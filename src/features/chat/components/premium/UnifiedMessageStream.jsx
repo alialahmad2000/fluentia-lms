@@ -8,8 +8,10 @@ import DaySeparator from './DaySeparator'
 import MessageGroupPremium from './MessageGroupPremium'
 import PremiumEmptyState from './PremiumEmptyState'
 import ScrollToBottomPill from './ScrollToBottomPill'
+import SystemMessageCluster from './SystemMessageCluster'
 
 const GROUP_WINDOW_MS = 4 * 60 * 1000
+const SYSTEM_COLLAPSE_THRESHOLD = 3   // collapse if 3+ system msgs in a row
 
 function isSameDay(a, b) {
   const da = new Date(a), db = new Date(b)
@@ -24,10 +26,21 @@ function isSameGroup(a, b) {
   return Math.abs(new Date(a.created_at) - new Date(b.created_at)) < GROUP_WINDOW_MS
 }
 
-// Build flat item list: {type: 'separator'|'group', ...}
+// Build flat item list: {type: 'separator'|'group'|'system-cluster', ...}
 function buildItems(messages) {
   const items = []
   let currentGroup = null
+  let systemCluster = []
+
+  function flushGroup() {
+    if (currentGroup?.length) { items.push({ type: 'group', messages: currentGroup }); currentGroup = null }
+  }
+  function flushSystem() {
+    if (systemCluster.length) {
+      items.push({ type: 'system-cluster', messages: systemCluster })
+      systemCluster = []
+    }
+  }
 
   for (let i = 0; i < messages.length; i++) {
     const msg = messages[i]
@@ -35,19 +48,25 @@ function buildItems(messages) {
 
     // Day separator
     if (!prev || !isSameDay(prev.created_at, msg.created_at)) {
-      if (currentGroup) { items.push({ type: 'group', messages: currentGroup }); currentGroup = null }
+      flushGroup(); flushSystem()
       items.push({ type: 'separator', date: msg.created_at })
     }
 
-    // Group messages from same sender within 4min
-    if (currentGroup && isSameGroup(currentGroup[currentGroup.length - 1], msg)) {
-      currentGroup.push(msg)
+    if (msg.type === 'system') {
+      flushGroup()
+      systemCluster.push(msg)
     } else {
-      if (currentGroup) items.push({ type: 'group', messages: currentGroup })
-      currentGroup = [msg]
+      flushSystem()
+      if (currentGroup && isSameGroup(currentGroup[currentGroup.length - 1], msg)) {
+        currentGroup.push(msg)
+      } else {
+        flushGroup()
+        currentGroup = [msg]
+      }
     }
   }
-  if (currentGroup) items.push({ type: 'group', messages: currentGroup })
+  flushGroup()
+  flushSystem()
 
   return items
 }
@@ -162,6 +181,9 @@ export default function UnifiedMessageStream({
           if (!item) return null
           if (item.type === 'separator') {
             return <DaySeparator key={item.date} date={item.date} />
+          }
+          if (item.type === 'system-cluster') {
+            return <SystemMessageCluster key={item.messages[0].id} messages={item.messages} />
           }
           return (
             <div key={item.messages[0].id}>
