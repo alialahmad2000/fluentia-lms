@@ -78,8 +78,8 @@ export function ProgressBar({ currentTime, duration, markerA, markerB, isLooping
         />
       </div>
 
-      {/* Time display */}
-      <div className="flex justify-between mt-1 px-0.5">
+      {/* Time display — dir=ltr prevents RTL page from reversing current/total order */}
+      <div className="flex justify-between mt-1 px-0.5" dir="ltr">
         <span className="text-[11px] tabular-nums" style={{ color: 'var(--text-muted)' }} dir="ltr">{fmt(currentTime)}</span>
         <span className="text-[11px] tabular-nums" style={{ color: 'var(--text-muted)' }} dir="ltr">{fmt(duration)}</span>
       </div>

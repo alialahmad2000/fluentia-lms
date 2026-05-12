@@ -718,51 +718,6 @@ function ReadingContent({ reading, studentId, unitId }) {
             <div className="border-b border-slate-800/50 pb-0" />
           </div>
 
-          {/* ── Smart Audio Player ──────────────────────────────────────── */}
-          {audioData && (
-            <SmartAudioPlayer
-              segments={audioData.segments}
-              contentId={reading.id}
-              contentType="reading"
-              studentId={studentId}
-              showTranscriptByDefault={false}
-              features={{
-                karaoke: true,
-                speedControl: true,
-                skipButtons: true,
-                sentenceNav: true,
-                paragraphNav: false,
-                sentenceMode: false,
-                abLoop: true,
-                bookmarks: true,
-                speakerLabels: false,
-                hideTranscript: true,
-                keyboardShortcuts: true,
-                mobileGestures: true,
-                dictation: false,
-                autoResume: true,
-                playbackHistory: true,
-                wordClickToLookup: true,
-              }}
-              onWordClick={handleWordClick}
-              onSegmentComplete={(i) => {
-                if (i === 0 && !audioPlayStartedRef.current) {
-                  audioPlayStartedRef.current = true
-                  trackEvent('reading_audio_play_start', { passage_id: reading.id })
-                }
-                trackEvent('reading_audio_segment_complete', {
-                  passage_id: reading.id,
-                  segment_index: i,
-                  total_segments: audioData.segments.length,
-                })
-              }}
-              onPlaybackComplete={() => {
-                trackEvent('reading_audio_complete', { passage_id: reading.id })
-              }}
-              className="mb-2"
-            />
-          )}
-
           {/* Before You Read */}
           {reading.before_read_exercise_a && (
             <BeforeReadSection content={reading.before_read_exercise_a} />
@@ -785,36 +740,81 @@ function ReadingContent({ reading, studentId, unitId }) {
             </div>
           )}
 
-          {/* Passage with text selection + focus mode */}
-          <div ref={passageRef} className="relative">
-            <PassageDisplay
-              paragraphs={reading.passage_content?.paragraphs || []}
-              vocabMap={vocabMap}
-              savedWordSet={savedWordSet}
-              focusMode={focusMode}
-              focusParagraph={focusParagraph}
-              notesByParagraph={notesByParagraph}
+          {/* ── Passage text + audio ──────────────────────────────────── */}
+          {audioData ? (
+            /* bottom-bar mode: SmartAudioPlayer renders KaraokeText as primary passage */
+            <SmartAudioPlayer
+              segments={audioData.segments}
+              contentId={reading.id}
+              contentType="reading"
               studentId={studentId}
-              readingId={reading.id}
-              unitId={unitId}
-              wordAssistanceEnabled={prefs.word_assistance_enabled}
-              hoverEnabled={prefs.quick_translation_on_hover_tap}
+              variant="bottom-bar"
+              showTranscriptByDefault={true}
+              features={{
+                karaoke: true,
+                speedControl: true,
+                skipButtons: true,
+                sentenceNav: true,
+                paragraphNav: false,
+                sentenceMode: false,
+                abLoop: true,
+                bookmarks: true,
+                speakerLabels: false,
+                hideTranscript: false,
+                keyboardShortcuts: true,
+                mobileGestures: true,
+                dictation: false,
+                autoResume: true,
+                playbackHistory: true,
+                wordClickToLookup: true,
+              }}
+              onWordClick={handleWordClick}
+              onSegmentComplete={(i) => {
+                if (!audioPlayStartedRef.current) {
+                  audioPlayStartedRef.current = true
+                  trackEvent('reading_audio_play_start', { passage_id: reading.id })
+                }
+                trackEvent('reading_audio_segment_complete', {
+                  passage_id: reading.id,
+                  segment_index: i,
+                  total_segments: audioData.segments.length,
+                })
+              }}
+              onPlaybackComplete={() => {
+                trackEvent('reading_audio_complete', { passage_id: reading.id })
+              }}
             />
-            {/* Text selection tooltip — pointer-aware */}
-            {studentId && prefs.word_assistance_enabled && (prefs.quick_translation_on_hover_tap || prefs.detailed_menu_on_click_longpress) && (
-              <TextSelectionTooltip
-                containerRef={passageRef}
-                studentId={studentId}
-                unitId={unitId}
-                readingId={reading.id}
-                onWordSaved={handleWordSaved}
+          ) : (
+            /* Fallback: no audio — use PassageDisplay with existing interactions */
+            <div ref={passageRef} className="relative">
+              <PassageDisplay
+                paragraphs={reading.passage_content?.paragraphs || []}
+                vocabMap={vocabMap}
                 savedWordSet={savedWordSet}
-                pointerType={pointerType}
-                quickTranslationEnabled={prefs.quick_translation_on_hover_tap}
-                detailedMenuEnabled={prefs.detailed_menu_on_click_longpress}
+                focusMode={focusMode}
+                focusParagraph={focusParagraph}
+                notesByParagraph={notesByParagraph}
+                studentId={studentId}
+                readingId={reading.id}
+                unitId={unitId}
+                wordAssistanceEnabled={prefs.word_assistance_enabled}
+                hoverEnabled={prefs.quick_translation_on_hover_tap}
               />
-            )}
-          </div>
+              {studentId && prefs.word_assistance_enabled && (prefs.quick_translation_on_hover_tap || prefs.detailed_menu_on_click_longpress) && (
+                <TextSelectionTooltip
+                  containerRef={passageRef}
+                  studentId={studentId}
+                  unitId={unitId}
+                  readingId={reading.id}
+                  onWordSaved={handleWordSaved}
+                  savedWordSet={savedWordSet}
+                  pointerType={pointerType}
+                  quickTranslationEnabled={prefs.quick_translation_on_hover_tap}
+                  detailedMenuEnabled={prefs.detailed_menu_on_click_longpress}
+                />
+              )}
+            </div>
+          )}
         </div>
       </div>
 

@@ -18,6 +18,7 @@ import { ABLoopControls } from './parts/ABLoopControls'
 import { BookmarkDrawer } from './parts/BookmarkDrawer'
 import { DictationPanel } from './parts/DictationPanel'
 import { SettingsMenu, SettingsButton } from './parts/SettingsMenu'
+import { BottomBarControls } from './parts/BottomBarControls'
 
 const DEFAULT_FEATURES = {
   karaoke: true,
@@ -79,6 +80,7 @@ export default function SmartAudioPlayer({
     segments,
     audioUrl,
     wordTimestamps,
+    isBottomBarMode: variant === 'bottom-bar',
   })
 
   const abLoop = useABLoop({ currentTime: engine.currentTime, seek: engine.seek })
@@ -205,6 +207,109 @@ export default function SmartAudioPlayer({
             />
           </>
         )}
+      </div>
+    )
+  }
+
+  // ── Bottom-bar variant ────────────────────────────────────────────────────
+  if (variant === 'bottom-bar') {
+    return (
+      <div ref={containerRef} className={`${className}`}
+        tabIndex={0}
+        onFocus={() => { document.body.dataset.audioPlayerActive = 'true' }}
+        onBlur={() => { document.body.dataset.audioPlayerActive = 'false' }}
+      >
+        {/* Error state */}
+        {engine.error && (
+          <div className="mx-2 mb-3 px-3 py-3 rounded-xl flex items-center justify-between gap-3"
+            style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)' }}
+          >
+            <span className="text-sm text-red-300 font-['Tajawal']">تعذّر تحميل الصوت. تحقّق من اتصالك.</span>
+            <button onClick={engine.retry} className="text-xs text-sky-400 font-['Tajawal']">إعادة</button>
+          </div>
+        )}
+
+        {/* Auto-resume prompt */}
+        {autoResume.resumePrompt && (
+          <div className="mb-3 px-3 py-2 rounded-lg text-xs flex items-center justify-between gap-3 font-['Tajawal']"
+            style={{ background: 'rgba(14,165,233,0.1)', border: '1px solid rgba(14,165,233,0.2)' }}
+          >
+            <span className="text-sky-300">هل تريد الاستمرار من حيث توقفت؟</span>
+            <div className="flex gap-2">
+              <button onClick={autoResume.acceptResume} className="text-sky-400">نعم</button>
+              <button onClick={autoResume.dismissResume} className="text-slate-500">لا</button>
+            </div>
+          </div>
+        )}
+
+        {/* Karaoke text — premium typography for reading */}
+        <div className="max-w-2xl mx-auto px-1" style={{ paddingBottom: 120 }}>
+          {isMulti ? (
+            segments.map((seg, i) => (
+              <KaraokeText
+                key={i}
+                segment={seg}
+                segmentIndex={i}
+                currentWordIndex={i === engine.currentSegmentIndex ? currentWordIndex : -1}
+                karaokeEnabled={localFeatures.karaoke && karaokeEnabled}
+                onWordClick={localFeatures.wordClickToLookup ? onWordClick : null}
+                setWordRef={setWordRef}
+                large
+              />
+            ))
+          ) : (
+            <p className="leading-[2] text-[19px] md:text-[20px] text-slate-100 mb-8" dir="ltr" style={{ unicodeBidi: 'isolate' }}>
+              {segments?.[0]?.text_content || ''}
+            </p>
+          )}
+        </div>
+
+        {/* Dictation */}
+        {localFeatures.dictation && (
+          <DictationPanel
+            active={dictation.active}
+            sentenceIdx={dictation.sentenceIdx}
+            totalSentences={dictation.totalSentences}
+            currentSentence={dictation.currentSentence}
+            typed={dictation.typed}
+            onTyped={dictation.setTyped}
+            lastDiff={dictation.lastDiff}
+            onSubmit={dictation.submit}
+            onNext={dictation.nextSentence}
+            onStop={dictation.stop}
+          />
+        )}
+
+        {/* Fixed bottom bar */}
+        <BottomBarControls
+          isPlaying={engine.isPlaying}
+          isLoading={engine.isLoading}
+          currentTime={engine.currentTime}
+          duration={engine.duration}
+          playbackRate={engine.playbackRate}
+          RATES={engine.RATES}
+          markerA={abLoop.markerA}
+          markerB={abLoop.markerB}
+          isLooping={abLoop.isLooping}
+          bookmarks={localFeatures.bookmarks ? bookmarks : []}
+          localFeatures={localFeatures}
+          onToggle={engine.toggle}
+          onSkip={engine.skip}
+          onSetRate={engine.setRate}
+          onSeek={engine.seek}
+          onSetMarkerA={abLoop.setMarkerA}
+          onSetMarkerB={abLoop.setMarkerB}
+          onClearMarkers={abLoop.clearMarkers}
+          onToggleLoop={abLoop.toggleLoop}
+          onAddBookmark={addBookmark}
+          onRemoveBookmark={removeBookmark}
+          onJumpToBookmark={jumpToBookmark}
+          onKaraokeToggle={karaokeToggle}
+          karaokeEnabled={karaokeEnabled}
+          showSettings={showSettings}
+          onSettingsOpen={setShowSettings}
+          onToggleFeature={toggleFeature}
+        />
       </div>
     )
   }

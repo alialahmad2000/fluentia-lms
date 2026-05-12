@@ -110,6 +110,7 @@ function ReadingSection({ userId }) {
   const [data, setData] = useState(null)
   const [features, setFeatures] = useState({ ...ALL_FEATURES })
   const [status, setStatus] = useState({})
+  const [playerVariant, setPlayerVariant] = useState('default')
 
   useEffect(() => {
     let isMounted = true
@@ -149,6 +150,19 @@ function ReadingSection({ userId }) {
 
   return (
     <Section title="اختبار 2: قراءة متعددة الفقرات (Reading)">
+      {/* Variant selector */}
+      <div className="flex items-center gap-2 mb-4" dir="ltr">
+        <span className="text-xs text-slate-400 font-['Tajawal']">الشكل:</span>
+        {['default', 'bottom-bar'].map(v => (
+          <button
+            key={v}
+            onClick={() => setPlayerVariant(v)}
+            className={`px-3 py-1 text-xs rounded-full transition-colors font-mono ${playerVariant === v ? 'bg-sky-500 text-white' : 'bg-white/5 text-slate-400 hover:text-white'}`}
+          >
+            {v}
+          </button>
+        ))}
+      </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div className="lg:col-span-2">
           {data ? (
@@ -157,6 +171,8 @@ function ReadingSection({ userId }) {
               contentId={data.passage.id}
               contentType="reading"
               studentId={userId}
+              variant={playerVariant}
+              showTranscriptByDefault={playerVariant === 'bottom-bar'}
               features={features}
               onWordClick={(w, s, ms) => setStatus(p => ({ ...p, last_word: w, at_ms: ms }))}
               onSegmentComplete={(i) => setStatus(p => ({ ...p, segment_done: i }))}

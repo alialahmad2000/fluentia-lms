@@ -19,7 +19,7 @@ function binarySearchWord(timestamps, ms) {
   return -1
 }
 
-export function useKaraoke({ currentTime, currentSegmentIndex, segments, audioUrl, wordTimestamps }) {
+export function useKaraoke({ currentTime, currentSegmentIndex, segments, audioUrl, wordTimestamps, isBottomBarMode = false }) {
   const [enabled, setEnabled] = useState(() => {
     try { return localStorage.getItem(LS_KEY) !== 'false' } catch { return true }
   })
@@ -65,7 +65,15 @@ export function useKaraoke({ currentTime, currentSegmentIndex, segments, audioUr
         if (el) {
           clearTimeout(scrollThrottle.current)
           scrollThrottle.current = setTimeout(() => {
-            el.scrollIntoView({ block: 'center', behavior: 'smooth' })
+            const barHeight = isBottomBarMode ? (window.innerWidth < 768 ? 80 : 96) : 0
+            const rect = el.getBoundingClientRect()
+            const vh = window.innerHeight
+            const targetTop = vh * 0.40
+            const effectiveBottom = vh - barHeight - 40
+            if (rect.top < 80 || rect.bottom > effectiveBottom) {
+              const delta = rect.top - targetTop
+              window.scrollBy({ top: delta, behavior: 'smooth' })
+            }
           }, 50)
         }
       }
