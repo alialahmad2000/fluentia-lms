@@ -8,11 +8,11 @@ import { usePresence } from '../realtime/usePresence'
 import StreamHeader from '../components/premium/StreamHeader'
 import ChatSearchPanel from '../components/ChatSearchPanel'
 
-// R2+ will fill these with real implementations
-const UnifiedMessageStream  = () => <div className="flex-1" />
-const FilterLensBar         = () => null
-const PinnedStrip           = () => null
-const PremiumComposer       = () => null
+import UnifiedMessageStream from '../components/premium/UnifiedMessageStream'
+// R3+ will fill these with real implementations
+const FilterLensBar  = () => null
+const PinnedStrip    = () => null
+const PremiumComposer = () => null
 
 export default function GroupChatPage() {
   // All hooks at top — before any conditional logic
