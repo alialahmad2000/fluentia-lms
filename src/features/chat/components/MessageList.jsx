@@ -1,33 +1,66 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
 import { ChevronDown, Loader2 } from 'lucide-react'
 import { useInView } from 'react-intersection-observer'
+import { useQueryClient } from '@tanstack/react-query'
 import MessageBubble from './MessageBubble'
 import { useChannelMessages } from '../queries/useChannelMessages'
 import { useChannelSubscription } from '../realtime/useChannelSubscription'
 import { useMarkRead } from '../mutations/useMarkRead'
+import { useAuthStore } from '../../../stores/authStore'
 
 function isSameGroup(a, b) {
   if (!a || !b) return false
   if (a.sender_id !== b.sender_id) return false
-  const diff = Math.abs(new Date(a.created_at) - new Date(b.created_at))
-  return diff < 5 * 60 * 1000
+  return Math.abs(new Date(a.created_at) - new Date(b.created_at)) < 5 * 60 * 1000
 }
 
 export default function MessageList({ channelId, groupId, deepLinkMessageId, onReply, onEdit }) {
   const bottomRef = useRef(null)
   const listRef = useRef(null)
+  const observerRef = useRef(null)
   const [newCount, setNewCount] = useState(0)
   const [atBottom, setAtBottom] = useState(true)
   const prevMessagesRef = useRef([])
+  const qc = useQueryClient()
+  const { profile } = useAuthStore()
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useChannelMessages(channelId)
   const { markMessageRead } = useMarkRead(channelId)
 
+  // All hooks must be declared before any conditional returns
   useChannelSubscription(channelId)
 
   const messages = (data?.pages ?? []).flatMap((p) => [...p]).reverse()
 
-  // Detect new messages when NOT at bottom
+  // ── IntersectionObserver for read-state ───────────────────────────────────
+  useEffect(() => {
+    if (!channelId || !profile?.id) return
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue
+          const msgId = entry.target.dataset.messageId
+          const senderId = entry.target.dataset.senderId
+          if (!msgId || senderId === profile.id) continue
+          markMessageRead(msgId)
+        }
+      },
+      { threshold: 0.6, rootMargin: '0px 0px -10% 0px' }
+    )
+
+    return () => {
+      observerRef.current?.disconnect()
+      observerRef.current = null
+    }
+  }, [channelId, profile?.id, markMessageRead])
+
+  // Invalidate nav badge query whenever cursors update
+  useEffect(() => {
+    qc.invalidateQueries({ queryKey: ['channel-unread-counts'] })
+  }, [messages.length, qc])
+
+  // ── Scroll behaviour ──────────────────────────────────────────────────────
   useEffect(() => {
     const prev = prevMessagesRef.current
     if (!atBottom && messages.length > prev.length) {
@@ -36,14 +69,12 @@ export default function MessageList({ channelId, groupId, deepLinkMessageId, onR
     prevMessagesRef.current = messages
   }, [messages, atBottom])
 
-  // Scroll to bottom on first load
   useEffect(() => {
     if (!isLoading) {
       bottomRef.current?.scrollIntoView({ behavior: 'instant' })
     }
   }, [isLoading, channelId])
 
-  // Scroll to bottom on new message if already at bottom
   useEffect(() => {
     if (atBottom) {
       bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -51,7 +82,6 @@ export default function MessageList({ channelId, groupId, deepLinkMessageId, onR
     }
   }, [messages.length, atBottom])
 
-  // Deep-link scroll
   useEffect(() => {
     if (!deepLinkMessageId) return
     const el = document.getElementById(`msg-${deepLinkMessageId}`)
@@ -70,7 +100,6 @@ export default function MessageList({ channelId, groupId, deepLinkMessageId, onR
     if (isNearBottom) setNewCount(0)
   }, [])
 
-  // Infinite scroll trigger (top of list)
   const [topRef] = useInView({
     onChange: (inView) => { if (inView && hasNextPage && !isFetchingNextPage) fetchNextPage() },
   })
@@ -100,7 +129,6 @@ export default function MessageList({ channelId, groupId, deepLinkMessageId, onR
         className="h-full overflow-y-auto py-2"
         style={{ scrollbarWidth: 'thin' }}
       >
-        {/* Infinite scroll trigger at top */}
         <div ref={topRef} />
         {isFetchingNextPage && (
           <div className="flex justify-center py-2">
@@ -112,7 +140,16 @@ export default function MessageList({ channelId, groupId, deepLinkMessageId, onR
           const prev = messages[i - 1]
           const isGrouped = isSameGroup(prev, msg)
           return (
-            <div key={msg.id} id={`msg-${msg.id}`}>
+            <div
+              key={msg.id}
+              id={`msg-${msg.id}`}
+              // Data attributes for IntersectionObserver
+              data-message-id={msg.id}
+              data-sender-id={msg.sender_id}
+              ref={(el) => {
+                if (el && observerRef.current) observerRef.current.observe(el)
+              }}
+            >
               <MessageBubble
                 message={msg}
                 isGrouped={isGrouped}
@@ -127,7 +164,6 @@ export default function MessageList({ channelId, groupId, deepLinkMessageId, onR
         <div ref={bottomRef} />
       </div>
 
-      {/* New messages pill */}
       {newCount > 0 && (
         <button
           onClick={() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }); setNewCount(0) }}
