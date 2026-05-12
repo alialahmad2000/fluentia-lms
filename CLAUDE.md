@@ -305,6 +305,14 @@ Always include: date, what changed, files touched, status.
 This is how future sessions know what happened.
 -->
 
+### 2026-05-12 — GOD COMM Polish Pass 2 (Commits f5310cc→02f8663)
+- What: Four surgical fixes to the chat UI after the premium polish pass.
+- P10/P11 (system messages + day separators): buildItems rewritten — system messages now accumulate across day boundaries (no longer broken by isSameDay). Collapse threshold lowered from 3 → 2 (any 2+ system messages collapse). Day separators only appear before real messages; system-only days get no separator. SystemMessageCluster: 1 msg = ghost line, 2+ = collapsed "N رسائل نظام · عرض". "طي" renamed to "إخفاء".
+- P12 (constellation): Fixed the opacity: 1.5 no-op (CSS opacity clamped to 1). Now overrides --atmo-orb-* CSS custom properties directly: gold 0.09→0.22, violet 0.07→0.18, navy 0.08→0.16. Drift slowed to 90/120/150s.
+- P13 (composer always visible): Removed `if (!generalChannelId) return null`. While channels load, shows a spinner row. After load, full composer renders. safe-area-inset-bottom fallback fixed to (0px).
+- P14 (stray ط): Identified as clipped "طي" button — fixed by P10 rename. Removed stale console.warn from useGroupChannels.js (RPC deployed).
+- Status: Complete — pushed to main, Vercel auto-deploying.
+
 ### 2026-05-12 — GOD COMM Premium Polish Pass (Commits d5a0519→726048b)
 - What: Pure visual refinement of the Phase 1.7 chat UI. No architecture or backend changes. Reference: Linear typography, Apple Messages bubble craft, Raycast glass depth.
 - P1: iMessage-style tail radius (16/4px asymmetric). Shadow stack (0 1px 2px + 0 4px 12px-4 + inset 1px highlight). Own bubble gradient, other glass 92%. Sender in accent color, timestamp 10px tabular monospace. 24ms stagger on group entry.
