@@ -21,6 +21,7 @@ import SmartAudioPlayer from '../../../../components/audio/SmartAudioPlayer'
 import { VocabPopup } from '../../../../components/audio/VocabPopup'
 import { WordActionMenu } from '../../../../components/audio/parts/WordActionMenu'
 import { WordTooltip } from '../../../../components/audio/parts/WordTooltip'
+import { findWordTimestamp, resolveVoiceLabel } from '../../../../lib/findWordTimestamp'
 import { trackEvent } from '../../../../lib/trackEvent'
 
 const QUESTION_TYPE_LABELS = {
@@ -413,7 +414,17 @@ function ReadingContent({ reading, studentId, unitId }) {
   // Vocab word quick tap → instant WordTooltip with definition + audio
   const handleVocabWordTap = useCallback(async (word, segIdx, wordIdx, anchorEl, position) => {
     const cached = hoverCache.current.get('full:' + word)
-    if (cached) { setWordTooltip({ vocab: cached, anchorEl, position }); return }
+
+    // Find in-context audio from passage segments (segment-local wordIdx)
+    const ts = audioData?.segments ? findWordTimestamp(audioData.segments, segIdx, wordIdx) : null
+    const inContextAudio = ts ? {
+      audioUrl:   ts.audioUrl,
+      startMs:    ts.startMs,
+      endMs:      ts.endMs,
+      voiceLabel: resolveVoiceLabel(ts.voiceId, ts.speakerLabel),
+    } : null
+
+    if (cached) { setWordTooltip({ vocab: cached, inContextAudio, anchorEl, position }); return }
     const { data } = await supabase
       .from('curriculum_vocabulary')
       .select('id, word, definition_ar, pronunciation_ipa, audio_url, example_sentence, image_url')
@@ -426,10 +437,10 @@ function ReadingContent({ reading, studentId, unitId }) {
       .ilike('word', word).limit(1).maybeSingle()).data
     hoverCache.current.set('full:' + word, result || null)
     if (result) {
-      setWordTooltip({ vocab: result, anchorEl, position })
-      trackEvent('reading_vocab_tap', { word, passage_id: reading?.id })
+      setWordTooltip({ vocab: result, inContextAudio, anchorEl, position })
+      trackEvent('reading_vocab_tap', { word, passage_id: reading?.id, has_context_audio: !!inContextAudio })
     }
-  }, [reading?.id])
+  }, [reading?.id, audioData])
 
   // Long-press → action menu (replaces direct VocabPopup)
   const handleWordClick = useCallback((word, segIdx, position, wordIdx) => {
@@ -1060,6 +1071,7 @@ function ReadingContent({ reading, studentId, unitId }) {
           audio_url={wordTooltip.vocab.audio_url}
           example_sentence={wordTooltip.vocab.example_sentence}
           image_url={wordTooltip.vocab.image_url}
+          inContextAudio={wordTooltip.inContextAudio || null}
           anchorEl={wordTooltip.anchorEl}
           onClose={() => setWordTooltip(null)}
           onMoreInfo={() => {
