@@ -18,6 +18,7 @@ export function BottomBarControls({
   markerA, markerB, isLooping,
   bookmarks,
   localFeatures,
+  playerLocked,
   onToggle, onSkip, onSetRate, onSeek,
   onSetMarkerA, onSetMarkerB, onClearMarkers, onToggleLoop,
   onAddBookmark, onRemoveBookmark, onJumpToBookmark,
@@ -132,8 +133,14 @@ export function BottomBarControls({
         <div className="flex justify-center">
           <button
             data-bar-action
-            onClick={onToggle}
-            className="w-14 h-14 flex items-center justify-center bg-sky-500 hover:bg-sky-400 active:bg-sky-600 text-white rounded-full transition-colors shadow-lg shadow-sky-500/30"
+            onClick={playerLocked ? undefined : onToggle}
+            disabled={playerLocked}
+            className={`w-14 h-14 flex items-center justify-center rounded-full transition-colors shadow-lg ${
+              playerLocked
+                ? 'bg-slate-700 text-slate-500 cursor-not-allowed'
+                : 'bg-sky-500 hover:bg-sky-400 active:bg-sky-600 text-white shadow-sky-500/30'
+            }`}
+            title={playerLocked ? 'انتهى التشغيل (وضع الامتحان)' : undefined}
           >
             {isLoading ? <Loader2 size={22} className="animate-spin"/> : isPlaying ? <Pause size={22}/> : <Play size={22}/>}
           </button>

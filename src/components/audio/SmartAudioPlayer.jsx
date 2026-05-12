@@ -37,6 +37,7 @@ const DEFAULT_FEATURES = {
   autoResume: true,
   playbackHistory: true,
   wordClickToLookup: true,
+  onePlayMode: false,
 }
 
 export default function SmartAudioPlayer({
@@ -68,12 +69,16 @@ export default function SmartAudioPlayer({
   const [showTranscript, setShowTranscript] = useState(showTranscriptByDefault)
   const [mutedBeforeToggle, setMutedBeforeToggle] = useState(null)
   const [localFeatures, setLocalFeatures] = useState(features)
+  const [playerLocked, setPlayerLocked] = useState(false)
 
   const engine = useAudioEngine({
     audioUrl,
     segments,
     onSegmentComplete,
-    onPlaybackComplete,
+    onPlaybackComplete: () => {
+      if (localFeatures.onePlayMode) setPlayerLocked(true)
+      onPlaybackComplete?.()
+    },
   })
 
   const { enabled: karaokeEnabled, toggle: karaokeToggle, currentWordIndex, setWordRef } = useKaraoke({
@@ -310,10 +315,11 @@ export default function SmartAudioPlayer({
           isLooping={abLoop.isLooping}
           bookmarks={localFeatures.bookmarks ? bookmarks : []}
           localFeatures={localFeatures}
-          onToggle={engine.toggle}
-          onSkip={engine.skip}
-          onSetRate={engine.setRate}
-          onSeek={engine.seek}
+          playerLocked={playerLocked}
+          onToggle={playerLocked ? undefined : engine.toggle}
+          onSkip={localFeatures.onePlayMode ? undefined : engine.skip}
+          onSetRate={localFeatures.onePlayMode ? undefined : engine.setRate}
+          onSeek={localFeatures.onePlayMode ? undefined : engine.seek}
           onSetMarkerA={abLoop.setMarkerA}
           onSetMarkerB={abLoop.setMarkerB}
           onClearMarkers={abLoop.clearMarkers}

@@ -1,0 +1,112 @@
+
+=== Coverage per level ===
+┌─────────┬──────────────┬─────────────┬────────────┬────────────────┬──────────┐
+│ (index) │ level_number │ transcripts │ with_audio │ total_segments │ avg_segs │
+├─────────┼──────────────┼─────────────┼────────────┼────────────────┼──────────┤
+│ 0       │ 0            │ '12'        │ '12'       │ '12'           │ '1.0'    │
+│ 1       │ 1            │ '12'        │ '12'       │ '12'           │ '1.0'    │
+│ 2       │ 2            │ '12'        │ '12'       │ '2121'         │ '13.3'   │
+│ 3       │ 3            │ '12'        │ '12'       │ '600'          │ '7.1'    │
+│ 4       │ 4            │ '12'        │ '12'       │ '1778'         │ '14.3'   │
+│ 5       │ 5            │ '12'        │ '12'       │ '1912'         │ '13.7'   │
+└─────────┴──────────────┴─────────────┴────────────┴────────────────┴──────────┘
+
+Transcripts with ≤2 segments: 28
+Sample IDs: [ 'd3ea9b38', '89982954', 'c5d12ff8' ]
+
+=== Speaker distribution (top 8) ===
+┌─────────┬──────────────────────┬────────────────┬───────┐
+│ (index) │ speaker              │ voice          │ count │
+├─────────┼──────────────────────┼────────────────┼───────┤
+│ 0       │ 'Host'               │ 'JBFqnCBsd6RM' │ '113' │
+│ 1       │ 'Layla'              │ 'Xb7hH8MSUJpS' │ '82'  │
+│ 2       │ 'Dr. Sarah Mitchell' │ 'Xb7hH8MSUJpS' │ '50'  │
+│ 3       │ 'Interviewer'        │ 'Xb7hH8MSUJpS' │ '48'  │
+│ 4       │ 'Noor'               │ 'XrExE9yKIg1W' │ '34'  │
+│ 5       │ 'Dr. Sarah Chen'     │ 'Xb7hH8MSUJpS' │ '18'  │
+│ 6       │ 'Fatima'             │ 'XrExE9yKIg1W' │ '15'  │
+│ 7       │ 'Nora'               │ 'XrExE9yKIg1W' │ '13'  │
+└─────────┴──────────────────────┴────────────────┴───────┘
+
+=== Sample multi-segment transcript ===
+
+[interview] Listening: interview (7dc526f8)
+  Segments: 20, Total: 255.6s
+    seg0: Dr. Sarah Mitchell | 19.6s | 280c
+    seg1: Professor Ahmad Khalil | 18.0s | 305c
+    seg2: Dr. Sarah Mitchell | 6.9s | 111c
+    seg3: Professor Ahmad Khalil | 19.0s | 321c
+    seg4: Dr. Sarah Mitchell | 5.2s | 83c
+    seg5: Professor Ahmad Khalil | 19.8s | 326c
+    seg6: Dr. Sarah Mitchell | 10.9s | 177c
+    seg7: Professor Ahmad Khalil | 20.8s | 340c
+    seg8: Dr. Sarah Mitchell | 7.0s | 109c
+    seg9: Professor Ahmad Khalil | 20.4s | 324c
+    seg10: Dr. Sarah Mitchell | 7.6s | 107c
+    seg11: Professor Ahmad Khalil | 21.5s | 328c
+    seg12: Dr. Sarah Mitchell | 4.9s | 82c
+    seg13: Professor Ahmad Khalil | 18.0s | 302c
+    seg14: Dr. Sarah Mitchell | 5.5s | 84c
+    seg15: Professor Ahmad Khalil | 17.3s | 273c
+    seg16: Dr. Sarah Mitchell | 6.8s | 100c
+    seg17: Professor Ahmad Khalil | 18.4s | 312c
+    seg18: Dr. Sarah Mitchell | 6.3s | 102c
+    seg19: Professor Ahmad Khalil | 1.6s | 31c
+
+[interview] Listening: interview (24431382)
+  Segments: 20, Total: 311.5s
+    seg0: Dr. Sarah Chen | 24.1s | 342c
+    seg1: Dr. Ahmed Kassim | 20.2s | 318c
+    seg2: Dr. Sarah Chen | 8.5s | 127c
+    seg3: Dr. Ahmed Kassim | 25.8s | 392c
+    seg4: Dr. Sarah Chen | 11.1s | 163c
+    seg5: Dr. Ahmed Kassim | 24.1s | 394c
+    seg6: Dr. Sarah Chen | 8.7s | 152c
+    seg7: Dr. Ahmed Kassim | 23.0s | 386c
+    seg8: Dr. Sarah Chen | 8.8s | 130c
+    seg9: Dr. Ahmed Kassim | 22.5s | 352c
+    seg10: Dr. Sarah Chen | 6.7s | 109c
+    seg11: Dr. Ahmed Kassim | 27.4s | 418c
+    seg12: Dr. Sarah Chen | 7.7s | 121c
+    seg13: Dr. Ahmed Kassim | 20.9s | 332c
+    seg14: Dr. Sarah Chen | 9.8s | 166c
+    seg15: Dr. Ahmed Kassim | 23.3s | 408c
+    seg16: Dr. Sarah Chen | 7.6s | 113c
+    seg17: Dr. Ahmed Kassim | 24.0s | 378c
+    seg18: Dr. Sarah Chen | 4.7s | 75c
+    seg19: Dr. Ahmed Kassim | 2.5s | 44c
+
+[interview] Listening: interview (cecec33e)
+  Segments: 18, Total: 289.6s
+    seg0: Dr. Sarah Mitchell | 24.2s | 353c
+    seg1: Professor Ahmed Hassan | 4.5s | 84c
+    seg2: Dr. Sarah Mitchell | 14.9s | 234c
+    seg3: Professor Ahmed Hassan | 31.9s | 509c
+    seg4: Dr. Sarah Mitchell | 7.8s | 134c
+    seg5: Professor Ahmed Hassan | 25.5s | 418c
+    seg6: Dr. Sarah Mitchell | 5.9s | 95c
+    seg7: Professor Ahmed Hassan | 27.4s | 427c
+    seg8: Dr. Sarah Mitchell | 6.3s | 93c
+    seg9: Professor Ahmed Hassan | 32.6s | 540c
+    seg10: Dr. Sarah Mitchell | 4.7s | 75c
+    seg11: Professor Ahmed Hassan | 30.0s | 467c
+    seg12: Dr. Sarah Mitchell | 4.5s | 70c
+    seg13: Professor Ahmed Hassan | 28.2s | 438c
+    seg14: Dr. Sarah Mitchell | 4.5s | 71c
+    seg15: Professor Ahmed Hassan | 27.1s | 440c
+    seg16: Dr. Sarah Mitchell | 6.6s | 108c
+    seg17: Professor Ahmed Hassan | 2.9s | 53c
+
+=== Word timestamps shape ===
+Seg 9c961ae7/0: 192 words, chars=955
+  first: {"word":"Hi!","end_ms":441,"start_ms":0}
+  last: {"word":"life.","end_ms":70728,"start_ms":70020}
+Seg 686b95e9/0: 191 words, chars=1015
+  first: {"word":"Hello!","end_ms":743,"start_ms":0}
+  last: {"word":"love.","end_ms":74536,"start_ms":73770}
+Seg 209f6e28/0: 207 words, chars=1066
+  first: {"word":"Hi!","end_ms":383,"start_ms":0}
+  last: {"word":"home.","end_ms":75000,"start_ms":74361}
+
+=== Storage HEAD check ===
+Storage check: 10/10 pass, 0/10 fail

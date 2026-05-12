@@ -7,6 +7,11 @@ import { useAuthStore } from '../../../../stores/authStore'
 import { toast } from '../../../../components/ui/FluentiaToast'
 import { awardCurriculumXP } from '../../../../utils/curriculumXP'
 import XPBadgeInline from '../../../../components/xp/XPBadgeInline'
+import SmartAudioPlayer from '../../../../components/audio/SmartAudioPlayer'
+import { VocabPopup } from '../../../../components/audio/VocabPopup'
+import { OnePlayBanner } from '../../../../components/audio/parts/OnePlayBanner'
+import { useListeningTranscriptAudio } from '../../../../hooks/useListeningTranscriptAudio'
+import { trackEvent } from '../../../../lib/trackEvent'
 
 const QUESTION_TYPE_LABELS = {
   main_idea: 'الفكرة الرئيسية',
@@ -62,81 +67,146 @@ export default function ListeningTab({ unitId }) {
 }
 
 // ─── Listening Section ───────────────────────────────
+// Replaces legacy AudioPlayer with SmartAudioPlayer (bottom-bar variant).
+// Fixes multi-speaker bug: loads ALL segments from listening_audio table.
+// Preserves: exercises, completion tracking (ListeningExercises unchanged).
 function ListeningSection({ listening, studentId, unitId }) {
-  const [showTranscript, setShowTranscript] = useState(false)
+  // All hooks before any conditional returns
+  const { segments, loading: audioLoading } = useListeningTranscriptAudio(listening.id)
+  const [vocabPopup, setVocabPopup] = useState(null)
+  const [onePlayMode, setOnePlayMode] = useState(false)
+  const [hasPlayed, setHasPlayed] = useState(false)
+  const audioPlayStartedRef = useRef(false)
 
   const exercises = (listening.exercises || []).sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0))
 
-  return (
-    <div className="space-y-5">
-      {/* Title */}
-      <div className="space-y-1">
-        <h2 className="text-lg font-bold text-[var(--text-primary)] font-['Inter']" dir="ltr">
-          {listening.title_en || 'Listening'}
-        </h2>
-        {listening.title_ar && (
-          <p className="text-sm text-[var(--text-muted)] font-['Tajawal']">{listening.title_ar}</p>
-        )}
-        {listening.audio_type && (
-          <span className="inline-block text-[10px] font-bold px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/20 font-['Inter']">
-            {listening.audio_type}
-          </span>
-        )}
-      </div>
+  const handleWordLongPress = useCallback((word, segIdx, position) => {
+    setVocabPopup({ word: word.toLowerCase().replace(/[.,!?;:'"()[\]]/g, ''), position })
+    trackEvent('listening_word_lookup', { transcript_id: listening.id, word, segment_index: segIdx })
+  }, [listening.id])
 
-      {/* Audio Player */}
-      {listening.audio_url ? (
-        <AudioPlayer url={listening.audio_url} duration={listening.audio_duration_seconds} />
-      ) : (
-        <div
-          className="rounded-xl p-5 flex flex-col items-center gap-3"
-          style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
-        >
-          <div className="w-14 h-14 rounded-full bg-purple-500/10 flex items-center justify-center">
-            <Headphones size={24} className="text-purple-400" />
-          </div>
-          <p className="text-sm text-[var(--text-muted)] font-['Tajawal']">المقطع الصوتي غير متاح حالياً</p>
-          {listening.audio_duration_seconds && (
-            <p className="text-xs text-[var(--text-muted)] font-['Tajawal']">
-              المدة المتوقعة: {formatTime(listening.audio_duration_seconds)}
-            </p>
+  const handleWordTap = useCallback((word, segIdx, wordIdx, startMs) => {
+    if (onePlayMode) return
+    trackEvent('listening_word_seek', { transcript_id: listening.id, word, segment_index: segIdx })
+  }, [onePlayMode, listening.id])
+
+  const handleSegmentComplete = useCallback((segIdx) => {
+    if (!audioPlayStartedRef.current) {
+      audioPlayStartedRef.current = true
+      trackEvent('listening_audio_play_start', { transcript_id: listening.id })
+    }
+    trackEvent('listening_segment_complete', {
+      transcript_id: listening.id,
+      segment_index: segIdx,
+      total_segments: segments.length,
+    })
+  }, [listening.id, segments.length])
+
+  const handlePlaybackComplete = useCallback(() => {
+    setHasPlayed(true)
+    trackEvent('listening_audio_complete', {
+      transcript_id: listening.id,
+      total_segments: segments.length,
+      one_play_mode: onePlayMode,
+    })
+  }, [listening.id, segments.length, onePlayMode])
+
+  return (
+    <div className="space-y-5 min-h-screen pb-36">
+      {/* Title + one-play toggle */}
+      <div className="flex items-start justify-between gap-3 flex-wrap">
+        <div className="space-y-1 min-w-0">
+          <h2 className="text-lg font-bold text-[var(--text-primary)] font-['Inter']" dir="ltr">
+            {listening.title_en || 'Listening'}
+          </h2>
+          {listening.title_ar && (
+            <p className="text-sm text-[var(--text-muted)] font-['Tajawal']">{listening.title_ar}</p>
+          )}
+          {listening.audio_type && (
+            <span className="inline-block text-[10px] font-bold px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/20 font-['Inter']">
+              {listening.audio_type}
+            </span>
           )}
         </div>
-      )}
+        <button
+          onClick={() => { setOnePlayMode(v => !v); setHasPlayed(false) }}
+          className={`text-xs px-3 py-1.5 rounded-full border transition-colors flex-shrink-0 font-['Tajawal'] ${
+            onePlayMode ? 'border-amber-500/50 text-amber-300 bg-amber-500/10' : 'border-slate-600 text-slate-400 hover:text-slate-300'
+          }`}
+        >
+          {onePlayMode ? '✓ وضع الامتحان' : '🎯 محاكاة IELTS'}
+        </button>
+      </div>
 
-      {/* Transcript */}
-      {listening.transcript && (
-        <div>
-          <button
-            onClick={() => setShowTranscript(!showTranscript)}
-            className="flex items-center gap-2 text-sm font-medium text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors font-['Tajawal']"
+      {/* One-play banner */}
+      <OnePlayBanner
+        enabled={onePlayMode}
+        hasPlayed={hasPlayed}
+        onDisable={() => { setOnePlayMode(false); setHasPlayed(false) }}
+      />
+
+      {/* Audio player */}
+      {audioLoading ? (
+        <div className="h-48 rounded-2xl animate-pulse" style={{ background: 'var(--surface-raised)' }} />
+      ) : segments.length > 0 ? (
+        <SmartAudioPlayer
+          segments={segments}
+          contentId={listening.id}
+          contentType="listening"
+          studentId={studentId}
+          variant="bottom-bar"
+          showTranscriptByDefault={true}
+          features={{
+            karaoke: !onePlayMode,
+            speedControl: !onePlayMode,
+            skipButtons: !onePlayMode,
+            sentenceNav: !onePlayMode,
+            paragraphNav: !onePlayMode,
+            sentenceMode: false,
+            abLoop: !onePlayMode,
+            bookmarks: !onePlayMode,
+            speakerLabels: true,
+            hideTranscript: true,
+            keyboardShortcuts: !onePlayMode,
+            mobileGestures: !onePlayMode,
+            dictation: !onePlayMode,
+            autoResume: !onePlayMode,
+            playbackHistory: true,
+            wordClickToLookup: !onePlayMode,
+            onePlayMode,
+          }}
+          onWordTap={handleWordTap}
+          onWordLongPress={handleWordLongPress}
+          onSegmentComplete={handleSegmentComplete}
+          onPlaybackComplete={handlePlaybackComplete}
+        />
+      ) : (
+        /* No segments in listening_audio — show legacy audio_url fallback */
+        listening.audio_url ? (
+          <AudioPlayer url={listening.audio_url} duration={listening.audio_duration_seconds} />
+        ) : (
+          <div
+            className="rounded-xl p-5 flex flex-col items-center gap-3"
+            style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
           >
-            {showTranscript ? <EyeOff size={15} /> : <Eye size={15} />}
-            {showTranscript ? 'إخفاء النص' : 'عرض النص'}
-          </button>
-          <AnimatePresence>
-            {showTranscript && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.25 }}
-                className="overflow-hidden"
-              >
-                <div
-                  className="mt-3 rounded-xl p-5 text-sm text-[var(--text-secondary)] font-['Inter'] leading-[1.85] whitespace-pre-wrap"
-                  dir="ltr"
-                  style={{ background: 'var(--surface-raised)', border: '1px solid var(--border-subtle)' }}
-                >
-                  {listening.transcript}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+            <Headphones size={24} className="text-purple-400" />
+            <p className="text-sm text-[var(--text-muted)] font-['Tajawal']">المقطع الصوتي غير متاح حالياً</p>
+          </div>
+        )
       )}
 
-      {/* Exercises */}
+      {/* VocabPopup */}
+      {vocabPopup && (
+        <VocabPopup
+          word={vocabPopup.word}
+          readingId={listening.id}
+          isOpen={true}
+          onClose={() => setVocabPopup(null)}
+          anchorPosition={vocabPopup.position}
+        />
+      )}
+
+      {/* Exercises — PRESERVED UNCHANGED */}
       {exercises.length > 0 && (
         <ListeningExercises exercises={exercises} studentId={studentId} unitId={unitId} listeningId={listening.id} />
       )}
