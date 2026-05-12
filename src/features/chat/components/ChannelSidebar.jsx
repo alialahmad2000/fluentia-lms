@@ -14,7 +14,7 @@ const ICON_MAP = {
   'spell-check': SpellCheck,
 }
 
-export default function ChannelSidebar({ groupId, activeSlug, onSelect, className = '' }) {
+export default function ChannelSidebar({ groupId, activeSlug, onSelect, onlineUserIds = [], className = '' }) {
   const { data: channels = [], isLoading } = useGroupChannels(groupId)
 
   return (
@@ -44,6 +44,7 @@ export default function ChannelSidebar({ groupId, activeSlug, onSelect, classNam
               channel={ch}
               icon={IconComp}
               isActive={ch.slug === activeSlug}
+              hasOnlineUsers={onlineUserIds.length > 0 && ch.slug === activeSlug}
               onSelect={() => onSelect(ch)}
             />
           )

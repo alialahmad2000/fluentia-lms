@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { Menu } from 'lucide-react'
 import { useAuthStore } from '../../../stores/authStore'
 import { useGroupChannels } from '../queries/useGroupChannels'
+import { usePresence } from '../realtime/usePresence'
 import ChannelSidebar from '../components/ChannelSidebar'
 import ChatHeader from '../components/ChatHeader'
 import MessageList from '../components/MessageList'
@@ -22,6 +23,7 @@ export default function GroupChatPage() {
 
   const { data: channels = [] } = useGroupChannels(groupId)
   const activeChannel = channels.find((c) => c.slug === channelSlug) ?? null
+  const { onlineUserIds } = usePresence(activeChannel?.id)
 
   // Group name from profile or student data
   const groupName = profile?.role === 'student' ? null : null
@@ -49,6 +51,7 @@ export default function GroupChatPage() {
         groupId={groupId}
         activeSlug={channelSlug}
         onSelect={handleChannelSelect}
+        onlineUserIds={onlineUserIds}
         className="hidden md:flex"
       />
 
@@ -83,6 +86,7 @@ export default function GroupChatPage() {
               channel={activeChannel}
               groupName={groupName}
               onSearchOpen={() => setSearchOpen(true)}
+              onlineCount={onlineUserIds.length}
             />
           </div>
         </div>

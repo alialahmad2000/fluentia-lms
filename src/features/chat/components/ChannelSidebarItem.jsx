@@ -1,4 +1,4 @@
-export default function ChannelSidebarItem({ channel, icon: Icon, isActive, onSelect }) {
+export default function ChannelSidebarItem({ channel, icon: Icon, isActive, hasOnlineUsers, onSelect }) {
   return (
     <button
       onClick={onSelect}
@@ -17,6 +17,9 @@ export default function ChannelSidebarItem({ channel, icon: Icon, isActive, onSe
         <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-500/15 text-amber-400 shrink-0">
           إعلانات
         </span>
+      )}
+      {hasOnlineUsers && (
+        <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0 animate-pulse" title="يوجد أعضاء الآن" />
       )}
     </button>
   )
