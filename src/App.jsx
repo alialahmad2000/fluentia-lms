@@ -604,13 +604,16 @@ export default function App() {
             <Suspense fallback={<LoadingSkeleton />}><AccountPausedPage /></Suspense>
           } />
 
-          {/* Chat routes — accessible to all authenticated roles */}
+          {/* Chat routes — accessible to all authenticated roles.
+              StudentStatusGuard redirects paused students; trainers/admins pass through. */}
           <Route element={<ProtectedRoute allowedRoles={['student','trainer','admin']} />}>
-            <Route element={<ErrorBoundary><LayoutShell /></ErrorBoundary>}>
-              <Route path="/chat" element={<Page><GroupChatLanding /></Page>} />
-              <Route path="/chat/:groupId" element={<Page><GroupChatPage /></Page>} />
-              <Route path="/chat/:groupId/:channelSlug" element={<Page><GroupChatPage /></Page>} />
-              <Route path="/chat/:groupId/:channelSlug/m/:messageId" element={<Page><GroupChatPage /></Page>} />
+            <Route element={<StudentStatusGuard />}>
+              <Route element={<ErrorBoundary><LayoutShell /></ErrorBoundary>}>
+                <Route path="/chat" element={<Page><GroupChatLanding /></Page>} />
+                <Route path="/chat/:groupId" element={<Page><GroupChatPage /></Page>} />
+                <Route path="/chat/:groupId/:channelSlug" element={<Page><GroupChatPage /></Page>} />
+                <Route path="/chat/:groupId/:channelSlug/m/:messageId" element={<Page><GroupChatPage /></Page>} />
+              </Route>
             </Route>
           </Route>
 
