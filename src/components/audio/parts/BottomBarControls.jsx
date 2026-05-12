@@ -58,32 +58,20 @@ export function BottomBarControls({
         />
       </div>
 
-      {/* Main row */}
-      <div className="flex items-center h-[60px] px-3 md:px-5 gap-2" dir="ltr">
+      {/* Main row — single centered cluster, both bar edges left empty */}
+      <div className="h-[60px] flex items-center justify-center px-3" dir="ltr">
+        <div className="flex items-center gap-2 md:gap-3">
 
-        {/* LEFT: speaker pill */}
-        <div className="flex items-center min-w-0 shrink-0 w-[80px] md:w-[120px]">
-          {isMultiSpeaker && speakerLabel
-            ? <SpeakerBadge label={speakerLabel} />
-            : <span className="text-xs tabular-nums text-slate-400 whitespace-nowrap">
-                {fmt(currentTime)} / {fmt(duration)}
-              </span>
-          }
-        </div>
-
-        {/* CENTER: controls cluster */}
-        <div className="flex-1 flex items-center justify-center gap-2">
-          {/* Time (only when speaker label takes the left slot) */}
+          {/* Speaker pill (listening multi-speaker only) */}
           {isMultiSpeaker && speakerLabel && (
-            <span className="text-xs tabular-nums text-slate-400 whitespace-nowrap hidden sm:inline" dir="ltr">
-              {fmt(currentTime)} / {fmt(duration)}
-            </span>
+            <SpeakerBadge label={speakerLabel} />
           )}
 
+          {/* Skip back */}
           <button
             onClick={() => onSkip?.(-10000)}
             disabled={skipDisabled || !onSkip}
-            className="w-9 h-9 rounded-full flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition-colors disabled:opacity-30"
+            className="w-9 h-9 rounded-full flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition-colors disabled:opacity-30 shrink-0"
             aria-label="رجوع 10 ثواني"
           >
             <SkipBack size={17}/>
@@ -93,7 +81,7 @@ export function BottomBarControls({
           <button
             onClick={locked ? undefined : onToggle}
             disabled={isLoading}
-            className={`w-11 h-11 rounded-full flex items-center justify-center transition-all ${
+            className={`w-11 h-11 rounded-full flex items-center justify-center transition-all shrink-0 ${
               locked
                 ? 'bg-slate-700 text-slate-500 cursor-not-allowed'
                 : 'bg-gradient-to-br from-sky-400 to-sky-600 hover:from-sky-300 hover:to-sky-500 text-white shadow-md shadow-sky-500/25 hover:scale-[1.06] active:scale-[0.95]'
@@ -108,38 +96,40 @@ export function BottomBarControls({
             }
           </button>
 
+          {/* Skip forward */}
           <button
             onClick={() => onSkip?.(10000)}
             disabled={skipDisabled || !onSkip}
-            className="w-9 h-9 rounded-full flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition-colors disabled:opacity-30"
+            className="w-9 h-9 rounded-full flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition-colors disabled:opacity-30 shrink-0"
             aria-label="تقدم 10 ثواني"
           >
             <SkipForward size={17}/>
           </button>
 
-          {/* Mobile time (when no speaker label) */}
-          {(!isMultiSpeaker || !speakerLabel) && (
-            <span className="text-xs tabular-nums text-slate-400 whitespace-nowrap inline sm:hidden" dir="ltr">
-              {fmt(currentTime)}
-            </span>
-          )}
-        </div>
+          {/* Time display (sm+ only — hidden on mobile, shown on hairline strip) */}
+          <span
+            dir="ltr"
+            className="text-xs tabular-nums text-slate-300 font-medium whitespace-nowrap px-1 hidden sm:inline"
+          >
+            {fmt(currentTime)} / {fmt(duration)}
+          </span>
 
-        {/* RIGHT: speed + settings */}
-        <div className="flex items-center gap-1.5 shrink-0 w-[80px] md:w-[120px] justify-end">
+          {/* Speed selector — tap to cycle */}
           {localFeatures.speedControl && !localFeatures.onePlayMode && RATES && (
             <button
               onClick={() => {
                 const idx = RATES.indexOf(playbackRate)
                 onSetRate?.(RATES[(idx + 1) % RATES.length])
               }}
-              className="px-2 py-1 rounded-md text-xs font-mono text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
+              className="px-2 py-1 rounded-md bg-white/[0.06] hover:bg-white/[0.10] border border-white/[0.08] text-xs font-mono text-slate-300 hover:text-white transition-colors shrink-0"
+              aria-label="سرعة التشغيل"
             >
               {playbackRate}x
             </button>
           )}
 
-          <div className="relative">
+          {/* Settings gear */}
+          <div className="relative shrink-0">
             <button
               onClick={() => setShowSettings(v => !v)}
               className="w-9 h-9 rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
@@ -172,7 +162,15 @@ export function BottomBarControls({
               />
             )}
           </div>
+
         </div>
+      </div>
+
+      {/* Mobile time — tiny centered display on hairline strip, sm:hidden */}
+      <div className="absolute top-1 left-1/2 -translate-x-1/2 sm:hidden pointer-events-none" style={{ top: 4 }}>
+        <span dir="ltr" className="text-[10px] tabular-nums text-slate-400 bg-slate-950/60 px-1.5 py-0.5 rounded">
+          {fmt(currentTime)} / {fmt(duration)}
+        </span>
       </div>
     </div>
   )
