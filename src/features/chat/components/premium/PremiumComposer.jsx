@@ -117,11 +117,11 @@ export default function PremiumComposer({
   }
 
   const canSend = !!input.trim() && !!generalChannelId && !sendMessage.isPending && !uploading
-
-  if (!generalChannelId) return null
+  // Channel still resolving — show a slim loading bar so the composer space is claimed
+  const isLoading = !generalChannelId
 
   return (
-    <div style={{ ...glass, direction: 'rtl', paddingBottom: 'env(safe-area-inset-bottom)' }}>
+    <div style={{ ...glass, direction: 'rtl', paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
       {/* Typing indicator */}
       {typingText && (
         <p className="px-5 pt-1.5 text-xs italic" style={{ fontFamily: 'Tajawal', color: 'var(--ds-text-muted)' }}>
@@ -151,8 +151,21 @@ export default function PremiumComposer({
         )}
       </div>
 
+      {/* Loading state — channel id not yet resolved */}
+      {isLoading && (
+        <div
+          className="flex items-center justify-center px-4 py-3"
+          style={{ minHeight: 56 }}
+        >
+          <div
+            className="w-6 h-6 rounded-full border-2 border-t-transparent animate-spin"
+            style={{ borderColor: 'color-mix(in srgb, var(--ds-accent-primary) 40%, transparent)', borderTopColor: 'transparent' }}
+          />
+        </div>
+      )}
+
       {/* Composer row */}
-      <div className="flex items-end gap-2 px-3 py-2.5">
+      {!isLoading && <div className="flex items-end gap-2 px-3 py-2.5">
         <input ref={imageRef} type="file" accept="image/png,image/jpeg,image/webp,image/gif" className="hidden" onChange={handleImagePick} />
         <input ref={fileRef} type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.zip" className="hidden" onChange={handleFilePick} />
 
@@ -268,7 +281,7 @@ export default function PremiumComposer({
             )}
           </>
         )}
-      </div>
+      </div>}
 
       {/* Announcement FAB (trainer/admin only) */}
       {isTrainer && (
