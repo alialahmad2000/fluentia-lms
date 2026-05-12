@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, MoreVertical } from 'lucide-react'
 import { fadeRise } from '../../lib/motion'
+import ActiveUsersDots from './ActiveUsersDots'
 
 const glass = {
   background: 'color-mix(in srgb, var(--ds-bg-elevated) 80%, transparent)',
@@ -64,13 +65,9 @@ export default function StreamHeader({
                   {groupName || 'المجموعة'}
                 </p>
                 {onlineUserIds.length > 0 ? (
-                  <p
-                    className="text-[11px] text-[var(--ds-accent-success)] flex items-center gap-1 mt-0.5"
-                    style={{ fontFamily: 'Tajawal, sans-serif' }}
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--ds-accent-success)] animate-pulse" />
-                    {onlineUserIds.length === 1 ? 'متصل الآن' : `${onlineUserIds.length} متصلين الآن`}
-                  </p>
+                  <div className="mt-0.5">
+                    <ActiveUsersDots userIds={onlineUserIds} profiles={[]} />
+                  </div>
                 ) : (
                   <p className="text-[11px] text-[var(--ds-text-muted)] mt-0.5" style={{ fontFamily: 'Tajawal, sans-serif' }}>
                     محادثة المجموعة

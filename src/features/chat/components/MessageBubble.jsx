@@ -12,6 +12,7 @@ import ReactionSummary from './premium/ReactionSummary'
 import { useReact } from '../mutations/useReact'
 import { useDeleteMessage } from '../mutations/useDeleteMessage'
 import { useTogglePin } from '../mutations/useTogglePin'
+import MessageBubbleSystem from './MessageBubbleSystem'
 
 export default function MessageBubble({
   message,
@@ -33,39 +34,64 @@ export default function MessageBubble({
   const isTrainerOrAdmin = ['trainer', 'admin'].includes(profile?.role)
   const isDeleted = !!message.deleted_at
 
+  // System messages: always centered, no bubble
+  if (message.type === 'system') {
+    return <MessageBubbleSystem body={message.body || message.content} />
+  }
+
   if (isDeleted) {
     return (
-      <div className="px-4 py-1 text-sm text-[var(--text-muted)] italic" style={{ direction: 'rtl' }}>
-        تم حذف الرسالة
+      <div className="flex justify-center py-1">
+        <span
+          className="text-xs italic px-3 py-1 rounded-full"
+          style={{
+            fontFamily: 'Tajawal, sans-serif',
+            color: 'var(--ds-text-muted)',
+            background: 'var(--ds-surface-1)',
+            border: '1px solid var(--ds-border-subtle)',
+          }}
+        >
+          تم حذف الرسالة
+        </span>
       </div>
     )
   }
 
   const sender = message.sender
   const displayName = sender
-    ? `${sender.first_name_ar ?? ''} ${sender.last_name_ar ?? ''}`.trim()
+    ? (sender.display_name || sender.full_name || sender.first_name_ar || '').trim()
     : 'مستخدم'
 
   const bodyText = message.body || message.content
 
+  // Bubble background: own = accent tint, other = glass surface
+  const bubbleBg = isOwn
+    ? 'color-mix(in srgb, var(--ds-accent-primary) 10%, transparent)'
+    : 'var(--ds-surface-1)'
+  const bubbleBorder = isOwn
+    ? '1px solid color-mix(in srgb, var(--ds-accent-primary) 20%, transparent)'
+    : '1px solid var(--ds-border-subtle)'
+
   return (
     <div
-      className={`relative group flex gap-2 px-4 ${isGrouped ? 'pt-0.5 pb-0.5' : 'pt-3 pb-0.5'}`}
+      className={`relative group px-4 ${isGrouped ? 'pt-1 pb-1' : 'pt-3 pb-1'}`}
       style={{ direction: 'rtl' }}
     >
-      {/* Avatar — hidden in grouped messages */}
-      {!isGrouped ? (
-        <div className="w-8 h-8 rounded-full bg-sky-500/20 flex items-center justify-center text-sky-400 text-sm font-bold shrink-0 mt-0.5">
-          {sender?.avatar_url
-            ? <img src={sender.avatar_url} alt="" className="w-8 h-8 rounded-full object-cover" />
-            : (sender?.first_name_ar?.[0] ?? '?')
-          }
-        </div>
-      ) : (
-        <div className="w-8 shrink-0" />
-      )}
-
-      <div className="flex-1 min-w-0">
+      {/* Bubble aligned: own=left (near), other=right (far) in RTL */}
+      <div
+        className="inline-block max-w-[78%] relative"
+        style={{ float: isOwn ? 'left' : 'right' }}
+      >
+        <div
+          className="px-3 py-2.5 rounded-2xl"
+          style={{
+            background: bubbleBg,
+            border: bubbleBorder,
+            backdropFilter: 'blur(8px)',
+            lineHeight: 1.7,
+          }}
+        >
+      <div className="min-w-0">
         {/* Name + time */}
         {!isGrouped && (
           <div className="flex items-baseline gap-2 mb-0.5">
@@ -98,9 +124,6 @@ export default function MessageBubble({
         {message.type === 'file' && <MessageBubbleFile message={message} />}
         {message.type === 'link' && <MessageBubbleLink message={message} />}
         {message.type === 'announcement' && <MessageBubbleAnnouncement message={message} body={bodyText} />}
-        {message.type === 'system' && (
-          <p className="text-xs text-[var(--text-muted)] italic text-center py-1">{bodyText}</p>
-        )}
 
         {/* Premium reaction summary */}
         <ReactionSummary
@@ -109,7 +132,10 @@ export default function MessageBubble({
           messageId={message.id}
           onReact={(emoji) => react.mutate({ messageId: message.id, emoji })}
         />
-      </div>
+        </div>{/* close min-w-0 */}
+        </div>{/* close bubble rounded-2xl */}
+      </div>{/* close inline-block */}
+      <div style={{ clear: 'both' }} />
 
       {/* Hover action buttons */}
       <div

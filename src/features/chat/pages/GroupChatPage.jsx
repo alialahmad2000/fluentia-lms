@@ -5,6 +5,8 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../../../stores/authStore'
 import { useGroupChannels } from '../queries/useGroupChannels'
 import { usePresence } from '../realtime/usePresence'
+import { useQuery } from '@tanstack/react-query'
+import { supabase } from '../../../lib/supabase'
 import StreamHeader from '../components/premium/StreamHeader'
 import ChatSearchPanel from '../components/ChatSearchPanel'
 
@@ -25,6 +27,16 @@ export default function GroupChatPage() {
 
   // Channel list needed to resolve general channel id (used by composer)
   const { data: channels = [] } = useGroupChannels(groupId)
+
+  const { data: group } = useQuery({
+    queryKey: ['group-meta', groupId],
+    enabled: !!groupId,
+    staleTime: 5 * 60_000,
+    queryFn: async () => {
+      const { data } = await supabase.from('groups').select('id, name').eq('id', groupId).maybeSingle()
+      return data
+    },
+  })
 
   // Presence scoped to group (uses group:<id> key — no channel dependency)
   // usePresence adapted: pass a group-level channel key
@@ -53,7 +65,7 @@ export default function GroupChatPage() {
 
       {/* Sticky header */}
       <StreamHeader
-        groupName={channels[0]?.group_id ? undefined : undefined}
+        groupName={group?.name}
         groupId={groupId}
         onlineUserIds={onlineUserIds}
         onSearchOpen={() => setSearchOpen(true)}
